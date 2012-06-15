@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1FontManager" kind="class" prot="public">
+    <compoundname>MyGUI::FontManager</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1FontManager_11ed5367ab75517985079bd939c357980" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::FontManager::FontManager</definition>
+        <argsstring>()</argsstring>
+        <name>FontManager</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontManager.h" line="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1FontManager_1c0a5b57caf5e9172810660a0da2146bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::FontManager::initialise</definition>
+        <argsstring>()</argsstring>
+        <name>initialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontManager.h" line="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1FontManager_1d0fa9e625b42f2c84d56106e8c511478" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::FontManager::shutdown</definition>
+        <argsstring>()</argsstring>
+        <name>shutdown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontManager.h" line="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1FontManager_18aaa97062ecd82ec6231149af2600fff" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>const std::string&amp; MyGUI::FontManager::getDefaultFont</definition>
+        <argsstring>() const </argsstring>
+        <name>getDefaultFont</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get default font name. Default skin also used when creating widget with skin that doesn&apos;t exist. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontManager.h" line="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1FontManager_1763de6a35cb1ee42dca44a907b4a4611" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::FontManager::setDefaultFont</definition>
+        <argsstring>(const std::string &amp;_value)</argsstring>
+        <name>setDefaultFont</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get default font name. Default skin also used when creating widget with skin that doesn&apos;t exist. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontManager.h" line="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1FontManager_1635770803e97dc4d8933acf979f0348e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>IFont *</type>
+        <definition>IFont* MyGUI::FontManager::getByName</definition>
+        <argsstring>(const std::string &amp;_name) const </argsstring>
+        <name>getByName</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get font resource </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontManager.h" line="56"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1FontManager_121cfba5b79372e2d8047804dccce3b2d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::FontManager::_load</definition>
+        <argsstring>(xml::ElementPtr _node, const std::string &amp;_file, Version _version)</argsstring>
+        <name>_load</name>
+        <param>
+          <type>xml::ElementPtr</type>
+          <declname>_node</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_file</declname>
+        </param>
+        <param>
+          <type>Version</type>
+          <declname>_version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontManager.h" line="59"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1FontManager_1cc1571b7ef4290135a8a7585d9091535" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::FontManager::mDefaultName</definition>
+        <argsstring></argsstring>
+        <name>mDefaultName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontManager.h" line="62" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontManager.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1FontManager_141a49704c5e039237a66a8df5e770443" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::FontManager::mIsInitialise</definition>
+        <argsstring></argsstring>
+        <name>mIsInitialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontManager.h" line="64" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontManager.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontManager.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontManager.h" bodystart="36" bodyend="65"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1FontManager_121cfba5b79372e2d8047804dccce3b2d" prot="private" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>_load</name></member>
+      <member refid="classMyGUI_1_1FontManager_11ed5367ab75517985079bd939c357980" prot="public" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>FontManager</name></member>
+      <member refid="classMyGUI_1_1FontManager_1635770803e97dc4d8933acf979f0348e" prot="public" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>getByName</name></member>
+      <member refid="classMyGUI_1_1FontManager_18aaa97062ecd82ec6231149af2600fff" prot="public" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>getDefaultFont</name></member>
+      <member refid="classMyGUI_1_1FontManager_1c0a5b57caf5e9172810660a0da2146bb" prot="public" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>initialise</name></member>
+      <member refid="classMyGUI_1_1FontManager_1cc1571b7ef4290135a8a7585d9091535" prot="private" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>mDefaultName</name></member>
+      <member refid="classMyGUI_1_1FontManager_141a49704c5e039237a66a8df5e770443" prot="private" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>mIsInitialise</name></member>
+      <member refid="classMyGUI_1_1FontManager_1763de6a35cb1ee42dca44a907b4a4611" prot="public" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>setDefaultFont</name></member>
+      <member refid="classMyGUI_1_1FontManager_1d0fa9e625b42f2c84d56106e8c511478" prot="public" virt="non-virtual"><scope>MyGUI::FontManager</scope><name>shutdown</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

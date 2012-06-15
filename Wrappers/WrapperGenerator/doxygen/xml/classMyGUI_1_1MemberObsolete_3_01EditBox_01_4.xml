@@ -1,0 +1,233 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4" kind="class" prot="public">
+    <compoundname>MyGUI::MemberObsolete&lt; EditBox &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1c84cd43773e2be35b276588d03df5d68" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; EditBox &gt;::showVScroll</definition>
+        <argsstring>(bool _visible)</argsstring>
+        <name>showVScroll</name>
+        <param>
+          <type>bool</type>
+          <declname>_visible</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000021"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="101"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1f79dd7b388299345a794e518e416fa5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::MemberObsolete&lt; EditBox &gt;::isShowVScroll</definition>
+        <argsstring>()</argsstring>
+        <name>isShowVScroll</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000022"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="103"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_16eeeae44860a43f7a62aca70edeffefa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; EditBox &gt;::showHScroll</definition>
+        <argsstring>(bool _visible)</argsstring>
+        <name>showHScroll</name>
+        <param>
+          <type>bool</type>
+          <declname>_visible</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000023"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="105"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_10d7b935928125e59d3c6179c2f5604d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::MemberObsolete&lt; EditBox &gt;::isShowHScroll</definition>
+        <argsstring>()</argsstring>
+        <name>isShowHScroll</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000024"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="107"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_185bfd997649336a7e3f108f655ea9c4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; EditBox &gt;::setTextColour</definition>
+        <argsstring>(size_t _start, size_t _count, const Colour &amp;_colour)</argsstring>
+        <name>setTextColour</name>
+        <param>
+          <type>size_t</type>
+          <declname>_start</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_count</declname>
+        </param>
+        <param>
+          <type>const Colour &amp;</type>
+          <declname>_colour</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000025"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="110"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1b2e8178a8f4cdc17ce8cdcab5eab59fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; EditBox &gt;::getTextSelect</definition>
+        <argsstring>(size_t &amp;_start, size_t &amp;_end)</argsstring>
+        <name>getTextSelect</name>
+        <param>
+          <type>size_t &amp;</type>
+          <declname>_start</declname>
+        </param>
+        <param>
+          <type>size_t &amp;</type>
+          <declname>_end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000026"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="112"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_138dde9affe3295641af069463752a056" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref></type>
+        <definition>UString MyGUI::MemberObsolete&lt; EditBox &gt;::getText</definition>
+        <argsstring>(size_t _start, size_t _count)</argsstring>
+        <name>getText</name>
+        <param>
+          <type>size_t</type>
+          <declname>_start</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000027"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="114"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1cedd7226312e8fa62d7123c2bbd7fffd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; EditBox &gt;::setTextSelect</definition>
+        <argsstring>(size_t _start, size_t _end)</argsstring>
+        <name>setTextSelect</name>
+        <param>
+          <type>size_t</type>
+          <declname>_start</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000028"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="116"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1bcb176f84eaffadc8adfa9bce6d7be7a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; EditBox &gt;::deleteTextSelect</definition>
+        <argsstring>()</argsstring>
+        <name>deleteTextSelect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000029"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="118"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_121d1b3fe212a8fea36cc71b863d88de7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref></type>
+        <definition>UString MyGUI::MemberObsolete&lt; EditBox &gt;::getSelectedText</definition>
+        <argsstring>()</argsstring>
+        <name>getSelectedText</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000030"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="120"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_120afcf1cda17249a508cd6f458662ffa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::MemberObsolete&lt; EditBox &gt;::isTextSelect</definition>
+        <argsstring>()</argsstring>
+        <name>isTextSelect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000031"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="122"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1d74326d5807b980524c27ae3772065f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; EditBox &gt;::setTextSelectColour</definition>
+        <argsstring>(const Colour &amp;_colour)</argsstring>
+        <name>setTextSelectColour</name>
+        <param>
+          <type>const Colour &amp;</type>
+          <declname>_colour</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000032"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="124"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="98" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="97" bodyend="125"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1bcb176f84eaffadc8adfa9bce6d7be7a" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; EditBox &gt;</scope><name>deleteTextSelect</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_121d1b3fe212a8fea36cc71b863d88de7" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; EditBox &gt;</scope><name>getSelectedText</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_138dde9affe3295641af069463752a056" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; EditBox &gt;</scope><name>getText</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1b2e8178a8f4cdc17ce8cdcab5eab59fe" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; EditBox &gt;</scope><name>getTextSelect</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_10d7b935928125e59d3c6179c2f5604d3" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; EditBox &gt;</scope><name>isShowHScroll</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1f79dd7b388299345a794e518e416fa5f" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; EditBox &gt;</scope><name>isShowVScroll</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_120afcf1cda17249a508cd6f458662ffa" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; EditBox &gt;</scope><name>isTextSelect</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_185bfd997649336a7e3f108f655ea9c4f" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; EditBox &gt;</scope><name>setTextColour</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1cedd7226312e8fa62d7123c2bbd7fffd" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; EditBox &gt;</scope><name>setTextSelect</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1d74326d5807b980524c27ae3772065f4" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; EditBox &gt;</scope><name>setTextSelectColour</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_16eeeae44860a43f7a62aca70edeffefa" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; EditBox &gt;</scope><name>showHScroll</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1c84cd43773e2be35b276588d03df5d68" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; EditBox &gt;</scope><name>showVScroll</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

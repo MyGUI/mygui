@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classdelegates_1_1CMethodDelegateMYGUI__SUFFIX" kind="class" prot="public">
+    <compoundname>delegates::CMethodDelegateMYGUI_SUFFIX</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classdelegates_1_1CMethodDelegateMYGUI__SUFFIX_1b875e1c3a12ad1f5800f241b497b41af" prot="public" static="no">
+        <type>void(T::*</type>
+        <definition>typedef void(T::* delegates::CMethodDelegateMYGUI_SUFFIX::Method)(MYGUI_PARAMS)</definition>
+        <argsstring>)(MYGUI_PARAMS)</argsstring>
+        <name>Method</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="103" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classdelegates_1_1CMethodDelegateMYGUI__SUFFIX_1adf93f3d57e84aebae0dd901ae89aa62" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>delegates::CMethodDelegateMYGUI_SUFFIX::CMethodDelegateMYGUI_SUFFIX</definition>
+        <argsstring>(IDelegateUnlink *_unlink, T *_object, Method _method)</argsstring>
+        <name>CMethodDelegateMYGUI_SUFFIX</name>
+        <param>
+          <type>IDelegateUnlink *</type>
+          <declname>_unlink</declname>
+        </param>
+        <param>
+          <type>T *</type>
+          <declname>_object</declname>
+        </param>
+        <param>
+          <type>Method</type>
+          <declname>_method</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="105" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="105" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="classdelegates_1_1CMethodDelegateMYGUI__SUFFIX_194a2c94e56cd484db4b9ce72bb62ca70" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool delegates::CMethodDelegateMYGUI_SUFFIX::isType</definition>
+        <argsstring>(const std::type_info &amp;_type)</argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="109" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="108" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="classdelegates_1_1CMethodDelegateMYGUI__SUFFIX_1c65fee5dd71f6bd7e9a85edfa5d7c2b0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void delegates::CMethodDelegateMYGUI_SUFFIX::invoke</definition>
+        <argsstring>(MYGUI_PARAMS)</argsstring>
+        <name>invoke</name>
+        <param>
+          <type>MYGUI_PARAMS</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="115" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="114" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="classdelegates_1_1CMethodDelegateMYGUI__SUFFIX_1de212184fee53a7b8cbd6c0d840d75ea" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool delegates::CMethodDelegateMYGUI_SUFFIX::compare</definition>
+        <argsstring>(IDelegateMYGUI_SUFFIX MYGUI_TEMPLATE_ARGS *_delegate) const </argsstring>
+        <name>compare</name>
+        <param>
+          <type>IDelegateMYGUI_SUFFIX MYGUI_TEMPLATE_ARGS *</type>
+          <declname>_delegate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="120" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="119" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="classdelegates_1_1CMethodDelegateMYGUI__SUFFIX_1e14d0d9d781ec9705b373b25c34be3a0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool delegates::CMethodDelegateMYGUI_SUFFIX::compare</definition>
+        <argsstring>(IDelegateUnlink *_unlink) const </argsstring>
+        <name>compare</name>
+        <param>
+          <type>IDelegateUnlink *</type>
+          <declname>_unlink</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="132" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="131" bodyend="134"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classdelegates_1_1CMethodDelegateMYGUI__SUFFIX_161b7540db934cfc33a34e763d1ab72dd" prot="private" static="no" mutable="no">
+        <type>IDelegateUnlink *</type>
+        <definition>IDelegateUnlink* delegates::CMethodDelegateMYGUI_SUFFIX::mUnlink</definition>
+        <argsstring></argsstring>
+        <name>mUnlink</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="137" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classdelegates_1_1CMethodDelegateMYGUI__SUFFIX_1bf14ac060bf00e7fb01085960bfc3459" prot="private" static="no" mutable="no">
+        <type>T *</type>
+        <definition>T* delegates::CMethodDelegateMYGUI_SUFFIX::mObject</definition>
+        <argsstring></argsstring>
+        <name>mObject</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="138" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classdelegates_1_1CMethodDelegateMYGUI__SUFFIX_1058295092b95bf75b9fa519231c292c4" prot="private" static="no" mutable="no">
+        <type>Method</type>
+        <definition>Method delegates::CMethodDelegateMYGUI_SUFFIX::mMethod</definition>
+        <argsstring></argsstring>
+        <name>mMethod</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="139" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="101" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="100" bodyend="140"/>
+    <listofallmembers>
+      <member refid="classdelegates_1_1CMethodDelegateMYGUI__SUFFIX_1adf93f3d57e84aebae0dd901ae89aa62" prot="public" virt="non-virtual"><scope>delegates::CMethodDelegateMYGUI_SUFFIX</scope><name>CMethodDelegateMYGUI_SUFFIX</name></member>
+      <member refid="classdelegates_1_1CMethodDelegateMYGUI__SUFFIX_1de212184fee53a7b8cbd6c0d840d75ea" prot="public" virt="virtual"><scope>delegates::CMethodDelegateMYGUI_SUFFIX</scope><name>compare</name></member>
+      <member refid="classdelegates_1_1CMethodDelegateMYGUI__SUFFIX_1e14d0d9d781ec9705b373b25c34be3a0" prot="public" virt="virtual"><scope>delegates::CMethodDelegateMYGUI_SUFFIX</scope><name>compare</name></member>
+      <member refid="classdelegates_1_1CMethodDelegateMYGUI__SUFFIX_1c65fee5dd71f6bd7e9a85edfa5d7c2b0" prot="public" virt="virtual"><scope>delegates::CMethodDelegateMYGUI_SUFFIX</scope><name>invoke</name></member>
+      <member refid="classdelegates_1_1CMethodDelegateMYGUI__SUFFIX_194a2c94e56cd484db4b9ce72bb62ca70" prot="public" virt="virtual"><scope>delegates::CMethodDelegateMYGUI_SUFFIX</scope><name>isType</name></member>
+      <member refid="classdelegates_1_1CMethodDelegateMYGUI__SUFFIX_1b875e1c3a12ad1f5800f241b497b41af" prot="public" virt="non-virtual"><scope>delegates::CMethodDelegateMYGUI_SUFFIX</scope><name>Method</name></member>
+      <member refid="classdelegates_1_1CMethodDelegateMYGUI__SUFFIX_1058295092b95bf75b9fa519231c292c4" prot="private" virt="non-virtual"><scope>delegates::CMethodDelegateMYGUI_SUFFIX</scope><name>mMethod</name></member>
+      <member refid="classdelegates_1_1CMethodDelegateMYGUI__SUFFIX_1bf14ac060bf00e7fb01085960bfc3459" prot="private" virt="non-virtual"><scope>delegates::CMethodDelegateMYGUI_SUFFIX</scope><name>mObject</name></member>
+      <member refid="classdelegates_1_1CMethodDelegateMYGUI__SUFFIX_161b7540db934cfc33a34e763d1ab72dd" prot="private" virt="non-virtual"><scope>delegates::CMethodDelegateMYGUI_SUFFIX</scope><name>mUnlink</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

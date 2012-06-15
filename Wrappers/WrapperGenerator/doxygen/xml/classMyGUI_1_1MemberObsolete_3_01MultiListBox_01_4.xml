@@ -1,0 +1,433 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4" kind="class" prot="public">
+    <compoundname>MyGUI::MemberObsolete&lt; MultiListBox &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_134b8cff341c81dae6ad88186c760c755" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::MemberObsolete&lt; MultiListBox &gt;::getItemIndexSelected</definition>
+        <argsstring>()</argsstring>
+        <name>getItemIndexSelected</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000076"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="248"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1c0f04943f0eaf639500d37d62f5ae88d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; MultiListBox &gt;::setItemSelectedAt</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>setItemSelectedAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000077"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="250"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_17170ee0b2c24b506913dbb2a02d048e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; MultiListBox &gt;::clearItemSelected</definition>
+        <argsstring>()</argsstring>
+        <name>clearItemSelected</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000078"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="252"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1bb5c0aaea717ed3c6a150d95e0fb1719" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::MemberObsolete&lt; MultiListBox &gt;::findItem</definition>
+        <argsstring>(size_t _column, const UString &amp;_name)</argsstring>
+        <name>findItem</name>
+        <param>
+          <type>size_t</type>
+          <declname>_column</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000079"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="255"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1b403de586091ec0d974cbf86ef94fea4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+        <definition>const UString&amp; MyGUI::MemberObsolete&lt; MultiListBox &gt;::getSubItem</definition>
+        <argsstring>(size_t _column, size_t _index)</argsstring>
+        <name>getSubItem</name>
+        <param>
+          <type>size_t</type>
+          <declname>_column</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000080"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="257"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_16fa1129e1c2c472de736ebef39e1bb93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; MultiListBox &gt;::setSubItem</definition>
+        <argsstring>(size_t _column, size_t _index, const UString &amp;_name)</argsstring>
+        <name>setSubItem</name>
+        <param>
+          <type>size_t</type>
+          <declname>_column</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000081"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="259"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1f4f7881501175e11c8b45a6d16c0e342" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; MultiListBox &gt;::deleteColumn</definition>
+        <argsstring>(size_t _column)</argsstring>
+        <name>deleteColumn</name>
+        <param>
+          <type>size_t</type>
+          <declname>_column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000082"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="261"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1d501a48254d2792c73951a2a8b1709b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; MultiListBox &gt;::deleteAllColumns</definition>
+        <argsstring>()</argsstring>
+        <name>deleteAllColumns</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000083"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="263"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1add8ada311e8d743754d610261c9e849" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::MemberObsolete&lt; MultiListBox &gt;::getColumnWidth</definition>
+        <argsstring>(size_t _column)</argsstring>
+        <name>getColumnWidth</name>
+        <param>
+          <type>size_t</type>
+          <declname>_column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000084"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="265"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1447f1d62ba312b14bba4be28a5d38a69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+        <definition>const UString&amp; MyGUI::MemberObsolete&lt; MultiListBox &gt;::getColumnName</definition>
+        <argsstring>(size_t _column)</argsstring>
+        <name>getColumnName</name>
+        <param>
+          <type>size_t</type>
+          <declname>_column</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000085"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="267"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_12c7e536e98c9a7509ffefcf2b8d0be77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; MultiListBox &gt;::setColumnWidth</definition>
+        <argsstring>(size_t _column, int _width)</argsstring>
+        <name>setColumnWidth</name>
+        <param>
+          <type>size_t</type>
+          <declname>_column</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000086"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="269"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1f441d1af7c76505595d68d0b468c10f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; MultiListBox &gt;::addColumn</definition>
+        <argsstring>(int _width, const UString &amp;_name)</argsstring>
+        <name>addColumn</name>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000087"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="271"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_16aebd1285e47499bd32bd38cda4bdc35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; MultiListBox &gt;::setColumnName</definition>
+        <argsstring>(size_t _column, const UString &amp;_name)</argsstring>
+        <name>setColumnName</name>
+        <param>
+          <type>size_t</type>
+          <declname>_column</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000088"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="273"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_163b202e13cc38a170ebc4c335d6e25b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; MultiListBox &gt;::insertColumn</definition>
+        <argsstring>(size_t _column, int _width, const UString &amp;_name)</argsstring>
+        <name>insertColumn</name>
+        <param>
+          <type>size_t</type>
+          <declname>_column</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000089"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="275"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_133179d6a1433d3e9cd864e8ca2b51c0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::MemberObsolete&lt; MultiListBox &gt;::getItemSelect</definition>
+        <argsstring>()</argsstring>
+        <name>getItemSelect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000090"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="277"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1132e996806a3cd27da275e7037430b9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; MultiListBox &gt;::resetItemSelect</definition>
+        <argsstring>()</argsstring>
+        <name>resetItemSelect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000091"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="279"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1fd7a0138e9e9f6230de7c5630cc9817e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; MultiListBox &gt;::setItemSelect</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>setItemSelect</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000092"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="281"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_157652f4cf5933d589ac2b2d208c9be27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; MultiListBox &gt;::insertItem</definition>
+        <argsstring>(size_t _index, const UString &amp;_name)</argsstring>
+        <name>insertItem</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000093"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="283"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1752472f6c04d66efa9e78a1886a8d134" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; MultiListBox &gt;::setItem</definition>
+        <argsstring>(size_t _index, const UString &amp;_name)</argsstring>
+        <name>setItem</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000094"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="285"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_135b43fbe45d2b25969455998e930a553" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+        <definition>const UString&amp; MyGUI::MemberObsolete&lt; MultiListBox &gt;::getItem</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>getItem</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000095"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="287"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_139c25c8e8c27db1f299789282a74d5e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; MultiListBox &gt;::deleteItem</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>deleteItem</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000096"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="289"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_19159f0bd6a681ec1c00209edd6424190" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; MultiListBox &gt;::deleteAllItems</definition>
+        <argsstring>()</argsstring>
+        <name>deleteAllItems</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000097"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="291"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="245" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="244" bodyend="292"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1f441d1af7c76505595d68d0b468c10f5" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>addColumn</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_17170ee0b2c24b506913dbb2a02d048e3" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>clearItemSelected</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1d501a48254d2792c73951a2a8b1709b8" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>deleteAllColumns</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_19159f0bd6a681ec1c00209edd6424190" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>deleteAllItems</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1f4f7881501175e11c8b45a6d16c0e342" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>deleteColumn</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_139c25c8e8c27db1f299789282a74d5e8" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>deleteItem</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1bb5c0aaea717ed3c6a150d95e0fb1719" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>findItem</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1447f1d62ba312b14bba4be28a5d38a69" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>getColumnName</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1add8ada311e8d743754d610261c9e849" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>getColumnWidth</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_135b43fbe45d2b25969455998e930a553" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>getItem</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_134b8cff341c81dae6ad88186c760c755" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>getItemIndexSelected</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_133179d6a1433d3e9cd864e8ca2b51c0c" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>getItemSelect</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1b403de586091ec0d974cbf86ef94fea4" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>getSubItem</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_163b202e13cc38a170ebc4c335d6e25b6" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>insertColumn</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_157652f4cf5933d589ac2b2d208c9be27" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>insertItem</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1132e996806a3cd27da275e7037430b9e" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>resetItemSelect</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_16aebd1285e47499bd32bd38cda4bdc35" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>setColumnName</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_12c7e536e98c9a7509ffefcf2b8d0be77" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>setColumnWidth</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1752472f6c04d66efa9e78a1886a8d134" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>setItem</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1fd7a0138e9e9f6230de7c5630cc9817e" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>setItemSelect</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_1c0f04943f0eaf639500d37d62f5ae88d" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>setItemSelectedAt</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MultiListBox_01_4_16fa1129e1c2c472de736ebef39e1bb93" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MultiListBox &gt;</scope><name>setSubItem</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

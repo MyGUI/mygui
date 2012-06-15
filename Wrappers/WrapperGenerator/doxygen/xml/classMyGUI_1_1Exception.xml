@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1Exception" kind="class" prot="public">
+    <compoundname>MyGUI::Exception</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1Exception_16ff841c6b07bed554c174ffc506bb70a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::Exception::Exception</definition>
+        <argsstring>(const std::string &amp;_description, const std::string &amp;_source, const char *_file, long _line)</argsstring>
+        <name>Exception</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_description</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_source</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>_file</declname>
+        </param>
+        <param>
+          <type>long</type>
+          <declname>_line</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" line="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Exception_1dc7be002f479e772cc4430252292dd5c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::Exception::Exception</definition>
+        <argsstring>(const Exception &amp;_rhs)</argsstring>
+        <name>Exception</name>
+        <param>
+          <type>const Exception &amp;</type>
+          <declname>_rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" line="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Exception_13664508eb3cbd6acf7baffd8094cda77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::Exception::~Exception</definition>
+        <argsstring>()</argsstring>
+        <name>~Exception</name>
+        <exceptions> throw ()</exceptions>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" line="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Exception_14713367ee5d866a92341bac1f32a01ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Exception &amp;</type>
+        <definition>Exception&amp; MyGUI::Exception::operator=</definition>
+        <argsstring>(const Exception &amp;_rhs)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const Exception &amp;</type>
+          <declname>_rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" line="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Exception_185922c9e2c030904bf6a4fbbaef31189" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::Exception::getFullDescription</definition>
+        <argsstring>() const </argsstring>
+        <name>getFullDescription</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" line="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Exception_17779989872b79403e67481fc126f5ed2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::Exception::getSource</definition>
+        <argsstring>() const </argsstring>
+        <name>getSource</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" line="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Exception_18f668cca0886d29e811c06f6d6fc28b0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::Exception::getFile</definition>
+        <argsstring>() const </argsstring>
+        <name>getFile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" line="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Exception_171f5e13e06ad19004ecbd29bc3fee9b1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>long</type>
+        <definition>virtual long MyGUI::Exception::getLine</definition>
+        <argsstring>() const </argsstring>
+        <name>getLine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" line="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Exception_165fdcd142922c647133df137ec54e02c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::Exception::getDescription</definition>
+        <argsstring>() const </argsstring>
+        <name>getDescription</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" line="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Exception_1d6f437dbaba478ba40b8f89dd0e42b45" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* MyGUI::Exception::what</definition>
+        <argsstring>() const </argsstring>
+        <name>what</name>
+        <exceptions> throw ()</exceptions>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" line="56"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1Exception_193b679c1cc76427d8fb41ba2967eb28e" prot="protected" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::Exception::mDescription</definition>
+        <argsstring></argsstring>
+        <name>mDescription</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" line="59" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Exception_158233b01845ea4bed817594e1d9e2f65" prot="protected" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::Exception::mSource</definition>
+        <argsstring></argsstring>
+        <name>mSource</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" line="60" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Exception_1e72b6e19b9a50fc224f9edea0b5e0c3c" prot="protected" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::Exception::mFile</definition>
+        <argsstring></argsstring>
+        <name>mFile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" line="61" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Exception_1ec09041aa56466f39fdf4133d178c4db" prot="protected" static="no" mutable="no">
+        <type>long</type>
+        <definition>long MyGUI::Exception::mLine</definition>
+        <argsstring></argsstring>
+        <name>mLine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" line="62" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Exception_143eca2ee43bae6c0f003b54dd2ec2c77" prot="protected" static="no" mutable="yes">
+        <type>std::string</type>
+        <definition>std::string MyGUI::Exception::mFullDesc</definition>
+        <argsstring></argsstring>
+        <name>mFullDesc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" line="63" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" bodystart="32" bodyend="64"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1Exception_16ff841c6b07bed554c174ffc506bb70a" prot="public" virt="non-virtual"><scope>MyGUI::Exception</scope><name>Exception</name></member>
+      <member refid="classMyGUI_1_1Exception_1dc7be002f479e772cc4430252292dd5c" prot="public" virt="non-virtual"><scope>MyGUI::Exception</scope><name>Exception</name></member>
+      <member refid="classMyGUI_1_1Exception_165fdcd142922c647133df137ec54e02c" prot="public" virt="virtual"><scope>MyGUI::Exception</scope><name>getDescription</name></member>
+      <member refid="classMyGUI_1_1Exception_18f668cca0886d29e811c06f6d6fc28b0" prot="public" virt="virtual"><scope>MyGUI::Exception</scope><name>getFile</name></member>
+      <member refid="classMyGUI_1_1Exception_185922c9e2c030904bf6a4fbbaef31189" prot="public" virt="virtual"><scope>MyGUI::Exception</scope><name>getFullDescription</name></member>
+      <member refid="classMyGUI_1_1Exception_171f5e13e06ad19004ecbd29bc3fee9b1" prot="public" virt="virtual"><scope>MyGUI::Exception</scope><name>getLine</name></member>
+      <member refid="classMyGUI_1_1Exception_17779989872b79403e67481fc126f5ed2" prot="public" virt="virtual"><scope>MyGUI::Exception</scope><name>getSource</name></member>
+      <member refid="classMyGUI_1_1Exception_193b679c1cc76427d8fb41ba2967eb28e" prot="protected" virt="non-virtual"><scope>MyGUI::Exception</scope><name>mDescription</name></member>
+      <member refid="classMyGUI_1_1Exception_1e72b6e19b9a50fc224f9edea0b5e0c3c" prot="protected" virt="non-virtual"><scope>MyGUI::Exception</scope><name>mFile</name></member>
+      <member refid="classMyGUI_1_1Exception_143eca2ee43bae6c0f003b54dd2ec2c77" prot="protected" virt="non-virtual"><scope>MyGUI::Exception</scope><name>mFullDesc</name></member>
+      <member refid="classMyGUI_1_1Exception_1ec09041aa56466f39fdf4133d178c4db" prot="protected" virt="non-virtual"><scope>MyGUI::Exception</scope><name>mLine</name></member>
+      <member refid="classMyGUI_1_1Exception_158233b01845ea4bed817594e1d9e2f65" prot="protected" virt="non-virtual"><scope>MyGUI::Exception</scope><name>mSource</name></member>
+      <member refid="classMyGUI_1_1Exception_14713367ee5d866a92341bac1f32a01ad" prot="public" virt="non-virtual"><scope>MyGUI::Exception</scope><name>operator=</name></member>
+      <member refid="classMyGUI_1_1Exception_1d6f437dbaba478ba40b8f89dd0e42b45" prot="public" virt="non-virtual"><scope>MyGUI::Exception</scope><name>what</name></member>
+      <member refid="classMyGUI_1_1Exception_13664508eb3cbd6acf7baffd8094cda77" prot="public" virt="non-virtual"><scope>MyGUI::Exception</scope><name>~Exception</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,682 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1TextBox" kind="class" prot="public">
+    <compoundname>MyGUI::TextBox</compoundname>
+    <basecompoundref refid="classMyGUI_1_1Widget" prot="public" virt="non-virtual">MyGUI::Widget</basecompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1Button" prot="public" virt="non-virtual">MyGUI::Button</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1EditBox" prot="public" virt="non-virtual">MyGUI::EditBox</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1MultiListItem" prot="public" virt="non-virtual">MyGUI::MultiListItem</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1TabItem" prot="public" virt="non-virtual">MyGUI::TabItem</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1Window" prot="public" virt="non-virtual">MyGUI::Window</derivedcompoundref>
+    <includes local="no">MyGUI_TextBox.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1TextBox_19de997c622f19554b3fe41cf5c59a0f5" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1TextBox" kindref="compound">RTTIBase</ref></type>
+        <definition>typedef RTTIBase MyGUI::TextBox::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <reimplements refid="classMyGUI_1_1Widget_1c35a5223105967529b9df5813c468d37">Base</reimplements>
+        <reimplementedby refid="classMyGUI_1_1Window_119660ddf6e006dfedd790a7718cede53">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabItem_165cd4f5c44acf45de52e7dbd6809f858">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListItem_12350474843cf71f34d90deb2530f56e8">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_100a4b21701a1221a0115b8a718a00826">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1d5eaa0f9fed3de28c8641844cc45f30e">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_1b8ec0d2ef3c6581f4236daad79bab309">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Button_1b102386ae350f9700271c76bf1096c2e">Base</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1TextBox_1fb7369bf080624170fbed666fd25dd5b" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1TextBox" kindref="compound">TextBox</ref></type>
+        <definition>typedef TextBox MyGUI::TextBox::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <reimplements refid="classMyGUI_1_1Widget_130c68354c5a07b549a2377952a56f48e">RTTIBase</reimplements>
+        <reimplementedby refid="classMyGUI_1_1Window_151a6f9612b705ea3649400b7fab79fe2">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabItem_1a9c62ad6e36f2f113796097e012e1f70">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListItem_10c00e070ad86b4be8d3953ab544d9132">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_1e58c6525b2b2c1d0eb6e0f4350be5a79">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1087126489fee2cb362e2ca18a8dcc56d">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_1fa2617bb376043aa6991270069b4f787">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Button_17a1cb41841e9d40e50dc30397cd445a8">RTTIBase</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_1fbcfc0d11323779f155ec0be73a129ab" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::TextBox::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <reimplements refid="classMyGUI_1_1Widget_1faad6178370730c10dbe87982b9ab8f8">getTypeName</reimplements>
+        <reimplementedby refid="classMyGUI_1_1Window_1cbe0e1f44c2bd77bf73c0c538fafadce">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabItem_1b311a99ea9ca7b9fa45fb9af8df8d375">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListItem_187772259dbb1bd7f2f6c9cef8b6d65ef">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_17d917621d5a729753e664add6e441470">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_17f04183c9acc5f28d459bbf0f69e82a6">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_119b58fb58825e29b8a31584ee7e86033">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Button_1cb0015e0094ee25e0118bd5a4ba6c1b2">getTypeName</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_11e4f6fdecb0c8b91e4cf1cc6731004ab" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::TextBox::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <reimplements refid="classMyGUI_1_1Widget_13cd209d4767cf39c1848e538e3ddb1d1">isType</reimplements>
+        <reimplementedby refid="classMyGUI_1_1Window_1afe930db3102769483e88571c85e90d9">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabItem_1b35afbcbdfe6ffb99b7246205053bfaa">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListItem_18d98b688b1812a652ad4c8048b10e76d">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_14aa0c6957347fb1731d23c1d9ffc2f1b">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1c11377f2a6f63ff6ec848c9f67d86ca8">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_1a25c1cfeb56f1b356f6b64a4b0c17816">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Button_1660a26b306b4cbb6f18e5fa6f624d6f0">isType</reimplementedby>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_16f44e01a8d08ece1a8683e8df9fca5b7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::TextBox::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <reimplements refid="classMyGUI_1_1Widget_10b8989ef6cf8b54a07ecd0b857579b8d">isType</reimplements>
+        <reimplementedby refid="classMyGUI_1_1Window_1b225491dc7e4b85e6cae412886fcf68f">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabItem_1416fd3cae9ba9b5b32456af8cb230fd6">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListItem_11e7da05e166a5ac02c6631b68d67b6bf">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_1ebc191dffb764e1f662a2eab2165cf40">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_149b4d03c2e7c9d9dd7f3e2ebcb27cd94">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_140d09d268d9ffa8b5747ae2101093a73">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Button_1b390ad7a1b48e88532ae7ab31c90b9dd">isType</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_1c9823be8b1b86d97123b9ab05ee81c77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::TextBox::TextBox</definition>
+        <argsstring>()</argsstring>
+        <name>TextBox</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_15e8dfe8de46c133f662ffba060f18d23" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>IntCoord</type>
+        <definition>virtual IntCoord MyGUI::TextBox::getTextRegion</definition>
+        <argsstring>()</argsstring>
+        <name>getTextRegion</name>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1cbc5394429065a2dc28df0505a1942f7">getTextRegion</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get text region coordinate </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_1c5cac14b8c5a65f647dda4847b47cea8" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>IntSize</type>
+        <definition>virtual IntSize MyGUI::TextBox::getTextSize</definition>
+        <argsstring>()</argsstring>
+        <name>getTextSize</name>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1ed4f88b5ebbeca587b5f1b04bdfcb8da">getTextSize</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get text region size </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_10add0f3ad9abbc285ba369c8a4d5080d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::TextBox::setCaption</definition>
+        <argsstring>(const UString &amp;_value)</argsstring>
+        <name>setCaption</name>
+        <reimplementedby refid="classMyGUI_1_1Window_10563c7e4c7777c541df91c058d3083f4">setCaption</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabItem_1d87d08b822185c3c8b2cd89d994afa64">setCaption</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListItem_139d9a0d6e2eed4ff5b6e01091580b7db">setCaption</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_146d7b4fd8fa8bfed160bcf44ee2cabd1">setCaption</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_148bde7fa7f3ffacfa1b109926d6f5b78">setCaption</reimplementedby>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set widget caption </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_121d2e96a9c1c31b2dc26348cda7ebd81" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+        <definition>virtual const UString&amp; MyGUI::TextBox::getCaption</definition>
+        <argsstring>()</argsstring>
+        <name>getCaption</name>
+        <reimplementedby refid="classMyGUI_1_1Window_13d6e91b37519246e677e61d8bac83d50">getCaption</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabItem_12f3e495f99cbc3767e320ed510c5549d">getCaption</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListItem_1cd8207c88b21fc4436e1174f57dff78f">getCaption</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1e951cad8f473333ed203f1666013084c">getCaption</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get widget caption </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_18882452ac6bd460e73f46121c63b081b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::TextBox::setFontName</definition>
+        <argsstring>(const std::string &amp;_value)</argsstring>
+        <name>setFontName</name>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1d3917fbff1a5d14b880a3fe6cbeb3c4b">setFontName</reimplementedby>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set widget text font </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_1eb499df22061231d04ff0a29e87b2b06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>const std::string&amp; MyGUI::TextBox::getFontName</definition>
+        <argsstring>()</argsstring>
+        <name>getFontName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get widget text font name </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_1e567487392d88976456984442c5e44a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::TextBox::setFontHeight</definition>
+        <argsstring>(int _value)</argsstring>
+        <name>setFontHeight</name>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1ed8c9975b077907441b3eab9688d8ce1">setFontHeight</reimplementedby>
+        <param>
+          <type>int</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set widget text font height </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_182cf5031ad57c818cfa9c5a9a0393263" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::TextBox::getFontHeight</definition>
+        <argsstring>()</argsstring>
+        <name>getFontHeight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get widget text font height </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_10e3f84f169ccbb4d62057423c9f3cf8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::TextBox::setTextAlign</definition>
+        <argsstring>(Align _value)</argsstring>
+        <name>setTextAlign</name>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1c45e1a33e62e043f0d1f27c0f62f1122">setTextAlign</reimplementedby>
+        <param>
+          <type>Align</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set widget text align </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="64"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_1e2b4578eeb95ab1fb771e163d50f9b9c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Align</type>
+        <definition>Align MyGUI::TextBox::getTextAlign</definition>
+        <argsstring>()</argsstring>
+        <name>getTextAlign</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get widget text align </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_199437c63dc672cd4a2203533803b9b88" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::TextBox::setTextColour</definition>
+        <argsstring>(const Colour &amp;_value)</argsstring>
+        <name>setTextColour</name>
+        <reimplementedby refid="classMyGUI_1_1EditBox_19910766a0cc754c383f0a55be0be1b5e">setTextColour</reimplementedby>
+        <param>
+          <type>const Colour &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set widget text colour </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_1acc4e9fde74bb63723f7abd59f20ca29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const Colour &amp;</type>
+        <definition>const Colour&amp; MyGUI::TextBox::getTextColour</definition>
+        <argsstring>()</argsstring>
+        <name>getTextColour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get widget text colour </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="71"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_120fe368f3845d4036a9f3d0cca2de148" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::TextBox::setCaptionWithReplacing</definition>
+        <argsstring>(const std::string &amp;_value)</argsstring>
+        <name>setCaptionWithReplacing</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set <ref refid="classMyGUI_1_1TextBox" kindref="compound">TextBox</ref> caption and replace special sequences.<linebreak/>
+ &quot;\\n&quot; will be replaced with new line character;<linebreak/>
+ &quot;#{Keyword}&quot; replaced with string from LanguageManager or left as it is if kayword wasn&apos;t found. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_1e9a1ea838b24ff17dc97bd8bf345e266" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::TextBox::setTextShadowColour</definition>
+        <argsstring>(const Colour &amp;_value)</argsstring>
+        <name>setTextShadowColour</name>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1cd2fb9b3814bd99c41a43602a307cf0f">setTextShadowColour</reimplementedby>
+        <param>
+          <type>const Colour &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set widget text shadow colour </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="81"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_14d6ac0eb45e0d495ed874367cfac7577" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const Colour &amp;</type>
+        <definition>const Colour&amp; MyGUI::TextBox::getTextShadowColour</definition>
+        <argsstring>()</argsstring>
+        <name>getTextShadowColour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get widget text shadow colour </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="83"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_1e04d6fd910e1756e6e24b6c9e004f0ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::TextBox::setTextShadow</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setTextShadow</name>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1d0298ee1f43fc0ba948ccc47b18dfb7b">setTextShadow</reimplementedby>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set widget text shadow </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_1c0080a7ed833342b98c9376772d189e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::TextBox::getTextShadow</definition>
+        <argsstring>()</argsstring>
+        <name>getTextShadow</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get widget text shadow </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="88"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_161c948036f66b138fc56d7fca6c794c4" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::TextBox::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <reimplements refid="classMyGUI_1_1Widget_1b2012e0bb89d4becb35762362474601e">getClassTypeName</reimplements>
+        <reimplementedby refid="classMyGUI_1_1Window_15700eb4c4085eac722c8eb259bce81ea">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabItem_16f8a168196879f286c4347b6a29c2353">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListItem_17dbf63e0ca6bc0f8c80808ae2368df46">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_1e3b98381e5d9a1b5b654cd46e4aeff5e">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_121ac1e795a7d76d56f108e69784bb3f5">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_1ac3fe17934a4c45229f434c1c6aa5f75">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Button_119373629cf7f96ce5a904c8ae8566a30">getClassTypeName</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" bodystart="37" bodyend="37"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classMyGUI_1_1TextBox_1ccb4705e7de752650eec196f172da676" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::TextBox::setPropertyOverride</definition>
+        <argsstring>(const std::string &amp;_key, const std::string &amp;_value)</argsstring>
+        <name>setPropertyOverride</name>
+        <reimplements refid="classMyGUI_1_1Widget_1b9ce72d4c54f0098eabee9c7d35e282d">setPropertyOverride</reimplements>
+        <reimplementedby refid="classMyGUI_1_1Window_1ce43226e38c9190c674598952aac4426">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabItem_1d5aeead1baa047fcb315a6c19e254947">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListItem_1e5bd78577483751ddd83dca9482e13e8">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_1071ef6b09ecf5a48c22dc5b7823df55b">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_191f547f280b8995cdf870619892a3ea5">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_144e5b1064bb07efec7d33a36ad88f41a">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Button_1098cc6609803c7e4f5bca241faf99faf">setPropertyOverride</reimplementedby>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_key</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="91"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>{<ref refid="classMyGUI_1_1TextBox" kindref="compound">TextBox</ref>} <ref refid="classMyGUI_1_1TextBox" kindref="compound">TextBox</ref> widget description should be here. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="652">
+        <label>MyGUI::ComboBox</label>
+        <link refid="classMyGUI_1_1ComboBox"/>
+        <childnode refid="651" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="651">
+        <label>MyGUI::EditBox</label>
+        <link refid="classMyGUI_1_1EditBox"/>
+        <childnode refid="646" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="646">
+        <label>MyGUI::TextBox</label>
+        <link refid="classMyGUI_1_1TextBox"/>
+        <childnode refid="647" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="648">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="647">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="648" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="649">
+        <label>MyGUI::Button</label>
+        <link refid="classMyGUI_1_1Button"/>
+        <childnode refid="646" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="650">
+        <label>MyGUI::MenuItem</label>
+        <link refid="classMyGUI_1_1MenuItem"/>
+        <childnode refid="649" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="655">
+        <label>MyGUI::Window</label>
+        <link refid="classMyGUI_1_1Window"/>
+        <childnode refid="646" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="653">
+        <label>MyGUI::MultiListItem</label>
+        <link refid="classMyGUI_1_1MultiListItem"/>
+        <childnode refid="646" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="654">
+        <label>MyGUI::TabItem</label>
+        <link refid="classMyGUI_1_1TabItem"/>
+        <childnode refid="646" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="656">
+        <label>MyGUI::TextBox</label>
+        <link refid="classMyGUI_1_1TextBox"/>
+        <childnode refid="657" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="658">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="657">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="658" relation="public-inheritance">
+        </childnode>
+        <childnode refid="657" relation="usage">
+          <edgelabel>mContainer
+mParent
+mWidgetClient</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextBox.h" bodystart="34" bodyend="92"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1Widget_134c44665e7d51c7eb65bf70f0479e1c3" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>_checkPoint</name></member>
+      <member refid="classMyGUI_1_1Widget_13601e5ca0d565451dfcf106850506a51" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>_createSkinWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_10df77f6d74fe5fc24701819e0b7e0fe8" prot="protected" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>_destroyAllChildWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_125136884a04944ef8b199c582e15482c" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>_destroyChildWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1deee68fb42acc2fab667b169587e9ce3" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>_forcePick</name></member>
+      <member refid="classMyGUI_1_1Widget_1f3d99ead3ce8fda0defa2feb0fbaee27" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>_getContainer</name></member>
+      <member refid="classMyGUI_1_1Widget_1fef9a1d046d1b78f8c76de1db83d20c6" prot="protected" virt="virtual"><scope>MyGUI::TextBox</scope><name>_getContainerIndex</name></member>
+      <member refid="classMyGUI_1_1UserData_1fc4382ac3423790f57b478a0fe5030a2" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>_getInternalData</name></member>
+      <member refid="classMyGUI_1_1Widget_106700537a6fffaf43aa9c93e89d9cc7d" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>_getItemIndex</name></member>
+      <member refid="classMyGUI_1_1Widget_1ae54386446434e4b133c244925402375" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>_initialise</name></member>
+      <member refid="classMyGUI_1_1Widget_1175526a4b039cf13c7fec7012d7287fc" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>_resetContainer</name></member>
+      <member refid="classMyGUI_1_1Widget_15df6dbd95e99b9b65b385d815026cf26" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>_setAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_1d3d48604ad15f958b81bf423f80271c9" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>_setContainer</name></member>
+      <member refid="classMyGUI_1_1UserData_12bd52c146bad41f99bbc7ed31335ad18" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>_setInternalData</name></member>
+      <member refid="classMyGUI_1_1Widget_13325a1f4c26917f6f73b207d0986e1bd" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>_setWidgetState</name></member>
+      <member refid="classMyGUI_1_1Widget_155b19482fe01925c36e29af671e3d092" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>_shutdown</name></member>
+      <member refid="classMyGUI_1_1Widget_1dd935a48ef2c39688d8026c01e9e3939" prot="protected" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>_updateView</name></member>
+      <member refid="classMyGUI_1_1Widget_1b390f48a62a30d529c901cf8cfa1c24c" prot="protected" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>assignWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_105110870f31f66a901b3b11737c194de" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>attachToWidget</name></member>
+      <member refid="classMyGUI_1_1TextBox_19de997c622f19554b3fe41cf5c59a0f5" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1Widget_1d88d7deb826efb660943ccb0bb457cae" prot="protected" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>baseCreateWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1d4c4a2cf2c3dd8b71126291a55e69139" prot="protected" virt="virtual"><scope>MyGUI::TextBox</scope><name>baseUpdateEnable</name></member>
+      <member refid="classMyGUI_1_1Widget_1be74d6cc433da6140629423b120735a4" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>changeWidgetSkin</name></member>
+      <member refid="classMyGUI_1_1UserData_1f71561f766d83082a82cbdd6d218bd6b" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>clearUserString</name></member>
+      <member refid="classMyGUI_1_1UserData_154fecc1b40c23594c6518589b6912e49" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>clearUserStrings</name></member>
+      <member refid="classMyGUI_1_1Widget_1d66c5415fde332d5aab563402cffb09f" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_13a28d2e883ce82536b686ac992be672d" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1f8660295aafb142287644c239a313e53" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1721d33e78bb5c6ed975e8d41c8bdb683" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>createWidgetReal</name></member>
+      <member refid="classMyGUI_1_1Widget_1412c63af17890a8d43075782891b66ea" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>createWidgetReal</name></member>
+      <member refid="classMyGUI_1_1Widget_19ea260d13d1de5fb272e8fe3c6f6464c" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>createWidgetRealT</name></member>
+      <member refid="classMyGUI_1_1Widget_100fdb672b101caf560a07b86e67a72d4" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>createWidgetRealT</name></member>
+      <member refid="classMyGUI_1_1Widget_1b5d34f121420fbd4f439d7a8432d7755" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_12e74ae3d0a439f4edd509e73d4b2a083" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_1e26a4a5e8ea3fa4bafd969eb952d88e9" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_1c1c862389f772c52077fe4f2cf6568b5" prot="protected" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>destroySkinWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1056ac7afc041cf328037e210c742302f" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>detachFromWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_130efcbdb772c4a75f8208a99c4f9f34d" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>eventChangeProperty</name></member>
+      <member refid="classMyGUI_1_1Widget_1d054e1027a48f2ccb9af0179359dadc5" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>findWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1e6d193b99a9d69973922d1b8e0f0b70e" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>findWidgets</name></member>
+      <member refid="classMyGUI_1_1Widget_134cafbef78da90ca8fb6aca8964b337a" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_1db1d462f1145cafb358754c03cd3e7f2" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getAlpha</name></member>
+      <member refid="classMyGUI_1_1TextBox_121d2e96a9c1c31b2dc26348cda7ebd81" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>getCaption</name></member>
+      <member refid="classMyGUI_1_1Widget_1028535563d6d3666658d83e4d479fa6d" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getChildAt</name></member>
+      <member refid="classMyGUI_1_1Widget_195ebe8be9fd3d29f7fa8f7846515eeec" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getChildCount</name></member>
+      <member refid="classMyGUI_1_1TextBox_161c948036f66b138fc56d7fca6c794c4" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1Widget_15ffebc869b3b4c36e31178616b27fc86" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getClientCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1ac162cf5e6c51d487c71ae2e2d041352" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getClientWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_15cd729c40ad712c7036a0d3f6a2507b2" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1abfb5cf6661813f729bd30b4042e95d7" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getEnumerator</name></member>
+      <member refid="classMyGUI_1_1TextBox_182cf5031ad57c818cfa9c5a9a0393263" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getFontHeight</name></member>
+      <member refid="classMyGUI_1_1TextBox_1eb499df22061231d04ff0a29e87b2b06" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getFontName</name></member>
+      <member refid="classMyGUI_1_1Widget_1c373e8170168b97491e777b99de0872b" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getInheritedEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1028a8ae99e47f513065ce3cbb11e4022" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getInheritedVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_1c2118d0bf46d9a7ec21c7aed9c7e71ca" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_175cedb78192d81e9dd1cef4a6c7a9fe3" prot="protected" virt="virtual"><scope>MyGUI::TextBox</scope><name>getLayerItemByPoint</name></member>
+      <member refid="classMyGUI_1_1Widget_13e00b99c46a0c1ebacf29604d503804d" prot="protected" virt="virtual"><scope>MyGUI::TextBox</scope><name>getLayerItemCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1421a0e4eec959e8a5cd7f12ff459bfbf" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getName</name></member>
+      <member refid="classMyGUI_1_1Widget_174eb9e9819797e68a510a2ae6c3a410a" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getParent</name></member>
+      <member refid="classMyGUI_1_1Widget_1ee1378b1a9bd3db495cbea32f0a13e20" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getParentSize</name></member>
+      <member refid="classMyGUI_1_1Widget_14a6523e37fad5103ef5896bdf349861d" prot="protected" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getSkinWidgetsByName</name></member>
+      <member refid="classMyGUI_1_1TextBox_1e2b4578eeb95ab1fb771e163d50f9b9c" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getTextAlign</name></member>
+      <member refid="classMyGUI_1_1TextBox_1acc4e9fde74bb63723f7abd59f20ca29" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getTextColour</name></member>
+      <member refid="classMyGUI_1_1TextBox_15e8dfe8de46c133f662ffba060f18d23" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>getTextRegion</name></member>
+      <member refid="classMyGUI_1_1TextBox_1c0080a7ed833342b98c9376772d189e7" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getTextShadow</name></member>
+      <member refid="classMyGUI_1_1TextBox_14d6ac0eb45e0d495ed874367cfac7577" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getTextShadowColour</name></member>
+      <member refid="classMyGUI_1_1TextBox_1c5cac14b8c5a65f647dda4847b47cea8" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>getTextSize</name></member>
+      <member refid="classMyGUI_1_1TextBox_1fbcfc0d11323779f155ec0be73a129ab" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1UserData_1eadd08cc61e475b95c588daf74789a06" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getUserData</name></member>
+      <member refid="classMyGUI_1_1UserData_17c62f7374453eaf6e5316ac369559c53" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getUserString</name></member>
+      <member refid="classMyGUI_1_1UserData_19bc43d45330305b52c5c3f0e9dffabab" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getUserStrings</name></member>
+      <member refid="classMyGUI_1_1Widget_1fa7ad1d5a3213ee9f8c4567e6f3fdd7d" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_15accf9c998578f20adcec5987dc820f2" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>getWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1Widget_1987812d417960a148a72df09dd3948c4" prot="protected" virt="virtual"><scope>MyGUI::TextBox</scope><name>initialiseOverride</name></member>
+      <member refid="classMyGUI_1_1Widget_1b3ec05a74f05236afb58855985781cd0" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>isRootWidget</name></member>
+      <member refid="classMyGUI_1_1TextBox_11e4f6fdecb0c8b91e4cf1cc6731004ab" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1TextBox_16f44e01a8d08ece1a8683e8df9fca5b7" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1UserData_10bac17bc60b499cf0386ec3815d67f17" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>isUserString</name></member>
+      <member refid="classMyGUI_1_1Widget_1a8cfc0deeb8c2c53c6fabf52dd167639" prot="protected" virt="virtual"><scope>MyGUI::TextBox</scope><name>onWidgetCreated</name></member>
+      <member refid="classMyGUI_1_1Widget_1c64ffb617119185afaf5ef9650d4f9a5" prot="protected" virt="virtual"><scope>MyGUI::TextBox</scope><name>onWidgetDestroy</name></member>
+      <member refid="classMyGUI_1_1TextBox_1fb7369bf080624170fbed666fd25dd5b" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1Widget_1ebace37eedee14b3ff746b7a0085b993" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>setAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_11204361b28430fa9a3b6927d6b4fe9ee" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>setAlpha</name></member>
+      <member refid="classMyGUI_1_1TextBox_10add0f3ad9abbc285ba369c8a4d5080d" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>setCaption</name></member>
+      <member refid="classMyGUI_1_1TextBox_120fe368f3845d4036a9f3d0cca2de148" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>setCaptionWithReplacing</name></member>
+      <member refid="classMyGUI_1_1Widget_1cbf134e83d95f63ff7ba7f4b3596449f" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>setColour</name></member>
+      <member refid="classMyGUI_1_1Widget_156333ae229f81cfdc9daa834599b96de" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>setCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1745fbe9e4f3c2f798a021ae07498fc97" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>setCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1beda60b920b1808641169d8543171269" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>setEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1f5a0bfe2b4f596d2dffdc7fcea5200b1" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>setEnabledSilent</name></member>
+      <member refid="classMyGUI_1_1TextBox_1e567487392d88976456984442c5e44a2" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>setFontHeight</name></member>
+      <member refid="classMyGUI_1_1TextBox_18882452ac6bd460e73f46121c63b081b" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>setFontName</name></member>
+      <member refid="classMyGUI_1_1Widget_18b44677724faa4112312655e5feed8ae" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>setInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_1bf87d2b9d27a2543da8fc7daea6abf75" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_10463ede4342db8bc5ade2d78d77a142e" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_11a6ea7822f869b777800b0d351112e69" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>setProperty</name></member>
+      <member refid="classMyGUI_1_1TextBox_1ccb4705e7de752650eec196f172da676" prot="protected" virt="virtual"><scope>MyGUI::TextBox</scope><name>setPropertyOverride</name></member>
+      <member refid="classMyGUI_1_1Widget_18833c303314683bbebadb154d337d3cb" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>setRealCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1dfd8bd56bcecaee166bbfd12ff962f67" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>setRealCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_15a5f7a24564bb6e04b48d0c524f0ef24" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>setRealPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_1c963db4709c8dfc9e681dfccd5fb6524" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>setRealPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_1d7fba1f9976c36eacb528d6db9213ddf" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1Widget_15d89ff45c4bc5f6158382067673903ba" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1Widget_1b8928099957173c4f58aee98d043faab" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>setSize</name></member>
+      <member refid="classMyGUI_1_1Widget_12bdc82ea4f915b8d9b4b36c61b5a3915" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>setSize</name></member>
+      <member refid="classMyGUI_1_1TextBox_10e3f84f169ccbb4d62057423c9f3cf8f" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>setTextAlign</name></member>
+      <member refid="classMyGUI_1_1TextBox_199437c63dc672cd4a2203533803b9b88" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>setTextColour</name></member>
+      <member refid="classMyGUI_1_1TextBox_1e04d6fd910e1756e6e24b6c9e004f0ab" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>setTextShadow</name></member>
+      <member refid="classMyGUI_1_1TextBox_1e9a1ea838b24ff17dc97bd8bf345e266" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>setTextShadowColour</name></member>
+      <member refid="classMyGUI_1_1UserData_145916c0682a72614a1ed72a9efded82c" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>setUserData</name></member>
+      <member refid="classMyGUI_1_1UserData_19630c47aa8d58cbc89628aad50725245" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>setUserString</name></member>
+      <member refid="classMyGUI_1_1Widget_1d98f045bfca3a54b5adacf8d0c090bc2" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>setVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_1c717aa06253e913156a6d24fb3d4cbc4" prot="protected" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>setWidgetClient</name></member>
+      <member refid="classMyGUI_1_1Widget_1372d21a0125ab28cc5c2c295290a2806" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>setWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1Widget_1dee1c7e9399beabdad99bf10b97693c6" prot="protected" virt="virtual"><scope>MyGUI::TextBox</scope><name>shutdownOverride</name></member>
+      <member refid="classMyGUI_1_1TextBox_1c9823be8b1b86d97123b9ab05ee81c77" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>TextBox</name></member>
+      <member refid="classMyGUI_1_1UserData_1108076068708e939519f9c775c2ae87b" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>UserData</name></member>
+      <member refid="classMyGUI_1_1Widget_1f4814618768bc07a685495895ca47b04" prot="public" virt="non-virtual"><scope>MyGUI::TextBox</scope><name>Widget</name></member>
+      <member refid="classMyGUI_1_1UserData_1a970af2c1f39e0fa8801fd9defb06d84" prot="public" virt="virtual"><scope>MyGUI::TextBox</scope><name>~UserData</name></member>
+      <member refid="classMyGUI_1_1Widget_18ff3c2a98bbea22f4f0191bcac54b643" prot="protected" virt="virtual"><scope>MyGUI::TextBox</scope><name>~Widget</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

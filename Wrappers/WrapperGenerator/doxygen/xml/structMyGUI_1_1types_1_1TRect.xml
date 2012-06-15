@@ -1,0 +1,545 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1types_1_1TRect" kind="struct" prot="public">
+    <compoundname>MyGUI::types::TRect</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>T</declname>
+        <defname>T</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_15958bd204168f00a05602bd487479e80" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::types::TRect&lt; T &gt;::TRect</definition>
+        <argsstring>()</argsstring>
+        <name>TRect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="40" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_1489239c063398af121394a73f2d0cfad" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::types::TRect&lt; T &gt;::TRect</definition>
+        <argsstring>(T const &amp;_left, T const &amp;_top, T const &amp;_right, T const &amp;_bottom)</argsstring>
+        <name>TRect</name>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_right</declname>
+        </param>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_bottom</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="53" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="48" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_101511a789661b6f1b619fb54eae0edea" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::types::TRect&lt; T &gt;::TRect</definition>
+        <argsstring>(TRect const &amp;_obj)</argsstring>
+        <name>TRect</name>
+        <param>
+          <type>TRect const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="61" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="56" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_1cc346efa01da7f2a507e3402d1c74be2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TRect &amp;</type>
+        <definition>TRect&amp; MyGUI::types::TRect&lt; T &gt;::operator-=</definition>
+        <argsstring>(TRect const &amp;_obj)</argsstring>
+        <name>operator-=</name>
+        <param>
+          <type>TRect const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="65" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="64" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_17fa82248b41fc468c60c9ed94099ece1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TRect &amp;</type>
+        <definition>TRect&amp; MyGUI::types::TRect&lt; T &gt;::operator+=</definition>
+        <argsstring>(TRect const &amp;_obj)</argsstring>
+        <name>operator+=</name>
+        <param>
+          <type>TRect const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="74" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="73" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_1354d84a5e6f1f530a878772c761df288" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>TRect</type>
+        <definition>TRect MyGUI::types::TRect&lt; T &gt;::operator-</definition>
+        <argsstring>(TRect const &amp;_obj) const </argsstring>
+        <name>operator-</name>
+        <param>
+          <type>TRect const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="83" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="82" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_16099f20e8bca014a0218136f904631bf" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>TRect</type>
+        <definition>TRect MyGUI::types::TRect&lt; T &gt;::operator+</definition>
+        <argsstring>(TRect const &amp;_obj) const </argsstring>
+        <name>operator+</name>
+        <param>
+          <type>TRect const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="88" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="87" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_17198d090864abc443270867059ece93f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TRect &amp;</type>
+        <definition>TRect&amp; MyGUI::types::TRect&lt; T &gt;::operator=</definition>
+        <argsstring>(TRect const &amp;_obj)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>TRect const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="93" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="92" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_1a32d5af4859816a8ea8e006bf2b9407a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>U</declname>
+            <defname>U</defname>
+          </param>
+        </templateparamlist>
+        <type>TRect &amp;</type>
+        <definition>TRect&amp; MyGUI::types::TRect&lt; T &gt;::operator=</definition>
+        <argsstring>(TRect&lt; U &gt; const &amp;_obj)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>TRect&lt; U &gt; const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="103" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="102" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_18e270576a3d812d8ea2a3cd1cd73145d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::types::TRect&lt; T &gt;::operator==</definition>
+        <argsstring>(TRect const &amp;_obj) const </argsstring>
+        <name>operator==</name>
+        <param>
+          <type>TRect const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="112" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="111" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_1ac9e8cad43c64a45e7fde097cbea8fc4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::types::TRect&lt; T &gt;::operator!=</definition>
+        <argsstring>(TRect const &amp;_obj) const </argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>TRect const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="117" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="116" bodyend="119"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_1d344c494fb5631fea68d3ecc6ac2a97b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>T</type>
+        <definition>T MyGUI::types::TRect&lt; T &gt;::width</definition>
+        <argsstring>() const </argsstring>
+        <name>width</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="122" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="121" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_175bd29884556e5a7ce9f21ebe0a4aa07" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>T</type>
+        <definition>T MyGUI::types::TRect&lt; T &gt;::height</definition>
+        <argsstring>() const </argsstring>
+        <name>height</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="127" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="126" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_17a42b851a773b81f1b4587c03453bc38" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::types::TRect&lt; T &gt;::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="132" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="131" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_13245fa104416b5700237db1fd7c2ca0c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::types::TRect&lt; T &gt;::set</definition>
+        <argsstring>(T const &amp;_left, T const &amp;_top, T const &amp;_right, T const &amp;_bottom)</argsstring>
+        <name>set</name>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_right</declname>
+        </param>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_bottom</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="137" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="136" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_142e6e0ba03151735729bf282b19f3f19" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::types::TRect&lt; T &gt;::swap</definition>
+        <argsstring>(TRect &amp;_value)</argsstring>
+        <name>swap</name>
+        <param>
+          <type>TRect &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="145" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="144" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_1b30a4ff7e0fb53709e0922a436cfdfcf" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::types::TRect&lt; T &gt;::empty</definition>
+        <argsstring>() const </argsstring>
+        <name>empty</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="152" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="151" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_1b0c8fb9891040398597f4d689ba6c439" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::types::TRect&lt; T &gt;::inside</definition>
+        <argsstring>(const TRect&lt; T &gt; &amp;_value) const </argsstring>
+        <name>inside</name>
+        <param>
+          <type>const TRect&lt; T &gt; &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="157" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="156" bodyend="159"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_19c4385c72b391675db695040d58e4d5a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::types::TRect&lt; T &gt;::intersect</definition>
+        <argsstring>(const TRect&lt; T &gt; &amp;_value) const </argsstring>
+        <name>intersect</name>
+        <param>
+          <type>const TRect&lt; T &gt; &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="162" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="161" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_120f2184d37906e0956612c2934420815" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::types::TRect&lt; T &gt;::inside</definition>
+        <argsstring>(const TPoint&lt; T &gt; &amp;_value) const </argsstring>
+        <name>inside</name>
+        <param>
+          <type>const TPoint&lt; T &gt; &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="167" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="166" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_17053cbf3532db36a1f0a5faba82b5d32" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string MyGUI::types::TRect&lt; T &gt;::print</definition>
+        <argsstring>() const </argsstring>
+        <name>print</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="172" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="171" bodyend="176"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1types_1_1TRect_1869053f141a6ba6576ab5873be947147" prot="public" static="no" mutable="no">
+        <type>T</type>
+        <definition>T MyGUI::types::TRect&lt; T &gt;::left</definition>
+        <argsstring></argsstring>
+        <name>left</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1types_1_1TRect_1efdb09abf6eae54ef9d09d24083eb046" prot="public" static="no" mutable="no">
+        <type>T</type>
+        <definition>T MyGUI::types::TRect&lt; T &gt;::top</definition>
+        <argsstring></argsstring>
+        <name>top</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1types_1_1TRect_11679f2f87a97799e4a153fc6ff0ab796" prot="public" static="no" mutable="no">
+        <type>T</type>
+        <definition>T MyGUI::types::TRect&lt; T &gt;::right</definition>
+        <argsstring></argsstring>
+        <name>right</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1types_1_1TRect_1ba8aa2f756035199f10632a22ff0ec6a" prot="public" static="no" mutable="no">
+        <type>T</type>
+        <definition>T MyGUI::types::TRect&lt; T &gt;::bottom</definition>
+        <argsstring></argsstring>
+        <name>bottom</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TRect_1e01891db0353cd5465583ae4e21ee994" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TRect&lt; T &gt;</type>
+        <definition>static TRect&lt;T&gt; MyGUI::types::TRect&lt; T &gt;::parse</definition>
+        <argsstring>(const std::string &amp;_value)</argsstring>
+        <name>parse</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="179" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="178" bodyend="198"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="structMyGUI_1_1types_1_1TRect_12fad7368072dc8d35a5d7edd980df72a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend std::ostream &amp;</type>
+        <definition>std::ostream&amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;_stream, const TRect&lt; T &gt; &amp;_value)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>_stream</declname>
+        </param>
+        <param>
+          <type>const TRect&lt; T &gt; &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="201" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="200" bodyend="204"/>
+      </memberdef>
+      <memberdef kind="friend" id="structMyGUI_1_1types_1_1TRect_1e63eb0b6b06c3c6ccadd8e74ce829d71" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend std::istream &amp;</type>
+        <definition>std::istream&amp; operator&gt;&gt;</definition>
+        <argsstring>(std::istream &amp;_stream, TRect&lt; T &gt; &amp;_value)</argsstring>
+        <name>operator&gt;&gt;</name>
+        <param>
+          <type>std::istream &amp;</type>
+          <declname>_stream</declname>
+        </param>
+        <param>
+          <type>TRect&lt; T &gt; &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="207" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="206" bodyend="212"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="688">
+        <label>T</label>
+      </node>
+      <node id="687">
+        <label>MyGUI::types::TRect&lt; T &gt;</label>
+        <childnode refid="688" relation="usage">
+          <edgelabel>right
+left
+bottom
+top</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TRect.h" bodystart="33" bodyend="213"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1types_1_1TRect_1ba8aa2f756035199f10632a22ff0ec6a" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>bottom</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_17a42b851a773b81f1b4587c03453bc38" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>clear</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_1b30a4ff7e0fb53709e0922a436cfdfcf" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>empty</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_175bd29884556e5a7ce9f21ebe0a4aa07" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>height</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_1b0c8fb9891040398597f4d689ba6c439" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>inside</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_120f2184d37906e0956612c2934420815" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>inside</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_19c4385c72b391675db695040d58e4d5a" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>intersect</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_1869053f141a6ba6576ab5873be947147" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>left</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_1ac9e8cad43c64a45e7fde097cbea8fc4" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>operator!=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_16099f20e8bca014a0218136f904631bf" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>operator+</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_17fa82248b41fc468c60c9ed94099ece1" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>operator+=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_1354d84a5e6f1f530a878772c761df288" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>operator-</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_1cc346efa01da7f2a507e3402d1c74be2" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>operator-=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_12fad7368072dc8d35a5d7edd980df72a" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>operator&lt;&lt;</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_17198d090864abc443270867059ece93f" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>operator=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_1a32d5af4859816a8ea8e006bf2b9407a" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>operator=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_18e270576a3d812d8ea2a3cd1cd73145d" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>operator==</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_1e63eb0b6b06c3c6ccadd8e74ce829d71" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>operator&gt;&gt;</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_1e01891db0353cd5465583ae4e21ee994" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>parse</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_17053cbf3532db36a1f0a5faba82b5d32" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>print</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_11679f2f87a97799e4a153fc6ff0ab796" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>right</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_13245fa104416b5700237db1fd7c2ca0c" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>set</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_142e6e0ba03151735729bf282b19f3f19" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>swap</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_1efdb09abf6eae54ef9d09d24083eb046" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>top</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_15958bd204168f00a05602bd487479e80" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>TRect</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_1489239c063398af121394a73f2d0cfad" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>TRect</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_101511a789661b6f1b619fb54eae0edea" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>TRect</name></member>
+      <member refid="structMyGUI_1_1types_1_1TRect_1d344c494fb5631fea68d3ecc6ac2a97b" prot="public" virt="non-virtual"><scope>MyGUI::types::TRect</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

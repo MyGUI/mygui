@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1MemberObsolete_3_01ProgressBar_01_4" kind="class" prot="public">
+    <compoundname>MyGUI::MemberObsolete&lt; ProgressBar &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01ProgressBar_01_4_1aa43f8f31ba59fdecf1d260798725356" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; ProgressBar &gt;::setProgressStartPoint</definition>
+        <argsstring>(Align _value)</argsstring>
+        <name>setProgressStartPoint</name>
+        <param>
+          <type>Align</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000098"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="299"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01ProgressBar_01_4_130dc4ffa92dcea6dbde36d82676caa8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Align</type>
+        <definition>Align MyGUI::MemberObsolete&lt; ProgressBar &gt;::getProgressStartPoint</definition>
+        <argsstring>()</argsstring>
+        <name>getProgressStartPoint</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000099"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="301"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="296" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="295" bodyend="302"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01ProgressBar_01_4_130dc4ffa92dcea6dbde36d82676caa8a" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; ProgressBar &gt;</scope><name>getProgressStartPoint</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01ProgressBar_01_4_1aa43f8f31ba59fdecf1d260798725356" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; ProgressBar &gt;</scope><name>setProgressStartPoint</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

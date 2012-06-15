@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classdelegates_1_1CDelegateMYGUI__SUFFIX" kind="class" prot="public">
+    <compoundname>delegates::CDelegateMYGUI_SUFFIX</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classdelegates_1_1CDelegateMYGUI__SUFFIX_13af0c5f0880e4e07255e6706f5685596" prot="public" static="no">
+        <type>IDelegateMYGUI_SUFFIX MYGUI_TEMPLATE_ARGS</type>
+        <definition>typedef IDelegateMYGUI_SUFFIX MYGUI_TEMPLATE_ARGS delegates::CDelegateMYGUI_SUFFIX::IDelegate</definition>
+        <argsstring></argsstring>
+        <name>IDelegate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="171" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classdelegates_1_1CDelegateMYGUI__SUFFIX_1edf7f3bd0950386141644056c8fb1653" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>delegates::CDelegateMYGUI_SUFFIX::CDelegateMYGUI_SUFFIX</definition>
+        <argsstring>()</argsstring>
+        <name>CDelegateMYGUI_SUFFIX</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="173" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="173" bodyend="173"/>
+      </memberdef>
+      <memberdef kind="function" id="classdelegates_1_1CDelegateMYGUI__SUFFIX_126288a361a76f95ad7469073e36c0c74" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>delegates::CDelegateMYGUI_SUFFIX::CDelegateMYGUI_SUFFIX</definition>
+        <argsstring>(const CDelegateMYGUI_SUFFIX MYGUI_TEMPLATE_ARGS &amp;_event)</argsstring>
+        <name>CDelegateMYGUI_SUFFIX</name>
+        <param>
+          <type>const CDelegateMYGUI_SUFFIX MYGUI_TEMPLATE_ARGS &amp;</type>
+          <declname>_event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="175" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="174" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="function" id="classdelegates_1_1CDelegateMYGUI__SUFFIX_1b3c691a7f7d9d2b8dfe6768dd034c5d7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>delegates::CDelegateMYGUI_SUFFIX::~CDelegateMYGUI_SUFFIX</definition>
+        <argsstring>()</argsstring>
+        <name>~CDelegateMYGUI_SUFFIX</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="186" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="185" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="function" id="classdelegates_1_1CDelegateMYGUI__SUFFIX_1f8d894b993e9e2f92114827b416f7422" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool delegates::CDelegateMYGUI_SUFFIX::empty</definition>
+        <argsstring>() const </argsstring>
+        <name>empty</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="191" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="190" bodyend="193"/>
+      </memberdef>
+      <memberdef kind="function" id="classdelegates_1_1CDelegateMYGUI__SUFFIX_19aef3faaad977026aa7dc3f5c346d933" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void delegates::CDelegateMYGUI_SUFFIX::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="196" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="195" bodyend="202"/>
+      </memberdef>
+      <memberdef kind="function" id="classdelegates_1_1CDelegateMYGUI__SUFFIX_15eca7a8224536b8e56c1029ad197e035" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>CDelegateMYGUI_SUFFIX MYGUI_TEMPLATE_ARGS &amp;</type>
+        <definition>CDelegateMYGUI_SUFFIX MYGUI_TEMPLATE_ARGS&amp; delegates::CDelegateMYGUI_SUFFIX::operator=</definition>
+        <argsstring>(IDelegate *_delegate)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>IDelegate *</type>
+          <declname>_delegate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="205" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="204" bodyend="209"/>
+      </memberdef>
+      <memberdef kind="function" id="classdelegates_1_1CDelegateMYGUI__SUFFIX_12b11a57ca916076bb5945612a23f041d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>CDelegateMYGUI_SUFFIX MYGUI_TEMPLATE_ARGS &amp;</type>
+        <definition>CDelegateMYGUI_SUFFIX MYGUI_TEMPLATE_ARGS&amp; delegates::CDelegateMYGUI_SUFFIX::operator=</definition>
+        <argsstring>(const CDelegateMYGUI_SUFFIX MYGUI_TEMPLATE_ARGS &amp;_event)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const CDelegateMYGUI_SUFFIX MYGUI_TEMPLATE_ARGS &amp;</type>
+          <declname>_event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="212" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="211" bodyend="223"/>
+      </memberdef>
+      <memberdef kind="function" id="classdelegates_1_1CDelegateMYGUI__SUFFIX_1f14505cb9e1e915b6b74803d78600990" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void delegates::CDelegateMYGUI_SUFFIX::operator()</definition>
+        <argsstring>(MYGUI_PARAMS)</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>MYGUI_PARAMS</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="226" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="225" bodyend="229"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classdelegates_1_1CDelegateMYGUI__SUFFIX_1ee62248b522a9c93c567d2331138e813" prot="private" static="no" mutable="no">
+        <type>IDelegate *</type>
+        <definition>IDelegate* delegates::CDelegateMYGUI_SUFFIX::mDelegate</definition>
+        <argsstring></argsstring>
+        <name>mDelegate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="232" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="232" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" line="169" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DelegateImplement.h" bodystart="168" bodyend="233"/>
+    <listofallmembers>
+      <member refid="classdelegates_1_1CDelegateMYGUI__SUFFIX_1edf7f3bd0950386141644056c8fb1653" prot="public" virt="non-virtual"><scope>delegates::CDelegateMYGUI_SUFFIX</scope><name>CDelegateMYGUI_SUFFIX</name></member>
+      <member refid="classdelegates_1_1CDelegateMYGUI__SUFFIX_126288a361a76f95ad7469073e36c0c74" prot="public" virt="non-virtual"><scope>delegates::CDelegateMYGUI_SUFFIX</scope><name>CDelegateMYGUI_SUFFIX</name></member>
+      <member refid="classdelegates_1_1CDelegateMYGUI__SUFFIX_19aef3faaad977026aa7dc3f5c346d933" prot="public" virt="non-virtual"><scope>delegates::CDelegateMYGUI_SUFFIX</scope><name>clear</name></member>
+      <member refid="classdelegates_1_1CDelegateMYGUI__SUFFIX_1f8d894b993e9e2f92114827b416f7422" prot="public" virt="non-virtual"><scope>delegates::CDelegateMYGUI_SUFFIX</scope><name>empty</name></member>
+      <member refid="classdelegates_1_1CDelegateMYGUI__SUFFIX_13af0c5f0880e4e07255e6706f5685596" prot="public" virt="non-virtual"><scope>delegates::CDelegateMYGUI_SUFFIX</scope><name>IDelegate</name></member>
+      <member refid="classdelegates_1_1CDelegateMYGUI__SUFFIX_1ee62248b522a9c93c567d2331138e813" prot="private" virt="non-virtual"><scope>delegates::CDelegateMYGUI_SUFFIX</scope><name>mDelegate</name></member>
+      <member refid="classdelegates_1_1CDelegateMYGUI__SUFFIX_1f14505cb9e1e915b6b74803d78600990" prot="public" virt="non-virtual"><scope>delegates::CDelegateMYGUI_SUFFIX</scope><name>operator()</name></member>
+      <member refid="classdelegates_1_1CDelegateMYGUI__SUFFIX_15eca7a8224536b8e56c1029ad197e035" prot="public" virt="non-virtual"><scope>delegates::CDelegateMYGUI_SUFFIX</scope><name>operator=</name></member>
+      <member refid="classdelegates_1_1CDelegateMYGUI__SUFFIX_12b11a57ca916076bb5945612a23f041d" prot="public" virt="non-virtual"><scope>delegates::CDelegateMYGUI_SUFFIX</scope><name>operator=</name></member>
+      <member refid="classdelegates_1_1CDelegateMYGUI__SUFFIX_1b3c691a7f7d9d2b8dfe6768dd034c5d7" prot="public" virt="non-virtual"><scope>delegates::CDelegateMYGUI_SUFFIX</scope><name>~CDelegateMYGUI_SUFFIX</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

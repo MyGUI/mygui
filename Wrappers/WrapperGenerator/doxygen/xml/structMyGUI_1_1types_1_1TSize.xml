@@ -1,0 +1,417 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1types_1_1TSize" kind="struct" prot="public">
+    <compoundname>MyGUI::types::TSize</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>T</declname>
+        <defname>T</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TSize_1a0bcdb6ec2df3957d5f66f1f3103611c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::types::TSize&lt; T &gt;::TSize</definition>
+        <argsstring>()</argsstring>
+        <name>TSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="38" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TSize_192868faebb7d8e0ae9277bab1fd171ae" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::types::TSize&lt; T &gt;::TSize</definition>
+        <argsstring>(T const &amp;_width, T const &amp;_height)</argsstring>
+        <name>TSize</name>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="47" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="44" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TSize_135fd038c899bad740074150c7169fca9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::types::TSize&lt; T &gt;::TSize</definition>
+        <argsstring>(TSize const &amp;_obj)</argsstring>
+        <name>TSize</name>
+        <param>
+          <type>TSize const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="53" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="50" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TSize_1bdec4b371faffa26143d5dafb1371c37" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TSize &amp;</type>
+        <definition>TSize&amp; MyGUI::types::TSize&lt; T &gt;::operator-=</definition>
+        <argsstring>(TSize const &amp;_obj)</argsstring>
+        <name>operator-=</name>
+        <param>
+          <type>TSize const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="57" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="56" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TSize_1bf5bbc05819b5106e657312356a3657f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TSize &amp;</type>
+        <definition>TSize&amp; MyGUI::types::TSize&lt; T &gt;::operator+=</definition>
+        <argsstring>(TSize const &amp;_obj)</argsstring>
+        <name>operator+=</name>
+        <param>
+          <type>TSize const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="64" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="63" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TSize_12f4a3e4d75256968563874dad2401c2c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>TSize</type>
+        <definition>TSize MyGUI::types::TSize&lt; T &gt;::operator-</definition>
+        <argsstring>(TSize const &amp;_obj) const </argsstring>
+        <name>operator-</name>
+        <param>
+          <type>TSize const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="71" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="70" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TSize_1126d9052df79d22f600fcb14882af4ee" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>TSize</type>
+        <definition>TSize MyGUI::types::TSize&lt; T &gt;::operator+</definition>
+        <argsstring>(TSize const &amp;_obj) const </argsstring>
+        <name>operator+</name>
+        <param>
+          <type>TSize const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="76" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="75" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TSize_144a0f5bbe4a78cda7b7147c13d08159c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TSize &amp;</type>
+        <definition>TSize&amp; MyGUI::types::TSize&lt; T &gt;::operator=</definition>
+        <argsstring>(TSize const &amp;_obj)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>TSize const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="81" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="80" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TSize_18daa02cbd6678af7b37aade0c612ca39" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>U</declname>
+            <defname>U</defname>
+          </param>
+        </templateparamlist>
+        <type>TSize &amp;</type>
+        <definition>TSize&amp; MyGUI::types::TSize&lt; T &gt;::operator=</definition>
+        <argsstring>(TSize&lt; U &gt; const &amp;_obj)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>TSize&lt; U &gt; const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="89" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="88" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TSize_13123f73f7d77dc15277d5aef1ff6f19a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::types::TSize&lt; T &gt;::operator==</definition>
+        <argsstring>(TSize const &amp;_obj) const </argsstring>
+        <name>operator==</name>
+        <param>
+          <type>TSize const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="96" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="95" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TSize_19a459391b666508fee3d82559b43466a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::types::TSize&lt; T &gt;::operator!=</definition>
+        <argsstring>(TSize const &amp;_obj) const </argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>TSize const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="101" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="100" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TSize_1cf955042e912c81189549dfa7ae2ed5e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::types::TSize&lt; T &gt;::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="106" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="105" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TSize_1cb24dd5166c1ff62904f61223e7b12a7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::types::TSize&lt; T &gt;::set</definition>
+        <argsstring>(T const &amp;_width, T const &amp;_height)</argsstring>
+        <name>set</name>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="111" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="110" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TSize_1eb852034b96e18dc071bd44cded5c63b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::types::TSize&lt; T &gt;::swap</definition>
+        <argsstring>(TSize &amp;_value)</argsstring>
+        <name>swap</name>
+        <param>
+          <type>TSize &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="117" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="116" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TSize_164d51e0a1bd1ca6299515bbfaa718bec" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::types::TSize&lt; T &gt;::empty</definition>
+        <argsstring>() const </argsstring>
+        <name>empty</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="124" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="123" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TSize_1e5de2fd928e2bed07d7911875f0ecbde" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string MyGUI::types::TSize&lt; T &gt;::print</definition>
+        <argsstring>() const </argsstring>
+        <name>print</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="129" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="128" bodyend="133"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1types_1_1TSize_102ca00ab866d1905d05d0ba7555a667d" prot="public" static="no" mutable="no">
+        <type>T</type>
+        <definition>T MyGUI::types::TSize&lt; T &gt;::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1types_1_1TSize_18a1d35034229c32f6c3d1869db19f3e1" prot="public" static="no" mutable="no">
+        <type>T</type>
+        <definition>T MyGUI::types::TSize&lt; T &gt;::height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TSize_1bced9f16bf31710d4a054027857f6e2a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TSize&lt; T &gt;</type>
+        <definition>static TSize&lt;T&gt; MyGUI::types::TSize&lt; T &gt;::parse</definition>
+        <argsstring>(const std::string &amp;_value)</argsstring>
+        <name>parse</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="136" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="135" bodyend="155"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="structMyGUI_1_1types_1_1TSize_1569dafd50c80668e0101b7bd1db6d956" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend std::ostream &amp;</type>
+        <definition>std::ostream&amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;_stream, const TSize&lt; T &gt; &amp;_value)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>_stream</declname>
+        </param>
+        <param>
+          <type>const TSize&lt; T &gt; &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="158" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="157" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="friend" id="structMyGUI_1_1types_1_1TSize_1bed1684408203dace0dba2515e0bc05a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend std::istream &amp;</type>
+        <definition>std::istream&amp; operator&gt;&gt;</definition>
+        <argsstring>(std::istream &amp;_stream, TSize&lt; T &gt; &amp;_value)</argsstring>
+        <name>operator&gt;&gt;</name>
+        <param>
+          <type>std::istream &amp;</type>
+          <declname>_stream</declname>
+        </param>
+        <param>
+          <type>TSize&lt; T &gt; &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="164" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="163" bodyend="169"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="691">
+        <label>T</label>
+      </node>
+      <node id="690">
+        <label>MyGUI::types::TSize&lt; T &gt;</label>
+        <childnode refid="691" relation="usage">
+          <edgelabel>width
+height</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TSize.h" bodystart="33" bodyend="170"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1types_1_1TSize_1cf955042e912c81189549dfa7ae2ed5e" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>clear</name></member>
+      <member refid="structMyGUI_1_1types_1_1TSize_164d51e0a1bd1ca6299515bbfaa718bec" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>empty</name></member>
+      <member refid="structMyGUI_1_1types_1_1TSize_18a1d35034229c32f6c3d1869db19f3e1" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>height</name></member>
+      <member refid="structMyGUI_1_1types_1_1TSize_19a459391b666508fee3d82559b43466a" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>operator!=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TSize_1126d9052df79d22f600fcb14882af4ee" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>operator+</name></member>
+      <member refid="structMyGUI_1_1types_1_1TSize_1bf5bbc05819b5106e657312356a3657f" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>operator+=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TSize_12f4a3e4d75256968563874dad2401c2c" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>operator-</name></member>
+      <member refid="structMyGUI_1_1types_1_1TSize_1bdec4b371faffa26143d5dafb1371c37" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>operator-=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TSize_1569dafd50c80668e0101b7bd1db6d956" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>operator&lt;&lt;</name></member>
+      <member refid="structMyGUI_1_1types_1_1TSize_144a0f5bbe4a78cda7b7147c13d08159c" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>operator=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TSize_18daa02cbd6678af7b37aade0c612ca39" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>operator=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TSize_13123f73f7d77dc15277d5aef1ff6f19a" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>operator==</name></member>
+      <member refid="structMyGUI_1_1types_1_1TSize_1bed1684408203dace0dba2515e0bc05a" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>operator&gt;&gt;</name></member>
+      <member refid="structMyGUI_1_1types_1_1TSize_1bced9f16bf31710d4a054027857f6e2a" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>parse</name></member>
+      <member refid="structMyGUI_1_1types_1_1TSize_1e5de2fd928e2bed07d7911875f0ecbde" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>print</name></member>
+      <member refid="structMyGUI_1_1types_1_1TSize_1cb24dd5166c1ff62904f61223e7b12a7" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>set</name></member>
+      <member refid="structMyGUI_1_1types_1_1TSize_1eb852034b96e18dc071bd44cded5c63b" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>swap</name></member>
+      <member refid="structMyGUI_1_1types_1_1TSize_1a0bcdb6ec2df3957d5f66f1f3103611c" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>TSize</name></member>
+      <member refid="structMyGUI_1_1types_1_1TSize_192868faebb7d8e0ae9277bab1fd171ae" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>TSize</name></member>
+      <member refid="structMyGUI_1_1types_1_1TSize_135fd038c899bad740074150c7169fca9" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>TSize</name></member>
+      <member refid="structMyGUI_1_1types_1_1TSize_102ca00ab866d1905d05d0ba7555a667d" prot="public" virt="non-virtual"><scope>MyGUI::types::TSize</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

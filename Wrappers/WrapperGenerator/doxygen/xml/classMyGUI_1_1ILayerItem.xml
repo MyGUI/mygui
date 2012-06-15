@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1ILayerItem" kind="class" prot="public">
+    <compoundname>MyGUI::ILayerItem</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1ILayerItem_18f05b429c402a94b666bfffee2ef3ed5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::ILayerItem::~ILayerItem</definition>
+        <argsstring>()</argsstring>
+        <name>~ILayerItem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerItem.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerItem.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerItem_1894e63498528539df7d47c2872b2a773" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>ILayerItem *</type>
+        <definition>virtual ILayerItem* MyGUI::ILayerItem::getLayerItemByPoint</definition>
+        <argsstring>(int _left, int _top) const =0</argsstring>
+        <name>getLayerItemByPoint</name>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerItem.h" line="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerItem_1ce334fc9eb14a442b2cca6d26365ae00" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>const IntCoord &amp;</type>
+        <definition>virtual const IntCoord&amp; MyGUI::ILayerItem::getLayerItemCoord</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getLayerItemCoord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerItem.h" line="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerItem_13add1a07dd0be37d414347c30874f7c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ILayerItem::resizeLayerItemView</definition>
+        <argsstring>(const IntSize &amp;_oldView, const IntSize &amp;_newView)=0</argsstring>
+        <name>resizeLayerItemView</name>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_oldView</declname>
+        </param>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_newView</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerItem.h" line="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerItem_1029014a52c5947fba8488ea575ab3083" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ILayerItem::attachItemToNode</definition>
+        <argsstring>(ILayer *_layer, ILayerNode *_node)=0</argsstring>
+        <name>attachItemToNode</name>
+        <param>
+          <type>ILayer *</type>
+          <declname>_layer</declname>
+        </param>
+        <param>
+          <type>ILayerNode *</type>
+          <declname>_node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerItem.h" line="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerItem_134faa314f75ab36221da19278e12963b" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ILayerItem::detachFromLayer</definition>
+        <argsstring>()=0</argsstring>
+        <name>detachFromLayer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerItem.h" line="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerItem_19e9e700048d4b9572f8f7b9d3b89d958" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ILayerItem::upLayerItem</definition>
+        <argsstring>()=0</argsstring>
+        <name>upLayerItem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerItem.h" line="45"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerItem.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerItem.h" bodystart="33" bodyend="46"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1ILayerItem_1029014a52c5947fba8488ea575ab3083" prot="public" virt="pure-virtual"><scope>MyGUI::ILayerItem</scope><name>attachItemToNode</name></member>
+      <member refid="classMyGUI_1_1ILayerItem_134faa314f75ab36221da19278e12963b" prot="public" virt="pure-virtual"><scope>MyGUI::ILayerItem</scope><name>detachFromLayer</name></member>
+      <member refid="classMyGUI_1_1ILayerItem_1894e63498528539df7d47c2872b2a773" prot="public" virt="pure-virtual"><scope>MyGUI::ILayerItem</scope><name>getLayerItemByPoint</name></member>
+      <member refid="classMyGUI_1_1ILayerItem_1ce334fc9eb14a442b2cca6d26365ae00" prot="public" virt="pure-virtual"><scope>MyGUI::ILayerItem</scope><name>getLayerItemCoord</name></member>
+      <member refid="classMyGUI_1_1ILayerItem_13add1a07dd0be37d414347c30874f7c2" prot="public" virt="pure-virtual"><scope>MyGUI::ILayerItem</scope><name>resizeLayerItemView</name></member>
+      <member refid="classMyGUI_1_1ILayerItem_19e9e700048d4b9572f8f7b9d3b89d958" prot="public" virt="pure-virtual"><scope>MyGUI::ILayerItem</scope><name>upLayerItem</name></member>
+      <member refid="classMyGUI_1_1ILayerItem_18f05b429c402a94b666bfffee2ef3ed5" prot="public" virt="virtual"><scope>MyGUI::ILayerItem</scope><name>~ILayerItem</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

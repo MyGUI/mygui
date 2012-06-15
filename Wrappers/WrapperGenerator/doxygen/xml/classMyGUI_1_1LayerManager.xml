@@ -1,0 +1,419 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1LayerManager" kind="class" prot="public">
+    <compoundname>MyGUI::LayerManager</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1LayerManager_1ea4fd9dd1936bca7b434ef9bd205e9b4" prot="public" static="no">
+        <type>std::vector&lt; ILayer * &gt;</type>
+        <definition>typedef std::vector&lt;ILayer*&gt; MyGUI::LayerManager::VectorLayer</definition>
+        <argsstring></argsstring>
+        <name>VectorLayer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1LayerManager_19bb1a53e4ac04306ef7ded69a0bdcb00" prot="public" static="no">
+        <type>Enumerator&lt; VectorLayer &gt;</type>
+        <definition>typedef Enumerator&lt;VectorLayer&gt; MyGUI::LayerManager::EnumeratorLayer</definition>
+        <argsstring></argsstring>
+        <name>EnumeratorLayer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="44" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1LayerManager_10833d19e859419e6e6a9f899a8d28e71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::LayerManager::LayerManager</definition>
+        <argsstring>()</argsstring>
+        <name>LayerManager</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LayerManager_1ecbabe57fa946ad980676e9c6209e345" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LayerManager::initialise</definition>
+        <argsstring>()</argsstring>
+        <name>initialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LayerManager_18a5640878007adf1cadfd06f9e2a692e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LayerManager::shutdown</definition>
+        <argsstring>()</argsstring>
+        <name>shutdown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LayerManager_1f0ca0a039bbae8ffc9f9ce72666a070a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LayerManager::attachToLayerNode</definition>
+        <argsstring>(const std::string &amp;_name, Widget *_item)</argsstring>
+        <name>attachToLayerNode</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_item</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Attach widget to specific layer <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Layer name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_item</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> pointer </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LayerManager_10d5c52fdd484f1bfe245a671b4ee7edd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LayerManager::detachFromLayer</definition>
+        <argsstring>(Widget *_item)</argsstring>
+        <name>detachFromLayer</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_item</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Detach widget from layer <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_item</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> pointer </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LayerManager_111f7e6bc3862566d4712cdbce735647d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LayerManager::upLayerItem</definition>
+        <argsstring>(Widget *_item)</argsstring>
+        <name>upLayerItem</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_item</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Up widget to be on top of its layer <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_item</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> pointer </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="65"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LayerManager_15287f58545af79b564f23e8f011e034f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::LayerManager::isExist</definition>
+        <argsstring>(const std::string &amp;_name) const </argsstring>
+        <name>isExist</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Check is layer exist </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="68"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LayerManager_118a65232edb70fe73601bf665512ca39" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>EnumeratorLayer</type>
+        <definition>EnumeratorLayer MyGUI::LayerManager::getEnumerator</definition>
+        <argsstring>() const </argsstring>
+        <name>getEnumerator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get layer nodes Enumerator </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LayerManager_15c9ee589a1216f908c0138a406e3cf1e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>ILayer *</type>
+        <definition>ILayer* MyGUI::LayerManager::getByName</definition>
+        <argsstring>(const std::string &amp;_name, bool _throw=true) const </argsstring>
+        <name>getByName</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_throw</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get layer by name </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LayerManager_1bc51c04fc43c86d7dc7027849940211c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::LayerManager::getWidgetFromPoint</definition>
+        <argsstring>(int _left, int _top)</argsstring>
+        <name>getWidgetFromPoint</name>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get top visible and enabled widget at specified position </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="76"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LayerManager_17439f5604afca57ed5e9eead3e98b886" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LayerManager::renderToTarget</definition>
+        <argsstring>(IRenderTarget *_target, bool _update)</argsstring>
+        <name>renderToTarget</name>
+        <param>
+          <type>IRenderTarget *</type>
+          <declname>_target</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_update</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Render all layers to specified target </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="79"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LayerManager_1c89a12ba47507628cbd21b0631f3ec67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LayerManager::resizeView</definition>
+        <argsstring>(const IntSize &amp;_viewSize)</argsstring>
+        <name>resizeView</name>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_viewSize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="81"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1LayerManager_1cbd75c1bfa583ea0582485ba59c8feaa" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LayerManager::_load</definition>
+        <argsstring>(xml::ElementPtr _node, const std::string &amp;_file, Version _version)</argsstring>
+        <name>_load</name>
+        <param>
+          <type>xml::ElementPtr</type>
+          <declname>_node</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_file</declname>
+        </param>
+        <param>
+          <type>Version</type>
+          <declname>_version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="84"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LayerManager_1edab19f2dfe7680b46e99d28a3fdec1d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LayerManager::_unlinkWidget</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>_unlinkWidget</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LayerManager_1e0cef8c8eb798ed15d533ada0908053f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LayerManager::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="87"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LayerManager_1f53d7e5187cb7c2534553814631a8f0a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LayerManager::merge</definition>
+        <argsstring>(VectorLayer &amp;_layers)</argsstring>
+        <name>merge</name>
+        <param>
+          <type>VectorLayer &amp;</type>
+          <declname>_layers</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="89"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LayerManager_128e9251c7c2fd0fd5f5812f30e28979a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LayerManager::destroy</definition>
+        <argsstring>(ILayer *_layer)</argsstring>
+        <name>destroy</name>
+        <param>
+          <type>ILayer *</type>
+          <declname>_layer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="90"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1LayerManager_1b5e8546dff6f2c3e7c3379709aa6db1f" prot="private" static="no" mutable="no">
+        <type>VectorLayer</type>
+        <definition>VectorLayer MyGUI::LayerManager::mLayerNodes</definition>
+        <argsstring></argsstring>
+        <name>mLayerNodes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="93" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1LayerManager_161d222e9321ffd8dac55ec4501911f3e" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::LayerManager::mIsInitialise</definition>
+        <argsstring></argsstring>
+        <name>mIsInitialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="95" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerManager.h" bodystart="37" bodyend="96"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1LayerManager_1cbd75c1bfa583ea0582485ba59c8feaa" prot="private" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>_load</name></member>
+      <member refid="classMyGUI_1_1LayerManager_1edab19f2dfe7680b46e99d28a3fdec1d" prot="private" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>_unlinkWidget</name></member>
+      <member refid="classMyGUI_1_1LayerManager_1f0ca0a039bbae8ffc9f9ce72666a070a" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>attachToLayerNode</name></member>
+      <member refid="classMyGUI_1_1LayerManager_1e0cef8c8eb798ed15d533ada0908053f" prot="private" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>clear</name></member>
+      <member refid="classMyGUI_1_1LayerManager_128e9251c7c2fd0fd5f5812f30e28979a" prot="private" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>destroy</name></member>
+      <member refid="classMyGUI_1_1LayerManager_10d5c52fdd484f1bfe245a671b4ee7edd" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>detachFromLayer</name></member>
+      <member refid="classMyGUI_1_1LayerManager_19bb1a53e4ac04306ef7ded69a0bdcb00" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>EnumeratorLayer</name></member>
+      <member refid="classMyGUI_1_1LayerManager_15c9ee589a1216f908c0138a406e3cf1e" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>getByName</name></member>
+      <member refid="classMyGUI_1_1LayerManager_118a65232edb70fe73601bf665512ca39" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>getEnumerator</name></member>
+      <member refid="classMyGUI_1_1LayerManager_1bc51c04fc43c86d7dc7027849940211c" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>getWidgetFromPoint</name></member>
+      <member refid="classMyGUI_1_1LayerManager_1ecbabe57fa946ad980676e9c6209e345" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>initialise</name></member>
+      <member refid="classMyGUI_1_1LayerManager_15287f58545af79b564f23e8f011e034f" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>isExist</name></member>
+      <member refid="classMyGUI_1_1LayerManager_10833d19e859419e6e6a9f899a8d28e71" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>LayerManager</name></member>
+      <member refid="classMyGUI_1_1LayerManager_1f53d7e5187cb7c2534553814631a8f0a" prot="private" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>merge</name></member>
+      <member refid="classMyGUI_1_1LayerManager_161d222e9321ffd8dac55ec4501911f3e" prot="private" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>mIsInitialise</name></member>
+      <member refid="classMyGUI_1_1LayerManager_1b5e8546dff6f2c3e7c3379709aa6db1f" prot="private" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>mLayerNodes</name></member>
+      <member refid="classMyGUI_1_1LayerManager_17439f5604afca57ed5e9eead3e98b886" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>renderToTarget</name></member>
+      <member refid="classMyGUI_1_1LayerManager_1c89a12ba47507628cbd21b0631f3ec67" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>resizeView</name></member>
+      <member refid="classMyGUI_1_1LayerManager_18a5640878007adf1cadfd06f9e2a692e" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>shutdown</name></member>
+      <member refid="classMyGUI_1_1LayerManager_111f7e6bc3862566d4712cdbce735647d" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>upLayerItem</name></member>
+      <member refid="classMyGUI_1_1LayerManager_1ea4fd9dd1936bca7b434ef9bd205e9b4" prot="public" virt="non-virtual"><scope>MyGUI::LayerManager</scope><name>VectorLayer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

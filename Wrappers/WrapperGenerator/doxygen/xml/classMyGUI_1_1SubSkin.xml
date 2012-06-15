@@ -1,0 +1,456 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1SubSkin" kind="class" prot="public">
+    <compoundname>MyGUI::SubSkin</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1SubSkin_160a80f3677a1d535d3a9f7210a27eccf" prot="public" static="no">
+        <type>RTTIBase</type>
+        <definition>typedef RTTIBase MyGUI::SubSkin::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1SubSkin_1333d8fc1a3e6c338738e09e38d4bdf77" prot="public" static="no">
+        <type>SubSkin</type>
+        <definition>typedef SubSkin MyGUI::SubSkin::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1SubSkin_19aec242582ff0bae25ae05ab86448a81" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::SubSkin::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" bodystart="41" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SubSkin_17755ea5e62f2352e5ec9b6884bd1c581" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::SubSkin::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" bodystart="41" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SubSkin_163060a1a11c72a69e46a0de7ebf185ee" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::SubSkin::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" bodystart="41" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SubSkin_1ae1f39ae3c0554a55217977989677efd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::SubSkin::SubSkin</definition>
+        <argsstring>()</argsstring>
+        <name>SubSkin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SubSkin_1d612abf5e058b9dff3c07a9334aac05a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::SubSkin::~SubSkin</definition>
+        <argsstring>()</argsstring>
+        <name>~SubSkin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SubSkin_126a1d41b17651c03f68266413af38117" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::SubSkin::setAlpha</definition>
+        <argsstring>(float _alpha)</argsstring>
+        <name>setAlpha</name>
+        <param>
+          <type>float</type>
+          <declname>_alpha</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SubSkin_17e3cc62ff9c0fec36b500e567383788f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::SubSkin::setVisible</definition>
+        <argsstring>(bool _visible)</argsstring>
+        <name>setVisible</name>
+        <param>
+          <type>bool</type>
+          <declname>_visible</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SubSkin_16f98f226bfd6b805d5d955a6c7cbd7e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::SubSkin::setStateData</definition>
+        <argsstring>(IStateInfo *_data)</argsstring>
+        <name>setStateData</name>
+        <param>
+          <type>IStateInfo *</type>
+          <declname>_data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SubSkin_108997a50abb1e07e9ed384a8e4186f81" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::SubSkin::createDrawItem</definition>
+        <argsstring>(ITexture *_texture, ILayerNode *_node)</argsstring>
+        <name>createDrawItem</name>
+        <param>
+          <type>ITexture *</type>
+          <declname>_texture</declname>
+        </param>
+        <param>
+          <type>ILayerNode *</type>
+          <declname>_node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SubSkin_160bdcd746d85b97dd0e247a335412bc9" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::SubSkin::destroyDrawItem</definition>
+        <argsstring>()</argsstring>
+        <name>destroyDrawItem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SubSkin_1312adb75f78f63cb2599dc1808224437" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::SubSkin::doRender</definition>
+        <argsstring>()</argsstring>
+        <name>doRender</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SubSkin_1f853f15b052ed2607eb81aefa8bfa9af" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::SubSkin::_updateView</definition>
+        <argsstring>()</argsstring>
+        <name>_updateView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SubSkin_128cc6ac1d4dffaa63586e309123c77e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::SubSkin::_correctView</definition>
+        <argsstring>()</argsstring>
+        <name>_correctView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SubSkin_11ad8f69b82743d2127a1b074201d116b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::SubSkin::_setAlign</definition>
+        <argsstring>(const IntSize &amp;_oldsize)</argsstring>
+        <name>_setAlign</name>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_oldsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SubSkin_1ce52f45cbf79fc1279d49e281f9e9162" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::SubSkin::_setUVSet</definition>
+        <argsstring>(const FloatRect &amp;_rect)</argsstring>
+        <name>_setUVSet</name>
+        <param>
+          <type>const FloatRect &amp;</type>
+          <declname>_rect</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="65"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SubSkin_1fda722e5452611d9ad8f00bb58559145" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::SubSkin::_setColour</definition>
+        <argsstring>(const Colour &amp;_value)</argsstring>
+        <name>_setColour</name>
+        <param>
+          <type>const Colour &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="66"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1SubSkin_1a05e48b55390ab1cf110e56da82c1c27" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::SubSkin::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" bodystart="41" bodyend="41"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1SubSkin_1e5cea0dd729f5233069c67fbdd67cc0f" prot="protected" static="no" mutable="no">
+        <type>FloatRect</type>
+        <definition>FloatRect MyGUI::SubSkin::mRectTexture</definition>
+        <argsstring></argsstring>
+        <name>mRectTexture</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="69" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1SubSkin_13d4cee3e51a075c3a6b587ee9a615e11" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::SubSkin::mEmptyView</definition>
+        <argsstring></argsstring>
+        <name>mEmptyView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="70" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1SubSkin_15cd85d23e2357f6eca3850f492bf9dda" prot="protected" static="no" mutable="no">
+        <type>VertexColourType</type>
+        <definition>VertexColourType MyGUI::SubSkin::mVertexFormat</definition>
+        <argsstring></argsstring>
+        <name>mVertexFormat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="72" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1SubSkin_1f4aacdae35229c2dc4b2599add19b4d2" prot="protected" static="no" mutable="no">
+        <type>uint32</type>
+        <definition>uint32 MyGUI::SubSkin::mCurrentColour</definition>
+        <argsstring></argsstring>
+        <name>mCurrentColour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="73" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1SubSkin_13b7b3257183ace6fecb8718fe0a7ecc8" prot="protected" static="no" mutable="no">
+        <type>FloatRect</type>
+        <definition>FloatRect MyGUI::SubSkin::mCurrentTexture</definition>
+        <argsstring></argsstring>
+        <name>mCurrentTexture</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="75" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1SubSkin_144bf000246b8a4a5070417025e9c4f9c" prot="protected" static="no" mutable="no">
+        <type>IntCoord</type>
+        <definition>IntCoord MyGUI::SubSkin::mCurrentCoord</definition>
+        <argsstring></argsstring>
+        <name>mCurrentCoord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="76" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1SubSkin_15490bda55e66cadc629ba92ea0edf570" prot="protected" static="no" mutable="no">
+        <type>ILayerNode *</type>
+        <definition>ILayerNode* MyGUI::SubSkin::mNode</definition>
+        <argsstring></argsstring>
+        <name>mNode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="78" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1SubSkin_1dd1b811fadaa01d2aef578ea61e9039a" prot="protected" static="no" mutable="no">
+        <type>RenderItem *</type>
+        <definition>RenderItem* MyGUI::SubSkin::mRenderItem</definition>
+        <argsstring></argsstring>
+        <name>mRenderItem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="79" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1SubSkin_1265205cc739c6d391006cca20d1793c4" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::SubSkin::mSeparate</definition>
+        <argsstring></argsstring>
+        <name>mSeparate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="81" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubSkin.h" bodystart="38" bodyend="82"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1SubSkin_128cc6ac1d4dffaa63586e309123c77e4" prot="public" virt="virtual"><scope>MyGUI::SubSkin</scope><name>_correctView</name></member>
+      <member refid="classMyGUI_1_1SubSkin_11ad8f69b82743d2127a1b074201d116b" prot="public" virt="virtual"><scope>MyGUI::SubSkin</scope><name>_setAlign</name></member>
+      <member refid="classMyGUI_1_1SubSkin_1fda722e5452611d9ad8f00bb58559145" prot="public" virt="virtual"><scope>MyGUI::SubSkin</scope><name>_setColour</name></member>
+      <member refid="classMyGUI_1_1SubSkin_1ce52f45cbf79fc1279d49e281f9e9162" prot="public" virt="virtual"><scope>MyGUI::SubSkin</scope><name>_setUVSet</name></member>
+      <member refid="classMyGUI_1_1SubSkin_1f853f15b052ed2607eb81aefa8bfa9af" prot="public" virt="virtual"><scope>MyGUI::SubSkin</scope><name>_updateView</name></member>
+      <member refid="classMyGUI_1_1SubSkin_160a80f3677a1d535d3a9f7210a27eccf" prot="public" virt="non-virtual"><scope>MyGUI::SubSkin</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1SubSkin_108997a50abb1e07e9ed384a8e4186f81" prot="public" virt="virtual"><scope>MyGUI::SubSkin</scope><name>createDrawItem</name></member>
+      <member refid="classMyGUI_1_1SubSkin_160bdcd746d85b97dd0e247a335412bc9" prot="public" virt="virtual"><scope>MyGUI::SubSkin</scope><name>destroyDrawItem</name></member>
+      <member refid="classMyGUI_1_1SubSkin_1312adb75f78f63cb2599dc1808224437" prot="public" virt="virtual"><scope>MyGUI::SubSkin</scope><name>doRender</name></member>
+      <member refid="classMyGUI_1_1SubSkin_1a05e48b55390ab1cf110e56da82c1c27" prot="public" virt="non-virtual"><scope>MyGUI::SubSkin</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1SubSkin_19aec242582ff0bae25ae05ab86448a81" prot="public" virt="virtual"><scope>MyGUI::SubSkin</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1SubSkin_17755ea5e62f2352e5ec9b6884bd1c581" prot="public" virt="virtual"><scope>MyGUI::SubSkin</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1SubSkin_163060a1a11c72a69e46a0de7ebf185ee" prot="public" virt="non-virtual"><scope>MyGUI::SubSkin</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1SubSkin_1f4aacdae35229c2dc4b2599add19b4d2" prot="protected" virt="non-virtual"><scope>MyGUI::SubSkin</scope><name>mCurrentColour</name></member>
+      <member refid="classMyGUI_1_1SubSkin_144bf000246b8a4a5070417025e9c4f9c" prot="protected" virt="non-virtual"><scope>MyGUI::SubSkin</scope><name>mCurrentCoord</name></member>
+      <member refid="classMyGUI_1_1SubSkin_13b7b3257183ace6fecb8718fe0a7ecc8" prot="protected" virt="non-virtual"><scope>MyGUI::SubSkin</scope><name>mCurrentTexture</name></member>
+      <member refid="classMyGUI_1_1SubSkin_13d4cee3e51a075c3a6b587ee9a615e11" prot="protected" virt="non-virtual"><scope>MyGUI::SubSkin</scope><name>mEmptyView</name></member>
+      <member refid="classMyGUI_1_1SubSkin_15490bda55e66cadc629ba92ea0edf570" prot="protected" virt="non-virtual"><scope>MyGUI::SubSkin</scope><name>mNode</name></member>
+      <member refid="classMyGUI_1_1SubSkin_1e5cea0dd729f5233069c67fbdd67cc0f" prot="protected" virt="non-virtual"><scope>MyGUI::SubSkin</scope><name>mRectTexture</name></member>
+      <member refid="classMyGUI_1_1SubSkin_1dd1b811fadaa01d2aef578ea61e9039a" prot="protected" virt="non-virtual"><scope>MyGUI::SubSkin</scope><name>mRenderItem</name></member>
+      <member refid="classMyGUI_1_1SubSkin_1265205cc739c6d391006cca20d1793c4" prot="protected" virt="non-virtual"><scope>MyGUI::SubSkin</scope><name>mSeparate</name></member>
+      <member refid="classMyGUI_1_1SubSkin_15cd85d23e2357f6eca3850f492bf9dda" prot="protected" virt="non-virtual"><scope>MyGUI::SubSkin</scope><name>mVertexFormat</name></member>
+      <member refid="classMyGUI_1_1SubSkin_1333d8fc1a3e6c338738e09e38d4bdf77" prot="public" virt="non-virtual"><scope>MyGUI::SubSkin</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1SubSkin_126a1d41b17651c03f68266413af38117" prot="public" virt="virtual"><scope>MyGUI::SubSkin</scope><name>setAlpha</name></member>
+      <member refid="classMyGUI_1_1SubSkin_16f98f226bfd6b805d5d955a6c7cbd7e2" prot="public" virt="virtual"><scope>MyGUI::SubSkin</scope><name>setStateData</name></member>
+      <member refid="classMyGUI_1_1SubSkin_17e3cc62ff9c0fec36b500e567383788f" prot="public" virt="virtual"><scope>MyGUI::SubSkin</scope><name>setVisible</name></member>
+      <member refid="classMyGUI_1_1SubSkin_1ae1f39ae3c0554a55217977989677efd" prot="public" virt="non-virtual"><scope>MyGUI::SubSkin</scope><name>SubSkin</name></member>
+      <member refid="classMyGUI_1_1SubSkin_1d612abf5e058b9dff3c07a9334aac05a" prot="public" virt="virtual"><scope>MyGUI::SubSkin</scope><name>~SubSkin</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

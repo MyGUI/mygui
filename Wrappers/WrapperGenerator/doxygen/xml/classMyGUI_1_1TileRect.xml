@@ -1,0 +1,540 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1TileRect" kind="class" prot="public">
+    <compoundname>MyGUI::TileRect</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1TileRect_1623da3b579c4b3b10cd52474e9fbad85" prot="public" static="no">
+        <type>RTTIBase</type>
+        <definition>typedef RTTIBase MyGUI::TileRect::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1TileRect_16d1345e2342968f45d2e34cff6e95ee6" prot="public" static="no">
+        <type>TileRect</type>
+        <definition>typedef TileRect MyGUI::TileRect::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1TileRect_107a2c3687cf4d4bdea41cc2e516fa8b3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::TileRect::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="40" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TileRect_1bff14369cf0cdf51a9d137bdc59f6881" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::TileRect::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="40" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TileRect_1f34ce0865d1210778d54e8af4a36a011" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::TileRect::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="40" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TileRect_17eec6f7a9a57026f73684b5132f8d5f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::TileRect::TileRect</definition>
+        <argsstring>()</argsstring>
+        <name>TileRect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TileRect_1ac83aa8186cede580013c8b9cb5664ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::TileRect::~TileRect</definition>
+        <argsstring>()</argsstring>
+        <name>~TileRect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TileRect_1199622b60be088d28e2d00c0373929cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::TileRect::setAlpha</definition>
+        <argsstring>(float _alpha)</argsstring>
+        <name>setAlpha</name>
+        <param>
+          <type>float</type>
+          <declname>_alpha</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TileRect_174daef47307fe55538f16b0c7ecf29c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::TileRect::setVisible</definition>
+        <argsstring>(bool _visible)</argsstring>
+        <name>setVisible</name>
+        <param>
+          <type>bool</type>
+          <declname>_visible</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TileRect_11ea0165e0d8ce6de754ee48d433a7cff" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::TileRect::createDrawItem</definition>
+        <argsstring>(ITexture *_texture, ILayerNode *_node)</argsstring>
+        <name>createDrawItem</name>
+        <param>
+          <type>ITexture *</type>
+          <declname>_texture</declname>
+        </param>
+        <param>
+          <type>ILayerNode *</type>
+          <declname>_node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TileRect_10201c8fdc3214bbaf1cbb5b6fc6475a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::TileRect::destroyDrawItem</definition>
+        <argsstring>()</argsstring>
+        <name>destroyDrawItem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TileRect_1c68865d2031a027e2e47926960b60ac3" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::TileRect::doRender</definition>
+        <argsstring>()</argsstring>
+        <name>doRender</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TileRect_1ca8b161f31068c6144e9c6ec2624bc0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::TileRect::setStateData</definition>
+        <argsstring>(IStateInfo *_data)</argsstring>
+        <name>setStateData</name>
+        <param>
+          <type>IStateInfo *</type>
+          <declname>_data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TileRect_18fcfde522db42e7253398ecf94bfcbf1" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::TileRect::_updateView</definition>
+        <argsstring>()</argsstring>
+        <name>_updateView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TileRect_1e4664fc4c1747ab67de16a97d6dbe9b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::TileRect::_correctView</definition>
+        <argsstring>()</argsstring>
+        <name>_correctView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TileRect_1707bc1bc773fb51d85bb6c9739c40c74" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::TileRect::_setAlign</definition>
+        <argsstring>(const IntSize &amp;_oldsize)</argsstring>
+        <name>_setAlign</name>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_oldsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TileRect_148eff4536ecd7373dbc3bcecae690798" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::TileRect::_setUVSet</definition>
+        <argsstring>(const FloatRect &amp;_rect)</argsstring>
+        <name>_setUVSet</name>
+        <param>
+          <type>const FloatRect &amp;</type>
+          <declname>_rect</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="64"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TileRect_1963e9419661b58f23158a1f144f8d514" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::TileRect::_setColour</definition>
+        <argsstring>(const Colour &amp;_value)</argsstring>
+        <name>_setColour</name>
+        <param>
+          <type>const Colour &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="65"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1TileRect_121ec9e39af8cd02229466a8d7ee3f31e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::TileRect::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="40" bodyend="40"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1TileRect_13b7357e5b78d922dc33c55c2f0d966db" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::TileRect::mEmptyView</definition>
+        <argsstring></argsstring>
+        <name>mEmptyView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="68" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TileRect_1c70180690f7c8972c6f0da99dfcb9efb" prot="protected" static="no" mutable="no">
+        <type>VertexColourType</type>
+        <definition>VertexColourType MyGUI::TileRect::mVertexFormat</definition>
+        <argsstring></argsstring>
+        <name>mVertexFormat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="70" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TileRect_15bd06585c7f65e01e055183f5d7a8234" prot="protected" static="no" mutable="no">
+        <type>uint32</type>
+        <definition>uint32 MyGUI::TileRect::mCurrentColour</definition>
+        <argsstring></argsstring>
+        <name>mCurrentColour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="71" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TileRect_1343eade0f304d18789b70d9357f7aa74" prot="protected" static="no" mutable="no">
+        <type>FloatRect</type>
+        <definition>FloatRect MyGUI::TileRect::mCurrentTexture</definition>
+        <argsstring></argsstring>
+        <name>mCurrentTexture</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="73" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TileRect_1596fe1f4eb61be7c550b4b42f2ea34a3" prot="protected" static="no" mutable="no">
+        <type>IntCoord</type>
+        <definition>IntCoord MyGUI::TileRect::mCurrentCoord</definition>
+        <argsstring></argsstring>
+        <name>mCurrentCoord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="74" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TileRect_1bd67c23aa34b2d5383e070ce482be49b" prot="protected" static="no" mutable="no">
+        <type>ILayerNode *</type>
+        <definition>ILayerNode* MyGUI::TileRect::mNode</definition>
+        <argsstring></argsstring>
+        <name>mNode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="76" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TileRect_11c75dcd6691f3e9922d2dd4eb7a9cb3d" prot="protected" static="no" mutable="no">
+        <type>RenderItem *</type>
+        <definition>RenderItem* MyGUI::TileRect::mRenderItem</definition>
+        <argsstring></argsstring>
+        <name>mRenderItem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="77" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TileRect_1b319e3908abe73d69c84c4d9db897ec2" prot="protected" static="no" mutable="no">
+        <type>IntSize</type>
+        <definition>IntSize MyGUI::TileRect::mTileSize</definition>
+        <argsstring></argsstring>
+        <name>mTileSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="79" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TileRect_1ae713527d07ddb8e9fed611ee99f8ad7" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::TileRect::mCountVertex</definition>
+        <argsstring></argsstring>
+        <name>mCountVertex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="80" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TileRect_1bb8cd62dde195644328670ae752b795b" prot="protected" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::TileRect::mRealTileWidth</definition>
+        <argsstring></argsstring>
+        <name>mRealTileWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="82" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TileRect_113f3407f3e2cf555650f9dc0b4ed3213" prot="protected" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::TileRect::mRealTileHeight</definition>
+        <argsstring></argsstring>
+        <name>mRealTileHeight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="83" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TileRect_19bd506fed63d32a613f76e164f8c2a3e" prot="protected" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::TileRect::mTextureHeightOne</definition>
+        <argsstring></argsstring>
+        <name>mTextureHeightOne</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="85" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TileRect_10a1be4939d2c501fedcf46a360c174e5" prot="protected" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::TileRect::mTextureWidthOne</definition>
+        <argsstring></argsstring>
+        <name>mTextureWidthOne</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="86" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TileRect_1245ac3ea1976b45f657539bd22ee83ac" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::TileRect::mTileH</definition>
+        <argsstring></argsstring>
+        <name>mTileH</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="88" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TileRect_1e2d5f62f173e64e52ca8f5b02c651943" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::TileRect::mTileV</definition>
+        <argsstring></argsstring>
+        <name>mTileV</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="89" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TileRect.h" bodystart="37" bodyend="90"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1TileRect_1e4664fc4c1747ab67de16a97d6dbe9b5" prot="public" virt="virtual"><scope>MyGUI::TileRect</scope><name>_correctView</name></member>
+      <member refid="classMyGUI_1_1TileRect_1707bc1bc773fb51d85bb6c9739c40c74" prot="public" virt="virtual"><scope>MyGUI::TileRect</scope><name>_setAlign</name></member>
+      <member refid="classMyGUI_1_1TileRect_1963e9419661b58f23158a1f144f8d514" prot="public" virt="virtual"><scope>MyGUI::TileRect</scope><name>_setColour</name></member>
+      <member refid="classMyGUI_1_1TileRect_148eff4536ecd7373dbc3bcecae690798" prot="public" virt="virtual"><scope>MyGUI::TileRect</scope><name>_setUVSet</name></member>
+      <member refid="classMyGUI_1_1TileRect_18fcfde522db42e7253398ecf94bfcbf1" prot="public" virt="virtual"><scope>MyGUI::TileRect</scope><name>_updateView</name></member>
+      <member refid="classMyGUI_1_1TileRect_1623da3b579c4b3b10cd52474e9fbad85" prot="public" virt="non-virtual"><scope>MyGUI::TileRect</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1TileRect_11ea0165e0d8ce6de754ee48d433a7cff" prot="public" virt="virtual"><scope>MyGUI::TileRect</scope><name>createDrawItem</name></member>
+      <member refid="classMyGUI_1_1TileRect_10201c8fdc3214bbaf1cbb5b6fc6475a7" prot="public" virt="virtual"><scope>MyGUI::TileRect</scope><name>destroyDrawItem</name></member>
+      <member refid="classMyGUI_1_1TileRect_1c68865d2031a027e2e47926960b60ac3" prot="public" virt="virtual"><scope>MyGUI::TileRect</scope><name>doRender</name></member>
+      <member refid="classMyGUI_1_1TileRect_121ec9e39af8cd02229466a8d7ee3f31e" prot="public" virt="non-virtual"><scope>MyGUI::TileRect</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1TileRect_107a2c3687cf4d4bdea41cc2e516fa8b3" prot="public" virt="virtual"><scope>MyGUI::TileRect</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1TileRect_1bff14369cf0cdf51a9d137bdc59f6881" prot="public" virt="virtual"><scope>MyGUI::TileRect</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1TileRect_1f34ce0865d1210778d54e8af4a36a011" prot="public" virt="non-virtual"><scope>MyGUI::TileRect</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1TileRect_1ae713527d07ddb8e9fed611ee99f8ad7" prot="protected" virt="non-virtual"><scope>MyGUI::TileRect</scope><name>mCountVertex</name></member>
+      <member refid="classMyGUI_1_1TileRect_15bd06585c7f65e01e055183f5d7a8234" prot="protected" virt="non-virtual"><scope>MyGUI::TileRect</scope><name>mCurrentColour</name></member>
+      <member refid="classMyGUI_1_1TileRect_1596fe1f4eb61be7c550b4b42f2ea34a3" prot="protected" virt="non-virtual"><scope>MyGUI::TileRect</scope><name>mCurrentCoord</name></member>
+      <member refid="classMyGUI_1_1TileRect_1343eade0f304d18789b70d9357f7aa74" prot="protected" virt="non-virtual"><scope>MyGUI::TileRect</scope><name>mCurrentTexture</name></member>
+      <member refid="classMyGUI_1_1TileRect_13b7357e5b78d922dc33c55c2f0d966db" prot="protected" virt="non-virtual"><scope>MyGUI::TileRect</scope><name>mEmptyView</name></member>
+      <member refid="classMyGUI_1_1TileRect_1bd67c23aa34b2d5383e070ce482be49b" prot="protected" virt="non-virtual"><scope>MyGUI::TileRect</scope><name>mNode</name></member>
+      <member refid="classMyGUI_1_1TileRect_113f3407f3e2cf555650f9dc0b4ed3213" prot="protected" virt="non-virtual"><scope>MyGUI::TileRect</scope><name>mRealTileHeight</name></member>
+      <member refid="classMyGUI_1_1TileRect_1bb8cd62dde195644328670ae752b795b" prot="protected" virt="non-virtual"><scope>MyGUI::TileRect</scope><name>mRealTileWidth</name></member>
+      <member refid="classMyGUI_1_1TileRect_11c75dcd6691f3e9922d2dd4eb7a9cb3d" prot="protected" virt="non-virtual"><scope>MyGUI::TileRect</scope><name>mRenderItem</name></member>
+      <member refid="classMyGUI_1_1TileRect_19bd506fed63d32a613f76e164f8c2a3e" prot="protected" virt="non-virtual"><scope>MyGUI::TileRect</scope><name>mTextureHeightOne</name></member>
+      <member refid="classMyGUI_1_1TileRect_10a1be4939d2c501fedcf46a360c174e5" prot="protected" virt="non-virtual"><scope>MyGUI::TileRect</scope><name>mTextureWidthOne</name></member>
+      <member refid="classMyGUI_1_1TileRect_1245ac3ea1976b45f657539bd22ee83ac" prot="protected" virt="non-virtual"><scope>MyGUI::TileRect</scope><name>mTileH</name></member>
+      <member refid="classMyGUI_1_1TileRect_1b319e3908abe73d69c84c4d9db897ec2" prot="protected" virt="non-virtual"><scope>MyGUI::TileRect</scope><name>mTileSize</name></member>
+      <member refid="classMyGUI_1_1TileRect_1e2d5f62f173e64e52ca8f5b02c651943" prot="protected" virt="non-virtual"><scope>MyGUI::TileRect</scope><name>mTileV</name></member>
+      <member refid="classMyGUI_1_1TileRect_1c70180690f7c8972c6f0da99dfcb9efb" prot="protected" virt="non-virtual"><scope>MyGUI::TileRect</scope><name>mVertexFormat</name></member>
+      <member refid="classMyGUI_1_1TileRect_16d1345e2342968f45d2e34cff6e95ee6" prot="public" virt="non-virtual"><scope>MyGUI::TileRect</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1TileRect_1199622b60be088d28e2d00c0373929cc" prot="public" virt="virtual"><scope>MyGUI::TileRect</scope><name>setAlpha</name></member>
+      <member refid="classMyGUI_1_1TileRect_1ca8b161f31068c6144e9c6ec2624bc0d" prot="public" virt="virtual"><scope>MyGUI::TileRect</scope><name>setStateData</name></member>
+      <member refid="classMyGUI_1_1TileRect_174daef47307fe55538f16b0c7ecf29c5" prot="public" virt="virtual"><scope>MyGUI::TileRect</scope><name>setVisible</name></member>
+      <member refid="classMyGUI_1_1TileRect_17eec6f7a9a57026f73684b5132f8d5f5" prot="public" virt="non-virtual"><scope>MyGUI::TileRect</scope><name>TileRect</name></member>
+      <member refid="classMyGUI_1_1TileRect_1ac83aa8186cede580013c8b9cb5664ff" prot="public" virt="virtual"><scope>MyGUI::TileRect</scope><name>~TileRect</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

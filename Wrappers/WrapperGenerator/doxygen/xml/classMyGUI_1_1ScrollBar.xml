@@ -1,0 +1,1216 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1ScrollBar" kind="class" prot="public">
+    <compoundname>MyGUI::ScrollBar</compoundname>
+    <basecompoundref refid="classMyGUI_1_1Widget" prot="public" virt="non-virtual">MyGUI::Widget</basecompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1VScroll" prot="public" virt="non-virtual">MyGUI::VScroll</derivedcompoundref>
+    <includes local="no">MyGUI_ScrollBar.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1ScrollBar_1b92c3ee77fb0d848226df4c3bcf4df3e" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1ScrollBar" kindref="compound">RTTIBase</ref></type>
+        <definition>typedef RTTIBase MyGUI::ScrollBar::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <reimplements refid="classMyGUI_1_1Widget_1c35a5223105967529b9df5813c468d37">Base</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1ScrollBar_1d5b1f97683a00e2e1830425dd39ba1b8" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1ScrollBar" kindref="compound">ScrollBar</ref></type>
+        <definition>typedef ScrollBar MyGUI::ScrollBar::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <reimplements refid="classMyGUI_1_1Widget_130c68354c5a07b549a2377952a56f48e">RTTIBase</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_19418e6e28edeca7b2a9ef2d96ed879e6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::ScrollBar::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <reimplements refid="classMyGUI_1_1Widget_1faad6178370730c10dbe87982b9ab8f8">getTypeName</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="40" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_133c2841d5786238997aa793df4eee20a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::ScrollBar::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <reimplements refid="classMyGUI_1_1Widget_13cd209d4767cf39c1848e538e3ddb1d1">isType</reimplements>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="40" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_16a50e2d074f3a3883ba2025e4af464ed" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::ScrollBar::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <reimplements refid="classMyGUI_1_1Widget_10b8989ef6cf8b54a07ecd0b857579b8d">isType</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="40" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_11b346b9214f7b88fabcbfdb45e7c0bc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::ScrollBar::ScrollBar</definition>
+        <argsstring>()</argsstring>
+        <name>ScrollBar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_107030dac4f4cd436194f17ad0de29b44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ScrollBar::setVerticalAlignment</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setVerticalAlignment</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set vertical alignment grid mode </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1185116b93472613c08626f9d1e842e30" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::ScrollBar::getVerticalAlignment</definition>
+        <argsstring>() const </argsstring>
+        <name>getVerticalAlignment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get vertical alignment grid mode flag </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_11a0b5934eb09b8dd67ef86e5963d9871" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ScrollBar::setScrollRange</definition>
+        <argsstring>(size_t _value)</argsstring>
+        <name>setScrollRange</name>
+        <param>
+          <type>size_t</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set scroll range </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_17d83c7dd87e11acb6cc01584c2bec8ab" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ScrollBar::getScrollRange</definition>
+        <argsstring>() const </argsstring>
+        <name>getScrollRange</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get scroll range </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_182ed902bfbf43bab8fac634f76c5a755" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ScrollBar::setScrollPosition</definition>
+        <argsstring>(size_t _value)</argsstring>
+        <name>setScrollPosition</name>
+        <param>
+          <type>size_t</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set scroll position (value from 0 to range - 1) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_11c9a4adb69e37d156133a11e90c54901" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ScrollBar::getScrollPosition</definition>
+        <argsstring>() const </argsstring>
+        <name>getScrollPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get scroll position (value from 0 to range - 1) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="58"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1ce501db1f5b7b88f93b49f7b05acc36e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ScrollBar::setScrollPage</definition>
+        <argsstring>(size_t _value)</argsstring>
+        <name>setScrollPage</name>
+        <param>
+          <type>size_t</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set scroll page <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tracker step when buttons pressed </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1af2f1d84c7502f5320867c1a138524af" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ScrollBar::getScrollPage</definition>
+        <argsstring>() const </argsstring>
+        <name>getScrollPage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get scroll page </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="65"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1968b6c2b2750cd5bc6919d73fdd121c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ScrollBar::setScrollViewPage</definition>
+        <argsstring>(size_t _value)</argsstring>
+        <name>setScrollViewPage</name>
+        <param>
+          <type>size_t</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set scroll view page <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tracker step when pressed on scroll line </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1375c5943031d6354b441491da25e6f34" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ScrollBar::getScrollViewPage</definition>
+        <argsstring>() const </argsstring>
+        <name>getScrollViewPage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get scroll view page </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_136ee757107bb7d3bae3414e84da6e4f2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ScrollBar::getLineSize</definition>
+        <argsstring>() const </argsstring>
+        <name>getLineSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get size in pixels of area where scroll moves </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="75"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_12cd886b3ca9991a59f52302e72039837" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ScrollBar::setTrackSize</definition>
+        <argsstring>(int _value)</argsstring>
+        <name>setTrackSize</name>
+        <param>
+          <type>int</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set size of track in pixels <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>in pixels, if less than MinTrackSize, MinTrackSize used </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="80"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1bbcb406308887f167ebcde381f909386" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ScrollBar::getTrackSize</definition>
+        <argsstring>() const </argsstring>
+        <name>getTrackSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get size of track in pixels </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="82"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_12feffb8efb1f020f82b2e7ff4e1dc697" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ScrollBar::setMinTrackSize</definition>
+        <argsstring>(int _value)</argsstring>
+        <name>setMinTrackSize</name>
+        <param>
+          <type>int</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set minimal track size (used for setTrackSize) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_149c99b3156212e5d63e504203695bc3f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ScrollBar::getMinTrackSize</definition>
+        <argsstring>() const </argsstring>
+        <name>getMinTrackSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get minimal track size </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="87"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_10b4017cc163fc3fbc89f03070724a738" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ScrollBar::setMoveToClick</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setMoveToClick</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enable or disable move to click mode.<linebreak/>
+ Move to click mode: Tracker moves to cursor when pressed on scroll line.<linebreak/>
+ Disabled (false) by default. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="93"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1bc4b091e0e8dfd4248cb7bb0cc6b4077" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::ScrollBar::getMoveToClick</definition>
+        <argsstring>() const </argsstring>
+        <name>getMoveToClick</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get move to click mode flag </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="95"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1f8481d7fbea6b0299641707ee6a10e69" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ScrollBar::setPosition</definition>
+        <argsstring>(const IntPoint &amp;_value)</argsstring>
+        <name>setPosition</name>
+        <reimplements refid="classMyGUI_1_1Widget_1bf87d2b9d27a2543da8fc7daea6abf75">setPosition</reimplements>
+        <param>
+          <type>const IntPoint &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+<para><copydoc link="Widget::setPosition(const IntPoint& _value)"><para>Set widget position (position of left top corner)</para></copydoc>
+ </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="98"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1eea5ad67704c9822270e6e0d03edc481" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ScrollBar::setSize</definition>
+        <argsstring>(const IntSize &amp;_value)</argsstring>
+        <name>setSize</name>
+        <reimplements refid="classMyGUI_1_1Widget_1b8928099957173c4f58aee98d043faab">setSize</reimplements>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+<para><copydoc link="Widget::setSize(const IntSize& _value)"><para>Set widget size</para></copydoc>
+ </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="100"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1a34c433e20c48b354c1e7ca46c2e5df7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ScrollBar::setCoord</definition>
+        <argsstring>(const IntCoord &amp;_value)</argsstring>
+        <name>setCoord</name>
+        <reimplements refid="classMyGUI_1_1Widget_156333ae229f81cfdc9daa834599b96de">setCoord</reimplements>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+<para><copydoc link="Widget::setCoord(const IntCoord& _value)"><para>Set widget position and size</para></copydoc>
+ </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="102"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1418e2b0b7e51bbc1f46f581ab8eea509" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ScrollBar::setPosition</definition>
+        <argsstring>(int _left, int _top)</argsstring>
+        <name>setPosition</name>
+        <reimplements refid="classMyGUI_1_1Widget_10463ede4342db8bc5ade2d78d77a142e">setPosition</reimplements>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><copydoc link="Widget::setPosition(int _left, int _top)"><para>See <ref refid="classMyGUI_1_1Widget_1bf87d2b9d27a2543da8fc7daea6abf75" kindref="member">Widget::setPosition(const IntPoint&amp; _pos)</ref></para></copydoc>
+ </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="105"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1ca56685f48a3e8a17668e94b067276d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ScrollBar::setSize</definition>
+        <argsstring>(int _width, int _height)</argsstring>
+        <name>setSize</name>
+        <reimplements refid="classMyGUI_1_1Widget_12bdc82ea4f915b8d9b4b36c61b5a3915">setSize</reimplements>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><copydoc link="Widget::setSize(int _width, int _height)"><para>See <ref refid="classMyGUI_1_1Widget_1b8928099957173c4f58aee98d043faab" kindref="member">Widget::setSize(const IntSize&amp; _size)</ref></para></copydoc>
+ </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="107"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1f8d2f077f59a5d4724dd076037c2bcb5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ScrollBar::setCoord</definition>
+        <argsstring>(int _left, int _top, int _width, int _height)</argsstring>
+        <name>setCoord</name>
+        <reimplements refid="classMyGUI_1_1Widget_1745fbe9e4f3c2f798a021ae07498fc97">setCoord</reimplements>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><copydoc link="Widget::setCoord(int _left, int _top, int _width, int _height)"><para>See <ref refid="classMyGUI_1_1Widget_156333ae229f81cfdc9daa834599b96de" kindref="member">Widget::setCoord(const IntCoord&amp; _coord)</ref></para></copydoc>
+ </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="109"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollBar_108e1044b26ed680b7e23648877b2c4ff" prot="public" static="no" mutable="no">
+        <type>EventHandle_ScrollBarPtrSizeT</type>
+        <definition>EventHandle_ScrollBarPtrSizeT MyGUI::ScrollBar::eventScrollChangePosition</definition>
+        <argsstring></argsstring>
+        <name>eventScrollChangePosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Event : scroll tracker position changed.<linebreak/>
+ signature : void method(MyGUI::ScrollBar* _sender, size_t _position)<linebreak/>
+ <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_sender</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>widget that called this event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_position</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- new tracker position </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="118" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_15a0a1d5cf23da64e2da4a55bfd1cc28e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::ScrollBar::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <reimplements refid="classMyGUI_1_1Widget_1b2012e0bb89d4becb35762362474601e">getClassTypeName</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="40" bodyend="40"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1c4cdd942e009f1630a73956a2df6d083" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ScrollBar::initialiseOverride</definition>
+        <argsstring>()</argsstring>
+        <name>initialiseOverride</name>
+        <reimplements refid="classMyGUI_1_1Widget_1987812d417960a148a72df09dd3948c4">initialiseOverride</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="121"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1154ff1699c622eee1c5b8da77e6f7b69" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ScrollBar::shutdownOverride</definition>
+        <argsstring>()</argsstring>
+        <name>shutdownOverride</name>
+        <reimplements refid="classMyGUI_1_1Widget_1dee1c7e9399beabdad99bf10b97693c6">shutdownOverride</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="122"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1e68dd5ec9a2a99eef742faac0078d0b4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ScrollBar::updateTrack</definition>
+        <argsstring>()</argsstring>
+        <name>updateTrack</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="124"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_15e449d814e503d9db68ed931b0b2bfb4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ScrollBar::TrackMove</definition>
+        <argsstring>(int _left, int _top)</argsstring>
+        <name>TrackMove</name>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="125"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1126fe5c1822cfaa8bed2223da72a7198" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ScrollBar::onMouseWheel</definition>
+        <argsstring>(int _rel)</argsstring>
+        <name>onMouseWheel</name>
+        <param>
+          <type>int</type>
+          <declname>_rel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="127"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_14736d0fda9587418710c7ab9461d6660" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ScrollBar::notifyMousePressed</definition>
+        <argsstring>(Widget *_sender, int _left, int _top, MouseButton _id)</argsstring>
+        <name>notifyMousePressed</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_sender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>MouseButton</type>
+          <declname>_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="129"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_15fc915784c84c7fdd368f798093dfdc1" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ScrollBar::notifyMouseReleased</definition>
+        <argsstring>(Widget *_sender, int _left, int _top, MouseButton _id)</argsstring>
+        <name>notifyMouseReleased</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_sender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>MouseButton</type>
+          <declname>_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="130"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1a72db48203b09b512787f9efa4f47c07" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ScrollBar::notifyMouseDrag</definition>
+        <argsstring>(Widget *_sender, int _left, int _top, MouseButton _id)</argsstring>
+        <name>notifyMouseDrag</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_sender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>MouseButton</type>
+          <declname>_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="131"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1d8dcc1b537350170e177a04b43db830e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ScrollBar::notifyMouseWheel</definition>
+        <argsstring>(Widget *_sender, int _rel)</argsstring>
+        <name>notifyMouseWheel</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_sender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_rel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="132"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1a3f5444b8d1fee4c1bc05b48da5296b8" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ScrollBar::setPropertyOverride</definition>
+        <argsstring>(const std::string &amp;_key, const std::string &amp;_value)</argsstring>
+        <name>setPropertyOverride</name>
+        <reimplements refid="classMyGUI_1_1Widget_1b9ce72d4c54f0098eabee9c7d35e282d">setPropertyOverride</reimplements>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_key</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="134"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollBar_1773970d5a33c1d7eccee1f52d45432fb" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ScrollBar::getTrackPlaceLength</definition>
+        <argsstring>() const </argsstring>
+        <name>getTrackPlaceLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="136"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollBar_1be28f7154dba4694d215583f6e32b4cb" prot="protected" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1Button" kindref="compound">Button</ref> *</type>
+        <definition>Button* MyGUI::ScrollBar::mWidgetStart</definition>
+        <argsstring></argsstring>
+        <name>mWidgetStart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="140" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollBar_1e450f339cc8d46995ec248489b099bfa" prot="protected" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1Button" kindref="compound">Button</ref> *</type>
+        <definition>Button* MyGUI::ScrollBar::mWidgetEnd</definition>
+        <argsstring></argsstring>
+        <name>mWidgetEnd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="141" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollBar_1db2483d93a0fe2634ca25b061fb32b0b" prot="protected" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1Button" kindref="compound">Button</ref> *</type>
+        <definition>Button* MyGUI::ScrollBar::mWidgetTrack</definition>
+        <argsstring></argsstring>
+        <name>mWidgetTrack</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="142" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollBar_14ca861d43c1905f0cff2e76d7d331238" prot="protected" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::ScrollBar::mWidgetFirstPart</definition>
+        <argsstring></argsstring>
+        <name>mWidgetFirstPart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="144" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollBar_163718dff3c59a70d57ba9c97534d1d75" prot="protected" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::ScrollBar::mWidgetSecondPart</definition>
+        <argsstring></argsstring>
+        <name>mWidgetSecondPart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="145" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollBar_1d583cccbe4a01f07eae6204777c1a6a9" prot="protected" static="no" mutable="no">
+        <type>IntPoint</type>
+        <definition>IntPoint MyGUI::ScrollBar::mPreActionOffset</definition>
+        <argsstring></argsstring>
+        <name>mPreActionOffset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="148" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollBar_1ffa20928686d4dce3db1a38ab0389fe5" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ScrollBar::mSkinRangeStart</definition>
+        <argsstring></argsstring>
+        <name>mSkinRangeStart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="151" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollBar_15cd6af04be09491bf883acb0679f5720" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ScrollBar::mSkinRangeEnd</definition>
+        <argsstring></argsstring>
+        <name>mSkinRangeEnd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="152" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollBar_16888eb918bad664365947fcc539a1523" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ScrollBar::mScrollRange</definition>
+        <argsstring></argsstring>
+        <name>mScrollRange</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="154" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollBar_1f2a74497a4dd6c77dbf70f6b9dca18f9" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ScrollBar::mScrollPosition</definition>
+        <argsstring></argsstring>
+        <name>mScrollPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="155" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollBar_180eb87bd1b5ed47ec6e0591c1d7ece0d" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ScrollBar::mScrollPage</definition>
+        <argsstring></argsstring>
+        <name>mScrollPage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="156" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollBar_10072ee4af80c6db6a9f61fc41334b2b0" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ScrollBar::mScrollViewPage</definition>
+        <argsstring></argsstring>
+        <name>mScrollViewPage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="157" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollBar_11383bba8935f5b6bb79413aeb202b544" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MyGUI::ScrollBar::mMinTrackSize</definition>
+        <argsstring></argsstring>
+        <name>mMinTrackSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="159" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollBar_1c29885264cd69eabaad1651247743706" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::ScrollBar::mMoveToClick</definition>
+        <argsstring></argsstring>
+        <name>mMoveToClick</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="160" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollBar_19c36418d8482a04fecf5fbf3d8a87f2d" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::ScrollBar::mVerticalAlignment</definition>
+        <argsstring></argsstring>
+        <name>mVerticalAlignment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="162" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>{<ref refid="classMyGUI_1_1ScrollBar" kindref="compound">ScrollBar</ref>} <ref refid="classMyGUI_1_1ScrollBar" kindref="compound">ScrollBar</ref> widget description should be here. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="575">
+        <label>MyGUI::VScroll</label>
+        <childnode refid="572" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="574">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="573">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="574" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="572">
+        <label>MyGUI::ScrollBar</label>
+        <link refid="classMyGUI_1_1ScrollBar"/>
+        <childnode refid="573" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="580">
+        <label>MyGUI::TextBox</label>
+        <link refid="classMyGUI_1_1TextBox"/>
+        <childnode refid="577" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="581">
+        <label>MyGUI::ImageBox</label>
+        <link refid="classMyGUI_1_1ImageBox"/>
+        <childnode refid="577" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="578">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="577">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="578" relation="public-inheritance">
+        </childnode>
+        <childnode refid="577" relation="usage">
+          <edgelabel>mContainer
+mParent
+mWidgetClient</edgelabel>
+        </childnode>
+      </node>
+      <node id="579">
+        <label>MyGUI::Button</label>
+        <link refid="classMyGUI_1_1Button"/>
+        <childnode refid="580" relation="public-inheritance">
+        </childnode>
+        <childnode refid="581" relation="usage">
+          <edgelabel>mImage</edgelabel>
+        </childnode>
+      </node>
+      <node id="576">
+        <label>MyGUI::ScrollBar</label>
+        <link refid="classMyGUI_1_1ScrollBar"/>
+        <childnode refid="577" relation="public-inheritance">
+        </childnode>
+        <childnode refid="577" relation="usage">
+          <edgelabel>mWidgetFirstPart
+mWidgetSecondPart</edgelabel>
+        </childnode>
+        <childnode refid="579" relation="usage">
+          <edgelabel>mWidgetTrack
+mWidgetStart
+mWidgetEnd</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollBar.h" bodystart="36" bodyend="163"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1Widget_134c44665e7d51c7eb65bf70f0479e1c3" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>_checkPoint</name></member>
+      <member refid="classMyGUI_1_1Widget_13601e5ca0d565451dfcf106850506a51" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>_createSkinWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_10df77f6d74fe5fc24701819e0b7e0fe8" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>_destroyAllChildWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_125136884a04944ef8b199c582e15482c" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>_destroyChildWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1deee68fb42acc2fab667b169587e9ce3" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>_forcePick</name></member>
+      <member refid="classMyGUI_1_1Widget_1f3d99ead3ce8fda0defa2feb0fbaee27" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>_getContainer</name></member>
+      <member refid="classMyGUI_1_1Widget_1fef9a1d046d1b78f8c76de1db83d20c6" prot="protected" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>_getContainerIndex</name></member>
+      <member refid="classMyGUI_1_1UserData_1fc4382ac3423790f57b478a0fe5030a2" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>_getInternalData</name></member>
+      <member refid="classMyGUI_1_1Widget_106700537a6fffaf43aa9c93e89d9cc7d" prot="public" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>_getItemIndex</name></member>
+      <member refid="classMyGUI_1_1Widget_1ae54386446434e4b133c244925402375" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>_initialise</name></member>
+      <member refid="classMyGUI_1_1Widget_1175526a4b039cf13c7fec7012d7287fc" prot="public" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>_resetContainer</name></member>
+      <member refid="classMyGUI_1_1Widget_15df6dbd95e99b9b65b385d815026cf26" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>_setAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_1d3d48604ad15f958b81bf423f80271c9" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>_setContainer</name></member>
+      <member refid="classMyGUI_1_1UserData_12bd52c146bad41f99bbc7ed31335ad18" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>_setInternalData</name></member>
+      <member refid="classMyGUI_1_1Widget_13325a1f4c26917f6f73b207d0986e1bd" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>_setWidgetState</name></member>
+      <member refid="classMyGUI_1_1Widget_155b19482fe01925c36e29af671e3d092" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>_shutdown</name></member>
+      <member refid="classMyGUI_1_1Widget_1dd935a48ef2c39688d8026c01e9e3939" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>_updateView</name></member>
+      <member refid="classMyGUI_1_1Widget_1b390f48a62a30d529c901cf8cfa1c24c" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>assignWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_105110870f31f66a901b3b11737c194de" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>attachToWidget</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1b92c3ee77fb0d848226df4c3bcf4df3e" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1Widget_1d88d7deb826efb660943ccb0bb457cae" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>baseCreateWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1d4c4a2cf2c3dd8b71126291a55e69139" prot="protected" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>baseUpdateEnable</name></member>
+      <member refid="classMyGUI_1_1Widget_1be74d6cc433da6140629423b120735a4" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>changeWidgetSkin</name></member>
+      <member refid="classMyGUI_1_1UserData_1f71561f766d83082a82cbdd6d218bd6b" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>clearUserString</name></member>
+      <member refid="classMyGUI_1_1UserData_154fecc1b40c23594c6518589b6912e49" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>clearUserStrings</name></member>
+      <member refid="classMyGUI_1_1Widget_1d66c5415fde332d5aab563402cffb09f" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_13a28d2e883ce82536b686ac992be672d" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1f8660295aafb142287644c239a313e53" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1721d33e78bb5c6ed975e8d41c8bdb683" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>createWidgetReal</name></member>
+      <member refid="classMyGUI_1_1Widget_1412c63af17890a8d43075782891b66ea" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>createWidgetReal</name></member>
+      <member refid="classMyGUI_1_1Widget_19ea260d13d1de5fb272e8fe3c6f6464c" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>createWidgetRealT</name></member>
+      <member refid="classMyGUI_1_1Widget_100fdb672b101caf560a07b86e67a72d4" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>createWidgetRealT</name></member>
+      <member refid="classMyGUI_1_1Widget_1b5d34f121420fbd4f439d7a8432d7755" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_12e74ae3d0a439f4edd509e73d4b2a083" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_1e26a4a5e8ea3fa4bafd969eb952d88e9" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_1c1c862389f772c52077fe4f2cf6568b5" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>destroySkinWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1056ac7afc041cf328037e210c742302f" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>detachFromWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_130efcbdb772c4a75f8208a99c4f9f34d" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>eventChangeProperty</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_108e1044b26ed680b7e23648877b2c4ff" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>eventScrollChangePosition</name></member>
+      <member refid="classMyGUI_1_1Widget_1d054e1027a48f2ccb9af0179359dadc5" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>findWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1e6d193b99a9d69973922d1b8e0f0b70e" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>findWidgets</name></member>
+      <member refid="classMyGUI_1_1Widget_134cafbef78da90ca8fb6aca8964b337a" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_1db1d462f1145cafb358754c03cd3e7f2" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_1028535563d6d3666658d83e4d479fa6d" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getChildAt</name></member>
+      <member refid="classMyGUI_1_1Widget_195ebe8be9fd3d29f7fa8f7846515eeec" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getChildCount</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_15a0a1d5cf23da64e2da4a55bfd1cc28e" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1Widget_15ffebc869b3b4c36e31178616b27fc86" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getClientCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1ac162cf5e6c51d487c71ae2e2d041352" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getClientWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_15cd729c40ad712c7036a0d3f6a2507b2" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1abfb5cf6661813f729bd30b4042e95d7" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getEnumerator</name></member>
+      <member refid="classMyGUI_1_1Widget_1c373e8170168b97491e777b99de0872b" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getInheritedEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1028a8ae99e47f513065ce3cbb11e4022" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getInheritedVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_1c2118d0bf46d9a7ec21c7aed9c7e71ca" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_175cedb78192d81e9dd1cef4a6c7a9fe3" prot="protected" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>getLayerItemByPoint</name></member>
+      <member refid="classMyGUI_1_1Widget_13e00b99c46a0c1ebacf29604d503804d" prot="protected" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>getLayerItemCoord</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_136ee757107bb7d3bae3414e84da6e4f2" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getLineSize</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_149c99b3156212e5d63e504203695bc3f" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getMinTrackSize</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1bc4b091e0e8dfd4248cb7bb0cc6b4077" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getMoveToClick</name></member>
+      <member refid="classMyGUI_1_1Widget_1421a0e4eec959e8a5cd7f12ff459bfbf" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getName</name></member>
+      <member refid="classMyGUI_1_1Widget_174eb9e9819797e68a510a2ae6c3a410a" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getParent</name></member>
+      <member refid="classMyGUI_1_1Widget_1ee1378b1a9bd3db495cbea32f0a13e20" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getParentSize</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1af2f1d84c7502f5320867c1a138524af" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getScrollPage</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_11c9a4adb69e37d156133a11e90c54901" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getScrollPosition</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_17d83c7dd87e11acb6cc01584c2bec8ab" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getScrollRange</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1375c5943031d6354b441491da25e6f34" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getScrollViewPage</name></member>
+      <member refid="classMyGUI_1_1Widget_14a6523e37fad5103ef5896bdf349861d" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getSkinWidgetsByName</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1773970d5a33c1d7eccee1f52d45432fb" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getTrackPlaceLength</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1bbcb406308887f167ebcde381f909386" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getTrackSize</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_19418e6e28edeca7b2a9ef2d96ed879e6" prot="public" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1UserData_1eadd08cc61e475b95c588daf74789a06" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getUserData</name></member>
+      <member refid="classMyGUI_1_1UserData_17c62f7374453eaf6e5316ac369559c53" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getUserString</name></member>
+      <member refid="classMyGUI_1_1UserData_19bc43d45330305b52c5c3f0e9dffabab" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getUserStrings</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1185116b93472613c08626f9d1e842e30" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getVerticalAlignment</name></member>
+      <member refid="classMyGUI_1_1Widget_1fa7ad1d5a3213ee9f8c4567e6f3fdd7d" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_15accf9c998578f20adcec5987dc820f2" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>getWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1c4cdd942e009f1630a73956a2df6d083" prot="protected" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>initialiseOverride</name></member>
+      <member refid="classMyGUI_1_1Widget_1b3ec05a74f05236afb58855985781cd0" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>isRootWidget</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_133c2841d5786238997aa793df4eee20a" prot="public" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_16a50e2d074f3a3883ba2025e4af464ed" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1UserData_10bac17bc60b499cf0386ec3815d67f17" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>isUserString</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_11383bba8935f5b6bb79413aeb202b544" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>mMinTrackSize</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1c29885264cd69eabaad1651247743706" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>mMoveToClick</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1d583cccbe4a01f07eae6204777c1a6a9" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>mPreActionOffset</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_180eb87bd1b5ed47ec6e0591c1d7ece0d" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>mScrollPage</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1f2a74497a4dd6c77dbf70f6b9dca18f9" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>mScrollPosition</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_16888eb918bad664365947fcc539a1523" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>mScrollRange</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_10072ee4af80c6db6a9f61fc41334b2b0" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>mScrollViewPage</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_15cd6af04be09491bf883acb0679f5720" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>mSkinRangeEnd</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1ffa20928686d4dce3db1a38ab0389fe5" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>mSkinRangeStart</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_19c36418d8482a04fecf5fbf3d8a87f2d" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>mVerticalAlignment</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1e450f339cc8d46995ec248489b099bfa" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>mWidgetEnd</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_14ca861d43c1905f0cff2e76d7d331238" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>mWidgetFirstPart</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_163718dff3c59a70d57ba9c97534d1d75" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>mWidgetSecondPart</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1be28f7154dba4694d215583f6e32b4cb" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>mWidgetStart</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1db2483d93a0fe2634ca25b061fb32b0b" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>mWidgetTrack</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1a72db48203b09b512787f9efa4f47c07" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>notifyMouseDrag</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_14736d0fda9587418710c7ab9461d6660" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>notifyMousePressed</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_15fc915784c84c7fdd368f798093dfdc1" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>notifyMouseReleased</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1d8dcc1b537350170e177a04b43db830e" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>notifyMouseWheel</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1126fe5c1822cfaa8bed2223da72a7198" prot="protected" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>onMouseWheel</name></member>
+      <member refid="classMyGUI_1_1Widget_1a8cfc0deeb8c2c53c6fabf52dd167639" prot="protected" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>onWidgetCreated</name></member>
+      <member refid="classMyGUI_1_1Widget_1c64ffb617119185afaf5ef9650d4f9a5" prot="protected" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>onWidgetDestroy</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1d5b1f97683a00e2e1830425dd39ba1b8" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_11b346b9214f7b88fabcbfdb45e7c0bc6" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>ScrollBar</name></member>
+      <member refid="classMyGUI_1_1Widget_1ebace37eedee14b3ff746b7a0085b993" prot="public" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>setAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_11204361b28430fa9a3b6927d6b4fe9ee" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_1cbf134e83d95f63ff7ba7f4b3596449f" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setColour</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1a34c433e20c48b354c1e7ca46c2e5df7" prot="public" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>setCoord</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1f8d2f077f59a5d4724dd076037c2bcb5" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1beda60b920b1808641169d8543171269" prot="public" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>setEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1f5a0bfe2b4f596d2dffdc7fcea5200b1" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setEnabledSilent</name></member>
+      <member refid="classMyGUI_1_1Widget_18b44677724faa4112312655e5feed8ae" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_12feffb8efb1f020f82b2e7ff4e1dc697" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setMinTrackSize</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_10b4017cc163fc3fbc89f03070724a738" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setMoveToClick</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1f8481d7fbea6b0299641707ee6a10e69" prot="public" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1418e2b0b7e51bbc1f46f581ab8eea509" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_11a6ea7822f869b777800b0d351112e69" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setProperty</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1a3f5444b8d1fee4c1bc05b48da5296b8" prot="protected" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>setPropertyOverride</name></member>
+      <member refid="classMyGUI_1_1Widget_18833c303314683bbebadb154d337d3cb" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setRealCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1dfd8bd56bcecaee166bbfd12ff962f67" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setRealCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_15a5f7a24564bb6e04b48d0c524f0ef24" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setRealPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_1c963db4709c8dfc9e681dfccd5fb6524" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setRealPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_1d7fba1f9976c36eacb528d6db9213ddf" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1Widget_15d89ff45c4bc5f6158382067673903ba" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1ce501db1f5b7b88f93b49f7b05acc36e" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setScrollPage</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_182ed902bfbf43bab8fac634f76c5a755" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setScrollPosition</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_11a0b5934eb09b8dd67ef86e5963d9871" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setScrollRange</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1968b6c2b2750cd5bc6919d73fdd121c7" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setScrollViewPage</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1eea5ad67704c9822270e6e0d03edc481" prot="public" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>setSize</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1ca56685f48a3e8a17668e94b067276d1" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setSize</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_12cd886b3ca9991a59f52302e72039837" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setTrackSize</name></member>
+      <member refid="classMyGUI_1_1UserData_145916c0682a72614a1ed72a9efded82c" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setUserData</name></member>
+      <member refid="classMyGUI_1_1UserData_19630c47aa8d58cbc89628aad50725245" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setUserString</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_107030dac4f4cd436194f17ad0de29b44" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setVerticalAlignment</name></member>
+      <member refid="classMyGUI_1_1Widget_1d98f045bfca3a54b5adacf8d0c090bc2" prot="public" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>setVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_1c717aa06253e913156a6d24fb3d4cbc4" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setWidgetClient</name></member>
+      <member refid="classMyGUI_1_1Widget_1372d21a0125ab28cc5c2c295290a2806" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>setWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1154ff1699c622eee1c5b8da77e6f7b69" prot="protected" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>shutdownOverride</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_15e449d814e503d9db68ed931b0b2bfb4" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>TrackMove</name></member>
+      <member refid="classMyGUI_1_1ScrollBar_1e68dd5ec9a2a99eef742faac0078d0b4" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>updateTrack</name></member>
+      <member refid="classMyGUI_1_1UserData_1108076068708e939519f9c775c2ae87b" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>UserData</name></member>
+      <member refid="classMyGUI_1_1Widget_1f4814618768bc07a685495895ca47b04" prot="public" virt="non-virtual"><scope>MyGUI::ScrollBar</scope><name>Widget</name></member>
+      <member refid="classMyGUI_1_1UserData_1a970af2c1f39e0fa8801fd9defb06d84" prot="public" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>~UserData</name></member>
+      <member refid="classMyGUI_1_1Widget_18ff3c2a98bbea22f4f0191bcac54b643" prot="protected" virt="virtual"><scope>MyGUI::ScrollBar</scope><name>~Widget</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

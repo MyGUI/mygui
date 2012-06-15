@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1MainSkin" kind="class" prot="public">
+    <compoundname>MyGUI::MainSkin</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1MainSkin_1c57f7eecc734e2182eea65f4d235f88e" prot="public" static="no">
+        <type>RTTIBase</type>
+        <definition>typedef RTTIBase MyGUI::MainSkin::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MainSkin.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MainSkin.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1MainSkin_1e98d43c4098015d139be48ce3dc4ed12" prot="public" static="no">
+        <type>MainSkin</type>
+        <definition>typedef MainSkin MyGUI::MainSkin::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MainSkin.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MainSkin.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1MainSkin_1df943811f87fc07bf91c998b0864f1f8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::MainSkin::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MainSkin.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MainSkin.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MainSkin_12fd7308a47d55f1e5f64bd645c5bb297" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::MainSkin::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MainSkin.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MainSkin.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MainSkin_1d4caf3f7188bed2e9557ad5be6d78ade" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::MainSkin::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MainSkin.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MainSkin.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MainSkin_1840fb248284e7f8f684ef038bc87b46c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::MainSkin::MainSkin</definition>
+        <argsstring>()</argsstring>
+        <name>MainSkin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MainSkin.h" line="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MainSkin_11bffe6935e60a8f1e2bf5b1dcf4a5bf5" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::MainSkin::~MainSkin</definition>
+        <argsstring>()</argsstring>
+        <name>~MainSkin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MainSkin.h" line="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MainSkin_1ad1a307abe76e4cb79276756b3f26598" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::MainSkin::_setAlign</definition>
+        <argsstring>(const IntSize &amp;_oldsize)</argsstring>
+        <name>_setAlign</name>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_oldsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MainSkin.h" line="41"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1MainSkin_15cfad5d3f0958bcba5ab61b7deca5c9a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::MainSkin::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MainSkin.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MainSkin.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MainSkin.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MainSkin.h" bodystart="31" bodyend="42"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1MainSkin_1ad1a307abe76e4cb79276756b3f26598" prot="public" virt="virtual"><scope>MyGUI::MainSkin</scope><name>_setAlign</name></member>
+      <member refid="classMyGUI_1_1MainSkin_1c57f7eecc734e2182eea65f4d235f88e" prot="public" virt="non-virtual"><scope>MyGUI::MainSkin</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1MainSkin_15cfad5d3f0958bcba5ab61b7deca5c9a" prot="public" virt="non-virtual"><scope>MyGUI::MainSkin</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1MainSkin_1df943811f87fc07bf91c998b0864f1f8" prot="public" virt="virtual"><scope>MyGUI::MainSkin</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1MainSkin_12fd7308a47d55f1e5f64bd645c5bb297" prot="public" virt="virtual"><scope>MyGUI::MainSkin</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1MainSkin_1d4caf3f7188bed2e9557ad5be6d78ade" prot="public" virt="non-virtual"><scope>MyGUI::MainSkin</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1MainSkin_1840fb248284e7f8f684ef038bc87b46c" prot="public" virt="non-virtual"><scope>MyGUI::MainSkin</scope><name>MainSkin</name></member>
+      <member refid="classMyGUI_1_1MainSkin_1e98d43c4098015d139be48ce3dc4ed12" prot="public" virt="non-virtual"><scope>MyGUI::MainSkin</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1MainSkin_11bffe6935e60a8f1e2bf5b1dcf4a5bf5" prot="public" virt="virtual"><scope>MyGUI::MainSkin</scope><name>~MainSkin</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

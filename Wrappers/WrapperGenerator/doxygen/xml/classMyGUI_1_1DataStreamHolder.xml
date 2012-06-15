@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1DataStreamHolder" kind="class" prot="public">
+    <compoundname>MyGUI::DataStreamHolder</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1DataStreamHolder_1a3ad98bc606327b3a100073908265c21" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::DataStreamHolder::DataStreamHolder</definition>
+        <argsstring>(IDataStream *_data)</argsstring>
+        <name>DataStreamHolder</name>
+        <param>
+          <type>IDataStream *</type>
+          <declname>_data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" line="47" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" bodystart="45" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1DataStreamHolder_1d8b097bafe684cfb7ef38561bf43b237" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::DataStreamHolder::~DataStreamHolder</definition>
+        <argsstring>()</argsstring>
+        <name>~DataStreamHolder</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" line="51" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" bodystart="50" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1DataStreamHolder_1565b7240a686d73082ae1b15b83389e8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>IDataStream *</type>
+        <definition>IDataStream* MyGUI::DataStreamHolder::getData</definition>
+        <argsstring>()</argsstring>
+        <name>getData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" line="56" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" bodystart="55" bodyend="58"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1DataStreamHolder_124ce8eceb124df2f02289d35a8d0cf7d" prot="private" static="no" mutable="no">
+        <type>IDataStream *</type>
+        <definition>IDataStream* MyGUI::DataStreamHolder::mData</definition>
+        <argsstring></argsstring>
+        <name>mData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" line="61" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" bodystart="42" bodyend="62"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1DataStreamHolder_1a3ad98bc606327b3a100073908265c21" prot="public" virt="non-virtual"><scope>MyGUI::DataStreamHolder</scope><name>DataStreamHolder</name></member>
+      <member refid="classMyGUI_1_1DataStreamHolder_1565b7240a686d73082ae1b15b83389e8" prot="public" virt="non-virtual"><scope>MyGUI::DataStreamHolder</scope><name>getData</name></member>
+      <member refid="classMyGUI_1_1DataStreamHolder_124ce8eceb124df2f02289d35a8d0cf7d" prot="private" virt="non-virtual"><scope>MyGUI::DataStreamHolder</scope><name>mData</name></member>
+      <member refid="classMyGUI_1_1DataStreamHolder_1d8b097bafe684cfb7ef38561bf43b237" prot="public" virt="non-virtual"><scope>MyGUI::DataStreamHolder</scope><name>~DataStreamHolder</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

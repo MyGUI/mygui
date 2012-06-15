@@ -1,0 +1,370 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1LogManager" kind="class" prot="public">
+    <compoundname>MyGUI::LogManager</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1LogManager_16feb16839210d5ae71f6aa3417781fb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::LogManager::LogManager</definition>
+        <argsstring>()</argsstring>
+        <name>LogManager</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LogManager_110f4861fd11709a3ddbbdf15c77a8020" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::LogManager::~LogManager</definition>
+        <argsstring>()</argsstring>
+        <name>~LogManager</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LogManager_11b9aacbe7e269d4764def2a36f892f5e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LogManager::flush</definition>
+        <argsstring>()</argsstring>
+        <name>flush</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Call LogSource::flush() for all log sources. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LogManager_1a886cf9c7252a7f2712a0d8987421e84" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LogManager::log</definition>
+        <argsstring>(const std::string &amp;_section, LogLevel _level, const std::string &amp;_message, const char *_file, int _line)</argsstring>
+        <name>log</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_section</declname>
+        </param>
+        <param>
+          <type>LogLevel</type>
+          <declname>_level</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_message</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>_file</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_line</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Call LogSource::log for all log sources. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LogManager_1732fcbb17e8d126ea9520ebdbb941b45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LogManager::createDefaultSource</definition>
+        <argsstring>(const std::string &amp;_logname)</argsstring>
+        <name>createDefaultSource</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_logname</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create default LevelLogFilter, FileLogListener and ConsoleLogListener. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LogManager_137770450969f2a8d2cd370413df48746" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LogManager::setSTDOutputEnabled</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setSTDOutputEnabled</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enable or disable default ConsoleLogListener that writes log into std::cout.<linebreak/>
+ Enabled (true) by default. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LogManager_1c68f301c1f51ecf21e7519594337201f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::LogManager::getSTDOutputEnabled</definition>
+        <argsstring>() const </argsstring>
+        <name>getSTDOutputEnabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is disable ConsoleLogListener enabled. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LogManager_180146cb5573a7657361699aeec9d989b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LogManager::setLoggingLevel</definition>
+        <argsstring>(LogLevel _value)</argsstring>
+        <name>setLoggingLevel</name>
+        <param>
+          <type>LogLevel</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default LevelLogFilter level. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LogManager_1274d76a9b7da90b51cf6f8fdde4dde41" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>LogLevel</type>
+        <definition>LogLevel MyGUI::LogManager::getLoggingLevel</definition>
+        <argsstring>() const </argsstring>
+        <name>getLoggingLevel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get default LevelLogFilter level. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="68"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LogManager_14c365f78c2ae466202dd5e6184274574" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LogManager::addLogSource</definition>
+        <argsstring>(LogSource *_source)</argsstring>
+        <name>addLogSource</name>
+        <param>
+          <type>LogSource *</type>
+          <declname>_source</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add log source. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="71"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1LogManager_12642ac164a2b2c9b54c7414d630d28aa" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LogManager &amp;</type>
+        <definition>static LogManager&amp; MyGUI::LogManager::getInstance</definition>
+        <argsstring>()</argsstring>
+        <name>getInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LogManager_1fb121d6213fcebfe635633da178c28db" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LogManager *</type>
+        <definition>static LogManager* MyGUI::LogManager::getInstancePtr</definition>
+        <argsstring>()</argsstring>
+        <name>getInstancePtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="48"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1LogManager_165b021fd7f2b1cffbb43c52d08a757d9" prot="private" static="no">
+        <type>std::vector&lt; LogSource * &gt;</type>
+        <definition>typedef std::vector&lt;LogSource*&gt; MyGUI::LogManager::VectorLogSource</definition>
+        <argsstring></argsstring>
+        <name>VectorLogSource</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="79" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1LogManager_1800a40bc814cd90d207175f5af155218" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LogManager::close</definition>
+        <argsstring>()</argsstring>
+        <name>close</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="74"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1LogManager_1436e2fad29425564e048cac0d41cb6ae" prot="private" static="no" mutable="no">
+        <type>VectorLogSource</type>
+        <definition>VectorLogSource MyGUI::LogManager::mSources</definition>
+        <argsstring></argsstring>
+        <name>mSources</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="80" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1LogManager_1691be87d0b6b38edaf8313a95f594914" prot="private" static="no" mutable="no">
+        <type>ConsoleLogListener *</type>
+        <definition>ConsoleLogListener* MyGUI::LogManager::mConsole</definition>
+        <argsstring></argsstring>
+        <name>mConsole</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="82" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1LogManager_1e965e9f7b30b5b8e0f4ef60dea04e9ce" prot="private" static="no" mutable="no">
+        <type>FileLogListener *</type>
+        <definition>FileLogListener* MyGUI::LogManager::mFile</definition>
+        <argsstring></argsstring>
+        <name>mFile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="83" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1LogManager_175bd6209358e91320862dbf4d5724da4" prot="private" static="no" mutable="no">
+        <type>LevelLogFilter *</type>
+        <definition>LevelLogFilter* MyGUI::LogManager::mFilter</definition>
+        <argsstring></argsstring>
+        <name>mFilter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="84" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1LogManager_15e362888489a79eeef9bb06b305b8608" prot="private" static="no" mutable="no">
+        <type>LogSource *</type>
+        <definition>LogSource* MyGUI::LogManager::mDefaultSource</definition>
+        <argsstring></argsstring>
+        <name>mDefaultSource</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="85" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1LogManager_13cff6c8e4bf2bdc29b2da5a907273ed6" prot="private" static="no" mutable="no">
+        <type>LogLevel</type>
+        <definition>LogLevel MyGUI::LogManager::mLevel</definition>
+        <argsstring></argsstring>
+        <name>mLevel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="87" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1LogManager_1f0c50ebab1b5879fcc90d7f895e2b511" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::LogManager::mConsoleEnable</definition>
+        <argsstring></argsstring>
+        <name>mConsoleEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="88" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1LogManager_1c88160bc03f0b9494f29fc8a6270e8aa" prot="private" static="yes" mutable="no">
+        <type>LogManager *</type>
+        <definition>LogManager* MyGUI::LogManager::msInstance</definition>
+        <argsstring></argsstring>
+        <name>msInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="77" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogManager.h" bodystart="41" bodyend="89"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1LogManager_14c365f78c2ae466202dd5e6184274574" prot="public" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>addLogSource</name></member>
+      <member refid="classMyGUI_1_1LogManager_1800a40bc814cd90d207175f5af155218" prot="private" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>close</name></member>
+      <member refid="classMyGUI_1_1LogManager_1732fcbb17e8d126ea9520ebdbb941b45" prot="public" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>createDefaultSource</name></member>
+      <member refid="classMyGUI_1_1LogManager_11b9aacbe7e269d4764def2a36f892f5e" prot="public" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>flush</name></member>
+      <member refid="classMyGUI_1_1LogManager_12642ac164a2b2c9b54c7414d630d28aa" prot="public" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>getInstance</name></member>
+      <member refid="classMyGUI_1_1LogManager_1fb121d6213fcebfe635633da178c28db" prot="public" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>getInstancePtr</name></member>
+      <member refid="classMyGUI_1_1LogManager_1274d76a9b7da90b51cf6f8fdde4dde41" prot="public" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>getLoggingLevel</name></member>
+      <member refid="classMyGUI_1_1LogManager_1c68f301c1f51ecf21e7519594337201f" prot="public" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>getSTDOutputEnabled</name></member>
+      <member refid="classMyGUI_1_1LogManager_1a886cf9c7252a7f2712a0d8987421e84" prot="public" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>log</name></member>
+      <member refid="classMyGUI_1_1LogManager_16feb16839210d5ae71f6aa3417781fb7" prot="public" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>LogManager</name></member>
+      <member refid="classMyGUI_1_1LogManager_1691be87d0b6b38edaf8313a95f594914" prot="private" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>mConsole</name></member>
+      <member refid="classMyGUI_1_1LogManager_1f0c50ebab1b5879fcc90d7f895e2b511" prot="private" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>mConsoleEnable</name></member>
+      <member refid="classMyGUI_1_1LogManager_15e362888489a79eeef9bb06b305b8608" prot="private" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>mDefaultSource</name></member>
+      <member refid="classMyGUI_1_1LogManager_1e965e9f7b30b5b8e0f4ef60dea04e9ce" prot="private" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>mFile</name></member>
+      <member refid="classMyGUI_1_1LogManager_175bd6209358e91320862dbf4d5724da4" prot="private" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>mFilter</name></member>
+      <member refid="classMyGUI_1_1LogManager_13cff6c8e4bf2bdc29b2da5a907273ed6" prot="private" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>mLevel</name></member>
+      <member refid="classMyGUI_1_1LogManager_1c88160bc03f0b9494f29fc8a6270e8aa" prot="private" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>msInstance</name></member>
+      <member refid="classMyGUI_1_1LogManager_1436e2fad29425564e048cac0d41cb6ae" prot="private" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>mSources</name></member>
+      <member refid="classMyGUI_1_1LogManager_180146cb5573a7657361699aeec9d989b" prot="public" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>setLoggingLevel</name></member>
+      <member refid="classMyGUI_1_1LogManager_137770450969f2a8d2cd370413df48746" prot="public" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>setSTDOutputEnabled</name></member>
+      <member refid="classMyGUI_1_1LogManager_165b021fd7f2b1cffbb43c52d08a757d9" prot="private" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>VectorLogSource</name></member>
+      <member refid="classMyGUI_1_1LogManager_110f4861fd11709a3ddbbdf15c77a8020" prot="public" virt="non-virtual"><scope>MyGUI::LogManager</scope><name>~LogManager</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

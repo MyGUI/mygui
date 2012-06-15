@@ -1,0 +1,514 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1ControllerPosition" kind="class" prot="public">
+    <compoundname>MyGUI::ControllerPosition</compoundname>
+    <basecompoundref refid="classMyGUI_1_1ControllerItem" prot="public" virt="non-virtual">MyGUI::ControllerItem</basecompoundref>
+    <includes local="no">MyGUI_ControllerPosition.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1ControllerPosition_10d2944c9d64a26e5955e167d121d727f" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1ControllerPosition" kindref="compound">RTTIBase</ref></type>
+        <definition>typedef RTTIBase MyGUI::ControllerPosition::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <reimplements refid="classMyGUI_1_1ControllerItem_12e81a87faa5fd347c0e39360f80f1652">Base</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1ControllerPosition_168820c34e92e9caf90e9390ca0830716" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1ControllerPosition" kindref="compound">ControllerPosition</ref></type>
+        <definition>typedef ControllerPosition MyGUI::ControllerPosition::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <reimplements refid="classMyGUI_1_1ControllerItem_128edfd0691182c0925bb54233532e733">RTTIBase</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1ControllerPosition_1d568c874c908043555405a6d8431eab6" prot="public" static="no">
+        <type>delegates::CDelegate4&lt; const IntCoord &amp;, const IntCoord &amp;, IntCoord &amp;, float &gt;</type>
+        <definition>typedef delegates::CDelegate4&lt;const IntCoord&amp;, const IntCoord&amp;, IntCoord&amp;, float&gt; MyGUI::ControllerPosition::FrameAction</definition>
+        <argsstring></argsstring>
+        <name>FrameAction</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1ControllerPosition_1c2fa62652df83c4bbc94f41e59c31031" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::ControllerPosition::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <reimplements refid="classMyGUI_1_1ControllerItem_10554365db85d0281ece0ceab87af9279">getTypeName</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerPosition_1689a250959e00fd0fb4d051457ad3a03" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::ControllerPosition::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <reimplements refid="classMyGUI_1_1ControllerItem_1b1efb9129e71a654dde9fba6f01e010d">isType</reimplements>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerPosition_1a945fd1bd74e5cd3b491d1c592d9ef06" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::ControllerPosition::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <reimplements refid="classMyGUI_1_1ControllerItem_110391ef58c887658e622f807a05310a8">isType</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerPosition_111d2dfbcf99539884d0e91b68ea70a9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::ControllerPosition::ControllerPosition</definition>
+        <argsstring>()</argsstring>
+        <name>ControllerPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerPosition_1d79bd2a16ce07137719e405bd3fa8ffb" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::ControllerPosition::~ControllerPosition</definition>
+        <argsstring>()</argsstring>
+        <name>~ControllerPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerPosition_12c31ea44cd09b4de8b78257da08d5e1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ControllerPosition::setCoord</definition>
+        <argsstring>(const IntCoord &amp;_value)</argsstring>
+        <name>setCoord</name>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerPosition_1e3b5b8b673cb3207347ef8427dc4d2e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ControllerPosition::setSize</definition>
+        <argsstring>(const IntSize &amp;_value)</argsstring>
+        <name>setSize</name>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerPosition_114982f1f01a9575f4b7cbc20fa94434d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ControllerPosition::setPosition</definition>
+        <argsstring>(const IntPoint &amp;_value)</argsstring>
+        <name>setPosition</name>
+        <param>
+          <type>const IntPoint &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerPosition_1f2dad6fb277e5c990bc2a0770f61ae79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ControllerPosition::setFunction</definition>
+        <argsstring>(const std::string &amp;_value)</argsstring>
+        <name>setFunction</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerPosition_12ecdf2019263c0b500aa8e3f81b976dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ControllerPosition::setTime</definition>
+        <argsstring>(float _value)</argsstring>
+        <name>setTime</name>
+        <param>
+          <type>float</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>seconds in which widget planned to reach destination coordinate </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerPosition_11d84dca9c33940296d44472c99f4ce40" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ControllerPosition::setAction</definition>
+        <argsstring>(FrameAction::IDelegate *_value)</argsstring>
+        <name>setAction</name>
+        <param>
+          <type>FrameAction::IDelegate *</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Delegate applied to widget every frame (see ControllerPosition::eventFrameAction) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerPosition_1b0e5af71055099ea4bf42ca92e517404" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ControllerPosition::setProperty</definition>
+        <argsstring>(const std::string &amp;_key, const std::string &amp;_value)</argsstring>
+        <name>setProperty</name>
+        <reimplements refid="classMyGUI_1_1ControllerItem_140f75a1bfbf8abe53eeeba0ccd518251">setProperty</reimplements>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_key</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="64"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1ControllerPosition_1e264e3a3e8603920922033f59731162e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::ControllerPosition::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <reimplements refid="classMyGUI_1_1ControllerItem_16f5a2e023fce8670c108dbc21dc37131">getClassTypeName</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" bodystart="38" bodyend="38"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1ControllerPosition_13454d85a20a43c04d7d1f7b31abeb316" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::ControllerPosition::addTime</definition>
+        <argsstring>(Widget *_widget, float _time)</argsstring>
+        <name>addTime</name>
+        <reimplements refid="classMyGUI_1_1ControllerItem_13733e172299c32d8825edd01ab685586">addTime</reimplements>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_time</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerPosition_100dd88ef8a757c6957df76404ee22d8f" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void MyGUI::ControllerPosition::prepareItem</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>prepareItem</name>
+        <reimplements refid="classMyGUI_1_1ControllerItem_1ae73eddd7dd28470eb7d3d85e34662d1">prepareItem</reimplements>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="68"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1ControllerPosition_184a0527889bed8f3c31946a088384e34" prot="private" static="no" mutable="no">
+        <type>IntCoord</type>
+        <definition>IntCoord MyGUI::ControllerPosition::mStartCoord</definition>
+        <argsstring></argsstring>
+        <name>mStartCoord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="70" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ControllerPosition_1c16cfbbf49016f1afe6dbed04c47afe2" prot="private" static="no" mutable="no">
+        <type>IntCoord</type>
+        <definition>IntCoord MyGUI::ControllerPosition::mDestCoord</definition>
+        <argsstring></argsstring>
+        <name>mDestCoord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="71" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ControllerPosition_12fa5b2bc2807e01e8870eedff328351e" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::ControllerPosition::mTime</definition>
+        <argsstring></argsstring>
+        <name>mTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="72" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ControllerPosition_11dd15d1297598a4e6b6822fdda9bf505" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::ControllerPosition::mElapsedTime</definition>
+        <argsstring></argsstring>
+        <name>mElapsedTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="73" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ControllerPosition_161ef6036f0463172f14bf1e72e24994b" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::ControllerPosition::mCalcPosition</definition>
+        <argsstring></argsstring>
+        <name>mCalcPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="76" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ControllerPosition_1b4c3daa8cd37fbbd8a0830c80b87278b" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::ControllerPosition::mCalcSize</definition>
+        <argsstring></argsstring>
+        <name>mCalcSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="78" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ControllerPosition_164d1cbcb938c24d1830eb4799381b54b" prot="private" static="no" mutable="no">
+        <type>FrameAction</type>
+        <definition>FrameAction MyGUI::ControllerPosition::eventFrameAction</definition>
+        <argsstring></argsstring>
+        <name>eventFrameAction</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Event : Every frame action while controller exist.<linebreak/>
+ signature : void method(const IntRect&amp; _startRect, const IntRect&amp; _destRect, IntRect&amp; _result, float _current_time)<linebreak/>
+ <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_startRect</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>start coordinate of widget </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_destRect</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>destination coordinate </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_result</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>resultRect </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_current_time</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>elapsed time (_current_time is real elapsed time divided by _time(see constructor) so _current_time == 1 mean that _time seconds elapsed) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="87" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>This controller used for smooth changing position of widget in time </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="145">
+        <label>MyGUI::ControllerPosition</label>
+        <link refid="classMyGUI_1_1ControllerPosition"/>
+        <childnode refid="146" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="146">
+        <label>MyGUI::ControllerItem</label>
+        <link refid="classMyGUI_1_1ControllerItem"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="147">
+        <label>MyGUI::ControllerPosition</label>
+        <link refid="classMyGUI_1_1ControllerPosition"/>
+        <childnode refid="148" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="148">
+        <label>MyGUI::ControllerItem</label>
+        <link refid="classMyGUI_1_1ControllerItem"/>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerPosition.h" bodystart="35" bodyend="88"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1ControllerPosition_13454d85a20a43c04d7d1f7b31abeb316" prot="private" virt="virtual"><scope>MyGUI::ControllerPosition</scope><name>addTime</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_10d2944c9d64a26e5955e167d121d727f" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_111d2dfbcf99539884d0e91b68ea70a9d" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>ControllerPosition</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_164d1cbcb938c24d1830eb4799381b54b" prot="private" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>eventFrameAction</name></member>
+      <member refid="classMyGUI_1_1ControllerItem_145697d9b2bdb43e6e5bd2b694d321253" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>eventPostAction</name></member>
+      <member refid="classMyGUI_1_1ControllerItem_1c1ee0d87187578b9ccbfbdab70216dea" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>eventPreAction</name></member>
+      <member refid="classMyGUI_1_1ControllerItem_1e9fe2df3ce3bdafff5f61db523e4b712" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>eventUpdateAction</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_1d568c874c908043555405a6d8431eab6" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>FrameAction</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_1e264e3a3e8603920922033f59731162e" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_1c2fa62652df83c4bbc94f41e59c31031" prot="public" virt="virtual"><scope>MyGUI::ControllerPosition</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_1689a250959e00fd0fb4d051457ad3a03" prot="public" virt="virtual"><scope>MyGUI::ControllerPosition</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_1a945fd1bd74e5cd3b491d1c592d9ef06" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_161ef6036f0463172f14bf1e72e24994b" prot="private" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>mCalcPosition</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_1b4c3daa8cd37fbbd8a0830c80b87278b" prot="private" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>mCalcSize</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_1c16cfbbf49016f1afe6dbed04c47afe2" prot="private" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>mDestCoord</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_11dd15d1297598a4e6b6822fdda9bf505" prot="private" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>mElapsedTime</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_184a0527889bed8f3c31946a088384e34" prot="private" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>mStartCoord</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_12fa5b2bc2807e01e8870eedff328351e" prot="private" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>mTime</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_100dd88ef8a757c6957df76404ee22d8f" prot="private" virt="virtual"><scope>MyGUI::ControllerPosition</scope><name>prepareItem</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_168820c34e92e9caf90e9390ca0830716" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_11d84dca9c33940296d44472c99f4ce40" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>setAction</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_12c31ea44cd09b4de8b78257da08d5e1f" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>setCoord</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_1f2dad6fb277e5c990bc2a0770f61ae79" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>setFunction</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_114982f1f01a9575f4b7cbc20fa94434d" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_1b0e5af71055099ea4bf42ca92e517404" prot="public" virt="virtual"><scope>MyGUI::ControllerPosition</scope><name>setProperty</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_1e3b5b8b673cb3207347ef8427dc4d2e4" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>setSize</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_12ecdf2019263c0b500aa8e3f81b976dd" prot="public" virt="non-virtual"><scope>MyGUI::ControllerPosition</scope><name>setTime</name></member>
+      <member refid="classMyGUI_1_1ControllerItem_19e7c65fed9216f1f4667bf08a16b2b6e" prot="public" virt="virtual"><scope>MyGUI::ControllerPosition</scope><name>~ControllerItem</name></member>
+      <member refid="classMyGUI_1_1ControllerPosition_1d79bd2a16ce07137719e405bd3fa8ffb" prot="public" virt="virtual"><scope>MyGUI::ControllerPosition</scope><name>~ControllerPosition</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

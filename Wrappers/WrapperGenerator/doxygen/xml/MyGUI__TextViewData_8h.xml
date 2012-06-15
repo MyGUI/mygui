@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="MyGUI__TextViewData_8h" kind="file">
+    <compoundname>MyGUI_TextViewData.h</compoundname>
+    <includes refid="MyGUI__Prerequest_8h" local="yes">MyGUI_Prerequest.h</includes>
+    <includedby refid="MyGUI__TextView_8h" local="yes">MyGUI_TextView.h</includedby>
+    <incdepgraph>
+      <node id="9932">
+        <label>MyGUI_TextViewData.h</label>
+        <link refid="MyGUI_TextViewData.h"/>
+        <childnode refid="9933" relation="include">
+        </childnode>
+      </node>
+      <node id="9934">
+        <label>MyGUI_Platform.h</label>
+        <link refid="MyGUI__Platform_8h"/>
+      </node>
+      <node id="9935">
+        <label>MyGUI_DeprecatedTypes.h</label>
+        <link refid="MyGUI__DeprecatedTypes_8h"/>
+      </node>
+      <node id="9933">
+        <label>MyGUI_Prerequest.h</label>
+        <link refid="MyGUI__Prerequest_8h"/>
+        <childnode refid="9934" relation="include">
+        </childnode>
+        <childnode refid="9935" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="9938">
+        <label>MyGUI_EditText.h</label>
+        <link refid="MyGUI__EditText_8h"/>
+        <childnode refid="9939" relation="include">
+        </childnode>
+      </node>
+      <node id="9936">
+        <label>MyGUI_TextViewData.h</label>
+        <link refid="MyGUI_TextViewData.h"/>
+        <childnode refid="9937" relation="include">
+        </childnode>
+      </node>
+      <node id="9939">
+        <label>MyGUI_SimpleText.h</label>
+        <link refid="MyGUI__SimpleText_8h"/>
+      </node>
+      <node id="9937">
+        <label>MyGUI_TextView.h</label>
+        <link refid="MyGUI__TextView_8h"/>
+        <childnode refid="9938" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classMyGUI_1_1CharInfo">MyGUI::CharInfo</innerclass>
+    <innerclass refid="structMyGUI_1_1CharInfo_1_1Metrics">MyGUI::CharInfo::Metrics</innerclass>
+    <innerclass refid="structMyGUI_1_1LineInfo">MyGUI::LineInfo</innerclass>
+    <innernamespace refid="namespaceMyGUI">MyGUI</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Albert Semenov </para></simplesect>
+<simplesect kind="date"><para>09/2009 </para></simplesect>
+</para>    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h"/>
+  </compounddef>
+</doxygen>

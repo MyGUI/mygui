@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1EditTextStateInfo" kind="class" prot="public">
+    <compoundname>MyGUI::EditTextStateInfo</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1EditTextStateInfo_1f401e08260737eb67f83827690bfa1e8" prot="public" static="no">
+        <type>RTTIBase</type>
+        <definition>typedef RTTIBase MyGUI::EditTextStateInfo::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" line="137" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1EditTextStateInfo_1b827d687a1f76e01c78c8fb3054b6bd9" prot="public" static="no">
+        <type>EditTextStateInfo</type>
+        <definition>typedef EditTextStateInfo MyGUI::EditTextStateInfo::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" line="137" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1EditTextStateInfo_15fc2b627bfbdc455a5222efd04015d0b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::EditTextStateInfo::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" line="137" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" bodystart="137" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditTextStateInfo_18b46d7d30845f1e95db3ff0b1bc82b70" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::EditTextStateInfo::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" line="137" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" bodystart="137" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditTextStateInfo_1e44766dc5c32e0e44fd2ba17f22e360f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::EditTextStateInfo::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" line="137" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" bodystart="137" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditTextStateInfo_163253ac2481f8cbf2d27aee3cd7febdd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::EditTextStateInfo::EditTextStateInfo</definition>
+        <argsstring>()</argsstring>
+        <name>EditTextStateInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" line="143" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" bodystart="140" bodyend="144"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditTextStateInfo_1d4a02ab6aa5970e74e5eb43197f420aa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::EditTextStateInfo::~EditTextStateInfo</definition>
+        <argsstring>()</argsstring>
+        <name>~EditTextStateInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" line="146" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" bodystart="146" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditTextStateInfo_13fc99e493e76034f83bd85a9bdd47ec8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const Colour &amp;</type>
+        <definition>const Colour&amp; MyGUI::EditTextStateInfo::getColour</definition>
+        <argsstring>() const </argsstring>
+        <name>getColour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" line="149" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" bodystart="148" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditTextStateInfo_1e94857b0b19c3858b070b9ac7a7372d0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::EditTextStateInfo::getShift</definition>
+        <argsstring>() const </argsstring>
+        <name>getShift</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" line="154" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" bodystart="153" bodyend="156"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1EditTextStateInfo_14b068e3962a90ac40cdfe521ad41184e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::EditTextStateInfo::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" line="137" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" bodystart="137" bodyend="137"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1EditTextStateInfo_1850785456f68ec4760d7157c6342e1c3" prot="private" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditTextStateInfo::deserialization</definition>
+        <argsstring>(xml::ElementPtr _node, Version _version)</argsstring>
+        <name>deserialization</name>
+        <param>
+          <type>xml::ElementPtr</type>
+          <declname>_node</declname>
+        </param>
+        <param>
+          <type>Version</type>
+          <declname>_version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" line="160" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" bodystart="159" bodyend="170"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1EditTextStateInfo_1f23a978ba9c96a009797b115090e67a1" prot="private" static="no" mutable="no">
+        <type>Colour</type>
+        <definition>Colour MyGUI::EditTextStateInfo::mColour</definition>
+        <argsstring></argsstring>
+        <name>mColour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" line="173" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditTextStateInfo_1ed13c2615d162ce85b5ec72edbf12530" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::EditTextStateInfo::mShift</definition>
+        <argsstring></argsstring>
+        <name>mShift</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" line="174" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" line="136" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CommonStateInfo.h" bodystart="134" bodyend="175"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1EditTextStateInfo_1f401e08260737eb67f83827690bfa1e8" prot="public" virt="non-virtual"><scope>MyGUI::EditTextStateInfo</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1EditTextStateInfo_1850785456f68ec4760d7157c6342e1c3" prot="private" virt="virtual"><scope>MyGUI::EditTextStateInfo</scope><name>deserialization</name></member>
+      <member refid="classMyGUI_1_1EditTextStateInfo_163253ac2481f8cbf2d27aee3cd7febdd" prot="public" virt="non-virtual"><scope>MyGUI::EditTextStateInfo</scope><name>EditTextStateInfo</name></member>
+      <member refid="classMyGUI_1_1EditTextStateInfo_14b068e3962a90ac40cdfe521ad41184e" prot="public" virt="non-virtual"><scope>MyGUI::EditTextStateInfo</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1EditTextStateInfo_13fc99e493e76034f83bd85a9bdd47ec8" prot="public" virt="non-virtual"><scope>MyGUI::EditTextStateInfo</scope><name>getColour</name></member>
+      <member refid="classMyGUI_1_1EditTextStateInfo_1e94857b0b19c3858b070b9ac7a7372d0" prot="public" virt="non-virtual"><scope>MyGUI::EditTextStateInfo</scope><name>getShift</name></member>
+      <member refid="classMyGUI_1_1EditTextStateInfo_15fc2b627bfbdc455a5222efd04015d0b" prot="public" virt="virtual"><scope>MyGUI::EditTextStateInfo</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1EditTextStateInfo_18b46d7d30845f1e95db3ff0b1bc82b70" prot="public" virt="virtual"><scope>MyGUI::EditTextStateInfo</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1EditTextStateInfo_1e44766dc5c32e0e44fd2ba17f22e360f" prot="public" virt="non-virtual"><scope>MyGUI::EditTextStateInfo</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1EditTextStateInfo_1f23a978ba9c96a009797b115090e67a1" prot="private" virt="non-virtual"><scope>MyGUI::EditTextStateInfo</scope><name>mColour</name></member>
+      <member refid="classMyGUI_1_1EditTextStateInfo_1ed13c2615d162ce85b5ec72edbf12530" prot="private" virt="non-virtual"><scope>MyGUI::EditTextStateInfo</scope><name>mShift</name></member>
+      <member refid="classMyGUI_1_1EditTextStateInfo_1b827d687a1f76e01c78c8fb3054b6bd9" prot="public" virt="non-virtual"><scope>MyGUI::EditTextStateInfo</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1EditTextStateInfo_1d4a02ab6aa5970e74e5eb43197f420aa" prot="public" virt="virtual"><scope>MyGUI::EditTextStateInfo</scope><name>~EditTextStateInfo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

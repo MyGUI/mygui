@@ -1,0 +1,188 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1IFont" kind="class" prot="public">
+    <compoundname>MyGUI::IFont</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1IFont_17d11cceba32d64e888ae2cb28a19dffd" prot="public" static="no">
+        <type>RTTIBase</type>
+        <definition>typedef RTTIBase MyGUI::IFont::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1IFont_12e880021c6cda0511dce0213e4d1c765" prot="public" static="no">
+        <type>IFont</type>
+        <definition>typedef IFont MyGUI::IFont::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1IFont_1b9a0b76aebbbaf3345e29409202f7eec" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::IFont::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IFont_10240d8f47daffb7d0582621e32899751" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::IFont::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IFont_10e13e913853e35a096c0baf04e84d7be" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::IFont::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IFont_13b8eaa5bca298d2fdb2403770b9bee3a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::IFont::IFont</definition>
+        <argsstring>()</argsstring>
+        <name>IFont</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" bodystart="41" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IFont_188db7b6481049f977110477c66b7fdbb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::IFont::~IFont</definition>
+        <argsstring>()</argsstring>
+        <name>~IFont</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" bodystart="42" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IFont_1ba19e8323943ee3386936b0735e0c258" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>GlyphInfo *</type>
+        <definition>virtual GlyphInfo* MyGUI::IFont::getGlyphInfo</definition>
+        <argsstring>(Char _id)=0</argsstring>
+        <name>getGlyphInfo</name>
+        <param>
+          <type>Char</type>
+          <declname>_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" line="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IFont_12dbff756db4e3d8969c82dc66e762c94" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>ITexture *</type>
+        <definition>virtual ITexture* MyGUI::IFont::getTextureFont</definition>
+        <argsstring>()=0</argsstring>
+        <name>getTextureFont</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" line="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IFont_18292ead24d60576f828c79db2057973f" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>int</type>
+        <definition>virtual int MyGUI::IFont::getDefaultHeight</definition>
+        <argsstring>()=0</argsstring>
+        <name>getDefaultHeight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" line="48"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1IFont_13fa4c652f896bd9eb9e027d7f9b752fc" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::IFont::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" bodystart="38" bodyend="38"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IFont.h" bodystart="35" bodyend="49"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1IFont_17d11cceba32d64e888ae2cb28a19dffd" prot="public" virt="non-virtual"><scope>MyGUI::IFont</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1IFont_13fa4c652f896bd9eb9e027d7f9b752fc" prot="public" virt="non-virtual"><scope>MyGUI::IFont</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1IFont_18292ead24d60576f828c79db2057973f" prot="public" virt="pure-virtual"><scope>MyGUI::IFont</scope><name>getDefaultHeight</name></member>
+      <member refid="classMyGUI_1_1IFont_1ba19e8323943ee3386936b0735e0c258" prot="public" virt="pure-virtual"><scope>MyGUI::IFont</scope><name>getGlyphInfo</name></member>
+      <member refid="classMyGUI_1_1IFont_12dbff756db4e3d8969c82dc66e762c94" prot="public" virt="pure-virtual"><scope>MyGUI::IFont</scope><name>getTextureFont</name></member>
+      <member refid="classMyGUI_1_1IFont_1b9a0b76aebbbaf3345e29409202f7eec" prot="public" virt="virtual"><scope>MyGUI::IFont</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1IFont_13b8eaa5bca298d2fdb2403770b9bee3a" prot="public" virt="non-virtual"><scope>MyGUI::IFont</scope><name>IFont</name></member>
+      <member refid="classMyGUI_1_1IFont_10240d8f47daffb7d0582621e32899751" prot="public" virt="virtual"><scope>MyGUI::IFont</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1IFont_10e13e913853e35a096c0baf04e84d7be" prot="public" virt="non-virtual"><scope>MyGUI::IFont</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1IFont_12e880021c6cda0511dce0213e4d1c765" prot="public" virt="non-virtual"><scope>MyGUI::IFont</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1IFont_188db7b6481049f977110477c66b7fdbb" prot="public" virt="virtual"><scope>MyGUI::IFont</scope><name>~IFont</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

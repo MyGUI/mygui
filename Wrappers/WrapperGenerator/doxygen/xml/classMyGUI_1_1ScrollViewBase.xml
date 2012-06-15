@@ -1,0 +1,364 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1ScrollViewBase" kind="class" prot="public">
+    <compoundname>MyGUI::ScrollViewBase</compoundname>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classMyGUI_1_1ScrollViewBase_1d08d94f3759c40f296a57c16f4c199d8" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::ScrollViewBase::ScrollViewBase</definition>
+        <argsstring>()</argsstring>
+        <name>ScrollViewBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollViewBase_12f75cb4be8773e42573c4101166b91d6" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::ScrollViewBase::~ScrollViewBase</definition>
+        <argsstring>()</argsstring>
+        <name>~ScrollViewBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollViewBase_1c02fb2609e67ef9a8b8546c6f7c59270" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ScrollViewBase::updateScrollSize</definition>
+        <argsstring>()</argsstring>
+        <name>updateScrollSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollViewBase_125b0904581e3e5f197c90953526c52b7" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ScrollViewBase::updateScrollPosition</definition>
+        <argsstring>()</argsstring>
+        <name>updateScrollPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollViewBase_1fd5fe302ad76f0210dbf8ae0907e2730" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>IntSize</type>
+        <definition>virtual IntSize MyGUI::ScrollViewBase::getContentSize</definition>
+        <argsstring>()</argsstring>
+        <name>getContentSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollViewBase_17d4078b27ac2fab107a66106937cffc3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>IntPoint</type>
+        <definition>virtual IntPoint MyGUI::ScrollViewBase::getContentPosition</definition>
+        <argsstring>()</argsstring>
+        <name>getContentPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollViewBase_1e5b2ae476c1a8ac5560605bd43f351c9" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ScrollViewBase::setContentPosition</definition>
+        <argsstring>(const IntPoint &amp;_value)</argsstring>
+        <name>setContentPosition</name>
+        <param>
+          <type>const IntPoint &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollViewBase_1f39b6d3121aef6d5dc73abcf819227fb" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>IntSize</type>
+        <definition>virtual IntSize MyGUI::ScrollViewBase::getViewSize</definition>
+        <argsstring>()</argsstring>
+        <name>getViewSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollViewBase_14df069e0bd3df5d4155621978f7d5747" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>virtual size_t MyGUI::ScrollViewBase::getHScrollPage</definition>
+        <argsstring>()</argsstring>
+        <name>getHScrollPage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollViewBase_180949106274ec8cbc4e4bf9a58ab58e8" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>virtual size_t MyGUI::ScrollViewBase::getVScrollPage</definition>
+        <argsstring>()</argsstring>
+        <name>getVScrollPage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollViewBase_10b4db88d7076e0940a9a085d9e9a25db" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Align</type>
+        <definition>virtual Align MyGUI::ScrollViewBase::getContentAlign</definition>
+        <argsstring>()</argsstring>
+        <name>getContentAlign</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ScrollViewBase_1cae2761994f0c61651d7210393c506a3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ScrollViewBase::eraseContent</definition>
+        <argsstring>()</argsstring>
+        <name>eraseContent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="56"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollViewBase_1ccf29da5e730508c48b4924343b6b2d2" prot="protected" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1ScrollBar" kindref="compound">ScrollBar</ref> *</type>
+        <definition>ScrollBar* MyGUI::ScrollViewBase::mVScroll</definition>
+        <argsstring></argsstring>
+        <name>mVScroll</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="59" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollViewBase_116432709d5081352937ff7d6f2c76596" prot="protected" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1ScrollBar" kindref="compound">ScrollBar</ref> *</type>
+        <definition>ScrollBar* MyGUI::ScrollViewBase::mHScroll</definition>
+        <argsstring></argsstring>
+        <name>mHScroll</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="60" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollViewBase_1e022831ae84bfa02d36eff5f442aa823" prot="protected" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::ScrollViewBase::mClient</definition>
+        <argsstring></argsstring>
+        <name>mClient</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="61" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollViewBase_1b1760351ca10248ab9f0cd6a84726bbe" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::ScrollViewBase::mVisibleHScroll</definition>
+        <argsstring></argsstring>
+        <name>mVisibleHScroll</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="63" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollViewBase_18850436c264d45cd5168b70dcf2599df" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::ScrollViewBase::mVisibleVScroll</definition>
+        <argsstring></argsstring>
+        <name>mVisibleVScroll</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="64" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollViewBase_119ccdcb4f3fe90978578b0c079b510c3" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ScrollViewBase::mVRange</definition>
+        <argsstring></argsstring>
+        <name>mVRange</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="66" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollViewBase_14ecbef10c0c6cefdec072abd56ebefa6" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ScrollViewBase::mHRange</definition>
+        <argsstring></argsstring>
+        <name>mHRange</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="67" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ScrollViewBase_1ab8c587a3aa2974efa7e9cfdda765de3" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::ScrollViewBase::mChangeContentByResize</definition>
+        <argsstring></argsstring>
+        <name>mChangeContentByResize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="70" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="594">
+        <label>MyGUI::TextBox</label>
+        <link refid="classMyGUI_1_1TextBox"/>
+        <childnode refid="591" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="595">
+        <label>MyGUI::ImageBox</label>
+        <link refid="classMyGUI_1_1ImageBox"/>
+        <childnode refid="591" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="592">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="591">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="592" relation="public-inheritance">
+        </childnode>
+        <childnode refid="591" relation="usage">
+          <edgelabel>mContainer
+mParent
+mWidgetClient</edgelabel>
+        </childnode>
+      </node>
+      <node id="593">
+        <label>MyGUI::Button</label>
+        <link refid="classMyGUI_1_1Button"/>
+        <childnode refid="594" relation="public-inheritance">
+        </childnode>
+        <childnode refid="595" relation="usage">
+          <edgelabel>mImage</edgelabel>
+        </childnode>
+      </node>
+      <node id="590">
+        <label>MyGUI::ScrollBar</label>
+        <link refid="classMyGUI_1_1ScrollBar"/>
+        <childnode refid="591" relation="public-inheritance">
+        </childnode>
+        <childnode refid="591" relation="usage">
+          <edgelabel>mWidgetFirstPart
+mWidgetSecondPart</edgelabel>
+        </childnode>
+        <childnode refid="593" relation="usage">
+          <edgelabel>mWidgetTrack
+mWidgetStart
+mWidgetEnd</edgelabel>
+        </childnode>
+      </node>
+      <node id="589">
+        <label>MyGUI::ScrollViewBase</label>
+        <childnode refid="590" relation="usage">
+          <edgelabel>mHScroll
+mVScroll</edgelabel>
+        </childnode>
+        <childnode refid="591" relation="usage">
+          <edgelabel>mClient</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" line="32" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ScrollViewBase.h" bodystart="31" bodyend="71"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1ScrollViewBase_1cae2761994f0c61651d7210393c506a3" prot="protected" virt="virtual"><scope>MyGUI::ScrollViewBase</scope><name>eraseContent</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_10b4db88d7076e0940a9a085d9e9a25db" prot="protected" virt="virtual"><scope>MyGUI::ScrollViewBase</scope><name>getContentAlign</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_17d4078b27ac2fab107a66106937cffc3" prot="protected" virt="virtual"><scope>MyGUI::ScrollViewBase</scope><name>getContentPosition</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1fd5fe302ad76f0210dbf8ae0907e2730" prot="protected" virt="virtual"><scope>MyGUI::ScrollViewBase</scope><name>getContentSize</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_14df069e0bd3df5d4155621978f7d5747" prot="protected" virt="virtual"><scope>MyGUI::ScrollViewBase</scope><name>getHScrollPage</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1f39b6d3121aef6d5dc73abcf819227fb" prot="protected" virt="virtual"><scope>MyGUI::ScrollViewBase</scope><name>getViewSize</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_180949106274ec8cbc4e4bf9a58ab58e8" prot="protected" virt="virtual"><scope>MyGUI::ScrollViewBase</scope><name>getVScrollPage</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1ab8c587a3aa2974efa7e9cfdda765de3" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollViewBase</scope><name>mChangeContentByResize</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1e022831ae84bfa02d36eff5f442aa823" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollViewBase</scope><name>mClient</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_14ecbef10c0c6cefdec072abd56ebefa6" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollViewBase</scope><name>mHRange</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_116432709d5081352937ff7d6f2c76596" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollViewBase</scope><name>mHScroll</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1b1760351ca10248ab9f0cd6a84726bbe" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollViewBase</scope><name>mVisibleHScroll</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_18850436c264d45cd5168b70dcf2599df" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollViewBase</scope><name>mVisibleVScroll</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_119ccdcb4f3fe90978578b0c079b510c3" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollViewBase</scope><name>mVRange</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1ccf29da5e730508c48b4924343b6b2d2" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollViewBase</scope><name>mVScroll</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1d08d94f3759c40f296a57c16f4c199d8" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollViewBase</scope><name>ScrollViewBase</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1e5b2ae476c1a8ac5560605bd43f351c9" prot="protected" virt="virtual"><scope>MyGUI::ScrollViewBase</scope><name>setContentPosition</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_125b0904581e3e5f197c90953526c52b7" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollViewBase</scope><name>updateScrollPosition</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1c02fb2609e67ef9a8b8546c6f7c59270" prot="protected" virt="non-virtual"><scope>MyGUI::ScrollViewBase</scope><name>updateScrollSize</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_12f75cb4be8773e42573c4101166b91d6" prot="protected" virt="virtual"><scope>MyGUI::ScrollViewBase</scope><name>~ScrollViewBase</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

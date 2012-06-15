@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1MemberObsolete_3_01ResourceManager_01_4" kind="class" prot="public">
+    <compoundname>MyGUI::MemberObsolete&lt; ResourceManager &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01ResourceManager_01_4_1c88e49359a6a9d9de33b3463524acc37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::MemberObsolete&lt; ResourceManager &gt;::getResourceCount</definition>
+        <argsstring>()</argsstring>
+        <name>getResourceCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000168"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="526"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01ResourceManager_01_4_15fd3fdc4772d9939c30246a62f7dc5c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>IResourcePtr</type>
+        <definition>IResourcePtr MyGUI::MemberObsolete&lt; ResourceManager &gt;::getResource</definition>
+        <argsstring>(const std::string &amp;_name, bool _throw=true)</argsstring>
+        <name>getResource</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_throw</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000169"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="528"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="523" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="522" bodyend="529"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01ResourceManager_01_4_15fd3fdc4772d9939c30246a62f7dc5c6" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; ResourceManager &gt;</scope><name>getResource</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01ResourceManager_01_4_1c88e49359a6a9d9de33b3463524acc37" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; ResourceManager &gt;</scope><name>getResourceCount</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

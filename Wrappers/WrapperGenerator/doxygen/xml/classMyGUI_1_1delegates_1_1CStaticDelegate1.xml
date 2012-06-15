@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1delegates_1_1CStaticDelegate1" kind="class" prot="public">
+    <compoundname>MyGUI::delegates::CStaticDelegate1</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>TP1</declname>
+        <defname>TP1</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1delegates_1_1CStaticDelegate1_11900e26e70e74a7308170f6c447ac909" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* MyGUI::delegates::CStaticDelegate1&lt; TP1 &gt;::Func)(TP1 p1)</definition>
+        <argsstring>)(TP1 p1)</argsstring>
+        <name>Func</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="569" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="569" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CStaticDelegate1_1b936dfa8e1f60966a98214365a6fdcc2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::delegates::CStaticDelegate1&lt; TP1 &gt;::CStaticDelegate1</definition>
+        <argsstring>(Func _func)</argsstring>
+        <name>CStaticDelegate1</name>
+        <param>
+          <type>Func</type>
+          <declname>_func</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="571" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="571" bodyend="571"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CStaticDelegate1_14d21e6d4ef613f10633e24400067eb62" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::delegates::CStaticDelegate1&lt; TP1 &gt;::isType</definition>
+        <argsstring>(const std::type_info &amp;_type)</argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="575" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="574" bodyend="577"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CStaticDelegate1_133906b5e5211f24c1808a5eff852145b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::delegates::CStaticDelegate1&lt; TP1 &gt;::invoke</definition>
+        <argsstring>(TP1 p1)</argsstring>
+        <name>invoke</name>
+        <param>
+          <type>TP1</type>
+          <declname>p1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="581" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="580" bodyend="583"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CStaticDelegate1_11699c6b09b42ea4b1cef53d4c1ad5026" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::delegates::CStaticDelegate1&lt; TP1 &gt;::compare</definition>
+        <argsstring>(IDelegate1&lt; TP1 &gt; *_delegate) const </argsstring>
+        <name>compare</name>
+        <param>
+          <type>IDelegate1&lt; TP1 &gt; *</type>
+          <declname>_delegate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="586" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="585" bodyend="595"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CStaticDelegate1_1b85a5c35fb985d0f3a585cf065f27bb3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::delegates::CStaticDelegate1&lt; TP1 &gt;::compare</definition>
+        <argsstring>(IDelegateUnlink *_unlink) const </argsstring>
+        <name>compare</name>
+        <param>
+          <type>IDelegateUnlink *</type>
+          <declname>_unlink</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="597" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="596" bodyend="599"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1delegates_1_1CStaticDelegate1_10ba761ddb0039c98e7e81d60f00134d0" prot="private" static="no" mutable="no">
+        <type>Func</type>
+        <definition>Func MyGUI::delegates::CStaticDelegate1&lt; TP1 &gt;::mFunc</definition>
+        <argsstring></argsstring>
+        <name>mFunc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="602" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="602" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="567" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="566" bodyend="603"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1delegates_1_1CStaticDelegate1_11699c6b09b42ea4b1cef53d4c1ad5026" prot="public" virt="virtual"><scope>MyGUI::delegates::CStaticDelegate1</scope><name>compare</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CStaticDelegate1_1b85a5c35fb985d0f3a585cf065f27bb3" prot="public" virt="virtual"><scope>MyGUI::delegates::CStaticDelegate1</scope><name>compare</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CStaticDelegate1_1b936dfa8e1f60966a98214365a6fdcc2" prot="public" virt="non-virtual"><scope>MyGUI::delegates::CStaticDelegate1</scope><name>CStaticDelegate1</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CStaticDelegate1_11900e26e70e74a7308170f6c447ac909" prot="public" virt="non-virtual"><scope>MyGUI::delegates::CStaticDelegate1</scope><name>Func</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CStaticDelegate1_133906b5e5211f24c1808a5eff852145b" prot="public" virt="virtual"><scope>MyGUI::delegates::CStaticDelegate1</scope><name>invoke</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CStaticDelegate1_14d21e6d4ef613f10633e24400067eb62" prot="public" virt="virtual"><scope>MyGUI::delegates::CStaticDelegate1</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CStaticDelegate1_10ba761ddb0039c98e7e81d60f00134d0" prot="private" virt="non-virtual"><scope>MyGUI::delegates::CStaticDelegate1</scope><name>mFunc</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

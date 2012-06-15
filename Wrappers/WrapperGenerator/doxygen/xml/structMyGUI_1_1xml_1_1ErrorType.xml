@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1xml_1_1ErrorType" kind="struct" prot="public">
+    <compoundname>MyGUI::xml::ErrorType</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d" prot="public" static="no">
+        <name>Enum</name>
+        <enumvalue id="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d1b77eb09ce40786e8b5ff534e207556d" prot="public">
+          <name>OpenFileFail</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d8d0b60c8ea718a66c2a37411fa080f7f" prot="public">
+          <name>CreateFileFail</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d1f30705a2c2b0a279f87afbdcf911039" prot="public">
+          <name>IncorrectContent</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817dbef9f01d18362481839e335030a73f38" prot="public">
+          <name>NotClosedElements</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d222bc6781bebccaf89e41f753fffec9e" prot="public">
+          <name>NoXMLDeclaration</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d18e6d4b3e824ecb6546488b8d1d70402" prot="public">
+          <name>CloseNotOpenedElement</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817dc7f62fa1175880c070bb80fc57f042ac" prot="public">
+          <name>InconsistentOpenCloseElements</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d6f6750dbf9cfaf62861e219729bbe6db" prot="public">
+          <name>MoreThanOneXMLDeclaration</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d499e2d25293ce38590b9799c2bdf5115" prot="public">
+          <name>MoreThanOneRootElement</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817dc0fd1b802147864ea5431f27ce64853d" prot="public">
+          <name>IncorrectAttribute</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d1ab3dcdfdeb35162dae9c98d378884b1" prot="public">
+          <name>MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="69" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="68" bodyend="81"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMyGUI_1_1xml_1_1ErrorType_1ea0a33e1e685220243d491a476e42f8d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::xml::ErrorType::ErrorType</definition>
+        <argsstring>(Enum _value=MAX)</argsstring>
+        <name>ErrorType</name>
+        <param>
+          <type>Enum</type>
+          <declname>_value</declname>
+          <defval>MAX</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="83" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="83" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1xml_1_1ErrorType_102b91fa4e22a3b345fcbf3defe62fc5f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string MyGUI::xml::ErrorType::print</definition>
+        <argsstring>() const </argsstring>
+        <name>print</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="86" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="85" bodyend="88"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="structMyGUI_1_1xml_1_1ErrorType_18e9e1172b80a1c92f729dd392d1298bf" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* MyGUI::xml::ErrorType::getValueName</definition>
+        <argsstring>(int _index) const </argsstring>
+        <name>getValueName</name>
+        <param>
+          <type>int</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="92" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="91" bodyend="108"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1xml_1_1ErrorType_1d3a4e02b0f281be5386ad53d29261b48" prot="private" static="no" mutable="no">
+        <type>Enum</type>
+        <definition>Enum MyGUI::xml::ErrorType::mValue</definition>
+        <argsstring></argsstring>
+        <name>mValue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="110" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="67" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="66" bodyend="111"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d18e6d4b3e824ecb6546488b8d1d70402" prot="public" virt="non-virtual"><scope>MyGUI::xml::ErrorType</scope><name>CloseNotOpenedElement</name></member>
+      <member refid="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d8d0b60c8ea718a66c2a37411fa080f7f" prot="public" virt="non-virtual"><scope>MyGUI::xml::ErrorType</scope><name>CreateFileFail</name></member>
+      <member refid="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d" prot="public" virt="non-virtual"><scope>MyGUI::xml::ErrorType</scope><name>Enum</name></member>
+      <member refid="structMyGUI_1_1xml_1_1ErrorType_1ea0a33e1e685220243d491a476e42f8d" prot="public" virt="non-virtual"><scope>MyGUI::xml::ErrorType</scope><name>ErrorType</name></member>
+      <member refid="structMyGUI_1_1xml_1_1ErrorType_18e9e1172b80a1c92f729dd392d1298bf" prot="private" virt="non-virtual"><scope>MyGUI::xml::ErrorType</scope><name>getValueName</name></member>
+      <member refid="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817dc7f62fa1175880c070bb80fc57f042ac" prot="public" virt="non-virtual"><scope>MyGUI::xml::ErrorType</scope><name>InconsistentOpenCloseElements</name></member>
+      <member refid="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817dc0fd1b802147864ea5431f27ce64853d" prot="public" virt="non-virtual"><scope>MyGUI::xml::ErrorType</scope><name>IncorrectAttribute</name></member>
+      <member refid="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d1f30705a2c2b0a279f87afbdcf911039" prot="public" virt="non-virtual"><scope>MyGUI::xml::ErrorType</scope><name>IncorrectContent</name></member>
+      <member refid="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d1ab3dcdfdeb35162dae9c98d378884b1" prot="public" virt="non-virtual"><scope>MyGUI::xml::ErrorType</scope><name>MAX</name></member>
+      <member refid="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d499e2d25293ce38590b9799c2bdf5115" prot="public" virt="non-virtual"><scope>MyGUI::xml::ErrorType</scope><name>MoreThanOneRootElement</name></member>
+      <member refid="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d6f6750dbf9cfaf62861e219729bbe6db" prot="public" virt="non-virtual"><scope>MyGUI::xml::ErrorType</scope><name>MoreThanOneXMLDeclaration</name></member>
+      <member refid="structMyGUI_1_1xml_1_1ErrorType_1d3a4e02b0f281be5386ad53d29261b48" prot="private" virt="non-virtual"><scope>MyGUI::xml::ErrorType</scope><name>mValue</name></member>
+      <member refid="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817dbef9f01d18362481839e335030a73f38" prot="public" virt="non-virtual"><scope>MyGUI::xml::ErrorType</scope><name>NotClosedElements</name></member>
+      <member refid="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d222bc6781bebccaf89e41f753fffec9e" prot="public" virt="non-virtual"><scope>MyGUI::xml::ErrorType</scope><name>NoXMLDeclaration</name></member>
+      <member refid="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d1b77eb09ce40786e8b5ff534e207556d" prot="public" virt="non-virtual"><scope>MyGUI::xml::ErrorType</scope><name>OpenFileFail</name></member>
+      <member refid="structMyGUI_1_1xml_1_1ErrorType_102b91fa4e22a3b345fcbf3defe62fc5f" prot="public" virt="non-virtual"><scope>MyGUI::xml::ErrorType</scope><name>print</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,314 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1ResourceManualFont" kind="class" prot="public">
+    <compoundname>MyGUI::ResourceManualFont</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1ResourceManualFont_1e5611a5520bfb4958d1ea85c627bcd14" prot="public" static="no">
+        <type>RTTIBase</type>
+        <definition>typedef RTTIBase MyGUI::ResourceManualFont::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1ResourceManualFont_15e26b22874c3d86efd7283daa1e9e171" prot="public" static="no">
+        <type>ResourceManualFont</type>
+        <definition>typedef ResourceManualFont MyGUI::ResourceManualFont::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1ResourceManualFont_191b1c2785a6dade0fe5636aded32236d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::ResourceManualFont::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceManualFont_1b20c6f0d2a7e559839c66a949444f0bb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::ResourceManualFont::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceManualFont_1070888513bc9375d566fe1edea5a70dd" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::ResourceManualFont::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceManualFont_15381a94f9db950f66553809f47ea975d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::ResourceManualFont::ResourceManualFont</definition>
+        <argsstring>()</argsstring>
+        <name>ResourceManualFont</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" line="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceManualFont_1eac9b919650ac501644326340611fb35" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::ResourceManualFont::~ResourceManualFont</definition>
+        <argsstring>()</argsstring>
+        <name>~ResourceManualFont</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" line="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceManualFont_124968b7d1ec9fb0b263204e7b0d27ba5" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ResourceManualFont::deserialization</definition>
+        <argsstring>(xml::ElementPtr _node, Version _version)</argsstring>
+        <name>deserialization</name>
+        <param>
+          <type>xml::ElementPtr</type>
+          <declname>_node</declname>
+        </param>
+        <param>
+          <type>Version</type>
+          <declname>_version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" line="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceManualFont_1cf456c60b03c0f52ef4d995aa6cfff87" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>GlyphInfo *</type>
+        <definition>virtual GlyphInfo* MyGUI::ResourceManualFont::getGlyphInfo</definition>
+        <argsstring>(Char _id)</argsstring>
+        <name>getGlyphInfo</name>
+        <param>
+          <type>Char</type>
+          <declname>_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" line="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceManualFont_1eb59488775905c6e33dc24308137b05d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>ITexture *</type>
+        <definition>virtual ITexture* MyGUI::ResourceManualFont::getTextureFont</definition>
+        <argsstring>()</argsstring>
+        <name>getTextureFont</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" line="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceManualFont_1ec625ec1c9d5a88e6b8b5ebdfd9f6494" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>virtual int MyGUI::ResourceManualFont::getDefaultHeight</definition>
+        <argsstring>()</argsstring>
+        <name>getDefaultHeight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" line="50"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1ResourceManualFont_1c0968ee0fa063f882d90df3d95c406e2" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::ResourceManualFont::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" bodystart="35" bodyend="35"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1ResourceManualFont_133391961c6e2aa2185ded6ab52046458" prot="private" static="no">
+        <type>std::map&lt; Char, GlyphInfo &gt;</type>
+        <definition>typedef std::map&lt;Char, GlyphInfo&gt; MyGUI::ResourceManualFont::CharMap</definition>
+        <argsstring></argsstring>
+        <name>CharMap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" line="57" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1ResourceManualFont_19e98fb02370db8140a38150b62b982e1" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ResourceManualFont::loadTexture</definition>
+        <argsstring>()</argsstring>
+        <name>loadTexture</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" line="54"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1ResourceManualFont_11d05431ab3b637b53a6b4030df0c291f" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::ResourceManualFont::mSource</definition>
+        <argsstring></argsstring>
+        <name>mSource</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" line="60" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ResourceManualFont_142d4dc4356d35c6247dd1655f097b2e5" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MyGUI::ResourceManualFont::mDefaultHeight</definition>
+        <argsstring></argsstring>
+        <name>mDefaultHeight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" line="63" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ResourceManualFont_178eb6b9576be15da325df3d7346aa472" prot="private" static="no" mutable="no">
+        <type>GlyphInfo *</type>
+        <definition>GlyphInfo* MyGUI::ResourceManualFont::mSubstituteGlyphInfo</definition>
+        <argsstring></argsstring>
+        <name>mSubstituteGlyphInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" line="64" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ResourceManualFont_158b460232bcae48a7fe78795acdfe251" prot="private" static="no" mutable="no">
+        <type>MyGUI::ITexture *</type>
+        <definition>MyGUI::ITexture* MyGUI::ResourceManualFont::mTexture</definition>
+        <argsstring></argsstring>
+        <name>mTexture</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" line="65" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ResourceManualFont_107c9460e62365628ee327393982c4f97" prot="private" static="no" mutable="no">
+        <type>CharMap</type>
+        <definition>CharMap MyGUI::ResourceManualFont::mCharMap</definition>
+        <argsstring></argsstring>
+        <name>mCharMap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" line="67" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualFont.h" bodystart="32" bodyend="68"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1ResourceManualFont_1e5611a5520bfb4958d1ea85c627bcd14" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManualFont</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1ResourceManualFont_133391961c6e2aa2185ded6ab52046458" prot="private" virt="non-virtual"><scope>MyGUI::ResourceManualFont</scope><name>CharMap</name></member>
+      <member refid="classMyGUI_1_1ResourceManualFont_124968b7d1ec9fb0b263204e7b0d27ba5" prot="public" virt="virtual"><scope>MyGUI::ResourceManualFont</scope><name>deserialization</name></member>
+      <member refid="classMyGUI_1_1ResourceManualFont_1c0968ee0fa063f882d90df3d95c406e2" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManualFont</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1ResourceManualFont_1ec625ec1c9d5a88e6b8b5ebdfd9f6494" prot="public" virt="virtual"><scope>MyGUI::ResourceManualFont</scope><name>getDefaultHeight</name></member>
+      <member refid="classMyGUI_1_1ResourceManualFont_1cf456c60b03c0f52ef4d995aa6cfff87" prot="public" virt="virtual"><scope>MyGUI::ResourceManualFont</scope><name>getGlyphInfo</name></member>
+      <member refid="classMyGUI_1_1ResourceManualFont_1eb59488775905c6e33dc24308137b05d" prot="public" virt="virtual"><scope>MyGUI::ResourceManualFont</scope><name>getTextureFont</name></member>
+      <member refid="classMyGUI_1_1ResourceManualFont_191b1c2785a6dade0fe5636aded32236d" prot="public" virt="virtual"><scope>MyGUI::ResourceManualFont</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1ResourceManualFont_1b20c6f0d2a7e559839c66a949444f0bb" prot="public" virt="virtual"><scope>MyGUI::ResourceManualFont</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ResourceManualFont_1070888513bc9375d566fe1edea5a70dd" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManualFont</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ResourceManualFont_19e98fb02370db8140a38150b62b982e1" prot="private" virt="non-virtual"><scope>MyGUI::ResourceManualFont</scope><name>loadTexture</name></member>
+      <member refid="classMyGUI_1_1ResourceManualFont_107c9460e62365628ee327393982c4f97" prot="private" virt="non-virtual"><scope>MyGUI::ResourceManualFont</scope><name>mCharMap</name></member>
+      <member refid="classMyGUI_1_1ResourceManualFont_142d4dc4356d35c6247dd1655f097b2e5" prot="private" virt="non-virtual"><scope>MyGUI::ResourceManualFont</scope><name>mDefaultHeight</name></member>
+      <member refid="classMyGUI_1_1ResourceManualFont_11d05431ab3b637b53a6b4030df0c291f" prot="private" virt="non-virtual"><scope>MyGUI::ResourceManualFont</scope><name>mSource</name></member>
+      <member refid="classMyGUI_1_1ResourceManualFont_178eb6b9576be15da325df3d7346aa472" prot="private" virt="non-virtual"><scope>MyGUI::ResourceManualFont</scope><name>mSubstituteGlyphInfo</name></member>
+      <member refid="classMyGUI_1_1ResourceManualFont_158b460232bcae48a7fe78795acdfe251" prot="private" virt="non-virtual"><scope>MyGUI::ResourceManualFont</scope><name>mTexture</name></member>
+      <member refid="classMyGUI_1_1ResourceManualFont_15381a94f9db950f66553809f47ea975d" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManualFont</scope><name>ResourceManualFont</name></member>
+      <member refid="classMyGUI_1_1ResourceManualFont_15e26b22874c3d86efd7283daa1e9e171" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManualFont</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1ResourceManualFont_1eac9b919650ac501644326340611fb35" prot="public" virt="virtual"><scope>MyGUI::ResourceManualFont</scope><name>~ResourceManualFont</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

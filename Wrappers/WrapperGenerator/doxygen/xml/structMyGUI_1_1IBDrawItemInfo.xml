@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1IBDrawItemInfo" kind="struct" prot="public">
+    <compoundname>MyGUI::IBDrawItemInfo</compoundname>
+    <includes local="no">MyGUI_IBItemInfo.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMyGUI_1_1IBDrawItemInfo_1af785795c84b6d639e39d2af89dd3aa5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::IBDrawItemInfo::IBDrawItemInfo</definition>
+        <argsstring>()</argsstring>
+        <name>IBDrawItemInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="35" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1IBDrawItemInfo_1eb5fefb1e2cd31724e2119749c240196" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::IBDrawItemInfo::IBDrawItemInfo</definition>
+        <argsstring>(size_t _index, size_t _select, size_t _active, size_t _accept, size_t _refuse, bool _update, bool _drag)</argsstring>
+        <name>IBDrawItemInfo</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_select</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_active</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_accept</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_refuse</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_update</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_drag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="54" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="46" bodyend="55"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1IBDrawItemInfo_104472ae1dcbf9f198246711b32c7921a" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::IBDrawItemInfo::index</definition>
+        <argsstring></argsstring>
+        <name>index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Index of element </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="58" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1IBDrawItemInfo_17c53826d0b421b6c15feb7e0239efb21" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::IBDrawItemInfo::update</definition>
+        <argsstring></argsstring>
+        <name>update</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>State and interdan data changed </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="60" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1IBDrawItemInfo_1790fb2487628df6bb8b8363dcc0d9bb5" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::IBDrawItemInfo::select</definition>
+        <argsstring></argsstring>
+        <name>select</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is widget selected </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="62" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1IBDrawItemInfo_1e4c221f5b59c8a5213ae2a7eeab998a9" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::IBDrawItemInfo::active</definition>
+        <argsstring></argsstring>
+        <name>active</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is widget active </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="64" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1IBDrawItemInfo_193ecad5e56fd8cac9bbeb36b6fc7c1c5" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::IBDrawItemInfo::drag</definition>
+        <argsstring></argsstring>
+        <name>drag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is widget able to be dragged </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="66" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1IBDrawItemInfo_1a962abf791879880aa9e03db803f5dca" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::IBDrawItemInfo::drop_accept</definition>
+        <argsstring></argsstring>
+        <name>drop_accept</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is widget accepting drop </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="68" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1IBDrawItemInfo_10fd5c5a9543919362fdf468eca23f109" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::IBDrawItemInfo::drop_refuse</definition>
+        <argsstring></argsstring>
+        <name>drop_refuse</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is widget refuseing drop </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="70" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Info about <ref refid="classMyGUI_1_1ItemBox" kindref="compound">ItemBox</ref> item </para>    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="32" bodyend="71"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1IBDrawItemInfo_1e4c221f5b59c8a5213ae2a7eeab998a9" prot="public" virt="non-virtual"><scope>MyGUI::IBDrawItemInfo</scope><name>active</name></member>
+      <member refid="structMyGUI_1_1IBDrawItemInfo_193ecad5e56fd8cac9bbeb36b6fc7c1c5" prot="public" virt="non-virtual"><scope>MyGUI::IBDrawItemInfo</scope><name>drag</name></member>
+      <member refid="structMyGUI_1_1IBDrawItemInfo_1a962abf791879880aa9e03db803f5dca" prot="public" virt="non-virtual"><scope>MyGUI::IBDrawItemInfo</scope><name>drop_accept</name></member>
+      <member refid="structMyGUI_1_1IBDrawItemInfo_10fd5c5a9543919362fdf468eca23f109" prot="public" virt="non-virtual"><scope>MyGUI::IBDrawItemInfo</scope><name>drop_refuse</name></member>
+      <member refid="structMyGUI_1_1IBDrawItemInfo_1af785795c84b6d639e39d2af89dd3aa5" prot="public" virt="non-virtual"><scope>MyGUI::IBDrawItemInfo</scope><name>IBDrawItemInfo</name></member>
+      <member refid="structMyGUI_1_1IBDrawItemInfo_1eb5fefb1e2cd31724e2119749c240196" prot="public" virt="non-virtual"><scope>MyGUI::IBDrawItemInfo</scope><name>IBDrawItemInfo</name></member>
+      <member refid="structMyGUI_1_1IBDrawItemInfo_104472ae1dcbf9f198246711b32c7921a" prot="public" virt="non-virtual"><scope>MyGUI::IBDrawItemInfo</scope><name>index</name></member>
+      <member refid="structMyGUI_1_1IBDrawItemInfo_1790fb2487628df6bb8b8363dcc0d9bb5" prot="public" virt="non-virtual"><scope>MyGUI::IBDrawItemInfo</scope><name>select</name></member>
+      <member refid="structMyGUI_1_1IBDrawItemInfo_17c53826d0b421b6c15feb7e0239efb21" prot="public" virt="non-virtual"><scope>MyGUI::IBDrawItemInfo</scope><name>update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

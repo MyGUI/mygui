@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1ControllerInfo" kind="struct" prot="public">
+    <compoundname>MyGUI::ControllerInfo</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1ControllerInfo_1cc87300edec4eeb752ef1990098f35ad" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::ControllerInfo::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayoutData.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayoutData.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1ControllerInfo_1dd926030d7e344705f07ad20e1faa9d4" prot="public" static="no" mutable="no">
+        <type>MapString</type>
+        <definition>MapString MyGUI::ControllerInfo::properties</definition>
+        <argsstring></argsstring>
+        <name>properties</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayoutData.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayoutData.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayoutData.h" line="32" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayoutData.h" bodystart="31" bodyend="35"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1ControllerInfo_1dd926030d7e344705f07ad20e1faa9d4" prot="public" virt="non-virtual"><scope>MyGUI::ControllerInfo</scope><name>properties</name></member>
+      <member refid="structMyGUI_1_1ControllerInfo_1cc87300edec4eeb752ef1990098f35ad" prot="public" virt="non-virtual"><scope>MyGUI::ControllerInfo</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

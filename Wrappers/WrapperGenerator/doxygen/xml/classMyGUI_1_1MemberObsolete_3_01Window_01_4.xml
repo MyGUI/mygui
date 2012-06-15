@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1MemberObsolete_3_01Window_01_4" kind="class" prot="public">
+    <compoundname>MyGUI::MemberObsolete&lt; Window &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01Window_01_4_198a0a6ead05db480dd2f9681d237fd48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; Window &gt;::setPosition</definition>
+        <argsstring>(const IntCoord &amp;_coord)</argsstring>
+        <name>setPosition</name>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_coord</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000131"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="390"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01Window_01_4_161a94ea147904625ea166107399db444" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; Window &gt;::setPosition</definition>
+        <argsstring>(int _left, int _top, int _width, int _height)</argsstring>
+        <name>setPosition</name>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000132"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="392"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01Window_01_4_1ca70df1b7d66cb4852d0ec1e3f7d9a16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; Window &gt;::showSmooth</definition>
+        <argsstring>(bool _reset=false)</argsstring>
+        <name>showSmooth</name>
+        <param>
+          <type>bool</type>
+          <declname>_reset</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000133"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="395"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01Window_01_4_1be84cde42e770c7dee0cd54285177b72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; Window &gt;::hideSmooth</definition>
+        <argsstring>()</argsstring>
+        <name>hideSmooth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000134"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="397"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01Window_01_4_1d8b3871d3ffe1152d2eabcad26c9a89b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; Window &gt;::setMinMax</definition>
+        <argsstring>(const IntRect &amp;_minmax)</argsstring>
+        <name>setMinMax</name>
+        <param>
+          <type>const IntRect &amp;</type>
+          <declname>_minmax</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000135"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="399"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01Window_01_4_1d2a7ee90705459c5d1e03792edb07295" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; Window &gt;::setMinMax</definition>
+        <argsstring>(int _min_w, int _min_h, int _max_w, int _max_h)</argsstring>
+        <name>setMinMax</name>
+        <param>
+          <type>int</type>
+          <declname>_min_w</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_min_h</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_max_w</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_max_h</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000136"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="401"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01Window_01_4_11e9d641b77393dd3cda4b954735754df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>IntRect</type>
+        <definition>IntRect MyGUI::MemberObsolete&lt; Window &gt;::getMinMax</definition>
+        <argsstring>()</argsstring>
+        <name>getMinMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000137"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="403"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="387" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="386" bodyend="404"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Window_01_4_11e9d641b77393dd3cda4b954735754df" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; Window &gt;</scope><name>getMinMax</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Window_01_4_1be84cde42e770c7dee0cd54285177b72" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; Window &gt;</scope><name>hideSmooth</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Window_01_4_1d8b3871d3ffe1152d2eabcad26c9a89b" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; Window &gt;</scope><name>setMinMax</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Window_01_4_1d2a7ee90705459c5d1e03792edb07295" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; Window &gt;</scope><name>setMinMax</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Window_01_4_198a0a6ead05db480dd2f9681d237fd48" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; Window &gt;</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Window_01_4_161a94ea147904625ea166107399db444" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; Window &gt;</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Window_01_4_1ca70df1b7d66cb4852d0ec1e3f7d9a16" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; Window &gt;</scope><name>showSmooth</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1MemberObsolete" kind="class" prot="public">
+    <compoundname>MyGUI::MemberObsolete</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>Type</declname>
+        <defname>Type</defname>
+      </param>
+    </templateparamlist>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedTypes.h" line="29" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedTypes.h" bodystart="28" bodyend="31"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

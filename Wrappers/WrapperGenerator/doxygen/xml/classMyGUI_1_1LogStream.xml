@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1LogStream" kind="class" prot="public">
+    <compoundname>MyGUI::LogStream</compoundname>
+    <innerclass refid="structMyGUI_1_1LogStream_1_1End">MyGUI::LogStream::End</innerclass>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1LogStream_1f689723fd964a0ba6b48735b6f2838d8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string MyGUI::LogStream::operator&lt;&lt;</definition>
+        <argsstring>(const End &amp;_endl)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>const End &amp;</type>
+          <declname>_endl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogStream.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogStream.h" bodystart="38" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LogStream_115db5a215a06282cb9d69bd71ab53af0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>T</declname>
+            <defname>T</defname>
+          </param>
+        </templateparamlist>
+        <type>LogStream &amp;</type>
+        <definition>LogStream&amp; MyGUI::LogStream::operator&lt;&lt;</definition>
+        <argsstring>(T _value)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>T</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogStream.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogStream.h" bodystart="44" bodyend="48"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1LogStream_1430c9d3bc8dcb7377717bbafc6f70e94" prot="private" static="no" mutable="no">
+        <type>std::ostringstream</type>
+        <definition>std::ostringstream MyGUI::LogStream::mStream</definition>
+        <argsstring></argsstring>
+        <name>mStream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogStream.h" line="51" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogStream.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogStream.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogStream.h" bodystart="32" bodyend="52"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1LogStream_1430c9d3bc8dcb7377717bbafc6f70e94" prot="private" virt="non-virtual"><scope>MyGUI::LogStream</scope><name>mStream</name></member>
+      <member refid="classMyGUI_1_1LogStream_1f689723fd964a0ba6b48735b6f2838d8" prot="public" virt="non-virtual"><scope>MyGUI::LogStream</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classMyGUI_1_1LogStream_115db5a215a06282cb9d69bd71ab53af0" prot="public" virt="non-virtual"><scope>MyGUI::LogStream</scope><name>operator&lt;&lt;</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

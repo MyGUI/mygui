@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1GlyphInfo" kind="struct" prot="public">
+    <compoundname>MyGUI::GlyphInfo</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMyGUI_1_1GlyphInfo_1b828ed2eb2b8ea5c7e9743a8de0dae0c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::GlyphInfo::GlyphInfo</definition>
+        <argsstring>(Char _codePoint=0U, float _width=0.0f, float _height=0.0f, float _advance=0.0f, float _bearingX=0.0f, float _bearingY=0.0f, const FloatRect &amp;_uvRect=FloatRect())</argsstring>
+        <name>GlyphInfo</name>
+        <param>
+          <type>Char</type>
+          <declname>_codePoint</declname>
+          <defval>0U</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_width</declname>
+          <defval>0.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_height</declname>
+          <defval>0.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_advance</declname>
+          <defval>0.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_bearingX</declname>
+          <defval>0.0f</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_bearingY</declname>
+          <defval>0.0f</defval>
+        </param>
+        <param>
+          <type>const FloatRect &amp;</type>
+          <declname>_uvRect</declname>
+          <defval>FloatRect()</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" line="70" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" bodystart="55" bodyend="71"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1GlyphInfo_1615057cf963d19e373958007edbd249d" prot="public" static="no" mutable="no">
+        <type>Char</type>
+        <definition>Char MyGUI::GlyphInfo::codePoint</definition>
+        <argsstring></argsstring>
+        <name>codePoint</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" line="73" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1GlyphInfo_1ef6d72c84fd9f45fe80d8967784b1b3c" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::GlyphInfo::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" line="74" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1GlyphInfo_16d583fbb1b97dcf6acb6245aceb77501" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::GlyphInfo::height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" line="75" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1GlyphInfo_1888a25aed9e443a21277ccce2424d4c0" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::GlyphInfo::advance</definition>
+        <argsstring></argsstring>
+        <name>advance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" line="76" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1GlyphInfo_111bcd2a6564b20f3aab9198a0e6f2aa0" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::GlyphInfo::bearingX</definition>
+        <argsstring></argsstring>
+        <name>bearingX</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" line="77" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1GlyphInfo_1a4ee73d7f622bf03eb3eb78017bc96bb" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::GlyphInfo::bearingY</definition>
+        <argsstring></argsstring>
+        <name>bearingY</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" line="78" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1GlyphInfo_12eb2cd4ae7eb6a8b552d52d6fa8e8e80" prot="public" static="no" mutable="no">
+        <type>FloatRect</type>
+        <definition>FloatRect MyGUI::GlyphInfo::uvRect</definition>
+        <argsstring></argsstring>
+        <name>uvRect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" line="79" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" line="54" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" bodystart="53" bodyend="80"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1GlyphInfo_1888a25aed9e443a21277ccce2424d4c0" prot="public" virt="non-virtual"><scope>MyGUI::GlyphInfo</scope><name>advance</name></member>
+      <member refid="structMyGUI_1_1GlyphInfo_111bcd2a6564b20f3aab9198a0e6f2aa0" prot="public" virt="non-virtual"><scope>MyGUI::GlyphInfo</scope><name>bearingX</name></member>
+      <member refid="structMyGUI_1_1GlyphInfo_1a4ee73d7f622bf03eb3eb78017bc96bb" prot="public" virt="non-virtual"><scope>MyGUI::GlyphInfo</scope><name>bearingY</name></member>
+      <member refid="structMyGUI_1_1GlyphInfo_1615057cf963d19e373958007edbd249d" prot="public" virt="non-virtual"><scope>MyGUI::GlyphInfo</scope><name>codePoint</name></member>
+      <member refid="structMyGUI_1_1GlyphInfo_1b828ed2eb2b8ea5c7e9743a8de0dae0c" prot="public" virt="non-virtual"><scope>MyGUI::GlyphInfo</scope><name>GlyphInfo</name></member>
+      <member refid="structMyGUI_1_1GlyphInfo_16d583fbb1b97dcf6acb6245aceb77501" prot="public" virt="non-virtual"><scope>MyGUI::GlyphInfo</scope><name>height</name></member>
+      <member refid="structMyGUI_1_1GlyphInfo_12eb2cd4ae7eb6a8b552d52d6fa8e8e80" prot="public" virt="non-virtual"><scope>MyGUI::GlyphInfo</scope><name>uvRect</name></member>
+      <member refid="structMyGUI_1_1GlyphInfo_1ef6d72c84fd9f45fe80d8967784b1b3c" prot="public" virt="non-virtual"><scope>MyGUI::GlyphInfo</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

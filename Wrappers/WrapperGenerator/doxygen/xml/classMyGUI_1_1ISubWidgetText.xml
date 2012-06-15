@@ -1,0 +1,684 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1ISubWidgetText" kind="class" prot="public">
+    <compoundname>MyGUI::ISubWidgetText</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1ISubWidgetText_1b127d783d3079ea132d762f1463d7b70" prot="public" static="no">
+        <type>RTTIBase</type>
+        <definition>typedef RTTIBase MyGUI::ISubWidgetText::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1ISubWidgetText_1326f28f98c2b07dc1f81632f5b7fe808" prot="public" static="no">
+        <type>ISubWidgetText</type>
+        <definition>typedef ISubWidgetText MyGUI::ISubWidgetText::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1512f0ec603aa46fd7fed2f51e3e12320" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::ISubWidgetText::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_123e4d7958f0de226a97715bad49914ae" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::ISubWidgetText::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1dbf840f71c26801dccaf36537f9df1ff" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::ISubWidgetText::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_164bf2064c45924b7888e954bcd4746ec" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::ISubWidgetText::~ISubWidgetText</definition>
+        <argsstring>()</argsstring>
+        <name>~ISubWidgetText</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1d9e330c4a95b9eeb87c883db2c309fe3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>size_t</type>
+        <definition>virtual size_t MyGUI::ISubWidgetText::getTextSelectionStart</definition>
+        <argsstring>() const </argsstring>
+        <name>getTextSelectionStart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get index of start of selection </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="41" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1219cc2099ce879609e0891d64cb3512c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>size_t</type>
+        <definition>virtual size_t MyGUI::ISubWidgetText::getTextSelectionEnd</definition>
+        <argsstring>() const </argsstring>
+        <name>getTextSelectionEnd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get index of end of selection </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="48" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="47" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1db9a48208b8d02ce1c0dbaf6dbff3f1a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ISubWidgetText::setTextSelection</definition>
+        <argsstring>(size_t _start, size_t _end)</argsstring>
+        <name>setTextSelection</name>
+        <param>
+          <type>size_t</type>
+          <declname>_start</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set text selection </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="53" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="53" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1371f79a3200ea6ea00eaae83e192965a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::ISubWidgetText::getSelectBackground</definition>
+        <argsstring>() const </argsstring>
+        <name>getSelectBackground</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="57" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="56" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1ad8940df028aae0b7954f72fbe2cc3a8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ISubWidgetText::setSelectBackground</definition>
+        <argsstring>(bool _normal)</argsstring>
+        <name>setSelectBackground</name>
+        <param>
+          <type>bool</type>
+          <declname>_normal</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="61" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="61" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1982f0154fd834eeaa48e563d17ba31d6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::ISubWidgetText::getInvertSelected</definition>
+        <argsstring>() const </argsstring>
+        <name>getInvertSelected</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="65" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="64" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_14353f2db761bbd457c79a3fde0b7cec3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ISubWidgetText::setInvertSelected</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setInvertSelected</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="69" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="69" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1891cf074ec819df09c9701d754ec18e8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::ISubWidgetText::getShadow</definition>
+        <argsstring>() const </argsstring>
+        <name>getShadow</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="73" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="72" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_165658a51a60332c2440deb53dd787d86" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ISubWidgetText::setShadow</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setShadow</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="77" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="77" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1b3bf09584548920f0ac63732eda83fa6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::ISubWidgetText::isVisibleCursor</definition>
+        <argsstring>() const </argsstring>
+        <name>isVisibleCursor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="81" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="80" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1b7746cdaa294ca36002af9faf6eeebf3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ISubWidgetText::setVisibleCursor</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setVisibleCursor</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="85" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="85" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1a9b1ea6298d12307a4b97a44691f1c03" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>size_t</type>
+        <definition>virtual size_t MyGUI::ISubWidgetText::getCursorPosition</definition>
+        <argsstring>() const </argsstring>
+        <name>getCursorPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="89" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="88" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_12c2ac61f2f9b30e2ddff3edc994ff09f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ISubWidgetText::setCursorPosition</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>setCursorPosition</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="93" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="93" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1db71e7310141586569d156313459c563" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ISubWidgetText::setWordWrap</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setWordWrap</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="95" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="95" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1472b3c931c196719493564e0063cbafd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>size_t</type>
+        <definition>virtual size_t MyGUI::ISubWidgetText::getCursorPosition</definition>
+        <argsstring>(const IntPoint &amp;_point)</argsstring>
+        <name>getCursorPosition</name>
+        <param>
+          <type>const IntPoint &amp;</type>
+          <declname>_point</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="100" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="99" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_132238ec6fb3ee9d3624b7d1e8625e3fa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>IntCoord</type>
+        <definition>virtual IntCoord MyGUI::ISubWidgetText::getCursorCoord</definition>
+        <argsstring>(size_t _position)</argsstring>
+        <name>getCursorCoord</name>
+        <param>
+          <type>size_t</type>
+          <declname>_position</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="106" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="105" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_15a5b68e64443d82f73b497a4df4f91ce" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>IntPoint</type>
+        <definition>IntPoint MyGUI::ISubWidgetText::getCursorPoint</definition>
+        <argsstring>(size_t _position)</argsstring>
+        <name>getCursorPoint</name>
+        <param>
+          <type>size_t</type>
+          <declname>_position</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="112" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="111" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_17e0952d424e27b4a25fb3d28a812c493" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>IntRect</type>
+        <definition>IntRect MyGUI::ISubWidgetText::getCursorRect</definition>
+        <argsstring>(size_t _position)</argsstring>
+        <name>getCursorRect</name>
+        <param>
+          <type>size_t</type>
+          <declname>_position</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="119" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="118" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_19ffaf6b0115c0b0f779d7392c0491a00" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>IntSize</type>
+        <definition>virtual IntSize MyGUI::ISubWidgetText::getTextSize</definition>
+        <argsstring>()</argsstring>
+        <name>getTextSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="126" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="125" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_11d5b0ac4ae598a15f35a1bee5f9ecf66" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ISubWidgetText::setViewOffset</definition>
+        <argsstring>(const IntPoint &amp;_point)</argsstring>
+        <name>setViewOffset</name>
+        <param>
+          <type>const IntPoint &amp;</type>
+          <declname>_point</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="131" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="131" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1c10152cd8e3c3ec4e977081d26fc7f9e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>IntPoint</type>
+        <definition>virtual IntPoint MyGUI::ISubWidgetText::getViewOffset</definition>
+        <argsstring>() const </argsstring>
+        <name>getViewOffset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="133" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="132" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1de929523c80238bb0d0655013c068661" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ISubWidgetText::setCaption</definition>
+        <argsstring>(const UString &amp;_value)</argsstring>
+        <name>setCaption</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="137" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="137" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_108ac929ee79fbabfc27d4aa1d8b6e345" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+        <definition>virtual const UString&amp; MyGUI::ISubWidgetText::getCaption</definition>
+        <argsstring>() const </argsstring>
+        <name>getCaption</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="139" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="138" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1afb4d3619cb23e2fa7cde028cc07f458" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ISubWidgetText::setTextColour</definition>
+        <argsstring>(const Colour &amp;_value)</argsstring>
+        <name>setTextColour</name>
+        <param>
+          <type>const Colour &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="144" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="144" bodyend="144"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_12341e6daf32a0dc0cafec2c4e9c78832" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const Colour &amp;</type>
+        <definition>virtual const Colour&amp; MyGUI::ISubWidgetText::getTextColour</definition>
+        <argsstring>() const </argsstring>
+        <name>getTextColour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="146" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="145" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1d042e782b14a9abe2a7f3bd7757dc5bb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ISubWidgetText::setFontName</definition>
+        <argsstring>(const std::string &amp;_value)</argsstring>
+        <name>setFontName</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="150" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="150" bodyend="150"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1acebf395c3b16ecbdc403c159b42cf26" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::ISubWidgetText::getFontName</definition>
+        <argsstring>() const </argsstring>
+        <name>getFontName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="152" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="151" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1923de7f14c3606a3b8a4d8fe6d88cd4b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ISubWidgetText::setFontHeight</definition>
+        <argsstring>(int _value)</argsstring>
+        <name>setFontHeight</name>
+        <param>
+          <type>int</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="157" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="157" bodyend="157"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1857b7153f32479ee0aa42b574a8e92a5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>int</type>
+        <definition>virtual int MyGUI::ISubWidgetText::getFontHeight</definition>
+        <argsstring>() const </argsstring>
+        <name>getFontHeight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="159" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="158" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1043ae443445b526f09f056862b301a3d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ISubWidgetText::setTextAlign</definition>
+        <argsstring>(Align _value)</argsstring>
+        <name>setTextAlign</name>
+        <param>
+          <type>Align</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="163" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="163" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1ed5eb7f25ba56dcb996336e450c95bec" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>Align</type>
+        <definition>virtual Align MyGUI::ISubWidgetText::getTextAlign</definition>
+        <argsstring>() const </argsstring>
+        <name>getTextAlign</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="165" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="164" bodyend="167"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1acfff29ec17b3e606c30789606a7e210" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ISubWidgetText::setShiftText</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setShiftText</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="169" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="169" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_133b2ca9764f696bb406666ced0348d0e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ISubWidgetText::setShadowColour</definition>
+        <argsstring>(const Colour &amp;_value)</argsstring>
+        <name>setShadowColour</name>
+        <param>
+          <type>const Colour &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="171" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="171" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_1bfca820fb371ff79c3f43e671879c8d5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const Colour &amp;</type>
+        <definition>virtual const Colour&amp; MyGUI::ISubWidgetText::getShadowColour</definition>
+        <argsstring>() const </argsstring>
+        <name>getShadowColour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="173" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="172" bodyend="175"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetText_12d452fcdf87064f9856ae0a231d03c53" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::ISubWidgetText::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="35" bodyend="35"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetText.h" bodystart="32" bodyend="177"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1ISubWidgetText_1b127d783d3079ea132d762f1463d7b70" prot="public" virt="non-virtual"><scope>MyGUI::ISubWidgetText</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_108ac929ee79fbabfc27d4aa1d8b6e345" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>getCaption</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_12d452fcdf87064f9856ae0a231d03c53" prot="public" virt="non-virtual"><scope>MyGUI::ISubWidgetText</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_132238ec6fb3ee9d3624b7d1e8625e3fa" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>getCursorCoord</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_15a5b68e64443d82f73b497a4df4f91ce" prot="public" virt="non-virtual"><scope>MyGUI::ISubWidgetText</scope><name>getCursorPoint</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1a9b1ea6298d12307a4b97a44691f1c03" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>getCursorPosition</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1472b3c931c196719493564e0063cbafd" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>getCursorPosition</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_17e0952d424e27b4a25fb3d28a812c493" prot="public" virt="non-virtual"><scope>MyGUI::ISubWidgetText</scope><name>getCursorRect</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1857b7153f32479ee0aa42b574a8e92a5" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>getFontHeight</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1acebf395c3b16ecbdc403c159b42cf26" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>getFontName</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1982f0154fd834eeaa48e563d17ba31d6" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>getInvertSelected</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1371f79a3200ea6ea00eaae83e192965a" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>getSelectBackground</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1891cf074ec819df09c9701d754ec18e8" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>getShadow</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1bfca820fb371ff79c3f43e671879c8d5" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>getShadowColour</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1ed5eb7f25ba56dcb996336e450c95bec" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>getTextAlign</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_12341e6daf32a0dc0cafec2c4e9c78832" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>getTextColour</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1219cc2099ce879609e0891d64cb3512c" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>getTextSelectionEnd</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1d9e330c4a95b9eeb87c883db2c309fe3" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>getTextSelectionStart</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_19ffaf6b0115c0b0f779d7392c0491a00" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>getTextSize</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1512f0ec603aa46fd7fed2f51e3e12320" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1c10152cd8e3c3ec4e977081d26fc7f9e" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>getViewOffset</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_123e4d7958f0de226a97715bad49914ae" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1dbf840f71c26801dccaf36537f9df1ff" prot="public" virt="non-virtual"><scope>MyGUI::ISubWidgetText</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1b3bf09584548920f0ac63732eda83fa6" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>isVisibleCursor</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1326f28f98c2b07dc1f81632f5b7fe808" prot="public" virt="non-virtual"><scope>MyGUI::ISubWidgetText</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1de929523c80238bb0d0655013c068661" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>setCaption</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_12c2ac61f2f9b30e2ddff3edc994ff09f" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>setCursorPosition</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1923de7f14c3606a3b8a4d8fe6d88cd4b" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>setFontHeight</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1d042e782b14a9abe2a7f3bd7757dc5bb" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>setFontName</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_14353f2db761bbd457c79a3fde0b7cec3" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>setInvertSelected</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1ad8940df028aae0b7954f72fbe2cc3a8" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>setSelectBackground</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_165658a51a60332c2440deb53dd787d86" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>setShadow</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_133b2ca9764f696bb406666ced0348d0e" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>setShadowColour</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1acfff29ec17b3e606c30789606a7e210" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>setShiftText</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1043ae443445b526f09f056862b301a3d" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>setTextAlign</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1afb4d3619cb23e2fa7cde028cc07f458" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>setTextColour</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1db9a48208b8d02ce1c0dbaf6dbff3f1a" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>setTextSelection</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_11d5b0ac4ae598a15f35a1bee5f9ecf66" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>setViewOffset</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1b7746cdaa294ca36002af9faf6eeebf3" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>setVisibleCursor</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_1db71e7310141586569d156313459c563" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>setWordWrap</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetText_164bf2064c45924b7888e954bcd4746ec" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetText</scope><name>~ISubWidgetText</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

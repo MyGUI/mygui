@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1ConsoleLogListener" kind="class" prot="public">
+    <compoundname>MyGUI::ConsoleLogListener</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1ConsoleLogListener_1915a81b8785b48e46c2468c4805ff320" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::ConsoleLogListener::ConsoleLogListener</definition>
+        <argsstring>()</argsstring>
+        <name>ConsoleLogListener</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ConsoleLogListener.h" line="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ConsoleLogListener_165eb4eb51cae9bd0d31fcd7152c90d34" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::ConsoleLogListener::~ConsoleLogListener</definition>
+        <argsstring>()</argsstring>
+        <name>~ConsoleLogListener</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ConsoleLogListener.h" line="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ConsoleLogListener_168ebb0a355b85acca993b1899c927b72" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ConsoleLogListener::log</definition>
+        <argsstring>(const std::string &amp;_section, LogLevel _level, const struct tm *_time, const std::string &amp;_message, const char *_file, int _line)</argsstring>
+        <name>log</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_section</declname>
+        </param>
+        <param>
+          <type>LogLevel</type>
+          <declname>_level</declname>
+        </param>
+        <param>
+          <type>const struct tm *</type>
+          <declname>_time</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_message</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>_file</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_line</declname>
+        </param>
+        <briefdescription>
+<para><copydoc link="ILogListener::log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line)"></copydoc>
+ </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ConsoleLogListener.h" line="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ConsoleLogListener_1e4d123d6ee187ed9b76c2599f4a6e3b9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::ConsoleLogListener::getEnabled</definition>
+        <argsstring>() const </argsstring>
+        <name>getEnabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is log listener enabled. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ConsoleLogListener.h" line="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ConsoleLogListener_16b3aeffa184ee9727b33999fbbe7245f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ConsoleLogListener::setEnabled</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setEnabled</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enable or disable log listener. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ConsoleLogListener.h" line="44"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1ConsoleLogListener_115a53e834d508099a59e27ca405c5ed2" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::ConsoleLogListener::mEnabled</definition>
+        <argsstring></argsstring>
+        <name>mEnabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ConsoleLogListener.h" line="47" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ConsoleLogListener.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ConsoleLogListener.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ConsoleLogListener.h" bodystart="31" bodyend="48"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1ConsoleLogListener_1915a81b8785b48e46c2468c4805ff320" prot="public" virt="non-virtual"><scope>MyGUI::ConsoleLogListener</scope><name>ConsoleLogListener</name></member>
+      <member refid="classMyGUI_1_1ConsoleLogListener_1e4d123d6ee187ed9b76c2599f4a6e3b9" prot="public" virt="non-virtual"><scope>MyGUI::ConsoleLogListener</scope><name>getEnabled</name></member>
+      <member refid="classMyGUI_1_1ConsoleLogListener_168ebb0a355b85acca993b1899c927b72" prot="public" virt="virtual"><scope>MyGUI::ConsoleLogListener</scope><name>log</name></member>
+      <member refid="classMyGUI_1_1ConsoleLogListener_115a53e834d508099a59e27ca405c5ed2" prot="private" virt="non-virtual"><scope>MyGUI::ConsoleLogListener</scope><name>mEnabled</name></member>
+      <member refid="classMyGUI_1_1ConsoleLogListener_16b3aeffa184ee9727b33999fbbe7245f" prot="public" virt="non-virtual"><scope>MyGUI::ConsoleLogListener</scope><name>setEnabled</name></member>
+      <member refid="classMyGUI_1_1ConsoleLogListener_165eb4eb51cae9bd0d31fcd7152c90d34" prot="public" virt="virtual"><scope>MyGUI::ConsoleLogListener</scope><name>~ConsoleLogListener</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1ITextureInvalidateListener" kind="class" prot="public">
+    <compoundname>MyGUI::ITextureInvalidateListener</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1ITextureInvalidateListener_1e27fa00a3e3495cbaae1eeab9287b5b6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::ITextureInvalidateListener::~ITextureInvalidateListener</definition>
+        <argsstring>()</argsstring>
+        <name>~ITextureInvalidateListener</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ITexture.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ITexture.h" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ITextureInvalidateListener_1c2232b9ab5c158ff7540149bec20f87b" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ITextureInvalidateListener::textureInvalidate</definition>
+        <argsstring>(ITexture *_texture)=0</argsstring>
+        <name>textureInvalidate</name>
+        <param>
+          <type>ITexture *</type>
+          <declname>_texture</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ITexture.h" line="38"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ITexture.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ITexture.h" bodystart="34" bodyend="39"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1ITextureInvalidateListener_1c2232b9ab5c158ff7540149bec20f87b" prot="public" virt="pure-virtual"><scope>MyGUI::ITextureInvalidateListener</scope><name>textureInvalidate</name></member>
+      <member refid="classMyGUI_1_1ITextureInvalidateListener_1e27fa00a3e3495cbaae1eeab9287b5b6" prot="public" virt="virtual"><scope>MyGUI::ITextureInvalidateListener</scope><name>~ITextureInvalidateListener</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

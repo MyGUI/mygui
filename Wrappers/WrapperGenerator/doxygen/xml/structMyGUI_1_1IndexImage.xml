@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1IndexImage" kind="struct" prot="public">
+    <compoundname>MyGUI::IndexImage</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1IndexImage_1b28a4d358844b41839882095da399871" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::IndexImage::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" line="32" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1IndexImage_1790363e7ddd4bb728b2e83610133e91c" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::IndexImage::rate</definition>
+        <argsstring></argsstring>
+        <name>rate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1IndexImage_186db74e3a6f3702c67c53d12dfdcac13" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; IntPoint &gt;</type>
+        <definition>std::vector&lt;IntPoint&gt; MyGUI::IndexImage::frames</definition>
+        <argsstring></argsstring>
+        <name>frames</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" line="31" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" bodystart="30" bodyend="35"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1IndexImage_186db74e3a6f3702c67c53d12dfdcac13" prot="public" virt="non-virtual"><scope>MyGUI::IndexImage</scope><name>frames</name></member>
+      <member refid="structMyGUI_1_1IndexImage_1b28a4d358844b41839882095da399871" prot="public" virt="non-virtual"><scope>MyGUI::IndexImage</scope><name>name</name></member>
+      <member refid="structMyGUI_1_1IndexImage_1790363e7ddd4bb728b2e83610133e91c" prot="public" virt="non-virtual"><scope>MyGUI::IndexImage</scope><name>rate</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

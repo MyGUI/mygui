@@ -1,0 +1,250 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1IBNotifyItemData" kind="struct" prot="public">
+    <compoundname>MyGUI::IBNotifyItemData</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="structMyGUI_1_1IBNotifyItemData_18e6ca0054f78a68e77742a95455d32ce" prot="public" static="no">
+        <name>NotifyItem</name>
+        <enumvalue id="structMyGUI_1_1IBNotifyItemData_18e6ca0054f78a68e77742a95455d32ce80177742094d6500ee5909daefb73999" prot="public">
+          <name>MousePressed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1IBNotifyItemData_18e6ca0054f78a68e77742a95455d32cee41b47c449b6330308e29916393c78ba" prot="public">
+          <name>MouseReleased</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1IBNotifyItemData_18e6ca0054f78a68e77742a95455d32ce68217af7c2040e4193e87ce55f22d32c" prot="public">
+          <name>KeyPressed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1IBNotifyItemData_18e6ca0054f78a68e77742a95455d32ce56ffb3fd55a16ad909e67134ad7aa9ac" prot="public">
+          <name>KeyReleased</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="76" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="75" bodyend="81"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMyGUI_1_1IBNotifyItemData_163474043e1156cdaae0c6140552a4568" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::IBNotifyItemData::IBNotifyItemData</definition>
+        <argsstring>(size_t _index, NotifyItem _notify, int _x, int _y, MouseButton _id)</argsstring>
+        <name>IBNotifyItemData</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>NotifyItem</type>
+          <declname>_notify</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_y</declname>
+        </param>
+        <param>
+          <type>MouseButton</type>
+          <declname>_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="91" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="83" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1IBNotifyItemData_172a90170b985b3b623b4703a652d7d02" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::IBNotifyItemData::IBNotifyItemData</definition>
+        <argsstring>(size_t _index, NotifyItem _notify, KeyCode _code, Char _key)</argsstring>
+        <name>IBNotifyItemData</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>NotifyItem</type>
+          <declname>_notify</declname>
+        </param>
+        <param>
+          <type>KeyCode</type>
+          <declname>_code</declname>
+        </param>
+        <param>
+          <type>Char</type>
+          <declname>_key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="102" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="94" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1IBNotifyItemData_1e5a9f76ee5298f9d45e7273c492171bc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::IBNotifyItemData::IBNotifyItemData</definition>
+        <argsstring>(size_t _index, NotifyItem _notify, KeyCode _code)</argsstring>
+        <name>IBNotifyItemData</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>NotifyItem</type>
+          <declname>_notify</declname>
+        </param>
+        <param>
+          <type>KeyCode</type>
+          <declname>_code</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="113" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="105" bodyend="114"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1IBNotifyItemData_1dc64a269e659cbbf192f47ccdc51a441" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::IBNotifyItemData::index</definition>
+        <argsstring></argsstring>
+        <name>index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Item index </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="117" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1IBNotifyItemData_1cdaa3f5f15efdc9ccebef165141a66ce" prot="public" static="no" mutable="no">
+        <type>NotifyItem</type>
+        <definition>NotifyItem MyGUI::IBNotifyItemData::notify</definition>
+        <argsstring></argsstring>
+        <name>notify</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Notify type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="119" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1IBNotifyItemData_1ed5438af96ce3dad6a2ca6febf366700" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MyGUI::IBNotifyItemData::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>If Mouse* notify type - mouse x position, else 0 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="121" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1IBNotifyItemData_118eab28136a969373dbee410fc2a2b5f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MyGUI::IBNotifyItemData::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>If Mouse* notify type - mouse y position, else 0 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="123" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1IBNotifyItemData_164f76d0afc9f669729f8add1c1760d18" prot="public" static="no" mutable="no">
+        <type>MouseButton</type>
+        <definition>MouseButton MyGUI::IBNotifyItemData::id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>If Mouse* notify type - mouse button id position, else 0 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="125" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1IBNotifyItemData_188ba72e5732c22bc12d46a6a03031097" prot="public" static="no" mutable="no">
+        <type>KeyCode</type>
+        <definition>KeyCode MyGUI::IBNotifyItemData::code</definition>
+        <argsstring></argsstring>
+        <name>code</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>If Key* notify type - key code, else 0 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="127" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1IBNotifyItemData_127f69215f7c9b3ca5ffa04da1bbe8e77" prot="public" static="no" mutable="no">
+        <type>Char</type>
+        <definition>Char MyGUI::IBNotifyItemData::key</definition>
+        <argsstring></argsstring>
+        <name>key</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>If Key* notify type - mouse button id position, else 0 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="129" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" line="74" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h" bodystart="73" bodyend="130"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1IBNotifyItemData_188ba72e5732c22bc12d46a6a03031097" prot="public" virt="non-virtual"><scope>MyGUI::IBNotifyItemData</scope><name>code</name></member>
+      <member refid="structMyGUI_1_1IBNotifyItemData_163474043e1156cdaae0c6140552a4568" prot="public" virt="non-virtual"><scope>MyGUI::IBNotifyItemData</scope><name>IBNotifyItemData</name></member>
+      <member refid="structMyGUI_1_1IBNotifyItemData_172a90170b985b3b623b4703a652d7d02" prot="public" virt="non-virtual"><scope>MyGUI::IBNotifyItemData</scope><name>IBNotifyItemData</name></member>
+      <member refid="structMyGUI_1_1IBNotifyItemData_1e5a9f76ee5298f9d45e7273c492171bc" prot="public" virt="non-virtual"><scope>MyGUI::IBNotifyItemData</scope><name>IBNotifyItemData</name></member>
+      <member refid="structMyGUI_1_1IBNotifyItemData_164f76d0afc9f669729f8add1c1760d18" prot="public" virt="non-virtual"><scope>MyGUI::IBNotifyItemData</scope><name>id</name></member>
+      <member refid="structMyGUI_1_1IBNotifyItemData_1dc64a269e659cbbf192f47ccdc51a441" prot="public" virt="non-virtual"><scope>MyGUI::IBNotifyItemData</scope><name>index</name></member>
+      <member refid="structMyGUI_1_1IBNotifyItemData_127f69215f7c9b3ca5ffa04da1bbe8e77" prot="public" virt="non-virtual"><scope>MyGUI::IBNotifyItemData</scope><name>key</name></member>
+      <member refid="structMyGUI_1_1IBNotifyItemData_18e6ca0054f78a68e77742a95455d32ce68217af7c2040e4193e87ce55f22d32c" prot="public" virt="non-virtual"><scope>MyGUI::IBNotifyItemData</scope><name>KeyPressed</name></member>
+      <member refid="structMyGUI_1_1IBNotifyItemData_18e6ca0054f78a68e77742a95455d32ce56ffb3fd55a16ad909e67134ad7aa9ac" prot="public" virt="non-virtual"><scope>MyGUI::IBNotifyItemData</scope><name>KeyReleased</name></member>
+      <member refid="structMyGUI_1_1IBNotifyItemData_18e6ca0054f78a68e77742a95455d32ce80177742094d6500ee5909daefb73999" prot="public" virt="non-virtual"><scope>MyGUI::IBNotifyItemData</scope><name>MousePressed</name></member>
+      <member refid="structMyGUI_1_1IBNotifyItemData_18e6ca0054f78a68e77742a95455d32cee41b47c449b6330308e29916393c78ba" prot="public" virt="non-virtual"><scope>MyGUI::IBNotifyItemData</scope><name>MouseReleased</name></member>
+      <member refid="structMyGUI_1_1IBNotifyItemData_1cdaa3f5f15efdc9ccebef165141a66ce" prot="public" virt="non-virtual"><scope>MyGUI::IBNotifyItemData</scope><name>notify</name></member>
+      <member refid="structMyGUI_1_1IBNotifyItemData_18e6ca0054f78a68e77742a95455d32ce" prot="public" virt="non-virtual"><scope>MyGUI::IBNotifyItemData</scope><name>NotifyItem</name></member>
+      <member refid="structMyGUI_1_1IBNotifyItemData_1ed5438af96ce3dad6a2ca6febf366700" prot="public" virt="non-virtual"><scope>MyGUI::IBNotifyItemData</scope><name>x</name></member>
+      <member refid="structMyGUI_1_1IBNotifyItemData_118eab28136a969373dbee410fc2a2b5f" prot="public" virt="non-virtual"><scope>MyGUI::IBNotifyItemData</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

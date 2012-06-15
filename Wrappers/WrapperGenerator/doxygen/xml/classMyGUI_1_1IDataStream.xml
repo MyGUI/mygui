@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1IDataStream" kind="class" prot="public">
+    <compoundname>MyGUI::IDataStream</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1IDataStream_145bb8bc8c9d1b977c3ff150dbaa26095" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::IDataStream::~IDataStream</definition>
+        <argsstring>()</argsstring>
+        <name>~IDataStream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IDataStream_1c2a44d05a3f9a1a26853fd31b5f99276" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::IDataStream::eof</definition>
+        <argsstring>()=0</argsstring>
+        <name>eof</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" line="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IDataStream_1646feb53598f8813c7c1742b7b2d8409" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>size_t</type>
+        <definition>virtual size_t MyGUI::IDataStream::size</definition>
+        <argsstring>()=0</argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" line="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IDataStream_1b478c59794c55452eaacedc30a1ac590" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::IDataStream::readline</definition>
+        <argsstring>(std::string &amp;_source, Char _delim= &apos;\n&apos;)=0</argsstring>
+        <name>readline</name>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>_source</declname>
+        </param>
+        <param>
+          <type>Char</type>
+          <declname>_delim</declname>
+          <defval>&apos;\n&apos;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" line="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IDataStream_1c97a5f93bb0e7efc755f0f441fcea3dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>size_t</type>
+        <definition>virtual size_t MyGUI::IDataStream::read</definition>
+        <argsstring>(void *_buf, size_t _count)=0</argsstring>
+        <name>read</name>
+        <param>
+          <type>void *</type>
+          <declname>_buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" line="39"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" line="32" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" bodystart="31" bodyend="40"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1IDataStream_1c2a44d05a3f9a1a26853fd31b5f99276" prot="public" virt="pure-virtual"><scope>MyGUI::IDataStream</scope><name>eof</name></member>
+      <member refid="classMyGUI_1_1IDataStream_1c97a5f93bb0e7efc755f0f441fcea3dd" prot="public" virt="pure-virtual"><scope>MyGUI::IDataStream</scope><name>read</name></member>
+      <member refid="classMyGUI_1_1IDataStream_1b478c59794c55452eaacedc30a1ac590" prot="public" virt="pure-virtual"><scope>MyGUI::IDataStream</scope><name>readline</name></member>
+      <member refid="classMyGUI_1_1IDataStream_1646feb53598f8813c7c1742b7b2d8409" prot="public" virt="pure-virtual"><scope>MyGUI::IDataStream</scope><name>size</name></member>
+      <member refid="classMyGUI_1_1IDataStream_145bb8bc8c9d1b977c3ff150dbaa26095" prot="public" virt="virtual"><scope>MyGUI::IDataStream</scope><name>~IDataStream</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

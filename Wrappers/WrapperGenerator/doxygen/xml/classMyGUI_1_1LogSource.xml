@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1LogSource" kind="class" prot="public">
+    <compoundname>MyGUI::LogSource</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1LogSource_1bfed79c1f600f8d9743459a4bbccdffd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::LogSource::LogSource</definition>
+        <argsstring>()</argsstring>
+        <name>LogSource</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" line="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LogSource_127b04d57017bbafef84c3fd80e54137d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::LogSource::~LogSource</definition>
+        <argsstring>()</argsstring>
+        <name>~LogSource</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" line="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LogSource_108d65f5a4fdf430dfa75b04f4ed2ddef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LogSource::setLogFilter</definition>
+        <argsstring>(ILogFilter *_filter)</argsstring>
+        <name>setLogFilter</name>
+        <param>
+          <type>ILogFilter *</type>
+          <declname>_filter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set log messages filter. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" line="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LogSource_1f26ee19b28ca1aa9c68b81aefe439be2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LogSource::addLogListener</definition>
+        <argsstring>(ILogListener *_lestener)</argsstring>
+        <name>addLogListener</name>
+        <param>
+          <type>ILogListener *</type>
+          <declname>_lestener</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set log messages filter. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" line="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LogSource_146ed9df1b4d1379859df84b446731858" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LogSource::open</definition>
+        <argsstring>()</argsstring>
+        <name>open</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Call ILogListener::open() for all listeners. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" line="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LogSource_13707f60cb52944064e079ddb27bfa6a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LogSource::close</definition>
+        <argsstring>()</argsstring>
+        <name>close</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Call ILogListener::close() for all listeners. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" line="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LogSource_13b56b153cdbf00eab81e4feb1d781aaa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LogSource::flush</definition>
+        <argsstring>()</argsstring>
+        <name>flush</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Call ILogListener::flush() for all listeners. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" line="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LogSource_1be3f6653bffe5e3a059fa621ee6faa74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LogSource::log</definition>
+        <argsstring>(const std::string &amp;_section, LogLevel _level, const struct tm *_time, const std::string &amp;_message, const char *_file, int _line)</argsstring>
+        <name>log</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_section</declname>
+        </param>
+        <param>
+          <type>LogLevel</type>
+          <declname>_level</declname>
+        </param>
+        <param>
+          <type>const struct tm *</type>
+          <declname>_time</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_message</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>_file</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_line</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Call ILogListener::log for all listeners for messages that match LogSource filter (<simplesect kind="see"><para>void setLogFilter(ILogFilter* _filter)). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" line="51"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1LogSource_160b1f194dd08d7cb48f87acbd7c07b86" prot="private" static="no">
+        <type>std::vector&lt; ILogListener * &gt;</type>
+        <definition>typedef std::vector&lt;ILogListener*&gt; MyGUI::LogSource::VectorLogListeners</definition>
+        <argsstring></argsstring>
+        <name>VectorLogListeners</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" line="54" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1LogSource_1c0d36adfe36d5c62883aa490c8f7ccf9" prot="private" static="no" mutable="no">
+        <type>VectorLogListeners</type>
+        <definition>VectorLogListeners MyGUI::LogSource::mListeners</definition>
+        <argsstring></argsstring>
+        <name>mListeners</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" line="55" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1LogSource_107e7c345f5dd6d985ffe35b4d30be4ed" prot="private" static="no" mutable="no">
+        <type>ILogFilter *</type>
+        <definition>ILogFilter* MyGUI::LogSource::mFilter</definition>
+        <argsstring></argsstring>
+        <name>mFilter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" line="56" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" bodystart="33" bodyend="57"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1LogSource_1f26ee19b28ca1aa9c68b81aefe439be2" prot="public" virt="non-virtual"><scope>MyGUI::LogSource</scope><name>addLogListener</name></member>
+      <member refid="classMyGUI_1_1LogSource_13707f60cb52944064e079ddb27bfa6a0" prot="public" virt="non-virtual"><scope>MyGUI::LogSource</scope><name>close</name></member>
+      <member refid="classMyGUI_1_1LogSource_13b56b153cdbf00eab81e4feb1d781aaa" prot="public" virt="non-virtual"><scope>MyGUI::LogSource</scope><name>flush</name></member>
+      <member refid="classMyGUI_1_1LogSource_1be3f6653bffe5e3a059fa621ee6faa74" prot="public" virt="non-virtual"><scope>MyGUI::LogSource</scope><name>log</name></member>
+      <member refid="classMyGUI_1_1LogSource_1bfed79c1f600f8d9743459a4bbccdffd" prot="public" virt="non-virtual"><scope>MyGUI::LogSource</scope><name>LogSource</name></member>
+      <member refid="classMyGUI_1_1LogSource_107e7c345f5dd6d985ffe35b4d30be4ed" prot="private" virt="non-virtual"><scope>MyGUI::LogSource</scope><name>mFilter</name></member>
+      <member refid="classMyGUI_1_1LogSource_1c0d36adfe36d5c62883aa490c8f7ccf9" prot="private" virt="non-virtual"><scope>MyGUI::LogSource</scope><name>mListeners</name></member>
+      <member refid="classMyGUI_1_1LogSource_146ed9df1b4d1379859df84b446731858" prot="public" virt="non-virtual"><scope>MyGUI::LogSource</scope><name>open</name></member>
+      <member refid="classMyGUI_1_1LogSource_108d65f5a4fdf430dfa75b04f4ed2ddef" prot="public" virt="non-virtual"><scope>MyGUI::LogSource</scope><name>setLogFilter</name></member>
+      <member refid="classMyGUI_1_1LogSource_160b1f194dd08d7cb48f87acbd7c07b86" prot="private" virt="non-virtual"><scope>MyGUI::LogSource</scope><name>VectorLogListeners</name></member>
+      <member refid="classMyGUI_1_1LogSource_127b04d57017bbafef84c3fd80e54137d" prot="public" virt="non-virtual"><scope>MyGUI::LogSource</scope><name>~LogSource</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

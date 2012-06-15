@@ -1,0 +1,390 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="MyGUI__ResourceTrueTypeFont_8h" kind="file">
+    <compoundname>MyGUI_ResourceTrueTypeFont.h</compoundname>
+    <includes refid="MyGUI__Prerequest_8h" local="yes">MyGUI_Prerequest.h</includes>
+    <includes refid="MyGUI__ITexture_8h" local="yes">MyGUI_ITexture.h</includes>
+    <includes refid="MyGUI__IFont_8h" local="yes">MyGUI_IFont.h</includes>
+    <incdepgraph>
+      <node id="8242">
+        <label>MyGUI_ResourceTrueTypeFont.h</label>
+        <link refid="MyGUI_ResourceTrueTypeFont.h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8246" relation="include">
+        </childnode>
+        <childnode refid="8254" relation="include">
+        </childnode>
+      </node>
+      <node id="8256">
+        <label>MyGUI_IObject.h</label>
+        <link refid="MyGUI__IObject_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8257" relation="include">
+        </childnode>
+      </node>
+      <node id="8252">
+        <label>limits</label>
+      </node>
+      <node id="8284">
+        <label>assert.h</label>
+      </node>
+      <node id="8278">
+        <label>MyGUI_TPoint.h</label>
+        <link refid="MyGUI__TPoint_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+      </node>
+      <node id="8279">
+        <label>MyGUI_TSize.h</label>
+        <link refid="MyGUI__TSize_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+      </node>
+      <node id="8285">
+        <label>MyGUI_Version.h</label>
+        <link refid="MyGUI__Version_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8274" relation="include">
+        </childnode>
+        <childnode refid="8277" relation="include">
+        </childnode>
+      </node>
+      <node id="8287">
+        <label>MyGUI_FontData.h</label>
+        <link refid="MyGUI__FontData_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+      </node>
+      <node id="8255">
+        <label>MyGUI_ISerializable.h</label>
+        <link refid="MyGUI__ISerializable_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8256" relation="include">
+        </childnode>
+        <childnode refid="8271" relation="include">
+        </childnode>
+        <childnode refid="8285" relation="include">
+        </childnode>
+      </node>
+      <node id="8244">
+        <label>MyGUI_Platform.h</label>
+        <link refid="MyGUI__Platform_8h"/>
+      </node>
+      <node id="8276">
+        <label>MyGUI_Align.h</label>
+        <link refid="MyGUI__Align_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8251" relation="include">
+        </childnode>
+        <childnode refid="8258" relation="include">
+        </childnode>
+        <childnode refid="8277" relation="include">
+        </childnode>
+        <childnode refid="8275" relation="include">
+        </childnode>
+      </node>
+      <node id="8267">
+        <label>MyGUI_LogLevel.h</label>
+        <link refid="MyGUI__LogLevel_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+      </node>
+      <node id="8253">
+        <label>string</label>
+      </node>
+      <node id="8275">
+        <label>map</label>
+      </node>
+      <node id="8248">
+        <label>MyGUI_RenderTargetInfo.h</label>
+        <link refid="MyGUI__RenderTargetInfo_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+      </node>
+      <node id="8246">
+        <label>MyGUI_ITexture.h</label>
+        <link refid="MyGUI__ITexture_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8247" relation="include">
+        </childnode>
+        <childnode refid="8250" relation="include">
+        </childnode>
+        <childnode refid="8253" relation="include">
+        </childnode>
+      </node>
+      <node id="8277">
+        <label>MyGUI_StringUtility.h</label>
+        <link refid="MyGUI__StringUtility_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8269" relation="include">
+        </childnode>
+        <childnode refid="8264" relation="include">
+        </childnode>
+      </node>
+      <node id="8245">
+        <label>MyGUI_DeprecatedTypes.h</label>
+        <link refid="MyGUI__DeprecatedTypes_8h"/>
+      </node>
+      <node id="8260">
+        <label>exception</label>
+      </node>
+      <node id="8249">
+        <label>stddef.h</label>
+      </node>
+      <node id="8283">
+        <label>fstream</label>
+      </node>
+      <node id="8281">
+        <label>MyGUI_TCoord.h</label>
+        <link refid="MyGUI__TCoord_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8278" relation="include">
+        </childnode>
+        <childnode refid="8279" relation="include">
+        </childnode>
+      </node>
+      <node id="8257">
+        <label>MyGUI_RTTI.h</label>
+        <link refid="MyGUI__RTTI_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8258" relation="include">
+        </childnode>
+        <childnode refid="8253" relation="include">
+        </childnode>
+        <childnode refid="8270" relation="include">
+        </childnode>
+      </node>
+      <node id="8261">
+        <label>MyGUI_LogManager.h</label>
+        <link refid="MyGUI__LogManager_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8262" relation="include">
+        </childnode>
+        <childnode refid="8265" relation="include">
+        </childnode>
+        <childnode refid="8258" relation="include">
+        </childnode>
+        <childnode refid="8269" relation="include">
+        </childnode>
+      </node>
+      <node id="8271">
+        <label>MyGUI_XmlDocument.h</label>
+        <link refid="MyGUI__XmlDocument_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8258" relation="include">
+        </childnode>
+        <childnode refid="8272" relation="include">
+        </childnode>
+        <childnode refid="8269" relation="include">
+        </childnode>
+        <childnode refid="8253" relation="include">
+        </childnode>
+        <childnode refid="8282" relation="include">
+        </childnode>
+        <childnode refid="8283" relation="include">
+        </childnode>
+        <childnode refid="8264" relation="include">
+        </childnode>
+        <childnode refid="8284" relation="include">
+        </childnode>
+      </node>
+      <node id="8274">
+        <label>MyGUI_Types.h</label>
+        <link refid="MyGUI__Types_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8269" relation="include">
+        </childnode>
+        <childnode refid="8275" relation="include">
+        </childnode>
+        <childnode refid="8253" relation="include">
+        </childnode>
+        <childnode refid="8276" relation="include">
+        </childnode>
+        <childnode refid="8278" relation="include">
+        </childnode>
+        <childnode refid="8279" relation="include">
+        </childnode>
+        <childnode refid="8280" relation="include">
+        </childnode>
+        <childnode refid="8281" relation="include">
+        </childnode>
+      </node>
+      <node id="8262">
+        <label>MyGUI_LogStream.h</label>
+        <link refid="MyGUI__LogStream_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8263" relation="include">
+        </childnode>
+        <childnode refid="8264" relation="include">
+        </childnode>
+      </node>
+      <node id="8263">
+        <label>string.h</label>
+      </node>
+      <node id="8270">
+        <label>typeinfo</label>
+      </node>
+      <node id="8286">
+        <label>MyGUI_IResource.h</label>
+        <link refid="MyGUI__IResource_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8271" relation="include">
+        </childnode>
+        <childnode refid="8285" relation="include">
+        </childnode>
+        <childnode refid="8255" relation="include">
+        </childnode>
+      </node>
+      <node id="8251">
+        <label>MyGUI_Macros.h</label>
+        <link refid="MyGUI__Macros_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8252" relation="include">
+        </childnode>
+        <childnode refid="8249" relation="include">
+        </childnode>
+      </node>
+      <node id="8269">
+        <label>vector</label>
+      </node>
+      <node id="8280">
+        <label>MyGUI_TRect.h</label>
+        <link refid="MyGUI__TRect_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+      </node>
+      <node id="8268">
+        <label>MyGUI_ILogListener.h</label>
+        <link refid="MyGUI__ILogListener_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8267" relation="include">
+        </childnode>
+      </node>
+      <node id="8264">
+        <label>sstream</label>
+      </node>
+      <node id="8250">
+        <label>MyGUI_RenderFormat.h</label>
+        <link refid="MyGUI__RenderFormat_8h"/>
+        <childnode refid="8251" relation="include">
+        </childnode>
+      </node>
+      <node id="8258">
+        <label>MyGUI_Diagnostic.h</label>
+        <link refid="MyGUI__Diagnostic_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8259" relation="include">
+        </childnode>
+        <childnode refid="8261" relation="include">
+        </childnode>
+        <childnode refid="8264" relation="include">
+        </childnode>
+      </node>
+      <node id="8259">
+        <label>MyGUI_Exception.h</label>
+        <link refid="MyGUI__Exception_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8260" relation="include">
+        </childnode>
+        <childnode refid="8253" relation="include">
+        </childnode>
+      </node>
+      <node id="8282">
+        <label>iostream</label>
+      </node>
+      <node id="8273">
+        <label>MyGUI_IDataStream.h</label>
+        <link refid="MyGUI__IDataStream_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8274" relation="include">
+        </childnode>
+      </node>
+      <node id="8254">
+        <label>MyGUI_IFont.h</label>
+        <link refid="MyGUI__IFont_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8255" relation="include">
+        </childnode>
+        <childnode refid="8286" relation="include">
+        </childnode>
+        <childnode refid="8287" relation="include">
+        </childnode>
+      </node>
+      <node id="8247">
+        <label>MyGUI_IRenderTarget.h</label>
+        <link refid="MyGUI__IRenderTarget_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8248" relation="include">
+        </childnode>
+        <childnode refid="8249" relation="include">
+        </childnode>
+      </node>
+      <node id="8272">
+        <label>MyGUI_DataStream.h</label>
+        <link refid="MyGUI__DataStream_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8273" relation="include">
+        </childnode>
+      </node>
+      <node id="8266">
+        <label>MyGUI_ILogFilter.h</label>
+        <link refid="MyGUI__ILogFilter_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8267" relation="include">
+        </childnode>
+      </node>
+      <node id="8265">
+        <label>MyGUI_LogSource.h</label>
+        <link refid="MyGUI__LogSource_8h"/>
+        <childnode refid="8243" relation="include">
+        </childnode>
+        <childnode refid="8266" relation="include">
+        </childnode>
+        <childnode refid="8268" relation="include">
+        </childnode>
+        <childnode refid="8269" relation="include">
+        </childnode>
+      </node>
+      <node id="8243">
+        <label>MyGUI_Prerequest.h</label>
+        <link refid="MyGUI__Prerequest_8h"/>
+        <childnode refid="8244" relation="include">
+        </childnode>
+        <childnode refid="8245" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="classMyGUI_1_1ResourceTrueTypeFont">MyGUI::ResourceTrueTypeFont</innerclass>
+    <innernamespace refid="namespaceMyGUI">MyGUI</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Albert Semenov </para></simplesect>
+<simplesect kind="date"><para>06/2009 </para></simplesect>
+</para>    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceTrueTypeFont.h"/>
+  </compounddef>
+</doxygen>

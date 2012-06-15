@@ -1,0 +1,622 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1RotatingSkin" kind="class" prot="public">
+    <compoundname>MyGUI::RotatingSkin</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1RotatingSkin_12a54e5af4e0a7e01b69f0cdb884b90dc" prot="public" static="no">
+        <type>RTTIBase</type>
+        <definition>typedef RTTIBase MyGUI::RotatingSkin::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1RotatingSkin_1a7972de4615992168d104cb83ea627af" prot="public" static="no">
+        <type>RotatingSkin</type>
+        <definition>typedef RotatingSkin MyGUI::RotatingSkin::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_1d74960871d51d29f93bc2d5a5fc46a51" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::RotatingSkin::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_1f8dd83f7e8ad40056634a369a762feb4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::RotatingSkin::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_176623db893feaeadb6565915f4da0dd6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::RotatingSkin::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_17f9e6295848128c6773964d59fa9501e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::RotatingSkin::RotatingSkin</definition>
+        <argsstring>()</argsstring>
+        <name>RotatingSkin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_175e158d31cdb2dbf4ca65a04791ef9e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::RotatingSkin::~RotatingSkin</definition>
+        <argsstring>()</argsstring>
+        <name>~RotatingSkin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_14c94a348007224db585c3d7b32ebce54" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::RotatingSkin::setAngle</definition>
+        <argsstring>(float _angle)</argsstring>
+        <name>setAngle</name>
+        <param>
+          <type>float</type>
+          <declname>_angle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set angle of rotation in radians </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_1e57ef9107f0ba497bb032cdade25fbb3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float MyGUI::RotatingSkin::getAngle</definition>
+        <argsstring>() const </argsstring>
+        <name>getAngle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get angle of rotation in radians </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_1f3e0d0e8aaaeceb871fbce3ac354f79d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::RotatingSkin::setCenter</definition>
+        <argsstring>(const IntPoint &amp;_center)</argsstring>
+        <name>setCenter</name>
+        <param>
+          <type>const IntPoint &amp;</type>
+          <declname>_center</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set center of rotation <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_center</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Center point. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_1b52a34704c1a0955740ebf66ebaf580f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>IntPoint</type>
+        <definition>IntPoint MyGUI::RotatingSkin::getCenter</definition>
+        <argsstring>(bool _local=true) const </argsstring>
+        <name>getCenter</name>
+        <param>
+          <type>bool</type>
+          <declname>_local</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get center of rotation </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_1ad2eba057fe6262e1ea3f20f71054983" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::RotatingSkin::setAlpha</definition>
+        <argsstring>(float _alpha)</argsstring>
+        <name>setAlpha</name>
+        <param>
+          <type>float</type>
+          <declname>_alpha</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_1c2d9fc1a29c9ce363ef4f1d34aacbafe" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::RotatingSkin::setVisible</definition>
+        <argsstring>(bool _visible)</argsstring>
+        <name>setVisible</name>
+        <param>
+          <type>bool</type>
+          <declname>_visible</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_1a6649711c2a49f80d20bb9f2a03de995" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::RotatingSkin::setStateData</definition>
+        <argsstring>(IStateInfo *_data)</argsstring>
+        <name>setStateData</name>
+        <param>
+          <type>IStateInfo *</type>
+          <declname>_data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="58"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_150e8cbb5960a07a08d96bb8850c454ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::RotatingSkin::createDrawItem</definition>
+        <argsstring>(ITexture *_texture, ILayerNode *_node)</argsstring>
+        <name>createDrawItem</name>
+        <param>
+          <type>ITexture *</type>
+          <declname>_texture</declname>
+        </param>
+        <param>
+          <type>ILayerNode *</type>
+          <declname>_node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_104dcc8c7b5df88741752923817eb60e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::RotatingSkin::destroyDrawItem</definition>
+        <argsstring>()</argsstring>
+        <name>destroyDrawItem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_1d318dd18235076618ec3cd812ae68790" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::RotatingSkin::doRender</definition>
+        <argsstring>()</argsstring>
+        <name>doRender</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="64"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_10a165aaa002b03a2a6529e5f731ec3a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::RotatingSkin::_updateView</definition>
+        <argsstring>()</argsstring>
+        <name>_updateView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_1de27991cff146426a8eca75f6d452474" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::RotatingSkin::_correctView</definition>
+        <argsstring>()</argsstring>
+        <name>_correctView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="68"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_117d2a6bcdece73d8e6fd0c91ad7192d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::RotatingSkin::_setAlign</definition>
+        <argsstring>(const IntSize &amp;_oldsize)</argsstring>
+        <name>_setAlign</name>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_oldsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_14555b0607c5aac7aaee82ceaa69b0219" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::RotatingSkin::_setUVSet</definition>
+        <argsstring>(const FloatRect &amp;_rect)</argsstring>
+        <name>_setUVSet</name>
+        <param>
+          <type>const FloatRect &amp;</type>
+          <declname>_rect</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_1eceb8cb5e8bd5200c5d80a7308c6d565" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::RotatingSkin::_setColour</definition>
+        <argsstring>(const Colour &amp;_value)</argsstring>
+        <name>_setColour</name>
+        <param>
+          <type>const Colour &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="73"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_125ad35f3c600d69145e17aaf7be76134" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::RotatingSkin::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classMyGUI_1_1RotatingSkin_19468f5a1d6be0d98faed4ba9a64a460a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::RotatingSkin::_rebuildGeometry</definition>
+        <argsstring>()</argsstring>
+        <name>_rebuildGeometry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="76"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-type">
+      <memberdef kind="enum" id="classMyGUI_1_1RotatingSkin_10f719b0fa5b16028a57d6160284f84bc" prot="private" static="no">
+        <name>@0</name>
+        <enumvalue id="classMyGUI_1_1RotatingSkin_10f719b0fa5b16028a57d6160284f84bc841a9f3b6f4de6cdefc24250f6c1a13c" prot="private">
+          <name>RECT_VERTICIES_COUNT</name>
+          <initializer> 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classMyGUI_1_1RotatingSkin_10f719b0fa5b16028a57d6160284f84bc00366792aa33ba2ba052978e66370bba" prot="private">
+          <name>GEOMETRY_VERTICIES_TOTAL_COUNT</name>
+          <initializer> 8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="84" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" bodystart="84" bodyend="84"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1RotatingSkin_1d8134620e7ed609c91ec3a813751ebf9" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::RotatingSkin::mGeometryOutdated</definition>
+        <argsstring></argsstring>
+        <name>mGeometryOutdated</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="79" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1RotatingSkin_189af6b024805cf64dabd64e649d5762a" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::RotatingSkin::mAngle</definition>
+        <argsstring></argsstring>
+        <name>mAngle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="81" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1RotatingSkin_1bae81f0ecfa12eac2e2a92306111e77e" prot="private" static="no" mutable="no">
+        <type>IntPoint</type>
+        <definition>IntPoint MyGUI::RotatingSkin::mCenterPos</definition>
+        <argsstring></argsstring>
+        <name>mCenterPos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="82" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1RotatingSkin_16a8c258b7fe0e4cefe835edc892a1feb" prot="private" static="no" mutable="no">
+        <type>FloatPoint</type>
+        <definition>FloatPoint MyGUI::RotatingSkin::mResultVerticiesPos[GEOMETRY_VERTICIES_TOTAL_COUNT]</definition>
+        <argsstring>[GEOMETRY_VERTICIES_TOTAL_COUNT]</argsstring>
+        <name>mResultVerticiesPos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="85" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1RotatingSkin_1e1ce151c450f640dc0b899c88854cef5" prot="private" static="no" mutable="no">
+        <type>FloatPoint</type>
+        <definition>FloatPoint MyGUI::RotatingSkin::mResultVerticiesUV[GEOMETRY_VERTICIES_TOTAL_COUNT]</definition>
+        <argsstring>[GEOMETRY_VERTICIES_TOTAL_COUNT]</argsstring>
+        <name>mResultVerticiesUV</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="86" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1RotatingSkin_1fe4274241ef68e1f140a441bb310fdf9" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::RotatingSkin::mEmptyView</definition>
+        <argsstring></argsstring>
+        <name>mEmptyView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="88" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1RotatingSkin_1fdfef7f14b13fef94b20665ab5ee1543" prot="private" static="no" mutable="no">
+        <type>VertexColourType</type>
+        <definition>VertexColourType MyGUI::RotatingSkin::mVertexFormat</definition>
+        <argsstring></argsstring>
+        <name>mVertexFormat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="90" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1RotatingSkin_12a8c10367f0adaf798b71c18feab9771" prot="private" static="no" mutable="no">
+        <type>uint32</type>
+        <definition>uint32 MyGUI::RotatingSkin::mCurrentColour</definition>
+        <argsstring></argsstring>
+        <name>mCurrentColour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="91" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1RotatingSkin_1a2e5d79e18180ac18295cb391f3a8ddb" prot="private" static="no" mutable="no">
+        <type>FloatRect</type>
+        <definition>FloatRect MyGUI::RotatingSkin::mCurrentTexture</definition>
+        <argsstring></argsstring>
+        <name>mCurrentTexture</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="93" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1RotatingSkin_195720e9ba5e636f3315f92bb43119447" prot="private" static="no" mutable="no">
+        <type>IntCoord</type>
+        <definition>IntCoord MyGUI::RotatingSkin::mCurrentCoord</definition>
+        <argsstring></argsstring>
+        <name>mCurrentCoord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="94" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1RotatingSkin_1d9599f2bd4a6a95e4e9d49384bdc44e4" prot="private" static="no" mutable="no">
+        <type>ILayerNode *</type>
+        <definition>ILayerNode* MyGUI::RotatingSkin::mNode</definition>
+        <argsstring></argsstring>
+        <name>mNode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="96" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1RotatingSkin_14791fd3c39d187cc84decce5f9b09cfe" prot="private" static="no" mutable="no">
+        <type>RenderItem *</type>
+        <definition>RenderItem* MyGUI::RotatingSkin::mRenderItem</definition>
+        <argsstring></argsstring>
+        <name>mRenderItem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="97" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RotatingSkin.h" bodystart="33" bodyend="98"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1RotatingSkin_10f719b0fa5b16028a57d6160284f84bc" prot="private" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>@0</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_1de27991cff146426a8eca75f6d452474" prot="public" virt="virtual"><scope>MyGUI::RotatingSkin</scope><name>_correctView</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_19468f5a1d6be0d98faed4ba9a64a460a" prot="protected" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>_rebuildGeometry</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_117d2a6bcdece73d8e6fd0c91ad7192d6" prot="public" virt="virtual"><scope>MyGUI::RotatingSkin</scope><name>_setAlign</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_1eceb8cb5e8bd5200c5d80a7308c6d565" prot="public" virt="virtual"><scope>MyGUI::RotatingSkin</scope><name>_setColour</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_14555b0607c5aac7aaee82ceaa69b0219" prot="public" virt="virtual"><scope>MyGUI::RotatingSkin</scope><name>_setUVSet</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_10a165aaa002b03a2a6529e5f731ec3a9" prot="public" virt="virtual"><scope>MyGUI::RotatingSkin</scope><name>_updateView</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_12a54e5af4e0a7e01b69f0cdb884b90dc" prot="public" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_150e8cbb5960a07a08d96bb8850c454ea" prot="public" virt="virtual"><scope>MyGUI::RotatingSkin</scope><name>createDrawItem</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_104dcc8c7b5df88741752923817eb60e6" prot="public" virt="virtual"><scope>MyGUI::RotatingSkin</scope><name>destroyDrawItem</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_1d318dd18235076618ec3cd812ae68790" prot="public" virt="virtual"><scope>MyGUI::RotatingSkin</scope><name>doRender</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_10f719b0fa5b16028a57d6160284f84bc00366792aa33ba2ba052978e66370bba" prot="private" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>GEOMETRY_VERTICIES_TOTAL_COUNT</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_1e57ef9107f0ba497bb032cdade25fbb3" prot="public" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>getAngle</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_1b52a34704c1a0955740ebf66ebaf580f" prot="public" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>getCenter</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_125ad35f3c600d69145e17aaf7be76134" prot="public" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_1d74960871d51d29f93bc2d5a5fc46a51" prot="public" virt="virtual"><scope>MyGUI::RotatingSkin</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_1f8dd83f7e8ad40056634a369a762feb4" prot="public" virt="virtual"><scope>MyGUI::RotatingSkin</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_176623db893feaeadb6565915f4da0dd6" prot="public" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_189af6b024805cf64dabd64e649d5762a" prot="private" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>mAngle</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_1bae81f0ecfa12eac2e2a92306111e77e" prot="private" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>mCenterPos</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_12a8c10367f0adaf798b71c18feab9771" prot="private" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>mCurrentColour</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_195720e9ba5e636f3315f92bb43119447" prot="private" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>mCurrentCoord</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_1a2e5d79e18180ac18295cb391f3a8ddb" prot="private" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>mCurrentTexture</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_1fe4274241ef68e1f140a441bb310fdf9" prot="private" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>mEmptyView</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_1d8134620e7ed609c91ec3a813751ebf9" prot="private" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>mGeometryOutdated</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_1d9599f2bd4a6a95e4e9d49384bdc44e4" prot="private" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>mNode</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_14791fd3c39d187cc84decce5f9b09cfe" prot="private" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>mRenderItem</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_16a8c258b7fe0e4cefe835edc892a1feb" prot="private" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>mResultVerticiesPos</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_1e1ce151c450f640dc0b899c88854cef5" prot="private" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>mResultVerticiesUV</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_1fdfef7f14b13fef94b20665ab5ee1543" prot="private" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>mVertexFormat</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_10f719b0fa5b16028a57d6160284f84bc841a9f3b6f4de6cdefc24250f6c1a13c" prot="private" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>RECT_VERTICIES_COUNT</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_17f9e6295848128c6773964d59fa9501e" prot="public" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>RotatingSkin</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_1a7972de4615992168d104cb83ea627af" prot="public" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_1ad2eba057fe6262e1ea3f20f71054983" prot="public" virt="virtual"><scope>MyGUI::RotatingSkin</scope><name>setAlpha</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_14c94a348007224db585c3d7b32ebce54" prot="public" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>setAngle</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_1f3e0d0e8aaaeceb871fbce3ac354f79d" prot="public" virt="non-virtual"><scope>MyGUI::RotatingSkin</scope><name>setCenter</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_1a6649711c2a49f80d20bb9f2a03de995" prot="public" virt="virtual"><scope>MyGUI::RotatingSkin</scope><name>setStateData</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_1c2d9fc1a29c9ce363ef4f1d34aacbafe" prot="public" virt="virtual"><scope>MyGUI::RotatingSkin</scope><name>setVisible</name></member>
+      <member refid="classMyGUI_1_1RotatingSkin_175e158d31cdb2dbf4ca65a04791ef9e3" prot="public" virt="virtual"><scope>MyGUI::RotatingSkin</scope><name>~RotatingSkin</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

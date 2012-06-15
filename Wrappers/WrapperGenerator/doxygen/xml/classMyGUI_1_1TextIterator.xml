@@ -1,0 +1,644 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1TextIterator" kind="class" prot="public">
+    <compoundname>MyGUI::TextIterator</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_161f4b77188213d7ccabfb8c7b8fde91e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::TextIterator::TextIterator</definition>
+        <argsstring>(const UString &amp;_text, VectorChangeInfo *_history=0)</argsstring>
+        <name>TextIterator</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_text</declname>
+        </param>
+        <param>
+          <type>VectorChangeInfo *</type>
+          <declname>_history</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_1ab1121e883935c28872fbd6a96591167" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::TextIterator::moveNext</definition>
+        <argsstring>()</argsstring>
+        <name>moveNext</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_19c5fd4be552e843dd20d5a694e6e593a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::TextIterator::getTagColour</definition>
+        <argsstring>(UString &amp;_colour) const </argsstring>
+        <name>getTagColour</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_colour</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_10ae78ef3c2c8924bc220e9de6ecda676" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::TextIterator::clearTagColour</definition>
+        <argsstring>()</argsstring>
+        <name>clearTagColour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_19fbf287260837fecf33bb0d49c04bb2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::TextIterator::setTagColour</definition>
+        <argsstring>(const Colour &amp;_colour)</argsstring>
+        <name>setTagColour</name>
+        <param>
+          <type>const Colour &amp;</type>
+          <declname>_colour</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_13518ec6217cc9beae59270445d84ffc8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::TextIterator::setTagColour</definition>
+        <argsstring>(UString _colour)</argsstring>
+        <name>setTagColour</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref></type>
+          <declname>_colour</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_1c17699fc5a3a215f39fbd17662160611" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::TextIterator::saveStartPoint</definition>
+        <argsstring>()</argsstring>
+        <name>saveStartPoint</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_10951bc2e212f42e23d05bdb4668c9b42" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref></type>
+        <definition>UString MyGUI::TextIterator::getFromStart</definition>
+        <argsstring>()</argsstring>
+        <name>getFromStart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_106b240418aa322332fa11bcf2b0597e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::TextIterator::eraseFromStart</definition>
+        <argsstring>()</argsstring>
+        <name>eraseFromStart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_1fd144c4a1850e21f97e6dcce59f6d34d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::TextIterator::getPosition</definition>
+        <argsstring>() const </argsstring>
+        <name>getPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_11ad7993fb0b961c0373d349d34c3caf6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+        <definition>const UString&amp; MyGUI::TextIterator::getText</definition>
+        <argsstring>() const </argsstring>
+        <name>getText</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="65"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_1fa6560102083ea8fabeafaca5b0af950" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::TextIterator::insertText</definition>
+        <argsstring>(const UString &amp;_insert, bool _multiLine)</argsstring>
+        <name>insertText</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_insert</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_multiLine</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_11a94c6f68c521d9c09353fb3a9f42395" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::TextIterator::clearNewLine</definition>
+        <argsstring>(UString &amp;_text)</argsstring>
+        <name>clearNewLine</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_text</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_1b5e7ba7c282848ee37a43569b6a5c0be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::TextIterator::clearText</definition>
+        <argsstring>()</argsstring>
+        <name>clearText</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_12d4d0faa6af662c384c61768717ff57a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::TextIterator::getSize</definition>
+        <argsstring>() const </argsstring>
+        <name>getSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="75"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_1d6ec99c50d845eb99ac50c691689d4d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::TextIterator::setText</definition>
+        <argsstring>(const UString &amp;_text, bool _multiLine)</argsstring>
+        <name>setText</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_text</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_multiLine</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="77"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_183078d51c2515e1fd98fbba4933e69a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::TextIterator::cutMaxLength</definition>
+        <argsstring>(size_t _max)</argsstring>
+        <name>cutMaxLength</name>
+        <param>
+          <type>size_t</type>
+          <declname>_max</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="79"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_1cfb4da36a0bb723320b20c819bf73135" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::TextIterator::cutMaxLengthFromBeginning</definition>
+        <argsstring>(size_t _max)</argsstring>
+        <name>cutMaxLengthFromBeginning</name>
+        <param>
+          <type>size_t</type>
+          <declname>_max</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="81"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_135b9ffea007af08ede4c9720fca8d1c1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref></type>
+        <definition>static UString MyGUI::TextIterator::getOnlyText</definition>
+        <argsstring>(const UString &amp;_text)</argsstring>
+        <name>getOnlyText</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_text</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="84"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_15a30e0d1a22163186079805bd8d35c3e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref></type>
+        <definition>static UString MyGUI::TextIterator::getTextNewLine</definition>
+        <argsstring>()</argsstring>
+        <name>getTextNewLine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_128fcf2f971b6d555ec50cb62073e2641" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref></type>
+        <definition>static UString MyGUI::TextIterator::getTextCharInfo</definition>
+        <argsstring>(Char _char)</argsstring>
+        <name>getTextCharInfo</name>
+        <param>
+          <type>Char</type>
+          <declname>_char</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="88"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_115e232bce9b9f66cf84f9c2bf861801e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref></type>
+        <definition>static UString MyGUI::TextIterator::convertTagColour</definition>
+        <argsstring>(const Colour &amp;_colour)</argsstring>
+        <name>convertTagColour</name>
+        <param>
+          <type>const Colour &amp;</type>
+          <declname>_colour</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="91"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_140e4d645967325e272a41fc3e8caf978" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref></type>
+        <definition>static UString MyGUI::TextIterator::toTagsString</definition>
+        <argsstring>(const UString &amp;_text)</argsstring>
+        <name>toTagsString</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_text</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="93"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_1a2e76095910bac6e40f261ba229755cd" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::TextIterator::TextIterator</definition>
+        <argsstring>()</argsstring>
+        <name>TextIterator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_1b6cf85c14e0d6ab27f4de712f4c73bc6" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::TextIterator::getTagColour</definition>
+        <argsstring>(UString &amp;_colour, UString::iterator &amp;_iter) const </argsstring>
+        <name>getTagColour</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_colour</declname>
+        </param>
+        <param>
+          <type><ref refid="classMyGUI_1_1UString_1_1__fwd__iterator" kindref="compound">UString::iterator</ref> &amp;</type>
+          <declname>_iter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="97"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_18265f336a2c7f78e6e5cfe0eed46c8ce" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::TextIterator::insert</definition>
+        <argsstring>(UString::iterator &amp;_start, UString &amp;_insert)</argsstring>
+        <name>insert</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1UString_1_1__fwd__iterator" kindref="compound">UString::iterator</ref> &amp;</type>
+          <declname>_start</declname>
+        </param>
+        <param>
+          <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_insert</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="99"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_19cfb1079442f36919a978344d07aca19" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1UString_1_1__fwd__iterator" kindref="compound">UString::iterator</ref></type>
+        <definition>UString::iterator MyGUI::TextIterator::erase</definition>
+        <argsstring>(UString::iterator _start, UString::iterator _end)</argsstring>
+        <name>erase</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1UString_1_1__fwd__iterator" kindref="compound">UString::iterator</ref></type>
+          <declname>_start</declname>
+        </param>
+        <param>
+          <type><ref refid="classMyGUI_1_1UString_1_1__fwd__iterator" kindref="compound">UString::iterator</ref></type>
+          <declname>_end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="101"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1TextIterator_19c5542a4d7cf57f808e5cd2dc91669cc" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::TextIterator::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="103"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1TextIterator_17986bb0aace2654cd848f4e22081004e" prot="private" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref></type>
+        <definition>UString MyGUI::TextIterator::mText</definition>
+        <argsstring></argsstring>
+        <name>mText</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="106" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TextIterator_1898ffff75322ecffa973ea801dcce13d" prot="private" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1UString_1_1__fwd__iterator" kindref="compound">UString::iterator</ref></type>
+        <definition>UString::iterator MyGUI::TextIterator::mCurrent</definition>
+        <argsstring></argsstring>
+        <name>mCurrent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="107" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TextIterator_1a804710330ac290882f5b910c28bbe50" prot="private" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1UString_1_1__fwd__iterator" kindref="compound">UString::iterator</ref></type>
+        <definition>UString::iterator MyGUI::TextIterator::mEnd</definition>
+        <argsstring></argsstring>
+        <name>mEnd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="107" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TextIterator_12ecd6e415df10a25bfcecd79a6854c05" prot="private" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1UString_1_1__fwd__iterator" kindref="compound">UString::iterator</ref></type>
+        <definition>UString::iterator MyGUI::TextIterator::mSave</definition>
+        <argsstring></argsstring>
+        <name>mSave</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="107" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TextIterator_1697133e822051512c58365e4bae25965" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::TextIterator::mPosition</definition>
+        <argsstring></argsstring>
+        <name>mPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="110" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TextIterator_14da56048394aeee5738d52273196e5a4" prot="private" static="no" mutable="yes">
+        <type>size_t</type>
+        <definition>size_t MyGUI::TextIterator::mSize</definition>
+        <argsstring></argsstring>
+        <name>mSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="111" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TextIterator_1e2d55dcce48301371786d2ac606bd3ed" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::TextIterator::mFirst</definition>
+        <argsstring></argsstring>
+        <name>mFirst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="112" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1TextIterator_11826355d260af75c2abd26825ca21946" prot="private" static="no" mutable="no">
+        <type>VectorChangeInfo *</type>
+        <definition>VectorChangeInfo* MyGUI::TextIterator::mHistory</definition>
+        <argsstring></argsstring>
+        <name>mHistory</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="114" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="665">
+        <label>MyGUI::UString::_base_iterator</label>
+        <link refid="classMyGUI_1_1UString_1_1__base__iterator"/>
+        <childnode refid="666" relation="usage">
+          <edgelabel>mString</edgelabel>
+        </childnode>
+      </node>
+      <node id="664">
+        <label>MyGUI::UString::_fwd_iterator</label>
+        <link refid="classMyGUI_1_1UString_1_1__fwd__iterator"/>
+        <childnode refid="665" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="666">
+        <label>MyGUI::UString</label>
+        <link refid="classMyGUI_1_1UString"/>
+      </node>
+      <node id="663">
+        <label>MyGUI::TextIterator</label>
+        <childnode refid="664" relation="usage">
+          <edgelabel>mEnd
+mSave
+mCurrent</edgelabel>
+        </childnode>
+        <childnode refid="666" relation="usage">
+          <edgelabel>mText</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" bodystart="33" bodyend="115"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1TextIterator_19c5542a4d7cf57f808e5cd2dc91669cc" prot="private" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>clear</name></member>
+      <member refid="classMyGUI_1_1TextIterator_11a94c6f68c521d9c09353fb3a9f42395" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>clearNewLine</name></member>
+      <member refid="classMyGUI_1_1TextIterator_10ae78ef3c2c8924bc220e9de6ecda676" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>clearTagColour</name></member>
+      <member refid="classMyGUI_1_1TextIterator_1b5e7ba7c282848ee37a43569b6a5c0be" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>clearText</name></member>
+      <member refid="classMyGUI_1_1TextIterator_115e232bce9b9f66cf84f9c2bf861801e" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>convertTagColour</name></member>
+      <member refid="classMyGUI_1_1TextIterator_183078d51c2515e1fd98fbba4933e69a6" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>cutMaxLength</name></member>
+      <member refid="classMyGUI_1_1TextIterator_1cfb4da36a0bb723320b20c819bf73135" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>cutMaxLengthFromBeginning</name></member>
+      <member refid="classMyGUI_1_1TextIterator_19cfb1079442f36919a978344d07aca19" prot="private" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>erase</name></member>
+      <member refid="classMyGUI_1_1TextIterator_106b240418aa322332fa11bcf2b0597e0" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>eraseFromStart</name></member>
+      <member refid="classMyGUI_1_1TextIterator_10951bc2e212f42e23d05bdb4668c9b42" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>getFromStart</name></member>
+      <member refid="classMyGUI_1_1TextIterator_135b9ffea007af08ede4c9720fca8d1c1" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>getOnlyText</name></member>
+      <member refid="classMyGUI_1_1TextIterator_1fd144c4a1850e21f97e6dcce59f6d34d" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>getPosition</name></member>
+      <member refid="classMyGUI_1_1TextIterator_12d4d0faa6af662c384c61768717ff57a" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>getSize</name></member>
+      <member refid="classMyGUI_1_1TextIterator_19c5fd4be552e843dd20d5a694e6e593a" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>getTagColour</name></member>
+      <member refid="classMyGUI_1_1TextIterator_1b6cf85c14e0d6ab27f4de712f4c73bc6" prot="private" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>getTagColour</name></member>
+      <member refid="classMyGUI_1_1TextIterator_11ad7993fb0b961c0373d349d34c3caf6" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>getText</name></member>
+      <member refid="classMyGUI_1_1TextIterator_128fcf2f971b6d555ec50cb62073e2641" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>getTextCharInfo</name></member>
+      <member refid="classMyGUI_1_1TextIterator_15a30e0d1a22163186079805bd8d35c3e" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>getTextNewLine</name></member>
+      <member refid="classMyGUI_1_1TextIterator_18265f336a2c7f78e6e5cfe0eed46c8ce" prot="private" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>insert</name></member>
+      <member refid="classMyGUI_1_1TextIterator_1fa6560102083ea8fabeafaca5b0af950" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>insertText</name></member>
+      <member refid="classMyGUI_1_1TextIterator_1898ffff75322ecffa973ea801dcce13d" prot="private" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>mCurrent</name></member>
+      <member refid="classMyGUI_1_1TextIterator_1a804710330ac290882f5b910c28bbe50" prot="private" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>mEnd</name></member>
+      <member refid="classMyGUI_1_1TextIterator_1e2d55dcce48301371786d2ac606bd3ed" prot="private" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>mFirst</name></member>
+      <member refid="classMyGUI_1_1TextIterator_11826355d260af75c2abd26825ca21946" prot="private" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>mHistory</name></member>
+      <member refid="classMyGUI_1_1TextIterator_1ab1121e883935c28872fbd6a96591167" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>moveNext</name></member>
+      <member refid="classMyGUI_1_1TextIterator_1697133e822051512c58365e4bae25965" prot="private" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>mPosition</name></member>
+      <member refid="classMyGUI_1_1TextIterator_12ecd6e415df10a25bfcecd79a6854c05" prot="private" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>mSave</name></member>
+      <member refid="classMyGUI_1_1TextIterator_14da56048394aeee5738d52273196e5a4" prot="private" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>mSize</name></member>
+      <member refid="classMyGUI_1_1TextIterator_17986bb0aace2654cd848f4e22081004e" prot="private" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>mText</name></member>
+      <member refid="classMyGUI_1_1TextIterator_1c17699fc5a3a215f39fbd17662160611" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>saveStartPoint</name></member>
+      <member refid="classMyGUI_1_1TextIterator_19fbf287260837fecf33bb0d49c04bb2e" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>setTagColour</name></member>
+      <member refid="classMyGUI_1_1TextIterator_13518ec6217cc9beae59270445d84ffc8" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>setTagColour</name></member>
+      <member refid="classMyGUI_1_1TextIterator_1d6ec99c50d845eb99ac50c691689d4d5" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>setText</name></member>
+      <member refid="classMyGUI_1_1TextIterator_1a2e76095910bac6e40f261ba229755cd" prot="private" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>TextIterator</name></member>
+      <member refid="classMyGUI_1_1TextIterator_161f4b77188213d7ccabfb8c7b8fde91e" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>TextIterator</name></member>
+      <member refid="classMyGUI_1_1TextIterator_140e4d645967325e272a41fc3e8caf978" prot="public" virt="non-virtual"><scope>MyGUI::TextIterator</scope><name>toTagsString</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

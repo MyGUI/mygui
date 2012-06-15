@@ -1,0 +1,1427 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1EditText" kind="class" prot="public">
+    <compoundname>MyGUI::EditText</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1EditText_147a3e885edf608b080b63490081c0794" prot="public" static="no">
+        <type>RTTIBase</type>
+        <definition>typedef RTTIBase MyGUI::EditText::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1EditText_10c2d134b967ad94de432ec3a4c10d285" prot="public" static="no">
+        <type>EditText</type>
+        <definition>typedef EditText MyGUI::EditText::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1EditText_175cf52a8a50a6a173d9aa94dee9d97b5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::EditText::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="43" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1957ab4542001aee61df89fd4f2eeae86" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::EditText::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="43" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_13eb7f286f544b45e4e0ae249bf5b3abe" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::EditText::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="43" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1cf2896b31100b16813e36367a8d9a8b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::EditText::EditText</definition>
+        <argsstring>()</argsstring>
+        <name>EditText</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_182eac496308686bc83a7d2af107f157b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::EditText::~EditText</definition>
+        <argsstring>()</argsstring>
+        <name>~EditText</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_15dfe13cfe155b2d8765b3f4ffff5a7e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::setVisible</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setVisible</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_12252cc26cf34e37e77d9dace9b80c43c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::updateRawData</definition>
+        <argsstring>()</argsstring>
+        <name>updateRawData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1c9a5682d40740e8beba71fbb753e7abe" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::doRender</definition>
+        <argsstring>()</argsstring>
+        <name>doRender</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_13cdb86f428354e54ce7bd2c478efe19e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::EditText::setCaption</definition>
+        <argsstring>(const UString &amp;_value)</argsstring>
+        <name>setCaption</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_160e574a8eaec9b6242a5483cf08cc676" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+        <definition>const UString&amp; MyGUI::EditText::getCaption</definition>
+        <argsstring>() const </argsstring>
+        <name>getCaption</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="58"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_14c70610c0f897c76298920bc909e8190" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::EditText::setTextColour</definition>
+        <argsstring>(const Colour &amp;_value)</argsstring>
+        <name>setTextColour</name>
+        <param>
+          <type>const Colour &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_14e0dad7a95e8c7771a37a1070cdff12c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const Colour &amp;</type>
+        <definition>const Colour&amp; MyGUI::EditText::getTextColour</definition>
+        <argsstring>() const </argsstring>
+        <name>getTextColour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_14171368c7b844109314cd6f3a8051353" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::EditText::setAlpha</definition>
+        <argsstring>(float _value)</argsstring>
+        <name>setAlpha</name>
+        <param>
+          <type>float</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1aa192a5558f0aba5a3b7961ff155e154" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float MyGUI::EditText::getAlpha</definition>
+        <argsstring>() const </argsstring>
+        <name>getAlpha</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="64"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1f6a8a3d9880e222d708fdb30779b0395" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::setFontName</definition>
+        <argsstring>(const std::string &amp;_value)</argsstring>
+        <name>setFontName</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1b65cced53f7c652e950aea08bc66b19c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::EditText::getFontName</definition>
+        <argsstring>() const </argsstring>
+        <name>getFontName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_19e05c95a034189fd34c0d9a067ec63cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::setFontHeight</definition>
+        <argsstring>(int _value)</argsstring>
+        <name>setFontHeight</name>
+        <param>
+          <type>int</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1f83b181baee1ebe42a03397f5bb8dc52" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>int</type>
+        <definition>virtual int MyGUI::EditText::getFontHeight</definition>
+        <argsstring>() const </argsstring>
+        <name>getFontHeight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_142c57ca72b23b17e75cfb1bd2abfe556" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::createDrawItem</definition>
+        <argsstring>(ITexture *_texture, ILayerNode *_node)</argsstring>
+        <name>createDrawItem</name>
+        <param>
+          <type>ITexture *</type>
+          <declname>_texture</declname>
+        </param>
+        <param>
+          <type>ILayerNode *</type>
+          <declname>_node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_14a7b4431a3d4992578acee2c4b78fe93" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::destroyDrawItem</definition>
+        <argsstring>()</argsstring>
+        <name>destroyDrawItem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1c051c6a77379ef806a27c917e2fb04f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::setTextAlign</definition>
+        <argsstring>(Align _value)</argsstring>
+        <name>setTextAlign</name>
+        <param>
+          <type>Align</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="75"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1e960a5f490fcc9f78879bb8d7e17af39" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>Align</type>
+        <definition>virtual Align MyGUI::EditText::getTextAlign</definition>
+        <argsstring>() const </argsstring>
+        <name>getTextAlign</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="76"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1e90faba0aefc7ded54982a05bff5f844" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>virtual size_t MyGUI::EditText::getTextSelectionStart</definition>
+        <argsstring>() const </argsstring>
+        <name>getTextSelectionStart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1c70c0520ff185c2db20bb7228f0ce68a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>virtual size_t MyGUI::EditText::getTextSelectionEnd</definition>
+        <argsstring>() const </argsstring>
+        <name>getTextSelectionEnd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="79"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1c9dea3f989b5b42ec4bb5240ecf0ea1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::setTextSelection</definition>
+        <argsstring>(size_t _start, size_t _end)</argsstring>
+        <name>setTextSelection</name>
+        <param>
+          <type>size_t</type>
+          <declname>_start</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="80"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_13707a7adec13e17d38d2fc4f42e1929d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::EditText::getSelectBackground</definition>
+        <argsstring>() const </argsstring>
+        <name>getSelectBackground</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="82"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_18128685b087072097c32a7998f1b4285" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::setSelectBackground</definition>
+        <argsstring>(bool _normal)</argsstring>
+        <name>setSelectBackground</name>
+        <param>
+          <type>bool</type>
+          <declname>_normal</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="83"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1878f3743b683d7294a2945fe9f5149d1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::EditText::isVisibleCursor</definition>
+        <argsstring>() const </argsstring>
+        <name>isVisibleCursor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1d40dd4026cb1a648e068a97a10478ec5" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::setVisibleCursor</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setVisibleCursor</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_19a033cdcc9b2e4a2b7f22579d0b4a33f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::EditText::getInvertSelected</definition>
+        <argsstring>() const </argsstring>
+        <name>getInvertSelected</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get invert selected text color property. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="89"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1a07db334b6c4d0c2a27987fc8b8a3ae7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::setInvertSelected</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setInvertSelected</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enable or disable inverting color of selected text.<linebreak/>
+ Enabled (true) by default. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="93"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_14e87d279ff6e9acd8a4b42c3303de1d7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>virtual size_t MyGUI::EditText::getCursorPosition</definition>
+        <argsstring>() const </argsstring>
+        <name>getCursorPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="95"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1a01fe8b54a5dec2538cb2a2476bd636a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::setCursorPosition</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>setCursorPosition</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="96"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1d22a967298e474b27197fdd0bdde1095" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>IntSize</type>
+        <definition>virtual IntSize MyGUI::EditText::getTextSize</definition>
+        <argsstring>()</argsstring>
+        <name>getTextSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="98"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_18c8323f0551b6400df20e0dbef8e6982" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::setViewOffset</definition>
+        <argsstring>(const IntPoint &amp;_point)</argsstring>
+        <name>setViewOffset</name>
+        <param>
+          <type>const IntPoint &amp;</type>
+          <declname>_point</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="101"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_153221f300694c54a26317ab7fc881475" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>IntPoint</type>
+        <definition>virtual IntPoint MyGUI::EditText::getViewOffset</definition>
+        <argsstring>() const </argsstring>
+        <name>getViewOffset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="102"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_18eed433f744310326230a30cf6f1b665" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>virtual size_t MyGUI::EditText::getCursorPosition</definition>
+        <argsstring>(const IntPoint &amp;_point)</argsstring>
+        <name>getCursorPosition</name>
+        <param>
+          <type>const IntPoint &amp;</type>
+          <declname>_point</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="105"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1009dd71e1d0913bc6f2392e8749b5513" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>IntCoord</type>
+        <definition>virtual IntCoord MyGUI::EditText::getCursorCoord</definition>
+        <argsstring>(size_t _position)</argsstring>
+        <name>getCursorCoord</name>
+        <param>
+          <type>size_t</type>
+          <declname>_position</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="108"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1d1bbf36caf98547101bee3356e11f09d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::EditText::getShadow</definition>
+        <argsstring>() const </argsstring>
+        <name>getShadow</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="110"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_138d7958e08cd13dd8b117479b7f2852e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::setShadow</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setShadow</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="111"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1cf7e833ae4c4941ce9fe2be5c07fbb8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::setShiftText</definition>
+        <argsstring>(bool _shift)</argsstring>
+        <name>setShiftText</name>
+        <param>
+          <type>bool</type>
+          <declname>_shift</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="113"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_169d63c1c2bee7c930c010e0adce3bde1" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::setWordWrap</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setWordWrap</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="115"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1b4ae605cb4f5fe35a06dae9585bdcb53" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::setStateData</definition>
+        <argsstring>(IStateInfo *_data)</argsstring>
+        <name>setStateData</name>
+        <param>
+          <type>IStateInfo *</type>
+          <declname>_data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="117"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_12bc9cf6c4ff117130e5b165f77be371d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::setShadowColour</definition>
+        <argsstring>(const Colour &amp;_value)</argsstring>
+        <name>setShadowColour</name>
+        <param>
+          <type>const Colour &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="119"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1074a415c79ab3b8a98579afc27d92403" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const Colour &amp;</type>
+        <definition>virtual const Colour&amp; MyGUI::EditText::getShadowColour</definition>
+        <argsstring>() const </argsstring>
+        <name>getShadowColour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="120"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1f46c737a09ea655c607d6699b8cfbc20" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::_updateView</definition>
+        <argsstring>()</argsstring>
+        <name>_updateView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="123"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_140c4fad49f9526ec2404ae5f557c3407" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::_correctView</definition>
+        <argsstring>()</argsstring>
+        <name>_correctView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="124"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1fdfc3b98ea12a58d38a64c6451ee7dfe" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::EditText::_setAlign</definition>
+        <argsstring>(const IntSize &amp;_oldsize)</argsstring>
+        <name>_setAlign</name>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_oldsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="126"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1EditText_127fa53988471b35344bc986e1390b9fa" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::EditText::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="43" bodyend="43"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_152666c7c7cc97505cda35e3a5b0d9def" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::EditText::mEmptyView</definition>
+        <argsstring></argsstring>
+        <name>mEmptyView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="149" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_12da00791696e10cad931d9a6573ebe41" prot="protected" static="no" mutable="no">
+        <type>uint32</type>
+        <definition>uint32 MyGUI::EditText::mCurrentColourNative</definition>
+        <argsstring></argsstring>
+        <name>mCurrentColourNative</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="150" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_1742b5d11367bb86f7fa27cc7d54f2239" prot="protected" static="no" mutable="no">
+        <type>uint32</type>
+        <definition>uint32 MyGUI::EditText::mInverseColourNative</definition>
+        <argsstring></argsstring>
+        <name>mInverseColourNative</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="151" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_18cc309f924ba037c9915e91a2f2b6f57" prot="protected" static="no" mutable="no">
+        <type>uint32</type>
+        <definition>uint32 MyGUI::EditText::mCurrentAlphaNative</definition>
+        <argsstring></argsstring>
+        <name>mCurrentAlphaNative</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="152" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_1e1e9d33e48fa8481e2488058b943b50b" prot="protected" static="no" mutable="no">
+        <type>uint32</type>
+        <definition>uint32 MyGUI::EditText::mShadowColourNative</definition>
+        <argsstring></argsstring>
+        <name>mShadowColourNative</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="153" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_1fb699895fb30e36c7c72bb2e1d423d2b" prot="protected" static="no" mutable="no">
+        <type>IntCoord</type>
+        <definition>IntCoord MyGUI::EditText::mCurrentCoord</definition>
+        <argsstring></argsstring>
+        <name>mCurrentCoord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="154" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_160b4b7d523f8fbbfcf672348199c4e90" prot="protected" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref></type>
+        <definition>UString MyGUI::EditText::mCaption</definition>
+        <argsstring></argsstring>
+        <name>mCaption</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="156" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_189b37b21966f6643e7990e8e02647e8d" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::EditText::mTextOutDate</definition>
+        <argsstring></argsstring>
+        <name>mTextOutDate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="157" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_1917bfeba962ebe9b1b9a9faf9db7a347" prot="protected" static="no" mutable="no">
+        <type>Align</type>
+        <definition>Align MyGUI::EditText::mTextAlign</definition>
+        <argsstring></argsstring>
+        <name>mTextAlign</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="158" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_1dc0946f8dac7c332cd13b8af59156cd3" prot="protected" static="no" mutable="no">
+        <type>Colour</type>
+        <definition>Colour MyGUI::EditText::mColour</definition>
+        <argsstring></argsstring>
+        <name>mColour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="160" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_1170ef100ca20187ba6a4aa9d90dcb82d" prot="protected" static="no" mutable="no">
+        <type>Colour</type>
+        <definition>Colour MyGUI::EditText::mShadowColour</definition>
+        <argsstring></argsstring>
+        <name>mShadowColour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="161" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_1eeb5a478f222774c7abdf05710f9be3f" prot="protected" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::EditText::mAlpha</definition>
+        <argsstring></argsstring>
+        <name>mAlpha</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="162" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_10fed8318137a3ddb8f32de50afa7ae2e" prot="protected" static="no" mutable="no">
+        <type>VertexColourType</type>
+        <definition>VertexColourType MyGUI::EditText::mVertexFormat</definition>
+        <argsstring></argsstring>
+        <name>mVertexFormat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="163" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_153342995ca501012a3474e597db40f3c" prot="protected" static="no" mutable="no">
+        <type>IFont *</type>
+        <definition>IFont* MyGUI::EditText::mFont</definition>
+        <argsstring></argsstring>
+        <name>mFont</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="165" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_17df3ae780bfadc4980821c2f5b1c9d0b" prot="protected" static="no" mutable="no">
+        <type>ITexture *</type>
+        <definition>ITexture* MyGUI::EditText::mTexture</definition>
+        <argsstring></argsstring>
+        <name>mTexture</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="166" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_18faa299da896f39ad71487055da7a252" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MyGUI::EditText::mFontHeight</definition>
+        <argsstring></argsstring>
+        <name>mFontHeight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="167" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_10645f24928956f08a2c26e0a29756bf8" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::EditText::mBackgroundNormal</definition>
+        <argsstring></argsstring>
+        <name>mBackgroundNormal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="169" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_130b996afd3229b553319746b46e1a6b8" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::EditText::mStartSelect</definition>
+        <argsstring></argsstring>
+        <name>mStartSelect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="170" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_1be622655a3ed0d7199f4bbab339503f4" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::EditText::mEndSelect</definition>
+        <argsstring></argsstring>
+        <name>mEndSelect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="171" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_17e638f763fef95bc77274f75282e8e12" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::EditText::mCursorPosition</definition>
+        <argsstring></argsstring>
+        <name>mCursorPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="172" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_1e9edac503e598a6065ba62c7e7f2f631" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::EditText::mVisibleCursor</definition>
+        <argsstring></argsstring>
+        <name>mVisibleCursor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="173" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_1db7d905cf977283d46c4869dc9f10421" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::EditText::mInvertSelect</definition>
+        <argsstring></argsstring>
+        <name>mInvertSelect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="174" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_1b2caa75fa98f94c184638ec6dcc2c434" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::EditText::mShadow</definition>
+        <argsstring></argsstring>
+        <name>mShadow</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="175" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_18b5e9340fdea97522c3067e109dab864" prot="protected" static="no" mutable="no">
+        <type>IntPoint</type>
+        <definition>IntPoint MyGUI::EditText::mViewOffset</definition>
+        <argsstring></argsstring>
+        <name>mViewOffset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="177" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_18433a5ce15c2671f1b4aaf70b23a217f" prot="protected" static="no" mutable="no">
+        <type>ILayerNode *</type>
+        <definition>ILayerNode* MyGUI::EditText::mNode</definition>
+        <argsstring></argsstring>
+        <name>mNode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="179" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_1dffdfed71c79b16443ea02d1d544768b" prot="protected" static="no" mutable="no">
+        <type>RenderItem *</type>
+        <definition>RenderItem* MyGUI::EditText::mRenderItem</definition>
+        <argsstring></argsstring>
+        <name>mRenderItem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="180" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_1a4d83a2d69b824ffa7c44b4b6d5ffbca" prot="protected" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::EditText::mCountVertex</definition>
+        <argsstring></argsstring>
+        <name>mCountVertex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="181" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_183b9c7469f27265a4a93cf15ebcfec47" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::EditText::mIsAddCursorWidth</definition>
+        <argsstring></argsstring>
+        <name>mIsAddCursorWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="182" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_11672cc8188893b50c895bc288b5138b1" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::EditText::mShiftText</definition>
+        <argsstring></argsstring>
+        <name>mShiftText</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="184" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_12a8d216c643a06decbb863355026901a" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::EditText::mWordWrap</definition>
+        <argsstring></argsstring>
+        <name>mWordWrap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="185" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_1c5731b85d8d47a9bdc079e39cef57e35" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::EditText::mManualColour</definition>
+        <argsstring></argsstring>
+        <name>mManualColour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="186" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_1d5cff4159e5c02d2219a86f83610e795" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MyGUI::EditText::mOldWidth</definition>
+        <argsstring></argsstring>
+        <name>mOldWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="187" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1EditText_176a6b34fa186d926f818dd9e5ed871bc" prot="protected" static="no" mutable="no">
+        <type>TextView</type>
+        <definition>TextView MyGUI::EditText::mTextView</definition>
+        <argsstring></argsstring>
+        <name>mTextView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="189" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1595d3369fda35ea05fcdcba9487a575c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::EditText::_setTextColour</definition>
+        <argsstring>(const Colour &amp;_value)</argsstring>
+        <name>_setTextColour</name>
+        <param>
+          <type>const Colour &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="129"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1504456a76d5a37e18f476fe5975f1dff" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::EditText::checkVertexSize</definition>
+        <argsstring>()</argsstring>
+        <name>checkVertexSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="130"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_10cecbefeb6289acaf20bf564ca813206" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::EditText::drawQuad</definition>
+        <argsstring>(Vertex *&amp;_vertex, size_t &amp;_vertexCount, const FloatRect &amp;_vertexRect, float _vertexZ, const FloatRect &amp;_textureRect, uint32 _colour) const </argsstring>
+        <name>drawQuad</name>
+        <param>
+          <type>Vertex *&amp;</type>
+          <declname>_vertex</declname>
+        </param>
+        <param>
+          <type>size_t &amp;</type>
+          <declname>_vertexCount</declname>
+        </param>
+        <param>
+          <type>const FloatRect &amp;</type>
+          <declname>_vertexRect</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_vertexZ</declname>
+        </param>
+        <param>
+          <type>const FloatRect &amp;</type>
+          <declname>_textureRect</declname>
+        </param>
+        <param>
+          <type>uint32</type>
+          <declname>_colour</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="138"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1EditText_1d6da80ba85d80d9154d05a04be5c8b95" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::EditText::drawGlyph</definition>
+        <argsstring>(const RenderTargetInfo &amp;renderTargetInfo, Vertex *&amp;_vertex, size_t &amp;_vertexCount, FloatRect _vertexRect, FloatRect _textureRect, uint32 _colour) const </argsstring>
+        <name>drawGlyph</name>
+        <param>
+          <type>const RenderTargetInfo &amp;</type>
+          <declname>renderTargetInfo</declname>
+        </param>
+        <param>
+          <type>Vertex *&amp;</type>
+          <declname>_vertex</declname>
+        </param>
+        <param>
+          <type>size_t &amp;</type>
+          <declname>_vertexCount</declname>
+        </param>
+        <param>
+          <type>FloatRect</type>
+          <declname>_vertexRect</declname>
+        </param>
+        <param>
+          <type>FloatRect</type>
+          <declname>_textureRect</declname>
+        </param>
+        <param>
+          <type>uint32</type>
+          <declname>_colour</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="146"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="209">
+        <label>MyGUI::EditText</label>
+        <childnode refid="210" relation="usage">
+          <edgelabel>mCaption</edgelabel>
+        </childnode>
+      </node>
+      <node id="210">
+        <label>MyGUI::UString</label>
+        <link refid="classMyGUI_1_1UString"/>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditText.h" bodystart="40" bodyend="190"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1EditText_140c4fad49f9526ec2404ae5f557c3407" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>_correctView</name></member>
+      <member refid="classMyGUI_1_1EditText_1fdfc3b98ea12a58d38a64c6451ee7dfe" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>_setAlign</name></member>
+      <member refid="classMyGUI_1_1EditText_1595d3369fda35ea05fcdcba9487a575c" prot="private" virt="non-virtual"><scope>MyGUI::EditText</scope><name>_setTextColour</name></member>
+      <member refid="classMyGUI_1_1EditText_1f46c737a09ea655c607d6699b8cfbc20" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>_updateView</name></member>
+      <member refid="classMyGUI_1_1EditText_147a3e885edf608b080b63490081c0794" prot="public" virt="non-virtual"><scope>MyGUI::EditText</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1EditText_1504456a76d5a37e18f476fe5975f1dff" prot="private" virt="non-virtual"><scope>MyGUI::EditText</scope><name>checkVertexSize</name></member>
+      <member refid="classMyGUI_1_1EditText_142c57ca72b23b17e75cfb1bd2abfe556" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>createDrawItem</name></member>
+      <member refid="classMyGUI_1_1EditText_14a7b4431a3d4992578acee2c4b78fe93" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>destroyDrawItem</name></member>
+      <member refid="classMyGUI_1_1EditText_1c9a5682d40740e8beba71fbb753e7abe" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>doRender</name></member>
+      <member refid="classMyGUI_1_1EditText_1d6da80ba85d80d9154d05a04be5c8b95" prot="private" virt="non-virtual"><scope>MyGUI::EditText</scope><name>drawGlyph</name></member>
+      <member refid="classMyGUI_1_1EditText_10cecbefeb6289acaf20bf564ca813206" prot="private" virt="non-virtual"><scope>MyGUI::EditText</scope><name>drawQuad</name></member>
+      <member refid="classMyGUI_1_1EditText_1cf2896b31100b16813e36367a8d9a8b2" prot="public" virt="non-virtual"><scope>MyGUI::EditText</scope><name>EditText</name></member>
+      <member refid="classMyGUI_1_1EditText_1aa192a5558f0aba5a3b7961ff155e154" prot="public" virt="non-virtual"><scope>MyGUI::EditText</scope><name>getAlpha</name></member>
+      <member refid="classMyGUI_1_1EditText_160e574a8eaec9b6242a5483cf08cc676" prot="public" virt="non-virtual"><scope>MyGUI::EditText</scope><name>getCaption</name></member>
+      <member refid="classMyGUI_1_1EditText_127fa53988471b35344bc986e1390b9fa" prot="public" virt="non-virtual"><scope>MyGUI::EditText</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1EditText_1009dd71e1d0913bc6f2392e8749b5513" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>getCursorCoord</name></member>
+      <member refid="classMyGUI_1_1EditText_14e87d279ff6e9acd8a4b42c3303de1d7" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>getCursorPosition</name></member>
+      <member refid="classMyGUI_1_1EditText_18eed433f744310326230a30cf6f1b665" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>getCursorPosition</name></member>
+      <member refid="classMyGUI_1_1EditText_1f83b181baee1ebe42a03397f5bb8dc52" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>getFontHeight</name></member>
+      <member refid="classMyGUI_1_1EditText_1b65cced53f7c652e950aea08bc66b19c" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>getFontName</name></member>
+      <member refid="classMyGUI_1_1EditText_19a033cdcc9b2e4a2b7f22579d0b4a33f" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>getInvertSelected</name></member>
+      <member refid="classMyGUI_1_1EditText_13707a7adec13e17d38d2fc4f42e1929d" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>getSelectBackground</name></member>
+      <member refid="classMyGUI_1_1EditText_1d1bbf36caf98547101bee3356e11f09d" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>getShadow</name></member>
+      <member refid="classMyGUI_1_1EditText_1074a415c79ab3b8a98579afc27d92403" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>getShadowColour</name></member>
+      <member refid="classMyGUI_1_1EditText_1e960a5f490fcc9f78879bb8d7e17af39" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>getTextAlign</name></member>
+      <member refid="classMyGUI_1_1EditText_14e0dad7a95e8c7771a37a1070cdff12c" prot="public" virt="non-virtual"><scope>MyGUI::EditText</scope><name>getTextColour</name></member>
+      <member refid="classMyGUI_1_1EditText_1c70c0520ff185c2db20bb7228f0ce68a" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>getTextSelectionEnd</name></member>
+      <member refid="classMyGUI_1_1EditText_1e90faba0aefc7ded54982a05bff5f844" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>getTextSelectionStart</name></member>
+      <member refid="classMyGUI_1_1EditText_1d22a967298e474b27197fdd0bdde1095" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>getTextSize</name></member>
+      <member refid="classMyGUI_1_1EditText_175cf52a8a50a6a173d9aa94dee9d97b5" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1EditText_153221f300694c54a26317ab7fc881475" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>getViewOffset</name></member>
+      <member refid="classMyGUI_1_1EditText_1957ab4542001aee61df89fd4f2eeae86" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1EditText_13eb7f286f544b45e4e0ae249bf5b3abe" prot="public" virt="non-virtual"><scope>MyGUI::EditText</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1EditText_1878f3743b683d7294a2945fe9f5149d1" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>isVisibleCursor</name></member>
+      <member refid="classMyGUI_1_1EditText_1eeb5a478f222774c7abdf05710f9be3f" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mAlpha</name></member>
+      <member refid="classMyGUI_1_1EditText_10645f24928956f08a2c26e0a29756bf8" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mBackgroundNormal</name></member>
+      <member refid="classMyGUI_1_1EditText_160b4b7d523f8fbbfcf672348199c4e90" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mCaption</name></member>
+      <member refid="classMyGUI_1_1EditText_1dc0946f8dac7c332cd13b8af59156cd3" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mColour</name></member>
+      <member refid="classMyGUI_1_1EditText_1a4d83a2d69b824ffa7c44b4b6d5ffbca" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mCountVertex</name></member>
+      <member refid="classMyGUI_1_1EditText_18cc309f924ba037c9915e91a2f2b6f57" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mCurrentAlphaNative</name></member>
+      <member refid="classMyGUI_1_1EditText_12da00791696e10cad931d9a6573ebe41" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mCurrentColourNative</name></member>
+      <member refid="classMyGUI_1_1EditText_1fb699895fb30e36c7c72bb2e1d423d2b" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mCurrentCoord</name></member>
+      <member refid="classMyGUI_1_1EditText_17e638f763fef95bc77274f75282e8e12" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mCursorPosition</name></member>
+      <member refid="classMyGUI_1_1EditText_152666c7c7cc97505cda35e3a5b0d9def" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mEmptyView</name></member>
+      <member refid="classMyGUI_1_1EditText_1be622655a3ed0d7199f4bbab339503f4" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mEndSelect</name></member>
+      <member refid="classMyGUI_1_1EditText_153342995ca501012a3474e597db40f3c" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mFont</name></member>
+      <member refid="classMyGUI_1_1EditText_18faa299da896f39ad71487055da7a252" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mFontHeight</name></member>
+      <member refid="classMyGUI_1_1EditText_1742b5d11367bb86f7fa27cc7d54f2239" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mInverseColourNative</name></member>
+      <member refid="classMyGUI_1_1EditText_1db7d905cf977283d46c4869dc9f10421" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mInvertSelect</name></member>
+      <member refid="classMyGUI_1_1EditText_183b9c7469f27265a4a93cf15ebcfec47" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mIsAddCursorWidth</name></member>
+      <member refid="classMyGUI_1_1EditText_1c5731b85d8d47a9bdc079e39cef57e35" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mManualColour</name></member>
+      <member refid="classMyGUI_1_1EditText_18433a5ce15c2671f1b4aaf70b23a217f" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mNode</name></member>
+      <member refid="classMyGUI_1_1EditText_1d5cff4159e5c02d2219a86f83610e795" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mOldWidth</name></member>
+      <member refid="classMyGUI_1_1EditText_1dffdfed71c79b16443ea02d1d544768b" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mRenderItem</name></member>
+      <member refid="classMyGUI_1_1EditText_1b2caa75fa98f94c184638ec6dcc2c434" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mShadow</name></member>
+      <member refid="classMyGUI_1_1EditText_1170ef100ca20187ba6a4aa9d90dcb82d" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mShadowColour</name></member>
+      <member refid="classMyGUI_1_1EditText_1e1e9d33e48fa8481e2488058b943b50b" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mShadowColourNative</name></member>
+      <member refid="classMyGUI_1_1EditText_11672cc8188893b50c895bc288b5138b1" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mShiftText</name></member>
+      <member refid="classMyGUI_1_1EditText_130b996afd3229b553319746b46e1a6b8" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mStartSelect</name></member>
+      <member refid="classMyGUI_1_1EditText_1917bfeba962ebe9b1b9a9faf9db7a347" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mTextAlign</name></member>
+      <member refid="classMyGUI_1_1EditText_189b37b21966f6643e7990e8e02647e8d" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mTextOutDate</name></member>
+      <member refid="classMyGUI_1_1EditText_17df3ae780bfadc4980821c2f5b1c9d0b" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mTexture</name></member>
+      <member refid="classMyGUI_1_1EditText_176a6b34fa186d926f818dd9e5ed871bc" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mTextView</name></member>
+      <member refid="classMyGUI_1_1EditText_10fed8318137a3ddb8f32de50afa7ae2e" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mVertexFormat</name></member>
+      <member refid="classMyGUI_1_1EditText_18b5e9340fdea97522c3067e109dab864" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mViewOffset</name></member>
+      <member refid="classMyGUI_1_1EditText_1e9edac503e598a6065ba62c7e7f2f631" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mVisibleCursor</name></member>
+      <member refid="classMyGUI_1_1EditText_12a8d216c643a06decbb863355026901a" prot="protected" virt="non-virtual"><scope>MyGUI::EditText</scope><name>mWordWrap</name></member>
+      <member refid="classMyGUI_1_1EditText_10c2d134b967ad94de432ec3a4c10d285" prot="public" virt="non-virtual"><scope>MyGUI::EditText</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1EditText_14171368c7b844109314cd6f3a8051353" prot="public" virt="non-virtual"><scope>MyGUI::EditText</scope><name>setAlpha</name></member>
+      <member refid="classMyGUI_1_1EditText_13cdb86f428354e54ce7bd2c478efe19e" prot="public" virt="non-virtual"><scope>MyGUI::EditText</scope><name>setCaption</name></member>
+      <member refid="classMyGUI_1_1EditText_1a01fe8b54a5dec2538cb2a2476bd636a" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>setCursorPosition</name></member>
+      <member refid="classMyGUI_1_1EditText_19e05c95a034189fd34c0d9a067ec63cd" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>setFontHeight</name></member>
+      <member refid="classMyGUI_1_1EditText_1f6a8a3d9880e222d708fdb30779b0395" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>setFontName</name></member>
+      <member refid="classMyGUI_1_1EditText_1a07db334b6c4d0c2a27987fc8b8a3ae7" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>setInvertSelected</name></member>
+      <member refid="classMyGUI_1_1EditText_18128685b087072097c32a7998f1b4285" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>setSelectBackground</name></member>
+      <member refid="classMyGUI_1_1EditText_138d7958e08cd13dd8b117479b7f2852e" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>setShadow</name></member>
+      <member refid="classMyGUI_1_1EditText_12bc9cf6c4ff117130e5b165f77be371d" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>setShadowColour</name></member>
+      <member refid="classMyGUI_1_1EditText_1cf7e833ae4c4941ce9fe2be5c07fbb8f" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>setShiftText</name></member>
+      <member refid="classMyGUI_1_1EditText_1b4ae605cb4f5fe35a06dae9585bdcb53" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>setStateData</name></member>
+      <member refid="classMyGUI_1_1EditText_1c051c6a77379ef806a27c917e2fb04f7" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>setTextAlign</name></member>
+      <member refid="classMyGUI_1_1EditText_14c70610c0f897c76298920bc909e8190" prot="public" virt="non-virtual"><scope>MyGUI::EditText</scope><name>setTextColour</name></member>
+      <member refid="classMyGUI_1_1EditText_1c9dea3f989b5b42ec4bb5240ecf0ea1e" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>setTextSelection</name></member>
+      <member refid="classMyGUI_1_1EditText_18c8323f0551b6400df20e0dbef8e6982" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>setViewOffset</name></member>
+      <member refid="classMyGUI_1_1EditText_15dfe13cfe155b2d8765b3f4ffff5a7e4" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>setVisible</name></member>
+      <member refid="classMyGUI_1_1EditText_1d40dd4026cb1a648e068a97a10478ec5" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>setVisibleCursor</name></member>
+      <member refid="classMyGUI_1_1EditText_169d63c1c2bee7c930c010e0adce3bde1" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>setWordWrap</name></member>
+      <member refid="classMyGUI_1_1EditText_12252cc26cf34e37e77d9dace9b80c43c" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>updateRawData</name></member>
+      <member refid="classMyGUI_1_1EditText_182eac496308686bc83a7d2af107f157b" prot="public" virt="virtual"><scope>MyGUI::EditText</scope><name>~EditText</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

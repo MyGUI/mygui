@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="namespaceMyGUI_1_1utility_1_1templates" kind="namespace">
+    <compoundname>MyGUI::utility::templates</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceMyGUI_1_1utility_1_1templates_1d13c85826f118296a2e083ff156ef67f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void MyGUI::utility::templates::split</definition>
+        <argsstring>(std::vector&lt; Type &gt; &amp;_ret, const Type &amp;_source, const Type &amp;_delims)</argsstring>
+        <name>split</name>
+        <param>
+          <type>std::vector&lt; Type &gt; &amp;</type>
+          <declname>_ret</declname>
+        </param>
+        <param>
+          <type>const Type &amp;</type>
+          <declname>_source</declname>
+        </param>
+        <param>
+          <type>const Type &amp;</type>
+          <declname>_delims</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_StringUtility.h" line="289" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_StringUtility.h" bodystart="288" bodyend="303"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_StringUtility.h" line="286"/>
+  </compounddef>
+</doxygen>

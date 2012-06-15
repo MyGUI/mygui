@@ -1,0 +1,252 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1WidgetStyle" kind="struct" prot="public">
+    <compoundname>MyGUI::WidgetStyle</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="structMyGUI_1_1WidgetStyle_1b5d1c9327d5b4f00dd432c2634b902bb" prot="public" static="no">
+        <name>Enum</name>
+        <enumvalue id="structMyGUI_1_1WidgetStyle_1b5d1c9327d5b4f00dd432c2634b902bbd10f10078cef079190c2bd2adb53636c" prot="public">
+          <name>Child</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>child widget, cropped by parent widget borders, no overlapping (used by default for child widgets) </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1WidgetStyle_1b5d1c9327d5b4f00dd432c2634b902bb19bbf910d7b5d68dee306c01d34795a6" prot="public">
+          <name>Popup</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>popup widget, have parent widget, but not cropped on its borders </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1WidgetStyle_1b5d1c9327d5b4f00dd432c2634b902bbfdcd2d7534493c40542638212b805fd4" prot="public">
+          <name>Overlapped</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>child widget, cropped by parent widget borders, can overlap (used by default for root widgets) </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1WidgetStyle_1b5d1c9327d5b4f00dd432c2634b902bbf6c3ec69512f4540c68e97b696ff4670" prot="public">
+          <name>MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" bodystart="33" bodyend="39"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMyGUI_1_1WidgetStyle_117553059e024a6c450059c3e774e2fbf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::WidgetStyle::WidgetStyle</definition>
+        <argsstring>()</argsstring>
+        <name>WidgetStyle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" bodystart="41" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1WidgetStyle_1617cf8c76bc193444ef7a218304fc61d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::WidgetStyle::WidgetStyle</definition>
+        <argsstring>(Enum _value)</argsstring>
+        <name>WidgetStyle</name>
+        <param>
+          <type>Enum</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" line="48" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" bodystart="46" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1WidgetStyle_1bafb6d174e85c4946a7f743000e8fa81" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string MyGUI::WidgetStyle::print</definition>
+        <argsstring>() const </argsstring>
+        <name>print</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" line="91" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" bodystart="90" bodyend="93"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structMyGUI_1_1WidgetStyle_1b1697a0f7e4917a3b41a9d07fe998c59" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>WidgetStyle</type>
+        <definition>static WidgetStyle MyGUI::WidgetStyle::parse</definition>
+        <argsstring>(const std::string &amp;_value)</argsstring>
+        <name>parse</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" line="52" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" bodystart="51" bodyend="64"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="structMyGUI_1_1WidgetStyle_10ecfc922277301bf9293db35a59cc781" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* MyGUI::WidgetStyle::getValueName</definition>
+        <argsstring>(int _index) const </argsstring>
+        <name>getValueName</name>
+        <param>
+          <type>int</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" line="97" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" bodystart="96" bodyend="100"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1WidgetStyle_14e3a1d616ae14221e236ec8a3bfcb2e2" prot="private" static="no" mutable="no">
+        <type>Enum</type>
+        <definition>Enum MyGUI::WidgetStyle::mValue</definition>
+        <argsstring></argsstring>
+        <name>mValue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" line="103" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="structMyGUI_1_1WidgetStyle_19547716bceb16e35ce5df7bb5906a274" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend bool</type>
+        <definition>bool operator==</definition>
+        <argsstring>(WidgetStyle const &amp;a, WidgetStyle const &amp;b)</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>WidgetStyle const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>WidgetStyle const &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" line="67" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" bodystart="66" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="friend" id="structMyGUI_1_1WidgetStyle_1400150ec78c55a797bbda4777b923bf7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend bool</type>
+        <definition>bool operator!=</definition>
+        <argsstring>(WidgetStyle const &amp;a, WidgetStyle const &amp;b)</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>WidgetStyle const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>WidgetStyle const &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" line="72" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" bodystart="71" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="friend" id="structMyGUI_1_1WidgetStyle_1158af51d09a5ee71288a93f236854c79" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend std::ostream &amp;</type>
+        <definition>std::ostream&amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;_stream, const WidgetStyle &amp;_value)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>_stream</declname>
+        </param>
+        <param>
+          <type>const WidgetStyle &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" line="77" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" bodystart="76" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="friend" id="structMyGUI_1_1WidgetStyle_1c09896c77e6efde59c7c51e04265ee41" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend std::istream &amp;</type>
+        <definition>std::istream&amp; operator&gt;&gt;</definition>
+        <argsstring>(std::istream &amp;_stream, WidgetStyle &amp;_value)</argsstring>
+        <name>operator&gt;&gt;</name>
+        <param>
+          <type>std::istream &amp;</type>
+          <declname>_stream</declname>
+        </param>
+        <param>
+          <type>WidgetStyle &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" line="83" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" bodystart="82" bodyend="88"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" line="32" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetStyle.h" bodystart="31" bodyend="104"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1WidgetStyle_1b5d1c9327d5b4f00dd432c2634b902bbd10f10078cef079190c2bd2adb53636c" prot="public" virt="non-virtual"><scope>MyGUI::WidgetStyle</scope><name>Child</name></member>
+      <member refid="structMyGUI_1_1WidgetStyle_1b5d1c9327d5b4f00dd432c2634b902bb" prot="public" virt="non-virtual"><scope>MyGUI::WidgetStyle</scope><name>Enum</name></member>
+      <member refid="structMyGUI_1_1WidgetStyle_10ecfc922277301bf9293db35a59cc781" prot="private" virt="non-virtual"><scope>MyGUI::WidgetStyle</scope><name>getValueName</name></member>
+      <member refid="structMyGUI_1_1WidgetStyle_1b5d1c9327d5b4f00dd432c2634b902bbf6c3ec69512f4540c68e97b696ff4670" prot="public" virt="non-virtual"><scope>MyGUI::WidgetStyle</scope><name>MAX</name></member>
+      <member refid="structMyGUI_1_1WidgetStyle_14e3a1d616ae14221e236ec8a3bfcb2e2" prot="private" virt="non-virtual"><scope>MyGUI::WidgetStyle</scope><name>mValue</name></member>
+      <member refid="structMyGUI_1_1WidgetStyle_1400150ec78c55a797bbda4777b923bf7" prot="public" virt="non-virtual"><scope>MyGUI::WidgetStyle</scope><name>operator!=</name></member>
+      <member refid="structMyGUI_1_1WidgetStyle_1158af51d09a5ee71288a93f236854c79" prot="public" virt="non-virtual"><scope>MyGUI::WidgetStyle</scope><name>operator&lt;&lt;</name></member>
+      <member refid="structMyGUI_1_1WidgetStyle_19547716bceb16e35ce5df7bb5906a274" prot="public" virt="non-virtual"><scope>MyGUI::WidgetStyle</scope><name>operator==</name></member>
+      <member refid="structMyGUI_1_1WidgetStyle_1c09896c77e6efde59c7c51e04265ee41" prot="public" virt="non-virtual"><scope>MyGUI::WidgetStyle</scope><name>operator&gt;&gt;</name></member>
+      <member refid="structMyGUI_1_1WidgetStyle_1b5d1c9327d5b4f00dd432c2634b902bbfdcd2d7534493c40542638212b805fd4" prot="public" virt="non-virtual"><scope>MyGUI::WidgetStyle</scope><name>Overlapped</name></member>
+      <member refid="structMyGUI_1_1WidgetStyle_1b1697a0f7e4917a3b41a9d07fe998c59" prot="public" virt="non-virtual"><scope>MyGUI::WidgetStyle</scope><name>parse</name></member>
+      <member refid="structMyGUI_1_1WidgetStyle_1b5d1c9327d5b4f00dd432c2634b902bb19bbf910d7b5d68dee306c01d34795a6" prot="public" virt="non-virtual"><scope>MyGUI::WidgetStyle</scope><name>Popup</name></member>
+      <member refid="structMyGUI_1_1WidgetStyle_1bafb6d174e85c4946a7f743000e8fa81" prot="public" virt="non-virtual"><scope>MyGUI::WidgetStyle</scope><name>print</name></member>
+      <member refid="structMyGUI_1_1WidgetStyle_117553059e024a6c450059c3e774e2fbf" prot="public" virt="non-virtual"><scope>MyGUI::WidgetStyle</scope><name>WidgetStyle</name></member>
+      <member refid="structMyGUI_1_1WidgetStyle_1617cf8c76bc193444ef7a218304fc61d" prot="public" virt="non-virtual"><scope>MyGUI::WidgetStyle</scope><name>WidgetStyle</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

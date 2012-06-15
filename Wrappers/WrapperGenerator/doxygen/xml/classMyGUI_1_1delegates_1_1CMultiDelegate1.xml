@@ -1,0 +1,320 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1delegates_1_1CMultiDelegate1" kind="class" prot="public">
+    <compoundname>MyGUI::delegates::CMultiDelegate1</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>TP1</declname>
+        <defname>TP1</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1delegates_1_1CMultiDelegate1_1e97bec755a816ed62d9cc2310466b0a8" prot="public" static="no">
+        <type>IDelegate1&lt; TP1 &gt;</type>
+        <definition>typedef IDelegate1&lt;TP1&gt; MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;::IDelegate</definition>
+        <argsstring></argsstring>
+        <name>IDelegate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="749" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="749" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1delegates_1_1CMultiDelegate1_1343d047c49ebc32ab023c34b561a5dd2" prot="public" static="no">
+        <type>std::list&lt; IDelegate * &gt;</type>
+        <definition>typedef std::list&lt;IDelegate* &gt; MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;::ListDelegate</definition>
+        <argsstring></argsstring>
+        <name>ListDelegate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="750" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="750" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1delegates_1_1CMultiDelegate1_13b55fab658aceba4186709467cc947e4" prot="public" static="no">
+        <type>ListDelegate::iterator</type>
+        <definition>typedef ListDelegate::iterator MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;::ListDelegateIterator</definition>
+        <argsstring></argsstring>
+        <name>ListDelegateIterator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="751" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="751" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1delegates_1_1CMultiDelegate1_1eff2b112f2197c4bdb3c5e83f50d8e8d" prot="public" static="no">
+        <type>ListDelegate::const_iterator</type>
+        <definition>typedef ListDelegate::const_iterator MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;::ConstListDelegateIterator</definition>
+        <argsstring></argsstring>
+        <name>ConstListDelegateIterator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="752" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="752" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CMultiDelegate1_1cc06b2a68e37f864ee42a51128ddb60e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;::CMultiDelegate1</definition>
+        <argsstring>()</argsstring>
+        <name>CMultiDelegate1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="754" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="754" bodyend="754"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CMultiDelegate1_1f9bd896e3f2e5746853f866344d1a1db" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;::~CMultiDelegate1</definition>
+        <argsstring>()</argsstring>
+        <name>~CMultiDelegate1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="756" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="755" bodyend="758"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CMultiDelegate1_12097ac742ed869c71a43796d816df51b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;::empty</definition>
+        <argsstring>() const </argsstring>
+        <name>empty</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="761" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="760" bodyend="767"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CMultiDelegate1_19f7f0df4d6ac77edc645ed2391a526e7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="770" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="769" bodyend="779"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CMultiDelegate1_189e7f4e511fd3f95b4f73292610a678f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;::clear</definition>
+        <argsstring>(IDelegateUnlink *_unlink)</argsstring>
+        <name>clear</name>
+        <param>
+          <type>IDelegateUnlink *</type>
+          <declname>_unlink</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="782" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="781" bodyend="791"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CMultiDelegate1_193cf302a45989adca30584a1aafb1323" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>CMultiDelegate1&lt; TP1 &gt; &amp;</type>
+        <definition>CMultiDelegate1&lt;TP1&gt;&amp; MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;::operator+=</definition>
+        <argsstring>(IDelegate *_delegate)</argsstring>
+        <name>operator+=</name>
+        <param>
+          <type>IDelegate *</type>
+          <declname>_delegate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="794" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="793" bodyend="804"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CMultiDelegate1_14bcc9ac845552ea9efebf5ec01aef846" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>CMultiDelegate1&lt; TP1 &gt; &amp;</type>
+        <definition>CMultiDelegate1&lt;TP1&gt;&amp; MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;::operator-=</definition>
+        <argsstring>(IDelegate *_delegate)</argsstring>
+        <name>operator-=</name>
+        <param>
+          <type>IDelegate *</type>
+          <declname>_delegate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="807" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="806" bodyend="820"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CMultiDelegate1_166c406a7f5253aa001a9addeb0fa5ddc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;::operator()</definition>
+        <argsstring>(TP1 p1)</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>TP1</type>
+          <declname>p1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="823" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="822" bodyend="837"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CMultiDelegate1_12760eab0672037aa26a73007c8a073fc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;::CMultiDelegate1</definition>
+        <argsstring>(const CMultiDelegate1&lt; TP1 &gt; &amp;_event)</argsstring>
+        <name>CMultiDelegate1</name>
+        <param>
+          <type>const CMultiDelegate1&lt; TP1 &gt; &amp;</type>
+          <declname>_event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="840" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="839" bodyend="848"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CMultiDelegate1_1245bcb2ad676313ef805ff9fdcfa31f8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>CMultiDelegate1&lt; TP1 &gt; &amp;</type>
+        <definition>CMultiDelegate1&lt;TP1&gt;&amp; MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;::operator=</definition>
+        <argsstring>(const CMultiDelegate1&lt; TP1 &gt; &amp;_event)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const CMultiDelegate1&lt; TP1 &gt; &amp;</type>
+          <declname>_event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="851" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="850" bodyend="861"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CMultiDelegate1_140ecda04126ae235c336ab6934cfbb6d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>CMultiDelegate1&lt; TP1 &gt; &amp;</type>
+        <definition>CMultiDelegate1&lt;TP1&gt;&amp; MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;::operator=</definition>
+        <argsstring>(IDelegate *_delegate)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>IDelegate *</type>
+          <declname>_delegate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000177"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="865" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="864" bodyend="869"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CMultiDelegate1_1c50a4963e712bb115613a26f95c07537" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;::safe_clear</definition>
+        <argsstring>(ListDelegate &amp;_delegates)</argsstring>
+        <name>safe_clear</name>
+        <param>
+          <type>ListDelegate &amp;</type>
+          <declname>_delegates</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="873" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="872" bodyend="883"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CMultiDelegate1_10b5b1a279dd2a73922b8cfd27e8a2200" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;::delete_is_not_found</definition>
+        <argsstring>(IDelegate *_del, ListDelegate &amp;_delegates)</argsstring>
+        <name>delete_is_not_found</name>
+        <param>
+          <type>IDelegate *</type>
+          <declname>_del</declname>
+        </param>
+        <param>
+          <type>ListDelegate &amp;</type>
+          <declname>_delegates</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="886" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="885" bodyend="896"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1delegates_1_1CMultiDelegate1_1ebaccee5d2b94b0863c6abbae71af6cf" prot="private" static="no" mutable="no">
+        <type>ListDelegate</type>
+        <definition>ListDelegate MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;::mListDelegates</definition>
+        <argsstring></argsstring>
+        <name>mListDelegates</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="899" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="899" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="747" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="746" bodyend="900"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1delegates_1_1CMultiDelegate1_19f7f0df4d6ac77edc645ed2391a526e7" prot="public" virt="non-virtual"><scope>MyGUI::delegates::CMultiDelegate1</scope><name>clear</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMultiDelegate1_189e7f4e511fd3f95b4f73292610a678f" prot="public" virt="non-virtual"><scope>MyGUI::delegates::CMultiDelegate1</scope><name>clear</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMultiDelegate1_1cc06b2a68e37f864ee42a51128ddb60e" prot="public" virt="non-virtual"><scope>MyGUI::delegates::CMultiDelegate1</scope><name>CMultiDelegate1</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMultiDelegate1_12760eab0672037aa26a73007c8a073fc" prot="public" virt="non-virtual"><scope>MyGUI::delegates::CMultiDelegate1</scope><name>CMultiDelegate1</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMultiDelegate1_1eff2b112f2197c4bdb3c5e83f50d8e8d" prot="public" virt="non-virtual"><scope>MyGUI::delegates::CMultiDelegate1</scope><name>ConstListDelegateIterator</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMultiDelegate1_10b5b1a279dd2a73922b8cfd27e8a2200" prot="private" virt="non-virtual"><scope>MyGUI::delegates::CMultiDelegate1</scope><name>delete_is_not_found</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMultiDelegate1_12097ac742ed869c71a43796d816df51b" prot="public" virt="non-virtual"><scope>MyGUI::delegates::CMultiDelegate1</scope><name>empty</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMultiDelegate1_1e97bec755a816ed62d9cc2310466b0a8" prot="public" virt="non-virtual"><scope>MyGUI::delegates::CMultiDelegate1</scope><name>IDelegate</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMultiDelegate1_1343d047c49ebc32ab023c34b561a5dd2" prot="public" virt="non-virtual"><scope>MyGUI::delegates::CMultiDelegate1</scope><name>ListDelegate</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMultiDelegate1_13b55fab658aceba4186709467cc947e4" prot="public" virt="non-virtual"><scope>MyGUI::delegates::CMultiDelegate1</scope><name>ListDelegateIterator</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMultiDelegate1_1ebaccee5d2b94b0863c6abbae71af6cf" prot="private" virt="non-virtual"><scope>MyGUI::delegates::CMultiDelegate1</scope><name>mListDelegates</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMultiDelegate1_166c406a7f5253aa001a9addeb0fa5ddc" prot="public" virt="non-virtual"><scope>MyGUI::delegates::CMultiDelegate1</scope><name>operator()</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMultiDelegate1_193cf302a45989adca30584a1aafb1323" prot="public" virt="non-virtual"><scope>MyGUI::delegates::CMultiDelegate1</scope><name>operator+=</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMultiDelegate1_14bcc9ac845552ea9efebf5ec01aef846" prot="public" virt="non-virtual"><scope>MyGUI::delegates::CMultiDelegate1</scope><name>operator-=</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMultiDelegate1_1245bcb2ad676313ef805ff9fdcfa31f8" prot="public" virt="non-virtual"><scope>MyGUI::delegates::CMultiDelegate1</scope><name>operator=</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMultiDelegate1_140ecda04126ae235c336ab6934cfbb6d" prot="public" virt="non-virtual"><scope>MyGUI::delegates::CMultiDelegate1</scope><name>operator=</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMultiDelegate1_1c50a4963e712bb115613a26f95c07537" prot="private" virt="non-virtual"><scope>MyGUI::delegates::CMultiDelegate1</scope><name>safe_clear</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMultiDelegate1_1f9bd896e3f2e5746853f866344d1a1db" prot="public" virt="non-virtual"><scope>MyGUI::delegates::CMultiDelegate1</scope><name>~CMultiDelegate1</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

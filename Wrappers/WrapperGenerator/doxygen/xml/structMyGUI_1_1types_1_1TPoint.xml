@@ -1,0 +1,417 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1types_1_1TPoint" kind="struct" prot="public">
+    <compoundname>MyGUI::types::TPoint</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>T</declname>
+        <defname>T</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_1909935bc25dc9c5030d7feb9885d918e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::types::TPoint&lt; T &gt;::TPoint</definition>
+        <argsstring>()</argsstring>
+        <name>TPoint</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="38" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_14ccc2a3734a7ae66008d324423336eff" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::types::TPoint&lt; T &gt;::TPoint</definition>
+        <argsstring>(T const &amp;_left, T const &amp;_top)</argsstring>
+        <name>TPoint</name>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_top</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="47" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="44" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_18252607c12f5c15c496564ca708b2002" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::types::TPoint&lt; T &gt;::TPoint</definition>
+        <argsstring>(TPoint const &amp;_obj)</argsstring>
+        <name>TPoint</name>
+        <param>
+          <type>TPoint const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="53" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="50" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_13442c3d62fb37c1af9f2b30e3a1f356e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TPoint &amp;</type>
+        <definition>TPoint&amp; MyGUI::types::TPoint&lt; T &gt;::operator-=</definition>
+        <argsstring>(TPoint const &amp;_obj)</argsstring>
+        <name>operator-=</name>
+        <param>
+          <type>TPoint const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="57" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="56" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_13acd135e676f37dbde66eb2cb59d9c6f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TPoint &amp;</type>
+        <definition>TPoint&amp; MyGUI::types::TPoint&lt; T &gt;::operator+=</definition>
+        <argsstring>(TPoint const &amp;_obj)</argsstring>
+        <name>operator+=</name>
+        <param>
+          <type>TPoint const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="64" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="63" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_1612ddbed548cc4ccd994955db177f310" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>TPoint</type>
+        <definition>TPoint MyGUI::types::TPoint&lt; T &gt;::operator-</definition>
+        <argsstring>(TPoint const &amp;_obj) const </argsstring>
+        <name>operator-</name>
+        <param>
+          <type>TPoint const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="71" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="70" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_1f14149a5b711e3cac18058d74b8a1942" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>TPoint</type>
+        <definition>TPoint MyGUI::types::TPoint&lt; T &gt;::operator+</definition>
+        <argsstring>(TPoint const &amp;_obj) const </argsstring>
+        <name>operator+</name>
+        <param>
+          <type>TPoint const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="76" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="75" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_160eac0fe624304a9aca5565ffa2dce23" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TPoint &amp;</type>
+        <definition>TPoint&amp; MyGUI::types::TPoint&lt; T &gt;::operator=</definition>
+        <argsstring>(TPoint const &amp;_obj)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>TPoint const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="81" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="80" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_18d065d4198888c6972bf590bed605809" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>U</declname>
+            <defname>U</defname>
+          </param>
+        </templateparamlist>
+        <type>TPoint &amp;</type>
+        <definition>TPoint&amp; MyGUI::types::TPoint&lt; T &gt;::operator=</definition>
+        <argsstring>(TPoint&lt; U &gt; const &amp;_obj)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>TPoint&lt; U &gt; const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="89" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="88" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_16bbed2d2f3cb5a43103b3ca25bc86ecb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::types::TPoint&lt; T &gt;::operator==</definition>
+        <argsstring>(TPoint const &amp;_obj) const </argsstring>
+        <name>operator==</name>
+        <param>
+          <type>TPoint const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="96" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="95" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_10348d404e8bfc362bff06087b323e801" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::types::TPoint&lt; T &gt;::operator!=</definition>
+        <argsstring>(TPoint const &amp;_obj) const </argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>TPoint const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="101" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="100" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_15d33a0c854b425bc21faf7b65fefb350" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::types::TPoint&lt; T &gt;::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="106" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="105" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_1627a0f7d95288fa55fddc58e44d2d803" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::types::TPoint&lt; T &gt;::set</definition>
+        <argsstring>(T const &amp;_left, T const &amp;_top)</argsstring>
+        <name>set</name>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_top</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="111" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="110" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_163aef466cc6112d5c529cdbf67513da0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::types::TPoint&lt; T &gt;::swap</definition>
+        <argsstring>(TPoint &amp;_value)</argsstring>
+        <name>swap</name>
+        <param>
+          <type>TPoint &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="117" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="116" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_1a30b435081255cf0a22e7e516a38918f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::types::TPoint&lt; T &gt;::empty</definition>
+        <argsstring>() const </argsstring>
+        <name>empty</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="124" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="123" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_1120c3da892f33de16c9c49d532d49e9f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string MyGUI::types::TPoint&lt; T &gt;::print</definition>
+        <argsstring>() const </argsstring>
+        <name>print</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="129" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="128" bodyend="133"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1types_1_1TPoint_14145982830e0c6ccb93cd9f003106933" prot="public" static="no" mutable="no">
+        <type>T</type>
+        <definition>T MyGUI::types::TPoint&lt; T &gt;::left</definition>
+        <argsstring></argsstring>
+        <name>left</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1types_1_1TPoint_1deaf740ccbf49cf5e77de70f941d4ff8" prot="public" static="no" mutable="no">
+        <type>T</type>
+        <definition>T MyGUI::types::TPoint&lt; T &gt;::top</definition>
+        <argsstring></argsstring>
+        <name>top</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TPoint_151ed8e5800d3bfc7abca335eaaf6145b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TPoint&lt; T &gt;</type>
+        <definition>static TPoint&lt;T&gt; MyGUI::types::TPoint&lt; T &gt;::parse</definition>
+        <argsstring>(const std::string &amp;_value)</argsstring>
+        <name>parse</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="136" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="135" bodyend="155"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="structMyGUI_1_1types_1_1TPoint_1f641d2367b1a48f7f1945a4aaf1a4089" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend std::ostream &amp;</type>
+        <definition>std::ostream&amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;_stream, const TPoint&lt; T &gt; &amp;_value)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>_stream</declname>
+        </param>
+        <param>
+          <type>const TPoint&lt; T &gt; &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="158" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="157" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="friend" id="structMyGUI_1_1types_1_1TPoint_154f041a5c3136395f997aefa80a6083e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend std::istream &amp;</type>
+        <definition>std::istream&amp; operator&gt;&gt;</definition>
+        <argsstring>(std::istream &amp;_stream, TPoint&lt; T &gt; &amp;_value)</argsstring>
+        <name>operator&gt;&gt;</name>
+        <param>
+          <type>std::istream &amp;</type>
+          <declname>_stream</declname>
+        </param>
+        <param>
+          <type>TPoint&lt; T &gt; &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="164" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="163" bodyend="169"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="685">
+        <label>T</label>
+      </node>
+      <node id="684">
+        <label>MyGUI::types::TPoint&lt; T &gt;</label>
+        <childnode refid="685" relation="usage">
+          <edgelabel>left
+top</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TPoint.h" bodystart="33" bodyend="170"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1types_1_1TPoint_15d33a0c854b425bc21faf7b65fefb350" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>clear</name></member>
+      <member refid="structMyGUI_1_1types_1_1TPoint_1a30b435081255cf0a22e7e516a38918f" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>empty</name></member>
+      <member refid="structMyGUI_1_1types_1_1TPoint_14145982830e0c6ccb93cd9f003106933" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>left</name></member>
+      <member refid="structMyGUI_1_1types_1_1TPoint_10348d404e8bfc362bff06087b323e801" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>operator!=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TPoint_1f14149a5b711e3cac18058d74b8a1942" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>operator+</name></member>
+      <member refid="structMyGUI_1_1types_1_1TPoint_13acd135e676f37dbde66eb2cb59d9c6f" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>operator+=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TPoint_1612ddbed548cc4ccd994955db177f310" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>operator-</name></member>
+      <member refid="structMyGUI_1_1types_1_1TPoint_13442c3d62fb37c1af9f2b30e3a1f356e" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>operator-=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TPoint_1f641d2367b1a48f7f1945a4aaf1a4089" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>operator&lt;&lt;</name></member>
+      <member refid="structMyGUI_1_1types_1_1TPoint_160eac0fe624304a9aca5565ffa2dce23" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>operator=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TPoint_18d065d4198888c6972bf590bed605809" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>operator=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TPoint_16bbed2d2f3cb5a43103b3ca25bc86ecb" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>operator==</name></member>
+      <member refid="structMyGUI_1_1types_1_1TPoint_154f041a5c3136395f997aefa80a6083e" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>operator&gt;&gt;</name></member>
+      <member refid="structMyGUI_1_1types_1_1TPoint_151ed8e5800d3bfc7abca335eaaf6145b" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>parse</name></member>
+      <member refid="structMyGUI_1_1types_1_1TPoint_1120c3da892f33de16c9c49d532d49e9f" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>print</name></member>
+      <member refid="structMyGUI_1_1types_1_1TPoint_1627a0f7d95288fa55fddc58e44d2d803" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>set</name></member>
+      <member refid="structMyGUI_1_1types_1_1TPoint_163aef466cc6112d5c529cdbf67513da0" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>swap</name></member>
+      <member refid="structMyGUI_1_1types_1_1TPoint_1deaf740ccbf49cf5e77de70f941d4ff8" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>top</name></member>
+      <member refid="structMyGUI_1_1types_1_1TPoint_1909935bc25dc9c5030d7feb9885d918e" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>TPoint</name></member>
+      <member refid="structMyGUI_1_1types_1_1TPoint_14ccc2a3734a7ae66008d324423336eff" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>TPoint</name></member>
+      <member refid="structMyGUI_1_1types_1_1TPoint_18252607c12f5c15c496564ca708b2002" prot="public" virt="non-virtual"><scope>MyGUI::types::TPoint</scope><name>TPoint</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

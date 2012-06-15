@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1IItemContainer" kind="class" prot="public">
+    <compoundname>MyGUI::IItemContainer</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1IItemContainer_164783a028eb77a6278bca16b270219d0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::IItemContainer::IItemContainer</definition>
+        <argsstring>()</argsstring>
+        <name>IItemContainer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IItemContainer_1c91daa2a5066844114e16720c6ce94db" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::IItemContainer::~IItemContainer</definition>
+        <argsstring>()</argsstring>
+        <name>~IItemContainer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IItemContainer_13bedbf3f8c47a817e76bc2d649a8b235" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>size_t</type>
+        <definition>virtual size_t MyGUI::IItemContainer::_getItemCount</definition>
+        <argsstring>()</argsstring>
+        <name>_getItemCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" bodystart="39" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IItemContainer_154f20b71a863c33df9d6d3157a8bf665" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::IItemContainer::_addItem</definition>
+        <argsstring>(const MyGUI::UString &amp;_name)</argsstring>
+        <name>_addItem</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">MyGUI::UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" line="44" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" bodystart="44" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IItemContainer_1ae140655a985cbacdd92ae3c512b3352" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::IItemContainer::_removeItemAt</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>_removeItemAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" line="46" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" bodystart="46" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IItemContainer_14ecbb51229418299b07d18351e57caaa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>virtual Widget* MyGUI::IItemContainer::_getItemAt</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>_getItemAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" line="49" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" bodystart="48" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IItemContainer_1b55cf00b90d344b4a8d5d4ce311d7eaf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::IItemContainer::_setItemNameAt</definition>
+        <argsstring>(size_t _index, const UString &amp;_name)</argsstring>
+        <name>_setItemNameAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" line="53" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" bodystart="53" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IItemContainer_118b5e7dfe7b2470b67a8a6206a47e078" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+        <definition>virtual const UString&amp; MyGUI::IItemContainer::_getItemNameAt</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>_getItemNameAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" line="55" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" bodystart="54" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IItemContainer_12dca0cb471a4f8deaf17b0d67e49f6e5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::IItemContainer::_setItemSelected</definition>
+        <argsstring>(IItem *_item)</argsstring>
+        <name>_setItemSelected</name>
+        <param>
+          <type>IItem *</type>
+          <declname>_item</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" line="59" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" bodystart="59" bodyend="59"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" bodystart="33" bodyend="60"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1IItemContainer_154f20b71a863c33df9d6d3157a8bf665" prot="public" virt="virtual"><scope>MyGUI::IItemContainer</scope><name>_addItem</name></member>
+      <member refid="classMyGUI_1_1IItemContainer_14ecbb51229418299b07d18351e57caaa" prot="public" virt="virtual"><scope>MyGUI::IItemContainer</scope><name>_getItemAt</name></member>
+      <member refid="classMyGUI_1_1IItemContainer_13bedbf3f8c47a817e76bc2d649a8b235" prot="public" virt="virtual"><scope>MyGUI::IItemContainer</scope><name>_getItemCount</name></member>
+      <member refid="classMyGUI_1_1IItemContainer_118b5e7dfe7b2470b67a8a6206a47e078" prot="public" virt="virtual"><scope>MyGUI::IItemContainer</scope><name>_getItemNameAt</name></member>
+      <member refid="classMyGUI_1_1IItemContainer_1ae140655a985cbacdd92ae3c512b3352" prot="public" virt="virtual"><scope>MyGUI::IItemContainer</scope><name>_removeItemAt</name></member>
+      <member refid="classMyGUI_1_1IItemContainer_1b55cf00b90d344b4a8d5d4ce311d7eaf" prot="public" virt="virtual"><scope>MyGUI::IItemContainer</scope><name>_setItemNameAt</name></member>
+      <member refid="classMyGUI_1_1IItemContainer_12dca0cb471a4f8deaf17b0d67e49f6e5" prot="public" virt="virtual"><scope>MyGUI::IItemContainer</scope><name>_setItemSelected</name></member>
+      <member refid="classMyGUI_1_1IItemContainer_164783a028eb77a6278bca16b270219d0" prot="public" virt="non-virtual"><scope>MyGUI::IItemContainer</scope><name>IItemContainer</name></member>
+      <member refid="classMyGUI_1_1IItemContainer_1c91daa2a5066844114e16720c6ce94db" prot="public" virt="virtual"><scope>MyGUI::IItemContainer</scope><name>~IItemContainer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

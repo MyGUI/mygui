@@ -1,0 +1,3044 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1Widget" kind="class" prot="public">
+    <compoundname>MyGUI::Widget</compoundname>
+    <basecompoundref refid="classMyGUI_1_1UserData" prot="public" virt="non-virtual">MyGUI::UserData</basecompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1Canvas" prot="public" virt="non-virtual">MyGUI::Canvas</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1DDContainer" prot="public" virt="non-virtual">MyGUI::DDContainer</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1ImageBox" prot="public" virt="non-virtual">MyGUI::ImageBox</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1ListBox" prot="public" virt="non-virtual">MyGUI::ListBox</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1MenuControl" prot="public" virt="non-virtual">MyGUI::MenuControl</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1MultiListBox" prot="public" virt="non-virtual">MyGUI::MultiListBox</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1ProgressBar" prot="public" virt="non-virtual">MyGUI::ProgressBar</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1ScrollBar" prot="public" virt="non-virtual">MyGUI::ScrollBar</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1ScrollView" prot="public" virt="non-virtual">MyGUI::ScrollView</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1TabControl" prot="public" virt="non-virtual">MyGUI::TabControl</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1TextBox" prot="public" virt="non-virtual">MyGUI::TextBox</derivedcompoundref>
+    <includes local="no">MyGUI_Widget.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1Widget_1c35a5223105967529b9df5813c468d37" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">RTTIBase</ref></type>
+        <definition>typedef RTTIBase MyGUI::Widget::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <reimplementedby refid="classMyGUI_1_1Window_119660ddf6e006dfedd790a7718cede53">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TextBox_19de997c622f19554b3fe41cf5c59a0f5">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabItem_165cd4f5c44acf45de52e7dbd6809f858">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabControl_1c600b4025d7d01bdb7612e87428b02fa">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_10cf5cb11b2cf9151a435c549db1b7013">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollBar_1b92c3ee77fb0d848226df4c3bcf4df3e">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ProgressBar_1ea00815bb4fd0bd19fc3b553874cfa10">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1PopupMenu_1f35335b26fa45e082d5a6bdf9f72cdba">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListItem_12350474843cf71f34d90deb2530f56e8">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_19f66516aac62924974ae9424023d3dca">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_100a4b21701a1221a0115b8a718a00826">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuControl_19bfc8d44881ba61f738bb855366845fe">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuBar_17fd6986b9777be3e78d9ccbc6604ef41">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_143717470b61e981a9deebed9395978e5">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_15f135edccf121e08fa10cf95e9d0fd4d">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ImageBox_105f977dc8cd57cb59e4d0ab3cf18ab99">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1d5eaa0f9fed3de28c8641844cc45f30e">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1DDContainer_1b90c6329a22b79b7c7304e5f517e5707">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_1b8ec0d2ef3c6581f4236daad79bab309">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Canvas_1890b413db8ff60373050d5d9ee6f262b">Base</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Button_1b102386ae350f9700271c76bf1096c2e">Base</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="56" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1Widget_130c68354c5a07b549a2377952a56f48e" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref></type>
+        <definition>typedef Widget MyGUI::Widget::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <reimplementedby refid="classMyGUI_1_1Window_151a6f9612b705ea3649400b7fab79fe2">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TextBox_1fb7369bf080624170fbed666fd25dd5b">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabItem_1a9c62ad6e36f2f113796097e012e1f70">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabControl_167e134fbba7f91b85edb65b17adf4a48">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_1739ece6274510039036e89f825e41851">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollBar_1d5b1f97683a00e2e1830425dd39ba1b8">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ProgressBar_14d60277d13711475bcc07f1f3d20bf9c">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1PopupMenu_1db21fb6bcdda9a2fc691b470f9f4a818">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListItem_10c00e070ad86b4be8d3953ab544d9132">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_1f93cd04b69c862db37625eade1c94214">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_1e58c6525b2b2c1d0eb6e0f4350be5a79">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuControl_18e9fdf2e3a58f3e612a588200608c0b2">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuBar_105c842ec427658ce88aa9e0f0bffead4">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_10d4cdeb43cb0c2c5a670a0d02eb615a9">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_1cf5b8e917e6af0f644a68a79f6aabe3f">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ImageBox_15e400c23f25b7b34bea4932de63a75cb">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1087126489fee2cb362e2ca18a8dcc56d">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1DDContainer_149555a740477b62b40f7fbcae99ede3c">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_1fa2617bb376043aa6991270069b4f787">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Canvas_135c011bbfa492fd65b8fee498410f474">RTTIBase</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Button_17a1cb41841e9d40e50dc30397cd445a8">RTTIBase</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="56" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1faad6178370730c10dbe87982b9ab8f8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::Widget::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <reimplementedby refid="classMyGUI_1_1Window_1cbe0e1f44c2bd77bf73c0c538fafadce">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TextBox_1fbcfc0d11323779f155ec0be73a129ab">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabItem_1b311a99ea9ca7b9fa45fb9af8df8d375">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabControl_14de34b84f79df72e49de05685f55cd8e">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_1ed8fdeb0f1d4ec72255e04d75c8a8cd4">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollBar_19418e6e28edeca7b2a9ef2d96ed879e6">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ProgressBar_10c92a8ef607e517ca0c9787d6f1b6121">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1PopupMenu_10a93fd3863fb9aa3364bc06c3be44724">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListItem_187772259dbb1bd7f2f6c9cef8b6d65ef">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_1645ee11d36abf8b3cc3ef161d2cd9545">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_17d917621d5a729753e664add6e441470">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuControl_11afb6232643dd8412cd2c01069ab6c32">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuBar_1628d9c278ec8fc6d49e3b24c41eedc46">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_1f1ee0e49979efb0e18b1c167d54ab831">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_1c9023eec6d63c1ba9049b1da4c3568ef">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ImageBox_142d8880e5329fac61ed1884cd24c6458">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_17f04183c9acc5f28d459bbf0f69e82a6">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1DDContainer_175c073e7b5978dc6580bf0384e0c5cf3">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_119b58fb58825e29b8a31584ee7e86033">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Canvas_132c32a149649ec8da0cd986191c935cd">getTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Button_1cb0015e0094ee25e0118bd5a4ba6c1b2">getTypeName</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="56" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="56" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_13cd209d4767cf39c1848e538e3ddb1d1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::Widget::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <reimplementedby refid="classMyGUI_1_1Window_1afe930db3102769483e88571c85e90d9">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TextBox_11e4f6fdecb0c8b91e4cf1cc6731004ab">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabItem_1b35afbcbdfe6ffb99b7246205053bfaa">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabControl_1053697015263412d1ab4ea6909f6a88e">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_1fb4aa3d7470f51f8c4e8cc351087e7c5">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollBar_133c2841d5786238997aa793df4eee20a">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ProgressBar_1a10680cef786e24ccf4f88c8ee257f4c">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1PopupMenu_13f63802683b59ff8fe7863ca3249f6e0">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListItem_18d98b688b1812a652ad4c8048b10e76d">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_13566669dd7507f7a28c552bd84d5f58e">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_14aa0c6957347fb1731d23c1d9ffc2f1b">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuControl_1633c476a988e1cf98a959e65163e01c1">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuBar_1cfe4dbcb858c8c118bd201bc897d6cb0">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_19a04c37785c1a0d216713119fd73d6da">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_19c1f59fed6bf8ac759241fcab3fa1e0e">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ImageBox_15c5ae01e0ff70b94d3b8c534ddf23651">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1c11377f2a6f63ff6ec848c9f67d86ca8">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1DDContainer_12236eb27e37942f3893d7cc41b55699c">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_1a25c1cfeb56f1b356f6b64a4b0c17816">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Canvas_1ce63ef05ddd5a453846b2ddf416d3edd">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Button_1660a26b306b4cbb6f18e5fa6f624d6f0">isType</reimplementedby>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="56" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="56" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_10b8989ef6cf8b54a07ecd0b857579b8d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::Widget::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <reimplementedby refid="classMyGUI_1_1Window_1b225491dc7e4b85e6cae412886fcf68f">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TextBox_16f44e01a8d08ece1a8683e8df9fca5b7">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabItem_1416fd3cae9ba9b5b32456af8cb230fd6">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabControl_1c5f79c737a57f1f35644c362545aae54">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_1a7ba9d169ee8386adb351880afa4b268">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollBar_16a50e2d074f3a3883ba2025e4af464ed">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ProgressBar_1e09fab67ba2092fb6e9b31cf8a613dee">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1PopupMenu_16ae3f20c361c321b9103bbdddfb38ffd">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListItem_11e7da05e166a5ac02c6631b68d67b6bf">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_1019c37751aa7c2466efa65216346ad20">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_1ebc191dffb764e1f662a2eab2165cf40">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuControl_1b8b1de42cd99fc88e6f1607129a4dd96">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuBar_1755007eb122f8e1c0a71c11083da043c">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_1813389e5737def2ca8691d251704ca2d">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_13558ffdf7f4111801ccf33796e64490e">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ImageBox_14395e28529f86f818c6a47465e08f15f">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_149b4d03c2e7c9d9dd7f3e2ebcb27cd94">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1DDContainer_1a058bf467273cdb204c8e29a2016761f">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_140d09d268d9ffa8b5747ae2101093a73">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Canvas_1ef6e0697a785080e1ab72131545eaa73">isType</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Button_1b390ad7a1b48e88532ae7ab31c90b9dd">isType</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="56" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="56" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1f4814618768bc07a685495895ca47b04" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::Widget::Widget</definition>
+        <argsstring>()</argsstring>
+        <name>Widget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1b5d34f121420fbd4f439d7a8432d7755" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::Widget::createWidgetT</definition>
+        <argsstring>(const std::string &amp;_type, const std::string &amp;_skin, const IntCoord &amp;_coord, Align _align, const std::string &amp;_name=&quot;&quot;)</argsstring>
+        <name>createWidgetT</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_skin</declname>
+        </param>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_coord</declname>
+        </param>
+        <param>
+          <type>Align</type>
+          <declname>_align</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create child widget <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>widget type </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_skin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>widget skin </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_coord</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>int coordinates of widget (_left, _top, _width, _height) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_align</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>widget align (possible values can be found in enum Align) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if needed (you can use it for finding widget by name later) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="68"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_12e74ae3d0a439f4edd509e73d4b2a083" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::Widget::createWidgetT</definition>
+        <argsstring>(const std::string &amp;_type, const std::string &amp;_skin, int _left, int _top, int _width, int _height, Align _align, const std::string &amp;_name=&quot;&quot;)</argsstring>
+        <name>createWidgetT</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_skin</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_height</declname>
+        </param>
+        <param>
+          <type>Align</type>
+          <declname>_align</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>See <ref refid="classMyGUI_1_1Widget_1b5d34f121420fbd4f439d7a8432d7755" kindref="member">Widget::createWidgetT</ref>(const std::string&amp; _type, const std::string&amp; _skin, const IntCoord&amp; _coord, Align _align, const std::string&amp; _name = &quot;&quot;) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="71"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_19ea260d13d1de5fb272e8fe3c6f6464c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::Widget::createWidgetRealT</definition>
+        <argsstring>(const std::string &amp;_type, const std::string &amp;_skin, const FloatCoord &amp;_coord, Align _align, const std::string &amp;_name=&quot;&quot;)</argsstring>
+        <name>createWidgetRealT</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_skin</declname>
+        </param>
+        <param>
+          <type>const FloatCoord &amp;</type>
+          <declname>_coord</declname>
+        </param>
+        <param>
+          <type>Align</type>
+          <declname>_align</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create widget using coordinates relative to parent. see <ref refid="classMyGUI_1_1Widget_1b5d34f121420fbd4f439d7a8432d7755" kindref="member">Widget::createWidgetT</ref>(const std::string&amp; _type, const std::string&amp; _skin, const IntCoord&amp; _coord, Align _align, const std::string&amp; _name = &quot;&quot;) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_100fdb672b101caf560a07b86e67a72d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::Widget::createWidgetRealT</definition>
+        <argsstring>(const std::string &amp;_type, const std::string &amp;_skin, float _left, float _top, float _width, float _height, Align _align, const std::string &amp;_name=&quot;&quot;)</argsstring>
+        <name>createWidgetRealT</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_skin</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_height</declname>
+        </param>
+        <param>
+          <type>Align</type>
+          <declname>_align</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create widget using coordinates relative to parent. see <ref refid="classMyGUI_1_1Widget_1b5d34f121420fbd4f439d7a8432d7755" kindref="member">Widget::createWidgetT</ref>(const std::string&amp; _type, const std::string&amp; _skin, const IntCoord&amp; _coord, Align _align, const std::string&amp; _name = &quot;&quot;) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="77"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1d66c5415fde332d5aab563402cffb09f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>T</declname>
+            <defname>T</defname>
+          </param>
+        </templateparamlist>
+        <type>T *</type>
+        <definition>T* MyGUI::Widget::createWidget</definition>
+        <argsstring>(const std::string &amp;_skin, const IntCoord &amp;_coord, Align _align, const std::string &amp;_name=&quot;&quot;)</argsstring>
+        <name>createWidget</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_skin</declname>
+        </param>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_coord</declname>
+        </param>
+        <param>
+          <type>Align</type>
+          <declname>_align</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Same as <ref refid="classMyGUI_1_1Widget_1b5d34f121420fbd4f439d7a8432d7755" kindref="member">Widget::createWidgetT</ref> but return T pointer instead of Widget* </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="83" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="82" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_13a28d2e883ce82536b686ac992be672d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>T</declname>
+            <defname>T</defname>
+          </param>
+        </templateparamlist>
+        <type>T *</type>
+        <definition>T* MyGUI::Widget::createWidget</definition>
+        <argsstring>(const std::string &amp;_skin, int _left, int _top, int _width, int _height, Align _align, const std::string &amp;_name=&quot;&quot;)</argsstring>
+        <name>createWidget</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_skin</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_height</declname>
+        </param>
+        <param>
+          <type>Align</type>
+          <declname>_align</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Same as <ref refid="classMyGUI_1_1Widget_1b5d34f121420fbd4f439d7a8432d7755" kindref="member">Widget::createWidgetT</ref> but return T pointer instead of Widget* </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="90" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="89" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1721d33e78bb5c6ed975e8d41c8bdb683" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>T</declname>
+            <defname>T</defname>
+          </param>
+        </templateparamlist>
+        <type>T *</type>
+        <definition>T* MyGUI::Widget::createWidgetReal</definition>
+        <argsstring>(const std::string &amp;_skin, const FloatCoord &amp;_coord, Align _align, const std::string &amp;_name=&quot;&quot;)</argsstring>
+        <name>createWidgetReal</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_skin</declname>
+        </param>
+        <param>
+          <type>const FloatCoord &amp;</type>
+          <declname>_coord</declname>
+        </param>
+        <param>
+          <type>Align</type>
+          <declname>_align</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Same as <ref refid="classMyGUI_1_1Widget_19ea260d13d1de5fb272e8fe3c6f6464c" kindref="member">Widget::createWidgetRealT</ref> but return T* instead of Widget* </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="97" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="96" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1412c63af17890a8d43075782891b66ea" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>T</declname>
+            <defname>T</defname>
+          </param>
+        </templateparamlist>
+        <type>T *</type>
+        <definition>T* MyGUI::Widget::createWidgetReal</definition>
+        <argsstring>(const std::string &amp;_skin, float _left, float _top, float _width, float _height, Align _align, const std::string &amp;_name=&quot;&quot;)</argsstring>
+        <name>createWidgetReal</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_skin</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_height</declname>
+        </param>
+        <param>
+          <type>Align</type>
+          <declname>_align</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Same as <ref refid="classMyGUI_1_1Widget_19ea260d13d1de5fb272e8fe3c6f6464c" kindref="member">Widget::createWidgetRealT</ref> but return T* instead of Widget* </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="104" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="103" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1e26a4a5e8ea3fa4bafd969eb952d88e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::Widget::createWidgetT</definition>
+        <argsstring>(WidgetStyle _style, const std::string &amp;_type, const std::string &amp;_skin, const IntCoord &amp;_coord, Align _align, const std::string &amp;_layer=&quot;&quot;, const std::string &amp;_name=&quot;&quot;)</argsstring>
+        <name>createWidgetT</name>
+        <param>
+          <type>WidgetStyle</type>
+          <declname>_style</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_skin</declname>
+        </param>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_coord</declname>
+        </param>
+        <param>
+          <type>Align</type>
+          <declname>_align</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_layer</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create child widget <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_style</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Child, Popup or Overlapped widget style </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>widget type </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_skin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>widget skin </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_coord</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>int coordinates of widget (_left, _top, _width, _height) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_align</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>widget align (possible values can be found in enum Align) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_layer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>layer where widget will be created (all layers usually defined in core_layer.xml file). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>optional widget name (you can use it for finding widget by name later) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="117"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1f8660295aafb142287644c239a313e53" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>T</declname>
+            <defname>T</defname>
+          </param>
+        </templateparamlist>
+        <type>T *</type>
+        <definition>T* MyGUI::Widget::createWidget</definition>
+        <argsstring>(WidgetStyle _style, const std::string &amp;_skin, const IntCoord &amp;_coord, Align _align, const std::string &amp;_layer=&quot;&quot;, const std::string &amp;_name=&quot;&quot;)</argsstring>
+        <name>createWidget</name>
+        <param>
+          <type>WidgetStyle</type>
+          <declname>_style</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_skin</declname>
+        </param>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_coord</declname>
+        </param>
+        <param>
+          <type>Align</type>
+          <declname>_align</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_layer</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Same as <ref refid="classMyGUI_1_1Widget_1b5d34f121420fbd4f439d7a8432d7755" kindref="member">Widget::createWidgetT</ref> but return T* instead of Widget* </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="122" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="121" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1bf87d2b9d27a2543da8fc7daea6abf75" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Widget::setPosition</definition>
+        <argsstring>(const IntPoint &amp;_value)</argsstring>
+        <name>setPosition</name>
+        <reimplementedby refid="classMyGUI_1_1Window_1e45e865cf4860355433de04d6432f51c">setPosition</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabControl_168d4cea28d791c58a072aa0827da3461">setPosition</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_1004058a996986f40a00d5c3f35067a7e">setPosition</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollBar_1f8481d7fbea6b0299641707ee6a10e69">setPosition</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ProgressBar_1bddb30b91c731220bdbb945a7412be5e">setPosition</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_129ccd1b0a01ff72af49498f8cb9c2fcc">setPosition</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_15bdf5446cebba0f403f6dfc9e16258c2">setPosition</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_1e41548885cc310719779509ed8628241">setPosition</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1da70cd549af32d4ec3919a6748b38e14">setPosition</reimplementedby>
+        <param>
+          <type>const IntPoint &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set widget position (position of left top corner) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="127"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1b8928099957173c4f58aee98d043faab" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Widget::setSize</definition>
+        <argsstring>(const IntSize &amp;_value)</argsstring>
+        <name>setSize</name>
+        <reimplementedby refid="classMyGUI_1_1Window_124e493a28eb359caf83e6b174355cdb4">setSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabControl_11d02d1eda141ebbc5c237c9c6443a825">setSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_167553289e7d9170529dc85fc1c757114">setSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollBar_1eea5ad67704c9822270e6e0d03edc481">setSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ProgressBar_122f852e7b318e9b15d7cb7db49384818">setSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_15bf1202acc8b7692d450b663baa9da72">setSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_1812f5a904e3fb05676a90c9f68f099fd">setSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_1649762c6568f007ac190023e17f4fe34">setSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1edb1cf587877db98e1f42fc4988c4e3b">setSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Canvas_1bfc7a6cb3997dc61dbff52f4ebde5a86">setSize</reimplementedby>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set widget size </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="129"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_156333ae229f81cfdc9daa834599b96de" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Widget::setCoord</definition>
+        <argsstring>(const IntCoord &amp;_value)</argsstring>
+        <name>setCoord</name>
+        <reimplementedby refid="classMyGUI_1_1Window_1dc9a834635cebc494776c144ad5786b3">setCoord</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabControl_1bb61a4dd9bdd94b090bfca021e9c7615">setCoord</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_1f3c3a7fb54d3bf73045da4d6b4101eda">setCoord</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollBar_1a34c433e20c48b354c1e7ca46c2e5df7">setCoord</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ProgressBar_1f572bb88936769d153fe7236c43a9623">setCoord</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_1cdc8bdc9e94696288f8866c0c0e050c1">setCoord</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_1c73204756b07682b37414c77f8dcd9d7">setCoord</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_1953ec48af5e221367250922d1d87cf7a">setCoord</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1f7eb4f7c347d052a6b12949cc30d3f58">setCoord</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Canvas_15f60615d0e02556ec81337d4101a5016">setCoord</reimplementedby>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set widget position and size </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="131"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_10463ede4342db8bc5ade2d78d77a142e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::setPosition</definition>
+        <argsstring>(int _left, int _top)</argsstring>
+        <name>setPosition</name>
+        <reimplementedby refid="classMyGUI_1_1Window_1ce0f41996b0a1b83d0d394784214d01a">setPosition</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabControl_1fddb513999d0d3569571c3c0f3ad6e3f">setPosition</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_19e3e61c4d8370c658017304a18539435">setPosition</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollBar_1418e2b0b7e51bbc1f46f581ab8eea509">setPosition</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ProgressBar_1dc97c123bd066312081735211956862d">setPosition</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_1040d71740f00387ff3ee558e4922fe91">setPosition</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_1dd095f9c1b31cdecefda7360921aef10">setPosition</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_18e8aca523e8d55bd6b1003e7166de730">setPosition</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1202fd91dd335b4fc456a7efcdb3bfc3e">setPosition</reimplementedby>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>See <ref refid="classMyGUI_1_1Widget_1bf87d2b9d27a2543da8fc7daea6abf75" kindref="member">Widget::setPosition(const IntPoint&amp; _pos)</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="134"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_12bdc82ea4f915b8d9b4b36c61b5a3915" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::setSize</definition>
+        <argsstring>(int _width, int _height)</argsstring>
+        <name>setSize</name>
+        <reimplementedby refid="classMyGUI_1_1Window_14914daa3a269e387e671b8c357868246">setSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabControl_155da14fe486f69f89052c1db7313f88f">setSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_1215513ce93d043ff4a592023919f07d2">setSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollBar_1ca56685f48a3e8a17668e94b067276d1">setSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ProgressBar_1609e4430575a56583a96341b030455b3">setSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_1f3143a5e2797f54fb90aa80119b90e19">setSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_1d25f183257e92879d15e14c19ad2daed">setSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_126432b7a477a11642612566a8947900e">setSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1b19eb0c696d00c3b866f0db3a870c9bb">setSize</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Canvas_1b8aa9e1a81b18cfeb8298fd7899686f1">setSize</reimplementedby>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>See <ref refid="classMyGUI_1_1Widget_1b8928099957173c4f58aee98d043faab" kindref="member">Widget::setSize(const IntSize&amp; _size)</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="136"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1745fbe9e4f3c2f798a021ae07498fc97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::setCoord</definition>
+        <argsstring>(int _left, int _top, int _width, int _height)</argsstring>
+        <name>setCoord</name>
+        <reimplementedby refid="classMyGUI_1_1Window_1a1bca917ed9fdff11262f5937cd37f47">setCoord</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabControl_1c0bb3c625d1a0e61e76f8777b4619967">setCoord</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_1136283b4e248d33306ee9c4fad2c348a">setCoord</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollBar_1f8d2f077f59a5d4724dd076037c2bcb5">setCoord</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ProgressBar_168fab6fc7d497ed5bf9e62d6846f153d">setCoord</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_144bf24267480e162a30fa9cd725c1d02">setCoord</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_10cca6d4e75ec693d20031957bb369b1f">setCoord</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_10ee3cfe241f4b1c7ef9cb93b685e2949">setCoord</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_14874d107c7ee4d8c05c37a3992810d27">setCoord</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Canvas_1df5a787ab425178b4121f6f11f3fae64">setCoord</reimplementedby>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>See <ref refid="classMyGUI_1_1Widget_156333ae229f81cfdc9daa834599b96de" kindref="member">Widget::setCoord(const IntCoord&amp; _coord)</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="138"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_15a5f7a24564bb6e04b48d0c524f0ef24" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::setRealPosition</definition>
+        <argsstring>(const FloatPoint &amp;_value)</argsstring>
+        <name>setRealPosition</name>
+        <param>
+          <type>const FloatPoint &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set widget position (position of left top corner) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="141"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1d7fba1f9976c36eacb528d6db9213ddf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::setRealSize</definition>
+        <argsstring>(const FloatSize &amp;_value)</argsstring>
+        <name>setRealSize</name>
+        <param>
+          <type>const FloatSize &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set widget size </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="143"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_18833c303314683bbebadb154d337d3cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::setRealCoord</definition>
+        <argsstring>(const FloatCoord &amp;_value)</argsstring>
+        <name>setRealCoord</name>
+        <param>
+          <type>const FloatCoord &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set widget position and size </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="145"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1c963db4709c8dfc9e681dfccd5fb6524" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::setRealPosition</definition>
+        <argsstring>(float _left, float _top)</argsstring>
+        <name>setRealPosition</name>
+        <param>
+          <type>float</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_top</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>See <ref refid="classMyGUI_1_1Widget_15a5f7a24564bb6e04b48d0c524f0ef24" kindref="member">Widget::setRealPosition(const FloatPoint&amp; _point)</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="148"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_15d89ff45c4bc5f6158382067673903ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::setRealSize</definition>
+        <argsstring>(float _width, float _height)</argsstring>
+        <name>setRealSize</name>
+        <param>
+          <type>float</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>See <ref refid="classMyGUI_1_1Widget_1d7fba1f9976c36eacb528d6db9213ddf" kindref="member">Widget::setRealSize(const FloatSize&amp; _size)</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="150"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1dfd8bd56bcecaee166bbfd12ff962f67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::setRealCoord</definition>
+        <argsstring>(float _left, float _top, float _width, float _height)</argsstring>
+        <name>setRealCoord</name>
+        <param>
+          <type>float</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>See Widget::setRealPosition(const FloatCoord&amp; _coord) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="152"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1421a0e4eec959e8a5cd7f12ff459bfbf" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>const std::string&amp; MyGUI::Widget::getName</definition>
+        <argsstring>() const </argsstring>
+        <name>getName</name>
+        <briefdescription>
+<para>Get name of widget. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="155"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1d98f045bfca3a54b5adacf8d0c090bc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Widget::setVisible</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setVisible</name>
+        <reimplementedby refid="classMyGUI_1_1Window_114efec0914ee9e12e328c4e31c3e62e9">setVisible</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuControl_1d326cf96ed9f9e64de08f31c6d09a333">setVisible</reimplementedby>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Hide or show widget </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="158"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1fa7ad1d5a3213ee9f8c4567e6f3fdd7d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Widget::getVisible</definition>
+        <argsstring>() const </argsstring>
+        <name>getVisible</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Return true if visible </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="160"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1028a8ae99e47f513065ce3cbb11e4022" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Widget::getInheritedVisible</definition>
+        <argsstring>() const </argsstring>
+        <name>getInheritedVisible</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Return widget&apos;s visibility based on it&apos;s and parents visibility. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="163"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1ebace37eedee14b3ff746b7a0085b993" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Widget::setAlign</definition>
+        <argsstring>(Align _value)</argsstring>
+        <name>setAlign</name>
+        <param>
+          <type>Align</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set align </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="166"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_134cafbef78da90ca8fb6aca8964b337a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>Align</type>
+        <definition>Align MyGUI::Widget::getAlign</definition>
+        <argsstring>() const </argsstring>
+        <name>getAlign</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get align </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="168"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_11204361b28430fa9a3b6927d6b4fe9ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::setAlpha</definition>
+        <argsstring>(float _value)</argsstring>
+        <name>setAlpha</name>
+        <param>
+          <type>float</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set widget opacity </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="171"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1db1d462f1145cafb358754c03cd3e7f2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float MyGUI::Widget::getAlpha</definition>
+        <argsstring>() const </argsstring>
+        <name>getAlpha</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get widget opacity </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="173"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_18b44677724faa4112312655e5feed8ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::setInheritsAlpha</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setInheritsAlpha</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enable or disable inherits alpha mode.<linebreak/>
+ Inherits alpha mode: when enabled widget alpha is it&apos;s own alpha value multiplied by parent&apos;s real alpha (that depend on parent&apos;s parent and so on).<linebreak/>
+ When disabled widget&apos;s alpha doesn&apos;t depend on parent&apos;s alpha. So this is used when you need things like semi-transparent window with non-transparent text on it and window&apos;s alpha changes.<linebreak/>
+ Enabled (true) by default. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="185"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1c2118d0bf46d9a7ec21c7aed9c7e71ca" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Widget::getInheritsAlpha</definition>
+        <argsstring>() const </argsstring>
+        <name>getInheritsAlpha</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get inherits alpha mode flag </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="187"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1cbf134e83d95f63ff7ba7f4b3596449f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::setColour</definition>
+        <argsstring>(const Colour &amp;_value)</argsstring>
+        <name>setColour</name>
+        <param>
+          <type>const Colour &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="189"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1b3ec05a74f05236afb58855985781cd0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Widget::isRootWidget</definition>
+        <argsstring>() const </argsstring>
+        <name>isRootWidget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is this widget is root widget (root == without parents) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="193"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_174eb9e9819797e68a510a2ae6c3a410a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::Widget::getParent</definition>
+        <argsstring>() const </argsstring>
+        <name>getParent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get parent widget or nullptr if no parent </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="196"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1ee1378b1a9bd3db495cbea32f0a13e20" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>IntSize</type>
+        <definition>IntSize MyGUI::Widget::getParentSize</definition>
+        <argsstring>() const </argsstring>
+        <name>getParentSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="198"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1abfb5cf6661813f729bd30b4042e95d7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>EnumeratorWidgetPtr</type>
+        <definition>EnumeratorWidgetPtr MyGUI::Widget::getEnumerator</definition>
+        <argsstring>() const </argsstring>
+        <name>getEnumerator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get child widgets Enumerator </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="201"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_195ebe8be9fd3d29f7fa8f7846515eeec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::Widget::getChildCount</definition>
+        <argsstring>()</argsstring>
+        <name>getChildCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get child count </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="204"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1028535563d6d3666658d83e4d479fa6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::Widget::getChildAt</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>getChildAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get child by index (index from 0 to child_count - 1) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="207"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1d054e1027a48f2ccb9af0179359dadc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::Widget::findWidget</definition>
+        <argsstring>(const std::string &amp;_name)</argsstring>
+        <name>findWidget</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Find widget by name. Search recursively through all childs starting from this widget. <simplesect kind="return"><para>Return first found widget with given name </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="213"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1e6d193b99a9d69973922d1b8e0f0b70e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::findWidgets</definition>
+        <argsstring>(const std::string &amp;_name, VectorWidgetPtr &amp;_result)</argsstring>
+        <name>findWidgets</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <param>
+          <type>VectorWidgetPtr &amp;</type>
+          <declname>_result</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Find all widgets with given name and add them into _result. Search recursively through all childs starting from this widget. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="218"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1beda60b920b1808641169d8543171269" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Widget::setEnabled</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setEnabled</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enable or disable widget </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="221"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1f5a0bfe2b4f596d2dffdc7fcea5200b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::setEnabledSilent</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setEnabledSilent</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enable or disable widget without changing widget&apos;s state </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="223"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_15cd729c40ad712c7036a0d3f6a2507b2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Widget::getEnabled</definition>
+        <argsstring>() const </argsstring>
+        <name>getEnabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is widget enabled </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="225"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1c373e8170168b97491e777b99de0872b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Widget::getInheritedEnabled</definition>
+        <argsstring>() const </argsstring>
+        <name>getInheritedEnabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is widget enabled and all it&apos;s parents in hierarchy is enabled. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="228"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_15ffebc869b3b4c36e31178616b27fc86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>IntCoord</type>
+        <definition>IntCoord MyGUI::Widget::getClientCoord</definition>
+        <argsstring>()</argsstring>
+        <name>getClientCoord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get rectangle where child widgets placed </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="231"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1ac162cf5e6c51d487c71ae2e2d041352" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::Widget::getClientWidget</definition>
+        <argsstring>()</argsstring>
+        <name>getClientWidget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get client area widget or nullptr if widget don&apos;t have client </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="234"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1056ac7afc041cf328037e210c742302f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::detachFromWidget</definition>
+        <argsstring>(const std::string &amp;_layer=&quot;&quot;)</argsstring>
+        <name>detachFromWidget</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_layer</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Detach widget from widgets hierarchy <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_layer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Attach to specified layer (if any) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="239"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_105110870f31f66a901b3b11737c194de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::attachToWidget</definition>
+        <argsstring>(Widget *_parent, WidgetStyle _style=WidgetStyle::Child, const std::string &amp;_layer=&quot;&quot;)</argsstring>
+        <name>attachToWidget</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_parent</declname>
+        </param>
+        <param>
+          <type>WidgetStyle</type>
+          <declname>_style</declname>
+          <defval>WidgetStyle::Child</defval>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_layer</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Attach widget to parent <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New parent </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_style</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New widget style (see WidgetStyle::Enum) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_layer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Attach to specified layer (if any) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="246"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1be74d6cc433da6140629423b120735a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::changeWidgetSkin</definition>
+        <argsstring>(const std::string &amp;_skinName)</argsstring>
+        <name>changeWidgetSkin</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_skinName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Change widget skin </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="249"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1372d21a0125ab28cc5c2c295290a2806" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::setWidgetStyle</definition>
+        <argsstring>(WidgetStyle _style, const std::string &amp;_layer=&quot;&quot;)</argsstring>
+        <name>setWidgetStyle</name>
+        <param>
+          <type>WidgetStyle</type>
+          <declname>_style</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_layer</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set widget style. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_style</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New widget style (see WidgetStyle::Enum) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_layer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Attach to specified layer (if any) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>When choosing WidgetStyle::Popup style you also need attach widget to layer </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="256"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_15accf9c998578f20adcec5987dc820f2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>WidgetStyle</type>
+        <definition>WidgetStyle MyGUI::Widget::getWidgetStyle</definition>
+        <argsstring>() const </argsstring>
+        <name>getWidgetStyle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get widget style </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="258"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_11a6ea7822f869b777800b0d351112e69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::setProperty</definition>
+        <argsstring>(const std::string &amp;_key, const std::string &amp;_value)</argsstring>
+        <name>setProperty</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_key</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set any widget property <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Property name (for example Alpha or Enabled) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value converted to string </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="264"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_106700537a6fffaf43aa9c93e89d9cc7d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>virtual size_t MyGUI::Widget::_getItemIndex</definition>
+        <argsstring>(Widget *_item)</argsstring>
+        <name>_getItemIndex</name>
+        <reimplementedby refid="classMyGUI_1_1ListBox_1c9139dd9d067edf76f5b2f80876f6fc8">_getItemIndex</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_18379968cbf30f845fd2f1a9efdf7c5c2">_getItemIndex</reimplementedby>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_item</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="278"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1deee68fb42acc2fab667b169587e9ce3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::_forcePick</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>_forcePick</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="281"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1ae54386446434e4b133c244925402375" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::_initialise</definition>
+        <argsstring>(WidgetStyle _style, const IntCoord &amp;_coord, const std::string &amp;_skinName, Widget *_parent, ICroppedRectangle *_croppedParent, const std::string &amp;_name)</argsstring>
+        <name>_initialise</name>
+        <param>
+          <type>WidgetStyle</type>
+          <declname>_style</declname>
+        </param>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_coord</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_skinName</declname>
+        </param>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_parent</declname>
+        </param>
+        <param>
+          <type>ICroppedRectangle *</type>
+          <declname>_croppedParent</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="283"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_155b19482fe01925c36e29af671e3d092" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::_shutdown</definition>
+        <argsstring>()</argsstring>
+        <name>_shutdown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="284"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_125136884a04944ef8b199c582e15482c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::_destroyChildWidget</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>_destroyChildWidget</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="287"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1d3d48604ad15f958b81bf423f80271c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::_setContainer</definition>
+        <argsstring>(Widget *_value)</argsstring>
+        <name>_setContainer</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="289"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1f3d99ead3ce8fda0defa2feb0fbaee27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::Widget::_getContainer</definition>
+        <argsstring>()</argsstring>
+        <name>_getContainer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="290"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_15df6dbd95e99b9b65b385d815026cf26" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::_setAlign</definition>
+        <argsstring>(const IntSize &amp;_oldsize, const IntSize &amp;_newSize)</argsstring>
+        <name>_setAlign</name>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_oldsize</declname>
+        </param>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_newSize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="292"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_134c44665e7d51c7eb65bf70f0479e1c3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Widget::_checkPoint</definition>
+        <argsstring>(int _left, int _top) const </argsstring>
+        <name>_checkPoint</name>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="293"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_13601e5ca0d565451dfcf106850506a51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::Widget::_createSkinWidget</definition>
+        <argsstring>(WidgetStyle _style, const std::string &amp;_type, const std::string &amp;_skin, const IntCoord &amp;_coord, Align _align, const std::string &amp;_layer=&quot;&quot;, const std::string &amp;_name=&quot;&quot;)</argsstring>
+        <name>_createSkinWidget</name>
+        <param>
+          <type>WidgetStyle</type>
+          <declname>_style</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_skin</declname>
+        </param>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_coord</declname>
+        </param>
+        <param>
+          <type>Align</type>
+          <declname>_align</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_layer</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="295"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1175526a4b039cf13c7fec7012d7287fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Widget::_resetContainer</definition>
+        <argsstring>(bool _update)</argsstring>
+        <name>_resetContainer</name>
+        <reimplementedby refid="classMyGUI_1_1ListBox_104f9b3e31192a4c97282f705d5414217">_resetContainer</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_17b6ead4ea746751f13d11709f62749aa">_resetContainer</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_1b40a3b13ee33d56a26f55bcd991cb987">_resetContainer</reimplementedby>
+        <param>
+          <type>bool</type>
+          <declname>_update</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="298"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_13325a1f4c26917f6f73b207d0986e1bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Widget::_setWidgetState</definition>
+        <argsstring>(const std::string &amp;_value)</argsstring>
+        <name>_setWidgetState</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="300"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1Widget_130efcbdb772c4a75f8208a99c4f9f34d" prot="public" static="no" mutable="no">
+        <type>EventHandle_WidgetStringString</type>
+        <definition>EventHandle_WidgetStringString MyGUI::Widget::eventChangeProperty</definition>
+        <argsstring></argsstring>
+        <name>eventChangeProperty</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Event : <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> property changed through setProperty (in code, or from layout)<linebreak/>
+ signature : void method(MyGUI::Widget* _sender, const std::string&amp; _key, const std::string&amp; _value); <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_sender</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>widget that called this event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="274" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1b2012e0bb89d4becb35762362474601e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::Widget::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <reimplementedby refid="classMyGUI_1_1Window_15700eb4c4085eac722c8eb259bce81ea">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TextBox_161c948036f66b138fc56d7fca6c794c4">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabItem_16f8a168196879f286c4347b6a29c2353">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabControl_1256f9cc559684e689f9fd0e7128751db">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_129a282a907b55e7437984038f9d516d9">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollBar_15a0a1d5cf23da64e2da4a55bfd1cc28e">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ProgressBar_10772a94526a081c0a398a60cff869ac2">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1PopupMenu_10046472182828691e92b416fc3aa3743">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListItem_17dbf63e0ca6bc0f8c80808ae2368df46">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_14ea396c845c8064dce03c38fb975f376">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_1e3b98381e5d9a1b5b654cd46e4aeff5e">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuControl_1932e40027f3974327b0114542b30fd1b">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuBar_111b90c93d55ae35bd1f861bf114b1950">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_1d01d6e2826b55fd28b4b58c9f9783775">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_1e781d566b970b50ef1d1ec0a76830d08">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ImageBox_1586d7fc0d98ff8aa7357812162d41d99">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_121ac1e795a7d76d56f108e69784bb3f5">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1DDContainer_1a5801f07009a2f0a954d8da6a86173e2">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_1ac3fe17934a4c45229f434c1c6aa5f75">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Canvas_18c680c4bb5aa729538316f80864b14ed">getClassTypeName</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Button_119373629cf7f96ce5a904c8ae8566a30">getClassTypeName</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="56" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="56" bodyend="56"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classMyGUI_1_1Widget_18ff3c2a98bbea22f4f0191bcac54b643" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::Widget::~Widget</definition>
+        <argsstring>()</argsstring>
+        <name>~Widget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="304"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1dee1c7e9399beabdad99bf10b97693c6" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Widget::shutdownOverride</definition>
+        <argsstring>()</argsstring>
+        <name>shutdownOverride</name>
+        <reimplementedby refid="classMyGUI_1_1Window_19de5dff9c1c09160a319ec44d3f2fcc8">shutdownOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabItem_1ec5eb97462f81c6ad8162472bebc175c">shutdownOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabControl_1e665bcbd3149e7f77b868d09fa8c606a">shutdownOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_1fbdc41b7469a20be6c11582a65623952">shutdownOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollBar_1154ff1699c622eee1c5b8da77e6f7b69">shutdownOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ProgressBar_1f06f6a24e9d190edaf3513af1e05c45a">shutdownOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListItem_1e6eda743a03c3859438f9bf2f6666c42">shutdownOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_1450bebf4ec6e0fe16087e925ce44d736">shutdownOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_17c9afc83449ece651fbf365267a10bb6">shutdownOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuControl_1a849e593c9fb856ab1d5be8305f4110b">shutdownOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_153b8bfe47262d8e5ed1ad0d94928793e">shutdownOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_11e036f4483e4b1ec8a8427e2ac150d3d">shutdownOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ImageBox_19bcc5378d204690240c2e394630b598b">shutdownOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_1980df95ae424ef6e78a8eb9d10001904">shutdownOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_16df9c4bfc1054a922a65d6ba018d3828">shutdownOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Canvas_15eff97147ec3192990810f2689fd915a">shutdownOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Button_1020da83689bb164ad57e54e029aa6898">shutdownOverride</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="306"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1987812d417960a148a72df09dd3948c4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Widget::initialiseOverride</definition>
+        <argsstring>()</argsstring>
+        <name>initialiseOverride</name>
+        <reimplementedby refid="classMyGUI_1_1Window_169db5c275b9efd3d71c830dbfb29a8c5">initialiseOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabItem_17e9d8d7a1e96cef44b87ec9684198a6f">initialiseOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabControl_1a35faab33a9c6fd56bd4f4d00a4ab06d">initialiseOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_1a145b65160acb4f2b847a4eec77d49a8">initialiseOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollBar_1c4cdd942e009f1630a73956a2df6d083">initialiseOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ProgressBar_1b845ea9bbd161ae2dfa1d9233314f810">initialiseOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListItem_18056bd8072fb0db0eb5466346f99769d">initialiseOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_14543854bfb03706fad21d4ee91c671ef">initialiseOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_1021ac14fb1ae9b4c97027db997ed83bc">initialiseOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuControl_19b9095a8516d793794f5e76cb2afe0ed">initialiseOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_148b09211b3d19bd097d64b8e97595372">initialiseOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_148af132732961b2a29ade20f17afa156">initialiseOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_109271e056797ceb7f3b64a4fa31ecebc">initialiseOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_1d39eeb1d900e4093dea5ff08a5a97248">initialiseOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Canvas_1decf70524a20d702cb9a549087cf3649">initialiseOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Button_1895d4b6d4e2cb41402350e1830250898">initialiseOverride</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="307"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1dd935a48ef2c39688d8026c01e9e3939" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::_updateView</definition>
+        <argsstring>()</argsstring>
+        <name>_updateView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="309"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1d88d7deb826efb660943ccb0bb457cae" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::Widget::baseCreateWidget</definition>
+        <argsstring>(WidgetStyle _style, const std::string &amp;_type, const std::string &amp;_skin, const IntCoord &amp;_coord, Align _align, const std::string &amp;_layer, const std::string &amp;_name, bool _template)</argsstring>
+        <name>baseCreateWidget</name>
+        <param>
+          <type>WidgetStyle</type>
+          <declname>_style</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_skin</declname>
+        </param>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_coord</declname>
+        </param>
+        <param>
+          <type>Align</type>
+          <declname>_align</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_layer</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_template</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="312"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_10df77f6d74fe5fc24701819e0b7e0fe8" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::_destroyAllChildWidget</definition>
+        <argsstring>()</argsstring>
+        <name>_destroyAllChildWidget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="315"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1fef9a1d046d1b78f8c76de1db83d20c6" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>virtual size_t MyGUI::Widget::_getContainerIndex</definition>
+        <argsstring>(const IntPoint &amp;_point)</argsstring>
+        <name>_getContainerIndex</name>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_151afa779d7c758cb47e4ad120b43cf6b">_getContainerIndex</reimplementedby>
+        <param>
+          <type>const IntPoint &amp;</type>
+          <declname>_point</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="318"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1d4c4a2cf2c3dd8b71126291a55e69139" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Widget::baseUpdateEnable</definition>
+        <argsstring>()</argsstring>
+        <name>baseUpdateEnable</name>
+        <reimplementedby refid="classMyGUI_1_1Button_1266193db2a685b8767e2ef7c063df5d0">baseUpdateEnable</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="320"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_175cedb78192d81e9dd1cef4a6c7a9fe3" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>ILayerItem *</type>
+        <definition>virtual ILayerItem* MyGUI::Widget::getLayerItemByPoint</definition>
+        <argsstring>(int _left, int _top) const </argsstring>
+        <name>getLayerItemByPoint</name>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="323"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_13e00b99c46a0c1ebacf29604d503804d" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>const IntCoord &amp;</type>
+        <definition>virtual const IntCoord&amp; MyGUI::Widget::getLayerItemCoord</definition>
+        <argsstring>() const </argsstring>
+        <name>getLayerItemCoord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="324"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1b390f48a62a30d529c901cf8cfa1c24c" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>T</declname>
+            <defname>T</defname>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void MyGUI::Widget::assignWidget</definition>
+        <argsstring>(T *&amp;_widget, const std::string &amp;_name)</argsstring>
+        <name>assignWidget</name>
+        <param>
+          <type>T *&amp;</type>
+          <declname>_widget</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="328" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="327" bodyend="339"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_14a6523e37fad5103ef5896bdf349861d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>VectorWidgetPtr</type>
+        <definition>VectorWidgetPtr MyGUI::Widget::getSkinWidgetsByName</definition>
+        <argsstring>(const std::string &amp;_name)</argsstring>
+        <name>getSkinWidgetsByName</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="341"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1c1c862389f772c52077fe4f2cf6568b5" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::destroySkinWidget</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>destroySkinWidget</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="343"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1a8cfc0deeb8c2c53c6fabf52dd167639" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Widget::onWidgetCreated</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>onWidgetCreated</name>
+        <reimplementedby refid="classMyGUI_1_1TabControl_17a075b46e64e279b6212d9397cfd8a2e">onWidgetCreated</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_1ffc2d719cba0df96c2b2f02c9ce9dc96">onWidgetCreated</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_14c1e3c9c33aa5081170f54798722711b">onWidgetCreated</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuControl_1820193a108fd0e982b96a19794402040">onWidgetCreated</reimplementedby>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="345"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1c64ffb617119185afaf5ef9650d4f9a5" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Widget::onWidgetDestroy</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>onWidgetDestroy</name>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_18d8201c6ec16ebd945e28bb17309783e">onWidgetDestroy</reimplementedby>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="346"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1c717aa06253e913156a6d24fb3d4cbc4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::setWidgetClient</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>setWidgetClient</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="348"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1b9ce72d4c54f0098eabee9c7d35e282d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Widget::setPropertyOverride</definition>
+        <argsstring>(const std::string &amp;_key, const std::string &amp;_value)</argsstring>
+        <name>setPropertyOverride</name>
+        <reimplementedby refid="classMyGUI_1_1Window_1ce43226e38c9190c674598952aac4426">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TextBox_1ccb4705e7de752650eec196f172da676">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabItem_1d5aeead1baa047fcb315a6c19e254947">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1TabControl_1327f18705ddbb8c92a29672dacfaf18e">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollView_126a149295f8a8cdc88c2bd7764d4134e">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ScrollBar_1a3f5444b8d1fee4c1bc05b48da5296b8">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ProgressBar_162160b3393f99b0abe598db525e6e15d">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListItem_1e5bd78577483751ddd83dca9482e13e8">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_1071ef6b09ecf5a48c22dc5b7823df55b">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuControl_13c0dafd34e90ce6b38432dc582216640">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_15dc042ed9c5ba4b219826d8be389fc43">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_1c0e201fd68f3aa8ffd2b3edc340d3554">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ImageBox_1e4c8e08c058a82e2a5dac8de3f4b3900">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_191f547f280b8995cdf870619892a3ea5">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1DDContainer_1d165abb39e0a3914294547eb409fd034">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_144e5b1064bb07efec7d33a36ad88f41a">setPropertyOverride</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Button_1098cc6609803c7e4f5bca241faf99faf">setPropertyOverride</reimplementedby>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_key</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="350"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1fc4cf211ce3ed66c76fffc8e091f4b5a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::frameEntered</definition>
+        <argsstring>(float _frame)</argsstring>
+        <name>frameEntered</name>
+        <reimplementedby refid="classMyGUI_1_1ProgressBar_14be0e424169d109404ac4d84d52951d8">frameEntered</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_1fbf9b9af4d966f029e5452eca96f9e66">frameEntered</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ImageBox_12679ff94da1fe8c42c4237a3756b4335">frameEntered</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_12e12529b1dcbc0c45febc4967065f4ea">frameEntered</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Canvas_11b8e0eb9d8c0361f0625b039e787be64">frameEntered</reimplementedby>
+        <param>
+          <type>float</type>
+          <declname>_frame</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="353"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_178f2608fa366a498499f7ddf4e0f1c91" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const WidgetInfo *</type>
+        <definition>const WidgetInfo* MyGUI::Widget::initialiseWidgetSkinBase</definition>
+        <argsstring>(ResourceSkin *_info, ResourceLayout *_templateInfo)</argsstring>
+        <name>initialiseWidgetSkinBase</name>
+        <param>
+          <type>ResourceSkin *</type>
+          <declname>_info</declname>
+        </param>
+        <param>
+          <type><ref refid="classMyGUI_1_1ResourceLayout" kindref="compound">ResourceLayout</ref> *</type>
+          <declname>_templateInfo</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="355"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_174bbd60fdf6f0e76c4fd844dbeaaacb2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::shutdownWidgetSkinBase</definition>
+        <argsstring>()</argsstring>
+        <name>shutdownWidgetSkinBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="356"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1779688c06433f6d97ac419cc7d868633" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::_updateAlpha</definition>
+        <argsstring>()</argsstring>
+        <name>_updateAlpha</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="358"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1083b0a1d2a7894484dc269379caf9062" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::_updateAbsolutePoint</definition>
+        <argsstring>()</argsstring>
+        <name>_updateAbsolutePoint</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="359"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_16d2193a6f66fe0fb5e11c7c1a471b79c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::_updateVisible</definition>
+        <argsstring>()</argsstring>
+        <name>_updateVisible</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="362"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1aa8f99eb5f40c58c491bcb99c2c210cb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::_updateEnabled</definition>
+        <argsstring>()</argsstring>
+        <name>_updateEnabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="364"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1bae65df642190b7f6fdc159101a2689b" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float MyGUI::Widget::_getRealAlpha</definition>
+        <argsstring>() const </argsstring>
+        <name>_getRealAlpha</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="366"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1a1628a018145c4a8b1f5468b690bb0d2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::_createChildSkinWidget</definition>
+        <argsstring>(ResourceSkin *_info)</argsstring>
+        <name>_createChildSkinWidget</name>
+        <param>
+          <type>ResourceSkin *</type>
+          <declname>_info</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="368"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1e68d0455ae9be8a24b76fb39947c7584" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::_destroyChildSkinWidget</definition>
+        <argsstring>()</argsstring>
+        <name>_destroyChildSkinWidget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="369"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1872a0acdfac60450997e9939f91729f6" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::_parseSkinProperties</definition>
+        <argsstring>(ResourceSkin *_info)</argsstring>
+        <name>_parseSkinProperties</name>
+        <param>
+          <type>ResourceSkin *</type>
+          <declname>_info</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="371"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1b5641d212f4174ced6dcbfb76d1f4051" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::_checkInheristProperties</definition>
+        <argsstring>()</argsstring>
+        <name>_checkInheristProperties</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="372"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1b9621de693a524b0eeb44ca3ce717fad" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::_linkChildWidget</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>_linkChildWidget</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="374"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_18e7b28a4b2b1608797ecd8bb71ccd701" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::_unlinkChildWidget</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>_unlinkChildWidget</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="375"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1342373a1e4d13c43052c2addc8943e32" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Widget::setSkinProperty</definition>
+        <argsstring>(ResourceSkin *_info)</argsstring>
+        <name>setSkinProperty</name>
+        <param>
+          <type>ResourceSkin *</type>
+          <declname>_info</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="377"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Widget_1b9ed7d4e112251f3c23215302a5c2746" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Widget::resizeLayerItemView</definition>
+        <argsstring>(const IntSize &amp;_oldView, const IntSize &amp;_newView)</argsstring>
+        <name>resizeLayerItemView</name>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_oldView</declname>
+        </param>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_newView</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="379"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1Widget_1e5c10590506940692344c160739e706c" prot="private" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::Widget::mWidgetClient</definition>
+        <argsstring></argsstring>
+        <name>mWidgetClient</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="385" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="385" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Widget_1b2ab467e6bd9e559c3319958f3a39cf2" prot="private" static="no" mutable="no">
+        <type>VectorWidgetPtr</type>
+        <definition>VectorWidgetPtr MyGUI::Widget::mWidgetChild</definition>
+        <argsstring></argsstring>
+        <name>mWidgetChild</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="388" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="388" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Widget_125d2145a1973d8355281908b4492a2c7" prot="private" static="no" mutable="no">
+        <type>VectorWidgetPtr</type>
+        <definition>VectorWidgetPtr MyGUI::Widget::mWidgetChildSkin</definition>
+        <argsstring></argsstring>
+        <name>mWidgetChildSkin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="391" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="391" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Widget_19cc9d8c3109285b94c15bf3aded87cc1" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::Widget::mEnabled</definition>
+        <argsstring></argsstring>
+        <name>mEnabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="394" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="394" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Widget_19df94164b4900bb7b99beee20adef322" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::Widget::mInheritsEnabled</definition>
+        <argsstring></argsstring>
+        <name>mInheritsEnabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="395" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="395" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Widget_1425037bf3e7173c9ebd706746d48d3b9" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::Widget::mInheritsVisible</definition>
+        <argsstring></argsstring>
+        <name>mInheritsVisible</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="397" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="397" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Widget_15b4865b08263a350e633f3161a2dff01" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::Widget::mAlpha</definition>
+        <argsstring></argsstring>
+        <name>mAlpha</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="399" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="399" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Widget_12fb3da7acb6bcf114dc8a5c8add664af" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::Widget::mRealAlpha</definition>
+        <argsstring></argsstring>
+        <name>mRealAlpha</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="400" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="400" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Widget_11c1a2ea0ef3fd33fa25f8f90d109b8b3" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::Widget::mInheritsAlpha</definition>
+        <argsstring></argsstring>
+        <name>mInheritsAlpha</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="401" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="401" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Widget_15369115faf6477ff221094e37f3845fc" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::Widget::mName</definition>
+        <argsstring></argsstring>
+        <name>mName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="403" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="403" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Widget_1c3bc484021d057711367387051667b3f" prot="private" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::Widget::mParent</definition>
+        <argsstring></argsstring>
+        <name>mParent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="406" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="406" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Widget_1b5c00d41627922f79b96724ac75411d7" prot="private" static="no" mutable="no">
+        <type>WidgetStyle</type>
+        <definition>WidgetStyle MyGUI::Widget::mWidgetStyle</definition>
+        <argsstring></argsstring>
+        <name>mWidgetStyle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="409" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="409" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Widget_1c2790c2f41dd74aa61d1b77720f3989d" prot="private" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::Widget::mContainer</definition>
+        <argsstring></argsstring>
+        <name>mContainer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="411" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="411" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Widget_12c892ce83a3bdc4e05afb640c945f930" prot="private" static="no" mutable="no">
+        <type>Align</type>
+        <definition>Align MyGUI::Widget::mAlign</definition>
+        <argsstring></argsstring>
+        <name>mAlign</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="413" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="413" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Widget_1729c385449fc53aac9bfeb9d9d0c14a1" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::Widget::mVisible</definition>
+        <argsstring></argsstring>
+        <name>mVisible</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="414" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="414" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classMyGUI_1_1Widget_1804721196da6de4cfc2e8337927765ad" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class WidgetManager</definition>
+        <argsstring></argsstring>
+        <name>WidgetManager</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="54" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>{<ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref>} <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> widget description should be here. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="776">
+        <label>MyGUI::PopupMenu</label>
+        <link refid="classMyGUI_1_1PopupMenu"/>
+        <childnode refid="774" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="787">
+        <label>MyGUI::ComboBox</label>
+        <link refid="classMyGUI_1_1ComboBox"/>
+        <childnode refid="786" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="773">
+        <label>MyGUI::ListBox</label>
+        <link refid="classMyGUI_1_1ListBox"/>
+        <childnode refid="767" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="786">
+        <label>MyGUI::EditBox</label>
+        <link refid="classMyGUI_1_1EditBox"/>
+        <childnode refid="783" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="770">
+        <label>MyGUI::DDContainer</label>
+        <link refid="classMyGUI_1_1DDContainer"/>
+        <childnode refid="767" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="780">
+        <label>MyGUI::VScroll</label>
+        <childnode refid="779" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="783">
+        <label>MyGUI::TextBox</label>
+        <link refid="classMyGUI_1_1TextBox"/>
+        <childnode refid="767" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="774">
+        <label>MyGUI::MenuControl</label>
+        <link refid="classMyGUI_1_1MenuControl"/>
+        <childnode refid="767" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="775">
+        <label>MyGUI::MenuBar</label>
+        <link refid="classMyGUI_1_1MenuBar"/>
+        <childnode refid="774" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="772">
+        <label>MyGUI::ImageBox</label>
+        <link refid="classMyGUI_1_1ImageBox"/>
+        <childnode refid="767" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="777">
+        <label>MyGUI::MultiListBox</label>
+        <link refid="classMyGUI_1_1MultiListBox"/>
+        <childnode refid="767" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="768">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="767">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="768" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="781">
+        <label>MyGUI::ScrollView</label>
+        <link refid="classMyGUI_1_1ScrollView"/>
+        <childnode refid="767" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="784">
+        <label>MyGUI::Button</label>
+        <link refid="classMyGUI_1_1Button"/>
+        <childnode refid="783" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="769">
+        <label>MyGUI::Canvas</label>
+        <link refid="classMyGUI_1_1Canvas"/>
+        <childnode refid="767" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="782">
+        <label>MyGUI::TabControl</label>
+        <link refid="classMyGUI_1_1TabControl"/>
+        <childnode refid="767" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="785">
+        <label>MyGUI::MenuItem</label>
+        <link refid="classMyGUI_1_1MenuItem"/>
+        <childnode refid="784" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="779">
+        <label>MyGUI::ScrollBar</label>
+        <link refid="classMyGUI_1_1ScrollBar"/>
+        <childnode refid="767" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="771">
+        <label>MyGUI::ItemBox</label>
+        <link refid="classMyGUI_1_1ItemBox"/>
+        <childnode refid="770" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="790">
+        <label>MyGUI::Window</label>
+        <link refid="classMyGUI_1_1Window"/>
+        <childnode refid="783" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="788">
+        <label>MyGUI::MultiListItem</label>
+        <link refid="classMyGUI_1_1MultiListItem"/>
+        <childnode refid="783" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="778">
+        <label>MyGUI::ProgressBar</label>
+        <link refid="classMyGUI_1_1ProgressBar"/>
+        <childnode refid="767" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="789">
+        <label>MyGUI::TabItem</label>
+        <link refid="classMyGUI_1_1TabItem"/>
+        <childnode refid="783" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="792">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="791">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="792" relation="public-inheritance">
+        </childnode>
+        <childnode refid="791" relation="usage">
+          <edgelabel>mContainer
+mParent
+mWidgetClient</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" line="52" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Widget.h" bodystart="44" bodyend="415"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1Widget_1b5641d212f4174ced6dcbfb76d1f4051" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_checkInheristProperties</name></member>
+      <member refid="classMyGUI_1_1Widget_134c44665e7d51c7eb65bf70f0479e1c3" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_checkPoint</name></member>
+      <member refid="classMyGUI_1_1Widget_1a1628a018145c4a8b1f5468b690bb0d2" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_createChildSkinWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_13601e5ca0d565451dfcf106850506a51" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_createSkinWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_10df77f6d74fe5fc24701819e0b7e0fe8" prot="protected" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_destroyAllChildWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1e68d0455ae9be8a24b76fb39947c7584" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_destroyChildSkinWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_125136884a04944ef8b199c582e15482c" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_destroyChildWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1deee68fb42acc2fab667b169587e9ce3" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_forcePick</name></member>
+      <member refid="classMyGUI_1_1Widget_1f3d99ead3ce8fda0defa2feb0fbaee27" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_getContainer</name></member>
+      <member refid="classMyGUI_1_1Widget_1fef9a1d046d1b78f8c76de1db83d20c6" prot="protected" virt="virtual"><scope>MyGUI::Widget</scope><name>_getContainerIndex</name></member>
+      <member refid="classMyGUI_1_1UserData_1fc4382ac3423790f57b478a0fe5030a2" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_getInternalData</name></member>
+      <member refid="classMyGUI_1_1Widget_106700537a6fffaf43aa9c93e89d9cc7d" prot="public" virt="virtual"><scope>MyGUI::Widget</scope><name>_getItemIndex</name></member>
+      <member refid="classMyGUI_1_1Widget_1bae65df642190b7f6fdc159101a2689b" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_getRealAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_1ae54386446434e4b133c244925402375" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_initialise</name></member>
+      <member refid="classMyGUI_1_1Widget_1b9621de693a524b0eeb44ca3ce717fad" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_linkChildWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1872a0acdfac60450997e9939f91729f6" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_parseSkinProperties</name></member>
+      <member refid="classMyGUI_1_1Widget_1175526a4b039cf13c7fec7012d7287fc" prot="public" virt="virtual"><scope>MyGUI::Widget</scope><name>_resetContainer</name></member>
+      <member refid="classMyGUI_1_1Widget_15df6dbd95e99b9b65b385d815026cf26" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_setAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_1d3d48604ad15f958b81bf423f80271c9" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_setContainer</name></member>
+      <member refid="classMyGUI_1_1UserData_12bd52c146bad41f99bbc7ed31335ad18" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_setInternalData</name></member>
+      <member refid="classMyGUI_1_1Widget_13325a1f4c26917f6f73b207d0986e1bd" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_setWidgetState</name></member>
+      <member refid="classMyGUI_1_1Widget_155b19482fe01925c36e29af671e3d092" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_shutdown</name></member>
+      <member refid="classMyGUI_1_1Widget_18e7b28a4b2b1608797ecd8bb71ccd701" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_unlinkChildWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1083b0a1d2a7894484dc269379caf9062" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_updateAbsolutePoint</name></member>
+      <member refid="classMyGUI_1_1Widget_1779688c06433f6d97ac419cc7d868633" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_updateAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_1aa8f99eb5f40c58c491bcb99c2c210cb" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_updateEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1dd935a48ef2c39688d8026c01e9e3939" prot="protected" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_updateView</name></member>
+      <member refid="classMyGUI_1_1Widget_16d2193a6f66fe0fb5e11c7c1a471b79c" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>_updateVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_1b390f48a62a30d529c901cf8cfa1c24c" prot="protected" virt="non-virtual"><scope>MyGUI::Widget</scope><name>assignWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_105110870f31f66a901b3b11737c194de" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>attachToWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1c35a5223105967529b9df5813c468d37" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1Widget_1d88d7deb826efb660943ccb0bb457cae" prot="protected" virt="non-virtual"><scope>MyGUI::Widget</scope><name>baseCreateWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1d4c4a2cf2c3dd8b71126291a55e69139" prot="protected" virt="virtual"><scope>MyGUI::Widget</scope><name>baseUpdateEnable</name></member>
+      <member refid="classMyGUI_1_1Widget_1be74d6cc433da6140629423b120735a4" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>changeWidgetSkin</name></member>
+      <member refid="classMyGUI_1_1UserData_1f71561f766d83082a82cbdd6d218bd6b" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>clearUserString</name></member>
+      <member refid="classMyGUI_1_1UserData_154fecc1b40c23594c6518589b6912e49" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>clearUserStrings</name></member>
+      <member refid="classMyGUI_1_1Widget_1d66c5415fde332d5aab563402cffb09f" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_13a28d2e883ce82536b686ac992be672d" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1f8660295aafb142287644c239a313e53" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1721d33e78bb5c6ed975e8d41c8bdb683" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>createWidgetReal</name></member>
+      <member refid="classMyGUI_1_1Widget_1412c63af17890a8d43075782891b66ea" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>createWidgetReal</name></member>
+      <member refid="classMyGUI_1_1Widget_19ea260d13d1de5fb272e8fe3c6f6464c" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>createWidgetRealT</name></member>
+      <member refid="classMyGUI_1_1Widget_100fdb672b101caf560a07b86e67a72d4" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>createWidgetRealT</name></member>
+      <member refid="classMyGUI_1_1Widget_1b5d34f121420fbd4f439d7a8432d7755" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_12e74ae3d0a439f4edd509e73d4b2a083" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_1e26a4a5e8ea3fa4bafd969eb952d88e9" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_1c1c862389f772c52077fe4f2cf6568b5" prot="protected" virt="non-virtual"><scope>MyGUI::Widget</scope><name>destroySkinWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1056ac7afc041cf328037e210c742302f" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>detachFromWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_130efcbdb772c4a75f8208a99c4f9f34d" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>eventChangeProperty</name></member>
+      <member refid="classMyGUI_1_1Widget_1d054e1027a48f2ccb9af0179359dadc5" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>findWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1e6d193b99a9d69973922d1b8e0f0b70e" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>findWidgets</name></member>
+      <member refid="classMyGUI_1_1Widget_1fc4cf211ce3ed66c76fffc8e091f4b5a" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>frameEntered</name></member>
+      <member refid="classMyGUI_1_1Widget_134cafbef78da90ca8fb6aca8964b337a" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_1db1d462f1145cafb358754c03cd3e7f2" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_1028535563d6d3666658d83e4d479fa6d" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getChildAt</name></member>
+      <member refid="classMyGUI_1_1Widget_195ebe8be9fd3d29f7fa8f7846515eeec" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getChildCount</name></member>
+      <member refid="classMyGUI_1_1Widget_1b2012e0bb89d4becb35762362474601e" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1Widget_15ffebc869b3b4c36e31178616b27fc86" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getClientCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1ac162cf5e6c51d487c71ae2e2d041352" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getClientWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_15cd729c40ad712c7036a0d3f6a2507b2" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1abfb5cf6661813f729bd30b4042e95d7" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getEnumerator</name></member>
+      <member refid="classMyGUI_1_1Widget_1c373e8170168b97491e777b99de0872b" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getInheritedEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1028a8ae99e47f513065ce3cbb11e4022" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getInheritedVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_1c2118d0bf46d9a7ec21c7aed9c7e71ca" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_175cedb78192d81e9dd1cef4a6c7a9fe3" prot="protected" virt="virtual"><scope>MyGUI::Widget</scope><name>getLayerItemByPoint</name></member>
+      <member refid="classMyGUI_1_1Widget_13e00b99c46a0c1ebacf29604d503804d" prot="protected" virt="virtual"><scope>MyGUI::Widget</scope><name>getLayerItemCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1421a0e4eec959e8a5cd7f12ff459bfbf" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getName</name></member>
+      <member refid="classMyGUI_1_1Widget_174eb9e9819797e68a510a2ae6c3a410a" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getParent</name></member>
+      <member refid="classMyGUI_1_1Widget_1ee1378b1a9bd3db495cbea32f0a13e20" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getParentSize</name></member>
+      <member refid="classMyGUI_1_1Widget_14a6523e37fad5103ef5896bdf349861d" prot="protected" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getSkinWidgetsByName</name></member>
+      <member refid="classMyGUI_1_1Widget_1faad6178370730c10dbe87982b9ab8f8" prot="public" virt="virtual"><scope>MyGUI::Widget</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1UserData_1eadd08cc61e475b95c588daf74789a06" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getUserData</name></member>
+      <member refid="classMyGUI_1_1UserData_17c62f7374453eaf6e5316ac369559c53" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getUserString</name></member>
+      <member refid="classMyGUI_1_1UserData_19bc43d45330305b52c5c3f0e9dffabab" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getUserStrings</name></member>
+      <member refid="classMyGUI_1_1Widget_1fa7ad1d5a3213ee9f8c4567e6f3fdd7d" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_15accf9c998578f20adcec5987dc820f2" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>getWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1Widget_1987812d417960a148a72df09dd3948c4" prot="protected" virt="virtual"><scope>MyGUI::Widget</scope><name>initialiseOverride</name></member>
+      <member refid="classMyGUI_1_1Widget_178f2608fa366a498499f7ddf4e0f1c91" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>initialiseWidgetSkinBase</name></member>
+      <member refid="classMyGUI_1_1Widget_1b3ec05a74f05236afb58855985781cd0" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>isRootWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_13cd209d4767cf39c1848e538e3ddb1d1" prot="public" virt="virtual"><scope>MyGUI::Widget</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1Widget_10b8989ef6cf8b54a07ecd0b857579b8d" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1UserData_10bac17bc60b499cf0386ec3815d67f17" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>isUserString</name></member>
+      <member refid="classMyGUI_1_1Widget_12c892ce83a3bdc4e05afb640c945f930" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>mAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_15b4865b08263a350e633f3161a2dff01" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>mAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_1c2790c2f41dd74aa61d1b77720f3989d" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>mContainer</name></member>
+      <member refid="classMyGUI_1_1Widget_19cc9d8c3109285b94c15bf3aded87cc1" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>mEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_11c1a2ea0ef3fd33fa25f8f90d109b8b3" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>mInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_19df94164b4900bb7b99beee20adef322" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>mInheritsEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1425037bf3e7173c9ebd706746d48d3b9" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>mInheritsVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_15369115faf6477ff221094e37f3845fc" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>mName</name></member>
+      <member refid="classMyGUI_1_1Widget_1c3bc484021d057711367387051667b3f" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>mParent</name></member>
+      <member refid="classMyGUI_1_1Widget_12fb3da7acb6bcf114dc8a5c8add664af" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>mRealAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_1729c385449fc53aac9bfeb9d9d0c14a1" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>mVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_1b2ab467e6bd9e559c3319958f3a39cf2" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>mWidgetChild</name></member>
+      <member refid="classMyGUI_1_1Widget_125d2145a1973d8355281908b4492a2c7" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>mWidgetChildSkin</name></member>
+      <member refid="classMyGUI_1_1Widget_1e5c10590506940692344c160739e706c" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>mWidgetClient</name></member>
+      <member refid="classMyGUI_1_1Widget_1b5c00d41627922f79b96724ac75411d7" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>mWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1Widget_1a8cfc0deeb8c2c53c6fabf52dd167639" prot="protected" virt="virtual"><scope>MyGUI::Widget</scope><name>onWidgetCreated</name></member>
+      <member refid="classMyGUI_1_1Widget_1c64ffb617119185afaf5ef9650d4f9a5" prot="protected" virt="virtual"><scope>MyGUI::Widget</scope><name>onWidgetDestroy</name></member>
+      <member refid="classMyGUI_1_1Widget_1b9ed7d4e112251f3c23215302a5c2746" prot="private" virt="virtual"><scope>MyGUI::Widget</scope><name>resizeLayerItemView</name></member>
+      <member refid="classMyGUI_1_1Widget_130c68354c5a07b549a2377952a56f48e" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1Widget_1ebace37eedee14b3ff746b7a0085b993" prot="public" virt="virtual"><scope>MyGUI::Widget</scope><name>setAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_11204361b28430fa9a3b6927d6b4fe9ee" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>setAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_1cbf134e83d95f63ff7ba7f4b3596449f" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>setColour</name></member>
+      <member refid="classMyGUI_1_1Widget_156333ae229f81cfdc9daa834599b96de" prot="public" virt="virtual"><scope>MyGUI::Widget</scope><name>setCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1745fbe9e4f3c2f798a021ae07498fc97" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>setCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1beda60b920b1808641169d8543171269" prot="public" virt="virtual"><scope>MyGUI::Widget</scope><name>setEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1f5a0bfe2b4f596d2dffdc7fcea5200b1" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>setEnabledSilent</name></member>
+      <member refid="classMyGUI_1_1Widget_18b44677724faa4112312655e5feed8ae" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>setInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_1bf87d2b9d27a2543da8fc7daea6abf75" prot="public" virt="virtual"><scope>MyGUI::Widget</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_10463ede4342db8bc5ade2d78d77a142e" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_11a6ea7822f869b777800b0d351112e69" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>setProperty</name></member>
+      <member refid="classMyGUI_1_1Widget_1b9ce72d4c54f0098eabee9c7d35e282d" prot="protected" virt="virtual"><scope>MyGUI::Widget</scope><name>setPropertyOverride</name></member>
+      <member refid="classMyGUI_1_1Widget_18833c303314683bbebadb154d337d3cb" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>setRealCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1dfd8bd56bcecaee166bbfd12ff962f67" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>setRealCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_15a5f7a24564bb6e04b48d0c524f0ef24" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>setRealPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_1c963db4709c8dfc9e681dfccd5fb6524" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>setRealPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_1d7fba1f9976c36eacb528d6db9213ddf" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1Widget_15d89ff45c4bc5f6158382067673903ba" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1Widget_1b8928099957173c4f58aee98d043faab" prot="public" virt="virtual"><scope>MyGUI::Widget</scope><name>setSize</name></member>
+      <member refid="classMyGUI_1_1Widget_12bdc82ea4f915b8d9b4b36c61b5a3915" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>setSize</name></member>
+      <member refid="classMyGUI_1_1Widget_1342373a1e4d13c43052c2addc8943e32" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>setSkinProperty</name></member>
+      <member refid="classMyGUI_1_1UserData_145916c0682a72614a1ed72a9efded82c" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>setUserData</name></member>
+      <member refid="classMyGUI_1_1UserData_19630c47aa8d58cbc89628aad50725245" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>setUserString</name></member>
+      <member refid="classMyGUI_1_1Widget_1d98f045bfca3a54b5adacf8d0c090bc2" prot="public" virt="virtual"><scope>MyGUI::Widget</scope><name>setVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_1c717aa06253e913156a6d24fb3d4cbc4" prot="protected" virt="non-virtual"><scope>MyGUI::Widget</scope><name>setWidgetClient</name></member>
+      <member refid="classMyGUI_1_1Widget_1372d21a0125ab28cc5c2c295290a2806" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>setWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1Widget_1dee1c7e9399beabdad99bf10b97693c6" prot="protected" virt="virtual"><scope>MyGUI::Widget</scope><name>shutdownOverride</name></member>
+      <member refid="classMyGUI_1_1Widget_174bbd60fdf6f0e76c4fd844dbeaaacb2" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>shutdownWidgetSkinBase</name></member>
+      <member refid="classMyGUI_1_1UserData_1108076068708e939519f9c775c2ae87b" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>UserData</name></member>
+      <member refid="classMyGUI_1_1Widget_1f4814618768bc07a685495895ca47b04" prot="public" virt="non-virtual"><scope>MyGUI::Widget</scope><name>Widget</name></member>
+      <member refid="classMyGUI_1_1Widget_1804721196da6de4cfc2e8337927765ad" prot="private" virt="non-virtual"><scope>MyGUI::Widget</scope><name>WidgetManager</name></member>
+      <member refid="classMyGUI_1_1UserData_1a970af2c1f39e0fa8801fd9defb06d84" prot="public" virt="virtual"><scope>MyGUI::Widget</scope><name>~UserData</name></member>
+      <member refid="classMyGUI_1_1Widget_18ff3c2a98bbea22f4f0191bcac54b643" prot="protected" virt="virtual"><scope>MyGUI::Widget</scope><name>~Widget</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

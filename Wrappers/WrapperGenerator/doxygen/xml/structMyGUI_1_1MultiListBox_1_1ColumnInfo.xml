@@ -1,0 +1,217 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1MultiListBox_1_1ColumnInfo" kind="struct" prot="private">
+    <compoundname>MyGUI::MultiListBox::ColumnInfo</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1MultiListBox_1_1ColumnInfo_12ab17f4da132350db5d97419c58a71c3" prot="public" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1MultiListItem" kindref="compound">MultiListItem</ref> *</type>
+        <definition>MultiListItem* MyGUI::MultiListBox::ColumnInfo::item</definition>
+        <argsstring></argsstring>
+        <name>item</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" line="345" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" bodystart="345" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1MultiListBox_1_1ColumnInfo_18c72fe96264c411da99049294a4a1650" prot="public" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1ListBox" kindref="compound">ListBox</ref> *</type>
+        <definition>ListBox* MyGUI::MultiListBox::ColumnInfo::list</definition>
+        <argsstring></argsstring>
+        <name>list</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" line="346" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" bodystart="346" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1MultiListBox_1_1ColumnInfo_1763f087ad175315533039d3a0ec4b1d0" prot="public" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1Button" kindref="compound">Button</ref> *</type>
+        <definition>Button* MyGUI::MultiListBox::ColumnInfo::button</definition>
+        <argsstring></argsstring>
+        <name>button</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" line="347" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" bodystart="347" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1MultiListBox_1_1ColumnInfo_19a9e51a21129d1589a6dcb45701fc56e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MyGUI::MultiListBox::ColumnInfo::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" line="348" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" bodystart="348" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1MultiListBox_1_1ColumnInfo_1f98ae4f7b0ec00b5f67d42cab7d897c7" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MyGUI::MultiListBox::ColumnInfo::realWidth</definition>
+        <argsstring></argsstring>
+        <name>realWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" line="349" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" bodystart="349" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1MultiListBox_1_1ColumnInfo_1742af49a81786ff5ce079d5ff62c3b2d" prot="public" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref></type>
+        <definition>UString MyGUI::MultiListBox::ColumnInfo::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" line="350" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" bodystart="350" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1MultiListBox_1_1ColumnInfo_15ef0ebac9eaceba31254278df5315e69" prot="public" static="no" mutable="no">
+        <type>Any</type>
+        <definition>Any MyGUI::MultiListBox::ColumnInfo::data</definition>
+        <argsstring></argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" line="351" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" bodystart="351" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1MultiListBox_1_1ColumnInfo_14cf57a1328900073be52d7ffa1568088" prot="public" static="no" mutable="no">
+        <type>ResizingPolicy</type>
+        <definition>ResizingPolicy MyGUI::MultiListBox::ColumnInfo::sizeType</definition>
+        <argsstring></argsstring>
+        <name>sizeType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" line="352" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" bodystart="352" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="498">
+        <label>MyGUI::ListBox</label>
+        <link refid="classMyGUI_1_1ListBox"/>
+        <childnode refid="499" relation="public-inheritance">
+        </childnode>
+        <childnode refid="501" relation="usage">
+          <edgelabel>mWidgetScroll</edgelabel>
+        </childnode>
+        <childnode refid="499" relation="usage">
+          <edgelabel>mClient</edgelabel>
+        </childnode>
+      </node>
+      <node id="503">
+        <label>MyGUI::TextBox</label>
+        <link refid="classMyGUI_1_1TextBox"/>
+        <childnode refid="499" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="504">
+        <label>MyGUI::ImageBox</label>
+        <link refid="classMyGUI_1_1ImageBox"/>
+        <childnode refid="499" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="500">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="499">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="500" relation="public-inheritance">
+        </childnode>
+        <childnode refid="499" relation="usage">
+          <edgelabel>mContainer
+mParent
+mWidgetClient</edgelabel>
+        </childnode>
+      </node>
+      <node id="497">
+        <label>MyGUI::MultiListBox::ColumnInfo</label>
+        <childnode refid="498" relation="usage">
+          <edgelabel>list</edgelabel>
+        </childnode>
+        <childnode refid="505" relation="usage">
+          <edgelabel>item</edgelabel>
+        </childnode>
+        <childnode refid="502" relation="usage">
+          <edgelabel>button</edgelabel>
+        </childnode>
+        <childnode refid="506" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+      </node>
+      <node id="502">
+        <label>MyGUI::Button</label>
+        <link refid="classMyGUI_1_1Button"/>
+        <childnode refid="503" relation="public-inheritance">
+        </childnode>
+        <childnode refid="504" relation="usage">
+          <edgelabel>mImage</edgelabel>
+        </childnode>
+      </node>
+      <node id="506">
+        <label>MyGUI::UString</label>
+        <link refid="classMyGUI_1_1UString"/>
+      </node>
+      <node id="501">
+        <label>MyGUI::ScrollBar</label>
+        <link refid="classMyGUI_1_1ScrollBar"/>
+        <childnode refid="499" relation="public-inheritance">
+        </childnode>
+        <childnode refid="499" relation="usage">
+          <edgelabel>mWidgetFirstPart
+mWidgetSecondPart</edgelabel>
+        </childnode>
+        <childnode refid="502" relation="usage">
+          <edgelabel>mWidgetTrack
+mWidgetStart
+mWidgetEnd</edgelabel>
+        </childnode>
+      </node>
+      <node id="505">
+        <label>MyGUI::MultiListItem</label>
+        <link refid="classMyGUI_1_1MultiListItem"/>
+        <childnode refid="503" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" line="344" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MultiListBox.h" bodystart="343" bodyend="353"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1MultiListBox_1_1ColumnInfo_1763f087ad175315533039d3a0ec4b1d0" prot="public" virt="non-virtual"><scope>MyGUI::MultiListBox::ColumnInfo</scope><name>button</name></member>
+      <member refid="structMyGUI_1_1MultiListBox_1_1ColumnInfo_15ef0ebac9eaceba31254278df5315e69" prot="public" virt="non-virtual"><scope>MyGUI::MultiListBox::ColumnInfo</scope><name>data</name></member>
+      <member refid="structMyGUI_1_1MultiListBox_1_1ColumnInfo_12ab17f4da132350db5d97419c58a71c3" prot="public" virt="non-virtual"><scope>MyGUI::MultiListBox::ColumnInfo</scope><name>item</name></member>
+      <member refid="structMyGUI_1_1MultiListBox_1_1ColumnInfo_18c72fe96264c411da99049294a4a1650" prot="public" virt="non-virtual"><scope>MyGUI::MultiListBox::ColumnInfo</scope><name>list</name></member>
+      <member refid="structMyGUI_1_1MultiListBox_1_1ColumnInfo_1742af49a81786ff5ce079d5ff62c3b2d" prot="public" virt="non-virtual"><scope>MyGUI::MultiListBox::ColumnInfo</scope><name>name</name></member>
+      <member refid="structMyGUI_1_1MultiListBox_1_1ColumnInfo_1f98ae4f7b0ec00b5f67d42cab7d897c7" prot="public" virt="non-virtual"><scope>MyGUI::MultiListBox::ColumnInfo</scope><name>realWidth</name></member>
+      <member refid="structMyGUI_1_1MultiListBox_1_1ColumnInfo_14cf57a1328900073be52d7ffa1568088" prot="public" virt="non-virtual"><scope>MyGUI::MultiListBox::ColumnInfo</scope><name>sizeType</name></member>
+      <member refid="structMyGUI_1_1MultiListBox_1_1ColumnInfo_19a9e51a21129d1589a6dcb45701fc56e" prot="public" virt="non-virtual"><scope>MyGUI::MultiListBox::ColumnInfo</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

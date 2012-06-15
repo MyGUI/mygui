@@ -1,0 +1,1881 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1ListBox" kind="class" prot="public">
+    <compoundname>MyGUI::ListBox</compoundname>
+    <basecompoundref refid="classMyGUI_1_1Widget" prot="public" virt="non-virtual">MyGUI::Widget</basecompoundref>
+    <includes local="no">MyGUI_ListBox.h</includes>
+      <sectiondef kind="user-defined">
+      <header>Item Methods.</header>
+      <description><para>Methods used to manipulate items. </para></description>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_19dd9b8fad27294b0e02ec85f26bf306a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ListBox::getItemCount</definition>
+        <argsstring>() const </argsstring>
+        <name>getItemCount</name>
+        <briefdescription>
+<para>Get number of items. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="58"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1a60968e65ad041d62da8a156b34e2c17" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::insertItemAt</definition>
+        <argsstring>(size_t _index, const UString &amp;_name, Any _data=Any::Null)</argsstring>
+        <name>insertItemAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>_data</declname>
+          <defval>Any::Null</defval>
+        </param>
+        <briefdescription>
+<para>Insert an item into a array at a specified position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_105a8fd7c9f7ed47589218ae4155a3f0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::addItem</definition>
+        <argsstring>(const UString &amp;_name, Any _data=Any::Null)</argsstring>
+        <name>addItem</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>_data</declname>
+          <defval>Any::Null</defval>
+        </param>
+        <briefdescription>
+<para>Add an item to the end of a array. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="64"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1e616aeb242e164b263c71fb75dc75861" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::removeItemAt</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>removeItemAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+<para>Remove item at a specified position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1a96cd314d799620feb2c187197b43b81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::removeAllItems</definition>
+        <argsstring>()</argsstring>
+        <name>removeAllItems</name>
+        <briefdescription>
+<para>Remove all items. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_19785da0566c9ac7fddec6819a05b6ee5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::swapItemsAt</definition>
+        <argsstring>(size_t _index1, size_t _index2)</argsstring>
+        <name>swapItemsAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index1</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_index2</declname>
+        </param>
+        <briefdescription>
+<para>Swap items at a specified positions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1cd8dd901dc37fba9c55cdae904d6d82c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ListBox::findItemIndexWith</definition>
+        <argsstring>(const UString &amp;_name)</argsstring>
+        <name>findItemIndexWith</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+<para>Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="77"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Item Selection Methods</header>
+      <description><para>Methods used to manipulate item selection. </para></description>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_14913012cbab55d37f6d84eb1536c89b8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ListBox::getIndexSelected</definition>
+        <argsstring>() const </argsstring>
+        <name>getIndexSelected</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get index of selected item (ITEM_NONE if none selected) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="88"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1f4feb9ddc9d5c2933de9a07728b12799" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::setIndexSelected</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>setIndexSelected</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Select specified _index </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="91"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1709224418ac207716634de617d06feb1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::clearIndexSelected</definition>
+        <argsstring>()</argsstring>
+        <name>clearIndexSelected</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Clear item selection </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="94"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Item Data Methods</header>
+      <description><para>Methods used to manipulate item user data. </para></description>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1dd8473eb314e52c61a07f14c10f595b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::setItemDataAt</definition>
+        <argsstring>(size_t _index, Any _data)</argsstring>
+        <name>setItemDataAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>_data</declname>
+        </param>
+        <briefdescription>
+<para>Replace an item data at a specified position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="105"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1b32ba6ae29fcef25bc363d4a95d4818f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::clearItemDataAt</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>clearItemDataAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+<para>Clear an item data at a specified position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="108"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1f31d64a835ccb4e68a5215b9e7234c30" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>ValueType</declname>
+            <defname>ValueType</defname>
+          </param>
+        </templateparamlist>
+        <type>ValueType *</type>
+        <definition>ValueType* MyGUI::ListBox::getItemDataAt</definition>
+        <argsstring>(size_t _index, bool _throw=true)</argsstring>
+        <name>getItemDataAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_throw</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Get item data from specified position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="113" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="112" bodyend="116"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Item Visibility Methods</header>
+      <description><para>Methods used to determine and manipulate item visibility. </para></description>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_115dfbe59e400af42e37ae4fc42b4704f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::beginToItemAt</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>beginToItemAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+<para>Move all elements so specified becomes visible. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="137"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1cda9478b16c10952cdad2cd98f7b9358" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::beginToItemFirst</definition>
+        <argsstring>()</argsstring>
+        <name>beginToItemFirst</name>
+        <briefdescription>
+<para>Move all elements so first becomes visible. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="140"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1f72f62f3525f9051ace8576b44e33084" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::beginToItemLast</definition>
+        <argsstring>()</argsstring>
+        <name>beginToItemLast</name>
+        <briefdescription>
+<para>Move all elements so last becomes visible. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="143"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1e47bce4a66681edc496afd76cf8231da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::beginToItemSelected</definition>
+        <argsstring>()</argsstring>
+        <name>beginToItemSelected</name>
+        <briefdescription>
+<para>Move all elements so selected becomes visible. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="146"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_15b32d3ff11e697b0e9f01cde73554985" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::ListBox::isItemVisibleAt</definition>
+        <argsstring>(size_t _index, bool _fill=true)</argsstring>
+        <name>isItemVisibleAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_fill</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Return true if item visible <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of item </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_fill</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>false: function return true when whole item is visible true: function return true when at least part of item is visible </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="159"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_14f1f2aa19544d52578e44f28c808bd26" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::ListBox::isItemSelectedVisible</definition>
+        <argsstring>(bool _fill=true)</argsstring>
+        <name>isItemSelectedVisible</name>
+        <param>
+          <type>bool</type>
+          <declname>_fill</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Same as <ref refid="classMyGUI_1_1ListBox_15b32d3ff11e697b0e9f01cde73554985" kindref="member">ListBox::isItemVisibleAt</ref> for selected item. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="161"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_171cde4ba94a65c17614613c895db72e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::setScrollVisible</definition>
+        <argsstring>(bool _visible)</argsstring>
+        <name>setScrollVisible</name>
+        <param>
+          <type>bool</type>
+          <declname>_visible</declname>
+        </param>
+        <briefdescription>
+<para>Set scroll visible when it needed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="165"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_143a8c01cf6fe8db69063824808aaca73" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::setScrollPosition</definition>
+        <argsstring>(size_t _position)</argsstring>
+        <name>setScrollPosition</name>
+        <param>
+          <type>size_t</type>
+          <declname>_position</declname>
+        </param>
+        <briefdescription>
+<para>Set scroll position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="167"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Widget Methods</header>
+      <description><para>Methods used to manipulate the widget&apos;s settings. </para></description>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_15bdf5446cebba0f403f6dfc9e16258c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ListBox::setPosition</definition>
+        <argsstring>(const IntPoint &amp;_value)</argsstring>
+        <name>setPosition</name>
+        <reimplements refid="classMyGUI_1_1Widget_1bf87d2b9d27a2543da8fc7daea6abf75">setPosition</reimplements>
+        <param>
+          <type>const IntPoint &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+<para><copydoc link="Widget::setPosition(const IntPoint& _value)"><para>Set widget position (position of left top corner)</para></copydoc>
+ </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="177"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1812f5a904e3fb05676a90c9f68f099fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ListBox::setSize</definition>
+        <argsstring>(const IntSize &amp;_value)</argsstring>
+        <name>setSize</name>
+        <reimplements refid="classMyGUI_1_1Widget_1b8928099957173c4f58aee98d043faab">setSize</reimplements>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+<para><copydoc link="Widget::setSize(const IntSize& _value)"><para>Set widget size</para></copydoc>
+ </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="179"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1c73204756b07682b37414c77f8dcd9d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ListBox::setCoord</definition>
+        <argsstring>(const IntCoord &amp;_value)</argsstring>
+        <name>setCoord</name>
+        <reimplements refid="classMyGUI_1_1Widget_156333ae229f81cfdc9daa834599b96de">setCoord</reimplements>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+<para><copydoc link="Widget::setCoord(const IntCoord& _value)"><para>Set widget position and size</para></copydoc>
+ </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="181"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1dd095f9c1b31cdecefda7360921aef10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::setPosition</definition>
+        <argsstring>(int _left, int _top)</argsstring>
+        <name>setPosition</name>
+        <reimplements refid="classMyGUI_1_1Widget_10463ede4342db8bc5ade2d78d77a142e">setPosition</reimplements>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><copydoc link="Widget::setPosition(int _left, int _top)"><para>See <ref refid="classMyGUI_1_1Widget_1bf87d2b9d27a2543da8fc7daea6abf75" kindref="member">Widget::setPosition(const IntPoint&amp; _pos)</ref></para></copydoc>
+ </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="184"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1d25f183257e92879d15e14c19ad2daed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::setSize</definition>
+        <argsstring>(int _width, int _height)</argsstring>
+        <name>setSize</name>
+        <reimplements refid="classMyGUI_1_1Widget_12bdc82ea4f915b8d9b4b36c61b5a3915">setSize</reimplements>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><copydoc link="Widget::setSize(int _width, int _height)"><para>See <ref refid="classMyGUI_1_1Widget_1b8928099957173c4f58aee98d043faab" kindref="member">Widget::setSize(const IntSize&amp; _size)</ref></para></copydoc>
+ </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="186"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_10cca6d4e75ec693d20031957bb369b1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::setCoord</definition>
+        <argsstring>(int _left, int _top, int _width, int _height)</argsstring>
+        <name>setCoord</name>
+        <reimplements refid="classMyGUI_1_1Widget_1745fbe9e4f3c2f798a021ae07498fc97">setCoord</reimplements>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><copydoc link="Widget::setCoord(int _left, int _top, int _width, int _height)"><para>See <ref refid="classMyGUI_1_1Widget_156333ae229f81cfdc9daa834599b96de" kindref="member">Widget::setCoord(const IntCoord&amp; _coord)</ref></para></copydoc>
+ </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="188"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_14c0e91269c4d750a91e10181719bfbd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::_checkAlign</definition>
+        <argsstring>()</argsstring>
+        <name>_checkAlign</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="242"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1f6c2fd621162138a74b83d5f91d54b96" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::_setItemFocus</definition>
+        <argsstring>(size_t _position, bool _focus)</argsstring>
+        <name>_setItemFocus</name>
+        <param>
+          <type>size_t</type>
+          <declname>_position</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_focus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="245"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_13a5d8084c1d9b261cb2df27d6c2be969" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::_sendEventChangeScroll</definition>
+        <argsstring>(size_t _position)</argsstring>
+        <name>_sendEventChangeScroll</name>
+        <param>
+          <type>size_t</type>
+          <declname>_position</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="246"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1c4900a86767790abfa9cff25a4a3c57d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>virtual size_t MyGUI::ListBox::_getItemCount</definition>
+        <argsstring>()</argsstring>
+        <name>_getItemCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="249"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_122865c2c1e5da0d0f0f37273b90b880f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ListBox::_addItem</definition>
+        <argsstring>(const MyGUI::UString &amp;_name)</argsstring>
+        <name>_addItem</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">MyGUI::UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="250"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_188e2cdc31cabc75988c5e5a8b09511df" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ListBox::_removeItemAt</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>_removeItemAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="251"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_199b9d3118845f4ed63aede2a0f8765ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ListBox::_setItemNameAt</definition>
+        <argsstring>(size_t _index, const UString &amp;_name)</argsstring>
+        <name>_setItemNameAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="252"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1f8ae3810015304f6f4c648d5a39eb219" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+        <definition>virtual const UString&amp; MyGUI::ListBox::_getItemNameAt</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>_getItemNameAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="253"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_104f9b3e31192a4c97282f705d5414217" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ListBox::_resetContainer</definition>
+        <argsstring>(bool _update)</argsstring>
+        <name>_resetContainer</name>
+        <reimplements refid="classMyGUI_1_1Widget_1175526a4b039cf13c7fec7012d7287fc">_resetContainer</reimplements>
+        <param>
+          <type>bool</type>
+          <declname>_update</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="255"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1ListBox_143717470b61e981a9deebed9395978e5" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1ListBox" kindref="compound">RTTIBase</ref></type>
+        <definition>typedef RTTIBase MyGUI::ListBox::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <reimplements refid="classMyGUI_1_1Widget_1c35a5223105967529b9df5813c468d37">Base</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1ListBox_10d4cdeb43cb0c2c5a670a0d02eb615a9" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1ListBox" kindref="compound">ListBox</ref></type>
+        <definition>typedef ListBox MyGUI::ListBox::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <reimplements refid="classMyGUI_1_1Widget_130c68354c5a07b549a2377952a56f48e">RTTIBase</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1f1ee0e49979efb0e18b1c167d54ab831" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::ListBox::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <reimplements refid="classMyGUI_1_1Widget_1faad6178370730c10dbe87982b9ab8f8">getTypeName</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="45" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_19a04c37785c1a0d216713119fd73d6da" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::ListBox::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <reimplements refid="classMyGUI_1_1Widget_13cd209d4767cf39c1848e538e3ddb1d1">isType</reimplements>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="45" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1813389e5737def2ca8691d251704ca2d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::ListBox::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <reimplements refid="classMyGUI_1_1Widget_10b8989ef6cf8b54a07ecd0b857579b8d">isType</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="45" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_111ccea9e94272ca6f008d6144372a9b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::ListBox::ListBox</definition>
+        <argsstring>()</argsstring>
+        <name>ListBox</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1e65a78b6f78687fece3e4bcff250cc54" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::setItemNameAt</definition>
+        <argsstring>(size_t _index, const UString &amp;_name)</argsstring>
+        <name>setItemNameAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+<para>Replace an item name at a specified position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="123"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_198741c9966fa3c0f302a81e66dff65e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+        <definition>const UString&amp; MyGUI::ListBox::getItemNameAt</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>getItemNameAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+<para>Get item name from specified position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="126"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1d27a59c4eb0e2956e62227ebefea6bfd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ListBox::getOptimalHeight</definition>
+        <argsstring>()</argsstring>
+        <name>getOptimalHeight</name>
+        <briefdescription>
+<para>Return optimal height to fit all items in <ref refid="classMyGUI_1_1ListBox" kindref="compound">ListBox</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="193"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1ListBox_1dfb2054ea187f48fffa8659ef45e3498" prot="public" static="no" mutable="no">
+        <type>EventPair&lt; EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT &gt;</type>
+        <definition>EventPair&lt;EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT&gt; MyGUI::ListBox::eventListSelectAccept</definition>
+        <argsstring></argsstring>
+        <name>eventListSelectAccept</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Event : Enter pressed or double click.<linebreak/>
+ signature : void method(MyGUI::ListBox* _sender, size_t _index)<linebreak/>
+ <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_sender</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>widget that called this event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of selected item </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="202" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ListBox_1ae6809189c2d43f9db72f97587776449" prot="public" static="no" mutable="no">
+        <type>EventPair&lt; EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT &gt;</type>
+        <definition>EventPair&lt;EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT&gt; MyGUI::ListBox::eventListChangePosition</definition>
+        <argsstring></argsstring>
+        <name>eventListChangePosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Event : Selected item position changed.<linebreak/>
+ signature : void method(MyGUI::ListBox* _sender, size_t _index)<linebreak/>
+ <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_sender</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>widget that called this event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of new item </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="210" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ListBox_1ff3bb1de24504a966604a148510ecdee" prot="public" static="no" mutable="no">
+        <type>EventPair&lt; EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT &gt;</type>
+        <definition>EventPair&lt;EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT&gt; MyGUI::ListBox::eventListMouseItemActivate</definition>
+        <argsstring></argsstring>
+        <name>eventListMouseItemActivate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Event : Item was selected by mouse.<linebreak/>
+ signature : void method(MyGUI::ListBox* _sender, size_t _index)<linebreak/>
+ <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_sender</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>widget that called this event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>index of selected item </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="218" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ListBox_1c76177b8cf7ca6b568f0ee1f351094c6" prot="public" static="no" mutable="no">
+        <type>EventPair&lt; EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT &gt;</type>
+        <definition>EventPair&lt;EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT&gt; MyGUI::ListBox::eventListMouseItemFocus</definition>
+        <argsstring></argsstring>
+        <name>eventListMouseItemFocus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Event : Mouse is over item.<linebreak/>
+ signature : void method(MyGUI::ListBox* _sender, size_t _index)<linebreak/>
+ <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_sender</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>widget that called this event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of focused item </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="226" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ListBox_1cf88b43a268372ee444a978b0c7b5d45" prot="public" static="no" mutable="no">
+        <type>EventPair&lt; EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT &gt;</type>
+        <definition>EventPair&lt;EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT&gt; MyGUI::ListBox::eventListChangeScroll</definition>
+        <argsstring></argsstring>
+        <name>eventListChangeScroll</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Event : Position of scroll changed.<linebreak/>
+ signature : void method(MyGUI::ListBox* _sender, size_t _position)<linebreak/>
+ <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_sender</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>widget that called this event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_position</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of scroll </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="234" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1d01d6e2826b55fd28b4b58c9f9783775" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::ListBox::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <reimplements refid="classMyGUI_1_1Widget_1b2012e0bb89d4becb35762362474601e">getClassTypeName</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="45" bodyend="45"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_148b09211b3d19bd097d64b8e97595372" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ListBox::initialiseOverride</definition>
+        <argsstring>()</argsstring>
+        <name>initialiseOverride</name>
+        <reimplements refid="classMyGUI_1_1Widget_1987812d417960a148a72df09dd3948c4">initialiseOverride</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="259"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_153b8bfe47262d8e5ed1ad0d94928793e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ListBox::shutdownOverride</definition>
+        <argsstring>()</argsstring>
+        <name>shutdownOverride</name>
+        <reimplements refid="classMyGUI_1_1Widget_1dee1c7e9399beabdad99bf10b97693c6">shutdownOverride</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="260"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1a85e06e4187c778508265177e9c001d5" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::onMouseWheel</definition>
+        <argsstring>(int _rel)</argsstring>
+        <name>onMouseWheel</name>
+        <param>
+          <type>int</type>
+          <declname>_rel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="262"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_111e3f3f3f9fa796ec23274a844548263" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::onKeyButtonPressed</definition>
+        <argsstring>(KeyCode _key, Char _char)</argsstring>
+        <name>onKeyButtonPressed</name>
+        <param>
+          <type>KeyCode</type>
+          <declname>_key</declname>
+        </param>
+        <param>
+          <type>Char</type>
+          <declname>_char</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="263"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1900773bd6e8d0aa1b76861cdfa1e0a37" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::notifyScrollChangePosition</definition>
+        <argsstring>(ScrollBar *_sender, size_t _rel)</argsstring>
+        <name>notifyScrollChangePosition</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1ScrollBar" kindref="compound">ScrollBar</ref> *</type>
+          <declname>_sender</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_rel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="265"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1358f62ae3371082a54684a4862085dfc" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::notifyMousePressed</definition>
+        <argsstring>(Widget *_sender, int _left, int _top, MouseButton _id)</argsstring>
+        <name>notifyMousePressed</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_sender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>MouseButton</type>
+          <declname>_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="266"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1de2669e0e1bbdffb5f9414d4aa0d5756" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::notifyMouseDoubleClick</definition>
+        <argsstring>(Widget *_sender)</argsstring>
+        <name>notifyMouseDoubleClick</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_sender</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="267"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_10a6ca810d9f9118a55ff32adf8cefc50" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::notifyMouseWheel</definition>
+        <argsstring>(Widget *_sender, int _rel)</argsstring>
+        <name>notifyMouseWheel</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_sender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_rel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="268"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_19147d6fcf931cbb2a5542e89e6c326e5" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::notifyMouseSetFocus</definition>
+        <argsstring>(Widget *_sender, Widget *_old)</argsstring>
+        <name>notifyMouseSetFocus</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_sender</declname>
+        </param>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_old</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="269"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_18537d85272f8412a8a3ac10ce23a9255" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::notifyMouseLostFocus</definition>
+        <argsstring>(Widget *_sender, Widget *_new)</argsstring>
+        <name>notifyMouseLostFocus</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_sender</declname>
+        </param>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_new</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="270"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1b716de2929a3e1809a91b9c0e272e5a3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::updateScroll</definition>
+        <argsstring>()</argsstring>
+        <name>updateScroll</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="272"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1113b8dcc51303e465f074f2b48450ffa" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::updateLine</definition>
+        <argsstring>(bool _reset=false)</argsstring>
+        <name>updateLine</name>
+        <param>
+          <type>bool</type>
+          <declname>_reset</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="273"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_12ea4eee83eae1966bd71f98a1fbc2302" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::_setScrollView</definition>
+        <argsstring>(size_t _position)</argsstring>
+        <name>_setScrollView</name>
+        <param>
+          <type>size_t</type>
+          <declname>_position</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="274"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_18119541f4340f5b483bae6b40674adcc" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::_redrawItemRange</definition>
+        <argsstring>(size_t _start=0)</argsstring>
+        <name>_redrawItemRange</name>
+        <param>
+          <type>size_t</type>
+          <declname>_start</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="277"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1233afe356a8eacf9a8f1d4ae8099c3bc" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::_redrawItem</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>_redrawItem</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="280"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1bfda4379aba04a1c4dbe7560ab881483" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::_selectIndex</definition>
+        <argsstring>(size_t _index, bool _select)</argsstring>
+        <name>_selectIndex</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_select</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="283"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1c9139dd9d067edf76f5b2f80876f6fc8" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>virtual size_t MyGUI::ListBox::_getItemIndex</definition>
+        <argsstring>(Widget *_item)</argsstring>
+        <name>_getItemIndex</name>
+        <reimplements refid="classMyGUI_1_1Widget_106700537a6fffaf43aa9c93e89d9cc7d">_getItemIndex</reimplements>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_item</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="286"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_15dc042ed9c5ba4b219826d8be389fc43" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ListBox::setPropertyOverride</definition>
+        <argsstring>(const std::string &amp;_key, const std::string &amp;_value)</argsstring>
+        <name>setPropertyOverride</name>
+        <reimplements refid="classMyGUI_1_1Widget_1b9ce72d4c54f0098eabee9c7d35e282d">setPropertyOverride</reimplements>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_key</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="288"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1ListBox_1536c13b3428ac88d173f81527dc76dc1" prot="private" static="no">
+        <type>std::vector&lt; <ref refid="classMyGUI_1_1Button" kindref="compound">Button</ref> * &gt;</type>
+        <definition>typedef std::vector&lt;Button*&gt; MyGUI::ListBox::VectorButton</definition>
+        <argsstring></argsstring>
+        <name>VectorButton</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="300" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1ListBox_1dc540a68a7383835a29dc44c520c7b8d" prot="private" static="no">
+        <type>std::pair&lt; <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref>, Any &gt;</type>
+        <definition>typedef std::pair&lt;UString, Any&gt; MyGUI::ListBox::PairItem</definition>
+        <argsstring></argsstring>
+        <name>PairItem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="312" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1ListBox_12e5242d13bc4f2703f2a9d9f9d724583" prot="private" static="no">
+        <type>std::vector&lt; PairItem &gt;</type>
+        <definition>typedef std::vector&lt;PairItem&gt; MyGUI::ListBox::VectorItemInfo</definition>
+        <argsstring></argsstring>
+        <name>VectorItemInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="313" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="313" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_144d4821fa037097c849adfaa0be69f8f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ListBox::_checkMapping</definition>
+        <argsstring>(const std::string &amp;_owner)</argsstring>
+        <name>_checkMapping</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_owner</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="291"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ListBox_1d2abc1f6015778a3457dc78c14684b69" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::ListBox::_getClientWidget</definition>
+        <argsstring>()</argsstring>
+        <name>_getClientWidget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="293"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1ListBox_1fc6a95c55d432538b7d54fa222682bde" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::ListBox::mSkinLine</definition>
+        <argsstring></argsstring>
+        <name>mSkinLine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="296" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="296" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ListBox_1f2caa7afc19edd4ecf06fad02148bf19" prot="private" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1ScrollBar" kindref="compound">ScrollBar</ref> *</type>
+        <definition>ScrollBar* MyGUI::ListBox::mWidgetScroll</definition>
+        <argsstring></argsstring>
+        <name>mWidgetScroll</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="297" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="297" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ListBox_151706d4d6377451e5ea028d5914f4f04" prot="private" static="no" mutable="no">
+        <type>VectorButton</type>
+        <definition>VectorButton MyGUI::ListBox::mWidgetLines</definition>
+        <argsstring></argsstring>
+        <name>mWidgetLines</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="301" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ListBox_14d0566df093c416c1131792eacfb7e2d" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MyGUI::ListBox::mHeightLine</definition>
+        <argsstring></argsstring>
+        <name>mHeightLine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="303" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ListBox_1682b91351455ed37e639459df86a6515" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MyGUI::ListBox::mTopIndex</definition>
+        <argsstring></argsstring>
+        <name>mTopIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="304" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ListBox_148513633ed26e69aff258118cf89bc03" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MyGUI::ListBox::mOffsetTop</definition>
+        <argsstring></argsstring>
+        <name>mOffsetTop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="305" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ListBox_107f60927f009d1506224573dd471ecdb" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MyGUI::ListBox::mRangeIndex</definition>
+        <argsstring></argsstring>
+        <name>mRangeIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="306" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ListBox_1273790e566720ea849b5951482246e03" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ListBox::mLastRedrawLine</definition>
+        <argsstring></argsstring>
+        <name>mLastRedrawLine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="307" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ListBox_1ec27bf901213f5f461c39ecccf89469b" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ListBox::mIndexSelect</definition>
+        <argsstring></argsstring>
+        <name>mIndexSelect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="309" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ListBox_193756b2c27bffa8bf84038dab250dce8" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ListBox::mLineActive</definition>
+        <argsstring></argsstring>
+        <name>mLineActive</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="310" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ListBox_1d3ba84901d806fb0864313f9226246ac" prot="private" static="no" mutable="no">
+        <type>VectorItemInfo</type>
+        <definition>VectorItemInfo MyGUI::ListBox::mItemsInfo</definition>
+        <argsstring></argsstring>
+        <name>mItemsInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="314" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ListBox_1e6cb8e46834a8a8c20523f0b324c8540" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::ListBox::mNeedVisibleScroll</definition>
+        <argsstring></argsstring>
+        <name>mNeedVisibleScroll</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="317" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="317" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ListBox_1d921d69f6705b16d13af52bcec199297" prot="private" static="no" mutable="no">
+        <type>IntSize</type>
+        <definition>IntSize MyGUI::ListBox::mOldSize</definition>
+        <argsstring></argsstring>
+        <name>mOldSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="319" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="319" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ListBox_1903d99aa2878c2bd2ff319463bce7b13" prot="private" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::ListBox::mClient</definition>
+        <argsstring></argsstring>
+        <name>mClient</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="321" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="321" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>{<ref refid="classMyGUI_1_1ListBox" kindref="compound">ListBox</ref>} <ref refid="classMyGUI_1_1ListBox" kindref="compound">ListBox</ref> widget description should be here. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="366">
+        <label>MyGUI::ListBox</label>
+        <link refid="classMyGUI_1_1ListBox"/>
+        <childnode refid="367" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="368">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="367">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="368" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="369">
+        <label>MyGUI::ListBox</label>
+        <link refid="classMyGUI_1_1ListBox"/>
+        <childnode refid="370" relation="public-inheritance">
+        </childnode>
+        <childnode refid="372" relation="usage">
+          <edgelabel>mWidgetScroll</edgelabel>
+        </childnode>
+        <childnode refid="370" relation="usage">
+          <edgelabel>mClient</edgelabel>
+        </childnode>
+      </node>
+      <node id="374">
+        <label>MyGUI::TextBox</label>
+        <link refid="classMyGUI_1_1TextBox"/>
+        <childnode refid="370" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="375">
+        <label>MyGUI::ImageBox</label>
+        <link refid="classMyGUI_1_1ImageBox"/>
+        <childnode refid="370" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="371">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="370">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="371" relation="public-inheritance">
+        </childnode>
+        <childnode refid="370" relation="usage">
+          <edgelabel>mContainer
+mParent
+mWidgetClient</edgelabel>
+        </childnode>
+      </node>
+      <node id="373">
+        <label>MyGUI::Button</label>
+        <link refid="classMyGUI_1_1Button"/>
+        <childnode refid="374" relation="public-inheritance">
+        </childnode>
+        <childnode refid="375" relation="usage">
+          <edgelabel>mImage</edgelabel>
+        </childnode>
+      </node>
+      <node id="372">
+        <label>MyGUI::ScrollBar</label>
+        <link refid="classMyGUI_1_1ScrollBar"/>
+        <childnode refid="370" relation="public-inheritance">
+        </childnode>
+        <childnode refid="370" relation="usage">
+          <edgelabel>mWidgetFirstPart
+mWidgetSecondPart</edgelabel>
+        </childnode>
+        <childnode refid="373" relation="usage">
+          <edgelabel>mWidgetTrack
+mWidgetStart
+mWidgetEnd</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" line="44" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ListBox.h" bodystart="40" bodyend="322"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1ListBox_122865c2c1e5da0d0f0f37273b90b880f" prot="public" virt="virtual"><scope>MyGUI::ListBox</scope><name>_addItem</name></member>
+      <member refid="classMyGUI_1_1ListBox_14c0e91269c4d750a91e10181719bfbd7" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_checkAlign</name></member>
+      <member refid="classMyGUI_1_1ListBox_144d4821fa037097c849adfaa0be69f8f" prot="private" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_checkMapping</name></member>
+      <member refid="classMyGUI_1_1Widget_134c44665e7d51c7eb65bf70f0479e1c3" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_checkPoint</name></member>
+      <member refid="classMyGUI_1_1Widget_13601e5ca0d565451dfcf106850506a51" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_createSkinWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_10df77f6d74fe5fc24701819e0b7e0fe8" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_destroyAllChildWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_125136884a04944ef8b199c582e15482c" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_destroyChildWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1deee68fb42acc2fab667b169587e9ce3" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_forcePick</name></member>
+      <member refid="classMyGUI_1_1ListBox_1d2abc1f6015778a3457dc78c14684b69" prot="private" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_getClientWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1f3d99ead3ce8fda0defa2feb0fbaee27" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_getContainer</name></member>
+      <member refid="classMyGUI_1_1Widget_1fef9a1d046d1b78f8c76de1db83d20c6" prot="protected" virt="virtual"><scope>MyGUI::ListBox</scope><name>_getContainerIndex</name></member>
+      <member refid="classMyGUI_1_1UserData_1fc4382ac3423790f57b478a0fe5030a2" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_getInternalData</name></member>
+      <member refid="classMyGUI_1_1ListBox_1c4900a86767790abfa9cff25a4a3c57d" prot="public" virt="virtual"><scope>MyGUI::ListBox</scope><name>_getItemCount</name></member>
+      <member refid="classMyGUI_1_1ListBox_1c9139dd9d067edf76f5b2f80876f6fc8" prot="protected" virt="virtual"><scope>MyGUI::ListBox</scope><name>_getItemIndex</name></member>
+      <member refid="classMyGUI_1_1ListBox_1f8ae3810015304f6f4c648d5a39eb219" prot="public" virt="virtual"><scope>MyGUI::ListBox</scope><name>_getItemNameAt</name></member>
+      <member refid="classMyGUI_1_1Widget_1ae54386446434e4b133c244925402375" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_initialise</name></member>
+      <member refid="classMyGUI_1_1ListBox_1233afe356a8eacf9a8f1d4ae8099c3bc" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_redrawItem</name></member>
+      <member refid="classMyGUI_1_1ListBox_18119541f4340f5b483bae6b40674adcc" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_redrawItemRange</name></member>
+      <member refid="classMyGUI_1_1ListBox_188e2cdc31cabc75988c5e5a8b09511df" prot="public" virt="virtual"><scope>MyGUI::ListBox</scope><name>_removeItemAt</name></member>
+      <member refid="classMyGUI_1_1ListBox_104f9b3e31192a4c97282f705d5414217" prot="public" virt="virtual"><scope>MyGUI::ListBox</scope><name>_resetContainer</name></member>
+      <member refid="classMyGUI_1_1ListBox_1bfda4379aba04a1c4dbe7560ab881483" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_selectIndex</name></member>
+      <member refid="classMyGUI_1_1ListBox_13a5d8084c1d9b261cb2df27d6c2be969" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_sendEventChangeScroll</name></member>
+      <member refid="classMyGUI_1_1Widget_15df6dbd95e99b9b65b385d815026cf26" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_setAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_1d3d48604ad15f958b81bf423f80271c9" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_setContainer</name></member>
+      <member refid="classMyGUI_1_1UserData_12bd52c146bad41f99bbc7ed31335ad18" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_setInternalData</name></member>
+      <member refid="classMyGUI_1_1ListBox_1f6c2fd621162138a74b83d5f91d54b96" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_setItemFocus</name></member>
+      <member refid="classMyGUI_1_1ListBox_199b9d3118845f4ed63aede2a0f8765ed" prot="public" virt="virtual"><scope>MyGUI::ListBox</scope><name>_setItemNameAt</name></member>
+      <member refid="classMyGUI_1_1ListBox_12ea4eee83eae1966bd71f98a1fbc2302" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_setScrollView</name></member>
+      <member refid="classMyGUI_1_1Widget_13325a1f4c26917f6f73b207d0986e1bd" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_setWidgetState</name></member>
+      <member refid="classMyGUI_1_1Widget_155b19482fe01925c36e29af671e3d092" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_shutdown</name></member>
+      <member refid="classMyGUI_1_1Widget_1dd935a48ef2c39688d8026c01e9e3939" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>_updateView</name></member>
+      <member refid="classMyGUI_1_1ListBox_105a8fd7c9f7ed47589218ae4155a3f0b" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>addItem</name></member>
+      <member refid="classMyGUI_1_1Widget_1b390f48a62a30d529c901cf8cfa1c24c" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>assignWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_105110870f31f66a901b3b11737c194de" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>attachToWidget</name></member>
+      <member refid="classMyGUI_1_1ListBox_143717470b61e981a9deebed9395978e5" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1Widget_1d88d7deb826efb660943ccb0bb457cae" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>baseCreateWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1d4c4a2cf2c3dd8b71126291a55e69139" prot="protected" virt="virtual"><scope>MyGUI::ListBox</scope><name>baseUpdateEnable</name></member>
+      <member refid="classMyGUI_1_1ListBox_115dfbe59e400af42e37ae4fc42b4704f" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>beginToItemAt</name></member>
+      <member refid="classMyGUI_1_1ListBox_1cda9478b16c10952cdad2cd98f7b9358" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>beginToItemFirst</name></member>
+      <member refid="classMyGUI_1_1ListBox_1f72f62f3525f9051ace8576b44e33084" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>beginToItemLast</name></member>
+      <member refid="classMyGUI_1_1ListBox_1e47bce4a66681edc496afd76cf8231da" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>beginToItemSelected</name></member>
+      <member refid="classMyGUI_1_1Widget_1be74d6cc433da6140629423b120735a4" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>changeWidgetSkin</name></member>
+      <member refid="classMyGUI_1_1ListBox_1709224418ac207716634de617d06feb1" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>clearIndexSelected</name></member>
+      <member refid="classMyGUI_1_1ListBox_1b32ba6ae29fcef25bc363d4a95d4818f" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>clearItemDataAt</name></member>
+      <member refid="classMyGUI_1_1UserData_1f71561f766d83082a82cbdd6d218bd6b" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>clearUserString</name></member>
+      <member refid="classMyGUI_1_1UserData_154fecc1b40c23594c6518589b6912e49" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>clearUserStrings</name></member>
+      <member refid="classMyGUI_1_1Widget_1d66c5415fde332d5aab563402cffb09f" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_13a28d2e883ce82536b686ac992be672d" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1f8660295aafb142287644c239a313e53" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1721d33e78bb5c6ed975e8d41c8bdb683" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>createWidgetReal</name></member>
+      <member refid="classMyGUI_1_1Widget_1412c63af17890a8d43075782891b66ea" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>createWidgetReal</name></member>
+      <member refid="classMyGUI_1_1Widget_19ea260d13d1de5fb272e8fe3c6f6464c" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>createWidgetRealT</name></member>
+      <member refid="classMyGUI_1_1Widget_100fdb672b101caf560a07b86e67a72d4" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>createWidgetRealT</name></member>
+      <member refid="classMyGUI_1_1Widget_1b5d34f121420fbd4f439d7a8432d7755" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_12e74ae3d0a439f4edd509e73d4b2a083" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_1e26a4a5e8ea3fa4bafd969eb952d88e9" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_1c1c862389f772c52077fe4f2cf6568b5" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>destroySkinWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1056ac7afc041cf328037e210c742302f" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>detachFromWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_130efcbdb772c4a75f8208a99c4f9f34d" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>eventChangeProperty</name></member>
+      <member refid="classMyGUI_1_1ListBox_1ae6809189c2d43f9db72f97587776449" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>eventListChangePosition</name></member>
+      <member refid="classMyGUI_1_1ListBox_1cf88b43a268372ee444a978b0c7b5d45" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>eventListChangeScroll</name></member>
+      <member refid="classMyGUI_1_1ListBox_1ff3bb1de24504a966604a148510ecdee" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>eventListMouseItemActivate</name></member>
+      <member refid="classMyGUI_1_1ListBox_1c76177b8cf7ca6b568f0ee1f351094c6" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>eventListMouseItemFocus</name></member>
+      <member refid="classMyGUI_1_1ListBox_1dfb2054ea187f48fffa8659ef45e3498" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>eventListSelectAccept</name></member>
+      <member refid="classMyGUI_1_1ListBox_1cd8dd901dc37fba9c55cdae904d6d82c" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>findItemIndexWith</name></member>
+      <member refid="classMyGUI_1_1Widget_1d054e1027a48f2ccb9af0179359dadc5" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>findWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1e6d193b99a9d69973922d1b8e0f0b70e" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>findWidgets</name></member>
+      <member refid="classMyGUI_1_1Widget_134cafbef78da90ca8fb6aca8964b337a" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_1db1d462f1145cafb358754c03cd3e7f2" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_1028535563d6d3666658d83e4d479fa6d" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getChildAt</name></member>
+      <member refid="classMyGUI_1_1Widget_195ebe8be9fd3d29f7fa8f7846515eeec" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getChildCount</name></member>
+      <member refid="classMyGUI_1_1ListBox_1d01d6e2826b55fd28b4b58c9f9783775" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1Widget_15ffebc869b3b4c36e31178616b27fc86" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getClientCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1ac162cf5e6c51d487c71ae2e2d041352" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getClientWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_15cd729c40ad712c7036a0d3f6a2507b2" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1abfb5cf6661813f729bd30b4042e95d7" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getEnumerator</name></member>
+      <member refid="classMyGUI_1_1ListBox_14913012cbab55d37f6d84eb1536c89b8" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getIndexSelected</name></member>
+      <member refid="classMyGUI_1_1Widget_1c373e8170168b97491e777b99de0872b" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getInheritedEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1028a8ae99e47f513065ce3cbb11e4022" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getInheritedVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_1c2118d0bf46d9a7ec21c7aed9c7e71ca" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1ListBox_19dd9b8fad27294b0e02ec85f26bf306a" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getItemCount</name></member>
+      <member refid="classMyGUI_1_1ListBox_1f31d64a835ccb4e68a5215b9e7234c30" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getItemDataAt</name></member>
+      <member refid="classMyGUI_1_1ListBox_198741c9966fa3c0f302a81e66dff65e9" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getItemNameAt</name></member>
+      <member refid="classMyGUI_1_1Widget_175cedb78192d81e9dd1cef4a6c7a9fe3" prot="protected" virt="virtual"><scope>MyGUI::ListBox</scope><name>getLayerItemByPoint</name></member>
+      <member refid="classMyGUI_1_1Widget_13e00b99c46a0c1ebacf29604d503804d" prot="protected" virt="virtual"><scope>MyGUI::ListBox</scope><name>getLayerItemCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1421a0e4eec959e8a5cd7f12ff459bfbf" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getName</name></member>
+      <member refid="classMyGUI_1_1ListBox_1d27a59c4eb0e2956e62227ebefea6bfd" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getOptimalHeight</name></member>
+      <member refid="classMyGUI_1_1Widget_174eb9e9819797e68a510a2ae6c3a410a" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getParent</name></member>
+      <member refid="classMyGUI_1_1Widget_1ee1378b1a9bd3db495cbea32f0a13e20" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getParentSize</name></member>
+      <member refid="classMyGUI_1_1Widget_14a6523e37fad5103ef5896bdf349861d" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getSkinWidgetsByName</name></member>
+      <member refid="classMyGUI_1_1ListBox_1f1ee0e49979efb0e18b1c167d54ab831" prot="public" virt="virtual"><scope>MyGUI::ListBox</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1UserData_1eadd08cc61e475b95c588daf74789a06" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getUserData</name></member>
+      <member refid="classMyGUI_1_1UserData_17c62f7374453eaf6e5316ac369559c53" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getUserString</name></member>
+      <member refid="classMyGUI_1_1UserData_19bc43d45330305b52c5c3f0e9dffabab" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getUserStrings</name></member>
+      <member refid="classMyGUI_1_1Widget_1fa7ad1d5a3213ee9f8c4567e6f3fdd7d" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_15accf9c998578f20adcec5987dc820f2" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>getWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1ListBox_148b09211b3d19bd097d64b8e97595372" prot="protected" virt="virtual"><scope>MyGUI::ListBox</scope><name>initialiseOverride</name></member>
+      <member refid="classMyGUI_1_1ListBox_1a60968e65ad041d62da8a156b34e2c17" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>insertItemAt</name></member>
+      <member refid="classMyGUI_1_1ListBox_14f1f2aa19544d52578e44f28c808bd26" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>isItemSelectedVisible</name></member>
+      <member refid="classMyGUI_1_1ListBox_15b32d3ff11e697b0e9f01cde73554985" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>isItemVisibleAt</name></member>
+      <member refid="classMyGUI_1_1Widget_1b3ec05a74f05236afb58855985781cd0" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>isRootWidget</name></member>
+      <member refid="classMyGUI_1_1ListBox_19a04c37785c1a0d216713119fd73d6da" prot="public" virt="virtual"><scope>MyGUI::ListBox</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ListBox_1813389e5737def2ca8691d251704ca2d" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1UserData_10bac17bc60b499cf0386ec3815d67f17" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>isUserString</name></member>
+      <member refid="classMyGUI_1_1ListBox_111ccea9e94272ca6f008d6144372a9b8" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>ListBox</name></member>
+      <member refid="classMyGUI_1_1ListBox_1903d99aa2878c2bd2ff319463bce7b13" prot="private" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>mClient</name></member>
+      <member refid="classMyGUI_1_1ListBox_14d0566df093c416c1131792eacfb7e2d" prot="private" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>mHeightLine</name></member>
+      <member refid="classMyGUI_1_1ListBox_1ec27bf901213f5f461c39ecccf89469b" prot="private" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>mIndexSelect</name></member>
+      <member refid="classMyGUI_1_1ListBox_1d3ba84901d806fb0864313f9226246ac" prot="private" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>mItemsInfo</name></member>
+      <member refid="classMyGUI_1_1ListBox_1273790e566720ea849b5951482246e03" prot="private" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>mLastRedrawLine</name></member>
+      <member refid="classMyGUI_1_1ListBox_193756b2c27bffa8bf84038dab250dce8" prot="private" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>mLineActive</name></member>
+      <member refid="classMyGUI_1_1ListBox_1e6cb8e46834a8a8c20523f0b324c8540" prot="private" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>mNeedVisibleScroll</name></member>
+      <member refid="classMyGUI_1_1ListBox_148513633ed26e69aff258118cf89bc03" prot="private" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>mOffsetTop</name></member>
+      <member refid="classMyGUI_1_1ListBox_1d921d69f6705b16d13af52bcec199297" prot="private" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>mOldSize</name></member>
+      <member refid="classMyGUI_1_1ListBox_107f60927f009d1506224573dd471ecdb" prot="private" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>mRangeIndex</name></member>
+      <member refid="classMyGUI_1_1ListBox_1fc6a95c55d432538b7d54fa222682bde" prot="private" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>mSkinLine</name></member>
+      <member refid="classMyGUI_1_1ListBox_1682b91351455ed37e639459df86a6515" prot="private" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>mTopIndex</name></member>
+      <member refid="classMyGUI_1_1ListBox_151706d4d6377451e5ea028d5914f4f04" prot="private" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>mWidgetLines</name></member>
+      <member refid="classMyGUI_1_1ListBox_1f2caa7afc19edd4ecf06fad02148bf19" prot="private" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>mWidgetScroll</name></member>
+      <member refid="classMyGUI_1_1ListBox_1de2669e0e1bbdffb5f9414d4aa0d5756" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>notifyMouseDoubleClick</name></member>
+      <member refid="classMyGUI_1_1ListBox_18537d85272f8412a8a3ac10ce23a9255" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>notifyMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1ListBox_1358f62ae3371082a54684a4862085dfc" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>notifyMousePressed</name></member>
+      <member refid="classMyGUI_1_1ListBox_19147d6fcf931cbb2a5542e89e6c326e5" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>notifyMouseSetFocus</name></member>
+      <member refid="classMyGUI_1_1ListBox_10a6ca810d9f9118a55ff32adf8cefc50" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>notifyMouseWheel</name></member>
+      <member refid="classMyGUI_1_1ListBox_1900773bd6e8d0aa1b76861cdfa1e0a37" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>notifyScrollChangePosition</name></member>
+      <member refid="classMyGUI_1_1ListBox_111e3f3f3f9fa796ec23274a844548263" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>onKeyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1ListBox_1a85e06e4187c778508265177e9c001d5" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>onMouseWheel</name></member>
+      <member refid="classMyGUI_1_1Widget_1a8cfc0deeb8c2c53c6fabf52dd167639" prot="protected" virt="virtual"><scope>MyGUI::ListBox</scope><name>onWidgetCreated</name></member>
+      <member refid="classMyGUI_1_1Widget_1c64ffb617119185afaf5ef9650d4f9a5" prot="protected" virt="virtual"><scope>MyGUI::ListBox</scope><name>onWidgetDestroy</name></member>
+      <member refid="classMyGUI_1_1ListBox_1dc540a68a7383835a29dc44c520c7b8d" prot="private" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>PairItem</name></member>
+      <member refid="classMyGUI_1_1ListBox_1a96cd314d799620feb2c187197b43b81" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>removeAllItems</name></member>
+      <member refid="classMyGUI_1_1ListBox_1e616aeb242e164b263c71fb75dc75861" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>removeItemAt</name></member>
+      <member refid="classMyGUI_1_1ListBox_10d4cdeb43cb0c2c5a670a0d02eb615a9" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1Widget_1ebace37eedee14b3ff746b7a0085b993" prot="public" virt="virtual"><scope>MyGUI::ListBox</scope><name>setAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_11204361b28430fa9a3b6927d6b4fe9ee" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_1cbf134e83d95f63ff7ba7f4b3596449f" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setColour</name></member>
+      <member refid="classMyGUI_1_1ListBox_1c73204756b07682b37414c77f8dcd9d7" prot="public" virt="virtual"><scope>MyGUI::ListBox</scope><name>setCoord</name></member>
+      <member refid="classMyGUI_1_1ListBox_10cca6d4e75ec693d20031957bb369b1f" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1beda60b920b1808641169d8543171269" prot="public" virt="virtual"><scope>MyGUI::ListBox</scope><name>setEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1f5a0bfe2b4f596d2dffdc7fcea5200b1" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setEnabledSilent</name></member>
+      <member refid="classMyGUI_1_1ListBox_1f4feb9ddc9d5c2933de9a07728b12799" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setIndexSelected</name></member>
+      <member refid="classMyGUI_1_1Widget_18b44677724faa4112312655e5feed8ae" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1ListBox_1dd8473eb314e52c61a07f14c10f595b9" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setItemDataAt</name></member>
+      <member refid="classMyGUI_1_1ListBox_1e65a78b6f78687fece3e4bcff250cc54" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setItemNameAt</name></member>
+      <member refid="classMyGUI_1_1ListBox_15bdf5446cebba0f403f6dfc9e16258c2" prot="public" virt="virtual"><scope>MyGUI::ListBox</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1ListBox_1dd095f9c1b31cdecefda7360921aef10" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_11a6ea7822f869b777800b0d351112e69" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setProperty</name></member>
+      <member refid="classMyGUI_1_1ListBox_15dc042ed9c5ba4b219826d8be389fc43" prot="protected" virt="virtual"><scope>MyGUI::ListBox</scope><name>setPropertyOverride</name></member>
+      <member refid="classMyGUI_1_1Widget_18833c303314683bbebadb154d337d3cb" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setRealCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1dfd8bd56bcecaee166bbfd12ff962f67" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setRealCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_15a5f7a24564bb6e04b48d0c524f0ef24" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setRealPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_1c963db4709c8dfc9e681dfccd5fb6524" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setRealPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_1d7fba1f9976c36eacb528d6db9213ddf" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1Widget_15d89ff45c4bc5f6158382067673903ba" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1ListBox_143a8c01cf6fe8db69063824808aaca73" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setScrollPosition</name></member>
+      <member refid="classMyGUI_1_1ListBox_171cde4ba94a65c17614613c895db72e0" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setScrollVisible</name></member>
+      <member refid="classMyGUI_1_1ListBox_1812f5a904e3fb05676a90c9f68f099fd" prot="public" virt="virtual"><scope>MyGUI::ListBox</scope><name>setSize</name></member>
+      <member refid="classMyGUI_1_1ListBox_1d25f183257e92879d15e14c19ad2daed" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setSize</name></member>
+      <member refid="classMyGUI_1_1UserData_145916c0682a72614a1ed72a9efded82c" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setUserData</name></member>
+      <member refid="classMyGUI_1_1UserData_19630c47aa8d58cbc89628aad50725245" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setUserString</name></member>
+      <member refid="classMyGUI_1_1Widget_1d98f045bfca3a54b5adacf8d0c090bc2" prot="public" virt="virtual"><scope>MyGUI::ListBox</scope><name>setVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_1c717aa06253e913156a6d24fb3d4cbc4" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setWidgetClient</name></member>
+      <member refid="classMyGUI_1_1Widget_1372d21a0125ab28cc5c2c295290a2806" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>setWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1ListBox_153b8bfe47262d8e5ed1ad0d94928793e" prot="protected" virt="virtual"><scope>MyGUI::ListBox</scope><name>shutdownOverride</name></member>
+      <member refid="classMyGUI_1_1ListBox_19785da0566c9ac7fddec6819a05b6ee5" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>swapItemsAt</name></member>
+      <member refid="classMyGUI_1_1ListBox_1113b8dcc51303e465f074f2b48450ffa" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>updateLine</name></member>
+      <member refid="classMyGUI_1_1ListBox_1b716de2929a3e1809a91b9c0e272e5a3" prot="protected" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>updateScroll</name></member>
+      <member refid="classMyGUI_1_1UserData_1108076068708e939519f9c775c2ae87b" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>UserData</name></member>
+      <member refid="classMyGUI_1_1ListBox_1536c13b3428ac88d173f81527dc76dc1" prot="private" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>VectorButton</name></member>
+      <member refid="classMyGUI_1_1ListBox_12e5242d13bc4f2703f2a9d9f9d724583" prot="private" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>VectorItemInfo</name></member>
+      <member refid="classMyGUI_1_1Widget_1f4814618768bc07a685495895ca47b04" prot="public" virt="non-virtual"><scope>MyGUI::ListBox</scope><name>Widget</name></member>
+      <member refid="classMyGUI_1_1UserData_1a970af2c1f39e0fa8801fd9defb06d84" prot="public" virt="virtual"><scope>MyGUI::ListBox</scope><name>~UserData</name></member>
+      <member refid="classMyGUI_1_1Widget_18ff3c2a98bbea22f4f0191bcac54b643" prot="protected" virt="virtual"><scope>MyGUI::ListBox</scope><name>~Widget</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

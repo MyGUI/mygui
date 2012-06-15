@@ -1,0 +1,427 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1ControllerEdgeHide" kind="class" prot="public">
+    <compoundname>MyGUI::ControllerEdgeHide</compoundname>
+    <basecompoundref refid="classMyGUI_1_1ControllerItem" prot="public" virt="non-virtual">MyGUI::ControllerItem</basecompoundref>
+    <includes local="no">MyGUI_ControllerEdgeHide.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1ControllerEdgeHide_1e83c047e13638a28cdc583c23ae8c73f" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1ControllerEdgeHide" kindref="compound">RTTIBase</ref></type>
+        <definition>typedef RTTIBase MyGUI::ControllerEdgeHide::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <reimplements refid="classMyGUI_1_1ControllerItem_12e81a87faa5fd347c0e39360f80f1652">Base</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1ControllerEdgeHide_1bf71618e637aa7b29283aba906d844d2" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1ControllerEdgeHide" kindref="compound">ControllerEdgeHide</ref></type>
+        <definition>typedef ControllerEdgeHide MyGUI::ControllerEdgeHide::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <reimplements refid="classMyGUI_1_1ControllerItem_128edfd0691182c0925bb54233532e733">RTTIBase</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1ControllerEdgeHide_15c057c23cf3b8fbb858810bd28d1461f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::ControllerEdgeHide::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <reimplements refid="classMyGUI_1_1ControllerItem_10554365db85d0281ece0ceab87af9279">getTypeName</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" bodystart="42" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerEdgeHide_113ca64c4556fd2281695044f7e88526b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::ControllerEdgeHide::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <reimplements refid="classMyGUI_1_1ControllerItem_1b1efb9129e71a654dde9fba6f01e010d">isType</reimplements>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" bodystart="42" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerEdgeHide_1f2dd4634eb0da57ba29125908ca26c39" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::ControllerEdgeHide::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <reimplements refid="classMyGUI_1_1ControllerItem_110391ef58c887658e622f807a05310a8">isType</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" bodystart="42" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerEdgeHide_1f713f26ff4bf11ccfb9bed37f5f4aea7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::ControllerEdgeHide::ControllerEdgeHide</definition>
+        <argsstring>()</argsstring>
+        <name>ControllerEdgeHide</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerEdgeHide_19bc51b8e620d0847b716f87081956c39" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::ControllerEdgeHide::~ControllerEdgeHide</definition>
+        <argsstring>()</argsstring>
+        <name>~ControllerEdgeHide</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerEdgeHide_1ad571ff6026344cf83734ff20053f507" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ControllerEdgeHide::setTime</definition>
+        <argsstring>(float _value)</argsstring>
+        <name>setTime</name>
+        <param>
+          <type>float</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>in which widget will be hidden or shown </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerEdgeHide_158fde94189f6f13e41645296dbbc5008" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ControllerEdgeHide::setRemainPixels</definition>
+        <argsstring>(int _value)</argsstring>
+        <name>setRemainPixels</name>
+        <param>
+          <type>int</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>How many pixels you will see after full hide </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerEdgeHide_1a0c56530c6f9454611994a5d3a8021e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ControllerEdgeHide::setShadowSize</definition>
+        <argsstring>(int _value)</argsstring>
+        <name>setShadowSize</name>
+        <param>
+          <type>int</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Added to &quot;remain pixels&quot; when hiding left or top (for example used for windows with shadows) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerEdgeHide_127313ffbd2fe80ce538c01dd4853f38e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ControllerEdgeHide::setProperty</definition>
+        <argsstring>(const std::string &amp;_key, const std::string &amp;_value)</argsstring>
+        <name>setProperty</name>
+        <reimplements refid="classMyGUI_1_1ControllerItem_140f75a1bfbf8abe53eeeba0ccd518251">setProperty</reimplements>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_key</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="63"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1ControllerEdgeHide_1701b54771348eb2e5dc5709808191723" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::ControllerEdgeHide::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <reimplements refid="classMyGUI_1_1ControllerItem_16f5a2e023fce8670c108dbc21dc37131">getClassTypeName</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" bodystart="42" bodyend="42"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1ControllerEdgeHide_17502f190ce3fd8f8a00a7e131b094896" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::ControllerEdgeHide::addTime</definition>
+        <argsstring>(Widget *_widget, float _time)</argsstring>
+        <name>addTime</name>
+        <reimplements refid="classMyGUI_1_1ControllerItem_13733e172299c32d8825edd01ab685586">addTime</reimplements>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_time</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerEdgeHide_1a9dcbed05ffdfa785ca59f0de49570b8" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void MyGUI::ControllerEdgeHide::prepareItem</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>prepareItem</name>
+        <reimplements refid="classMyGUI_1_1ControllerItem_1ae73eddd7dd28470eb7d3d85e34662d1">prepareItem</reimplements>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ControllerEdgeHide_13d2b7a553db32119e017590017766a36" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ControllerEdgeHide::recalculateTime</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>recalculateTime</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="69"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1ControllerEdgeHide_146bc2cf56f87f716c62b2cf48597b348" prot="private" static="no" mutable="no">
+        <type>delegates::CMultiDelegate1&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
+        <definition>delegates::CMultiDelegate1&lt;Widget*&gt; MyGUI::ControllerEdgeHide::eventPostAction</definition>
+        <argsstring></argsstring>
+        <name>eventPostAction</name>
+        <reimplements refid="classMyGUI_1_1ControllerItem_145697d9b2bdb43e6e5bd2b694d321253">eventPostAction</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="71" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ControllerEdgeHide_1caef33eb02c896cef1c7c66c722ccf40" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::ControllerEdgeHide::mTime</definition>
+        <argsstring></argsstring>
+        <name>mTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="73" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ControllerEdgeHide_123bb5a807e1fa0dbc0c809e35f5786d2" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MyGUI::ControllerEdgeHide::mRemainPixels</definition>
+        <argsstring></argsstring>
+        <name>mRemainPixels</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="74" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ControllerEdgeHide_154ff7cf829fb1e6352339e1065459e75" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MyGUI::ControllerEdgeHide::mShadowSize</definition>
+        <argsstring></argsstring>
+        <name>mShadowSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="75" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ControllerEdgeHide_10185b66e2e14ab61c9606299217756cf" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::ControllerEdgeHide::mElapsedTime</definition>
+        <argsstring></argsstring>
+        <name>mElapsedTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="76" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ControllerEdgeHide_1af48301ed92d91c65a111032cf444340" prot="private" static="no" mutable="no">
+        <type>MyGUI::IntCoord</type>
+        <definition>MyGUI::IntCoord MyGUI::ControllerEdgeHide::mLastCoord</definition>
+        <argsstring></argsstring>
+        <name>mLastCoord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="78" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>This controller used for hiding widgets near screen edges. <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> will start hiding(move out of screen) if it&apos;s near border and it and it&apos;s childrens don&apos;t have any focus. Hiding till only small part of widget be visible. <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> will move inside screen if it have any focus. </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="129">
+        <label>MyGUI::ControllerItem</label>
+        <link refid="classMyGUI_1_1ControllerItem"/>
+      </node>
+      <node id="128">
+        <label>MyGUI::ControllerEdgeHide</label>
+        <link refid="classMyGUI_1_1ControllerEdgeHide"/>
+        <childnode refid="129" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="131">
+        <label>MyGUI::ControllerItem</label>
+        <link refid="classMyGUI_1_1ControllerItem"/>
+      </node>
+      <node id="130">
+        <label>MyGUI::ControllerEdgeHide</label>
+        <link refid="classMyGUI_1_1ControllerEdgeHide"/>
+        <childnode refid="131" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ControllerEdgeHide.h" bodystart="39" bodyend="79"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_17502f190ce3fd8f8a00a7e131b094896" prot="private" virt="virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>addTime</name></member>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_1e83c047e13638a28cdc583c23ae8c73f" prot="public" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_1f713f26ff4bf11ccfb9bed37f5f4aea7" prot="public" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>ControllerEdgeHide</name></member>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_146bc2cf56f87f716c62b2cf48597b348" prot="private" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>eventPostAction</name></member>
+      <member refid="classMyGUI_1_1ControllerItem_1c1ee0d87187578b9ccbfbdab70216dea" prot="public" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>eventPreAction</name></member>
+      <member refid="classMyGUI_1_1ControllerItem_1e9fe2df3ce3bdafff5f61db523e4b712" prot="public" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>eventUpdateAction</name></member>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_1701b54771348eb2e5dc5709808191723" prot="public" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_15c057c23cf3b8fbb858810bd28d1461f" prot="public" virt="virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_113ca64c4556fd2281695044f7e88526b" prot="public" virt="virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_1f2dd4634eb0da57ba29125908ca26c39" prot="public" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_10185b66e2e14ab61c9606299217756cf" prot="private" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>mElapsedTime</name></member>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_1af48301ed92d91c65a111032cf444340" prot="private" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>mLastCoord</name></member>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_123bb5a807e1fa0dbc0c809e35f5786d2" prot="private" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>mRemainPixels</name></member>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_154ff7cf829fb1e6352339e1065459e75" prot="private" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>mShadowSize</name></member>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_1caef33eb02c896cef1c7c66c722ccf40" prot="private" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>mTime</name></member>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_1a9dcbed05ffdfa785ca59f0de49570b8" prot="private" virt="virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>prepareItem</name></member>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_13d2b7a553db32119e017590017766a36" prot="private" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>recalculateTime</name></member>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_1bf71618e637aa7b29283aba906d844d2" prot="public" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_127313ffbd2fe80ce538c01dd4853f38e" prot="public" virt="virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>setProperty</name></member>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_158fde94189f6f13e41645296dbbc5008" prot="public" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>setRemainPixels</name></member>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_1a0c56530c6f9454611994a5d3a8021e8" prot="public" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>setShadowSize</name></member>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_1ad571ff6026344cf83734ff20053f507" prot="public" virt="non-virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>setTime</name></member>
+      <member refid="classMyGUI_1_1ControllerEdgeHide_19bc51b8e620d0847b716f87081956c39" prot="public" virt="virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>~ControllerEdgeHide</name></member>
+      <member refid="classMyGUI_1_1ControllerItem_19e7c65fed9216f1f4667bf08a16b2b6e" prot="public" virt="virtual"><scope>MyGUI::ControllerEdgeHide</scope><name>~ControllerItem</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

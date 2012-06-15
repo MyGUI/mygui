@@ -1,0 +1,231 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1VertexQuad" kind="struct" prot="public">
+    <compoundname>MyGUI::VertexQuad</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="structMyGUI_1_1VertexQuad_154ce52e924fee273e5647e74378bb536" prot="public" static="no">
+        <name>Enum</name>
+        <enumvalue id="structMyGUI_1_1VertexQuad_154ce52e924fee273e5647e74378bb53657632b27dc72330bd14bbb232c9859be" prot="public">
+          <name>CornerLT</name>
+          <initializer> 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1VertexQuad_154ce52e924fee273e5647e74378bb536defe97d39675791b1512b9e1aea8680b" prot="public">
+          <name>CornerRT</name>
+          <initializer> 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1VertexQuad_154ce52e924fee273e5647e74378bb536b3c50b5e83c792ecee36f1245fd869cc" prot="public">
+          <name>CornerLB</name>
+          <initializer> 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1VertexQuad_154ce52e924fee273e5647e74378bb536cd5470dbb368a8a779b9b4b2357c9536" prot="public">
+          <name>CornerLB2</name>
+          <initializer> 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1VertexQuad_154ce52e924fee273e5647e74378bb536ab5e481b208a1b109b9d30afd1630053" prot="public">
+          <name>CornerRT2</name>
+          <initializer> 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1VertexQuad_154ce52e924fee273e5647e74378bb53668019191d3b1751784879d0a0ba92ce1" prot="public">
+          <name>CornerRB</name>
+          <initializer> 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1VertexQuad_154ce52e924fee273e5647e74378bb5364dfcc332ca50f3bf0cd7ffe3a7a9495f" prot="public">
+          <name>VertexCount</name>
+          <initializer> 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" line="51" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" bodystart="50" bodyend="59"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMyGUI_1_1VertexQuad_19cbdbbfbaa551af33d0f7d280fca8227" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::VertexQuad::set</definition>
+        <argsstring>(float _l, float _t, float _r, float _b, float _z, float _u1, float _v1, float _u2, float _v2, uint32 _colour)</argsstring>
+        <name>set</name>
+        <param>
+          <type>float</type>
+          <declname>_l</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_t</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_r</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_b</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_z</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_u1</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_v1</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_u2</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_v2</declname>
+        </param>
+        <param>
+          <type>uint32</type>
+          <declname>_colour</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" line="62" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" bodystart="61" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1VertexQuad_18949925d03b76bb1d8de13af80304e96" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::VertexQuad::set</definition>
+        <argsstring>(float _x1, float _y1, float _x2, float _y2, float _x3, float _y3, float _x4, float _y4, float _z, float _u1, float _v1, float _u2, float _v2, uint32 _colour)</argsstring>
+        <name>set</name>
+        <param>
+          <type>float</type>
+          <declname>_x1</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_y1</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_x2</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_y2</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_x3</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_y3</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_x4</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_y4</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_z</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_u1</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_v1</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_u2</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_v2</declname>
+        </param>
+        <param>
+          <type>uint32</type>
+          <declname>_colour</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" line="72" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" bodystart="71" bodyend="79"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1VertexQuad_1e2d4fdd1b3d15c93a8ef21536d4a2603" prot="public" static="no" mutable="no">
+        <type>Vertex</type>
+        <definition>Vertex MyGUI::VertexQuad::vertex[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>vertex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" line="81" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" line="49" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" bodystart="48" bodyend="82"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1VertexQuad_154ce52e924fee273e5647e74378bb536b3c50b5e83c792ecee36f1245fd869cc" prot="public" virt="non-virtual"><scope>MyGUI::VertexQuad</scope><name>CornerLB</name></member>
+      <member refid="structMyGUI_1_1VertexQuad_154ce52e924fee273e5647e74378bb536cd5470dbb368a8a779b9b4b2357c9536" prot="public" virt="non-virtual"><scope>MyGUI::VertexQuad</scope><name>CornerLB2</name></member>
+      <member refid="structMyGUI_1_1VertexQuad_154ce52e924fee273e5647e74378bb53657632b27dc72330bd14bbb232c9859be" prot="public" virt="non-virtual"><scope>MyGUI::VertexQuad</scope><name>CornerLT</name></member>
+      <member refid="structMyGUI_1_1VertexQuad_154ce52e924fee273e5647e74378bb53668019191d3b1751784879d0a0ba92ce1" prot="public" virt="non-virtual"><scope>MyGUI::VertexQuad</scope><name>CornerRB</name></member>
+      <member refid="structMyGUI_1_1VertexQuad_154ce52e924fee273e5647e74378bb536defe97d39675791b1512b9e1aea8680b" prot="public" virt="non-virtual"><scope>MyGUI::VertexQuad</scope><name>CornerRT</name></member>
+      <member refid="structMyGUI_1_1VertexQuad_154ce52e924fee273e5647e74378bb536ab5e481b208a1b109b9d30afd1630053" prot="public" virt="non-virtual"><scope>MyGUI::VertexQuad</scope><name>CornerRT2</name></member>
+      <member refid="structMyGUI_1_1VertexQuad_154ce52e924fee273e5647e74378bb536" prot="public" virt="non-virtual"><scope>MyGUI::VertexQuad</scope><name>Enum</name></member>
+      <member refid="structMyGUI_1_1VertexQuad_19cbdbbfbaa551af33d0f7d280fca8227" prot="public" virt="non-virtual"><scope>MyGUI::VertexQuad</scope><name>set</name></member>
+      <member refid="structMyGUI_1_1VertexQuad_18949925d03b76bb1d8de13af80304e96" prot="public" virt="non-virtual"><scope>MyGUI::VertexQuad</scope><name>set</name></member>
+      <member refid="structMyGUI_1_1VertexQuad_1e2d4fdd1b3d15c93a8ef21536d4a2603" prot="public" virt="non-virtual"><scope>MyGUI::VertexQuad</scope><name>vertex</name></member>
+      <member refid="structMyGUI_1_1VertexQuad_154ce52e924fee273e5647e74378bb5364dfcc332ca50f3bf0cd7ffe3a7a9495f" prot="public" virt="non-virtual"><scope>MyGUI::VertexQuad</scope><name>VertexCount</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

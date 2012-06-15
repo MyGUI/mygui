@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1LineInfo" kind="struct" prot="public">
+    <compoundname>MyGUI::LineInfo</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMyGUI_1_1LineInfo_119fd5adb90d6e443725bfd13bd7a9814" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::LineInfo::LineInfo</definition>
+        <argsstring>()</argsstring>
+        <name>LineInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h" line="119" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h" bodystart="115" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1LineInfo_11676310b03faf7324d70f8bcd8cca146" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LineInfo::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h" line="123" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h" bodystart="122" bodyend="128"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1LineInfo_103178673d893c3c426fc79f0f8c44be3" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MyGUI::LineInfo::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h" line="130" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1LineInfo_17e0f63989953625bdea9f175506e228e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MyGUI::LineInfo::offset</definition>
+        <argsstring></argsstring>
+        <name>offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h" line="131" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1LineInfo_1a3ba1b16c30f74c0741ea5d6b9437a31" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::LineInfo::count</definition>
+        <argsstring></argsstring>
+        <name>count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h" line="132" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1LineInfo_109b8b1e106869cc4fc496741c7791dae" prot="public" static="no" mutable="no">
+        <type>VectorCharInfo</type>
+        <definition>VectorCharInfo MyGUI::LineInfo::simbols</definition>
+        <argsstring></argsstring>
+        <name>simbols</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h" line="133" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h" line="114" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h" bodystart="113" bodyend="134"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1LineInfo_11676310b03faf7324d70f8bcd8cca146" prot="public" virt="non-virtual"><scope>MyGUI::LineInfo</scope><name>clear</name></member>
+      <member refid="structMyGUI_1_1LineInfo_1a3ba1b16c30f74c0741ea5d6b9437a31" prot="public" virt="non-virtual"><scope>MyGUI::LineInfo</scope><name>count</name></member>
+      <member refid="structMyGUI_1_1LineInfo_119fd5adb90d6e443725bfd13bd7a9814" prot="public" virt="non-virtual"><scope>MyGUI::LineInfo</scope><name>LineInfo</name></member>
+      <member refid="structMyGUI_1_1LineInfo_17e0f63989953625bdea9f175506e228e" prot="public" virt="non-virtual"><scope>MyGUI::LineInfo</scope><name>offset</name></member>
+      <member refid="structMyGUI_1_1LineInfo_109b8b1e106869cc4fc496741c7791dae" prot="public" virt="non-virtual"><scope>MyGUI::LineInfo</scope><name>simbols</name></member>
+      <member refid="structMyGUI_1_1LineInfo_103178673d893c3c426fc79f0f8c44be3" prot="public" virt="non-virtual"><scope>MyGUI::LineInfo</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

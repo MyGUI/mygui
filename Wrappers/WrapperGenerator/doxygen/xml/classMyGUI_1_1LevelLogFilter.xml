@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1LevelLogFilter" kind="class" prot="public">
+    <compoundname>MyGUI::LevelLogFilter</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1LevelLogFilter_16abeb7d559c4c32d1bdc5ad1b7d2ce9b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::LevelLogFilter::LevelLogFilter</definition>
+        <argsstring>()</argsstring>
+        <name>LevelLogFilter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LevelLogFilter.h" line="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LevelLogFilter_18648979b732b04f1c75d1c6e434cbc63" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::LevelLogFilter::~LevelLogFilter</definition>
+        <argsstring>()</argsstring>
+        <name>~LevelLogFilter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LevelLogFilter.h" line="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LevelLogFilter_1e273a6f872599a7b06016ef934d38a00" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::LevelLogFilter::shouldLog</definition>
+        <argsstring>(const std::string &amp;_section, LogLevel _level, const struct tm *_time, const std::string &amp;_message, const char *_file, int _line)</argsstring>
+        <name>shouldLog</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_section</declname>
+        </param>
+        <param>
+          <type>LogLevel</type>
+          <declname>_level</declname>
+        </param>
+        <param>
+          <type>const struct tm *</type>
+          <declname>_time</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_message</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>_file</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_line</declname>
+        </param>
+        <briefdescription>
+<para><copydoc link="ILogFilter::shouldLog(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line)"></copydoc>
+ </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LevelLogFilter.h" line="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LevelLogFilter_1e47791fde4729d13b00b85bc325f3522" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LevelLogFilter::setLoggingLevel</definition>
+        <argsstring>(LogLevel _value)</argsstring>
+        <name>setLoggingLevel</name>
+        <param>
+          <type>LogLevel</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set logging level. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>messages with this or higher level will be logged. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LevelLogFilter.h" line="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LevelLogFilter_17868f20b7d8250fc3523a52daa095146" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>LogLevel</type>
+        <definition>LogLevel MyGUI::LevelLogFilter::getLoggingLevel</definition>
+        <argsstring>() const </argsstring>
+        <name>getLoggingLevel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get logging level. <simplesect kind="return"><para>Messages with this or higher level are logged. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LevelLogFilter.h" line="48"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1LevelLogFilter_1d2f49618cf83f7ddeeb259fae064eac2" prot="private" static="no" mutable="no">
+        <type>LogLevel</type>
+        <definition>LogLevel MyGUI::LevelLogFilter::mLevel</definition>
+        <argsstring></argsstring>
+        <name>mLevel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LevelLogFilter.h" line="51" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LevelLogFilter.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LevelLogFilter.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LevelLogFilter.h" bodystart="31" bodyend="52"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1LevelLogFilter_17868f20b7d8250fc3523a52daa095146" prot="public" virt="non-virtual"><scope>MyGUI::LevelLogFilter</scope><name>getLoggingLevel</name></member>
+      <member refid="classMyGUI_1_1LevelLogFilter_16abeb7d559c4c32d1bdc5ad1b7d2ce9b" prot="public" virt="non-virtual"><scope>MyGUI::LevelLogFilter</scope><name>LevelLogFilter</name></member>
+      <member refid="classMyGUI_1_1LevelLogFilter_1d2f49618cf83f7ddeeb259fae064eac2" prot="private" virt="non-virtual"><scope>MyGUI::LevelLogFilter</scope><name>mLevel</name></member>
+      <member refid="classMyGUI_1_1LevelLogFilter_1e47791fde4729d13b00b85bc325f3522" prot="public" virt="non-virtual"><scope>MyGUI::LevelLogFilter</scope><name>setLoggingLevel</name></member>
+      <member refid="classMyGUI_1_1LevelLogFilter_1e273a6f872599a7b06016ef934d38a00" prot="public" virt="virtual"><scope>MyGUI::LevelLogFilter</scope><name>shouldLog</name></member>
+      <member refid="classMyGUI_1_1LevelLogFilter_18648979b732b04f1c75d1c6e434cbc63" prot="public" virt="virtual"><scope>MyGUI::LevelLogFilter</scope><name>~LevelLogFilter</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

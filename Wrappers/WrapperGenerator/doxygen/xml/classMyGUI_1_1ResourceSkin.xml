@@ -1,0 +1,530 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1ResourceSkin" kind="class" prot="public">
+    <compoundname>MyGUI::ResourceSkin</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1ResourceSkin_1df952f1e228a30d0dd4f6c05d87f31f8" prot="public" static="no">
+        <type>RTTIBase</type>
+        <definition>typedef RTTIBase MyGUI::ResourceSkin::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1ResourceSkin_133fad6494cea7e0b23403685c9cf5b72" prot="public" static="no">
+        <type>ResourceSkin</type>
+        <definition>typedef ResourceSkin MyGUI::ResourceSkin::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_1c821024ef425aae979b25a481d85acc2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::ResourceSkin::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" bodystart="39" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_1c41be393b3db22885197b05deb1412f4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::ResourceSkin::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" bodystart="39" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_1537bf459d14f6adf25401414fd51c584" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::ResourceSkin::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" bodystart="39" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_13e74f3f5ff56519249600fa415a97ea7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::ResourceSkin::ResourceSkin</definition>
+        <argsstring>()</argsstring>
+        <name>ResourceSkin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_1b96cc648a323b91c70cc90b6c48c274b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::ResourceSkin::~ResourceSkin</definition>
+        <argsstring>()</argsstring>
+        <name>~ResourceSkin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_1a64557e8281e448585e13003dd940e54" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ResourceSkin::deserialization</definition>
+        <argsstring>(xml::ElementPtr _node, Version _version)</argsstring>
+        <name>deserialization</name>
+        <param>
+          <type>xml::ElementPtr</type>
+          <declname>_node</declname>
+        </param>
+        <param>
+          <type>Version</type>
+          <declname>_version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_1a57ea1197273802eebc42b5e17790aca" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const IntSize &amp;</type>
+        <definition>const IntSize&amp; MyGUI::ResourceSkin::getSize</definition>
+        <argsstring>() const </argsstring>
+        <name>getSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_1fcb7e7c17caddc6faa4066f91782ed11" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>const std::string&amp; MyGUI::ResourceSkin::getTextureName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTextureName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_16f6e84118e1cad832bb47c6284190dc3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const VectorSubWidgetInfo &amp;</type>
+        <definition>const VectorSubWidgetInfo&amp; MyGUI::ResourceSkin::getBasisInfo</definition>
+        <argsstring>() const </argsstring>
+        <name>getBasisInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_176dff302a1b7781fe5e8f1588993fc23" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const MapWidgetStateInfo &amp;</type>
+        <definition>const MapWidgetStateInfo&amp; MyGUI::ResourceSkin::getStateInfo</definition>
+        <argsstring>() const </argsstring>
+        <name>getStateInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_135497782252986eb9f5c34d9244d3d82" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const MapString &amp;</type>
+        <definition>const MapString&amp; MyGUI::ResourceSkin::getProperties</definition>
+        <argsstring>() const </argsstring>
+        <name>getProperties</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_1a14102fcbb7bb93d1a4c6092de092b96" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const VectorChildSkinInfo &amp;</type>
+        <definition>const VectorChildSkinInfo&amp; MyGUI::ResourceSkin::getChild</definition>
+        <argsstring>() const </argsstring>
+        <name>getChild</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_1055d36db48e54dce83efd4f33bc82278" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>const std::string&amp; MyGUI::ResourceSkin::getSkinName</definition>
+        <argsstring>() const </argsstring>
+        <name>getSkinName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="53"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_177e633696e591327df19ba744071d8e4" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::ResourceSkin::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" bodystart="39" bodyend="39"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_19df57563a2fadca4bc3485bef1134cbb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ResourceSkin::setInfo</definition>
+        <argsstring>(const IntSize &amp;_size, const std::string &amp;_texture)</argsstring>
+        <name>setInfo</name>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_size</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_texture</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_114cc6826707469158b322a74f8fd45d0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ResourceSkin::addInfo</definition>
+        <argsstring>(const SubWidgetBinding &amp;_bind)</argsstring>
+        <name>addInfo</name>
+        <param>
+          <type>const SubWidgetBinding &amp;</type>
+          <declname>_bind</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_180a622f71ab680e103e9474999fb6ab9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ResourceSkin::addProperty</definition>
+        <argsstring>(const std::string &amp;_key, const std::string &amp;_value)</argsstring>
+        <name>addProperty</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_key</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="58"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_12ae509fb36d9e343eb2eeb62fc526cca" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ResourceSkin::addChild</definition>
+        <argsstring>(const ChildSkinInfo &amp;_child)</argsstring>
+        <name>addChild</name>
+        <param>
+          <type>const ChildSkinInfo &amp;</type>
+          <declname>_child</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_1cc6c617faffa9e177460a691c00f6891" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ResourceSkin::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_140a6382aad7f6e3b9a579ddf557f2acc" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ResourceSkin::checkState</definition>
+        <argsstring>(const MapStateInfo &amp;_states)</argsstring>
+        <name>checkState</name>
+        <param>
+          <type>const MapStateInfo &amp;</type>
+          <declname>_states</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_15896570807a090611f14daadd2fedead" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ResourceSkin::checkState</definition>
+        <argsstring>(const std::string &amp;_name)</argsstring>
+        <name>checkState</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_1de1f7b2927ead2e576a7f651902b751c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ResourceSkin::checkBasis</definition>
+        <argsstring>()</argsstring>
+        <name>checkBasis</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="64"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceSkin_1cc20fa80d3f37ca4ddbea675eac542fb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ResourceSkin::fillState</definition>
+        <argsstring>(const MapStateInfo &amp;_states, size_t _index)</argsstring>
+        <name>fillState</name>
+        <param>
+          <type>const MapStateInfo &amp;</type>
+          <declname>_states</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="65"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1ResourceSkin_1f5147a87f54dd2d47ce9e9b27212461f" prot="private" static="no" mutable="no">
+        <type>IntSize</type>
+        <definition>IntSize MyGUI::ResourceSkin::mSize</definition>
+        <argsstring></argsstring>
+        <name>mSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="68" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ResourceSkin_1884a44a9c51d86e89a6d4eafb11b8cd4" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::ResourceSkin::mTexture</definition>
+        <argsstring></argsstring>
+        <name>mTexture</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="69" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ResourceSkin_1f9ce351c15efde310f1f4c633df0db63" prot="private" static="no" mutable="no">
+        <type>VectorSubWidgetInfo</type>
+        <definition>VectorSubWidgetInfo MyGUI::ResourceSkin::mBasis</definition>
+        <argsstring></argsstring>
+        <name>mBasis</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="70" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ResourceSkin_140d25b4591ff41928ca443d58872d5c6" prot="private" static="no" mutable="no">
+        <type>MapWidgetStateInfo</type>
+        <definition>MapWidgetStateInfo MyGUI::ResourceSkin::mStates</definition>
+        <argsstring></argsstring>
+        <name>mStates</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="71" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ResourceSkin_169dc7aba58e6947a5b9137c6aff721fd" prot="private" static="no" mutable="no">
+        <type>MapString</type>
+        <definition>MapString MyGUI::ResourceSkin::mProperties</definition>
+        <argsstring></argsstring>
+        <name>mProperties</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="73" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ResourceSkin_1d11c6904eb49b9876eedad07a344b69b" prot="private" static="no" mutable="no">
+        <type>VectorChildSkinInfo</type>
+        <definition>VectorChildSkinInfo MyGUI::ResourceSkin::mChilds</definition>
+        <argsstring></argsstring>
+        <name>mChilds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="75" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ResourceSkin_141bc63f185a98bb2ad63bc27436435cd" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::ResourceSkin::mSkinName</definition>
+        <argsstring></argsstring>
+        <name>mSkinName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="76" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceSkin.h" bodystart="36" bodyend="77"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1ResourceSkin_12ae509fb36d9e343eb2eeb62fc526cca" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>addChild</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_114cc6826707469158b322a74f8fd45d0" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>addInfo</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_180a622f71ab680e103e9474999fb6ab9" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>addProperty</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_1df952f1e228a30d0dd4f6c05d87f31f8" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_1de1f7b2927ead2e576a7f651902b751c" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>checkBasis</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_140a6382aad7f6e3b9a579ddf557f2acc" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>checkState</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_15896570807a090611f14daadd2fedead" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>checkState</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_1cc6c617faffa9e177460a691c00f6891" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>clear</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_1a64557e8281e448585e13003dd940e54" prot="public" virt="virtual"><scope>MyGUI::ResourceSkin</scope><name>deserialization</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_1cc20fa80d3f37ca4ddbea675eac542fb" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>fillState</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_16f6e84118e1cad832bb47c6284190dc3" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>getBasisInfo</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_1a14102fcbb7bb93d1a4c6092de092b96" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>getChild</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_177e633696e591327df19ba744071d8e4" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_135497782252986eb9f5c34d9244d3d82" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>getProperties</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_1a57ea1197273802eebc42b5e17790aca" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>getSize</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_1055d36db48e54dce83efd4f33bc82278" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>getSkinName</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_176dff302a1b7781fe5e8f1588993fc23" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>getStateInfo</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_1fcb7e7c17caddc6faa4066f91782ed11" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>getTextureName</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_1c821024ef425aae979b25a481d85acc2" prot="public" virt="virtual"><scope>MyGUI::ResourceSkin</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_1c41be393b3db22885197b05deb1412f4" prot="public" virt="virtual"><scope>MyGUI::ResourceSkin</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_1537bf459d14f6adf25401414fd51c584" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_1f9ce351c15efde310f1f4c633df0db63" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>mBasis</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_1d11c6904eb49b9876eedad07a344b69b" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>mChilds</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_169dc7aba58e6947a5b9137c6aff721fd" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>mProperties</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_1f5147a87f54dd2d47ce9e9b27212461f" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>mSize</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_141bc63f185a98bb2ad63bc27436435cd" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>mSkinName</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_140d25b4591ff41928ca443d58872d5c6" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>mStates</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_1884a44a9c51d86e89a6d4eafb11b8cd4" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>mTexture</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_13e74f3f5ff56519249600fa415a97ea7" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>ResourceSkin</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_133fad6494cea7e0b23403685c9cf5b72" prot="public" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_19df57563a2fadca4bc3485bef1134cbb" prot="private" virt="non-virtual"><scope>MyGUI::ResourceSkin</scope><name>setInfo</name></member>
+      <member refid="classMyGUI_1_1ResourceSkin_1b96cc648a323b91c70cc90b6c48c274b" prot="public" virt="virtual"><scope>MyGUI::ResourceSkin</scope><name>~ResourceSkin</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

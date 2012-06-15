@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1GroupImage" kind="struct" prot="public">
+    <compoundname>MyGUI::GroupImage</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1GroupImage_1dc7f6abab44d190bd9228470ba41a40e" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::GroupImage::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1GroupImage_12e8220f4357e078ff0a05eea3f5189a5" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::GroupImage::texture</definition>
+        <argsstring></argsstring>
+        <name>texture</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1GroupImage_14c607e13a3e9a24ce75724de97e8155d" prot="public" static="no" mutable="no">
+        <type>IntSize</type>
+        <definition>IntSize MyGUI::GroupImage::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1GroupImage_10fe31b0603a6ed196696fca5c9d00fea" prot="public" static="no" mutable="no">
+        <type>VectorIndexImage</type>
+        <definition>VectorIndexImage MyGUI::GroupImage::indexes</definition>
+        <argsstring></argsstring>
+        <name>indexes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h" bodystart="38" bodyend="44"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1GroupImage_10fe31b0603a6ed196696fca5c9d00fea" prot="public" virt="non-virtual"><scope>MyGUI::GroupImage</scope><name>indexes</name></member>
+      <member refid="structMyGUI_1_1GroupImage_1dc7f6abab44d190bd9228470ba41a40e" prot="public" virt="non-virtual"><scope>MyGUI::GroupImage</scope><name>name</name></member>
+      <member refid="structMyGUI_1_1GroupImage_14c607e13a3e9a24ce75724de97e8155d" prot="public" virt="non-virtual"><scope>MyGUI::GroupImage</scope><name>size</name></member>
+      <member refid="structMyGUI_1_1GroupImage_12e8220f4357e078ff0a05eea3f5189a5" prot="public" virt="non-virtual"><scope>MyGUI::GroupImage</scope><name>texture</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

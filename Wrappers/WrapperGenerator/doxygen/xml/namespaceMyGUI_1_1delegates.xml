@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="namespaceMyGUI_1_1delegates" kind="namespace">
+    <compoundname>MyGUI::delegates</compoundname>
+    <innerclass refid="classMyGUI_1_1delegates_1_1IDelegateUnlink">MyGUI::delegates::IDelegateUnlink</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1IDelegate0">MyGUI::delegates::IDelegate0</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CStaticDelegate0">MyGUI::delegates::CStaticDelegate0</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CMethodDelegate0">MyGUI::delegates::CMethodDelegate0</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CDelegate0">MyGUI::delegates::CDelegate0</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CMultiDelegate0">MyGUI::delegates::CMultiDelegate0</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1IDelegate1">MyGUI::delegates::IDelegate1</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CStaticDelegate1">MyGUI::delegates::CStaticDelegate1</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CMethodDelegate1">MyGUI::delegates::CMethodDelegate1</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CDelegate1">MyGUI::delegates::CDelegate1</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CMultiDelegate1">MyGUI::delegates::CMultiDelegate1</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1IDelegate2">MyGUI::delegates::IDelegate2</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CStaticDelegate2">MyGUI::delegates::CStaticDelegate2</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CMethodDelegate2">MyGUI::delegates::CMethodDelegate2</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CDelegate2">MyGUI::delegates::CDelegate2</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CMultiDelegate2">MyGUI::delegates::CMultiDelegate2</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1IDelegate3">MyGUI::delegates::IDelegate3</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CStaticDelegate3">MyGUI::delegates::CStaticDelegate3</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CMethodDelegate3">MyGUI::delegates::CMethodDelegate3</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CDelegate3">MyGUI::delegates::CDelegate3</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CMultiDelegate3">MyGUI::delegates::CMultiDelegate3</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1IDelegate4">MyGUI::delegates::IDelegate4</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CStaticDelegate4">MyGUI::delegates::CStaticDelegate4</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CMethodDelegate4">MyGUI::delegates::CMethodDelegate4</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CDelegate4">MyGUI::delegates::CDelegate4</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CMultiDelegate4">MyGUI::delegates::CMultiDelegate4</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1IDelegate5">MyGUI::delegates::IDelegate5</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CStaticDelegate5">MyGUI::delegates::CStaticDelegate5</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CMethodDelegate5">MyGUI::delegates::CMethodDelegate5</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CDelegate5">MyGUI::delegates::CDelegate5</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CMultiDelegate5">MyGUI::delegates::CMultiDelegate5</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1IDelegate6">MyGUI::delegates::IDelegate6</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CStaticDelegate6">MyGUI::delegates::CStaticDelegate6</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CMethodDelegate6">MyGUI::delegates::CMethodDelegate6</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CDelegate6">MyGUI::delegates::CDelegate6</innerclass>
+    <innerclass refid="classMyGUI_1_1delegates_1_1CMultiDelegate6">MyGUI::delegates::CMultiDelegate6</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceMyGUI_1_1delegates_12ab50b4d310b6780bca17e9bc093acd6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>IDelegateUnlink *</type>
+        <definition>IDelegateUnlink* MyGUI::delegates::GetDelegateUnlink</definition>
+        <argsstring>(void *_base)</argsstring>
+        <name>GetDelegateUnlink</name>
+        <param>
+          <type>void *</type>
+          <declname>_base</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="61" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="60" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceMyGUI_1_1delegates_1b36dd0b3c71cf43436c6c25190952514" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>IDelegateUnlink *</type>
+        <definition>IDelegateUnlink* MyGUI::delegates::GetDelegateUnlink</definition>
+        <argsstring>(IDelegateUnlink *_base)</argsstring>
+        <name>GetDelegateUnlink</name>
+        <param>
+          <type>IDelegateUnlink *</type>
+          <declname>_base</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="65" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="64" bodyend="67"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="40"/>
+  </compounddef>
+</doxygen>

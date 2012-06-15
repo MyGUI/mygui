@@ -1,0 +1,1525 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1KeyCode" kind="struct" prot="public">
+    <compoundname>MyGUI::KeyCode</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7" prot="public" static="no">
+        <name>Enum</name>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7cad4ffa11b103d181477bbf2131da8b7" prot="public">
+          <name>None</name>
+          <initializer> 0x00</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7794c71f42bbc00adbe6d9cc2522e5b3b" prot="public">
+          <name>Escape</name>
+          <initializer> 0x01</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe727e7e002e9f514df5dbfce66d1b9de5b" prot="public">
+          <name>One</name>
+          <initializer> 0x02</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7ab30b5898f6db1ec46d02cf87556e46f" prot="public">
+          <name>Two</name>
+          <initializer> 0x03</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe713bcfcfebc02b0bef3395b63037e5b3c" prot="public">
+          <name>Three</name>
+          <initializer> 0x04</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe779c5a06b0344b18c4e2b5c8d9cb505ad" prot="public">
+          <name>Four</name>
+          <initializer> 0x05</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe79f2a1b4d7d3cbe5e2746d5e850ca36ae" prot="public">
+          <name>Five</name>
+          <initializer> 0x06</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7738f93b3226fd70b6a6874917df79915" prot="public">
+          <name>Six</name>
+          <initializer> 0x07</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7235213bb58e8ab241d0009babcdb5a16" prot="public">
+          <name>Seven</name>
+          <initializer> 0x08</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe74636a279f7a04cd9e11b24763d7d94b6" prot="public">
+          <name>Eight</name>
+          <initializer> 0x09</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7ee2be75f7011b19bdb0e606e068b311d" prot="public">
+          <name>Nine</name>
+          <initializer> 0x0A</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe72ea9c69df6e5ce5720dc4595ac6599c1" prot="public">
+          <name>Zero</name>
+          <initializer> 0x0B</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe78be19ba98ca74686ce5c604857420b27" prot="public">
+          <name>Minus</name>
+          <initializer> 0x0C</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe72fbc8ed12f21ce589891ce2303cd3b00" prot="public">
+          <name>Equals</name>
+          <initializer> 0x0D</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe714f4c357f82c9e1aa229102330083405" prot="public">
+          <name>Backspace</name>
+          <initializer> 0x0E</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7373f47165da9cfa130037f01da402ff1" prot="public">
+          <name>Tab</name>
+          <initializer> 0x0F</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe792398c129b8892844575453fbb5cc80e" prot="public">
+          <name>Q</name>
+          <initializer> 0x10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7279473498b909051a2a75d15b1e18870" prot="public">
+          <name>W</name>
+          <initializer> 0x11</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7734519c4e0ad2de4bcc8c954c01082c7" prot="public">
+          <name>E</name>
+          <initializer> 0x12</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe750e35b302a6cd215f4da72b1e3e668d8" prot="public">
+          <name>R</name>
+          <initializer> 0x13</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7619d34e0723975efc9c12c1c72d96457" prot="public">
+          <name>T</name>
+          <initializer> 0x14</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe75b231e441762b72705227bd9c841fdbc" prot="public">
+          <name>Y</name>
+          <initializer> 0x15</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7bc99968736afb50b379a878f58d36333" prot="public">
+          <name>U</name>
+          <initializer> 0x16</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7d396ad4686fccaf35c53a9370c4a280a" prot="public">
+          <name>I</name>
+          <initializer> 0x17</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7addd0913b172b6c2a1a8e698d5d4cffd" prot="public">
+          <name>O</name>
+          <initializer> 0x18</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe72db4959c43e74cf174fa9593dc0c688c" prot="public">
+          <name>P</name>
+          <initializer> 0x19</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe71bb02f3bce09aa18e740ffebaccf77a6" prot="public">
+          <name>LeftBracket</name>
+          <initializer> 0x1A</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7e1f3df52c7d934aa657c7e4594f4c05d" prot="public">
+          <name>RightBracket</name>
+          <initializer> 0x1B</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7ef04557071d92cf1a9c9f869a5d4f827" prot="public">
+          <name>Return</name>
+          <initializer> 0x1C</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7ab265f841e71b5effb5e1bac730a6ed6" prot="public">
+          <name>LeftControl</name>
+          <initializer> 0x1D</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe743c6e7fae08fda711d01d2f57e325a00" prot="public">
+          <name>A</name>
+          <initializer> 0x1E</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe79762ecd7498fb39592693e4ac296971d" prot="public">
+          <name>S</name>
+          <initializer> 0x1F</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe72fece2052880886e85de4b3245d3832a" prot="public">
+          <name>D</name>
+          <initializer> 0x20</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7ad32e1083cab08f5f0a38bca168dd475" prot="public">
+          <name>F</name>
+          <initializer> 0x21</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7936e1a6b8a4b3b8296aec7ee0b94aaf0" prot="public">
+          <name>G</name>
+          <initializer> 0x22</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7d38ba85f682af664fa03e689cfcdbd9a" prot="public">
+          <name>H</name>
+          <initializer> 0x23</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7c42744bcf989747e61ed982d43e115ee" prot="public">
+          <name>J</name>
+          <initializer> 0x24</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe723da7de44282ed3061d802f3fd6f9a63" prot="public">
+          <name>K</name>
+          <initializer> 0x25</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7755fcaa552c758aa6a7a183076b4cba6" prot="public">
+          <name>L</name>
+          <initializer> 0x26</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe799634c96ddfcd421993660ba92f446a1" prot="public">
+          <name>Semicolon</name>
+          <initializer> 0x27</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe729c055f44706888345b2f10f53434bb0" prot="public">
+          <name>Apostrophe</name>
+          <initializer> 0x28</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe765fe90015644415ae4055ae8699a6d6c" prot="public">
+          <name>Grave</name>
+          <initializer> 0x29</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe75511b9016b57d6d82fbe1730c91f6f49" prot="public">
+          <name>LeftShift</name>
+          <initializer> 0x2A</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7e026073c2450e6e08f5ec5078c31ce69" prot="public">
+          <name>Backslash</name>
+          <initializer> 0x2B</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7f7734d8e73f30cf3727df7a1a3477965" prot="public">
+          <name>Z</name>
+          <initializer> 0x2C</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe797d69cd1c1e582a74993effc7627d9d3" prot="public">
+          <name>X</name>
+          <initializer> 0x2D</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7f5c0ead60a616dd4cbca9f7974ce5873" prot="public">
+          <name>C</name>
+          <initializer> 0x2E</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7c62161dc1a3a3c84223b83ae18cac92e" prot="public">
+          <name>V</name>
+          <initializer> 0x2F</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe709d3bde1fc59caf6647ca555f0ccabb7" prot="public">
+          <name>B</name>
+          <initializer> 0x30</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe71ec9bd11a5fa72c1ea19f1c1aabaf752" prot="public">
+          <name>N</name>
+          <initializer> 0x31</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe78ec53844a7c2ade5813f8e891ba411ff" prot="public">
+          <name>M</name>
+          <initializer> 0x32</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe78aa36f3fe1b419fbfd39b1b01833dbc3" prot="public">
+          <name>Comma</name>
+          <initializer> 0x33</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe741850f46c70d4c573b7292d7401844be" prot="public">
+          <name>Period</name>
+          <initializer> 0x34</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7e5a23114823aaa20f06c6577a2dca00c" prot="public">
+          <name>Slash</name>
+          <initializer> 0x35</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe79bbfc1694ca31767b12d3cfe2e3f82a6" prot="public">
+          <name>RightShift</name>
+          <initializer> 0x36</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe72c0e69147266a23d224ea84cf8554a87" prot="public">
+          <name>Multiply</name>
+          <initializer> 0x37</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7127eddea602ed1fc3432316192ff4ce0" prot="public">
+          <name>LeftAlt</name>
+          <initializer> 0x38</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe77501900ff04919123182790a0b08679e" prot="public">
+          <name>Space</name>
+          <initializer> 0x39</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7c3ae57d402235339444743d7b41f096c" prot="public">
+          <name>Capital</name>
+          <initializer> 0x3A</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe78db5a3fca80485fe71f7d96cd6b93011" prot="public">
+          <name>F1</name>
+          <initializer> 0x3B</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7d600727c760a7a9cca99c61703e370d3" prot="public">
+          <name>F2</name>
+          <initializer> 0x3C</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe73b07cfee1387efa4b7e3578f5dfb2a18" prot="public">
+          <name>F3</name>
+          <initializer> 0x3D</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7214caa28c10594df7071bc725e95ead1" prot="public">
+          <name>F4</name>
+          <initializer> 0x3E</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe732ced8548f7f809e8371f56f15d79663" prot="public">
+          <name>F5</name>
+          <initializer> 0x3F</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7169f4f2e10daf94fbb4434013cc697b4" prot="public">
+          <name>F6</name>
+          <initializer> 0x40</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7bf3c37c037a61db2cfd00dd5342b8d22" prot="public">
+          <name>F7</name>
+          <initializer> 0x41</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe795be09847ae286b498887f2629da4b71" prot="public">
+          <name>F8</name>
+          <initializer> 0x42</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7be56e53e5ca6416a9bb6f1ab9894ebf7" prot="public">
+          <name>F9</name>
+          <initializer> 0x43</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7b0fef3e933fe4e79fe5bd9d8bf0ceebd" prot="public">
+          <name>F10</name>
+          <initializer> 0x44</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe741dd5811f3e892dfea3412fa33e8eb94" prot="public">
+          <name>NumLock</name>
+          <initializer> 0x45</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe780525089031a75ce76891e2247766c9c" prot="public">
+          <name>ScrollLock</name>
+          <initializer> 0x46</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe79809a72ded0a2b4890ae273ff16e33b6" prot="public">
+          <name>Numpad7</name>
+          <initializer> 0x47</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7a7d9e9388b072267989f3b64663e72c6" prot="public">
+          <name>Numpad8</name>
+          <initializer> 0x48</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe70e8b7b45588866215195eddf229a1652" prot="public">
+          <name>Numpad9</name>
+          <initializer> 0x49</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7f919f8d4910eeaeedd870ca71669b760" prot="public">
+          <name>Subtract</name>
+          <initializer> 0x4A</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7d15d80758a3c045f903511d5c8dd6e31" prot="public">
+          <name>Numpad4</name>
+          <initializer> 0x4B</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe72a222dfe3b684414ea1eeb2891ac550d" prot="public">
+          <name>Numpad5</name>
+          <initializer> 0x4C</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe76a04d6154f4cc588297871e0ddd2190b" prot="public">
+          <name>Numpad6</name>
+          <initializer> 0x4D</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7dafbbc0de116c7c169d2b62a6953432d" prot="public">
+          <name>Add</name>
+          <initializer> 0x4E</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7a71422fe9eda1a8a768e24ecca68db41" prot="public">
+          <name>Numpad1</name>
+          <initializer> 0x4F</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe72652254eb377ca2cfbb6d176fa38efdf" prot="public">
+          <name>Numpad2</name>
+          <initializer> 0x50</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7fa0b217d44b4699d3cf931f6be324c35" prot="public">
+          <name>Numpad3</name>
+          <initializer> 0x51</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe732eb03f57b5ce7365558b4cc927fd4fd" prot="public">
+          <name>Numpad0</name>
+          <initializer> 0x52</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe781119216044debdfffb784f3d343de69" prot="public">
+          <name>Decimal</name>
+          <initializer> 0x53</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7cb537e4c918b1f80ab15a080afaa642a" prot="public">
+          <name>OEM_102</name>
+          <initializer> 0x56</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe74e9876e00082880b8bf88ac640a98f77" prot="public">
+          <name>F11</name>
+          <initializer> 0x57</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7a3ce05a9c49c3b9e863a555f65b01028" prot="public">
+          <name>F12</name>
+          <initializer> 0x58</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe75baad29c6f64e0911069519f54b52b15" prot="public">
+          <name>F13</name>
+          <initializer> 0x64</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe78e872d5c9b030a0662e8cc64f5b4117d" prot="public">
+          <name>F14</name>
+          <initializer> 0x65</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe72750f49ba54eaf21c9d977542e980ed5" prot="public">
+          <name>F15</name>
+          <initializer> 0x66</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe75d8c5a01854d6cba60a25632d03f4156" prot="public">
+          <name>Kana</name>
+          <initializer> 0x70</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe79a3587eff8f3ac439e5cdeff64198057" prot="public">
+          <name>ABNT_C1</name>
+          <initializer> 0x73</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7f0414988dd822b1d1265921a4c28cecc" prot="public">
+          <name>Convert</name>
+          <initializer> 0x79</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe76d75969b64dbe9859b7ea30bc048d3f8" prot="public">
+          <name>NoConvert</name>
+          <initializer> 0x7B</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7a1fb90de36d270bc1bfefa7beb56dde0" prot="public">
+          <name>Yen</name>
+          <initializer> 0x7D</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe705a5da2a76a26a54c97471346b05c6bf" prot="public">
+          <name>ABNT_C2</name>
+          <initializer> 0x7E</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7ffa198d7351794bbb4500109567793e0" prot="public">
+          <name>NumpadEquals</name>
+          <initializer> 0x8D</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe747f10fdffdba59a1cbcfdc84dea81bd4" prot="public">
+          <name>PrevTrack</name>
+          <initializer> 0x90</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7530677750315ac90756434b4305dd671" prot="public">
+          <name>At</name>
+          <initializer> 0x91</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe78f7aa8d83879abd9af05a8d198e92ed2" prot="public">
+          <name>Colon</name>
+          <initializer> 0x92</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7afd55986bc64efa4de29f4e8d4aa17fd" prot="public">
+          <name>Underline</name>
+          <initializer> 0x93</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7f29368fe5d72cc45c31110bb2f1be4b7" prot="public">
+          <name>Kanji</name>
+          <initializer> 0x94</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe77add644ed699a7b6f294888082b82187" prot="public">
+          <name>Stop</name>
+          <initializer> 0x95</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe78990c7774ec9f6170ed2a54c9a3656f7" prot="public">
+          <name>AX</name>
+          <initializer> 0x96</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe79dd1ceea520f7d0dd03bc75dee5cf35a" prot="public">
+          <name>Unlabeled</name>
+          <initializer> 0x97</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe77760e16b0acdd4b4dd7ccbe99f787721" prot="public">
+          <name>NextTrack</name>
+          <initializer> 0x99</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe77e201e59d3340350866244b974f7c30e" prot="public">
+          <name>NumpadEnter</name>
+          <initializer> 0x9C</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7ce0c4d4166e148c40345d9d3b6a81453" prot="public">
+          <name>RightControl</name>
+          <initializer> 0x9D</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7fbb161243f64633fb5da9937ee876ff2" prot="public">
+          <name>Mute</name>
+          <initializer> 0xA0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe78bf1e8b1d6f32058c07d5f226a0dce31" prot="public">
+          <name>Calculator</name>
+          <initializer> 0xA1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe75fa746770f798140ed0e2a79be9850e2" prot="public">
+          <name>PlayPause</name>
+          <initializer> 0xA2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7fcf5d0f1c173e5e0b389fb81425e725c" prot="public">
+          <name>MediaStop</name>
+          <initializer> 0xA4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe78c258765902e5b92f246d1ade1037d30" prot="public">
+          <name>VolumeDown</name>
+          <initializer> 0xAE</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7773cd17b4992d1af324173cc7e8b5108" prot="public">
+          <name>VolumeUp</name>
+          <initializer> 0xB0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7a4d87b96e4ca4163942d9ea4cf210f2d" prot="public">
+          <name>WebHome</name>
+          <initializer> 0xB2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe70c6bdea40b89bc4b5911f84912a9adec" prot="public">
+          <name>NumpadComma</name>
+          <initializer> 0xB3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7e1618a14bb1df2bed803a3df3084ad0c" prot="public">
+          <name>Divide</name>
+          <initializer> 0xB5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe79ea78f6330a354e572f1556c2f50c540" prot="public">
+          <name>SysRq</name>
+          <initializer> 0xB7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7008f0213eab2087ef2f1719252cf6141" prot="public">
+          <name>RightAlt</name>
+          <initializer> 0xB8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7633e5233ac9f3ddf359c72438a2e4e5e" prot="public">
+          <name>Pause</name>
+          <initializer> 0xC5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe70b9caa569ef63786f3d4d9069588b4ba" prot="public">
+          <name>Home</name>
+          <initializer> 0xC7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7b3d33253b2b8d2ecee3b37203c191213" prot="public">
+          <name>ArrowUp</name>
+          <initializer> 0xC8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe74ccbb13de8176dba1bed0afd61abe220" prot="public">
+          <name>PageUp</name>
+          <initializer> 0xC9</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7d35605cc1537879feddce18764289d1e" prot="public">
+          <name>ArrowLeft</name>
+          <initializer> 0xCB</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe74cbd80baf9e261ab5f9f1822034ff181" prot="public">
+          <name>ArrowRight</name>
+          <initializer> 0xCD</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe765f9ac4a5e49fcec57f5eaa661736a88" prot="public">
+          <name>End</name>
+          <initializer> 0xCF</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7a0b1ca769ad8af7b0f5167e71d81e9c4" prot="public">
+          <name>ArrowDown</name>
+          <initializer> 0xD0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7fa9c1d2e2ffdbf28319a07f715cd8c23" prot="public">
+          <name>PageDown</name>
+          <initializer> 0xD1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe79e94cbcf712870e1ddf8e8eb5820420d" prot="public">
+          <name>Insert</name>
+          <initializer> 0xD2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7028bc1608b128438a4d35028a06cafee" prot="public">
+          <name>Delete</name>
+          <initializer> 0xD3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe70a9df80c2d0bdd819f1346aff38375ff" prot="public">
+          <name>LeftWindows</name>
+          <initializer> 0xDB</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7952c42f1a82444b6136132e7f94eec78" prot="public">
+          <name>RightWindow</name>
+          <initializer> 0xDC</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe75f5c1bfffcf1ea43429ca798df64eb87" prot="public">
+          <name>RightWindows</name>
+          <initializer> 0xDC</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe71e3cf203eea3801c5763144dcd8ca3ac" prot="public">
+          <name>AppMenu</name>
+          <initializer> 0xDD</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7c68f7dfc9609dce086e968a228c81d33" prot="public">
+          <name>Power</name>
+          <initializer> 0xDE</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe76076f7cc7b9d1ab0cbf64461fd0b117a" prot="public">
+          <name>Sleep</name>
+          <initializer> 0xDF</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7038424ed32246faacae2c03cd15ba936" prot="public">
+          <name>Wake</name>
+          <initializer> 0xE3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7132ebff4c7b7abab86bcf452fb0588ab" prot="public">
+          <name>WebSearch</name>
+          <initializer> 0xE5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe79ca80cc8b5d90831b57c5e15a87c0758" prot="public">
+          <name>WebFavorites</name>
+          <initializer> 0xE6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7b1eb0442bd565d8c8117211c8bf5c864" prot="public">
+          <name>WebRefresh</name>
+          <initializer> 0xE7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe79f3af0022441a818dc33796bdd09b2fc" prot="public">
+          <name>WebStop</name>
+          <initializer> 0xE8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7d6d2d32f1b409f01893a71bca383fb7f" prot="public">
+          <name>WebForward</name>
+          <initializer> 0xE9</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7d0aab63b520485bf8e762b65996a1285" prot="public">
+          <name>WebBack</name>
+          <initializer> 0xEA</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe75e83c84ab43f240af17dc2ddcd9bdd72" prot="public">
+          <name>MyComputer</name>
+          <initializer> 0xEB</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe74b3b382b236aef20b976a86f96adc144" prot="public">
+          <name>Mail</name>
+          <initializer> 0xEC</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe71fef483644d1cd122596a0bc5954272f" prot="public">
+          <name>MediaSelect</name>
+          <initializer> 0xED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" bodystart="32" bodyend="180"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMyGUI_1_1KeyCode_156c0b2b1df2c7aba1f26f66554fb3e3d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::KeyCode::KeyCode</definition>
+        <argsstring>(Enum _value=None)</argsstring>
+        <name>KeyCode</name>
+        <param>
+          <type>Enum</type>
+          <declname>_value</declname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" line="184" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" bodystart="182" bodyend="185"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1KeyCode_19fe1f7b14026be12b43e3c657760c98a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::KeyCode::toValue</definition>
+        <argsstring>() const </argsstring>
+        <name>toValue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" line="218" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" bodystart="217" bodyend="220"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1KeyCode_13dd3c2520a663c67ca6225b12a1189cd" prot="private" static="no" mutable="no">
+        <type>Enum</type>
+        <definition>Enum MyGUI::KeyCode::mValue</definition>
+        <argsstring></argsstring>
+        <name>mValue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" line="223" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="structMyGUI_1_1KeyCode_1bce0f2164d449338352930db79abf8da" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend bool</type>
+        <definition>bool operator&lt;</definition>
+        <argsstring>(KeyCode const &amp;a, KeyCode const &amp;b)</argsstring>
+        <name>operator&lt;</name>
+        <param>
+          <type>KeyCode const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>KeyCode const &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" line="188" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" bodystart="187" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="friend" id="structMyGUI_1_1KeyCode_103619df99b17a67d3781fb5046575617" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend bool</type>
+        <definition>bool operator&gt;=</definition>
+        <argsstring>(KeyCode const &amp;a, KeyCode const &amp;b)</argsstring>
+        <name>operator&gt;=</name>
+        <param>
+          <type>KeyCode const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>KeyCode const &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" line="193" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" bodystart="192" bodyend="195"/>
+      </memberdef>
+      <memberdef kind="friend" id="structMyGUI_1_1KeyCode_1d585a99ef3549211db0d33a7682f770c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend bool</type>
+        <definition>bool operator&gt;</definition>
+        <argsstring>(KeyCode const &amp;a, KeyCode const &amp;b)</argsstring>
+        <name>operator&gt;</name>
+        <param>
+          <type>KeyCode const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>KeyCode const &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" line="198" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" bodystart="197" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="friend" id="structMyGUI_1_1KeyCode_1ed0d04c47201952bf16a155a84e24e16" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend bool</type>
+        <definition>bool operator&lt;=</definition>
+        <argsstring>(KeyCode const &amp;a, KeyCode const &amp;b)</argsstring>
+        <name>operator&lt;=</name>
+        <param>
+          <type>KeyCode const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>KeyCode const &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" line="203" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" bodystart="202" bodyend="205"/>
+      </memberdef>
+      <memberdef kind="friend" id="structMyGUI_1_1KeyCode_11097c4a2357e3265916360aa144c823f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend bool</type>
+        <definition>bool operator==</definition>
+        <argsstring>(KeyCode const &amp;a, KeyCode const &amp;b)</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>KeyCode const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>KeyCode const &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" line="208" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" bodystart="207" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="friend" id="structMyGUI_1_1KeyCode_1e69ad288ded56f496f985564a51aed2e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend bool</type>
+        <definition>bool operator!=</definition>
+        <argsstring>(KeyCode const &amp;a, KeyCode const &amp;b)</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>KeyCode const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>KeyCode const &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" line="213" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" bodystart="212" bodyend="215"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" line="31" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_KeyCode.h" bodystart="30" bodyend="224"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe743c6e7fae08fda711d01d2f57e325a00" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>A</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe79a3587eff8f3ac439e5cdeff64198057" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>ABNT_C1</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe705a5da2a76a26a54c97471346b05c6bf" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>ABNT_C2</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7dafbbc0de116c7c169d2b62a6953432d" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Add</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe729c055f44706888345b2f10f53434bb0" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Apostrophe</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe71e3cf203eea3801c5763144dcd8ca3ac" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>AppMenu</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7a0b1ca769ad8af7b0f5167e71d81e9c4" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>ArrowDown</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7d35605cc1537879feddce18764289d1e" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>ArrowLeft</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe74cbd80baf9e261ab5f9f1822034ff181" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>ArrowRight</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7b3d33253b2b8d2ecee3b37203c191213" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>ArrowUp</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7530677750315ac90756434b4305dd671" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>At</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe78990c7774ec9f6170ed2a54c9a3656f7" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>AX</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe709d3bde1fc59caf6647ca555f0ccabb7" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>B</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7e026073c2450e6e08f5ec5078c31ce69" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Backslash</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe714f4c357f82c9e1aa229102330083405" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Backspace</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7f5c0ead60a616dd4cbca9f7974ce5873" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>C</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe78bf1e8b1d6f32058c07d5f226a0dce31" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Calculator</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7c3ae57d402235339444743d7b41f096c" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Capital</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe78f7aa8d83879abd9af05a8d198e92ed2" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Colon</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe78aa36f3fe1b419fbfd39b1b01833dbc3" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Comma</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7f0414988dd822b1d1265921a4c28cecc" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Convert</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe72fece2052880886e85de4b3245d3832a" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>D</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe781119216044debdfffb784f3d343de69" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Decimal</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7028bc1608b128438a4d35028a06cafee" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Delete</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7e1618a14bb1df2bed803a3df3084ad0c" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Divide</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7734519c4e0ad2de4bcc8c954c01082c7" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>E</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe74636a279f7a04cd9e11b24763d7d94b6" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Eight</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe765f9ac4a5e49fcec57f5eaa661736a88" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>End</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Enum</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe72fbc8ed12f21ce589891ce2303cd3b00" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Equals</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7794c71f42bbc00adbe6d9cc2522e5b3b" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Escape</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7ad32e1083cab08f5f0a38bca168dd475" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>F</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe78db5a3fca80485fe71f7d96cd6b93011" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>F1</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7b0fef3e933fe4e79fe5bd9d8bf0ceebd" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>F10</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe74e9876e00082880b8bf88ac640a98f77" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>F11</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7a3ce05a9c49c3b9e863a555f65b01028" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>F12</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe75baad29c6f64e0911069519f54b52b15" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>F13</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe78e872d5c9b030a0662e8cc64f5b4117d" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>F14</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe72750f49ba54eaf21c9d977542e980ed5" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>F15</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7d600727c760a7a9cca99c61703e370d3" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>F2</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe73b07cfee1387efa4b7e3578f5dfb2a18" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>F3</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7214caa28c10594df7071bc725e95ead1" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>F4</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe732ced8548f7f809e8371f56f15d79663" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>F5</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7169f4f2e10daf94fbb4434013cc697b4" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>F6</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7bf3c37c037a61db2cfd00dd5342b8d22" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>F7</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe795be09847ae286b498887f2629da4b71" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>F8</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7be56e53e5ca6416a9bb6f1ab9894ebf7" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>F9</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe79f2a1b4d7d3cbe5e2746d5e850ca36ae" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Five</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe779c5a06b0344b18c4e2b5c8d9cb505ad" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Four</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7936e1a6b8a4b3b8296aec7ee0b94aaf0" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>G</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe765fe90015644415ae4055ae8699a6d6c" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Grave</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7d38ba85f682af664fa03e689cfcdbd9a" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>H</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe70b9caa569ef63786f3d4d9069588b4ba" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Home</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7d396ad4686fccaf35c53a9370c4a280a" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>I</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe79e94cbcf712870e1ddf8e8eb5820420d" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Insert</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7c42744bcf989747e61ed982d43e115ee" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>J</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe723da7de44282ed3061d802f3fd6f9a63" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>K</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe75d8c5a01854d6cba60a25632d03f4156" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Kana</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7f29368fe5d72cc45c31110bb2f1be4b7" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Kanji</name></member>
+      <member refid="structMyGUI_1_1KeyCode_156c0b2b1df2c7aba1f26f66554fb3e3d" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>KeyCode</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7755fcaa552c758aa6a7a183076b4cba6" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>L</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7127eddea602ed1fc3432316192ff4ce0" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>LeftAlt</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe71bb02f3bce09aa18e740ffebaccf77a6" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>LeftBracket</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7ab265f841e71b5effb5e1bac730a6ed6" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>LeftControl</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe75511b9016b57d6d82fbe1730c91f6f49" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>LeftShift</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe70a9df80c2d0bdd819f1346aff38375ff" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>LeftWindows</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe78ec53844a7c2ade5813f8e891ba411ff" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>M</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe74b3b382b236aef20b976a86f96adc144" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Mail</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe71fef483644d1cd122596a0bc5954272f" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>MediaSelect</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7fcf5d0f1c173e5e0b389fb81425e725c" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>MediaStop</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe78be19ba98ca74686ce5c604857420b27" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Minus</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe72c0e69147266a23d224ea84cf8554a87" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Multiply</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7fbb161243f64633fb5da9937ee876ff2" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Mute</name></member>
+      <member refid="structMyGUI_1_1KeyCode_13dd3c2520a663c67ca6225b12a1189cd" prot="private" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>mValue</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe75e83c84ab43f240af17dc2ddcd9bdd72" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>MyComputer</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe71ec9bd11a5fa72c1ea19f1c1aabaf752" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>N</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe77760e16b0acdd4b4dd7ccbe99f787721" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>NextTrack</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7ee2be75f7011b19bdb0e606e068b311d" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Nine</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe76d75969b64dbe9859b7ea30bc048d3f8" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>NoConvert</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7cad4ffa11b103d181477bbf2131da8b7" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>None</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe741dd5811f3e892dfea3412fa33e8eb94" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>NumLock</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe732eb03f57b5ce7365558b4cc927fd4fd" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Numpad0</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7a71422fe9eda1a8a768e24ecca68db41" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Numpad1</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe72652254eb377ca2cfbb6d176fa38efdf" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Numpad2</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7fa0b217d44b4699d3cf931f6be324c35" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Numpad3</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7d15d80758a3c045f903511d5c8dd6e31" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Numpad4</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe72a222dfe3b684414ea1eeb2891ac550d" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Numpad5</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe76a04d6154f4cc588297871e0ddd2190b" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Numpad6</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe79809a72ded0a2b4890ae273ff16e33b6" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Numpad7</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7a7d9e9388b072267989f3b64663e72c6" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Numpad8</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe70e8b7b45588866215195eddf229a1652" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Numpad9</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe70c6bdea40b89bc4b5911f84912a9adec" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>NumpadComma</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe77e201e59d3340350866244b974f7c30e" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>NumpadEnter</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7ffa198d7351794bbb4500109567793e0" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>NumpadEquals</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7addd0913b172b6c2a1a8e698d5d4cffd" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>O</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7cb537e4c918b1f80ab15a080afaa642a" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>OEM_102</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe727e7e002e9f514df5dbfce66d1b9de5b" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>One</name></member>
+      <member refid="structMyGUI_1_1KeyCode_1e69ad288ded56f496f985564a51aed2e" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>operator!=</name></member>
+      <member refid="structMyGUI_1_1KeyCode_1bce0f2164d449338352930db79abf8da" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>operator&lt;</name></member>
+      <member refid="structMyGUI_1_1KeyCode_1ed0d04c47201952bf16a155a84e24e16" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>operator&lt;=</name></member>
+      <member refid="structMyGUI_1_1KeyCode_11097c4a2357e3265916360aa144c823f" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>operator==</name></member>
+      <member refid="structMyGUI_1_1KeyCode_1d585a99ef3549211db0d33a7682f770c" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>operator&gt;</name></member>
+      <member refid="structMyGUI_1_1KeyCode_103619df99b17a67d3781fb5046575617" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>operator&gt;=</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe72db4959c43e74cf174fa9593dc0c688c" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>P</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7fa9c1d2e2ffdbf28319a07f715cd8c23" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>PageDown</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe74ccbb13de8176dba1bed0afd61abe220" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>PageUp</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7633e5233ac9f3ddf359c72438a2e4e5e" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Pause</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe741850f46c70d4c573b7292d7401844be" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Period</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe75fa746770f798140ed0e2a79be9850e2" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>PlayPause</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7c68f7dfc9609dce086e968a228c81d33" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Power</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe747f10fdffdba59a1cbcfdc84dea81bd4" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>PrevTrack</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe792398c129b8892844575453fbb5cc80e" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Q</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe750e35b302a6cd215f4da72b1e3e668d8" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>R</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7ef04557071d92cf1a9c9f869a5d4f827" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Return</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7008f0213eab2087ef2f1719252cf6141" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>RightAlt</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7e1f3df52c7d934aa657c7e4594f4c05d" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>RightBracket</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7ce0c4d4166e148c40345d9d3b6a81453" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>RightControl</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe79bbfc1694ca31767b12d3cfe2e3f82a6" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>RightShift</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7952c42f1a82444b6136132e7f94eec78" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>RightWindow</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe75f5c1bfffcf1ea43429ca798df64eb87" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>RightWindows</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe79762ecd7498fb39592693e4ac296971d" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>S</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe780525089031a75ce76891e2247766c9c" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>ScrollLock</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe799634c96ddfcd421993660ba92f446a1" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Semicolon</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7235213bb58e8ab241d0009babcdb5a16" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Seven</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7738f93b3226fd70b6a6874917df79915" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Six</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7e5a23114823aaa20f06c6577a2dca00c" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Slash</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe76076f7cc7b9d1ab0cbf64461fd0b117a" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Sleep</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe77501900ff04919123182790a0b08679e" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Space</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe77add644ed699a7b6f294888082b82187" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Stop</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7f919f8d4910eeaeedd870ca71669b760" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Subtract</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe79ea78f6330a354e572f1556c2f50c540" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>SysRq</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7619d34e0723975efc9c12c1c72d96457" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>T</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7373f47165da9cfa130037f01da402ff1" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Tab</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe713bcfcfebc02b0bef3395b63037e5b3c" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Three</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19fe1f7b14026be12b43e3c657760c98a" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>toValue</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7ab30b5898f6db1ec46d02cf87556e46f" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Two</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7bc99968736afb50b379a878f58d36333" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>U</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7afd55986bc64efa4de29f4e8d4aa17fd" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Underline</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe79dd1ceea520f7d0dd03bc75dee5cf35a" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Unlabeled</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7c62161dc1a3a3c84223b83ae18cac92e" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>V</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe78c258765902e5b92f246d1ade1037d30" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>VolumeDown</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7773cd17b4992d1af324173cc7e8b5108" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>VolumeUp</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7279473498b909051a2a75d15b1e18870" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>W</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7038424ed32246faacae2c03cd15ba936" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Wake</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7d0aab63b520485bf8e762b65996a1285" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>WebBack</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe79ca80cc8b5d90831b57c5e15a87c0758" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>WebFavorites</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7d6d2d32f1b409f01893a71bca383fb7f" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>WebForward</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7a4d87b96e4ca4163942d9ea4cf210f2d" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>WebHome</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7b1eb0442bd565d8c8117211c8bf5c864" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>WebRefresh</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7132ebff4c7b7abab86bcf452fb0588ab" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>WebSearch</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe79f3af0022441a818dc33796bdd09b2fc" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>WebStop</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe797d69cd1c1e582a74993effc7627d9d3" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>X</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe75b231e441762b72705227bd9c841fdbc" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Y</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7a1fb90de36d270bc1bfefa7beb56dde0" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Yen</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe7f7734d8e73f30cf3727df7a1a3477965" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Z</name></member>
+      <member refid="structMyGUI_1_1KeyCode_19a9caa3061a80be78d125d5dfdad5fe72ea9c69df6e5ce5720dc4595ac6599c1" prot="public" virt="non-virtual"><scope>MyGUI::KeyCode</scope><name>Zero</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

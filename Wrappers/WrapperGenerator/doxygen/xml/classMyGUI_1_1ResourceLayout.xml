@@ -1,0 +1,280 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1ResourceLayout" kind="class" prot="public">
+    <compoundname>MyGUI::ResourceLayout</compoundname>
+    <includes local="no">MyGUI_ResourceLayout.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1ResourceLayout_11597144d34f88428b93000638f131082" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1ResourceLayout" kindref="compound">RTTIBase</ref></type>
+        <definition>typedef RTTIBase MyGUI::ResourceLayout::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1ResourceLayout_15fb0f64b8e85bf907a387cb0eb31a6d3" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1ResourceLayout" kindref="compound">ResourceLayout</ref></type>
+        <definition>typedef ResourceLayout MyGUI::ResourceLayout::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1ResourceLayout_187b5cbc01753dd866807277c74239fc1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::ResourceLayout::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceLayout_1f627da7804ce6b0e70280f4f1f6ba26a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::ResourceLayout::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceLayout_14dee68bddd94aac653c557e104062bf0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::ResourceLayout::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceLayout_140c916812b47d1a8e2674018ae6f96b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::ResourceLayout::ResourceLayout</definition>
+        <argsstring>()</argsstring>
+        <name>ResourceLayout</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" line="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceLayout_1832c2834c8150ffbc1897a488754f4e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::ResourceLayout::ResourceLayout</definition>
+        <argsstring>(xml::ElementPtr _node, const std::string &amp;_file)</argsstring>
+        <name>ResourceLayout</name>
+        <param>
+          <type>xml::ElementPtr</type>
+          <declname>_node</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" line="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceLayout_17a245072df86ae30f40b3d8728d9f1f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ResourceLayout::deserialization</definition>
+        <argsstring>(xml::ElementPtr _node, Version _version)</argsstring>
+        <name>deserialization</name>
+        <param>
+          <type>xml::ElementPtr</type>
+          <declname>_node</declname>
+        </param>
+        <param>
+          <type>Version</type>
+          <declname>_version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" line="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceLayout_1ada19763c8434f967e398f9f9ba8b8d8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const VectorWidgetInfo &amp;</type>
+        <definition>const VectorWidgetInfo&amp; MyGUI::ResourceLayout::getLayoutData</definition>
+        <argsstring>() const </argsstring>
+        <name>getLayoutData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" line="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceLayout_1964d3f15c220f1743207382a75bdfd81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>VectorWidgetPtr</type>
+        <definition>VectorWidgetPtr MyGUI::ResourceLayout::createLayout</definition>
+        <argsstring>(const std::string &amp;_prefix=&quot;&quot;, Widget *_parent=0)</argsstring>
+        <name>createLayout</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_prefix</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_parent</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create widgets described in layout </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" line="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceLayout_1ce112bba20565bf16000c2fbda5f2329" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::ResourceLayout::createWidget</definition>
+        <argsstring>(const WidgetInfo &amp;_widgetInfo, const std::string &amp;_prefix=&quot;&quot;, Widget *_parent=0, bool _template=false)</argsstring>
+        <name>createWidget</name>
+        <param>
+          <type>const WidgetInfo &amp;</type>
+          <declname>_widgetInfo</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_prefix</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_parent</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_template</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" line="51"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1ResourceLayout_1f0d95be515dbd9056d58968950c9e690" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::ResourceLayout::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classMyGUI_1_1ResourceLayout_19a357589f1ab6a6a141e0fff467362b8" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>WidgetInfo</type>
+        <definition>WidgetInfo MyGUI::ResourceLayout::parseWidget</definition>
+        <argsstring>(xml::ElementEnumerator &amp;_widget)</argsstring>
+        <name>parseWidget</name>
+        <param>
+          <type>xml::ElementEnumerator &amp;</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" line="55"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1ResourceLayout_10876f06f72131220aca6bb37a84f93c8" prot="protected" static="no" mutable="no">
+        <type>VectorWidgetInfo</type>
+        <definition>VectorWidgetInfo MyGUI::ResourceLayout::mLayoutData</definition>
+        <argsstring></argsstring>
+        <name>mLayoutData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" line="58" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><ref refid="classMyGUI_1_1ResourceLayout" kindref="compound">ResourceLayout</ref> is resource that contain full layout info, used for creating widgets. </para>    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" bodystart="33" bodyend="59"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1ResourceLayout_11597144d34f88428b93000638f131082" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1ResourceLayout_1964d3f15c220f1743207382a75bdfd81" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>createLayout</name></member>
+      <member refid="classMyGUI_1_1ResourceLayout_1ce112bba20565bf16000c2fbda5f2329" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1ResourceLayout_17a245072df86ae30f40b3d8728d9f1f1" prot="public" virt="virtual"><scope>MyGUI::ResourceLayout</scope><name>deserialization</name></member>
+      <member refid="classMyGUI_1_1ResourceLayout_1f0d95be515dbd9056d58968950c9e690" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1ResourceLayout_1ada19763c8434f967e398f9f9ba8b8d8" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>getLayoutData</name></member>
+      <member refid="classMyGUI_1_1ResourceLayout_187b5cbc01753dd866807277c74239fc1" prot="public" virt="virtual"><scope>MyGUI::ResourceLayout</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1ResourceLayout_1f627da7804ce6b0e70280f4f1f6ba26a" prot="public" virt="virtual"><scope>MyGUI::ResourceLayout</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ResourceLayout_14dee68bddd94aac653c557e104062bf0" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ResourceLayout_10876f06f72131220aca6bb37a84f93c8" prot="protected" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>mLayoutData</name></member>
+      <member refid="classMyGUI_1_1ResourceLayout_19a357589f1ab6a6a141e0fff467362b8" prot="protected" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>parseWidget</name></member>
+      <member refid="classMyGUI_1_1ResourceLayout_140c916812b47d1a8e2674018ae6f96b5" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>ResourceLayout</name></member>
+      <member refid="classMyGUI_1_1ResourceLayout_1832c2834c8150ffbc1897a488754f4e1" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>ResourceLayout</name></member>
+      <member refid="classMyGUI_1_1ResourceLayout_15fb0f64b8e85bf907a387cb0eb31a6d3" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>RTTIBase</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

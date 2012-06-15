@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1HScroll" kind="class" prot="public">
+    <compoundname>MyGUI::HScroll</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1HScroll_18c036bf66b03042e8b460bedfa37e9aa" prot="public" static="no">
+        <type>RTTIBase</type>
+        <definition>typedef RTTIBase MyGUI::HScroll::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" line="60" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1HScroll_153e3d8dc48c9968b50dbcc9b66f340b0" prot="public" static="no">
+        <type>HScroll</type>
+        <definition>typedef HScroll MyGUI::HScroll::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" line="60" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1HScroll_185bedca3e09f9bba2bf276430f74b2d1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::HScroll::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" line="60" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" bodystart="60" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1HScroll_1d1a7b723a50aec2fe431038330468014" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::HScroll::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" line="60" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" bodystart="60" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1HScroll_1f1cd7eee07b8cf4b92fc4564a433cbd7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::HScroll::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" line="60" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" bodystart="60" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1HScroll_13d08559d296acfaaf8bdaf99feda353c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::HScroll::HScroll</definition>
+        <argsstring>()</argsstring>
+        <name>HScroll</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" line="64" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" bodystart="63" bodyend="66"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1HScroll_104302da4c7b26c544c45c20cd26d4008" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::HScroll::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" line="60" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" bodystart="60" bodyend="60"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" line="59" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" bodystart="57" bodyend="67"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1HScroll_18c036bf66b03042e8b460bedfa37e9aa" prot="public" virt="non-virtual"><scope>MyGUI::HScroll</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1HScroll_104302da4c7b26c544c45c20cd26d4008" prot="public" virt="non-virtual"><scope>MyGUI::HScroll</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1HScroll_185bedca3e09f9bba2bf276430f74b2d1" prot="public" virt="virtual"><scope>MyGUI::HScroll</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1HScroll_13d08559d296acfaaf8bdaf99feda353c" prot="public" virt="non-virtual"><scope>MyGUI::HScroll</scope><name>HScroll</name></member>
+      <member refid="classMyGUI_1_1HScroll_1d1a7b723a50aec2fe431038330468014" prot="public" virt="virtual"><scope>MyGUI::HScroll</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1HScroll_1f1cd7eee07b8cf4b92fc4564a433cbd7" prot="public" virt="non-virtual"><scope>MyGUI::HScroll</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1HScroll_153e3d8dc48c9968b50dbcc9b66f340b0" prot="public" virt="non-virtual"><scope>MyGUI::HScroll</scope><name>RTTIBase</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
