@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Xml;
 using System.IO;
+using System.Collections;
 
 namespace DoxygenWrapper.Wrappers.Compounds
 {
-	public class Compound
+	public class Compound :
+		IEnumerable<Compound>
 	{
 		public string RefID
 		{
@@ -64,6 +66,8 @@ namespace DoxygenWrapper.Wrappers.Compounds
 
 		public void Parse(XmlNode _node)
 		{
+			mParseNode = _node;
+
 			OnParse(_node);
 		}
 
@@ -111,6 +115,16 @@ namespace DoxygenWrapper.Wrappers.Compounds
 		{
 		}
 
+		public IEnumerator<Compound> GetEnumerator()
+		{
+			return mChilds.GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return mChilds.GetEnumerator();
+		}
+
 		private string mRefID = "";
 		private string mKind = "";
 		private string mName = "";
@@ -118,5 +132,6 @@ namespace DoxygenWrapper.Wrappers.Compounds
 		private List<Compound> mChilds = new List<Compound>();
 		private Compound mParent;
 		private XmlNode mInitialiseNode;
+		private XmlNode mParseNode;
 	}
 }

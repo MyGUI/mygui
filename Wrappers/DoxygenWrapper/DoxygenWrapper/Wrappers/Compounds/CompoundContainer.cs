@@ -4,15 +4,15 @@ using System.Xml;
 
 namespace DoxygenWrapper.Wrappers.Compounds
 {
-	public class CompoundNamespace :
+	public class CompoundContainer :
 		Compound
 	{
 		protected override void OnParse(XmlNode _node)
 		{
 			base.OnParse(_node);
 
-			AddChildItems(_node, "innerclass");
-			AddChildItems(_node, "innernamespace");
+			AddChildCompounds(_node, "innerclass");
+			AddChildCompounds(_node, "innernamespace");
 
 			ParseChildItems(_node);
 		}
@@ -48,7 +48,7 @@ namespace DoxygenWrapper.Wrappers.Compounds
 			}
 		}
 
-		private void AddChildItems(XmlNode _node, string _name)
+		private void AddChildCompounds(XmlNode _node, string _name)
 		{
 			foreach (XmlNode node in _node.SelectNodes(_name))
 			{

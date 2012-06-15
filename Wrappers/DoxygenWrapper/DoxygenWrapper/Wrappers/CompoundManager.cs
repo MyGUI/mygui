@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DoxygenWrapper.Wrappers.Compounds;
 using System.Xml;
 using System.IO;
+using DoxygenWrapper.Utilities;
 
 namespace DoxygenWrapper.Wrappers
 {
@@ -23,8 +24,7 @@ namespace DoxygenWrapper.Wrappers
 		{
 			mFatory.RegisterFactory("class", typeof(CompoundClass));
 			mFatory.RegisterFactory("struct", typeof(CompoundClass));
-
-			mFatory.RegisterFactory("namespace", typeof(CompoundNamespace));
+			mFatory.RegisterFactory("namespace", typeof(CompoundContainer));
 			mFatory.RegisterFactory("typedef", typeof(CompoundTypedef));
 			mFatory.RegisterFactory("function", typeof(CompoundFunction));
 			mFatory.RegisterFactory("variable", typeof(CompoundVariable));
@@ -150,16 +150,6 @@ namespace DoxygenWrapper.Wrappers
 			return null;
 		}
 
-		private static CompoundManager mInstance = null;
-		private CompoundFactory mFatory = new CompoundFactory();
-		private Dictionary<string, Compound> mCompounds = new Dictionary<string, Compound>();
-		private Dictionary<string, Compound> mDubCompounds = new Dictionary<string, Compound>();
-		private List<Compound> mIgnoredItems = new List<Compound>();
-		private Compound mRootCompound = new Compound();
-		private string[] mIgnoredNames = new string[] { };
-		private string[] mIgnoredTypes = new string[] { };
-		private string mFolder;
-
 		public bool IsIgnoredCompound(string _refid)
 		{
 			foreach (var compound in mIgnoredItems)
@@ -179,5 +169,40 @@ namespace DoxygenWrapper.Wrappers
 			}
 			return false;
 		}
+
+		public void DumpCompoundTree(string _fileName)
+		{
+			if (File.Exists(_fileName))
+				File.Delete(_fileName);
+
+			XmlDocument doc = new XmlDocument();
+			XmlUtility.CreateXmlDeclaration(doc);
+			XmlElement root = XmlUtility.CreateElement(doc, "Root");
+
+			WriteCompound(root, mRootCompound);
+
+			doc.Save(_fileName);
+		}
+
+		private void WriteCompound(XmlElement _node, Compound _compound)
+		{
+			foreach (Compound child in _compound)
+			{
+				XmlElement node = XmlUtility.CreateElement(_node, child.Kind);
+				XmlUtility.CreateAttribute(node, "name", child.Name);
+				XmlUtility.CreateAttribute(node, "id", child.RefID);
+				WriteCompound(node, child);
+			}
+		}
+	
+		private static CompoundManager mInstance = null;
+		private CompoundFactory mFatory = new CompoundFactory();
+		private Dictionary<string, Compound> mCompounds = new Dictionary<string, Compound>();
+		private Dictionary<string, Compound> mDubCompounds = new Dictionary<string, Compound>();
+		private List<Compound> mIgnoredItems = new List<Compound>();
+		private Compound mRootCompound = new Compound();
+		private string[] mIgnoredNames = new string[] { };
+		private string[] mIgnoredTypes = new string[] { };
+		private string mFolder;
 	}
 }
