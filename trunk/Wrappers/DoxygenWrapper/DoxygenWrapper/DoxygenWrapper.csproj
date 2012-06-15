@@ -61,12 +61,13 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\XmlUtility.cs" />
     <Compile Include="Wrappers\CompoundFactory.cs" />
     <Compile Include="Wrappers\CompoundManager.cs" />
     <Compile Include="Wrappers\Compounds\Compound.cs" />
     <Compile Include="Wrappers\Compounds\CompoundClass.cs" />
     <Compile Include="Wrappers\Compounds\CompoundFunction.cs" />
-    <Compile Include="Wrappers\Compounds\CompoundNamespace.cs" />
+    <Compile Include="Wrappers\Compounds\CompoundContainer.cs" />
     <Compile Include="Wrappers\Compounds\CompoundTypedef.cs" />
     <Compile Include="Wrappers\Compounds\CompoundVariable.cs" />
     <Compile Include="Wrappers\ConsoleUtility.cs" />

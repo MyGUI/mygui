@@ -12,6 +12,8 @@ namespace DoxygenWrapper
 			CompoundManager manager = new CompoundManager();
 			manager.SetIgnoredNameList(new string[] { "MyGUI::Allocator", "MyGUI::Allocator::rebind" });
 			manager.Initialise(@"..\..\..\..\WrapperGenerator\doxygen\xml");
+
+			manager.DumpCompoundTree("CompoundTree.xml");
 		}
 	}
 }
