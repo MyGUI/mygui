@@ -8,156 +8,156 @@
     <includes local="no">map</includes>
     <includedby refid="MyGUI_8h" local="yes">MyGUI.h</includedby>
     <incdepgraph>
-      <node id="2206">
+      <node id="2244">
         <label>MyGUI_Singleton.h</label>
         <link refid="MyGUI__Singleton_8h"/>
-        <childnode refid="2207" relation="include">
+        <childnode refid="2245" relation="include">
         </childnode>
       </node>
-      <node id="2204">
+      <node id="2242">
         <label>MyGUI_Platform.h</label>
         <link refid="MyGUI__Platform_8h"/>
       </node>
-      <node id="2217">
+      <node id="2255">
         <label>MyGUI_LogLevel.h</label>
         <link refid="MyGUI__LogLevel_8h"/>
-        <childnode refid="2203" relation="include">
+        <childnode refid="2241" relation="include">
         </childnode>
       </node>
-      <node id="2210">
+      <node id="2248">
         <label>string</label>
       </node>
-      <node id="2221">
+      <node id="2259">
         <label>map</label>
       </node>
-      <node id="2205">
+      <node id="2243">
         <label>MyGUI_DeprecatedTypes.h</label>
         <link refid="MyGUI__DeprecatedTypes_8h"/>
       </node>
-      <node id="2209">
+      <node id="2247">
         <label>exception</label>
       </node>
-      <node id="2211">
+      <node id="2249">
         <label>MyGUI_LogManager.h</label>
         <link refid="MyGUI__LogManager_8h"/>
-        <childnode refid="2203" relation="include">
+        <childnode refid="2241" relation="include">
         </childnode>
-        <childnode refid="2212" relation="include">
+        <childnode refid="2250" relation="include">
         </childnode>
-        <childnode refid="2215" relation="include">
+        <childnode refid="2253" relation="include">
         </childnode>
-        <childnode refid="2207" relation="include">
+        <childnode refid="2245" relation="include">
         </childnode>
-        <childnode refid="2219" relation="include">
+        <childnode refid="2257" relation="include">
         </childnode>
       </node>
-      <node id="2212">
+      <node id="2250">
         <label>MyGUI_LogStream.h</label>
         <link refid="MyGUI__LogStream_8h"/>
-        <childnode refid="2203" relation="include">
+        <childnode refid="2241" relation="include">
         </childnode>
-        <childnode refid="2213" relation="include">
+        <childnode refid="2251" relation="include">
         </childnode>
-        <childnode refid="2214" relation="include">
+        <childnode refid="2252" relation="include">
         </childnode>
       </node>
-      <node id="2213">
+      <node id="2251">
         <label>string.h</label>
       </node>
-      <node id="2219">
+      <node id="2257">
         <label>vector</label>
       </node>
-      <node id="2218">
+      <node id="2256">
         <label>MyGUI_ILogListener.h</label>
         <link refid="MyGUI__ILogListener_8h"/>
-        <childnode refid="2203" relation="include">
+        <childnode refid="2241" relation="include">
         </childnode>
-        <childnode refid="2217" relation="include">
+        <childnode refid="2255" relation="include">
         </childnode>
       </node>
-      <node id="2214">
+      <node id="2252">
         <label>sstream</label>
       </node>
-      <node id="2207">
+      <node id="2245">
         <label>MyGUI_Diagnostic.h</label>
         <link refid="MyGUI__Diagnostic_8h"/>
-        <childnode refid="2203" relation="include">
+        <childnode refid="2241" relation="include">
         </childnode>
-        <childnode refid="2208" relation="include">
+        <childnode refid="2246" relation="include">
         </childnode>
-        <childnode refid="2211" relation="include">
+        <childnode refid="2249" relation="include">
         </childnode>
-        <childnode refid="2214" relation="include">
+        <childnode refid="2252" relation="include">
         </childnode>
       </node>
-      <node id="2208">
+      <node id="2246">
         <label>MyGUI_Exception.h</label>
         <link refid="MyGUI__Exception_8h"/>
-        <childnode refid="2203" relation="include">
+        <childnode refid="2241" relation="include">
         </childnode>
-        <childnode refid="2209" relation="include">
+        <childnode refid="2247" relation="include">
         </childnode>
-        <childnode refid="2210" relation="include">
+        <childnode refid="2248" relation="include">
         </childnode>
       </node>
-      <node id="2220">
+      <node id="2258">
         <label>MyGUI_DynLib.h</label>
         <link refid="MyGUI__DynLib_8h"/>
-        <childnode refid="2203" relation="include">
+        <childnode refid="2241" relation="include">
         </childnode>
-        <childnode refid="2210" relation="include">
+        <childnode refid="2248" relation="include">
         </childnode>
       </node>
-      <node id="2202">
+      <node id="2240">
         <label>MyGUI_DynLibManager.h</label>
         <link refid="MyGUI_DynLibManager.h"/>
-        <childnode refid="2203" relation="include">
+        <childnode refid="2241" relation="include">
         </childnode>
-        <childnode refid="2206" relation="include">
+        <childnode refid="2244" relation="include">
         </childnode>
-        <childnode refid="2220" relation="include">
+        <childnode refid="2258" relation="include">
         </childnode>
-        <childnode refid="2221" relation="include">
+        <childnode refid="2259" relation="include">
         </childnode>
       </node>
-      <node id="2216">
+      <node id="2254">
         <label>MyGUI_ILogFilter.h</label>
         <link refid="MyGUI__ILogFilter_8h"/>
-        <childnode refid="2203" relation="include">
+        <childnode refid="2241" relation="include">
         </childnode>
-        <childnode refid="2217" relation="include">
+        <childnode refid="2255" relation="include">
         </childnode>
       </node>
-      <node id="2215">
+      <node id="2253">
         <label>MyGUI_LogSource.h</label>
         <link refid="MyGUI__LogSource_8h"/>
-        <childnode refid="2203" relation="include">
+        <childnode refid="2241" relation="include">
         </childnode>
-        <childnode refid="2216" relation="include">
+        <childnode refid="2254" relation="include">
         </childnode>
-        <childnode refid="2218" relation="include">
+        <childnode refid="2256" relation="include">
         </childnode>
-        <childnode refid="2219" relation="include">
+        <childnode refid="2257" relation="include">
         </childnode>
       </node>
-      <node id="2203">
+      <node id="2241">
         <label>MyGUI_Prerequest.h</label>
         <link refid="MyGUI__Prerequest_8h"/>
-        <childnode refid="2204" relation="include">
+        <childnode refid="2242" relation="include">
         </childnode>
-        <childnode refid="2205" relation="include">
+        <childnode refid="2243" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2223">
+      <node id="2261">
         <label>MyGUI.h</label>
         <link refid="MyGUI_8h"/>
       </node>
-      <node id="2222">
+      <node id="2260">
         <label>MyGUI_DynLibManager.h</label>
         <link refid="MyGUI_DynLibManager.h"/>
-        <childnode refid="2223" relation="include">
+        <childnode refid="2261" relation="include">
         </childnode>
       </node>
     </invincdepgraph>

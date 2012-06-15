@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1MemberObsolete_3_01Gui_01_4" kind="class" prot="public">
     <compoundname>MyGUI::MemberObsolete&lt; Gui &gt;</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1Gui" prot="public" virt="non-virtual">MyGUI::Gui</derivedcompoundref>
+    <includes local="no">MyGUI_BackwardCompatibility.h</includes>
     <templateparamlist>
     </templateparamlist>
       <sectiondef kind="public-func">
@@ -11,7 +13,7 @@
         <argsstring>(VectorWidgetPtr &amp;_widgets)</argsstring>
         <name>destroyWidgetsVector</name>
         <param>
-          <type>VectorWidgetPtr &amp;</type>
+          <type><ref refid="namespaceMyGUI_1df1f7c0b898769fe23f821eee2f682f6" kindref="member">VectorWidgetPtr</ref> &amp;</type>
           <declname>_widgets</declname>
         </param>
         <briefdescription>
@@ -143,7 +145,7 @@
           <declname>_absy</declname>
         </param>
         <param>
-          <type>MouseButton</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref></type>
           <declname>_id</declname>
         </param>
         <briefdescription>
@@ -168,7 +170,7 @@
           <declname>_absy</declname>
         </param>
         <param>
-          <type>MouseButton</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref></type>
           <declname>_id</declname>
         </param>
         <briefdescription>
@@ -185,11 +187,11 @@
         <argsstring>(KeyCode _key, Char _text=0)</argsstring>
         <name>injectKeyPress</name>
         <param>
-          <type>KeyCode</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref></type>
           <declname>_key</declname>
         </param>
         <param>
-          <type>Char</type>
+          <type><ref refid="namespaceMyGUI_1312ae095245acb5cb634a8eb34d21017" kindref="member">Char</ref></type>
           <declname>_text</declname>
           <defval>0</defval>
         </param>
@@ -207,7 +209,7 @@
         <argsstring>(KeyCode _key)</argsstring>
         <name>injectKeyRelease</name>
         <param>
-          <type>KeyCode</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref></type>
           <declname>_key</declname>
         </param>
         <briefdescription>
@@ -266,7 +268,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="452"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01Gui_01_4_14c449ce3a8d84960af286519ca04c204" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>const IntSize &amp;</type>
+        <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
         <definition>const IntSize&amp; MyGUI::MemberObsolete&lt; Gui &gt;::getViewSize</definition>
         <argsstring>()</argsstring>
         <name>getViewSize</name>
@@ -301,7 +303,7 @@
         <argsstring>(const IntSize &amp;_size)</argsstring>
         <name>_resizeWindow</name>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_size</declname>
         </param>
         <briefdescription>
@@ -317,6 +319,18 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1524">
+        <label>MyGUI::MemberObsolete&lt; Gui &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Gui_01_4"/>
+      </node>
+      <node id="1525">
+        <label>MyGUI::Gui</label>
+        <link refid="classMyGUI_1_1Gui"/>
+        <childnode refid="1524" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="416" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="415" bodyend="461"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1MemberObsolete_3_01Gui_01_4_1a3c2f892c1cb791ab4c84aa06ed8054c" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; Gui &gt;</scope><name>_injectFrameEntered</name></member>

@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1LogLevel" kind="struct" prot="public">
     <compoundname>MyGUI::LogLevel</compoundname>
+    <includes local="no">MyGUI_LogLevel.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="enum" id="structMyGUI_1_1LogLevel_11cff3486f65232bed056910c5d5a4c06" prot="public" static="no">
         <name>Enum</name>
@@ -69,7 +70,7 @@
         <argsstring>(Enum _value)</argsstring>
         <name>LogLevel</name>
         <param>
-          <type>Enum</type>
+          <type><ref refid="structMyGUI_1_1LogLevel_11cff3486f65232bed056910c5d5a4c06" kindref="member">Enum</ref></type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -96,7 +97,7 @@
       </sectiondef>
       <sectiondef kind="public-static-func">
       <memberdef kind="function" id="structMyGUI_1_1LogLevel_1cb94f9c6a5fcc172ec70114b926e30c2" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>LogLevel</type>
+        <type><ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref></type>
         <definition>static LogLevel MyGUI::LogLevel::parse</definition>
         <argsstring>(const std::string &amp;_value)</argsstring>
         <name>parse</name>
@@ -134,7 +135,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="structMyGUI_1_1LogLevel_1417e2918b94cb8302992d49aa4e79f6d" prot="private" static="no" mutable="no">
-        <type>Enum</type>
+        <type><ref refid="structMyGUI_1_1LogLevel_11cff3486f65232bed056910c5d5a4c06" kindref="member">Enum</ref></type>
         <definition>Enum MyGUI::LogLevel::mValue</definition>
         <argsstring></argsstring>
         <name>mValue</name>
@@ -154,11 +155,11 @@
         <argsstring>(LogLevel const &amp;a, LogLevel const &amp;b)</argsstring>
         <name>operator&lt;</name>
         <param>
-          <type>LogLevel const &amp;</type>
+          <type><ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>LogLevel const &amp;</type>
+          <type><ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -175,11 +176,11 @@
         <argsstring>(LogLevel const &amp;a, LogLevel const &amp;b)</argsstring>
         <name>operator&gt;=</name>
         <param>
-          <type>LogLevel const &amp;</type>
+          <type><ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>LogLevel const &amp;</type>
+          <type><ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -196,11 +197,11 @@
         <argsstring>(LogLevel const &amp;a, LogLevel const &amp;b)</argsstring>
         <name>operator&gt;</name>
         <param>
-          <type>LogLevel const &amp;</type>
+          <type><ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>LogLevel const &amp;</type>
+          <type><ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -217,11 +218,11 @@
         <argsstring>(LogLevel const &amp;a, LogLevel const &amp;b)</argsstring>
         <name>operator&lt;=</name>
         <param>
-          <type>LogLevel const &amp;</type>
+          <type><ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>LogLevel const &amp;</type>
+          <type><ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -238,11 +239,11 @@
         <argsstring>(LogLevel const &amp;a, LogLevel const &amp;b)</argsstring>
         <name>operator==</name>
         <param>
-          <type>LogLevel const &amp;</type>
+          <type><ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>LogLevel const &amp;</type>
+          <type><ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -259,11 +260,11 @@
         <argsstring>(LogLevel const &amp;a, LogLevel const &amp;b)</argsstring>
         <name>operator!=</name>
         <param>
-          <type>LogLevel const &amp;</type>
+          <type><ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>LogLevel const &amp;</type>
+          <type><ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -284,7 +285,7 @@
           <declname>_stream</declname>
         </param>
         <param>
-          <type>const LogLevel &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -305,7 +306,7 @@
           <declname>_stream</declname>
         </param>
         <param>
-          <type>LogLevel &amp;</type>
+          <type><ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>

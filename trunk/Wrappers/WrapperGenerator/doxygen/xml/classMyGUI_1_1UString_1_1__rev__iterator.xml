@@ -212,32 +212,32 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="742">
+      <node id="2947">
         <label>MyGUI::UString::_base_iterator</label>
         <link refid="classMyGUI_1_1UString_1_1__base__iterator"/>
       </node>
-      <node id="741">
+      <node id="2946">
         <label>MyGUI::UString::_rev_iterator</label>
         <link refid="classMyGUI_1_1UString_1_1__rev__iterator"/>
-        <childnode refid="742" relation="public-inheritance">
+        <childnode refid="2947" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="744">
+      <node id="2949">
         <label>MyGUI::UString::_base_iterator</label>
         <link refid="classMyGUI_1_1UString_1_1__base__iterator"/>
-        <childnode refid="745" relation="usage">
+        <childnode refid="2950" relation="usage">
           <edgelabel>mString</edgelabel>
         </childnode>
       </node>
-      <node id="743">
+      <node id="2948">
         <label>MyGUI::UString::_rev_iterator</label>
         <link refid="classMyGUI_1_1UString_1_1__rev__iterator"/>
-        <childnode refid="744" relation="public-inheritance">
+        <childnode refid="2949" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="745">
+      <node id="2950">
         <label>MyGUI::UString</label>
         <link refid="classMyGUI_1_1UString"/>
       </node>

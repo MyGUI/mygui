@@ -3,6 +3,8 @@
   <compounddef id="classMyGUI_1_1ComboBox" kind="class" prot="public">
     <compoundname>MyGUI::ComboBox</compoundname>
     <basecompoundref refid="classMyGUI_1_1EditBox" prot="public" virt="non-virtual">MyGUI::EditBox</basecompoundref>
+    <basecompoundref refid="classMyGUI_1_1IItemContainer" prot="public" virt="non-virtual">MyGUI::IItemContainer</basecompoundref>
+    <basecompoundref refid="classMyGUI_1_1MemberObsolete_3_01ComboBox_01_4" prot="public" virt="non-virtual">MyGUI::MemberObsolete&lt; ComboBox &gt;</basecompoundref>
     <includes local="no">MyGUI_ComboBox.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="typedef" id="classMyGUI_1_1ComboBox_1b8ec0d2ef3c6581f4236daad79bab309" prot="public" static="no">
@@ -128,9 +130,9 @@
           <declname>_name</declname>
         </param>
         <param>
-          <type>Any</type>
+          <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref></type>
           <declname>_data</declname>
-          <defval>Any::Null</defval>
+          <defval><ref refid="classMyGUI_1_1Any_19988b23fab77d89af4c372c3f761bc5b" kindref="member">Any::Null</ref></defval>
         </param>
         <briefdescription>
 <para>Insert an item into a array at a specified position. </para>        </briefdescription>
@@ -150,9 +152,9 @@
           <declname>_name</declname>
         </param>
         <param>
-          <type>Any</type>
+          <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref></type>
           <declname>_data</declname>
-          <defval>Any::Null</defval>
+          <defval><ref refid="classMyGUI_1_1Any_19988b23fab77d89af4c372c3f761bc5b" kindref="member">Any::Null</ref></defval>
         </param>
         <briefdescription>
 <para>Add an item to the end of a array. </para>        </briefdescription>
@@ -262,7 +264,7 @@
           <declname>_index</declname>
         </param>
         <param>
-          <type>Any</type>
+          <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref></type>
           <declname>_data</declname>
         </param>
         <briefdescription>
@@ -509,7 +511,7 @@
         <argsstring>(FlowDirection _value)</argsstring>
         <name>setFlowDirection</name>
         <param>
-          <type>FlowDirection</type>
+          <type><ref refid="structMyGUI_1_1FlowDirection" kindref="compound">FlowDirection</ref></type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -521,7 +523,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="152"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1ComboBox_13570bddc7d9431ff631c10ff38483efe" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>FlowDirection</type>
+        <type><ref refid="structMyGUI_1_1FlowDirection" kindref="compound">FlowDirection</ref></type>
         <definition>FlowDirection MyGUI::ComboBox::getFlowDirection</definition>
         <argsstring>() const </argsstring>
         <name>getFlowDirection</name>
@@ -538,6 +540,7 @@
         <definition>virtual size_t MyGUI::ComboBox::_getItemCount</definition>
         <argsstring>()</argsstring>
         <name>_getItemCount</name>
+        <reimplements refid="classMyGUI_1_1IItemContainer_13bedbf3f8c47a817e76bc2d649a8b235">_getItemCount</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -551,6 +554,7 @@
         <definition>virtual void MyGUI::ComboBox::_addItem</definition>
         <argsstring>(const MyGUI::UString &amp;_name)</argsstring>
         <name>_addItem</name>
+        <reimplements refid="classMyGUI_1_1IItemContainer_154f20b71a863c33df9d6d3157a8bf665">_addItem</reimplements>
         <param>
           <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">MyGUI::UString</ref> &amp;</type>
           <declname>_name</declname>
@@ -568,6 +572,7 @@
         <definition>virtual void MyGUI::ComboBox::_removeItemAt</definition>
         <argsstring>(size_t _index)</argsstring>
         <name>_removeItemAt</name>
+        <reimplements refid="classMyGUI_1_1IItemContainer_1ae140655a985cbacdd92ae3c512b3352">_removeItemAt</reimplements>
         <param>
           <type>size_t</type>
           <declname>_index</declname>
@@ -585,6 +590,7 @@
         <definition>virtual void MyGUI::ComboBox::_setItemNameAt</definition>
         <argsstring>(size_t _index, const UString &amp;_name)</argsstring>
         <name>_setItemNameAt</name>
+        <reimplements refid="classMyGUI_1_1IItemContainer_1b55cf00b90d344b4a8d5d4ce311d7eaf">_setItemNameAt</reimplements>
         <param>
           <type>size_t</type>
           <declname>_index</declname>
@@ -606,6 +612,7 @@
         <definition>virtual const UString&amp; MyGUI::ComboBox::_getItemNameAt</definition>
         <argsstring>(size_t _index)</argsstring>
         <name>_getItemNameAt</name>
+        <reimplements refid="classMyGUI_1_1IItemContainer_118b5e7dfe7b2470b67a8a6206a47e078">_getItemNameAt</reimplements>
         <param>
           <type>size_t</type>
           <declname>_index</declname>
@@ -639,7 +646,7 @@
       </sectiondef>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1ComboBox_116ad756a0cfd3ffba452dbed8aa7ecfa" prot="public" static="no" mutable="no">
-        <type>EventPair&lt; EventHandle_WidgetVoid, EventHandle_ComboBoxPtrSizeT &gt;</type>
+        <type><ref refid="classMyGUI_1_1EventPair" kindref="compound">EventPair</ref>&lt; <ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">EventHandle_WidgetVoid</ref>, <ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">EventHandle_ComboBoxPtrSizeT</ref> &gt;</type>
         <definition>EventPair&lt;EventHandle_WidgetVoid, EventHandle_ComboBoxPtrSizeT&gt; MyGUI::ComboBox::eventComboAccept</definition>
         <argsstring></argsstring>
         <name>eventComboAccept</name>
@@ -668,7 +675,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="164" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="164" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1ComboBox_1ba514ee5f021d581152132ee56ffa20b" prot="public" static="no" mutable="no">
-        <type>EventPair&lt; EventHandle_WidgetSizeT, EventHandle_ComboBoxPtrSizeT &gt;</type>
+        <type><ref refid="classMyGUI_1_1EventPair" kindref="compound">EventPair</ref>&lt; <ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">EventHandle_WidgetSizeT</ref>, <ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">EventHandle_ComboBoxPtrSizeT</ref> &gt;</type>
         <definition>EventPair&lt;EventHandle_WidgetSizeT, EventHandle_ComboBoxPtrSizeT&gt; MyGUI::ComboBox::eventComboChangePosition</definition>
         <argsstring></argsstring>
         <name>eventComboChangePosition</name>
@@ -749,11 +756,11 @@
         <name>onKeyButtonPressed</name>
         <reimplements refid="classMyGUI_1_1EditBox_13c9f468f7302a039882a0ccca92c92b7">onKeyButtonPressed</reimplements>
         <param>
-          <type>KeyCode</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref></type>
           <declname>_key</declname>
         </param>
         <param>
-          <type>Char</type>
+          <type><ref refid="namespaceMyGUI_1312ae095245acb5cb634a8eb34d21017" kindref="member">Char</ref></type>
           <declname>_char</declname>
         </param>
         <briefdescription>
@@ -806,7 +813,7 @@
           <declname>_top</declname>
         </param>
         <param>
-          <type>MouseButton</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref></type>
           <declname>_id</declname>
         </param>
         <briefdescription>
@@ -942,7 +949,7 @@
           <declname>_top</declname>
         </param>
         <param>
-          <type>MouseButton</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref></type>
           <declname>_id</declname>
         </param>
         <briefdescription>
@@ -1060,7 +1067,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="208"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1ComboBox_10921e8f7c48b951375e1554a3a56c799" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>IntCoord</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref></type>
         <definition>IntCoord MyGUI::ComboBox::calculateListPosition</definition>
         <argsstring>()</argsstring>
         <name>calculateListPosition</name>
@@ -1179,7 +1186,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="220" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="220" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1ComboBox_1aa8c5a685d88bb67528cbb0770302684" prot="private" static="no" mutable="no">
-        <type>FlowDirection</type>
+        <type><ref refid="structMyGUI_1_1FlowDirection" kindref="compound">FlowDirection</ref></type>
         <definition>FlowDirection MyGUI::ComboBox::mFlowDirection</definition>
         <argsstring></argsstring>
         <name>mFlowDirection</name>
@@ -1197,153 +1204,676 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="108">
+      <node id="230">
         <label>MyGUI::ComboBox</label>
         <link refid="classMyGUI_1_1ComboBox"/>
-        <childnode refid="109" relation="public-inheritance">
+        <childnode refid="231" relation="public-inheritance">
+        </childnode>
+        <childnode refid="245" relation="public-inheritance">
+        </childnode>
+        <childnode refid="246" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="109">
+      <node id="239">
+        <label>MyGUI::SkinItem</label>
+        <link refid="classMyGUI_1_1SkinItem"/>
+        <childnode refid="240" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="241">
+        <label>MyGUI::ILayerItem</label>
+        <link refid="classMyGUI_1_1ILayerItem"/>
+      </node>
+      <node id="231">
         <label>MyGUI::EditBox</label>
         <link refid="classMyGUI_1_1EditBox"/>
-        <childnode refid="110" relation="public-inheritance">
+        <childnode refid="232" relation="public-inheritance">
+        </childnode>
+        <childnode refid="243" relation="public-inheritance">
+        </childnode>
+        <childnode refid="244" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="110">
+      <node id="246">
+        <label>MyGUI::MemberObsolete&lt; ComboBox &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01ComboBox_01_4"/>
+      </node>
+      <node id="235">
+        <label>MyGUI::ICroppedRectangle</label>
+        <link refid="classMyGUI_1_1ICroppedRectangle"/>
+      </node>
+      <node id="232">
         <label>MyGUI::TextBox</label>
         <link refid="classMyGUI_1_1TextBox"/>
-        <childnode refid="111" relation="public-inheritance">
+        <childnode refid="233" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="112">
+      <node id="242">
+        <label>MyGUI::MemberObsolete&lt; Widget &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4"/>
+      </node>
+      <node id="236">
         <label>MyGUI::UserData</label>
         <link refid="classMyGUI_1_1UserData"/>
       </node>
-      <node id="111">
+      <node id="244">
+        <label>MyGUI::MemberObsolete&lt; EditBox &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4"/>
+      </node>
+      <node id="233">
         <label>MyGUI::Widget</label>
         <link refid="classMyGUI_1_1Widget"/>
-        <childnode refid="112" relation="public-inheritance">
+        <childnode refid="234" relation="public-inheritance">
         </childnode>
+        <childnode refid="235" relation="public-inheritance">
+        </childnode>
+        <childnode refid="236" relation="public-inheritance">
+        </childnode>
+        <childnode refid="237" relation="public-inheritance">
+        </childnode>
+        <childnode refid="238" relation="public-inheritance">
+        </childnode>
+        <childnode refid="239" relation="public-inheritance">
+        </childnode>
+        <childnode refid="242" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="238">
+        <label>MyGUI::delegates::IDelegateUnlink</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegateUnlink"/>
+      </node>
+      <node id="237">
+        <label>MyGUI::WidgetInput</label>
+        <link refid="classMyGUI_1_1WidgetInput"/>
+      </node>
+      <node id="240">
+        <label>MyGUI::LayerItem</label>
+        <link refid="classMyGUI_1_1LayerItem"/>
+        <childnode refid="241" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="243">
+        <label>MyGUI::ScrollViewBase</label>
+        <link refid="classMyGUI_1_1ScrollViewBase"/>
+      </node>
+      <node id="245">
+        <label>MyGUI::IItemContainer</label>
+        <link refid="classMyGUI_1_1IItemContainer"/>
+      </node>
+      <node id="234">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="113">
+      <node id="265">
+        <label>MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate1"/>
+      </node>
+      <node id="280">
+        <label>MyGUI::WidgetStyle</label>
+        <link refid="structMyGUI_1_1WidgetStyle"/>
+      </node>
+      <node id="254">
+        <label>T</label>
+      </node>
+      <node id="298">
+        <label>MyGUI::EventPair&lt; EventHandle_WidgetVoid, EventHandle_ComboBoxPtrSizeT &gt;</label>
+        <link refid="classMyGUI_1_1EventPair"/>
+        <childnode refid="265" relation="usage">
+          <edgelabel>m_eventObsolete</edgelabel>
+        </childnode>
+        <childnode refid="266" relation="usage">
+          <edgelabel>m_event</edgelabel>
+        </childnode>
+      </node>
+      <node id="272">
+        <label>MyGUI::ILayer</label>
+        <link refid="classMyGUI_1_1ILayer"/>
+        <childnode refid="273" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="283">
+        <label>MyGUI::MemberObsolete&lt; ScrollBar &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete"/>
+      </node>
+      <node id="247">
         <label>MyGUI::ComboBox</label>
         <link refid="classMyGUI_1_1ComboBox"/>
-        <childnode refid="114" relation="public-inheritance">
+        <childnode refid="248" relation="public-inheritance">
         </childnode>
-        <childnode refid="119" relation="usage">
+        <childnode refid="293" relation="public-inheritance">
+        </childnode>
+        <childnode refid="294" relation="public-inheritance">
+        </childnode>
+        <childnode refid="295" relation="usage">
           <edgelabel>mList</edgelabel>
         </childnode>
-        <childnode refid="121" relation="usage">
+        <childnode refid="298" relation="usage">
+          <edgelabel>eventComboAccept</edgelabel>
+        </childnode>
+        <childnode refid="299" relation="usage">
+          <edgelabel>mFlowDirection</edgelabel>
+        </childnode>
+        <childnode refid="300" relation="usage">
+          <edgelabel>eventComboChangePosition</edgelabel>
+        </childnode>
+        <childnode refid="284" relation="usage">
           <edgelabel>mButton</edgelabel>
         </childnode>
       </node>
-      <node id="119">
+      <node id="255">
+        <label>MyGUI::types::TCoord&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TCoord"/>
+        <childnode refid="254" relation="usage">
+          <edgelabel>width
+height
+left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="268">
+        <label>MyGUI::SkinItem</label>
+        <link refid="classMyGUI_1_1SkinItem"/>
+        <childnode refid="269" relation="public-inheritance">
+        </childnode>
+        <childnode refid="271" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="275" relation="usage">
+          <edgelabel>mMainSkin</edgelabel>
+        </childnode>
+        <childnode refid="278" relation="usage">
+          <edgelabel>mText</edgelabel>
+        </childnode>
+      </node>
+      <node id="291">
+        <label>MyGUI::EventPair&lt; EventHandle_WidgetVoid, EventHandle_EditPtr &gt;</label>
+        <link refid="classMyGUI_1_1EventPair"/>
+        <childnode refid="265" relation="usage">
+          <edgelabel>m_eventObsolete
+m_event</edgelabel>
+        </childnode>
+      </node>
+      <node id="295">
         <label>MyGUI::ListBox</label>
         <link refid="classMyGUI_1_1ListBox"/>
-        <childnode refid="116" relation="public-inheritance">
+        <childnode refid="250" relation="public-inheritance">
         </childnode>
-        <childnode refid="120" relation="usage">
+        <childnode refid="293" relation="public-inheritance">
+        </childnode>
+        <childnode refid="296" relation="public-inheritance">
+        </childnode>
+        <childnode refid="297" relation="usage">
+          <edgelabel>eventListSelectAccept
+eventListMouseItemFocus
+eventListMouseItemActivate
+eventListChangeScroll
+eventListChangePosition</edgelabel>
+        </childnode>
+        <childnode refid="287" relation="usage">
+          <edgelabel>mOldSize</edgelabel>
+        </childnode>
+        <childnode refid="282" relation="usage">
           <edgelabel>mWidgetScroll</edgelabel>
         </childnode>
-        <childnode refid="116" relation="usage">
+        <childnode refid="250" relation="usage">
           <edgelabel>mClient</edgelabel>
         </childnode>
       </node>
-      <node id="114">
+      <node id="270">
+        <label>MyGUI::ILayerItem</label>
+        <link refid="classMyGUI_1_1ILayerItem"/>
+      </node>
+      <node id="296">
+        <label>MyGUI::MemberObsolete&lt; ListBox &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01ListBox_01_4"/>
+      </node>
+      <node id="248">
         <label>MyGUI::EditBox</label>
         <link refid="classMyGUI_1_1EditBox"/>
-        <childnode refid="115" relation="public-inheritance">
+        <childnode refid="249" relation="public-inheritance">
         </childnode>
-        <childnode refid="118" relation="usage">
+        <childnode refid="281" relation="public-inheritance">
+        </childnode>
+        <childnode refid="290" relation="public-inheritance">
+        </childnode>
+        <childnode refid="278" relation="usage">
+          <edgelabel>mClientText</edgelabel>
+        </childnode>
+        <childnode refid="291" relation="usage">
+          <edgelabel>eventEditTextChange
+eventEditSelectAccept</edgelabel>
+        </childnode>
+        <childnode refid="292" relation="usage">
           <edgelabel>mPasswordText</edgelabel>
         </childnode>
       </node>
-      <node id="115">
+      <node id="261">
+        <label>MyGUI::delegates::CMultiDelegate3&lt; TP1, TP2, TP3 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate3"/>
+      </node>
+      <node id="271">
+        <label>MyGUI::ITexture</label>
+        <link refid="classMyGUI_1_1ITexture"/>
+      </node>
+      <node id="294">
+        <label>MyGUI::MemberObsolete&lt; ComboBox &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01ComboBox_01_4"/>
+      </node>
+      <node id="262">
+        <label>MyGUI::delegates::CMultiDelegate4&lt; TP1, TP2, TP3, TP4 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate4"/>
+      </node>
+      <node id="264">
+        <label>MyGUI::MaskPickInfo</label>
+        <link refid="classMyGUI_1_1MaskPickInfo"/>
+      </node>
+      <node id="252">
+        <label>MyGUI::ICroppedRectangle</label>
+        <link refid="classMyGUI_1_1ICroppedRectangle"/>
+        <childnode refid="253" relation="usage">
+          <edgelabel>mAbsolutePosition</edgelabel>
+        </childnode>
+        <childnode refid="255" relation="usage">
+          <edgelabel>mCoord</edgelabel>
+        </childnode>
+        <childnode refid="256" relation="usage">
+          <edgelabel>mMargin</edgelabel>
+        </childnode>
+        <childnode refid="252" relation="usage">
+          <edgelabel>mCroppedParent</edgelabel>
+        </childnode>
+      </node>
+      <node id="256">
+        <label>MyGUI::types::TRect&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TRect"/>
+        <childnode refid="254" relation="usage">
+          <edgelabel>right
+left
+bottom
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="274">
+        <label>MyGUI::ILayerNode</label>
+        <link refid="classMyGUI_1_1ILayerNode"/>
+        <childnode refid="251" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="249">
         <label>MyGUI::TextBox</label>
         <link refid="classMyGUI_1_1TextBox"/>
-        <childnode refid="116" relation="public-inheritance">
+        <childnode refid="250" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="122">
+      <node id="279">
+        <label>MyGUI::MemberObsolete&lt; Widget &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4"/>
+      </node>
+      <node id="266">
+        <label>MyGUI::delegates::CMultiDelegate2&lt; TP1, TP2 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate2"/>
+      </node>
+      <node id="297">
+        <label>MyGUI::EventPair&lt; EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT &gt;</label>
+        <link refid="classMyGUI_1_1EventPair"/>
+        <childnode refid="266" relation="usage">
+          <edgelabel>m_eventObsolete
+m_event</edgelabel>
+        </childnode>
+      </node>
+      <node id="286">
         <label>MyGUI::ImageBox</label>
         <link refid="classMyGUI_1_1ImageBox"/>
-        <childnode refid="116" relation="public-inheritance">
+        <childnode refid="250" relation="public-inheritance">
+        </childnode>
+        <childnode refid="287" relation="usage">
+          <edgelabel>mSizeTexture
+mSizeTile</edgelabel>
+        </childnode>
+        <childnode refid="256" relation="usage">
+          <edgelabel>mRectImage</edgelabel>
+        </childnode>
+        <childnode refid="288" relation="usage">
+          <edgelabel>mResource</edgelabel>
         </childnode>
       </node>
-      <node id="117">
+      <node id="288">
+        <label>MyGUI::ResourceImageSet</label>
+        <link refid="classMyGUI_1_1ResourceImageSet"/>
+        <childnode refid="289" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="257">
         <label>MyGUI::UserData</label>
         <link refid="classMyGUI_1_1UserData"/>
+        <childnode refid="258" relation="usage">
+          <edgelabel>mUserData
+mInternalData</edgelabel>
+        </childnode>
       </node>
-      <node id="116">
+      <node id="287">
+        <label>MyGUI::types::TSize&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TSize"/>
+        <childnode refid="254" relation="usage">
+          <edgelabel>width
+height</edgelabel>
+        </childnode>
+      </node>
+      <node id="278">
+        <label>MyGUI::ISubWidgetText</label>
+        <link refid="classMyGUI_1_1ISubWidgetText"/>
+        <childnode refid="276" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="290">
+        <label>MyGUI::MemberObsolete&lt; EditBox &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4"/>
+      </node>
+      <node id="250">
         <label>MyGUI::Widget</label>
         <link refid="classMyGUI_1_1Widget"/>
-        <childnode refid="117" relation="public-inheritance">
+        <childnode refid="251" relation="public-inheritance">
         </childnode>
-        <childnode refid="116" relation="usage">
+        <childnode refid="252" relation="public-inheritance">
+        </childnode>
+        <childnode refid="257" relation="public-inheritance">
+        </childnode>
+        <childnode refid="260" relation="public-inheritance">
+        </childnode>
+        <childnode refid="267" relation="public-inheritance">
+        </childnode>
+        <childnode refid="268" relation="public-inheritance">
+        </childnode>
+        <childnode refid="279" relation="public-inheritance">
+        </childnode>
+        <childnode refid="261" relation="usage">
+          <edgelabel>eventChangeProperty</edgelabel>
+        </childnode>
+        <childnode refid="280" relation="usage">
+          <edgelabel>mWidgetStyle</edgelabel>
+        </childnode>
+        <childnode refid="250" relation="usage">
           <edgelabel>mContainer
 mParent
 mWidgetClient</edgelabel>
         </childnode>
+        <childnode refid="277" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
       </node>
-      <node id="121">
+      <node id="277">
+        <label>MyGUI::Align</label>
+        <link refid="structMyGUI_1_1Align"/>
+      </node>
+      <node id="275">
+        <label>MyGUI::ISubWidgetRect</label>
+        <link refid="classMyGUI_1_1ISubWidgetRect"/>
+        <childnode refid="276" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="299">
+        <label>MyGUI::FlowDirection</label>
+        <link refid="structMyGUI_1_1FlowDirection"/>
+      </node>
+      <node id="285">
+        <label>MyGUI::MemberObsolete&lt; Button &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4"/>
+      </node>
+      <node id="273">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="251" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="276">
+        <label>MyGUI::ISubWidget</label>
+        <link refid="classMyGUI_1_1ISubWidget"/>
+        <childnode refid="252" relation="public-inheritance">
+        </childnode>
+        <childnode refid="251" relation="public-inheritance">
+        </childnode>
+        <childnode refid="277" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
+      </node>
+      <node id="267">
+        <label>MyGUI::delegates::IDelegateUnlink</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegateUnlink"/>
+        <childnode refid="267" relation="usage">
+          <edgelabel>m_baseDelegateUnlink</edgelabel>
+        </childnode>
+      </node>
+      <node id="284">
         <label>MyGUI::Button</label>
         <link refid="classMyGUI_1_1Button"/>
-        <childnode refid="115" relation="public-inheritance">
+        <childnode refid="249" relation="public-inheritance">
         </childnode>
-        <childnode refid="122" relation="usage">
+        <childnode refid="285" relation="public-inheritance">
+        </childnode>
+        <childnode refid="286" relation="usage">
           <edgelabel>mImage</edgelabel>
         </childnode>
       </node>
-      <node id="118">
+      <node id="263">
+        <label>MyGUI::EventPair3to4&lt; EventHandle_WidgetIntInt, EventHandle_WidgetIntIntButton &gt;</label>
+        <link refid="classMyGUI_1_1EventPair3to4"/>
+        <childnode refid="261" relation="usage">
+          <edgelabel>m_eventObsolete</edgelabel>
+        </childnode>
+        <childnode refid="262" relation="usage">
+          <edgelabel>m_event</edgelabel>
+        </childnode>
+      </node>
+      <node id="292">
         <label>MyGUI::UString</label>
         <link refid="classMyGUI_1_1UString"/>
       </node>
-      <node id="120">
+      <node id="300">
+        <label>MyGUI::EventPair&lt; EventHandle_WidgetSizeT, EventHandle_ComboBoxPtrSizeT &gt;</label>
+        <link refid="classMyGUI_1_1EventPair"/>
+        <childnode refid="266" relation="usage">
+          <edgelabel>m_eventObsolete
+m_event</edgelabel>
+        </childnode>
+      </node>
+      <node id="260">
+        <label>MyGUI::WidgetInput</label>
+        <link refid="classMyGUI_1_1WidgetInput"/>
+        <childnode refid="261" relation="usage">
+          <edgelabel>eventKeyButtonPressed
+eventMouseMove</edgelabel>
+        </childnode>
+        <childnode refid="262" relation="usage">
+          <edgelabel>eventMouseButtonPressed
+eventMouseButtonReleased</edgelabel>
+        </childnode>
+        <childnode refid="263" relation="usage">
+          <edgelabel>eventMouseDrag</edgelabel>
+        </childnode>
+        <childnode refid="264" relation="usage">
+          <edgelabel>mOwnMaskPickInfo</edgelabel>
+        </childnode>
+        <childnode refid="265" relation="usage">
+          <edgelabel>eventMouseButtonDoubleClick
+eventMouseButtonClick</edgelabel>
+        </childnode>
+        <childnode refid="266" relation="usage">
+          <edgelabel>eventKeySetFocus
+eventMouseSetFocus
+eventKeyButtonReleased
+eventKeyLostFocus
+eventRootMouseChangeFocus
+eventMouseWheel
+eventToolTip
+eventMouseLostFocus
+eventRootKeyChangeFocus</edgelabel>
+        </childnode>
+      </node>
+      <node id="259">
+        <label>MyGUI::Any::AnyEmpty</label>
+        <link refid="structMyGUI_1_1Any_1_1AnyEmpty"/>
+      </node>
+      <node id="282">
         <label>MyGUI::ScrollBar</label>
         <link refid="classMyGUI_1_1ScrollBar"/>
-        <childnode refid="116" relation="public-inheritance">
+        <childnode refid="250" relation="public-inheritance">
         </childnode>
-        <childnode refid="116" relation="usage">
+        <childnode refid="283" relation="public-inheritance">
+        </childnode>
+        <childnode refid="253" relation="usage">
+          <edgelabel>mPreActionOffset</edgelabel>
+        </childnode>
+        <childnode refid="250" relation="usage">
           <edgelabel>mWidgetFirstPart
 mWidgetSecondPart</edgelabel>
         </childnode>
-        <childnode refid="121" relation="usage">
+        <childnode refid="284" relation="usage">
           <edgelabel>mWidgetTrack
 mWidgetStart
 mWidgetEnd</edgelabel>
         </childnode>
+        <childnode refid="266" relation="usage">
+          <edgelabel>eventScrollChangePosition</edgelabel>
+        </childnode>
+      </node>
+      <node id="269">
+        <label>MyGUI::LayerItem</label>
+        <link refid="classMyGUI_1_1LayerItem"/>
+        <childnode refid="270" relation="public-inheritance">
+        </childnode>
+        <childnode refid="271" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="272" relation="usage">
+          <edgelabel>mLayer</edgelabel>
+        </childnode>
+        <childnode refid="274" relation="usage">
+          <edgelabel>mSaveLayerNode
+mLayerNode</edgelabel>
+        </childnode>
+      </node>
+      <node id="289">
+        <label>MyGUI::IResource</label>
+        <link refid="classMyGUI_1_1IResource"/>
+        <childnode refid="273" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="281">
+        <label>MyGUI::ScrollViewBase</label>
+        <link refid="classMyGUI_1_1ScrollViewBase"/>
+        <childnode refid="282" relation="usage">
+          <edgelabel>mHScroll
+mVScroll</edgelabel>
+        </childnode>
+        <childnode refid="250" relation="usage">
+          <edgelabel>mClient</edgelabel>
+        </childnode>
+      </node>
+      <node id="253">
+        <label>MyGUI::types::TPoint&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TPoint"/>
+        <childnode refid="254" relation="usage">
+          <edgelabel>left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="258">
+        <label>MyGUI::Any</label>
+        <link refid="classMyGUI_1_1Any"/>
+        <childnode refid="259" relation="usage">
+          <edgelabel>Null</edgelabel>
+        </childnode>
+      </node>
+      <node id="293">
+        <label>MyGUI::IItemContainer</label>
+        <link refid="classMyGUI_1_1IItemContainer"/>
+      </node>
+      <node id="251">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
       </node>
     </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="47" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="43" bodyend="223"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1ComboBox_1e780220d737f413b9ce7c48128fd6e89" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>_addItem</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_140912f54a25901b779ea49094e5f4ae0" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_checkMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1093bbcae9343e7fe54fb4769652dfc2f" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_checkOutside</name></member>
       <member refid="classMyGUI_1_1Widget_134c44665e7d51c7eb65bf70f0479e1c3" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_checkPoint</name></member>
+      <member refid="classMyGUI_1_1SkinItem_10726c0a6b7e07c4a1ffbc6b41da8639e" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_correctSkinItemView</name></member>
+      <member refid="classMyGUI_1_1SkinItem_125c41f0b09a8cb62b56e4bf151029efe" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_createSkinItem</name></member>
       <member refid="classMyGUI_1_1Widget_13601e5ca0d565451dfcf106850506a51" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_createSkinWidget</name></member>
+      <member refid="classMyGUI_1_1SkinItem_183e18cf55c5dfcd5fc991cd3d1c79726" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_deleteSkinItem</name></member>
       <member refid="classMyGUI_1_1Widget_10df77f6d74fe5fc24701819e0b7e0fe8" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_destroyAllChildWidget</name></member>
       <member refid="classMyGUI_1_1Widget_125136884a04944ef8b199c582e15482c" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_destroyChildWidget</name></member>
       <member refid="classMyGUI_1_1Widget_1deee68fb42acc2fab667b169587e9ce3" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_forcePick</name></member>
       <member refid="classMyGUI_1_1Widget_1f3d99ead3ce8fda0defa2feb0fbaee27" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_getContainer</name></member>
       <member refid="classMyGUI_1_1Widget_1fef9a1d046d1b78f8c76de1db83d20c6" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>_getContainerIndex</name></member>
       <member refid="classMyGUI_1_1UserData_1fc4382ac3423790f57b478a0fe5030a2" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_getInternalData</name></member>
+      <member refid="classMyGUI_1_1IItemContainer_14ecbb51229418299b07d18351e57caaa" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>_getItemAt</name></member>
       <member refid="classMyGUI_1_1ComboBox_1846cec19ea7387a24561e868649539ab" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>_getItemCount</name></member>
       <member refid="classMyGUI_1_1Widget_106700537a6fffaf43aa9c93e89d9cc7d" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>_getItemIndex</name></member>
       <member refid="classMyGUI_1_1ComboBox_1defebfdb55999f92cd9acaf3592ae757" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>_getItemNameAt</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1dd35646a24b80019d956bd8d9a8842e4" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_getMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b883cc09bbd15914970fa6a3a155b261" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_getMarginBottom</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1c389b55028cb6157b3832250de48cfe7" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_getMarginLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_11221b089abe10e18924bf5bb3209ac9f" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_getMarginRight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f875bcc3f5e3292c646142460892f7a4" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_getMarginTop</name></member>
+      <member refid="classMyGUI_1_1SkinItem_111f8d0452fdc560e02d3302bb100f994" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_getTextureName</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_13a7c73e8f4cc8dabcd76a5c6645900b9" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_getViewBottom</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1eaa2e53babcc2e3fdc8809f6eb8825bf" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_getViewHeight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_19c87ba1cec7e29effd49a8aed37e4bbe" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_getViewLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1ae878f922452310563bc53768acbee32" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_getViewRight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_16f7f0a2960a331640aaee3a88fdc8a20" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_getViewTop</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_10fb56854f3bb6d0f7f4f0e8f608fa37a" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_getViewWidth</name></member>
       <member refid="classMyGUI_1_1Widget_1ae54386446434e4b133c244925402375" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_initialise</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1e9ab842519de0d0d1ff6624c96a25aee" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_isMargin</name></member>
       <member refid="classMyGUI_1_1ComboBox_10a9cced52f5099822c22e28f0c8c2f6e" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>_removeItemAt</name></member>
       <member refid="classMyGUI_1_1ComboBox_1b40a3b13ee33d56a26f55bcd991cb987" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>_resetContainer</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16ca16375013009df6343d5d704a5e0c5" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_riseKeyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16656b62ce7ec79ba18d0cdfedd2dfd4c" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_riseKeyButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c7feaf74a77264d4c2276ef7ae7238b9" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_riseKeyChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1d68d79f35d6a2d5ec4f063850199c699" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_riseKeyLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16890125536b19d6c6ec45482f3a36a46" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_riseKeySetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1ee33fe7ab755d138b20742d2b333a86a" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_riseMouseButtonClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10f7494e4a979775f2f67ab1b7a18c436" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_riseMouseButtonDoubleClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1abf1460346c8b853efde46128588f227" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_riseMouseButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18fe37f4239c9f31bc522520d6e30d047" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_riseMouseButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1ef279e1b31729b0975a8fd3dbba6f55a" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_riseMouseChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_181a0731821e5a71bd4ff6205428b78c9" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_riseMouseDrag</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1b08bce548d116bc1c6ef6e6d979d8de8" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_riseMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10adf6398d5b0e5890557061ac78ad65b" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_riseMouseMove</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1a012de5786a0bed2ae87a9deae13c0ef" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_riseMouseSetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_17e327836202f73c68ec038af7ffa8890" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_riseMouseWheel</name></member>
       <member refid="classMyGUI_1_1Widget_15df6dbd95e99b9b65b385d815026cf26" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_setAlign</name></member>
       <member refid="classMyGUI_1_1Widget_1d3d48604ad15f958b81bf423f80271c9" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_setContainer</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b7a33eeac6fd7e1ecc305decc2970249" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_setCroppedParent</name></member>
       <member refid="classMyGUI_1_1UserData_12bd52c146bad41f99bbc7ed31335ad18" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_setInternalData</name></member>
       <member refid="classMyGUI_1_1ComboBox_1611ed4c096053c2b6868dca1e021f64d" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>_setItemNameAt</name></member>
+      <member refid="classMyGUI_1_1IItemContainer_12dca0cb471a4f8deaf17b0d67e49f6e5" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>_setItemSelected</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1dabde72179cbe3f1640edb16d4b19185" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_setRootKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1e63e896e1bc3441474eaf02d8c940fb0" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_setRootMouseFocus</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b983e0ed07906a96b1f9a1a6d3593304" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_setSkinItemAlign</name></member>
+      <member refid="classMyGUI_1_1SkinItem_121cde72c7bd643fec9816501fe986205" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_setSkinItemAlpha</name></member>
+      <member refid="classMyGUI_1_1SkinItem_15f1951b1f095aaa695fb90ea7cef623b" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_setSkinItemColour</name></member>
+      <member refid="classMyGUI_1_1SkinItem_199576e05c1de9db65b724308619559d4" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_setSkinItemState</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1e7dffe0acef7ab94c35cd0cd70fede08" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_setSkinItemVisible</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b705b413faa908fe8424b57574a3410f" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_setSubSkinVisible</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1d7130c196fcd0e29e06210f96240b171" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_setTextureName</name></member>
       <member refid="classMyGUI_1_1Widget_13325a1f4c26917f6f73b207d0986e1bd" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_setWidgetState</name></member>
       <member refid="classMyGUI_1_1Widget_155b19482fe01925c36e29af671e3d092" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_shutdown</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b5d81f68dff04ef4c975d8563ea0f598" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_updateSkinItemView</name></member>
       <member refid="classMyGUI_1_1Widget_1dd935a48ef2c39688d8026c01e9e3939" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_updateView</name></member>
       <member refid="classMyGUI_1_1ComboBox_10e91f10ca5318e39dfd91a6c09368915" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>actionWidgetHide</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1468694a8e650fa4c019298691bb515d5" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>addChildItem</name></member>
+      <member refid="classMyGUI_1_1LayerItem_151c4c558eec72b51f62753c2dfe44094" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>addChildNode</name></member>
       <member refid="classMyGUI_1_1ComboBox_10721eccd99c05a06fcd003e743e9627c" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>addItem</name></member>
+      <member refid="classMyGUI_1_1LayerItem_19ddb478b09b766f3c515523e8d0658b0" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>addRenderItem</name></member>
       <member refid="classMyGUI_1_1EditBox_1cfd1fd2f3720403e3da3676d3ea3f03d" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>addText</name></member>
       <member refid="classMyGUI_1_1Widget_1b390f48a62a30d529c901cf8cfa1c24c" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>assignWidget</name></member>
+      <member refid="classMyGUI_1_1LayerItem_129e3f29933beef8f55ec8965a93be0cc" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>attachItemToNode</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1d8cf239c39b116a48a1517117d1fb9a6" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>attachToLayerItemNode</name></member>
       <member refid="classMyGUI_1_1Widget_105110870f31f66a901b3b11737c194de" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>attachToWidget</name></member>
       <member refid="classMyGUI_1_1ComboBox_1b8ec0d2ef3c6581f4236daad79bab309" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>Base</name></member>
       <member refid="classMyGUI_1_1Widget_1d88d7deb826efb660943ccb0bb457cae" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>baseCreateWidget</name></member>
@@ -1353,12 +1883,16 @@ mWidgetEnd</edgelabel>
       <member refid="classMyGUI_1_1ComboBox_19b15e91877aa7a28b47b45a7e93b7dbb" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>beginToItemLast</name></member>
       <member refid="classMyGUI_1_1ComboBox_1097d45398364c388688f9ac1b8271760" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>beginToItemSelected</name></member>
       <member refid="classMyGUI_1_1ComboBox_10921e8f7c48b951375e1554a3a56c799" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>calculateListPosition</name></member>
+      <member refid="classMyGUI_1_1IObject_1c542d61d7f1efd5c08dae100a3c68558" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>castType</name></member>
+      <member refid="classMyGUI_1_1IObject_1f636b3c71d893eeb41bebc1c6f4519e1" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>castType</name></member>
       <member refid="classMyGUI_1_1Widget_1be74d6cc433da6140629423b120735a4" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>changeWidgetSkin</name></member>
       <member refid="classMyGUI_1_1ComboBox_13e16243b7f7f37196fc911210b88de5d" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>clearIndexSelected</name></member>
       <member refid="classMyGUI_1_1ComboBox_1e4076dccc06ba3162081b8b4aaf7d4d2" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>clearItemDataAt</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01ComboBox_01_4_1d846017c9a67d81476173651c47363e5" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>clearItemSelected</name></member>
       <member refid="classMyGUI_1_1UserData_1f71561f766d83082a82cbdd6d218bd6b" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>clearUserString</name></member>
       <member refid="classMyGUI_1_1UserData_154fecc1b40c23594c6518589b6912e49" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>clearUserStrings</name></member>
       <member refid="classMyGUI_1_1ComboBox_1b8255fa9dd43694a1c43b11e398e56fb" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>ComboBox</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_1c6738433a415e2f37a5d3f927c0cc7fe" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>compare</name></member>
       <member refid="classMyGUI_1_1ComboBox_1fd78197e78d7ee94ff0d16666bcbb6ee" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>createControllerFadeAlpha</name></member>
       <member refid="classMyGUI_1_1Widget_1d66c5415fde332d5aab563402cffb09f" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>createWidget</name></member>
       <member refid="classMyGUI_1_1Widget_13a28d2e883ce82536b686ac992be672d" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>createWidget</name></member>
@@ -1370,10 +1904,16 @@ mWidgetEnd</edgelabel>
       <member refid="classMyGUI_1_1Widget_1b5d34f121420fbd4f439d7a8432d7755" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>createWidgetT</name></member>
       <member refid="classMyGUI_1_1Widget_12e74ae3d0a439f4edd509e73d4b2a083" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>createWidgetT</name></member>
       <member refid="classMyGUI_1_1Widget_1e26a4a5e8ea3fa4bafd969eb952d88e9" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01ComboBox_01_4_14fb432123b067a25ce9bfa574be6d7f7" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>deleteAllItems</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01ComboBox_01_4_155c22363fea13bb6ed71c5ef83eb7321" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>deleteItem</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1bcb176f84eaffadc8adfa9bce6d7be7a" prot="public" virt="non-virtual" ambiguityscope="MyGUI::MemberObsolete&lt; EditBox &gt;::"><scope>MyGUI::ComboBox</scope><name>deleteTextSelect</name></member>
       <member refid="classMyGUI_1_1EditBox_10557ad07ef36415110c663309bee175f" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>deleteTextSelection</name></member>
       <member refid="classMyGUI_1_1Widget_1c1c862389f772c52077fe4f2cf6568b5" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>destroySkinWidget</name></member>
+      <member refid="classMyGUI_1_1LayerItem_113b56979c71726ffcb334b778b193716" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>detachFromLayer</name></member>
+      <member refid="classMyGUI_1_1LayerItem_13d324b33933eb9f9bc8ac9d51e05e54e" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>detachFromLayerItemNode</name></member>
       <member refid="classMyGUI_1_1Widget_1056ac7afc041cf328037e210c742302f" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>detachFromWidget</name></member>
       <member refid="classMyGUI_1_1EditBox_19e5cd719e126a928ac50636112b94631" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>EditBox</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1cae2761994f0c61651d7210393c506a3" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>eraseContent</name></member>
       <member refid="classMyGUI_1_1EditBox_138ed17c2410185d3ee2554e0187b319a" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eraseText</name></member>
       <member refid="classMyGUI_1_1EditBox_1a98e259308ed3b0a94e0a515b53ef5db" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eraseView</name></member>
       <member refid="classMyGUI_1_1Widget_130efcbdb772c4a75f8208a99c4f9f34d" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventChangeProperty</name></member>
@@ -1381,11 +1921,33 @@ mWidgetEnd</edgelabel>
       <member refid="classMyGUI_1_1ComboBox_1ba514ee5f021d581152132ee56ffa20b" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventComboChangePosition</name></member>
       <member refid="classMyGUI_1_1EditBox_1e3437f37d103025ce520aae785d7ea8f" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventEditSelectAccept</name></member>
       <member refid="classMyGUI_1_1EditBox_150793768be9d885b7329ebbb72ba91cd" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventEditTextChange</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_19c0c205a1523715242cb07f3e1bb0018" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventKeyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1fe364fecb43bd52d81894fd8cbb6ff7c" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventKeyButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1190abc3db9e410abf5b3e96aec9278db" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventKeyLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c4228a2d61d12a5f4f411512c2144823" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventKeySetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10e6830d3204b28e15ee1472de5ca0349" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventMouseButtonClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10e66a008ba9f9c4887d42eac663e4b72" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventMouseButtonDoubleClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1892130d1ef15dccc6314c70a172113b1" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventMouseButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_15a0432361acd9073b3669d49a2bd4ae9" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventMouseButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1075f29698be6ce4aa2e330f9ea120739" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventMouseDrag</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1bb439d65c18114eee9be1caf93b262b6" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_12ac6dfa5dbd2cd51c57f9f4ceb246511" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventMouseMove</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18ca56a714afbf4c6cf45e29d5843a479" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventMouseSetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1efb2b8ab0a4d1cd7e19870343f3492a9" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventMouseWheel</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1d24b759d3ec5843fc7c317cc90862b79" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventRootKeyChangeFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1dbeaee810227eb6d583ce3fcea219309" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventRootMouseChangeFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18d45b85aeb9f2f2428f65cfe289d9c81" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventToolTip</name></member>
       <member refid="classMyGUI_1_1ComboBox_12c77e65fd925af18582d9c9730683c4d" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>findItemIndexWith</name></member>
       <member refid="classMyGUI_1_1Widget_1d054e1027a48f2ccb9af0179359dadc5" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>findWidget</name></member>
       <member refid="classMyGUI_1_1Widget_1e6d193b99a9d69973922d1b8e0f0b70e" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>findWidgets</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_183d89c16d41d05bb8772f362b516dd3b" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getAbsoluteCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_19ac46efa204752d3d4a8495feaade9a0" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getAbsoluteLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1a3ae7bcd46578b5082c21a41962c3db6" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getAbsolutePosition</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_16221e701b940cd07bb2a41c84099dfa1" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getAbsoluteRect</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_108f36d963cb1bbcc853ffaf8f576d306" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getAbsoluteTop</name></member>
       <member refid="classMyGUI_1_1Widget_134cafbef78da90ca8fb6aca8964b337a" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getAlign</name></member>
       <member refid="classMyGUI_1_1Widget_1db1d462f1145cafb358754c03cd3e7f2" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getAlpha</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b0478e244c63d6201a748e371f237ae1" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getBottom</name></member>
       <member refid="classMyGUI_1_1EditBox_1e951cad8f473333ed203f1666013084c" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>getCaption</name></member>
       <member refid="classMyGUI_1_1Widget_1028535563d6d3666658d83e4d479fa6d" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getChildAt</name></member>
       <member refid="classMyGUI_1_1Widget_195ebe8be9fd3d29f7fa8f7846515eeec" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getChildCount</name></member>
@@ -1393,6 +1955,8 @@ mWidgetEnd</edgelabel>
       <member refid="classMyGUI_1_1Widget_15ffebc869b3b4c36e31178616b27fc86" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getClientCoord</name></member>
       <member refid="classMyGUI_1_1Widget_1ac162cf5e6c51d487c71ae2e2d041352" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getClientWidget</name></member>
       <member refid="classMyGUI_1_1ComboBox_1503c6521fce84b5b72b1aa642279f629" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getComboModeDrop</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1a9cc9fbf580a3c77059f20fafcdb201f" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b6b24667d7810f93d79a9fa7750d01ce" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getCroppedParent</name></member>
       <member refid="classMyGUI_1_1EditBox_1f438fe54dd406b67bdf71dd160cbdbf7" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getEditMultiLine</name></member>
       <member refid="classMyGUI_1_1EditBox_1fe422b90c4935f5a02903878da798944" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getEditPassword</name></member>
       <member refid="classMyGUI_1_1EditBox_12d4713dc054433abbea29e0a70d6466f" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getEditReadOnly</name></member>
@@ -1403,35 +1967,57 @@ mWidgetEnd</edgelabel>
       <member refid="classMyGUI_1_1ComboBox_13570bddc7d9431ff631c10ff38483efe" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getFlowDirection</name></member>
       <member refid="classMyGUI_1_1TextBox_182cf5031ad57c818cfa9c5a9a0393263" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getFontHeight</name></member>
       <member refid="classMyGUI_1_1TextBox_1eb499df22061231d04ff0a29e87b2b06" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getFontName</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f5253c6b4dfb1107dd23b23fb1109413" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getHeight</name></member>
       <member refid="classMyGUI_1_1EditBox_17906d6f35afa75f2e2868815871bc960" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getHScrollPosition</name></member>
       <member refid="classMyGUI_1_1EditBox_1fea9ee9da2b4835d41730ec381de0a6c" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getHScrollRange</name></member>
       <member refid="classMyGUI_1_1ComboBox_159b7dccdbaaee52001949284cc20c2b8" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getIndexSelected</name></member>
       <member refid="classMyGUI_1_1Widget_1c373e8170168b97491e777b99de0872b" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getInheritedEnabled</name></member>
       <member refid="classMyGUI_1_1Widget_1028a8ae99e47f513065ce3cbb11e4022" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getInheritedVisible</name></member>
       <member refid="classMyGUI_1_1Widget_1c2118d0bf46d9a7ec21c7aed9c7e71ca" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_15be056da5117affd416fe970459f1223" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getInheritsPick</name></member>
       <member refid="classMyGUI_1_1EditBox_168ba67725feaf767f21cf37398f50564" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getInvertSelected</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01ComboBox_01_4_11cb3a9ba312980ca6c302faef3a77e1a" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getItem</name></member>
       <member refid="classMyGUI_1_1ComboBox_16d2482db6f10bbcbdc4d488b087bdd4e" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getItemCount</name></member>
       <member refid="classMyGUI_1_1ComboBox_119fd9f4897e72d697a35a9ae142533f7" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getItemDataAt</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01ComboBox_01_4_170dd67dd968e0fc418da4c2130f6a77a" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getItemIndexSelected</name></member>
       <member refid="classMyGUI_1_1ComboBox_1be33d4a975f845be306cdd2fb6e00edd" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getItemNameAt</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01ComboBox_01_4_1e95c11c92c0fde11f201a9115c0947ba" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getItemSelect</name></member>
+      <member refid="classMyGUI_1_1LayerItem_171d7bb44b59f3636087d3c3361e44fd6" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getLayer</name></member>
       <member refid="classMyGUI_1_1Widget_175cedb78192d81e9dd1cef4a6c7a9fe3" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>getLayerItemByPoint</name></member>
       <member refid="classMyGUI_1_1Widget_13e00b99c46a0c1ebacf29604d503804d" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>getLayerItemCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1753231d8f8981c59cf6a4c92609c35e6" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getLeft</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01ComboBox_01_4_1e02b0c11a26cc371e6abd0bffc8354fd" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getMaxListHeight</name></member>
       <member refid="classMyGUI_1_1ComboBox_15c8d7aeac52ea86449ffeb23a8d51959" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getMaxListLength</name></member>
       <member refid="classMyGUI_1_1EditBox_17173321a3dac85af5f0dd8dcbf7202e8" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getMaxTextLength</name></member>
       <member refid="classMyGUI_1_1Widget_1421a0e4eec959e8a5cd7f12ff459bfbf" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getName</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16022e50c3a0bab4f36628fa12a51b209" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getNeedKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1470aa4736e0a8f4a662a566eea240b85" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getNeedMouseFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18325fdd47dd74c8574f73bcb6c733df2" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getNeedToolTip</name></member>
       <member refid="classMyGUI_1_1EditBox_10ccf1abb1080f60250c38dab226c3f2e" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getOnlyText</name></member>
       <member refid="classMyGUI_1_1EditBox_17c9cb16adab8efe59e7d64089e03a95b" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getOverflowToTheLeft</name></member>
       <member refid="classMyGUI_1_1Widget_174eb9e9819797e68a510a2ae6c3a410a" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getParent</name></member>
       <member refid="classMyGUI_1_1Widget_1ee1378b1a9bd3db495cbea32f0a13e20" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getParentSize</name></member>
       <member refid="classMyGUI_1_1EditBox_18126141197bfe7bed28fb95144c19e41" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getPasswordChar</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c3ab2d84030f97c4303bc7da394ee333" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getPointer</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b8574746c63b6c512229f1022d497094" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getPosition</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1c2ce3e30f89af0955e511c66e111cf93" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getRight</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1e57aa4f6072057ca8d1a0855a761cbc1" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getRootKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_132e7d91855a309930f6a8318c1fca142" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getRootMouseFocus</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_121d1b3fe212a8fea36cc71b863d88de7" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getSelectedText</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f557c510d0af74ac6c2770253d52b303" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getSize</name></member>
       <member refid="classMyGUI_1_1Widget_14a6523e37fad5103ef5896bdf349861d" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getSkinWidgetsByName</name></member>
       <member refid="classMyGUI_1_1ComboBox_110edc211f492828c2156b5a094aa429e" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getSmoothShow</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b7ad0561eae858f69008e77b42fc4192" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getSubWidgetMain</name></member>
+      <member refid="classMyGUI_1_1SkinItem_18790679dbfff2a864b0bbb656d45ee53" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getSubWidgetText</name></member>
       <member refid="classMyGUI_1_1EditBox_123001c46d6c62551de73986068b6e528" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTabPrinting</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_138dde9affe3295641af069463752a056" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getText</name></member>
       <member refid="classMyGUI_1_1TextBox_1e2b4578eeb95ab1fb771e163d50f9b9c" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextAlign</name></member>
       <member refid="classMyGUI_1_1TextBox_1acc4e9fde74bb63723f7abd59f20ca29" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextColour</name></member>
       <member refid="classMyGUI_1_1EditBox_1da197c7ab0ffe2684cad61f970b33073" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextCursor</name></member>
       <member refid="classMyGUI_1_1EditBox_19f6929498d3e8c0fe6368328eefe9c7a" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextInterval</name></member>
       <member refid="classMyGUI_1_1EditBox_1c4047c53197ea3279f0ad0a178831a7d" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextLength</name></member>
       <member refid="classMyGUI_1_1EditBox_1cbc5394429065a2dc28df0505a1942f7" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>getTextRegion</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1b2e8178a8f4cdc17ce8cdcab5eab59fe" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextSelect</name></member>
       <member refid="classMyGUI_1_1EditBox_11a2d0f2e702510d31dd12805f69278af" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextSelection</name></member>
       <member refid="classMyGUI_1_1EditBox_1e2f96157f4251723f313e4dcc7bf4e91" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextSelectionEnd</name></member>
       <member refid="classMyGUI_1_1EditBox_1e016617e566b405226562ae075d557b0" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextSelectionLength</name></member>
@@ -1439,6 +2025,7 @@ mWidgetEnd</edgelabel>
       <member refid="classMyGUI_1_1TextBox_1c0080a7ed833342b98c9376772d189e7" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextShadow</name></member>
       <member refid="classMyGUI_1_1TextBox_14d6ac0eb45e0d495ed874367cfac7577" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextShadowColour</name></member>
       <member refid="classMyGUI_1_1EditBox_1ed4f88b5ebbeca587b5f1b04bdfcb8da" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>getTextSize</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1ea03ec13020eb5016f3c17251a526ad9" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTop</name></member>
       <member refid="classMyGUI_1_1ComboBox_119b58fb58825e29b8a31584ee7e86033" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>getTypeName</name></member>
       <member refid="classMyGUI_1_1UserData_1eadd08cc61e475b95c588daf74789a06" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getUserData</name></member>
       <member refid="classMyGUI_1_1UserData_17c62f7374453eaf6e5316ac369559c53" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getUserString</name></member>
@@ -1447,32 +2034,58 @@ mWidgetEnd</edgelabel>
       <member refid="classMyGUI_1_1EditBox_1c306f3e20401d745cc2995d6019a0f6b" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getVScrollPosition</name></member>
       <member refid="classMyGUI_1_1EditBox_19dae995a30dbc4222576d13b12d91237" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getVScrollRange</name></member>
       <member refid="classMyGUI_1_1Widget_15accf9c998578f20adcec5987dc820f2" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_152c93ea7b7c89b708b855a4924df310b" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getWidth</name></member>
       <member refid="classMyGUI_1_1ComboBox_1e958eced6e85336dd4acac358e87a63c" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>hideList</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_13b493ea3f8e5dcb4cc905da0b7c6dadf" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>ICroppedRectangle</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_1533f51403b804e09b3c2e8eb6d5e679b" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>IDelegateUnlink</name></member>
+      <member refid="classMyGUI_1_1IItemContainer_164783a028eb77a6278bca16b270219d0" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>IItemContainer</name></member>
       <member refid="classMyGUI_1_1ComboBox_1d39eeb1d900e4093dea5ff08a5a97248" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>initialiseOverride</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01ComboBox_01_4_105aaaedda6e621beabafacbd36282e67" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>insertItem</name></member>
       <member refid="classMyGUI_1_1ComboBox_1a67d9498be1447d8c2de4dcd6feaf978" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>insertItemAt</name></member>
       <member refid="classMyGUI_1_1EditBox_1034a9063b1582e3adfc2396044a3607f" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>insertText</name></member>
+      <member refid="classMyGUI_1_1IObject_198f33c9772728fc4065fe0a1ffdf8246" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>IObject</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_1a089bb887fd20d3f8f279229f6d37bf3" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isEnabled</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_14f28dc2b7d847c7266e2398c4795658a" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_147b9c837c75c627bad780cc44e4aefae" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isInheritsPick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_150e91b6611a362474155ac2351752b54" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isMaskPickInside</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_1f436236e6b75c0347f579fe84af5514b" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isNeedKeyFocus</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_1ac609c231c1b2f6ac98c1f314df60415" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isNeedMouseFocus</name></member>
       <member refid="classMyGUI_1_1Widget_1b3ec05a74f05236afb58855985781cd0" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isRootWidget</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_10d7b935928125e59d3c6179c2f5604d3" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isShowHScroll</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1f79dd7b388299345a794e518e416fa5f" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isShowVScroll</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_120afcf1cda17249a508cd6f458662ffa" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isTextSelect</name></member>
       <member refid="classMyGUI_1_1EditBox_1b82f47362d234bd68bb68335cecd819c" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isTextSelection</name></member>
       <member refid="classMyGUI_1_1ComboBox_1a25c1cfeb56f1b356f6b64a4b0c17816" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1ComboBox_140d09d268d9ffa8b5747ae2101093a73" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1UserData_10bac17bc60b499cf0386ec3815d67f17" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isUserString</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_19e2c621a8df680ee50f8f14cbadf2aff" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isVisible</name></member>
       <member refid="classMyGUI_1_1EditBox_16c8d4d67224aff514c1b1ce477ad9ec9" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isVisibleHScroll</name></member>
       <member refid="classMyGUI_1_1EditBox_13a92f4ba8464ebcbf9649f2f0fe19c7a" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isVisibleVScroll</name></member>
+      <member refid="classMyGUI_1_1LayerItem_17a70f273e55fb2945c20fc54ec62969e" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>LayerItem</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_17b7faec75fa09c72701f8ab0fd416182" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mAbsolutePosition</name></member>
       <member refid="classMyGUI_1_1EditBox_1e1d071762b5bee333803e209a586c2f7" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mActionMouseTimer</name></member>
       <member refid="classMyGUI_1_1ComboBox_117814f88f84a08e5c7d2d49fd8b01aef" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mButton</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1ab8c587a3aa2974efa7e9cfdda765de3" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mChangeContentByResize</name></member>
       <member refid="classMyGUI_1_1EditBox_16700eb6e295b2b7f2ad17563769dadd5" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mCharPassword</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1e022831ae84bfa02d36eff5f442aa823" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mClient</name></member>
       <member refid="classMyGUI_1_1EditBox_11a506b79155d9bb7ddb465108730a6c7" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mClientText</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_121be402c76c560b6568dc16c2f1e38a8" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_15d10640ec8d1a14f75b4a6287d92de12" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mCroppedParent</name></member>
       <member refid="classMyGUI_1_1EditBox_1ed1d62b624c337cf09308eb2dc152837" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mCursorActive</name></member>
       <member refid="classMyGUI_1_1EditBox_1f4e1db3fe2324e44603847604456d861" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mCursorPosition</name></member>
       <member refid="classMyGUI_1_1EditBox_15c3932d0fa1a0413038ee061894b06c7" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mCursorTimer</name></member>
       <member refid="classMyGUI_1_1ComboBox_164efd668c2eda021df034d91cb1d3798" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mDropMouse</name></member>
       <member refid="classMyGUI_1_1EditBox_19033c2cd72f94cdfd04aef96c3465212" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mEndSelect</name></member>
       <member refid="classMyGUI_1_1ComboBox_1aa8c5a685d88bb67528cbb0770302684" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mFlowDirection</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_14ecbef10c0c6cefdec072abd56ebefa6" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mHRange</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_116432709d5081352937ff7d6f2c76596" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mHScroll</name></member>
       <member refid="classMyGUI_1_1EditBox_161763053e2489653b5921950457a7ce7" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mIsFocus</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_10f0b7542dde743b020713654c50536ca" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mIsMargin</name></member>
       <member refid="classMyGUI_1_1EditBox_1d87fae703a3c93be1419271cf4842933" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mIsPressed</name></member>
       <member refid="classMyGUI_1_1ComboBox_101c8e5f1042f8206dc5a33793ca674bd" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mItemIndex</name></member>
       <member refid="classMyGUI_1_1ComboBox_1f6d3696a9c98c79ea2621c9ddd525e83" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mList</name></member>
       <member refid="classMyGUI_1_1ComboBox_16e953dee0969056252558cb590727540" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mListShow</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_125d27b33aeee62b852dc8009a7b942d7" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mMargin</name></member>
       <member refid="classMyGUI_1_1ComboBox_1aa18e415cac8be02556e71c756f0e8cb" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mMaxListLength</name></member>
       <member refid="classMyGUI_1_1EditBox_1273705fab886d72032d8e3899fc8fb1e" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mMaxTextLength</name></member>
       <member refid="classMyGUI_1_1ComboBox_10372e7b778419c937c4152b9ea51846c" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mModeDrop</name></member>
@@ -1491,6 +2104,10 @@ mWidgetEnd</edgelabel>
       <member refid="classMyGUI_1_1EditBox_1b21c5853c7500278ef66da0cdea2ecd6" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mTextLength</name></member>
       <member refid="classMyGUI_1_1EditBox_174777bad09d4ab9f50629a0c84d89e82" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mVectorRedoChangeInfo</name></member>
       <member refid="classMyGUI_1_1EditBox_10224cf300d876d94fef20245b64c06bc" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mVectorUndoChangeInfo</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1b1760351ca10248ab9f0cd6a84726bbe" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mVisibleHScroll</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_18850436c264d45cd5168b70dcf2599df" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mVisibleVScroll</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_119ccdcb4f3fe90978578b0c079b510c3" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mVRange</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1ccf29da5e730508c48b4924343b6b2d2" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mVScroll</name></member>
       <member refid="classMyGUI_1_1ComboBox_18ca32c0ca8cd78b7893bb382be7f4e91" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>notifyButtonPressed</name></member>
       <member refid="classMyGUI_1_1ComboBox_1aa981be4214c541e2de46ba84881c5b5" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>notifyEditTextChange</name></member>
       <member refid="classMyGUI_1_1ComboBox_1b05f39766a8a57cfd9722294e9313f9f" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>notifyListChangePosition</name></member>
@@ -1507,14 +2124,32 @@ mWidgetEnd</edgelabel>
       <member refid="classMyGUI_1_1EditBox_1a5245a806124dcc9d2e29acd39e33b84" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>notifyScrollChangePosition</name></member>
       <member refid="classMyGUI_1_1ComboBox_1efca34d599b7894acb9600beede2c88b" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>notifyToolTip</name></member>
       <member refid="classMyGUI_1_1ComboBox_16642ced9c43004c1b6ac0e33a29fb1a5" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onKeyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1270e79337e0087a161fa74b78aeb3127" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onKeyButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1b8e266d4069a1ab0363375bad9e35171" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onKeyChangeRootFocus</name></member>
       <member refid="classMyGUI_1_1EditBox_14a1794d9b02dc65ae360a9e573ebc9f9" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onKeyLostFocus</name></member>
       <member refid="classMyGUI_1_1EditBox_11b4c231d7c8fd9721f41c39d71d66924" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onKeySetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1fca1246c61d023b454fab52e25d801a2" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onMouseButtonClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_157b503609f50ec453339ac3453760339" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onMouseButtonDoubleClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_174463c8bd4af3c7e7c13afbded5fd74b" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onMouseButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1969850afcd6bb54830851f3ad7dc564d" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onMouseButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_170648833f265898bf0dd63a2e1129ce4" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onMouseChangeRootFocus</name></member>
       <member refid="classMyGUI_1_1EditBox_15ff17b3293e5788dcc298814644ae839" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onMouseDrag</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1d3cd7674cc408ca8f2aa7cf046c8ddeb" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16494acd321238c424c15be5f63f979d3" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onMouseMove</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_110aba92be6cabf07736d4f1de8e93e35" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onMouseSetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c9d454fb78e4244a3082e3ff3b30b14f" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onMouseWheel</name></member>
       <member refid="classMyGUI_1_1Widget_1a8cfc0deeb8c2c53c6fabf52dd167639" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onWidgetCreated</name></member>
       <member refid="classMyGUI_1_1Widget_1c64ffb617119185afaf5ef9650d4f9a5" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onWidgetDestroy</name></member>
       <member refid="classMyGUI_1_1ComboBox_154c73474e972ad0e473cb9443488382e" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>removeAllItems</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1550fd1d2b74394288ff02714a1631c83" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>removeAllRenderItems</name></member>
+      <member refid="classMyGUI_1_1LayerItem_153e3219374e2c24c13c316350d4bd49f" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>removeChildItem</name></member>
+      <member refid="classMyGUI_1_1LayerItem_12a1a9be320fa11fc18976f0952681a3e" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>removeChildNode</name></member>
       <member refid="classMyGUI_1_1ComboBox_1e4033d7167907a10a35dc15d17cdd010" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>removeItemAt</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01ComboBox_01_4_1550a1a5018cbeb010cbeb9327c5d879b" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>resetItemSelect</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1b6f86f8277bb2ea3d128091849399f74" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>restoreLayerItem</name></member>
       <member refid="classMyGUI_1_1ComboBox_1fa2617bb376043aa6991270069b4f787" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1ba403583becd0b8438d47e45033f3a56" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>saveLayerItem</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1d08d94f3759c40f296a57c16f4c199d8" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>ScrollViewBase</name></member>
       <member refid="classMyGUI_1_1Widget_1ebace37eedee14b3ff746b7a0085b993" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setAlign</name></member>
       <member refid="classMyGUI_1_1Widget_11204361b28430fa9a3b6927d6b4fe9ee" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setAlpha</name></member>
       <member refid="classMyGUI_1_1EditBox_148bde7fa7f3ffacfa1b109926d6f5b78" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setCaption</name></member>
@@ -1536,15 +2171,26 @@ mWidgetEnd</edgelabel>
       <member refid="classMyGUI_1_1EditBox_184ac70d68bc67cc6e7ac6f4e8560c842" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setHScrollPosition</name></member>
       <member refid="classMyGUI_1_1ComboBox_1515fb414e6bcc2a1a4557bac097bda79" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setIndexSelected</name></member>
       <member refid="classMyGUI_1_1Widget_18b44677724faa4112312655e5feed8ae" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_19f3635d97a8d56053311cb2cb2887f5f" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setInheritsPick</name></member>
       <member refid="classMyGUI_1_1EditBox_1dd2c9df3e2c33e40f824da5307e90343" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setInvertSelected</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01ComboBox_01_4_1afdfcf800e6727a8ad9db8943f639cac" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setItem</name></member>
       <member refid="classMyGUI_1_1ComboBox_1de9daffd4f87fa48444b6a7e0cc4fa41" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setItemDataAt</name></member>
       <member refid="classMyGUI_1_1ComboBox_14fd5318f710dea500a29698add516539" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setItemNameAt</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01ComboBox_01_4_1a2dd49f99fd43e39415447a154d4ef45" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setItemSelect</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01ComboBox_01_4_12a453f457011005dfa099930fa16f852" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setItemSelectedAt</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_14e37553674c10c9b208db056aeeb805a" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setMaskPick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c8b141e404fa6c1a71505216a1ef5b43" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setMaskPick</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01ComboBox_01_4_1c5b6bc2c2e388ab11889652431fd3bbf" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setMaxListHeight</name></member>
       <member refid="classMyGUI_1_1ComboBox_19fdb976399da8f15f41f293c25947897" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setMaxListLength</name></member>
       <member refid="classMyGUI_1_1EditBox_10931c6bc59eb4ca79b8c6d0e4f3bd466" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setMaxTextLength</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_161510314ec32dcff4fcecfe725f46a36" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setNeedKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_133723bb1ea73b5af6c0d3d0041104478" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setNeedMouseFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1b81aa840b2b8cb97b4fdccc92248b1b7" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setNeedToolTip</name></member>
       <member refid="classMyGUI_1_1EditBox_12b99c89689451627d6ed43ee766a7fc1" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setOnlyText</name></member>
       <member refid="classMyGUI_1_1EditBox_1bdf8a470cedfdf6410cc2d9da14ec4c9" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setOverflowToTheLeft</name></member>
       <member refid="classMyGUI_1_1EditBox_11a36eec16d709e89f973e0f32d40ded3" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setPasswordChar</name></member>
       <member refid="classMyGUI_1_1EditBox_170899b5c29b046e1b68444ed9e5374c3" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setPasswordChar</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1192554c59fcce521c063e72db4d867b1" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setPointer</name></member>
       <member refid="classMyGUI_1_1EditBox_1da70cd549af32d4ec3919a6748b38e14" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setPosition</name></member>
       <member refid="classMyGUI_1_1EditBox_1202fd91dd335b4fc456a7efcdb3bfc3e" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setPosition</name></member>
       <member refid="classMyGUI_1_1Widget_11a6ea7822f869b777800b0d351112e69" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setProperty</name></member>
@@ -1555,14 +2201,18 @@ mWidgetEnd</edgelabel>
       <member refid="classMyGUI_1_1Widget_1c963db4709c8dfc9e681dfccd5fb6524" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setRealPosition</name></member>
       <member refid="classMyGUI_1_1Widget_1d7fba1f9976c36eacb528d6db9213ddf" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setRealSize</name></member>
       <member refid="classMyGUI_1_1Widget_15d89ff45c4bc5f6158382067673903ba" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1cf56aa200b89c991fb301b24069726be" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setRenderItemTexture</name></member>
       <member refid="classMyGUI_1_1EditBox_1edb1cf587877db98e1f42fc4988c4e3b" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setSize</name></member>
       <member refid="classMyGUI_1_1EditBox_1b19eb0c696d00c3b866f0db3a870c9bb" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setSize</name></member>
       <member refid="classMyGUI_1_1ComboBox_1dc5bebf6c863e25f1ca0e9419a4e6e37" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setSmoothShow</name></member>
       <member refid="classMyGUI_1_1EditBox_160e54c69ba17fb024da08dc2267dd397" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setTabPrinting</name></member>
       <member refid="classMyGUI_1_1EditBox_1c45e1a33e62e043f0d1f27c0f62f1122" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setTextAlign</name></member>
       <member refid="classMyGUI_1_1EditBox_19910766a0cc754c383f0a55be0be1b5e" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setTextColour</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_185bfd997649336a7e3f108f655ea9c4f" prot="public" virt="non-virtual" ambiguityscope="MyGUI::MemberObsolete&lt; EditBox &gt;::"><scope>MyGUI::ComboBox</scope><name>setTextColour</name></member>
       <member refid="classMyGUI_1_1EditBox_1fa7b9a369941a338f50f5f366f8b1f03" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setTextCursor</name></member>
       <member refid="classMyGUI_1_1EditBox_1eedbb7d2e953b2d091885cca4c343a49" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setTextIntervalColour</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1cedd7226312e8fa62d7123c2bbd7fffd" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setTextSelect</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1d74326d5807b980524c27ae3772065f4" prot="public" virt="non-virtual" ambiguityscope="MyGUI::MemberObsolete&lt; EditBox &gt;::"><scope>MyGUI::ComboBox</scope><name>setTextSelectColour</name></member>
       <member refid="classMyGUI_1_1EditBox_13393a05604c0419012c60e5e1060799d" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setTextSelection</name></member>
       <member refid="classMyGUI_1_1EditBox_19bbc53afb80f65bfce004c36304724f8" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setTextSelectionColour</name></member>
       <member refid="classMyGUI_1_1EditBox_1d0298ee1f43fc0ba948ccc47b18dfb7b" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setTextShadow</name></member>
@@ -1575,15 +2225,30 @@ mWidgetEnd</edgelabel>
       <member refid="classMyGUI_1_1EditBox_1dd9044dcd19a4dd114732676845b6c76" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setVScrollPosition</name></member>
       <member refid="classMyGUI_1_1Widget_1c717aa06253e913156a6d24fb3d4cbc4" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setWidgetClient</name></member>
       <member refid="classMyGUI_1_1Widget_1372d21a0125ab28cc5c2c295290a2806" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_16eeeae44860a43f7a62aca70edeffefa" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>showHScroll</name></member>
       <member refid="classMyGUI_1_1ComboBox_176d7ce2811ef1b179acfc9df3d5ee0a8" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>showList</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1c84cd43773e2be35b276588d03df5d68" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>showVScroll</name></member>
       <member refid="classMyGUI_1_1ComboBox_16df9c4bfc1054a922a65d6ba018d3828" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>shutdownOverride</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1df3cc9ecbcf4702c02b1d265c5d0a7f9" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>SkinItem</name></member>
       <member refid="classMyGUI_1_1TextBox_1c9823be8b1b86d97123b9ab05ee81c77" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>TextBox</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_125b0904581e3e5f197c90953526c52b7" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>updateScrollPosition</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1c02fb2609e67ef9a8b8546c6f7c59270" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>updateScrollSize</name></member>
       <member refid="classMyGUI_1_1EditBox_13aa65c0f4fc575ba62a86264723d3f48" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>updateView</name></member>
       <member refid="classMyGUI_1_1EditBox_180d91be5d4a3c29d09066bb0d39c0af2" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>updateViewWithCursor</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1c7c30ce98c7f9312b522d6c67b050be4" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>upLayerItem</name></member>
       <member refid="classMyGUI_1_1UserData_1108076068708e939519f9c775c2ae87b" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>UserData</name></member>
       <member refid="classMyGUI_1_1Widget_1f4814618768bc07a685495895ca47b04" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>Widget</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1436c5c5a088a95b40a252574f8ff0506" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>WidgetInput</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_128f4ca979240bf4bb4363d84213b6041" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>~ICroppedRectangle</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_12f7d8818258bb5ee2218ea20450b2997" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>~IDelegateUnlink</name></member>
+      <member refid="classMyGUI_1_1IItemContainer_1c91daa2a5066844114e16720c6ce94db" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>~IItemContainer</name></member>
+      <member refid="classMyGUI_1_1ILayerItem_18f05b429c402a94b666bfffee2ef3ed5" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>~ILayerItem</name></member>
+      <member refid="classMyGUI_1_1IObject_1ba65cf3c7393db4589ce28630a5aaadf" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>~IObject</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1412d7e8ee5a5a4773cf27695f402c351" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>~LayerItem</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_12f75cb4be8773e42573c4101166b91d6" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>~ScrollViewBase</name></member>
       <member refid="classMyGUI_1_1UserData_1a970af2c1f39e0fa8801fd9defb06d84" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>~UserData</name></member>
       <member refid="classMyGUI_1_1Widget_18ff3c2a98bbea22f4f0191bcac54b643" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>~Widget</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_106e5ebe1aa33cb737fdaaee9e8708356" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>~WidgetInput</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

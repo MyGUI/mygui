@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1LogStream" kind="class" prot="public">
     <compoundname>MyGUI::LogStream</compoundname>
+    <includes local="no">MyGUI_LogStream.h</includes>
     <innerclass refid="structMyGUI_1_1LogStream_1_1End">MyGUI::LogStream::End</innerclass>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1LogStream_1f689723fd964a0ba6b48735b6f2838d8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
@@ -10,7 +11,7 @@
         <argsstring>(const End &amp;_endl)</argsstring>
         <name>operator&lt;&lt;</name>
         <param>
-          <type>const End &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1LogStream_1_1End" kindref="compound">End</ref> &amp;</type>
           <declname>_endl</declname>
         </param>
         <briefdescription>
@@ -29,7 +30,7 @@
             <defname>T</defname>
           </param>
         </templateparamlist>
-        <type>LogStream &amp;</type>
+        <type><ref refid="classMyGUI_1_1LogStream" kindref="compound">LogStream</ref> &amp;</type>
         <definition>LogStream&amp; MyGUI::LogStream::operator&lt;&lt;</definition>
         <argsstring>(T _value)</argsstring>
         <name>operator&lt;&lt;</name>

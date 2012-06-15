@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1TextureUsage" kind="struct" prot="public">
     <compoundname>MyGUI::TextureUsage</compoundname>
+    <includes local="no">MyGUI_RenderFormat.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="enum" id="structMyGUI_1_1TextureUsage_11624409f8afdddc355f8ce976fdb9911" prot="public" static="no">
         <name>Enum</name>
@@ -77,7 +78,7 @@
         <argsstring>(Enum _value=Default)</argsstring>
         <name>TextureUsage</name>
         <param>
-          <type>Enum</type>
+          <type><ref refid="structMyGUI_1_1TextureUsage_11624409f8afdddc355f8ce976fdb9911" kindref="member">Enum</ref></type>
           <declname>_value</declname>
           <defval>Default</defval>
         </param>
@@ -90,12 +91,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderFormat.h" line="104" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderFormat.h" bodystart="102" bodyend="105"/>
       </memberdef>
       <memberdef kind="function" id="structMyGUI_1_1TextureUsage_1fdac99a0de6f93f6fac464bb01cb3958" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>TextureUsage &amp;</type>
+        <type><ref refid="structMyGUI_1_1TextureUsage" kindref="compound">TextureUsage</ref> &amp;</type>
         <definition>TextureUsage&amp; MyGUI::TextureUsage::operator|=</definition>
         <argsstring>(TextureUsage const &amp;_other)</argsstring>
         <name>operator|=</name>
         <param>
-          <type>TextureUsage const &amp;</type>
+          <type><ref refid="structMyGUI_1_1TextureUsage" kindref="compound">TextureUsage</ref> const &amp;</type>
           <declname>_other</declname>
         </param>
         <briefdescription>
@@ -112,7 +113,7 @@
         <argsstring>(Enum _value) const </argsstring>
         <name>isValue</name>
         <param>
-          <type>Enum</type>
+          <type><ref refid="structMyGUI_1_1TextureUsage_11624409f8afdddc355f8ce976fdb9911" kindref="member">Enum</ref></type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -126,7 +127,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="structMyGUI_1_1TextureUsage_11c9f7a73e06d0ef42c97b1a84694883e" prot="private" static="no" mutable="no">
-        <type>Enum</type>
+        <type><ref refid="structMyGUI_1_1TextureUsage_11624409f8afdddc355f8ce976fdb9911" kindref="member">Enum</ref></type>
         <definition>Enum MyGUI::TextureUsage::mValue</definition>
         <argsstring></argsstring>
         <name>mValue</name>
@@ -146,11 +147,11 @@
         <argsstring>(TextureUsage const &amp;a, TextureUsage const &amp;b)</argsstring>
         <name>operator==</name>
         <param>
-          <type>TextureUsage const &amp;</type>
+          <type><ref refid="structMyGUI_1_1TextureUsage" kindref="compound">TextureUsage</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>TextureUsage const &amp;</type>
+          <type><ref refid="structMyGUI_1_1TextureUsage" kindref="compound">TextureUsage</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -167,11 +168,11 @@
         <argsstring>(TextureUsage const &amp;a, TextureUsage const &amp;b)</argsstring>
         <name>operator!=</name>
         <param>
-          <type>TextureUsage const &amp;</type>
+          <type><ref refid="structMyGUI_1_1TextureUsage" kindref="compound">TextureUsage</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>TextureUsage const &amp;</type>
+          <type><ref refid="structMyGUI_1_1TextureUsage" kindref="compound">TextureUsage</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -183,16 +184,16 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderFormat.h" line="113" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderFormat.h" bodystart="112" bodyend="115"/>
       </memberdef>
       <memberdef kind="friend" id="structMyGUI_1_1TextureUsage_14ca85ff7c8312d84e381772e949bd3d9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>friend TextureUsage</type>
+        <type>friend <ref refid="structMyGUI_1_1TextureUsage" kindref="compound">TextureUsage</ref></type>
         <definition>TextureUsage operator|</definition>
         <argsstring>(Enum const &amp;a, Enum const &amp;b)</argsstring>
         <name>operator|</name>
         <param>
-          <type>Enum const &amp;</type>
+          <type><ref refid="structMyGUI_1_1TextureUsage_11624409f8afdddc355f8ce976fdb9911" kindref="member">Enum</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>Enum const &amp;</type>
+          <type><ref refid="structMyGUI_1_1TextureUsage_11624409f8afdddc355f8ce976fdb9911" kindref="member">Enum</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -204,16 +205,16 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderFormat.h" line="124" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderFormat.h" bodystart="123" bodyend="126"/>
       </memberdef>
       <memberdef kind="friend" id="structMyGUI_1_1TextureUsage_1012ca8990402b547566c9440338bff19" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>friend TextureUsage</type>
+        <type>friend <ref refid="structMyGUI_1_1TextureUsage" kindref="compound">TextureUsage</ref></type>
         <definition>TextureUsage operator|</definition>
         <argsstring>(TextureUsage const &amp;a, TextureUsage const &amp;b)</argsstring>
         <name>operator|</name>
         <param>
-          <type>TextureUsage const &amp;</type>
+          <type><ref refid="structMyGUI_1_1TextureUsage" kindref="compound">TextureUsage</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>TextureUsage const &amp;</type>
+          <type><ref refid="structMyGUI_1_1TextureUsage" kindref="compound">TextureUsage</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>

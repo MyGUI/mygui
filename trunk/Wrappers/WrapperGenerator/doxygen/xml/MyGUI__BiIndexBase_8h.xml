@@ -5,43 +5,43 @@
     <includes refid="MyGUI__Prerequest_8h" local="yes">MyGUI_Prerequest.h</includes>
     <includedby refid="MyGUI__MultiListBox_8h" local="yes">MyGUI_MultiListBox.h</includedby>
     <incdepgraph>
-      <node id="519">
+      <node id="527">
         <label>MyGUI_Platform.h</label>
         <link refid="MyGUI__Platform_8h"/>
       </node>
-      <node id="517">
+      <node id="525">
         <label>MyGUI_BiIndexBase.h</label>
         <link refid="MyGUI_BiIndexBase.h"/>
-        <childnode refid="518" relation="include">
+        <childnode refid="526" relation="include">
         </childnode>
       </node>
-      <node id="520">
+      <node id="528">
         <label>MyGUI_DeprecatedTypes.h</label>
         <link refid="MyGUI__DeprecatedTypes_8h"/>
       </node>
-      <node id="518">
+      <node id="526">
         <label>MyGUI_Prerequest.h</label>
         <link refid="MyGUI__Prerequest_8h"/>
-        <childnode refid="519" relation="include">
+        <childnode refid="527" relation="include">
         </childnode>
-        <childnode refid="520" relation="include">
+        <childnode refid="528" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="522">
+      <node id="530">
         <label>MyGUI_MultiListBox.h</label>
         <link refid="MyGUI__MultiListBox_8h"/>
-        <childnode refid="523" relation="include">
+        <childnode refid="531" relation="include">
         </childnode>
       </node>
-      <node id="521">
+      <node id="529">
         <label>MyGUI_BiIndexBase.h</label>
         <link refid="MyGUI_BiIndexBase.h"/>
-        <childnode refid="522" relation="include">
+        <childnode refid="530" relation="include">
         </childnode>
       </node>
-      <node id="523">
+      <node id="531">
         <label>MyGUI.h</label>
         <link refid="MyGUI_8h"/>
       </node>

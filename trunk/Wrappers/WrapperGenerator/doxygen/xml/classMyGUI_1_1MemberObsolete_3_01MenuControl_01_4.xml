@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1MemberObsolete_3_01MenuControl_01_4" kind="class" prot="public">
     <compoundname>MyGUI::MemberObsolete&lt; MenuControl &gt;</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1MenuControl" prot="public" virt="non-virtual">MyGUI::MenuControl</derivedcompoundref>
+    <includes local="no">MyGUI_BackwardCompatibility.h</includes>
     <templateparamlist>
     </templateparamlist>
       <sectiondef kind="public-func">
@@ -147,6 +149,30 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1548">
+        <label>MyGUI::PopupMenu</label>
+        <link refid="classMyGUI_1_1PopupMenu"/>
+        <childnode refid="1546" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1546">
+        <label>MyGUI::MenuControl</label>
+        <link refid="classMyGUI_1_1MenuControl"/>
+        <childnode refid="1545" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1545">
+        <label>MyGUI::MemberObsolete&lt; MenuControl &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01MenuControl_01_4"/>
+      </node>
+      <node id="1547">
+        <label>MyGUI::MenuBar</label>
+        <link refid="classMyGUI_1_1MenuBar"/>
+        <childnode refid="1546" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="209" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="208" bodyend="231"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1MemberObsolete_3_01MenuControl_01_4_171bcd1a3ef3f97bab470ec4b53c3f646" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MenuControl &gt;</scope><name>getAlignVert</name></member>

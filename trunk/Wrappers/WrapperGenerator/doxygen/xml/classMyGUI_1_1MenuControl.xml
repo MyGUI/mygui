@@ -3,6 +3,8 @@
   <compounddef id="classMyGUI_1_1MenuControl" kind="class" prot="public">
     <compoundname>MyGUI::MenuControl</compoundname>
     <basecompoundref refid="classMyGUI_1_1Widget" prot="public" virt="non-virtual">MyGUI::Widget</basecompoundref>
+    <basecompoundref refid="classMyGUI_1_1IItemContainer" prot="public" virt="non-virtual">MyGUI::IItemContainer</basecompoundref>
+    <basecompoundref refid="classMyGUI_1_1MemberObsolete_3_01MenuControl_01_4" prot="public" virt="non-virtual">MyGUI::MemberObsolete&lt; MenuControl &gt;</basecompoundref>
     <derivedcompoundref refid="classMyGUI_1_1MenuBar" prot="public" virt="non-virtual">MyGUI::MenuBar</derivedcompoundref>
     <derivedcompoundref refid="classMyGUI_1_1PopupMenu" prot="public" virt="non-virtual">MyGUI::PopupMenu</derivedcompoundref>
     <includes local="no">MyGUI_MenuControl.h</includes>
@@ -41,7 +43,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" line="50" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classMyGUI_1_1MenuControl_1515859186a920d9122ffeaf5c4fe2aa0" prot="public" static="no">
-        <type>std::vector&lt; ItemInfo &gt;</type>
+        <type>std::vector&lt; <ref refid="structMyGUI_1_1MenuControl_1_1ItemInfo" kindref="compound">ItemInfo</ref> &gt;</type>
         <definition>typedef std::vector&lt;ItemInfo&gt; MyGUI::MenuControl::VectorMenuItemInfo</definition>
         <argsstring></argsstring>
         <name>VectorMenuItemInfo</name>
@@ -190,7 +192,7 @@
           <declname>_name</declname>
         </param>
         <param>
-          <type>MenuItemType</type>
+          <type><ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref></type>
           <declname>_type</declname>
           <defval>MenuItemType::Normal</defval>
         </param>
@@ -200,9 +202,9 @@
           <defval>&quot;&quot;</defval>
         </param>
         <param>
-          <type>Any</type>
+          <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref></type>
           <declname>_data</declname>
-          <defval>Any::Null</defval>
+          <defval><ref refid="classMyGUI_1_1Any_19988b23fab77d89af4c372c3f761bc5b" kindref="member">Any::Null</ref></defval>
         </param>
         <briefdescription>
 <para>Insert an item into a array at a specified position. </para>        </briefdescription>
@@ -226,7 +228,7 @@
           <declname>_name</declname>
         </param>
         <param>
-          <type>MenuItemType</type>
+          <type><ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref></type>
           <declname>_type</declname>
           <defval>MenuItemType::Normal</defval>
         </param>
@@ -236,9 +238,9 @@
           <defval>&quot;&quot;</defval>
         </param>
         <param>
-          <type>Any</type>
+          <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref></type>
           <declname>_data</declname>
-          <defval>Any::Null</defval>
+          <defval><ref refid="classMyGUI_1_1Any_19988b23fab77d89af4c372c3f761bc5b" kindref="member">Any::Null</ref></defval>
         </param>
         <briefdescription>
 <para>Insert an item into a array. </para>        </briefdescription>
@@ -258,7 +260,7 @@
           <declname>_name</declname>
         </param>
         <param>
-          <type>MenuItemType</type>
+          <type><ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref></type>
           <declname>_type</declname>
           <defval>MenuItemType::Normal</defval>
         </param>
@@ -268,9 +270,9 @@
           <defval>&quot;&quot;</defval>
         </param>
         <param>
-          <type>Any</type>
+          <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref></type>
           <declname>_data</declname>
-          <defval>Any::Null</defval>
+          <defval><ref refid="classMyGUI_1_1Any_19988b23fab77d89af4c372c3f761bc5b" kindref="member">Any::Null</ref></defval>
         </param>
         <briefdescription>
 <para>Add an item to the end of a array. </para>        </briefdescription>
@@ -405,7 +407,7 @@
           <declname>_index</declname>
         </param>
         <param>
-          <type>Any</type>
+          <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref></type>
           <declname>_data</declname>
         </param>
         <briefdescription>
@@ -426,7 +428,7 @@
           <declname>_item</declname>
         </param>
         <param>
-          <type>Any</type>
+          <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref></type>
           <declname>_data</declname>
         </param>
         <briefdescription>
@@ -947,7 +949,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" line="227"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1MenuControl_1553071931e0a331326a1a633f0d22e06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>MenuItemType</type>
+        <type><ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref></type>
         <definition>MenuItemType MyGUI::MenuControl::getItemTypeAt</definition>
         <argsstring>(size_t _index)</argsstring>
         <name>getItemTypeAt</name>
@@ -958,13 +960,13 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Get item type (see MenuItemType) from item by index </para>        </detaileddescription>
+<para>Get item type (see <ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref>) from item by index </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" line="231"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1MenuControl_11a0c7dbd3231255e3caa08d718fb9ee0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>MenuItemType</type>
+        <type><ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref></type>
         <definition>MenuItemType MyGUI::MenuControl::getItemType</definition>
         <argsstring>(MenuItem *_item)</argsstring>
         <name>getItemType</name>
@@ -975,7 +977,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Get item type (see MenuItemType) from item </para>        </detaileddescription>
+<para>Get item type (see <ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref>) from item </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" line="234"/>
@@ -990,13 +992,13 @@
           <declname>_index</declname>
         </param>
         <param>
-          <type>MenuItemType</type>
+          <type><ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref></type>
           <declname>_type</declname>
         </param>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Set item type (see MenuItemType) from item by index </para>        </detaileddescription>
+<para>Set item type (see <ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref>) from item by index </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" line="237"/>
@@ -1011,13 +1013,13 @@
           <declname>_item</declname>
         </param>
         <param>
-          <type>MenuItemType</type>
+          <type><ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref></type>
           <declname>_type</declname>
         </param>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Set item type (see MenuItemType) from item </para>        </detaileddescription>
+<para>Set item type (see <ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref>) from item </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" line="239"/>
@@ -1172,6 +1174,7 @@
         <definition>virtual size_t MyGUI::MenuControl::_getItemCount</definition>
         <argsstring>()</argsstring>
         <name>_getItemCount</name>
+        <reimplements refid="classMyGUI_1_1IItemContainer_13bedbf3f8c47a817e76bc2d649a8b235">_getItemCount</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -1185,6 +1188,7 @@
         <definition>virtual void MyGUI::MenuControl::_addItem</definition>
         <argsstring>(const MyGUI::UString &amp;_name)</argsstring>
         <name>_addItem</name>
+        <reimplements refid="classMyGUI_1_1IItemContainer_154f20b71a863c33df9d6d3157a8bf665">_addItem</reimplements>
         <param>
           <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">MyGUI::UString</ref> &amp;</type>
           <declname>_name</declname>
@@ -1202,6 +1206,7 @@
         <definition>virtual void MyGUI::MenuControl::_removeItemAt</definition>
         <argsstring>(size_t _index)</argsstring>
         <name>_removeItemAt</name>
+        <reimplements refid="classMyGUI_1_1IItemContainer_1ae140655a985cbacdd92ae3c512b3352">_removeItemAt</reimplements>
         <param>
           <type>size_t</type>
           <declname>_index</declname>
@@ -1219,6 +1224,7 @@
         <definition>virtual Widget* MyGUI::MenuControl::_getItemAt</definition>
         <argsstring>(size_t _index)</argsstring>
         <name>_getItemAt</name>
+        <reimplements refid="classMyGUI_1_1IItemContainer_14ecbb51229418299b07d18351e57caaa">_getItemAt</reimplements>
         <param>
           <type>size_t</type>
           <declname>_index</declname>
@@ -1236,6 +1242,7 @@
         <definition>virtual void MyGUI::MenuControl::_setItemNameAt</definition>
         <argsstring>(size_t _index, const UString &amp;_name)</argsstring>
         <name>_setItemNameAt</name>
+        <reimplements refid="classMyGUI_1_1IItemContainer_1b55cf00b90d344b4a8d5d4ce311d7eaf">_setItemNameAt</reimplements>
         <param>
           <type>size_t</type>
           <declname>_index</declname>
@@ -1257,6 +1264,7 @@
         <definition>virtual const UString&amp; MyGUI::MenuControl::_getItemNameAt</definition>
         <argsstring>(size_t _index)</argsstring>
         <name>_getItemNameAt</name>
+        <reimplements refid="classMyGUI_1_1IItemContainer_118b5e7dfe7b2470b67a8a6206a47e078">_getItemNameAt</reimplements>
         <param>
           <type>size_t</type>
           <declname>_index</declname>
@@ -1274,8 +1282,9 @@
         <definition>virtual void MyGUI::MenuControl::_setItemSelected</definition>
         <argsstring>(IItem *_item)</argsstring>
         <name>_setItemSelected</name>
+        <reimplements refid="classMyGUI_1_1IItemContainer_12dca0cb471a4f8deaf17b0d67e49f6e5">_setItemSelected</reimplements>
         <param>
-          <type>IItem *</type>
+          <type><ref refid="classMyGUI_1_1IItem" kindref="compound">IItem</ref> *</type>
           <declname>_item</declname>
         </param>
         <briefdescription>
@@ -1319,7 +1328,7 @@
       </sectiondef>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1MenuControl_1c46c3f2a1945d199b73dc038d7b2a83b" prot="public" static="no" mutable="no">
-        <type>EventHandle_MenuCtrlPtrMenuItemPtr</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">EventHandle_MenuCtrlPtrMenuItemPtr</ref></type>
         <definition>EventHandle_MenuCtrlPtrMenuItemPtr MyGUI::MenuControl::eventMenuCtrlAccept</definition>
         <argsstring></argsstring>
         <name>eventMenuCtrlAccept</name>
@@ -1349,7 +1358,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" line="262" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" bodystart="262" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1MenuControl_168173d67e6c5d09ff297fffcfe4537a2" prot="public" static="no" mutable="no">
-        <type>EventHandle_MenuCtrlPtr</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">EventHandle_MenuCtrlPtr</ref></type>
         <definition>EventHandle_MenuCtrlPtr MyGUI::MenuControl::eventMenuCtrlClose</definition>
         <argsstring></argsstring>
         <name>eventMenuCtrlClose</name>
@@ -1424,6 +1433,7 @@
         <definition>virtual void MyGUI::MenuControl::onKeyChangeRootFocus</definition>
         <argsstring>(bool _focus)</argsstring>
         <name>onKeyChangeRootFocus</name>
+        <reimplements refid="classMyGUI_1_1WidgetInput_1b8e266d4069a1ab0363375bad9e35171">onKeyChangeRootFocus</reimplements>
         <param>
           <type>bool</type>
           <declname>_focus</declname>
@@ -1610,7 +1620,7 @@
         <argsstring>(MenuItemType _type) const </argsstring>
         <name>getSkinByType</name>
         <param>
-          <type>MenuItemType</type>
+          <type><ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref></type>
           <declname>_type</declname>
         </param>
         <briefdescription>
@@ -1627,7 +1637,7 @@
         <argsstring>(MenuItemType _type) const </argsstring>
         <name>getIconIndexByType</name>
         <param>
-          <type>MenuItemType</type>
+          <type><ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref></type>
           <declname>_type</declname>
         </param>
         <briefdescription>
@@ -1652,7 +1662,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" line="308"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1MenuControl_1b07762ea4b7088de6e4f713ec30c77a7" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>MenuItemType</type>
+        <type><ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref></type>
         <definition>MenuItemType MyGUI::MenuControl::getItemType</definition>
         <argsstring>(bool _submenu, bool _separator) const </argsstring>
         <name>getItemType</name>
@@ -1728,7 +1738,7 @@
           <declname>_name</declname>
         </param>
         <param>
-          <type>MenuItemType</type>
+          <type><ref refid="structMyGUI_1_1MenuItemType" kindref="compound">MenuItemType</ref></type>
           <declname>_type</declname>
         </param>
         <param>
@@ -1736,7 +1746,7 @@
           <declname>_id</declname>
         </param>
         <param>
-          <type>Any</type>
+          <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref></type>
           <declname>_data</declname>
         </param>
         <briefdescription>
@@ -1813,7 +1823,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1MenuControl_193909917235a730abc81e2aef942c4e5" prot="private" static="no" mutable="no">
-        <type>VectorMenuItemInfo</type>
+        <type><ref refid="classMyGUI_1_1MenuControl_1515859186a920d9122ffeaf5c4fe2aa0" kindref="member">VectorMenuItemInfo</ref></type>
         <definition>VectorMenuItemInfo MyGUI::MenuControl::mItemsInfo</definition>
         <argsstring></argsstring>
         <name>mItemsInfo</name>
@@ -2000,102 +2010,485 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="456">
+      <node id="1682">
         <label>MyGUI::PopupMenu</label>
         <link refid="classMyGUI_1_1PopupMenu"/>
-        <childnode refid="452" relation="public-inheritance">
+        <childnode refid="1668" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="452">
+      <node id="1675">
+        <label>MyGUI::SkinItem</label>
+        <link refid="classMyGUI_1_1SkinItem"/>
+        <childnode refid="1676" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1677">
+        <label>MyGUI::ILayerItem</label>
+        <link refid="classMyGUI_1_1ILayerItem"/>
+      </node>
+      <node id="1671">
+        <label>MyGUI::ICroppedRectangle</label>
+        <link refid="classMyGUI_1_1ICroppedRectangle"/>
+      </node>
+      <node id="1678">
+        <label>MyGUI::MemberObsolete&lt; Widget &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4"/>
+      </node>
+      <node id="1668">
         <label>MyGUI::MenuControl</label>
         <link refid="classMyGUI_1_1MenuControl"/>
-        <childnode refid="453" relation="public-inheritance">
+        <childnode refid="1669" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1679" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1680" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="455">
+      <node id="1680">
+        <label>MyGUI::MemberObsolete&lt; MenuControl &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01MenuControl_01_4"/>
+      </node>
+      <node id="1681">
         <label>MyGUI::MenuBar</label>
         <link refid="classMyGUI_1_1MenuBar"/>
-        <childnode refid="452" relation="public-inheritance">
+        <childnode refid="1668" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="454">
+      <node id="1672">
         <label>MyGUI::UserData</label>
         <link refid="classMyGUI_1_1UserData"/>
       </node>
-      <node id="453">
+      <node id="1669">
         <label>MyGUI::Widget</label>
         <link refid="classMyGUI_1_1Widget"/>
-        <childnode refid="454" relation="public-inheritance">
+        <childnode refid="1670" relation="public-inheritance">
         </childnode>
+        <childnode refid="1671" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1672" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1673" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1674" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1675" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1678" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1674">
+        <label>MyGUI::delegates::IDelegateUnlink</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegateUnlink"/>
+      </node>
+      <node id="1673">
+        <label>MyGUI::WidgetInput</label>
+        <link refid="classMyGUI_1_1WidgetInput"/>
+      </node>
+      <node id="1676">
+        <label>MyGUI::LayerItem</label>
+        <link refid="classMyGUI_1_1LayerItem"/>
+        <childnode refid="1677" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1679">
+        <label>MyGUI::IItemContainer</label>
+        <link refid="classMyGUI_1_1IItemContainer"/>
+      </node>
+      <node id="1670">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="462">
+      <node id="1699">
+        <label>MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate1"/>
+      </node>
+      <node id="1714">
+        <label>MyGUI::WidgetStyle</label>
+        <link refid="structMyGUI_1_1WidgetStyle"/>
+      </node>
+      <node id="1688">
+        <label>T</label>
+      </node>
+      <node id="1706">
+        <label>MyGUI::ILayer</label>
+        <link refid="classMyGUI_1_1ILayer"/>
+        <childnode refid="1707" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1689">
+        <label>MyGUI::types::TCoord&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TCoord"/>
+        <childnode refid="1688" relation="usage">
+          <edgelabel>width
+height
+left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="1702">
+        <label>MyGUI::SkinItem</label>
+        <link refid="classMyGUI_1_1SkinItem"/>
+        <childnode refid="1703" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1705" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="1709" relation="usage">
+          <edgelabel>mMainSkin</edgelabel>
+        </childnode>
+        <childnode refid="1712" relation="usage">
+          <edgelabel>mText</edgelabel>
+        </childnode>
+      </node>
+      <node id="1704">
+        <label>MyGUI::ILayerItem</label>
+        <link refid="classMyGUI_1_1ILayerItem"/>
+      </node>
+      <node id="1695">
+        <label>MyGUI::delegates::CMultiDelegate3&lt; TP1, TP2, TP3 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate3"/>
+      </node>
+      <node id="1705">
+        <label>MyGUI::ITexture</label>
+        <link refid="classMyGUI_1_1ITexture"/>
+      </node>
+      <node id="1696">
+        <label>MyGUI::delegates::CMultiDelegate4&lt; TP1, TP2, TP3, TP4 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate4"/>
+      </node>
+      <node id="1698">
+        <label>MyGUI::MaskPickInfo</label>
+        <link refid="classMyGUI_1_1MaskPickInfo"/>
+      </node>
+      <node id="1686">
+        <label>MyGUI::ICroppedRectangle</label>
+        <link refid="classMyGUI_1_1ICroppedRectangle"/>
+        <childnode refid="1687" relation="usage">
+          <edgelabel>mAbsolutePosition</edgelabel>
+        </childnode>
+        <childnode refid="1689" relation="usage">
+          <edgelabel>mCoord</edgelabel>
+        </childnode>
+        <childnode refid="1690" relation="usage">
+          <edgelabel>mMargin</edgelabel>
+        </childnode>
+        <childnode refid="1686" relation="usage">
+          <edgelabel>mCroppedParent</edgelabel>
+        </childnode>
+      </node>
+      <node id="1690">
+        <label>MyGUI::types::TRect&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TRect"/>
+        <childnode refid="1688" relation="usage">
+          <edgelabel>right
+left
+bottom
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="1708">
+        <label>MyGUI::ILayerNode</label>
+        <link refid="classMyGUI_1_1ILayerNode"/>
+        <childnode refid="1685" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1725">
+        <label>MyGUI::IItem</label>
+        <link refid="classMyGUI_1_1IItem"/>
+      </node>
+      <node id="1719">
         <label>MyGUI::TextBox</label>
         <link refid="classMyGUI_1_1TextBox"/>
-        <childnode refid="458" relation="public-inheritance">
+        <childnode refid="1684" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="457">
+      <node id="1726">
+        <label>MyGUI::MemberObsolete&lt; MenuItem &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01MenuItem_01_4"/>
+      </node>
+      <node id="1713">
+        <label>MyGUI::MemberObsolete&lt; Widget &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4"/>
+      </node>
+      <node id="1683">
         <label>MyGUI::MenuControl</label>
         <link refid="classMyGUI_1_1MenuControl"/>
-        <childnode refid="458" relation="public-inheritance">
+        <childnode refid="1684" relation="public-inheritance">
         </childnode>
-        <childnode refid="460" relation="usage">
+        <childnode refid="1715" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1716" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1717" relation="usage">
           <edgelabel>mOwner</edgelabel>
         </childnode>
-        <childnode refid="458" relation="usage">
+        <childnode refid="1684" relation="usage">
           <edgelabel>mClient</edgelabel>
         </childnode>
+        <childnode refid="1699" relation="usage">
+          <edgelabel>eventMenuCtrlClose</edgelabel>
+        </childnode>
+        <childnode refid="1700" relation="usage">
+          <edgelabel>eventMenuCtrlAccept</edgelabel>
+        </childnode>
       </node>
-      <node id="463">
+      <node id="1716">
+        <label>MyGUI::MemberObsolete&lt; MenuControl &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01MenuControl_01_4"/>
+      </node>
+      <node id="1700">
+        <label>MyGUI::delegates::CMultiDelegate2&lt; TP1, TP2 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate2"/>
+      </node>
+      <node id="1721">
         <label>MyGUI::ImageBox</label>
         <link refid="classMyGUI_1_1ImageBox"/>
-        <childnode refid="458" relation="public-inheritance">
+        <childnode refid="1684" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1722" relation="usage">
+          <edgelabel>mSizeTexture
+mSizeTile</edgelabel>
+        </childnode>
+        <childnode refid="1690" relation="usage">
+          <edgelabel>mRectImage</edgelabel>
+        </childnode>
+        <childnode refid="1723" relation="usage">
+          <edgelabel>mResource</edgelabel>
         </childnode>
       </node>
-      <node id="459">
+      <node id="1723">
+        <label>MyGUI::ResourceImageSet</label>
+        <link refid="classMyGUI_1_1ResourceImageSet"/>
+        <childnode refid="1724" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1691">
         <label>MyGUI::UserData</label>
         <link refid="classMyGUI_1_1UserData"/>
+        <childnode refid="1692" relation="usage">
+          <edgelabel>mUserData
+mInternalData</edgelabel>
+        </childnode>
       </node>
-      <node id="458">
+      <node id="1722">
+        <label>MyGUI::types::TSize&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TSize"/>
+        <childnode refid="1688" relation="usage">
+          <edgelabel>width
+height</edgelabel>
+        </childnode>
+      </node>
+      <node id="1712">
+        <label>MyGUI::ISubWidgetText</label>
+        <link refid="classMyGUI_1_1ISubWidgetText"/>
+        <childnode refid="1710" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1684">
         <label>MyGUI::Widget</label>
         <link refid="classMyGUI_1_1Widget"/>
-        <childnode refid="459" relation="public-inheritance">
+        <childnode refid="1685" relation="public-inheritance">
         </childnode>
-        <childnode refid="458" relation="usage">
+        <childnode refid="1686" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1691" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1694" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1701" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1702" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1713" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1695" relation="usage">
+          <edgelabel>eventChangeProperty</edgelabel>
+        </childnode>
+        <childnode refid="1714" relation="usage">
+          <edgelabel>mWidgetStyle</edgelabel>
+        </childnode>
+        <childnode refid="1684" relation="usage">
           <edgelabel>mContainer
 mParent
 mWidgetClient</edgelabel>
         </childnode>
+        <childnode refid="1711" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
       </node>
-      <node id="461">
+      <node id="1711">
+        <label>MyGUI::Align</label>
+        <link refid="structMyGUI_1_1Align"/>
+      </node>
+      <node id="1709">
+        <label>MyGUI::ISubWidgetRect</label>
+        <link refid="classMyGUI_1_1ISubWidgetRect"/>
+        <childnode refid="1710" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1720">
+        <label>MyGUI::MemberObsolete&lt; Button &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4"/>
+      </node>
+      <node id="1707">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="1685" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1710">
+        <label>MyGUI::ISubWidget</label>
+        <link refid="classMyGUI_1_1ISubWidget"/>
+        <childnode refid="1686" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1685" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1711" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
+      </node>
+      <node id="1701">
+        <label>MyGUI::delegates::IDelegateUnlink</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegateUnlink"/>
+        <childnode refid="1701" relation="usage">
+          <edgelabel>m_baseDelegateUnlink</edgelabel>
+        </childnode>
+      </node>
+      <node id="1718">
         <label>MyGUI::Button</label>
         <link refid="classMyGUI_1_1Button"/>
-        <childnode refid="462" relation="public-inheritance">
+        <childnode refid="1719" relation="public-inheritance">
         </childnode>
-        <childnode refid="463" relation="usage">
+        <childnode refid="1720" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1721" relation="usage">
           <edgelabel>mImage</edgelabel>
         </childnode>
       </node>
-      <node id="460">
+      <node id="1697">
+        <label>MyGUI::EventPair3to4&lt; EventHandle_WidgetIntInt, EventHandle_WidgetIntIntButton &gt;</label>
+        <link refid="classMyGUI_1_1EventPair3to4"/>
+        <childnode refid="1695" relation="usage">
+          <edgelabel>m_eventObsolete</edgelabel>
+        </childnode>
+        <childnode refid="1696" relation="usage">
+          <edgelabel>m_event</edgelabel>
+        </childnode>
+      </node>
+      <node id="1694">
+        <label>MyGUI::WidgetInput</label>
+        <link refid="classMyGUI_1_1WidgetInput"/>
+        <childnode refid="1695" relation="usage">
+          <edgelabel>eventKeyButtonPressed
+eventMouseMove</edgelabel>
+        </childnode>
+        <childnode refid="1696" relation="usage">
+          <edgelabel>eventMouseButtonPressed
+eventMouseButtonReleased</edgelabel>
+        </childnode>
+        <childnode refid="1697" relation="usage">
+          <edgelabel>eventMouseDrag</edgelabel>
+        </childnode>
+        <childnode refid="1698" relation="usage">
+          <edgelabel>mOwnMaskPickInfo</edgelabel>
+        </childnode>
+        <childnode refid="1699" relation="usage">
+          <edgelabel>eventMouseButtonDoubleClick
+eventMouseButtonClick</edgelabel>
+        </childnode>
+        <childnode refid="1700" relation="usage">
+          <edgelabel>eventKeySetFocus
+eventMouseSetFocus
+eventKeyButtonReleased
+eventKeyLostFocus
+eventRootMouseChangeFocus
+eventMouseWheel
+eventToolTip
+eventMouseLostFocus
+eventRootKeyChangeFocus</edgelabel>
+        </childnode>
+      </node>
+      <node id="1717">
         <label>MyGUI::MenuItem</label>
         <link refid="classMyGUI_1_1MenuItem"/>
-        <childnode refid="461" relation="public-inheritance">
+        <childnode refid="1718" relation="public-inheritance">
         </childnode>
-        <childnode refid="458" relation="usage">
+        <childnode refid="1725" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1726" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1722" relation="usage">
+          <edgelabel>mMinSize</edgelabel>
+        </childnode>
+        <childnode refid="1684" relation="usage">
           <edgelabel>mCheck</edgelabel>
         </childnode>
-        <childnode refid="457" relation="usage">
+        <childnode refid="1683" relation="usage">
           <edgelabel>mOwner</edgelabel>
         </childnode>
+      </node>
+      <node id="1693">
+        <label>MyGUI::Any::AnyEmpty</label>
+        <link refid="structMyGUI_1_1Any_1_1AnyEmpty"/>
+      </node>
+      <node id="1703">
+        <label>MyGUI::LayerItem</label>
+        <link refid="classMyGUI_1_1LayerItem"/>
+        <childnode refid="1704" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1705" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="1706" relation="usage">
+          <edgelabel>mLayer</edgelabel>
+        </childnode>
+        <childnode refid="1708" relation="usage">
+          <edgelabel>mSaveLayerNode
+mLayerNode</edgelabel>
+        </childnode>
+      </node>
+      <node id="1724">
+        <label>MyGUI::IResource</label>
+        <link refid="classMyGUI_1_1IResource"/>
+        <childnode refid="1707" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1687">
+        <label>MyGUI::types::TPoint&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TPoint"/>
+        <childnode refid="1688" relation="usage">
+          <edgelabel>left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="1692">
+        <label>MyGUI::Any</label>
+        <link refid="classMyGUI_1_1Any"/>
+        <childnode refid="1693" relation="usage">
+          <edgelabel>Null</edgelabel>
+        </childnode>
+      </node>
+      <node id="1715">
+        <label>MyGUI::IItemContainer</label>
+        <link refid="classMyGUI_1_1IItemContainer"/>
+      </node>
+      <node id="1685">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
       </node>
     </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" line="49" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuControl.h" bodystart="45" bodyend="353"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1MenuControl_16c53f2cafa7d7bd2bcea04fd8256ba74" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>_addItem</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_140912f54a25901b779ea49094e5f4ae0" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_checkMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1093bbcae9343e7fe54fb4769652dfc2f" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_checkOutside</name></member>
       <member refid="classMyGUI_1_1Widget_134c44665e7d51c7eb65bf70f0479e1c3" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_checkPoint</name></member>
+      <member refid="classMyGUI_1_1SkinItem_10726c0a6b7e07c4a1ffbc6b41da8639e" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_correctSkinItemView</name></member>
+      <member refid="classMyGUI_1_1SkinItem_125c41f0b09a8cb62b56e4bf151029efe" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_createSkinItem</name></member>
       <member refid="classMyGUI_1_1Widget_13601e5ca0d565451dfcf106850506a51" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_createSkinWidget</name></member>
+      <member refid="classMyGUI_1_1SkinItem_183e18cf55c5dfcd5fc991cd3d1c79726" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_deleteSkinItem</name></member>
       <member refid="classMyGUI_1_1Widget_10df77f6d74fe5fc24701819e0b7e0fe8" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_destroyAllChildWidget</name></member>
       <member refid="classMyGUI_1_1Widget_125136884a04944ef8b199c582e15482c" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_destroyChildWidget</name></member>
       <member refid="classMyGUI_1_1Widget_1deee68fb42acc2fab667b169587e9ce3" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_forcePick</name></member>
@@ -2107,36 +2500,83 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1MenuControl_144572babae8694a991f594c9e1718d2c" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>_getItemCount</name></member>
       <member refid="classMyGUI_1_1Widget_106700537a6fffaf43aa9c93e89d9cc7d" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>_getItemIndex</name></member>
       <member refid="classMyGUI_1_1MenuControl_152e62d17f71613a3ee9874e7d77f6455" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>_getItemNameAt</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1dd35646a24b80019d956bd8d9a8842e4" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_getMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b883cc09bbd15914970fa6a3a155b261" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_getMarginBottom</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1c389b55028cb6157b3832250de48cfe7" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_getMarginLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_11221b089abe10e18924bf5bb3209ac9f" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_getMarginRight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f875bcc3f5e3292c646142460892f7a4" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_getMarginTop</name></member>
+      <member refid="classMyGUI_1_1SkinItem_111f8d0452fdc560e02d3302bb100f994" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_getTextureName</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_13a7c73e8f4cc8dabcd76a5c6645900b9" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_getViewBottom</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1eaa2e53babcc2e3fdc8809f6eb8825bf" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_getViewHeight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_19c87ba1cec7e29effd49a8aed37e4bbe" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_getViewLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1ae878f922452310563bc53768acbee32" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_getViewRight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_16f7f0a2960a331640aaee3a88fdc8a20" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_getViewTop</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_10fb56854f3bb6d0f7f4f0e8f608fa37a" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_getViewWidth</name></member>
       <member refid="classMyGUI_1_1Widget_1ae54386446434e4b133c244925402375" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_initialise</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1e9ab842519de0d0d1ff6624c96a25aee" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_isMargin</name></member>
       <member refid="classMyGUI_1_1MenuControl_1622cb6756776959a16d9837188720c6a" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_notifyDeleteItem</name></member>
       <member refid="classMyGUI_1_1MenuControl_16acb936bb5298afccd3c998ae2fe6f30" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_notifyDeletePopup</name></member>
       <member refid="classMyGUI_1_1MenuControl_1b7eb544e73952833c42059894782ee49" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_notifyUpdateName</name></member>
       <member refid="classMyGUI_1_1MenuControl_1709e9a06ab6a5d9ee14f1d1b3301ed2e" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>_removeItemAt</name></member>
       <member refid="classMyGUI_1_1Widget_1175526a4b039cf13c7fec7012d7287fc" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>_resetContainer</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16ca16375013009df6343d5d704a5e0c5" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_riseKeyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16656b62ce7ec79ba18d0cdfedd2dfd4c" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_riseKeyButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c7feaf74a77264d4c2276ef7ae7238b9" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_riseKeyChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1d68d79f35d6a2d5ec4f063850199c699" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_riseKeyLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16890125536b19d6c6ec45482f3a36a46" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_riseKeySetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1ee33fe7ab755d138b20742d2b333a86a" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_riseMouseButtonClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10f7494e4a979775f2f67ab1b7a18c436" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_riseMouseButtonDoubleClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1abf1460346c8b853efde46128588f227" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_riseMouseButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18fe37f4239c9f31bc522520d6e30d047" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_riseMouseButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1ef279e1b31729b0975a8fd3dbba6f55a" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_riseMouseChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_181a0731821e5a71bd4ff6205428b78c9" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_riseMouseDrag</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1b08bce548d116bc1c6ef6e6d979d8de8" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_riseMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10adf6398d5b0e5890557061ac78ad65b" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_riseMouseMove</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1a012de5786a0bed2ae87a9deae13c0ef" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_riseMouseSetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_17e327836202f73c68ec038af7ffa8890" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_riseMouseWheel</name></member>
       <member refid="classMyGUI_1_1Widget_15df6dbd95e99b9b65b385d815026cf26" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_setAlign</name></member>
       <member refid="classMyGUI_1_1Widget_1d3d48604ad15f958b81bf423f80271c9" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_setContainer</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b7a33eeac6fd7e1ecc305decc2970249" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_setCroppedParent</name></member>
       <member refid="classMyGUI_1_1UserData_12bd52c146bad41f99bbc7ed31335ad18" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_setInternalData</name></member>
       <member refid="classMyGUI_1_1MenuControl_15dc74e67537e3a4b40f0043499cff7f8" prot="private" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_setItemChildVisibleAt</name></member>
       <member refid="classMyGUI_1_1MenuControl_181b6a0ea5441d6f42deb1e5cd24bac05" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>_setItemNameAt</name></member>
       <member refid="classMyGUI_1_1MenuControl_1fa507d7a35f77f61c7ce7bfe82707634" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>_setItemSelected</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1dabde72179cbe3f1640edb16d4b19185" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_setRootKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1e63e896e1bc3441474eaf02d8c940fb0" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_setRootMouseFocus</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b983e0ed07906a96b1f9a1a6d3593304" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_setSkinItemAlign</name></member>
+      <member refid="classMyGUI_1_1SkinItem_121cde72c7bd643fec9816501fe986205" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_setSkinItemAlpha</name></member>
+      <member refid="classMyGUI_1_1SkinItem_15f1951b1f095aaa695fb90ea7cef623b" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_setSkinItemColour</name></member>
+      <member refid="classMyGUI_1_1SkinItem_199576e05c1de9db65b724308619559d4" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_setSkinItemState</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1e7dffe0acef7ab94c35cd0cd70fede08" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_setSkinItemVisible</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b705b413faa908fe8424b57574a3410f" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_setSubSkinVisible</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1d7130c196fcd0e29e06210f96240b171" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_setTextureName</name></member>
       <member refid="classMyGUI_1_1Widget_13325a1f4c26917f6f73b207d0986e1bd" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_setWidgetState</name></member>
       <member refid="classMyGUI_1_1Widget_155b19482fe01925c36e29af671e3d092" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_shutdown</name></member>
       <member refid="classMyGUI_1_1MenuControl_15b1e36931ebad44b39f8f876a2034e0f" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_updateItems</name></member>
       <member refid="classMyGUI_1_1MenuControl_1226576645ac258fda42b77884420a033" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_updateSizeForEmpty</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b5d81f68dff04ef4c975d8563ea0f598" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_updateSkinItemView</name></member>
       <member refid="classMyGUI_1_1Widget_1dd935a48ef2c39688d8026c01e9e3939" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_updateView</name></member>
       <member refid="classMyGUI_1_1MenuControl_1f9612abd13ea050c605d0be8e0c63bd2" prot="private" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_wrapItem</name></member>
       <member refid="classMyGUI_1_1MenuControl_1f351ee1a37e8fd2cee1ff8454796dbc1" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>_wrapItemChild</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1468694a8e650fa4c019298691bb515d5" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>addChildItem</name></member>
+      <member refid="classMyGUI_1_1LayerItem_151c4c558eec72b51f62753c2dfe44094" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>addChildNode</name></member>
       <member refid="classMyGUI_1_1MenuControl_1b6749ee9f77afb52f26204ffd86a3cad" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>addItem</name></member>
+      <member refid="classMyGUI_1_1LayerItem_19ddb478b09b766f3c515523e8d0658b0" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>addRenderItem</name></member>
       <member refid="classMyGUI_1_1Widget_1b390f48a62a30d529c901cf8cfa1c24c" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>assignWidget</name></member>
+      <member refid="classMyGUI_1_1LayerItem_129e3f29933beef8f55ec8965a93be0cc" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>attachItemToNode</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1d8cf239c39b116a48a1517117d1fb9a6" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>attachToLayerItemNode</name></member>
       <member refid="classMyGUI_1_1Widget_105110870f31f66a901b3b11737c194de" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>attachToWidget</name></member>
       <member refid="classMyGUI_1_1MenuControl_19bfc8d44881ba61f738bb855366845fe" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>Base</name></member>
       <member refid="classMyGUI_1_1Widget_1d88d7deb826efb660943ccb0bb457cae" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>baseCreateWidget</name></member>
       <member refid="classMyGUI_1_1Widget_1d4c4a2cf2c3dd8b71126291a55e69139" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>baseUpdateEnable</name></member>
+      <member refid="classMyGUI_1_1IObject_1c542d61d7f1efd5c08dae100a3c68558" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>castType</name></member>
+      <member refid="classMyGUI_1_1IObject_1f636b3c71d893eeb41bebc1c6f4519e1" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>castType</name></member>
       <member refid="classMyGUI_1_1Widget_1be74d6cc433da6140629423b120735a4" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>changeWidgetSkin</name></member>
       <member refid="classMyGUI_1_1MenuControl_1ae98b06985a9fff8451d72ff83668831" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>clearItemData</name></member>
       <member refid="classMyGUI_1_1MenuControl_1c48a3f1f2d19bbac92f39bdc811e8af7" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>clearItemDataAt</name></member>
       <member refid="classMyGUI_1_1UserData_1f71561f766d83082a82cbdd6d218bd6b" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>clearUserString</name></member>
       <member refid="classMyGUI_1_1UserData_154fecc1b40c23594c6518589b6912e49" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>clearUserStrings</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_1c6738433a415e2f37a5d3f927c0cc7fe" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>compare</name></member>
       <member refid="classMyGUI_1_1MenuControl_172c74f94d5716fc1b86b1388aa5e6eaa" prot="private" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>createControllerFadeAlpha</name></member>
       <member refid="classMyGUI_1_1MenuControl_1d9e06cffa60ee2d7c2de63ac0ed814c9" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>createItemChild</name></member>
       <member refid="classMyGUI_1_1MenuControl_18c97fa34197dcda7e9ae89f8baeed2bc" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>createItemChildAt</name></member>
@@ -2154,29 +2594,58 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1Widget_12e74ae3d0a439f4edd509e73d4b2a083" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>createWidgetT</name></member>
       <member refid="classMyGUI_1_1Widget_1e26a4a5e8ea3fa4bafd969eb952d88e9" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>createWidgetT</name></member>
       <member refid="classMyGUI_1_1Widget_1c1c862389f772c52077fe4f2cf6568b5" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>destroySkinWidget</name></member>
+      <member refid="classMyGUI_1_1LayerItem_113b56979c71726ffcb334b778b193716" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>detachFromLayer</name></member>
+      <member refid="classMyGUI_1_1LayerItem_13d324b33933eb9f9bc8ac9d51e05e54e" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>detachFromLayerItemNode</name></member>
       <member refid="classMyGUI_1_1Widget_1056ac7afc041cf328037e210c742302f" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>detachFromWidget</name></member>
       <member refid="classMyGUI_1_1Widget_130efcbdb772c4a75f8208a99c4f9f34d" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>eventChangeProperty</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_19c0c205a1523715242cb07f3e1bb0018" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>eventKeyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1fe364fecb43bd52d81894fd8cbb6ff7c" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>eventKeyButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1190abc3db9e410abf5b3e96aec9278db" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>eventKeyLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c4228a2d61d12a5f4f411512c2144823" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>eventKeySetFocus</name></member>
       <member refid="classMyGUI_1_1MenuControl_1c46c3f2a1945d199b73dc038d7b2a83b" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>eventMenuCtrlAccept</name></member>
       <member refid="classMyGUI_1_1MenuControl_168173d67e6c5d09ff297fffcfe4537a2" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>eventMenuCtrlClose</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10e6830d3204b28e15ee1472de5ca0349" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>eventMouseButtonClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10e66a008ba9f9c4887d42eac663e4b72" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>eventMouseButtonDoubleClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1892130d1ef15dccc6314c70a172113b1" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>eventMouseButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_15a0432361acd9073b3669d49a2bd4ae9" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>eventMouseButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1075f29698be6ce4aa2e330f9ea120739" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>eventMouseDrag</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1bb439d65c18114eee9be1caf93b262b6" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>eventMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_12ac6dfa5dbd2cd51c57f9f4ceb246511" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>eventMouseMove</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18ca56a714afbf4c6cf45e29d5843a479" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>eventMouseSetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1efb2b8ab0a4d1cd7e19870343f3492a9" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>eventMouseWheel</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1d24b759d3ec5843fc7c317cc90862b79" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>eventRootKeyChangeFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1dbeaee810227eb6d583ce3fcea219309" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>eventRootMouseChangeFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18d45b85aeb9f2f2428f65cfe289d9c81" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>eventToolTip</name></member>
       <member refid="classMyGUI_1_1MenuControl_1367a60f146eedf13f7732b2b3990a2b6" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>findItemById</name></member>
       <member refid="classMyGUI_1_1MenuControl_1a80d0c0fdf28178fe431dc4b8d2f49b0" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>findItemIndex</name></member>
       <member refid="classMyGUI_1_1MenuControl_157bc0dc8a089a63304ed68a3f9b222f4" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>findItemIndexWith</name></member>
       <member refid="classMyGUI_1_1MenuControl_1525e1074833687a1f0c70b72593e296c" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>findItemWith</name></member>
       <member refid="classMyGUI_1_1Widget_1d054e1027a48f2ccb9af0179359dadc5" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>findWidget</name></member>
       <member refid="classMyGUI_1_1Widget_1e6d193b99a9d69973922d1b8e0f0b70e" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>findWidgets</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_183d89c16d41d05bb8772f362b516dd3b" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getAbsoluteCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_19ac46efa204752d3d4a8495feaade9a0" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getAbsoluteLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1a3ae7bcd46578b5082c21a41962c3db6" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getAbsolutePosition</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_16221e701b940cd07bb2a41c84099dfa1" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getAbsoluteRect</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_108f36d963cb1bbcc853ffaf8f576d306" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getAbsoluteTop</name></member>
       <member refid="classMyGUI_1_1Widget_134cafbef78da90ca8fb6aca8964b337a" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getAlign</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MenuControl_01_4_171bcd1a3ef3f97bab470ec4b53c3f646" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getAlignVert</name></member>
       <member refid="classMyGUI_1_1Widget_1db1d462f1145cafb358754c03cd3e7f2" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getAlpha</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b0478e244c63d6201a748e371f237ae1" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getBottom</name></member>
       <member refid="classMyGUI_1_1Widget_1028535563d6d3666658d83e4d479fa6d" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getChildAt</name></member>
       <member refid="classMyGUI_1_1Widget_195ebe8be9fd3d29f7fa8f7846515eeec" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getChildCount</name></member>
       <member refid="classMyGUI_1_1MenuControl_1932e40027f3974327b0114542b30fd1b" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getClassTypeName</name></member>
       <member refid="classMyGUI_1_1Widget_15ffebc869b3b4c36e31178616b27fc86" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getClientCoord</name></member>
       <member refid="classMyGUI_1_1Widget_1ac162cf5e6c51d487c71ae2e2d041352" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getClientWidget</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1a9cc9fbf580a3c77059f20fafcdb201f" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b6b24667d7810f93d79a9fa7750d01ce" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getCroppedParent</name></member>
       <member refid="classMyGUI_1_1Widget_15cd729c40ad712c7036a0d3f6a2507b2" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getEnabled</name></member>
       <member refid="classMyGUI_1_1Widget_1abfb5cf6661813f729bd30b4042e95d7" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getEnumerator</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f5253c6b4dfb1107dd23b23fb1109413" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getHeight</name></member>
       <member refid="classMyGUI_1_1MenuControl_1fdb737d84096f325b4dc6594f6fdcf29" prot="private" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getIconIndexByType</name></member>
       <member refid="classMyGUI_1_1Widget_1c373e8170168b97491e777b99de0872b" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getInheritedEnabled</name></member>
       <member refid="classMyGUI_1_1Widget_1028a8ae99e47f513065ce3cbb11e4022" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getInheritedVisible</name></member>
       <member refid="classMyGUI_1_1Widget_1c2118d0bf46d9a7ec21c7aed9c7e71ca" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_15be056da5117affd416fe970459f1223" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getInheritsPick</name></member>
       <member refid="classMyGUI_1_1MenuControl_1be9ff7ec836d5b8681021b622e69ecd7" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getItemAt</name></member>
       <member refid="classMyGUI_1_1MenuControl_1e442d20d6218652c44c5c943d480f627" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getItemById</name></member>
       <member refid="classMyGUI_1_1MenuControl_1131e8e1cc0bc08c3ca2a883489e73dc4" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getItemChild</name></member>
@@ -2193,15 +2662,29 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1MenuControl_11a0c7dbd3231255e3caa08d718fb9ee0" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getItemType</name></member>
       <member refid="classMyGUI_1_1MenuControl_1b07762ea4b7088de6e4f713ec30c77a7" prot="private" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getItemType</name></member>
       <member refid="classMyGUI_1_1MenuControl_1553071931e0a331326a1a633f0d22e06" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getItemTypeAt</name></member>
+      <member refid="classMyGUI_1_1LayerItem_171d7bb44b59f3636087d3c3361e44fd6" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getLayer</name></member>
       <member refid="classMyGUI_1_1Widget_175cedb78192d81e9dd1cef4a6c7a9fe3" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>getLayerItemByPoint</name></member>
       <member refid="classMyGUI_1_1Widget_13e00b99c46a0c1ebacf29604d503804d" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>getLayerItemCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1753231d8f8981c59cf6a4c92609c35e6" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getLeft</name></member>
       <member refid="classMyGUI_1_1MenuControl_12d69318c1a60561f7602e61b929425e6" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getMenuItemParent</name></member>
       <member refid="classMyGUI_1_1Widget_1421a0e4eec959e8a5cd7f12ff459bfbf" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getName</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16022e50c3a0bab4f36628fa12a51b209" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getNeedKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1470aa4736e0a8f4a662a566eea240b85" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getNeedMouseFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18325fdd47dd74c8574f73bcb6c733df2" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getNeedToolTip</name></member>
       <member refid="classMyGUI_1_1Widget_174eb9e9819797e68a510a2ae6c3a410a" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getParent</name></member>
       <member refid="classMyGUI_1_1Widget_1ee1378b1a9bd3db495cbea32f0a13e20" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getParentSize</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c3ab2d84030f97c4303bc7da394ee333" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getPointer</name></member>
       <member refid="classMyGUI_1_1MenuControl_157317439e3083772efcf7cf4efaca524" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getPopupAccept</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b8574746c63b6c512229f1022d497094" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getPosition</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1c2ce3e30f89af0955e511c66e111cf93" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getRight</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1e57aa4f6072057ca8d1a0855a761cbc1" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getRootKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_132e7d91855a309930f6a8318c1fca142" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getRootMouseFocus</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f557c510d0af74ac6c2770253d52b303" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getSize</name></member>
       <member refid="classMyGUI_1_1MenuControl_1be6705e8d77a7e376c9adf53faa551c0" prot="private" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getSkinByType</name></member>
       <member refid="classMyGUI_1_1Widget_14a6523e37fad5103ef5896bdf349861d" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getSkinWidgetsByName</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b7ad0561eae858f69008e77b42fc4192" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getSubWidgetMain</name></member>
+      <member refid="classMyGUI_1_1SkinItem_18790679dbfff2a864b0bbb656d45ee53" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getSubWidgetText</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1ea03ec13020eb5016f3c17251a526ad9" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getTop</name></member>
       <member refid="classMyGUI_1_1MenuControl_11afb6232643dd8412cd2c01069ab6c32" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>getTypeName</name></member>
       <member refid="classMyGUI_1_1UserData_1eadd08cc61e475b95c588daf74789a06" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getUserData</name></member>
       <member refid="classMyGUI_1_1UserData_17c62f7374453eaf6e5316ac369559c53" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getUserString</name></member>
@@ -2209,25 +2692,47 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1MenuControl_1179214394354f9c283c876dc2b0c69dd" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getVerticalAlignment</name></member>
       <member refid="classMyGUI_1_1Widget_1fa7ad1d5a3213ee9f8c4567e6f3fdd7d" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getVisible</name></member>
       <member refid="classMyGUI_1_1Widget_15accf9c998578f20adcec5987dc820f2" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_152c93ea7b7c89b708b855a4924df310b" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>getWidth</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MenuControl_01_4_1018ff9ae5c5054bce11e8b3246f3be82" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>hideItemChild</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MenuControl_01_4_19315aa038c59ff1c75c6e5b2d90baaa4" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>hideItemChildAt</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MenuControl_01_4_12c0e64b1efa36e341b9883729982c5d1" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>hideMenu</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_13b493ea3f8e5dcb4cc905da0b7c6dadf" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>ICroppedRectangle</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_1533f51403b804e09b3c2e8eb6d5e679b" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>IDelegateUnlink</name></member>
+      <member refid="classMyGUI_1_1IItemContainer_164783a028eb77a6278bca16b270219d0" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>IItemContainer</name></member>
       <member refid="classMyGUI_1_1MenuControl_19b9095a8516d793794f5e76cb2afe0ed" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>initialiseOverride</name></member>
       <member refid="classMyGUI_1_1MenuControl_130d6389c65fb67bcb0b7dc49c43f3e0f" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>insertItem</name></member>
       <member refid="classMyGUI_1_1MenuControl_1ed26a3443ef71e33420d32a62450fd7a" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>insertItemAt</name></member>
+      <member refid="classMyGUI_1_1IObject_198f33c9772728fc4065fe0a1ffdf8246" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>IObject</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_1a089bb887fd20d3f8f279229f6d37bf3" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>isEnabled</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_14f28dc2b7d847c7266e2398c4795658a" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>isInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_147b9c837c75c627bad780cc44e4aefae" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>isInheritsPick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_150e91b6611a362474155ac2351752b54" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>isMaskPickInside</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_1f436236e6b75c0347f579fe84af5514b" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>isNeedKeyFocus</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_1ac609c231c1b2f6ac98c1f314df60415" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>isNeedMouseFocus</name></member>
       <member refid="classMyGUI_1_1Widget_1b3ec05a74f05236afb58855985781cd0" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>isRootWidget</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MenuControl_01_4_14b361677a39161c26b90ad9e7fb3a735" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>isShowMenu</name></member>
       <member refid="classMyGUI_1_1MenuControl_1633c476a988e1cf98a959e65163e01c1" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1MenuControl_1b8b1de42cd99fc88e6f1607129a4dd96" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1UserData_10bac17bc60b499cf0386ec3815d67f17" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>isUserString</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_19e2c621a8df680ee50f8f14cbadf2aff" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>isVisible</name></member>
+      <member refid="classMyGUI_1_1LayerItem_17a70f273e55fb2945c20fc54ec62969e" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>LayerItem</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_17b7faec75fa09c72701f8ab0fd416182" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>mAbsolutePosition</name></member>
       <member refid="classMyGUI_1_1MenuControl_12905c4a83284fb4576839cff07d919b4" prot="private" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>mAnimateSmooth</name></member>
       <member refid="classMyGUI_1_1MenuControl_1a23952c3dccabbda3f6c40ed8ad4fb09" prot="private" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>mChangeChildSkin</name></member>
       <member refid="classMyGUI_1_1MenuControl_10247046dc457bdd82a4e88d00c2a4ce7" prot="private" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>mClient</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_121be402c76c560b6568dc16c2f1e38a8" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>mCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_15d10640ec8d1a14f75b4a6287d92de12" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>mCroppedParent</name></member>
       <member refid="classMyGUI_1_1MenuControl_15924373e130b29c09a7ed15aa75ae4cd" prot="private" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>mDistanceButton</name></member>
       <member refid="classMyGUI_1_1MenuControl_1e2ac1482aa62dd86b9eedf2edd15c586" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>MenuControl</name></member>
       <member refid="classMyGUI_1_1MenuControl_1c0130d03c9a304827fb989f563defaf5" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>mHideByAccept</name></member>
       <member refid="classMyGUI_1_1MenuControl_1a4dfb7ab2112045d680807f23309c935" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>mHideByLostKey</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_10f0b7542dde743b020713654c50536ca" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>mIsMargin</name></member>
       <member refid="classMyGUI_1_1MenuControl_19f3172c01cea8c14f5104bd682c23e12" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>mIsMenuDrop</name></member>
       <member refid="classMyGUI_1_1MenuControl_1cd9afaf5b930cd498806119d2bdc1aaa" prot="private" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>mItemNormalSkin</name></member>
       <member refid="classMyGUI_1_1MenuControl_13525023ee7b1e24cd975f80d354bc1ac" prot="private" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>mItemPopupSkin</name></member>
       <member refid="classMyGUI_1_1MenuControl_144ba2415684849a0658d216179d9ae89" prot="private" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>mItemSeparatorSkin</name></member>
       <member refid="classMyGUI_1_1MenuControl_193909917235a730abc81e2aef942c4e5" prot="private" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>mItemsInfo</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_125d27b33aeee62b852dc8009a7b942d7" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>mMargin</name></member>
       <member refid="classMyGUI_1_1MenuControl_15c3db26e5c7db2ab2179971ee29763bb" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>mMenuDropMode</name></member>
       <member refid="classMyGUI_1_1MenuControl_124379981f844e87ce71d5b8a6857e561" prot="private" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>mOwner</name></member>
       <member refid="classMyGUI_1_1MenuControl_1e03bc6411219fb091d04ce7489f4b0c3" prot="private" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>mPopupAccept</name></member>
@@ -2240,16 +2745,36 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1MenuControl_1e143954067863a5daf7ff3749acc595a" prot="private" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>notifyMouseButtonClick</name></member>
       <member refid="classMyGUI_1_1MenuControl_13564e0be464b9daedd31fed80d618bb9" prot="private" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>notifyMouseSetFocus</name></member>
       <member refid="classMyGUI_1_1MenuControl_186a10dabca13c513f9517756aaed4b28" prot="private" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>notifyRootKeyChangeFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1095e1acc8d228d9340b2b308c677fdf4" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>onKeyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1270e79337e0087a161fa74b78aeb3127" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>onKeyButtonReleased</name></member>
       <member refid="classMyGUI_1_1MenuControl_11d1996110608dcddbd883090f7d16143" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>onKeyChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18f59f529e001d90bbe4885ea29515673" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>onKeyLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10b912cd730d4e657e7263fae829a4e6b" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>onKeySetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1fca1246c61d023b454fab52e25d801a2" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>onMouseButtonClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_157b503609f50ec453339ac3453760339" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>onMouseButtonDoubleClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_174463c8bd4af3c7e7c13afbded5fd74b" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>onMouseButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1969850afcd6bb54830851f3ad7dc564d" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>onMouseButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_170648833f265898bf0dd63a2e1129ce4" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>onMouseChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1feca6cb1a11fcb56921658032ce0cb49" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>onMouseDrag</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1d3cd7674cc408ca8f2aa7cf046c8ddeb" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>onMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16494acd321238c424c15be5f63f979d3" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>onMouseMove</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_110aba92be6cabf07736d4f1de8e93e35" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>onMouseSetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c9d454fb78e4244a3082e3ff3b30b14f" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>onMouseWheel</name></member>
       <member refid="classMyGUI_1_1MenuControl_1820193a108fd0e982b96a19794402040" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>onWidgetCreated</name></member>
       <member refid="classMyGUI_1_1Widget_1c64ffb617119185afaf5ef9650d4f9a5" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>onWidgetDestroy</name></member>
       <member refid="classMyGUI_1_1MenuControl_10cc1a607ebbb405ea5aade7180aa0d73" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>removeAllItems</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1550fd1d2b74394288ff02714a1631c83" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>removeAllRenderItems</name></member>
+      <member refid="classMyGUI_1_1LayerItem_153e3219374e2c24c13c316350d4bd49f" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>removeChildItem</name></member>
+      <member refid="classMyGUI_1_1LayerItem_12a1a9be320fa11fc18976f0952681a3e" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>removeChildNode</name></member>
       <member refid="classMyGUI_1_1MenuControl_18554441eaf63c898c9daa6fff929b8f5" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>removeItem</name></member>
       <member refid="classMyGUI_1_1MenuControl_153a2e9a3af85f2f883761789415dff30" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>removeItemAt</name></member>
       <member refid="classMyGUI_1_1MenuControl_14c7e8137208e712867aac1bcf8626c8d" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>removeItemChild</name></member>
       <member refid="classMyGUI_1_1MenuControl_189c440a6a1d00eb21de8bdacb56f2542" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>removeItemChildAt</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1b6f86f8277bb2ea3d128091849399f74" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>restoreLayerItem</name></member>
       <member refid="classMyGUI_1_1MenuControl_18e9fdf2e3a58f3e612a588200608c0b2" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1ba403583becd0b8438d47e45033f3a56" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>saveLayerItem</name></member>
       <member refid="classMyGUI_1_1Widget_1ebace37eedee14b3ff746b7a0085b993" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>setAlign</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MenuControl_01_4_11c461782a00b8b159225726003e080bf" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setAlignVert</name></member>
       <member refid="classMyGUI_1_1Widget_11204361b28430fa9a3b6927d6b4fe9ee" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setAlpha</name></member>
       <member refid="classMyGUI_1_1Widget_1cbf134e83d95f63ff7ba7f4b3596449f" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setColour</name></member>
       <member refid="classMyGUI_1_1Widget_156333ae229f81cfdc9daa834599b96de" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>setCoord</name></member>
@@ -2257,6 +2782,7 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1Widget_1beda60b920b1808641169d8543171269" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>setEnabled</name></member>
       <member refid="classMyGUI_1_1Widget_1f5a0bfe2b4f596d2dffdc7fcea5200b1" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setEnabledSilent</name></member>
       <member refid="classMyGUI_1_1Widget_18b44677724faa4112312655e5feed8ae" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_19f3635d97a8d56053311cb2cb2887f5f" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setInheritsPick</name></member>
       <member refid="classMyGUI_1_1MenuControl_1fa9530dd679ee5142a297cfd83486934" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setItemChildVisible</name></member>
       <member refid="classMyGUI_1_1MenuControl_1c5efde70defe1ae8bc9c8e19566e2041" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setItemChildVisibleAt</name></member>
       <member refid="classMyGUI_1_1MenuControl_1a3fbd2e3bede93b02e84e34828333a9f" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setItemData</name></member>
@@ -2267,6 +2793,12 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1MenuControl_10256bfc313764ac74ea4cd723a83f8a1" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setItemNameAt</name></member>
       <member refid="classMyGUI_1_1MenuControl_1c9487440d1148c7d65316d6a71762ffe" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setItemType</name></member>
       <member refid="classMyGUI_1_1MenuControl_19151feb3b6be12c38aadea58743f60d8" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setItemTypeAt</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_14e37553674c10c9b208db056aeeb805a" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setMaskPick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c8b141e404fa6c1a71505216a1ef5b43" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setMaskPick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_161510314ec32dcff4fcecfe725f46a36" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setNeedKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_133723bb1ea73b5af6c0d3d0041104478" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setNeedMouseFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1b81aa840b2b8cb97b4fdccc92248b1b7" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setNeedToolTip</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1192554c59fcce521c063e72db4d867b1" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setPointer</name></member>
       <member refid="classMyGUI_1_1MenuControl_19b90b3a4a6fe4bba1feacb4a6c58af58" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setPopupAccept</name></member>
       <member refid="classMyGUI_1_1Widget_1bf87d2b9d27a2543da8fc7daea6abf75" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>setPosition</name></member>
       <member refid="classMyGUI_1_1Widget_10463ede4342db8bc5ade2d78d77a142e" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setPosition</name></member>
@@ -2278,6 +2810,7 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1Widget_1c963db4709c8dfc9e681dfccd5fb6524" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setRealPosition</name></member>
       <member refid="classMyGUI_1_1Widget_1d7fba1f9976c36eacb528d6db9213ddf" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setRealSize</name></member>
       <member refid="classMyGUI_1_1Widget_15d89ff45c4bc5f6158382067673903ba" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1cf56aa200b89c991fb301b24069726be" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setRenderItemTexture</name></member>
       <member refid="classMyGUI_1_1Widget_1b8928099957173c4f58aee98d043faab" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>setSize</name></member>
       <member refid="classMyGUI_1_1Widget_12bdc82ea4f915b8d9b4b36c61b5a3915" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setSize</name></member>
       <member refid="classMyGUI_1_1UserData_145916c0682a72614a1ed72a9efded82c" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setUserData</name></member>
@@ -2287,13 +2820,26 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1MenuControl_190d84276e3e451a53ddbf4588e1fcfac" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setVisibleSmooth</name></member>
       <member refid="classMyGUI_1_1Widget_1c717aa06253e913156a6d24fb3d4cbc4" prot="protected" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setWidgetClient</name></member>
       <member refid="classMyGUI_1_1Widget_1372d21a0125ab28cc5c2c295290a2806" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>setWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MenuControl_01_4_13209833303bac538a40bc5a4abd54aea" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>showItemChild</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MenuControl_01_4_19d737eea793cf44a04e5ea111f761596" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>showItemChildAt</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MenuControl_01_4_11f08d4322254c5d378e49060aab5403f" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>showMenu</name></member>
       <member refid="classMyGUI_1_1MenuControl_1a849e593c9fb856ab1d5be8305f4110b" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>shutdownOverride</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1df3cc9ecbcf4702c02b1d265c5d0a7f9" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>SkinItem</name></member>
       <member refid="classMyGUI_1_1MenuControl_1ab28b359bef2eec0ad5adbc8a1b074b5" prot="private" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>update</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1c7c30ce98c7f9312b522d6c67b050be4" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>upLayerItem</name></member>
       <member refid="classMyGUI_1_1UserData_1108076068708e939519f9c775c2ae87b" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>UserData</name></member>
       <member refid="classMyGUI_1_1MenuControl_1515859186a920d9122ffeaf5c4fe2aa0" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>VectorMenuItemInfo</name></member>
       <member refid="classMyGUI_1_1Widget_1f4814618768bc07a685495895ca47b04" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>Widget</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1436c5c5a088a95b40a252574f8ff0506" prot="public" virt="non-virtual"><scope>MyGUI::MenuControl</scope><name>WidgetInput</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_128f4ca979240bf4bb4363d84213b6041" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>~ICroppedRectangle</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_12f7d8818258bb5ee2218ea20450b2997" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>~IDelegateUnlink</name></member>
+      <member refid="classMyGUI_1_1IItemContainer_1c91daa2a5066844114e16720c6ce94db" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>~IItemContainer</name></member>
+      <member refid="classMyGUI_1_1ILayerItem_18f05b429c402a94b666bfffee2ef3ed5" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>~ILayerItem</name></member>
+      <member refid="classMyGUI_1_1IObject_1ba65cf3c7393db4589ce28630a5aaadf" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>~IObject</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1412d7e8ee5a5a4773cf27695f402c351" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>~LayerItem</name></member>
       <member refid="classMyGUI_1_1UserData_1a970af2c1f39e0fa8801fd9defb06d84" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>~UserData</name></member>
       <member refid="classMyGUI_1_1Widget_18ff3c2a98bbea22f4f0191bcac54b643" prot="protected" virt="virtual"><scope>MyGUI::MenuControl</scope><name>~Widget</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_106e5ebe1aa33cb737fdaaee9e8708356" prot="public" virt="virtual"><scope>MyGUI::MenuControl</scope><name>~WidgetInput</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

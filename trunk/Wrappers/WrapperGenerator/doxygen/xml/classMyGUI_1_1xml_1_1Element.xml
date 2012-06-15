@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1xml_1_1Element" kind="class" prot="public">
     <compoundname>MyGUI::xml::Element</compoundname>
+    <includes local="no">MyGUI_XmlDocument.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1xml_1_1Element_1c3ef600e851b323bb77074dd1024b280" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -17,7 +18,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="173"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1xml_1_1Element_14e59d86f5d230607276aab9280c9f4d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>ElementPtr</type>
+        <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">ElementPtr</ref></type>
         <definition>ElementPtr MyGUI::xml::Element::createChild</definition>
         <argsstring>(const std::string &amp;_name, const std::string &amp;_content=&quot;&quot;, ElementType _type=ElementType::Normal)</argsstring>
         <name>createChild</name>
@@ -31,7 +32,7 @@
           <defval>&quot;&quot;</defval>
         </param>
         <param>
-          <type>ElementType</type>
+          <type><ref refid="structMyGUI_1_1xml_1_1ElementType" kindref="compound">ElementType</ref></type>
           <declname>_type</declname>
           <defval>ElementType::Normal</defval>
         </param>
@@ -49,7 +50,7 @@
         <argsstring>(ElementPtr _child)</argsstring>
         <name>removeChild</name>
         <param>
-          <type>ElementPtr</type>
+          <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">ElementPtr</ref></type>
           <declname>_child</declname>
         </param>
         <briefdescription>
@@ -307,7 +308,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="218"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1xml_1_1Element_1d4b2804a984c211aa4dc3e8181a61a16" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>const VectorAttributes &amp;</type>
+        <type>const <ref refid="namespaceMyGUI_1_1xml_1e4eeea16b62479c595c9091cdf27e256" kindref="member">VectorAttributes</ref> &amp;</type>
         <definition>const VectorAttributes&amp; MyGUI::xml::Element::getAttributes</definition>
         <argsstring>() const </argsstring>
         <name>getAttributes</name>
@@ -320,7 +321,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="220"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1xml_1_1Element_1ac7cf635beef2ea27553290767467ac8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>ElementPtr</type>
+        <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">ElementPtr</ref></type>
         <definition>ElementPtr MyGUI::xml::Element::getParent</definition>
         <argsstring>() const </argsstring>
         <name>getParent</name>
@@ -333,7 +334,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="222"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1xml_1_1Element_1556f302e395b41d8bb50a9b8d894ae07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>ElementEnumerator</type>
+        <type><ref refid="classMyGUI_1_1xml_1_1ElementEnumerator" kindref="compound">ElementEnumerator</ref></type>
         <definition>ElementEnumerator MyGUI::xml::Element::getElementEnumerator</definition>
         <argsstring>()</argsstring>
         <name>getElementEnumerator</name>
@@ -346,7 +347,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="224"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1xml_1_1Element_13ad1251edbdd9dcc2b3d3e4f3e9b46e2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>ElementType</type>
+        <type><ref refid="structMyGUI_1_1xml_1_1ElementType" kindref="compound">ElementType</ref></type>
         <definition>ElementType MyGUI::xml::Element::getType</definition>
         <argsstring>() const </argsstring>
         <name>getType</name>
@@ -359,7 +360,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="226"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1xml_1_1Element_1438d051618ec62bea2f83991cebaf019" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>ElementPtr</type>
+        <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">ElementPtr</ref></type>
         <definition>ElementPtr MyGUI::xml::Element::createCopy</definition>
         <argsstring>()</argsstring>
         <name>createCopy</name>
@@ -516,7 +517,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="270" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="269" bodyend="272"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1xml_1_1Element_12b7df71366e5152b0bf0bcc2ab7fa0b8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>ElementEnumerator</type>
+        <type><ref refid="classMyGUI_1_1xml_1_1ElementEnumerator" kindref="compound">ElementEnumerator</ref></type>
         <definition>ElementEnumerator MyGUI::xml::Element::getNodeIterator</definition>
         <argsstring>()</argsstring>
         <name>getNodeIterator</name>
@@ -540,11 +541,11 @@
           <declname>_name</declname>
         </param>
         <param>
-          <type>ElementPtr</type>
+          <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">ElementPtr</ref></type>
           <declname>_parent</declname>
         </param>
         <param>
-          <type>ElementType</type>
+          <type><ref refid="structMyGUI_1_1xml_1_1ElementType" kindref="compound">ElementType</ref></type>
           <declname>_type</declname>
           <defval>ElementType::Normal</defval>
         </param>
@@ -611,7 +612,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="283" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="283" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1xml_1_1Element_11549751351538aaef576b27ff1e152cf" prot="private" static="no" mutable="no">
-        <type>VectorAttributes</type>
+        <type><ref refid="namespaceMyGUI_1_1xml_1e4eeea16b62479c595c9091cdf27e256" kindref="member">VectorAttributes</ref></type>
         <definition>VectorAttributes MyGUI::xml::Element::mAttributes</definition>
         <argsstring></argsstring>
         <name>mAttributes</name>
@@ -624,7 +625,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="284" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="284" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1xml_1_1Element_1daf0c7aa20f7202b723f6f562497db7c" prot="private" static="no" mutable="no">
-        <type>VectorElement</type>
+        <type><ref refid="namespaceMyGUI_1_1xml_1f904be8b712890c053a4882e83b0f861" kindref="member">VectorElement</ref></type>
         <definition>VectorElement MyGUI::xml::Element::mChilds</definition>
         <argsstring></argsstring>
         <name>mChilds</name>
@@ -637,7 +638,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="285" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="285" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1xml_1_1Element_18a818c6444e915e7ad931390c66487e4" prot="private" static="no" mutable="no">
-        <type>ElementPtr</type>
+        <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">ElementPtr</ref></type>
         <definition>ElementPtr MyGUI::xml::Element::mParent</definition>
         <argsstring></argsstring>
         <name>mParent</name>
@@ -650,7 +651,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="286" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="286" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1xml_1_1Element_1dc5dabc3fe0b986cd70dc0f0f31b298e" prot="private" static="no" mutable="no">
-        <type>ElementType</type>
+        <type><ref refid="structMyGUI_1_1xml_1_1ElementType" kindref="compound">ElementType</ref></type>
         <definition>ElementType MyGUI::xml::Element::mType</definition>
         <argsstring></argsstring>
         <name>mType</name>
@@ -682,6 +683,22 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <collaborationgraph>
+      <node id="607">
+        <label>MyGUI::xml::ElementType</label>
+        <link refid="structMyGUI_1_1xml_1_1ElementType"/>
+      </node>
+      <node id="606">
+        <label>MyGUI::xml::Element</label>
+        <link refid="classMyGUI_1_1xml_1_1Element"/>
+        <childnode refid="606" relation="usage">
+          <edgelabel>mParent</edgelabel>
+        </childnode>
+        <childnode refid="607" relation="usage">
+          <edgelabel>mType</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="169" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="168" bodyend="288"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1xml_1_1Element_130fef76a4c9b6be5002406f24f7521ee" prot="public" virt="non-virtual"><scope>MyGUI::xml::Element</scope><name>addAttribute</name></member>

@@ -2,12 +2,17 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1LayerNode" kind="class" prot="public">
     <compoundname>MyGUI::LayerNode</compoundname>
+    <basecompoundref refid="classMyGUI_1_1ILayerNode" prot="public" virt="non-virtual">MyGUI::ILayerNode</basecompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1SharedLayerNode" prot="public" virt="non-virtual">MyGUI::SharedLayerNode</derivedcompoundref>
+    <includes local="no">MyGUI_LayerNode.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="typedef" id="classMyGUI_1_1LayerNode_1b4898c1dcc57d5b0f18669121b3a82bb" prot="public" static="no">
-        <type>RTTIBase</type>
+        <type><ref refid="classMyGUI_1_1LayerNode" kindref="compound">RTTIBase</ref></type>
         <definition>typedef RTTIBase MyGUI::LayerNode::Base</definition>
         <argsstring></argsstring>
         <name>Base</name>
+        <reimplements refid="classMyGUI_1_1ILayerNode_172249aa1e577f6fca5675affe033cd45">Base</reimplements>
+        <reimplementedby refid="classMyGUI_1_1SharedLayerNode_1f94a83c85cd8bbf35cbdae671d39f920">Base</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -17,10 +22,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" bodystart="40" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classMyGUI_1_1LayerNode_11228e6bb4999064bef5d9f90774aa58e" prot="public" static="no">
-        <type>LayerNode</type>
+        <type><ref refid="classMyGUI_1_1LayerNode" kindref="compound">LayerNode</ref></type>
         <definition>typedef LayerNode MyGUI::LayerNode::RTTIBase</definition>
         <argsstring></argsstring>
         <name>RTTIBase</name>
+        <reimplements refid="classMyGUI_1_1ILayerNode_1af2c4f43af8a40f26c9a091f9c1a4a81">RTTIBase</reimplements>
+        <reimplementedby refid="classMyGUI_1_1SharedLayerNode_147f7599d31996f99e3a9acafd6b97591">RTTIBase</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -36,6 +43,8 @@
         <definition>virtual const std::string&amp; MyGUI::LayerNode::getTypeName</definition>
         <argsstring>() const </argsstring>
         <name>getTypeName</name>
+        <reimplements refid="classMyGUI_1_1ILayerNode_15831b097b943ef4997d3b12580368555">getTypeName</reimplements>
+        <reimplementedby refid="classMyGUI_1_1SharedLayerNode_14353d7574dff2d5b35910cccfebbbeaa">getTypeName</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -49,6 +58,8 @@
         <definition>virtual bool MyGUI::LayerNode::isType</definition>
         <argsstring>(const std::type_info &amp;_type) const </argsstring>
         <name>isType</name>
+        <reimplements refid="classMyGUI_1_1ILayerNode_1bc367443aadd06d5dbd4c26011aeebdc">isType</reimplements>
+        <reimplementedby refid="classMyGUI_1_1SharedLayerNode_17ad15d0ab6a2e5bc2f7b88f5198155d7">isType</reimplementedby>
         <param>
           <type>const std::type_info &amp;</type>
           <declname>_type</declname>
@@ -73,6 +84,8 @@
         <definition>bool MyGUI::LayerNode::isType</definition>
         <argsstring>() const </argsstring>
         <name>isType</name>
+        <reimplements refid="classMyGUI_1_1ILayerNode_12d074debb74cc1320db67486ecc0e338">isType</reimplements>
+        <reimplementedby refid="classMyGUI_1_1SharedLayerNode_190fc5c322d826184ff0f6d5d7592690c">isType</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -87,11 +100,11 @@
         <argsstring>(ILayer *_layer, ILayerNode *_parent=0)</argsstring>
         <name>LayerNode</name>
         <param>
-          <type>ILayer *</type>
+          <type><ref refid="classMyGUI_1_1ILayer" kindref="compound">ILayer</ref> *</type>
           <declname>_layer</declname>
         </param>
         <param>
-          <type>ILayerNode *</type>
+          <type><ref refid="classMyGUI_1_1ILayerNode" kindref="compound">ILayerNode</ref> *</type>
           <declname>_parent</declname>
           <defval>0</defval>
         </param>
@@ -117,10 +130,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" line="44"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1LayerNode_1b290d3869aba907bc07870001b3afb29" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>ILayer *</type>
+        <type><ref refid="classMyGUI_1_1ILayer" kindref="compound">ILayer</ref> *</type>
         <definition>virtual ILayer* MyGUI::LayerNode::getLayer</definition>
         <argsstring>() const </argsstring>
         <name>getLayer</name>
+        <reimplements refid="classMyGUI_1_1ILayerNode_171c8f8a6b2a23d5f1ac90abe7baa7b66">getLayer</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -130,10 +144,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" line="47"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1LayerNode_1816ac66d8a08e5f6ddfa1ceaa8d9401a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>ILayerNode *</type>
+        <type><ref refid="classMyGUI_1_1ILayerNode" kindref="compound">ILayerNode</ref> *</type>
         <definition>virtual ILayerNode* MyGUI::LayerNode::getParent</definition>
         <argsstring>() const </argsstring>
         <name>getParent</name>
+        <reimplements refid="classMyGUI_1_1ILayerNode_11fd396b78f8883ff8e84ce329a2bbd60">getParent</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -143,10 +158,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" line="50"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1LayerNode_1f48969e2ec294e4d23a346783cf84532" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>ILayerNode *</type>
+        <type><ref refid="classMyGUI_1_1ILayerNode" kindref="compound">ILayerNode</ref> *</type>
         <definition>virtual ILayerNode* MyGUI::LayerNode::createChildItemNode</definition>
         <argsstring>()</argsstring>
         <name>createChildItemNode</name>
+        <reimplements refid="classMyGUI_1_1ILayerNode_1607811cf8ecea69afdb5bccd3a481df6">createChildItemNode</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -160,8 +176,9 @@
         <definition>virtual void MyGUI::LayerNode::destroyChildItemNode</definition>
         <argsstring>(ILayerNode *_node)</argsstring>
         <name>destroyChildItemNode</name>
+        <reimplements refid="classMyGUI_1_1ILayerNode_155e1bcb357f2d797811b906ec61a0d3c">destroyChildItemNode</reimplements>
         <param>
-          <type>ILayerNode *</type>
+          <type><ref refid="classMyGUI_1_1ILayerNode" kindref="compound">ILayerNode</ref> *</type>
           <declname>_node</declname>
         </param>
         <briefdescription>
@@ -177,8 +194,9 @@
         <definition>virtual void MyGUI::LayerNode::upChildItemNode</definition>
         <argsstring>(ILayerNode *_node)</argsstring>
         <name>upChildItemNode</name>
+        <reimplements refid="classMyGUI_1_1ILayerNode_1403c1c6b13ebe0b3a22353d8c3f84bc8">upChildItemNode</reimplements>
         <param>
-          <type>ILayerNode *</type>
+          <type><ref refid="classMyGUI_1_1ILayerNode" kindref="compound">ILayerNode</ref> *</type>
           <declname>_node</declname>
         </param>
         <briefdescription>
@@ -190,10 +208,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" line="58"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1LayerNode_171b3e0c8d79203a1f81afbf6a788a768" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>EnumeratorILayerNode</type>
+        <type><ref refid="classMyGUI_1_1Enumerator" kindref="compound">EnumeratorILayerNode</ref></type>
         <definition>virtual EnumeratorILayerNode MyGUI::LayerNode::getEnumerator</definition>
         <argsstring>() const </argsstring>
         <name>getEnumerator</name>
+        <reimplements refid="classMyGUI_1_1ILayerNode_1cbaaadb8fe18bf893357411db4511e5c">getEnumerator</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -207,8 +226,9 @@
         <definition>virtual void MyGUI::LayerNode::attachLayerItem</definition>
         <argsstring>(ILayerItem *_item)</argsstring>
         <name>attachLayerItem</name>
+        <reimplements refid="classMyGUI_1_1ILayerNode_1b854c44aaaf4b77ce35cf7a25453b666">attachLayerItem</reimplements>
         <param>
-          <type>ILayerItem *</type>
+          <type><ref refid="classMyGUI_1_1ILayerItem" kindref="compound">ILayerItem</ref> *</type>
           <declname>_item</declname>
         </param>
         <briefdescription>
@@ -224,8 +244,9 @@
         <definition>virtual void MyGUI::LayerNode::detachLayerItem</definition>
         <argsstring>(ILayerItem *_item)</argsstring>
         <name>detachLayerItem</name>
+        <reimplements refid="classMyGUI_1_1ILayerNode_1624e4a9bf7267f0dbd75ecbfb4324483">detachLayerItem</reimplements>
         <param>
-          <type>ILayerItem *</type>
+          <type><ref refid="classMyGUI_1_1ILayerItem" kindref="compound">ILayerItem</ref> *</type>
           <declname>_item</declname>
         </param>
         <briefdescription>
@@ -237,12 +258,13 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" line="66"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1LayerNode_1a898c72d58ce3a5e605ed48aebff53e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>RenderItem *</type>
+        <type><ref refid="classMyGUI_1_1RenderItem" kindref="compound">RenderItem</ref> *</type>
         <definition>virtual RenderItem* MyGUI::LayerNode::addToRenderItem</definition>
         <argsstring>(ITexture *_texture, bool _firstQueue, bool _manualRender)</argsstring>
         <name>addToRenderItem</name>
+        <reimplements refid="classMyGUI_1_1ILayerNode_1a8386c01b588b19ebe7617b37ca1d9ee">addToRenderItem</reimplements>
         <param>
-          <type>ITexture *</type>
+          <type><ref refid="classMyGUI_1_1ITexture" kindref="compound">ITexture</ref> *</type>
           <declname>_texture</declname>
         </param>
         <param>
@@ -266,8 +288,9 @@
         <definition>virtual void MyGUI::LayerNode::outOfDate</definition>
         <argsstring>(RenderItem *_item)</argsstring>
         <name>outOfDate</name>
+        <reimplements refid="classMyGUI_1_1ILayerNode_1e945eb84e47781d423e5b7c1964ef3ce">outOfDate</reimplements>
         <param>
-          <type>RenderItem *</type>
+          <type><ref refid="classMyGUI_1_1RenderItem" kindref="compound">RenderItem</ref> *</type>
           <declname>_item</declname>
         </param>
         <briefdescription>
@@ -279,10 +302,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" line="71"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1LayerNode_13ccaf0712c8bd567879a49139aac7113" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>ILayerItem *</type>
+        <type><ref refid="classMyGUI_1_1ILayerItem" kindref="compound">ILayerItem</ref> *</type>
         <definition>virtual ILayerItem* MyGUI::LayerNode::getLayerItemByPoint</definition>
         <argsstring>(int _left, int _top) const </argsstring>
         <name>getLayerItemByPoint</name>
+        <reimplements refid="classMyGUI_1_1ILayerNode_12f97397d02957a8dac7d9d33316664ea">getLayerItemByPoint</reimplements>
         <param>
           <type>int</type>
           <declname>_left</declname>
@@ -304,8 +328,9 @@
         <definition>virtual void MyGUI::LayerNode::renderToTarget</definition>
         <argsstring>(IRenderTarget *_target, bool _update)</argsstring>
         <name>renderToTarget</name>
+        <reimplements refid="classMyGUI_1_1ILayerNode_1901c83a4d520da277dc7906eec11d4bc">renderToTarget</reimplements>
         <param>
-          <type>IRenderTarget *</type>
+          <type><ref refid="classMyGUI_1_1IRenderTarget" kindref="compound">IRenderTarget</ref> *</type>
           <declname>_target</declname>
         </param>
         <param>
@@ -325,8 +350,9 @@
         <definition>virtual void MyGUI::LayerNode::resizeView</definition>
         <argsstring>(const IntSize &amp;_viewSize)</argsstring>
         <name>resizeView</name>
+        <reimplements refid="classMyGUI_1_1ILayerNode_157bab680d6a20e2d3835dbe6e8cbcbb9">resizeView</reimplements>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_viewSize</declname>
         </param>
         <briefdescription>
@@ -357,6 +383,8 @@
         <definition>static const std::string&amp; MyGUI::LayerNode::getClassTypeName</definition>
         <argsstring>()</argsstring>
         <name>getClassTypeName</name>
+        <reimplements refid="classMyGUI_1_1ILayerNode_1b24580998544bb837218ad9fcfe66211">getClassTypeName</reimplements>
+        <reimplementedby refid="classMyGUI_1_1SharedLayerNode_1548381ed21790460aeea0a35d66113c8">getClassTypeName</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -383,7 +411,7 @@
       </sectiondef>
       <sectiondef kind="protected-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1LayerNode_1a00df760323c2caf11f84938b461300d" prot="protected" static="no" mutable="no">
-        <type>VectorRenderItem</type>
+        <type><ref refid="namespaceMyGUI_145dd179f952354283d9708568b9c5a01" kindref="member">VectorRenderItem</ref></type>
         <definition>VectorRenderItem MyGUI::LayerNode::mFirstRenderItems</definition>
         <argsstring></argsstring>
         <name>mFirstRenderItems</name>
@@ -396,7 +424,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" line="88" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" bodystart="88" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1LayerNode_14b4f0b96eb59401d7ed0e5ea9053e4d4" prot="protected" static="no" mutable="no">
-        <type>VectorRenderItem</type>
+        <type><ref refid="namespaceMyGUI_145dd179f952354283d9708568b9c5a01" kindref="member">VectorRenderItem</ref></type>
         <definition>VectorRenderItem MyGUI::LayerNode::mSecondRenderItems</definition>
         <argsstring></argsstring>
         <name>mSecondRenderItems</name>
@@ -409,7 +437,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" line="89" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" bodystart="89" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1LayerNode_15e36216f4e83bf6610df4ea7b94e0587" prot="protected" static="no" mutable="no">
-        <type>VectorLayerItem</type>
+        <type><ref refid="namespaceMyGUI_1c15d9023e749aacb2b9696843454a8f2" kindref="member">VectorLayerItem</ref></type>
         <definition>VectorLayerItem MyGUI::LayerNode::mLayerItems</definition>
         <argsstring></argsstring>
         <name>mLayerItems</name>
@@ -422,7 +450,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" line="93" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" bodystart="93" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1LayerNode_1d69213ddec02fd0e3dcd4f84c18650ff" prot="protected" static="no" mutable="no">
-        <type>VectorILayerNode</type>
+        <type><ref refid="namespaceMyGUI_15ccae6dcad7d6063f9ceb21aebb96e78" kindref="member">VectorILayerNode</ref></type>
         <definition>VectorILayerNode MyGUI::LayerNode::mChildItems</definition>
         <argsstring></argsstring>
         <name>mChildItems</name>
@@ -435,7 +463,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" line="96" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" bodystart="96" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1LayerNode_1a6814803cf9d3f1deaee656984bfad8e" prot="protected" static="no" mutable="no">
-        <type>ILayerNode *</type>
+        <type><ref refid="classMyGUI_1_1ILayerNode" kindref="compound">ILayerNode</ref> *</type>
         <definition>ILayerNode* MyGUI::LayerNode::mParent</definition>
         <argsstring></argsstring>
         <name>mParent</name>
@@ -448,7 +476,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" line="98" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" bodystart="98" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1LayerNode_121b10c893fa8900e4de60a4789b2fcb1" prot="protected" static="no" mutable="no">
-        <type>ILayer *</type>
+        <type><ref refid="classMyGUI_1_1ILayer" kindref="compound">ILayer</ref> *</type>
         <definition>ILayer* MyGUI::LayerNode::mLayer</definition>
         <argsstring></argsstring>
         <name>mLayer</name>
@@ -478,11 +506,73 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1387">
+        <label>MyGUI::SharedLayerNode</label>
+        <link refid="classMyGUI_1_1SharedLayerNode"/>
+        <childnode refid="1384" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1385">
+        <label>MyGUI::ILayerNode</label>
+        <link refid="classMyGUI_1_1ILayerNode"/>
+        <childnode refid="1386" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1384">
+        <label>MyGUI::LayerNode</label>
+        <link refid="classMyGUI_1_1LayerNode"/>
+        <childnode refid="1385" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1386">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1391">
+        <label>MyGUI::ILayer</label>
+        <link refid="classMyGUI_1_1ILayer"/>
+        <childnode refid="1392" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1389">
+        <label>MyGUI::ILayerNode</label>
+        <link refid="classMyGUI_1_1ILayerNode"/>
+        <childnode refid="1390" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1388">
+        <label>MyGUI::LayerNode</label>
+        <link refid="classMyGUI_1_1LayerNode"/>
+        <childnode refid="1389" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1391" relation="usage">
+          <edgelabel>mLayer</edgelabel>
+        </childnode>
+        <childnode refid="1389" relation="usage">
+          <edgelabel>mParent</edgelabel>
+        </childnode>
+      </node>
+      <node id="1392">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="1390" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1390">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayerNode.h" bodystart="37" bodyend="101"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1LayerNode_1a898c72d58ce3a5e605ed48aebff53e4" prot="public" virt="virtual"><scope>MyGUI::LayerNode</scope><name>addToRenderItem</name></member>
       <member refid="classMyGUI_1_1LayerNode_1fbef05abbdc4137c007b29cdd511f6f3" prot="public" virt="virtual"><scope>MyGUI::LayerNode</scope><name>attachLayerItem</name></member>
       <member refid="classMyGUI_1_1LayerNode_1b4898c1dcc57d5b0f18669121b3a82bb" prot="public" virt="non-virtual"><scope>MyGUI::LayerNode</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1IObject_1c542d61d7f1efd5c08dae100a3c68558" prot="public" virt="non-virtual"><scope>MyGUI::LayerNode</scope><name>castType</name></member>
+      <member refid="classMyGUI_1_1IObject_1f636b3c71d893eeb41bebc1c6f4519e1" prot="public" virt="non-virtual"><scope>MyGUI::LayerNode</scope><name>castType</name></member>
       <member refid="classMyGUI_1_1LayerNode_1f48969e2ec294e4d23a346783cf84532" prot="public" virt="virtual"><scope>MyGUI::LayerNode</scope><name>createChildItemNode</name></member>
       <member refid="classMyGUI_1_1LayerNode_19dab01b575ef29c6afa25291773331bc" prot="public" virt="virtual"><scope>MyGUI::LayerNode</scope><name>destroyChildItemNode</name></member>
       <member refid="classMyGUI_1_1LayerNode_175c3645c3707e48b6f792266df3725f2" prot="public" virt="virtual"><scope>MyGUI::LayerNode</scope><name>detachLayerItem</name></member>
@@ -492,6 +582,7 @@
       <member refid="classMyGUI_1_1LayerNode_13ccaf0712c8bd567879a49139aac7113" prot="public" virt="virtual"><scope>MyGUI::LayerNode</scope><name>getLayerItemByPoint</name></member>
       <member refid="classMyGUI_1_1LayerNode_1816ac66d8a08e5f6ddfa1ceaa8d9401a" prot="public" virt="virtual"><scope>MyGUI::LayerNode</scope><name>getParent</name></member>
       <member refid="classMyGUI_1_1LayerNode_18372015616138d5400698f3bce065295" prot="public" virt="virtual"><scope>MyGUI::LayerNode</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1IObject_198f33c9772728fc4065fe0a1ffdf8246" prot="public" virt="non-virtual"><scope>MyGUI::LayerNode</scope><name>IObject</name></member>
       <member refid="classMyGUI_1_1LayerNode_1d6b4e6464b3e88ffdc862287b92613bc" prot="public" virt="non-virtual"><scope>MyGUI::LayerNode</scope><name>isOutOfDate</name></member>
       <member refid="classMyGUI_1_1LayerNode_11f2151e0236db05bb6ecd49dd8875266" prot="public" virt="virtual"><scope>MyGUI::LayerNode</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1LayerNode_11054d6badfb87ee3c1f7aa510b2ecf26" prot="public" virt="non-virtual"><scope>MyGUI::LayerNode</scope><name>isType</name></member>
@@ -509,6 +600,8 @@
       <member refid="classMyGUI_1_1LayerNode_11228e6bb4999064bef5d9f90774aa58e" prot="public" virt="non-virtual"><scope>MyGUI::LayerNode</scope><name>RTTIBase</name></member>
       <member refid="classMyGUI_1_1LayerNode_1ac9d8a8849298f76701aed7a5e3eea44" prot="public" virt="virtual"><scope>MyGUI::LayerNode</scope><name>upChildItemNode</name></member>
       <member refid="classMyGUI_1_1LayerNode_1b486eb811c15dbd3240c672d7722902c" prot="protected" virt="non-virtual"><scope>MyGUI::LayerNode</scope><name>updateCompression</name></member>
+      <member refid="classMyGUI_1_1ILayerNode_1aaa9cc13736845e16386418f18ed002d" prot="public" virt="virtual"><scope>MyGUI::LayerNode</scope><name>~ILayerNode</name></member>
+      <member refid="classMyGUI_1_1IObject_1ba65cf3c7393db4589ce28630a5aaadf" prot="public" virt="virtual"><scope>MyGUI::LayerNode</scope><name>~IObject</name></member>
       <member refid="classMyGUI_1_1LayerNode_10596e8c7088f38d7995255018ecff794" prot="public" virt="virtual"><scope>MyGUI::LayerNode</scope><name>~LayerNode</name></member>
     </listofallmembers>
   </compounddef>

@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1MemberObsolete_3_01Widget_01_4" kind="class" prot="public">
     <compoundname>MyGUI::MemberObsolete&lt; Widget &gt;</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1Widget" prot="public" virt="non-virtual">MyGUI::Widget</derivedcompoundref>
+    <includes local="no">MyGUI_BackwardCompatibility.h</includes>
     <templateparamlist>
     </templateparamlist>
       <sectiondef kind="public-func">
@@ -88,6 +90,156 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1586">
+        <label>MyGUI::PopupMenu</label>
+        <link refid="classMyGUI_1_1PopupMenu"/>
+        <childnode refid="1584" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1598">
+        <label>MyGUI::ComboBox</label>
+        <link refid="classMyGUI_1_1ComboBox"/>
+        <childnode refid="1597" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1583">
+        <label>MyGUI::ListBox</label>
+        <link refid="classMyGUI_1_1ListBox"/>
+        <childnode refid="1578" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1597">
+        <label>MyGUI::EditBox</label>
+        <link refid="classMyGUI_1_1EditBox"/>
+        <childnode refid="1594" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1580">
+        <label>MyGUI::DDContainer</label>
+        <link refid="classMyGUI_1_1DDContainer"/>
+        <childnode refid="1578" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1590">
+        <label>MyGUI::VScroll</label>
+        <link refid="classMyGUI_1_1VScroll"/>
+        <childnode refid="1589" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1594">
+        <label>MyGUI::TextBox</label>
+        <link refid="classMyGUI_1_1TextBox"/>
+        <childnode refid="1578" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1577">
+        <label>MyGUI::MemberObsolete&lt; Widget &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4"/>
+      </node>
+      <node id="1584">
+        <label>MyGUI::MenuControl</label>
+        <link refid="classMyGUI_1_1MenuControl"/>
+        <childnode refid="1578" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1585">
+        <label>MyGUI::MenuBar</label>
+        <link refid="classMyGUI_1_1MenuBar"/>
+        <childnode refid="1584" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1582">
+        <label>MyGUI::ImageBox</label>
+        <link refid="classMyGUI_1_1ImageBox"/>
+        <childnode refid="1578" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1587">
+        <label>MyGUI::MultiListBox</label>
+        <link refid="classMyGUI_1_1MultiListBox"/>
+        <childnode refid="1578" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1578">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="1577" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1592">
+        <label>MyGUI::ScrollView</label>
+        <link refid="classMyGUI_1_1ScrollView"/>
+        <childnode refid="1578" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1595">
+        <label>MyGUI::Button</label>
+        <link refid="classMyGUI_1_1Button"/>
+        <childnode refid="1594" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1579">
+        <label>MyGUI::Canvas</label>
+        <link refid="classMyGUI_1_1Canvas"/>
+        <childnode refid="1578" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1593">
+        <label>MyGUI::TabControl</label>
+        <link refid="classMyGUI_1_1TabControl"/>
+        <childnode refid="1578" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1596">
+        <label>MyGUI::MenuItem</label>
+        <link refid="classMyGUI_1_1MenuItem"/>
+        <childnode refid="1595" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1589">
+        <label>MyGUI::ScrollBar</label>
+        <link refid="classMyGUI_1_1ScrollBar"/>
+        <childnode refid="1578" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1581">
+        <label>MyGUI::ItemBox</label>
+        <link refid="classMyGUI_1_1ItemBox"/>
+        <childnode refid="1580" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1601">
+        <label>MyGUI::Window</label>
+        <link refid="classMyGUI_1_1Window"/>
+        <childnode refid="1594" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1599">
+        <label>MyGUI::MultiListItem</label>
+        <link refid="classMyGUI_1_1MultiListItem"/>
+        <childnode refid="1594" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1588">
+        <label>MyGUI::ProgressBar</label>
+        <link refid="classMyGUI_1_1ProgressBar"/>
+        <childnode refid="1578" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1600">
+        <label>MyGUI::TabItem</label>
+        <link refid="classMyGUI_1_1TabItem"/>
+        <childnode refid="1594" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1591">
+        <label>MyGUI::HScroll</label>
+        <link refid="classMyGUI_1_1HScroll"/>
+        <childnode refid="1590" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="369" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="368" bodyend="383"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_1a089bb887fd20d3f8f279229f6d37bf3" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; Widget &gt;</scope><name>isEnabled</name></member>

@@ -2,6 +2,12 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1IItemContainer" kind="class" prot="public">
     <compoundname>MyGUI::IItemContainer</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1ComboBox" prot="public" virt="non-virtual">MyGUI::ComboBox</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1ListBox" prot="public" virt="non-virtual">MyGUI::ListBox</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1MenuControl" prot="public" virt="non-virtual">MyGUI::MenuControl</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1MultiListBox" prot="public" virt="non-virtual">MyGUI::MultiListBox</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1TabControl" prot="public" virt="non-virtual">MyGUI::TabControl</derivedcompoundref>
+    <includes local="no">MyGUI_IItemContainer.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1IItemContainer_164783a028eb77a6278bca16b270219d0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -34,6 +40,11 @@
         <definition>virtual size_t MyGUI::IItemContainer::_getItemCount</definition>
         <argsstring>()</argsstring>
         <name>_getItemCount</name>
+        <reimplementedby refid="classMyGUI_1_1TabControl_1821145eee06dce515be2bbaf70fe1091">_getItemCount</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_1b634cd7b57e18caf4b42670863138ca4">_getItemCount</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuControl_144572babae8694a991f594c9e1718d2c">_getItemCount</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_1c4900a86767790abfa9cff25a4a3c57d">_getItemCount</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_1846cec19ea7387a24561e868649539ab">_getItemCount</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -47,6 +58,11 @@
         <definition>virtual void MyGUI::IItemContainer::_addItem</definition>
         <argsstring>(const MyGUI::UString &amp;_name)</argsstring>
         <name>_addItem</name>
+        <reimplementedby refid="classMyGUI_1_1TabControl_1e2a4d87665d1fd689a9c5af628c8f005">_addItem</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_1f05a4b886fda2b98d03bcdd470784065">_addItem</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuControl_16c53f2cafa7d7bd2bcea04fd8256ba74">_addItem</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_122865c2c1e5da0d0f0f37273b90b880f">_addItem</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_1e780220d737f413b9ce7c48128fd6e89">_addItem</reimplementedby>
         <param>
           <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">MyGUI::UString</ref> &amp;</type>
           <declname>_name</declname>
@@ -64,6 +80,11 @@
         <definition>virtual void MyGUI::IItemContainer::_removeItemAt</definition>
         <argsstring>(size_t _index)</argsstring>
         <name>_removeItemAt</name>
+        <reimplementedby refid="classMyGUI_1_1TabControl_1116b9e0d2ab2a39ae8704c2370ae3559">_removeItemAt</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_16876daa6f789a3915904a86bb8bdc2ce">_removeItemAt</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuControl_1709e9a06ab6a5d9ee14f1d1b3301ed2e">_removeItemAt</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_188e2cdc31cabc75988c5e5a8b09511df">_removeItemAt</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_10a9cced52f5099822c22e28f0c8c2f6e">_removeItemAt</reimplementedby>
         <param>
           <type>size_t</type>
           <declname>_index</declname>
@@ -81,6 +102,9 @@
         <definition>virtual Widget* MyGUI::IItemContainer::_getItemAt</definition>
         <argsstring>(size_t _index)</argsstring>
         <name>_getItemAt</name>
+        <reimplementedby refid="classMyGUI_1_1TabControl_1e6e26c236fb4259f398fd5de6ffd1925">_getItemAt</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_1ea223bc5f747e5246595c5647da11d8e">_getItemAt</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuControl_18948cd8ae5fdf9c57e6f9ef18cf821aa">_getItemAt</reimplementedby>
         <param>
           <type>size_t</type>
           <declname>_index</declname>
@@ -98,6 +122,11 @@
         <definition>virtual void MyGUI::IItemContainer::_setItemNameAt</definition>
         <argsstring>(size_t _index, const UString &amp;_name)</argsstring>
         <name>_setItemNameAt</name>
+        <reimplementedby refid="classMyGUI_1_1TabControl_1b261f404d54ac55ef1d8c221d9ca8eed">_setItemNameAt</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_125179b3e086e63bf9c2fd25235c43da6">_setItemNameAt</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuControl_181b6a0ea5441d6f42deb1e5cd24bac05">_setItemNameAt</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_199b9d3118845f4ed63aede2a0f8765ed">_setItemNameAt</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_1611ed4c096053c2b6868dca1e021f64d">_setItemNameAt</reimplementedby>
         <param>
           <type>size_t</type>
           <declname>_index</declname>
@@ -119,6 +148,11 @@
         <definition>virtual const UString&amp; MyGUI::IItemContainer::_getItemNameAt</definition>
         <argsstring>(size_t _index)</argsstring>
         <name>_getItemNameAt</name>
+        <reimplementedby refid="classMyGUI_1_1TabControl_1def78a45b743d385efc2276dcebf827d">_getItemNameAt</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MultiListBox_13c1fc0a016f85b91e3ec5cedc7da69bd">_getItemNameAt</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuControl_152e62d17f71613a3ee9874e7d77f6455">_getItemNameAt</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_1f8ae3810015304f6f4c648d5a39eb219">_getItemNameAt</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_1defebfdb55999f92cd9acaf3592ae757">_getItemNameAt</reimplementedby>
         <param>
           <type>size_t</type>
           <declname>_index</declname>
@@ -136,8 +170,9 @@
         <definition>virtual void MyGUI::IItemContainer::_setItemSelected</definition>
         <argsstring>(IItem *_item)</argsstring>
         <name>_setItemSelected</name>
+        <reimplementedby refid="classMyGUI_1_1MenuControl_1fa507d7a35f77f61c7ce7bfe82707634">_setItemSelected</reimplementedby>
         <param>
-          <type>IItem *</type>
+          <type><ref refid="classMyGUI_1_1IItem" kindref="compound">IItem</ref> *</type>
           <declname>_item</declname>
         </param>
         <briefdescription>
@@ -153,6 +188,54 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="925">
+        <label>MyGUI::PopupMenu</label>
+        <link refid="classMyGUI_1_1PopupMenu"/>
+        <childnode refid="923" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="921">
+        <label>MyGUI::ComboBox</label>
+        <link refid="classMyGUI_1_1ComboBox"/>
+        <childnode refid="920" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="922">
+        <label>MyGUI::ListBox</label>
+        <link refid="classMyGUI_1_1ListBox"/>
+        <childnode refid="920" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="923">
+        <label>MyGUI::MenuControl</label>
+        <link refid="classMyGUI_1_1MenuControl"/>
+        <childnode refid="920" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="924">
+        <label>MyGUI::MenuBar</label>
+        <link refid="classMyGUI_1_1MenuBar"/>
+        <childnode refid="923" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="926">
+        <label>MyGUI::MultiListBox</label>
+        <link refid="classMyGUI_1_1MultiListBox"/>
+        <childnode refid="920" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="927">
+        <label>MyGUI::TabControl</label>
+        <link refid="classMyGUI_1_1TabControl"/>
+        <childnode refid="920" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="920">
+        <label>MyGUI::IItemContainer</label>
+        <link refid="classMyGUI_1_1IItemContainer"/>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IItemContainer.h" bodystart="33" bodyend="60"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1IItemContainer_154f20b71a863c33df9d6d3157a8bf665" prot="public" virt="virtual"><scope>MyGUI::IItemContainer</scope><name>_addItem</name></member>

@@ -92,13 +92,13 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="15">
+      <node id="16">
         <label>MyGUI::Any::Holder&lt; ValueType &gt;</label>
-        <childnode refid="16" relation="usage">
+        <childnode refid="17" relation="usage">
           <edgelabel>held</edgelabel>
         </childnode>
       </node>
-      <node id="16">
+      <node id="17">
         <label>ValueType</label>
       </node>
     </collaborationgraph>

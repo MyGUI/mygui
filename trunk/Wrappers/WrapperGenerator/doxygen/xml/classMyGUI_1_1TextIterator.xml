@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1TextIterator" kind="class" prot="public">
     <compoundname>MyGUI::TextIterator</compoundname>
+    <includes local="no">MyGUI_TextIterator.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1TextIterator_161f4b77188213d7ccabfb8c7b8fde91e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -13,7 +14,7 @@
           <declname>_text</declname>
         </param>
         <param>
-          <type>VectorChangeInfo *</type>
+          <type><ref refid="namespaceMyGUI_1e302ae4ad1ef9c182f35ebf222211bfa" kindref="member">VectorChangeInfo</ref> *</type>
           <declname>_history</declname>
           <defval>0</defval>
         </param>
@@ -74,7 +75,7 @@
         <argsstring>(const Colour &amp;_colour)</argsstring>
         <name>setTagColour</name>
         <param>
-          <type>const Colour &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> &amp;</type>
           <declname>_colour</declname>
         </param>
         <briefdescription>
@@ -324,7 +325,7 @@
         <argsstring>(Char _char)</argsstring>
         <name>getTextCharInfo</name>
         <param>
-          <type>Char</type>
+          <type><ref refid="namespaceMyGUI_1312ae095245acb5cb634a8eb34d21017" kindref="member">Char</ref></type>
           <declname>_char</declname>
         </param>
         <briefdescription>
@@ -341,7 +342,7 @@
         <argsstring>(const Colour &amp;_colour)</argsstring>
         <name>convertTagColour</name>
         <param>
-          <type>const Colour &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> &amp;</type>
           <declname>_colour</declname>
         </param>
         <briefdescription>
@@ -554,7 +555,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" line="112" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextIterator.h" bodystart="112" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1TextIterator_11826355d260af75c2abd26825ca21946" prot="private" static="no" mutable="no">
-        <type>VectorChangeInfo *</type>
+        <type><ref refid="namespaceMyGUI_1e302ae4ad1ef9c182f35ebf222211bfa" kindref="member">VectorChangeInfo</ref> *</type>
         <definition>VectorChangeInfo* MyGUI::TextIterator::mHistory</definition>
         <argsstring></argsstring>
         <name>mHistory</name>
@@ -572,31 +573,32 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="665">
+      <node id="2800">
         <label>MyGUI::UString::_base_iterator</label>
         <link refid="classMyGUI_1_1UString_1_1__base__iterator"/>
-        <childnode refid="666" relation="usage">
+        <childnode refid="2801" relation="usage">
           <edgelabel>mString</edgelabel>
         </childnode>
       </node>
-      <node id="664">
+      <node id="2799">
         <label>MyGUI::UString::_fwd_iterator</label>
         <link refid="classMyGUI_1_1UString_1_1__fwd__iterator"/>
-        <childnode refid="665" relation="public-inheritance">
+        <childnode refid="2800" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="666">
+      <node id="2801">
         <label>MyGUI::UString</label>
         <link refid="classMyGUI_1_1UString"/>
       </node>
-      <node id="663">
+      <node id="2798">
         <label>MyGUI::TextIterator</label>
-        <childnode refid="664" relation="usage">
+        <link refid="classMyGUI_1_1TextIterator"/>
+        <childnode refid="2799" relation="usage">
           <edgelabel>mEnd
 mSave
 mCurrent</edgelabel>
         </childnode>
-        <childnode refid="666" relation="usage">
+        <childnode refid="2801" relation="usage">
           <edgelabel>mText</edgelabel>
         </childnode>
       </node>

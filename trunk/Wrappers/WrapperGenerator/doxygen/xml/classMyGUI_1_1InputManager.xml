@@ -2,6 +2,10 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1InputManager" kind="class" prot="public">
     <compoundname>MyGUI::InputManager</compoundname>
+    <basecompoundref refid="classMyGUI_1_1Singleton" prot="public" virt="non-virtual">MyGUI::Singleton&lt; InputManager &gt;</basecompoundref>
+    <basecompoundref refid="classMyGUI_1_1IUnlinkWidget" prot="public" virt="non-virtual">MyGUI::IUnlinkWidget</basecompoundref>
+    <basecompoundref refid="classMyGUI_1_1MemberObsolete_3_01InputManager_01_4" prot="public" virt="non-virtual">MyGUI::MemberObsolete&lt; InputManager &gt;</basecompoundref>
+    <includes local="no">MyGUI_InputManager.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1InputManager_1ff9eb097f6447be765cba966821416b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -82,7 +86,7 @@
           <declname>_absy</declname>
         </param>
         <param>
-          <type>MouseButton</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref></type>
           <declname>_id</declname>
         </param>
         <briefdescription>
@@ -108,7 +112,7 @@
           <declname>_absy</declname>
         </param>
         <param>
-          <type>MouseButton</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref></type>
           <declname>_id</declname>
         </param>
         <briefdescription>
@@ -126,11 +130,11 @@
         <argsstring>(KeyCode _key, Char _text=0)</argsstring>
         <name>injectKeyPress</name>
         <param>
-          <type>KeyCode</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref></type>
           <declname>_key</declname>
         </param>
         <param>
-          <type>Char</type>
+          <type><ref refid="namespaceMyGUI_1312ae095245acb5cb634a8eb34d21017" kindref="member">Char</ref></type>
           <declname>_text</declname>
           <defval>0</defval>
         </param>
@@ -149,7 +153,7 @@
         <argsstring>(KeyCode _key)</argsstring>
         <name>injectKeyRelease</name>
         <param>
-          <type>KeyCode</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref></type>
           <declname>_key</declname>
         </param>
         <briefdescription>
@@ -274,12 +278,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="92"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1InputManager_14c3fdda327b8e74028e502bb52c5333b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>const IntPoint &amp;</type>
+        <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref> &amp;</type>
         <definition>const IntPoint&amp; MyGUI::InputManager::getLastPressedPosition</definition>
         <argsstring>(MouseButton _id) const </argsstring>
         <name>getLastPressedPosition</name>
         <param>
-          <type>MouseButton</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref></type>
           <declname>_id</declname>
         </param>
         <briefdescription>
@@ -291,7 +295,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="97"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1InputManager_166d7fa4135fe5ec50011487efd716c02" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>const IntPoint &amp;</type>
+        <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref> &amp;</type>
         <definition>const IntPoint&amp; MyGUI::InputManager::getMousePosition</definition>
         <argsstring>() const </argsstring>
         <name>getMousePosition</name>
@@ -304,14 +308,14 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="100"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1InputManager_1bff339d51fc49d8672f64ae6c9374579" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>IntPoint</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref></type>
         <definition>IntPoint MyGUI::InputManager::getMousePositionByLayer</definition>
         <argsstring>()</argsstring>
         <name>getMousePositionByLayer</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Get mouse position on current layer. This position might different from getMousePosition() if mouse is over non-2d layer. </para>        </detaileddescription>
+<para>Get mouse position on current layer. This position might different from <ref refid="classMyGUI_1_1InputManager_166d7fa4135fe5ec50011487efd716c02" kindref="member">getMousePosition()</ref> if mouse is over non-2d layer. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="105"/>
@@ -435,7 +439,7 @@
       </sectiondef>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1InputManager_1926c236e9d691df5542b63d4da518590" prot="public" static="no" mutable="no">
-        <type>delegates::CMultiDelegate1&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">delegates::CMultiDelegate1</ref>&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
         <definition>delegates::CMultiDelegate1&lt;Widget*&gt; MyGUI::InputManager::eventChangeMouseFocus</definition>
         <argsstring></argsstring>
         <name>eventChangeMouseFocus</name>
@@ -458,7 +462,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="135" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="135" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1InputManager_1ab531db6b1987847247c373f4704c641" prot="public" static="no" mutable="no">
-        <type>delegates::CMultiDelegate1&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">delegates::CMultiDelegate1</ref>&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
         <definition>delegates::CMultiDelegate1&lt;Widget*&gt; MyGUI::InputManager::eventChangeKeyFocus</definition>
         <argsstring></argsstring>
         <name>eventChangeKeyFocus</name>
@@ -482,11 +486,12 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
-      <memberdef kind="function" id="classMyGUI_1_1InputManager_1093067fbf1678bd77ca97987c72d7a02" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_1093067fbf1678bd77ca97987c72d7a02" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void MyGUI::InputManager::_unlinkWidget</definition>
         <argsstring>(Widget *_widget)</argsstring>
         <name>_unlinkWidget</name>
+        <reimplements refid="classMyGUI_1_1IUnlinkWidget_1f91e3521c71ef6ff34707922d0dc7fc5">_unlinkWidget</reimplements>
         <param>
           <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
           <declname>_widget</declname>
@@ -522,7 +527,7 @@
         <argsstring>(KeyCode _key, bool bIsKeyPressed)</argsstring>
         <name>firstEncoding</name>
         <param>
-          <type>KeyCode</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref></type>
           <declname>_key</declname>
         </param>
         <param>
@@ -543,11 +548,11 @@
         <argsstring>(KeyCode _key, Char _text)</argsstring>
         <name>storeKey</name>
         <param>
-          <type>KeyCode</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref></type>
           <declname>_key</declname>
         </param>
         <param>
-          <type>Char</type>
+          <type><ref refid="namespaceMyGUI_1312ae095245acb5cb634a8eb34d21017" kindref="member">Char</ref></type>
           <declname>_text</declname>
         </param>
         <briefdescription>
@@ -600,7 +605,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="164" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="164" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1InputManager_167e6725715f17cf80e92fce8a1f12715" prot="private" static="no" mutable="no">
-        <type>ILayer *</type>
+        <type><ref refid="classMyGUI_1_1ILayer" kindref="compound">ILayer</ref> *</type>
         <definition>ILayer* MyGUI::InputManager::mLayerMouseFocus</definition>
         <argsstring></argsstring>
         <name>mLayerMouseFocus</name>
@@ -613,7 +618,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="165" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="165" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1InputManager_18a5ab5369ea2521b281ef0dfebe7bf7c" prot="private" static="no" mutable="no">
-        <type>Timer</type>
+        <type><ref refid="classMyGUI_1_1Timer" kindref="compound">Timer</ref></type>
         <definition>Timer MyGUI::InputManager::mTimer</definition>
         <argsstring></argsstring>
         <name>mTimer</name>
@@ -652,7 +657,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="173" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="173" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1InputManager_172971572b23deb45c3e55b132f912e2b" prot="private" static="no" mutable="no">
-        <type>IntPoint</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref></type>
         <definition>IntPoint MyGUI::InputManager::mMousePosition</definition>
         <argsstring></argsstring>
         <name>mMousePosition</name>
@@ -665,7 +670,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="175" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="175" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1InputManager_17293975642a467a110048ee8867ee64a" prot="private" static="no" mutable="no">
-        <type>IntPoint</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref></type>
         <definition>IntPoint MyGUI::InputManager::mLastPressed[MouseButton::MAX]</definition>
         <argsstring>[MouseButton::MAX]</argsstring>
         <name>mLastPressed</name>
@@ -691,7 +696,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="181" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="181" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1InputManager_15c592d39a6fc22d07c9788cc437e1f9f" prot="private" static="no" mutable="no">
-        <type>KeyCode</type>
+        <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref></type>
         <definition>KeyCode MyGUI::InputManager::mHoldKey</definition>
         <argsstring></argsstring>
         <name>mHoldKey</name>
@@ -704,7 +709,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="184" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="184" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1InputManager_1c5777a9f89621e2c611d9ad0a6fb89f8" prot="private" static="no" mutable="no">
-        <type>Char</type>
+        <type><ref refid="namespaceMyGUI_1312ae095245acb5cb634a8eb34d21017" kindref="member">Char</ref></type>
         <definition>Char MyGUI::InputManager::mHoldChar</definition>
         <argsstring></argsstring>
         <name>mHoldChar</name>
@@ -756,7 +761,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="188" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="188" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1InputManager_1c9d2a680592db064bb552cd1715d2709" prot="private" static="no" mutable="no">
-        <type>VectorWidgetPtr</type>
+        <type><ref refid="namespaceMyGUI_1df1f7c0b898769fe23f821eee2f682f6" kindref="member">VectorWidgetPtr</ref></type>
         <definition>VectorWidgetPtr MyGUI::InputManager::mVectorModalRootWidget</definition>
         <argsstring></argsstring>
         <name>mVectorModalRootWidget</name>
@@ -786,41 +791,371 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1034">
+        <label>MyGUI::IUnlinkWidget</label>
+        <link refid="classMyGUI_1_1IUnlinkWidget"/>
+      </node>
+      <node id="1032">
+        <label>MyGUI::InputManager</label>
+        <link refid="classMyGUI_1_1InputManager"/>
+        <childnode refid="1033" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1034" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1035" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1033">
+        <label>MyGUI::Singleton&lt; InputManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+      </node>
+      <node id="1035">
+        <label>MyGUI::MemberObsolete&lt; InputManager &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01InputManager_01_4"/>
+      </node>
+    </inheritancegraph>
     <collaborationgraph>
-      <node id="310">
+      <node id="1060">
+        <label>MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate1"/>
+      </node>
+      <node id="1073">
+        <label>MyGUI::WidgetStyle</label>
+        <link refid="structMyGUI_1_1WidgetStyle"/>
+      </node>
+      <node id="1041">
+        <label>T</label>
+      </node>
+      <node id="1042">
+        <label>MyGUI::ILayer</label>
+        <link refid="classMyGUI_1_1ILayer"/>
+        <childnode refid="1043" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1050">
+        <label>MyGUI::types::TCoord&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TCoord"/>
+        <childnode refid="1041" relation="usage">
+          <edgelabel>width
+height
+left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="1063">
+        <label>MyGUI::SkinItem</label>
+        <link refid="classMyGUI_1_1SkinItem"/>
+        <childnode refid="1064" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1066" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="1068" relation="usage">
+          <edgelabel>mMainSkin</edgelabel>
+        </childnode>
+        <childnode refid="1071" relation="usage">
+          <edgelabel>mText</edgelabel>
+        </childnode>
+      </node>
+      <node id="1065">
+        <label>MyGUI::ILayerItem</label>
+        <link refid="classMyGUI_1_1ILayerItem"/>
+      </node>
+      <node id="1056">
+        <label>MyGUI::delegates::CMultiDelegate3&lt; TP1, TP2, TP3 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate3"/>
+      </node>
+      <node id="1066">
+        <label>MyGUI::ITexture</label>
+        <link refid="classMyGUI_1_1ITexture"/>
+      </node>
+      <node id="1057">
+        <label>MyGUI::delegates::CMultiDelegate4&lt; TP1, TP2, TP3, TP4 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate4"/>
+      </node>
+      <node id="1059">
+        <label>MyGUI::MaskPickInfo</label>
+        <link refid="classMyGUI_1_1MaskPickInfo"/>
+      </node>
+      <node id="1049">
+        <label>MyGUI::ICroppedRectangle</label>
+        <link refid="classMyGUI_1_1ICroppedRectangle"/>
+        <childnode refid="1040" relation="usage">
+          <edgelabel>mAbsolutePosition</edgelabel>
+        </childnode>
+        <childnode refid="1050" relation="usage">
+          <edgelabel>mCoord</edgelabel>
+        </childnode>
+        <childnode refid="1051" relation="usage">
+          <edgelabel>mMargin</edgelabel>
+        </childnode>
+        <childnode refid="1049" relation="usage">
+          <edgelabel>mCroppedParent</edgelabel>
+        </childnode>
+      </node>
+      <node id="1051">
+        <label>MyGUI::types::TRect&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TRect"/>
+        <childnode refid="1041" relation="usage">
+          <edgelabel>right
+left
+bottom
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="1067">
+        <label>MyGUI::ILayerNode</label>
+        <link refid="classMyGUI_1_1ILayerNode"/>
+        <childnode refid="1044" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1045">
+        <label>MyGUI::KeyCode</label>
+        <link refid="structMyGUI_1_1KeyCode"/>
+      </node>
+      <node id="1038">
+        <label>MyGUI::IUnlinkWidget</label>
+        <link refid="classMyGUI_1_1IUnlinkWidget"/>
+      </node>
+      <node id="1072">
+        <label>MyGUI::MemberObsolete&lt; Widget &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4"/>
+      </node>
+      <node id="1047">
+        <label>MyGUI::Timer</label>
+        <link refid="classMyGUI_1_1Timer"/>
+      </node>
+      <node id="1061">
+        <label>MyGUI::delegates::CMultiDelegate2&lt; TP1, TP2 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate2"/>
+      </node>
+      <node id="1052">
         <label>MyGUI::UserData</label>
         <link refid="classMyGUI_1_1UserData"/>
+        <childnode refid="1053" relation="usage">
+          <edgelabel>mUserData
+mInternalData</edgelabel>
+        </childnode>
       </node>
-      <node id="309">
+      <node id="1071">
+        <label>MyGUI::ISubWidgetText</label>
+        <link refid="classMyGUI_1_1ISubWidgetText"/>
+        <childnode refid="1069" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1048">
         <label>MyGUI::Widget</label>
         <link refid="classMyGUI_1_1Widget"/>
-        <childnode refid="310" relation="public-inheritance">
+        <childnode refid="1044" relation="public-inheritance">
         </childnode>
-        <childnode refid="309" relation="usage">
+        <childnode refid="1049" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1052" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1055" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1062" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1063" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1072" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1056" relation="usage">
+          <edgelabel>eventChangeProperty</edgelabel>
+        </childnode>
+        <childnode refid="1073" relation="usage">
+          <edgelabel>mWidgetStyle</edgelabel>
+        </childnode>
+        <childnode refid="1048" relation="usage">
           <edgelabel>mContainer
 mParent
 mWidgetClient</edgelabel>
         </childnode>
+        <childnode refid="1070" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
       </node>
-      <node id="308">
+      <node id="1070">
+        <label>MyGUI::Align</label>
+        <link refid="structMyGUI_1_1Align"/>
+      </node>
+      <node id="1036">
         <label>MyGUI::InputManager</label>
-        <childnode refid="309" relation="usage">
+        <link refid="classMyGUI_1_1InputManager"/>
+        <childnode refid="1037" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1038" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1039" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1040" relation="usage">
+          <edgelabel>mLastPressed
+mMousePosition</edgelabel>
+        </childnode>
+        <childnode refid="1042" relation="usage">
+          <edgelabel>mLayerMouseFocus</edgelabel>
+        </childnode>
+        <childnode refid="1045" relation="usage">
+          <edgelabel>mHoldKey</edgelabel>
+        </childnode>
+        <childnode refid="1046" relation="usage">
+          <edgelabel>eventChangeMouseFocus
+eventChangeKeyFocus</edgelabel>
+        </childnode>
+        <childnode refid="1047" relation="usage">
+          <edgelabel>mTimer</edgelabel>
+        </childnode>
+        <childnode refid="1048" relation="usage">
           <edgelabel>mWidgetKeyFocus
 mWidgetMouseFocus</edgelabel>
         </childnode>
+      </node>
+      <node id="1068">
+        <label>MyGUI::ISubWidgetRect</label>
+        <link refid="classMyGUI_1_1ISubWidgetRect"/>
+        <childnode refid="1069" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1043">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="1044" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1069">
+        <label>MyGUI::ISubWidget</label>
+        <link refid="classMyGUI_1_1ISubWidget"/>
+        <childnode refid="1049" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1044" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1070" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
+      </node>
+      <node id="1062">
+        <label>MyGUI::delegates::IDelegateUnlink</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegateUnlink"/>
+        <childnode refid="1062" relation="usage">
+          <edgelabel>m_baseDelegateUnlink</edgelabel>
+        </childnode>
+      </node>
+      <node id="1058">
+        <label>MyGUI::EventPair3to4&lt; EventHandle_WidgetIntInt, EventHandle_WidgetIntIntButton &gt;</label>
+        <link refid="classMyGUI_1_1EventPair3to4"/>
+        <childnode refid="1056" relation="usage">
+          <edgelabel>m_eventObsolete</edgelabel>
+        </childnode>
+        <childnode refid="1057" relation="usage">
+          <edgelabel>m_event</edgelabel>
+        </childnode>
+      </node>
+      <node id="1055">
+        <label>MyGUI::WidgetInput</label>
+        <link refid="classMyGUI_1_1WidgetInput"/>
+        <childnode refid="1056" relation="usage">
+          <edgelabel>eventKeyButtonPressed
+eventMouseMove</edgelabel>
+        </childnode>
+        <childnode refid="1057" relation="usage">
+          <edgelabel>eventMouseButtonPressed
+eventMouseButtonReleased</edgelabel>
+        </childnode>
+        <childnode refid="1058" relation="usage">
+          <edgelabel>eventMouseDrag</edgelabel>
+        </childnode>
+        <childnode refid="1059" relation="usage">
+          <edgelabel>mOwnMaskPickInfo</edgelabel>
+        </childnode>
+        <childnode refid="1060" relation="usage">
+          <edgelabel>eventMouseButtonDoubleClick
+eventMouseButtonClick</edgelabel>
+        </childnode>
+        <childnode refid="1061" relation="usage">
+          <edgelabel>eventKeySetFocus
+eventMouseSetFocus
+eventKeyButtonReleased
+eventKeyLostFocus
+eventRootMouseChangeFocus
+eventMouseWheel
+eventToolTip
+eventMouseLostFocus
+eventRootKeyChangeFocus</edgelabel>
+        </childnode>
+      </node>
+      <node id="1054">
+        <label>MyGUI::Any::AnyEmpty</label>
+        <link refid="structMyGUI_1_1Any_1_1AnyEmpty"/>
+      </node>
+      <node id="1037">
+        <label>MyGUI::Singleton&lt; InputManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+        <childnode refid="1036" relation="usage">
+          <edgelabel>msInstance</edgelabel>
+        </childnode>
+      </node>
+      <node id="1064">
+        <label>MyGUI::LayerItem</label>
+        <link refid="classMyGUI_1_1LayerItem"/>
+        <childnode refid="1065" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1066" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="1042" relation="usage">
+          <edgelabel>mLayer</edgelabel>
+        </childnode>
+        <childnode refid="1067" relation="usage">
+          <edgelabel>mSaveLayerNode
+mLayerNode</edgelabel>
+        </childnode>
+      </node>
+      <node id="1040">
+        <label>MyGUI::types::TPoint&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TPoint"/>
+        <childnode refid="1041" relation="usage">
+          <edgelabel>left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="1039">
+        <label>MyGUI::MemberObsolete&lt; InputManager &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01InputManager_01_4"/>
+      </node>
+      <node id="1053">
+        <label>MyGUI::Any</label>
+        <link refid="classMyGUI_1_1Any"/>
+        <childnode refid="1054" relation="usage">
+          <edgelabel>Null</edgelabel>
+        </childnode>
+      </node>
+      <node id="1044">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+      <node id="1046">
+        <label>MyGUI::delegates::CMultiDelegate1&lt; Widget * &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate1"/>
       </node>
     </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="46" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="42" bodyend="194"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1InputManager_1923655787d850c2c3ce3ce0710dd39a7" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>_resetMouseFocusWidget</name></member>
-      <member refid="classMyGUI_1_1InputManager_1093067fbf1678bd77ca97987c72d7a02" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>_unlinkWidget</name></member>
+      <member refid="classMyGUI_1_1InputManager_1093067fbf1678bd77ca97987c72d7a02" prot="private" virt="virtual"><scope>MyGUI::InputManager</scope><name>_unlinkWidget</name></member>
       <member refid="classMyGUI_1_1InputManager_1ede56ba6a3fc3b9e18ea9cb0ab9c9fe4" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>addWidgetModal</name></member>
+      <member refid="classMyGUI_1_1Singleton_1a74db81b5e58d5c6cc4e9bcba1648253" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>Base</name></member>
       <member refid="classMyGUI_1_1InputManager_1ab531db6b1987847247c373f4704c641" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>eventChangeKeyFocus</name></member>
       <member refid="classMyGUI_1_1InputManager_1926c236e9d691df5542b63d4da518590" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>eventChangeMouseFocus</name></member>
       <member refid="classMyGUI_1_1InputManager_13904a473c7c2a49c5b01393f8be48e5d" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>firstEncoding</name></member>
       <member refid="classMyGUI_1_1InputManager_14155a112f3914d8279f7cea4db249bed" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>frameEntered</name></member>
+      <member refid="classMyGUI_1_1Singleton_12c806053cf545c5fdf7a3e6822a585a9" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1Singleton_162dffea70e4b1061c1018a3b12d3ecd8" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>getInstance</name></member>
+      <member refid="classMyGUI_1_1Singleton_14529a5eda85de92183260b77259fefa2" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>getInstancePtr</name></member>
       <member refid="classMyGUI_1_1InputManager_1398373f43ee9decdafa1ce75c587c8b0" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>getKeyFocusWidget</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01InputManager_01_4_197cf2d21fcb52a398945327966a9cf8e" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>getLastLeftPressed</name></member>
       <member refid="classMyGUI_1_1InputManager_14c3fdda327b8e74028e502bb52c5333b" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>getLastPressedPosition</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01InputManager_01_4_19e9b23e6347df6d372f13045fee13ef1" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>getLastRightPressed</name></member>
       <member refid="classMyGUI_1_1InputManager_1bb7138de1f43c6f59c12ce9a222e9cea" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>getMouseFocusWidget</name></member>
       <member refid="classMyGUI_1_1InputManager_166d7fa4135fe5ec50011487efd716c02" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>getMousePosition</name></member>
       <member refid="classMyGUI_1_1InputManager_1bff339d51fc49d8672f64ae6c9374579" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>getMousePositionByLayer</name></member>
@@ -860,8 +1195,11 @@ mWidgetMouseFocus</edgelabel>
       <member refid="classMyGUI_1_1InputManager_19c8c72f7137db850877d9aeae20bd88e" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>resetMouseCaptureWidget</name></member>
       <member refid="classMyGUI_1_1InputManager_153ac0c51cf395a0d1ebf71e29161b631" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>setKeyFocusWidget</name></member>
       <member refid="classMyGUI_1_1InputManager_15ce79df2ec4fe8f844d63eb43c50feae" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>shutdown</name></member>
+      <member refid="classMyGUI_1_1Singleton_130052fd9a72b1c3ad326830169e85307" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>Singleton</name></member>
       <member refid="classMyGUI_1_1InputManager_1e66f10a7d37a2380803c908bfc221e46" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>storeKey</name></member>
       <member refid="classMyGUI_1_1InputManager_1179d10dfe2946aa139448c904c82d4b0" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>unlinkWidget</name></member>
+      <member refid="classMyGUI_1_1IUnlinkWidget_1a2e24c22ce9088c193b5b759c1f283d6" prot="public" virt="virtual"><scope>MyGUI::InputManager</scope><name>~IUnlinkWidget</name></member>
+      <member refid="classMyGUI_1_1Singleton_1d342e3b15791e6a20cbd2aa9229b5c6f" prot="public" virt="virtual"><scope>MyGUI::InputManager</scope><name>~Singleton</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

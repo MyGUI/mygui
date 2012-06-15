@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1TextView" kind="class" prot="public">
     <compoundname>MyGUI::TextView</compoundname>
+    <includes local="no">MyGUI_TextView.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1TextView_1feaf27e8c409ca69f624e8365152fb32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -26,7 +27,7 @@
           <declname>_text</declname>
         </param>
         <param>
-          <type>IFont *</type>
+          <type><ref refid="classMyGUI_1_1IFont" kindref="compound">IFont</ref> *</type>
           <declname>_font</declname>
         </param>
         <param>
@@ -34,11 +35,11 @@
           <declname>_height</declname>
         </param>
         <param>
-          <type>Align</type>
+          <type><ref refid="structMyGUI_1_1Align" kindref="compound">Align</ref></type>
           <declname>_align</declname>
         </param>
         <param>
-          <type>VertexColourType</type>
+          <type><ref refid="structMyGUI_1_1VertexColourType" kindref="compound">VertexColourType</ref></type>
           <declname>_format</declname>
         </param>
         <param>
@@ -60,7 +61,7 @@
         <argsstring>(const IntPoint &amp;_value)</argsstring>
         <name>getCursorPosition</name>
         <param>
-          <type>const IntPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -72,7 +73,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextView.h" line="24"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1TextView_1d2b52e2f7387604d5104f5fbc643b6fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>IntPoint</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref></type>
         <definition>IntPoint MyGUI::TextView::getCursorPoint</definition>
         <argsstring>(size_t _position)</argsstring>
         <name>getCursorPoint</name>
@@ -89,7 +90,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextView.h" line="26"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1TextView_1682b9efab3a6960d5d123ad5657236e1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>const IntSize &amp;</type>
+        <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
         <definition>const IntSize&amp; MyGUI::TextView::getViewSize</definition>
         <argsstring>() const </argsstring>
         <name>getViewSize</name>
@@ -115,7 +116,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextView.h" line="30"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1TextView_17d8356ff71cac4e57a8b446f9489b2e2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>const VectorLineInfo &amp;</type>
+        <type>const <ref refid="namespaceMyGUI_1b1cca8100839a1e7b2deb5888469f759" kindref="member">VectorLineInfo</ref> &amp;</type>
         <definition>const VectorLineInfo&amp; MyGUI::TextView::getData</definition>
         <argsstring>() const </argsstring>
         <name>getData</name>
@@ -130,7 +131,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1TextView_1f70afb95ffc420dc6b7a48ff96a453c2" prot="private" static="no" mutable="no">
-        <type>IntSize</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref></type>
         <definition>IntSize MyGUI::TextView::mViewSize</definition>
         <argsstring></argsstring>
         <name>mViewSize</name>
@@ -156,7 +157,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextView.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextView.h" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1TextView_11e65a0a1895b1aa2a905ee06847ec93d" prot="private" static="no" mutable="no">
-        <type>VectorLineInfo</type>
+        <type><ref refid="namespaceMyGUI_1b1cca8100839a1e7b2deb5888469f759" kindref="member">VectorLineInfo</ref></type>
         <definition>VectorLineInfo MyGUI::TextView::mLineInfo</definition>
         <argsstring></argsstring>
         <name>mLineInfo</name>
@@ -186,6 +187,26 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <collaborationgraph>
+      <node id="2807">
+        <label>T</label>
+      </node>
+      <node id="2806">
+        <label>MyGUI::types::TSize&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TSize"/>
+        <childnode refid="2807" relation="usage">
+          <edgelabel>width
+height</edgelabel>
+        </childnode>
+      </node>
+      <node id="2805">
+        <label>MyGUI::TextView</label>
+        <link refid="classMyGUI_1_1TextView"/>
+        <childnode refid="2806" relation="usage">
+          <edgelabel>mViewSize</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextView.h" line="18" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextView.h" bodystart="17" bodyend="39"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1TextView_1d2b52e2f7387604d5104f5fbc643b6fd" prot="public" virt="non-virtual"><scope>MyGUI::TextView</scope><name>getCursorPoint</name></member>

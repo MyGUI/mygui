@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1MemberObsolete_3_01WidgetManager_01_4" kind="class" prot="public">
     <compoundname>MyGUI::MemberObsolete&lt; WidgetManager &gt;</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1WidgetManager" prot="public" virt="non-virtual">MyGUI::WidgetManager</derivedcompoundref>
+    <includes local="no">MyGUI_BackwardCompatibility.h</includes>
     <templateparamlist>
     </templateparamlist>
       <sectiondef kind="public-func">
@@ -11,7 +13,7 @@
         <argsstring>(VectorWidgetPtr &amp;_widgets)</argsstring>
         <name>destroyWidgetsVector</name>
         <param>
-          <type>VectorWidgetPtr &amp;</type>
+          <type><ref refid="namespaceMyGUI_1df1f7c0b898769fe23f821eee2f682f6" kindref="member">VectorWidgetPtr</ref> &amp;</type>
           <declname>_widgets</declname>
         </param>
         <briefdescription>
@@ -100,6 +102,18 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1604">
+        <label>MyGUI::WidgetManager</label>
+        <link refid="classMyGUI_1_1WidgetManager"/>
+        <childnode refid="1603" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1603">
+        <label>MyGUI::MemberObsolete&lt; WidgetManager &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01WidgetManager_01_4"/>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="543" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="542" bodyend="553"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1MemberObsolete_3_01WidgetManager_01_4_101e19cfbb85fd4c7b45b31686dd9337e" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; WidgetManager &gt;</scope><name>destroyWidgetsVector</name></member>

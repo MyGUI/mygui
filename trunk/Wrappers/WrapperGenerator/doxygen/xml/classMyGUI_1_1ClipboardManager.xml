@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1ClipboardManager" kind="class" prot="public">
     <compoundname>MyGUI::ClipboardManager</compoundname>
+    <basecompoundref refid="classMyGUI_1_1Singleton" prot="public" virt="non-virtual">MyGUI::Singleton&lt; ClipboardManager &gt;</basecompoundref>
+    <includes local="no">MyGUI_ClipboardManager.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1ClipboardManager_1280eb4b37cd42a12c16dea60cf1fdecf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -131,7 +133,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1ClipboardManager_10307fb0ef7280c3422e5a82b92ca4bf5" prot="private" static="no" mutable="no">
-        <type>MapString</type>
+        <type><ref refid="namespaceMyGUI_143ff1a19bb1ecb049f0b4642b6719a1b" kindref="member">MapString</ref></type>
         <definition>MapString MyGUI::ClipboardManager::mClipboardData</definition>
         <argsstring></argsstring>
         <name>mClipboardData</name>
@@ -161,16 +163,49 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="164">
+        <label>MyGUI::ClipboardManager</label>
+        <link refid="classMyGUI_1_1ClipboardManager"/>
+        <childnode refid="165" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="165">
+        <label>MyGUI::Singleton&lt; ClipboardManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="166">
+        <label>MyGUI::ClipboardManager</label>
+        <link refid="classMyGUI_1_1ClipboardManager"/>
+        <childnode refid="167" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="167">
+        <label>MyGUI::Singleton&lt; ClipboardManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+        <childnode refid="166" relation="usage">
+          <edgelabel>msInstance</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ClipboardManager.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ClipboardManager.h" bodystart="33" bodyend="67"/>
     <listofallmembers>
+      <member refid="classMyGUI_1_1Singleton_1a74db81b5e58d5c6cc4e9bcba1648253" prot="public" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>Base</name></member>
       <member refid="classMyGUI_1_1ClipboardManager_174d77804ef2144d010319bf8576bf7e3" prot="public" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>clearClipboardData</name></member>
       <member refid="classMyGUI_1_1ClipboardManager_1280eb4b37cd42a12c16dea60cf1fdecf" prot="public" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>ClipboardManager</name></member>
+      <member refid="classMyGUI_1_1Singleton_12c806053cf545c5fdf7a3e6822a585a9" prot="public" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>getClassTypeName</name></member>
       <member refid="classMyGUI_1_1ClipboardManager_113283840dd3efe057e165800142be8c9" prot="public" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>getClipboardData</name></member>
+      <member refid="classMyGUI_1_1Singleton_162dffea70e4b1061c1018a3b12d3ecd8" prot="public" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>getInstance</name></member>
+      <member refid="classMyGUI_1_1Singleton_14529a5eda85de92183260b77259fefa2" prot="public" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>getInstancePtr</name></member>
       <member refid="classMyGUI_1_1ClipboardManager_1e522b5b96fb07dbe2323bbb6a956ecc4" prot="public" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>initialise</name></member>
       <member refid="classMyGUI_1_1ClipboardManager_10307fb0ef7280c3422e5a82b92ca4bf5" prot="private" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>mClipboardData</name></member>
       <member refid="classMyGUI_1_1ClipboardManager_10763a6231fdc5b70df1f5a450a6dcfe4" prot="private" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>mIsInitialise</name></member>
       <member refid="classMyGUI_1_1ClipboardManager_199c80a9f05e73efd012e9ad5859ff508" prot="public" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>setClipboardData</name></member>
       <member refid="classMyGUI_1_1ClipboardManager_1e0a5f5c86990241926308b710059be45" prot="public" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>shutdown</name></member>
+      <member refid="classMyGUI_1_1Singleton_130052fd9a72b1c3ad326830169e85307" prot="public" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>Singleton</name></member>
+      <member refid="classMyGUI_1_1Singleton_1d342e3b15791e6a20cbd2aa9229b5c6f" prot="public" virt="virtual"><scope>MyGUI::ClipboardManager</scope><name>~Singleton</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

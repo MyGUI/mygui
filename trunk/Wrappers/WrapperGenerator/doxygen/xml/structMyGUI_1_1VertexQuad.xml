@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1VertexQuad" kind="struct" prot="public">
     <compoundname>MyGUI::VertexQuad</compoundname>
+    <includes local="no">MyGUI_VertexData.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="enum" id="structMyGUI_1_1VertexQuad_154ce52e924fee273e5647e74378bb536" prot="public" static="no">
         <name>Enum</name>
@@ -113,7 +114,7 @@
           <declname>_v2</declname>
         </param>
         <param>
-          <type>uint32</type>
+          <type><ref refid="namespaceMyGUI_1e11a5769e2d89121966117b44b09625f" kindref="member">uint32</ref></type>
           <declname>_colour</declname>
         </param>
         <briefdescription>
@@ -182,7 +183,7 @@
           <declname>_v2</declname>
         </param>
         <param>
-          <type>uint32</type>
+          <type><ref refid="namespaceMyGUI_1e11a5769e2d89121966117b44b09625f" kindref="member">uint32</ref></type>
           <declname>_colour</declname>
         </param>
         <briefdescription>
@@ -196,7 +197,7 @@
       </sectiondef>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structMyGUI_1_1VertexQuad_1e2d4fdd1b3d15c93a8ef21536d4a2603" prot="public" static="no" mutable="no">
-        <type>Vertex</type>
+        <type><ref refid="structMyGUI_1_1Vertex" kindref="compound">Vertex</ref></type>
         <definition>Vertex MyGUI::VertexQuad::vertex[6]</definition>
         <argsstring>[6]</argsstring>
         <name>vertex</name>
@@ -213,6 +214,19 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <collaborationgraph>
+      <node id="2961">
+        <label>MyGUI::Vertex</label>
+        <link refid="structMyGUI_1_1Vertex"/>
+      </node>
+      <node id="2960">
+        <label>MyGUI::VertexQuad</label>
+        <link refid="structMyGUI_1_1VertexQuad"/>
+        <childnode refid="2961" relation="usage">
+          <edgelabel>vertex</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" line="49" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" bodystart="48" bodyend="82"/>
     <listofallmembers>
       <member refid="structMyGUI_1_1VertexQuad_154ce52e924fee273e5647e74378bb536b3c50b5e83c792ecee36f1245fd869cc" prot="public" virt="non-virtual"><scope>MyGUI::VertexQuad</scope><name>CornerLB</name></member>

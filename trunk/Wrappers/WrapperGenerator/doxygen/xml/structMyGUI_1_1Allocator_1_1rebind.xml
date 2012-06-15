@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1Allocator_1_1rebind" kind="struct" prot="public">
     <compoundname>MyGUI::Allocator::rebind</compoundname>
+    <includes local="no">MyGUI_CustomAllocator.h</includes>
     <templateparamlist>
       <param>
         <type>typename</type>
@@ -11,7 +12,7 @@
     </templateparamlist>
       <sectiondef kind="public-type">
       <memberdef kind="typedef" id="structMyGUI_1_1Allocator_1_1rebind_17a087439b5716573de3dd6e98670d9c9" prot="public" static="no">
-        <type>Allocator&lt; U &gt;</type>
+        <type><ref refid="classMyGUI_1_1Allocator" kindref="compound">Allocator</ref>&lt; U &gt;</type>
         <definition>typedef Allocator&lt;U&gt; MyGUI::Allocator&lt; T &gt;::rebind&lt; U &gt;::other</definition>
         <argsstring></argsstring>
         <name>other</name>
@@ -24,7 +25,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Allocator.h" line="49" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Allocator.h" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="structMyGUI_1_1Allocator_1_1rebind_17a087439b5716573de3dd6e98670d9c9" prot="public" static="no">
-        <type>Allocator&lt; U &gt;</type>
+        <type><ref refid="classMyGUI_1_1Allocator" kindref="compound">Allocator</ref>&lt; U &gt;</type>
         <definition>typedef Allocator&lt;U&gt; MyGUI::Allocator&lt; T &gt;::rebind&lt; U &gt;::other</definition>
         <argsstring></argsstring>
         <name>other</name>

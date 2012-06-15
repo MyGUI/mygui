@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1Enumerator" kind="class" prot="public">
     <compoundname>MyGUI::Enumerator</compoundname>
+    <includes local="no">MyGUI_Enumerator.h</includes>
     <templateparamlist>
       <param>
         <type>typename</type>

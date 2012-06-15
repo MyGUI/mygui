@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1Canvas_1_1Event" kind="struct" prot="public">
     <compoundname>MyGUI::Canvas::Event</compoundname>
+    <includes local="no">MyGUI_Canvas.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="structMyGUI_1_1Canvas_1_1Event_1723f6e35ef93f5003891fb6d1b84c207" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>

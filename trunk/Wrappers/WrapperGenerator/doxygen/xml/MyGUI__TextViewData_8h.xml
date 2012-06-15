@@ -5,50 +5,50 @@
     <includes refid="MyGUI__Prerequest_8h" local="yes">MyGUI_Prerequest.h</includes>
     <includedby refid="MyGUI__TextView_8h" local="yes">MyGUI_TextView.h</includedby>
     <incdepgraph>
-      <node id="9932">
+      <node id="10198">
         <label>MyGUI_TextViewData.h</label>
         <link refid="MyGUI_TextViewData.h"/>
-        <childnode refid="9933" relation="include">
+        <childnode refid="10199" relation="include">
         </childnode>
       </node>
-      <node id="9934">
+      <node id="10200">
         <label>MyGUI_Platform.h</label>
         <link refid="MyGUI__Platform_8h"/>
       </node>
-      <node id="9935">
+      <node id="10201">
         <label>MyGUI_DeprecatedTypes.h</label>
         <link refid="MyGUI__DeprecatedTypes_8h"/>
       </node>
-      <node id="9933">
+      <node id="10199">
         <label>MyGUI_Prerequest.h</label>
         <link refid="MyGUI__Prerequest_8h"/>
-        <childnode refid="9934" relation="include">
+        <childnode refid="10200" relation="include">
         </childnode>
-        <childnode refid="9935" relation="include">
+        <childnode refid="10201" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="9938">
+      <node id="10204">
         <label>MyGUI_EditText.h</label>
         <link refid="MyGUI__EditText_8h"/>
-        <childnode refid="9939" relation="include">
+        <childnode refid="10205" relation="include">
         </childnode>
       </node>
-      <node id="9936">
+      <node id="10202">
         <label>MyGUI_TextViewData.h</label>
         <link refid="MyGUI_TextViewData.h"/>
-        <childnode refid="9937" relation="include">
+        <childnode refid="10203" relation="include">
         </childnode>
       </node>
-      <node id="9939">
+      <node id="10205">
         <label>MyGUI_SimpleText.h</label>
         <link refid="MyGUI__SimpleText_8h"/>
       </node>
-      <node id="9937">
+      <node id="10203">
         <label>MyGUI_TextView.h</label>
         <link refid="MyGUI__TextView_8h"/>
-        <childnode refid="9938" relation="include">
+        <childnode refid="10204" relation="include">
         </childnode>
       </node>
     </invincdepgraph>

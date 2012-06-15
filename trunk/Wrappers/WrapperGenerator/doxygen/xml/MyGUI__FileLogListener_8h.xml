@@ -7,52 +7,52 @@
     <includes local="no">fstream</includes>
     <includes local="no">string</includes>
     <incdepgraph>
-      <node id="2649">
+      <node id="2695">
         <label>MyGUI_FileLogListener.h</label>
         <link refid="MyGUI_FileLogListener.h"/>
-        <childnode refid="2650" relation="include">
+        <childnode refid="2696" relation="include">
         </childnode>
-        <childnode refid="2653" relation="include">
+        <childnode refid="2699" relation="include">
         </childnode>
-        <childnode refid="2655" relation="include">
+        <childnode refid="2701" relation="include">
         </childnode>
-        <childnode refid="2656" relation="include">
+        <childnode refid="2702" relation="include">
         </childnode>
       </node>
-      <node id="2651">
+      <node id="2697">
         <label>MyGUI_Platform.h</label>
         <link refid="MyGUI__Platform_8h"/>
       </node>
-      <node id="2654">
+      <node id="2700">
         <label>MyGUI_LogLevel.h</label>
         <link refid="MyGUI__LogLevel_8h"/>
-        <childnode refid="2650" relation="include">
+        <childnode refid="2696" relation="include">
         </childnode>
       </node>
-      <node id="2656">
+      <node id="2702">
         <label>string</label>
       </node>
-      <node id="2652">
+      <node id="2698">
         <label>MyGUI_DeprecatedTypes.h</label>
         <link refid="MyGUI__DeprecatedTypes_8h"/>
       </node>
-      <node id="2655">
+      <node id="2701">
         <label>fstream</label>
       </node>
-      <node id="2653">
+      <node id="2699">
         <label>MyGUI_ILogListener.h</label>
         <link refid="MyGUI__ILogListener_8h"/>
-        <childnode refid="2650" relation="include">
+        <childnode refid="2696" relation="include">
         </childnode>
-        <childnode refid="2654" relation="include">
+        <childnode refid="2700" relation="include">
         </childnode>
       </node>
-      <node id="2650">
+      <node id="2696">
         <label>MyGUI_Prerequest.h</label>
         <link refid="MyGUI__Prerequest_8h"/>
-        <childnode refid="2651" relation="include">
+        <childnode refid="2697" relation="include">
         </childnode>
-        <childnode refid="2652" relation="include">
+        <childnode refid="2698" relation="include">
         </childnode>
       </node>
     </incdepgraph>

@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1Bitwise" kind="class" prot="public">
     <compoundname>MyGUI::Bitwise</compoundname>
+    <includes local="no">MyGUI_Bitwise.h</includes>
       <sectiondef kind="public-static-func">
       <memberdef kind="function" id="classMyGUI_1_1Bitwise_151922a5898f5a6c863c3d35b5e82ffdd" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>

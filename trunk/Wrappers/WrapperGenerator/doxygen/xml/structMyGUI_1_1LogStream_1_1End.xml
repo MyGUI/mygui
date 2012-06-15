@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1LogStream_1_1End" kind="struct" prot="public">
     <compoundname>MyGUI::LogStream::End</compoundname>
+    <includes local="no">MyGUI_LogStream.h</includes>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

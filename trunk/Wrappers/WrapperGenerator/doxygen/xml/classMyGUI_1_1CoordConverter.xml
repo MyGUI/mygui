@@ -2,18 +2,19 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1CoordConverter" kind="class" prot="public">
     <compoundname>MyGUI::CoordConverter</compoundname>
+    <includes local="no">MyGUI_CoordConverter.h</includes>
       <sectiondef kind="public-static-func">
       <memberdef kind="function" id="classMyGUI_1_1CoordConverter_14cb228fdea8e215e87475c103837a2bb" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>FloatRect</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">FloatRect</ref></type>
         <definition>static FloatRect MyGUI::CoordConverter::convertTextureCoord</definition>
         <argsstring>(const IntCoord &amp;_coord, const IntSize &amp;_textureSize)</argsstring>
         <name>convertTextureCoord</name>
         <param>
-          <type>const IntCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_coord</declname>
         </param>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_textureSize</declname>
         </param>
         <briefdescription>
@@ -25,16 +26,16 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CoordConverter.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CoordConverter.h" bodystart="35" bodyend="44"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1CoordConverter_1a3a56da9df3f7e92ff8607e2c13f9980" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>IntCoord</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref></type>
         <definition>static IntCoord MyGUI::CoordConverter::convertFromRelative</definition>
         <argsstring>(const FloatCoord &amp;_coord, const IntSize &amp;_view)</argsstring>
         <name>convertFromRelative</name>
         <param>
-          <type>const FloatCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">FloatCoord</ref> &amp;</type>
           <declname>_coord</declname>
         </param>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_view</declname>
         </param>
         <briefdescription>
@@ -46,16 +47,16 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CoordConverter.h" line="50" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CoordConverter.h" bodystart="49" bodyend="52"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1CoordConverter_139d0c269983fa600bc54e5a2d08d09ea" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>IntSize</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref></type>
         <definition>static IntSize MyGUI::CoordConverter::convertFromRelative</definition>
         <argsstring>(const FloatSize &amp;_size, const IntSize &amp;_view)</argsstring>
         <name>convertFromRelative</name>
         <param>
-          <type>const FloatSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">FloatSize</ref> &amp;</type>
           <declname>_size</declname>
         </param>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_view</declname>
         </param>
         <briefdescription>
@@ -67,16 +68,16 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CoordConverter.h" line="58" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CoordConverter.h" bodystart="57" bodyend="60"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1CoordConverter_11c7079b2068b1c8ecbc697b3bdef46ee" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>IntPoint</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref></type>
         <definition>static IntPoint MyGUI::CoordConverter::convertFromRelative</definition>
         <argsstring>(const FloatPoint &amp;_point, const IntSize &amp;_view)</argsstring>
         <name>convertFromRelative</name>
         <param>
-          <type>const FloatPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref> &amp;</type>
           <declname>_point</declname>
         </param>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_view</declname>
         </param>
         <briefdescription>
@@ -88,16 +89,16 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CoordConverter.h" line="66" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CoordConverter.h" bodystart="65" bodyend="68"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1CoordConverter_18c9b74d1cd0df2e3d72d9caa894f10d6" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>FloatCoord</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">FloatCoord</ref></type>
         <definition>static FloatCoord MyGUI::CoordConverter::convertToRelative</definition>
         <argsstring>(const IntCoord &amp;_coord, const IntSize &amp;_view)</argsstring>
         <name>convertToRelative</name>
         <param>
-          <type>const IntCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_coord</declname>
         </param>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_view</declname>
         </param>
         <briefdescription>
@@ -109,16 +110,16 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CoordConverter.h" line="74" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CoordConverter.h" bodystart="73" bodyend="76"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1CoordConverter_1359c1bf05c908c9e10e3d308e930939d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>FloatSize</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">FloatSize</ref></type>
         <definition>static FloatSize MyGUI::CoordConverter::convertToRelative</definition>
         <argsstring>(const IntSize &amp;_size, const IntSize &amp;_view)</argsstring>
         <name>convertToRelative</name>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_size</declname>
         </param>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_view</declname>
         </param>
         <briefdescription>
@@ -130,16 +131,16 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CoordConverter.h" line="79" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CoordConverter.h" bodystart="78" bodyend="81"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1CoordConverter_1af877967353670dee710245b56eb09f6" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>FloatPoint</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref></type>
         <definition>static FloatPoint MyGUI::CoordConverter::convertToRelative</definition>
         <argsstring>(const IntPoint &amp;_point, const IntSize &amp;_view)</argsstring>
         <name>convertToRelative</name>
         <param>
-          <type>const IntPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref> &amp;</type>
           <declname>_point</declname>
         </param>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_view</declname>
         </param>
         <briefdescription>

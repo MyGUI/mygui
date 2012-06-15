@@ -2,12 +2,15 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1PolygonalSkin" kind="class" prot="public">
     <compoundname>MyGUI::PolygonalSkin</compoundname>
+    <basecompoundref refid="classMyGUI_1_1ISubWidgetRect" prot="public" virt="non-virtual">MyGUI::ISubWidgetRect</basecompoundref>
+    <includes local="no">MyGUI_PolygonalSkin.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="typedef" id="classMyGUI_1_1PolygonalSkin_1a12ea99913fbdfee60235faeeda6605b" prot="public" static="no">
-        <type>RTTIBase</type>
+        <type><ref refid="classMyGUI_1_1PolygonalSkin" kindref="compound">RTTIBase</ref></type>
         <definition>typedef RTTIBase MyGUI::PolygonalSkin::Base</definition>
         <argsstring></argsstring>
         <name>Base</name>
+        <reimplements refid="classMyGUI_1_1ISubWidgetRect_100f4a6ed2a9ef770564a46bcb5c09ab2">Base</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -17,10 +20,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classMyGUI_1_1PolygonalSkin_17110ec78c2de879ea675f8439a95fd63" prot="public" static="no">
-        <type>PolygonalSkin</type>
+        <type><ref refid="classMyGUI_1_1PolygonalSkin" kindref="compound">PolygonalSkin</ref></type>
         <definition>typedef PolygonalSkin MyGUI::PolygonalSkin::RTTIBase</definition>
         <argsstring></argsstring>
         <name>RTTIBase</name>
+        <reimplements refid="classMyGUI_1_1ISubWidgetRect_1b0530a20648e4534dde36a74503e4fa1">RTTIBase</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -36,6 +40,7 @@
         <definition>virtual const std::string&amp; MyGUI::PolygonalSkin::getTypeName</definition>
         <argsstring>() const </argsstring>
         <name>getTypeName</name>
+        <reimplements refid="classMyGUI_1_1ISubWidgetRect_18d3f4a7504d004d4570e216834b48c70">getTypeName</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -49,6 +54,7 @@
         <definition>virtual bool MyGUI::PolygonalSkin::isType</definition>
         <argsstring>(const std::type_info &amp;_type) const </argsstring>
         <name>isType</name>
+        <reimplements refid="classMyGUI_1_1ISubWidgetRect_1d567130fa0bbff0f17289d1599a7142f">isType</reimplements>
         <param>
           <type>const std::type_info &amp;</type>
           <declname>_type</declname>
@@ -73,6 +79,7 @@
         <definition>bool MyGUI::PolygonalSkin::isType</definition>
         <argsstring>() const </argsstring>
         <name>isType</name>
+        <reimplements refid="classMyGUI_1_1ISubWidgetRect_1cd2368b695b560226055691ff6d42a47">isType</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -113,7 +120,7 @@
         <argsstring>(const std::vector&lt; FloatPoint &gt; &amp;_points)</argsstring>
         <name>setPoints</name>
         <param>
-          <type>const std::vector&lt; FloatPoint &gt; &amp;</type>
+          <type>const std::vector&lt; <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref> &gt; &amp;</type>
           <declname>_points</declname>
         </param>
         <briefdescription>
@@ -146,6 +153,7 @@
         <definition>virtual void MyGUI::PolygonalSkin::setAlpha</definition>
         <argsstring>(float _alpha)</argsstring>
         <name>setAlpha</name>
+        <reimplements refid="classMyGUI_1_1ISubWidget_11ab59012e5561b6bfe6591af040d40d9">setAlpha</reimplements>
         <param>
           <type>float</type>
           <declname>_alpha</declname>
@@ -163,6 +171,7 @@
         <definition>virtual void MyGUI::PolygonalSkin::setVisible</definition>
         <argsstring>(bool _visible)</argsstring>
         <name>setVisible</name>
+        <reimplements refid="classMyGUI_1_1ISubWidget_1e4026d66f929d8a30d162c74c72d8c77">setVisible</reimplements>
         <param>
           <type>bool</type>
           <declname>_visible</declname>
@@ -180,8 +189,9 @@
         <definition>virtual void MyGUI::PolygonalSkin::setStateData</definition>
         <argsstring>(IStateInfo *_data)</argsstring>
         <name>setStateData</name>
+        <reimplements refid="classMyGUI_1_1ISubWidget_1021bf0b2ff5b254b825ec1be680cbe50">setStateData</reimplements>
         <param>
-          <type>IStateInfo *</type>
+          <type><ref refid="classMyGUI_1_1IStateInfo" kindref="compound">IStateInfo</ref> *</type>
           <declname>_data</declname>
         </param>
         <briefdescription>
@@ -197,12 +207,13 @@
         <definition>virtual void MyGUI::PolygonalSkin::createDrawItem</definition>
         <argsstring>(ITexture *_texture, ILayerNode *_node)</argsstring>
         <name>createDrawItem</name>
+        <reimplements refid="classMyGUI_1_1ISubWidget_10090436daa8c801a0dc902569bc30026">createDrawItem</reimplements>
         <param>
-          <type>ITexture *</type>
+          <type><ref refid="classMyGUI_1_1ITexture" kindref="compound">ITexture</ref> *</type>
           <declname>_texture</declname>
         </param>
         <param>
-          <type>ILayerNode *</type>
+          <type><ref refid="classMyGUI_1_1ILayerNode" kindref="compound">ILayerNode</ref> *</type>
           <declname>_node</declname>
         </param>
         <briefdescription>
@@ -218,6 +229,7 @@
         <definition>virtual void MyGUI::PolygonalSkin::destroyDrawItem</definition>
         <argsstring>()</argsstring>
         <name>destroyDrawItem</name>
+        <reimplements refid="classMyGUI_1_1ISubWidget_1b1cfbcbc9451ca4a30ef9fb19826c20c">destroyDrawItem</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -231,6 +243,7 @@
         <definition>virtual void MyGUI::PolygonalSkin::doRender</definition>
         <argsstring>()</argsstring>
         <name>doRender</name>
+        <reimplements refid="classMyGUI_1_1ISubWidget_11ed073cb9ff76c85d6c5c3d92176e2da">doRender</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -244,6 +257,7 @@
         <definition>virtual void MyGUI::PolygonalSkin::_updateView</definition>
         <argsstring>()</argsstring>
         <name>_updateView</name>
+        <reimplements refid="classMyGUI_1_1ISubWidget_174f2d8da9e0091855c769959b54a28a8">_updateView</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -257,6 +271,7 @@
         <definition>virtual void MyGUI::PolygonalSkin::_correctView</definition>
         <argsstring>()</argsstring>
         <name>_correctView</name>
+        <reimplements refid="classMyGUI_1_1ISubWidget_181bc66e615a7de79c8d860ef18fe97cf">_correctView</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -270,8 +285,9 @@
         <definition>virtual void MyGUI::PolygonalSkin::_setAlign</definition>
         <argsstring>(const IntSize &amp;_oldsize)</argsstring>
         <name>_setAlign</name>
+        <reimplements refid="classMyGUI_1_1ISubWidget_1190a2f219e7010395d41845b35588a80">_setAlign</reimplements>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_oldsize</declname>
         </param>
         <briefdescription>
@@ -287,8 +303,9 @@
         <definition>virtual void MyGUI::PolygonalSkin::_setUVSet</definition>
         <argsstring>(const FloatRect &amp;_rect)</argsstring>
         <name>_setUVSet</name>
+        <reimplements refid="classMyGUI_1_1ISubWidgetRect_10dea04413da80292636d9cdbae9feaa3">_setUVSet</reimplements>
         <param>
-          <type>const FloatRect &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">FloatRect</ref> &amp;</type>
           <declname>_rect</declname>
         </param>
         <briefdescription>
@@ -304,8 +321,9 @@
         <definition>virtual void MyGUI::PolygonalSkin::_setColour</definition>
         <argsstring>(const Colour &amp;_value)</argsstring>
         <name>_setColour</name>
+        <reimplements refid="classMyGUI_1_1ISubWidgetRect_124b055a2eb763e12ffb4a89933401c81">_setColour</reimplements>
         <param>
-          <type>const Colour &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -323,6 +341,7 @@
         <definition>static const std::string&amp; MyGUI::PolygonalSkin::getClassTypeName</definition>
         <argsstring>()</argsstring>
         <name>getClassTypeName</name>
+        <reimplements refid="classMyGUI_1_1ISubWidgetRect_1134c5927a742a8973be2cd59f93412bd">getClassTypeName</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -347,16 +366,16 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="70"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_14b2d31744985577103926dbbf5a7ef28" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>FloatPoint</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref></type>
         <definition>FloatPoint MyGUI::PolygonalSkin::_getPerpendicular</definition>
         <argsstring>(const FloatPoint &amp;_point1, const FloatPoint &amp;_point2)</argsstring>
         <name>_getPerpendicular</name>
         <param>
-          <type>const FloatPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref> &amp;</type>
           <declname>_point1</declname>
         </param>
         <param>
-          <type>const FloatPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref> &amp;</type>
           <declname>_point2</declname>
         </param>
         <briefdescription>
@@ -368,20 +387,20 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="71"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_16255e43bad6e9a3b31facfcd415a661e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>FloatPoint</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref></type>
         <definition>FloatPoint MyGUI::PolygonalSkin::_getMiddleLine</definition>
         <argsstring>(const FloatPoint &amp;_point1, const FloatPoint &amp;_point2, const FloatPoint &amp;_point3)</argsstring>
         <name>_getMiddleLine</name>
         <param>
-          <type>const FloatPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref> &amp;</type>
           <declname>_point1</declname>
         </param>
         <param>
-          <type>const FloatPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref> &amp;</type>
           <declname>_point2</declname>
         </param>
         <param>
-          <type>const FloatPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref> &amp;</type>
           <declname>_point3</declname>
         </param>
         <briefdescription>
@@ -421,7 +440,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="78" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="78" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_1e1b3c2769f25f4a84c78623a2eb11db5" prot="private" static="no" mutable="no">
-        <type>std::vector&lt; FloatPoint &gt;</type>
+        <type>std::vector&lt; <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref> &gt;</type>
         <definition>std::vector&lt;FloatPoint&gt; MyGUI::PolygonalSkin::mLinePoints</definition>
         <argsstring></argsstring>
         <name>mLinePoints</name>
@@ -447,7 +466,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="80" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="80" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_17bbd453208691511fb475407f83342c2" prot="private" static="no" mutable="no">
-        <type>std::vector&lt; FloatPoint &gt;</type>
+        <type>std::vector&lt; <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref> &gt;</type>
         <definition>std::vector&lt;FloatPoint&gt; MyGUI::PolygonalSkin::mResultVerticiesPos</definition>
         <argsstring></argsstring>
         <name>mResultVerticiesPos</name>
@@ -460,7 +479,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="82" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="82" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_11c6b2687fad2b2c49d8a102ca3f48c81" prot="private" static="no" mutable="no">
-        <type>std::vector&lt; FloatPoint &gt;</type>
+        <type>std::vector&lt; <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">FloatPoint</ref> &gt;</type>
         <definition>std::vector&lt;FloatPoint&gt; MyGUI::PolygonalSkin::mResultVerticiesUV</definition>
         <argsstring></argsstring>
         <name>mResultVerticiesUV</name>
@@ -499,7 +518,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="87" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_1d3684135bf55d055491b4618b9c17553" prot="private" static="no" mutable="no">
-        <type>VertexColourType</type>
+        <type><ref refid="structMyGUI_1_1VertexColourType" kindref="compound">VertexColourType</ref></type>
         <definition>VertexColourType MyGUI::PolygonalSkin::mVertexFormat</definition>
         <argsstring></argsstring>
         <name>mVertexFormat</name>
@@ -512,7 +531,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="89" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="89" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_19e0661018433b5b9db086e730b67decf" prot="private" static="no" mutable="no">
-        <type>uint32</type>
+        <type><ref refid="namespaceMyGUI_1e11a5769e2d89121966117b44b09625f" kindref="member">uint32</ref></type>
         <definition>uint32 MyGUI::PolygonalSkin::mCurrentColour</definition>
         <argsstring></argsstring>
         <name>mCurrentColour</name>
@@ -525,7 +544,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="90" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="90" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_18bd4cab35f74ea75d0a5bec1f2e2e7b4" prot="private" static="no" mutable="no">
-        <type>FloatRect</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">FloatRect</ref></type>
         <definition>FloatRect MyGUI::PolygonalSkin::mCurrentTexture</definition>
         <argsstring></argsstring>
         <name>mCurrentTexture</name>
@@ -538,7 +557,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="92" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="92" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_12302208c6c10dea7487e1feba5313e36" prot="private" static="no" mutable="no">
-        <type>IntCoord</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref></type>
         <definition>IntCoord MyGUI::PolygonalSkin::mCurrentCoord</definition>
         <argsstring></argsstring>
         <name>mCurrentCoord</name>
@@ -551,7 +570,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="93" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="93" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_180e1f6085660bf4988f2039cd45f679b" prot="private" static="no" mutable="no">
-        <type>ILayerNode *</type>
+        <type><ref refid="classMyGUI_1_1ILayerNode" kindref="compound">ILayerNode</ref> *</type>
         <definition>ILayerNode* MyGUI::PolygonalSkin::mNode</definition>
         <argsstring></argsstring>
         <name>mNode</name>
@@ -564,7 +583,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="95" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="95" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_1527b46dcaee9bf5bda3e8b4e972f3dd4" prot="private" static="no" mutable="no">
-        <type>RenderItem *</type>
+        <type><ref refid="classMyGUI_1_1RenderItem" kindref="compound">RenderItem</ref> *</type>
         <definition>RenderItem* MyGUI::PolygonalSkin::mRenderItem</definition>
         <argsstring></argsstring>
         <name>mRenderItem</name>
@@ -581,45 +600,263 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="2051">
+        <label>MyGUI::ICroppedRectangle</label>
+        <link refid="classMyGUI_1_1ICroppedRectangle"/>
+      </node>
+      <node id="2048">
+        <label>MyGUI::PolygonalSkin</label>
+        <link refid="classMyGUI_1_1PolygonalSkin"/>
+        <childnode refid="2049" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2049">
+        <label>MyGUI::ISubWidgetRect</label>
+        <link refid="classMyGUI_1_1ISubWidgetRect"/>
+        <childnode refid="2050" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2050">
+        <label>MyGUI::ISubWidget</label>
+        <link refid="classMyGUI_1_1ISubWidget"/>
+        <childnode refid="2051" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2052" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2052">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2066">
+        <label>MyGUI::Vertex</label>
+        <link refid="structMyGUI_1_1Vertex"/>
+      </node>
+      <node id="2058">
+        <label>T</label>
+      </node>
+      <node id="2064">
+        <label>MyGUI::IVertexBuffer</label>
+        <link refid="classMyGUI_1_1IVertexBuffer"/>
+      </node>
+      <node id="2059">
+        <label>MyGUI::types::TCoord&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TCoord"/>
+        <childnode refid="2058" relation="usage">
+          <edgelabel>width
+height
+left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="2065">
+        <label>MyGUI::ITexture</label>
+        <link refid="classMyGUI_1_1ITexture"/>
+      </node>
+      <node id="2056">
+        <label>MyGUI::ICroppedRectangle</label>
+        <link refid="classMyGUI_1_1ICroppedRectangle"/>
+        <childnode refid="2057" relation="usage">
+          <edgelabel>mAbsolutePosition</edgelabel>
+        </childnode>
+        <childnode refid="2059" relation="usage">
+          <edgelabel>mCoord</edgelabel>
+        </childnode>
+        <childnode refid="2060" relation="usage">
+          <edgelabel>mMargin</edgelabel>
+        </childnode>
+        <childnode refid="2056" relation="usage">
+          <edgelabel>mCroppedParent</edgelabel>
+        </childnode>
+      </node>
+      <node id="2060">
+        <label>MyGUI::types::TRect&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TRect"/>
+        <childnode refid="2058" relation="usage">
+          <edgelabel>right
+left
+bottom
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="2068">
+        <label>MyGUI::ILayerNode</label>
+        <link refid="classMyGUI_1_1ILayerNode"/>
+        <childnode refid="2061" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2063">
+        <label>MyGUI::RenderItem</label>
+        <link refid="classMyGUI_1_1RenderItem"/>
+        <childnode refid="2064" relation="usage">
+          <edgelabel>mVertexBuffer</edgelabel>
+        </childnode>
+        <childnode refid="2065" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="2066" relation="usage">
+          <edgelabel>mCurrentVertex</edgelabel>
+        </childnode>
+        <childnode refid="2067" relation="usage">
+          <edgelabel>mRenderTarget</edgelabel>
+        </childnode>
+      </node>
+      <node id="2069">
+        <label>MyGUI::VertexColourType</label>
+        <link refid="structMyGUI_1_1VertexColourType"/>
+      </node>
+      <node id="2053">
+        <label>MyGUI::PolygonalSkin</label>
+        <link refid="classMyGUI_1_1PolygonalSkin"/>
+        <childnode refid="2054" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2059" relation="usage">
+          <edgelabel>mCurrentCoord</edgelabel>
+        </childnode>
+        <childnode refid="2063" relation="usage">
+          <edgelabel>mRenderItem</edgelabel>
+        </childnode>
+        <childnode refid="2060" relation="usage">
+          <edgelabel>mCurrentTexture</edgelabel>
+        </childnode>
+        <childnode refid="2068" relation="usage">
+          <edgelabel>mNode</edgelabel>
+        </childnode>
+        <childnode refid="2069" relation="usage">
+          <edgelabel>mVertexFormat</edgelabel>
+        </childnode>
+      </node>
+      <node id="2062">
+        <label>MyGUI::Align</label>
+        <link refid="structMyGUI_1_1Align"/>
+      </node>
+      <node id="2054">
+        <label>MyGUI::ISubWidgetRect</label>
+        <link refid="classMyGUI_1_1ISubWidgetRect"/>
+        <childnode refid="2055" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2055">
+        <label>MyGUI::ISubWidget</label>
+        <link refid="classMyGUI_1_1ISubWidget"/>
+        <childnode refid="2056" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2061" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2062" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
+      </node>
+      <node id="2067">
+        <label>MyGUI::IRenderTarget</label>
+        <link refid="classMyGUI_1_1IRenderTarget"/>
+      </node>
+      <node id="2057">
+        <label>MyGUI::types::TPoint&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TPoint"/>
+        <childnode refid="2058" relation="usage">
+          <edgelabel>left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="2061">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="33" bodyend="97"/>
     <listofallmembers>
+      <member refid="classMyGUI_1_1ICroppedRectangle_140912f54a25901b779ea49094e5f4ae0" prot="protected" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_checkMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1093bbcae9343e7fe54fb4769652dfc2f" prot="protected" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_checkOutside</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_10b5b95b19a84de71d41e8dd621f93aad" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>_correctView</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1dd35646a24b80019d956bd8d9a8842e4" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_getMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b883cc09bbd15914970fa6a3a155b261" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_getMarginBottom</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1c389b55028cb6157b3832250de48cfe7" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_getMarginLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_11221b089abe10e18924bf5bb3209ac9f" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_getMarginRight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f875bcc3f5e3292c646142460892f7a4" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_getMarginTop</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_16255e43bad6e9a3b31facfcd415a661e" prot="protected" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_getMiddleLine</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_14b2d31744985577103926dbbf5a7ef28" prot="protected" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_getPerpendicular</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_13a7c73e8f4cc8dabcd76a5c6645900b9" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_getViewBottom</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1eaa2e53babcc2e3fdc8809f6eb8825bf" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_getViewHeight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_19c87ba1cec7e29effd49a8aed37e4bbe" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_getViewLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1ae878f922452310563bc53768acbee32" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_getViewRight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_16f7f0a2960a331640aaee3a88fdc8a20" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_getViewTop</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_10fb56854f3bb6d0f7f4f0e8f608fa37a" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_getViewWidth</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1e9ab842519de0d0d1ff6624c96a25aee" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_isMargin</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_127080fb346ffd409c15cbbc025ccd255" prot="protected" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_rebuildGeometry</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_17292ae2865fe3479cf6a9f4631c9ff2d" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>_setAlign</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_115342e9afed68c6522cbef7500f98ee7" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>_setColour</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b7a33eeac6fd7e1ecc305decc2970249" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_setCroppedParent</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_1870987b2ad11d16313f438a096d6bacb" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>_setUVSet</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_1aff06c3715b94bbf38ff0a1a871f2b16" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>_updateView</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_1a12ea99913fbdfee60235faeeda6605b" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1IObject_1c542d61d7f1efd5c08dae100a3c68558" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>castType</name></member>
+      <member refid="classMyGUI_1_1IObject_1f636b3c71d893eeb41bebc1c6f4519e1" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>castType</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_1e9003e5aaeb2aafd1639938f1e57445b" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>createDrawItem</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_12d86af038c59b5ed9e647b75e0922ac0" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>destroyDrawItem</name></member>
+      <member refid="classMyGUI_1_1ISubWidget_1b7dbd3f3075cfe7e51076995b8076556" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>doManualRender</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_1eb47c8ac199bf1c0eaa677de740f94bd" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>doRender</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_183d89c16d41d05bb8772f362b516dd3b" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>getAbsoluteCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_19ac46efa204752d3d4a8495feaade9a0" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>getAbsoluteLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1a3ae7bcd46578b5082c21a41962c3db6" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>getAbsolutePosition</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_16221e701b940cd07bb2a41c84099dfa1" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>getAbsoluteRect</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_108f36d963cb1bbcc853ffaf8f576d306" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>getAbsoluteTop</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b0478e244c63d6201a748e371f237ae1" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>getBottom</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_133f6cdd47a7a1000c6cc5f8753a2a967" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1a9cc9fbf580a3c77059f20fafcdb201f" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>getCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b6b24667d7810f93d79a9fa7750d01ce" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>getCroppedParent</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f5253c6b4dfb1107dd23b23fb1109413" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>getHeight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1753231d8f8981c59cf6a4c92609c35e6" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>getLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b8574746c63b6c512229f1022d497094" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>getPosition</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1c2ce3e30f89af0955e511c66e111cf93" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>getRight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f557c510d0af74ac6c2770253d52b303" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>getSize</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1ea03ec13020eb5016f3c17251a526ad9" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>getTop</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_14171abaa78c78232e4f761a6c1904bcc" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_152c93ea7b7c89b708b855a4924df310b" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>getWidth</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_13b493ea3f8e5dcb4cc905da0b7c6dadf" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>ICroppedRectangle</name></member>
+      <member refid="classMyGUI_1_1IObject_198f33c9772728fc4065fe0a1ffdf8246" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>IObject</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_1905d3f0b016445124988293f28602807" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_130692e2e6ecb5982a6e1bdcfcc8b8a3a" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ISubWidget_19ea81e1f6e2de7a80b5e0cc6794f05c6" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>ISubWidget</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_17b7faec75fa09c72701f8ab0fd416182" prot="protected" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mAbsolutePosition</name></member>
+      <member refid="classMyGUI_1_1ISubWidget_10a4a9b89c1f23857c487fc89c474eb1e" prot="protected" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mAlign</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_121be402c76c560b6568dc16c2f1e38a8" prot="protected" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_15d10640ec8d1a14f75b4a6287d92de12" prot="protected" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mCroppedParent</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_19e0661018433b5b9db086e730b67decf" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mCurrentColour</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_12302208c6c10dea7487e1feba5313e36" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mCurrentCoord</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_18bd4cab35f74ea75d0a5bec1f2e2e7b4" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mCurrentTexture</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_1286b613354e9f2efee8e384e7ee9aa05" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mEmptyView</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_1e0d4e709e66193ee7b2f6bf4a4fcbb75" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mGeometryOutdated</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_10f0b7542dde743b020713654c50536ca" prot="protected" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mIsMargin</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_18594b3b23c5e97f6a9aaece78a1fa8dd" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mLineLength</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_1e1b3c2769f25f4a84c78623a2eb11db5" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mLinePoints</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_1789caabc7a8f6604727e623c33094eec" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mLineWidth</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_125d27b33aeee62b852dc8009a7b942d7" prot="protected" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mMargin</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_180e1f6085660bf4988f2039cd45f679b" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mNode</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_1527b46dcaee9bf5bda3e8b4e972f3dd4" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mRenderItem</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_17bbd453208691511fb475407f83342c2" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mResultVerticiesPos</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_11c6b2687fad2b2c49d8a102ca3f48c81" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mResultVerticiesUV</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_1ac1f91d0ab42fa165e0c61e6ffbbdcc8" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mVertexCount</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_1d3684135bf55d055491b4618b9c17553" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mVertexFormat</name></member>
+      <member refid="classMyGUI_1_1ISubWidget_1ad1a1c35ec62988129fb142ba2fe2b1f" prot="protected" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mVisible</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_111698247785040cce04dcc028cfd4179" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>PolygonalSkin</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_17110ec78c2de879ea675f8439a95fd63" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1ISubWidget_106e4b058ed2f31992694427ac676235f" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>setAlign</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_14f60300838c388d1138b12554513a5c9" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>setAlpha</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1334b79bdf1d7b3956d28c31645666711" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>setCoord</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_163f3d892e18f6e25da650052f6200ac7" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>setPoints</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_116ad391f7e1d330688f3fb3c930a29cc" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1c39e7573c3f9e647c70b849046b4f36b" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>setSize</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_1cbfdc152c2612f8cb596ba05bb06435f" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>setStateData</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_1ea9334904b9ceb9219135fed09f5bc5f" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>setVisible</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_1a5cbd5fee8806e8c410a6cb3f3011963" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>setWidth</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_128f4ca979240bf4bb4363d84213b6041" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>~ICroppedRectangle</name></member>
+      <member refid="classMyGUI_1_1IObject_1ba65cf3c7393db4589ce28630a5aaadf" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>~IObject</name></member>
+      <member refid="classMyGUI_1_1ISubWidget_16ab8b7e5509fb6c803f8f4c591268562" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>~ISubWidget</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetRect_176becf6c8a8c2bc1f2ff4e1d09a3bad4" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>~ISubWidgetRect</name></member>
       <member refid="classMyGUI_1_1PolygonalSkin_17589e1d135fad6bbc80f03f2dfe29ec5" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>~PolygonalSkin</name></member>
     </listofallmembers>
   </compounddef>

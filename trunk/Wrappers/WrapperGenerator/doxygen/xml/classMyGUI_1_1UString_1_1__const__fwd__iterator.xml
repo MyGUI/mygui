@@ -402,33 +402,33 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="727">
+      <node id="2932">
         <label>MyGUI::UString::_base_iterator</label>
         <link refid="classMyGUI_1_1UString_1_1__base__iterator"/>
       </node>
-      <node id="726">
+      <node id="2931">
         <label>MyGUI::UString::_const_fwd_iterator</label>
         <link refid="classMyGUI_1_1UString_1_1__const__fwd__iterator"/>
-        <childnode refid="727" relation="public-inheritance">
+        <childnode refid="2932" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="729">
+      <node id="2934">
         <label>MyGUI::UString::_base_iterator</label>
         <link refid="classMyGUI_1_1UString_1_1__base__iterator"/>
-        <childnode refid="730" relation="usage">
+        <childnode refid="2935" relation="usage">
           <edgelabel>mString</edgelabel>
         </childnode>
       </node>
-      <node id="730">
+      <node id="2935">
         <label>MyGUI::UString</label>
         <link refid="classMyGUI_1_1UString"/>
       </node>
-      <node id="728">
+      <node id="2933">
         <label>MyGUI::UString::_const_fwd_iterator</label>
         <link refid="classMyGUI_1_1UString_1_1__const__fwd__iterator"/>
-        <childnode refid="729" relation="public-inheritance">
+        <childnode refid="2934" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>

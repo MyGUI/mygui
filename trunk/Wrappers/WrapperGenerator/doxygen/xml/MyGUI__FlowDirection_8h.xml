@@ -7,57 +7,57 @@
     <includedby refid="MyGUI__ComboBox_8h" local="yes">MyGUI_ComboBox.h</includedby>
     <includedby refid="MyGUI__ProgressBar_8h" local="yes">MyGUI_ProgressBar.h</includedby>
     <incdepgraph>
-      <node id="2660">
+      <node id="2706">
         <label>MyGUI_Platform.h</label>
         <link refid="MyGUI__Platform_8h"/>
       </node>
-      <node id="2658">
+      <node id="2704">
         <label>MyGUI_FlowDirection.h</label>
         <link refid="MyGUI_FlowDirection.h"/>
-        <childnode refid="2659" relation="include">
+        <childnode refid="2705" relation="include">
         </childnode>
-        <childnode refid="2662" relation="include">
+        <childnode refid="2708" relation="include">
         </childnode>
       </node>
-      <node id="2662">
+      <node id="2708">
         <label>string</label>
       </node>
-      <node id="2661">
+      <node id="2707">
         <label>MyGUI_DeprecatedTypes.h</label>
         <link refid="MyGUI__DeprecatedTypes_8h"/>
       </node>
-      <node id="2659">
+      <node id="2705">
         <label>MyGUI_Prerequest.h</label>
         <link refid="MyGUI__Prerequest_8h"/>
-        <childnode refid="2660" relation="include">
+        <childnode refid="2706" relation="include">
         </childnode>
-        <childnode refid="2661" relation="include">
+        <childnode refid="2707" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2663">
+      <node id="2709">
         <label>MyGUI_FlowDirection.h</label>
         <link refid="MyGUI_FlowDirection.h"/>
-        <childnode refid="2664" relation="include">
+        <childnode refid="2710" relation="include">
         </childnode>
-        <childnode refid="2666" relation="include">
+        <childnode refid="2712" relation="include">
         </childnode>
       </node>
-      <node id="2665">
+      <node id="2711">
         <label>MyGUI.h</label>
         <link refid="MyGUI_8h"/>
       </node>
-      <node id="2664">
+      <node id="2710">
         <label>MyGUI_ComboBox.h</label>
         <link refid="MyGUI__ComboBox_8h"/>
-        <childnode refid="2665" relation="include">
+        <childnode refid="2711" relation="include">
         </childnode>
       </node>
-      <node id="2666">
+      <node id="2712">
         <label>MyGUI_ProgressBar.h</label>
         <link refid="MyGUI__ProgressBar_8h"/>
-        <childnode refid="2665" relation="include">
+        <childnode refid="2711" relation="include">
         </childnode>
       </node>
     </invincdepgraph>

@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1Singleton" kind="class" prot="public">
     <compoundname>MyGUI::Singleton</compoundname>
+    <includes local="no">MyGUI_Singleton.h</includes>
     <templateparamlist>
       <param>
         <type>class</type>
@@ -11,7 +12,7 @@
     </templateparamlist>
       <sectiondef kind="public-type">
       <memberdef kind="typedef" id="classMyGUI_1_1Singleton_1a74db81b5e58d5c6cc4e9bcba1648253" prot="public" static="no">
-        <type>Singleton&lt; T &gt;</type>
+        <type><ref refid="classMyGUI_1_1Singleton" kindref="compound">Singleton</ref>&lt; T &gt;</type>
         <definition>typedef Singleton&lt;T&gt; MyGUI::Singleton&lt; T &gt;::Base</definition>
         <argsstring></argsstring>
         <name>Base</name>
@@ -126,12 +127,13 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="604">
+      <node id="2507">
         <label>T</label>
       </node>
-      <node id="603">
+      <node id="2506">
         <label>MyGUI::Singleton&lt; T &gt;</label>
-        <childnode refid="604" relation="usage">
+        <link refid="classMyGUI_1_1Singleton"/>
+        <childnode refid="2507" relation="usage">
           <edgelabel>msInstance</edgelabel>
         </childnode>
       </node>

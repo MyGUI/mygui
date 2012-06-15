@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1ResizingPolicy" kind="struct" prot="public">
     <compoundname>MyGUI::ResizingPolicy</compoundname>
+    <includes local="no">MyGUI_ResizingPolicy.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="enum" id="structMyGUI_1_1ResizingPolicy_1884ae4811ad89e167b82eaf26f4fe7ff" prot="public" static="no">
         <name>Enum</name>
@@ -49,7 +50,7 @@
         <argsstring>(Enum _value=MAX)</argsstring>
         <name>ResizingPolicy</name>
         <param>
-          <type>Enum</type>
+          <type><ref refid="structMyGUI_1_1ResizingPolicy_1884ae4811ad89e167b82eaf26f4fe7ff" kindref="member">Enum</ref></type>
           <declname>_value</declname>
           <defval>MAX</defval>
         </param>
@@ -77,7 +78,7 @@
       </sectiondef>
       <sectiondef kind="public-static-func">
       <memberdef kind="function" id="structMyGUI_1_1ResizingPolicy_111c07b44d014354fc17688c28781fa26" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>ResizingPolicy</type>
+        <type><ref refid="structMyGUI_1_1ResizingPolicy" kindref="compound">ResizingPolicy</ref></type>
         <definition>static ResizingPolicy MyGUI::ResizingPolicy::parse</definition>
         <argsstring>(const std::string &amp;_value)</argsstring>
         <name>parse</name>
@@ -115,7 +116,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="structMyGUI_1_1ResizingPolicy_14b837f7679f92f9305ebc4a65302721f" prot="private" static="no" mutable="no">
-        <type>Enum</type>
+        <type><ref refid="structMyGUI_1_1ResizingPolicy_1884ae4811ad89e167b82eaf26f4fe7ff" kindref="member">Enum</ref></type>
         <definition>Enum MyGUI::ResizingPolicy::mValue</definition>
         <argsstring></argsstring>
         <name>mValue</name>
@@ -135,11 +136,11 @@
         <argsstring>(ResizingPolicy const &amp;a, ResizingPolicy const &amp;b)</argsstring>
         <name>operator==</name>
         <param>
-          <type>ResizingPolicy const &amp;</type>
+          <type><ref refid="structMyGUI_1_1ResizingPolicy" kindref="compound">ResizingPolicy</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>ResizingPolicy const &amp;</type>
+          <type><ref refid="structMyGUI_1_1ResizingPolicy" kindref="compound">ResizingPolicy</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -156,11 +157,11 @@
         <argsstring>(ResizingPolicy const &amp;a, ResizingPolicy const &amp;b)</argsstring>
         <name>operator!=</name>
         <param>
-          <type>ResizingPolicy const &amp;</type>
+          <type><ref refid="structMyGUI_1_1ResizingPolicy" kindref="compound">ResizingPolicy</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>ResizingPolicy const &amp;</type>
+          <type><ref refid="structMyGUI_1_1ResizingPolicy" kindref="compound">ResizingPolicy</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -181,7 +182,7 @@
           <declname>_stream</declname>
         </param>
         <param>
-          <type>const ResizingPolicy &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1ResizingPolicy" kindref="compound">ResizingPolicy</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -202,7 +203,7 @@
           <declname>_stream</declname>
         </param>
         <param>
-          <type>ResizingPolicy &amp;</type>
+          <type><ref refid="structMyGUI_1_1ResizingPolicy" kindref="compound">ResizingPolicy</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>

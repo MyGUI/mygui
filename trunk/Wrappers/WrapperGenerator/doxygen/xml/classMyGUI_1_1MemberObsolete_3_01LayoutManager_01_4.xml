@@ -2,11 +2,13 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1MemberObsolete_3_01LayoutManager_01_4" kind="class" prot="public">
     <compoundname>MyGUI::MemberObsolete&lt; LayoutManager &gt;</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1LayoutManager" prot="public" virt="non-virtual">MyGUI::LayoutManager</derivedcompoundref>
+    <includes local="no">MyGUI_BackwardCompatibility.h</includes>
     <templateparamlist>
     </templateparamlist>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01LayoutManager_01_4_1b642bb223a2524766383823fd5e6ebac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>VectorWidgetPtr</type>
+        <type><ref refid="namespaceMyGUI_1df1f7c0b898769fe23f821eee2f682f6" kindref="member">VectorWidgetPtr</ref></type>
         <definition>VectorWidgetPtr MyGUI::MemberObsolete&lt; LayoutManager &gt;::load</definition>
         <argsstring>(const std::string &amp;_file)</argsstring>
         <name>load</name>
@@ -27,6 +29,18 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1539">
+        <label>MyGUI::MemberObsolete&lt; LayoutManager &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01LayoutManager_01_4"/>
+      </node>
+      <node id="1540">
+        <label>MyGUI::LayoutManager</label>
+        <link refid="classMyGUI_1_1LayoutManager"/>
+        <childnode refid="1539" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="491" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="490" bodyend="495"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1MemberObsolete_3_01LayoutManager_01_4_1b642bb223a2524766383823fd5e6ebac" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; LayoutManager &gt;</scope><name>load</name></member>

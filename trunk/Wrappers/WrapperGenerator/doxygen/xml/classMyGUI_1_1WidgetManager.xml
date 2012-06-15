@@ -2,6 +2,9 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1WidgetManager" kind="class" prot="public">
     <compoundname>MyGUI::WidgetManager</compoundname>
+    <basecompoundref refid="classMyGUI_1_1Singleton" prot="public" virt="non-virtual">MyGUI::Singleton&lt; WidgetManager &gt;</basecompoundref>
+    <basecompoundref refid="classMyGUI_1_1MemberObsolete_3_01WidgetManager_01_4" prot="public" virt="non-virtual">MyGUI::MemberObsolete&lt; WidgetManager &gt;</basecompoundref>
+    <includes local="no">MyGUI_WidgetManager.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1WidgetManager_16d7e698d5e99eb727e65c884b1d018e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -48,7 +51,7 @@
         <argsstring>(WidgetStyle _style, const std::string &amp;_type, const std::string &amp;_skin, const IntCoord &amp;_coord, Widget *_parent, ICroppedRectangle *_cropeedParent, const std::string &amp;_name)</argsstring>
         <name>createWidget</name>
         <param>
-          <type>WidgetStyle</type>
+          <type><ref refid="structMyGUI_1_1WidgetStyle" kindref="compound">WidgetStyle</ref></type>
           <declname>_style</declname>
         </param>
         <param>
@@ -60,7 +63,7 @@
           <declname>_skin</declname>
         </param>
         <param>
-          <type>const IntCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_coord</declname>
         </param>
         <param>
@@ -68,7 +71,7 @@
           <declname>_parent</declname>
         </param>
         <param>
-          <type>ICroppedRectangle *</type>
+          <type><ref refid="classMyGUI_1_1ICroppedRectangle" kindref="compound">ICroppedRectangle</ref> *</type>
           <declname>_cropeedParent</declname>
         </param>
         <param>
@@ -106,7 +109,7 @@
         <argsstring>(const VectorWidgetPtr &amp;_widgets)</argsstring>
         <name>destroyWidgets</name>
         <param>
-          <type>const VectorWidgetPtr &amp;</type>
+          <type>const <ref refid="namespaceMyGUI_1df1f7c0b898769fe23f821eee2f682f6" kindref="member">VectorWidgetPtr</ref> &amp;</type>
           <declname>_widgets</declname>
         </param>
         <briefdescription>
@@ -123,13 +126,13 @@
         <argsstring>(EnumeratorWidgetPtr _widgets)</argsstring>
         <name>destroyWidgets</name>
         <param>
-          <type>EnumeratorWidgetPtr</type>
+          <type><ref refid="classMyGUI_1_1Enumerator" kindref="compound">EnumeratorWidgetPtr</ref></type>
           <declname>_widgets</declname>
         </param>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Destroy Enumerator of widgets </para>        </detaileddescription>
+<para>Destroy <ref refid="classMyGUI_1_1Enumerator" kindref="compound">Enumerator</ref> of widgets </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="52"/>
@@ -140,7 +143,7 @@
         <argsstring>(IUnlinkWidget *_unlink)</argsstring>
         <name>registerUnlinker</name>
         <param>
-          <type>IUnlinkWidget *</type>
+          <type><ref refid="classMyGUI_1_1IUnlinkWidget" kindref="compound">IUnlinkWidget</ref> *</type>
           <declname>_unlink</declname>
         </param>
         <briefdescription>
@@ -157,7 +160,7 @@
         <argsstring>(IUnlinkWidget *_unlink)</argsstring>
         <name>unregisterUnlinker</name>
         <param>
-          <type>IUnlinkWidget *</type>
+          <type><ref refid="classMyGUI_1_1IUnlinkWidget" kindref="compound">IUnlinkWidget</ref> *</type>
           <declname>_unlink</declname>
         </param>
         <briefdescription>
@@ -267,7 +270,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="72" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" bodystart="72" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1WidgetManager_12675f8e76e7bbbf5bac78e25d5364f40" prot="private" static="no" mutable="no">
-        <type>VectorIUnlinkWidget</type>
+        <type><ref refid="namespaceMyGUI_1fc7f6f1d932044ec9026f78fbf10ac1a" kindref="member">VectorIUnlinkWidget</ref></type>
         <definition>VectorIUnlinkWidget MyGUI::WidgetManager::mVectorIUnlinkWidget</definition>
         <argsstring></argsstring>
         <name>mVectorIUnlinkWidget</name>
@@ -280,7 +283,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="75" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" bodystart="75" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1WidgetManager_19e1dfdab550fc47eb8ff5d85b43985d6" prot="private" static="no" mutable="no">
-        <type>VectorWidgetPtr</type>
+        <type><ref refid="namespaceMyGUI_1df1f7c0b898769fe23f821eee2f682f6" kindref="member">VectorWidgetPtr</ref></type>
         <definition>VectorWidgetPtr MyGUI::WidgetManager::mDestroyWidgets</definition>
         <argsstring></argsstring>
         <name>mDestroyWidgets</name>
@@ -297,25 +300,74 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="3121">
+        <label>MyGUI::Singleton&lt; WidgetManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+      </node>
+      <node id="3120">
+        <label>MyGUI::WidgetManager</label>
+        <link refid="classMyGUI_1_1WidgetManager"/>
+        <childnode refid="3121" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3122" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3122">
+        <label>MyGUI::MemberObsolete&lt; WidgetManager &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01WidgetManager_01_4"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3124">
+        <label>MyGUI::Singleton&lt; WidgetManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+        <childnode refid="3123" relation="usage">
+          <edgelabel>msInstance</edgelabel>
+        </childnode>
+      </node>
+      <node id="3123">
+        <label>MyGUI::WidgetManager</label>
+        <link refid="classMyGUI_1_1WidgetManager"/>
+        <childnode refid="3124" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3125" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3125">
+        <label>MyGUI::MemberObsolete&lt; WidgetManager &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01WidgetManager_01_4"/>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" bodystart="35" bodyend="79"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1WidgetManager_1c310fdefb29492bb50dc29a768b40c31" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>_deleteDelayWidgets</name></member>
       <member refid="classMyGUI_1_1WidgetManager_1b8aff9cb0de0d16db31aa363f7a7a4dd" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>_deleteWidget</name></member>
+      <member refid="classMyGUI_1_1Singleton_1a74db81b5e58d5c6cc4e9bcba1648253" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>Base</name></member>
       <member refid="classMyGUI_1_1WidgetManager_140d58510d9651fdf9eb60ac7691fcda3" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>createWidget</name></member>
       <member refid="classMyGUI_1_1WidgetManager_1f21debcbce07a6ae01c9470859fa49da" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>destroyWidget</name></member>
       <member refid="classMyGUI_1_1WidgetManager_1a782a5721d9acf97f7a1298676a8b9a9" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>destroyWidgets</name></member>
       <member refid="classMyGUI_1_1WidgetManager_1346ae678e76e445b4846e038d64d2c8a" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>destroyWidgets</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01WidgetManager_01_4_101e19cfbb85fd4c7b45b31686dd9337e" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>destroyWidgetsVector</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01WidgetManager_01_4_1b4748a2f87656072348c5b082c07790e" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>findWidgetT</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01WidgetManager_01_4_1b4388a5aa4c4551cfe5bf693224dcfb3" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>findWidgetT</name></member>
+      <member refid="classMyGUI_1_1Singleton_12c806053cf545c5fdf7a3e6822a585a9" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1Singleton_162dffea70e4b1061c1018a3b12d3ecd8" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>getInstance</name></member>
+      <member refid="classMyGUI_1_1Singleton_14529a5eda85de92183260b77259fefa2" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>getInstancePtr</name></member>
       <member refid="classMyGUI_1_1WidgetManager_165564318e908c42159b51f36b9a55e0e" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>initialise</name></member>
       <member refid="classMyGUI_1_1WidgetManager_1f5c97b0b7d0383a0df32932d0866b76f" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>isFactoryExist</name></member>
       <member refid="classMyGUI_1_1WidgetManager_19e1dfdab550fc47eb8ff5d85b43985d6" prot="private" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>mDestroyWidgets</name></member>
       <member refid="classMyGUI_1_1WidgetManager_177ae4d9b0392703c21aca4ed3060d16f" prot="private" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>mIsInitialise</name></member>
       <member refid="classMyGUI_1_1WidgetManager_12675f8e76e7bbbf5bac78e25d5364f40" prot="private" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>mVectorIUnlinkWidget</name></member>
       <member refid="classMyGUI_1_1WidgetManager_1016ee0a8fd0307ba54cdc6f19be61d17" prot="private" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>notifyEventFrameStart</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01WidgetManager_01_4_180fbe6a2a782c220e9ded12dd38d7c76" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>parse</name></member>
       <member refid="classMyGUI_1_1WidgetManager_1d1fb5188b925e60ea1b2044e17d72de7" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>registerUnlinker</name></member>
       <member refid="classMyGUI_1_1WidgetManager_163435269cbdf3614a145ae9be3a4fa39" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>shutdown</name></member>
+      <member refid="classMyGUI_1_1Singleton_130052fd9a72b1c3ad326830169e85307" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>Singleton</name></member>
       <member refid="classMyGUI_1_1WidgetManager_1c7e0bb465b8deb2cbc7353cef1c29c15" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>unlinkFromUnlinkers</name></member>
       <member refid="classMyGUI_1_1WidgetManager_1030151972aa91fe0c8ad42e2b28551e6" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>unregisterUnlinker</name></member>
       <member refid="classMyGUI_1_1WidgetManager_16d7e698d5e99eb727e65c884b1d018e3" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>WidgetManager</name></member>
+      <member refid="classMyGUI_1_1Singleton_1d342e3b15791e6a20cbd2aa9229b5c6f" prot="public" virt="virtual"><scope>MyGUI::WidgetManager</scope><name>~Singleton</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

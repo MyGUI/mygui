@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classdelegates_1_1IDelegateMYGUI__SUFFIX" kind="class" prot="public">
     <compoundname>delegates::IDelegateMYGUI_SUFFIX</compoundname>
+    <includes local="no">MyGUI_DelegateImplement.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classdelegates_1_1IDelegateMYGUI__SUFFIX_12e47912ba2765671e3c798f004594d8a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>virtual</type>
@@ -55,7 +56,7 @@
         <argsstring>(IDelegateMYGUI_SUFFIX MYGUI_TEMPLATE_ARGS *_delegate) const =0</argsstring>
         <name>compare</name>
         <param>
-          <type>IDelegateMYGUI_SUFFIX MYGUI_TEMPLATE_ARGS *</type>
+          <type><ref refid="classdelegates_1_1IDelegateMYGUI__SUFFIX" kindref="compound">IDelegateMYGUI_SUFFIX</ref> MYGUI_TEMPLATE_ARGS *</type>
           <declname>_delegate</declname>
         </param>
         <briefdescription>

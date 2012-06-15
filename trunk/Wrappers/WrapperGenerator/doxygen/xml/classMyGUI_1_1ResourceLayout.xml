@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1ResourceLayout" kind="class" prot="public">
     <compoundname>MyGUI::ResourceLayout</compoundname>
+    <basecompoundref refid="classMyGUI_1_1IResource" prot="public" virt="non-virtual">MyGUI::IResource</basecompoundref>
     <includes local="no">MyGUI_ResourceLayout.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="typedef" id="classMyGUI_1_1ResourceLayout_11597144d34f88428b93000638f131082" prot="public" static="no">
@@ -9,6 +10,7 @@
         <definition>typedef RTTIBase MyGUI::ResourceLayout::Base</definition>
         <argsstring></argsstring>
         <name>Base</name>
+        <reimplements refid="classMyGUI_1_1IResource_1ada23844a4e8e60610df7690c1f5cbb4">Base</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -22,6 +24,7 @@
         <definition>typedef ResourceLayout MyGUI::ResourceLayout::RTTIBase</definition>
         <argsstring></argsstring>
         <name>RTTIBase</name>
+        <reimplements refid="classMyGUI_1_1IResource_171cd47542ee6b6a12fb7e2a00ba7049c">RTTIBase</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,6 +40,7 @@
         <definition>virtual const std::string&amp; MyGUI::ResourceLayout::getTypeName</definition>
         <argsstring>() const </argsstring>
         <name>getTypeName</name>
+        <reimplements refid="classMyGUI_1_1IResource_1398b76f149065258902cd44ec368116a">getTypeName</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -50,6 +54,7 @@
         <definition>virtual bool MyGUI::ResourceLayout::isType</definition>
         <argsstring>(const std::type_info &amp;_type) const </argsstring>
         <name>isType</name>
+        <reimplements refid="classMyGUI_1_1IResource_159505df1ee5ae68b07c93bbd6a780e61">isType</reimplements>
         <param>
           <type>const std::type_info &amp;</type>
           <declname>_type</declname>
@@ -74,6 +79,7 @@
         <definition>bool MyGUI::ResourceLayout::isType</definition>
         <argsstring>() const </argsstring>
         <name>isType</name>
+        <reimplements refid="classMyGUI_1_1IResource_16e5d29324eb0e3ef2fce811a282c3b39">isType</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -101,7 +107,7 @@
         <argsstring>(xml::ElementPtr _node, const std::string &amp;_file)</argsstring>
         <name>ResourceLayout</name>
         <param>
-          <type>xml::ElementPtr</type>
+          <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">xml::ElementPtr</ref></type>
           <declname>_node</declname>
         </param>
         <param>
@@ -121,12 +127,13 @@
         <definition>virtual void MyGUI::ResourceLayout::deserialization</definition>
         <argsstring>(xml::ElementPtr _node, Version _version)</argsstring>
         <name>deserialization</name>
+        <reimplements refid="classMyGUI_1_1IResource_1dafcd581222d1fc731cc0dd300e437f0">deserialization</reimplements>
         <param>
-          <type>xml::ElementPtr</type>
+          <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">xml::ElementPtr</ref></type>
           <declname>_node</declname>
         </param>
         <param>
-          <type>Version</type>
+          <type><ref refid="classMyGUI_1_1Version" kindref="compound">Version</ref></type>
           <declname>_version</declname>
         </param>
         <briefdescription>
@@ -138,7 +145,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" line="43"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1ResourceLayout_1ada19763c8434f967e398f9f9ba8b8d8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>const VectorWidgetInfo &amp;</type>
+        <type>const <ref refid="namespaceMyGUI_178d9693b2b2b925aa63ae321339b5458" kindref="member">VectorWidgetInfo</ref> &amp;</type>
         <definition>const VectorWidgetInfo&amp; MyGUI::ResourceLayout::getLayoutData</definition>
         <argsstring>() const </argsstring>
         <name>getLayoutData</name>
@@ -151,7 +158,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" line="45"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1ResourceLayout_1964d3f15c220f1743207382a75bdfd81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>VectorWidgetPtr</type>
+        <type><ref refid="namespaceMyGUI_1df1f7c0b898769fe23f821eee2f682f6" kindref="member">VectorWidgetPtr</ref></type>
         <definition>VectorWidgetPtr MyGUI::ResourceLayout::createLayout</definition>
         <argsstring>(const std::string &amp;_prefix=&quot;&quot;, Widget *_parent=0)</argsstring>
         <name>createLayout</name>
@@ -179,7 +186,7 @@
         <argsstring>(const WidgetInfo &amp;_widgetInfo, const std::string &amp;_prefix=&quot;&quot;, Widget *_parent=0, bool _template=false)</argsstring>
         <name>createWidget</name>
         <param>
-          <type>const WidgetInfo &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1WidgetInfo" kindref="compound">WidgetInfo</ref> &amp;</type>
           <declname>_widgetInfo</declname>
         </param>
         <param>
@@ -212,6 +219,7 @@
         <definition>static const std::string&amp; MyGUI::ResourceLayout::getClassTypeName</definition>
         <argsstring>()</argsstring>
         <name>getClassTypeName</name>
+        <reimplements refid="classMyGUI_1_1IResource_1c7e2c7031c7e9c854b3d92d8f8a44110">getClassTypeName</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -223,12 +231,12 @@
       </sectiondef>
       <sectiondef kind="protected-func">
       <memberdef kind="function" id="classMyGUI_1_1ResourceLayout_19a357589f1ab6a6a141e0fff467362b8" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>WidgetInfo</type>
+        <type><ref refid="structMyGUI_1_1WidgetInfo" kindref="compound">WidgetInfo</ref></type>
         <definition>WidgetInfo MyGUI::ResourceLayout::parseWidget</definition>
         <argsstring>(xml::ElementEnumerator &amp;_widget)</argsstring>
         <name>parseWidget</name>
         <param>
-          <type>xml::ElementEnumerator &amp;</type>
+          <type><ref refid="classMyGUI_1_1xml_1_1ElementEnumerator" kindref="compound">xml::ElementEnumerator</ref> &amp;</type>
           <declname>_widget</declname>
         </param>
         <briefdescription>
@@ -242,7 +250,7 @@
       </sectiondef>
       <sectiondef kind="protected-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1ResourceLayout_10876f06f72131220aca6bb37a84f93c8" prot="protected" static="no" mutable="no">
-        <type>VectorWidgetInfo</type>
+        <type><ref refid="namespaceMyGUI_178d9693b2b2b925aa63ae321339b5458" kindref="member">VectorWidgetInfo</ref></type>
         <definition>VectorWidgetInfo MyGUI::ResourceLayout::mLayoutData</definition>
         <argsstring></argsstring>
         <name>mLayoutData</name>
@@ -259,22 +267,81 @@
     </briefdescription>
     <detaileddescription>
 <para><ref refid="classMyGUI_1_1ResourceLayout" kindref="compound">ResourceLayout</ref> is resource that contain full layout info, used for creating widgets. </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="2211">
+        <label>MyGUI::ResourceLayout</label>
+        <link refid="classMyGUI_1_1ResourceLayout"/>
+        <childnode refid="2212" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2213">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="2214" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2212">
+        <label>MyGUI::IResource</label>
+        <link refid="classMyGUI_1_1IResource"/>
+        <childnode refid="2213" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2214">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2215">
+        <label>MyGUI::ResourceLayout</label>
+        <link refid="classMyGUI_1_1ResourceLayout"/>
+        <childnode refid="2216" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2217">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="2218" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2216">
+        <label>MyGUI::IResource</label>
+        <link refid="classMyGUI_1_1IResource"/>
+        <childnode refid="2217" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2218">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceLayout.h" bodystart="33" bodyend="59"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1ResourceLayout_11597144d34f88428b93000638f131082" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1IObject_1c542d61d7f1efd5c08dae100a3c68558" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>castType</name></member>
+      <member refid="classMyGUI_1_1IObject_1f636b3c71d893eeb41bebc1c6f4519e1" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>castType</name></member>
       <member refid="classMyGUI_1_1ResourceLayout_1964d3f15c220f1743207382a75bdfd81" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>createLayout</name></member>
       <member refid="classMyGUI_1_1ResourceLayout_1ce112bba20565bf16000c2fbda5f2329" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>createWidget</name></member>
       <member refid="classMyGUI_1_1ResourceLayout_17a245072df86ae30f40b3d8728d9f1f1" prot="public" virt="virtual"><scope>MyGUI::ResourceLayout</scope><name>deserialization</name></member>
       <member refid="classMyGUI_1_1ResourceLayout_1f0d95be515dbd9056d58968950c9e690" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>getClassTypeName</name></member>
       <member refid="classMyGUI_1_1ResourceLayout_1ada19763c8434f967e398f9f9ba8b8d8" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>getLayoutData</name></member>
+      <member refid="classMyGUI_1_1IResource_145996492b62004e44f42920a833091dd" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>getResourceName</name></member>
       <member refid="classMyGUI_1_1ResourceLayout_187b5cbc01753dd866807277c74239fc1" prot="public" virt="virtual"><scope>MyGUI::ResourceLayout</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1IObject_198f33c9772728fc4065fe0a1ffdf8246" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>IObject</name></member>
+      <member refid="classMyGUI_1_1IResource_143bc5615a14e1b3e5d6d2764f8f22b6d" prot="protected" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>IResource</name></member>
+      <member refid="classMyGUI_1_1ISerializable_1a3c426dcdcdfc242f226eaabc2fc3500" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>ISerializable</name></member>
       <member refid="classMyGUI_1_1ResourceLayout_1f627da7804ce6b0e70280f4f1f6ba26a" prot="public" virt="virtual"><scope>MyGUI::ResourceLayout</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1ResourceLayout_14dee68bddd94aac653c557e104062bf0" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1ResourceLayout_10876f06f72131220aca6bb37a84f93c8" prot="protected" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>mLayoutData</name></member>
+      <member refid="classMyGUI_1_1IResource_14f8d4581daedc0acccaccaca7509f57f" prot="protected" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>mResourceName</name></member>
       <member refid="classMyGUI_1_1ResourceLayout_19a357589f1ab6a6a141e0fff467362b8" prot="protected" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>parseWidget</name></member>
       <member refid="classMyGUI_1_1ResourceLayout_140c916812b47d1a8e2674018ae6f96b5" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>ResourceLayout</name></member>
       <member refid="classMyGUI_1_1ResourceLayout_1832c2834c8150ffbc1897a488754f4e1" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>ResourceLayout</name></member>
       <member refid="classMyGUI_1_1ResourceLayout_15fb0f64b8e85bf907a387cb0eb31a6d3" prot="public" virt="non-virtual"><scope>MyGUI::ResourceLayout</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1ISerializable_188999214d6f7766078861a76976947f0" prot="public" virt="virtual"><scope>MyGUI::ResourceLayout</scope><name>serialization</name></member>
+      <member refid="classMyGUI_1_1IObject_1ba65cf3c7393db4589ce28630a5aaadf" prot="public" virt="virtual"><scope>MyGUI::ResourceLayout</scope><name>~IObject</name></member>
+      <member refid="classMyGUI_1_1IResource_163ed700bc73e0158e726af4f29aeaedf" prot="protected" virt="virtual"><scope>MyGUI::ResourceLayout</scope><name>~IResource</name></member>
+      <member refid="classMyGUI_1_1ISerializable_176e68dc274e87a9ded1da7e28a379e44" prot="public" virt="virtual"><scope>MyGUI::ResourceLayout</scope><name>~ISerializable</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

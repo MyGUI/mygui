@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1Allocator" kind="class" prot="public">
     <compoundname>MyGUI::Allocator</compoundname>
+    <includes local="no">MyGUI_CustomAllocator.h</includes>
     <innerclass refid="structMyGUI_1_1Allocator_1_1rebind">MyGUI::Allocator::rebind</innerclass>
     <innerclass refid="structMyGUI_1_1Allocator_1_1rebind">MyGUI::Allocator::rebind</innerclass>
     <templateparamlist>
@@ -235,7 +236,7 @@
         <argsstring>(Allocator&lt; U &gt; const &amp;)</argsstring>
         <name>Allocator</name>
         <param>
-          <type>Allocator&lt; U &gt; const &amp;</type>
+          <type><ref refid="classMyGUI_1_1Allocator" kindref="compound">Allocator</ref>&lt; U &gt; const &amp;</type>
         </param>
         <briefdescription>
         </briefdescription>
@@ -377,7 +378,7 @@
         <argsstring>(Allocator const &amp;)</argsstring>
         <name>operator==</name>
         <param>
-          <type>Allocator const &amp;</type>
+          <type><ref refid="classMyGUI_1_1Allocator" kindref="compound">Allocator</ref> const &amp;</type>
         </param>
         <briefdescription>
         </briefdescription>
@@ -393,7 +394,7 @@
         <argsstring>(Allocator const &amp;a)</argsstring>
         <name>operator!=</name>
         <param>
-          <type>Allocator const &amp;</type>
+          <type><ref refid="classMyGUI_1_1Allocator" kindref="compound">Allocator</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <briefdescription>
@@ -443,7 +444,7 @@
         <argsstring>(Allocator&lt; U &gt; const &amp;)</argsstring>
         <name>Allocator</name>
         <param>
-          <type>Allocator&lt; U &gt; const &amp;</type>
+          <type><ref refid="classMyGUI_1_1Allocator" kindref="compound">Allocator</ref>&lt; U &gt; const &amp;</type>
         </param>
         <briefdescription>
         </briefdescription>
@@ -585,7 +586,7 @@
         <argsstring>(Allocator const &amp;)</argsstring>
         <name>operator==</name>
         <param>
-          <type>Allocator const &amp;</type>
+          <type><ref refid="classMyGUI_1_1Allocator" kindref="compound">Allocator</ref> const &amp;</type>
         </param>
         <briefdescription>
         </briefdescription>
@@ -601,7 +602,7 @@
         <argsstring>(Allocator const &amp;a)</argsstring>
         <name>operator!=</name>
         <param>
-          <type>Allocator const &amp;</type>
+          <type><ref refid="classMyGUI_1_1Allocator" kindref="compound">Allocator</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <briefdescription>

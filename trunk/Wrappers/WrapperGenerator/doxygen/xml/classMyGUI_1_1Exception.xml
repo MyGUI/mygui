@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1Exception" kind="class" prot="public">
     <compoundname>MyGUI::Exception</compoundname>
+    <includes local="no">MyGUI_Exception.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1Exception_16ff841c6b07bed554c174ffc506bb70a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -38,7 +39,7 @@
         <argsstring>(const Exception &amp;_rhs)</argsstring>
         <name>Exception</name>
         <param>
-          <type>const Exception &amp;</type>
+          <type>const <ref refid="classMyGUI_1_1Exception" kindref="compound">Exception</ref> &amp;</type>
           <declname>_rhs</declname>
         </param>
         <briefdescription>
@@ -64,12 +65,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Exception.h" line="41"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1Exception_14713367ee5d866a92341bac1f32a01ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Exception &amp;</type>
+        <type><ref refid="classMyGUI_1_1Exception" kindref="compound">Exception</ref> &amp;</type>
         <definition>Exception&amp; MyGUI::Exception::operator=</definition>
         <argsstring>(const Exception &amp;_rhs)</argsstring>
         <name>operator=</name>
         <param>
-          <type>const Exception &amp;</type>
+          <type>const <ref refid="classMyGUI_1_1Exception" kindref="compound">Exception</ref> &amp;</type>
           <declname>_rhs</declname>
         </param>
         <briefdescription>

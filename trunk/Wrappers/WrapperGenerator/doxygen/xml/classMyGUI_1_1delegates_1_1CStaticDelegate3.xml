@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1delegates_1_1CStaticDelegate3" kind="class" prot="public">
     <compoundname>MyGUI::delegates::CStaticDelegate3</compoundname>
+    <basecompoundref refid="classMyGUI_1_1delegates_1_1IDelegate3" prot="public" virt="non-virtual">MyGUI::delegates::IDelegate3&lt; TP1, TP2, TP3 &gt;</basecompoundref>
+    <includes local="no">MyGUI_Delegate.h</includes>
     <templateparamlist>
       <param>
         <type>typename</type>
@@ -41,7 +43,7 @@
         <argsstring>(Func _func)</argsstring>
         <name>CStaticDelegate3</name>
         <param>
-          <type>Func</type>
+          <type><ref refid="classMyGUI_1_1delegates_1_1CStaticDelegate3_1850bc380d1c8c958b6d4ec4e4fa6823b" kindref="member">Func</ref></type>
           <declname>_func</declname>
         </param>
         <briefdescription>
@@ -57,6 +59,7 @@
         <definition>virtual bool MyGUI::delegates::CStaticDelegate3&lt; TP1, TP2, TP3 &gt;::isType</definition>
         <argsstring>(const std::type_info &amp;_type)</argsstring>
         <name>isType</name>
+        <reimplements refid="classMyGUI_1_1delegates_1_1IDelegate3_15d3ce7915771a882071f47e536a69499">isType</reimplements>
         <param>
           <type>const std::type_info &amp;</type>
           <declname>_type</declname>
@@ -74,6 +77,7 @@
         <definition>virtual void MyGUI::delegates::CStaticDelegate3&lt; TP1, TP2, TP3 &gt;::invoke</definition>
         <argsstring>(TP1 p1, TP2 p2, TP3 p3)</argsstring>
         <name>invoke</name>
+        <reimplements refid="classMyGUI_1_1delegates_1_1IDelegate3_1a5a4160a2f70c692e19e1c44a7583c8e">invoke</reimplements>
         <param>
           <type>TP1</type>
           <declname>p1</declname>
@@ -99,8 +103,9 @@
         <definition>virtual bool MyGUI::delegates::CStaticDelegate3&lt; TP1, TP2, TP3 &gt;::compare</definition>
         <argsstring>(IDelegate3&lt; TP1, TP2, TP3 &gt; *_delegate) const </argsstring>
         <name>compare</name>
+        <reimplements refid="classMyGUI_1_1delegates_1_1IDelegate3_13dd2b965d75e7b17ab9e47607fe8b7ed">compare</reimplements>
         <param>
-          <type>IDelegate3&lt; TP1, TP2, TP3 &gt; *</type>
+          <type><ref refid="classMyGUI_1_1delegates_1_1IDelegate3" kindref="compound">IDelegate3</ref>&lt; TP1, TP2, TP3 &gt; *</type>
           <declname>_delegate</declname>
         </param>
         <briefdescription>
@@ -116,8 +121,9 @@
         <definition>virtual bool MyGUI::delegates::CStaticDelegate3&lt; TP1, TP2, TP3 &gt;::compare</definition>
         <argsstring>(IDelegateUnlink *_unlink) const </argsstring>
         <name>compare</name>
+        <reimplements refid="classMyGUI_1_1delegates_1_1IDelegate3_19e387585a76b0e8322e700109c6d6c88">compare</reimplements>
         <param>
-          <type>IDelegateUnlink *</type>
+          <type><ref refid="classMyGUI_1_1delegates_1_1IDelegateUnlink" kindref="compound">IDelegateUnlink</ref> *</type>
           <declname>_unlink</declname>
         </param>
         <briefdescription>
@@ -131,7 +137,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1delegates_1_1CStaticDelegate3_10df3f6b6e573494853a74c36e5e2fac0" prot="private" static="no" mutable="no">
-        <type>Func</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CStaticDelegate3_1850bc380d1c8c958b6d4ec4e4fa6823b" kindref="member">Func</ref></type>
         <definition>Func MyGUI::delegates::CStaticDelegate3&lt; TP1, TP2, TP3 &gt;::mFunc</definition>
         <argsstring></argsstring>
         <name>mFunc</name>
@@ -148,6 +154,30 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="369">
+        <label>MyGUI::delegates::IDelegate3&lt; TP1, TP2, TP3 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegate3"/>
+      </node>
+      <node id="368">
+        <label>MyGUI::delegates::CStaticDelegate3&lt; TP1, TP2, TP3 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CStaticDelegate3"/>
+        <childnode refid="369" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="371">
+        <label>MyGUI::delegates::IDelegate3&lt; TP1, TP2, TP3 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegate3"/>
+      </node>
+      <node id="370">
+        <label>MyGUI::delegates::CStaticDelegate3&lt; TP1, TP2, TP3 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CStaticDelegate3"/>
+        <childnode refid="371" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="1423" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="1422" bodyend="1459"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1delegates_1_1CStaticDelegate3_19a4294dc5af923d637f30c19bf5200c9" prot="public" virt="virtual"><scope>MyGUI::delegates::CStaticDelegate3</scope><name>compare</name></member>
@@ -157,6 +187,7 @@
       <member refid="classMyGUI_1_1delegates_1_1CStaticDelegate3_1dd75bcb9ffd03384db3ae0fe9a5bbe34" prot="public" virt="virtual"><scope>MyGUI::delegates::CStaticDelegate3</scope><name>invoke</name></member>
       <member refid="classMyGUI_1_1delegates_1_1CStaticDelegate3_1a8cd728fd79bd84591e7b84a4b2dfdc7" prot="public" virt="virtual"><scope>MyGUI::delegates::CStaticDelegate3</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1delegates_1_1CStaticDelegate3_10df3f6b6e573494853a74c36e5e2fac0" prot="private" virt="non-virtual"><scope>MyGUI::delegates::CStaticDelegate3</scope><name>mFunc</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegate3_16321765fbad0bb5a8b452d924e215732" prot="public" virt="virtual"><scope>MyGUI::delegates::CStaticDelegate3</scope><name>~IDelegate3</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

@@ -3,12 +3,16 @@
   <compounddef id="classMyGUI_1_1VScroll" kind="class" prot="public">
     <compoundname>MyGUI::VScroll</compoundname>
     <basecompoundref refid="classMyGUI_1_1ScrollBar" prot="public" virt="non-virtual">MyGUI::ScrollBar</basecompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1HScroll" prot="public" virt="non-virtual">MyGUI::HScroll</derivedcompoundref>
+    <includes local="no">MyGUI_DeprecatedWidgets.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="typedef" id="classMyGUI_1_1VScroll_1828dd99e5ad7f50e19060ce69fc772fb" prot="public" static="no">
-        <type>RTTIBase</type>
+        <type><ref refid="classMyGUI_1_1VScroll" kindref="compound">RTTIBase</ref></type>
         <definition>typedef RTTIBase MyGUI::VScroll::Base</definition>
         <argsstring></argsstring>
         <name>Base</name>
+        <reimplements refid="classMyGUI_1_1ScrollBar_1b92c3ee77fb0d848226df4c3bcf4df3e">Base</reimplements>
+        <reimplementedby refid="classMyGUI_1_1HScroll_18c036bf66b03042e8b460bedfa37e9aa">Base</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -18,10 +22,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" bodystart="39" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classMyGUI_1_1VScroll_1f54d0a24aacfbae46a58d998977ae01f" prot="public" static="no">
-        <type>VScroll</type>
+        <type><ref refid="classMyGUI_1_1VScroll" kindref="compound">VScroll</ref></type>
         <definition>typedef VScroll MyGUI::VScroll::RTTIBase</definition>
         <argsstring></argsstring>
         <name>RTTIBase</name>
+        <reimplements refid="classMyGUI_1_1ScrollBar_1d5b1f97683a00e2e1830425dd39ba1b8">RTTIBase</reimplements>
+        <reimplementedby refid="classMyGUI_1_1HScroll_153e3d8dc48c9968b50dbcc9b66f340b0">RTTIBase</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,6 +43,8 @@
         <definition>virtual const std::string&amp; MyGUI::VScroll::getTypeName</definition>
         <argsstring>() const </argsstring>
         <name>getTypeName</name>
+        <reimplements refid="classMyGUI_1_1ScrollBar_19418e6e28edeca7b2a9ef2d96ed879e6">getTypeName</reimplements>
+        <reimplementedby refid="classMyGUI_1_1HScroll_185bedca3e09f9bba2bf276430f74b2d1">getTypeName</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -50,6 +58,8 @@
         <definition>virtual bool MyGUI::VScroll::isType</definition>
         <argsstring>(const std::type_info &amp;_type) const </argsstring>
         <name>isType</name>
+        <reimplements refid="classMyGUI_1_1ScrollBar_133c2841d5786238997aa793df4eee20a">isType</reimplements>
+        <reimplementedby refid="classMyGUI_1_1HScroll_1d1a7b723a50aec2fe431038330468014">isType</reimplementedby>
         <param>
           <type>const std::type_info &amp;</type>
           <declname>_type</declname>
@@ -74,6 +84,8 @@
         <definition>bool MyGUI::VScroll::isType</definition>
         <argsstring>() const </argsstring>
         <name>isType</name>
+        <reimplements refid="classMyGUI_1_1ScrollBar_16a50e2d074f3a3883ba2025e4af464ed">isType</reimplements>
+        <reimplementedby refid="classMyGUI_1_1HScroll_1f1cd7eee07b8cf4b92fc4564a433cbd7">isType</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -98,10 +110,11 @@
       </sectiondef>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1VScroll_123361effbf981eb578a2e5ce08468a1b" prot="public" static="no" mutable="no">
-        <type>EventPair&lt; EventHandle_WidgetSizeT, EventHandle_VScrollPtrSizeT &gt;</type>
+        <type><ref refid="classMyGUI_1_1EventPair" kindref="compound">EventPair</ref>&lt; <ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">EventHandle_WidgetSizeT</ref>, <ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">EventHandle_VScrollPtrSizeT</ref> &gt;</type>
         <definition>EventPair&lt;EventHandle_WidgetSizeT, EventHandle_VScrollPtrSizeT&gt; MyGUI::VScroll::eventScrollChangePosition</definition>
         <argsstring></argsstring>
         <name>eventScrollChangePosition</name>
+        <reimplements refid="classMyGUI_1_1ScrollBar_108e1044b26ed680b7e23648877b2c4ff">eventScrollChangePosition</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -134,6 +147,8 @@
         <definition>static const std::string&amp; MyGUI::VScroll::getClassTypeName</definition>
         <argsstring>()</argsstring>
         <name>getClassTypeName</name>
+        <reimplements refid="classMyGUI_1_1ScrollBar_15a0a1d5cf23da64e2da4a55bfd1cc28e">getClassTypeName</reimplements>
+        <reimplementedby refid="classMyGUI_1_1HScroll_104302da4c7b26c544c45c20cd26d4008">getClassTypeName</reimplementedby>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -148,90 +163,465 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="756">
-        <label>MyGUI::VScroll</label>
-        <childnode refid="757" relation="public-inheritance">
+      <node id="2974">
+        <label>MyGUI::MemberObsolete&lt; ScrollBar &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete"/>
+      </node>
+      <node id="2970">
+        <label>MyGUI::SkinItem</label>
+        <link refid="classMyGUI_1_1SkinItem"/>
+        <childnode refid="2971" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="759">
+      <node id="2972">
+        <label>MyGUI::ILayerItem</label>
+        <link refid="classMyGUI_1_1ILayerItem"/>
+      </node>
+      <node id="2966">
+        <label>MyGUI::ICroppedRectangle</label>
+        <link refid="classMyGUI_1_1ICroppedRectangle"/>
+      </node>
+      <node id="2962">
+        <label>MyGUI::VScroll</label>
+        <link refid="classMyGUI_1_1VScroll"/>
+        <childnode refid="2963" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2973">
+        <label>MyGUI::MemberObsolete&lt; Widget &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4"/>
+      </node>
+      <node id="2967">
         <label>MyGUI::UserData</label>
         <link refid="classMyGUI_1_1UserData"/>
       </node>
-      <node id="758">
+      <node id="2964">
         <label>MyGUI::Widget</label>
         <link refid="classMyGUI_1_1Widget"/>
-        <childnode refid="759" relation="public-inheritance">
+        <childnode refid="2965" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2966" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2967" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2968" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2969" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2970" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2973" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="757">
+      <node id="2969">
+        <label>MyGUI::delegates::IDelegateUnlink</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegateUnlink"/>
+      </node>
+      <node id="2968">
+        <label>MyGUI::WidgetInput</label>
+        <link refid="classMyGUI_1_1WidgetInput"/>
+      </node>
+      <node id="2963">
         <label>MyGUI::ScrollBar</label>
         <link refid="classMyGUI_1_1ScrollBar"/>
-        <childnode refid="758" relation="public-inheritance">
+        <childnode refid="2964" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2974" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2971">
+        <label>MyGUI::LayerItem</label>
+        <link refid="classMyGUI_1_1LayerItem"/>
+        <childnode refid="2972" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2965">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+      <node id="2975">
+        <label>MyGUI::HScroll</label>
+        <link refid="classMyGUI_1_1HScroll"/>
+        <childnode refid="2962" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="760">
-        <label>MyGUI::VScroll</label>
-        <childnode refid="761" relation="public-inheritance">
+      <node id="2993">
+        <label>MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate1"/>
+      </node>
+      <node id="3008">
+        <label>MyGUI::WidgetStyle</label>
+        <link refid="structMyGUI_1_1WidgetStyle"/>
+      </node>
+      <node id="2982">
+        <label>T</label>
+      </node>
+      <node id="3000">
+        <label>MyGUI::ILayer</label>
+        <link refid="classMyGUI_1_1ILayer"/>
+        <childnode refid="3001" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="765">
+      <node id="3009">
+        <label>MyGUI::MemberObsolete&lt; ScrollBar &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete"/>
+      </node>
+      <node id="2983">
+        <label>MyGUI::types::TCoord&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TCoord"/>
+        <childnode refid="2982" relation="usage">
+          <edgelabel>width
+height
+left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="3017">
+        <label>MyGUI::EventPair&lt; EventHandle_WidgetSizeT, EventHandle_VScrollPtrSizeT &gt;</label>
+        <link refid="classMyGUI_1_1EventPair"/>
+        <childnode refid="2994" relation="usage">
+          <edgelabel>m_eventObsolete
+m_event</edgelabel>
+        </childnode>
+      </node>
+      <node id="2996">
+        <label>MyGUI::SkinItem</label>
+        <link refid="classMyGUI_1_1SkinItem"/>
+        <childnode refid="2997" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2999" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="3003" relation="usage">
+          <edgelabel>mMainSkin</edgelabel>
+        </childnode>
+        <childnode refid="3006" relation="usage">
+          <edgelabel>mText</edgelabel>
+        </childnode>
+      </node>
+      <node id="2998">
+        <label>MyGUI::ILayerItem</label>
+        <link refid="classMyGUI_1_1ILayerItem"/>
+      </node>
+      <node id="2989">
+        <label>MyGUI::delegates::CMultiDelegate3&lt; TP1, TP2, TP3 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate3"/>
+      </node>
+      <node id="2999">
+        <label>MyGUI::ITexture</label>
+        <link refid="classMyGUI_1_1ITexture"/>
+      </node>
+      <node id="2990">
+        <label>MyGUI::delegates::CMultiDelegate4&lt; TP1, TP2, TP3, TP4 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate4"/>
+      </node>
+      <node id="2992">
+        <label>MyGUI::MaskPickInfo</label>
+        <link refid="classMyGUI_1_1MaskPickInfo"/>
+      </node>
+      <node id="2980">
+        <label>MyGUI::ICroppedRectangle</label>
+        <link refid="classMyGUI_1_1ICroppedRectangle"/>
+        <childnode refid="2981" relation="usage">
+          <edgelabel>mAbsolutePosition</edgelabel>
+        </childnode>
+        <childnode refid="2983" relation="usage">
+          <edgelabel>mCoord</edgelabel>
+        </childnode>
+        <childnode refid="2984" relation="usage">
+          <edgelabel>mMargin</edgelabel>
+        </childnode>
+        <childnode refid="2980" relation="usage">
+          <edgelabel>mCroppedParent</edgelabel>
+        </childnode>
+      </node>
+      <node id="2984">
+        <label>MyGUI::types::TRect&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TRect"/>
+        <childnode refid="2982" relation="usage">
+          <edgelabel>right
+left
+bottom
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="3002">
+        <label>MyGUI::ILayerNode</label>
+        <link refid="classMyGUI_1_1ILayerNode"/>
+        <childnode refid="2979" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2976">
+        <label>MyGUI::VScroll</label>
+        <link refid="classMyGUI_1_1VScroll"/>
+        <childnode refid="2977" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3017" relation="usage">
+          <edgelabel>eventScrollChangePosition</edgelabel>
+        </childnode>
+      </node>
+      <node id="3011">
         <label>MyGUI::TextBox</label>
         <link refid="classMyGUI_1_1TextBox"/>
-        <childnode refid="762" relation="public-inheritance">
+        <childnode refid="2978" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="766">
+      <node id="3007">
+        <label>MyGUI::MemberObsolete&lt; Widget &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4"/>
+      </node>
+      <node id="2994">
+        <label>MyGUI::delegates::CMultiDelegate2&lt; TP1, TP2 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate2"/>
+      </node>
+      <node id="3013">
         <label>MyGUI::ImageBox</label>
         <link refid="classMyGUI_1_1ImageBox"/>
-        <childnode refid="762" relation="public-inheritance">
+        <childnode refid="2978" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3014" relation="usage">
+          <edgelabel>mSizeTexture
+mSizeTile</edgelabel>
+        </childnode>
+        <childnode refid="2984" relation="usage">
+          <edgelabel>mRectImage</edgelabel>
+        </childnode>
+        <childnode refid="3015" relation="usage">
+          <edgelabel>mResource</edgelabel>
         </childnode>
       </node>
-      <node id="763">
+      <node id="3015">
+        <label>MyGUI::ResourceImageSet</label>
+        <link refid="classMyGUI_1_1ResourceImageSet"/>
+        <childnode refid="3016" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2985">
         <label>MyGUI::UserData</label>
         <link refid="classMyGUI_1_1UserData"/>
+        <childnode refid="2986" relation="usage">
+          <edgelabel>mUserData
+mInternalData</edgelabel>
+        </childnode>
       </node>
-      <node id="762">
+      <node id="3014">
+        <label>MyGUI::types::TSize&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TSize"/>
+        <childnode refid="2982" relation="usage">
+          <edgelabel>width
+height</edgelabel>
+        </childnode>
+      </node>
+      <node id="3006">
+        <label>MyGUI::ISubWidgetText</label>
+        <link refid="classMyGUI_1_1ISubWidgetText"/>
+        <childnode refid="3004" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2978">
         <label>MyGUI::Widget</label>
         <link refid="classMyGUI_1_1Widget"/>
-        <childnode refid="763" relation="public-inheritance">
+        <childnode refid="2979" relation="public-inheritance">
         </childnode>
-        <childnode refid="762" relation="usage">
+        <childnode refid="2980" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2985" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2988" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2995" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2996" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3007" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2989" relation="usage">
+          <edgelabel>eventChangeProperty</edgelabel>
+        </childnode>
+        <childnode refid="3008" relation="usage">
+          <edgelabel>mWidgetStyle</edgelabel>
+        </childnode>
+        <childnode refid="2978" relation="usage">
           <edgelabel>mContainer
 mParent
 mWidgetClient</edgelabel>
         </childnode>
+        <childnode refid="3005" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
       </node>
-      <node id="764">
+      <node id="3005">
+        <label>MyGUI::Align</label>
+        <link refid="structMyGUI_1_1Align"/>
+      </node>
+      <node id="3003">
+        <label>MyGUI::ISubWidgetRect</label>
+        <link refid="classMyGUI_1_1ISubWidgetRect"/>
+        <childnode refid="3004" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3012">
+        <label>MyGUI::MemberObsolete&lt; Button &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4"/>
+      </node>
+      <node id="3001">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="2979" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3004">
+        <label>MyGUI::ISubWidget</label>
+        <link refid="classMyGUI_1_1ISubWidget"/>
+        <childnode refid="2980" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2979" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3005" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
+      </node>
+      <node id="2995">
+        <label>MyGUI::delegates::IDelegateUnlink</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegateUnlink"/>
+        <childnode refid="2995" relation="usage">
+          <edgelabel>m_baseDelegateUnlink</edgelabel>
+        </childnode>
+      </node>
+      <node id="3010">
         <label>MyGUI::Button</label>
         <link refid="classMyGUI_1_1Button"/>
-        <childnode refid="765" relation="public-inheritance">
+        <childnode refid="3011" relation="public-inheritance">
         </childnode>
-        <childnode refid="766" relation="usage">
+        <childnode refid="3012" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3013" relation="usage">
           <edgelabel>mImage</edgelabel>
         </childnode>
       </node>
-      <node id="761">
+      <node id="2991">
+        <label>MyGUI::EventPair3to4&lt; EventHandle_WidgetIntInt, EventHandle_WidgetIntIntButton &gt;</label>
+        <link refid="classMyGUI_1_1EventPair3to4"/>
+        <childnode refid="2989" relation="usage">
+          <edgelabel>m_eventObsolete</edgelabel>
+        </childnode>
+        <childnode refid="2990" relation="usage">
+          <edgelabel>m_event</edgelabel>
+        </childnode>
+      </node>
+      <node id="2988">
+        <label>MyGUI::WidgetInput</label>
+        <link refid="classMyGUI_1_1WidgetInput"/>
+        <childnode refid="2989" relation="usage">
+          <edgelabel>eventKeyButtonPressed
+eventMouseMove</edgelabel>
+        </childnode>
+        <childnode refid="2990" relation="usage">
+          <edgelabel>eventMouseButtonPressed
+eventMouseButtonReleased</edgelabel>
+        </childnode>
+        <childnode refid="2991" relation="usage">
+          <edgelabel>eventMouseDrag</edgelabel>
+        </childnode>
+        <childnode refid="2992" relation="usage">
+          <edgelabel>mOwnMaskPickInfo</edgelabel>
+        </childnode>
+        <childnode refid="2993" relation="usage">
+          <edgelabel>eventMouseButtonDoubleClick
+eventMouseButtonClick</edgelabel>
+        </childnode>
+        <childnode refid="2994" relation="usage">
+          <edgelabel>eventKeySetFocus
+eventMouseSetFocus
+eventKeyButtonReleased
+eventKeyLostFocus
+eventRootMouseChangeFocus
+eventMouseWheel
+eventToolTip
+eventMouseLostFocus
+eventRootKeyChangeFocus</edgelabel>
+        </childnode>
+      </node>
+      <node id="2987">
+        <label>MyGUI::Any::AnyEmpty</label>
+        <link refid="structMyGUI_1_1Any_1_1AnyEmpty"/>
+      </node>
+      <node id="2977">
         <label>MyGUI::ScrollBar</label>
         <link refid="classMyGUI_1_1ScrollBar"/>
-        <childnode refid="762" relation="public-inheritance">
+        <childnode refid="2978" relation="public-inheritance">
         </childnode>
-        <childnode refid="762" relation="usage">
+        <childnode refid="3009" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2981" relation="usage">
+          <edgelabel>mPreActionOffset</edgelabel>
+        </childnode>
+        <childnode refid="2978" relation="usage">
           <edgelabel>mWidgetFirstPart
 mWidgetSecondPart</edgelabel>
         </childnode>
-        <childnode refid="764" relation="usage">
+        <childnode refid="3010" relation="usage">
           <edgelabel>mWidgetTrack
 mWidgetStart
 mWidgetEnd</edgelabel>
         </childnode>
+        <childnode refid="2994" relation="usage">
+          <edgelabel>eventScrollChangePosition</edgelabel>
+        </childnode>
+      </node>
+      <node id="2997">
+        <label>MyGUI::LayerItem</label>
+        <link refid="classMyGUI_1_1LayerItem"/>
+        <childnode refid="2998" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2999" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="3000" relation="usage">
+          <edgelabel>mLayer</edgelabel>
+        </childnode>
+        <childnode refid="3002" relation="usage">
+          <edgelabel>mSaveLayerNode
+mLayerNode</edgelabel>
+        </childnode>
+      </node>
+      <node id="3016">
+        <label>MyGUI::IResource</label>
+        <link refid="classMyGUI_1_1IResource"/>
+        <childnode refid="3001" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2981">
+        <label>MyGUI::types::TPoint&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TPoint"/>
+        <childnode refid="2982" relation="usage">
+          <edgelabel>left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="2986">
+        <label>MyGUI::Any</label>
+        <link refid="classMyGUI_1_1Any"/>
+        <childnode refid="2987" relation="usage">
+          <edgelabel>Null</edgelabel>
+        </childnode>
+      </node>
+      <node id="2979">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
       </node>
     </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedWidgets.h" bodystart="36" bodyend="55"/>
     <listofallmembers>
+      <member refid="classMyGUI_1_1ICroppedRectangle_140912f54a25901b779ea49094e5f4ae0" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_checkMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1093bbcae9343e7fe54fb4769652dfc2f" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_checkOutside</name></member>
       <member refid="classMyGUI_1_1Widget_134c44665e7d51c7eb65bf70f0479e1c3" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_checkPoint</name></member>
+      <member refid="classMyGUI_1_1SkinItem_10726c0a6b7e07c4a1ffbc6b41da8639e" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_correctSkinItemView</name></member>
+      <member refid="classMyGUI_1_1SkinItem_125c41f0b09a8cb62b56e4bf151029efe" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_createSkinItem</name></member>
       <member refid="classMyGUI_1_1Widget_13601e5ca0d565451dfcf106850506a51" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_createSkinWidget</name></member>
+      <member refid="classMyGUI_1_1SkinItem_183e18cf55c5dfcd5fc991cd3d1c79726" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_deleteSkinItem</name></member>
       <member refid="classMyGUI_1_1Widget_10df77f6d74fe5fc24701819e0b7e0fe8" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_destroyAllChildWidget</name></member>
       <member refid="classMyGUI_1_1Widget_125136884a04944ef8b199c582e15482c" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_destroyChildWidget</name></member>
       <member refid="classMyGUI_1_1Widget_1deee68fb42acc2fab667b169587e9ce3" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_forcePick</name></member>
@@ -239,22 +629,69 @@ mWidgetEnd</edgelabel>
       <member refid="classMyGUI_1_1Widget_1fef9a1d046d1b78f8c76de1db83d20c6" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>_getContainerIndex</name></member>
       <member refid="classMyGUI_1_1UserData_1fc4382ac3423790f57b478a0fe5030a2" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_getInternalData</name></member>
       <member refid="classMyGUI_1_1Widget_106700537a6fffaf43aa9c93e89d9cc7d" prot="public" virt="virtual"><scope>MyGUI::VScroll</scope><name>_getItemIndex</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1dd35646a24b80019d956bd8d9a8842e4" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_getMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b883cc09bbd15914970fa6a3a155b261" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_getMarginBottom</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1c389b55028cb6157b3832250de48cfe7" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_getMarginLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_11221b089abe10e18924bf5bb3209ac9f" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_getMarginRight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f875bcc3f5e3292c646142460892f7a4" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_getMarginTop</name></member>
+      <member refid="classMyGUI_1_1SkinItem_111f8d0452fdc560e02d3302bb100f994" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_getTextureName</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_13a7c73e8f4cc8dabcd76a5c6645900b9" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_getViewBottom</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1eaa2e53babcc2e3fdc8809f6eb8825bf" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_getViewHeight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_19c87ba1cec7e29effd49a8aed37e4bbe" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_getViewLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1ae878f922452310563bc53768acbee32" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_getViewRight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_16f7f0a2960a331640aaee3a88fdc8a20" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_getViewTop</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_10fb56854f3bb6d0f7f4f0e8f608fa37a" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_getViewWidth</name></member>
       <member refid="classMyGUI_1_1Widget_1ae54386446434e4b133c244925402375" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_initialise</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1e9ab842519de0d0d1ff6624c96a25aee" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_isMargin</name></member>
       <member refid="classMyGUI_1_1Widget_1175526a4b039cf13c7fec7012d7287fc" prot="public" virt="virtual"><scope>MyGUI::VScroll</scope><name>_resetContainer</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16ca16375013009df6343d5d704a5e0c5" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_riseKeyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16656b62ce7ec79ba18d0cdfedd2dfd4c" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_riseKeyButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c7feaf74a77264d4c2276ef7ae7238b9" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_riseKeyChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1d68d79f35d6a2d5ec4f063850199c699" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_riseKeyLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16890125536b19d6c6ec45482f3a36a46" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_riseKeySetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1ee33fe7ab755d138b20742d2b333a86a" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_riseMouseButtonClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10f7494e4a979775f2f67ab1b7a18c436" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_riseMouseButtonDoubleClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1abf1460346c8b853efde46128588f227" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_riseMouseButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18fe37f4239c9f31bc522520d6e30d047" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_riseMouseButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1ef279e1b31729b0975a8fd3dbba6f55a" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_riseMouseChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_181a0731821e5a71bd4ff6205428b78c9" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_riseMouseDrag</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1b08bce548d116bc1c6ef6e6d979d8de8" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_riseMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10adf6398d5b0e5890557061ac78ad65b" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_riseMouseMove</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1a012de5786a0bed2ae87a9deae13c0ef" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_riseMouseSetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_17e327836202f73c68ec038af7ffa8890" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_riseMouseWheel</name></member>
       <member refid="classMyGUI_1_1Widget_15df6dbd95e99b9b65b385d815026cf26" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_setAlign</name></member>
       <member refid="classMyGUI_1_1Widget_1d3d48604ad15f958b81bf423f80271c9" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_setContainer</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b7a33eeac6fd7e1ecc305decc2970249" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_setCroppedParent</name></member>
       <member refid="classMyGUI_1_1UserData_12bd52c146bad41f99bbc7ed31335ad18" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_setInternalData</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1dabde72179cbe3f1640edb16d4b19185" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_setRootKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1e63e896e1bc3441474eaf02d8c940fb0" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_setRootMouseFocus</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b983e0ed07906a96b1f9a1a6d3593304" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_setSkinItemAlign</name></member>
+      <member refid="classMyGUI_1_1SkinItem_121cde72c7bd643fec9816501fe986205" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_setSkinItemAlpha</name></member>
+      <member refid="classMyGUI_1_1SkinItem_15f1951b1f095aaa695fb90ea7cef623b" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_setSkinItemColour</name></member>
+      <member refid="classMyGUI_1_1SkinItem_199576e05c1de9db65b724308619559d4" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_setSkinItemState</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1e7dffe0acef7ab94c35cd0cd70fede08" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_setSkinItemVisible</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b705b413faa908fe8424b57574a3410f" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_setSubSkinVisible</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1d7130c196fcd0e29e06210f96240b171" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_setTextureName</name></member>
       <member refid="classMyGUI_1_1Widget_13325a1f4c26917f6f73b207d0986e1bd" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_setWidgetState</name></member>
       <member refid="classMyGUI_1_1Widget_155b19482fe01925c36e29af671e3d092" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_shutdown</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b5d81f68dff04ef4c975d8563ea0f598" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_updateSkinItemView</name></member>
       <member refid="classMyGUI_1_1Widget_1dd935a48ef2c39688d8026c01e9e3939" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>_updateView</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1468694a8e650fa4c019298691bb515d5" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>addChildItem</name></member>
+      <member refid="classMyGUI_1_1LayerItem_151c4c558eec72b51f62753c2dfe44094" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>addChildNode</name></member>
+      <member refid="classMyGUI_1_1LayerItem_19ddb478b09b766f3c515523e8d0658b0" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>addRenderItem</name></member>
       <member refid="classMyGUI_1_1Widget_1b390f48a62a30d529c901cf8cfa1c24c" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>assignWidget</name></member>
+      <member refid="classMyGUI_1_1LayerItem_129e3f29933beef8f55ec8965a93be0cc" prot="public" virt="virtual"><scope>MyGUI::VScroll</scope><name>attachItemToNode</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1d8cf239c39b116a48a1517117d1fb9a6" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>attachToLayerItemNode</name></member>
       <member refid="classMyGUI_1_1Widget_105110870f31f66a901b3b11737c194de" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>attachToWidget</name></member>
       <member refid="classMyGUI_1_1VScroll_1828dd99e5ad7f50e19060ce69fc772fb" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>Base</name></member>
       <member refid="classMyGUI_1_1Widget_1d88d7deb826efb660943ccb0bb457cae" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>baseCreateWidget</name></member>
       <member refid="classMyGUI_1_1Widget_1d4c4a2cf2c3dd8b71126291a55e69139" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>baseUpdateEnable</name></member>
+      <member refid="classMyGUI_1_1IObject_1c542d61d7f1efd5c08dae100a3c68558" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>castType</name></member>
+      <member refid="classMyGUI_1_1IObject_1f636b3c71d893eeb41bebc1c6f4519e1" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>castType</name></member>
       <member refid="classMyGUI_1_1Widget_1be74d6cc433da6140629423b120735a4" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>changeWidgetSkin</name></member>
       <member refid="classMyGUI_1_1UserData_1f71561f766d83082a82cbdd6d218bd6b" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>clearUserString</name></member>
       <member refid="classMyGUI_1_1UserData_154fecc1b40c23594c6518589b6912e49" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>clearUserStrings</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_1c6738433a415e2f37a5d3f927c0cc7fe" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>compare</name></member>
       <member refid="classMyGUI_1_1Widget_1d66c5415fde332d5aab563402cffb09f" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>createWidget</name></member>
       <member refid="classMyGUI_1_1Widget_13a28d2e883ce82536b686ac992be672d" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>createWidget</name></member>
       <member refid="classMyGUI_1_1Widget_1f8660295aafb142287644c239a313e53" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>createWidget</name></member>
@@ -266,36 +703,78 @@ mWidgetEnd</edgelabel>
       <member refid="classMyGUI_1_1Widget_12e74ae3d0a439f4edd509e73d4b2a083" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>createWidgetT</name></member>
       <member refid="classMyGUI_1_1Widget_1e26a4a5e8ea3fa4bafd969eb952d88e9" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>createWidgetT</name></member>
       <member refid="classMyGUI_1_1Widget_1c1c862389f772c52077fe4f2cf6568b5" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>destroySkinWidget</name></member>
+      <member refid="classMyGUI_1_1LayerItem_113b56979c71726ffcb334b778b193716" prot="public" virt="virtual"><scope>MyGUI::VScroll</scope><name>detachFromLayer</name></member>
+      <member refid="classMyGUI_1_1LayerItem_13d324b33933eb9f9bc8ac9d51e05e54e" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>detachFromLayerItemNode</name></member>
       <member refid="classMyGUI_1_1Widget_1056ac7afc041cf328037e210c742302f" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>detachFromWidget</name></member>
       <member refid="classMyGUI_1_1Widget_130efcbdb772c4a75f8208a99c4f9f34d" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>eventChangeProperty</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_19c0c205a1523715242cb07f3e1bb0018" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>eventKeyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1fe364fecb43bd52d81894fd8cbb6ff7c" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>eventKeyButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1190abc3db9e410abf5b3e96aec9278db" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>eventKeyLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c4228a2d61d12a5f4f411512c2144823" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>eventKeySetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10e6830d3204b28e15ee1472de5ca0349" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>eventMouseButtonClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10e66a008ba9f9c4887d42eac663e4b72" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>eventMouseButtonDoubleClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1892130d1ef15dccc6314c70a172113b1" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>eventMouseButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_15a0432361acd9073b3669d49a2bd4ae9" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>eventMouseButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1075f29698be6ce4aa2e330f9ea120739" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>eventMouseDrag</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1bb439d65c18114eee9be1caf93b262b6" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>eventMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_12ac6dfa5dbd2cd51c57f9f4ceb246511" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>eventMouseMove</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18ca56a714afbf4c6cf45e29d5843a479" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>eventMouseSetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1efb2b8ab0a4d1cd7e19870343f3492a9" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>eventMouseWheel</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1d24b759d3ec5843fc7c317cc90862b79" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>eventRootKeyChangeFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1dbeaee810227eb6d583ce3fcea219309" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>eventRootMouseChangeFocus</name></member>
       <member refid="classMyGUI_1_1VScroll_123361effbf981eb578a2e5ce08468a1b" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>eventScrollChangePosition</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18d45b85aeb9f2f2428f65cfe289d9c81" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>eventToolTip</name></member>
       <member refid="classMyGUI_1_1Widget_1d054e1027a48f2ccb9af0179359dadc5" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>findWidget</name></member>
       <member refid="classMyGUI_1_1Widget_1e6d193b99a9d69973922d1b8e0f0b70e" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>findWidgets</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_183d89c16d41d05bb8772f362b516dd3b" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getAbsoluteCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_19ac46efa204752d3d4a8495feaade9a0" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getAbsoluteLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1a3ae7bcd46578b5082c21a41962c3db6" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getAbsolutePosition</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_16221e701b940cd07bb2a41c84099dfa1" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getAbsoluteRect</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_108f36d963cb1bbcc853ffaf8f576d306" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getAbsoluteTop</name></member>
       <member refid="classMyGUI_1_1Widget_134cafbef78da90ca8fb6aca8964b337a" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getAlign</name></member>
       <member refid="classMyGUI_1_1Widget_1db1d462f1145cafb358754c03cd3e7f2" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getAlpha</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b0478e244c63d6201a748e371f237ae1" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getBottom</name></member>
       <member refid="classMyGUI_1_1Widget_1028535563d6d3666658d83e4d479fa6d" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getChildAt</name></member>
       <member refid="classMyGUI_1_1Widget_195ebe8be9fd3d29f7fa8f7846515eeec" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getChildCount</name></member>
       <member refid="classMyGUI_1_1VScroll_1d1f1fde1e59e10300c74fad1aa236bd6" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getClassTypeName</name></member>
       <member refid="classMyGUI_1_1Widget_15ffebc869b3b4c36e31178616b27fc86" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getClientCoord</name></member>
       <member refid="classMyGUI_1_1Widget_1ac162cf5e6c51d487c71ae2e2d041352" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getClientWidget</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1a9cc9fbf580a3c77059f20fafcdb201f" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b6b24667d7810f93d79a9fa7750d01ce" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getCroppedParent</name></member>
       <member refid="classMyGUI_1_1Widget_15cd729c40ad712c7036a0d3f6a2507b2" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getEnabled</name></member>
       <member refid="classMyGUI_1_1Widget_1abfb5cf6661813f729bd30b4042e95d7" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getEnumerator</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f5253c6b4dfb1107dd23b23fb1109413" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getHeight</name></member>
       <member refid="classMyGUI_1_1Widget_1c373e8170168b97491e777b99de0872b" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getInheritedEnabled</name></member>
       <member refid="classMyGUI_1_1Widget_1028a8ae99e47f513065ce3cbb11e4022" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getInheritedVisible</name></member>
       <member refid="classMyGUI_1_1Widget_1c2118d0bf46d9a7ec21c7aed9c7e71ca" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_15be056da5117affd416fe970459f1223" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getInheritsPick</name></member>
+      <member refid="classMyGUI_1_1LayerItem_171d7bb44b59f3636087d3c3361e44fd6" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getLayer</name></member>
       <member refid="classMyGUI_1_1Widget_175cedb78192d81e9dd1cef4a6c7a9fe3" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>getLayerItemByPoint</name></member>
       <member refid="classMyGUI_1_1Widget_13e00b99c46a0c1ebacf29604d503804d" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>getLayerItemCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1753231d8f8981c59cf6a4c92609c35e6" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getLeft</name></member>
       <member refid="classMyGUI_1_1ScrollBar_136ee757107bb7d3bae3414e84da6e4f2" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getLineSize</name></member>
       <member refid="classMyGUI_1_1ScrollBar_149c99b3156212e5d63e504203695bc3f" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getMinTrackSize</name></member>
       <member refid="classMyGUI_1_1ScrollBar_1bc4b091e0e8dfd4248cb7bb0cc6b4077" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getMoveToClick</name></member>
       <member refid="classMyGUI_1_1Widget_1421a0e4eec959e8a5cd7f12ff459bfbf" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getName</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16022e50c3a0bab4f36628fa12a51b209" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getNeedKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1470aa4736e0a8f4a662a566eea240b85" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getNeedMouseFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18325fdd47dd74c8574f73bcb6c733df2" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getNeedToolTip</name></member>
       <member refid="classMyGUI_1_1Widget_174eb9e9819797e68a510a2ae6c3a410a" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getParent</name></member>
       <member refid="classMyGUI_1_1Widget_1ee1378b1a9bd3db495cbea32f0a13e20" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getParentSize</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c3ab2d84030f97c4303bc7da394ee333" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getPointer</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b8574746c63b6c512229f1022d497094" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getPosition</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1c2ce3e30f89af0955e511c66e111cf93" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getRight</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1e57aa4f6072057ca8d1a0855a761cbc1" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getRootKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_132e7d91855a309930f6a8318c1fca142" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getRootMouseFocus</name></member>
       <member refid="classMyGUI_1_1ScrollBar_1af2f1d84c7502f5320867c1a138524af" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getScrollPage</name></member>
       <member refid="classMyGUI_1_1ScrollBar_11c9a4adb69e37d156133a11e90c54901" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getScrollPosition</name></member>
       <member refid="classMyGUI_1_1ScrollBar_17d83c7dd87e11acb6cc01584c2bec8ab" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getScrollRange</name></member>
       <member refid="classMyGUI_1_1ScrollBar_1375c5943031d6354b441491da25e6f34" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getScrollViewPage</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f557c510d0af74ac6c2770253d52b303" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getSize</name></member>
       <member refid="classMyGUI_1_1Widget_14a6523e37fad5103ef5896bdf349861d" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getSkinWidgetsByName</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b7ad0561eae858f69008e77b42fc4192" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getSubWidgetMain</name></member>
+      <member refid="classMyGUI_1_1SkinItem_18790679dbfff2a864b0bbb656d45ee53" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getSubWidgetText</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1ea03ec13020eb5016f3c17251a526ad9" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getTop</name></member>
       <member refid="classMyGUI_1_1ScrollBar_1773970d5a33c1d7eccee1f52d45432fb" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getTrackPlaceLength</name></member>
       <member refid="classMyGUI_1_1ScrollBar_1bbcb406308887f167ebcde381f909386" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getTrackSize</name></member>
       <member refid="classMyGUI_1_1VScroll_10031fb171155d07e4a9ae89e8baa18e9" prot="public" virt="virtual"><scope>MyGUI::VScroll</scope><name>getTypeName</name></member>
@@ -305,11 +784,28 @@ mWidgetEnd</edgelabel>
       <member refid="classMyGUI_1_1ScrollBar_1185116b93472613c08626f9d1e842e30" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getVerticalAlignment</name></member>
       <member refid="classMyGUI_1_1Widget_1fa7ad1d5a3213ee9f8c4567e6f3fdd7d" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getVisible</name></member>
       <member refid="classMyGUI_1_1Widget_15accf9c998578f20adcec5987dc820f2" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_152c93ea7b7c89b708b855a4924df310b" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>getWidth</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_13b493ea3f8e5dcb4cc905da0b7c6dadf" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>ICroppedRectangle</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_1533f51403b804e09b3c2e8eb6d5e679b" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>IDelegateUnlink</name></member>
       <member refid="classMyGUI_1_1ScrollBar_1c4cdd942e009f1630a73956a2df6d083" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>initialiseOverride</name></member>
+      <member refid="classMyGUI_1_1IObject_198f33c9772728fc4065fe0a1ffdf8246" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>IObject</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_1a089bb887fd20d3f8f279229f6d37bf3" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>isEnabled</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_14f28dc2b7d847c7266e2398c4795658a" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>isInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_147b9c837c75c627bad780cc44e4aefae" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>isInheritsPick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_150e91b6611a362474155ac2351752b54" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>isMaskPickInside</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_1f436236e6b75c0347f579fe84af5514b" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>isNeedKeyFocus</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_1ac609c231c1b2f6ac98c1f314df60415" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>isNeedMouseFocus</name></member>
       <member refid="classMyGUI_1_1Widget_1b3ec05a74f05236afb58855985781cd0" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>isRootWidget</name></member>
       <member refid="classMyGUI_1_1VScroll_12acfb3870e08cf11f5fad8f795296113" prot="public" virt="virtual"><scope>MyGUI::VScroll</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1VScroll_14b34fc5419769c3101a7025b13a61b44" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1UserData_10bac17bc60b499cf0386ec3815d67f17" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>isUserString</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_19e2c621a8df680ee50f8f14cbadf2aff" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>isVisible</name></member>
+      <member refid="classMyGUI_1_1LayerItem_17a70f273e55fb2945c20fc54ec62969e" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>LayerItem</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_17b7faec75fa09c72701f8ab0fd416182" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>mAbsolutePosition</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_121be402c76c560b6568dc16c2f1e38a8" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>mCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_15d10640ec8d1a14f75b4a6287d92de12" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>mCroppedParent</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_10f0b7542dde743b020713654c50536ca" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>mIsMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_125d27b33aeee62b852dc8009a7b942d7" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>mMargin</name></member>
       <member refid="classMyGUI_1_1ScrollBar_11383bba8935f5b6bb79413aeb202b544" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>mMinTrackSize</name></member>
       <member refid="classMyGUI_1_1ScrollBar_1c29885264cd69eabaad1651247743706" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>mMoveToClick</name></member>
       <member refid="classMyGUI_1_1ScrollBar_1d583cccbe4a01f07eae6204777c1a6a9" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>mPreActionOffset</name></member>
@@ -329,10 +825,29 @@ mWidgetEnd</edgelabel>
       <member refid="classMyGUI_1_1ScrollBar_14736d0fda9587418710c7ab9461d6660" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>notifyMousePressed</name></member>
       <member refid="classMyGUI_1_1ScrollBar_15fc915784c84c7fdd368f798093dfdc1" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>notifyMouseReleased</name></member>
       <member refid="classMyGUI_1_1ScrollBar_1d8dcc1b537350170e177a04b43db830e" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>notifyMouseWheel</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1095e1acc8d228d9340b2b308c677fdf4" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>onKeyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1270e79337e0087a161fa74b78aeb3127" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>onKeyButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1b8e266d4069a1ab0363375bad9e35171" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>onKeyChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18f59f529e001d90bbe4885ea29515673" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>onKeyLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10b912cd730d4e657e7263fae829a4e6b" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>onKeySetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1fca1246c61d023b454fab52e25d801a2" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>onMouseButtonClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_157b503609f50ec453339ac3453760339" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>onMouseButtonDoubleClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_174463c8bd4af3c7e7c13afbded5fd74b" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>onMouseButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1969850afcd6bb54830851f3ad7dc564d" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>onMouseButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_170648833f265898bf0dd63a2e1129ce4" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>onMouseChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1feca6cb1a11fcb56921658032ce0cb49" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>onMouseDrag</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1d3cd7674cc408ca8f2aa7cf046c8ddeb" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>onMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16494acd321238c424c15be5f63f979d3" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>onMouseMove</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_110aba92be6cabf07736d4f1de8e93e35" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>onMouseSetFocus</name></member>
       <member refid="classMyGUI_1_1ScrollBar_1126fe5c1822cfaa8bed2223da72a7198" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>onMouseWheel</name></member>
       <member refid="classMyGUI_1_1Widget_1a8cfc0deeb8c2c53c6fabf52dd167639" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>onWidgetCreated</name></member>
       <member refid="classMyGUI_1_1Widget_1c64ffb617119185afaf5ef9650d4f9a5" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>onWidgetDestroy</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1550fd1d2b74394288ff02714a1631c83" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>removeAllRenderItems</name></member>
+      <member refid="classMyGUI_1_1LayerItem_153e3219374e2c24c13c316350d4bd49f" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>removeChildItem</name></member>
+      <member refid="classMyGUI_1_1LayerItem_12a1a9be320fa11fc18976f0952681a3e" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>removeChildNode</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1b6f86f8277bb2ea3d128091849399f74" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>restoreLayerItem</name></member>
       <member refid="classMyGUI_1_1VScroll_1f54d0a24aacfbae46a58d998977ae01f" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1ba403583becd0b8438d47e45033f3a56" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>saveLayerItem</name></member>
       <member refid="classMyGUI_1_1ScrollBar_11b346b9214f7b88fabcbfdb45e7c0bc6" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>ScrollBar</name></member>
       <member refid="classMyGUI_1_1Widget_1ebace37eedee14b3ff746b7a0085b993" prot="public" virt="virtual"><scope>MyGUI::VScroll</scope><name>setAlign</name></member>
       <member refid="classMyGUI_1_1Widget_11204361b28430fa9a3b6927d6b4fe9ee" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setAlpha</name></member>
@@ -342,8 +857,15 @@ mWidgetEnd</edgelabel>
       <member refid="classMyGUI_1_1Widget_1beda60b920b1808641169d8543171269" prot="public" virt="virtual"><scope>MyGUI::VScroll</scope><name>setEnabled</name></member>
       <member refid="classMyGUI_1_1Widget_1f5a0bfe2b4f596d2dffdc7fcea5200b1" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setEnabledSilent</name></member>
       <member refid="classMyGUI_1_1Widget_18b44677724faa4112312655e5feed8ae" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_19f3635d97a8d56053311cb2cb2887f5f" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setInheritsPick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_14e37553674c10c9b208db056aeeb805a" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setMaskPick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c8b141e404fa6c1a71505216a1ef5b43" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setMaskPick</name></member>
       <member refid="classMyGUI_1_1ScrollBar_12feffb8efb1f020f82b2e7ff4e1dc697" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setMinTrackSize</name></member>
       <member refid="classMyGUI_1_1ScrollBar_10b4017cc163fc3fbc89f03070724a738" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setMoveToClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_161510314ec32dcff4fcecfe725f46a36" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setNeedKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_133723bb1ea73b5af6c0d3d0041104478" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setNeedMouseFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1b81aa840b2b8cb97b4fdccc92248b1b7" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setNeedToolTip</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1192554c59fcce521c063e72db4d867b1" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setPointer</name></member>
       <member refid="classMyGUI_1_1ScrollBar_1f8481d7fbea6b0299641707ee6a10e69" prot="public" virt="virtual"><scope>MyGUI::VScroll</scope><name>setPosition</name></member>
       <member refid="classMyGUI_1_1ScrollBar_1418e2b0b7e51bbc1f46f581ab8eea509" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setPosition</name></member>
       <member refid="classMyGUI_1_1Widget_11a6ea7822f869b777800b0d351112e69" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setProperty</name></member>
@@ -354,6 +876,7 @@ mWidgetEnd</edgelabel>
       <member refid="classMyGUI_1_1Widget_1c963db4709c8dfc9e681dfccd5fb6524" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setRealPosition</name></member>
       <member refid="classMyGUI_1_1Widget_1d7fba1f9976c36eacb528d6db9213ddf" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setRealSize</name></member>
       <member refid="classMyGUI_1_1Widget_15d89ff45c4bc5f6158382067673903ba" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1cf56aa200b89c991fb301b24069726be" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setRenderItemTexture</name></member>
       <member refid="classMyGUI_1_1ScrollBar_1ce501db1f5b7b88f93b49f7b05acc36e" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setScrollPage</name></member>
       <member refid="classMyGUI_1_1ScrollBar_182ed902bfbf43bab8fac634f76c5a755" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setScrollPosition</name></member>
       <member refid="classMyGUI_1_1ScrollBar_11a0b5934eb09b8dd67ef86e5963d9871" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setScrollRange</name></member>
@@ -368,13 +891,22 @@ mWidgetEnd</edgelabel>
       <member refid="classMyGUI_1_1Widget_1c717aa06253e913156a6d24fb3d4cbc4" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setWidgetClient</name></member>
       <member refid="classMyGUI_1_1Widget_1372d21a0125ab28cc5c2c295290a2806" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>setWidgetStyle</name></member>
       <member refid="classMyGUI_1_1ScrollBar_1154ff1699c622eee1c5b8da77e6f7b69" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>shutdownOverride</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1df3cc9ecbcf4702c02b1d265c5d0a7f9" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>SkinItem</name></member>
       <member refid="classMyGUI_1_1ScrollBar_15e449d814e503d9db68ed931b0b2bfb4" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>TrackMove</name></member>
       <member refid="classMyGUI_1_1ScrollBar_1e68dd5ec9a2a99eef742faac0078d0b4" prot="protected" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>updateTrack</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1c7c30ce98c7f9312b522d6c67b050be4" prot="public" virt="virtual"><scope>MyGUI::VScroll</scope><name>upLayerItem</name></member>
       <member refid="classMyGUI_1_1UserData_1108076068708e939519f9c775c2ae87b" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>UserData</name></member>
       <member refid="classMyGUI_1_1VScroll_119ca2ea24d7b21901c661da5fb00454a" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>VScroll</name></member>
       <member refid="classMyGUI_1_1Widget_1f4814618768bc07a685495895ca47b04" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>Widget</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1436c5c5a088a95b40a252574f8ff0506" prot="public" virt="non-virtual"><scope>MyGUI::VScroll</scope><name>WidgetInput</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_128f4ca979240bf4bb4363d84213b6041" prot="public" virt="virtual"><scope>MyGUI::VScroll</scope><name>~ICroppedRectangle</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_12f7d8818258bb5ee2218ea20450b2997" prot="public" virt="virtual"><scope>MyGUI::VScroll</scope><name>~IDelegateUnlink</name></member>
+      <member refid="classMyGUI_1_1ILayerItem_18f05b429c402a94b666bfffee2ef3ed5" prot="public" virt="virtual"><scope>MyGUI::VScroll</scope><name>~ILayerItem</name></member>
+      <member refid="classMyGUI_1_1IObject_1ba65cf3c7393db4589ce28630a5aaadf" prot="public" virt="virtual"><scope>MyGUI::VScroll</scope><name>~IObject</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1412d7e8ee5a5a4773cf27695f402c351" prot="public" virt="virtual"><scope>MyGUI::VScroll</scope><name>~LayerItem</name></member>
       <member refid="classMyGUI_1_1UserData_1a970af2c1f39e0fa8801fd9defb06d84" prot="public" virt="virtual"><scope>MyGUI::VScroll</scope><name>~UserData</name></member>
       <member refid="classMyGUI_1_1Widget_18ff3c2a98bbea22f4f0191bcac54b643" prot="protected" virt="virtual"><scope>MyGUI::VScroll</scope><name>~Widget</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_106e5ebe1aa33cb737fdaaee9e8708356" prot="public" virt="virtual"><scope>MyGUI::VScroll</scope><name>~WidgetInput</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

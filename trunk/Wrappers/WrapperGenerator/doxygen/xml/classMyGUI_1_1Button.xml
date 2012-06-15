@@ -3,6 +3,7 @@
   <compounddef id="classMyGUI_1_1Button" kind="class" prot="public">
     <compoundname>MyGUI::Button</compoundname>
     <basecompoundref refid="classMyGUI_1_1TextBox" prot="public" virt="non-virtual">MyGUI::TextBox</basecompoundref>
+    <basecompoundref refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4" prot="public" virt="non-virtual">MyGUI::MemberObsolete&lt; Button &gt;</basecompoundref>
     <derivedcompoundref refid="classMyGUI_1_1MenuItem" prot="public" virt="non-virtual">MyGUI::MenuItem</derivedcompoundref>
     <includes local="no">MyGUI_Button.h</includes>
       <sectiondef kind="public-type">
@@ -304,6 +305,7 @@
         <definition>virtual void MyGUI::Button::onMouseLostFocus</definition>
         <argsstring>(Widget *_new)</argsstring>
         <name>onMouseLostFocus</name>
+        <reimplements refid="classMyGUI_1_1WidgetInput_1d3cd7674cc408ca8f2aa7cf046c8ddeb">onMouseLostFocus</reimplements>
         <param>
           <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
           <declname>_new</declname>
@@ -321,6 +323,7 @@
         <definition>virtual void MyGUI::Button::onMouseSetFocus</definition>
         <argsstring>(Widget *_old)</argsstring>
         <name>onMouseSetFocus</name>
+        <reimplements refid="classMyGUI_1_1WidgetInput_110aba92be6cabf07736d4f1de8e93e35">onMouseSetFocus</reimplements>
         <param>
           <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
           <declname>_old</declname>
@@ -338,6 +341,7 @@
         <definition>virtual void MyGUI::Button::onMouseButtonPressed</definition>
         <argsstring>(int _left, int _top, MouseButton _id)</argsstring>
         <name>onMouseButtonPressed</name>
+        <reimplements refid="classMyGUI_1_1WidgetInput_174463c8bd4af3c7e7c13afbded5fd74b">onMouseButtonPressed</reimplements>
         <param>
           <type>int</type>
           <declname>_left</declname>
@@ -347,7 +351,7 @@
           <declname>_top</declname>
         </param>
         <param>
-          <type>MouseButton</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref></type>
           <declname>_id</declname>
         </param>
         <briefdescription>
@@ -363,6 +367,7 @@
         <definition>virtual void MyGUI::Button::onMouseButtonReleased</definition>
         <argsstring>(int _left, int _top, MouseButton _id)</argsstring>
         <name>onMouseButtonReleased</name>
+        <reimplements refid="classMyGUI_1_1WidgetInput_1969850afcd6bb54830851f3ad7dc564d">onMouseButtonReleased</reimplements>
         <param>
           <type>int</type>
           <declname>_left</declname>
@@ -372,7 +377,7 @@
           <declname>_top</declname>
         </param>
         <param>
-          <type>MouseButton</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref></type>
           <declname>_id</declname>
         </param>
         <briefdescription>
@@ -525,77 +530,421 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="26">
-        <label>MyGUI::TextBox</label>
-        <link refid="classMyGUI_1_1TextBox"/>
-        <childnode refid="27" relation="public-inheritance">
+      <node id="35">
+        <label>MyGUI::SkinItem</label>
+        <link refid="classMyGUI_1_1SkinItem"/>
+        <childnode refid="36" relation="public-inheritance">
         </childnode>
       </node>
+      <node id="37">
+        <label>MyGUI::ILayerItem</label>
+        <link refid="classMyGUI_1_1ILayerItem"/>
+      </node>
+      <node id="31">
+        <label>MyGUI::ICroppedRectangle</label>
+        <link refid="classMyGUI_1_1ICroppedRectangle"/>
+      </node>
       <node id="28">
+        <label>MyGUI::TextBox</label>
+        <link refid="classMyGUI_1_1TextBox"/>
+        <childnode refid="29" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>MyGUI::MemberObsolete&lt; Widget &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4"/>
+      </node>
+      <node id="32">
         <label>MyGUI::UserData</label>
         <link refid="classMyGUI_1_1UserData"/>
       </node>
-      <node id="27">
+      <node id="29">
         <label>MyGUI::Widget</label>
         <link refid="classMyGUI_1_1Widget"/>
-        <childnode refid="28" relation="public-inheritance">
+        <childnode refid="30" relation="public-inheritance">
         </childnode>
-      </node>
-      <node id="25">
-        <label>MyGUI::Button</label>
-        <link refid="classMyGUI_1_1Button"/>
-        <childnode refid="26" relation="public-inheritance">
+        <childnode refid="31" relation="public-inheritance">
         </childnode>
-      </node>
-      <node id="29">
-        <label>MyGUI::MenuItem</label>
-        <link refid="classMyGUI_1_1MenuItem"/>
-        <childnode refid="25" relation="public-inheritance">
-        </childnode>
-      </node>
-    </inheritancegraph>
-    <collaborationgraph>
-      <node id="31">
-        <label>MyGUI::TextBox</label>
-        <link refid="classMyGUI_1_1TextBox"/>
         <childnode refid="32" relation="public-inheritance">
         </childnode>
+        <childnode refid="33" relation="public-inheritance">
+        </childnode>
+        <childnode refid="34" relation="public-inheritance">
+        </childnode>
+        <childnode refid="35" relation="public-inheritance">
+        </childnode>
+        <childnode refid="38" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>MyGUI::MemberObsolete&lt; Button &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4"/>
       </node>
       <node id="34">
-        <label>MyGUI::ImageBox</label>
-        <link refid="classMyGUI_1_1ImageBox"/>
-        <childnode refid="32" relation="public-inheritance">
+        <label>MyGUI::delegates::IDelegateUnlink</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegateUnlink"/>
+      </node>
+      <node id="27">
+        <label>MyGUI::Button</label>
+        <link refid="classMyGUI_1_1Button"/>
+        <childnode refid="28" relation="public-inheritance">
+        </childnode>
+        <childnode refid="39" relation="public-inheritance">
         </childnode>
       </node>
       <node id="33">
+        <label>MyGUI::WidgetInput</label>
+        <link refid="classMyGUI_1_1WidgetInput"/>
+      </node>
+      <node id="40">
+        <label>MyGUI::MenuItem</label>
+        <link refid="classMyGUI_1_1MenuItem"/>
+        <childnode refid="27" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>MyGUI::LayerItem</label>
+        <link refid="classMyGUI_1_1LayerItem"/>
+        <childnode refid="37" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="58">
+        <label>MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate1"/>
+      </node>
+      <node id="73">
+        <label>MyGUI::WidgetStyle</label>
+        <link refid="structMyGUI_1_1WidgetStyle"/>
+      </node>
+      <node id="47">
+        <label>T</label>
+      </node>
+      <node id="65">
+        <label>MyGUI::ILayer</label>
+        <link refid="classMyGUI_1_1ILayer"/>
+        <childnode refid="66" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>MyGUI::types::TCoord&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TCoord"/>
+        <childnode refid="47" relation="usage">
+          <edgelabel>width
+height
+left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="61">
+        <label>MyGUI::SkinItem</label>
+        <link refid="classMyGUI_1_1SkinItem"/>
+        <childnode refid="62" relation="public-inheritance">
+        </childnode>
+        <childnode refid="64" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="68" relation="usage">
+          <edgelabel>mMainSkin</edgelabel>
+        </childnode>
+        <childnode refid="71" relation="usage">
+          <edgelabel>mText</edgelabel>
+        </childnode>
+      </node>
+      <node id="63">
+        <label>MyGUI::ILayerItem</label>
+        <link refid="classMyGUI_1_1ILayerItem"/>
+      </node>
+      <node id="54">
+        <label>MyGUI::delegates::CMultiDelegate3&lt; TP1, TP2, TP3 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate3"/>
+      </node>
+      <node id="64">
+        <label>MyGUI::ITexture</label>
+        <link refid="classMyGUI_1_1ITexture"/>
+      </node>
+      <node id="55">
+        <label>MyGUI::delegates::CMultiDelegate4&lt; TP1, TP2, TP3, TP4 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate4"/>
+      </node>
+      <node id="57">
+        <label>MyGUI::MaskPickInfo</label>
+        <link refid="classMyGUI_1_1MaskPickInfo"/>
+      </node>
+      <node id="45">
+        <label>MyGUI::ICroppedRectangle</label>
+        <link refid="classMyGUI_1_1ICroppedRectangle"/>
+        <childnode refid="46" relation="usage">
+          <edgelabel>mAbsolutePosition</edgelabel>
+        </childnode>
+        <childnode refid="48" relation="usage">
+          <edgelabel>mCoord</edgelabel>
+        </childnode>
+        <childnode refid="49" relation="usage">
+          <edgelabel>mMargin</edgelabel>
+        </childnode>
+        <childnode refid="45" relation="usage">
+          <edgelabel>mCroppedParent</edgelabel>
+        </childnode>
+      </node>
+      <node id="49">
+        <label>MyGUI::types::TRect&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TRect"/>
+        <childnode refid="47" relation="usage">
+          <edgelabel>right
+left
+bottom
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="67">
+        <label>MyGUI::ILayerNode</label>
+        <link refid="classMyGUI_1_1ILayerNode"/>
+        <childnode refid="44" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>MyGUI::TextBox</label>
+        <link refid="classMyGUI_1_1TextBox"/>
+        <childnode refid="43" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="72">
+        <label>MyGUI::MemberObsolete&lt; Widget &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4"/>
+      </node>
+      <node id="59">
+        <label>MyGUI::delegates::CMultiDelegate2&lt; TP1, TP2 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate2"/>
+      </node>
+      <node id="75">
+        <label>MyGUI::ImageBox</label>
+        <link refid="classMyGUI_1_1ImageBox"/>
+        <childnode refid="43" relation="public-inheritance">
+        </childnode>
+        <childnode refid="76" relation="usage">
+          <edgelabel>mSizeTexture
+mSizeTile</edgelabel>
+        </childnode>
+        <childnode refid="49" relation="usage">
+          <edgelabel>mRectImage</edgelabel>
+        </childnode>
+        <childnode refid="77" relation="usage">
+          <edgelabel>mResource</edgelabel>
+        </childnode>
+      </node>
+      <node id="77">
+        <label>MyGUI::ResourceImageSet</label>
+        <link refid="classMyGUI_1_1ResourceImageSet"/>
+        <childnode refid="78" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="50">
         <label>MyGUI::UserData</label>
         <link refid="classMyGUI_1_1UserData"/>
+        <childnode refid="51" relation="usage">
+          <edgelabel>mUserData
+mInternalData</edgelabel>
+        </childnode>
       </node>
-      <node id="32">
+      <node id="76">
+        <label>MyGUI::types::TSize&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TSize"/>
+        <childnode refid="47" relation="usage">
+          <edgelabel>width
+height</edgelabel>
+        </childnode>
+      </node>
+      <node id="71">
+        <label>MyGUI::ISubWidgetText</label>
+        <link refid="classMyGUI_1_1ISubWidgetText"/>
+        <childnode refid="69" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="43">
         <label>MyGUI::Widget</label>
         <link refid="classMyGUI_1_1Widget"/>
-        <childnode refid="33" relation="public-inheritance">
+        <childnode refid="44" relation="public-inheritance">
         </childnode>
-        <childnode refid="32" relation="usage">
+        <childnode refid="45" relation="public-inheritance">
+        </childnode>
+        <childnode refid="50" relation="public-inheritance">
+        </childnode>
+        <childnode refid="53" relation="public-inheritance">
+        </childnode>
+        <childnode refid="60" relation="public-inheritance">
+        </childnode>
+        <childnode refid="61" relation="public-inheritance">
+        </childnode>
+        <childnode refid="72" relation="public-inheritance">
+        </childnode>
+        <childnode refid="54" relation="usage">
+          <edgelabel>eventChangeProperty</edgelabel>
+        </childnode>
+        <childnode refid="73" relation="usage">
+          <edgelabel>mWidgetStyle</edgelabel>
+        </childnode>
+        <childnode refid="43" relation="usage">
           <edgelabel>mContainer
 mParent
 mWidgetClient</edgelabel>
         </childnode>
+        <childnode refid="70" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
       </node>
-      <node id="30">
+      <node id="70">
+        <label>MyGUI::Align</label>
+        <link refid="structMyGUI_1_1Align"/>
+      </node>
+      <node id="68">
+        <label>MyGUI::ISubWidgetRect</label>
+        <link refid="classMyGUI_1_1ISubWidgetRect"/>
+        <childnode refid="69" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="74">
+        <label>MyGUI::MemberObsolete&lt; Button &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4"/>
+      </node>
+      <node id="66">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="44" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="69">
+        <label>MyGUI::ISubWidget</label>
+        <link refid="classMyGUI_1_1ISubWidget"/>
+        <childnode refid="45" relation="public-inheritance">
+        </childnode>
+        <childnode refid="44" relation="public-inheritance">
+        </childnode>
+        <childnode refid="70" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
+      </node>
+      <node id="60">
+        <label>MyGUI::delegates::IDelegateUnlink</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegateUnlink"/>
+        <childnode refid="60" relation="usage">
+          <edgelabel>m_baseDelegateUnlink</edgelabel>
+        </childnode>
+      </node>
+      <node id="41">
         <label>MyGUI::Button</label>
         <link refid="classMyGUI_1_1Button"/>
-        <childnode refid="31" relation="public-inheritance">
+        <childnode refid="42" relation="public-inheritance">
         </childnode>
-        <childnode refid="34" relation="usage">
+        <childnode refid="74" relation="public-inheritance">
+        </childnode>
+        <childnode refid="75" relation="usage">
           <edgelabel>mImage</edgelabel>
         </childnode>
+      </node>
+      <node id="56">
+        <label>MyGUI::EventPair3to4&lt; EventHandle_WidgetIntInt, EventHandle_WidgetIntIntButton &gt;</label>
+        <link refid="classMyGUI_1_1EventPair3to4"/>
+        <childnode refid="54" relation="usage">
+          <edgelabel>m_eventObsolete</edgelabel>
+        </childnode>
+        <childnode refid="55" relation="usage">
+          <edgelabel>m_event</edgelabel>
+        </childnode>
+      </node>
+      <node id="53">
+        <label>MyGUI::WidgetInput</label>
+        <link refid="classMyGUI_1_1WidgetInput"/>
+        <childnode refid="54" relation="usage">
+          <edgelabel>eventKeyButtonPressed
+eventMouseMove</edgelabel>
+        </childnode>
+        <childnode refid="55" relation="usage">
+          <edgelabel>eventMouseButtonPressed
+eventMouseButtonReleased</edgelabel>
+        </childnode>
+        <childnode refid="56" relation="usage">
+          <edgelabel>eventMouseDrag</edgelabel>
+        </childnode>
+        <childnode refid="57" relation="usage">
+          <edgelabel>mOwnMaskPickInfo</edgelabel>
+        </childnode>
+        <childnode refid="58" relation="usage">
+          <edgelabel>eventMouseButtonDoubleClick
+eventMouseButtonClick</edgelabel>
+        </childnode>
+        <childnode refid="59" relation="usage">
+          <edgelabel>eventKeySetFocus
+eventMouseSetFocus
+eventKeyButtonReleased
+eventKeyLostFocus
+eventRootMouseChangeFocus
+eventMouseWheel
+eventToolTip
+eventMouseLostFocus
+eventRootKeyChangeFocus</edgelabel>
+        </childnode>
+      </node>
+      <node id="52">
+        <label>MyGUI::Any::AnyEmpty</label>
+        <link refid="structMyGUI_1_1Any_1_1AnyEmpty"/>
+      </node>
+      <node id="62">
+        <label>MyGUI::LayerItem</label>
+        <link refid="classMyGUI_1_1LayerItem"/>
+        <childnode refid="63" relation="public-inheritance">
+        </childnode>
+        <childnode refid="64" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="65" relation="usage">
+          <edgelabel>mLayer</edgelabel>
+        </childnode>
+        <childnode refid="67" relation="usage">
+          <edgelabel>mSaveLayerNode
+mLayerNode</edgelabel>
+        </childnode>
+      </node>
+      <node id="78">
+        <label>MyGUI::IResource</label>
+        <link refid="classMyGUI_1_1IResource"/>
+        <childnode refid="66" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>MyGUI::types::TPoint&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TPoint"/>
+        <childnode refid="47" relation="usage">
+          <edgelabel>left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="51">
+        <label>MyGUI::Any</label>
+        <link refid="classMyGUI_1_1Any"/>
+        <childnode refid="52" relation="usage">
+          <edgelabel>Null</edgelabel>
+        </childnode>
+      </node>
+      <node id="44">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
       </node>
     </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" bodystart="34" bodyend="95"/>
     <listofallmembers>
+      <member refid="classMyGUI_1_1ICroppedRectangle_140912f54a25901b779ea49094e5f4ae0" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>_checkMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1093bbcae9343e7fe54fb4769652dfc2f" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>_checkOutside</name></member>
       <member refid="classMyGUI_1_1Widget_134c44665e7d51c7eb65bf70f0479e1c3" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_checkPoint</name></member>
+      <member refid="classMyGUI_1_1SkinItem_10726c0a6b7e07c4a1ffbc6b41da8639e" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>_correctSkinItemView</name></member>
+      <member refid="classMyGUI_1_1SkinItem_125c41f0b09a8cb62b56e4bf151029efe" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>_createSkinItem</name></member>
       <member refid="classMyGUI_1_1Widget_13601e5ca0d565451dfcf106850506a51" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_createSkinWidget</name></member>
+      <member refid="classMyGUI_1_1SkinItem_183e18cf55c5dfcd5fc991cd3d1c79726" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>_deleteSkinItem</name></member>
       <member refid="classMyGUI_1_1Widget_10df77f6d74fe5fc24701819e0b7e0fe8" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>_destroyAllChildWidget</name></member>
       <member refid="classMyGUI_1_1Widget_125136884a04944ef8b199c582e15482c" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_destroyChildWidget</name></member>
       <member refid="classMyGUI_1_1Widget_1deee68fb42acc2fab667b169587e9ce3" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_forcePick</name></member>
@@ -604,25 +953,72 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1Button_1a1cb5fd3fd0388b5ab105ea8cafa6008" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_getImageBox</name></member>
       <member refid="classMyGUI_1_1UserData_1fc4382ac3423790f57b478a0fe5030a2" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_getInternalData</name></member>
       <member refid="classMyGUI_1_1Widget_106700537a6fffaf43aa9c93e89d9cc7d" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>_getItemIndex</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1dd35646a24b80019d956bd8d9a8842e4" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_getMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b883cc09bbd15914970fa6a3a155b261" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_getMarginBottom</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1c389b55028cb6157b3832250de48cfe7" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_getMarginLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_11221b089abe10e18924bf5bb3209ac9f" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_getMarginRight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f875bcc3f5e3292c646142460892f7a4" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_getMarginTop</name></member>
+      <member refid="classMyGUI_1_1SkinItem_111f8d0452fdc560e02d3302bb100f994" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_getTextureName</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_13a7c73e8f4cc8dabcd76a5c6645900b9" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_getViewBottom</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1eaa2e53babcc2e3fdc8809f6eb8825bf" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_getViewHeight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_19c87ba1cec7e29effd49a8aed37e4bbe" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_getViewLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1ae878f922452310563bc53768acbee32" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_getViewRight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_16f7f0a2960a331640aaee3a88fdc8a20" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_getViewTop</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_10fb56854f3bb6d0f7f4f0e8f608fa37a" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_getViewWidth</name></member>
       <member refid="classMyGUI_1_1Widget_1ae54386446434e4b133c244925402375" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_initialise</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1e9ab842519de0d0d1ff6624c96a25aee" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_isMargin</name></member>
       <member refid="classMyGUI_1_1Widget_1175526a4b039cf13c7fec7012d7287fc" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>_resetContainer</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16ca16375013009df6343d5d704a5e0c5" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_riseKeyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16656b62ce7ec79ba18d0cdfedd2dfd4c" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_riseKeyButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c7feaf74a77264d4c2276ef7ae7238b9" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_riseKeyChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1d68d79f35d6a2d5ec4f063850199c699" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_riseKeyLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16890125536b19d6c6ec45482f3a36a46" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_riseKeySetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1ee33fe7ab755d138b20742d2b333a86a" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_riseMouseButtonClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10f7494e4a979775f2f67ab1b7a18c436" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_riseMouseButtonDoubleClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1abf1460346c8b853efde46128588f227" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_riseMouseButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18fe37f4239c9f31bc522520d6e30d047" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_riseMouseButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1ef279e1b31729b0975a8fd3dbba6f55a" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_riseMouseChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_181a0731821e5a71bd4ff6205428b78c9" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_riseMouseDrag</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1b08bce548d116bc1c6ef6e6d979d8de8" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_riseMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10adf6398d5b0e5890557061ac78ad65b" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_riseMouseMove</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1a012de5786a0bed2ae87a9deae13c0ef" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_riseMouseSetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_17e327836202f73c68ec038af7ffa8890" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_riseMouseWheel</name></member>
       <member refid="classMyGUI_1_1Widget_15df6dbd95e99b9b65b385d815026cf26" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setAlign</name></member>
       <member refid="classMyGUI_1_1Widget_1d3d48604ad15f958b81bf423f80271c9" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setContainer</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b7a33eeac6fd7e1ecc305decc2970249" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setCroppedParent</name></member>
       <member refid="classMyGUI_1_1UserData_12bd52c146bad41f99bbc7ed31335ad18" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setInternalData</name></member>
       <member refid="classMyGUI_1_1Button_113d1735eedde2c22f7e02f0cb5bdd96e" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setMouseFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1dabde72179cbe3f1640edb16d4b19185" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setRootKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1e63e896e1bc3441474eaf02d8c940fb0" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setRootMouseFocus</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b983e0ed07906a96b1f9a1a6d3593304" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setSkinItemAlign</name></member>
+      <member refid="classMyGUI_1_1SkinItem_121cde72c7bd643fec9816501fe986205" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setSkinItemAlpha</name></member>
+      <member refid="classMyGUI_1_1SkinItem_15f1951b1f095aaa695fb90ea7cef623b" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setSkinItemColour</name></member>
+      <member refid="classMyGUI_1_1SkinItem_199576e05c1de9db65b724308619559d4" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setSkinItemState</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1e7dffe0acef7ab94c35cd0cd70fede08" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setSkinItemVisible</name></member>
       <member refid="classMyGUI_1_1Button_1ea0ac035957ce7b80cbd7f86383df371" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setState</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b705b413faa908fe8424b57574a3410f" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setSubSkinVisible</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1d7130c196fcd0e29e06210f96240b171" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setTextureName</name></member>
       <member refid="classMyGUI_1_1Widget_13325a1f4c26917f6f73b207d0986e1bd" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setWidgetState</name></member>
       <member refid="classMyGUI_1_1Widget_155b19482fe01925c36e29af671e3d092" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_shutdown</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b5d81f68dff04ef4c975d8563ea0f598" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>_updateSkinItemView</name></member>
       <member refid="classMyGUI_1_1Widget_1dd935a48ef2c39688d8026c01e9e3939" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>_updateView</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1468694a8e650fa4c019298691bb515d5" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>addChildItem</name></member>
+      <member refid="classMyGUI_1_1LayerItem_151c4c558eec72b51f62753c2dfe44094" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>addChildNode</name></member>
+      <member refid="classMyGUI_1_1LayerItem_19ddb478b09b766f3c515523e8d0658b0" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>addRenderItem</name></member>
       <member refid="classMyGUI_1_1Widget_1b390f48a62a30d529c901cf8cfa1c24c" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>assignWidget</name></member>
+      <member refid="classMyGUI_1_1LayerItem_129e3f29933beef8f55ec8965a93be0cc" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>attachItemToNode</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1d8cf239c39b116a48a1517117d1fb9a6" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>attachToLayerItemNode</name></member>
       <member refid="classMyGUI_1_1Widget_105110870f31f66a901b3b11737c194de" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>attachToWidget</name></member>
       <member refid="classMyGUI_1_1Button_1b102386ae350f9700271c76bf1096c2e" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>Base</name></member>
       <member refid="classMyGUI_1_1Widget_1d88d7deb826efb660943ccb0bb457cae" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>baseCreateWidget</name></member>
       <member refid="classMyGUI_1_1Button_1266193db2a685b8767e2ef7c063df5d0" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>baseUpdateEnable</name></member>
       <member refid="classMyGUI_1_1Button_14a45b53aaac1df4a1c5837c0246ebfca" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>Button</name></member>
+      <member refid="classMyGUI_1_1IObject_1c542d61d7f1efd5c08dae100a3c68558" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>castType</name></member>
+      <member refid="classMyGUI_1_1IObject_1f636b3c71d893eeb41bebc1c6f4519e1" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>castType</name></member>
       <member refid="classMyGUI_1_1Widget_1be74d6cc433da6140629423b120735a4" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>changeWidgetSkin</name></member>
       <member refid="classMyGUI_1_1UserData_1f71561f766d83082a82cbdd6d218bd6b" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>clearUserString</name></member>
       <member refid="classMyGUI_1_1UserData_154fecc1b40c23594c6518589b6912e49" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>clearUserStrings</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_1c6738433a415e2f37a5d3f927c0cc7fe" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>compare</name></member>
       <member refid="classMyGUI_1_1Widget_1d66c5415fde332d5aab563402cffb09f" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>createWidget</name></member>
       <member refid="classMyGUI_1_1Widget_13a28d2e883ce82536b686ac992be672d" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>createWidget</name></member>
       <member refid="classMyGUI_1_1Widget_1f8660295aafb142287644c239a313e53" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>createWidget</name></member>
@@ -634,64 +1030,144 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1Widget_12e74ae3d0a439f4edd509e73d4b2a083" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>createWidgetT</name></member>
       <member refid="classMyGUI_1_1Widget_1e26a4a5e8ea3fa4bafd969eb952d88e9" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>createWidgetT</name></member>
       <member refid="classMyGUI_1_1Widget_1c1c862389f772c52077fe4f2cf6568b5" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>destroySkinWidget</name></member>
+      <member refid="classMyGUI_1_1LayerItem_113b56979c71726ffcb334b778b193716" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>detachFromLayer</name></member>
+      <member refid="classMyGUI_1_1LayerItem_13d324b33933eb9f9bc8ac9d51e05e54e" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>detachFromLayerItemNode</name></member>
       <member refid="classMyGUI_1_1Widget_1056ac7afc041cf328037e210c742302f" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>detachFromWidget</name></member>
       <member refid="classMyGUI_1_1Widget_130efcbdb772c4a75f8208a99c4f9f34d" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>eventChangeProperty</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_19c0c205a1523715242cb07f3e1bb0018" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>eventKeyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1fe364fecb43bd52d81894fd8cbb6ff7c" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>eventKeyButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1190abc3db9e410abf5b3e96aec9278db" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>eventKeyLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c4228a2d61d12a5f4f411512c2144823" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>eventKeySetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10e6830d3204b28e15ee1472de5ca0349" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>eventMouseButtonClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10e66a008ba9f9c4887d42eac663e4b72" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>eventMouseButtonDoubleClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1892130d1ef15dccc6314c70a172113b1" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>eventMouseButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_15a0432361acd9073b3669d49a2bd4ae9" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>eventMouseButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1075f29698be6ce4aa2e330f9ea120739" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>eventMouseDrag</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1bb439d65c18114eee9be1caf93b262b6" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>eventMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_12ac6dfa5dbd2cd51c57f9f4ceb246511" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>eventMouseMove</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18ca56a714afbf4c6cf45e29d5843a479" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>eventMouseSetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1efb2b8ab0a4d1cd7e19870343f3492a9" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>eventMouseWheel</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1d24b759d3ec5843fc7c317cc90862b79" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>eventRootKeyChangeFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1dbeaee810227eb6d583ce3fcea219309" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>eventRootMouseChangeFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18d45b85aeb9f2f2428f65cfe289d9c81" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>eventToolTip</name></member>
       <member refid="classMyGUI_1_1Widget_1d054e1027a48f2ccb9af0179359dadc5" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>findWidget</name></member>
       <member refid="classMyGUI_1_1Widget_1e6d193b99a9d69973922d1b8e0f0b70e" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>findWidgets</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_183d89c16d41d05bb8772f362b516dd3b" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getAbsoluteCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_19ac46efa204752d3d4a8495feaade9a0" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getAbsoluteLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1a3ae7bcd46578b5082c21a41962c3db6" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getAbsolutePosition</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_16221e701b940cd07bb2a41c84099dfa1" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getAbsoluteRect</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_108f36d963cb1bbcc853ffaf8f576d306" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getAbsoluteTop</name></member>
       <member refid="classMyGUI_1_1Widget_134cafbef78da90ca8fb6aca8964b337a" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getAlign</name></member>
       <member refid="classMyGUI_1_1Widget_1db1d462f1145cafb358754c03cd3e7f2" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getAlpha</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b0478e244c63d6201a748e371f237ae1" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getBottom</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4_156038b98f94f68d4671339d1ea4d26b7" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getButtonPressed</name></member>
       <member refid="classMyGUI_1_1TextBox_121d2e96a9c1c31b2dc26348cda7ebd81" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>getCaption</name></member>
       <member refid="classMyGUI_1_1Widget_1028535563d6d3666658d83e4d479fa6d" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getChildAt</name></member>
       <member refid="classMyGUI_1_1Widget_195ebe8be9fd3d29f7fa8f7846515eeec" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getChildCount</name></member>
       <member refid="classMyGUI_1_1Button_119373629cf7f96ce5a904c8ae8566a30" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getClassTypeName</name></member>
       <member refid="classMyGUI_1_1Widget_15ffebc869b3b4c36e31178616b27fc86" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getClientCoord</name></member>
       <member refid="classMyGUI_1_1Widget_1ac162cf5e6c51d487c71ae2e2d041352" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getClientWidget</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1a9cc9fbf580a3c77059f20fafcdb201f" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b6b24667d7810f93d79a9fa7750d01ce" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getCroppedParent</name></member>
       <member refid="classMyGUI_1_1Widget_15cd729c40ad712c7036a0d3f6a2507b2" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getEnabled</name></member>
       <member refid="classMyGUI_1_1Widget_1abfb5cf6661813f729bd30b4042e95d7" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getEnumerator</name></member>
       <member refid="classMyGUI_1_1TextBox_182cf5031ad57c818cfa9c5a9a0393263" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getFontHeight</name></member>
       <member refid="classMyGUI_1_1TextBox_1eb499df22061231d04ff0a29e87b2b06" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getFontName</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f5253c6b4dfb1107dd23b23fb1109413" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getHeight</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4_1e8d363cbb9349dfa4f5c01c794a23c88" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getImageIndex</name></member>
       <member refid="classMyGUI_1_1Widget_1c373e8170168b97491e777b99de0872b" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getInheritedEnabled</name></member>
       <member refid="classMyGUI_1_1Widget_1028a8ae99e47f513065ce3cbb11e4022" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getInheritedVisible</name></member>
       <member refid="classMyGUI_1_1Widget_1c2118d0bf46d9a7ec21c7aed9c7e71ca" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_15be056da5117affd416fe970459f1223" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getInheritsPick</name></member>
+      <member refid="classMyGUI_1_1LayerItem_171d7bb44b59f3636087d3c3361e44fd6" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getLayer</name></member>
       <member refid="classMyGUI_1_1Widget_175cedb78192d81e9dd1cef4a6c7a9fe3" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>getLayerItemByPoint</name></member>
       <member refid="classMyGUI_1_1Widget_13e00b99c46a0c1ebacf29604d503804d" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>getLayerItemCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1753231d8f8981c59cf6a4c92609c35e6" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getLeft</name></member>
       <member refid="classMyGUI_1_1Button_15ce21d2b9d0fee30ffc4361efdff3baa" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getModeImage</name></member>
       <member refid="classMyGUI_1_1Widget_1421a0e4eec959e8a5cd7f12ff459bfbf" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getName</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16022e50c3a0bab4f36628fa12a51b209" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getNeedKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1470aa4736e0a8f4a662a566eea240b85" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getNeedMouseFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18325fdd47dd74c8574f73bcb6c733df2" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getNeedToolTip</name></member>
       <member refid="classMyGUI_1_1Widget_174eb9e9819797e68a510a2ae6c3a410a" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getParent</name></member>
       <member refid="classMyGUI_1_1Widget_1ee1378b1a9bd3db495cbea32f0a13e20" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getParentSize</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c3ab2d84030f97c4303bc7da394ee333" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getPointer</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b8574746c63b6c512229f1022d497094" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getPosition</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1c2ce3e30f89af0955e511c66e111cf93" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getRight</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1e57aa4f6072057ca8d1a0855a761cbc1" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getRootKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_132e7d91855a309930f6a8318c1fca142" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getRootMouseFocus</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f557c510d0af74ac6c2770253d52b303" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getSize</name></member>
       <member refid="classMyGUI_1_1Widget_14a6523e37fad5103ef5896bdf349861d" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>getSkinWidgetsByName</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4_119344d02f91cbd99f5da5fb7146103ac" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getStateCheck</name></member>
       <member refid="classMyGUI_1_1Button_1d3c2c460e60c2eaa03f83af3ed951d58" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getStateSelected</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4_133cb68bf713b7a7489451c4e61136dd7" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getStaticImage</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b7ad0561eae858f69008e77b42fc4192" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getSubWidgetMain</name></member>
+      <member refid="classMyGUI_1_1SkinItem_18790679dbfff2a864b0bbb656d45ee53" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getSubWidgetText</name></member>
       <member refid="classMyGUI_1_1TextBox_1e2b4578eeb95ab1fb771e163d50f9b9c" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getTextAlign</name></member>
       <member refid="classMyGUI_1_1TextBox_1acc4e9fde74bb63723f7abd59f20ca29" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getTextColour</name></member>
       <member refid="classMyGUI_1_1TextBox_15e8dfe8de46c133f662ffba060f18d23" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>getTextRegion</name></member>
       <member refid="classMyGUI_1_1TextBox_1c0080a7ed833342b98c9376772d189e7" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getTextShadow</name></member>
       <member refid="classMyGUI_1_1TextBox_14d6ac0eb45e0d495ed874367cfac7577" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getTextShadowColour</name></member>
       <member refid="classMyGUI_1_1TextBox_1c5cac14b8c5a65f647dda4847b47cea8" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>getTextSize</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1ea03ec13020eb5016f3c17251a526ad9" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getTop</name></member>
       <member refid="classMyGUI_1_1Button_1cb0015e0094ee25e0118bd5a4ba6c1b2" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>getTypeName</name></member>
       <member refid="classMyGUI_1_1UserData_1eadd08cc61e475b95c588daf74789a06" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getUserData</name></member>
       <member refid="classMyGUI_1_1UserData_17c62f7374453eaf6e5316ac369559c53" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getUserString</name></member>
       <member refid="classMyGUI_1_1UserData_19bc43d45330305b52c5c3f0e9dffabab" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getUserStrings</name></member>
       <member refid="classMyGUI_1_1Widget_1fa7ad1d5a3213ee9f8c4567e6f3fdd7d" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getVisible</name></member>
       <member refid="classMyGUI_1_1Widget_15accf9c998578f20adcec5987dc820f2" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_152c93ea7b7c89b708b855a4924df310b" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getWidth</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_13b493ea3f8e5dcb4cc905da0b7c6dadf" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>ICroppedRectangle</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_1533f51403b804e09b3c2e8eb6d5e679b" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>IDelegateUnlink</name></member>
       <member refid="classMyGUI_1_1Button_1895d4b6d4e2cb41402350e1830250898" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>initialiseOverride</name></member>
+      <member refid="classMyGUI_1_1IObject_198f33c9772728fc4065fe0a1ffdf8246" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>IObject</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_1a089bb887fd20d3f8f279229f6d37bf3" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>isEnabled</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_14f28dc2b7d847c7266e2398c4795658a" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>isInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_147b9c837c75c627bad780cc44e4aefae" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>isInheritsPick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_150e91b6611a362474155ac2351752b54" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>isMaskPickInside</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_1f436236e6b75c0347f579fe84af5514b" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>isNeedKeyFocus</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_1ac609c231c1b2f6ac98c1f314df60415" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>isNeedMouseFocus</name></member>
       <member refid="classMyGUI_1_1Widget_1b3ec05a74f05236afb58855985781cd0" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>isRootWidget</name></member>
       <member refid="classMyGUI_1_1Button_1660a26b306b4cbb6f18e5fa6f624d6f0" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1Button_1b390ad7a1b48e88532ae7ab31c90b9dd" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1UserData_10bac17bc60b499cf0386ec3815d67f17" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>isUserString</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_19e2c621a8df680ee50f8f14cbadf2aff" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>isVisible</name></member>
+      <member refid="classMyGUI_1_1LayerItem_17a70f273e55fb2945c20fc54ec62969e" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>LayerItem</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_17b7faec75fa09c72701f8ab0fd416182" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>mAbsolutePosition</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_121be402c76c560b6568dc16c2f1e38a8" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>mCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_15d10640ec8d1a14f75b4a6287d92de12" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>mCroppedParent</name></member>
       <member refid="classMyGUI_1_1Button_1c902e87aee79d3bd76644a28662f449c" prot="private" virt="non-virtual"><scope>MyGUI::Button</scope><name>mImage</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_10f0b7542dde743b020713654c50536ca" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>mIsMargin</name></member>
       <member refid="classMyGUI_1_1Button_1666accd5e70cc74367d4a3a2bcb52183" prot="private" virt="non-virtual"><scope>MyGUI::Button</scope><name>mIsMouseFocus</name></member>
       <member refid="classMyGUI_1_1Button_1730e522b1c7f0dfcd685d99817395990" prot="private" virt="non-virtual"><scope>MyGUI::Button</scope><name>mIsMousePressed</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_125d27b33aeee62b852dc8009a7b942d7" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>mMargin</name></member>
       <member refid="classMyGUI_1_1Button_107b2061a9f1ddb844cc41cb2be3fbc0e" prot="private" virt="non-virtual"><scope>MyGUI::Button</scope><name>mModeImage</name></member>
       <member refid="classMyGUI_1_1Button_1b9d24e5528d80842e23e42d09a143357" prot="private" virt="non-virtual"><scope>MyGUI::Button</scope><name>mStateSelected</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1095e1acc8d228d9340b2b308c677fdf4" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onKeyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1270e79337e0087a161fa74b78aeb3127" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onKeyButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1b8e266d4069a1ab0363375bad9e35171" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onKeyChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18f59f529e001d90bbe4885ea29515673" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onKeyLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10b912cd730d4e657e7263fae829a4e6b" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onKeySetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1fca1246c61d023b454fab52e25d801a2" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onMouseButtonClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_157b503609f50ec453339ac3453760339" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onMouseButtonDoubleClick</name></member>
       <member refid="classMyGUI_1_1Button_1ff5aaac878cbdb58049093a7959008d6" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onMouseButtonPressed</name></member>
       <member refid="classMyGUI_1_1Button_15f9795cf94073910d01995ed19caaf2b" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onMouseButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_170648833f265898bf0dd63a2e1129ce4" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onMouseChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1feca6cb1a11fcb56921658032ce0cb49" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onMouseDrag</name></member>
       <member refid="classMyGUI_1_1Button_1e6dac6d5b157463db386d9f24cb71722" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16494acd321238c424c15be5f63f979d3" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onMouseMove</name></member>
       <member refid="classMyGUI_1_1Button_15d89eb1a4ed7600ea6ca9509f811842e" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onMouseSetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c9d454fb78e4244a3082e3ff3b30b14f" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onMouseWheel</name></member>
       <member refid="classMyGUI_1_1Widget_1a8cfc0deeb8c2c53c6fabf52dd167639" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onWidgetCreated</name></member>
       <member refid="classMyGUI_1_1Widget_1c64ffb617119185afaf5ef9650d4f9a5" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onWidgetDestroy</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1550fd1d2b74394288ff02714a1631c83" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>removeAllRenderItems</name></member>
+      <member refid="classMyGUI_1_1LayerItem_153e3219374e2c24c13c316350d4bd49f" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>removeChildItem</name></member>
+      <member refid="classMyGUI_1_1LayerItem_12a1a9be320fa11fc18976f0952681a3e" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>removeChildNode</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1b6f86f8277bb2ea3d128091849399f74" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>restoreLayerItem</name></member>
       <member refid="classMyGUI_1_1Button_17a1cb41841e9d40e50dc30397cd445a8" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1ba403583becd0b8438d47e45033f3a56" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>saveLayerItem</name></member>
       <member refid="classMyGUI_1_1Widget_1ebace37eedee14b3ff746b7a0085b993" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setAlign</name></member>
       <member refid="classMyGUI_1_1Widget_11204361b28430fa9a3b6927d6b4fe9ee" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setAlpha</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4_181fca5f8d39873ea1d40fda80d4ecd59" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setButtonPressed</name></member>
       <member refid="classMyGUI_1_1TextBox_10add0f3ad9abbc285ba369c8a4d5080d" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setCaption</name></member>
       <member refid="classMyGUI_1_1TextBox_120fe368f3845d4036a9f3d0cca2de148" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setCaptionWithReplacing</name></member>
       <member refid="classMyGUI_1_1Widget_1cbf134e83d95f63ff7ba7f4b3596449f" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setColour</name></member>
@@ -702,10 +1178,18 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1TextBox_1e567487392d88976456984442c5e44a2" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setFontHeight</name></member>
       <member refid="classMyGUI_1_1TextBox_18882452ac6bd460e73f46121c63b081b" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setFontName</name></member>
       <member refid="classMyGUI_1_1Button_104dbe36ac29a26f6e70f3b3b0266eecb" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setImageGroup</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4_120cdc174573ea2bd93f5b59b0daeda77" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setImageIndex</name></member>
       <member refid="classMyGUI_1_1Button_10fa6898909d595f2cdb171b08e18deba" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setImageName</name></member>
       <member refid="classMyGUI_1_1Button_18aa51de9d8b7a1b1468d7bfc7142f5e5" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setImageResource</name></member>
       <member refid="classMyGUI_1_1Widget_18b44677724faa4112312655e5feed8ae" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_19f3635d97a8d56053311cb2cb2887f5f" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setInheritsPick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_14e37553674c10c9b208db056aeeb805a" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setMaskPick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c8b141e404fa6c1a71505216a1ef5b43" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setMaskPick</name></member>
       <member refid="classMyGUI_1_1Button_1bcc71981a4ff1ef7b447d53cd39e466f" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setModeImage</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_161510314ec32dcff4fcecfe725f46a36" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setNeedKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_133723bb1ea73b5af6c0d3d0041104478" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setNeedMouseFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1b81aa840b2b8cb97b4fdccc92248b1b7" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setNeedToolTip</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1192554c59fcce521c063e72db4d867b1" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setPointer</name></member>
       <member refid="classMyGUI_1_1Widget_1bf87d2b9d27a2543da8fc7daea6abf75" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setPosition</name></member>
       <member refid="classMyGUI_1_1Widget_10463ede4342db8bc5ade2d78d77a142e" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setPosition</name></member>
       <member refid="classMyGUI_1_1Widget_11a6ea7822f869b777800b0d351112e69" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setProperty</name></member>
@@ -716,8 +1200,10 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1Widget_1c963db4709c8dfc9e681dfccd5fb6524" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setRealPosition</name></member>
       <member refid="classMyGUI_1_1Widget_1d7fba1f9976c36eacb528d6db9213ddf" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setRealSize</name></member>
       <member refid="classMyGUI_1_1Widget_15d89ff45c4bc5f6158382067673903ba" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1cf56aa200b89c991fb301b24069726be" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setRenderItemTexture</name></member>
       <member refid="classMyGUI_1_1Widget_1b8928099957173c4f58aee98d043faab" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setSize</name></member>
       <member refid="classMyGUI_1_1Widget_12bdc82ea4f915b8d9b4b36c61b5a3915" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setSize</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4_19b398dfaa52111a340f348ad70033e27" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setStateCheck</name></member>
       <member refid="classMyGUI_1_1Button_14c867b09dda7b6d22f724b2813142e00" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setStateSelected</name></member>
       <member refid="classMyGUI_1_1TextBox_10e3f84f169ccbb4d62057423c9f3cf8f" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setTextAlign</name></member>
       <member refid="classMyGUI_1_1TextBox_199437c63dc672cd4a2203533803b9b88" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setTextColour</name></member>
@@ -729,12 +1215,21 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1Widget_1c717aa06253e913156a6d24fb3d4cbc4" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>setWidgetClient</name></member>
       <member refid="classMyGUI_1_1Widget_1372d21a0125ab28cc5c2c295290a2806" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setWidgetStyle</name></member>
       <member refid="classMyGUI_1_1Button_1020da83689bb164ad57e54e029aa6898" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>shutdownOverride</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1df3cc9ecbcf4702c02b1d265c5d0a7f9" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>SkinItem</name></member>
       <member refid="classMyGUI_1_1TextBox_1c9823be8b1b86d97123b9ab05ee81c77" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>TextBox</name></member>
       <member refid="classMyGUI_1_1Button_1dd0700107f460739171a11e6beae58f5" prot="private" virt="non-virtual"><scope>MyGUI::Button</scope><name>updateButtonState</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1c7c30ce98c7f9312b522d6c67b050be4" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>upLayerItem</name></member>
       <member refid="classMyGUI_1_1UserData_1108076068708e939519f9c775c2ae87b" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>UserData</name></member>
       <member refid="classMyGUI_1_1Widget_1f4814618768bc07a685495895ca47b04" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>Widget</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1436c5c5a088a95b40a252574f8ff0506" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>WidgetInput</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_128f4ca979240bf4bb4363d84213b6041" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>~ICroppedRectangle</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_12f7d8818258bb5ee2218ea20450b2997" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>~IDelegateUnlink</name></member>
+      <member refid="classMyGUI_1_1ILayerItem_18f05b429c402a94b666bfffee2ef3ed5" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>~ILayerItem</name></member>
+      <member refid="classMyGUI_1_1IObject_1ba65cf3c7393db4589ce28630a5aaadf" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>~IObject</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1412d7e8ee5a5a4773cf27695f402c351" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>~LayerItem</name></member>
       <member refid="classMyGUI_1_1UserData_1a970af2c1f39e0fa8801fd9defb06d84" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>~UserData</name></member>
       <member refid="classMyGUI_1_1Widget_18ff3c2a98bbea22f4f0191bcac54b643" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>~Widget</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_106e5ebe1aa33cb737fdaaee9e8708356" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>~WidgetInput</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

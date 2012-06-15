@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1Timer" kind="class" prot="public">
     <compoundname>MyGUI::Timer</compoundname>
+    <includes local="no">MyGUI_Timer.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1Timer_177ced6135408fcedd3b3ddd537b8edc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>

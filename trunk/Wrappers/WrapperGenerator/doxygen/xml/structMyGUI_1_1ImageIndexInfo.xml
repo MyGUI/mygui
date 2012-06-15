@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1ImageIndexInfo" kind="struct" prot="public">
     <compoundname>MyGUI::ImageIndexInfo</compoundname>
+    <includes local="no">MyGUI_ImageInfo.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="structMyGUI_1_1ImageIndexInfo_162f43bbbccade5a174c8d2093ab1e851" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -13,7 +14,7 @@
           <declname>_texture</declname>
         </param>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_size</declname>
         </param>
         <param>
@@ -21,7 +22,7 @@
           <declname>_rate</declname>
         </param>
         <param>
-          <type>const std::vector&lt; IntPoint &gt; &amp;</type>
+          <type>const std::vector&lt; <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref> &gt; &amp;</type>
           <declname>_frames</declname>
         </param>
         <briefdescription>
@@ -48,7 +49,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" line="57" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" bodystart="57" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMyGUI_1_1ImageIndexInfo_1ad2d6c0de6fbb231ed204cbed89e9a96" prot="public" static="no" mutable="no">
-        <type>const IntSize &amp;</type>
+        <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
         <definition>const IntSize&amp; MyGUI::ImageIndexInfo::size</definition>
         <argsstring></argsstring>
         <name>size</name>
@@ -74,7 +75,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" line="59" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" bodystart="59" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMyGUI_1_1ImageIndexInfo_1d369e9496428a939ed1f5e6b12852726" prot="public" static="no" mutable="no">
-        <type>const std::vector&lt; IntPoint &gt; &amp;</type>
+        <type>const std::vector&lt; <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref> &gt; &amp;</type>
         <definition>const std::vector&lt;IntPoint&gt;&amp; MyGUI::ImageIndexInfo::frames</definition>
         <argsstring></argsstring>
         <name>frames</name>
@@ -91,6 +92,26 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <collaborationgraph>
+      <node id="1027">
+        <label>T</label>
+      </node>
+      <node id="1025">
+        <label>MyGUI::ImageIndexInfo</label>
+        <link refid="structMyGUI_1_1ImageIndexInfo"/>
+        <childnode refid="1026" relation="usage">
+          <edgelabel>size</edgelabel>
+        </childnode>
+      </node>
+      <node id="1026">
+        <label>MyGUI::types::TSize&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TSize"/>
+        <childnode refid="1027" relation="usage">
+          <edgelabel>width
+height</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" line="46" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" bodystart="45" bodyend="61"/>
     <listofallmembers>
       <member refid="structMyGUI_1_1ImageIndexInfo_1d369e9496428a939ed1f5e6b12852726" prot="public" virt="non-virtual"><scope>MyGUI::ImageIndexInfo</scope><name>frames</name></member>

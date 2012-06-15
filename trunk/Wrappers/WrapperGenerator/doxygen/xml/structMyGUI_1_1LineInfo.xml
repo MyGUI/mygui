@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1LineInfo" kind="struct" prot="public">
     <compoundname>MyGUI::LineInfo</compoundname>
+    <includes local="no">MyGUI_TextViewData.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="structMyGUI_1_1LineInfo_119fd5adb90d6e443725bfd13bd7a9814" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -71,7 +72,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h" line="132" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextViewData.h" bodystart="132" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMyGUI_1_1LineInfo_109b8b1e106869cc4fc496741c7791dae" prot="public" static="no" mutable="no">
-        <type>VectorCharInfo</type>
+        <type><ref refid="namespaceMyGUI_17af3969ab8f787f40f648aa41a3217f8" kindref="member">VectorCharInfo</ref></type>
         <definition>VectorCharInfo MyGUI::LineInfo::simbols</definition>
         <argsstring></argsstring>
         <name>simbols</name>

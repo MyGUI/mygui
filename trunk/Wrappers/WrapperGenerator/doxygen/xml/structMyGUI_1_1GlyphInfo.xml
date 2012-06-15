@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1GlyphInfo" kind="struct" prot="public">
     <compoundname>MyGUI::GlyphInfo</compoundname>
+    <includes local="no">MyGUI_FontData.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="structMyGUI_1_1GlyphInfo_1b828ed2eb2b8ea5c7e9743a8de0dae0c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -9,7 +10,7 @@
         <argsstring>(Char _codePoint=0U, float _width=0.0f, float _height=0.0f, float _advance=0.0f, float _bearingX=0.0f, float _bearingY=0.0f, const FloatRect &amp;_uvRect=FloatRect())</argsstring>
         <name>GlyphInfo</name>
         <param>
-          <type>Char</type>
+          <type><ref refid="namespaceMyGUI_1312ae095245acb5cb634a8eb34d21017" kindref="member">Char</ref></type>
           <declname>_codePoint</declname>
           <defval>0U</defval>
         </param>
@@ -39,9 +40,9 @@
           <defval>0.0f</defval>
         </param>
         <param>
-          <type>const FloatRect &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">FloatRect</ref> &amp;</type>
           <declname>_uvRect</declname>
-          <defval>FloatRect()</defval>
+          <defval><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">FloatRect</ref>()</defval>
         </param>
         <briefdescription>
         </briefdescription>
@@ -54,7 +55,7 @@
       </sectiondef>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structMyGUI_1_1GlyphInfo_1615057cf963d19e373958007edbd249d" prot="public" static="no" mutable="no">
-        <type>Char</type>
+        <type><ref refid="namespaceMyGUI_1312ae095245acb5cb634a8eb34d21017" kindref="member">Char</ref></type>
         <definition>Char MyGUI::GlyphInfo::codePoint</definition>
         <argsstring></argsstring>
         <name>codePoint</name>
@@ -132,7 +133,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" line="78" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" bodystart="78" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMyGUI_1_1GlyphInfo_12eb2cd4ae7eb6a8b552d52d6fa8e8e80" prot="public" static="no" mutable="no">
-        <type>FloatRect</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">FloatRect</ref></type>
         <definition>FloatRect MyGUI::GlyphInfo::uvRect</definition>
         <argsstring></argsstring>
         <name>uvRect</name>
@@ -149,6 +150,28 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <collaborationgraph>
+      <node id="647">
+        <label>T</label>
+      </node>
+      <node id="645">
+        <label>MyGUI::GlyphInfo</label>
+        <link refid="structMyGUI_1_1GlyphInfo"/>
+        <childnode refid="646" relation="usage">
+          <edgelabel>uvRect</edgelabel>
+        </childnode>
+      </node>
+      <node id="646">
+        <label>MyGUI::types::TRect&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TRect"/>
+        <childnode refid="647" relation="usage">
+          <edgelabel>right
+left
+bottom
+top</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" line="54" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h" bodystart="53" bodyend="80"/>
     <listofallmembers>
       <member refid="structMyGUI_1_1GlyphInfo_1888a25aed9e443a21277ccce2424d4c0" prot="public" virt="non-virtual"><scope>MyGUI::GlyphInfo</scope><name>advance</name></member>

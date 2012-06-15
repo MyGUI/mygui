@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1LogSource" kind="class" prot="public">
     <compoundname>MyGUI::LogSource</compoundname>
+    <includes local="no">MyGUI_LogSource.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1LogSource_1bfed79c1f600f8d9743459a4bbccdffd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -35,7 +36,7 @@
         <argsstring>(ILogFilter *_filter)</argsstring>
         <name>setLogFilter</name>
         <param>
-          <type>ILogFilter *</type>
+          <type><ref refid="classMyGUI_1_1ILogFilter" kindref="compound">ILogFilter</ref> *</type>
           <declname>_filter</declname>
         </param>
         <briefdescription>
@@ -52,7 +53,7 @@
         <argsstring>(ILogListener *_lestener)</argsstring>
         <name>addLogListener</name>
         <param>
-          <type>ILogListener *</type>
+          <type><ref refid="classMyGUI_1_1ILogListener" kindref="compound">ILogListener</ref> *</type>
           <declname>_lestener</declname>
         </param>
         <briefdescription>
@@ -71,7 +72,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Call ILogListener::open() for all listeners. </para>        </detaileddescription>
+<para>Call <ref refid="classMyGUI_1_1ILogListener_19306e61a4fe41f4e1f751a16ce4ec18f" kindref="member">ILogListener::open()</ref> for all listeners. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" line="45"/>
@@ -84,7 +85,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Call ILogListener::close() for all listeners. </para>        </detaileddescription>
+<para>Call <ref refid="classMyGUI_1_1ILogListener_1032e5b9021e48510b6d92de996dbffae" kindref="member">ILogListener::close()</ref> for all listeners. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" line="47"/>
@@ -97,7 +98,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Call ILogListener::flush() for all listeners. </para>        </detaileddescription>
+<para>Call <ref refid="classMyGUI_1_1ILogListener_113df2bf794ae9962936a7bc717a82e0f" kindref="member">ILogListener::flush()</ref> for all listeners. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" line="49"/>
@@ -112,7 +113,7 @@
           <declname>_section</declname>
         </param>
         <param>
-          <type>LogLevel</type>
+          <type><ref refid="structMyGUI_1_1LogLevel" kindref="compound">LogLevel</ref></type>
           <declname>_level</declname>
         </param>
         <param>
@@ -134,7 +135,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Call ILogListener::log for all listeners for messages that match LogSource filter (<simplesect kind="see"><para>void setLogFilter(ILogFilter* _filter)). </para></simplesect>
+<para>Call <ref refid="classMyGUI_1_1ILogListener_15f47a1b366440a51117f50feff7c1e3c" kindref="member">ILogListener::log</ref> for all listeners for messages that match <ref refid="classMyGUI_1_1LogSource" kindref="compound">LogSource</ref> filter (<simplesect kind="see"><para>void <ref refid="classMyGUI_1_1LogSource_108d65f5a4fdf430dfa75b04f4ed2ddef" kindref="member">setLogFilter(ILogFilter* _filter)</ref>). </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -143,7 +144,7 @@
       </sectiondef>
       <sectiondef kind="private-type">
       <memberdef kind="typedef" id="classMyGUI_1_1LogSource_160b1f194dd08d7cb48f87acbd7c07b86" prot="private" static="no">
-        <type>std::vector&lt; ILogListener * &gt;</type>
+        <type>std::vector&lt; <ref refid="classMyGUI_1_1ILogListener" kindref="compound">ILogListener</ref> * &gt;</type>
         <definition>typedef std::vector&lt;ILogListener*&gt; MyGUI::LogSource::VectorLogListeners</definition>
         <argsstring></argsstring>
         <name>VectorLogListeners</name>
@@ -171,7 +172,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" line="55" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" bodystart="55" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1LogSource_107e7c345f5dd6d985ffe35b4d30be4ed" prot="private" static="no" mutable="no">
-        <type>ILogFilter *</type>
+        <type><ref refid="classMyGUI_1_1ILogFilter" kindref="compound">ILogFilter</ref> *</type>
         <definition>ILogFilter* MyGUI::LogSource::mFilter</definition>
         <argsstring></argsstring>
         <name>mFilter</name>
@@ -188,6 +189,19 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <collaborationgraph>
+      <node id="1476">
+        <label>MyGUI::LogSource</label>
+        <link refid="classMyGUI_1_1LogSource"/>
+        <childnode refid="1477" relation="usage">
+          <edgelabel>mFilter</edgelabel>
+        </childnode>
+      </node>
+      <node id="1477">
+        <label>MyGUI::ILogFilter</label>
+        <link refid="classMyGUI_1_1ILogFilter"/>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LogSource.h" bodystart="33" bodyend="57"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1LogSource_1f26ee19b28ca1aa9c68b81aefe439be2" prot="public" virt="non-virtual"><scope>MyGUI::LogSource</scope><name>addLogListener</name></member>

@@ -2,6 +2,13 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1IUnlinkWidget" kind="class" prot="public">
     <compoundname>MyGUI::IUnlinkWidget</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1ControllerManager" prot="public" virt="non-virtual">MyGUI::ControllerManager</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1Gui" prot="public" virt="non-virtual">MyGUI::Gui</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1InputManager" prot="public" virt="non-virtual">MyGUI::InputManager</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1LayerManager" prot="public" virt="non-virtual">MyGUI::LayerManager</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1PointerManager" prot="public" virt="non-virtual">MyGUI::PointerManager</derivedcompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1ToolTipManager" prot="public" virt="non-virtual">MyGUI::ToolTipManager</derivedcompoundref>
+    <includes local="no">MyGUI_IUnlinkWidget.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1IUnlinkWidget_1a2e24c22ce9088c193b5b759c1f283d6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>virtual</type>
@@ -21,6 +28,12 @@
         <definition>virtual void MyGUI::IUnlinkWidget::_unlinkWidget</definition>
         <argsstring>(Widget *_widget)=0</argsstring>
         <name>_unlinkWidget</name>
+        <reimplementedby refid="classMyGUI_1_1ToolTipManager_1a687f6c5ef820bd3886c55f8b8a5eabe">_unlinkWidget</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1PointerManager_1afda065cf00937389245d625c13f41c8">_unlinkWidget</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1LayerManager_1edab19f2dfe7680b46e99d28a3fdec1d">_unlinkWidget</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1InputManager_1093067fbf1678bd77ca97987c72d7a02">_unlinkWidget</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Gui_13042b15c78f75af0d2f808737a1774c7">_unlinkWidget</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ControllerManager_19ddf5323f457d72d99ce7099f9ac4c58">_unlinkWidget</reimplementedby>
         <param>
           <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
           <declname>_widget</declname>
@@ -38,6 +51,48 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1322">
+        <label>MyGUI::ControllerManager</label>
+        <link refid="classMyGUI_1_1ControllerManager"/>
+        <childnode refid="1321" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1326">
+        <label>MyGUI::PointerManager</label>
+        <link refid="classMyGUI_1_1PointerManager"/>
+        <childnode refid="1321" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1321">
+        <label>MyGUI::IUnlinkWidget</label>
+        <link refid="classMyGUI_1_1IUnlinkWidget"/>
+      </node>
+      <node id="1324">
+        <label>MyGUI::InputManager</label>
+        <link refid="classMyGUI_1_1InputManager"/>
+        <childnode refid="1321" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1323">
+        <label>MyGUI::Gui</label>
+        <link refid="classMyGUI_1_1Gui"/>
+        <childnode refid="1321" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1327">
+        <label>MyGUI::ToolTipManager</label>
+        <link refid="classMyGUI_1_1ToolTipManager"/>
+        <childnode refid="1321" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1325">
+        <label>MyGUI::LayerManager</label>
+        <link refid="classMyGUI_1_1LayerManager"/>
+        <childnode refid="1321" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IUnlinkWidget.h" line="32" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IUnlinkWidget.h" bodystart="31" bodyend="36"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1IUnlinkWidget_1f91e3521c71ef6ff34707922d0dc7fc5" prot="public" virt="pure-virtual"><scope>MyGUI::IUnlinkWidget</scope><name>_unlinkWidget</name></member>

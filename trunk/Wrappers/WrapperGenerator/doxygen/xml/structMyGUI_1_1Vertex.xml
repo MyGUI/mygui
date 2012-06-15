@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1Vertex" kind="struct" prot="public">
     <compoundname>MyGUI::Vertex</compoundname>
+    <includes local="no">MyGUI_VertexData.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="structMyGUI_1_1Vertex_15d3fa59b901bb44631c8826ca15e9767" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -29,7 +30,7 @@
           <declname>_v</declname>
         </param>
         <param>
-          <type>uint32</type>
+          <type><ref refid="namespaceMyGUI_1e11a5769e2d89121966117b44b09625f" kindref="member">uint32</ref></type>
           <declname>_colour</declname>
         </param>
         <briefdescription>
@@ -82,7 +83,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" bodystart="43" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMyGUI_1_1Vertex_1a96ee16005b963096c0fd97053dfdc1e" prot="public" static="no" mutable="no">
-        <type>uint32</type>
+        <type><ref refid="namespaceMyGUI_1e11a5769e2d89121966117b44b09625f" kindref="member">uint32</ref></type>
         <definition>uint32 MyGUI::Vertex::colour</definition>
         <argsstring></argsstring>
         <name>colour</name>

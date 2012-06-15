@@ -43,7 +43,7 @@
         <argsstring>(ToolTipType _type)</argsstring>
         <name>ToolTipInfo</name>
         <param>
-          <type>ToolTipType</type>
+          <type><ref refid="structMyGUI_1_1ToolTipInfo_1bbacca1df7f234eb4aea0ed054f8dc75" kindref="member">ToolTipType</ref></type>
           <declname>_type</declname>
         </param>
         <briefdescription>
@@ -60,7 +60,7 @@
         <argsstring>(ToolTipType _type, size_t _index, const IntPoint &amp;_point)</argsstring>
         <name>ToolTipInfo</name>
         <param>
-          <type>ToolTipType</type>
+          <type><ref refid="structMyGUI_1_1ToolTipInfo_1bbacca1df7f234eb4aea0ed054f8dc75" kindref="member">ToolTipType</ref></type>
           <declname>_type</declname>
         </param>
         <param>
@@ -68,7 +68,7 @@
           <declname>_index</declname>
         </param>
         <param>
-          <type>const IntPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref> &amp;</type>
           <declname>_point</declname>
         </param>
         <briefdescription>
@@ -82,7 +82,7 @@
       </sectiondef>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structMyGUI_1_1ToolTipInfo_1386d9421f70140b23de9b1b3a3df4375" prot="public" static="no" mutable="no">
-        <type>ToolTipType</type>
+        <type><ref refid="structMyGUI_1_1ToolTipInfo_1bbacca1df7f234eb4aea0ed054f8dc75" kindref="member">ToolTipType</ref></type>
         <definition>ToolTipType MyGUI::ToolTipInfo::type</definition>
         <argsstring></argsstring>
         <name>type</name>
@@ -108,7 +108,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetToolTip.h" line="55" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetToolTip.h" bodystart="55" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMyGUI_1_1ToolTipInfo_1164bafb5f2f1be77b8c8214701eb9f0f" prot="public" static="no" mutable="no">
-        <type>IntPoint</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref></type>
         <definition>IntPoint MyGUI::ToolTipInfo::point</definition>
         <argsstring></argsstring>
         <name>point</name>
@@ -125,6 +125,26 @@
     </briefdescription>
     <detaileddescription>
 <para>Info about tootip state </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2847">
+        <label>T</label>
+      </node>
+      <node id="2845">
+        <label>MyGUI::ToolTipInfo</label>
+        <link refid="structMyGUI_1_1ToolTipInfo"/>
+        <childnode refid="2846" relation="usage">
+          <edgelabel>point</edgelabel>
+        </childnode>
+      </node>
+      <node id="2846">
+        <label>MyGUI::types::TPoint&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TPoint"/>
+        <childnode refid="2847" relation="usage">
+          <edgelabel>left
+top</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetToolTip.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetToolTip.h" bodystart="32" bodyend="57"/>
     <listofallmembers>
       <member refid="structMyGUI_1_1ToolTipInfo_1bbacca1df7f234eb4aea0ed054f8dc7529bbb09c05aafc267c7d1a988960f3fa" prot="public" virt="non-virtual"><scope>MyGUI::ToolTipInfo</scope><name>Hide</name></member>

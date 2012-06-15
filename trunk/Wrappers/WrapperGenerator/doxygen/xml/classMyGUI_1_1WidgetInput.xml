@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1WidgetInput" kind="class" prot="public">
     <compoundname>MyGUI::WidgetInput</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1Widget" prot="public" virt="non-virtual">MyGUI::Widget</derivedcompoundref>
+    <includes local="no">MyGUI_WidgetInput.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1WidgetInput_1436c5c5a088a95b40a252574f8ff0506" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -205,7 +207,7 @@
         <argsstring>(const MaskPickInfo &amp;_info)</argsstring>
         <name>setMaskPick</name>
         <param>
-          <type>const MaskPickInfo &amp;</type>
+          <type>const <ref refid="classMyGUI_1_1MaskPickInfo" kindref="compound">MaskPickInfo</ref> &amp;</type>
           <declname>_info</declname>
         </param>
         <briefdescription>
@@ -222,11 +224,11 @@
         <argsstring>(const IntPoint &amp;_point, const IntCoord &amp;_coord) const </argsstring>
         <name>isMaskPickInside</name>
         <param>
-          <type>const IntPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref> &amp;</type>
           <declname>_point</declname>
         </param>
         <param>
-          <type>const IntCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_coord</declname>
         </param>
         <briefdescription>
@@ -311,7 +313,7 @@
           <declname>_top</declname>
         </param>
         <param>
-          <type>MouseButton</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref></type>
           <declname>_id</declname>
         </param>
         <briefdescription>
@@ -374,7 +376,7 @@
           <declname>_top</declname>
         </param>
         <param>
-          <type>MouseButton</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref></type>
           <declname>_id</declname>
         </param>
         <briefdescription>
@@ -399,7 +401,7 @@
           <declname>_top</declname>
         </param>
         <param>
-          <type>MouseButton</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref></type>
           <declname>_id</declname>
         </param>
         <briefdescription>
@@ -476,11 +478,11 @@
         <argsstring>(KeyCode _key, Char _char)</argsstring>
         <name>_riseKeyButtonPressed</name>
         <param>
-          <type>KeyCode</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref></type>
           <declname>_key</declname>
         </param>
         <param>
-          <type>Char</type>
+          <type><ref refid="namespaceMyGUI_1312ae095245acb5cb634a8eb34d21017" kindref="member">Char</ref></type>
           <declname>_char</declname>
         </param>
         <briefdescription>
@@ -497,7 +499,7 @@
         <argsstring>(KeyCode _key)</argsstring>
         <name>_riseKeyButtonReleased</name>
         <param>
-          <type>KeyCode</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref></type>
           <declname>_key</declname>
         </param>
         <briefdescription>
@@ -579,7 +581,7 @@
       </sectiondef>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1WidgetInput_1bb439d65c18114eee9be1caf93b262b6" prot="public" static="no" mutable="no">
-        <type>EventHandle_WidgetWidget</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">EventHandle_WidgetWidget</ref></type>
         <definition>EventHandle_WidgetWidget MyGUI::WidgetInput::eventMouseLostFocus</definition>
         <argsstring></argsstring>
         <name>eventMouseLostFocus</name>
@@ -609,7 +611,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="131" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="131" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1WidgetInput_18ca56a714afbf4c6cf45e29d5843a479" prot="public" static="no" mutable="no">
-        <type>EventHandle_WidgetWidget</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">EventHandle_WidgetWidget</ref></type>
         <definition>EventHandle_WidgetWidget MyGUI::WidgetInput::eventMouseSetFocus</definition>
         <argsstring></argsstring>
         <name>eventMouseSetFocus</name>
@@ -639,7 +641,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="139" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="139" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1WidgetInput_1075f29698be6ce4aa2e330f9ea120739" prot="public" static="no" mutable="no">
-        <type>EventPair3to4&lt; EventHandle_WidgetIntInt, EventHandle_WidgetIntIntButton &gt;</type>
+        <type><ref refid="classMyGUI_1_1EventPair3to4" kindref="compound">EventPair3to4</ref>&lt; <ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate3" kindref="compound">EventHandle_WidgetIntInt</ref>, <ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate4" kindref="compound">EventHandle_WidgetIntIntButton</ref> &gt;</type>
         <definition>EventPair3to4&lt;EventHandle_WidgetIntInt, EventHandle_WidgetIntIntButton&gt; MyGUI::WidgetInput::eventMouseDrag</definition>
         <argsstring></argsstring>
         <name>eventMouseDrag</name>
@@ -676,7 +678,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="148" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="148" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1WidgetInput_12ac6dfa5dbd2cd51c57f9f4ceb246511" prot="public" static="no" mutable="no">
-        <type>EventHandle_WidgetIntInt</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate3" kindref="compound">EventHandle_WidgetIntInt</ref></type>
         <definition>EventHandle_WidgetIntInt MyGUI::WidgetInput::eventMouseMove</definition>
         <argsstring></argsstring>
         <name>eventMouseMove</name>
@@ -713,7 +715,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="157" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="157" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1WidgetInput_1efb2b8ab0a4d1cd7e19870343f3492a9" prot="public" static="no" mutable="no">
-        <type>EventHandle_WidgetInt</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">EventHandle_WidgetInt</ref></type>
         <definition>EventHandle_WidgetInt MyGUI::WidgetInput::eventMouseWheel</definition>
         <argsstring></argsstring>
         <name>eventMouseWheel</name>
@@ -743,7 +745,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="165" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="165" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1WidgetInput_1892130d1ef15dccc6314c70a172113b1" prot="public" static="no" mutable="no">
-        <type>EventHandle_WidgetIntIntButton</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate4" kindref="compound">EventHandle_WidgetIntIntButton</ref></type>
         <definition>EventHandle_WidgetIntIntButton MyGUI::WidgetInput::eventMouseButtonPressed</definition>
         <argsstring></argsstring>
         <name>eventMouseButtonPressed</name>
@@ -787,7 +789,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="175" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="175" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1WidgetInput_15a0432361acd9073b3669d49a2bd4ae9" prot="public" static="no" mutable="no">
-        <type>EventHandle_WidgetIntIntButton</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate4" kindref="compound">EventHandle_WidgetIntIntButton</ref></type>
         <definition>EventHandle_WidgetIntIntButton MyGUI::WidgetInput::eventMouseButtonReleased</definition>
         <argsstring></argsstring>
         <name>eventMouseButtonReleased</name>
@@ -831,7 +833,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="185" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="185" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1WidgetInput_10e6830d3204b28e15ee1472de5ca0349" prot="public" static="no" mutable="no">
-        <type>EventHandle_WidgetVoid</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">EventHandle_WidgetVoid</ref></type>
         <definition>EventHandle_WidgetVoid MyGUI::WidgetInput::eventMouseButtonClick</definition>
         <argsstring></argsstring>
         <name>eventMouseButtonClick</name>
@@ -853,7 +855,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="192" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="192" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1WidgetInput_10e66a008ba9f9c4887d42eac663e4b72" prot="public" static="no" mutable="no">
-        <type>EventHandle_WidgetVoid</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">EventHandle_WidgetVoid</ref></type>
         <definition>EventHandle_WidgetVoid MyGUI::WidgetInput::eventMouseButtonDoubleClick</definition>
         <argsstring></argsstring>
         <name>eventMouseButtonDoubleClick</name>
@@ -875,7 +877,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="199" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="199" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1WidgetInput_1190abc3db9e410abf5b3e96aec9278db" prot="public" static="no" mutable="no">
-        <type>EventHandle_WidgetWidget</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">EventHandle_WidgetWidget</ref></type>
         <definition>EventHandle_WidgetWidget MyGUI::WidgetInput::eventKeyLostFocus</definition>
         <argsstring></argsstring>
         <name>eventKeyLostFocus</name>
@@ -905,7 +907,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="207" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="207" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1WidgetInput_1c4228a2d61d12a5f4f411512c2144823" prot="public" static="no" mutable="no">
-        <type>EventHandle_WidgetWidget</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">EventHandle_WidgetWidget</ref></type>
         <definition>EventHandle_WidgetWidget MyGUI::WidgetInput::eventKeySetFocus</definition>
         <argsstring></argsstring>
         <name>eventKeySetFocus</name>
@@ -935,7 +937,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="215" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="215" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1WidgetInput_19c0c205a1523715242cb07f3e1bb0018" prot="public" static="no" mutable="no">
-        <type>EventHandle_WidgetKeyCodeChar</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate3" kindref="compound">EventHandle_WidgetKeyCodeChar</ref></type>
         <definition>EventHandle_WidgetKeyCodeChar MyGUI::WidgetInput::eventKeyButtonPressed</definition>
         <argsstring></argsstring>
         <name>eventKeyButtonPressed</name>
@@ -972,7 +974,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="224" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="224" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1WidgetInput_1fe364fecb43bd52d81894fd8cbb6ff7c" prot="public" static="no" mutable="no">
-        <type>EventHandle_WidgetKeyCode</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">EventHandle_WidgetKeyCode</ref></type>
         <definition>EventHandle_WidgetKeyCode MyGUI::WidgetInput::eventKeyButtonReleased</definition>
         <argsstring></argsstring>
         <name>eventKeyButtonReleased</name>
@@ -1002,7 +1004,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="232" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="232" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1WidgetInput_1dbeaee810227eb6d583ce3fcea219309" prot="public" static="no" mutable="no">
-        <type>EventHandle_WidgetBool</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">EventHandle_WidgetBool</ref></type>
         <definition>EventHandle_WidgetBool MyGUI::WidgetInput::eventRootMouseChangeFocus</definition>
         <argsstring></argsstring>
         <name>eventRootMouseChangeFocus</name>
@@ -1032,7 +1034,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="241" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="241" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1WidgetInput_1d24b759d3ec5843fc7c317cc90862b79" prot="public" static="no" mutable="no">
-        <type>EventHandle_WidgetBool</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">EventHandle_WidgetBool</ref></type>
         <definition>EventHandle_WidgetBool MyGUI::WidgetInput::eventRootKeyChangeFocus</definition>
         <argsstring></argsstring>
         <name>eventRootKeyChangeFocus</name>
@@ -1062,7 +1064,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="250" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="250" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1WidgetInput_18d45b85aeb9f2f2428f65cfe289d9c81" prot="public" static="no" mutable="no">
-        <type>EventHandle_WidgetToolTip</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate2" kindref="compound">EventHandle_WidgetToolTip</ref></type>
         <definition>EventHandle_WidgetToolTip MyGUI::WidgetInput::eventToolTip</definition>
         <argsstring></argsstring>
         <name>eventToolTip</name>
@@ -1097,6 +1099,7 @@
         <definition>virtual void MyGUI::WidgetInput::onMouseLostFocus</definition>
         <argsstring>(Widget *_new)</argsstring>
         <name>onMouseLostFocus</name>
+        <reimplementedby refid="classMyGUI_1_1Button_1e6dac6d5b157463db386d9f24cb71722">onMouseLostFocus</reimplementedby>
         <param>
           <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
           <declname>_new</declname>
@@ -1114,6 +1117,7 @@
         <definition>virtual void MyGUI::WidgetInput::onMouseSetFocus</definition>
         <argsstring>(Widget *_old)</argsstring>
         <name>onMouseSetFocus</name>
+        <reimplementedby refid="classMyGUI_1_1Button_15d89eb1a4ed7600ea6ca9509f811842e">onMouseSetFocus</reimplementedby>
         <param>
           <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
           <declname>_old</declname>
@@ -1131,6 +1135,10 @@
         <definition>virtual void MyGUI::WidgetInput::onMouseDrag</definition>
         <argsstring>(int _left, int _top, MouseButton _id)</argsstring>
         <name>onMouseDrag</name>
+        <reimplementedby refid="classMyGUI_1_1Window_1513e358973409f18da04707c99ad0461">onMouseDrag</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_1c8e7076dafe89b35ad9a7b61413a95a1">onMouseDrag</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_15ff17b3293e5788dcc298814644ae839">onMouseDrag</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1DDContainer_1973f70e4ac0cdb6c2013885b7d336042">onMouseDrag</reimplementedby>
         <param>
           <type>int</type>
           <declname>_left</declname>
@@ -1140,7 +1148,7 @@
           <declname>_top</declname>
         </param>
         <param>
-          <type>MouseButton</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref></type>
           <declname>_id</declname>
         </param>
         <briefdescription>
@@ -1177,6 +1185,9 @@
         <definition>virtual void MyGUI::WidgetInput::onMouseWheel</definition>
         <argsstring>(int _rel)</argsstring>
         <name>onMouseWheel</name>
+        <reimplementedby refid="classMyGUI_1_1ScrollBar_1126fe5c1822cfaa8bed2223da72a7198">onMouseWheel</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ListBox_1a85e06e4187c778508265177e9c001d5">onMouseWheel</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_1c9b0c5a41146a807ded247ca5310a9b8">onMouseWheel</reimplementedby>
         <param>
           <type>int</type>
           <declname>_rel</declname>
@@ -1194,6 +1205,10 @@
         <definition>virtual void MyGUI::WidgetInput::onMouseButtonPressed</definition>
         <argsstring>(int _left, int _top, MouseButton _id)</argsstring>
         <name>onMouseButtonPressed</name>
+        <reimplementedby refid="classMyGUI_1_1Window_14cbd490045e0f1bc9535216ca4159d4b">onMouseButtonPressed</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_1ff5e3c225c2e07731fb8b2fac4ded384">onMouseButtonPressed</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1DDContainer_1722cca315b774dd26813c197366f8a6c">onMouseButtonPressed</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Button_1ff5aaac878cbdb58049093a7959008d6">onMouseButtonPressed</reimplementedby>
         <param>
           <type>int</type>
           <declname>_left</declname>
@@ -1203,7 +1218,7 @@
           <declname>_top</declname>
         </param>
         <param>
-          <type>MouseButton</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref></type>
           <declname>_id</declname>
         </param>
         <briefdescription>
@@ -1219,6 +1234,10 @@
         <definition>virtual void MyGUI::WidgetInput::onMouseButtonReleased</definition>
         <argsstring>(int _left, int _top, MouseButton _id)</argsstring>
         <name>onMouseButtonReleased</name>
+        <reimplementedby refid="classMyGUI_1_1Window_17c40e3c9c30f70b14562d74f81cb3aa6">onMouseButtonReleased</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_12eb4ebd594bfd79566e06e48c672219d">onMouseButtonReleased</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1DDContainer_14c1e2b986fa0d3c10d00840d8363ea7c">onMouseButtonReleased</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1Button_15f9795cf94073910d01995ed19caaf2b">onMouseButtonReleased</reimplementedby>
         <param>
           <type>int</type>
           <declname>_left</declname>
@@ -1228,7 +1247,7 @@
           <declname>_top</declname>
         </param>
         <param>
-          <type>MouseButton</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref></type>
           <declname>_id</declname>
         </param>
         <briefdescription>
@@ -1270,6 +1289,8 @@
         <definition>virtual void MyGUI::WidgetInput::onKeyLostFocus</definition>
         <argsstring>(Widget *_new)</argsstring>
         <name>onKeyLostFocus</name>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_1e35998c084138e9d268ccd9f503ebb9e">onKeyLostFocus</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_14a1794d9b02dc65ae360a9e573ebc9f9">onKeyLostFocus</reimplementedby>
         <param>
           <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
           <declname>_new</declname>
@@ -1287,6 +1308,8 @@
         <definition>virtual void MyGUI::WidgetInput::onKeySetFocus</definition>
         <argsstring>(Widget *_old)</argsstring>
         <name>onKeySetFocus</name>
+        <reimplementedby refid="classMyGUI_1_1ItemBox_19069119e32e9c860ddef3915b9a706ea">onKeySetFocus</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_11b4c231d7c8fd9721f41c39d71d66924">onKeySetFocus</reimplementedby>
         <param>
           <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
           <declname>_old</declname>
@@ -1304,12 +1327,15 @@
         <definition>virtual void MyGUI::WidgetInput::onKeyButtonPressed</definition>
         <argsstring>(KeyCode _key, Char _char)</argsstring>
         <name>onKeyButtonPressed</name>
+        <reimplementedby refid="classMyGUI_1_1ListBox_111e3f3f3f9fa796ec23274a844548263">onKeyButtonPressed</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1EditBox_13c9f468f7302a039882a0ccca92c92b7">onKeyButtonPressed</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1ComboBox_16642ced9c43004c1b6ac0e33a29fb1a5">onKeyButtonPressed</reimplementedby>
         <param>
-          <type>KeyCode</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref></type>
           <declname>_key</declname>
         </param>
         <param>
-          <type>Char</type>
+          <type><ref refid="namespaceMyGUI_1312ae095245acb5cb634a8eb34d21017" kindref="member">Char</ref></type>
           <declname>_char</declname>
         </param>
         <briefdescription>
@@ -1326,7 +1352,7 @@
         <argsstring>(KeyCode _key)</argsstring>
         <name>onKeyButtonReleased</name>
         <param>
-          <type>KeyCode</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref></type>
           <declname>_key</declname>
         </param>
         <briefdescription>
@@ -1342,6 +1368,7 @@
         <definition>virtual void MyGUI::WidgetInput::onMouseChangeRootFocus</definition>
         <argsstring>(bool _focus)</argsstring>
         <name>onMouseChangeRootFocus</name>
+        <reimplementedby refid="classMyGUI_1_1Window_18c3fb5e0c4e1a183d61603deb4521878">onMouseChangeRootFocus</reimplementedby>
         <param>
           <type>bool</type>
           <declname>_focus</declname>
@@ -1359,6 +1386,8 @@
         <definition>virtual void MyGUI::WidgetInput::onKeyChangeRootFocus</definition>
         <argsstring>(bool _focus)</argsstring>
         <name>onKeyChangeRootFocus</name>
+        <reimplementedby refid="classMyGUI_1_1Window_1f1a330522b1d9fc652af3cb10f1c25d9">onKeyChangeRootFocus</reimplementedby>
+        <reimplementedby refid="classMyGUI_1_1MenuControl_11d1996110608dcddbd883090f7d16143">onKeyChangeRootFocus</reimplementedby>
         <param>
           <type>bool</type>
           <declname>_focus</declname>
@@ -1387,7 +1416,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="298" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="298" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1WidgetInput_19fc5b697c7abf74559c1037e2959f9c4" prot="private" static="no" mutable="no">
-        <type>MaskPickInfo</type>
+        <type><ref refid="classMyGUI_1_1MaskPickInfo" kindref="compound">MaskPickInfo</ref></type>
         <definition>MaskPickInfo MyGUI::WidgetInput::mOwnMaskPickInfo</definition>
         <argsstring></argsstring>
         <name>mOwnMaskPickInfo</name>
@@ -1482,6 +1511,221 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="3097">
+        <label>MyGUI::PopupMenu</label>
+        <link refid="classMyGUI_1_1PopupMenu"/>
+        <childnode refid="3095" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3109">
+        <label>MyGUI::ComboBox</label>
+        <link refid="classMyGUI_1_1ComboBox"/>
+        <childnode refid="3108" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3094">
+        <label>MyGUI::ListBox</label>
+        <link refid="classMyGUI_1_1ListBox"/>
+        <childnode refid="3089" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3108">
+        <label>MyGUI::EditBox</label>
+        <link refid="classMyGUI_1_1EditBox"/>
+        <childnode refid="3105" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3091">
+        <label>MyGUI::DDContainer</label>
+        <link refid="classMyGUI_1_1DDContainer"/>
+        <childnode refid="3089" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3101">
+        <label>MyGUI::VScroll</label>
+        <link refid="classMyGUI_1_1VScroll"/>
+        <childnode refid="3100" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3105">
+        <label>MyGUI::TextBox</label>
+        <link refid="classMyGUI_1_1TextBox"/>
+        <childnode refid="3089" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3095">
+        <label>MyGUI::MenuControl</label>
+        <link refid="classMyGUI_1_1MenuControl"/>
+        <childnode refid="3089" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3096">
+        <label>MyGUI::MenuBar</label>
+        <link refid="classMyGUI_1_1MenuBar"/>
+        <childnode refid="3095" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3093">
+        <label>MyGUI::ImageBox</label>
+        <link refid="classMyGUI_1_1ImageBox"/>
+        <childnode refid="3089" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3098">
+        <label>MyGUI::MultiListBox</label>
+        <link refid="classMyGUI_1_1MultiListBox"/>
+        <childnode refid="3089" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3089">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="3088" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3103">
+        <label>MyGUI::ScrollView</label>
+        <link refid="classMyGUI_1_1ScrollView"/>
+        <childnode refid="3089" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3106">
+        <label>MyGUI::Button</label>
+        <link refid="classMyGUI_1_1Button"/>
+        <childnode refid="3105" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3090">
+        <label>MyGUI::Canvas</label>
+        <link refid="classMyGUI_1_1Canvas"/>
+        <childnode refid="3089" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3088">
+        <label>MyGUI::WidgetInput</label>
+        <link refid="classMyGUI_1_1WidgetInput"/>
+      </node>
+      <node id="3104">
+        <label>MyGUI::TabControl</label>
+        <link refid="classMyGUI_1_1TabControl"/>
+        <childnode refid="3089" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3107">
+        <label>MyGUI::MenuItem</label>
+        <link refid="classMyGUI_1_1MenuItem"/>
+        <childnode refid="3106" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3100">
+        <label>MyGUI::ScrollBar</label>
+        <link refid="classMyGUI_1_1ScrollBar"/>
+        <childnode refid="3089" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3092">
+        <label>MyGUI::ItemBox</label>
+        <link refid="classMyGUI_1_1ItemBox"/>
+        <childnode refid="3091" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3112">
+        <label>MyGUI::Window</label>
+        <link refid="classMyGUI_1_1Window"/>
+        <childnode refid="3105" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3110">
+        <label>MyGUI::MultiListItem</label>
+        <link refid="classMyGUI_1_1MultiListItem"/>
+        <childnode refid="3105" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3099">
+        <label>MyGUI::ProgressBar</label>
+        <link refid="classMyGUI_1_1ProgressBar"/>
+        <childnode refid="3089" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3111">
+        <label>MyGUI::TabItem</label>
+        <link refid="classMyGUI_1_1TabItem"/>
+        <childnode refid="3105" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3102">
+        <label>MyGUI::HScroll</label>
+        <link refid="classMyGUI_1_1HScroll"/>
+        <childnode refid="3101" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3118">
+        <label>MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate1"/>
+      </node>
+      <node id="3114">
+        <label>MyGUI::delegates::CMultiDelegate3&lt; TP1, TP2, TP3 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate3"/>
+      </node>
+      <node id="3115">
+        <label>MyGUI::delegates::CMultiDelegate4&lt; TP1, TP2, TP3, TP4 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate4"/>
+      </node>
+      <node id="3117">
+        <label>MyGUI::MaskPickInfo</label>
+        <link refid="classMyGUI_1_1MaskPickInfo"/>
+      </node>
+      <node id="3119">
+        <label>MyGUI::delegates::CMultiDelegate2&lt; TP1, TP2 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate2"/>
+      </node>
+      <node id="3116">
+        <label>MyGUI::EventPair3to4&lt; EventHandle_WidgetIntInt, EventHandle_WidgetIntIntButton &gt;</label>
+        <link refid="classMyGUI_1_1EventPair3to4"/>
+        <childnode refid="3114" relation="usage">
+          <edgelabel>m_eventObsolete</edgelabel>
+        </childnode>
+        <childnode refid="3115" relation="usage">
+          <edgelabel>m_event</edgelabel>
+        </childnode>
+      </node>
+      <node id="3113">
+        <label>MyGUI::WidgetInput</label>
+        <link refid="classMyGUI_1_1WidgetInput"/>
+        <childnode refid="3114" relation="usage">
+          <edgelabel>eventKeyButtonPressed
+eventMouseMove</edgelabel>
+        </childnode>
+        <childnode refid="3115" relation="usage">
+          <edgelabel>eventMouseButtonPressed
+eventMouseButtonReleased</edgelabel>
+        </childnode>
+        <childnode refid="3116" relation="usage">
+          <edgelabel>eventMouseDrag</edgelabel>
+        </childnode>
+        <childnode refid="3117" relation="usage">
+          <edgelabel>mOwnMaskPickInfo</edgelabel>
+        </childnode>
+        <childnode refid="3118" relation="usage">
+          <edgelabel>eventMouseButtonDoubleClick
+eventMouseButtonClick</edgelabel>
+        </childnode>
+        <childnode refid="3119" relation="usage">
+          <edgelabel>eventKeySetFocus
+eventMouseSetFocus
+eventKeyButtonReleased
+eventKeyLostFocus
+eventRootMouseChangeFocus
+eventMouseWheel
+eventToolTip
+eventMouseLostFocus
+eventRootKeyChangeFocus</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" line="75" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetInput.h" bodystart="74" bodyend="308"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1WidgetInput_16ca16375013009df6343d5d704a5e0c5" prot="public" virt="non-virtual"><scope>MyGUI::WidgetInput</scope><name>_riseKeyButtonPressed</name></member>

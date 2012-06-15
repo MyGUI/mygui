@@ -2,6 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1ITextureInvalidateListener" kind="class" prot="public">
     <compoundname>MyGUI::ITextureInvalidateListener</compoundname>
+    <derivedcompoundref refid="classMyGUI_1_1Canvas" prot="public" virt="non-virtual">MyGUI::Canvas</derivedcompoundref>
+    <includes local="no">MyGUI_ITexture.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1ITextureInvalidateListener_1e27fa00a3e3495cbaae1eeab9287b5b6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>virtual</type>
@@ -21,8 +23,9 @@
         <definition>virtual void MyGUI::ITextureInvalidateListener::textureInvalidate</definition>
         <argsstring>(ITexture *_texture)=0</argsstring>
         <name>textureInvalidate</name>
+        <reimplementedby refid="classMyGUI_1_1Canvas_1bd50f94dd638b7979f7df50e31ecb3a9">textureInvalidate</reimplementedby>
         <param>
-          <type>ITexture *</type>
+          <type><ref refid="classMyGUI_1_1ITexture" kindref="compound">ITexture</ref> *</type>
           <declname>_texture</declname>
         </param>
         <briefdescription>
@@ -38,6 +41,18 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1318">
+        <label>MyGUI::ITextureInvalidateListener</label>
+        <link refid="classMyGUI_1_1ITextureInvalidateListener"/>
+      </node>
+      <node id="1319">
+        <label>MyGUI::Canvas</label>
+        <link refid="classMyGUI_1_1Canvas"/>
+        <childnode refid="1318" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ITexture.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ITexture.h" bodystart="34" bodyend="39"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1ITextureInvalidateListener_1c2232b9ab5c158ff7540149bec20f87b" prot="public" virt="pure-virtual"><scope>MyGUI::ITextureInvalidateListener</scope><name>textureInvalidate</name></member>

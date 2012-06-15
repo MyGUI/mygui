@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1ControllerInfo" kind="struct" prot="public">
     <compoundname>MyGUI::ControllerInfo</compoundname>
+    <includes local="no">MyGUI_LayoutData.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structMyGUI_1_1ControllerInfo_1cc87300edec4eeb752ef1990098f35ad" prot="public" static="no" mutable="no">
         <type>std::string</type>
@@ -17,7 +18,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayoutData.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LayoutData.h" bodystart="33" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMyGUI_1_1ControllerInfo_1dd926030d7e344705f07ad20e1faa9d4" prot="public" static="no" mutable="no">
-        <type>MapString</type>
+        <type><ref refid="namespaceMyGUI_143ff1a19bb1ecb049f0b4642b6719a1b" kindref="member">MapString</ref></type>
         <definition>MapString MyGUI::ControllerInfo::properties</definition>
         <argsstring></argsstring>
         <name>properties</name>

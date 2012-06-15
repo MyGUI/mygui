@@ -3,6 +3,8 @@
   <compounddef id="classMyGUI_1_1EditBox" kind="class" prot="public">
     <compoundname>MyGUI::EditBox</compoundname>
     <basecompoundref refid="classMyGUI_1_1TextBox" prot="public" virt="non-virtual">MyGUI::TextBox</basecompoundref>
+    <basecompoundref refid="classMyGUI_1_1ScrollViewBase" prot="public" virt="non-virtual">MyGUI::ScrollViewBase</basecompoundref>
+    <basecompoundref refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4" prot="public" virt="non-virtual">MyGUI::MemberObsolete&lt; EditBox &gt;</basecompoundref>
     <derivedcompoundref refid="classMyGUI_1_1ComboBox" prot="public" virt="non-virtual">MyGUI::ComboBox</derivedcompoundref>
     <includes local="no">MyGUI_EditBox.h</includes>
       <sectiondef kind="public-type">
@@ -121,13 +123,13 @@
           <declname>_count</declname>
         </param>
         <param>
-          <type>const Colour &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> &amp;</type>
           <declname>_colour</declname>
         </param>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Colour interval </para>        </detaileddescription>
+<para><ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> interval </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" line="51"/>
@@ -273,13 +275,13 @@
         <argsstring>(const Colour &amp;_value)</argsstring>
         <name>setTextSelectionColour</name>
         <param>
-          <type>const Colour &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Colour selected text </para>        </detaileddescription>
+<para><ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> selected text </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" line="82"/>
@@ -461,7 +463,7 @@
         <param>
           <type>size_t</type>
           <declname>_index</declname>
-          <defval>ITEM_NONE</defval>
+          <defval><ref refid="namespaceMyGUI_1c4e95e08e094e2564127c7d8399998ee" kindref="member">ITEM_NONE</ref></defval>
         </param>
         <briefdescription>
         </briefdescription>
@@ -645,7 +647,7 @@
         <argsstring>(Char _value)</argsstring>
         <name>setPasswordChar</name>
         <param>
-          <type>Char</type>
+          <type><ref refid="namespaceMyGUI_1312ae095245acb5cb634a8eb34d21017" kindref="member">Char</ref></type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -674,7 +676,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" line="159"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1EditBox_18126141197bfe7bed28fb95144c19e41" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>Char</type>
+        <type><ref refid="namespaceMyGUI_1312ae095245acb5cb634a8eb34d21017" kindref="member">Char</ref></type>
         <definition>Char MyGUI::EditBox::getPasswordChar</definition>
         <argsstring>() const </argsstring>
         <name>getPasswordChar</name>
@@ -788,7 +790,7 @@
         <name>setPosition</name>
         <reimplements refid="classMyGUI_1_1Widget_1bf87d2b9d27a2543da8fc7daea6abf75">setPosition</reimplements>
         <param>
-          <type>const IntPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -807,7 +809,7 @@
         <name>setSize</name>
         <reimplements refid="classMyGUI_1_1Widget_1b8928099957173c4f58aee98d043faab">setSize</reimplements>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -826,7 +828,7 @@
         <name>setCoord</name>
         <reimplements refid="classMyGUI_1_1Widget_156333ae229f81cfdc9daa834599b96de">setCoord</reimplements>
         <param>
-          <type>const IntCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -927,7 +929,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Show VScroll when text size larger than <ref refid="classMyGUI_1_1EditBox" kindref="compound">EditBox</ref> </para>        </detaileddescription>
+<para>Show <ref refid="classMyGUI_1_1VScroll" kindref="compound">VScroll</ref> when text size larger than <ref refid="classMyGUI_1_1EditBox" kindref="compound">EditBox</ref> </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" line="203"/>
@@ -940,7 +942,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Get Show VScroll flag </para>        </detaileddescription>
+<para>Get Show <ref refid="classMyGUI_1_1VScroll" kindref="compound">VScroll</ref> flag </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" line="205"/>
@@ -1000,7 +1002,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Show HScroll when text size larger than <ref refid="classMyGUI_1_1EditBox" kindref="compound">EditBox</ref> </para>        </detaileddescription>
+<para>Show <ref refid="classMyGUI_1_1HScroll" kindref="compound">HScroll</ref> when text size larger than <ref refid="classMyGUI_1_1EditBox" kindref="compound">EditBox</ref> </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" line="219"/>
@@ -1013,7 +1015,7 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Get Show HScroll flag </para>        </detaileddescription>
+<para>Get Show <ref refid="classMyGUI_1_1HScroll" kindref="compound">HScroll</ref> flag </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" line="221"/>
@@ -1106,7 +1108,7 @@
         <name>setTextAlign</name>
         <reimplements refid="classMyGUI_1_1TextBox_10e3f84f169ccbb4d62057423c9f3cf8f">setTextAlign</reimplements>
         <param>
-          <type>Align</type>
+          <type><ref refid="structMyGUI_1_1Align" kindref="compound">Align</ref></type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -1125,7 +1127,7 @@
         <name>setTextColour</name>
         <reimplements refid="classMyGUI_1_1TextBox_199437c63dc672cd4a2203533803b9b88">setTextColour</reimplements>
         <param>
-          <type>const Colour &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -1138,7 +1140,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" line="242"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1EditBox_1cbc5394429065a2dc28df0505a1942f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>IntCoord</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref></type>
         <definition>virtual IntCoord MyGUI::EditBox::getTextRegion</definition>
         <argsstring>()</argsstring>
         <name>getTextRegion</name>
@@ -1153,7 +1155,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" line="245"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1EditBox_1ed4f88b5ebbeca587b5f1b04bdfcb8da" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>IntSize</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref></type>
         <definition>virtual IntSize MyGUI::EditBox::getTextSize</definition>
         <argsstring>()</argsstring>
         <name>getTextSize</name>
@@ -1174,7 +1176,7 @@
         <name>setTextShadowColour</name>
         <reimplements refid="classMyGUI_1_1TextBox_1e9a1ea838b24ff17dc97bd8bf345e266">setTextShadowColour</reimplements>
         <param>
-          <type>const Colour &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -1208,7 +1210,7 @@
       </sectiondef>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1EditBox_1e3437f37d103025ce520aae785d7ea8f" prot="public" static="no" mutable="no">
-        <type>EventPair&lt; EventHandle_WidgetVoid, EventHandle_EditPtr &gt;</type>
+        <type><ref refid="classMyGUI_1_1EventPair" kindref="compound">EventPair</ref>&lt; <ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">EventHandle_WidgetVoid</ref>, <ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">EventHandle_EditPtr</ref> &gt;</type>
         <definition>EventPair&lt;EventHandle_WidgetVoid, EventHandle_EditPtr&gt; MyGUI::EditBox::eventEditSelectAccept</definition>
         <argsstring></argsstring>
         <name>eventEditSelectAccept</name>
@@ -1230,7 +1232,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" line="262" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" bodystart="262" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1EditBox_150793768be9d885b7329ebbb72ba91cd" prot="public" static="no" mutable="no">
-        <type>EventPair&lt; EventHandle_WidgetVoid, EventHandle_EditPtr &gt;</type>
+        <type><ref refid="classMyGUI_1_1EventPair" kindref="compound">EventPair</ref>&lt; <ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">EventHandle_WidgetVoid</ref>, <ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">EventHandle_EditPtr</ref> &gt;</type>
         <definition>EventPair&lt;EventHandle_WidgetVoid, EventHandle_EditPtr&gt; MyGUI::EditBox::eventEditTextChange</definition>
         <argsstring></argsstring>
         <name>eventEditTextChange</name>
@@ -1305,6 +1307,7 @@
         <definition>virtual void MyGUI::EditBox::onMouseDrag</definition>
         <argsstring>(int _left, int _top, MouseButton _id)</argsstring>
         <name>onMouseDrag</name>
+        <reimplements refid="classMyGUI_1_1WidgetInput_1feca6cb1a11fcb56921658032ce0cb49">onMouseDrag</reimplements>
         <param>
           <type>int</type>
           <declname>_left</declname>
@@ -1314,7 +1317,7 @@
           <declname>_top</declname>
         </param>
         <param>
-          <type>MouseButton</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref></type>
           <declname>_id</declname>
         </param>
         <briefdescription>
@@ -1330,6 +1333,7 @@
         <definition>virtual void MyGUI::EditBox::onKeyLostFocus</definition>
         <argsstring>(Widget *_new)</argsstring>
         <name>onKeyLostFocus</name>
+        <reimplements refid="classMyGUI_1_1WidgetInput_18f59f529e001d90bbe4885ea29515673">onKeyLostFocus</reimplements>
         <param>
           <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
           <declname>_new</declname>
@@ -1347,6 +1351,7 @@
         <definition>virtual void MyGUI::EditBox::onKeySetFocus</definition>
         <argsstring>(Widget *_old)</argsstring>
         <name>onKeySetFocus</name>
+        <reimplements refid="classMyGUI_1_1WidgetInput_10b912cd730d4e657e7263fae829a4e6b">onKeySetFocus</reimplements>
         <param>
           <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
           <declname>_old</declname>
@@ -1364,13 +1369,14 @@
         <definition>virtual void MyGUI::EditBox::onKeyButtonPressed</definition>
         <argsstring>(KeyCode _key, Char _char)</argsstring>
         <name>onKeyButtonPressed</name>
+        <reimplements refid="classMyGUI_1_1WidgetInput_1095e1acc8d228d9340b2b308c677fdf4">onKeyButtonPressed</reimplements>
         <reimplementedby refid="classMyGUI_1_1ComboBox_16642ced9c43004c1b6ac0e33a29fb1a5">onKeyButtonPressed</reimplementedby>
         <param>
-          <type>KeyCode</type>
+          <type><ref refid="structMyGUI_1_1KeyCode" kindref="compound">KeyCode</ref></type>
           <declname>_key</declname>
         </param>
         <param>
-          <type>Char</type>
+          <type><ref refid="namespaceMyGUI_1312ae095245acb5cb634a8eb34d21017" kindref="member">Char</ref></type>
           <declname>_char</declname>
         </param>
         <briefdescription>
@@ -1442,7 +1448,7 @@
           <declname>_top</declname>
         </param>
         <param>
-          <type>MouseButton</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref></type>
           <declname>_id</declname>
         </param>
         <briefdescription>
@@ -1471,7 +1477,7 @@
           <declname>_top</declname>
         </param>
         <param>
-          <type>MouseButton</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref></type>
           <declname>_id</declname>
         </param>
         <briefdescription>
@@ -1500,7 +1506,7 @@
           <declname>_top</declname>
         </param>
         <param>
-          <type>MouseButton</type>
+          <type><ref refid="structMyGUI_1_1MouseButton" kindref="compound">MouseButton</ref></type>
           <declname>_id</declname>
         </param>
         <briefdescription>
@@ -1753,7 +1759,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" line="376" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" bodystart="376" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1EditBox_10224cf300d876d94fef20245b64c06bc" prot="protected" static="no" mutable="no">
-        <type>DequeUndoRedoInfo</type>
+        <type><ref refid="namespaceMyGUI_182e5b0a8292e5d3612ef585357676203" kindref="member">DequeUndoRedoInfo</ref></type>
         <definition>DequeUndoRedoInfo MyGUI::EditBox::mVectorUndoChangeInfo</definition>
         <argsstring></argsstring>
         <name>mVectorUndoChangeInfo</name>
@@ -1766,7 +1772,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" line="379" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" bodystart="379" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1EditBox_174777bad09d4ab9f50629a0c84d89e82" prot="protected" static="no" mutable="no">
-        <type>DequeUndoRedoInfo</type>
+        <type><ref refid="namespaceMyGUI_182e5b0a8292e5d3612ef585357676203" kindref="member">DequeUndoRedoInfo</ref></type>
         <definition>DequeUndoRedoInfo MyGUI::EditBox::mVectorRedoChangeInfo</definition>
         <argsstring></argsstring>
         <name>mVectorRedoChangeInfo</name>
@@ -1896,7 +1902,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" line="396" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" bodystart="396" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1EditBox_16700eb6e295b2b7f2ad17563769dadd5" prot="protected" static="no" mutable="no">
-        <type>Char</type>
+        <type><ref refid="namespaceMyGUI_1312ae095245acb5cb634a8eb34d21017" kindref="member">Char</ref></type>
         <definition>Char MyGUI::EditBox::mCharPassword</definition>
         <argsstring></argsstring>
         <name>mCharPassword</name>
@@ -1935,7 +1941,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" line="401" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" bodystart="401" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1EditBox_11a506b79155d9bb7ddb465108730a6c7" prot="protected" static="no" mutable="no">
-        <type>ISubWidgetText *</type>
+        <type><ref refid="classMyGUI_1_1ISubWidgetText" kindref="compound">ISubWidgetText</ref> *</type>
         <definition>ISubWidgetText* MyGUI::EditBox::mClientText</definition>
         <argsstring></argsstring>
         <name>mClientText</name>
@@ -2043,7 +2049,7 @@
         <argsstring>(const Colour &amp;_colour, bool _history)</argsstring>
         <name>setTextSelectColour</name>
         <param>
-          <type>const Colour &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> &amp;</type>
           <declname>_colour</declname>
         </param>
         <param>
@@ -2072,7 +2078,7 @@
           <declname>_count</declname>
         </param>
         <param>
-          <type>const Colour &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1Colour" kindref="compound">Colour</ref> &amp;</type>
           <declname>_colour</declname>
         </param>
         <param>
@@ -2162,7 +2168,7 @@
           <declname>_length</declname>
         </param>
         <param>
-          <type>VectorChangeInfo *</type>
+          <type><ref refid="namespaceMyGUI_1e302ae4ad1ef9c182f35ebf222211bfa" kindref="member">VectorChangeInfo</ref> *</type>
           <declname>_info</declname>
           <defval>0</defval>
         </param>
@@ -2245,7 +2251,7 @@
         <argsstring>(VectorChangeInfo *_info=0)</argsstring>
         <name>saveInHistory</name>
         <param>
-          <type>VectorChangeInfo *</type>
+          <type><ref refid="namespaceMyGUI_1e302ae4ad1ef9c182f35ebf222211bfa" kindref="member">VectorChangeInfo</ref> *</type>
           <declname>_info</declname>
           <defval>0</defval>
         </param>
@@ -2340,10 +2346,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" line="344"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1EditBox_163312b668ccdf0f21c04ca8d3669b73e" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>IntSize</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref></type>
         <definition>virtual IntSize MyGUI::EditBox::getContentSize</definition>
         <argsstring>()</argsstring>
         <name>getContentSize</name>
+        <reimplements refid="classMyGUI_1_1ScrollViewBase_1fd5fe302ad76f0210dbf8ae0907e2730">getContentSize</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -2353,10 +2360,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" line="347"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1EditBox_193c529e2e111806dbf6b99c2446d05e1" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>IntPoint</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref></type>
         <definition>virtual IntPoint MyGUI::EditBox::getContentPosition</definition>
         <argsstring>()</argsstring>
         <name>getContentPosition</name>
+        <reimplements refid="classMyGUI_1_1ScrollViewBase_17d4078b27ac2fab107a66106937cffc3">getContentPosition</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -2370,8 +2378,9 @@
         <definition>virtual void MyGUI::EditBox::setContentPosition</definition>
         <argsstring>(const IntPoint &amp;_point)</argsstring>
         <name>setContentPosition</name>
+        <reimplements refid="classMyGUI_1_1ScrollViewBase_1e5b2ae476c1a8ac5560605bd43f351c9">setContentPosition</reimplements>
         <param>
-          <type>const IntPoint &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref> &amp;</type>
           <declname>_point</declname>
         </param>
         <briefdescription>
@@ -2383,10 +2392,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" line="350"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1EditBox_11498c32fc2967c2a5c5b63650b4f5d2f" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>IntSize</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref></type>
         <definition>virtual IntSize MyGUI::EditBox::getViewSize</definition>
         <argsstring>()</argsstring>
         <name>getViewSize</name>
+        <reimplements refid="classMyGUI_1_1ScrollViewBase_1f39b6d3121aef6d5dc73abcf819227fb">getViewSize</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -2400,6 +2410,7 @@
         <definition>virtual size_t MyGUI::EditBox::getVScrollPage</definition>
         <argsstring>()</argsstring>
         <name>getVScrollPage</name>
+        <reimplements refid="classMyGUI_1_1ScrollViewBase_180949106274ec8cbc4e4bf9a58ab58e8">getVScrollPage</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -2413,6 +2424,7 @@
         <definition>virtual size_t MyGUI::EditBox::getHScrollPage</definition>
         <argsstring>()</argsstring>
         <name>getHScrollPage</name>
+        <reimplements refid="classMyGUI_1_1ScrollViewBase_14df069e0bd3df5d4155621978f7d5747">getHScrollPage</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -2422,10 +2434,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" line="355"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1EditBox_197684f620a92b88e9e2f936cb59793e8" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>Align</type>
+        <type><ref refid="structMyGUI_1_1Align" kindref="compound">Align</ref></type>
         <definition>virtual Align MyGUI::EditBox::getContentAlign</definition>
         <argsstring>()</argsstring>
         <name>getContentAlign</name>
+        <reimplements refid="classMyGUI_1_1ScrollViewBase_10b4db88d7076e0940a9a085d9e9a25db">getContentAlign</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -2440,75 +2453,501 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="202">
+      <node id="520">
         <label>MyGUI::ComboBox</label>
         <link refid="classMyGUI_1_1ComboBox"/>
-        <childnode refid="198" relation="public-inheritance">
+        <childnode refid="506" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="198">
+      <node id="514">
+        <label>MyGUI::SkinItem</label>
+        <link refid="classMyGUI_1_1SkinItem"/>
+        <childnode refid="515" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="516">
+        <label>MyGUI::ILayerItem</label>
+        <link refid="classMyGUI_1_1ILayerItem"/>
+      </node>
+      <node id="506">
         <label>MyGUI::EditBox</label>
         <link refid="classMyGUI_1_1EditBox"/>
-        <childnode refid="199" relation="public-inheritance">
+        <childnode refid="507" relation="public-inheritance">
+        </childnode>
+        <childnode refid="518" relation="public-inheritance">
+        </childnode>
+        <childnode refid="519" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="199">
+      <node id="510">
+        <label>MyGUI::ICroppedRectangle</label>
+        <link refid="classMyGUI_1_1ICroppedRectangle"/>
+      </node>
+      <node id="507">
         <label>MyGUI::TextBox</label>
         <link refid="classMyGUI_1_1TextBox"/>
-        <childnode refid="200" relation="public-inheritance">
+        <childnode refid="508" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="201">
+      <node id="517">
+        <label>MyGUI::MemberObsolete&lt; Widget &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4"/>
+      </node>
+      <node id="511">
         <label>MyGUI::UserData</label>
         <link refid="classMyGUI_1_1UserData"/>
       </node>
-      <node id="200">
+      <node id="519">
+        <label>MyGUI::MemberObsolete&lt; EditBox &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4"/>
+      </node>
+      <node id="508">
         <label>MyGUI::Widget</label>
         <link refid="classMyGUI_1_1Widget"/>
-        <childnode refid="201" relation="public-inheritance">
+        <childnode refid="509" relation="public-inheritance">
         </childnode>
+        <childnode refid="510" relation="public-inheritance">
+        </childnode>
+        <childnode refid="511" relation="public-inheritance">
+        </childnode>
+        <childnode refid="512" relation="public-inheritance">
+        </childnode>
+        <childnode refid="513" relation="public-inheritance">
+        </childnode>
+        <childnode refid="514" relation="public-inheritance">
+        </childnode>
+        <childnode refid="517" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="513">
+        <label>MyGUI::delegates::IDelegateUnlink</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegateUnlink"/>
+      </node>
+      <node id="512">
+        <label>MyGUI::WidgetInput</label>
+        <link refid="classMyGUI_1_1WidgetInput"/>
+      </node>
+      <node id="515">
+        <label>MyGUI::LayerItem</label>
+        <link refid="classMyGUI_1_1LayerItem"/>
+        <childnode refid="516" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="518">
+        <label>MyGUI::ScrollViewBase</label>
+        <link refid="classMyGUI_1_1ScrollViewBase"/>
+      </node>
+      <node id="509">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="203">
+      <node id="538">
+        <label>MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate1"/>
+      </node>
+      <node id="553">
+        <label>MyGUI::WidgetStyle</label>
+        <link refid="structMyGUI_1_1WidgetStyle"/>
+      </node>
+      <node id="527">
+        <label>T</label>
+      </node>
+      <node id="545">
+        <label>MyGUI::ILayer</label>
+        <link refid="classMyGUI_1_1ILayer"/>
+        <childnode refid="546" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="556">
+        <label>MyGUI::MemberObsolete&lt; ScrollBar &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete"/>
+      </node>
+      <node id="528">
+        <label>MyGUI::types::TCoord&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TCoord"/>
+        <childnode refid="527" relation="usage">
+          <edgelabel>width
+height
+left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="541">
+        <label>MyGUI::SkinItem</label>
+        <link refid="classMyGUI_1_1SkinItem"/>
+        <childnode refid="542" relation="public-inheritance">
+        </childnode>
+        <childnode refid="544" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="548" relation="usage">
+          <edgelabel>mMainSkin</edgelabel>
+        </childnode>
+        <childnode refid="551" relation="usage">
+          <edgelabel>mText</edgelabel>
+        </childnode>
+      </node>
+      <node id="564">
+        <label>MyGUI::EventPair&lt; EventHandle_WidgetVoid, EventHandle_EditPtr &gt;</label>
+        <link refid="classMyGUI_1_1EventPair"/>
+        <childnode refid="538" relation="usage">
+          <edgelabel>m_eventObsolete
+m_event</edgelabel>
+        </childnode>
+      </node>
+      <node id="543">
+        <label>MyGUI::ILayerItem</label>
+        <link refid="classMyGUI_1_1ILayerItem"/>
+      </node>
+      <node id="521">
         <label>MyGUI::EditBox</label>
         <link refid="classMyGUI_1_1EditBox"/>
-        <childnode refid="204" relation="public-inheritance">
+        <childnode refid="522" relation="public-inheritance">
         </childnode>
-        <childnode refid="207" relation="usage">
+        <childnode refid="554" relation="public-inheritance">
+        </childnode>
+        <childnode refid="563" relation="public-inheritance">
+        </childnode>
+        <childnode refid="551" relation="usage">
+          <edgelabel>mClientText</edgelabel>
+        </childnode>
+        <childnode refid="564" relation="usage">
+          <edgelabel>eventEditTextChange
+eventEditSelectAccept</edgelabel>
+        </childnode>
+        <childnode refid="565" relation="usage">
           <edgelabel>mPasswordText</edgelabel>
         </childnode>
       </node>
-      <node id="204">
+      <node id="534">
+        <label>MyGUI::delegates::CMultiDelegate3&lt; TP1, TP2, TP3 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate3"/>
+      </node>
+      <node id="544">
+        <label>MyGUI::ITexture</label>
+        <link refid="classMyGUI_1_1ITexture"/>
+      </node>
+      <node id="535">
+        <label>MyGUI::delegates::CMultiDelegate4&lt; TP1, TP2, TP3, TP4 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate4"/>
+      </node>
+      <node id="537">
+        <label>MyGUI::MaskPickInfo</label>
+        <link refid="classMyGUI_1_1MaskPickInfo"/>
+      </node>
+      <node id="525">
+        <label>MyGUI::ICroppedRectangle</label>
+        <link refid="classMyGUI_1_1ICroppedRectangle"/>
+        <childnode refid="526" relation="usage">
+          <edgelabel>mAbsolutePosition</edgelabel>
+        </childnode>
+        <childnode refid="528" relation="usage">
+          <edgelabel>mCoord</edgelabel>
+        </childnode>
+        <childnode refid="529" relation="usage">
+          <edgelabel>mMargin</edgelabel>
+        </childnode>
+        <childnode refid="525" relation="usage">
+          <edgelabel>mCroppedParent</edgelabel>
+        </childnode>
+      </node>
+      <node id="529">
+        <label>MyGUI::types::TRect&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TRect"/>
+        <childnode refid="527" relation="usage">
+          <edgelabel>right
+left
+bottom
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="547">
+        <label>MyGUI::ILayerNode</label>
+        <link refid="classMyGUI_1_1ILayerNode"/>
+        <childnode refid="524" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="522">
         <label>MyGUI::TextBox</label>
         <link refid="classMyGUI_1_1TextBox"/>
-        <childnode refid="205" relation="public-inheritance">
+        <childnode refid="523" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="206">
+      <node id="552">
+        <label>MyGUI::MemberObsolete&lt; Widget &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4"/>
+      </node>
+      <node id="539">
+        <label>MyGUI::delegates::CMultiDelegate2&lt; TP1, TP2 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate2"/>
+      </node>
+      <node id="559">
+        <label>MyGUI::ImageBox</label>
+        <link refid="classMyGUI_1_1ImageBox"/>
+        <childnode refid="523" relation="public-inheritance">
+        </childnode>
+        <childnode refid="560" relation="usage">
+          <edgelabel>mSizeTexture
+mSizeTile</edgelabel>
+        </childnode>
+        <childnode refid="529" relation="usage">
+          <edgelabel>mRectImage</edgelabel>
+        </childnode>
+        <childnode refid="561" relation="usage">
+          <edgelabel>mResource</edgelabel>
+        </childnode>
+      </node>
+      <node id="561">
+        <label>MyGUI::ResourceImageSet</label>
+        <link refid="classMyGUI_1_1ResourceImageSet"/>
+        <childnode refid="562" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="530">
         <label>MyGUI::UserData</label>
         <link refid="classMyGUI_1_1UserData"/>
+        <childnode refid="531" relation="usage">
+          <edgelabel>mUserData
+mInternalData</edgelabel>
+        </childnode>
       </node>
-      <node id="205">
+      <node id="560">
+        <label>MyGUI::types::TSize&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TSize"/>
+        <childnode refid="527" relation="usage">
+          <edgelabel>width
+height</edgelabel>
+        </childnode>
+      </node>
+      <node id="551">
+        <label>MyGUI::ISubWidgetText</label>
+        <link refid="classMyGUI_1_1ISubWidgetText"/>
+        <childnode refid="549" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="563">
+        <label>MyGUI::MemberObsolete&lt; EditBox &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4"/>
+      </node>
+      <node id="523">
         <label>MyGUI::Widget</label>
         <link refid="classMyGUI_1_1Widget"/>
-        <childnode refid="206" relation="public-inheritance">
+        <childnode refid="524" relation="public-inheritance">
         </childnode>
-        <childnode refid="205" relation="usage">
+        <childnode refid="525" relation="public-inheritance">
+        </childnode>
+        <childnode refid="530" relation="public-inheritance">
+        </childnode>
+        <childnode refid="533" relation="public-inheritance">
+        </childnode>
+        <childnode refid="540" relation="public-inheritance">
+        </childnode>
+        <childnode refid="541" relation="public-inheritance">
+        </childnode>
+        <childnode refid="552" relation="public-inheritance">
+        </childnode>
+        <childnode refid="534" relation="usage">
+          <edgelabel>eventChangeProperty</edgelabel>
+        </childnode>
+        <childnode refid="553" relation="usage">
+          <edgelabel>mWidgetStyle</edgelabel>
+        </childnode>
+        <childnode refid="523" relation="usage">
           <edgelabel>mContainer
 mParent
 mWidgetClient</edgelabel>
         </childnode>
+        <childnode refid="550" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
       </node>
-      <node id="207">
+      <node id="550">
+        <label>MyGUI::Align</label>
+        <link refid="structMyGUI_1_1Align"/>
+      </node>
+      <node id="548">
+        <label>MyGUI::ISubWidgetRect</label>
+        <link refid="classMyGUI_1_1ISubWidgetRect"/>
+        <childnode refid="549" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="558">
+        <label>MyGUI::MemberObsolete&lt; Button &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4"/>
+      </node>
+      <node id="546">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="524" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="549">
+        <label>MyGUI::ISubWidget</label>
+        <link refid="classMyGUI_1_1ISubWidget"/>
+        <childnode refid="525" relation="public-inheritance">
+        </childnode>
+        <childnode refid="524" relation="public-inheritance">
+        </childnode>
+        <childnode refid="550" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
+      </node>
+      <node id="540">
+        <label>MyGUI::delegates::IDelegateUnlink</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegateUnlink"/>
+        <childnode refid="540" relation="usage">
+          <edgelabel>m_baseDelegateUnlink</edgelabel>
+        </childnode>
+      </node>
+      <node id="557">
+        <label>MyGUI::Button</label>
+        <link refid="classMyGUI_1_1Button"/>
+        <childnode refid="522" relation="public-inheritance">
+        </childnode>
+        <childnode refid="558" relation="public-inheritance">
+        </childnode>
+        <childnode refid="559" relation="usage">
+          <edgelabel>mImage</edgelabel>
+        </childnode>
+      </node>
+      <node id="536">
+        <label>MyGUI::EventPair3to4&lt; EventHandle_WidgetIntInt, EventHandle_WidgetIntIntButton &gt;</label>
+        <link refid="classMyGUI_1_1EventPair3to4"/>
+        <childnode refid="534" relation="usage">
+          <edgelabel>m_eventObsolete</edgelabel>
+        </childnode>
+        <childnode refid="535" relation="usage">
+          <edgelabel>m_event</edgelabel>
+        </childnode>
+      </node>
+      <node id="565">
         <label>MyGUI::UString</label>
         <link refid="classMyGUI_1_1UString"/>
+      </node>
+      <node id="533">
+        <label>MyGUI::WidgetInput</label>
+        <link refid="classMyGUI_1_1WidgetInput"/>
+        <childnode refid="534" relation="usage">
+          <edgelabel>eventKeyButtonPressed
+eventMouseMove</edgelabel>
+        </childnode>
+        <childnode refid="535" relation="usage">
+          <edgelabel>eventMouseButtonPressed
+eventMouseButtonReleased</edgelabel>
+        </childnode>
+        <childnode refid="536" relation="usage">
+          <edgelabel>eventMouseDrag</edgelabel>
+        </childnode>
+        <childnode refid="537" relation="usage">
+          <edgelabel>mOwnMaskPickInfo</edgelabel>
+        </childnode>
+        <childnode refid="538" relation="usage">
+          <edgelabel>eventMouseButtonDoubleClick
+eventMouseButtonClick</edgelabel>
+        </childnode>
+        <childnode refid="539" relation="usage">
+          <edgelabel>eventKeySetFocus
+eventMouseSetFocus
+eventKeyButtonReleased
+eventKeyLostFocus
+eventRootMouseChangeFocus
+eventMouseWheel
+eventToolTip
+eventMouseLostFocus
+eventRootKeyChangeFocus</edgelabel>
+        </childnode>
+      </node>
+      <node id="532">
+        <label>MyGUI::Any::AnyEmpty</label>
+        <link refid="structMyGUI_1_1Any_1_1AnyEmpty"/>
+      </node>
+      <node id="555">
+        <label>MyGUI::ScrollBar</label>
+        <link refid="classMyGUI_1_1ScrollBar"/>
+        <childnode refid="523" relation="public-inheritance">
+        </childnode>
+        <childnode refid="556" relation="public-inheritance">
+        </childnode>
+        <childnode refid="526" relation="usage">
+          <edgelabel>mPreActionOffset</edgelabel>
+        </childnode>
+        <childnode refid="523" relation="usage">
+          <edgelabel>mWidgetFirstPart
+mWidgetSecondPart</edgelabel>
+        </childnode>
+        <childnode refid="557" relation="usage">
+          <edgelabel>mWidgetTrack
+mWidgetStart
+mWidgetEnd</edgelabel>
+        </childnode>
+        <childnode refid="539" relation="usage">
+          <edgelabel>eventScrollChangePosition</edgelabel>
+        </childnode>
+      </node>
+      <node id="542">
+        <label>MyGUI::LayerItem</label>
+        <link refid="classMyGUI_1_1LayerItem"/>
+        <childnode refid="543" relation="public-inheritance">
+        </childnode>
+        <childnode refid="544" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="545" relation="usage">
+          <edgelabel>mLayer</edgelabel>
+        </childnode>
+        <childnode refid="547" relation="usage">
+          <edgelabel>mSaveLayerNode
+mLayerNode</edgelabel>
+        </childnode>
+      </node>
+      <node id="562">
+        <label>MyGUI::IResource</label>
+        <link refid="classMyGUI_1_1IResource"/>
+        <childnode refid="546" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="554">
+        <label>MyGUI::ScrollViewBase</label>
+        <link refid="classMyGUI_1_1ScrollViewBase"/>
+        <childnode refid="555" relation="usage">
+          <edgelabel>mHScroll
+mVScroll</edgelabel>
+        </childnode>
+        <childnode refid="523" relation="usage">
+          <edgelabel>mClient</edgelabel>
+        </childnode>
+      </node>
+      <node id="526">
+        <label>MyGUI::types::TPoint&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TPoint"/>
+        <childnode refid="527" relation="usage">
+          <edgelabel>left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="531">
+        <label>MyGUI::Any</label>
+        <link refid="classMyGUI_1_1Any"/>
+        <childnode refid="532" relation="usage">
+          <edgelabel>Null</edgelabel>
+        </childnode>
+      </node>
+      <node id="524">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
       </node>
     </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" line="44" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_EditBox.h" bodystart="40" bodyend="404"/>
     <listofallmembers>
+      <member refid="classMyGUI_1_1ICroppedRectangle_140912f54a25901b779ea49094e5f4ae0" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_checkMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1093bbcae9343e7fe54fb4769652dfc2f" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_checkOutside</name></member>
       <member refid="classMyGUI_1_1Widget_134c44665e7d51c7eb65bf70f0479e1c3" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_checkPoint</name></member>
+      <member refid="classMyGUI_1_1SkinItem_10726c0a6b7e07c4a1ffbc6b41da8639e" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_correctSkinItemView</name></member>
+      <member refid="classMyGUI_1_1SkinItem_125c41f0b09a8cb62b56e4bf151029efe" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_createSkinItem</name></member>
       <member refid="classMyGUI_1_1Widget_13601e5ca0d565451dfcf106850506a51" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_createSkinWidget</name></member>
+      <member refid="classMyGUI_1_1SkinItem_183e18cf55c5dfcd5fc991cd3d1c79726" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_deleteSkinItem</name></member>
       <member refid="classMyGUI_1_1Widget_10df77f6d74fe5fc24701819e0b7e0fe8" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_destroyAllChildWidget</name></member>
       <member refid="classMyGUI_1_1Widget_125136884a04944ef8b199c582e15482c" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_destroyChildWidget</name></member>
       <member refid="classMyGUI_1_1Widget_1deee68fb42acc2fab667b169587e9ce3" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_forcePick</name></member>
@@ -2516,21 +2955,67 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1Widget_1fef9a1d046d1b78f8c76de1db83d20c6" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>_getContainerIndex</name></member>
       <member refid="classMyGUI_1_1UserData_1fc4382ac3423790f57b478a0fe5030a2" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_getInternalData</name></member>
       <member refid="classMyGUI_1_1Widget_106700537a6fffaf43aa9c93e89d9cc7d" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>_getItemIndex</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1dd35646a24b80019d956bd8d9a8842e4" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_getMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b883cc09bbd15914970fa6a3a155b261" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_getMarginBottom</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1c389b55028cb6157b3832250de48cfe7" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_getMarginLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_11221b089abe10e18924bf5bb3209ac9f" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_getMarginRight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f875bcc3f5e3292c646142460892f7a4" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_getMarginTop</name></member>
+      <member refid="classMyGUI_1_1SkinItem_111f8d0452fdc560e02d3302bb100f994" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_getTextureName</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_13a7c73e8f4cc8dabcd76a5c6645900b9" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_getViewBottom</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1eaa2e53babcc2e3fdc8809f6eb8825bf" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_getViewHeight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_19c87ba1cec7e29effd49a8aed37e4bbe" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_getViewLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1ae878f922452310563bc53768acbee32" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_getViewRight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_16f7f0a2960a331640aaee3a88fdc8a20" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_getViewTop</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_10fb56854f3bb6d0f7f4f0e8f608fa37a" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_getViewWidth</name></member>
       <member refid="classMyGUI_1_1Widget_1ae54386446434e4b133c244925402375" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_initialise</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1e9ab842519de0d0d1ff6624c96a25aee" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_isMargin</name></member>
       <member refid="classMyGUI_1_1Widget_1175526a4b039cf13c7fec7012d7287fc" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>_resetContainer</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16ca16375013009df6343d5d704a5e0c5" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_riseKeyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16656b62ce7ec79ba18d0cdfedd2dfd4c" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_riseKeyButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c7feaf74a77264d4c2276ef7ae7238b9" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_riseKeyChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1d68d79f35d6a2d5ec4f063850199c699" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_riseKeyLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16890125536b19d6c6ec45482f3a36a46" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_riseKeySetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1ee33fe7ab755d138b20742d2b333a86a" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_riseMouseButtonClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10f7494e4a979775f2f67ab1b7a18c436" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_riseMouseButtonDoubleClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1abf1460346c8b853efde46128588f227" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_riseMouseButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18fe37f4239c9f31bc522520d6e30d047" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_riseMouseButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1ef279e1b31729b0975a8fd3dbba6f55a" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_riseMouseChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_181a0731821e5a71bd4ff6205428b78c9" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_riseMouseDrag</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1b08bce548d116bc1c6ef6e6d979d8de8" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_riseMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10adf6398d5b0e5890557061ac78ad65b" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_riseMouseMove</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1a012de5786a0bed2ae87a9deae13c0ef" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_riseMouseSetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_17e327836202f73c68ec038af7ffa8890" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_riseMouseWheel</name></member>
       <member refid="classMyGUI_1_1Widget_15df6dbd95e99b9b65b385d815026cf26" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_setAlign</name></member>
       <member refid="classMyGUI_1_1Widget_1d3d48604ad15f958b81bf423f80271c9" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_setContainer</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b7a33eeac6fd7e1ecc305decc2970249" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_setCroppedParent</name></member>
       <member refid="classMyGUI_1_1UserData_12bd52c146bad41f99bbc7ed31335ad18" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_setInternalData</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1dabde72179cbe3f1640edb16d4b19185" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_setRootKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1e63e896e1bc3441474eaf02d8c940fb0" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_setRootMouseFocus</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b983e0ed07906a96b1f9a1a6d3593304" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_setSkinItemAlign</name></member>
+      <member refid="classMyGUI_1_1SkinItem_121cde72c7bd643fec9816501fe986205" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_setSkinItemAlpha</name></member>
+      <member refid="classMyGUI_1_1SkinItem_15f1951b1f095aaa695fb90ea7cef623b" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_setSkinItemColour</name></member>
+      <member refid="classMyGUI_1_1SkinItem_199576e05c1de9db65b724308619559d4" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_setSkinItemState</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1e7dffe0acef7ab94c35cd0cd70fede08" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_setSkinItemVisible</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b705b413faa908fe8424b57574a3410f" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_setSubSkinVisible</name></member>
       <member refid="classMyGUI_1_1EditBox_112eb36ce0d471bd6c3b6912e84a0da8a" prot="private" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_setTextColour</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1d7130c196fcd0e29e06210f96240b171" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_setTextureName</name></member>
       <member refid="classMyGUI_1_1Widget_13325a1f4c26917f6f73b207d0986e1bd" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_setWidgetState</name></member>
       <member refid="classMyGUI_1_1Widget_155b19482fe01925c36e29af671e3d092" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_shutdown</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b5d81f68dff04ef4c975d8563ea0f598" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_updateSkinItemView</name></member>
       <member refid="classMyGUI_1_1Widget_1dd935a48ef2c39688d8026c01e9e3939" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>_updateView</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1468694a8e650fa4c019298691bb515d5" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>addChildItem</name></member>
+      <member refid="classMyGUI_1_1LayerItem_151c4c558eec72b51f62753c2dfe44094" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>addChildNode</name></member>
+      <member refid="classMyGUI_1_1LayerItem_19ddb478b09b766f3c515523e8d0658b0" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>addRenderItem</name></member>
       <member refid="classMyGUI_1_1EditBox_1cfd1fd2f3720403e3da3676d3ea3f03d" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>addText</name></member>
       <member refid="classMyGUI_1_1Widget_1b390f48a62a30d529c901cf8cfa1c24c" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>assignWidget</name></member>
+      <member refid="classMyGUI_1_1LayerItem_129e3f29933beef8f55ec8965a93be0cc" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>attachItemToNode</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1d8cf239c39b116a48a1517117d1fb9a6" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>attachToLayerItemNode</name></member>
       <member refid="classMyGUI_1_1Widget_105110870f31f66a901b3b11737c194de" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>attachToWidget</name></member>
       <member refid="classMyGUI_1_1EditBox_1d5eaa0f9fed3de28c8641844cc45f30e" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>Base</name></member>
       <member refid="classMyGUI_1_1Widget_1d88d7deb826efb660943ccb0bb457cae" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>baseCreateWidget</name></member>
       <member refid="classMyGUI_1_1Widget_1d4c4a2cf2c3dd8b71126291a55e69139" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>baseUpdateEnable</name></member>
+      <member refid="classMyGUI_1_1IObject_1c542d61d7f1efd5c08dae100a3c68558" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>castType</name></member>
+      <member refid="classMyGUI_1_1IObject_1f636b3c71d893eeb41bebc1c6f4519e1" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>castType</name></member>
       <member refid="classMyGUI_1_1Widget_1be74d6cc433da6140629423b120735a4" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>changeWidgetSkin</name></member>
       <member refid="classMyGUI_1_1UserData_1f71561f766d83082a82cbdd6d218bd6b" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>clearUserString</name></member>
       <member refid="classMyGUI_1_1UserData_154fecc1b40c23594c6518589b6912e49" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>clearUserStrings</name></member>
@@ -2543,6 +3028,7 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1EditBox_11d520023706308c616ffe978d22da6cc" prot="private" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>commandResetHistory</name></member>
       <member refid="classMyGUI_1_1EditBox_1374f4dba4acb145ff5024a06753ca90a" prot="private" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>commandResetRedo</name></member>
       <member refid="classMyGUI_1_1EditBox_153a085ffc717e0826c2832c1649f40a0" prot="private" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>commandUndo</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_1c6738433a415e2f37a5d3f927c0cc7fe" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>compare</name></member>
       <member refid="classMyGUI_1_1Widget_1d66c5415fde332d5aab563402cffb09f" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>createWidget</name></member>
       <member refid="classMyGUI_1_1Widget_13a28d2e883ce82536b686ac992be672d" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>createWidget</name></member>
       <member refid="classMyGUI_1_1Widget_1f8660295aafb142287644c239a313e53" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>createWidget</name></member>
@@ -2554,21 +3040,47 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1Widget_12e74ae3d0a439f4edd509e73d4b2a083" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>createWidgetT</name></member>
       <member refid="classMyGUI_1_1Widget_1e26a4a5e8ea3fa4bafd969eb952d88e9" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>createWidgetT</name></member>
       <member refid="classMyGUI_1_1EditBox_102d4b8f93054ef5a86b2a9e25842cf83" prot="private" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>deleteTextSelect</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1bcb176f84eaffadc8adfa9bce6d7be7a" prot="public" virt="non-virtual" ambiguityscope="MyGUI::MemberObsolete&lt; EditBox &gt;::"><scope>MyGUI::EditBox</scope><name>deleteTextSelect</name></member>
       <member refid="classMyGUI_1_1EditBox_10557ad07ef36415110c663309bee175f" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>deleteTextSelection</name></member>
       <member refid="classMyGUI_1_1Widget_1c1c862389f772c52077fe4f2cf6568b5" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>destroySkinWidget</name></member>
+      <member refid="classMyGUI_1_1LayerItem_113b56979c71726ffcb334b778b193716" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>detachFromLayer</name></member>
+      <member refid="classMyGUI_1_1LayerItem_13d324b33933eb9f9bc8ac9d51e05e54e" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>detachFromLayerItemNode</name></member>
       <member refid="classMyGUI_1_1Widget_1056ac7afc041cf328037e210c742302f" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>detachFromWidget</name></member>
       <member refid="classMyGUI_1_1EditBox_19e5cd719e126a928ac50636112b94631" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>EditBox</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1cae2761994f0c61651d7210393c506a3" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>eraseContent</name></member>
       <member refid="classMyGUI_1_1EditBox_138ed17c2410185d3ee2554e0187b319a" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eraseText</name></member>
       <member refid="classMyGUI_1_1EditBox_1d48e8bfc93b4c02cdece987e6ad59324" prot="private" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eraseText</name></member>
       <member refid="classMyGUI_1_1EditBox_1a98e259308ed3b0a94e0a515b53ef5db" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eraseView</name></member>
       <member refid="classMyGUI_1_1Widget_130efcbdb772c4a75f8208a99c4f9f34d" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eventChangeProperty</name></member>
       <member refid="classMyGUI_1_1EditBox_1e3437f37d103025ce520aae785d7ea8f" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eventEditSelectAccept</name></member>
       <member refid="classMyGUI_1_1EditBox_150793768be9d885b7329ebbb72ba91cd" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eventEditTextChange</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_19c0c205a1523715242cb07f3e1bb0018" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eventKeyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1fe364fecb43bd52d81894fd8cbb6ff7c" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eventKeyButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1190abc3db9e410abf5b3e96aec9278db" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eventKeyLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c4228a2d61d12a5f4f411512c2144823" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eventKeySetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10e6830d3204b28e15ee1472de5ca0349" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eventMouseButtonClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10e66a008ba9f9c4887d42eac663e4b72" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eventMouseButtonDoubleClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1892130d1ef15dccc6314c70a172113b1" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eventMouseButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_15a0432361acd9073b3669d49a2bd4ae9" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eventMouseButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1075f29698be6ce4aa2e330f9ea120739" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eventMouseDrag</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1bb439d65c18114eee9be1caf93b262b6" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eventMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_12ac6dfa5dbd2cd51c57f9f4ceb246511" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eventMouseMove</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18ca56a714afbf4c6cf45e29d5843a479" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eventMouseSetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1efb2b8ab0a4d1cd7e19870343f3492a9" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eventMouseWheel</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1d24b759d3ec5843fc7c317cc90862b79" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eventRootKeyChangeFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1dbeaee810227eb6d583ce3fcea219309" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eventRootMouseChangeFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18d45b85aeb9f2f2428f65cfe289d9c81" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>eventToolTip</name></member>
       <member refid="classMyGUI_1_1Widget_1d054e1027a48f2ccb9af0179359dadc5" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>findWidget</name></member>
       <member refid="classMyGUI_1_1Widget_1e6d193b99a9d69973922d1b8e0f0b70e" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>findWidgets</name></member>
       <member refid="classMyGUI_1_1EditBox_12e12529b1dcbc0c45febc4967065f4ea" prot="private" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>frameEntered</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_183d89c16d41d05bb8772f362b516dd3b" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getAbsoluteCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_19ac46efa204752d3d4a8495feaade9a0" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getAbsoluteLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1a3ae7bcd46578b5082c21a41962c3db6" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getAbsolutePosition</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_16221e701b940cd07bb2a41c84099dfa1" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getAbsoluteRect</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_108f36d963cb1bbcc853ffaf8f576d306" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getAbsoluteTop</name></member>
       <member refid="classMyGUI_1_1Widget_134cafbef78da90ca8fb6aca8964b337a" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getAlign</name></member>
       <member refid="classMyGUI_1_1Widget_1db1d462f1145cafb358754c03cd3e7f2" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getAlpha</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b0478e244c63d6201a748e371f237ae1" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getBottom</name></member>
       <member refid="classMyGUI_1_1EditBox_1e951cad8f473333ed203f1666013084c" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>getCaption</name></member>
       <member refid="classMyGUI_1_1Widget_1028535563d6d3666658d83e4d479fa6d" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getChildAt</name></member>
       <member refid="classMyGUI_1_1Widget_195ebe8be9fd3d29f7fa8f7846515eeec" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getChildCount</name></member>
@@ -2578,6 +3090,8 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1EditBox_197684f620a92b88e9e2f936cb59793e8" prot="private" virt="virtual"><scope>MyGUI::EditBox</scope><name>getContentAlign</name></member>
       <member refid="classMyGUI_1_1EditBox_193c529e2e111806dbf6b99c2446d05e1" prot="private" virt="virtual"><scope>MyGUI::EditBox</scope><name>getContentPosition</name></member>
       <member refid="classMyGUI_1_1EditBox_163312b668ccdf0f21c04ca8d3669b73e" prot="private" virt="virtual"><scope>MyGUI::EditBox</scope><name>getContentSize</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1a9cc9fbf580a3c77059f20fafcdb201f" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b6b24667d7810f93d79a9fa7750d01ce" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getCroppedParent</name></member>
       <member refid="classMyGUI_1_1EditBox_1f438fe54dd406b67bdf71dd160cbdbf7" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getEditMultiLine</name></member>
       <member refid="classMyGUI_1_1EditBox_1fe422b90c4935f5a02903878da798944" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getEditPassword</name></member>
       <member refid="classMyGUI_1_1EditBox_12d4713dc054433abbea29e0a70d6466f" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getEditReadOnly</name></member>
@@ -2587,31 +3101,49 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1Widget_1abfb5cf6661813f729bd30b4042e95d7" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getEnumerator</name></member>
       <member refid="classMyGUI_1_1TextBox_182cf5031ad57c818cfa9c5a9a0393263" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getFontHeight</name></member>
       <member refid="classMyGUI_1_1TextBox_1eb499df22061231d04ff0a29e87b2b06" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getFontName</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f5253c6b4dfb1107dd23b23fb1109413" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getHeight</name></member>
       <member refid="classMyGUI_1_1EditBox_1918f8919109b5f10d5df934fb8954bc9" prot="private" virt="virtual"><scope>MyGUI::EditBox</scope><name>getHScrollPage</name></member>
       <member refid="classMyGUI_1_1EditBox_17906d6f35afa75f2e2868815871bc960" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getHScrollPosition</name></member>
       <member refid="classMyGUI_1_1EditBox_1fea9ee9da2b4835d41730ec381de0a6c" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getHScrollRange</name></member>
       <member refid="classMyGUI_1_1Widget_1c373e8170168b97491e777b99de0872b" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getInheritedEnabled</name></member>
       <member refid="classMyGUI_1_1Widget_1028a8ae99e47f513065ce3cbb11e4022" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getInheritedVisible</name></member>
       <member refid="classMyGUI_1_1Widget_1c2118d0bf46d9a7ec21c7aed9c7e71ca" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_15be056da5117affd416fe970459f1223" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getInheritsPick</name></member>
       <member refid="classMyGUI_1_1EditBox_168ba67725feaf767f21cf37398f50564" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getInvertSelected</name></member>
+      <member refid="classMyGUI_1_1LayerItem_171d7bb44b59f3636087d3c3361e44fd6" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getLayer</name></member>
       <member refid="classMyGUI_1_1Widget_175cedb78192d81e9dd1cef4a6c7a9fe3" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>getLayerItemByPoint</name></member>
       <member refid="classMyGUI_1_1Widget_13e00b99c46a0c1ebacf29604d503804d" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>getLayerItemCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1753231d8f8981c59cf6a4c92609c35e6" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getLeft</name></member>
       <member refid="classMyGUI_1_1EditBox_17173321a3dac85af5f0dd8dcbf7202e8" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getMaxTextLength</name></member>
       <member refid="classMyGUI_1_1Widget_1421a0e4eec959e8a5cd7f12ff459bfbf" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getName</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16022e50c3a0bab4f36628fa12a51b209" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getNeedKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1470aa4736e0a8f4a662a566eea240b85" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getNeedMouseFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18325fdd47dd74c8574f73bcb6c733df2" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getNeedToolTip</name></member>
       <member refid="classMyGUI_1_1EditBox_10ccf1abb1080f60250c38dab226c3f2e" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getOnlyText</name></member>
       <member refid="classMyGUI_1_1EditBox_17c9cb16adab8efe59e7d64089e03a95b" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getOverflowToTheLeft</name></member>
       <member refid="classMyGUI_1_1Widget_174eb9e9819797e68a510a2ae6c3a410a" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getParent</name></member>
       <member refid="classMyGUI_1_1Widget_1ee1378b1a9bd3db495cbea32f0a13e20" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getParentSize</name></member>
       <member refid="classMyGUI_1_1EditBox_18126141197bfe7bed28fb95144c19e41" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getPasswordChar</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c3ab2d84030f97c4303bc7da394ee333" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getPointer</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b8574746c63b6c512229f1022d497094" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getPosition</name></member>
       <member refid="classMyGUI_1_1EditBox_1a06e1fa69a00055308bbf7c45418e91f" prot="private" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getRealString</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1c2ce3e30f89af0955e511c66e111cf93" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getRight</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1e57aa4f6072057ca8d1a0855a761cbc1" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getRootKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_132e7d91855a309930f6a8318c1fca142" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getRootMouseFocus</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_121d1b3fe212a8fea36cc71b863d88de7" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getSelectedText</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f557c510d0af74ac6c2770253d52b303" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getSize</name></member>
       <member refid="classMyGUI_1_1Widget_14a6523e37fad5103ef5896bdf349861d" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getSkinWidgetsByName</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b7ad0561eae858f69008e77b42fc4192" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getSubWidgetMain</name></member>
+      <member refid="classMyGUI_1_1SkinItem_18790679dbfff2a864b0bbb656d45ee53" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getSubWidgetText</name></member>
       <member refid="classMyGUI_1_1EditBox_123001c46d6c62551de73986068b6e528" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getTabPrinting</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_138dde9affe3295641af069463752a056" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getText</name></member>
       <member refid="classMyGUI_1_1TextBox_1e2b4578eeb95ab1fb771e163d50f9b9c" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getTextAlign</name></member>
       <member refid="classMyGUI_1_1TextBox_1acc4e9fde74bb63723f7abd59f20ca29" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getTextColour</name></member>
       <member refid="classMyGUI_1_1EditBox_1da197c7ab0ffe2684cad61f970b33073" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getTextCursor</name></member>
       <member refid="classMyGUI_1_1EditBox_19f6929498d3e8c0fe6368328eefe9c7a" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getTextInterval</name></member>
       <member refid="classMyGUI_1_1EditBox_1c4047c53197ea3279f0ad0a178831a7d" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getTextLength</name></member>
       <member refid="classMyGUI_1_1EditBox_1cbc5394429065a2dc28df0505a1942f7" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>getTextRegion</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1b2e8178a8f4cdc17ce8cdcab5eab59fe" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getTextSelect</name></member>
       <member refid="classMyGUI_1_1EditBox_11a2d0f2e702510d31dd12805f69278af" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getTextSelection</name></member>
       <member refid="classMyGUI_1_1EditBox_1e2f96157f4251723f313e4dcc7bf4e91" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getTextSelectionEnd</name></member>
       <member refid="classMyGUI_1_1EditBox_1e016617e566b405226562ae075d557b0" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getTextSelectionLength</name></member>
@@ -2619,6 +3151,7 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1TextBox_1c0080a7ed833342b98c9376772d189e7" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getTextShadow</name></member>
       <member refid="classMyGUI_1_1TextBox_14d6ac0eb45e0d495ed874367cfac7577" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getTextShadowColour</name></member>
       <member refid="classMyGUI_1_1EditBox_1ed4f88b5ebbeca587b5f1b04bdfcb8da" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>getTextSize</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1ea03ec13020eb5016f3c17251a526ad9" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getTop</name></member>
       <member refid="classMyGUI_1_1EditBox_17f04183c9acc5f28d459bbf0f69e82a6" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>getTypeName</name></member>
       <member refid="classMyGUI_1_1UserData_1eadd08cc61e475b95c588daf74789a06" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getUserData</name></member>
       <member refid="classMyGUI_1_1UserData_17c62f7374453eaf6e5316ac369559c53" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getUserString</name></member>
@@ -2629,25 +3162,49 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1EditBox_1c306f3e20401d745cc2995d6019a0f6b" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getVScrollPosition</name></member>
       <member refid="classMyGUI_1_1EditBox_19dae995a30dbc4222576d13b12d91237" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getVScrollRange</name></member>
       <member refid="classMyGUI_1_1Widget_15accf9c998578f20adcec5987dc820f2" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_152c93ea7b7c89b708b855a4924df310b" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>getWidth</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_13b493ea3f8e5dcb4cc905da0b7c6dadf" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>ICroppedRectangle</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_1533f51403b804e09b3c2e8eb6d5e679b" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>IDelegateUnlink</name></member>
       <member refid="classMyGUI_1_1EditBox_109271e056797ceb7f3b64a4fa31ecebc" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>initialiseOverride</name></member>
       <member refid="classMyGUI_1_1EditBox_1034a9063b1582e3adfc2396044a3607f" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>insertText</name></member>
       <member refid="classMyGUI_1_1EditBox_1fbce031d19c17abf41c67300904655b2" prot="private" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>insertText</name></member>
+      <member refid="classMyGUI_1_1IObject_198f33c9772728fc4065fe0a1ffdf8246" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>IObject</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_1a089bb887fd20d3f8f279229f6d37bf3" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>isEnabled</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_14f28dc2b7d847c7266e2398c4795658a" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>isInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_147b9c837c75c627bad780cc44e4aefae" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>isInheritsPick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_150e91b6611a362474155ac2351752b54" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>isMaskPickInside</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_1f436236e6b75c0347f579fe84af5514b" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>isNeedKeyFocus</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_1ac609c231c1b2f6ac98c1f314df60415" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>isNeedMouseFocus</name></member>
       <member refid="classMyGUI_1_1Widget_1b3ec05a74f05236afb58855985781cd0" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>isRootWidget</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_10d7b935928125e59d3c6179c2f5604d3" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>isShowHScroll</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1f79dd7b388299345a794e518e416fa5f" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>isShowVScroll</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_120afcf1cda17249a508cd6f458662ffa" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>isTextSelect</name></member>
       <member refid="classMyGUI_1_1EditBox_1b82f47362d234bd68bb68335cecd819c" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>isTextSelection</name></member>
       <member refid="classMyGUI_1_1EditBox_1c11377f2a6f63ff6ec848c9f67d86ca8" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1EditBox_149b4d03c2e7c9d9dd7f3e2ebcb27cd94" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1UserData_10bac17bc60b499cf0386ec3815d67f17" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>isUserString</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_19e2c621a8df680ee50f8f14cbadf2aff" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>isVisible</name></member>
       <member refid="classMyGUI_1_1EditBox_16c8d4d67224aff514c1b1ce477ad9ec9" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>isVisibleHScroll</name></member>
       <member refid="classMyGUI_1_1EditBox_13a92f4ba8464ebcbf9649f2f0fe19c7a" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>isVisibleVScroll</name></member>
+      <member refid="classMyGUI_1_1LayerItem_17a70f273e55fb2945c20fc54ec62969e" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>LayerItem</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_17b7faec75fa09c72701f8ab0fd416182" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mAbsolutePosition</name></member>
       <member refid="classMyGUI_1_1EditBox_1e1d071762b5bee333803e209a586c2f7" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mActionMouseTimer</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1ab8c587a3aa2974efa7e9cfdda765de3" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mChangeContentByResize</name></member>
       <member refid="classMyGUI_1_1EditBox_16700eb6e295b2b7f2ad17563769dadd5" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mCharPassword</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1e022831ae84bfa02d36eff5f442aa823" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mClient</name></member>
       <member refid="classMyGUI_1_1EditBox_11a506b79155d9bb7ddb465108730a6c7" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mClientText</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_121be402c76c560b6568dc16c2f1e38a8" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_15d10640ec8d1a14f75b4a6287d92de12" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mCroppedParent</name></member>
       <member refid="classMyGUI_1_1EditBox_1ed1d62b624c337cf09308eb2dc152837" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mCursorActive</name></member>
       <member refid="classMyGUI_1_1EditBox_1f4e1db3fe2324e44603847604456d861" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mCursorPosition</name></member>
       <member refid="classMyGUI_1_1EditBox_15c3932d0fa1a0413038ee061894b06c7" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mCursorTimer</name></member>
       <member refid="classMyGUI_1_1EditBox_19033c2cd72f94cdfd04aef96c3465212" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mEndSelect</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_14ecbef10c0c6cefdec072abd56ebefa6" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mHRange</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_116432709d5081352937ff7d6f2c76596" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mHScroll</name></member>
       <member refid="classMyGUI_1_1EditBox_161763053e2489653b5921950457a7ce7" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mIsFocus</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_10f0b7542dde743b020713654c50536ca" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mIsMargin</name></member>
       <member refid="classMyGUI_1_1EditBox_1d87fae703a3c93be1419271cf4842933" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mIsPressed</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_125d27b33aeee62b852dc8009a7b942d7" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mMargin</name></member>
       <member refid="classMyGUI_1_1EditBox_1273705fab886d72032d8e3899fc8fb1e" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mMaxTextLength</name></member>
       <member refid="classMyGUI_1_1EditBox_11f9362b5a0394853da58a763f779cbab" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mModeMultiline</name></member>
       <member refid="classMyGUI_1_1EditBox_1e2fe7e634d3e5c1035e3cb6e6ba839f5" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mModePassword</name></member>
@@ -2663,6 +3220,10 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1EditBox_1b21c5853c7500278ef66da0cdea2ecd6" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mTextLength</name></member>
       <member refid="classMyGUI_1_1EditBox_174777bad09d4ab9f50629a0c84d89e82" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mVectorRedoChangeInfo</name></member>
       <member refid="classMyGUI_1_1EditBox_10224cf300d876d94fef20245b64c06bc" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mVectorUndoChangeInfo</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1b1760351ca10248ab9f0cd6a84726bbe" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mVisibleHScroll</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_18850436c264d45cd5168b70dcf2599df" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mVisibleVScroll</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_119ccdcb4f3fe90978578b0c079b510c3" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mVRange</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1ccf29da5e730508c48b4924343b6b2d2" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>mVScroll</name></member>
       <member refid="classMyGUI_1_1EditBox_19887116bb939195d96beb303d945be97" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>notifyMouseButtonDoubleClick</name></member>
       <member refid="classMyGUI_1_1EditBox_13a31d15184919d89a7b6fc575bb40b10" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>notifyMouseDrag</name></member>
       <member refid="classMyGUI_1_1EditBox_1880eb784317d243248906a48dcc9d026" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>notifyMouseLostFocus</name></member>
@@ -2672,14 +3233,31 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1EditBox_1e1b48c150ebc176a8d1e47211682fa74" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>notifyMouseWheel</name></member>
       <member refid="classMyGUI_1_1EditBox_1a5245a806124dcc9d2e29acd39e33b84" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>notifyScrollChangePosition</name></member>
       <member refid="classMyGUI_1_1EditBox_13c9f468f7302a039882a0ccca92c92b7" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>onKeyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1270e79337e0087a161fa74b78aeb3127" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>onKeyButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1b8e266d4069a1ab0363375bad9e35171" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>onKeyChangeRootFocus</name></member>
       <member refid="classMyGUI_1_1EditBox_14a1794d9b02dc65ae360a9e573ebc9f9" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>onKeyLostFocus</name></member>
       <member refid="classMyGUI_1_1EditBox_11b4c231d7c8fd9721f41c39d71d66924" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>onKeySetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1fca1246c61d023b454fab52e25d801a2" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>onMouseButtonClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_157b503609f50ec453339ac3453760339" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>onMouseButtonDoubleClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_174463c8bd4af3c7e7c13afbded5fd74b" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>onMouseButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1969850afcd6bb54830851f3ad7dc564d" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>onMouseButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_170648833f265898bf0dd63a2e1129ce4" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>onMouseChangeRootFocus</name></member>
       <member refid="classMyGUI_1_1EditBox_15ff17b3293e5788dcc298814644ae839" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>onMouseDrag</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1d3cd7674cc408ca8f2aa7cf046c8ddeb" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>onMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16494acd321238c424c15be5f63f979d3" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>onMouseMove</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_110aba92be6cabf07736d4f1de8e93e35" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>onMouseSetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c9d454fb78e4244a3082e3ff3b30b14f" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>onMouseWheel</name></member>
       <member refid="classMyGUI_1_1Widget_1a8cfc0deeb8c2c53c6fabf52dd167639" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>onWidgetCreated</name></member>
       <member refid="classMyGUI_1_1Widget_1c64ffb617119185afaf5ef9650d4f9a5" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>onWidgetDestroy</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1550fd1d2b74394288ff02714a1631c83" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>removeAllRenderItems</name></member>
+      <member refid="classMyGUI_1_1LayerItem_153e3219374e2c24c13c316350d4bd49f" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>removeChildItem</name></member>
+      <member refid="classMyGUI_1_1LayerItem_12a1a9be320fa11fc18976f0952681a3e" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>removeChildNode</name></member>
       <member refid="classMyGUI_1_1EditBox_1585bfbc075cd6e0e9f5e87e41681ffff" prot="private" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>resetSelect</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1b6f86f8277bb2ea3d128091849399f74" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>restoreLayerItem</name></member>
       <member refid="classMyGUI_1_1EditBox_1087126489fee2cb362e2ca18a8dcc56d" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>RTTIBase</name></member>
       <member refid="classMyGUI_1_1EditBox_16701541b947ca8c9529d3b0cddba95d4" prot="private" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>saveInHistory</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1ba403583becd0b8438d47e45033f3a56" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>saveLayerItem</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1d08d94f3759c40f296a57c16f4c199d8" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>ScrollViewBase</name></member>
       <member refid="classMyGUI_1_1Widget_1ebace37eedee14b3ff746b7a0085b993" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>setAlign</name></member>
       <member refid="classMyGUI_1_1Widget_11204361b28430fa9a3b6927d6b4fe9ee" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setAlpha</name></member>
       <member refid="classMyGUI_1_1EditBox_148bde7fa7f3ffacfa1b109926d6f5b78" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>setCaption</name></member>
@@ -2699,12 +3277,19 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1EditBox_1d3917fbff1a5d14b880a3fe6cbeb3c4b" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>setFontName</name></member>
       <member refid="classMyGUI_1_1EditBox_184ac70d68bc67cc6e7ac6f4e8560c842" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setHScrollPosition</name></member>
       <member refid="classMyGUI_1_1Widget_18b44677724faa4112312655e5feed8ae" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_19f3635d97a8d56053311cb2cb2887f5f" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setInheritsPick</name></member>
       <member refid="classMyGUI_1_1EditBox_1dd2c9df3e2c33e40f824da5307e90343" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setInvertSelected</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_14e37553674c10c9b208db056aeeb805a" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setMaskPick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c8b141e404fa6c1a71505216a1ef5b43" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setMaskPick</name></member>
       <member refid="classMyGUI_1_1EditBox_10931c6bc59eb4ca79b8c6d0e4f3bd466" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setMaxTextLength</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_161510314ec32dcff4fcecfe725f46a36" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setNeedKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_133723bb1ea73b5af6c0d3d0041104478" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setNeedMouseFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1b81aa840b2b8cb97b4fdccc92248b1b7" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setNeedToolTip</name></member>
       <member refid="classMyGUI_1_1EditBox_12b99c89689451627d6ed43ee766a7fc1" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setOnlyText</name></member>
       <member refid="classMyGUI_1_1EditBox_1bdf8a470cedfdf6410cc2d9da14ec4c9" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setOverflowToTheLeft</name></member>
       <member refid="classMyGUI_1_1EditBox_11a36eec16d709e89f973e0f32d40ded3" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setPasswordChar</name></member>
       <member refid="classMyGUI_1_1EditBox_170899b5c29b046e1b68444ed9e5374c3" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setPasswordChar</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1192554c59fcce521c063e72db4d867b1" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setPointer</name></member>
       <member refid="classMyGUI_1_1EditBox_1da70cd549af32d4ec3919a6748b38e14" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>setPosition</name></member>
       <member refid="classMyGUI_1_1EditBox_1202fd91dd335b4fc456a7efcdb3bfc3e" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setPosition</name></member>
       <member refid="classMyGUI_1_1Widget_11a6ea7822f869b777800b0d351112e69" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setProperty</name></member>
@@ -2716,15 +3301,19 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1Widget_1d7fba1f9976c36eacb528d6db9213ddf" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setRealSize</name></member>
       <member refid="classMyGUI_1_1Widget_15d89ff45c4bc5f6158382067673903ba" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setRealSize</name></member>
       <member refid="classMyGUI_1_1EditBox_1cfd42dbec5acc2e5d5c130c0689bdf7c" prot="private" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setRealString</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1cf56aa200b89c991fb301b24069726be" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setRenderItemTexture</name></member>
       <member refid="classMyGUI_1_1EditBox_1edb1cf587877db98e1f42fc4988c4e3b" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>setSize</name></member>
       <member refid="classMyGUI_1_1EditBox_1b19eb0c696d00c3b866f0db3a870c9bb" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setSize</name></member>
       <member refid="classMyGUI_1_1EditBox_160e54c69ba17fb024da08dc2267dd397" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setTabPrinting</name></member>
       <member refid="classMyGUI_1_1EditBox_147ba969977ed33c05c457dc80c95821d" prot="private" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setText</name></member>
       <member refid="classMyGUI_1_1EditBox_1c45e1a33e62e043f0d1f27c0f62f1122" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>setTextAlign</name></member>
       <member refid="classMyGUI_1_1EditBox_19910766a0cc754c383f0a55be0be1b5e" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>setTextColour</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_185bfd997649336a7e3f108f655ea9c4f" prot="public" virt="non-virtual" ambiguityscope="MyGUI::MemberObsolete&lt; EditBox &gt;::"><scope>MyGUI::EditBox</scope><name>setTextColour</name></member>
       <member refid="classMyGUI_1_1EditBox_1fa7b9a369941a338f50f5f366f8b1f03" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setTextCursor</name></member>
       <member refid="classMyGUI_1_1EditBox_1eedbb7d2e953b2d091885cca4c343a49" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setTextIntervalColour</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1cedd7226312e8fa62d7123c2bbd7fffd" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setTextSelect</name></member>
       <member refid="classMyGUI_1_1EditBox_1f432bfd68730d0a90d836a7be3a9d944" prot="private" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setTextSelectColour</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1d74326d5807b980524c27ae3772065f4" prot="public" virt="non-virtual" ambiguityscope="MyGUI::MemberObsolete&lt; EditBox &gt;::"><scope>MyGUI::EditBox</scope><name>setTextSelectColour</name></member>
       <member refid="classMyGUI_1_1EditBox_13393a05604c0419012c60e5e1060799d" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setTextSelection</name></member>
       <member refid="classMyGUI_1_1EditBox_19bbc53afb80f65bfce004c36304724f8" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setTextSelectionColour</name></member>
       <member refid="classMyGUI_1_1EditBox_1d0298ee1f43fc0ba948ccc47b18dfb7b" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>setTextShadow</name></member>
@@ -2737,17 +3326,31 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1EditBox_1dd9044dcd19a4dd114732676845b6c76" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setVScrollPosition</name></member>
       <member refid="classMyGUI_1_1Widget_1c717aa06253e913156a6d24fb3d4cbc4" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setWidgetClient</name></member>
       <member refid="classMyGUI_1_1Widget_1372d21a0125ab28cc5c2c295290a2806" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>setWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_16eeeae44860a43f7a62aca70edeffefa" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>showHScroll</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01EditBox_01_4_1c84cd43773e2be35b276588d03df5d68" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>showVScroll</name></member>
       <member refid="classMyGUI_1_1EditBox_1980df95ae424ef6e78a8eb9d10001904" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>shutdownOverride</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1df3cc9ecbcf4702c02b1d265c5d0a7f9" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>SkinItem</name></member>
       <member refid="classMyGUI_1_1TextBox_1c9823be8b1b86d97123b9ab05ee81c77" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>TextBox</name></member>
       <member refid="classMyGUI_1_1EditBox_1ef8623b0759f3864c5dbc550a684dc20" prot="private" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>updateCursorPosition</name></member>
       <member refid="classMyGUI_1_1EditBox_17d96be4180b371357a18d6453941e1ab" prot="private" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>updateEditState</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_125b0904581e3e5f197c90953526c52b7" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>updateScrollPosition</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_1c02fb2609e67ef9a8b8546c6f7c59270" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>updateScrollSize</name></member>
       <member refid="classMyGUI_1_1EditBox_1e6a683fca45b2004842aa9aead5536ef" prot="private" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>updateSelectText</name></member>
       <member refid="classMyGUI_1_1EditBox_13aa65c0f4fc575ba62a86264723d3f48" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>updateView</name></member>
       <member refid="classMyGUI_1_1EditBox_180d91be5d4a3c29d09066bb0d39c0af2" prot="protected" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>updateViewWithCursor</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1c7c30ce98c7f9312b522d6c67b050be4" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>upLayerItem</name></member>
       <member refid="classMyGUI_1_1UserData_1108076068708e939519f9c775c2ae87b" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>UserData</name></member>
       <member refid="classMyGUI_1_1Widget_1f4814618768bc07a685495895ca47b04" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>Widget</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1436c5c5a088a95b40a252574f8ff0506" prot="public" virt="non-virtual"><scope>MyGUI::EditBox</scope><name>WidgetInput</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_128f4ca979240bf4bb4363d84213b6041" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>~ICroppedRectangle</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_12f7d8818258bb5ee2218ea20450b2997" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>~IDelegateUnlink</name></member>
+      <member refid="classMyGUI_1_1ILayerItem_18f05b429c402a94b666bfffee2ef3ed5" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>~ILayerItem</name></member>
+      <member refid="classMyGUI_1_1IObject_1ba65cf3c7393db4589ce28630a5aaadf" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>~IObject</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1412d7e8ee5a5a4773cf27695f402c351" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>~LayerItem</name></member>
+      <member refid="classMyGUI_1_1ScrollViewBase_12f75cb4be8773e42573c4101166b91d6" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>~ScrollViewBase</name></member>
       <member refid="classMyGUI_1_1UserData_1a970af2c1f39e0fa8801fd9defb06d84" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>~UserData</name></member>
       <member refid="classMyGUI_1_1Widget_18ff3c2a98bbea22f4f0191bcac54b643" prot="protected" virt="virtual"><scope>MyGUI::EditBox</scope><name>~Widget</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_106e5ebe1aa33cb737fdaaee9e8708356" prot="public" virt="virtual"><scope>MyGUI::EditBox</scope><name>~WidgetInput</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

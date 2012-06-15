@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1EventPair3to4" kind="class" prot="public">
     <compoundname>MyGUI::EventPair3to4</compoundname>
+    <includes local="no">MyGUI_EventPair.h</includes>
     <templateparamlist>
       <param>
         <type>typename</type>
@@ -236,19 +237,20 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="230">
+      <node id="623">
         <label>Event</label>
       </node>
-      <node id="228">
+      <node id="621">
         <label>MyGUI::EventPair3to4&lt; EventObsolete, Event &gt;</label>
-        <childnode refid="229" relation="usage">
+        <link refid="classMyGUI_1_1EventPair3to4"/>
+        <childnode refid="622" relation="usage">
           <edgelabel>m_eventObsolete</edgelabel>
         </childnode>
-        <childnode refid="230" relation="usage">
+        <childnode refid="623" relation="usage">
           <edgelabel>m_event</edgelabel>
         </childnode>
       </node>
-      <node id="229">
+      <node id="622">
         <label>EventObsolete</label>
       </node>
     </collaborationgraph>

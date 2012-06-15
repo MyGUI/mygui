@@ -2,6 +2,10 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1PointerManager" kind="class" prot="public">
     <compoundname>MyGUI::PointerManager</compoundname>
+    <basecompoundref refid="classMyGUI_1_1Singleton" prot="public" virt="non-virtual">MyGUI::Singleton&lt; PointerManager &gt;</basecompoundref>
+    <basecompoundref refid="classMyGUI_1_1IUnlinkWidget" prot="public" virt="non-virtual">MyGUI::IUnlinkWidget</basecompoundref>
+    <basecompoundref refid="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4" prot="public" virt="non-virtual">MyGUI::MemberObsolete&lt; PointerManager &gt;</basecompoundref>
+    <includes local="no">MyGUI_PointerManager.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1PointerManager_122a43db35103761688349d601dfb8d2c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -171,7 +175,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PointerManager.h" line="66"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1PointerManager_1e42d71e405ca428774d86e98ea3ee96b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>IPointer *</type>
+        <type><ref refid="classMyGUI_1_1IPointer" kindref="compound">IPointer</ref> *</type>
         <definition>IPointer* MyGUI::PointerManager::getByName</definition>
         <argsstring>(const std::string &amp;_name) const </argsstring>
         <name>getByName</name>
@@ -190,7 +194,7 @@
       </sectiondef>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1PointerManager_156a61545c5114e3c3e26ebc148b6ee29" prot="public" static="no" mutable="no">
-        <type>delegates::CMultiDelegate1&lt; const std::string &amp; &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">delegates::CMultiDelegate1</ref>&lt; const std::string &amp; &gt;</type>
         <definition>delegates::CMultiDelegate1&lt;const std::string&amp;&gt; MyGUI::PointerManager::eventChangeMousePointer</definition>
         <argsstring></argsstring>
         <name>eventChangeMousePointer</name>
@@ -214,11 +218,12 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
-      <memberdef kind="function" id="classMyGUI_1_1PointerManager_1afda065cf00937389245d625c13f41c8" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classMyGUI_1_1PointerManager_1afda065cf00937389245d625c13f41c8" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void MyGUI::PointerManager::_unlinkWidget</definition>
         <argsstring>(Widget *_widget)</argsstring>
         <name>_unlinkWidget</name>
+        <reimplements refid="classMyGUI_1_1IUnlinkWidget_1f91e3521c71ef6ff34707922d0dc7fc5">_unlinkWidget</reimplements>
         <param>
           <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
           <declname>_widget</declname>
@@ -237,7 +242,7 @@
         <argsstring>(xml::ElementPtr _node, const std::string &amp;_file, Version _version)</argsstring>
         <name>_load</name>
         <param>
-          <type>xml::ElementPtr</type>
+          <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">xml::ElementPtr</ref></type>
           <declname>_node</declname>
         </param>
         <param>
@@ -245,7 +250,7 @@
           <declname>_file</declname>
         </param>
         <param>
-          <type>Version</type>
+          <type><ref refid="classMyGUI_1_1Version" kindref="compound">Version</ref></type>
           <declname>_version</declname>
         </param>
         <briefdescription>
@@ -262,7 +267,7 @@
         <argsstring>(WidgetStyle _style, const std::string &amp;_type, const std::string &amp;_skin, const IntCoord &amp;_coord, Align _align, const std::string &amp;_layer, const std::string &amp;_name)</argsstring>
         <name>baseCreateWidget</name>
         <param>
-          <type>WidgetStyle</type>
+          <type><ref refid="structMyGUI_1_1WidgetStyle" kindref="compound">WidgetStyle</ref></type>
           <declname>_style</declname>
         </param>
         <param>
@@ -274,11 +279,11 @@
           <declname>_skin</declname>
         </param>
         <param>
-          <type>const IntCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_coord</declname>
         </param>
         <param>
-          <type>Align</type>
+          <type><ref refid="structMyGUI_1_1Align" kindref="compound">Align</ref></type>
           <declname>_align</declname>
         </param>
         <param>
@@ -398,7 +403,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1PointerManager_19d067818abec3a8dd5cefaac767b4c40" prot="private" static="no" mutable="no">
-        <type>VectorWidgetPtr</type>
+        <type><ref refid="namespaceMyGUI_1df1f7c0b898769fe23f821eee2f682f6" kindref="member">VectorWidgetPtr</ref></type>
         <definition>VectorWidgetPtr MyGUI::PointerManager::mWidgetChild</definition>
         <argsstring></argsstring>
         <name>mWidgetChild</name>
@@ -424,7 +429,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PointerManager.h" line="102" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PointerManager.h" bodystart="102" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1PointerManager_1f676361e1d4b49337509a68e5d72f499" prot="private" static="no" mutable="no">
-        <type>IntPoint</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref></type>
         <definition>IntPoint MyGUI::PointerManager::mPoint</definition>
         <argsstring></argsstring>
         <name>mPoint</name>
@@ -502,7 +507,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PointerManager.h" line="109" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PointerManager.h" bodystart="109" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1PointerManager_153bcb923e0026ca410776b38fbf0737a" prot="private" static="no" mutable="no">
-        <type>IPointer *</type>
+        <type><ref refid="classMyGUI_1_1IPointer" kindref="compound">IPointer</ref> *</type>
         <definition>IPointer* MyGUI::PointerManager::mPointer</definition>
         <argsstring></argsstring>
         <name>mPointer</name>
@@ -545,36 +550,380 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <collaborationgraph>
-      <node id="522">
+    <inheritancegraph>
+      <node id="2003">
         <label>MyGUI::PointerManager</label>
-        <childnode refid="523" relation="usage">
+        <link refid="classMyGUI_1_1PointerManager"/>
+        <childnode refid="2004" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2005" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2006" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2006">
+        <label>MyGUI::MemberObsolete&lt; PointerManager &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4"/>
+      </node>
+      <node id="2005">
+        <label>MyGUI::IUnlinkWidget</label>
+        <link refid="classMyGUI_1_1IUnlinkWidget"/>
+      </node>
+      <node id="2004">
+        <label>MyGUI::Singleton&lt; PointerManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2028">
+        <label>MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate1"/>
+      </node>
+      <node id="2043">
+        <label>MyGUI::WidgetStyle</label>
+        <link refid="structMyGUI_1_1WidgetStyle"/>
+      </node>
+      <node id="2012">
+        <label>T</label>
+      </node>
+      <node id="2035">
+        <label>MyGUI::ILayer</label>
+        <link refid="classMyGUI_1_1ILayer"/>
+        <childnode refid="2036" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2018">
+        <label>MyGUI::types::TCoord&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TCoord"/>
+        <childnode refid="2012" relation="usage">
+          <edgelabel>width
+height
+left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="2031">
+        <label>MyGUI::SkinItem</label>
+        <link refid="classMyGUI_1_1SkinItem"/>
+        <childnode refid="2032" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2034" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="2038" relation="usage">
+          <edgelabel>mMainSkin</edgelabel>
+        </childnode>
+        <childnode refid="2041" relation="usage">
+          <edgelabel>mText</edgelabel>
+        </childnode>
+      </node>
+      <node id="2033">
+        <label>MyGUI::ILayerItem</label>
+        <link refid="classMyGUI_1_1ILayerItem"/>
+      </node>
+      <node id="2007">
+        <label>MyGUI::PointerManager</label>
+        <link refid="classMyGUI_1_1PointerManager"/>
+        <childnode refid="2008" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2009" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2010" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2011" relation="usage">
+          <edgelabel>mPoint</edgelabel>
+        </childnode>
+        <childnode refid="2013" relation="usage">
+          <edgelabel>eventChangeMousePointer</edgelabel>
+        </childnode>
+        <childnode refid="2014" relation="usage">
           <edgelabel>mMousePointer</edgelabel>
         </childnode>
-        <childnode refid="524" relation="usage">
+        <childnode refid="2047" relation="usage">
+          <edgelabel>mPointer</edgelabel>
+        </childnode>
+        <childnode refid="2015" relation="usage">
           <edgelabel>mWidgetOwner</edgelabel>
         </childnode>
       </node>
-      <node id="523">
+      <node id="2010">
+        <label>MyGUI::MemberObsolete&lt; PointerManager &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4"/>
+      </node>
+      <node id="2024">
+        <label>MyGUI::delegates::CMultiDelegate3&lt; TP1, TP2, TP3 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate3"/>
+      </node>
+      <node id="2034">
+        <label>MyGUI::ITexture</label>
+        <link refid="classMyGUI_1_1ITexture"/>
+      </node>
+      <node id="2025">
+        <label>MyGUI::delegates::CMultiDelegate4&lt; TP1, TP2, TP3, TP4 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate4"/>
+      </node>
+      <node id="2027">
+        <label>MyGUI::MaskPickInfo</label>
+        <link refid="classMyGUI_1_1MaskPickInfo"/>
+      </node>
+      <node id="2017">
+        <label>MyGUI::ICroppedRectangle</label>
+        <link refid="classMyGUI_1_1ICroppedRectangle"/>
+        <childnode refid="2011" relation="usage">
+          <edgelabel>mAbsolutePosition</edgelabel>
+        </childnode>
+        <childnode refid="2018" relation="usage">
+          <edgelabel>mCoord</edgelabel>
+        </childnode>
+        <childnode refid="2019" relation="usage">
+          <edgelabel>mMargin</edgelabel>
+        </childnode>
+        <childnode refid="2017" relation="usage">
+          <edgelabel>mCroppedParent</edgelabel>
+        </childnode>
+      </node>
+      <node id="2019">
+        <label>MyGUI::types::TRect&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TRect"/>
+        <childnode refid="2012" relation="usage">
+          <edgelabel>right
+left
+bottom
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="2037">
+        <label>MyGUI::ILayerNode</label>
+        <link refid="classMyGUI_1_1ILayerNode"/>
+        <childnode refid="2016" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2009">
+        <label>MyGUI::IUnlinkWidget</label>
+        <link refid="classMyGUI_1_1IUnlinkWidget"/>
+      </node>
+      <node id="2042">
+        <label>MyGUI::MemberObsolete&lt; Widget &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4"/>
+      </node>
+      <node id="2029">
+        <label>MyGUI::delegates::CMultiDelegate2&lt; TP1, TP2 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate2"/>
+      </node>
+      <node id="2014">
         <label>MyGUI::ImageBox</label>
         <link refid="classMyGUI_1_1ImageBox"/>
-        <childnode refid="524" relation="public-inheritance">
+        <childnode refid="2015" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2044" relation="usage">
+          <edgelabel>mSizeTexture
+mSizeTile</edgelabel>
+        </childnode>
+        <childnode refid="2019" relation="usage">
+          <edgelabel>mRectImage</edgelabel>
+        </childnode>
+        <childnode refid="2045" relation="usage">
+          <edgelabel>mResource</edgelabel>
         </childnode>
       </node>
-      <node id="525">
+      <node id="2045">
+        <label>MyGUI::ResourceImageSet</label>
+        <link refid="classMyGUI_1_1ResourceImageSet"/>
+        <childnode refid="2046" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2020">
         <label>MyGUI::UserData</label>
         <link refid="classMyGUI_1_1UserData"/>
+        <childnode refid="2021" relation="usage">
+          <edgelabel>mUserData
+mInternalData</edgelabel>
+        </childnode>
       </node>
-      <node id="524">
+      <node id="2044">
+        <label>MyGUI::types::TSize&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TSize"/>
+        <childnode refid="2012" relation="usage">
+          <edgelabel>width
+height</edgelabel>
+        </childnode>
+      </node>
+      <node id="2041">
+        <label>MyGUI::ISubWidgetText</label>
+        <link refid="classMyGUI_1_1ISubWidgetText"/>
+        <childnode refid="2039" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2015">
         <label>MyGUI::Widget</label>
         <link refid="classMyGUI_1_1Widget"/>
-        <childnode refid="525" relation="public-inheritance">
+        <childnode refid="2016" relation="public-inheritance">
         </childnode>
-        <childnode refid="524" relation="usage">
+        <childnode refid="2017" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2020" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2023" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2030" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2031" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2042" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2024" relation="usage">
+          <edgelabel>eventChangeProperty</edgelabel>
+        </childnode>
+        <childnode refid="2043" relation="usage">
+          <edgelabel>mWidgetStyle</edgelabel>
+        </childnode>
+        <childnode refid="2015" relation="usage">
           <edgelabel>mContainer
 mParent
 mWidgetClient</edgelabel>
         </childnode>
+        <childnode refid="2040" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
+      </node>
+      <node id="2013">
+        <label>MyGUI::delegates::CMultiDelegate1&lt; const std::string &amp; &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate1"/>
+      </node>
+      <node id="2040">
+        <label>MyGUI::Align</label>
+        <link refid="structMyGUI_1_1Align"/>
+      </node>
+      <node id="2038">
+        <label>MyGUI::ISubWidgetRect</label>
+        <link refid="classMyGUI_1_1ISubWidgetRect"/>
+        <childnode refid="2039" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2036">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="2016" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2039">
+        <label>MyGUI::ISubWidget</label>
+        <link refid="classMyGUI_1_1ISubWidget"/>
+        <childnode refid="2017" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2016" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2040" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
+      </node>
+      <node id="2030">
+        <label>MyGUI::delegates::IDelegateUnlink</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegateUnlink"/>
+        <childnode refid="2030" relation="usage">
+          <edgelabel>m_baseDelegateUnlink</edgelabel>
+        </childnode>
+      </node>
+      <node id="2026">
+        <label>MyGUI::EventPair3to4&lt; EventHandle_WidgetIntInt, EventHandle_WidgetIntIntButton &gt;</label>
+        <link refid="classMyGUI_1_1EventPair3to4"/>
+        <childnode refid="2024" relation="usage">
+          <edgelabel>m_eventObsolete</edgelabel>
+        </childnode>
+        <childnode refid="2025" relation="usage">
+          <edgelabel>m_event</edgelabel>
+        </childnode>
+      </node>
+      <node id="2047">
+        <label>MyGUI::IPointer</label>
+        <link refid="classMyGUI_1_1IPointer"/>
+        <childnode refid="2046" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2023">
+        <label>MyGUI::WidgetInput</label>
+        <link refid="classMyGUI_1_1WidgetInput"/>
+        <childnode refid="2024" relation="usage">
+          <edgelabel>eventKeyButtonPressed
+eventMouseMove</edgelabel>
+        </childnode>
+        <childnode refid="2025" relation="usage">
+          <edgelabel>eventMouseButtonPressed
+eventMouseButtonReleased</edgelabel>
+        </childnode>
+        <childnode refid="2026" relation="usage">
+          <edgelabel>eventMouseDrag</edgelabel>
+        </childnode>
+        <childnode refid="2027" relation="usage">
+          <edgelabel>mOwnMaskPickInfo</edgelabel>
+        </childnode>
+        <childnode refid="2028" relation="usage">
+          <edgelabel>eventMouseButtonDoubleClick
+eventMouseButtonClick</edgelabel>
+        </childnode>
+        <childnode refid="2029" relation="usage">
+          <edgelabel>eventKeySetFocus
+eventMouseSetFocus
+eventKeyButtonReleased
+eventKeyLostFocus
+eventRootMouseChangeFocus
+eventMouseWheel
+eventToolTip
+eventMouseLostFocus
+eventRootKeyChangeFocus</edgelabel>
+        </childnode>
+      </node>
+      <node id="2022">
+        <label>MyGUI::Any::AnyEmpty</label>
+        <link refid="structMyGUI_1_1Any_1_1AnyEmpty"/>
+      </node>
+      <node id="2032">
+        <label>MyGUI::LayerItem</label>
+        <link refid="classMyGUI_1_1LayerItem"/>
+        <childnode refid="2033" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2034" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="2035" relation="usage">
+          <edgelabel>mLayer</edgelabel>
+        </childnode>
+        <childnode refid="2037" relation="usage">
+          <edgelabel>mSaveLayerNode
+mLayerNode</edgelabel>
+        </childnode>
+      </node>
+      <node id="2046">
+        <label>MyGUI::IResource</label>
+        <link refid="classMyGUI_1_1IResource"/>
+        <childnode refid="2036" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2011">
+        <label>MyGUI::types::TPoint&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TPoint"/>
+        <childnode refid="2012" relation="usage">
+          <edgelabel>left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="2008">
+        <label>MyGUI::Singleton&lt; PointerManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+        <childnode refid="2007" relation="usage">
+          <edgelabel>msInstance</edgelabel>
+        </childnode>
+      </node>
+      <node id="2021">
+        <label>MyGUI::Any</label>
+        <link refid="classMyGUI_1_1Any"/>
+        <childnode refid="2022" relation="usage">
+          <edgelabel>Null</edgelabel>
+        </childnode>
+      </node>
+      <node id="2016">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
       </node>
     </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PointerManager.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PointerManager.h" bodystart="35" bodyend="114"/>
@@ -582,14 +931,21 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1PointerManager_1cce2fece4a59ffc9c6c86ee57aaa6e4c" prot="private" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>_destroyAllChildWidget</name></member>
       <member refid="classMyGUI_1_1PointerManager_1ed3ea5bd525ef2f8cee69fc4487855c6" prot="private" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>_destroyChildWidget</name></member>
       <member refid="classMyGUI_1_1PointerManager_1513c46459e573ab980f156ea7da2df92" prot="private" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>_load</name></member>
-      <member refid="classMyGUI_1_1PointerManager_1afda065cf00937389245d625c13f41c8" prot="private" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>_unlinkWidget</name></member>
+      <member refid="classMyGUI_1_1PointerManager_1afda065cf00937389245d625c13f41c8" prot="private" virt="virtual"><scope>MyGUI::PointerManager</scope><name>_unlinkWidget</name></member>
+      <member refid="classMyGUI_1_1Singleton_1a74db81b5e58d5c6cc4e9bcba1648253" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>Base</name></member>
       <member refid="classMyGUI_1_1PointerManager_1835c91c371041270be5b61652ae43f22" prot="private" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>baseCreateWidget</name></member>
       <member refid="classMyGUI_1_1PointerManager_156a61545c5114e3c3e26ebc148b6ee29" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>eventChangeMousePointer</name></member>
       <member refid="classMyGUI_1_1PointerManager_1e42d71e405ca428774d86e98ea3ee96b" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>getByName</name></member>
+      <member refid="classMyGUI_1_1Singleton_12c806053cf545c5fdf7a3e6822a585a9" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>getClassTypeName</name></member>
       <member refid="classMyGUI_1_1PointerManager_11f5162d72093bbd84098837fe095947f" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>getDefaultPointer</name></member>
+      <member refid="classMyGUI_1_1Singleton_162dffea70e4b1061c1018a3b12d3ecd8" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>getInstance</name></member>
+      <member refid="classMyGUI_1_1Singleton_14529a5eda85de92183260b77259fefa2" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>getInstancePtr</name></member>
       <member refid="classMyGUI_1_1PointerManager_1bd88551720f73525adcd4531be316dce" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>getLayerName</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4_1627c27d656d0e26308ed8d6aa3059450" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>hide</name></member>
       <member refid="classMyGUI_1_1PointerManager_1f10f897dca35de58e0fc19c415853b7d" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>initialise</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4_15eb4397eb38e1a26fcbc5ebd57e6c81d" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>isShow</name></member>
       <member refid="classMyGUI_1_1PointerManager_1cadfe543d7347650e225fc0501781a86" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>isVisible</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4_1216fb40f7ba8fbd4bfd6b72753d969f7" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>load</name></member>
       <member refid="classMyGUI_1_1PointerManager_121081917849fa1176bc7ea72477c9cce" prot="private" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>mCurrentMousePointer</name></member>
       <member refid="classMyGUI_1_1PointerManager_1abd48a825d5fa9d45b279978da768d98" prot="private" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>mDefaultName</name></member>
       <member refid="classMyGUI_1_1PointerManager_11161ed5f709796b7c7ab4cf63cb5cdb8" prot="private" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>mIsInitialise</name></member>
@@ -605,13 +961,18 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1PointerManager_181a598a03b36ea2c8e763187d162025d" prot="private" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>notifyFrameStart</name></member>
       <member refid="classMyGUI_1_1PointerManager_122a43db35103761688349d601dfb8d2c" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>PointerManager</name></member>
       <member refid="classMyGUI_1_1PointerManager_126f741ac2af92f353741a2341f34523d" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>resetToDefaultPointer</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4_1a1a9137477c9a29e1dd59d34a965dd95" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>setDeafultPointer</name></member>
       <member refid="classMyGUI_1_1PointerManager_1e23fe3bdcb72c7172dbce3b2d58a19ba" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>setDefaultPointer</name></member>
       <member refid="classMyGUI_1_1PointerManager_1ac51889995e5311e17ff33f391dbb623" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>setLayerName</name></member>
       <member refid="classMyGUI_1_1PointerManager_18ea241f4235d8d1bdb7373363159f1e8" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>setPointer</name></member>
       <member refid="classMyGUI_1_1PointerManager_1a04f50cf1d5da8f91e0c13554f20f291" prot="private" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>setPointer</name></member>
       <member refid="classMyGUI_1_1PointerManager_16f91d9666883b3b3854829470834023c" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>setVisible</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4_17c15517daa02eae0298fe04ddf26ac6c" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>show</name></member>
       <member refid="classMyGUI_1_1PointerManager_1a5389e2f8c7d410ab80aba1bff85436c" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>shutdown</name></member>
+      <member refid="classMyGUI_1_1Singleton_130052fd9a72b1c3ad326830169e85307" prot="public" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>Singleton</name></member>
       <member refid="classMyGUI_1_1PointerManager_10cffdcffd5e0a253a88e1e60c08fb686" prot="private" virt="non-virtual"><scope>MyGUI::PointerManager</scope><name>Update</name></member>
+      <member refid="classMyGUI_1_1IUnlinkWidget_1a2e24c22ce9088c193b5b759c1f283d6" prot="public" virt="virtual"><scope>MyGUI::PointerManager</scope><name>~IUnlinkWidget</name></member>
+      <member refid="classMyGUI_1_1Singleton_1d342e3b15791e6a20cbd2aa9229b5c6f" prot="public" virt="virtual"><scope>MyGUI::PointerManager</scope><name>~Singleton</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

@@ -3,6 +3,7 @@
   <compounddef id="classMyGUI_1_1Canvas" kind="class" prot="public">
     <compoundname>MyGUI::Canvas</compoundname>
     <basecompoundref refid="classMyGUI_1_1Widget" prot="public" virt="non-virtual">MyGUI::Widget</basecompoundref>
+    <basecompoundref refid="classMyGUI_1_1ITextureInvalidateListener" prot="public" virt="non-virtual">MyGUI::ITextureInvalidateListener</basecompoundref>
     <includes local="no">MyGUI_Canvas.h</includes>
     <innerclass refid="structMyGUI_1_1Canvas_1_1Event">MyGUI::Canvas::Event</innerclass>
       <sectiondef kind="public-type">
@@ -35,7 +36,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" bodystart="40" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classMyGUI_1_1Canvas_16d0b525c91f39c3c906663518d7ec63b" prot="public" static="no">
-        <type>delegates::CMultiDelegate1&lt; <ref refid="classMyGUI_1_1Canvas" kindref="compound">Canvas</ref> * &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">delegates::CMultiDelegate1</ref>&lt; <ref refid="classMyGUI_1_1Canvas" kindref="compound">Canvas</ref> * &gt;</type>
         <definition>typedef delegates::CMultiDelegate1&lt;Canvas*&gt; MyGUI::Canvas::EventHandle_CanvasPtr</definition>
         <argsstring></argsstring>
         <name>EventHandle_CanvasPtr</name>
@@ -48,7 +49,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" line="61" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classMyGUI_1_1Canvas_16f3a3c5108b1b3be78cef36b4a823ecd" prot="public" static="no">
-        <type>delegates::CDelegate2&lt; <ref refid="classMyGUI_1_1Canvas" kindref="compound">Canvas</ref> *, Event &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CDelegate2" kindref="compound">delegates::CDelegate2</ref>&lt; <ref refid="classMyGUI_1_1Canvas" kindref="compound">Canvas</ref> *, <ref refid="structMyGUI_1_1Canvas_1_1Event" kindref="compound">Event</ref> &gt;</type>
         <definition>typedef delegates::CDelegate2&lt;Canvas*, Event&gt; MyGUI::Canvas::EventHandle_CanvasPtrEvent</definition>
         <argsstring></argsstring>
         <name>EventHandle_CanvasPtrEvent</name>
@@ -170,12 +171,12 @@
           <declname>_resizeMode</declname>
         </param>
         <param>
-          <type>TextureUsage</type>
+          <type><ref refid="structMyGUI_1_1TextureUsage" kindref="compound">TextureUsage</ref></type>
           <declname>_usage</declname>
           <defval>getDefaultTextureUsage()</defval>
         </param>
         <param>
-          <type>PixelFormat</type>
+          <type><ref refid="structMyGUI_1_1PixelFormat" kindref="compound">PixelFormat</ref></type>
           <declname>_format</declname>
           <defval>getDefaultTextureFormat()</defval>
         </param>
@@ -205,12 +206,12 @@
           <declname>_resizeMode</declname>
         </param>
         <param>
-          <type>TextureUsage</type>
+          <type><ref refid="structMyGUI_1_1TextureUsage" kindref="compound">TextureUsage</ref></type>
           <declname>_usage</declname>
           <defval>getDefaultTextureUsage()</defval>
         </param>
         <param>
-          <type>PixelFormat</type>
+          <type><ref refid="structMyGUI_1_1PixelFormat" kindref="compound">PixelFormat</ref></type>
           <declname>_format</declname>
           <defval>getDefaultTextureFormat()</defval>
         </param>
@@ -228,7 +229,7 @@
         <argsstring>(const IntSize &amp;_size, TextureResizeMode _resizeMode, TextureUsage _usage=getDefaultTextureUsage(), PixelFormat _format=getDefaultTextureFormat())</argsstring>
         <name>createTexture</name>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_size</declname>
         </param>
         <param>
@@ -236,12 +237,12 @@
           <declname>_resizeMode</declname>
         </param>
         <param>
-          <type>TextureUsage</type>
+          <type><ref refid="structMyGUI_1_1TextureUsage" kindref="compound">TextureUsage</ref></type>
           <declname>_usage</declname>
           <defval>getDefaultTextureUsage()</defval>
         </param>
         <param>
-          <type>PixelFormat</type>
+          <type><ref refid="structMyGUI_1_1PixelFormat" kindref="compound">PixelFormat</ref></type>
           <declname>_format</declname>
           <defval>getDefaultTextureFormat()</defval>
         </param>
@@ -285,7 +286,7 @@
         <argsstring>(TextureUsage _usage=TextureUsage::Write)</argsstring>
         <name>lock</name>
         <param>
-          <type>TextureUsage</type>
+          <type><ref refid="structMyGUI_1_1TextureUsage" kindref="compound">TextureUsage</ref></type>
           <declname>_usage</declname>
           <defval>TextureUsage::Write</defval>
         </param>
@@ -350,7 +351,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" line="106"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1Canvas_17bc13055358ea16626c1845a6df5bddb" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>IntSize</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref></type>
         <definition>IntSize MyGUI::Canvas::getTextureRealSize</definition>
         <argsstring>() const </argsstring>
         <name>getTextureRealSize</name>
@@ -389,7 +390,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" line="115"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1Canvas_173cb67d6ece0331273e54f008c22f094" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>IntSize</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref></type>
         <definition>IntSize MyGUI::Canvas::getTextureSrcSize</definition>
         <argsstring>() const </argsstring>
         <name>getTextureSrcSize</name>
@@ -402,7 +403,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" line="118"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1Canvas_17f49dce0b8d21fc1e39997f8fbb993e2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>PixelFormat</type>
+        <type><ref refid="structMyGUI_1_1PixelFormat" kindref="compound">PixelFormat</ref></type>
         <definition>PixelFormat MyGUI::Canvas::getTextureFormat</definition>
         <argsstring>() const </argsstring>
         <name>getTextureFormat</name>
@@ -434,7 +435,7 @@
         <name>setSize</name>
         <reimplements refid="classMyGUI_1_1Widget_1b8928099957173c4f58aee98d043faab">setSize</reimplements>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -453,7 +454,7 @@
         <name>setCoord</name>
         <reimplements refid="classMyGUI_1_1Widget_156333ae229f81cfdc9daa834599b96de">setCoord</reimplements>
         <param>
-          <type>const IntCoord &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TCoord" kindref="compound">IntCoord</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -591,7 +592,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" line="149"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1Canvas_18bd4909b3d343e8f4b0beaa10a88a809" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>ITexture *</type>
+        <type><ref refid="classMyGUI_1_1ITexture" kindref="compound">ITexture</ref> *</type>
         <definition>ITexture* MyGUI::Canvas::getTexture</definition>
         <argsstring>() const </argsstring>
         <name>getTexture</name>
@@ -625,14 +626,14 @@
       </sectiondef>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1Canvas_18f2005603c1beff94db624d3854467bd" prot="public" static="no" mutable="no">
-        <type>EventHandle_CanvasPtr</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">EventHandle_CanvasPtr</ref></type>
         <definition>EventHandle_CanvasPtr MyGUI::Canvas::eventPreTextureChanges</definition>
         <argsstring></argsstring>
         <name>eventPreTextureChanges</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Event : Notify user texture instance will be changed<simplesect kind="see"><para><ref refid="classMyGUI_1_1Canvas_13285a438807a63af658b9f87b5b724de" kindref="member">requestUpdateCanvas</ref>.<linebreak/>
+<para><ref refid="structMyGUI_1_1Canvas_1_1Event" kindref="compound">Event</ref> : Notify user texture instance will be changed<simplesect kind="see"><para><ref refid="classMyGUI_1_1Canvas_13285a438807a63af658b9f87b5b724de" kindref="member">requestUpdateCanvas</ref>.<linebreak/>
  signature : void method(MyGUI::Canvas* _canvas)<linebreak/>
  </para></simplesect>
 <parameterlist kind="param"><parameteritem>
@@ -650,14 +651,14 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" line="168" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" bodystart="168" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1Canvas_13285a438807a63af658b9f87b5b724de" prot="public" static="no" mutable="no">
-        <type>EventHandle_CanvasPtrEvent</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CDelegate2" kindref="compound">EventHandle_CanvasPtrEvent</ref></type>
         <definition>EventHandle_CanvasPtrEvent MyGUI::Canvas::requestUpdateCanvas</definition>
         <argsstring></argsstring>
         <name>requestUpdateCanvas</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Event : Texture instance was changed (May be caused by resizing texture or lossing device). User have to update all references to new instance of texture.<linebreak/>
+<para><ref refid="structMyGUI_1_1Canvas_1_1Event" kindref="compound">Event</ref> : Texture instance was changed (May be caused by resizing texture or lossing device). User have to update all references to new instance of texture.<linebreak/>
  signature : void method(MyGUI::Canvas* _canvas, MyGUI::Canvas::Event _event)<linebreak/>
  <parameterlist kind="param"><parameteritem>
 <parameternamelist>
@@ -697,7 +698,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" bodystart="40" bodyend="40"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1Canvas_125144dfbd28f72a0b144284fff834d9c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>TextureUsage</type>
+        <type><ref refid="structMyGUI_1_1TextureUsage" kindref="compound">TextureUsage</ref></type>
         <definition>static TextureUsage MyGUI::Canvas::getDefaultTextureUsage</definition>
         <argsstring>()</argsstring>
         <name>getDefaultTextureUsage</name>
@@ -710,7 +711,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" line="158"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1Canvas_1f057909dc67db22eea06e5be9b736b1f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>PixelFormat</type>
+        <type><ref refid="structMyGUI_1_1PixelFormat" kindref="compound">PixelFormat</ref></type>
         <definition>static PixelFormat MyGUI::Canvas::getDefaultTextureFormat</definition>
         <argsstring>()</argsstring>
         <name>getDefaultTextureFormat</name>
@@ -783,11 +784,11 @@
           <declname>_height</declname>
         </param>
         <param>
-          <type>TextureUsage &amp;</type>
+          <type><ref refid="structMyGUI_1_1TextureUsage" kindref="compound">TextureUsage</ref> &amp;</type>
           <declname>_usage</declname>
         </param>
         <param>
-          <type>PixelFormat &amp;</type>
+          <type><ref refid="structMyGUI_1_1PixelFormat" kindref="compound">PixelFormat</ref> &amp;</type>
           <declname>_format</declname>
         </param>
         <briefdescription>
@@ -812,11 +813,11 @@
           <declname>_height</declname>
         </param>
         <param>
-          <type>TextureUsage</type>
+          <type><ref refid="structMyGUI_1_1TextureUsage" kindref="compound">TextureUsage</ref></type>
           <declname>_usage</declname>
         </param>
         <param>
-          <type>PixelFormat</type>
+          <type><ref refid="structMyGUI_1_1PixelFormat" kindref="compound">PixelFormat</ref></type>
           <declname>_format</declname>
         </param>
         <briefdescription>
@@ -854,7 +855,7 @@
         <argsstring>(const IntSize &amp;_size)</argsstring>
         <name>resize</name>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_size</declname>
         </param>
         <briefdescription>
@@ -918,8 +919,9 @@
         <definition>virtual void MyGUI::Canvas::textureInvalidate</definition>
         <argsstring>(ITexture *_texture)</argsstring>
         <name>textureInvalidate</name>
+        <reimplements refid="classMyGUI_1_1ITextureInvalidateListener_1c2232b9ab5c158ff7540149bec20f87b">textureInvalidate</reimplements>
         <param>
-          <type>ITexture *</type>
+          <type><ref refid="classMyGUI_1_1ITexture" kindref="compound">ITexture</ref> *</type>
           <declname>_texture</declname>
         </param>
         <briefdescription>
@@ -936,7 +938,7 @@
         <argsstring>(const FloatRect &amp;_rect)</argsstring>
         <name>_setUVSet</name>
         <param>
-          <type>const FloatRect &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TRect" kindref="compound">FloatRect</ref> &amp;</type>
           <declname>_rect</declname>
         </param>
         <briefdescription>
@@ -950,10 +952,11 @@
       </sectiondef>
       <sectiondef kind="protected-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1Canvas_1890922c53f63ba2783363a62166f944a" prot="protected" static="no" mutable="no">
-        <type>ITexture *</type>
+        <type><ref refid="classMyGUI_1_1ITexture" kindref="compound">ITexture</ref> *</type>
         <definition>ITexture* MyGUI::Canvas::mTexture</definition>
         <argsstring></argsstring>
         <name>mTexture</name>
+        <reimplements refid="classMyGUI_1_1SkinItem_1dfded3cd05623a7ae1e73858aa8fa077">mTexture</reimplements>
         <briefdescription>
 <para>Current texture. </para>        </briefdescription>
         <detaileddescription>
@@ -963,7 +966,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" line="211" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" bodystart="211" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1Canvas_100324fe2c3d88d25358c6c5c50721a54" prot="protected" static="no" mutable="no">
-        <type>IntSize</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref></type>
         <definition>IntSize MyGUI::Canvas::mReqTexSize</definition>
         <argsstring></argsstring>
         <name>mReqTexSize</name>
@@ -1003,7 +1006,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" line="220" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" bodystart="220" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1Canvas_16bcce208ea58ec7ca77a5e00f0611667" prot="protected" static="no" mutable="no">
-        <type>uint8 *</type>
+        <type><ref refid="namespaceMyGUI_156be7d5be0f6d225d7373b0931dac737" kindref="member">uint8</ref> *</type>
         <definition>uint8* MyGUI::Canvas::mTexData</definition>
         <argsstring></argsstring>
         <name>mTexData</name>
@@ -1061,50 +1064,395 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="37">
+      <node id="86">
+        <label>MyGUI::SkinItem</label>
+        <link refid="classMyGUI_1_1SkinItem"/>
+        <childnode refid="87" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="90">
+        <label>MyGUI::ITextureInvalidateListener</label>
+        <link refid="classMyGUI_1_1ITextureInvalidateListener"/>
+      </node>
+      <node id="88">
+        <label>MyGUI::ILayerItem</label>
+        <link refid="classMyGUI_1_1ILayerItem"/>
+      </node>
+      <node id="82">
+        <label>MyGUI::ICroppedRectangle</label>
+        <link refid="classMyGUI_1_1ICroppedRectangle"/>
+      </node>
+      <node id="89">
+        <label>MyGUI::MemberObsolete&lt; Widget &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4"/>
+      </node>
+      <node id="83">
         <label>MyGUI::UserData</label>
         <link refid="classMyGUI_1_1UserData"/>
       </node>
-      <node id="36">
+      <node id="80">
         <label>MyGUI::Widget</label>
         <link refid="classMyGUI_1_1Widget"/>
-        <childnode refid="37" relation="public-inheritance">
+        <childnode refid="81" relation="public-inheritance">
+        </childnode>
+        <childnode refid="82" relation="public-inheritance">
+        </childnode>
+        <childnode refid="83" relation="public-inheritance">
+        </childnode>
+        <childnode refid="84" relation="public-inheritance">
+        </childnode>
+        <childnode refid="85" relation="public-inheritance">
+        </childnode>
+        <childnode refid="86" relation="public-inheritance">
+        </childnode>
+        <childnode refid="89" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="35">
+      <node id="85">
+        <label>MyGUI::delegates::IDelegateUnlink</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegateUnlink"/>
+      </node>
+      <node id="79">
         <label>MyGUI::Canvas</label>
         <link refid="classMyGUI_1_1Canvas"/>
-        <childnode refid="36" relation="public-inheritance">
+        <childnode refid="80" relation="public-inheritance">
         </childnode>
+        <childnode refid="90" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="84">
+        <label>MyGUI::WidgetInput</label>
+        <link refid="classMyGUI_1_1WidgetInput"/>
+      </node>
+      <node id="87">
+        <label>MyGUI::LayerItem</label>
+        <link refid="classMyGUI_1_1LayerItem"/>
+        <childnode refid="88" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="81">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="40">
+      <node id="107">
+        <label>MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate1"/>
+      </node>
+      <node id="122">
+        <label>MyGUI::WidgetStyle</label>
+        <link refid="structMyGUI_1_1WidgetStyle"/>
+      </node>
+      <node id="96">
+        <label>T</label>
+      </node>
+      <node id="114">
+        <label>MyGUI::ILayer</label>
+        <link refid="classMyGUI_1_1ILayer"/>
+        <childnode refid="115" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="97">
+        <label>MyGUI::types::TCoord&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TCoord"/>
+        <childnode refid="96" relation="usage">
+          <edgelabel>width
+height
+left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="110">
+        <label>MyGUI::SkinItem</label>
+        <link refid="classMyGUI_1_1SkinItem"/>
+        <childnode refid="111" relation="public-inheritance">
+        </childnode>
+        <childnode refid="113" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="117" relation="usage">
+          <edgelabel>mMainSkin</edgelabel>
+        </childnode>
+        <childnode refid="120" relation="usage">
+          <edgelabel>mText</edgelabel>
+        </childnode>
+      </node>
+      <node id="123">
+        <label>MyGUI::ITextureInvalidateListener</label>
+        <link refid="classMyGUI_1_1ITextureInvalidateListener"/>
+      </node>
+      <node id="112">
+        <label>MyGUI::ILayerItem</label>
+        <link refid="classMyGUI_1_1ILayerItem"/>
+      </node>
+      <node id="103">
+        <label>MyGUI::delegates::CMultiDelegate3&lt; TP1, TP2, TP3 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate3"/>
+      </node>
+      <node id="113">
+        <label>MyGUI::ITexture</label>
+        <link refid="classMyGUI_1_1ITexture"/>
+      </node>
+      <node id="104">
+        <label>MyGUI::delegates::CMultiDelegate4&lt; TP1, TP2, TP3, TP4 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate4"/>
+      </node>
+      <node id="106">
+        <label>MyGUI::MaskPickInfo</label>
+        <link refid="classMyGUI_1_1MaskPickInfo"/>
+      </node>
+      <node id="94">
+        <label>MyGUI::ICroppedRectangle</label>
+        <link refid="classMyGUI_1_1ICroppedRectangle"/>
+        <childnode refid="95" relation="usage">
+          <edgelabel>mAbsolutePosition</edgelabel>
+        </childnode>
+        <childnode refid="97" relation="usage">
+          <edgelabel>mCoord</edgelabel>
+        </childnode>
+        <childnode refid="98" relation="usage">
+          <edgelabel>mMargin</edgelabel>
+        </childnode>
+        <childnode refid="94" relation="usage">
+          <edgelabel>mCroppedParent</edgelabel>
+        </childnode>
+      </node>
+      <node id="98">
+        <label>MyGUI::types::TRect&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TRect"/>
+        <childnode refid="96" relation="usage">
+          <edgelabel>right
+left
+bottom
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="116">
+        <label>MyGUI::ILayerNode</label>
+        <link refid="classMyGUI_1_1ILayerNode"/>
+        <childnode refid="93" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="121">
+        <label>MyGUI::MemberObsolete&lt; Widget &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4"/>
+      </node>
+      <node id="108">
+        <label>MyGUI::delegates::CMultiDelegate2&lt; TP1, TP2 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate2"/>
+      </node>
+      <node id="99">
         <label>MyGUI::UserData</label>
         <link refid="classMyGUI_1_1UserData"/>
+        <childnode refid="100" relation="usage">
+          <edgelabel>mUserData
+mInternalData</edgelabel>
+        </childnode>
       </node>
-      <node id="39">
+      <node id="124">
+        <label>MyGUI::types::TSize&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TSize"/>
+        <childnode refid="96" relation="usage">
+          <edgelabel>width
+height</edgelabel>
+        </childnode>
+      </node>
+      <node id="120">
+        <label>MyGUI::ISubWidgetText</label>
+        <link refid="classMyGUI_1_1ISubWidgetText"/>
+        <childnode refid="118" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="126">
+        <label>MyGUI::delegates::IDelegate2&lt; TP1, TP2 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegate2"/>
+      </node>
+      <node id="92">
         <label>MyGUI::Widget</label>
         <link refid="classMyGUI_1_1Widget"/>
-        <childnode refid="40" relation="public-inheritance">
+        <childnode refid="93" relation="public-inheritance">
         </childnode>
-        <childnode refid="39" relation="usage">
+        <childnode refid="94" relation="public-inheritance">
+        </childnode>
+        <childnode refid="99" relation="public-inheritance">
+        </childnode>
+        <childnode refid="102" relation="public-inheritance">
+        </childnode>
+        <childnode refid="109" relation="public-inheritance">
+        </childnode>
+        <childnode refid="110" relation="public-inheritance">
+        </childnode>
+        <childnode refid="121" relation="public-inheritance">
+        </childnode>
+        <childnode refid="103" relation="usage">
+          <edgelabel>eventChangeProperty</edgelabel>
+        </childnode>
+        <childnode refid="122" relation="usage">
+          <edgelabel>mWidgetStyle</edgelabel>
+        </childnode>
+        <childnode refid="92" relation="usage">
           <edgelabel>mContainer
 mParent
 mWidgetClient</edgelabel>
         </childnode>
+        <childnode refid="119" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
       </node>
-      <node id="38">
+      <node id="119">
+        <label>MyGUI::Align</label>
+        <link refid="structMyGUI_1_1Align"/>
+      </node>
+      <node id="117">
+        <label>MyGUI::ISubWidgetRect</label>
+        <link refid="classMyGUI_1_1ISubWidgetRect"/>
+        <childnode refid="118" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="115">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="93" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="118">
+        <label>MyGUI::ISubWidget</label>
+        <link refid="classMyGUI_1_1ISubWidget"/>
+        <childnode refid="94" relation="public-inheritance">
+        </childnode>
+        <childnode refid="93" relation="public-inheritance">
+        </childnode>
+        <childnode refid="119" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
+      </node>
+      <node id="109">
+        <label>MyGUI::delegates::IDelegateUnlink</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegateUnlink"/>
+        <childnode refid="109" relation="usage">
+          <edgelabel>m_baseDelegateUnlink</edgelabel>
+        </childnode>
+      </node>
+      <node id="91">
         <label>MyGUI::Canvas</label>
         <link refid="classMyGUI_1_1Canvas"/>
-        <childnode refid="39" relation="public-inheritance">
+        <childnode refid="92" relation="public-inheritance">
         </childnode>
+        <childnode refid="123" relation="public-inheritance">
+        </childnode>
+        <childnode refid="113" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="124" relation="usage">
+          <edgelabel>mReqTexSize</edgelabel>
+        </childnode>
+        <childnode refid="125" relation="usage">
+          <edgelabel>requestUpdateCanvas</edgelabel>
+        </childnode>
+        <childnode refid="107" relation="usage">
+          <edgelabel>eventPreTextureChanges</edgelabel>
+        </childnode>
+      </node>
+      <node id="105">
+        <label>MyGUI::EventPair3to4&lt; EventHandle_WidgetIntInt, EventHandle_WidgetIntIntButton &gt;</label>
+        <link refid="classMyGUI_1_1EventPair3to4"/>
+        <childnode refid="103" relation="usage">
+          <edgelabel>m_eventObsolete</edgelabel>
+        </childnode>
+        <childnode refid="104" relation="usage">
+          <edgelabel>m_event</edgelabel>
+        </childnode>
+      </node>
+      <node id="102">
+        <label>MyGUI::WidgetInput</label>
+        <link refid="classMyGUI_1_1WidgetInput"/>
+        <childnode refid="103" relation="usage">
+          <edgelabel>eventKeyButtonPressed
+eventMouseMove</edgelabel>
+        </childnode>
+        <childnode refid="104" relation="usage">
+          <edgelabel>eventMouseButtonPressed
+eventMouseButtonReleased</edgelabel>
+        </childnode>
+        <childnode refid="105" relation="usage">
+          <edgelabel>eventMouseDrag</edgelabel>
+        </childnode>
+        <childnode refid="106" relation="usage">
+          <edgelabel>mOwnMaskPickInfo</edgelabel>
+        </childnode>
+        <childnode refid="107" relation="usage">
+          <edgelabel>eventMouseButtonDoubleClick
+eventMouseButtonClick</edgelabel>
+        </childnode>
+        <childnode refid="108" relation="usage">
+          <edgelabel>eventKeySetFocus
+eventMouseSetFocus
+eventKeyButtonReleased
+eventKeyLostFocus
+eventRootMouseChangeFocus
+eventMouseWheel
+eventToolTip
+eventMouseLostFocus
+eventRootKeyChangeFocus</edgelabel>
+        </childnode>
+      </node>
+      <node id="101">
+        <label>MyGUI::Any::AnyEmpty</label>
+        <link refid="structMyGUI_1_1Any_1_1AnyEmpty"/>
+      </node>
+      <node id="111">
+        <label>MyGUI::LayerItem</label>
+        <link refid="classMyGUI_1_1LayerItem"/>
+        <childnode refid="112" relation="public-inheritance">
+        </childnode>
+        <childnode refid="113" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="114" relation="usage">
+          <edgelabel>mLayer</edgelabel>
+        </childnode>
+        <childnode refid="116" relation="usage">
+          <edgelabel>mSaveLayerNode
+mLayerNode</edgelabel>
+        </childnode>
+      </node>
+      <node id="95">
+        <label>MyGUI::types::TPoint&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TPoint"/>
+        <childnode refid="96" relation="usage">
+          <edgelabel>left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="125">
+        <label>MyGUI::delegates::CDelegate2&lt; TP1, TP2 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CDelegate2"/>
+        <childnode refid="126" relation="usage">
+          <edgelabel>mDelegate</edgelabel>
+        </childnode>
+      </node>
+      <node id="100">
+        <label>MyGUI::Any</label>
+        <link refid="classMyGUI_1_1Any"/>
+        <childnode refid="101" relation="usage">
+          <edgelabel>Null</edgelabel>
+        </childnode>
+      </node>
+      <node id="93">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
       </node>
     </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" bodystart="36" bodyend="232"/>
     <listofallmembers>
+      <member refid="classMyGUI_1_1ICroppedRectangle_140912f54a25901b779ea49094e5f4ae0" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_checkMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1093bbcae9343e7fe54fb4769652dfc2f" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_checkOutside</name></member>
       <member refid="classMyGUI_1_1Widget_134c44665e7d51c7eb65bf70f0479e1c3" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_checkPoint</name></member>
+      <member refid="classMyGUI_1_1SkinItem_10726c0a6b7e07c4a1ffbc6b41da8639e" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_correctSkinItemView</name></member>
+      <member refid="classMyGUI_1_1SkinItem_125c41f0b09a8cb62b56e4bf151029efe" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_createSkinItem</name></member>
       <member refid="classMyGUI_1_1Widget_13601e5ca0d565451dfcf106850506a51" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_createSkinWidget</name></member>
+      <member refid="classMyGUI_1_1SkinItem_183e18cf55c5dfcd5fc991cd3d1c79726" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_deleteSkinItem</name></member>
       <member refid="classMyGUI_1_1Widget_10df77f6d74fe5fc24701819e0b7e0fe8" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_destroyAllChildWidget</name></member>
       <member refid="classMyGUI_1_1Widget_125136884a04944ef8b199c582e15482c" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_destroyChildWidget</name></member>
       <member refid="classMyGUI_1_1Canvas_1598294496fa17f2249ae96fb1376c0c8" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_destroyTexture</name></member>
@@ -1113,25 +1461,72 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1Widget_1fef9a1d046d1b78f8c76de1db83d20c6" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>_getContainerIndex</name></member>
       <member refid="classMyGUI_1_1UserData_1fc4382ac3423790f57b478a0fe5030a2" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_getInternalData</name></member>
       <member refid="classMyGUI_1_1Widget_106700537a6fffaf43aa9c93e89d9cc7d" prot="public" virt="virtual"><scope>MyGUI::Canvas</scope><name>_getItemIndex</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1dd35646a24b80019d956bd8d9a8842e4" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_getMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b883cc09bbd15914970fa6a3a155b261" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_getMarginBottom</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1c389b55028cb6157b3832250de48cfe7" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_getMarginLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_11221b089abe10e18924bf5bb3209ac9f" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_getMarginRight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f875bcc3f5e3292c646142460892f7a4" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_getMarginTop</name></member>
+      <member refid="classMyGUI_1_1SkinItem_111f8d0452fdc560e02d3302bb100f994" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_getTextureName</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_13a7c73e8f4cc8dabcd76a5c6645900b9" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_getViewBottom</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1eaa2e53babcc2e3fdc8809f6eb8825bf" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_getViewHeight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_19c87ba1cec7e29effd49a8aed37e4bbe" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_getViewLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1ae878f922452310563bc53768acbee32" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_getViewRight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_16f7f0a2960a331640aaee3a88fdc8a20" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_getViewTop</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_10fb56854f3bb6d0f7f4f0e8f608fa37a" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_getViewWidth</name></member>
       <member refid="classMyGUI_1_1Widget_1ae54386446434e4b133c244925402375" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_initialise</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1e9ab842519de0d0d1ff6624c96a25aee" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_isMargin</name></member>
       <member refid="classMyGUI_1_1Widget_1175526a4b039cf13c7fec7012d7287fc" prot="public" virt="virtual"><scope>MyGUI::Canvas</scope><name>_resetContainer</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16ca16375013009df6343d5d704a5e0c5" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_riseKeyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16656b62ce7ec79ba18d0cdfedd2dfd4c" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_riseKeyButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c7feaf74a77264d4c2276ef7ae7238b9" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_riseKeyChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1d68d79f35d6a2d5ec4f063850199c699" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_riseKeyLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16890125536b19d6c6ec45482f3a36a46" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_riseKeySetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1ee33fe7ab755d138b20742d2b333a86a" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_riseMouseButtonClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10f7494e4a979775f2f67ab1b7a18c436" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_riseMouseButtonDoubleClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1abf1460346c8b853efde46128588f227" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_riseMouseButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18fe37f4239c9f31bc522520d6e30d047" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_riseMouseButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1ef279e1b31729b0975a8fd3dbba6f55a" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_riseMouseChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_181a0731821e5a71bd4ff6205428b78c9" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_riseMouseDrag</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1b08bce548d116bc1c6ef6e6d979d8de8" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_riseMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10adf6398d5b0e5890557061ac78ad65b" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_riseMouseMove</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1a012de5786a0bed2ae87a9deae13c0ef" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_riseMouseSetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_17e327836202f73c68ec038af7ffa8890" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_riseMouseWheel</name></member>
       <member refid="classMyGUI_1_1Widget_15df6dbd95e99b9b65b385d815026cf26" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_setAlign</name></member>
       <member refid="classMyGUI_1_1Widget_1d3d48604ad15f958b81bf423f80271c9" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_setContainer</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b7a33eeac6fd7e1ecc305decc2970249" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_setCroppedParent</name></member>
       <member refid="classMyGUI_1_1UserData_12bd52c146bad41f99bbc7ed31335ad18" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_setInternalData</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1dabde72179cbe3f1640edb16d4b19185" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_setRootKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1e63e896e1bc3441474eaf02d8c940fb0" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_setRootMouseFocus</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b983e0ed07906a96b1f9a1a6d3593304" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_setSkinItemAlign</name></member>
+      <member refid="classMyGUI_1_1SkinItem_121cde72c7bd643fec9816501fe986205" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_setSkinItemAlpha</name></member>
+      <member refid="classMyGUI_1_1SkinItem_15f1951b1f095aaa695fb90ea7cef623b" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_setSkinItemColour</name></member>
+      <member refid="classMyGUI_1_1SkinItem_199576e05c1de9db65b724308619559d4" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_setSkinItemState</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1e7dffe0acef7ab94c35cd0cd70fede08" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_setSkinItemVisible</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b705b413faa908fe8424b57574a3410f" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_setSubSkinVisible</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1d7130c196fcd0e29e06210f96240b171" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_setTextureName</name></member>
       <member refid="classMyGUI_1_1Canvas_1547e467b25d642693bd5d4037e528225" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_setUVSet</name></member>
       <member refid="classMyGUI_1_1Widget_13325a1f4c26917f6f73b207d0986e1bd" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_setWidgetState</name></member>
       <member refid="classMyGUI_1_1Widget_155b19482fe01925c36e29af671e3d092" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_shutdown</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b5d81f68dff04ef4c975d8563ea0f598" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_updateSkinItemView</name></member>
       <member refid="classMyGUI_1_1Widget_1dd935a48ef2c39688d8026c01e9e3939" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>_updateView</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1468694a8e650fa4c019298691bb515d5" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>addChildItem</name></member>
+      <member refid="classMyGUI_1_1LayerItem_151c4c558eec72b51f62753c2dfe44094" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>addChildNode</name></member>
+      <member refid="classMyGUI_1_1LayerItem_19ddb478b09b766f3c515523e8d0658b0" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>addRenderItem</name></member>
       <member refid="classMyGUI_1_1Widget_1b390f48a62a30d529c901cf8cfa1c24c" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>assignWidget</name></member>
+      <member refid="classMyGUI_1_1LayerItem_129e3f29933beef8f55ec8965a93be0cc" prot="public" virt="virtual"><scope>MyGUI::Canvas</scope><name>attachItemToNode</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1d8cf239c39b116a48a1517117d1fb9a6" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>attachToLayerItemNode</name></member>
       <member refid="classMyGUI_1_1Widget_105110870f31f66a901b3b11737c194de" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>attachToWidget</name></member>
       <member refid="classMyGUI_1_1Canvas_1890b413db8ff60373050d5d9ee6f262b" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>Base</name></member>
       <member refid="classMyGUI_1_1Widget_1d88d7deb826efb660943ccb0bb457cae" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>baseCreateWidget</name></member>
       <member refid="classMyGUI_1_1Widget_1d4c4a2cf2c3dd8b71126291a55e69139" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>baseUpdateEnable</name></member>
       <member refid="classMyGUI_1_1Canvas_15e94a83307e6479e6561aef0153ec223" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>Canvas</name></member>
+      <member refid="classMyGUI_1_1IObject_1c542d61d7f1efd5c08dae100a3c68558" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>castType</name></member>
+      <member refid="classMyGUI_1_1IObject_1f636b3c71d893eeb41bebc1c6f4519e1" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>castType</name></member>
       <member refid="classMyGUI_1_1Widget_1be74d6cc433da6140629423b120735a4" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>changeWidgetSkin</name></member>
       <member refid="classMyGUI_1_1Canvas_12e4615ab741552f0e98dc4fc9c200bba" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>checkCreate</name></member>
       <member refid="classMyGUI_1_1UserData_1f71561f766d83082a82cbdd6d218bd6b" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>clearUserString</name></member>
       <member refid="classMyGUI_1_1UserData_154fecc1b40c23594c6518589b6912e49" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>clearUserStrings</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_1c6738433a415e2f37a5d3f927c0cc7fe" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>compare</name></member>
       <member refid="classMyGUI_1_1Canvas_117c0a636afb98688026c1f1235292d36" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>correctUV</name></member>
       <member refid="classMyGUI_1_1Canvas_11c983733c189eced06aabdca6b9f00ee" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>createExactTexture</name></member>
       <member refid="classMyGUI_1_1Canvas_13a349181c10a587b6c3fdd5910119206" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>createTexture</name></member>
@@ -1149,36 +1544,77 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1Widget_1e26a4a5e8ea3fa4bafd969eb952d88e9" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>createWidgetT</name></member>
       <member refid="classMyGUI_1_1Widget_1c1c862389f772c52077fe4f2cf6568b5" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>destroySkinWidget</name></member>
       <member refid="classMyGUI_1_1Canvas_14f720ecb033044ca1d725d973746b2f6" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>destroyTexture</name></member>
+      <member refid="classMyGUI_1_1LayerItem_113b56979c71726ffcb334b778b193716" prot="public" virt="virtual"><scope>MyGUI::Canvas</scope><name>detachFromLayer</name></member>
+      <member refid="classMyGUI_1_1LayerItem_13d324b33933eb9f9bc8ac9d51e05e54e" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>detachFromLayerItemNode</name></member>
       <member refid="classMyGUI_1_1Widget_1056ac7afc041cf328037e210c742302f" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>detachFromWidget</name></member>
       <member refid="classMyGUI_1_1Widget_130efcbdb772c4a75f8208a99c4f9f34d" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>eventChangeProperty</name></member>
       <member refid="classMyGUI_1_1Canvas_16d0b525c91f39c3c906663518d7ec63b" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>EventHandle_CanvasPtr</name></member>
       <member refid="classMyGUI_1_1Canvas_16f3a3c5108b1b3be78cef36b4a823ecd" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>EventHandle_CanvasPtrEvent</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_19c0c205a1523715242cb07f3e1bb0018" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>eventKeyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1fe364fecb43bd52d81894fd8cbb6ff7c" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>eventKeyButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1190abc3db9e410abf5b3e96aec9278db" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>eventKeyLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c4228a2d61d12a5f4f411512c2144823" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>eventKeySetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10e6830d3204b28e15ee1472de5ca0349" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>eventMouseButtonClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10e66a008ba9f9c4887d42eac663e4b72" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>eventMouseButtonDoubleClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1892130d1ef15dccc6314c70a172113b1" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>eventMouseButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_15a0432361acd9073b3669d49a2bd4ae9" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>eventMouseButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1075f29698be6ce4aa2e330f9ea120739" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>eventMouseDrag</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1bb439d65c18114eee9be1caf93b262b6" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>eventMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_12ac6dfa5dbd2cd51c57f9f4ceb246511" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>eventMouseMove</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18ca56a714afbf4c6cf45e29d5843a479" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>eventMouseSetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1efb2b8ab0a4d1cd7e19870343f3492a9" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>eventMouseWheel</name></member>
       <member refid="classMyGUI_1_1Canvas_18f2005603c1beff94db624d3854467bd" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>eventPreTextureChanges</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1d24b759d3ec5843fc7c317cc90862b79" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>eventRootKeyChangeFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1dbeaee810227eb6d583ce3fcea219309" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>eventRootMouseChangeFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18d45b85aeb9f2f2428f65cfe289d9c81" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>eventToolTip</name></member>
       <member refid="classMyGUI_1_1Widget_1d054e1027a48f2ccb9af0179359dadc5" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>findWidget</name></member>
       <member refid="classMyGUI_1_1Widget_1e6d193b99a9d69973922d1b8e0f0b70e" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>findWidgets</name></member>
       <member refid="classMyGUI_1_1Canvas_10df6f8176bbf259284a258bf383a6700" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>frameAdvise</name></member>
       <member refid="classMyGUI_1_1Canvas_11b8e0eb9d8c0361f0625b039e787be64" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>frameEntered</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_183d89c16d41d05bb8772f362b516dd3b" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getAbsoluteCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_19ac46efa204752d3d4a8495feaade9a0" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getAbsoluteLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1a3ae7bcd46578b5082c21a41962c3db6" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getAbsolutePosition</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_16221e701b940cd07bb2a41c84099dfa1" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getAbsoluteRect</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_108f36d963cb1bbcc853ffaf8f576d306" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getAbsoluteTop</name></member>
       <member refid="classMyGUI_1_1Widget_134cafbef78da90ca8fb6aca8964b337a" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getAlign</name></member>
       <member refid="classMyGUI_1_1Widget_1db1d462f1145cafb358754c03cd3e7f2" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getAlpha</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b0478e244c63d6201a748e371f237ae1" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getBottom</name></member>
       <member refid="classMyGUI_1_1Widget_1028535563d6d3666658d83e4d479fa6d" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getChildAt</name></member>
       <member refid="classMyGUI_1_1Widget_195ebe8be9fd3d29f7fa8f7846515eeec" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getChildCount</name></member>
       <member refid="classMyGUI_1_1Canvas_18c680c4bb5aa729538316f80864b14ed" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getClassTypeName</name></member>
       <member refid="classMyGUI_1_1Widget_15ffebc869b3b4c36e31178616b27fc86" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getClientCoord</name></member>
       <member refid="classMyGUI_1_1Widget_1ac162cf5e6c51d487c71ae2e2d041352" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getClientWidget</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1a9cc9fbf580a3c77059f20fafcdb201f" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b6b24667d7810f93d79a9fa7750d01ce" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getCroppedParent</name></member>
       <member refid="classMyGUI_1_1Canvas_1f057909dc67db22eea06e5be9b736b1f" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getDefaultTextureFormat</name></member>
       <member refid="classMyGUI_1_1Canvas_125144dfbd28f72a0b144284fff834d9c" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getDefaultTextureUsage</name></member>
       <member refid="classMyGUI_1_1Widget_15cd729c40ad712c7036a0d3f6a2507b2" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getEnabled</name></member>
       <member refid="classMyGUI_1_1Widget_1abfb5cf6661813f729bd30b4042e95d7" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getEnumerator</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f5253c6b4dfb1107dd23b23fb1109413" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getHeight</name></member>
       <member refid="classMyGUI_1_1Widget_1c373e8170168b97491e777b99de0872b" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getInheritedEnabled</name></member>
       <member refid="classMyGUI_1_1Widget_1028a8ae99e47f513065ce3cbb11e4022" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getInheritedVisible</name></member>
       <member refid="classMyGUI_1_1Widget_1c2118d0bf46d9a7ec21c7aed9c7e71ca" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_15be056da5117affd416fe970459f1223" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getInheritsPick</name></member>
+      <member refid="classMyGUI_1_1LayerItem_171d7bb44b59f3636087d3c3361e44fd6" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getLayer</name></member>
       <member refid="classMyGUI_1_1Widget_175cedb78192d81e9dd1cef4a6c7a9fe3" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>getLayerItemByPoint</name></member>
       <member refid="classMyGUI_1_1Widget_13e00b99c46a0c1ebacf29604d503804d" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>getLayerItemCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1753231d8f8981c59cf6a4c92609c35e6" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getLeft</name></member>
       <member refid="classMyGUI_1_1Widget_1421a0e4eec959e8a5cd7f12ff459bfbf" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getName</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16022e50c3a0bab4f36628fa12a51b209" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getNeedKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1470aa4736e0a8f4a662a566eea240b85" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getNeedMouseFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18325fdd47dd74c8574f73bcb6c733df2" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getNeedToolTip</name></member>
       <member refid="classMyGUI_1_1Widget_174eb9e9819797e68a510a2ae6c3a410a" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getParent</name></member>
       <member refid="classMyGUI_1_1Widget_1ee1378b1a9bd3db495cbea32f0a13e20" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getParentSize</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c3ab2d84030f97c4303bc7da394ee333" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getPointer</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b8574746c63b6c512229f1022d497094" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getPosition</name></member>
       <member refid="classMyGUI_1_1Canvas_1e5d15b259ea92e5b08abde80fc3c6cfc" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getResizeMode</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1c2ce3e30f89af0955e511c66e111cf93" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getRight</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1e57aa4f6072057ca8d1a0855a761cbc1" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getRootKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_132e7d91855a309930f6a8318c1fca142" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getRootMouseFocus</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f557c510d0af74ac6c2770253d52b303" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getSize</name></member>
       <member refid="classMyGUI_1_1Widget_14a6523e37fad5103ef5896bdf349861d" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getSkinWidgetsByName</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b7ad0561eae858f69008e77b42fc4192" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getSubWidgetMain</name></member>
+      <member refid="classMyGUI_1_1SkinItem_18790679dbfff2a864b0bbb656d45ee53" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getSubWidgetText</name></member>
       <member refid="classMyGUI_1_1Canvas_18bd4909b3d343e8f4b0beaa10a88a809" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getTexture</name></member>
       <member refid="classMyGUI_1_1Canvas_17f49dce0b8d21fc1e39997f8fbb993e2" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getTextureFormat</name></member>
       <member refid="classMyGUI_1_1Canvas_12c8da218226a3191c4143f02778b5bc4" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getTextureName</name></member>
@@ -1188,14 +1624,25 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1Canvas_171d8d6d90a0e89b7254e40b75d586164" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getTextureSrcHeight</name></member>
       <member refid="classMyGUI_1_1Canvas_173cb67d6ece0331273e54f008c22f094" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getTextureSrcSize</name></member>
       <member refid="classMyGUI_1_1Canvas_180a075bad0825f6b6e7e71d6478c60ac" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getTextureSrcWidth</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1ea03ec13020eb5016f3c17251a526ad9" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getTop</name></member>
       <member refid="classMyGUI_1_1Canvas_132c32a149649ec8da0cd986191c935cd" prot="public" virt="virtual"><scope>MyGUI::Canvas</scope><name>getTypeName</name></member>
       <member refid="classMyGUI_1_1UserData_1eadd08cc61e475b95c588daf74789a06" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getUserData</name></member>
       <member refid="classMyGUI_1_1UserData_17c62f7374453eaf6e5316ac369559c53" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getUserString</name></member>
       <member refid="classMyGUI_1_1UserData_19bc43d45330305b52c5c3f0e9dffabab" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getUserStrings</name></member>
       <member refid="classMyGUI_1_1Widget_1fa7ad1d5a3213ee9f8c4567e6f3fdd7d" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getVisible</name></member>
       <member refid="classMyGUI_1_1Widget_15accf9c998578f20adcec5987dc820f2" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_152c93ea7b7c89b708b855a4924df310b" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>getWidth</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_13b493ea3f8e5dcb4cc905da0b7c6dadf" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>ICroppedRectangle</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_1533f51403b804e09b3c2e8eb6d5e679b" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>IDelegateUnlink</name></member>
       <member refid="classMyGUI_1_1Canvas_1decf70524a20d702cb9a549087cf3649" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>initialiseOverride</name></member>
+      <member refid="classMyGUI_1_1IObject_198f33c9772728fc4065fe0a1ffdf8246" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>IObject</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_1a089bb887fd20d3f8f279229f6d37bf3" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>isEnabled</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_14f28dc2b7d847c7266e2398c4795658a" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>isInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_147b9c837c75c627bad780cc44e4aefae" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>isInheritsPick</name></member>
       <member refid="classMyGUI_1_1Canvas_15babe65dce3eb19ac902145aa7f6b78d" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>isLocked</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_150e91b6611a362474155ac2351752b54" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>isMaskPickInside</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_1f436236e6b75c0347f579fe84af5514b" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>isNeedKeyFocus</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_1ac609c231c1b2f6ac98c1f314df60415" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>isNeedMouseFocus</name></member>
       <member refid="classMyGUI_1_1Widget_1b3ec05a74f05236afb58855985781cd0" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>isRootWidget</name></member>
       <member refid="classMyGUI_1_1Canvas_13a84cb1f1f351481b50297a5f16a42e8" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>isTextureCreated</name></member>
       <member refid="classMyGUI_1_1Canvas_17f5a8c55bb5f841caa69cdd175b7f322" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>isTextureManaged</name></member>
@@ -1203,20 +1650,47 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1Canvas_1ce63ef05ddd5a453846b2ddf416d3edd" prot="public" virt="virtual"><scope>MyGUI::Canvas</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1Canvas_1ef6e0697a785080e1ab72131545eaa73" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1UserData_10bac17bc60b499cf0386ec3815d67f17" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>isUserString</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4_19e2c621a8df680ee50f8f14cbadf2aff" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>isVisible</name></member>
+      <member refid="classMyGUI_1_1LayerItem_17a70f273e55fb2945c20fc54ec62969e" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>LayerItem</name></member>
       <member refid="classMyGUI_1_1Canvas_1cd75e58b1b0e464683a2d208e2a6e81e" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>lock</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_17b7faec75fa09c72701f8ab0fd416182" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>mAbsolutePosition</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_121be402c76c560b6568dc16c2f1e38a8" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>mCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_15d10640ec8d1a14f75b4a6287d92de12" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>mCroppedParent</name></member>
       <member refid="classMyGUI_1_1Canvas_12704f6bb83b2a6efd83fc3247431f753" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>mFrameAdvise</name></member>
       <member refid="classMyGUI_1_1Canvas_1b9b8ebc7bd1eebbb3c9e82cee2f6fc86" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>mGenTexName</name></member>
       <member refid="classMyGUI_1_1Canvas_1867df93bd95ae795c50f967e8af5fad4" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>mInvalidateData</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_10f0b7542dde743b020713654c50536ca" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>mIsMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_125d27b33aeee62b852dc8009a7b942d7" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>mMargin</name></member>
       <member refid="classMyGUI_1_1Canvas_100324fe2c3d88d25358c6c5c50721a54" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>mReqTexSize</name></member>
       <member refid="classMyGUI_1_1Canvas_16bcce208ea58ec7ca77a5e00f0611667" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>mTexData</name></member>
       <member refid="classMyGUI_1_1Canvas_1345ed6c8ac12cb407d4cf607254d28a5" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>mTexManaged</name></member>
       <member refid="classMyGUI_1_1Canvas_146ea98dff368206048f3a745f9946651" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>mTexResizeMode</name></member>
       <member refid="classMyGUI_1_1Canvas_1890922c53f63ba2783363a62166f944a" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>mTexture</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1095e1acc8d228d9340b2b308c677fdf4" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>onKeyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1270e79337e0087a161fa74b78aeb3127" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>onKeyButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1b8e266d4069a1ab0363375bad9e35171" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>onKeyChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_18f59f529e001d90bbe4885ea29515673" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>onKeyLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_10b912cd730d4e657e7263fae829a4e6b" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>onKeySetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1fca1246c61d023b454fab52e25d801a2" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>onMouseButtonClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_157b503609f50ec453339ac3453760339" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>onMouseButtonDoubleClick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_174463c8bd4af3c7e7c13afbded5fd74b" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>onMouseButtonPressed</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1969850afcd6bb54830851f3ad7dc564d" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>onMouseButtonReleased</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_170648833f265898bf0dd63a2e1129ce4" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>onMouseChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1feca6cb1a11fcb56921658032ce0cb49" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>onMouseDrag</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1d3cd7674cc408ca8f2aa7cf046c8ddeb" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>onMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_16494acd321238c424c15be5f63f979d3" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>onMouseMove</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_110aba92be6cabf07736d4f1de8e93e35" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>onMouseSetFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c9d454fb78e4244a3082e3ff3b30b14f" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>onMouseWheel</name></member>
       <member refid="classMyGUI_1_1Widget_1a8cfc0deeb8c2c53c6fabf52dd167639" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>onWidgetCreated</name></member>
       <member refid="classMyGUI_1_1Widget_1c64ffb617119185afaf5ef9650d4f9a5" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>onWidgetDestroy</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1550fd1d2b74394288ff02714a1631c83" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>removeAllRenderItems</name></member>
+      <member refid="classMyGUI_1_1LayerItem_153e3219374e2c24c13c316350d4bd49f" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>removeChildItem</name></member>
+      <member refid="classMyGUI_1_1LayerItem_12a1a9be320fa11fc18976f0952681a3e" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>removeChildNode</name></member>
       <member refid="classMyGUI_1_1Canvas_13285a438807a63af658b9f87b5b724de" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>requestUpdateCanvas</name></member>
       <member refid="classMyGUI_1_1Canvas_149a40292b67abc12cd8c1da376143e8c" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>resize</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1b6f86f8277bb2ea3d128091849399f74" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>restoreLayerItem</name></member>
       <member refid="classMyGUI_1_1Canvas_135c011bbfa492fd65b8fee498410f474" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1ba403583becd0b8438d47e45033f3a56" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>saveLayerItem</name></member>
       <member refid="classMyGUI_1_1Widget_1ebace37eedee14b3ff746b7a0085b993" prot="public" virt="virtual"><scope>MyGUI::Canvas</scope><name>setAlign</name></member>
       <member refid="classMyGUI_1_1Widget_11204361b28430fa9a3b6927d6b4fe9ee" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setAlpha</name></member>
       <member refid="classMyGUI_1_1Widget_1cbf134e83d95f63ff7ba7f4b3596449f" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setColour</name></member>
@@ -1225,6 +1699,13 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1Widget_1beda60b920b1808641169d8543171269" prot="public" virt="virtual"><scope>MyGUI::Canvas</scope><name>setEnabled</name></member>
       <member refid="classMyGUI_1_1Widget_1f5a0bfe2b4f596d2dffdc7fcea5200b1" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setEnabledSilent</name></member>
       <member refid="classMyGUI_1_1Widget_18b44677724faa4112312655e5feed8ae" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_19f3635d97a8d56053311cb2cb2887f5f" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setInheritsPick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_14e37553674c10c9b208db056aeeb805a" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setMaskPick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1c8b141e404fa6c1a71505216a1ef5b43" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setMaskPick</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_161510314ec32dcff4fcecfe725f46a36" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setNeedKeyFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_133723bb1ea73b5af6c0d3d0041104478" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setNeedMouseFocus</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1b81aa840b2b8cb97b4fdccc92248b1b7" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setNeedToolTip</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1192554c59fcce521c063e72db4d867b1" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setPointer</name></member>
       <member refid="classMyGUI_1_1Widget_1bf87d2b9d27a2543da8fc7daea6abf75" prot="public" virt="virtual"><scope>MyGUI::Canvas</scope><name>setPosition</name></member>
       <member refid="classMyGUI_1_1Widget_10463ede4342db8bc5ade2d78d77a142e" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setPosition</name></member>
       <member refid="classMyGUI_1_1Widget_11a6ea7822f869b777800b0d351112e69" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setProperty</name></member>
@@ -1235,6 +1716,7 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1Widget_1c963db4709c8dfc9e681dfccd5fb6524" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setRealPosition</name></member>
       <member refid="classMyGUI_1_1Widget_1d7fba1f9976c36eacb528d6db9213ddf" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setRealSize</name></member>
       <member refid="classMyGUI_1_1Widget_15d89ff45c4bc5f6158382067673903ba" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1cf56aa200b89c991fb301b24069726be" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setRenderItemTexture</name></member>
       <member refid="classMyGUI_1_1Canvas_1a495a0af819a55bbfc9ee7ad1c8351e8" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setResizeMode</name></member>
       <member refid="classMyGUI_1_1Canvas_1bfc7a6cb3997dc61dbff52f4ebde5a86" prot="public" virt="virtual"><scope>MyGUI::Canvas</scope><name>setSize</name></member>
       <member refid="classMyGUI_1_1Canvas_1b8aa9e1a81b18cfeb8298fd7899686f1" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setSize</name></member>
@@ -1245,6 +1727,7 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1Widget_1c717aa06253e913156a6d24fb3d4cbc4" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setWidgetClient</name></member>
       <member refid="classMyGUI_1_1Widget_1372d21a0125ab28cc5c2c295290a2806" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>setWidgetStyle</name></member>
       <member refid="classMyGUI_1_1Canvas_15eff97147ec3192990810f2689fd915a" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>shutdownOverride</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1df3cc9ecbcf4702c02b1d265c5d0a7f9" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>SkinItem</name></member>
       <member refid="classMyGUI_1_1Canvas_1bd50f94dd638b7979f7df50e31ecb3a9" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>textureInvalidate</name></member>
       <member refid="classMyGUI_1_1Canvas_1b75ae5f78f7f0479abb0c63a5ce33546" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>TextureResizeMode</name></member>
       <member refid="classMyGUI_1_1Canvas_1b75ae5f78f7f0479abb0c63a5ce3354662e4ef85ff24242e8eeace8fe528d703" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>TRM_PT_CONST_SIZE</name></member>
@@ -1252,11 +1735,20 @@ mWidgetClient</edgelabel>
       <member refid="classMyGUI_1_1Canvas_1b75ae5f78f7f0479abb0c63a5ce335464c3e16f756d918006b8bd4c62abe1244" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>TRM_PT_VIEW_REQUESTED</name></member>
       <member refid="classMyGUI_1_1Canvas_128d51c6498b5b868ff414094ed72c13f" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>unlock</name></member>
       <member refid="classMyGUI_1_1Canvas_1811d6a81e9c190dd98a9a5d1f144882a" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>updateTexture</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1c7c30ce98c7f9312b522d6c67b050be4" prot="public" virt="virtual"><scope>MyGUI::Canvas</scope><name>upLayerItem</name></member>
       <member refid="classMyGUI_1_1UserData_1108076068708e939519f9c775c2ae87b" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>UserData</name></member>
       <member refid="classMyGUI_1_1Canvas_1c3a23638f2c5a97b73b47caaef63d9ea" prot="protected" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>validate</name></member>
       <member refid="classMyGUI_1_1Widget_1f4814618768bc07a685495895ca47b04" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>Widget</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_1436c5c5a088a95b40a252574f8ff0506" prot="public" virt="non-virtual"><scope>MyGUI::Canvas</scope><name>WidgetInput</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_128f4ca979240bf4bb4363d84213b6041" prot="public" virt="virtual"><scope>MyGUI::Canvas</scope><name>~ICroppedRectangle</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_12f7d8818258bb5ee2218ea20450b2997" prot="public" virt="virtual"><scope>MyGUI::Canvas</scope><name>~IDelegateUnlink</name></member>
+      <member refid="classMyGUI_1_1ILayerItem_18f05b429c402a94b666bfffee2ef3ed5" prot="public" virt="virtual"><scope>MyGUI::Canvas</scope><name>~ILayerItem</name></member>
+      <member refid="classMyGUI_1_1IObject_1ba65cf3c7393db4589ce28630a5aaadf" prot="public" virt="virtual"><scope>MyGUI::Canvas</scope><name>~IObject</name></member>
+      <member refid="classMyGUI_1_1ITextureInvalidateListener_1e27fa00a3e3495cbaae1eeab9287b5b6" prot="public" virt="virtual"><scope>MyGUI::Canvas</scope><name>~ITextureInvalidateListener</name></member>
+      <member refid="classMyGUI_1_1LayerItem_1412d7e8ee5a5a4773cf27695f402c351" prot="public" virt="virtual"><scope>MyGUI::Canvas</scope><name>~LayerItem</name></member>
       <member refid="classMyGUI_1_1UserData_1a970af2c1f39e0fa8801fd9defb06d84" prot="public" virt="virtual"><scope>MyGUI::Canvas</scope><name>~UserData</name></member>
       <member refid="classMyGUI_1_1Widget_18ff3c2a98bbea22f4f0191bcac54b643" prot="protected" virt="virtual"><scope>MyGUI::Canvas</scope><name>~Widget</name></member>
+      <member refid="classMyGUI_1_1WidgetInput_106e5ebe1aa33cb737fdaaee9e8708356" prot="public" virt="virtual"><scope>MyGUI::Canvas</scope><name>~WidgetInput</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

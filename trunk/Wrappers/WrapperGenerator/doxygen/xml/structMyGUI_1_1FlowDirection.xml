@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1FlowDirection" kind="struct" prot="public">
     <compoundname>MyGUI::FlowDirection</compoundname>
+    <includes local="no">MyGUI_FlowDirection.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="enum" id="structMyGUI_1_1FlowDirection_1c7112943c48661e732505c61889f68a7" prot="public" static="no">
         <name>Enum</name>
@@ -56,7 +57,7 @@
         <argsstring>(Enum _value=LeftToRight)</argsstring>
         <name>FlowDirection</name>
         <param>
-          <type>Enum</type>
+          <type><ref refid="structMyGUI_1_1FlowDirection_1c7112943c48661e732505c61889f68a7" kindref="member">Enum</ref></type>
           <declname>_value</declname>
           <defval>LeftToRight</defval>
         </param>
@@ -110,7 +111,7 @@
       </sectiondef>
       <sectiondef kind="public-static-func">
       <memberdef kind="function" id="structMyGUI_1_1FlowDirection_17eb0367c2092b6c05137102f78219afb" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>FlowDirection</type>
+        <type><ref refid="structMyGUI_1_1FlowDirection" kindref="compound">FlowDirection</ref></type>
         <definition>static FlowDirection MyGUI::FlowDirection::parse</definition>
         <argsstring>(const std::string &amp;_value)</argsstring>
         <name>parse</name>
@@ -148,7 +149,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="structMyGUI_1_1FlowDirection_105242f873c4e25dcc2ba03b911597534" prot="private" static="no" mutable="no">
-        <type>Enum</type>
+        <type><ref refid="structMyGUI_1_1FlowDirection_1c7112943c48661e732505c61889f68a7" kindref="member">Enum</ref></type>
         <definition>Enum MyGUI::FlowDirection::mValue</definition>
         <argsstring></argsstring>
         <name>mValue</name>
@@ -168,11 +169,11 @@
         <argsstring>(FlowDirection const &amp;a, FlowDirection const &amp;b)</argsstring>
         <name>operator==</name>
         <param>
-          <type>FlowDirection const &amp;</type>
+          <type><ref refid="structMyGUI_1_1FlowDirection" kindref="compound">FlowDirection</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>FlowDirection const &amp;</type>
+          <type><ref refid="structMyGUI_1_1FlowDirection" kindref="compound">FlowDirection</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -189,11 +190,11 @@
         <argsstring>(FlowDirection const &amp;a, FlowDirection const &amp;b)</argsstring>
         <name>operator!=</name>
         <param>
-          <type>FlowDirection const &amp;</type>
+          <type><ref refid="structMyGUI_1_1FlowDirection" kindref="compound">FlowDirection</ref> const &amp;</type>
           <declname>a</declname>
         </param>
         <param>
-          <type>FlowDirection const &amp;</type>
+          <type><ref refid="structMyGUI_1_1FlowDirection" kindref="compound">FlowDirection</ref> const &amp;</type>
           <declname>b</declname>
         </param>
         <briefdescription>
@@ -214,7 +215,7 @@
           <declname>_stream</declname>
         </param>
         <param>
-          <type>const FlowDirection &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1FlowDirection" kindref="compound">FlowDirection</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>
@@ -235,7 +236,7 @@
           <declname>_stream</declname>
         </param>
         <param>
-          <type>FlowDirection &amp;</type>
+          <type><ref refid="structMyGUI_1_1FlowDirection" kindref="compound">FlowDirection</ref> &amp;</type>
           <declname>_value</declname>
         </param>
         <briefdescription>

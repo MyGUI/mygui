@@ -2,12 +2,15 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1OverlappedLayer" kind="class" prot="public">
     <compoundname>MyGUI::OverlappedLayer</compoundname>
+    <basecompoundref refid="classMyGUI_1_1ILayer" prot="public" virt="non-virtual">MyGUI::ILayer</basecompoundref>
+    <includes local="no">MyGUI_OverlappedLayer.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="typedef" id="classMyGUI_1_1OverlappedLayer_1228a726d8452c303fad80167d0d67c20" prot="public" static="no">
-        <type>RTTIBase</type>
+        <type><ref refid="classMyGUI_1_1OverlappedLayer" kindref="compound">RTTIBase</ref></type>
         <definition>typedef RTTIBase MyGUI::OverlappedLayer::Base</definition>
         <argsstring></argsstring>
         <name>Base</name>
+        <reimplements refid="classMyGUI_1_1ILayer_1f361b0864c06146753c5b541dc379123">Base</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -17,10 +20,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_OverlappedLayer.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_OverlappedLayer.h" bodystart="35" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classMyGUI_1_1OverlappedLayer_105331e6b737203268af7f5d72ad3f7ec" prot="public" static="no">
-        <type>OverlappedLayer</type>
+        <type><ref refid="classMyGUI_1_1OverlappedLayer" kindref="compound">OverlappedLayer</ref></type>
         <definition>typedef OverlappedLayer MyGUI::OverlappedLayer::RTTIBase</definition>
         <argsstring></argsstring>
         <name>RTTIBase</name>
+        <reimplements refid="classMyGUI_1_1ILayer_12fe6e781b2062b36a89ddd99e38f2ece">RTTIBase</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -36,6 +40,7 @@
         <definition>virtual const std::string&amp; MyGUI::OverlappedLayer::getTypeName</definition>
         <argsstring>() const </argsstring>
         <name>getTypeName</name>
+        <reimplements refid="classMyGUI_1_1ILayer_1bf7b99ae4153af60bb7b9390abfbdbfc">getTypeName</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -49,6 +54,7 @@
         <definition>virtual bool MyGUI::OverlappedLayer::isType</definition>
         <argsstring>(const std::type_info &amp;_type) const </argsstring>
         <name>isType</name>
+        <reimplements refid="classMyGUI_1_1ILayer_1c5cf48369f44c9aad9f0637ddb7c63b4">isType</reimplements>
         <param>
           <type>const std::type_info &amp;</type>
           <declname>_type</declname>
@@ -73,6 +79,7 @@
         <definition>bool MyGUI::OverlappedLayer::isType</definition>
         <argsstring>() const </argsstring>
         <name>isType</name>
+        <reimplements refid="classMyGUI_1_1ILayer_171cc1c6380054bded0183db93ea6e4c6">isType</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -112,12 +119,13 @@
         <definition>virtual void MyGUI::OverlappedLayer::deserialization</definition>
         <argsstring>(xml::ElementPtr _node, Version _version)</argsstring>
         <name>deserialization</name>
+        <reimplements refid="classMyGUI_1_1ISerializable_1c77c7add97bcdd9377b2a2924b418c4f">deserialization</reimplements>
         <param>
-          <type>xml::ElementPtr</type>
+          <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">xml::ElementPtr</ref></type>
           <declname>_node</declname>
         </param>
         <param>
-          <type>Version</type>
+          <type><ref refid="classMyGUI_1_1Version" kindref="compound">Version</ref></type>
           <declname>_version</declname>
         </param>
         <briefdescription>
@@ -129,10 +137,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_OverlappedLayer.h" line="41"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1OverlappedLayer_19cb5f2c6e982751b51219b975e7f0b1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>ILayerNode *</type>
+        <type><ref refid="classMyGUI_1_1ILayerNode" kindref="compound">ILayerNode</ref> *</type>
         <definition>virtual ILayerNode* MyGUI::OverlappedLayer::createChildItemNode</definition>
         <argsstring>()</argsstring>
         <name>createChildItemNode</name>
+        <reimplements refid="classMyGUI_1_1ILayer_177eaf78e10d24279924becde71796162">createChildItemNode</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -146,8 +155,9 @@
         <definition>virtual void MyGUI::OverlappedLayer::destroyChildItemNode</definition>
         <argsstring>(ILayerNode *_node)</argsstring>
         <name>destroyChildItemNode</name>
+        <reimplements refid="classMyGUI_1_1ILayer_1c4fcabfa993b5a37e2090f73a528244e">destroyChildItemNode</reimplements>
         <param>
-          <type>ILayerNode *</type>
+          <type><ref refid="classMyGUI_1_1ILayerNode" kindref="compound">ILayerNode</ref> *</type>
           <declname>_node</declname>
         </param>
         <briefdescription>
@@ -163,8 +173,9 @@
         <definition>virtual void MyGUI::OverlappedLayer::upChildItemNode</definition>
         <argsstring>(ILayerNode *_node)</argsstring>
         <name>upChildItemNode</name>
+        <reimplements refid="classMyGUI_1_1ILayer_14c60cfa525cff44620878134bac93a55">upChildItemNode</reimplements>
         <param>
-          <type>ILayerNode *</type>
+          <type><ref refid="classMyGUI_1_1ILayerNode" kindref="compound">ILayerNode</ref> *</type>
           <declname>_node</declname>
         </param>
         <briefdescription>
@@ -176,10 +187,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_OverlappedLayer.h" line="49"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1OverlappedLayer_1bb59b9115207f2611e17320534394b94" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>EnumeratorILayerNode</type>
+        <type><ref refid="classMyGUI_1_1Enumerator" kindref="compound">EnumeratorILayerNode</ref></type>
         <definition>virtual EnumeratorILayerNode MyGUI::OverlappedLayer::getEnumerator</definition>
         <argsstring>() const </argsstring>
         <name>getEnumerator</name>
+        <reimplements refid="classMyGUI_1_1ILayer_14c23aa71b094a34e6bbbbcb1656a4054">getEnumerator</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -189,10 +201,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_OverlappedLayer.h" line="52"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1OverlappedLayer_1be16d811acc8fa7c5e201caa8ee7f8b4" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>ILayerItem *</type>
+        <type><ref refid="classMyGUI_1_1ILayerItem" kindref="compound">ILayerItem</ref> *</type>
         <definition>virtual ILayerItem* MyGUI::OverlappedLayer::getLayerItemByPoint</definition>
         <argsstring>(int _left, int _top) const </argsstring>
         <name>getLayerItemByPoint</name>
+        <reimplements refid="classMyGUI_1_1ILayer_117ead62c1afe484d5a3707ffe6066f49">getLayerItemByPoint</reimplements>
         <param>
           <type>int</type>
           <declname>_left</declname>
@@ -210,10 +223,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_OverlappedLayer.h" line="55"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1OverlappedLayer_186fdd890cc2a67c4017dd44b8b79af1c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>IntPoint</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TPoint" kindref="compound">IntPoint</ref></type>
         <definition>virtual IntPoint MyGUI::OverlappedLayer::getPosition</definition>
         <argsstring>(int _left, int _top) const </argsstring>
         <name>getPosition</name>
+        <reimplements refid="classMyGUI_1_1ILayer_1025c7c0f65fa8bc441aabb497bf9ffb2">getPosition</reimplements>
         <param>
           <type>int</type>
           <declname>_left</declname>
@@ -231,10 +245,11 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_OverlappedLayer.h" line="57"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1OverlappedLayer_15092e3769e1b16c86f0bf51ad9c1d1d0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
-        <type>const IntSize &amp;</type>
+        <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
         <definition>virtual const IntSize&amp; MyGUI::OverlappedLayer::getSize</definition>
         <argsstring>() const </argsstring>
         <name>getSize</name>
+        <reimplements refid="classMyGUI_1_1ILayer_1af1d39f405588c15eb005eace7933e8a">getSize</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -248,8 +263,9 @@
         <definition>virtual void MyGUI::OverlappedLayer::renderToTarget</definition>
         <argsstring>(IRenderTarget *_target, bool _update)</argsstring>
         <name>renderToTarget</name>
+        <reimplements refid="classMyGUI_1_1ILayer_10ae2996e150afd75a7af9a3794fd50eb">renderToTarget</reimplements>
         <param>
-          <type>IRenderTarget *</type>
+          <type><ref refid="classMyGUI_1_1IRenderTarget" kindref="compound">IRenderTarget</ref> *</type>
           <declname>_target</declname>
         </param>
         <param>
@@ -269,8 +285,9 @@
         <definition>virtual void MyGUI::OverlappedLayer::resizeView</definition>
         <argsstring>(const IntSize &amp;_viewSize)</argsstring>
         <name>resizeView</name>
+        <reimplements refid="classMyGUI_1_1ILayer_1eb4fb679d0e81bdca055221e17744ae6">resizeView</reimplements>
         <param>
-          <type>const IntSize &amp;</type>
+          <type>const <ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref> &amp;</type>
           <declname>_viewSize</declname>
         </param>
         <briefdescription>
@@ -301,6 +318,7 @@
         <definition>static const std::string&amp; MyGUI::OverlappedLayer::getClassTypeName</definition>
         <argsstring>()</argsstring>
         <name>getClassTypeName</name>
+        <reimplements refid="classMyGUI_1_1ILayer_10a8c78c066753b269f3ae2b651a08686">getClassTypeName</reimplements>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -325,7 +343,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_OverlappedLayer.h" line="69" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_OverlappedLayer.h" bodystart="69" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1OverlappedLayer_15db870c3276a8c8c8f5e48117ecaf731" prot="protected" static="no" mutable="no">
-        <type>VectorILayerNode</type>
+        <type><ref refid="namespaceMyGUI_15ccae6dcad7d6063f9ceb21aebb96e78" kindref="member">VectorILayerNode</ref></type>
         <definition>VectorILayerNode MyGUI::OverlappedLayer::mChildItems</definition>
         <argsstring></argsstring>
         <name>mChildItems</name>
@@ -351,7 +369,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_OverlappedLayer.h" line="71" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_OverlappedLayer.h" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1OverlappedLayer_1fc238315eb09e0c7e22aacd39e82d65c" prot="protected" static="no" mutable="no">
-        <type>IntSize</type>
+        <type><ref refid="structMyGUI_1_1types_1_1TSize" kindref="compound">IntSize</ref></type>
         <definition>IntSize MyGUI::OverlappedLayer::mViewSize</definition>
         <argsstring></argsstring>
         <name>mViewSize</name>
@@ -368,30 +386,103 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1986">
+        <label>MyGUI::ILayer</label>
+        <link refid="classMyGUI_1_1ILayer"/>
+        <childnode refid="1987" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1985">
+        <label>MyGUI::OverlappedLayer</label>
+        <link refid="classMyGUI_1_1OverlappedLayer"/>
+        <childnode refid="1986" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1987">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="1988" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1988">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1994">
+        <label>T</label>
+      </node>
+      <node id="1990">
+        <label>MyGUI::ILayer</label>
+        <link refid="classMyGUI_1_1ILayer"/>
+        <childnode refid="1991" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1989">
+        <label>MyGUI::OverlappedLayer</label>
+        <link refid="classMyGUI_1_1OverlappedLayer"/>
+        <childnode refid="1990" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1993" relation="usage">
+          <edgelabel>mViewSize</edgelabel>
+        </childnode>
+      </node>
+      <node id="1993">
+        <label>MyGUI::types::TSize&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TSize"/>
+        <childnode refid="1994" relation="usage">
+          <edgelabel>width
+height</edgelabel>
+        </childnode>
+      </node>
+      <node id="1991">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="1992" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1992">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_OverlappedLayer.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_OverlappedLayer.h" bodystart="32" bodyend="73"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1OverlappedLayer_1228a726d8452c303fad80167d0d67c20" prot="public" virt="non-virtual"><scope>MyGUI::OverlappedLayer</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1IObject_1c542d61d7f1efd5c08dae100a3c68558" prot="public" virt="non-virtual"><scope>MyGUI::OverlappedLayer</scope><name>castType</name></member>
+      <member refid="classMyGUI_1_1IObject_1f636b3c71d893eeb41bebc1c6f4519e1" prot="public" virt="non-virtual"><scope>MyGUI::OverlappedLayer</scope><name>castType</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_19cb5f2c6e982751b51219b975e7f0b1c" prot="public" virt="virtual"><scope>MyGUI::OverlappedLayer</scope><name>createChildItemNode</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_1fcf0b64e72fffd3ec558657449b828f2" prot="public" virt="virtual"><scope>MyGUI::OverlappedLayer</scope><name>deserialization</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_1faf470fe65cc1e20f48744d4548e1588" prot="public" virt="virtual"><scope>MyGUI::OverlappedLayer</scope><name>destroyChildItemNode</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_1a3a0e490b791df6996b8681fbcc58a67" prot="public" virt="non-virtual"><scope>MyGUI::OverlappedLayer</scope><name>getClassTypeName</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_1bb59b9115207f2611e17320534394b94" prot="public" virt="virtual"><scope>MyGUI::OverlappedLayer</scope><name>getEnumerator</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_1be16d811acc8fa7c5e201caa8ee7f8b4" prot="public" virt="virtual"><scope>MyGUI::OverlappedLayer</scope><name>getLayerItemByPoint</name></member>
+      <member refid="classMyGUI_1_1ILayer_1620bcecba5db2be2e0ff24cca9e44a10" prot="public" virt="non-virtual"><scope>MyGUI::OverlappedLayer</scope><name>getName</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_186fdd890cc2a67c4017dd44b8b79af1c" prot="public" virt="virtual"><scope>MyGUI::OverlappedLayer</scope><name>getPosition</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_15092e3769e1b16c86f0bf51ad9c1d1d0" prot="public" virt="virtual"><scope>MyGUI::OverlappedLayer</scope><name>getSize</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_16ea29f4d76bf95dbf123feb71645770b" prot="public" virt="virtual"><scope>MyGUI::OverlappedLayer</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1ILayer_13fe91caaafc4b41ee1b9551013744423" prot="public" virt="non-virtual"><scope>MyGUI::OverlappedLayer</scope><name>ILayer</name></member>
+      <member refid="classMyGUI_1_1IObject_198f33c9772728fc4065fe0a1ffdf8246" prot="public" virt="non-virtual"><scope>MyGUI::OverlappedLayer</scope><name>IObject</name></member>
+      <member refid="classMyGUI_1_1ISerializable_1a3c426dcdcdfc242f226eaabc2fc3500" prot="public" virt="non-virtual"><scope>MyGUI::OverlappedLayer</scope><name>ISerializable</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_194e822a2fa8da17ee6e4883b1be9e6fc" prot="public" virt="non-virtual"><scope>MyGUI::OverlappedLayer</scope><name>isOutOfDate</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_1d7af5061951d616d9bbe8d79e974b13c" prot="public" virt="virtual"><scope>MyGUI::OverlappedLayer</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_1d130ee18f7f9f5a180b1cd9dbb41a3db" prot="public" virt="non-virtual"><scope>MyGUI::OverlappedLayer</scope><name>isType</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_15db870c3276a8c8c8f5e48117ecaf731" prot="protected" virt="non-virtual"><scope>MyGUI::OverlappedLayer</scope><name>mChildItems</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_15bf7dffd71db1c9429a3f517a08fc013" prot="protected" virt="non-virtual"><scope>MyGUI::OverlappedLayer</scope><name>mIsPick</name></member>
+      <member refid="classMyGUI_1_1ILayer_1d5091af899cf8812d48a48479a92bd7d" prot="protected" virt="non-virtual"><scope>MyGUI::OverlappedLayer</scope><name>mName</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_1bd16ee5f1251acb50ad1acc178492bc0" prot="protected" virt="non-virtual"><scope>MyGUI::OverlappedLayer</scope><name>mOutOfDate</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_1fc238315eb09e0c7e22aacd39e82d65c" prot="protected" virt="non-virtual"><scope>MyGUI::OverlappedLayer</scope><name>mViewSize</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_19380fe99c427c2d70ada06c3ec31b580" prot="public" virt="non-virtual"><scope>MyGUI::OverlappedLayer</scope><name>OverlappedLayer</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_1bf035a7e711e3e387399b0e849ea0ac4" prot="public" virt="virtual"><scope>MyGUI::OverlappedLayer</scope><name>renderToTarget</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_167a3f5268bea23309e0b6dd3b86d5125" prot="public" virt="virtual"><scope>MyGUI::OverlappedLayer</scope><name>resizeView</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_105331e6b737203268af7f5d72ad3f7ec" prot="public" virt="non-virtual"><scope>MyGUI::OverlappedLayer</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1ISerializable_188999214d6f7766078861a76976947f0" prot="public" virt="virtual"><scope>MyGUI::OverlappedLayer</scope><name>serialization</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_17c299f98139acd153e4a4630222e89af" prot="public" virt="virtual"><scope>MyGUI::OverlappedLayer</scope><name>upChildItemNode</name></member>
+      <member refid="classMyGUI_1_1ILayer_191f4763570188f46475a99ee94121fec" prot="public" virt="virtual"><scope>MyGUI::OverlappedLayer</scope><name>~ILayer</name></member>
+      <member refid="classMyGUI_1_1IObject_1ba65cf3c7393db4589ce28630a5aaadf" prot="public" virt="virtual"><scope>MyGUI::OverlappedLayer</scope><name>~IObject</name></member>
+      <member refid="classMyGUI_1_1ISerializable_176e68dc274e87a9ded1da7e28a379e44" prot="public" virt="virtual"><scope>MyGUI::OverlappedLayer</scope><name>~ISerializable</name></member>
       <member refid="classMyGUI_1_1OverlappedLayer_1a52cca7ca322eaff80e3ad4aa9cf5e59" prot="public" virt="virtual"><scope>MyGUI::OverlappedLayer</scope><name>~OverlappedLayer</name></member>
     </listofallmembers>
   </compounddef>

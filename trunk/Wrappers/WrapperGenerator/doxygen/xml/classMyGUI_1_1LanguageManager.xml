@@ -2,6 +2,9 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1LanguageManager" kind="class" prot="public">
     <compoundname>MyGUI::LanguageManager</compoundname>
+    <basecompoundref refid="classMyGUI_1_1Singleton" prot="public" virt="non-virtual">MyGUI::Singleton&lt; LanguageManager &gt;</basecompoundref>
+    <basecompoundref refid="classMyGUI_1_1MemberObsolete_3_01LanguageManager_01_4" prot="public" virt="non-virtual">MyGUI::MemberObsolete&lt; LanguageManager &gt;</basecompoundref>
+    <includes local="no">MyGUI_LanguageManager.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1LanguageManager_137addeb5a39620b760c7102020ab4691" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -160,7 +163,7 @@
       </sectiondef>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1LanguageManager_1c7ba7d4470687d87415da8a1e94b2e9d" prot="public" static="no" mutable="no">
-        <type>delegates::CMultiDelegate1&lt; const std::string &amp; &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CMultiDelegate1" kindref="compound">delegates::CMultiDelegate1</ref>&lt; const std::string &amp; &gt;</type>
         <definition>delegates::CMultiDelegate1&lt;const std::string&amp;&gt; MyGUI::LanguageManager::eventChangeLanguage</definition>
         <argsstring></argsstring>
         <name>eventChangeLanguage</name>
@@ -182,7 +185,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="71" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1LanguageManager_17251ad2ee8fa9226de89f0ee9b9ebd81" prot="public" static="no" mutable="no">
-        <type>delegates::CDelegate2&lt; const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;, <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp; &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CDelegate2" kindref="compound">delegates::CDelegate2</ref>&lt; const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;, <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp; &gt;</type>
         <definition>delegates::CDelegate2&lt;const UString&amp;, UString&amp;&gt; MyGUI::LanguageManager::eventRequestTag</definition>
         <argsstring></argsstring>
         <name>eventRequestTag</name>
@@ -227,7 +230,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="92" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" bodystart="92" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classMyGUI_1_1LanguageManager_17cf3d98446bf6b33cfaf52b4793e45cf" prot="private" static="no">
-        <type>std::map&lt; std::string, VectorString &gt;</type>
+        <type>std::map&lt; std::string, <ref refid="namespaceMyGUI_1bf37655693889c3eb4d13e4c4d23c076" kindref="member">VectorString</ref> &gt;</type>
         <definition>typedef std::map&lt;std::string, VectorString&gt; MyGUI::LanguageManager::MapListString</definition>
         <argsstring></argsstring>
         <name>MapListString</name>
@@ -247,7 +250,7 @@
         <argsstring>(xml::ElementPtr _node, const std::string &amp;_file, Version _version)</argsstring>
         <name>_load</name>
         <param>
-          <type>xml::ElementPtr</type>
+          <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">xml::ElementPtr</ref></type>
           <declname>_node</declname>
         </param>
         <param>
@@ -255,7 +258,7 @@
           <declname>_file</declname>
         </param>
         <param>
-          <type>Version</type>
+          <type><ref refid="classMyGUI_1_1Version" kindref="compound">Version</ref></type>
           <declname>_version</declname>
         </param>
         <briefdescription>
@@ -294,7 +297,7 @@
         <argsstring>(IDataStream *_stream, bool _user)</argsstring>
         <name>_loadLanguage</name>
         <param>
-          <type>IDataStream *</type>
+          <type><ref refid="classMyGUI_1_1IDataStream" kindref="compound">IDataStream</ref> *</type>
           <declname>_stream</declname>
         </param>
         <param>
@@ -315,7 +318,7 @@
         <argsstring>(IDataStream *_stream, bool _user)</argsstring>
         <name>_loadLanguageXML</name>
         <param>
-          <type>IDataStream *</type>
+          <type><ref refid="classMyGUI_1_1IDataStream" kindref="compound">IDataStream</ref> *</type>
           <declname>_stream</declname>
         </param>
         <param>
@@ -423,19 +426,84 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1335">
+        <label>MyGUI::MemberObsolete&lt; LanguageManager &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01LanguageManager_01_4"/>
+      </node>
+      <node id="1333">
+        <label>MyGUI::LanguageManager</label>
+        <link refid="classMyGUI_1_1LanguageManager"/>
+        <childnode refid="1334" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1335" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1334">
+        <label>MyGUI::Singleton&lt; LanguageManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1338">
+        <label>MyGUI::MemberObsolete&lt; LanguageManager &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01LanguageManager_01_4"/>
+      </node>
+      <node id="1340">
+        <label>MyGUI::delegates::IDelegate2&lt; TP1, TP2 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegate2"/>
+      </node>
+      <node id="1336">
+        <label>MyGUI::LanguageManager</label>
+        <link refid="classMyGUI_1_1LanguageManager"/>
+        <childnode refid="1337" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1338" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1339" relation="usage">
+          <edgelabel>eventRequestTag</edgelabel>
+        </childnode>
+        <childnode refid="1341" relation="usage">
+          <edgelabel>eventChangeLanguage</edgelabel>
+        </childnode>
+      </node>
+      <node id="1341">
+        <label>MyGUI::delegates::CMultiDelegate1&lt; const std::string &amp; &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate1"/>
+      </node>
+      <node id="1339">
+        <label>MyGUI::delegates::CDelegate2&lt; const UString &amp;, UString &amp; &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CDelegate2"/>
+        <childnode refid="1340" relation="usage">
+          <edgelabel>mDelegate</edgelabel>
+        </childnode>
+      </node>
+      <node id="1337">
+        <label>MyGUI::Singleton&lt; LanguageManager &gt;</label>
+        <link refid="classMyGUI_1_1Singleton"/>
+        <childnode refid="1336" relation="usage">
+          <edgelabel>msInstance</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" bodystart="35" bodyend="103"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1LanguageManager_1c4bd45cc5e30f438407f8f5f8e632f6c" prot="private" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>_load</name></member>
       <member refid="classMyGUI_1_1LanguageManager_141f396d33fbc655499b3468c742c1635" prot="private" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>_loadLanguage</name></member>
       <member refid="classMyGUI_1_1LanguageManager_1eba16a45a1665709dd052c9907191998" prot="private" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>_loadLanguageXML</name></member>
       <member refid="classMyGUI_1_1LanguageManager_18094c0d972f3bae4ad9efaa036f3fcc2" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>addUserTag</name></member>
+      <member refid="classMyGUI_1_1Singleton_1a74db81b5e58d5c6cc4e9bcba1648253" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>Base</name></member>
       <member refid="classMyGUI_1_1LanguageManager_16a08098de92b73bbaf8ec544ee8eb89f" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>clearUserTags</name></member>
       <member refid="classMyGUI_1_1LanguageManager_1c7ba7d4470687d87415da8a1e94b2e9d" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>eventChangeLanguage</name></member>
       <member refid="classMyGUI_1_1LanguageManager_17251ad2ee8fa9226de89f0ee9b9ebd81" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>eventRequestTag</name></member>
+      <member refid="classMyGUI_1_1Singleton_12c806053cf545c5fdf7a3e6822a585a9" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>getClassTypeName</name></member>
       <member refid="classMyGUI_1_1LanguageManager_167368995a4c12304c119bd65e254ffcf" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>getCurrentLanguage</name></member>
+      <member refid="classMyGUI_1_1Singleton_162dffea70e4b1061c1018a3b12d3ecd8" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>getInstance</name></member>
+      <member refid="classMyGUI_1_1Singleton_14529a5eda85de92183260b77259fefa2" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>getInstancePtr</name></member>
       <member refid="classMyGUI_1_1LanguageManager_1e54809a4d313f382b33742ee136d4874" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>getTag</name></member>
       <member refid="classMyGUI_1_1LanguageManager_170d498c92417640e6fb215244a9fc33b" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>initialise</name></member>
       <member refid="classMyGUI_1_1LanguageManager_137addeb5a39620b760c7102020ab4691" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>LanguageManager</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01LanguageManager_01_4_10aef89faba5ca9e704e58200837e4791" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>load</name></member>
       <member refid="classMyGUI_1_1LanguageManager_175864ba90eb07ddc944cc8fa97182759" prot="private" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>loadLanguage</name></member>
       <member refid="classMyGUI_1_1LanguageManager_1e3d6daba392a56e7bb001b91c66901a7" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>loadUserTags</name></member>
       <member refid="classMyGUI_1_1LanguageManager_17f0f8e41e3e4264ce486b01991ae398e" prot="private" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>MapLanguageString</name></member>
@@ -449,6 +517,8 @@
       <member refid="classMyGUI_1_1LanguageManager_16e76260562bcf9eb47ec740020cde3b9" prot="private" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>replaceTagsPass</name></member>
       <member refid="classMyGUI_1_1LanguageManager_1ad14b5635a1d3f7491386a4b942fb0ba" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>setCurrentLanguage</name></member>
       <member refid="classMyGUI_1_1LanguageManager_1d80b97520759525bdee9885d7916e3d0" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>shutdown</name></member>
+      <member refid="classMyGUI_1_1Singleton_130052fd9a72b1c3ad326830169e85307" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>Singleton</name></member>
+      <member refid="classMyGUI_1_1Singleton_1d342e3b15791e6a20cbd2aa9229b5c6f" prot="public" virt="virtual"><scope>MyGUI::LanguageManager</scope><name>~Singleton</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

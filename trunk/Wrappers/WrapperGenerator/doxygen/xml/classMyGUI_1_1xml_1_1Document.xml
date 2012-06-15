@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1xml_1_1Document" kind="class" prot="public">
     <compoundname>MyGUI::xml::Document</compoundname>
+    <includes local="no">MyGUI_XmlDocument.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_168d0d28d3942774afdc57b5c68541a07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -103,7 +104,7 @@
         <argsstring>(IDataStream *_data)</argsstring>
         <name>open</name>
         <param>
-          <type>IDataStream *</type>
+          <type><ref refid="classMyGUI_1_1IDataStream" kindref="compound">IDataStream</ref> *</type>
           <declname>_data</declname>
         </param>
         <briefdescription>
@@ -222,7 +223,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="326"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_1cc926d3adb023b8768f7b565e1a86ef7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>ElementPtr</type>
+        <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">ElementPtr</ref></type>
         <definition>ElementPtr MyGUI::xml::Document::createDeclaration</definition>
         <argsstring>(const std::string &amp;_version=&quot;1.0&quot;, const std::string &amp;_encoding=&quot;UTF-8&quot;)</argsstring>
         <name>createDeclaration</name>
@@ -245,7 +246,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="328"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_15dffefcc156d350dc0cf337ebe91c7d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>ElementPtr</type>
+        <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">ElementPtr</ref></type>
         <definition>ElementPtr MyGUI::xml::Document::createRoot</definition>
         <argsstring>(const std::string &amp;_name)</argsstring>
         <name>createRoot</name>
@@ -262,7 +263,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="329"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_141e001f5f0316b1c5c5771db7c632907" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>ElementPtr</type>
+        <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">ElementPtr</ref></type>
         <definition>ElementPtr MyGUI::xml::Document::getRoot</definition>
         <argsstring>() const </argsstring>
         <name>getRoot</name>
@@ -275,7 +276,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="331"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_1d1340c5d0dd9c21d33e80fdef6b87fa7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>ElementPtr</type>
+        <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">ElementPtr</ref></type>
         <definition>ElementPtr MyGUI::xml::Document::createInfo</definition>
         <argsstring>(const std::string &amp;_version=&quot;1.0&quot;, const std::string &amp;_encoding=&quot;UTF-8&quot;)</argsstring>
         <name>createInfo</name>
@@ -339,7 +340,7 @@
         <argsstring>(ElementPtr &amp;_currentNode, std::string _content)</argsstring>
         <name>parseTag</name>
         <param>
-          <type>ElementPtr &amp;</type>
+          <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">ElementPtr</ref> &amp;</type>
           <declname>_currentNode</declname>
         </param>
         <param>
@@ -385,7 +386,7 @@
           <declname>_line</declname>
         </param>
         <param>
-          <type>ElementPtr &amp;</type>
+          <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">ElementPtr</ref> &amp;</type>
           <declname>_element</declname>
         </param>
         <briefdescription>
@@ -451,7 +452,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1xml_1_1Document_1071c90c62d35e996c4e22ed06c542d40" prot="private" static="no" mutable="no">
-        <type>ElementPtr</type>
+        <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">ElementPtr</ref></type>
         <definition>ElementPtr MyGUI::xml::Document::mRoot</definition>
         <argsstring></argsstring>
         <name>mRoot</name>
@@ -464,7 +465,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="361" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="361" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1xml_1_1Document_138684e7f408c0cc8456ac4463e0eb892" prot="private" static="no" mutable="no">
-        <type>ElementPtr</type>
+        <type><ref refid="classMyGUI_1_1xml_1_1Element" kindref="compound">ElementPtr</ref></type>
         <definition>ElementPtr MyGUI::xml::Document::mDeclaration</definition>
         <argsstring></argsstring>
         <name>mDeclaration</name>
@@ -477,7 +478,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="362" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="362" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classMyGUI_1_1xml_1_1Document_1892cc315d28a74b7580b032bd8e0bb2b" prot="private" static="no" mutable="no">
-        <type>ErrorType</type>
+        <type><ref refid="structMyGUI_1_1xml_1_1ErrorType" kindref="compound">ErrorType</ref></type>
         <definition>ErrorType MyGUI::xml::Document::mLastError</definition>
         <argsstring></argsstring>
         <name>mLastError</name>
@@ -533,6 +534,37 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <collaborationgraph>
+      <node id="496">
+        <label>MyGUI::xml::Document</label>
+        <link refid="classMyGUI_1_1xml_1_1Document"/>
+        <childnode refid="497" relation="usage">
+          <edgelabel>mLastError</edgelabel>
+        </childnode>
+        <childnode refid="498" relation="usage">
+          <edgelabel>mDeclaration
+mRoot</edgelabel>
+        </childnode>
+      </node>
+      <node id="497">
+        <label>MyGUI::xml::ErrorType</label>
+        <link refid="structMyGUI_1_1xml_1_1ErrorType"/>
+      </node>
+      <node id="499">
+        <label>MyGUI::xml::ElementType</label>
+        <link refid="structMyGUI_1_1xml_1_1ElementType"/>
+      </node>
+      <node id="498">
+        <label>MyGUI::xml::Element</label>
+        <link refid="classMyGUI_1_1xml_1_1Element"/>
+        <childnode refid="498" relation="usage">
+          <edgelabel>mParent</edgelabel>
+        </childnode>
+        <childnode refid="499" relation="usage">
+          <edgelabel>mType</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="294" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="293" bodyend="368"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1xml_1_1Document_1e5185c351efd8e4828aac01dfe3454c2" prot="private" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>checkPair</name></member>

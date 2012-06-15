@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1TabControl_1_1TabItemInfo" kind="struct" prot="public">
     <compoundname>MyGUI::TabControl::TabItemInfo</compoundname>
+    <includes local="no">MyGUI_TabControl.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="structMyGUI_1_1TabControl_1_1TabItemInfo_1143a4ee776e2e4c2b8070411c37e8252" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -21,7 +22,7 @@
           <declname>_item</declname>
         </param>
         <param>
-          <type>Any</type>
+          <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref></type>
           <declname>_data</declname>
         </param>
         <briefdescription>
@@ -74,7 +75,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TabControl.h" line="67" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TabControl.h" bodystart="67" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structMyGUI_1_1TabControl_1_1TabItemInfo_1df87fdda55c7f3463a3011d512459399" prot="public" static="no" mutable="no">
-        <type>Any</type>
+        <type><ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref></type>
         <definition>Any MyGUI::TabControl::TabItemInfo::data</definition>
         <argsstring></argsstring>
         <name>data</name>
@@ -92,45 +93,298 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="629">
+      <node id="2679">
+        <label>MyGUI::delegates::CMultiDelegate1&lt; TP1 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate1"/>
+      </node>
+      <node id="2694">
+        <label>MyGUI::WidgetStyle</label>
+        <link refid="structMyGUI_1_1WidgetStyle"/>
+      </node>
+      <node id="2670">
+        <label>T</label>
+      </node>
+      <node id="2686">
+        <label>MyGUI::ILayer</label>
+        <link refid="classMyGUI_1_1ILayer"/>
+        <childnode refid="2687" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2671">
+        <label>MyGUI::types::TCoord&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TCoord"/>
+        <childnode refid="2670" relation="usage">
+          <edgelabel>width
+height
+left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="2682">
+        <label>MyGUI::SkinItem</label>
+        <link refid="classMyGUI_1_1SkinItem"/>
+        <childnode refid="2683" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2685" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="2689" relation="usage">
+          <edgelabel>mMainSkin</edgelabel>
+        </childnode>
+        <childnode refid="2692" relation="usage">
+          <edgelabel>mText</edgelabel>
+        </childnode>
+      </node>
+      <node id="2684">
+        <label>MyGUI::ILayerItem</label>
+        <link refid="classMyGUI_1_1ILayerItem"/>
+      </node>
+      <node id="2675">
+        <label>MyGUI::delegates::CMultiDelegate3&lt; TP1, TP2, TP3 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate3"/>
+      </node>
+      <node id="2685">
+        <label>MyGUI::ITexture</label>
+        <link refid="classMyGUI_1_1ITexture"/>
+      </node>
+      <node id="2676">
+        <label>MyGUI::delegates::CMultiDelegate4&lt; TP1, TP2, TP3, TP4 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate4"/>
+      </node>
+      <node id="2678">
+        <label>MyGUI::MaskPickInfo</label>
+        <link refid="classMyGUI_1_1MaskPickInfo"/>
+      </node>
+      <node id="2668">
+        <label>MyGUI::ICroppedRectangle</label>
+        <link refid="classMyGUI_1_1ICroppedRectangle"/>
+        <childnode refid="2669" relation="usage">
+          <edgelabel>mAbsolutePosition</edgelabel>
+        </childnode>
+        <childnode refid="2671" relation="usage">
+          <edgelabel>mCoord</edgelabel>
+        </childnode>
+        <childnode refid="2672" relation="usage">
+          <edgelabel>mMargin</edgelabel>
+        </childnode>
+        <childnode refid="2668" relation="usage">
+          <edgelabel>mCroppedParent</edgelabel>
+        </childnode>
+      </node>
+      <node id="2672">
+        <label>MyGUI::types::TRect&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TRect"/>
+        <childnode refid="2670" relation="usage">
+          <edgelabel>right
+left
+bottom
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="2688">
+        <label>MyGUI::ILayerNode</label>
+        <link refid="classMyGUI_1_1ILayerNode"/>
+        <childnode refid="2667" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2661">
         <label>MyGUI::TabControl::TabItemInfo</label>
-        <childnode refid="630" relation="usage">
+        <link refid="structMyGUI_1_1TabControl_1_1TabItemInfo"/>
+        <childnode refid="2662" relation="usage">
+          <edgelabel>data</edgelabel>
+        </childnode>
+        <childnode refid="2664" relation="usage">
           <edgelabel>item</edgelabel>
         </childnode>
-        <childnode refid="634" relation="usage">
+        <childnode refid="2695" relation="usage">
           <edgelabel>name</edgelabel>
         </childnode>
       </node>
-      <node id="631">
+      <node id="2665">
         <label>MyGUI::TextBox</label>
         <link refid="classMyGUI_1_1TextBox"/>
-        <childnode refid="632" relation="public-inheritance">
+        <childnode refid="2666" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="633">
+      <node id="2693">
+        <label>MyGUI::MemberObsolete&lt; Widget &gt;</label>
+        <link refid="classMyGUI_1_1MemberObsolete_3_01Widget_01_4"/>
+      </node>
+      <node id="2680">
+        <label>MyGUI::delegates::CMultiDelegate2&lt; TP1, TP2 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CMultiDelegate2"/>
+      </node>
+      <node id="2673">
         <label>MyGUI::UserData</label>
         <link refid="classMyGUI_1_1UserData"/>
+        <childnode refid="2662" relation="usage">
+          <edgelabel>mUserData
+mInternalData</edgelabel>
+        </childnode>
       </node>
-      <node id="632">
+      <node id="2692">
+        <label>MyGUI::ISubWidgetText</label>
+        <link refid="classMyGUI_1_1ISubWidgetText"/>
+        <childnode refid="2690" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2666">
         <label>MyGUI::Widget</label>
         <link refid="classMyGUI_1_1Widget"/>
-        <childnode refid="633" relation="public-inheritance">
+        <childnode refid="2667" relation="public-inheritance">
         </childnode>
-        <childnode refid="632" relation="usage">
+        <childnode refid="2668" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2673" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2674" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2681" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2682" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2693" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2675" relation="usage">
+          <edgelabel>eventChangeProperty</edgelabel>
+        </childnode>
+        <childnode refid="2694" relation="usage">
+          <edgelabel>mWidgetStyle</edgelabel>
+        </childnode>
+        <childnode refid="2666" relation="usage">
           <edgelabel>mContainer
 mParent
 mWidgetClient</edgelabel>
         </childnode>
+        <childnode refid="2691" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
       </node>
-      <node id="634">
+      <node id="2691">
+        <label>MyGUI::Align</label>
+        <link refid="structMyGUI_1_1Align"/>
+      </node>
+      <node id="2689">
+        <label>MyGUI::ISubWidgetRect</label>
+        <link refid="classMyGUI_1_1ISubWidgetRect"/>
+        <childnode refid="2690" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2687">
+        <label>MyGUI::ISerializable</label>
+        <link refid="classMyGUI_1_1ISerializable"/>
+        <childnode refid="2667" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2690">
+        <label>MyGUI::ISubWidget</label>
+        <link refid="classMyGUI_1_1ISubWidget"/>
+        <childnode refid="2668" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2667" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2691" relation="usage">
+          <edgelabel>mAlign</edgelabel>
+        </childnode>
+      </node>
+      <node id="2681">
+        <label>MyGUI::delegates::IDelegateUnlink</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegateUnlink"/>
+        <childnode refid="2681" relation="usage">
+          <edgelabel>m_baseDelegateUnlink</edgelabel>
+        </childnode>
+      </node>
+      <node id="2677">
+        <label>MyGUI::EventPair3to4&lt; EventHandle_WidgetIntInt, EventHandle_WidgetIntIntButton &gt;</label>
+        <link refid="classMyGUI_1_1EventPair3to4"/>
+        <childnode refid="2675" relation="usage">
+          <edgelabel>m_eventObsolete</edgelabel>
+        </childnode>
+        <childnode refid="2676" relation="usage">
+          <edgelabel>m_event</edgelabel>
+        </childnode>
+      </node>
+      <node id="2695">
         <label>MyGUI::UString</label>
         <link refid="classMyGUI_1_1UString"/>
       </node>
-      <node id="630">
+      <node id="2674">
+        <label>MyGUI::WidgetInput</label>
+        <link refid="classMyGUI_1_1WidgetInput"/>
+        <childnode refid="2675" relation="usage">
+          <edgelabel>eventKeyButtonPressed
+eventMouseMove</edgelabel>
+        </childnode>
+        <childnode refid="2676" relation="usage">
+          <edgelabel>eventMouseButtonPressed
+eventMouseButtonReleased</edgelabel>
+        </childnode>
+        <childnode refid="2677" relation="usage">
+          <edgelabel>eventMouseDrag</edgelabel>
+        </childnode>
+        <childnode refid="2678" relation="usage">
+          <edgelabel>mOwnMaskPickInfo</edgelabel>
+        </childnode>
+        <childnode refid="2679" relation="usage">
+          <edgelabel>eventMouseButtonDoubleClick
+eventMouseButtonClick</edgelabel>
+        </childnode>
+        <childnode refid="2680" relation="usage">
+          <edgelabel>eventKeySetFocus
+eventMouseSetFocus
+eventKeyButtonReleased
+eventKeyLostFocus
+eventRootMouseChangeFocus
+eventMouseWheel
+eventToolTip
+eventMouseLostFocus
+eventRootKeyChangeFocus</edgelabel>
+        </childnode>
+      </node>
+      <node id="2663">
+        <label>MyGUI::Any::AnyEmpty</label>
+        <link refid="structMyGUI_1_1Any_1_1AnyEmpty"/>
+      </node>
+      <node id="2683">
+        <label>MyGUI::LayerItem</label>
+        <link refid="classMyGUI_1_1LayerItem"/>
+        <childnode refid="2684" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2685" relation="usage">
+          <edgelabel>mTexture</edgelabel>
+        </childnode>
+        <childnode refid="2686" relation="usage">
+          <edgelabel>mLayer</edgelabel>
+        </childnode>
+        <childnode refid="2688" relation="usage">
+          <edgelabel>mSaveLayerNode
+mLayerNode</edgelabel>
+        </childnode>
+      </node>
+      <node id="2664">
         <label>MyGUI::TabItem</label>
         <link refid="classMyGUI_1_1TabItem"/>
-        <childnode refid="631" relation="public-inheritance">
+        <childnode refid="2665" relation="public-inheritance">
         </childnode>
+      </node>
+      <node id="2669">
+        <label>MyGUI::types::TPoint&lt; T &gt;</label>
+        <link refid="structMyGUI_1_1types_1_1TPoint"/>
+        <childnode refid="2670" relation="usage">
+          <edgelabel>left
+top</edgelabel>
+        </childnode>
+      </node>
+      <node id="2662">
+        <label>MyGUI::Any</label>
+        <link refid="classMyGUI_1_1Any"/>
+        <childnode refid="2663" relation="usage">
+          <edgelabel>Null</edgelabel>
+        </childnode>
+      </node>
+      <node id="2667">
+        <label>MyGUI::IObject</label>
+        <link refid="classMyGUI_1_1IObject"/>
       </node>
     </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TabControl.h" line="56" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TabControl.h" bodystart="55" bodyend="69"/>

@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1delegates_1_1CDelegate3" kind="class" prot="public">
     <compoundname>MyGUI::delegates::CDelegate3</compoundname>
+    <includes local="no">MyGUI_Delegate.h</includes>
     <templateparamlist>
       <param>
         <type>typename</type>
@@ -21,7 +22,7 @@
     </templateparamlist>
       <sectiondef kind="public-type">
       <memberdef kind="typedef" id="classMyGUI_1_1delegates_1_1CDelegate3_14f7c75afae61c61acefa21b095d35449" prot="public" static="no">
-        <type>IDelegate3&lt; TP1, TP2, TP3 &gt;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1IDelegate3" kindref="compound">IDelegate3</ref>&lt; TP1, TP2, TP3 &gt;</type>
         <definition>typedef IDelegate3&lt;TP1, TP2, TP3&gt; MyGUI::delegates::CDelegate3&lt; TP1, TP2, TP3 &gt;::IDelegate</definition>
         <argsstring></argsstring>
         <name>IDelegate</name>
@@ -54,7 +55,7 @@
         <argsstring>(const CDelegate3&lt; TP1, TP2, TP3 &gt; &amp;_event)</argsstring>
         <name>CDelegate3</name>
         <param>
-          <type>const CDelegate3&lt; TP1, TP2, TP3 &gt; &amp;</type>
+          <type>const <ref refid="classMyGUI_1_1delegates_1_1CDelegate3" kindref="compound">CDelegate3</ref>&lt; TP1, TP2, TP3 &gt; &amp;</type>
           <declname>_event</declname>
         </param>
         <briefdescription>
@@ -105,12 +106,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="1560" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="1559" bodyend="1566"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CDelegate3_1c43eb51b9217acd31f3cb907913898b6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>CDelegate3&lt; TP1, TP2, TP3 &gt; &amp;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CDelegate3" kindref="compound">CDelegate3</ref>&lt; TP1, TP2, TP3 &gt; &amp;</type>
         <definition>CDelegate3&lt;TP1, TP2, TP3&gt;&amp; MyGUI::delegates::CDelegate3&lt; TP1, TP2, TP3 &gt;::operator=</definition>
         <argsstring>(IDelegate *_delegate)</argsstring>
         <name>operator=</name>
         <param>
-          <type>IDelegate *</type>
+          <type><ref refid="classMyGUI_1_1delegates_1_1IDelegate3" kindref="compound">IDelegate</ref> *</type>
           <declname>_delegate</declname>
         </param>
         <briefdescription>
@@ -122,12 +123,12 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="1569" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="1568" bodyend="1573"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CDelegate3_158fe60f58a13a105e1965a59d6010a06" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>CDelegate3&lt; TP1, TP2, TP3 &gt; &amp;</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1CDelegate3" kindref="compound">CDelegate3</ref>&lt; TP1, TP2, TP3 &gt; &amp;</type>
         <definition>CDelegate3&lt;TP1, TP2, TP3&gt;&amp; MyGUI::delegates::CDelegate3&lt; TP1, TP2, TP3 &gt;::operator=</definition>
         <argsstring>(const CDelegate3&lt; TP1, TP2, TP3 &gt; &amp;_event)</argsstring>
         <name>operator=</name>
         <param>
-          <type>const CDelegate3&lt; TP1, TP2, TP3 &gt; &amp;</type>
+          <type>const <ref refid="classMyGUI_1_1delegates_1_1CDelegate3" kindref="compound">CDelegate3</ref>&lt; TP1, TP2, TP3 &gt; &amp;</type>
           <declname>_event</declname>
         </param>
         <briefdescription>
@@ -166,7 +167,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1delegates_1_1CDelegate3_14fa835ea271415b82303b8e032754e34" prot="private" static="no" mutable="no">
-        <type>IDelegate *</type>
+        <type><ref refid="classMyGUI_1_1delegates_1_1IDelegate3" kindref="compound">IDelegate</ref> *</type>
         <definition>IDelegate* MyGUI::delegates::CDelegate3&lt; TP1, TP2, TP3 &gt;::mDelegate</definition>
         <argsstring></argsstring>
         <name>mDelegate</name>
@@ -183,6 +184,19 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <collaborationgraph>
+      <node id="140">
+        <label>MyGUI::delegates::IDelegate3&lt; TP1, TP2, TP3 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1IDelegate3"/>
+      </node>
+      <node id="139">
+        <label>MyGUI::delegates::CDelegate3&lt; TP1, TP2, TP3 &gt;</label>
+        <link refid="classMyGUI_1_1delegates_1_1CDelegate3"/>
+        <childnode refid="140" relation="usage">
+          <edgelabel>mDelegate</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="1533" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="1532" bodyend="1597"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1delegates_1_1CDelegate3_184a414559da1e3e70c675b61e4ca4903" prot="public" virt="non-virtual"><scope>MyGUI::delegates::CDelegate3</scope><name>CDelegate3</name></member>

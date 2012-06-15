@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1IRenderTarget" kind="class" prot="public">
     <compoundname>MyGUI::IRenderTarget</compoundname>
+    <includes local="no">MyGUI_IRenderTarget.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1IRenderTarget_1b611b1d6fe95346d12b1c95b537e7c47" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -61,11 +62,11 @@
         <argsstring>(IVertexBuffer *_buffer, ITexture *_texture, size_t _count)=0</argsstring>
         <name>doRender</name>
         <param>
-          <type>IVertexBuffer *</type>
+          <type><ref refid="classMyGUI_1_1IVertexBuffer" kindref="compound">IVertexBuffer</ref> *</type>
           <declname>_buffer</declname>
         </param>
         <param>
-          <type>ITexture *</type>
+          <type><ref refid="classMyGUI_1_1ITexture" kindref="compound">ITexture</ref> *</type>
           <declname>_texture</declname>
         </param>
         <param>
@@ -81,7 +82,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IRenderTarget.h" line="44"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1IRenderTarget_1f65cdee0d7963da1e24c9081891ad690" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
-        <type>const RenderTargetInfo &amp;</type>
+        <type>const <ref refid="structMyGUI_1_1RenderTargetInfo" kindref="compound">RenderTargetInfo</ref> &amp;</type>
         <definition>virtual const RenderTargetInfo&amp; MyGUI::IRenderTarget::getInfo</definition>
         <argsstring>()=0</argsstring>
         <name>getInfo</name>

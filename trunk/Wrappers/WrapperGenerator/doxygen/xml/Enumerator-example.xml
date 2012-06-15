@@ -3,7 +3,7 @@
   <compounddef id="Enumerator-example" kind="example">
     <compoundname>Enumerator</compoundname>
     <detaileddescription>
-<para>Class for comfortable using of vectors with small while loop instead iterators. Performance is same as with iterators. Enumerator usage</para><para><programlisting><codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::vector&lt;std::string&gt;<sp/>VectorString;</highlight></codeline>
+<para>Class for comfortable using of vectors with small while loop instead iterators. Performance is same as with iterators. Enumerator usage</para><para><programlisting><codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::vector&lt;std::string&gt;<sp/><ref refid="namespaceMyGUI_1bf37655693889c3eb4d13e4c4d23c076" kindref="member">VectorString</ref>;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>Enumerator&lt;VectorString&gt;<sp/>EnumeratorVectorString;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VectorString<sp/>vec;</highlight></codeline>
@@ -15,8 +15,8 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>value<sp/>=<sp/>enum_vec.current();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::pair&lt;std::string,<sp/>std::string&gt;<sp/>PairString;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::map&lt;PairString&gt;<sp/>MapString;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::pair&lt;std::string,<sp/>std::string&gt;<sp/><ref refid="namespaceMyGUI_16fb5450bc3b61102aafdcaa759e306a9" kindref="member">PairString</ref>;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>std::map&lt;PairString&gt;<sp/><ref refid="namespaceMyGUI_143ff1a19bb1ecb049f0b4642b6719a1b" kindref="member">MapString</ref>;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MapString<sp/>map;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>map[</highlight><highlight class="stringliteral">&quot;key&quot;</highlight><highlight class="normal">]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;value&quot;</highlight><highlight class="normal">;</highlight></codeline>

@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="structMyGUI_1_1xml_1_1ErrorType" kind="struct" prot="public">
     <compoundname>MyGUI::xml::ErrorType</compoundname>
+    <includes local="no">MyGUI_XmlDocument.h</includes>
       <sectiondef kind="public-type">
       <memberdef kind="enum" id="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d" prot="public" static="no">
         <name>Enum</name>
@@ -98,7 +99,7 @@
         <argsstring>(Enum _value=MAX)</argsstring>
         <name>ErrorType</name>
         <param>
-          <type>Enum</type>
+          <type><ref refid="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d" kindref="member">Enum</ref></type>
           <declname>_value</declname>
           <defval>MAX</defval>
         </param>
@@ -145,7 +146,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="structMyGUI_1_1xml_1_1ErrorType_1d3a4e02b0f281be5386ad53d29261b48" prot="private" static="no" mutable="no">
-        <type>Enum</type>
+        <type><ref refid="structMyGUI_1_1xml_1_1ErrorType_1caa2ea28eb29890007d4ea01786e817d" kindref="member">Enum</ref></type>
         <definition>Enum MyGUI::xml::ErrorType::mValue</definition>
         <argsstring></argsstring>
         <name>mValue</name>

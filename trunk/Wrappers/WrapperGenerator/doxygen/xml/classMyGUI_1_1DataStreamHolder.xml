@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
   <compounddef id="classMyGUI_1_1DataStreamHolder" kind="class" prot="public">
     <compoundname>MyGUI::DataStreamHolder</compoundname>
+    <includes local="no">MyGUI_IDataStream.h</includes>
       <sectiondef kind="public-func">
       <memberdef kind="function" id="classMyGUI_1_1DataStreamHolder_1a3ad98bc606327b3a100073908265c21" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -9,7 +10,7 @@
         <argsstring>(IDataStream *_data)</argsstring>
         <name>DataStreamHolder</name>
         <param>
-          <type>IDataStream *</type>
+          <type><ref refid="classMyGUI_1_1IDataStream" kindref="compound">IDataStream</ref> *</type>
           <declname>_data</declname>
         </param>
         <briefdescription>
@@ -34,7 +35,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" line="51" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" bodystart="50" bodyend="53"/>
       </memberdef>
       <memberdef kind="function" id="classMyGUI_1_1DataStreamHolder_1565b7240a686d73082ae1b15b83389e8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>IDataStream *</type>
+        <type><ref refid="classMyGUI_1_1IDataStream" kindref="compound">IDataStream</ref> *</type>
         <definition>IDataStream* MyGUI::DataStreamHolder::getData</definition>
         <argsstring>()</argsstring>
         <name>getData</name>
@@ -49,7 +50,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1DataStreamHolder_124ce8eceb124df2f02289d35a8d0cf7d" prot="private" static="no" mutable="no">
-        <type>IDataStream *</type>
+        <type><ref refid="classMyGUI_1_1IDataStream" kindref="compound">IDataStream</ref> *</type>
         <definition>IDataStream* MyGUI::DataStreamHolder::mData</definition>
         <argsstring></argsstring>
         <name>mData</name>
@@ -66,6 +67,19 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <collaborationgraph>
+      <node id="402">
+        <label>MyGUI::DataStreamHolder</label>
+        <link refid="classMyGUI_1_1DataStreamHolder"/>
+        <childnode refid="403" relation="usage">
+          <edgelabel>mData</edgelabel>
+        </childnode>
+      </node>
+      <node id="403">
+        <label>MyGUI::IDataStream</label>
+        <link refid="classMyGUI_1_1IDataStream"/>
+      </node>
+    </collaborationgraph>
     <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IDataStream.h" bodystart="42" bodyend="62"/>
     <listofallmembers>
       <member refid="classMyGUI_1_1DataStreamHolder_1a3ad98bc606327b3a100073908265c21" prot="public" virt="non-virtual"><scope>MyGUI::DataStreamHolder</scope><name>DataStreamHolder</name></member>

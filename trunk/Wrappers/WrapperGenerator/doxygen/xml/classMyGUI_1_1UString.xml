@@ -682,7 +682,7 @@
         <briefdescription>
 <para>sets the value of the character at <emphasis>loc</emphasis> to the Unicode value <emphasis>ch</emphasis> (UTF-32) </para>        </briefdescription>
         <detaileddescription>
-<para>Providing sentinel values (values between U+D800-U+DFFF) are accepted, but you should be aware that you can also unwittingly create a valid surrogate pair if you don&apos;t pay attention to what you are doing.<simplesect kind="note"><para>This operation may also lengthen the string if a surrogate pair is needed to represent the value given, but one is not available to replace; or alternatively shorten the string if an existing surrogate pair is replaced with a character that is representable without a surrogate pair. The return value will signify any lengthening or shortening performed, returning 0 if no change was made, -1 if the string was shortened, or 1 if the string was lengthened. Any single call can only change the string length by + or - 1. </para></simplesect>
+<para>Providing sentinel values (values between U+D800-U+DFFF) are accepted, but you should be aware that you can also unwittingly create a valid surrogate pair if you don&apos;t pay attention to what you are doing.<simplesect kind="note"><para>This operation may also lengthen the string if a surrogate pair is needed to represent the value given, but one is not available to replace; or alternatively shorten the string if an existing surrogate pair is replaced with a character that is representable without a surrogate pair. The return value will signify any lengthening or shortening performed, returning 0 if no change was made, -1 if the string was shortened, or 1 if the string was lengthened. <ref refid="classMyGUI_1_1Any" kindref="compound">Any</ref> single call can only change the string length by + or - 1. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
@@ -3448,7 +3448,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_UString.h" line="186" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_UString.h" bodystart="186" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classMyGUI_1_1UString_1b0f7618b2f081f17a48371fa39e57d1a" prot="public" static="no">
-        <type>uint32</type>
+        <type><ref refid="namespaceMyGUI_1e11a5769e2d89121966117b44b09625f" kindref="member">uint32</ref></type>
         <definition>typedef uint32 MyGUI::UString::unicode_char</definition>
         <argsstring></argsstring>
         <name>unicode_char</name>
@@ -3461,7 +3461,7 @@
         <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_UString.h" line="191" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_UString.h" bodystart="191" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="classMyGUI_1_1UString_187a3b9398a34ff4c40725cb451c53c5b" prot="public" static="no">
-        <type>uint16</type>
+        <type><ref refid="namespaceMyGUI_1e6c843de2a7204a1935969d8c4c3dcba" kindref="member">uint16</ref></type>
         <definition>typedef uint16 MyGUI::UString::code_point</definition>
         <argsstring></argsstring>
         <name>code_point</name>
@@ -3729,7 +3729,7 @@
       </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classMyGUI_1_1UString_1fc1c3adbae2be5f5010eabdbe8f191ab" prot="private" static="no" mutable="no">
-        <type>dstring</type>
+        <type><ref refid="classMyGUI_1_1UString_1e2cbd4a9fc8f200bf61dc4beebf738f2" kindref="member">dstring</ref></type>
         <definition>dstring MyGUI::UString::mData</definition>
         <argsstring></argsstring>
         <name>mData</name>
