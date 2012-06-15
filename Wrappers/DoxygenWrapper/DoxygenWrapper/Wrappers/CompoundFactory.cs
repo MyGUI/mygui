@@ -8,7 +8,7 @@ namespace DoxygenWrapper.Wrappers
 	{
 		public void RegisterFactory(string _type, Type _instance)
 		{
-			if (_instance.BaseType != typeof(Compound))
+			if (_instance != typeof(Compound) && _instance.BaseType != typeof(Compound))
 				throw new ArgumentException(string.Format("Base type of {0} != {1}", _instance, typeof(Compound)));
 
 			if (mFactory.ContainsKey(_type))

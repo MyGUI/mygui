@@ -14,6 +14,21 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -48,24 +63,33 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Wrappers\CompoundFactory.cs" />
     <Compile Include="Wrappers\CompoundManager.cs" />
-    <Compile Include="Wrappers\Compounds\Class1.cs" />
     <Compile Include="Wrappers\Compounds\Compound.cs" />
     <Compile Include="Wrappers\Compounds\CompoundClass.cs" />
-    <Compile Include="Wrappers\Compounds\CompoundDefine.cs" />
-    <Compile Include="Wrappers\Compounds\CompoundDir.cs" />
-    <Compile Include="Wrappers\Compounds\CompoundEnum.cs" />
-    <Compile Include="Wrappers\Compounds\CompoundEnumvalue.cs" />
-    <Compile Include="Wrappers\Compounds\CompoundExample.cs" />
-    <Compile Include="Wrappers\Compounds\CompoundFile.cs" />
-    <Compile Include="Wrappers\Compounds\CompoundFriend.cs" />
     <Compile Include="Wrappers\Compounds\CompoundFunction.cs" />
     <Compile Include="Wrappers\Compounds\CompoundNamespace.cs" />
-    <Compile Include="Wrappers\Compounds\CompoundStruct.cs" />
     <Compile Include="Wrappers\Compounds\CompoundTypedef.cs" />
     <Compile Include="Wrappers\Compounds\CompoundVariable.cs" />
+    <Compile Include="Wrappers\ConsoleUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>Клиентский профиль .NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Установщик Windows 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

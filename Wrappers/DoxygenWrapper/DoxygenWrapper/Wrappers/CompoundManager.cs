@@ -8,45 +8,64 @@ namespace DoxygenWrapper.Wrappers
 {
 	public class CompoundManager
 	{
+		public static CompoundManager Instance { get { return mInstance; } }
+
 		public CompoundManager()
 		{
+			mInstance = this;
+
 			RegisterFactories();
+
+			SetIgnoredTypeList(new string[] { "define", "friend", "enumvalue", "enum", "file", "example", "dir" });
 		}
 
 		private void RegisterFactories()
 		{
 			mFatory.RegisterFactory("class", typeof(CompoundClass));
-			mFatory.RegisterFactory("dir", typeof(CompoundDir));
-			mFatory.RegisterFactory("example", typeof(CompoundExample));
-			mFatory.RegisterFactory("file", typeof(CompoundFile));
+			mFatory.RegisterFactory("struct", typeof(CompoundClass));
+
 			mFatory.RegisterFactory("namespace", typeof(CompoundNamespace));
-			mFatory.RegisterFactory("struct", typeof(CompoundStruct));
 			mFatory.RegisterFactory("typedef", typeof(CompoundTypedef));
-			mFatory.RegisterFactory("enum", typeof(CompoundEnum));
-			mFatory.RegisterFactory("enumvalue", typeof(CompoundEnumvalue));
 			mFatory.RegisterFactory("function", typeof(CompoundFunction));
 			mFatory.RegisterFactory("variable", typeof(CompoundVariable));
-			mFatory.RegisterFactory("friend", typeof(CompoundFriend));
-			mFatory.RegisterFactory("define", typeof(CompoundDefine));
 		}
 
-		public void Initialise(string _fileName)
+		public void Initialise(string _folder)
 		{
-			XmlDocument doc = new XmlDocument();
-			doc.Load(_fileName);
+			mFolder = _folder;
 
-			ParseCompound(doc.DocumentElement, mRootCompound);
+			XmlDocument doc = new XmlDocument();
+			doc.Load(Path.Combine(mFolder, "index.xml"));
+
+			ConsoleUtility.WriteLine("Initialise items ...");
+
+			InitialiseCompounds(doc.DocumentElement, mRootCompound);
+
+			ConsoleUtility.WriteLine("{0} items initialised", mCompounds.Count);
 
 			PrintUniqumDublicates();
+
+			ConsoleUtility.WriteLine("Parse items ...");
+
+			ParseCompounds();
+		}
+
+		private void ParseCompounds()
+		{
+			foreach (var compound in mCompounds)
+			{
+				if (!compound.Value.Member)
+					compound.Value.Parse(mFolder);
+			}
 		}
 
 		private void PrintUniqumDublicates()
 		{
 			foreach (var value in mDubCompounds)
-				Console.WriteLine(string.Format("dublicate \ntype : {0}\nname : {1}\nrefid : {2}\n", value.Value.Kind, value.Value.Name, value.Key));
+				ConsoleUtility.WriteErrorLine("dublicate \ntype : {0}\nname : {1}\nrefid : {2}\n", value.Value.Kind, value.Value.Name, value.Key);
 		}
 
-		private void ParseCompound(XmlNode _node, Compound _parent)
+		private void InitialiseCompounds(XmlNode _node, Compound _parent)
 		{
 			ParseCompoundByNodeName(_node, _parent, "compound");
 			ParseCompoundByNodeName(_node, _parent, "member");
@@ -70,11 +89,20 @@ namespace DoxygenWrapper.Wrappers
 
 							_parent.AddChild(compound);
 
-							ParseCompound(node, compound);
+							InitialiseCompounds(node, compound);
+						}
+						else
+						{
+							AddToIgnoredList(compound);
 						}
 					}
 				}
 			}
+		}
+
+		private void AddToIgnoredList(Compound _compound)
+		{
+			mIgnoredItems.Add(_compound);
 		}
 
 		private bool IsTypeIgnored(string _type)
@@ -110,16 +138,46 @@ namespace DoxygenWrapper.Wrappers
 			mIgnoredNames = _list;
 		}
 
-		public void SetIgnoredTypeList(string[] _list)
+		private void SetIgnoredTypeList(string[] _list)
 		{
 			mIgnoredTypes = _list;
 		}
 
+		public Compound GetCompound(string _refid)
+		{
+			if (mCompounds.ContainsKey(_refid))
+				return mCompounds[_refid];
+			return null;
+		}
+
+		private static CompoundManager mInstance = null;
 		private CompoundFactory mFatory = new CompoundFactory();
 		private Dictionary<string, Compound> mCompounds = new Dictionary<string, Compound>();
 		private Dictionary<string, Compound> mDubCompounds = new Dictionary<string, Compound>();
+		private List<Compound> mIgnoredItems = new List<Compound>();
 		private Compound mRootCompound = new Compound();
 		private string[] mIgnoredNames = new string[] { };
 		private string[] mIgnoredTypes = new string[] { };
+		private string mFolder;
+
+		public bool IsIgnoredCompound(string _refid)
+		{
+			foreach (var compound in mIgnoredItems)
+			{
+				if (compound.RefID == _refid)
+					return true;
+			}
+			return false;
+		}
+
+		public bool IsIgnoredType(string _kind)
+		{
+			foreach (string type in mIgnoredTypes)
+			{
+				if (type == _kind)
+					return true;
+			}
+			return false;
+		}
 	}
 }
