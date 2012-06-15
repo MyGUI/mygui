@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1Canvas_1_1Event" kind="struct" prot="public">
+    <compoundname>MyGUI::Canvas::Event</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMyGUI_1_1Canvas_1_1Event_1723f6e35ef93f5003891fb6d1b84c207" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::Canvas::Event::Event</definition>
+        <argsstring>(bool _textureChanged, bool _widgetResized, bool _requested)</argsstring>
+        <name>Event</name>
+        <param>
+          <type>bool</type>
+          <declname>_textureChanged</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_widgetResized</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_requested</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" line="51" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" bodystart="47" bodyend="52"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1Canvas_1_1Event_17f36bc7b580263b6aa26583f66e07c1b" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::Canvas::Event::textureChanged</definition>
+        <argsstring></argsstring>
+        <name>textureChanged</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" line="54" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1Canvas_1_1Event_172d9eb60cb8118629d29445714cf751a" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::Canvas::Event::widgetResized</definition>
+        <argsstring></argsstring>
+        <name>widgetResized</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" line="55" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1Canvas_1_1Event_1ca40c0fe1b2129ee281129f3a77fcf98" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::Canvas::Event::requested</definition>
+        <argsstring></argsstring>
+        <name>requested</name>
+        <briefdescription>
+<para>This update was caused by calling <ref refid="classMyGUI_1_1Canvas_1811d6a81e9c190dd98a9a5d1f144882a" kindref="member">updateTexture()</ref>;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" line="58" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" line="46" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Canvas.h" bodystart="45" bodyend="59"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1Canvas_1_1Event_1723f6e35ef93f5003891fb6d1b84c207" prot="public" virt="non-virtual"><scope>MyGUI::Canvas::Event</scope><name>Event</name></member>
+      <member refid="structMyGUI_1_1Canvas_1_1Event_1ca40c0fe1b2129ee281129f3a77fcf98" prot="public" virt="non-virtual"><scope>MyGUI::Canvas::Event</scope><name>requested</name></member>
+      <member refid="structMyGUI_1_1Canvas_1_1Event_17f36bc7b580263b6aa26583f66e07c1b" prot="public" virt="non-virtual"><scope>MyGUI::Canvas::Event</scope><name>textureChanged</name></member>
+      <member refid="structMyGUI_1_1Canvas_1_1Event_172d9eb60cb8118629d29445714cf751a" prot="public" virt="non-virtual"><scope>MyGUI::Canvas::Event</scope><name>widgetResized</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

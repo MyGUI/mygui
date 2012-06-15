@@ -1,0 +1,359 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1SkinItem" kind="class" prot="public">
+    <compoundname>MyGUI::SkinItem</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1SkinItem_1df3cc9ecbcf4702c02b1d265c5d0a7f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::SkinItem::SkinItem</definition>
+        <argsstring>()</argsstring>
+        <name>SkinItem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SkinItem_18790679dbfff2a864b0bbb656d45ee53" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>ISubWidgetText *</type>
+        <definition>ISubWidgetText* MyGUI::SkinItem::getSubWidgetText</definition>
+        <argsstring>()</argsstring>
+        <name>getSubWidgetText</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get text sub widget or nullptr if no text sub widget </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SkinItem_1b7ad0561eae858f69008e77b42fc4192" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>ISubWidgetRect *</type>
+        <definition>ISubWidgetRect* MyGUI::SkinItem::getSubWidgetMain</definition>
+        <argsstring>()</argsstring>
+        <name>getSubWidgetMain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get sub widget of first texture or nullptr if no sub widget with texture </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SkinItem_1d7130c196fcd0e29e06210f96240b171" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::SkinItem::_setTextureName</definition>
+        <argsstring>(const std::string &amp;_texture)</argsstring>
+        <name>_setTextureName</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_texture</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SkinItem_111f8d0452fdc560e02d3302bb100f994" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>const std::string&amp; MyGUI::SkinItem::_getTextureName</definition>
+        <argsstring>() const </argsstring>
+        <name>_getTextureName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="46"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classMyGUI_1_1SkinItem_125c41f0b09a8cb62b56e4bf151029efe" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::SkinItem::_createSkinItem</definition>
+        <argsstring>(ResourceSkin *_info)</argsstring>
+        <name>_createSkinItem</name>
+        <param>
+          <type>ResourceSkin *</type>
+          <declname>_info</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SkinItem_183e18cf55c5dfcd5fc991cd3d1c79726" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::SkinItem::_deleteSkinItem</definition>
+        <argsstring>()</argsstring>
+        <name>_deleteSkinItem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SkinItem_1b983e0ed07906a96b1f9a1a6d3593304" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::SkinItem::_setSkinItemAlign</definition>
+        <argsstring>(const IntSize &amp;_size)</argsstring>
+        <name>_setSkinItemAlign</name>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SkinItem_1e7dffe0acef7ab94c35cd0cd70fede08" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::SkinItem::_setSkinItemVisible</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>_setSkinItemVisible</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SkinItem_15f1951b1f095aaa695fb90ea7cef623b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::SkinItem::_setSkinItemColour</definition>
+        <argsstring>(const Colour &amp;_value)</argsstring>
+        <name>_setSkinItemColour</name>
+        <param>
+          <type>const Colour &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SkinItem_121cde72c7bd643fec9816501fe986205" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::SkinItem::_setSkinItemAlpha</definition>
+        <argsstring>(float _value)</argsstring>
+        <name>_setSkinItemAlpha</name>
+        <param>
+          <type>float</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SkinItem_10726c0a6b7e07c4a1ffbc6b41da8639e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::SkinItem::_correctSkinItemView</definition>
+        <argsstring>()</argsstring>
+        <name>_correctSkinItemView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SkinItem_1b5d81f68dff04ef4c975d8563ea0f598" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::SkinItem::_updateSkinItemView</definition>
+        <argsstring>()</argsstring>
+        <name>_updateSkinItemView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SkinItem_199576e05c1de9db65b724308619559d4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::SkinItem::_setSkinItemState</definition>
+        <argsstring>(const std::string &amp;_state)</argsstring>
+        <name>_setSkinItemState</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_state</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SkinItem_1b705b413faa908fe8424b57574a3410f" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::SkinItem::_setSubSkinVisible</definition>
+        <argsstring>(bool _visible)</argsstring>
+        <name>_setSubSkinVisible</name>
+        <param>
+          <type>bool</type>
+          <declname>_visible</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="60"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1SkinItem_182a25a5ad1d6b6ce6c8ac3714ee25e78" prot="private" static="no" mutable="no">
+        <type>VectorSubWidget</type>
+        <definition>VectorSubWidget MyGUI::SkinItem::mSubSkinChild</definition>
+        <argsstring></argsstring>
+        <name>mSubSkinChild</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="64" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1SkinItem_1bbbd658137645cba6b44d99ed64c3575" prot="private" static="no" mutable="no">
+        <type>ISubWidgetText *</type>
+        <definition>ISubWidgetText* MyGUI::SkinItem::mText</definition>
+        <argsstring></argsstring>
+        <name>mText</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="66" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1SkinItem_1ffcec341ae31b48955997e82cd72e6f5" prot="private" static="no" mutable="no">
+        <type>ISubWidgetRect *</type>
+        <definition>ISubWidgetRect* MyGUI::SkinItem::mMainSkin</definition>
+        <argsstring></argsstring>
+        <name>mMainSkin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="68" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1SkinItem_179432100307aa0bd6d851ea923c35917" prot="private" static="no" mutable="no">
+        <type>MapWidgetStateInfo</type>
+        <definition>MapWidgetStateInfo MyGUI::SkinItem::mStateInfo</definition>
+        <argsstring></argsstring>
+        <name>mStateInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="70" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1SkinItem_13e1c008c336c9298c6068187c43be914" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::SkinItem::mTextureName</definition>
+        <argsstring></argsstring>
+        <name>mTextureName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="72" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1SkinItem_1dfded3cd05623a7ae1e73858aa8fa077" prot="private" static="no" mutable="no">
+        <type>ITexture *</type>
+        <definition>ITexture* MyGUI::SkinItem::mTexture</definition>
+        <argsstring></argsstring>
+        <name>mTexture</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="73" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1SkinItem_18e3524e28e6d228e2f317c0565054002" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::SkinItem::mSubSkinsVisible</definition>
+        <argsstring></argsstring>
+        <name>mSubSkinsVisible</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="75" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinItem.h" bodystart="34" bodyend="76"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1SkinItem_10726c0a6b7e07c4a1ffbc6b41da8639e" prot="protected" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>_correctSkinItemView</name></member>
+      <member refid="classMyGUI_1_1SkinItem_125c41f0b09a8cb62b56e4bf151029efe" prot="protected" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>_createSkinItem</name></member>
+      <member refid="classMyGUI_1_1SkinItem_183e18cf55c5dfcd5fc991cd3d1c79726" prot="protected" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>_deleteSkinItem</name></member>
+      <member refid="classMyGUI_1_1SkinItem_111f8d0452fdc560e02d3302bb100f994" prot="public" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>_getTextureName</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b983e0ed07906a96b1f9a1a6d3593304" prot="protected" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>_setSkinItemAlign</name></member>
+      <member refid="classMyGUI_1_1SkinItem_121cde72c7bd643fec9816501fe986205" prot="protected" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>_setSkinItemAlpha</name></member>
+      <member refid="classMyGUI_1_1SkinItem_15f1951b1f095aaa695fb90ea7cef623b" prot="protected" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>_setSkinItemColour</name></member>
+      <member refid="classMyGUI_1_1SkinItem_199576e05c1de9db65b724308619559d4" prot="protected" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>_setSkinItemState</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1e7dffe0acef7ab94c35cd0cd70fede08" prot="protected" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>_setSkinItemVisible</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b705b413faa908fe8424b57574a3410f" prot="protected" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>_setSubSkinVisible</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1d7130c196fcd0e29e06210f96240b171" prot="public" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>_setTextureName</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b5d81f68dff04ef4c975d8563ea0f598" prot="protected" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>_updateSkinItemView</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1b7ad0561eae858f69008e77b42fc4192" prot="public" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>getSubWidgetMain</name></member>
+      <member refid="classMyGUI_1_1SkinItem_18790679dbfff2a864b0bbb656d45ee53" prot="public" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>getSubWidgetText</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1ffcec341ae31b48955997e82cd72e6f5" prot="private" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>mMainSkin</name></member>
+      <member refid="classMyGUI_1_1SkinItem_179432100307aa0bd6d851ea923c35917" prot="private" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>mStateInfo</name></member>
+      <member refid="classMyGUI_1_1SkinItem_182a25a5ad1d6b6ce6c8ac3714ee25e78" prot="private" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>mSubSkinChild</name></member>
+      <member refid="classMyGUI_1_1SkinItem_18e3524e28e6d228e2f317c0565054002" prot="private" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>mSubSkinsVisible</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1bbbd658137645cba6b44d99ed64c3575" prot="private" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>mText</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1dfded3cd05623a7ae1e73858aa8fa077" prot="private" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>mTexture</name></member>
+      <member refid="classMyGUI_1_1SkinItem_13e1c008c336c9298c6068187c43be914" prot="private" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>mTextureName</name></member>
+      <member refid="classMyGUI_1_1SkinItem_1df3cc9ecbcf4702c02b1d265c5d0a7f9" prot="public" virt="non-virtual"><scope>MyGUI::SkinItem</scope><name>SkinItem</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

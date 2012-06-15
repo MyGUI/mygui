@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="MyGUI__FontData_8h" kind="file">
+    <compoundname>MyGUI_FontData.h</compoundname>
+    <includes refid="MyGUI__Prerequest_8h" local="yes">MyGUI_Prerequest.h</includes>
+    <includedby refid="MyGUI__IFont_8h" local="yes">MyGUI_IFont.h</includedby>
+    <incdepgraph>
+      <node id="2667">
+        <label>MyGUI_FontData.h</label>
+        <link refid="MyGUI_FontData.h"/>
+        <childnode refid="2668" relation="include">
+        </childnode>
+      </node>
+      <node id="2669">
+        <label>MyGUI_Platform.h</label>
+        <link refid="MyGUI__Platform_8h"/>
+      </node>
+      <node id="2670">
+        <label>MyGUI_DeprecatedTypes.h</label>
+        <link refid="MyGUI__DeprecatedTypes_8h"/>
+      </node>
+      <node id="2668">
+        <label>MyGUI_Prerequest.h</label>
+        <link refid="MyGUI__Prerequest_8h"/>
+        <childnode refid="2669" relation="include">
+        </childnode>
+        <childnode refid="2670" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2682">
+        <label>MyGUI_ResourceTrueTypeFont.h</label>
+        <link refid="MyGUI__ResourceTrueTypeFont_8h"/>
+      </node>
+      <node id="2678">
+        <label>MyGUI_EditText.h</label>
+        <link refid="MyGUI__EditText_8h"/>
+        <childnode refid="2679" relation="include">
+        </childnode>
+      </node>
+      <node id="2677">
+        <label>MyGUI_FontManager.h</label>
+        <link refid="MyGUI__FontManager_8h"/>
+        <childnode refid="2676" relation="include">
+        </childnode>
+      </node>
+      <node id="2671">
+        <label>MyGUI_FontData.h</label>
+        <link refid="MyGUI_FontData.h"/>
+        <childnode refid="2672" relation="include">
+        </childnode>
+      </node>
+      <node id="2679">
+        <label>MyGUI_SimpleText.h</label>
+        <link refid="MyGUI__SimpleText_8h"/>
+      </node>
+      <node id="2680">
+        <label>MyGUI_TextView.h</label>
+        <link refid="MyGUI__TextView_8h"/>
+        <childnode refid="2678" relation="include">
+        </childnode>
+      </node>
+      <node id="2681">
+        <label>MyGUI_ResourceManualFont.h</label>
+        <link refid="MyGUI__ResourceManualFont_8h"/>
+      </node>
+      <node id="2673">
+        <label>MyGUI_TextIterator.h</label>
+        <link refid="MyGUI__TextIterator_8h"/>
+        <childnode refid="2674" relation="include">
+        </childnode>
+      </node>
+      <node id="2676">
+        <label>MyGUI.h</label>
+        <link refid="MyGUI_8h"/>
+      </node>
+      <node id="2674">
+        <label>MyGUI_EditBox.h</label>
+        <link refid="MyGUI__EditBox_8h"/>
+        <childnode refid="2675" relation="include">
+        </childnode>
+        <childnode refid="2676" relation="include">
+        </childnode>
+      </node>
+      <node id="2675">
+        <label>MyGUI_ComboBox.h</label>
+        <link refid="MyGUI__ComboBox_8h"/>
+        <childnode refid="2676" relation="include">
+        </childnode>
+      </node>
+      <node id="2672">
+        <label>MyGUI_IFont.h</label>
+        <link refid="MyGUI__IFont_8h"/>
+        <childnode refid="2673" relation="include">
+        </childnode>
+        <childnode refid="2677" relation="include">
+        </childnode>
+        <childnode refid="2678" relation="include">
+        </childnode>
+        <childnode refid="2680" relation="include">
+        </childnode>
+        <childnode refid="2681" relation="include">
+        </childnode>
+        <childnode refid="2682" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structMyGUI_1_1GlyphInfo">MyGUI::GlyphInfo</innerclass>
+    <innernamespace refid="namespaceMyGUI">MyGUI</innernamespace>
+    <innernamespace refid="namespaceMyGUI_1_1FontCodeType">MyGUI::FontCodeType</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Albert Semenov </para></simplesect>
+<simplesect kind="date"><para>06/2009 </para></simplesect>
+</para>    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FontData.h"/>
+  </compounddef>
+</doxygen>

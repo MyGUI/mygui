@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1MemberObsolete_3_01Button_01_4" kind="class" prot="public">
+    <compoundname>MyGUI::MemberObsolete&lt; Button &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01Button_01_4_181fca5f8d39873ea1d40fda80d4ecd59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; Button &gt;::setButtonPressed</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setButtonPressed</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000001"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01Button_01_4_156038b98f94f68d4671339d1ea4d26b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::MemberObsolete&lt; Button &gt;::getButtonPressed</definition>
+        <argsstring>()</argsstring>
+        <name>getButtonPressed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000002"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01Button_01_4_19b398dfaa52111a340f348ad70033e27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; Button &gt;::setStateCheck</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setStateCheck</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000003"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01Button_01_4_119344d02f91cbd99f5da5fb7146103ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::MemberObsolete&lt; Button &gt;::getStateCheck</definition>
+        <argsstring>()</argsstring>
+        <name>getStateCheck</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000004"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01Button_01_4_133cb68bf713b7a7489451c4e61136dd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1ImageBox" kindref="compound">ImageBox</ref> *</type>
+        <definition>ImageBox* MyGUI::MemberObsolete&lt; Button &gt;::getStaticImage</definition>
+        <argsstring>()</argsstring>
+        <name>getStaticImage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000005"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01Button_01_4_120cdc174573ea2bd93f5b59b0daeda77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; Button &gt;::setImageIndex</definition>
+        <argsstring>(size_t _value)</argsstring>
+        <name>setImageIndex</name>
+        <param>
+          <type>size_t</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000006"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01Button_01_4_1e8d363cbb9349dfa4f5c01c794a23c88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::MemberObsolete&lt; Button &gt;::getImageIndex</definition>
+        <argsstring>()</argsstring>
+        <name>getImageIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000007"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="59"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="44" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="43" bodyend="60"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4_156038b98f94f68d4671339d1ea4d26b7" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; Button &gt;</scope><name>getButtonPressed</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4_1e8d363cbb9349dfa4f5c01c794a23c88" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; Button &gt;</scope><name>getImageIndex</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4_119344d02f91cbd99f5da5fb7146103ac" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; Button &gt;</scope><name>getStateCheck</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4_133cb68bf713b7a7489451c4e61136dd7" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; Button &gt;</scope><name>getStaticImage</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4_181fca5f8d39873ea1d40fda80d4ecd59" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; Button &gt;</scope><name>setButtonPressed</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4_120cdc174573ea2bd93f5b59b0daeda77" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; Button &gt;</scope><name>setImageIndex</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01Button_01_4_19b398dfaa52111a340f348ad70033e27" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; Button &gt;</scope><name>setStateCheck</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

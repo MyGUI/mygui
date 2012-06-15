@@ -1,0 +1,626 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1PolygonalSkin" kind="class" prot="public">
+    <compoundname>MyGUI::PolygonalSkin</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1PolygonalSkin_1a12ea99913fbdfee60235faeeda6605b" prot="public" static="no">
+        <type>RTTIBase</type>
+        <definition>typedef RTTIBase MyGUI::PolygonalSkin::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1PolygonalSkin_17110ec78c2de879ea675f8439a95fd63" prot="public" static="no">
+        <type>PolygonalSkin</type>
+        <definition>typedef PolygonalSkin MyGUI::PolygonalSkin::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_14171abaa78c78232e4f761a6c1904bcc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::PolygonalSkin::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_1905d3f0b016445124988293f28602807" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::PolygonalSkin::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_130692e2e6ecb5982a6e1bdcfcc8b8a3a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::PolygonalSkin::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_111698247785040cce04dcc028cfd4179" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::PolygonalSkin::PolygonalSkin</definition>
+        <argsstring>()</argsstring>
+        <name>PolygonalSkin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_17589e1d135fad6bbc80f03f2dfe29ec5" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::PolygonalSkin::~PolygonalSkin</definition>
+        <argsstring>()</argsstring>
+        <name>~PolygonalSkin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_163f3d892e18f6e25da650052f6200ac7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::PolygonalSkin::setPoints</definition>
+        <argsstring>(const std::vector&lt; FloatPoint &gt; &amp;_points)</argsstring>
+        <name>setPoints</name>
+        <param>
+          <type>const std::vector&lt; FloatPoint &gt; &amp;</type>
+          <declname>_points</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set line points. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_1a5cbd5fee8806e8c410a6cb3f3011963" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::PolygonalSkin::setWidth</definition>
+        <argsstring>(float _width)</argsstring>
+        <name>setWidth</name>
+        <param>
+          <type>float</type>
+          <declname>_width</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set line width in pixels. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_14f60300838c388d1138b12554513a5c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::PolygonalSkin::setAlpha</definition>
+        <argsstring>(float _alpha)</argsstring>
+        <name>setAlpha</name>
+        <param>
+          <type>float</type>
+          <declname>_alpha</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_1ea9334904b9ceb9219135fed09f5bc5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::PolygonalSkin::setVisible</definition>
+        <argsstring>(bool _visible)</argsstring>
+        <name>setVisible</name>
+        <param>
+          <type>bool</type>
+          <declname>_visible</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_1cbfdc152c2612f8cb596ba05bb06435f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::PolygonalSkin::setStateData</definition>
+        <argsstring>(IStateInfo *_data)</argsstring>
+        <name>setStateData</name>
+        <param>
+          <type>IStateInfo *</type>
+          <declname>_data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_1e9003e5aaeb2aafd1639938f1e57445b" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::PolygonalSkin::createDrawItem</definition>
+        <argsstring>(ITexture *_texture, ILayerNode *_node)</argsstring>
+        <name>createDrawItem</name>
+        <param>
+          <type>ITexture *</type>
+          <declname>_texture</declname>
+        </param>
+        <param>
+          <type>ILayerNode *</type>
+          <declname>_node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_12d86af038c59b5ed9e647b75e0922ac0" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::PolygonalSkin::destroyDrawItem</definition>
+        <argsstring>()</argsstring>
+        <name>destroyDrawItem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_1eb47c8ac199bf1c0eaa677de740f94bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::PolygonalSkin::doRender</definition>
+        <argsstring>()</argsstring>
+        <name>doRender</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="58"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_1aff06c3715b94bbf38ff0a1a871f2b16" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::PolygonalSkin::_updateView</definition>
+        <argsstring>()</argsstring>
+        <name>_updateView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_10b5b95b19a84de71d41e8dd621f93aad" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::PolygonalSkin::_correctView</definition>
+        <argsstring>()</argsstring>
+        <name>_correctView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_17292ae2865fe3479cf6a9f4631c9ff2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::PolygonalSkin::_setAlign</definition>
+        <argsstring>(const IntSize &amp;_oldsize)</argsstring>
+        <name>_setAlign</name>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_oldsize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="64"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_1870987b2ad11d16313f438a096d6bacb" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::PolygonalSkin::_setUVSet</definition>
+        <argsstring>(const FloatRect &amp;_rect)</argsstring>
+        <name>_setUVSet</name>
+        <param>
+          <type>const FloatRect &amp;</type>
+          <declname>_rect</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_115342e9afed68c6522cbef7500f98ee7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::PolygonalSkin::_setColour</definition>
+        <argsstring>(const Colour &amp;_value)</argsstring>
+        <name>_setColour</name>
+        <param>
+          <type>const Colour &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="67"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_133f6cdd47a7a1000c6cc5f8753a2a967" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::PolygonalSkin::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_127080fb346ffd409c15cbbc025ccd255" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::PolygonalSkin::_rebuildGeometry</definition>
+        <argsstring>()</argsstring>
+        <name>_rebuildGeometry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_14b2d31744985577103926dbbf5a7ef28" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>FloatPoint</type>
+        <definition>FloatPoint MyGUI::PolygonalSkin::_getPerpendicular</definition>
+        <argsstring>(const FloatPoint &amp;_point1, const FloatPoint &amp;_point2)</argsstring>
+        <name>_getPerpendicular</name>
+        <param>
+          <type>const FloatPoint &amp;</type>
+          <declname>_point1</declname>
+        </param>
+        <param>
+          <type>const FloatPoint &amp;</type>
+          <declname>_point2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="71"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1PolygonalSkin_16255e43bad6e9a3b31facfcd415a661e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>FloatPoint</type>
+        <definition>FloatPoint MyGUI::PolygonalSkin::_getMiddleLine</definition>
+        <argsstring>(const FloatPoint &amp;_point1, const FloatPoint &amp;_point2, const FloatPoint &amp;_point3)</argsstring>
+        <name>_getMiddleLine</name>
+        <param>
+          <type>const FloatPoint &amp;</type>
+          <declname>_point1</declname>
+        </param>
+        <param>
+          <type>const FloatPoint &amp;</type>
+          <declname>_point2</declname>
+        </param>
+        <param>
+          <type>const FloatPoint &amp;</type>
+          <declname>_point3</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="73"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_1e0d4e709e66193ee7b2f6bf4a4fcbb75" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::PolygonalSkin::mGeometryOutdated</definition>
+        <argsstring></argsstring>
+        <name>mGeometryOutdated</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="76" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_1789caabc7a8f6604727e623c33094eec" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::PolygonalSkin::mLineWidth</definition>
+        <argsstring></argsstring>
+        <name>mLineWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="78" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_1e1b3c2769f25f4a84c78623a2eb11db5" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; FloatPoint &gt;</type>
+        <definition>std::vector&lt;FloatPoint&gt; MyGUI::PolygonalSkin::mLinePoints</definition>
+        <argsstring></argsstring>
+        <name>mLinePoints</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="79" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_18594b3b23c5e97f6a9aaece78a1fa8dd" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::PolygonalSkin::mLineLength</definition>
+        <argsstring></argsstring>
+        <name>mLineLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="80" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_17bbd453208691511fb475407f83342c2" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; FloatPoint &gt;</type>
+        <definition>std::vector&lt;FloatPoint&gt; MyGUI::PolygonalSkin::mResultVerticiesPos</definition>
+        <argsstring></argsstring>
+        <name>mResultVerticiesPos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="82" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_11c6b2687fad2b2c49d8a102ca3f48c81" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; FloatPoint &gt;</type>
+        <definition>std::vector&lt;FloatPoint&gt; MyGUI::PolygonalSkin::mResultVerticiesUV</definition>
+        <argsstring></argsstring>
+        <name>mResultVerticiesUV</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="83" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_1ac1f91d0ab42fa165e0c61e6ffbbdcc8" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::PolygonalSkin::mVertexCount</definition>
+        <argsstring></argsstring>
+        <name>mVertexCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="85" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_1286b613354e9f2efee8e384e7ee9aa05" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::PolygonalSkin::mEmptyView</definition>
+        <argsstring></argsstring>
+        <name>mEmptyView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="87" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_1d3684135bf55d055491b4618b9c17553" prot="private" static="no" mutable="no">
+        <type>VertexColourType</type>
+        <definition>VertexColourType MyGUI::PolygonalSkin::mVertexFormat</definition>
+        <argsstring></argsstring>
+        <name>mVertexFormat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="89" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_19e0661018433b5b9db086e730b67decf" prot="private" static="no" mutable="no">
+        <type>uint32</type>
+        <definition>uint32 MyGUI::PolygonalSkin::mCurrentColour</definition>
+        <argsstring></argsstring>
+        <name>mCurrentColour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="90" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_18bd4cab35f74ea75d0a5bec1f2e2e7b4" prot="private" static="no" mutable="no">
+        <type>FloatRect</type>
+        <definition>FloatRect MyGUI::PolygonalSkin::mCurrentTexture</definition>
+        <argsstring></argsstring>
+        <name>mCurrentTexture</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="92" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_12302208c6c10dea7487e1feba5313e36" prot="private" static="no" mutable="no">
+        <type>IntCoord</type>
+        <definition>IntCoord MyGUI::PolygonalSkin::mCurrentCoord</definition>
+        <argsstring></argsstring>
+        <name>mCurrentCoord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="93" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_180e1f6085660bf4988f2039cd45f679b" prot="private" static="no" mutable="no">
+        <type>ILayerNode *</type>
+        <definition>ILayerNode* MyGUI::PolygonalSkin::mNode</definition>
+        <argsstring></argsstring>
+        <name>mNode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="95" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1PolygonalSkin_1527b46dcaee9bf5bda3e8b4e972f3dd4" prot="private" static="no" mutable="no">
+        <type>RenderItem *</type>
+        <definition>RenderItem* MyGUI::PolygonalSkin::mRenderItem</definition>
+        <argsstring></argsstring>
+        <name>mRenderItem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="96" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_PolygonalSkin.h" bodystart="33" bodyend="97"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1PolygonalSkin_10b5b95b19a84de71d41e8dd621f93aad" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>_correctView</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_16255e43bad6e9a3b31facfcd415a661e" prot="protected" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_getMiddleLine</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_14b2d31744985577103926dbbf5a7ef28" prot="protected" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_getPerpendicular</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_127080fb346ffd409c15cbbc025ccd255" prot="protected" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>_rebuildGeometry</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_17292ae2865fe3479cf6a9f4631c9ff2d" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>_setAlign</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_115342e9afed68c6522cbef7500f98ee7" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>_setColour</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_1870987b2ad11d16313f438a096d6bacb" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>_setUVSet</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_1aff06c3715b94bbf38ff0a1a871f2b16" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>_updateView</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_1a12ea99913fbdfee60235faeeda6605b" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_1e9003e5aaeb2aafd1639938f1e57445b" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>createDrawItem</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_12d86af038c59b5ed9e647b75e0922ac0" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>destroyDrawItem</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_1eb47c8ac199bf1c0eaa677de740f94bd" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>doRender</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_133f6cdd47a7a1000c6cc5f8753a2a967" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_14171abaa78c78232e4f761a6c1904bcc" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_1905d3f0b016445124988293f28602807" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_130692e2e6ecb5982a6e1bdcfcc8b8a3a" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_19e0661018433b5b9db086e730b67decf" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mCurrentColour</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_12302208c6c10dea7487e1feba5313e36" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mCurrentCoord</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_18bd4cab35f74ea75d0a5bec1f2e2e7b4" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mCurrentTexture</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_1286b613354e9f2efee8e384e7ee9aa05" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mEmptyView</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_1e0d4e709e66193ee7b2f6bf4a4fcbb75" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mGeometryOutdated</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_18594b3b23c5e97f6a9aaece78a1fa8dd" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mLineLength</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_1e1b3c2769f25f4a84c78623a2eb11db5" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mLinePoints</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_1789caabc7a8f6604727e623c33094eec" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mLineWidth</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_180e1f6085660bf4988f2039cd45f679b" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mNode</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_1527b46dcaee9bf5bda3e8b4e972f3dd4" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mRenderItem</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_17bbd453208691511fb475407f83342c2" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mResultVerticiesPos</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_11c6b2687fad2b2c49d8a102ca3f48c81" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mResultVerticiesUV</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_1ac1f91d0ab42fa165e0c61e6ffbbdcc8" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mVertexCount</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_1d3684135bf55d055491b4618b9c17553" prot="private" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>mVertexFormat</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_111698247785040cce04dcc028cfd4179" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>PolygonalSkin</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_17110ec78c2de879ea675f8439a95fd63" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_14f60300838c388d1138b12554513a5c9" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>setAlpha</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_163f3d892e18f6e25da650052f6200ac7" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>setPoints</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_1cbfdc152c2612f8cb596ba05bb06435f" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>setStateData</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_1ea9334904b9ceb9219135fed09f5bc5f" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>setVisible</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_1a5cbd5fee8806e8c410a6cb3f3011963" prot="public" virt="non-virtual"><scope>MyGUI::PolygonalSkin</scope><name>setWidth</name></member>
+      <member refid="classMyGUI_1_1PolygonalSkin_17589e1d135fad6bbc80f03f2dfe29ec5" prot="public" virt="virtual"><scope>MyGUI::PolygonalSkin</scope><name>~PolygonalSkin</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

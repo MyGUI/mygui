@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1Singleton" kind="class" prot="public">
+    <compoundname>MyGUI::Singleton</compoundname>
+    <templateparamlist>
+      <param>
+        <type>class</type>
+        <declname>T</declname>
+        <defname>T</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1Singleton_1a74db81b5e58d5c6cc4e9bcba1648253" prot="public" static="no">
+        <type>Singleton&lt; T &gt;</type>
+        <definition>typedef Singleton&lt;T&gt; MyGUI::Singleton&lt; T &gt;::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Singleton.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Singleton.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1Singleton_130052fd9a72b1c3ad326830169e85307" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::Singleton&lt; T &gt;::Singleton</definition>
+        <argsstring>()</argsstring>
+        <name>Singleton</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Singleton.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Singleton.h" bodystart="41" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Singleton_1d342e3b15791e6a20cbd2aa9229b5c6f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::Singleton&lt; T &gt;::~Singleton</definition>
+        <argsstring>()</argsstring>
+        <name>~Singleton</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Singleton.h" line="48" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Singleton.h" bodystart="47" bodyend="51"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1Singleton_162dffea70e4b1061c1018a3b12d3ecd8" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T &amp;</type>
+        <definition>static T&amp; MyGUI::Singleton&lt; T &gt;::getInstance</definition>
+        <argsstring>()</argsstring>
+        <name>getInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Singleton.h" line="54" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Singleton.h" bodystart="53" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Singleton_14529a5eda85de92183260b77259fefa2" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T *</type>
+        <definition>static T* MyGUI::Singleton&lt; T &gt;::getInstancePtr</definition>
+        <argsstring>()</argsstring>
+        <name>getInstancePtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Singleton.h" line="60" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Singleton.h" bodystart="59" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Singleton_12c806053cf545c5fdf7a3e6822a585a9" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *</type>
+        <definition>static const char* MyGUI::Singleton&lt; T &gt;::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Singleton.h" line="65" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Singleton.h" bodystart="64" bodyend="67"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1Singleton_14b417838ce5a7fc6fb14dacc303b2c14" prot="private" static="yes" mutable="no">
+        <type>T *</type>
+        <definition>T* MyGUI::Singleton&lt; T &gt;::msInstance</definition>
+        <argsstring></argsstring>
+        <name>msInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Singleton.h" line="70" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Singleton.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Singleton_14dbd75d5be34e3a01e4498795f510910" prot="private" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* MyGUI::Singleton&lt; T &gt;::mClassTypeName</definition>
+        <argsstring></argsstring>
+        <name>mClassTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Singleton.h" line="71" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Singleton.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="604">
+        <label>T</label>
+      </node>
+      <node id="603">
+        <label>MyGUI::Singleton&lt; T &gt;</label>
+        <childnode refid="604" relation="usage">
+          <edgelabel>msInstance</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Singleton.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Singleton.h" bodystart="35" bodyend="72"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1Singleton_1a74db81b5e58d5c6cc4e9bcba1648253" prot="public" virt="non-virtual"><scope>MyGUI::Singleton</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1Singleton_12c806053cf545c5fdf7a3e6822a585a9" prot="public" virt="non-virtual"><scope>MyGUI::Singleton</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1Singleton_162dffea70e4b1061c1018a3b12d3ecd8" prot="public" virt="non-virtual"><scope>MyGUI::Singleton</scope><name>getInstance</name></member>
+      <member refid="classMyGUI_1_1Singleton_14529a5eda85de92183260b77259fefa2" prot="public" virt="non-virtual"><scope>MyGUI::Singleton</scope><name>getInstancePtr</name></member>
+      <member refid="classMyGUI_1_1Singleton_14dbd75d5be34e3a01e4498795f510910" prot="private" virt="non-virtual"><scope>MyGUI::Singleton</scope><name>mClassTypeName</name></member>
+      <member refid="classMyGUI_1_1Singleton_14b417838ce5a7fc6fb14dacc303b2c14" prot="private" virt="non-virtual"><scope>MyGUI::Singleton</scope><name>msInstance</name></member>
+      <member refid="classMyGUI_1_1Singleton_130052fd9a72b1c3ad326830169e85307" prot="public" virt="non-virtual"><scope>MyGUI::Singleton</scope><name>Singleton</name></member>
+      <member refid="classMyGUI_1_1Singleton_1d342e3b15791e6a20cbd2aa9229b5c6f" prot="public" virt="virtual"><scope>MyGUI::Singleton</scope><name>~Singleton</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,286 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1Any" kind="class" prot="public">
+    <compoundname>MyGUI::Any</compoundname>
+    <innerclass refid="structMyGUI_1_1Any_1_1AnyEmpty">MyGUI::Any::AnyEmpty</innerclass>
+    <innerclass refid="classMyGUI_1_1Any_1_1Holder">MyGUI::Any::Holder</innerclass>
+    <innerclass refid="classMyGUI_1_1Any_1_1Placeholder">MyGUI::Any::Placeholder</innerclass>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1Any_1c671b52de3800513dcd41df174e55b73" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::Any::Any</definition>
+        <argsstring>()</argsstring>
+        <name>Any</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="87"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Any_1f0098a3ea9ea99772afb3e3769f13bfe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::Any::Any</definition>
+        <argsstring>(const Any::AnyEmpty &amp;value)</argsstring>
+        <name>Any</name>
+        <param>
+          <type>const Any::AnyEmpty &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="88"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Any_1733d469fdfda3d1e4476b0593b3e1d28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::Any::Any</definition>
+        <argsstring>(const Any &amp;other)</argsstring>
+        <name>Any</name>
+        <param>
+          <type>const Any &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="89"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Any_1cf927528c960f0ce0095900bcfdec26d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>ValueType</declname>
+            <defname>ValueType</defname>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>MyGUI::Any::Any</definition>
+        <argsstring>(const ValueType &amp;value)</argsstring>
+        <name>Any</name>
+        <param>
+          <type>const ValueType &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="94" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" bodystart="92" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Any_13a0032426ca219e3fa7a767e033fb5b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::Any::~Any</definition>
+        <argsstring>()</argsstring>
+        <name>~Any</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="97"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Any_18057b71b6d61bfd18d7507c2e8c867ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Any &amp;</type>
+        <definition>Any&amp; MyGUI::Any::swap</definition>
+        <argsstring>(Any &amp;rhs)</argsstring>
+        <name>swap</name>
+        <param>
+          <type>Any &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="99"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Any_1dfdaf8878828cf232f42aa66990eb8ec" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>ValueType</declname>
+            <defname>ValueType</defname>
+          </param>
+        </templateparamlist>
+        <type>Any &amp;</type>
+        <definition>Any&amp; MyGUI::Any::operator=</definition>
+        <argsstring>(const ValueType &amp;rhs)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const ValueType &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="103" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" bodystart="102" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Any_159768e32018b921e13a259facce67a23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Any &amp;</type>
+        <definition>Any&amp; MyGUI::Any::operator=</definition>
+        <argsstring>(const Any::AnyEmpty &amp;rhs)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const Any::AnyEmpty &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="108"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Any_145bc96f5e960ecb32c7a554006a9d801" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Any &amp;</type>
+        <definition>Any&amp; MyGUI::Any::operator=</definition>
+        <argsstring>(const Any &amp;rhs)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>const Any &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="109"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Any_17f9cdf0ea833b3a98562d02fa9728964" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Any::empty</definition>
+        <argsstring>() const </argsstring>
+        <name>empty</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="111"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Any_131ef13925f907a9eef97bc2b134879ab" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::type_info &amp;</type>
+        <definition>const std::type_info&amp; MyGUI::Any::getType</definition>
+        <argsstring>() const </argsstring>
+        <name>getType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="114"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Any_1f9fa3c6c8655c1d006fe6b59b28a7b00" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>ValueType</declname>
+            <defname>ValueType</defname>
+          </param>
+        </templateparamlist>
+        <type>ValueType *</type>
+        <definition>ValueType* MyGUI::Any::castType</definition>
+        <argsstring>(bool _throw=true) const </argsstring>
+        <name>castType</name>
+        <param>
+          <type>bool</type>
+          <declname>_throw</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="118" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" bodystart="117" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Any_1fdfad187657a620795495cd79586d71a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* MyGUI::Any::castUnsafe</definition>
+        <argsstring>() const </argsstring>
+        <name>castUnsafe</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="136"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1Any_19988b23fab77d89af4c372c3f761bc5b" prot="public" static="yes" mutable="no">
+        <type>AnyEmpty</type>
+        <definition>AnyEmpty MyGUI::Any::Null</definition>
+        <argsstring></argsstring>
+        <name>Null</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="85" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1Any_1f5d1d9c7b78472f6f8c8d78200e3b093" prot="private" static="no" mutable="no">
+        <type>Placeholder *</type>
+        <definition>Placeholder* MyGUI::Any::mContent</definition>
+        <argsstring></argsstring>
+        <name>mContent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="182" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="82" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" bodystart="81" bodyend="183"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1Any_1c671b52de3800513dcd41df174e55b73" prot="public" virt="non-virtual"><scope>MyGUI::Any</scope><name>Any</name></member>
+      <member refid="classMyGUI_1_1Any_1f0098a3ea9ea99772afb3e3769f13bfe" prot="public" virt="non-virtual"><scope>MyGUI::Any</scope><name>Any</name></member>
+      <member refid="classMyGUI_1_1Any_1733d469fdfda3d1e4476b0593b3e1d28" prot="public" virt="non-virtual"><scope>MyGUI::Any</scope><name>Any</name></member>
+      <member refid="classMyGUI_1_1Any_1cf927528c960f0ce0095900bcfdec26d" prot="public" virt="non-virtual"><scope>MyGUI::Any</scope><name>Any</name></member>
+      <member refid="classMyGUI_1_1Any_1f9fa3c6c8655c1d006fe6b59b28a7b00" prot="public" virt="non-virtual"><scope>MyGUI::Any</scope><name>castType</name></member>
+      <member refid="classMyGUI_1_1Any_1fdfad187657a620795495cd79586d71a" prot="public" virt="non-virtual"><scope>MyGUI::Any</scope><name>castUnsafe</name></member>
+      <member refid="classMyGUI_1_1Any_17f9cdf0ea833b3a98562d02fa9728964" prot="public" virt="non-virtual"><scope>MyGUI::Any</scope><name>empty</name></member>
+      <member refid="classMyGUI_1_1Any_131ef13925f907a9eef97bc2b134879ab" prot="public" virt="non-virtual"><scope>MyGUI::Any</scope><name>getType</name></member>
+      <member refid="classMyGUI_1_1Any_1f5d1d9c7b78472f6f8c8d78200e3b093" prot="private" virt="non-virtual"><scope>MyGUI::Any</scope><name>mContent</name></member>
+      <member refid="classMyGUI_1_1Any_19988b23fab77d89af4c372c3f761bc5b" prot="public" virt="non-virtual"><scope>MyGUI::Any</scope><name>Null</name></member>
+      <member refid="classMyGUI_1_1Any_1dfdaf8878828cf232f42aa66990eb8ec" prot="public" virt="non-virtual"><scope>MyGUI::Any</scope><name>operator=</name></member>
+      <member refid="classMyGUI_1_1Any_159768e32018b921e13a259facce67a23" prot="public" virt="non-virtual"><scope>MyGUI::Any</scope><name>operator=</name></member>
+      <member refid="classMyGUI_1_1Any_145bc96f5e960ecb32c7a554006a9d801" prot="public" virt="non-virtual"><scope>MyGUI::Any</scope><name>operator=</name></member>
+      <member refid="classMyGUI_1_1Any_18057b71b6d61bfd18d7507c2e8c867ff" prot="public" virt="non-virtual"><scope>MyGUI::Any</scope><name>swap</name></member>
+      <member refid="classMyGUI_1_1Any_13a0032426ca219e3fa7a767e033fb5b1" prot="public" virt="non-virtual"><scope>MyGUI::Any</scope><name>~Any</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

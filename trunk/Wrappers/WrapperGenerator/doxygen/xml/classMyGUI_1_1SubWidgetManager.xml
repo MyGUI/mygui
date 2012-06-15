@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1SubWidgetManager" kind="class" prot="public">
+    <compoundname>MyGUI::SubWidgetManager</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1SubWidgetManager_11f2d04e02a9c285cf54579054045288d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::SubWidgetManager::SubWidgetManager</definition>
+        <argsstring>()</argsstring>
+        <name>SubWidgetManager</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetManager.h" line="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SubWidgetManager_1208b9b600fbfee093d27ce0b4b546228" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::SubWidgetManager::initialise</definition>
+        <argsstring>()</argsstring>
+        <name>initialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetManager.h" line="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SubWidgetManager_1a46b3fc1e3fa38ed8b7596138e5a7d42" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::SubWidgetManager::shutdown</definition>
+        <argsstring>()</argsstring>
+        <name>shutdown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetManager.h" line="38"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1SubWidgetManager_1630995942c2cdfcab363a20a51768417" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::SubWidgetManager::mIsInitialise</definition>
+        <argsstring></argsstring>
+        <name>mIsInitialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetManager.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetManager.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetManager.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetManager.h" bodystart="31" bodyend="42"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1SubWidgetManager_1208b9b600fbfee093d27ce0b4b546228" prot="public" virt="non-virtual"><scope>MyGUI::SubWidgetManager</scope><name>initialise</name></member>
+      <member refid="classMyGUI_1_1SubWidgetManager_1630995942c2cdfcab363a20a51768417" prot="private" virt="non-virtual"><scope>MyGUI::SubWidgetManager</scope><name>mIsInitialise</name></member>
+      <member refid="classMyGUI_1_1SubWidgetManager_1a46b3fc1e3fa38ed8b7596138e5a7d42" prot="public" virt="non-virtual"><scope>MyGUI::SubWidgetManager</scope><name>shutdown</name></member>
+      <member refid="classMyGUI_1_1SubWidgetManager_11f2d04e02a9c285cf54579054045288d" prot="public" virt="non-virtual"><scope>MyGUI::SubWidgetManager</scope><name>SubWidgetManager</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

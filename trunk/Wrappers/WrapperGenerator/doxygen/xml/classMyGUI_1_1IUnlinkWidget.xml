@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1IUnlinkWidget" kind="class" prot="public">
+    <compoundname>MyGUI::IUnlinkWidget</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1IUnlinkWidget_1a2e24c22ce9088c193b5b759c1f283d6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::IUnlinkWidget::~IUnlinkWidget</definition>
+        <argsstring>()</argsstring>
+        <name>~IUnlinkWidget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IUnlinkWidget.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IUnlinkWidget.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IUnlinkWidget_1f91e3521c71ef6ff34707922d0dc7fc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::IUnlinkWidget::_unlinkWidget</definition>
+        <argsstring>(Widget *_widget)=0</argsstring>
+        <name>_unlinkWidget</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IUnlinkWidget.h" line="35"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IUnlinkWidget.h" line="32" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IUnlinkWidget.h" bodystart="31" bodyend="36"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1IUnlinkWidget_1f91e3521c71ef6ff34707922d0dc7fc5" prot="public" virt="pure-virtual"><scope>MyGUI::IUnlinkWidget</scope><name>_unlinkWidget</name></member>
+      <member refid="classMyGUI_1_1IUnlinkWidget_1a2e24c22ce9088c193b5b759c1f283d6" prot="public" virt="virtual"><scope>MyGUI::IUnlinkWidget</scope><name>~IUnlinkWidget</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

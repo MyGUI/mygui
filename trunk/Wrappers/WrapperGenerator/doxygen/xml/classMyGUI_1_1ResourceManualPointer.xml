@@ -1,0 +1,262 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1ResourceManualPointer" kind="class" prot="public">
+    <compoundname>MyGUI::ResourceManualPointer</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1ResourceManualPointer_18520661107c16f81443f48548615cf19" prot="public" static="no">
+        <type>RTTIBase</type>
+        <definition>typedef RTTIBase MyGUI::ResourceManualPointer::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1ResourceManualPointer_13a171a4b5a51744213fe286724d62dbd" prot="public" static="no">
+        <type>ResourceManualPointer</type>
+        <definition>typedef ResourceManualPointer MyGUI::ResourceManualPointer::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1ResourceManualPointer_1f5ba2c0c8f2a28637e3c11500e61baeb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::ResourceManualPointer::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceManualPointer_1da31c51d0ec4150b31d5621ed6583992" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::ResourceManualPointer::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceManualPointer_1d99f9143fdee7bf17ed2cf0e4350a452" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::ResourceManualPointer::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceManualPointer_121393fd1052a0d60c87cfcbeb14a4e4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::ResourceManualPointer::ResourceManualPointer</definition>
+        <argsstring>()</argsstring>
+        <name>ResourceManualPointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" line="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceManualPointer_1fc92367eef5dc2ede8d4b74e96ce0ff9" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::ResourceManualPointer::~ResourceManualPointer</definition>
+        <argsstring>()</argsstring>
+        <name>~ResourceManualPointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" line="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceManualPointer_1f8e32edb61466da3c1e2b9288e821a03" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ResourceManualPointer::deserialization</definition>
+        <argsstring>(xml::ElementPtr _node, Version _version)</argsstring>
+        <name>deserialization</name>
+        <param>
+          <type>xml::ElementPtr</type>
+          <declname>_node</declname>
+        </param>
+        <param>
+          <type>Version</type>
+          <declname>_version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" line="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceManualPointer_1165d304304a249013ec19542691302a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ResourceManualPointer::setImage</definition>
+        <argsstring>(ImageBox *_image)</argsstring>
+        <name>setImage</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1ImageBox" kindref="compound">ImageBox</ref> *</type>
+          <declname>_image</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" line="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ResourceManualPointer_13bbdb5b6b8ffc1295167024df091d58a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ResourceManualPointer::setPosition</definition>
+        <argsstring>(ImageBox *_image, const IntPoint &amp;_point)</argsstring>
+        <name>setPosition</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1ImageBox" kindref="compound">ImageBox</ref> *</type>
+          <declname>_image</declname>
+        </param>
+        <param>
+          <type>const IntPoint &amp;</type>
+          <declname>_point</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" line="43"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1ResourceManualPointer_124edd8d156af7d6fa66ed17139a15a06" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::ResourceManualPointer::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1ResourceManualPointer_102b69966fdb06d08d1273dd8072c6025" prot="private" static="no" mutable="no">
+        <type>IntPoint</type>
+        <definition>IntPoint MyGUI::ResourceManualPointer::mPoint</definition>
+        <argsstring></argsstring>
+        <name>mPoint</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" line="46" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ResourceManualPointer_1832379824471dc7338ff36427cb160bc" prot="private" static="no" mutable="no">
+        <type>IntSize</type>
+        <definition>IntSize MyGUI::ResourceManualPointer::mSize</definition>
+        <argsstring></argsstring>
+        <name>mSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" line="47" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ResourceManualPointer_194145e93120ac321d949edab4c892fa9" prot="private" static="no" mutable="no">
+        <type>IntCoord</type>
+        <definition>IntCoord MyGUI::ResourceManualPointer::mTextureCoord</definition>
+        <argsstring></argsstring>
+        <name>mTextureCoord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" line="48" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ResourceManualPointer_140ccbdc2204de1323941a7fefe74383d" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::ResourceManualPointer::mTexture</definition>
+        <argsstring></argsstring>
+        <name>mTexture</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" line="49" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceManualPointer.h" bodystart="31" bodyend="50"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1ResourceManualPointer_18520661107c16f81443f48548615cf19" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManualPointer</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1ResourceManualPointer_1f8e32edb61466da3c1e2b9288e821a03" prot="public" virt="virtual"><scope>MyGUI::ResourceManualPointer</scope><name>deserialization</name></member>
+      <member refid="classMyGUI_1_1ResourceManualPointer_124edd8d156af7d6fa66ed17139a15a06" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManualPointer</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1ResourceManualPointer_1f5ba2c0c8f2a28637e3c11500e61baeb" prot="public" virt="virtual"><scope>MyGUI::ResourceManualPointer</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1ResourceManualPointer_1da31c51d0ec4150b31d5621ed6583992" prot="public" virt="virtual"><scope>MyGUI::ResourceManualPointer</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ResourceManualPointer_1d99f9143fdee7bf17ed2cf0e4350a452" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManualPointer</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ResourceManualPointer_102b69966fdb06d08d1273dd8072c6025" prot="private" virt="non-virtual"><scope>MyGUI::ResourceManualPointer</scope><name>mPoint</name></member>
+      <member refid="classMyGUI_1_1ResourceManualPointer_1832379824471dc7338ff36427cb160bc" prot="private" virt="non-virtual"><scope>MyGUI::ResourceManualPointer</scope><name>mSize</name></member>
+      <member refid="classMyGUI_1_1ResourceManualPointer_140ccbdc2204de1323941a7fefe74383d" prot="private" virt="non-virtual"><scope>MyGUI::ResourceManualPointer</scope><name>mTexture</name></member>
+      <member refid="classMyGUI_1_1ResourceManualPointer_194145e93120ac321d949edab4c892fa9" prot="private" virt="non-virtual"><scope>MyGUI::ResourceManualPointer</scope><name>mTextureCoord</name></member>
+      <member refid="classMyGUI_1_1ResourceManualPointer_121393fd1052a0d60c87cfcbeb14a4e4d" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManualPointer</scope><name>ResourceManualPointer</name></member>
+      <member refid="classMyGUI_1_1ResourceManualPointer_13a171a4b5a51744213fe286724d62dbd" prot="public" virt="non-virtual"><scope>MyGUI::ResourceManualPointer</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1ResourceManualPointer_1165d304304a249013ec19542691302a7" prot="public" virt="virtual"><scope>MyGUI::ResourceManualPointer</scope><name>setImage</name></member>
+      <member refid="classMyGUI_1_1ResourceManualPointer_13bbdb5b6b8ffc1295167024df091d58a" prot="public" virt="virtual"><scope>MyGUI::ResourceManualPointer</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1ResourceManualPointer_1fc92367eef5dc2ede8d4b74e96ce0ff9" prot="public" virt="virtual"><scope>MyGUI::ResourceManualPointer</scope><name>~ResourceManualPointer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

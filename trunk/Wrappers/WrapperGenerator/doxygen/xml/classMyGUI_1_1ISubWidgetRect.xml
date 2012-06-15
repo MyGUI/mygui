@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1ISubWidgetRect" kind="class" prot="public">
+    <compoundname>MyGUI::ISubWidgetRect</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1ISubWidgetRect_100f4a6ed2a9ef770564a46bcb5c09ab2" prot="public" static="no">
+        <type>RTTIBase</type>
+        <definition>typedef RTTIBase MyGUI::ISubWidgetRect::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetRect.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetRect.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1ISubWidgetRect_1b0530a20648e4534dde36a74503e4fa1" prot="public" static="no">
+        <type>ISubWidgetRect</type>
+        <definition>typedef ISubWidgetRect MyGUI::ISubWidgetRect::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetRect.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetRect.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetRect_18d3f4a7504d004d4570e216834b48c70" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::ISubWidgetRect::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetRect.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetRect.h" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetRect_1d567130fa0bbff0f17289d1599a7142f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::ISubWidgetRect::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetRect.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetRect.h" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetRect_1cd2368b695b560226055691ff6d42a47" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::ISubWidgetRect::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetRect.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetRect.h" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetRect_176becf6c8a8c2bc1f2ff4e1d09a3bad4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::ISubWidgetRect::~ISubWidgetRect</definition>
+        <argsstring>()</argsstring>
+        <name>~ISubWidgetRect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetRect.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetRect.h" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetRect_10dea04413da80292636d9cdbae9feaa3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ISubWidgetRect::_setUVSet</definition>
+        <argsstring>(const FloatRect &amp;_rect)</argsstring>
+        <name>_setUVSet</name>
+        <param>
+          <type>const FloatRect &amp;</type>
+          <declname>_rect</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetRect.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetRect.h" bodystart="40" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetRect_124b055a2eb763e12ffb4a89933401c81" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ISubWidgetRect::_setColour</definition>
+        <argsstring>(const Colour &amp;_value)</argsstring>
+        <name>_setColour</name>
+        <param>
+          <type>const Colour &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetRect.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetRect.h" bodystart="41" bodyend="41"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1ISubWidgetRect_1134c5927a742a8973be2cd59f93412bd" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::ISubWidgetRect::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetRect.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetRect.h" bodystart="35" bodyend="35"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetRect.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ISubWidgetRect.h" bodystart="32" bodyend="42"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1ISubWidgetRect_124b055a2eb763e12ffb4a89933401c81" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetRect</scope><name>_setColour</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetRect_10dea04413da80292636d9cdbae9feaa3" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetRect</scope><name>_setUVSet</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetRect_100f4a6ed2a9ef770564a46bcb5c09ab2" prot="public" virt="non-virtual"><scope>MyGUI::ISubWidgetRect</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetRect_1134c5927a742a8973be2cd59f93412bd" prot="public" virt="non-virtual"><scope>MyGUI::ISubWidgetRect</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetRect_18d3f4a7504d004d4570e216834b48c70" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetRect</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetRect_1d567130fa0bbff0f17289d1599a7142f" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetRect</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetRect_1cd2368b695b560226055691ff6d42a47" prot="public" virt="non-virtual"><scope>MyGUI::ISubWidgetRect</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetRect_1b0530a20648e4534dde36a74503e4fa1" prot="public" virt="non-virtual"><scope>MyGUI::ISubWidgetRect</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1ISubWidgetRect_176becf6c8a8c2bc1f2ff4e1d09a3bad4" prot="public" virt="virtual"><scope>MyGUI::ISubWidgetRect</scope><name>~ISubWidgetRect</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

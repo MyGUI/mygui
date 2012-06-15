@@ -1,0 +1,667 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1types_1_1TCoord" kind="struct" prot="public">
+    <compoundname>MyGUI::types::TCoord</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>T</declname>
+        <defname>T</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_11f29ef2ecdbd0948f53127baf6af79f7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::types::TCoord&lt; T &gt;::TCoord</definition>
+        <argsstring>()</argsstring>
+        <name>TCoord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="47" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="42" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_153659036f92c7cff543613a0e2e72254" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::types::TCoord&lt; T &gt;::TCoord</definition>
+        <argsstring>(T const &amp;_left, T const &amp;_top, T const &amp;_width, T const &amp;_height)</argsstring>
+        <name>TCoord</name>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="55" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="50" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_132b8e9caebcce3fa97398f93e0df075c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::types::TCoord&lt; T &gt;::TCoord</definition>
+        <argsstring>(TCoord const &amp;_obj)</argsstring>
+        <name>TCoord</name>
+        <param>
+          <type>TCoord const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="63" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="58" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_12b5d168c96a1fd8b8910d3c7030e5d98" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::types::TCoord&lt; T &gt;::TCoord</definition>
+        <argsstring>(TPoint&lt; T &gt; const &amp;_point, TSize&lt; T &gt; const &amp;_size)</argsstring>
+        <name>TCoord</name>
+        <param>
+          <type>TPoint&lt; T &gt; const &amp;</type>
+          <declname>_point</declname>
+        </param>
+        <param>
+          <type>TSize&lt; T &gt; const &amp;</type>
+          <declname>_size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="71" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="66" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_1e64ed60c8b440d6722cf653dff40cc2c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TCoord &amp;</type>
+        <definition>TCoord&amp; MyGUI::types::TCoord&lt; T &gt;::operator-=</definition>
+        <argsstring>(TCoord const &amp;_obj)</argsstring>
+        <name>operator-=</name>
+        <param>
+          <type>TCoord const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="75" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="74" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_133380809cf66bd987e0855629d35174b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TCoord &amp;</type>
+        <definition>TCoord&amp; MyGUI::types::TCoord&lt; T &gt;::operator+=</definition>
+        <argsstring>(TCoord const &amp;_obj)</argsstring>
+        <name>operator+=</name>
+        <param>
+          <type>TCoord const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="84" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="83" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_133c6fc3007537369a62af65430accc8f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>TCoord</type>
+        <definition>TCoord MyGUI::types::TCoord&lt; T &gt;::operator-</definition>
+        <argsstring>(TCoord const &amp;_obj) const </argsstring>
+        <name>operator-</name>
+        <param>
+          <type>TCoord const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="93" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="92" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_161db1b3aae4043e3050dbf4cc840a251" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>TCoord</type>
+        <definition>TCoord MyGUI::types::TCoord&lt; T &gt;::operator-</definition>
+        <argsstring>(TPoint&lt; T &gt; const &amp;_obj) const </argsstring>
+        <name>operator-</name>
+        <param>
+          <type>TPoint&lt; T &gt; const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="98" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="97" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_162e2f6d15202dff6ed8ec6444fa2a5dc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>TCoord</type>
+        <definition>TCoord MyGUI::types::TCoord&lt; T &gt;::operator-</definition>
+        <argsstring>(TSize&lt; T &gt; const &amp;_obj) const </argsstring>
+        <name>operator-</name>
+        <param>
+          <type>TSize&lt; T &gt; const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="103" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="102" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_19e04891ce863a53a559f741696efd0a8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>TCoord</type>
+        <definition>TCoord MyGUI::types::TCoord&lt; T &gt;::operator+</definition>
+        <argsstring>(TCoord const &amp;_obj) const </argsstring>
+        <name>operator+</name>
+        <param>
+          <type>TCoord const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="108" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="107" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_1c6a306bf4fe576649e13d789787c3492" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>TCoord</type>
+        <definition>TCoord MyGUI::types::TCoord&lt; T &gt;::operator+</definition>
+        <argsstring>(TPoint&lt; T &gt; const &amp;_obj) const </argsstring>
+        <name>operator+</name>
+        <param>
+          <type>TPoint&lt; T &gt; const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="113" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="112" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_1bd34f4d264a3290ec965b23002da7efb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>TCoord</type>
+        <definition>TCoord MyGUI::types::TCoord&lt; T &gt;::operator+</definition>
+        <argsstring>(TSize&lt; T &gt; const &amp;_obj) const </argsstring>
+        <name>operator+</name>
+        <param>
+          <type>TSize&lt; T &gt; const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="118" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="117" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_1da74f48abe64604c7ec66f9605159f7d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TCoord &amp;</type>
+        <definition>TCoord&amp; MyGUI::types::TCoord&lt; T &gt;::operator=</definition>
+        <argsstring>(TCoord const &amp;_obj)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>TCoord const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="123" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="122" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_1d809e489b5ebcfa3a422810f441d31ec" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>U</declname>
+            <defname>U</defname>
+          </param>
+        </templateparamlist>
+        <type>TCoord &amp;</type>
+        <definition>TCoord&amp; MyGUI::types::TCoord&lt; T &gt;::operator=</definition>
+        <argsstring>(TCoord&lt; U &gt; const &amp;_obj)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>TCoord&lt; U &gt; const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="133" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="132" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_15bff022bb12d4b39076f780992832b5d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TCoord &amp;</type>
+        <definition>TCoord&amp; MyGUI::types::TCoord&lt; T &gt;::operator=</definition>
+        <argsstring>(TPoint&lt; T &gt; const &amp;_obj)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>TPoint&lt; T &gt; const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="142" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="141" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_10c4547c4f294354bc5d7cade4a4c4ace" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TCoord &amp;</type>
+        <definition>TCoord&amp; MyGUI::types::TCoord&lt; T &gt;::operator=</definition>
+        <argsstring>(TSize&lt; T &gt; const &amp;_obj)</argsstring>
+        <name>operator=</name>
+        <param>
+          <type>TSize&lt; T &gt; const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="149" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="148" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_1f642951fdf2c9ee6ffe84eace91220fc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::types::TCoord&lt; T &gt;::operator==</definition>
+        <argsstring>(TCoord const &amp;_obj) const </argsstring>
+        <name>operator==</name>
+        <param>
+          <type>TCoord const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="156" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="155" bodyend="158"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_1450b87f0d952bb278110aae47d87c371" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::types::TCoord&lt; T &gt;::operator!=</definition>
+        <argsstring>(TCoord const &amp;_obj) const </argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>TCoord const &amp;</type>
+          <declname>_obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="161" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="160" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_14dd94135b70681978699bfaff71676b1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>T</type>
+        <definition>T MyGUI::types::TCoord&lt; T &gt;::right</definition>
+        <argsstring>() const </argsstring>
+        <name>right</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="166" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="165" bodyend="168"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_1a70652f0a5ef6f0a72fc252f8aaa387d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>T</type>
+        <definition>T MyGUI::types::TCoord&lt; T &gt;::bottom</definition>
+        <argsstring>() const </argsstring>
+        <name>bottom</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="171" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="170" bodyend="173"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_1e0e1973f80582c580d51aac10560c747" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::types::TCoord&lt; T &gt;::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="176" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="175" bodyend="178"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_159aec9111f10faa28b2fa5650fdccaf5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::types::TCoord&lt; T &gt;::set</definition>
+        <argsstring>(T const &amp;_left, T const &amp;_top, T const &amp;_width, T const &amp;_height)</argsstring>
+        <name>set</name>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>T const &amp;</type>
+          <declname>_height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="181" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="180" bodyend="186"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_18c6df817f11e9c96f075fd22f8d15c96" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::types::TCoord&lt; T &gt;::swap</definition>
+        <argsstring>(TCoord &amp;_value)</argsstring>
+        <name>swap</name>
+        <param>
+          <type>TCoord &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="189" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="188" bodyend="193"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_15d14f27b81282556af75262fb8dd8dc4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::types::TCoord&lt; T &gt;::empty</definition>
+        <argsstring>() const </argsstring>
+        <name>empty</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="196" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="195" bodyend="198"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_1b0b42dce4e2e1f963fc4bc9043a29698" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>TPoint&lt; T &gt;</type>
+        <definition>TPoint&lt;T&gt; MyGUI::types::TCoord&lt; T &gt;::point</definition>
+        <argsstring>() const </argsstring>
+        <name>point</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="201" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="200" bodyend="203"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_1e03f29b4d7ec641d897d5eb6ad75562b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>TSize&lt; T &gt;</type>
+        <definition>TSize&lt;T&gt; MyGUI::types::TCoord&lt; T &gt;::size</definition>
+        <argsstring>() const </argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="206" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="205" bodyend="208"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_18cf401e2d45adb44cb63057896078216" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::types::TCoord&lt; T &gt;::inside</definition>
+        <argsstring>(const TPoint&lt; T &gt; &amp;_value) const </argsstring>
+        <name>inside</name>
+        <param>
+          <type>const TPoint&lt; T &gt; &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="211" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="210" bodyend="213"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_11dd492b2672c6c6cc4e32852b5bd2286" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string MyGUI::types::TCoord&lt; T &gt;::print</definition>
+        <argsstring>() const </argsstring>
+        <name>print</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="216" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="215" bodyend="220"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1types_1_1TCoord_1c6eca9c1ea350ee19fc88e94d14c1a84" prot="public" static="no" mutable="no">
+        <type>T</type>
+        <definition>T MyGUI::types::TCoord&lt; T &gt;::left</definition>
+        <argsstring></argsstring>
+        <name>left</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1types_1_1TCoord_15fb8d9e9b6249750e7c794f60ae5fdac" prot="public" static="no" mutable="no">
+        <type>T</type>
+        <definition>T MyGUI::types::TCoord&lt; T &gt;::top</definition>
+        <argsstring></argsstring>
+        <name>top</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1types_1_1TCoord_134c2a4a84487c83524c53f996f101382" prot="public" static="no" mutable="no">
+        <type>T</type>
+        <definition>T MyGUI::types::TCoord&lt; T &gt;::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1types_1_1TCoord_1048566d42deb6ba6701c81feb49df8d7" prot="public" static="no" mutable="no">
+        <type>T</type>
+        <definition>T MyGUI::types::TCoord&lt; T &gt;::height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structMyGUI_1_1types_1_1TCoord_1be4d07ae364152368f4df0fee546206e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TCoord&lt; T &gt;</type>
+        <definition>static TCoord&lt;T&gt; MyGUI::types::TCoord&lt; T &gt;::parse</definition>
+        <argsstring>(const std::string &amp;_value)</argsstring>
+        <name>parse</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="223" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="222" bodyend="242"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="structMyGUI_1_1types_1_1TCoord_1817ad693564d78d2663dcebc62d9581d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend std::ostream &amp;</type>
+        <definition>std::ostream&amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;_stream, const TCoord&lt; T &gt; &amp;_value)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>_stream</declname>
+        </param>
+        <param>
+          <type>const TCoord&lt; T &gt; &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="245" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="244" bodyend="248"/>
+      </memberdef>
+      <memberdef kind="friend" id="structMyGUI_1_1types_1_1TCoord_13a0cba26b22f5bfccbb323a94831d32a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend std::istream &amp;</type>
+        <definition>std::istream&amp; operator&gt;&gt;</definition>
+        <argsstring>(std::istream &amp;_stream, TCoord&lt; T &gt; &amp;_value)</argsstring>
+        <name>operator&gt;&gt;</name>
+        <param>
+          <type>std::istream &amp;</type>
+          <declname>_stream</declname>
+        </param>
+        <param>
+          <type>TCoord&lt; T &gt; &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="251" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="250" bodyend="256"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="645">
+        <label>T</label>
+      </node>
+      <node id="644">
+        <label>MyGUI::types::TCoord&lt; T &gt;</label>
+        <childnode refid="645" relation="usage">
+          <edgelabel>width
+height
+left
+top</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TCoord.h" bodystart="35" bodyend="257"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1types_1_1TCoord_1a70652f0a5ef6f0a72fc252f8aaa387d" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>bottom</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_1e0e1973f80582c580d51aac10560c747" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>clear</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_15d14f27b81282556af75262fb8dd8dc4" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>empty</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_1048566d42deb6ba6701c81feb49df8d7" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>height</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_18cf401e2d45adb44cb63057896078216" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>inside</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_1c6eca9c1ea350ee19fc88e94d14c1a84" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>left</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_1450b87f0d952bb278110aae47d87c371" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>operator!=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_19e04891ce863a53a559f741696efd0a8" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>operator+</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_1c6a306bf4fe576649e13d789787c3492" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>operator+</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_1bd34f4d264a3290ec965b23002da7efb" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>operator+</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_133380809cf66bd987e0855629d35174b" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>operator+=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_133c6fc3007537369a62af65430accc8f" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>operator-</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_161db1b3aae4043e3050dbf4cc840a251" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>operator-</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_162e2f6d15202dff6ed8ec6444fa2a5dc" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>operator-</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_1e64ed60c8b440d6722cf653dff40cc2c" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>operator-=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_1817ad693564d78d2663dcebc62d9581d" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>operator&lt;&lt;</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_1da74f48abe64604c7ec66f9605159f7d" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>operator=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_1d809e489b5ebcfa3a422810f441d31ec" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>operator=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_15bff022bb12d4b39076f780992832b5d" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>operator=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_10c4547c4f294354bc5d7cade4a4c4ace" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>operator=</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_1f642951fdf2c9ee6ffe84eace91220fc" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>operator==</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_13a0cba26b22f5bfccbb323a94831d32a" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>operator&gt;&gt;</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_1be4d07ae364152368f4df0fee546206e" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>parse</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_1b0b42dce4e2e1f963fc4bc9043a29698" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>point</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_11dd492b2672c6c6cc4e32852b5bd2286" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>print</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_14dd94135b70681978699bfaff71676b1" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>right</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_159aec9111f10faa28b2fa5650fdccaf5" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>set</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_1e03f29b4d7ec641d897d5eb6ad75562b" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>size</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_18c6df817f11e9c96f075fd22f8d15c96" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>swap</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_11f29ef2ecdbd0948f53127baf6af79f7" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>TCoord</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_153659036f92c7cff543613a0e2e72254" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>TCoord</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_132b8e9caebcce3fa97398f93e0df075c" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>TCoord</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_12b5d168c96a1fd8b8910d3c7030e5d98" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>TCoord</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_15fb8d9e9b6249750e7c794f60ae5fdac" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>top</name></member>
+      <member refid="structMyGUI_1_1types_1_1TCoord_134c2a4a84487c83524c53f996f101382" prot="public" virt="non-virtual"><scope>MyGUI::types::TCoord</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

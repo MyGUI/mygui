@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1MemberObsolete_3_01MenuItem_01_4" kind="class" prot="public">
+    <compoundname>MyGUI::MemberObsolete&lt; MenuItem &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MenuItem_01_4_1c11c1158676a06dc6215a808b78e1147" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; MenuItem &gt;::showItemChild</definition>
+        <argsstring>()</argsstring>
+        <name>showItemChild</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000074"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="238"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01MenuItem_01_4_1bc56b9915d0d587d0107c62e00f146e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; MenuItem &gt;::hideItemChild</definition>
+        <argsstring>()</argsstring>
+        <name>hideItemChild</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000075"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="240"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="235" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="234" bodyend="241"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MenuItem_01_4_1bc56b9915d0d587d0107c62e00f146e8" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MenuItem &gt;</scope><name>hideItemChild</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01MenuItem_01_4_1c11c1158676a06dc6215a808b78e1147" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; MenuItem &gt;</scope><name>showItemChild</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

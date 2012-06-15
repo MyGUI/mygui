@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="MyGUI__IBItemInfo_8h" kind="file">
+    <compoundname>MyGUI_IBItemInfo.h</compoundname>
+    <includes refid="MyGUI__Prerequest_8h" local="yes">MyGUI_Prerequest.h</includes>
+    <includedby refid="MyGUI__ItemBox_8h" local="yes">MyGUI_ItemBox.h</includedby>
+    <incdepgraph>
+      <node id="2886">
+        <label>MyGUI_IBItemInfo.h</label>
+        <link refid="MyGUI_IBItemInfo.h"/>
+        <childnode refid="2887" relation="include">
+        </childnode>
+      </node>
+      <node id="2888">
+        <label>MyGUI_Platform.h</label>
+        <link refid="MyGUI__Platform_8h"/>
+      </node>
+      <node id="2889">
+        <label>MyGUI_DeprecatedTypes.h</label>
+        <link refid="MyGUI__DeprecatedTypes_8h"/>
+      </node>
+      <node id="2887">
+        <label>MyGUI_Prerequest.h</label>
+        <link refid="MyGUI__Prerequest_8h"/>
+        <childnode refid="2888" relation="include">
+        </childnode>
+        <childnode refid="2889" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2890">
+        <label>MyGUI_IBItemInfo.h</label>
+        <link refid="MyGUI_IBItemInfo.h"/>
+        <childnode refid="2891" relation="include">
+        </childnode>
+      </node>
+      <node id="2891">
+        <label>MyGUI_ItemBox.h</label>
+        <link refid="MyGUI__ItemBox_8h"/>
+        <childnode refid="2892" relation="include">
+        </childnode>
+      </node>
+      <node id="2892">
+        <label>MyGUI.h</label>
+        <link refid="MyGUI_8h"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structMyGUI_1_1IBDrawItemInfo">MyGUI::IBDrawItemInfo</innerclass>
+    <innerclass refid="structMyGUI_1_1IBNotifyItemData">MyGUI::IBNotifyItemData</innerclass>
+    <innernamespace refid="namespaceMyGUI">MyGUI</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Albert Semenov </para></simplesect>
+<simplesect kind="date"><para>11/2008 </para></simplesect>
+</para>    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IBItemInfo.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1xml_1_1ElementEnumerator" kind="class" prot="public">
+    <compoundname>MyGUI::xml::ElementEnumerator</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1ElementEnumerator_1271e932aa8d7035128ac06f82777945e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::xml::ElementEnumerator::next</definition>
+        <argsstring>()</argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="132"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1ElementEnumerator_18a3e591ddaa47fdba585a2271ccee725" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::xml::ElementEnumerator::next</definition>
+        <argsstring>(const std::string &amp;_name)</argsstring>
+        <name>next</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="133"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1ElementEnumerator_1cd3c7f00bf6b20142d00610797902ce6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>ElementPtr</type>
+        <definition>ElementPtr MyGUI::xml::ElementEnumerator::operator-&gt;</definition>
+        <argsstring>() const </argsstring>
+        <name>operator-&gt;</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="135"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1ElementEnumerator_1b5eed696a28683b7653843dae432a645" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>ElementPtr</type>
+        <definition>ElementPtr MyGUI::xml::ElementEnumerator::current</definition>
+        <argsstring>()</argsstring>
+        <name>current</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="136"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1ElementEnumerator_1ea34b57aa10129dca0a734f95ebe110f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::xml::ElementEnumerator::nextNode</definition>
+        <argsstring>()</argsstring>
+        <name>nextNode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000187"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="143" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="142" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1ElementEnumerator_17d4610dad9758dfc3cb7e3069d8cf9fc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::xml::ElementEnumerator::nextNode</definition>
+        <argsstring>(const std::string &amp;_name)</argsstring>
+        <name>nextNode</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000188"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="148" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="147" bodyend="150"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1ElementEnumerator_17354c064720e2646790a456d37599a20" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ElementPtr</type>
+        <definition>ElementPtr MyGUI::xml::ElementEnumerator::currentNode</definition>
+        <argsstring>()</argsstring>
+        <name>currentNode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000189"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="153" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="152" bodyend="155"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1ElementEnumerator_1b0ada443f5faf031e3e08a8cfded02cc" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::xml::ElementEnumerator::ElementEnumerator</definition>
+        <argsstring>(VectorElement::iterator _begin, VectorElement::iterator _end)</argsstring>
+        <name>ElementEnumerator</name>
+        <param>
+          <type>VectorElement::iterator</type>
+          <declname>_begin</declname>
+        </param>
+        <param>
+          <type>VectorElement::iterator</type>
+          <declname>_end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="129"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1xml_1_1ElementEnumerator_17bbe885db1cbc5db503d95e8a72b1f41" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::xml::ElementEnumerator::m_first</definition>
+        <argsstring></argsstring>
+        <name>m_first</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="160" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1xml_1_1ElementEnumerator_19b81a064d601ebaa290639609bc918d3" prot="private" static="no" mutable="no">
+        <type>VectorElement::iterator</type>
+        <definition>VectorElement::iterator MyGUI::xml::ElementEnumerator::m_current</definition>
+        <argsstring></argsstring>
+        <name>m_current</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="161" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1xml_1_1ElementEnumerator_1117f45965e4da2bf851c98d2dfbd8210" prot="private" static="no" mutable="no">
+        <type>VectorElement::iterator</type>
+        <definition>VectorElement::iterator MyGUI::xml::ElementEnumerator::m_end</definition>
+        <argsstring></argsstring>
+        <name>m_end</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="161" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classMyGUI_1_1xml_1_1ElementEnumerator_1016b821f88c7c0a2de1451c175cefbf9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class Element</definition>
+        <argsstring></argsstring>
+        <name>Element</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="126" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="125" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="124" bodyend="162"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1xml_1_1ElementEnumerator_1b5eed696a28683b7653843dae432a645" prot="public" virt="non-virtual"><scope>MyGUI::xml::ElementEnumerator</scope><name>current</name></member>
+      <member refid="classMyGUI_1_1xml_1_1ElementEnumerator_17354c064720e2646790a456d37599a20" prot="public" virt="non-virtual"><scope>MyGUI::xml::ElementEnumerator</scope><name>currentNode</name></member>
+      <member refid="classMyGUI_1_1xml_1_1ElementEnumerator_1016b821f88c7c0a2de1451c175cefbf9" prot="private" virt="non-virtual"><scope>MyGUI::xml::ElementEnumerator</scope><name>Element</name></member>
+      <member refid="classMyGUI_1_1xml_1_1ElementEnumerator_1b0ada443f5faf031e3e08a8cfded02cc" prot="private" virt="non-virtual"><scope>MyGUI::xml::ElementEnumerator</scope><name>ElementEnumerator</name></member>
+      <member refid="classMyGUI_1_1xml_1_1ElementEnumerator_19b81a064d601ebaa290639609bc918d3" prot="private" virt="non-virtual"><scope>MyGUI::xml::ElementEnumerator</scope><name>m_current</name></member>
+      <member refid="classMyGUI_1_1xml_1_1ElementEnumerator_1117f45965e4da2bf851c98d2dfbd8210" prot="private" virt="non-virtual"><scope>MyGUI::xml::ElementEnumerator</scope><name>m_end</name></member>
+      <member refid="classMyGUI_1_1xml_1_1ElementEnumerator_17bbe885db1cbc5db503d95e8a72b1f41" prot="private" virt="non-virtual"><scope>MyGUI::xml::ElementEnumerator</scope><name>m_first</name></member>
+      <member refid="classMyGUI_1_1xml_1_1ElementEnumerator_1271e932aa8d7035128ac06f82777945e" prot="public" virt="non-virtual"><scope>MyGUI::xml::ElementEnumerator</scope><name>next</name></member>
+      <member refid="classMyGUI_1_1xml_1_1ElementEnumerator_18a3e591ddaa47fdba585a2271ccee725" prot="public" virt="non-virtual"><scope>MyGUI::xml::ElementEnumerator</scope><name>next</name></member>
+      <member refid="classMyGUI_1_1xml_1_1ElementEnumerator_1ea34b57aa10129dca0a734f95ebe110f" prot="public" virt="non-virtual"><scope>MyGUI::xml::ElementEnumerator</scope><name>nextNode</name></member>
+      <member refid="classMyGUI_1_1xml_1_1ElementEnumerator_17d4610dad9758dfc3cb7e3069d8cf9fc" prot="public" virt="non-virtual"><scope>MyGUI::xml::ElementEnumerator</scope><name>nextNode</name></member>
+      <member refid="classMyGUI_1_1xml_1_1ElementEnumerator_1cd3c7f00bf6b20142d00610797902ce6" prot="public" virt="non-virtual"><scope>MyGUI::xml::ElementEnumerator</scope><name>operator-&gt;</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

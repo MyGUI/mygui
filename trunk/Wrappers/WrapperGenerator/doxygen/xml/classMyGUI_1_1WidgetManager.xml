@@ -1,0 +1,321 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1WidgetManager" kind="class" prot="public">
+    <compoundname>MyGUI::WidgetManager</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1WidgetManager_16d7e698d5e99eb727e65c884b1d018e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::WidgetManager::WidgetManager</definition>
+        <argsstring>()</argsstring>
+        <name>WidgetManager</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1WidgetManager_165564318e908c42159b51f36b9a55e0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::WidgetManager::initialise</definition>
+        <argsstring>()</argsstring>
+        <name>initialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1WidgetManager_163435269cbdf3614a145ae9be3a4fa39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::WidgetManager::shutdown</definition>
+        <argsstring>()</argsstring>
+        <name>shutdown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1WidgetManager_140d58510d9651fdf9eb60ac7691fcda3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::WidgetManager::createWidget</definition>
+        <argsstring>(WidgetStyle _style, const std::string &amp;_type, const std::string &amp;_skin, const IntCoord &amp;_coord, Widget *_parent, ICroppedRectangle *_cropeedParent, const std::string &amp;_name)</argsstring>
+        <name>createWidget</name>
+        <param>
+          <type>WidgetStyle</type>
+          <declname>_style</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_skin</declname>
+        </param>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_coord</declname>
+        </param>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_parent</declname>
+        </param>
+        <param>
+          <type>ICroppedRectangle *</type>
+          <declname>_cropeedParent</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1WidgetManager_1f21debcbce07a6ae01c9470859fa49da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::WidgetManager::destroyWidget</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>destroyWidget</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Destroy _widget </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1WidgetManager_1a782a5721d9acf97f7a1298676a8b9a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::WidgetManager::destroyWidgets</definition>
+        <argsstring>(const VectorWidgetPtr &amp;_widgets)</argsstring>
+        <name>destroyWidgets</name>
+        <param>
+          <type>const VectorWidgetPtr &amp;</type>
+          <declname>_widgets</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Destroy vector of widgets </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1WidgetManager_1346ae678e76e445b4846e038d64d2c8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::WidgetManager::destroyWidgets</definition>
+        <argsstring>(EnumeratorWidgetPtr _widgets)</argsstring>
+        <name>destroyWidgets</name>
+        <param>
+          <type>EnumeratorWidgetPtr</type>
+          <declname>_widgets</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Destroy Enumerator of widgets </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1WidgetManager_1d1fb5188b925e60ea1b2044e17d72de7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::WidgetManager::registerUnlinker</definition>
+        <argsstring>(IUnlinkWidget *_unlink)</argsstring>
+        <name>registerUnlinker</name>
+        <param>
+          <type>IUnlinkWidget *</type>
+          <declname>_unlink</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Register unlinker (call unlink if for any destroyed widget) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1WidgetManager_1030151972aa91fe0c8ad42e2b28551e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::WidgetManager::unregisterUnlinker</definition>
+        <argsstring>(IUnlinkWidget *_unlink)</argsstring>
+        <name>unregisterUnlinker</name>
+        <param>
+          <type>IUnlinkWidget *</type>
+          <declname>_unlink</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Unregister unlinker (call unlink if for any destroyed widget) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1WidgetManager_1c7e0bb465b8deb2cbc7353cef1c29c15" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::WidgetManager::unlinkFromUnlinkers</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>unlinkFromUnlinkers</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Unlink widget </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1WidgetManager_1f5c97b0b7d0383a0df32932d0866b76f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::WidgetManager::isFactoryExist</definition>
+        <argsstring>(const std::string &amp;_type)</argsstring>
+        <name>isFactoryExist</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Check if factory with specified widget type exist </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1WidgetManager_1b8aff9cb0de0d16db31aa363f7a7a4dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::WidgetManager::_deleteWidget</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>_deleteWidget</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="65"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1WidgetManager_1c310fdefb29492bb50dc29a768b40c31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::WidgetManager::_deleteDelayWidgets</definition>
+        <argsstring>()</argsstring>
+        <name>_deleteDelayWidgets</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="66"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1WidgetManager_1016ee0a8fd0307ba54cdc6f19be61d17" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::WidgetManager::notifyEventFrameStart</definition>
+        <argsstring>(float _time)</argsstring>
+        <name>notifyEventFrameStart</name>
+        <param>
+          <type>float</type>
+          <declname>_time</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="69"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1WidgetManager_177ae4d9b0392703c21aca4ed3060d16f" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::WidgetManager::mIsInitialise</definition>
+        <argsstring></argsstring>
+        <name>mIsInitialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="72" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1WidgetManager_12675f8e76e7bbbf5bac78e25d5364f40" prot="private" static="no" mutable="no">
+        <type>VectorIUnlinkWidget</type>
+        <definition>VectorIUnlinkWidget MyGUI::WidgetManager::mVectorIUnlinkWidget</definition>
+        <argsstring></argsstring>
+        <name>mVectorIUnlinkWidget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="75" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1WidgetManager_19e1dfdab550fc47eb8ff5d85b43985d6" prot="private" static="no" mutable="no">
+        <type>VectorWidgetPtr</type>
+        <definition>VectorWidgetPtr MyGUI::WidgetManager::mDestroyWidgets</definition>
+        <argsstring></argsstring>
+        <name>mDestroyWidgets</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="78" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_WidgetManager.h" bodystart="35" bodyend="79"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1WidgetManager_1c310fdefb29492bb50dc29a768b40c31" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>_deleteDelayWidgets</name></member>
+      <member refid="classMyGUI_1_1WidgetManager_1b8aff9cb0de0d16db31aa363f7a7a4dd" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>_deleteWidget</name></member>
+      <member refid="classMyGUI_1_1WidgetManager_140d58510d9651fdf9eb60ac7691fcda3" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1WidgetManager_1f21debcbce07a6ae01c9470859fa49da" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>destroyWidget</name></member>
+      <member refid="classMyGUI_1_1WidgetManager_1a782a5721d9acf97f7a1298676a8b9a9" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>destroyWidgets</name></member>
+      <member refid="classMyGUI_1_1WidgetManager_1346ae678e76e445b4846e038d64d2c8a" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>destroyWidgets</name></member>
+      <member refid="classMyGUI_1_1WidgetManager_165564318e908c42159b51f36b9a55e0e" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>initialise</name></member>
+      <member refid="classMyGUI_1_1WidgetManager_1f5c97b0b7d0383a0df32932d0866b76f" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>isFactoryExist</name></member>
+      <member refid="classMyGUI_1_1WidgetManager_19e1dfdab550fc47eb8ff5d85b43985d6" prot="private" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>mDestroyWidgets</name></member>
+      <member refid="classMyGUI_1_1WidgetManager_177ae4d9b0392703c21aca4ed3060d16f" prot="private" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>mIsInitialise</name></member>
+      <member refid="classMyGUI_1_1WidgetManager_12675f8e76e7bbbf5bac78e25d5364f40" prot="private" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>mVectorIUnlinkWidget</name></member>
+      <member refid="classMyGUI_1_1WidgetManager_1016ee0a8fd0307ba54cdc6f19be61d17" prot="private" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>notifyEventFrameStart</name></member>
+      <member refid="classMyGUI_1_1WidgetManager_1d1fb5188b925e60ea1b2044e17d72de7" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>registerUnlinker</name></member>
+      <member refid="classMyGUI_1_1WidgetManager_163435269cbdf3614a145ae9be3a4fa39" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>shutdown</name></member>
+      <member refid="classMyGUI_1_1WidgetManager_1c7e0bb465b8deb2cbc7353cef1c29c15" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>unlinkFromUnlinkers</name></member>
+      <member refid="classMyGUI_1_1WidgetManager_1030151972aa91fe0c8ad42e2b28551e6" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>unregisterUnlinker</name></member>
+      <member refid="classMyGUI_1_1WidgetManager_16d7e698d5e99eb727e65c884b1d018e3" prot="public" virt="non-virtual"><scope>MyGUI::WidgetManager</scope><name>WidgetManager</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

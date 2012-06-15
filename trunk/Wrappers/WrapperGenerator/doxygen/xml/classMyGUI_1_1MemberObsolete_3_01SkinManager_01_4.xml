@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1MemberObsolete_3_01SkinManager_01_4" kind="class" prot="public">
+    <compoundname>MyGUI::MemberObsolete&lt; SkinManager &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01SkinManager_01_4_10e00891dc14ee40b820df9007f640869" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>ResourceSkin *</type>
+        <definition>ResourceSkin* MyGUI::MemberObsolete&lt; SkinManager &gt;::getSkin</definition>
+        <argsstring>(const std::string &amp;_name)</argsstring>
+        <name>getSkin</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000170"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="536"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01SkinManager_01_4_19cb25c095f2630265750ebc777ed2393" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::MemberObsolete&lt; SkinManager &gt;::load</definition>
+        <argsstring>(const std::string &amp;_file)</argsstring>
+        <name>load</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000171"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="538"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="533" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="532" bodyend="539"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01SkinManager_01_4_10e00891dc14ee40b820df9007f640869" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; SkinManager &gt;</scope><name>getSkin</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01SkinManager_01_4_19cb25c095f2630265750ebc777ed2393" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; SkinManager &gt;</scope><name>load</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

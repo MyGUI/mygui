@@ -1,0 +1,532 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1Align" kind="struct" prot="public">
+    <compoundname>MyGUI::Align</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structMyGUI_1_1Align_1eb52a96edc069014220a17f7f2b80e95" prot="public" static="no">
+        <type>std::map&lt; std::string, int &gt;</type>
+        <definition>typedef std::map&lt;std::string, int&gt; MyGUI::Align::MapAlign</definition>
+        <argsstring></argsstring>
+        <name>MapAlign</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="140" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="enum" id="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0a" prot="public" static="no">
+        <name>Enum</name>
+        <enumvalue id="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0a1df5ee0654ea334b6311cbd706603332" prot="public">
+          <name>HCenter</name>
+          <initializer>  0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>center horizontally </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0aadb04a76ec4451c787908b22b8152496" prot="public">
+          <name>VCenter</name>
+          <initializer>  0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>center vertically </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0adb637d0730257418df418654eaf92187" prot="public">
+          <name>Center</name>
+          <initializer> HCenter | VCenter</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>center in the dead center </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0a2c6235d8c628e29faac8c55ac906cf41" prot="public">
+          <name>Left</name>
+          <initializer> (1&lt;&lt;( 1 ))</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>value from the left (and center vertically) </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0adb805cc5878013a0cf135458cf6df8ba" prot="public">
+          <name>Right</name>
+          <initializer> (1&lt;&lt;( 2 ))</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>value from the right (and center vertically) </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0a15a73d54f87b6a0def9c5e6a3ab78e64" prot="public">
+          <name>HStretch</name>
+          <initializer> Left | Right</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>stretch horizontally proportionate to parent window (and center vertically) </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0af6c2c6affa0840203904e562580477f7" prot="public">
+          <name>Top</name>
+          <initializer> (1&lt;&lt;( 3 ))</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>value from the top (and center horizontally) </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0a9eec2dbaa7b67b9caa72466a08ad3302" prot="public">
+          <name>Bottom</name>
+          <initializer> (1&lt;&lt;( 4 ))</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>value from the bottom (and center horizontally) </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0a4b792a7fb9910f4bdfad33d8bdb58006" prot="public">
+          <name>VStretch</name>
+          <initializer> Top | Bottom</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>stretch vertically proportionate to parent window (and center horizontally) </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0aef9fe99daf2248896bdd6cc16338061f" prot="public">
+          <name>Stretch</name>
+          <initializer> HStretch | VStretch</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>stretch proportionate to parent window </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0aa4a2f8a91b0595d2fd0f51833d57079b" prot="public">
+          <name>Default</name>
+          <initializer> Left | Top</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>default value (value from left and top) </para>          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="36" bodyend="52"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMyGUI_1_1Align_116f17b2189490c6d214f4303af9a60bf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::Align::Align</definition>
+        <argsstring>(Enum _value=Default)</argsstring>
+        <name>Align</name>
+        <param>
+          <type>Enum</type>
+          <declname>_value</declname>
+          <defval>Default</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="56" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="54" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1Align_1a69b5a2cbd6078e542e4f41fc55d2755" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Align::isHCenter</definition>
+        <argsstring>() const </argsstring>
+        <name>isHCenter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="60" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="59" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1Align_1bdd8dbc791e0af8ea3eb1f42a88a2056" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Align::isVCenter</definition>
+        <argsstring>() const </argsstring>
+        <name>isVCenter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="65" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="64" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1Align_1062bd0153052f7ead035c51777710879" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Align::isCenter</definition>
+        <argsstring>() const </argsstring>
+        <name>isCenter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="70" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="69" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1Align_16fe1a05162083525dac2f6879994f3e2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Align::isLeft</definition>
+        <argsstring>() const </argsstring>
+        <name>isLeft</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="75" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="74" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1Align_16e8ccd94a002bbd7409abcfcf739144f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Align::isRight</definition>
+        <argsstring>() const </argsstring>
+        <name>isRight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="80" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="79" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1Align_14fa6f21e0a7fbec3d9a7c6524d50cbb9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Align::isHStretch</definition>
+        <argsstring>() const </argsstring>
+        <name>isHStretch</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="85" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="84" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1Align_186c20e42ca7c6d5d045a4ea400559cbb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Align::isTop</definition>
+        <argsstring>() const </argsstring>
+        <name>isTop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="90" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="89" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1Align_1247b995a128e3d9d38f357bd3bf2f271" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Align::isBottom</definition>
+        <argsstring>() const </argsstring>
+        <name>isBottom</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="95" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="94" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1Align_1f606d70a6262781810df0fd173429ffd" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Align::isVStretch</definition>
+        <argsstring>() const </argsstring>
+        <name>isVStretch</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="100" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="99" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1Align_12e186e1ed796197ee6a4f1d9f6867e36" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Align::isStretch</definition>
+        <argsstring>() const </argsstring>
+        <name>isStretch</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="105" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="104" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1Align_1e837acb3bb94fa380101bd222921ef44" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Align::isDefault</definition>
+        <argsstring>() const </argsstring>
+        <name>isDefault</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="110" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="109" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1Align_113085603e0e043fd9c8f977fedc3edca" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Align &amp;</type>
+        <definition>Align&amp; MyGUI::Align::operator|=</definition>
+        <argsstring>(Align const &amp;_other)</argsstring>
+        <name>operator|=</name>
+        <param>
+          <type>Align const &amp;</type>
+          <declname>_other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="115" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="114" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="structMyGUI_1_1Align_1fac1393fda5f56e1b228d710fa64f69a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string MyGUI::Align::print</definition>
+        <argsstring>() const </argsstring>
+        <name>print</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="159" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="158" bodyend="187"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structMyGUI_1_1Align_1d0ceb218fc96cb82eea6b3ff825b445e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Align</type>
+        <definition>static Align MyGUI::Align::parse</definition>
+        <argsstring>(const std::string &amp;_value)</argsstring>
+        <name>parse</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="143" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="142" bodyend="156"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="structMyGUI_1_1Align_187b20db7a4f3be30206815bbbd0ec346" prot="private" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const MapAlign &amp;</type>
+        <definition>const MapAlign&amp; MyGUI::Align::getValueNames</definition>
+        <argsstring>() const </argsstring>
+        <name>getValueNames</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="220" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="219" bodyend="252"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1Align_109ad132514e568e54e630d848dd211f3" prot="private" static="no" mutable="no">
+        <type>Enum</type>
+        <definition>Enum MyGUI::Align::mValue</definition>
+        <argsstring></argsstring>
+        <name>mValue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="255" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="structMyGUI_1_1Align_1636bc64f20a90338db52a87a017e028f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend Align</type>
+        <definition>Align operator|</definition>
+        <argsstring>(Enum const &amp;a, Enum const &amp;b)</argsstring>
+        <name>operator|</name>
+        <param>
+          <type>Enum const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>Enum const &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="121" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="120" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="friend" id="structMyGUI_1_1Align_1ebf2c441ac7f83f498056e270e59bed8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend Align</type>
+        <definition>Align operator|</definition>
+        <argsstring>(Align const &amp;a, Align const &amp;b)</argsstring>
+        <name>operator|</name>
+        <param>
+          <type>Align const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>Align const &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="126" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="125" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="friend" id="structMyGUI_1_1Align_1e6c3e9047a4bed3c06bf585ca9ef446b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend bool</type>
+        <definition>bool operator==</definition>
+        <argsstring>(Align const &amp;a, Align const &amp;b)</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>Align const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>Align const &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="131" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="130" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="friend" id="structMyGUI_1_1Align_1d8e6b05a95ec1bd6d787adb31d1c12f7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend bool</type>
+        <definition>bool operator!=</definition>
+        <argsstring>(Align const &amp;a, Align const &amp;b)</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>Align const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>Align const &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="136" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="135" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="friend" id="structMyGUI_1_1Align_14dc6304471a90f34249540582e61f2cb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend std::ostream &amp;</type>
+        <definition>std::ostream&amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;_stream, const Align &amp;_value)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>_stream</declname>
+        </param>
+        <param>
+          <type>const Align &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="190" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="189" bodyend="193"/>
+      </memberdef>
+      <memberdef kind="friend" id="structMyGUI_1_1Align_1412c5f35b6b79201f9979169ed67bb1e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>friend std::istream &amp;</type>
+        <definition>std::istream&amp; operator&gt;&gt;</definition>
+        <argsstring>(std::istream &amp;_stream, Align &amp;_value)</argsstring>
+        <name>operator&gt;&gt;</name>
+        <param>
+          <type>std::istream &amp;</type>
+          <declname>_stream</declname>
+        </param>
+        <param>
+          <type>Align &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="196" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="195" bodyend="216"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Align.h" bodystart="34" bodyend="256"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1Align_116f17b2189490c6d214f4303af9a60bf" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>Align</name></member>
+      <member refid="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0a9eec2dbaa7b67b9caa72466a08ad3302" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>Bottom</name></member>
+      <member refid="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0adb637d0730257418df418654eaf92187" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>Center</name></member>
+      <member refid="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0aa4a2f8a91b0595d2fd0f51833d57079b" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>Default</name></member>
+      <member refid="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0a" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>Enum</name></member>
+      <member refid="structMyGUI_1_1Align_187b20db7a4f3be30206815bbbd0ec346" prot="private" virt="non-virtual"><scope>MyGUI::Align</scope><name>getValueNames</name></member>
+      <member refid="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0a1df5ee0654ea334b6311cbd706603332" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>HCenter</name></member>
+      <member refid="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0a15a73d54f87b6a0def9c5e6a3ab78e64" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>HStretch</name></member>
+      <member refid="structMyGUI_1_1Align_1247b995a128e3d9d38f357bd3bf2f271" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>isBottom</name></member>
+      <member refid="structMyGUI_1_1Align_1062bd0153052f7ead035c51777710879" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>isCenter</name></member>
+      <member refid="structMyGUI_1_1Align_1e837acb3bb94fa380101bd222921ef44" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>isDefault</name></member>
+      <member refid="structMyGUI_1_1Align_1a69b5a2cbd6078e542e4f41fc55d2755" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>isHCenter</name></member>
+      <member refid="structMyGUI_1_1Align_14fa6f21e0a7fbec3d9a7c6524d50cbb9" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>isHStretch</name></member>
+      <member refid="structMyGUI_1_1Align_16fe1a05162083525dac2f6879994f3e2" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>isLeft</name></member>
+      <member refid="structMyGUI_1_1Align_16e8ccd94a002bbd7409abcfcf739144f" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>isRight</name></member>
+      <member refid="structMyGUI_1_1Align_12e186e1ed796197ee6a4f1d9f6867e36" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>isStretch</name></member>
+      <member refid="structMyGUI_1_1Align_186c20e42ca7c6d5d045a4ea400559cbb" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>isTop</name></member>
+      <member refid="structMyGUI_1_1Align_1bdd8dbc791e0af8ea3eb1f42a88a2056" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>isVCenter</name></member>
+      <member refid="structMyGUI_1_1Align_1f606d70a6262781810df0fd173429ffd" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>isVStretch</name></member>
+      <member refid="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0a2c6235d8c628e29faac8c55ac906cf41" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>Left</name></member>
+      <member refid="structMyGUI_1_1Align_1eb52a96edc069014220a17f7f2b80e95" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>MapAlign</name></member>
+      <member refid="structMyGUI_1_1Align_109ad132514e568e54e630d848dd211f3" prot="private" virt="non-virtual"><scope>MyGUI::Align</scope><name>mValue</name></member>
+      <member refid="structMyGUI_1_1Align_1d8e6b05a95ec1bd6d787adb31d1c12f7" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>operator!=</name></member>
+      <member refid="structMyGUI_1_1Align_14dc6304471a90f34249540582e61f2cb" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>operator&lt;&lt;</name></member>
+      <member refid="structMyGUI_1_1Align_1e6c3e9047a4bed3c06bf585ca9ef446b" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>operator==</name></member>
+      <member refid="structMyGUI_1_1Align_1412c5f35b6b79201f9979169ed67bb1e" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>operator&gt;&gt;</name></member>
+      <member refid="structMyGUI_1_1Align_1636bc64f20a90338db52a87a017e028f" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>operator|</name></member>
+      <member refid="structMyGUI_1_1Align_1ebf2c441ac7f83f498056e270e59bed8" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>operator|</name></member>
+      <member refid="structMyGUI_1_1Align_113085603e0e043fd9c8f977fedc3edca" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>operator|=</name></member>
+      <member refid="structMyGUI_1_1Align_1d0ceb218fc96cb82eea6b3ff825b445e" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>parse</name></member>
+      <member refid="structMyGUI_1_1Align_1fac1393fda5f56e1b228d710fa64f69a" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>print</name></member>
+      <member refid="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0adb805cc5878013a0cf135458cf6df8ba" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>Right</name></member>
+      <member refid="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0aef9fe99daf2248896bdd6cc16338061f" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>Stretch</name></member>
+      <member refid="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0af6c2c6affa0840203904e562580477f7" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>Top</name></member>
+      <member refid="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0aadb04a76ec4451c787908b22b8152496" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>VCenter</name></member>
+      <member refid="structMyGUI_1_1Align_131d25cd20fcd3d2782d864dd63b3be0a4b792a7fb9910f4bdfad33d8bdb58006" prot="public" virt="non-virtual"><scope>MyGUI::Align</scope><name>VStretch</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

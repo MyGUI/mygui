@@ -1,0 +1,867 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1InputManager" kind="class" prot="public">
+    <compoundname>MyGUI::InputManager</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_1ff9eb097f6447be765cba966821416b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::InputManager::InputManager</definition>
+        <argsstring>()</argsstring>
+        <name>InputManager</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_1539c28aabee647f4bbba8e33914f3cb3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::InputManager::initialise</definition>
+        <argsstring>()</argsstring>
+        <name>initialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_15ce79df2ec4fe8f844d63eb43c50feae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::InputManager::shutdown</definition>
+        <argsstring>()</argsstring>
+        <name>shutdown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_13ed6b07fe14b0b4d17da38c27a762df3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::InputManager::injectMouseMove</definition>
+        <argsstring>(int _absx, int _absy, int _absz)</argsstring>
+        <name>injectMouseMove</name>
+        <param>
+          <type>int</type>
+          <declname>_absx</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_absy</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_absz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Inject MouseMove event <simplesect kind="return"><para>true if event has been processed by GUI </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_11dabfc7b4182b857b51f899e76634b9c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::InputManager::injectMousePress</definition>
+        <argsstring>(int _absx, int _absy, MouseButton _id)</argsstring>
+        <name>injectMousePress</name>
+        <param>
+          <type>int</type>
+          <declname>_absx</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_absy</declname>
+        </param>
+        <param>
+          <type>MouseButton</type>
+          <declname>_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Inject MousePress event <simplesect kind="return"><para>true if event has been processed by GUI </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_1cdd9a8738a62e0548ef68a893f167160" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::InputManager::injectMouseRelease</definition>
+        <argsstring>(int _absx, int _absy, MouseButton _id)</argsstring>
+        <name>injectMouseRelease</name>
+        <param>
+          <type>int</type>
+          <declname>_absx</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_absy</declname>
+        </param>
+        <param>
+          <type>MouseButton</type>
+          <declname>_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Inject MouseRelease event <simplesect kind="return"><para>true if event has been processed by GUI </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="64"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_1db498280bf79177dc32ccd66dae5a76f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::InputManager::injectKeyPress</definition>
+        <argsstring>(KeyCode _key, Char _text=0)</argsstring>
+        <name>injectKeyPress</name>
+        <param>
+          <type>KeyCode</type>
+          <declname>_key</declname>
+        </param>
+        <param>
+          <type>Char</type>
+          <declname>_text</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Inject KeyPress event <simplesect kind="return"><para>true if event has been processed by GUI </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_1ecf99ca70d8dc81d2f77d91a8cb829f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::InputManager::injectKeyRelease</definition>
+        <argsstring>(KeyCode _key)</argsstring>
+        <name>injectKeyRelease</name>
+        <param>
+          <type>KeyCode</type>
+          <declname>_key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Inject KeyRelease event <simplesect kind="return"><para>true if event has been processed by GUI </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_17665c3c09759ee203e731a29f98df236" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::InputManager::isFocusMouse</definition>
+        <argsstring>() const </argsstring>
+        <name>isFocusMouse</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is any widget have mouse focus </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="76"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_11c8773c8f6b246e597607bf6dc9eff0c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::InputManager::isFocusKey</definition>
+        <argsstring>() const </argsstring>
+        <name>isFocusKey</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is any widget have key focus (any widget might have it, not only <ref refid="classMyGUI_1_1EditBox" kindref="compound">EditBox</ref> or something similar) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_15f5d116c5acc2e5cac7f74c4ab5050fd" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::InputManager::isCaptureMouse</definition>
+        <argsstring>() const </argsstring>
+        <name>isCaptureMouse</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is any widget captured mouse </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="80"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_153ac0c51cf395a0d1ebf71e29161b631" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::InputManager::setKeyFocusWidget</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>setKeyFocusWidget</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set key focus for _widget </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="83"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_17c449741a281ce27636e8b4d374b80a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::InputManager::resetKeyFocusWidget</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>resetKeyFocusWidget</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Drop key focus for _widget </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_16e096212cb548159a519f6c96884efed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::InputManager::resetKeyFocusWidget</definition>
+        <argsstring>()</argsstring>
+        <name>resetKeyFocusWidget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Drop any key focus </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="87"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_1bb7138de1f43c6f59c12ce9a222e9cea" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::InputManager::getMouseFocusWidget</definition>
+        <argsstring>() const </argsstring>
+        <name>getMouseFocusWidget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get mouse focused widget </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="90"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_1398373f43ee9decdafa1ce75c587c8b0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::InputManager::getKeyFocusWidget</definition>
+        <argsstring>() const </argsstring>
+        <name>getKeyFocusWidget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get key focused widget </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="92"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_14c3fdda327b8e74028e502bb52c5333b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const IntPoint &amp;</type>
+        <definition>const IntPoint&amp; MyGUI::InputManager::getLastPressedPosition</definition>
+        <argsstring>(MouseButton _id) const </argsstring>
+        <name>getLastPressedPosition</name>
+        <param>
+          <type>MouseButton</type>
+          <declname>_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get position of last mouse button press. Position calculated on specific layer where mouse was pressed. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="97"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_166d7fa4135fe5ec50011487efd716c02" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const IntPoint &amp;</type>
+        <definition>const IntPoint&amp; MyGUI::InputManager::getMousePosition</definition>
+        <argsstring>() const </argsstring>
+        <name>getMousePosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get current mouse position on screen </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="100"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_1bff339d51fc49d8672f64ae6c9374579" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>IntPoint</type>
+        <definition>IntPoint MyGUI::InputManager::getMousePositionByLayer</definition>
+        <argsstring>()</argsstring>
+        <name>getMousePositionByLayer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get mouse position on current layer. This position might different from getMousePosition() if mouse is over non-2d layer. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="105"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_1ede56ba6a3fc3b9e18ea9cb0ab9c9fe4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::InputManager::addWidgetModal</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>addWidgetModal</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add modal widget - all other widgets inaccessible while modal widget exist </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="109"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_1f088be4eb651629372b5c69be883f4c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::InputManager::removeWidgetModal</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>removeWidgetModal</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Remove modal widget </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="111"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_1e22549f356e21a7a6fed994927e1c9e2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::InputManager::isModalAny</definition>
+        <argsstring>() const </argsstring>
+        <name>isModalAny</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Return true if any modal widget exist </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="114"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_1844e506cf89df1a42746e8407bc25aef" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::InputManager::isControlPressed</definition>
+        <argsstring>() const </argsstring>
+        <name>isControlPressed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is control button pressed </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="117"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_1b259174afa6c2c14d66968ce5673dce6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::InputManager::isShiftPressed</definition>
+        <argsstring>() const </argsstring>
+        <name>isShiftPressed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Is shift button pressed </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="119"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_19c8c72f7137db850877d9aeae20bd88e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::InputManager::resetMouseCaptureWidget</definition>
+        <argsstring>()</argsstring>
+        <name>resetMouseCaptureWidget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Reset mouse capture. For example when we dragging and application lost focus you should call this. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="125"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_1179d10dfe2946aa139448c904c82d4b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::InputManager::unlinkWidget</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>unlinkWidget</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Unlink widget from input manager. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="128"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_1923655787d850c2c3ce3ce0710dd39a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::InputManager::_resetMouseFocusWidget</definition>
+        <argsstring>()</argsstring>
+        <name>_resetMouseFocusWidget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="145"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1InputManager_1926c236e9d691df5542b63d4da518590" prot="public" static="no" mutable="no">
+        <type>delegates::CMultiDelegate1&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
+        <definition>delegates::CMultiDelegate1&lt;Widget*&gt; MyGUI::InputManager::eventChangeMouseFocus</definition>
+        <argsstring></argsstring>
+        <name>eventChangeMouseFocus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Event : MultiDelegate. Mouse focus was changed.<linebreak/>
+ signature : void method(MyGUI::Widget* _widget)<linebreak/>
+ <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_widget</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="135" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1InputManager_1ab531db6b1987847247c373f4704c641" prot="public" static="no" mutable="no">
+        <type>delegates::CMultiDelegate1&lt; <ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> * &gt;</type>
+        <definition>delegates::CMultiDelegate1&lt;Widget*&gt; MyGUI::InputManager::eventChangeKeyFocus</definition>
+        <argsstring></argsstring>
+        <name>eventChangeKeyFocus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Event : MultiDelegate. Key focus was changed.<linebreak/>
+ signature : void method(MyGUI::Widget* _widget)<linebreak/>
+ <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_widget</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="142" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_1093067fbf1678bd77ca97987c72d7a02" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::InputManager::_unlinkWidget</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>_unlinkWidget</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="149"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_14155a112f3914d8279f7cea4db249bed" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::InputManager::frameEntered</definition>
+        <argsstring>(float _frame)</argsstring>
+        <name>frameEntered</name>
+        <param>
+          <type>float</type>
+          <declname>_frame</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="151"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_13904a473c7c2a49c5b01393f8be48e5d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::InputManager::firstEncoding</definition>
+        <argsstring>(KeyCode _key, bool bIsKeyPressed)</argsstring>
+        <name>firstEncoding</name>
+        <param>
+          <type>KeyCode</type>
+          <declname>_key</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>bIsKeyPressed</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="153"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_1e66f10a7d37a2380803c908bfc221e46" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::InputManager::storeKey</definition>
+        <argsstring>(KeyCode _key, Char _text)</argsstring>
+        <name>storeKey</name>
+        <param>
+          <type>KeyCode</type>
+          <declname>_key</declname>
+        </param>
+        <param>
+          <type>Char</type>
+          <declname>_text</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="156"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1InputManager_1347b222a26677006fac2b3a11105f2a9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::InputManager::resetKey</definition>
+        <argsstring>()</argsstring>
+        <name>resetKey</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="159"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1InputManager_1b2bd82301febd676b209bdcde10fd51a" prot="private" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::InputManager::mWidgetMouseFocus</definition>
+        <argsstring></argsstring>
+        <name>mWidgetMouseFocus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="163" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1InputManager_169b39099f12fd0bf8b6fd14d10feb365" prot="private" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::InputManager::mWidgetKeyFocus</definition>
+        <argsstring></argsstring>
+        <name>mWidgetKeyFocus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="164" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1InputManager_167e6725715f17cf80e92fce8a1f12715" prot="private" static="no" mutable="no">
+        <type>ILayer *</type>
+        <definition>ILayer* MyGUI::InputManager::mLayerMouseFocus</definition>
+        <argsstring></argsstring>
+        <name>mLayerMouseFocus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="165" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1InputManager_18a5ab5369ea2521b281ef0dfebe7bf7c" prot="private" static="no" mutable="no">
+        <type>Timer</type>
+        <definition>Timer MyGUI::InputManager::mTimer</definition>
+        <argsstring></argsstring>
+        <name>mTimer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="168" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1InputManager_11577aec760f29fe8584945daa51f2d27" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::InputManager::mIsShiftPressed</definition>
+        <argsstring></argsstring>
+        <name>mIsShiftPressed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="171" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1InputManager_1bf685cfabe489e1c30f8033f6e437581" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::InputManager::mIsControlPressed</definition>
+        <argsstring></argsstring>
+        <name>mIsControlPressed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="173" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1InputManager_172971572b23deb45c3e55b132f912e2b" prot="private" static="no" mutable="no">
+        <type>IntPoint</type>
+        <definition>IntPoint MyGUI::InputManager::mMousePosition</definition>
+        <argsstring></argsstring>
+        <name>mMousePosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="175" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1InputManager_17293975642a467a110048ee8867ee64a" prot="private" static="no" mutable="no">
+        <type>IntPoint</type>
+        <definition>IntPoint MyGUI::InputManager::mLastPressed[MouseButton::MAX]</definition>
+        <argsstring>[MouseButton::MAX]</argsstring>
+        <name>mLastPressed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="178" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1InputManager_16e2390ced9f9c8abe1f4a5e70fdeb4ee" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::InputManager::mMouseCapture[MouseButton::MAX]</definition>
+        <argsstring>[MouseButton::MAX]</argsstring>
+        <name>mMouseCapture</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="181" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1InputManager_15c592d39a6fc22d07c9788cc437e1f9f" prot="private" static="no" mutable="no">
+        <type>KeyCode</type>
+        <definition>KeyCode MyGUI::InputManager::mHoldKey</definition>
+        <argsstring></argsstring>
+        <name>mHoldKey</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="184" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1InputManager_1c5777a9f89621e2c611d9ad0a6fb89f8" prot="private" static="no" mutable="no">
+        <type>Char</type>
+        <definition>Char MyGUI::InputManager::mHoldChar</definition>
+        <argsstring></argsstring>
+        <name>mHoldChar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="185" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1InputManager_15840215c4a400162077a0a593399aa43" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::InputManager::mFirstPressKey</definition>
+        <argsstring></argsstring>
+        <name>mFirstPressKey</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="186" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1InputManager_1aa5b0472b68f9f6cec7042a7a0ff4050" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::InputManager::mTimerKey</definition>
+        <argsstring></argsstring>
+        <name>mTimerKey</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="187" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1InputManager_1bffc965d35808e15324ee12b896ede12" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MyGUI::InputManager::mOldAbsZ</definition>
+        <argsstring></argsstring>
+        <name>mOldAbsZ</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="188" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1InputManager_1c9d2a680592db064bb552cd1715d2709" prot="private" static="no" mutable="no">
+        <type>VectorWidgetPtr</type>
+        <definition>VectorWidgetPtr MyGUI::InputManager::mVectorModalRootWidget</definition>
+        <argsstring></argsstring>
+        <name>mVectorModalRootWidget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="191" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1InputManager_1c5b1bc6917de01ee34137324a9a24963" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::InputManager::mIsInitialise</definition>
+        <argsstring></argsstring>
+        <name>mIsInitialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="193" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="310">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="309">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="310" relation="public-inheritance">
+        </childnode>
+        <childnode refid="309" relation="usage">
+          <edgelabel>mContainer
+mParent
+mWidgetClient</edgelabel>
+        </childnode>
+      </node>
+      <node id="308">
+        <label>MyGUI::InputManager</label>
+        <childnode refid="309" relation="usage">
+          <edgelabel>mWidgetKeyFocus
+mWidgetMouseFocus</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" line="46" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_InputManager.h" bodystart="42" bodyend="194"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1InputManager_1923655787d850c2c3ce3ce0710dd39a7" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>_resetMouseFocusWidget</name></member>
+      <member refid="classMyGUI_1_1InputManager_1093067fbf1678bd77ca97987c72d7a02" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>_unlinkWidget</name></member>
+      <member refid="classMyGUI_1_1InputManager_1ede56ba6a3fc3b9e18ea9cb0ab9c9fe4" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>addWidgetModal</name></member>
+      <member refid="classMyGUI_1_1InputManager_1ab531db6b1987847247c373f4704c641" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>eventChangeKeyFocus</name></member>
+      <member refid="classMyGUI_1_1InputManager_1926c236e9d691df5542b63d4da518590" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>eventChangeMouseFocus</name></member>
+      <member refid="classMyGUI_1_1InputManager_13904a473c7c2a49c5b01393f8be48e5d" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>firstEncoding</name></member>
+      <member refid="classMyGUI_1_1InputManager_14155a112f3914d8279f7cea4db249bed" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>frameEntered</name></member>
+      <member refid="classMyGUI_1_1InputManager_1398373f43ee9decdafa1ce75c587c8b0" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>getKeyFocusWidget</name></member>
+      <member refid="classMyGUI_1_1InputManager_14c3fdda327b8e74028e502bb52c5333b" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>getLastPressedPosition</name></member>
+      <member refid="classMyGUI_1_1InputManager_1bb7138de1f43c6f59c12ce9a222e9cea" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>getMouseFocusWidget</name></member>
+      <member refid="classMyGUI_1_1InputManager_166d7fa4135fe5ec50011487efd716c02" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>getMousePosition</name></member>
+      <member refid="classMyGUI_1_1InputManager_1bff339d51fc49d8672f64ae6c9374579" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>getMousePositionByLayer</name></member>
+      <member refid="classMyGUI_1_1InputManager_1539c28aabee647f4bbba8e33914f3cb3" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>initialise</name></member>
+      <member refid="classMyGUI_1_1InputManager_1db498280bf79177dc32ccd66dae5a76f" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>injectKeyPress</name></member>
+      <member refid="classMyGUI_1_1InputManager_1ecf99ca70d8dc81d2f77d91a8cb829f4" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>injectKeyRelease</name></member>
+      <member refid="classMyGUI_1_1InputManager_13ed6b07fe14b0b4d17da38c27a762df3" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>injectMouseMove</name></member>
+      <member refid="classMyGUI_1_1InputManager_11dabfc7b4182b857b51f899e76634b9c" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>injectMousePress</name></member>
+      <member refid="classMyGUI_1_1InputManager_1cdd9a8738a62e0548ef68a893f167160" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>injectMouseRelease</name></member>
+      <member refid="classMyGUI_1_1InputManager_1ff9eb097f6447be765cba966821416b1" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>InputManager</name></member>
+      <member refid="classMyGUI_1_1InputManager_15f5d116c5acc2e5cac7f74c4ab5050fd" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>isCaptureMouse</name></member>
+      <member refid="classMyGUI_1_1InputManager_1844e506cf89df1a42746e8407bc25aef" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>isControlPressed</name></member>
+      <member refid="classMyGUI_1_1InputManager_11c8773c8f6b246e597607bf6dc9eff0c" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>isFocusKey</name></member>
+      <member refid="classMyGUI_1_1InputManager_17665c3c09759ee203e731a29f98df236" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>isFocusMouse</name></member>
+      <member refid="classMyGUI_1_1InputManager_1e22549f356e21a7a6fed994927e1c9e2" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>isModalAny</name></member>
+      <member refid="classMyGUI_1_1InputManager_1b259174afa6c2c14d66968ce5673dce6" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>isShiftPressed</name></member>
+      <member refid="classMyGUI_1_1InputManager_15840215c4a400162077a0a593399aa43" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>mFirstPressKey</name></member>
+      <member refid="classMyGUI_1_1InputManager_1c5777a9f89621e2c611d9ad0a6fb89f8" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>mHoldChar</name></member>
+      <member refid="classMyGUI_1_1InputManager_15c592d39a6fc22d07c9788cc437e1f9f" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>mHoldKey</name></member>
+      <member refid="classMyGUI_1_1InputManager_1bf685cfabe489e1c30f8033f6e437581" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>mIsControlPressed</name></member>
+      <member refid="classMyGUI_1_1InputManager_1c5b1bc6917de01ee34137324a9a24963" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>mIsInitialise</name></member>
+      <member refid="classMyGUI_1_1InputManager_11577aec760f29fe8584945daa51f2d27" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>mIsShiftPressed</name></member>
+      <member refid="classMyGUI_1_1InputManager_17293975642a467a110048ee8867ee64a" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>mLastPressed</name></member>
+      <member refid="classMyGUI_1_1InputManager_167e6725715f17cf80e92fce8a1f12715" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>mLayerMouseFocus</name></member>
+      <member refid="classMyGUI_1_1InputManager_16e2390ced9f9c8abe1f4a5e70fdeb4ee" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>mMouseCapture</name></member>
+      <member refid="classMyGUI_1_1InputManager_172971572b23deb45c3e55b132f912e2b" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>mMousePosition</name></member>
+      <member refid="classMyGUI_1_1InputManager_1bffc965d35808e15324ee12b896ede12" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>mOldAbsZ</name></member>
+      <member refid="classMyGUI_1_1InputManager_18a5ab5369ea2521b281ef0dfebe7bf7c" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>mTimer</name></member>
+      <member refid="classMyGUI_1_1InputManager_1aa5b0472b68f9f6cec7042a7a0ff4050" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>mTimerKey</name></member>
+      <member refid="classMyGUI_1_1InputManager_1c9d2a680592db064bb552cd1715d2709" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>mVectorModalRootWidget</name></member>
+      <member refid="classMyGUI_1_1InputManager_169b39099f12fd0bf8b6fd14d10feb365" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>mWidgetKeyFocus</name></member>
+      <member refid="classMyGUI_1_1InputManager_1b2bd82301febd676b209bdcde10fd51a" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>mWidgetMouseFocus</name></member>
+      <member refid="classMyGUI_1_1InputManager_1f088be4eb651629372b5c69be883f4c8" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>removeWidgetModal</name></member>
+      <member refid="classMyGUI_1_1InputManager_1347b222a26677006fac2b3a11105f2a9" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>resetKey</name></member>
+      <member refid="classMyGUI_1_1InputManager_17c449741a281ce27636e8b4d374b80a2" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>resetKeyFocusWidget</name></member>
+      <member refid="classMyGUI_1_1InputManager_16e096212cb548159a519f6c96884efed" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>resetKeyFocusWidget</name></member>
+      <member refid="classMyGUI_1_1InputManager_19c8c72f7137db850877d9aeae20bd88e" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>resetMouseCaptureWidget</name></member>
+      <member refid="classMyGUI_1_1InputManager_153ac0c51cf395a0d1ebf71e29161b631" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>setKeyFocusWidget</name></member>
+      <member refid="classMyGUI_1_1InputManager_15ce79df2ec4fe8f844d63eb43c50feae" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>shutdown</name></member>
+      <member refid="classMyGUI_1_1InputManager_1e66f10a7d37a2380803c908bfc221e46" prot="private" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>storeKey</name></member>
+      <member refid="classMyGUI_1_1InputManager_1179d10dfe2946aa139448c904c82d4b0" prot="public" virt="non-virtual"><scope>MyGUI::InputManager</scope><name>unlinkWidget</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

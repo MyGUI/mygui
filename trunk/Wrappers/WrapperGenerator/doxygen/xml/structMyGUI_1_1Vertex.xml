@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1Vertex" kind="struct" prot="public">
+    <compoundname>MyGUI::Vertex</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMyGUI_1_1Vertex_15d3fa59b901bb44631c8826ca15e9767" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Vertex::set</definition>
+        <argsstring>(float _x, float _y, float _z, float _u, float _v, uint32 _colour)</argsstring>
+        <name>set</name>
+        <param>
+          <type>float</type>
+          <declname>_x</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_y</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_z</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_u</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_v</declname>
+        </param>
+        <param>
+          <type>uint32</type>
+          <declname>_colour</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" bodystart="33" bodyend="41"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1Vertex_16689a551a2750abf207b499fc34d1acb" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::Vertex::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1Vertex_11ca476936cb2c547b72ac1f1dfee6552" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::Vertex::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1Vertex_1b4b7a4e58e476e723ea9f83a153559fa" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::Vertex::z</definition>
+        <argsstring></argsstring>
+        <name>z</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1Vertex_1a96ee16005b963096c0fd97053dfdc1e" prot="public" static="no" mutable="no">
+        <type>uint32</type>
+        <definition>uint32 MyGUI::Vertex::colour</definition>
+        <argsstring></argsstring>
+        <name>colour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" line="44" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1Vertex_1b973b85ecabef14c352c798ceeddc53f" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::Vertex::u</definition>
+        <argsstring></argsstring>
+        <name>u</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1Vertex_11fe34a4571285bcc415e67ffdcafbe4f" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::Vertex::v</definition>
+        <argsstring></argsstring>
+        <name>v</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" line="32" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_VertexData.h" bodystart="31" bodyend="46"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1Vertex_1a96ee16005b963096c0fd97053dfdc1e" prot="public" virt="non-virtual"><scope>MyGUI::Vertex</scope><name>colour</name></member>
+      <member refid="structMyGUI_1_1Vertex_15d3fa59b901bb44631c8826ca15e9767" prot="public" virt="non-virtual"><scope>MyGUI::Vertex</scope><name>set</name></member>
+      <member refid="structMyGUI_1_1Vertex_1b973b85ecabef14c352c798ceeddc53f" prot="public" virt="non-virtual"><scope>MyGUI::Vertex</scope><name>u</name></member>
+      <member refid="structMyGUI_1_1Vertex_11fe34a4571285bcc415e67ffdcafbe4f" prot="public" virt="non-virtual"><scope>MyGUI::Vertex</scope><name>v</name></member>
+      <member refid="structMyGUI_1_1Vertex_16689a551a2750abf207b499fc34d1acb" prot="public" virt="non-virtual"><scope>MyGUI::Vertex</scope><name>x</name></member>
+      <member refid="structMyGUI_1_1Vertex_11ca476936cb2c547b72ac1f1dfee6552" prot="public" virt="non-virtual"><scope>MyGUI::Vertex</scope><name>y</name></member>
+      <member refid="structMyGUI_1_1Vertex_1b4b7a4e58e476e723ea9f83a153559fa" prot="public" virt="non-virtual"><scope>MyGUI::Vertex</scope><name>z</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

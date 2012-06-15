@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1SharedLayerNode" kind="class" prot="public">
+    <compoundname>MyGUI::SharedLayerNode</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1SharedLayerNode_1f94a83c85cd8bbf35cbdae671d39f920" prot="public" static="no">
+        <type>RTTIBase</type>
+        <definition>typedef RTTIBase MyGUI::SharedLayerNode::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1SharedLayerNode_147f7599d31996f99e3a9acafd6b97591" prot="public" static="no">
+        <type>SharedLayerNode</type>
+        <definition>typedef SharedLayerNode MyGUI::SharedLayerNode::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1SharedLayerNode_14353d7574dff2d5b35910cccfebbbeaa" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::SharedLayerNode::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SharedLayerNode_17ad15d0ab6a2e5bc2f7b88f5198155d7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::SharedLayerNode::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SharedLayerNode_190fc5c322d826184ff0f6d5d7592690c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::SharedLayerNode::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SharedLayerNode_142cb2f310ce377106008d43466040ebd" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::SharedLayerNode::SharedLayerNode</definition>
+        <argsstring>(ILayer *_layer, ILayerNode *_parent=0)</argsstring>
+        <name>SharedLayerNode</name>
+        <param>
+          <type>ILayer *</type>
+          <declname>_layer</declname>
+        </param>
+        <param>
+          <type>ILayerNode *</type>
+          <declname>_parent</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" line="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SharedLayerNode_1c8665e7b4090e9a0c92a16bb41cb1791" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::SharedLayerNode::~SharedLayerNode</definition>
+        <argsstring>()</argsstring>
+        <name>~SharedLayerNode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" line="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SharedLayerNode_188f8a2e252bbdf7bac770ced31a4f9a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::SharedLayerNode::addUsing</definition>
+        <argsstring>()</argsstring>
+        <name>addUsing</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" line="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SharedLayerNode_1a4f80e0f1f1e2b946cd814ea0e57652e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::SharedLayerNode::removeUsing</definition>
+        <argsstring>()</argsstring>
+        <name>removeUsing</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" line="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SharedLayerNode_1ca2c68fa2ff0116814dd6a96237c7efe" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::SharedLayerNode::countUsing</definition>
+        <argsstring>() const </argsstring>
+        <name>countUsing</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" line="42"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1SharedLayerNode_1548381ed21790460aeea0a35d66113c8" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::SharedLayerNode::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1SharedLayerNode_1fc79c3cb23429a1e31517e25e3f61dc9" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::SharedLayerNode::mCountUsing</definition>
+        <argsstring></argsstring>
+        <name>mCountUsing</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SharedLayerNode.h" bodystart="31" bodyend="46"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1SharedLayerNode_188f8a2e252bbdf7bac770ced31a4f9a5" prot="public" virt="non-virtual"><scope>MyGUI::SharedLayerNode</scope><name>addUsing</name></member>
+      <member refid="classMyGUI_1_1SharedLayerNode_1f94a83c85cd8bbf35cbdae671d39f920" prot="public" virt="non-virtual"><scope>MyGUI::SharedLayerNode</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1SharedLayerNode_1ca2c68fa2ff0116814dd6a96237c7efe" prot="public" virt="non-virtual"><scope>MyGUI::SharedLayerNode</scope><name>countUsing</name></member>
+      <member refid="classMyGUI_1_1SharedLayerNode_1548381ed21790460aeea0a35d66113c8" prot="public" virt="non-virtual"><scope>MyGUI::SharedLayerNode</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1SharedLayerNode_14353d7574dff2d5b35910cccfebbbeaa" prot="public" virt="virtual"><scope>MyGUI::SharedLayerNode</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1SharedLayerNode_17ad15d0ab6a2e5bc2f7b88f5198155d7" prot="public" virt="virtual"><scope>MyGUI::SharedLayerNode</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1SharedLayerNode_190fc5c322d826184ff0f6d5d7592690c" prot="public" virt="non-virtual"><scope>MyGUI::SharedLayerNode</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1SharedLayerNode_1fc79c3cb23429a1e31517e25e3f61dc9" prot="private" virt="non-virtual"><scope>MyGUI::SharedLayerNode</scope><name>mCountUsing</name></member>
+      <member refid="classMyGUI_1_1SharedLayerNode_1a4f80e0f1f1e2b946cd814ea0e57652e" prot="public" virt="non-virtual"><scope>MyGUI::SharedLayerNode</scope><name>removeUsing</name></member>
+      <member refid="classMyGUI_1_1SharedLayerNode_147f7599d31996f99e3a9acafd6b97591" prot="public" virt="non-virtual"><scope>MyGUI::SharedLayerNode</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1SharedLayerNode_142cb2f310ce377106008d43466040ebd" prot="public" virt="non-virtual"><scope>MyGUI::SharedLayerNode</scope><name>SharedLayerNode</name></member>
+      <member refid="classMyGUI_1_1SharedLayerNode_1c8665e7b4090e9a0c92a16bb41cb1791" prot="public" virt="virtual"><scope>MyGUI::SharedLayerNode</scope><name>~SharedLayerNode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

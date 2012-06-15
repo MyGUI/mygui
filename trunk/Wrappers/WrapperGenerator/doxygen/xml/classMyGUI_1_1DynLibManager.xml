@@ -1,0 +1,216 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1DynLibManager" kind="class" prot="public">
+    <compoundname>MyGUI::DynLibManager</compoundname>
+    <includes local="no">MyGUI_DynLibManager.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1DynLibManager_15d22ac4aa8ca9217332486f3403e5ea6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::DynLibManager::DynLibManager</definition>
+        <argsstring>()</argsstring>
+        <name>DynLibManager</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLibManager.h" line="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1DynLibManager_10d673ffdf581f3b4152bfd310ee274f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::DynLibManager::initialise</definition>
+        <argsstring>()</argsstring>
+        <name>initialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLibManager.h" line="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1DynLibManager_1af457b1a44e9757986471831462ec566" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::DynLibManager::shutdown</definition>
+        <argsstring>()</argsstring>
+        <name>shutdown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLibManager.h" line="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1DynLibManager_11f1a8d995e47a5414bddfaf7daf669d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1DynLib" kindref="compound">DynLib</ref> *</type>
+        <definition>DynLib* MyGUI::DynLibManager::load</definition>
+        <argsstring>(const std::string &amp;fileName)</argsstring>
+        <name>load</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>fileName</declname>
+        </param>
+        <briefdescription>
+<para>Load library. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLibManager.h" line="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1DynLibManager_13d11dec838c1fd93819f488883d67318" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::DynLibManager::unload</definition>
+        <argsstring>(DynLib *library)</argsstring>
+        <name>unload</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1DynLib" kindref="compound">DynLib</ref> *</type>
+          <declname>library</declname>
+        </param>
+        <briefdescription>
+<para>Unload library. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLibManager.h" line="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1DynLibManager_1456156dfed483653bcede9f77fce1fbe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::DynLibManager::unloadAll</definition>
+        <argsstring>()</argsstring>
+        <name>unloadAll</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLibManager.h" line="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1DynLibManager_117b311498b7555730302e6fc6369edea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::DynLibManager::_unloadDelayDynLibs</definition>
+        <argsstring>()</argsstring>
+        <name>_unloadDelayDynLibs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLibManager.h" line="52"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1DynLibManager_1a385cf345faa72f675abbf5b40310126" prot="private" static="no">
+        <type>std::map&lt; std::string, <ref refid="classMyGUI_1_1DynLib" kindref="compound">DynLib</ref> * &gt;</type>
+        <definition>typedef std::map&lt;std::string, DynLib*&gt; MyGUI::DynLibManager::StringDynLibMap</definition>
+        <argsstring></argsstring>
+        <name>StringDynLibMap</name>
+        <briefdescription>
+<para>Dynamic libraries map. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLibManager.h" line="59" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLibManager.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1DynLibManager_1f52ddabeda8f4aef783716ec03e4d575" prot="private" static="no">
+        <type>std::vector&lt; <ref refid="classMyGUI_1_1DynLib" kindref="compound">DynLib</ref> * &gt;</type>
+        <definition>typedef std::vector&lt;DynLib*&gt; MyGUI::DynLibManager::VectorDynLib</definition>
+        <argsstring></argsstring>
+        <name>VectorDynLib</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLibManager.h" line="65" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLibManager.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1DynLibManager_1d65392286d5335b9f3ca5d9d9607d9a7" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::DynLibManager::notifyEventFrameStart</definition>
+        <argsstring>(float _time)</argsstring>
+        <name>notifyEventFrameStart</name>
+        <param>
+          <type>float</type>
+          <declname>_time</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLibManager.h" line="55"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1DynLibManager_1529e73315f5318a18670141f192d8272" prot="private" static="no" mutable="no">
+        <type>StringDynLibMap</type>
+        <definition>StringDynLibMap MyGUI::DynLibManager::mLibsMap</definition>
+        <argsstring></argsstring>
+        <name>mLibsMap</name>
+        <briefdescription>
+<para>Loaded libraries. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLibManager.h" line="61" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLibManager.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1DynLibManager_19a744dc9b6561e1307fc726c13d014cb" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::DynLibManager::mIsInitialise</definition>
+        <argsstring></argsstring>
+        <name>mIsInitialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLibManager.h" line="63" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLibManager.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1DynLibManager_126026e9f5bfd333e060453787768a3cb" prot="private" static="no" mutable="no">
+        <type>VectorDynLib</type>
+        <definition>VectorDynLib MyGUI::DynLibManager::mDelayDynLib</definition>
+        <argsstring></argsstring>
+        <name>mDelayDynLib</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLibManager.h" line="66" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLibManager.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Manager of dynamic libraries. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLibManager.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLibManager.h" bodystart="35" bodyend="67"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1DynLibManager_117b311498b7555730302e6fc6369edea" prot="public" virt="non-virtual"><scope>MyGUI::DynLibManager</scope><name>_unloadDelayDynLibs</name></member>
+      <member refid="classMyGUI_1_1DynLibManager_15d22ac4aa8ca9217332486f3403e5ea6" prot="public" virt="non-virtual"><scope>MyGUI::DynLibManager</scope><name>DynLibManager</name></member>
+      <member refid="classMyGUI_1_1DynLibManager_10d673ffdf581f3b4152bfd310ee274f6" prot="public" virt="non-virtual"><scope>MyGUI::DynLibManager</scope><name>initialise</name></member>
+      <member refid="classMyGUI_1_1DynLibManager_11f1a8d995e47a5414bddfaf7daf669d3" prot="public" virt="non-virtual"><scope>MyGUI::DynLibManager</scope><name>load</name></member>
+      <member refid="classMyGUI_1_1DynLibManager_126026e9f5bfd333e060453787768a3cb" prot="private" virt="non-virtual"><scope>MyGUI::DynLibManager</scope><name>mDelayDynLib</name></member>
+      <member refid="classMyGUI_1_1DynLibManager_19a744dc9b6561e1307fc726c13d014cb" prot="private" virt="non-virtual"><scope>MyGUI::DynLibManager</scope><name>mIsInitialise</name></member>
+      <member refid="classMyGUI_1_1DynLibManager_1529e73315f5318a18670141f192d8272" prot="private" virt="non-virtual"><scope>MyGUI::DynLibManager</scope><name>mLibsMap</name></member>
+      <member refid="classMyGUI_1_1DynLibManager_1d65392286d5335b9f3ca5d9d9607d9a7" prot="private" virt="non-virtual"><scope>MyGUI::DynLibManager</scope><name>notifyEventFrameStart</name></member>
+      <member refid="classMyGUI_1_1DynLibManager_1af457b1a44e9757986471831462ec566" prot="public" virt="non-virtual"><scope>MyGUI::DynLibManager</scope><name>shutdown</name></member>
+      <member refid="classMyGUI_1_1DynLibManager_1a385cf345faa72f675abbf5b40310126" prot="private" virt="non-virtual"><scope>MyGUI::DynLibManager</scope><name>StringDynLibMap</name></member>
+      <member refid="classMyGUI_1_1DynLibManager_13d11dec838c1fd93819f488883d67318" prot="public" virt="non-virtual"><scope>MyGUI::DynLibManager</scope><name>unload</name></member>
+      <member refid="classMyGUI_1_1DynLibManager_1456156dfed483653bcede9f77fce1fbe" prot="public" virt="non-virtual"><scope>MyGUI::DynLibManager</scope><name>unloadAll</name></member>
+      <member refid="classMyGUI_1_1DynLibManager_1f52ddabeda8f4aef783716ec03e4d575" prot="private" virt="non-virtual"><scope>MyGUI::DynLibManager</scope><name>VectorDynLib</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

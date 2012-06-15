@@ -1,0 +1,396 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1MenuBar" kind="class" prot="public">
+    <compoundname>MyGUI::MenuBar</compoundname>
+    <basecompoundref refid="classMyGUI_1_1MenuControl" prot="public" virt="non-virtual">MyGUI::MenuControl</basecompoundref>
+    <includes local="no">MyGUI_MenuBar.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1MenuBar_17fd6986b9777be3e78d9ccbc6604ef41" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1MenuBar" kindref="compound">RTTIBase</ref></type>
+        <definition>typedef RTTIBase MyGUI::MenuBar::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <reimplements refid="classMyGUI_1_1MenuControl_19bfc8d44881ba61f738bb855366845fe">Base</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuBar.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuBar.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1MenuBar_105c842ec427658ce88aa9e0f0bffead4" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1MenuBar" kindref="compound">MenuBar</ref></type>
+        <definition>typedef MenuBar MyGUI::MenuBar::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <reimplements refid="classMyGUI_1_1MenuControl_18e9fdf2e3a58f3e612a588200608c0b2">RTTIBase</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuBar.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuBar.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1MenuBar_1628d9c278ec8fc6d49e3b24c41eedc46" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::MenuBar::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <reimplements refid="classMyGUI_1_1MenuControl_11afb6232643dd8412cd2c01069ab6c32">getTypeName</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuBar.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuBar.h" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MenuBar_1cfe4dbcb858c8c118bd201bc897d6cb0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::MenuBar::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <reimplements refid="classMyGUI_1_1MenuControl_1633c476a988e1cf98a959e65163e01c1">isType</reimplements>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuBar.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuBar.h" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MenuBar_1755007eb122f8e1c0a71c11083da043c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::MenuBar::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <reimplements refid="classMyGUI_1_1MenuControl_1b8b1de42cd99fc88e6f1607129a4dd96">isType</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuBar.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuBar.h" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MenuBar_1dfcb3feb612508bb7c1ec2c812b1161c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::MenuBar::MenuBar</definition>
+        <argsstring>()</argsstring>
+        <name>MenuBar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuBar.h" line="40"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1MenuBar_111b90c93d55ae35bd1f861bf114b1950" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::MenuBar::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <reimplements refid="classMyGUI_1_1MenuControl_1932e40027f3974327b0114542b30fd1b">getClassTypeName</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuBar.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuBar.h" bodystart="37" bodyend="37"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>{<ref refid="classMyGUI_1_1MenuBar" kindref="compound">MenuBar</ref>} <ref refid="classMyGUI_1_1MenuBar" kindref="compound">MenuBar</ref> widget description should be here. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="441">
+        <label>MyGUI::MenuControl</label>
+        <link refid="classMyGUI_1_1MenuControl"/>
+        <childnode refid="442" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="440">
+        <label>MyGUI::MenuBar</label>
+        <link refid="classMyGUI_1_1MenuBar"/>
+        <childnode refid="441" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="443">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="442">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="443" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="450">
+        <label>MyGUI::TextBox</label>
+        <link refid="classMyGUI_1_1TextBox"/>
+        <childnode refid="446" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="445">
+        <label>MyGUI::MenuControl</label>
+        <link refid="classMyGUI_1_1MenuControl"/>
+        <childnode refid="446" relation="public-inheritance">
+        </childnode>
+        <childnode refid="448" relation="usage">
+          <edgelabel>mOwner</edgelabel>
+        </childnode>
+        <childnode refid="446" relation="usage">
+          <edgelabel>mClient</edgelabel>
+        </childnode>
+      </node>
+      <node id="444">
+        <label>MyGUI::MenuBar</label>
+        <link refid="classMyGUI_1_1MenuBar"/>
+        <childnode refid="445" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="451">
+        <label>MyGUI::ImageBox</label>
+        <link refid="classMyGUI_1_1ImageBox"/>
+        <childnode refid="446" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="447">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="446">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="447" relation="public-inheritance">
+        </childnode>
+        <childnode refid="446" relation="usage">
+          <edgelabel>mContainer
+mParent
+mWidgetClient</edgelabel>
+        </childnode>
+      </node>
+      <node id="449">
+        <label>MyGUI::Button</label>
+        <link refid="classMyGUI_1_1Button"/>
+        <childnode refid="450" relation="public-inheritance">
+        </childnode>
+        <childnode refid="451" relation="usage">
+          <edgelabel>mImage</edgelabel>
+        </childnode>
+      </node>
+      <node id="448">
+        <label>MyGUI::MenuItem</label>
+        <link refid="classMyGUI_1_1MenuItem"/>
+        <childnode refid="449" relation="public-inheritance">
+        </childnode>
+        <childnode refid="446" relation="usage">
+          <edgelabel>mCheck</edgelabel>
+        </childnode>
+        <childnode refid="445" relation="usage">
+          <edgelabel>mOwner</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuBar.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_MenuBar.h" bodystart="34" bodyend="41"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1MenuControl_16c53f2cafa7d7bd2bcea04fd8256ba74" prot="public" virt="virtual"><scope>MyGUI::MenuBar</scope><name>_addItem</name></member>
+      <member refid="classMyGUI_1_1Widget_134c44665e7d51c7eb65bf70f0479e1c3" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>_checkPoint</name></member>
+      <member refid="classMyGUI_1_1Widget_13601e5ca0d565451dfcf106850506a51" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>_createSkinWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_10df77f6d74fe5fc24701819e0b7e0fe8" prot="protected" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>_destroyAllChildWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_125136884a04944ef8b199c582e15482c" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>_destroyChildWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1deee68fb42acc2fab667b169587e9ce3" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>_forcePick</name></member>
+      <member refid="classMyGUI_1_1Widget_1f3d99ead3ce8fda0defa2feb0fbaee27" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>_getContainer</name></member>
+      <member refid="classMyGUI_1_1Widget_1fef9a1d046d1b78f8c76de1db83d20c6" prot="protected" virt="virtual"><scope>MyGUI::MenuBar</scope><name>_getContainerIndex</name></member>
+      <member refid="classMyGUI_1_1UserData_1fc4382ac3423790f57b478a0fe5030a2" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>_getInternalData</name></member>
+      <member refid="classMyGUI_1_1MenuControl_18948cd8ae5fdf9c57e6f9ef18cf821aa" prot="public" virt="virtual"><scope>MyGUI::MenuBar</scope><name>_getItemAt</name></member>
+      <member refid="classMyGUI_1_1MenuControl_144572babae8694a991f594c9e1718d2c" prot="public" virt="virtual"><scope>MyGUI::MenuBar</scope><name>_getItemCount</name></member>
+      <member refid="classMyGUI_1_1Widget_106700537a6fffaf43aa9c93e89d9cc7d" prot="public" virt="virtual"><scope>MyGUI::MenuBar</scope><name>_getItemIndex</name></member>
+      <member refid="classMyGUI_1_1MenuControl_152e62d17f71613a3ee9874e7d77f6455" prot="public" virt="virtual"><scope>MyGUI::MenuBar</scope><name>_getItemNameAt</name></member>
+      <member refid="classMyGUI_1_1Widget_1ae54386446434e4b133c244925402375" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>_initialise</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1622cb6756776959a16d9837188720c6a" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>_notifyDeleteItem</name></member>
+      <member refid="classMyGUI_1_1MenuControl_16acb936bb5298afccd3c998ae2fe6f30" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>_notifyDeletePopup</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1b7eb544e73952833c42059894782ee49" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>_notifyUpdateName</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1709e9a06ab6a5d9ee14f1d1b3301ed2e" prot="public" virt="virtual"><scope>MyGUI::MenuBar</scope><name>_removeItemAt</name></member>
+      <member refid="classMyGUI_1_1Widget_1175526a4b039cf13c7fec7012d7287fc" prot="public" virt="virtual"><scope>MyGUI::MenuBar</scope><name>_resetContainer</name></member>
+      <member refid="classMyGUI_1_1Widget_15df6dbd95e99b9b65b385d815026cf26" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>_setAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_1d3d48604ad15f958b81bf423f80271c9" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>_setContainer</name></member>
+      <member refid="classMyGUI_1_1UserData_12bd52c146bad41f99bbc7ed31335ad18" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>_setInternalData</name></member>
+      <member refid="classMyGUI_1_1MenuControl_181b6a0ea5441d6f42deb1e5cd24bac05" prot="public" virt="virtual"><scope>MyGUI::MenuBar</scope><name>_setItemNameAt</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1fa507d7a35f77f61c7ce7bfe82707634" prot="public" virt="virtual"><scope>MyGUI::MenuBar</scope><name>_setItemSelected</name></member>
+      <member refid="classMyGUI_1_1Widget_13325a1f4c26917f6f73b207d0986e1bd" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>_setWidgetState</name></member>
+      <member refid="classMyGUI_1_1Widget_155b19482fe01925c36e29af671e3d092" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>_shutdown</name></member>
+      <member refid="classMyGUI_1_1MenuControl_15b1e36931ebad44b39f8f876a2034e0f" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>_updateItems</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1226576645ac258fda42b77884420a033" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>_updateSizeForEmpty</name></member>
+      <member refid="classMyGUI_1_1Widget_1dd935a48ef2c39688d8026c01e9e3939" prot="protected" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>_updateView</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1f351ee1a37e8fd2cee1ff8454796dbc1" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>_wrapItemChild</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1b6749ee9f77afb52f26204ffd86a3cad" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>addItem</name></member>
+      <member refid="classMyGUI_1_1Widget_1b390f48a62a30d529c901cf8cfa1c24c" prot="protected" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>assignWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_105110870f31f66a901b3b11737c194de" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>attachToWidget</name></member>
+      <member refid="classMyGUI_1_1MenuBar_17fd6986b9777be3e78d9ccbc6604ef41" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1Widget_1d88d7deb826efb660943ccb0bb457cae" prot="protected" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>baseCreateWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1d4c4a2cf2c3dd8b71126291a55e69139" prot="protected" virt="virtual"><scope>MyGUI::MenuBar</scope><name>baseUpdateEnable</name></member>
+      <member refid="classMyGUI_1_1Widget_1be74d6cc433da6140629423b120735a4" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>changeWidgetSkin</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1ae98b06985a9fff8451d72ff83668831" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>clearItemData</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1c48a3f1f2d19bbac92f39bdc811e8af7" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>clearItemDataAt</name></member>
+      <member refid="classMyGUI_1_1UserData_1f71561f766d83082a82cbdd6d218bd6b" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>clearUserString</name></member>
+      <member refid="classMyGUI_1_1UserData_154fecc1b40c23594c6518589b6912e49" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>clearUserStrings</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1d9e06cffa60ee2d7c2de63ac0ed814c9" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>createItemChild</name></member>
+      <member refid="classMyGUI_1_1MenuControl_18c97fa34197dcda7e9ae89f8baeed2bc" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>createItemChildAt</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1db570b6977a5095d7bbd00cbc4cc8eb1" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>createItemChildT</name></member>
+      <member refid="classMyGUI_1_1MenuControl_192f51fab3dfa5edaeadb7c3b2c1b880f" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>createItemChildTAt</name></member>
+      <member refid="classMyGUI_1_1Widget_1d66c5415fde332d5aab563402cffb09f" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_13a28d2e883ce82536b686ac992be672d" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1f8660295aafb142287644c239a313e53" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1721d33e78bb5c6ed975e8d41c8bdb683" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>createWidgetReal</name></member>
+      <member refid="classMyGUI_1_1Widget_1412c63af17890a8d43075782891b66ea" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>createWidgetReal</name></member>
+      <member refid="classMyGUI_1_1Widget_19ea260d13d1de5fb272e8fe3c6f6464c" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>createWidgetRealT</name></member>
+      <member refid="classMyGUI_1_1Widget_100fdb672b101caf560a07b86e67a72d4" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>createWidgetRealT</name></member>
+      <member refid="classMyGUI_1_1Widget_1b5d34f121420fbd4f439d7a8432d7755" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_12e74ae3d0a439f4edd509e73d4b2a083" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_1e26a4a5e8ea3fa4bafd969eb952d88e9" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_1c1c862389f772c52077fe4f2cf6568b5" prot="protected" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>destroySkinWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1056ac7afc041cf328037e210c742302f" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>detachFromWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_130efcbdb772c4a75f8208a99c4f9f34d" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>eventChangeProperty</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1c46c3f2a1945d199b73dc038d7b2a83b" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>eventMenuCtrlAccept</name></member>
+      <member refid="classMyGUI_1_1MenuControl_168173d67e6c5d09ff297fffcfe4537a2" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>eventMenuCtrlClose</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1367a60f146eedf13f7732b2b3990a2b6" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>findItemById</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1a80d0c0fdf28178fe431dc4b8d2f49b0" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>findItemIndex</name></member>
+      <member refid="classMyGUI_1_1MenuControl_157bc0dc8a089a63304ed68a3f9b222f4" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>findItemIndexWith</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1525e1074833687a1f0c70b72593e296c" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>findItemWith</name></member>
+      <member refid="classMyGUI_1_1Widget_1d054e1027a48f2ccb9af0179359dadc5" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>findWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1e6d193b99a9d69973922d1b8e0f0b70e" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>findWidgets</name></member>
+      <member refid="classMyGUI_1_1Widget_134cafbef78da90ca8fb6aca8964b337a" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_1db1d462f1145cafb358754c03cd3e7f2" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_1028535563d6d3666658d83e4d479fa6d" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getChildAt</name></member>
+      <member refid="classMyGUI_1_1Widget_195ebe8be9fd3d29f7fa8f7846515eeec" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getChildCount</name></member>
+      <member refid="classMyGUI_1_1MenuBar_111b90c93d55ae35bd1f861bf114b1950" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1Widget_15ffebc869b3b4c36e31178616b27fc86" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getClientCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1ac162cf5e6c51d487c71ae2e2d041352" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getClientWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_15cd729c40ad712c7036a0d3f6a2507b2" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1abfb5cf6661813f729bd30b4042e95d7" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getEnumerator</name></member>
+      <member refid="classMyGUI_1_1Widget_1c373e8170168b97491e777b99de0872b" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getInheritedEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1028a8ae99e47f513065ce3cbb11e4022" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getInheritedVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_1c2118d0bf46d9a7ec21c7aed9c7e71ca" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1be9ff7ec836d5b8681021b622e69ecd7" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getItemAt</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1e442d20d6218652c44c5c943d480f627" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getItemById</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1131e8e1cc0bc08c3ca2a883489e73dc4" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getItemChild</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1a03b37f25f4654a687a158413dbc2dc2" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getItemChildAt</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1ed6d2ee37d26b4d8c8c6d22f218d78ea" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getItemCount</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1cd60afac5b956b5c59fec30aeb439307" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getItemData</name></member>
+      <member refid="classMyGUI_1_1MenuControl_150d2f9400bdc05f89e6039e96addb1a8" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getItemDataAt</name></member>
+      <member refid="classMyGUI_1_1MenuControl_14615c8c0054fab4c38e94d4695d2db9d" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getItemId</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1532285bcb238cd4b54897fcd7374dc47" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getItemIdAt</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1c483adc46713df590cddcc4e9eedd09b" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getItemIndex</name></member>
+      <member refid="classMyGUI_1_1MenuControl_18b0b23d651869d8e709aa5d54d2ffb5f" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getItemIndexById</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1e91d8b49523bd3ede813f22a03b6228b" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getItemName</name></member>
+      <member refid="classMyGUI_1_1MenuControl_19db93a83afbf67f15469347793cb0f9f" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getItemNameAt</name></member>
+      <member refid="classMyGUI_1_1MenuControl_11a0c7dbd3231255e3caa08d718fb9ee0" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getItemType</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1553071931e0a331326a1a633f0d22e06" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getItemTypeAt</name></member>
+      <member refid="classMyGUI_1_1Widget_175cedb78192d81e9dd1cef4a6c7a9fe3" prot="protected" virt="virtual"><scope>MyGUI::MenuBar</scope><name>getLayerItemByPoint</name></member>
+      <member refid="classMyGUI_1_1Widget_13e00b99c46a0c1ebacf29604d503804d" prot="protected" virt="virtual"><scope>MyGUI::MenuBar</scope><name>getLayerItemCoord</name></member>
+      <member refid="classMyGUI_1_1MenuControl_12d69318c1a60561f7602e61b929425e6" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getMenuItemParent</name></member>
+      <member refid="classMyGUI_1_1Widget_1421a0e4eec959e8a5cd7f12ff459bfbf" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getName</name></member>
+      <member refid="classMyGUI_1_1Widget_174eb9e9819797e68a510a2ae6c3a410a" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getParent</name></member>
+      <member refid="classMyGUI_1_1Widget_1ee1378b1a9bd3db495cbea32f0a13e20" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getParentSize</name></member>
+      <member refid="classMyGUI_1_1MenuControl_157317439e3083772efcf7cf4efaca524" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getPopupAccept</name></member>
+      <member refid="classMyGUI_1_1Widget_14a6523e37fad5103ef5896bdf349861d" prot="protected" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getSkinWidgetsByName</name></member>
+      <member refid="classMyGUI_1_1MenuBar_1628d9c278ec8fc6d49e3b24c41eedc46" prot="public" virt="virtual"><scope>MyGUI::MenuBar</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1UserData_1eadd08cc61e475b95c588daf74789a06" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getUserData</name></member>
+      <member refid="classMyGUI_1_1UserData_17c62f7374453eaf6e5316ac369559c53" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getUserString</name></member>
+      <member refid="classMyGUI_1_1UserData_19bc43d45330305b52c5c3f0e9dffabab" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getUserStrings</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1179214394354f9c283c876dc2b0c69dd" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getVerticalAlignment</name></member>
+      <member refid="classMyGUI_1_1Widget_1fa7ad1d5a3213ee9f8c4567e6f3fdd7d" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_15accf9c998578f20adcec5987dc820f2" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>getWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1MenuControl_19b9095a8516d793794f5e76cb2afe0ed" prot="protected" virt="virtual"><scope>MyGUI::MenuBar</scope><name>initialiseOverride</name></member>
+      <member refid="classMyGUI_1_1MenuControl_130d6389c65fb67bcb0b7dc49c43f3e0f" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>insertItem</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1ed26a3443ef71e33420d32a62450fd7a" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>insertItemAt</name></member>
+      <member refid="classMyGUI_1_1Widget_1b3ec05a74f05236afb58855985781cd0" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>isRootWidget</name></member>
+      <member refid="classMyGUI_1_1MenuBar_1cfe4dbcb858c8c118bd201bc897d6cb0" prot="public" virt="virtual"><scope>MyGUI::MenuBar</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1MenuBar_1755007eb122f8e1c0a71c11083da043c" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1UserData_10bac17bc60b499cf0386ec3815d67f17" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>isUserString</name></member>
+      <member refid="classMyGUI_1_1MenuBar_1dfcb3feb612508bb7c1ec2c812b1161c" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>MenuBar</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1e2ac1482aa62dd86b9eedf2edd15c586" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>MenuControl</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1c0130d03c9a304827fb989f563defaf5" prot="protected" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>mHideByAccept</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1a4dfb7ab2112045d680807f23309c935" prot="protected" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>mHideByLostKey</name></member>
+      <member refid="classMyGUI_1_1MenuControl_19f3172c01cea8c14f5104bd682c23e12" prot="protected" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>mIsMenuDrop</name></member>
+      <member refid="classMyGUI_1_1MenuControl_15c3db26e5c7db2ab2179971ee29763bb" prot="protected" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>mMenuDropMode</name></member>
+      <member refid="classMyGUI_1_1MenuControl_140d8e61b93c24a2d2c44fbc768454364" prot="protected" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>mResizeToContent</name></member>
+      <member refid="classMyGUI_1_1MenuControl_11d1996110608dcddbd883090f7d16143" prot="protected" virt="virtual"><scope>MyGUI::MenuBar</scope><name>onKeyChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1820193a108fd0e982b96a19794402040" prot="protected" virt="virtual"><scope>MyGUI::MenuBar</scope><name>onWidgetCreated</name></member>
+      <member refid="classMyGUI_1_1Widget_1c64ffb617119185afaf5ef9650d4f9a5" prot="protected" virt="virtual"><scope>MyGUI::MenuBar</scope><name>onWidgetDestroy</name></member>
+      <member refid="classMyGUI_1_1MenuControl_10cc1a607ebbb405ea5aade7180aa0d73" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>removeAllItems</name></member>
+      <member refid="classMyGUI_1_1MenuControl_18554441eaf63c898c9daa6fff929b8f5" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>removeItem</name></member>
+      <member refid="classMyGUI_1_1MenuControl_153a2e9a3af85f2f883761789415dff30" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>removeItemAt</name></member>
+      <member refid="classMyGUI_1_1MenuControl_14c7e8137208e712867aac1bcf8626c8d" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>removeItemChild</name></member>
+      <member refid="classMyGUI_1_1MenuControl_189c440a6a1d00eb21de8bdacb56f2542" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>removeItemChildAt</name></member>
+      <member refid="classMyGUI_1_1MenuBar_105c842ec427658ce88aa9e0f0bffead4" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1Widget_1ebace37eedee14b3ff746b7a0085b993" prot="public" virt="virtual"><scope>MyGUI::MenuBar</scope><name>setAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_11204361b28430fa9a3b6927d6b4fe9ee" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_1cbf134e83d95f63ff7ba7f4b3596449f" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setColour</name></member>
+      <member refid="classMyGUI_1_1Widget_156333ae229f81cfdc9daa834599b96de" prot="public" virt="virtual"><scope>MyGUI::MenuBar</scope><name>setCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1745fbe9e4f3c2f798a021ae07498fc97" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1beda60b920b1808641169d8543171269" prot="public" virt="virtual"><scope>MyGUI::MenuBar</scope><name>setEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1f5a0bfe2b4f596d2dffdc7fcea5200b1" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setEnabledSilent</name></member>
+      <member refid="classMyGUI_1_1Widget_18b44677724faa4112312655e5feed8ae" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1fa9530dd679ee5142a297cfd83486934" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setItemChildVisible</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1c5efde70defe1ae8bc9c8e19566e2041" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setItemChildVisibleAt</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1a3fbd2e3bede93b02e84e34828333a9f" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setItemData</name></member>
+      <member refid="classMyGUI_1_1MenuControl_15b4a629da88ae470560890478eaeec3b" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setItemDataAt</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1f8f63613982fd2205d07babcf51e4b5f" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setItemId</name></member>
+      <member refid="classMyGUI_1_1MenuControl_15e80913fb7c0f26fdc5aaeca3f6a51cc" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setItemIdAt</name></member>
+      <member refid="classMyGUI_1_1MenuControl_139e46f972f10eece1102bcdac7c9392a" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setItemName</name></member>
+      <member refid="classMyGUI_1_1MenuControl_10256bfc313764ac74ea4cd723a83f8a1" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setItemNameAt</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1c9487440d1148c7d65316d6a71762ffe" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setItemType</name></member>
+      <member refid="classMyGUI_1_1MenuControl_19151feb3b6be12c38aadea58743f60d8" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setItemTypeAt</name></member>
+      <member refid="classMyGUI_1_1MenuControl_19b90b3a4a6fe4bba1feacb4a6c58af58" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setPopupAccept</name></member>
+      <member refid="classMyGUI_1_1Widget_1bf87d2b9d27a2543da8fc7daea6abf75" prot="public" virt="virtual"><scope>MyGUI::MenuBar</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_10463ede4342db8bc5ade2d78d77a142e" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_11a6ea7822f869b777800b0d351112e69" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setProperty</name></member>
+      <member refid="classMyGUI_1_1MenuControl_13c0dafd34e90ce6b38432dc582216640" prot="protected" virt="virtual"><scope>MyGUI::MenuBar</scope><name>setPropertyOverride</name></member>
+      <member refid="classMyGUI_1_1Widget_18833c303314683bbebadb154d337d3cb" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setRealCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1dfd8bd56bcecaee166bbfd12ff962f67" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setRealCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_15a5f7a24564bb6e04b48d0c524f0ef24" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setRealPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_1c963db4709c8dfc9e681dfccd5fb6524" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setRealPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_1d7fba1f9976c36eacb528d6db9213ddf" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1Widget_15d89ff45c4bc5f6158382067673903ba" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1Widget_1b8928099957173c4f58aee98d043faab" prot="public" virt="virtual"><scope>MyGUI::MenuBar</scope><name>setSize</name></member>
+      <member refid="classMyGUI_1_1Widget_12bdc82ea4f915b8d9b4b36c61b5a3915" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setSize</name></member>
+      <member refid="classMyGUI_1_1UserData_145916c0682a72614a1ed72a9efded82c" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setUserData</name></member>
+      <member refid="classMyGUI_1_1UserData_19630c47aa8d58cbc89628aad50725245" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setUserString</name></member>
+      <member refid="classMyGUI_1_1MenuControl_172abeadc817aa8d3b63e0a4b4ec719fd" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setVerticalAlignment</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1d326cf96ed9f9e64de08f31c6d09a333" prot="public" virt="virtual"><scope>MyGUI::MenuBar</scope><name>setVisible</name></member>
+      <member refid="classMyGUI_1_1MenuControl_190d84276e3e451a53ddbf4588e1fcfac" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setVisibleSmooth</name></member>
+      <member refid="classMyGUI_1_1Widget_1c717aa06253e913156a6d24fb3d4cbc4" prot="protected" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setWidgetClient</name></member>
+      <member refid="classMyGUI_1_1Widget_1372d21a0125ab28cc5c2c295290a2806" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>setWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1a849e593c9fb856ab1d5be8305f4110b" prot="protected" virt="virtual"><scope>MyGUI::MenuBar</scope><name>shutdownOverride</name></member>
+      <member refid="classMyGUI_1_1UserData_1108076068708e939519f9c775c2ae87b" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>UserData</name></member>
+      <member refid="classMyGUI_1_1MenuControl_1515859186a920d9122ffeaf5c4fe2aa0" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>VectorMenuItemInfo</name></member>
+      <member refid="classMyGUI_1_1Widget_1f4814618768bc07a685495895ca47b04" prot="public" virt="non-virtual"><scope>MyGUI::MenuBar</scope><name>Widget</name></member>
+      <member refid="classMyGUI_1_1UserData_1a970af2c1f39e0fa8801fd9defb06d84" prot="public" virt="virtual"><scope>MyGUI::MenuBar</scope><name>~UserData</name></member>
+      <member refid="classMyGUI_1_1Widget_18ff3c2a98bbea22f4f0191bcac54b643" prot="protected" virt="virtual"><scope>MyGUI::MenuBar</scope><name>~Widget</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

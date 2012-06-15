@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1delegates_1_1IDelegate1" kind="class" prot="public">
+    <compoundname>MyGUI::delegates::IDelegate1</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>TP1</declname>
+        <defname>TP1</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1IDelegate1_18c5d53274d08722b3d5f9f6ad733b135" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::delegates::IDelegate1&lt; TP1 &gt;::~IDelegate1</definition>
+        <argsstring>()</argsstring>
+        <name>~IDelegate1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="551" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="551" bodyend="551"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1IDelegate1_104c13f20c10387304f70e6962a818abc" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::delegates::IDelegate1&lt; TP1 &gt;::isType</definition>
+        <argsstring>(const std::type_info &amp;_type)=0</argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="553"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1IDelegate1_12b90754107ab81f58c60cdaf33b640a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::delegates::IDelegate1&lt; TP1 &gt;::invoke</definition>
+        <argsstring>(TP1 p1)=0</argsstring>
+        <name>invoke</name>
+        <param>
+          <type>TP1</type>
+          <declname>p1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="555"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1IDelegate1_16683af0ff7ba211fb874c7a3af036c6e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::delegates::IDelegate1&lt; TP1 &gt;::compare</definition>
+        <argsstring>(IDelegate1&lt; TP1 &gt; *_delegate) const =0</argsstring>
+        <name>compare</name>
+        <param>
+          <type>IDelegate1&lt; TP1 &gt; *</type>
+          <declname>_delegate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="556"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1IDelegate1_11a7f62e0696c977b065680f34ddf4265" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::delegates::IDelegate1&lt; TP1 &gt;::compare</definition>
+        <argsstring>(IDelegateUnlink *_unlink) const </argsstring>
+        <name>compare</name>
+        <param>
+          <type>IDelegateUnlink *</type>
+          <declname>_unlink</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="558" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="557" bodyend="560"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="549" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="548" bodyend="561"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegate1_16683af0ff7ba211fb874c7a3af036c6e" prot="public" virt="pure-virtual"><scope>MyGUI::delegates::IDelegate1</scope><name>compare</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegate1_11a7f62e0696c977b065680f34ddf4265" prot="public" virt="virtual"><scope>MyGUI::delegates::IDelegate1</scope><name>compare</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegate1_12b90754107ab81f58c60cdaf33b640a2" prot="public" virt="pure-virtual"><scope>MyGUI::delegates::IDelegate1</scope><name>invoke</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegate1_104c13f20c10387304f70e6962a818abc" prot="public" virt="pure-virtual"><scope>MyGUI::delegates::IDelegate1</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegate1_18c5d53274d08722b3d5f9f6ad733b135" prot="public" virt="virtual"><scope>MyGUI::delegates::IDelegate1</scope><name>~IDelegate1</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

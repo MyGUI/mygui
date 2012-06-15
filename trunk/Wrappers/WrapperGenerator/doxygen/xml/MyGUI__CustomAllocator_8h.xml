@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="MyGUI__CustomAllocator_8h" kind="file">
+    <compoundname>MyGUI_CustomAllocator.h</compoundname>
+    <includes local="no">memory</includes>
+    <includes local="no">limits</includes>
+    <includes local="no">OgrePrerequisites.h</includes>
+    <incdepgraph>
+      <node id="1416">
+        <label>limits</label>
+      </node>
+      <node id="1414">
+        <label>MyGUI_CustomAllocator.h</label>
+        <link refid="MyGUI_CustomAllocator.h"/>
+        <childnode refid="1415" relation="include">
+        </childnode>
+        <childnode refid="1416" relation="include">
+        </childnode>
+        <childnode refid="1417" relation="include">
+        </childnode>
+      </node>
+      <node id="1417">
+        <label>OgrePrerequisites.h</label>
+      </node>
+      <node id="1415">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="classMyGUI_1_1Allocator">MyGUI::Allocator</innerclass>
+    <innerclass refid="structMyGUI_1_1Allocator_1_1rebind">MyGUI::Allocator::rebind</innerclass>
+    <innernamespace refid="namespaceMyGUI">MyGUI</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Albert Semenov </para></simplesect>
+<simplesect kind="date"><para>05/2009 </para></simplesect>
+</para>    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_CustomAllocator.h"/>
+  </compounddef>
+</doxygen>

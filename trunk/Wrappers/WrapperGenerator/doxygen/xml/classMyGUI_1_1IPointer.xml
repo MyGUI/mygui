@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1IPointer" kind="class" prot="public">
+    <compoundname>MyGUI::IPointer</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1IPointer_10409e643f1f64f8dc5b726fefa0ae053" prot="public" static="no">
+        <type>RTTIBase</type>
+        <definition>typedef RTTIBase MyGUI::IPointer::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IPointer.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IPointer.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1IPointer_18c57684ea4ae2d5fa139aef3a70b8a9b" prot="public" static="no">
+        <type>IPointer</type>
+        <definition>typedef IPointer MyGUI::IPointer::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IPointer.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IPointer.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1IPointer_17fadad6ac43fbe90094cda0ee620dab9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::IPointer::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IPointer.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IPointer.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IPointer_18539c76208b2cde661c84d699de1a951" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::IPointer::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IPointer.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IPointer.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IPointer_1c49540e43bd2c949f1b50201ede19ff1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::IPointer::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IPointer.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IPointer.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IPointer_11ad728058951e83b9ee18bd25e7b9674" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::IPointer::IPointer</definition>
+        <argsstring>()</argsstring>
+        <name>IPointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IPointer.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IPointer.h" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IPointer_1b241e8b1c02c9670c1f79ee386ac2c65" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::IPointer::~IPointer</definition>
+        <argsstring>()</argsstring>
+        <name>~IPointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IPointer.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IPointer.h" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IPointer_1a058ca9bc983adf80a0a79f5e10b8368" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::IPointer::setImage</definition>
+        <argsstring>(ImageBox *_image)=0</argsstring>
+        <name>setImage</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1ImageBox" kindref="compound">ImageBox</ref> *</type>
+          <declname>_image</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IPointer.h" line="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IPointer_1b1625d9a36596bed49f553c7522701ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::IPointer::setPosition</definition>
+        <argsstring>(ImageBox *_image, const IntPoint &amp;_point)=0</argsstring>
+        <name>setPosition</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1ImageBox" kindref="compound">ImageBox</ref> *</type>
+          <declname>_image</declname>
+        </param>
+        <param>
+          <type>const IntPoint &amp;</type>
+          <declname>_point</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IPointer.h" line="41"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1IPointer_1423d68adaf3300d4833d667f9874873b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::IPointer::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IPointer.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IPointer.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IPointer.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IPointer.h" bodystart="31" bodyend="42"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1IPointer_10409e643f1f64f8dc5b726fefa0ae053" prot="public" virt="non-virtual"><scope>MyGUI::IPointer</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1IPointer_1423d68adaf3300d4833d667f9874873b" prot="public" virt="non-virtual"><scope>MyGUI::IPointer</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1IPointer_17fadad6ac43fbe90094cda0ee620dab9" prot="public" virt="virtual"><scope>MyGUI::IPointer</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1IPointer_11ad728058951e83b9ee18bd25e7b9674" prot="public" virt="non-virtual"><scope>MyGUI::IPointer</scope><name>IPointer</name></member>
+      <member refid="classMyGUI_1_1IPointer_18539c76208b2cde661c84d699de1a951" prot="public" virt="virtual"><scope>MyGUI::IPointer</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1IPointer_1c49540e43bd2c949f1b50201ede19ff1" prot="public" virt="non-virtual"><scope>MyGUI::IPointer</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1IPointer_18c57684ea4ae2d5fa139aef3a70b8a9b" prot="public" virt="non-virtual"><scope>MyGUI::IPointer</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1IPointer_1a058ca9bc983adf80a0a79f5e10b8368" prot="public" virt="pure-virtual"><scope>MyGUI::IPointer</scope><name>setImage</name></member>
+      <member refid="classMyGUI_1_1IPointer_1b1625d9a36596bed49f553c7522701ed" prot="public" virt="pure-virtual"><scope>MyGUI::IPointer</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1IPointer_1b241e8b1c02c9670c1f79ee386ac2c65" prot="public" virt="virtual"><scope>MyGUI::IPointer</scope><name>~IPointer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

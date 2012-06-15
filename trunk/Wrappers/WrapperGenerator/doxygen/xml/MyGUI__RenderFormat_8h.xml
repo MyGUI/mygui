@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="MyGUI__RenderFormat_8h" kind="file">
+    <compoundname>MyGUI_RenderFormat.h</compoundname>
+    <includes refid="MyGUI__Macros_8h" local="yes">MyGUI_Macros.h</includes>
+    <includedby refid="MyGUI__ITexture_8h" local="yes">MyGUI_ITexture.h</includedby>
+    <includedby refid="MyGUI__RenderManager_8h" local="yes">MyGUI_RenderManager.h</includedby>
+    <includedby refid="MyGUI__PolygonalSkin_8h" local="yes">MyGUI_PolygonalSkin.h</includedby>
+    <includedby refid="MyGUI__RotatingSkin_8h" local="yes">MyGUI_RotatingSkin.h</includedby>
+    <includedby refid="MyGUI__TextureUtility_8h" local="yes">MyGUI_TextureUtility.h</includedby>
+    <includedby refid="MyGUI__EditText_8h" local="yes">MyGUI_EditText.h</includedby>
+    <includedby refid="MyGUI__SubSkin_8h" local="yes">MyGUI_SubSkin.h</includedby>
+    <includedby refid="MyGUI__TileRect_8h" local="yes">MyGUI_TileRect.h</includedby>
+    <incdepgraph>
+      <node id="7529">
+        <label>limits</label>
+      </node>
+      <node id="7527">
+        <label>MyGUI_Platform.h</label>
+        <link refid="MyGUI__Platform_8h"/>
+      </node>
+      <node id="7528">
+        <label>MyGUI_DeprecatedTypes.h</label>
+        <link refid="MyGUI__DeprecatedTypes_8h"/>
+      </node>
+      <node id="7530">
+        <label>stddef.h</label>
+      </node>
+      <node id="7525">
+        <label>MyGUI_Macros.h</label>
+        <link refid="MyGUI__Macros_8h"/>
+        <childnode refid="7526" relation="include">
+        </childnode>
+        <childnode refid="7529" relation="include">
+        </childnode>
+        <childnode refid="7530" relation="include">
+        </childnode>
+      </node>
+      <node id="7524">
+        <label>MyGUI_RenderFormat.h</label>
+        <link refid="MyGUI_RenderFormat.h"/>
+        <childnode refid="7525" relation="include">
+        </childnode>
+      </node>
+      <node id="7526">
+        <label>MyGUI_Prerequest.h</label>
+        <link refid="MyGUI__Prerequest_8h"/>
+        <childnode refid="7527" relation="include">
+        </childnode>
+        <childnode refid="7528" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="7537">
+        <label>MyGUI_ResourceTrueTypeFont.h</label>
+        <link refid="MyGUI__ResourceTrueTypeFont_8h"/>
+      </node>
+      <node id="7543">
+        <label>MyGUI_EditText.h</label>
+        <link refid="MyGUI__EditText_8h"/>
+        <childnode refid="7544" relation="include">
+        </childnode>
+      </node>
+      <node id="7544">
+        <label>MyGUI_SimpleText.h</label>
+        <link refid="MyGUI__SimpleText_8h"/>
+      </node>
+      <node id="7541">
+        <label>MyGUI_CommonStateInfo.h</label>
+        <link refid="MyGUI__CommonStateInfo_8h"/>
+      </node>
+      <node id="7535">
+        <label>MyGUI_RenderManager.h</label>
+        <link refid="MyGUI__RenderManager_8h"/>
+        <childnode refid="7534" relation="include">
+        </childnode>
+      </node>
+      <node id="7542">
+        <label>MyGUI_TextView.h</label>
+        <link refid="MyGUI__TextView_8h"/>
+        <childnode refid="7543" relation="include">
+        </childnode>
+      </node>
+      <node id="7545">
+        <label>MyGUI_SubSkin.h</label>
+        <link refid="MyGUI__SubSkin_8h"/>
+        <childnode refid="7546" relation="include">
+        </childnode>
+      </node>
+      <node id="7539">
+        <label>MyGUI_RotatingSkin.h</label>
+        <link refid="MyGUI__RotatingSkin_8h"/>
+        <childnode refid="7534" relation="include">
+        </childnode>
+      </node>
+      <node id="7533">
+        <label>MyGUI_Canvas.h</label>
+        <link refid="MyGUI__Canvas_8h"/>
+        <childnode refid="7534" relation="include">
+        </childnode>
+      </node>
+      <node id="7532">
+        <label>MyGUI_ITexture.h</label>
+        <link refid="MyGUI__ITexture_8h"/>
+        <childnode refid="7533" relation="include">
+        </childnode>
+        <childnode refid="7535" relation="include">
+        </childnode>
+        <childnode refid="7536" relation="include">
+        </childnode>
+        <childnode refid="7537" relation="include">
+        </childnode>
+      </node>
+      <node id="7536">
+        <label>MyGUI_ResourceManualFont.h</label>
+        <link refid="MyGUI__ResourceManualFont_8h"/>
+      </node>
+      <node id="7534">
+        <label>MyGUI.h</label>
+        <link refid="MyGUI_8h"/>
+      </node>
+      <node id="7531">
+        <label>MyGUI_RenderFormat.h</label>
+        <link refid="MyGUI_RenderFormat.h"/>
+        <childnode refid="7532" relation="include">
+        </childnode>
+        <childnode refid="7535" relation="include">
+        </childnode>
+        <childnode refid="7538" relation="include">
+        </childnode>
+        <childnode refid="7539" relation="include">
+        </childnode>
+        <childnode refid="7540" relation="include">
+        </childnode>
+        <childnode refid="7543" relation="include">
+        </childnode>
+        <childnode refid="7545" relation="include">
+        </childnode>
+        <childnode refid="7547" relation="include">
+        </childnode>
+      </node>
+      <node id="7546">
+        <label>MyGUI_MainSkin.h</label>
+        <link refid="MyGUI__MainSkin_8h"/>
+      </node>
+      <node id="7540">
+        <label>MyGUI_TextureUtility.h</label>
+        <link refid="MyGUI__TextureUtility_8h"/>
+        <childnode refid="7534" relation="include">
+        </childnode>
+        <childnode refid="7541" relation="include">
+        </childnode>
+        <childnode refid="7542" relation="include">
+        </childnode>
+      </node>
+      <node id="7547">
+        <label>MyGUI_TileRect.h</label>
+        <link refid="MyGUI__TileRect_8h"/>
+      </node>
+      <node id="7538">
+        <label>MyGUI_PolygonalSkin.h</label>
+        <link refid="MyGUI__PolygonalSkin_8h"/>
+        <childnode refid="7534" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structMyGUI_1_1VertexColourType">MyGUI::VertexColourType</innerclass>
+    <innerclass refid="structMyGUI_1_1PixelFormat">MyGUI::PixelFormat</innerclass>
+    <innerclass refid="structMyGUI_1_1TextureUsage">MyGUI::TextureUsage</innerclass>
+    <innernamespace refid="namespaceMyGUI">MyGUI</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Albert Semenov </para></simplesect>
+<simplesect kind="date"><para>04/2009 </para></simplesect>
+</para>    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_RenderFormat.h"/>
+  </compounddef>
+</doxygen>

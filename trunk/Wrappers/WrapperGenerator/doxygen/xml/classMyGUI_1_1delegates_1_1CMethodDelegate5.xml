@@ -1,0 +1,232 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1delegates_1_1CMethodDelegate5" kind="class" prot="public">
+    <compoundname>MyGUI::delegates::CMethodDelegate5</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>T</declname>
+        <defname>T</defname>
+      </param>
+      <param>
+        <type>typename</type>
+        <declname>TP1</declname>
+        <defname>TP1</defname>
+      </param>
+      <param>
+        <type>typename</type>
+        <declname>TP2</declname>
+        <defname>TP2</defname>
+      </param>
+      <param>
+        <type>typename</type>
+        <declname>TP3</declname>
+        <defname>TP3</defname>
+      </param>
+      <param>
+        <type>typename</type>
+        <declname>TP4</declname>
+        <defname>TP4</defname>
+      </param>
+      <param>
+        <type>typename</type>
+        <declname>TP5</declname>
+        <defname>TP5</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1delegates_1_1CMethodDelegate5_18f29a0e5256b4fb28e47c686488709a0" prot="public" static="no">
+        <type>void(T::*</type>
+        <definition>typedef void(T::* MyGUI::delegates::CMethodDelegate5&lt; T, TP1, TP2, TP3, TP4, TP5 &gt;::Method)(TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5)</definition>
+        <argsstring>)(TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5)</argsstring>
+        <name>Method</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="2323" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="2323" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CMethodDelegate5_14ba316b0600012f64548b74ae5df7c65" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::delegates::CMethodDelegate5&lt; T, TP1, TP2, TP3, TP4, TP5 &gt;::CMethodDelegate5</definition>
+        <argsstring>(IDelegateUnlink *_unlink, T *_object, Method _method)</argsstring>
+        <name>CMethodDelegate5</name>
+        <param>
+          <type>IDelegateUnlink *</type>
+          <declname>_unlink</declname>
+        </param>
+        <param>
+          <type>T *</type>
+          <declname>_object</declname>
+        </param>
+        <param>
+          <type>Method</type>
+          <declname>_method</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="2325" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="2325" bodyend="2325"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CMethodDelegate5_119e1fcd3794c78422be462c71283e9e7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::delegates::CMethodDelegate5&lt; T, TP1, TP2, TP3, TP4, TP5 &gt;::isType</definition>
+        <argsstring>(const std::type_info &amp;_type)</argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="2329" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="2328" bodyend="2331"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CMethodDelegate5_1d71a31275bd6e194bd8dbeee45a64b22" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::delegates::CMethodDelegate5&lt; T, TP1, TP2, TP3, TP4, TP5 &gt;::invoke</definition>
+        <argsstring>(TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5)</argsstring>
+        <name>invoke</name>
+        <param>
+          <type>TP1</type>
+          <declname>p1</declname>
+        </param>
+        <param>
+          <type>TP2</type>
+          <declname>p2</declname>
+        </param>
+        <param>
+          <type>TP3</type>
+          <declname>p3</declname>
+        </param>
+        <param>
+          <type>TP4</type>
+          <declname>p4</declname>
+        </param>
+        <param>
+          <type>TP5</type>
+          <declname>p5</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="2335" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="2334" bodyend="2337"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CMethodDelegate5_11d0ddabee3f31fd5ea57889e588dff81" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::delegates::CMethodDelegate5&lt; T, TP1, TP2, TP3, TP4, TP5 &gt;::compare</definition>
+        <argsstring>(IDelegate5&lt; TP1, TP2, TP3, TP4, TP5 &gt; *_delegate) const </argsstring>
+        <name>compare</name>
+        <param>
+          <type>IDelegate5&lt; TP1, TP2, TP3, TP4, TP5 &gt; *</type>
+          <declname>_delegate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="2340" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="2339" bodyend="2349"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1CMethodDelegate5_156bcc4b7035f6314b55f1c1fe1fb7d24" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::delegates::CMethodDelegate5&lt; T, TP1, TP2, TP3, TP4, TP5 &gt;::compare</definition>
+        <argsstring>(IDelegateUnlink *_unlink) const </argsstring>
+        <name>compare</name>
+        <param>
+          <type>IDelegateUnlink *</type>
+          <declname>_unlink</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="2352" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="2351" bodyend="2354"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1delegates_1_1CMethodDelegate5_13d6fc11123d7c209192efed33a9c97c6" prot="private" static="no" mutable="no">
+        <type>IDelegateUnlink *</type>
+        <definition>IDelegateUnlink* MyGUI::delegates::CMethodDelegate5&lt; T, TP1, TP2, TP3, TP4, TP5 &gt;::mUnlink</definition>
+        <argsstring></argsstring>
+        <name>mUnlink</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="2357" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="2357" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1delegates_1_1CMethodDelegate5_17b0a0952baeecb56511d6bda0f63244b" prot="private" static="no" mutable="no">
+        <type>T *</type>
+        <definition>T* MyGUI::delegates::CMethodDelegate5&lt; T, TP1, TP2, TP3, TP4, TP5 &gt;::mObject</definition>
+        <argsstring></argsstring>
+        <name>mObject</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="2358" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="2358" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1delegates_1_1CMethodDelegate5_16db22f85bce45e95ebde243514e80b68" prot="private" static="no" mutable="no">
+        <type>Method</type>
+        <definition>Method MyGUI::delegates::CMethodDelegate5&lt; T, TP1, TP2, TP3, TP4, TP5 &gt;::mMethod</definition>
+        <argsstring></argsstring>
+        <name>mMethod</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="2359" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="2359" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="84">
+        <label>T</label>
+      </node>
+      <node id="83">
+        <label>MyGUI::delegates::CMethodDelegate5&lt; T, TP1, TP2, TP3, TP4, TP5 &gt;</label>
+        <childnode refid="84" relation="usage">
+          <edgelabel>mObject</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="2321" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="2320" bodyend="2360"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1delegates_1_1CMethodDelegate5_14ba316b0600012f64548b74ae5df7c65" prot="public" virt="non-virtual"><scope>MyGUI::delegates::CMethodDelegate5</scope><name>CMethodDelegate5</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMethodDelegate5_11d0ddabee3f31fd5ea57889e588dff81" prot="public" virt="virtual"><scope>MyGUI::delegates::CMethodDelegate5</scope><name>compare</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMethodDelegate5_156bcc4b7035f6314b55f1c1fe1fb7d24" prot="public" virt="virtual"><scope>MyGUI::delegates::CMethodDelegate5</scope><name>compare</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMethodDelegate5_1d71a31275bd6e194bd8dbeee45a64b22" prot="public" virt="virtual"><scope>MyGUI::delegates::CMethodDelegate5</scope><name>invoke</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMethodDelegate5_119e1fcd3794c78422be462c71283e9e7" prot="public" virt="virtual"><scope>MyGUI::delegates::CMethodDelegate5</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMethodDelegate5_18f29a0e5256b4fb28e47c686488709a0" prot="public" virt="non-virtual"><scope>MyGUI::delegates::CMethodDelegate5</scope><name>Method</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMethodDelegate5_16db22f85bce45e95ebde243514e80b68" prot="private" virt="non-virtual"><scope>MyGUI::delegates::CMethodDelegate5</scope><name>mMethod</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMethodDelegate5_17b0a0952baeecb56511d6bda0f63244b" prot="private" virt="non-virtual"><scope>MyGUI::delegates::CMethodDelegate5</scope><name>mObject</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1CMethodDelegate5_13d6fc11123d7c209192efed33a9c97c6" prot="private" virt="non-virtual"><scope>MyGUI::delegates::CMethodDelegate5</scope><name>mUnlink</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="namespaceMyGUI_1_1action" kind="namespace">
+    <compoundname>MyGUI::action</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceMyGUI_1_1action_1d13d5064712ad354599c96b397b3cf3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::action::actionWidgetHide</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>actionWidgetHide</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function used for hiding widget with one of controller event </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ActionController.h" line="36"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceMyGUI_1_1action_15245703a6aefad670abfedd2d63d6b7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::action::actionWidgetShow</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>actionWidgetShow</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function used for showing widget with one of controller event </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ActionController.h" line="39"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceMyGUI_1_1action_1eaba4225d6818a2ef0279c8b0634db2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::action::actionWidgetDestroy</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>actionWidgetDestroy</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function used for destroying widget with one of controller event </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ActionController.h" line="42"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceMyGUI_1_1action_1710678c0eb7376477692a42ceb64d155" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::action::linearMoveFunction</definition>
+        <argsstring>(const IntCoord &amp;_startRect, const IntCoord &amp;_destRect, IntCoord &amp;_result, float _k)</argsstring>
+        <name>linearMoveFunction</name>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_startRect</declname>
+        </param>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_destRect</declname>
+        </param>
+        <param>
+          <type>IntCoord &amp;</type>
+          <declname>_result</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function for <ref refid="classMyGUI_1_1ControllerPosition" kindref="compound">ControllerPosition</ref> per frame action : Move with constant speed </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ActionController.h" line="45"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceMyGUI_1_1action_1e25fc52ebc1746f3a3d47acfac4fd6b6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>int</type>
+            <declname>N</declname>
+            <defname>N</defname>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void MyGUI::action::acceleratedMoveFunction</definition>
+        <argsstring>(const IntCoord &amp;_startRect, const IntCoord &amp;_destRect, IntCoord &amp;_result, float _current_time)</argsstring>
+        <name>acceleratedMoveFunction</name>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_startRect</declname>
+        </param>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_destRect</declname>
+        </param>
+        <param>
+          <type>IntCoord &amp;</type>
+          <declname>_result</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_current_time</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function for <ref refid="classMyGUI_1_1ControllerPosition" kindref="compound">ControllerPosition</ref> per frame action : Move with accelerated speed if N == 10 then this function is same as linearMoveFunction if N &gt; 10 speed will be increasing if N &lt; 10 speed will be decreasing </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ActionController.h" line="54" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ActionController.h" bodystart="53" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceMyGUI_1_1action_10dcd6876aa4f9f7b0394d18a62154453" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>int</type>
+            <declname>N</declname>
+            <defname>N</defname>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void MyGUI::action::jumpMoveFunction</definition>
+        <argsstring>(const IntCoord &amp;_startRect, const IntCoord &amp;_destRect, IntCoord &amp;_result, float _current_time)</argsstring>
+        <name>jumpMoveFunction</name>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_startRect</declname>
+        </param>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_destRect</declname>
+        </param>
+        <param>
+          <type>IntCoord &amp;</type>
+          <declname>_result</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_current_time</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function for <ref refid="classMyGUI_1_1ControllerPosition" kindref="compound">ControllerPosition</ref> per frame action : Move with accelerated speed a bit farther than necessary and then return it back </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ActionController.h" line="62" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ActionController.h" bodystart="61" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceMyGUI_1_1action_19138314d92d27a8445d75ca553c26fe5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::action::inertionalMoveFunction</definition>
+        <argsstring>(const IntCoord &amp;_startRect, const IntCoord &amp;_destRect, IntCoord &amp;_result, float _current_time)</argsstring>
+        <name>inertionalMoveFunction</name>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_startRect</declname>
+        </param>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_destRect</declname>
+        </param>
+        <param>
+          <type>IntCoord &amp;</type>
+          <declname>_result</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_current_time</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function for <ref refid="classMyGUI_1_1ControllerPosition" kindref="compound">ControllerPosition</ref> per frame action : Start with zero speed increasing half time and then decreasing to zero </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ActionController.h" line="68"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ActionController.h" line="33"/>
+  </compounddef>
+</doxygen>

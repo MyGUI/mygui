@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1SubWidgetInfo" kind="struct" prot="public">
+    <compoundname>MyGUI::SubWidgetInfo</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMyGUI_1_1SubWidgetInfo_1badac4744958dee33cc9c6121d9ac2c6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::SubWidgetInfo::SubWidgetInfo</definition>
+        <argsstring>(const std::string &amp;_type, const IntCoord &amp;_coord, Align _align)</argsstring>
+        <name>SubWidgetInfo</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_coord</declname>
+        </param>
+        <param>
+          <type>Align</type>
+          <declname>_align</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetInfo.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetInfo.h" bodystart="34" bodyend="39"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1SubWidgetInfo_1849705548f0b4c43b5ff3f398a2c4318" prot="public" static="no" mutable="no">
+        <type>IntCoord</type>
+        <definition>IntCoord MyGUI::SubWidgetInfo::coord</definition>
+        <argsstring></argsstring>
+        <name>coord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetInfo.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetInfo.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1SubWidgetInfo_1e6be6f4170dbe891ffd81bc59c642960" prot="public" static="no" mutable="no">
+        <type>Align</type>
+        <definition>Align MyGUI::SubWidgetInfo::align</definition>
+        <argsstring></argsstring>
+        <name>align</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetInfo.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetInfo.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1SubWidgetInfo_18889c0ed5949fe6196675cf77e0d2806" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::SubWidgetInfo::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetInfo.h" line="44" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetInfo.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetInfo.h" line="32" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SubWidgetInfo.h" bodystart="31" bodyend="45"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1SubWidgetInfo_1e6be6f4170dbe891ffd81bc59c642960" prot="public" virt="non-virtual"><scope>MyGUI::SubWidgetInfo</scope><name>align</name></member>
+      <member refid="structMyGUI_1_1SubWidgetInfo_1849705548f0b4c43b5ff3f398a2c4318" prot="public" virt="non-virtual"><scope>MyGUI::SubWidgetInfo</scope><name>coord</name></member>
+      <member refid="structMyGUI_1_1SubWidgetInfo_1badac4744958dee33cc9c6121d9ac2c6" prot="public" virt="non-virtual"><scope>MyGUI::SubWidgetInfo</scope><name>SubWidgetInfo</name></member>
+      <member refid="structMyGUI_1_1SubWidgetInfo_18889c0ed5949fe6196675cf77e0d2806" prot="public" virt="non-virtual"><scope>MyGUI::SubWidgetInfo</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="MyGUI__ResourceImageSetData_8h" kind="file">
+    <compoundname>MyGUI_ResourceImageSetData.h</compoundname>
+    <includes refid="MyGUI__Prerequest_8h" local="yes">MyGUI_Prerequest.h</includes>
+    <includedby refid="MyGUI__ResourceImageSet_8h" local="yes">MyGUI_ResourceImageSet.h</includedby>
+    <incdepgraph>
+      <node id="7791">
+        <label>MyGUI_Platform.h</label>
+        <link refid="MyGUI__Platform_8h"/>
+      </node>
+      <node id="7792">
+        <label>MyGUI_DeprecatedTypes.h</label>
+        <link refid="MyGUI__DeprecatedTypes_8h"/>
+      </node>
+      <node id="7789">
+        <label>MyGUI_ResourceImageSetData.h</label>
+        <link refid="MyGUI_ResourceImageSetData.h"/>
+        <childnode refid="7790" relation="include">
+        </childnode>
+      </node>
+      <node id="7790">
+        <label>MyGUI_Prerequest.h</label>
+        <link refid="MyGUI__Prerequest_8h"/>
+        <childnode refid="7791" relation="include">
+        </childnode>
+        <childnode refid="7792" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="7794">
+        <label>MyGUI_ResourceImageSet.h</label>
+        <link refid="MyGUI__ResourceImageSet_8h"/>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7798" relation="include">
+        </childnode>
+      </node>
+      <node id="7797">
+        <label>MyGUI_PointerManager.h</label>
+        <link refid="MyGUI__PointerManager_8h"/>
+        <childnode refid="7796" relation="include">
+        </childnode>
+      </node>
+      <node id="7798">
+        <label>MyGUI_ResourceImageSetPointer.h</label>
+        <link refid="MyGUI__ResourceImageSetPointer_8h"/>
+      </node>
+      <node id="7796">
+        <label>MyGUI.h</label>
+        <link refid="MyGUI_8h"/>
+      </node>
+      <node id="7795">
+        <label>MyGUI_ImageBox.h</label>
+        <link refid="MyGUI__ImageBox_8h"/>
+        <childnode refid="7796" relation="include">
+        </childnode>
+        <childnode refid="7797" relation="include">
+        </childnode>
+      </node>
+      <node id="7793">
+        <label>MyGUI_ResourceImageSetData.h</label>
+        <link refid="MyGUI_ResourceImageSetData.h"/>
+        <childnode refid="7794" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structMyGUI_1_1IndexImage">MyGUI::IndexImage</innerclass>
+    <innerclass refid="structMyGUI_1_1GroupImage">MyGUI::GroupImage</innerclass>
+    <innernamespace refid="namespaceMyGUI">MyGUI</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Albert Semenov </para></simplesect>
+<simplesect kind="date"><para>09/2010 </para></simplesect>
+</para>    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ResourceImageSetData.h"/>
+  </compounddef>
+</doxygen>

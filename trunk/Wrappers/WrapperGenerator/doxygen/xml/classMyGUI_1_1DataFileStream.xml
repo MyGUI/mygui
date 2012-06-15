@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1DataFileStream" kind="class" prot="public">
+    <compoundname>MyGUI::DataFileStream</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1DataFileStream_1d7760f3a55c2a29f27d37b49331718ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::DataFileStream::DataFileStream</definition>
+        <argsstring>()</argsstring>
+        <name>DataFileStream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DataFileStream.h" line="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1DataFileStream_1c28560c0c7bca36e405f483b87569a63" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::DataFileStream::DataFileStream</definition>
+        <argsstring>(std::ifstream *_stream)</argsstring>
+        <name>DataFileStream</name>
+        <param>
+          <type>std::ifstream *</type>
+          <declname>_stream</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DataFileStream.h" line="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1DataFileStream_1ba4791220da52ad02b61d5abb91ca5ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::DataFileStream::~DataFileStream</definition>
+        <argsstring>()</argsstring>
+        <name>~DataFileStream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DataFileStream.h" line="37"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1DataFileStream_1dc3c9012c4e08993e45ca916f7841660" prot="private" static="no" mutable="no">
+        <type>std::ifstream *</type>
+        <definition>std::ifstream* MyGUI::DataFileStream::mFileStream</definition>
+        <argsstring></argsstring>
+        <name>mFileStream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DataFileStream.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DataFileStream.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DataFileStream.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DataFileStream.h" bodystart="31" bodyend="41"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1DataFileStream_1d7760f3a55c2a29f27d37b49331718ce" prot="public" virt="non-virtual"><scope>MyGUI::DataFileStream</scope><name>DataFileStream</name></member>
+      <member refid="classMyGUI_1_1DataFileStream_1c28560c0c7bca36e405f483b87569a63" prot="public" virt="non-virtual"><scope>MyGUI::DataFileStream</scope><name>DataFileStream</name></member>
+      <member refid="classMyGUI_1_1DataFileStream_1dc3c9012c4e08993e45ca916f7841660" prot="private" virt="non-virtual"><scope>MyGUI::DataFileStream</scope><name>mFileStream</name></member>
+      <member refid="classMyGUI_1_1DataFileStream_1ba4791220da52ad02b61d5abb91ca5ab" prot="public" virt="virtual"><scope>MyGUI::DataFileStream</scope><name>~DataFileStream</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

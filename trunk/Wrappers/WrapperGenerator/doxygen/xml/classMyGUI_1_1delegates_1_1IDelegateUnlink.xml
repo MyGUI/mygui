@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1delegates_1_1IDelegateUnlink" kind="class" prot="public">
+    <compoundname>MyGUI::delegates::IDelegateUnlink</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1IDelegateUnlink_12f7d8818258bb5ee2218ea20450b2997" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::delegates::IDelegateUnlink::~IDelegateUnlink</definition>
+        <argsstring>()</argsstring>
+        <name>~IDelegateUnlink</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="45" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1IDelegateUnlink_1533f51403b804e09b3c2e8eb6d5e679b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::delegates::IDelegateUnlink::IDelegateUnlink</definition>
+        <argsstring>()</argsstring>
+        <name>IDelegateUnlink</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="48" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="47" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1delegates_1_1IDelegateUnlink_1c6738433a415e2f37a5d3f927c0cc7fe" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::delegates::IDelegateUnlink::compare</definition>
+        <argsstring>(IDelegateUnlink *_unlink) const </argsstring>
+        <name>compare</name>
+        <param>
+          <type>IDelegateUnlink *</type>
+          <declname>_unlink</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="52" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="51" bodyend="54"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1delegates_1_1IDelegateUnlink_1862345b42f9a02548c4d3c2fd036d680" prot="private" static="no" mutable="no">
+        <type>IDelegateUnlink *</type>
+        <definition>IDelegateUnlink* MyGUI::delegates::IDelegateUnlink::m_baseDelegateUnlink</definition>
+        <argsstring></argsstring>
+        <name>m_baseDelegateUnlink</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="57" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Delegate.h" bodystart="42" bodyend="58"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_1c6738433a415e2f37a5d3f927c0cc7fe" prot="public" virt="non-virtual"><scope>MyGUI::delegates::IDelegateUnlink</scope><name>compare</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_1533f51403b804e09b3c2e8eb6d5e679b" prot="public" virt="non-virtual"><scope>MyGUI::delegates::IDelegateUnlink</scope><name>IDelegateUnlink</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_1862345b42f9a02548c4d3c2fd036d680" prot="private" virt="non-virtual"><scope>MyGUI::delegates::IDelegateUnlink</scope><name>m_baseDelegateUnlink</name></member>
+      <member refid="classMyGUI_1_1delegates_1_1IDelegateUnlink_12f7d8818258bb5ee2218ea20450b2997" prot="public" virt="virtual"><scope>MyGUI::delegates::IDelegateUnlink</scope><name>~IDelegateUnlink</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

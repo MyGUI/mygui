@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1ItemBox_1_1ItemDataInfo" kind="struct" prot="protected">
+    <compoundname>MyGUI::ItemBox::ItemDataInfo</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMyGUI_1_1ItemBox_1_1ItemDataInfo_132a740ee5606adebd39da4845df78901" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::ItemBox::ItemDataInfo::ItemDataInfo</definition>
+        <argsstring>(Any _data)</argsstring>
+        <name>ItemDataInfo</name>
+        <param>
+          <type>Any</type>
+          <declname>_data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ItemBox.h" line="214" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ItemBox.h" bodystart="213" bodyend="214"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1ItemBox_1_1ItemDataInfo_193e7648cabc225f23023099d633c0f9f" prot="public" static="no" mutable="no">
+        <type>Any</type>
+        <definition>Any MyGUI::ItemBox::ItemDataInfo::data</definition>
+        <argsstring></argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ItemBox.h" line="215" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ItemBox.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ItemBox.h" line="212" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ItemBox.h" bodystart="211" bodyend="216"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1ItemBox_1_1ItemDataInfo_193e7648cabc225f23023099d633c0f9f" prot="public" virt="non-virtual"><scope>MyGUI::ItemBox::ItemDataInfo</scope><name>data</name></member>
+      <member refid="structMyGUI_1_1ItemBox_1_1ItemDataInfo_132a740ee5606adebd39da4845df78901" prot="public" virt="non-virtual"><scope>MyGUI::ItemBox::ItemDataInfo</scope><name>ItemDataInfo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

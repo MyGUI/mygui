@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1IPlugin" kind="class" prot="public">
+    <compoundname>MyGUI::IPlugin</compoundname>
+    <includes local="no">MyGUI_Plugin.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1IPlugin_18bd4b0a2dc17ae9abdfad0d736650c17" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::IPlugin::IPlugin</definition>
+        <argsstring>()</argsstring>
+        <name>IPlugin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Plugin.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Plugin.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IPlugin_1889f111b3f1f4828ff05a58ba59a06d2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::IPlugin::~IPlugin</definition>
+        <argsstring>()</argsstring>
+        <name>~IPlugin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Plugin.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Plugin.h" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IPlugin_1e1a5365efc43d013f2d3e03d7f506ea9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::IPlugin::getName</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the name of the plugin. <simplesect kind="remark"><para>An implementation must be supplied for this method to uniquely identify the plugin </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Plugin.h" line="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IPlugin_109c932f6172153902ed79d4731c4f3a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::IPlugin::install</definition>
+        <argsstring>()=0</argsstring>
+        <name>install</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Perform the plugin initial installation sequence </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Plugin.h" line="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IPlugin_1664157f4bc63572a5cb13f84540d9b12" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::IPlugin::initialize</definition>
+        <argsstring>()=0</argsstring>
+        <name>initialize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Perform any tasks the plugin needs to perform on full system initialisation. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Plugin.h" line="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IPlugin_1b215447dbbfdcb145d30b3261f90d048" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::IPlugin::shutdown</definition>
+        <argsstring>()=0</argsstring>
+        <name>shutdown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Perform any tasks the plugin needs to perform when the system is shut down </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Plugin.h" line="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IPlugin_1fe7ed37b746b202e9dde7bea18c640ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::IPlugin::uninstall</definition>
+        <argsstring>()=0</argsstring>
+        <name>uninstall</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Perform the final plugin uninstallation sequence </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Plugin.h" line="60"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Base plugin class. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Plugin.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Plugin.h" bodystart="33" bodyend="61"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1IPlugin_1e1a5365efc43d013f2d3e03d7f506ea9" prot="public" virt="pure-virtual"><scope>MyGUI::IPlugin</scope><name>getName</name></member>
+      <member refid="classMyGUI_1_1IPlugin_1664157f4bc63572a5cb13f84540d9b12" prot="public" virt="pure-virtual"><scope>MyGUI::IPlugin</scope><name>initialize</name></member>
+      <member refid="classMyGUI_1_1IPlugin_109c932f6172153902ed79d4731c4f3a0" prot="public" virt="pure-virtual"><scope>MyGUI::IPlugin</scope><name>install</name></member>
+      <member refid="classMyGUI_1_1IPlugin_18bd4b0a2dc17ae9abdfad0d736650c17" prot="public" virt="non-virtual"><scope>MyGUI::IPlugin</scope><name>IPlugin</name></member>
+      <member refid="classMyGUI_1_1IPlugin_1b215447dbbfdcb145d30b3261f90d048" prot="public" virt="pure-virtual"><scope>MyGUI::IPlugin</scope><name>shutdown</name></member>
+      <member refid="classMyGUI_1_1IPlugin_1fe7ed37b746b202e9dde7bea18c640ce" prot="public" virt="pure-virtual"><scope>MyGUI::IPlugin</scope><name>uninstall</name></member>
+      <member refid="classMyGUI_1_1IPlugin_1889f111b3f1f4828ff05a58ba59a06d2" prot="public" virt="virtual"><scope>MyGUI::IPlugin</scope><name>~IPlugin</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

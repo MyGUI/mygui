@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1ILogFilter" kind="class" prot="public">
+    <compoundname>MyGUI::ILogFilter</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1ILogFilter_14105051060001bae270386fed87ea43e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::ILogFilter::~ILogFilter</definition>
+        <argsstring>()</argsstring>
+        <name>~ILogFilter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILogFilter.h" line="34" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILogFilter.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILogFilter_1797b1281a36e1285224c86f018e17580" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::ILogFilter::shouldLog</definition>
+        <argsstring>(const std::string &amp;_section, LogLevel _level, const struct tm *_time, const std::string &amp;_message, const char *_file, int _line)</argsstring>
+        <name>shouldLog</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_section</declname>
+        </param>
+        <param>
+          <type>LogLevel</type>
+          <declname>_level</declname>
+        </param>
+        <param>
+          <type>const struct tm *</type>
+          <declname>_time</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_message</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>_file</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_line</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Check if specific log message should be logged.<linebreak/>
+ For example some log listeners use only messages with high log level. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILogFilter.h" line="40" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILogFilter.h" bodystart="39" bodyend="42"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILogFilter.h" line="32" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILogFilter.h" bodystart="31" bodyend="43"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1ILogFilter_1797b1281a36e1285224c86f018e17580" prot="public" virt="virtual"><scope>MyGUI::ILogFilter</scope><name>shouldLog</name></member>
+      <member refid="classMyGUI_1_1ILogFilter_14105051060001bae270386fed87ea43e" prot="public" virt="virtual"><scope>MyGUI::ILogFilter</scope><name>~ILogFilter</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

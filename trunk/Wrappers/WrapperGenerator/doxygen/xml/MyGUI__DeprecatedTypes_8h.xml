@@ -1,0 +1,1903 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="MyGUI__DeprecatedTypes_8h" kind="file">
+    <compoundname>MyGUI_DeprecatedTypes.h</compoundname>
+    <includedby refid="MyGUI__Prerequest_8h" local="yes">MyGUI_Prerequest.h</includedby>
+    <includedby refid="MyGUI__DeprecatedWidgets_8h" local="yes">MyGUI_DeprecatedWidgets.h</includedby>
+    <invincdepgraph>
+      <node id="1972">
+        <label>MyGUI_WidgetTranslate.h</label>
+        <link refid="MyGUI__WidgetTranslate_8h"/>
+      </node>
+      <node id="1881">
+        <label>MyGUI_ResourceTrueTypeFont.h</label>
+        <link refid="MyGUI__ResourceTrueTypeFont_8h"/>
+      </node>
+      <node id="1890">
+        <label>MyGUI_WidgetToolTip.h</label>
+        <link refid="MyGUI__WidgetToolTip_8h"/>
+        <childnode refid="1891" relation="include">
+        </childnode>
+      </node>
+      <node id="1906">
+        <label>MyGUI_VertexData.h</label>
+        <link refid="MyGUI__VertexData_8h"/>
+        <childnode refid="1907" relation="include">
+        </childnode>
+        <childnode refid="1862" relation="include">
+        </childnode>
+        <childnode refid="1871" relation="include">
+        </childnode>
+      </node>
+      <node id="1919">
+        <label>MyGUI_Singleton.h</label>
+        <link refid="MyGUI__Singleton_8h"/>
+        <childnode refid="1812" relation="include">
+        </childnode>
+        <childnode refid="1894" relation="include">
+        </childnode>
+        <childnode refid="1850" relation="include">
+        </childnode>
+        <childnode refid="1849" relation="include">
+        </childnode>
+        <childnode refid="1857" relation="include">
+        </childnode>
+        <childnode refid="1920" relation="include">
+        </childnode>
+        <childnode refid="1903" relation="include">
+        </childnode>
+        <childnode refid="1855" relation="include">
+        </childnode>
+        <childnode refid="1847" relation="include">
+        </childnode>
+        <childnode refid="1858" relation="include">
+        </childnode>
+        <childnode refid="1856" relation="include">
+        </childnode>
+        <childnode refid="1835" relation="include">
+        </childnode>
+        <childnode refid="1859" relation="include">
+        </childnode>
+        <childnode refid="1921" relation="include">
+        </childnode>
+        <childnode refid="1905" relation="include">
+        </childnode>
+        <childnode refid="1860" relation="include">
+        </childnode>
+        <childnode refid="1908" relation="include">
+        </childnode>
+        <childnode refid="1888" relation="include">
+        </childnode>
+        <childnode refid="1902" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+        <childnode refid="1922" relation="include">
+        </childnode>
+      </node>
+      <node id="1939">
+        <label>MyGUI_FileLogListener.h</label>
+        <link refid="MyGUI__FileLogListener_8h"/>
+      </node>
+      <node id="1847">
+        <label>MyGUI_WidgetManager.h</label>
+        <link refid="MyGUI__WidgetManager_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1892">
+        <label>MyGUI_MaskPickInfo.h</label>
+        <link refid="MyGUI__MaskPickInfo_8h"/>
+        <childnode refid="1891" relation="include">
+        </childnode>
+        <childnode refid="1822" relation="include">
+        </childnode>
+      </node>
+      <node id="1867">
+        <label>MyGUI_ISubWidgetRect.h</label>
+        <link refid="MyGUI__ISubWidgetRect_8h"/>
+        <childnode refid="1852" relation="include">
+        </childnode>
+        <childnode refid="1868" relation="include">
+        </childnode>
+        <childnode refid="1869" relation="include">
+        </childnode>
+        <childnode refid="1864" relation="include">
+        </childnode>
+        <childnode refid="1866" relation="include">
+        </childnode>
+      </node>
+      <node id="1929">
+        <label>MyGUI_IObject.h</label>
+        <link refid="MyGUI__IObject_8h"/>
+        <childnode refid="1930" relation="include">
+        </childnode>
+        <childnode refid="1818" relation="include">
+        </childnode>
+        <childnode refid="1820" relation="include">
+        </childnode>
+        <childnode refid="1823" relation="include">
+        </childnode>
+        <childnode refid="1926" relation="include">
+        </childnode>
+        <childnode refid="1902" relation="include">
+        </childnode>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+      </node>
+      <node id="1882">
+        <label>MyGUI_IPointer.h</label>
+        <link refid="MyGUI__IPointer_8h"/>
+        <childnode refid="1835" relation="include">
+        </childnode>
+        <childnode refid="1854" relation="include">
+        </childnode>
+        <childnode refid="1883" relation="include">
+        </childnode>
+      </node>
+      <node id="1862">
+        <label>MyGUI_EditText.h</label>
+        <link refid="MyGUI__EditText_8h"/>
+        <childnode refid="1863" relation="include">
+        </childnode>
+      </node>
+      <node id="1938">
+        <label>MyGUI_ConsoleLogListener.h</label>
+        <link refid="MyGUI__ConsoleLogListener_8h"/>
+      </node>
+      <node id="1838">
+        <label>MyGUI_DDContainer.h</label>
+        <link refid="MyGUI__DDContainer_8h"/>
+        <childnode refid="1839" relation="include">
+        </childnode>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1856">
+        <label>MyGUI_FontManager.h</label>
+        <link refid="MyGUI__FontManager_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1828">
+        <label>MyGUI_MultiListBox.h</label>
+        <link refid="MyGUI__MultiListBox_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1959">
+        <label>MyGUI_ImageInfo.h</label>
+        <link refid="MyGUI__ImageInfo_8h"/>
+        <childnode refid="1853" relation="include">
+        </childnode>
+        <childnode refid="1834" relation="include">
+        </childnode>
+      </node>
+      <node id="1887">
+        <label>MyGUI_DataFileStream.h</label>
+        <link refid="MyGUI__DataFileStream_8h"/>
+      </node>
+      <node id="1852">
+        <label>MyGUI_SkinItem.h</label>
+        <link refid="MyGUI__SkinItem_8h"/>
+        <childnode refid="1823" relation="include">
+        </childnode>
+      </node>
+      <node id="1876">
+        <label>MyGUI_ResourceLayout.h</label>
+        <link refid="MyGUI__ResourceLayout_8h"/>
+        <childnode refid="1823" relation="include">
+        </childnode>
+        <childnode refid="1858" relation="include">
+        </childnode>
+      </node>
+      <node id="1941">
+        <label>MyGUI_TPoint.h</label>
+        <link refid="MyGUI__TPoint_8h"/>
+        <childnode refid="1814" relation="include">
+        </childnode>
+        <childnode refid="1942" relation="include">
+        </childnode>
+      </node>
+      <node id="1845">
+        <label>MyGUI_ScrollView.h</label>
+        <link refid="MyGUI__ScrollView_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1914">
+        <label>MyGUI_TextChangeHistory.h</label>
+        <link refid="MyGUI__TextChangeHistory_8h"/>
+        <childnode refid="1830" relation="include">
+        </childnode>
+        <childnode refid="1878" relation="include">
+        </childnode>
+      </node>
+      <node id="1943">
+        <label>MyGUI_TSize.h</label>
+        <link refid="MyGUI__TSize_8h"/>
+        <childnode refid="1814" relation="include">
+        </childnode>
+        <childnode refid="1942" relation="include">
+        </childnode>
+      </node>
+      <node id="1955">
+        <label>MyGUI_ILayerItem.h</label>
+        <link refid="MyGUI__ILayerItem_8h"/>
+        <childnode refid="1851" relation="include">
+        </childnode>
+      </node>
+      <node id="1903">
+        <label>MyGUI_ClipboardManager.h</label>
+        <link refid="MyGUI__ClipboardManager_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1893">
+        <label>MyGUI_Version.h</label>
+        <link refid="MyGUI__Version_8h"/>
+        <childnode refid="1818" relation="include">
+        </childnode>
+        <childnode refid="1875" relation="include">
+        </childnode>
+        <childnode refid="1894" relation="include">
+        </childnode>
+        <childnode refid="1859" relation="include">
+        </childnode>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+      </node>
+      <node id="1956">
+        <label>MyGUI_FontData.h</label>
+        <link refid="MyGUI__FontData_8h"/>
+        <childnode refid="1877" relation="include">
+        </childnode>
+      </node>
+      <node id="1836">
+        <label>MyGUI_TabControl.h</label>
+        <link refid="MyGUI__TabControl_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1831" relation="include">
+        </childnode>
+        <childnode refid="1833" relation="include">
+        </childnode>
+      </node>
+      <node id="1872">
+        <label>MyGUI_LayerNode.h</label>
+        <link refid="MyGUI__LayerNode_8h"/>
+        <childnode refid="1873" relation="include">
+        </childnode>
+      </node>
+      <node id="1841">
+        <label>MyGUI_PopupMenu.h</label>
+        <link refid="MyGUI__PopupMenu_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1970">
+        <label>MyGUI_TextViewData.h</label>
+        <link refid="MyGUI__TextViewData_8h"/>
+        <childnode refid="1879" relation="include">
+        </childnode>
+      </node>
+      <node id="1818">
+        <label>MyGUI_ISerializable.h</label>
+        <link refid="MyGUI__ISerializable_8h"/>
+        <childnode refid="1819" relation="include">
+        </childnode>
+        <childnode refid="1875" relation="include">
+        </childnode>
+        <childnode refid="1885" relation="include">
+        </childnode>
+        <childnode refid="1877" relation="include">
+        </childnode>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+      </node>
+      <node id="1927">
+        <label>MyGUI_ControllerFadeAlpha.h</label>
+        <link refid="MyGUI__ControllerFadeAlpha_8h"/>
+        <childnode refid="1827" relation="include">
+        </childnode>
+        <childnode refid="1836" relation="include">
+        </childnode>
+        <childnode refid="1832" relation="include">
+        </childnode>
+        <childnode refid="1840" relation="include">
+        </childnode>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+      </node>
+      <node id="1901">
+        <label>MyGUI_GenericFactory.h</label>
+        <link refid="MyGUI__GenericFactory_8h"/>
+        <childnode refid="1853" relation="include">
+        </childnode>
+        <childnode refid="1902" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+      </node>
+      <node id="1874">
+        <label>MyGUI_SharedLayer.h</label>
+        <link refid="MyGUI__SharedLayer_8h"/>
+      </node>
+      <node id="1870">
+        <label>MyGUI_ISubWidgetText.h</label>
+        <link refid="MyGUI__ISubWidgetText_8h"/>
+        <childnode refid="1852" relation="include">
+        </childnode>
+        <childnode refid="1862" relation="include">
+        </childnode>
+        <childnode refid="1863" relation="include">
+        </childnode>
+      </node>
+      <node id="1962">
+        <label>MyGUI_IBItemInfo.h</label>
+        <link refid="MyGUI__IBItemInfo_8h"/>
+        <childnode refid="1839" relation="include">
+        </childnode>
+      </node>
+      <node id="1902">
+        <label>MyGUI_FactoryManager.h</label>
+        <link refid="MyGUI__FactoryManager_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1839">
+        <label>MyGUI_ItemBox.h</label>
+        <link refid="MyGUI__ItemBox_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1863">
+        <label>MyGUI_SimpleText.h</label>
+        <link refid="MyGUI__SimpleText_8h"/>
+      </node>
+      <node id="1859">
+        <label>MyGUI_PluginManager.h</label>
+        <link refid="MyGUI__PluginManager_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1885">
+        <label>MyGUI_ILayer.h</label>
+        <link refid="MyGUI__ILayer_8h"/>
+        <childnode refid="1850" relation="include">
+        </childnode>
+        <childnode refid="1851" relation="include">
+        </childnode>
+        <childnode refid="1857" relation="include">
+        </childnode>
+        <childnode refid="1872" relation="include">
+        </childnode>
+        <childnode refid="1886" relation="include">
+        </childnode>
+        <childnode refid="1874" relation="include">
+        </childnode>
+      </node>
+      <node id="1832">
+        <label>MyGUI_Window.h</label>
+        <link refid="MyGUI__Window_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1967">
+        <label>MyGUI_Plugin.h</label>
+        <link refid="MyGUI__Plugin_8h"/>
+        <childnode refid="1859" relation="include">
+        </childnode>
+      </node>
+      <node id="1861">
+        <label>MyGUI_CommonStateInfo.h</label>
+        <link refid="MyGUI__CommonStateInfo_8h"/>
+      </node>
+      <node id="1969">
+        <label>MyGUI_Bitwise.h</label>
+        <link refid="MyGUI__Bitwise_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1958">
+        <label>MyGUI_FlowDirection.h</label>
+        <link refid="MyGUI__FlowDirection_8h"/>
+        <childnode refid="1827" relation="include">
+        </childnode>
+        <childnode refid="1837" relation="include">
+        </childnode>
+      </node>
+      <node id="1844">
+        <label>MyGUI_DeprecatedWidgets.h</label>
+        <link refid="MyGUI__DeprecatedWidgets_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1912">
+        <label>MyGUI_Align.h</label>
+        <link refid="MyGUI__Align_8h"/>
+        <childnode refid="1814" relation="include">
+        </childnode>
+        <childnode refid="1837" relation="include">
+        </childnode>
+      </node>
+      <node id="1857">
+        <label>MyGUI_InputManager.h</label>
+        <link refid="MyGUI__InputManager_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1908">
+        <label>MyGUI_RenderManager.h</label>
+        <link refid="MyGUI__RenderManager_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1853">
+        <label>MyGUI_ResourceImageSet.h</label>
+        <link refid="MyGUI__ResourceImageSet_8h"/>
+        <childnode refid="1834" relation="include">
+        </childnode>
+        <childnode refid="1854" relation="include">
+        </childnode>
+      </node>
+      <node id="1849">
+        <label>MyGUI_ResourceManager.h</label>
+        <link refid="MyGUI__ResourceManager_8h"/>
+        <childnode refid="1850" relation="include">
+        </childnode>
+        <childnode refid="1853" relation="include">
+        </childnode>
+        <childnode refid="1855" relation="include">
+        </childnode>
+        <childnode refid="1856" relation="include">
+        </childnode>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1936">
+        <label>MyGUI_LogLevel.h</label>
+        <link refid="MyGUI__LogLevel_8h"/>
+        <childnode refid="1934" relation="include">
+        </childnode>
+        <childnode refid="1937" relation="include">
+        </childnode>
+      </node>
+      <node id="1879">
+        <label>MyGUI_TextView.h</label>
+        <link refid="MyGUI__TextView_8h"/>
+        <childnode refid="1862" relation="include">
+        </childnode>
+      </node>
+      <node id="1822">
+        <label>MyGUI_ResourceSkin.h</label>
+        <link refid="MyGUI__ResourceSkin_8h"/>
+        <childnode refid="1823" relation="include">
+        </childnode>
+        <childnode refid="1848" relation="include">
+        </childnode>
+        <childnode refid="1852" relation="include">
+        </childnode>
+        <childnode refid="1855" relation="include">
+        </childnode>
+        <childnode refid="1862" relation="include">
+        </childnode>
+        <childnode refid="1864" relation="include">
+        </childnode>
+        <childnode refid="1866" relation="include">
+        </childnode>
+      </node>
+      <node id="1864">
+        <label>MyGUI_SubSkin.h</label>
+        <link refid="MyGUI__SubSkin_8h"/>
+        <childnode refid="1865" relation="include">
+        </childnode>
+      </node>
+      <node id="1971">
+        <label>MyGUI_GeometryUtility.h</label>
+        <link refid="MyGUI__GeometryUtility_8h"/>
+      </node>
+      <node id="1930">
+        <label>MyGUI_ILayerNode.h</label>
+        <link refid="MyGUI__ILayerNode_8h"/>
+        <childnode refid="1820" relation="include">
+        </childnode>
+        <childnode refid="1885" relation="include">
+        </childnode>
+        <childnode refid="1851" relation="include">
+        </childnode>
+        <childnode refid="1872" relation="include">
+        </childnode>
+      </node>
+      <node id="1869">
+        <label>MyGUI_RotatingSkin.h</label>
+        <link refid="MyGUI__RotatingSkin_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1820">
+        <label>MyGUI_ISubWidget.h</label>
+        <link refid="MyGUI__ISubWidget_8h"/>
+        <childnode refid="1821" relation="include">
+        </childnode>
+        <childnode refid="1851" relation="include">
+        </childnode>
+        <childnode refid="1867" relation="include">
+        </childnode>
+        <childnode refid="1870" relation="include">
+        </childnode>
+        <childnode refid="1871" relation="include">
+        </childnode>
+      </node>
+      <node id="1907">
+        <label>MyGUI_IVertexBuffer.h</label>
+        <link refid="MyGUI__IVertexBuffer_8h"/>
+        <childnode refid="1908" relation="include">
+        </childnode>
+        <childnode refid="1871" relation="include">
+        </childnode>
+      </node>
+      <node id="1951">
+        <label>MyGUI_RenderTargetInfo.h</label>
+        <link refid="MyGUI__RenderTargetInfo_8h"/>
+        <childnode refid="1950" relation="include">
+        </childnode>
+      </node>
+      <node id="1833">
+        <label>MyGUI_MultiListItem.h</label>
+        <link refid="MyGUI__MultiListItem_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1855">
+        <label>MyGUI_SkinManager.h</label>
+        <link refid="MyGUI__SkinManager_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1963">
+        <label>MyGUI_BiIndexBase.h</label>
+        <link refid="MyGUI__BiIndexBase_8h"/>
+        <childnode refid="1828" relation="include">
+        </childnode>
+      </node>
+      <node id="1846">
+        <label>MyGUI_Canvas.h</label>
+        <link refid="MyGUI__Canvas_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1916">
+        <label>MyGUI_ITexture.h</label>
+        <link refid="MyGUI__ITexture_8h"/>
+        <childnode refid="1846" relation="include">
+        </childnode>
+        <childnode refid="1908" relation="include">
+        </childnode>
+        <childnode refid="1880" relation="include">
+        </childnode>
+        <childnode refid="1881" relation="include">
+        </childnode>
+      </node>
+      <node id="1940">
+        <label>MyGUI_StringUtility.h</label>
+        <link refid="MyGUI__StringUtility_8h"/>
+        <childnode refid="1912" relation="include">
+        </childnode>
+        <childnode refid="1893" relation="include">
+        </childnode>
+        <childnode refid="1894" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+      </node>
+      <node id="1883">
+        <label>MyGUI_ResourceManualPointer.h</label>
+        <link refid="MyGUI__ResourceManualPointer_8h"/>
+      </node>
+      <node id="1848">
+        <label>MyGUI_BackwardCompatibility.h</label>
+        <link refid="MyGUI__BackwardCompatibility_8h"/>
+        <childnode refid="1849" relation="include">
+        </childnode>
+        <childnode refid="1850" relation="include">
+        </childnode>
+        <childnode refid="1823" relation="include">
+        </childnode>
+        <childnode refid="1812" relation="include">
+        </childnode>
+        <childnode refid="1857" relation="include">
+        </childnode>
+        <childnode refid="1855" relation="include">
+        </childnode>
+        <childnode refid="1847" relation="include">
+        </childnode>
+        <childnode refid="1858" relation="include">
+        </childnode>
+        <childnode refid="1856" relation="include">
+        </childnode>
+        <childnode refid="1835" relation="include">
+        </childnode>
+        <childnode refid="1859" relation="include">
+        </childnode>
+        <childnode refid="1860" relation="include">
+        </childnode>
+      </node>
+      <node id="1810">
+        <label>MyGUI_DeprecatedTypes.h</label>
+        <link refid="MyGUI_DeprecatedTypes.h"/>
+        <childnode refid="1811" relation="include">
+        </childnode>
+        <childnode refid="1844" relation="include">
+        </childnode>
+      </node>
+      <node id="1880">
+        <label>MyGUI_ResourceManualFont.h</label>
+        <link refid="MyGUI__ResourceManualFont_8h"/>
+      </node>
+      <node id="1851">
+        <label>MyGUI_LayerItem.h</label>
+        <link refid="MyGUI__LayerItem_8h"/>
+        <childnode refid="1852" relation="include">
+        </childnode>
+      </node>
+      <node id="1829">
+        <label>MyGUI_MenuItem.h</label>
+        <link refid="MyGUI__MenuItem_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1920">
+        <label>MyGUI_SubWidgetManager.h</label>
+        <link refid="MyGUI__SubWidgetManager_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1835">
+        <label>MyGUI_PointerManager.h</label>
+        <link refid="MyGUI__PointerManager_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1884">
+        <label>MyGUI_Precompiled.h</label>
+        <link refid="MyGUI__Precompiled_8h"/>
+      </node>
+      <node id="1860">
+        <label>MyGUI_LanguageManager.h</label>
+        <link refid="MyGUI__LanguageManager_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1861" relation="include">
+        </childnode>
+      </node>
+      <node id="1871">
+        <label>MyGUI_RenderItem.h</label>
+        <link refid="MyGUI__RenderItem_8h"/>
+        <childnode refid="1872" relation="include">
+        </childnode>
+      </node>
+      <node id="1942">
+        <label>MyGUI_TCoord.h</label>
+        <link refid="MyGUI__TCoord_8h"/>
+        <childnode refid="1814" relation="include">
+        </childnode>
+      </node>
+      <node id="1894">
+        <label>MyGUI_Common.h</label>
+        <link refid="MyGUI__Common_8h"/>
+        <childnode refid="1895" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+      </node>
+      <node id="1898">
+        <label>MyGUI_ScrollViewBase.h</label>
+        <link refid="MyGUI__ScrollViewBase_8h"/>
+        <childnode refid="1830" relation="include">
+        </childnode>
+        <childnode refid="1839" relation="include">
+        </childnode>
+        <childnode refid="1845" relation="include">
+        </childnode>
+      </node>
+      <node id="1924">
+        <label>MyGUI_WidgetUserData.h</label>
+        <link refid="MyGUI__WidgetUserData_8h"/>
+        <childnode refid="1823" relation="include">
+        </childnode>
+      </node>
+      <node id="1895">
+        <label>MyGUI_LayoutData.h</label>
+        <link refid="MyGUI__LayoutData_8h"/>
+        <childnode refid="1876" relation="include">
+        </childnode>
+      </node>
+      <node id="1854">
+        <label>MyGUI_ResourceImageSetPointer.h</label>
+        <link refid="MyGUI__ResourceImageSetPointer_8h"/>
+      </node>
+      <node id="1928">
+        <label>MyGUI_RTTI.h</label>
+        <link refid="MyGUI__RTTI_8h"/>
+        <childnode refid="1929" relation="include">
+        </childnode>
+      </node>
+      <node id="1935">
+        <label>MyGUI_LevelLogFilter.h</label>
+        <link refid="MyGUI__LevelLogFilter_8h"/>
+      </node>
+      <node id="1965">
+        <label>MyGUI_MenuItemType.h</label>
+        <link refid="MyGUI__MenuItemType_8h"/>
+        <childnode refid="1840" relation="include">
+        </childnode>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1918">
+        <label>MyGUI_LogManager.h</label>
+        <link refid="MyGUI__LogManager_8h"/>
+        <childnode refid="1917" relation="include">
+        </childnode>
+        <childnode refid="1894" relation="include">
+        </childnode>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+      </node>
+      <node id="1910">
+        <label>MyGUI_ControllerPosition.h</label>
+        <link refid="MyGUI__ControllerPosition_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+      </node>
+      <node id="1817">
+        <label>MyGUI_XmlDocument.h</label>
+        <link refid="MyGUI__XmlDocument_8h"/>
+        <childnode refid="1812" relation="include">
+        </childnode>
+        <childnode refid="1818" relation="include">
+        </childnode>
+        <childnode refid="1875" relation="include">
+        </childnode>
+        <childnode refid="1850" relation="include">
+        </childnode>
+        <childnode refid="1849" relation="include">
+        </childnode>
+        <childnode refid="1853" relation="include">
+        </childnode>
+        <childnode refid="1857" relation="include">
+        </childnode>
+        <childnode refid="1855" relation="include">
+        </childnode>
+        <childnode refid="1858" relation="include">
+        </childnode>
+        <childnode refid="1856" relation="include">
+        </childnode>
+        <childnode refid="1859" relation="include">
+        </childnode>
+        <childnode refid="1860" relation="include">
+        </childnode>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1862" relation="include">
+        </childnode>
+        <childnode refid="1864" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+        <childnode refid="1863" relation="include">
+        </childnode>
+        <childnode refid="1866" relation="include">
+        </childnode>
+      </node>
+      <node id="1947">
+        <label>MyGUI_MouseButton.h</label>
+        <link refid="MyGUI__MouseButton_8h"/>
+        <childnode refid="1891" relation="include">
+        </childnode>
+        <childnode refid="1894" relation="include">
+        </childnode>
+        <childnode refid="1848" relation="include">
+        </childnode>
+        <childnode refid="1857" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+      </node>
+      <node id="1932">
+        <label>MyGUI_LogStream.h</label>
+        <link refid="MyGUI__LogStream_8h"/>
+        <childnode refid="1918" relation="include">
+        </childnode>
+      </node>
+      <node id="1814">
+        <label>MyGUI_Types.h</label>
+        <link refid="MyGUI__Types_8h"/>
+        <childnode refid="1812" relation="include">
+        </childnode>
+        <childnode refid="1815" relation="include">
+        </childnode>
+        <childnode refid="1889" relation="include">
+        </childnode>
+        <childnode refid="1890" relation="include">
+        </childnode>
+        <childnode refid="1892" relation="include">
+        </childnode>
+        <childnode refid="1820" relation="include">
+        </childnode>
+        <childnode refid="1893" relation="include">
+        </childnode>
+        <childnode refid="1894" relation="include">
+        </childnode>
+        <childnode refid="1896" relation="include">
+        </childnode>
+        <childnode refid="1885" relation="include">
+        </childnode>
+        <childnode refid="1898" relation="include">
+        </childnode>
+        <childnode refid="1899" relation="include">
+        </childnode>
+        <childnode refid="1901" relation="include">
+        </childnode>
+        <childnode refid="1840" relation="include">
+        </childnode>
+        <childnode refid="1903" relation="include">
+        </childnode>
+        <childnode refid="1904" relation="include">
+        </childnode>
+        <childnode refid="1860" relation="include">
+        </childnode>
+        <childnode refid="1906" relation="include">
+        </childnode>
+        <childnode refid="1888" relation="include">
+        </childnode>
+        <childnode refid="1909" relation="include">
+        </childnode>
+        <childnode refid="1910" relation="include">
+        </childnode>
+        <childnode refid="1911" relation="include">
+        </childnode>
+        <childnode refid="1868" relation="include">
+        </childnode>
+        <childnode refid="1869" relation="include">
+        </childnode>
+        <childnode refid="1862" relation="include">
+        </childnode>
+        <childnode refid="1864" relation="include">
+        </childnode>
+        <childnode refid="1886" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+        <childnode refid="1874" relation="include">
+        </childnode>
+        <childnode refid="1863" relation="include">
+        </childnode>
+        <childnode refid="1866" relation="include">
+        </childnode>
+      </node>
+      <node id="1875">
+        <label>MyGUI_IResource.h</label>
+        <link refid="MyGUI__IResource_8h"/>
+        <childnode refid="1822" relation="include">
+        </childnode>
+        <childnode refid="1876" relation="include">
+        </childnode>
+        <childnode refid="1849" relation="include">
+        </childnode>
+        <childnode refid="1848" relation="include">
+        </childnode>
+        <childnode refid="1877" relation="include">
+        </childnode>
+        <childnode refid="1853" relation="include">
+        </childnode>
+        <childnode refid="1882" relation="include">
+        </childnode>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+      </node>
+      <node id="1899">
+        <label>MyGUI_Constants.h</label>
+        <link refid="MyGUI__Constants_8h"/>
+        <childnode refid="1900" relation="include">
+        </childnode>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1889">
+        <label>MyGUI_ICroppedRectangle.h</label>
+        <link refid="MyGUI__ICroppedRectangle_8h"/>
+        <childnode refid="1823" relation="include">
+        </childnode>
+        <childnode refid="1820" relation="include">
+        </childnode>
+        <childnode refid="1847" relation="include">
+        </childnode>
+      </node>
+      <node id="1878">
+        <label>MyGUI_TextIterator.h</label>
+        <link refid="MyGUI__TextIterator_8h"/>
+        <childnode refid="1830" relation="include">
+        </childnode>
+      </node>
+      <node id="1824">
+        <label>MyGUI_TextBox.h</label>
+        <link refid="MyGUI__TextBox_8h"/>
+        <childnode refid="1825" relation="include">
+        </childnode>
+        <childnode refid="1830" relation="include">
+        </childnode>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1831" relation="include">
+        </childnode>
+        <childnode refid="1832" relation="include">
+        </childnode>
+        <childnode refid="1833" relation="include">
+        </childnode>
+      </node>
+      <node id="1913">
+        <label>MyGUI_Macros.h</label>
+        <link refid="MyGUI__Macros_8h"/>
+        <childnode refid="1912" relation="include">
+        </childnode>
+        <childnode refid="1891" relation="include">
+        </childnode>
+        <childnode refid="1894" relation="include">
+        </childnode>
+        <childnode refid="1848" relation="include">
+        </childnode>
+        <childnode refid="1914" relation="include">
+        </childnode>
+        <childnode refid="1853" relation="include">
+        </childnode>
+        <childnode refid="1915" relation="include">
+        </childnode>
+        <childnode refid="1857" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+      </node>
+      <node id="1813">
+        <label>MyGUI.h</label>
+        <link refid="MyGUI_8h"/>
+      </node>
+      <node id="1944">
+        <label>MyGUI_TRect.h</label>
+        <link refid="MyGUI__TRect_8h"/>
+        <childnode refid="1814" relation="include">
+        </childnode>
+      </node>
+      <node id="1831">
+        <label>MyGUI_TabItem.h</label>
+        <link refid="MyGUI__TabItem_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1886">
+        <label>MyGUI_OverlappedLayer.h</label>
+        <link refid="MyGUI__OverlappedLayer_8h"/>
+      </node>
+      <node id="1937">
+        <label>MyGUI_ILogListener.h</label>
+        <link refid="MyGUI__ILogListener_8h"/>
+        <childnode refid="1933" relation="include">
+        </childnode>
+        <childnode refid="1938" relation="include">
+        </childnode>
+        <childnode refid="1939" relation="include">
+        </childnode>
+      </node>
+      <node id="1911">
+        <label>MyGUI_CoordConverter.h</label>
+        <link refid="MyGUI__CoordConverter_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1861" relation="include">
+        </childnode>
+      </node>
+      <node id="1819">
+        <label>MyGUI_IStateInfo.h</label>
+        <link refid="MyGUI__IStateInfo_8h"/>
+        <childnode refid="1820" relation="include">
+        </childnode>
+        <childnode refid="1861" relation="include">
+        </childnode>
+        <childnode refid="1864" relation="include">
+        </childnode>
+      </node>
+      <node id="1823">
+        <label>MyGUI_Widget.h</label>
+        <link refid="MyGUI__Widget_8h"/>
+        <childnode refid="1812" relation="include">
+        </childnode>
+        <childnode refid="1824" relation="include">
+        </childnode>
+        <childnode refid="1834" relation="include">
+        </childnode>
+        <childnode refid="1836" relation="include">
+        </childnode>
+        <childnode refid="1837" relation="include">
+        </childnode>
+        <childnode refid="1838" relation="include">
+        </childnode>
+        <childnode refid="1828" relation="include">
+        </childnode>
+        <childnode refid="1840" relation="include">
+        </childnode>
+        <childnode refid="1843" relation="include">
+        </childnode>
+        <childnode refid="1845" relation="include">
+        </childnode>
+        <childnode refid="1846" relation="include">
+        </childnode>
+        <childnode refid="1847" relation="include">
+        </childnode>
+      </node>
+      <node id="1915">
+        <label>MyGUI_RenderFormat.h</label>
+        <link refid="MyGUI__RenderFormat_8h"/>
+        <childnode refid="1916" relation="include">
+        </childnode>
+        <childnode refid="1908" relation="include">
+        </childnode>
+        <childnode refid="1868" relation="include">
+        </childnode>
+        <childnode refid="1869" relation="include">
+        </childnode>
+        <childnode refid="1897" relation="include">
+        </childnode>
+        <childnode refid="1862" relation="include">
+        </childnode>
+        <childnode refid="1864" relation="include">
+        </childnode>
+        <childnode refid="1866" relation="include">
+        </childnode>
+      </node>
+      <node id="1946">
+        <label>MyGUI_WidgetDefines.h</label>
+        <link refid="MyGUI__WidgetDefines_8h"/>
+        <childnode refid="1945" relation="include">
+        </childnode>
+        <childnode refid="1891" relation="include">
+        </childnode>
+        <childnode refid="1848" relation="include">
+        </childnode>
+        <childnode refid="1927" relation="include">
+        </childnode>
+        <childnode refid="1926" relation="include">
+        </childnode>
+        <childnode refid="1857" relation="include">
+        </childnode>
+        <childnode refid="1858" relation="include">
+        </childnode>
+        <childnode refid="1905" relation="include">
+        </childnode>
+        <childnode refid="1909" relation="include">
+        </childnode>
+        <childnode refid="1910" relation="include">
+        </childnode>
+      </node>
+      <node id="1964">
+        <label>MyGUI_ResizingPolicy.h</label>
+        <link refid="MyGUI__ResizingPolicy_8h"/>
+        <childnode refid="1828" relation="include">
+        </childnode>
+        <childnode refid="1833" relation="include">
+        </childnode>
+      </node>
+      <node id="1917">
+        <label>MyGUI_Diagnostic.h</label>
+        <link refid="MyGUI__Diagnostic_8h"/>
+        <childnode refid="1912" relation="include">
+        </childnode>
+        <childnode refid="1918" relation="include">
+        </childnode>
+        <childnode refid="1919" relation="include">
+        </childnode>
+        <childnode refid="1817" relation="include">
+        </childnode>
+        <childnode refid="1923" relation="include">
+        </childnode>
+        <childnode refid="1925" relation="include">
+        </childnode>
+        <childnode refid="1928" relation="include">
+        </childnode>
+        <childnode refid="1894" relation="include">
+        </childnode>
+      </node>
+      <node id="1891">
+        <label>MyGUI_WidgetInput.h</label>
+        <link refid="MyGUI__WidgetInput_8h"/>
+        <childnode refid="1823" relation="include">
+        </childnode>
+      </node>
+      <node id="1954">
+        <label>MyGUI_SubWidgetInfo.h</label>
+        <link refid="MyGUI__SubWidgetInfo_8h"/>
+        <childnode refid="1822" relation="include">
+        </childnode>
+      </node>
+      <node id="1905">
+        <label>MyGUI_ControllerManager.h</label>
+        <link refid="MyGUI__ControllerManager_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1925">
+        <label>MyGUI_Delegate.h</label>
+        <link refid="MyGUI__Delegate_8h"/>
+        <childnode refid="1891" relation="include">
+        </childnode>
+        <childnode refid="1894" relation="include">
+        </childnode>
+        <childnode refid="1849" relation="include">
+        </childnode>
+        <childnode refid="1926" relation="include">
+        </childnode>
+        <childnode refid="1901" relation="include">
+        </childnode>
+        <childnode refid="1857" relation="include">
+        </childnode>
+        <childnode refid="1860" relation="include">
+        </childnode>
+        <childnode refid="1910" relation="include">
+        </childnode>
+      </node>
+      <node id="1931">
+        <label>MyGUI_Exception.h</label>
+        <link refid="MyGUI__Exception_8h"/>
+        <childnode refid="1917" relation="include">
+        </childnode>
+      </node>
+      <node id="1909">
+        <label>MyGUI_ControllerEdgeHide.h</label>
+        <link refid="MyGUI__ControllerEdgeHide_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1830">
+        <label>MyGUI_EditBox.h</label>
+        <link refid="MyGUI__EditBox_8h"/>
+        <childnode refid="1827" relation="include">
+        </childnode>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1873">
+        <label>MyGUI_SharedLayerNode.h</label>
+        <link refid="MyGUI__SharedLayerNode_8h"/>
+        <childnode refid="1874" relation="include">
+        </childnode>
+      </node>
+      <node id="1968">
+        <label>MyGUI_DynLib.h</label>
+        <link refid="MyGUI__DynLib_8h"/>
+        <childnode refid="1859" relation="include">
+        </childnode>
+        <childnode refid="1921" relation="include">
+        </childnode>
+      </node>
+      <node id="1900">
+        <label>MyGUI_IItemContainer.h</label>
+        <link refid="MyGUI__IItemContainer_8h"/>
+        <childnode refid="1826" relation="include">
+        </childnode>
+        <childnode refid="1827" relation="include">
+        </childnode>
+        <childnode refid="1836" relation="include">
+        </childnode>
+        <childnode refid="1828" relation="include">
+        </childnode>
+        <childnode refid="1840" relation="include">
+        </childnode>
+      </node>
+      <node id="1815">
+        <label>MyGUI_IDataStream.h</label>
+        <link refid="MyGUI__IDataStream_8h"/>
+        <childnode refid="1816" relation="include">
+        </childnode>
+        <childnode refid="1888" relation="include">
+        </childnode>
+      </node>
+      <node id="1865">
+        <label>MyGUI_MainSkin.h</label>
+        <link refid="MyGUI__MainSkin_8h"/>
+      </node>
+      <node id="1888">
+        <label>MyGUI_DataManager.h</label>
+        <link refid="MyGUI__DataManager_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1949">
+        <label>MyGUI_EventPair.h</label>
+        <link refid="MyGUI__EventPair_8h"/>
+        <childnode refid="1891" relation="include">
+        </childnode>
+        <childnode refid="1830" relation="include">
+        </childnode>
+        <childnode refid="1826" relation="include">
+        </childnode>
+        <childnode refid="1827" relation="include">
+        </childnode>
+        <childnode refid="1836" relation="include">
+        </childnode>
+        <childnode refid="1832" relation="include">
+        </childnode>
+        <childnode refid="1838" relation="include">
+        </childnode>
+        <childnode refid="1839" relation="include">
+        </childnode>
+        <childnode refid="1828" relation="include">
+        </childnode>
+        <childnode refid="1840" relation="include">
+        </childnode>
+        <childnode refid="1844" relation="include">
+        </childnode>
+      </node>
+      <node id="1826">
+        <label>MyGUI_ListBox.h</label>
+        <link refid="MyGUI__ListBox_8h"/>
+        <childnode refid="1827" relation="include">
+        </childnode>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1828" relation="include">
+        </childnode>
+      </node>
+      <node id="1897">
+        <label>MyGUI_TextureUtility.h</label>
+        <link refid="MyGUI__TextureUtility_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1861" relation="include">
+        </childnode>
+        <childnode refid="1879" relation="include">
+        </childnode>
+      </node>
+      <node id="1834">
+        <label>MyGUI_ImageBox.h</label>
+        <link refid="MyGUI__ImageBox_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1835" relation="include">
+        </childnode>
+      </node>
+      <node id="1827">
+        <label>MyGUI_ComboBox.h</label>
+        <link refid="MyGUI__ComboBox_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1961">
+        <label>MyGUI_DDItemInfo.h</label>
+        <link refid="MyGUI__DDItemInfo_8h"/>
+        <childnode refid="1838" relation="include">
+        </childnode>
+      </node>
+      <node id="1843">
+        <label>MyGUI_ScrollBar.h</label>
+        <link refid="MyGUI__ScrollBar_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1844" relation="include">
+        </childnode>
+      </node>
+      <node id="1866">
+        <label>MyGUI_TileRect.h</label>
+        <link refid="MyGUI__TileRect_8h"/>
+      </node>
+      <node id="1922">
+        <label>MyGUI_ToolTipManager.h</label>
+        <link refid="MyGUI__ToolTipManager_8h"/>
+      </node>
+      <node id="1812">
+        <label>MyGUI_Gui.h</label>
+        <link refid="MyGUI__Gui_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1957">
+        <label>MyGUI_IItem.h</label>
+        <link refid="MyGUI__IItem_8h"/>
+        <childnode refid="1826" relation="include">
+        </childnode>
+        <childnode refid="1827" relation="include">
+        </childnode>
+        <childnode refid="1836" relation="include">
+        </childnode>
+        <childnode refid="1828" relation="include">
+        </childnode>
+        <childnode refid="1840" relation="include">
+        </childnode>
+        <childnode refid="1829" relation="include">
+        </childnode>
+      </node>
+      <node id="1904">
+        <label>MyGUI_ActionController.h</label>
+        <link refid="MyGUI__ActionController_8h"/>
+        <childnode refid="1905" relation="include">
+        </childnode>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+      </node>
+      <node id="1842">
+        <label>MyGUI_MenuBar.h</label>
+        <link refid="MyGUI__MenuBar_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1821">
+        <label>MyGUI_SubWidgetBinding.h</label>
+        <link refid="MyGUI__SubWidgetBinding_8h"/>
+        <childnode refid="1822" relation="include">
+        </childnode>
+      </node>
+      <node id="1858">
+        <label>MyGUI_LayoutManager.h</label>
+        <link refid="MyGUI__LayoutManager_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1877">
+        <label>MyGUI_IFont.h</label>
+        <link refid="MyGUI__IFont_8h"/>
+        <childnode refid="1878" relation="include">
+        </childnode>
+        <childnode refid="1856" relation="include">
+        </childnode>
+        <childnode refid="1862" relation="include">
+        </childnode>
+        <childnode refid="1879" relation="include">
+        </childnode>
+        <childnode refid="1880" relation="include">
+        </childnode>
+        <childnode refid="1881" relation="include">
+        </childnode>
+      </node>
+      <node id="1868">
+        <label>MyGUI_PolygonalSkin.h</label>
+        <link refid="MyGUI__PolygonalSkin_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1950">
+        <label>MyGUI_IRenderTarget.h</label>
+        <link refid="MyGUI__IRenderTarget_8h"/>
+        <childnode refid="1930" relation="include">
+        </childnode>
+        <childnode refid="1820" relation="include">
+        </childnode>
+        <childnode refid="1885" relation="include">
+        </childnode>
+        <childnode refid="1916" relation="include">
+        </childnode>
+        <childnode refid="1908" relation="include">
+        </childnode>
+        <childnode refid="1871" relation="include">
+        </childnode>
+      </node>
+      <node id="1952">
+        <label>MyGUI_ChildSkinInfo.h</label>
+        <link refid="MyGUI__ChildSkinInfo_8h"/>
+        <childnode refid="1822" relation="include">
+        </childnode>
+      </node>
+      <node id="1953">
+        <label>MyGUI_WidgetStyle.h</label>
+        <link refid="MyGUI__WidgetStyle_8h"/>
+        <childnode refid="1952" relation="include">
+        </childnode>
+        <childnode refid="1894" relation="include">
+        </childnode>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+      </node>
+      <node id="1921">
+        <label>MyGUI_DynLibManager.h</label>
+        <link refid="MyGUI__DynLibManager_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1850">
+        <label>MyGUI_LayerManager.h</label>
+        <link refid="MyGUI__LayerManager_8h"/>
+        <childnode refid="1851" relation="include">
+        </childnode>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1945">
+        <label>MyGUI_IUnlinkWidget.h</label>
+        <link refid="MyGUI__IUnlinkWidget_8h"/>
+        <childnode refid="1812" relation="include">
+        </childnode>
+        <childnode refid="1850" relation="include">
+        </childnode>
+        <childnode refid="1857" relation="include">
+        </childnode>
+        <childnode refid="1847" relation="include">
+        </childnode>
+        <childnode refid="1835" relation="include">
+        </childnode>
+        <childnode refid="1905" relation="include">
+        </childnode>
+        <childnode refid="1922" relation="include">
+        </childnode>
+      </node>
+      <node id="1816">
+        <label>MyGUI_DataStream.h</label>
+        <link refid="MyGUI__DataStream_8h"/>
+        <childnode refid="1817" relation="include">
+        </childnode>
+        <childnode refid="1887" relation="include">
+        </childnode>
+      </node>
+      <node id="1960">
+        <label>MyGUI_ResourceImageSetData.h</label>
+        <link refid="MyGUI__ResourceImageSetData_8h"/>
+        <childnode refid="1853" relation="include">
+        </childnode>
+      </node>
+      <node id="1840">
+        <label>MyGUI_MenuControl.h</label>
+        <link refid="MyGUI__MenuControl_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1829" relation="include">
+        </childnode>
+        <childnode refid="1841" relation="include">
+        </childnode>
+        <childnode refid="1842" relation="include">
+        </childnode>
+      </node>
+      <node id="1837">
+        <label>MyGUI_ProgressBar.h</label>
+        <link refid="MyGUI__ProgressBar_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+      </node>
+      <node id="1896">
+        <label>MyGUI_Colour.h</label>
+        <link refid="MyGUI__Colour_8h"/>
+        <childnode refid="1848" relation="include">
+        </childnode>
+        <childnode refid="1867" relation="include">
+        </childnode>
+        <childnode refid="1870" relation="include">
+        </childnode>
+        <childnode refid="1878" relation="include">
+        </childnode>
+        <childnode refid="1897" relation="include">
+        </childnode>
+      </node>
+      <node id="1825">
+        <label>MyGUI_Button.h</label>
+        <link refid="MyGUI__Button_8h"/>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1826" relation="include">
+        </childnode>
+        <childnode refid="1829" relation="include">
+        </childnode>
+      </node>
+      <node id="1934">
+        <label>MyGUI_ILogFilter.h</label>
+        <link refid="MyGUI__ILogFilter_8h"/>
+        <childnode refid="1933" relation="include">
+        </childnode>
+        <childnode refid="1935" relation="include">
+        </childnode>
+      </node>
+      <node id="1966">
+        <label>MyGUI_Timer.h</label>
+        <link refid="MyGUI__Timer_8h"/>
+        <childnode refid="1857" relation="include">
+        </childnode>
+      </node>
+      <node id="1933">
+        <label>MyGUI_LogSource.h</label>
+        <link refid="MyGUI__LogSource_8h"/>
+        <childnode refid="1918" relation="include">
+        </childnode>
+      </node>
+      <node id="1926">
+        <label>MyGUI_ControllerItem.h</label>
+        <link refid="MyGUI__ControllerItem_8h"/>
+        <childnode refid="1927" relation="include">
+        </childnode>
+        <childnode refid="1905" relation="include">
+        </childnode>
+        <childnode refid="1909" relation="include">
+        </childnode>
+        <childnode refid="1910" relation="include">
+        </childnode>
+      </node>
+      <node id="1811">
+        <label>MyGUI_Prerequest.h</label>
+        <link refid="MyGUI__Prerequest_8h"/>
+        <childnode refid="1812" relation="include">
+        </childnode>
+        <childnode refid="1814" relation="include">
+        </childnode>
+        <childnode refid="1912" relation="include">
+        </childnode>
+        <childnode refid="1913" relation="include">
+        </childnode>
+        <childnode refid="1917" relation="include">
+        </childnode>
+        <childnode refid="1931" relation="include">
+        </childnode>
+        <childnode refid="1918" relation="include">
+        </childnode>
+        <childnode refid="1932" relation="include">
+        </childnode>
+        <childnode refid="1933" relation="include">
+        </childnode>
+        <childnode refid="1934" relation="include">
+        </childnode>
+        <childnode refid="1936" relation="include">
+        </childnode>
+        <childnode refid="1937" relation="include">
+        </childnode>
+        <childnode refid="1940" relation="include">
+        </childnode>
+        <childnode refid="1941" relation="include">
+        </childnode>
+        <childnode refid="1943" relation="include">
+        </childnode>
+        <childnode refid="1944" relation="include">
+        </childnode>
+        <childnode refid="1942" relation="include">
+        </childnode>
+        <childnode refid="1817" relation="include">
+        </childnode>
+        <childnode refid="1816" relation="include">
+        </childnode>
+        <childnode refid="1815" relation="include">
+        </childnode>
+        <childnode refid="1945" relation="include">
+        </childnode>
+        <childnode refid="1946" relation="include">
+        </childnode>
+        <childnode refid="1823" relation="include">
+        </childnode>
+        <childnode refid="1923" relation="include">
+        </childnode>
+        <childnode refid="1889" relation="include">
+        </childnode>
+        <childnode refid="1924" relation="include">
+        </childnode>
+        <childnode refid="1891" relation="include">
+        </childnode>
+        <childnode refid="1890" relation="include">
+        </childnode>
+        <childnode refid="1947" relation="include">
+        </childnode>
+        <childnode refid="1948" relation="include">
+        </childnode>
+        <childnode refid="1892" relation="include">
+        </childnode>
+        <childnode refid="1949" relation="include">
+        </childnode>
+        <childnode refid="1822" relation="include">
+        </childnode>
+        <childnode refid="1821" relation="include">
+        </childnode>
+        <childnode refid="1820" relation="include">
+        </childnode>
+        <childnode refid="1930" relation="include">
+        </childnode>
+        <childnode refid="1929" relation="include">
+        </childnode>
+        <childnode refid="1928" relation="include">
+        </childnode>
+        <childnode refid="1950" relation="include">
+        </childnode>
+        <childnode refid="1951" relation="include">
+        </childnode>
+        <childnode refid="1819" relation="include">
+        </childnode>
+        <childnode refid="1818" relation="include">
+        </childnode>
+        <childnode refid="1893" relation="include">
+        </childnode>
+        <childnode refid="1952" relation="include">
+        </childnode>
+        <childnode refid="1953" relation="include">
+        </childnode>
+        <childnode refid="1875" relation="include">
+        </childnode>
+        <childnode refid="1954" relation="include">
+        </childnode>
+        <childnode refid="1876" relation="include">
+        </childnode>
+        <childnode refid="1895" relation="include">
+        </childnode>
+        <childnode refid="1894" relation="include">
+        </childnode>
+        <childnode refid="1852" relation="include">
+        </childnode>
+        <childnode refid="1851" relation="include">
+        </childnode>
+        <childnode refid="1850" relation="include">
+        </childnode>
+        <childnode refid="1849" relation="include">
+        </childnode>
+        <childnode refid="1848" relation="include">
+        </childnode>
+        <childnode refid="1896" relation="include">
+        </childnode>
+        <childnode refid="1885" relation="include">
+        </childnode>
+        <childnode refid="1955" relation="include">
+        </childnode>
+        <childnode refid="1867" relation="include">
+        </childnode>
+        <childnode refid="1870" relation="include">
+        </childnode>
+        <childnode refid="1825" relation="include">
+        </childnode>
+        <childnode refid="1824" relation="include">
+        </childnode>
+        <childnode refid="1827" relation="include">
+        </childnode>
+        <childnode refid="1830" relation="include">
+        </childnode>
+        <childnode refid="1914" relation="include">
+        </childnode>
+        <childnode refid="1878" relation="include">
+        </childnode>
+        <childnode refid="1877" relation="include">
+        </childnode>
+        <childnode refid="1956" relation="include">
+        </childnode>
+        <childnode refid="1898" relation="include">
+        </childnode>
+        <childnode refid="1826" relation="include">
+        </childnode>
+        <childnode refid="1957" relation="include">
+        </childnode>
+        <childnode refid="1900" relation="include">
+        </childnode>
+        <childnode refid="1899" relation="include">
+        </childnode>
+        <childnode refid="1927" relation="include">
+        </childnode>
+        <childnode refid="1926" relation="include">
+        </childnode>
+        <childnode refid="1958" relation="include">
+        </childnode>
+        <childnode refid="1834" relation="include">
+        </childnode>
+        <childnode refid="1853" relation="include">
+        </childnode>
+        <childnode refid="1959" relation="include">
+        </childnode>
+        <childnode refid="1901" relation="include">
+        </childnode>
+        <childnode refid="1960" relation="include">
+        </childnode>
+        <childnode refid="1836" relation="include">
+        </childnode>
+        <childnode refid="1831" relation="include">
+        </childnode>
+        <childnode refid="1832" relation="include">
+        </childnode>
+        <childnode refid="1837" relation="include">
+        </childnode>
+        <childnode refid="1839" relation="include">
+        </childnode>
+        <childnode refid="1838" relation="include">
+        </childnode>
+        <childnode refid="1961" relation="include">
+        </childnode>
+        <childnode refid="1962" relation="include">
+        </childnode>
+        <childnode refid="1828" relation="include">
+        </childnode>
+        <childnode refid="1963" relation="include">
+        </childnode>
+        <childnode refid="1964" relation="include">
+        </childnode>
+        <childnode refid="1840" relation="include">
+        </childnode>
+        <childnode refid="1965" relation="include">
+        </childnode>
+        <childnode refid="1829" relation="include">
+        </childnode>
+        <childnode refid="1841" relation="include">
+        </childnode>
+        <childnode refid="1842" relation="include">
+        </childnode>
+        <childnode refid="1843" relation="include">
+        </childnode>
+        <childnode refid="1845" relation="include">
+        </childnode>
+        <childnode refid="1846" relation="include">
+        </childnode>
+        <childnode refid="1916" relation="include">
+        </childnode>
+        <childnode refid="1833" relation="include">
+        </childnode>
+        <childnode refid="1857" relation="include">
+        </childnode>
+        <childnode refid="1966" relation="include">
+        </childnode>
+        <childnode refid="1920" relation="include">
+        </childnode>
+        <childnode refid="1903" relation="include">
+        </childnode>
+        <childnode refid="1855" relation="include">
+        </childnode>
+        <childnode refid="1847" relation="include">
+        </childnode>
+        <childnode refid="1858" relation="include">
+        </childnode>
+        <childnode refid="1856" relation="include">
+        </childnode>
+        <childnode refid="1835" relation="include">
+        </childnode>
+        <childnode refid="1882" relation="include">
+        </childnode>
+        <childnode refid="1859" relation="include">
+        </childnode>
+        <childnode refid="1967" relation="include">
+        </childnode>
+        <childnode refid="1968" relation="include">
+        </childnode>
+        <childnode refid="1921" relation="include">
+        </childnode>
+        <childnode refid="1905" relation="include">
+        </childnode>
+        <childnode refid="1904" relation="include">
+        </childnode>
+        <childnode refid="1860" relation="include">
+        </childnode>
+        <childnode refid="1908" relation="include">
+        </childnode>
+        <childnode refid="1907" relation="include">
+        </childnode>
+        <childnode refid="1906" relation="include">
+        </childnode>
+        <childnode refid="1888" relation="include">
+        </childnode>
+        <childnode refid="1902" relation="include">
+        </childnode>
+        <childnode refid="1909" relation="include">
+        </childnode>
+        <childnode refid="1910" relation="include">
+        </childnode>
+        <childnode refid="1911" relation="include">
+        </childnode>
+        <childnode refid="1868" relation="include">
+        </childnode>
+        <childnode refid="1869" relation="include">
+        </childnode>
+        <childnode refid="1897" relation="include">
+        </childnode>
+        <childnode refid="1969" relation="include">
+        </childnode>
+        <childnode refid="1861" relation="include">
+        </childnode>
+        <childnode refid="1938" relation="include">
+        </childnode>
+        <childnode refid="1887" relation="include">
+        </childnode>
+        <childnode refid="1862" relation="include">
+        </childnode>
+        <childnode refid="1879" relation="include">
+        </childnode>
+        <childnode refid="1970" relation="include">
+        </childnode>
+        <childnode refid="1939" relation="include">
+        </childnode>
+        <childnode refid="1971" relation="include">
+        </childnode>
+        <childnode refid="1872" relation="include">
+        </childnode>
+        <childnode refid="1871" relation="include">
+        </childnode>
+        <childnode refid="1935" relation="include">
+        </childnode>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1864" relation="include">
+        </childnode>
+        <childnode refid="1886" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+        <childnode refid="1854" relation="include">
+        </childnode>
+        <childnode refid="1880" relation="include">
+        </childnode>
+        <childnode refid="1883" relation="include">
+        </childnode>
+        <childnode refid="1881" relation="include">
+        </childnode>
+        <childnode refid="1874" relation="include">
+        </childnode>
+        <childnode refid="1873" relation="include">
+        </childnode>
+        <childnode refid="1863" relation="include">
+        </childnode>
+        <childnode refid="1866" relation="include">
+        </childnode>
+        <childnode refid="1922" relation="include">
+        </childnode>
+        <childnode refid="1972" relation="include">
+        </childnode>
+      </node>
+      <node id="1948">
+        <label>MyGUI_KeyCode.h</label>
+        <link refid="MyGUI__KeyCode_8h"/>
+        <childnode refid="1891" relation="include">
+        </childnode>
+        <childnode refid="1894" relation="include">
+        </childnode>
+        <childnode refid="1848" relation="include">
+        </childnode>
+        <childnode refid="1857" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+      </node>
+      <node id="1923">
+        <label>MyGUI_Any.h</label>
+        <link refid="MyGUI__Any_8h"/>
+        <childnode refid="1823" relation="include">
+        </childnode>
+        <childnode refid="1924" relation="include">
+        </childnode>
+        <childnode refid="1848" relation="include">
+        </childnode>
+        <childnode refid="1826" relation="include">
+        </childnode>
+        <childnode refid="1827" relation="include">
+        </childnode>
+        <childnode refid="1836" relation="include">
+        </childnode>
+        <childnode refid="1839" relation="include">
+        </childnode>
+        <childnode refid="1828" relation="include">
+        </childnode>
+        <childnode refid="1840" relation="include">
+        </childnode>
+        <childnode refid="1813" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classMyGUI_1_1MemberObsolete">MyGUI::MemberObsolete</innerclass>
+    <innernamespace refid="namespaceMyGUI">MyGUI</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Albert Semenov </para></simplesect>
+<simplesect kind="date"><para>08/2010 </para></simplesect>
+</para>    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DeprecatedTypes.h"/>
+  </compounddef>
+</doxygen>

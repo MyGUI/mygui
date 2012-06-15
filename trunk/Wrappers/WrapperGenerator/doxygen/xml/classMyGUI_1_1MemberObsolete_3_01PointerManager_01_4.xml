@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4" kind="class" prot="public">
+    <compoundname>MyGUI::MemberObsolete&lt; PointerManager &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4_1a1a9137477c9a29e1dd59d34a965dd95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; PointerManager &gt;::setDeafultPointer</definition>
+        <argsstring>(const std::string &amp;_value)</argsstring>
+        <name>setDeafultPointer</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000163"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="510"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4_17c15517daa02eae0298fe04ddf26ac6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; PointerManager &gt;::show</definition>
+        <argsstring>()</argsstring>
+        <name>show</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000164"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="512"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4_1627c27d656d0e26308ed8d6aa3059450" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; PointerManager &gt;::hide</definition>
+        <argsstring>()</argsstring>
+        <name>hide</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000165"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="514"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4_15eb4397eb38e1a26fcbc5ebd57e6c81d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::MemberObsolete&lt; PointerManager &gt;::isShow</definition>
+        <argsstring>()</argsstring>
+        <name>isShow</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000166"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="516"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4_1216fb40f7ba8fbd4bfd6b72753d969f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::MemberObsolete&lt; PointerManager &gt;::load</definition>
+        <argsstring>(const std::string &amp;_file)</argsstring>
+        <name>load</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000167"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="518"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="507" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="506" bodyend="519"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4_1627c27d656d0e26308ed8d6aa3059450" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; PointerManager &gt;</scope><name>hide</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4_15eb4397eb38e1a26fcbc5ebd57e6c81d" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; PointerManager &gt;</scope><name>isShow</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4_1216fb40f7ba8fbd4bfd6b72753d969f7" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; PointerManager &gt;</scope><name>load</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4_1a1a9137477c9a29e1dd59d34a965dd95" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; PointerManager &gt;</scope><name>setDeafultPointer</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01PointerManager_01_4_17c15517daa02eae0298fe04ddf26ac6c" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; PointerManager &gt;</scope><name>show</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

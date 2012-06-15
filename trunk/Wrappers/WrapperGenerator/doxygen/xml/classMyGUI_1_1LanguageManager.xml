@@ -1,0 +1,454 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1LanguageManager" kind="class" prot="public">
+    <compoundname>MyGUI::LanguageManager</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1LanguageManager_137addeb5a39620b760c7102020ab4691" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::LanguageManager::LanguageManager</definition>
+        <argsstring>()</argsstring>
+        <name>LanguageManager</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LanguageManager_170d498c92417640e6fb215244a9fc33b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LanguageManager::initialise</definition>
+        <argsstring>()</argsstring>
+        <name>initialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LanguageManager_1d80b97520759525bdee9885d7916e3d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LanguageManager::shutdown</definition>
+        <argsstring>()</argsstring>
+        <name>shutdown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LanguageManager_1ad14b5635a1d3f7491386a4b942fb0ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LanguageManager::setCurrentLanguage</definition>
+        <argsstring>(const std::string &amp;_name)</argsstring>
+        <name>setCurrentLanguage</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set current language for replacing #{} tags </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LanguageManager_167368995a4c12304c119bd65e254ffcf" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>const std::string&amp; MyGUI::LanguageManager::getCurrentLanguage</definition>
+        <argsstring>() const </argsstring>
+        <name>getCurrentLanguage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get current language </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LanguageManager_1f0efc19487c43cbcd7f9019c1d4c8d1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref></type>
+        <definition>UString MyGUI::LanguageManager::replaceTags</definition>
+        <argsstring>(const UString &amp;_line)</argsstring>
+        <name>replaceTags</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_line</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Replace all tags #{tagname} in _line with appropriate string dependent on current language or keep #{tagname} if &apos;tagname&apos; not found found </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LanguageManager_1e54809a4d313f382b33742ee136d4874" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref></type>
+        <definition>UString MyGUI::LanguageManager::getTag</definition>
+        <argsstring>(const UString &amp;_tag)</argsstring>
+        <name>getTag</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get tag value </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LanguageManager_18094c0d972f3bae4ad9efaa036f3fcc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LanguageManager::addUserTag</definition>
+        <argsstring>(const UString &amp;_tag, const UString &amp;_replace)</argsstring>
+        <name>addUserTag</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_tag</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_replace</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add user tag </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="58"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LanguageManager_16a08098de92b73bbaf8ec544ee8eb89f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LanguageManager::clearUserTags</definition>
+        <argsstring>()</argsstring>
+        <name>clearUserTags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Delete all user tags </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LanguageManager_1e3d6daba392a56e7bb001b91c66901a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::LanguageManager::loadUserTags</definition>
+        <argsstring>(const std::string &amp;_file)</argsstring>
+        <name>loadUserTags</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Load user tags </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="64"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1LanguageManager_1c7ba7d4470687d87415da8a1e94b2e9d" prot="public" static="no" mutable="no">
+        <type>delegates::CMultiDelegate1&lt; const std::string &amp; &gt;</type>
+        <definition>delegates::CMultiDelegate1&lt;const std::string&amp;&gt; MyGUI::LanguageManager::eventChangeLanguage</definition>
+        <argsstring></argsstring>
+        <name>eventChangeLanguage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Event : Change current language.<linebreak/>
+ signature : void method(const std::string&amp; _language); <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_language</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current language. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="71" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1LanguageManager_17251ad2ee8fa9226de89f0ee9b9ebd81" prot="public" static="no" mutable="no">
+        <type>delegates::CDelegate2&lt; const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;, <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp; &gt;</type>
+        <definition>delegates::CDelegate2&lt;const UString&amp;, UString&amp;&gt; MyGUI::LanguageManager::eventRequestTag</definition>
+        <argsstring></argsstring>
+        <name>eventRequestTag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Event : Request tag.<linebreak/>
+ signature : void method(const MyGUI::UString&amp; _tag, MyGUI::UString&amp; _result); <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_tag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tag than should be translated. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_result</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>String that should be placed instead specified tag. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>If this event is empty and _tag not found - &quot;#{_tag}&quot; used by default. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="80" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1LanguageManager_17f0f8e41e3e4264ce486b01991ae398e" prot="private" static="no">
+        <type>std::map&lt; <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref>, <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &gt;</type>
+        <definition>typedef std::map&lt;UString, UString&gt; MyGUI::LanguageManager::MapLanguageString</definition>
+        <argsstring></argsstring>
+        <name>MapLanguageString</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="92" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1LanguageManager_17cf3d98446bf6b33cfaf52b4793e45cf" prot="private" static="no">
+        <type>std::map&lt; std::string, VectorString &gt;</type>
+        <definition>typedef std::map&lt;std::string, VectorString&gt; MyGUI::LanguageManager::MapListString</definition>
+        <argsstring></argsstring>
+        <name>MapListString</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="99" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1LanguageManager_1c4bd45cc5e30f438407f8f5f8e632f6c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LanguageManager::_load</definition>
+        <argsstring>(xml::ElementPtr _node, const std::string &amp;_file, Version _version)</argsstring>
+        <name>_load</name>
+        <param>
+          <type>xml::ElementPtr</type>
+          <declname>_node</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_file</declname>
+        </param>
+        <param>
+          <type>Version</type>
+          <declname>_version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="83"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LanguageManager_175864ba90eb07ddc944cc8fa97182759" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::LanguageManager::loadLanguage</definition>
+        <argsstring>(const std::string &amp;_file, bool _user=false)</argsstring>
+        <name>loadLanguage</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_file</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_user</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LanguageManager_141f396d33fbc655499b3468c742c1635" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LanguageManager::_loadLanguage</definition>
+        <argsstring>(IDataStream *_stream, bool _user)</argsstring>
+        <name>_loadLanguage</name>
+        <param>
+          <type>IDataStream *</type>
+          <declname>_stream</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_user</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LanguageManager_1eba16a45a1665709dd052c9907191998" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::LanguageManager::_loadLanguageXML</definition>
+        <argsstring>(IDataStream *_stream, bool _user)</argsstring>
+        <name>_loadLanguageXML</name>
+        <param>
+          <type>IDataStream *</type>
+          <declname>_stream</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_user</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="87"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1LanguageManager_16e76260562bcf9eb47ec740020cde3b9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref></type>
+        <definition>UString MyGUI::LanguageManager::replaceTagsPass</definition>
+        <argsstring>(const UString &amp;_line, bool &amp;_replaceResult)</argsstring>
+        <name>replaceTagsPass</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_line</declname>
+        </param>
+        <param>
+          <type>bool &amp;</type>
+          <declname>_replaceResult</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="89"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1LanguageManager_11f43dcc2fd8ccaf7355b02a2f7ad3e1d" prot="private" static="no" mutable="no">
+        <type>MapLanguageString</type>
+        <definition>MapLanguageString MyGUI::LanguageManager::mMapLanguage</definition>
+        <argsstring></argsstring>
+        <name>mMapLanguage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="94" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1LanguageManager_1143ec9b8c182693ba1f840141ee082f5" prot="private" static="no" mutable="no">
+        <type>MapLanguageString</type>
+        <definition>MapLanguageString MyGUI::LanguageManager::mUserMapLanguage</definition>
+        <argsstring></argsstring>
+        <name>mUserMapLanguage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="95" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1LanguageManager_12c6f51c1bc5eaca59d0fbb61797a8c18" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::LanguageManager::mCurrentLanguageName</definition>
+        <argsstring></argsstring>
+        <name>mCurrentLanguageName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="97" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1LanguageManager_17ac42eab7ad17ba1bfdabe808508e9f6" prot="private" static="no" mutable="no">
+        <type>MapListString</type>
+        <definition>MapListString MyGUI::LanguageManager::mMapFile</definition>
+        <argsstring></argsstring>
+        <name>mMapFile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="100" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1LanguageManager_1bc3afc3441a994758ced92e908b78098" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::LanguageManager::mIsInitialise</definition>
+        <argsstring></argsstring>
+        <name>mIsInitialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="102" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_LanguageManager.h" bodystart="35" bodyend="103"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1LanguageManager_1c4bd45cc5e30f438407f8f5f8e632f6c" prot="private" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>_load</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_141f396d33fbc655499b3468c742c1635" prot="private" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>_loadLanguage</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_1eba16a45a1665709dd052c9907191998" prot="private" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>_loadLanguageXML</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_18094c0d972f3bae4ad9efaa036f3fcc2" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>addUserTag</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_16a08098de92b73bbaf8ec544ee8eb89f" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>clearUserTags</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_1c7ba7d4470687d87415da8a1e94b2e9d" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>eventChangeLanguage</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_17251ad2ee8fa9226de89f0ee9b9ebd81" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>eventRequestTag</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_167368995a4c12304c119bd65e254ffcf" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>getCurrentLanguage</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_1e54809a4d313f382b33742ee136d4874" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>getTag</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_170d498c92417640e6fb215244a9fc33b" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>initialise</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_137addeb5a39620b760c7102020ab4691" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>LanguageManager</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_175864ba90eb07ddc944cc8fa97182759" prot="private" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>loadLanguage</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_1e3d6daba392a56e7bb001b91c66901a7" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>loadUserTags</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_17f0f8e41e3e4264ce486b01991ae398e" prot="private" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>MapLanguageString</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_17cf3d98446bf6b33cfaf52b4793e45cf" prot="private" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>MapListString</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_12c6f51c1bc5eaca59d0fbb61797a8c18" prot="private" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>mCurrentLanguageName</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_1bc3afc3441a994758ced92e908b78098" prot="private" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>mIsInitialise</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_17ac42eab7ad17ba1bfdabe808508e9f6" prot="private" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>mMapFile</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_11f43dcc2fd8ccaf7355b02a2f7ad3e1d" prot="private" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>mMapLanguage</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_1143ec9b8c182693ba1f840141ee082f5" prot="private" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>mUserMapLanguage</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_1f0efc19487c43cbcd7f9019c1d4c8d1e" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>replaceTags</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_16e76260562bcf9eb47ec740020cde3b9" prot="private" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>replaceTagsPass</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_1ad14b5635a1d3f7491386a4b942fb0ba" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>setCurrentLanguage</name></member>
+      <member refid="classMyGUI_1_1LanguageManager_1d80b97520759525bdee9885d7916e3d0" prot="public" virt="non-virtual"><scope>MyGUI::LanguageManager</scope><name>shutdown</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

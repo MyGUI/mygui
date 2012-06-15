@@ -1,0 +1,595 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1ICroppedRectangle" kind="class" prot="public">
+    <compoundname>MyGUI::ICroppedRectangle</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_13b493ea3f8e5dcb4cc905da0b7c6dadf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::ICroppedRectangle::ICroppedRectangle</definition>
+        <argsstring>()</argsstring>
+        <name>ICroppedRectangle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="34" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_128f4ca979240bf4bb4363d84213b6041" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::ICroppedRectangle::~ICroppedRectangle</definition>
+        <argsstring>()</argsstring>
+        <name>~ICroppedRectangle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="39" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1b6b24667d7810f93d79a9fa7750d01ce" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ICroppedRectangle *</type>
+        <definition>ICroppedRectangle* MyGUI::ICroppedRectangle::getCroppedParent</definition>
+        <argsstring>()</argsstring>
+        <name>getCroppedParent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get parent ICroppedRectangle </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="42" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_116ad391f7e1d330688f3fb3c930a29cc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ICroppedRectangle::setPosition</definition>
+        <argsstring>(const IntPoint &amp;_value)</argsstring>
+        <name>setPosition</name>
+        <param>
+          <type>const IntPoint &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set position </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="49" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="48" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1c39e7573c3f9e647c70b849046b4f36b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ICroppedRectangle::setSize</definition>
+        <argsstring>(const IntSize &amp;_value)</argsstring>
+        <name>setSize</name>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set size </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="55" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="54" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1334b79bdf1d7b3956d28c31645666711" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ICroppedRectangle::setCoord</definition>
+        <argsstring>(const IntCoord &amp;_value)</argsstring>
+        <name>setCoord</name>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set coordinates (position and size) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="61" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="60" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1b8574746c63b6c512229f1022d497094" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>IntPoint</type>
+        <definition>IntPoint MyGUI::ICroppedRectangle::getPosition</definition>
+        <argsstring>() const </argsstring>
+        <name>getPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get position </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="67" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="66" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1f557c510d0af74ac6c2770253d52b303" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>IntSize</type>
+        <definition>IntSize MyGUI::ICroppedRectangle::getSize</definition>
+        <argsstring>() const </argsstring>
+        <name>getSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get size </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="72" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="71" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1a9cc9fbf580a3c77059f20fafcdb201f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const IntCoord &amp;</type>
+        <definition>const IntCoord&amp; MyGUI::ICroppedRectangle::getCoord</definition>
+        <argsstring>() const </argsstring>
+        <name>getCoord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get coordinates (position and size) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="77" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="76" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1a3ae7bcd46578b5082c21a41962c3db6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const IntPoint &amp;</type>
+        <definition>const IntPoint&amp; MyGUI::ICroppedRectangle::getAbsolutePosition</definition>
+        <argsstring>() const </argsstring>
+        <name>getAbsolutePosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get position in screen coordinates </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="83" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="82" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_16221e701b940cd07bb2a41c84099dfa1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>IntRect</type>
+        <definition>IntRect MyGUI::ICroppedRectangle::getAbsoluteRect</definition>
+        <argsstring>() const </argsstring>
+        <name>getAbsoluteRect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get rectangle in screen coordinates </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="88" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="87" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_183d89c16d41d05bb8772f362b516dd3b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>IntCoord</type>
+        <definition>IntCoord MyGUI::ICroppedRectangle::getAbsoluteCoord</definition>
+        <argsstring>() const </argsstring>
+        <name>getAbsoluteCoord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get coordinate in screen coordinates </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="93" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="92" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_19ac46efa204752d3d4a8495feaade9a0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ICroppedRectangle::getAbsoluteLeft</definition>
+        <argsstring>() const </argsstring>
+        <name>getAbsoluteLeft</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get X in screen coordinates </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="99" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="98" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_108f36d963cb1bbcc853ffaf8f576d306" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ICroppedRectangle::getAbsoluteTop</definition>
+        <argsstring>() const </argsstring>
+        <name>getAbsoluteTop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get Y in screen coordinates </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="104" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="103" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1753231d8f8981c59cf6a4c92609c35e6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ICroppedRectangle::getLeft</definition>
+        <argsstring>() const </argsstring>
+        <name>getLeft</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get left x-coordinate </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="110" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="109" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1c2ce3e30f89af0955e511c66e111cf93" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ICroppedRectangle::getRight</definition>
+        <argsstring>() const </argsstring>
+        <name>getRight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get right x-coordinate </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="115" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="114" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1ea03ec13020eb5016f3c17251a526ad9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ICroppedRectangle::getTop</definition>
+        <argsstring>() const </argsstring>
+        <name>getTop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get top y-coordinate </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="120" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="119" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1b0478e244c63d6201a748e371f237ae1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ICroppedRectangle::getBottom</definition>
+        <argsstring>() const </argsstring>
+        <name>getBottom</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get bottom y-coordinate </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="125" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="124" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_152c93ea7b7c89b708b855a4924df310b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ICroppedRectangle::getWidth</definition>
+        <argsstring>() const </argsstring>
+        <name>getWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get width </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="130" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="129" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1f5253c6b4dfb1107dd23b23fb1109413" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ICroppedRectangle::getHeight</definition>
+        <argsstring>() const </argsstring>
+        <name>getHeight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get height </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="135" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="134" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1e9ab842519de0d0d1ff6624c96a25aee" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::ICroppedRectangle::_isMargin</definition>
+        <argsstring>() const </argsstring>
+        <name>_isMargin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>True if rectangle is cropped by parent rectangle </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="143" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="142" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_19c87ba1cec7e29effd49a8aed37e4bbe" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ICroppedRectangle::_getViewLeft</definition>
+        <argsstring>() const </argsstring>
+        <name>_getViewLeft</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="149" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="148" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1ae878f922452310563bc53768acbee32" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ICroppedRectangle::_getViewRight</definition>
+        <argsstring>() const </argsstring>
+        <name>_getViewRight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="153" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="152" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_16f7f0a2960a331640aaee3a88fdc8a20" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ICroppedRectangle::_getViewTop</definition>
+        <argsstring>() const </argsstring>
+        <name>_getViewTop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="157" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="156" bodyend="159"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_13a7c73e8f4cc8dabcd76a5c6645900b9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ICroppedRectangle::_getViewBottom</definition>
+        <argsstring>() const </argsstring>
+        <name>_getViewBottom</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="161" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="160" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_10fb56854f3bb6d0f7f4f0e8f608fa37a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ICroppedRectangle::_getViewWidth</definition>
+        <argsstring>() const </argsstring>
+        <name>_getViewWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="165" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="164" bodyend="167"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1eaa2e53babcc2e3fdc8809f6eb8825bf" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ICroppedRectangle::_getViewHeight</definition>
+        <argsstring>() const </argsstring>
+        <name>_getViewHeight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="169" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="168" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1b7a33eeac6fd7e1ecc305decc2970249" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ICroppedRectangle::_setCroppedParent</definition>
+        <argsstring>(ICroppedRectangle *_parent)</argsstring>
+        <name>_setCroppedParent</name>
+        <param>
+          <type>ICroppedRectangle *</type>
+          <declname>_parent</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="174" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="173" bodyend="176"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1dd35646a24b80019d956bd8d9a8842e4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const IntRect &amp;</type>
+        <definition>const IntRect&amp; MyGUI::ICroppedRectangle::_getMargin</definition>
+        <argsstring>() const </argsstring>
+        <name>_getMargin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="179" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="178" bodyend="181"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1c389b55028cb6157b3832250de48cfe7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ICroppedRectangle::_getMarginLeft</definition>
+        <argsstring>() const </argsstring>
+        <name>_getMarginLeft</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="183" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="182" bodyend="185"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_11221b089abe10e18924bf5bb3209ac9f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ICroppedRectangle::_getMarginRight</definition>
+        <argsstring>() const </argsstring>
+        <name>_getMarginRight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="187" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="186" bodyend="189"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1f875bcc3f5e3292c646142460892f7a4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ICroppedRectangle::_getMarginTop</definition>
+        <argsstring>() const </argsstring>
+        <name>_getMarginTop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="191" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="190" bodyend="193"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1b883cc09bbd15914970fa6a3a155b261" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ICroppedRectangle::_getMarginBottom</definition>
+        <argsstring>() const </argsstring>
+        <name>_getMarginBottom</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="195" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="194" bodyend="197"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_140912f54a25901b779ea49094e5f4ae0" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::ICroppedRectangle::_checkMargin</definition>
+        <argsstring>()</argsstring>
+        <name>_checkMargin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="201" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="200" bodyend="248"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ICroppedRectangle_1093bbcae9343e7fe54fb4769652dfc2f" prot="protected" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::ICroppedRectangle::_checkOutside</definition>
+        <argsstring>() const </argsstring>
+        <name>_checkOutside</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="251" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="250" bodyend="256"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1ICroppedRectangle_125d27b33aeee62b852dc8009a7b942d7" prot="protected" static="no" mutable="no">
+        <type>IntRect</type>
+        <definition>IntRect MyGUI::ICroppedRectangle::mMargin</definition>
+        <argsstring></argsstring>
+        <name>mMargin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="259" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ICroppedRectangle_121be402c76c560b6568dc16c2f1e38a8" prot="protected" static="no" mutable="no">
+        <type>IntCoord</type>
+        <definition>IntCoord MyGUI::ICroppedRectangle::mCoord</definition>
+        <argsstring></argsstring>
+        <name>mCoord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="260" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ICroppedRectangle_17b7faec75fa09c72701f8ab0fd416182" prot="protected" static="no" mutable="no">
+        <type>IntPoint</type>
+        <definition>IntPoint MyGUI::ICroppedRectangle::mAbsolutePosition</definition>
+        <argsstring></argsstring>
+        <name>mAbsolutePosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="261" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ICroppedRectangle_10f0b7542dde743b020713654c50536ca" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::ICroppedRectangle::mIsMargin</definition>
+        <argsstring></argsstring>
+        <name>mIsMargin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="263" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ICroppedRectangle_15d10640ec8d1a14f75b4a6287d92de12" prot="protected" static="no" mutable="no">
+        <type>ICroppedRectangle *</type>
+        <definition>ICroppedRectangle* MyGUI::ICroppedRectangle::mCroppedParent</definition>
+        <argsstring></argsstring>
+        <name>mCroppedParent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="264" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" line="32" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ICroppedRectangle.h" bodystart="31" bodyend="265"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1ICroppedRectangle_140912f54a25901b779ea49094e5f4ae0" prot="protected" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>_checkMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1093bbcae9343e7fe54fb4769652dfc2f" prot="protected" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>_checkOutside</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1dd35646a24b80019d956bd8d9a8842e4" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>_getMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b883cc09bbd15914970fa6a3a155b261" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>_getMarginBottom</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1c389b55028cb6157b3832250de48cfe7" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>_getMarginLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_11221b089abe10e18924bf5bb3209ac9f" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>_getMarginRight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f875bcc3f5e3292c646142460892f7a4" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>_getMarginTop</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_13a7c73e8f4cc8dabcd76a5c6645900b9" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>_getViewBottom</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1eaa2e53babcc2e3fdc8809f6eb8825bf" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>_getViewHeight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_19c87ba1cec7e29effd49a8aed37e4bbe" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>_getViewLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1ae878f922452310563bc53768acbee32" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>_getViewRight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_16f7f0a2960a331640aaee3a88fdc8a20" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>_getViewTop</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_10fb56854f3bb6d0f7f4f0e8f608fa37a" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>_getViewWidth</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1e9ab842519de0d0d1ff6624c96a25aee" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>_isMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b7a33eeac6fd7e1ecc305decc2970249" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>_setCroppedParent</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_183d89c16d41d05bb8772f362b516dd3b" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>getAbsoluteCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_19ac46efa204752d3d4a8495feaade9a0" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>getAbsoluteLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1a3ae7bcd46578b5082c21a41962c3db6" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>getAbsolutePosition</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_16221e701b940cd07bb2a41c84099dfa1" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>getAbsoluteRect</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_108f36d963cb1bbcc853ffaf8f576d306" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>getAbsoluteTop</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b0478e244c63d6201a748e371f237ae1" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>getBottom</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1a9cc9fbf580a3c77059f20fafcdb201f" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>getCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b6b24667d7810f93d79a9fa7750d01ce" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>getCroppedParent</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f5253c6b4dfb1107dd23b23fb1109413" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>getHeight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1753231d8f8981c59cf6a4c92609c35e6" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>getLeft</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1b8574746c63b6c512229f1022d497094" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>getPosition</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1c2ce3e30f89af0955e511c66e111cf93" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>getRight</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1f557c510d0af74ac6c2770253d52b303" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>getSize</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1ea03ec13020eb5016f3c17251a526ad9" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>getTop</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_152c93ea7b7c89b708b855a4924df310b" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>getWidth</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_13b493ea3f8e5dcb4cc905da0b7c6dadf" prot="public" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>ICroppedRectangle</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_17b7faec75fa09c72701f8ab0fd416182" prot="protected" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>mAbsolutePosition</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_121be402c76c560b6568dc16c2f1e38a8" prot="protected" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>mCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_15d10640ec8d1a14f75b4a6287d92de12" prot="protected" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>mCroppedParent</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_10f0b7542dde743b020713654c50536ca" prot="protected" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>mIsMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_125d27b33aeee62b852dc8009a7b942d7" prot="protected" virt="non-virtual"><scope>MyGUI::ICroppedRectangle</scope><name>mMargin</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1334b79bdf1d7b3956d28c31645666711" prot="public" virt="virtual"><scope>MyGUI::ICroppedRectangle</scope><name>setCoord</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_116ad391f7e1d330688f3fb3c930a29cc" prot="public" virt="virtual"><scope>MyGUI::ICroppedRectangle</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_1c39e7573c3f9e647c70b849046b4f36b" prot="public" virt="virtual"><scope>MyGUI::ICroppedRectangle</scope><name>setSize</name></member>
+      <member refid="classMyGUI_1_1ICroppedRectangle_128f4ca979240bf4bb4363d84213b6041" prot="public" virt="virtual"><scope>MyGUI::ICroppedRectangle</scope><name>~ICroppedRectangle</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

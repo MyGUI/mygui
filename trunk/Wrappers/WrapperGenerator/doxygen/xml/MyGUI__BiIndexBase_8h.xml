@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="MyGUI__BiIndexBase_8h" kind="file">
+    <compoundname>MyGUI_BiIndexBase.h</compoundname>
+    <includes refid="MyGUI__Prerequest_8h" local="yes">MyGUI_Prerequest.h</includes>
+    <includedby refid="MyGUI__MultiListBox_8h" local="yes">MyGUI_MultiListBox.h</includedby>
+    <incdepgraph>
+      <node id="519">
+        <label>MyGUI_Platform.h</label>
+        <link refid="MyGUI__Platform_8h"/>
+      </node>
+      <node id="517">
+        <label>MyGUI_BiIndexBase.h</label>
+        <link refid="MyGUI_BiIndexBase.h"/>
+        <childnode refid="518" relation="include">
+        </childnode>
+      </node>
+      <node id="520">
+        <label>MyGUI_DeprecatedTypes.h</label>
+        <link refid="MyGUI__DeprecatedTypes_8h"/>
+      </node>
+      <node id="518">
+        <label>MyGUI_Prerequest.h</label>
+        <link refid="MyGUI__Prerequest_8h"/>
+        <childnode refid="519" relation="include">
+        </childnode>
+        <childnode refid="520" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="522">
+        <label>MyGUI_MultiListBox.h</label>
+        <link refid="MyGUI__MultiListBox_8h"/>
+        <childnode refid="523" relation="include">
+        </childnode>
+      </node>
+      <node id="521">
+        <label>MyGUI_BiIndexBase.h</label>
+        <link refid="MyGUI_BiIndexBase.h"/>
+        <childnode refid="522" relation="include">
+        </childnode>
+      </node>
+      <node id="523">
+        <label>MyGUI.h</label>
+        <link refid="MyGUI_8h"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classMyGUI_1_1BiIndexBase">MyGUI::BiIndexBase</innerclass>
+    <innernamespace refid="namespaceMyGUI">MyGUI</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Albert Semenov </para></simplesect>
+<simplesect kind="date"><para>10/2008 </para></simplesect>
+</para>    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BiIndexBase.h"/>
+  </compounddef>
+</doxygen>

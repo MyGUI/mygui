@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1TabControl_1_1TabItemInfo" kind="struct" prot="public">
+    <compoundname>MyGUI::TabControl::TabItemInfo</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMyGUI_1_1TabControl_1_1TabItemInfo_1143a4ee776e2e4c2b8070411c37e8252" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::TabControl::TabItemInfo::TabItemInfo</definition>
+        <argsstring>(int _width, const UString &amp;_name, TabItem *_item, Any _data)</argsstring>
+        <name>TabItemInfo</name>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <param>
+          <type><ref refid="classMyGUI_1_1TabItem" kindref="compound">TabItem</ref> *</type>
+          <declname>_item</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>_data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TabControl.h" line="62" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TabControl.h" bodystart="57" bodyend="63"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1TabControl_1_1TabItemInfo_10070a6cf5c90de2d7b5393f1947f6e4f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MyGUI::TabControl::TabItemInfo::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TabControl.h" line="65" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TabControl.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1TabControl_1_1TabItemInfo_114d213e3d233ab16d0e2e98f9894ba84" prot="public" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref></type>
+        <definition>UString MyGUI::TabControl::TabItemInfo::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TabControl.h" line="66" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TabControl.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1TabControl_1_1TabItemInfo_1215bce46b312d3a22043501e6ac37c6b" prot="public" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1TabItem" kindref="compound">TabItem</ref> *</type>
+        <definition>TabItem* MyGUI::TabControl::TabItemInfo::item</definition>
+        <argsstring></argsstring>
+        <name>item</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TabControl.h" line="67" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TabControl.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1TabControl_1_1TabItemInfo_1df87fdda55c7f3463a3011d512459399" prot="public" static="no" mutable="no">
+        <type>Any</type>
+        <definition>Any MyGUI::TabControl::TabItemInfo::data</definition>
+        <argsstring></argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TabControl.h" line="68" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TabControl.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="629">
+        <label>MyGUI::TabControl::TabItemInfo</label>
+        <childnode refid="630" relation="usage">
+          <edgelabel>item</edgelabel>
+        </childnode>
+        <childnode refid="634" relation="usage">
+          <edgelabel>name</edgelabel>
+        </childnode>
+      </node>
+      <node id="631">
+        <label>MyGUI::TextBox</label>
+        <link refid="classMyGUI_1_1TextBox"/>
+        <childnode refid="632" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="633">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="632">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="633" relation="public-inheritance">
+        </childnode>
+        <childnode refid="632" relation="usage">
+          <edgelabel>mContainer
+mParent
+mWidgetClient</edgelabel>
+        </childnode>
+      </node>
+      <node id="634">
+        <label>MyGUI::UString</label>
+        <link refid="classMyGUI_1_1UString"/>
+      </node>
+      <node id="630">
+        <label>MyGUI::TabItem</label>
+        <link refid="classMyGUI_1_1TabItem"/>
+        <childnode refid="631" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TabControl.h" line="56" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TabControl.h" bodystart="55" bodyend="69"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1TabControl_1_1TabItemInfo_1df87fdda55c7f3463a3011d512459399" prot="public" virt="non-virtual"><scope>MyGUI::TabControl::TabItemInfo</scope><name>data</name></member>
+      <member refid="structMyGUI_1_1TabControl_1_1TabItemInfo_1215bce46b312d3a22043501e6ac37c6b" prot="public" virt="non-virtual"><scope>MyGUI::TabControl::TabItemInfo</scope><name>item</name></member>
+      <member refid="structMyGUI_1_1TabControl_1_1TabItemInfo_114d213e3d233ab16d0e2e98f9894ba84" prot="public" virt="non-virtual"><scope>MyGUI::TabControl::TabItemInfo</scope><name>name</name></member>
+      <member refid="structMyGUI_1_1TabControl_1_1TabItemInfo_1143a4ee776e2e4c2b8070411c37e8252" prot="public" virt="non-virtual"><scope>MyGUI::TabControl::TabItemInfo</scope><name>TabItemInfo</name></member>
+      <member refid="structMyGUI_1_1TabControl_1_1TabItemInfo_10070a6cf5c90de2d7b5393f1947f6e4f" prot="public" virt="non-virtual"><scope>MyGUI::TabControl::TabItemInfo</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

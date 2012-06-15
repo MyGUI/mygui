@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="MyGUI__DynLib_8h" kind="file">
+    <compoundname>MyGUI_DynLib.h</compoundname>
+    <includes refid="MyGUI__Prerequest_8h" local="yes">MyGUI_Prerequest.h</includes>
+    <includes local="no">string</includes>
+    <includedby refid="MyGUI__PluginManager_8h" local="yes">MyGUI_PluginManager.h</includedby>
+    <includedby refid="MyGUI__DynLibManager_8h" local="yes">MyGUI_DynLibManager.h</includedby>
+    <incdepgraph>
+      <node id="2195">
+        <label>MyGUI_Platform.h</label>
+        <link refid="MyGUI__Platform_8h"/>
+      </node>
+      <node id="2197">
+        <label>string</label>
+      </node>
+      <node id="2196">
+        <label>MyGUI_DeprecatedTypes.h</label>
+        <link refid="MyGUI__DeprecatedTypes_8h"/>
+      </node>
+      <node id="2193">
+        <label>MyGUI_DynLib.h</label>
+        <link refid="MyGUI_DynLib.h"/>
+        <childnode refid="2194" relation="include">
+        </childnode>
+        <childnode refid="2197" relation="include">
+        </childnode>
+      </node>
+      <node id="2194">
+        <label>MyGUI_Prerequest.h</label>
+        <link refid="MyGUI__Prerequest_8h"/>
+        <childnode refid="2195" relation="include">
+        </childnode>
+        <childnode refid="2196" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2199">
+        <label>MyGUI_PluginManager.h</label>
+        <link refid="MyGUI__PluginManager_8h"/>
+        <childnode refid="2200" relation="include">
+        </childnode>
+      </node>
+      <node id="2200">
+        <label>MyGUI.h</label>
+        <link refid="MyGUI_8h"/>
+      </node>
+      <node id="2198">
+        <label>MyGUI_DynLib.h</label>
+        <link refid="MyGUI_DynLib.h"/>
+        <childnode refid="2199" relation="include">
+        </childnode>
+        <childnode refid="2201" relation="include">
+        </childnode>
+      </node>
+      <node id="2201">
+        <label>MyGUI_DynLibManager.h</label>
+        <link refid="MyGUI__DynLibManager_8h"/>
+        <childnode refid="2200" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classMyGUI_1_1DynLib">MyGUI::DynLib</innerclass>
+    <innernamespace refid="namespaceMyGUI">MyGUI</innernamespace>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="MyGUI__DynLib_8h_1bfc115060beb5f49f224d0e40e9d12b3" prot="public" static="no">
+        <name>MYGUI_DYNLIB_HANDLE</name>
+        <initializer>void*</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="MyGUI__DynLib_8h_12d3a26024b543bd938ac5aebe57d0c73" prot="public" static="no">
+        <name>MYGUI_DYNLIB_LOAD</name>
+        <param><defname>a</defname></param>
+        <initializer>dlopen( a, RTLD_LAZY | RTLD_GLOBAL)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="MyGUI__DynLib_8h_1ed35ee1fa166e4796f0c9070ebb3e666" prot="public" static="no">
+        <name>MYGUI_DYNLIB_GETSYM</name>
+        <param><defname>a</defname></param>
+        <param><defname>b</defname></param>
+        <initializer>dlsym( a, b )</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="MyGUI__DynLib_8h_1a7a43378962d54e91b10a6877bd23e58" prot="public" static="no">
+        <name>MYGUI_DYNLIB_UNLOAD</name>
+        <param><defname>a</defname></param>
+        <initializer>dlclose( a )</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" line="44" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Denis Koronchik </para><para>Georgiy Evmenov </para></simplesect>
+<simplesect kind="date"><para>09/2007 </para></simplesect>
+</para>    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h"/>
+  </compounddef>
+</doxygen>

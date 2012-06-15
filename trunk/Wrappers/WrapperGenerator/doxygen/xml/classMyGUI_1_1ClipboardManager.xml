@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1ClipboardManager" kind="class" prot="public">
+    <compoundname>MyGUI::ClipboardManager</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1ClipboardManager_1280eb4b37cd42a12c16dea60cf1fdecf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::ClipboardManager::ClipboardManager</definition>
+        <argsstring>()</argsstring>
+        <name>ClipboardManager</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ClipboardManager.h" line="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ClipboardManager_1e522b5b96fb07dbe2323bbb6a956ecc4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ClipboardManager::initialise</definition>
+        <argsstring>()</argsstring>
+        <name>initialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ClipboardManager.h" line="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ClipboardManager_1e0a5f5c86990241926308b710059be45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ClipboardManager::shutdown</definition>
+        <argsstring>()</argsstring>
+        <name>shutdown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ClipboardManager.h" line="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ClipboardManager_199c80a9f05e73efd012e9ad5859ff508" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ClipboardManager::setClipboardData</definition>
+        <argsstring>(const std::string &amp;_type, const std::string &amp;_data)</argsstring>
+        <name>setClipboardData</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set current data in clipboard <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of data (for example &quot;Text&quot;) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ClipboardManager.h" line="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ClipboardManager_174d77804ef2144d010319bf8576bf7e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ClipboardManager::clearClipboardData</definition>
+        <argsstring>(const std::string &amp;_type)</argsstring>
+        <name>clearClipboardData</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Clear specific type data <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of data to delete (for example &quot;Text&quot;) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ClipboardManager.h" line="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ClipboardManager_113283840dd3efe057e165800142be8c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string MyGUI::ClipboardManager::getClipboardData</definition>
+        <argsstring>(const std::string &amp;_type)</argsstring>
+        <name>getClipboardData</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get specific type data <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of data to get (for example &quot;Text&quot;) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ClipboardManager.h" line="54"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1ClipboardManager_10307fb0ef7280c3422e5a82b92ca4bf5" prot="private" static="no" mutable="no">
+        <type>MapString</type>
+        <definition>MapString MyGUI::ClipboardManager::mClipboardData</definition>
+        <argsstring></argsstring>
+        <name>mClipboardData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ClipboardManager.h" line="57" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ClipboardManager.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ClipboardManager_10763a6231fdc5b70df1f5a450a6dcfe4" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::ClipboardManager::mIsInitialise</definition>
+        <argsstring></argsstring>
+        <name>mIsInitialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ClipboardManager.h" line="66" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ClipboardManager.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ClipboardManager.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ClipboardManager.h" bodystart="33" bodyend="67"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1ClipboardManager_174d77804ef2144d010319bf8576bf7e3" prot="public" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>clearClipboardData</name></member>
+      <member refid="classMyGUI_1_1ClipboardManager_1280eb4b37cd42a12c16dea60cf1fdecf" prot="public" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>ClipboardManager</name></member>
+      <member refid="classMyGUI_1_1ClipboardManager_113283840dd3efe057e165800142be8c9" prot="public" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>getClipboardData</name></member>
+      <member refid="classMyGUI_1_1ClipboardManager_1e522b5b96fb07dbe2323bbb6a956ecc4" prot="public" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>initialise</name></member>
+      <member refid="classMyGUI_1_1ClipboardManager_10307fb0ef7280c3422e5a82b92ca4bf5" prot="private" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>mClipboardData</name></member>
+      <member refid="classMyGUI_1_1ClipboardManager_10763a6231fdc5b70df1f5a450a6dcfe4" prot="private" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>mIsInitialise</name></member>
+      <member refid="classMyGUI_1_1ClipboardManager_199c80a9f05e73efd012e9ad5859ff508" prot="public" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>setClipboardData</name></member>
+      <member refid="classMyGUI_1_1ClipboardManager_1e0a5f5c86990241926308b710059be45" prot="public" virt="non-virtual"><scope>MyGUI::ClipboardManager</scope><name>shutdown</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

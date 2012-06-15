@@ -1,0 +1,740 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1Button" kind="class" prot="public">
+    <compoundname>MyGUI::Button</compoundname>
+    <basecompoundref refid="classMyGUI_1_1TextBox" prot="public" virt="non-virtual">MyGUI::TextBox</basecompoundref>
+    <derivedcompoundref refid="classMyGUI_1_1MenuItem" prot="public" virt="non-virtual">MyGUI::MenuItem</derivedcompoundref>
+    <includes local="no">MyGUI_Button.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1Button_1b102386ae350f9700271c76bf1096c2e" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1Button" kindref="compound">RTTIBase</ref></type>
+        <definition>typedef RTTIBase MyGUI::Button::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <reimplements refid="classMyGUI_1_1TextBox_19de997c622f19554b3fe41cf5c59a0f5">Base</reimplements>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_100a4b21701a1221a0115b8a718a00826">Base</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1Button_17a1cb41841e9d40e50dc30397cd445a8" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1Button" kindref="compound">Button</ref></type>
+        <definition>typedef Button MyGUI::Button::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <reimplements refid="classMyGUI_1_1TextBox_1fb7369bf080624170fbed666fd25dd5b">RTTIBase</reimplements>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_1e58c6525b2b2c1d0eb6e0f4350be5a79">RTTIBase</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1Button_1cb0015e0094ee25e0118bd5a4ba6c1b2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::Button::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <reimplements refid="classMyGUI_1_1TextBox_1fbcfc0d11323779f155ec0be73a129ab">getTypeName</reimplements>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_17d917621d5a729753e664add6e441470">getTypeName</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Button_1660a26b306b4cbb6f18e5fa6f624d6f0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::Button::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <reimplements refid="classMyGUI_1_1TextBox_11e4f6fdecb0c8b91e4cf1cc6731004ab">isType</reimplements>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_14aa0c6957347fb1731d23c1d9ffc2f1b">isType</reimplementedby>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Button_1b390ad7a1b48e88532ae7ab31c90b9dd" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::Button::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <reimplements refid="classMyGUI_1_1TextBox_16f44e01a8d08ece1a8683e8df9fca5b7">isType</reimplements>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_1ebc191dffb764e1f662a2eab2165cf40">isType</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Button_14a45b53aaac1df4a1c5837c0246ebfca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::Button::Button</definition>
+        <argsstring>()</argsstring>
+        <name>Button</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Button_14c867b09dda7b6d22f724b2813142e00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Button::setStateSelected</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setStateSelected</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+<para>Set button selected state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Button_1d3c2c460e60c2eaa03f83af3ed951d58" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Button::getStateSelected</definition>
+        <argsstring>() const </argsstring>
+        <name>getStateSelected</name>
+        <briefdescription>
+<para>Get buton selected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Button_1bcc71981a4ff1ef7b447d53cd39e466f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Button::setModeImage</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setModeImage</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enable or disable Image mode<linebreak/>
+ Image mode: when button state changed Image on button also change it&apos;s picture.<linebreak/>
+ Disabled (false) by default. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Button_15ce21d2b9d0fee30ffc4361efdff3baa" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Button::getModeImage</definition>
+        <argsstring>() const </argsstring>
+        <name>getModeImage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get Image mode flag </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Button_18aa51de9d8b7a1b1468d7bfc7142f5e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Button::setImageResource</definition>
+        <argsstring>(const std::string &amp;_name)</argsstring>
+        <name>setImageResource</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Button_104dbe36ac29a26f6e70f3b3b0266eecb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Button::setImageGroup</definition>
+        <argsstring>(const std::string &amp;_name)</argsstring>
+        <name>setImageGroup</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="58"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Button_10fa6898909d595f2cdb171b08e18deba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Button::setImageName</definition>
+        <argsstring>(const std::string &amp;_name)</argsstring>
+        <name>setImageName</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Button_113d1735eedde2c22f7e02f0cb5bdd96e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Button::_setMouseFocus</definition>
+        <argsstring>(bool _focus)</argsstring>
+        <name>_setMouseFocus</name>
+        <param>
+          <type>bool</type>
+          <declname>_focus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Button_1a1cb5fd3fd0388b5ab105ea8cafa6008" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1ImageBox" kindref="compound">ImageBox</ref> *</type>
+        <definition>ImageBox* MyGUI::Button::_getImageBox</definition>
+        <argsstring>()</argsstring>
+        <name>_getImageBox</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="65"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1Button_119373629cf7f96ce5a904c8ae8566a30" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::Button::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <reimplements refid="classMyGUI_1_1TextBox_161c948036f66b138fc56d7fca6c794c4">getClassTypeName</reimplements>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_1e3b98381e5d9a1b5b654cd46e4aeff5e">getClassTypeName</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" bodystart="38" bodyend="38"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classMyGUI_1_1Button_1895d4b6d4e2cb41402350e1830250898" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Button::initialiseOverride</definition>
+        <argsstring>()</argsstring>
+        <name>initialiseOverride</name>
+        <reimplements refid="classMyGUI_1_1Widget_1987812d417960a148a72df09dd3948c4">initialiseOverride</reimplements>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_1021ac14fb1ae9b4c97027db997ed83bc">initialiseOverride</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="68"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Button_1020da83689bb164ad57e54e029aa6898" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Button::shutdownOverride</definition>
+        <argsstring>()</argsstring>
+        <name>shutdownOverride</name>
+        <reimplements refid="classMyGUI_1_1Widget_1dee1c7e9399beabdad99bf10b97693c6">shutdownOverride</reimplements>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_17c9afc83449ece651fbf365267a10bb6">shutdownOverride</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Button_1e6dac6d5b157463db386d9f24cb71722" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Button::onMouseLostFocus</definition>
+        <argsstring>(Widget *_new)</argsstring>
+        <name>onMouseLostFocus</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_new</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="71"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Button_15d89eb1a4ed7600ea6ca9509f811842e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Button::onMouseSetFocus</definition>
+        <argsstring>(Widget *_old)</argsstring>
+        <name>onMouseSetFocus</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_old</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Button_1ff5aaac878cbdb58049093a7959008d6" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Button::onMouseButtonPressed</definition>
+        <argsstring>(int _left, int _top, MouseButton _id)</argsstring>
+        <name>onMouseButtonPressed</name>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>MouseButton</type>
+          <declname>_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Button_15f9795cf94073910d01995ed19caaf2b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Button::onMouseButtonReleased</definition>
+        <argsstring>(int _left, int _top, MouseButton _id)</argsstring>
+        <name>onMouseButtonReleased</name>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>MouseButton</type>
+          <declname>_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Button_1266193db2a685b8767e2ef7c063df5d0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Button::baseUpdateEnable</definition>
+        <argsstring>()</argsstring>
+        <name>baseUpdateEnable</name>
+        <reimplements refid="classMyGUI_1_1Widget_1d4c4a2cf2c3dd8b71126291a55e69139">baseUpdateEnable</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="76"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Button_1ea0ac035957ce7b80cbd7f86383df371" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Button::_setState</definition>
+        <argsstring>(const std::string &amp;_value)</argsstring>
+        <name>_setState</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Button_1098cc6609803c7e4f5bca241faf99faf" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Button::setPropertyOverride</definition>
+        <argsstring>(const std::string &amp;_key, const std::string &amp;_value)</argsstring>
+        <name>setPropertyOverride</name>
+        <reimplements refid="classMyGUI_1_1TextBox_1ccb4705e7de752650eec196f172da676">setPropertyOverride</reimplements>
+        <reimplementedby refid="classMyGUI_1_1MenuItem_1071ef6b09ecf5a48c22dc5b7823df55b">setPropertyOverride</reimplementedby>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_key</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="80"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1Button_1dd0700107f460739171a11e6beae58f5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Button::updateButtonState</definition>
+        <argsstring>()</argsstring>
+        <name>updateButtonState</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="83"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1Button_1730e522b1c7f0dfcd685d99817395990" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::Button::mIsMousePressed</definition>
+        <argsstring></argsstring>
+        <name>mIsMousePressed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="87" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Button_1666accd5e70cc74367d4a3a2bcb52183" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::Button::mIsMouseFocus</definition>
+        <argsstring></argsstring>
+        <name>mIsMouseFocus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="89" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Button_1b9d24e5528d80842e23e42d09a143357" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::Button::mStateSelected</definition>
+        <argsstring></argsstring>
+        <name>mStateSelected</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="91" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Button_1c902e87aee79d3bd76644a28662f449c" prot="private" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1ImageBox" kindref="compound">ImageBox</ref> *</type>
+        <definition>ImageBox* MyGUI::Button::mImage</definition>
+        <argsstring></argsstring>
+        <name>mImage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="93" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Button_107b2061a9f1ddb844cc41cb2be3fbc0e" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::Button::mModeImage</definition>
+        <argsstring></argsstring>
+        <name>mModeImage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="94" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>{<ref refid="classMyGUI_1_1Button" kindref="compound">Button</ref>} <ref refid="classMyGUI_1_1Button" kindref="compound">Button</ref> widget description should be here. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="26">
+        <label>MyGUI::TextBox</label>
+        <link refid="classMyGUI_1_1TextBox"/>
+        <childnode refid="27" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="27">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="28" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>MyGUI::Button</label>
+        <link refid="classMyGUI_1_1Button"/>
+        <childnode refid="26" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>MyGUI::MenuItem</label>
+        <link refid="classMyGUI_1_1MenuItem"/>
+        <childnode refid="25" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="31">
+        <label>MyGUI::TextBox</label>
+        <link refid="classMyGUI_1_1TextBox"/>
+        <childnode refid="32" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>MyGUI::ImageBox</label>
+        <link refid="classMyGUI_1_1ImageBox"/>
+        <childnode refid="32" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="32">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="33" relation="public-inheritance">
+        </childnode>
+        <childnode refid="32" relation="usage">
+          <edgelabel>mContainer
+mParent
+mWidgetClient</edgelabel>
+        </childnode>
+      </node>
+      <node id="30">
+        <label>MyGUI::Button</label>
+        <link refid="classMyGUI_1_1Button"/>
+        <childnode refid="31" relation="public-inheritance">
+        </childnode>
+        <childnode refid="34" relation="usage">
+          <edgelabel>mImage</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Button.h" bodystart="34" bodyend="95"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1Widget_134c44665e7d51c7eb65bf70f0479e1c3" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_checkPoint</name></member>
+      <member refid="classMyGUI_1_1Widget_13601e5ca0d565451dfcf106850506a51" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_createSkinWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_10df77f6d74fe5fc24701819e0b7e0fe8" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>_destroyAllChildWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_125136884a04944ef8b199c582e15482c" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_destroyChildWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1deee68fb42acc2fab667b169587e9ce3" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_forcePick</name></member>
+      <member refid="classMyGUI_1_1Widget_1f3d99ead3ce8fda0defa2feb0fbaee27" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_getContainer</name></member>
+      <member refid="classMyGUI_1_1Widget_1fef9a1d046d1b78f8c76de1db83d20c6" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>_getContainerIndex</name></member>
+      <member refid="classMyGUI_1_1Button_1a1cb5fd3fd0388b5ab105ea8cafa6008" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_getImageBox</name></member>
+      <member refid="classMyGUI_1_1UserData_1fc4382ac3423790f57b478a0fe5030a2" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_getInternalData</name></member>
+      <member refid="classMyGUI_1_1Widget_106700537a6fffaf43aa9c93e89d9cc7d" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>_getItemIndex</name></member>
+      <member refid="classMyGUI_1_1Widget_1ae54386446434e4b133c244925402375" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_initialise</name></member>
+      <member refid="classMyGUI_1_1Widget_1175526a4b039cf13c7fec7012d7287fc" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>_resetContainer</name></member>
+      <member refid="classMyGUI_1_1Widget_15df6dbd95e99b9b65b385d815026cf26" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_1d3d48604ad15f958b81bf423f80271c9" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setContainer</name></member>
+      <member refid="classMyGUI_1_1UserData_12bd52c146bad41f99bbc7ed31335ad18" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setInternalData</name></member>
+      <member refid="classMyGUI_1_1Button_113d1735eedde2c22f7e02f0cb5bdd96e" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setMouseFocus</name></member>
+      <member refid="classMyGUI_1_1Button_1ea0ac035957ce7b80cbd7f86383df371" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setState</name></member>
+      <member refid="classMyGUI_1_1Widget_13325a1f4c26917f6f73b207d0986e1bd" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_setWidgetState</name></member>
+      <member refid="classMyGUI_1_1Widget_155b19482fe01925c36e29af671e3d092" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>_shutdown</name></member>
+      <member refid="classMyGUI_1_1Widget_1dd935a48ef2c39688d8026c01e9e3939" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>_updateView</name></member>
+      <member refid="classMyGUI_1_1Widget_1b390f48a62a30d529c901cf8cfa1c24c" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>assignWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_105110870f31f66a901b3b11737c194de" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>attachToWidget</name></member>
+      <member refid="classMyGUI_1_1Button_1b102386ae350f9700271c76bf1096c2e" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1Widget_1d88d7deb826efb660943ccb0bb457cae" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>baseCreateWidget</name></member>
+      <member refid="classMyGUI_1_1Button_1266193db2a685b8767e2ef7c063df5d0" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>baseUpdateEnable</name></member>
+      <member refid="classMyGUI_1_1Button_14a45b53aaac1df4a1c5837c0246ebfca" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>Button</name></member>
+      <member refid="classMyGUI_1_1Widget_1be74d6cc433da6140629423b120735a4" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>changeWidgetSkin</name></member>
+      <member refid="classMyGUI_1_1UserData_1f71561f766d83082a82cbdd6d218bd6b" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>clearUserString</name></member>
+      <member refid="classMyGUI_1_1UserData_154fecc1b40c23594c6518589b6912e49" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>clearUserStrings</name></member>
+      <member refid="classMyGUI_1_1Widget_1d66c5415fde332d5aab563402cffb09f" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_13a28d2e883ce82536b686ac992be672d" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1f8660295aafb142287644c239a313e53" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1721d33e78bb5c6ed975e8d41c8bdb683" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>createWidgetReal</name></member>
+      <member refid="classMyGUI_1_1Widget_1412c63af17890a8d43075782891b66ea" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>createWidgetReal</name></member>
+      <member refid="classMyGUI_1_1Widget_19ea260d13d1de5fb272e8fe3c6f6464c" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>createWidgetRealT</name></member>
+      <member refid="classMyGUI_1_1Widget_100fdb672b101caf560a07b86e67a72d4" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>createWidgetRealT</name></member>
+      <member refid="classMyGUI_1_1Widget_1b5d34f121420fbd4f439d7a8432d7755" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_12e74ae3d0a439f4edd509e73d4b2a083" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_1e26a4a5e8ea3fa4bafd969eb952d88e9" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_1c1c862389f772c52077fe4f2cf6568b5" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>destroySkinWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1056ac7afc041cf328037e210c742302f" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>detachFromWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_130efcbdb772c4a75f8208a99c4f9f34d" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>eventChangeProperty</name></member>
+      <member refid="classMyGUI_1_1Widget_1d054e1027a48f2ccb9af0179359dadc5" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>findWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1e6d193b99a9d69973922d1b8e0f0b70e" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>findWidgets</name></member>
+      <member refid="classMyGUI_1_1Widget_134cafbef78da90ca8fb6aca8964b337a" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_1db1d462f1145cafb358754c03cd3e7f2" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getAlpha</name></member>
+      <member refid="classMyGUI_1_1TextBox_121d2e96a9c1c31b2dc26348cda7ebd81" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>getCaption</name></member>
+      <member refid="classMyGUI_1_1Widget_1028535563d6d3666658d83e4d479fa6d" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getChildAt</name></member>
+      <member refid="classMyGUI_1_1Widget_195ebe8be9fd3d29f7fa8f7846515eeec" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getChildCount</name></member>
+      <member refid="classMyGUI_1_1Button_119373629cf7f96ce5a904c8ae8566a30" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1Widget_15ffebc869b3b4c36e31178616b27fc86" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getClientCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1ac162cf5e6c51d487c71ae2e2d041352" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getClientWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_15cd729c40ad712c7036a0d3f6a2507b2" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1abfb5cf6661813f729bd30b4042e95d7" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getEnumerator</name></member>
+      <member refid="classMyGUI_1_1TextBox_182cf5031ad57c818cfa9c5a9a0393263" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getFontHeight</name></member>
+      <member refid="classMyGUI_1_1TextBox_1eb499df22061231d04ff0a29e87b2b06" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getFontName</name></member>
+      <member refid="classMyGUI_1_1Widget_1c373e8170168b97491e777b99de0872b" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getInheritedEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1028a8ae99e47f513065ce3cbb11e4022" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getInheritedVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_1c2118d0bf46d9a7ec21c7aed9c7e71ca" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_175cedb78192d81e9dd1cef4a6c7a9fe3" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>getLayerItemByPoint</name></member>
+      <member refid="classMyGUI_1_1Widget_13e00b99c46a0c1ebacf29604d503804d" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>getLayerItemCoord</name></member>
+      <member refid="classMyGUI_1_1Button_15ce21d2b9d0fee30ffc4361efdff3baa" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getModeImage</name></member>
+      <member refid="classMyGUI_1_1Widget_1421a0e4eec959e8a5cd7f12ff459bfbf" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getName</name></member>
+      <member refid="classMyGUI_1_1Widget_174eb9e9819797e68a510a2ae6c3a410a" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getParent</name></member>
+      <member refid="classMyGUI_1_1Widget_1ee1378b1a9bd3db495cbea32f0a13e20" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getParentSize</name></member>
+      <member refid="classMyGUI_1_1Widget_14a6523e37fad5103ef5896bdf349861d" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>getSkinWidgetsByName</name></member>
+      <member refid="classMyGUI_1_1Button_1d3c2c460e60c2eaa03f83af3ed951d58" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getStateSelected</name></member>
+      <member refid="classMyGUI_1_1TextBox_1e2b4578eeb95ab1fb771e163d50f9b9c" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getTextAlign</name></member>
+      <member refid="classMyGUI_1_1TextBox_1acc4e9fde74bb63723f7abd59f20ca29" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getTextColour</name></member>
+      <member refid="classMyGUI_1_1TextBox_15e8dfe8de46c133f662ffba060f18d23" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>getTextRegion</name></member>
+      <member refid="classMyGUI_1_1TextBox_1c0080a7ed833342b98c9376772d189e7" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getTextShadow</name></member>
+      <member refid="classMyGUI_1_1TextBox_14d6ac0eb45e0d495ed874367cfac7577" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getTextShadowColour</name></member>
+      <member refid="classMyGUI_1_1TextBox_1c5cac14b8c5a65f647dda4847b47cea8" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>getTextSize</name></member>
+      <member refid="classMyGUI_1_1Button_1cb0015e0094ee25e0118bd5a4ba6c1b2" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1UserData_1eadd08cc61e475b95c588daf74789a06" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getUserData</name></member>
+      <member refid="classMyGUI_1_1UserData_17c62f7374453eaf6e5316ac369559c53" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getUserString</name></member>
+      <member refid="classMyGUI_1_1UserData_19bc43d45330305b52c5c3f0e9dffabab" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getUserStrings</name></member>
+      <member refid="classMyGUI_1_1Widget_1fa7ad1d5a3213ee9f8c4567e6f3fdd7d" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_15accf9c998578f20adcec5987dc820f2" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>getWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1Button_1895d4b6d4e2cb41402350e1830250898" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>initialiseOverride</name></member>
+      <member refid="classMyGUI_1_1Widget_1b3ec05a74f05236afb58855985781cd0" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>isRootWidget</name></member>
+      <member refid="classMyGUI_1_1Button_1660a26b306b4cbb6f18e5fa6f624d6f0" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1Button_1b390ad7a1b48e88532ae7ab31c90b9dd" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1UserData_10bac17bc60b499cf0386ec3815d67f17" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>isUserString</name></member>
+      <member refid="classMyGUI_1_1Button_1c902e87aee79d3bd76644a28662f449c" prot="private" virt="non-virtual"><scope>MyGUI::Button</scope><name>mImage</name></member>
+      <member refid="classMyGUI_1_1Button_1666accd5e70cc74367d4a3a2bcb52183" prot="private" virt="non-virtual"><scope>MyGUI::Button</scope><name>mIsMouseFocus</name></member>
+      <member refid="classMyGUI_1_1Button_1730e522b1c7f0dfcd685d99817395990" prot="private" virt="non-virtual"><scope>MyGUI::Button</scope><name>mIsMousePressed</name></member>
+      <member refid="classMyGUI_1_1Button_107b2061a9f1ddb844cc41cb2be3fbc0e" prot="private" virt="non-virtual"><scope>MyGUI::Button</scope><name>mModeImage</name></member>
+      <member refid="classMyGUI_1_1Button_1b9d24e5528d80842e23e42d09a143357" prot="private" virt="non-virtual"><scope>MyGUI::Button</scope><name>mStateSelected</name></member>
+      <member refid="classMyGUI_1_1Button_1ff5aaac878cbdb58049093a7959008d6" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onMouseButtonPressed</name></member>
+      <member refid="classMyGUI_1_1Button_15f9795cf94073910d01995ed19caaf2b" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onMouseButtonReleased</name></member>
+      <member refid="classMyGUI_1_1Button_1e6dac6d5b157463db386d9f24cb71722" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1Button_15d89eb1a4ed7600ea6ca9509f811842e" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onMouseSetFocus</name></member>
+      <member refid="classMyGUI_1_1Widget_1a8cfc0deeb8c2c53c6fabf52dd167639" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onWidgetCreated</name></member>
+      <member refid="classMyGUI_1_1Widget_1c64ffb617119185afaf5ef9650d4f9a5" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>onWidgetDestroy</name></member>
+      <member refid="classMyGUI_1_1Button_17a1cb41841e9d40e50dc30397cd445a8" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1Widget_1ebace37eedee14b3ff746b7a0085b993" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_11204361b28430fa9a3b6927d6b4fe9ee" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setAlpha</name></member>
+      <member refid="classMyGUI_1_1TextBox_10add0f3ad9abbc285ba369c8a4d5080d" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setCaption</name></member>
+      <member refid="classMyGUI_1_1TextBox_120fe368f3845d4036a9f3d0cca2de148" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setCaptionWithReplacing</name></member>
+      <member refid="classMyGUI_1_1Widget_1cbf134e83d95f63ff7ba7f4b3596449f" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setColour</name></member>
+      <member refid="classMyGUI_1_1Widget_156333ae229f81cfdc9daa834599b96de" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1745fbe9e4f3c2f798a021ae07498fc97" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1beda60b920b1808641169d8543171269" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1f5a0bfe2b4f596d2dffdc7fcea5200b1" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setEnabledSilent</name></member>
+      <member refid="classMyGUI_1_1TextBox_1e567487392d88976456984442c5e44a2" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setFontHeight</name></member>
+      <member refid="classMyGUI_1_1TextBox_18882452ac6bd460e73f46121c63b081b" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setFontName</name></member>
+      <member refid="classMyGUI_1_1Button_104dbe36ac29a26f6e70f3b3b0266eecb" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setImageGroup</name></member>
+      <member refid="classMyGUI_1_1Button_10fa6898909d595f2cdb171b08e18deba" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setImageName</name></member>
+      <member refid="classMyGUI_1_1Button_18aa51de9d8b7a1b1468d7bfc7142f5e5" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setImageResource</name></member>
+      <member refid="classMyGUI_1_1Widget_18b44677724faa4112312655e5feed8ae" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1Button_1bcc71981a4ff1ef7b447d53cd39e466f" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setModeImage</name></member>
+      <member refid="classMyGUI_1_1Widget_1bf87d2b9d27a2543da8fc7daea6abf75" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_10463ede4342db8bc5ade2d78d77a142e" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_11a6ea7822f869b777800b0d351112e69" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setProperty</name></member>
+      <member refid="classMyGUI_1_1Button_1098cc6609803c7e4f5bca241faf99faf" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>setPropertyOverride</name></member>
+      <member refid="classMyGUI_1_1Widget_18833c303314683bbebadb154d337d3cb" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setRealCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1dfd8bd56bcecaee166bbfd12ff962f67" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setRealCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_15a5f7a24564bb6e04b48d0c524f0ef24" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setRealPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_1c963db4709c8dfc9e681dfccd5fb6524" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setRealPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_1d7fba1f9976c36eacb528d6db9213ddf" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1Widget_15d89ff45c4bc5f6158382067673903ba" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1Widget_1b8928099957173c4f58aee98d043faab" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setSize</name></member>
+      <member refid="classMyGUI_1_1Widget_12bdc82ea4f915b8d9b4b36c61b5a3915" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setSize</name></member>
+      <member refid="classMyGUI_1_1Button_14c867b09dda7b6d22f724b2813142e00" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setStateSelected</name></member>
+      <member refid="classMyGUI_1_1TextBox_10e3f84f169ccbb4d62057423c9f3cf8f" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setTextAlign</name></member>
+      <member refid="classMyGUI_1_1TextBox_199437c63dc672cd4a2203533803b9b88" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setTextColour</name></member>
+      <member refid="classMyGUI_1_1TextBox_1e04d6fd910e1756e6e24b6c9e004f0ab" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setTextShadow</name></member>
+      <member refid="classMyGUI_1_1TextBox_1e9a1ea838b24ff17dc97bd8bf345e266" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setTextShadowColour</name></member>
+      <member refid="classMyGUI_1_1UserData_145916c0682a72614a1ed72a9efded82c" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setUserData</name></member>
+      <member refid="classMyGUI_1_1UserData_19630c47aa8d58cbc89628aad50725245" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setUserString</name></member>
+      <member refid="classMyGUI_1_1Widget_1d98f045bfca3a54b5adacf8d0c090bc2" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>setVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_1c717aa06253e913156a6d24fb3d4cbc4" prot="protected" virt="non-virtual"><scope>MyGUI::Button</scope><name>setWidgetClient</name></member>
+      <member refid="classMyGUI_1_1Widget_1372d21a0125ab28cc5c2c295290a2806" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>setWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1Button_1020da83689bb164ad57e54e029aa6898" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>shutdownOverride</name></member>
+      <member refid="classMyGUI_1_1TextBox_1c9823be8b1b86d97123b9ab05ee81c77" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>TextBox</name></member>
+      <member refid="classMyGUI_1_1Button_1dd0700107f460739171a11e6beae58f5" prot="private" virt="non-virtual"><scope>MyGUI::Button</scope><name>updateButtonState</name></member>
+      <member refid="classMyGUI_1_1UserData_1108076068708e939519f9c775c2ae87b" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>UserData</name></member>
+      <member refid="classMyGUI_1_1Widget_1f4814618768bc07a685495895ca47b04" prot="public" virt="non-virtual"><scope>MyGUI::Button</scope><name>Widget</name></member>
+      <member refid="classMyGUI_1_1UserData_1a970af2c1f39e0fa8801fd9defb06d84" prot="public" virt="virtual"><scope>MyGUI::Button</scope><name>~UserData</name></member>
+      <member refid="classMyGUI_1_1Widget_18ff3c2a98bbea22f4f0191bcac54b643" prot="protected" virt="virtual"><scope>MyGUI::Button</scope><name>~Widget</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="MyGUI__TextChangeHistory_8h" kind="file">
+    <compoundname>MyGUI_TextChangeHistory.h</compoundname>
+    <includes refid="MyGUI__Prerequest_8h" local="yes">MyGUI_Prerequest.h</includes>
+    <includes refid="MyGUI__Macros_8h" local="yes">MyGUI_Macros.h</includes>
+    <includes refid="MyGUI__UString_8h" local="yes">MyGUI_UString.h</includes>
+    <includes local="no">deque</includes>
+    <includedby refid="MyGUI__EditBox_8h" local="yes">MyGUI_EditBox.h</includedby>
+    <includedby refid="MyGUI__TextIterator_8h" local="yes">MyGUI_TextIterator.h</includedby>
+    <incdepgraph>
+      <node id="9790">
+        <label>limits</label>
+      </node>
+      <node id="9785">
+        <label>MyGUI_TextChangeHistory.h</label>
+        <link refid="MyGUI_TextChangeHistory.h"/>
+        <childnode refid="9786" relation="include">
+        </childnode>
+        <childnode refid="9789" relation="include">
+        </childnode>
+        <childnode refid="9792" relation="include">
+        </childnode>
+      </node>
+      <node id="9787">
+        <label>MyGUI_Platform.h</label>
+        <link refid="MyGUI__Platform_8h"/>
+      </node>
+      <node id="9788">
+        <label>MyGUI_DeprecatedTypes.h</label>
+        <link refid="MyGUI__DeprecatedTypes_8h"/>
+      </node>
+      <node id="9791">
+        <label>stddef.h</label>
+      </node>
+      <node id="9789">
+        <label>MyGUI_Macros.h</label>
+        <link refid="MyGUI__Macros_8h"/>
+        <childnode refid="9786" relation="include">
+        </childnode>
+        <childnode refid="9790" relation="include">
+        </childnode>
+        <childnode refid="9791" relation="include">
+        </childnode>
+      </node>
+      <node id="9792">
+        <label>deque</label>
+      </node>
+      <node id="9786">
+        <label>MyGUI_Prerequest.h</label>
+        <link refid="MyGUI__Prerequest_8h"/>
+        <childnode refid="9787" relation="include">
+        </childnode>
+        <childnode refid="9788" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="9793">
+        <label>MyGUI_TextChangeHistory.h</label>
+        <link refid="MyGUI_TextChangeHistory.h"/>
+        <childnode refid="9794" relation="include">
+        </childnode>
+        <childnode refid="9797" relation="include">
+        </childnode>
+      </node>
+      <node id="9797">
+        <label>MyGUI_TextIterator.h</label>
+        <link refid="MyGUI__TextIterator_8h"/>
+        <childnode refid="9794" relation="include">
+        </childnode>
+      </node>
+      <node id="9796">
+        <label>MyGUI.h</label>
+        <link refid="MyGUI_8h"/>
+      </node>
+      <node id="9794">
+        <label>MyGUI_EditBox.h</label>
+        <link refid="MyGUI__EditBox_8h"/>
+        <childnode refid="9795" relation="include">
+        </childnode>
+        <childnode refid="9796" relation="include">
+        </childnode>
+      </node>
+      <node id="9795">
+        <label>MyGUI_ComboBox.h</label>
+        <link refid="MyGUI__ComboBox_8h"/>
+        <childnode refid="9796" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structMyGUI_1_1TextCommandInfo">MyGUI::TextCommandInfo</innerclass>
+    <innernamespace refid="namespaceMyGUI">MyGUI</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Albert Semenov </para></simplesect>
+<simplesect kind="date"><para>11/2007 </para></simplesect>
+</para>    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextChangeHistory.h"/>
+  </compounddef>
+</doxygen>

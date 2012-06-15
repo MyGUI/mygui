@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="MyGUI__FlowDirection_8h" kind="file">
+    <compoundname>MyGUI_FlowDirection.h</compoundname>
+    <includes refid="MyGUI__Prerequest_8h" local="yes">MyGUI_Prerequest.h</includes>
+    <includes local="no">string</includes>
+    <includedby refid="MyGUI__ComboBox_8h" local="yes">MyGUI_ComboBox.h</includedby>
+    <includedby refid="MyGUI__ProgressBar_8h" local="yes">MyGUI_ProgressBar.h</includedby>
+    <incdepgraph>
+      <node id="2660">
+        <label>MyGUI_Platform.h</label>
+        <link refid="MyGUI__Platform_8h"/>
+      </node>
+      <node id="2658">
+        <label>MyGUI_FlowDirection.h</label>
+        <link refid="MyGUI_FlowDirection.h"/>
+        <childnode refid="2659" relation="include">
+        </childnode>
+        <childnode refid="2662" relation="include">
+        </childnode>
+      </node>
+      <node id="2662">
+        <label>string</label>
+      </node>
+      <node id="2661">
+        <label>MyGUI_DeprecatedTypes.h</label>
+        <link refid="MyGUI__DeprecatedTypes_8h"/>
+      </node>
+      <node id="2659">
+        <label>MyGUI_Prerequest.h</label>
+        <link refid="MyGUI__Prerequest_8h"/>
+        <childnode refid="2660" relation="include">
+        </childnode>
+        <childnode refid="2661" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2663">
+        <label>MyGUI_FlowDirection.h</label>
+        <link refid="MyGUI_FlowDirection.h"/>
+        <childnode refid="2664" relation="include">
+        </childnode>
+        <childnode refid="2666" relation="include">
+        </childnode>
+      </node>
+      <node id="2665">
+        <label>MyGUI.h</label>
+        <link refid="MyGUI_8h"/>
+      </node>
+      <node id="2664">
+        <label>MyGUI_ComboBox.h</label>
+        <link refid="MyGUI__ComboBox_8h"/>
+        <childnode refid="2665" relation="include">
+        </childnode>
+      </node>
+      <node id="2666">
+        <label>MyGUI_ProgressBar.h</label>
+        <link refid="MyGUI__ProgressBar_8h"/>
+        <childnode refid="2665" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structMyGUI_1_1FlowDirection">MyGUI::FlowDirection</innerclass>
+    <innernamespace refid="namespaceMyGUI">MyGUI</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Albert Semenov </para></simplesect>
+<simplesect kind="date"><para>12/2008 </para></simplesect>
+</para>    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FlowDirection.h"/>
+  </compounddef>
+</doxygen>

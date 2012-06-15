@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="MyGUI__DDItemInfo_8h" kind="file">
+    <compoundname>MyGUI_DDItemInfo.h</compoundname>
+    <includes refid="MyGUI__Prerequest_8h" local="yes">MyGUI_Prerequest.h</includes>
+    <includedby refid="MyGUI__DDContainer_8h" local="yes">MyGUI_DDContainer.h</includedby>
+    <incdepgraph>
+      <node id="1677">
+        <label>MyGUI_Platform.h</label>
+        <link refid="MyGUI__Platform_8h"/>
+      </node>
+      <node id="1678">
+        <label>MyGUI_DeprecatedTypes.h</label>
+        <link refid="MyGUI__DeprecatedTypes_8h"/>
+      </node>
+      <node id="1675">
+        <label>MyGUI_DDItemInfo.h</label>
+        <link refid="MyGUI_DDItemInfo.h"/>
+        <childnode refid="1676" relation="include">
+        </childnode>
+      </node>
+      <node id="1676">
+        <label>MyGUI_Prerequest.h</label>
+        <link refid="MyGUI__Prerequest_8h"/>
+        <childnode refid="1677" relation="include">
+        </childnode>
+        <childnode refid="1678" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1680">
+        <label>MyGUI_DDContainer.h</label>
+        <link refid="MyGUI__DDContainer_8h"/>
+        <childnode refid="1681" relation="include">
+        </childnode>
+        <childnode refid="1682" relation="include">
+        </childnode>
+      </node>
+      <node id="1681">
+        <label>MyGUI_ItemBox.h</label>
+        <link refid="MyGUI__ItemBox_8h"/>
+        <childnode refid="1682" relation="include">
+        </childnode>
+      </node>
+      <node id="1682">
+        <label>MyGUI.h</label>
+        <link refid="MyGUI_8h"/>
+      </node>
+      <node id="1679">
+        <label>MyGUI_DDItemInfo.h</label>
+        <link refid="MyGUI_DDItemInfo.h"/>
+        <childnode refid="1680" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structMyGUI_1_1DDItemState">MyGUI::DDItemState</innerclass>
+    <innerclass refid="structMyGUI_1_1DDItemInfo">MyGUI::DDItemInfo</innerclass>
+    <innerclass refid="structMyGUI_1_1DDWidgetState">MyGUI::DDWidgetState</innerclass>
+    <innernamespace refid="namespaceMyGUI">MyGUI</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Albert Semenov </para></simplesect>
+<simplesect kind="date"><para>01/2008 </para></simplesect>
+</para>    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DDItemInfo.h"/>
+  </compounddef>
+</doxygen>

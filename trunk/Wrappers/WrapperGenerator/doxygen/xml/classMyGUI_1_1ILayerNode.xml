@@ -1,0 +1,362 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1ILayerNode" kind="class" prot="public">
+    <compoundname>MyGUI::ILayerNode</compoundname>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1ILayerNode_172249aa1e577f6fca5675affe033cd45" prot="public" static="no">
+        <type>RTTIBase</type>
+        <definition>typedef RTTIBase MyGUI::ILayerNode::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1ILayerNode_1af2c4f43af8a40f26c9a091f9c1a4a81" prot="public" static="no">
+        <type>ILayerNode</type>
+        <definition>typedef ILayerNode MyGUI::ILayerNode::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1ILayerNode_15831b097b943ef4997d3b12580368555" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::ILayerNode::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" bodystart="45" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerNode_1bc367443aadd06d5dbd4c26011aeebdc" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::ILayerNode::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" bodystart="45" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerNode_12d074debb74cc1320db67486ecc0e338" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::ILayerNode::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" bodystart="45" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerNode_1aaa9cc13736845e16386418f18ed002d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::ILayerNode::~ILayerNode</definition>
+        <argsstring>()</argsstring>
+        <name>~ILayerNode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="48" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" bodystart="48" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerNode_171c8f8a6b2a23d5f1ac90abe7baa7b66" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>ILayer *</type>
+        <definition>virtual ILayer* MyGUI::ILayerNode::getLayer</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getLayer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerNode_11fd396b78f8883ff8e84ce329a2bbd60" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>ILayerNode *</type>
+        <definition>virtual ILayerNode* MyGUI::ILayerNode::getParent</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getParent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerNode_1607811cf8ecea69afdb5bccd3a481df6" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>ILayerNode *</type>
+        <definition>virtual ILayerNode* MyGUI::ILayerNode::createChildItemNode</definition>
+        <argsstring>()=0</argsstring>
+        <name>createChildItemNode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerNode_155e1bcb357f2d797811b906ec61a0d3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ILayerNode::destroyChildItemNode</definition>
+        <argsstring>(ILayerNode *_node)=0</argsstring>
+        <name>destroyChildItemNode</name>
+        <param>
+          <type>ILayerNode *</type>
+          <declname>_node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerNode_1403c1c6b13ebe0b3a22353d8c3f84bc8" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ILayerNode::upChildItemNode</definition>
+        <argsstring>(ILayerNode *_node)=0</argsstring>
+        <name>upChildItemNode</name>
+        <param>
+          <type>ILayerNode *</type>
+          <declname>_node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerNode_1cbaaadb8fe18bf893357411db4511e5c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>EnumeratorILayerNode</type>
+        <definition>virtual EnumeratorILayerNode MyGUI::ILayerNode::getEnumerator</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getEnumerator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="65"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerNode_1b854c44aaaf4b77ce35cf7a25453b666" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ILayerNode::attachLayerItem</definition>
+        <argsstring>(ILayerItem *_item)=0</argsstring>
+        <name>attachLayerItem</name>
+        <param>
+          <type>ILayerItem *</type>
+          <declname>_item</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="68"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerNode_1624e4a9bf7267f0dbd75ecbfb4324483" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ILayerNode::detachLayerItem</definition>
+        <argsstring>(ILayerItem *_root)=0</argsstring>
+        <name>detachLayerItem</name>
+        <param>
+          <type>ILayerItem *</type>
+          <declname>_root</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerNode_1a8386c01b588b19ebe7617b37ca1d9ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>RenderItem *</type>
+        <definition>virtual RenderItem* MyGUI::ILayerNode::addToRenderItem</definition>
+        <argsstring>(ITexture *_texture, bool _firstQueue, bool _separate)=0</argsstring>
+        <name>addToRenderItem</name>
+        <param>
+          <type>ITexture *</type>
+          <declname>_texture</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_firstQueue</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_separate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerNode_1e945eb84e47781d423e5b7c1964ef3ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ILayerNode::outOfDate</definition>
+        <argsstring>(RenderItem *_item)=0</argsstring>
+        <name>outOfDate</name>
+        <param>
+          <type>RenderItem *</type>
+          <declname>_item</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="75"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerNode_12f97397d02957a8dac7d9d33316664ea" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>ILayerItem *</type>
+        <definition>virtual ILayerItem* MyGUI::ILayerNode::getLayerItemByPoint</definition>
+        <argsstring>(int _left, int _top) const =0</argsstring>
+        <name>getLayerItemByPoint</name>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerNode_1901c83a4d520da277dc7906eec11d4bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ILayerNode::renderToTarget</definition>
+        <argsstring>(IRenderTarget *_target, bool _update)=0</argsstring>
+        <name>renderToTarget</name>
+        <param>
+          <type>IRenderTarget *</type>
+          <declname>_target</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_update</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="81"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ILayerNode_157bab680d6a20e2d3835dbe6e8cbcbb9" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ILayerNode::resizeView</definition>
+        <argsstring>(const IntSize &amp;_viewSize)=0</argsstring>
+        <name>resizeView</name>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_viewSize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="83"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1ILayerNode_1b24580998544bb837218ad9fcfe66211" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::ILayerNode::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" bodystart="45" bodyend="45"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" line="44" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ILayerNode.h" bodystart="42" bodyend="84"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1ILayerNode_1a8386c01b588b19ebe7617b37ca1d9ee" prot="public" virt="pure-virtual"><scope>MyGUI::ILayerNode</scope><name>addToRenderItem</name></member>
+      <member refid="classMyGUI_1_1ILayerNode_1b854c44aaaf4b77ce35cf7a25453b666" prot="public" virt="pure-virtual"><scope>MyGUI::ILayerNode</scope><name>attachLayerItem</name></member>
+      <member refid="classMyGUI_1_1ILayerNode_172249aa1e577f6fca5675affe033cd45" prot="public" virt="non-virtual"><scope>MyGUI::ILayerNode</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1ILayerNode_1607811cf8ecea69afdb5bccd3a481df6" prot="public" virt="pure-virtual"><scope>MyGUI::ILayerNode</scope><name>createChildItemNode</name></member>
+      <member refid="classMyGUI_1_1ILayerNode_155e1bcb357f2d797811b906ec61a0d3c" prot="public" virt="pure-virtual"><scope>MyGUI::ILayerNode</scope><name>destroyChildItemNode</name></member>
+      <member refid="classMyGUI_1_1ILayerNode_1624e4a9bf7267f0dbd75ecbfb4324483" prot="public" virt="pure-virtual"><scope>MyGUI::ILayerNode</scope><name>detachLayerItem</name></member>
+      <member refid="classMyGUI_1_1ILayerNode_1b24580998544bb837218ad9fcfe66211" prot="public" virt="non-virtual"><scope>MyGUI::ILayerNode</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1ILayerNode_1cbaaadb8fe18bf893357411db4511e5c" prot="public" virt="pure-virtual"><scope>MyGUI::ILayerNode</scope><name>getEnumerator</name></member>
+      <member refid="classMyGUI_1_1ILayerNode_171c8f8a6b2a23d5f1ac90abe7baa7b66" prot="public" virt="pure-virtual"><scope>MyGUI::ILayerNode</scope><name>getLayer</name></member>
+      <member refid="classMyGUI_1_1ILayerNode_12f97397d02957a8dac7d9d33316664ea" prot="public" virt="pure-virtual"><scope>MyGUI::ILayerNode</scope><name>getLayerItemByPoint</name></member>
+      <member refid="classMyGUI_1_1ILayerNode_11fd396b78f8883ff8e84ce329a2bbd60" prot="public" virt="pure-virtual"><scope>MyGUI::ILayerNode</scope><name>getParent</name></member>
+      <member refid="classMyGUI_1_1ILayerNode_15831b097b943ef4997d3b12580368555" prot="public" virt="virtual"><scope>MyGUI::ILayerNode</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1ILayerNode_1bc367443aadd06d5dbd4c26011aeebdc" prot="public" virt="virtual"><scope>MyGUI::ILayerNode</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ILayerNode_12d074debb74cc1320db67486ecc0e338" prot="public" virt="non-virtual"><scope>MyGUI::ILayerNode</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ILayerNode_1e945eb84e47781d423e5b7c1964ef3ce" prot="public" virt="pure-virtual"><scope>MyGUI::ILayerNode</scope><name>outOfDate</name></member>
+      <member refid="classMyGUI_1_1ILayerNode_1901c83a4d520da277dc7906eec11d4bc" prot="public" virt="pure-virtual"><scope>MyGUI::ILayerNode</scope><name>renderToTarget</name></member>
+      <member refid="classMyGUI_1_1ILayerNode_157bab680d6a20e2d3835dbe6e8cbcbb9" prot="public" virt="pure-virtual"><scope>MyGUI::ILayerNode</scope><name>resizeView</name></member>
+      <member refid="classMyGUI_1_1ILayerNode_1af2c4f43af8a40f26c9a091f9c1a4a81" prot="public" virt="non-virtual"><scope>MyGUI::ILayerNode</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1ILayerNode_1403c1c6b13ebe0b3a22353d8c3f84bc8" prot="public" virt="pure-virtual"><scope>MyGUI::ILayerNode</scope><name>upChildItemNode</name></member>
+      <member refid="classMyGUI_1_1ILayerNode_1aaa9cc13736845e16386418f18ed002d" prot="public" virt="virtual"><scope>MyGUI::ILayerNode</scope><name>~ILayerNode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

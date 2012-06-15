@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="namespaceMyGUI_1_1texture__utility" kind="namespace">
+    <compoundname>MyGUI::texture_utility</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceMyGUI_1_1texture__utility_14954da1c4cf362c4826c6b4b359c2bea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const IntSize &amp;</type>
+        <definition>const IntSize&amp; MyGUI::texture_utility::getTextureSize</definition>
+        <argsstring>(const std::string &amp;_texture, bool _cache=true)</argsstring>
+        <name>getTextureSize</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_texture</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_cache</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextureUtility.h" line="35"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceMyGUI_1_1texture__utility_1a9e5d6c7feaa5c8752b89ce26ca63eef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32</type>
+        <definition>uint32 MyGUI::texture_utility::toColourARGB</definition>
+        <argsstring>(const Colour &amp;_colour)</argsstring>
+        <name>toColourARGB</name>
+        <param>
+          <type>const Colour &amp;</type>
+          <declname>_colour</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextureUtility.h" line="36"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceMyGUI_1_1texture__utility_18a12de1020d83dfc9530fbf774517fec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>__inline void</type>
+        <definition>__inline void MyGUI::texture_utility::convertColour</definition>
+        <argsstring>(uint32 &amp;_colour, VertexColourType _format)</argsstring>
+        <name>convertColour</name>
+        <param>
+          <type>uint32 &amp;</type>
+          <declname>_colour</declname>
+        </param>
+        <param>
+          <type>VertexColourType</type>
+          <declname>_format</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextureUtility.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextureUtility.h" bodystart="38" bodyend="42"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_TextureUtility.h" line="33"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1DynLib" kind="class" prot="public">
+    <compoundname>MyGUI::DynLib</compoundname>
+    <includes local="no">MyGUI_DynLib.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1DynLib_1cd347d6b22cbeb4e2b4ec0ce42cf2fe0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::DynLib::load</definition>
+        <argsstring>()</argsstring>
+        <name>load</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Load the library </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" line="76"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1DynLib_15a2dace03b2c77028133aa7aa013ae79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::DynLib::unload</definition>
+        <argsstring>()</argsstring>
+        <name>unload</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Unload the library </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" line="80"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1DynLib_1c0e40175f237bb6c667811b49cae3d4b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string MyGUI::DynLib::getName</definition>
+        <argsstring>(void) const </argsstring>
+        <name>getName</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get the name of the library. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" line="83"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1DynLib_1007c918559b8b36537c9db2e79688490" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* MyGUI::DynLib::getSymbol</definition>
+        <argsstring>(const std::string &amp;strName) const </argsstring>
+        <name>getSymbol</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>strName</declname>
+        </param>
+        <exceptions> throw ()</exceptions>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the address of the given symbol from the loaded library. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>strName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The name of the symbol to search for </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>If the function succeeds, the returned value is a handle to the symbol. If the function fails, the returned value is <bold>nullptr</bold>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" line="93"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classMyGUI_1_1DynLib_1beb3807d72428dd5cf9b999c8ba55f23" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::DynLib::DynLib</definition>
+        <argsstring>(const std::string &amp;name)</argsstring>
+        <name>DynLib</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" line="68"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1DynLib_1bda30b413eb2288a7a5763092298dbb7" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::DynLib::~DynLib</definition>
+        <argsstring>()</argsstring>
+        <name>~DynLib</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" line="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1DynLib_1c34ccdda1af4634471a9d99cb8076a42" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string MyGUI::DynLib::dynlibError</definition>
+        <argsstring>() const </argsstring>
+        <name>dynlibError</name>
+        <briefdescription>
+<para>Gets the last loading error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" line="97"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1DynLib_148f8de5574ada465bf26cd71b002db15" prot="protected" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::DynLib::mName</definition>
+        <argsstring></argsstring>
+        <name>mName</name>
+        <briefdescription>
+<para>Name of library. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" line="101" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1DynLib_18ceb1f133b68b30e14f420cf8b06b932" prot="protected" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* MyGUI::DynLib::mInstance</definition>
+        <argsstring></argsstring>
+        <name>mInstance</name>
+        <briefdescription>
+<para>Handle to the loaded library. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" line="104" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classMyGUI_1_1DynLib_120d0c072da5a790b00fa64283b39bafb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class DynLibManager</definition>
+        <argsstring></argsstring>
+        <name>DynLibManager</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" line="65" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Resource holding data about a dynamic library. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="remark"><para>This class holds the data required to get symbols from libraries loaded at run-time (i.e. from DLL&apos;s for so&apos;s) </para></simplesect>
+</para>    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" line="64" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_DynLib.h" bodystart="63" bodyend="105"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1DynLib_1beb3807d72428dd5cf9b999c8ba55f23" prot="protected" virt="non-virtual"><scope>MyGUI::DynLib</scope><name>DynLib</name></member>
+      <member refid="classMyGUI_1_1DynLib_1c34ccdda1af4634471a9d99cb8076a42" prot="protected" virt="non-virtual"><scope>MyGUI::DynLib</scope><name>dynlibError</name></member>
+      <member refid="classMyGUI_1_1DynLib_120d0c072da5a790b00fa64283b39bafb" prot="private" virt="non-virtual"><scope>MyGUI::DynLib</scope><name>DynLibManager</name></member>
+      <member refid="classMyGUI_1_1DynLib_1c0e40175f237bb6c667811b49cae3d4b" prot="public" virt="non-virtual"><scope>MyGUI::DynLib</scope><name>getName</name></member>
+      <member refid="classMyGUI_1_1DynLib_1007c918559b8b36537c9db2e79688490" prot="public" virt="non-virtual"><scope>MyGUI::DynLib</scope><name>getSymbol</name></member>
+      <member refid="classMyGUI_1_1DynLib_1cd347d6b22cbeb4e2b4ec0ce42cf2fe0" prot="public" virt="non-virtual"><scope>MyGUI::DynLib</scope><name>load</name></member>
+      <member refid="classMyGUI_1_1DynLib_18ceb1f133b68b30e14f420cf8b06b932" prot="protected" virt="non-virtual"><scope>MyGUI::DynLib</scope><name>mInstance</name></member>
+      <member refid="classMyGUI_1_1DynLib_148f8de5574ada465bf26cd71b002db15" prot="protected" virt="non-virtual"><scope>MyGUI::DynLib</scope><name>mName</name></member>
+      <member refid="classMyGUI_1_1DynLib_15a2dace03b2c77028133aa7aa013ae79" prot="public" virt="non-virtual"><scope>MyGUI::DynLib</scope><name>unload</name></member>
+      <member refid="classMyGUI_1_1DynLib_1bda30b413eb2288a7a5763092298dbb7" prot="protected" virt="non-virtual"><scope>MyGUI::DynLib</scope><name>~DynLib</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,572 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1xml_1_1Document" kind="class" prot="public">
+    <compoundname>MyGUI::xml::Document</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_168d0d28d3942774afdc57b5c68541a07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::xml::Document::Document</definition>
+        <argsstring>()</argsstring>
+        <name>Document</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="296"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_1641753f3487ad57418e6ee9c03c222f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::xml::Document::~Document</definition>
+        <argsstring>()</argsstring>
+        <name>~Document</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="297"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_199a241cbf6d9176572c338cd3fcd0428" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::xml::Document::open</definition>
+        <argsstring>(const std::string &amp;_filename)</argsstring>
+        <name>open</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="300"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_1fbddaf3689917ea2606d30a33699a437" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::xml::Document::open</definition>
+        <argsstring>(const std::wstring &amp;_filename)</argsstring>
+        <name>open</name>
+        <param>
+          <type>const std::wstring &amp;</type>
+          <declname>_filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="303"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_1df842ef40d7e8e52c5dcd4d77bf13718" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::xml::Document::open</definition>
+        <argsstring>(std::istream &amp;_stream)</argsstring>
+        <name>open</name>
+        <param>
+          <type>std::istream &amp;</type>
+          <declname>_stream</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="306"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_13b338962e4947ab1acb0485ab73a6406" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::xml::Document::open</definition>
+        <argsstring>(const UString &amp;_filename)</argsstring>
+        <name>open</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="308"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_14aa4237e42205b540e8e3907b90ceb09" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::xml::Document::open</definition>
+        <argsstring>(IDataStream *_data)</argsstring>
+        <name>open</name>
+        <param>
+          <type>IDataStream *</type>
+          <declname>_data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="310"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_113e549de72f8a7e42fedaa9810278eb9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::xml::Document::save</definition>
+        <argsstring>(const std::string &amp;_filename)</argsstring>
+        <name>save</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="313"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_1acbd6da88d9b58c60c1e1f164fc621b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::xml::Document::save</definition>
+        <argsstring>(const std::wstring &amp;_filename)</argsstring>
+        <name>save</name>
+        <param>
+          <type>const std::wstring &amp;</type>
+          <declname>_filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="316"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_178261b770c022bf9ff654c0f225684c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::xml::Document::save</definition>
+        <argsstring>(std::ostream &amp;_stream)</argsstring>
+        <name>save</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>_stream</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="318"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_18b8ae0dd0045aa60d07240d63da8bad3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::xml::Document::save</definition>
+        <argsstring>(const UString &amp;_filename)</argsstring>
+        <name>save</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="320"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_1eeccfce927aef8d44c716a4955bf4914" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::xml::Document::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="322"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_15d04d5b0f675f9c71020ed7471128ff1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string MyGUI::xml::Document::getLastError</definition>
+        <argsstring>()</argsstring>
+        <name>getLastError</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="324"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_143645f1c73ffdbe39cc1f82552adf388" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::xml::Document::clearLastError</definition>
+        <argsstring>()</argsstring>
+        <name>clearLastError</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="326"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_1cc926d3adb023b8768f7b565e1a86ef7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>ElementPtr</type>
+        <definition>ElementPtr MyGUI::xml::Document::createDeclaration</definition>
+        <argsstring>(const std::string &amp;_version=&quot;1.0&quot;, const std::string &amp;_encoding=&quot;UTF-8&quot;)</argsstring>
+        <name>createDeclaration</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_version</declname>
+          <defval>&quot;1.0&quot;</defval>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_encoding</declname>
+          <defval>&quot;UTF-8&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="328"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_15dffefcc156d350dc0cf337ebe91c7d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>ElementPtr</type>
+        <definition>ElementPtr MyGUI::xml::Document::createRoot</definition>
+        <argsstring>(const std::string &amp;_name)</argsstring>
+        <name>createRoot</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="329"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_141e001f5f0316b1c5c5771db7c632907" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>ElementPtr</type>
+        <definition>ElementPtr MyGUI::xml::Document::getRoot</definition>
+        <argsstring>() const </argsstring>
+        <name>getRoot</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="331"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_1d1340c5d0dd9c21d33e80fdef6b87fa7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ElementPtr</type>
+        <definition>ElementPtr MyGUI::xml::Document::createInfo</definition>
+        <argsstring>(const std::string &amp;_version=&quot;1.0&quot;, const std::string &amp;_encoding=&quot;UTF-8&quot;)</argsstring>
+        <name>createInfo</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_version</declname>
+          <defval>&quot;1.0&quot;</defval>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_encoding</declname>
+          <defval>&quot;UTF-8&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000198"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="338" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="337" bodyend="340"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_19aabac82a8753f757bb8f7540fedce48" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::xml::Document::setLastFileError</definition>
+        <argsstring>(const std::string &amp;_filename)</argsstring>
+        <name>setLastFileError</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="345"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_1f3b69248831d76d225ada492cccd83ca" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::xml::Document::setLastFileError</definition>
+        <argsstring>(const std::wstring &amp;_filename)</argsstring>
+        <name>setLastFileError</name>
+        <param>
+          <type>const std::wstring &amp;</type>
+          <declname>_filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="346"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_173af8c21b595db870f34cfa37d7fce40" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::xml::Document::parseTag</definition>
+        <argsstring>(ElementPtr &amp;_currentNode, std::string _content)</argsstring>
+        <name>parseTag</name>
+        <param>
+          <type>ElementPtr &amp;</type>
+          <declname>_currentNode</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>_content</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="348"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_1e5185c351efd8e4828aac01dfe3454c2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::xml::Document::checkPair</definition>
+        <argsstring>(std::string &amp;_key, std::string &amp;_value)</argsstring>
+        <name>checkPair</name>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>_key</declname>
+        </param>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="350"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_12970f24ef4ba5ddc86777920f6f64d5e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::xml::Document::parseLine</definition>
+        <argsstring>(std::string &amp;_line, ElementPtr &amp;_element)</argsstring>
+        <name>parseLine</name>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>_line</declname>
+        </param>
+        <param>
+          <type>ElementPtr &amp;</type>
+          <declname>_element</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="352"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_18edabcfbd7f37ef2b70f7479360c70fd" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::xml::Document::find</definition>
+        <argsstring>(const std::string &amp;_text, char _char, size_t _start=0)</argsstring>
+        <name>find</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_text</declname>
+        </param>
+        <param>
+          <type>char</type>
+          <declname>_char</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_start</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="355"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_1033097a75775bfe497269dbfe39b9eb8" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::xml::Document::clearDeclaration</definition>
+        <argsstring>()</argsstring>
+        <name>clearDeclaration</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="357"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1xml_1_1Document_10f374a9bb31b87ccfe6ae6c5fbedc27f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::xml::Document::clearRoot</definition>
+        <argsstring>()</argsstring>
+        <name>clearRoot</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="358"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1xml_1_1Document_1071c90c62d35e996c4e22ed06c542d40" prot="private" static="no" mutable="no">
+        <type>ElementPtr</type>
+        <definition>ElementPtr MyGUI::xml::Document::mRoot</definition>
+        <argsstring></argsstring>
+        <name>mRoot</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="361" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="361" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1xml_1_1Document_138684e7f408c0cc8456ac4463e0eb892" prot="private" static="no" mutable="no">
+        <type>ElementPtr</type>
+        <definition>ElementPtr MyGUI::xml::Document::mDeclaration</definition>
+        <argsstring></argsstring>
+        <name>mDeclaration</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="362" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="362" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1xml_1_1Document_1892cc315d28a74b7580b032bd8e0bb2b" prot="private" static="no" mutable="no">
+        <type>ErrorType</type>
+        <definition>ErrorType MyGUI::xml::Document::mLastError</definition>
+        <argsstring></argsstring>
+        <name>mLastError</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="363" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="363" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1xml_1_1Document_14263f6e0c26ffbca05e9acdaa8865a38" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::xml::Document::mLastErrorFile</definition>
+        <argsstring></argsstring>
+        <name>mLastErrorFile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="364" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="364" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1xml_1_1Document_187e686299361b637d903e99c73a83916" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::xml::Document::mLine</definition>
+        <argsstring></argsstring>
+        <name>mLine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="365" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="365" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1xml_1_1Document_1576c23193df291ab47264f869737bf70" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::xml::Document::mCol</definition>
+        <argsstring></argsstring>
+        <name>mCol</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="366" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="366" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" line="294" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_XmlDocument.h" bodystart="293" bodyend="368"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1xml_1_1Document_1e5185c351efd8e4828aac01dfe3454c2" prot="private" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>checkPair</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_1eeccfce927aef8d44c716a4955bf4914" prot="public" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>clear</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_1033097a75775bfe497269dbfe39b9eb8" prot="private" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>clearDeclaration</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_143645f1c73ffdbe39cc1f82552adf388" prot="public" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>clearLastError</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_10f374a9bb31b87ccfe6ae6c5fbedc27f" prot="private" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>clearRoot</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_1cc926d3adb023b8768f7b565e1a86ef7" prot="public" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>createDeclaration</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_1d1340c5d0dd9c21d33e80fdef6b87fa7" prot="public" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>createInfo</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_15dffefcc156d350dc0cf337ebe91c7d1" prot="public" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>createRoot</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_168d0d28d3942774afdc57b5c68541a07" prot="public" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>Document</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_18edabcfbd7f37ef2b70f7479360c70fd" prot="private" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>find</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_15d04d5b0f675f9c71020ed7471128ff1" prot="public" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>getLastError</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_141e001f5f0316b1c5c5771db7c632907" prot="public" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>getRoot</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_1576c23193df291ab47264f869737bf70" prot="private" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>mCol</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_138684e7f408c0cc8456ac4463e0eb892" prot="private" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>mDeclaration</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_1892cc315d28a74b7580b032bd8e0bb2b" prot="private" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>mLastError</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_14263f6e0c26ffbca05e9acdaa8865a38" prot="private" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>mLastErrorFile</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_187e686299361b637d903e99c73a83916" prot="private" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>mLine</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_1071c90c62d35e996c4e22ed06c542d40" prot="private" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>mRoot</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_199a241cbf6d9176572c338cd3fcd0428" prot="public" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>open</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_1fbddaf3689917ea2606d30a33699a437" prot="public" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>open</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_1df842ef40d7e8e52c5dcd4d77bf13718" prot="public" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>open</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_13b338962e4947ab1acb0485ab73a6406" prot="public" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>open</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_14aa4237e42205b540e8e3907b90ceb09" prot="public" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>open</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_12970f24ef4ba5ddc86777920f6f64d5e" prot="private" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>parseLine</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_173af8c21b595db870f34cfa37d7fce40" prot="private" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>parseTag</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_113e549de72f8a7e42fedaa9810278eb9" prot="public" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>save</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_1acbd6da88d9b58c60c1e1f164fc621b2" prot="public" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>save</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_178261b770c022bf9ff654c0f225684c4" prot="public" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>save</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_18b8ae0dd0045aa60d07240d63da8bad3" prot="public" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>save</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_19aabac82a8753f757bb8f7540fedce48" prot="private" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>setLastFileError</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_1f3b69248831d76d225ada492cccd83ca" prot="private" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>setLastFileError</name></member>
+      <member refid="classMyGUI_1_1xml_1_1Document_1641753f3487ad57418e6ee9c03c222f0" prot="public" virt="non-virtual"><scope>MyGUI::xml::Document</scope><name>~Document</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

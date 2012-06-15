@@ -1,0 +1,431 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4" kind="class" prot="public">
+    <compoundname>MyGUI::MemberObsolete&lt; TabControl &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1c4edab23d47be1741761db0701b1ad8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::MemberObsolete&lt; TabControl &gt;::getSheetButtonWidthIndex</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>getSheetButtonWidthIndex</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000104"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="323"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_17679eb0cc5e73bae22c27ad4546161cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::MemberObsolete&lt; TabControl &gt;::getSheetButtonWidth</definition>
+        <argsstring>(TabItem *_sheet)</argsstring>
+        <name>getSheetButtonWidth</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1TabItem" kindref="compound">TabItem</ref> *</type>
+          <declname>_sheet</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000105"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="325"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_134b1827bc0dae0c4f34bd5bdeaeb581a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; TabControl &gt;::setSheetButtonWidthIndex</definition>
+        <argsstring>(size_t _index, int _width=DEFAULT)</argsstring>
+        <name>setSheetButtonWidthIndex</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+          <defval>DEFAULT</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000106"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="327"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1f58ddff475167f36a57cd40037d8adca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; TabControl &gt;::setSheetButtonWidth</definition>
+        <argsstring>(TabItem *_sheet, int _width=DEFAULT)</argsstring>
+        <name>setSheetButtonWidth</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1TabItem" kindref="compound">TabItem</ref> *</type>
+          <declname>_sheet</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+          <defval>DEFAULT</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000107"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="329"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_186f143f7a1906c07efb6469206ce1c8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; TabControl &gt;::showBarButton</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>showBarButton</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000108"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="331"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1d231383acadd1be1b0c98971e7c64850" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; TabControl &gt;::showBarSelectButton</definition>
+        <argsstring>()</argsstring>
+        <name>showBarSelectButton</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000109"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="333"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1aca0bd66f9c19d91af06c2adb2a4b0de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::MemberObsolete&lt; TabControl &gt;::getSheetCount</definition>
+        <argsstring>()</argsstring>
+        <name>getSheetCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000110"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="335"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_130efa4f6316cb57c9b9a160e4cd9ed88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+        <definition>const UString&amp; MyGUI::MemberObsolete&lt; TabControl &gt;::getSheetName</definition>
+        <argsstring>(TabItem *_sheet)</argsstring>
+        <name>getSheetName</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1TabItem" kindref="compound">TabItem</ref> *</type>
+          <declname>_sheet</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000111"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="337"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1ed0a1e1a7150e6a1ef6de141dea4e12f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+        <definition>const UString&amp; MyGUI::MemberObsolete&lt; TabControl &gt;::getSheetNameIndex</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>getSheetNameIndex</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000112"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="339"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1797aeba3627219869d31c46e8da6b4b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1TabItem" kindref="compound">TabItem</ref> *</type>
+        <definition>TabItem* MyGUI::MemberObsolete&lt; TabControl &gt;::getSheet</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>getSheet</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000113"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="341"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1a2a9fd6ccf59831a09b910680732067f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; TabControl &gt;::setSheetNameIndex</definition>
+        <argsstring>(size_t _index, const UString &amp;_name, int _width=DEFAULT)</argsstring>
+        <name>setSheetNameIndex</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+          <defval>DEFAULT</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000114"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="343"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1195290dceee0fba9479f5de82b7dfb18" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; TabControl &gt;::setSheetName</definition>
+        <argsstring>(TabItem *_sheet, const UString &amp;_name, int _width=DEFAULT)</argsstring>
+        <name>setSheetName</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1TabItem" kindref="compound">TabItem</ref> *</type>
+          <declname>_sheet</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+          <defval>DEFAULT</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000115"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="345"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1ca76920005492800e1d89898e4459f55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1TabItem" kindref="compound">TabItem</ref> *</type>
+        <definition>TabItem* MyGUI::MemberObsolete&lt; TabControl &gt;::addSheet</definition>
+        <argsstring>(const UString &amp;_name, int _width=DEFAULT)</argsstring>
+        <name>addSheet</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+          <defval>DEFAULT</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000116"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="347"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_164b60984c79cfc0710a68c92aef75848" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1TabItem" kindref="compound">TabItem</ref> *</type>
+        <definition>TabItem* MyGUI::MemberObsolete&lt; TabControl &gt;::insertSheet</definition>
+        <argsstring>(size_t _index, const UString &amp;_name, int _width=DEFAULT)</argsstring>
+        <name>insertSheet</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+          <defval>DEFAULT</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000117"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="349"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_19fe1bad661931e315c680bb4064173e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; TabControl &gt;::removeSheetIndex</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>removeSheetIndex</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000118"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="351"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1fffd7fe6fba970fd8290c8c10d1bf456" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; TabControl &gt;::removeSheet</definition>
+        <argsstring>(TabItem *_sheet)</argsstring>
+        <name>removeSheet</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1TabItem" kindref="compound">TabItem</ref> *</type>
+          <declname>_sheet</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000119"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="353"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1d5673720dfc2add643f458456e95f518" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; TabControl &gt;::selectSheetIndex</definition>
+        <argsstring>(size_t _index, bool _smooth=true)</argsstring>
+        <name>selectSheetIndex</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_smooth</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000120"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="355"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1b8b6074746a20aff17ccb131e07d9333" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; TabControl &gt;::selectSheet</definition>
+        <argsstring>(TabItem *_sheet, bool _smooth=true)</argsstring>
+        <name>selectSheet</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1TabItem" kindref="compound">TabItem</ref> *</type>
+          <declname>_sheet</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_smooth</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000121"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="357"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1731e4a939e440713ad91e39093dab1b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::MemberObsolete&lt; TabControl &gt;::getSelectSheetIndex</definition>
+        <argsstring>()</argsstring>
+        <name>getSelectSheetIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000122"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="359"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_197560fb7789bd57d9ea66e9efea49e4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::MemberObsolete&lt; TabControl &gt;::getItemIndexSelected</definition>
+        <argsstring>()</argsstring>
+        <name>getItemIndexSelected</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000123"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="362"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1fc6f87b5599e967f7faef8c7629d735c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::MemberObsolete&lt; TabControl &gt;::setItemSelectedAt</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>setItemSelectedAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000124"><xreftitle>Deprecated</xreftitle><xrefdescription><para>text </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="364"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" line="320" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_BackwardCompatibility.h" bodystart="319" bodyend="365"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1ca76920005492800e1d89898e4459f55" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>addSheet</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_197560fb7789bd57d9ea66e9efea49e4a" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>getItemIndexSelected</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1731e4a939e440713ad91e39093dab1b3" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>getSelectSheetIndex</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1797aeba3627219869d31c46e8da6b4b4" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>getSheet</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_17679eb0cc5e73bae22c27ad4546161cb" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>getSheetButtonWidth</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1c4edab23d47be1741761db0701b1ad8d" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>getSheetButtonWidthIndex</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1aca0bd66f9c19d91af06c2adb2a4b0de" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>getSheetCount</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_130efa4f6316cb57c9b9a160e4cd9ed88" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>getSheetName</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1ed0a1e1a7150e6a1ef6de141dea4e12f" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>getSheetNameIndex</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_164b60984c79cfc0710a68c92aef75848" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>insertSheet</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1fffd7fe6fba970fd8290c8c10d1bf456" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>removeSheet</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_19fe1bad661931e315c680bb4064173e7" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>removeSheetIndex</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1b8b6074746a20aff17ccb131e07d9333" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>selectSheet</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1d5673720dfc2add643f458456e95f518" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>selectSheetIndex</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1fc6f87b5599e967f7faef8c7629d735c" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>setItemSelectedAt</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1f58ddff475167f36a57cd40037d8adca" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>setSheetButtonWidth</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_134b1827bc0dae0c4f34bd5bdeaeb581a" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>setSheetButtonWidthIndex</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1195290dceee0fba9479f5de82b7dfb18" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>setSheetName</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1a2a9fd6ccf59831a09b910680732067f" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>setSheetNameIndex</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_186f143f7a1906c07efb6469206ce1c8d" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>showBarButton</name></member>
+      <member refid="classMyGUI_1_1MemberObsolete_3_01TabControl_01_4_1d231383acadd1be1b0c98971e7c64850" prot="public" virt="non-virtual"><scope>MyGUI::MemberObsolete&lt; TabControl &gt;</scope><name>showBarSelectButton</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

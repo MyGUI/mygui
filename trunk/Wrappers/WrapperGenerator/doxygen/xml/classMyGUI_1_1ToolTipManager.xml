@@ -1,0 +1,370 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1ToolTipManager" kind="class" prot="public">
+    <compoundname>MyGUI::ToolTipManager</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1ToolTipManager_1b197ce336c5931b58bacee523b5ced9f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::ToolTipManager::ToolTipManager</definition>
+        <argsstring>()</argsstring>
+        <name>ToolTipManager</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ToolTipManager_198fb7fa6cea0515ea15bdba17b1044f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ToolTipManager::initialise</definition>
+        <argsstring>()</argsstring>
+        <name>initialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ToolTipManager_118c04cc7fcc9ee9d7786a8371dbca5c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ToolTipManager::shutdown</definition>
+        <argsstring>()</argsstring>
+        <name>shutdown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ToolTipManager_159815ae419643dd75c43c999f964d465" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ToolTipManager::setDelayVisible</definition>
+        <argsstring>(float _value)</argsstring>
+        <name>setDelayVisible</name>
+        <param>
+          <type>float</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ToolTipManager_193a5ba167b4dd6c48c97cc7bf6d6bd5f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float MyGUI::ToolTipManager::getDelayVisible</definition>
+        <argsstring>() const </argsstring>
+        <name>getDelayVisible</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ToolTipManager_1a687f6c5ef820bd3886c55f8b8a5eabe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ToolTipManager::_unlinkWidget</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>_unlinkWidget</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="46"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1ToolTipManager_13d3086eb3f8875de3cbd192e1cccfb36" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ToolTipManager::notifyEventFrameStart</definition>
+        <argsstring>(float _time)</argsstring>
+        <name>notifyEventFrameStart</name>
+        <param>
+          <type>float</type>
+          <declname>_time</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ToolTipManager_13e19c3fbd4017c72ee468c706054d4e6" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ToolTipManager::hideToolTip</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>hideToolTip</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ToolTipManager_17ca92524030ed27c2e54d01829628dbd" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ToolTipManager::showToolTip</definition>
+        <argsstring>(Widget *_widget, size_t _index, const IntPoint &amp;_point)</argsstring>
+        <name>showToolTip</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>const IntPoint &amp;</type>
+          <declname>_point</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ToolTipManager_1f691735ec39b16c57cde4946a2753d06" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ToolTipManager::moveToolTip</definition>
+        <argsstring>(Widget *_widget, size_t _index, const IntPoint &amp;_point)</argsstring>
+        <name>moveToolTip</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>const IntPoint &amp;</type>
+          <declname>_point</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ToolTipManager_1ac59733a4c7ab8e6dc662f3f1fcd6020" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::ToolTipManager::isNeedToolTip</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>isNeedToolTip</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ToolTipManager_10ada0d12fe42e44e1bc9bd86a4a37029" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ToolTipManager::getToolTipIndex</definition>
+        <argsstring>(Widget *_widget) const </argsstring>
+        <name>getToolTipIndex</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="56"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1ToolTipManager_157f8a8c0a3d3b5c289f4202f7e76cf0a" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::ToolTipManager::mDelayVisible</definition>
+        <argsstring></argsstring>
+        <name>mDelayVisible</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="59" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ToolTipManager_17e61fc2ccf611a8d25913dd432981740" prot="private" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::ToolTipManager::mOldFocusWidget</definition>
+        <argsstring></argsstring>
+        <name>mOldFocusWidget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="60" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ToolTipManager_1f36e30e81fc1d682b3b36d5822e0fc0e" prot="private" static="no" mutable="no">
+        <type>IntPoint</type>
+        <definition>IntPoint MyGUI::ToolTipManager::mOldMousePoint</definition>
+        <argsstring></argsstring>
+        <name>mOldMousePoint</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="61" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ToolTipManager_1175b39d8236869b999ce88b9f2915176" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::ToolTipManager::mToolTipVisible</definition>
+        <argsstring></argsstring>
+        <name>mToolTipVisible</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="62" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ToolTipManager_1db4ab4e61779c7d4226ad550fc559327" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MyGUI::ToolTipManager::mCurrentTime</definition>
+        <argsstring></argsstring>
+        <name>mCurrentTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="63" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ToolTipManager_1755706cc3a2419375f69ff33e433ed92" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ToolTipManager::mOldIndex</definition>
+        <argsstring></argsstring>
+        <name>mOldIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="64" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ToolTipManager_1bd08883ec8f742a9334e94d9dd18d6b9" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::ToolTipManager::mNeedToolTip</definition>
+        <argsstring></argsstring>
+        <name>mNeedToolTip</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="65" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ToolTipManager_130938d2a5cdb27a57d4a876e582c8f76" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::ToolTipManager::mIsInitialise</definition>
+        <argsstring></argsstring>
+        <name>mIsInitialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="67" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="682">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="681">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="682" relation="public-inheritance">
+        </childnode>
+        <childnode refid="681" relation="usage">
+          <edgelabel>mContainer
+mParent
+mWidgetClient</edgelabel>
+        </childnode>
+      </node>
+      <node id="680">
+        <label>MyGUI::ToolTipManager</label>
+        <childnode refid="681" relation="usage">
+          <edgelabel>mOldFocusWidget</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ToolTipManager.h" bodystart="32" bodyend="68"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1ToolTipManager_1a687f6c5ef820bd3886c55f8b8a5eabe" prot="public" virt="non-virtual"><scope>MyGUI::ToolTipManager</scope><name>_unlinkWidget</name></member>
+      <member refid="classMyGUI_1_1ToolTipManager_193a5ba167b4dd6c48c97cc7bf6d6bd5f" prot="public" virt="non-virtual"><scope>MyGUI::ToolTipManager</scope><name>getDelayVisible</name></member>
+      <member refid="classMyGUI_1_1ToolTipManager_10ada0d12fe42e44e1bc9bd86a4a37029" prot="private" virt="non-virtual"><scope>MyGUI::ToolTipManager</scope><name>getToolTipIndex</name></member>
+      <member refid="classMyGUI_1_1ToolTipManager_13e19c3fbd4017c72ee468c706054d4e6" prot="private" virt="non-virtual"><scope>MyGUI::ToolTipManager</scope><name>hideToolTip</name></member>
+      <member refid="classMyGUI_1_1ToolTipManager_198fb7fa6cea0515ea15bdba17b1044f8" prot="public" virt="non-virtual"><scope>MyGUI::ToolTipManager</scope><name>initialise</name></member>
+      <member refid="classMyGUI_1_1ToolTipManager_1ac59733a4c7ab8e6dc662f3f1fcd6020" prot="private" virt="non-virtual"><scope>MyGUI::ToolTipManager</scope><name>isNeedToolTip</name></member>
+      <member refid="classMyGUI_1_1ToolTipManager_1db4ab4e61779c7d4226ad550fc559327" prot="private" virt="non-virtual"><scope>MyGUI::ToolTipManager</scope><name>mCurrentTime</name></member>
+      <member refid="classMyGUI_1_1ToolTipManager_157f8a8c0a3d3b5c289f4202f7e76cf0a" prot="private" virt="non-virtual"><scope>MyGUI::ToolTipManager</scope><name>mDelayVisible</name></member>
+      <member refid="classMyGUI_1_1ToolTipManager_130938d2a5cdb27a57d4a876e582c8f76" prot="private" virt="non-virtual"><scope>MyGUI::ToolTipManager</scope><name>mIsInitialise</name></member>
+      <member refid="classMyGUI_1_1ToolTipManager_1bd08883ec8f742a9334e94d9dd18d6b9" prot="private" virt="non-virtual"><scope>MyGUI::ToolTipManager</scope><name>mNeedToolTip</name></member>
+      <member refid="classMyGUI_1_1ToolTipManager_17e61fc2ccf611a8d25913dd432981740" prot="private" virt="non-virtual"><scope>MyGUI::ToolTipManager</scope><name>mOldFocusWidget</name></member>
+      <member refid="classMyGUI_1_1ToolTipManager_1755706cc3a2419375f69ff33e433ed92" prot="private" virt="non-virtual"><scope>MyGUI::ToolTipManager</scope><name>mOldIndex</name></member>
+      <member refid="classMyGUI_1_1ToolTipManager_1f36e30e81fc1d682b3b36d5822e0fc0e" prot="private" virt="non-virtual"><scope>MyGUI::ToolTipManager</scope><name>mOldMousePoint</name></member>
+      <member refid="classMyGUI_1_1ToolTipManager_1f691735ec39b16c57cde4946a2753d06" prot="private" virt="non-virtual"><scope>MyGUI::ToolTipManager</scope><name>moveToolTip</name></member>
+      <member refid="classMyGUI_1_1ToolTipManager_1175b39d8236869b999ce88b9f2915176" prot="private" virt="non-virtual"><scope>MyGUI::ToolTipManager</scope><name>mToolTipVisible</name></member>
+      <member refid="classMyGUI_1_1ToolTipManager_13d3086eb3f8875de3cbd192e1cccfb36" prot="private" virt="non-virtual"><scope>MyGUI::ToolTipManager</scope><name>notifyEventFrameStart</name></member>
+      <member refid="classMyGUI_1_1ToolTipManager_159815ae419643dd75c43c999f964d465" prot="public" virt="non-virtual"><scope>MyGUI::ToolTipManager</scope><name>setDelayVisible</name></member>
+      <member refid="classMyGUI_1_1ToolTipManager_17ca92524030ed27c2e54d01829628dbd" prot="private" virt="non-virtual"><scope>MyGUI::ToolTipManager</scope><name>showToolTip</name></member>
+      <member refid="classMyGUI_1_1ToolTipManager_118c04cc7fcc9ee9d7786a8371dbca5c8" prot="public" virt="non-virtual"><scope>MyGUI::ToolTipManager</scope><name>shutdown</name></member>
+      <member refid="classMyGUI_1_1ToolTipManager_1b197ce336c5931b58bacee523b5ced9f" prot="public" virt="non-virtual"><scope>MyGUI::ToolTipManager</scope><name>ToolTipManager</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

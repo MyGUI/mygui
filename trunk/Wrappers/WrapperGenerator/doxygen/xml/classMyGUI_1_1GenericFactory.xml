@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1GenericFactory" kind="class" prot="public">
+    <compoundname>MyGUI::GenericFactory</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename</type>
+        <declname>Type</declname>
+        <defname>Type</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1GenericFactory_12e86e510a47215e44e7170dc28c79d42" prot="public" static="no">
+        <type>delegates::CDelegate1&lt; IObject *&amp; &gt;</type>
+        <definition>typedef delegates::CDelegate1&lt;IObject*&amp;&gt; MyGUI::GenericFactory&lt; Type &gt;::Delegate</definition>
+        <argsstring></argsstring>
+        <name>Delegate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_GenericFactory.h" line="20" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_GenericFactory.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1GenericFactory_1da48ef933a4e2d2db978646664d5916a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Delegate::IDelegate *</type>
+        <definition>static Delegate::IDelegate* MyGUI::GenericFactory&lt; Type &gt;::getFactory</definition>
+        <argsstring>()</argsstring>
+        <name>getFactory</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_GenericFactory.h" line="22" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_GenericFactory.h" bodystart="21" bodyend="24"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1GenericFactory_1a289f521f28e4092711bf5e26497756f" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void MyGUI::GenericFactory&lt; Type &gt;::createFromFactory</definition>
+        <argsstring>(IObject *&amp;_instance)</argsstring>
+        <name>createFromFactory</name>
+        <param>
+          <type>IObject *&amp;</type>
+          <declname>_instance</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_GenericFactory.h" line="28" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_GenericFactory.h" bodystart="27" bodyend="30"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_GenericFactory.h" line="18" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_GenericFactory.h" bodystart="17" bodyend="31"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1GenericFactory_1a289f521f28e4092711bf5e26497756f" prot="private" virt="non-virtual"><scope>MyGUI::GenericFactory</scope><name>createFromFactory</name></member>
+      <member refid="classMyGUI_1_1GenericFactory_12e86e510a47215e44e7170dc28c79d42" prot="public" virt="non-virtual"><scope>MyGUI::GenericFactory</scope><name>Delegate</name></member>
+      <member refid="classMyGUI_1_1GenericFactory_1da48ef933a4e2d2db978646664d5916a" prot="public" virt="non-virtual"><scope>MyGUI::GenericFactory</scope><name>getFactory</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

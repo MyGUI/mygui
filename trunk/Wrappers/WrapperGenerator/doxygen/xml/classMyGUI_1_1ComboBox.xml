@@ -1,0 +1,1589 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1ComboBox" kind="class" prot="public">
+    <compoundname>MyGUI::ComboBox</compoundname>
+    <basecompoundref refid="classMyGUI_1_1EditBox" prot="public" virt="non-virtual">MyGUI::EditBox</basecompoundref>
+    <includes local="no">MyGUI_ComboBox.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1ComboBox_1b8ec0d2ef3c6581f4236daad79bab309" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1ComboBox" kindref="compound">RTTIBase</ref></type>
+        <definition>typedef RTTIBase MyGUI::ComboBox::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <reimplements refid="classMyGUI_1_1EditBox_1d5eaa0f9fed3de28c8641844cc45f30e">Base</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="48" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1ComboBox_1fa2617bb376043aa6991270069b4f787" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1ComboBox" kindref="compound">ComboBox</ref></type>
+        <definition>typedef ComboBox MyGUI::ComboBox::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <reimplements refid="classMyGUI_1_1EditBox_1087126489fee2cb362e2ca18a8dcc56d">RTTIBase</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="48" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_119b58fb58825e29b8a31584ee7e86033" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::ComboBox::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <reimplements refid="classMyGUI_1_1EditBox_17f04183c9acc5f28d459bbf0f69e82a6">getTypeName</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="48" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="48" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1a25c1cfeb56f1b356f6b64a4b0c17816" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::ComboBox::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <reimplements refid="classMyGUI_1_1EditBox_1c11377f2a6f63ff6ec848c9f67d86ca8">isType</reimplements>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="48" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="48" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_140d09d268d9ffa8b5747ae2101093a73" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::ComboBox::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <reimplements refid="classMyGUI_1_1EditBox_149b4d03c2e7c9d9dd7f3e2ebcb27cd94">isType</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="48" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="48" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1b8255fa9dd43694a1c43b11e398e56fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::ComboBox::ComboBox</definition>
+        <argsstring>()</argsstring>
+        <name>ComboBox</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_16d2482db6f10bbcbdc4d488b087bdd4e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ComboBox::getItemCount</definition>
+        <argsstring>() const </argsstring>
+        <name>getItemCount</name>
+        <briefdescription>
+<para>Get number of items. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1a67d9498be1447d8c2de4dcd6feaf978" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::insertItemAt</definition>
+        <argsstring>(size_t _index, const UString &amp;_name, Any _data=Any::Null)</argsstring>
+        <name>insertItemAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>_data</declname>
+          <defval>Any::Null</defval>
+        </param>
+        <briefdescription>
+<para>Insert an item into a array at a specified position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_10721eccd99c05a06fcd003e743e9627c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::addItem</definition>
+        <argsstring>(const UString &amp;_name, Any _data=Any::Null)</argsstring>
+        <name>addItem</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>_data</declname>
+          <defval>Any::Null</defval>
+        </param>
+        <briefdescription>
+<para>Add an item to the end of a array. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1e4033d7167907a10a35dc15d17cdd010" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::removeItemAt</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>removeItemAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+<para>Remove item at a specified position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_154c73474e972ad0e473cb9443488382e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::removeAllItems</definition>
+        <argsstring>()</argsstring>
+        <name>removeAllItems</name>
+        <briefdescription>
+<para>Remove all items. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_12c77e65fd925af18582d9c9730683c4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ComboBox::findItemIndexWith</definition>
+        <argsstring>(const UString &amp;_name)</argsstring>
+        <name>findItemIndexWith</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+<para>Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_159b7dccdbaaee52001949284cc20c2b8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ComboBox::getIndexSelected</definition>
+        <argsstring>() const </argsstring>
+        <name>getIndexSelected</name>
+        <briefdescription>
+<para>Get index of selected item (ITEM_NONE if none selected). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="80"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1515fb414e6bcc2a1a4557bac097bda79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::setIndexSelected</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>setIndexSelected</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+<para>Select specified _index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="83"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_13e16243b7f7f37196fc911210b88de5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::clearIndexSelected</definition>
+        <argsstring>()</argsstring>
+        <name>clearIndexSelected</name>
+        <briefdescription>
+<para>Clear item selection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1de9daffd4f87fa48444b6a7e0cc4fa41" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::setItemDataAt</definition>
+        <argsstring>(size_t _index, Any _data)</argsstring>
+        <name>setItemDataAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>Any</type>
+          <declname>_data</declname>
+        </param>
+        <briefdescription>
+<para>Replace an item data at a specified position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="93"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1e4076dccc06ba3162081b8b4aaf7d4d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::clearItemDataAt</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>clearItemDataAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+<para>Clear an item data at a specified position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="96"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_119fd9f4897e72d697a35a9ae142533f7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>ValueType</declname>
+            <defname>ValueType</defname>
+          </param>
+        </templateparamlist>
+        <type>ValueType *</type>
+        <definition>ValueType* MyGUI::ComboBox::getItemDataAt</definition>
+        <argsstring>(size_t _index, bool _throw=true)</argsstring>
+        <name>getItemDataAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_throw</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Get item data from specified position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="101" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="100" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_14fd5318f710dea500a29698add516539" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::setItemNameAt</definition>
+        <argsstring>(size_t _index, const UString &amp;_name)</argsstring>
+        <name>setItemNameAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+<para>Replace an item name at a specified position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="110"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1be33d4a975f845be306cdd2fb6e00edd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+        <definition>const UString&amp; MyGUI::ComboBox::getItemNameAt</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>getItemNameAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+<para>Get item name from specified position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="113"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_18726d559b6e6dce0b46df36eea436955" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::beginToItemAt</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>beginToItemAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+<para>Move all elements so specified becomes visible. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="120"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1ec3e937eb51179829c989fb0341bada3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::beginToItemFirst</definition>
+        <argsstring>()</argsstring>
+        <name>beginToItemFirst</name>
+        <briefdescription>
+<para>Move all elements so first becomes visible. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="123"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_19b15e91877aa7a28b47b45a7e93b7dbb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::beginToItemLast</definition>
+        <argsstring>()</argsstring>
+        <name>beginToItemLast</name>
+        <briefdescription>
+<para>Move all elements so last becomes visible. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="126"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1097d45398364c388688f9ac1b8271760" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::beginToItemSelected</definition>
+        <argsstring>()</argsstring>
+        <name>beginToItemSelected</name>
+        <briefdescription>
+<para>Move all elements so selected becomes visible. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="129"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_16416d34afa362a07cc6e3651e7a7dca9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::setComboModeDrop</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setComboModeDrop</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+<para>Set drop list mode (text can not be edited). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="136"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1503c6521fce84b5b72b1aa642279f629" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::ComboBox::getComboModeDrop</definition>
+        <argsstring>() const </argsstring>
+        <name>getComboModeDrop</name>
+        <briefdescription>
+<para>Get drop list mode flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="138"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1dc5bebf6c863e25f1ca0e9419a4e6e37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::setSmoothShow</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setSmoothShow</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+<para>Set smooth show of list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="141"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_110edc211f492828c2156b5a094aa429e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::ComboBox::getSmoothShow</definition>
+        <argsstring>() const </argsstring>
+        <name>getSmoothShow</name>
+        <briefdescription>
+<para>Get smooth show of list flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="143"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_19fdb976399da8f15f41f293c25947897" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::setMaxListLength</definition>
+        <argsstring>(int _value)</argsstring>
+        <name>setMaxListLength</name>
+        <param>
+          <type>int</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+<para>Get max list length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="146"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_15c8d7aeac52ea86449ffeb23a8d51959" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int MyGUI::ComboBox::getMaxListLength</definition>
+        <argsstring>() const </argsstring>
+        <name>getMaxListLength</name>
+        <briefdescription>
+<para>Set max list length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="148"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_18e05e56aa80cf5f0dec3025a78944b61" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::setFlowDirection</definition>
+        <argsstring>(FlowDirection _value)</argsstring>
+        <name>setFlowDirection</name>
+        <param>
+          <type>FlowDirection</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+<para>Set direction, where drop down list appears (TopToBottom by default). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="152"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_13570bddc7d9431ff631c10ff38483efe" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>FlowDirection</type>
+        <definition>FlowDirection MyGUI::ComboBox::getFlowDirection</definition>
+        <argsstring>() const </argsstring>
+        <name>getFlowDirection</name>
+        <briefdescription>
+<para>Get direction, where drop down list appears. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="154"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1846cec19ea7387a24561e868649539ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>size_t</type>
+        <definition>virtual size_t MyGUI::ComboBox::_getItemCount</definition>
+        <argsstring>()</argsstring>
+        <name>_getItemCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="176"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1e780220d737f413b9ce7c48128fd6e89" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ComboBox::_addItem</definition>
+        <argsstring>(const MyGUI::UString &amp;_name)</argsstring>
+        <name>_addItem</name>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">MyGUI::UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="177"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_10a9cced52f5099822c22e28f0c8c2f6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ComboBox::_removeItemAt</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>_removeItemAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="178"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1611ed4c096053c2b6868dca1e021f64d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ComboBox::_setItemNameAt</definition>
+        <argsstring>(size_t _index, const UString &amp;_name)</argsstring>
+        <name>_setItemNameAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="179"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1defebfdb55999f92cd9acaf3592ae757" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+        <definition>virtual const UString&amp; MyGUI::ComboBox::_getItemNameAt</definition>
+        <argsstring>(size_t _index)</argsstring>
+        <name>_getItemNameAt</name>
+        <param>
+          <type>size_t</type>
+          <declname>_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="180"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1b40a3b13ee33d56a26f55bcd991cb987" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ComboBox::_resetContainer</definition>
+        <argsstring>(bool _update)</argsstring>
+        <name>_resetContainer</name>
+        <reimplements refid="classMyGUI_1_1Widget_1175526a4b039cf13c7fec7012d7287fc">_resetContainer</reimplements>
+        <param>
+          <type>bool</type>
+          <declname>_update</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="182"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1ComboBox_116ad756a0cfd3ffba452dbed8aa7ecfa" prot="public" static="no" mutable="no">
+        <type>EventPair&lt; EventHandle_WidgetVoid, EventHandle_ComboBoxPtrSizeT &gt;</type>
+        <definition>EventPair&lt;EventHandle_WidgetVoid, EventHandle_ComboBoxPtrSizeT&gt; MyGUI::ComboBox::eventComboAccept</definition>
+        <argsstring></argsstring>
+        <name>eventComboAccept</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Event : Enter pressed in combo mode or item selected in drop down list and combo mode drop enabled (see void <ref refid="classMyGUI_1_1ComboBox_16416d34afa362a07cc6e3651e7a7dca9" kindref="member">ComboBox::setComboModeDrop(bool _value)</ref>).<linebreak/>
+ signature : void method(MyGUI::ComboBox* _sender, size_t _index) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_sender</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>widget that called this event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>item </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="164" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ComboBox_1ba514ee5f021d581152132ee56ffa20b" prot="public" static="no" mutable="no">
+        <type>EventPair&lt; EventHandle_WidgetSizeT, EventHandle_ComboBoxPtrSizeT &gt;</type>
+        <definition>EventPair&lt;EventHandle_WidgetSizeT, EventHandle_ComboBoxPtrSizeT&gt; MyGUI::ComboBox::eventComboChangePosition</definition>
+        <argsstring></argsstring>
+        <name>eventComboChangePosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Event : Position changed.<linebreak/>
+ signature : void method(MyGUI::ComboBox* _sender, size_t _index) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_sender</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>widget that called this event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of new position </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="172" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1ac3fe17934a4c45229f434c1c6aa5f75" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::ComboBox::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <reimplements refid="classMyGUI_1_1EditBox_121ac1e795a7d76d56f108e69784bb3f5">getClassTypeName</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="48" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="48" bodyend="48"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1d39eeb1d900e4093dea5ff08a5a97248" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ComboBox::initialiseOverride</definition>
+        <argsstring>()</argsstring>
+        <name>initialiseOverride</name>
+        <reimplements refid="classMyGUI_1_1EditBox_109271e056797ceb7f3b64a4fa31ecebc">initialiseOverride</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="185"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_16df9c4bfc1054a922a65d6ba018d3828" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ComboBox::shutdownOverride</definition>
+        <argsstring>()</argsstring>
+        <name>shutdownOverride</name>
+        <reimplements refid="classMyGUI_1_1EditBox_1980df95ae424ef6e78a8eb9d10001904">shutdownOverride</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="186"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_16642ced9c43004c1b6ac0e33a29fb1a5" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ComboBox::onKeyButtonPressed</definition>
+        <argsstring>(KeyCode _key, Char _char)</argsstring>
+        <name>onKeyButtonPressed</name>
+        <reimplements refid="classMyGUI_1_1EditBox_13c9f468f7302a039882a0ccca92c92b7">onKeyButtonPressed</reimplements>
+        <param>
+          <type>KeyCode</type>
+          <declname>_key</declname>
+        </param>
+        <param>
+          <type>Char</type>
+          <declname>_char</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="188"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_144e5b1064bb07efec7d33a36ad88f41a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::ComboBox::setPropertyOverride</definition>
+        <argsstring>(const std::string &amp;_key, const std::string &amp;_value)</argsstring>
+        <name>setPropertyOverride</name>
+        <reimplements refid="classMyGUI_1_1EditBox_191f547f280b8995cdf870619892a3ea5">setPropertyOverride</reimplements>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_key</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="190"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_18ca32c0ca8cd78b7893bb382be7f4e91" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::notifyButtonPressed</definition>
+        <argsstring>(Widget *_sender, int _left, int _top, MouseButton _id)</argsstring>
+        <name>notifyButtonPressed</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_sender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>MouseButton</type>
+          <declname>_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="193"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1ab27762b05e3aba3819ddf9a8dfe39c5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::notifyListLostFocus</definition>
+        <argsstring>(Widget *_sender, MyGUI::Widget *_new)</argsstring>
+        <name>notifyListLostFocus</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_sender</declname>
+        </param>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">MyGUI::Widget</ref> *</type>
+          <declname>_new</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="194"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1f8c906ff08ac99886c3eb3814a0d615b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::notifyListSelectAccept</definition>
+        <argsstring>(ListBox *_widget, size_t _position)</argsstring>
+        <name>notifyListSelectAccept</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1ListBox" kindref="compound">ListBox</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_position</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="195"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_144de7abafdeaee8fbe641624f7fa37fa" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::notifyListMouseItemActivate</definition>
+        <argsstring>(ListBox *_widget, size_t _position)</argsstring>
+        <name>notifyListMouseItemActivate</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1ListBox" kindref="compound">ListBox</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_position</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="196"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1b05f39766a8a57cfd9722294e9313f9f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::notifyListChangePosition</definition>
+        <argsstring>(ListBox *_widget, size_t _position)</argsstring>
+        <name>notifyListChangePosition</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1ListBox" kindref="compound">ListBox</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_position</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="197"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_137286d3d82767307442c498077ab89b5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::notifyMouseWheel</definition>
+        <argsstring>(Widget *_sender, int _rel)</argsstring>
+        <name>notifyMouseWheel</name>
+        <reimplements refid="classMyGUI_1_1EditBox_1e1b48c150ebc176a8d1e47211682fa74">notifyMouseWheel</reimplements>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_sender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_rel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="198"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_155b350fb00cf6faa61bd8979565140e8" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::notifyMousePressed</definition>
+        <argsstring>(Widget *_sender, int _left, int _top, MouseButton _id)</argsstring>
+        <name>notifyMousePressed</name>
+        <reimplements refid="classMyGUI_1_1EditBox_1f960550155a6b8e6ae5cb9c4fac11f3f">notifyMousePressed</reimplements>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_sender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>MouseButton</type>
+          <declname>_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="199"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1aa981be4214c541e2de46ba84881c5b5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::notifyEditTextChange</definition>
+        <argsstring>(EditBox *_sender)</argsstring>
+        <name>notifyEditTextChange</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1EditBox" kindref="compound">EditBox</ref> *</type>
+          <declname>_sender</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="200"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1efca34d599b7894acb9600beede2c88b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::notifyToolTip</definition>
+        <argsstring>(Widget *_sender, const ToolTipInfo &amp;_info)</argsstring>
+        <name>notifyToolTip</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_sender</declname>
+        </param>
+        <param>
+          <type>const <ref refid="structMyGUI_1_1ToolTipInfo" kindref="compound">ToolTipInfo</ref> &amp;</type>
+          <declname>_info</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="201"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_176d7ce2811ef1b179acfc9df3d5ee0a8" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::showList</definition>
+        <argsstring>()</argsstring>
+        <name>showList</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="203"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1e958eced6e85336dd4acac358e87a63c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::hideList</definition>
+        <argsstring>()</argsstring>
+        <name>hideList</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="204"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_10e91f10ca5318e39dfd91a6c09368915" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::ComboBox::actionWidgetHide</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>actionWidgetHide</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="206"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_1fd78197e78d7ee94ff0d16666bcbb6ee" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1ControllerFadeAlpha" kindref="compound">ControllerFadeAlpha</ref> *</type>
+        <definition>ControllerFadeAlpha* MyGUI::ComboBox::createControllerFadeAlpha</definition>
+        <argsstring>(float _alpha, float _coef, bool _enable)</argsstring>
+        <name>createControllerFadeAlpha</name>
+        <param>
+          <type>float</type>
+          <declname>_alpha</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_coef</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_enable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="208"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1ComboBox_10921e8f7c48b951375e1554a3a56c799" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>IntCoord</type>
+        <definition>IntCoord MyGUI::ComboBox::calculateListPosition</definition>
+        <argsstring>()</argsstring>
+        <name>calculateListPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="209"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1ComboBox_117814f88f84a08e5c7d2d49fd8b01aef" prot="private" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1Button" kindref="compound">Button</ref> *</type>
+        <definition>Button* MyGUI::ComboBox::mButton</definition>
+        <argsstring></argsstring>
+        <name>mButton</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="212" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ComboBox_1f6d3696a9c98c79ea2621c9ddd525e83" prot="private" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1ListBox" kindref="compound">ListBox</ref> *</type>
+        <definition>ListBox* MyGUI::ComboBox::mList</definition>
+        <argsstring></argsstring>
+        <name>mList</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="213" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ComboBox_16e953dee0969056252558cb590727540" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::ComboBox::mListShow</definition>
+        <argsstring></argsstring>
+        <name>mListShow</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="215" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ComboBox_1aa18e415cac8be02556e71c756f0e8cb" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int MyGUI::ComboBox::mMaxListLength</definition>
+        <argsstring></argsstring>
+        <name>mMaxListLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="216" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ComboBox_101c8e5f1042f8206dc5a33793ca674bd" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t MyGUI::ComboBox::mItemIndex</definition>
+        <argsstring></argsstring>
+        <name>mItemIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="217" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ComboBox_10372e7b778419c937c4152b9ea51846c" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::ComboBox::mModeDrop</definition>
+        <argsstring></argsstring>
+        <name>mModeDrop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="218" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ComboBox_164efd668c2eda021df034d91cb1d3798" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::ComboBox::mDropMouse</definition>
+        <argsstring></argsstring>
+        <name>mDropMouse</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="219" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ComboBox_165b94e22adcc48ed9de1dd3b59664f8f" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::ComboBox::mShowSmooth</definition>
+        <argsstring></argsstring>
+        <name>mShowSmooth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="220" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1ComboBox_1aa8c5a685d88bb67528cbb0770302684" prot="private" static="no" mutable="no">
+        <type>FlowDirection</type>
+        <definition>FlowDirection MyGUI::ComboBox::mFlowDirection</definition>
+        <argsstring></argsstring>
+        <name>mFlowDirection</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="222" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>{<ref refid="classMyGUI_1_1ComboBox" kindref="compound">ComboBox</ref>} <ref refid="classMyGUI_1_1ComboBox" kindref="compound">ComboBox</ref> widget description should be here. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="108">
+        <label>MyGUI::ComboBox</label>
+        <link refid="classMyGUI_1_1ComboBox"/>
+        <childnode refid="109" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="109">
+        <label>MyGUI::EditBox</label>
+        <link refid="classMyGUI_1_1EditBox"/>
+        <childnode refid="110" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="110">
+        <label>MyGUI::TextBox</label>
+        <link refid="classMyGUI_1_1TextBox"/>
+        <childnode refid="111" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="112">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="111">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="112" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="113">
+        <label>MyGUI::ComboBox</label>
+        <link refid="classMyGUI_1_1ComboBox"/>
+        <childnode refid="114" relation="public-inheritance">
+        </childnode>
+        <childnode refid="119" relation="usage">
+          <edgelabel>mList</edgelabel>
+        </childnode>
+        <childnode refid="121" relation="usage">
+          <edgelabel>mButton</edgelabel>
+        </childnode>
+      </node>
+      <node id="119">
+        <label>MyGUI::ListBox</label>
+        <link refid="classMyGUI_1_1ListBox"/>
+        <childnode refid="116" relation="public-inheritance">
+        </childnode>
+        <childnode refid="120" relation="usage">
+          <edgelabel>mWidgetScroll</edgelabel>
+        </childnode>
+        <childnode refid="116" relation="usage">
+          <edgelabel>mClient</edgelabel>
+        </childnode>
+      </node>
+      <node id="114">
+        <label>MyGUI::EditBox</label>
+        <link refid="classMyGUI_1_1EditBox"/>
+        <childnode refid="115" relation="public-inheritance">
+        </childnode>
+        <childnode refid="118" relation="usage">
+          <edgelabel>mPasswordText</edgelabel>
+        </childnode>
+      </node>
+      <node id="115">
+        <label>MyGUI::TextBox</label>
+        <link refid="classMyGUI_1_1TextBox"/>
+        <childnode refid="116" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="122">
+        <label>MyGUI::ImageBox</label>
+        <link refid="classMyGUI_1_1ImageBox"/>
+        <childnode refid="116" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="117">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="116">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="117" relation="public-inheritance">
+        </childnode>
+        <childnode refid="116" relation="usage">
+          <edgelabel>mContainer
+mParent
+mWidgetClient</edgelabel>
+        </childnode>
+      </node>
+      <node id="121">
+        <label>MyGUI::Button</label>
+        <link refid="classMyGUI_1_1Button"/>
+        <childnode refid="115" relation="public-inheritance">
+        </childnode>
+        <childnode refid="122" relation="usage">
+          <edgelabel>mImage</edgelabel>
+        </childnode>
+      </node>
+      <node id="118">
+        <label>MyGUI::UString</label>
+        <link refid="classMyGUI_1_1UString"/>
+      </node>
+      <node id="120">
+        <label>MyGUI::ScrollBar</label>
+        <link refid="classMyGUI_1_1ScrollBar"/>
+        <childnode refid="116" relation="public-inheritance">
+        </childnode>
+        <childnode refid="116" relation="usage">
+          <edgelabel>mWidgetFirstPart
+mWidgetSecondPart</edgelabel>
+        </childnode>
+        <childnode refid="121" relation="usage">
+          <edgelabel>mWidgetTrack
+mWidgetStart
+mWidgetEnd</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" line="47" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ComboBox.h" bodystart="43" bodyend="223"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1ComboBox_1e780220d737f413b9ce7c48128fd6e89" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>_addItem</name></member>
+      <member refid="classMyGUI_1_1Widget_134c44665e7d51c7eb65bf70f0479e1c3" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_checkPoint</name></member>
+      <member refid="classMyGUI_1_1Widget_13601e5ca0d565451dfcf106850506a51" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_createSkinWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_10df77f6d74fe5fc24701819e0b7e0fe8" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_destroyAllChildWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_125136884a04944ef8b199c582e15482c" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_destroyChildWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1deee68fb42acc2fab667b169587e9ce3" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_forcePick</name></member>
+      <member refid="classMyGUI_1_1Widget_1f3d99ead3ce8fda0defa2feb0fbaee27" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_getContainer</name></member>
+      <member refid="classMyGUI_1_1Widget_1fef9a1d046d1b78f8c76de1db83d20c6" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>_getContainerIndex</name></member>
+      <member refid="classMyGUI_1_1UserData_1fc4382ac3423790f57b478a0fe5030a2" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_getInternalData</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1846cec19ea7387a24561e868649539ab" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>_getItemCount</name></member>
+      <member refid="classMyGUI_1_1Widget_106700537a6fffaf43aa9c93e89d9cc7d" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>_getItemIndex</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1defebfdb55999f92cd9acaf3592ae757" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>_getItemNameAt</name></member>
+      <member refid="classMyGUI_1_1Widget_1ae54386446434e4b133c244925402375" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_initialise</name></member>
+      <member refid="classMyGUI_1_1ComboBox_10a9cced52f5099822c22e28f0c8c2f6e" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>_removeItemAt</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1b40a3b13ee33d56a26f55bcd991cb987" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>_resetContainer</name></member>
+      <member refid="classMyGUI_1_1Widget_15df6dbd95e99b9b65b385d815026cf26" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_setAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_1d3d48604ad15f958b81bf423f80271c9" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_setContainer</name></member>
+      <member refid="classMyGUI_1_1UserData_12bd52c146bad41f99bbc7ed31335ad18" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_setInternalData</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1611ed4c096053c2b6868dca1e021f64d" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>_setItemNameAt</name></member>
+      <member refid="classMyGUI_1_1Widget_13325a1f4c26917f6f73b207d0986e1bd" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_setWidgetState</name></member>
+      <member refid="classMyGUI_1_1Widget_155b19482fe01925c36e29af671e3d092" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_shutdown</name></member>
+      <member refid="classMyGUI_1_1Widget_1dd935a48ef2c39688d8026c01e9e3939" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>_updateView</name></member>
+      <member refid="classMyGUI_1_1ComboBox_10e91f10ca5318e39dfd91a6c09368915" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>actionWidgetHide</name></member>
+      <member refid="classMyGUI_1_1ComboBox_10721eccd99c05a06fcd003e743e9627c" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>addItem</name></member>
+      <member refid="classMyGUI_1_1EditBox_1cfd1fd2f3720403e3da3676d3ea3f03d" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>addText</name></member>
+      <member refid="classMyGUI_1_1Widget_1b390f48a62a30d529c901cf8cfa1c24c" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>assignWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_105110870f31f66a901b3b11737c194de" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>attachToWidget</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1b8ec0d2ef3c6581f4236daad79bab309" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1Widget_1d88d7deb826efb660943ccb0bb457cae" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>baseCreateWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1d4c4a2cf2c3dd8b71126291a55e69139" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>baseUpdateEnable</name></member>
+      <member refid="classMyGUI_1_1ComboBox_18726d559b6e6dce0b46df36eea436955" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>beginToItemAt</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1ec3e937eb51179829c989fb0341bada3" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>beginToItemFirst</name></member>
+      <member refid="classMyGUI_1_1ComboBox_19b15e91877aa7a28b47b45a7e93b7dbb" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>beginToItemLast</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1097d45398364c388688f9ac1b8271760" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>beginToItemSelected</name></member>
+      <member refid="classMyGUI_1_1ComboBox_10921e8f7c48b951375e1554a3a56c799" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>calculateListPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_1be74d6cc433da6140629423b120735a4" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>changeWidgetSkin</name></member>
+      <member refid="classMyGUI_1_1ComboBox_13e16243b7f7f37196fc911210b88de5d" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>clearIndexSelected</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1e4076dccc06ba3162081b8b4aaf7d4d2" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>clearItemDataAt</name></member>
+      <member refid="classMyGUI_1_1UserData_1f71561f766d83082a82cbdd6d218bd6b" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>clearUserString</name></member>
+      <member refid="classMyGUI_1_1UserData_154fecc1b40c23594c6518589b6912e49" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>clearUserStrings</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1b8255fa9dd43694a1c43b11e398e56fb" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>ComboBox</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1fd78197e78d7ee94ff0d16666bcbb6ee" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>createControllerFadeAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_1d66c5415fde332d5aab563402cffb09f" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_13a28d2e883ce82536b686ac992be672d" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1f8660295aafb142287644c239a313e53" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1721d33e78bb5c6ed975e8d41c8bdb683" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>createWidgetReal</name></member>
+      <member refid="classMyGUI_1_1Widget_1412c63af17890a8d43075782891b66ea" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>createWidgetReal</name></member>
+      <member refid="classMyGUI_1_1Widget_19ea260d13d1de5fb272e8fe3c6f6464c" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>createWidgetRealT</name></member>
+      <member refid="classMyGUI_1_1Widget_100fdb672b101caf560a07b86e67a72d4" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>createWidgetRealT</name></member>
+      <member refid="classMyGUI_1_1Widget_1b5d34f121420fbd4f439d7a8432d7755" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_12e74ae3d0a439f4edd509e73d4b2a083" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_1e26a4a5e8ea3fa4bafd969eb952d88e9" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1EditBox_10557ad07ef36415110c663309bee175f" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>deleteTextSelection</name></member>
+      <member refid="classMyGUI_1_1Widget_1c1c862389f772c52077fe4f2cf6568b5" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>destroySkinWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1056ac7afc041cf328037e210c742302f" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>detachFromWidget</name></member>
+      <member refid="classMyGUI_1_1EditBox_19e5cd719e126a928ac50636112b94631" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>EditBox</name></member>
+      <member refid="classMyGUI_1_1EditBox_138ed17c2410185d3ee2554e0187b319a" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eraseText</name></member>
+      <member refid="classMyGUI_1_1EditBox_1a98e259308ed3b0a94e0a515b53ef5db" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eraseView</name></member>
+      <member refid="classMyGUI_1_1Widget_130efcbdb772c4a75f8208a99c4f9f34d" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventChangeProperty</name></member>
+      <member refid="classMyGUI_1_1ComboBox_116ad756a0cfd3ffba452dbed8aa7ecfa" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventComboAccept</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1ba514ee5f021d581152132ee56ffa20b" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventComboChangePosition</name></member>
+      <member refid="classMyGUI_1_1EditBox_1e3437f37d103025ce520aae785d7ea8f" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventEditSelectAccept</name></member>
+      <member refid="classMyGUI_1_1EditBox_150793768be9d885b7329ebbb72ba91cd" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>eventEditTextChange</name></member>
+      <member refid="classMyGUI_1_1ComboBox_12c77e65fd925af18582d9c9730683c4d" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>findItemIndexWith</name></member>
+      <member refid="classMyGUI_1_1Widget_1d054e1027a48f2ccb9af0179359dadc5" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>findWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1e6d193b99a9d69973922d1b8e0f0b70e" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>findWidgets</name></member>
+      <member refid="classMyGUI_1_1Widget_134cafbef78da90ca8fb6aca8964b337a" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_1db1d462f1145cafb358754c03cd3e7f2" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getAlpha</name></member>
+      <member refid="classMyGUI_1_1EditBox_1e951cad8f473333ed203f1666013084c" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>getCaption</name></member>
+      <member refid="classMyGUI_1_1Widget_1028535563d6d3666658d83e4d479fa6d" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getChildAt</name></member>
+      <member refid="classMyGUI_1_1Widget_195ebe8be9fd3d29f7fa8f7846515eeec" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getChildCount</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1ac3fe17934a4c45229f434c1c6aa5f75" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1Widget_15ffebc869b3b4c36e31178616b27fc86" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getClientCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1ac162cf5e6c51d487c71ae2e2d041352" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getClientWidget</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1503c6521fce84b5b72b1aa642279f629" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getComboModeDrop</name></member>
+      <member refid="classMyGUI_1_1EditBox_1f438fe54dd406b67bdf71dd160cbdbf7" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getEditMultiLine</name></member>
+      <member refid="classMyGUI_1_1EditBox_1fe422b90c4935f5a02903878da798944" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getEditPassword</name></member>
+      <member refid="classMyGUI_1_1EditBox_12d4713dc054433abbea29e0a70d6466f" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getEditReadOnly</name></member>
+      <member refid="classMyGUI_1_1EditBox_1cfe07bce358769fe2086e1cd9ffbb4fc" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getEditStatic</name></member>
+      <member refid="classMyGUI_1_1EditBox_120778b6cba8f09bda224793f31586b58" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getEditWordWrap</name></member>
+      <member refid="classMyGUI_1_1Widget_15cd729c40ad712c7036a0d3f6a2507b2" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1abfb5cf6661813f729bd30b4042e95d7" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getEnumerator</name></member>
+      <member refid="classMyGUI_1_1ComboBox_13570bddc7d9431ff631c10ff38483efe" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getFlowDirection</name></member>
+      <member refid="classMyGUI_1_1TextBox_182cf5031ad57c818cfa9c5a9a0393263" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getFontHeight</name></member>
+      <member refid="classMyGUI_1_1TextBox_1eb499df22061231d04ff0a29e87b2b06" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getFontName</name></member>
+      <member refid="classMyGUI_1_1EditBox_17906d6f35afa75f2e2868815871bc960" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getHScrollPosition</name></member>
+      <member refid="classMyGUI_1_1EditBox_1fea9ee9da2b4835d41730ec381de0a6c" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getHScrollRange</name></member>
+      <member refid="classMyGUI_1_1ComboBox_159b7dccdbaaee52001949284cc20c2b8" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getIndexSelected</name></member>
+      <member refid="classMyGUI_1_1Widget_1c373e8170168b97491e777b99de0872b" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getInheritedEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1028a8ae99e47f513065ce3cbb11e4022" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getInheritedVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_1c2118d0bf46d9a7ec21c7aed9c7e71ca" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1EditBox_168ba67725feaf767f21cf37398f50564" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getInvertSelected</name></member>
+      <member refid="classMyGUI_1_1ComboBox_16d2482db6f10bbcbdc4d488b087bdd4e" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getItemCount</name></member>
+      <member refid="classMyGUI_1_1ComboBox_119fd9f4897e72d697a35a9ae142533f7" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getItemDataAt</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1be33d4a975f845be306cdd2fb6e00edd" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getItemNameAt</name></member>
+      <member refid="classMyGUI_1_1Widget_175cedb78192d81e9dd1cef4a6c7a9fe3" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>getLayerItemByPoint</name></member>
+      <member refid="classMyGUI_1_1Widget_13e00b99c46a0c1ebacf29604d503804d" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>getLayerItemCoord</name></member>
+      <member refid="classMyGUI_1_1ComboBox_15c8d7aeac52ea86449ffeb23a8d51959" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getMaxListLength</name></member>
+      <member refid="classMyGUI_1_1EditBox_17173321a3dac85af5f0dd8dcbf7202e8" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getMaxTextLength</name></member>
+      <member refid="classMyGUI_1_1Widget_1421a0e4eec959e8a5cd7f12ff459bfbf" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getName</name></member>
+      <member refid="classMyGUI_1_1EditBox_10ccf1abb1080f60250c38dab226c3f2e" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getOnlyText</name></member>
+      <member refid="classMyGUI_1_1EditBox_17c9cb16adab8efe59e7d64089e03a95b" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getOverflowToTheLeft</name></member>
+      <member refid="classMyGUI_1_1Widget_174eb9e9819797e68a510a2ae6c3a410a" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getParent</name></member>
+      <member refid="classMyGUI_1_1Widget_1ee1378b1a9bd3db495cbea32f0a13e20" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getParentSize</name></member>
+      <member refid="classMyGUI_1_1EditBox_18126141197bfe7bed28fb95144c19e41" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getPasswordChar</name></member>
+      <member refid="classMyGUI_1_1Widget_14a6523e37fad5103ef5896bdf349861d" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getSkinWidgetsByName</name></member>
+      <member refid="classMyGUI_1_1ComboBox_110edc211f492828c2156b5a094aa429e" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getSmoothShow</name></member>
+      <member refid="classMyGUI_1_1EditBox_123001c46d6c62551de73986068b6e528" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTabPrinting</name></member>
+      <member refid="classMyGUI_1_1TextBox_1e2b4578eeb95ab1fb771e163d50f9b9c" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextAlign</name></member>
+      <member refid="classMyGUI_1_1TextBox_1acc4e9fde74bb63723f7abd59f20ca29" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextColour</name></member>
+      <member refid="classMyGUI_1_1EditBox_1da197c7ab0ffe2684cad61f970b33073" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextCursor</name></member>
+      <member refid="classMyGUI_1_1EditBox_19f6929498d3e8c0fe6368328eefe9c7a" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextInterval</name></member>
+      <member refid="classMyGUI_1_1EditBox_1c4047c53197ea3279f0ad0a178831a7d" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextLength</name></member>
+      <member refid="classMyGUI_1_1EditBox_1cbc5394429065a2dc28df0505a1942f7" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>getTextRegion</name></member>
+      <member refid="classMyGUI_1_1EditBox_11a2d0f2e702510d31dd12805f69278af" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextSelection</name></member>
+      <member refid="classMyGUI_1_1EditBox_1e2f96157f4251723f313e4dcc7bf4e91" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextSelectionEnd</name></member>
+      <member refid="classMyGUI_1_1EditBox_1e016617e566b405226562ae075d557b0" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextSelectionLength</name></member>
+      <member refid="classMyGUI_1_1EditBox_17d31ab346d20d6a25a4c2149628b0239" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextSelectionStart</name></member>
+      <member refid="classMyGUI_1_1TextBox_1c0080a7ed833342b98c9376772d189e7" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextShadow</name></member>
+      <member refid="classMyGUI_1_1TextBox_14d6ac0eb45e0d495ed874367cfac7577" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getTextShadowColour</name></member>
+      <member refid="classMyGUI_1_1EditBox_1ed4f88b5ebbeca587b5f1b04bdfcb8da" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>getTextSize</name></member>
+      <member refid="classMyGUI_1_1ComboBox_119b58fb58825e29b8a31584ee7e86033" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1UserData_1eadd08cc61e475b95c588daf74789a06" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getUserData</name></member>
+      <member refid="classMyGUI_1_1UserData_17c62f7374453eaf6e5316ac369559c53" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getUserString</name></member>
+      <member refid="classMyGUI_1_1UserData_19bc43d45330305b52c5c3f0e9dffabab" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getUserStrings</name></member>
+      <member refid="classMyGUI_1_1Widget_1fa7ad1d5a3213ee9f8c4567e6f3fdd7d" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getVisible</name></member>
+      <member refid="classMyGUI_1_1EditBox_1c306f3e20401d745cc2995d6019a0f6b" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getVScrollPosition</name></member>
+      <member refid="classMyGUI_1_1EditBox_19dae995a30dbc4222576d13b12d91237" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getVScrollRange</name></member>
+      <member refid="classMyGUI_1_1Widget_15accf9c998578f20adcec5987dc820f2" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>getWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1e958eced6e85336dd4acac358e87a63c" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>hideList</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1d39eeb1d900e4093dea5ff08a5a97248" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>initialiseOverride</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1a67d9498be1447d8c2de4dcd6feaf978" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>insertItemAt</name></member>
+      <member refid="classMyGUI_1_1EditBox_1034a9063b1582e3adfc2396044a3607f" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>insertText</name></member>
+      <member refid="classMyGUI_1_1Widget_1b3ec05a74f05236afb58855985781cd0" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isRootWidget</name></member>
+      <member refid="classMyGUI_1_1EditBox_1b82f47362d234bd68bb68335cecd819c" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isTextSelection</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1a25c1cfeb56f1b356f6b64a4b0c17816" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1ComboBox_140d09d268d9ffa8b5747ae2101093a73" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1UserData_10bac17bc60b499cf0386ec3815d67f17" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isUserString</name></member>
+      <member refid="classMyGUI_1_1EditBox_16c8d4d67224aff514c1b1ce477ad9ec9" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isVisibleHScroll</name></member>
+      <member refid="classMyGUI_1_1EditBox_13a92f4ba8464ebcbf9649f2f0fe19c7a" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>isVisibleVScroll</name></member>
+      <member refid="classMyGUI_1_1EditBox_1e1d071762b5bee333803e209a586c2f7" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mActionMouseTimer</name></member>
+      <member refid="classMyGUI_1_1ComboBox_117814f88f84a08e5c7d2d49fd8b01aef" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mButton</name></member>
+      <member refid="classMyGUI_1_1EditBox_16700eb6e295b2b7f2ad17563769dadd5" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mCharPassword</name></member>
+      <member refid="classMyGUI_1_1EditBox_11a506b79155d9bb7ddb465108730a6c7" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mClientText</name></member>
+      <member refid="classMyGUI_1_1EditBox_1ed1d62b624c337cf09308eb2dc152837" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mCursorActive</name></member>
+      <member refid="classMyGUI_1_1EditBox_1f4e1db3fe2324e44603847604456d861" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mCursorPosition</name></member>
+      <member refid="classMyGUI_1_1EditBox_15c3932d0fa1a0413038ee061894b06c7" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mCursorTimer</name></member>
+      <member refid="classMyGUI_1_1ComboBox_164efd668c2eda021df034d91cb1d3798" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mDropMouse</name></member>
+      <member refid="classMyGUI_1_1EditBox_19033c2cd72f94cdfd04aef96c3465212" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mEndSelect</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1aa8c5a685d88bb67528cbb0770302684" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mFlowDirection</name></member>
+      <member refid="classMyGUI_1_1EditBox_161763053e2489653b5921950457a7ce7" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mIsFocus</name></member>
+      <member refid="classMyGUI_1_1EditBox_1d87fae703a3c93be1419271cf4842933" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mIsPressed</name></member>
+      <member refid="classMyGUI_1_1ComboBox_101c8e5f1042f8206dc5a33793ca674bd" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mItemIndex</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1f6d3696a9c98c79ea2621c9ddd525e83" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mList</name></member>
+      <member refid="classMyGUI_1_1ComboBox_16e953dee0969056252558cb590727540" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mListShow</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1aa18e415cac8be02556e71c756f0e8cb" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mMaxListLength</name></member>
+      <member refid="classMyGUI_1_1EditBox_1273705fab886d72032d8e3899fc8fb1e" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mMaxTextLength</name></member>
+      <member refid="classMyGUI_1_1ComboBox_10372e7b778419c937c4152b9ea51846c" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mModeDrop</name></member>
+      <member refid="classMyGUI_1_1EditBox_11f9362b5a0394853da58a763f779cbab" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mModeMultiline</name></member>
+      <member refid="classMyGUI_1_1EditBox_1e2fe7e634d3e5c1035e3cb6e6ba839f5" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mModePassword</name></member>
+      <member refid="classMyGUI_1_1EditBox_1eb6351cb8ba8a119dc3deed6c30d3b7e" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mModeReadOnly</name></member>
+      <member refid="classMyGUI_1_1EditBox_1e365dae48caf5b5c01051cc4c79c4dd4" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mModeStatic</name></member>
+      <member refid="classMyGUI_1_1EditBox_1e22cd27f0fd7bbbd6114fce2b63b0002" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mModeWordWrap</name></member>
+      <member refid="classMyGUI_1_1EditBox_157d290ef1932d859fb3a8b00bce4c840" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mMouseLeftPressed</name></member>
+      <member refid="classMyGUI_1_1EditBox_187c80864d32377ee8af6e312ff71350f" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mOriginalPointer</name></member>
+      <member refid="classMyGUI_1_1EditBox_1237c97efbd54876f0a5fec6001c6ddef" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mOverflowToTheLeft</name></member>
+      <member refid="classMyGUI_1_1EditBox_143a727fa0b8f3e30d65b635fcfc15f81" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mPasswordText</name></member>
+      <member refid="classMyGUI_1_1ComboBox_165b94e22adcc48ed9de1dd3b59664f8f" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mShowSmooth</name></member>
+      <member refid="classMyGUI_1_1EditBox_1c068658d110b31e56923a16dc8871af8" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mStartSelect</name></member>
+      <member refid="classMyGUI_1_1EditBox_115889613eebeeea514779b124e64d6d5" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mTabPrinting</name></member>
+      <member refid="classMyGUI_1_1EditBox_1b21c5853c7500278ef66da0cdea2ecd6" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mTextLength</name></member>
+      <member refid="classMyGUI_1_1EditBox_174777bad09d4ab9f50629a0c84d89e82" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mVectorRedoChangeInfo</name></member>
+      <member refid="classMyGUI_1_1EditBox_10224cf300d876d94fef20245b64c06bc" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>mVectorUndoChangeInfo</name></member>
+      <member refid="classMyGUI_1_1ComboBox_18ca32c0ca8cd78b7893bb382be7f4e91" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>notifyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1aa981be4214c541e2de46ba84881c5b5" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>notifyEditTextChange</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1b05f39766a8a57cfd9722294e9313f9f" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>notifyListChangePosition</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1ab27762b05e3aba3819ddf9a8dfe39c5" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>notifyListLostFocus</name></member>
+      <member refid="classMyGUI_1_1ComboBox_144de7abafdeaee8fbe641624f7fa37fa" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>notifyListMouseItemActivate</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1f8c906ff08ac99886c3eb3814a0d615b" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>notifyListSelectAccept</name></member>
+      <member refid="classMyGUI_1_1EditBox_19887116bb939195d96beb303d945be97" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>notifyMouseButtonDoubleClick</name></member>
+      <member refid="classMyGUI_1_1EditBox_13a31d15184919d89a7b6fc575bb40b10" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>notifyMouseDrag</name></member>
+      <member refid="classMyGUI_1_1EditBox_1880eb784317d243248906a48dcc9d026" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>notifyMouseLostFocus</name></member>
+      <member refid="classMyGUI_1_1ComboBox_155b350fb00cf6faa61bd8979565140e8" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>notifyMousePressed</name></member>
+      <member refid="classMyGUI_1_1EditBox_1595d4a2a5f836379743db5466a3cff4e" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>notifyMouseReleased</name></member>
+      <member refid="classMyGUI_1_1EditBox_11cbbc951af24baf654adf70eebc4ccaf" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>notifyMouseSetFocus</name></member>
+      <member refid="classMyGUI_1_1ComboBox_137286d3d82767307442c498077ab89b5" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>notifyMouseWheel</name></member>
+      <member refid="classMyGUI_1_1EditBox_1a5245a806124dcc9d2e29acd39e33b84" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>notifyScrollChangePosition</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1efca34d599b7894acb9600beede2c88b" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>notifyToolTip</name></member>
+      <member refid="classMyGUI_1_1ComboBox_16642ced9c43004c1b6ac0e33a29fb1a5" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onKeyButtonPressed</name></member>
+      <member refid="classMyGUI_1_1EditBox_14a1794d9b02dc65ae360a9e573ebc9f9" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onKeyLostFocus</name></member>
+      <member refid="classMyGUI_1_1EditBox_11b4c231d7c8fd9721f41c39d71d66924" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onKeySetFocus</name></member>
+      <member refid="classMyGUI_1_1EditBox_15ff17b3293e5788dcc298814644ae839" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onMouseDrag</name></member>
+      <member refid="classMyGUI_1_1Widget_1a8cfc0deeb8c2c53c6fabf52dd167639" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onWidgetCreated</name></member>
+      <member refid="classMyGUI_1_1Widget_1c64ffb617119185afaf5ef9650d4f9a5" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>onWidgetDestroy</name></member>
+      <member refid="classMyGUI_1_1ComboBox_154c73474e972ad0e473cb9443488382e" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>removeAllItems</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1e4033d7167907a10a35dc15d17cdd010" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>removeItemAt</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1fa2617bb376043aa6991270069b4f787" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1Widget_1ebace37eedee14b3ff746b7a0085b993" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_11204361b28430fa9a3b6927d6b4fe9ee" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setAlpha</name></member>
+      <member refid="classMyGUI_1_1EditBox_148bde7fa7f3ffacfa1b109926d6f5b78" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setCaption</name></member>
+      <member refid="classMyGUI_1_1TextBox_120fe368f3845d4036a9f3d0cca2de148" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setCaptionWithReplacing</name></member>
+      <member refid="classMyGUI_1_1Widget_1cbf134e83d95f63ff7ba7f4b3596449f" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setColour</name></member>
+      <member refid="classMyGUI_1_1ComboBox_16416d34afa362a07cc6e3651e7a7dca9" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setComboModeDrop</name></member>
+      <member refid="classMyGUI_1_1EditBox_1f7eb4f7c347d052a6b12949cc30d3f58" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setCoord</name></member>
+      <member refid="classMyGUI_1_1EditBox_14874d107c7ee4d8c05c37a3992810d27" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setCoord</name></member>
+      <member refid="classMyGUI_1_1EditBox_14b685b1f8114113ee92f66a367779cd5" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setEditMultiLine</name></member>
+      <member refid="classMyGUI_1_1EditBox_1a7b5eb674142913006641dc3085ffbc0" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setEditPassword</name></member>
+      <member refid="classMyGUI_1_1EditBox_1f443ddf665265d72ec10a55cfcd96c90" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setEditReadOnly</name></member>
+      <member refid="classMyGUI_1_1EditBox_14337f7b6e0d67f117727d9c0ed51398b" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setEditStatic</name></member>
+      <member refid="classMyGUI_1_1EditBox_16ff6f51f85f1916af333a241710242f3" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setEditWordWrap</name></member>
+      <member refid="classMyGUI_1_1Widget_1beda60b920b1808641169d8543171269" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1f5a0bfe2b4f596d2dffdc7fcea5200b1" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setEnabledSilent</name></member>
+      <member refid="classMyGUI_1_1ComboBox_18e05e56aa80cf5f0dec3025a78944b61" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setFlowDirection</name></member>
+      <member refid="classMyGUI_1_1EditBox_1ed8c9975b077907441b3eab9688d8ce1" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setFontHeight</name></member>
+      <member refid="classMyGUI_1_1EditBox_1d3917fbff1a5d14b880a3fe6cbeb3c4b" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setFontName</name></member>
+      <member refid="classMyGUI_1_1EditBox_184ac70d68bc67cc6e7ac6f4e8560c842" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setHScrollPosition</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1515fb414e6bcc2a1a4557bac097bda79" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setIndexSelected</name></member>
+      <member refid="classMyGUI_1_1Widget_18b44677724faa4112312655e5feed8ae" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1EditBox_1dd2c9df3e2c33e40f824da5307e90343" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setInvertSelected</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1de9daffd4f87fa48444b6a7e0cc4fa41" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setItemDataAt</name></member>
+      <member refid="classMyGUI_1_1ComboBox_14fd5318f710dea500a29698add516539" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setItemNameAt</name></member>
+      <member refid="classMyGUI_1_1ComboBox_19fdb976399da8f15f41f293c25947897" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setMaxListLength</name></member>
+      <member refid="classMyGUI_1_1EditBox_10931c6bc59eb4ca79b8c6d0e4f3bd466" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setMaxTextLength</name></member>
+      <member refid="classMyGUI_1_1EditBox_12b99c89689451627d6ed43ee766a7fc1" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setOnlyText</name></member>
+      <member refid="classMyGUI_1_1EditBox_1bdf8a470cedfdf6410cc2d9da14ec4c9" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setOverflowToTheLeft</name></member>
+      <member refid="classMyGUI_1_1EditBox_11a36eec16d709e89f973e0f32d40ded3" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setPasswordChar</name></member>
+      <member refid="classMyGUI_1_1EditBox_170899b5c29b046e1b68444ed9e5374c3" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setPasswordChar</name></member>
+      <member refid="classMyGUI_1_1EditBox_1da70cd549af32d4ec3919a6748b38e14" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1EditBox_1202fd91dd335b4fc456a7efcdb3bfc3e" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_11a6ea7822f869b777800b0d351112e69" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setProperty</name></member>
+      <member refid="classMyGUI_1_1ComboBox_144e5b1064bb07efec7d33a36ad88f41a" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setPropertyOverride</name></member>
+      <member refid="classMyGUI_1_1Widget_18833c303314683bbebadb154d337d3cb" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setRealCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1dfd8bd56bcecaee166bbfd12ff962f67" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setRealCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_15a5f7a24564bb6e04b48d0c524f0ef24" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setRealPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_1c963db4709c8dfc9e681dfccd5fb6524" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setRealPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_1d7fba1f9976c36eacb528d6db9213ddf" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1Widget_15d89ff45c4bc5f6158382067673903ba" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1EditBox_1edb1cf587877db98e1f42fc4988c4e3b" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setSize</name></member>
+      <member refid="classMyGUI_1_1EditBox_1b19eb0c696d00c3b866f0db3a870c9bb" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setSize</name></member>
+      <member refid="classMyGUI_1_1ComboBox_1dc5bebf6c863e25f1ca0e9419a4e6e37" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setSmoothShow</name></member>
+      <member refid="classMyGUI_1_1EditBox_160e54c69ba17fb024da08dc2267dd397" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setTabPrinting</name></member>
+      <member refid="classMyGUI_1_1EditBox_1c45e1a33e62e043f0d1f27c0f62f1122" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setTextAlign</name></member>
+      <member refid="classMyGUI_1_1EditBox_19910766a0cc754c383f0a55be0be1b5e" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setTextColour</name></member>
+      <member refid="classMyGUI_1_1EditBox_1fa7b9a369941a338f50f5f366f8b1f03" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setTextCursor</name></member>
+      <member refid="classMyGUI_1_1EditBox_1eedbb7d2e953b2d091885cca4c343a49" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setTextIntervalColour</name></member>
+      <member refid="classMyGUI_1_1EditBox_13393a05604c0419012c60e5e1060799d" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setTextSelection</name></member>
+      <member refid="classMyGUI_1_1EditBox_19bbc53afb80f65bfce004c36304724f8" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setTextSelectionColour</name></member>
+      <member refid="classMyGUI_1_1EditBox_1d0298ee1f43fc0ba948ccc47b18dfb7b" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setTextShadow</name></member>
+      <member refid="classMyGUI_1_1EditBox_1cd2fb9b3814bd99c41a43602a307cf0f" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setTextShadowColour</name></member>
+      <member refid="classMyGUI_1_1UserData_145916c0682a72614a1ed72a9efded82c" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setUserData</name></member>
+      <member refid="classMyGUI_1_1UserData_19630c47aa8d58cbc89628aad50725245" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setUserString</name></member>
+      <member refid="classMyGUI_1_1Widget_1d98f045bfca3a54b5adacf8d0c090bc2" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>setVisible</name></member>
+      <member refid="classMyGUI_1_1EditBox_19a1a5f9fcf88de1736c48e72cd0b7da1" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setVisibleHScroll</name></member>
+      <member refid="classMyGUI_1_1EditBox_18188acdcf91c419f49180ba92b0d1054" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setVisibleVScroll</name></member>
+      <member refid="classMyGUI_1_1EditBox_1dd9044dcd19a4dd114732676845b6c76" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setVScrollPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_1c717aa06253e913156a6d24fb3d4cbc4" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setWidgetClient</name></member>
+      <member refid="classMyGUI_1_1Widget_1372d21a0125ab28cc5c2c295290a2806" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>setWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1ComboBox_176d7ce2811ef1b179acfc9df3d5ee0a8" prot="private" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>showList</name></member>
+      <member refid="classMyGUI_1_1ComboBox_16df9c4bfc1054a922a65d6ba018d3828" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>shutdownOverride</name></member>
+      <member refid="classMyGUI_1_1TextBox_1c9823be8b1b86d97123b9ab05ee81c77" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>TextBox</name></member>
+      <member refid="classMyGUI_1_1EditBox_13aa65c0f4fc575ba62a86264723d3f48" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>updateView</name></member>
+      <member refid="classMyGUI_1_1EditBox_180d91be5d4a3c29d09066bb0d39c0af2" prot="protected" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>updateViewWithCursor</name></member>
+      <member refid="classMyGUI_1_1UserData_1108076068708e939519f9c775c2ae87b" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>UserData</name></member>
+      <member refid="classMyGUI_1_1Widget_1f4814618768bc07a685495895ca47b04" prot="public" virt="non-virtual"><scope>MyGUI::ComboBox</scope><name>Widget</name></member>
+      <member refid="classMyGUI_1_1UserData_1a970af2c1f39e0fa8801fd9defb06d84" prot="public" virt="virtual"><scope>MyGUI::ComboBox</scope><name>~UserData</name></member>
+      <member refid="classMyGUI_1_1Widget_18ff3c2a98bbea22f4f0191bcac54b643" prot="protected" virt="virtual"><scope>MyGUI::ComboBox</scope><name>~Widget</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

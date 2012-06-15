@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1SkinManager" kind="class" prot="public">
+    <compoundname>MyGUI::SkinManager</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1SkinManager_1fd4a570baf88a1fbaeb9e38b901379e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::SkinManager::SkinManager</definition>
+        <argsstring>()</argsstring>
+        <name>SkinManager</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinManager.h" line="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SkinManager_1c2eabbf92d3e52d655ebcdbd4feba9d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::SkinManager::initialise</definition>
+        <argsstring>()</argsstring>
+        <name>initialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinManager.h" line="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SkinManager_12abecba4105b4941338557866f3c6867" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::SkinManager::shutdown</definition>
+        <argsstring>()</argsstring>
+        <name>shutdown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinManager.h" line="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SkinManager_14392c48e3977cd461f1eb1662757f28b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>ResourceSkin *</type>
+        <definition>ResourceSkin* MyGUI::SkinManager::getByName</definition>
+        <argsstring>(const std::string &amp;_name) const </argsstring>
+        <name>getByName</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get ResourceSkin by name </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinManager.h" line="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SkinManager_1b68e03a10a8076ca44c27a8c0d78a6d4" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::SkinManager::isExist</definition>
+        <argsstring>(const std::string &amp;_name) const </argsstring>
+        <name>isExist</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Check if skin with specified name exist </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinManager.h" line="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SkinManager_18faf388254a0b62b664d6e1eca2a0d91" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::string</type>
+        <definition>const std::string MyGUI::SkinManager::getDefaultSkin</definition>
+        <argsstring>() const </argsstring>
+        <name>getDefaultSkin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get default skin name. Default skin used when creating widget with skin that doesn&apos;t exist. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinManager.h" line="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SkinManager_163e12fb1eab6cb4bc7a7ee8dd80f9c55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::SkinManager::setDefaultSkin</definition>
+        <argsstring>(const std::string &amp;_value)</argsstring>
+        <name>setDefaultSkin</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set default skin name. Default skin used when creating widget with skin that doesn&apos;t exist. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinManager.h" line="59"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1SkinManager_14f1e4535f095854a1081b56858e3d29f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::SkinManager::createDefault</definition>
+        <argsstring>(const std::string &amp;_value)</argsstring>
+        <name>createDefault</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinManager.h" line="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1SkinManager_13ad803447f486d624adb910446e6a92e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::SkinManager::_load</definition>
+        <argsstring>(xml::ElementPtr _node, const std::string &amp;_file, Version _version)</argsstring>
+        <name>_load</name>
+        <param>
+          <type>xml::ElementPtr</type>
+          <declname>_node</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_file</declname>
+        </param>
+        <param>
+          <type>Version</type>
+          <declname>_version</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinManager.h" line="63"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1SkinManager_184c62fb4939ec963faab6dd035a97e43" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::SkinManager::mDefaultName</definition>
+        <argsstring></argsstring>
+        <name>mDefaultName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinManager.h" line="66" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinManager.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1SkinManager_17d20d4d4a397490709d19adf73a55976" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::SkinManager::mIsInitialise</definition>
+        <argsstring></argsstring>
+        <name>mIsInitialise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinManager.h" line="68" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinManager.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinManager.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_SkinManager.h" bodystart="36" bodyend="69"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1SkinManager_13ad803447f486d624adb910446e6a92e" prot="private" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>_load</name></member>
+      <member refid="classMyGUI_1_1SkinManager_14f1e4535f095854a1081b56858e3d29f" prot="private" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>createDefault</name></member>
+      <member refid="classMyGUI_1_1SkinManager_14392c48e3977cd461f1eb1662757f28b" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>getByName</name></member>
+      <member refid="classMyGUI_1_1SkinManager_18faf388254a0b62b664d6e1eca2a0d91" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>getDefaultSkin</name></member>
+      <member refid="classMyGUI_1_1SkinManager_1c2eabbf92d3e52d655ebcdbd4feba9d7" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>initialise</name></member>
+      <member refid="classMyGUI_1_1SkinManager_1b68e03a10a8076ca44c27a8c0d78a6d4" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>isExist</name></member>
+      <member refid="classMyGUI_1_1SkinManager_184c62fb4939ec963faab6dd035a97e43" prot="private" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>mDefaultName</name></member>
+      <member refid="classMyGUI_1_1SkinManager_17d20d4d4a397490709d19adf73a55976" prot="private" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>mIsInitialise</name></member>
+      <member refid="classMyGUI_1_1SkinManager_163e12fb1eab6cb4bc7a7ee8dd80f9c55" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>setDefaultSkin</name></member>
+      <member refid="classMyGUI_1_1SkinManager_12abecba4105b4941338557866f3c6867" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>shutdown</name></member>
+      <member refid="classMyGUI_1_1SkinManager_1fd4a570baf88a1fbaeb9e38b901379e0" prot="public" virt="non-virtual"><scope>MyGUI::SkinManager</scope><name>SkinManager</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

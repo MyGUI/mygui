@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1Any_1_1Placeholder" kind="class" prot="private">
+    <compoundname>MyGUI::Any::Placeholder</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1Any_1_1Placeholder_14bfa161c23c634bf8faaf9c079e06c05" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::Any::Placeholder::~Placeholder</definition>
+        <argsstring>()</argsstring>
+        <name>~Placeholder</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="142" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" bodystart="142" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Any_1_1Placeholder_1428fec5910e972b54a2d4afc9667fd02" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>const std::type_info &amp;</type>
+        <definition>virtual const std::type_info&amp; MyGUI::Any::Placeholder::getType</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="146"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Any_1_1Placeholder_127103dac7225ed54569adb9861cee2d0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>Placeholder *</type>
+        <definition>virtual Placeholder* MyGUI::Any::Placeholder::clone</definition>
+        <argsstring>() const =0</argsstring>
+        <name>clone</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="148"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" line="140" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Any.h" bodystart="139" bodyend="149"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1Any_1_1Placeholder_127103dac7225ed54569adb9861cee2d0" prot="public" virt="pure-virtual"><scope>MyGUI::Any::Placeholder</scope><name>clone</name></member>
+      <member refid="classMyGUI_1_1Any_1_1Placeholder_1428fec5910e972b54a2d4afc9667fd02" prot="public" virt="pure-virtual"><scope>MyGUI::Any::Placeholder</scope><name>getType</name></member>
+      <member refid="classMyGUI_1_1Any_1_1Placeholder_14bfa161c23c634bf8faaf9c079e06c05" prot="public" virt="virtual"><scope>MyGUI::Any::Placeholder</scope><name>~Placeholder</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

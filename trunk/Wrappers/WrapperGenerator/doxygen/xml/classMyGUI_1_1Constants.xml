@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1Constants" kind="class" prot="public">
+    <compoundname>MyGUI::Constants</compoundname>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1Constants_18aaf37901c5c2972c118e51a0c559f17" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+        <definition>static const UString&amp; MyGUI::Constants::getEmptyUString</definition>
+        <argsstring>()</argsstring>
+        <name>getEmptyUString</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" line="35" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Constants_13e1ed4b36ed00d58e1f698736af09c90" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::Constants::getEmptyString</definition>
+        <argsstring>()</argsstring>
+        <name>getEmptyString</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Constants_12e8caeb1d61ff546bee69f3f1fa51877" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const IntSize &amp;</type>
+        <definition>static const IntSize&amp; MyGUI::Constants::getZeroIntSize</definition>
+        <argsstring>()</argsstring>
+        <name>getZeroIntSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" line="37" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Constants_1271a7bffebaf227c3be2222c25abb662" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const IntPoint &amp;</type>
+        <definition>static const IntPoint&amp; MyGUI::Constants::getZeroIntPoint</definition>
+        <argsstring>()</argsstring>
+        <name>getZeroIntPoint</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" bodystart="38" bodyend="38"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1Constants_16ffef9c4300f0cce0d41b4731d7e8bcb" prot="private" static="yes" mutable="no">
+        <type><ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref></type>
+        <definition>UString MyGUI::Constants::mUString</definition>
+        <argsstring></argsstring>
+        <name>mUString</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" line="41" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Constants_1c9c3d25af998b77a3a6a7494a4abcd77" prot="private" static="yes" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MyGUI::Constants::mString</definition>
+        <argsstring></argsstring>
+        <name>mString</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Constants_1419419ad7f9e0154cba202afa9337088" prot="private" static="yes" mutable="no">
+        <type>IntSize</type>
+        <definition>IntSize MyGUI::Constants::mIntSize</definition>
+        <argsstring></argsstring>
+        <name>mIntSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" line="43" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Constants_13484f17f5d3bf7ab2e27313dec6d2f15" prot="private" static="yes" mutable="no">
+        <type>IntPoint</type>
+        <definition>IntPoint MyGUI::Constants::mIntPoint</definition>
+        <argsstring></argsstring>
+        <name>mIntPoint</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" line="44" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="127">
+        <label>MyGUI::UString</label>
+        <link refid="classMyGUI_1_1UString"/>
+      </node>
+      <node id="126">
+        <label>MyGUI::Constants</label>
+        <childnode refid="127" relation="usage">
+          <edgelabel>mUString</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" line="33" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Constants.h" bodystart="32" bodyend="45"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1Constants_13e1ed4b36ed00d58e1f698736af09c90" prot="public" virt="non-virtual"><scope>MyGUI::Constants</scope><name>getEmptyString</name></member>
+      <member refid="classMyGUI_1_1Constants_18aaf37901c5c2972c118e51a0c559f17" prot="public" virt="non-virtual"><scope>MyGUI::Constants</scope><name>getEmptyUString</name></member>
+      <member refid="classMyGUI_1_1Constants_1271a7bffebaf227c3be2222c25abb662" prot="public" virt="non-virtual"><scope>MyGUI::Constants</scope><name>getZeroIntPoint</name></member>
+      <member refid="classMyGUI_1_1Constants_12e8caeb1d61ff546bee69f3f1fa51877" prot="public" virt="non-virtual"><scope>MyGUI::Constants</scope><name>getZeroIntSize</name></member>
+      <member refid="classMyGUI_1_1Constants_13484f17f5d3bf7ab2e27313dec6d2f15" prot="private" virt="non-virtual"><scope>MyGUI::Constants</scope><name>mIntPoint</name></member>
+      <member refid="classMyGUI_1_1Constants_1419419ad7f9e0154cba202afa9337088" prot="private" virt="non-virtual"><scope>MyGUI::Constants</scope><name>mIntSize</name></member>
+      <member refid="classMyGUI_1_1Constants_1c9c3d25af998b77a3a6a7494a4abcd77" prot="private" virt="non-virtual"><scope>MyGUI::Constants</scope><name>mString</name></member>
+      <member refid="classMyGUI_1_1Constants_16ffef9c4300f0cce0d41b4731d7e8bcb" prot="private" virt="non-virtual"><scope>MyGUI::Constants</scope><name>mUString</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

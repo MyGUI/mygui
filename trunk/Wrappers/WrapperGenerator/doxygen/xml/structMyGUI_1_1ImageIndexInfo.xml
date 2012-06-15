@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="structMyGUI_1_1ImageIndexInfo" kind="struct" prot="public">
+    <compoundname>MyGUI::ImageIndexInfo</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structMyGUI_1_1ImageIndexInfo_162f43bbbccade5a174c8d2093ab1e851" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::ImageIndexInfo::ImageIndexInfo</definition>
+        <argsstring>(const std::string &amp;_texture, const IntSize &amp;_size, const float _rate, const std::vector&lt; IntPoint &gt; &amp;_frames)</argsstring>
+        <name>ImageIndexInfo</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_texture</declname>
+        </param>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_size</declname>
+        </param>
+        <param>
+          <type>const float</type>
+          <declname>_rate</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; IntPoint &gt; &amp;</type>
+          <declname>_frames</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" line="53" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" bodystart="48" bodyend="54"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structMyGUI_1_1ImageIndexInfo_105e4f8f9f8437d45f7fb608e5d0b1e4d" prot="public" static="no" mutable="no">
+        <type>const std::string &amp;</type>
+        <definition>const std::string&amp; MyGUI::ImageIndexInfo::texture</definition>
+        <argsstring></argsstring>
+        <name>texture</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" line="57" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1ImageIndexInfo_1ad2d6c0de6fbb231ed204cbed89e9a96" prot="public" static="no" mutable="no">
+        <type>const IntSize &amp;</type>
+        <definition>const IntSize&amp; MyGUI::ImageIndexInfo::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" line="58" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1ImageIndexInfo_1b86d3c6980bdc450548ab15a33f987df" prot="public" static="no" mutable="no">
+        <type>const float</type>
+        <definition>const float MyGUI::ImageIndexInfo::rate</definition>
+        <argsstring></argsstring>
+        <name>rate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" line="59" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structMyGUI_1_1ImageIndexInfo_1d369e9496428a939ed1f5e6b12852726" prot="public" static="no" mutable="no">
+        <type>const std::vector&lt; IntPoint &gt; &amp;</type>
+        <definition>const std::vector&lt;IntPoint&gt;&amp; MyGUI::ImageIndexInfo::frames</definition>
+        <argsstring></argsstring>
+        <name>frames</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" line="60" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" line="46" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_ImageInfo.h" bodystart="45" bodyend="61"/>
+    <listofallmembers>
+      <member refid="structMyGUI_1_1ImageIndexInfo_1d369e9496428a939ed1f5e6b12852726" prot="public" virt="non-virtual"><scope>MyGUI::ImageIndexInfo</scope><name>frames</name></member>
+      <member refid="structMyGUI_1_1ImageIndexInfo_162f43bbbccade5a174c8d2093ab1e851" prot="public" virt="non-virtual"><scope>MyGUI::ImageIndexInfo</scope><name>ImageIndexInfo</name></member>
+      <member refid="structMyGUI_1_1ImageIndexInfo_1b86d3c6980bdc450548ab15a33f987df" prot="public" virt="non-virtual"><scope>MyGUI::ImageIndexInfo</scope><name>rate</name></member>
+      <member refid="structMyGUI_1_1ImageIndexInfo_1ad2d6c0de6fbb231ed204cbed89e9a96" prot="public" virt="non-virtual"><scope>MyGUI::ImageIndexInfo</scope><name>size</name></member>
+      <member refid="structMyGUI_1_1ImageIndexInfo_105e4f8f9f8437d45f7fb608e5d0b1e4d" prot="public" virt="non-virtual"><scope>MyGUI::ImageIndexInfo</scope><name>texture</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="MyGUI__FileLogListener_8h" kind="file">
+    <compoundname>MyGUI_FileLogListener.h</compoundname>
+    <includes refid="MyGUI__Prerequest_8h" local="yes">MyGUI_Prerequest.h</includes>
+    <includes refid="MyGUI__ILogListener_8h" local="yes">MyGUI_ILogListener.h</includes>
+    <includes local="no">fstream</includes>
+    <includes local="no">string</includes>
+    <incdepgraph>
+      <node id="2649">
+        <label>MyGUI_FileLogListener.h</label>
+        <link refid="MyGUI_FileLogListener.h"/>
+        <childnode refid="2650" relation="include">
+        </childnode>
+        <childnode refid="2653" relation="include">
+        </childnode>
+        <childnode refid="2655" relation="include">
+        </childnode>
+        <childnode refid="2656" relation="include">
+        </childnode>
+      </node>
+      <node id="2651">
+        <label>MyGUI_Platform.h</label>
+        <link refid="MyGUI__Platform_8h"/>
+      </node>
+      <node id="2654">
+        <label>MyGUI_LogLevel.h</label>
+        <link refid="MyGUI__LogLevel_8h"/>
+        <childnode refid="2650" relation="include">
+        </childnode>
+      </node>
+      <node id="2656">
+        <label>string</label>
+      </node>
+      <node id="2652">
+        <label>MyGUI_DeprecatedTypes.h</label>
+        <link refid="MyGUI__DeprecatedTypes_8h"/>
+      </node>
+      <node id="2655">
+        <label>fstream</label>
+      </node>
+      <node id="2653">
+        <label>MyGUI_ILogListener.h</label>
+        <link refid="MyGUI__ILogListener_8h"/>
+        <childnode refid="2650" relation="include">
+        </childnode>
+        <childnode refid="2654" relation="include">
+        </childnode>
+      </node>
+      <node id="2650">
+        <label>MyGUI_Prerequest.h</label>
+        <link refid="MyGUI__Prerequest_8h"/>
+        <childnode refid="2651" relation="include">
+        </childnode>
+        <childnode refid="2652" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="classMyGUI_1_1FileLogListener">MyGUI::FileLogListener</innerclass>
+    <innernamespace refid="namespaceMyGUI">MyGUI</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Albert Semenov </para></simplesect>
+<simplesect kind="date"><para>04/2010 </para></simplesect>
+</para>    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_FileLogListener.h"/>
+  </compounddef>
+</doxygen>

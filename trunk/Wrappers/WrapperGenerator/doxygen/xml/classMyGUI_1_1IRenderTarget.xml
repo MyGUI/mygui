@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1IRenderTarget" kind="class" prot="public">
+    <compoundname>MyGUI::IRenderTarget</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1IRenderTarget_1b611b1d6fe95346d12b1c95b537e7c47" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::IRenderTarget::IRenderTarget</definition>
+        <argsstring>()</argsstring>
+        <name>IRenderTarget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IRenderTarget.h" line="38" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IRenderTarget.h" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IRenderTarget_1a4a0d877461701d5402828ae11aff4cd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>virtual</type>
+        <definition>virtual MyGUI::IRenderTarget::~IRenderTarget</definition>
+        <argsstring>()</argsstring>
+        <name>~IRenderTarget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IRenderTarget.h" line="39" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IRenderTarget.h" bodystart="39" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IRenderTarget_10dc5c7b51d39f987ebc75ae5c40d1dd4" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::IRenderTarget::begin</definition>
+        <argsstring>()=0</argsstring>
+        <name>begin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IRenderTarget.h" line="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IRenderTarget_134446296efcd8541bebe04abb513c546" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::IRenderTarget::end</definition>
+        <argsstring>()=0</argsstring>
+        <name>end</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IRenderTarget.h" line="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IRenderTarget_1b142df4ce9490fe023349defe8d452dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::IRenderTarget::doRender</definition>
+        <argsstring>(IVertexBuffer *_buffer, ITexture *_texture, size_t _count)=0</argsstring>
+        <name>doRender</name>
+        <param>
+          <type>IVertexBuffer *</type>
+          <declname>_buffer</declname>
+        </param>
+        <param>
+          <type>ITexture *</type>
+          <declname>_texture</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>_count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IRenderTarget.h" line="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1IRenderTarget_1f65cdee0d7963da1e24c9081891ad690" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>const RenderTargetInfo &amp;</type>
+        <definition>virtual const RenderTargetInfo&amp; MyGUI::IRenderTarget::getInfo</definition>
+        <argsstring>()=0</argsstring>
+        <name>getInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IRenderTarget.h" line="46"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IRenderTarget.h" line="36" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_IRenderTarget.h" bodystart="35" bodyend="47"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1IRenderTarget_10dc5c7b51d39f987ebc75ae5c40d1dd4" prot="public" virt="pure-virtual"><scope>MyGUI::IRenderTarget</scope><name>begin</name></member>
+      <member refid="classMyGUI_1_1IRenderTarget_1b142df4ce9490fe023349defe8d452dd" prot="public" virt="pure-virtual"><scope>MyGUI::IRenderTarget</scope><name>doRender</name></member>
+      <member refid="classMyGUI_1_1IRenderTarget_134446296efcd8541bebe04abb513c546" prot="public" virt="pure-virtual"><scope>MyGUI::IRenderTarget</scope><name>end</name></member>
+      <member refid="classMyGUI_1_1IRenderTarget_1f65cdee0d7963da1e24c9081891ad690" prot="public" virt="pure-virtual"><scope>MyGUI::IRenderTarget</scope><name>getInfo</name></member>
+      <member refid="classMyGUI_1_1IRenderTarget_1b611b1d6fe95346d12b1c95b537e7c47" prot="public" virt="non-virtual"><scope>MyGUI::IRenderTarget</scope><name>IRenderTarget</name></member>
+      <member refid="classMyGUI_1_1IRenderTarget_1a4a0d877461701d5402828ae11aff4cd" prot="public" virt="virtual"><scope>MyGUI::IRenderTarget</scope><name>~IRenderTarget</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

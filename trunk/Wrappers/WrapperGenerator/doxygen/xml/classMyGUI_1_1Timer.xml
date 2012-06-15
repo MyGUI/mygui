@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1Timer" kind="class" prot="public">
+    <compoundname>MyGUI::Timer</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1Timer_177ced6135408fcedd3b3ddd537b8edc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::Timer::Timer</definition>
+        <argsstring>()</argsstring>
+        <name>Timer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Timer.h" line="33"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Timer_108ed6e355807d5298f65918761edbefe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Timer::reset</definition>
+        <argsstring>()</argsstring>
+        <name>reset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Timer.h" line="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Timer_14364931b395c4290c9642a7aea97513e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned long</type>
+        <definition>unsigned long MyGUI::Timer::getMilliseconds</definition>
+        <argsstring>()</argsstring>
+        <name>getMilliseconds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Timer.h" line="36"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1Timer_1db81a31ab9b5693be10f6e119bb32e22" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned long</type>
+        <definition>unsigned long MyGUI::Timer::getCurrentMilliseconds</definition>
+        <argsstring>()</argsstring>
+        <name>getCurrentMilliseconds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Timer.h" line="39"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1Timer_16c68b3bcc72c2e4cd7737a41d2b0524e" prot="private" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long MyGUI::Timer::mTimeStart</definition>
+        <argsstring></argsstring>
+        <name>mTimeStart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Timer.h" line="42" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Timer.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Timer.h" line="31" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Timer.h" bodystart="30" bodyend="43"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1Timer_1db81a31ab9b5693be10f6e119bb32e22" prot="private" virt="non-virtual"><scope>MyGUI::Timer</scope><name>getCurrentMilliseconds</name></member>
+      <member refid="classMyGUI_1_1Timer_14364931b395c4290c9642a7aea97513e" prot="public" virt="non-virtual"><scope>MyGUI::Timer</scope><name>getMilliseconds</name></member>
+      <member refid="classMyGUI_1_1Timer_16c68b3bcc72c2e4cd7737a41d2b0524e" prot="private" virt="non-virtual"><scope>MyGUI::Timer</scope><name>mTimeStart</name></member>
+      <member refid="classMyGUI_1_1Timer_108ed6e355807d5298f65918761edbefe" prot="public" virt="non-virtual"><scope>MyGUI::Timer</scope><name>reset</name></member>
+      <member refid="classMyGUI_1_1Timer_177ced6135408fcedd3b3ddd537b8edc0" prot="public" virt="non-virtual"><scope>MyGUI::Timer</scope><name>Timer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

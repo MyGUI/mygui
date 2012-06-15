@@ -1,0 +1,1353 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.4.6-NO">
+  <compounddef id="classMyGUI_1_1Window" kind="class" prot="public">
+    <compoundname>MyGUI::Window</compoundname>
+    <basecompoundref refid="classMyGUI_1_1TextBox" prot="public" virt="non-virtual">MyGUI::TextBox</basecompoundref>
+    <includes local="no">MyGUI_Window.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classMyGUI_1_1Window_119660ddf6e006dfedd790a7718cede53" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1Window" kindref="compound">RTTIBase</ref></type>
+        <definition>typedef RTTIBase MyGUI::Window::Base</definition>
+        <argsstring></argsstring>
+        <name>Base</name>
+        <reimplements refid="classMyGUI_1_1TextBox_19de997c622f19554b3fe41cf5c59a0f5">Base</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="46" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classMyGUI_1_1Window_151a6f9612b705ea3649400b7fab79fe2" prot="public" static="no">
+        <type><ref refid="classMyGUI_1_1Window" kindref="compound">Window</ref></type>
+        <definition>typedef Window MyGUI::Window::RTTIBase</definition>
+        <argsstring></argsstring>
+        <name>RTTIBase</name>
+        <reimplements refid="classMyGUI_1_1TextBox_1fb7369bf080624170fbed666fd25dd5b">RTTIBase</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="46" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMyGUI_1_1Window_1cbe0e1f44c2bd77bf73c0c538fafadce" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>const std::string &amp;</type>
+        <definition>virtual const std::string&amp; MyGUI::Window::getTypeName</definition>
+        <argsstring>() const </argsstring>
+        <name>getTypeName</name>
+        <reimplements refid="classMyGUI_1_1TextBox_1fbcfc0d11323779f155ec0be73a129ab">getTypeName</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get type name as string </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="46" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="46" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_1afe930db3102769483e88571c85e90d9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool MyGUI::Window::isType</definition>
+        <argsstring>(const std::type_info &amp;_type) const </argsstring>
+        <name>isType</name>
+        <reimplements refid="classMyGUI_1_1TextBox_11e4f6fdecb0c8b91e4cf1cc6731004ab">isType</reimplements>
+        <param>
+          <type>const std::type_info &amp;</type>
+          <declname>_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="46" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="46" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_1b225491dc7e4b85e6cae412886fcf68f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename</type>
+            <declname>Type</declname>
+            <defname>Type</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool MyGUI::Window::isType</definition>
+        <argsstring>() const </argsstring>
+        <name>isType</name>
+        <reimplements refid="classMyGUI_1_1TextBox_16f44e01a8d08ece1a8683e8df9fca5b7">isType</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compare with selected type </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="46" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="46" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_122de9eb461d281c710af4a156e8651a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MyGUI::Window::Window</definition>
+        <argsstring>()</argsstring>
+        <name>Window</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_114efec0914ee9e12e328c4e31c3e62e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Window::setVisible</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setVisible</name>
+        <reimplements refid="classMyGUI_1_1Widget_1d98f045bfca3a54b5adacf8d0c090bc2">setVisible</reimplements>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><copydoc link="Widget::setVisible"><para>Hide or show widget</para></copydoc>
+ </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_1159f2ce19429e2e0ffaf4ceb031c5e6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::setVisibleSmooth</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setVisibleSmooth</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Hide or show window smooth </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_1c358b20a36630e9b2c871bcee2d1038d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::destroySmooth</definition>
+        <argsstring>()</argsstring>
+        <name>destroySmooth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Hide window smooth and then destroy it </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_1e6732978366c0a5872fc2e14e0825da2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::setAutoAlpha</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setAutoAlpha</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enable or disable auto alpha mode </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_1ae5512b0af552d3562c452eba6f3dd23" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Window::getAutoAlpha</definition>
+        <argsstring>() const </argsstring>
+        <name>getAutoAlpha</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get auto alpha mode flag </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_10563c7e4c7777c541df91c058d3083f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Window::setCaption</definition>
+        <argsstring>(const UString &amp;_value)</argsstring>
+        <name>setCaption</name>
+        <reimplements refid="classMyGUI_1_1TextBox_10add0f3ad9abbc285ba369c8a4d5080d">setCaption</reimplements>
+        <param>
+          <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set window caption </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="65"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_13d6e91b37519246e677e61d8bac83d50" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>const <ref refid="classMyGUI_1_1UString" kindref="compound">UString</ref> &amp;</type>
+        <definition>virtual const UString&amp; MyGUI::Window::getCaption</definition>
+        <argsstring>()</argsstring>
+        <name>getCaption</name>
+        <reimplements refid="classMyGUI_1_1TextBox_121d2e96a9c1c31b2dc26348cda7ebd81">getCaption</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get window caption </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_15a1fa1fccf58a1db9cb1f7073bb84c8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1TextBox" kindref="compound">TextBox</ref> *</type>
+        <definition>TextBox* MyGUI::Window::getCaptionWidget</definition>
+        <argsstring>()</argsstring>
+        <name>getCaptionWidget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get window caption widget </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_123e8c9304e216b19bef250d4f1e6d8c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::setMinSize</definition>
+        <argsstring>(const IntSize &amp;_value)</argsstring>
+        <name>setMinSize</name>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set minimal possible window size </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_1ac695925a88d8b307937e12bce375de9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::setMinSize</definition>
+        <argsstring>(int _width, int _height)</argsstring>
+        <name>setMinSize</name>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set minimal possible window size </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="75"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_1bb59f058ed2c4b035e4ef1e25bda4cfe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>IntSize</type>
+        <definition>IntSize MyGUI::Window::getMinSize</definition>
+        <argsstring>()</argsstring>
+        <name>getMinSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get minimal possible window size </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="77"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_14effcea0b6cb5f98c828022d376de50d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::setMaxSize</definition>
+        <argsstring>(const IntSize &amp;_value)</argsstring>
+        <name>setMaxSize</name>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set maximal possible window size </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="80"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_1a02a14d8b7d9295590c3d6b49ff6bc19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::setMaxSize</definition>
+        <argsstring>(int _width, int _height)</argsstring>
+        <name>setMaxSize</name>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set maximal possible window size </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="82"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_1f8d86e2127fbda0afb305e30345d6d0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>IntSize</type>
+        <definition>IntSize MyGUI::Window::getMaxSize</definition>
+        <argsstring>()</argsstring>
+        <name>getMaxSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get maximal possible window size </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="84"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_1e45e865cf4860355433de04d6432f51c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Window::setPosition</definition>
+        <argsstring>(const IntPoint &amp;_value)</argsstring>
+        <name>setPosition</name>
+        <reimplements refid="classMyGUI_1_1Widget_1bf87d2b9d27a2543da8fc7daea6abf75">setPosition</reimplements>
+        <param>
+          <type>const IntPoint &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+<para><copydoc link="Widget::setPosition(const IntPoint& _value)"><para>Set widget position (position of left top corner)</para></copydoc>
+ </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="87"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_124e493a28eb359caf83e6b174355cdb4" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Window::setSize</definition>
+        <argsstring>(const IntSize &amp;_value)</argsstring>
+        <name>setSize</name>
+        <reimplements refid="classMyGUI_1_1Widget_1b8928099957173c4f58aee98d043faab">setSize</reimplements>
+        <param>
+          <type>const IntSize &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+<para><copydoc link="Widget::setSize(const IntSize& _value)"><para>Set widget size</para></copydoc>
+ </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="89"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_1dc9a834635cebc494776c144ad5786b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Window::setCoord</definition>
+        <argsstring>(const IntCoord &amp;_value)</argsstring>
+        <name>setCoord</name>
+        <reimplements refid="classMyGUI_1_1Widget_156333ae229f81cfdc9daa834599b96de">setCoord</reimplements>
+        <param>
+          <type>const IntCoord &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+<para><copydoc link="Widget::setCoord(const IntCoord& _value)"><para>Set widget position and size</para></copydoc>
+ </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="91"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_1ce0f41996b0a1b83d0d394784214d01a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::setPosition</definition>
+        <argsstring>(int _left, int _top)</argsstring>
+        <name>setPosition</name>
+        <reimplements refid="classMyGUI_1_1Widget_10463ede4342db8bc5ade2d78d77a142e">setPosition</reimplements>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><copydoc link="Widget::setPosition(int _left, int _top)"><para>See <ref refid="classMyGUI_1_1Widget_1bf87d2b9d27a2543da8fc7daea6abf75" kindref="member">Widget::setPosition(const IntPoint&amp; _pos)</ref></para></copydoc>
+ </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="94"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_14914daa3a269e387e671b8c357868246" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::setSize</definition>
+        <argsstring>(int _width, int _height)</argsstring>
+        <name>setSize</name>
+        <reimplements refid="classMyGUI_1_1Widget_12bdc82ea4f915b8d9b4b36c61b5a3915">setSize</reimplements>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><copydoc link="Widget::setSize(int _width, int _height)"><para>See <ref refid="classMyGUI_1_1Widget_1b8928099957173c4f58aee98d043faab" kindref="member">Widget::setSize(const IntSize&amp; _size)</ref></para></copydoc>
+ </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="96"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_1a1bca917ed9fdff11262f5937cd37f47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::setCoord</definition>
+        <argsstring>(int _left, int _top, int _width, int _height)</argsstring>
+        <name>setCoord</name>
+        <reimplements refid="classMyGUI_1_1Widget_1745fbe9e4f3c2f798a021ae07498fc97">setCoord</reimplements>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><copydoc link="Widget::setCoord(int _left, int _top, int _width, int _height)"><para>See <ref refid="classMyGUI_1_1Widget_156333ae229f81cfdc9daa834599b96de" kindref="member">Widget::setCoord(const IntCoord&amp; _coord)</ref></para></copydoc>
+ </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="98"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_11dc7d03a61f40ce6c8649f8f36a93ac7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::setSnap</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setSnap</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enable or disable snap to borders mode </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="101"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_1ad72795b3de25714b7195a507897e22a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Window::getSnap</definition>
+        <argsstring>() const </argsstring>
+        <name>getSnap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get snap to borders mode flag </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="103"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_11fdacc9e1785a58b8ad668f97a5ba623" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const IntCoord &amp;</type>
+        <definition>const IntCoord&amp; MyGUI::Window::getActionScale</definition>
+        <argsstring>() const </argsstring>
+        <name>getActionScale</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get current action applied to move/resize window. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="106"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_11438ef4bfdcc4904b7bab82fa008e701" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::setMovable</definition>
+        <argsstring>(bool _value)</argsstring>
+        <name>setMovable</name>
+        <param>
+          <type>bool</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enable or disable possibility to move window. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="109"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_18a03f30d3288f63c9ace1d2d82527c15" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool MyGUI::Window::getMovable</definition>
+        <argsstring>() const </argsstring>
+        <name>getMovable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get possibility to move window. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="111"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1Window_1bd0975f13a8eaca3f69c379580d7ae62" prot="public" static="no" mutable="no">
+        <type>EventPair&lt; EventHandle_WidgetString, EventHandle_WindowPtrCStringRef &gt;</type>
+        <definition>EventPair&lt;EventHandle_WidgetString, EventHandle_WindowPtrCStringRef&gt; MyGUI::Window::eventWindowButtonPressed</definition>
+        <argsstring></argsstring>
+        <name>eventWindowButtonPressed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Event : <ref refid="classMyGUI_1_1Window" kindref="compound">Window</ref> button pressed.<linebreak/>
+ signature : void method(MyGUI::Window* _sender, const std::string&amp; _name) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_sender</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>widget that called this event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of pressed button </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="120" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Window_11f09d118d45a009c439734d6d5100df4" prot="public" static="no" mutable="no">
+        <type>EventPair&lt; EventHandle_WidgetVoid, EventHandle_WindowPtr &gt;</type>
+        <definition>EventPair&lt;EventHandle_WidgetVoid, EventHandle_WindowPtr&gt; MyGUI::Window::eventWindowChangeCoord</definition>
+        <argsstring></argsstring>
+        <name>eventWindowChangeCoord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Event : <ref refid="classMyGUI_1_1Window" kindref="compound">Window</ref> coordinate changed (window was resized or moved).<linebreak/>
+ signature : void method(MyGUI::Window* _sender) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>_sender</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>widget that called this event </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="127" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classMyGUI_1_1Window_15700eb4c4085eac722c8eb259bce81ea" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>static const std::string&amp; MyGUI::Window::getClassTypeName</definition>
+        <argsstring>()</argsstring>
+        <name>getClassTypeName</name>
+        <reimplements refid="classMyGUI_1_1TextBox_161c948036f66b138fc56d7fca6c794c4">getClassTypeName</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="46" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="46" bodyend="46"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classMyGUI_1_1Window_169db5c275b9efd3d71c830dbfb29a8c5" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Window::initialiseOverride</definition>
+        <argsstring>()</argsstring>
+        <name>initialiseOverride</name>
+        <reimplements refid="classMyGUI_1_1Widget_1987812d417960a148a72df09dd3948c4">initialiseOverride</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="130"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_19de5dff9c1c09160a319ec44d3f2fcc8" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Window::shutdownOverride</definition>
+        <argsstring>()</argsstring>
+        <name>shutdownOverride</name>
+        <reimplements refid="classMyGUI_1_1Widget_1dee1c7e9399beabdad99bf10b97693c6">shutdownOverride</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="131"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_18c3fb5e0c4e1a183d61603deb4521878" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::onMouseChangeRootFocus</definition>
+        <argsstring>(bool _focus)</argsstring>
+        <name>onMouseChangeRootFocus</name>
+        <param>
+          <type>bool</type>
+          <declname>_focus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="133"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_1f1a330522b1d9fc652af3cb10f1c25d9" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::onKeyChangeRootFocus</definition>
+        <argsstring>(bool _focus)</argsstring>
+        <name>onKeyChangeRootFocus</name>
+        <param>
+          <type>bool</type>
+          <declname>_focus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="134"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_1513e358973409f18da04707c99ad0461" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::onMouseDrag</definition>
+        <argsstring>(int _left, int _top, MouseButton _id)</argsstring>
+        <name>onMouseDrag</name>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>MouseButton</type>
+          <declname>_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="135"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_14cbd490045e0f1bc9535216ca4159d4b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::onMouseButtonPressed</definition>
+        <argsstring>(int _left, int _top, MouseButton _id)</argsstring>
+        <name>onMouseButtonPressed</name>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>MouseButton</type>
+          <declname>_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="136"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_17c40e3c9c30f70b14562d74f81cb3aa6" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::onMouseButtonReleased</definition>
+        <argsstring>(int _left, int _top, MouseButton _id)</argsstring>
+        <name>onMouseButtonReleased</name>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>MouseButton</type>
+          <declname>_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="137"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_128ad65dab8bed795ed5c91706a29ce6e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::notifyMousePressed</definition>
+        <argsstring>(MyGUI::Widget *_sender, int _left, int _top, MouseButton _id)</argsstring>
+        <name>notifyMousePressed</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">MyGUI::Widget</ref> *</type>
+          <declname>_sender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>MouseButton</type>
+          <declname>_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="139"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_171daf1d90261577a4f48844f1fa36f71" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::notifyMouseReleased</definition>
+        <argsstring>(MyGUI::Widget *_sender, int _left, int _top, MouseButton _id)</argsstring>
+        <name>notifyMouseReleased</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">MyGUI::Widget</ref> *</type>
+          <declname>_sender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>MouseButton</type>
+          <declname>_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="140"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_13e62577c477df5e285aebb1ba645523d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::notifyPressedButtonEvent</definition>
+        <argsstring>(MyGUI::Widget *_sender)</argsstring>
+        <name>notifyPressedButtonEvent</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">MyGUI::Widget</ref> *</type>
+          <declname>_sender</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="141"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_188c4f515d44b9d043352ce23d69ea5c7" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::notifyMouseDrag</definition>
+        <argsstring>(MyGUI::Widget *_sender, int _left, int _top, MouseButton _id)</argsstring>
+        <name>notifyMouseDrag</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">MyGUI::Widget</ref> *</type>
+          <declname>_sender</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_left</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>_top</declname>
+        </param>
+        <param>
+          <type>MouseButton</type>
+          <declname>_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="142"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_196fda2d24e71014bda28893ef73a8a19" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::updateAlpha</definition>
+        <argsstring>()</argsstring>
+        <name>updateAlpha</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="145"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_1b1cb1c6e1a315402ba22b940c4bfd966" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::animateStop</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>animateStop</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="147"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_1ce43226e38c9190c674598952aac4426" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void MyGUI::Window::setPropertyOverride</definition>
+        <argsstring>(const std::string &amp;_key, const std::string &amp;_value)</argsstring>
+        <name>setPropertyOverride</name>
+        <reimplements refid="classMyGUI_1_1TextBox_1ccb4705e7de752650eec196f172da676">setPropertyOverride</reimplements>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_key</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="149"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMyGUI_1_1Window_1418c8b4237f85ae78a955f82083d6c2b" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float MyGUI::Window::getAlphaVisible</definition>
+        <argsstring>() const </argsstring>
+        <name>getAlphaVisible</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="152"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_140c3c8e6131aa9838d544ae1ca24b994" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MyGUI::Window::getSnappedCoord</definition>
+        <argsstring>(IntCoord &amp;_coord)</argsstring>
+        <name>getSnappedCoord</name>
+        <param>
+          <type>IntCoord &amp;</type>
+          <declname>_coord</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="153"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_13237492201ca414ca951d6a495fbbf1e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>IntCoord</type>
+        <definition>IntCoord MyGUI::Window::_getActionScale</definition>
+        <argsstring>(Widget *_widget)</argsstring>
+        <name>_getActionScale</name>
+        <param>
+          <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+          <declname>_widget</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="154"/>
+      </memberdef>
+      <memberdef kind="function" id="classMyGUI_1_1Window_15e3392dd691a30617319db4080b3ca1c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMyGUI_1_1ControllerFadeAlpha" kindref="compound">ControllerFadeAlpha</ref> *</type>
+        <definition>ControllerFadeAlpha* MyGUI::Window::createControllerFadeAlpha</definition>
+        <argsstring>(float _alpha, float _coef, bool _enable)</argsstring>
+        <name>createControllerFadeAlpha</name>
+        <param>
+          <type>float</type>
+          <declname>_alpha</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_coef</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>_enable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="156"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classMyGUI_1_1Window_1dc4a95d493fc5c765a7cafea2571601f" prot="private" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1TextBox" kindref="compound">TextBox</ref> *</type>
+        <definition>TextBox* MyGUI::Window::mWidgetCaption</definition>
+        <argsstring></argsstring>
+        <name>mWidgetCaption</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="159" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Window_1cb1a17c9270c9384ee720432f2546780" prot="private" static="no" mutable="no">
+        <type>IntCoord</type>
+        <definition>IntCoord MyGUI::Window::mPreActionCoord</definition>
+        <argsstring></argsstring>
+        <name>mPreActionCoord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="162" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Window_1d490cf0045a31c916f20c0abc14dbb6a" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::Window::mMouseRootFocus</definition>
+        <argsstring></argsstring>
+        <name>mMouseRootFocus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="165" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Window_1f990ed1499d59f6e32c1c51c09bc4169" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::Window::mKeyRootFocus</definition>
+        <argsstring></argsstring>
+        <name>mKeyRootFocus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="166" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Window_1a2e7bbd35ba7d0adbf52e05eb0f7b754" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::Window::mIsAutoAlpha</definition>
+        <argsstring></argsstring>
+        <name>mIsAutoAlpha</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="169" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Window_1f9f4a51b8bf62765e4b89490456cb4cc" prot="private" static="no" mutable="no">
+        <type>IntRect</type>
+        <definition>IntRect MyGUI::Window::mMinmax</definition>
+        <argsstring></argsstring>
+        <name>mMinmax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="172" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Window_14dff5eb8ec92798953d33d29b3885c1f" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::Window::mSnap</definition>
+        <argsstring></argsstring>
+        <name>mSnap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="174" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Window_1ca6922277434a8eb5267f01a35fb1d16" prot="private" static="no" mutable="no">
+        <type>IntCoord</type>
+        <definition>IntCoord MyGUI::Window::mCurrentActionScale</definition>
+        <argsstring></argsstring>
+        <name>mCurrentActionScale</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="176" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Window_1f9db7500f0edcf6d53cb50282ccb8b70" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::Window::mAnimateSmooth</definition>
+        <argsstring></argsstring>
+        <name>mAnimateSmooth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="177" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Window_172e843bc53fee6302522d2afdd7188ec" prot="private" static="no" mutable="no">
+        <type><ref refid="classMyGUI_1_1Widget" kindref="compound">Widget</ref> *</type>
+        <definition>Widget* MyGUI::Window::mClient</definition>
+        <argsstring></argsstring>
+        <name>mClient</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="179" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMyGUI_1_1Window_1618f9a3248a7f788f5a186d19b4bf368" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool MyGUI::Window::mMovable</definition>
+        <argsstring></argsstring>
+        <name>mMovable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="180" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>{<ref refid="classMyGUI_1_1Window" kindref="compound">Window</ref>} <ref refid="classMyGUI_1_1Window" kindref="compound">Window</ref> widget description should be here. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="802">
+        <label>MyGUI::TextBox</label>
+        <link refid="classMyGUI_1_1TextBox"/>
+        <childnode refid="803" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="804">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="803">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="804" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="801">
+        <label>MyGUI::Window</label>
+        <link refid="classMyGUI_1_1Window"/>
+        <childnode refid="802" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="806">
+        <label>MyGUI::TextBox</label>
+        <link refid="classMyGUI_1_1TextBox"/>
+        <childnode refid="807" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="808">
+        <label>MyGUI::UserData</label>
+        <link refid="classMyGUI_1_1UserData"/>
+      </node>
+      <node id="807">
+        <label>MyGUI::Widget</label>
+        <link refid="classMyGUI_1_1Widget"/>
+        <childnode refid="808" relation="public-inheritance">
+        </childnode>
+        <childnode refid="807" relation="usage">
+          <edgelabel>mContainer
+mParent
+mWidgetClient</edgelabel>
+        </childnode>
+      </node>
+      <node id="805">
+        <label>MyGUI::Window</label>
+        <link refid="classMyGUI_1_1Window"/>
+        <childnode refid="806" relation="public-inheritance">
+        </childnode>
+        <childnode refid="806" relation="usage">
+          <edgelabel>mWidgetCaption</edgelabel>
+        </childnode>
+        <childnode refid="807" relation="usage">
+          <edgelabel>mClient</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" line="45" bodyfile="D:/MyGUI/MyGUI_Trunk/MyGUIEngine/include/MyGUI_Window.h" bodystart="42" bodyend="181"/>
+    <listofallmembers>
+      <member refid="classMyGUI_1_1Widget_134c44665e7d51c7eb65bf70f0479e1c3" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>_checkPoint</name></member>
+      <member refid="classMyGUI_1_1Widget_13601e5ca0d565451dfcf106850506a51" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>_createSkinWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_10df77f6d74fe5fc24701819e0b7e0fe8" prot="protected" virt="non-virtual"><scope>MyGUI::Window</scope><name>_destroyAllChildWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_125136884a04944ef8b199c582e15482c" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>_destroyChildWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1deee68fb42acc2fab667b169587e9ce3" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>_forcePick</name></member>
+      <member refid="classMyGUI_1_1Window_13237492201ca414ca951d6a495fbbf1e" prot="private" virt="non-virtual"><scope>MyGUI::Window</scope><name>_getActionScale</name></member>
+      <member refid="classMyGUI_1_1Widget_1f3d99ead3ce8fda0defa2feb0fbaee27" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>_getContainer</name></member>
+      <member refid="classMyGUI_1_1Widget_1fef9a1d046d1b78f8c76de1db83d20c6" prot="protected" virt="virtual"><scope>MyGUI::Window</scope><name>_getContainerIndex</name></member>
+      <member refid="classMyGUI_1_1UserData_1fc4382ac3423790f57b478a0fe5030a2" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>_getInternalData</name></member>
+      <member refid="classMyGUI_1_1Widget_106700537a6fffaf43aa9c93e89d9cc7d" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>_getItemIndex</name></member>
+      <member refid="classMyGUI_1_1Widget_1ae54386446434e4b133c244925402375" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>_initialise</name></member>
+      <member refid="classMyGUI_1_1Widget_1175526a4b039cf13c7fec7012d7287fc" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>_resetContainer</name></member>
+      <member refid="classMyGUI_1_1Widget_15df6dbd95e99b9b65b385d815026cf26" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>_setAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_1d3d48604ad15f958b81bf423f80271c9" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>_setContainer</name></member>
+      <member refid="classMyGUI_1_1UserData_12bd52c146bad41f99bbc7ed31335ad18" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>_setInternalData</name></member>
+      <member refid="classMyGUI_1_1Widget_13325a1f4c26917f6f73b207d0986e1bd" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>_setWidgetState</name></member>
+      <member refid="classMyGUI_1_1Widget_155b19482fe01925c36e29af671e3d092" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>_shutdown</name></member>
+      <member refid="classMyGUI_1_1Widget_1dd935a48ef2c39688d8026c01e9e3939" prot="protected" virt="non-virtual"><scope>MyGUI::Window</scope><name>_updateView</name></member>
+      <member refid="classMyGUI_1_1Window_1b1cb1c6e1a315402ba22b940c4bfd966" prot="protected" virt="non-virtual"><scope>MyGUI::Window</scope><name>animateStop</name></member>
+      <member refid="classMyGUI_1_1Widget_1b390f48a62a30d529c901cf8cfa1c24c" prot="protected" virt="non-virtual"><scope>MyGUI::Window</scope><name>assignWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_105110870f31f66a901b3b11737c194de" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>attachToWidget</name></member>
+      <member refid="classMyGUI_1_1Window_119660ddf6e006dfedd790a7718cede53" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>Base</name></member>
+      <member refid="classMyGUI_1_1Widget_1d88d7deb826efb660943ccb0bb457cae" prot="protected" virt="non-virtual"><scope>MyGUI::Window</scope><name>baseCreateWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1d4c4a2cf2c3dd8b71126291a55e69139" prot="protected" virt="virtual"><scope>MyGUI::Window</scope><name>baseUpdateEnable</name></member>
+      <member refid="classMyGUI_1_1Widget_1be74d6cc433da6140629423b120735a4" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>changeWidgetSkin</name></member>
+      <member refid="classMyGUI_1_1UserData_1f71561f766d83082a82cbdd6d218bd6b" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>clearUserString</name></member>
+      <member refid="classMyGUI_1_1UserData_154fecc1b40c23594c6518589b6912e49" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>clearUserStrings</name></member>
+      <member refid="classMyGUI_1_1Window_15e3392dd691a30617319db4080b3ca1c" prot="private" virt="non-virtual"><scope>MyGUI::Window</scope><name>createControllerFadeAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_1d66c5415fde332d5aab563402cffb09f" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_13a28d2e883ce82536b686ac992be672d" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1f8660295aafb142287644c239a313e53" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>createWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1721d33e78bb5c6ed975e8d41c8bdb683" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>createWidgetReal</name></member>
+      <member refid="classMyGUI_1_1Widget_1412c63af17890a8d43075782891b66ea" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>createWidgetReal</name></member>
+      <member refid="classMyGUI_1_1Widget_19ea260d13d1de5fb272e8fe3c6f6464c" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>createWidgetRealT</name></member>
+      <member refid="classMyGUI_1_1Widget_100fdb672b101caf560a07b86e67a72d4" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>createWidgetRealT</name></member>
+      <member refid="classMyGUI_1_1Widget_1b5d34f121420fbd4f439d7a8432d7755" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_12e74ae3d0a439f4edd509e73d4b2a083" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_1e26a4a5e8ea3fa4bafd969eb952d88e9" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>createWidgetT</name></member>
+      <member refid="classMyGUI_1_1Widget_1c1c862389f772c52077fe4f2cf6568b5" prot="protected" virt="non-virtual"><scope>MyGUI::Window</scope><name>destroySkinWidget</name></member>
+      <member refid="classMyGUI_1_1Window_1c358b20a36630e9b2c871bcee2d1038d" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>destroySmooth</name></member>
+      <member refid="classMyGUI_1_1Widget_1056ac7afc041cf328037e210c742302f" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>detachFromWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_130efcbdb772c4a75f8208a99c4f9f34d" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>eventChangeProperty</name></member>
+      <member refid="classMyGUI_1_1Window_1bd0975f13a8eaca3f69c379580d7ae62" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>eventWindowButtonPressed</name></member>
+      <member refid="classMyGUI_1_1Window_11f09d118d45a009c439734d6d5100df4" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>eventWindowChangeCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1d054e1027a48f2ccb9af0179359dadc5" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>findWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1e6d193b99a9d69973922d1b8e0f0b70e" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>findWidgets</name></member>
+      <member refid="classMyGUI_1_1Window_11fdacc9e1785a58b8ad668f97a5ba623" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getActionScale</name></member>
+      <member refid="classMyGUI_1_1Widget_134cafbef78da90ca8fb6aca8964b337a" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_1db1d462f1145cafb358754c03cd3e7f2" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getAlpha</name></member>
+      <member refid="classMyGUI_1_1Window_1418c8b4237f85ae78a955f82083d6c2b" prot="private" virt="non-virtual"><scope>MyGUI::Window</scope><name>getAlphaVisible</name></member>
+      <member refid="classMyGUI_1_1Window_1ae5512b0af552d3562c452eba6f3dd23" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getAutoAlpha</name></member>
+      <member refid="classMyGUI_1_1Window_13d6e91b37519246e677e61d8bac83d50" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>getCaption</name></member>
+      <member refid="classMyGUI_1_1Window_15a1fa1fccf58a1db9cb1f7073bb84c8d" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getCaptionWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_1028535563d6d3666658d83e4d479fa6d" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getChildAt</name></member>
+      <member refid="classMyGUI_1_1Widget_195ebe8be9fd3d29f7fa8f7846515eeec" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getChildCount</name></member>
+      <member refid="classMyGUI_1_1Window_15700eb4c4085eac722c8eb259bce81ea" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getClassTypeName</name></member>
+      <member refid="classMyGUI_1_1Widget_15ffebc869b3b4c36e31178616b27fc86" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getClientCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1ac162cf5e6c51d487c71ae2e2d041352" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getClientWidget</name></member>
+      <member refid="classMyGUI_1_1Widget_15cd729c40ad712c7036a0d3f6a2507b2" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1abfb5cf6661813f729bd30b4042e95d7" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getEnumerator</name></member>
+      <member refid="classMyGUI_1_1TextBox_182cf5031ad57c818cfa9c5a9a0393263" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getFontHeight</name></member>
+      <member refid="classMyGUI_1_1TextBox_1eb499df22061231d04ff0a29e87b2b06" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getFontName</name></member>
+      <member refid="classMyGUI_1_1Widget_1c373e8170168b97491e777b99de0872b" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getInheritedEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1028a8ae99e47f513065ce3cbb11e4022" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getInheritedVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_1c2118d0bf46d9a7ec21c7aed9c7e71ca" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1Widget_175cedb78192d81e9dd1cef4a6c7a9fe3" prot="protected" virt="virtual"><scope>MyGUI::Window</scope><name>getLayerItemByPoint</name></member>
+      <member refid="classMyGUI_1_1Widget_13e00b99c46a0c1ebacf29604d503804d" prot="protected" virt="virtual"><scope>MyGUI::Window</scope><name>getLayerItemCoord</name></member>
+      <member refid="classMyGUI_1_1Window_1f8d86e2127fbda0afb305e30345d6d0e" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getMaxSize</name></member>
+      <member refid="classMyGUI_1_1Window_1bb59f058ed2c4b035e4ef1e25bda4cfe" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getMinSize</name></member>
+      <member refid="classMyGUI_1_1Window_18a03f30d3288f63c9ace1d2d82527c15" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getMovable</name></member>
+      <member refid="classMyGUI_1_1Widget_1421a0e4eec959e8a5cd7f12ff459bfbf" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getName</name></member>
+      <member refid="classMyGUI_1_1Widget_174eb9e9819797e68a510a2ae6c3a410a" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getParent</name></member>
+      <member refid="classMyGUI_1_1Widget_1ee1378b1a9bd3db495cbea32f0a13e20" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getParentSize</name></member>
+      <member refid="classMyGUI_1_1Widget_14a6523e37fad5103ef5896bdf349861d" prot="protected" virt="non-virtual"><scope>MyGUI::Window</scope><name>getSkinWidgetsByName</name></member>
+      <member refid="classMyGUI_1_1Window_1ad72795b3de25714b7195a507897e22a" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getSnap</name></member>
+      <member refid="classMyGUI_1_1Window_140c3c8e6131aa9838d544ae1ca24b994" prot="private" virt="non-virtual"><scope>MyGUI::Window</scope><name>getSnappedCoord</name></member>
+      <member refid="classMyGUI_1_1TextBox_1e2b4578eeb95ab1fb771e163d50f9b9c" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getTextAlign</name></member>
+      <member refid="classMyGUI_1_1TextBox_1acc4e9fde74bb63723f7abd59f20ca29" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getTextColour</name></member>
+      <member refid="classMyGUI_1_1TextBox_15e8dfe8de46c133f662ffba060f18d23" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>getTextRegion</name></member>
+      <member refid="classMyGUI_1_1TextBox_1c0080a7ed833342b98c9376772d189e7" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getTextShadow</name></member>
+      <member refid="classMyGUI_1_1TextBox_14d6ac0eb45e0d495ed874367cfac7577" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getTextShadowColour</name></member>
+      <member refid="classMyGUI_1_1TextBox_1c5cac14b8c5a65f647dda4847b47cea8" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>getTextSize</name></member>
+      <member refid="classMyGUI_1_1Window_1cbe0e1f44c2bd77bf73c0c538fafadce" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>getTypeName</name></member>
+      <member refid="classMyGUI_1_1UserData_1eadd08cc61e475b95c588daf74789a06" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getUserData</name></member>
+      <member refid="classMyGUI_1_1UserData_17c62f7374453eaf6e5316ac369559c53" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getUserString</name></member>
+      <member refid="classMyGUI_1_1UserData_19bc43d45330305b52c5c3f0e9dffabab" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getUserStrings</name></member>
+      <member refid="classMyGUI_1_1Widget_1fa7ad1d5a3213ee9f8c4567e6f3fdd7d" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getVisible</name></member>
+      <member refid="classMyGUI_1_1Widget_15accf9c998578f20adcec5987dc820f2" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>getWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1Window_169db5c275b9efd3d71c830dbfb29a8c5" prot="protected" virt="virtual"><scope>MyGUI::Window</scope><name>initialiseOverride</name></member>
+      <member refid="classMyGUI_1_1Widget_1b3ec05a74f05236afb58855985781cd0" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>isRootWidget</name></member>
+      <member refid="classMyGUI_1_1Window_1afe930db3102769483e88571c85e90d9" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1Window_1b225491dc7e4b85e6cae412886fcf68f" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>isType</name></member>
+      <member refid="classMyGUI_1_1UserData_10bac17bc60b499cf0386ec3815d67f17" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>isUserString</name></member>
+      <member refid="classMyGUI_1_1Window_1f9db7500f0edcf6d53cb50282ccb8b70" prot="private" virt="non-virtual"><scope>MyGUI::Window</scope><name>mAnimateSmooth</name></member>
+      <member refid="classMyGUI_1_1Window_172e843bc53fee6302522d2afdd7188ec" prot="private" virt="non-virtual"><scope>MyGUI::Window</scope><name>mClient</name></member>
+      <member refid="classMyGUI_1_1Window_1ca6922277434a8eb5267f01a35fb1d16" prot="private" virt="non-virtual"><scope>MyGUI::Window</scope><name>mCurrentActionScale</name></member>
+      <member refid="classMyGUI_1_1Window_1a2e7bbd35ba7d0adbf52e05eb0f7b754" prot="private" virt="non-virtual"><scope>MyGUI::Window</scope><name>mIsAutoAlpha</name></member>
+      <member refid="classMyGUI_1_1Window_1f990ed1499d59f6e32c1c51c09bc4169" prot="private" virt="non-virtual"><scope>MyGUI::Window</scope><name>mKeyRootFocus</name></member>
+      <member refid="classMyGUI_1_1Window_1f9f4a51b8bf62765e4b89490456cb4cc" prot="private" virt="non-virtual"><scope>MyGUI::Window</scope><name>mMinmax</name></member>
+      <member refid="classMyGUI_1_1Window_1d490cf0045a31c916f20c0abc14dbb6a" prot="private" virt="non-virtual"><scope>MyGUI::Window</scope><name>mMouseRootFocus</name></member>
+      <member refid="classMyGUI_1_1Window_1618f9a3248a7f788f5a186d19b4bf368" prot="private" virt="non-virtual"><scope>MyGUI::Window</scope><name>mMovable</name></member>
+      <member refid="classMyGUI_1_1Window_1cb1a17c9270c9384ee720432f2546780" prot="private" virt="non-virtual"><scope>MyGUI::Window</scope><name>mPreActionCoord</name></member>
+      <member refid="classMyGUI_1_1Window_14dff5eb8ec92798953d33d29b3885c1f" prot="private" virt="non-virtual"><scope>MyGUI::Window</scope><name>mSnap</name></member>
+      <member refid="classMyGUI_1_1Window_1dc4a95d493fc5c765a7cafea2571601f" prot="private" virt="non-virtual"><scope>MyGUI::Window</scope><name>mWidgetCaption</name></member>
+      <member refid="classMyGUI_1_1Window_188c4f515d44b9d043352ce23d69ea5c7" prot="protected" virt="non-virtual"><scope>MyGUI::Window</scope><name>notifyMouseDrag</name></member>
+      <member refid="classMyGUI_1_1Window_128ad65dab8bed795ed5c91706a29ce6e" prot="protected" virt="non-virtual"><scope>MyGUI::Window</scope><name>notifyMousePressed</name></member>
+      <member refid="classMyGUI_1_1Window_171daf1d90261577a4f48844f1fa36f71" prot="protected" virt="non-virtual"><scope>MyGUI::Window</scope><name>notifyMouseReleased</name></member>
+      <member refid="classMyGUI_1_1Window_13e62577c477df5e285aebb1ba645523d" prot="protected" virt="non-virtual"><scope>MyGUI::Window</scope><name>notifyPressedButtonEvent</name></member>
+      <member refid="classMyGUI_1_1Window_1f1a330522b1d9fc652af3cb10f1c25d9" prot="protected" virt="non-virtual"><scope>MyGUI::Window</scope><name>onKeyChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1Window_14cbd490045e0f1bc9535216ca4159d4b" prot="protected" virt="non-virtual"><scope>MyGUI::Window</scope><name>onMouseButtonPressed</name></member>
+      <member refid="classMyGUI_1_1Window_17c40e3c9c30f70b14562d74f81cb3aa6" prot="protected" virt="non-virtual"><scope>MyGUI::Window</scope><name>onMouseButtonReleased</name></member>
+      <member refid="classMyGUI_1_1Window_18c3fb5e0c4e1a183d61603deb4521878" prot="protected" virt="non-virtual"><scope>MyGUI::Window</scope><name>onMouseChangeRootFocus</name></member>
+      <member refid="classMyGUI_1_1Window_1513e358973409f18da04707c99ad0461" prot="protected" virt="non-virtual"><scope>MyGUI::Window</scope><name>onMouseDrag</name></member>
+      <member refid="classMyGUI_1_1Widget_1a8cfc0deeb8c2c53c6fabf52dd167639" prot="protected" virt="virtual"><scope>MyGUI::Window</scope><name>onWidgetCreated</name></member>
+      <member refid="classMyGUI_1_1Widget_1c64ffb617119185afaf5ef9650d4f9a5" prot="protected" virt="virtual"><scope>MyGUI::Window</scope><name>onWidgetDestroy</name></member>
+      <member refid="classMyGUI_1_1Window_151a6f9612b705ea3649400b7fab79fe2" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>RTTIBase</name></member>
+      <member refid="classMyGUI_1_1Widget_1ebace37eedee14b3ff746b7a0085b993" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>setAlign</name></member>
+      <member refid="classMyGUI_1_1Widget_11204361b28430fa9a3b6927d6b4fe9ee" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setAlpha</name></member>
+      <member refid="classMyGUI_1_1Window_1e6732978366c0a5872fc2e14e0825da2" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setAutoAlpha</name></member>
+      <member refid="classMyGUI_1_1Window_10563c7e4c7777c541df91c058d3083f4" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>setCaption</name></member>
+      <member refid="classMyGUI_1_1TextBox_120fe368f3845d4036a9f3d0cca2de148" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setCaptionWithReplacing</name></member>
+      <member refid="classMyGUI_1_1Widget_1cbf134e83d95f63ff7ba7f4b3596449f" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setColour</name></member>
+      <member refid="classMyGUI_1_1Window_1dc9a834635cebc494776c144ad5786b3" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>setCoord</name></member>
+      <member refid="classMyGUI_1_1Window_1a1bca917ed9fdff11262f5937cd37f47" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1beda60b920b1808641169d8543171269" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>setEnabled</name></member>
+      <member refid="classMyGUI_1_1Widget_1f5a0bfe2b4f596d2dffdc7fcea5200b1" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setEnabledSilent</name></member>
+      <member refid="classMyGUI_1_1TextBox_1e567487392d88976456984442c5e44a2" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>setFontHeight</name></member>
+      <member refid="classMyGUI_1_1TextBox_18882452ac6bd460e73f46121c63b081b" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>setFontName</name></member>
+      <member refid="classMyGUI_1_1Widget_18b44677724faa4112312655e5feed8ae" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setInheritsAlpha</name></member>
+      <member refid="classMyGUI_1_1Window_14effcea0b6cb5f98c828022d376de50d" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setMaxSize</name></member>
+      <member refid="classMyGUI_1_1Window_1a02a14d8b7d9295590c3d6b49ff6bc19" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setMaxSize</name></member>
+      <member refid="classMyGUI_1_1Window_123e8c9304e216b19bef250d4f1e6d8c8" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setMinSize</name></member>
+      <member refid="classMyGUI_1_1Window_1ac695925a88d8b307937e12bce375de9" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setMinSize</name></member>
+      <member refid="classMyGUI_1_1Window_11438ef4bfdcc4904b7bab82fa008e701" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setMovable</name></member>
+      <member refid="classMyGUI_1_1Window_1e45e865cf4860355433de04d6432f51c" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1Window_1ce0f41996b0a1b83d0d394784214d01a" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_11a6ea7822f869b777800b0d351112e69" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setProperty</name></member>
+      <member refid="classMyGUI_1_1Window_1ce43226e38c9190c674598952aac4426" prot="protected" virt="virtual"><scope>MyGUI::Window</scope><name>setPropertyOverride</name></member>
+      <member refid="classMyGUI_1_1Widget_18833c303314683bbebadb154d337d3cb" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setRealCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_1dfd8bd56bcecaee166bbfd12ff962f67" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setRealCoord</name></member>
+      <member refid="classMyGUI_1_1Widget_15a5f7a24564bb6e04b48d0c524f0ef24" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setRealPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_1c963db4709c8dfc9e681dfccd5fb6524" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setRealPosition</name></member>
+      <member refid="classMyGUI_1_1Widget_1d7fba1f9976c36eacb528d6db9213ddf" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1Widget_15d89ff45c4bc5f6158382067673903ba" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setRealSize</name></member>
+      <member refid="classMyGUI_1_1Window_124e493a28eb359caf83e6b174355cdb4" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>setSize</name></member>
+      <member refid="classMyGUI_1_1Window_14914daa3a269e387e671b8c357868246" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setSize</name></member>
+      <member refid="classMyGUI_1_1Window_11dc7d03a61f40ce6c8649f8f36a93ac7" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setSnap</name></member>
+      <member refid="classMyGUI_1_1TextBox_10e3f84f169ccbb4d62057423c9f3cf8f" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>setTextAlign</name></member>
+      <member refid="classMyGUI_1_1TextBox_199437c63dc672cd4a2203533803b9b88" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>setTextColour</name></member>
+      <member refid="classMyGUI_1_1TextBox_1e04d6fd910e1756e6e24b6c9e004f0ab" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>setTextShadow</name></member>
+      <member refid="classMyGUI_1_1TextBox_1e9a1ea838b24ff17dc97bd8bf345e266" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>setTextShadowColour</name></member>
+      <member refid="classMyGUI_1_1UserData_145916c0682a72614a1ed72a9efded82c" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setUserData</name></member>
+      <member refid="classMyGUI_1_1UserData_19630c47aa8d58cbc89628aad50725245" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setUserString</name></member>
+      <member refid="classMyGUI_1_1Window_114efec0914ee9e12e328c4e31c3e62e9" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>setVisible</name></member>
+      <member refid="classMyGUI_1_1Window_1159f2ce19429e2e0ffaf4ceb031c5e6e" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setVisibleSmooth</name></member>
+      <member refid="classMyGUI_1_1Widget_1c717aa06253e913156a6d24fb3d4cbc4" prot="protected" virt="non-virtual"><scope>MyGUI::Window</scope><name>setWidgetClient</name></member>
+      <member refid="classMyGUI_1_1Widget_1372d21a0125ab28cc5c2c295290a2806" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>setWidgetStyle</name></member>
+      <member refid="classMyGUI_1_1Window_19de5dff9c1c09160a319ec44d3f2fcc8" prot="protected" virt="virtual"><scope>MyGUI::Window</scope><name>shutdownOverride</name></member>
+      <member refid="classMyGUI_1_1TextBox_1c9823be8b1b86d97123b9ab05ee81c77" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>TextBox</name></member>
+      <member refid="classMyGUI_1_1Window_196fda2d24e71014bda28893ef73a8a19" prot="protected" virt="non-virtual"><scope>MyGUI::Window</scope><name>updateAlpha</name></member>
+      <member refid="classMyGUI_1_1UserData_1108076068708e939519f9c775c2ae87b" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>UserData</name></member>
+      <member refid="classMyGUI_1_1Widget_1f4814618768bc07a685495895ca47b04" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>Widget</name></member>
+      <member refid="classMyGUI_1_1Window_122de9eb461d281c710af4a156e8651a9" prot="public" virt="non-virtual"><scope>MyGUI::Window</scope><name>Window</name></member>
+      <member refid="classMyGUI_1_1UserData_1a970af2c1f39e0fa8801fd9defb06d84" prot="public" virt="virtual"><scope>MyGUI::Window</scope><name>~UserData</name></member>
+      <member refid="classMyGUI_1_1Widget_18ff3c2a98bbea22f4f0191bcac54b643" prot="protected" virt="virtual"><scope>MyGUI::Window</scope><name>~Widget</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
