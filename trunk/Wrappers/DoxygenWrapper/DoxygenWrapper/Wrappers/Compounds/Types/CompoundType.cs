@@ -7,13 +7,62 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 {
 	public class CompoundType
 	{
+		static CompoundType()
+		{
+			mModiferMap = new Dictionary<string, CompoundTypeModifers>();
+			mModiferMap["const"] = CompoundTypeModifers.Const;
+			mModiferMap["__inline"] = CompoundTypeModifers.Inline;
+			mModiferMap["typename"] = CompoundTypeModifers.Typename;
+			mModiferMap["struct"] = CompoundTypeModifers.Struct;
+			mModiferMap["union"] = CompoundTypeModifers.Union;
+			mModiferMap["unsigned"] = CompoundTypeModifers.Unsigned;
+			mModiferMap["signed"] = CompoundTypeModifers.Signed;
+			mModiferMap["&"] = CompoundTypeModifers.Reference;
+			mModiferMap["*"] = CompoundTypeModifers.Pointer;
+
+			mFundamentTypeMap = new Dictionary<string, int>();
+			mFundamentTypeMap["void"] = 0;
+			mFundamentTypeMap["int"] = 0;
+			mFundamentTypeMap["size_t"] = 0;
+			mFundamentTypeMap["wchar_t"] = 0;
+			mFundamentTypeMap["long"] = 0;
+			mFundamentTypeMap["bool"] = 0;
+			mFundamentTypeMap["char"] = 0;
+			mFundamentTypeMap["short"] = 0;
+			mFundamentTypeMap["float"] = 0;
+			mFundamentTypeMap["double"] = 0;
+
+			mFundamentTypeMap["std::type_info"] = 0;
+			mFundamentTypeMap["std::list"] = 0;
+			mFundamentTypeMap["std::pair"] = 0;
+			mFundamentTypeMap["std::set"] = 0;
+			mFundamentTypeMap["std::map"] = 0;
+			mFundamentTypeMap["std::vector"] = 0;
+			mFundamentTypeMap["std::deque"] = 0;
+			mFundamentTypeMap["std::string"] = 0;
+			mFundamentTypeMap["std::wstring"] = 0;
+			mFundamentTypeMap["std::basic_string"] = 0;
+
+			mFundamentTypeMap["std::istream"] = 0;
+			mFundamentTypeMap["std::ifstream"] = 0;
+			mFundamentTypeMap["std::wistream"] = 0;
+			mFundamentTypeMap["std::wifstream"] = 0;
+			mFundamentTypeMap["std::ostream"] = 0;
+			mFundamentTypeMap["std::ofstream"] = 0;
+			mFundamentTypeMap["std::ostringstream"] = 0;
+			mFundamentTypeMap["std::wostream"] = 0;
+			mFundamentTypeMap["std::wofstream"] = 0;
+			mFundamentTypeMap["std::wostringstream"] = 0;
+		}
+
 		public CompoundType()
 		{
 		}
 
-		public CompoundType(XmlNode _node)
+		public CompoundType(XmlNode _node, string _name)
 		{
 			mNode = _node;
+			mName = _name;
 
 			List<AlphabetType> commands = new List<AlphabetType>();
 
@@ -58,16 +107,15 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 			}
 
 			int indexParse = 0;
-			string typeDefinition = mNode.InnerXml;
-			ParseType(commands, ref indexParse, typeDefinition);
+			ParseType(commands, ref indexParse, mNode);
 
 			if (indexParse != commands.Count)
-				ConsoleUtility.WriteErrorLine("Error parse type {0}", typeDefinition);
+				ConsoleUtility.WriteErrorLine("Error parse type {0}", mNode.InnerXml);
 			else
-				ParseComplete(typeDefinition);
+				ParseComplete(mNode);
 		}
 
-		private void ParseComplete(string _typeDefinition)
+		private void ParseComplete(XmlNode _typeDefinition)
 		{
 			ParseTypeComplete(_typeDefinition);
 
@@ -75,78 +123,40 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 				child.ParseComplete(_typeDefinition);
 		}
 
-		private void ParseTypeComplete(string _typeDefinition)
+		private void ParseTypeComplete(XmlNode _typeDefinition)
 		{
-			if (mBeforeType != null)
+			if (mParseType != null)
 			{
-				mBeforeType = SplitReferenceAndPointers(mBeforeType);
-				string[] values = mBeforeType.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+				mParseType = SplitReferenceAndPointers(mParseType);
+				string[] values = mParseType.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 				foreach (string value in values)
 				{
-					if (value == "const")
+					CompoundTypeModifers modiffer = CompoundTypeModifers.None;
+					if (mModiferMap.TryGetValue(value, out modiffer))
 					{
-						mModifers.Add(CompoundTypeModifers.Const);
+						mModifers.Add(modiffer);
 					}
-					else if (value == "unsigned")
+					else if (mFundamentTypeMap.ContainsKey(value))
 					{
-						mModifers.Add(CompoundTypeModifers.Unsigned);
-					}
-					else if (value == "signed")
-					{
-						mModifers.Add(CompoundTypeModifers.Signed);
-					}
-					else if (value == "&")
-					{
-						if (mBaseTypeName != null || mBaseType != null)
-						{
-							mPointers.Add(CompoundTypePointers.Reference);
-						}
-						else
-						{
-							ConsoleUtility.WriteErrorLine("Error parse type {0}", _typeDefinition);
-						}
-					}
-					else if (value == "*")
-					{
-						if (mBaseTypeName != null || mBaseType != null)
-						{
-							mPointers.Add(CompoundTypePointers.Pointer);
-						}
-						else
-						{
-							ConsoleUtility.WriteErrorLine("Error parse type {0}", _typeDefinition);
-						}
+						mBaseTypeName = value;
 					}
 					else
 					{
 						if (mBaseTypeName == null)
 						{
 							mBaseTypeName = value;
+
+							if (IsSkip(value))
+							{
+							}
+							else
+							{
+							}
 						}
 						else
 						{
-							ConsoleUtility.WriteErrorLine("Error parse type {0}", _typeDefinition);
+							ConsoleUtility.WriteErrorLine("Error parse type {0}", _typeDefinition.InnerXml);
 						}
-					}
-				}
-			}
-			else if (mPostType != null)
-			{
-				mPostType = SplitReferenceAndPointers(mPostType);
-				string[] values = mPostType.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-				foreach (string value in values)
-				{
-					if (value == "&")
-					{
-						mPointers.Add(CompoundTypePointers.Reference);
-					}
-					else if (value == "*")
-					{
-						mPointers.Add(CompoundTypePointers.Pointer);
-					}
-					else
-					{
-						ConsoleUtility.WriteErrorLine("Error parse type {0}", _typeDefinition);
 					}
 				}
 			}
@@ -158,48 +168,58 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 			int index = _value.IndexOfAny(template, 0);
 			while (index != -1)
 			{
-				_value = _value.Insert(index + 1, " ");
-				index = _value.IndexOfAny(template, index + 1);
+				_value = _value.Insert(index, " ");
+				index = _value.IndexOfAny(template, index + 2);
 			}
 
 			return _value;
 		}
 
-		/*private bool IsSkip(string value)
+		private bool IsSkip(string _value)
 		{
-			return value == "T" ||
-				value == "TP1" ||
-				value == "TP2" ||
-				value == "TP3" ||
-				value == "TP4" ||
-				value == "TP5" ||
-				value == "TP6" ||
-				value == "void(T::*" ||
-				value == "void(*" ||
-				value == "ListDelegate::iterator" ||
-				value == "ListDelegate::const_iterator";
+			return _value == "T" ||
+				_value == "T::const_iterator" ||
+				_value == "T::const_reference" ||
+				_value == "T1" ||
+				_value == "T2" ||
+				_value == "T3" ||
+				_value == "T4" ||
+				_value == "T5" ||
+				_value == "T6" ||
+				_value == "T7" ||
+				_value == "T8" ||
+				_value == "T9" ||
+				_value == "TP1" ||
+				_value == "TP2" ||
+				_value == "TP3" ||
+				_value == "TP4" ||
+				_value == "TP5" ||
+				_value == "TP6" ||
+				_value == "TP7" ||
+				_value == "TP8" ||
+				_value == "TP9" ||
+				_value == "U" ||
+				_value == "void(T::*" ||
+				_value == "void(T::" ||
+				_value == "void(*" ||
+				_value == "void(" ||
+				_value == "ListDelegate::iterator" ||
+				_value == "ListDelegate::const_iterator" ||
+				_value == "dstring::iterator" ||
+				_value == "VectorElement::iterator" ||
+				_value == "EventObsolete" ||
+				_value == "Event" ||
+				_value == "ValueType" ||
+				_value == "Type" ||
+				_value == "difference_type" ||
+				_value == "tm" ||
+				_value == "Event::IDelegate" ||
+				_value == "MyGUI::CharInfo::@1" ||
+				_value == "MyGUI::UString::@3" ||
+				_value == "IDelegateUnlink";
 		}
 
-		private bool IsFundamental(string value)
-		{
-			return value == "int" ||
-				value == "size_t" ||
-				value == "bool" ||
-				value == "char" ||
-				value == "short" ||
-				value == "float" ||
-				value == "double" ||
-				value == "std::vector" ||
-				value == "std::deque" ||
-				value == "std::string" ||
-				value == "std::basic_string" ||
-				value == "std::list" ||
-				value == "std::pair" ||
-				value == "std::set" ||
-				value == "std::map";
-		}*/
-
-		private void ParseType(List<AlphabetType> _commands, ref int _indexParse, string _typeDefinition)
+		private void ParseType(List<AlphabetType> _commands, ref int _indexParse, XmlNode _typeDefinition)
 		{
 			while (true)
 			{
@@ -228,14 +248,14 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 							string refid = command.Element.Attributes["refid"].Value;
 							if (CompoundManager.Instance.IsIgnoredCompound(refid))
 							{
-								ConsoleUtility.WriteErrorLine("{0} id and name {1} not found in type {2}", refid, command.Element.InnerText, _typeDefinition);
+								ConsoleUtility.WriteErrorLine("{0} id and name {1} not found in type {2}", refid, command.Element.InnerText, _typeDefinition.InnerXml);
 							}
 							else
 							{
 								var compound = CompoundManager.Instance.GetCompound(refid);
 								if (compound == null)
 								{
-									ConsoleUtility.WriteErrorLine("{0} id and name {1} not found in type {2}", refid, command.Element.InnerText, _typeDefinition);
+									ConsoleUtility.WriteErrorLine("{0} id and name {1} not found in type {2}", refid, command.Element.InnerText, _typeDefinition.InnerXml);
 								}
 								else
 								{
@@ -245,37 +265,16 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 						}
 						else
 						{
-							ConsoleUtility.WriteErrorLine("Error parse type {0}", _typeDefinition);
+							ConsoleUtility.WriteErrorLine("Error parse type {0}", _typeDefinition.InnerXml);
 						}
 					}
 					else if (command.Text != null)
 					{
-						if (mBaseType == null)
-						{
-							if (mBeforeType == null)
-							{
-								mBeforeType = command.Text;
-							}
-							else
-							{
-								ConsoleUtility.WriteErrorLine("Error parse type {0}", _typeDefinition);
-							}
-						}
-						else
-						{
-							if (mPostType == null)
-							{
-								mPostType = command.Text;
-							}
-							else
-							{
-								ConsoleUtility.WriteErrorLine("Error parse type {0}", _typeDefinition);
-							}
-						}
+						mParseType += command.Text;
 					}
 					else
 					{
-						ConsoleUtility.WriteErrorLine("Error parse type {0}", _typeDefinition);
+						ConsoleUtility.WriteErrorLine("Error parse type {0}", _typeDefinition.InnerXml);
 					}
 				}
 			}
@@ -291,6 +290,11 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 			get { return mBaseTypeName; }
 		}
 
+		public string Name
+		{
+			get { return mName; }
+		}
+
 		public Compound BaseType
 		{
 			get { return mBaseType; }
@@ -301,18 +305,14 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 			get { return mTemplateTypes.GetEnumerator(); }
 		}
 
-		public List<CompoundTypePointers>.Enumerator Pointers
-		{
-			get { return mPointers.GetEnumerator(); }
-		}
-
 		private List<CompoundTypeModifers> mModifers = new List<CompoundTypeModifers>();
 		private Compound mBaseType;
 		private string mBaseTypeName;
 		private List<CompoundType> mTemplateTypes = new List<CompoundType>();
-		private List<CompoundTypePointers> mPointers = new List<CompoundTypePointers>();
 		private XmlNode mNode;
-		private string mBeforeType;
-		private string mPostType;
+		private string mParseType = "";
+		private string mName = "";
+		private static Dictionary<string, CompoundTypeModifers> mModiferMap;
+		private static Dictionary<string, int> mFundamentTypeMap;
 	}
 }
