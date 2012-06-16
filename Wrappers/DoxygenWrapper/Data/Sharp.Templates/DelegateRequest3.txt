@@ -1,0 +1,58 @@
+﻿		#region Request #{DelegateName}
+
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void Export#{ThisName}Event_Advise#{DelegateName}( IntPtr _native, bool _advise );
+
+		public delegate void Handle#{DelegateName}(
+			#{TypePrefix1} #{TypeName1} #{ValueName1} ,
+			#{TypePrefix2} #{TypeName2} #{ValueName2} ,
+			#{TypePrefix3} #{TypeName3} #{ValueName3} );
+			
+		private Handle#{DelegateName} mEvent#{DelegateName};
+		public event Handle#{DelegateName} Request#{DelegateName}
+		{
+			add
+			{
+				if (mEvent#{DelegateName} == null) Export#{ThisName}Event_Advise#{DelegateName}( mNative, true );
+				mEvent#{DelegateName} += value;
+			}
+			remove
+			{
+				mEvent#{DelegateName} -= value;
+				if (mEvent#{DelegateName} == null) Export#{ThisName}Event_Advise#{DelegateName}( mNative, false );
+			}
+		}
+
+
+		private struct ExportEvent#{DelegateName}
+		{
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			private static extern void Export#{ThisName}Event_Delegate#{DelegateName}( ExportHandle _delegate );
+			public delegate void ExportHandle(
+				#{MarshalAs1} #{TypePrefix1} #{TypeName1} #{ValueName1} ,
+				#{MarshalAs2} #{TypePrefix2} #{TypeName2} #{ValueName2} ,
+				#{MarshalAs3} #{TypePrefix3} #{TypeName3} #{ValueName3} );
+				
+			private static ExportHandle mDelegate;
+			public ExportEvent#{DelegateName}( ExportHandle _delegate )
+			{
+				mDelegate = _delegate;
+				Export#{ThisName}Event_Delegate#{DelegateName}( mDelegate );
+			}
+		}
+		static ExportEvent#{DelegateName} mExport#{DelegateName} =
+			new ExportEvent#{DelegateName}(new ExportEvent#{DelegateName}.ExportHandle( OnExport#{DelegateName} ));
+
+		private static void OnExport#{DelegateName}(
+			#{TypePrefix1} #{TypeName1} #{ValueName1} ,
+			#{TypePrefix2} #{TypeName2} #{ValueName2} ,
+			#{TypePrefix3} #{TypeName3} #{ValueName3} )
+		{
+			if (#{ValueName1}.mEvent#{DelegateName} != null)
+				#{ValueName1}.mEvent#{DelegateName}(
+					#{TypePrefix1} #{ValueName1} ,
+					#{TypePrefix2} #{ValueName2} ,
+					#{TypePrefix3} #{ValueName3} );
+		}
+
+		#endregion
