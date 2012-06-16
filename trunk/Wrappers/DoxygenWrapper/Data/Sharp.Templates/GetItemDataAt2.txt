@@ -1,0 +1,18 @@
+﻿		#region Method #{MethodName}
+
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.IUnknown)]
+		private static extern object Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( IntPtr _native ,
+			#{MarshalAs1} #{TypePrefix1} #{MarshalTypeName1} #{ValueName1} ,
+			#{MarshalAs2} #{TypePrefix2} #{MarshalTypeName2} #{ValueName2} );
+
+		public object #{MethodName}(
+			#{TypeName1} #{ValueName1} ,
+			#{TypeName2} #{ValueName2} )
+		{
+			return Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( mNative , 
+				#{TypePrefix1} #{ValueName1} ,
+				#{TypePrefix2} #{ValueName2} );
+		}
+
+		#endregion

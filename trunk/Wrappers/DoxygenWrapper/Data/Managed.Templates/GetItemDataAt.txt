@@ -1,0 +1,9 @@
+﻿	public:
+		Convert<MyGUI::Any>::Type #{MethodName}(
+			Convert<#{OriginalTypeName1}>::Type #{ValueName1} )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			ObjectHolder* data = static_cast<ThisType*>(mNative)->#{OriginalMethodName}< ObjectHolder >(
+				Convert<#{OriginalTypeName1}>::From(#{ValueName1}) , false );
+			return data ? data->toObject() : nullptr;
+		}
