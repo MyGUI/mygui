@@ -10,5 +10,11 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 		Unsigned,
 		Signed,
 		Const,
+		Inline,
+		Typename,
+		Struct,
+		Union,
+		Pointer,
+		Reference
 	}
 }

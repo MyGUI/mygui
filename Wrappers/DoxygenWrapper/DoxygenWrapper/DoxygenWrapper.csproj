@@ -73,7 +73,6 @@
     <Compile Include="Wrappers\Compounds\Types\AlphabetType.cs" />
     <Compile Include="Wrappers\Compounds\Types\CompoundType.cs" />
     <Compile Include="Wrappers\Compounds\Types\CompoundTypeModifers.cs" />
-    <Compile Include="Wrappers\Compounds\Types\CompoundTypePointers.cs" />
     <Compile Include="Wrappers\Compounds\Types\StateDirection.cs" />
     <Compile Include="Wrappers\ConsoleUtility.cs" />
   </ItemGroup>

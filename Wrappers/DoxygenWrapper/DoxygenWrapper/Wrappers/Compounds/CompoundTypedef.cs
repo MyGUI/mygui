@@ -12,7 +12,7 @@ namespace DoxygenWrapper.Wrappers.Compounds
 		{
 			base.OnParse(_node);
 
-			mCompoundType = new CompoundType(_node["type"]);
+			mCompoundType = new CompoundType(_node["type"], _node["name"].Value);
 		}
 
 		public CompoundType CompoundType

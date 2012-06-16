@@ -26,6 +26,8 @@ namespace DoxygenWrapper.Wrappers
 			mFatory.RegisterFactory("typedef", typeof(CompoundTypedef));
 			mFatory.RegisterFactory("function", typeof(CompoundFunction));
 			mFatory.RegisterFactory("variable", typeof(CompoundVariable));
+			mFatory.RegisterFactory("enum", typeof(Compound));
+			mFatory.RegisterFactory("enumvalue", typeof(Compound));
 		}
 
 		public void Initialise(string _folder)
@@ -195,7 +197,7 @@ namespace DoxygenWrapper.Wrappers
 		private List<Compound> mIgnoredItems = new List<Compound>();
 		private Compound mRootCompound = new Compound();
 		private string[] mIgnoredNames = new string[] { };
-		private string[] mIgnoredTypes = new string[] { "define", "friend", "enumvalue", "enum", "file", "example", "dir" };
+		private string[] mIgnoredTypes = new string[] { "define", "friend", "file", "example", "dir" };
 		private string mFolder;
 	}
 }
