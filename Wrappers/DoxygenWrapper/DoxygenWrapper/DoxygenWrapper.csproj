@@ -75,7 +75,11 @@
     <Compile Include="Wrappers\Compounds\Types\CompoundTypeModifers.cs" />
     <Compile Include="Wrappers\Compounds\Types\StateDirection.cs" />
     <Compile Include="Wrappers\ConsoleUtility.cs" />
+    <Compile Include="Wrappers\OutputManager.cs" />
+    <Compile Include="Wrappers\ReplaceManager.cs" />
+    <Compile Include="Wrappers\TemplateManager.cs" />
     <Compile Include="Wrappers\Types\ClassInfo.cs" />
+    <Compile Include="Wrappers\Types\FileData.cs" />
     <Compile Include="Wrappers\Types\TemplateInfo.cs" />
     <Compile Include="Wrappers\Types\TypeInfo.cs" />
     <Compile Include="Wrappers\WrapperManager.cs" />

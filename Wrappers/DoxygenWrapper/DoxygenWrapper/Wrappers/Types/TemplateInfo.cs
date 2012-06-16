@@ -12,8 +12,8 @@ namespace DoxygenWrapper.Wrappers.Types
 			mNode = _node;
 
 			mTemplate = _node.Attributes["template"] != null ? _node.Attributes["template"].Value : "";
-			mType = _node.Attributes["type"] != null ? _node.Attributes["type"].Value : "";
-			mName = _node.Attributes["name"] != null ? _node.Attributes["name"].Value : "";
+			mTemplateFolder = _node.Attributes["type"] != null ? _node.Attributes["type"].Value : "";
+			mOutputTemplate = _node.Attributes["name"] != null ? _node.Attributes["name"].Value : "";
 			mOutput = _node.Attributes["output"] != null ? _node.Attributes["output"].Value : "";
 		}
 
@@ -22,14 +22,14 @@ namespace DoxygenWrapper.Wrappers.Types
 			get { return mTemplate; }
 		}
 
-		public string Type
+		public string TemplateFolder
 		{
-			get { return mType; }
+			get { return mTemplateFolder; }
 		}
 
-		public string Name
+		public string OutputTemplate
 		{
-			get { return mName; }
+			get { return mOutputTemplate; }
 		}
 
 		public string Output
@@ -39,8 +39,8 @@ namespace DoxygenWrapper.Wrappers.Types
 
 		private XmlNode mNode;
 		private string mTemplate;
-		private string mType;
-		private string mName;
+		private string mTemplateFolder;
+		private string mOutputTemplate;
 		private string mOutput;
 	}
 }
