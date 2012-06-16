@@ -1,0 +1,2 @@
+﻿
+#include "MyGUI.Export_#{ThisName}.h"
