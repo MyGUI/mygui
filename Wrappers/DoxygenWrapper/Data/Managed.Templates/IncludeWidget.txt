@@ -1,1 +1,0 @@
-﻿#include "MyGUI.Managed_#{ThisName}.h"
