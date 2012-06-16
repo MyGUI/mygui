@@ -75,6 +75,10 @@
     <Compile Include="Wrappers\Compounds\Types\CompoundTypeModifers.cs" />
     <Compile Include="Wrappers\Compounds\Types\StateDirection.cs" />
     <Compile Include="Wrappers\ConsoleUtility.cs" />
+    <Compile Include="Wrappers\Types\ClassInfo.cs" />
+    <Compile Include="Wrappers\Types\TemplateInfo.cs" />
+    <Compile Include="Wrappers\Types\TypeInfo.cs" />
+    <Compile Include="Wrappers\WrapperManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
