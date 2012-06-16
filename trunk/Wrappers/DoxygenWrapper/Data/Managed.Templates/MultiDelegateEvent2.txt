@@ -1,0 +1,41 @@
+﻿	public:
+		delegate void Handle#{DelegateName}(
+			Convert<#{OriginalTypeName1}>::Type #{ValueName1} ,
+			Convert<#{OriginalTypeName2}>::Type #{ValueName2} );
+		event Handle#{DelegateName}^ Event#{DelegateName}
+		{
+			void add(Handle#{DelegateName}^ _value)
+			{
+				bool empty = mDelegate#{DelegateName} == nullptr;
+
+				mDelegate#{DelegateName} += _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->event#{DelegateName} +=
+						static_cast< MyGUI::delegates::IDelegate2<
+							#{OriginalTypeName1} ,
+							#{OriginalTypeName2} > *>(
+								new Delegate2< Handle#{DelegateName}^ ,
+								#{OriginalTypeName1} ,
+								#{OriginalTypeName2} >(mDelegate#{DelegateName}) );
+			}
+			void remove(Handle#{DelegateName}^ _value)
+			{
+				mDelegate#{DelegateName} -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				
+				bool empty = mDelegate#{DelegateName} == nullptr;
+
+				if (empty)
+					static_cast<ThisType*>(mNative)->event#{DelegateName} -=
+						static_cast< MyGUI::delegates::IDelegate2<
+							#{OriginalTypeName1} ,
+							#{OriginalTypeName2} > *>(
+								new Delegate2< Handle#{DelegateName}^ ,
+									#{OriginalTypeName1} ,
+									#{OriginalTypeName2} >(mDelegate#{DelegateName}) );
+			}
+		}
+	private:
+		Handle#{DelegateName}^ mDelegate#{DelegateName};

@@ -1,0 +1,15 @@
+﻿		#region Property #{PropertyName}
+
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.IUnknown)]
+		private static extern object Export#{ThisName}_Get#{PropertyName}( IntPtr _widget );
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void Export#{ThisName}_Set#{PropertyName}( IntPtr _widget, [MarshalAs(UnmanagedType.IUnknown)] object _value );
+
+		public object #{PropertyName}
+		{
+			get { return Export#{ThisName}_Get#{PropertyName}( mNative ); }
+			set { Export#{ThisName}_Set#{PropertyName}( mNative, value ); }
+		}
+
+		#endregion

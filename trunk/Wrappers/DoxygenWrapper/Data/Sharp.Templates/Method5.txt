@@ -1,0 +1,26 @@
+﻿		#region Method #{MethodName}
+
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}#{ValueName5}( IntPtr _native ,
+			#{MarshalAs1} #{TypePrefix1} #{MarshalTypeName1} #{ValueName1} ,
+			#{MarshalAs2} #{TypePrefix2} #{MarshalTypeName2} #{ValueName2} ,
+			#{MarshalAs3} #{TypePrefix3} #{MarshalTypeName3} #{ValueName3} ,
+			#{MarshalAs4} #{TypePrefix4} #{MarshalTypeName4} #{ValueName4} ,
+			#{MarshalAs5} #{TypePrefix5} #{MarshalTypeName5} #{ValueName5} );
+
+		public void #{MethodName}(
+			#{TypeName1} #{ValueName1} ,
+			#{TypeName2} #{ValueName2} ,
+			#{TypeName3} #{ValueName3} ,
+			#{TypeName4} #{ValueName4} ,
+			#{TypeName5} #{ValueName5} )
+		{
+			Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}#{ValueName5}( mNative , 
+				#{TypePrefix1} #{ValueName1} ,
+				#{TypePrefix2} #{ValueName2} ,
+				#{TypePrefix3} #{ValueName3} ,
+				#{TypePrefix4} #{ValueName4} ,
+				#{TypePrefix5} #{ValueName5} );
+		}
+
+		#endregion
