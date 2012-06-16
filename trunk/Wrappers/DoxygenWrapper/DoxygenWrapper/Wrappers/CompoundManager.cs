@@ -16,8 +16,6 @@ namespace DoxygenWrapper.Wrappers
 			mInstance = this;
 
 			RegisterFactories();
-
-			SetIgnoredTypeList(new string[] { "define", "friend", "enumvalue", "enum", "file", "example", "dir" });
 		}
 
 		private void RegisterFactories()
@@ -138,11 +136,6 @@ namespace DoxygenWrapper.Wrappers
 			mIgnoredNames = _list;
 		}
 
-		private void SetIgnoredTypeList(string[] _list)
-		{
-			mIgnoredTypes = _list;
-		}
-
 		public Compound GetCompound(string _refid)
 		{
 			if (mCompounds.ContainsKey(_refid))
@@ -202,7 +195,7 @@ namespace DoxygenWrapper.Wrappers
 		private List<Compound> mIgnoredItems = new List<Compound>();
 		private Compound mRootCompound = new Compound();
 		private string[] mIgnoredNames = new string[] { };
-		private string[] mIgnoredTypes = new string[] { };
+		private string[] mIgnoredTypes = new string[] { "define", "friend", "enumvalue", "enum", "file", "example", "dir" };
 		private string mFolder;
 	}
 }

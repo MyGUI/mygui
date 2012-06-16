@@ -14,6 +14,8 @@ namespace DoxygenWrapper
 			manager.Initialise(@"..\..\..\..\WrapperGenerator\doxygen\xml");
 
 			manager.DumpCompoundTree("CompoundTree.xml");
+
+			ConsoleUtility.WriteLine("Complite");
 		}
 	}
 }

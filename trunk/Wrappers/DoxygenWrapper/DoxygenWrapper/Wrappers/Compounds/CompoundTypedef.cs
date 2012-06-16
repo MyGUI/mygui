@@ -1,10 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using DoxygenWrapper.Wrappers.Compounds.Types;
+using System.Xml;
 
 namespace DoxygenWrapper.Wrappers.Compounds
 {
 	public class CompoundTypedef:
 		Compound
 	{
+		protected override void OnParse(XmlNode _node)
+		{
+			base.OnParse(_node);
+
+			mCompoundType = new CompoundType(_node["type"]);
+		}
+
+		public CompoundType CompoundType
+		{
+			get { return mCompoundType; }
+		}
+
+		private CompoundType mCompoundType;
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Diagnostics;
 
 namespace DoxygenWrapper.Wrappers
 {
@@ -20,6 +21,7 @@ namespace DoxygenWrapper.Wrappers
 		{
 			Console.ForegroundColor = ConsoleColor.Yellow;
 			Console.WriteLine(_value);
+			Console.WriteLine();
 			Console.ResetColor();
 		}
 
@@ -27,6 +29,7 @@ namespace DoxygenWrapper.Wrappers
 		{
 			Console.ForegroundColor = ConsoleColor.Yellow;
 			Console.WriteLine(string.Format(_value, _params));
+			Console.WriteLine();
 			Console.ResetColor();
 		}
 	}
