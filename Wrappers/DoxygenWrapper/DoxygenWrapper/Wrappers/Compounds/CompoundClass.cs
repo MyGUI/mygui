@@ -34,6 +34,11 @@ namespace DoxygenWrapper.Wrappers.Compounds
 			}
 		}
 
+		public List<Compound>.Enumerator BaseClasses
+		{
+			get { return mBaseClases.GetEnumerator(); }
+		}
+
 		private void AddBase(Compound _compound)
 		{
 			mBaseClases.Add(_compound);
