@@ -21,6 +21,19 @@ namespace DoxygenWrapper.Wrappers.Types
 				mTemplates.Add(new TemplateInfo(node));
 		}
 
+		public IEnumerable<TemplateInfo> Templates
+		{
+			get { return mTemplates; }
+		}
+
+		public string Replace(string _tag)
+		{
+			string result = null;
+			if (mReplace.TryGetValue(_tag, out result))
+				return result;
+			return "";
+		}
+
 		private XmlNode mNode;
 		private Dictionary<string, string> mReplace = new Dictionary<string, string>();
 		private Dictionary<string, string> mReplaceTemplate = new Dictionary<string, string>();
