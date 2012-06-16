@@ -9,11 +9,13 @@ namespace DoxygenWrapper
 	{
 		private static void Main(string[] _args)
 		{
-			CompoundManager manager = new CompoundManager();
-			manager.SetIgnoredNameList(new string[] { "MyGUI::Allocator", "MyGUI::Allocator::rebind" });
-			manager.Initialise(@"..\..\..\..\WrapperGenerator\doxygen\xml");
+			CompoundManager compoundManager = new CompoundManager();
+			compoundManager.SetIgnoredNameList(new string[] { "MyGUI::Allocator", "MyGUI::Allocator::rebind" });
+			compoundManager.Initialise(@"..\..\..\..\WrapperGenerator\doxygen\xml");
+			compoundManager.DumpCompoundTree("CompoundTree.xml");
 
-			manager.DumpCompoundTree("CompoundTree.xml");
+			WrapperManager wrapperManager = new WrapperManager();
+			wrapperManager.Initialise(@"..\..\..\..\WrapperGenerator\Data\SharpData.xml");
 
 			ConsoleUtility.WriteLine("Complite");
 		}
