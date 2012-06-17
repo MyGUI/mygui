@@ -75,6 +75,7 @@
     <Compile Include="Wrappers\Compounds\Types\CompoundType.cs" />
     <Compile Include="Wrappers\Compounds\Types\CompoundTypeModifers.cs" />
     <Compile Include="Wrappers\Compounds\Types\StateDirection.cs" />
+    <Compile Include="Wrappers\CompoundUtility.cs" />
     <Compile Include="Wrappers\ConsoleUtility.cs" />
     <Compile Include="Wrappers\Interfaces\IReplacer.cs" />
     <Compile Include="Wrappers\OutputManager.cs" />

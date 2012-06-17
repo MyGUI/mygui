@@ -4,7 +4,7 @@
         #{MarshalAsReturn}
 		private static extern #{MarshalTypeNameReturn} Export#{ThisName}_Is#{PropertyName}( IntPtr _native );
 
-		public #{TypeName} #{PropertyName}
+		public #{TypeName} Is#{PropertyName}
 		{
 			get { return #{MarshalConvertBefore} Export#{ThisName}_Is#{PropertyName}( mNative ) #{MarshalConvertPost} ; }
 		}

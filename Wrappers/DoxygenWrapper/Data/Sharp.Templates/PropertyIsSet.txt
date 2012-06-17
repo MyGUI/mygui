@@ -6,7 +6,7 @@
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void Export#{ThisName}_Set#{PropertyName}( IntPtr _widget, #{MarshalAs1} #{TypePrefix1} #{TypeName1} _value );
 
-		public #{TypeName} #{PropertyName}
+		public #{TypeName} Is#{PropertyName}
 		{
 			get { return #{MarshalConvertBefore} Export#{ThisName}_Is#{PropertyName}( mNative ) #{MarshalConvertPost} ; }
 			set { Export#{ThisName}_Set#{PropertyName}( mNative, #{TypePrefix1} value ); }

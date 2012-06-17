@@ -15,6 +15,7 @@ namespace DoxygenWrapper.Wrappers.Replacers
 			mCompound = _func;
 
 			mReplace["MethodName"] = UpFirstLetter(mCompound.Name);
+			mReplace["PropertyName"] = mCompound.PropertyName; // метод может быть заменен на свойство
 			mReplace["OriginalMethodName"] = mCompound.Name;
 
 			mReplace["OriginalTypeName"] = mCompound.CompoundType.TypeName;
@@ -42,7 +43,7 @@ namespace DoxygenWrapper.Wrappers.Replacers
 				}
 				else
 				{
-					ConsoleUtility.WriteErrorLine("Type {0} not found", type.TypeName);
+					//ConsoleUtility.WriteErrorLine("Type {0} not found", type.TypeName);
 				}
 
 				index++;

@@ -624,7 +624,7 @@
 		<Member name="setMaskPick" template="Empty.txt"/>
 	</Item>
 
-	<!--Item type="MyGUI::UserData" namespace="MyGUI">
+	<Item type="MyGUI::UserData" namespace="MyGUI">
 		<Template type="Export.Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_WidgetUserData.cpp"/>
 		<Template type="Sharp.Templates" name="Part.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_WidgetUserData.cs"/>
 		<Tag key="ThisName" value="Widget"/>
@@ -671,8 +671,6 @@
 		<Tag key="BaseName" value="TextBox"/>
 		<Tag key="ThisName" value="Button"/>
 		<Tag key="ThisType" value="Button"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::ComboBox" namespace="MyGUI">
@@ -684,11 +682,10 @@
 		<Tag key="BaseName" value="EditBox"/>
 		<Tag key="ThisName" value="ComboBox"/>
 		<Tag key="ThisType" value="ComboBox"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="getItemCount" template="PropertyGet.txt"/>
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
+		<!-- попробовать автоматически -->
 		<Member name="addItem" template="Method2_1.txt"/>
+		<!-- попробовать автоматически -->
 		<Member name="insertItemAt" template="Method3_2.txt"/>
 	</Item>
 
@@ -701,10 +698,7 @@
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="DDContainer"/>
 		<Tag key="ThisType" value="DDContainer"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
 		<Member name="requestDragWidgetInfo" template="DelegateRequest3_Ref.txt"/>
-		<Member name="getItemCount" template="PropertyGet.txt"/>
 	</Item>
 
 	<Item type="MyGUI::EditBox" namespace="MyGUI">
@@ -716,20 +710,6 @@
 		<Tag key="BaseName" value="TextBox"/>
 		<Tag key="ThisName" value="EditBox"/>
 		<Tag key="ThisType" value="EditBox"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setCaption" template="Empty.txt"/>
-		<Member name="getCaption" template="Empty.txt"/>
-		<Member name="setPosition" template="Empty.txt"/>
-		<Member name="setSize" template="Empty.txt"/>
-		<Member name="setCoord" template="Empty.txt"/>
-		<Member name="setFontHeight" template="Empty.txt"/>
-		<Member name="setFontName" template="Empty.txt"/>
-		<Member name="setTextAlign" template="Empty.txt"/>
-		<Member name="setTextColour" template="Empty.txt"/>
-		<Member name="getTextLength" template="PropertyGet.txt"/>
-		<Member name="getTextRegion" template="Empty.txt"/>
-		<Member name="getTextSize" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::ItemBox" namespace="MyGUI">
@@ -741,14 +721,10 @@
 		<Tag key="BaseName" value="DDContainer"/>
 		<Tag key="ThisName" value="ItemBox"/>
 		<Tag key="ThisType" value="ItemBox"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setPosition" template="Empty.txt"/>
-		<Member name="setSize" template="Empty.txt"/>
-		<Member name="setCoord" template="Empty.txt"/>
-		<Member name="getItemCount" template="PropertyGet.txt"/>
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
+		<!-- попробовать автоматически -->
 		<Member name="addItem" template="Method1_0.txt"/>
+		<!-- попробовать автоматически -->
 		<Member name="insertItemAt" template="Method2_1.txt"/>
 	</Item>
 
@@ -761,14 +737,10 @@
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="ListBox"/>
 		<Tag key="ThisType" value="ListBox"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setPosition" template="Empty.txt"/>
-		<Member name="setSize" template="Empty.txt"/>
-		<Member name="setCoord" template="Empty.txt"/>
-		<Member name="getItemCount" template="PropertyGet.txt"/>
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
+		<!-- попробовать автоматически -->
 		<Member name="addItem" template="Method2_1.txt"/>
+		<!-- попробовать автоматически -->
 		<Member name="insertItemAt" template="Method3_2.txt"/>
 	</Item>
 
@@ -781,8 +753,6 @@
 		<Tag key="BaseName" value="MenuControl"/>
 		<Tag key="ThisName" value="MenuBar"/>
 		<Tag key="ThisType" value="MenuBar"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::MenuControl" namespace="MyGUI">
@@ -794,15 +764,13 @@
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="MenuControl"/>
 		<Tag key="ThisType" value="MenuControl"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setVisible" template="Empty.txt"/>
 		<Member name="createItemChildT" template="Empty.txt"/>
 		<Member name="createItemChildTAt" template="Empty.txt"/>
-		<Member name="getItemCount" template="PropertyGet.txt"/>
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
 		<Member name="getItemData" template="GetItemDataAt.txt"/>
+		<!-- попробовать автоматически -->
 		<Member name="addItem" template="MethodReturn4_3_2_1.txt"/>
+		<!-- попробовать автоматически -->
 		<Member name="insertItemAt" template="MethodReturn5_4_3_2.txt"/>
 	</Item>
 
@@ -815,20 +783,17 @@
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="MultiListBox"/>
 		<Tag key="ThisType" value="MultiListBox"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="getItemCount" template="PropertyGet.txt"/>
-		<Member name="getColumnCount" template="PropertyGet.txt"/>
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
 		<Member name="getColumnDataAt" template="GetItemDataAt.txt"/>
 		<Member name="getSubItemDataAt" template="GetItemDataAt2.txt"/>
+		<!-- попробовать автоматически -->
 		<Member name="addColumn" template="Method3_2.txt"/>
+		<!-- попробовать автоматически -->
 		<Member name="insertColumnAt" template="Method4_3.txt"/>
+		<!-- попробовать автоматически -->
 		<Member name="addItem" template="Method2_1.txt"/>
+		<!-- попробовать автоматически -->
 		<Member name="insertItemAt" template="Method3_2.txt"/>
-		<Member name="setPosition" template="Empty.txt"/>
-		<Member name="setSize" template="Empty.txt"/>
-		<Member name="setCoord" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::PopupMenu" namespace="MyGUI">
@@ -840,8 +805,6 @@
 		<Tag key="BaseName" value="MenuControl"/>
 		<Tag key="ThisName" value="PopupMenu"/>
 		<Tag key="ThisType" value="PopupMenu"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::ProgressBar" namespace="MyGUI">
@@ -853,11 +816,6 @@
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="ProgressBar"/>
 		<Tag key="ThisType" value="ProgressBar"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setPosition" template="Empty.txt"/>
-		<Member name="setSize" template="Empty.txt"/>
-		<Member name="setCoord" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::ScrollView" namespace="MyGUI">
@@ -869,13 +827,6 @@
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="ScrollView"/>
 		<Tag key="ThisType" value="ScrollView"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setPosition" template="Empty.txt"/>
-		<Member name="setSize" template="Empty.txt"/>
-		<Member name="setCoord" template="Empty.txt"/>
-		<Member name="setTextAlign" template="Empty.txt"/>
-		<Member name="getClientCoord" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::ImageBox" namespace="MyGUI">
@@ -887,8 +838,6 @@
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="ImageBox"/>
 		<Tag key="ThisType" value="ImageBox"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
 		<Member name="setItemResourcePtr" template="Empty.txt"/>
 		<Member name="setItemResourceInfo" template="Empty.txt"/>
 		<Member name="getItemResource" template="Empty.txt"/>
@@ -904,8 +853,6 @@
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="TextBox"/>
 		<Tag key="ThisType" value="TextBox"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::TabControl" namespace="MyGUI">
@@ -917,15 +864,11 @@
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="TabControl"/>
 		<Tag key="ThisType" value="TabControl"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setPosition" template="Empty.txt"/>
-		<Member name="setSize" template="Empty.txt"/>
-		<Member name="setCoord" template="Empty.txt"/>
-		<Member name="getItemCount" template="PropertyGet.txt"/>
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
 		<Member name="getItemData" template="GetItemDataAt.txt"/>
+		<!-- попробовать автоматически -->
 		<Member name="addItem" template="MethodReturn2_1.txt"/>
+		<!-- попробовать автоматически -->
 		<Member name="insertItemAt" template="MethodReturn3_2.txt"/>
 	</Item>
 
@@ -938,11 +881,6 @@
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="ScrollBar"/>
 		<Tag key="ThisType" value="ScrollBar"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setPosition" template="Empty.txt"/>
-		<Member name="setSize" template="Empty.txt"/>
-		<Member name="setCoord" template="Empty.txt"/>
 	</Item>
 
 	<Item type="MyGUI::Window" namespace="MyGUI">
@@ -954,22 +892,6 @@
 		<Tag key="BaseName" value="TextBox"/>
 		<Tag key="ThisName" value="Window"/>
 		<Tag key="ThisType" value="Window"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setCaption" template="Empty.txt"/>
-		<Member name="getCaption" template="Empty.txt"/>
-		<Member name="setTextColour" template="Empty.txt"/>
-		<Member name="getTextColour" template="Empty.txt"/>
-		<Member name="setFontHeight" template="Empty.txt"/>
-		<Member name="getFontHeight" template="Empty.txt"/>
-		<Member name="setFontName" template="Empty.txt"/>
-		<Member name="getFontName" template="Empty.txt"/>
-		<Member name="setTextAlign" template="Empty.txt"/>
-		<Member name="getTextAlign" template="Empty.txt"/>
-		<Member name="setPosition" template="Empty.txt"/>
-		<Member name="setSize" template="Empty.txt"/>
-		<Member name="setCoord" template="Empty.txt"/>
-		<Member name="setVisible" template="Empty.txt"/>
 		<Member name="destroySmooth" template="Empty.txt"/>
 	</Item>
 
@@ -982,9 +904,6 @@
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="MenuItem"/>
 		<Tag key="ThisType" value="MenuItem"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setCaption" template="Empty.txt"/>
 		<Member name="createItemChildT" template="Empty.txt"/>
 		<Member name="setItemData" template="Empty.txt"/>
 		<Member name="getItemData" template="PropertyDataGetSet.txt"/>
@@ -999,9 +918,6 @@
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="TabItem"/>
 		<Tag key="ThisType" value="TabItem"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setCaption" template="Empty.txt"/>
 		<Member name="setItemData" template="Empty.txt"/>
 		<Member name="getItemData" template="PropertyDataGetSet.txt"/>
 	</Item>
@@ -1015,9 +931,6 @@
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="MultiListItem"/>
 		<Tag key="ThisType" value="MultiListItem"/>
-		<Member name="isType" template="Empty.txt"/>
-		<Member name="getTypeName" template="Empty.txt"/>
-		<Member name="setCaption" template="Empty.txt"/>
-	</Item-->
+	</Item>
 
 </Root>

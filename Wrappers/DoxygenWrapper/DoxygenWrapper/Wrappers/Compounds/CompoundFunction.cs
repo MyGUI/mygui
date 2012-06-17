@@ -21,6 +21,8 @@ namespace DoxygenWrapper.Wrappers.Compounds
 			mInternal = _node["type"].InnerText == "";
 			mGeneric = _node["templateparamlist"] != null;
 			mConst = _node.Attributes["const"].Value == "yes";
+			mVirtual = _node.Attributes["virt"].Value == "virtual";
+			mReimplement = _node.SelectNodes("reimplements").Count != 0;
 
 			string tmpGetName = "get";
 			string tmpSetName = "set";
@@ -91,6 +93,16 @@ namespace DoxygenWrapper.Wrappers.Compounds
 			get { return mIsProperty; }
 		}
 
+		public bool Virtual
+		{
+			get { return mVirtual; }
+		}
+
+		public bool Reimplement
+		{
+			get { return mReimplement; }
+		}
+
 		private CompoundType mCompoundType;
 		private List<CompoundType> mCompoundParamTypes = new List<CompoundType>();
 		private bool mPublic;
@@ -101,5 +113,7 @@ namespace DoxygenWrapper.Wrappers.Compounds
 		private string mPropertyName;
 		private bool mGetProperty;
 		private bool mIsProperty;
+		private bool mVirtual;
+		private bool mReimplement;
 	}
 }
