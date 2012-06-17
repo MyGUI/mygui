@@ -69,6 +69,7 @@
     <Compile Include="Wrappers\Compounds\CompoundFunction.cs" />
     <Compile Include="Wrappers\Compounds\CompoundContainer.cs" />
     <Compile Include="Wrappers\Compounds\CompoundMember.cs" />
+    <Compile Include="Wrappers\Compounds\CompoundVariable.cs" />
     <Compile Include="Wrappers\Compounds\Types\AlphabetType.cs" />
     <Compile Include="Wrappers\Compounds\Types\CompoundType.cs" />
     <Compile Include="Wrappers\Compounds\Types\CompoundTypeModifers.cs" />
@@ -77,10 +78,13 @@
     <Compile Include="Wrappers\Interfaces\IReplacer.cs" />
     <Compile Include="Wrappers\OutputManager.cs" />
     <Compile Include="Wrappers\ReplaceManager.cs" />
+    <Compile Include="Wrappers\Replacers\EventReplacer.cs" />
     <Compile Include="Wrappers\Replacers\FunctionReplacer.cs" />
+    <Compile Include="Wrappers\Replacers\PropertyReplacer.cs" />
     <Compile Include="Wrappers\TemplateManager.cs" />
     <Compile Include="Wrappers\Types\ClassInfo.cs" />
     <Compile Include="Wrappers\Types\FileData.cs" />
+    <Compile Include="Wrappers\Types\Piar.cs" />
     <Compile Include="Wrappers\Types\TemplateInfo.cs" />
     <Compile Include="Wrappers\Types\TypeInfo.cs" />
     <Compile Include="Wrappers\WrapperManager.cs" />

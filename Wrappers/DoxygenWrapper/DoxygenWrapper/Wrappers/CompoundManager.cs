@@ -25,7 +25,7 @@ namespace DoxygenWrapper.Wrappers
 			mFatory.RegisterFactory("namespace", typeof(CompoundContainer));
 			mFatory.RegisterFactory("typedef", typeof(CompoundMember));
 			mFatory.RegisterFactory("function", typeof(CompoundFunction));
-			mFatory.RegisterFactory("variable", typeof(CompoundMember));
+			mFatory.RegisterFactory("variable", typeof(CompoundVariable));
 			mFatory.RegisterFactory("enum", typeof(Compound));
 			mFatory.RegisterFactory("enumvalue", typeof(Compound));
 		}

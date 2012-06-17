@@ -358,9 +358,9 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 			get { return mBaseType; }
 		}
 
-		public List<CompoundType>.Enumerator TemplateTypes
+		public List<CompoundType> TemplateTypes
 		{
-			get { return mTemplateTypes.GetEnumerator(); }
+			get { return mTemplateTypes; }
 		}
 
 		private List<CompoundTypeModifers> mModifers = new List<CompoundTypeModifers>();

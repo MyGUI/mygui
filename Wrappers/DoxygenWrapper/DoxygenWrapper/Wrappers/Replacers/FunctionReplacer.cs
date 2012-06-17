@@ -22,7 +22,7 @@ namespace DoxygenWrapper.Wrappers.Replacers
 			if (info != null)
 			{
 				foreach (var value in info.Values)
-					mReplace[value.Key] = value.Value;
+					mReplace[value.First] = value.Second;
 			}
 
 			int index = 1;
@@ -38,7 +38,7 @@ namespace DoxygenWrapper.Wrappers.Replacers
 				if (parameInfo != null)
 				{
 					foreach (var value in parameInfo.Values)
-						mReplace[value.Key + index.ToString()] = value.Value;
+						mReplace[value.First + index.ToString()] = value.Second;
 				}
 				else
 				{
