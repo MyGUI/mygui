@@ -12,12 +12,13 @@ namespace DoxygenWrapper.Wrappers.Compounds
 		{
 			base.OnParse(_node);
 
-			mCompoundType = new CompoundType(_node["type"], _node["name"].Value);
+			mCompoundType = new CompoundType(_node["type"], "");
 			foreach (XmlNode node in _node.SelectNodes("param"))
-				mCompoundParamTypes.Add(new CompoundType(node["type"], node["declname"] != null ? node["declname"].Value : ""));
+				mCompoundParamTypes.Add(new CompoundType(node["type"], node["declname"] != null ? node["declname"].InnerText : ""));
 
 			mPublic = _node.Attributes["prot"].Value == "public";
 			mStatic = _node.Attributes["static"].Value == "yes";
+			mInternal = _node["type"].InnerText == "";
 		}
 
 		public CompoundType CompoundType
@@ -25,9 +26,14 @@ namespace DoxygenWrapper.Wrappers.Compounds
 			get { return mCompoundType; }
 		}
 
-		public List<CompoundType>.Enumerator CompoundParamTypes
+		public IEnumerable<CompoundType> CompoundParamTypes
 		{
-			get { return mCompoundParamTypes.GetEnumerator(); }
+			get { return mCompoundParamTypes; }
+		}
+
+		public int CompoundParamTypesCount
+		{
+			get { return mCompoundParamTypes.Count; }
 		}
 
 		public bool Public
@@ -40,9 +46,15 @@ namespace DoxygenWrapper.Wrappers.Compounds
 			get { return mStatic; }
 		}
 
+		public bool Internal
+		{
+			get { return mInternal; }
+		}
+
 		private CompoundType mCompoundType;
 		private List<CompoundType> mCompoundParamTypes = new List<CompoundType>();
 		private bool mPublic;
 		private bool mStatic;
+		private bool mInternal;
 	}
 }

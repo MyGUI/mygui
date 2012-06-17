@@ -59,10 +59,10 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 		{
 		}
 
-		public CompoundType(XmlNode _node, string _name)
+		public CompoundType(XmlNode _node, string _valueName)
 		{
 			mNode = _node;
-			mName = _name;
+			mValueName = _valueName;
 
 			List<AlphabetType> commands = new List<AlphabetType>();
 
@@ -115,6 +115,54 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 				ParseComplete(mNode);
 		}
 
+		private string GetTypeName()
+		{
+			string result = "";
+
+			foreach (var modifer in mModifers)
+			{
+				if (modifer == CompoundTypeModifers.Const)
+					result += "const ";
+			}
+
+			if (mBaseType != null)
+			{
+				if (mBaseType is CompoundMember)
+					result += ((CompoundMember)mBaseType).CompoundType.TypeName + " ";
+				else if (mBaseType is CompoundClass)
+					result += ((CompoundClass)mBaseType).Name + " ";
+			}
+			else
+			{
+				result += mBaseTypeName + " ";
+			}
+
+			if (mTemplateTypes.Count != 0)
+			{
+				result += "< ";
+				for (int index = 0; index < mTemplateTypes.Count; index++)
+				{
+					result += mTemplateTypes[index].GetTypeName() + " ";
+
+					if (index + 1 < mTemplateTypes.Count)
+						result += ", ";
+				}
+				result += "> ";
+			}
+
+			foreach (var modifer in mModifers)
+			{
+				if (modifer == CompoundTypeModifers.Pointer)
+					result += "* ";
+				else if (modifer == CompoundTypeModifers.Reference)
+					result += "& ";
+			}
+
+			result = result.TrimEnd();
+
+			return result;
+		}
+
 		private void ParseComplete(XmlNode _typeDefinition)
 		{
 			ParseTypeComplete(_typeDefinition);
@@ -146,12 +194,12 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 						{
 							mBaseTypeName = value;
 
-							if (IsSkip(value))
+							/*if (IsSkip(value))
 							{
 							}
 							else
 							{
-							}
+							}*/
 						}
 						else
 						{
@@ -175,7 +223,7 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 			return _value;
 		}
 
-		private bool IsSkip(string _value)
+		/*private bool IsSkip(string _value)
 		{
 			return _value == "T" ||
 				_value == "T::const_iterator" ||
@@ -217,7 +265,7 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 				_value == "MyGUI::CharInfo::@1" ||
 				_value == "MyGUI::UString::@3" ||
 				_value == "IDelegateUnlink";
-		}
+		}*/
 
 		private void ParseType(List<AlphabetType> _commands, ref int _indexParse, XmlNode _typeDefinition)
 		{
@@ -290,9 +338,19 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 			get { return mBaseTypeName; }
 		}
 
-		public string Name
+		public string ValueName
 		{
-			get { return mName; }
+			get { return mValueName; }
+		}
+
+		public string TypeName
+		{
+			get
+			{
+				if (mTypeName == null)
+					mTypeName = GetTypeName();
+				return mTypeName;
+			}
 		}
 
 		public Compound BaseType
@@ -311,7 +369,8 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 		private List<CompoundType> mTemplateTypes = new List<CompoundType>();
 		private XmlNode mNode;
 		private string mParseType = "";
-		private string mName = "";
+		private string mValueName = "";
+		private string mTypeName;
 		private static Dictionary<string, CompoundTypeModifers> mModiferMap;
 		private static Dictionary<string, int> mFundamentTypeMap;
 	}

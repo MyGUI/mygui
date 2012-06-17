@@ -14,7 +14,7 @@ namespace DoxygenWrapper.Wrappers.Types
 			mName = _node.Attributes["name"].Value;
 
 			foreach (XmlNode node in _node)
-				mReplace[node.Name] = node.InnerText;
+				mReplace.Add(new KeyValuePair<string, string>(node.Name, node.InnerText));
 		}
 
 		public string Name
@@ -22,8 +22,13 @@ namespace DoxygenWrapper.Wrappers.Types
 			get { return mName; }
 		}
 
+		public IEnumerable<KeyValuePair<string, string>> Values
+		{
+			get { return mReplace; }
+		}
+
 		private XmlNode mNode;
 		private string mName;
-		private Dictionary<string, string> mReplace = new Dictionary<string, string>();
+		private List<KeyValuePair<string, string>> mReplace = new List<KeyValuePair<string, string>>();
 	}
 }
