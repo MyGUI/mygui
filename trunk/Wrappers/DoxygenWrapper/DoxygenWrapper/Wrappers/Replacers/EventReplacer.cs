@@ -15,9 +15,7 @@ namespace DoxygenWrapper.Wrappers.Replacers
 		{
 			mReplace["DelegateName"] = _variable.EventName;
 
-			CompoundType eventType = _variable.CompoundType;
-			while (eventType.BaseType is CompoundTypedef)
-				eventType = ((CompoundTypedef)eventType.BaseType).CompoundType;
+			CompoundType eventType = CompoundUtility.GetEventType(_variable);
 
 			int index = 1;
 			foreach (var type in eventType.TemplateTypes)

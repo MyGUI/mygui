@@ -7,6 +7,7 @@ using System.IO;
 using DoxygenWrapper.Wrappers.Compounds;
 using DoxygenWrapper.Wrappers.Interfaces;
 using DoxygenWrapper.Wrappers.Replacers;
+using DoxygenWrapper.Wrappers.Compounds.Types;
 
 namespace DoxygenWrapper.Wrappers
 {
@@ -56,6 +57,8 @@ namespace DoxygenWrapper.Wrappers
 
 		private void DoWrappClass(ClassInfo _info)
 		{
+			ConsoleUtility.WriteLine("Wrapp {0}", _info.Type);
+
 			Compound compound = CompoundManager.Instance.GetCompoundByName(_info.Type);
 			foreach (TemplateInfo info in _info.Templates)
 				DoWrappTemplate(info, _info, compound);
@@ -98,10 +101,12 @@ namespace DoxygenWrapper.Wrappers
 					if (!func.Internal &&
 						func.Public &&
 						!func.Static &&
-						!func.Generic &&
-						!func.Name.StartsWith("_"))
+						//!func.Generic &&
+						!func.Name.StartsWith("_") &&
+						!(func.Virtual && func.Reimplement))
 					{
-						if (func.Const &&
+						if (
+							//func.Const &&
 							func.CompoundParamTypes.Count == 0 &&
 							func.CompoundType.TypeName != "void" &&
 							(func.GetProperty || func.IsProperty))
@@ -116,8 +121,7 @@ namespace DoxygenWrapper.Wrappers
 					if (variable.Public &&
 						!variable.Static &&
 						!variable.Name.StartsWith("_") &&
-						(variable.CompoundType.TypeName.StartsWith("MyGUI::delegates::CDelegate") ||
-						variable.CompoundType.TypeName.StartsWith("MyGUI::delegates::CMultiDelegate")))
+						CompoundUtility.IsVariableEvent(variable))
 					{
 						variables.Add(variable);
 					}
@@ -147,7 +151,8 @@ namespace DoxygenWrapper.Wrappers
 				{
 					if (func.CompoundType.TypeName == "void" &&
 						func.CompoundParamTypes.Count == 1 &&
-						func.CompoundParamTypes[0].TypeName == _func.CompoundType.TypeName)
+						(func.CompoundParamTypes[0].TypeName == _func.CompoundType.TypeName ||
+						func.CompoundParamTypes[0].PoorTypeName == _func.CompoundType.TypeName))
 					{
 						_funtions.RemoveAt(index);
 						return func;
@@ -160,7 +165,9 @@ namespace DoxygenWrapper.Wrappers
 
 		private void AddClassProperty(Pair<CompoundFunction, CompoundFunction> _func, TemplateInfo _info, ClassInfo _classInfo, FileData _outputFile)
 		{
-			string templateName = GetPropertyTemplateName(_func);
+			string templateName = _classInfo.GetTeplaceTemplate(_func.First.Name);
+			if (templateName == "")
+				templateName = GetPropertyTemplateName(_func);
 
 			FileData template = mTemplateManager.GetTemplateCopy(GetTemplateFileName(_info.TemplateFolder, templateName));
 			mReplaceManager.DoReplace(template, new IReplacer[] { _classInfo, new PropertyReplacer(_func) });
@@ -202,9 +209,11 @@ namespace DoxygenWrapper.Wrappers
 
 		private string GetEventTemplateName(CompoundVariable _variable)
 		{
-			bool multiDelegate = _variable.CompoundType.TypeName.StartsWith("MyGUI::delegates::CMultiDelegate");
+			CompoundType eventType = CompoundUtility.GetEventType(_variable);
+
+			bool multiDelegate = CompoundUtility.IsEventMultiDelegate(eventType);
 			bool request = _variable.Name.ToLowerInvariant().StartsWith("request");
-			return string.Format("{0}{1}{2}.txt", multiDelegate ? "MultiDelegate" : "Delegate", request ? "Request" : "Event", _variable.CompoundType.TemplateTypes.Count + 1);
+			return string.Format("{0}{1}{2}.txt", multiDelegate ? "MultiDelegate" : "Delegate", request ? "Request" : "Event", eventType.TemplateTypes.Count);
 		}
 
 		private void InsertData(FileData _target, FileData _source, string _label)

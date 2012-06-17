@@ -115,14 +115,25 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 				ParseComplete(mNode);
 		}
 
-		private string GetTypeName()
+		private string GetTypeName(bool _poor)
 		{
 			string result = "";
 
+			if (!_poor)
+			{
+				foreach (var modifer in mModifers)
+				{
+					if (modifer == CompoundTypeModifers.Const)
+						result += "const ";
+				}
+			}
+
 			foreach (var modifer in mModifers)
 			{
-				if (modifer == CompoundTypeModifers.Const)
-					result += "const ";
+				if (modifer == CompoundTypeModifers.Unsigned)
+					result += "unsigned ";
+				else if (modifer == CompoundTypeModifers.Signed)
+					result += "signed ";
 			}
 
 			if (mBaseType != null)
@@ -142,7 +153,7 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 				result += "< ";
 				for (int index = 0; index < mTemplateTypes.Count; index++)
 				{
-					result += mTemplateTypes[index].GetTypeName() + " ";
+					result += mTemplateTypes[index].GetTypeName(false) + " ";
 
 					if (index + 1 < mTemplateTypes.Count)
 						result += ", ";
@@ -150,12 +161,15 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 				result += "> ";
 			}
 
-			foreach (var modifer in mModifers)
+			if (!_poor)
 			{
-				if (modifer == CompoundTypeModifers.Pointer)
-					result += "* ";
-				else if (modifer == CompoundTypeModifers.Reference)
-					result += "& ";
+				foreach (var modifer in mModifers)
+				{
+					if (modifer == CompoundTypeModifers.Pointer)
+						result += "* ";
+					else if (modifer == CompoundTypeModifers.Reference)
+						result += "& ";
+				}
 			}
 
 			result = result.TrimEnd();
@@ -193,13 +207,6 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 						if (mBaseTypeName == null)
 						{
 							mBaseTypeName = value;
-
-							/*if (IsSkip(value))
-							{
-							}
-							else
-							{
-							}*/
 						}
 						else
 						{
@@ -222,50 +229,6 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 
 			return _value;
 		}
-
-		/*private bool IsSkip(string _value)
-		{
-			return _value == "T" ||
-				_value == "T::const_iterator" ||
-				_value == "T::const_reference" ||
-				_value == "T1" ||
-				_value == "T2" ||
-				_value == "T3" ||
-				_value == "T4" ||
-				_value == "T5" ||
-				_value == "T6" ||
-				_value == "T7" ||
-				_value == "T8" ||
-				_value == "T9" ||
-				_value == "TP1" ||
-				_value == "TP2" ||
-				_value == "TP3" ||
-				_value == "TP4" ||
-				_value == "TP5" ||
-				_value == "TP6" ||
-				_value == "TP7" ||
-				_value == "TP8" ||
-				_value == "TP9" ||
-				_value == "U" ||
-				_value == "void(T::*" ||
-				_value == "void(T::" ||
-				_value == "void(*" ||
-				_value == "void(" ||
-				_value == "ListDelegate::iterator" ||
-				_value == "ListDelegate::const_iterator" ||
-				_value == "dstring::iterator" ||
-				_value == "VectorElement::iterator" ||
-				_value == "EventObsolete" ||
-				_value == "Event" ||
-				_value == "ValueType" ||
-				_value == "Type" ||
-				_value == "difference_type" ||
-				_value == "tm" ||
-				_value == "Event::IDelegate" ||
-				_value == "MyGUI::CharInfo::@1" ||
-				_value == "MyGUI::UString::@3" ||
-				_value == "IDelegateUnlink";
-		}*/
 
 		private void ParseType(List<AlphabetType> _commands, ref int _indexParse, XmlNode _typeDefinition)
 		{
@@ -348,8 +311,18 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 			get
 			{
 				if (mTypeName == null)
-					mTypeName = GetTypeName();
+					mTypeName = GetTypeName(false);
 				return mTypeName;
+			}
+		}
+
+		public string PoorTypeName
+		{
+			get
+			{
+				if (mPoorTypeName == null)
+					mPoorTypeName = GetTypeName(true);
+				return mPoorTypeName;
 			}
 		}
 
@@ -371,6 +344,7 @@ namespace DoxygenWrapper.Wrappers.Compounds.Types
 		private string mParseType = "";
 		private string mValueName = "";
 		private string mTypeName;
+		private string mPoorTypeName;
 		private static Dictionary<string, CompoundTypeModifers> mModiferMap;
 		private static Dictionary<string, int> mFundamentTypeMap;
 	}
