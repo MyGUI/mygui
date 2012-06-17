@@ -19,6 +19,26 @@ namespace DoxygenWrapper.Wrappers.Compounds
 			mPublic = _node.Attributes["prot"].Value == "public";
 			mStatic = _node.Attributes["static"].Value == "yes";
 			mInternal = _node["type"].InnerText == "";
+			mGeneric = _node["templateparamlist"] != null;
+			mConst = _node.Attributes["const"].Value == "yes";
+
+			string tmpGetName = "get";
+			string tmpSetName = "set";
+			string tmpIsName = "is";
+			if (Name.ToLowerInvariant().StartsWith(tmpGetName))
+			{
+				mPropertyName = Name.Substring(tmpGetName.Length);
+				mGetProperty = true;
+			}
+			else if (Name.ToLowerInvariant().StartsWith(tmpSetName))
+			{
+				mPropertyName = Name.Substring(tmpSetName.Length);
+			}
+			else if (Name.ToLowerInvariant().StartsWith(tmpIsName))
+			{
+				mPropertyName = Name.Substring(tmpIsName.Length);
+				mIsProperty = true;
+			}
 		}
 
 		public CompoundType CompoundType
@@ -26,14 +46,9 @@ namespace DoxygenWrapper.Wrappers.Compounds
 			get { return mCompoundType; }
 		}
 
-		public IEnumerable<CompoundType> CompoundParamTypes
+		public List<CompoundType> CompoundParamTypes
 		{
 			get { return mCompoundParamTypes; }
-		}
-
-		public int CompoundParamTypesCount
-		{
-			get { return mCompoundParamTypes.Count; }
 		}
 
 		public bool Public
@@ -51,10 +66,40 @@ namespace DoxygenWrapper.Wrappers.Compounds
 			get { return mInternal; }
 		}
 
+		public bool Generic
+		{
+			get { return mGeneric; }
+		}
+
+		public bool Const
+		{
+			get { return mConst; }
+		}
+
+		public string PropertyName
+		{
+			get { return mPropertyName; }
+		}
+
+		public bool GetProperty
+		{
+			get { return mGetProperty; }
+		}
+
+		public bool IsProperty
+		{
+			get { return mIsProperty; }
+		}
+
 		private CompoundType mCompoundType;
 		private List<CompoundType> mCompoundParamTypes = new List<CompoundType>();
 		private bool mPublic;
 		private bool mStatic;
 		private bool mInternal;
+		private bool mGeneric;
+		private bool mConst;
+		private string mPropertyName;
+		private bool mGetProperty;
+		private bool mIsProperty;
 	}
 }
