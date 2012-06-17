@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml;
 using DoxygenWrapper.Wrappers.Compounds.Types;
+using System.Xml;
 
 namespace DoxygenWrapper.Wrappers.Compounds
 {
-	public class CompoundVariable :
+	public class CompoundMember:
 		Compound
 	{
 		protected override void OnParse(XmlNode _node)

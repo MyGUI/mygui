@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using DoxygenWrapper.Wrappers.Types;
+using DoxygenWrapper.Wrappers.Interfaces;
 
 namespace DoxygenWrapper.Wrappers
 {
 	public class ReplaceManager
 	{
-		public void DoReplace(FileData _data, ClassInfo _info)
+		public void DoReplace(FileData _data, IReplacer[] _replacers)
 		{
 			for (int index = 0; index < _data.Data.Length; index ++)
 			{
@@ -28,17 +29,23 @@ namespace DoxygenWrapper.Wrappers
 						_data.Data.CopyTo(index, destination, 0, count);
 
 						_data.Data.Remove(index, count);
-						_data.Data.Insert(index, ReplaceTag(destination, _info));
+						_data.Data.Insert(index, ReplaceTag(destination, _replacers));
 					}
 				}
 			}
 		}
 
-		private string ReplaceTag(char[] _tag, ClassInfo _info)
+		private string ReplaceTag(char[] _tag, IReplacer[] _replacers)
 		{
 			string tag = new string(_tag, 2, _tag.Length - 3);
 
-			return _info.Replace(tag);
+			foreach (IReplacer replacer in _replacers)
+			{
+				string result = replacer.Replace(tag);
+				if (result != "")
+					return result;
+			}
+			return "";
 		}
 	}
 }

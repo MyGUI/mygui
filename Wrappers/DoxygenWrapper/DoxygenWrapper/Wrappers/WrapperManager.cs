@@ -4,11 +4,24 @@ using System.Text;
 using System.Xml;
 using DoxygenWrapper.Wrappers.Types;
 using System.IO;
+using DoxygenWrapper.Wrappers.Compounds;
+using DoxygenWrapper.Wrappers.Interfaces;
+using DoxygenWrapper.Wrappers.Replacers;
 
 namespace DoxygenWrapper.Wrappers
 {
 	public class WrapperManager
 	{
+		public static WrapperManager Instance
+		{
+			get { return mInstance; }
+		}
+
+		public WrapperManager()
+		{
+			mInstance = this;
+		}
+
 		public void Initialise(string _fileName)
 		{
 			mFile = new FileInfo(_fileName);
@@ -40,27 +53,64 @@ namespace DoxygenWrapper.Wrappers
 
 		private void DoWrappClass(ClassInfo _info)
 		{
+			Compound compound = CompoundManager.Instance.GetCompoundByName(_info.Type);
 			foreach (TemplateInfo info in _info.Templates)
-				DoWrappTemplate(info, _info);
+				DoWrappTemplate(info, _info, compound);
 		}
 
-		private void DoWrappTemplate(TemplateInfo _info, ClassInfo _classInfo)
+		private void DoWrappTemplate(TemplateInfo _info, ClassInfo _classInfo, Compound _compound)
 		{
 			FileData outputFile = mOutputManager.GetOutputFile(_info.Output);
 
 			if (outputFile.Data.Length == 0)
 			{
 				FileData template = mTemplateManager.GetTemplateCopy(GetTemplateFileName(_info.TemplateFolder, _info.OutputTemplate));
-				mReplaceManager.DoReplace(template, _classInfo);
+				mReplaceManager.DoReplace(template, new IReplacer[] { _classInfo });
 				AppendData(outputFile, template);
 			}
 
 			if (_info.Template != "")
 			{
 				FileData template = mTemplateManager.GetTemplateCopy(GetTemplateFileName(_info.TemplateFolder, _info.Template));
-				mReplaceManager.DoReplace(template, _classInfo);
-				InsertData(outputFile, template, "//InsertPoint");
+				mReplaceManager.DoReplace(template, new IReplacer[] { _classInfo });
+				InsertData(outputFile, template, mLabelName);
 			}
+			else
+			{
+				AddClassData(_compound, _info, _classInfo, outputFile);
+			}
+		}
+
+		private void AddClassData(Compound _compound, TemplateInfo _info, ClassInfo _classInfo, FileData _outputFile)
+		{
+			foreach (Compound child in _compound)
+			{
+				CompoundFunction func = child as CompoundFunction;
+				if (func != null)
+				{
+					AddClassFunction(func, _info, _classInfo, _outputFile);
+				}
+			}
+		}
+
+		private void AddClassFunction(CompoundFunction _func, TemplateInfo _info, ClassInfo _classInfo, FileData _outputFile)
+		{
+			if (!_func.Internal && _func.Public && !_func.Static && !_func.Name.StartsWith("_"))
+			{
+				string templateName = _classInfo.GetTeplaceTemplate(_func.Name);
+				if (templateName == "")
+					templateName = GetFunctionTemplateName(_func);
+
+				FileData template = mTemplateManager.GetTemplateCopy(GetTemplateFileName(_info.TemplateFolder, templateName));
+				mReplaceManager.DoReplace(template, new IReplacer[] { _classInfo, new FunctionReplacer(_func) });
+				InsertData(_outputFile, template, mLabelName);
+			}
+		}
+
+		private string GetFunctionTemplateName(CompoundFunction _func)
+		{
+			bool returnType = _func.CompoundType.BaseTypeName != "void";
+			return string.Format("Method{0}{1}.txt", returnType ? "Return" : "", _func.CompoundParamTypesCount);
 		}
 
 		private void InsertData(FileData _target, FileData _source, string _label)
@@ -114,11 +164,23 @@ namespace DoxygenWrapper.Wrappers
 			return Path.Combine(mFile.DirectoryName, Path.Combine(_folder, _fileName));
 		}
 
+		public TypeInfo GetTypeInfo(string _name)
+		{
+			foreach (var type in mTypeInfos)
+			{
+				if (type.Name == _name)
+					return type;
+			}
+			return null;
+		}
+
+		private static WrapperManager mInstance;
 		private FileInfo mFile;
 		private List<TypeInfo> mTypeInfos = new List<TypeInfo>();
 		private List<ClassInfo> mClassInfos = new List<ClassInfo>();
 		private ReplaceManager mReplaceManager = new ReplaceManager();
 		private OutputManager mOutputManager = new OutputManager();
 		private TemplateManager mTemplateManager = new TemplateManager();
+		private string mLabelName = "//InsertPoint";
 	}
 }

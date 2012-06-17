@@ -23,9 +23,9 @@ namespace DoxygenWrapper.Wrappers
 			mFatory.RegisterFactory("class", typeof(CompoundClass));
 			mFatory.RegisterFactory("struct", typeof(CompoundClass));
 			mFatory.RegisterFactory("namespace", typeof(CompoundContainer));
-			mFatory.RegisterFactory("typedef", typeof(CompoundTypedef));
+			mFatory.RegisterFactory("typedef", typeof(CompoundMember));
 			mFatory.RegisterFactory("function", typeof(CompoundFunction));
-			mFatory.RegisterFactory("variable", typeof(CompoundVariable));
+			mFatory.RegisterFactory("variable", typeof(CompoundMember));
 			mFatory.RegisterFactory("enum", typeof(Compound));
 			mFatory.RegisterFactory("enumvalue", typeof(Compound));
 		}
@@ -189,7 +189,18 @@ namespace DoxygenWrapper.Wrappers
 				WriteCompound(node, child);
 			}
 		}
-	
+
+		public Compound GetCompoundByName(string _name)
+		{
+			foreach (var item in mCompounds)
+			{
+				if (item.Value.Name == _name)
+					return item.Value;
+			}
+
+			return null;
+		}
+
 		private static CompoundManager mInstance = null;
 		private CompoundFactory mFatory = new CompoundFactory();
 		private Dictionary<string, Compound> mCompounds = new Dictionary<string, Compound>();
