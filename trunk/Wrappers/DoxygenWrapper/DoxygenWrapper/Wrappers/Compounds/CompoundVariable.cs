@@ -25,6 +25,9 @@ namespace DoxygenWrapper.Wrappers.Compounds
 			{
 				mEventName = Name.Substring(tmpRequestName.Length);
 			}
+
+			foreach (XmlNode node in _node.SelectNodes("detaileddescription/para/parameterlist/parameteritem/parameternamelist/parametername"))
+				mValueNames.Add(node.InnerText);
 		}
 
 		public bool Public
@@ -42,8 +45,14 @@ namespace DoxygenWrapper.Wrappers.Compounds
 			get { return mEventName; }
 		}
 
+		public List<string> ValueNames
+		{
+			get { return mValueNames; }
+		}
+
 		private bool mPublic;
 		private bool mStatic;
 		private string mEventName;
+		private List<string> mValueNames = new List<string>();
 	}
 }

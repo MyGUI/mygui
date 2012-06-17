@@ -7,13 +7,6 @@ namespace DoxygenWrapper.Wrappers
 {
 	public class TemplateManager
 	{
-		//public static TemplateManager Instance { get { return mInstance; } }
-
-		public TemplateManager()
-		{
-			//mInstance = this;
-		}
-
 		public FileData GetTemplateCopy(string _fileName)
 		{
 			FileData result = GetTemplate(_fileName);
@@ -38,7 +31,6 @@ namespace DoxygenWrapper.Wrappers
 			return result;
 		}
 
-		//private static TemplateManager mInstance;
 		private Dictionary<string, FileData> mCache = new Dictionary<string, FileData>();
 	}
 }

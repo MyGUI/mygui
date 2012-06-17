@@ -69,6 +69,7 @@
     <Compile Include="Wrappers\Compounds\CompoundFunction.cs" />
     <Compile Include="Wrappers\Compounds\CompoundContainer.cs" />
     <Compile Include="Wrappers\Compounds\CompoundMember.cs" />
+    <Compile Include="Wrappers\Compounds\CompoundTypedef.cs" />
     <Compile Include="Wrappers\Compounds\CompoundVariable.cs" />
     <Compile Include="Wrappers\Compounds\Types\AlphabetType.cs" />
     <Compile Include="Wrappers\Compounds\Types\CompoundType.cs" />
