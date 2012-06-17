@@ -204,7 +204,7 @@ namespace DoxygenWrapper.Wrappers
 		{
 			bool multiDelegate = _variable.CompoundType.TypeName.StartsWith("MyGUI::delegates::CMultiDelegate");
 			bool request = _variable.Name.ToLowerInvariant().StartsWith("request");
-			return string.Format("{0}{1}{2}.txt", multiDelegate ? "MultiDelegate" : "Delegate", request ? "Request" : "Event", _variable.CompoundType.TemplateTypes.Count);
+			return string.Format("{0}{1}{2}.txt", multiDelegate ? "MultiDelegate" : "Delegate", request ? "Request" : "Event", _variable.CompoundType.TemplateTypes.Count + 1);
 		}
 
 		private void InsertData(FileData _target, FileData _source, string _label)
