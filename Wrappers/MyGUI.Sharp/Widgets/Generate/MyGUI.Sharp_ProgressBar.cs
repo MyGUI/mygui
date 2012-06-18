@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -36,26 +36,64 @@ namespace MyGUI.Sharp
 	
 		
 		//InsertPoint
+		#region Method SetCoord
 
-   
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportProgressBar_SetCoord_left_top_width_height( IntPtr _native ,
+			  int _left ,
+			  int _top ,
+			  int _width ,
+			  int _height );
 
+		public void SetCoord(
+			int _left ,
+			int _top ,
+			int _width ,
+			int _height )
+		{
+			ExportProgressBar_SetCoord_left_top_width_height( mNative , 
+				 _left ,
+				 _top ,
+				 _width ,
+				 _height );
+		}
 
-   
+		#endregion
+		#region Method SetSize
 
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportProgressBar_SetSize_width_height( IntPtr _native ,
+			  int _width ,
+			  int _height );
 
-   
+		public void SetSize(
+			int _width ,
+			int _height )
+		{
+			ExportProgressBar_SetSize_width_height( mNative , 
+				 _width ,
+				 _height );
+		}
 
+		#endregion
+		#region Method SetPosition
 
-   
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportProgressBar_SetPosition_left_top( IntPtr _native ,
+			  int _left ,
+			  int _top );
 
+		public void SetPosition(
+			int _left ,
+			int _top )
+		{
+			ExportProgressBar_SetPosition_left_top( mNative , 
+				 _left ,
+				 _top );
+		}
 
-   
-
-
-   
-
-
-   		#region Property FlowDirection
+		#endregion
+		#region Property FlowDirection
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I4)]
@@ -70,10 +108,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property ProgressAutoTrack
+		#region Property ProgressAutoTrack
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -88,10 +123,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property ProgressPosition
+		#region Property ProgressPosition
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
@@ -106,10 +138,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property ProgressRange
+		#region Property ProgressRange
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
@@ -124,17 +153,18 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
+		#region Property Type
 
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportProgressBar_IsType( IntPtr _native );
 
+		public bool IsType
+		{
+			get { return  ExportProgressBar_IsType( mNative )  ; }
+		}
 
-   
-
-
-   
-
-
-   
-
+		#endregion
 		
     }
 

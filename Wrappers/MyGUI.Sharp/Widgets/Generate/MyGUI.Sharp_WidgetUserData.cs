@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -15,14 +15,7 @@ namespace MyGUI.Sharp
     {
 
 		//InsertPoint
-
-   
-
-
-   
-
-
-   		#region Method ClearUserStrings
+		#region Method ClearUserStrings
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_ClearUserStrings( IntPtr _native );
@@ -33,10 +26,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method IsUserString
+		#region Method IsUserString
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -51,10 +41,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method ClearUserString
+		#region Method ClearUserString
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -69,13 +56,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   
-
-
-   		#region Method GetUserString
+		#region Method GetUserString
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
@@ -90,10 +71,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method SetUserString
+		#region Method SetUserString
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_SetUserString_key_value( IntPtr _native ,
@@ -110,8 +88,6 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
 		
     }
 

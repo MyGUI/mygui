@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -36,8 +36,7 @@ namespace MyGUI.Sharp
 	
 		
 		//InsertPoint
-
-   		#region Event ScrollChangePosition
+		#region Event ScrollChangePosition
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportScrollBarEvent_AdviseScrollChangePosition( IntPtr _native, bool _advise );
@@ -91,28 +90,64 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
+		#region Method SetCoord
 
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportScrollBar_SetCoord_left_top_width_height( IntPtr _native ,
+			  int _left ,
+			  int _top ,
+			  int _width ,
+			  int _height );
 
+		public void SetCoord(
+			int _left ,
+			int _top ,
+			int _width ,
+			int _height )
+		{
+			ExportScrollBar_SetCoord_left_top_width_height( mNative , 
+				 _left ,
+				 _top ,
+				 _width ,
+				 _height );
+		}
 
-   
+		#endregion
+		#region Method SetSize
 
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportScrollBar_SetSize_width_height( IntPtr _native ,
+			  int _width ,
+			  int _height );
 
-   
+		public void SetSize(
+			int _width ,
+			int _height )
+		{
+			ExportScrollBar_SetSize_width_height( mNative , 
+				 _width ,
+				 _height );
+		}
 
+		#endregion
+		#region Method SetPosition
 
-   
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportScrollBar_SetPosition_left_top( IntPtr _native ,
+			  int _left ,
+			  int _top );
 
+		public void SetPosition(
+			int _left ,
+			int _top )
+		{
+			ExportScrollBar_SetPosition_left_top( mNative , 
+				 _left ,
+				 _top );
+		}
 
-   
-
-
-   
-
-
-   
-
-
-   		#region Property MoveToClick
+		#endregion
+		#region Property MoveToClick
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -127,10 +162,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property MinTrackSize
+		#region Property MinTrackSize
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
@@ -145,10 +177,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property TrackSize
+		#region Property TrackSize
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
@@ -163,25 +192,19 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method GetLineSize
+		#region Property LineSize
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern int ExportScrollBar_GetLineSize( IntPtr _native );
 
-		public int GetLineSize( )
+		public int LineSize
 		{
-			return  ExportScrollBar_GetLineSize( mNative )  ;
+			get { return  ExportScrollBar_GetLineSize( mNative )  ; }
 		}
 
 		#endregion
-
-
-
-   		#region Property ScrollViewPage
+		#region Property ScrollViewPage
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
@@ -196,10 +219,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property ScrollPage
+		#region Property ScrollPage
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
@@ -214,10 +234,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property ScrollPosition
+		#region Property ScrollPosition
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
@@ -232,10 +249,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property ScrollRange
+		#region Property ScrollRange
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
@@ -250,10 +264,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property VerticalAlignment
+		#region Property VerticalAlignment
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -268,17 +279,18 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
+		#region Property Type
 
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportScrollBar_IsType( IntPtr _native );
 
+		public bool IsType
+		{
+			get { return  ExportScrollBar_IsType( mNative )  ; }
+		}
 
-   
-
-
-   
-
-
-   
-
+		#endregion
 		
     }
 

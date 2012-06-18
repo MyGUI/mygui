@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -36,15 +36,18 @@ namespace MyGUI.Sharp
 	
 		
 		//InsertPoint
+		#region Property Type
 
-   
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportMenuBar_IsType( IntPtr _native );
 
+		public bool IsType
+		{
+			get { return  ExportMenuBar_IsType( mNative )  ; }
+		}
 
-   
-
-
-   
-
+		#endregion
 		
     }
 

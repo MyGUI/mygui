@@ -14,7 +14,7 @@ namespace TestApp.Sharp
             scroll.MinTrackSize = scroll.MinTrackSize + 1;
             scroll.TrackSize = scroll.TrackSize + 1;
 
-            int size = scroll.GetLineSize();
+            int size = scroll.LineSize;
             scroll.ScrollViewPage = scroll.ScrollViewPage + 1;
             scroll.ScrollPage = scroll.ScrollPage + 1;
             scroll.ScrollRange = scroll.ScrollRange + 10;

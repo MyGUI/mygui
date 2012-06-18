@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -36,12 +36,65 @@ namespace MyGUI.Sharp
 	
 		
 		//InsertPoint
+		#region Event UpdateDropState
+
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportDDContainerEvent_AdviseUpdateDropState( IntPtr _native, bool _advise );
+
+		public delegate void HandleUpdateDropState(
+			 DDContainer _sender ,
+			 Widget _items ,
+			ref DDWidgetState _state );
+			
+		private HandleUpdateDropState mEventUpdateDropState;
+		public event HandleUpdateDropState EventUpdateDropState
+		{
+			add
+			{
+				if (mEventUpdateDropState == null) ExportDDContainerEvent_AdviseUpdateDropState( mNative, true );
+				mEventUpdateDropState += value;
+			}
+			remove
+			{
+				mEventUpdateDropState -= value;
+				if (mEventUpdateDropState == null) ExportDDContainerEvent_AdviseUpdateDropState( mNative, false );
+			}
+		}
 
 
+		private struct ExportEventUpdateDropState
+		{
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			private static extern void ExportDDContainerEvent_DelegateUpdateDropState( ExportHandle _delegate );
+			public delegate void ExportHandle(
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  DDContainer _sender ,
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _items ,
+				[In] ref DDWidgetState _state );
+				
+			private static ExportHandle mDelegate;
+			public ExportEventUpdateDropState( ExportHandle _delegate )
+			{
+				mDelegate = _delegate;
+				ExportDDContainerEvent_DelegateUpdateDropState( mDelegate );
+			}
+		}
+		static ExportEventUpdateDropState mExportUpdateDropState =
+			new ExportEventUpdateDropState(new ExportEventUpdateDropState.ExportHandle( OnExportUpdateDropState ));
 
+		private static void OnExportUpdateDropState(
+			 DDContainer _sender ,
+			 Widget _items ,
+			ref DDWidgetState _state )
+		{
+			if (_sender.mEventUpdateDropState != null)
+				_sender.mEventUpdateDropState(
+					 _sender ,
+					 _items ,
+					ref _state );
+		}
 
-
-   		#region Request DragWidgetInfo
+		#endregion
+		#region Request DragWidgetInfo
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainerEvent_AdviseDragWidgetInfo( IntPtr _native, bool _advise );
@@ -103,10 +156,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Event ChangeDDState
+		#region Event ChangeDDState
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainerEvent_AdviseChangeDDState( IntPtr _native, bool _advise );
@@ -160,10 +210,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Event DropResult
+		#region Event DropResult
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainerEvent_AdviseDropResult( IntPtr _native, bool _advise );
@@ -221,10 +268,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Event RequestDrop
+		#region Event RequestDrop
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainerEvent_AdviseRequestDrop( IntPtr _native, bool _advise );
@@ -282,10 +326,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Event StartDrag
+		#region Event StartDrag
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainerEvent_AdviseStartDrag( IntPtr _native, bool _advise );
@@ -343,10 +384,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method ResetDrag
+		#region Method ResetDrag
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainer_ResetDrag( IntPtr _native );
@@ -357,10 +395,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property NeedDragDrop
+		#region Property NeedDragDrop
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -375,17 +410,18 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
+		#region Property Type
 
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportDDContainer_IsType( IntPtr _native );
 
+		public bool IsType
+		{
+			get { return  ExportDDContainer_IsType( mNative )  ; }
+		}
 
-   
-
-
-   
-
-
-   
-
+		#endregion
 		
     }
 
