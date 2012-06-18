@@ -1,1 +1,1 @@
-mygui_app(MyGUI.RenderWindow.Export Wrappers)
+mygui_app(MyGUI_RenderWindow_Export Wrappers)
