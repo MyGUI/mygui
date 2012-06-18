@@ -179,14 +179,6 @@ namespace Export
 			static_cast< MyGUI::ScrollBar * >(_native)->setVerticalAlignment( Convert<bool>::From( _value ) );
 		}
 	}
-	namespace ScopeScrollBarProperty_Type
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportScrollBar_IsType( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::ScrollBar * >(_native)->isType( ) );
-		}
-	}
-	
 }
 
 #endif // __EXPORT_WIDGET_ScrollBar_H__

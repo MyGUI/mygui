@@ -217,14 +217,6 @@ namespace Export
 			static_cast< MyGUI::DDContainer * >(_native)->setNeedDragDrop( Convert<bool>::From( _value ) );
 		}
 	}
-	namespace ScopeDDContainerProperty_Type
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportDDContainer_IsType( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::DDContainer * >(_native)->isType( ) );
-		}
-	}
-	
 }
 
 #endif // __EXPORT_WIDGET_DDContainer_H__

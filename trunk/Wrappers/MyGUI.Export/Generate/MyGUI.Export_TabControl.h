@@ -459,14 +459,6 @@ namespace Export
 			return Convert<size_t>::To( static_cast< MyGUI::TabControl * >(_native)->getItemCount( ) );
 		}
 	}
-	namespace ScopeTabControlProperty_Type
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportTabControl_IsType( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::TabControl * >(_native)->isType( ) );
-		}
-	}
-	
 }
 
 #endif // __EXPORT_WIDGET_TabControl_H__

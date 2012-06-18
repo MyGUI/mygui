@@ -288,14 +288,6 @@ namespace Export
 			return Convert<size_t>::To( static_cast< MyGUI::ComboBox * >(_native)->getItemCount( ) );
 		}
 	}
-	namespace ScopeComboBoxProperty_Type
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportComboBox_IsType( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::ComboBox * >(_native)->isType( ) );
-		}
-	}
-	
 }
 
 #endif // __EXPORT_WIDGET_ComboBox_H__

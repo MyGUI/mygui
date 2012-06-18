@@ -432,14 +432,6 @@ namespace Export
 			return Convert<size_t>::To( static_cast< MyGUI::EditBox * >(_native)->getTextSelectionStart( ) );
 		}
 	}
-	namespace ScopeEditBoxProperty_Type
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportEditBox_IsType( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::EditBox * >(_native)->isType( ) );
-		}
-	}
-	
 }
 
 #endif // __EXPORT_WIDGET_EditBox_H__

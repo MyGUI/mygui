@@ -68,14 +68,6 @@ namespace Export
 			static_cast< MyGUI::Button * >(_native)->setStateSelected( Convert<bool>::From( _value ) );
 		}
 	}
-	namespace ScopeButtonProperty_Type
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportButton_IsType( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::Button * >(_native)->isType( ) );
-		}
-	}
-	
 }
 
 #endif // __EXPORT_WIDGET_Button_H__

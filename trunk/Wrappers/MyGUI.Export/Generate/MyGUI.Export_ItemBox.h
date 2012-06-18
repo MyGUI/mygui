@@ -410,14 +410,6 @@ namespace Export
 			return Convert<size_t>::To( static_cast< MyGUI::ItemBox * >(_native)->getItemCount( ) );
 		}
 	}
-	namespace ScopeItemBoxProperty_Type
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportItemBox_IsType( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::ItemBox * >(_native)->isType( ) );
-		}
-	}
-	
 }
 
 #endif // __EXPORT_WIDGET_ItemBox_H__

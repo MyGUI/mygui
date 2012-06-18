@@ -100,14 +100,6 @@ namespace Export
 			static_cast< MyGUI::ProgressBar * >(_native)->setProgressRange( Convert<size_t>::From( _value ) );
 		}
 	}
-	namespace ScopeProgressBarProperty_Type
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportProgressBar_IsType( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::ProgressBar * >(_native)->isType( ) );
-		}
-	}
-	
 }
 
 #endif // __EXPORT_WIDGET_ProgressBar_H__

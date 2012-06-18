@@ -119,14 +119,6 @@ namespace Export
 			static_cast< MyGUI::MenuItem * >(_native)->setItemName( Convert<const MyGUI::UString &>::From( _value ) );
 		}
 	}
-	namespace ScopeMenuItemProperty_Type
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportMenuItem_IsType( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::MenuItem * >(_native)->isType( ) );
-		}
-	}
-	
 }
 
 #endif // __EXPORT_WIDGET_MenuItem_H__

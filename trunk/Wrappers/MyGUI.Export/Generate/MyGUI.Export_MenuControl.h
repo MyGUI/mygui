@@ -577,14 +577,6 @@ namespace Export
 			return Convert<size_t>::To( static_cast< MyGUI::MenuControl * >(_native)->getItemCount( ) );
 		}
 	}
-	namespace ScopeMenuControlProperty_Type
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportMenuControl_IsType( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::MenuControl * >(_native)->isType( ) );
-		}
-	}
-	
 }
 
 #endif // __EXPORT_WIDGET_MenuControl_H__
