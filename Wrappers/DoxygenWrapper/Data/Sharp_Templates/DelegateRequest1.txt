@@ -26,6 +26,7 @@
 		{
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void Export#{ThisName}Event_Delegate#{DelegateName}( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				#{MarshalAs1} #{TypePrefix1} #{TypeName1} #{ValueName1} );
 				
