@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -19,7 +19,7 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace ScopeMultiListItemMethod_SetItemWidth
+	namespace ScopeMultiListItemMethod_SetItemWidth
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiListItem_SetItemWidth_value( MyGUI::Widget* _native,
 			Convert<int>::Type _value )
@@ -28,10 +28,7 @@ namespace Export
 				Convert<int>::From( _value ) );
 		}
 	}
-
-
-
-   	namespace ScopeMultiListItemMethod_SetItemResizingPolicy
+	namespace ScopeMultiListItemMethod_SetItemResizingPolicy
 	{
 		MYGUIEXPORT void MYGUICALL ExportMultiListItem_SetItemResizingPolicy_value( MyGUI::Widget* _native,
 			Convert<MyGUI::ResizingPolicy>::Type _value )
@@ -40,21 +37,14 @@ namespace Export
 				Convert<MyGUI::ResizingPolicy>::From( _value ) );
 		}
 	}
-
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
+	namespace ScopeMultiListItemProperty_Type
+	{
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportMultiListItem_IsType( MyGUI::Widget* _native )
+		{
+			return Convert<bool>::To( static_cast< MyGUI::MultiListItem * >(_native)->isType( ) );
+		}
+	}
+	
 }
 
 #endif // __EXPORT_WIDGET_MultiListItem_H__

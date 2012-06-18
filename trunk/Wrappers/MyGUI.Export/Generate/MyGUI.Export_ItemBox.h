@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -19,7 +19,7 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace ScopeItemBoxEvent_NotifyItem
+	namespace ScopeItemBoxEvent_NotifyItem
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::ItemBox *>::Type ,
@@ -47,10 +47,7 @@ namespace Export
 				static_cast< MyGUI::ItemBox* >(_widget)->eventNotifyItem -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeItemBoxEvent_MouseItemActivate
+	namespace ScopeItemBoxEvent_MouseItemActivate
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::ItemBox *>::Type ,
@@ -78,10 +75,7 @@ namespace Export
 				static_cast< MyGUI::ItemBox* >(_widget)->eventMouseItemActivate -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeItemBoxEvent_ChangeItemPosition
+	namespace ScopeItemBoxEvent_ChangeItemPosition
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::ItemBox *>::Type ,
@@ -109,10 +103,7 @@ namespace Export
 				static_cast< MyGUI::ItemBox* >(_widget)->eventChangeItemPosition -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeItemBoxEvent_SelectItemAccept
+	namespace ScopeItemBoxEvent_SelectItemAccept
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::ItemBox *>::Type ,
@@ -140,10 +131,7 @@ namespace Export
 				static_cast< MyGUI::ItemBox* >(_widget)->eventSelectItemAccept -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeItemBoxEvent_DrawItem
+	namespace ScopeItemBoxEvent_DrawItem
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::ItemBox *>::Type ,
@@ -171,25 +159,22 @@ namespace Export
 			static_cast< MyGUI::ItemBox* >(_widget)->requestDrawItem = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
 		}
 	}
-
-
-
-   	namespace ScopeItemBoxEvent_CoordItem
+	namespace ScopeItemBoxEvent_CoordItem
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::ItemBox *>::Type ,
-			Convert<MyGUI::types::TCoord< int > &>::Type ,
+			Convert<MyGUI::types::TCoord < int > &>::Type ,
 			Convert<bool>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
 			MyGUI::ItemBox * _sender ,
-			MyGUI::types::TCoord< int > & _coord ,
+			MyGUI::types::TCoord < int > & _coord ,
 			bool _drag )
 		{
 			mExportHandle(
 				Convert<MyGUI::ItemBox *>::To( _sender ) ,
-				Convert<MyGUI::types::TCoord< int > &>::To( _coord ) ,
+				Convert<MyGUI::types::TCoord < int > &>::To( _coord ) ,
 				Convert<bool>::To( _drag ) );
 		}
 		
@@ -202,10 +187,7 @@ namespace Export
 			static_cast< MyGUI::ItemBox* >(_widget)->requestCoordItem = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
 		}
 	}
-
-
-
-   	namespace ScopeItemBoxEvent_CreateWidgetItem
+	namespace ScopeItemBoxEvent_CreateWidgetItem
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::ItemBox *>::Type ,
@@ -230,38 +212,51 @@ namespace Export
 			static_cast< MyGUI::ItemBox* >(_widget)->requestCreateWidgetItem = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
 		}
 	}
-
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   	namespace ScopeItemBoxMethod_ResetDrag
+	namespace ScopeItemBoxMethod_SetCoord
+	{
+		MYGUIEXPORT void MYGUICALL ExportItemBox_SetCoord_left_top_width_height( MyGUI::Widget* _native,
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top ,
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			static_cast< MyGUI::ItemBox * >(_native)->setCoord(
+				Convert<int>::From( _left ) ,
+				Convert<int>::From( _top ) ,
+				Convert<int>::From( _width ) ,
+				Convert<int>::From( _height ) );
+		}
+	}
+	namespace ScopeItemBoxMethod_SetSize
+	{
+		MYGUIEXPORT void MYGUICALL ExportItemBox_SetSize_width_height( MyGUI::Widget* _native,
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			static_cast< MyGUI::ItemBox * >(_native)->setSize(
+				Convert<int>::From( _width ) ,
+				Convert<int>::From( _height ) );
+		}
+	}
+	namespace ScopeItemBoxMethod_SetPosition
+	{
+		MYGUIEXPORT void MYGUICALL ExportItemBox_SetPosition_left_top( MyGUI::Widget* _native,
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top )
+		{
+			static_cast< MyGUI::ItemBox * >(_native)->setPosition(
+				Convert<int>::From( _left ) ,
+				Convert<int>::From( _top ) );
+		}
+	}
+	namespace ScopeItemBoxMethod_ResetDrag
 	{
 		MYGUIEXPORT void MYGUICALL ExportItemBox_ResetDrag( MyGUI::Widget* _native )
 		{
 			static_cast< MyGUI::ItemBox * >(_native)->resetDrag( );
 		}
 	}
-
-
-
-   	namespace ScopeItemBoxMethod_GetWidgetByIndex
+	namespace ScopeItemBoxMethod_GetWidgetByIndex
 	{
 		MYGUIEXPORT Convert<MyGUI::Widget *>::Type MYGUICALL ExportItemBox_GetWidgetByIndex_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
@@ -270,20 +265,7 @@ namespace Export
 				Convert<size_t>::From( _index ) ));
 		}
 	}
-
-
-
-   	namespace ScopeItemBoxMethod_GetWidgetDrag
-	{
-		MYGUIEXPORT Convert<MyGUI::Widget *>::Type MYGUICALL ExportItemBox_GetWidgetDrag( MyGUI::Widget* _native )
-		{
-			return Convert<MyGUI::Widget *>::To( static_cast< MyGUI::ItemBox * >(_native)->getWidgetDrag( ) );
-		}
-	}
-
-
-
-   	namespace ScopeItemBoxMethod_GetIndexByWidget
+	namespace ScopeItemBoxMethod_GetIndexByWidget
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportItemBox_GetIndexByWidget_widget( MyGUI::Widget* _native,
 			Convert<MyGUI::Widget *>::Type _widget )
@@ -292,24 +274,7 @@ namespace Export
 				Convert<MyGUI::Widget *>::From( _widget ) ));
 		}
 	}
-
-
-
-   	namespace ScopeItemBoxProperty_VerticalAlignment
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportItemBox_GetVerticalAlignment( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::ItemBox * >(_native)->getVerticalAlignment( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportItemBox_SetVerticalAlignment( MyGUI::Widget* _native , Convert<bool>::Type _value )
-		{
-			static_cast< MyGUI::ItemBox * >(_native)->setVerticalAlignment( Convert<bool>::From( _value ) );
-		}
-	}
-
-
-
-   	namespace ScopeItemBoxMethod_GetItemDataAt
+	namespace ScopeItemBoxMethod_GetItemDataAt
 	{
 		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportItemBox_GetItemDataAt_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
@@ -320,10 +285,7 @@ namespace Export
 			return data == nullptr ? nullptr : *data;
 		}
 	}
-
-
-
-   	namespace ScopeItemBoxMethod_ClearItemDataAt
+	namespace ScopeItemBoxMethod_ClearItemDataAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportItemBox_ClearItemDataAt_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
@@ -332,10 +294,7 @@ namespace Export
 				Convert<size_t>::From( _index ) );
 		}
 	}
-
-
-
-   	namespace ScopeItemBoxMethod_SetItemDataAt
+	namespace ScopeItemBoxMethod_SetItemDataAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportItemBox_SetItemDataAt_index_data( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
@@ -346,44 +305,21 @@ namespace Export
 				Convert<MyGUI::Any>::From( _data ) );
 		}
 	}
-
-
-
-   	namespace ScopeItemBoxMethod_ClearIndexSelected
+	namespace ScopeItemBoxMethod_ClearIndexSelected
 	{
 		MYGUIEXPORT void MYGUICALL ExportItemBox_ClearIndexSelected( MyGUI::Widget* _native )
 		{
 			static_cast< MyGUI::ItemBox * >(_native)->clearIndexSelected( );
 		}
 	}
-
-
-
-   	namespace ScopeItemBoxProperty_IndexSelected
-	{
-		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportItemBox_GetIndexSelected( MyGUI::Widget* _native )
-		{
-			return Convert<size_t>::To( static_cast< MyGUI::ItemBox * >(_native)->getIndexSelected( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportItemBox_SetIndexSelected( MyGUI::Widget* _native , Convert<size_t>::Type _value )
-		{
-			static_cast< MyGUI::ItemBox * >(_native)->setIndexSelected( Convert<size_t>::From( _value ) );
-		}
-	}
-
-
-
-   	namespace ScopeItemBoxMethod_RedrawAllItems
+	namespace ScopeItemBoxMethod_RedrawAllItems
 	{
 		MYGUIEXPORT void MYGUICALL ExportItemBox_RedrawAllItems( MyGUI::Widget* _native )
 		{
 			static_cast< MyGUI::ItemBox * >(_native)->redrawAllItems( );
 		}
 	}
-
-
-
-   	namespace ScopeItemBoxMethod_RedrawItemAt
+	namespace ScopeItemBoxMethod_RedrawItemAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportItemBox_RedrawItemAt_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
@@ -392,20 +328,14 @@ namespace Export
 				Convert<size_t>::From( _index ) );
 		}
 	}
-
-
-
-   	namespace ScopeItemBoxMethod_RemoveAllItems
+	namespace ScopeItemBoxMethod_RemoveAllItems
 	{
 		MYGUIEXPORT void MYGUICALL ExportItemBox_RemoveAllItems( MyGUI::Widget* _native )
 		{
 			static_cast< MyGUI::ItemBox * >(_native)->removeAllItems( );
 		}
 	}
-
-
-
-   	namespace ScopeItemBoxMethod_RemoveItemAt
+	namespace ScopeItemBoxMethod_RemoveItemAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportItemBox_RemoveItemAt_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
@@ -414,10 +344,7 @@ namespace Export
 				Convert<size_t>::From( _index ) );
 		}
 	}
-
-
-
-   	namespace ScopeItemBoxMethod_AddItem
+	namespace ScopeItemBoxMethod_AddItem
 	{
 		MYGUIEXPORT void MYGUICALL ExportItemBox_AddItem_data( MyGUI::Widget* _native,
 			Convert<MyGUI::Any>::Type _data )
@@ -430,10 +357,7 @@ namespace Export
 			static_cast< MyGUI::ItemBox * >(_native)->addItem( );
 		}
 	}
-
-
-
-   	namespace ScopeItemBoxMethod_InsertItemAt
+	namespace ScopeItemBoxMethod_InsertItemAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportItemBox_InsertItemAt_index_data( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
@@ -450,28 +374,50 @@ namespace Export
 				Convert<size_t>::From( _index ) );
 		}
 	}
-
-
-
-   	namespace ScopeItemBoxProperty_ItemCount
+	namespace ScopeItemBoxProperty_WidgetDrag
+	{
+		MYGUIEXPORT Convert<MyGUI::Widget *>::Type MYGUICALL ExportItemBox_GetWidgetDrag( MyGUI::Widget* _native )
+		{
+			return Convert<MyGUI::Widget *>::To( static_cast< MyGUI::ItemBox * >(_native)->getWidgetDrag( ) );
+		}
+	}
+	namespace ScopeItemBoxProperty_VerticalAlignment
+	{
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportItemBox_GetVerticalAlignment( MyGUI::Widget* _native )
+		{
+			return Convert<bool>::To( static_cast< MyGUI::ItemBox * >(_native)->getVerticalAlignment( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportItemBox_SetVerticalAlignment( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		{
+			static_cast< MyGUI::ItemBox * >(_native)->setVerticalAlignment( Convert<bool>::From( _value ) );
+		}
+	}
+	namespace ScopeItemBoxProperty_IndexSelected
+	{
+		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportItemBox_GetIndexSelected( MyGUI::Widget* _native )
+		{
+			return Convert<size_t>::To( static_cast< MyGUI::ItemBox * >(_native)->getIndexSelected( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportItemBox_SetIndexSelected( MyGUI::Widget* _native , Convert<size_t>::Type _value )
+		{
+			static_cast< MyGUI::ItemBox * >(_native)->setIndexSelected( Convert<size_t>::From( _value ) );
+		}
+	}
+	namespace ScopeItemBoxProperty_ItemCount
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportItemBox_GetItemCount( MyGUI::Widget* _native )
 		{
 			return Convert<size_t>::To( static_cast< MyGUI::ItemBox * >(_native)->getItemCount( ) );
 		}
 	}
-
-
-
-   
-
-
-   
-
-
-   
-
-
+	namespace ScopeItemBoxProperty_Type
+	{
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportItemBox_IsType( MyGUI::Widget* _native )
+		{
+			return Convert<bool>::To( static_cast< MyGUI::ItemBox * >(_native)->isType( ) );
+		}
+	}
+	
 }
 
 #endif // __EXPORT_WIDGET_ItemBox_H__
