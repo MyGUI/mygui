@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Generate\MyGUI.GuiPart_WidgetCreator.cs" />
+    <Compile Include="Core\Generate\MyGUI_GuiPart_WidgetCreator.cs" />
     <Compile Include="Core\Gui.cs" />
     <Compile Include="Core\InputManager.cs" />
     <Compile Include="Core\InterfaceMarshaler.cs" />
@@ -74,30 +74,30 @@
     <Compile Include="Types\ToolTipInfo.cs" />
     <Compile Include="Types\WidgetStyle.cs" />
     <Compile Include="Widgets\BaseWidget.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_Button.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_ComboBox.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_DDContainer.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_EditBox.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_ImageBox.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_ItemBox.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_ListBox.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_MenuBar.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_MenuControl.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_MenuItem.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_MultiListBox.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_MultiListItem.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_PopupMenu.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_ProgressBar.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_ScrollBar.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_ScrollVew.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_TabControl.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_TabItem.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_TextBox.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_Widget.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_WidgetCropped.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_WidgetInput.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_WidgetUserData.cs" />
-    <Compile Include="Widgets\Generate\MyGUI.Sharp_Window.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_Button.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_ComboBox.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_DDContainer.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_EditBox.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_ImageBox.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_ItemBox.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_ListBox.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_MenuBar.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_MenuControl.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_MenuItem.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_MultiListBox.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_MultiListItem.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_PopupMenu.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_ProgressBar.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_ScrollBar.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_ScrollVew.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_TabControl.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_TabItem.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_TextBox.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_Widget.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_WidgetCropped.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_WidgetInput.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_WidgetUserData.cs" />
+    <Compile Include="Widgets\Generate\MyGUI_Sharp_Window.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
