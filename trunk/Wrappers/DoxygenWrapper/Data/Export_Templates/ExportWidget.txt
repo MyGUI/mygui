@@ -1,1 +1,1 @@
-﻿#include "MyGUI.Export_#{ThisName}.h"
+﻿#include "MyGUI_Export_#{ThisName}.h"
