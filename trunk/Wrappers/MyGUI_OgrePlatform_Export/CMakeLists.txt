@@ -93,6 +93,6 @@ if(MYGUI_RENDERSYSTEM EQUAL 2)
 		#endif()
 	endfunction(mygui_orge_platform_export)
 
-	mygui_orge_platform_export(MyGUI.OgrePlatform.Export Wrappers)
+	mygui_orge_platform_export(MyGUI_OgrePlatform_Export Wrappers)
 
 endif()
