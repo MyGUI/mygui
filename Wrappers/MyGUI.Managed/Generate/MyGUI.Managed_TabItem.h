@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -39,7 +39,7 @@ namespace MyGUI
 
 			//InsertPoint
 
-   	public:
+	public:
 		void SetButtonWidth(
 			Convert<int>::Type _value )
 		{
@@ -47,21 +47,6 @@ namespace MyGUI
 			static_cast<ThisType*>(mNative)->setButtonWidth(
 				Convert<int>::From(_value) );
 		}
-
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
 		};
 
 	} // namespace Managed

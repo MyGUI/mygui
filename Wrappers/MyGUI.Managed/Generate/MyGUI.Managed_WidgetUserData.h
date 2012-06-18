@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -27,22 +27,13 @@ namespace MyGUI
 
 			//InsertPoint
 
-   
-
-
-   
-
-
-   	public:
+	public:
 		void ClearUserStrings( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->clearUserStrings( );
 		}
-
-
-
-   	public:
+	public:
 		Convert<bool>::Type IsUserString(
 			Convert<const std::string &>::Type _key )
 		{
@@ -51,10 +42,7 @@ namespace MyGUI
 				static_cast<ThisType*>(mNative)->isUserString(
 					Convert<const std::string &>::From(_key) ) );
 		}
-
-
-
-   	public:
+	public:
 		Convert<bool>::Type ClearUserString(
 			Convert<const std::string &>::Type _key )
 		{
@@ -63,10 +51,7 @@ namespace MyGUI
 				static_cast<ThisType*>(mNative)->clearUserString(
 					Convert<const std::string &>::From(_key) ) );
 		}
-
-
-
-   	public:
+	public:
 		Convert<const std::string &>::Type GetUserString(
 			Convert<const std::string &>::Type _key )
 		{
@@ -75,10 +60,7 @@ namespace MyGUI
 				static_cast<ThisType*>(mNative)->getUserString(
 					Convert<const std::string &>::From(_key) ) );
 		}
-
-
-
-   	public:
+	public:
 		void SetUserString(
 			Convert<const std::string &>::Type _key ,
 			Convert<const std::string &>::Type _value )
@@ -88,9 +70,16 @@ namespace MyGUI
 				Convert<const std::string &>::From(_key) ,
 				Convert<const std::string &>::From(_value) );
 		}
-
-
-
+	public:
+		property Convert<const std::map < std::string , std::string > &>::Type UserStrings
+		{
+			Convert<const std::map < std::string , std::string > &>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<const std::map < std::string , std::string > &>::To( static_cast<ThisType*>(mNative)->getUserStrings() );
+			}
+		}
+	
 		};
 
 	} // namespace Managed

@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -39,7 +39,7 @@ namespace MyGUI
 
 			//InsertPoint
 
-   	public:
+	public:
 		delegate void HandleEditTextChange(
 			Convert<MyGUI::EditBox *>::Type _sender );
 		event HandleEditTextChange^ EventEditTextChange
@@ -75,10 +75,7 @@ namespace MyGUI
 		}
 	private:
 		HandleEditTextChange^ mDelegateEditTextChange;
-
-
-
-   	public:
+	public:
 		delegate void HandleEditSelectAccept(
 			Convert<MyGUI::EditBox *>::Type _sender );
 		event HandleEditSelectAccept^ EventEditSelectAccept
@@ -114,28 +111,124 @@ namespace MyGUI
 		}
 	private:
 		HandleEditSelectAccept^ mDelegateEditSelectAccept;
-
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   	public:
+	public:
+		void SetCoord(
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top ,
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setCoord(
+				Convert<int>::From(_left) ,
+				Convert<int>::From(_top) ,
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) );
+		}
+	public:
+		void SetSize(
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setSize(
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) );
+		}
+	public:
+		void SetPosition(
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setPosition(
+				Convert<int>::From(_left) ,
+				Convert<int>::From(_top) );
+		}
+	public:
+		void SetPasswordChar(
+			Convert<const MyGUI::UString &>::Type _char )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setPasswordChar(
+				Convert<const MyGUI::UString &>::From(_char) );
+		}
+	public:
+		void EraseText(
+			Convert<size_t>::Type _start ,
+			Convert<size_t>::Type _count )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->eraseText(
+				Convert<size_t>::From(_start) ,
+				Convert<size_t>::From(_count) );
+		}
+	public:
+		void AddText(
+			Convert<const MyGUI::UString &>::Type _text )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->addText(
+				Convert<const MyGUI::UString &>::From(_text) );
+		}
+	public:
+		void InsertText(
+			Convert<const MyGUI::UString &>::Type _text ,
+			Convert<size_t>::Type _index )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->insertText(
+				Convert<const MyGUI::UString &>::From(_text) ,
+				Convert<size_t>::From(_index) );
+		}
+	public:
+		void SetTextSelectionColour(
+			Convert<const MyGUI::Colour &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setTextSelectionColour(
+				Convert<const MyGUI::Colour &>::From(_value) );
+		}
+	public:
+		void DeleteTextSelection( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->deleteTextSelection( );
+		}
+	public:
+		void SetTextSelection(
+			Convert<size_t>::Type _start ,
+			Convert<size_t>::Type _end )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setTextSelection(
+				Convert<size_t>::From(_start) ,
+				Convert<size_t>::From(_end) );
+		}
+	public:
+		Convert<MyGUI::UString>::Type GetTextInterval(
+			Convert<size_t>::Type _start ,
+			Convert<size_t>::Type _count )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<MyGUI::UString>::To(
+				static_cast<ThisType*>(mNative)->getTextInterval(
+					Convert<size_t>::From(_start) ,
+					Convert<size_t>::From(_count) ) );
+		}
+	public:
+		void SetTextIntervalColour(
+			Convert<size_t>::Type _start ,
+			Convert<size_t>::Type _count ,
+			Convert<const MyGUI::Colour &>::Type _colour )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setTextIntervalColour(
+				Convert<size_t>::From(_start) ,
+				Convert<size_t>::From(_count) ,
+				Convert<const MyGUI::Colour &>::From(_colour) );
+		}
+	public:
 		property Convert<size_t>::Type HScrollPosition
 		{
 			Convert<size_t>::Type get( )
@@ -150,20 +243,18 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
-		Convert<size_t>::Type GetHScrollRange( )
+	public:
+		property Convert<size_t>::Type HScrollRange
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<size_t>::To(
-				static_cast<ThisType*>(mNative)->getHScrollRange( ) );
+			Convert<size_t>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getHScrollRange() );
+			}
 		}
-
-
-
-   	public:
-		property Convert<bool>::Type VisibleHScroll
+	
+	public:
+		property Convert<bool>::Type IsVisibleHScroll
 		{
 			Convert<bool>::Type get( )
 			{
@@ -177,9 +268,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<size_t>::Type VScrollPosition
 		{
 			Convert<size_t>::Type get( )
@@ -194,20 +283,18 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
-		Convert<size_t>::Type GetVScrollRange( )
+	public:
+		property Convert<size_t>::Type VScrollRange
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<size_t>::To(
-				static_cast<ThisType*>(mNative)->getVScrollRange( ) );
+			Convert<size_t>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getVScrollRange() );
+			}
 		}
-
-
-
-   	public:
-		property Convert<bool>::Type VisibleVScroll
+	
+	public:
+		property Convert<bool>::Type IsVisibleVScroll
 		{
 			Convert<bool>::Type get( )
 			{
@@ -221,27 +308,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   	public:
+	public:
 		property Convert<bool>::Type InvertSelected
 		{
 			Convert<bool>::Type get( )
@@ -256,9 +323,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<bool>::Type TabPrinting
 		{
 			Convert<bool>::Type get( )
@@ -273,9 +338,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<bool>::Type EditWordWrap
 		{
 			Convert<bool>::Type get( )
@@ -290,20 +353,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
-		void SetPasswordChar(
-			Convert<const MyGUI::UString &>::Type _char )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setPasswordChar(
-				Convert<const MyGUI::UString &>::From(_char) );
-		}
-
-
-
-   	public:
+	public:
 		property Convert<unsigned int>::Type PasswordChar
 		{
 			Convert<unsigned int>::Type get( )
@@ -318,9 +368,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<bool>::Type EditStatic
 		{
 			Convert<bool>::Type get( )
@@ -335,9 +383,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<bool>::Type EditMultiLine
 		{
 			Convert<bool>::Type get( )
@@ -352,9 +398,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<bool>::Type EditPassword
 		{
 			Convert<bool>::Type get( )
@@ -369,9 +413,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<bool>::Type EditReadOnly
 		{
 			Convert<bool>::Type get( )
@@ -386,46 +428,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
-		void EraseText(
-			Convert<size_t>::Type _start ,
-			Convert<size_t>::Type _count )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->eraseText(
-				Convert<size_t>::From(_start) ,
-				Convert<size_t>::From(_count) );
-		}
-
-
-
-   	public:
-		void AddText(
-			Convert<const MyGUI::UString &>::Type _text )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->addText(
-				Convert<const MyGUI::UString &>::From(_text) );
-		}
-
-
-
-   	public:
-		void InsertText(
-			Convert<const MyGUI::UString &>::Type _text ,
-			Convert<size_t>::Type _index )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->insertText(
-				Convert<const MyGUI::UString &>::From(_text) ,
-				Convert<size_t>::From(_index) );
-		}
-
-
-
-   	public:
+	public:
 		property Convert<size_t>::Type MaxTextLength
 		{
 			Convert<size_t>::Type get( )
@@ -440,9 +443,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<bool>::Type OverflowToTheLeft
 		{
 			Convert<bool>::Type get( )
@@ -457,9 +458,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<size_t>::Type TextLength
 		{
 			Convert<size_t>::Type get( )
@@ -469,9 +468,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<MyGUI::UString>::Type OnlyText
 		{
 			Convert<MyGUI::UString>::Type get( )
@@ -486,12 +483,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   
-
-
-   	public:
+	public:
 		property Convert<size_t>::Type TextCursor
 		{
 			Convert<size_t>::Type get( )
@@ -506,129 +498,56 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
-		void SetTextSelectionColour(
-			Convert<const MyGUI::Colour &>::Type _value )
+	public:
+		property Convert<bool>::Type IsTextSelection
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setTextSelectionColour(
-				Convert<const MyGUI::Colour &>::From(_value) );
+			Convert<bool>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->isTextSelection() );
+			}
 		}
-
-
-
-   	public:
-		Convert<bool>::Type IsTextSelection( )
+	
+	public:
+		property Convert<MyGUI::UString>::Type TextSelection
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<bool>::To(
-				static_cast<ThisType*>(mNative)->isTextSelection( ) );
+			Convert<MyGUI::UString>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<MyGUI::UString>::To( static_cast<ThisType*>(mNative)->getTextSelection() );
+			}
 		}
-
-
-
-   	public:
-		Convert<MyGUI::UString>::Type GetTextSelection( )
+	
+	public:
+		property Convert<size_t>::Type TextSelectionLength
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::UString>::To(
-				static_cast<ThisType*>(mNative)->getTextSelection( ) );
+			Convert<size_t>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getTextSelectionLength() );
+			}
 		}
-
-
-
-   	public:
-		void DeleteTextSelection( )
+	
+	public:
+		property Convert<size_t>::Type TextSelectionEnd
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->deleteTextSelection( );
+			Convert<size_t>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getTextSelectionEnd() );
+			}
 		}
-
-
-
-   	public:
-		void SetTextSelection(
-			Convert<size_t>::Type _start ,
-			Convert<size_t>::Type _end )
+	
+	public:
+		property Convert<size_t>::Type TextSelectionStart
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setTextSelection(
-				Convert<size_t>::From(_start) ,
-				Convert<size_t>::From(_end) );
+			Convert<size_t>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getTextSelectionStart() );
+			}
 		}
-
-
-
-   	public:
-		Convert<MyGUI::UString>::Type GetTextInterval(
-			Convert<size_t>::Type _start ,
-			Convert<size_t>::Type _count )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::UString>::To(
-				static_cast<ThisType*>(mNative)->getTextInterval(
-					Convert<size_t>::From(_start) ,
-					Convert<size_t>::From(_count) ) );
-		}
-
-
-
-   	public:
-		Convert<size_t>::Type GetTextSelectionLength( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<size_t>::To(
-				static_cast<ThisType*>(mNative)->getTextSelectionLength( ) );
-		}
-
-
-
-   	public:
-		Convert<size_t>::Type GetTextSelectionEnd( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<size_t>::To(
-				static_cast<ThisType*>(mNative)->getTextSelectionEnd( ) );
-		}
-
-
-
-   	public:
-		Convert<size_t>::Type GetTextSelectionStart( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<size_t>::To(
-				static_cast<ThisType*>(mNative)->getTextSelectionStart( ) );
-		}
-
-
-
-   	public:
-		void SetTextIntervalColour(
-			Convert<size_t>::Type _start ,
-			Convert<size_t>::Type _count ,
-			Convert<const MyGUI::Colour &>::Type _colour )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setTextIntervalColour(
-				Convert<size_t>::From(_start) ,
-				Convert<size_t>::From(_count) ,
-				Convert<const MyGUI::Colour &>::From(_colour) );
-		}
-
-
-
-   
-
-
-   
-
-
-   
-
-
+	
 		};
 
 	} // namespace Managed

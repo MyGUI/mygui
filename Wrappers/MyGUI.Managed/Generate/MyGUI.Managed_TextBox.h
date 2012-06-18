@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -39,7 +39,7 @@ namespace MyGUI
 
 			//InsertPoint
 
-   	public:
+	public:
 		void SetCaptionWithReplacing(
 			Convert<const std::string &>::Type _value )
 		{
@@ -47,10 +47,37 @@ namespace MyGUI
 			static_cast<ThisType*>(mNative)->setCaptionWithReplacing(
 				Convert<const std::string &>::From(_value) );
 		}
-
-
-
-   	public:
+	public:
+		property Convert<bool>::Type TextShadow
+		{
+			Convert<bool>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getTextShadow() );
+			}
+			void set(Convert<bool>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setTextShadow( Convert<bool>::From(_value) );
+			}
+		}
+	
+	public:
+		property Convert<const MyGUI::Colour &>::Type TextShadowColour
+		{
+			Convert<const MyGUI::Colour &>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<const MyGUI::Colour &>::To( static_cast<ThisType*>(mNative)->getTextShadowColour() );
+			}
+			void set(Convert<const MyGUI::Colour &>::Type _value)
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				static_cast<ThisType*>(mNative)->setTextShadowColour( Convert<const MyGUI::Colour &>::From(_value) );
+			}
+		}
+	
+	public:
 		property Convert<const MyGUI::Colour &>::Type TextColour
 		{
 			Convert<const MyGUI::Colour &>::Type get( )
@@ -65,9 +92,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<MyGUI::Align>::Type TextAlign
 		{
 			Convert<MyGUI::Align>::Type get( )
@@ -82,9 +107,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<int>::Type FontHeight
 		{
 			Convert<int>::Type get( )
@@ -99,9 +122,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<const std::string &>::Type FontName
 		{
 			Convert<const std::string &>::Type get( )
@@ -116,9 +137,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<const MyGUI::UString &>::Type Caption
 		{
 			Convert<const MyGUI::UString &>::Type get( )
@@ -133,37 +152,26 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
-		Convert<MyGUI::types::TSize< int >>::Type GetTextSize( )
+	public:
+		property Convert<MyGUI::types::TSize < int >>::Type TextSize
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::types::TSize< int >>::To(
-				static_cast<ThisType*>(mNative)->getTextSize( ) );
+			Convert<MyGUI::types::TSize < int >>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<MyGUI::types::TSize < int >>::To( static_cast<ThisType*>(mNative)->getTextSize() );
+			}
 		}
-
-
-
-   	public:
-		Convert<MyGUI::types::TCoord< int >>::Type GetTextRegion( )
+	
+	public:
+		property Convert<MyGUI::types::TCoord < int >>::Type TextRegion
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::types::TCoord< int >>::To(
-				static_cast<ThisType*>(mNative)->getTextRegion( ) );
+			Convert<MyGUI::types::TCoord < int >>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<MyGUI::types::TCoord < int >>::To( static_cast<ThisType*>(mNative)->getTextRegion() );
+			}
 		}
-
-
-
-   
-
-
-   
-
-
-   
-
-
+	
 		};
 
 	} // namespace Managed

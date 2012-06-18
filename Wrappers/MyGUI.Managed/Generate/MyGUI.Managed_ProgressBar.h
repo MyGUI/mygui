@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -39,25 +39,41 @@ namespace MyGUI
 
 			//InsertPoint
 
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   	public:
+	public:
+		void SetCoord(
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top ,
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setCoord(
+				Convert<int>::From(_left) ,
+				Convert<int>::From(_top) ,
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) );
+		}
+	public:
+		void SetSize(
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setSize(
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) );
+		}
+	public:
+		void SetPosition(
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setPosition(
+				Convert<int>::From(_left) ,
+				Convert<int>::From(_top) );
+		}
+	public:
 		property Convert<MyGUI::FlowDirection>::Type FlowDirection
 		{
 			Convert<MyGUI::FlowDirection>::Type get( )
@@ -72,9 +88,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<bool>::Type ProgressAutoTrack
 		{
 			Convert<bool>::Type get( )
@@ -89,9 +103,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<size_t>::Type ProgressPosition
 		{
 			Convert<size_t>::Type get( )
@@ -106,9 +118,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<size_t>::Type ProgressRange
 		{
 			Convert<size_t>::Type get( )
@@ -123,17 +133,6 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   
-
-
-   
-
-
-   
-
-
 		};
 
 	} // namespace Managed

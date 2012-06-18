@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -39,7 +39,7 @@ namespace MyGUI
 
 			//InsertPoint
 
-   	public:
+	public:
 		delegate void HandleWindowChangeCoord(
 			Convert<MyGUI::Window *>::Type _sender );
 		event HandleWindowChangeCoord^ EventWindowChangeCoord
@@ -75,10 +75,7 @@ namespace MyGUI
 		}
 	private:
 		HandleWindowChangeCoord^ mDelegateWindowChangeCoord;
-
-
-
-   	public:
+	public:
 		delegate void HandleWindowButtonPressed(
 			Convert<MyGUI::Window *>::Type _sender ,
 			Convert<const std::string &>::Type _name );
@@ -119,10 +116,75 @@ namespace MyGUI
 		}
 	private:
 		HandleWindowButtonPressed^ mDelegateWindowButtonPressed;
-
-
-
-   	public:
+	public:
+		void SetCoord(
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top ,
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setCoord(
+				Convert<int>::From(_left) ,
+				Convert<int>::From(_top) ,
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) );
+		}
+	public:
+		void SetSize(
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setSize(
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) );
+		}
+	public:
+		void SetPosition(
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setPosition(
+				Convert<int>::From(_left) ,
+				Convert<int>::From(_top) );
+		}
+	public:
+		void SetMaxSize(
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setMaxSize(
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) );
+		}
+	public:
+		void SetMinSize(
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setMinSize(
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) );
+		}
+	public:
+		void DestroySmooth( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->destroySmooth( );
+		}
+	public:
+		void SetVisibleSmooth(
+			Convert<bool>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setVisibleSmooth(
+				Convert<bool>::From(_value) );
+		}
+	public:
 		property Convert<bool>::Type Movable
 		{
 			Convert<bool>::Type get( )
@@ -137,19 +199,17 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
-		Convert<const MyGUI::types::TCoord< int > &>::Type GetActionScale( )
+	public:
+		property Convert<const MyGUI::types::TCoord < int > &>::Type ActionScale
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<const MyGUI::types::TCoord< int > &>::To(
-				static_cast<ThisType*>(mNative)->getActionScale( ) );
+			Convert<const MyGUI::types::TCoord < int > &>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<const MyGUI::types::TCoord < int > &>::To( static_cast<ThisType*>(mNative)->getActionScale() );
+			}
 		}
-
-
-
-   	public:
+	
+	public:
 		property Convert<bool>::Type Snap
 		{
 			Convert<bool>::Type get( )
@@ -164,100 +224,47 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   	public:
-		void SetMaxSize(
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
+	public:
+		property Convert<MyGUI::types::TSize < int >>::Type MaxSize
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setMaxSize(
-				Convert<int>::From(_width) ,
-				Convert<int>::From(_height) );
-		}
-
-
-
-   	public:
-		property Convert<MyGUI::types::TSize< int >>::Type MaxSize
-		{
-			Convert<MyGUI::types::TSize< int >>::Type get( )
+			Convert<MyGUI::types::TSize < int >>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<MyGUI::types::TSize< int >>::To( static_cast<ThisType*>(mNative)->getMaxSize() );
+				return Convert<MyGUI::types::TSize < int >>::To( static_cast<ThisType*>(mNative)->getMaxSize() );
 			}
-			void set(Convert<const MyGUI::types::TSize< int > &>::Type _value)
+			void set(Convert<const MyGUI::types::TSize < int > &>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setMaxSize( Convert<const MyGUI::types::TSize< int > &>::From(_value) );
+				static_cast<ThisType*>(mNative)->setMaxSize( Convert<const MyGUI::types::TSize < int > &>::From(_value) );
 			}
 		}
 	
-
-
-   	public:
-		void SetMinSize(
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
+	public:
+		property Convert<MyGUI::types::TSize < int >>::Type MinSize
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setMinSize(
-				Convert<int>::From(_width) ,
-				Convert<int>::From(_height) );
-		}
-
-
-
-   	public:
-		property Convert<MyGUI::types::TSize< int >>::Type MinSize
-		{
-			Convert<MyGUI::types::TSize< int >>::Type get( )
+			Convert<MyGUI::types::TSize < int >>::Type get( )
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				return Convert<MyGUI::types::TSize< int >>::To( static_cast<ThisType*>(mNative)->getMinSize() );
+				return Convert<MyGUI::types::TSize < int >>::To( static_cast<ThisType*>(mNative)->getMinSize() );
 			}
-			void set(Convert<const MyGUI::types::TSize< int > &>::Type _value)
+			void set(Convert<const MyGUI::types::TSize < int > &>::Type _value)
 			{
 				MMYGUI_CHECK_NATIVE(mNative);
-				static_cast<ThisType*>(mNative)->setMinSize( Convert<const MyGUI::types::TSize< int > &>::From(_value) );
+				static_cast<ThisType*>(mNative)->setMinSize( Convert<const MyGUI::types::TSize < int > &>::From(_value) );
 			}
 		}
 	
-
-
-   	public:
-		Convert<MyGUI::TextBox *>::Type GetCaptionWidget( )
+	public:
+		property Convert<MyGUI::TextBox *>::Type CaptionWidget
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<MyGUI::TextBox *>::To(
-				static_cast<ThisType*>(mNative)->getCaptionWidget( ) );
+			Convert<MyGUI::TextBox *>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<MyGUI::TextBox *>::To( static_cast<ThisType*>(mNative)->getCaptionWidget() );
+			}
 		}
-
-
-
-   
-
-
-   	public:
+	
+	public:
 		property Convert<bool>::Type AutoAlpha
 		{
 			Convert<bool>::Type get( )
@@ -272,34 +279,6 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   
-
-
-   	public:
-		void SetVisibleSmooth(
-			Convert<bool>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setVisibleSmooth(
-				Convert<bool>::From(_value) );
-		}
-
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
 		};
 
 	} // namespace Managed

@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -39,7 +39,7 @@ namespace MyGUI
 
 			//InsertPoint
 
-   	public:
+	public:
 		void SetImageName(
 			Convert<const std::string &>::Type _name )
 		{
@@ -47,10 +47,7 @@ namespace MyGUI
 			static_cast<ThisType*>(mNative)->setImageName(
 				Convert<const std::string &>::From(_name) );
 		}
-
-
-
-   	public:
+	public:
 		void SetImageGroup(
 			Convert<const std::string &>::Type _name )
 		{
@@ -58,10 +55,7 @@ namespace MyGUI
 			static_cast<ThisType*>(mNative)->setImageGroup(
 				Convert<const std::string &>::From(_name) );
 		}
-
-
-
-   	public:
+	public:
 		void SetImageResource(
 			Convert<const std::string &>::Type _name )
 		{
@@ -69,10 +63,7 @@ namespace MyGUI
 			static_cast<ThisType*>(mNative)->setImageResource(
 				Convert<const std::string &>::From(_name) );
 		}
-
-
-
-   	public:
+	public:
 		property Convert<bool>::Type ModeImage
 		{
 			Convert<bool>::Type get( )
@@ -87,9 +78,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<bool>::Type StateSelected
 		{
 			Convert<bool>::Type get( )
@@ -104,17 +93,6 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   
-
-
-   
-
-
-   
-
-
 		};
 
 	} // namespace Managed
