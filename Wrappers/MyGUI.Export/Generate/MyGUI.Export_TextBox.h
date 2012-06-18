@@ -119,14 +119,6 @@ namespace Export
 			return Convert<MyGUI::types::TCoord < int >>::To( static_cast< MyGUI::TextBox * >(_native)->getTextRegion( ) );
 		}
 	}
-	namespace ScopeTextBoxProperty_Type
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportTextBox_IsType( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::TextBox * >(_native)->isType( ) );
-		}
-	}
-	
 }
 
 #endif // __EXPORT_WIDGET_TextBox_H__

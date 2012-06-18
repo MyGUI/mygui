@@ -28,14 +28,6 @@ namespace Export
 				Convert<int>::From( _value ) );
 		}
 	}
-	namespace ScopeTabItemProperty_Type
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportTabItem_IsType( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::TabItem * >(_native)->isType( ) );
-		}
-	}
-	
 }
 
 #endif // __EXPORT_WIDGET_TabItem_H__

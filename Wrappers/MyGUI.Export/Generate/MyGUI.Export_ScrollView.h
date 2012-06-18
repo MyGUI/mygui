@@ -131,14 +131,6 @@ namespace Export
 		}
 	}
 	
-	namespace ScopeScrollViewProperty_Type
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportScrollView_IsType( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::ScrollView * >(_native)->isType( ) );
-		}
-	}
-	
 }
 
 #endif // __EXPORT_WIDGET_ScrollView_H__

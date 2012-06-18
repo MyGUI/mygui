@@ -209,14 +209,6 @@ namespace Export
 			static_cast< MyGUI::Window * >(_native)->setAutoAlpha( Convert<bool>::From( _value ) );
 		}
 	}
-	namespace ScopeWindowProperty_Type
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWindow_IsType( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::Window * >(_native)->isType( ) );
-		}
-	}
-	
 }
 
 #endif // __EXPORT_WIDGET_Window_H__

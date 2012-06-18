@@ -583,14 +583,6 @@ namespace Export
 			return Convert<size_t>::To( static_cast< MyGUI::MultiListBox * >(_native)->getColumnCount( ) );
 		}
 	}
-	namespace ScopeMultiListBoxProperty_Type
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportMultiListBox_IsType( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::MultiListBox * >(_native)->isType( ) );
-		}
-	}
-	
 }
 
 #endif // __EXPORT_WIDGET_MultiListBox_H__

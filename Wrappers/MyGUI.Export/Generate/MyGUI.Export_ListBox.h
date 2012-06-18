@@ -403,14 +403,6 @@ namespace Export
 			return Convert<int>::To( static_cast< MyGUI::ListBox * >(_native)->getOptimalHeight( ) );
 		}
 	}
-	namespace ScopeListBoxProperty_Type
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportListBox_IsType( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::ListBox * >(_native)->isType( ) );
-		}
-	}
-	
 	namespace ScopeListBoxProperty_IndexSelected
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportListBox_GetIndexSelected( MyGUI::Widget* _native )

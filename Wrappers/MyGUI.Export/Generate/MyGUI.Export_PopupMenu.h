@@ -19,14 +19,6 @@ namespace Export
 
 	//InsertPoint
 
-	namespace ScopePopupMenuProperty_Type
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportPopupMenu_IsType( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::PopupMenu * >(_native)->isType( ) );
-		}
-	}
-	
 }
 
 #endif // __EXPORT_WIDGET_PopupMenu_H__

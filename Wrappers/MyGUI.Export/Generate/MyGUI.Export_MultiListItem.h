@@ -37,14 +37,6 @@ namespace Export
 				Convert<MyGUI::ResizingPolicy>::From( _value ) );
 		}
 	}
-	namespace ScopeMultiListItemProperty_Type
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportMultiListItem_IsType( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::MultiListItem * >(_native)->isType( ) );
-		}
-	}
-	
 }
 
 #endif // __EXPORT_WIDGET_MultiListItem_H__
