@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{eaa4cb11-0239-4581-b289-281385c2682e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Common">
+      <UniqueIdentifier>{b86a80b6-0734-498d-989b-ed9d24e4dee7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Managers">
+      <UniqueIdentifier>{6bea430c-dac5-4ee8-aef5-d40fc3ada3c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Widgets">
+      <UniqueIdentifier>{0a94f177-9ef7-4666-bcc8-337332f92a69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Widgets\Generate">
+      <UniqueIdentifier>{46b2b0f2-97ce-4140-b659-4fd021adb942}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Core">
+      <UniqueIdentifier>{7c54f0dc-c876-48f1-af26-fdecf83b4831}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core\Delegates">
+      <UniqueIdentifier>{615f77af-8636-4094-8f65-2a660cdda139}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core\Types">
+      <UniqueIdentifier>{9f8ad523-d8d6-48ea-8253-1c1083bd855b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core\Common">
+      <UniqueIdentifier>{6e32cbba-550d-4bf0-9f9f-a2cfd3d13bce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core\Managers">
+      <UniqueIdentifier>{56070fce-ced9-408f-95c7-272c61781b59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core\Managers\Generate">
+      <UniqueIdentifier>{18820f75-9a6d-4565-a88d-09037fcb2790}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Widgets">
+      <UniqueIdentifier>{07bd6279-84ef-4462-93f1-096dce8fcdba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Widgets\Generate">
+      <UniqueIdentifier>{11700060-6f1f-4a14-bf98-fbe4624c5ed0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Utility.cpp">
+      <Filter>Source Files\Core\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui.cpp">
+      <Filter>Source Files\Core\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Source Files\Core\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="LayerManager.cpp">
+      <Filter>Source Files\Core\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="PointerManager.cpp">
+      <Filter>Source Files\Core\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Generate\MyGUI.Managed_MarshalingWidget.cpp">
+      <Filter>Source Files\Widgets\Generate</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Delegate1.h">
+      <Filter>Header Files\Core\Delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="Delegate2.h">
+      <Filter>Header Files\Core\Delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="Delegate3.h">
+      <Filter>Header Files\Core\Delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="Delegate3_Ref2.h">
+      <Filter>Header Files\Core\Delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="Delegate4.h">
+      <Filter>Header Files\Core\Delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="Delegate5.h">
+      <Filter>Header Files\Core\Delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="Delegates.h">
+      <Filter>Header Files\Core\Delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="Align.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Colour.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="DropItemState.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="DropWidgetState.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="FloatCoord.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="FloatPoint.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="FloatRect.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="FloatSize.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="IntCoord.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="IntPoint.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="IntRect.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="IntSize.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemDropInfo.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemInfo.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyCode.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItemType.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageStyle.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseButton.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="NativePtrHolder.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="NotifyItemData.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolTipInfo.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="WidgetStyle.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Header Files\Core\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>Header Files\Core\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Marshaling.h">
+      <Filter>Header Files\Core\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>Header Files\Core\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>Header Files\Core\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="WidgetHolder.h">
+      <Filter>Header Files\Core\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui.h">
+      <Filter>Header Files\Core\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Header Files\Core\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="LayerManager.h">
+      <Filter>Header Files\Core\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="PointerManager.h">
+      <Filter>Header Files\Core\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_GuiFactory.h">
+      <Filter>Header Files\Core\Managers\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseWidget.h">
+      <Filter>Header Files\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_Button.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_ComboBox.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_DDContainer.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_EditBox.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_ImageBox.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_IncludeWidgets.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_ItemBox.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_ListBox.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_MarshalingWidget.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_MenuBar.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_MenuControl.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_MenuItem.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_MultiListBox.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_MultiListItem.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_PopupMenu.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_ProgressBar.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_ScrollBar.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_ScrollView.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_TabControl.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_TabItem.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_TextBox.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_Widget.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_WidgetInput.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Managed_Window.h">
+      <Filter>Header Files\Widgets\Generate</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
