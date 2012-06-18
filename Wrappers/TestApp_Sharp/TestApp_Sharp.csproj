@@ -13,7 +13,7 @@
     <ApplicationIcon>mygui.ico</ApplicationIcon>
     <StartupObject>
     </StartupObject>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
@@ -42,7 +42,7 @@
   <ItemGroup>
     <Reference Include="MyGUI_Sharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\MyGUI_Trunk_bin\bin\Release\MyGUI_Sharp.dll</HintPath>
+      <HintPath>$(SolutionDir)../bin/$(Configuration)\MyGUI_Sharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -74,9 +74,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="mygui.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
