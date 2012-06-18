@@ -2,10 +2,10 @@ set (HEADER_FILES
   ExportDefine.h
 )
 set (SOURCE_FILES
-  MyGUI.Export.cpp
+  MyGUI_Export.cpp
 )
 SOURCE_GROUP("Source Files" FILES
-  MyGUI.Export.cpp
+  MyGUI_Export.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   ExportDefine.h
