@@ -1,7 +1,7 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoxygenWrapper", "DoxygenWrapper\DoxygenWrapper.csproj", "{605A05CD-2819-445E-B073-E3DB675BF5D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoxygenWrapper", "DoxygenWrapper\DoxygenWrapper\DoxygenWrapper.csproj", "{605A05CD-2819-445E-B073-E3DB675BF5D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
