@@ -41,90 +41,48 @@ namespace MyGUI
 
 				//InsertPoint
 
-   				mCreators->Add(gcnew System::String("MultiListItem"), gcnew HandleCreator(MultiListItem::WidgetCreator));
 
 
 
-   				mCreators->Add(gcnew System::String("TabItem"), gcnew HandleCreator(TabItem::WidgetCreator));
 
 
 
-   				mCreators->Add(gcnew System::String("MenuItem"), gcnew HandleCreator(MenuItem::WidgetCreator));
 
 
 
-   				mCreators->Add(gcnew System::String("Window"), gcnew HandleCreator(Window::WidgetCreator));
 
 
 
-   				mCreators->Add(gcnew System::String("Widget"), gcnew HandleCreator(Widget::WidgetCreator));
 
 
 
-   				mCreators->Add(gcnew System::String("ScrollBar"), gcnew HandleCreator(ScrollBar::WidgetCreator));
 
 
 
-   				mCreators->Add(gcnew System::String("TabControl"), gcnew HandleCreator(TabControl::WidgetCreator));
 
 
 
-   				mCreators->Add(gcnew System::String("TextBox"), gcnew HandleCreator(TextBox::WidgetCreator));
-
-
-
-   				mCreators->Add(gcnew System::String("ImageBox"), gcnew HandleCreator(ImageBox::WidgetCreator));
-
-
-
-   				mCreators->Add(gcnew System::String("ScrollView"), gcnew HandleCreator(ScrollView::WidgetCreator));
-
-
-
-   				mCreators->Add(gcnew System::String("ProgressBar"), gcnew HandleCreator(ProgressBar::WidgetCreator));
-
-
-
-   				mCreators->Add(gcnew System::String("PopupMenu"), gcnew HandleCreator(PopupMenu::WidgetCreator));
-
-
-
-   				mCreators->Add(gcnew System::String("MultiListBox"), gcnew HandleCreator(MultiListBox::WidgetCreator));
-
-
-
-   				mCreators->Add(gcnew System::String("MenuControl"), gcnew HandleCreator(MenuControl::WidgetCreator));
-
-
-
-   				mCreators->Add(gcnew System::String("MenuBar"), gcnew HandleCreator(MenuBar::WidgetCreator));
-
-
-
-   				mCreators->Add(gcnew System::String("ListBox"), gcnew HandleCreator(ListBox::WidgetCreator));
-
-
-
-   				mCreators->Add(gcnew System::String("ItemBox"), gcnew HandleCreator(ItemBox::WidgetCreator));
-
-
-
-   				mCreators->Add(gcnew System::String("EditBox"), gcnew HandleCreator(EditBox::WidgetCreator));
-
-
-
-   				mCreators->Add(gcnew System::String("DDContainer"), gcnew HandleCreator(DDContainer::WidgetCreator));
-
-
-
-   				mCreators->Add(gcnew System::String("ComboBox"), gcnew HandleCreator(ComboBox::WidgetCreator));
-
-
-
-   				mCreators->Add(gcnew System::String("Button"), gcnew HandleCreator(Button::WidgetCreator));
-
-
-
+						mCreators->Add(gcnew System::String("MultiListItem"), gcnew HandleCreator(MultiListItem::WidgetCreator));
+						mCreators->Add(gcnew System::String("TabItem"), gcnew HandleCreator(TabItem::WidgetCreator));
+						mCreators->Add(gcnew System::String("MenuItem"), gcnew HandleCreator(MenuItem::WidgetCreator));
+						mCreators->Add(gcnew System::String("Window"), gcnew HandleCreator(Window::WidgetCreator));
+						mCreators->Add(gcnew System::String("Widget"), gcnew HandleCreator(Widget::WidgetCreator));
+						mCreators->Add(gcnew System::String("ScrollBar"), gcnew HandleCreator(ScrollBar::WidgetCreator));
+						mCreators->Add(gcnew System::String("TabControl"), gcnew HandleCreator(TabControl::WidgetCreator));
+						mCreators->Add(gcnew System::String("TextBox"), gcnew HandleCreator(TextBox::WidgetCreator));
+						mCreators->Add(gcnew System::String("ImageBox"), gcnew HandleCreator(ImageBox::WidgetCreator));
+						mCreators->Add(gcnew System::String("ScrollView"), gcnew HandleCreator(ScrollView::WidgetCreator));
+						mCreators->Add(gcnew System::String("ProgressBar"), gcnew HandleCreator(ProgressBar::WidgetCreator));
+						mCreators->Add(gcnew System::String("PopupMenu"), gcnew HandleCreator(PopupMenu::WidgetCreator));
+						mCreators->Add(gcnew System::String("MultiListBox"), gcnew HandleCreator(MultiListBox::WidgetCreator));
+						mCreators->Add(gcnew System::String("MenuControl"), gcnew HandleCreator(MenuControl::WidgetCreator));
+						mCreators->Add(gcnew System::String("MenuBar"), gcnew HandleCreator(MenuBar::WidgetCreator));
+						mCreators->Add(gcnew System::String("ListBox"), gcnew HandleCreator(ListBox::WidgetCreator));
+						mCreators->Add(gcnew System::String("ItemBox"), gcnew HandleCreator(ItemBox::WidgetCreator));
+						mCreators->Add(gcnew System::String("EditBox"), gcnew HandleCreator(EditBox::WidgetCreator));
+						mCreators->Add(gcnew System::String("DDContainer"), gcnew HandleCreator(DDContainer::WidgetCreator));
+						mCreators->Add(gcnew System::String("ComboBox"), gcnew HandleCreator(ComboBox::WidgetCreator));
+						mCreators->Add(gcnew System::String("Button"), gcnew HandleCreator(Button::WidgetCreator));
 			}
 
 		};
