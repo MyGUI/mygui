@@ -98,12 +98,7 @@ namespace DoxygenWrapper.Wrappers
 				if (child is CompoundFunction)
 				{
 					CompoundFunction func = (CompoundFunction)child;
-					if (!func.Internal &&
-						func.Public &&
-						!func.Static &&
-						//!func.Generic &&
-						!func.Name.StartsWith("_") &&
-						!(func.Virtual && func.Reimplement))
+					if (GetAviableFunc(func))
 					{
 						if (
 							//func.Const &&
@@ -140,6 +135,26 @@ namespace DoxygenWrapper.Wrappers
 
 			foreach (var variable in variables)
 				AddClassEvent(variable, _info, _classInfo, _outputFile);
+		}
+
+		private bool GetAviableFunc(CompoundFunction _func)
+		{
+			if (_func.Internal)
+				return false;
+			if (!_func.Public)
+				return false;
+			if (_func.Static)
+				return false;
+			if (_func.Name.StartsWith("_"))
+				return false;
+			if (_func.Reimplement)
+			{
+				if (_func.Virtual)
+					return false;
+				if (_func.Generic)
+					return false;
+			}
+			return true;
 		}
 
 		private CompoundFunction PopSetterFunc(CompoundFunction _func, List<CompoundFunction> _funtions)
