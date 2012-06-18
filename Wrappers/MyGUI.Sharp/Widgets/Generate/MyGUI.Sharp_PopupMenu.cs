@@ -36,18 +36,6 @@ namespace MyGUI.Sharp
 	
 		
 		//InsertPoint
-		#region Property Type
-
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportPopupMenu_IsType( IntPtr _native );
-
-		public bool IsType
-		{
-			get { return  ExportPopupMenu_IsType( mNative )  ; }
-		}
-
-		#endregion
 		
     }
 

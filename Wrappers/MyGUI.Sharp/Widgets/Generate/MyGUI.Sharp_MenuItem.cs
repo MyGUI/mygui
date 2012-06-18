@@ -184,18 +184,6 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-		#region Property Type
-
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportMenuItem_IsType( IntPtr _native );
-
-		public bool IsType
-		{
-			get { return  ExportMenuItem_IsType( mNative )  ; }
-		}
-
-		#endregion
 		
     }
 

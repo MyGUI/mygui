@@ -167,7 +167,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-		#region Property VisibleHScroll
+		#region Property IsVisibleHScroll
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -182,7 +182,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-		#region Property VisibleVScroll
+		#region Property IsVisibleVScroll
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -194,18 +194,6 @@ namespace MyGUI.Sharp
 		{
 			get { return  ExportScrollView_IsVisibleVScroll( mNative )  ; }
 			set { ExportScrollView_SetVisibleVScroll( mNative,  value ); }
-		}
-
-		#endregion
-		#region Property Type
-
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportScrollView_IsType( IntPtr _native );
-
-		public bool IsType
-		{
-			get { return  ExportScrollView_IsType( mNative )  ; }
 		}
 
 		#endregion
