@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -36,8 +36,7 @@ namespace MyGUI.Sharp
 	
 		
 		//InsertPoint
-
-   		#region Method SetItemWidth
+		#region Method SetItemWidth
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMultiListItem_SetItemWidth_value( IntPtr _native ,
@@ -51,10 +50,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method SetItemResizingPolicy
+		#region Method SetItemResizingPolicy
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMultiListItem_SetItemResizingPolicy_value( IntPtr _native ,
@@ -68,20 +64,18 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
+		#region Property Type
 
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportMultiListItem_IsType( IntPtr _native );
 
+		public bool IsType
+		{
+			get { return  ExportMultiListItem_IsType( mNative )  ; }
+		}
 
-   
-
-
-   
-
-
-   
-
-
-   
-
+		#endregion
 		
     }
 

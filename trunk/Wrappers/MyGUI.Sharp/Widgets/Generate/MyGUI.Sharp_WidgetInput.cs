@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -15,8 +15,7 @@ namespace MyGUI.Sharp
     {
 
 		//InsertPoint
-
-   		#region Event ToolTip
+		#region Event ToolTip
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidgetEvent_AdviseToolTip( IntPtr _native, bool _advise );
@@ -70,10 +69,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Event RootKeyChangeFocus
+		#region Event RootKeyChangeFocus
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidgetEvent_AdviseRootKeyChangeFocus( IntPtr _native, bool _advise );
@@ -127,10 +123,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Event RootMouseChangeFocus
+		#region Event RootMouseChangeFocus
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidgetEvent_AdviseRootMouseChangeFocus( IntPtr _native, bool _advise );
@@ -184,10 +177,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Event KeyButtonReleased
+		#region Event KeyButtonReleased
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidgetEvent_AdviseKeyButtonReleased( IntPtr _native, bool _advise );
@@ -241,10 +231,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Event KeyButtonPressed
+		#region Event KeyButtonPressed
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidgetEvent_AdviseKeyButtonPressed( IntPtr _native, bool _advise );
@@ -302,10 +289,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Event KeySetFocus
+		#region Event KeySetFocus
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidgetEvent_AdviseKeySetFocus( IntPtr _native, bool _advise );
@@ -359,10 +343,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Event KeyLostFocus
+		#region Event KeyLostFocus
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidgetEvent_AdviseKeyLostFocus( IntPtr _native, bool _advise );
@@ -416,10 +397,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Event MouseButtonDoubleClick
+		#region Event MouseButtonDoubleClick
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidgetEvent_AdviseMouseButtonDoubleClick( IntPtr _native, bool _advise );
@@ -469,10 +447,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Event MouseButtonClick
+		#region Event MouseButtonClick
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidgetEvent_AdviseMouseButtonClick( IntPtr _native, bool _advise );
@@ -522,10 +497,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Event MouseButtonReleased
+		#region Event MouseButtonReleased
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidgetEvent_AdviseMouseButtonReleased( IntPtr _native, bool _advise );
@@ -587,10 +559,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Event MouseButtonPressed
+		#region Event MouseButtonPressed
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidgetEvent_AdviseMouseButtonPressed( IntPtr _native, bool _advise );
@@ -652,10 +621,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Event MouseWheel
+		#region Event MouseWheel
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidgetEvent_AdviseMouseWheel( IntPtr _native, bool _advise );
@@ -709,10 +675,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Event MouseMove
+		#region Event MouseMove
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidgetEvent_AdviseMouseMove( IntPtr _native, bool _advise );
@@ -770,10 +733,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Event MouseDrag
+		#region Event MouseDrag
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidgetEvent_AdviseMouseDrag( IntPtr _native, bool _advise );
@@ -835,10 +795,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Event MouseSetFocus
+		#region Event MouseSetFocus
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidgetEvent_AdviseMouseSetFocus( IntPtr _native, bool _advise );
@@ -892,10 +849,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Event MouseLostFocus
+		#region Event MouseLostFocus
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidgetEvent_AdviseMouseLostFocus( IntPtr _native, bool _advise );
@@ -949,40 +903,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method GetRootKeyFocus
-
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportWidget_GetRootKeyFocus( IntPtr _native );
-
-		public bool GetRootKeyFocus( )
-		{
-			return  ExportWidget_GetRootKeyFocus( mNative )  ;
-		}
-
-		#endregion
-
-
-
-   		#region Method GetRootMouseFocus
-
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportWidget_GetRootMouseFocus( IntPtr _native );
-
-		public bool GetRootMouseFocus( )
-		{
-			return  ExportWidget_GetRootMouseFocus( mNative )  ;
-		}
-
-		#endregion
-
-
-
-   		#region Method IsMaskPickInside
+		#region Method IsMaskPickInside
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -1000,16 +921,31 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
+		#region Property RootKeyFocus
 
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportWidget_GetRootKeyFocus( IntPtr _native );
 
+		public bool RootKeyFocus
+		{
+			get { return  ExportWidget_GetRootKeyFocus( mNative )  ; }
+		}
 
-   
+		#endregion
+		#region Property RootMouseFocus
 
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportWidget_GetRootMouseFocus( IntPtr _native );
 
-   
+		public bool RootMouseFocus
+		{
+			get { return  ExportWidget_GetRootMouseFocus( mNative )  ; }
+		}
 
-
-   		#region Property InheritsPick
+		#endregion
+		#region Property InheritsPick
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -1024,10 +960,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property NeedMouseFocus
+		#region Property NeedMouseFocus
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -1042,10 +975,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property NeedKeyFocus
+		#region Property NeedKeyFocus
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -1060,10 +990,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property Pointer
+		#region Property Pointer
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
@@ -1078,10 +1005,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property NeedToolTip
+		#region Property NeedToolTip
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -1096,8 +1020,6 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
 		
     }
 

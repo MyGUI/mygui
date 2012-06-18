@@ -37,17 +37,17 @@ namespace TestApp.Sharp
             flag = widget.IsUserString("key");
             name = widget.GetUserString("key");
 
-            int height = widget.GetHeight();
-            int width = widget.GetWidth();
-            int rigth = widget.GetRight();
-            int bottom = widget.GetBottom();
-            int top = widget.GetTop();
-            top = widget.GetAbsoluteTop();
-            int left = widget.GetLeft();
-            left = widget.GetAbsoluteLeft();
-            IntCoord coord = widget.GetAbsoluteCoord();
-            IntRect rect = widget.GetAbsoluteRect();
-            IntPoint point = widget.GetAbsolutePosition();
+            int height = widget.Height;
+            int width = widget.Width;
+            int rigth = widget.Right;
+            int bottom = widget.Bottom;
+            int top = widget.Top;
+            top = widget.AbsoluteTop;
+            int left = widget.Left;
+            left = widget.AbsoluteLeft;
+            IntCoord coord = widget.AbsoluteCoord;
+            IntRect rect = widget.AbsoluteRect;
+            IntPoint point = widget.AbsolutePosition;
 
             Align align = widget.Align;
             widget.Align = Align.Center;
@@ -55,8 +55,8 @@ namespace TestApp.Sharp
             //widget.EnableToolTip = !widget.EnableToolTip;
             widget.NeedToolTip = !widget.NeedToolTip;
 
-            Widget client = widget.GetClientWidget();
-            coord = widget.GetClientCoord();
+            Widget client = widget.ClientWidget;
+            coord = widget.ClientCoord;
 
             string pointer = widget.Pointer;
             widget.Pointer = "Beam";
@@ -75,13 +75,13 @@ namespace TestApp.Sharp
             widget.NeedKeyFocus = !widget.NeedKeyFocus;
 
             Widget find = widget.FindWidget("name1");
-            uint count = widget.GetChildCount();
+            uint count = widget.ChildCount;
             Widget childat = widget.GetChildAt(0);
-            Widget parent = widget.GetParent();
-            parent = childat.GetParent();
+            Widget parent = widget.Parent;
+            parent = childat.Parent;
 
-            flag = widget.IsRootWidget();
-            flag = childat.IsRootWidget();
+            flag = widget.IsRootWidget;
+            flag = childat.IsRootWidget;
 
             //childat.SetState("disabled");
 
@@ -105,7 +105,7 @@ namespace TestApp.Sharp
             widget.Size = new IntSize(12, 12);
             widget.Coord = new IntCoord(20, 220, 100, 100);
 
-            name = widget.GetName();
+            name = widget.Name;
         }
 
         static void widget_EventMouseLostFocus(Widget _sender, Widget _new)

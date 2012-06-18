@@ -10,8 +10,8 @@ namespace TestApp.Sharp
         {
             EditBox box = Gui.Instance.CreateWidget<EditBox>("EditBox", new IntCoord(520, 20, 300, 30), Align.Default, "Main");
             box.OnlyText = "";
-            box.VisibleHScroll = !box.VisibleHScroll;
-            box.VisibleVScroll = !box.VisibleVScroll;
+            box.IsVisibleHScroll = !box.IsVisibleHScroll;
+            box.IsVisibleVScroll = !box.IsVisibleVScroll;
             box.TabPrinting = !box.TabPrinting;
             box.EditWordWrap = !box.EditWordWrap;
             box.EditWordWrap = !box.EditWordWrap;
@@ -35,11 +35,11 @@ namespace TestApp.Sharp
             box.TextCursor = box.TextCursor - 1;
             box.SetTextSelection(0, 12);
             box.SetTextSelectionColour(new Colour(0, 1, 0));
-            bool isselect = box.IsTextSelection();
+            bool isselect = box.IsTextSelection;
             box.DeleteTextSelection();
             string text = box.GetTextInterval(2, 2);
             box.SetTextSelection(0, 2);
-            length = box.GetTextSelectionLength();
+            length = box.TextSelectionLength;
             box.SetTextIntervalColour(3, 2, new Colour(0, 0, 1));
 
             box.EventEditSelectAccept += new EditBox.HandleEditSelectAccept(box_EventEditSelectAccept);

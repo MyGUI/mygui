@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -36,20 +36,7 @@ namespace MyGUI.Sharp
 	
 		
 		//InsertPoint
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   		#region Method SetItemName
+		#region Method SetItemName
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_SetItemName_value( IntPtr _native ,
@@ -63,10 +50,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method SetItemGroup
+		#region Method SetItemGroup
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_SetItemGroup_value( IntPtr _native ,
@@ -80,10 +64,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method SetItemResource
+		#region Method SetItemResource
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -98,10 +79,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method GetItemFrameRate
+		#region Method GetItemFrameRate
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
@@ -116,10 +94,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method SetItemFrameRate
+		#region Method SetItemFrameRate
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_SetItemFrameRate_index_rate( IntPtr _native ,
@@ -136,10 +111,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method DeleteAllItemFrames
+		#region Method DeleteAllItemFrames
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_DeleteAllItemFrames_index( IntPtr _native ,
@@ -153,10 +125,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method DeleteItemFrame
+		#region Method DeleteItemFrame
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_DeleteItemFrame_index_indexFrame( IntPtr _native ,
@@ -173,10 +142,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method SetItemFrame
+		#region Method SetItemFrame
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_SetItemFrame_index_indexFrame_item( IntPtr _native ,
@@ -196,10 +162,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method InsertItemFrameDublicate
+		#region Method InsertItemFrameDublicate
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_InsertItemFrameDublicate_index_indexFrame_indexSourceFrame( IntPtr _native ,
@@ -219,10 +182,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method AddItemFrameDublicate
+		#region Method AddItemFrameDublicate
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_AddItemFrameDublicate_index_indexSourceFrame( IntPtr _native ,
@@ -239,10 +199,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method InsertItemFrame
+		#region Method InsertItemFrame
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_InsertItemFrame_index_indexFrame_item( IntPtr _native ,
@@ -262,10 +219,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method AddItemFrame
+		#region Method AddItemFrame
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_AddItemFrame_index_item( IntPtr _native ,
@@ -282,10 +236,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method DeleteAllItems
+		#region Method DeleteAllItems
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_DeleteAllItems( IntPtr _native );
@@ -296,10 +247,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method DeleteItem
+		#region Method DeleteItem
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_DeleteItem_index( IntPtr _native ,
@@ -313,10 +261,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method SetItem
+		#region Method SetItem
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_SetItem_index_item( IntPtr _native ,
@@ -333,10 +278,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method AddItem
+		#region Method AddItem
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_AddItem_item( IntPtr _native ,
@@ -350,10 +292,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method InsertItem
+		#region Method InsertItem
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_InsertItem_index_item( IntPtr _native ,
@@ -370,10 +309,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method ResetItemSelect
+		#region Method ResetItemSelect
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_ResetItemSelect( IntPtr _native );
@@ -384,61 +320,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property ItemSelect
-
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        
-		private static extern uint ExportImageBox_GetItemSelect( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportImageBox_SetItemSelect( IntPtr _widget,   uint _value );
-
-		public uint ItemSelect
-		{
-			get { return  ExportImageBox_GetItemSelect( mNative )  ; }
-			set { ExportImageBox_SetItemSelect( mNative,  value ); }
-		}
-
-		#endregion
-
-
-
-   		#region Method GetItemCount
-
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        
-		private static extern uint ExportImageBox_GetItemCount( IntPtr _native );
-
-		public uint GetItemCount( )
-		{
-			return  ExportImageBox_GetItemCount( mNative )  ;
-		}
-
-		#endregion
-
-
-
-   		#region Property ImageIndex
-
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        
-		private static extern uint ExportImageBox_GetImageIndex( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportImageBox_SetImageIndex( IntPtr _widget,   uint _value );
-
-		public uint ImageIndex
-		{
-			get { return  ExportImageBox_GetImageIndex( mNative )  ; }
-			set { ExportImageBox_SetImageIndex( mNative,  value ); }
-		}
-
-		#endregion
-
-
-
-   		#region Method SetImageTile
+		#region Method SetImageTile
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_SetImageTile_value( IntPtr _native ,
@@ -452,10 +334,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method SetImageCoord
+		#region Method SetImageCoord
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_SetImageCoord_value( IntPtr _native ,
@@ -469,10 +348,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method SetImageRect
+		#region Method SetImageRect
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_SetImageRect_value( IntPtr _native ,
@@ -486,10 +362,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method SetImageTexture
+		#region Method SetImageTexture
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_SetImageTexture_value( IntPtr _native ,
@@ -503,10 +376,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method SetImageInfo
+		#region Method SetImageInfo
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportImageBox_SetImageInfo_texture_coord_tile( IntPtr _native ,
@@ -526,17 +396,60 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
+		#region Property ItemSelect
 
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern uint ExportImageBox_GetItemSelect( IntPtr _widget );
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportImageBox_SetItemSelect( IntPtr _widget,   uint _value );
 
+		public uint ItemSelect
+		{
+			get { return  ExportImageBox_GetItemSelect( mNative )  ; }
+			set { ExportImageBox_SetItemSelect( mNative,  value ); }
+		}
 
-   
+		#endregion
+		#region Property ItemCount
 
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern uint ExportImageBox_GetItemCount( IntPtr _native );
 
-   
+		public uint ItemCount
+		{
+			get { return  ExportImageBox_GetItemCount( mNative )  ; }
+		}
 
+		#endregion
+		#region Property ImageIndex
 
-   
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern uint ExportImageBox_GetImageIndex( IntPtr _widget );
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportImageBox_SetImageIndex( IntPtr _widget,   uint _value );
 
+		public uint ImageIndex
+		{
+			get { return  ExportImageBox_GetImageIndex( mNative )  ; }
+			set { ExportImageBox_SetImageIndex( mNative,  value ); }
+		}
+
+		#endregion
+		#region Property Type
+
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportImageBox_IsType( IntPtr _native );
+
+		public bool IsType
+		{
+			get { return  ExportImageBox_IsType( mNative )  ; }
+		}
+
+		#endregion
 		
     }
 

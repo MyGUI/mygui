@@ -23,7 +23,7 @@ namespace TestApp.Sharp
             box.ResetDrag();
             Widget cell = box.GetWidgetByIndex(0);
             uint index = box.GetIndexByWidget(cell);
-            Widget drag = box.GetWidgetDrag();
+            Widget drag = box.WidgetDrag;
             box.VerticalAlignment = !box.VerticalAlignment;
             box.ClearItemDataAt(0);
             box.SetItemDataAt(0, "new cell0");

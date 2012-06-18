@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -36,8 +36,7 @@ namespace MyGUI.Sharp
 	
 		
 		//InsertPoint
-
-   		#region Method SetCaptionWithReplacing
+		#region Method SetCaptionWithReplacing
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportTextBox_SetCaptionWithReplacing_value( IntPtr _native ,
@@ -51,10 +50,37 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
+		#region Property TextShadow
 
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportTextBox_GetTextShadow( IntPtr _widget );
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportTextBox_SetTextShadow( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
+		public bool TextShadow
+		{
+			get { return  ExportTextBox_GetTextShadow( mNative )  ; }
+			set { ExportTextBox_SetTextShadow( mNative,  value ); }
+		}
 
-   		#region Property TextColour
+		#endregion
+		#region Property TextShadowColour
+
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern IntPtr ExportTextBox_GetTextShadowColour( IntPtr _widget );
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportTextBox_SetTextShadowColour( IntPtr _widget, [In] ref Colour _value );
+
+		public Colour TextShadowColour
+		{
+			get { return  (Colour)Marshal.PtrToStructure(  ExportTextBox_GetTextShadowColour( mNative )  , typeof(Colour) )  ; }
+			set { ExportTextBox_SetTextShadowColour( mNative, ref value ); }
+		}
+
+		#endregion
+		#region Property TextColour
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
@@ -69,10 +95,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property TextAlign
+		#region Property TextAlign
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I4)]
@@ -87,10 +110,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property FontHeight
+		#region Property FontHeight
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
@@ -105,10 +125,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property FontName
+		#region Property FontName
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
@@ -123,10 +140,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property Caption
+		#region Property Caption
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
@@ -141,47 +155,42 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Method GetTextSize
+		#region Property TextSize
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportTextBox_GetTextSize( IntPtr _native );
 
-		public IntSize GetTextSize( )
+		public IntSize TextSize
 		{
-			return  (IntSize)Marshal.PtrToStructure(  ExportTextBox_GetTextSize( mNative )  , typeof(IntSize) )  ;
+			get { return  (IntSize)Marshal.PtrToStructure(  ExportTextBox_GetTextSize( mNative )  , typeof(IntSize) )  ; }
 		}
 
 		#endregion
-
-
-
-   		#region Method GetTextRegion
+		#region Property TextRegion
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportTextBox_GetTextRegion( IntPtr _native );
 
-		public IntCoord GetTextRegion( )
+		public IntCoord TextRegion
 		{
-			return  (IntCoord)Marshal.PtrToStructure(  ExportTextBox_GetTextRegion( mNative )  , typeof(IntCoord) )  ;
+			get { return  (IntCoord)Marshal.PtrToStructure(  ExportTextBox_GetTextRegion( mNative )  , typeof(IntCoord) )  ; }
 		}
 
 		#endregion
+		#region Property Type
 
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportTextBox_IsType( IntPtr _native );
 
+		public bool IsType
+		{
+			get { return  ExportTextBox_IsType( mNative )  ; }
+		}
 
-   
-
-
-   
-
-
-   
-
+		#endregion
 		
     }
 

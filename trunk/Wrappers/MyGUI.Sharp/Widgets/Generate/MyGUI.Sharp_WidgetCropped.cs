@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -15,173 +15,139 @@ namespace MyGUI.Sharp
     {
 
 		//InsertPoint
-
-   		#region Method GetHeight
+		#region Property Height
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern int ExportWidget_GetHeight( IntPtr _native );
 
-		public int GetHeight( )
+		public int Height
 		{
-			return  ExportWidget_GetHeight( mNative )  ;
+			get { return  ExportWidget_GetHeight( mNative )  ; }
 		}
 
 		#endregion
-
-
-
-   		#region Method GetWidth
+		#region Property Width
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern int ExportWidget_GetWidth( IntPtr _native );
 
-		public int GetWidth( )
+		public int Width
 		{
-			return  ExportWidget_GetWidth( mNative )  ;
+			get { return  ExportWidget_GetWidth( mNative )  ; }
 		}
 
 		#endregion
-
-
-
-   		#region Method GetBottom
+		#region Property Bottom
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern int ExportWidget_GetBottom( IntPtr _native );
 
-		public int GetBottom( )
+		public int Bottom
 		{
-			return  ExportWidget_GetBottom( mNative )  ;
+			get { return  ExportWidget_GetBottom( mNative )  ; }
 		}
 
 		#endregion
-
-
-
-   		#region Method GetTop
+		#region Property Top
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern int ExportWidget_GetTop( IntPtr _native );
 
-		public int GetTop( )
+		public int Top
 		{
-			return  ExportWidget_GetTop( mNative )  ;
+			get { return  ExportWidget_GetTop( mNative )  ; }
 		}
 
 		#endregion
-
-
-
-   		#region Method GetRight
+		#region Property Right
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern int ExportWidget_GetRight( IntPtr _native );
 
-		public int GetRight( )
+		public int Right
 		{
-			return  ExportWidget_GetRight( mNative )  ;
+			get { return  ExportWidget_GetRight( mNative )  ; }
 		}
 
 		#endregion
-
-
-
-   		#region Method GetLeft
+		#region Property Left
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern int ExportWidget_GetLeft( IntPtr _native );
 
-		public int GetLeft( )
+		public int Left
 		{
-			return  ExportWidget_GetLeft( mNative )  ;
+			get { return  ExportWidget_GetLeft( mNative )  ; }
 		}
 
 		#endregion
-
-
-
-   		#region Method GetAbsoluteTop
+		#region Property AbsoluteTop
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern int ExportWidget_GetAbsoluteTop( IntPtr _native );
 
-		public int GetAbsoluteTop( )
+		public int AbsoluteTop
 		{
-			return  ExportWidget_GetAbsoluteTop( mNative )  ;
+			get { return  ExportWidget_GetAbsoluteTop( mNative )  ; }
 		}
 
 		#endregion
-
-
-
-   		#region Method GetAbsoluteLeft
+		#region Property AbsoluteLeft
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern int ExportWidget_GetAbsoluteLeft( IntPtr _native );
 
-		public int GetAbsoluteLeft( )
+		public int AbsoluteLeft
 		{
-			return  ExportWidget_GetAbsoluteLeft( mNative )  ;
+			get { return  ExportWidget_GetAbsoluteLeft( mNative )  ; }
 		}
 
 		#endregion
-
-
-
-   		#region Method GetAbsoluteCoord
+		#region Property AbsoluteCoord
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportWidget_GetAbsoluteCoord( IntPtr _native );
 
-		public IntCoord GetAbsoluteCoord( )
+		public IntCoord AbsoluteCoord
 		{
-			return  (IntCoord)Marshal.PtrToStructure(  ExportWidget_GetAbsoluteCoord( mNative )  , typeof(IntCoord) )  ;
+			get { return  (IntCoord)Marshal.PtrToStructure(  ExportWidget_GetAbsoluteCoord( mNative )  , typeof(IntCoord) )  ; }
 		}
 
 		#endregion
-
-
-
-   		#region Method GetAbsoluteRect
+		#region Property AbsoluteRect
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportWidget_GetAbsoluteRect( IntPtr _native );
 
-		public IntRect GetAbsoluteRect( )
+		public IntRect AbsoluteRect
 		{
-			return  (IntRect)Marshal.PtrToStructure(  ExportWidget_GetAbsoluteRect( mNative )  , typeof(IntRect) )  ;
+			get { return  (IntRect)Marshal.PtrToStructure(  ExportWidget_GetAbsoluteRect( mNative )  , typeof(IntRect) )  ; }
 		}
 
 		#endregion
-
-
-
-   		#region Method GetAbsolutePosition
+		#region Property AbsolutePosition
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportWidget_GetAbsolutePosition( IntPtr _native );
 
-		public IntPoint GetAbsolutePosition( )
+		public IntPoint AbsolutePosition
 		{
-			return  (IntPoint)Marshal.PtrToStructure(  ExportWidget_GetAbsolutePosition( mNative )  , typeof(IntPoint) )  ;
+			get { return  (IntPoint)Marshal.PtrToStructure(  ExportWidget_GetAbsolutePosition( mNative )  , typeof(IntPoint) )  ; }
 		}
 
 		#endregion
-
-
-
-   		#region Property Coord
+		#region Property Coord
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
@@ -196,16 +162,13 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property Size
+		#region Property Size
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportWidget_GetSize( IntPtr _widget );
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWidget_SetSize( IntPtr _widget,  ref IntSize _value );
+		private static extern void ExportWidget_SetSize( IntPtr _widget, [In] ref IntSize _value );
 
 		public IntSize Size
 		{
@@ -214,10 +177,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   		#region Property Position
+		#region Property Position
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
@@ -232,11 +192,6 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
-
-
-   
-
 		
     }
 

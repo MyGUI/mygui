@@ -16,7 +16,7 @@ namespace TestApp.Sharp
             menu.InsertItemAt(0, "insert line0", MenuItemType.Normal, "id2", "0");
             menu.AddItem("line2", MenuItemType.Normal, "id3", "0");
 
-            MenuItem parent = menu.GetMenuItemParent();
+            MenuItem parent = menu.MenuItemParent;
             menu.PopupAccept = !menu.PopupAccept;
             menu.SetItemTypeAt(0, MenuItemType.Popup);
             MenuItemType type = menu.GetItemTypeAt(0);
@@ -38,12 +38,12 @@ namespace TestApp.Sharp
             data = menu.GetItemDataAt(0) as string;
 
             //MenuItem test start
-            child = item.GetItemChild();
-            MenuControl parent2 = item.GetMenuCtrlParent();
+            child = item.ItemChild;
+            MenuControl parent2 = item.MenuCtrlParent;
             item.SetItemChildVisible(true);
             type =  item.ItemType;
             item.ItemType = type;
-            index = item.GetItemIndex();
+            index = item.ItemIndex;
             item.ItemId = item.ItemId + "_newid";
             item.ItemName = item.ItemName + "_newname";
 
