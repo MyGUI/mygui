@@ -56,8 +56,9 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MyGUI_Managed">
-      <HintPath>..\..\..\MyGUI_Trunk_bin\bin\Release\MyGUI_Managed.dll</HintPath>
+    <Reference Include="MyGUI_Managed, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SolutionDir)../bin/$(Configuration)\MyGUI_Managed.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
