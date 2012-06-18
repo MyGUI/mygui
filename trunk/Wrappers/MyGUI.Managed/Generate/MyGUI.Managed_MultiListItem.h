@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -39,7 +39,7 @@ namespace MyGUI
 
 			//InsertPoint
 
-   	public:
+	public:
 		void SetItemWidth(
 			Convert<int>::Type _value )
 		{
@@ -47,10 +47,7 @@ namespace MyGUI
 			static_cast<ThisType*>(mNative)->setItemWidth(
 				Convert<int>::From(_value) );
 		}
-
-
-
-   	public:
+	public:
 		void SetItemResizingPolicy(
 			Convert<MyGUI::ResizingPolicy>::Type _value )
 		{
@@ -58,21 +55,6 @@ namespace MyGUI
 			static_cast<ThisType*>(mNative)->setItemResizingPolicy(
 				Convert<MyGUI::ResizingPolicy>::From(_value) );
 		}
-
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
 		};
 
 	} // namespace Managed

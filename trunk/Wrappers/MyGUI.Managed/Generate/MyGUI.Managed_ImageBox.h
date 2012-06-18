@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -39,19 +39,7 @@ namespace MyGUI
 
 			//InsertPoint
 
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   	public:
+	public:
 		void SetItemName(
 			Convert<const std::string &>::Type _value )
 		{
@@ -59,10 +47,7 @@ namespace MyGUI
 			static_cast<ThisType*>(mNative)->setItemName(
 				Convert<const std::string &>::From(_value) );
 		}
-
-
-
-   	public:
+	public:
 		void SetItemGroup(
 			Convert<const std::string &>::Type _value )
 		{
@@ -70,10 +55,7 @@ namespace MyGUI
 			static_cast<ThisType*>(mNative)->setItemGroup(
 				Convert<const std::string &>::From(_value) );
 		}
-
-
-
-   	public:
+	public:
 		Convert<bool>::Type SetItemResource(
 			Convert<const std::string &>::Type _name )
 		{
@@ -82,10 +64,7 @@ namespace MyGUI
 				static_cast<ThisType*>(mNative)->setItemResource(
 					Convert<const std::string &>::From(_name) ) );
 		}
-
-
-
-   	public:
+	public:
 		Convert<float>::Type GetItemFrameRate(
 			Convert<size_t>::Type _index )
 		{
@@ -94,10 +73,7 @@ namespace MyGUI
 				static_cast<ThisType*>(mNative)->getItemFrameRate(
 					Convert<size_t>::From(_index) ) );
 		}
-
-
-
-   	public:
+	public:
 		void SetItemFrameRate(
 			Convert<size_t>::Type _index ,
 			Convert<float>::Type _rate )
@@ -107,10 +83,7 @@ namespace MyGUI
 				Convert<size_t>::From(_index) ,
 				Convert<float>::From(_rate) );
 		}
-
-
-
-   	public:
+	public:
 		void DeleteAllItemFrames(
 			Convert<size_t>::Type _index )
 		{
@@ -118,10 +91,7 @@ namespace MyGUI
 			static_cast<ThisType*>(mNative)->deleteAllItemFrames(
 				Convert<size_t>::From(_index) );
 		}
-
-
-
-   	public:
+	public:
 		void DeleteItemFrame(
 			Convert<size_t>::Type _index ,
 			Convert<size_t>::Type _indexFrame )
@@ -131,25 +101,19 @@ namespace MyGUI
 				Convert<size_t>::From(_index) ,
 				Convert<size_t>::From(_indexFrame) );
 		}
-
-
-
-   	public:
+	public:
 		void SetItemFrame(
 			Convert<size_t>::Type _index ,
 			Convert<size_t>::Type _indexFrame ,
-			Convert<const MyGUI::types::TCoord< int > &>::Type _item )
+			Convert<const MyGUI::types::TCoord < int > &>::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItemFrame(
 				Convert<size_t>::From(_index) ,
 				Convert<size_t>::From(_indexFrame) ,
-				Convert<const MyGUI::types::TCoord< int > &>::From(_item) );
+				Convert<const MyGUI::types::TCoord < int > &>::From(_item) );
 		}
-
-
-
-   	public:
+	public:
 		void InsertItemFrameDublicate(
 			Convert<size_t>::Type _index ,
 			Convert<size_t>::Type _indexFrame ,
@@ -161,10 +125,7 @@ namespace MyGUI
 				Convert<size_t>::From(_indexFrame) ,
 				Convert<size_t>::From(_indexSourceFrame) );
 		}
-
-
-
-   	public:
+	public:
 		void AddItemFrameDublicate(
 			Convert<size_t>::Type _index ,
 			Convert<size_t>::Type _indexSourceFrame )
@@ -174,47 +135,35 @@ namespace MyGUI
 				Convert<size_t>::From(_index) ,
 				Convert<size_t>::From(_indexSourceFrame) );
 		}
-
-
-
-   	public:
+	public:
 		void InsertItemFrame(
 			Convert<size_t>::Type _index ,
 			Convert<size_t>::Type _indexFrame ,
-			Convert<const MyGUI::types::TCoord< int > &>::Type _item )
+			Convert<const MyGUI::types::TCoord < int > &>::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->insertItemFrame(
 				Convert<size_t>::From(_index) ,
 				Convert<size_t>::From(_indexFrame) ,
-				Convert<const MyGUI::types::TCoord< int > &>::From(_item) );
+				Convert<const MyGUI::types::TCoord < int > &>::From(_item) );
 		}
-
-
-
-   	public:
+	public:
 		void AddItemFrame(
 			Convert<size_t>::Type _index ,
-			Convert<const MyGUI::types::TCoord< int > &>::Type _item )
+			Convert<const MyGUI::types::TCoord < int > &>::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->addItemFrame(
 				Convert<size_t>::From(_index) ,
-				Convert<const MyGUI::types::TCoord< int > &>::From(_item) );
+				Convert<const MyGUI::types::TCoord < int > &>::From(_item) );
 		}
-
-
-
-   	public:
+	public:
 		void DeleteAllItems( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->deleteAllItems( );
 		}
-
-
-
-   	public:
+	public:
 		void DeleteItem(
 			Convert<size_t>::Type _index )
 		{
@@ -222,56 +171,85 @@ namespace MyGUI
 			static_cast<ThisType*>(mNative)->deleteItem(
 				Convert<size_t>::From(_index) );
 		}
-
-
-
-   	public:
+	public:
 		void SetItem(
 			Convert<size_t>::Type _index ,
-			Convert<const MyGUI::types::TCoord< int > &>::Type _item )
+			Convert<const MyGUI::types::TCoord < int > &>::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->setItem(
 				Convert<size_t>::From(_index) ,
-				Convert<const MyGUI::types::TCoord< int > &>::From(_item) );
+				Convert<const MyGUI::types::TCoord < int > &>::From(_item) );
 		}
-
-
-
-   	public:
+	public:
 		void AddItem(
-			Convert<const MyGUI::types::TCoord< int > &>::Type _item )
+			Convert<const MyGUI::types::TCoord < int > &>::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->addItem(
-				Convert<const MyGUI::types::TCoord< int > &>::From(_item) );
+				Convert<const MyGUI::types::TCoord < int > &>::From(_item) );
 		}
-
-
-
-   	public:
+	public:
 		void InsertItem(
 			Convert<size_t>::Type _index ,
-			Convert<const MyGUI::types::TCoord< int > &>::Type _item )
+			Convert<const MyGUI::types::TCoord < int > &>::Type _item )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->insertItem(
 				Convert<size_t>::From(_index) ,
-				Convert<const MyGUI::types::TCoord< int > &>::From(_item) );
+				Convert<const MyGUI::types::TCoord < int > &>::From(_item) );
 		}
-
-
-
-   	public:
+	public:
 		void ResetItemSelect( )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			static_cast<ThisType*>(mNative)->resetItemSelect( );
 		}
-
-
-
-   	public:
+	public:
+		void SetImageTile(
+			Convert<const MyGUI::types::TSize < int > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setImageTile(
+				Convert<const MyGUI::types::TSize < int > &>::From(_value) );
+		}
+	public:
+		void SetImageCoord(
+			Convert<const MyGUI::types::TCoord < int > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setImageCoord(
+				Convert<const MyGUI::types::TCoord < int > &>::From(_value) );
+		}
+	public:
+		void SetImageRect(
+			Convert<const MyGUI::types::TRect < int > &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setImageRect(
+				Convert<const MyGUI::types::TRect < int > &>::From(_value) );
+		}
+	public:
+		void SetImageTexture(
+			Convert<const std::string &>::Type _value )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setImageTexture(
+				Convert<const std::string &>::From(_value) );
+		}
+	public:
+		void SetImageInfo(
+			Convert<const std::string &>::Type _texture ,
+			Convert<const MyGUI::types::TCoord < int > &>::Type _coord ,
+			Convert<const MyGUI::types::TSize < int > &>::Type _tile )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setImageInfo(
+				Convert<const std::string &>::From(_texture) ,
+				Convert<const MyGUI::types::TCoord < int > &>::From(_coord) ,
+				Convert<const MyGUI::types::TSize < int > &>::From(_tile) );
+		}
+	public:
 		property Convert<size_t>::Type ItemSelect
 		{
 			Convert<size_t>::Type get( )
@@ -286,19 +264,17 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
-		Convert<size_t>::Type GetItemCount( )
+	public:
+		property Convert<size_t>::Type ItemCount
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<size_t>::To(
-				static_cast<ThisType*>(mNative)->getItemCount( ) );
+			Convert<size_t>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<size_t>::To( static_cast<ThisType*>(mNative)->getItemCount() );
+			}
 		}
-
-
-
-   	public:
+	
+	public:
 		property Convert<size_t>::Type ImageIndex
 		{
 			Convert<size_t>::Type get( )
@@ -313,76 +289,6 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
-		void SetImageTile(
-			Convert<const MyGUI::types::TSize< int > &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setImageTile(
-				Convert<const MyGUI::types::TSize< int > &>::From(_value) );
-		}
-
-
-
-   	public:
-		void SetImageCoord(
-			Convert<const MyGUI::types::TCoord< int > &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setImageCoord(
-				Convert<const MyGUI::types::TCoord< int > &>::From(_value) );
-		}
-
-
-
-   	public:
-		void SetImageRect(
-			Convert<const MyGUI::types::TRect< int > &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setImageRect(
-				Convert<const MyGUI::types::TRect< int > &>::From(_value) );
-		}
-
-
-
-   	public:
-		void SetImageTexture(
-			Convert<const std::string &>::Type _value )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setImageTexture(
-				Convert<const std::string &>::From(_value) );
-		}
-
-
-
-   	public:
-		void SetImageInfo(
-			Convert<const std::string &>::Type _texture ,
-			Convert<const MyGUI::types::TCoord< int > &>::Type _coord ,
-			Convert<const MyGUI::types::TSize< int > &>::Type _tile )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setImageInfo(
-				Convert<const std::string &>::From(_texture) ,
-				Convert<const MyGUI::types::TCoord< int > &>::From(_coord) ,
-				Convert<const MyGUI::types::TSize< int > &>::From(_tile) );
-		}
-
-
-
-   
-
-
-   
-
-
-   
-
-
 		};
 
 	} // namespace Managed

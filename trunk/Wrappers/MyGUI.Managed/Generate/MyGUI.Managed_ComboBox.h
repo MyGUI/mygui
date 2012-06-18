@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -39,7 +39,7 @@ namespace MyGUI
 
 			//InsertPoint
 
-   	public:
+	public:
 		delegate void HandleComboChangePosition(
 			Convert<MyGUI::ComboBox *>::Type _sender ,
 			Convert<size_t>::Type _index );
@@ -80,10 +80,7 @@ namespace MyGUI
 		}
 	private:
 		HandleComboChangePosition^ mDelegateComboChangePosition;
-
-
-
-   	public:
+	public:
 		delegate void HandleComboAccept(
 			Convert<MyGUI::ComboBox *>::Type _sender ,
 			Convert<size_t>::Type _index );
@@ -124,10 +121,148 @@ namespace MyGUI
 		}
 	private:
 		HandleComboAccept^ mDelegateComboAccept;
+	public:
+		void BeginToItemSelected( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->beginToItemSelected( );
+		}
+	public:
+		void BeginToItemLast( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->beginToItemLast( );
+		}
+	public:
+		void BeginToItemFirst( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->beginToItemFirst( );
+		}
+	public:
+		void BeginToItemAt(
+			Convert<size_t>::Type _index )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->beginToItemAt(
+				Convert<size_t>::From(_index) );
+		}
+	public:
+		Convert<const MyGUI::UString &>::Type GetItemNameAt(
+			Convert<size_t>::Type _index )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<const MyGUI::UString &>::To(
+				static_cast<ThisType*>(mNative)->getItemNameAt(
+					Convert<size_t>::From(_index) ) );
+		}
+	public:
+		void SetItemNameAt(
+			Convert<size_t>::Type _index ,
+			Convert<const MyGUI::UString &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setItemNameAt(
+				Convert<size_t>::From(_index) ,
+				Convert<const MyGUI::UString &>::From(_name) );
+		}
+	public:
+		Convert<MyGUI::Any>::Type GetItemDataAt(
+			Convert<size_t>::Type _index )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			ObjectHolder* data = static_cast<ThisType*>(mNative)->getItemDataAt< ObjectHolder >(
+				Convert<size_t>::From(_index) , false );
+			return data ? data->toObject() : nullptr;
+		}
+	public:
+		void ClearItemDataAt(
+			Convert<size_t>::Type _index )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->clearItemDataAt(
+				Convert<size_t>::From(_index) );
+		}
+	public:
+		void SetItemDataAt(
+			Convert<size_t>::Type _index ,
+			Convert<MyGUI::Any>::Type _data )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setItemDataAt(
+				Convert<size_t>::From(_index) ,
+				Convert<MyGUI::Any>::From(_data) );
+		}
+	public:
+		void ClearIndexSelected( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->clearIndexSelected( );
+		}
+	public:
+		Convert<size_t>::Type FindItemIndexWith(
+			Convert<const MyGUI::UString &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			return Convert<size_t>::To(
+				static_cast<ThisType*>(mNative)->findItemIndexWith(
+					Convert<const MyGUI::UString &>::From(_name) ) );
+		}
+	public:
+		void RemoveAllItems( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->removeAllItems( );
+		}
+	public:
+		void RemoveItemAt(
+			Convert<size_t>::Type _index )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->removeItemAt(
+				Convert<size_t>::From(_index) );
+		}
+	public:
+		void AddItem(
+			Convert<const MyGUI::UString &>::Type _name ,
+			Convert<MyGUI::Any>::Type _data )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->addItem(
+				Convert<const MyGUI::UString &>::From(_name) ,
+				Convert<MyGUI::Any>::From(_data) );
+		}
 
+		void AddItem(
+			Convert<const MyGUI::UString &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->addItem(
+				Convert<const MyGUI::UString &>::From(_name) );
+		}
+	public:
+		void InsertItemAt(
+			Convert<size_t>::Type _index ,
+			Convert<const MyGUI::UString &>::Type _name ,
+			Convert<MyGUI::Any>::Type _data )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->insertItemAt(
+				Convert<size_t>::From(_index) ,
+				Convert<const MyGUI::UString &>::From(_name) ,
+				Convert<MyGUI::Any>::From(_data) );
+		}
 
-
-   	public:
+		void InsertItemAt(
+			Convert<size_t>::Type _index ,
+			Convert<const MyGUI::UString &>::Type _name )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->insertItemAt(
+				Convert<size_t>::From(_index) ,
+				Convert<const MyGUI::UString &>::From(_name) );
+		}
+	public:
 		property Convert<MyGUI::FlowDirection>::Type FlowDirection
 		{
 			Convert<MyGUI::FlowDirection>::Type get( )
@@ -142,9 +277,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<int>::Type MaxListLength
 		{
 			Convert<int>::Type get( )
@@ -159,9 +292,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<bool>::Type SmoothShow
 		{
 			Convert<bool>::Type get( )
@@ -176,9 +307,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<bool>::Type ComboModeDrop
 		{
 			Convert<bool>::Type get( )
@@ -193,117 +322,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
-		void BeginToItemSelected( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->beginToItemSelected( );
-		}
-
-
-
-   	public:
-		void BeginToItemLast( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->beginToItemLast( );
-		}
-
-
-
-   	public:
-		void BeginToItemFirst( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->beginToItemFirst( );
-		}
-
-
-
-   	public:
-		void BeginToItemAt(
-			Convert<size_t>::Type _index )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->beginToItemAt(
-				Convert<size_t>::From(_index) );
-		}
-
-
-
-   	public:
-		Convert<const MyGUI::UString &>::Type GetItemNameAt(
-			Convert<size_t>::Type _index )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<const MyGUI::UString &>::To(
-				static_cast<ThisType*>(mNative)->getItemNameAt(
-					Convert<size_t>::From(_index) ) );
-		}
-
-
-
-   	public:
-		void SetItemNameAt(
-			Convert<size_t>::Type _index ,
-			Convert<const MyGUI::UString &>::Type _name )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setItemNameAt(
-				Convert<size_t>::From(_index) ,
-				Convert<const MyGUI::UString &>::From(_name) );
-		}
-
-
-
-   	public:
-		Convert<MyGUI::Any>::Type GetItemDataAt(
-			Convert<size_t>::Type _index )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			ObjectHolder* data = static_cast<ThisType*>(mNative)->getItemDataAt< ObjectHolder >(
-				Convert<size_t>::From(_index) , false );
-			return data ? data->toObject() : nullptr;
-		}
-
-
-
-   	public:
-		void ClearItemDataAt(
-			Convert<size_t>::Type _index )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->clearItemDataAt(
-				Convert<size_t>::From(_index) );
-		}
-
-
-
-   	public:
-		void SetItemDataAt(
-			Convert<size_t>::Type _index ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->setItemDataAt(
-				Convert<size_t>::From(_index) ,
-				Convert<MyGUI::Any>::From(_data) );
-		}
-
-
-
-   	public:
-		void ClearIndexSelected( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->clearIndexSelected( );
-		}
-
-
-
-   	public:
+	public:
 		property Convert<size_t>::Type IndexSelected
 		{
 			Convert<size_t>::Type get( )
@@ -318,87 +337,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
-		Convert<size_t>::Type FindItemIndexWith(
-			Convert<const MyGUI::UString &>::Type _name )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<size_t>::To(
-				static_cast<ThisType*>(mNative)->findItemIndexWith(
-					Convert<const MyGUI::UString &>::From(_name) ) );
-		}
-
-
-
-   	public:
-		void RemoveAllItems( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->removeAllItems( );
-		}
-
-
-
-   	public:
-		void RemoveItemAt(
-			Convert<size_t>::Type _index )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->removeItemAt(
-				Convert<size_t>::From(_index) );
-		}
-
-
-
-   	public:
-		void AddItem(
-			Convert<const MyGUI::UString &>::Type _name ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->addItem(
-				Convert<const MyGUI::UString &>::From(_name) ,
-				Convert<MyGUI::Any>::From(_data) );
-		}
-
-		void AddItem(
-			Convert<const MyGUI::UString &>::Type _name )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->addItem(
-				Convert<const MyGUI::UString &>::From(_name) );
-		}
-
-
-
-   	public:
-		void InsertItemAt(
-			Convert<size_t>::Type _index ,
-			Convert<const MyGUI::UString &>::Type _name ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->insertItemAt(
-				Convert<size_t>::From(_index) ,
-				Convert<const MyGUI::UString &>::From(_name) ,
-				Convert<MyGUI::Any>::From(_data) );
-		}
-
-		void InsertItemAt(
-			Convert<size_t>::Type _index ,
-			Convert<const MyGUI::UString &>::Type _name )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			static_cast<ThisType*>(mNative)->insertItemAt(
-				Convert<size_t>::From(_index) ,
-				Convert<const MyGUI::UString &>::From(_name) );
-		}
-
-
-
-   	public:
+	public:
 		property Convert<size_t>::Type ItemCount
 		{
 			Convert<size_t>::Type get( )
@@ -408,17 +347,6 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   
-
-
-   
-
-
-   
-
-
 		};
 
 	} // namespace Managed

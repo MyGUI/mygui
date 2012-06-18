@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -27,7 +27,7 @@ namespace MyGUI
 
 			//InsertPoint
 
-   	public:
+	public:
 		delegate void HandleToolTip(
 			Convert<MyGUI::Widget *>::Type _sender ,
 			Convert<const MyGUI::ToolTipInfo &>::Type _info );
@@ -68,10 +68,7 @@ namespace MyGUI
 		}
 	private:
 		HandleToolTip^ mDelegateToolTip;
-
-
-
-   	public:
+	public:
 		delegate void HandleRootKeyChangeFocus(
 			Convert<MyGUI::Widget *>::Type _sender ,
 			Convert<bool>::Type _focus );
@@ -112,10 +109,7 @@ namespace MyGUI
 		}
 	private:
 		HandleRootKeyChangeFocus^ mDelegateRootKeyChangeFocus;
-
-
-
-   	public:
+	public:
 		delegate void HandleRootMouseChangeFocus(
 			Convert<MyGUI::Widget *>::Type _sender ,
 			Convert<bool>::Type _focus );
@@ -156,10 +150,7 @@ namespace MyGUI
 		}
 	private:
 		HandleRootMouseChangeFocus^ mDelegateRootMouseChangeFocus;
-
-
-
-   	public:
+	public:
 		delegate void HandleKeyButtonReleased(
 			Convert<MyGUI::Widget *>::Type _sender ,
 			Convert<MyGUI::KeyCode>::Type _key );
@@ -200,10 +191,7 @@ namespace MyGUI
 		}
 	private:
 		HandleKeyButtonReleased^ mDelegateKeyButtonReleased;
-
-
-
-   	public:
+	public:
 		delegate void HandleKeyButtonPressed(
 			Convert<MyGUI::Widget *>::Type _sender ,
 			Convert<MyGUI::KeyCode>::Type _key ,
@@ -249,10 +237,7 @@ namespace MyGUI
 		}
 	private:
 		HandleKeyButtonPressed^ mDelegateKeyButtonPressed;
-
-
-
-   	public:
+	public:
 		delegate void HandleKeySetFocus(
 			Convert<MyGUI::Widget *>::Type _sender ,
 			Convert<MyGUI::Widget *>::Type _old );
@@ -293,10 +278,7 @@ namespace MyGUI
 		}
 	private:
 		HandleKeySetFocus^ mDelegateKeySetFocus;
-
-
-
-   	public:
+	public:
 		delegate void HandleKeyLostFocus(
 			Convert<MyGUI::Widget *>::Type _sender ,
 			Convert<MyGUI::Widget *>::Type _new );
@@ -337,10 +319,7 @@ namespace MyGUI
 		}
 	private:
 		HandleKeyLostFocus^ mDelegateKeyLostFocus;
-
-
-
-   	public:
+	public:
 		delegate void HandleMouseButtonDoubleClick(
 			Convert<MyGUI::Widget *>::Type _sender );
 		event HandleMouseButtonDoubleClick^ EventMouseButtonDoubleClick
@@ -376,10 +355,7 @@ namespace MyGUI
 		}
 	private:
 		HandleMouseButtonDoubleClick^ mDelegateMouseButtonDoubleClick;
-
-
-
-   	public:
+	public:
 		delegate void HandleMouseButtonClick(
 			Convert<MyGUI::Widget *>::Type _sender );
 		event HandleMouseButtonClick^ EventMouseButtonClick
@@ -415,10 +391,7 @@ namespace MyGUI
 		}
 	private:
 		HandleMouseButtonClick^ mDelegateMouseButtonClick;
-
-
-
-   	public:
+	public:
 		delegate void HandleMouseButtonReleased(
 			Convert<MyGUI::Widget *>::Type _sender ,
 			Convert<int>::Type _left ,
@@ -469,10 +442,7 @@ namespace MyGUI
 		}
 	private:
 		HandleMouseButtonReleased^ mDelegateMouseButtonReleased;
-
-
-
-   	public:
+	public:
 		delegate void HandleMouseButtonPressed(
 			Convert<MyGUI::Widget *>::Type _sender ,
 			Convert<int>::Type _left ,
@@ -523,10 +493,7 @@ namespace MyGUI
 		}
 	private:
 		HandleMouseButtonPressed^ mDelegateMouseButtonPressed;
-
-
-
-   	public:
+	public:
 		delegate void HandleMouseWheel(
 			Convert<MyGUI::Widget *>::Type _sender ,
 			Convert<int>::Type _rel );
@@ -567,10 +534,7 @@ namespace MyGUI
 		}
 	private:
 		HandleMouseWheel^ mDelegateMouseWheel;
-
-
-
-   	public:
+	public:
 		delegate void HandleMouseMove(
 			Convert<MyGUI::Widget *>::Type _sender ,
 			Convert<int>::Type _left ,
@@ -616,10 +580,7 @@ namespace MyGUI
 		}
 	private:
 		HandleMouseMove^ mDelegateMouseMove;
-
-
-
-   	public:
+	public:
 		delegate void HandleMouseDrag(
 			Convert<MyGUI::Widget *>::Type _sender ,
 			Convert<int>::Type _left ,
@@ -670,10 +631,7 @@ namespace MyGUI
 		}
 	private:
 		HandleMouseDrag^ mDelegateMouseDrag;
-
-
-
-   	public:
+	public:
 		delegate void HandleMouseSetFocus(
 			Convert<MyGUI::Widget *>::Type _sender ,
 			Convert<MyGUI::Widget *>::Type _old );
@@ -714,10 +672,7 @@ namespace MyGUI
 		}
 	private:
 		HandleMouseSetFocus^ mDelegateMouseSetFocus;
-
-
-
-   	public:
+	public:
 		delegate void HandleMouseLostFocus(
 			Convert<MyGUI::Widget *>::Type _sender ,
 			Convert<MyGUI::Widget *>::Type _new );
@@ -758,50 +713,38 @@ namespace MyGUI
 		}
 	private:
 		HandleMouseLostFocus^ mDelegateMouseLostFocus;
-
-
-
-   	public:
-		Convert<bool>::Type GetRootKeyFocus( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<bool>::To(
-				static_cast<ThisType*>(mNative)->getRootKeyFocus( ) );
-		}
-
-
-
-   	public:
-		Convert<bool>::Type GetRootMouseFocus( )
-		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<bool>::To(
-				static_cast<ThisType*>(mNative)->getRootMouseFocus( ) );
-		}
-
-
-
-   	public:
+	public:
 		Convert<bool>::Type IsMaskPickInside(
-			Convert<const MyGUI::types::TPoint< int > &>::Type _point ,
-			Convert<const MyGUI::types::TCoord< int > &>::Type _coord )
+			Convert<const MyGUI::types::TPoint < int > &>::Type _point ,
+			Convert<const MyGUI::types::TCoord < int > &>::Type _coord )
 		{
 			MMYGUI_CHECK_NATIVE(mNative);
 			return Convert<bool>::To(
 				static_cast<ThisType*>(mNative)->isMaskPickInside(
-					Convert<const MyGUI::types::TPoint< int > &>::From(_point) ,
-					Convert<const MyGUI::types::TCoord< int > &>::From(_coord) ) );
+					Convert<const MyGUI::types::TPoint < int > &>::From(_point) ,
+					Convert<const MyGUI::types::TCoord < int > &>::From(_coord) ) );
 		}
-
-
-
-   
-
-
-   
-
-
-   	public:
+	public:
+		property Convert<bool>::Type RootKeyFocus
+		{
+			Convert<bool>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getRootKeyFocus() );
+			}
+		}
+	
+	public:
+		property Convert<bool>::Type RootMouseFocus
+		{
+			Convert<bool>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<bool>::To( static_cast<ThisType*>(mNative)->getRootMouseFocus() );
+			}
+		}
+	
+	public:
 		property Convert<bool>::Type InheritsPick
 		{
 			Convert<bool>::Type get( )
@@ -816,9 +759,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<bool>::Type NeedMouseFocus
 		{
 			Convert<bool>::Type get( )
@@ -833,9 +774,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<bool>::Type NeedKeyFocus
 		{
 			Convert<bool>::Type get( )
@@ -850,9 +789,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<const std::string &>::Type Pointer
 		{
 			Convert<const std::string &>::Type get( )
@@ -867,9 +804,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<bool>::Type NeedToolTip
 		{
 			Convert<bool>::Type get( )
@@ -884,8 +819,6 @@ namespace MyGUI
 			}
 		}
 	
-
-
 		};
 
 	} // namespace Managed

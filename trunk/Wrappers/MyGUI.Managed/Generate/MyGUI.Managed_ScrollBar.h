@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -39,7 +39,7 @@ namespace MyGUI
 
 			//InsertPoint
 
-   	public:
+	public:
 		delegate void HandleScrollChangePosition(
 			Convert<MyGUI::ScrollBar *>::Type _sender ,
 			Convert<size_t>::Type _position );
@@ -80,28 +80,41 @@ namespace MyGUI
 		}
 	private:
 		HandleScrollChangePosition^ mDelegateScrollChangePosition;
-
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   	public:
+	public:
+		void SetCoord(
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top ,
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setCoord(
+				Convert<int>::From(_left) ,
+				Convert<int>::From(_top) ,
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) );
+		}
+	public:
+		void SetSize(
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setSize(
+				Convert<int>::From(_width) ,
+				Convert<int>::From(_height) );
+		}
+	public:
+		void SetPosition(
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->setPosition(
+				Convert<int>::From(_left) ,
+				Convert<int>::From(_top) );
+		}
+	public:
 		property Convert<bool>::Type MoveToClick
 		{
 			Convert<bool>::Type get( )
@@ -116,9 +129,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<int>::Type MinTrackSize
 		{
 			Convert<int>::Type get( )
@@ -133,9 +144,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<int>::Type TrackSize
 		{
 			Convert<int>::Type get( )
@@ -150,19 +159,17 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
-		Convert<int>::Type GetLineSize( )
+	public:
+		property Convert<int>::Type LineSize
 		{
-			MMYGUI_CHECK_NATIVE(mNative);
-			return Convert<int>::To(
-				static_cast<ThisType*>(mNative)->getLineSize( ) );
+			Convert<int>::Type get( )
+			{
+				MMYGUI_CHECK_NATIVE(mNative);
+				return Convert<int>::To( static_cast<ThisType*>(mNative)->getLineSize() );
+			}
 		}
-
-
-
-   	public:
+	
+	public:
 		property Convert<size_t>::Type ScrollViewPage
 		{
 			Convert<size_t>::Type get( )
@@ -177,9 +184,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<size_t>::Type ScrollPage
 		{
 			Convert<size_t>::Type get( )
@@ -194,9 +199,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<size_t>::Type ScrollPosition
 		{
 			Convert<size_t>::Type get( )
@@ -211,9 +214,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<size_t>::Type ScrollRange
 		{
 			Convert<size_t>::Type get( )
@@ -228,9 +229,7 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   	public:
+	public:
 		property Convert<bool>::Type VerticalAlignment
 		{
 			Convert<bool>::Type get( )
@@ -245,17 +244,6 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   
-
-
-   
-
-
-   
-
-
 		};
 
 	} // namespace Managed

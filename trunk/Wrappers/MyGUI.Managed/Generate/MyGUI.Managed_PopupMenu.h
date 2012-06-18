@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -38,15 +38,6 @@ namespace MyGUI
 
 
 			//InsertPoint
-
-   
-
-
-   
-
-
-   
-
 
 		};
 

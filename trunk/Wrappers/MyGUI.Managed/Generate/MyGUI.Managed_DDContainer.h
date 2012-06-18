@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -39,15 +39,57 @@ namespace MyGUI
 
 			//InsertPoint
 
+	public:
+		delegate void HandleUpdateDropState(
+			Convert<MyGUI::DDContainer *>::Type _sender ,
+			Convert<MyGUI::Widget *>::Type _items ,
+			Convert<const MyGUI::DDWidgetState &>::Type _state );
+		event HandleUpdateDropState^ EventUpdateDropState
+		{
+			void add(HandleUpdateDropState^ _value)
+			{
+				bool empty = mDelegateUpdateDropState == nullptr;
 
+				mDelegateUpdateDropState += _value;
+				MMYGUI_CHECK_NATIVE(mNative);
 
-
-
-   	public:
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventUpdateDropState +=
+						static_cast< MyGUI::delegates::IDelegate3<
+							MyGUI::DDContainer * ,
+							MyGUI::Widget * ,
+							const MyGUI::DDWidgetState & > *>(
+								new Delegate3< HandleUpdateDropState^ ,
+								MyGUI::DDContainer * ,
+								MyGUI::Widget * ,
+								const MyGUI::DDWidgetState & >(mDelegateUpdateDropState) );
+			}
+			void remove(HandleUpdateDropState^ _value)
+			{
+				mDelegateUpdateDropState -= _value;
+				MMYGUI_CHECK_NATIVE(mNative);
+				
+				bool empty = mDelegateUpdateDropState == nullptr;
+				
+				if (empty)
+					static_cast<ThisType*>(mNative)->eventUpdateDropState -=
+						static_cast< MyGUI::delegates::IDelegate3<
+							MyGUI::DDContainer * ,
+							MyGUI::Widget * ,
+							const MyGUI::DDWidgetState & > *>(
+								new Delegate3< HandleUpdateDropState^ ,
+									MyGUI::DDContainer * ,
+									MyGUI::Widget * ,
+									const MyGUI::DDWidgetState & >(mDelegateUpdateDropState) );
+			}
+		}
+	private:
+		HandleUpdateDropState^ mDelegateUpdateDropState;
+	public:
 		delegate void HandleDragWidgetInfo(
 			Convert<MyGUI::DDContainer *>::Type _sender ,
 			Convert<MyGUI::Widget * &>::Type _item ,
-			Convert<MyGUI::types::TCoord< int > &>::Type _dimension );
+			Convert<MyGUI::types::TCoord < int > &>::Type _dimension );
 		event HandleDragWidgetInfo^ RequestDragWidgetInfo
 		{
 			void add(HandleDragWidgetInfo^ _value)
@@ -58,11 +100,11 @@ namespace MyGUI
 					static_cast< MyGUI::delegates::IDelegate3<
 						MyGUI::DDContainer * ,
 						MyGUI::Widget * & ,
-						MyGUI::types::TCoord< int > & > *>(
+						MyGUI::types::TCoord < int > & > *>(
 							new Delegate3_Ref2< HandleDragWidgetInfo^ ,
 							MyGUI::DDContainer * ,
 							MyGUI::Widget * & ,
-							MyGUI::types::TCoord< int > & >(mDelegateDragWidgetInfo) );
+							MyGUI::types::TCoord < int > & >(mDelegateDragWidgetInfo) );
 			}
 			void remove(HandleDragWidgetInfo^ _value)
 			{
@@ -75,19 +117,16 @@ namespace MyGUI
 						static_cast< MyGUI::delegates::IDelegate3<
 							MyGUI::DDContainer * ,
 							MyGUI::Widget * & ,
-							MyGUI::types::TCoord< int > & > *>(
+							MyGUI::types::TCoord < int > & > *>(
 								new Delegate3_Ref2< HandleDragWidgetInfo^ ,
 									MyGUI::DDContainer * ,
 									MyGUI::Widget * & ,
-									MyGUI::types::TCoord< int > & >(mDelegateDragWidgetInfo) );
+									MyGUI::types::TCoord < int > & >(mDelegateDragWidgetInfo) );
 			}
 		}
 	private:
 		HandleDragWidgetInfo^ mDelegateDragWidgetInfo;
-
-
-
-   	public:
+	public:
 		delegate void HandleChangeDDState(
 			Convert<MyGUI::DDContainer *>::Type _sender ,
 			Convert<MyGUI::DDItemState>::Type _state );
@@ -128,10 +167,7 @@ namespace MyGUI
 		}
 	private:
 		HandleChangeDDState^ mDelegateChangeDDState;
-
-
-
-   	public:
+	public:
 		delegate void HandleDropResult(
 			Convert<MyGUI::DDContainer *>::Type _sender ,
 			Convert<const MyGUI::DDItemInfo &>::Type _info ,
@@ -177,10 +213,7 @@ namespace MyGUI
 		}
 	private:
 		HandleDropResult^ mDelegateDropResult;
-
-
-
-   	public:
+	public:
 		delegate void HandleRequestDrop(
 			Convert<MyGUI::DDContainer *>::Type _sender ,
 			Convert<const MyGUI::DDItemInfo &>::Type _info ,
@@ -226,10 +259,7 @@ namespace MyGUI
 		}
 	private:
 		HandleRequestDrop^ mDelegateRequestDrop;
-
-
-
-   	public:
+	public:
 		delegate void HandleStartDrag(
 			Convert<MyGUI::DDContainer *>::Type _sender ,
 			Convert<const MyGUI::DDItemInfo &>::Type _info ,
@@ -275,10 +305,13 @@ namespace MyGUI
 		}
 	private:
 		HandleStartDrag^ mDelegateStartDrag;
-
-
-
-   	public:
+	public:
+		void ResetDrag( )
+		{
+			MMYGUI_CHECK_NATIVE(mNative);
+			static_cast<ThisType*>(mNative)->resetDrag( );
+		}
+	public:
 		property Convert<bool>::Type NeedDragDrop
 		{
 			Convert<bool>::Type get( )
@@ -293,17 +326,6 @@ namespace MyGUI
 			}
 		}
 	
-
-
-   
-
-
-   
-
-
-   
-
-
 		};
 
 	} // namespace Managed
