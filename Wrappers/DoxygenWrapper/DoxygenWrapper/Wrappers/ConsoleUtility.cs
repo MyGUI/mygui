@@ -12,6 +12,11 @@ namespace DoxygenWrapper.Wrappers
 			Console.WriteLine(_value);
 		}
 
+		public static void WriteLine(object _value)
+		{
+			Console.WriteLine(_value.ToString());
+		}
+
 		public static void WriteLine(string _value, params object[] _params)
 		{
 			Console.WriteLine(string.Format(_value, _params));
@@ -21,6 +26,14 @@ namespace DoxygenWrapper.Wrappers
 		{
 			Console.ForegroundColor = ConsoleColor.Yellow;
 			Console.WriteLine(_value);
+			Console.WriteLine();
+			Console.ResetColor();
+		}
+
+		public static void WriteErrorLine(object _value)
+		{
+			Console.ForegroundColor = ConsoleColor.Yellow;
+			Console.WriteLine(_value.ToString());
 			Console.WriteLine();
 			Console.ResetColor();
 		}

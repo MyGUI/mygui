@@ -246,10 +246,7 @@ namespace DoxygenWrapper.Wrappers
 					index++;
 				}
 
-				//if (index < _target.Data.Length)
-				{
-					_target.Data.Insert(index, _source.Data);
-				}
+				_target.Data.Insert(index, _source.Data);
 			}
 		}
 
