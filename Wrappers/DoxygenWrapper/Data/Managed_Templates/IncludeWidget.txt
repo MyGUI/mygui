@@ -1,1 +1,1 @@
-﻿#include "MyGUI.Managed_#{ThisName}.h"
+﻿#include "MyGUI_Managed_#{ThisName}.h"

@@ -7,8 +7,8 @@
 
 #include "../WidgetHolder.h"
 
-#include "MyGUI.Managed_MarshalingWidget.h"
-#include "MyGUI.Managed_IncludeWidgets.h"
+#include "MyGUI_Managed_MarshalingWidget.h"
+#include "MyGUI_Managed_IncludeWidgets.h"
 
 namespace MyGUI
 {
