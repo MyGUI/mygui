@@ -20,8 +20,8 @@ namespace TestApp.Sharp
             string font = text.FontName;
             text.FontName = "Default";
 
-            IntSize size = text.GetTextSize();
-            IntCoord coord = text.GetTextRegion();
+            IntSize size = text.TextSize;
+            IntCoord coord = text.TextRegion;
         }
     }
 }

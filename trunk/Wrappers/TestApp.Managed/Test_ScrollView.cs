@@ -16,8 +16,8 @@ namespace TestApp.Sharp
 
             view.CanvasAlign = Align.Center;
 
-            view.VisibleHScroll = !view.VisibleHScroll;
-            view.VisibleVScroll = !view.VisibleVScroll;
+            view.IsVisibleHScroll = !view.IsVisibleHScroll;
+            view.IsVisibleVScroll = !view.IsVisibleVScroll;
 
         }
     }

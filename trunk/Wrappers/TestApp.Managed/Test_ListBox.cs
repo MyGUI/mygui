@@ -21,7 +21,7 @@ namespace TestApp.Sharp
             box.AddItem("line3");
             box.InsertItemAt(0, "insert line0");
 
-            int height = box.GetOptimalHeight();
+            int height = box.OptimalHeight;
             box.SetScrollVisible(true);
             bool visible = box.IsItemSelectedVisible(true);
             visible = box.IsItemVisibleAt(0, true);
