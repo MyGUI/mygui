@@ -5,18 +5,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGUI_Managed", "MyGUI_Mana
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug_DirectX|Win32 = Debug_DirectX|Win32
 		Debug|Win32 = Debug|Win32
-		Release_DirectX|Win32 = Release_DirectX|Win32
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Debug_DirectX|Win32.ActiveCfg = Debug_DirectX|Win32
-		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Debug_DirectX|Win32.Build.0 = Debug_DirectX|Win32
 		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Debug|Win32.ActiveCfg = Debug|Win32
 		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Debug|Win32.Build.0 = Debug|Win32
-		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Release_DirectX|Win32.ActiveCfg = Release_DirectX|Win32
-		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Release_DirectX|Win32.Build.0 = Release_DirectX|Win32
 		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Release|Win32.ActiveCfg = Release|Win32
 		{9EBA1113-C11A-41B4-9674-3D83E6067B2E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection

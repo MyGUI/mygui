@@ -11,7 +11,7 @@
 #include "Config.h"
 #include "Utility.h"
 
-#include "Generate/MyGUI.Managed_GuiFactory.h"
+#include "Generate/MyGUI_Managed_GuiFactory.h"
 
 namespace MyGUI
 {

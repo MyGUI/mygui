@@ -6,7 +6,7 @@
 */
 #pragma once
 
-#include "MyGUI.Managed_WidgetInput.h"
+#include "MyGUI_Managed_WidgetInput.h"
 
 namespace MyGUI
 {

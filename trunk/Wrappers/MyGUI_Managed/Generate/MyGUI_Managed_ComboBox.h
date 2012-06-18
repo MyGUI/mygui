@@ -6,7 +6,7 @@
 */
 #pragma once
 
-#include "MyGUI.Managed_EditBox.h"
+#include "MyGUI_Managed_EditBox.h"
 
 namespace MyGUI
 {

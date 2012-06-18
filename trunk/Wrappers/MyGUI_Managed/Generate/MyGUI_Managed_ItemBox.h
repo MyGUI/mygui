@@ -6,7 +6,7 @@
 */
 #pragma once
 
-#include "MyGUI.Managed_DDContainer.h"
+#include "MyGUI_Managed_DDContainer.h"
 
 namespace MyGUI
 {

@@ -6,7 +6,7 @@
 */
 #pragma once
 
-#include "MyGUI.Managed_WidgetCropped.h"
+#include "MyGUI_Managed_WidgetCropped.h"
 
 namespace MyGUI
 {
