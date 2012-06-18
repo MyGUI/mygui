@@ -11,11 +11,12 @@ namespace DoxygenWrapper
 		{
 			CompoundManager compoundManager = new CompoundManager();
 			compoundManager.SetIgnoredNameList(new string[] { "MyGUI::Allocator", "MyGUI::Allocator::rebind" });
-			compoundManager.Initialise(@"..\..\..\..\WrapperGenerator\doxygen\xml");
+			compoundManager.Initialise(@"..\..\..\doxygen\xml");
 			//compoundManager.DumpCompoundTree("CompoundTree.xml");
 
 			WrapperManager wrapperManager = new WrapperManager();
-			wrapperManager.Initialise(@"..\..\..\Data\SharpData.xml");
+			//wrapperManager.Initialise(@"..\..\..\Data\SharpData.xml");
+			wrapperManager.Initialise(@"..\..\..\Data\ManagedData.xml");
 
 			ConsoleUtility.WriteLine("Complite");
 		}
