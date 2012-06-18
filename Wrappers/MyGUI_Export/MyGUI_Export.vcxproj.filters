@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Managers">
+      <UniqueIdentifier>{5198e5d9-0bc2-4ee0-9cf4-f2b545c1c09c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Export">
+      <UniqueIdentifier>{ca37fcad-e2f8-4383-9187-9f973663ae37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Export\Generate">
+      <UniqueIdentifier>{f56856de-cfe5-4c5f-a355-7df2feb6530f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Export">
+      <UniqueIdentifier>{2fe096b3-365b-45df-bc9a-bde040348dec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Export\Generate">
+      <UniqueIdentifier>{fd935baa-774a-48ce-a3d0-c9d2ae6147a2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ExportGui.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="ExportInputManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="ExportLayerManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="ExportPointerManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="ExportMarshaling.cpp">
+      <Filter>Source Files\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="ExportMarshalingType.cpp">
+      <Filter>Source Files\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="Generate\MyGUI.Export_WidgetCropped.cpp">
+      <Filter>Source Files\Export\Generate</Filter>
+    </ClCompile>
+    <ClCompile Include="Generate\MyGUI.Export_WidgetInput.cpp">
+      <Filter>Source Files\Export\Generate</Filter>
+    </ClCompile>
+    <ClCompile Include="Generate\MyGUI.Export_WidgetUserData.cpp">
+      <Filter>Source Files\Export\Generate</Filter>
+    </ClCompile>
+    <ClCompile Include="Generate\MyGUI.ExportWidget.cpp">
+      <Filter>Source Files\Export\Generate</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ExportDefine.h">
+      <Filter>Header Files\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="ExportMarshaling.h">
+      <Filter>Header Files\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="ExportMarshalingType.h">
+      <Filter>Header Files\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_Button.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_ComboBox.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_DDContainer.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_EditBox.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_ImageBox.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_ItemBox.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_ListBox.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_MarshalingWidget.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_MenuBar.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_MenuControl.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_MenuItem.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_MultiListBox.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_MultiListItem.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_PopupMenu.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_ProgressBar.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_ScrollBar.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_ScrollView.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_TabControl.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_TabItem.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_TextBox.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_Widget.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="Generate\MyGUI.Export_Window.h">
+      <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
