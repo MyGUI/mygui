@@ -263,7 +263,7 @@ namespace MyGUI
 
 
 
-   	public:
+   	/*public:
 		Convert<bool>::Type SetState(
 			Convert<const std::string &>::Type _value )
 		{
@@ -271,7 +271,7 @@ namespace MyGUI
 			return Convert<bool>::To(
 				static_cast<ThisType*>(mNative)->setState(
 					Convert<const std::string &>::From(_value) ) );
-		}
+		}*/
 
 
 
