@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -19,7 +19,7 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace ScopeScrollBarEvent_ScrollChangePosition
+	namespace ScopeScrollBarEvent_ScrollChangePosition
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::ScrollBar *>::Type ,
@@ -47,28 +47,44 @@ namespace Export
 				static_cast< MyGUI::ScrollBar* >(_widget)->eventScrollChangePosition -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   	namespace ScopeScrollBarProperty_MoveToClick
+	namespace ScopeScrollBarMethod_SetCoord
+	{
+		MYGUIEXPORT void MYGUICALL ExportScrollBar_SetCoord_left_top_width_height( MyGUI::Widget* _native,
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top ,
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			static_cast< MyGUI::ScrollBar * >(_native)->setCoord(
+				Convert<int>::From( _left ) ,
+				Convert<int>::From( _top ) ,
+				Convert<int>::From( _width ) ,
+				Convert<int>::From( _height ) );
+		}
+	}
+	namespace ScopeScrollBarMethod_SetSize
+	{
+		MYGUIEXPORT void MYGUICALL ExportScrollBar_SetSize_width_height( MyGUI::Widget* _native,
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
+		{
+			static_cast< MyGUI::ScrollBar * >(_native)->setSize(
+				Convert<int>::From( _width ) ,
+				Convert<int>::From( _height ) );
+		}
+	}
+	namespace ScopeScrollBarMethod_SetPosition
+	{
+		MYGUIEXPORT void MYGUICALL ExportScrollBar_SetPosition_left_top( MyGUI::Widget* _native,
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top )
+		{
+			static_cast< MyGUI::ScrollBar * >(_native)->setPosition(
+				Convert<int>::From( _left ) ,
+				Convert<int>::From( _top ) );
+		}
+	}
+	namespace ScopeScrollBarProperty_MoveToClick
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportScrollBar_GetMoveToClick( MyGUI::Widget* _native )
 		{
@@ -79,10 +95,7 @@ namespace Export
 			static_cast< MyGUI::ScrollBar * >(_native)->setMoveToClick( Convert<bool>::From( _value ) );
 		}
 	}
-
-
-
-   	namespace ScopeScrollBarProperty_MinTrackSize
+	namespace ScopeScrollBarProperty_MinTrackSize
 	{
 		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportScrollBar_GetMinTrackSize( MyGUI::Widget* _native )
 		{
@@ -93,10 +106,7 @@ namespace Export
 			static_cast< MyGUI::ScrollBar * >(_native)->setMinTrackSize( Convert<int>::From( _value ) );
 		}
 	}
-
-
-
-   	namespace ScopeScrollBarProperty_TrackSize
+	namespace ScopeScrollBarProperty_TrackSize
 	{
 		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportScrollBar_GetTrackSize( MyGUI::Widget* _native )
 		{
@@ -107,20 +117,14 @@ namespace Export
 			static_cast< MyGUI::ScrollBar * >(_native)->setTrackSize( Convert<int>::From( _value ) );
 		}
 	}
-
-
-
-   	namespace ScopeScrollBarMethod_GetLineSize
+	namespace ScopeScrollBarProperty_LineSize
 	{
 		MYGUIEXPORT Convert<int>::Type MYGUICALL ExportScrollBar_GetLineSize( MyGUI::Widget* _native )
 		{
 			return Convert<int>::To( static_cast< MyGUI::ScrollBar * >(_native)->getLineSize( ) );
 		}
 	}
-
-
-
-   	namespace ScopeScrollBarProperty_ScrollViewPage
+	namespace ScopeScrollBarProperty_ScrollViewPage
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportScrollBar_GetScrollViewPage( MyGUI::Widget* _native )
 		{
@@ -131,10 +135,7 @@ namespace Export
 			static_cast< MyGUI::ScrollBar * >(_native)->setScrollViewPage( Convert<size_t>::From( _value ) );
 		}
 	}
-
-
-
-   	namespace ScopeScrollBarProperty_ScrollPage
+	namespace ScopeScrollBarProperty_ScrollPage
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportScrollBar_GetScrollPage( MyGUI::Widget* _native )
 		{
@@ -145,10 +146,7 @@ namespace Export
 			static_cast< MyGUI::ScrollBar * >(_native)->setScrollPage( Convert<size_t>::From( _value ) );
 		}
 	}
-
-
-
-   	namespace ScopeScrollBarProperty_ScrollPosition
+	namespace ScopeScrollBarProperty_ScrollPosition
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportScrollBar_GetScrollPosition( MyGUI::Widget* _native )
 		{
@@ -159,10 +157,7 @@ namespace Export
 			static_cast< MyGUI::ScrollBar * >(_native)->setScrollPosition( Convert<size_t>::From( _value ) );
 		}
 	}
-
-
-
-   	namespace ScopeScrollBarProperty_ScrollRange
+	namespace ScopeScrollBarProperty_ScrollRange
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportScrollBar_GetScrollRange( MyGUI::Widget* _native )
 		{
@@ -173,10 +168,7 @@ namespace Export
 			static_cast< MyGUI::ScrollBar * >(_native)->setScrollRange( Convert<size_t>::From( _value ) );
 		}
 	}
-
-
-
-   	namespace ScopeScrollBarProperty_VerticalAlignment
+	namespace ScopeScrollBarProperty_VerticalAlignment
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportScrollBar_GetVerticalAlignment( MyGUI::Widget* _native )
 		{
@@ -187,18 +179,14 @@ namespace Export
 			static_cast< MyGUI::ScrollBar * >(_native)->setVerticalAlignment( Convert<bool>::From( _value ) );
 		}
 	}
-
-
-
-   
-
-
-   
-
-
-   
-
-
+	namespace ScopeScrollBarProperty_Type
+	{
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportScrollBar_IsType( MyGUI::Widget* _native )
+		{
+			return Convert<bool>::To( static_cast< MyGUI::ScrollBar * >(_native)->isType( ) );
+		}
+	}
+	
 }
 
 #endif // __EXPORT_WIDGET_ScrollBar_H__

@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -19,7 +19,7 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace ScopeMenuControlEvent_MenuCtrlClose
+	namespace ScopeMenuControlEvent_MenuCtrlClose
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::MenuControl *>::Type );
@@ -44,10 +44,7 @@ namespace Export
 				static_cast< MyGUI::MenuControl* >(_widget)->eventMenuCtrlClose -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlEvent_MenuCtrlAccept
+	namespace ScopeMenuControlEvent_MenuCtrlAccept
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::MenuControl *>::Type ,
@@ -75,48 +72,7 @@ namespace Export
 				static_cast< MyGUI::MenuControl* >(_widget)->eventMenuCtrlAccept -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlProperty_VerticalAlignment
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportMenuControl_GetVerticalAlignment( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::MenuControl * >(_native)->getVerticalAlignment( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportMenuControl_SetVerticalAlignment( MyGUI::Widget* _native , Convert<bool>::Type _value )
-		{
-			static_cast< MyGUI::MenuControl * >(_native)->setVerticalAlignment( Convert<bool>::From( _value ) );
-		}
-	}
-
-
-
-   	namespace ScopeMenuControlMethod_GetMenuItemParent
-	{
-		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuControl_GetMenuItemParent( MyGUI::Widget* _native )
-		{
-			return Convert<MyGUI::MenuItem *>::To( static_cast< MyGUI::MenuControl * >(_native)->getMenuItemParent( ) );
-		}
-	}
-
-
-
-   	namespace ScopeMenuControlProperty_PopupAccept
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportMenuControl_GetPopupAccept( MyGUI::Widget* _native )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::MenuControl * >(_native)->getPopupAccept( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportMenuControl_SetPopupAccept( MyGUI::Widget* _native , Convert<bool>::Type _value )
-		{
-			static_cast< MyGUI::MenuControl * >(_native)->setPopupAccept( Convert<bool>::From( _value ) );
-		}
-	}
-
-
-
-   	namespace ScopeMenuControlMethod_SetItemType
+	namespace ScopeMenuControlMethod_SetItemType
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuControl_SetItemType_item_type( MyGUI::Widget* _native,
 			Convert<MyGUI::MenuItem *>::Type _item ,
@@ -127,10 +83,7 @@ namespace Export
 				Convert<MyGUI::MenuItemType>::From( _type ) );
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_SetItemTypeAt
+	namespace ScopeMenuControlMethod_SetItemTypeAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuControl_SetItemTypeAt_index_type( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
@@ -141,10 +94,7 @@ namespace Export
 				Convert<MyGUI::MenuItemType>::From( _type ) );
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_GetItemType
+	namespace ScopeMenuControlMethod_GetItemType
 	{
 		MYGUIEXPORT Convert<MyGUI::MenuItemType>::Type MYGUICALL ExportMenuControl_GetItemType_item( MyGUI::Widget* _native,
 			Convert<MyGUI::MenuItem *>::Type _item )
@@ -153,10 +103,7 @@ namespace Export
 				Convert<MyGUI::MenuItem *>::From( _item ) ));
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_GetItemTypeAt
+	namespace ScopeMenuControlMethod_GetItemTypeAt
 	{
 		MYGUIEXPORT Convert<MyGUI::MenuItemType>::Type MYGUICALL ExportMenuControl_GetItemTypeAt_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
@@ -165,10 +112,7 @@ namespace Export
 				Convert<size_t>::From( _index ) ));
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_RemoveItemChild
+	namespace ScopeMenuControlMethod_RemoveItemChild
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuControl_RemoveItemChild_item( MyGUI::Widget* _native,
 			Convert<MyGUI::MenuItem *>::Type _item )
@@ -177,10 +121,7 @@ namespace Export
 				Convert<MyGUI::MenuItem *>::From( _item ) );
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_RemoveItemChildAt
+	namespace ScopeMenuControlMethod_RemoveItemChildAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuControl_RemoveItemChildAt_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
@@ -189,10 +130,7 @@ namespace Export
 				Convert<size_t>::From( _index ) );
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_CreateItemChild
+	namespace ScopeMenuControlMethod_CreateItemChild
 	{
 		MYGUIEXPORT Convert<MyGUI::MenuControl *>::Type MYGUICALL ExportMenuControl_CreateItemChild_item( MyGUI::Widget* _native,
 			Convert<MyGUI::MenuItem *>::Type _item )
@@ -201,10 +139,7 @@ namespace Export
 				Convert<MyGUI::MenuItem *>::From( _item ) ));
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_CreateItemChildAt
+	namespace ScopeMenuControlMethod_CreateItemChildAt
 	{
 		MYGUIEXPORT Convert<MyGUI::MenuControl *>::Type MYGUICALL ExportMenuControl_CreateItemChildAt_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
@@ -213,10 +148,7 @@ namespace Export
 				Convert<size_t>::From( _index ) ));
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_GetItemChild
+	namespace ScopeMenuControlMethod_GetItemChild
 	{
 		MYGUIEXPORT Convert<MyGUI::MenuControl *>::Type MYGUICALL ExportMenuControl_GetItemChild_item( MyGUI::Widget* _native,
 			Convert<MyGUI::MenuItem *>::Type _item )
@@ -225,10 +157,7 @@ namespace Export
 				Convert<MyGUI::MenuItem *>::From( _item ) ));
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_GetItemChildAt
+	namespace ScopeMenuControlMethod_GetItemChildAt
 	{
 		MYGUIEXPORT Convert<MyGUI::MenuControl *>::Type MYGUICALL ExportMenuControl_GetItemChildAt_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
@@ -237,16 +166,7 @@ namespace Export
 				Convert<size_t>::From( _index ) ));
 		}
 	}
-
-
-
-   
-
-
-   
-
-
-   	namespace ScopeMenuControlMethod_SetItemChildVisible
+	namespace ScopeMenuControlMethod_SetItemChildVisible
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuControl_SetItemChildVisible_item_visible( MyGUI::Widget* _native,
 			Convert<MyGUI::MenuItem *>::Type _item ,
@@ -257,10 +177,7 @@ namespace Export
 				Convert<bool>::From( _visible ) );
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_SetItemChildVisibleAt
+	namespace ScopeMenuControlMethod_SetItemChildVisibleAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuControl_SetItemChildVisibleAt_index_visible( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
@@ -271,10 +188,7 @@ namespace Export
 				Convert<bool>::From( _visible ) );
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_FindItemIndexWith
+	namespace ScopeMenuControlMethod_FindItemIndexWith
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportMenuControl_FindItemIndexWith_name( MyGUI::Widget* _native,
 			Convert<const MyGUI::UString &>::Type _name )
@@ -283,10 +197,7 @@ namespace Export
 				Convert<const MyGUI::UString &>::From( _name ) ));
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_GetItemName
+	namespace ScopeMenuControlMethod_GetItemName
 	{
 		MYGUIEXPORT Convert<const MyGUI::UString &>::Type MYGUICALL ExportMenuControl_GetItemName_item( MyGUI::Widget* _native,
 			Convert<MyGUI::MenuItem *>::Type _item )
@@ -295,10 +206,7 @@ namespace Export
 				Convert<MyGUI::MenuItem *>::From( _item ) ));
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_GetItemNameAt
+	namespace ScopeMenuControlMethod_GetItemNameAt
 	{
 		MYGUIEXPORT Convert<const MyGUI::UString &>::Type MYGUICALL ExportMenuControl_GetItemNameAt_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
@@ -307,10 +215,7 @@ namespace Export
 				Convert<size_t>::From( _index ) ));
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_SetItemName
+	namespace ScopeMenuControlMethod_SetItemName
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuControl_SetItemName_item_name( MyGUI::Widget* _native,
 			Convert<MyGUI::MenuItem *>::Type _item ,
@@ -321,10 +226,7 @@ namespace Export
 				Convert<const MyGUI::UString &>::From( _name ) );
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_SetItemNameAt
+	namespace ScopeMenuControlMethod_SetItemNameAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuControl_SetItemNameAt_index_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
@@ -335,10 +237,7 @@ namespace Export
 				Convert<const MyGUI::UString &>::From( _name ) );
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_GetItemIndexById
+	namespace ScopeMenuControlMethod_GetItemIndexById
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportMenuControl_GetItemIndexById_id( MyGUI::Widget* _native,
 			Convert<const std::string &>::Type _id )
@@ -347,10 +246,7 @@ namespace Export
 				Convert<const std::string &>::From( _id ) ));
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_FindItemById
+	namespace ScopeMenuControlMethod_FindItemById
 	{
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuControl_FindItemById_id_recursive( MyGUI::Widget* _native,
 			Convert<const std::string &>::Type _id ,
@@ -361,10 +257,7 @@ namespace Export
 				Convert<bool>::From( _recursive ) ));
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_GetItemById
+	namespace ScopeMenuControlMethod_GetItemById
 	{
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuControl_GetItemById_id( MyGUI::Widget* _native,
 			Convert<const std::string &>::Type _id )
@@ -373,10 +266,7 @@ namespace Export
 				Convert<const std::string &>::From( _id ) ));
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_GetItemId
+	namespace ScopeMenuControlMethod_GetItemId
 	{
 		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportMenuControl_GetItemId_item( MyGUI::Widget* _native,
 			Convert<MyGUI::MenuItem *>::Type _item )
@@ -385,10 +275,7 @@ namespace Export
 				Convert<MyGUI::MenuItem *>::From( _item ) ));
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_GetItemIdAt
+	namespace ScopeMenuControlMethod_GetItemIdAt
 	{
 		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportMenuControl_GetItemIdAt_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
@@ -397,10 +284,7 @@ namespace Export
 				Convert<size_t>::From( _index ) ));
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_SetItemId
+	namespace ScopeMenuControlMethod_SetItemId
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuControl_SetItemId_item_id( MyGUI::Widget* _native,
 			Convert<MyGUI::MenuItem *>::Type _item ,
@@ -411,10 +295,7 @@ namespace Export
 				Convert<const std::string &>::From( _id ) );
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_SetItemIdAt
+	namespace ScopeMenuControlMethod_SetItemIdAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuControl_SetItemIdAt_index_id( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
@@ -425,10 +306,7 @@ namespace Export
 				Convert<const std::string &>::From( _id ) );
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_GetItemData
+	namespace ScopeMenuControlMethod_GetItemData
 	{
 		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportMenuControl_GetItemData_item( MyGUI::Widget* _native,
 			Convert<MyGUI::MenuItem *>::Type _item )
@@ -439,10 +317,7 @@ namespace Export
 			return data == nullptr ? nullptr : *data;
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_GetItemDataAt
+	namespace ScopeMenuControlMethod_GetItemDataAt
 	{
 		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportMenuControl_GetItemDataAt_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
@@ -453,10 +328,7 @@ namespace Export
 			return data == nullptr ? nullptr : *data;
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_ClearItemData
+	namespace ScopeMenuControlMethod_ClearItemData
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuControl_ClearItemData_item( MyGUI::Widget* _native,
 			Convert<MyGUI::MenuItem *>::Type _item )
@@ -465,10 +337,7 @@ namespace Export
 				Convert<MyGUI::MenuItem *>::From( _item ) );
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_ClearItemDataAt
+	namespace ScopeMenuControlMethod_ClearItemDataAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuControl_ClearItemDataAt_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
@@ -477,10 +346,7 @@ namespace Export
 				Convert<size_t>::From( _index ) );
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_SetItemData
+	namespace ScopeMenuControlMethod_SetItemData
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuControl_SetItemData_item_data( MyGUI::Widget* _native,
 			Convert<MyGUI::MenuItem *>::Type _item ,
@@ -491,10 +357,7 @@ namespace Export
 				Convert<MyGUI::Any>::From( _data ) );
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_SetItemDataAt
+	namespace ScopeMenuControlMethod_SetItemDataAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuControl_SetItemDataAt_index_data( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
@@ -505,10 +368,7 @@ namespace Export
 				Convert<MyGUI::Any>::From( _data ) );
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_FindItemWith
+	namespace ScopeMenuControlMethod_FindItemWith
 	{
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuControl_FindItemWith_name( MyGUI::Widget* _native,
 			Convert<const MyGUI::UString &>::Type _name )
@@ -517,10 +377,7 @@ namespace Export
 				Convert<const MyGUI::UString &>::From( _name ) ));
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_FindItemIndex
+	namespace ScopeMenuControlMethod_FindItemIndex
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportMenuControl_FindItemIndex_item( MyGUI::Widget* _native,
 			Convert<MyGUI::MenuItem *>::Type _item )
@@ -529,10 +386,7 @@ namespace Export
 				Convert<MyGUI::MenuItem *>::From( _item ) ));
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_GetItemIndex
+	namespace ScopeMenuControlMethod_GetItemIndex
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportMenuControl_GetItemIndex_item( MyGUI::Widget* _native,
 			Convert<MyGUI::MenuItem *>::Type _item )
@@ -541,10 +395,7 @@ namespace Export
 				Convert<MyGUI::MenuItem *>::From( _item ) ));
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_GetItemAt
+	namespace ScopeMenuControlMethod_GetItemAt
 	{
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuControl_GetItemAt_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
@@ -553,20 +404,14 @@ namespace Export
 				Convert<size_t>::From( _index ) ));
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_RemoveAllItems
+	namespace ScopeMenuControlMethod_RemoveAllItems
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuControl_RemoveAllItems( MyGUI::Widget* _native )
 		{
 			static_cast< MyGUI::MenuControl * >(_native)->removeAllItems( );
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_RemoveItem
+	namespace ScopeMenuControlMethod_RemoveItem
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuControl_RemoveItem_item( MyGUI::Widget* _native,
 			Convert<MyGUI::MenuItem *>::Type _item )
@@ -575,10 +420,7 @@ namespace Export
 				Convert<MyGUI::MenuItem *>::From( _item ) );
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_RemoveItemAt
+	namespace ScopeMenuControlMethod_RemoveItemAt
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuControl_RemoveItemAt_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
@@ -587,10 +429,7 @@ namespace Export
 				Convert<size_t>::From( _index ) );
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_AddItem
+	namespace ScopeMenuControlMethod_AddItem
 	{
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuControl_AddItem_name_type_id_data( MyGUI::Widget* _native,
 			Convert<const MyGUI::UString &>::Type _name ,
@@ -629,10 +468,7 @@ namespace Export
 				Convert<const MyGUI::UString &>::From( _name ) ));
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_InsertItem
+	namespace ScopeMenuControlMethod_InsertItem
 	{
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuControl_InsertItem_to_name_type_id_data( MyGUI::Widget* _native,
 			Convert<MyGUI::MenuItem *>::Type _to ,
@@ -649,10 +485,7 @@ namespace Export
 				Convert<MyGUI::Any>::From( _data ) ));
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlMethod_InsertItemAt
+	namespace ScopeMenuControlMethod_InsertItemAt
 	{
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuControl_InsertItemAt_index_name_type_id_data( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
@@ -699,20 +532,7 @@ namespace Export
 				Convert<const MyGUI::UString &>::From( _name ) ));
 		}
 	}
-
-
-
-   	namespace ScopeMenuControlProperty_ItemCount
-	{
-		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportMenuControl_GetItemCount( MyGUI::Widget* _native )
-		{
-			return Convert<size_t>::To( static_cast< MyGUI::MenuControl * >(_native)->getItemCount( ) );
-		}
-	}
-
-
-
-   	namespace ScopeMenuControlMethod_SetVisibleSmooth
+	namespace ScopeMenuControlMethod_SetVisibleSmooth
 	{
 		MYGUIEXPORT void MYGUICALL ExportMenuControl_SetVisibleSmooth_value( MyGUI::Widget* _native,
 			Convert<bool>::Type _value )
@@ -721,21 +541,50 @@ namespace Export
 				Convert<bool>::From( _value ) );
 		}
 	}
-
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
+	namespace ScopeMenuControlProperty_VerticalAlignment
+	{
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportMenuControl_GetVerticalAlignment( MyGUI::Widget* _native )
+		{
+			return Convert<bool>::To( static_cast< MyGUI::MenuControl * >(_native)->getVerticalAlignment( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportMenuControl_SetVerticalAlignment( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		{
+			static_cast< MyGUI::MenuControl * >(_native)->setVerticalAlignment( Convert<bool>::From( _value ) );
+		}
+	}
+	namespace ScopeMenuControlProperty_MenuItemParent
+	{
+		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuControl_GetMenuItemParent( MyGUI::Widget* _native )
+		{
+			return Convert<MyGUI::MenuItem *>::To( static_cast< MyGUI::MenuControl * >(_native)->getMenuItemParent( ) );
+		}
+	}
+	namespace ScopeMenuControlProperty_PopupAccept
+	{
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportMenuControl_GetPopupAccept( MyGUI::Widget* _native )
+		{
+			return Convert<bool>::To( static_cast< MyGUI::MenuControl * >(_native)->getPopupAccept( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportMenuControl_SetPopupAccept( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		{
+			static_cast< MyGUI::MenuControl * >(_native)->setPopupAccept( Convert<bool>::From( _value ) );
+		}
+	}
+	namespace ScopeMenuControlProperty_ItemCount
+	{
+		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportMenuControl_GetItemCount( MyGUI::Widget* _native )
+		{
+			return Convert<size_t>::To( static_cast< MyGUI::MenuControl * >(_native)->getItemCount( ) );
+		}
+	}
+	namespace ScopeMenuControlProperty_Type
+	{
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportMenuControl_IsType( MyGUI::Widget* _native )
+		{
+			return Convert<bool>::To( static_cast< MyGUI::MenuControl * >(_native)->isType( ) );
+		}
+	}
+	
 }
 
 #endif // __EXPORT_WIDGET_MenuControl_H__

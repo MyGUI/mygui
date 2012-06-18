@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -16,7 +16,7 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace ScopeWidgetEvent_ToolTip
+	namespace ScopeWidgetEvent_ToolTip
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::Widget *>::Type ,
@@ -44,10 +44,7 @@ namespace Export
 				static_cast< MyGUI::Widget* >(_widget)->eventToolTip -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeWidgetEvent_RootKeyChangeFocus
+	namespace ScopeWidgetEvent_RootKeyChangeFocus
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::Widget *>::Type ,
@@ -75,10 +72,7 @@ namespace Export
 				static_cast< MyGUI::Widget* >(_widget)->eventRootKeyChangeFocus -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeWidgetEvent_RootMouseChangeFocus
+	namespace ScopeWidgetEvent_RootMouseChangeFocus
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::Widget *>::Type ,
@@ -106,10 +100,7 @@ namespace Export
 				static_cast< MyGUI::Widget* >(_widget)->eventRootMouseChangeFocus -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeWidgetEvent_KeyButtonReleased
+	namespace ScopeWidgetEvent_KeyButtonReleased
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::Widget *>::Type ,
@@ -137,10 +128,7 @@ namespace Export
 				static_cast< MyGUI::Widget* >(_widget)->eventKeyButtonReleased -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeWidgetEvent_KeyButtonPressed
+	namespace ScopeWidgetEvent_KeyButtonPressed
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::Widget *>::Type ,
@@ -171,10 +159,7 @@ namespace Export
 				static_cast< MyGUI::Widget* >(_widget)->eventKeyButtonPressed -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeWidgetEvent_KeySetFocus
+	namespace ScopeWidgetEvent_KeySetFocus
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::Widget *>::Type ,
@@ -202,10 +187,7 @@ namespace Export
 				static_cast< MyGUI::Widget* >(_widget)->eventKeySetFocus -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeWidgetEvent_KeyLostFocus
+	namespace ScopeWidgetEvent_KeyLostFocus
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::Widget *>::Type ,
@@ -233,10 +215,7 @@ namespace Export
 				static_cast< MyGUI::Widget* >(_widget)->eventKeyLostFocus -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeWidgetEvent_MouseButtonDoubleClick
+	namespace ScopeWidgetEvent_MouseButtonDoubleClick
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::Widget *>::Type );
@@ -261,10 +240,7 @@ namespace Export
 				static_cast< MyGUI::Widget* >(_widget)->eventMouseButtonDoubleClick -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeWidgetEvent_MouseButtonClick
+	namespace ScopeWidgetEvent_MouseButtonClick
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::Widget *>::Type );
@@ -289,10 +265,7 @@ namespace Export
 				static_cast< MyGUI::Widget* >(_widget)->eventMouseButtonClick -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeWidgetEvent_MouseButtonReleased
+	namespace ScopeWidgetEvent_MouseButtonReleased
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::Widget *>::Type ,
@@ -326,10 +299,7 @@ namespace Export
 				static_cast< MyGUI::Widget* >(_widget)->eventMouseButtonReleased -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeWidgetEvent_MouseButtonPressed
+	namespace ScopeWidgetEvent_MouseButtonPressed
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::Widget *>::Type ,
@@ -363,10 +333,7 @@ namespace Export
 				static_cast< MyGUI::Widget* >(_widget)->eventMouseButtonPressed -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeWidgetEvent_MouseWheel
+	namespace ScopeWidgetEvent_MouseWheel
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::Widget *>::Type ,
@@ -394,10 +361,7 @@ namespace Export
 				static_cast< MyGUI::Widget* >(_widget)->eventMouseWheel -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeWidgetEvent_MouseMove
+	namespace ScopeWidgetEvent_MouseMove
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::Widget *>::Type ,
@@ -428,10 +392,7 @@ namespace Export
 				static_cast< MyGUI::Widget* >(_widget)->eventMouseMove -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeWidgetEvent_MouseDrag
+	namespace ScopeWidgetEvent_MouseDrag
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::Widget *>::Type ,
@@ -465,10 +426,7 @@ namespace Export
 				static_cast< MyGUI::Widget* >(_widget)->eventMouseDrag -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeWidgetEvent_MouseSetFocus
+	namespace ScopeWidgetEvent_MouseSetFocus
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::Widget *>::Type ,
@@ -496,10 +454,7 @@ namespace Export
 				static_cast< MyGUI::Widget* >(_widget)->eventMouseSetFocus -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeWidgetEvent_MouseLostFocus
+	namespace ScopeWidgetEvent_MouseLostFocus
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::Widget *>::Type ,
@@ -527,50 +482,32 @@ namespace Export
 				static_cast< MyGUI::Widget* >(_widget)->eventMouseLostFocus -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeWidgetMethod_GetRootKeyFocus
+	namespace ScopeWidgetMethod_IsMaskPickInside
+	{
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_IsMaskPickInside_point_coord( MyGUI::Widget* _native,
+			Convert<const MyGUI::types::TPoint < int > &>::Type _point ,
+			Convert<const MyGUI::types::TCoord < int > &>::Type _coord )
+		{
+			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->isMaskPickInside(
+				Convert<const MyGUI::types::TPoint < int > &>::From( _point ) ,
+				Convert<const MyGUI::types::TCoord < int > &>::From( _coord ) ));
+		}
+	}
+	namespace ScopeWidgetProperty_RootKeyFocus
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetRootKeyFocus( MyGUI::Widget* _native )
 		{
 			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->getRootKeyFocus( ) );
 		}
 	}
-
-
-
-   	namespace ScopeWidgetMethod_GetRootMouseFocus
+	namespace ScopeWidgetProperty_RootMouseFocus
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetRootMouseFocus( MyGUI::Widget* _native )
 		{
 			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->getRootMouseFocus( ) );
 		}
 	}
-
-
-
-   	namespace ScopeWidgetMethod_IsMaskPickInside
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_IsMaskPickInside_point_coord( MyGUI::Widget* _native,
-			Convert<const MyGUI::types::TPoint< int > &>::Type _point ,
-			Convert<const MyGUI::types::TCoord< int > &>::Type _coord )
-		{
-			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->isMaskPickInside(
-				Convert<const MyGUI::types::TPoint< int > &>::From( _point ) ,
-				Convert<const MyGUI::types::TCoord< int > &>::From( _coord ) ));
-		}
-	}
-
-
-
-   
-
-
-   
-
-
-   	namespace ScopeWidgetProperty_InheritsPick
+	namespace ScopeWidgetProperty_InheritsPick
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetInheritsPick( MyGUI::Widget* _native )
 		{
@@ -581,10 +518,7 @@ namespace Export
 			static_cast< MyGUI::Widget * >(_native)->setInheritsPick( Convert<bool>::From( _value ) );
 		}
 	}
-
-
-
-   	namespace ScopeWidgetProperty_NeedMouseFocus
+	namespace ScopeWidgetProperty_NeedMouseFocus
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetNeedMouseFocus( MyGUI::Widget* _native )
 		{
@@ -595,10 +529,7 @@ namespace Export
 			static_cast< MyGUI::Widget * >(_native)->setNeedMouseFocus( Convert<bool>::From( _value ) );
 		}
 	}
-
-
-
-   	namespace ScopeWidgetProperty_NeedKeyFocus
+	namespace ScopeWidgetProperty_NeedKeyFocus
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetNeedKeyFocus( MyGUI::Widget* _native )
 		{
@@ -609,10 +540,7 @@ namespace Export
 			static_cast< MyGUI::Widget * >(_native)->setNeedKeyFocus( Convert<bool>::From( _value ) );
 		}
 	}
-
-
-
-   	namespace ScopeWidgetProperty_Pointer
+	namespace ScopeWidgetProperty_Pointer
 	{
 		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportWidget_GetPointer( MyGUI::Widget* _native )
 		{
@@ -623,10 +551,7 @@ namespace Export
 			static_cast< MyGUI::Widget * >(_native)->setPointer( Convert<const std::string &>::From( _value ) );
 		}
 	}
-
-
-
-   	namespace ScopeWidgetProperty_NeedToolTip
+	namespace ScopeWidgetProperty_NeedToolTip
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetNeedToolTip( MyGUI::Widget* _native )
 		{
@@ -637,7 +562,4 @@ namespace Export
 			static_cast< MyGUI::Widget * >(_native)->setNeedToolTip( Convert<bool>::From( _value ) );
 		}
 	}
-
-
-
 }

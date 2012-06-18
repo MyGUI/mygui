@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -19,7 +19,7 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace ScopeButtonMethod_SetImageName
+	namespace ScopeButtonMethod_SetImageName
 	{
 		MYGUIEXPORT void MYGUICALL ExportButton_SetImageName_name( MyGUI::Widget* _native,
 			Convert<const std::string &>::Type _name )
@@ -28,10 +28,7 @@ namespace Export
 				Convert<const std::string &>::From( _name ) );
 		}
 	}
-
-
-
-   	namespace ScopeButtonMethod_SetImageGroup
+	namespace ScopeButtonMethod_SetImageGroup
 	{
 		MYGUIEXPORT void MYGUICALL ExportButton_SetImageGroup_name( MyGUI::Widget* _native,
 			Convert<const std::string &>::Type _name )
@@ -40,10 +37,7 @@ namespace Export
 				Convert<const std::string &>::From( _name ) );
 		}
 	}
-
-
-
-   	namespace ScopeButtonMethod_SetImageResource
+	namespace ScopeButtonMethod_SetImageResource
 	{
 		MYGUIEXPORT void MYGUICALL ExportButton_SetImageResource_name( MyGUI::Widget* _native,
 			Convert<const std::string &>::Type _name )
@@ -52,10 +46,7 @@ namespace Export
 				Convert<const std::string &>::From( _name ) );
 		}
 	}
-
-
-
-   	namespace ScopeButtonProperty_ModeImage
+	namespace ScopeButtonProperty_ModeImage
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportButton_GetModeImage( MyGUI::Widget* _native )
 		{
@@ -66,10 +57,7 @@ namespace Export
 			static_cast< MyGUI::Button * >(_native)->setModeImage( Convert<bool>::From( _value ) );
 		}
 	}
-
-
-
-   	namespace ScopeButtonProperty_StateSelected
+	namespace ScopeButtonProperty_StateSelected
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportButton_GetStateSelected( MyGUI::Widget* _native )
 		{
@@ -80,18 +68,14 @@ namespace Export
 			static_cast< MyGUI::Button * >(_native)->setStateSelected( Convert<bool>::From( _value ) );
 		}
 	}
-
-
-
-   
-
-
-   
-
-
-   
-
-
+	namespace ScopeButtonProperty_Type
+	{
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportButton_IsType( MyGUI::Widget* _native )
+		{
+			return Convert<bool>::To( static_cast< MyGUI::Button * >(_native)->isType( ) );
+		}
+	}
+	
 }
 
 #endif // __EXPORT_WIDGET_Button_H__

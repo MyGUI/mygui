@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -16,23 +16,14 @@ namespace Export
 
 	//InsertPoint
 
-   
-
-
-   
-
-
-   	namespace ScopeWidgetMethod_ClearUserStrings
+	namespace ScopeWidgetMethod_ClearUserStrings
 	{
 		MYGUIEXPORT void MYGUICALL ExportWidget_ClearUserStrings( MyGUI::Widget* _native )
 		{
 			static_cast< MyGUI::Widget * >(_native)->clearUserStrings( );
 		}
 	}
-
-
-
-   	namespace ScopeWidgetMethod_IsUserString
+	namespace ScopeWidgetMethod_IsUserString
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_IsUserString_key( MyGUI::Widget* _native,
 			Convert<const std::string &>::Type _key )
@@ -41,10 +32,7 @@ namespace Export
 				Convert<const std::string &>::From( _key ) ));
 		}
 	}
-
-
-
-   	namespace ScopeWidgetMethod_ClearUserString
+	namespace ScopeWidgetMethod_ClearUserString
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_ClearUserString_key( MyGUI::Widget* _native,
 			Convert<const std::string &>::Type _key )
@@ -53,13 +41,7 @@ namespace Export
 				Convert<const std::string &>::From( _key ) ));
 		}
 	}
-
-
-
-   
-
-
-   	namespace ScopeWidgetMethod_GetUserString
+	namespace ScopeWidgetMethod_GetUserString
 	{
 		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportWidget_GetUserString_key( MyGUI::Widget* _native,
 			Convert<const std::string &>::Type _key )
@@ -68,10 +50,7 @@ namespace Export
 				Convert<const std::string &>::From( _key ) ));
 		}
 	}
-
-
-
-   	namespace ScopeWidgetMethod_SetUserString
+	namespace ScopeWidgetMethod_SetUserString
 	{
 		MYGUIEXPORT void MYGUICALL ExportWidget_SetUserString_key_value( MyGUI::Widget* _native,
 			Convert<const std::string &>::Type _key ,
@@ -82,7 +61,4 @@ namespace Export
 				Convert<const std::string &>::From( _value ) );
 		}
 	}
-
-
-
 }

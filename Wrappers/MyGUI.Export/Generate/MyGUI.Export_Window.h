@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -19,7 +19,7 @@ namespace Export
 
 	//InsertPoint
 
-   	namespace ScopeWindowEvent_WindowChangeCoord
+	namespace ScopeWindowEvent_WindowChangeCoord
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::Window *>::Type );
@@ -44,10 +44,7 @@ namespace Export
 				static_cast< MyGUI::Window* >(_widget)->eventWindowChangeCoord -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeWindowEvent_WindowButtonPressed
+	namespace ScopeWindowEvent_WindowButtonPressed
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::Window *>::Type ,
@@ -75,66 +72,44 @@ namespace Export
 				static_cast< MyGUI::Window* >(_widget)->eventWindowButtonPressed -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeWindowProperty_Movable
+	namespace ScopeWindowMethod_SetCoord
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWindow_GetMovable( MyGUI::Widget* _native )
+		MYGUIEXPORT void MYGUICALL ExportWindow_SetCoord_left_top_width_height( MyGUI::Widget* _native,
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top ,
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
 		{
-			return Convert<bool>::To( static_cast< MyGUI::Window * >(_native)->getMovable( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportWindow_SetMovable( MyGUI::Widget* _native , Convert<bool>::Type _value )
-		{
-			static_cast< MyGUI::Window * >(_native)->setMovable( Convert<bool>::From( _value ) );
+			static_cast< MyGUI::Window * >(_native)->setCoord(
+				Convert<int>::From( _left ) ,
+				Convert<int>::From( _top ) ,
+				Convert<int>::From( _width ) ,
+				Convert<int>::From( _height ) );
 		}
 	}
-
-
-
-   	namespace ScopeWindowMethod_GetActionScale
+	namespace ScopeWindowMethod_SetSize
 	{
-		MYGUIEXPORT Convert<const MyGUI::types::TCoord< int > &>::Type MYGUICALL ExportWindow_GetActionScale( MyGUI::Widget* _native )
+		MYGUIEXPORT void MYGUICALL ExportWindow_SetSize_width_height( MyGUI::Widget* _native,
+			Convert<int>::Type _width ,
+			Convert<int>::Type _height )
 		{
-			return Convert<const MyGUI::types::TCoord< int > &>::To( static_cast< MyGUI::Window * >(_native)->getActionScale( ) );
+			static_cast< MyGUI::Window * >(_native)->setSize(
+				Convert<int>::From( _width ) ,
+				Convert<int>::From( _height ) );
 		}
 	}
-
-
-
-   	namespace ScopeWindowProperty_Snap
+	namespace ScopeWindowMethod_SetPosition
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWindow_GetSnap( MyGUI::Widget* _native )
+		MYGUIEXPORT void MYGUICALL ExportWindow_SetPosition_left_top( MyGUI::Widget* _native,
+			Convert<int>::Type _left ,
+			Convert<int>::Type _top )
 		{
-			return Convert<bool>::To( static_cast< MyGUI::Window * >(_native)->getSnap( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportWindow_SetSnap( MyGUI::Widget* _native , Convert<bool>::Type _value )
-		{
-			static_cast< MyGUI::Window * >(_native)->setSnap( Convert<bool>::From( _value ) );
+			static_cast< MyGUI::Window * >(_native)->setPosition(
+				Convert<int>::From( _left ) ,
+				Convert<int>::From( _top ) );
 		}
 	}
-
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
-   	namespace ScopeWindowMethod_SetMaxSize
+	namespace ScopeWindowMethod_SetMaxSize
 	{
 		MYGUIEXPORT void MYGUICALL ExportWindow_SetMaxSize_width_height( MyGUI::Widget* _native,
 			Convert<int>::Type _width ,
@@ -145,24 +120,7 @@ namespace Export
 				Convert<int>::From( _height ) );
 		}
 	}
-
-
-
-   	namespace ScopeWindowProperty_MaxSize
-	{
-		MYGUIEXPORT Convert<MyGUI::types::TSize< int >>::Type MYGUICALL ExportWindow_GetMaxSize( MyGUI::Widget* _native )
-		{
-			return Convert<MyGUI::types::TSize< int >>::To( static_cast< MyGUI::Window * >(_native)->getMaxSize( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportWindow_SetMaxSize( MyGUI::Widget* _native , Convert<const MyGUI::types::TSize< int > &>::Type _value )
-		{
-			static_cast< MyGUI::Window * >(_native)->setMaxSize( Convert<const MyGUI::types::TSize< int > &>::From( _value ) );
-		}
-	}
-
-
-
-   	namespace ScopeWindowMethod_SetMinSize
+	namespace ScopeWindowMethod_SetMinSize
 	{
 		MYGUIEXPORT void MYGUICALL ExportWindow_SetMinSize_width_height( MyGUI::Widget* _native,
 			Convert<int>::Type _width ,
@@ -173,37 +131,74 @@ namespace Export
 				Convert<int>::From( _height ) );
 		}
 	}
-
-
-
-   	namespace ScopeWindowProperty_MinSize
+	namespace ScopeWindowMethod_SetVisibleSmooth
 	{
-		MYGUIEXPORT Convert<MyGUI::types::TSize< int >>::Type MYGUICALL ExportWindow_GetMinSize( MyGUI::Widget* _native )
+		MYGUIEXPORT void MYGUICALL ExportWindow_SetVisibleSmooth_value( MyGUI::Widget* _native,
+			Convert<bool>::Type _value )
 		{
-			return Convert<MyGUI::types::TSize< int >>::To( static_cast< MyGUI::Window * >(_native)->getMinSize( ) );
-		}
-		MYGUIEXPORT void MYGUICALL ExportWindow_SetMinSize( MyGUI::Widget* _native , Convert<const MyGUI::types::TSize< int > &>::Type _value )
-		{
-			static_cast< MyGUI::Window * >(_native)->setMinSize( Convert<const MyGUI::types::TSize< int > &>::From( _value ) );
+			static_cast< MyGUI::Window * >(_native)->setVisibleSmooth(
+				Convert<bool>::From( _value ) );
 		}
 	}
-
-
-
-   	namespace ScopeWindowMethod_GetCaptionWidget
+	namespace ScopeWindowProperty_Movable
+	{
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWindow_GetMovable( MyGUI::Widget* _native )
+		{
+			return Convert<bool>::To( static_cast< MyGUI::Window * >(_native)->getMovable( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportWindow_SetMovable( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		{
+			static_cast< MyGUI::Window * >(_native)->setMovable( Convert<bool>::From( _value ) );
+		}
+	}
+	namespace ScopeWindowProperty_ActionScale
+	{
+		MYGUIEXPORT Convert<const MyGUI::types::TCoord < int > &>::Type MYGUICALL ExportWindow_GetActionScale( MyGUI::Widget* _native )
+		{
+			return Convert<const MyGUI::types::TCoord < int > &>::To( static_cast< MyGUI::Window * >(_native)->getActionScale( ) );
+		}
+	}
+	namespace ScopeWindowProperty_Snap
+	{
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWindow_GetSnap( MyGUI::Widget* _native )
+		{
+			return Convert<bool>::To( static_cast< MyGUI::Window * >(_native)->getSnap( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportWindow_SetSnap( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		{
+			static_cast< MyGUI::Window * >(_native)->setSnap( Convert<bool>::From( _value ) );
+		}
+	}
+	namespace ScopeWindowProperty_MaxSize
+	{
+		MYGUIEXPORT Convert<MyGUI::types::TSize < int >>::Type MYGUICALL ExportWindow_GetMaxSize( MyGUI::Widget* _native )
+		{
+			return Convert<MyGUI::types::TSize < int >>::To( static_cast< MyGUI::Window * >(_native)->getMaxSize( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportWindow_SetMaxSize( MyGUI::Widget* _native , Convert<const MyGUI::types::TSize < int > &>::Type _value )
+		{
+			static_cast< MyGUI::Window * >(_native)->setMaxSize( Convert<const MyGUI::types::TSize < int > &>::From( _value ) );
+		}
+	}
+	namespace ScopeWindowProperty_MinSize
+	{
+		MYGUIEXPORT Convert<MyGUI::types::TSize < int >>::Type MYGUICALL ExportWindow_GetMinSize( MyGUI::Widget* _native )
+		{
+			return Convert<MyGUI::types::TSize < int >>::To( static_cast< MyGUI::Window * >(_native)->getMinSize( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportWindow_SetMinSize( MyGUI::Widget* _native , Convert<const MyGUI::types::TSize < int > &>::Type _value )
+		{
+			static_cast< MyGUI::Window * >(_native)->setMinSize( Convert<const MyGUI::types::TSize < int > &>::From( _value ) );
+		}
+	}
+	namespace ScopeWindowProperty_CaptionWidget
 	{
 		MYGUIEXPORT Convert<MyGUI::TextBox *>::Type MYGUICALL ExportWindow_GetCaptionWidget( MyGUI::Widget* _native )
 		{
 			return Convert<MyGUI::TextBox *>::To( static_cast< MyGUI::Window * >(_native)->getCaptionWidget( ) );
 		}
 	}
-
-
-
-   
-
-
-   	namespace ScopeWindowProperty_AutoAlpha
+	namespace ScopeWindowProperty_AutoAlpha
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWindow_GetAutoAlpha( MyGUI::Widget* _native )
 		{
@@ -214,36 +209,14 @@ namespace Export
 			static_cast< MyGUI::Window * >(_native)->setAutoAlpha( Convert<bool>::From( _value ) );
 		}
 	}
-
-
-
-   
-
-
-   	namespace ScopeWindowMethod_SetVisibleSmooth
+	namespace ScopeWindowProperty_Type
 	{
-		MYGUIEXPORT void MYGUICALL ExportWindow_SetVisibleSmooth_value( MyGUI::Widget* _native,
-			Convert<bool>::Type _value )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWindow_IsType( MyGUI::Widget* _native )
 		{
-			static_cast< MyGUI::Window * >(_native)->setVisibleSmooth(
-				Convert<bool>::From( _value ) );
+			return Convert<bool>::To( static_cast< MyGUI::Window * >(_native)->isType( ) );
 		}
 	}
-
-
-
-   
-
-
-   
-
-
-   
-
-
-   
-
-
+	
 }
 
 #endif // __EXPORT_WIDGET_Window_H__

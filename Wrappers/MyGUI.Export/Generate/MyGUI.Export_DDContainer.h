@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -19,27 +19,54 @@ namespace Export
 
 	//InsertPoint
 
-
-
-
-
-   	namespace ScopeDDContainerEvent_DragWidgetInfo
+	namespace ScopeDDContainerEvent_UpdateDropState
+	{
+		typedef void (MYGUICALLBACK *ExportHandle)(
+			Convert<MyGUI::DDContainer *>::Type ,
+			Convert<MyGUI::Widget *>::Type ,
+			Convert<const MyGUI::DDWidgetState &>::Type );
+		ExportHandle mExportHandle = nullptr;
+		
+		void OnEvent(
+			MyGUI::DDContainer * _sender ,
+			MyGUI::Widget * _items ,
+			const MyGUI::DDWidgetState & _state )
+		{
+			mExportHandle(
+				Convert<MyGUI::DDContainer *>::To( _sender ) ,
+				Convert<MyGUI::Widget *>::To( _items ) ,
+				Convert<const MyGUI::DDWidgetState &>::To( _state ) );
+		}
+		
+		MYGUIEXPORT void MYGUICALL ExportDDContainerEvent_DelegateUpdateDropState( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+		MYGUIEXPORT void MYGUICALL ExportDDContainerEvent_AdviseUpdateDropState( MyGUI::Widget* _widget, bool _advise )
+		{
+			if (_advise)
+				static_cast< MyGUI::DDContainer* >(_widget)->eventUpdateDropState += MyGUI::newDelegate(OnEvent);
+			else
+				static_cast< MyGUI::DDContainer* >(_widget)->eventUpdateDropState -= MyGUI::newDelegate(OnEvent);
+		}
+	}
+	namespace ScopeDDContainerEvent_DragWidgetInfo
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::DDContainer *>::Type ,
 			Convert<MyGUI::Widget * &>::Type ,
-			Convert<MyGUI::types::TCoord< int > &>::Type );
+			Convert<MyGUI::types::TCoord < int > &>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
 			MyGUI::DDContainer * _sender ,
 			MyGUI::Widget * & _item ,
-			MyGUI::types::TCoord< int > & _dimension )
+			MyGUI::types::TCoord < int > & _dimension )
 		{
 			mExportHandle(
 				Convert<MyGUI::DDContainer *>::To( _sender ) ,
 				Convert<MyGUI::Widget * &>::To( _item ) ,
-				Convert<MyGUI::types::TCoord< int > &>::To( _dimension ) );
+				Convert<MyGUI::types::TCoord < int > &>::To( _dimension ) );
 		}
 		
 		MYGUIEXPORT void MYGUICALL ExportDDContainerEvent_DelegateDragWidgetInfo( ExportHandle _delegate )
@@ -51,10 +78,7 @@ namespace Export
 			static_cast< MyGUI::DDContainer* >(_widget)->requestDragWidgetInfo = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
 		}
 	}
-
-
-
-   	namespace ScopeDDContainerEvent_ChangeDDState
+	namespace ScopeDDContainerEvent_ChangeDDState
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::DDContainer *>::Type ,
@@ -82,10 +106,7 @@ namespace Export
 				static_cast< MyGUI::DDContainer* >(_widget)->eventChangeDDState -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeDDContainerEvent_DropResult
+	namespace ScopeDDContainerEvent_DropResult
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::DDContainer *>::Type ,
@@ -116,10 +137,7 @@ namespace Export
 				static_cast< MyGUI::DDContainer* >(_widget)->eventDropResult -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeDDContainerEvent_RequestDrop
+	namespace ScopeDDContainerEvent_RequestDrop
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::DDContainer *>::Type ,
@@ -150,10 +168,7 @@ namespace Export
 				static_cast< MyGUI::DDContainer* >(_widget)->eventRequestDrop -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeDDContainerEvent_StartDrag
+	namespace ScopeDDContainerEvent_StartDrag
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<MyGUI::DDContainer *>::Type ,
@@ -184,20 +199,14 @@ namespace Export
 				static_cast< MyGUI::DDContainer* >(_widget)->eventStartDrag -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-
-
-
-   	namespace ScopeDDContainerMethod_ResetDrag
+	namespace ScopeDDContainerMethod_ResetDrag
 	{
 		MYGUIEXPORT void MYGUICALL ExportDDContainer_ResetDrag( MyGUI::Widget* _native )
 		{
 			static_cast< MyGUI::DDContainer * >(_native)->resetDrag( );
 		}
 	}
-
-
-
-   	namespace ScopeDDContainerProperty_NeedDragDrop
+	namespace ScopeDDContainerProperty_NeedDragDrop
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportDDContainer_GetNeedDragDrop( MyGUI::Widget* _native )
 		{
@@ -208,18 +217,14 @@ namespace Export
 			static_cast< MyGUI::DDContainer * >(_native)->setNeedDragDrop( Convert<bool>::From( _value ) );
 		}
 	}
-
-
-
-   
-
-
-   
-
-
-   
-
-
+	namespace ScopeDDContainerProperty_Type
+	{
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportDDContainer_IsType( MyGUI::Widget* _native )
+		{
+			return Convert<bool>::To( static_cast< MyGUI::DDContainer * >(_native)->isType( ) );
+		}
+	}
+	
 }
 
 #endif // __EXPORT_WIDGET_DDContainer_H__

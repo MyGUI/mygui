@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 	@file
 	@author		Generate utility by Albert Semenov
 	@date		01/2009
@@ -15,7 +15,7 @@ namespace Export
 
 	//InsertPoint
 
-   	template <> struct Convert< MyGUI::MultiListItem* >
+	template <> struct Convert< MyGUI::MultiListItem* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::MultiListItem* _value)
@@ -33,10 +33,7 @@ namespace Export
 			return static_cast<MyGUI::MultiListItem*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
-   	template <> struct Convert< MyGUI::TabItem* >
+	template <> struct Convert< MyGUI::TabItem* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::TabItem* _value)
@@ -54,10 +51,7 @@ namespace Export
 			return static_cast<MyGUI::TabItem*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
-   	template <> struct Convert< MyGUI::MenuItem* >
+	template <> struct Convert< MyGUI::MenuItem* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::MenuItem* _value)
@@ -75,10 +69,7 @@ namespace Export
 			return static_cast<MyGUI::MenuItem*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
-   	template <> struct Convert< MyGUI::Window* >
+	template <> struct Convert< MyGUI::Window* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::Window* _value)
@@ -96,10 +87,7 @@ namespace Export
 			return static_cast<MyGUI::Window*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
-   	template <> struct Convert< MyGUI::ScrollBar* >
+	template <> struct Convert< MyGUI::ScrollBar* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::ScrollBar* _value)
@@ -117,10 +105,7 @@ namespace Export
 			return static_cast<MyGUI::ScrollBar*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
-   	template <> struct Convert< MyGUI::TabControl* >
+	template <> struct Convert< MyGUI::TabControl* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::TabControl* _value)
@@ -138,10 +123,7 @@ namespace Export
 			return static_cast<MyGUI::TabControl*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
-   	template <> struct Convert< MyGUI::TextBox* >
+	template <> struct Convert< MyGUI::TextBox* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::TextBox* _value)
@@ -159,10 +141,7 @@ namespace Export
 			return static_cast<MyGUI::TextBox*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
-   	template <> struct Convert< MyGUI::ImageBox* >
+	template <> struct Convert< MyGUI::ImageBox* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::ImageBox* _value)
@@ -180,10 +159,7 @@ namespace Export
 			return static_cast<MyGUI::ImageBox*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
-   	template <> struct Convert< MyGUI::ScrollView* >
+	template <> struct Convert< MyGUI::ScrollView* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::ScrollView* _value)
@@ -201,10 +177,7 @@ namespace Export
 			return static_cast<MyGUI::ScrollView*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
-   	template <> struct Convert< MyGUI::ProgressBar* >
+	template <> struct Convert< MyGUI::ProgressBar* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::ProgressBar* _value)
@@ -222,10 +195,7 @@ namespace Export
 			return static_cast<MyGUI::ProgressBar*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
-   	template <> struct Convert< MyGUI::PopupMenu* >
+	template <> struct Convert< MyGUI::PopupMenu* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::PopupMenu* _value)
@@ -243,10 +213,7 @@ namespace Export
 			return static_cast<MyGUI::PopupMenu*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
-   	template <> struct Convert< MyGUI::MultiListBox* >
+	template <> struct Convert< MyGUI::MultiListBox* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::MultiListBox* _value)
@@ -264,10 +231,7 @@ namespace Export
 			return static_cast<MyGUI::MultiListBox*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
-   	template <> struct Convert< MyGUI::MenuControl* >
+	template <> struct Convert< MyGUI::MenuControl* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::MenuControl* _value)
@@ -285,10 +249,7 @@ namespace Export
 			return static_cast<MyGUI::MenuControl*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
-   	template <> struct Convert< MyGUI::MenuBar* >
+	template <> struct Convert< MyGUI::MenuBar* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::MenuBar* _value)
@@ -306,10 +267,7 @@ namespace Export
 			return static_cast<MyGUI::MenuBar*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
-   	template <> struct Convert< MyGUI::ListBox* >
+	template <> struct Convert< MyGUI::ListBox* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::ListBox* _value)
@@ -327,10 +285,7 @@ namespace Export
 			return static_cast<MyGUI::ListBox*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
-   	template <> struct Convert< MyGUI::ItemBox* >
+	template <> struct Convert< MyGUI::ItemBox* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::ItemBox* _value)
@@ -348,10 +303,7 @@ namespace Export
 			return static_cast<MyGUI::ItemBox*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
-   	template <> struct Convert< MyGUI::EditBox* >
+	template <> struct Convert< MyGUI::EditBox* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::EditBox* _value)
@@ -369,10 +321,7 @@ namespace Export
 			return static_cast<MyGUI::EditBox*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
-   	template <> struct Convert< MyGUI::DDContainer* >
+	template <> struct Convert< MyGUI::DDContainer* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::DDContainer* _value)
@@ -390,10 +339,7 @@ namespace Export
 			return static_cast<MyGUI::DDContainer*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
-   	template <> struct Convert< MyGUI::ComboBox* >
+	template <> struct Convert< MyGUI::ComboBox* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::ComboBox* _value)
@@ -411,10 +357,7 @@ namespace Export
 			return static_cast<MyGUI::ComboBox*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
-   	template <> struct Convert< MyGUI::Button* >
+	template <> struct Convert< MyGUI::Button* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::Button* _value)
@@ -432,10 +375,7 @@ namespace Export
 			return static_cast<MyGUI::Button*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
-   	template <> struct Convert< MyGUI::Widget* >
+	template <> struct Convert< MyGUI::Widget* >
 	{
 		typedef Interface Type;
 		inline static Interface To(MyGUI::Widget* _value)
@@ -453,9 +393,6 @@ namespace Export
 			return static_cast<MyGUI::Widget*>( GetNativeByWrapper(_value) );
 		}
 	};
-
-
-
 } // namespace Export
 
 #endif // __EXPORT_MARSHALING_WIDGET_H__
