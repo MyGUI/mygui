@@ -645,7 +645,7 @@
 	<Item type="MyGUI::Widget" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_Widget.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_Widget.cs"/>
 		<Tag key="BaseName" value="BaseWidget"/>
@@ -665,7 +665,7 @@
 	<Item type="MyGUI::Button" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_Button.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_Button.cs"/>
 		<Tag key="BaseName" value="TextBox"/>
@@ -676,7 +676,7 @@
 	<Item type="MyGUI::ComboBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_ComboBox.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_ComboBox.cs"/>
 		<Tag key="BaseName" value="EditBox"/>
@@ -692,7 +692,7 @@
 	<Item type="MyGUI::DDContainer" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_DDContainer.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_DDContainer.cs"/>
 		<Tag key="BaseName" value="Widget"/>
@@ -704,7 +704,7 @@
 	<Item type="MyGUI::EditBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_EditBox.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_EditBox.cs"/>
 		<Tag key="BaseName" value="TextBox"/>
@@ -715,7 +715,7 @@
 	<Item type="MyGUI::ItemBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_ItemBox.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_ItemBox.cs"/>
 		<Tag key="BaseName" value="DDContainer"/>
@@ -731,7 +731,7 @@
 	<Item type="MyGUI::ListBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_ListBox.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_ListBox.cs"/>
 		<Tag key="BaseName" value="Widget"/>
@@ -747,7 +747,7 @@
 	<Item type="MyGUI::MenuBar" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MenuBar.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_MenuBar.cs"/>
 		<Tag key="BaseName" value="MenuControl"/>
@@ -758,7 +758,7 @@
 	<Item type="MyGUI::MenuControl" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MenuControl.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_MenuControl.cs"/>
 		<Tag key="BaseName" value="Widget"/>
@@ -777,7 +777,7 @@
 	<Item type="MyGUI::MultiListBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MultiListBox.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_MultiListBox.cs"/>
 		<Tag key="BaseName" value="Widget"/>
@@ -799,7 +799,7 @@
 	<Item type="MyGUI::PopupMenu" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_PopupMenu.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_PopupMenu.cs"/>
 		<Tag key="BaseName" value="MenuControl"/>
@@ -810,7 +810,7 @@
 	<Item type="MyGUI::ProgressBar" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_ProgressBar.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_ProgressBar.cs"/>
 		<Tag key="BaseName" value="Widget"/>
@@ -821,7 +821,7 @@
 	<Item type="MyGUI::ScrollView" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_ScrollView.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_ScrollVew.cs"/>
 		<Tag key="BaseName" value="Widget"/>
@@ -832,7 +832,7 @@
 	<Item type="MyGUI::ImageBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_ImageBox.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_ImageBox.cs"/>
 		<Tag key="BaseName" value="Widget"/>
@@ -847,7 +847,7 @@
 	<Item type="MyGUI::TextBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_TextBox.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_TextBox.cs"/>
 		<Tag key="BaseName" value="Widget"/>
@@ -858,7 +858,7 @@
 	<Item type="MyGUI::TabControl" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_TabControl.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_TabControl.cs"/>
 		<Tag key="BaseName" value="Widget"/>
@@ -875,7 +875,7 @@
 	<Item type="MyGUI::ScrollBar" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_ScrollBar.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_ScrollBar.cs"/>
 		<Tag key="BaseName" value="Widget"/>
@@ -886,7 +886,7 @@
 	<Item type="MyGUI::Window" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_Window.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_Window.cs"/>
 		<Tag key="BaseName" value="TextBox"/>
@@ -898,7 +898,7 @@
 	<Item type="MyGUI::MenuItem" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MenuItem.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_MenuItem.cs"/>
 		<Tag key="BaseName" value="Widget"/>
@@ -912,7 +912,7 @@
 	<Item type="MyGUI::TabItem" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_TabItem.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_TabItem.cs"/>
 		<Tag key="BaseName" value="Widget"/>
@@ -925,7 +925,7 @@
 	<Item type="MyGUI::MultiListItem" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MarshalingWidget.h"/>
-		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart.WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
+		<Template template="RegisterFactory.txt" type="Sharp_Templates" name="GuiPart_WrapWidget.txt" output="..\..\..\..\MyGUI.Sharp\Core\Generate\MyGUI.GuiPart_WidgetCreator.cs"/>
 		<Template type="Export_Templates" name="Derived_h.txt" output="..\..\..\..\MyGUI.Export\Generate\MyGUI.Export_MultiListItem.h"/>
 		<Template type="Sharp_Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Sharp\Widgets\Generate\MyGUI.Sharp_MultiListItem.cs"/>
 		<Tag key="BaseName" value="Widget"/>
