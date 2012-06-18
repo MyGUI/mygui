@@ -7,7 +7,7 @@
 #pragma once
 
 #include <MyGUI.h>
-#include "Generate/MyGUI.Managed_Widget.h"
+#include "Generate/MyGUI_Managed_Widget.h"
 
 namespace MyGUI
 {

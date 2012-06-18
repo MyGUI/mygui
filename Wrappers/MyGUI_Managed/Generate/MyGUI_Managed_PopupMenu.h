@@ -6,7 +6,7 @@
 */
 #pragma once
 
-#include "MyGUI.Managed_MenuControl.h"
+#include "MyGUI_Managed_MenuControl.h"
 
 namespace MyGUI
 {

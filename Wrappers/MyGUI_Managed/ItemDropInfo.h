@@ -9,7 +9,7 @@
 #include <MyGUI.h>
 #include "Config.h"
 #include "Marshaling.h"
-#include "Generate/MyGUI.Managed_MarshalingWidget.h"
+#include "Generate/MyGUI_Managed_MarshalingWidget.h"
 
 namespace MyGUI
 {
