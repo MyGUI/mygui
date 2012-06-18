@@ -1,5 +1,3 @@
-add_subdirectory(WrapperGenerator)
-
 add_subdirectory(MyGUI_RenderWindow_Export)
 
 add_subdirectory(MyGUI_OgrePlatform_Export)
