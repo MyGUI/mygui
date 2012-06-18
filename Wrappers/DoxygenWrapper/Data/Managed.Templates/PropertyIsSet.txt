@@ -1,5 +1,5 @@
 ﻿	public:
-		property Convert<#{OriginalTypeName}>::Type #{PropertyName}
+		property Convert<#{OriginalTypeName}>::Type Is#{PropertyName}
 		{
 			Convert<#{OriginalTypeName}>::Type get( )
 			{

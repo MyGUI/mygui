@@ -1,4 +1,4 @@
-﻿		#region Property #{PropertyName}
+﻿		#region Property Is#{PropertyName}
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         #{MarshalAsReturn}
