@@ -1,7 +1,7 @@
 
 #include "ExportDefine.h"
 #include "ExportMarshaling.h"
-#include "Generate/MyGUI.Export_MarshalingWidget.h"
+#include "Generate/MyGUI_Export_MarshalingWidget.h"
 #include "ExportMarshalingType.h"
 #include <MyGUI.h>
 
