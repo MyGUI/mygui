@@ -31,9 +31,6 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::MultiListItem>(false);
 		}
-
-
-
 		TabItem^ Convert<MyGUI::TabItem*>::To(MyGUI::TabItem* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -48,9 +45,6 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::TabItem>(false);
 		}
-
-
-
 		MenuItem^ Convert<MyGUI::MenuItem*>::To(MyGUI::MenuItem* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -65,9 +59,6 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::MenuItem>(false);
 		}
-
-
-
 		Window^ Convert<MyGUI::Window*>::To(MyGUI::Window* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -82,9 +73,6 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::Window>(false);
 		}
-
-
-
 		Widget^ Convert<MyGUI::Widget*>::To(MyGUI::Widget* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -99,9 +87,6 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::Widget>(false);
 		}
-
-
-
 		ScrollBar^ Convert<MyGUI::ScrollBar*>::To(MyGUI::ScrollBar* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -116,9 +101,6 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::ScrollBar>(false);
 		}
-
-
-
 		TabControl^ Convert<MyGUI::TabControl*>::To(MyGUI::TabControl* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -133,9 +115,6 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::TabControl>(false);
 		}
-
-
-
 		TextBox^ Convert<MyGUI::TextBox*>::To(MyGUI::TextBox* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -150,9 +129,6 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::TextBox>(false);
 		}
-
-
-
 		ImageBox^ Convert<MyGUI::ImageBox*>::To(MyGUI::ImageBox* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -167,9 +143,6 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::ImageBox>(false);
 		}
-
-
-
 		ScrollView^ Convert<MyGUI::ScrollView*>::To(MyGUI::ScrollView* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -184,9 +157,6 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::ScrollView>(false);
 		}
-
-
-
 		ProgressBar^ Convert<MyGUI::ProgressBar*>::To(MyGUI::ProgressBar* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -201,9 +171,6 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::ProgressBar>(false);
 		}
-
-
-
 		PopupMenu^ Convert<MyGUI::PopupMenu*>::To(MyGUI::PopupMenu* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -218,9 +185,6 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::PopupMenu>(false);
 		}
-
-
-
 		MultiListBox^ Convert<MyGUI::MultiListBox*>::To(MyGUI::MultiListBox* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -235,9 +199,6 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::MultiListBox>(false);
 		}
-
-
-
 		MenuControl^ Convert<MyGUI::MenuControl*>::To(MyGUI::MenuControl* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -252,9 +213,6 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::MenuControl>(false);
 		}
-
-
-
 		MenuBar^ Convert<MyGUI::MenuBar*>::To(MyGUI::MenuBar* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -269,9 +227,6 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::MenuBar>(false);
 		}
-
-
-
 		ListBox^ Convert<MyGUI::ListBox*>::To(MyGUI::ListBox* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -286,9 +241,6 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::ListBox>(false);
 		}
-
-
-
 		ItemBox^ Convert<MyGUI::ItemBox*>::To(MyGUI::ItemBox* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -303,9 +255,6 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::ItemBox>(false);
 		}
-
-
-
 		EditBox^ Convert<MyGUI::EditBox*>::To(MyGUI::EditBox* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -320,9 +269,6 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::EditBox>(false);
 		}
-
-
-
 		DDContainer^ Convert<MyGUI::DDContainer*>::To(MyGUI::DDContainer* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -337,9 +283,6 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::DDContainer>(false);
 		}
-
-
-
 		ComboBox^ Convert<MyGUI::ComboBox*>::To(MyGUI::ComboBox* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -354,9 +297,6 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::ComboBox>(false);
 		}
-
-
-
 		Button^ Convert<MyGUI::Button*>::To(MyGUI::Button* _value)
 		{
 			if (_value == nullptr) return nullptr;
@@ -371,8 +311,5 @@ namespace MyGUI
 			if (widget == nullptr) return nullptr;
 			return widget->castType<MyGUI::Button>(false);
 		}
-
-
-
 	} // namespace Managed
 } // namespace MyGUI
