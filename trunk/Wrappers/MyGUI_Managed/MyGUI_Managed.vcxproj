@@ -165,12 +165,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Generate\MyGUI_Managed_MarshalingWidget.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="Gui.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="LayerManager.cpp" />
     <ClCompile Include="PointerManager.cpp" />
-    <ClCompile Include="Generate\MyGUI.Managed_MarshalingWidget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Delegate1.h" />
@@ -188,6 +188,33 @@
     <ClInclude Include="FloatPoint.h" />
     <ClInclude Include="FloatRect.h" />
     <ClInclude Include="FloatSize.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_Button.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_ComboBox.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_DDContainer.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_EditBox.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_GuiFactory.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_ImageBox.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_IncludeWidgets.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_ItemBox.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_ListBox.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_MarshalingWidget.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_MenuBar.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_MenuControl.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_MenuItem.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_MultiListBox.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_MultiListItem.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_PopupMenu.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_ProgressBar.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_ScrollBar.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_ScrollView.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_TabControl.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_TabItem.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_TextBox.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_Widget.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_WidgetCropped.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_WidgetInput.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_WidgetUserData.h" />
+    <ClInclude Include="Generate\MyGUI_Managed_Window.h" />
     <ClInclude Include="IntCoord.h" />
     <ClInclude Include="IntPoint.h" />
     <ClInclude Include="IntRect.h" />
@@ -212,32 +239,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="LayerManager.h" />
     <ClInclude Include="PointerManager.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_GuiFactory.h" />
     <ClInclude Include="BaseWidget.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_Button.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_ComboBox.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_DDContainer.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_EditBox.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_ImageBox.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_IncludeWidgets.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_ItemBox.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_ListBox.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_MarshalingWidget.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_MenuBar.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_MenuControl.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_MenuItem.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_MultiListBox.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_MultiListItem.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_PopupMenu.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_ProgressBar.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_ScrollBar.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_ScrollView.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_TabControl.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_TabItem.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_TextBox.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_Widget.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_WidgetInput.h" />
-    <ClInclude Include="Generate\MyGUI.Managed_Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
