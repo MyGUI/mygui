@@ -229,8 +229,8 @@
 		<!--Template template="IncludeWidget.txt" type="Managed.Templates" name="Include.txt" output="..\..\..\..\MyGUI.Managed\Generate\MyGUI.Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed.Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI.Managed\Generate\MyGUI.Managed_GuiFactory.h"/>
 		<Template template="ItemIncludeMarshaling.txt" type="Managed.Templates" name="IncludeMarshaling.txt" output="..\..\..\..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.h"/>
-		<Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\..\..\..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/>
-		<Template type="Managed.Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Managed\Generate\MyGUI.Managed_Widget.h"/-->
+		<Template template="ItemMarshaling.txt" type="Managed.Templates" name="Marshaling.txt" output="..\..\..\..\MyGUI.Managed\Generate\MyGUI.Managed_MarshalingWidget.cpp"/-->
+		<Template type="Managed.Templates" name="Derived.txt" output="..\..\..\..\MyGUI.Managed\Generate\MyGUI.Managed_Widget.h"/>
 		<Tag key="Include" value="#include &quot;MyGUI.Managed_WidgetInput.h&quot;"/>
 		<Tag key="BaseName" value="WidgetInput"/>
 		<Tag key="ThisName" value="Widget"/>
