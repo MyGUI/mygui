@@ -37,17 +37,17 @@ namespace TestApp.Sharp
             flag = widget.IsUserString("key");
             name = widget.GetUserString("key");
 
-            int height = widget.GetHeight();
-            int width = widget.GetWidth();
-            int rigth = widget.GetRight();
-            int bottom = widget.GetBottom();
-            int top = widget.GetTop();
-            top = widget.GetAbsoluteTop();
-            int left = widget.GetLeft();
-            left = widget.GetAbsoluteLeft();
-            IntCoord coord = widget.GetAbsoluteCoord();
-            IntRect rect = widget.GetAbsoluteRect();
-            IntPoint point = widget.GetAbsolutePosition();
+            int height = widget.Height;
+            int width = widget.Width;
+            int rigth = widget.Right;
+            int bottom = widget.Bottom;
+            int top = widget.Top;
+            top = widget.AbsoluteTop;
+            int left = widget.Left;
+            left = widget.AbsoluteLeft;
+            IntCoord coord = widget.AbsoluteCoord;
+            IntRect rect = widget.AbsoluteRect;
+            IntPoint point = widget.AbsolutePosition;
 
             Align align = widget.Align;
             widget.Align = Align.Center;
@@ -82,8 +82,6 @@ namespace TestApp.Sharp
 
             flag = widget.IsRootWidget();
             flag = childat.IsRootWidget();
-
-            childat.SetState("disabled");
 
             childat.InheritsAlpha = !childat.InheritsAlpha;
             widget.Alpha = 0.5f;
