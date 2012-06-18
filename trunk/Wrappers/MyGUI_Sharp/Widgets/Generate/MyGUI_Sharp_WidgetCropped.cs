@@ -17,7 +17,7 @@ namespace MyGUI.Sharp
 		//InsertPoint
 		#region Property Height
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern int ExportWidget_GetHeight( IntPtr _native );
 
@@ -29,7 +29,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property Width
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern int ExportWidget_GetWidth( IntPtr _native );
 
@@ -41,7 +41,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property Bottom
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern int ExportWidget_GetBottom( IntPtr _native );
 
@@ -53,7 +53,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property Top
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern int ExportWidget_GetTop( IntPtr _native );
 
@@ -65,7 +65,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property Right
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern int ExportWidget_GetRight( IntPtr _native );
 
@@ -77,7 +77,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property Left
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern int ExportWidget_GetLeft( IntPtr _native );
 
@@ -89,7 +89,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property AbsoluteTop
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern int ExportWidget_GetAbsoluteTop( IntPtr _native );
 
@@ -101,7 +101,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property AbsoluteLeft
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern int ExportWidget_GetAbsoluteLeft( IntPtr _native );
 
@@ -113,7 +113,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property AbsoluteCoord
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern IntPtr ExportWidget_GetAbsoluteCoord( IntPtr _native );
 
@@ -125,7 +125,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property AbsoluteRect
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern IntPtr ExportWidget_GetAbsoluteRect( IntPtr _native );
 
@@ -137,7 +137,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property AbsolutePosition
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern IntPtr ExportWidget_GetAbsolutePosition( IntPtr _native );
 
@@ -149,10 +149,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property Coord
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern IntPtr ExportWidget_GetCoord( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidget_SetCoord( IntPtr _widget, [In] ref IntCoord _value );
 
 		public IntCoord Coord
@@ -164,10 +164,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property Size
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern IntPtr ExportWidget_GetSize( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidget_SetSize( IntPtr _widget, [In] ref IntSize _value );
 
 		public IntSize Size
@@ -179,10 +179,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property Position
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern IntPtr ExportWidget_GetPosition( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidget_SetPosition( IntPtr _widget, [In] ref IntPoint _value );
 
 		public IntPoint Position

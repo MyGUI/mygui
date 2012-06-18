@@ -38,7 +38,7 @@ namespace MyGUI.Sharp
 		//InsertPoint
 		#region Event MenuCtrlClose
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControlEvent_AdviseMenuCtrlClose( IntPtr _native, bool _advise );
 
 		public delegate void HandleMenuCtrlClose(
@@ -62,8 +62,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventMenuCtrlClose
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportMenuControlEvent_DelegateMenuCtrlClose( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  MenuControl _sender );
 				
@@ -88,7 +89,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event MenuCtrlAccept
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControlEvent_AdviseMenuCtrlAccept( IntPtr _native, bool _advise );
 
 		public delegate void HandleMenuCtrlAccept(
@@ -113,8 +114,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventMenuCtrlAccept
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportMenuControlEvent_DelegateMenuCtrlAccept( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  MenuControl _sender ,
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  MenuItem _item );
@@ -142,7 +144,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetItemType
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControl_SetItemType_item_type( IntPtr _native ,
 			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item ,
 			[MarshalAs(UnmanagedType.I4)]  MenuItemType _type );
@@ -159,7 +161,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetItemTypeAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControl_SetItemTypeAt_index_type( IntPtr _native ,
 			  uint _index ,
 			[MarshalAs(UnmanagedType.I4)]  MenuItemType _type );
@@ -176,7 +178,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method GetItemType
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.I4)]
 		private static extern MenuItemType ExportMenuControl_GetItemType_item( IntPtr _native ,
 			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
@@ -191,7 +193,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method GetItemTypeAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.I4)]
 		private static extern MenuItemType ExportMenuControl_GetItemTypeAt_index( IntPtr _native ,
 			  uint _index );
@@ -206,7 +208,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method RemoveItemChild
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControl_RemoveItemChild_item( IntPtr _native ,
 			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
 
@@ -220,7 +222,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method RemoveItemChildAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControl_RemoveItemChildAt_index( IntPtr _native ,
 			  uint _index );
 
@@ -234,7 +236,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method CreateItemChild
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuControl ExportMenuControl_CreateItemChild_item( IntPtr _native ,
 			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
@@ -249,7 +251,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method CreateItemChildAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuControl ExportMenuControl_CreateItemChildAt_index( IntPtr _native ,
 			  uint _index );
@@ -264,7 +266,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method GetItemChild
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuControl ExportMenuControl_GetItemChild_item( IntPtr _native ,
 			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
@@ -279,7 +281,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method GetItemChildAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuControl ExportMenuControl_GetItemChildAt_index( IntPtr _native ,
 			  uint _index );
@@ -294,7 +296,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetItemChildVisible
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControl_SetItemChildVisible_item_visible( IntPtr _native ,
 			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item ,
 			[MarshalAs(UnmanagedType.U1)]  bool _visible );
@@ -311,7 +313,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetItemChildVisibleAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControl_SetItemChildVisibleAt_index_visible( IntPtr _native ,
 			  uint _index ,
 			[MarshalAs(UnmanagedType.U1)]  bool _visible );
@@ -328,7 +330,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method FindItemIndexWith
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern uint ExportMenuControl_FindItemIndexWith_name( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
@@ -343,7 +345,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method GetItemName
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern IntPtr ExportMenuControl_GetItemName_item( IntPtr _native ,
 			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
@@ -358,7 +360,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method GetItemNameAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern IntPtr ExportMenuControl_GetItemNameAt_index( IntPtr _native ,
 			  uint _index );
@@ -373,7 +375,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetItemName
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControl_SetItemName_item_name( IntPtr _native ,
 			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
@@ -390,7 +392,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetItemNameAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControl_SetItemNameAt_index_name( IntPtr _native ,
 			  uint _index ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
@@ -407,7 +409,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method GetItemIndexById
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern uint ExportMenuControl_GetItemIndexById_id( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _id );
@@ -422,7 +424,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method FindItemById
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuItem ExportMenuControl_FindItemById_id_recursive( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _id ,
@@ -440,7 +442,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method GetItemById
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuItem ExportMenuControl_GetItemById_id( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _id );
@@ -455,7 +457,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method GetItemId
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern IntPtr ExportMenuControl_GetItemId_item( IntPtr _native ,
 			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
@@ -470,7 +472,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method GetItemIdAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern IntPtr ExportMenuControl_GetItemIdAt_index( IntPtr _native ,
 			  uint _index );
@@ -485,7 +487,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetItemId
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControl_SetItemId_item_id( IntPtr _native ,
 			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _id );
@@ -502,7 +504,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetItemIdAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControl_SetItemIdAt_index_id( IntPtr _native ,
 			  uint _index ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _id );
@@ -519,7 +521,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method GetItemData
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.IUnknown)]
 		private static extern object ExportMenuControl_GetItemData_item( IntPtr _native ,
 			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
@@ -534,7 +536,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method GetItemDataAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.IUnknown)]
 		private static extern object ExportMenuControl_GetItemDataAt_index( IntPtr _native ,
 			  uint _index );
@@ -549,7 +551,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method ClearItemData
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControl_ClearItemData_item( IntPtr _native ,
 			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
 
@@ -563,7 +565,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method ClearItemDataAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControl_ClearItemDataAt_index( IntPtr _native ,
 			  uint _index );
 
@@ -577,7 +579,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetItemData
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControl_SetItemData_item_data( IntPtr _native ,
 			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item ,
 			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
@@ -594,7 +596,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetItemDataAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControl_SetItemDataAt_index_data( IntPtr _native ,
 			  uint _index ,
 			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
@@ -611,7 +613,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method FindItemWith
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuItem ExportMenuControl_FindItemWith_name( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
@@ -626,7 +628,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method FindItemIndex
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern uint ExportMenuControl_FindItemIndex_item( IntPtr _native ,
 			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
@@ -641,7 +643,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method GetItemIndex
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern uint ExportMenuControl_GetItemIndex_item( IntPtr _native ,
 			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
@@ -656,7 +658,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method GetItemAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuItem ExportMenuControl_GetItemAt_index( IntPtr _native ,
 			  uint _index );
@@ -671,7 +673,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method RemoveAllItems
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControl_RemoveAllItems( IntPtr _native );
 
 		public void RemoveAllItems( )
@@ -682,7 +684,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method RemoveItem
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControl_RemoveItem_item( IntPtr _native ,
 			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
 
@@ -696,7 +698,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method RemoveItemAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControl_RemoveItemAt_index( IntPtr _native ,
 			  uint _index );
 
@@ -710,7 +712,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method AddItem
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuItem ExportMenuControl_AddItem_name_type_id_data( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name ,
@@ -731,7 +733,7 @@ namespace MyGUI.Sharp
 				 _data )  ;
 		}
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuItem ExportMenuControl_AddItem_name_type_id( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name ,
@@ -749,7 +751,7 @@ namespace MyGUI.Sharp
 				 _id )  ;
 		}
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuItem ExportMenuControl_AddItem_name_type( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name ,
@@ -764,7 +766,7 @@ namespace MyGUI.Sharp
 				 _type )  ;
 		}
 		
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuItem ExportMenuControl_AddItem_name( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
@@ -779,7 +781,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method InsertItem
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuItem ExportMenuControl_InsertItem_to_name_type_id_data( IntPtr _native ,
 			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _to ,
@@ -806,7 +808,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method InsertItemAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuItem ExportMenuControl_InsertItemAt_index_name_type_id_data( IntPtr _native ,
 			  uint _index ,
@@ -830,7 +832,7 @@ namespace MyGUI.Sharp
 				 _data )  ;
 		}
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuItem ExportMenuControl_InsertItemAt_index_name_type_id( IntPtr _native ,
 			  uint _index ,
@@ -851,7 +853,7 @@ namespace MyGUI.Sharp
 				 _id )  ;
 		}
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuItem ExportMenuControl_InsertItemAt_index_name_type( IntPtr _native ,
 			  uint _index ,
@@ -869,7 +871,7 @@ namespace MyGUI.Sharp
 				 _type )  ;
 		}
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuItem ExportMenuControl_InsertItemAt_index_name( IntPtr _native ,
 			  uint _index ,
@@ -887,7 +889,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetVisibleSmooth
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControl_SetVisibleSmooth_value( IntPtr _native ,
 			[MarshalAs(UnmanagedType.U1)]  bool _value );
 
@@ -901,10 +903,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property VerticalAlignment
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportMenuControl_GetVerticalAlignment( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControl_SetVerticalAlignment( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool VerticalAlignment
@@ -916,7 +918,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property MenuItemParent
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern MenuItem ExportMenuControl_GetMenuItemParent( IntPtr _native );
 
@@ -928,10 +930,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property PopupAccept
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportMenuControl_GetPopupAccept( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportMenuControl_SetPopupAccept( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool PopupAccept
@@ -943,7 +945,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property ItemCount
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern uint ExportMenuControl_GetItemCount( IntPtr _native );
 

@@ -19,9 +19,9 @@ namespace MyGUI.Sharp
 
         #region Visible
 
-        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         private static extern void ExportPointerManager_SetVisible([MarshalAs(UnmanagedType.U1)]bool _value);
-        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.U1)]
         private static extern bool ExportPointerManager_GetVisible();
 

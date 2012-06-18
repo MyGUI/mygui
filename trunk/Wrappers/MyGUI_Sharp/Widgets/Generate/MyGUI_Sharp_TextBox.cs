@@ -38,7 +38,7 @@ namespace MyGUI.Sharp
 		//InsertPoint
 		#region Method SetCaptionWithReplacing
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportTextBox_SetCaptionWithReplacing_value( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _value );
 
@@ -52,10 +52,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property TextShadow
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportTextBox_GetTextShadow( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportTextBox_SetTextShadow( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool TextShadow
@@ -67,10 +67,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property TextShadowColour
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern IntPtr ExportTextBox_GetTextShadowColour( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportTextBox_SetTextShadowColour( IntPtr _widget, [In] ref Colour _value );
 
 		public Colour TextShadowColour
@@ -82,10 +82,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property TextColour
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern IntPtr ExportTextBox_GetTextColour( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportTextBox_SetTextColour( IntPtr _widget, [In] ref Colour _value );
 
 		public Colour TextColour
@@ -97,10 +97,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property TextAlign
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.I4)]
 		private static extern Align ExportTextBox_GetTextAlign( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportTextBox_SetTextAlign( IntPtr _widget, [MarshalAs(UnmanagedType.I4)]  Align _value );
 
 		public Align TextAlign
@@ -112,10 +112,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property FontHeight
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern int ExportTextBox_GetFontHeight( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportTextBox_SetFontHeight( IntPtr _widget,   int _value );
 
 		public int FontHeight
@@ -127,10 +127,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property FontName
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern IntPtr ExportTextBox_GetFontName( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportTextBox_SetFontName( IntPtr _widget, [MarshalAs(UnmanagedType.LPStr)]  string _value );
 
 		public string FontName
@@ -142,10 +142,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property Caption
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern IntPtr ExportTextBox_GetCaption( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportTextBox_SetCaption( IntPtr _widget, [MarshalAs(UnmanagedType.LPWStr)]  string _value );
 
 		public string Caption
@@ -157,7 +157,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property TextSize
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern IntPtr ExportTextBox_GetTextSize( IntPtr _native );
 
@@ -169,7 +169,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property TextRegion
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern IntPtr ExportTextBox_GetTextRegion( IntPtr _native );
 

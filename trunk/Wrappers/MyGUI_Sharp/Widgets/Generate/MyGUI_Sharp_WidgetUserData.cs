@@ -17,7 +17,7 @@ namespace MyGUI.Sharp
 		//InsertPoint
 		#region Method ClearUserStrings
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidget_ClearUserStrings( IntPtr _native );
 
 		public void ClearUserStrings( )
@@ -28,7 +28,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method IsUserString
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportWidget_IsUserString_key( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _key );
@@ -43,7 +43,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method ClearUserString
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportWidget_ClearUserString_key( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _key );
@@ -58,7 +58,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method GetUserString
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern IntPtr ExportWidget_GetUserString_key( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _key );
@@ -73,7 +73,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetUserString
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidget_SetUserString_key_value( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _key ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _value );

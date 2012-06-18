@@ -11,7 +11,7 @@ namespace MyGUI.Sharp
 
         #region Export
 
-        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         private static extern IntPtr ExportGui_CreateWidget(
             [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]BaseWidget _wrapper,
             IntPtr _parent,
@@ -23,13 +23,13 @@ namespace MyGUI.Sharp
             [MarshalAs(UnmanagedType.LPStr)]string _layer,
             [MarshalAs(UnmanagedType.LPStr)]string _name);
 
-        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         private static extern void ExportGui_DestroyWidget(IntPtr _widget);
 
-        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         private static extern void ExportGui_WrapWidget([MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]BaseWidget _wrapper, IntPtr _widget);
 
-        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         private static extern void ExportGui_UnwrapWidget(IntPtr _widget);
 
         #endregion

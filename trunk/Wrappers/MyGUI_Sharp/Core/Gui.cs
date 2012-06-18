@@ -68,7 +68,7 @@ namespace MyGUI.Sharp
             return LoadLayout(_file, _parent, "");
         }
 
-        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         private static extern IntPtr ExportGui_GetPath(
             [MarshalAs(UnmanagedType.LPStr)]  string _filename );
 
@@ -211,7 +211,7 @@ namespace MyGUI.Sharp
 
         }
 
-        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         private static extern void ExportGui_SetProperty(
             IntPtr _widget,
             [MarshalAs(UnmanagedType.LPStr)]  string _key ,
@@ -226,7 +226,7 @@ namespace MyGUI.Sharp
 
         #region LoadResource
 
-        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         private static extern void ExportGui_LoadResource(
             [MarshalAs(UnmanagedType.LPStr)]  string _source
             );
@@ -256,7 +256,7 @@ namespace MyGUI.Sharp
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
         public delegate BaseWidget HandleDelegateWrapperCreator([MarshalAs(UnmanagedType.LPStr)]string _type, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]BaseWidget _parent, IntPtr _widget);
 
-        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         private static extern void ExportGui_SetCreatorWrapps(HandleDelegateWrapperCreator _delegate);
 
         HandleDelegateWrapperCreator mDelegateWrapperCreator;
@@ -272,7 +272,7 @@ namespace MyGUI.Sharp
 
         public delegate IntPtr HandleDelegateNativeByWrapper([MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]BaseWidget _wrapper);
 
-        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         private static extern void ExportGui_SetGetNativeByWrapper(HandleDelegateNativeByWrapper _delegate);
 
         HandleDelegateNativeByWrapper mDelegateNativeByWrapper;
@@ -286,7 +286,7 @@ namespace MyGUI.Sharp
 
         #region Test
 
-        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         private static extern void ExportGui_Test(
             );
 

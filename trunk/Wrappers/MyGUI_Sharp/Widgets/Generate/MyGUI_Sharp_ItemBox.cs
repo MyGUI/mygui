@@ -38,7 +38,7 @@ namespace MyGUI.Sharp
 		//InsertPoint
 		#region Event NotifyItem
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBoxEvent_AdviseNotifyItem( IntPtr _native, bool _advise );
 
 		public delegate void HandleNotifyItem(
@@ -63,8 +63,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventNotifyItem
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportItemBoxEvent_DelegateNotifyItem( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
 				[In] ref IBNotifyItemData _info );
@@ -92,7 +93,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event MouseItemActivate
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBoxEvent_AdviseMouseItemActivate( IntPtr _native, bool _advise );
 
 		public delegate void HandleMouseItemActivate(
@@ -117,8 +118,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventMouseItemActivate
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportItemBoxEvent_DelegateMouseItemActivate( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
 				  uint _index );
@@ -146,7 +148,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event ChangeItemPosition
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBoxEvent_AdviseChangeItemPosition( IntPtr _native, bool _advise );
 
 		public delegate void HandleChangeItemPosition(
@@ -171,8 +173,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventChangeItemPosition
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportItemBoxEvent_DelegateChangeItemPosition( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
 				  uint _index );
@@ -200,7 +203,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event SelectItemAccept
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBoxEvent_AdviseSelectItemAccept( IntPtr _native, bool _advise );
 
 		public delegate void HandleSelectItemAccept(
@@ -225,8 +228,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventSelectItemAccept
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportItemBoxEvent_DelegateSelectItemAccept( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
 				  uint _index );
@@ -254,7 +258,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Request DrawItem
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBoxEvent_AdviseDrawItem( IntPtr _native, bool _advise );
 
 		public delegate void HandleDrawItem(
@@ -280,8 +284,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventDrawItem
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportItemBoxEvent_DelegateDrawItem( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _item ,
@@ -312,7 +317,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Request CoordItem
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBoxEvent_AdviseCoordItem( IntPtr _native, bool _advise );
 
 		public delegate void HandleCoordItem(
@@ -338,8 +343,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventCoordItem
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportItemBoxEvent_DelegateCoordItem( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
 				[In, Out] ref IntCoord _coord ,
@@ -370,7 +376,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Request CreateWidgetItem
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBoxEvent_AdviseCreateWidgetItem( IntPtr _native, bool _advise );
 
 		public delegate void HandleCreateWidgetItem(
@@ -395,8 +401,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventCreateWidgetItem
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportItemBoxEvent_DelegateCreateWidgetItem( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _item );
@@ -424,7 +431,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetCoord
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBox_SetCoord_left_top_width_height( IntPtr _native ,
 			  int _left ,
 			  int _top ,
@@ -447,7 +454,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetSize
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBox_SetSize_width_height( IntPtr _native ,
 			  int _width ,
 			  int _height );
@@ -464,7 +471,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetPosition
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBox_SetPosition_left_top( IntPtr _native ,
 			  int _left ,
 			  int _top );
@@ -481,7 +488,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method ResetDrag
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBox_ResetDrag( IntPtr _native );
 
 		public void ResetDrag( )
@@ -492,7 +499,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method GetWidgetByIndex
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern Widget ExportItemBox_GetWidgetByIndex_index( IntPtr _native ,
 			  uint _index );
@@ -507,7 +514,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method GetIndexByWidget
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern uint ExportItemBox_GetIndexByWidget_widget( IntPtr _native ,
 			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _widget );
@@ -522,7 +529,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method GetItemDataAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.IUnknown)]
 		private static extern object ExportItemBox_GetItemDataAt_index( IntPtr _native ,
 			  uint _index );
@@ -537,7 +544,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method ClearItemDataAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBox_ClearItemDataAt_index( IntPtr _native ,
 			  uint _index );
 
@@ -551,7 +558,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetItemDataAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBox_SetItemDataAt_index_data( IntPtr _native ,
 			  uint _index ,
 			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
@@ -568,7 +575,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method ClearIndexSelected
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBox_ClearIndexSelected( IntPtr _native );
 
 		public void ClearIndexSelected( )
@@ -579,7 +586,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method RedrawAllItems
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBox_RedrawAllItems( IntPtr _native );
 
 		public void RedrawAllItems( )
@@ -590,7 +597,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method RedrawItemAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBox_RedrawItemAt_index( IntPtr _native ,
 			  uint _index );
 
@@ -604,7 +611,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method RemoveAllItems
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBox_RemoveAllItems( IntPtr _native );
 
 		public void RemoveAllItems( )
@@ -615,7 +622,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method RemoveItemAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBox_RemoveItemAt_index( IntPtr _native ,
 			  uint _index );
 
@@ -629,7 +636,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method AddItem
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBox_AddItem_data( IntPtr _native ,
 			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
 
@@ -640,7 +647,7 @@ namespace MyGUI.Sharp
 				 _data );
 		}
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBox_AddItem( IntPtr _native );
 
 		public void AddItem( )
@@ -651,7 +658,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method InsertItemAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBox_InsertItemAt_index_data( IntPtr _native ,
 			  uint _index ,
 			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
@@ -665,7 +672,7 @@ namespace MyGUI.Sharp
 				 _data );
 		}
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBox_InsertItemAt_index( IntPtr _native ,
 			  uint _index );
 
@@ -679,7 +686,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property WidgetDrag
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern Widget ExportItemBox_GetWidgetDrag( IntPtr _native );
 
@@ -691,10 +698,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property VerticalAlignment
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportItemBox_GetVerticalAlignment( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBox_SetVerticalAlignment( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool VerticalAlignment
@@ -706,10 +713,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property IndexSelected
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern uint ExportItemBox_GetIndexSelected( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportItemBox_SetIndexSelected( IntPtr _widget,   uint _value );
 
 		public uint IndexSelected
@@ -721,7 +728,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property ItemCount
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern uint ExportItemBox_GetItemCount( IntPtr _native );
 
