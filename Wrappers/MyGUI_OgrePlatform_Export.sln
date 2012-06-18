@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C++ Express 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGUI_RenderWindow_Export", "MyGUI_RenderWindow_Export\MyGUI_OgrePlatform_Export.vcxproj", "{24DC0D13-8A93-43AA-8157-BCC949645533}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGUI_OgrePlatform_Export", "MyGUI_OgrePlatform_Export\MyGUI_OgrePlatform_Export.vcxproj", "{24DC0D13-8A93-43AA-8157-BCC949645533}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
