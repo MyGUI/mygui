@@ -6,7 +6,7 @@
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{46C12706-EA6F-4E10-957C-330D369A79A6}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TestApp.Sharp</RootNamespace>
     <AssemblyName>TestApp_Sharp</AssemblyName>
@@ -38,12 +38,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MyGUI_Sharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(SolutionDir)../bin/$(Configuration)\MyGUI_Sharp.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -74,6 +71,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="mygui.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyGUI_Sharp\MyGUI_Sharp.csproj">
+      <Project>{2DCEC480-7E44-4A42-8328-D712DE03007D}</Project>
+      <Name>MyGUI_Sharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
