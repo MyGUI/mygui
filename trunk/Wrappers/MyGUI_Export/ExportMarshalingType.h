@@ -7,7 +7,7 @@
 #ifndef __EXPORT_MARSHALING_TYPE_H__
 #define __EXPORT_MARSHALING_TYPE_H__
 
-#include "Generate/MyGUI.Export_MarshalingWidget.h"
+#include "Generate/MyGUI_Export_MarshalingWidget.h"
 
 namespace Export
 {
