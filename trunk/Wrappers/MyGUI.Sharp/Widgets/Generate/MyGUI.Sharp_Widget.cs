@@ -489,7 +489,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-		#region Property RootWidget
+		#region Property IsRootWidget
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]

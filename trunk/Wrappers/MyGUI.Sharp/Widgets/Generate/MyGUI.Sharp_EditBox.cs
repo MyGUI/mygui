@@ -362,7 +362,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-		#region Property VisibleHScroll
+		#region Property IsVisibleHScroll
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -404,7 +404,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-		#region Property VisibleVScroll
+		#region Property IsVisibleVScroll
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -611,7 +611,7 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-		#region Property TextSelection
+		#region Property IsTextSelection
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
@@ -668,18 +668,6 @@ namespace MyGUI.Sharp
 		public uint TextSelectionStart
 		{
 			get { return  ExportEditBox_GetTextSelectionStart( mNative )  ; }
-		}
-
-		#endregion
-		#region Property Type
-
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportEditBox_IsType( IntPtr _native );
-
-		public bool IsType
-		{
-			get { return  ExportEditBox_IsType( mNative )  ; }
 		}
 
 		#endregion
