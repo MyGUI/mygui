@@ -17,7 +17,7 @@ namespace MyGUI.Sharp
 		//InsertPoint
 		#region Event ToolTip
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidgetEvent_AdviseToolTip( IntPtr _native, bool _advise );
 
 		public delegate void HandleToolTip(
@@ -42,8 +42,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventToolTip
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportWidgetEvent_DelegateToolTip( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				[In] ref ToolTipInfo _info );
@@ -71,7 +72,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event RootKeyChangeFocus
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidgetEvent_AdviseRootKeyChangeFocus( IntPtr _native, bool _advise );
 
 		public delegate void HandleRootKeyChangeFocus(
@@ -96,8 +97,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventRootKeyChangeFocus
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportWidgetEvent_DelegateRootKeyChangeFocus( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				[MarshalAs(UnmanagedType.U1)]  bool _focus );
@@ -125,7 +127,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event RootMouseChangeFocus
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidgetEvent_AdviseRootMouseChangeFocus( IntPtr _native, bool _advise );
 
 		public delegate void HandleRootMouseChangeFocus(
@@ -150,8 +152,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventRootMouseChangeFocus
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportWidgetEvent_DelegateRootMouseChangeFocus( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				[MarshalAs(UnmanagedType.U1)]  bool _focus );
@@ -179,7 +182,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event KeyButtonReleased
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidgetEvent_AdviseKeyButtonReleased( IntPtr _native, bool _advise );
 
 		public delegate void HandleKeyButtonReleased(
@@ -204,8 +207,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventKeyButtonReleased
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportWidgetEvent_DelegateKeyButtonReleased( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				[MarshalAs(UnmanagedType.I4)]  KeyCode _key );
@@ -233,7 +237,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event KeyButtonPressed
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidgetEvent_AdviseKeyButtonPressed( IntPtr _native, bool _advise );
 
 		public delegate void HandleKeyButtonPressed(
@@ -259,8 +263,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventKeyButtonPressed
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportWidgetEvent_DelegateKeyButtonPressed( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				[MarshalAs(UnmanagedType.I4)]  KeyCode _key ,
@@ -291,7 +296,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event KeySetFocus
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidgetEvent_AdviseKeySetFocus( IntPtr _native, bool _advise );
 
 		public delegate void HandleKeySetFocus(
@@ -316,8 +321,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventKeySetFocus
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportWidgetEvent_DelegateKeySetFocus( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _old );
@@ -345,7 +351,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event KeyLostFocus
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidgetEvent_AdviseKeyLostFocus( IntPtr _native, bool _advise );
 
 		public delegate void HandleKeyLostFocus(
@@ -370,8 +376,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventKeyLostFocus
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportWidgetEvent_DelegateKeyLostFocus( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _new );
@@ -399,7 +406,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event MouseButtonDoubleClick
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidgetEvent_AdviseMouseButtonDoubleClick( IntPtr _native, bool _advise );
 
 		public delegate void HandleMouseButtonDoubleClick(
@@ -423,8 +430,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventMouseButtonDoubleClick
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportWidgetEvent_DelegateMouseButtonDoubleClick( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender );
 				
@@ -449,7 +457,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event MouseButtonClick
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidgetEvent_AdviseMouseButtonClick( IntPtr _native, bool _advise );
 
 		public delegate void HandleMouseButtonClick(
@@ -473,8 +481,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventMouseButtonClick
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportWidgetEvent_DelegateMouseButtonClick( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender );
 				
@@ -499,7 +508,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event MouseButtonReleased
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidgetEvent_AdviseMouseButtonReleased( IntPtr _native, bool _advise );
 
 		public delegate void HandleMouseButtonReleased(
@@ -526,8 +535,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventMouseButtonReleased
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportWidgetEvent_DelegateMouseButtonReleased( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				  int _left ,
@@ -561,7 +571,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event MouseButtonPressed
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidgetEvent_AdviseMouseButtonPressed( IntPtr _native, bool _advise );
 
 		public delegate void HandleMouseButtonPressed(
@@ -588,8 +598,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventMouseButtonPressed
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportWidgetEvent_DelegateMouseButtonPressed( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				  int _left ,
@@ -623,7 +634,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event MouseWheel
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidgetEvent_AdviseMouseWheel( IntPtr _native, bool _advise );
 
 		public delegate void HandleMouseWheel(
@@ -648,8 +659,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventMouseWheel
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportWidgetEvent_DelegateMouseWheel( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				  int _rel );
@@ -677,7 +689,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event MouseMove
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidgetEvent_AdviseMouseMove( IntPtr _native, bool _advise );
 
 		public delegate void HandleMouseMove(
@@ -703,8 +715,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventMouseMove
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportWidgetEvent_DelegateMouseMove( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				  int _left ,
@@ -735,7 +748,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event MouseDrag
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidgetEvent_AdviseMouseDrag( IntPtr _native, bool _advise );
 
 		public delegate void HandleMouseDrag(
@@ -762,8 +775,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventMouseDrag
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportWidgetEvent_DelegateMouseDrag( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				  int _left ,
@@ -797,7 +811,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event MouseSetFocus
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidgetEvent_AdviseMouseSetFocus( IntPtr _native, bool _advise );
 
 		public delegate void HandleMouseSetFocus(
@@ -822,8 +836,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventMouseSetFocus
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportWidgetEvent_DelegateMouseSetFocus( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _old );
@@ -851,7 +866,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event MouseLostFocus
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidgetEvent_AdviseMouseLostFocus( IntPtr _native, bool _advise );
 
 		public delegate void HandleMouseLostFocus(
@@ -876,8 +891,9 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventMouseLostFocus
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 			private static extern void ExportWidgetEvent_DelegateMouseLostFocus( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _new );
@@ -905,7 +921,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method IsMaskPickInside
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportWidget_IsMaskPickInside_point_coord( IntPtr _native ,
 			[In] ref IntPoint _point ,
@@ -923,7 +939,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property RootKeyFocus
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportWidget_GetRootKeyFocus( IntPtr _native );
 
@@ -935,7 +951,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property RootMouseFocus
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportWidget_GetRootMouseFocus( IntPtr _native );
 
@@ -947,10 +963,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property InheritsPick
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportWidget_GetInheritsPick( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidget_SetInheritsPick( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool InheritsPick
@@ -962,10 +978,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property NeedMouseFocus
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportWidget_GetNeedMouseFocus( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidget_SetNeedMouseFocus( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool NeedMouseFocus
@@ -977,10 +993,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property NeedKeyFocus
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportWidget_GetNeedKeyFocus( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidget_SetNeedKeyFocus( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool NeedKeyFocus
@@ -992,10 +1008,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property Pointer
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         
 		private static extern IntPtr ExportWidget_GetPointer( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidget_SetPointer( IntPtr _widget, [MarshalAs(UnmanagedType.LPStr)]  string _value );
 
 		public string Pointer
@@ -1007,10 +1023,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property NeedToolTip
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportWidget_GetNeedToolTip( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
 		private static extern void ExportWidget_SetNeedToolTip( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool NeedToolTip
