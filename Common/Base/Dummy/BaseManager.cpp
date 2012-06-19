@@ -284,7 +284,7 @@ namespace base
 
 	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)
 	{
-		mPlatform->getDataManagerPtr()->addResourceLocation(_name, _recursive);
+		//mPlatform->getDataManagerPtr()->addResourceLocation(_name, _recursive);
 	}
 
 	void BaseManager::windowAdjustSettings(HWND hWnd, int width, int height, bool fullScreen)

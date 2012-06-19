@@ -62,7 +62,7 @@ namespace MyGUI
 
 	void DummyRTTexture::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		DummyRenderManager::getInstance().doRender(_buffer, _texture, _count);
+		//DummyRenderManager::getInstance().doRender(_buffer, _texture, _count);
 	}
 
 } // namespace MyGUI

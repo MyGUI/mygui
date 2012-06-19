@@ -14,12 +14,12 @@ namespace MyGUI
 {
 
 	DummyTexture::DummyTexture(const std::string& _name/*, IDirect3DDevice9* _device*/) :
-		mName(_name),
+		mName(_name)//,
 		//mpD3DDevice(_device),
 		//mpTexture(NULL),
-		mNumElemBytes(0),
-		mLock(false),
-		mRenderTarget(nullptr)//,
+		//mNumElemBytes(0),
+		//mLock(false),
+		//mRenderTarget(nullptr)//,
 		//mInternalPool(D3DPOOL_MANAGED),
 		//mInternalFormat(D3DFMT_UNKNOWN),
 		//mInternalUsage(0)
@@ -140,11 +140,11 @@ namespace MyGUI
 
 	void DummyTexture::destroy()
 	{
-		if (mRenderTarget != nullptr)
+		/*if (mRenderTarget != nullptr)
 		{
 			delete mRenderTarget;
 			mRenderTarget = nullptr;
-		}
+		}*/
 
 		//if (mpTexture != nullptr)
 		//{
@@ -163,12 +163,12 @@ namespace MyGUI
 
 	int DummyTexture::getWidth()
 	{
-		return mSize.width;
+		return 0;//mSize.width;
 	}
 
 	int DummyTexture::getHeight()
 	{
-		return mSize.height;
+		return 0;//mSize.height;
 	}
 
 	void* DummyTexture::lock(TextureUsage _access)
@@ -201,22 +201,22 @@ namespace MyGUI
 
 	bool DummyTexture::isLocked()
 	{
-		return mLock;
+		return false;//mLock;
 	}
 
 	PixelFormat DummyTexture::getFormat()
 	{
-		return mPixelFormat;
+		return PixelFormat::Unknow;// mPixelFormat;
 	}
 
 	size_t DummyTexture::getNumElemBytes()
 	{
-		return mNumElemBytes;
+		return 0;//mNumElemBytes;
 	}
 
 	TextureUsage DummyTexture::getUsage()
 	{
-		return mTextureUsage;
+		return TextureUsage::Default;//mTextureUsage;
 	}
 
 	IRenderTarget* DummyTexture::getRenderTarget()

@@ -15,21 +15,21 @@
 namespace MyGUI
 {
 
-	DummyRenderManager::DummyRenderManager() :
-		mIsInitialise(false),
+	DummyRenderManager::DummyRenderManager()// :
+		//mIsInitialise(false),
 		//mpD3DDevice(nullptr),
-		mUpdate(false)
+		//mUpdate(false)
 	{
 	}
 
 	void DummyRenderManager::initialise(/*IDirect3DDevice9* _device*/)
 	{
-		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		//MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		//mpD3DDevice = _device;
 
-		mVertexFormat = VertexColourType::ColourARGB;
+		//mVertexFormat = VertexColourType::ColourARGB;
 
 		/*memset(&mInfo, 0, sizeof(mInfo));
 		if (mpD3DDevice != nullptr)
@@ -39,7 +39,7 @@ namespace MyGUI
 			setViewSize(vp.Width, vp.Height);
 		}*/
 
-		mUpdate = false;
+		//mUpdate = false;
 
 		/*if (mpD3DDevice != nullptr)
 		{
@@ -52,19 +52,19 @@ namespace MyGUI
 		}*/
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
-		mIsInitialise = true;
+		//mIsInitialise = true;
 	}
 
 	void DummyRenderManager::shutdown()
 	{
-		MYGUI_PLATFORM_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		//MYGUI_PLATFORM_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		destroyAllResources();
 		//mpD3DDevice = nullptr;
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
-		mIsInitialise = false;
+		//mIsInitialise = false;
 	}
 
 	IVertexBuffer* DummyRenderManager::createVertexBuffer()
@@ -79,9 +79,9 @@ namespace MyGUI
 
 	void DummyRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		DummyTexture* dxTex = static_cast<DummyTexture*>(_texture);
+		//DummyTexture* dxTex = static_cast<DummyTexture*>(_texture);
 		//mpD3DDevice->SetTexture(0, dxTex->getDummyTexture());
-		DummyVertexBuffer* dxVB = static_cast<DummyVertexBuffer*>(_buffer);
+		//DummyVertexBuffer* dxVB = static_cast<DummyVertexBuffer*>(_buffer);
 		//dxVB->setToStream(0);
 		// count in vertexes, triangle_list = vertexes / 3
 		//mpD3DDevice->DrawPrimitive(D3DPT_TRIANGLELIST, 0, _count / 3);
@@ -103,10 +103,10 @@ namespace MyGUI
 		last_time = now_time;
 
 		begin();
-		onRenderToTarget(this, mUpdate);
+		onRenderToTarget(this, false);//mUpdate);
 		end();
 
-		mUpdate = false;
+		//mUpdate = false;
 	}
 
 	void DummyRenderManager::begin()
@@ -219,10 +219,10 @@ namespace MyGUI
 		D3DFORMAT requestedlFormat = internalFormat;
 		D3DXCheckTextureRequirements(mpD3DDevice, NULL, NULL, NULL, internalUsage, &internalFormat, internalPool);*/
 
-		bool result = false;//requestedlFormat == internalFormat;
+		//bool result = false;//requestedlFormat == internalFormat;
 		//if (!result)
 		//	MYGUI_PLATFORM_LOG(Warning, "Texture format '" << requestedlFormat << "'is not supported.");
-		return result;
+		return false;//result;
 	}
 
 	void DummyRenderManager::destroyAllResources()
@@ -252,7 +252,7 @@ namespace MyGUI
 
 		onResizeView(mViewSize);
 
-		mUpdate = true;
+		//mUpdate = true;
 	}
 
 	/*void DummyRenderManager::deviceLost()
