@@ -8,7 +8,7 @@
 #define __EXPORT_DEFINE_H__
 
 #define MYGUIEXPORT extern "C" __declspec( dllexport )
-#define MYGUICALL __stdcall
+#define MYGUICALL __cdecl
 #define MYGUICALLBACK __stdcall
 
 #include <MyGUI.h>
