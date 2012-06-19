@@ -8,47 +8,67 @@ namespace TestApp.Sharp
 {
     class Program
     {
-
-        static void Main(string[] args)
+		[STAThread]
+        public static void Main(string[] args)
         {
-            Gui.Instance.Test();
+            Gui.Instance.ExportTest();
 
-            Export.Initialise();
-
-            Test_Button.Test();
-            Test_ComboBox.Test();
-            Test_DDContainer.Test();
-            Test_EditBox.Test();
-            Test_ItemBox.Test();
-            Test_ListBox.Test();
-            Test_MenuBar.Test();
-            Test_MenuControl.Test();
-            Test_MultiListBox.Test();
-            Test_PopupMenu.Test();
-            Test_ProgressBar.Test();
-            Test_ScrollView.Test();
-            Test_ImageBox.Test();
-            Test_TextBox.Test();
-            Test_TabControl.Test();
-            Test_ScrollBar.Test();
-            Test_Widget.Test();
-            Test_Window.Test();
-
-            Test_Gui.Test();
-
-            Export.AddFrameDelegate(new MyGUI.Sharp.Demo.Export.HandleFrameStart(FrameStart));
-            Export.Run();
+			//PoorPlatformTest();
+			DefaultPlatformTest();
         }
 
-        static float time = 0;
-        static void FrameStart(float _time)
-        {
-            time += _time;
-            if (time < 1) return;
-            time = 0;
+		private static void DefaultPlatformTest()
+		{
+			Export.Initialise();
 
-            Test_Gui.Update();
-        }
+			TestWidgets();
 
+			float time = 0;
+			Export.AddFrameDelegate(delegate(float _time)
+			{
+				time += _time;
+				if (time < 1)
+					return;
+				time = 0;
+
+				Test_Gui.Update();
+			});
+			Export.Run();
+		}
+
+		private static void PoorPlatformTest()
+		{
+			Platform.CreatePlatform("MyGUI.log");
+			Platform.CreateGui("MyGUICore.xml");
+
+			TestWidgets();
+
+			Platform.DestroyGui();
+			Platform.DestroyPlatform();
+		}
+
+		private static void TestWidgets()
+		{
+			Test_Button.Test();
+			Test_ComboBox.Test();
+			Test_DDContainer.Test();
+			Test_EditBox.Test();
+			Test_ItemBox.Test();
+			Test_ListBox.Test();
+			Test_MenuBar.Test();
+			Test_MenuControl.Test();
+			Test_MultiListBox.Test();
+			Test_PopupMenu.Test();
+			Test_ProgressBar.Test();
+			Test_ScrollView.Test();
+			Test_ImageBox.Test();
+			Test_TextBox.Test();
+			Test_TabControl.Test();
+			Test_ScrollBar.Test();
+			Test_Widget.Test();
+			Test_Window.Test();
+
+			Test_Gui.Test();
+		}
     }
 }

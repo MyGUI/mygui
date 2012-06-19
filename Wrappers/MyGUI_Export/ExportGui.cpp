@@ -1,4 +1,3 @@
-
 #include "ExportDefine.h"
 #include "ExportMarshaling.h"
 #include "Generate/MyGUI_Export_MarshalingWidget.h"
@@ -35,11 +34,11 @@ namespace Export
 		return widget;
 	}
 
-	MYGUIEXPORT void MYGUICALL ExportGui_Test()
+	MYGUIEXPORT void MYGUICALL ExportGui_ExportTest()
 	{
 		MyGUI::xml::Document* doc = new MyGUI::xml::Document();
 		doc->createDeclaration();
-		doc->save(MyGUI::UString("test.xml"));
+		doc->save(MyGUI::UString("MyGUI_ExportTest.xml"));
 		delete doc;
 	}
 
