@@ -4,7 +4,7 @@
 	@date		06/2012
 */
 
-#include <d3dx9.h>
+//#include <d3dx9.h>
 #include "MyGUI_DummyTexture.h"
 #include "MyGUI_DummyDataManager.h"
 #include "MyGUI_DummyRTTexture.h"
@@ -13,16 +13,16 @@
 namespace MyGUI
 {
 
-	DummyTexture::DummyTexture(const std::string& _name, IDirect3DDevice9* _device) :
+	DummyTexture::DummyTexture(const std::string& _name/*, IDirect3DDevice9* _device*/) :
 		mName(_name),
-		mpD3DDevice(_device),
-		mpTexture(NULL),
+		//mpD3DDevice(_device),
+		//mpTexture(NULL),
 		mNumElemBytes(0),
 		mLock(false),
-		mRenderTarget(nullptr),
-		mInternalPool(D3DPOOL_MANAGED),
-		mInternalFormat(D3DFMT_UNKNOWN),
-		mInternalUsage(0)
+		mRenderTarget(nullptr)//,
+		//mInternalPool(D3DPOOL_MANAGED),
+		//mInternalFormat(D3DFMT_UNKNOWN),
+		//mInternalUsage(0)
 	{
 	}
 
@@ -40,7 +40,7 @@ namespace MyGUI
 	{
 		destroy();
 
-		mInternalUsage = 0;
+		/*mInternalUsage = 0;
 		mInternalFormat = D3DFMT_UNKNOWN;
 
 		mSize.set(_width, _height);
@@ -90,14 +90,13 @@ namespace MyGUI
 				"' internal usage '" << mInternalUsage <<
 				"' internal format '" << mInternalFormat << "'."
 				);
-		}
-
+		}*/
 	}
 
 	void DummyTexture::loadFromFile(const std::string& _filename)
 	{
 		destroy();
-		mTextureUsage = TextureUsage::Default;
+		/*mTextureUsage = TextureUsage::Default;
 		mPixelFormat = PixelFormat::R8G8B8A8;
 		mNumElemBytes = 4;
 
@@ -136,7 +135,7 @@ namespace MyGUI
 				"): size '" << mSize <<
 				"' format '" << info.Format << "'."
 				);
-		}
+		}*/
 	}
 
 	void DummyTexture::destroy()
@@ -147,19 +146,19 @@ namespace MyGUI
 			mRenderTarget = nullptr;
 		}
 
-		if (mpTexture != nullptr)
-		{
-			int nNewRefCount = mpTexture->Release();
+		//if (mpTexture != nullptr)
+		//{
+			/*int nNewRefCount = mpTexture->Release();
 
 			if (nNewRefCount > 0)
 			{
 				MYGUI_PLATFORM_EXCEPT("The texture object failed to cleanup properly.\n"
 					"Release() returned a reference count of '" << nNewRefCount << "'."
 					);
-			}
+			}*/
 
-			mpTexture = nullptr;
-		}
+		//	mpTexture = nullptr;
+		//}
 	}
 
 	int DummyTexture::getWidth()
@@ -174,7 +173,7 @@ namespace MyGUI
 
 	void* DummyTexture::lock(TextureUsage _access)
 	{
-		D3DLOCKED_RECT d3dlr;
+		/*D3DLOCKED_RECT d3dlr;
 		int lockFlag = (_access == TextureUsage::Write) ? D3DLOCK_DISCARD : D3DLOCK_READONLY;
 
 		HRESULT result = mpTexture->LockRect(0, &d3dlr, NULL, lockFlag);
@@ -184,18 +183,20 @@ namespace MyGUI
 		}
 
 		mLock = true;
-		return d3dlr.pBits;
+		return d3dlr.pBits;*/
+
+		return nullptr;
 	}
 
 	void DummyTexture::unlock()
 	{
-		HRESULT result = mpTexture->UnlockRect(0);
+		/*HRESULT result = mpTexture->UnlockRect(0);
 		if (FAILED(result))
 		{
 			MYGUI_PLATFORM_EXCEPT("Failed to unlock texture (error code " << result << ").");
 		}
 
-		mLock = false;
+		mLock = false;*/
 	}
 
 	bool DummyTexture::isLocked()
@@ -220,16 +221,17 @@ namespace MyGUI
 
 	IRenderTarget* DummyTexture::getRenderTarget()
 	{
-		if (mpTexture == nullptr)
-			return nullptr;
+		/*if (mpTexture == nullptr)
+			return nullptr;*/
 
-		if (mRenderTarget == nullptr)
-			mRenderTarget = new DummyRTTexture(mpD3DDevice, mpTexture);
+		//if (mRenderTarget == nullptr)
+		//	mRenderTarget = new DummyRTTexture(/*mpD3DDevice, */mpTexture);
 
-		return mRenderTarget;
+		//return mRenderTarget;
+		return nullptr;
 	}
 
-	void DummyTexture::deviceLost()
+	/*void DummyTexture::deviceLost()
 	{
 		if (mInternalPool == D3DPOOL_DEFAULT)
 		{
@@ -247,6 +249,6 @@ namespace MyGUI
 				MYGUI_PLATFORM_EXCEPT("Failed to recreate texture on device restore (error code " << result << ").");
 			}
 		}
-	}
+	}*/
 
 } // namespace MyGUI
