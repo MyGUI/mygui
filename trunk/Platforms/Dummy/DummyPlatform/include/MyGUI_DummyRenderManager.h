@@ -84,8 +84,8 @@ namespace MyGUI
 		//void deviceLost();
 		//void deviceRestore();
 
-	private:
-		void destroyAllResources();
+	//private:
+		//void destroyAllResources();
 
 	private:
 		//IDirect3DDevice9* mpD3DDevice;
