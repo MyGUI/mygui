@@ -1,3 +1,21 @@
 add_subdirectory(MyGUI_RenderWindow_Export)
 
 add_subdirectory(MyGUI_OgrePlatform_Export)
+
+function(mygui_copy_wrapper_solution SolutionName)
+	file(READ ${MYGUI_SOURCE_DIR}/Wrappers/${SolutionName} SolutionFileContent)
+	#MESSAGE(STATUS "Content of file is: ${SolutionFileContent}")
+	STRING(REGEX REPLACE "(.*)\"(.*csproj)\"" "\\1\"${MYGUI_SOURCE_DIR}/Wrappers/\\2\"" SolutionFileContent "${SolutionFileContent}")
+	STRING(REGEX REPLACE "(.*)\"(.*vcxproj)\"" "\\1\"${MYGUI_SOURCE_DIR}/Wrappers/\\2\"" SolutionFileContent "${SolutionFileContent}")
+	file(WRITE ${MYGUI_BINARY_DIR}/Wrappers/${SolutionName} ${SolutionFileContent})
+endfunction(mygui_copy_wrapper_solution)
+
+if (WIN32)
+	mygui_copy_wrapper_solution("DoxygenWrapper.sln")
+	mygui_copy_wrapper_solution("MogreApp.sln")
+	mygui_copy_wrapper_solution("MogreFramework.sln")
+	mygui_copy_wrapper_solution("MyGUI_Export.sln")
+	mygui_copy_wrapper_solution("MyGUI_Managed.sln")
+	mygui_copy_wrapper_solution("TestApp_Managed.sln")
+	mygui_copy_wrapper_solution("TestApp_Sharp.sln")
+endif ()
