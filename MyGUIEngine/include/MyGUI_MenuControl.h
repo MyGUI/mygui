@@ -350,6 +350,7 @@ namespace MyGUI
 
 		bool mChangeChildSkin;
 		Widget* mClient;
+		bool mInternalCreateChild;
 	};
 
 } // namespace MyGUI

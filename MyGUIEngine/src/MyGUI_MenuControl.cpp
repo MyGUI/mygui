@@ -50,7 +50,8 @@ namespace MyGUI
 		mOwner(nullptr),
 		mAnimateSmooth(false),
 		mChangeChildSkin(false),
-		mClient(nullptr)
+		mClient(nullptr),
+		mInternalCreateChild(false)
 	{
 	}
 
@@ -128,7 +129,7 @@ namespace MyGUI
 		Base::onWidgetCreated(_widget);
 
 		MenuItem* child = _widget->castType<MenuItem>(false);
-		if (child != nullptr)
+		if (child != nullptr && !mInternalCreateChild)
 		{
 			_wrapItem(child, mItemsInfo.size(), "", MenuItemType::Normal, "", Any::Null);
 		}
@@ -139,10 +140,10 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "MenuControl::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
+		mInternalCreateChild = true;
 		MenuItem* item = _getClientWidget()->createWidget<MenuItem>(getSkinByType(_type), IntCoord(), Align::Default);
-		// если клиент мы сами то виджет будет обернут в onWidgetCreated
-		if (_getClientWidget() != this)
-			_wrapItem(item, _index, _name, _type, _id, _data);
+		mInternalCreateChild = false;
+		_wrapItem(item, _index, _name, _type, _id, _data);
 
 		return item;
 	}
