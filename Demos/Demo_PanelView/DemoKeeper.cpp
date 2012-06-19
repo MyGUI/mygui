@@ -30,7 +30,8 @@ namespace demo
 	{
 		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper.layout");
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
-		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Panel View control implementation.");
+		if (root.size() == 1)
+			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Panel View control implementation.");
 
 		MyGUI::ResourceManager::getInstance().load("FrameworkSkin.xml");
 
