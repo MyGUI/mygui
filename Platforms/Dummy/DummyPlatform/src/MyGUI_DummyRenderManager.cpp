@@ -6,8 +6,8 @@
 
 //#include <d3dx9.h>
 #include "MyGUI_DummyRenderManager.h"
-#include "MyGUI_DummyTexture.h"
-#include "MyGUI_DummyVertexBuffer.h"
+//#include "MyGUI_DummyTexture.h"
+//#include "MyGUI_DummyVertexBuffer.h"
 #include "MyGUI_DummyDiagnostic.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_Timer.h"
@@ -60,7 +60,7 @@ namespace MyGUI
 		//MYGUI_PLATFORM_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
 
-		destroyAllResources();
+		//destroyAllResources();
 		//mpD3DDevice = nullptr;
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
@@ -69,12 +69,13 @@ namespace MyGUI
 
 	IVertexBuffer* DummyRenderManager::createVertexBuffer()
 	{
-		return new DummyVertexBuffer(/*mpD3DDevice, */this);
+		return nullptr;
+		//return new DummyVertexBuffer(/*mpD3DDevice, */this);
 	}
 
 	void DummyRenderManager::destroyVertexBuffer(IVertexBuffer* _buffer)
 	{
-		delete _buffer;
+		//delete _buffer;
 	}
 
 	void DummyRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
@@ -155,32 +156,35 @@ namespace MyGUI
 
 	ITexture* DummyRenderManager::createTexture(const std::string& _name)
 	{
-		MapTexture::const_iterator item = mTextures.find(_name);
-		MYGUI_PLATFORM_ASSERT(item == mTextures.end(), "Texture '" << _name << "' already exist");
+		return nullptr;
+		//MapTexture::const_iterator item = mTextures.find(_name);
+		//MYGUI_PLATFORM_ASSERT(item == mTextures.end(), "Texture '" << _name << "' already exist");
 
-		DummyTexture* texture = new DummyTexture(_name/*, mpD3DDevice*/);
-		mTextures[_name] = texture;
-		return texture;
+		//DummyTexture* texture = new DummyTexture(_name/*, mpD3DDevice*/);
+		//mTextures[_name] = texture;
+		//return texture;
 	}
 
 	void DummyRenderManager::destroyTexture(ITexture* _texture)
 	{
-		if (_texture == nullptr)
+		return;
+		/*if (_texture == nullptr)
 			return;
 
 		MapTexture::iterator item = mTextures.find(_texture->getName());
 		MYGUI_PLATFORM_ASSERT(item != mTextures.end(), "Texture '" << _texture->getName() << "' not found");
 
 		mTextures.erase(item);
-		delete _texture;
+		delete _texture;*/
 	}
 
 	ITexture* DummyRenderManager::getTexture(const std::string& _name)
 	{
-		MapTexture::const_iterator item = mTextures.find(_name);
+		return nullptr;
+		/*MapTexture::const_iterator item = mTextures.find(_name);
 		if (item == mTextures.end())
 			return nullptr;
-		return item->second;
+		return item->second;*/
 	}
 
 	bool DummyRenderManager::isFormatSupported(PixelFormat _format, TextureUsage _usage)
@@ -225,14 +229,14 @@ namespace MyGUI
 		return false;//result;
 	}
 
-	void DummyRenderManager::destroyAllResources()
+	/*void DummyRenderManager::destroyAllResources()
 	{
 		for (MapTexture::const_iterator item = mTextures.begin(); item != mTextures.end(); ++item)
 		{
 			delete item->second;
 		}
 		mTextures.clear();
-	}
+	}*/
 
 	void DummyRenderManager::setViewSize(int _width, int _height)
 	{

@@ -3,32 +3,20 @@ set (HEADER_FILES
   include/MyGUI_DummyDiagnostic.h
   include/MyGUI_DummyPlatform.h
   include/MyGUI_DummyRenderManager.h
-  include/MyGUI_DummyTexture.h
-  include/MyGUI_DummyRTTexture.h
-  include/MyGUI_DummyVertexBuffer.h
 )
 set (SOURCE_FILES
   src/MyGUI_DummyDataManager.cpp
   src/MyGUI_DummyRenderManager.cpp
-  src/MyGUI_DummyTexture.cpp
-  src/MyGUI_DummyRTTexture.cpp
-  src/MyGUI_DummyVertexBuffer.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   src/MyGUI_DummyDataManager.cpp
   src/MyGUI_DummyRenderManager.cpp
-  src/MyGUI_DummyTexture.cpp
-  src/MyGUI_DummyRTTexture.cpp
-  src/MyGUI_DummyVertexBuffer.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   include/MyGUI_DummyDataManager.h
   include/MyGUI_DummyDiagnostic.h
   include/MyGUI_DummyPlatform.h
   include/MyGUI_DummyRenderManager.h
-  include/MyGUI_DummyTexture.h
-  include/MyGUI_DummyRTTexture.h
-  include/MyGUI_DummyVertexBuffer.h
 )
 SOURCE_GROUP("" FILES
   CMakeLists.txt
