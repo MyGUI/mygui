@@ -4,7 +4,7 @@ using System.Text;
 using MyGUI.Managed;
 using MyGUI.Managed.Demo;
 
-namespace TestApp.Sharp
+namespace TestApp.Managed
 {
     public class Test_ComboBox
     {

@@ -4,49 +4,45 @@ using System.Text;
 using MyGUI.Managed;
 using MyGUI.Managed.Demo;
 
-namespace TestApp.Sharp
+namespace TestApp.Managed
 {
     class Program
     {
+		[STAThread]
+		public static void Main(string[] args)
+		{
+			//PoorPlatformTest();
+			DefaultPlatformTest();
+		}
 
-        static void Main(string[] args)
-        {
-            Export.Initialise();
+		private static void DefaultPlatformTest()
+		{
+			Export.Initialise();
 
-            Test_Button.Test();
-            Test_ComboBox.Test();
-            Test_DDContainer.Test();
-            Test_EditBox.Test();
-            Test_ItemBox.Test();
-            Test_ListBox.Test();
-            Test_MenuBar.Test();
-            Test_MenuControl.Test();
-            Test_MultiListBox.Test();
-            Test_PopupMenu.Test();
-            Test_ProgressBar.Test();
-            Test_ScrollView.Test();
-            Test_ImageBox.Test();
-            Test_TextBox.Test();
-            Test_TabControl.Test();
-            Test_ScrollBar.Test();
-            Test_Widget.Test();
-            Test_Window.Test();
+			Test.TestWidgets();
 
-            Test_Gui.Test();
+			float time = 0;
+			Export.AddFrameDelegate(delegate(float _time)
+			{
+				time += _time;
+				if (time < 1)
+					return;
+				time = 0;
 
-            Export.AddFrameDelegate(new MyGUI.Managed.Demo.Export.HandleFrameStart(FrameStart));
-            Export.Run();
-        }
+				Test_Gui.Update();
+			});
+			Export.Run();
+		}
 
-        static float time = 0;
-        static void FrameStart(float _time)
-        {
-            time += _time;
-            if (time < 1) return;
-            time = 0;
+		private static void PoorPlatformTest()
+		{
+			Platform.CreatePlatform("MyGUI.log");
+			Platform.CreateGui("MyGUICore.xml");
 
-            Test_Gui.Update();
-        }
+			Test.TestWidgets();
 
-    }
+			Platform.DestroyGui();
+			Platform.DestroyPlatform();
+		}
+	}
 }
