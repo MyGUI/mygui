@@ -37,14 +37,14 @@ include_directories(
 set (HEADER_FILES "")
 set (SOURCE_FILES "")
 
-if(MYGUI_RENDERSYSTEM EQUAL 5)
-	mygui_add_base_manager_source(DirectX)
-	add_definitions("-DMYGUI_DIRECTX_PLATFORM")
+if(MYGUI_RENDERSYSTEM EQUAL 1)
+	mygui_add_base_manager_source(Dummy)
+	add_definitions("-DMYGUI_DUMMY_PLATFORM")
 	include_directories(
-		${MYGUI_SOURCE_DIR}/Platforms/DirectX/DirectXPlatform/include
-		${DirectX_INCLUDE_DIR}
+		${MYGUI_SOURCE_DIR}/Platforms/Dummy/DummyPlatform/include
+		${Dummy_INCLUDE_DIR}
 	)
-	link_directories(${DIRECTX_LIB_DIR})
+	link_directories(${Dummy_LIB_DIR})
 elseif(MYGUI_RENDERSYSTEM EQUAL 3)
 	mygui_add_base_manager_source(Ogre)
 	add_definitions("-DMYGUI_OGRE_PLATFORM")
@@ -61,6 +61,14 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 4)
 		${OPENGL_INCLUDE_DIR}
 	)
 	link_directories(${OPENGL_LIB_DIR})
+elseif(MYGUI_RENDERSYSTEM EQUAL 5)
+	mygui_add_base_manager_source(DirectX)
+	add_definitions("-DMYGUI_DIRECTX_PLATFORM")
+	include_directories(
+		${MYGUI_SOURCE_DIR}/Platforms/DirectX/DirectXPlatform/include
+		${DirectX_INCLUDE_DIR}
+	)
+	link_directories(${DIRECTX_LIB_DIR})
 elseif(MYGUI_RENDERSYSTEM EQUAL 6)
 	mygui_add_base_manager_source(DirectX11)
 	add_definitions("-DMYGUI_DIRECTX11_PLATFORM")
@@ -84,9 +92,6 @@ endif()
 add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 
 if(MYGUI_RENDERSYSTEM EQUAL 1)
-	add_dependencies(${PROJECTNAME} MyGUI.DummyPlatform)
-	target_link_libraries(${PROJECTNAME} MyGUI.DummyPlatform)
-elseif(MYGUI_RENDERSYSTEM EQUAL 2)
 	add_dependencies(${PROJECTNAME} MyGUI.DummyPlatform)
 	target_link_libraries(${PROJECTNAME} MyGUI.DummyPlatform)
 elseif(MYGUI_RENDERSYSTEM EQUAL 3)
