@@ -248,12 +248,12 @@ namespace MyGUI
 		if (MouseButton::None != _id && MouseButton::MAX != _id)
 		{
 			// start capture
-			mMouseCapture[_id.toValue()] = true;
+			mMouseCapture[_id.getValue()] = true;
 			// remember last pressed position
 			if (mLayerMouseFocus != nullptr)
 			{
 				IntPoint point = mLayerMouseFocus->getPosition(_absx, _absy);
-				mLastPressed[_id.toValue()] = point;
+				mLastPressed[_id.getValue()] = point;
 			}
 		}
 
@@ -307,10 +307,10 @@ namespace MyGUI
 
 			if (_id != MouseButton::None && _id != MouseButton::MAX)
 			{
-				if (mMouseCapture[_id.toValue()])
+				if (mMouseCapture[_id.getValue()])
 				{
 					// drop capture
-					mMouseCapture[_id.toValue()] = false;
+					mMouseCapture[_id.getValue()] = false;
 				}
 			}
 
@@ -646,7 +646,7 @@ namespace MyGUI
 	{
 		if (_id != MouseButton::None && _id != MouseButton::MAX)
 		{
-			return mLastPressed[_id.toValue()];
+			return mLastPressed[_id.getValue()];
 		}
 		return Constants::getZeroIntPoint();
 	}

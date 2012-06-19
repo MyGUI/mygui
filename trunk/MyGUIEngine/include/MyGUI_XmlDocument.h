@@ -59,6 +59,11 @@ namespace MyGUI
 				return a.mValue != b.mValue;
 			}
 
+			int getValue() const
+			{
+				return mValue;
+			}
+
 		private:
 			Enum mValue;
 		};

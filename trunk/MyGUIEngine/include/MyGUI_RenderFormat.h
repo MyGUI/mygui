@@ -52,6 +52,11 @@ namespace MyGUI
 			return a.mValue != b.mValue;
 		}
 
+		int getValue() const
+		{
+			return mValue;
+		}
+
 	private:
 		Enum mValue;
 	};
@@ -80,6 +85,11 @@ namespace MyGUI
 		friend bool operator != (PixelFormat const& a, PixelFormat const& b)
 		{
 			return a.mValue != b.mValue;
+		}
+
+		int getValue() const
+		{
+			return mValue;
 		}
 
 	private:
@@ -133,6 +143,11 @@ namespace MyGUI
 		bool isValue(Enum _value) const
 		{
 			return 0 != (mValue & _value);
+		}
+
+		int getValue() const
+		{
+			return mValue;
 		}
 
 	private:

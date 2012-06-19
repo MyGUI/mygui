@@ -215,6 +215,11 @@ namespace MyGUI
 			return _stream;
 		}
 
+		int getValue() const
+		{
+			return mValue;
+		}
+
 	private:
 		const MapAlign& getValueNames() const
 		{

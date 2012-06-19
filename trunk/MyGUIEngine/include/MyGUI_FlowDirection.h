@@ -97,6 +97,11 @@ namespace MyGUI
 			return getValueName(mValue);
 		}
 
+		int getValue() const
+		{
+			return mValue;
+		}
+
 	private:
 		const char* getValueName(int _index) const
 		{
