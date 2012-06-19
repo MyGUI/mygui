@@ -63,9 +63,9 @@ namespace MyGUI
 			return a.mValue != b.mValue;
 		}
 
-		int toValue() const
+		int getValue() const
 		{
-			return (int)mValue;
+			return mValue;
 		}
 
 	private:

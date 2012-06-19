@@ -214,9 +214,9 @@ namespace MyGUI
 			return !(a == b);
 		}
 
-		int toValue() const
+		int getValue() const
 		{
-			return (int)mValue;
+			return mValue;
 		}
 
 	private:
