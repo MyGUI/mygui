@@ -31,12 +31,12 @@ namespace MyGUI
 		virtual void unlock();
 
 	/*internal:*/
-		virtual bool setToStream(size_t stream);
+		//virtual bool setToStream(size_t stream);
 
-	private:
-		bool create();
-		void destroy();
-		void resize();
+	//private:
+		//bool create();
+		//void destroy();
+		//void resize();
 
 	private:
 		//IDirect3DDevice9* mpD3DDevice;

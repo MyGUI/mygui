@@ -42,7 +42,7 @@ if(MYGUI_RENDERSYSTEM EQUAL 1)
 	add_definitions("-DMYGUI_DUMMY_PLATFORM")
 	include_directories(
 		${MYGUI_SOURCE_DIR}/Platforms/Dummy/DummyPlatform/include
-		#${DUMMY_INCLUDE_DIR}
+		${DUMMY_INCLUDE_DIR}
 	)
 	link_directories(${DUMMY_LIB_DIR})
 elseif(MYGUI_RENDERSYSTEM EQUAL 3)

@@ -17,7 +17,7 @@ namespace MyGUI
 
 	DummyRenderManager::DummyRenderManager() :
 		mIsInitialise(false),
-		mpD3DDevice(nullptr),
+		//mpD3DDevice(nullptr),
 		mUpdate(false)
 	{
 	}
@@ -31,17 +31,17 @@ namespace MyGUI
 
 		mVertexFormat = VertexColourType::ColourARGB;
 
-		memset(&mInfo, 0, sizeof(mInfo));
+		/*memset(&mInfo, 0, sizeof(mInfo));
 		if (mpD3DDevice != nullptr)
 		{
 			D3DVIEWPORT9 vp;
 			mpD3DDevice->GetViewport(&vp);
 			setViewSize(vp.Width, vp.Height);
-		}
+		}*/
 
 		mUpdate = false;
 
-		if (mpD3DDevice != nullptr)
+		/*if (mpD3DDevice != nullptr)
 		{
 			D3DCAPS9 caps;
 			mpD3DDevice->GetDeviceCaps(&caps);
@@ -49,7 +49,7 @@ namespace MyGUI
 			{
 				MYGUI_PLATFORM_LOG(Warning, "Non-squared textures not supported.");
 			}
-		}
+		}*/
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -61,7 +61,7 @@ namespace MyGUI
 		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		destroyAllResources();
-		mpD3DDevice = nullptr;
+		//mpD3DDevice = nullptr;
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
@@ -69,7 +69,7 @@ namespace MyGUI
 
 	IVertexBuffer* DummyRenderManager::createVertexBuffer()
 	{
-		return new DummyVertexBuffer(mpD3DDevice, this);
+		return new DummyVertexBuffer(/*mpD3DDevice, */this);
 	}
 
 	void DummyRenderManager::destroyVertexBuffer(IVertexBuffer* _buffer)
@@ -80,11 +80,11 @@ namespace MyGUI
 	void DummyRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
 		DummyTexture* dxTex = static_cast<DummyTexture*>(_texture);
-		mpD3DDevice->SetTexture(0, dxTex->getDummyTexture());
+		//mpD3DDevice->SetTexture(0, dxTex->getDummyTexture());
 		DummyVertexBuffer* dxVB = static_cast<DummyVertexBuffer*>(_buffer);
-		dxVB->setToStream(0);
+		//dxVB->setToStream(0);
 		// count in vertexes, triangle_list = vertexes / 3
-		mpD3DDevice->DrawPrimitive(D3DPT_TRIANGLELIST, 0, _count / 3);
+		//mpD3DDevice->DrawPrimitive(D3DPT_TRIANGLELIST, 0, _count / 3);
 	}
 
 	void DummyRenderManager::drawOneFrame()
@@ -111,7 +111,7 @@ namespace MyGUI
 
 	void DummyRenderManager::begin()
 	{
-		mpD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+		/*mpD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 
 		mpD3DDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
 		mpD3DDevice->SetTextureStageState(0, D3DTSS_COLORARG0, D3DTA_DIFFUSE);
@@ -146,7 +146,7 @@ namespace MyGUI
 		D3DXMatrixIdentity(&m);
 		mpD3DDevice->SetTransform(D3DTS_WORLD, &m);
 		mpD3DDevice->SetTransform(D3DTS_VIEW, &m);
-		mpD3DDevice->SetTransform(D3DTS_PROJECTION, &m);
+		mpD3DDevice->SetTransform(D3DTS_PROJECTION, &m);*/
 	}
 
 	void DummyRenderManager::end()
@@ -158,7 +158,7 @@ namespace MyGUI
 		MapTexture::const_iterator item = mTextures.find(_name);
 		MYGUI_PLATFORM_ASSERT(item == mTextures.end(), "Texture '" << _name << "' already exist");
 
-		DummyTexture* texture = new DummyTexture(_name, mpD3DDevice);
+		DummyTexture* texture = new DummyTexture(_name/*, mpD3DDevice*/);
 		mTextures[_name] = texture;
 		return texture;
 	}
@@ -185,7 +185,7 @@ namespace MyGUI
 
 	bool DummyRenderManager::isFormatSupported(PixelFormat _format, TextureUsage _usage)
 	{
-		D3DFORMAT internalFormat = D3DFMT_UNKNOWN;
+		/*D3DFORMAT internalFormat = D3DFMT_UNKNOWN;
 		unsigned long internalUsage = 0;
 		D3DPOOL internalPool = D3DPOOL_MANAGED;
 
@@ -217,11 +217,11 @@ namespace MyGUI
 		}
 
 		D3DFORMAT requestedlFormat = internalFormat;
-		D3DXCheckTextureRequirements(mpD3DDevice, NULL, NULL, NULL, internalUsage, &internalFormat, internalPool);
+		D3DXCheckTextureRequirements(mpD3DDevice, NULL, NULL, NULL, internalUsage, &internalFormat, internalPool);*/
 
-		bool result = requestedlFormat == internalFormat;
-		if (!result)
-			MYGUI_PLATFORM_LOG(Warning, "Texture format '" << requestedlFormat << "'is not supported.");
+		bool result = false;//requestedlFormat == internalFormat;
+		//if (!result)
+		//	MYGUI_PLATFORM_LOG(Warning, "Texture format '" << requestedlFormat << "'is not supported.");
 		return result;
 	}
 
@@ -255,7 +255,7 @@ namespace MyGUI
 		mUpdate = true;
 	}
 
-	void DummyRenderManager::deviceLost()
+	/*void DummyRenderManager::deviceLost()
 	{
 		MYGUI_PLATFORM_LOG(Info, "device D3D lost");
 
@@ -275,6 +275,6 @@ namespace MyGUI
 		}
 
 		mUpdate = true;
-	}
+	}*/
 
 } // namespace MyGUI
