@@ -140,7 +140,9 @@ namespace MyGUI
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
 		MenuItem* item = _getClientWidget()->createWidget<MenuItem>(getSkinByType(_type), IntCoord(), Align::Default);
-		_wrapItem(item, _index, _name, _type, _id, _data);
+		// если клиент мы сами то виджет будет обернут в onWidgetCreated
+		if (_getClientWidget() != this)
+			_wrapItem(item, _index, _name, _type, _id, _data);
 
 		return item;
 	}
