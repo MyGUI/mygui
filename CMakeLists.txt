@@ -112,12 +112,14 @@ option(MYGUI_USE_FREETYPE "Use freetype for font rendering" TRUE)
 option(MYGUI_DONT_USE_OBSOLETE "Remove obsole functions from build" FALSE)
 option(MYGUI_RTTI_DISABLE_TYPE_INFO "Don't use C++ rtti, use strings instead" FALSE)
 
-set(MYGUI_RENDERSYSTEM 2 CACHE STRING
+set(MYGUI_RENDERSYSTEM 3 CACHE STRING
 "Specify the Render System. Possible values:
-  1 - Direct3D 9
-  2 - Ogre
-  3 - OpenGL
-  4 - Direct3D 11"
+  1 - Dummy
+  2 - Export (latter)
+  3 - Ogre
+  4 - OpenGL
+  5 - Direct3D 9
+  6 - Direct3D 11"
 )
 
 option(MYGUI_BUILD_DEMOS "Build MyGUI demos" TRUE)
@@ -182,7 +184,7 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 	if (NOT MYGUI_HIGH_LEVEL_WARNINGS)
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
 	else ()
-		if (MYGUI_RENDERSYSTEM EQUAL 2)
+		if (MYGUI_RENDERSYSTEM EQUAL 3)
 			# to avoid warnings from OGRE
 			add_definitions(-isystem ${OGRE_INCLUDE_DIR})
 		endif ()

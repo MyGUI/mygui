@@ -45,7 +45,7 @@ if (MYGUI_TRY_TO_COPY_DLLS)
 		install_dll_file(${MYGUI_DEP_BIN_DIR}/debug/ ${MYGUI_DEP_BIN_DIR}/release/ OIS)
 	endif ()
 	
-	if (MYGUI_RENDERSYSTEM EQUAL 2)
+	if (MYGUI_RENDERSYSTEM EQUAL 3)
 		if (EXISTS ${OGRE_LIB_DIR}/../bin/debug/OgreMain_d.dll)
 			set(DEBUG_DLLS_DIR ${OGRE_LIB_DIR}/../bin/debug)
 			set(RELEASE_DLLS_DIR ${OGRE_LIB_DIR}/../bin/release)
