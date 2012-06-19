@@ -11,30 +11,30 @@ namespace MyGUI.Sharp.Demo
 
         #region Export
 #if DEBUG
-        [DllImport("MyGUI_RenderWindow_Export_d.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_RenderWindow_Export_d.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_Initialise();
-        [DllImport("MyGUI_RenderWindow_Export_d.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_RenderWindow_Export_d.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_AddFrameDelegate(HandleFrameStart _delegate);
-        [DllImport("MyGUI_RenderWindow_Export_d.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_RenderWindow_Export_d.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_Run();
-        [DllImport("MyGUI_RenderWindow_Export_d.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_RenderWindow_Export_d.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_Shutdown();
-        [DllImport("MyGUI_RenderWindow_Export_d.dll", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_RenderWindow_Export_d.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_DebugOut([MarshalAs(UnmanagedType.LPStr)]string _str);
 #else
-        [DllImport("MyGUI_RenderWindow_Export.dll", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("MyGUI_RenderWindow_Export.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_Initialise();
-        [DllImport("MyGUI_RenderWindow_Export.dll", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("MyGUI_RenderWindow_Export.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_AddFrameDelegate(HandleFrameStart _delegate);
-        [DllImport("MyGUI_RenderWindow_Export.dll", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("MyGUI_RenderWindow_Export.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_Run();
-        [DllImport("MyGUI_RenderWindow_Export.dll", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("MyGUI_RenderWindow_Export.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_Shutdown();
-        [DllImport("MyGUI_RenderWindow_Export.dll", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("MyGUI_RenderWindow_Export.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_DebugOut([MarshalAs(UnmanagedType.LPStr)]string _str);
 #endif
 
-        #endregion
+		#endregion
 
 		[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 		public delegate void HandleFrameStart(float _time);
