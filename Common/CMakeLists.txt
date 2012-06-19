@@ -42,9 +42,9 @@ if(MYGUI_RENDERSYSTEM EQUAL 1)
 	add_definitions("-DMYGUI_DUMMY_PLATFORM")
 	include_directories(
 		${MYGUI_SOURCE_DIR}/Platforms/Dummy/DummyPlatform/include
-		${Dummy_INCLUDE_DIR}
+		#${DUMMY_INCLUDE_DIR}
 	)
-	link_directories(${Dummy_LIB_DIR})
+	link_directories(${DUMMY_LIB_DIR})
 elseif(MYGUI_RENDERSYSTEM EQUAL 3)
 	mygui_add_base_manager_source(Ogre)
 	add_definitions("-DMYGUI_OGRE_PLATFORM")

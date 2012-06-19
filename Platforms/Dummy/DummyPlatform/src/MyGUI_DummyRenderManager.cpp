@@ -4,7 +4,7 @@
 	@date		06/2012
 */
 
-#include <d3dx9.h>
+//#include <d3dx9.h>
 #include "MyGUI_DummyRenderManager.h"
 #include "MyGUI_DummyTexture.h"
 #include "MyGUI_DummyVertexBuffer.h"
@@ -22,12 +22,12 @@ namespace MyGUI
 	{
 	}
 
-	void DummyRenderManager::initialise(IDirect3DDevice9* _device)
+	void DummyRenderManager::initialise(/*IDirect3DDevice9* _device*/)
 	{
 		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
 
-		mpD3DDevice = _device;
+		//mpD3DDevice = _device;
 
 		mVertexFormat = VertexColourType::ColourARGB;
 
