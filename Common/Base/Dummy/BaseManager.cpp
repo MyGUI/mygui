@@ -4,9 +4,7 @@
 	@date		05/2009
 */
 
-
 #include "Precompiled.h"
-//#include <d3dx9.h>
 #include "BaseManager.h"
 #include <MyGUI_DummyPlatform.h>
 
@@ -15,68 +13,58 @@
 #	include <winuser.h>
 #endif
 
-// имя класса окна
-const char* WND_CLASS_NAME = "MyGUI_Demo_window";
+const char* WND_CLASS_NAME = "MyGUIBaseManagerWndClass";
 
 LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg)
 	{
-	case WM_CREATE:
-	{
-		SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)((LPCREATESTRUCT)lParam)->lpCreateParams);
-		break;
-	}
+		case WM_CREATE:
+		{
+			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)((LPCREATESTRUCT)lParam)->lpCreateParams);
+			break;
+		}
 
-	case WM_SIZE:
-	{
-		if (wParam != SIZE_MINIMIZED)
+		case WM_SIZE:
+		{
+			if (wParam != SIZE_MINIMIZED)
+			{
+				base::BaseManager* baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
+				if (baseManager)
+					baseManager->_windowResized();
+			}
+			break;
+		}
+
+		case WM_CLOSE:
 		{
 			base::BaseManager* baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 			if (baseManager)
-				baseManager->_windowResized();
+				baseManager->quit();
 		}
-		break;
-	}
 
-	case WM_CLOSE:
-	{
-		base::BaseManager* baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
-		if (baseManager)
-			baseManager->quit();
-	}
+		case WM_DESTROY:
+		{
+			PostQuitMessage(0);
+			break;
+		}
 
-	case WM_DESTROY:
-	{
-		PostQuitMessage(0);
-		break;
-	}
-
-	default:
-	{
-		return DefWindowProc(hWnd, uMsg, wParam, lParam);
-	}
+		default:
+		{
+			return DefWindowProc(hWnd, uMsg, wParam, lParam);
+		}
 	}
 	return 0;
 }
 
 namespace base
 {
-
-	//D3DPRESENT_PARAMETERS mD3dpp;
-
 	BaseManager::BaseManager() :
 		mGUI(nullptr),
 		mPlatform(nullptr),
-		mInfo(nullptr),
-		mFocusInfo(nullptr),
 		hWnd(0),
-		//mD3d(nullptr),
-		//mDevice(nullptr),
 		hInstance(nullptr),
-		mExit(false),
-		mResourceFileName("MyGUI_Core.xml")//,
-		//mIsDeviceLost(false)
+		mExit(false)
 	{
 	}
 
@@ -91,8 +79,6 @@ namespace base
 		int width = rect.right - rect.left;
 		int height = rect.bottom - rect.top;
 
-		//resizeRender(width, height);
-
 		if (mPlatform)
 			mPlatform->getRenderManagerPtr()->setViewSize(width, height);
 
@@ -101,9 +87,8 @@ namespace base
 
 	bool BaseManager::create()
 	{
-		const unsigned int width = 1024;
-		const unsigned int height = 768;
-		bool windowed = true;
+		const unsigned int width = 640;
+		const unsigned int height = 480;
 
 		// регистрируем класс окна
 		WNDCLASS wc =
@@ -114,13 +99,14 @@ namespace base
 		RegisterClass(&wc);
 
 		// создаем главное окно
-		hWnd = CreateWindow(wc.lpszClassName, TEXT("Dummy Render Window"), WS_POPUP,
-			0, 0, 0, 0, GetDesktopWindow(), NULL, wc.hInstance, this);
+		hWnd = CreateWindow(wc.lpszClassName, TEXT("Dummy Render Window"), WS_OVERLAPPED | WS_SYSMENU,
+			(GetSystemMetrics(SM_CXSCREEN) - width) / 2, (GetSystemMetrics(SM_CYSCREEN) - height) / 2, width, height, GetDesktopWindow(), NULL, wc.hInstance, this);
 		if (!hWnd)
 		{
-			//OutException("fatal error!", "failed create window");
 			return false;
 		}
+
+		ShowWindow(hWnd, SW_NORMAL);
 
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		// берем имя нашего экзешника
@@ -138,10 +124,6 @@ namespace base
 	#endif
 
 		hInstance = wc.hInstance;
-
-		windowAdjustSettings(hWnd, width, height, !windowed);
-
-		//createRender(width, height, windowed);
 
 		createGui();
 
@@ -172,8 +154,6 @@ namespace base
 				break;
 
 			captureInput();
-			updateFPS();
-			//drawOneFrame();
 
 			if (GetActiveWindow() != hWnd)
 				::Sleep(50);
@@ -190,8 +170,6 @@ namespace base
 
 		destroyGui();
 
-		//destroyRender();
-
 		if (hWnd)
 		{
 			DestroyWindow(hWnd);
@@ -203,63 +181,23 @@ namespace base
 
 	void BaseManager::setupResources()
 	{
-		MyGUI::xml::Document doc;
-
-		if (!doc.open(std::string("resources.xml")))
-			doc.getLastError();
-
-		MyGUI::xml::ElementPtr root = doc.getRoot();
-		if (root == nullptr || root->getName() != "Paths")
-			return;
-
-		MyGUI::xml::ElementEnumerator node = root->getElementEnumerator();
-		while (node.next())
-		{
-			if (node->getName() == "Path")
-			{
-				bool root = false;
-				if (node->findAttribute("root") != "")
-				{
-					root = MyGUI::utility::parseBool(node->findAttribute("root"));
-					if (root) mRootMedia = node->getContent();
-				}
-				addResourceLocation(node->getContent(), false);
-			}
-		}
-
-		addResourceLocation(getRootMedia() + "/Common/Base");
 	}
 
 	void BaseManager::createGui()
 	{
 		mPlatform = new MyGUI::DummyPlatform();
-		mPlatform->initialise(/*mDevice*/);
+		mPlatform->initialise();
 
 		setupResources();
 
 		mGUI = new MyGUI::Gui();
-		mGUI->initialise(mResourceFileName);
-
-		mInfo = new diagnostic::StatisticInfo();
-		mFocusInfo = new diagnostic::InputFocusInfo();
+		mGUI->initialise("");
 	}
 
 	void BaseManager::destroyGui()
 	{
 		if (mGUI)
 		{
-			if (mInfo)
-			{
-				delete mInfo;
-				mInfo = nullptr;
-			}
-
-			if (mFocusInfo)
-			{
-				delete mFocusInfo;
-				mFocusInfo = nullptr;
-			}
-
 			mGUI->shutdown();
 			delete mGUI;
 			mGUI = nullptr;
@@ -284,65 +222,6 @@ namespace base
 
 	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)
 	{
-		//mPlatform->getDataManagerPtr()->addResourceLocation(_name, _recursive);
-	}
-
-	void BaseManager::windowAdjustSettings(HWND hWnd, int width, int height, bool fullScreen)
-	{
-		// стиль окна
-		HWND hwndAfter = 0;
-		unsigned long style = 0;
-		unsigned long style_ex = 0;
-
-		RECT rc = { 0, 0, width, height };
-
-		if (fullScreen)
-		{
-			style = WS_POPUP | WS_VISIBLE;
-			style_ex = GetWindowLongPtr(hWnd, GWL_EXSTYLE) | (WS_EX_TOPMOST);
-			hwndAfter = HWND_TOPMOST;
-		}
-		else
-		{
-			style = WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU | WS_THICKFRAME;
-			style_ex = GetWindowLongPtr(hWnd, GWL_EXSTYLE) & (~WS_EX_TOPMOST);
-			hwndAfter = HWND_NOTOPMOST;
-			AdjustWindowRect(&rc, style, false);
-		}
-
-		SetWindowLongPtr(hWnd, GWL_STYLE, style);
-		SetWindowLongPtr(hWnd, GWL_EXSTYLE, style_ex);
-
-		int desk_width  = GetSystemMetrics(SM_CXSCREEN);
-		int desk_height = GetSystemMetrics(SM_CYSCREEN);
-
-		int w = rc.right - rc.left;
-		int h = rc.bottom - rc.top;
-		int x = fullScreen ? 0 : (desk_width  - w) / 2;
-		int y = fullScreen ? 0 : (desk_height - h) / 2;
-
-		SetWindowPos(hWnd, hwndAfter, x, y, w, h, SWP_FRAMECHANGED | SWP_SHOWWINDOW);
-	}
-
-	void BaseManager::updateFPS()
-	{
-		if (mInfo)
-		{
-			// calc FPS
-			static MyGUI::Timer timer;
-			const unsigned long interval = 1000;
-			static int count_frames = 0;
-			int accumulate = timer.getMilliseconds();
-			if (accumulate > interval)
-			{
-				mInfo->change("FPS", (int)((unsigned long)count_frames * 1000 / accumulate));
-				mInfo->update();
-
-				count_frames = 0;
-				timer.reset();
-			}
-			count_frames ++;
-		}
 	}
 
 	void BaseManager::injectMouseMove(int _absx, int _absy, int _absz)
@@ -379,11 +258,6 @@ namespace base
 			mExit = true;
 			return;
 		}
-		else if (_key == MyGUI::KeyCode::F12)
-		{
-			bool visible = mFocusInfo->getFocusVisible();
-			mFocusInfo->setFocusVisible(!visible);
-		}
 
 		MyGUI::InputManager::getInstance().injectKeyPress(_key, _text);
 	}
@@ -396,115 +270,6 @@ namespace base
 		MyGUI::InputManager::getInstance().injectKeyRelease(_key);
 	}
 
-	//void BaseManager::resizeRender(int _width, int _height)
-	//{
-		//if (mDevice != nullptr)
-		//{
-		//	if (mPlatform != nullptr)
-			//	mPlatform->getRenderManagerPtr()->deviceLost();
-
-			//mD3dpp.BackBufferWidth = _width;
-			//mD3dpp.BackBufferHeight = _height;
-			//HRESULT hr = mDevice->Reset(&mD3dpp);
-
-			/*if (hr == D3DERR_INVALIDCALL)
-			{
-				MessageBox( NULL, "Call to Reset() failed with D3DERR_INVALIDCALL! ",
-					"ERROR", MB_OK | MB_ICONEXCLAMATION );
-			}*/
-
-			//if (mPlatform != nullptr)
-			//	mPlatform->getRenderManagerPtr()->deviceRestore();
-		//}
-	//}
-
-	/*bool BaseManager::createRender(int _width, int _height, bool _windowed)
-	{
-		// инициализация direct3d
-		//mD3d = Direct3DCreate9(D3D_SDK_VERSION);
-
-		//D3DDISPLAYMODE d3ddm;
-		//mD3d->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &d3ddm);
-
-		memset(&mD3dpp, 0, sizeof(mD3dpp));
-		mD3dpp.AutoDepthStencilFormat = D3DFMT_D16;
-		mD3dpp.EnableAutoDepthStencil = TRUE;
-		mD3dpp.BackBufferCount  = 1;
-		mD3dpp.BackBufferFormat = d3ddm.Format;
-		mD3dpp.BackBufferWidth  = _width;
-		mD3dpp.BackBufferHeight = _height;
-		mD3dpp.hDeviceWindow = hWnd;
-		mD3dpp.SwapEffect = D3DSWAPEFFECT_FLIP;
-		mD3dpp.Windowed = _windowed;
-
-		if (FAILED(mD3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
-			D3DCREATE_HARDWARE_VERTEXPROCESSING, &mD3dpp, &mDevice)))
-		{
-			//OutException("fatal error!", "failed create d3d9 mDevice");
-			return false;
-		}
-		return true;
-	}
-
-	bool mIsDeviceLost = false;*/
-
-	/*void BaseManager::drawOneFrame()
-	{
-		if (mIsDeviceLost == true)
-		{
-			Sleep( 100 );
-
-			HRESULT hr;
-			if (FAILED(hr = mDevice->TestCooperativeLevel()))
-			{
-				if (hr == D3DERR_DEVICELOST)
-					return;
-
-				if (hr == D3DERR_DEVICENOTRESET)
-				{
-					if (mPlatform != nullptr)
-						mPlatform->getRenderManagerPtr()->deviceLost();
-
-					hr = mDevice->Reset( &mD3dpp );
-
-					if (FAILED(hr))
-						return;
-
-					if (mPlatform != nullptr)
-						mPlatform->getRenderManagerPtr()->deviceRestore();
-				}
-
-				return;
-			}
-
-			mIsDeviceLost = false;
-		}
-
-		if (SUCCEEDED(mDevice->BeginScene()))
-		{
-			mDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x00000000, 1.0f, 0);
-			mPlatform->getRenderManagerPtr()->drawOneFrame();
-			mDevice->EndScene();
-		}
-
-		if (mDevice->Present(NULL, NULL, 0, NULL) == D3DERR_DEVICELOST)
-			mIsDeviceLost = true;
-	}*/
-
-	/*void BaseManager::destroyRender()
-	{
-		if (mDevice)
-		{
-			mDevice->Release();
-			mDevice = 0;
-		}
-		if (mD3d)
-		{
-			mD3d->Release();
-			mD3d = 0;
-		}
-	}*/
-
 	void BaseManager::quit()
 	{
 		mExit = true;
@@ -512,22 +277,12 @@ namespace base
 
 	const std::string& BaseManager::getRootMedia()
 	{
-		return mRootMedia;
+		static std::string result;
+		return result;
 	}
 
 	void BaseManager::setResourceFilename(const std::string& _flename)
 	{
-		mResourceFileName = _flename;
-	}
-
-	diagnostic::StatisticInfo* BaseManager::getStatisticInfo()
-	{
-		return mInfo;
-	}
-
-	diagnostic::InputFocusInfo* BaseManager::getFocusInput()
-	{
-		return mFocusInfo;
 	}
 
 } // namespace base

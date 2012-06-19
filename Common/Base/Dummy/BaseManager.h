@@ -8,8 +8,6 @@
 #define __BASE_MANAGER_H__
 
 #include <MyGUI.h>
-#include "Base/StatisticInfo.h"
-#include "Base/InputFocusInfo.h"
 
 #include "InputManager.h"
 #include "PointerManager.h"
@@ -19,16 +17,8 @@ namespace MyGUI
 	class DummyPlatform;
 }
 
-//struct IDirect3D9;
-//struct IDirect3DDevice9;
-//struct HWND__;
-//typedef HWND__* HWND;
-//struct HINSTANCE__;
-//typedef HINSTANCE__* HINSTANCE;
-
 namespace base
 {
-
 	class BaseManager :
 		public input::InputManager,
 		public input::PointerManager
@@ -51,9 +41,6 @@ namespace base
 		void setResourceFilename(const std::string& _flename);
 		void addResourceLocation(const std::string& _name, bool _recursive = false);
 
-		diagnostic::StatisticInfo* getStatisticInfo();
-		diagnostic::InputFocusInfo* getFocusInput();
-
 	/*internal:*/
 		void _windowResized();
 
@@ -73,30 +60,14 @@ namespace base
 		void createGui();
 		void destroyGui();
 
-		void windowAdjustSettings(HWND hWnd, int width, int height, bool fullScreen);
-		void updateFPS();
-
-		//void resizeRender(int _width, int _height);
-		//bool createRender(int _width, int _height, bool _windowed);
-		//void drawOneFrame();
-		//void destroyRender();
-
 	private:
 		MyGUI::Gui* mGUI;
 		MyGUI::DummyPlatform* mPlatform;
-		diagnostic::StatisticInfo* mInfo;
-		diagnostic::InputFocusInfo* mFocusInfo;
 
 		HWND hWnd;
-		//IDirect3D9* mD3d;
-		//IDirect3DDevice9* mDevice;
 		HINSTANCE hInstance;
 
 		bool mExit;
-
-		std::string mRootMedia;
-		std::string mResourceFileName;
-		//bool mIsDeviceLost;
 	};
 
 } // namespace base
