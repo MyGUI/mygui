@@ -1,7 +1,5 @@
 if(MYGUI_RENDERSYSTEM EQUAL 1)
   add_subdirectory(Dummy/DummyPlatform)
-elseif(MYGUI_RENDERSYSTEM EQUAL 2)
-  add_subdirectory(Dummy/DummyPlatform)
 elseif(MYGUI_RENDERSYSTEM EQUAL 3)
   add_subdirectory(Ogre/OgrePlatform)
 elseif(MYGUI_RENDERSYSTEM EQUAL 4)

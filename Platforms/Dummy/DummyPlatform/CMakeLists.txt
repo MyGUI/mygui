@@ -1,0 +1,2 @@
+set (PROJECTNAME MyGUI.DummyPlatform)
+
