@@ -38,7 +38,7 @@ namespace MyGUI.Sharp
 		//InsertPoint
 		#region Event ComboChangePosition
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBoxEvent_AdviseComboChangePosition( IntPtr _native, bool _advise );
 
 		public delegate void HandleComboChangePosition(
@@ -50,35 +50,35 @@ namespace MyGUI.Sharp
 		{
 			add
 			{
-				if (mEventComboChangePosition == null) ExportComboBoxEvent_AdviseComboChangePosition( mNative, true );
+				if (ExportEventComboChangePosition.mDelegate == null)
+				{
+					ExportEventComboChangePosition.mDelegate = new ExportEventComboChangePosition.ExportHandle( OnExportComboChangePosition );
+					ExportEventComboChangePosition.ExportComboBoxEvent_DelegateComboChangePosition( ExportEventComboChangePosition.mDelegate );
+				}
+
+				if (mEventComboChangePosition == null)
+					ExportComboBoxEvent_AdviseComboChangePosition( mNative, true );
 				mEventComboChangePosition += value;
 			}
 			remove
 			{
 				mEventComboChangePosition -= value;
-				if (mEventComboChangePosition == null) ExportComboBoxEvent_AdviseComboChangePosition( mNative, false );
+				if (mEventComboChangePosition == null)
+					ExportComboBoxEvent_AdviseComboChangePosition( mNative, false );
 			}
 		}
 
-
 		private struct ExportEventComboChangePosition
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
-			private static extern void ExportComboBoxEvent_DelegateComboChangePosition( ExportHandle _delegate );
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			public static extern void ExportComboBoxEvent_DelegateComboChangePosition( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ComboBox _sender ,
 				  uint _index );
 				
-			private static ExportHandle mDelegate;
-			public ExportEventComboChangePosition( ExportHandle _delegate )
-			{
-				mDelegate = _delegate;
-				ExportComboBoxEvent_DelegateComboChangePosition( mDelegate );
-			}
+			public static ExportHandle mDelegate;
 		}
-		static ExportEventComboChangePosition mExportComboChangePosition =
-			new ExportEventComboChangePosition(new ExportEventComboChangePosition.ExportHandle( OnExportComboChangePosition ));
 
 		private static void OnExportComboChangePosition(
 			 ComboBox _sender ,
@@ -93,7 +93,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event ComboAccept
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBoxEvent_AdviseComboAccept( IntPtr _native, bool _advise );
 
 		public delegate void HandleComboAccept(
@@ -105,35 +105,35 @@ namespace MyGUI.Sharp
 		{
 			add
 			{
-				if (mEventComboAccept == null) ExportComboBoxEvent_AdviseComboAccept( mNative, true );
+				if (ExportEventComboAccept.mDelegate == null)
+				{
+					ExportEventComboAccept.mDelegate = new ExportEventComboAccept.ExportHandle( OnExportComboAccept );
+					ExportEventComboAccept.ExportComboBoxEvent_DelegateComboAccept( ExportEventComboAccept.mDelegate );
+				}
+
+				if (mEventComboAccept == null)
+					ExportComboBoxEvent_AdviseComboAccept( mNative, true );
 				mEventComboAccept += value;
 			}
 			remove
 			{
 				mEventComboAccept -= value;
-				if (mEventComboAccept == null) ExportComboBoxEvent_AdviseComboAccept( mNative, false );
+				if (mEventComboAccept == null)
+					ExportComboBoxEvent_AdviseComboAccept( mNative, false );
 			}
 		}
 
-
 		private struct ExportEventComboAccept
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
-			private static extern void ExportComboBoxEvent_DelegateComboAccept( ExportHandle _delegate );
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			public static extern void ExportComboBoxEvent_DelegateComboAccept( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ComboBox _sender ,
 				  uint _index );
 				
-			private static ExportHandle mDelegate;
-			public ExportEventComboAccept( ExportHandle _delegate )
-			{
-				mDelegate = _delegate;
-				ExportComboBoxEvent_DelegateComboAccept( mDelegate );
-			}
+			public static ExportHandle mDelegate;
 		}
-		static ExportEventComboAccept mExportComboAccept =
-			new ExportEventComboAccept(new ExportEventComboAccept.ExportHandle( OnExportComboAccept ));
 
 		private static void OnExportComboAccept(
 			 ComboBox _sender ,
@@ -148,7 +148,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method BeginToItemSelected
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_BeginToItemSelected( IntPtr _native );
 
 		public void BeginToItemSelected( )
@@ -159,7 +159,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method BeginToItemLast
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_BeginToItemLast( IntPtr _native );
 
 		public void BeginToItemLast( )
@@ -170,7 +170,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method BeginToItemFirst
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_BeginToItemFirst( IntPtr _native );
 
 		public void BeginToItemFirst( )
@@ -181,7 +181,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method BeginToItemAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_BeginToItemAt_index( IntPtr _native ,
 			  uint _index );
 
@@ -195,7 +195,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method GetItemNameAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportComboBox_GetItemNameAt_index( IntPtr _native ,
 			  uint _index );
@@ -210,7 +210,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetItemNameAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_SetItemNameAt_index_name( IntPtr _native ,
 			  uint _index ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
@@ -227,7 +227,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method GetItemDataAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.IUnknown)]
 		private static extern object ExportComboBox_GetItemDataAt_index( IntPtr _native ,
 			  uint _index );
@@ -242,7 +242,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method ClearItemDataAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_ClearItemDataAt_index( IntPtr _native ,
 			  uint _index );
 
@@ -256,7 +256,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetItemDataAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_SetItemDataAt_index_data( IntPtr _native ,
 			  uint _index ,
 			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
@@ -273,7 +273,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method ClearIndexSelected
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_ClearIndexSelected( IntPtr _native );
 
 		public void ClearIndexSelected( )
@@ -284,7 +284,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method FindItemIndexWith
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern uint ExportComboBox_FindItemIndexWith_name( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
@@ -299,7 +299,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method RemoveAllItems
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_RemoveAllItems( IntPtr _native );
 
 		public void RemoveAllItems( )
@@ -310,7 +310,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method RemoveItemAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_RemoveItemAt_index( IntPtr _native ,
 			  uint _index );
 
@@ -324,7 +324,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method AddItem
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_AddItem_name_data( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name ,
 			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
@@ -338,7 +338,7 @@ namespace MyGUI.Sharp
 				 _data );
 		}
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_AddItem_name( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
 
@@ -352,7 +352,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method InsertItemAt
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_InsertItemAt_index_name_data( IntPtr _native ,
 			  uint _index ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name ,
@@ -369,7 +369,7 @@ namespace MyGUI.Sharp
 				 _data );
 		}
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_InsertItemAt_index_name( IntPtr _native ,
 			  uint _index ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
@@ -386,10 +386,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property FlowDirection
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I4)]
 		private static extern FlowDirection ExportComboBox_GetFlowDirection( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_SetFlowDirection( IntPtr _widget, [MarshalAs(UnmanagedType.I4)]  FlowDirection _value );
 
 		public FlowDirection FlowDirection
@@ -401,10 +401,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property MaxListLength
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern int ExportComboBox_GetMaxListLength( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_SetMaxListLength( IntPtr _widget,   int _value );
 
 		public int MaxListLength
@@ -416,10 +416,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property SmoothShow
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportComboBox_GetSmoothShow( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_SetSmoothShow( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool SmoothShow
@@ -431,10 +431,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property ComboModeDrop
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportComboBox_GetComboModeDrop( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_SetComboModeDrop( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool ComboModeDrop
@@ -446,10 +446,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property IndexSelected
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern uint ExportComboBox_GetIndexSelected( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportComboBox_SetIndexSelected( IntPtr _widget,   uint _value );
 
 		public uint IndexSelected
@@ -461,7 +461,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property ItemCount
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern uint ExportComboBox_GetItemCount( IntPtr _native );
 
