@@ -19,7 +19,7 @@ namespace MyGUI.Sharp
 
         #region AttachToLayer
 
-        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportLayerManager_AttachToLayer(
             [MarshalAs(UnmanagedType.LPStr)]  string _layer,
             IntPtr _widget);
@@ -33,7 +33,7 @@ namespace MyGUI.Sharp
 
         #region UpWidget
 
-        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportLayerManager_UpWidget(IntPtr _widget);
 
         public void UpWidget(Widget _widget)
