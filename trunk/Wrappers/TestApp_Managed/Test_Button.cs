@@ -1,7 +1,7 @@
 using System;
 using MyGUI.Managed;
 
-namespace TestApp.Sharp
+namespace TestApp.Managed
 {
     public class Test_Button
     {

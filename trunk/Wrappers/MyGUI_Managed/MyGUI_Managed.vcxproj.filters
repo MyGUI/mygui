@@ -48,6 +48,12 @@
     <Filter Include="Header Files\Widgets\Generate">
       <UniqueIdentifier>{11700060-6f1f-4a14-bf98-fbe4624c5ed0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Platform">
+      <UniqueIdentifier>{263ba564-6dfb-4158-842d-09a308b4ebf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform">
+      <UniqueIdentifier>{6ad2297a-7a43-47cc-af2c-01fc05d7c6a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utility.cpp">
@@ -67,6 +73,15 @@
     </ClCompile>
     <ClCompile Include="Generate\MyGUI_Managed_MarshalingWidget.cpp">
       <Filter>Source Files\Widgets\Generate</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Platforms\Dummy\DummyPlatform\src\MyGUI_DummyDataManager.cpp">
+      <Filter>Source Files\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Platforms\Dummy\DummyPlatform\src\MyGUI_DummyRenderManager.cpp">
+      <Filter>Source Files\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Source Files\Core\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -270,6 +285,21 @@
     </ClInclude>
     <ClInclude Include="Generate\MyGUI_Managed_GuiFactory.h">
       <Filter>Header Files\Core\Managers\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Platforms\Dummy\DummyPlatform\include\MyGUI_DummyDataManager.h">
+      <Filter>Header Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Platforms\Dummy\DummyPlatform\include\MyGUI_DummyDiagnostic.h">
+      <Filter>Header Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Platforms\Dummy\DummyPlatform\include\MyGUI_DummyPlatform.h">
+      <Filter>Header Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Platforms\Dummy\DummyPlatform\include\MyGUI_DummyRenderManager.h">
+      <Filter>Header Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>Header Files\Core\Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

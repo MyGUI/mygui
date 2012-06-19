@@ -1,6 +1,6 @@
 using System;
 
-namespace TestApp.Sharp
+namespace TestApp.Managed
 {
     public class Test_PopupMenu
     {
