@@ -10,8 +10,6 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_DummyRenderManager.h"
 #include "MyGUI_DummyDataManager.h"
-#include "MyGUI_DummyTexture.h"
-#include "MyGUI_DummyVertexBuffer.h"
 #include "MyGUI_DummyDiagnostic.h"
 #include "MyGUI_LogManager.h"
 
@@ -22,7 +20,9 @@ namespace MyGUI
 	{
 	public:
 		DummyPlatform() :
-			mIsInitialise(false)
+			mLogManager(nullptr),
+			mRenderManager(nullptr),
+			mDataManager(nullptr)
 		{
 			mLogManager = new LogManager();
 			mRenderManager = new DummyRenderManager();
@@ -31,51 +31,43 @@ namespace MyGUI
 
 		~DummyPlatform()
 		{
-			assert(!mIsInitialise);
 			delete mRenderManager;
+			mRenderManager = nullptr;
 			delete mDataManager;
+			mDataManager = nullptr;
 			delete mLogManager;
+			mLogManager = nullptr;
 		}
 
-		void initialise(/*IDirect3DDevice9* _device, */const std::string& _logName = MYGUI_PLATFORM_LOG_FILENAME)
+		void initialise(const std::string& _logName = MYGUI_PLATFORM_LOG_FILENAME)
 		{
-			assert(!mIsInitialise);
-			mIsInitialise = true;
-
 			if (!_logName.empty())
 				LogManager::getInstance().createDefaultSource(_logName);
 
-			mRenderManager->initialise(/*_device*/);
+			mRenderManager->initialise();
 			mDataManager->initialise();
 		}
 
 		void shutdown()
 		{
-			assert(mIsInitialise);
-			mIsInitialise = false;
-
 			mRenderManager->shutdown();
 			mDataManager->shutdown();
 		}
 
 		DummyRenderManager* getRenderManagerPtr()
 		{
-			assert(mIsInitialise);
 			return mRenderManager;
 		}
 
 		DummyDataManager* getDataManagerPtr()
 		{
-			assert(mIsInitialise);
 			return mDataManager;
 		}
 
 	private:
-		bool mIsInitialise;
 		DummyRenderManager* mRenderManager;
 		DummyDataManager* mDataManager;
 		LogManager* mLogManager;
-
 	};
 
 } // namespace MyGUI

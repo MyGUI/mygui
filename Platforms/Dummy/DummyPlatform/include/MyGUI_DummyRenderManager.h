@@ -9,10 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_RenderFormat.h"
-#include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_RenderManager.h"
-
-//struct IDirect3DDevice9;
 
 namespace MyGUI
 {
@@ -24,7 +21,7 @@ namespace MyGUI
 	public:
 		DummyRenderManager();
 
-		void initialise(/*IDirect3DDevice9* _device*/);
+		void initialise();
 		void shutdown();
 
 		static DummyRenderManager& getInstance()
@@ -45,7 +42,7 @@ namespace MyGUI
 		/** @see RenderManager::getVertexFormat */
 		virtual VertexColourType getVertexFormat()
 		{
-			return VertexColourType::ColourARGB;//mVertexFormat;
+			return VertexColourType::ColourARGB;
 		}
 
 		/** @see RenderManager::createVertexBuffer */
@@ -81,23 +78,9 @@ namespace MyGUI
 		void drawOneFrame();
 		void setViewSize(int _width, int _height);
 
-		//void deviceLost();
-		//void deviceRestore();
-
-	//private:
-		//void destroyAllResources();
-
 	private:
-		//IDirect3DDevice9* mpD3DDevice;
 		IntSize mViewSize;
-		//VertexColourType mVertexFormat;
 		RenderTargetInfo mInfo;
-		//bool mUpdate;
-
-		typedef std::map<std::string, ITexture*> MapTexture;
-		MapTexture mTextures;
-
-		//bool mIsInitialise;
 	};
 
 } // namespace MyGUI
