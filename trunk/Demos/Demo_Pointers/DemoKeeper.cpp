@@ -41,7 +41,8 @@ namespace demo
 		createEntities();
 
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
-		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Implementation of custom complex cursor behaviour, interaction of system and in-game cursors.");
+		if (root.size() == 1)
+			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Implementation of custom complex cursor behaviour, interaction of system and in-game cursors.");
 
 		MyGUI::FactoryManager::getInstance().registerFactory<ResourcePointerContext>("Resource");
 

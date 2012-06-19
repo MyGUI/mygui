@@ -35,7 +35,8 @@ namespace demo
 	{
 		createDefaultScene();
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
-		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Demo of rendering camera view into widget and mesh into widget (you can drag it using mouse).");
+		if (root.size() == 1)
+			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Demo of rendering camera view into widget and mesh into widget (you can drag it using mouse).");
 
 		const MyGUI::IntSize& size = MyGUI::RenderManager::getInstance().getViewSize();
 
