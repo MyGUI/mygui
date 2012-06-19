@@ -111,14 +111,14 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	endif ()
 	
 	# Set up dependencies
-	if(MYGUI_RENDERSYSTEM EQUAL 5)
-		include_directories(../../Common/Base/DirectX)
-		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
+	if(MYGUI_RENDERSYSTEM EQUAL 1)
+		include_directories(../../Common/Base/Dummy)
+		add_definitions("-DMYGUI_DUMMY_PLATFORM")
 		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/DirectX/DirectXPlatform/include
-			${DirectX_INCLUDE_DIR}
+			${MYGUI_SOURCE_DIR}/Platforms/Dummy/DummyPlatform/include
+			${DUMMY_INCLUDE_DIR}
 		)
-		link_directories(${DIRECTX_LIB_DIR})
+		link_directories(${DUMMY_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
 		include_directories(../../Common/Base/Ogre)
 		add_definitions("-DMYGUI_OGRE_PLATFORM")
@@ -135,6 +135,14 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 			${OPENGL_INCLUDE_DIR}
 		)
 		link_directories(${OPENGL_LIB_DIR})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 5)
+		include_directories(../../Common/Base/DirectX)
+		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
+		include_directories(
+			${MYGUI_SOURCE_DIR}/Platforms/DirectX/DirectXPlatform/include
+			${DirectX_INCLUDE_DIR}
+		)
+		link_directories(${DIRECTX_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 6)
 		include_directories(../../Common/Base/DirectX11)
 		add_definitions("-DMYGUI_DIRECTX11_PLATFORM")
