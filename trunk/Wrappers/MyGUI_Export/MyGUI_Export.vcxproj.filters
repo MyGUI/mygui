@@ -24,6 +24,12 @@
     <Filter Include="Header Files\Export\Generate">
       <UniqueIdentifier>{fd935baa-774a-48ce-a3d0-c9d2ae6147a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Platform">
+      <UniqueIdentifier>{84b11d1b-4dcb-4598-a017-cb7e8335072e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform">
+      <UniqueIdentifier>{4351df84-f6f6-4037-8791-867b4db66547}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ExportGui.cpp">
@@ -55,6 +61,15 @@
     </ClCompile>
     <ClCompile Include="Generate\MyGUI_ExportWidget.cpp">
       <Filter>Source Files\Export\Generate</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Platforms\Dummy\DummyPlatform\src\MyGUI_DummyDataManager.cpp">
+      <Filter>Source Files\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Platforms\Dummy\DummyPlatform\src\MyGUI_DummyRenderManager.cpp">
+      <Filter>Source Files\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="ExportPlatform.cpp">
+      <Filter>Source Files\Platform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -132,6 +147,18 @@
     </ClInclude>
     <ClInclude Include="Generate\MyGUI_Export_Window.h">
       <Filter>Header Files\Export\Generate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Platforms\Dummy\DummyPlatform\include\MyGUI_DummyDataManager.h">
+      <Filter>Header Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Platforms\Dummy\DummyPlatform\include\MyGUI_DummyDiagnostic.h">
+      <Filter>Header Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Platforms\Dummy\DummyPlatform\include\MyGUI_DummyPlatform.h">
+      <Filter>Header Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Platforms\Dummy\DummyPlatform\include\MyGUI_DummyRenderManager.h">
+      <Filter>Header Files\Platform</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

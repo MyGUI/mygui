@@ -286,15 +286,15 @@ namespace MyGUI.Sharp
 
         #endregion
 
-        #region Test
+        #region ExportTest
 
         [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void ExportGui_Test(
+		private static extern void ExportGui_ExportTest(
             );
 
-        public void Test()
+        public void ExportTest()
         {
-            ExportGui_Test();
+            ExportGui_ExportTest();
         }
 
         #endregion
