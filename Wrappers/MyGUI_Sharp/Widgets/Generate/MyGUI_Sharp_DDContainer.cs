@@ -38,7 +38,7 @@ namespace MyGUI.Sharp
 		//InsertPoint
 		#region Event UpdateDropState
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainerEvent_AdviseUpdateDropState( IntPtr _native, bool _advise );
 
 		public delegate void HandleUpdateDropState(
@@ -51,36 +51,36 @@ namespace MyGUI.Sharp
 		{
 			add
 			{
-				if (mEventUpdateDropState == null) ExportDDContainerEvent_AdviseUpdateDropState( mNative, true );
+				if (ExportEventUpdateDropState.mDelegate == null)
+				{
+					ExportEventUpdateDropState.mDelegate = new ExportEventUpdateDropState.ExportHandle( OnExportUpdateDropState );
+					ExportEventUpdateDropState.ExportDDContainerEvent_DelegateUpdateDropState( ExportEventUpdateDropState.mDelegate );
+				}
+
+				if (mEventUpdateDropState == null)
+					ExportDDContainerEvent_AdviseUpdateDropState( mNative, true );
 				mEventUpdateDropState += value;
 			}
 			remove
 			{
 				mEventUpdateDropState -= value;
-				if (mEventUpdateDropState == null) ExportDDContainerEvent_AdviseUpdateDropState( mNative, false );
+				if (mEventUpdateDropState == null)
+					ExportDDContainerEvent_AdviseUpdateDropState( mNative, false );
 			}
 		}
 
-
 		private struct ExportEventUpdateDropState
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
-			private static extern void ExportDDContainerEvent_DelegateUpdateDropState( ExportHandle _delegate );
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			public static extern void ExportDDContainerEvent_DelegateUpdateDropState( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  DDContainer _sender ,
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _items ,
 				[In] ref DDWidgetState _state );
 				
-			private static ExportHandle mDelegate;
-			public ExportEventUpdateDropState( ExportHandle _delegate )
-			{
-				mDelegate = _delegate;
-				ExportDDContainerEvent_DelegateUpdateDropState( mDelegate );
-			}
+			public static ExportHandle mDelegate;
 		}
-		static ExportEventUpdateDropState mExportUpdateDropState =
-			new ExportEventUpdateDropState(new ExportEventUpdateDropState.ExportHandle( OnExportUpdateDropState ));
 
 		private static void OnExportUpdateDropState(
 			 DDContainer _sender ,
@@ -97,7 +97,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Request DragWidgetInfo
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainerEvent_AdviseDragWidgetInfo( IntPtr _native, bool _advise );
 
 		public delegate void HandleDragWidgetInfo(
@@ -110,36 +110,36 @@ namespace MyGUI.Sharp
 		{
 			add
 			{
-				if (mEventDragWidgetInfo == null) ExportDDContainerEvent_AdviseDragWidgetInfo( mNative, true );
+				if (ExportEventDragWidgetInfo.mDelegate == null)
+				{
+					ExportEventDragWidgetInfo.mDelegate = new ExportEventDragWidgetInfo.ExportHandle( OnExportDragWidgetInfo );
+					ExportEventDragWidgetInfo.ExportDDContainerEvent_DelegateDragWidgetInfo( ExportEventDragWidgetInfo.mDelegate );
+				}
+
+				if (mEventDragWidgetInfo == null)
+					ExportDDContainerEvent_AdviseDragWidgetInfo( mNative, true );
 				mEventDragWidgetInfo += value;
 			}
 			remove
 			{
 				mEventDragWidgetInfo -= value;
-				if (mEventDragWidgetInfo == null) ExportDDContainerEvent_AdviseDragWidgetInfo( mNative, false );
+				if (mEventDragWidgetInfo == null)
+					ExportDDContainerEvent_AdviseDragWidgetInfo( mNative, false );
 			}
 		}
 
-
 		private struct ExportEventDragWidgetInfo
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
-			private static extern void ExportDDContainerEvent_DelegateDragWidgetInfo( ExportHandle _delegate );
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			public static extern void ExportDDContainerEvent_DelegateDragWidgetInfo( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  DDContainer _sender ,
 				[In, Out] ref IntPtr _item ,
 				[In, Out] ref IntCoord _dimension );
 				
-			private static ExportHandle mDelegate;
-			public ExportEventDragWidgetInfo( ExportHandle _delegate )
-			{
-				mDelegate = _delegate;
-				ExportDDContainerEvent_DelegateDragWidgetInfo( mDelegate );
-			}
+			public static ExportHandle mDelegate;
 		}
-		static ExportEventDragWidgetInfo mExportDragWidgetInfo =
-			new ExportEventDragWidgetInfo(new ExportEventDragWidgetInfo.ExportHandle( OnExportDragWidgetInfo ));
 
 		private static void OnExportDragWidgetInfo(
 			 DDContainer _sender ,
@@ -160,7 +160,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event ChangeDDState
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainerEvent_AdviseChangeDDState( IntPtr _native, bool _advise );
 
 		public delegate void HandleChangeDDState(
@@ -172,35 +172,35 @@ namespace MyGUI.Sharp
 		{
 			add
 			{
-				if (mEventChangeDDState == null) ExportDDContainerEvent_AdviseChangeDDState( mNative, true );
+				if (ExportEventChangeDDState.mDelegate == null)
+				{
+					ExportEventChangeDDState.mDelegate = new ExportEventChangeDDState.ExportHandle( OnExportChangeDDState );
+					ExportEventChangeDDState.ExportDDContainerEvent_DelegateChangeDDState( ExportEventChangeDDState.mDelegate );
+				}
+
+				if (mEventChangeDDState == null)
+					ExportDDContainerEvent_AdviseChangeDDState( mNative, true );
 				mEventChangeDDState += value;
 			}
 			remove
 			{
 				mEventChangeDDState -= value;
-				if (mEventChangeDDState == null) ExportDDContainerEvent_AdviseChangeDDState( mNative, false );
+				if (mEventChangeDDState == null)
+					ExportDDContainerEvent_AdviseChangeDDState( mNative, false );
 			}
 		}
 
-
 		private struct ExportEventChangeDDState
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
-			private static extern void ExportDDContainerEvent_DelegateChangeDDState( ExportHandle _delegate );
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			public static extern void ExportDDContainerEvent_DelegateChangeDDState( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  DDContainer _sender ,
 				[MarshalAs(UnmanagedType.I4)]  DDItemState _state );
 				
-			private static ExportHandle mDelegate;
-			public ExportEventChangeDDState( ExportHandle _delegate )
-			{
-				mDelegate = _delegate;
-				ExportDDContainerEvent_DelegateChangeDDState( mDelegate );
-			}
+			public static ExportHandle mDelegate;
 		}
-		static ExportEventChangeDDState mExportChangeDDState =
-			new ExportEventChangeDDState(new ExportEventChangeDDState.ExportHandle( OnExportChangeDDState ));
 
 		private static void OnExportChangeDDState(
 			 DDContainer _sender ,
@@ -215,7 +215,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event DropResult
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainerEvent_AdviseDropResult( IntPtr _native, bool _advise );
 
 		public delegate void HandleDropResult(
@@ -228,36 +228,36 @@ namespace MyGUI.Sharp
 		{
 			add
 			{
-				if (mEventDropResult == null) ExportDDContainerEvent_AdviseDropResult( mNative, true );
+				if (ExportEventDropResult.mDelegate == null)
+				{
+					ExportEventDropResult.mDelegate = new ExportEventDropResult.ExportHandle( OnExportDropResult );
+					ExportEventDropResult.ExportDDContainerEvent_DelegateDropResult( ExportEventDropResult.mDelegate );
+				}
+
+				if (mEventDropResult == null)
+					ExportDDContainerEvent_AdviseDropResult( mNative, true );
 				mEventDropResult += value;
 			}
 			remove
 			{
 				mEventDropResult -= value;
-				if (mEventDropResult == null) ExportDDContainerEvent_AdviseDropResult( mNative, false );
+				if (mEventDropResult == null)
+					ExportDDContainerEvent_AdviseDropResult( mNative, false );
 			}
 		}
 
-
 		private struct ExportEventDropResult
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
-			private static extern void ExportDDContainerEvent_DelegateDropResult( ExportHandle _delegate );
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			public static extern void ExportDDContainerEvent_DelegateDropResult( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  DDContainer _sender ,
 				[In] ref DDItemInfo _info ,
 				[MarshalAs(UnmanagedType.U1)]  bool _result );
 				
-			private static ExportHandle mDelegate;
-			public ExportEventDropResult( ExportHandle _delegate )
-			{
-				mDelegate = _delegate;
-				ExportDDContainerEvent_DelegateDropResult( mDelegate );
-			}
+			public static ExportHandle mDelegate;
 		}
-		static ExportEventDropResult mExportDropResult =
-			new ExportEventDropResult(new ExportEventDropResult.ExportHandle( OnExportDropResult ));
 
 		private static void OnExportDropResult(
 			 DDContainer _sender ,
@@ -274,7 +274,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event RequestDrop
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainerEvent_AdviseRequestDrop( IntPtr _native, bool _advise );
 
 		public delegate void HandleRequestDrop(
@@ -287,36 +287,36 @@ namespace MyGUI.Sharp
 		{
 			add
 			{
-				if (mEventRequestDrop == null) ExportDDContainerEvent_AdviseRequestDrop( mNative, true );
+				if (ExportEventRequestDrop.mDelegate == null)
+				{
+					ExportEventRequestDrop.mDelegate = new ExportEventRequestDrop.ExportHandle( OnExportRequestDrop );
+					ExportEventRequestDrop.ExportDDContainerEvent_DelegateRequestDrop( ExportEventRequestDrop.mDelegate );
+				}
+
+				if (mEventRequestDrop == null)
+					ExportDDContainerEvent_AdviseRequestDrop( mNative, true );
 				mEventRequestDrop += value;
 			}
 			remove
 			{
 				mEventRequestDrop -= value;
-				if (mEventRequestDrop == null) ExportDDContainerEvent_AdviseRequestDrop( mNative, false );
+				if (mEventRequestDrop == null)
+					ExportDDContainerEvent_AdviseRequestDrop( mNative, false );
 			}
 		}
 
-
 		private struct ExportEventRequestDrop
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
-			private static extern void ExportDDContainerEvent_DelegateRequestDrop( ExportHandle _delegate );
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			public static extern void ExportDDContainerEvent_DelegateRequestDrop( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  DDContainer _sender ,
 				[In] ref DDItemInfo _info ,
 				[MarshalAs(UnmanagedType.U1)] ref bool _result );
 				
-			private static ExportHandle mDelegate;
-			public ExportEventRequestDrop( ExportHandle _delegate )
-			{
-				mDelegate = _delegate;
-				ExportDDContainerEvent_DelegateRequestDrop( mDelegate );
-			}
+			public static ExportHandle mDelegate;
 		}
-		static ExportEventRequestDrop mExportRequestDrop =
-			new ExportEventRequestDrop(new ExportEventRequestDrop.ExportHandle( OnExportRequestDrop ));
 
 		private static void OnExportRequestDrop(
 			 DDContainer _sender ,
@@ -333,7 +333,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event StartDrag
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainerEvent_AdviseStartDrag( IntPtr _native, bool _advise );
 
 		public delegate void HandleStartDrag(
@@ -346,36 +346,36 @@ namespace MyGUI.Sharp
 		{
 			add
 			{
-				if (mEventStartDrag == null) ExportDDContainerEvent_AdviseStartDrag( mNative, true );
+				if (ExportEventStartDrag.mDelegate == null)
+				{
+					ExportEventStartDrag.mDelegate = new ExportEventStartDrag.ExportHandle( OnExportStartDrag );
+					ExportEventStartDrag.ExportDDContainerEvent_DelegateStartDrag( ExportEventStartDrag.mDelegate );
+				}
+
+				if (mEventStartDrag == null)
+					ExportDDContainerEvent_AdviseStartDrag( mNative, true );
 				mEventStartDrag += value;
 			}
 			remove
 			{
 				mEventStartDrag -= value;
-				if (mEventStartDrag == null) ExportDDContainerEvent_AdviseStartDrag( mNative, false );
+				if (mEventStartDrag == null)
+					ExportDDContainerEvent_AdviseStartDrag( mNative, false );
 			}
 		}
 
-
 		private struct ExportEventStartDrag
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
-			private static extern void ExportDDContainerEvent_DelegateStartDrag( ExportHandle _delegate );
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			public static extern void ExportDDContainerEvent_DelegateStartDrag( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  DDContainer _sender ,
 				[In] ref DDItemInfo _info ,
 				[MarshalAs(UnmanagedType.U1)] ref bool _result );
 				
-			private static ExportHandle mDelegate;
-			public ExportEventStartDrag( ExportHandle _delegate )
-			{
-				mDelegate = _delegate;
-				ExportDDContainerEvent_DelegateStartDrag( mDelegate );
-			}
+			public static ExportHandle mDelegate;
 		}
-		static ExportEventStartDrag mExportStartDrag =
-			new ExportEventStartDrag(new ExportEventStartDrag.ExportHandle( OnExportStartDrag ));
 
 		private static void OnExportStartDrag(
 			 DDContainer _sender ,
@@ -392,7 +392,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method ResetDrag
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainer_ResetDrag( IntPtr _native );
 
 		public void ResetDrag( )
@@ -403,10 +403,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property NeedDragDrop
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportDDContainer_GetNeedDragDrop( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainer_SetNeedDragDrop( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool NeedDragDrop

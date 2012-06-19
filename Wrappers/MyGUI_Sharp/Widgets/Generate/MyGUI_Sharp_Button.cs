@@ -38,7 +38,7 @@ namespace MyGUI.Sharp
 		//InsertPoint
 		#region Method SetImageName
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportButton_SetImageName_name( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _name );
 
@@ -52,7 +52,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetImageGroup
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportButton_SetImageGroup_name( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _name );
 
@@ -66,7 +66,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetImageResource
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportButton_SetImageResource_name( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _name );
 
@@ -80,10 +80,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property ModeImage
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportButton_GetModeImage( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportButton_SetModeImage( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool ModeImage
@@ -95,10 +95,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property StateSelected
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportButton_GetStateSelected( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.StdCall)]
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportButton_SetStateSelected( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool StateSelected
