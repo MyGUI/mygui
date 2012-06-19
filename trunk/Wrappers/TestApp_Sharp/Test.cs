@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TestApp.Managed
+namespace TestApp.Sharp
 {
 	public class Test
 	{
