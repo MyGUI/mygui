@@ -44,9 +44,9 @@ namespace MyGUI
 		virtual const std::string& getDataPath(const std::string& _name);
 
 	/*internal:*/
-		void addResourceLocation(const std::string& _name, bool _recursive);
+		//void addResourceLocation(const std::string& _name, bool _recursive);
 
-	private:
+	/*private:
 		struct ArhivInfo
 		{
 			std::wstring name;
@@ -55,7 +55,7 @@ namespace MyGUI
 		typedef std::vector<ArhivInfo> VectorArhivInfo;
 		VectorArhivInfo mPaths;
 
-		bool mIsInitialise;
+		bool mIsInitialise;*/
 	};
 
 } // namespace MyGUI

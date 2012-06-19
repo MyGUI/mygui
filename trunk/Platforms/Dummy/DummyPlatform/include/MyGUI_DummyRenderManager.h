@@ -45,7 +45,7 @@ namespace MyGUI
 		/** @see RenderManager::getVertexFormat */
 		virtual VertexColourType getVertexFormat()
 		{
-			return mVertexFormat;
+			return VertexColourType::ColourARGB;//mVertexFormat;
 		}
 
 		/** @see RenderManager::createVertexBuffer */
@@ -90,14 +90,14 @@ namespace MyGUI
 	private:
 		//IDirect3DDevice9* mpD3DDevice;
 		IntSize mViewSize;
-		VertexColourType mVertexFormat;
+		//VertexColourType mVertexFormat;
 		RenderTargetInfo mInfo;
-		bool mUpdate;
+		//bool mUpdate;
 
 		typedef std::map<std::string, ITexture*> MapTexture;
 		MapTexture mTextures;
 
-		bool mIsInitialise;
+		//bool mIsInitialise;
 	};
 
 } // namespace MyGUI

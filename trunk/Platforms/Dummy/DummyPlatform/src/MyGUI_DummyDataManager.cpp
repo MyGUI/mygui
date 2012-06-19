@@ -13,32 +13,33 @@
 namespace MyGUI
 {
 
-	DummyDataManager::DummyDataManager() :
-		mIsInitialise(false)
+	DummyDataManager::DummyDataManager()// :
+		//mIsInitialise(false)
 	{
 	}
 
 	void DummyDataManager::initialise()
 	{
-		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
+		//MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
-		mIsInitialise = true;
+		//mIsInitialise = true;
 	}
 
 	void DummyDataManager::shutdown()
 	{
-		MYGUI_PLATFORM_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
+		//MYGUI_PLATFORM_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
-		mIsInitialise = false;
+		//mIsInitialise = false;
 	}
 
 	IDataStream* DummyDataManager::getData(const std::string& _name)
 	{
-		std::string filepath = getDataPath(_name);
+		return nullptr;
+		/*std::string filepath = getDataPath(_name);
 		if (filepath.empty())
 			return nullptr;
 
@@ -53,22 +54,23 @@ namespace MyGUI
 
 		DataFileStream* data = new DataFileStream(stream);
 
-		return data;
+		return data;*/
 	}
 
 	bool DummyDataManager::isDataExist(const std::string& _name)
 	{
-		const VectorString& files = getDataListNames(_name);
-		return files.size() == 1;
+		/*const VectorString& files = getDataListNames(_name);
+		return files.size() == 1;*/
+		return false;
 	}
 
 	const VectorString& DummyDataManager::getDataListNames(const std::string& _pattern)
 	{
 		static VectorString result;
-		common::VectorWString wresult;
-		result.clear();
+		//common::VectorWString wresult;
+		//result.clear();
 
-		for (VectorArhivInfo::const_iterator item = mPaths.begin(); item != mPaths.end(); ++item)
+		/*for (VectorArhivInfo::const_iterator item = mPaths.begin(); item != mPaths.end(); ++item)
 		{
 			common::scanFolder(wresult, (*item).name, (*item).recursive, MyGUI::UString(_pattern).asWStr(), false);
 		}
@@ -76,14 +78,15 @@ namespace MyGUI
 		for (common::VectorWString::const_iterator item = wresult.begin(); item != wresult.end(); ++item)
 		{
 			result.push_back(MyGUI::UString(*item).asUTF8());
-		}
+		}*/
 
 		return result;
 	}
 
 	const std::string& DummyDataManager::getDataPath(const std::string& _name)
 	{
-		static std::string path;
+		return "";
+		/*static std::string path;
 		VectorString result;
 		common::VectorWString wresult;
 
@@ -98,15 +101,15 @@ namespace MyGUI
 		}
 
 		path = result.size() == 1 ? result[0] : "";
-		return path;
+		return path;*/
 	}
 
-	void DummyDataManager::addResourceLocation(const std::string& _name, bool _recursive)
+	/*void DummyDataManager::addResourceLocation(const std::string& _name, bool _recursive)
 	{
 		ArhivInfo info;
 		info.name = MyGUI::UString(_name).asWStr();
 		info.recursive = _recursive;
 		mPaths.push_back(info);
-	}
+	}*/
 
 } // namespace MyGUI

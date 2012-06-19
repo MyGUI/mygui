@@ -56,16 +56,16 @@ namespace MyGUI
 	private:
 		//IDirect3DDevice9* mpD3DDevice;
 		//IDirect3DTexture9* mpTexture;
-		IntSize mSize;
-		TextureUsage mTextureUsage;
-		PixelFormat mPixelFormat;
-		size_t mNumElemBytes;
-		bool mLock;
+		//IntSize mSize;
+		//TextureUsage mTextureUsage;
+		//PixelFormat mPixelFormat;
+		//size_t mNumElemBytes;
+		//bool mLock;
 		std::string mName;
-		IRenderTarget* mRenderTarget;
+		//IRenderTarget* mRenderTarget;
 		//D3DPOOL mInternalPool;
 		//D3DFORMAT mInternalFormat;
-		unsigned long mInternalUsage;
+		//unsigned long mInternalUsage;
 	};
 
 } // namespace MyGUI
