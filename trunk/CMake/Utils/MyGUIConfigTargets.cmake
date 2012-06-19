@@ -111,7 +111,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	endif ()
 	
 	# Set up dependencies
-	if(MYGUI_RENDERSYSTEM EQUAL 1)
+	if(MYGUI_RENDERSYSTEM EQUAL 5)
 		include_directories(../../Common/Base/DirectX)
 		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
 		include_directories(
@@ -119,7 +119,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 			${DirectX_INCLUDE_DIR}
 		)
 		link_directories(${DIRECTX_LIB_DIR})
-	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
 		include_directories(../../Common/Base/Ogre)
 		add_definitions("-DMYGUI_OGRE_PLATFORM")
 		include_directories(
@@ -127,7 +127,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 			${OGRE_INCLUDE_DIR}
 		)
 		link_directories(${OGRE_LIB_DIR})
-	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
 		include_directories(../../Common/Base/OpenGL)
 		add_definitions("-DMYGUI_OPENGL_PLATFORM")
 		include_directories(
@@ -135,7 +135,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 			${OPENGL_INCLUDE_DIR}
 		)
 		link_directories(${OPENGL_LIB_DIR})
-	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 6)
 		include_directories(../../Common/Base/DirectX11)
 		add_definitions("-DMYGUI_DIRECTX11_PLATFORM")
 		include_directories(
@@ -180,13 +180,13 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	target_link_libraries(${PROJECTNAME}
 		Common
 	)
-	if(MYGUI_RENDERSYSTEM EQUAL 1)
+	if(MYGUI_RENDERSYSTEM EQUAL 5)
 		add_dependencies(${PROJECTNAME} MyGUI.DirectXPlatform)
 		target_link_libraries(${PROJECTNAME} MyGUI.DirectXPlatform)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 2)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
 		add_dependencies(${PROJECTNAME} MyGUI.OgrePlatform)
 		target_link_libraries(${PROJECTNAME} MyGUI.OgrePlatform)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
 		add_dependencies(${PROJECTNAME} MyGUI.OpenGLPlatform)
 		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLPlatform)
 		
