@@ -9,7 +9,7 @@ namespace Export
 	MYGUIEXPORT void MYGUICALL ExportGui_CreatePlatform(Convert<const std::string&>::Type _logName)
 	{
 		mPlatform = new MyGUI::DummyPlatform();
-		mPlatform->initialise(_logName);
+		mPlatform->initialise(Convert<const std::string&>::From(_logName));
 	}
 
 	MYGUIEXPORT void MYGUICALL ExportGui_DestroyPlatform()
@@ -24,7 +24,7 @@ namespace Export
 	MYGUIEXPORT void MYGUICALL ExportGui_CreateGui(Convert<const std::string&>::Type _coreFileName)
 	{
 		mGui = new MyGUI::Gui();
-		mGui->initialise(_coreFileName);
+		mGui->initialise(Convert<const std::string&>::From(_coreFileName));
 	}
 
 	MYGUIEXPORT void MYGUICALL ExportGui_DestroyGui()

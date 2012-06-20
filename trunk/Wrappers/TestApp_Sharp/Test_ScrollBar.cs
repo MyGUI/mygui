@@ -1,6 +1,5 @@
 using System;
 using MyGUI.Sharp;
-using MyGUI.Sharp.Demo;
 
 namespace TestApp.Sharp
 {
@@ -23,7 +22,7 @@ namespace TestApp.Sharp
 
         static void scroll_EventScrollChangePosition(ScrollBar _sender, uint _position)
         {
-            Export.DebugOut("EventScrollChangePosition  position=" + _position.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventScrollChangePosition  position=" + _position.ToString());
         }
     }
 }

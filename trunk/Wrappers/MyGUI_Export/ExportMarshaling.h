@@ -225,7 +225,7 @@ namespace Export
 		typedef int Type;
 		inline static int To(MyGUI::Align _value)
 		{
-			return *((int*)(&_value));
+			return _value.getValue();
 		}
 		inline static MyGUI::Align From(int _value)
 		{
@@ -238,7 +238,7 @@ namespace Export
 		typedef int Type;
 		inline static int To(MyGUI::DDItemState _value)
 		{
-			return *((int*)(&_value));
+			return _value.getValue();
 		}
 		inline static MyGUI::DDItemState From(int _value)
 		{
@@ -251,7 +251,7 @@ namespace Export
 		typedef int Type;
 		inline static int To(MyGUI::KeyCode _value)
 		{
-			return *((int*)(&_value));
+			return _value.getValue();
 		}
 		inline static MyGUI::KeyCode From(int _value)
 		{
@@ -264,7 +264,7 @@ namespace Export
 		typedef int Type;
 		inline static int To(MyGUI::MenuItemType _value)
 		{
-			return *((int*)(&_value));
+			return _value.getValue();
 		}
 		inline static MyGUI::MenuItemType From(int _value)
 		{
@@ -277,7 +277,7 @@ namespace Export
 		typedef int Type;
 		inline static int To(MyGUI::FlowDirection _value)
 		{
-			return *((int*)(&_value));
+			return _value.getValue();
 		}
 		inline static MyGUI::FlowDirection From(int _value)
 		{
@@ -290,7 +290,7 @@ namespace Export
 		typedef int Type;
 		inline static int To(MyGUI::ResizingPolicy _value)
 		{
-			return *((int*)(&_value));
+			return _value.getValue();
 		}
 		inline static MyGUI::ResizingPolicy From(int _value)
 		{
@@ -303,7 +303,7 @@ namespace Export
 		typedef int Type;
 		inline static int To(MyGUI::MouseButton _value)
 		{
-			return *((int*)(&_value));
+			return _value.getValue();
 		}
 		inline static MyGUI::MouseButton From(int _value)
 		{
@@ -316,7 +316,7 @@ namespace Export
 		typedef int Type;
 		inline static int To(MyGUI::WidgetStyle _value)
 		{
-			return *((int*)(&_value));
+			return _value.getValue();
 		}
 		inline static MyGUI::WidgetStyle From(int _value)
 		{
@@ -335,6 +335,19 @@ namespace Export
 		inline static MyGUI::Any From(IUnknown _value)
 		{
 			return _value;
+		}
+	};
+
+	template <> struct Convert< MyGUI::LogLevel >
+	{
+		typedef int Type;
+		inline static int To(MyGUI::LogLevel _value)
+		{
+			return _value.getValue();
+		}
+		inline static MyGUI::LogLevel From(int _value)
+		{
+			return MyGUI::LogLevel::Enum(_value);
 		}
 	};
 

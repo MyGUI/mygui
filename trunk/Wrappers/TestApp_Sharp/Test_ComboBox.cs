@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using MyGUI.Sharp;
-using MyGUI.Sharp.Demo;
 
 namespace TestApp.Sharp
 {
@@ -66,12 +65,12 @@ namespace TestApp.Sharp
         }
         static void box_EventComboChangePosition(ComboBox _sender, uint _index)
         {
-            Export.DebugOut("EventComboChangePosition  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventComboChangePosition  index=" + _index.ToString());
         }
 
         static void box_EventComboAccept(ComboBox _sender, uint _index)
         {
-            Export.DebugOut("EventComboAccept  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventComboAccept  index=" + _index.ToString());
         }
     }
 }

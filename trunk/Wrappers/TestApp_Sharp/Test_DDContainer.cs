@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using MyGUI.Sharp;
-using MyGUI.Sharp.Demo;
 
 namespace TestApp.Sharp
 {
@@ -44,14 +40,11 @@ namespace TestApp.Sharp
 
         static void container_EventDropResult(DDContainer _sender, ref DDItemInfo _info, bool _result)
         {
-            Export.DebugOut("EventDropResult    result=" + _result.ToString());
             mWidget.Visible = false;
         }
 
         static void container_EventChangeDDState(DDContainer _sender, DDItemState _state)
         {
-            Export.DebugOut("EventChangeDDState    state=" + _state.ToString());
         }
-
     }
 }

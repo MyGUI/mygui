@@ -1,6 +1,5 @@
 using System;
 using MyGUI.Sharp;
-using MyGUI.Sharp.Demo;
 
 namespace TestApp.Sharp
 {
@@ -81,7 +80,7 @@ namespace TestApp.Sharp
 
         static void tab_EventTabChangeSelect(TabControl _sender, uint _index)
         {
-            Export.DebugOut("EventTabChangeSelect  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventTabChangeSelect  index=" + _index.ToString());
         }
     }
 }

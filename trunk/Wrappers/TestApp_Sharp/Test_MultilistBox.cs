@@ -1,6 +1,5 @@
 using System;
 using MyGUI.Sharp;
-using MyGUI.Sharp.Demo;
 
 namespace TestApp.Sharp
 {
@@ -69,12 +68,12 @@ namespace TestApp.Sharp
 
         static void box_EventListSelectAccept(MultiListBox _sender, uint _index)
         {
-            Export.DebugOut("EventListSelectAccept  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventListSelectAccept  index=" + _index.ToString());
         }
 
         static void box_EventListChangePosition(MultiListBox _sender, uint _index)
         {
-            Export.DebugOut("EventListChangePosition  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventListChangePosition  index=" + _index.ToString());
         }
     }
 }

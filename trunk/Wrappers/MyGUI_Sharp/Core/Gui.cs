@@ -286,7 +286,23 @@ namespace MyGUI.Sharp
 
         #endregion
 
-        #region ExportTest
+		#region Log
+
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportGui_Log(
+			[MarshalAs(UnmanagedType.LPStr)] string _section,
+			[MarshalAs(UnmanagedType.I4)] LogLevel _level,
+			[MarshalAs(UnmanagedType.LPStr)] string _message
+			);
+
+		public void Log(string _section, LogLevel _level, string _message)
+		{
+			ExportGui_Log(_section, _level, _message);
+		}
+
+		#endregion
+
+		#region ExportTest
 
         [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportGui_ExportTest(

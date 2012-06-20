@@ -1,5 +1,4 @@
 using System;
-using MyGUI.Sharp.Demo;
 using MyGUI.Sharp;
 
 namespace TestApp.Sharp
@@ -34,7 +33,7 @@ namespace TestApp.Sharp
         {
             string mouse = InputManager.Instance.MouseFocus.ToString() + "(" + (InputManager.Instance.MouseFocusWidget == null ? "null" : InputManager.Instance.MouseFocusWidget.ToString()) + ")";
             string key = InputManager.Instance.KeyFocus.ToString() + "(" + (InputManager.Instance.KeyFocusWidget == null ? "null" : InputManager.Instance.KeyFocusWidget.ToString()) + ")";
-            Export.DebugOut("GUI: mouse=" + mouse + "   key=" + key);
+            Gui.Instance.Log("TestApp", LogLevel.Info, "GUI: mouse=" + mouse + "   key=" + key);
         }
     }
 }
