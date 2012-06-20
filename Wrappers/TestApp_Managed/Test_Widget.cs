@@ -9,9 +9,7 @@ namespace TestApp.Managed
         public static void Test()
         {
             Widget widget = Gui.Instance.CreateWidget<Widget>("Button", new IntCoord(20, 220, 100, 100), Align.Default, "Main");
-            Widget child = widget.CreateWidget<Widget>("Button", new IntCoord(10, 10, 26, 26), Align.Default, "name1");
 
-            //widget.EventActionInfo += new Widget.HandleActionInfo(widget_EventActionInfo);
             widget.EventToolTip += new Widget.HandleToolTip(widget_EventToolTip);
             widget.EventRootKeyChangeFocus += new Widget.HandleRootKeyChangeFocus(widget_EventRootKeyChangeFocus);
             widget.EventRootMouseChangeFocus += new Widget.HandleRootMouseChangeFocus(widget_EventRootMouseChangeFocus);
@@ -29,7 +27,9 @@ namespace TestApp.Managed
             widget.EventMouseSetFocus += new Widget.HandleMouseSetFocus(widget_EventMouseSetFocus);
             widget.EventMouseLostFocus += new Widget.HandleMouseLostFocus(widget_EventMouseLostFocus);
 
-            bool flag = widget.IsUserString("key");
+			Widget child = widget.CreateWidget<Widget>("Button", new IntCoord(10, 10, 26, 26), Align.Default, "name1");
+
+			bool flag = widget.IsUserString("key");
             widget.SetUserString("key", "value");
             flag = widget.IsUserString("key");
             string name = widget.GetUserString("key");
@@ -65,7 +65,6 @@ namespace TestApp.Managed
             widget.Enabled = !widget.Enabled;
             widget.Enabled = !widget.Enabled;
 
-            //widget.SetMaskPick("");
             widget.InheritsPick = !widget.InheritsPick;
 
             widget.NeedMouseFocus = !widget.NeedMouseFocus;
@@ -85,8 +84,6 @@ namespace TestApp.Managed
 
             childat.InheritsAlpha = !childat.InheritsAlpha;
             widget.Alpha = 0.5f;
-
-            //widget.Caption = "Widget";
 
             widget.Visible = !widget.Visible;
             widget.Visible = !widget.Visible;
@@ -108,87 +105,82 @@ namespace TestApp.Managed
 
         static void widget_EventMouseLostFocus(Widget _sender, Widget _new)
         {
-            Export.DebugOut("EventMouseLostFocus  _new=" + (_new == null ? "null" : _new.ToString()));
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventMouseLostFocus  _new=" + (_new == null ? "null" : _new.ToString()));
         }
 
         static void widget_EventMouseSetFocus(Widget _sender, Widget _old)
         {
-            Export.DebugOut("EventMouseSetFocus  _old=" + (_old == null ? "null" : _old.ToString()));
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventMouseSetFocus  _old=" + (_old == null ? "null" : _old.ToString()));
         }
 
         static void widget_EventMouseDrag(Widget _sender, int _left, int _top, MouseButton _id)
         {
-            Export.DebugOut("EventMouseDrag  _left=" + _left.ToString() + "   _top=" + _top.ToString() + "   _id=" + _id.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventMouseDrag  _left=" + _left.ToString() + "   _top=" + _top.ToString() + "   _id=" + _id.ToString());
         }
 
         static void widget_EventMouseMove(Widget _sender, int _left, int _top)
         {
-            Export.DebugOut("EventMouseMove  _left=" + _left.ToString() + "   _top=" + _top.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventMouseMove  _left=" + _left.ToString() + "   _top=" + _top.ToString());
         }
 
         static void widget_EventMouseWheel(Widget _sender, int _rel)
         {
-            Export.DebugOut("EventMouseWheel  _rel=" + _rel.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventMouseWheel  _rel=" + _rel.ToString());
         }
 
         static void widget_EventMouseButtonReleased(Widget _sender, int _left, int _top, MouseButton _id)
         {
-            Export.DebugOut("EventMouseMove  _left=" + _left.ToString() + "   _top=" + _top.ToString() + "   _id=" + _id.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventMouseMove  _left=" + _left.ToString() + "   _top=" + _top.ToString() + "   _id=" + _id.ToString());
         }
 
         static void widget_EventMouseButtonPressed(Widget _sender, int _left, int _top, MouseButton _id)
         {
-            Export.DebugOut("EventMouseButtonPressed  _left=" + _left.ToString() + "   _top=" + _top.ToString() + "   _id=" + _id.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventMouseButtonPressed  _left=" + _left.ToString() + "   _top=" + _top.ToString() + "   _id=" + _id.ToString());
         }
 
         static void widget_EventMouseButtonClick(Widget _sender)
         {
-            Export.DebugOut("EventMouseButtonClick");
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventMouseButtonClick");
         }
 
         static void widget_EventMouseButtonDoubleClick(Widget _sender)
         {
-            Export.DebugOut("EventMouseButtonDoubleClick");
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventMouseButtonDoubleClick");
         }
 
         static void widget_EventKeyLostFocus(Widget _sender, Widget _new)
         {
-            Export.DebugOut("EventKeyLostFocus  _new=" + (_new == null ? "null" : _new.ToString()));
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventKeyLostFocus  _new=" + (_new == null ? "null" : _new.ToString()));
         }
 
         static void widget_EventKeySetFocus(Widget _sender, Widget _old)
         {
-            Export.DebugOut("EventKeySetFocus  _old=" + (_old == null ? "null" : _old.ToString()));
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventKeySetFocus  _old=" + (_old == null ? "null" : _old.ToString()));
         }
 
         static void widget_EventKeyButtonReleased(Widget _sender, KeyCode _key)
         {
-            Export.DebugOut("EventKeyButtonReleased  _key=" + _key.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventKeyButtonReleased  _key=" + _key.ToString());
         }
 
         static void widget_EventKeyButtonPressed(Widget _sender, KeyCode _key, uint _char)
         {
-            Export.DebugOut("EventMouseMove  _key=" + _key.ToString() + "   _char=" + _char.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventMouseMove  _key=" + _key.ToString() + "   _char=" + _char.ToString());
         }
 
         static void widget_EventRootMouseChangeFocus(Widget _sender, bool _focus)
         {
-            Export.DebugOut("EventRootMouseChangeFocus  _focus=" + _focus.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventRootMouseChangeFocus  _focus=" + _focus.ToString());
         }
 
         static void widget_EventRootKeyChangeFocus(Widget _sender, bool _focus)
         {
-            Export.DebugOut("EventRootKeyChangeFocus  _focus=" + _focus.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventRootKeyChangeFocus  _focus=" + _focus.ToString());
         }
 
         static void widget_EventToolTip(Widget _sender, ToolTipInfo _info)
         {
-            Export.DebugOut("EventToolTip  _info=" + _info.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventToolTip  _info=" + _info.ToString());
         }
-
-        /*static void widget_EventActionInfo(Widget _sender, string _key, string _value)
-        {
-            Export.DebugOut("EventActionInfo  _key=" + _key + "  _value=" + _value);
-        }*/
     }
 }

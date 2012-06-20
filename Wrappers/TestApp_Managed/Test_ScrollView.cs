@@ -8,6 +8,7 @@ namespace TestApp.Managed
         public static void Test()
         {
             ScrollView view = Gui.Instance.CreateWidget<ScrollView>("ScrollView", new IntCoord(420, 120, 100, 100), Align.Default, "Main");
+
             Widget child = view.CreateWidget<Widget>("Button", new IntCoord(10, 10, 26, 26), Align.Default);
 
             view.SetCanvasSize(210, 210);
@@ -18,7 +19,6 @@ namespace TestApp.Managed
 
             view.IsVisibleHScroll = !view.IsVisibleHScroll;
             view.IsVisibleVScroll = !view.IsVisibleVScroll;
-
         }
     }
 }

@@ -9,6 +9,7 @@ namespace TestApp.Managed
         public static void Test()
         {
             ScrollBar scroll = Gui.Instance.CreateWidget<ScrollBar>("ScrollBarV", new IntCoord(580, 120, 16, 100), Align.Default, "Main");
+
             scroll.EventScrollChangePosition += new ScrollBar.HandleScrollChangePosition(scroll_EventScrollChangePosition);
 
             scroll.MinTrackSize = scroll.MinTrackSize + 1;
@@ -23,7 +24,7 @@ namespace TestApp.Managed
 
         static void scroll_EventScrollChangePosition(ScrollBar _sender, uint _position)
         {
-            Export.DebugOut("EventScrollChangePosition  position=" + _position.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventScrollChangePosition  position=" + _position.ToString());
         }
     }
 }

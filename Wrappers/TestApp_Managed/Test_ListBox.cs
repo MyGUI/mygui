@@ -9,6 +9,7 @@ namespace TestApp.Managed
         public static void Test()
         {
             ListBox box = Gui.Instance.CreateWidget<ListBox>("ListBox", new IntCoord(20, 420, 100, 100), Align.Default, "Main");
+
             box.EventListChangeScroll += new ListBox.HandleListChangeScroll(box_EventListChangeScroll);
             box.EventListMouseItemFocus += new ListBox.HandleListMouseItemFocus(box_EventListMouseItemFocus);
             box.EventListMouseItemActivate += new ListBox.HandleListMouseItemActivate(box_EventListMouseItemActivate);
@@ -49,27 +50,27 @@ namespace TestApp.Managed
 
         static void box_EventListSelectAccept(ListBox _sender, uint _index)
         {
-            Export.DebugOut("EventListSelectAccept  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventListSelectAccept  index=" + _index.ToString());
         }
 
         static void box_EventListChangePosition(ListBox _sender, uint _index)
         {
-            Export.DebugOut("EventListChangePosition  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventListChangePosition  index=" + _index.ToString());
         }
 
         static void box_EventListMouseItemActivate(ListBox _sender, uint _index)
         {
-            Export.DebugOut("EventListMouseItemActivate  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventListMouseItemActivate  index=" + _index.ToString());
         }
 
         static void box_EventListMouseItemFocus(ListBox _sender, uint _index)
         {
-            Export.DebugOut("EventListMouseItemFocus  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventListMouseItemFocus  index=" + _index.ToString());
         }
 
         static void box_EventListChangeScroll(ListBox _sender, uint _position)
         {
-            Export.DebugOut("EventListChangeScroll  index=" + _position.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventListChangeScroll  index=" + _position.ToString());
         }
     }
 }

@@ -9,7 +9,11 @@ namespace TestApp.Managed
         public static void Test()
         {
             EditBox box = Gui.Instance.CreateWidget<EditBox>("EditBox", new IntCoord(520, 20, 300, 30), Align.Default, "Main");
-            box.OnlyText = "";
+
+			box.EventEditSelectAccept += new EditBox.HandleEditSelectAccept(box_EventEditSelectAccept);
+			box.EventEditTextChange += new EditBox.HandleEditTextChange(box_EventEditTextChange);
+
+			box.OnlyText = "";
             box.IsVisibleHScroll = !box.IsVisibleHScroll;
             box.IsVisibleVScroll = !box.IsVisibleVScroll;
             box.TabPrinting = !box.TabPrinting;
@@ -41,19 +45,16 @@ namespace TestApp.Managed
             box.SetTextSelection(0, 2);
             length = box.TextSelectionLength;
             box.SetTextIntervalColour(3, 2, new Colour(0, 0, 1));
-
-            box.EventEditSelectAccept += new EditBox.HandleEditSelectAccept(box_EventEditSelectAccept);
-            box.EventEditTextChange += new EditBox.HandleEditTextChange(box_EventEditTextChange);
         }
 
         static void box_EventEditTextChange(EditBox _sender)
         {
-            Export.DebugOut("EventEditTextChange");
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventEditTextChange");
         }
 
         static void box_EventEditSelectAccept(EditBox _sender)
         {
-            Export.DebugOut("EventEditSelectAccept");
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventEditSelectAccept");
         }
     }
 }

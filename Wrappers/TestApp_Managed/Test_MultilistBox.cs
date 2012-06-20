@@ -9,6 +9,7 @@ namespace TestApp.Managed
         public static void Test()
         {
             MultiListBox box = Gui.Instance.CreateWidget<MultiListBox>("MultiListBox", new IntCoord(220, 520, 200, 200), Align.Default, "Main");
+
             box.EventListChangePosition += new MultiListBox.HandleListChangePosition(box_EventListChangePosition);
             box.EventListSelectAccept += new MultiListBox.HandleListSelectAccept(box_EventListSelectAccept);
 
@@ -69,12 +70,12 @@ namespace TestApp.Managed
 
         static void box_EventListSelectAccept(MultiListBox _sender, uint _index)
         {
-            Export.DebugOut("EventListSelectAccept  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventListSelectAccept  index=" + _index.ToString());
         }
 
         static void box_EventListChangePosition(MultiListBox _sender, uint _index)
         {
-            Export.DebugOut("EventListChangePosition  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventListChangePosition  index=" + _index.ToString());
         }
     }
 }

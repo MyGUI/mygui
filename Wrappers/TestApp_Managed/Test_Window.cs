@@ -9,12 +9,13 @@ namespace TestApp.Managed
         public static void Test()
         {
             Window window = Gui.Instance.CreateWidget<Window>("WindowCSX", new IntCoord(620, 620, 100, 100), Align.Default, "Popup");
-            window.Caption = "WindowCSX";
 
             window.EventWindowChangeCoord += new Window.HandleWindowChangeCoord(window_EventWindowChangeCoord);
             window.EventWindowButtonPressed += new Window.HandleWindowButtonPressed(window_EventWindowButtonPressed);
 
-            window.Snap = !window.Snap;
+			window.Caption = "WindowCSX";
+
+			window.Snap = !window.Snap;
             window.SetMaxSize(1000, 1000);
             window.SetMinSize(80, 80);
 
@@ -32,12 +33,12 @@ namespace TestApp.Managed
 
         static void window_EventWindowButtonPressed(Window _sender, string _name)
         {
-            Export.DebugOut("EventWindowButtonPressed  _name=" + _name.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventWindowButtonPressed  _name=" + _name.ToString());
         }
 
         static void window_EventWindowChangeCoord(Window _sender)
         {
-            Export.DebugOut("EventWindowChangeCoord");
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventWindowChangeCoord");
         }
     }
 }

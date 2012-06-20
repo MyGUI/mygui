@@ -155,6 +155,7 @@
     <ClInclude Include="ItemDropInfo.h" />
     <ClInclude Include="ItemInfo.h" />
     <ClInclude Include="KeyCode.h" />
+    <ClInclude Include="LogLevel.h" />
     <ClInclude Include="MenuItemType.h" />
     <ClInclude Include="MessageStyle.h" />
     <ClInclude Include="MouseButton.h" />

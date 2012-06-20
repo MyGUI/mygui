@@ -9,6 +9,7 @@ namespace TestApp.Managed
         public static void Test()
         {
             MenuControl menu = Gui.Instance.CreateWidget<MenuControl>("PopupMenu", new IntCoord(220, 20, 300, 200), Align.Default, "Main");
+
             menu.EventMenuCtrlClose += new MenuControl.HandleMenuCtrlClose(menu_EventMenuControlClose);
             menu.EventMenuCtrlAccept += new MenuControl.HandleMenuCtrlAccept(menu_EventMenuControlAccept);
 
@@ -65,12 +66,12 @@ namespace TestApp.Managed
 
         static void menu_EventMenuControlAccept(MenuControl _sender, MenuItem _item)
         {
-            Export.DebugOut("EventMenuControlAccept  item=" + _item.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventMenuControlAccept  item=" + _item.ToString());
         }
 
         static void menu_EventMenuControlClose(MenuControl _sender)
         {
-            Export.DebugOut("EventMenuControlClose");
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventMenuControlClose");
         }
     }
 }
