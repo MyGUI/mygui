@@ -9,7 +9,8 @@ namespace TestApp.Managed
         public static void Test()
         {
             Button button = Gui.Instance.CreateWidget<Button>("Button", new IntCoord(760, 420, 100, 100), Align.Default, "Main");
-            button.Caption = "Gui";
+
+			button.Caption = "Gui";
 
             bool focus = InputManager.Instance.KeyFocus;
             Widget widget = InputManager.Instance.KeyFocusWidget;
@@ -34,7 +35,7 @@ namespace TestApp.Managed
         {
             string mouse = InputManager.Instance.MouseFocus.ToString() + "(" + (InputManager.Instance.MouseFocusWidget == null ? "null" : InputManager.Instance.MouseFocusWidget.ToString()) + ")";
             string key = InputManager.Instance.KeyFocus.ToString() + "(" + (InputManager.Instance.KeyFocusWidget == null ? "null" : InputManager.Instance.KeyFocusWidget.ToString()) + ")";
-            Export.DebugOut("GUI: mouse=" + mouse + "   key=" + key);
+            Gui.Instance.Log("TestApp", LogLevel.Info, "GUI: mouse=" + mouse + "   key=" + key);
         }
     }
 }

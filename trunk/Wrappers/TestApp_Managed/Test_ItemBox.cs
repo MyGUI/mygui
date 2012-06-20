@@ -10,6 +10,7 @@ namespace TestApp.Managed
         public static void Test()
         {
             ItemBox box = Gui.Instance.CreateWidget<ItemBox>("ItemBox", new IntCoord(20, 320, 100, 100), Align.Default, "Main");
+
             box.EventNotifyItem += new ItemBox.HandleNotifyItem(box_EventNotifyItem);
             box.EventMouseItemActivate += new ItemBox.HandleMouseItemActivate(box_EventMouseItemActivate);
             box.EventChangeItemPosition += new ItemBox.HandleChangeItemPosition(box_EventChangeItemPosition);
@@ -66,22 +67,22 @@ namespace TestApp.Managed
 
         static void box_EventSelectItemAccept(ItemBox _sender, uint _index)
         {
-            Export.DebugOut("EventSelectItemAccept  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventSelectItemAccept  index=" + _index.ToString());
         }
 
         static void box_EventChangeItemPosition(ItemBox _sender, uint _index)
         {
-            Export.DebugOut("EventChangeItemPosition  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventChangeItemPosition  index=" + _index.ToString());
         }
 
         static void box_EventMouseItemActivate(ItemBox _sender, uint _index)
         {
-            Export.DebugOut("EventMouseItemActivate  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventMouseItemActivate  index=" + _index.ToString());
         }
 
         static void box_EventNotifyItem(ItemBox _sender, IBNotifyItemData _info)
         {
-            Export.DebugOut("EventNotifyItem  notify=" + _info.notify.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventNotifyItem  notify=" + _info.notify.ToString());
         }
     }
 

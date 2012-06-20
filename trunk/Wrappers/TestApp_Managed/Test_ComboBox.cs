@@ -11,7 +11,11 @@ namespace TestApp.Managed
         public static void Test()
         {
             ComboBox box = Gui.Instance.CreateWidget<ComboBox>("ComboBox", new IntCoord(120, 320, 200, 26), Align.Default, "Main");
-            box.AddItem("line0", (int)0);
+
+			box.EventComboAccept += new ComboBox.HandleComboAccept(box_EventComboAccept);
+			box.EventComboChangePosition += new ComboBox.HandleComboChangePosition(box_EventComboChangePosition);
+
+			box.AddItem("line0", (int)0);
             box.AddItem("line1");
             box.AddItem("line2", (int)2);
             box.AddItem("line3");
@@ -60,18 +64,15 @@ namespace TestApp.Managed
             name = box.GetItemNameAt(3);
 
             uint count = box.ItemCount;
-
-            box.EventComboAccept += new ComboBox.HandleComboAccept(box_EventComboAccept);
-            box.EventComboChangePosition += new ComboBox.HandleComboChangePosition(box_EventComboChangePosition);
         }
         static void box_EventComboChangePosition(ComboBox _sender, uint _index)
         {
-            Export.DebugOut("EventComboChangePosition  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventComboChangePosition  index=" + _index.ToString());
         }
 
         static void box_EventComboAccept(ComboBox _sender, uint _index)
         {
-            Export.DebugOut("EventComboAccept  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventComboAccept  index=" + _index.ToString());
         }
     }
 }

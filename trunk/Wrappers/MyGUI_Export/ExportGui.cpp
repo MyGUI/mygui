@@ -148,34 +148,11 @@ namespace Export
 		Convert<MyGUI::LogLevel>::Type _level,
 		Convert<const std::string&>::Type _message )
 	{
-		//MYGUI_PLATFORM_LOG(Info, "message");
-		//MYGUI_LOGGING(MYGUI_PLATFORM_LOG_SECTION, Info, "message");
-		MYGUI_LOGGING(_section, Info, _message);
-
-		// развернутые варианты почему то падают!!!
-		/*MyGUI::LogManager().getInstance().log(
-			MYGUI_PLATFORM_LOG_SECTION,
-			MyGUI::LogLevel::Info,
-			MyGUI::LogStream() << "message" << MyGUI::LogStream::End(),
-			__FILE__,
-			__LINE__);*/
-		/*MyGUI::LogManager().getInstance().log(
-			"MYGUI_PLATFORM_LOG_SECTION",
-			MyGUI::LogLevel::Info,
-			MyGUI::LogStream() << "message" << MyGUI::LogStream::End(),
-			__FILE__,
-			__LINE__);*/
-		/*MyGUI::LogManager().getInstance().log(
-			"Platform",
-			MyGUI::LogLevel::Error,
-			"message",
-			"",
-			1);*/
-		/*MyGUI::LogManager().getInstancePtr()->log(
+		MyGUI::LogManager::getInstance().log(
 			Convert<const std::string&>::From(_section),
 			Convert<MyGUI::LogLevel>::From(_level),
 			Convert<const std::string&>::From(_message),
 			__FILE__,
-			__LINE__);*/
+			__LINE__);
 	}
 }

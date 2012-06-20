@@ -24,6 +24,7 @@
 #include "MenuItemType.h"
 #include "ResizingPolicy.h"
 #include "FlowDirection.h"
+#include "LogLevel.h"
 
 #include "DropItemState.h"
 #include "DropWidgetState.h"

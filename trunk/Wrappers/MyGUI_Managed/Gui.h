@@ -18,10 +18,14 @@ namespace MyGUI
 	namespace Managed
 	{
 
-		public ref class Gui : public GuiFactory
+		public ref class Gui :
+			public GuiFactory
 		{
 		private:
-			Gui() : GuiFactory() { }
+			Gui() :
+			   GuiFactory()
+			{
+			}
 
 		public:
 			static property Gui ^ Instance
@@ -43,12 +47,6 @@ namespace MyGUI
 					return m_instance;
 				}
 			}
-
-		/*public:
-			void DebugOut(System::String ^ _line)
-			{
-				MYGUI_OUT( Convert<const std::string&>::From(_line) );
-			}*/
 
 		public:
 			generic <typename WidgetType> where WidgetType : ref class
@@ -312,6 +310,21 @@ namespace MyGUI
 					}
 
 				}
+			}
+
+		public:
+			void Log(
+				Convert<const std::string &>::Type _section,
+				Convert<MyGUI::LogLevel>::Type _level,
+				Convert<const std::string &>::Type _message)
+			{
+				MyGUI::LogManager::getInstance().log(
+					Convert<const std::string&>::From(_section),
+					Convert<MyGUI::LogLevel>::From(_level),
+					Convert<const std::string&>::From(_message),
+					__FILE__,
+					__LINE__
+				);
 			}
 
 		private:

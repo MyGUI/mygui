@@ -8,6 +8,7 @@ namespace TestApp.Managed
         public static void Test()
         {
             ImageBox image = Gui.Instance.CreateWidget<ImageBox>("ImageBox", new IntCoord(320, 120, 100, 100), Align.Default, "Main");
+
             image.SetItemResource("pic_CoreMessageIcon");
             image.SetItemGroup("Icons");
             image.SetItemName("Warning");

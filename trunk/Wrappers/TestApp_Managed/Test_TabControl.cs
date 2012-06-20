@@ -9,6 +9,7 @@ namespace TestApp.Managed
         public static void Test()
         {
             TabControl tab = Gui.Instance.CreateWidget<TabControl>("TabControl", new IntCoord(120, 420, 200, 100), Align.Default, "Main");
+
             tab.EventTabChangeSelect += new TabControl.HandleTabChangeSelect(tab_EventTabChangeSelect);
 
             TabItem item = tab.AddItem("sheet1");
@@ -57,21 +58,6 @@ namespace TestApp.Managed
             index = tab.GetItemIndex(item);
             item = tab.GetItemAt(0);
 
-            //TabItem test start
-            /*item.SetItemSelected();
-            name = item.ItemName;
-            item.ItemName = "new item name";
-            item.ButtonWidth = item.ButtonWidth + 1;*/
-
-            /*data = item.ItemData as string;
-            item.ItemData = "new data";
-            data = tab.GetItemData(item) as string;
-            data = tab.GetItemDataAt(0) as string;
-            data = item.ItemData as string;
-            item.ItemData = null;
-            data = item.ItemData as string;*/
-            //TabItem test end
-
             tab.RemoveItem(item);
             item = null;
 
@@ -81,7 +67,7 @@ namespace TestApp.Managed
 
         static void tab_EventTabChangeSelect(TabControl _sender, uint _index)
         {
-            Export.DebugOut("EventTabChangeSelect  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventTabChangeSelect  index=" + _index.ToString());
         }
     }
 }

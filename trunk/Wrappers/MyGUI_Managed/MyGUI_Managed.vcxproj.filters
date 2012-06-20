@@ -301,5 +301,8 @@
     <ClInclude Include="Platform.h">
       <Filter>Header Files\Core\Managers</Filter>
     </ClInclude>
+    <ClInclude Include="LogLevel.h">
+      <Filter>Header Files\Core\Types</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
