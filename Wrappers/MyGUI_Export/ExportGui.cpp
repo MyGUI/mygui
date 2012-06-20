@@ -3,6 +3,7 @@
 #include "Generate/MyGUI_Export_MarshalingWidget.h"
 #include "ExportMarshalingType.h"
 #include <MyGUI.h>
+#include "MyGUI_LogManager.h"
 
 namespace Export
 {
@@ -147,13 +148,29 @@ namespace Export
 		Convert<MyGUI::LogLevel>::Type _level,
 		Convert<const std::string&>::Type _message )
 	{
-		/*if (MyGUI::LogManager().getInstancePtr() != nullptr)
-		MyGUI::LogManager().getInstancePtr()->log(
-			"_section",
+		//MYGUI_PLATFORM_LOG(Info, "message");
+		//MYGUI_LOGGING(MYGUI_PLATFORM_LOG_SECTION, Info, "message");
+		MYGUI_LOGGING(_section, Info, _message);
+
+		// развернутые варианты почему то падают!!!
+		/*MyGUI::LogManager().getInstance().log(
+			MYGUI_PLATFORM_LOG_SECTION,
 			MyGUI::LogLevel::Info,
-			"_message",
+			MyGUI::LogStream() << "message" << MyGUI::LogStream::End(),
 			__FILE__,
 			__LINE__);*/
+		/*MyGUI::LogManager().getInstance().log(
+			"MYGUI_PLATFORM_LOG_SECTION",
+			MyGUI::LogLevel::Info,
+			MyGUI::LogStream() << "message" << MyGUI::LogStream::End(),
+			__FILE__,
+			__LINE__);*/
+		/*MyGUI::LogManager().getInstance().log(
+			"Platform",
+			MyGUI::LogLevel::Error,
+			"message",
+			"",
+			1);*/
 		/*MyGUI::LogManager().getInstancePtr()->log(
 			Convert<const std::string&>::From(_section),
 			Convert<MyGUI::LogLevel>::From(_level),
