@@ -1,6 +1,5 @@
 using System;
 using MyGUI.Sharp;
-using MyGUI.Sharp.Demo;
 
 namespace TestApp.Sharp
 {
@@ -48,12 +47,12 @@ namespace TestApp.Sharp
 
         static void box_EventEditTextChange(EditBox _sender)
         {
-            Export.DebugOut("EventEditTextChange");
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventEditTextChange");
         }
 
         static void box_EventEditSelectAccept(EditBox _sender)
         {
-            Export.DebugOut("EventEditSelectAccept");
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventEditSelectAccept");
         }
     }
 }

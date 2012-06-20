@@ -1,6 +1,5 @@
 using System;
 using MyGUI.Sharp;
-using MyGUI.Sharp.Demo;
 
 namespace TestApp.Sharp
 {
@@ -49,27 +48,27 @@ namespace TestApp.Sharp
 
         static void box_EventListSelectAccept(ListBox _sender, uint _index)
         {
-            Export.DebugOut("EventListSelectAccept  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventListSelectAccept  index=" + _index.ToString());
         }
 
         static void box_EventListChangePosition(ListBox _sender, uint _index)
         {
-            Export.DebugOut("EventListChangePosition  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventListChangePosition  index=" + _index.ToString());
         }
 
         static void box_EventListMouseItemActivate(ListBox _sender, uint _index)
         {
-            Export.DebugOut("EventListMouseItemActivate  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventListMouseItemActivate  index=" + _index.ToString());
         }
 
         static void box_EventListMouseItemFocus(ListBox _sender, uint _index)
         {
-            Export.DebugOut("EventListMouseItemFocus  index=" + _index.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventListMouseItemFocus  index=" + _index.ToString());
         }
 
         static void box_EventListChangeScroll(ListBox _sender, uint _position)
         {
-            Export.DebugOut("EventListChangeScroll  index=" + _position.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventListChangeScroll  index=" + _position.ToString());
         }
     }
 }

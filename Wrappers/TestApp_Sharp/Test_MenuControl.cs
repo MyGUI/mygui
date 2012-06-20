@@ -1,6 +1,5 @@
 using System;
 using MyGUI.Sharp;
-using MyGUI.Sharp.Demo;
 
 namespace TestApp.Sharp
 {
@@ -65,12 +64,12 @@ namespace TestApp.Sharp
 
         static void menu_EventMenuCtrlAccept(MenuControl _sender, MenuItem _item)
         {
-            Export.DebugOut("EventMenuCtrlAccept  item=" + _item.ToString());
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventMenuCtrlAccept  item=" + _item.ToString());
         }
 
         static void menu_EventMenuCtrlClose(MenuControl _sender)
         {
-            Export.DebugOut("EventMenuCtrlClose");
+            Gui.Instance.Log("TestApp", LogLevel.Info, "EventMenuCtrlClose");
         }
     }
 }

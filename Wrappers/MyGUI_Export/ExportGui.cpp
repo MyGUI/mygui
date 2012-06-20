@@ -10,11 +10,11 @@ namespace Export
 	MYGUIEXPORT MyGUI::Widget* MYGUICALL ExportGui_CreateWidget(
 		Interface _wrapper,
 		MyGUI::Widget* _parent,
-		MyGUI::WidgetStyle _style,
+		Convert<MyGUI::WidgetStyle>::Type _style,
 		Convert<const std::string&>::Type _type,
 		Convert<const std::string&>::Type _skin,
-		const MyGUI::IntCoord& _coord,
-		MyGUI::Align _align,
+		Convert<MyGUI::IntCoord>::Type _coord,
+		Convert<MyGUI::Align>::Type _align,
 		Convert<const std::string&>::Type _layer,
 		Convert<const std::string&>::Type _name
 	)
@@ -22,11 +22,24 @@ namespace Export
 		MyGUI::WidgetPtr widget = nullptr;
 		if (_parent == nullptr)
 		{
-			widget = MyGUI::Gui::getInstance().createWidgetT(_type, _skin, _coord, _align, _layer, _name);
+			widget = MyGUI::Gui::getInstance().createWidgetT(
+				Convert<const std::string&>::From(_type),
+				Convert<const std::string&>::From(_skin),
+				Convert<const MyGUI::IntCoord&>::From(_coord),
+				Convert<MyGUI::Align>::From(_align),
+				Convert<const std::string&>::From(_layer),
+				Convert<const std::string&>::From(_name));
 		}
 		else
 		{
-			widget = _parent->createWidgetT(_style, _type, _skin, _coord, _align, _layer, _name);
+			widget = _parent->createWidgetT(
+				Convert<MyGUI::WidgetStyle>::From(_style),
+				Convert<const std::string&>::From(_type),
+				Convert<const std::string&>::From(_skin),
+				Convert<const MyGUI::IntCoord&>::From(_coord),
+				Convert<MyGUI::Align>::From(_align),
+				Convert<const std::string&>::From(_layer),
+				Convert<const std::string&>::From(_name));
 		}
 
 		widget->setUserData(_wrapper);
@@ -129,4 +142,23 @@ namespace Export
 				);
 	}
 
+	MYGUIEXPORT void MYGUICALL ExportGui_Log(
+		Convert<const std::string&>::Type _section,
+		Convert<MyGUI::LogLevel>::Type _level,
+		Convert<const std::string&>::Type _message )
+	{
+		/*if (MyGUI::LogManager().getInstancePtr() != nullptr)
+		MyGUI::LogManager().getInstancePtr()->log(
+			"_section",
+			MyGUI::LogLevel::Info,
+			"_message",
+			__FILE__,
+			__LINE__);*/
+		/*MyGUI::LogManager().getInstancePtr()->log(
+			Convert<const std::string&>::From(_section),
+			Convert<MyGUI::LogLevel>::From(_level),
+			Convert<const std::string&>::From(_message),
+			__FILE__,
+			__LINE__);*/
+	}
 }

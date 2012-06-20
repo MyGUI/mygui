@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MyGUI.Sharp</RootNamespace>
     <AssemblyName>MyGUI_Sharp</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
@@ -67,6 +67,7 @@
     <Compile Include="Types\IntRect.cs" />
     <Compile Include="Types\IntSize.cs" />
     <Compile Include="Types\KeyCode.cs" />
+    <Compile Include="Types\LogLevel.cs" />
     <Compile Include="Types\MenuItemType.cs" />
     <Compile Include="Types\MouseButton.cs" />
     <Compile Include="Types\ResizingPolicy.cs" />

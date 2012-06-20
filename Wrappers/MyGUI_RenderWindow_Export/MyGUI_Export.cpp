@@ -50,13 +50,6 @@ namespace demo
 		assert(instance);
 		instance->quit();
 	}
-
-	MYGUIEXPORT void MYGUICALL ExportDemo_DebugOut(const char* _str)
-	{
-		assert(instance);
-		//MyGUI::MYGUI_OUT(_str);
-	}
-
 }
 
 #ifdef _MANAGED

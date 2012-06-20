@@ -19,8 +19,6 @@ namespace MyGUI.Sharp.Demo
         private static extern void ExportDemo_Run();
 		[DllImport("MyGUI_RenderWindow_Export_d.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_Shutdown();
-		[DllImport("MyGUI_RenderWindow_Export_d.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void ExportDemo_DebugOut([MarshalAs(UnmanagedType.LPStr)]string _str);
 #else
         [DllImport("MyGUI_RenderWindow_Export.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_Initialise();
@@ -30,8 +28,6 @@ namespace MyGUI.Sharp.Demo
         private static extern void ExportDemo_Run();
         [DllImport("MyGUI_RenderWindow_Export.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_Shutdown();
-        [DllImport("MyGUI_RenderWindow_Export.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void ExportDemo_DebugOut([MarshalAs(UnmanagedType.LPStr)]string _str);
 #endif
 
 		#endregion
@@ -58,12 +54,5 @@ namespace MyGUI.Sharp.Demo
         {
             ExportDemo_Shutdown();
         }
-
-        public static void DebugOut(string _str)
-        {
-            ExportDemo_DebugOut(_str);
-        }
-
     }
-
 }
