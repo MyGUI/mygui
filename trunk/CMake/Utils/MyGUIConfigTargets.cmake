@@ -116,9 +116,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		add_definitions("-DMYGUI_DUMMY_PLATFORM")
 		include_directories(
 			${MYGUI_SOURCE_DIR}/Platforms/Dummy/DummyPlatform/include
-			${DUMMY_INCLUDE_DIR}
 		)
-		link_directories(${DUMMY_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
 		include_directories(../../Common/Base/Ogre)
 		add_definitions("-DMYGUI_OGRE_PLATFORM")
