@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using MyGUI.Managed;
-using MyGUI.Managed.Demo;
 
 namespace TestApp.Managed
 {
