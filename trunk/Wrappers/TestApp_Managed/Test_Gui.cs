@@ -1,5 +1,4 @@
 using System;
-using MyGUI.Managed.Demo;
 using MyGUI.Managed;
 
 namespace TestApp.Managed

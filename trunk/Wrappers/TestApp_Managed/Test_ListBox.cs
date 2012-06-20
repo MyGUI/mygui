@@ -1,6 +1,5 @@
 using System;
 using MyGUI.Managed;
-using MyGUI.Managed.Demo;
 
 namespace TestApp.Managed
 {
