@@ -70,6 +70,7 @@
     <Compile Include="Types\ResizingPolicy.cs" />
     <Compile Include="Types\ToolTipInfo.cs" />
     <Compile Include="Types\WidgetStyle.cs" />
+    <Compile Include="Widget_Input.cs" />
     <Compile Include="Widget_UserData.cs" />
   </ItemGroup>
   <ItemGroup>
