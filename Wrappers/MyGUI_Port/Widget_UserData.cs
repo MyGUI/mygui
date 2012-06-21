@@ -3,9 +3,8 @@ using System.Diagnostics;
 
 namespace MyGUI
 {
-
 	//* UserData is parent of Widget class. Used to store any user data and strings inside widget 
-	public class UserData
+	public partial class UserData
 	{
 		//* Set user string 
 		public void setUserString(string _key, string _value)
@@ -97,8 +96,7 @@ namespace MyGUI
 		// для внутренниего использования
 		private object mInternalData;
 	}
-
-} // namespace MyGUI
+}
 
 
 
