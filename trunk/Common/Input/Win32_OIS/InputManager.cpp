@@ -247,7 +247,7 @@ namespace input
 	{
 		MyGUI::Char text = (MyGUI::Char)_arg.text;
 		MyGUI::KeyCode key = MyGUI::KeyCode::Enum(_arg.key);
-		int scan_code = key.toValue();
+		int scan_code = key.getValue();
 
 		if (scan_code > 70 && scan_code < 84)
 		{
@@ -261,7 +261,7 @@ namespace input
 		else
 		{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-			text = (MyGUI::Char)ScanCodeToText((int)key.toValue());
+			text = (MyGUI::Char)ScanCodeToText((int)key.getValue());
 #endif
 		}
 
