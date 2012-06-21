@@ -158,7 +158,7 @@ namespace input
 	{
 		MyGUI::Char text = (MyGUI::Char)_arg.text;
 		MyGUI::KeyCode key = MyGUI::KeyCode::Enum(_arg.key);
-		int scan_code = key.toValue();
+		int scan_code = key.getValue();
 
 		if (scan_code > 70 && scan_code < 84)
 		{
