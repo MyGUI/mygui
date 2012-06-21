@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MyGUI.Sharp
+namespace MyGUI
 {
 	public enum LogLevel : int
 	{
