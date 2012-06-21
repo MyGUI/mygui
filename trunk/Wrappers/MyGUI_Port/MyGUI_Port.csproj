@@ -8,7 +8,7 @@
     <ProjectGuid>{FA0E9669-CAD7-4C3D-AD11-BB4B8CD3EFCE}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyGUI_Port</RootNamespace>
+    <RootNamespace>MyGUI</RootNamespace>
     <AssemblyName>MyGUI_Port</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
@@ -44,7 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CroppedRectangle.cs" />
+    <Compile Include="Widget.cs" />
+    <Compile Include="Widget_CroppedRectangle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\Align.cs" />
@@ -69,7 +70,7 @@
     <Compile Include="Types\ResizingPolicy.cs" />
     <Compile Include="Types\ToolTipInfo.cs" />
     <Compile Include="Types\WidgetStyle.cs" />
-    <Compile Include="WidgetUserData.cs" />
+    <Compile Include="Widget_UserData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

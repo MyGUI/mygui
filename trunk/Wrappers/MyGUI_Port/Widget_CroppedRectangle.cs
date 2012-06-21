@@ -1,16 +1,16 @@
 
 namespace MyGUI
 {
-	public class CroppedRectangle
+	public partial class Widget
 	{
-		public CroppedRectangle()
+		public Widget()
 		{
 			mIsMargin = false;
 			mCroppedParent = null;
 		}
 
 		//* Get parent ICroppedRectangle 
-		public CroppedRectangle getCroppedParent()
+		public Widget getCroppedParent()
 		{
 			return mCroppedParent;
 		}
@@ -156,7 +156,7 @@ namespace MyGUI
 			return mCoord.height - mMargin.top - mMargin.bottom;
 		}
 
-		public void _setCroppedParent(CroppedRectangle _parent)
+		public void _setCroppedParent(Widget _parent)
 		{
 			mCroppedParent = _parent;
 		}
@@ -242,13 +242,12 @@ namespace MyGUI
 			return ((getRight() < mCroppedParent.mMargin.left) || (getLeft() > mCroppedParent.getWidth() - mCroppedParent.mMargin.right) || (getBottom() < mCroppedParent.mMargin.top) || (getTop() > mCroppedParent.getHeight() - mCroppedParent.mMargin.bottom));
 		}
 
-		protected IntRect mMargin; // перекрытие
-		protected IntCoord mCoord; // координаты
-		protected IntPoint mAbsolutePosition; // обсолютные координаты
+		private IntRect mMargin; // перекрытие
+		private IntCoord mCoord; // координаты
+		private IntPoint mAbsolutePosition; // обсолютные координаты
 
-		protected bool mIsMargin;
-		protected CroppedRectangle mCroppedParent;
+		private bool mIsMargin;
+		private Widget mCroppedParent;
 	}
-
-} // namespace MyGUI
+}
 
