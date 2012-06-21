@@ -1,21 +1,36 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace MyGUI.Sharp
+namespace MyGUI
 {
-    [StructLayout(LayoutKind.Sequential)]
     public struct IntCoord
     {
-        [MarshalAs(UnmanagedType.I4)]
         public int left;
-        [MarshalAs(UnmanagedType.I4)]
         public int top;
-        [MarshalAs(UnmanagedType.I4)]
         public int width;
-        [MarshalAs(UnmanagedType.I4)]
         public int height;
 
-        public IntCoord(int _left, int _top, int _width, int _height)
+		public int right()
+		{
+			return left + width;
+		}
+
+		public int bottom()
+		{
+			return top + height;
+		}
+
+		public IntPoint point()
+		{
+			return new IntPoint(left, top);
+		}
+
+		public IntSize size()
+		{
+			return new IntSize(width, height);
+		}
+
+		public IntCoord(int _left, int _top, int _width, int _height)
         {
             left = _left;
             top = _top;

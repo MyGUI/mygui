@@ -1,14 +1,11 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace MyGUI.Sharp
+namespace MyGUI
 {
-    [StructLayout(LayoutKind.Sequential)]
     public struct FloatSize
     {
-        [MarshalAs(UnmanagedType.R4)]
         public float width;
-        [MarshalAs(UnmanagedType.R4)]
         public float height;
 
         public FloatSize(float _width, float _height)

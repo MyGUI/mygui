@@ -1,18 +1,13 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace MyGUI.Sharp
+namespace MyGUI
 {
-    [StructLayout(LayoutKind.Sequential)]
     public struct Colour
     {
-        [MarshalAs(UnmanagedType.R4)]
         public float red;
-        [MarshalAs(UnmanagedType.R4)]
         public float green;
-        [MarshalAs(UnmanagedType.R4)]
         public float blue;
-        [MarshalAs(UnmanagedType.R4)]
         public float alpha;
 
         public Colour(float _red, float _green, float _blue, float _alpha)
