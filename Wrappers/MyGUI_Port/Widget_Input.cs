@@ -46,9 +46,10 @@ namespace MyGUI
 			mNeedKeyFocus = _value;
 		}
 
-		// Is need key focus
-		//	If disable this widget won't be reacting on keyboard at all.\n
-		// Enabled (true) by default.
+		//		* Is need key focus
+		//			If disable this widget won't be reacting on keyboard at all.\n
+		//			Enabled (true) by default.
+		//		
 		public bool getNeedKeyFocus()
 		{
 			return mNeedKeyFocus;
@@ -60,31 +61,33 @@ namespace MyGUI
 			mNeedMouseFocus = _value;
 		}
 
-		// Is need mouse focus
-		// If disable this widget won't be reacting on mouse at all.\n
-		// Enabled (true) by default.
+		//		* Is need mouse focus
+		//			If disable this widget won't be reacting on mouse at all.\n
+		//			Enabled (true) by default.
+		//		
 		public bool getNeedMouseFocus()
 		{
 			return mNeedMouseFocus;
 		}
 
-		// Set inherits mode flag
-		// This mode makes all child widgets pickable even if widget don't
-		// need mouse focus (was set setNeedKeyFocus(false) ).\n
-		// Disabled (false) by default.
+		//		* Set inherits mode flag
+		//			This mode makes all child widgets pickable even if widget don't
+		//			need mouse focus (was set setNeedKeyFocus(false) ).\n
+		//			Disabled (false) by default.
+		//		
 		public void setInheritsPick(bool _value)
 		{
 			mInheritsPick = _value;
 		}
 
-		// Get inherits mode flag 
+		//* Get inherits mode flag 
 		public bool getInheritsPick()
 		{
 			return mInheritsPick;
 		}
 
-		// Set picking mask for widget 
-		public void setMaskPick(string _filename)
+		//* Set picking mask for widget 
+		/*public void setMaskPick(string _filename)
 		{
 			if (string.IsNullOrEmpty(_filename))
 				mOwnMaskPickInfo = new MaskPickInfo();
@@ -92,24 +95,24 @@ namespace MyGUI
 				//C++ TO C# CONVERTER TODO TASK: There is no direct equivalent in C# to the C++ __LINE__ macro:
 				//C++ TO C# CONVERTER TODO TASK: There is no direct equivalent in C# to the C++ __FILE__ macro:
 				MyGUI.LogManager.getInstance().log(DefineConstants.MYGUI_LOG_SECTION, MyGUI.LogLevel.level, MyGUI.LogStream() << "mask not load '" << _filename << "'" << MyGUI.LogStream.End(), __FILE__, __LINE__);
-		}
+		}*/
 
-		// Set picking mask for widget 
-		public void setMaskPick(MaskPickInfo _info)
+		//* Set picking mask for widget 
+		/*public void setMaskPick(MaskPickInfo _info)
 		{
 			//C++ TO C# CONVERTER WARNING: The following line was determined to be a copy assignment (rather than a reference assignment) - this should be verified and a 'CopyFrom' method should be created if it does not yet exist:
 			//ORIGINAL LINE: mOwnMaskPickInfo = _info;
 			mOwnMaskPickInfo.CopyFrom(_info);
-		}
+		}*/
 
 		//C++ TO C# CONVERTER WARNING: 'const' methods are not available in C#:
 		//ORIGINAL LINE: bool isMaskPickInside(const types::TPoint<int>& _point, const types::TCoord<int>& _coord) const
-		public bool isMaskPickInside(IntPoint _point, IntCoord _coord)
+		/*public bool isMaskPickInside(IntPoint _point, IntCoord _coord)
 		{
 			//C++ TO C# CONVERTER WARNING: The following line was determined to be a copy constructor call - this should be verified and a copy constructor should be created if it does not yet exist:
 			//ORIGINAL LINE: return mOwnMaskPickInfo.empty() || mOwnMaskPickInfo.pick(_point, _coord);
 			return mOwnMaskPickInfo.empty() || mOwnMaskPickInfo.pick(new types.TPoint(_point), new types.TCoord(_coord));
-		}
+		}*/
 
 		public bool getRootMouseFocus()
 		{
@@ -121,10 +124,11 @@ namespace MyGUI
 			return mRootKeyFocus;
 		}
 
-		// Event : Widget lost mouse focus.\n
-		// signature : void method(MyGUI::Widget* _sender, MyGUI::Widget* _new)\n
-		// @param _sender widget that called this event
-		// @param _new widget with mouse focus or 0
+		//		* Event : Widget lost mouse focus.\n
+		//			signature : void method(MyGUI::Widget* _sender, MyGUI::Widget* _new)\n
+		//			@param _sender widget that called this event
+		//			@param _new widget with mouse focus or 0
+		//		
 		public delegate void HandleMouseLostFocus(Widget _sender, Widget _new);
 		public event HandleMouseLostFocus eventMouseLostFocus;
 
@@ -133,7 +137,8 @@ namespace MyGUI
 		//			@param _sender widget that called this event
 		//			@param _old widget with mouse focus or 0
 		//		
-		public delegates.CMultiDelegate2<Widget, Widget> eventMouseSetFocus = new delegates.CMultiDelegate2<Widget, Widget>();
+		public delegate void HandleMouseSetFocus(Widget _sender, Widget _old);
+		public event HandleMouseSetFocus eventMouseSetFocus;
 
 		//		* Event : Widget mouse move with captured widget.\n
 		//			signature : void method(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)\n
@@ -141,7 +146,8 @@ namespace MyGUI
 		//			@param _left - pointer position
 		//			@param _top - pointer position
 		//		
-		public delegates.CMultiDelegate4<Widget, int, int, MouseButton> eventMouseDrag = new delegates.CMultiDelegate4<Widget, int, int, MouseButton>();
+		public delegate void HandleMouseDrag(Widget _sender, int _left, int _top, MouseButton _id);
+		public event HandleMouseDrag eventMouseDrag;
 
 		//		* Event : Mouse move over widget.\n
 		//			signature : void method(MyGUI::Widget* _sender, int _left, int _top)\n
@@ -149,14 +155,16 @@ namespace MyGUI
 		//			@param _left - pointer position
 		//			@param _top - pointer position
 		//		
-		public delegates.CMultiDelegate3<Widget, int, int> eventMouseMove = new delegates.CMultiDelegate3<Widget, int, int>();
+		public delegate void HandleMouseMove(Widget _sender, int _left, int _top);
+		public event HandleMouseMove eventMouseMove;
 
 		//		* Event : Mouse wheel over widget.\n
 		//			signature : void method(MyGUI::Widget* _sender, int _rel)\n
 		//			@param _sender widget that called this event
 		//			@param _rel relative wheel position
 		//		
-		public delegates.CMultiDelegate2<Widget, int> eventMouseWheel = new delegates.CMultiDelegate2<Widget, int>();
+		public delegate void HandleMouseWheel(Widget _sender, int _rel);
+		public event HandleMouseWheel eventMouseWheel;
 
 		//		* Event : Mouse button pressed.\n
 		//			signature : void method(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)\n
@@ -165,7 +173,8 @@ namespace MyGUI
 		//			@param _top - pointer position
 		//			@param _id Mouse button id
 		//		
-		public delegates.CMultiDelegate4<Widget, int, int, MouseButton> eventMouseButtonPressed = new delegates.CMultiDelegate4<Widget, int, int, MouseButton>();
+		public delegate void HandleMouseButtonPressed(Widget _sender, int _left, int _top, MouseButton _id);
+		public event HandleMouseButtonPressed eventMouseButtonPressed;
 
 		//		* Event : Mouse button released.\n
 		//			signature : void method(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)\n
@@ -174,33 +183,38 @@ namespace MyGUI
 		//			@param _top - pointer position
 		//			@param _id Mouse button id
 		//		
-		public delegates.CMultiDelegate4<Widget, int, int, MouseButton> eventMouseButtonReleased = new delegates.CMultiDelegate4<Widget, int, int, MouseButton>();
+		public delegate void HandleMouseButtonReleased(Widget _sender, int _left, int _top, MouseButton _id);
+		public event HandleMouseButtonReleased eventMouseButtonReleased;
 
 		//		* Event : Mouse button pressed and released.\n
 		//			signature : void method(MyGUI::Widget* _sender)
 		//			@param _sender widget that called this event
 		//		
-		public delegates.CMultiDelegate1<Widget> eventMouseButtonClick = new delegates.CMultiDelegate1<Widget>();
+		public delegate void HandleMouseButtonClick(Widget _sender);
+		public event HandleMouseButtonClick eventMouseButtonClick;
 
 		//		* Event : Mouse button double click.\n
 		//			signature : void method(MyGUI::Widget* _sender)
 		//			@param _sender widget that called this event
 		//		
-		public delegates.CMultiDelegate1<Widget> eventMouseButtonDoubleClick = new delegates.CMultiDelegate1<Widget>();
+		public delegate void HandleMouseButtonDoubleClick(Widget _sender);
+		public event HandleMouseButtonDoubleClick eventMouseButtonDoubleClick;
 
 		//		* Event : Widget lost keyboard focus.\n
 		//			signature : void method(MyGUI::Widget* _sender, MyGUI::Widget* _new)\n
 		//			@param _sender widget that called this event
 		//			@param _new widget with keyboard focus or 0
 		//		
-		public delegates.CMultiDelegate2<Widget, Widget> eventKeyLostFocus = new delegates.CMultiDelegate2<Widget, Widget>();
+		public delegate void HandleKeyLostFocus(Widget _sender, Widget _new);
+		public event HandleKeyLostFocus eventKeyLostFocus;
 
 		//		* Event : Widget got keyboard focus.\n
 		//			signature : void method(MyGUI::Widget* _sender, MyGUI::Widget* _old)\n
 		//			@param _sender widget that called this event
 		//			@param _old widget with keyboard focus or 0
 		//		
-		public delegates.CMultiDelegate2<Widget, Widget> eventKeySetFocus = new delegates.CMultiDelegate2<Widget, Widget>();
+		public delegate void HandkeKeySetFocus(Widget _sender, Widget _old);
+		public event HandkeKeySetFocus eventKeySetFocus;
 
 		//		* Event : Key pressed.\n
 		//			signature : void method(MyGUI::Widget* _sender, MyGUI::KeyCode _key, MyGUI::Char _char)\n
@@ -208,7 +222,8 @@ namespace MyGUI
 		//			@param _key code
 		//			@param _char of pressed symbol (for multilanguage applications)
 		//		
-		public delegates.CMultiDelegate3<Widget, KeyCode, uint> eventKeyButtonPressed = new delegates.CMultiDelegate3<Widget, KeyCode, uint>();
+		public delegate void HandleKeyButtonPressed(Widget _sender, KeyCode _key, char _char);
+		public event HandleKeyButtonPressed eventKeyButtonPressed;
 
 		//		* Event : Key released.\n
 		//			signature : void method(MyGUI::Widget* _sender, MyGUI::KeyCode _key)\n
