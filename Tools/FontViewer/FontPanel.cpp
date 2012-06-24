@@ -365,6 +365,8 @@ namespace demo
 			node->addAttribute("name", _fontName);
 
 			addProperty(node, "Source", _textureName);
+			MyGUI::ITexture* texture = font->getTextureFont();
+			addProperty(node, "SourceSize", MyGUI::IntSize(texture->getWidth(), texture->getHeight()));
 			addProperty(node, "DefaultHeight", mFontHeight);
 
 			MyGUI::xml::Element* codes = node->createChild("Codes");
