@@ -5,11 +5,6 @@
 */
 #include "Precompiled.h"
 #include "ExportManager.h"
-//#include "CommandManager.h"
-//#include "SkinManager.h"
-//#include "FileSystemInfo/FileSystemInfo.h"
-//#include "Localise.h"
-//#include "RecentFilesManager.h"
 
 template <> tools::ExportManager* MyGUI::Singleton<tools::ExportManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::ExportManager>::mClassTypeName("ExportManager");
@@ -17,8 +12,7 @@ template <> const char* MyGUI::Singleton<tools::ExportManager>::mClassTypeName("
 namespace tools
 {
 
-	ExportManager::ExportManager()// :
-		//mOpenSaveFileDialog(nullptr)
+	ExportManager::ExportManager()
 	{
 	}
 
@@ -28,67 +22,11 @@ namespace tools
 
 	void ExportManager::initialise()
 	{
-		//CommandManager::getInstance().registerCommand("Command_FileExport", MyGUI::newDelegate(this, &ExportManager::commandExport));
-		//CommandManager::getInstance().registerCommand("Command_FileImport", MyGUI::newDelegate(this, &ExportManager::commandImport));
-
-		/*mOpenSaveFileDialog = new OpenSaveFileDialog();
-		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &ExportManager::notifyEndDialog);
-		mOpenSaveFileDialog->setFileMask("*.xml");
-		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
-		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());*/
 	}
 
 	void ExportManager::shutdown()
 	{
-		//mOpenSaveFileDialog->eventEndDialog = nullptr;
-		//delete mOpenSaveFileDialog;
-		//mOpenSaveFileDialog = nullptr;
 	}
-
-	/*void ExportManager::commandExport(const MyGUI::UString& _commandName, bool& _result)
-	{
-		showExportWindow();
-
-		_result = true;
-	}*/
-
-	/*void ExportManager::showExportWindow()
-	{
-		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
-		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());
-		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionExportFile"), replaceTags("ButtonSaveFile"));
-		mOpenSaveFileDialog->setMode("Export");
-		mOpenSaveFileDialog->doModal();
-	}*/
-
-	/*void ExportManager::notifyEndDialog(Dialog* _sender, bool _result)
-	{
-		if (_result)
-		{
-			if (mOpenSaveFileDialog->getMode() == "Export")
-			{
-				RecentFilesManager::getInstance().setRecentFolder(mOpenSaveFileDialog->getCurrentFolder());
-				MyGUI::UString fileName = common::concatenatePath(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
-				exportSkin(fileName);
-			}
-
-		}
-
-		mOpenSaveFileDialog->endModal();
-	}*/
-
-	/*void ExportManager::exportSkin(const MyGUI::UString& _fileName)
-	{
-		MyGUI::xml::Document doc;
-		doc.createDeclaration();
-		MyGUI::xml::Element* root = doc.createRoot("MyGUI");
-		root->addAttribute("type", "Resource");
-		root->addAttribute("version", "1.1");
-
-		SkinManager::getInstance().serialization2(root, MyGUI::Version());
-
-		doc.save(_fileName);
-	}*/
 
 	void ExportManager::convertSkin(MyGUI::xml::Element* _from, MyGUI::xml::Element* _to)
 	{
@@ -330,23 +268,5 @@ namespace tools
 			return "pushed_checked";
 		return _value;
 	}
-
-	/*void ExportManager::commandImport(const MyGUI::UString& _commandName, bool& _result)
-	{
-		SkinManager::getInstance().clear();
-
-		std::string fileName = "D:\\MyGUI\\MyGUI_Trunk\\Media\\Common\\Themes\\MyGUI_BlackBlueSkins.xml";
-
-		MyGUI::xml::Document doc;
-		if (doc.open(fileName))
-		{
-			bool result = false;
-			MyGUI::xml::Element* root = doc.getRoot();
-			if (root->getName() == "MyGUI")
-			{
-				SkinManager::getInstance().deserialization2(root, MyGUI::Version());
-			}
-		}
-	}*/
 
 } // namespace tools
