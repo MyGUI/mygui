@@ -41,6 +41,8 @@ namespace base
 		void setResourceFilename(const std::string& _flename);
 		void addResourceLocation(const std::string& _name, bool _recursive = false);
 
+		size_t getWindowHandle();
+
 	/*internal:*/
 		void _windowResized();
 

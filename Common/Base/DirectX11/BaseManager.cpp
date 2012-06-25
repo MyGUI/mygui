@@ -272,6 +272,11 @@ namespace base
 		}
 	}
 
+	size_t BaseManager::getWindowHandle()
+	{
+		return (size_t)hWnd;
+	}
+
 	void BaseManager::setWindowCaption(const std::wstring& _text)
 	{
 		SetWindowTextW(hWnd, _text.c_str());
