@@ -86,8 +86,7 @@ namespace base
 
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		// вытаскиваем дискриптор окна
-		size_t hWnd = 0;
-		mWindow->getCustomAttribute("WINDOW", &hWnd);
+		size_t handle = getWindowHandle();
 		// берем имя нашего экзешника
 		char buf[MAX_PATH];
 		::GetModuleFileNameA(0, (LPCH)&buf, MAX_PATH);
@@ -97,8 +96,8 @@ namespace base
 		HICON hIcon = ::LoadIcon(instance, MAKEINTRESOURCE(1001));
 		if (hIcon)
 		{
-			::SendMessageA((HWND)hWnd, WM_SETICON, 1, (LPARAM)hIcon);
-			::SendMessageA((HWND)hWnd, WM_SETICON, 0, (LPARAM)hIcon);
+			::SendMessageA((HWND)handle, WM_SETICON, 1, (LPARAM)hIcon);
+			::SendMessageA((HWND)handle, WM_SETICON, 0, (LPARAM)hIcon);
 		}
 	#endif
 
@@ -129,9 +128,6 @@ namespace base
 
 		mRoot->addFrameListener(this);
 		Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
-
-		size_t handle = 0;
-		mWindow->getCustomAttribute("WINDOW", &handle);
 
 		createGui();
 
@@ -346,12 +342,19 @@ namespace base
 		destroyInput();
 	}
 
+	size_t BaseManager::getWindowHandle()
+	{
+		size_t handle = 0;
+	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+		mWindow->getCustomAttribute("WINDOW", &handle);
+	#endif
+		return handle;
+	}
+
 	void BaseManager::setWindowCaption(const std::wstring& _text)
 	{
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		size_t handle = 0;
-		mWindow->getCustomAttribute("WINDOW", &handle);
-		::SetWindowTextW((HWND)handle, _text.c_str());
+		::SetWindowTextW((HWND)getWindowHandle(), _text.c_str());
 	#endif
 	}
 
