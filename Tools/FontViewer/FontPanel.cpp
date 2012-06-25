@@ -230,7 +230,7 @@ namespace demo
 			saveFontTTFXml(fontName, fileName);
 			removeFont(fontName);
 
-			fontName = MyGUI::utility::toString(mEditSaveFileName->getOnlyText(), ".manual");
+			fontName = MyGUI::utility::toString(mEditSaveFileName->getOnlyText(), "_manual");
 			fileName = fontName + ".xml";
 			saveFontManualXml(fontName, textureName, fileName);
 			removeFont(fontName);
@@ -265,7 +265,7 @@ namespace demo
 				if (dotIndex != MyGUI::UString::npos)
 					fileName.erase(fileName.begin() + dotIndex, fileName.end());
 
-				enableSave(true, MyGUI::utility::toString(fileName, '.', mFontHeight));
+				enableSave(true, MyGUI::utility::toString(fileName, '_', mFontHeight));
 			}
 			catch (MyGUI::Exception & e)
 			{
