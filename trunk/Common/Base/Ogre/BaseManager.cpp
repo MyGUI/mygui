@@ -346,9 +346,7 @@ namespace base
 	size_t BaseManager::getWindowHandle()
 	{
 		size_t handle = 0;
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		mWindow->getCustomAttribute("WINDOW", &handle);
-	#endif
 		return handle;
 	}
 
