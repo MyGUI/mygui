@@ -84,9 +84,10 @@ namespace base
 		mWindow = mRoot->initialise(true);
 
 
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		// вытаскиваем дискриптор окна
 		size_t handle = getWindowHandle();
+
+	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		// берем имя нашего экзешника
 		char buf[MAX_PATH];
 		::GetModuleFileNameA(0, (LPCH)&buf, MAX_PATH);
