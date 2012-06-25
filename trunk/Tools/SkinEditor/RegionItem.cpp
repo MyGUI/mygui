@@ -59,20 +59,4 @@ namespace tools
 		mPropertySet->serialization(node, _version);
 	}
 
-	/*void RegionItem::deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
-	{
-		mName = _node->findAttribute("name");
-
-		MyGUI::xml::ElementEnumerator nodes = _node->getElementEnumerator();
-		while (nodes.next())
-		{
-			MyGUI::xml::Element* node = nodes.current();
-
-			if (node->getName() == "PropertySet")
-			{
-				mPropertySet->deserialization(node, _version);
-			}
-		}
-	}*/
-
 } // namespace tools
