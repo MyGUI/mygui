@@ -47,6 +47,14 @@ namespace tools
 	private:
 		virtual void setupResources();
 
+		void setWindowMaximized(bool _value);
+		bool getWindowMaximized();
+
+		void setWindowCoord(const MyGUI::IntCoord& _value);
+		MyGUI::IntCoord getWindowCoord();
+
+		void saveSettings();
+
 	private:
 		EditorState* mEditorState;
 		TestState* mTestState;

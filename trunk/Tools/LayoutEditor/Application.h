@@ -40,6 +40,14 @@ namespace tools
 		void command_QuitApp(const MyGUI::UString& _commandName, bool& _result);
 		void command_UpdateAppCaption(const MyGUI::UString& _commandName, bool& _result);
 
+		void setWindowMaximized(bool _value);
+		bool getWindowMaximized();
+
+		void setWindowCoord(const MyGUI::IntCoord& _value);
+		MyGUI::IntCoord getWindowCoord();
+
+		void saveSettings();
+
 	private:
 		VectorWString mParams;
 		std::string mLocale;
