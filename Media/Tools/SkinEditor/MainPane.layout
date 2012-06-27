@@ -20,6 +20,6 @@
                 <Widget type="Widget" skin="PanelEmpty" position="0 0 520 306" align="Stretch" name="RegionControl"/>
             </Widget>
         </Widget>
-        <Widget type="Widget" skin="PanelEmpty" position="0 0 526 26" align="HStretch Top" name="MainMenuControl"/>
+        <Widget type="Widget" skin="PanelEmpty" position="0 0 526 20" align="HStretch Top" name="MainMenuControl"/>
     </Widget>
 </MyGUI>
