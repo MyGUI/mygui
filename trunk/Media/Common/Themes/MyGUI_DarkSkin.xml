@@ -56,9 +56,9 @@
             <State name="pushed" offset="7 51 40 10"/>
         </BasisSkin>
         <BasisSkin type="SimpleText" offset="2 2 46 16" align="Stretch">
-            <State name="disabled" colour="0.321637 0.321637 0.321637" shift="0"/>
+            <State name="disabled" colour="0.199219 0.199219 0.199219" shift="0"/>
             <State name="normal" colour="1 1 1" shift="0"/>
-            <State name="highlighted" colour="0 0 0" shift="0"/>
+            <State name="highlighted" colour="0.199219 0.199219 0.199219" shift="0"/>
             <State name="pushed" colour="1 1 1" shift="0"/>
         </BasisSkin>
     </Resource>
@@ -123,63 +123,63 @@
     <Resource type="ResourceSkin" name="ListBoxItemSkin_Dark" size="20 20" texture="MyGUI_Dark.png">
         <BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">
             <State name="normal" offset="206 68 2 2"/>
-            <State name="highlighted" offset="206 24 2 2"/>
-            <State name="normal_checked" offset="206 46 2 2"/>
+            <State name="highlighted" offset="206 46 2 2"/>
+            <State name="normal_checked" offset="206 24 2 2"/>
             <State name="highlighted_checked" offset="206 2 2 2"/>
         </BasisSkin>
         <BasisSkin type="SubSkin" offset="2 0 16 2" align="HStretch Top">
             <State name="normal" offset="208 68 16 2"/>
-            <State name="highlighted" offset="208 24 16 2"/>
-            <State name="normal_checked" offset="208 46 16 2"/>
+            <State name="highlighted" offset="208 46 16 2"/>
+            <State name="normal_checked" offset="208 24 16 2"/>
             <State name="highlighted_checked" offset="208 2 16 2"/>
         </BasisSkin>
         <BasisSkin type="SubSkin" offset="18 0 2 2" align="Right Top">
             <State name="normal" offset="224 68 2 2"/>
-            <State name="highlighted" offset="224 24 2 2"/>
-            <State name="normal_checked" offset="224 46 2 2"/>
+            <State name="highlighted" offset="224 46 2 2"/>
+            <State name="normal_checked" offset="224 24 2 2"/>
             <State name="highlighted_checked" offset="224 2 2 2"/>
         </BasisSkin>
         <BasisSkin type="SubSkin" offset="18 2 2 16" align="Right VStretch">
             <State name="normal" offset="224 70 2 16"/>
-            <State name="highlighted" offset="224 26 2 16"/>
-            <State name="normal_checked" offset="224 48 2 16"/>
+            <State name="highlighted" offset="224 48 2 16"/>
+            <State name="normal_checked" offset="224 26 2 16"/>
             <State name="highlighted_checked" offset="224 4 2 16"/>
         </BasisSkin>
         <BasisSkin type="SubSkin" offset="18 18 2 2" align="Right Bottom">
             <State name="normal" offset="224 86 2 2"/>
-            <State name="highlighted" offset="224 42 2 2"/>
-            <State name="normal_checked" offset="224 64 2 2"/>
+            <State name="highlighted" offset="224 64 2 2"/>
+            <State name="normal_checked" offset="224 42 2 2"/>
             <State name="highlighted_checked" offset="224 20 2 2"/>
         </BasisSkin>
         <BasisSkin type="SubSkin" offset="2 18 16 2" align="HStretch Bottom">
             <State name="normal" offset="208 86 16 2"/>
-            <State name="highlighted" offset="208 42 16 2"/>
-            <State name="normal_checked" offset="208 64 16 2"/>
+            <State name="highlighted" offset="208 64 16 2"/>
+            <State name="normal_checked" offset="208 42 16 2"/>
             <State name="highlighted_checked" offset="208 20 16 2"/>
         </BasisSkin>
         <BasisSkin type="SubSkin" offset="0 18 2 2" align="Left Bottom">
             <State name="normal" offset="206 86 2 2"/>
-            <State name="highlighted" offset="206 42 2 2"/>
-            <State name="normal_checked" offset="206 64 2 2"/>
+            <State name="highlighted" offset="206 64 2 2"/>
+            <State name="normal_checked" offset="206 42 2 2"/>
             <State name="highlighted_checked" offset="206 20 2 2"/>
         </BasisSkin>
         <BasisSkin type="SubSkin" offset="0 2 2 16" align="Left VStretch">
             <State name="normal" offset="206 70 2 16"/>
-            <State name="highlighted" offset="206 26 2 16"/>
-            <State name="normal_checked" offset="206 48 2 16"/>
+            <State name="highlighted" offset="206 48 2 16"/>
+            <State name="normal_checked" offset="206 26 2 16"/>
             <State name="highlighted_checked" offset="206 4 2 16"/>
         </BasisSkin>
         <BasisSkin type="SubSkin" offset="2 2 16 16" align="Stretch">
             <State name="normal" offset="208 70 16 16"/>
-            <State name="highlighted" offset="208 26 16 16"/>
-            <State name="normal_checked" offset="208 48 16 16"/>
+            <State name="highlighted" offset="208 48 16 16"/>
+            <State name="normal_checked" offset="208 26 16 16"/>
             <State name="highlighted_checked" offset="208 4 16 16"/>
         </BasisSkin>
         <BasisSkin type="SimpleText" offset="2 2 16 16" align="Stretch">
-            <State name="normal" colour="0 0 0" shift="0"/>
-            <State name="highlighted" colour="0 0 0" shift="0"/>
-            <State name="normal_checked" colour="0 0 0" shift="0"/>
-            <State name="highlighted_checked" colour="0 0 0" shift="0"/>
+            <State name="normal" colour="1 1 1" shift="0"/>
+            <State name="highlighted" colour="1 1 1" shift="0"/>
+            <State name="normal_checked" colour="0.199219 0.199219 0.199219" shift="0"/>
+            <State name="highlighted_checked" colour="0.199219 0.199219 0.199219" shift="0"/>
         </BasisSkin>
     </Resource>
     <Resource type="ResourceSkin" name="ListBoxSkin_Dark" size="50 20" texture="MyGUI_Dark.png">
@@ -321,12 +321,12 @@
             <State name="pushed_checked" offset="171 57 2 0"/>
         </BasisSkin>
         <BasisSkin type="SimpleText" offset="14 0 1 12" align="Stretch">
-            <State name="normal" colour="0 0 0" shift="0"/>
-            <State name="highlighted" colour="0 0 0" shift="0"/>
-            <State name="pushed" colour="0 0 0" shift="0"/>
-            <State name="normal_checked" colour="0 0 0" shift="0"/>
-            <State name="highlighted_checked" colour="0 0 0" shift="0"/>
-            <State name="pushed_checked" colour="0 0 0" shift="0"/>
+            <State name="normal" colour="1 1 1" shift="0"/>
+            <State name="highlighted" colour="1 1 1" shift="0"/>
+            <State name="pushed" colour="1 1 1" shift="0"/>
+            <State name="normal_checked" colour="1 1 1" shift="0"/>
+            <State name="highlighted_checked" colour="1 1 1" shift="0"/>
+            <State name="pushed_checked" colour="1 1 1" shift="0"/>
         </BasisSkin>
     </Resource>
     <Resource type="ResourceSkin" name="RadioButtonSkin_Bark" size="15 13" texture="MyGUI_Dark.png">
@@ -363,12 +363,12 @@
             <State name="pushed_checked" offset="187 57 2 0"/>
         </BasisSkin>
         <BasisSkin type="SimpleText" offset="14 0 1 12" align="Stretch">
-            <State name="normal" colour="0 0 0" shift="0"/>
-            <State name="highlighted" colour="0 0 0" shift="0"/>
-            <State name="pushed" colour="0 0 0" shift="0"/>
-            <State name="normal_checked" colour="0 0 0" shift="0"/>
-            <State name="highlighted_checked" colour="0 0 0" shift="0"/>
-            <State name="pushed_checked" colour="0 0 0" shift="0"/>
+            <State name="normal" colour="1 1 1" shift="0"/>
+            <State name="highlighted" colour="1 1 1" shift="0"/>
+            <State name="pushed" colour="1 1 1" shift="0"/>
+            <State name="normal_checked" colour="1 1 1" shift="0"/>
+            <State name="highlighted_checked" colour="1 1 1" shift="0"/>
+            <State name="pushed_checked" colour="1 1 1" shift="0"/>
         </BasisSkin>
     </Resource>
     <Resource type="ResourceSkin" name="ToolTipSkin_Dark" size="42 22" texture="MyGUI_Dark.png">

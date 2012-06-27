@@ -57,11 +57,12 @@
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="ListBox2_Dark" version="3.2.0">
-        <Widget type="Widget" skin="ListBox2Skin_Dark" position="20 20 50 20" name="Root">
+        <Widget type="Widget" skin="ListBox2Skin_Dark" position="20 20 50 50" name="Root">
             <UserString key="LE_TargetWidgetType" value="ListBox"/>
             <UserString key="HeightLine" value="20"/>
             <UserString key="SkinLine" value="ListBoxItem_Dark"/>
-            <Widget type="Widget" skin="PanelEmpty" position="2 2 46 16" align="Stretch" name="Client"/>
+            <Widget type="Widget" skin="PanelEmpty" position="2 2 32 46" align="Stretch" name="Client"/>
+            <Widget type="ScrollBar" skin="ScrollBarV_Dark" position="34 2 14 46" align="Right VStretch" name="VScroll"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="ComboBoxButton_Dark" version="3.2.0">
