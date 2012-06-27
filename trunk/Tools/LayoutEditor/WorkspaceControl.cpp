@@ -583,6 +583,7 @@ namespace tools
 	void WorkspaceControl::onChangeScale()
 	{
 		updateCaption();
+		updateMenu();
 	}
 
 	void WorkspaceControl::updateCaption()
@@ -594,6 +595,12 @@ namespace tools
 
 			CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
 		}
+	}
+
+	void WorkspaceControl::updateMenu()
+	{
+		int scale = (int)(getScale() * (double)100);
+		CommandManager::getInstance().executeCommand(MyGUI::utility::toString("Command_OnChangeScale.", scale));
 	}
 
 	void WorkspaceControl::notifyFrameStart(float _time)

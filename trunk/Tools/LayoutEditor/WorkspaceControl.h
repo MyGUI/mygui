@@ -40,6 +40,7 @@ namespace tools
 		void updateSelectorEnabled();
 
 		void updateCaption();
+		void updateMenu();
 
 		void Command_MoveLeft(const MyGUI::UString& _commandName, bool& _result);
 		void Command_MoveRight(const MyGUI::UString& _commandName, bool& _result);

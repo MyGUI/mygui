@@ -26,6 +26,10 @@ namespace tools
 
 		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &MainMenuControl::notifySettingsChanged);
 		EditorWidgets::getInstance().eventChangeWidgets += MyGUI::newDelegate(this, &MainMenuControl::notifyChangeWidgets);
+
+		CommandManager::getInstance().registerCommand("Command_OnChangeScale", MyGUI::newDelegate(this, &MainMenuControl::CommandOnChangeScale));
+
+		updateMenuScale(100);
 	}
 
 	MainMenuControl::~MainMenuControl()
@@ -185,6 +189,31 @@ namespace tools
 	void MainMenuControl::setVisible(bool _value)
 	{
 		mBar->setVisible(_value);
+	}
+
+	void MainMenuControl::CommandOnChangeScale(const MyGUI::UString& _commandName, bool& _result)
+	{
+		updateMenuScale(MyGUI::utility::parseValue<size_t>(CommandManager::getInstance().getCommandData()));
+
+		_result = true;
+	}
+
+	void MainMenuControl::updateMenuScale(size_t _scale)
+	{
+		MyGUI::MenuItem* item = mBar->findItemById("Scale", true);
+		if (item != nullptr)
+		{
+			MyGUI::MenuControl* popup = item->getItemChild();
+			if (popup != nullptr)
+			{
+				std::string id = MyGUI::utility::toString("Command_ChangeScale.", (int)_scale);
+				for (size_t index = 0; index < popup->getItemCount(); index ++)
+				{
+					MyGUI::MenuItem* item = popup->getItemAt(index);
+					item->setItemChecked(item->getItemId() == id);
+				}
+			}
+		}
 	}
 
 } // namespace tools
