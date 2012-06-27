@@ -35,6 +35,7 @@
             <UserString key="LE_TargetWidgetType" value="Window"/>
             <Widget type="TextBox" skin="TextBox" position="4 4 40 16" align="HStretch Top" name="Caption">
                 <Property key="FontName" value="DejaVuSansFont.13"/>
+                <Property key="TextAlign" value="Left VCenter"/>
             </Widget>
             <Widget type="Widget" skin="PanelEmpty" position="3 24 42 21" align="Stretch" name="Client"/>
         </Widget>
@@ -222,10 +223,11 @@
             <UserString key="LE_TargetWidgetType" value="Window"/>
             <Widget type="TextBox" skin="TextBox" position="4 4 24 16" align="HStretch Top" name="Caption">
                 <Property key="FontName" value="DejaVuSansFont.13"/>
+                <Property key="TextAlign" value="Left VCenter"/>
             </Widget>
             <Widget type="Widget" skin="PanelEmpty" position="3 24 42 21" align="Stretch" name="Client"/>
             <Widget type="Button" skin="WindowXSkin_Dark" position="32 7 10 10" align="Right Top" name="Button">
-                <UserString key="Action" value="close"/>
+                <UserString key="Event" value="close"/>
             </Widget>
         </Widget>
     </Resource>
