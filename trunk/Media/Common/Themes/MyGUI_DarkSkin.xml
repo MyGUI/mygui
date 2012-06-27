@@ -57,9 +57,9 @@
         </BasisSkin>
         <BasisSkin type="SimpleText" offset="2 2 46 16" align="Stretch">
             <State name="disabled" colour="0.321637 0.321637 0.321637" shift="0"/>
-            <State name="normal" colour="0.730994 0.730994 0.730994" shift="0"/>
+            <State name="normal" colour="1 1 1" shift="0"/>
             <State name="highlighted" colour="0 0 0" shift="0"/>
-            <State name="pushed" colour="0.830409 0.830409 0.830409" shift="0"/>
+            <State name="pushed" colour="1 1 1" shift="0"/>
         </BasisSkin>
     </Resource>
     <Resource type="ResourceSkin" name="EditBoxSkin_Dark" size="50 20" texture="MyGUI_Dark.png">
