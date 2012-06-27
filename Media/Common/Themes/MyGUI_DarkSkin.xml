@@ -400,11 +400,11 @@
             <State name="normal" offset="59 51 30 10"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="XSkin_Dark" size="11 11" texture="MyGUI_Dark.png">
-        <BasisSkin type="SubSkin" offset="0 0 11 11" align="Stretch">
-            <State name="normal" offset="228 2 11 11"/>
-            <State name="highlighted" offset="228 15 11 11"/>
-            <State name="pushed" offset="228 15 11 11"/>
+    <Resource type="ResourceSkin" name="XSkin_Dark" size="10 10" texture="MyGUI_Dark.png">
+        <BasisSkin type="SubSkin" offset="0 0 10 10" align="Stretch">
+            <State name="normal" offset="228 2 10 10"/>
+            <State name="highlighted" offset="228 14 10 10"/>
+            <State name="pushed" offset="228 14 10 10"/>
         </BasisSkin>
     </Resource>
     <Resource type="ResourceSkin" name="UpSkin_Dark" size="9 7" texture="MyGUI_Dark.png">
