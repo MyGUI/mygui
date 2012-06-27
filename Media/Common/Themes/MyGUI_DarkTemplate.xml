@@ -37,11 +37,12 @@
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="ListBox_Dark" version="3.2.0">
-        <Widget type="Widget" skin="ListBoxSkin_Dark" position="20 20 50 20" name="Root">
+        <Widget type="Widget" skin="ListBoxSkin_Dark" position="20 20 50 50" name="Root">
             <UserString key="LE_TargetWidgetType" value="ListBox"/>
             <UserString key="HeightLine" value="20"/>
             <UserString key="SkinLine" value="ListBoxItem_Dark"/>
-            <Widget type="Widget" skin="PanelEmpty" position="2 2 46 16" align="Stretch" name="Client"/>
+            <Widget type="Widget" skin="PanelEmpty" position="2 2 32 46" align="Stretch" name="Client"/>
+            <Widget type="ScrollBar" skin="ScrollBarV_Dark" position="34 2 14 46" align="Right VStretch" name="VScroll"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="ListBox2_Dark" version="3.2.0">
@@ -78,6 +79,132 @@
         <Widget type="Widget" skin="RadioButtonSkin_Bark" position="20 20 12 12" name="Root">
             <Property key="FontName" value="DejaVuSansFont.13"/>
             <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="Left_Dark" version="3.2.0">
+        <Widget type="Widget" skin="LeftSkin_Dark" position="20 20 6 10" name="Root">
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="Right_Dark" version="3.2.0">
+        <Widget type="Widget" skin="RightSkin_Dark" position="20 20 6 10" name="Root">
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="Up_Dark" version="3.2.0">
+        <Widget type="Widget" skin="UpSkin_Dark" position="20 20 10 6" name="Root">
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="Down_Dark" version="3.2.0">
+        <Widget type="Widget" skin="DownSkin_Dark" position="20 20 10 6" name="Root">
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ScrollBarTrackV_Dark" version="3.2.0">
+        <Widget type="Widget" skin="ScrollBarTrackVSkin_Dark" position="20 20 8 15" name="Root">
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ScrollBarTrackH_Dark" version="3.2.0">
+        <Widget type="Widget" skin="ScrollBarTrackHSkin_Dark" position="20 20 15 8" name="Root">
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ScrollBarH_Dark" version="3.2.0">
+        <Widget type="Widget" skin="ScrollBarPanelSkin_Dark" position="25 50 125 14" name="Root">
+            <Property key="VerticalAlignment" value="false"/>
+            <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
+            <Widget type="Widget" skin="PanelEmpty" position="11 0 103 14" align="Stretch" name="TrackPlace">
+                <Property key="NeedKey" value="false"/>
+                <Property key="InheritsPick" value="true"/>
+                <Widget type="Button" skin="ScrollBarTrackH_Dark" position="40 3 15 8" align="Left VStretch" name="Track">
+                    <UserString key="MinTrackSize" value="10"/>
+                </Widget>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 40 14" align="Left VStretch" name="FirstPart"/>
+                <Widget type="Widget" skin="PanelEmpty" position="55 0 48 14" align="Left VStretch" name="SecondPart"/>
+            </Widget>
+            <Widget type="Button" skin="Left_Dark" position="2 2 6 10" align="Left VCenter" name="Start"/>
+            <Widget type="Button" skin="Right_Dark" position="117 2 6 10" align="Right VCenter" name="End"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ScrollBarV_Dark" version="3.2.0">
+        <Widget type="Widget" skin="ScrollBarPanelSkin_Dark" position="25 50 14 125" name="Root">
+            <Property key="VerticalAlignment" value="true"/>
+            <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 10 14 105" align="Stretch" name="TrackPlace">
+                <Property key="NeedKey" value="false"/>
+                <Property key="InheritsPick" value="true"/>
+                <Widget type="Button" skin="ScrollBarTrackV_Dark" position="3 45 8 15" align="HStretch Top" name="Track">
+                    <UserString key="MinTrackSize" value="10"/>
+                </Widget>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 14 45" align="HStretch Top" name="FirstPart"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 60 14 45" align="HStretch Top" name="SecondPart"/>
+            </Widget>
+            <Widget type="Button" skin="Up_Dark" position="2 2 10 6" align="HCenter Top" name="Start"/>
+            <Widget type="Button" skin="Down_Dark" position="2 117 10 6" align="HCenter Bottom" name="End"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="SliderH_Dark" version="3.2.0">
+        <Widget type="Widget" skin="SliderPanelSkin_Dark" position="25 50 50 20" name="Root">
+            <Property key="MoveToClick" value="true"/>
+            <Property key="VerticalAlignment" value="false"/>
+            <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
+            <Widget type="Widget" skin="PanelEmpty" position="1 0 48 20" align="Stretch" name="TrackPlace">
+                <Property key="NeedKey" value="false"/>
+                <Property key="InheritsPick" value="true"/>
+                <Widget type="Button" skin="SliderTrackH_Dark" position="19 1 10 18" align="Left VStretch" name="Track"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 19 20" align="Left VStretch" name="FirstPart"/>
+                <Widget type="Widget" skin="PanelEmpty" position="29 0 19 20" align="Left VStretch" name="SecondPart"/>
+            </Widget>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="SliderTrackH_Dark" version="3.2.0">
+        <Widget type="Widget" skin="SliderTrackHSkin_Dark" position="20 20 10 18" name="Root">
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="SliderTrackV_Dark" version="3.2.0">
+        <Widget type="Widget" skin="SliderTrackVSkin_Dark" position="20 20 18 10" name="Root">
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="SliderV_Dark" version="3.2.0">
+        <Widget type="Widget" skin="SliderPanelSkin_Dark" position="20 20 20 50" name="Root">
+            <Property key="MoveToClick" value="true"/>
+            <Property key="VerticalAlignment" value="true"/>
+            <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 1 20 48" align="Stretch">
+                <Widget type="Button" skin="SliderTrackV_Dark" position="1 19 18 10" align="HStretch Top" name="Track"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 20 19" align="HStretch Top" name="FirstPart"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 29 20 19" align="HStretch Top" name="SecondPart"/>
+            </Widget>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="SliderHEmpty_Dark" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="25 50 50 20" name="Root">
+            <Property key="MoveToClick" value="true"/>
+            <Property key="VerticalAlignment" value="false"/>
+            <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
+            <Widget type="Widget" skin="PanelEmpty" position="1 0 48 20" align="Stretch" name="TrackPlace">
+                <Property key="NeedKey" value="false"/>
+                <Property key="InheritsPick" value="true"/>
+                <Widget type="Button" skin="SliderTrackH_Dark" position="19 1 10 18" align="Left VStretch" name="Track"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 19 20" align="Left VStretch" name="FirstPart"/>
+                <Widget type="Widget" skin="PanelEmpty" position="29 0 19 20" align="Left VStretch" name="SecondPart"/>
+            </Widget>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="SliderVEmpty_Dark" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="20 20 20 50" name="Root">
+            <Property key="MoveToClick" value="true"/>
+            <Property key="VerticalAlignment" value="true"/>
+            <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 1 20 48" align="Stretch">
+                <Widget type="Button" skin="SliderTrackV_Dark" position="1 19 18 10" align="HStretch Top" name="Track"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 20 19" align="HStretch Top" name="FirstPart"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 29 20 19" align="HStretch Top" name="SecondPart"/>
+            </Widget>
         </Widget>
     </Resource>
 </MyGUI>
