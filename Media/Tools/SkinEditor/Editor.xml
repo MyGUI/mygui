@@ -12,4 +12,8 @@
 	<List file="MyGUI_Settings.xml"/>
 	<List file="SelectionSkins.xml"/>
 	<List file="TextureViewerSkins.xml"/>
+  
+  <List file="FrameworkFonts.xml"/>
+  <List file="MyGUI_DarkSkin.xml"/>
+  <List file="MyGUI_DarkTemplate.xml"/>
 </MyGUI>
