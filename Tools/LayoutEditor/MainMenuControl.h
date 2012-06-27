@@ -35,6 +35,9 @@ namespace tools
 
 		void updateRecentFilesMenu();
 		void updateRecentProjectsMenu();
+		void updateMenuScale(size_t _scale);
+
+		void CommandOnChangeScale(const MyGUI::UString& _commandName, bool& _result);
 
 	private:
 		MyGUI::MenuBar* mBar;
