@@ -21,6 +21,9 @@ namespace tools
 		mMainMenu->eventMenuCtrlAccept += MyGUI::newDelegate(this, &MainMenuControl::notifyMenuCtrlAccept);
 
 		updateRecentFilesMenu();
+
+		// FIXME времено
+		mMainMenu->findItemById("Command_ChangeScale.100", true)->setItemChecked(true);
 	}
 
 	MainMenuControl::~MainMenuControl()
