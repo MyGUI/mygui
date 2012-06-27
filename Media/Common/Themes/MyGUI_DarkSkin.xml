@@ -55,7 +55,7 @@
             <State name="highlighted" offset="7 29 40 10"/>
             <State name="pushed" offset="7 51 40 10"/>
         </BasisSkin>
-        <BasisSkin type="SimpleText" offset="2 4 46 14" align="Stretch">
+        <BasisSkin type="SimpleText" offset="2 2 46 16" align="Stretch">
             <State name="disabled" colour="0.321637 0.321637 0.321637" shift="0"/>
             <State name="normal" colour="0.730994 0.730994 0.730994" shift="0"/>
             <State name="highlighted" colour="0 0 0" shift="0"/>
@@ -175,7 +175,7 @@
             <State name="normal_checked" offset="208 48 16 16"/>
             <State name="highlighted_checked" offset="208 4 16 16"/>
         </BasisSkin>
-        <BasisSkin type="SimpleText" offset="2 4 16 14" align="Stretch">
+        <BasisSkin type="SimpleText" offset="2 2 16 16" align="Stretch">
             <State name="normal" colour="0 0 0" shift="0"/>
             <State name="highlighted" colour="0 0 0" shift="0"/>
             <State name="normal_checked" colour="0 0 0" shift="0"/>
@@ -400,35 +400,35 @@
             <State name="normal" offset="59 51 30 10"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="XSkin_Dark" size="10 10" texture="MyGUI_Dark.png">
+    <Resource type="ResourceSkin" name="WindowXSkin_Dark" size="10 10" texture="MyGUI_Dark.png">
         <BasisSkin type="SubSkin" offset="0 0 10 10" align="Stretch">
             <State name="normal" offset="228 2 10 10"/>
             <State name="highlighted" offset="228 14 10 10"/>
             <State name="pushed" offset="228 14 10 10"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="UpSkin_Dark" size="10 6" texture="MyGUI_Dark.png">
+    <Resource type="ResourceSkin" name="ScrollBarUpSkin_Dark" size="10 6" texture="MyGUI_Dark.png">
         <BasisSkin type="SubSkin" offset="0 0 10 6" align="Stretch">
             <State name="normal" offset="240 19 10 6"/>
             <State name="highlighted" offset="240 28 10 6"/>
             <State name="pushed" offset="240 28 10 6"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="DownSkin_Dark" size="10 6" texture="MyGUI_Dark.png">
+    <Resource type="ResourceSkin" name="ScrollBarDownSkin_Dark" size="10 6" texture="MyGUI_Dark.png">
         <BasisSkin type="SubSkin" offset="0 0 10 6" align="Stretch">
             <State name="normal" offset="240 2 10 6"/>
             <State name="highlighted" offset="240 10 10 6"/>
             <State name="pushed" offset="240 10 10 6"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="LeftSkin_Dark" size="6 10" texture="MyGUI_Dark.png">
+    <Resource type="ResourceSkin" name="ScrollBarLeftSkin_Dark" size="6 10" texture="MyGUI_Dark.png">
         <BasisSkin type="SubSkin" offset="0 0 6 10" align="Stretch">
             <State name="normal" offset="252 2 6 10"/>
             <State name="highlighted" offset="252 14 6 10"/>
             <State name="pushed" offset="252 14 6 10"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="RightSkin_Dark" size="6 10" texture="MyGUI_Dark.png">
+    <Resource type="ResourceSkin" name="ScrollBarRightSkin_Dark" size="6 10" texture="MyGUI_Dark.png">
         <BasisSkin type="SubSkin" offset="0 0 6 10" align="Stretch">
             <State name="normal" offset="252 26 6 10"/>
             <State name="highlighted" offset="252 38 6 10"/>
@@ -679,6 +679,200 @@
         </BasisSkin>
         <BasisSkin type="SubSkin" offset="5 5 10 10" align="Stretch">
             <State name="normal" offset="274 67 10 10"/>
+        </BasisSkin>
+    </Resource>
+    <Resource type="ResourceSkin" name="PopupMenuPanelSkin_Dark" size="20 20" texture="MyGUI_Dark.png">
+        <BasisSkin type="SubSkin" offset="0 0 4 4" align="Left Top">
+            <State name="normal" offset="301 2 4 4"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="4 0 10 4" align="HStretch Top">
+            <State name="normal" offset="305 2 10 4"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="14 0 6 4" align="Right Top">
+            <State name="normal" offset="315 2 6 4"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="14 4 6 10" align="Right VStretch">
+            <State name="normal" offset="315 6 6 10"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="14 14 6 6" align="Right Bottom">
+            <State name="normal" offset="315 16 6 6"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="4 14 10 6" align="HStretch Bottom">
+            <State name="normal" offset="305 16 10 6"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 14 4 6" align="Left Bottom">
+            <State name="normal" offset="301 16 4 6"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 4 4 10" align="Left VStretch">
+            <State name="normal" offset="301 6 4 10"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="4 4 10 10" align="Stretch">
+            <State name="normal" offset="305 6 10 10"/>
+        </BasisSkin>
+    </Resource>
+    <Resource type="ResourceSkin" name="MenuPanelSkin_Dark" size="20 20" texture="MyGUI_Dark.png">
+        <BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">
+            <State name="normal" offset="301 24 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="2 0 16 2" align="HStretch Top">
+            <State name="normal" offset="303 24 16 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="18 0 2 2" align="Right Top">
+            <State name="normal" offset="319 24 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="18 2 2 16" align="Right VStretch">
+            <State name="normal" offset="319 26 2 16"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="18 18 2 2" align="Right Bottom">
+            <State name="normal" offset="319 42 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="2 18 16 2" align="HStretch Bottom">
+            <State name="normal" offset="303 42 16 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 18 2 2" align="Left Bottom">
+            <State name="normal" offset="301 42 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 2 2 16" align="Left VStretch">
+            <State name="normal" offset="301 26 2 16"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="2 2 16 16" align="Stretch">
+            <State name="normal" offset="303 26 16 16"/>
+        </BasisSkin>
+    </Resource>
+    <Resource type="ResourceSkin" name="MenuBarButtonSkin_Dark" size="20 20" texture="MyGUI_Dark.png">
+        <BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">
+            <State name="normal" offset="301 24 2 2"/>
+            <State name="highlighted" offset="301 46 2 2"/>
+            <State name="pushed" offset="301 46 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="2 0 16 2" align="HStretch Top">
+            <State name="normal" offset="303 24 16 2"/>
+            <State name="highlighted" offset="303 46 16 2"/>
+            <State name="pushed" offset="303 46 16 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="18 0 2 2" align="Right Top">
+            <State name="normal" offset="319 24 2 2"/>
+            <State name="highlighted" offset="319 46 2 2"/>
+            <State name="pushed" offset="319 46 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="18 2 2 16" align="Right VStretch">
+            <State name="normal" offset="319 26 2 16"/>
+            <State name="highlighted" offset="319 48 2 16"/>
+            <State name="pushed" offset="319 48 2 16"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="18 18 2 2" align="Right Bottom">
+            <State name="normal" offset="319 42 2 2"/>
+            <State name="highlighted" offset="319 64 2 2"/>
+            <State name="pushed" offset="319 64 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="2 18 16 2" align="HStretch Bottom">
+            <State name="normal" offset="303 42 16 2"/>
+            <State name="highlighted" offset="303 64 16 2"/>
+            <State name="pushed" offset="303 64 16 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 18 2 2" align="Left Bottom">
+            <State name="normal" offset="301 42 2 2"/>
+            <State name="highlighted" offset="301 64 2 2"/>
+            <State name="pushed" offset="301 64 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 2 2 16" align="Left VStretch">
+            <State name="normal" offset="301 26 2 16"/>
+            <State name="highlighted" offset="301 48 2 16"/>
+            <State name="pushed" offset="301 48 2 16"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="2 2 16 16" align="Stretch">
+            <State name="normal" offset="303 26 16 16"/>
+            <State name="highlighted" offset="303 48 16 16"/>
+            <State name="pushed" offset="303 48 16 16"/>
+        </BasisSkin>
+        <BasisSkin type="SimpleText" offset="5 3 10 15" align="Stretch">
+            <State name="normal" colour="1 1 1" shift="0"/>
+            <State name="highlighted" colour="0.226563 0.226563 0.226563" shift="0"/>
+            <State name="pushed" colour="0.226563 0.226563 0.226563" shift="0"/>
+        </BasisSkin>
+    </Resource>
+    <Resource type="ResourceSkin" name="MenuSeparatorHSkin_Dark" size="6 1" texture="MyGUI_Dark.png">
+        <BasisSkin type="SubSkin" offset="4 0 2 1" align="Right VStretch">
+            <State name="normal" offset="305 90 2 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 0 2 1" align="Left VStretch">
+            <State name="normal" offset="301 90 2 1"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="2 0 2 1" align="Stretch">
+            <State name="normal" offset="303 90 2 1"/>
+        </BasisSkin>
+    </Resource>
+    <Resource type="ResourceSkin" name="MenuSeparatorVSkin_Dark" size="1 6" texture="MyGUI_Dark.png">
+        <BasisSkin type="SubSkin" offset="0 0 1 2" align="HStretch Top">
+            <State name="normal" offset="301 93 1 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 4 1 2" align="HStretch Bottom">
+            <State name="normal" offset="301 97 1 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 2 1 2" align="Stretch">
+            <State name="normal" offset="301 95 1 2"/>
+        </BasisSkin>
+    </Resource>
+    <Resource type="ResourceSkin" name="PopupMenuItemNormalSkin_Dark" size="20 20" texture="MyGUI_Dark.png">
+        <BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">
+            <State name="normal" offset="301 24 2 2"/>
+            <State name="highlighted" offset="301 46 2 2"/>
+            <State name="pushed" offset="301 46 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="2 0 16 2" align="HStretch Top">
+            <State name="normal" offset="303 24 16 2"/>
+            <State name="highlighted" offset="303 46 16 2"/>
+            <State name="pushed" offset="303 46 16 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="18 0 2 2" align="Right Top">
+            <State name="normal" offset="319 24 2 2"/>
+            <State name="highlighted" offset="319 46 2 2"/>
+            <State name="pushed" offset="319 46 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="18 2 2 16" align="Right VStretch">
+            <State name="normal" offset="319 26 2 16"/>
+            <State name="highlighted" offset="319 48 2 16"/>
+            <State name="pushed" offset="319 48 2 16"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="18 18 2 2" align="Right Bottom">
+            <State name="normal" offset="319 42 2 2"/>
+            <State name="highlighted" offset="319 64 2 2"/>
+            <State name="pushed" offset="319 64 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="2 18 16 2" align="HStretch Bottom">
+            <State name="normal" offset="303 42 16 2"/>
+            <State name="highlighted" offset="303 64 16 2"/>
+            <State name="pushed" offset="303 64 16 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 18 2 2" align="Left Bottom">
+            <State name="normal" offset="301 42 2 2"/>
+            <State name="highlighted" offset="301 64 2 2"/>
+            <State name="pushed" offset="301 64 2 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 2 2 16" align="Left VStretch">
+            <State name="normal" offset="301 26 2 16"/>
+            <State name="highlighted" offset="301 48 2 16"/>
+            <State name="pushed" offset="301 48 2 16"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="2 2 16 16" align="Stretch">
+            <State name="normal" offset="303 26 16 16"/>
+            <State name="highlighted" offset="303 48 16 16"/>
+            <State name="pushed" offset="303 48 16 16"/>
+        </BasisSkin>
+        <BasisSkin type="SimpleText" offset="14 3 -4 15" align="Stretch">
+            <State name="normal" colour="1 1 1" shift="0"/>
+            <State name="highlighted" colour="0.226563 0.226563 0.226563" shift="0"/>
+            <State name="pushed" colour="0.226563 0.226563 0.226563" shift="0"/>
+        </BasisSkin>
+    </Resource>
+    <Resource type="ResourceSkin" name="PopupMenuCheckSkin_Dark" size="10 8" texture="MyGUI_Dark.png">
+        <BasisSkin type="SubSkin" offset="0 0 10 8" align="Stretch">
+            <State name="normal" offset="301 68 10 8"/>
+        </BasisSkin>
+    </Resource>
+    <Resource type="ResourceSkin" name="PopupMenuExpSkin_Dark" size="8 12" texture="MyGUI_Dark.png">
+        <BasisSkin type="SubSkin" offset="0 0 8 12" align="Stretch">
+            <State name="normal" offset="314 68 8 12"/>
         </BasisSkin>
     </Resource>
 </MyGUI>

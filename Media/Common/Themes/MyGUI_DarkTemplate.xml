@@ -11,22 +11,32 @@
         <Widget type="Widget" skin="EditBoxSkin_Dark" position="20 20 50 20" name="Root">
             <Property key="FontName" value="DejaVuSansFont.13"/>
             <UserString key="LE_TargetWidgetType" value="EditBox"/>
-            <Widget type="TextBox" skin="EditClientSkin" position="2 4 48 14" align="Stretch" name="Client">
+            <Widget type="TextBox" skin="EditClientSkin" position="2 2 46 16" align="Stretch" name="Client">
                 <Property key="FontName" value="DejaVuSansFont.13"/>
                 <Property key="TextAlign" value="Left VCenter"/>
             </Widget>
         </Widget>
     </Resource>
-    <Resource type="ResourceLayout" name="Window_Dark" version="3.2.0">
+    <Resource type="ResourceLayout" name="EditBoxStretch_Dark" version="3.2.0">
+        <Widget type="Widget" skin="EditBoxSkin_Dark" position="20 20 50 50" name="Root">
+            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="MultiLine" value="true"/>
+            <UserString key="LE_TargetWidgetType" value="EditBox"/>
+            <Widget type="TextBox" skin="EditClientSkin" position="2 2 32 32" align="Stretch" name="Client">
+                <Property key="FontName" value="DejaVuSansFont.13"/>
+                <Property key="TextAlign" value="Left Top"/>
+            </Widget>
+            <Widget type="ScrollBar" skin="ScrollBarH_Dark" position="2 34 32 14" align="HStretch Bottom" name="HScroll"/>
+            <Widget type="ScrollBar" skin="ScrollBarV_Dark" position="34 2 14 32" align="Right VStretch" name="VScroll"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="WindowC_Dark" version="3.2.0">
         <Widget type="Widget" skin="WindowSkin_Dark" position="20 20 50 50" name="Root">
             <UserString key="LE_TargetWidgetType" value="Window"/>
-            <Widget type="TextBox" skin="TextBox" position="5 5 22 16" align="HStretch Top" name="Caption">
+            <Widget type="TextBox" skin="TextBox" position="4 4 40 16" align="HStretch Top" name="Caption">
                 <Property key="FontName" value="DejaVuSansFont.13"/>
             </Widget>
             <Widget type="Widget" skin="PanelEmpty" position="3 24 42 21" align="Stretch" name="Client"/>
-            <Widget type="Button" skin="XSkin_Dark" position="32 7 10 10" align="Right Top" name="Button">
-                <UserString key="Action" value="close"/>
-            </Widget>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="ListBoxItem_Dark" version="3.2.0">
@@ -81,23 +91,23 @@
             <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
-    <Resource type="ResourceLayout" name="Left_Dark" version="3.2.0">
-        <Widget type="Widget" skin="LeftSkin_Dark" position="20 20 6 10" name="Root">
+    <Resource type="ResourceLayout" name="ScrollBarLeft_Dark" version="3.2.0">
+        <Widget type="Widget" skin="ScrollBarLeftSkin_Dark" position="20 20 6 10" name="Root">
             <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
-    <Resource type="ResourceLayout" name="Right_Dark" version="3.2.0">
-        <Widget type="Widget" skin="RightSkin_Dark" position="20 20 6 10" name="Root">
+    <Resource type="ResourceLayout" name="ScrollBarRight_Dark" version="3.2.0">
+        <Widget type="Widget" skin="ScrollBarRightSkin_Dark" position="20 20 6 10" name="Root">
             <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
-    <Resource type="ResourceLayout" name="Up_Dark" version="3.2.0">
-        <Widget type="Widget" skin="UpSkin_Dark" position="20 20 10 6" name="Root">
+    <Resource type="ResourceLayout" name="ScrollBarUp_Dark" version="3.2.0">
+        <Widget type="Widget" skin="ScrollBarUpSkin_Dark" position="20 20 10 6" name="Root">
             <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
-    <Resource type="ResourceLayout" name="Down_Dark" version="3.2.0">
-        <Widget type="Widget" skin="DownSkin_Dark" position="20 20 10 6" name="Root">
+    <Resource type="ResourceLayout" name="ScrollBarDown_Dark" version="3.2.0">
+        <Widget type="Widget" skin="ScrollBarDownSkin_Dark" position="20 20 10 6" name="Root">
             <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
@@ -124,8 +134,8 @@
                 <Widget type="Widget" skin="PanelEmpty" position="0 0 40 14" align="Left VStretch" name="FirstPart"/>
                 <Widget type="Widget" skin="PanelEmpty" position="55 0 48 14" align="Left VStretch" name="SecondPart"/>
             </Widget>
-            <Widget type="Button" skin="Left_Dark" position="2 2 6 10" align="Left VCenter" name="Start"/>
-            <Widget type="Button" skin="Right_Dark" position="117 2 6 10" align="Right VCenter" name="End"/>
+            <Widget type="Button" skin="ScrollBarLeft_Dark" position="2 2 6 10" align="Left VCenter" name="Start"/>
+            <Widget type="Button" skin="ScrollBarRight_Dark" position="117 2 6 10" align="Right VCenter" name="End"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="ScrollBarV_Dark" version="3.2.0">
@@ -141,8 +151,8 @@
                 <Widget type="Widget" skin="PanelEmpty" position="0 0 14 45" align="HStretch Top" name="FirstPart"/>
                 <Widget type="Widget" skin="PanelEmpty" position="0 60 14 45" align="HStretch Top" name="SecondPart"/>
             </Widget>
-            <Widget type="Button" skin="Up_Dark" position="2 2 10 6" align="HCenter Top" name="Start"/>
-            <Widget type="Button" skin="Down_Dark" position="2 117 10 6" align="HCenter Bottom" name="End"/>
+            <Widget type="Button" skin="ScrollBarUp_Dark" position="2 2 10 6" align="HCenter Top" name="Start"/>
+            <Widget type="Button" skin="ScrollBarDown_Dark" position="2 117 10 6" align="HCenter Bottom" name="End"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="SliderH_Dark" version="3.2.0">
@@ -204,6 +214,84 @@
                 <Widget type="Button" skin="SliderTrackV_Dark" position="1 19 18 10" align="HStretch Top" name="Track"/>
                 <Widget type="Widget" skin="PanelEmpty" position="0 0 20 19" align="HStretch Top" name="FirstPart"/>
                 <Widget type="Widget" skin="PanelEmpty" position="0 29 20 19" align="HStretch Top" name="SecondPart"/>
+            </Widget>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="WindowCX_Dark" version="3.2.0">
+        <Widget type="Widget" skin="WindowSkin_Dark" position="20 20 50 50" name="Root">
+            <UserString key="LE_TargetWidgetType" value="Window"/>
+            <Widget type="TextBox" skin="TextBox" position="4 4 24 16" align="HStretch Top" name="Caption">
+                <Property key="FontName" value="DejaVuSansFont.13"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="3 24 42 21" align="Stretch" name="Client"/>
+            <Widget type="Button" skin="WindowXSkin_Dark" position="32 7 10 10" align="Right Top" name="Button">
+                <UserString key="Action" value="close"/>
+            </Widget>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="MenuBar_Dark" version="3.2.0">
+        <Widget type="Widget" skin="MenuPanelSkin_Dark" position="20 20 20 20" name="Root">
+            <Property key="VerticalAlignment" value="false"/>
+            <UserString key="LE_TargetWidgetType" value="MenuBar"/>
+            <UserString key="DistanceButton" value="6"/>
+            <UserString key="SubMenuLayer" value="Popup"/>
+            <UserString key="NormalSkin" value="MenuBarButton_Dark"/>
+            <UserString key="PopupSkin" value="MenuBarButton_Dark"/>
+            <UserString key="SeparatorSkin" value="MenuBarSeparator_Dark"/>
+            <UserString key="SubMenuSkin" value="PopupMenu_Dark"/>
+            <Widget type="Widget" skin="PanelEmpty" position="3 1 14 18" align="Stretch" name="Client"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="MenuBarButton_Dark" version="3.2.0">
+        <Widget type="Widget" skin="MenuBarButtonSkin_Dark" position="20 20 20 20" name="Root">
+            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="TextAlign" value="Center"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="MenuBarSeparator_Dark" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="20 20 10 10" name="Root">
+            <Property key="FontName" value="Default"/>
+            <Property key="TextAlign" value="Center"/>
+            <UserString key="MinSize" value="10 10"/>
+            <Widget type="Widget" skin="MenuSeparatorVSkin_Dark" position="4 2 1 6" align="HCenter VStretch"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="PopupMenu_Dark" version="3.2.0">
+        <Widget type="Widget" skin="PopupMenuPanelSkin_Dark" position="5 5 29 26" name="Root">
+            <Property key="VerticalAlignment" value="true"/>
+            <UserString key="SubMenuLayer" value="Popup"/>
+            <UserString key="SubMenuSkin" value="PopupMenu_Dark"/>
+            <UserString key="LE_TargetWidgetType" value="PopupMenu"/>
+            <UserString key="SeparatorSkin" value="PopupMenuSeparator_Dark"/>
+            <UserString key="NormalSkin" value="PopupMenuNormal_Dark"/>
+            <UserString key="PopupSkin" value="PopupMenuPopup_Dark"/>
+            <Widget type="Widget" skin="PanelEmpty" position="2 2 23 20" align="Stretch" name="Client"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="PopupMenuSeparator_Dark" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="20 20 10 10" name="Root">
+            <Property key="FontName" value="Default"/>
+            <Property key="TextAlign" value="Center"/>
+            <UserString key="MinSize" value="10 10"/>
+            <Widget type="Widget" skin="MenuSeparatorHSkin_Dark" position="2 4 6 1" align="HStretch VCenter"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="PopupMenuNormal_Dark" version="3.2.0">
+        <Widget type="Widget" skin="PopupMenuItemNormalSkin_Dark" position="20 25 43 14" name="Root">
+            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="TextAlign" value="Left VCenter"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+            <Widget type="Widget" skin="PopupMenuCheckSkin_Dark" position="2 3 10 8" align="Left VCenter" name="Check"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="PopupMenuPopup_Dark" version="3.2.0">
+        <Widget type="Widget" skin="PopupMenuItemNormalSkin_Dark" position="20 25 43 14" name="Root">
+            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="TextAlign" value="Left VCenter"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+            <Widget type="Widget" skin="PopupMenuExpSkin_Dark" position="33 1 8 12" align="Right VCenter">
+                <Property key="NeedMouse" value="false"/>
             </Widget>
         </Widget>
     </Resource>
