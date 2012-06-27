@@ -20,11 +20,11 @@
     <Resource type="ResourceLayout" name="Window_Dark" version="3.2.0">
         <Widget type="Widget" skin="WindowSkin_Dark" position="20 20 50 50" name="Root">
             <UserString key="LE_TargetWidgetType" value="Window"/>
-            <Widget type="TextBox" skin="TextBox" position="5 5 21 16" align="HStretch Top" name="Caption">
+            <Widget type="TextBox" skin="TextBox" position="5 5 22 16" align="HStretch Top" name="Caption">
                 <Property key="FontName" value="DejaVuSansFont.13"/>
             </Widget>
             <Widget type="Widget" skin="PanelEmpty" position="3 24 42 21" align="Stretch" name="Client"/>
-            <Widget type="Button" skin="XSkin_Dark" position="30 6 12 12" align="Right Top" name="Button">
+            <Widget type="Button" skin="XSkin_Dark" position="32 7 10 10" align="Right Top" name="Button">
                 <UserString key="Action" value="close"/>
             </Widget>
         </Widget>
