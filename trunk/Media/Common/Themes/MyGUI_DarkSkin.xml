@@ -269,46 +269,55 @@
     </Resource>
     <Resource type="ResourceSkin" name="ComboBoxButtonSkin_Dark" size="14 18" texture="MyGUI_Dark.png">
         <BasisSkin type="SubSkin" offset="0 0 5 5" align="Left Top">
+            <State name="disabled" offset="190 63 5 5"/>
             <State name="normal" offset="190 2 5 5"/>
             <State name="highlighted" offset="190 22 5 5"/>
             <State name="pushed" offset="190 43 5 5"/>
         </BasisSkin>
         <BasisSkin type="SubSkin" offset="5 0 4 5" align="HStretch Top">
+            <State name="disabled" offset="195 63 4 5"/>
             <State name="normal" offset="195 2 4 5"/>
             <State name="highlighted" offset="195 22 4 5"/>
             <State name="pushed" offset="195 43 4 5"/>
         </BasisSkin>
         <BasisSkin type="SubSkin" offset="9 0 5 5" align="Right Top">
+            <State name="disabled" offset="199 63 5 5"/>
             <State name="normal" offset="199 2 5 5"/>
             <State name="highlighted" offset="199 22 5 5"/>
             <State name="pushed" offset="199 43 5 5"/>
         </BasisSkin>
         <BasisSkin type="SubSkin" offset="9 5 5 8" align="Right VStretch">
+            <State name="disabled" offset="199 68 5 8"/>
             <State name="normal" offset="199 7 5 8"/>
             <State name="highlighted" offset="199 27 5 8"/>
             <State name="pushed" offset="199 48 5 8"/>
         </BasisSkin>
         <BasisSkin type="SubSkin" offset="9 13 5 5" align="Right Bottom">
+            <State name="disabled" offset="199 76 5 5"/>
             <State name="normal" offset="199 15 5 5"/>
             <State name="highlighted" offset="199 35 5 5"/>
             <State name="pushed" offset="199 56 5 5"/>
         </BasisSkin>
         <BasisSkin type="SubSkin" offset="5 13 4 5" align="HStretch Bottom">
+            <State name="disabled" offset="195 76 4 5"/>
             <State name="normal" offset="195 15 4 5"/>
             <State name="highlighted" offset="195 35 4 5"/>
             <State name="pushed" offset="195 56 4 5"/>
         </BasisSkin>
         <BasisSkin type="SubSkin" offset="0 13 5 5" align="Left Bottom">
+            <State name="disabled" offset="190 76 5 5"/>
             <State name="normal" offset="190 15 5 5"/>
             <State name="highlighted" offset="190 35 5 5"/>
             <State name="pushed" offset="190 56 5 5"/>
         </BasisSkin>
         <BasisSkin type="SubSkin" offset="0 5 5 8" align="Left VStretch">
+            <State name="disabled" offset="190 68 5 8"/>
             <State name="normal" offset="190 7 5 8"/>
             <State name="highlighted" offset="190 27 5 8"/>
             <State name="pushed" offset="190 48 5 8"/>
         </BasisSkin>
         <BasisSkin type="SubSkin" offset="5 5 4 8" align="Stretch">
+            <State name="disabled" offset="195 68 4 8"/>
             <State name="normal" offset="195 7 4 8"/>
             <State name="highlighted" offset="195 27 4 8"/>
             <State name="pushed" offset="195 48 4 8"/>
@@ -1142,13 +1151,9 @@
             <State name="normal" offset="380 73 40 10"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="EditClientSkin_Dark" size="16 16" texture="MyGUI_Dark.png">
-        <BasisSkin type="SubSkin" offset="0 0 16 16" align="Stretch">
-            <State name="disabled" offset="5 72 16 16"/>
-            <State name="normal" offset="5 72 16 16"/>
-        </BasisSkin>
-        <BasisSkin type="EditText" offset="0 0 32 32" align="Stretch">
-            <State name="disabled" colour="0.19883 0.19883 0.19883" shift="0"/>
+    <Resource type="ResourceSkin" name="EditClientSkin_Dark" size="16 16" texture="">
+        <BasisSkin type="EditText" offset="0 0 16 16" align="Stretch">
+            <State name="disabled" colour="0 0 0" shift="0"/>
             <State name="normal" colour="1 1 1" shift="0"/>
         </BasisSkin>
     </Resource>
