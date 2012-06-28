@@ -30,7 +30,7 @@ namespace tools
 
 	MyGUI::Message* MessageBoxManager::create(const MyGUI::UString& _caption, const MyGUI::UString& _message, MyGUI::MessageBoxStyle _style)
 	{
-		MyGUI::Message* message = MyGUI::Message::createMessageBox("Message", _caption, _message, _style);
+		MyGUI::Message* message = MyGUI::Message::createMessageBox(/*"Message", */_caption, _message, _style);
 		registerMessageBox(message);
 
 		return message;

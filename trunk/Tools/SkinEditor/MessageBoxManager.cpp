@@ -30,7 +30,15 @@ namespace tools
 
 	MyGUI::Message* MessageBoxManager::create(const MyGUI::UString& _caption, const MyGUI::UString& _message, MyGUI::MessageBoxStyle _style)
 	{
-		MyGUI::Message* message = MyGUI::Message::createMessageBox("Message", _caption, _message, _style);
+		MyGUI::Message* message = new MyGUI::Message("MessageBox2.layout");
+
+		message->setCaption(_caption);
+		message->setMessageText(_message);
+		message->setSmoothShow(true);
+		message->setMessageStyle(_style);
+
+		message->setMessageModal(true);
+
 		registerMessageBox(message);
 
 		return message;

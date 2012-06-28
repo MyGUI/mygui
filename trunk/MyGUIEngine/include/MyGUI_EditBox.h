@@ -276,6 +276,7 @@ namespace MyGUI
 		virtual void onKeyLostFocus(Widget* _new);
 		virtual void onKeySetFocus(Widget* _old);
 		virtual void onKeyButtonPressed(KeyCode _key, Char _char);
+		virtual void baseUpdateEnable();
 
 		// потом убрать все нотифи в сраку
 		void notifyMouseSetFocus(Widget* _sender, Widget* _old);
