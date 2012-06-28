@@ -107,12 +107,12 @@
     <Resource type="ResourceLayout" name="ComboBox_Dark" version="3.2.0">
         <Widget type="Widget" skin="EditBoxSkin_Dark" position="20 20 50 20" name="Root">
             <UserString key="LE_TargetWidgetType" value="ComboBox"/>
-			<Widget type="TextBox" skin="EditClientSkin" position="2 3 32 15" align="Stretch" name="Client">
-				<Property key="FontName" value="DejaVuSansFont.13"/>
-				<Property key="TextAlign" value="Left VCenter"/>
-				<Property key="Pointer" value="beam"/>
-			</Widget>
-			<Widget type="Button" skin="ComboBoxButton_Dark" position="35 1 14 18" align="Right VStretch" name="Button"/>
+            <Widget type="TextBox" skin="EditClientSkin_Dark" position="2 3 32 15" align="Stretch" name="Client">
+                <Property key="FontName" value="DejaVuSansFont.13"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="Pointer" value="beam"/>
+            </Widget>
+            <Widget type="Button" skin="ComboBoxButton_Dark" position="35 1 14 18" align="Right VStretch" name="Button"/>
             <Widget type="ListBox" skin="ListBox2_Dark" position="20 45 49 40" style="Popup" layer="Popup" name="List">
                 <Property key="Visible" value="false"/>
             </Widget>
