@@ -298,4 +298,48 @@
             </Widget>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="TabButton1_Dark" version="3.2.0">
+        <Widget type="Widget" skin="TabButton1Skin_Dark" position="20 20 50 20" name="Root">
+            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="TextAlign" value="Center"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="TabButton2_Dark" version="3.2.0">
+        <Widget type="Widget" skin="TabButton2Skin_Dark" position="20 20 50 20" name="Root">
+            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="TextAlign" value="Center"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="TabControl1_Dark" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="5 5 100 100" name="Root">
+            <UserString key="LE_TargetWidgetType" value="TabControl"/>
+            <UserString key="ButtonSkin" value="TabButton1_Dark"/>
+            <Widget type="Widget" skin="TabPanel1Skin_Dark" position="0 20 100 80" align="Stretch">
+                <Widget type="Widget" skin="PanelEmpty" position="2 2 96 76" align="Stretch" name="TabItem"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="0 0 100 20" align="HStretch Top" name="HeaderPlace">
+                <Widget type="Widget" skin="PanelEmpty" position="74 0 26 20" name="Controls">
+                    <Widget type="Button" skin="ScrollBarRight_Dark" position="16 5 6 10" name="Right"/>
+                    <Widget type="Button" skin="ScrollBarLeft_Dark" position="4 5 6 10" name="Left"/>
+                </Widget>
+            </Widget>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="TabControl2_Dark" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="5 5 100 100" name="Root">
+            <UserString key="LE_TargetWidgetType" value="TabControl"/>
+            <UserString key="ButtonSkin" value="TabButton2_Dark"/>
+            <Widget type="Widget" skin="TabPanel2Skin_Dark" position="0 20 100 80" align="Stretch">
+                <Widget type="Widget" skin="PanelEmpty" position="2 2 96 76" align="Stretch" name="TabItem"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="0 0 100 20" align="HStretch Top" name="HeaderPlace">
+                <Widget type="Widget" skin="PanelEmpty" position="74 0 26 20" name="Controls">
+                    <Widget type="Button" skin="ScrollBarRight_Dark" position="16 5 6 10" name="Right"/>
+                    <Widget type="Button" skin="ScrollBarLeft_Dark" position="4 5 6 10" name="Left"/>
+                </Widget>
+            </Widget>
+        </Widget>
+    </Resource>
 </MyGUI>
