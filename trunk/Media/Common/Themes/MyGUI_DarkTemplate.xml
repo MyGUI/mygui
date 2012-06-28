@@ -11,9 +11,11 @@
         <Widget type="Widget" skin="EditBoxSkin_Dark" position="20 20 50 20" name="Root">
             <Property key="FontName" value="DejaVuSansFont.13"/>
             <UserString key="LE_TargetWidgetType" value="EditBox"/>
-            <Widget type="TextBox" skin="EditClientSkin" position="2 2 46 16" align="Stretch" name="Client">
+            <Widget type="TextBox" skin="EditClientSkin_Dark" position="2 2 46 16" align="Stretch" name="Client">
                 <Property key="FontName" value="DejaVuSansFont.13"/>
                 <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="Pointer" value="beam"/>
+                <Property key="TextColour" value="1 1 1"/>
             </Widget>
         </Widget>
     </Resource>
@@ -22,9 +24,11 @@
             <Property key="FontName" value="DejaVuSansFont.13"/>
             <Property key="MultiLine" value="true"/>
             <UserString key="LE_TargetWidgetType" value="EditBox"/>
-            <Widget type="TextBox" skin="EditClientSkin" position="2 2 32 32" align="Stretch" name="Client">
+            <Widget type="TextBox" skin="EditClientSkin_Dark" position="2 2 32 32" align="Stretch" name="Client">
                 <Property key="FontName" value="DejaVuSansFont.13"/>
                 <Property key="TextAlign" value="Left Top"/>
+                <Property key="Pointer" value="beam"/>
+                <Property key="TextColour" value="1 1 1"/>
             </Widget>
             <Widget type="ScrollBar" skin="ScrollBarH_Dark" position="2 34 32 14" align="HStretch Bottom" name="HScroll"/>
             <Widget type="ScrollBar" skin="ScrollBarV_Dark" position="34 2 14 32" align="Right VStretch" name="VScroll"/>
@@ -74,9 +78,11 @@
         <Widget type="Widget" skin="EditBoxSkin_Dark" position="20 20 50 20" name="Root">
             <UserString key="LE_TargetWidgetType" value="ComboBox"/>
             <Widget type="Button" skin="ComboBoxButton_Dark" position="35 1 14 18" align="Right VStretch" name="Button"/>
-            <Widget type="TextBox" skin="EditClientSkin" position="2 3 32 15" align="Stretch" name="Client">
+            <Widget type="TextBox" skin="EditBoxSkin_Dark" position="2 3 32 15" align="Stretch" name="Client">
                 <Property key="FontName" value="DejaVuSansFont.13"/>
                 <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="Pointer" value="beam"/>
+                <Property key="TextColour" value="1 1 1"/>
                 <Widget type="ListBox" skin="ListBox2_Dark" position="20 45 49 40" style="Popup" layer="Popup" name="List"/>
             </Widget>
         </Widget>
@@ -339,6 +345,42 @@
                     <Widget type="Button" skin="ScrollBarRight_Dark" position="16 5 6 10" name="Right"/>
                     <Widget type="Button" skin="ScrollBarLeft_Dark" position="4 5 6 10" name="Left"/>
                 </Widget>
+            </Widget>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ScrollView_Dark" version="3.2.0">
+        <Widget type="Widget" skin="Panel2Skin_Dark" position="5 5 55 55" name="Root">
+            <UserString key="LE_TargetWidgetType" value="ScrollView"/>
+            <Widget type="Widget" skin="PanelEmpty" position="2 2 37 37" align="Stretch" name="Client"/>
+            <Widget type="ScrollBar" skin="ScrollBarV_Dark" position="39 2 14 37" align="Right VStretch" name="VScroll"/>
+            <Widget type="ScrollBar" skin="ScrollBarH_Dark" position="2 39 37 14" align="HStretch Bottom" name="HScroll"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ItemBox_Dark" version="3.2.0">
+        <Widget type="Widget" skin="Panel2Skin_Dark" position="5 5 55 55" name="Root">
+            <UserString key="LE_TargetWidgetType" value="ItemBox"/>
+            <UserString key="DragLayer" value="DragAndDrop"/>
+            <Widget type="Widget" skin="PanelEmpty" position="2 2 37 37" align="Stretch" name="Client"/>
+            <Widget type="ScrollBar" skin="ScrollBarV_Dark" position="39 2 14 37" align="Right VStretch" name="VScroll"/>
+            <Widget type="ScrollBar" skin="ScrollBarH_Dark" position="2 39 37 14" align="HStretch Bottom" name="HScroll"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="WindowCSX_Dark" version="3.2.0">
+        <Widget type="Widget" skin="WindowSkin_Dark" position="20 20 50 50" name="Root">
+            <UserString key="LE_TargetWidgetType" value="Window"/>
+            <Widget type="TextBox" skin="TextBox" position="4 4 24 16" align="HStretch Top" name="Caption">
+                <Property key="FontName" value="DejaVuSansFont.13"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="3 24 42 21" align="Stretch" name="Client"/>
+            <Widget type="Button" skin="WindowXSkin_Dark" position="32 7 10 10" align="Right Top" name="Button">
+                <UserString key="Event" value="close"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="0 45 3 3" align="Left Bottom" name="ResizeLeftBottom">
+                <Property key="Pointer" value="size_right"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="45 45 3 3" align="Right Bottom" name="ResizeRightBottom">
+                <Property key="Pointer" value="size_left"/>
             </Widget>
         </Widget>
     </Resource>

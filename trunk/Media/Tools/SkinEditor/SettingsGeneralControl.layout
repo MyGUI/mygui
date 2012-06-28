@@ -22,6 +22,7 @@
         <Widget type="TextBox" skin="TextBox" position="230 70 175 25">
             <Property key="Caption" value="#{TextInterfaceLanguage}"/>
             <Property key="TextAlign" value="Left VCenter"/>
+            <Property key="FontName" value="DejaVuSansFont.13"/>
         </Widget>
     </Widget>
 </MyGUI>
