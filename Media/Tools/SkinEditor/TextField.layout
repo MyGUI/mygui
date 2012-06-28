@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="Window" skin="WindowCX_Dark" position="24 56 280 100" align="Stretch" layer="Popup" name="_Main">
+    <Widget type="Window" skin="WindowCX_Dark" position="24 56 280 100" align="Default" layer="Popup" name="_Main">
         <UserString key="SnapTo" value="Center"/>
         <Widget type="EditBox" skin="EditBox_Dark" position="4 9 264 20" align="HStretch Top" name="Text"/>
         <Widget type="Button" skin="Button_Dark" position="163 41 104 20" align="Right Top" name="Ok">
