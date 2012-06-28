@@ -2236,4 +2236,12 @@ namespace MyGUI
 			mClientText->setShadow(_value);
 	}
 
+	void EditBox::baseUpdateEnable()
+	{
+		Base::baseUpdateEnable();
+
+		if (mClient != nullptr && mClient != this)
+			mClient->setEnabled(getEnabled());
+	}
+
 } // namespace MyGUI

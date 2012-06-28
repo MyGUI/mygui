@@ -602,4 +602,11 @@ namespace MyGUI
 			mList->_resetContainer(_update);
 	}
 
+	void ComboBox::baseUpdateEnable()
+	{
+		Base::baseUpdateEnable();
+		if (mButton != nullptr)
+			mButton->setEnabled(getEnabled());
+	}
+
 } // namespace MyGUI

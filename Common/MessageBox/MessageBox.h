@@ -30,37 +30,20 @@ namespace MyGUI
 			mLeftOffset1(0),
 			mLeftOffset2(0)
 		{
-			assignWidget(mWidgetText, "Text", false);
-			if (mWidgetText != nullptr)
-			{
-				mOffsetText.set(mMainWidget->getClientCoord().width - mWidgetText->getWidth(), mMainWidget->getClientCoord().height - mWidgetText->getHeight());
-				mLeftOffset2 = mLeftOffset1 = mWidgetText->getLeft();
-			}
+			initialise();
+		}
 
-			assignWidget(mIcon, "Icon", false);
-			if (mIcon != nullptr)
-			{
-				mLeftOffset2 = mIcon->getRight() + 3;
-			}
-
-			mButtonType = Button::getClassTypeName();
-
-			if (mMainWidget->isUserString("ButtonSkin"))
-				mButtonSkin = mMainWidget->getUserString("ButtonSkin");
-
-			Widget* widget = nullptr;
-			assignWidget(widget, "ButtonPlace", false);
-			if (widget != nullptr)
-			{
-				mButtonOffset.set(widget->getLeft(), mMainWidget->getClientCoord().height - widget->getTop());
-				widget->setVisible(false);
-			}
-
-			assignWidget(widget, "ButtonTemplate", false);
-			if (widget != nullptr)
-			{
-				mButtonSize = widget->getSize();
-			}
+		Message(const std::string& _layoutName) :
+			wraps::BaseLayout(_layoutName),
+			mWidgetText(nullptr),
+			mInfoOk(MessageBoxStyle::None),
+			mInfoCancel(MessageBoxStyle::None),
+			mSmoothShow(false),
+			mIcon(nullptr),
+			mLeftOffset1(0),
+			mLeftOffset2(0)
+		{
+			initialise();
 		}
 
 		virtual ~Message()
@@ -202,7 +185,7 @@ namespace MyGUI
 				_button1 ... _button4 specific buttons names
 		*/
 		static Message* createMessageBox(
-			const UString& _skinName,
+			//const UString& _skinName,
 			const UString& _caption,
 			const UString& _message,
 			MessageBoxStyle _style = MessageBoxStyle::Ok | MessageBoxStyle::IconDefault,
@@ -362,6 +345,42 @@ namespace MyGUI
 			if (_index >= Count)
 				return Names[Count];
 			return Names[_index];
+		}
+
+	private:
+		void initialise()
+		{
+			assignWidget(mWidgetText, "Text", false);
+			if (mWidgetText != nullptr)
+			{
+				mOffsetText.set(mMainWidget->getClientCoord().width - mWidgetText->getWidth(), mMainWidget->getClientCoord().height - mWidgetText->getHeight());
+				mLeftOffset2 = mLeftOffset1 = mWidgetText->getLeft();
+			}
+
+			assignWidget(mIcon, "Icon", false);
+			if (mIcon != nullptr)
+			{
+				mLeftOffset2 = mIcon->getRight() + 3;
+			}
+
+			mButtonType = Button::getClassTypeName();
+
+			if (mMainWidget->isUserString("ButtonSkin"))
+				mButtonSkin = mMainWidget->getUserString("ButtonSkin");
+
+			Widget* widget = nullptr;
+			assignWidget(widget, "ButtonPlace", false);
+			if (widget != nullptr)
+			{
+				mButtonOffset.set(widget->getLeft(), mMainWidget->getClientCoord().height - widget->getTop());
+				widget->setVisible(false);
+			}
+
+			assignWidget(widget, "ButtonTemplate", false);
+			if (widget != nullptr)
+			{
+				mButtonSize = widget->getSize();
+			}
 		}
 
 	private:

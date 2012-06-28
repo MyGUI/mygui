@@ -169,9 +169,9 @@ namespace demo
 		generateFontTTFXml(document.createRoot("MyGUI"), _fontName);
 
 		if (document.save(_fileName))
-			MyGUI::Message::createMessageBox("Message", "Success", "Saved font definition file: " + _fileName + "'", MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
+			MyGUI::Message::createMessageBox(/*"Message", */"Success", "Saved font definition file: " + _fileName + "'", MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
 		else
-			MyGUI::Message::createMessageBox("Message", "Error", document.getLastError(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
+			MyGUI::Message::createMessageBox(/*"Message", */"Error", document.getLastError(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
 	}
 
 	void FontPanel::saveFontManualXml(const std::string& _fontName, const std::string& _textureName, const std::string& _fileName)
@@ -181,9 +181,9 @@ namespace demo
 		generateFontManualXml(document.createRoot("MyGUI"), _textureName, _fontName);
 
 		if (document.save(_fileName))
-			MyGUI::Message::createMessageBox("Message", "Success", "Saved manual font definition file: '" + _fileName + "'", MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
+			MyGUI::Message::createMessageBox(/*"Message", */"Success", "Saved manual font definition file: '" + _fileName + "'", MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
 		else
-			MyGUI::Message::createMessageBox("Message", "Error", document.getLastError(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
+			MyGUI::Message::createMessageBox(/*"Message", */"Error", document.getLastError(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconError);
 	}
 
 	void FontPanel::notifyTextChange(MyGUI::EditBox* _sender)
@@ -276,7 +276,7 @@ namespace demo
 
 				enableSave(false);
 
-				MyGUI::Message::createMessageBox("Message", "Error", e.getDescription(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
+				MyGUI::Message::createMessageBox(/*"Message", */"Error", e.getDescription(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);
 			}
 		}
 	}
