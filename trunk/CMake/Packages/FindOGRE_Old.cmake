@@ -55,7 +55,7 @@ if (NOT OGRE_FOUND)
 			
 			if (Boost_FOUND)
 				set (OGRE_INCLUDE_DIR ${OGRE_INCLUDE_DIR} ${Boost_INCLUDE_DIR})
-				set (OGRE_LIB_DIR ${OGRE_LIB_DIR} ${Boost_LIBRARY_DIRS})
+				set (OGRE_LIB_DIR ${OGRE_LIB_DIR} ${Boost_LIBRARY_DIRS} ${BOOST_LIBRARYDIR})
 			endif()
 			
 			return()
