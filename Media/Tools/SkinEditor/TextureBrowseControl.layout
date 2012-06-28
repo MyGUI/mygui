@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="Window" skin="WindowCSX" position="24 56 584 480" layer="Overlapped" name="_Main">
+    <Widget type="Window" skin="WindowCSX_Dark" position="24 56 584 472" layer="Overlapped" name="_Main">
         <Property key="Caption" value="#{CaptionTextureBrowse}"/>
         <Property key="MinSize" value="584 480"/>
-        <Widget type="Button" skin="Button" position="464 410 107 26" align="Right Bottom" name="OK">
+        <Widget type="Button" skin="Button_Dark" position="464 416 107 20" align="Right Bottom" name="OK">
             <Property key="Caption" value="#{Ok}"/>
         </Widget>
-        <Widget type="Button" skin="Button" position="5 410 107 26" align="Left Bottom" name="Cancel">
+        <Widget type="Button" skin="Button_Dark" position="5 416 107 20" align="Left Bottom" name="Cancel">
             <Property key="Caption" value="#{Cancel}"/>
         </Widget>
-        <Widget type="ItemBox" skin="ItemBox" position="4 4 567 397" align="Stretch" name="Textures"/>
+        <Widget type="ItemBox" skin="ItemBox_Dark" position="4 4 568 397" align="Stretch" name="Textures"/>
     </Widget>
 </MyGUI>

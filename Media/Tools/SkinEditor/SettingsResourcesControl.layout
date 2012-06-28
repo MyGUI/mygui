@@ -5,12 +5,13 @@
         <Widget type="TextBox" skin="TextBox" position="3 8 413 24" align="HStretch Top">
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="Caption" value="#{TextAdditionalResources}"/>
+            <Property key="FontName" value="DejaVuSansFont.13"/>
         </Widget>
-        <Widget type="ListBox" skin="ListBox" position="3 37 415 112" align="Stretch" name="Resources"/>
-        <Widget type="Button" skin="Button" position="298 156 120 26" align="Right Bottom" name="ResourceAdd">
+        <Widget type="ListBox" skin="ListBox_Dark" position="3 37 415 112" align="Stretch" name="Resources"/>
+        <Widget type="Button" skin="Button_Dark" position="298 160 120 20" align="Right Bottom" name="ResourceAdd">
             <Property key="Caption" value="#{Add}"/>
         </Widget>
-        <Widget type="Button" skin="Button" position="4 156 120 24" align="Left Bottom" name="ResourceDelete">
+        <Widget type="Button" skin="Button_Dark" position="4 160 120 20" align="Left Bottom" name="ResourceDelete">
             <Property key="Caption" value="#{Delete}"/>
         </Widget>
     </Widget>

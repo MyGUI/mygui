@@ -1,19 +1,20 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<MyGUI type="Layout">
+<MyGUI type="Layout" version="3.2.0">
     <Widget type="Widget" skin="PanelEmpty" position="16 40 248 464" align="Stretch" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="Widget" skin="PanelSkin" position="0 0 248 464" align="Stretch">
-            <Widget type="TextBox" skin="TextBox" position="8 8 232 24" align="HStretch Top">
+        <Widget type="Widget" skin="Panel1Skin_Dark" position="0 0 248 464" align="Stretch">
+            <Widget type="TextBox" skin="TextBox" position="8 8 232 20" align="HStretch Top">
                 <Property key="Caption" value="#{PropertySeparatorOffset}"/>
-                <Property key="TextAlign" value="Left Bottom"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="FontName" value="DejaVuSansFont.13"/>
             </Widget>
-            <Widget type="Widget" skin="PanelEmpty" position="8 32 232 26" align="HStretch Top" name="PropertyPosition"/>
-            <Widget type="TextBox" skin="TextBox" position="8 64 232 24" align="HStretch Top">
-                <Property key="TextAlign" value="Left Bottom"/>
+            <Widget type="Widget" skin="PanelEmpty" position="8 28 232 20" align="HStretch Top" name="PropertyPosition"/>
+            <Widget type="TextBox" skin="TextBox" position="8 52 232 20" align="HStretch Top">
+                <Property key="TextAlign" value="Left VCenter"/>
                 <Property key="Caption" value="#{PropertySeparatorVisible}"/>
+                <Property key="FontName" value="DejaVuSansFont.13"/>
             </Widget>
-            <Widget type="Widget" skin="PanelEmpty" position="8 88 232 26" align="HStretch Top" name="PropertyVisible">
-            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="8 72 232 20" align="HStretch Top" name="PropertyVisible"/>
         </Widget>
     </Widget>
 </MyGUI>
