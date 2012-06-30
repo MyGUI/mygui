@@ -322,7 +322,13 @@ namespace MyGUI
 	void TextIterator::insertText(const UString& _insert, bool _multiLine)
 	{
 		UString text = _insert;
-		if (!_multiLine) clearNewLine(text);
+
+		// нормализуем
+		normaliseNewLine(text);
+
+		if (!_multiLine)
+			clearNewLine(text);
+
 		insert(mCurrent, text);
 	}
 
@@ -330,9 +336,16 @@ namespace MyGUI
 	{
 		// сначала все очищаем
 		clear();
+
 		// а теперь вставляем
 		UString text = _text;
-		if (!_multiLine) clearNewLine(text);
+
+		// нормализуем
+		normaliseNewLine(text);
+
+		if (!_multiLine)
+			clearNewLine(text);
+
 		insert(mCurrent, text);
 	}
 
@@ -562,6 +575,20 @@ namespace MyGUI
 	UString TextIterator::getTextNewLine()
 	{
 		return L"\n";
+	}
+
+	void TextIterator::normaliseNewLine(UString& _text)
+	{
+		for (size_t index = 0; index < _text.size(); ++index)
+		{
+			Char character = _text[index];
+			if ((character == FontCodeType::CR) &&
+				((index + 1) < _text.size()) &&
+				(_text[index + 1] == FontCodeType::LF))
+			{
+				_text.erase(index, 1);
+			}
+		}
 	}
 
 } // namespace MyGUI
