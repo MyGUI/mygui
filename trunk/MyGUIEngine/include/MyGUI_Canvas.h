@@ -61,17 +61,28 @@ namespace MyGUI
 		typedef delegates::CMultiDelegate1<Canvas*> EventHandle_CanvasPtr;
 		typedef delegates::CDelegate2<Canvas*, Event> EventHandle_CanvasPtrEvent;
 
-		//FIXME
 		/**
 			Available resize and view modes of texture
 			@remarks PT - Power of Two (size)
 		*/
 		enum TextureResizeMode
 		{
-			//
-			TRM_PT_CONST_SIZE, /// Texture doesn't resizes and fills all widget space
-			TRM_PT_VIEW_REQUESTED, /// You can view all pixels of texture, texture cropped by sizes of widget
-			TRM_PT_VIEW_ALL /// Texture resizes and fills all widget space
+			/// Texture doesn't resizes and fills all widget space
+			// –азмер указаный при создании текстуры увеличиваетьс€ до степени двойки и больше не мен€етс€.
+			// “екстура всегда раст€гиваетьс€ во весь виджет.
+			TRM_PT_CONST_SIZE,
+			/// You can view all pixels of texture, texture cropped by sizes of widget
+			// –азмер указаный при создании текстуры игнорируетс€.
+			// “екстура всегда больше размера окна и кратна степени двойки.
+			// ≈сли размер виджета становитс€ больше чем размер текстуры, текстура пересоздаетс€.
+			// “екстура всегда отображатс€ пиксель в пиксель на виджет, образу€ рабочую область текстуры.
+			TRM_PT_VIEW_REQUESTED,
+			/// Texture resizes and fills all widget space
+			// –азмер указаный при создании текстуры игнорируетс€.
+			// “екстура всегда больше размера окна и кратна степени двойки.
+			// ≈сли размер виджета становитс€ больше чем размер текстуры, текстура пересоздаетс€.
+			// “екстура всегда раст€гиваетьс€ во весь виджет.
+			TRM_PT_VIEW_ALL
 		};
 
 	public:
