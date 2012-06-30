@@ -102,6 +102,8 @@ namespace MyGUI
 
 		void clear();
 
+		void normaliseNewLine(UString& _colour);
+
 	private:
 		UString mText;
 		UString::iterator mCurrent, mEnd, mSave;
