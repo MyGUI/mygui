@@ -14,7 +14,12 @@
 namespace MyGUI
 {
 
-	DirectX11RTTexture::DirectX11RTTexture( DirectX11Texture* _texture, DirectX11RenderManager* _manager ) : mTexture(_texture), mManager(_manager)
+	DirectX11RTTexture::DirectX11RTTexture( DirectX11Texture* _texture, DirectX11RenderManager* _manager ) :
+		mOldDepthStencil(nullptr),
+		mOldRenderTarget(nullptr),
+		mTexture(_texture),
+		mManager(_manager),
+		mRenderTarget(nullptr)
 	{
 		int width = mTexture->getWidth();
 		int height = mTexture->getHeight();
@@ -37,14 +42,15 @@ namespace MyGUI
 
 	DirectX11RTTexture::~DirectX11RTTexture()
 	{
-		if ( mRenderTarget ) mRenderTarget->Release();
+		if (mRenderTarget)
+			mRenderTarget->Release();
 	}
 
 	void DirectX11RTTexture::begin()
 	{
 		UINT numViewports = 1;
-		mManager->mpD3DContext->RSGetViewports(&numViewports, &oldViewport);
-		mManager->mpD3DContext->OMGetRenderTargets(1, &oldRenderTarget, &oldDepthStencil);
+		mManager->mpD3DContext->RSGetViewports(&numViewports, &mOdViewport);
+		mManager->mpD3DContext->OMGetRenderTargets(1, &mOldRenderTarget, &mOldDepthStencil);
 
 		D3D11_VIEWPORT vp;
 		vp.Width = (float)mTexture->getWidth();
@@ -62,8 +68,18 @@ namespace MyGUI
 
 	void DirectX11RTTexture::end()
 	{
-		mManager->mpD3DContext->OMSetRenderTargets(1, &oldRenderTarget, oldDepthStencil);
-		mManager->mpD3DContext->RSSetViewports(1, &oldViewport);
+		mManager->mpD3DContext->OMSetRenderTargets(1, &mOldRenderTarget, mOldDepthStencil);
+		if (mOldRenderTarget)
+		{
+			mOldRenderTarget->Release();
+			mOldRenderTarget = nullptr;
+		}
+		if (mOldDepthStencil)
+		{
+			mOldDepthStencil->Release();
+			mOldDepthStencil = nullptr;
+		}
+		mManager->mpD3DContext->RSSetViewports(1, &mOdViewport);
 	}
 
 	void DirectX11RTTexture::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)

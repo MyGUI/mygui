@@ -38,9 +38,9 @@ namespace MyGUI
 		}
 
 	private:
-		ID3D11DepthStencilView* oldDepthStencil;
-		ID3D11RenderTargetView* oldRenderTarget;
-		D3D11_VIEWPORT          oldViewport;
+		ID3D11DepthStencilView* mOldDepthStencil;
+		ID3D11RenderTargetView* mOldRenderTarget;
+		D3D11_VIEWPORT          mOdViewport;
 		DirectX11Texture*       mTexture;
 		DirectX11RenderManager* mManager;
 		ID3D11RenderTargetView* mRenderTarget;
