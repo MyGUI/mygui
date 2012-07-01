@@ -115,7 +115,7 @@ namespace common
 				struct stat fInfo;
 				char path[NAME_MAX];
 				//snprintf(path, NAME_MAX, "%s/%s", MyGUI::UString(_folder).asUTF8_c_str(), dp->d_name);
-				if(stat(path, &fInfo) == -1)perror("stat");
+				if (stat(path, &fInfo) == -1)perror("stat");
 				_result.push_back(FileInfo(MyGUI::UString(dp->d_name).asWStr(), (S_ISDIR(fInfo.st_mode))));
 			}
 		}

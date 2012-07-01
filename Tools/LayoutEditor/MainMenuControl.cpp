@@ -200,10 +200,10 @@ namespace tools
 
 	void MainMenuControl::updateMenuScale(size_t _scale)
 	{
-		MyGUI::MenuItem* item = mBar->findItemById("Scale", true);
-		if (item != nullptr)
+		MyGUI::MenuItem* scaleMenu = mBar->findItemById("Scale", true);
+		if (scaleMenu != nullptr)
 		{
-			MyGUI::MenuControl* popup = item->getItemChild();
+			MyGUI::MenuControl* popup = scaleMenu->getItemChild();
 			if (popup != nullptr)
 			{
 				std::string id = MyGUI::utility::toString("Command_ChangeScale.", (int)_scale);
