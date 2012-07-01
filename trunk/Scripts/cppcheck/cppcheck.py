@@ -50,6 +50,7 @@ checkFolderSources('Common', '-I Common')
 checkFolderSources('Platforms/OpenGL/OpenGLPlatform/src', '-I Platforms/OpenGL/OpenGLPlatform/include')
 checkFolderSources('Platforms/Ogre/OgrePlatform/src', '-I Platforms/Ogre/OgrePlatform/include')
 checkFolderSources('Platforms/DirectX/DirectXPlatform/src', '-I Platforms/DirectX/DirectXPlatform/include')
+checkFolderSources('Platforms/DirectX11/DirectXPlatform/src', '-I Platforms/DirectX11/DirectXPlatform/include')
 checkFolderSources('Plugins', '')
 checkFolderSources('Wrappers/WrapperGenerator', '')
 
