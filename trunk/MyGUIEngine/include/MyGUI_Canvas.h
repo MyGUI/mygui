@@ -67,17 +67,35 @@ namespace MyGUI
 		*/
 		enum TextureResizeMode
 		{
-			/// Texture doesn't resizes and fills all widget space
+			/**	Mode when the texture has constant size and stretching on all widget.
+				@remarks
+				The size specified at creation of the texture increases to nearest power of two and doesn't change any more. Texture is always stretched on all widget.
+			*/
 			// –азмер указаный при создании текстуры увеличиваетьс€ до степени двойки и больше не мен€етс€.
 			// “екстура всегда раст€гиваетьс€ во весь виджет.
 			TRM_PT_CONST_SIZE,
-			/// You can view all pixels of texture, texture cropped by sizes of widget
+
+			/**	
+				Mode when texture pixels look as is.
+				@remarks
+				The texture size is always more or equal than the widget size and is equal to a power of two.
+				@note
+				The size specified at creation of the texture is ignored.
+				The texture is automatically recreated if the size of the widget becomes bigger.
+			*/
 			// –азмер указаный при создании текстуры игнорируетс€.
 			// “екстура всегда больше размера окна и кратна степени двойки.
 			// ≈сли размер виджета становитс€ больше чем размер текстуры, текстура пересоздаетс€.
 			// “екстура всегда отображатс€ пиксель в пиксель на виджет, образу€ рабочую область текстуры.
 			TRM_PT_VIEW_REQUESTED,
-			/// Texture resizes and fills all widget space
+
+			/**	Mode when the texture stretched on all widget and automatically changes the size for nice look.
+				@remarks
+				The mode same as TRM_PT_VIEW_REQUESTED, but the texture is scaled till the size of the widget.
+				@note
+				The size specified at creation of the texture is ignored.
+				The texture is automatically recreated if the size of the widget becomes bigger.
+			*/
 			// –азмер указаный при создании текстуры игнорируетс€.
 			// “екстура всегда больше размера окна и кратна степени двойки.
 			// ≈сли размер виджета становитс€ больше чем размер текстуры, текстура пересоздаетс€.
