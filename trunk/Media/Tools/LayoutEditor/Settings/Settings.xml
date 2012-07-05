@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Settings">
-    <WidgetsWindow>
-        <Property key="widgetsButtonWidth" value="141"/>
-        <Property key="widgetsButtonHeight" value="24"/>
-    </WidgetsWindow>
+	<WidgetsWindow>
+		<Property key="widgetsButtonWidth" value="141"/>
+		<Property key="widgetsButtonHeight" value="24"/>
+	</WidgetsWindow>
 	<Settings>
 		<Property key="Grid" value="5"/>
 		<Property key="ShowName" value="1"/>

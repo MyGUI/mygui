@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource" version="1.1">
 	<Resource type="ResourceSkin" name="LE_PanelEmpty" size="16 16" texture="SelectionRects.png">
 		<BasisSkin type="SubSkin" offset="0 0 1 1" align="Left Top">

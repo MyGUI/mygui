@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI>
-
 	<MyGUI type="Widgets">
 		<Widget name="HikariWidget">
 			<Property key="DefaultSkin" value="Canvas"/>
@@ -15,12 +13,10 @@
 			<Parameter key="Hikari_Transparent" value="Bool"/>
 		</Widget>
 	</MyGUI>
-
 	<MyGUI type="Plugin">
 		<Plugin>
 			<Source>Plugin_HikariWidget.dll</Source>
 			<Source build="Debug">Plugin_HikariWidget_d.dll</Source>
 		</Plugin>
 	</MyGUI>
-
 </MyGUI>

@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layer" version="1.2">
-
 	<Layer type="SharedLayer" name="Back">
 		<Property key="Pick" value="true"/>
 	</Layer>
@@ -17,13 +15,11 @@
 	<Layer type="SharedLayer" name="Main">
 		<Property key="Pick" value="true"/>
 	</Layer>
-
 	<Layer type="RTTLayer" name="RTTLayer1">
 		<Property key="Pick" value="false"/>
 		<Property key="TextureSize" value="256 256"/>
 		<Property key="TextureName" value="RTTTexture1"/>
 	</Layer>
-
 	<Layer type="OverlappedLayer" name="Popup">
 		<Property key="Pick" value="true"/>
 	</Layer>
@@ -51,5 +47,4 @@
 	<Layer type="SharedLayer" name="Statistic">
 		<Property key="Pick" value="false"/>
 	</Layer>
-
 </MyGUI>

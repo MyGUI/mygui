@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource" version="1.1">
 	<Resource type="ResourceSkin" name="TreeLineExpandCollapse" size="12 12" texture="TreeIcons.png">
 		<BasisSkin type="MainSkin" offset="0 0 12 12" align="Stretch">

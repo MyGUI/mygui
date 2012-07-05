@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!-- this parameters will be ignored in edit mode-->
-
 <MyGUI type="IgnoreParameters">
 	<Parameter key="Modal"/>
 	<Parameter key="AutoAlpha"/>
