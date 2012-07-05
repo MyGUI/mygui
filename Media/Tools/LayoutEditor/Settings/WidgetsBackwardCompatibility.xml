@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Widgets">
 	<Widget name="StaticImage" internal="true"/>
 	<Widget name="StaticText" internal="true"/>

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <MyGUI type="Resource">
-
 	<Resource type="ResourceImageSet" name="pic_ItemBackImage">
 		<Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
 			<Index name="None">
@@ -21,7 +19,6 @@
 			</Index>
 		</Group>
 	</Resource>
-
 	<Resource type="ResourceImageSet" name="pic_ItemSelectImage">
 		<Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
 			<Index name="None">
@@ -38,68 +35,56 @@
 			</Index>
 		</Group>
 	</Resource>
-
 	<Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item0">
 		<Name></Name>
 		<Description></Description>
 		<Image RefID="pic_Crystal_Clear_Item0"/>
 	</Resource>
-
 	<Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item1">
 		<Name>Human</Name>
 		<Description>Homo sapiens — Latin: "wise human" or "knowing human".</Description>
 		<Image RefID="pic_Crystal_Clear_Item1"/>
 	</Resource>
-
 	<Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item2">
 		<Name>Arrow</Name>
 		<Description>Usually used to point on something.</Description>
 		<Image RefID="pic_Crystal_Clear_Item2"/>
 	</Resource>
-
 	<Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item3">
 		<Name>Pac man</Name>
 		<Description>Popular arcade game.</Description>
 		<Image RefID="pic_Crystal_Clear_Item3"/>
 	</Resource>
-
 	<Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item4">
 		<Name>Home</Name>
 		<Description>Place where we usually like to come back.</Description>
 		<Image RefID="pic_Crystal_Clear_Item4"/>
 	</Resource>
-
 	<Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item5">
 		<Name>Earth</Name>
 		<Description>Third planet from the Sun.</Description>
 		<Image RefID="pic_Crystal_Clear_Item5"/>
 	</Resource>
-
 	<Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item6">
 		<Name>Note</Name>
 		<Description>Just note, what else I can say about it?</Description>
 		<Image RefID="pic_Crystal_Clear_Item6"/>
 	</Resource>
-
 	<Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item7">
 		<Name>Spider</Name>
 		<Description>Spiderman! Spiderman! Oh... it's just spider.</Description>
 		<Image RefID="pic_Crystal_Clear_Item7"/>
 	</Resource>
-
 	<Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item8">
 		<Name>Tools</Name>
 		<Description>Used for repairing broken items.</Description>
 		<Image RefID="pic_Crystal_Clear_Item8"/>
 	</Resource>
-
 	<Resource type="ResourceItemInfo" name="info_Crystal_Clear_Item9">
 		<Name>Gear</Name>
 		<Description>A gear is a component within a transmission device that transmits rotational force to another gear or device.</Description>
 		<Image RefID="pic_Crystal_Clear_Item9"/>
 	</Resource>
-
-
 	<Resource type="ResourceImageSet" name="pic_Crystal_Clear_Item0">
 		<Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
 			<Index name="Normal">
@@ -118,7 +103,6 @@
 			</Index>
 		</Group>
 	</Resource>
-
 	<Resource type="ResourceImageSet" name="pic_Crystal_Clear_Item1">
 		<Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
 			<Index name="Normal">
@@ -137,7 +121,6 @@
 			</Index>
 		</Group>
 	</Resource>
-
 	<Resource type="ResourceImageSet" name="pic_Crystal_Clear_Item2">
 		<Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
 			<Index name="Normal">
@@ -156,7 +139,6 @@
 			</Index>
 		</Group>
 	</Resource>
-
 	<Resource type="ResourceImageSet" name="pic_Crystal_Clear_Item3">
 		<Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
 			<Index name="Normal">
@@ -175,7 +157,6 @@
 			</Index>
 		</Group>
 	</Resource>
-
 	<Resource type="ResourceImageSet" name="pic_Crystal_Clear_Item4">
 		<Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
 			<Index name="Normal">
@@ -194,7 +175,6 @@
 			</Index>
 		</Group>
 	</Resource>
-
 	<Resource type="ResourceImageSet" name="pic_Crystal_Clear_Item5">
 		<Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
 			<Index name="Normal">
@@ -213,7 +193,6 @@
 			</Index>
 		</Group>
 	</Resource>
-
 	<Resource type="ResourceImageSet" name="pic_Crystal_Clear_Item6">
 		<Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
 			<Index name="Normal">
@@ -232,7 +211,6 @@
 			</Index>
 		</Group>
 	</Resource>
-
 	<Resource type="ResourceImageSet" name="pic_Crystal_Clear_Item7">
 		<Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
 			<Index name="Normal">
@@ -251,7 +229,6 @@
 			</Index>
 		</Group>
 	</Resource>
-
 	<Resource type="ResourceImageSet" name="pic_Crystal_Clear_Item8">
 		<Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
 			<Index name="Normal">
@@ -270,7 +247,6 @@
 			</Index>
 		</Group>
 	</Resource>
-
 	<Resource type="ResourceImageSet" name="pic_Crystal_Clear_Item9">
 		<Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
 			<Index name="Normal">
@@ -289,5 +265,4 @@
 			</Index>
 		</Group>
 	</Resource>
-
 </MyGUI>

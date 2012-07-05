@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="List">
 	<List file="EditorTheme.xml"/>
 	<List file="EditorLanguage.xml"/>
@@ -12,8 +12,7 @@
 	<List file="MyGUI_Settings.xml"/>
 	<List file="SelectionSkins.xml"/>
 	<List file="TextureViewerSkins.xml"/>
-  
-  <List file="FrameworkFonts.xml"/>
-  <List file="MyGUI_DarkSkin.xml"/>
-  <List file="MyGUI_DarkTemplate.xml"/>
+	<List file="FrameworkFonts.xml"/>
+	<List file="MyGUI_DarkSkin.xml"/>
+	<List file="MyGUI_DarkTemplate.xml"/>
 </MyGUI>

@@ -3,8 +3,8 @@
 	<Resource type="ResourceTrueTypeFont" name="DejaVuSansFont.13">
 		<Property key="Source" value="DejaVuSans.ttf"/>
 		<Property key="Size" value="8"/>
-    <Property key="Hinting" value="disable_auto"/>
-    <Codes>
+		<Property key="Hinting" value="disable_auto"/>
+		<Codes>
 			<Code range="32 126"/>
 			<Code range="1025 1105"/>
 			<Code range="8470"/>
