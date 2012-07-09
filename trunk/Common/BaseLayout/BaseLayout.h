@@ -17,11 +17,13 @@ namespace wraps
 	class BaseLayout
 	{
 	protected:
-		BaseLayout() : mMainWidget(nullptr)
+		BaseLayout() :
+			 mMainWidget(nullptr)
 		{
 		}
 
-		BaseLayout(const std::string& _layout, MyGUI::Widget* _parent = nullptr) : mMainWidget(nullptr)
+		BaseLayout(const std::string& _layout, MyGUI::Widget* _parent = nullptr) :
+			mMainWidget(nullptr)
 		{
 			initialise(_layout, _parent);
 		}
@@ -92,6 +94,8 @@ namespace wraps
 			if (mLayoutName.empty())
 			{
 				mMainWidget = _parent;
+				mListWindowRoot.push_back(mMainWidget);
+				mPrefix = FindParentPrefix(mMainWidget);
 			}
 			// загружаем лейаут на виджет
 			else
@@ -120,6 +124,8 @@ namespace wraps
 					if (_createFakeWidgets)
 						mMainWidget = _createFakeWidget<MyGUI::Widget>(_parent);
 				}
+
+				mMainWidget->setUserString("BaseLayoutPrefix", mPrefix);
 			}
 		}
 
@@ -131,7 +137,8 @@ namespace wraps
 			mListBase.clear();
 
 			// удаляем все рутовые виджеты
-			MyGUI::LayoutManager::getInstance().unloadLayout(mListWindowRoot);
+			if (!mLayoutName.empty())
+				MyGUI::LayoutManager::getInstance().unloadLayout(mListWindowRoot);
 			mListWindowRoot.clear();
 		}
 
@@ -155,7 +162,19 @@ namespace wraps
 				}
 			}
 		}
+
 	private:
+		std::string FindParentPrefix(MyGUI::Widget* _parent)
+		{
+			std::string prefix = _parent->getUserString("BaseLayoutPrefix");
+			if (!prefix.empty())
+				return prefix;
+			if (_parent->getParent() != nullptr)
+				return FindParentPrefix(_parent->getParent());
+
+			return "";
+		}
+
 		void snapToParent(MyGUI::Widget* _child)
 		{
 			if (_child->isUserString("SnapTo"))
