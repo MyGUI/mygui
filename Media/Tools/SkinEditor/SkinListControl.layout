@@ -2,7 +2,6 @@
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Widget" skin="PanelEmpty" position="16 40 248 464" align="Stretch" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="ListBox" skin="ListBox_Dark" position="0 0 248 379" align="Stretch" name="List"/>
         <Widget type="Button" skin="Button_Dark" position="0 389 248 20" align="HStretch Bottom" name="Create">
             <Property key="Caption" value="#{Create}"/>
         </Widget>
@@ -11,6 +10,9 @@
         </Widget>
         <Widget type="Button" skin="Button_Dark" position="0 444 248 20" align="HStretch Bottom" name="Delete">
             <Property key="Caption" value="#{Delete}"/>
+        </Widget>
+        <Widget type="ItemBox" skin="ItemBox_Dark" position="0 0 248 382" align="Stretch" name="ListBoxControl">
+            <UserString key="CellHeight" value="20"/>
         </Widget>
     </Widget>
 </MyGUI>

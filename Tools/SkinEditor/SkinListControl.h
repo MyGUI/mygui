@@ -10,6 +10,7 @@
 #include "TextFieldControl.h"
 #include "SkinItem.h"
 #include "MessageBox/MessageBox.h"
+#include "ListBoxControl.h"
 
 namespace tools
 {
@@ -21,13 +22,14 @@ namespace tools
 		virtual ~SkinListControl();
 
 	private:
-		void notifyChangePosition(MyGUI::ListBox* _sender, size_t _index);
 		void notifyCreate(MyGUI::Widget* _sender);
 		void notifyRename(MyGUI::Widget* _sender);
 		void notifyDelete(MyGUI::Widget* _sender);
 		void notifyEndDialog(Dialog* _sender, bool _result);
 		void notifyDeleteMessageBoxResult(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _style);
 		void notifyChangeList();
+		void notifyChangeItemPosition(ListBoxControl* _sender, SkinItem* _data);
+		void notifyRelocationItem(ListBoxControl* _sender, size_t _indexFrom, size_t _indexTo);
 
 		void updateList();
 
@@ -43,12 +45,12 @@ namespace tools
 		std::string getLastTextureName();
 
 	private:
-		MyGUI::ListBox* mList;
 		MyGUI::Button* mCreate;
 		MyGUI::Button* mRename;
 		MyGUI::Button* mDelete;
 
 		TextFieldControl* mTextFieldControl;
+		ListBoxControl* mListBoxControl;
 	};
 
 } // namespace tools

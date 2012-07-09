@@ -17,18 +17,19 @@ namespace tools
 
 	SkinListControl::SkinListControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("SkinListControl.layout", _parent),
-		mList(nullptr),
 		mCreate(nullptr),
 		mRename(nullptr),
 		mDelete(nullptr),
-		mTextFieldControl(nullptr)
+		mTextFieldControl(nullptr),
+		mListBoxControl(nullptr)
 	{
-		assignWidget(mList, "List");
 		assignWidget(mCreate, "Create");
 		assignWidget(mRename, "Rename");
 		assignWidget(mDelete, "Delete");
+		assignBase(mListBoxControl, "ListBoxControl");
 
-		mList->eventListChangePosition += MyGUI::newDelegate(this, &SkinListControl::notifyChangePosition);
+		mListBoxControl->eventChangeItemPosition += MyGUI::newDelegate(this, &SkinListControl::notifyChangeItemPosition);
+		mListBoxControl->eventRelocationItem += MyGUI::newDelegate(this, &SkinListControl::notifyRelocationItem);
 		mCreate->eventMouseButtonClick += MyGUI::newDelegate(this, &SkinListControl::notifyCreate);
 		mRename->eventMouseButtonClick += MyGUI::newDelegate(this, &SkinListControl::notifyRename);
 		mDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SkinListControl::notifyDelete);
@@ -46,20 +47,11 @@ namespace tools
 		mCreate->eventMouseButtonClick -= MyGUI::newDelegate(this, &SkinListControl::notifyCreate);
 		mRename->eventMouseButtonClick -= MyGUI::newDelegate(this, &SkinListControl::notifyRename);
 		mDelete->eventMouseButtonClick -= MyGUI::newDelegate(this, &SkinListControl::notifyDelete);
-		mList->eventListChangePosition -= MyGUI::newDelegate(this, &SkinListControl::notifyChangePosition);
+		mListBoxControl->eventChangeItemPosition -= MyGUI::newDelegate(this, &SkinListControl::notifyChangeItemPosition);
+		mListBoxControl->eventRelocationItem -= MyGUI::newDelegate(this, &SkinListControl::notifyRelocationItem);
 
 		delete mTextFieldControl;
 		mTextFieldControl = nullptr;
-	}
-
-	void SkinListControl::notifyChangePosition(MyGUI::ListBox* _sender, size_t _index)
-	{
-		SkinItem* item = nullptr;
-
-		if (_index != MyGUI::ITEM_NONE)
-			item = *mList->getItemDataAt<SkinItem*>(_index);
-
-		SkinManager::getInstance().setItemSelected(item);
 	}
 
 	void SkinListControl::notifyCreate(MyGUI::Widget* _sender)
@@ -111,14 +103,20 @@ namespace tools
 				prev = current;
 			}
 
+			mListBoxControl->removeItem(item);
+
 			if (next != nullptr)
+			{
 				SkinManager::getInstance().setItemSelected(next);
+				mListBoxControl->setItemSelected(next);
+			}
 			else if (prev != nullptr)
+			{
 				SkinManager::getInstance().setItemSelected(prev);
+				mListBoxControl->setItemSelected(prev);
+			}
 
 			SkinManager::getInstance().destroyChild(item);
-
-			updateList();
 
 			ActionManager::getInstance().setChanges(true);
 		}
@@ -126,27 +124,29 @@ namespace tools
 
 	void SkinListControl::updateList()
 	{
-		mList->setIndexSelected(MyGUI::ITEM_NONE);
-		mList->removeAllItems();
+		mListBoxControl->setIndexSelected(MyGUI::ITEM_NONE);
+
+		while (mListBoxControl->getItemCount() > SkinManager::getInstance().getItemCount())
+			mListBoxControl->removeItemAt(0);
+
+		while (mListBoxControl->getItemCount() < SkinManager::getInstance().getItemCount())
+			mListBoxControl->addItem(nullptr);
 
 		SkinItem* selectedItem = SkinManager::getInstance().getItemSelected();
 
+		size_t index = 0;
 		ItemHolder<SkinItem>::EnumeratorItem items = SkinManager::getInstance().getChildsEnumerator();
 		while (items.next())
 		{
-			size_t index = mList->getItemCount();
-
 			SkinItem* item = items.current();
 
 			size_t count = getNameCount(item->getName());
-			if (count == 1)
-				mList->addItem(item->getName());
-			else
-				mList->addItem(replaceTags("ColourError") + item->getName());
+			mListBoxControl->setItemAt(index, item);
 
-			mList->setItemDataAt(index, item);
 			if (item == selectedItem)
-				mList->setIndexSelected(index);
+				mListBoxControl->setIndexSelected(index);
+
+			index ++;
 		}
 	}
 
@@ -213,7 +213,8 @@ namespace tools
 	void SkinListControl::renameItem(SkinItem* _item, const MyGUI::UString& _value)
 	{
 		_item->setName(_value);
-		updateList();
+
+		mListBoxControl->redrawAllItems();
 
 		ActionManager::getInstance().setChanges(true);
 	}
@@ -254,6 +255,17 @@ namespace tools
 			return lastCurrent->getPropertySet()->getPropertyValue("Texture");
 
 		return "";
+	}
+
+	void SkinListControl::notifyChangeItemPosition(ListBoxControl* _sender, SkinItem* _data)
+	{
+		SkinManager::getInstance().setItemSelected(_data);
+	}
+
+	void SkinListControl::notifyRelocationItem(ListBoxControl* _sender, size_t _indexFrom, size_t _indexTo)
+	{
+		SkinManager::getInstance().moveItem(_indexFrom, _indexTo);
+		updateList();
 	}
 
 } // namespace tools

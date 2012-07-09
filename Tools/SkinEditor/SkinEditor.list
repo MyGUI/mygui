@@ -80,7 +80,6 @@ set (HEADER_FILES
   VerticalSelectorControl.h
   ListBoxControl.h
   ListBoxItemControl.h
-  ListBoxItemData.h
 )
 set (SOURCE_FILES
   ActionManager.cpp
@@ -320,7 +319,6 @@ SOURCE_GROUP("Header Files" FILES
   VerticalSelectorControl.h
   ListBoxControl.h
   ListBoxItemControl.h
-  ListBoxItemData.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Precompiled.cpp

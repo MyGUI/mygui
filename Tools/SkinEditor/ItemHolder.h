@@ -46,6 +46,19 @@ namespace tools
 			destroyAllChilds(true);
 		}
 
+		void moveItem(size_t _currentPosition, size_t _newPosition)
+		{
+			T* item = mChilds[_currentPosition];
+			mChilds.erase(mChilds.begin() + _currentPosition);
+
+			if (_newPosition == MyGUI::ITEM_NONE)
+				_newPosition = mChilds.size();
+
+			mChilds.insert(mChilds.begin() + _newPosition, item);
+
+			eventChangeList();
+		}
+
 		EnumeratorItem getChildsEnumerator() const
 		{
 			return EnumeratorItem(mChilds);
@@ -60,6 +73,11 @@ namespace tools
 		{
 			mItemSelected = _value;
 			eventChangeSelection();
+		}
+
+		size_t getItemCount() const
+		{
+			return mChilds.size();
 		}
 
 		EventHandle_ChangeSelection eventChangeSelection;
