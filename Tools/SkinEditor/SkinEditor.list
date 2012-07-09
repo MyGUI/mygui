@@ -78,6 +78,7 @@ set (HEADER_FILES
   TextureToolControl.h
   VerticalSelectorBlackControl.h
   VerticalSelectorControl.h
+  ListBoxControl.h
 )
 set (SOURCE_FILES
   ActionManager.cpp
@@ -155,6 +156,7 @@ set (SOURCE_FILES
   VerticalSelectorControl.cpp
   ../../Common/Precompiled.cpp
   SkinEditor.rc
+  ListBoxControl.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   ActionManager.cpp
@@ -230,6 +232,7 @@ SOURCE_GROUP("Source Files" FILES
   TextureToolControl.cpp
   VerticalSelectorBlackControl.cpp
   VerticalSelectorControl.cpp
+  ListBoxControl.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   ActionManager.h
@@ -311,6 +314,7 @@ SOURCE_GROUP("Header Files" FILES
   TextureToolControl.h
   VerticalSelectorBlackControl.h
   VerticalSelectorControl.h
+  ListBoxControl.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Precompiled.cpp
