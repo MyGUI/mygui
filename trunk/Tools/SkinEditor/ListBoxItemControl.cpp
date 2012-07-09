@@ -5,6 +5,7 @@
 */
 #include "Precompiled.h"
 #include "ListBoxItemControl.h"
+#include "Localise.h"
 
 namespace tools
 {
@@ -27,10 +28,14 @@ namespace tools
 		if (_data == nullptr)
 			return;
 
-		if (_info.update)
-		{
-			mMainWidget->castType<MyGUI::Button>()->setCaption(_data->getName());
-		}
+		MyGUI::Button* button = mMainWidget->castType<MyGUI::Button>(false);
+		if (button == nullptr)
+			return;
+
+		if (_data->getUniqum())
+			button->setCaption(_data->getName());
+		else
+			button->setCaption(replaceTags("ColourError") + _data->getName());
 
 		std::string state = "";
 		if (_info.select)

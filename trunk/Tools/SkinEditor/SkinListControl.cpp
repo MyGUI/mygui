@@ -30,7 +30,8 @@ namespace tools
 
 		mListBoxControl->eventChangeItemPosition += MyGUI::newDelegate(this, &SkinListControl::notifyChangeItemPosition);
 		mListBoxControl->eventRelocationItem += MyGUI::newDelegate(this, &SkinListControl::notifyRelocationItem);
-		mListBoxControl->eventCommand +=MyGUI::newDelegate(this, &SkinListControl::notifyCommand);
+		mListBoxControl->eventCommand += MyGUI::newDelegate(this, &SkinListControl::notifyCommand);
+		mListBoxControl->eventItemRename += MyGUI::newDelegate(this, &SkinListControl::notifyItemRename);
 
 		mCreate->eventMouseButtonClick += MyGUI::newDelegate(this, &SkinListControl::notifyCreate);
 		mRename->eventMouseButtonClick += MyGUI::newDelegate(this, &SkinListControl::notifyRename);
@@ -49,9 +50,11 @@ namespace tools
 		mCreate->eventMouseButtonClick -= MyGUI::newDelegate(this, &SkinListControl::notifyCreate);
 		mRename->eventMouseButtonClick -= MyGUI::newDelegate(this, &SkinListControl::notifyRename);
 		mDelete->eventMouseButtonClick -= MyGUI::newDelegate(this, &SkinListControl::notifyDelete);
+
 		mListBoxControl->eventChangeItemPosition -= MyGUI::newDelegate(this, &SkinListControl::notifyChangeItemPosition);
 		mListBoxControl->eventRelocationItem -= MyGUI::newDelegate(this, &SkinListControl::notifyRelocationItem);
 		mListBoxControl->eventCommand -=MyGUI::newDelegate(this, &SkinListControl::notifyCommand);
+		mListBoxControl->eventItemRename -= MyGUI::newDelegate(this, &SkinListControl::notifyItemRename);
 
 		delete mTextFieldControl;
 		mTextFieldControl = nullptr;
@@ -116,6 +119,7 @@ namespace tools
 
 	void SkinListControl::updateList()
 	{
+		updateItemUniqum();
 		mListBoxControl->setIndexSelected(MyGUI::ITEM_NONE);
 
 		while (mListBoxControl->getItemCount() > SkinManager::getInstance().getItemCount())
@@ -132,7 +136,7 @@ namespace tools
 		{
 			SkinItem* item = items.current();
 
-			size_t count = getNameCount(item->getName());
+			//size_t count = getNameCount(item->getName());
 			mListBoxControl->setItemAt(index, item);
 
 			if (item == selectedItem)
@@ -144,10 +148,12 @@ namespace tools
 
 	void SkinListControl::showTextField(SkinItem* _item)
 	{
-		mTextFieldControl->setCaption(replaceTags("CaptionEnterName"));
+		if (_item != nullptr)
+			mListBoxControl->showItemEditor(_item, _item->getName());
+		/*mTextFieldControl->setCaption(replaceTags("CaptionEnterName"));
 		mTextFieldControl->setTextField(_item == nullptr ? getNextFreeName() : _item->getName());
 		mTextFieldControl->setUserData(_item);
-		mTextFieldControl->doModal();
+		mTextFieldControl->doModal();*/
 	}
 
 	MyGUI::UString SkinListControl::getNextFreeName()
@@ -206,7 +212,7 @@ namespace tools
 	{
 		_item->setName(_value);
 
-		mListBoxControl->redrawAllItems();
+		redrawAllItems();
 
 		ActionManager::getInstance().setChanges(true);
 	}
@@ -293,6 +299,28 @@ namespace tools
 				replaceTags("MessageDeleteSkin"),
 				MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No);
 			message->eventMessageBoxResult += MyGUI::newDelegate(this, &SkinListControl::notifyDeleteMessageBoxResult);
+		}
+	}
+
+	void SkinListControl::notifyItemRename(ListBoxControl* _sender, const std::string& _text)
+	{
+		SkinItem* item = SkinManager::getInstance().getItemSelected();
+		renameItem(item, _text);
+	}
+
+	void SkinListControl::redrawAllItems()
+	{
+		updateItemUniqum();
+		mListBoxControl->redrawAllItems();
+	}
+
+	void SkinListControl::updateItemUniqum()
+	{
+		ItemHolder<SkinItem>::EnumeratorItem items = SkinManager::getInstance().getChildsEnumerator();
+		while (items.next())
+		{
+			SkinItem* item = items.current();
+			item->setUniqum(getNameCount(item->getName()) == 1);
 		}
 	}
 

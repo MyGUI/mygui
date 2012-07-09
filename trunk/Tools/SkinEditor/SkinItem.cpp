@@ -699,4 +699,14 @@ namespace tools
 		return result;
 	}
 
+	bool SkinItem::getUniqum() const
+	{
+		return mUniqum;
+	}
+	
+	void SkinItem::setUniqum(bool _value)
+	{
+		mUniqum = _value;
+	}
+
 } // namespace tools

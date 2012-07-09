@@ -11,6 +11,7 @@
         <Widget type="ItemBox" skin="ItemBox_Dark" position="0 0 248 437" align="Stretch" name="ListBoxControl">
             <UserString key="CellHeight" value="20"/>
             <Widget type="PopupMenu" skin="PopupMenu_Dark" position="25 555 99 70" style="Popup" layer="Popup" name="ContextMenu">
+                <Property key="Visible" value="false"/>
                 <Widget type="MenuItem" skin="" position="0 0 93 18">
                     <Property key="Caption" value="#{Create}"/>
                     <Property key="MenuItemId" value="Create"/>
@@ -26,6 +27,9 @@
                     <Property key="Caption" value="#{Rename}"/>
                     <Property key="MenuItemId" value="Rename"/>
                 </Widget>
+            </Widget>
+            <Widget type="EditBox" skin="EditBox2_Dark" position="25 660 50 20" style="Popup" layer="Popup" name="ItemEditor">
+                <Property key="Visible" value="false"/>
             </Widget>
         </Widget>
     </Widget>

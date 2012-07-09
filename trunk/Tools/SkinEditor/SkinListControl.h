@@ -31,6 +31,7 @@ namespace tools
 		void notifyChangeItemPosition(ListBoxControl* _sender, SkinItem* _data);
 		void notifyRelocationItem(ListBoxControl* _sender, size_t _indexFrom, size_t _indexTo);
 		void notifyCommand(ListBoxControl* _sender, const std::string& _id);
+		void notifyItemRename(ListBoxControl* _sender, const std::string& _text);
 
 		void updateList();
 
@@ -48,6 +49,9 @@ namespace tools
 		void onItemCreate();
 		void onItemRename();
 		void onItemDelete();
+
+		void redrawAllItems();
+		void updateItemUniqum();
 
 	private:
 		MyGUI::Button* mCreate;
