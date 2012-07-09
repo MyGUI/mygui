@@ -30,6 +30,7 @@ namespace tools
 		void notifyChangeList();
 		void notifyChangeItemPosition(ListBoxControl* _sender, SkinItem* _data);
 		void notifyRelocationItem(ListBoxControl* _sender, size_t _indexFrom, size_t _indexTo);
+		void notifyCommand(ListBoxControl* _sender, const std::string& _id);
 
 		void updateList();
 
@@ -43,6 +44,10 @@ namespace tools
 		void createItem(const MyGUI::UString& _value);
 
 		std::string getLastTextureName();
+
+		void onItemCreate();
+		void onItemRename();
+		void onItemDelete();
 
 	private:
 		MyGUI::Button* mCreate;

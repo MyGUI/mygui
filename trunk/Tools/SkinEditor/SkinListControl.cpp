@@ -24,12 +24,14 @@ namespace tools
 		mListBoxControl(nullptr)
 	{
 		assignWidget(mCreate, "Create");
-		assignWidget(mRename, "Rename");
+		assignWidget(mRename, "Rename", false);
 		assignWidget(mDelete, "Delete");
 		assignBase(mListBoxControl, "ListBoxControl");
 
 		mListBoxControl->eventChangeItemPosition += MyGUI::newDelegate(this, &SkinListControl::notifyChangeItemPosition);
 		mListBoxControl->eventRelocationItem += MyGUI::newDelegate(this, &SkinListControl::notifyRelocationItem);
+		mListBoxControl->eventCommand +=MyGUI::newDelegate(this, &SkinListControl::notifyCommand);
+
 		mCreate->eventMouseButtonClick += MyGUI::newDelegate(this, &SkinListControl::notifyCreate);
 		mRename->eventMouseButtonClick += MyGUI::newDelegate(this, &SkinListControl::notifyRename);
 		mDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SkinListControl::notifyDelete);
@@ -49,6 +51,7 @@ namespace tools
 		mDelete->eventMouseButtonClick -= MyGUI::newDelegate(this, &SkinListControl::notifyDelete);
 		mListBoxControl->eventChangeItemPosition -= MyGUI::newDelegate(this, &SkinListControl::notifyChangeItemPosition);
 		mListBoxControl->eventRelocationItem -= MyGUI::newDelegate(this, &SkinListControl::notifyRelocationItem);
+		mListBoxControl->eventCommand -=MyGUI::newDelegate(this, &SkinListControl::notifyCommand);
 
 		delete mTextFieldControl;
 		mTextFieldControl = nullptr;
@@ -56,28 +59,17 @@ namespace tools
 
 	void SkinListControl::notifyCreate(MyGUI::Widget* _sender)
 	{
-		//showTextField(nullptr);
-		createItem(getNextFreeName());
+		onItemCreate();
 	}
 
 	void SkinListControl::notifyRename(MyGUI::Widget* _sender)
 	{
-		SkinItem* item = SkinManager::getInstance().getItemSelected();
-		if (item != nullptr)
-			showTextField(item);
+		onItemRename();
 	}
 
 	void SkinListControl::notifyDelete(MyGUI::Widget* _sender)
 	{
-		SkinItem* item = SkinManager::getInstance().getItemSelected();
-		if (item != nullptr)
-		{
-			MyGUI::Message* message = MessageBoxManager::getInstance().create(
-				replaceTags("Warning"),
-				replaceTags("MessageDeleteSkin"),
-				MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No);
-			message->eventMessageBoxResult += MyGUI::newDelegate(this, &SkinListControl::notifyDeleteMessageBoxResult);
-		}
+		onItemDelete();
 	}
 
 	void SkinListControl::notifyDeleteMessageBoxResult(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _style)
@@ -266,6 +258,42 @@ namespace tools
 	{
 		SkinManager::getInstance().moveItem(_indexFrom, _indexTo);
 		updateList();
+	}
+
+	void SkinListControl::notifyCommand(ListBoxControl* _sender, const std::string& _id)
+	{
+		if (_id == "Create")
+			onItemCreate();
+		else if (_id == "Rename")
+			onItemRename();
+		else if (_id == "Delete")
+			onItemDelete();
+	}
+
+	void SkinListControl::onItemCreate()
+	{
+		//showTextField(nullptr);
+		createItem(getNextFreeName());
+	}
+
+	void SkinListControl::onItemRename()
+	{
+		SkinItem* item = SkinManager::getInstance().getItemSelected();
+		if (item != nullptr)
+			showTextField(item);
+	}
+
+	void SkinListControl::onItemDelete()
+	{
+		SkinItem* item = SkinManager::getInstance().getItemSelected();
+		if (item != nullptr)
+		{
+			MyGUI::Message* message = MessageBoxManager::getInstance().create(
+				replaceTags("Warning"),
+				replaceTags("MessageDeleteSkin"),
+				MyGUI::MessageBoxStyle::IconQuest | MyGUI::MessageBoxStyle::Yes | MyGUI::MessageBoxStyle::No);
+			message->eventMessageBoxResult += MyGUI::newDelegate(this, &SkinListControl::notifyDeleteMessageBoxResult);
+		}
 	}
 
 } // namespace tools

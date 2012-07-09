@@ -94,8 +94,11 @@ namespace wraps
 			if (mLayoutName.empty())
 			{
 				mMainWidget = _parent;
-				mListWindowRoot.push_back(mMainWidget);
-				mPrefix = FindParentPrefix(mMainWidget);
+				if (mMainWidget != nullptr)
+				{
+					mListWindowRoot.push_back(mMainWidget);
+					mPrefix = FindParentPrefix(mMainWidget);
+				}
 			}
 			// загружаем лейаут на виджет
 			else
