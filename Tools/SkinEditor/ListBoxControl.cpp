@@ -11,6 +11,10 @@ namespace tools
 	ListBoxControl::ListBoxControl(MyGUI::Widget* _parent) :
 		wraps::BaseItemBox<ListBoxItemControl>(_parent)
 	{
+		assignWidget(mContextMenu, "ContextMenu");
+		if (mContextMenu != nullptr)
+			mContextMenu->setVisible(false);
+
 		getItemBox()->eventChangeItemPosition += MyGUI::newDelegate(this, &ListBoxControl::notifyChangeItemPosition);
 		getItemBox()->eventStartDrag += MyGUI::newDelegate(this, &ListBoxControl::notifyStartDrag);
 		getItemBox()->eventRequestDrop += MyGUI::newDelegate(this, &ListBoxControl::notifyRequestDrop);

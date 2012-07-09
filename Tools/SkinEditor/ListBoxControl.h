@@ -48,6 +48,9 @@ namespace tools
 		void notifyStartDrag(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result);
 		void notifyRequestDrop(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result);
 		void notifyDropResult(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool _result);
+
+	private:
+		MyGUI::PopupMenu* mContextMenu;
 	};
 }
 

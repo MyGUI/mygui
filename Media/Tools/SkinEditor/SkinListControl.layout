@@ -13,6 +13,20 @@
         </Widget>
         <Widget type="ItemBox" skin="ItemBox_Dark" position="0 0 248 382" align="Stretch" name="ListBoxControl">
             <UserString key="CellHeight" value="20"/>
+            <Widget type="PopupMenu" skin="PopupMenu_Dark" position="25 555 99 60" style="Popup" layer="Popup" name="ContextMenu">
+                <Widget type="MenuItem" skin="" position="0 0 93 18">
+                    <Property key="Caption" value="#{Create}"/>
+                    <Property key="MenuItemId" value="Create"/>
+                </Widget>
+                <Widget type="MenuItem" skin="" position="0 18 93 18">
+                    <Property key="Caption" value="#{Rename}"/>
+                    <Property key="MenuItemId" value="Rename"/>
+                </Widget>
+                <Widget type="MenuItem" skin="" position="0 36 93 18">
+                    <Property key="Caption" value="#{Delete}"/>
+                    <Property key="MenuItemId" value="Delete"/>
+                </Widget>
+            </Widget>
         </Widget>
     </Widget>
 </MyGUI>
