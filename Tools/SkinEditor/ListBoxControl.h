@@ -19,8 +19,6 @@ namespace tools
 		ListBoxControl(MyGUI::Widget* _parent);
 		virtual ~ListBoxControl();
 
-		void setIndexSelected(size_t _value);
-
 		void removeAllItems();
 
 		void removeItem(DataType _data);
@@ -29,13 +27,17 @@ namespace tools
 
 		size_t getItemCount() const;
 
-		void redrawAllItems();
-
-		size_t getIndexData(DataType _data) const;
+		void setIndexSelected(size_t _value);
 
 		void setItemSelected(DataType _data);
 
+		size_t getIndexData(DataType _data) const;
+
 		void setItemAt(size_t _index, DataType _data);
+
+		void redrawAllItems();
+
+		void showItemEditor(DataType _data, const std::string& _text);
 
 		MyGUI::delegates::CMultiDelegate2<ListBoxControl*, DataType>
 			eventChangeItemPosition;
@@ -46,6 +48,9 @@ namespace tools
 		MyGUI::delegates::CMultiDelegate2<ListBoxControl*, const std::string&>
 			eventCommand;
 
+		MyGUI::delegates::CMultiDelegate2<ListBoxControl*, const std::string&>
+			eventItemRename;
+
 	private:
 		void notifyChangeItemPosition(MyGUI::ItemBox* _sender, size_t _index);
 		void notifyStartDrag(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result);
@@ -53,9 +58,12 @@ namespace tools
 		void notifyDropResult(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool _result);
 		void notifyMenuCtrlAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item);
 		void notifyNotifyItem(MyGUI::ItemBox* _sender, const MyGUI::IBNotifyItemData& _info);
+		void notifyRootKeyChangeFocus(MyGUI::Widget* _sender, bool _focus);
+		void notifyEditSelectAccept(MyGUI::EditBox* _sender);
 
 	private:
 		MyGUI::PopupMenu* mContextMenu;
+		MyGUI::EditBox* mItemEditor;
 	};
 }
 

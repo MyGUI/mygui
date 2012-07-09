@@ -32,6 +32,9 @@ namespace tools
 		ItemHolder<SeparatorItem>& getSeparators();
 		ItemHolder<RegionItem>& getRegions();
 
+		bool getUniqum() const;
+		void setUniqum(bool _value);
+
 		virtual void serialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
 
 		void deserialization2(MyGUI::xml::Element* _node, MyGUI::Version _version);
@@ -51,6 +54,7 @@ namespace tools
 		ItemHolder<StateItem> mStates;
 		ItemHolder<SeparatorItem> mSeparators;
 		ItemHolder<RegionItem> mRegions;
+		bool mUniqum;
 	};
 
 } // namespace tools
