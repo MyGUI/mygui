@@ -11,10 +11,12 @@ namespace tools
 	ListBoxControl::ListBoxControl(MyGUI::Widget* _parent) :
 		wraps::BaseItemBox<ListBoxItemControl>(_parent)
 	{
-		assignWidget(mContextMenu, "ContextMenu");
-		if (mContextMenu != nullptr)
-			mContextMenu->setVisible(false);
+		assignWidget(mContextMenu, "ContextMenu", false);
 
+		mContextMenu->setVisible(false);
+		mContextMenu->eventMenuCtrlAccept += MyGUI::newDelegate(this, &ListBoxControl::notifyMenuCtrlAccept);
+
+		getItemBox()->eventNotifyItem += MyGUI::newDelegate(this, &ListBoxControl::notifyNotifyItem);
 		getItemBox()->eventChangeItemPosition += MyGUI::newDelegate(this, &ListBoxControl::notifyChangeItemPosition);
 		getItemBox()->eventStartDrag += MyGUI::newDelegate(this, &ListBoxControl::notifyStartDrag);
 		getItemBox()->eventRequestDrop += MyGUI::newDelegate(this, &ListBoxControl::notifyRequestDrop);
@@ -23,6 +25,9 @@ namespace tools
 
 	ListBoxControl::~ListBoxControl()
 	{
+		mContextMenu->eventMenuCtrlAccept -= MyGUI::newDelegate(this, &ListBoxControl::notifyMenuCtrlAccept);
+
+		getItemBox()->eventNotifyItem -= MyGUI::newDelegate(this, &ListBoxControl::notifyNotifyItem);
 		getItemBox()->eventChangeItemPosition -= MyGUI::newDelegate(this, &ListBoxControl::notifyChangeItemPosition);
 		getItemBox()->eventStartDrag -= MyGUI::newDelegate(this, &ListBoxControl::notifyStartDrag);
 		getItemBox()->eventRequestDrop -= MyGUI::newDelegate(this, &ListBoxControl::notifyRequestDrop);
@@ -109,5 +114,25 @@ namespace tools
 	void ListBoxControl::setItemAt(size_t _index, DataType _data)
 	{
 		getItemBox()->setItemDataAt(_index, _data);
+	}
+
+	void ListBoxControl::notifyMenuCtrlAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item)
+	{
+		eventCommand(this, _item->getItemId());
+	}
+
+	void ListBoxControl::notifyNotifyItem(MyGUI::ItemBox* _sender, const MyGUI::IBNotifyItemData& _info)
+	{
+		if (_info.notify == MyGUI::IBNotifyItemData::MouseReleased)
+		{
+			if (_info.id == MyGUI::MouseButton::Right)
+			{
+				if (mContextMenu->getItemCount() != 0)
+				{
+					mContextMenu->setPosition(MyGUI::InputManager::getInstance().getLastPressedPosition(MyGUI::MouseButton::Right));
+					mContextMenu->setVisibleSmooth(true);
+				}
+			}
+		}
 	}
 }

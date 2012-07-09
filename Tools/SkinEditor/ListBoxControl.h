@@ -43,11 +43,16 @@ namespace tools
 		MyGUI::delegates::CMultiDelegate3<ListBoxControl*, size_t, size_t>
 			eventRelocationItem;
 
+		MyGUI::delegates::CMultiDelegate2<ListBoxControl*, const std::string&>
+			eventCommand;
+
 	private:
 		void notifyChangeItemPosition(MyGUI::ItemBox* _sender, size_t _index);
 		void notifyStartDrag(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result);
 		void notifyRequestDrop(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result);
 		void notifyDropResult(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool _result);
+		void notifyMenuCtrlAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item);
+		void notifyNotifyItem(MyGUI::ItemBox* _sender, const MyGUI::IBNotifyItemData& _info);
 
 	private:
 		MyGUI::PopupMenu* mContextMenu;
