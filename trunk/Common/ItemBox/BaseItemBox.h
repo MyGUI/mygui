@@ -149,7 +149,7 @@ namespace wraps
 
 		MyGUI::delegates::CDelegate3<BaseLayout*, const MyGUI::ToolTipInfo&, DataType> eventToolTip;
 
-		MyGUI::ItemBox* getItemBox()
+		MyGUI::ItemBox* getItemBox() const
 		{
 			return mBoxItems;
 		}

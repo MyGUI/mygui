@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="ItemBox" skin="ItemBox" position="30 30 100 100" name="Root"/>
+    <Widget type="Button" skin="ListBoxItem_Dark" position="20 20 20 20" name="Root"/>
 </MyGUI>
