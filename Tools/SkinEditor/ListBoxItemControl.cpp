@@ -63,6 +63,16 @@ namespace tools
 			else if (_info.drop_refuse)
 				state = "normal";
 		}
+		else
+		{
+			if (!_info.active)
+			{
+				if (_info.drop_accept)
+					state = "highlighted";
+				else if (_info.drop_refuse)
+					state = "normal";
+			}
+		}
 
 		mMainWidget->_setWidgetState(state);
 	}
