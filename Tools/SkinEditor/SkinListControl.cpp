@@ -120,11 +120,12 @@ namespace tools
 	void SkinListControl::updateList()
 	{
 		updateItemUniqum();
-		mListBoxControl->setIndexSelected(MyGUI::ITEM_NONE);
 
 		// обнуляем список
 		for (size_t index = 0; index < mListBoxControl->getItemCount(); index ++)
 			mListBoxControl->setItemData(index, nullptr);
+
+		mListBoxControl->setIndexSelected(MyGUI::ITEM_NONE);
 
 		while (mListBoxControl->getItemCount() > SkinManager::getInstance().getItemCount())
 			mListBoxControl->removeItemAt(0);
