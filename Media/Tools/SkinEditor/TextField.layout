@@ -1,13 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="Window" skin="WindowCX_Dark" position="24 56 280 100" align="Default" layer="Popup" name="_Main">
+    <Widget type="Widget" skin="PanelEmpty" position="20 20 200 20" align="Default" layer="Popup" name="_Main">
         <UserString key="SnapTo" value="Center"/>
-        <Widget type="EditBox" skin="EditBox_Dark" position="4 9 264 20" align="HStretch Top" name="Text"/>
-        <Widget type="Button" skin="Button_Dark" position="163 41 104 20" align="Right Top" name="Ok">
-            <Property key="Caption" value="#{Ok}"/>
-        </Widget>
-        <Widget type="Button" skin="Button_Dark" position="4 41 104 20" align="Left Top" name="Cancel">
-            <Property key="Caption" value="#{Cancel}"/>
-        </Widget>
+        <Widget type="EditBox" skin="EditBox2_Dark" position="0 0 200 20" align="Stretch" name="Text"/>
     </Widget>
 </MyGUI>

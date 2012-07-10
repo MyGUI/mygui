@@ -37,7 +37,7 @@ namespace tools
 
 		void redrawAllItems();
 
-		void showItemEditor(DataType _data, const std::string& _text);
+		MyGUI::IntCoord getItemCoord(DataType _data);
 
 		void ensureItemVisible(DataType _data);
 
@@ -60,14 +60,11 @@ namespace tools
 		void notifyDropResult(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool _result);
 		void notifyMenuCtrlAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item);
 		void notifyNotifyItem(MyGUI::ItemBox* _sender, const MyGUI::IBNotifyItemData& _info);
-		void notifyRootKeyChangeFocus(MyGUI::Widget* _sender, bool _focus);
-		void notifyEditSelectAccept(MyGUI::EditBox* _sender);
 
-		void onIndexSelected(size_t _index);
+		void onIndexSelected(size_t _index, bool _ensureVisible = true);
 
 	private:
 		MyGUI::PopupMenu* mContextMenu;
-		MyGUI::EditBox* mItemEditor;
 	};
 }
 

@@ -24,6 +24,8 @@ namespace tools
 
 		void setUserData(MyGUI::Any _data);
 
+		void setCoord(const MyGUI::IntCoord& _value);
+
 		template <typename ValueType>
 		ValueType* getUserData(bool _throw = true)
 		{
@@ -39,6 +41,7 @@ namespace tools
 		void notifyCancel(MyGUI::Widget* _sender);
 		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _buttonName);
 		void notifyTextAccept(MyGUI::EditBox* _sender);
+		void notifyRootKeyChangeFocus(MyGUI::Widget* _sender, bool _focus);
 
 	private:
 		MyGUI::EditBox* mText;
