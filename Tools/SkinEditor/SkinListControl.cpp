@@ -271,6 +271,8 @@ namespace tools
 	{
 		SkinManager::getInstance().moveItem(_indexFrom, _indexTo);
 		updateList();
+
+		ActionManager::getInstance().setChanges(true);
 	}
 
 	void SkinListControl::notifyCommand(ListBoxControl* _sender, const std::string& _id)
