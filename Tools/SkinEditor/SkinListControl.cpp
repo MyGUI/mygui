@@ -136,7 +136,6 @@ namespace tools
 		{
 			SkinItem* item = items.current();
 
-			//size_t count = getNameCount(item->getName());
 			mListBoxControl->setItemAt(index, item);
 
 			if (item == selectedItem)
@@ -237,6 +236,8 @@ namespace tools
 			item->getPropertySet()->setPropertyValue("Texture", textureName, "");
 
 		ActionManager::getInstance().setChanges(true);
+
+		onItemRename();
 	}
 
 	void SkinListControl::notifyChangeList()
@@ -284,7 +285,6 @@ namespace tools
 
 	void SkinListControl::onItemCreate()
 	{
-		//showTextField(nullptr);
 		createItem(getNextFreeName());
 	}
 
