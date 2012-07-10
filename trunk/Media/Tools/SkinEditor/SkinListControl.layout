@@ -28,9 +28,6 @@
                     <Property key="MenuItemId" value="Rename"/>
                 </Widget>
             </Widget>
-            <Widget type="EditBox" skin="EditBox2_Dark" position="25 660 50 20" style="Popup" layer="Popup" name="ItemEditor">
-                <Property key="Visible" value="false"/>
-            </Widget>
         </Widget>
     </Widget>
 </MyGUI>

@@ -15,12 +15,14 @@ namespace tools
 		mCancel(nullptr)
 	{
 		assignWidget(mText, "Text");
-		assignWidget(mOk, "Ok");
-		assignWidget(mCancel, "Cancel");
+		assignWidget(mOk, "Ok", false);
+		assignWidget(mCancel, "Cancel", false);
 
 		mOk->eventMouseButtonClick += MyGUI::newDelegate(this, &TextFieldControl::notifyOk);
 		mCancel->eventMouseButtonClick += MyGUI::newDelegate(this, &TextFieldControl::notifyCancel);
 		mText->eventEditSelectAccept += MyGUI::newDelegate(this, &TextFieldControl::notifyTextAccept);
+		
+		mMainWidget->eventRootKeyChangeFocus += MyGUI::newDelegate(this, &TextFieldControl::notifyRootKeyChangeFocus);
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
@@ -31,6 +33,8 @@ namespace tools
 
 	TextFieldControl::~TextFieldControl()
 	{
+		mMainWidget->eventRootKeyChangeFocus -= MyGUI::newDelegate(this, &TextFieldControl::notifyRootKeyChangeFocus);
+
 		mOk->eventMouseButtonClick -= MyGUI::newDelegate(this, &TextFieldControl::notifyOk);
 		mCancel->eventMouseButtonClick -= MyGUI::newDelegate(this, &TextFieldControl::notifyCancel);
 		mText->eventEditSelectAccept -= MyGUI::newDelegate(this, &TextFieldControl::notifyTextAccept);
@@ -87,15 +91,20 @@ namespace tools
 	{
 		mText->setTextSelection(0, mText->getTextLength());
 		MyGUI::InputManager::getInstance().setKeyFocusWidget(mText);
-
-		MyGUI::IntSize windowSize = mMainWidget->getSize();
-		MyGUI::IntSize parentSize = mMainWidget->getParentSize();
-
-		mMainWidget->setPosition((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2);
 	}
 
 	void TextFieldControl::onEndModal()
 	{
 	}
 
-} // namespace tools
+	void TextFieldControl::notifyRootKeyChangeFocus(MyGUI::Widget* _sender, bool _focus)
+	{
+		if (!_focus && mMainWidget->getVisible())
+			eventEndDialog(this, false);
+	}
+
+	void TextFieldControl::setCoord(const MyGUI::IntCoord& _value)
+	{
+		mMainWidget->setCoord(_value);
+	}
+}

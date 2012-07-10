@@ -10,15 +10,11 @@ namespace tools
 {
 	ListBoxControl::ListBoxControl(MyGUI::Widget* _parent) :
 		wraps::BaseItemBox<ListBoxItemControl>(_parent),
-		mContextMenu(nullptr),
-		mItemEditor(nullptr)
+		mContextMenu(nullptr)
 	{
 		assignWidget(mContextMenu, "ContextMenu", false);
-		assignWidget(mItemEditor, "ItemEditor", false);
 
 		mContextMenu->eventMenuCtrlAccept += MyGUI::newDelegate(this, &ListBoxControl::notifyMenuCtrlAccept);
-		mItemEditor->eventRootKeyChangeFocus += MyGUI::newDelegate(this, &ListBoxControl::notifyRootKeyChangeFocus);
-		mItemEditor->eventEditSelectAccept += MyGUI::newDelegate(this, &ListBoxControl::notifyEditSelectAccept);
 
 		getItemBox()->eventNotifyItem += MyGUI::newDelegate(this, &ListBoxControl::notifyNotifyItem);
 		getItemBox()->eventChangeItemPosition += MyGUI::newDelegate(this, &ListBoxControl::notifyChangeItemPosition);
@@ -30,8 +26,6 @@ namespace tools
 	ListBoxControl::~ListBoxControl()
 	{
 		mContextMenu->eventMenuCtrlAccept -= MyGUI::newDelegate(this, &ListBoxControl::notifyMenuCtrlAccept);
-		mItemEditor->eventRootKeyChangeFocus -= MyGUI::newDelegate(this, &ListBoxControl::notifyRootKeyChangeFocus);
-		mItemEditor->eventEditSelectAccept -= MyGUI::newDelegate(this, &ListBoxControl::notifyEditSelectAccept);
 
 		getItemBox()->eventNotifyItem -= MyGUI::newDelegate(this, &ListBoxControl::notifyNotifyItem);
 		getItemBox()->eventChangeItemPosition -= MyGUI::newDelegate(this, &ListBoxControl::notifyChangeItemPosition);
@@ -144,7 +138,10 @@ namespace tools
 		{
 			if (_info.id == MyGUI::MouseButton::Right)
 			{
-				onIndexSelected(_info.index);
+				// если обновлять и позицию то падает когда айтем в самом низу
+				// недопустимый индекс
+				// связано с вторичным вызовом нотифая и перерисовки всего
+				onIndexSelected(_info.index, false);
 			}
 		}
 		else if (_info.notify == MyGUI::IBNotifyItemData::KeyPressed)
@@ -184,34 +181,6 @@ namespace tools
 		}
 	}
 
-	void ListBoxControl::showItemEditor(DataType _data, const std::string& _text)
-	{
-		size_t index = getIndexData(_data);
-		MyGUI::Widget* widget = getItemBox()->getWidgetByIndex(index);
-		if (widget != nullptr)
-		{
-			mItemEditor->setCoord(widget->getAbsoluteLeft(), widget->getAbsoluteTop(), widget->getWidth(), widget->getHeight());
-			mItemEditor->setCaption(_text);
-			mItemEditor->setTextSelection(0, _text.size());
-			mItemEditor->setVisible(true);
-			MyGUI::InputManager::getInstance().setKeyFocusWidget(mItemEditor);
-		}
-	}
-
-	void ListBoxControl::notifyRootKeyChangeFocus(MyGUI::Widget* _sender, bool _focus)
-	{
-		if (!_focus)
-		{
-			mItemEditor->setVisible(false);
-		}
-	}
-
-	void ListBoxControl::notifyEditSelectAccept(MyGUI::EditBox* _sender)
-	{
-		eventItemRename(this, mItemEditor->getCaption());
-		mItemEditor->setVisible(false);
-	}
-
 	void ListBoxControl::ensureItemVisible(DataType _data)
 	{
 		if (_data == nullptr)
@@ -242,15 +211,25 @@ namespace tools
 		}
 	}
 	
-	void ListBoxControl::onIndexSelected(size_t _index)
+	void ListBoxControl::onIndexSelected(size_t _index, bool _ensureVisible)
 	{
 		getItemBox()->setIndexSelected(_index);
 		DataType data = nullptr;
 		if (_index != MyGUI::ITEM_NONE)
 			data = *getItemBox()->getItemDataAt<DataType>(_index);
 
-		ensureItemVisible(data);
+		if (_ensureVisible)
+			ensureItemVisible(data);
 
 		eventChangeItemPosition(this, data);
+	}
+
+	MyGUI::IntCoord ListBoxControl::getItemCoord(DataType _data)
+	{
+		size_t index = getIndexData(_data);
+		MyGUI::Widget* widget = getItemBox()->getWidgetByIndex(index);
+		if (widget != nullptr)
+			return MyGUI::IntCoord(widget->getAbsoluteLeft(), widget->getAbsoluteTop(), widget->getWidth(), widget->getHeight());
+		return MyGUI::IntCoord();
 	}
 }

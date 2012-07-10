@@ -151,11 +151,15 @@ namespace tools
 	void SkinListControl::showTextField(SkinItem* _item)
 	{
 		if (_item != nullptr)
-			mListBoxControl->showItemEditor(_item, _item->getName());
-		/*mTextFieldControl->setCaption(replaceTags("CaptionEnterName"));
-		mTextFieldControl->setTextField(_item == nullptr ? getNextFreeName() : _item->getName());
-		mTextFieldControl->setUserData(_item);
-		mTextFieldControl->doModal();*/
+		{
+			mListBoxControl->ensureItemVisible(_item);
+
+			mTextFieldControl->setCaption(replaceTags("CaptionEnterName"));
+			mTextFieldControl->setTextField(_item->getName());
+			mTextFieldControl->setUserData(_item);
+			mTextFieldControl->setCoord(mListBoxControl->getItemCoord(_item));
+			mTextFieldControl->doModal();
+		}
 	}
 
 	MyGUI::UString SkinListControl::getNextFreeName()
