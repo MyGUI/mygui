@@ -144,6 +144,8 @@ namespace tools
 
 			index ++;
 		}
+
+		mListBoxControl->ensureItemVisible(selectedItem);
 	}
 
 	void SkinListControl::showTextField(SkinItem* _item)

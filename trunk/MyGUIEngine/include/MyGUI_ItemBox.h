@@ -142,6 +142,13 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height);
 
+		/** Set view area offset. */
+		void setViewOffset(const IntPoint& _value);
+		/** Get view area offset. */
+		IntPoint getViewOffset();
+
+		virtual IntSize getViewSize();
+
 		/*events:*/
 		/** Event : Request for creating new item.\n
 			signature : void method(MyGUI::ItemBox* _sender, MyGUI::Widget* _item)
@@ -218,6 +225,8 @@ namespace MyGUI
 
 		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
 		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
+		virtual void onKeyButtonPressed(KeyCode _key, Char _char);
+		virtual void onKeyButtonReleased(KeyCode _key);
 		virtual void onMouseDrag(int _left, int _top, MouseButton _id);
 
 		virtual void onMouseWheel(int _rel);
@@ -271,7 +280,6 @@ namespace MyGUI
 
 		virtual IntSize getContentSize();
 		virtual IntPoint getContentPosition();
-		virtual IntSize getViewSize();
 		virtual void eraseContent();
 		virtual size_t getHScrollPage();
 		virtual size_t getVScrollPage();

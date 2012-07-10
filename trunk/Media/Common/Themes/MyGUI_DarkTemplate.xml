@@ -394,4 +394,12 @@
             </Widget>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="ItemBox2_Dark" version="3.2.0">
+        <Widget type="Widget" skin="Panel2Skin_Dark" position="5 5 55 55" name="Root">
+            <UserString key="LE_TargetWidgetType" value="ItemBox"/>
+            <UserString key="DragLayer" value="DragAndDrop"/>
+            <Widget type="Widget" skin="PanelEmpty" position="2 2 37 51" align="Stretch" name="Client"/>
+            <Widget type="ScrollBar" skin="ScrollBarV_Dark" position="39 2 14 51" align="Right VStretch" name="VScroll"/>
+        </Widget>
+    </Resource>
 </MyGUI>

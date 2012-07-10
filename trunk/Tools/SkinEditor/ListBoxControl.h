@@ -39,6 +39,8 @@ namespace tools
 
 		void showItemEditor(DataType _data, const std::string& _text);
 
+		void ensureItemVisible(DataType _data);
+
 		MyGUI::delegates::CMultiDelegate2<ListBoxControl*, DataType>
 			eventChangeItemPosition;
 
@@ -60,6 +62,8 @@ namespace tools
 		void notifyNotifyItem(MyGUI::ItemBox* _sender, const MyGUI::IBNotifyItemData& _info);
 		void notifyRootKeyChangeFocus(MyGUI::Widget* _sender, bool _focus);
 		void notifyEditSelectAccept(MyGUI::EditBox* _sender);
+
+		void onIndexSelected(size_t _index);
 
 	private:
 		MyGUI::PopupMenu* mContextMenu;
