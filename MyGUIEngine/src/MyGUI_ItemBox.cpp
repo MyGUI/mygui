@@ -192,7 +192,6 @@ namespace MyGUI
 			mVectorItems[index]->setVisible(false);
 			index ++;
 		}
-
 	}
 
 	Widget* ItemBox::getItemWidget(size_t _index)
@@ -735,11 +734,14 @@ namespace MyGUI
 	{
 		if (mAlignVert)
 		{
-			if (mContentSize.height <= 0) return;
+			if (mContentSize.height <= 0)
+				return;
 
 			int offset = mContentPosition.top;
-			if (_rel < 0) offset += mSizeItem.height;
-			else offset -= mSizeItem.height;
+			if (_rel < 0)
+				offset += mSizeItem.height;
+			else
+				offset -= mSizeItem.height;
 
 			if (mContentSize.height <= _getClientWidget()->getHeight())
 				offset = 0;
@@ -748,7 +750,8 @@ namespace MyGUI
 			else if (offset < 0)
 				offset = 0;
 
-			if (mContentPosition.top == offset) return;
+			if (mContentPosition.top == offset)
+				return;
 
 			// сбрасываем старую подсветку
 			// так как при прокрутке, мышь может находиться над окном
@@ -758,11 +761,14 @@ namespace MyGUI
 		}
 		else
 		{
-			if (mContentSize.width <= 0) return;
+			if (mContentSize.width <= 0)
+				return;
 
 			int offset = mContentPosition.left;
-			if (_rel < 0) offset += mSizeItem.width;
-			else  offset -= mSizeItem.width;
+			if (_rel < 0)
+				offset += mSizeItem.width;
+			else
+				offset -= mSizeItem.width;
 
 			if (mContentSize.width <= _getClientWidget()->getWidth())
 				offset = 0;
@@ -771,7 +777,8 @@ namespace MyGUI
 			else if (offset < 0)
 				offset = 0;
 
-			if (mContentPosition.left == offset) return;
+			if (mContentPosition.left == offset)
+				return;
 
 			// сбрасываем старую подсветку
 			// так как при прокрутке, мышь может находиться над окном
@@ -786,8 +793,10 @@ namespace MyGUI
 		if (!mNeedDrop)
 			findCurrentActiveItem();
 
-		if (nullptr != mVScroll) mVScroll->setScrollPosition(mContentPosition.top);
-		if (nullptr != mHScroll) mHScroll->setScrollPosition(mContentPosition.left);
+		if (nullptr != mVScroll)
+			mVScroll->setScrollPosition(mContentPosition.top);
+		if (nullptr != mHScroll)
+			mHScroll->setScrollPosition(mContentPosition.left);
 	}
 
 	void ItemBox::setContentPosition(const IntPoint& _point)
@@ -934,6 +943,86 @@ namespace MyGUI
 		}
 
 		eventChangeProperty(this, _key, _value);
+	}
+
+	void ItemBox::setViewOffset(const IntPoint& _value)
+	{
+		if (mAlignVert)
+		{
+			if (mContentSize.height <= 0)
+				return;
+
+			int offset = _value.top;
+
+			if (mContentSize.height <= _getClientWidget()->getHeight())
+				offset = 0;
+			else if (offset >= mContentSize.height - _getClientWidget()->getHeight())
+				offset = mContentSize.height - _getClientWidget()->getHeight();
+			else if (offset < 0)
+				offset = 0;
+
+			if (mContentPosition.top == offset)
+				return;
+
+			// сбрасываем старую подсветку
+			// так как при прокрутке, мышь может находиться над окном
+			resetCurrentActiveItem();
+
+			mContentPosition.top = offset;
+		}
+		else
+		{
+			if (mContentSize.width <= 0)
+				return;
+
+			int offset = _value.left;
+
+			if (mContentSize.width <= _getClientWidget()->getWidth())
+				offset = 0;
+			else if (offset >= mContentSize.width - _getClientWidget()->getWidth())
+				offset = mContentSize.width - _getClientWidget()->getWidth();
+			else if (offset < 0)
+				offset = 0;
+
+			if (mContentPosition.left == offset)
+				return;
+
+			// сбрасываем старую подсветку
+			// так как при прокрутке, мышь может находиться над окном
+			resetCurrentActiveItem();
+
+			mContentPosition.left = offset;
+		}
+
+		setContentPosition(mContentPosition);
+
+		// заново ищем и подсвечиваем айтем
+		if (!mNeedDrop)
+			findCurrentActiveItem();
+
+		if (nullptr != mVScroll)
+			mVScroll->setScrollPosition(mContentPosition.top);
+		if (nullptr != mHScroll)
+			mHScroll->setScrollPosition(mContentPosition.left);
+	}
+
+	IntPoint ItemBox::getViewOffset()
+	{
+		return getContentPosition();
+	}
+
+	void ItemBox::onKeyButtonPressed(KeyCode _key, Char _char)
+	{
+		Base::onKeyButtonPressed(_key, _char);
+
+		eventNotifyItem(this, IBNotifyItemData(ITEM_NONE, IBNotifyItemData::KeyPressed, _key, _char));
+	}
+
+	void ItemBox::onKeyButtonReleased(KeyCode _key)
+	{
+		Base::onKeyButtonReleased(_key);
+
+		eventNotifyItem(this, IBNotifyItemData(ITEM_NONE, IBNotifyItemData::KeyReleased, _key));
 	}
 
 } // namespace MyGUI

@@ -144,11 +144,42 @@ namespace tools
 		{
 			if (_info.id == MyGUI::MouseButton::Right)
 			{
-				getItemBox()->setIndexSelected(_info.index);
-				DataType data = nullptr;
-				if (_info.index != MyGUI::ITEM_NONE)
-					data = *getItemBox()->getItemDataAt<DataType>(_info.index);
-				eventChangeItemPosition(this, data);
+				onIndexSelected(_info.index);
+			}
+		}
+		else if (_info.notify == MyGUI::IBNotifyItemData::KeyPressed)
+		{
+			if (_info.code == MyGUI::KeyCode::ArrowUp)
+			{
+				size_t count = getItemBox()->getItemCount();
+				if (count != 0)
+				{
+					size_t index = getItemBox()->getIndexSelected();
+					if (index == MyGUI::ITEM_NONE)
+					{
+						onIndexSelected(0);
+					}
+					else if (index != 0)
+					{
+						onIndexSelected(index - 1);
+					}
+				}
+			}
+			else if (_info.code == MyGUI::KeyCode::ArrowDown)
+			{
+				size_t count = getItemBox()->getItemCount();
+				if (count != 0)
+				{
+					size_t index = getItemBox()->getIndexSelected();
+					if (index == MyGUI::ITEM_NONE)
+					{
+						onIndexSelected(count - 1);
+					}
+					else if (index != (count - 1))
+					{
+						onIndexSelected(index + 1);
+					}
+				}
 			}
 		}
 	}
@@ -179,5 +210,47 @@ namespace tools
 	{
 		eventItemRename(this, mItemEditor->getCaption());
 		mItemEditor->setVisible(false);
+	}
+
+	void ListBoxControl::ensureItemVisible(DataType _data)
+	{
+		if (_data == nullptr)
+			return;
+
+		size_t index = getIndexData(_data);
+
+		int height = MyGUI::utility::parseValue<int>(getItemBox()->getUserString("CellHeight"));
+		MyGUI::IntCoord coord = MyGUI::IntCoord(0, index * height, getItemBox()->getClientCoord().width, height);
+		MyGUI::IntPoint offset = getItemBox()->getViewOffset();
+		MyGUI::IntSize viewSize = getItemBox()->getViewSize();
+
+		bool update = false;
+		if (coord.bottom() > (offset.top + viewSize.height))
+		{
+			offset.top = coord.bottom() - viewSize.height;
+			update = true;
+		}
+		if (coord.top < offset.top)
+		{
+			offset.top = coord.top;
+			update = true;
+		}
+
+		if (update)
+		{
+			getItemBox()->setViewOffset(offset);
+		}
+	}
+	
+	void ListBoxControl::onIndexSelected(size_t _index)
+	{
+		getItemBox()->setIndexSelected(_index);
+		DataType data = nullptr;
+		if (_index != MyGUI::ITEM_NONE)
+			data = *getItemBox()->getItemDataAt<DataType>(_index);
+
+		ensureItemVisible(data);
+
+		eventChangeItemPosition(this, data);
 	}
 }
