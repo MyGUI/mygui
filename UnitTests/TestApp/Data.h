@@ -31,6 +31,9 @@ namespace tools
 		typedef std::map<std::string, std::string> MapString;
 		const MapString getProperties() const;
 
+		const std::string& getPropertyValue(const std::string& _name) const;
+		void setPropertyValue(const std::string& _name, const std::string& _value);
+
 	private:
 		void clear();
 

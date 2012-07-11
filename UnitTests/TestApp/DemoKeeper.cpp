@@ -7,6 +7,7 @@
 #include "HyperTextBox.h"
 #include "DataInfoManager.h"
 #include "DataManager.h"
+#include "CommandManager.h"
 
 namespace demo
 {
@@ -27,9 +28,11 @@ namespace demo
 	{
 		new tools::DataInfoManager();
 		new tools::DataManager();
+		new tools::CommandManager();
 		
 		tools::DataInfoManager::getInstance().initialise();
 		tools::DataManager::getInstance().initialise();
+		tools::CommandManager::getInstance().initialise();
 
 		tools::DataInfoManager::getInstance().load("ImageDataInfo.xml");
 		/*MyGUI::ResourceManager::getInstance().load("FrameworkFonts.xml");
@@ -74,9 +77,11 @@ namespace demo
 	{
 		tools::DataInfoManager::getInstance().shutdown();
 		tools::DataManager::getInstance().shutdown();
+		tools::CommandManager::getInstance().shutdown();
 
 		delete tools::DataManager::getInstancePtr();
 		delete tools::DataInfoManager::getInstancePtr();
+		delete tools::CommandManager::getInstancePtr();
 		/*MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::HyperTextBox>("Widget");
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::ScrollViewPanel>("Widget");
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::StackPanel>("Widget");
