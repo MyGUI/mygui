@@ -7,6 +7,7 @@
 #define _d92392a8_2d98_4639_8dfe_7cb945c817b5_
 
 #include "Command.h"
+#include "Data.h"
 
 namespace tools
 {
@@ -17,8 +18,13 @@ namespace tools
 		CommandDestroyData();
 		virtual ~CommandDestroyData();
 
-		virtual void doCommand() { }
-		virtual void undoCommand() { }
+		virtual void doCommand();
+		virtual void undoCommand();
+
+		void setData(Data* _data);
+
+	private:
+		Data* mData;
 	};
 }
 
