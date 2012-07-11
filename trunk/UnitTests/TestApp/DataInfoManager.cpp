@@ -20,8 +20,6 @@ namespace tools
 	DataInfoManager::~DataInfoManager()
 	{
 		mInstance = nullptr;
-
-		clearDataInfo();
 	}
 
 	DataInfoManager& DataInfoManager::getInstance()
@@ -34,7 +32,16 @@ namespace tools
 		return mInstance;
 	}
 
-	void DataInfoManager::loadDataInfo(const std::string& _fileName)
+	void DataInfoManager::initialise()
+	{
+	}
+
+	void DataInfoManager::shutdown()
+	{
+		clear();
+	}
+
+	void DataInfoManager::load(const std::string& _fileName)
 	{
 		std::string fileName = MyGUI::DataManager::getInstance().getDataPath(_fileName);
 		pugi::xml_document doc;
@@ -51,7 +58,7 @@ namespace tools
 		}
 	}
 
-	void DataInfoManager::clearDataInfo()
+	void DataInfoManager::clear()
 	{
 		for (VectorDataInfo::iterator data = mDataInfos.begin(); data != mDataInfos.end(); data ++)
 			delete *data;

@@ -2,6 +2,14 @@
 <Document>
 	<DataInfos>
 		<DataInfo>
+			<Type>Root</Type>
+			<Childs>
+				<Child>
+					<Type>ResourceImageSet</Type>
+				</Child>
+			</Childs>
+		</DataInfo>
+		<DataInfo>
 			<Type>ResourceImageSet</Type>
 			<Properties>
 				<Property>
