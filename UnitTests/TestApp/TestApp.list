@@ -12,10 +12,10 @@ set (HEADER_FILES
   DataManager.h
   pugiconfig.hpp
   pugixml.hpp
-  Command.h
-  CommandCreateData.h
-  CommandDestroyData.h
-  CommandManager.h
+  Action.h
+  ActionCreateData.h
+  ActionDestroyData.h
+  ActionManager.h
   DataListUI.h
 )
 set (SOURCE_FILES
@@ -32,9 +32,9 @@ set (SOURCE_FILES
   DataInfoManager.cpp
   DataManager.cpp
   pugixml.cpp
-  CommandCreateData.cpp
-  CommandDestroyData.cpp
-  CommandManager.cpp
+  ActionCreateData.cpp
+  ActionDestroyData.cpp
+  ActionManager.cpp
   DataListUI.cpp
 )
 SOURCE_GROUP("Source Files" FILES
