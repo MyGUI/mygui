@@ -5,6 +5,7 @@
 #include "StackPanel.h"
 #include "ScrollViewPanel.h"
 #include "HyperTextBox.h"
+#include "DataManager.h"
 
 namespace demo
 {
@@ -17,12 +18,16 @@ namespace demo
 	{
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/UnitTests/TestApp");
+		addResourceLocation(getRootMedia() + "/UnitTests/TestApp/DataInfo");
 		addResourceLocation(getRootMedia() + "/Common/Tools");
 	}
 
 	void DemoKeeper::createScene()
 	{
-		MyGUI::ResourceManager::getInstance().load("FrameworkFonts.xml");
+		new tools::DataManager();
+		tools::DataManager::getInstance().loadDataInfo("ImageDataInfo.xml");
+
+		/*MyGUI::ResourceManager::getInstance().load("FrameworkFonts.xml");
 		MyGUI::ResourceManager::getInstance().load("Fonts.xml");
 		MyGUI::ResourceManager::getInstance().load("HyperTextSkins.xml");
 
@@ -57,15 +62,16 @@ namespace demo
 			"<p float='left'><img width='48' height='48'>HandPointerImage</img>text1 texttext2 text3 text4 texttext5 texttexttexttext6 text7 text8 texttext9 text10 texttext11 text12</p>\n"\
 			"<p float='right' align='right'><img width='48' height='48'>HandPointerImage</img>text1 texttext2 text3 text4 texttext5 texttexttexttext6 text7 text8 texttext9 text10 texttext11 text12</p>");
 
-		hyperText->updateContent();
+		hyperText->updateContent();*/
 	}
 
 	void DemoKeeper::destroyScene()
 	{
-		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::HyperTextBox>("Widget");
+		delete tools::DataManager::getInstancePtr();
+		/*MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::HyperTextBox>("Widget");
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::ScrollViewPanel>("Widget");
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::StackPanel>("Widget");
-		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::WrapPanel>("Widget");
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::WrapPanel>("Widget");*/
 	}
 
 	void DemoKeeper::OnClickUrl(MyGUI::HyperTextBox* _sender, const std::string& _url)

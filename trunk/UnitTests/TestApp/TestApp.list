@@ -5,6 +5,11 @@ set (HEADER_FILES
   StackPanel.h
   Panel.h
   HyperTextBox.h
+  Data.h
+  DataInfo.h
+  DataManager.h
+  pugiconfig.hpp
+  pugixml.hpp
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -14,6 +19,10 @@ set (SOURCE_FILES
   Panel.cpp
   HyperTextBox.cpp
   ../../Common/Base/BaseResource.rc
+  Data.cpp
+  DataInfo.cpp
+  DataManager.cpp
+  pugixml.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   DemoKeeper.cpp
