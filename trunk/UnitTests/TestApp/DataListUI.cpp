@@ -54,17 +54,22 @@ namespace demo
 		}
 		else if (event == "Add")
 		{
-			tools::CommandCreateData* data = new tools::CommandCreateData();
-			data->setName(MyGUI::utility::toString("item ", mIndex));
+			tools::CommandCreateData* command = new tools::CommandCreateData();
+			command->setName(MyGUI::utility::toString("item ", mIndex));
 
-			tools::CommandManager::getInstance().doCommand(data);
+			tools::CommandManager::getInstance().doCommand(command);
 
 			mIndex ++;
 		}
 		else if (event == "Remove")
 		{
-			tools::CommandDestroyData* data = new tools::CommandDestroyData();
-			tools::CommandManager::getInstance().doCommand(data);
+			if (mListBox->getItemCount() != 0)
+			{
+				tools::CommandDestroyData* command = new tools::CommandDestroyData();
+				tools::Data* data = *mListBox->getItemDataAt<tools::Data*>(mListBox->getItemCount() - 1);
+				command->setData(data);
+				tools::CommandManager::getInstance().doCommand(command);
+			}
 		}
 		else if (event == "Save")
 		{
@@ -84,7 +89,8 @@ namespace demo
 		const tools::Data::VectorData& childs = tools::DataManager::getInstance().getRoot()->getChilds();
 		for (tools::Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child ++)
 		{
-			mListBox->addItem((*child)->getPropertyValue("Name"), *(child));
+			tools::Data* data = *(child);
+			mListBox->addItem((*child)->getPropertyValue("Name"), data);
 		}
 	}
 }
