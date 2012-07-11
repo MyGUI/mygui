@@ -46,6 +46,7 @@ namespace tools
 	{
 		addUserTag("\\n", "\n");
 		addUserTag("CurrentFileName", mFileName);
+		addUserTag("CurrentScale", MyGUI::utility::toString(100));
 
 		mMainPane = new MainPane();
 		mMessageBoxFadeControl = new MessageBoxFadeControl();
