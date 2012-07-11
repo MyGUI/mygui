@@ -10,7 +10,7 @@
 
 namespace tools
 {
-	typedef MyGUI::delegates::CMultiDelegate1<bool> Event_Changes;
+	/*typedef MyGUI::delegates::CMultiDelegate1<bool> Event_Changes;
 
 	class ActionManager :
 		public MyGUI::Singleton<ActionManager>
@@ -29,7 +29,7 @@ namespace tools
 
 	private:
 		bool mChanges;
-	};
+	};*/
 
 } // namespace tools
 

@@ -77,8 +77,8 @@ namespace tools
 		//new SkinManager();
 		//SkinManager::getInstance().initialise();
 
-		new ActionManager();
-		ActionManager::getInstance().initialise();
+		//new ActionManager();
+		//ActionManager::getInstance().initialise();
 
 		new ExportManager();
 		ExportManager::getInstance().initialise();
@@ -174,8 +174,8 @@ namespace tools
 		ExportManager::getInstance().shutdown();
 		delete ExportManager::getInstancePtr();
 
-		ActionManager::getInstance().shutdown();
-		delete ActionManager::getInstancePtr();
+		//ActionManager::getInstance().shutdown();
+		//delete ActionManager::getInstancePtr();
 
 		//SkinManager::getInstance().shutdown();
 		//delete SkinManager::getInstancePtr();

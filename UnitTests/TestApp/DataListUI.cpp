@@ -22,7 +22,7 @@ namespace demo
 
 		bindEvents(mMainWidget);
 
-		tools::CommandManager::getInstance().eventChangeCommands.connect(this, &DataListUI::updateCommands);
+		tools::ActionManager::getInstance().eventChangeActions.connect(this, &DataListUI::updateActions);
 		tools::DataManager::getInstance().eventChangeData.connect(this, &DataListUI::updateListData);
 	}
 
@@ -46,18 +46,18 @@ namespace demo
 
 		if (event == "Undo")
 		{
-			tools::CommandManager::getInstance().undoCommand();
+			tools::ActionManager::getInstance().undoAction();
 		}
 		else if (event == "Redo")
 		{
-			tools::CommandManager::getInstance().redoCommand();
+			tools::ActionManager::getInstance().redoAction();
 		}
 		else if (event == "Add")
 		{
-			tools::CommandCreateData* command = new tools::CommandCreateData();
+			tools::ActionCreateData* command = new tools::ActionCreateData();
 			command->setName(MyGUI::utility::toString("item ", mIndex));
 
-			tools::CommandManager::getInstance().doCommand(command);
+			tools::ActionManager::getInstance().doAction(command);
 
 			mIndex ++;
 		}
@@ -65,21 +65,21 @@ namespace demo
 		{
 			if (mListBox->getItemCount() != 0)
 			{
-				tools::CommandDestroyData* command = new tools::CommandDestroyData();
+				tools::ActionDestroyData* command = new tools::ActionDestroyData();
 				tools::Data* data = *mListBox->getItemDataAt<tools::Data*>(mListBox->getItemCount() - 1);
 				command->setData(data);
-				tools::CommandManager::getInstance().doCommand(command);
+				tools::ActionManager::getInstance().doAction(command);
 			}
 		}
 		else if (event == "Save")
 		{
-			tools::CommandManager::getInstance().setCurrentCommandAsSave();
+			tools::ActionManager::getInstance().setCurrentActionAsSave();
 		}
 	}
 
-	void DataListUI::updateCommands()
+	void DataListUI::updateActions()
 	{
-		mTextBox->setCaption(tools::CommandManager::getInstance().getCurrentCommandAsSave() ? "" : "*");
+		mTextBox->setCaption(tools::ActionManager::getInstance().getCurrentActionAsSave() ? "" : "*");
 	}
 
 	void DataListUI::updateListData()

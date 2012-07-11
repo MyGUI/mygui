@@ -9,13 +9,13 @@
 
 namespace tools
 {
-	CommandDestroyData::CommandDestroyData() :
+	ActionDestroyData::ActionDestroyData() :
 		mData(nullptr),
 		mComplete(false)
 	{
 	}
 
-	CommandDestroyData::~CommandDestroyData()
+	ActionDestroyData::~ActionDestroyData()
 	{
 		if (mComplete)
 		{
@@ -24,7 +24,7 @@ namespace tools
 		}
 	}
 
-	void CommandDestroyData::doCommand()
+	void ActionDestroyData::doAction()
 	{
 		DataManager::getInstance().getRoot()->removeChild(mData);
 
@@ -33,7 +33,7 @@ namespace tools
 		mComplete = true;
 	}
 
-	void CommandDestroyData::undoCommand()
+	void ActionDestroyData::undoAction()
 	{
 		DataManager::getInstance().getRoot()->addChild(mData);
 
@@ -42,7 +42,7 @@ namespace tools
 		mComplete = false;
 	}
 
-	void CommandDestroyData::setData(Data* _data)
+	void ActionDestroyData::setData(Data* _data)
 	{
 		mData = _data;
 	}

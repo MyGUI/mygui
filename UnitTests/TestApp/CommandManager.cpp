@@ -11,175 +11,175 @@
 
 namespace tools
 {
-	CommandManager* CommandManager::mInstance = nullptr;
+	ActionManager* ActionManager::mInstance = nullptr;
 
-	CommandManager::CommandManager() :
-		mMaxCommands(5)
+	ActionManager::ActionManager() :
+		mMaxActions(5)
 	{
 		mInstance = this;
 	}
 
-	CommandManager::~CommandManager()
+	ActionManager::~ActionManager()
 	{
 		mInstance = nullptr;
 	}
 
-	CommandManager& CommandManager::getInstance()
+	ActionManager& ActionManager::getInstance()
 	{
 		return *mInstance;
 	}
 
-	CommandManager* CommandManager::getInstancePtr()
+	ActionManager* ActionManager::getInstancePtr()
 	{
 		return mInstance;
 	}
 
-	void CommandManager::initialise()
+	void ActionManager::initialise()
 	{
 		reset();
 	}
 
-	void CommandManager::shutdown()
+	void ActionManager::shutdown()
 	{
 		clear();
 	}
 
-	void CommandManager::clear()
+	void ActionManager::clear()
 	{
-		for (ListCommand::iterator command = mCommands.begin(); command != mCommands.end(); command ++)
+		for (ListAction::iterator command = mActions.begin(); command != mActions.end(); command ++)
 			delete *command;
-		mCommands.clear();
+		mActions.clear();
 
-		mCurrentCommand = mCommands.end();
-		mCommandAsSave = mCommands.end();
+		mCurrentAction = mActions.end();
+		mActionAsSave = mActions.end();
 	}
 
-	void CommandManager::doCommand(Command* _command)
+	void ActionManager::doAction(Action* _command)
 	{
 		removeRedo();
 
-		mCommands.push_back(_command);
-		mCurrentCommand ++;
+		mActions.push_back(_command);
+		mCurrentAction ++;
 
-		updateMaxCommands();
+		updateMaxActions();
 
-		_command->doCommand();
+		_command->doAction();
 
-		onChangeCommands();
+		onChangeActions();
 	}
 
-	void CommandManager::undoCommand()
+	void ActionManager::undoAction()
 	{
-		if (mCurrentCommand == mCommands.begin())
+		if (mCurrentAction == mActions.begin())
 			return;
 
-		Command* command = (*mCurrentCommand);
-		mCurrentCommand --;
+		Action* command = (*mCurrentAction);
+		mCurrentAction --;
 
-		command->undoCommand();
-		onChangeCommands();
+		command->undoAction();
+		onChangeActions();
 	}
 
-	void CommandManager::redoCommand()
+	void ActionManager::redoAction()
 	{
-		ListCommand::iterator next = mCurrentCommand;
+		ListAction::iterator next = mCurrentAction;
 		next ++;
 
-		if (next == mCommands.end())
+		if (next == mActions.end())
 			return;
 
-		mCurrentCommand = next;
-		Command* command = *mCurrentCommand;
+		mCurrentAction = next;
+		Action* command = *mCurrentAction;
 
-		command->doCommand();
-		onChangeCommands();
+		command->doAction();
+		onChangeActions();
 	}
 
-	void CommandManager::setCurrentCommandAsSave()
+	void ActionManager::setCurrentActionAsSave()
 	{
-		mCommandAsSave = mCurrentCommand;
+		mActionAsSave = mCurrentAction;
 
-		onChangeCommands();
+		onChangeActions();
 	}
 
-	bool CommandManager::getCurrentCommandAsSave()
+	bool ActionManager::getCurrentActionAsSave()
 	{
-		return mCurrentCommand == mCommandAsSave;
+		return mCurrentAction == mActionAsSave;
 	}
 
-	void CommandManager::setMaxCommands(size_t _value)
+	void ActionManager::setMaxActions(size_t _value)
 	{
 		MYGUI_ASSERT(_value > 0, "Max commands wrong");
-		mMaxCommands = _value;
+		mMaxActions = _value;
 
-		bool change = updateMaxCommands();
+		bool change = updateMaxActions();
 		if (change)
-			onChangeCommands();
+			onChangeActions();
 	}
 
-	size_t CommandManager::getMaxCommands() const
+	size_t ActionManager::getMaxActions() const
 	{
-		return mMaxCommands;
+		return mMaxActions;
 	}
 
-	bool CommandManager::updateMaxCommands()
+	bool ActionManager::updateMaxActions()
 	{
 		bool change = false;
 
-		if (mCommands.size() < 2)
+		if (mActions.size() < 2)
 			return change;
 
-		while (mCommands.size() > (mMaxCommands + 1))
+		while (mActions.size() > (mMaxActions + 1))
 		{
-			ListCommand::iterator second = mCommands.begin();
+			ListAction::iterator second = mActions.begin();
 			second ++;
 
-			if (second == mCommandAsSave || mCommandAsSave == mCommands.begin())
+			if (second == mActionAsSave || mActionAsSave == mActions.begin())
 			{
-				mCommandAsSave = mCommands.end();
+				mActionAsSave = mActions.end();
 				change = true;
 			}
 
-			Command* command = *second;
-			mCommands.erase(second);
+			Action* command = *second;
+			mActions.erase(second);
 			delete command;
 		}
 
 		return change;
 	}
 
-	void CommandManager::removeRedo()
+	void ActionManager::removeRedo()
 	{
-		ListCommand::iterator last = mCommands.end();
+		ListAction::iterator last = mActions.end();
 		last --;
 
-		while (mCurrentCommand != last)
+		while (mCurrentAction != last)
 		{
-			Command* command = *last;
+			Action* command = *last;
 
-			if (last == mCommandAsSave)
-				mCommandAsSave = mCommands.end();
+			if (last == mActionAsSave)
+				mActionAsSave = mActions.end();
 
 			last--;
-			mCommands.pop_back();
+			mActions.pop_back();
 
 			delete command;
 		}
 	}
 
-	void CommandManager::onChangeCommands()
+	void ActionManager::onChangeActions()
 	{
-		eventChangeCommands();
+		eventChangeActions();
 	}
 
-	void CommandManager::reset()
+	void ActionManager::reset()
 	{
 		clear();
 
-		Command* command = new Command();
-		mCommands.push_back(command);
+		Action* command = new Action();
+		mActions.push_back(command);
 
-		mCurrentCommand = mCommands.begin();
-		mCommandAsSave = mCommands.begin();
+		mCurrentAction = mActions.begin();
+		mActionAsSave = mActions.begin();
 	}
 }

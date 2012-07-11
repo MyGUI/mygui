@@ -58,7 +58,7 @@ namespace tools
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
 		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());
 
-		ActionManager::getInstance().eventChanges += MyGUI::newDelegate(this, &EditorState::notifyChanges);
+		//ActionManager::getInstance().eventChanges += MyGUI::newDelegate(this, &EditorState::notifyChanges);
 
 		updateCaption();
 
@@ -74,7 +74,7 @@ namespace tools
 
 	void EditorState::cleanupState()
 	{
-		ActionManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &EditorState::notifyChanges);
+		//ActionManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &EditorState::notifyChanges);
 
 		mOpenSaveFileDialog->eventEndDialog = nullptr;
 		delete mOpenSaveFileDialog;
@@ -102,7 +102,7 @@ namespace tools
 
 	void EditorState::updateCaption()
 	{
-		addUserTag("HasChanged", ActionManager::getInstance().getChanges() ? "*" : "");
+		//addUserTag("HasChanged", ActionManager::getInstance().getChanges() ? "*" : "");
 
 		CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
 	}
@@ -112,7 +112,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		if (ActionManager::getInstance().getChanges())
+		if (true/*ActionManager::getInstance().getChanges()*/)
 		{
 			MyGUI::Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
@@ -136,7 +136,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		if (ActionManager::getInstance().getChanges())
+		if (true/*ActionManager::getInstance().getChanges()*/)
 		{
 			save();
 		}
@@ -159,7 +159,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		if (ActionManager::getInstance().getChanges())
+		if (true/*ActionManager::getInstance().getChanges()*/)
 		{
 			MyGUI::Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
@@ -183,7 +183,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		if (ActionManager::getInstance().getChanges())
+		if (true/*ActionManager::getInstance().getChanges()*/)
 		{
 			MyGUI::Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
@@ -211,7 +211,7 @@ namespace tools
 		if (mDropFileName.empty())
 			return;
 
-		if (ActionManager::getInstance().getChanges())
+		if (true/*ActionManager::getInstance().getChanges()*/)
 		{
 			MyGUI::Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
@@ -358,10 +358,10 @@ namespace tools
 		}
 	}
 
-	void EditorState::notifyChanges(bool _changes)
+	/*void EditorState::notifyChanges(bool _changes)
 	{
 		updateCaption();
-	}
+	}*/
 
 	bool EditorState::checkCommand()
 	{
@@ -380,7 +380,7 @@ namespace tools
 	void EditorState::clear()
 	{
 		//SkinManager::getInstance().clear();
-		ActionManager::getInstance().setChanges(false);
+		//ActionManager::getInstance().setChanges(false);
 
 		mFileName = mDefaultFileName;
 		addUserTag("CurrentFileName", mFileName);
@@ -429,7 +429,7 @@ namespace tools
 					| MyGUI::MessageBoxStyle::Yes);
 		}
 
-		ActionManager::getInstance().setChanges(false);
+		//ActionManager::getInstance().setChanges(false);
 	}
 
 	bool EditorState::save()
@@ -449,7 +449,7 @@ namespace tools
 			if (mFileName != mDefaultFileName)
 				RecentFilesManager::getInstance().addRecentFile(mFileName);
 
-			ActionManager::getInstance().setChanges(false);
+			//ActionManager::getInstance().setChanges(false);
 			return true;
 		}
 

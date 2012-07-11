@@ -24,7 +24,7 @@ namespace demo
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 		void bindEvents(MyGUI::Widget* _widget);
 
-		void updateCommands();
+		void updateActions();
 		void updateListData();
 
 	private:
