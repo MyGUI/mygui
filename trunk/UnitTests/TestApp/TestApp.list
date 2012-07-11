@@ -12,6 +12,10 @@ set (HEADER_FILES
   DataManager.h
   pugiconfig.hpp
   pugixml.hpp
+  Command.h
+  CommandCreateData.h
+  CommandDestroyData.h
+  CommandManager.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -27,6 +31,9 @@ set (SOURCE_FILES
   DataInfoManager.cpp
   DataManager.cpp
   pugixml.cpp
+  CommandCreateData.cpp
+  CommandDestroyData.cpp
+  CommandManager.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   DemoKeeper.cpp

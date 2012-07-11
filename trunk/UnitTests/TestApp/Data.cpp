@@ -71,4 +71,20 @@ namespace tools
 		mChilds.erase(std::remove(mChilds.begin(), mChilds.end(), _child), mChilds.end());
 		_child->mParent = nullptr;
 	}
+
+	const std::string& Data::getPropertyValue(const std::string& _name) const
+	{
+		MapString::const_iterator property = mProperties.find(_name);
+		MYGUI_ASSERT(property != mProperties.end(), "Property " << _name << " not found");
+
+		return (*property).second;
+	}
+	
+	void Data::setPropertyValue(const std::string& _name, const std::string& _value)
+	{
+		MapString::iterator property = mProperties.find(_name);
+		MYGUI_ASSERT(property != mProperties.end(), "Property " << _name << " not found");
+
+		mProperties[_name] = _value;
+	}
 }
