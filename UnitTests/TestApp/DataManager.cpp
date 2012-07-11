@@ -42,13 +42,18 @@ namespace tools
 
 	void DataManager::shutdown()
 	{
-		clear();
+		delete mRoot;
+		mRoot = nullptr;
 	}
 
 	void DataManager::clear()
 	{
-		delete mRoot;
-		mRoot = nullptr;
+		while (!mRoot->getChilds().empty())
+		{
+			Data* child = mRoot->getChilds().back();
+			mRoot->removeChild(child);
+			delete child;
+		}
 	}
 
 	Data* DataManager::getRoot()
