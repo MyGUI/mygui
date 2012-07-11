@@ -95,16 +95,16 @@ namespace tools
 		onChangeActions();
 	}
 
-	void ActionManager::setCurrentActionAsSave()
+	void ActionManager::resetChanges()
 	{
 		mActionAsSave = mCurrentAction;
 
 		onChangeActions();
 	}
 
-	bool ActionManager::getCurrentActionAsSave()
+	bool ActionManager::getChanges()
 	{
-		return mCurrentAction == mActionAsSave;
+		return mCurrentAction != mActionAsSave;
 	}
 
 	void ActionManager::setMaxActions(size_t _value)
@@ -169,7 +169,7 @@ namespace tools
 
 	void ActionManager::onChangeActions()
 	{
-		eventChangeActions();
+		eventChanges();
 	}
 
 	void ActionManager::reset()

@@ -14,6 +14,7 @@
 #include "Tools/DialogManager.h"
 #include "StateManager.h"
 #include "RecentFilesManager.h"
+#include "ExportManager.h"
 
 namespace tools
 {
@@ -58,7 +59,7 @@ namespace tools
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
 		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());
 
-		//ActionManager::getInstance().eventChanges += MyGUI::newDelegate(this, &EditorState::notifyChanges);
+		ActionManager::getInstance().eventChanges.connect(this, &EditorState::notifyChanges);
 
 		updateCaption();
 
@@ -74,7 +75,7 @@ namespace tools
 
 	void EditorState::cleanupState()
 	{
-		//ActionManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &EditorState::notifyChanges);
+		ActionManager::getInstance().eventChanges.disconnect(this);
 
 		mOpenSaveFileDialog->eventEndDialog = nullptr;
 		delete mOpenSaveFileDialog;
@@ -102,7 +103,7 @@ namespace tools
 
 	void EditorState::updateCaption()
 	{
-		//addUserTag("HasChanged", ActionManager::getInstance().getChanges() ? "*" : "");
+		addUserTag("HasChanged", ActionManager::getInstance().getChanges() ? "*" : "");
 
 		CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
 	}
@@ -112,7 +113,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		if (true/*ActionManager::getInstance().getChanges()*/)
+		if (ActionManager::getInstance().getChanges())
 		{
 			MyGUI::Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
@@ -136,7 +137,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		if (true/*ActionManager::getInstance().getChanges()*/)
+		if (ActionManager::getInstance().getChanges())
 		{
 			save();
 		}
@@ -159,7 +160,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		if (true/*ActionManager::getInstance().getChanges()*/)
+		if (ActionManager::getInstance().getChanges())
 		{
 			MyGUI::Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
@@ -183,7 +184,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		if (true/*ActionManager::getInstance().getChanges()*/)
+		if (ActionManager::getInstance().getChanges())
 		{
 			MyGUI::Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
@@ -211,7 +212,7 @@ namespace tools
 		if (mDropFileName.empty())
 			return;
 
-		if (true/*ActionManager::getInstance().getChanges()*/)
+		if (ActionManager::getInstance().getChanges())
 		{
 			MyGUI::Message* message = MessageBoxManager::getInstance().create(
 				replaceTags("Warning"),
@@ -358,10 +359,10 @@ namespace tools
 		}
 	}
 
-	/*void EditorState::notifyChanges(bool _changes)
+	void EditorState::notifyChanges()
 	{
 		updateCaption();
-	}*/
+	}
 
 	bool EditorState::checkCommand()
 	{
@@ -379,8 +380,10 @@ namespace tools
 
 	void EditorState::clear()
 	{
+		// export manager reset
 		//SkinManager::getInstance().clear();
-		//ActionManager::getInstance().setChanges(false);
+
+		ActionManager::getInstance().reset();
 
 		mFileName = mDefaultFileName;
 		addUserTag("CurrentFileName", mFileName);
@@ -390,23 +393,21 @@ namespace tools
 
 	void EditorState::load()
 	{
+		// export manager reset
 		//SkinManager::getInstance().clear();
+
+		ActionManager::getInstance().reset();
 
 		MyGUI::xml::Document doc;
 		if (doc.open(mFileName))
 		{
-			bool result = false;
-			MyGUI::xml::Element* root = doc.getRoot();
-			if (root->getName() == "MyGUI")
+			bool result = ExportManager::getInstance().deserialization(doc);
+			if (result)
 			{
-				//SkinManager::getInstance().deserialization(root, MyGUI::Version());
-				result = true;
-
 				if (mFileName != mDefaultFileName)
 					RecentFilesManager::getInstance().addRecentFile(mFileName);
 			}
-
-			if (!result)
+			else
 			{
 				/*MyGUI::Message* message =*/ MessageBoxManager::getInstance().create(
 					replaceTags("Error"),
@@ -428,19 +429,14 @@ namespace tools
 				MyGUI::MessageBoxStyle::IconError
 					| MyGUI::MessageBoxStyle::Yes);
 		}
-
-		//ActionManager::getInstance().setChanges(false);
 	}
 
 	bool EditorState::save()
 	{
 		MyGUI::xml::Document doc;
 		doc.createDeclaration();
-		MyGUI::xml::Element* root = doc.createRoot("MyGUI");
-		root->addAttribute("type", "Resource");
-		root->addAttribute("version", "1.1");
 
-		//SkinManager::getInstance().serialization(root, MyGUI::Version());
+		ExportManager::getInstance().serialization(doc);
 
 		bool result = doc.save(mFileName);
 
@@ -449,7 +445,7 @@ namespace tools
 			if (mFileName != mDefaultFileName)
 				RecentFilesManager::getInstance().addRecentFile(mFileName);
 
-			//ActionManager::getInstance().setChanges(false);
+			ActionManager::getInstance().saveChanges();
 			return true;
 		}
 

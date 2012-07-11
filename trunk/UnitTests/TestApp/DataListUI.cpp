@@ -22,7 +22,7 @@ namespace demo
 
 		bindEvents(mMainWidget);
 
-		tools::ActionManager::getInstance().eventChangeActions.connect(this, &DataListUI::updateActions);
+		tools::ActionManager::getInstance().eventChanges.connect(this, &DataListUI::updateActions);
 		tools::DataManager::getInstance().eventChangeData.connect(this, &DataListUI::updateListData);
 	}
 
@@ -73,13 +73,13 @@ namespace demo
 		}
 		else if (event == "Save")
 		{
-			tools::ActionManager::getInstance().setCurrentActionAsSave();
+			tools::ActionManager::getInstance().resetChanges();
 		}
 	}
 
 	void DataListUI::updateActions()
 	{
-		mTextBox->setCaption(tools::ActionManager::getInstance().getCurrentActionAsSave() ? "" : "*");
+		mTextBox->setCaption(tools::ActionManager::getInstance().getChanges() ? "*" : "");
 	}
 
 	void DataListUI::updateListData()

@@ -2,24 +2,24 @@
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Widget" skin="PanelEmpty" position="42 66 526 366" align="Stretch" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="TabControl" skin="TabControl1_Dark" position="0 22 526 344" align="Stretch" name="Tab">
-            <Widget type="TabItem" skin="" position="2 22 522 320">
+        <Widget type="TabControl" skin="TabControl1_Dark" position="10 29 506 327" align="Stretch" name="Tab">
+            <Widget type="TabItem" skin="" position="2 22 502 303">
                 <Property key="Caption" value="#{TabSkins}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 522 320" align="Stretch" name="SkinControl"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 502 303" align="Stretch" name="SkinControl"/>
             </Widget>
-            <Widget type="TabItem" skin="" position="2 22 522 320">
+            <Widget type="TabItem" skin="" position="2 22 502 303">
                 <Property key="Caption" value="#{TabStates}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 522 320" align="Stretch" name="StateControl"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 502 303" align="Stretch" name="StateControl"/>
             </Widget>
-            <Widget type="TabItem" skin="" position="2 22 522 320">
+            <Widget type="TabItem" skin="" position="2 22 502 303">
                 <Property key="Caption" value="#{TabSeparators}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 522 320" align="Stretch" name="SeparatorControl"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 502 303" align="Stretch" name="SeparatorControl"/>
             </Widget>
-            <Widget type="TabItem" skin="" position="2 22 522 320">
+            <Widget type="TabItem" skin="" position="2 22 502 303">
                 <Property key="Caption" value="#{TabRegions}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 522 320" align="Stretch" name="RegionControl"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 502 303" align="Stretch" name="RegionControl"/>
             </Widget>
         </Widget>
-        <Widget type="Widget" skin="PanelEmpty" position="0 0 526 20" align="HStretch Top" name="MainMenuControl"/>
+        <Widget type="Widget" skin="PanelEmpty" position="10 0 506 20" align="HStretch Top" name="MainMenuControl"/>
     </Widget>
 </MyGUI>
