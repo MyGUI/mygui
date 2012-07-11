@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document>
+	<DataInfos>
+		<DataInfo>
+			<Type>ResourceImageSet</Type>
+			<Properties>
+				<Property>
+					<Name>Name</Name>
+					<Type>String</Type>
+				</Property>
+			</Properties>
+			<Childs>
+				<Child>
+					<Type>Group</Type>
+				</Child>
+			</Childs>
+		</DataInfo>
+		<DataInfo>
+			<Type>Group</Type>
+			<Properties>
+				<Property>
+					<Name>Name</Name>
+					<Type>String</Type>
+				</Property>
+				<Property>
+					<Name>Texture</Name>
+					<Type>Texture</Type>
+				</Property>
+				<Property>
+					<Name>Size</Name>
+					<Type>IntSize</Type>
+				</Property>
+			</Properties>
+			<Childs>
+				<Child>
+					<Type>Index</Type>
+				</Child>
+			</Childs>
+		</DataInfo>
+	</DataInfos>
+</Document>
