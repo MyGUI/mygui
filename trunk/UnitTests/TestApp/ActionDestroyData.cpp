@@ -4,7 +4,7 @@
 	@date		07/2012
 */
 
-#include "CommandDestroyData.h"
+#include "ActionDestroyData.h"
 #include "DataManager.h"
 
 namespace tools

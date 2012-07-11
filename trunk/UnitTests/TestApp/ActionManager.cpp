@@ -4,7 +4,7 @@
 	@date		07/2012
 */
 
-#include "CommandManager.h"
+#include "ActionManager.h"
 #include "pugixml.hpp"
 #include "MyGUI_DataManager.h"
 #include "DataInfoManager.h"
