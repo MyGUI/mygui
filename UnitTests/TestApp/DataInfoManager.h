@@ -21,8 +21,11 @@ namespace tools
 		static DataInfoManager& getInstance();
 		static DataInfoManager* getInstancePtr();
 
-		void loadDataInfo(const std::string& _fileName);
-		void clearDataInfo();
+		void initialise();
+		void shutdown();
+
+		void load(const std::string& _fileName);
+		void clear();
 
 		DataInfo* getData(const std::string& _type);
 

@@ -6,6 +6,7 @@
 #include "ScrollViewPanel.h"
 #include "HyperTextBox.h"
 #include "DataInfoManager.h"
+#include "DataManager.h"
 
 namespace demo
 {
@@ -25,8 +26,12 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		new tools::DataInfoManager();
-		tools::DataInfoManager::getInstance().loadDataInfo("ImageDataInfo.xml");
+		new tools::DataManager();
+		
+		tools::DataInfoManager::getInstance().initialise();
+		tools::DataManager::getInstance().initialise();
 
+		tools::DataInfoManager::getInstance().load("ImageDataInfo.xml");
 		/*MyGUI::ResourceManager::getInstance().load("FrameworkFonts.xml");
 		MyGUI::ResourceManager::getInstance().load("Fonts.xml");
 		MyGUI::ResourceManager::getInstance().load("HyperTextSkins.xml");
@@ -67,6 +72,10 @@ namespace demo
 
 	void DemoKeeper::destroyScene()
 	{
+		tools::DataInfoManager::getInstance().shutdown();
+		tools::DataManager::getInstance().shutdown();
+
+		delete tools::DataManager::getInstancePtr();
 		delete tools::DataInfoManager::getInstancePtr();
 		/*MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::HyperTextBox>("Widget");
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::ScrollViewPanel>("Widget");

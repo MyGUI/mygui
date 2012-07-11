@@ -9,6 +9,7 @@ set (HEADER_FILES
   DataInfo.h
   DataPropertyInfo.h
   DataInfoManager.h
+  DataManager.h
   pugiconfig.hpp
   pugixml.hpp
 )
@@ -24,6 +25,7 @@ set (SOURCE_FILES
   DataInfo.cpp
   DataPropertyInfo.cpp
   DataInfoManager.cpp
+  DataManager.cpp
   pugixml.cpp
 )
 SOURCE_GROUP("Source Files" FILES
