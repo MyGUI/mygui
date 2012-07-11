@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="10 15 300 525" layer="Main" name="Root">
+        <UserString key="SnapTo" value="Default"/>
+        <Widget type="ListBox" skin="ListBox" position="0 35 300 415" name="ListBox"/>
+        <Widget type="Button" skin="Button" position="0 5 100 26">
+            <Property key="Caption" value="Undo"/>
+            <UserString key="Event" value="Undo"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="115 5 100 26">
+            <Property key="Caption" value="Redo"/>
+            <UserString key="Event" value="Redo"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="0 455 100 26">
+            <Property key="Caption" value="Add"/>
+            <UserString key="Event" value="Add"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="115 455 100 26">
+            <Property key="Caption" value="Remove"/>
+            <UserString key="Event" value="Remove"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="0 490 100 26">
+            <Property key="Caption" value="Save"/>
+            <UserString key="Event" value="Save"/>
+        </Widget>
+        <Widget type="TextBox" skin="TextBox" position="115 490 40 25" name="SaveTextBox">
+            <Property key="TextAlign" value="Center"/>
+            <Property key="Caption" value="*"/>
+            <Property key="TextColour" value="1 1 1"/>
+        </Widget>
+    </Widget>
+</MyGUI>

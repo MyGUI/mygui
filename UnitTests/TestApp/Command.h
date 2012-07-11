@@ -14,8 +14,8 @@ namespace tools
 		Command() { }
 		virtual ~Command() { }
 
-		virtual void doCommand() = 0;
-		virtual void undoCommand() = 0;
+		virtual void doCommand()  { }
+		virtual void undoCommand() { }
 	};
 }
 

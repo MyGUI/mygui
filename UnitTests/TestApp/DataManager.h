@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include "Data.h"
+#include "sigslot.h"
 
 namespace tools
 {
@@ -27,6 +28,10 @@ namespace tools
 		void clear();
 
 		Data* getRoot();
+
+		void invalidateDatas();
+
+		sigslot::signal0<> eventChangeData;
 
 	private:
 		static DataManager* mInstance;

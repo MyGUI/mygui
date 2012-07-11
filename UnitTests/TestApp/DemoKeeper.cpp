@@ -12,7 +12,8 @@
 namespace demo
 {
 
-	DemoKeeper::DemoKeeper()
+	DemoKeeper::DemoKeeper() :
+		mDataListUI(nullptr)
 	{
 	}
 
@@ -35,6 +36,11 @@ namespace demo
 		tools::CommandManager::getInstance().initialise();
 
 		tools::DataInfoManager::getInstance().load("ImageDataInfo.xml");
+
+		mDataListUI = new DataListUI();
+
+		//MyGUI::LayoutManager::getInstance().load("");
+
 		/*MyGUI::ResourceManager::getInstance().load("FrameworkFonts.xml");
 		MyGUI::ResourceManager::getInstance().load("Fonts.xml");
 		MyGUI::ResourceManager::getInstance().load("HyperTextSkins.xml");

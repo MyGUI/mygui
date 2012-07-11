@@ -23,6 +23,15 @@ namespace tools
 	void Data::setType(DataInfo* _value)
 	{
 		mType = _value;
+
+		mProperties.clear();
+
+		if (mType != nullptr)
+		{
+			const DataInfo::VectorProperty& properties = mType->getProperties();
+			for (DataInfo::VectorProperty::const_iterator property = properties.begin(); property != properties.end(); property++)
+				mProperties[(*property)->getName()] = "";
+		}
 	}
 
 	DataInfo* Data::getType()

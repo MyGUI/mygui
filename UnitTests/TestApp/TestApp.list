@@ -16,6 +16,7 @@ set (HEADER_FILES
   CommandCreateData.h
   CommandDestroyData.h
   CommandManager.h
+  DataListUI.h
 )
 set (SOURCE_FILES
   DemoKeeper.cpp
@@ -34,6 +35,7 @@ set (SOURCE_FILES
   CommandCreateData.cpp
   CommandDestroyData.cpp
   CommandManager.cpp
+  DataListUI.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   DemoKeeper.cpp
