@@ -4,37 +4,37 @@
 	@date		07/2012
 */
 
-#include "DataManager.h"
+#include "DataInfoManager.h"
 #include "pugixml.hpp"
-#include "MyGUI.h"
+#include "MyGUI_DataManager.h"
 
 namespace tools
 {
-	DataManager* DataManager::mInstance = nullptr;
+	DataInfoManager* DataInfoManager::mInstance = nullptr;
 
-	DataManager::DataManager()
+	DataInfoManager::DataInfoManager()
 	{
 		mInstance = this;
 	}
 
-	DataManager::~DataManager()
+	DataInfoManager::~DataInfoManager()
 	{
 		mInstance = nullptr;
 
 		clearDataInfo();
 	}
 
-	DataManager& DataManager::getInstance()
+	DataInfoManager& DataInfoManager::getInstance()
 	{
 		return *mInstance;
 	}
 
-	DataManager* DataManager::getInstancePtr()
+	DataInfoManager* DataInfoManager::getInstancePtr()
 	{
 		return mInstance;
 	}
 
-	void DataManager::loadDataInfo(const std::string& _fileName)
+	void DataInfoManager::loadDataInfo(const std::string& _fileName)
 	{
 		std::string fileName = MyGUI::DataManager::getInstance().getDataPath(_fileName);
 		pugi::xml_document doc;
@@ -51,14 +51,14 @@ namespace tools
 		}
 	}
 
-	void DataManager::clearDataInfo()
+	void DataInfoManager::clearDataInfo()
 	{
 		for (VectorDataInfo::iterator data = mDataInfos.begin(); data != mDataInfos.end(); data ++)
 			delete *data;
 		mDataInfos.clear();
 	}
 
-	DataInfo* DataManager::getData(const std::string& _type)
+	DataInfo* DataInfoManager::getData(const std::string& _type)
 	{
 		for (VectorDataInfo::const_iterator data = mDataInfos.begin(); data != mDataInfos.end(); data ++)
 		{

@@ -8,6 +8,7 @@
 
 #include "pugixml.hpp"
 #include <vector>
+#include "DataPropertyInfo.h"
 
 namespace tools
 {
@@ -24,9 +25,13 @@ namespace tools
 		typedef std::vector<std::string> VectorString;
 		const VectorString& getChilds() const;
 
+		typedef std::vector<DataPropertyInfo*> VectorProperty;
+		const VectorProperty& getProperties() const;
+
 	private:
 		std::string mType;
 		VectorString mChilds;
+		VectorProperty mProperties;
 	};
 }
 
