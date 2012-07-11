@@ -55,7 +55,7 @@ namespace tools
 		{
 			Data* child = mChilds.back();
 			removeChild(child);
-			child = nullptr;
+			delete child;
 		}
 	}
 
