@@ -7,7 +7,7 @@
 #define _897c30fe_12de_4067_91d0_a2a336a18f83_
 
 #include <list>
-#include "Command.h"
+#include "Action.h"
 #include "sigslot.h"
 
 namespace tools
