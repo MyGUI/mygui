@@ -12,15 +12,15 @@
 
 namespace tools
 {
-	class CommandCreateData :
-		public Command
+	class ActionCreateData :
+		public Action
 	{
 	public:
-		CommandCreateData();
-		virtual ~CommandCreateData();
+		ActionCreateData();
+		virtual ~ActionCreateData();
 
-		virtual void doCommand();
-		virtual void undoCommand();
+		virtual void doAction();
+		virtual void undoAction();
 
 		void setName(const std::string& _value);
 

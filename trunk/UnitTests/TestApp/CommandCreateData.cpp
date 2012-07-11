@@ -10,13 +10,13 @@
 
 namespace tools
 {
-	CommandCreateData::CommandCreateData() :
+	ActionCreateData::ActionCreateData() :
 		mData(nullptr),
 		mComplete(false)
 	{
 	}
 
-	CommandCreateData::~CommandCreateData()
+	ActionCreateData::~ActionCreateData()
 	{
 		if (mData != nullptr && !mComplete)
 		{
@@ -25,7 +25,7 @@ namespace tools
 		}
 	}
 
-	void CommandCreateData::doCommand()
+	void ActionCreateData::doAction()
 	{
 		if (mData == nullptr)
 		{
@@ -40,7 +40,7 @@ namespace tools
 		mComplete = true;
 	}
 
-	void CommandCreateData::undoCommand()
+	void ActionCreateData::undoAction()
 	{
 		DataManager::getInstance().getRoot()->removeChild(mData);
 		DataManager::getInstance().invalidateDatas();
@@ -48,7 +48,7 @@ namespace tools
 		mComplete = false;
 	}
 
-	void CommandCreateData::setName(const std::string& _value)
+	void ActionCreateData::setName(const std::string& _value)
 	{
 		mName = _value;
 	}

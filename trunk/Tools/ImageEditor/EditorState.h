@@ -35,7 +35,7 @@ namespace tools
 		void notifyMessageBoxResultLoadDropFile(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
 		void notifyEndDialog(Dialog* _sender, bool _result);
-		void notifyChanges(bool _changes);
+		//void notifyChanges(bool _changes);
 		void notifySettingsWindowEndDialog(Dialog* _dialog, bool _result);
 
 		void commandFileDrop(const MyGUI::UString& _commandName, bool& _result);

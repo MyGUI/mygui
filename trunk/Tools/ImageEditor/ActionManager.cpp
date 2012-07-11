@@ -6,7 +6,7 @@
 #include "Precompiled.h"
 #include "ActionManager.h"
 
-template <> tools::ActionManager* MyGUI::Singleton<tools::ActionManager>::msInstance = nullptr;
+/*template <> tools::ActionManager* MyGUI::Singleton<tools::ActionManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::ActionManager>::mClassTypeName("ActionManager");
 
 namespace tools
@@ -44,3 +44,4 @@ namespace tools
 	}
 
 } // namespace tools
+*/

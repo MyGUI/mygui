@@ -12,48 +12,48 @@
 
 namespace tools
 {
-	class CommandManager
+	class ActionManager
 	{
 	public:
-		CommandManager();
-		~CommandManager();
+		ActionManager();
+		~ActionManager();
 
-		static CommandManager& getInstance();
-		static CommandManager* getInstancePtr();
+		static ActionManager& getInstance();
+		static ActionManager* getInstancePtr();
 
 		void initialise();
 		void shutdown();
 
-		void doCommand(Command* _command);
+		void doAction(Action* _command);
 
-		void undoCommand();
-		void redoCommand();
+		void undoAction();
+		void redoAction();
 
-		void setCurrentCommandAsSave();
-		bool getCurrentCommandAsSave();
+		void setCurrentActionAsSave();
+		bool getCurrentActionAsSave();
 
-		void setMaxCommands(size_t _value);
-		size_t getMaxCommands() const;
+		void setMaxActions(size_t _value);
+		size_t getMaxActions() const;
 
 		void reset();
 
-		sigslot::signal0<> eventChangeCommands;
+		sigslot::signal0<> eventChangeActions;
 
 	private:
 		void clear();
 
-		bool updateMaxCommands();
+		bool updateMaxActions();
 		void removeRedo();
 
-		void onChangeCommands();
+		void onChangeActions();
 
 	private:
-		static CommandManager* mInstance;
-		typedef std::list<Command*> ListCommand;
-		ListCommand mCommands;
-		ListCommand::iterator mCurrentCommand;
-		ListCommand::iterator mCommandAsSave;
-		size_t mMaxCommands;
+		static ActionManager* mInstance;
+		typedef std::list<Action*> ListAction;
+		ListAction mActions;
+		ListAction::iterator mCurrentAction;
+		ListAction::iterator mActionAsSave;
+		size_t mMaxActions;
 	};
 }
 

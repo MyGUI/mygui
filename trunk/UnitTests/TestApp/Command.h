@@ -8,14 +8,14 @@
 
 namespace tools
 {
-	class Command
+	class Action
 	{
 	public:
-		Command() { }
-		virtual ~Command() { }
+		Action() { }
+		virtual ~Action() { }
 
-		virtual void doCommand()  { }
-		virtual void undoCommand() { }
+		virtual void doAction()  { }
+		virtual void undoAction() { }
 	};
 }
 

@@ -11,15 +11,15 @@
 
 namespace tools
 {
-	class CommandDestroyData :
-		public Command
+	class ActionDestroyData :
+		public Action
 	{
 	public:
-		CommandDestroyData();
-		virtual ~CommandDestroyData();
+		ActionDestroyData();
+		virtual ~ActionDestroyData();
 
-		virtual void doCommand();
-		virtual void undoCommand();
+		virtual void doAction();
+		virtual void undoAction();
 
 		void setData(Data* _data);
 
