@@ -42,16 +42,37 @@ namespace common
 		return path[0] == '/' || path[0] == '\\';
 	}
 
+	inline bool endWith(const std::wstring& _source, const std::wstring& _value)
+	{
+		size_t count = _value.size();
+		if (_source.size() < count)
+			return false;
+		size_t offset = _source.size() - count;
+		for (size_t index = 0; index < count; ++ index)
+		{
+			if (_source[index + offset] != _value[index])
+				return false;
+		}
+		return true;
+	}
+
 	inline std::wstring concatenatePath(const std::wstring& _base, const std::wstring& _name)
 	{
 		if (_base.empty() || isAbsolutePath(_name.c_str()))
+		{
 			return _name;
+		}
 		else
+		{
+			if (endWith(_base, L"\\") || endWith(_base, L"/"))
+				return _base + _name;
+
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 			return _base + L'\\' + _name;
 #else
 			return _base + L'/' + _name;
 #endif
+		}
 	}
 
 	inline bool isReservedDir (const wchar_t* _fn)
