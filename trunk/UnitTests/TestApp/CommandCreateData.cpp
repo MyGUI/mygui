@@ -11,31 +11,41 @@
 namespace tools
 {
 	CommandCreateData::CommandCreateData() :
-		mData(nullptr)
+		mData(nullptr),
+		mComplete(false)
 	{
 	}
 
 	CommandCreateData::~CommandCreateData()
 	{
+		if (mData != nullptr && !mComplete)
+		{
+			delete mData;
+			mData = nullptr;
+		}
 	}
 
 	void CommandCreateData::doCommand()
 	{
-		mData = new Data();
-		mData->setType(DataInfoManager::getInstance().getData("ResourceImageSet"));
-		mData->setPropertyValue("Name", mName);
+		if (mData == nullptr)
+		{
+			mData = new Data();
+			mData->setType(DataInfoManager::getInstance().getData("ResourceImageSet"));
+			mData->setPropertyValue("Name", mName);
+		}
 
-		DataManager::getInstance().getRoot()->AddChild(mData);
+		DataManager::getInstance().getRoot()->addChild(mData);
 		DataManager::getInstance().invalidateDatas();
+
+		mComplete = true;
 	}
 
 	void CommandCreateData::undoCommand()
 	{
-		DataManager::getInstance().getRoot()->RemoveChild(mData);
+		DataManager::getInstance().getRoot()->removeChild(mData);
 		DataManager::getInstance().invalidateDatas();
 
-		delete mData;
-		mData = nullptr;
+		mComplete = false;
 	}
 
 	void CommandCreateData::setName(const std::string& _value)

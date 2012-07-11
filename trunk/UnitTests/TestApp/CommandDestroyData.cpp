@@ -10,13 +10,14 @@
 namespace tools
 {
 	CommandDestroyData::CommandDestroyData() :
-		mData(nullptr)
+		mData(nullptr),
+		mComplete(false)
 	{
 	}
 
 	CommandDestroyData::~CommandDestroyData()
 	{
-		if (mData->getParent() == nullptr)
+		if (mComplete)
 		{
 			delete mData;
 			mData = nullptr;
@@ -25,16 +26,20 @@ namespace tools
 
 	void CommandDestroyData::doCommand()
 	{
-		DataManager::getInstance().getRoot()->RemoveChild(mData);
+		DataManager::getInstance().getRoot()->removeChild(mData);
 
 		DataManager::getInstance().invalidateDatas();
+
+		mComplete = true;
 	}
 
 	void CommandDestroyData::undoCommand()
 	{
-		DataManager::getInstance().getRoot()->AddChild(mData);
+		DataManager::getInstance().getRoot()->addChild(mData);
 
 		DataManager::getInstance().invalidateDatas();
+
+		mComplete = false;
 	}
 
 	void CommandDestroyData::setData(Data* _data)

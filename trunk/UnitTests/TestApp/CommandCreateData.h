@@ -27,6 +27,7 @@ namespace tools
 	private:
 		std::string mName;
 		Data* mData;
+		bool mComplete;
 	};
 }
 
