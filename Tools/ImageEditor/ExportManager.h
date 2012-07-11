@@ -21,10 +21,13 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		void convertSkin(MyGUI::xml::Element* _from, MyGUI::xml::Element* _to);
+		void serialization(MyGUI::xml::Document& _doc);
+		bool deserialization(MyGUI::xml::Document& _doc);
 
-	private:
-		MyGUI::UString convertStateName(const MyGUI::UString& _value) const;
+		//void convertSkin(MyGUI::xml::Element* _from, MyGUI::xml::Element* _to);
+
+	//private:
+		//MyGUI::UString convertStateName(const MyGUI::UString& _value) const;
 	};
 
 } // namespace tools

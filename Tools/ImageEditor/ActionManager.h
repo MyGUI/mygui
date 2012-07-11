@@ -1,36 +1,60 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		08/2010
+	@date		07/2012
 */
-#ifndef __ACTION_MANAGER_H__
-#define __ACTION_MANAGER_H__
+#ifndef _897c30fe_12de_4067_91d0_a2a336a18f83_
+#define _897c30fe_12de_4067_91d0_a2a336a18f83_
 
-#include <MyGUI.h>
+#include <list>
+#include "Action.h"
+#include "sigslot.h"
 
 namespace tools
 {
-	/*typedef MyGUI::delegates::CMultiDelegate1<bool> Event_Changes;
-
-	class ActionManager :
-		public MyGUI::Singleton<ActionManager>
+	class ActionManager
 	{
 	public:
 		ActionManager();
-		virtual ~ActionManager();
+		~ActionManager();
+
+		static ActionManager& getInstance();
+		static ActionManager* getInstancePtr();
 
 		void initialise();
 		void shutdown();
 
-		bool getChanges() const;
-		void setChanges(bool _value);
+		void doAction(Action* _command);
 
-		Event_Changes eventChanges;
+		void undoAction();
+		void redoAction();
+
+		void saveChanges();
+		bool getChanges();
+
+		void setMaxActions(size_t _value);
+		size_t getMaxActions() const;
+
+		void reset();
+
+		sigslot::signal0<> eventChanges;
 
 	private:
-		bool mChanges;
-	};*/
+		void clear();
 
-} // namespace tools
+		bool updateMaxActions();
+		void removeRedo();
 
-#endif // __ACTION_MANAGER_H__
+		void onChangeActions();
+
+	private:
+		static ActionManager* mInstance;
+		typedef std::list<Action*> ListAction;
+		ListAction mActions;
+		ListAction::iterator mCurrentAction;
+		ListAction::iterator mActionAsSave;
+		size_t mMaxActions;
+	};
+}
+
+#endif

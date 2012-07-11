@@ -12,11 +12,13 @@
 #include "MessageBoxFadeControl.h"
 #include "MessageBox/MessageBox.h"
 #include "SettingsWindow.h"
+#include "sigslot.h"
 
 namespace tools
 {
 	class EditorState :
-		public StateController
+		public StateController,
+		public sigslot::has_slots<>
 	{
 	public:
 		EditorState();
@@ -35,7 +37,7 @@ namespace tools
 		void notifyMessageBoxResultLoadDropFile(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
 		void notifyEndDialog(Dialog* _sender, bool _result);
-		//void notifyChanges(bool _changes);
+		void notifyChanges();
 		void notifySettingsWindowEndDialog(Dialog* _dialog, bool _result);
 
 		void commandFileDrop(const MyGUI::UString& _commandName, bool& _result);

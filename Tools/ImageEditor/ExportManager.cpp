@@ -28,7 +28,29 @@ namespace tools
 	{
 	}
 
-	void ExportManager::convertSkin(MyGUI::xml::Element* _from, MyGUI::xml::Element* _to)
+	void ExportManager::serialization(MyGUI::xml::Document& _doc)
+	{
+		MyGUI::xml::Element* root = _doc.createRoot("MyGUI");
+		root->addAttribute("type", "Resource");
+		root->addAttribute("version", "1.1");
+	}
+
+	bool ExportManager::deserialization(MyGUI::xml::Document& _doc)
+	{
+		bool result = false;
+		MyGUI::xml::Element* root = _doc.getRoot();
+		if (root->getName() == "MyGUI")
+		{
+			// export manager load
+			//SkinManager::getInstance().deserialization(root, MyGUI::Version());
+			result = true;
+
+		}
+
+		return result;
+	}
+
+	/*void ExportManager::convertSkin(MyGUI::xml::Element* _from, MyGUI::xml::Element* _to)
 	{
 		_to->addAttribute("type", "ResourceSkin");
 		_to->addAttribute("name", _from->findAttribute("name"));
@@ -267,6 +289,6 @@ namespace tools
 		if (_value == "Selected Pressed")
 			return "pushed_checked";
 		return _value;
-	}
+	}*/
 
 } // namespace tools

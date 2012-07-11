@@ -29,15 +29,15 @@ namespace tools
 		void undoAction();
 		void redoAction();
 
-		void setCurrentActionAsSave();
-		bool getCurrentActionAsSave();
+		void resetChanges();
+		bool getChanges();
 
 		void setMaxActions(size_t _value);
 		size_t getMaxActions() const;
 
 		void reset();
 
-		sigslot::signal0<> eventChangeActions;
+		sigslot::signal0<> eventChanges;
 
 	private:
 		void clear();
