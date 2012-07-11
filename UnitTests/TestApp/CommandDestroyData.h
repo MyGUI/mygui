@@ -25,6 +25,7 @@ namespace tools
 
 	private:
 		Data* mData;
+		bool mComplete;
 	};
 }
 

@@ -25,8 +25,8 @@ namespace tools
 		typedef std::vector<Data*> VectorData;
 		const VectorData& getChilds() const;
 
-		void AddChild(Data* _child);
-		void RemoveChild(Data* _child);
+		void addChild(Data* _child);
+		void removeChild(Data* _child);
 
 		typedef std::map<std::string, std::string> MapString;
 		const MapString getProperties() const;

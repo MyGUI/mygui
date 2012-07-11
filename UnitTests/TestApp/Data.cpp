@@ -54,7 +54,7 @@ namespace tools
 		while (!mChilds.empty())
 		{
 			Data* child = mChilds.back();
-			RemoveChild(child);
+			removeChild(child);
 			child = nullptr;
 		}
 	}
@@ -64,7 +64,7 @@ namespace tools
 		return mProperties;
 	}
 
-	void Data::AddChild(Data* _child)
+	void Data::addChild(Data* _child)
 	{
 		MYGUI_ASSERT(_child != nullptr, "Child is nullptr");
 		MYGUI_ASSERT(_child->getParent() == nullptr, "Child already attached");
@@ -73,7 +73,7 @@ namespace tools
 		_child->mParent = this;
 	}
 	
-	void Data::RemoveChild(Data* _child)
+	void Data::removeChild(Data* _child)
 	{
 		MYGUI_ASSERT(_child->getParent() == this, "Child not found");
 
