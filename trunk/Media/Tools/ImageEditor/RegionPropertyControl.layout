@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="16 40 240 464" align="Stretch" layer="Overlapped" name="_Main">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="Widget" skin="Panel1Skin_Dark" position="0 0 240 464" align="Stretch">
+            <Widget type="TextBox" skin="TextBox" position="8 8 224 20" align="HStretch Top">
+                <Property key="Caption" value="#{PropertyRegionCoords}"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="FontName" value="DejaVuSansFont.13"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="8 28 224 20" align="HStretch Top" name="PropertyPosition"/>
+            <Widget type="TextBox" skin="TextBox" position="8 52 224 20" align="HStretch Top">
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="Caption" value="#{PropertyRegionVisible}"/>
+                <Property key="FontName" value="DejaVuSansFont.13"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="8 72 224 20" align="HStretch Top" name="PropertyVisible"/>
+            <Widget type="TextBox" skin="TextBox" position="8 96 224 20" align="HStretch Top">
+                <Property key="Caption" value="#{PropertyRegionEnabled}"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="FontName" value="DejaVuSansFont.13"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="8 116 224 20" align="HStretch Top" name="PropertyEnabled"/>
+            <Widget type="TextBox" skin="TextBox" position="8 140 224 20" align="HStretch Top">
+                <Property key="Caption" value="#{PropertyRegionAlign}"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="FontName" value="DejaVuSansFont.13"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="8 160 224 20" align="HStretch Top" name="PropertyAlign"/>
+            <Widget type="TextBox" skin="TextBox" position="8 184 224 20" align="HStretch Top">
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="Caption" value="#{PropertyRegionType}"/>
+                <Property key="FontName" value="DejaVuSansFont.13"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="8 204 224 20" align="HStretch Top" name="PropertyRegionType"/>
+        </Widget>
+    </Widget>
+</MyGUI>

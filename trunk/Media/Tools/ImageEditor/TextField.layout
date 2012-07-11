@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="20 20 200 20" align="Default" layer="Popup" name="_Main">
+        <UserString key="SnapTo" value="Center"/>
+        <Widget type="EditBox" skin="EditBox2_Dark" position="0 0 200 20" align="Stretch" name="Text"/>
+    </Widget>
+</MyGUI>
