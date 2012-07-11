@@ -7,7 +7,8 @@ set (HEADER_FILES
   HyperTextBox.h
   Data.h
   DataInfo.h
-  DataManager.h
+  DataPropertyInfo.h
+  DataInfoManager.h
   pugiconfig.hpp
   pugixml.hpp
 )
@@ -21,7 +22,8 @@ set (SOURCE_FILES
   ../../Common/Base/BaseResource.rc
   Data.cpp
   DataInfo.cpp
-  DataManager.cpp
+  DataPropertyInfo.cpp
+  DataInfoManager.cpp
   pugixml.cpp
 )
 SOURCE_GROUP("Source Files" FILES
