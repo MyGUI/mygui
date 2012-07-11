@@ -402,4 +402,24 @@
             <Widget type="ScrollBar" skin="ScrollBarV_Dark" position="39 2 14 51" align="Right VStretch" name="VScroll"/>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="MenuBar2_Dark" version="3.2.0">
+        <Widget type="Widget" skin="MenuPanel2Skin_Dark" position="20 20 20 20" name="Root">
+            <Property key="VerticalAlignment" value="false"/>
+            <UserString key="LE_TargetWidgetType" value="MenuBar"/>
+            <UserString key="DistanceButton" value="6"/>
+            <UserString key="SubMenuLayer" value="Popup"/>
+            <UserString key="NormalSkin" value="MenuBarButton2_Dark"/>
+            <UserString key="PopupSkin" value="MenuBarButton2_Dark"/>
+            <UserString key="SeparatorSkin" value="MenuBarSeparator_Dark"/>
+            <UserString key="SubMenuSkin" value="PopupMenu_Dark"/>
+            <Widget type="Widget" skin="PanelEmpty" position="3 1 14 18" align="Stretch" name="Client"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="MenuBarButton2_Dark" version="3.2.0">
+        <Widget type="Widget" skin="MenuBarButton2Skin_Dark" position="20 20 20 20" name="Root">
+            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="TextAlign" value="Center"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
 </MyGUI>
