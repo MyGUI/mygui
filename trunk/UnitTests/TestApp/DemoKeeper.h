@@ -3,6 +3,7 @@
 
 #include "BaseManager.h"
 #include "HyperTextBox.h"
+#include "DataListUI.h"
 
 namespace demo
 {
@@ -20,6 +21,8 @@ namespace demo
 
 		void OnClickUrl(MyGUI::HyperTextBox* _sender, const std::string& _url);
 
+	private:
+		DataListUI* mDataListUI;
 	};
 
 } // namespace demo

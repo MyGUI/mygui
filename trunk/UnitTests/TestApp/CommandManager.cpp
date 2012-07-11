@@ -14,7 +14,7 @@ namespace tools
 	CommandManager* CommandManager::mInstance = nullptr;
 
 	CommandManager::CommandManager() :
-		mMaxCommands(256)
+		mMaxCommands(5)
 	{
 		mInstance = this;
 	}
@@ -36,8 +36,7 @@ namespace tools
 
 	void CommandManager::initialise()
 	{
-		mCurrentCommand = mCommands.end();
-		mCommandAsSave = mCommands.end();
+		reset();
 	}
 
 	void CommandManager::shutdown()
@@ -60,8 +59,7 @@ namespace tools
 		removeRedo();
 
 		mCommands.push_back(_command);
-		mCurrentCommand = mCommands.end();
-		mCurrentCommand --;
+		mCurrentCommand ++;
 
 		updateMaxCommands();
 
@@ -72,26 +70,29 @@ namespace tools
 
 	void CommandManager::undoCommand()
 	{
-		if (mCurrentCommand != mCommands.begin())
-		{
-			(*mCurrentCommand)->undoCommand();
-			mCurrentCommand --;
+		if (mCurrentCommand == mCommands.begin())
+			return;
 
-			onChangeCommands();
-		}
+		Command* command = (*mCurrentCommand);
+		mCurrentCommand --;
+
+		command->undoCommand();
+		onChangeCommands();
 	}
 
 	void CommandManager::redoCommand()
 	{
 		ListCommand::iterator next = mCurrentCommand;
 		next ++;
-		if (next != mCommands.end())
-		{
-			(*mCurrentCommand)->doCommand();
-			mCurrentCommand = next;
 
-			onChangeCommands();
-		}
+		if (next == mCommands.end())
+			return;
+
+		mCurrentCommand = next;
+		Command* command = *mCurrentCommand;
+
+		command->doCommand();
+		onChangeCommands();
 	}
 
 	void CommandManager::setCurrentCommandAsSave()
@@ -125,16 +126,22 @@ namespace tools
 	{
 		bool change = false;
 
-		while (mCommands.size() > mMaxCommands)
+		if (mCommands.size() < 2)
+			return change;
+
+		while (mCommands.size() > (mMaxCommands + 1))
 		{
-			if (mCommands.begin() == mCommandAsSave)
+			ListCommand::iterator second = mCommands.begin();
+			second ++;
+
+			if (second == mCommandAsSave || mCommandAsSave == mCommands.begin())
 			{
 				mCommandAsSave = mCommands.end();
 				change = true;
 			}
 
-			Command* command = mCommands.front();
-			mCommands.pop_front();
+			Command* command = *second;
+			mCommands.erase(second);
 			delete command;
 		}
 
@@ -149,19 +156,30 @@ namespace tools
 		while (mCurrentCommand != last)
 		{
 			Command* command = *last;
-			delete command;
 
 			if (last == mCommandAsSave)
-			{
 				mCommandAsSave = mCommands.end();
-			}
 
-			last --;
+			last--;
+			mCommands.pop_back();
+
+			delete command;
 		}
 	}
 
 	void CommandManager::onChangeCommands()
 	{
-		// event
+		eventChangeCommands();
+	}
+
+	void CommandManager::reset()
+	{
+		clear();
+
+		Command* command = new Command();
+		mCommands.push_back(command);
+
+		mCurrentCommand = mCommands.begin();
+		mCommandAsSave = mCommands.begin();
 	}
 }

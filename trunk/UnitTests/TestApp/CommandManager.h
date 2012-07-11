@@ -8,6 +8,7 @@
 
 #include <list>
 #include "Command.h"
+#include "sigslot.h"
 
 namespace tools
 {
@@ -23,8 +24,6 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		void clear();
-
 		void doCommand(Command* _command);
 
 		void undoCommand();
@@ -36,7 +35,13 @@ namespace tools
 		void setMaxCommands(size_t _value);
 		size_t getMaxCommands() const;
 
+		void reset();
+
+		sigslot::signal0<> eventChangeCommands;
+
 	private:
+		void clear();
+
 		bool updateMaxCommands();
 		void removeRedo();
 
