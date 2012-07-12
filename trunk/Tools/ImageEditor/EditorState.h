@@ -7,7 +7,7 @@
 #define __EDITOR_STATE_H__
 
 #include "StateController.h"
-#include "MainPane.h"
+#include "Control.h"
 #include "Tools/OpenSaveFileDialog.h"
 #include "MessageBoxFadeControl.h"
 #include "MessageBox/MessageBox.h"
@@ -67,7 +67,7 @@ namespace tools
 		MyGUI::UString mDefaultFileName;
 		MyGUI::UString mDropFileName;
 
-		MainPane* mMainPane;
+		Control* mMainPane;
 		OpenSaveFileDialog* mOpenSaveFileDialog;
 		MessageBoxFadeControl* mMessageBoxFadeControl;
 		SettingsWindow* mSettingsWindow;

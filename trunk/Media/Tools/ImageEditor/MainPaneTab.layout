@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="TabControl" skin="TabControl2_Dark" position="30 30 230 326" align="Stretch" name="Root">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="TabItem" skin="" position="2 22 226 302">
+            <Property key="Caption" value="#{TabImages}"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 0 226 302" align="Stretch" name="SkinControl">
+                <UserString key="ControlType" value="SkinListControl"/>
+                <UserString key="ControlLayout" value="SkinListControl.layout"/>
+            </Widget>
+        </Widget>
+        <Widget type="TabItem" skin="" position="2 22 226 302">
+            <Property key="Caption" value="#{TabStates}"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 0 226 302" align="Stretch" name="StateControl"/>
+        </Widget>
+    </Widget>
+</MyGUI>

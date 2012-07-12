@@ -21,6 +21,7 @@ namespace tools
 
 		MyGUI::Widget* getRoot();
 
+		void Initialise(const std::string& _layoutName);
 		virtual void Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
@@ -32,6 +33,7 @@ namespace tools
 	private:
 		typedef std::vector<Control*> VectorControl;
 		VectorControl mChilds;
+		Control* mParent;
 	};
 }
 

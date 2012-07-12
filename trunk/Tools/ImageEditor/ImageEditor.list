@@ -21,7 +21,6 @@ set (HEADER_FILES
 	ItemHolder.h
 	Localise.h
 	MainMenuControl.h
-	MainPane.h
 	MessageBoxFadeControl.h
 	MessageBoxManager.h
 	MyGUI_FilterNoneSkin.h
@@ -106,7 +105,6 @@ set (SOURCE_FILES
 	HorizontalSelectorControl.cpp
 	HotKeyManager.cpp
 	MainMenuControl.cpp
-	MainPane.cpp
 	MessageBoxFadeControl.cpp
 	MessageBoxManager.cpp
 	MyGUI_FilterNoneSkin.cpp

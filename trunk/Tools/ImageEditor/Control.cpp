@@ -10,7 +10,10 @@
 
 namespace tools
 {
-	Control::Control()
+	FACTORY_ITEM_ATTRIBUTE(Control);
+
+	Control::Control() :
+		mParent(nullptr)
 	{
 	}
 
@@ -26,8 +29,14 @@ namespace tools
 		return mMainWidget;
 	}
 
+	void Control::Initialise(const std::string& _layoutName)
+	{
+		Initialise(nullptr, nullptr, _layoutName);
+	}
+
 	void Control::Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
+		mParent = _parent;
 		if (_parent != nullptr)
 		{
 			initialise(_layoutName, _place);
