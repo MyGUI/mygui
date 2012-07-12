@@ -19,6 +19,8 @@ namespace tools
 
 	SeparatorControl::~SeparatorControl()
 	{
+		mMainWidget->eventChangeCoord -= MyGUI::newDelegate(this, &SeparatorControl::notifyChangeCoord);
+
 		for (VectorWidget::const_iterator child = mChilds.begin(); child != mChilds.end(); child ++)
 		{
 			SeparatorData** data = (*child)->getUserData<SeparatorData*>(false);
@@ -35,6 +37,8 @@ namespace tools
 		Control::Initialise(_parent, _place, _layoutName);
 
 		CreateSeparators();
+
+		mMainWidget->eventChangeCoord += MyGUI::newDelegate(this, &SeparatorControl::notifyChangeCoord);
 	}
 
 	void SeparatorControl::CreateSeparators()
@@ -177,5 +181,23 @@ namespace tools
 			data->NextPart->setCoord(nextCoord);
 			_separator->setCoord(separatorCoord);
 		}
+	}
+
+	void SeparatorControl::notifyChangeCoord(MyGUI::Widget* _sender)
+	{
+		MyGUI::IntSize size = _sender->getSize();
+		//if (size.width < mOldSize.width || size.height < mOldSize.height)
+		{
+			for (VectorWidget::const_iterator child = mChilds.begin(); child != mChilds.end(); child ++)
+			{
+				SeparatorData** data = (*child)->getUserData<SeparatorData*>(false);
+				if (data != nullptr)
+				{
+					MoveSeparator((*child), (*child)->getPosition());
+				}
+			}
+		}
+
+		mOldSize = size;
 	}
 }
