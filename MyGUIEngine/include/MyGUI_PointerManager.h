@@ -101,6 +101,7 @@ namespace MyGUI
 
 		std::string mDefaultName;
 		IntPoint mPoint;
+		IntPoint mOldPoint;
 		bool mVisible;
 		std::string mLayerName;
 		std::string mSkinName;

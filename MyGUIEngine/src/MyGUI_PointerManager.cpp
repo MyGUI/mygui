@@ -199,8 +199,13 @@ namespace MyGUI
 	void PointerManager::notifyFrameStart(float _time)
 	{
 		mPoint = InputManager::getInstance().getMousePosition();
-		if (nullptr != mMousePointer && mPointer != nullptr)
-			mPointer->setPosition(mMousePointer, mPoint);
+		if (mOldPoint != mPoint)
+		{
+			mOldPoint = mPoint;
+
+			if (nullptr != mMousePointer && mPointer != nullptr)
+				mPointer->setPosition(mMousePointer, mPoint);
+		}
 	}
 
 	void PointerManager::setVisible(bool _visible)

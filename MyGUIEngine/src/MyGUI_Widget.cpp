@@ -651,6 +651,8 @@ namespace MyGUI
 		mCoord = _point;
 
 		_updateView();
+
+		eventChangeCoord(this);
 	}
 
 	void Widget::setSize(const IntSize& _size)
@@ -686,6 +688,8 @@ namespace MyGUI
 
 		// запоминаем текущее состояние
 		mIsMargin = margin;
+
+		eventChangeCoord(this);
 	}
 
 	void Widget::setCoord(const IntCoord& _coord)
@@ -729,6 +733,8 @@ namespace MyGUI
 
 		// запоминаем текущее состояние
 		mIsMargin = margin;
+
+		eventChangeCoord(this);
 	}
 
 	void Widget::setAlign(Align _value)
