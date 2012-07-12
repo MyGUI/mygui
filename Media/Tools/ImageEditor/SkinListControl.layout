@@ -16,6 +16,7 @@
                 <Widget type="MenuItem" skin="" position="0 0 93 18">
                     <Property key="Caption" value="#{Create}"/>
                     <Property key="MenuItemId" value="Create"/>
+                    <UserString key="CommandClick" value="Command_FileLoad"/>
                 </Widget>
                 <Widget type="MenuItem" skin="" position="0 18 93 18">
                     <Property key="Caption" value="#{Delete}"/>
