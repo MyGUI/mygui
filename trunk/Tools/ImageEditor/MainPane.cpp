@@ -5,30 +5,42 @@
 */
 #include "Precompiled.h"
 #include "MainPane.h"
+#include "ControlUtility.h"
 
 namespace tools
 {
 
 	MainPane::MainPane() :
-		wraps::BaseLayout("MainPane.layout"),
+		//wraps::BaseLayout("MainPane.layout"),
 		//mSkinControl(nullptr),
 		//mStatesControl(nullptr),
 		//mSeparatorControl(nullptr),
 		//mRegionControl(nullptr),
 		mMainMenuControl(nullptr),
-		mTab(nullptr)
+		mTab(nullptr)//,
+		//mSkinListControl(nullptr)
 	{
+	}
+
+	void MainPane::Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::Initialise(_parent, _place, _layoutName);
+
 		//assignBase(mSkinControl, "SkinControl");
 		//assignBase(mStatesControl, "StateControl");
 		//assignBase(mSeparatorControl, "SeparatorControl");
 		//assignBase(mRegionControl, "RegionControl");
 		assignBase(mMainMenuControl, "MainMenuControl");
+		//assignBase(mSkinListControl, "SkinControl");
 
 		assignWidget(mTab, "Tab");
 
 		mTab->eventTabChangeSelect += MyGUI::newDelegate(this, &MainPane::notifyTabChangeSelect);
 
 		notifyTabChangeSelect(mTab, 0);
+
+		//components::ControlUtility::ControlInitialise(mMainWidget);
+		//components::ControlUtility::ControlInitialise(this);
 	}
 
 	MainPane::~MainPane()

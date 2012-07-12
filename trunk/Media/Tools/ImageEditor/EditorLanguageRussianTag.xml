@@ -59,6 +59,7 @@
 	<Tag name="PropertyStateVisible">Видимость</Tag>
 	<Tag name="PropertyStateTextColour">Цвет текста</Tag>
 	<Tag name="PropertyStateTextOffset">Сдвиг текста</Tag>
+	<Tag name="TabImages">Изображения</Tag>
 	<Tag name="TabSkins">Скины</Tag>
 	<Tag name="TabStates">Состояния</Tag>
 	<Tag name="TabSeparators">Разделители</Tag>

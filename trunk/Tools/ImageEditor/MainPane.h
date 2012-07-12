@@ -12,18 +12,21 @@
 #include "SeparatorControl.h"
 #include "RegionControl.h"
 #include "MainMenuControl.h"
+//#include "SkinListControl.h"
 
 namespace tools
 {
 
 	class MainPane :
-		public wraps::BaseLayout
+		public Control
 	{
 	public:
 		MainPane();
 		virtual ~MainPane();
 
 		void setVisible(bool _value);
+
+		virtual void Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
 		void notifyTabChangeSelect(MyGUI::TabControl* _sender, size_t _index);
@@ -33,6 +36,7 @@ namespace tools
 		//StatesControl* mStatesControl;
 		//SeparatorControl* mSeparatorControl;
 		//RegionControl* mRegionControl;
+		//SkinListControl* mSkinListControl;
 		MainMenuControl* mMainMenuControl;
 
 		MyGUI::TabControl* mTab;

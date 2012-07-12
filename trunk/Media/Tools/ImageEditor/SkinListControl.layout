@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="Widget" skin="PanelEmpty" position="16 40 248 464" align="Stretch" layer="Overlapped" name="_Main">
+    <Widget type="Widget" skin="PanelEmpty" position="26 26 256 472" align="Stretch" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="Button" skin="Button_Dark" position="0 444 120 20" align="HStretch Bottom" name="Create">
+        <Widget type="Button" skin="Button_Dark" position="4 449 120 20" align="HStretch Bottom" name="Create">
             <Property key="Caption" value="#{Create}"/>
         </Widget>
-        <Widget type="Button" skin="Button_Dark" position="128 444 120 20" align="HStretch Bottom" name="Delete">
+        <Widget type="Button" skin="Button_Dark" position="132 449 120 20" align="HStretch Bottom" name="Delete">
             <Property key="Caption" value="#{Delete}"/>
         </Widget>
-        <Widget type="ItemBox" skin="ItemBox2_Dark" position="0 0 248 437" align="Stretch" name="ListBoxControl">
+        <Widget type="ItemBox" skin="ItemBox2_Dark" position="4 4 248 437" align="Stretch" name="ListBoxControl">
             <UserString key="CellHeight" value="20"/>
             <Widget type="PopupMenu" skin="PopupMenu_Dark" position="25 555 99 70" style="Popup" layer="Popup" name="ContextMenu">
                 <Property key="Visible" value="false"/>

@@ -49,6 +49,8 @@ namespace tools
 		addUserTag("CurrentScale", MyGUI::utility::toString(100));
 
 		mMainPane = new MainPane();
+		mMainPane->Initialise(nullptr, nullptr, "MainPane.layout");
+
 		mMessageBoxFadeControl = new MessageBoxFadeControl();
 
 		mSettingsWindow = new SettingsWindow();

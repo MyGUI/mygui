@@ -82,6 +82,12 @@ set (HEADER_FILES
 	VerticalSelectorControl.h
 	ListBoxControl.h
 	ListBoxItemControl.h
+	IFactoryItem.h
+	IFactory.h
+	FactoryTemplate.h
+	FactoryManager.h
+	FactoryItemAttribute.h
+	Control.h
 )
 set (SOURCE_FILES
 	ActionManager.cpp
@@ -159,6 +165,8 @@ set (SOURCE_FILES
 	VerticalSelectorControl.cpp
 	ListBoxControl.cpp
 	ListBoxItemControl.cpp
+	FactoryManager.cpp
+	Control.cpp
 
 	../../Common/Precompiled.cpp
 	ImageEditor.ico
