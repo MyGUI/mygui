@@ -26,11 +26,13 @@ namespace tools
 
 		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyChangeCoord(MyGUI::Widget* _sender);
 
 	private:
 		typedef std::vector<MyGUI::Widget*> VectorWidget;
 		VectorWidget mChilds;
 		bool mHorizontal;
+		MyGUI::IntSize mOldSize;
 	};
 }
 
