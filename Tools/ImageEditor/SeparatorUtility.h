@@ -34,7 +34,8 @@ namespace tools
 		MyGUI::Widget* FirstSeparator;
 		MyGUI::Widget* SecondPart;
 		MyGUI::Widget* SecondSeparator;
-		MyGUI::IntPoint PressedPoint;
+		//MyGUI::IntPoint PressedPoint;
+		MyGUI::IntPoint OffsetPoint;
 	};
 }
 
