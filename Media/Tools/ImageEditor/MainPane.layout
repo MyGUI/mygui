@@ -15,7 +15,10 @@
                 <Widget type="Widget" skin="PanelEmpty" position="0 0 226 302" align="Stretch" name="StateControl"/>
             </Widget>
         </Widget>
-        <Widget type="Widget" skin="PanelEmpty" position="10 0 803 21" align="HStretch Top" name="MainMenuControl"/>
+        <Widget type="Widget" skin="PanelEmpty" position="10 0 803 21" align="HStretch Top" name="MainMenuControl">
+            <UserString key="ControlType" value="MainMenuControl"/>
+            <UserString key="ControlLayout" value="MainMenuControl.layout"/>
+        </Widget>
         <Widget type="Widget" skin="Panel1Skin_Dark" position="250 30 323 326" align="Stretch"/>
         <Widget type="Widget" skin="Panel1Skin_Dark" position="583 30 230 326" align="Right VStretch"/>
     </Widget>

@@ -6,17 +6,10 @@
 #ifndef __MAIN_PANE_H__
 #define __MAIN_PANE_H__
 
-#include "BaseLayout/BaseLayout.h"
-#include "SkinControl.h"
-#include "StateControl.h"
-#include "SeparatorControl.h"
-#include "RegionControl.h"
-#include "MainMenuControl.h"
-//#include "SkinListControl.h"
+#include "Control.h"
 
 namespace tools
 {
-
 	class MainPane :
 		public Control
 	{
@@ -32,13 +25,6 @@ namespace tools
 		void notifyTabChangeSelect(MyGUI::TabControl* _sender, size_t _index);
 
 	private:
-		//SkinControl* mSkinControl;
-		//StatesControl* mStatesControl;
-		//SeparatorControl* mSeparatorControl;
-		//RegionControl* mRegionControl;
-		//SkinListControl* mSkinListControl;
-		MainMenuControl* mMainMenuControl;
-
 		MyGUI::TabControl* mTab;
 	};
 

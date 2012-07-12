@@ -8,14 +8,27 @@
 #include "CommandManager.h"
 #include "RecentFilesManager.h"
 #include "Localise.h"
+#include "FactoryManager.h"
+#include "FactoryItemAttribute.h"
 
 namespace tools
 {
+	FACTORY_ITEM_ATTRIBUTE(MainMenuControl);
 
-	MainMenuControl::MainMenuControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("MainMenuControl.layout", _parent),
+	MainMenuControl::MainMenuControl() :
 		mMainMenu(nullptr)
 	{
+	}
+
+	MainMenuControl::~MainMenuControl()
+	{
+		mMainMenu->eventMenuCtrlAccept -= MyGUI::newDelegate(this, &MainMenuControl::notifyMenuCtrlAccept);
+	}
+
+	void MainMenuControl::Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::Initialise(_parent, _place, _layoutName);
+
 		assignWidget(mMainMenu, "MainMenu");
 
 		mMainMenu->eventMenuCtrlAccept += MyGUI::newDelegate(this, &MainMenuControl::notifyMenuCtrlAccept);
@@ -24,11 +37,6 @@ namespace tools
 
 		// FIXME времено
 		mMainMenu->findItemById("Command_ChangeScale.100", true)->setItemChecked(true);
-	}
-
-	MainMenuControl::~MainMenuControl()
-	{
-		mMainMenu->eventMenuCtrlAccept -= MyGUI::newDelegate(this, &MainMenuControl::notifyMenuCtrlAccept);
 	}
 
 	void MainMenuControl::notifyMenuCtrlAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item)
