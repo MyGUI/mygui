@@ -4,6 +4,7 @@
         <UserString key="SnapTo" value="Stretch"/>
         <Widget type="Button" skin="Button_Dark" position="4 449 120 20" align="HStretch Bottom" name="Create">
             <Property key="Caption" value="#{Create}"/>
+            <UserString key="CommandClick" value="Command_FileLoad"/>
         </Widget>
         <Widget type="Button" skin="Button_Dark" position="132 449 120 20" align="HStretch Bottom" name="Delete">
             <Property key="Caption" value="#{Delete}"/>

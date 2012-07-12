@@ -6,6 +6,7 @@
 #include "Precompiled.h"
 #include "Control.h"
 #include "FactoryManager.h"
+#include "CommandManager.h"
 
 namespace tools
 {
@@ -39,6 +40,9 @@ namespace tools
 
 		for (size_t index = 0; index < getRoot()->getChildCount(); index ++)
 			CreateChilds(this, getRoot()->getChildAt(index));
+
+		for (size_t index = 0; index < getRoot()->getChildCount(); index ++)
+			CreateCommands(this, getRoot()->getChildAt(index));
 	}
 
 	void Control::CreateChilds(Control* _parent, MyGUI::Widget* _widget)
@@ -65,5 +69,20 @@ namespace tools
 
 		for (size_t index = 0; index < _widget->getChildCount(); index ++)
 			CreateChilds(_parent, _widget->getChildAt(index));
+	}
+
+	void Control::CreateCommands(Control* _parent, MyGUI::Widget* _widget)
+	{
+		std::string command = _widget->getUserString("CommandClick");
+		if (!command.empty())
+			_widget->eventMouseButtonClick += MyGUI::newDelegate(this, &Control::notifyMouseButtonClick);
+
+		for (size_t index = 0; index < _widget->getChildCount(); index ++)
+			CreateCommands(_parent, _widget->getChildAt(index));
+	}
+
+	void Control::notifyMouseButtonClick(MyGUI::Widget* _sender)
+	{
+		CommandManager::getInstance().executeCommand(_sender->getUserString("CommandClick"));
 	}
 }
