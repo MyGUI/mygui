@@ -68,6 +68,7 @@ namespace tools
 				if (control != nullptr)
 				{
 					control->Initialise(_parent, _widget, controlLayout);
+					return;
 				}
 				else
 				{

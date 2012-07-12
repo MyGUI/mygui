@@ -3,10 +3,10 @@
     <Widget type="Widget" skin="Back1Skin_Dark" position="42 66 823 366" align="Stretch" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
         <Widget type="Widget" skin="PanelEmpty" position="10 30 230 326" align="Left VStretch">
-			<UserString key="ControlType" value="Control"/>
-			<UserString key="ControlLayout" value="MainPaneTab.layout"/>
-		</Widget>
-        <Widget type="Widget" skin="PanelEmpty" position="10 0 803 21" align="HStretch Top" name="MainMenuControl">
+            <UserString key="ControlType" value="Control"/>
+            <UserString key="ControlLayout" value="MainPaneTab.layout"/>
+        </Widget>
+        <Widget type="Widget" skin="PanelEmpty" position="10 0 803 21" align="HStretch Top">
             <UserString key="ControlType" value="MainMenuControl"/>
             <UserString key="ControlLayout" value="MainMenuControl.layout"/>
         </Widget>
