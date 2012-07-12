@@ -87,6 +87,7 @@ set (HEADER_FILES
 	FactoryManager.h
 	FactoryItemAttribute.h
 	Control.h
+	SeparatorUtility.h
 )
 set (SOURCE_FILES
 	ActionManager.cpp

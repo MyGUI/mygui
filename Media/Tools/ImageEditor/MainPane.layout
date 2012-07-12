@@ -2,15 +2,13 @@
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Widget" skin="Back1Skin_Dark" position="42 66 823 366" align="Stretch" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="Widget" skin="PanelEmpty" position="10 30 230 326" align="Left VStretch">
-            <UserString key="ControlType" value="Control"/>
-            <UserString key="ControlLayout" value="MainPaneTab.layout"/>
+        <Widget type="Widget" skin="PanelEmpty" position="10 30 803 326" align="Stretch">
+            <UserString key="ControlLayout" value="MainWorkspacePane.layout"/>
+            <UserString key="ControlType" value="SeparatorControl"/>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="10 0 803 21" align="HStretch Top">
             <UserString key="ControlType" value="MainMenuControl"/>
             <UserString key="ControlLayout" value="MainMenuControl.layout"/>
         </Widget>
-        <Widget type="Widget" skin="Panel1Skin_Dark" position="250 30 323 326" align="Stretch"/>
-        <Widget type="Widget" skin="Panel1Skin_Dark" position="583 30 230 326" align="Right VStretch"/>
     </Widget>
 </MyGUI>
