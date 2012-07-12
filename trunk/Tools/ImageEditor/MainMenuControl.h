@@ -6,17 +6,19 @@
 #ifndef __MAIN_MENU_CONTROL_H__
 #define __MAIN_MENU_CONTROL_H__
 
-#include "BaseLayout/BaseLayout.h"
+#include "Control.h"
 
 namespace tools
 {
 
 	class MainMenuControl :
-		public wraps::BaseLayout
+		public Control
 	{
 	public:
-		MainMenuControl(MyGUI::Widget* _parent);
+		MainMenuControl();
 		virtual ~MainMenuControl();
+
+		virtual void Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
 		void notifyMenuCtrlAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item);
