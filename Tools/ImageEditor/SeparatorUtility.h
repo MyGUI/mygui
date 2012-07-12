@@ -23,19 +23,26 @@ namespace tools
 	struct SeparatorData
 	{
 		SeparatorData() :
-			FirstPart(nullptr),
-			FirstSeparator(nullptr),
-			SecondPart(nullptr),
-			SecondSeparator(nullptr)
+			PreviousPart(nullptr),
+			PreviousSeparator(nullptr),
+			NextPart(nullptr),
+			NextSeparator(nullptr)
 		{
 		}
 
-		MyGUI::Widget* FirstPart;
-		MyGUI::Widget* FirstSeparator;
-		MyGUI::Widget* SecondPart;
-		MyGUI::Widget* SecondSeparator;
+		MyGUI::Widget* PreviousPart;
+		MyGUI::Widget* PreviousSeparator;
+		MyGUI::Widget* NextPart;
+		MyGUI::Widget* NextSeparator;
 		//MyGUI::IntPoint PressedPoint;
 		MyGUI::IntPoint OffsetPoint;
+	};
+
+	enum SeparatorDirection
+	{
+		Previous,
+		Next,
+		Any
 	};
 }
 
