@@ -273,6 +273,13 @@ namespace MyGUI
 		EventHandle_WidgetStringString
 			eventChangeProperty;
 
+		/** Event : Widget coordinate changed (widget was resized or moved).\n
+			signature : void method(MyGUI::Widget* _sender)
+			@param _sender widget that called this event
+		*/
+		EventHandle_WidgetVoid
+			eventChangeCoord;
+
 		/*internal:*/
 		// метод для запроса номера айтема и контейнера
 		virtual size_t _getItemIndex(Widget* _item);
