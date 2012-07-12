@@ -7,6 +7,7 @@
 #define _9ddc5ebb_b8bc_434c_8584_6b203c298deb_
 
 #include "Control.h"
+#include "SeparatorUtility.h"
 
 namespace tools
 {
@@ -21,7 +22,7 @@ namespace tools
 
 	private:
 		void CreateSeparators();
-		void MoveSeparator(MyGUI::Widget* _separator, const MyGUI::IntPoint& _point);
+		void MoveSeparator(MyGUI::Widget* _separator, const MyGUI::IntPoint& _point, SeparatorDirection _modeDirection = Any);
 
 		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);

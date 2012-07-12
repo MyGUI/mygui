@@ -7,7 +7,6 @@
 #include "SeparatorControl.h"
 #include "FactoryItemAttribute.h"
 #include "FactoryManager.h"
-#include "SeparatorUtility.h"
 
 namespace tools
 {
@@ -68,12 +67,12 @@ namespace tools
 				if (lastSeparator != nullptr)
 				{
 					SeparatorData* data = *lastSeparator->getUserData<SeparatorData*>();
-					data->SecondSeparator = (*child);
+					data->NextSeparator = (*child);
 				}
 
 				SeparatorData* data = new SeparatorData();
-				data->FirstPart = lastPart;
-				data->FirstSeparator = lastSeparator;
+				data->PreviousPart = lastPart;
+				data->PreviousSeparator = lastSeparator;
 				(*child)->setUserData(data);
 
 				lastSeparator = (*child);
@@ -84,7 +83,7 @@ namespace tools
 				if (lastSeparator != nullptr)
 				{
 					SeparatorData* data = *lastSeparator->getUserData<SeparatorData*>();
-					data->SecondPart = lastPart;
+					data->NextPart = lastPart;
 				}
 			}
 		}
@@ -96,7 +95,6 @@ namespace tools
 			return;
 
 		SeparatorData* data = *_sender->getUserData<SeparatorData*>();
-		//data->PressedPoint = MyGUI::IntPoint(_left, _top);
 		data->OffsetPoint = MyGUI::IntPoint(_left, _top) - _sender->getAbsolutePosition();
 	}
 
@@ -112,72 +110,72 @@ namespace tools
 		MoveSeparator(_sender, offset);
 	}
 
-	void SeparatorControl::MoveSeparator(MyGUI::Widget* _separator, const MyGUI::IntPoint& _point)
+	void SeparatorControl::MoveSeparator(MyGUI::Widget* _separator, const MyGUI::IntPoint& _point, SeparatorDirection _modeDirection)
 	{
 		SeparatorData* data = *_separator->getUserData<SeparatorData*>();
 
-		if (data->FirstPart == nullptr || data->SecondPart == nullptr)
+		if (data->PreviousPart == nullptr || data->NextPart == nullptr)
 			return;
 
-		MyGUI::IntCoord firstCoord = data->FirstPart->getCoord();
-		MyGUI::IntCoord secondCoord = data->SecondPart->getCoord();
+		MyGUI::IntCoord previousCoord = data->PreviousPart->getCoord();
+		MyGUI::IntCoord nextCoord = data->NextPart->getCoord();
 		MyGUI::IntCoord separatorCoord = _separator->getCoord();
 
-		firstCoord.width = _point.left - firstCoord.left;
+		previousCoord.width = _point.left - previousCoord.left;
 		separatorCoord.left = _point.left;
-		secondCoord.width = secondCoord.right() - (_point.left + separatorCoord.width);
-		secondCoord.left = _point.left + separatorCoord.width;
+		nextCoord.width = nextCoord.right() - (_point.left + separatorCoord.width);
+		nextCoord.left = _point.left + separatorCoord.width;
 
-		data->FirstPart->setCoord(firstCoord);
-		data->SecondPart->setCoord(secondCoord);
+		data->PreviousPart->setCoord(previousCoord);
+		data->NextPart->setCoord(nextCoord);
 		_separator->setCoord(separatorCoord);
 
-		int size = MyGUI::utility::parseValue<int>(data->FirstPart->getUserString("MinSize"));
-		if (size > firstCoord.width)
+		int size = MyGUI::utility::parseValue<int>(data->PreviousPart->getUserString("MinSize"));
+		if (size > previousCoord.width && _modeDirection != Next)
 		{
-			if (data->FirstSeparator != nullptr)
+			if (data->PreviousSeparator != nullptr)
 			{
-				MoveSeparator(data->FirstSeparator, _point - MyGUI::IntPoint(size + data->FirstSeparator->getWidth(), data->FirstSeparator->getHeight()));
+				MoveSeparator(data->PreviousSeparator, _point - MyGUI::IntPoint(size + data->PreviousSeparator->getWidth(), data->PreviousSeparator->getHeight()), Previous);
 			}
 
-			firstCoord = data->FirstPart->getCoord();
-			secondCoord = data->SecondPart->getCoord();
+			previousCoord = data->PreviousPart->getCoord();
+			nextCoord = data->NextPart->getCoord();
 			separatorCoord = _separator->getCoord();
 
-			int offset = size - firstCoord.width;
+			int offset = size - previousCoord.width;
 
-			firstCoord.width += offset;
+			previousCoord.width += offset;
 			separatorCoord.left += offset;
-			secondCoord.width -= offset;
-			secondCoord.left += offset;
+			nextCoord.width -= offset;
+			nextCoord.left += offset;
 
-			data->FirstPart->setCoord(firstCoord);
-			data->SecondPart->setCoord(secondCoord);
+			data->PreviousPart->setCoord(previousCoord);
+			data->NextPart->setCoord(nextCoord);
 			_separator->setCoord(separatorCoord);
 		}
 
-		/*size = MyGUI::utility::parseValue<int>(data->SecondPart->getUserString("MinSize"));
-		if (size > secondCoord.width)
+		size = MyGUI::utility::parseValue<int>(data->NextPart->getUserString("MinSize"));
+		if (size > nextCoord.width && _modeDirection != Previous)
 		{
-			if (data->SecondSeparator != nullptr)
+			if (data->NextSeparator != nullptr)
 			{
-				MoveSeparator(data->SecondSeparator, _point + MyGUI::IntPoint(size + _separator->getWidth(), _separator->getHeight()));
+				MoveSeparator(data->NextSeparator, _point + MyGUI::IntPoint(size + _separator->getWidth(), _separator->getHeight()), Next);
 			}
 
-			firstCoord = data->FirstPart->getCoord();
-			secondCoord = data->SecondPart->getCoord();
+			previousCoord = data->PreviousPart->getCoord();
+			nextCoord = data->NextPart->getCoord();
 			separatorCoord = _separator->getCoord();
 
-			int offset = size - secondCoord.width;
+			int offset = size - nextCoord.width;
 
-			firstCoord.width -= offset;
+			previousCoord.width -= offset;
 			separatorCoord.left -= offset;
-			secondCoord.width += offset;
-			secondCoord.left -= offset;
+			nextCoord.width += offset;
+			nextCoord.left -= offset;
 
-			data->FirstPart->setCoord(firstCoord);
-			data->SecondPart->setCoord(secondCoord);
+			data->PreviousPart->setCoord(previousCoord);
+			data->NextPart->setCoord(nextCoord);
 			_separator->setCoord(separatorCoord);
-		}*/
+		}
 	}
 }
