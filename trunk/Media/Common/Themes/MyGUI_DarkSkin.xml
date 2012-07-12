@@ -1267,4 +1267,14 @@
             <State name="normal" offset="432 7 10 10"/>
         </BasisSkin>
     </Resource>
+    <Resource type="ResourceSkin" name="SeparatorVSkin_Dark" size="3 13" texture="MyGUI_Dark.png">
+        <BasisSkin type="SubSkin" offset="0 0 3 13" align="Stretch">
+            <State name="normal" offset="449 2 3 13"/>
+        </BasisSkin>
+    </Resource>
+    <Resource type="ResourceSkin" name="SeparatorV2Skin_Dark" size="2 10" texture="MyGUI_Dark.png">
+        <BasisSkin type="SubSkin" offset="0 0 2 10" align="Stretch">
+            <State name="normal" offset="454 2 2 10"/>
+        </BasisSkin>
+    </Resource>
 </MyGUI>

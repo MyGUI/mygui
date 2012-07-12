@@ -1,34 +1,34 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		08/2010
+	@date		07/2012
 */
-#ifndef __SEPARATOR_CONTROL_H__
-#define __SEPARATOR_CONTROL_H__
+#ifndef _9ddc5ebb_b8bc_434c_8584_6b203c298deb_
+#define _9ddc5ebb_b8bc_434c_8584_6b203c298deb_
 
-#include "BaseLayout/BaseLayout.h"
-#include "SeparatorListControl.h"
-#include "SeparatorPropertyControl.h"
-#include "SeparatorTextureControl.h"
+#include "Control.h"
 
 namespace tools
 {
-
-	/*class SeparatorControl :
-		public wraps::BaseLayout
+	class SeparatorControl :
+		public Control
 	{
 	public:
-		SeparatorControl(MyGUI::Widget* _parent);
+		SeparatorControl();
 		virtual ~SeparatorControl();
 
-		void setActivate(bool _value);
+		virtual void Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
-		SeparatorListControl* mSeparatorListControl;
-		SeparatorPropertyControl* mSeparatorPropertyControl;
-		SeparatorTextureControl* mSeparatorTextureControl;
-	};*/
+		void CreateSeparators();
+		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 
-} // namespace tools
+	private:
+		typedef std::vector<MyGUI::Widget*> VectorWidget;
+		VectorWidget mChilds;
+		bool mHorizontal;
+	};
+}
 
-#endif // __SEPARATOR_CONTROL_H__
+#endif
