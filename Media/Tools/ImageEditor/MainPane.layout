@@ -4,22 +4,19 @@
         <UserString key="SnapTo" value="Stretch"/>
         <Widget type="TabControl" skin="TabControl2_Dark" position="10 30 230 326" align="Left VStretch" name="Tab">
             <Widget type="TabItem" skin="" position="2 22 226 302">
-                <Property key="Caption" value="#{TabSkins}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 226 302" align="Stretch" name="SkinControl"/>
+                <Property key="Caption" value="#{TabImages}"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 226 302" align="Stretch" name="SkinControl">
+                    <UserString key="ControlType" value="SkinListControl"/>
+                    <UserString key="ControlLayout" value="SkinListControl.layout"/>
+                </Widget>
             </Widget>
             <Widget type="TabItem" skin="" position="2 22 226 302">
                 <Property key="Caption" value="#{TabStates}"/>
                 <Widget type="Widget" skin="PanelEmpty" position="0 0 226 302" align="Stretch" name="StateControl"/>
             </Widget>
-            <Widget type="TabItem" skin="" position="2 22 226 302">
-                <Property key="Caption" value="#{TabSeparators}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 226 302" align="Stretch" name="SeparatorControl"/>
-            </Widget>
-            <Widget type="TabItem" skin="" position="2 22 226 302">
-                <Property key="Caption" value="#{TabRegions}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 226 302" align="Stretch" name="RegionControl"/>
-            </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="10 0 803 21" align="HStretch Top" name="MainMenuControl"/>
+        <Widget type="Widget" skin="Panel1Skin_Dark" position="250 30 323 326" align="Stretch"/>
+        <Widget type="Widget" skin="Panel1Skin_Dark" position="583 30 230 326" align="Right VStretch"/>
     </Widget>
 </MyGUI>

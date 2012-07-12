@@ -59,6 +59,7 @@
 	<Tag name="PropertyStateVisible">Visible</Tag>
 	<Tag name="PropertyStateTextColour">Text colour</Tag>
 	<Tag name="PropertyStateTextOffset">Text shift</Tag>
+	<Tag name="TabImages">Images</Tag>
 	<Tag name="TabSkins">Skins</Tag>
 	<Tag name="TabStates">States</Tag>
 	<Tag name="TabSeparators">Separators</Tag>
