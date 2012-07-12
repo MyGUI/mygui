@@ -2,19 +2,10 @@
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Widget" skin="Back1Skin_Dark" position="42 66 823 366" align="Stretch" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="TabControl" skin="TabControl2_Dark" position="10 30 230 326" align="Left VStretch" name="Tab">
-            <Widget type="TabItem" skin="" position="2 22 226 302">
-                <Property key="Caption" value="#{TabImages}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 226 302" align="Stretch" name="SkinControl">
-                    <UserString key="ControlType" value="SkinListControl"/>
-                    <UserString key="ControlLayout" value="SkinListControl.layout"/>
-                </Widget>
-            </Widget>
-            <Widget type="TabItem" skin="" position="2 22 226 302">
-                <Property key="Caption" value="#{TabStates}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 226 302" align="Stretch" name="StateControl"/>
-            </Widget>
-        </Widget>
+        <Widget type="Widget" skin="PanelEmpty" position="10 30 230 326" align="Left VStretch">
+			<UserString key="ControlType" value="Control"/>
+			<UserString key="ControlLayout" value="MainPaneTab.layout"/>
+		</Widget>
         <Widget type="Widget" skin="PanelEmpty" position="10 0 803 21" align="HStretch Top" name="MainMenuControl">
             <UserString key="ControlType" value="MainMenuControl"/>
             <UserString key="ControlLayout" value="MainMenuControl.layout"/>

@@ -48,8 +48,8 @@ namespace tools
 		addUserTag("CurrentFileName", mFileName);
 		addUserTag("CurrentScale", MyGUI::utility::toString(100));
 
-		mMainPane = new MainPane();
-		mMainPane->Initialise(nullptr, nullptr, "MainPane.layout");
+		mMainPane = new Control();
+		mMainPane->Initialise("MainPane.layout");
 
 		mMessageBoxFadeControl = new MessageBoxFadeControl();
 
@@ -96,12 +96,12 @@ namespace tools
 
 	void EditorState::pauseState()
 	{
-		mMainPane->setVisible(false);
+		mMainPane->getRoot()->setVisible(false);
 	}
 
 	void EditorState::resumeState()
 	{
-		mMainPane->setVisible(true);
+		mMainPane->getRoot()->setVisible(true);
 	}
 
 	void EditorState::updateCaption()
