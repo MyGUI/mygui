@@ -1,16 +1,17 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		08/2010
+	@date		07/2012
 */
-#ifndef __EXPORT_MANAGER_H__
-#define __EXPORT_MANAGER_H__
+#ifndef _fde958f2_c1bc_4976_8cff_8a45a828b009_
+#define _fde958f2_c1bc_4976_8cff_8a45a828b009_
 
 #include <MyGUI.h>
+#include "pugixml.hpp"
+#include "Data.h"
 
 namespace tools
 {
-
 	class ExportManager :
 		public MyGUI::Singleton<ExportManager>
 	{
@@ -21,15 +22,19 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		void serialization(MyGUI::xml::Document& _doc);
-		bool deserialization(MyGUI::xml::Document& _doc);
+		void serialization(pugi::xml_document& _doc);
+		bool deserialization(pugi::xml_document& _doc);
 
-		//void convertSkin(MyGUI::xml::Element* _from, MyGUI::xml::Element* _to);
-
-	//private:
-		//MyGUI::UString convertStateName(const MyGUI::UString& _value) const;
+	private:
+		void parseImage(pugi::xml_node _node);
+		void parseGroup(pugi::xml_node _node, Data* _parent);
+		void parseIndex(pugi::xml_node _node, Data* _parent);
+		void parseFrame(pugi::xml_node _node, Data* _parent);
+		void writeImage(pugi::xml_node _parent, Data* _data);
+		void writeGroup(pugi::xml_node _parent, Data* _data);
+		void writeIndex(pugi::xml_node _parent, Data* _data);
+		void writeFrame(pugi::xml_node _parent, Data* _data);
 	};
+}
 
-} // namespace tools
-
-#endif // __EXPORT_MANAGER_H__
+#endif
