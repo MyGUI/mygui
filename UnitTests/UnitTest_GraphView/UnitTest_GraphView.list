@@ -105,4 +105,5 @@ SOURCE_GROUP("OpenSaveFileDialog" FILES
 )
 SOURCE_GROUP("Demo\\Resource" FILES
   ../../Common/Base/BaseResource.rc
+  CMakeLists.txt
 )

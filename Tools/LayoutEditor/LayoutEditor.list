@@ -337,4 +337,5 @@ SOURCE_GROUP("CodeGenerator" FILES
 )
 SOURCE_GROUP("Resources" FILES
   LayoutEditor.rc
+  CMakeLists.txt
 )

@@ -15,8 +15,6 @@ lastFilter = ""
 
 def addSourceOrHeader(fileName):
     #print line
-    if fileName.endswith("CMakeLists.txt"):
-        return
     if fileName.endswith('.h'):
         headers.append("  " + fileName + "\n")
     else:
@@ -41,18 +39,19 @@ def parseFilterFile(_node):
     fileName = str(_node.attributes["Include"].nodeValue)
     fileName = convertRelativePath(fileName)
 
-    filterName = _node.getElementsByTagName("Filter")[0].childNodes[0].nodeValue
-    filterName = filterName.replace("\\", "\\\\")
+    if (len(_node.getElementsByTagName("Filter")) != 0):
+      filterName = _node.getElementsByTagName("Filter")[0].childNodes[0].nodeValue
+      filterName = filterName.replace("\\", "\\\\")
 
-    global lastFilter
-    if (filterName != lastFilter):
-      if lastFilter != "":
-        # close last filter
-        filters.append(")\n")
-      filters.append("SOURCE_GROUP(\"" + filterName + "\" FILES\n")
-      lastFilter = filterName
+      global lastFilter
+      if (filterName != lastFilter):
+        if lastFilter != "":
+          # close last filter
+          filters.append(")\n")
+        filters.append("SOURCE_GROUP(\"" + filterName + "\" FILES\n")
+        lastFilter = filterName
 
-    filters.append("  " + fileName + "\n")
+      filters.append("  " + fileName + "\n")
 
 def createFilesList(fileName, listName):
 
@@ -79,7 +78,7 @@ def createFilesList(fileName, listName):
         for subNode in rootNode.childNodes:
             if subNode.localName == "ItemGroup":
                 for subSubNode in subNode.childNodes:
-                    if subSubNode.nodeType == subSubNode.ELEMENT_NODE and (subSubNode.localName == "ClInclude" or subSubNode.localName == "ClCompile" or subSubNode.localName == "ResourceCompile"):
+                    if subSubNode.nodeType == subSubNode.ELEMENT_NODE and (subSubNode.localName == "ClInclude" or subSubNode.localName == "ClCompile" or subSubNode.localName == "ResourceCompile" or subSubNode.localName == "CustomBuild"):
                         parseFilterFile(subSubNode)
 
     filters.append(")\n")

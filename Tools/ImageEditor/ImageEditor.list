@@ -471,4 +471,5 @@ SOURCE_GROUP("Utility" FILES
 )
 SOURCE_GROUP("Resources" FILES
   ImageEditor.rc
+  CMakeLists.txt
 )

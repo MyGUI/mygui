@@ -327,4 +327,5 @@ SOURCE_GROUP("Header Files" FILES
 )
 SOURCE_GROUP("Resources" FILES
   SkinEditor.rc
+  CMakeLists.txt
 )
