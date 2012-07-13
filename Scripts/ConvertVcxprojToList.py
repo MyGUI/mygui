@@ -11,6 +11,7 @@ headers = []
 source = []
 filters = []
 currentFolder = ""
+lastFilter = ""
 
 def addSourceOrHeader(fileName):
     #print line
@@ -34,8 +35,26 @@ def convertRelativePath(fileName):
 def parseIncludedFile(_node):
     fileName = str(_node.attributes["Include"].nodeValue)
     fileName = convertRelativePath(fileName)
-
     addSourceOrHeader(fileName)
+
+def parseFilterFile(_node):
+    fileName = str(_node.attributes["Include"].nodeValue)
+    fileName = convertRelativePath(fileName)
+
+    filterName = _node.getElementsByTagName("Filter")[0].childNodes[0].nodeValue
+    print "!!!!!    " + filterName
+    filterName = filterName.replace("\\", "\\\\")
+    print "?????    " + filterName
+
+    global lastFilter
+    if (filterName != lastFilter):
+      if lastFilter != "":
+        # close last filter
+        filters.append(")\n")
+      filters.append("SOURCE_GROUP(\"" + filterName + "\" FILES\n")
+      lastFilter = filterName
+
+    filters.append("  " + fileName + "\n")
 
 def createFilesList(fileName, listName):
 
@@ -50,13 +69,22 @@ def createFilesList(fileName, listName):
             if subNode.localName == "ItemGroup":
                 for subSubNode in subNode.childNodes:
                     if subSubNode.nodeType == subSubNode.ELEMENT_NODE and (subSubNode.localName == "ClInclude" or subSubNode.localName == "ClCompile" or subSubNode.localName == "ResourceCompile"):
-                        linesFromFile = parseIncludedFile(subSubNode)
+                        parseIncludedFile(subSubNode)
 
     headers.append(")\n")
     source.append(")\n")
-    #remove ")" at start and add at end
-    #lines.remove(")\n")
-    #lines.append(")\n")
+
+    global lastFilter
+    lastFilter = ""
+    doc = get_a_document(fileName + ".filters")
+    for rootNode in doc.childNodes:
+        for subNode in rootNode.childNodes:
+            if subNode.localName == "ItemGroup":
+                for subSubNode in subNode.childNodes:
+                    if subSubNode.nodeType == subSubNode.ELEMENT_NODE and (subSubNode.localName == "ClInclude" or subSubNode.localName == "ClCompile" or subSubNode.localName == "ResourceCompile"):
+                        parseFilterFile(subSubNode)
+
+    filters.append(")\n")
 
     FILE = open(listName, "w")
     FILE.writelines(headers)
@@ -78,7 +106,7 @@ def isIgnoredProject(name):
 # ----------
 dir_src = '../'
 try:
-  dir_solution = "D:/libs/builds/my-gui" #sys.argv[1]
+  dir_solution = sys.argv[1]
   print "Sources directory is: " + dir_src
   print "Solution directory is: " + dir_solution
 except:
