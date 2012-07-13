@@ -5,7 +5,7 @@
 # goes through recursively from ../ directory
 
 
-import xml.dom.minidom, os, filecmp, sys
+import xml.dom.minidom, os, filecmp, sys, filecmp
 
 headers = []
 source = []
@@ -83,7 +83,7 @@ def createFilesList(fileName, listName):
 
     filters.append(")\n")
 
-    FILE = open(listName, "w")
+    FILE = open("tmp.list", "w")
     FILE.writelines(headers)
     FILE.writelines(source)
     FILE.writelines(filters)
@@ -93,6 +93,9 @@ def createFilesList(fileName, listName):
     del source[:]
     del filters[:]
 
+    if (not filecmp.cmp("tmp.list", listName)):
+      os.remove(listName)
+      os.rename("tmp.list", listName)
 def isIgnoredProject(name):
     ignores = ["Common", "api-docs", "INSTALL", "ALL_BUILD", "ZERO_CHECK", "PACKAGE"]
     for ignore in ignores:
