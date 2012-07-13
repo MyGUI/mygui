@@ -34,9 +34,6 @@ namespace tools
 		mMainMenu->eventMenuCtrlAccept += MyGUI::newDelegate(this, &MainMenuControl::notifyMenuCtrlAccept);
 
 		updateRecentFilesMenu();
-
-		// FIXME времено
-		mMainMenu->findItemById("Command_ChangeScale.100", true)->setItemChecked(true);
 	}
 
 	void MainMenuControl::notifyMenuCtrlAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item)
@@ -46,10 +43,8 @@ namespace tools
 			CommandManager::getInstance().setCommandData(*data);
 
 		const std::string& command = _item->getItemId();
-		if (command.size() > 8 && command.substr(0, 8) == "Command_")
-		{
+		if (MyGUI::utility::startWith(command, "Command_"))
 			CommandManager::getInstance().executeCommand(command);
-		}
 	}
 
 	void MainMenuControl::updateRecentFilesMenu()
