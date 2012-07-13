@@ -10,23 +10,22 @@
 #include "CommandManager.h"
 #include "Tools/DialogManager.h"
 #include "MessageBoxManager.h"
+#include "DataManager.h"
 #include "ActionManager.h"
 #include "ActionCreateData.h"
 #include "ActionDestroyData.h"
 #include "ActionRenameData.h"
-#include "DataManager.h"
+#include "ActionSwapData.h"
 
 namespace tools
 {
 	FACTORY_ITEM_ATTRIBUTE(ImageListControl);
 
 	ImageListControl::ImageListControl() :
-		mIndex(0),
-		mListBox(nullptr)
+		mNameIndex(0),
+		mListBox(nullptr),
+		mLastIndex(MyGUI::ITEM_NONE)
 	{
-		CommandManager::getInstance().registerCommand("Command_CreateData", MyGUI::newDelegate(this, &ImageListControl::commandCreateData));
-		CommandManager::getInstance().registerCommand("Command_DestroyData", MyGUI::newDelegate(this, &ImageListControl::commandDestroyData));
-		CommandManager::getInstance().registerCommand("Command_RenameData", MyGUI::newDelegate(this, &ImageListControl::commandRenameData));
 	}
 
 	ImageListControl::~ImageListControl()
@@ -37,9 +36,14 @@ namespace tools
 	{
 		Control::Initialise(_parent, _place, _layoutName);
 
+		CommandManager::getInstance().registerCommand("Command_CreateData", MyGUI::newDelegate(this, &ImageListControl::commandCreateData));
+		CommandManager::getInstance().registerCommand("Command_DestroyData", MyGUI::newDelegate(this, &ImageListControl::commandDestroyData));
+		CommandManager::getInstance().registerCommand("Command_RenameData", MyGUI::newDelegate(this, &ImageListControl::commandRenameData));
+
 		assignWidget(mListBox, "ListBoxControl");
 
 		DataManager::getInstance().eventChangeData.connect(this, &ImageListControl::notifyChangeData);
+		mListBox->eventListChangePosition += MyGUI::newDelegate(this, &ImageListControl::notifyListChangePosition);
 	}
 
 	bool ImageListControl::checkCommand()
@@ -59,12 +63,12 @@ namespace tools
 			return;
 
 		ActionCreateData* command = new ActionCreateData();
-		command->setName(MyGUI::utility::toString("item ", mIndex));
+		command->setName(MyGUI::utility::toString("item ", mNameIndex));
 		command->setParent(DataManager::getInstance().getRoot());
 
-		tools::ActionManager::getInstance().doAction(command);
+		ActionManager::getInstance().doAction(command);
 
-		mIndex ++;
+		mNameIndex ++;
 
 		_result = true;
 	}
@@ -79,7 +83,7 @@ namespace tools
 		{
 			Data* data = *mListBox->getItemDataAt<Data*>(index);
 
-			ActionDestroyData* command = new tools::ActionDestroyData();
+			ActionDestroyData* command = new ActionDestroyData();
 			command->setData(data);
 
 			ActionManager::getInstance().doAction(command);
@@ -98,14 +102,14 @@ namespace tools
 		{
 			Data* data = *mListBox->getItemDataAt<Data*>(index);
 
-			ActionRenameData* command = new tools::ActionRenameData();
+			ActionRenameData* command = new ActionRenameData();
 			command->setData(data);
-			command->setName(MyGUI::utility::toString("item ", mIndex));
+			command->setName(MyGUI::utility::toString("item ", mNameIndex));
 
 			ActionManager::getInstance().doAction(command);
 		}
 
-		mIndex ++;
+		mNameIndex ++;
 
 		_result = true;
 	}
@@ -113,6 +117,7 @@ namespace tools
 	void ImageListControl::notifyChangeData()
 	{
 		mListBox->setIndexSelected(MyGUI::ITEM_NONE);
+		mLastIndex = MyGUI::ITEM_NONE;
 
 		for (size_t index = 0; index < mListBox->getItemCount(); index ++)
 			mListBox->setItemDataAt(index, nullptr);
@@ -130,5 +135,25 @@ namespace tools
 			mListBox->setItemNameAt(index, childs.at(index)->getPropertyValue("Name"));
 			mListBox->setItemDataAt(index, childs.at(index));
 		}
+	}
+
+	void ImageListControl::notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index)
+	{
+		if (mLastIndex != MyGUI::ITEM_NONE && _index != MyGUI::ITEM_NONE)
+		{
+			if (MyGUI::InputManager::getInstance().isControlPressed())
+			{
+				Data* data1 = *mListBox->getItemDataAt<Data*>(mLastIndex);
+				Data* data2 = *mListBox->getItemDataAt<Data*>(_index);
+
+				ActionSwapData* command = new ActionSwapData();
+				command->setData1(data1);
+				command->setData2(data2);
+
+				ActionManager::getInstance().doAction(command);
+			}
+		}
+
+		mLastIndex = _index;
 	}
 }

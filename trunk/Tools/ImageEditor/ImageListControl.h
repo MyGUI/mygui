@@ -29,10 +29,12 @@ namespace tools
 		void commandRenameData(const MyGUI::UString& _commandName, bool& _result);
 
 		void notifyChangeData();
+		void notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index);
 
 	private:
-		size_t mIndex;
+		size_t mNameIndex;
 		MyGUI::ListBox* mListBox;
+		size_t mLastIndex;
 	};
 }
 
