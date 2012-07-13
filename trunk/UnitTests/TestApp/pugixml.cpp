@@ -11,8 +11,10 @@
  * Copyright (C) 2003, by Kristen Wegner (kristen@tima.net)
  */
 
-#ifndef SOURCE_PUGIXML_CPP
-#define SOURCE_PUGIXML_CPP
+//#ifndef SOURCE_PUGIXML_CPP
+//#define SOURCE_PUGIXML_CPP
+
+#include "Precompiled.h"
 
 #include "pugixml.hpp"
 
@@ -3104,7 +3106,11 @@ PUGI__NS_BEGIN
 			if (flags & format_raw)
 			{
 				if (!node.first_child())
-					writer.write(' ', '/', '>');
+				{
+					if (flags & format_space_before_slash)
+						writer.write(' ');
+					writer.write('/', '>');
+				}
 				else
 				{
 					writer.write('>');
@@ -3118,7 +3124,14 @@ PUGI__NS_BEGIN
 				}
 			}
 			else if (!node.first_child())
-				writer.write(' ', '/', '>', '\n');
+			{
+				if (flags & format_space_before_slash)
+					writer.write(' ');
+				writer.write('/', '>');
+				if (flags & format_win_new_line)
+					writer.write('\r');
+				writer.write('\n');
+			}
 			else if (node.first_child() == node.last_child() && (node.first_child().type() == node_pcdata || node.first_child().type() == node_cdata))
 			{
 				writer.write('>');
@@ -3130,11 +3143,17 @@ PUGI__NS_BEGIN
 
 				writer.write('<', '/');
 				writer.write(name);
-				writer.write('>', '\n');
+				writer.write('>');
+				if (flags & format_win_new_line)
+					writer.write('\r');
+				writer.write('\n');
 			}
 			else
 			{
-				writer.write('>', '\n');
+				writer.write('>');
+				if (flags & format_win_new_line)
+					writer.write('\r');
+				writer.write('\n');
 				
 				for (xml_node n = node.first_child(); n; n = n.next_sibling())
 					node_output(writer, n, indent, flags, depth + 1);
@@ -3144,7 +3163,10 @@ PUGI__NS_BEGIN
 				
 				writer.write('<', '/');
 				writer.write(name);
-				writer.write('>', '\n');
+				writer.write('>');
+				if (flags & format_win_new_line)
+					writer.write('\r');
+				writer.write('\n');
 			}
 
 			break;
@@ -3152,19 +3174,34 @@ PUGI__NS_BEGIN
 		
 		case node_pcdata:
 			text_output(writer, node.value(), ctx_special_pcdata, flags);
-			if ((flags & format_raw) == 0) writer.write('\n');
+			if ((flags & format_raw) == 0)
+			{
+				if (flags & format_win_new_line)
+					writer.write('\r');
+				writer.write('\n');
+			}
 			break;
 
 		case node_cdata:
 			text_output_cdata(writer, node.value());
-			if ((flags & format_raw) == 0) writer.write('\n');
+			if ((flags & format_raw) == 0)
+			{
+				if (flags & format_win_new_line)
+					writer.write('\r');
+				writer.write('\n');
+			}
 			break;
 
 		case node_comment:
 			writer.write('<', '!', '-', '-');
 			writer.write(node.value());
 			writer.write('-', '-', '>');
-			if ((flags & format_raw) == 0) writer.write('\n');
+			if ((flags & format_raw) == 0)
+			{
+				if (flags & format_win_new_line)
+					writer.write('\r');
+				writer.write('\n');
+			}
 			break;
 
 		case node_pi:
@@ -3183,7 +3220,12 @@ PUGI__NS_BEGIN
 			}
 
 			writer.write('?', '>');
-			if ((flags & format_raw) == 0) writer.write('\n');
+			if ((flags & format_raw) == 0)
+			{
+				if (flags & format_win_new_line)
+					writer.write('\r');
+				writer.write('\n');
+			}
 			break;
 
 		case node_doctype:
@@ -3197,7 +3239,12 @@ PUGI__NS_BEGIN
 			}
 
 			writer.write('>');
-			if ((flags & format_raw) == 0) writer.write('\n');
+			if ((flags & format_raw) == 0)
+			{
+				if (flags & format_win_new_line)
+					writer.write('\r');
+				writer.write('\n');
+			}
 			break;
 
 		default:
@@ -5290,7 +5337,10 @@ namespace pugi
 			buffered_writer.write(PUGIXML_TEXT("<?xml version=\"1.0\""));
 			if (encoding == encoding_latin1) buffered_writer.write(PUGIXML_TEXT(" encoding=\"ISO-8859-1\""));
 			buffered_writer.write('?', '>');
-			if (!(flags & format_raw)) buffered_writer.write('\n');
+			if (!(flags & format_raw))
+			{
+				buffered_writer.write('\n');
+			}
 		}
 
 		impl::node_output(buffered_writer, *this, indent, flags, 0);
@@ -10222,7 +10272,7 @@ namespace pugi
 #undef PUGI__THROW_ERROR
 #undef PUGI__CHECK_ERROR
 
-#endif
+//#endif
 
 /**
  * Copyright (c) 2006-2012 Arseny Kapoulkine
