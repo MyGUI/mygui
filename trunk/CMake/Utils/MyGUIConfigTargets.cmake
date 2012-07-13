@@ -202,6 +202,13 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		MyGUIEngine
 	)
 
+	if (MYGUI_GENERATE_LIST_FILES_FROM_VSPROJECT)
+		add_custom_command(TARGET ${PROJECTNAME}
+			POST_BUILD
+			COMMAND ${MYGUI_BINARY_DIR}/updateListFiles.bat
+			COMMENT "Generating *.list files")
+	endif ()
+
 	if (APPLE)
 		find_library(CF_LIBRARY CoreFoundation)
 		find_library(IOKIT_LIBRARY IOKit)

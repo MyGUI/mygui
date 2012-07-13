@@ -138,6 +138,7 @@ cmake_dependent_option(MYGUI_INSTALL_PDB "Install debug pdb files" FALSE "MSVC" 
 option(MYGUI_FULL_RPATH "Build executables with the full required RPATH to run from their install location." FALSE)
 option(MYGUI_STANDALONE_BUILD "Generate build files that do not reference CMake (should be used only from Scripts/prepareRelease.py)" FALSE)
 MARK_AS_ADVANCED(MYGUI_STANDALONE_BUILD)
+option(MYGUI_GENERATE_LIST_FILES_FROM_VSPROJECT "Generate .list files from visual studio project files" FALSE)
 
 if (WIN32)
 	set(MYGUI_SAMPLES_INPUT 2 CACHE STRING
