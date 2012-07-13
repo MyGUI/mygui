@@ -1,7 +1,4 @@
 set (HEADER_FILES
-	sigslot.h
-	ActionManager.h
-	Action.h
 	Application.h
 	AreaSelectorControl.h
 	BackgroundControl.h
@@ -20,7 +17,6 @@ set (HEADER_FILES
 	HotKeyManager.h
 	ItemHolder.h
 	Localise.h
-	MainMenuControl.h
 	MessageBoxFadeControl.h
 	MessageBoxManager.h
 	MyGUI_FilterNoneSkin.h
@@ -46,7 +42,6 @@ set (HEADER_FILES
 	RegionPropertyControl.h
 	RegionTextureControl.h
 	SelectorControl.h
-	SeparatorControl.h
 	SeparatorItem.h
 	SeparatorListControl.h
 	SeparatorPropertyControl.h
@@ -57,7 +52,6 @@ set (HEADER_FILES
 	SettingsResourcesControl.h
 	SettingsSector.h
 	SettingsWindow.h
-	SkinControl.h
 	SkinItem.h
 	SkinListControl.h
 	SkinManager.h
@@ -81,6 +75,12 @@ set (HEADER_FILES
 	VerticalSelectorControl.h
 	ListBoxControl.h
 	ListBoxItemControl.h
+
+	SkinControl.h
+	SeparatorControl.h
+	MainMenuControl.h
+	Action.h
+	ActionManager.h
 	IFactoryItem.h
 	IFactory.h
 	FactoryTemplate.h
@@ -88,9 +88,16 @@ set (HEADER_FILES
 	FactoryItemAttribute.h
 	Control.h
 	SeparatorUtility.h
+	Data.h
+	DataInfo.h
+	DataInfoManager.h
+	DataManager.h
+	DataPropertyInfo.h
+	sigslot.h
+	pugiconfig.hpp
+	pugixml.hpp
 )
 set (SOURCE_FILES
-	ActionManager.cpp
 	Application.cpp
 	AreaSelectorControl.cpp
 	BackgroundControl.cpp
@@ -105,7 +112,6 @@ set (SOURCE_FILES
 	HorizontalSelectorBlackControl.cpp
 	HorizontalSelectorControl.cpp
 	HotKeyManager.cpp
-	MainMenuControl.cpp
 	MessageBoxFadeControl.cpp
 	MessageBoxManager.cpp
 	MyGUI_FilterNoneSkin.cpp
@@ -130,7 +136,6 @@ set (SOURCE_FILES
 	RegionPropertyControl.cpp
 	RegionTextureControl.cpp
 	SelectorControl.cpp
-	SeparatorControl.cpp
 	SeparatorItem.cpp
 	SeparatorListControl.cpp
 	SeparatorPropertyControl.cpp
@@ -141,7 +146,6 @@ set (SOURCE_FILES
 	SettingsResourcesControl.cpp
 	SettingsSector.cpp
 	SettingsWindow.cpp
-	SkinControl.cpp
 	SkinItem.cpp
 	SkinListControl.cpp
 	SkinManager.cpp
@@ -164,8 +168,19 @@ set (SOURCE_FILES
 	VerticalSelectorControl.cpp
 	ListBoxControl.cpp
 	ListBoxItemControl.cpp
+
+	SkinControl.cpp
+	MainMenuControl.cpp
+	SeparatorControl.cpp
+	ActionManager.cpp
 	FactoryManager.cpp
 	Control.cpp
+	Data.cpp
+	DataInfo.cpp
+	DataInfoManager.cpp
+	DataManager.cpp
+	DataPropertyInfo.cpp
+	pugixml.cpp
 
 	../../Common/Precompiled.cpp
 	ImageEditor.ico
@@ -181,4 +196,47 @@ SOURCE_GROUP("Resources" FILES
 	CMakeLists.txt
 )
 SOURCE_GROUP("" FILES
+)
+SOURCE_GROUP("Data" FILES
+	Data.h
+	Data.cpp
+	DataInfo.h
+	DataInfo.cpp
+	DataInfoManager.h
+	DataInfoManager.cpp
+	DataManager.h
+	DataManager.cpp
+	DataPropertyInfo.h
+	DataPropertyInfo.cpp
+)
+SOURCE_GROUP("Controls" FILES
+	Control.h
+	Control.cpp
+	MainMenuControl.h
+	MainMenuControl.cpp
+	SkinListControl.h
+	SkinListControl.cpp
+	SeparatorControl.h
+	SeparatorControl.cpp
+)
+SOURCE_GROUP("Factory" FILES
+	IFactoryItem.h
+	IFactory.h
+	FactoryTemplate.h
+	FactoryItemAttribute.h
+	FactoryManager.h
+	FactoryManager.cpp
+)
+SOURCE_GROUP("Utility" FILES
+	sigslot.h
+	pugiconfig.hpp
+	pugixml.hpp
+	pugixml.cpp
+)
+SOURCE_GROUP("Actions" FILES
+	Action.h
+	ActionManager.h
+	ActionManager.cpp
+)
+SOURCE_GROUP("States" FILES
 )
