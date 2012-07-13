@@ -26,7 +26,10 @@ namespace tools
 		const VectorData& getChilds() const;
 
 		void addChild(Data* _child);
+		void insertChild(size_t _index, Data* _child);
 		void removeChild(Data* _child);
+
+		size_t getChildIndex(Data* _child);
 
 		typedef std::map<std::string, std::string> MapString;
 		const MapString getProperties() const;

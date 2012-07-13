@@ -3,30 +3,31 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
-#ifndef _d92392a8_2d98_4639_8dfe_7cb945c817b5_
-#define _d92392a8_2d98_4639_8dfe_7cb945c817b5_
+#ifndef _6463bc0c_937b_472d_9c7c_27746cb7d448_
+#define _6463bc0c_937b_472d_9c7c_27746cb7d448_
 
 #include "Action.h"
 #include "Data.h"
 
 namespace tools
 {
-	class ActionDestroyData :
+	class ActionRenameData :
 		public Action
 	{
 	public:
-		ActionDestroyData();
-		virtual ~ActionDestroyData();
+		ActionRenameData();
+		virtual ~ActionRenameData();
 
 		virtual void doAction();
 		virtual void undoAction();
 
 		void setData(Data* _data);
+		void setName(const std::string& _value);
 
 	private:
+		std::string mName;
+		std::string mOldName;
 		Data* mData;
-		bool mComplete;
-		size_t mIndex;
 	};
 }
 

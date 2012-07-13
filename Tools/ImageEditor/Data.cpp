@@ -65,13 +65,23 @@ namespace tools
 		return mProperties;
 	}
 
-	void Data::addChild(Data* _child)
+	void Data::insertChild(size_t _index, Data* _child)
 	{
 		MYGUI_ASSERT(_child != nullptr, "Child is nullptr");
 		MYGUI_ASSERT(_child->getParent() == nullptr, "Child already attached");
 
-		mChilds.push_back(_child);
+		MYGUI_ASSERT_RANGE_AND_NONE(_index, mChilds.size(), "Data::insertChild");
+
+		if (_index == MyGUI::ITEM_NONE)
+			_index = mChilds.size();
+
+		mChilds.insert(mChilds.begin() + _index, _child);
 		_child->mParent = this;
+	}
+
+	void Data::addChild(Data* _child)
+	{
+		insertChild(MyGUI::ITEM_NONE, _child);
 	}
 	
 	void Data::removeChild(Data* _child)
@@ -96,5 +106,17 @@ namespace tools
 		MYGUI_ASSERT(property != mProperties.end(), "Property " << _name << " not found");
 
 		mProperties[_name] = _value;
+	}
+
+	size_t Data::getChildIndex(Data* _child)
+	{
+		for (size_t index = 0; index < mChilds.size(); index ++)
+		{
+			if (_child == mChilds[index])
+				return index;
+		}
+
+		MYGUI_ASSERT(false, "Child data not found");
+		return MyGUI::ITEM_NONE;
 	}
 }
