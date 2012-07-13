@@ -81,6 +81,8 @@ set (HEADER_FILES
 	MainMenuControl.h
 	Action.h
 	ActionManager.h
+	ActionDestroyData.h
+	ActionCreateData.h
 	IFactoryItem.h
 	IFactory.h
 	FactoryTemplate.h
@@ -173,6 +175,8 @@ set (SOURCE_FILES
 	MainMenuControl.cpp
 	SeparatorControl.cpp
 	ActionManager.cpp
+	ActionDestroyData.cpp
+	ActionCreateData.cpp
 	FactoryManager.cpp
 	Control.cpp
 	Data.cpp
@@ -237,6 +241,30 @@ SOURCE_GROUP("Actions" FILES
 	Action.h
 	ActionManager.h
 	ActionManager.cpp
+	ActionDestroyData.h
+	ActionDestroyData.cpp
+	ActionCreateData.h
+	ActionCreateData.cpp
 )
 SOURCE_GROUP("States" FILES
+	EditorState.h
+	EditorState.cpp
+	TestState.h
+	TestState.cpp
+	StateController.h
+	StateManager.h
+	StateManager.cpp
+)
+SOURCE_GROUP("Commands" FILES
+	CommandManager.h
+	CommandManager.cpp
+	HotKeyCommand.h
+	HotKeyManager.h
+	HotKeyManager.cpp
+)
+SOURCE_GROUP("Settings" FILES
+	SettingsManager.h
+	SettingsManager.cpp
+	SettingsSector.h
+	SettingsSector.cpp
 )

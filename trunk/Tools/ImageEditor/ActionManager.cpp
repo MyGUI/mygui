@@ -3,11 +3,10 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #include "Precompiled.h"
 #include "ActionManager.h"
-//#include "pugixml.hpp"
 #include "MyGUI_DataManager.h"
-//#include "DataInfoManager.h"
 
 namespace tools
 {

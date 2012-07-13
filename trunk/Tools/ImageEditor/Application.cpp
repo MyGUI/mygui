@@ -20,6 +20,8 @@
 #include "ColourManager.h"
 #include "Localise.h"
 #include "Grid.h"
+#include "DataManager.h"
+#include "DataInfoManager.h"
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
@@ -100,6 +102,14 @@ namespace tools
 
 		new Grid();
 		Grid::getInstance().initialise();
+
+		new tools::DataInfoManager();
+		new tools::DataManager();
+		
+		tools::DataInfoManager::getInstance().initialise();
+		tools::DataManager::getInstance().initialise();
+
+		tools::DataInfoManager::getInstance().load("ImageDataInfo.xml");
 
 		MyGUI::ResourceManager::getInstance().load("Initialise.xml");
 
@@ -188,6 +198,12 @@ namespace tools
 
 		SettingsManager::getInstance().shutdown();
 		delete SettingsManager::getInstancePtr();
+
+		tools::DataInfoManager::getInstance().shutdown();
+		tools::DataManager::getInstance().shutdown();
+
+		delete tools::DataManager::getInstancePtr();
+		delete tools::DataInfoManager::getInstancePtr();
 
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::FilterNone>("BasisSkin");
 	}
