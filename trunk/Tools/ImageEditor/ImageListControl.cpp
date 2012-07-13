@@ -4,7 +4,7 @@
 	@date		07/2012
 */
 #include "Precompiled.h"
-#include "SkinListControl.h"
+#include "ImageListControl.h"
 #include "FactoryItemAttribute.h"
 #include "FactoryManager.h"
 #include "CommandManager.h"
