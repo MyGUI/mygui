@@ -4,10 +4,11 @@
         <UserString key="SnapTo" value="Stretch"/>
         <Widget type="Button" skin="Button_Dark" position="4 449 120 20" align="Left Bottom" name="Create">
             <Property key="Caption" value="#{Create}"/>
-            <UserString key="CommandClick" value="Command_FileLoad"/>
+            <UserString key="CommandClick" value="Command_CreateData"/>
         </Widget>
         <Widget type="Button" skin="Button_Dark" position="132 449 120 20" align="Right Bottom" name="Delete">
             <Property key="Caption" value="#{Delete}"/>
+            <UserString key="CommandClick" value="Command_DestroyData"/>
         </Widget>
         <Widget type="ItemBox" skin="ItemBox2_Dark" position="4 4 248 437" align="Stretch" name="ListBoxControl">
             <UserString key="CellHeight" value="20"/>
@@ -16,11 +17,12 @@
                 <Widget type="MenuItem" skin="" position="0 0 93 18">
                     <Property key="Caption" value="#{Create}"/>
                     <Property key="MenuItemId" value="Create"/>
-                    <UserString key="CommandClick" value="Command_FileLoad"/>
+                    <UserString key="CommandClick" value="Command_CreateData"/>
                 </Widget>
                 <Widget type="MenuItem" skin="" position="0 18 93 18">
                     <Property key="Caption" value="#{Delete}"/>
                     <Property key="MenuItemId" value="Delete"/>
+                    <UserString key="CommandClick" value="Command_DestroyData"/>
                 </Widget>
                 <Widget type="MenuItem" skin="" position="0 36 93 10">
                     <Property key="MenuItemType" value="Separator"/>
@@ -28,6 +30,7 @@
                 <Widget type="MenuItem" skin="" position="0 46 93 18">
                     <Property key="Caption" value="#{Rename}"/>
                     <Property key="MenuItemId" value="Rename"/>
+                    <UserString key="CommandClick" value="Command_RenameData"/>
                 </Widget>
             </Widget>
         </Widget>

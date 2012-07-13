@@ -10,12 +10,19 @@
 
 namespace tools
 {
-	class SkinListControl :
+	class ImageListControl :
 		public Control
 	{
 	public:
-		SkinListControl();
-		virtual ~SkinListControl();
+		ImageListControl();
+		virtual ~ImageListControl();
+
+	private:
+		bool checkCommand();
+
+		void commandCreateData(const MyGUI::UString& _commandName, bool& _result);
+		void commandDestroyData(const MyGUI::UString& _commandName, bool& _result);
+		void commandRenameData(const MyGUI::UString& _commandName, bool& _result);
 	};
 }
 

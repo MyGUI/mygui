@@ -490,6 +490,8 @@ namespace tools
 			return;
 
 		ActionManager::getInstance().undoAction();
+
+		_result = true;
 	}
 
 	void EditorState::commandRedo(const MyGUI::UString& _commandName, bool& _result)
@@ -498,5 +500,7 @@ namespace tools
 			return;
 
 		ActionManager::getInstance().redoAction();
+
+		_result = true;
 	}
 }
