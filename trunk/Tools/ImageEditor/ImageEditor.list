@@ -1,270 +1,474 @@
 set (HEADER_FILES
-	Application.h
-	AreaSelectorControl.h
-	BackgroundControl.h
-	Binary.h
-	ColourManager.h
-	ColourPanel.h
-	CommandManager.h
-	../../Common/Tools/Dialog.h
-	../../Common/Tools/DialogManager.h
-	EditorState.h
-	ExportManager.h
-	Grid.h
-	HorizontalSelectorBlackControl.h
-	HorizontalSelectorControl.h
-	HotKeyCommand.h
-	HotKeyManager.h
-	ItemHolder.h
-	Localise.h
-	MessageBoxFadeControl.h
-	MessageBoxManager.h
-	MyGUI_FilterNoneSkin.h
-	../../Common/Tools/OpenSaveFileDialog.h
-	PositionSelectorBlackControl.h
-	PositionSelectorControl.h
-	Property.h
-	PropertyAdvisor.h
-	PropertyAlignControl.h
-	PropertyBoolControl.h
-	PropertyColourControl.h
-	PropertyControl.h
-	PropertyInt2Control.h
-	PropertyInt4Control.h
-	PropertyIntControl.h
-	PropertyRegionTypeControl.h
-	PropertySet.h
-	PropertyTexturesControl.h
-	RecentFilesManager.h
-	RegionControl.h
-	RegionItem.h
-	RegionListControl.h
-	RegionPropertyControl.h
-	RegionTextureControl.h
-	SelectorControl.h
-	SeparatorItem.h
-	SeparatorListControl.h
-	SeparatorPropertyControl.h
-	SeparatorTextureControl.h
-	SettingsGeneralControl.h
-	SettingsManager.h
-	SettingsResourcePathsControl.h
-	SettingsResourcesControl.h
-	SettingsSector.h
-	SettingsWindow.h
-	SkinItem.h
-	ImageListControl.h
-	SkinManager.h
-	SkinPropertyControl.h
-	SkinTextureControl.h
-	StateControl.h
-	StateController.h
-	StateItem.h
-	StateListControl.h
-	StateManager.h
-	StatePropertyControl.h
-	StateTextureControl.h
-	TestState.h
-	TestWindow.h
-	TextFieldControl.h
-	TextureBrowseCell.h
-	TextureBrowseControl.h
-	TextureControl.h
-	TextureToolControl.h
-	VerticalSelectorBlackControl.h
-	VerticalSelectorControl.h
-	ListBoxControl.h
-	ListBoxItemControl.h
-
-	SkinControl.h
-	SeparatorControl.h
-	MainMenuControl.h
-	Action.h
-	ActionManager.h
-	ActionDestroyData.h
-	ActionCreateData.h
-	IFactoryItem.h
-	IFactory.h
-	FactoryTemplate.h
-	FactoryManager.h
-	FactoryItemAttribute.h
-	Control.h
-	SeparatorUtility.h
-	Data.h
-	DataInfo.h
-	DataInfoManager.h
-	DataManager.h
-	DataPropertyInfo.h
-	sigslot.h
-	pugiconfig.hpp
-	pugixml.hpp
+  Application.h
+  AreaSelectorControl.h
+  BackgroundControl.h
+  Binary.h
+  ColourManager.h
+  ColourPanel.h
+  CommandManager.h
+  ../../Common/Tools/Dialog.h
+  ../../Common/Tools/DialogManager.h
+  EditorState.h
+  ExportManager.h
+  Grid.h
+  HorizontalSelectorBlackControl.h
+  HorizontalSelectorControl.h
+  HotKeyCommand.h
+  HotKeyManager.h
+  ItemHolder.h
+  Localise.h
+  MessageBoxFadeControl.h
+  MessageBoxManager.h
+  MyGUI_FilterNoneSkin.h
+  ../../Common/Tools/OpenSaveFileDialog.h
+  PositionSelectorBlackControl.h
+  PositionSelectorControl.h
+  Property.h
+  PropertyAdvisor.h
+  PropertyAlignControl.h
+  PropertyBoolControl.h
+  PropertyColourControl.h
+  PropertyControl.h
+  PropertyInt2Control.h
+  PropertyInt4Control.h
+  PropertyIntControl.h
+  PropertyRegionTypeControl.h
+  PropertySet.h
+  PropertyTexturesControl.h
+  RecentFilesManager.h
+  RegionControl.h
+  RegionItem.h
+  RegionListControl.h
+  RegionPropertyControl.h
+  RegionTextureControl.h
+  SelectorControl.h
+  SeparatorItem.h
+  SeparatorListControl.h
+  SeparatorPropertyControl.h
+  SeparatorTextureControl.h
+  SettingsGeneralControl.h
+  SettingsManager.h
+  SettingsResourcePathsControl.h
+  SettingsResourcesControl.h
+  SettingsSector.h
+  SettingsWindow.h
+  SkinItem.h
+  ImageListControl.h
+  SkinManager.h
+  SkinPropertyControl.h
+  SkinTextureControl.h
+  StateControl.h
+  StateController.h
+  StateItem.h
+  StateListControl.h
+  StateManager.h
+  StatePropertyControl.h
+  StateTextureControl.h
+  TestState.h
+  TestWindow.h
+  TextFieldControl.h
+  TextureBrowseCell.h
+  TextureBrowseControl.h
+  TextureControl.h
+  TextureToolControl.h
+  VerticalSelectorBlackControl.h
+  VerticalSelectorControl.h
+  ListBoxControl.h
+  ListBoxItemControl.h
+  SkinControl.h
+  SeparatorControl.h
+  MainMenuControl.h
+  Action.h
+  ActionManager.h
+  ActionDestroyData.h
+  ActionCreateData.h
+  IFactoryItem.h
+  IFactory.h
+  FactoryTemplate.h
+  FactoryManager.h
+  FactoryItemAttribute.h
+  Control.h
+  SeparatorUtility.h
+  Data.h
+  DataInfo.h
+  DataInfoManager.h
+  DataManager.h
+  DataPropertyInfo.h
+  sigslot.h
 )
 set (SOURCE_FILES
-	Application.cpp
-	AreaSelectorControl.cpp
-	BackgroundControl.cpp
-	ColourManager.cpp
-	ColourPanel.cpp
-	CommandManager.cpp
-	../../Common/Tools/Dialog.cpp
-	../../Common/Tools/DialogManager.cpp
-	EditorState.cpp
-	ExportManager.cpp
-	Grid.cpp
-	HorizontalSelectorBlackControl.cpp
-	HorizontalSelectorControl.cpp
-	HotKeyManager.cpp
-	MessageBoxFadeControl.cpp
-	MessageBoxManager.cpp
-	MyGUI_FilterNoneSkin.cpp
-	../../Common/Tools/OpenSaveFileDialog.cpp
-	PositionSelectorBlackControl.cpp
-	PositionSelectorControl.cpp
-	Property.cpp
-	PropertyAlignControl.cpp
-	PropertyBoolControl.cpp
-	PropertyColourControl.cpp
-	PropertyControl.cpp
-	PropertyInt2Control.cpp
-	PropertyInt4Control.cpp
-	PropertyIntControl.cpp
-	PropertyRegionTypeControl.cpp
-	PropertySet.cpp
-	PropertyTexturesControl.cpp
-	RecentFilesManager.cpp
-	RegionControl.cpp
-	RegionItem.cpp
-	RegionListControl.cpp
-	RegionPropertyControl.cpp
-	RegionTextureControl.cpp
-	SelectorControl.cpp
-	SeparatorItem.cpp
-	SeparatorListControl.cpp
-	SeparatorPropertyControl.cpp
-	SeparatorTextureControl.cpp
-	SettingsGeneralControl.cpp
-	SettingsManager.cpp
-	SettingsResourcePathsControl.cpp
-	SettingsResourcesControl.cpp
-	SettingsSector.cpp
-	SettingsWindow.cpp
-	SkinItem.cpp
-	ImageListControl.cpp
-	SkinManager.cpp
-	SkinPropertyControl.cpp
-	SkinTextureControl.cpp
-	StateControl.cpp
-	StateItem.cpp
-	StateListControl.cpp
-	StateManager.cpp
-	StatePropertyControl.cpp
-	StateTextureControl.cpp
-	TestState.cpp
-	TestWindow.cpp
-	TextFieldControl.cpp
-	TextureBrowseCell.cpp
-	TextureBrowseControl.cpp
-	TextureControl.cpp
-	TextureToolControl.cpp
-	VerticalSelectorBlackControl.cpp
-	VerticalSelectorControl.cpp
-	ListBoxControl.cpp
-	ListBoxItemControl.cpp
-
-	SkinControl.cpp
-	MainMenuControl.cpp
-	SeparatorControl.cpp
-	ActionManager.cpp
-	ActionDestroyData.cpp
-	ActionCreateData.cpp
-	FactoryManager.cpp
-	Control.cpp
-	Data.cpp
-	DataInfo.cpp
-	DataInfoManager.cpp
-	DataManager.cpp
-	DataPropertyInfo.cpp
-	pugixml.cpp
-
-	../../Common/Precompiled.cpp
-	ImageEditor.ico
-	ImageEditor.rc
+  pugiconfig.hpp
+  pugixml.hpp
+  Application.cpp
+  AreaSelectorControl.cpp
+  BackgroundControl.cpp
+  ColourManager.cpp
+  ColourPanel.cpp
+  CommandManager.cpp
+  ../../Common/Tools/Dialog.cpp
+  ../../Common/Tools/DialogManager.cpp
+  EditorState.cpp
+  ExportManager.cpp
+  Grid.cpp
+  HorizontalSelectorBlackControl.cpp
+  HorizontalSelectorControl.cpp
+  HotKeyManager.cpp
+  MessageBoxFadeControl.cpp
+  MessageBoxManager.cpp
+  MyGUI_FilterNoneSkin.cpp
+  ../../Common/Tools/OpenSaveFileDialog.cpp
+  PositionSelectorBlackControl.cpp
+  PositionSelectorControl.cpp
+  Property.cpp
+  PropertyAlignControl.cpp
+  PropertyBoolControl.cpp
+  PropertyColourControl.cpp
+  PropertyControl.cpp
+  PropertyInt2Control.cpp
+  PropertyInt4Control.cpp
+  PropertyIntControl.cpp
+  PropertyRegionTypeControl.cpp
+  PropertySet.cpp
+  PropertyTexturesControl.cpp
+  RecentFilesManager.cpp
+  RegionControl.cpp
+  RegionItem.cpp
+  RegionListControl.cpp
+  RegionPropertyControl.cpp
+  RegionTextureControl.cpp
+  SelectorControl.cpp
+  SeparatorItem.cpp
+  SeparatorListControl.cpp
+  SeparatorPropertyControl.cpp
+  SeparatorTextureControl.cpp
+  SettingsGeneralControl.cpp
+  SettingsManager.cpp
+  SettingsResourcePathsControl.cpp
+  SettingsResourcesControl.cpp
+  SettingsSector.cpp
+  SettingsWindow.cpp
+  SkinItem.cpp
+  ImageListControl.cpp
+  SkinManager.cpp
+  SkinPropertyControl.cpp
+  SkinTextureControl.cpp
+  StateControl.cpp
+  StateItem.cpp
+  StateListControl.cpp
+  StateManager.cpp
+  StatePropertyControl.cpp
+  StateTextureControl.cpp
+  TestState.cpp
+  TestWindow.cpp
+  TextFieldControl.cpp
+  TextureBrowseCell.cpp
+  TextureBrowseControl.cpp
+  TextureControl.cpp
+  TextureToolControl.cpp
+  VerticalSelectorBlackControl.cpp
+  VerticalSelectorControl.cpp
+  ListBoxControl.cpp
+  ListBoxItemControl.cpp
+  SkinControl.cpp
+  MainMenuControl.cpp
+  SeparatorControl.cpp
+  ActionManager.cpp
+  ActionDestroyData.cpp
+  ActionCreateData.cpp
+  FactoryManager.cpp
+  Control.cpp
+  Data.cpp
+  DataInfo.cpp
+  DataInfoManager.cpp
+  DataManager.cpp
+  DataPropertyInfo.cpp
+  pugixml.cpp
+  ../../Common/Precompiled.cpp
+  ImageEditor.rc
 )
 SOURCE_GROUP("Source Files" FILES
-)
-SOURCE_GROUP("Header Files" FILES
-)
-SOURCE_GROUP("Resources" FILES
-	ImageEditor.ico
-	ImageEditor.rc
-	CMakeLists.txt
-)
-SOURCE_GROUP("" FILES
-)
-SOURCE_GROUP("Data" FILES
-	Data.h
-	Data.cpp
-	DataInfo.h
-	DataInfo.cpp
-	DataInfoManager.h
-	DataInfoManager.cpp
-	DataManager.h
-	DataManager.cpp
-	DataPropertyInfo.h
-	DataPropertyInfo.cpp
-)
-SOURCE_GROUP("Controls" FILES
-	Control.h
-	Control.cpp
-	MainMenuControl.h
-	MainMenuControl.cpp
-	ImageListControl.h
-	ImageListControl.cpp
-	SeparatorControl.h
-	SeparatorControl.cpp
-)
-SOURCE_GROUP("Factory" FILES
-	IFactoryItem.h
-	IFactory.h
-	FactoryTemplate.h
-	FactoryItemAttribute.h
-	FactoryManager.h
-	FactoryManager.cpp
-)
-SOURCE_GROUP("Utility" FILES
-	sigslot.h
-	pugiconfig.hpp
-	pugixml.hpp
-	pugixml.cpp
-)
-SOURCE_GROUP("Actions" FILES
-	Action.h
-	ActionManager.h
-	ActionManager.cpp
-	ActionDestroyData.h
-	ActionDestroyData.cpp
-	ActionCreateData.h
-	ActionCreateData.cpp
-)
-SOURCE_GROUP("States" FILES
-	EditorState.h
-	EditorState.cpp
-	TestState.h
-	TestState.cpp
-	StateController.h
-	StateManager.h
-	StateManager.cpp
+  Application.cpp
+  AreaSelectorControl.cpp
+  BackgroundControl.cpp
+  ColourManager.cpp
+  ColourPanel.cpp
 )
 SOURCE_GROUP("Commands" FILES
-	CommandManager.h
-	CommandManager.cpp
-	HotKeyCommand.h
-	HotKeyManager.h
-	HotKeyManager.cpp
+  CommandManager.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  ../../Common/Tools/Dialog.cpp
+  ../../Common/Tools/DialogManager.cpp
+)
+SOURCE_GROUP("States" FILES
+  EditorState.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  ExportManager.cpp
+  Grid.cpp
+  HorizontalSelectorBlackControl.cpp
+  HorizontalSelectorControl.cpp
+)
+SOURCE_GROUP("Commands" FILES
+  HotKeyManager.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  MessageBoxFadeControl.cpp
+  MessageBoxManager.cpp
+  MyGUI_FilterNoneSkin.cpp
+  ../../Common/Tools/OpenSaveFileDialog.cpp
+  PositionSelectorBlackControl.cpp
+  PositionSelectorControl.cpp
+  Property.cpp
+  PropertyAlignControl.cpp
+  PropertyBoolControl.cpp
+  PropertyColourControl.cpp
+  PropertyControl.cpp
+  PropertyInt2Control.cpp
+  PropertyInt4Control.cpp
+  PropertyIntControl.cpp
+  PropertyRegionTypeControl.cpp
+  PropertySet.cpp
+  PropertyTexturesControl.cpp
+  RecentFilesManager.cpp
+  RegionControl.cpp
+  RegionItem.cpp
+  RegionListControl.cpp
+  RegionPropertyControl.cpp
+  RegionTextureControl.cpp
+  SelectorControl.cpp
+  SeparatorItem.cpp
+  SeparatorListControl.cpp
+  SeparatorPropertyControl.cpp
+  SeparatorTextureControl.cpp
+  SettingsGeneralControl.cpp
 )
 SOURCE_GROUP("Settings" FILES
-	SettingsManager.h
-	SettingsManager.cpp
-	SettingsSector.h
-	SettingsSector.cpp
+  SettingsManager.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  SettingsResourcePathsControl.cpp
+  SettingsResourcesControl.cpp
+)
+SOURCE_GROUP("Settings" FILES
+  SettingsSector.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  SettingsWindow.cpp
+  SkinItem.cpp
+)
+SOURCE_GROUP("Controls" FILES
+  ImageListControl.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  SkinManager.cpp
+  SkinPropertyControl.cpp
+  SkinTextureControl.cpp
+  StateControl.cpp
+  StateItem.cpp
+  StateListControl.cpp
+)
+SOURCE_GROUP("States" FILES
+  StateManager.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  StatePropertyControl.cpp
+  StateTextureControl.cpp
+)
+SOURCE_GROUP("States" FILES
+  TestState.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  TestWindow.cpp
+  TextFieldControl.cpp
+  TextureBrowseCell.cpp
+  TextureBrowseControl.cpp
+  TextureControl.cpp
+  TextureToolControl.cpp
+  VerticalSelectorBlackControl.cpp
+  VerticalSelectorControl.cpp
+  ListBoxControl.cpp
+  ListBoxItemControl.cpp
+  SkinControl.cpp
+)
+SOURCE_GROUP("Controls" FILES
+  MainMenuControl.cpp
+  SeparatorControl.cpp
+)
+SOURCE_GROUP("Actions" FILES
+  ActionManager.cpp
+  ActionDestroyData.cpp
+  ActionCreateData.cpp
+)
+SOURCE_GROUP("Factory" FILES
+  FactoryManager.cpp
+)
+SOURCE_GROUP("Controls" FILES
+  Control.cpp
+)
+SOURCE_GROUP("Data" FILES
+  Data.cpp
+  DataInfo.cpp
+  DataInfoManager.cpp
+  DataManager.cpp
+  DataPropertyInfo.cpp
+)
+SOURCE_GROUP("Utility" FILES
+  pugixml.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  ../../Common/Precompiled.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  Application.h
+  AreaSelectorControl.h
+  BackgroundControl.h
+  Binary.h
+  ColourManager.h
+  ColourPanel.h
+)
+SOURCE_GROUP("Commands" FILES
+  CommandManager.h
+)
+SOURCE_GROUP("Header Files" FILES
+  ../../Common/Tools/Dialog.h
+  ../../Common/Tools/DialogManager.h
+)
+SOURCE_GROUP("States" FILES
+  EditorState.h
+)
+SOURCE_GROUP("Header Files" FILES
+  ExportManager.h
+  Grid.h
+  HorizontalSelectorBlackControl.h
+  HorizontalSelectorControl.h
+)
+SOURCE_GROUP("Commands" FILES
+  HotKeyCommand.h
+  HotKeyManager.h
+)
+SOURCE_GROUP("Header Files" FILES
+  ItemHolder.h
+  Localise.h
+  MessageBoxFadeControl.h
+  MessageBoxManager.h
+  MyGUI_FilterNoneSkin.h
+  ../../Common/Tools/OpenSaveFileDialog.h
+  PositionSelectorBlackControl.h
+  PositionSelectorControl.h
+  Property.h
+  PropertyAdvisor.h
+  PropertyAlignControl.h
+  PropertyBoolControl.h
+  PropertyColourControl.h
+  PropertyControl.h
+  PropertyInt2Control.h
+  PropertyInt4Control.h
+  PropertyIntControl.h
+  PropertyRegionTypeControl.h
+  PropertySet.h
+  PropertyTexturesControl.h
+  RecentFilesManager.h
+  RegionControl.h
+  RegionItem.h
+  RegionListControl.h
+  RegionPropertyControl.h
+  RegionTextureControl.h
+  SelectorControl.h
+  SeparatorItem.h
+  SeparatorListControl.h
+  SeparatorPropertyControl.h
+  SeparatorTextureControl.h
+  SettingsGeneralControl.h
+)
+SOURCE_GROUP("Settings" FILES
+  SettingsManager.h
+)
+SOURCE_GROUP("Header Files" FILES
+  SettingsResourcePathsControl.h
+  SettingsResourcesControl.h
+)
+SOURCE_GROUP("Settings" FILES
+  SettingsSector.h
+)
+SOURCE_GROUP("Header Files" FILES
+  SettingsWindow.h
+  SkinItem.h
+)
+SOURCE_GROUP("Controls" FILES
+  ImageListControl.h
+)
+SOURCE_GROUP("Header Files" FILES
+  SkinManager.h
+  SkinPropertyControl.h
+  SkinTextureControl.h
+  StateControl.h
+)
+SOURCE_GROUP("States" FILES
+  StateController.h
+)
+SOURCE_GROUP("Header Files" FILES
+  StateItem.h
+  StateListControl.h
+)
+SOURCE_GROUP("States" FILES
+  StateManager.h
+)
+SOURCE_GROUP("Header Files" FILES
+  StatePropertyControl.h
+  StateTextureControl.h
+)
+SOURCE_GROUP("States" FILES
+  TestState.h
+)
+SOURCE_GROUP("Header Files" FILES
+  TestWindow.h
+  TextFieldControl.h
+  TextureBrowseCell.h
+  TextureBrowseControl.h
+  TextureControl.h
+  TextureToolControl.h
+  VerticalSelectorBlackControl.h
+  VerticalSelectorControl.h
+  ListBoxControl.h
+  ListBoxItemControl.h
+  SkinControl.h
+)
+SOURCE_GROUP("Controls" FILES
+  SeparatorControl.h
+  MainMenuControl.h
+)
+SOURCE_GROUP("Actions" FILES
+  Action.h
+  ActionManager.h
+  ActionDestroyData.h
+  ActionCreateData.h
+)
+SOURCE_GROUP("Factory" FILES
+  IFactoryItem.h
+  IFactory.h
+  FactoryTemplate.h
+  FactoryManager.h
+  FactoryItemAttribute.h
+)
+SOURCE_GROUP("Controls" FILES
+  Control.h
+)
+SOURCE_GROUP("Header Files" FILES
+  SeparatorUtility.h
+)
+SOURCE_GROUP("Data" FILES
+  Data.h
+  DataInfo.h
+  DataInfoManager.h
+  DataManager.h
+  DataPropertyInfo.h
+)
+SOURCE_GROUP("Utility" FILES
+  sigslot.h
+  pugiconfig.hpp
+  pugixml.hpp
+)
+SOURCE_GROUP("Resources" FILES
+  ImageEditor.rc
 )

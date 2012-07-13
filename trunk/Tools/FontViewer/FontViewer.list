@@ -18,6 +18,9 @@ SOURCE_GROUP("Source Files" FILES
   FontView.cpp
   TextureView.cpp
 )
+SOURCE_GROUP("Resources" FILES
+  ../../Common/Precompiled.cpp
+)
 SOURCE_GROUP("Header Files" FILES
   DemoKeeper.h
   FontPanel.h
@@ -25,9 +28,5 @@ SOURCE_GROUP("Header Files" FILES
   TextureView.h
 )
 SOURCE_GROUP("Resources" FILES
-  ../../Common/Precompiled.cpp
   ../../Common/Base/BaseResource.rc
-  CMakeLists.txt
-)
-SOURCE_GROUP("" FILES
 )

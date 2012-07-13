@@ -211,10 +211,35 @@ SOURCE_GROUP("Source Files" FILES
   TextureToolControl.cpp
   ToolsControl.cpp
   UndoManager.cpp
+  WidgetContainer.cpp
   WidgetCreatorManager.cpp
   WidgetSelectorManager.cpp
   WidgetTypes.cpp
   WorkspaceControl.cpp
+)
+SOURCE_GROUP("Resources" FILES
+  ../../Common/Precompiled.cpp
+)
+SOURCE_GROUP("Panels" FILES
+  PanelControllers.cpp
+  PanelItems.cpp
+  PanelMainProperties.cpp
+  PanelProperties.cpp
+  PanelUserData.cpp
+  PropertiesPanelView.cpp
+)
+SOURCE_GROUP("Windows" FILES
+  SettingsWindow.cpp
+  WidgetsWindow.cpp
+)
+SOURCE_GROUP("Parse" FILES
+  Parse.cpp
+)
+SOURCE_GROUP("GroupedMessage" FILES
+  GroupMessage.cpp
+)
+SOURCE_GROUP("CodeGenerator" FILES
+  CodeGenerator.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   Application.h
@@ -287,11 +312,6 @@ SOURCE_GROUP("Header Files" FILES
   WidgetTypes.h
   WorkspaceControl.h
 )
-SOURCE_GROUP("Resources" FILES
-  LayoutEditor.rc
-  ../../Common/Precompiled.cpp
-  CMakeLists.txt
-)
 SOURCE_GROUP("Panels\\Header" FILES
   PanelControllers.h
   PanelItems.h
@@ -302,31 +322,19 @@ SOURCE_GROUP("Panels\\Header" FILES
   PanelViewCell.h
   PropertiesPanelView.h
 )
-SOURCE_GROUP("Panels" FILES
-  PanelControllers.cpp
-  PanelItems.cpp
-  PanelMainProperties.cpp
-  PanelProperties.cpp
-  PanelUserData.cpp
-  PropertiesPanelView.cpp
-)
 SOURCE_GROUP("Windows" FILES
   SettingsWindow.h
   WidgetsWindow.h
-  SettingsWindow.cpp
-  WidgetsWindow.cpp
 )
 SOURCE_GROUP("Parse" FILES
   Parse.h
-  Parse.cpp
 )
 SOURCE_GROUP("GroupedMessage" FILES
   GroupMessage.h
-  GroupMessage.cpp
 )
 SOURCE_GROUP("CodeGenerator" FILES
   CodeGenerator.h
-  CodeGenerator.cpp
 )
-SOURCE_GROUP("" FILES
+SOURCE_GROUP("Resources" FILES
+  LayoutEditor.rc
 )

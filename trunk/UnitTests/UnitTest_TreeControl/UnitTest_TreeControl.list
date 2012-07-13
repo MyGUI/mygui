@@ -10,24 +10,21 @@ set (SOURCE_FILES
   TreeControlItem.cpp
   ../../Common/Base/BaseResource.rc
 )
+SOURCE_GROUP("Source Files" FILES
+  DemoKeeper.cpp
+)
 SOURCE_GROUP("Source Files\\TreeControl" FILES
   TreeControl.cpp
   TreeControlItem.cpp
 )
-SOURCE_GROUP("Source Files" FILES
-  DemoKeeper.cpp
+SOURCE_GROUP("Header Files" FILES
+  DemoKeeper.h
 )
 SOURCE_GROUP("Header Files\\TreeControl" FILES
   GenericNode.h
   TreeControl.h
   TreeControlItem.h
 )
-SOURCE_GROUP("Header Files" FILES
-  DemoKeeper.h
-)
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
-  CMakeLists.txt
-)
-SOURCE_GROUP("" FILES
 )

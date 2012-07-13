@@ -10,8 +10,6 @@ set (HEADER_FILES
   DataPropertyInfo.h
   DataInfoManager.h
   DataManager.h
-  pugiconfig.hpp
-  pugixml.hpp
   Action.h
   ActionCreateData.h
   ActionDestroyData.h
@@ -19,6 +17,8 @@ set (HEADER_FILES
   DataListUI.h
 )
 set (SOURCE_FILES
+  pugiconfig.hpp
+  pugixml.hpp
   DemoKeeper.cpp
   ScrollViewPanel.cpp
   WrapPanel.cpp
@@ -39,13 +39,42 @@ set (SOURCE_FILES
 )
 SOURCE_GROUP("Source Files" FILES
   DemoKeeper.cpp
+  ScrollViewPanel.cpp
+  WrapPanel.cpp
+  StackPanel.cpp
+  Panel.cpp
+  HyperTextBox.cpp
+  Data.cpp
+  DataInfo.cpp
+  DataPropertyInfo.cpp
+  DataInfoManager.cpp
+  DataManager.cpp
+  pugixml.cpp
+  ActionCreateData.cpp
+  ActionDestroyData.cpp
+  ActionManager.cpp
+  DataListUI.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   DemoKeeper.h
+  ScrollViewPanel.h
+  WrapPanel.h
+  StackPanel.h
+  Panel.h
+  HyperTextBox.h
+  Data.h
+  DataInfo.h
+  DataPropertyInfo.h
+  DataInfoManager.h
+  DataManager.h
+  Action.h
+  ActionCreateData.h
+  ActionDestroyData.h
+  ActionManager.h
+  DataListUI.h
+  pugiconfig.hpp
+  pugixml.hpp
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
-  CMakeLists.txt
-)
-SOURCE_GROUP("" FILES
 )

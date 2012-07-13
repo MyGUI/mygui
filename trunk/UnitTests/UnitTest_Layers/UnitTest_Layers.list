@@ -20,9 +20,6 @@ set (SOURCE_FILES
   MyGUI_RTTLayer.cpp
   ../../Common/Base/BaseResource.rc
 )
-SOURCE_GROUP("Source Files\\Layer" FILES
-  MyGUI_RTTLayer.cpp
-)
 SOURCE_GROUP("Source Files" FILES
   DemoKeeper.cpp
   KeyboardPanel.cpp
@@ -30,8 +27,8 @@ SOURCE_GROUP("Source Files" FILES
   CommandManager.cpp
   SceneObject.cpp
 )
-SOURCE_GROUP("Header Files\\Layer" FILES
-  MyGUI_RTTLayer.h
+SOURCE_GROUP("Source Files\\Layer" FILES
+  MyGUI_RTTLayer.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   DemoKeeper.h
@@ -45,9 +42,9 @@ SOURCE_GROUP("Header Files" FILES
   ResourceDevice.h
   SceneObject.h
 )
+SOURCE_GROUP("Header Files\\Layer" FILES
+  MyGUI_RTTLayer.h
+)
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
-  CMakeLists.txt
-)
-SOURCE_GROUP("" FILES
 )

@@ -7,21 +7,18 @@ set (SOURCE_FILES
   View.cpp
   ../../Common/Precompiled.cpp
   ../../Common/Base/BaseResource.rc
-  ../../Common/Base/mygui.ico
 )
 SOURCE_GROUP("Source Files" FILES
   Controller.cpp
   View.cpp
+)
+SOURCE_GROUP("Resource" FILES
+  ../../Common/Precompiled.cpp
 )
 SOURCE_GROUP("Header Files" FILES
   Controller.h
   View.h
 )
 SOURCE_GROUP("Resource" FILES
-  ../../Common/Precompiled.cpp
   ../../Common/Base/BaseResource.rc
-  ../../Common/Base/mygui.ico
-  CMakeLists.txt
-)
-SOURCE_GROUP("" FILES
 )
