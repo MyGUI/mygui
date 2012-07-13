@@ -42,9 +42,7 @@ def parseFilterFile(_node):
     fileName = convertRelativePath(fileName)
 
     filterName = _node.getElementsByTagName("Filter")[0].childNodes[0].nodeValue
-    print "!!!!!    " + filterName
     filterName = filterName.replace("\\", "\\\\")
-    print "?????    " + filterName
 
     global lastFilter
     if (filterName != lastFilter):
