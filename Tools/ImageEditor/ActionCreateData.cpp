@@ -6,14 +6,15 @@
 
 #include "Precompiled.h"
 #include "ActionCreateData.h"
-#include "DataManager.h"
 #include "DataInfoManager.h"
+#include "DataManager.h"
 
 namespace tools
 {
 	ActionCreateData::ActionCreateData() :
 		mData(nullptr),
-		mComplete(false)
+		mComplete(false),
+		mParent(nullptr)
 	{
 	}
 
@@ -35,7 +36,8 @@ namespace tools
 			mData->setPropertyValue("Name", mName);
 		}
 
-		DataManager::getInstance().getRoot()->addChild(mData);
+		mParent->addChild(mData);
+
 		DataManager::getInstance().invalidateDatas();
 
 		mComplete = true;
@@ -43,7 +45,8 @@ namespace tools
 
 	void ActionCreateData::undoAction()
 	{
-		DataManager::getInstance().getRoot()->removeChild(mData);
+		mParent->removeChild(mData);
+
 		DataManager::getInstance().invalidateDatas();
 
 		mComplete = false;
@@ -52,5 +55,10 @@ namespace tools
 	void ActionCreateData::setName(const std::string& _value)
 	{
 		mName = _value;
+	}
+
+	void ActionCreateData::setParent(Data* _parent)
+	{
+		mParent = _parent;
 	}
 }
