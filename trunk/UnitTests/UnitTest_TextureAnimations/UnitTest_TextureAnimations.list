@@ -39,4 +39,5 @@ SOURCE_GROUP("Header Files\\Layer" FILES
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
+  CMakeLists.txt
 )

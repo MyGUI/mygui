@@ -67,14 +67,15 @@ SOURCE_GROUP("Header Files" FILES
   DataPropertyInfo.h
   DataInfoManager.h
   DataManager.h
+  pugiconfig.hpp
+  pugixml.hpp
   Action.h
   ActionCreateData.h
   ActionDestroyData.h
   ActionManager.h
   DataListUI.h
-  pugiconfig.hpp
-  pugixml.hpp
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
+  CMakeLists.txt
 )
