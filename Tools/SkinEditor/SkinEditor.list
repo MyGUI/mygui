@@ -234,6 +234,11 @@ SOURCE_GROUP("Source Files" FILES
   TextureToolControl.cpp
   VerticalSelectorBlackControl.cpp
   VerticalSelectorControl.cpp
+)
+SOURCE_GROUP("Resources" FILES
+  ../../Common/Precompiled.cpp
+)
+SOURCE_GROUP("Source Files" FILES
   ListBoxControl.cpp
   ListBoxItemControl.cpp
 )
@@ -321,9 +326,5 @@ SOURCE_GROUP("Header Files" FILES
   ListBoxItemControl.h
 )
 SOURCE_GROUP("Resources" FILES
-  ../../Common/Precompiled.cpp
   SkinEditor.rc
-  CMakeLists.txt
-)
-SOURCE_GROUP("" FILES
 )
