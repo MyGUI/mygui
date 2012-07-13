@@ -121,14 +121,20 @@ namespace tools
 		if (data->PreviousPart == nullptr || data->NextPart == nullptr)
 			return;
 
+		MyGUI::IntPoint point = _point;
+		if (point.left < 0)
+			point.left = 0;
+		if (point.left > _separator->getParentSize().width)
+			point.left = _separator->getParentSize().width;
+
 		MyGUI::IntCoord previousCoord = data->PreviousPart->getCoord();
 		MyGUI::IntCoord nextCoord = data->NextPart->getCoord();
 		MyGUI::IntCoord separatorCoord = _separator->getCoord();
 
-		previousCoord.width = _point.left - previousCoord.left;
-		separatorCoord.left = _point.left;
-		nextCoord.width = nextCoord.right() - (_point.left + separatorCoord.width);
-		nextCoord.left = _point.left + separatorCoord.width;
+		previousCoord.width = point.left - previousCoord.left;
+		separatorCoord.left = point.left;
+		nextCoord.width = nextCoord.right() - (point.left + separatorCoord.width);
+		nextCoord.left = point.left + separatorCoord.width;
 
 		data->PreviousPart->setCoord(previousCoord);
 		data->NextPart->setCoord(nextCoord);
@@ -139,7 +145,7 @@ namespace tools
 		{
 			if (data->PreviousSeparator != nullptr)
 			{
-				MoveSeparator(data->PreviousSeparator, _point - MyGUI::IntPoint(size + data->PreviousSeparator->getWidth(), data->PreviousSeparator->getHeight()), Previous);
+				MoveSeparator(data->PreviousSeparator, point - MyGUI::IntPoint(size + data->PreviousSeparator->getWidth(), data->PreviousSeparator->getHeight()), Previous);
 			}
 
 			previousCoord = data->PreviousPart->getCoord();
@@ -163,7 +169,7 @@ namespace tools
 		{
 			if (data->NextSeparator != nullptr)
 			{
-				MoveSeparator(data->NextSeparator, _point + MyGUI::IntPoint(size + _separator->getWidth(), _separator->getHeight()), Next);
+				MoveSeparator(data->NextSeparator, point + MyGUI::IntPoint(size + _separator->getWidth(), _separator->getHeight()), Next);
 			}
 
 			previousCoord = data->PreviousPart->getCoord();
@@ -185,19 +191,13 @@ namespace tools
 
 	void SeparatorControl::notifyChangeCoord(MyGUI::Widget* _sender)
 	{
-		MyGUI::IntSize size = _sender->getSize();
-		//if (size.width < mOldSize.width || size.height < mOldSize.height)
+		for (VectorWidget::const_iterator child = mChilds.begin(); child != mChilds.end(); child ++)
 		{
-			for (VectorWidget::const_iterator child = mChilds.begin(); child != mChilds.end(); child ++)
+			SeparatorData** data = (*child)->getUserData<SeparatorData*>(false);
+			if (data != nullptr)
 			{
-				SeparatorData** data = (*child)->getUserData<SeparatorData*>(false);
-				if (data != nullptr)
-				{
-					MoveSeparator((*child), (*child)->getPosition());
-				}
+				MoveSeparator((*child), (*child)->getPosition());
 			}
 		}
-
-		mOldSize = size;
 	}
 }

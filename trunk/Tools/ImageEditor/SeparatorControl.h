@@ -32,7 +32,6 @@ namespace tools
 		typedef std::vector<MyGUI::Widget*> VectorWidget;
 		VectorWidget mChilds;
 		bool mHorizontal;
-		MyGUI::IntSize mOldSize;
 	};
 }
 
