@@ -6,10 +6,10 @@
 #ifndef __SKIN_CONTROL_H__
 #define __SKIN_CONTROL_H__
 
-#include "BaseLayout/BaseLayout.h"
-#include "SkinListControl.h"
-#include "SkinPropertyControl.h"
-#include "SkinTextureControl.h"
+//#include "BaseLayout/BaseLayout.h"
+//#include "SkinListControl.h"
+//#include "SkinPropertyControl.h"
+//#include "SkinTextureControl.h"
 
 namespace tools
 {

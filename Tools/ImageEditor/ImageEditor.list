@@ -53,7 +53,7 @@ set (HEADER_FILES
 	SettingsSector.h
 	SettingsWindow.h
 	SkinItem.h
-	SkinListControl.h
+	ImageListControl.h
 	SkinManager.h
 	SkinPropertyControl.h
 	SkinTextureControl.h
@@ -149,7 +149,7 @@ set (SOURCE_FILES
 	SettingsSector.cpp
 	SettingsWindow.cpp
 	SkinItem.cpp
-	SkinListControl.cpp
+	ImageListControl.cpp
 	SkinManager.cpp
 	SkinPropertyControl.cpp
 	SkinTextureControl.cpp
@@ -218,8 +218,8 @@ SOURCE_GROUP("Controls" FILES
 	Control.cpp
 	MainMenuControl.h
 	MainMenuControl.cpp
-	SkinListControl.h
-	SkinListControl.cpp
+	ImageListControl.h
+	ImageListControl.cpp
 	SeparatorControl.h
 	SeparatorControl.cpp
 )
