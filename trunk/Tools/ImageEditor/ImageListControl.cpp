@@ -60,6 +60,7 @@ namespace tools
 
 		ActionCreateData* command = new ActionCreateData();
 		command->setName(MyGUI::utility::toString("item ", mIndex));
+		command->setParent(DataManager::getInstance().getRoot());
 
 		tools::ActionManager::getInstance().doAction(command);
 

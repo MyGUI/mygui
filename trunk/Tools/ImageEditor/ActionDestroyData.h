@@ -25,6 +25,7 @@ namespace tools
 
 	private:
 		Data* mData;
+		Data* mParent;
 		bool mComplete;
 		size_t mIndex;
 	};

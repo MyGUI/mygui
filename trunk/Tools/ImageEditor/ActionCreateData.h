@@ -23,10 +23,12 @@ namespace tools
 		virtual void undoAction();
 
 		void setName(const std::string& _value);
+		void setParent(Data* _parent);
 
 	private:
 		std::string mName;
 		Data* mData;
+		Data* mParent;
 		bool mComplete;
 	};
 }

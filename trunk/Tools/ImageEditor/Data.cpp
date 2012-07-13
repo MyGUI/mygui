@@ -70,7 +70,7 @@ namespace tools
 		MYGUI_ASSERT(_child != nullptr, "Child is nullptr");
 		MYGUI_ASSERT(_child->getParent() == nullptr, "Child already attached");
 
-		MYGUI_ASSERT_RANGE_AND_NONE(_index, mChilds.size(), "Data::insertChild");
+		MYGUI_ASSERT_RANGE_INSERT(_index, mChilds.size(), "Data::insertChild");
 
 		if (_index == MyGUI::ITEM_NONE)
 			_index = mChilds.size();
