@@ -2,11 +2,11 @@
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Widget" skin="PanelEmpty" position="26 26 256 472" align="Stretch" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="Button" skin="Button_Dark" position="4 449 120 20" align="HStretch Bottom" name="Create">
+        <Widget type="Button" skin="Button_Dark" position="4 449 120 20" align="Left Bottom" name="Create">
             <Property key="Caption" value="#{Create}"/>
             <UserString key="CommandClick" value="Command_FileLoad"/>
         </Widget>
-        <Widget type="Button" skin="Button_Dark" position="132 449 120 20" align="HStretch Bottom" name="Delete">
+        <Widget type="Button" skin="Button_Dark" position="132 449 120 20" align="Right Bottom" name="Delete">
             <Property key="Caption" value="#{Delete}"/>
         </Widget>
         <Widget type="ItemBox" skin="ItemBox2_Dark" position="4 4 248 437" align="Stretch" name="ListBoxControl">
