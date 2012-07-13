@@ -15,6 +15,7 @@
 #include "StateManager.h"
 #include "RecentFilesManager.h"
 #include "ExportManager.h"
+#include "DataManager.h"
 
 namespace tools
 {
@@ -140,7 +141,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		if (ActionManager::getInstance().getChanges())
+		//if (ActionManager::getInstance().getChanges())
 		{
 			save();
 		}
@@ -383,9 +384,7 @@ namespace tools
 
 	void EditorState::clear()
 	{
-		// export manager reset
-		//SkinManager::getInstance().clear();
-
+		DataManager::getInstance().clear();
 		ActionManager::getInstance().reset();
 
 		mFileName = mDefaultFileName;
@@ -396,19 +395,20 @@ namespace tools
 
 	void EditorState::load()
 	{
-		// export manager reset
-		//SkinManager::getInstance().clear();
-
+		DataManager::getInstance().clear();
 		ActionManager::getInstance().reset();
 
-		MyGUI::xml::Document doc;
-		if (doc.open(mFileName))
+		pugi::xml_document doc;
+		pugi::xml_parse_result result = doc.load_file(mFileName.asWStr_c_str());
+		if (result)
 		{
 			bool result = ExportManager::getInstance().deserialization(doc);
 			if (result)
 			{
 				if (mFileName != mDefaultFileName)
 					RecentFilesManager::getInstance().addRecentFile(mFileName);
+
+				DataManager::getInstance().invalidateDatas();
 			}
 			else
 			{
@@ -428,7 +428,7 @@ namespace tools
 		{
 			/*MyGUI::Message* message =*/ MessageBoxManager::getInstance().create(
 				replaceTags("Error"),
-				doc.getLastError(),
+				result.description(),
 				MyGUI::MessageBoxStyle::IconError
 					| MyGUI::MessageBoxStyle::Yes);
 		}
@@ -436,12 +436,15 @@ namespace tools
 
 	bool EditorState::save()
 	{
-		MyGUI::xml::Document doc;
-		doc.createDeclaration();
+		pugi::xml_document doc;
+		pugi::xml_node decl = doc.prepend_child(pugi::node_declaration);
+		decl.append_attribute("version") = "1.0";
+		decl.append_attribute("encoding") = "UTF-8";
+		//decl.append_attribute("standalone") = "yes";
 
 		ExportManager::getInstance().serialization(doc);
 
-		bool result = doc.save(mFileName);
+		bool result = doc.save_file(mFileName.asWStr_c_str(), "\t", pugi::format_indent | pugi::format_write_bom & ~pugi::format_space_before_slash | pugi::format_win_new_line);
 
 		if (result)
 		{
@@ -454,7 +457,7 @@ namespace tools
 
 		/*MyGUI::Message* message =*/ MessageBoxManager::getInstance().create(
 			replaceTags("Error"),
-			doc.getLastError(),
+			"Error save file",
 			MyGUI::MessageBoxStyle::IconError
 				| MyGUI::MessageBoxStyle::Yes);
 
