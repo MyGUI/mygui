@@ -49,6 +49,8 @@ namespace tools
 		//void commandTest(const MyGUI::UString& _commandName, bool& _result);
 		void commandRecentFiles(const MyGUI::UString& _commandName, bool& _result);
 		void commandQuit(const MyGUI::UString& _commandName, bool& _result);
+		void commandUndo(const MyGUI::UString& _commandName, bool& _result);
+		void commandRedo(const MyGUI::UString& _commandName, bool& _result);
 
 		void clear();
 		bool save();

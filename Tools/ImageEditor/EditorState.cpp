@@ -18,7 +18,6 @@
 
 namespace tools
 {
-
 	EditorState::EditorState() :
 		mFileName("unnamed.xml"),
 		mDefaultFileName("unnamed.xml"),
@@ -36,6 +35,8 @@ namespace tools
 		//CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &EditorState::commandTest));
 		CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &EditorState::commandRecentFiles));
 		CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &EditorState::commandQuit));
+		CommandManager::getInstance().registerCommand("Command_Undo", MyGUI::newDelegate(this, &EditorState::commandUndo));
+		CommandManager::getInstance().registerCommand("Command_Redo", MyGUI::newDelegate(this, &EditorState::commandRedo));
 	}
 
 	EditorState::~EditorState()
@@ -483,4 +484,19 @@ namespace tools
 		mSettingsWindow->endModal();
 	}
 
-} // namespace tools
+	void EditorState::commandUndo(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		ActionManager::getInstance().undoAction();
+	}
+
+	void EditorState::commandRedo(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		ActionManager::getInstance().redoAction();
+	}
+}
