@@ -440,7 +440,6 @@ namespace tools
 		pugi::xml_node decl = doc.prepend_child(pugi::node_declaration);
 		decl.append_attribute("version") = "1.0";
 		decl.append_attribute("encoding") = "UTF-8";
-		//decl.append_attribute("standalone") = "yes";
 
 		ExportManager::getInstance().serialization(doc);
 

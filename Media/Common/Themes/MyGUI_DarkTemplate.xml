@@ -411,7 +411,7 @@
             <UserString key="NormalSkin" value="MenuBarButton2_Dark"/>
             <UserString key="PopupSkin" value="MenuBarButton2_Dark"/>
             <UserString key="SeparatorSkin" value="MenuBarSeparator_Dark"/>
-            <UserString key="SubMenuSkin" value="PopupMenu_Dark"/>
+            <UserString key="SubMenuSkin" value="PopupMenu2_Dark"/>
             <Widget type="Widget" skin="PanelEmpty" position="3 1 14 18" align="Stretch" name="Client"/>
         </Widget>
     </Resource>
@@ -420,6 +420,36 @@
             <Property key="FontName" value="DejaVuSansFont.13"/>
             <Property key="TextAlign" value="Center"/>
             <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="PopupMenuNormal2_Dark" version="3.2.0">
+        <Widget type="Widget" skin="PopupMenuItemNormal2Skin_Dark" position="20 25 43 14" name="Root">
+            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="TextAlign" value="Left VCenter"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+            <Widget type="Widget" skin="PopupMenuCheckSkin_Dark" position="2 3 10 8" align="Left VCenter" name="Check"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="PopupMenuPopup2_Dark" version="3.2.0">
+        <Widget type="Widget" skin="PopupMenuItemNormal2Skin_Dark" position="20 25 43 14" name="Root">
+            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="TextAlign" value="Left VCenter"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+            <Widget type="Widget" skin="PopupMenuExpSkin_Dark" position="33 1 8 12" align="Right VCenter">
+                <Property key="NeedMouse" value="false"/>
+            </Widget>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="PopupMenu2_Dark" version="3.2.0">
+        <Widget type="Widget" skin="PopupMenuPanel2Skin_Dark" position="5 5 29 26" name="Root">
+            <Property key="VerticalAlignment" value="true"/>
+            <UserString key="SubMenuLayer" value="Popup"/>
+            <UserString key="SubMenuSkin" value="PopupMenu2_Dark"/>
+            <UserString key="LE_TargetWidgetType" value="PopupMenu"/>
+            <UserString key="SeparatorSkin" value="PopupMenuSeparator_Dark"/>
+            <UserString key="NormalSkin" value="PopupMenuNormal2_Dark"/>
+            <UserString key="PopupSkin" value="PopupMenuPopup2_Dark"/>
+            <Widget type="Widget" skin="PanelEmpty" position="2 2 23 20" align="Stretch" name="Client"/>
         </Widget>
     </Resource>
 </MyGUI>
