@@ -14,42 +14,42 @@
 	</Resource>
 	<Resource type="ResourceImageSet" name="BeamPointerImage">
 		<Group name="Pointer" texture="MyGUI_Pointers.png" size="32 32">
-			<Index name="Pointer" >
+			<Index name="Pointer">
 				<Frame point="45 8"/>
 			</Index>
 		</Group>
 	</Resource>
 	<Resource type="ResourceImageSet" name="SizeLeftPointerImage">
 		<Group name="Pointer" texture="MyGUI_Pointers.png" size="32 32">
-			<Index name="Pointer" >
+			<Index name="Pointer">
 				<Frame point="122 48"/>
 			</Index>
 		</Group>
 	</Resource>
 	<Resource type="ResourceImageSet" name="SizeRightPointerImage">
-		<Group name="Pointer"  texture="MyGUI_Pointers.png" size="32 32">
-			<Index name="Pointer" >
+		<Group name="Pointer" texture="MyGUI_Pointers.png" size="32 32">
+			<Index name="Pointer">
 				<Frame point="160 48"/>
 			</Index>
 		</Group>
 	</Resource>
 	<Resource type="ResourceImageSet" name="SizeHorzPointerImage">
-		<Group name="Pointer"  texture="MyGUI_Pointers.png" size="32 32">
-			<Index name="Pointer" >
+		<Group name="Pointer" texture="MyGUI_Pointers.png" size="32 32">
+			<Index name="Pointer">
 				<Frame point="123 87"/>
 			</Index>
 		</Group>
 	</Resource>
 	<Resource type="ResourceImageSet" name="SizeVertPointerImage">
-		<Group name="Pointer"  texture="MyGUI_Pointers.png" size="32 32">
-			<Index name="Pointer" >
+		<Group name="Pointer" texture="MyGUI_Pointers.png" size="32 32">
+			<Index name="Pointer">
 				<Frame point="164 90"/>
 			</Index>
 		</Group>
 	</Resource>
 	<Resource type="ResourceImageSet" name="HandPointerImage">
 		<Group name="Pointer" texture="MyGUI_Pointers.png" size="32 32">
-			<Index name="Pointer" >
+			<Index name="Pointer">
 				<Frame point="154 11"/>
 			</Index>
 		</Group>
