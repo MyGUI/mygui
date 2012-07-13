@@ -48,10 +48,10 @@ namespace tools
 		}
 
 		for (size_t index = 0; index < getRoot()->getChildCount(); index ++)
-			CreateChilds(this, getRoot()->getChildAt(index));
+			CreateCommands(this, getRoot()->getChildAt(index));
 
 		for (size_t index = 0; index < getRoot()->getChildCount(); index ++)
-			CreateCommands(this, getRoot()->getChildAt(index));
+			CreateChilds(this, getRoot()->getChildAt(index));
 	}
 
 	void Control::CreateChilds(Control* _parent, MyGUI::Widget* _widget)

@@ -10,12 +10,17 @@
 #include "CommandManager.h"
 #include "Tools/DialogManager.h"
 #include "MessageBoxManager.h"
+#include "ActionManager.h"
+#include "ActionCreateData.h"
+#include "ActionDestroyData.h"
+#include "DataManager.h"
 
 namespace tools
 {
 	FACTORY_ITEM_ATTRIBUTE(ImageListControl);
 
-	ImageListControl::ImageListControl()
+	ImageListControl::ImageListControl() :
+		mIndex(0)
 	{
 		CommandManager::getInstance().registerCommand("Command_CreateData", MyGUI::newDelegate(this, &ImageListControl::commandCreateData));
 		CommandManager::getInstance().registerCommand("Command_DestroyData", MyGUI::newDelegate(this, &ImageListControl::commandDestroyData));
@@ -42,6 +47,13 @@ namespace tools
 		if (!checkCommand())
 			return;
 
+		ActionCreateData* command = new ActionCreateData();
+		command->setName(MyGUI::utility::toString("item ", mIndex));
+
+		tools::ActionManager::getInstance().doAction(command);
+
+		mIndex ++;
+
 		_result = true;
 	}
 
@@ -49,6 +61,14 @@ namespace tools
 	{
 		if (!checkCommand())
 			return;
+
+		if (!DataManager::getInstance().getRoot()->getChilds().empty())
+		{
+			ActionDestroyData* command = new tools::ActionDestroyData();
+			Data* data = DataManager::getInstance().getRoot()->getChilds().back();
+			command->setData(data);
+			ActionManager::getInstance().doAction(command);
+		}
 
 		_result = true;
 	}

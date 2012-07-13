@@ -23,6 +23,9 @@ namespace tools
 		void commandCreateData(const MyGUI::UString& _commandName, bool& _result);
 		void commandDestroyData(const MyGUI::UString& _commandName, bool& _result);
 		void commandRenameData(const MyGUI::UString& _commandName, bool& _result);
+
+	private:
+		size_t mIndex;
 	};
 }
 

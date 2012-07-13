@@ -13,7 +13,7 @@ namespace tools
 	ActionManager* ActionManager::mInstance = nullptr;
 
 	ActionManager::ActionManager() :
-		mMaxActions(5)
+		mMaxActions(256)
 	{
 		mInstance = this;
 	}
@@ -103,7 +103,8 @@ namespace tools
 
 	bool ActionManager::getChanges()
 	{
-		return mCurrentAction != mActionAsSave;
+		bool result = mCurrentAction != mActionAsSave;
+		return result;
 	}
 
 	void ActionManager::setMaxActions(size_t _value)
