@@ -53,7 +53,22 @@
                     </Widget>
                 </Widget>
             </Widget>
-            <Widget type="MenuItem" skin="MenuBarButton2_Dark" position="48 0 47 18">
+			<Widget type="MenuItem" skin="MenuBarButton2_Dark" position="0 0 42 18">
+				<Property key="Caption" value="#{MenuEdit}"/>
+				<Property key="MenuItemType" value="Popup"/>
+				<Property key="MenuItemId" value="MenuEdit"/>
+				<Widget type="PopupMenu" skin="PopupMenu_Dark" position="0 0 158 180" style="Popup" layer="Popup">
+					<Widget type="MenuItem" skin="PopupMenuNormal_Dark" position="0 0 152 18">
+						<Property key="Caption" value="#{MenuUndo}"/>
+						<Property key="MenuItemId" value="Command_Undo"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuNormal_Dark" position="0 18 152 18">
+						<Property key="Caption" value="#{MenuRedo}"/>
+						<Property key="MenuItemId" value="Command_Redo"/>
+					</Widget>
+				</Widget>
+			</Widget>
+			<Widget type="MenuItem" skin="MenuBarButton2_Dark" position="48 0 47 18">
                 <Property key="Caption" value="#{MenuColours}"/>
                 <Property key="MenuItemType" value="Popup"/>
                 <Property key="MenuItemId" value="Colours"/>
