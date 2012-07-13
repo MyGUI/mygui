@@ -13,6 +13,7 @@
 #include "ActionManager.h"
 #include "ActionCreateData.h"
 #include "ActionDestroyData.h"
+#include "ActionRenameData.h"
 #include "DataManager.h"
 
 namespace tools
@@ -20,7 +21,8 @@ namespace tools
 	FACTORY_ITEM_ATTRIBUTE(ImageListControl);
 
 	ImageListControl::ImageListControl() :
-		mIndex(0)
+		mIndex(0),
+		mListBox(nullptr)
 	{
 		CommandManager::getInstance().registerCommand("Command_CreateData", MyGUI::newDelegate(this, &ImageListControl::commandCreateData));
 		CommandManager::getInstance().registerCommand("Command_DestroyData", MyGUI::newDelegate(this, &ImageListControl::commandDestroyData));
@@ -29,6 +31,15 @@ namespace tools
 
 	ImageListControl::~ImageListControl()
 	{
+	}
+
+	void ImageListControl::Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::Initialise(_parent, _place, _layoutName);
+
+		assignWidget(mListBox, "ListBoxControl");
+
+		DataManager::getInstance().eventChangeData.connect(this, &ImageListControl::notifyChangeData);
 	}
 
 	bool ImageListControl::checkCommand()
@@ -62,11 +73,14 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		if (!DataManager::getInstance().getRoot()->getChilds().empty())
+		size_t index = mListBox->getIndexSelected();
+		if (index != MyGUI::ITEM_NONE)
 		{
+			Data* data = *mListBox->getItemDataAt<Data*>(index);
+
 			ActionDestroyData* command = new tools::ActionDestroyData();
-			Data* data = DataManager::getInstance().getRoot()->getChilds().back();
 			command->setData(data);
+
 			ActionManager::getInstance().doAction(command);
 		}
 
@@ -78,6 +92,42 @@ namespace tools
 		if (!checkCommand())
 			return;
 
+		size_t index = mListBox->getIndexSelected();
+		if (index != MyGUI::ITEM_NONE)
+		{
+			Data* data = *mListBox->getItemDataAt<Data*>(index);
+
+			ActionRenameData* command = new tools::ActionRenameData();
+			command->setData(data);
+			command->setName(MyGUI::utility::toString("item ", mIndex));
+
+			ActionManager::getInstance().doAction(command);
+		}
+
+		mIndex ++;
+
 		_result = true;
+	}
+
+	void ImageListControl::notifyChangeData()
+	{
+		mListBox->setIndexSelected(MyGUI::ITEM_NONE);
+
+		for (size_t index = 0; index < mListBox->getItemCount(); index ++)
+			mListBox->setItemDataAt(index, nullptr);
+
+		const Data::VectorData& childs = DataManager::getInstance().getRoot()->getChilds();
+
+		while (mListBox->getItemCount() > childs.size())
+			mListBox->removeItemAt(mListBox->getItemCount() - 1);
+
+		while (mListBox->getItemCount() < childs.size())
+			mListBox->addItem("", nullptr);
+
+		for (size_t index = 0; index < childs.size(); index ++)
+		{
+			mListBox->setItemNameAt(index, childs.at(index)->getPropertyValue("Name"));
+			mListBox->setItemDataAt(index, childs.at(index));
+		}
 	}
 }

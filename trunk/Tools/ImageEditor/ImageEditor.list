@@ -82,6 +82,7 @@ set (HEADER_FILES
   ActionManager.h
   ActionDestroyData.h
   ActionCreateData.h
+  ActionRenameData.h
   IFactoryItem.h
   IFactory.h
   FactoryTemplate.h
@@ -175,6 +176,7 @@ set (SOURCE_FILES
   ActionManager.cpp
   ActionDestroyData.cpp
   ActionCreateData.cpp
+  ActionRenameData.cpp
   FactoryManager.cpp
   Control.cpp
   Data.cpp
@@ -299,6 +301,7 @@ SOURCE_GROUP("Actions" FILES
   ActionManager.cpp
   ActionDestroyData.cpp
   ActionCreateData.cpp
+  ActionRenameData.cpp
 )
 SOURCE_GROUP("Factory" FILES
   FactoryManager.cpp
@@ -443,6 +446,7 @@ SOURCE_GROUP("Actions" FILES
   ActionManager.h
   ActionDestroyData.h
   ActionCreateData.h
+  ActionRenameData.h
 )
 SOURCE_GROUP("Factory" FILES
   IFactoryItem.h

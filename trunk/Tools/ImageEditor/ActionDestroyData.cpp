@@ -12,7 +12,8 @@ namespace tools
 {
 	ActionDestroyData::ActionDestroyData() :
 		mData(nullptr),
-		mComplete(false)
+		mComplete(false),
+		mIndex(MyGUI::ITEM_NONE)
 	{
 	}
 
@@ -27,6 +28,7 @@ namespace tools
 
 	void ActionDestroyData::doAction()
 	{
+		mIndex = DataManager::getInstance().getRoot()->getChildIndex(mData);
 		DataManager::getInstance().getRoot()->removeChild(mData);
 
 		DataManager::getInstance().invalidateDatas();
@@ -36,7 +38,7 @@ namespace tools
 
 	void ActionDestroyData::undoAction()
 	{
-		DataManager::getInstance().getRoot()->addChild(mData);
+		DataManager::getInstance().getRoot()->insertChild(mIndex, mData);
 
 		DataManager::getInstance().invalidateDatas();
 
