@@ -23,6 +23,7 @@ namespace tools
 	private:
 		void CreateSeparators();
 		void MoveSeparator(MyGUI::Widget* _separator, const MyGUI::IntPoint& _point, SeparatorDirection _modeDirection = Any);
+		void updateAllSeparators();
 
 		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);

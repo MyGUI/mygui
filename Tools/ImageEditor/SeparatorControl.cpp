@@ -39,6 +39,8 @@ namespace tools
 		CreateSeparators();
 
 		mMainWidget->eventChangeCoord += MyGUI::newDelegate(this, &SeparatorControl::notifyChangeCoord);
+
+		updateAllSeparators();
 	}
 
 	void SeparatorControl::CreateSeparators()
@@ -190,6 +192,11 @@ namespace tools
 	}
 
 	void SeparatorControl::notifyChangeCoord(MyGUI::Widget* _sender)
+	{
+		updateAllSeparators();
+	}
+
+	void SeparatorControl::updateAllSeparators()
 	{
 		for (VectorWidget::const_iterator child = mChilds.begin(); child != mChilds.end(); child ++)
 		{

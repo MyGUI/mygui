@@ -5,8 +5,8 @@
         <Widget type="TabItem" skin="" position="2 22 226 302">
             <Property key="Caption" value="#{TabImages}"/>
             <Widget type="Widget" skin="PanelEmpty" position="0 0 226 302" align="Stretch">
-                <UserString key="ControlType" value="SkinListControl"/>
-                <UserString key="ControlLayout" value="SkinListControl.layout"/>
+                <UserString key="ControlType" value="ImageListControl"/>
+                <UserString key="ControlLayout" value="ImageListControl.layout"/>
             </Widget>
         </Widget>
         <Widget type="TabItem" skin="" position="2 22 226 302">
