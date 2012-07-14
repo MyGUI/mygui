@@ -33,8 +33,8 @@ namespace tools
 		if (mData == nullptr)
 		{
 			mData = new Data();
-			mData->setType(DataInfoManager::getInstance().getData("Image"));
-			mData->setPropertyValue("Name", mName);
+			mData->setType(DataInfoManager::getInstance().getData(mType));
+			//mData->setPropertyValue(mPropertyName, mName);
 		}
 
 		mParent->addChild(mData);
@@ -61,5 +61,15 @@ namespace tools
 	void ActionCreateData::setParent(Data* _parent)
 	{
 		mParent = _parent;
+	}
+
+	void ActionCreateData::setType(const std::string& _value)
+	{
+		mType = _value;
+	}
+
+	void ActionCreateData::setPropertyName(const std::string& _value)
+	{
+		mPropertyName = _value;
 	}
 }

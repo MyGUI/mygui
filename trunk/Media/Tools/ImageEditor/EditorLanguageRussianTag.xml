@@ -63,10 +63,9 @@
 	<Tag name="PropertyStateTextColour">Цвет текста</Tag>
 	<Tag name="PropertyStateTextOffset">Сдвиг текста</Tag>
 	<Tag name="TabImages">Изображения</Tag>
-	<Tag name="TabSkins">Скины</Tag>
-	<Tag name="TabStates">Состояния</Tag>
-	<Tag name="TabSeparators">Разделители</Tag>
-	<Tag name="TabRegions">Регионы</Tag>
+	<Tag name="TabGroups">Группы</Tag>
+	<Tag name="TabIndexes">Индексы</Tag>
+	<Tag name="TabFrames">Кадры</Tag>
 	<Tag name="ColourZero">Нет цвета</Tag>
 	<Tag name="ColourBlack">Черный</Tag>
 	<Tag name="ColourWhite">Белый</Tag>

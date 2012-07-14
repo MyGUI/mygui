@@ -15,6 +15,7 @@
 				<Property>
 					<Name>Name</Name>
 					<Type>String</Type>
+					<Default>unnamed</Default>
 				</Property>
 			</Properties>
 			<Childs>
@@ -29,6 +30,7 @@
 				<Property>
 					<Name>Name</Name>
 					<Type>String</Type>
+					<Default>unnamed</Default>
 				</Property>
 				<Property>
 					<Name>Texture</Name>
@@ -37,6 +39,7 @@
 				<Property>
 					<Name>Size</Name>
 					<Type>IntSize</Type>
+					<Default>0 0</Default>
 				</Property>
 			</Properties>
 			<Childs>
@@ -51,10 +54,12 @@
 				<Property>
 					<Name>Name</Name>
 					<Type>String</Type>
+					<Default>unnamed</Default>
 				</Property>
 				<Property>
 					<Name>Rate</Name>
 					<Type>Float</Type>
+					<Default>0</Default>
 				</Property>
 			</Properties>
 			<Childs>
@@ -69,10 +74,12 @@
 				<Property>
 					<Name>Point</Name>
 					<Type>IntPoint</Type>
+					<Default>0 0</Default>
 				</Property>
 				<Property>
 					<Name>Count</Name>
 					<Type>Int</Type>
+					<Default>1</Default>
 				</Property>
 			</Properties>
 		</DataInfo>

@@ -24,7 +24,10 @@ namespace tools
 		virtual void Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 		void OnRenameData();
+
 		void setEnableChangePosition(bool _value);
+
+		void setDataInfo(const std::string& _parentType, const std::string& _property);
 
 	private:
 		void notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index);

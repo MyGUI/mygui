@@ -1,4 +1,8 @@
 set (HEADER_FILES
+  DataListBaseControl.h
+  FrameListControl.h
+  GroupListControl.h
+  IndexListControl.h
   ActionChangePositionData.h
   ListBoxDataControl.h
   DataSelectorManager.h
@@ -103,6 +107,10 @@ set (HEADER_FILES
 set (SOURCE_FILES
   pugiconfig.hpp
   pugixml.hpp
+  DataListBaseControl.cpp
+  FrameListControl.cpp
+  GroupListControl.cpp
+  IndexListControl.cpp
   ActionChangePositionData.cpp
   ListBoxDataControl.cpp
   DataSelectorManager.cpp
@@ -193,6 +201,18 @@ set (SOURCE_FILES
   pugixml.cpp
   ../../Common/Precompiled.cpp
   ImageEditor.rc
+)
+SOURCE_GROUP("Controls" FILES
+  DataListBaseControl.cpp
+  FrameListControl.cpp
+  GroupListControl.cpp
+  IndexListControl.cpp
+)
+SOURCE_GROUP("Actions" FILES
+  ActionChangePositionData.cpp
+)
+SOURCE_GROUP("Controls" FILES
+  ListBoxDataControl.cpp
 )
 SOURCE_GROUP("Data" FILES
   DataSelectorManager.cpp
@@ -332,10 +352,16 @@ SOURCE_GROUP("Source Files" FILES
   ../../Common/Precompiled.cpp
 )
 SOURCE_GROUP("Controls" FILES
-  ListBoxDataControl.cpp
+  DataListBaseControl.h
+  FrameListControl.h
+  GroupListControl.h
+  IndexListControl.h
 )
 SOURCE_GROUP("Actions" FILES
-  ActionChangePositionData.cpp
+  ActionChangePositionData.h
+)
+SOURCE_GROUP("Controls" FILES
+  ListBoxDataControl.h
 )
 SOURCE_GROUP("Data" FILES
   DataSelectorManager.h
@@ -490,12 +516,6 @@ SOURCE_GROUP("Utility" FILES
   sigslot.h
   pugiconfig.hpp
   pugixml.hpp
-)
-SOURCE_GROUP("Controls" FILES
-  ListBoxDataControl.h
-)
-SOURCE_GROUP("Actions" FILES
-  ActionChangePositionData.h
 )
 SOURCE_GROUP("Resources" FILES
   ImageEditor.rc
