@@ -15,8 +15,7 @@
 #include "ActionCreateData.h"
 #include "ActionDestroyData.h"
 #include "ActionRenameData.h"
-//#include "ActionSwapData.h"
-//#include "DataSelectorManager.h"
+#include "ActionChangePositionData.h"
 
 namespace tools
 {
@@ -106,5 +105,26 @@ namespace tools
 		mNameIndex ++;
 
 		_result = true;
+	}
+
+	void ImageListControl::OnCommand(const std::string& _commandName, MyGUI::Any _data)
+	{
+		if (_commandName == "OnChangePositionData")
+		{
+			typedef std::pair<Data*, Data*> PairData;
+			PairData *data = _data.castType<PairData>(false);
+			if (data != nullptr)
+			{
+				ActionSwapData* command = new ActionSwapData();
+				command->setData1(data->first);
+				command->setData2(data->second);
+
+				ActionManager::getInstance().doAction(command);
+			}
+		}
+		else
+		{
+			Control::OnCommand(_commandName, _data);
+		}
 	}
 }

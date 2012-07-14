@@ -70,7 +70,10 @@ namespace tools
 	{
 		Data* data = new Data();
 		data->setType(DataInfoManager::getInstance().getData("Group"));
-		data->setPropertyValue("Name", _node.attribute("name").value());
+		std::string value = _node.attribute("name").value();
+		if (value.empty())
+			value = "unnamed";
+		data->setPropertyValue("Name", value);
 		data->setPropertyValue("Texture", _node.attribute("texture").value());
 		data->setPropertyValue("Size", _node.attribute("size").value());
 
@@ -85,7 +88,10 @@ namespace tools
 	{
 		Data* data = new Data();
 		data->setType(DataInfoManager::getInstance().getData("Index"));
-		data->setPropertyValue("Name", _node.attribute("name").value());
+		std::string value = _node.attribute("name").value();
+		if (value.empty())
+			value = "unnamed";
+		data->setPropertyValue("Name", value);
 		data->setPropertyValue("Rate", _node.attribute("rate").value());
 
 		_parent->addChild(data);

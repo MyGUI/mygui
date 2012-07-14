@@ -1,4 +1,6 @@
 set (HEADER_FILES
+  ActionChangePositionData.h
+  ListBoxDataControl.h
   DataSelectorManager.h
   Application.h
   AreaSelectorControl.h
@@ -84,7 +86,6 @@ set (HEADER_FILES
   ActionDestroyData.h
   ActionCreateData.h
   ActionRenameData.h
-  ActionSwapData.h
   IFactoryItem.h
   IFactory.h
   FactoryTemplate.h
@@ -102,6 +103,8 @@ set (HEADER_FILES
 set (SOURCE_FILES
   pugiconfig.hpp
   pugixml.hpp
+  ActionChangePositionData.cpp
+  ListBoxDataControl.cpp
   DataSelectorManager.cpp
   Application.cpp
   AreaSelectorControl.cpp
@@ -180,7 +183,6 @@ set (SOURCE_FILES
   ActionDestroyData.cpp
   ActionCreateData.cpp
   ActionRenameData.cpp
-  ActionSwapData.cpp
   FactoryManager.cpp
   Control.cpp
   Data.cpp
@@ -191,6 +193,9 @@ set (SOURCE_FILES
   pugixml.cpp
   ../../Common/Precompiled.cpp
   ImageEditor.rc
+)
+SOURCE_GROUP("Data" FILES
+  DataSelectorManager.cpp
 )
 SOURCE_GROUP("Source Files" FILES
   Application.cpp
@@ -306,7 +311,6 @@ SOURCE_GROUP("Actions" FILES
   ActionDestroyData.cpp
   ActionCreateData.cpp
   ActionRenameData.cpp
-  ActionSwapData.cpp
 )
 SOURCE_GROUP("Factory" FILES
   FactoryManager.cpp
@@ -327,8 +331,14 @@ SOURCE_GROUP("Utility" FILES
 SOURCE_GROUP("Source Files" FILES
   ../../Common/Precompiled.cpp
 )
+SOURCE_GROUP("Controls" FILES
+  ListBoxDataControl.cpp
+)
+SOURCE_GROUP("Actions" FILES
+  ActionChangePositionData.cpp
+)
 SOURCE_GROUP("Data" FILES
-  DataSelectorManager.cpp
+  DataSelectorManager.h
 )
 SOURCE_GROUP("Header Files" FILES
   Application.h
@@ -455,7 +465,6 @@ SOURCE_GROUP("Actions" FILES
   ActionDestroyData.h
   ActionCreateData.h
   ActionRenameData.h
-  ActionSwapData.h
 )
 SOURCE_GROUP("Factory" FILES
   IFactoryItem.h
@@ -482,8 +491,11 @@ SOURCE_GROUP("Utility" FILES
   pugiconfig.hpp
   pugixml.hpp
 )
-SOURCE_GROUP("Data" FILES
-  DataSelectorManager.h
+SOURCE_GROUP("Controls" FILES
+  ListBoxDataControl.h
+)
+SOURCE_GROUP("Actions" FILES
+  ActionChangePositionData.h
 )
 SOURCE_GROUP("Resources" FILES
   ImageEditor.rc
