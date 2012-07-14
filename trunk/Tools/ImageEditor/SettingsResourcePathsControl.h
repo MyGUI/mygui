@@ -7,7 +7,7 @@
 #define __SETTINGS_RESOURCE_PATHS_CONTROL_H__
 
 #include "BaseLayout/BaseLayout.h"
-#include "Tools/OpenSaveFileDialog.h"
+#include "OpenSaveFileDialog.h"
 
 namespace tools
 {

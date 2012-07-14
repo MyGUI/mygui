@@ -9,10 +9,11 @@
 namespace tools
 {
 	TextureBrowseControl::TextureBrowseControl() :
-		Dialog(),
 		mTextures(nullptr)
 	{
 		initialiseByAttributes(this);
+
+		setDialogRoot(mMainWidget);
 
 		assignBase(mTextures, "Textures");
 

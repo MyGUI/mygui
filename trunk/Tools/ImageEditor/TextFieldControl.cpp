@@ -9,11 +9,13 @@
 namespace tools
 {
 	TextFieldControl::TextFieldControl() :
-		Dialog("TextField.layout"),
+		wraps::BaseLayout("TextField.layout"),
 		mText(nullptr),
 		mOk(nullptr),
 		mCancel(nullptr)
 	{
+		setDialogRoot(mMainWidget);
+
 		assignWidget(mText, "Text");
 		assignWidget(mOk, "Ok", false);
 		assignWidget(mCancel, "Cancel", false);

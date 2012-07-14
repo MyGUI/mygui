@@ -6,12 +6,14 @@
 #ifndef __TEXT_FIELD_CONTROL_H__
 #define __TEXT_FIELD_CONTROL_H__
 
-#include "Tools/Dialog.h"
+#include "Dialog.h"
+#include "BaseLayout/BaseLayout.h"
 
 namespace tools
 {
 	class TextFieldControl :
-		public Dialog
+		public Dialog,
+		public wraps::BaseLayout
 	{
 	public:
 		TextFieldControl();
