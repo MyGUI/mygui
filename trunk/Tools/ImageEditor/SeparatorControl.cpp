@@ -5,7 +5,6 @@
 */
 #include "Precompiled.h"
 #include "SeparatorControl.h"
-#include "FactoryItemAttribute.h"
 #include "FactoryManager.h"
 
 namespace tools

@@ -4,6 +4,7 @@
         <UserString key="SnapTo" value="Stretch"/>
         <Widget type="TabItem" skin="" position="2 22 491 302">
             <Property key="Caption" value="#{TabImages}"/>
+            <UserString key="CommandActivate" value="Command_ImageScope"/>
             <Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
                 <UserString key="ControlType" value="ImageListControl"/>
                 <UserString key="ControlLayout" value="ImageListControl.layout"/>
@@ -11,24 +12,27 @@
         </Widget>
         <Widget type="TabItem" skin="" position="2 22 491 302">
             <Property key="Caption" value="#{TabGroups}"/>
-			<Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
-				<UserString key="ControlType" value="GroupListControl"/>
-				<UserString key="ControlLayout" value="GroupListControl.layout"/>
-			</Widget>
+            <UserString key="CommandActivate" value="Command_GroupScope"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
+                <UserString key="ControlType" value="GroupListControl"/>
+                <UserString key="ControlLayout" value="GroupListControl.layout"/>
+            </Widget>
         </Widget>
-		<Widget type="TabItem" skin="" position="2 22 491 302">
-			<Property key="Caption" value="#{TabIndexes}"/>
-			<Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
-				<UserString key="ControlType" value="IndexListControl"/>
-				<UserString key="ControlLayout" value="IndexListControl.layout"/>
-			</Widget>
-		</Widget>
-		<Widget type="TabItem" skin="" position="2 22 491 302">
-			<Property key="Caption" value="#{TabFrames}"/>
-			<Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
-				<UserString key="ControlType" value="FrameListControl"/>
-				<UserString key="ControlLayout" value="FrameListControl.layout"/>
-			</Widget>
-		</Widget>
-	</Widget>
+        <Widget type="TabItem" skin="" position="2 22 491 302">
+            <Property key="Caption" value="#{TabIndexes}"/>
+            <UserString key="CommandActivate" value="Command_IndexScope"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
+                <UserString key="ControlType" value="IndexListControl"/>
+                <UserString key="ControlLayout" value="IndexListControl.layout"/>
+            </Widget>
+        </Widget>
+        <Widget type="TabItem" skin="" position="2 22 491 302">
+            <Property key="Caption" value="#{TabFrames}"/>
+            <UserString key="CommandActivate" value="Command_FrameScope"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
+                <UserString key="ControlType" value="FrameListControl"/>
+                <UserString key="ControlLayout" value="FrameListControl.layout"/>
+            </Widget>
+        </Widget>
+    </Widget>
 </MyGUI>

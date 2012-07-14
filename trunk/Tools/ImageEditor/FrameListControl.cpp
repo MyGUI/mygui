@@ -5,7 +5,6 @@
 */
 #include "Precompiled.h"
 #include "FrameListControl.h"
-#include "FactoryItemAttribute.h"
 #include "FactoryManager.h"
 #include "CommandManager.h"
 

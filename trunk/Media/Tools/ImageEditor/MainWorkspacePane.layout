@@ -3,25 +3,25 @@
     <Widget type="Widget" skin="PanelEmpty" position="51 95 794 725" align="Stretch" name="Root">
         <UserString key="SnapTo" value="Stretch"/>
         <Widget type="Widget" skin="PanelEmpty" position="0 0 280 725" align="Left VStretch">
-            <UserString key="ControlType" value="Control"/>
             <UserString key="ControlLayout" value="MainPaneTab.layout"/>
             <UserString key="MinSize" value="256"/>
+            <UserString key="ControlType" value="MainTabControl"/>
         </Widget>
         <Widget type="Widget" skin="Panel1Skin_Dark" position="525 0 269 725" align="Right VStretch">
             <UserString key="MinSize" value="100"/>
-            <Widget type="Widget" skin="PanelEmpty" position="5 5 258 150" align="HStretch Top">
+            <Widget type="Widget" skin="PanelEmpty" position="5 5 258 175" align="HStretch Top">
                 <UserString key="ControlType" value="ImageListControl"/>
                 <UserString key="ControlLayout" value="ImageListControl.layout"/>
             </Widget>
-            <Widget type="Widget" skin="PanelEmpty" position="5 160 258 150" align="HStretch Top">
+            <Widget type="Widget" skin="PanelEmpty" position="5 185 258 175" align="HStretch Top">
                 <UserString key="ControlType" value="GroupListControl"/>
                 <UserString key="ControlLayout" value="GroupListControl.layout"/>
             </Widget>
-            <Widget type="Widget" skin="PanelEmpty" position="5 315 258 150" align="HStretch Top">
+            <Widget type="Widget" skin="PanelEmpty" position="5 365 258 175" align="HStretch Top">
                 <UserString key="ControlType" value="IndexListControl"/>
                 <UserString key="ControlLayout" value="IndexListControl.layout"/>
             </Widget>
-            <Widget type="Widget" skin="PanelEmpty" position="5 470 258 150" align="HStretch Top">
+            <Widget type="Widget" skin="PanelEmpty" position="5 545 258 175" align="HStretch Top">
                 <UserString key="ControlType" value="FrameListControl"/>
                 <UserString key="ControlLayout" value="FrameListControl.layout"/>
             </Widget>

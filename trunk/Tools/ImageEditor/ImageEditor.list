@@ -1,4 +1,5 @@
 set (HEADER_FILES
+  MainTabControl.h
   DataListBaseControl.h
   FrameListControl.h
   GroupListControl.h
@@ -107,6 +108,7 @@ set (HEADER_FILES
 set (SOURCE_FILES
   pugiconfig.hpp
   pugixml.hpp
+  MainTabControl.cpp
   DataListBaseControl.cpp
   FrameListControl.cpp
   GroupListControl.cpp
@@ -352,6 +354,7 @@ SOURCE_GROUP("Source Files" FILES
   ../../Common/Precompiled.cpp
 )
 SOURCE_GROUP("Controls" FILES
+  MainTabControl.cpp
   DataListBaseControl.h
   FrameListControl.h
   GroupListControl.h
@@ -516,6 +519,9 @@ SOURCE_GROUP("Utility" FILES
   sigslot.h
   pugiconfig.hpp
   pugixml.hpp
+)
+SOURCE_GROUP("Controls" FILES
+  MainTabControl.h
 )
 SOURCE_GROUP("Resources" FILES
   ImageEditor.rc

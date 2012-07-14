@@ -32,8 +32,10 @@ namespace tools
 
 	private:
 		void CreateChilds(Control* _parent, MyGUI::Widget* _widget);
+		void CheckTabControl(MyGUI::Widget* _widget);
 
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
+		void notifyTabChangeSelect(MyGUI::TabControl* _sender, size_t _index);
 
 	private:
 		VectorControl mChilds;
