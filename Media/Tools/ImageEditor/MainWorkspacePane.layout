@@ -1,30 +1,46 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="Widget" skin="PanelEmpty" position="51 95 794 328" align="Stretch" name="Root">
+    <Widget type="Widget" skin="PanelEmpty" position="51 95 794 725" align="Stretch" name="Root">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="Widget" skin="PanelEmpty" position="0 0 280 328" align="Left VStretch">
+        <Widget type="Widget" skin="PanelEmpty" position="0 0 280 725" align="Left VStretch">
             <UserString key="ControlType" value="Control"/>
             <UserString key="ControlLayout" value="MainPaneTab.layout"/>
             <UserString key="MinSize" value="256"/>
         </Widget>
-        <Widget type="Widget" skin="Panel1Skin_Dark" position="563 0 231 328" align="Right VStretch">
+        <Widget type="Widget" skin="Panel1Skin_Dark" position="525 0 269 725" align="Right VStretch">
             <UserString key="MinSize" value="100"/>
+            <Widget type="Widget" skin="PanelEmpty" position="5 5 258 150" align="HStretch Top">
+                <UserString key="ControlType" value="ImageListControl"/>
+                <UserString key="ControlLayout" value="ImageListControl.layout"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="5 160 258 150" align="HStretch Top">
+                <UserString key="ControlType" value="GroupListControl"/>
+                <UserString key="ControlLayout" value="GroupListControl.layout"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="5 315 258 150" align="HStretch Top">
+                <UserString key="ControlType" value="IndexListControl"/>
+                <UserString key="ControlLayout" value="IndexListControl.layout"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="5 470 258 150" align="HStretch Top">
+                <UserString key="ControlType" value="FrameListControl"/>
+                <UserString key="ControlLayout" value="FrameListControl.layout"/>
+            </Widget>
         </Widget>
-        <Widget type="Widget" skin="PanelEmpty" position="553 0 10 328" align="Right VStretch">
+        <Widget type="Widget" skin="PanelEmpty" position="515 0 10 725" align="Right VStretch">
             <Property key="Pointer" value="size_horz"/>
             <UserString key="Separator" value="Horizontal"/>
-            <Widget type="Widget" skin="SeparatorV2Skin_Dark" position="4 159 2 10" align="Center">
+            <Widget type="Widget" skin="SeparatorV2Skin_Dark" position="4 357 2 10" align="Center">
                 <Property key="NeedMouse" value="false"/>
             </Widget>
         </Widget>
-        <Widget type="Widget" skin="PanelEmpty" position="280 0 10 328" align="Left VStretch">
+        <Widget type="Widget" skin="PanelEmpty" position="280 0 10 725" align="Left VStretch">
             <Property key="Pointer" value="size_horz"/>
             <UserString key="Separator" value="Horizontal"/>
-            <Widget type="Widget" skin="SeparatorV2Skin_Dark" position="4 159 2 10" align="Center">
+            <Widget type="Widget" skin="SeparatorV2Skin_Dark" position="4 357 2 10" align="Center">
                 <Property key="NeedMouse" value="false"/>
             </Widget>
         </Widget>
-        <Widget type="Widget" skin="Panel1Skin_Dark" position="290 0 263 328" align="Right VStretch">
+        <Widget type="Widget" skin="Panel1Skin_Dark" position="290 0 225 725" align="Right VStretch">
             <UserString key="MinSize" value="100"/>
         </Widget>
     </Widget>

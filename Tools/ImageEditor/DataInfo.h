@@ -28,6 +28,8 @@ namespace tools
 		typedef std::vector<DataPropertyInfo*> VectorProperty;
 		const VectorProperty& getProperties() const;
 
+		bool isChild(DataInfo* _child);
+
 	private:
 		std::string mType;
 		VectorString mChilds;

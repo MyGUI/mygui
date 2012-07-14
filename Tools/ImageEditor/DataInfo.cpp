@@ -51,4 +51,15 @@ namespace tools
 	{
 		return mProperties;
 	}
+
+	bool DataInfo::isChild(DataInfo* _child)
+	{
+		for (VectorString::const_iterator child = mChilds.begin(); child != mChilds.end(); child ++)
+		{
+			if ((*child) == _child->getType())
+				return true;
+		}
+
+		return false;
+	}
 }
