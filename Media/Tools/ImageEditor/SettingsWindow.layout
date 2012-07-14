@@ -7,24 +7,24 @@
         <Property key="MinSize" value="448 296"/>
         <UserString key="CommandClose" value="Command_SettingsCancel"/>
         <UserString key="SnapTo" value="Center"/>
-        <Widget type="TabControl" skin="TabControlEmpty_Dark" position="123 6 343 304" align="Stretch" name="TabSettings">
-            <Widget type="TabItem" skin="" position="0 0 343 304">
+        <Widget type="TabControl" skin="TabControlEmpty_Dark" position="123 6 343 296" align="Stretch" name="TabSettings">
+            <Widget type="TabItem" skin="" position="0 0 343 296">
                 <Property key="Caption" value="#{GeneralSettings}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 343 304" align="Stretch" name="SettingsGeneralControl">
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 343 296" align="Stretch" name="SettingsGeneralControl">
                     <UserString key="ControlType" value="SettingsGeneralControl"/>
                     <UserString key="ControlLayout" value="SettingsGeneralControl.layout"/>
                 </Widget>
             </Widget>
-            <Widget type="TabItem" skin="" position="0 0 343 304">
+            <Widget type="TabItem" skin="" position="0 0 343 296">
                 <Property key="Caption" value="#{FoldersSettings}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 343 304" align="Stretch" name="SettingsResourcePathsControl">
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 343 296" align="Stretch" name="SettingsResourcePathsControl">
                     <UserString key="ControlType" value="SettingsResourcePathsControl"/>
                     <UserString key="ControlLayout" value="SettingsResourcePathsControl.layout"/>
                 </Widget>
             </Widget>
-            <Widget type="TabItem" skin="" position="0 0 343 304">
+            <Widget type="TabItem" skin="" position="0 0 343 296">
                 <Property key="Caption" value="#{ResourcesSettings}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 343 304" align="Stretch" name="SettingsResourcesControl">
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 343 296" align="Stretch" name="SettingsResourcesControl">
                     <UserString key="ControlType" value="SettingsResourcesControl"/>
                     <UserString key="ControlLayout" value="SettingsResourcesControl.layout"/>
                 </Widget>
@@ -39,5 +39,6 @@
             <UserString key="CommandClick" value="Command_SettingsCancel"/>
         </Widget>
         <Widget type="ListBox" skin="ListBox_Dark" position="5 5 110 305" name="ListSettings"/>
+        <Widget type="Widget" skin="PopupMenuSeparator_Dark" position="124 309 341 1" align="HStretch Bottom"/>
     </Widget>
 </MyGUI>
