@@ -79,7 +79,9 @@ namespace tools
 			event->operator()(_parent, _changeOnlySelection);
 		}
 
-		Data* childSelected = _parent != nullptr ? _parent->getChildSelected() : nullptr;
+		Data* childSelected = nullptr;
+		if (_parent != nullptr)
+			childSelected = _parent->getChildSelected();
 
 		const DataInfo::VectorString& childs = _type->getChilds();
 		for (DataInfo::VectorString::const_iterator childName = childs.begin(); childName != childs.end(); childName ++)
@@ -90,6 +92,19 @@ namespace tools
 				Data* child = childSelected;
 				if (child != nullptr && child->getType() != childType)
 					child = nullptr;
+
+				if (child != nullptr)
+				{
+					Data* childSelected = child->getChildSelected();
+					if (childSelected == nullptr)
+					{
+						if (child->getChilds().size() != 0)
+						{
+							Data* childData = child->getChildByIndex(0);
+							child->setChildSelected(childData);
+						}
+					}
+				}
 
 				onChangeData(child, childType, false);
 			}
