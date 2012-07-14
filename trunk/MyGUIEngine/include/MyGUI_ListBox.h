@@ -194,6 +194,13 @@ namespace MyGUI
 		//! Return optimal height to fit all items in ListBox
 		int getOptimalHeight();
 
+		/** Get item Widget pointer by item index if it is visible
+			@note returned widget can be deleted, so this pointer
+			is valid only at time when you got it and can be invalid
+			next frame
+		*/
+		Widget* getWidgetByIndex(size_t _index);
+
 		/*events:*/
 		/** Event : Enter pressed or double click.\n
 			signature : void method(MyGUI::ListBox* _sender, size_t _index)\n
