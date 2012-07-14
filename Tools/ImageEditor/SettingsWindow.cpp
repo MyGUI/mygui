@@ -13,7 +13,9 @@ namespace tools
 {
 	FACTORY_ITEM_ATTRIBUTE(SettingsWindow);
 
-	SettingsWindow::SettingsWindow()
+	SettingsWindow::SettingsWindow() :
+		mListSettings(nullptr),
+		mTabSettings(nullptr)
 	{
 	}
 
@@ -27,10 +29,16 @@ namespace tools
 
 		setDialogRoot(mMainWidget);
 
+		assignWidget(mListSettings, "ListSettings", false, false);
+		assignWidget(mTabSettings, "TabSettings", false, false);
+
 		CommandManager::getInstance().registerCommand("Command_SettingsAccept", MyGUI::newDelegate(this, &SettingsWindow::commandSettingsAccept));
 		CommandManager::getInstance().registerCommand("Command_SettingsCancel", MyGUI::newDelegate(this, &SettingsWindow::commandSettingsCancel));
 
 		mMainWidget->setVisible(false);
+
+		if (mListSettings != nullptr && mTabSettings != nullptr)
+			InitialiseListTab();
 	}
 
 	bool SettingsWindow::checkCommand()
@@ -56,5 +64,27 @@ namespace tools
 		eventEndDialog(this, false);
 
 		_result = true;
+	}
+
+	void SettingsWindow::InitialiseListTab()
+	{
+		for (size_t index = 0; index < mTabSettings->getItemCount(); index ++)
+			mListSettings->addItem(mTabSettings->getItemNameAt(index));
+
+		if (mListSettings->getItemCount() != 0)
+			mListSettings->setIndexSelected(0);
+
+		mListSettings->eventListChangePosition += MyGUI::newDelegate(this, &SettingsWindow::notifyListChangePosition);
+	}
+
+	void SettingsWindow::notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index)
+	{
+		if (_index == MyGUI::ITEM_NONE)
+		{
+			_index = mListSettings->getItemCount() - 1;
+			mListSettings->setIndexSelected(_index);
+		}
+
+		mTabSettings->setIndexSelected(_index);
 	}
 }

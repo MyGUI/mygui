@@ -1,47 +1,43 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="Window" skin="WindowCX_Dark" position="32 64 448 376" align="Center" layer="Overlapped" name="_Main">
+    <Widget type="Window" skin="WindowCX_Dark" position="32 64 478 376" align="Center" layer="Overlapped" name="_Main">
         <Property key="Caption" value="#{Settings}"/>
         <Property key="Snap" value="true"/>
         <Property key="Visible" value="false"/>
         <Property key="MinSize" value="448 296"/>
         <UserString key="CommandClose" value="Command_SettingsCancel"/>
         <UserString key="SnapTo" value="Center"/>
-        <Widget type="TabControl" skin="TabControl2_Dark" position="123 6 313 304" align="Stretch">
-            <Widget type="TabItem" skin="" position="2 22 309 280">
+        <Widget type="TabControl" skin="TabControlEmpty_Dark" position="123 6 343 304" align="Stretch" name="TabSettings">
+            <Widget type="TabItem" skin="" position="0 0 343 304">
                 <Property key="Caption" value="#{GeneralSettings}"/>
-				<Widget type="Widget" skin="PanelEmpty" position="0 0 309 280" align="Stretch" name="SettingsGeneralControl">
-					<UserString key="ControlType" value="SettingsGeneralControl"/>
-					<UserString key="ControlLayout" value="SettingsGeneralControl.layout"/>
-				</Widget>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 343 304" align="Stretch" name="SettingsGeneralControl">
+                    <UserString key="ControlType" value="SettingsGeneralControl"/>
+                    <UserString key="ControlLayout" value="SettingsGeneralControl.layout"/>
+                </Widget>
             </Widget>
-            <Widget type="TabItem" skin="" position="2 22 309 280">
+            <Widget type="TabItem" skin="" position="0 0 343 304">
                 <Property key="Caption" value="#{FoldersSettings}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 309 280" align="Stretch" name="SettingsResourcePathsControl">
-					<UserString key="ControlType" value="SettingsResourcePathsControl"/>
-					<UserString key="ControlLayout" value="SettingsResourcePathsControl.layout"/>
-				</Widget>
-			</Widget>
-			<Widget type="TabItem" skin="" position="2 22 309 280">
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 343 304" align="Stretch" name="SettingsResourcePathsControl">
+                    <UserString key="ControlType" value="SettingsResourcePathsControl"/>
+                    <UserString key="ControlLayout" value="SettingsResourcePathsControl.layout"/>
+                </Widget>
+            </Widget>
+            <Widget type="TabItem" skin="" position="0 0 343 304">
                 <Property key="Caption" value="#{ResourcesSettings}"/>
-                <Widget type="Widget" skin="PanelEmpty" position="0 0 309 280" align="Stretch" name="SettingsResourcesControl">
-					<UserString key="ControlType" value="SettingsResourcesControl"/>
-					<UserString key="ControlLayout" value="SettingsResourcesControl.layout"/>
-				</Widget>
-			</Widget>
-		</Widget>
-        <Widget type="Button" skin="Button_Dark" position="265 320 80 20" align="Right Bottom" name="Ok">
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 343 304" align="Stretch" name="SettingsResourcesControl">
+                    <UserString key="ControlType" value="SettingsResourcesControl"/>
+                    <UserString key="ControlLayout" value="SettingsResourcesControl.layout"/>
+                </Widget>
+            </Widget>
+        </Widget>
+        <Widget type="Button" skin="Button_Dark" position="295 320 80 20" align="Right Bottom" name="Ok">
             <Property key="Caption" value="#{Ok}"/>
             <UserString key="CommandClick" value="Command_SettingsAccept"/>
         </Widget>
-        <Widget type="Button" skin="Button_Dark" position="355 320 80 20" align="Left Bottom" name="Cancel">
+        <Widget type="Button" skin="Button_Dark" position="385 320 80 20" align="Right Bottom" name="Cancel">
             <Property key="Caption" value="#{Cancel}"/>
             <UserString key="CommandClick" value="Command_SettingsCancel"/>
         </Widget>
-        <Widget type="ListBox" skin="ListBox_Dark" position="5 5 110 305" name="ListSettings">
-            <Property key="AddItem" value="#{GeneralSettings}"/>
-            <Property key="AddItem" value="#{FoldersSettings}"/>
-            <Property key="AddItem" value="#{ResourcesSettings}"/>
-        </Widget>
+        <Widget type="ListBox" skin="ListBox_Dark" position="5 5 110 305" name="ListSettings"/>
     </Widget>
 </MyGUI>
