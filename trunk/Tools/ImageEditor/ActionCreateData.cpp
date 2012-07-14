@@ -33,7 +33,7 @@ namespace tools
 		if (mData == nullptr)
 		{
 			mData = new Data();
-			mData->setType(DataInfoManager::getInstance().getData("Resource"));
+			mData->setType(DataInfoManager::getInstance().getData("Image"));
 			mData->setPropertyValue("Name", mName);
 		}
 

@@ -25,6 +25,7 @@ namespace tools
 	private:
 		void notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index);
 		void notifyChangeDataSelector(Data* _data, bool _changeOnlySelection);
+		void notifyItem(MyGUI::ListBox* _sender, const MyGUI::IBNotifyItemData& _info);
 
 		void invalidateList();
 		void invalidateSelection();
@@ -34,6 +35,7 @@ namespace tools
 		Data* mParentData;
 		size_t mLastIndex;
 		std::string mPropertyForName;
+		MyGUI::PopupMenu* mContextMenu;
 	};
 }
 

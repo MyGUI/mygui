@@ -17,7 +17,8 @@ namespace tools
 	ListBoxDataControl::ListBoxDataControl() :
 		mListBox(nullptr),
 		mParentData(nullptr),
-		mLastIndex(MyGUI::ITEM_NONE)
+		mLastIndex(MyGUI::ITEM_NONE),
+		mContextMenu(nullptr)
 	{
 	}
 
@@ -31,9 +32,13 @@ namespace tools
 
 		mListBox = mMainWidget->castType<MyGUI::ListBox>(false);
 
+		assignWidget(mContextMenu, "ContextMenu", false);
+		mContextMenu->setVisible(false);
+
 		if (mListBox != nullptr)
 		{
 			mListBox->eventListChangePosition += MyGUI::newDelegate(this, &ListBoxDataControl::notifyListChangePosition);
+			mListBox->eventNotifyItem += MyGUI::newDelegate(this, &ListBoxDataControl::notifyItem);
 
 			mPropertyForName = mMainWidget->getUserString("PropertyForName");
 			if (mPropertyForName.empty())
@@ -118,5 +123,31 @@ namespace tools
 		if (!_changeOnlySelection)
 			invalidateList();
 		invalidateSelection();
+	}
+
+	void ListBoxDataControl::notifyItem(MyGUI::ListBox* _sender, const MyGUI::IBNotifyItemData& _info)
+	{
+		if (_info.notify == MyGUI::IBNotifyItemData::MousePressed)
+		{
+			if (_info.id == MyGUI::MouseButton::Right)
+			{
+				mListBox->setIndexSelected(_info.index);
+				mLastIndex = _info.index;
+
+				Data* selection = _info.index != MyGUI::ITEM_NONE ? *mListBox->getItemDataAt<Data*>(_info.index) : nullptr;
+				DataSelectorManager::getInstance().changeParentSelection(mParentData, selection);
+			}
+		}
+		else if (_info.notify == MyGUI::IBNotifyItemData::MouseReleased)
+		{
+			if (_info.id == MyGUI::MouseButton::Right)
+			{
+				if (mContextMenu->getChildCount() != 0)
+				{
+					mContextMenu->setPosition(_info.x, _info.y);
+					mContextMenu->setVisibleSmooth(true);
+				}
+			}
+		}
 	}
 }

@@ -29,7 +29,6 @@ namespace tools
 
 	private:
 		void CreateChilds(Control* _parent, MyGUI::Widget* _widget);
-		void CreateCommands(Control* _parent, MyGUI::Widget* _widget);
 
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 
