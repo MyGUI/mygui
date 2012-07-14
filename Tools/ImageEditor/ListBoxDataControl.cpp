@@ -31,15 +31,15 @@ namespace tools
 	{
 		Control::Initialise(_parent, _place, _layoutName);
 
-		//assignWidget(mListBox, "ListBoxControl");
 		mListBox = mMainWidget->castType<MyGUI::ListBox>(false);
 
 		if (mListBox != nullptr)
 		{
 			mListBox->eventListChangePosition += MyGUI::newDelegate(this, &ListBoxDataControl::notifyListChangePosition);
 
-			DataSelectorManager::getInstance().getEvent("Root")->connect(this, &ListBoxDataControl::notifyChangeDataSelector);
-			mParentData = DataManager::getInstance().getSelectedDataByType("Root");
+			std::string dataType = mMainWidget->getUserString("ParentDataType");
+			DataSelectorManager::getInstance().getEvent(dataType)->connect(this, &ListBoxDataControl::notifyChangeDataSelector);
+			mParentData = DataManager::getInstance().getSelectedDataByType(dataType);
 			notifyChangeDataSelector(mParentData, false);
 		}
 	}

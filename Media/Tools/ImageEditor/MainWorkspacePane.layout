@@ -16,6 +16,7 @@
             <UserString key="MinSize" value="100"/>
             <Widget type="ListBox" skin="ListBox_Dark" position="5 5 220 316" align="Stretch">
                 <UserString key="ControlType" value="ListBoxDataControl"/>
+                <UserString key="ParentDataType" value="ResourceImageSet"/>
             </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="551 1 10 326" align="Right VStretch">

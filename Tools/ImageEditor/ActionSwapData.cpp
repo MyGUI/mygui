@@ -35,8 +35,6 @@ namespace tools
 
 			DataSelectorManager::getInstance().changeParent(parent);
 		}
-
-		//DataManager::getInstance().invalidateDatas();
 	}
 
 	void ActionSwapData::undoAction()
@@ -50,8 +48,6 @@ namespace tools
 
 			DataSelectorManager::getInstance().changeParent(parent);
 		}
-
-		//DataManager::getInstance().invalidateDatas();
 	}
 
 	void ActionSwapData::setData1(Data* _data)

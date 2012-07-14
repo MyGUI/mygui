@@ -5,12 +5,12 @@
 			<Type>Root</Type>
 			<Childs>
 				<Child>
-					<Type>ResourceImageSet</Type>
+					<Type>Image</Type>
 				</Child>
 			</Childs>
 		</DataInfo>
 		<DataInfo>
-			<Type>ResourceImageSet</Type>
+			<Type>Image</Type>
 			<Properties>
 				<Property>
 					<Name>Name</Name>

@@ -25,7 +25,6 @@ namespace tools
 		mOldName = mData->getPropertyValue("Name");
 		mData->setPropertyValue("Name", mName);
 
-		//DataManager::getInstance().invalidateDatas();
 		// FIXME тут нужно обновлять через систему свойств
 		DataSelectorManager::getInstance().changeParent(mData->getParent());
 	}
@@ -34,7 +33,6 @@ namespace tools
 	{
 		mData->setPropertyValue("Name", mOldName);
 
-		//DataManager::getInstance().invalidateDatas();
 		// FIXME тут нужно обновлять через систему свойств
 		DataSelectorManager::getInstance().changeParent(mData->getParent());
 	}

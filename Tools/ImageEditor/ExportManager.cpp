@@ -56,7 +56,7 @@ namespace tools
 	void ExportManager::parseImage(pugi::xml_node _node)
 	{
 		Data* data = new Data();
-		data->setType(DataInfoManager::getInstance().getData("ResourceImageSet"));
+		data->setType(DataInfoManager::getInstance().getData("Image"));
 		data->setPropertyValue("Name", _node.attribute("name").value());
 
 		DataManager::getInstance().getRoot()->addChild(data);
