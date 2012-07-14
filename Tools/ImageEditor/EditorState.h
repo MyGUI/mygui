@@ -8,7 +8,7 @@
 
 #include "StateController.h"
 #include "Control.h"
-#include "Tools/OpenSaveFileDialog.h"
+#include "OpenSaveFileDialog.h"
 #include "MessageBoxFadeControl.h"
 #include "MessageBox/MessageBox.h"
 #include "SettingsWindow.h"

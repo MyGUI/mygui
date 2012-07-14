@@ -14,8 +14,8 @@ set (HEADER_FILES
   ColourManager.h
   ColourPanel.h
   CommandManager.h
-  ../../Common/Tools/Dialog.h
-  ../../Common/Tools/DialogManager.h
+  Dialog.h
+  DialogManager.h
   EditorState.h
   ExportManager.h
   Grid.h
@@ -28,7 +28,7 @@ set (HEADER_FILES
   MessageBoxFadeControl.h
   MessageBoxManager.h
   MyGUI_FilterNoneSkin.h
-  ../../Common/Tools/OpenSaveFileDialog.h
+  OpenSaveFileDialog.h
   PositionSelectorBlackControl.h
   PositionSelectorControl.h
   Property.h
@@ -122,8 +122,8 @@ set (SOURCE_FILES
   ColourManager.cpp
   ColourPanel.cpp
   CommandManager.cpp
-  ../../Common/Tools/Dialog.cpp
-  ../../Common/Tools/DialogManager.cpp
+  Dialog.cpp
+  DialogManager.cpp
   EditorState.cpp
   ExportManager.cpp
   Grid.cpp
@@ -133,7 +133,7 @@ set (SOURCE_FILES
   MessageBoxFadeControl.cpp
   MessageBoxManager.cpp
   MyGUI_FilterNoneSkin.cpp
-  ../../Common/Tools/OpenSaveFileDialog.cpp
+  OpenSaveFileDialog.cpp
   PositionSelectorBlackControl.cpp
   PositionSelectorControl.cpp
   Property.cpp
@@ -205,6 +205,7 @@ set (SOURCE_FILES
   ImageEditor.rc
 )
 SOURCE_GROUP("Controls" FILES
+  MainTabControl.cpp
   DataListBaseControl.cpp
   FrameListControl.cpp
   GroupListControl.cpp
@@ -229,10 +230,6 @@ SOURCE_GROUP("Source Files" FILES
 SOURCE_GROUP("Commands" FILES
   CommandManager.cpp
 )
-SOURCE_GROUP("Source Files" FILES
-  ../../Common/Tools/Dialog.cpp
-  ../../Common/Tools/DialogManager.cpp
-)
 SOURCE_GROUP("States" FILES
   EditorState.cpp
 )
@@ -249,7 +246,7 @@ SOURCE_GROUP("Source Files" FILES
   MessageBoxFadeControl.cpp
   MessageBoxManager.cpp
   MyGUI_FilterNoneSkin.cpp
-  ../../Common/Tools/OpenSaveFileDialog.cpp
+  OpenSaveFileDialog.cpp
   PositionSelectorBlackControl.cpp
   PositionSelectorControl.cpp
   Property.cpp
@@ -353,8 +350,12 @@ SOURCE_GROUP("Utility" FILES
 SOURCE_GROUP("Source Files" FILES
   ../../Common/Precompiled.cpp
 )
+SOURCE_GROUP("Dialog" FILES
+  DialogManager.cpp
+  Dialog.cpp
+)
 SOURCE_GROUP("Controls" FILES
-  MainTabControl.cpp
+  MainTabControl.h
   DataListBaseControl.h
   FrameListControl.h
   GroupListControl.h
@@ -380,10 +381,6 @@ SOURCE_GROUP("Header Files" FILES
 SOURCE_GROUP("Commands" FILES
   CommandManager.h
 )
-SOURCE_GROUP("Header Files" FILES
-  ../../Common/Tools/Dialog.h
-  ../../Common/Tools/DialogManager.h
-)
 SOURCE_GROUP("States" FILES
   EditorState.h
 )
@@ -403,7 +400,7 @@ SOURCE_GROUP("Header Files" FILES
   MessageBoxFadeControl.h
   MessageBoxManager.h
   MyGUI_FilterNoneSkin.h
-  ../../Common/Tools/OpenSaveFileDialog.h
+  OpenSaveFileDialog.h
   PositionSelectorBlackControl.h
   PositionSelectorControl.h
   Property.h
@@ -520,8 +517,9 @@ SOURCE_GROUP("Utility" FILES
   pugiconfig.hpp
   pugixml.hpp
 )
-SOURCE_GROUP("Controls" FILES
-  MainTabControl.h
+SOURCE_GROUP("Dialog" FILES
+  Dialog.h
+  DialogManager.h
 )
 SOURCE_GROUP("Resources" FILES
   ImageEditor.rc

@@ -12,7 +12,7 @@
 #include "ExportManager.h"
 #include "MyGUI_FilterNoneSkin.h"
 #include "MessageBoxManager.h"
-#include "Tools/DialogManager.h"
+#include "DialogManager.h"
 #include "HotKeyManager.h"
 #include "StateManager.h"
 #include "RecentFilesManager.h"

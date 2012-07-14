@@ -7,7 +7,7 @@
 #define __TEXTURE_BROWSE_CONTROL_H__
 
 #include <MyGUI.h>
-#include "Tools/Dialog.h"
+#include "Dialog.h"
 #include "ItemBox/BaseItemBox.h"
 #include "TextureBrowseCell.h"
 
@@ -15,7 +15,8 @@ namespace tools
 {
 	ATTRIBUTE_CLASS_LAYOUT(TextureBrowseControl, "TextureBrowseControl.layout");
 	class TextureBrowseControl :
-		public Dialog
+		public Dialog,
+		public wraps::BaseLayout
 	{
 	public:
 		TextureBrowseControl();

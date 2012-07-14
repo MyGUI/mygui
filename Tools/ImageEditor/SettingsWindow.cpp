@@ -10,13 +10,15 @@
 namespace tools
 {
 	SettingsWindow::SettingsWindow() :
-		Dialog("SettingsWindow.layout"),
+		wraps::BaseLayout("SettingsWindow.layout"),
 		mButtonOk(nullptr),
 		mButtonCancel(nullptr),
 		mSettingsGeneralControl(nullptr),
 		mSettingsResourcesControl(nullptr),
 		mSettingsResourcePathsControl(nullptr)
 	{
+		setDialogRoot(mMainWidget);
+
 		assignWidget(mButtonOk, "Ok");
 		assignWidget(mButtonCancel, "Cancel");
 

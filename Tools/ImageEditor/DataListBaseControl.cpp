@@ -7,7 +7,7 @@
 #include "DataListBaseControl.h"
 #include "FactoryManager.h"
 #include "CommandManager.h"
-#include "Tools/DialogManager.h"
+#include "DialogManager.h"
 #include "MessageBoxManager.h"
 #include "DataManager.h"
 #include "ActionManager.h"

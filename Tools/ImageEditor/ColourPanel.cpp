@@ -9,10 +9,12 @@
 namespace tools
 {
 	ColourPanel::ColourPanel() :
-		Dialog(),
 		mAlphaSupport(true)
 	{
 		initialiseByAttributes(this);
+
+		setDialogRoot(mMainWidget);
+
 		mTextureName = MyGUI::utility::toString((size_t)this, "_ColourGradient");
 
 		mCurrentColour = MyGUI::Colour::Green;

@@ -5,7 +5,7 @@
         <Widget type="Widget" skin="PanelEmpty" position="0 0 280 725" align="Left VStretch">
             <UserString key="ControlLayout" value="MainPaneTab.layout"/>
             <UserString key="MinSize" value="256"/>
-            <UserString key="ControlType" value="MainTabControl"/>
+            <UserString key="ControlType" value="Control"/>
         </Widget>
         <Widget type="Widget" skin="Panel1Skin_Dark" position="525 0 269 725" align="Right VStretch">
             <UserString key="MinSize" value="100"/>

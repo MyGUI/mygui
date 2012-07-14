@@ -7,7 +7,8 @@
 #define __COLOUR_PANEL_H__
 
 #include <MyGUI.h>
-#include "Tools/Dialog.h"
+#include "Dialog.h"
+#include "BaseLayout/BaseLayout.h"
 
 namespace tools
 {
@@ -15,7 +16,8 @@ namespace tools
 
 	ATTRIBUTE_CLASS_LAYOUT(ColourPanel, "ColourPanel.layout");
 	class ColourPanel :
-		public Dialog
+		public Dialog,
+		public wraps::BaseLayout
 	{
 	public:
 		ColourPanel();
