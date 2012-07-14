@@ -28,11 +28,13 @@
 #include "MyGUI_EventPair.h"
 #include "MyGUI_IItem.h"
 #include "MyGUI_IItemContainer.h"
+#include "MyGUI_IBItemInfo.h"
 
 namespace MyGUI
 {
 
 	typedef delegates::CMultiDelegate2<ListBox*, size_t> EventHandle_ListPtrSizeT;
+	typedef delegates::CMultiDelegate2<ListBox*, const IBNotifyItemData&> EventHandle_ListBoxPtrCIBNotifyCellDataRef;
 
 	/** \brief @wpage{ListBox}
 		ListBox widget description should be here.
@@ -233,6 +235,14 @@ namespace MyGUI
 		EventPair<EventHandle_WidgetSizeT, EventHandle_ListPtrSizeT>
 			eventListChangeScroll;
 
+		/** Event : Notify about event in item widget.\n
+			signature : void method(MyGUI::ListBox* _sender, const MyGUI::IBNotifyItemData& _info)
+			@param _sender widget that called this event
+			@param _info info about item notify
+		*/
+		EventHandle_ListBoxPtrCIBNotifyCellDataRef
+			eventNotifyItem;
+
 		/*internal:*/
 		/** \internal @name Internal
 			Internal use methods.
@@ -261,6 +271,7 @@ namespace MyGUI
 
 		void onMouseWheel(int _rel);
 		void onKeyButtonPressed(KeyCode _key, Char _char);
+		void onKeyButtonReleased(KeyCode _key);
 
 		void notifyScrollChangePosition(ScrollBar* _sender, size_t _rel);
 		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
@@ -268,6 +279,9 @@ namespace MyGUI
 		void notifyMouseWheel(Widget* _sender, int _rel);
 		void notifyMouseSetFocus(Widget* _sender, Widget* _old);
 		void notifyMouseLostFocus(Widget* _sender, Widget* _new);
+		void notifyKeyButtonPressed(Widget* _sender, KeyCode _key, Char _char);
+		void notifyKeyButtonReleased(Widget* _sender, KeyCode _key);
+		void notifyMouseButtonReleased(Widget* _sender, int _left, int _top, MouseButton _id);
 
 		void updateScroll();
 		void updateLine(bool _reset = false);
@@ -291,6 +305,8 @@ namespace MyGUI
 		void _checkMapping(const std::string& _owner);
 
 		Widget* _getClientWidget();
+
+		size_t getIndexByWidget(Widget* _widget);
 
 	private:
 		std::string mSkinLine;
