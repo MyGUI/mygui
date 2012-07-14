@@ -5,7 +5,6 @@
 */
 #include "Precompiled.h"
 #include "ListBoxDataControl.h"
-#include "FactoryItemAttribute.h"
 #include "FactoryManager.h"
 #include "DataManager.h"
 #include "DataSelectorManager.h"

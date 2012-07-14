@@ -47,8 +47,7 @@ namespace tools
 			initialise(_layoutName, nullptr);
 		}
 
-		/*for (size_t index = 0; index < getRoot()->getChildCount(); index ++)
-			CreateCommands(this, getRoot()->getChildAt(index));*/
+		CheckTabControl(mMainWidget);
 
 		for (size_t index = 0; index < getRoot()->getChildCount(); index ++)
 			CreateChilds(this, getRoot()->getChildAt(index));
@@ -59,6 +58,8 @@ namespace tools
 		std::string command = _widget->getUserString("CommandClick");
 		if (!command.empty())
 			_widget->eventMouseButtonClick += MyGUI::newDelegate(this, &Control::notifyMouseButtonClick);
+
+		CheckTabControl(_widget);
 
 		std::string controlType = _widget->getUserString("ControlType");
 		if (!controlType.empty())
@@ -106,5 +107,27 @@ namespace tools
 	const Control::VectorControl& Control::getChilds() const
 	{
 		return mChilds;
+	}
+
+	void Control::notifyTabChangeSelect(MyGUI::TabControl* _sender, size_t _index)
+	{
+		if (_index != MyGUI::ITEM_NONE)
+			OnCommand(_sender->getItemAt(_index)->getUserString("CommandActivate"));
+	}
+
+	void Control::CheckTabControl(MyGUI::Widget* _widget)
+	{
+		MyGUI::TabControl* tab = _widget->castType<MyGUI::TabControl>(false);
+		if (tab != nullptr)
+		{
+			for (size_t index = 0; index < tab->getItemCount(); index ++)
+			{
+				if (tab->getItemAt(index)->getUserString("CommandActivate") != "")
+				{
+					tab->eventTabChangeSelect += MyGUI::newDelegate(this, &Control::notifyTabChangeSelect);
+					break;
+				}
+			}
+		}
 	}
 }

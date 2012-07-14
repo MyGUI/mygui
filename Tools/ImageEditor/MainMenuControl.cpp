@@ -9,7 +9,6 @@
 #include "RecentFilesManager.h"
 #include "Localise.h"
 #include "FactoryManager.h"
-#include "FactoryItemAttribute.h"
 
 namespace tools
 {
