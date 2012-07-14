@@ -1157,40 +1157,11 @@
             <State name="normal_checked" offset="328 7 41 10"/>
             <State name="highlighted_checked" offset="328 7 41 10"/>
         </BasisSkin>
-        <BasisSkin type="SimpleText" offset="7 2 37 16" align="Stretch">
+        <BasisSkin type="SimpleText" offset="10 2 31 16" align="Stretch">
             <State name="normal" colour="1 1 1" shift="0"/>
             <State name="highlighted" colour="1 1 1" shift="0"/>
             <State name="normal_checked" colour="1 1 1" shift="0"/>
             <State name="highlighted_checked" colour="1 1 1" shift="0"/>
-        </BasisSkin>
-    </Resource>
-    <Resource type="ResourceSkin" name="TabPanel1Skin_Dark" size="50 20" texture="MyGUI_Dark.png">
-        <BasisSkin type="SubSkin" offset="0 0 5 5" align="Left Top">
-            <State name="normal" offset="323 68 5 5"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="5 0 40 5" align="HStretch Top">
-            <State name="normal" offset="328 68 40 5"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="45 0 5 5" align="Right Top">
-            <State name="normal" offset="368 68 5 5"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="45 5 5 10" align="Right VStretch">
-            <State name="normal" offset="368 73 5 10"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="45 15 5 5" align="Right Bottom">
-            <State name="normal" offset="368 83 5 5"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="5 15 40 5" align="HStretch Bottom">
-            <State name="normal" offset="328 83 40 5"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="0 15 5 5" align="Left Bottom">
-            <State name="normal" offset="323 83 5 5"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="0 5 5 10" align="Left VStretch">
-            <State name="normal" offset="323 73 5 10"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="5 5 40 10" align="Stretch">
-            <State name="normal" offset="328 73 40 10"/>
         </BasisSkin>
     </Resource>
     <Resource type="ResourceSkin" name="TabButton2Skin_Dark" size="51 20" texture="MyGUI_Dark.png">
@@ -1248,11 +1219,40 @@
             <State name="normal_checked" offset="380 7 41 10"/>
             <State name="highlighted_checked" offset="380 7 41 10"/>
         </BasisSkin>
-        <BasisSkin type="SimpleText" offset="7 2 37 16" align="Stretch">
+        <BasisSkin type="SimpleText" offset="10 2 31 16" align="Stretch">
             <State name="normal" colour="1 1 1" shift="0"/>
             <State name="highlighted" colour="1 1 1" shift="0"/>
             <State name="normal_checked" colour="1 1 1" shift="0"/>
             <State name="highlighted_checked" colour="1 1 1" shift="0"/>
+        </BasisSkin>
+    </Resource>
+    <Resource type="ResourceSkin" name="TabPanel1Skin_Dark" size="50 20" texture="MyGUI_Dark.png">
+        <BasisSkin type="SubSkin" offset="0 0 5 5" align="Left Top">
+            <State name="normal" offset="323 68 5 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="5 0 40 5" align="HStretch Top">
+            <State name="normal" offset="328 68 40 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="45 0 5 5" align="Right Top">
+            <State name="normal" offset="368 68 5 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="45 5 5 10" align="Right VStretch">
+            <State name="normal" offset="368 73 5 10"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="45 15 5 5" align="Right Bottom">
+            <State name="normal" offset="368 83 5 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="5 15 40 5" align="HStretch Bottom">
+            <State name="normal" offset="328 83 40 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 15 5 5" align="Left Bottom">
+            <State name="normal" offset="323 83 5 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 5 5 10" align="Left VStretch">
+            <State name="normal" offset="323 73 5 10"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="5 5 40 10" align="Stretch">
+            <State name="normal" offset="328 73 40 10"/>
         </BasisSkin>
     </Resource>
     <Resource type="ResourceSkin" name="TabPanel2Skin_Dark" size="50 20" texture="MyGUI_Dark.png">
