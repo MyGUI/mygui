@@ -8,6 +8,7 @@
 
 #include "Control.h"
 #include "Data.h"
+#include "ListBoxDataControl.h"
 
 namespace tools
 {
@@ -26,12 +27,13 @@ namespace tools
 	private:
 		bool checkCommand(bool _result);
 
-		void commandCreateData(const MyGUI::UString& _commandName, bool& _result);
-		void commandDestroyData(const MyGUI::UString& _commandName, bool& _result);
-		void commandRenameData(const MyGUI::UString& _commandName, bool& _result);
+		void commandCreateImageData(const MyGUI::UString& _commandName, bool& _result);
+		void commandDestroyImageData(const MyGUI::UString& _commandName, bool& _result);
+		void commandRenameImageData(const MyGUI::UString& _commandName, bool& _result);
 
 	private:
 		size_t mNameIndex;
+		ListBoxDataControl* mListBoxControl;
 	};
 }
 

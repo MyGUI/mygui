@@ -102,4 +102,9 @@ namespace tools
 			CommandManager::getInstance().executeCommand(_commandName);
 		}
 	}
+
+	const Control::VectorControl& Control::getChilds() const
+	{
+		return mChilds;
+	}
 }
