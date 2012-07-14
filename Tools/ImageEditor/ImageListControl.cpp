@@ -115,7 +115,7 @@ namespace tools
 			PairData *data = _data.castType<PairData>(false);
 			if (data != nullptr)
 			{
-				ActionSwapData* command = new ActionSwapData();
+				ActionChangePositionData* command = new ActionChangePositionData();
 				command->setData1(data->first);
 				command->setData2(data->second);
 
