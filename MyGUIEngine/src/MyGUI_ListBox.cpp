@@ -66,6 +66,9 @@ namespace MyGUI
 		if (mClient != nullptr)
 		{
 			mClient->eventMouseButtonPressed += newDelegate(this, &ListBox::notifyMousePressed);
+			mClient->eventMouseButtonReleased += newDelegate(this, &ListBox::notifyMouseButtonReleased);
+			mClient->eventKeyButtonPressed += newDelegate(this, &ListBox::notifyKeyButtonPressed);
+			mClient->eventKeyButtonReleased += newDelegate(this, &ListBox::notifyKeyButtonReleased);
 			setWidgetClient(mClient);
 		}
 
@@ -74,7 +77,6 @@ namespace MyGUI
 		if (mWidgetScroll != nullptr)
 		{
 			mWidgetScroll->eventScrollChangePosition += newDelegate(this, &ListBox::notifyScrollChangePosition);
-			mWidgetScroll->eventMouseButtonPressed += newDelegate(this, &ListBox::notifyMousePressed);
 			mWidgetScroll->setScrollPage((size_t)mHeightLine);
 			mWidgetScroll->setScrollViewPage((size_t)mHeightLine);
 		}
@@ -103,6 +105,7 @@ namespace MyGUI
 		if (getItemCount() == 0)
 		{
 			Base::onKeyButtonPressed(_key, _char);
+			eventNotifyItem(this, IBNotifyItemData(ITEM_NONE, IBNotifyItemData::KeyPressed, _key, _char));
 			return;
 		}
 
@@ -186,6 +189,8 @@ namespace MyGUI
 				eventListSelectAccept(this, sel);
 
 				Base::onKeyButtonPressed(_key, _char);
+
+				eventNotifyItem(this, IBNotifyItemData(ITEM_NONE, IBNotifyItemData::KeyPressed, _key, _char));
 				// выходим, так как изменили колличество строк
 				return;
 			}
@@ -209,6 +214,7 @@ namespace MyGUI
 		}
 
 		Base::onKeyButtonPressed(_key, _char);
+		eventNotifyItem(this, IBNotifyItemData(ITEM_NONE, IBNotifyItemData::KeyPressed, _key, _char));
 	}
 
 	void ListBox::notifyMouseWheel(Widget* _sender, int _rel)
@@ -248,48 +254,47 @@ namespace MyGUI
 
 	void ListBox::notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
-		if (MouseButton::Left != _id)
-			return;
-
-		if (_sender == mWidgetScroll)
-			return;
-
-		// если выделен клиент, то сбрасываем
-		if (_sender == _getClientWidget())
+		if (MouseButton::Left == _id)
 		{
-			if (mIndexSelect != ITEM_NONE)
+			// если выделен клиент, то сбрасываем
+			if (_sender == _getClientWidget())
 			{
-				_selectIndex(mIndexSelect, false);
-				mIndexSelect = ITEM_NONE;
-				eventListChangePosition(this, mIndexSelect);
+				if (mIndexSelect != ITEM_NONE)
+				{
+					_selectIndex(mIndexSelect, false);
+					mIndexSelect = ITEM_NONE;
+					eventListChangePosition(this, mIndexSelect);
+				}
+				eventListMouseItemActivate(this, mIndexSelect);
+
+				// если не клиент, то просчитывам
 			}
-			eventListMouseItemActivate(this, mIndexSelect);
-
-			// если не клиент, то просчитывам
-		}
-		// ячейка может быть скрыта
-		else if (_sender->getVisible())
-		{
-
-#if MYGUI_DEBUG_MODE == 1
-			_checkMapping("ListBox::notifyMousePressed");
-			MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>(), mWidgetLines.size(), "ListBox::notifyMousePressed");
-			MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>() + mTopIndex, mItemsInfo.size(), "ListBox::notifyMousePressed");
-#endif
-
-			size_t index = *_sender->_getInternalData<size_t>() + mTopIndex;
-
-			if (mIndexSelect != index)
+			// ячейка может быть скрыта
+			else if (_sender->getVisible())
 			{
-				_selectIndex(mIndexSelect, false);
-				_selectIndex(index, true);
-				mIndexSelect = index;
-				eventListChangePosition(this, mIndexSelect);
+
+	#if MYGUI_DEBUG_MODE == 1
+				_checkMapping("ListBox::notifyMousePressed");
+				MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>(), mWidgetLines.size(), "ListBox::notifyMousePressed");
+				MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>() + mTopIndex, mItemsInfo.size(), "ListBox::notifyMousePressed");
+	#endif
+
+				size_t index = *_sender->_getInternalData<size_t>() + mTopIndex;
+
+				if (mIndexSelect != index)
+				{
+					_selectIndex(mIndexSelect, false);
+					_selectIndex(index, true);
+					mIndexSelect = index;
+					eventListChangePosition(this, mIndexSelect);
+				}
+				eventListMouseItemActivate(this, mIndexSelect);
 			}
-			eventListMouseItemActivate(this, mIndexSelect);
+
+			_resetContainer(true);
 		}
 
-		_resetContainer(true);
+		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MousePressed, _left, _top, _id));
 	}
 
 	void ListBox::notifyMouseDoubleClick(Widget* _sender)
@@ -374,8 +379,11 @@ namespace MyGUI
 				Button* line = widget->castType<Button>();
 				// подписываемся на всякие там события
 				line->eventMouseButtonPressed += newDelegate(this, &ListBox::notifyMousePressed);
+				line->eventMouseButtonReleased += newDelegate(this, &ListBox::notifyMouseButtonReleased);
 				line->eventMouseButtonDoubleClick += newDelegate(this, &ListBox::notifyMouseDoubleClick);
 				line->eventMouseWheel += newDelegate(this, &ListBox::notifyMouseWheel);
+				line->eventKeyButtonPressed += newDelegate(this, &ListBox::notifyKeyButtonPressed);
+				line->eventKeyButtonReleased += newDelegate(this, &ListBox::notifyKeyButtonReleased);
 				line->eventMouseSetFocus += newDelegate(this, &ListBox::notifyMouseSetFocus);
 				line->eventMouseLostFocus += newDelegate(this, &ListBox::notifyMouseLostFocus);
 				line->_setContainer(this);
@@ -1079,6 +1087,35 @@ namespace MyGUI
 	const UString& ListBox::_getItemNameAt(size_t _index)
 	{
 		return getItemNameAt(_index);
+	}
+
+	size_t ListBox::getIndexByWidget(Widget* _widget)
+	{
+		if (_widget == mClient)
+			return ITEM_NONE;
+		return *_widget->_getInternalData<size_t>() + mTopIndex;
+	}
+
+	void ListBox::notifyKeyButtonPressed(Widget* _sender, KeyCode _key, Char _char)
+	{
+		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::KeyPressed, _key, _char));
+	}
+
+	void ListBox::notifyKeyButtonReleased(Widget* _sender, KeyCode _key)
+	{
+		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::KeyReleased, _key));
+	}
+
+	void ListBox::notifyMouseButtonReleased(Widget* _sender, int _left, int _top, MouseButton _id)
+	{
+		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MouseReleased, _left, _top, _id));
+	}
+
+	void ListBox::onKeyButtonReleased(KeyCode _key)
+	{
+		Base::onKeyButtonReleased(_key);
+
+		eventNotifyItem(this, IBNotifyItemData(ITEM_NONE, IBNotifyItemData::KeyReleased, _key));
 	}
 
 } // namespace MyGUI
