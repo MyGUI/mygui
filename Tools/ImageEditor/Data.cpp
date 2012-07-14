@@ -32,7 +32,7 @@ namespace tools
 		{
 			const DataInfo::VectorProperty& properties = mType->getProperties();
 			for (DataInfo::VectorProperty::const_iterator property = properties.begin(); property != properties.end(); property++)
-				mProperties[(*property)->getName()] = "";
+				mProperties[(*property)->getName()] = (*property)->getDefaultValue();
 		}
 	}
 

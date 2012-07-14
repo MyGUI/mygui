@@ -22,11 +22,15 @@ namespace tools
 		virtual void doAction();
 		virtual void undoAction();
 
-		void setName(const std::string& _value);
 		void setParent(Data* _parent);
+		void setName(const std::string& _value);
+		void setType(const std::string& _value);
+		void setPropertyName(const std::string& _value);
 
 	private:
 		std::string mName;
+		std::string mType;
+		std::string mPropertyName;
 		Data* mData;
 		Data* mParent;
 		bool mComplete;

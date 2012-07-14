@@ -3,19 +3,19 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
-#ifndef _6561a945_ae72_4279_988c_99c42a82a99a_
-#define _6561a945_ae72_4279_988c_99c42a82a99a_
+#ifndef _bf2aa111_a57e_464d_9f75_f102b5cac64f_
+#define _bf2aa111_a57e_464d_9f75_f102b5cac64f_
 
 #include "DataListBaseControl.h"
 
 namespace tools
 {
-	class ImageListControl :
+	class FrameListControl :
 		public DataListBaseControl
 	{
 	public:
-		ImageListControl();
-		virtual ~ImageListControl();
+		FrameListControl();
+		virtual ~FrameListControl();
 
 		virtual void Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 	};

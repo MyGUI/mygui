@@ -44,16 +44,6 @@ namespace tools
 		{
 			mListBox->eventListChangePosition += MyGUI::newDelegate(this, &ListBoxDataControl::notifyListChangePosition);
 			mListBox->eventNotifyItem += MyGUI::newDelegate(this, &ListBoxDataControl::notifyItem);
-
-			mPropertyForName = mMainWidget->getUserString("PropertyForName");
-			if (mPropertyForName.empty())
-				mPropertyForName = "Name";
-
-			std::string dataType = mMainWidget->getUserString("ParentDataType");
-
-			DataSelectorManager::getInstance().getEvent(dataType)->connect(this, &ListBoxDataControl::notifyChangeDataSelector);
-			mParentData = DataManager::getInstance().getSelectedDataByType(dataType);
-			notifyChangeDataSelector(mParentData, false);
 		}
 
 		mTextFieldControl = new TextFieldControl();
@@ -193,5 +183,13 @@ namespace tools
 	void ListBoxDataControl::setEnableChangePosition(bool _value)
 	{
 		mEnableChangePosition = _value;
+	}
+
+	void ListBoxDataControl::setDataInfo(const std::string& _parentType, const std::string& _property)
+	{
+		mPropertyForName = _property;
+		DataSelectorManager::getInstance().getEvent(_parentType)->connect(this, &ListBoxDataControl::notifyChangeDataSelector);
+		mParentData = DataManager::getInstance().getSelectedDataByType(_parentType);
+		notifyChangeDataSelector(mParentData, false);
 	}
 }

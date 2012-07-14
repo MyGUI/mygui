@@ -1,17 +1,34 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="TabControl" skin="TabControl2_Dark" position="30 30 230 326" align="Stretch" name="Root">
+    <Widget type="TabControl" skin="TabControl2_Dark" position="30 30 495 326" align="Stretch" name="Root">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="TabItem" skin="" position="2 22 226 302">
+        <Widget type="TabItem" skin="" position="2 22 491 302">
             <Property key="Caption" value="#{TabImages}"/>
-            <Widget type="Widget" skin="PanelEmpty" position="0 0 226 302" align="Stretch">
+            <Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
                 <UserString key="ControlType" value="ImageListControl"/>
                 <UserString key="ControlLayout" value="ImageListControl.layout"/>
             </Widget>
         </Widget>
-        <Widget type="TabItem" skin="" position="2 22 226 302">
-            <Property key="Caption" value="#{TabStates}"/>
-            <Widget type="Widget" skin="PanelEmpty" position="0 0 226 302" align="Stretch"/>
+        <Widget type="TabItem" skin="" position="2 22 491 302">
+            <Property key="Caption" value="#{TabGroups}"/>
+			<Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
+				<UserString key="ControlType" value="GroupListControl"/>
+				<UserString key="ControlLayout" value="GroupListControl.layout"/>
+			</Widget>
         </Widget>
-    </Widget>
+		<Widget type="TabItem" skin="" position="2 22 491 302">
+			<Property key="Caption" value="#{TabIndexes}"/>
+			<Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
+				<UserString key="ControlType" value="IndexListControl"/>
+				<UserString key="ControlLayout" value="IndexListControl.layout"/>
+			</Widget>
+		</Widget>
+		<Widget type="TabItem" skin="" position="2 22 491 302">
+			<Property key="Caption" value="#{TabFrames}"/>
+			<Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
+				<UserString key="ControlType" value="FrameListControl"/>
+				<UserString key="ControlLayout" value="FrameListControl.layout"/>
+			</Widget>
+		</Widget>
+	</Widget>
 </MyGUI>
