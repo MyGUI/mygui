@@ -17,7 +17,7 @@ namespace tools
 		IndexListControl();
 		virtual ~IndexListControl();
 
-		virtual void Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 	};
 }
 

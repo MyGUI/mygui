@@ -7,25 +7,18 @@
 #include "SettingsResourcesControl.h"
 #include "SettingsManager.h"
 #include "Localise.h"
+#include "FactoryManager.h"
 
 namespace tools
 {
-	SettingsResourcesControl::SettingsResourcesControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("SettingsResourcesControl.layout", _parent),
+	FACTORY_ITEM_ATTRIBUTE(SettingsResourcesControl);
+
+	SettingsResourcesControl::SettingsResourcesControl() :
 		mResourceAdd(nullptr),
 		mResourceDelete(nullptr),
 		mResources(nullptr),
 		mTextFieldControl(nullptr)
 	{
-		assignWidget(mResourceAdd, "ResourceAdd");
-		assignWidget(mResourceDelete, "ResourceDelete");
-		assignWidget(mResources, "Resources");
-
-		mTextFieldControl = new TextFieldControl();
-		mTextFieldControl->eventEndDialog = MyGUI::newDelegate(this, &SettingsResourcesControl::notifyEndDialog);
-
-		mResourceAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickResourcePathAdd);
-		mResourceDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickResourcePathDelete);
 	}
 
 	SettingsResourcesControl::~SettingsResourcesControl()
@@ -35,6 +28,21 @@ namespace tools
 
 		delete mTextFieldControl;
 		mTextFieldControl = nullptr;
+	}
+
+	void SettingsResourcesControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::OnInitialise(_parent, _place, _layoutName);
+
+		assignWidget(mResourceAdd, "ResourceAdd");
+		assignWidget(mResourceDelete, "ResourceDelete");
+		assignWidget(mResources, "Resources");
+
+		mTextFieldControl = new TextFieldControl();
+		mTextFieldControl->eventEndDialog = MyGUI::newDelegate(this, &SettingsResourcesControl::notifyEndDialog);
+
+		mResourceAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickResourcePathAdd);
+		mResourceDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickResourcePathDelete);
 	}
 
 	void SettingsResourcesControl::loadSettings()
@@ -78,4 +86,13 @@ namespace tools
 		}
 	}
 
-} // namespace tools
+	void SettingsResourcesControl::OnCommand(const std::string& _command)
+	{
+		Control::OnCommand(_command);
+
+		if (_command == "Command_LoadSettings")
+			loadSettings();
+		else if (_command == "Command_SaveSettings")
+			saveSettings();
+	}
+}

@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
-#ifndef _8e62f979_bea3_49b2_a4e0_69158c9b8797_
-#define _8e62f979_bea3_49b2_a4e0_69158c9b8797_
+#ifndef _695efc39_8196_4b64_bc11_76874525dba1_
+#define _695efc39_8196_4b64_bc11_76874525dba1_
 
 #include "BaseLayout/BaseLayout.h"
 #include "IFactoryItem.h"
@@ -22,20 +22,23 @@ namespace tools
 		MyGUI::Widget* getRoot();
 
 		void Initialise(const std::string& _layoutName);
-		virtual void Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 		typedef std::vector<Control*> VectorControl;
 		const VectorControl& getChilds() const;
 
+		void SendCommand(const std::string& _command);
+
 	protected:
-		virtual void OnCommand(const std::string& _commandName, MyGUI::Any _data = MyGUI::Any::Null);
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		virtual void OnCommand(const std::string& _command);
 
 	private:
 		void CreateChilds(Control* _parent, MyGUI::Widget* _widget);
-		void CheckTabControl(MyGUI::Widget* _widget);
+		void AdviceWidget(MyGUI::Widget* _widget);
 
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 		void notifyTabChangeSelect(MyGUI::TabControl* _sender, size_t _index);
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
 
 	private:
 		VectorControl mChilds;

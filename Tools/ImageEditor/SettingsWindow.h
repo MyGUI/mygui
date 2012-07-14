@@ -3,46 +3,31 @@
 	@author		Georgiy Evmenov
 	@date		09/2008
 */
-#ifndef __SETTINGS_WINDOW_H__
-#define __SETTINGS_WINDOW_H__
 
-#include "BaseLayout/BaseLayout.h"
+#ifndef _45147871_9597_4bee_b5ea_e6a2c1dd53b2_
+#define _45147871_9597_4bee_b5ea_e6a2c1dd53b2_
+
 #include "Dialog.h"
-#include "SettingsResourcesControl.h"
-#include "SettingsResourcePathsControl.h"
-#include "SettingsGeneralControl.h"
+#include "Control.h"
 
 namespace tools
 {
 	class SettingsWindow :
 		public Dialog,
-		public wraps::BaseLayout
+		public Control
 	{
 	public:
 		SettingsWindow();
 		virtual ~SettingsWindow();
 
-		void loadSettings();
-		void saveSettings();
-
 	protected:
-		virtual void onDoModal();
-		virtual void onEndModal();
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
-		void notifyOk(MyGUI::Widget* _sender);
-		void notifyCancel(MyGUI::Widget* _sender);
-		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
-
-	private:
-		MyGUI::Button* mButtonOk;
-		MyGUI::Button* mButtonCancel;
-
-		SettingsGeneralControl* mSettingsGeneralControl;
-		SettingsResourcesControl* mSettingsResourcesControl;
-		SettingsResourcePathsControl* mSettingsResourcePathsControl;
+		bool checkCommand();
+		void commandSettingsAccept(const MyGUI::UString& _commandName, bool& _result);
+		void commandSettingsCancel(const MyGUI::UString& _commandName, bool& _result);
 	};
+}
 
-} // namespace tools
-
-#endif // __SETTINGS_WINDOW_H__
+#endif

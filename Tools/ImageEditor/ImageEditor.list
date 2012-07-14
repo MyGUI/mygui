@@ -230,6 +230,10 @@ SOURCE_GROUP("Source Files" FILES
 SOURCE_GROUP("Commands" FILES
   CommandManager.cpp
 )
+SOURCE_GROUP("Dialog" FILES
+  Dialog.cpp
+  DialogManager.cpp
+)
 SOURCE_GROUP("States" FILES
   EditorState.cpp
 )
@@ -271,20 +275,24 @@ SOURCE_GROUP("Source Files" FILES
   SeparatorListControl.cpp
   SeparatorPropertyControl.cpp
   SeparatorTextureControl.cpp
+)
+SOURCE_GROUP("Controls" FILES
   SettingsGeneralControl.cpp
 )
 SOURCE_GROUP("Settings" FILES
   SettingsManager.cpp
 )
-SOURCE_GROUP("Source Files" FILES
+SOURCE_GROUP("Controls" FILES
   SettingsResourcePathsControl.cpp
   SettingsResourcesControl.cpp
 )
 SOURCE_GROUP("Settings" FILES
   SettingsSector.cpp
 )
-SOURCE_GROUP("Source Files" FILES
+SOURCE_GROUP("Controls" FILES
   SettingsWindow.cpp
+)
+SOURCE_GROUP("Source Files" FILES
   SkinItem.cpp
 )
 SOURCE_GROUP("Controls" FILES
@@ -350,10 +358,6 @@ SOURCE_GROUP("Utility" FILES
 SOURCE_GROUP("Source Files" FILES
   ../../Common/Precompiled.cpp
 )
-SOURCE_GROUP("Dialog" FILES
-  DialogManager.cpp
-  Dialog.cpp
-)
 SOURCE_GROUP("Controls" FILES
   MainTabControl.h
   DataListBaseControl.h
@@ -380,6 +384,10 @@ SOURCE_GROUP("Header Files" FILES
 )
 SOURCE_GROUP("Commands" FILES
   CommandManager.h
+)
+SOURCE_GROUP("Dialog" FILES
+  Dialog.h
+  DialogManager.h
 )
 SOURCE_GROUP("States" FILES
   EditorState.h
@@ -426,20 +434,24 @@ SOURCE_GROUP("Header Files" FILES
   SeparatorListControl.h
   SeparatorPropertyControl.h
   SeparatorTextureControl.h
+)
+SOURCE_GROUP("Controls" FILES
   SettingsGeneralControl.h
 )
 SOURCE_GROUP("Settings" FILES
   SettingsManager.h
 )
-SOURCE_GROUP("Header Files" FILES
+SOURCE_GROUP("Controls" FILES
   SettingsResourcePathsControl.h
   SettingsResourcesControl.h
 )
 SOURCE_GROUP("Settings" FILES
   SettingsSector.h
 )
-SOURCE_GROUP("Header Files" FILES
+SOURCE_GROUP("Controls" FILES
   SettingsWindow.h
+)
+SOURCE_GROUP("Header Files" FILES
   SkinItem.h
 )
 SOURCE_GROUP("Controls" FILES
@@ -516,10 +528,6 @@ SOURCE_GROUP("Utility" FILES
   sigslot.h
   pugiconfig.hpp
   pugixml.hpp
-)
-SOURCE_GROUP("Dialog" FILES
-  Dialog.h
-  DialogManager.h
 )
 SOURCE_GROUP("Resources" FILES
   ImageEditor.rc
