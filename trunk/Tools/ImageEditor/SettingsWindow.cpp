@@ -6,84 +6,55 @@
 
 #include "Precompiled.h"
 #include "SettingsWindow.h"
+#include "FactoryManager.h"
+#include "CommandManager.h"
 
 namespace tools
 {
-	SettingsWindow::SettingsWindow() :
-		wraps::BaseLayout("SettingsWindow.layout"),
-		mButtonOk(nullptr),
-		mButtonCancel(nullptr),
-		mSettingsGeneralControl(nullptr),
-		mSettingsResourcesControl(nullptr),
-		mSettingsResourcePathsControl(nullptr)
+	FACTORY_ITEM_ATTRIBUTE(SettingsWindow);
+
+	SettingsWindow::SettingsWindow()
 	{
-		setDialogRoot(mMainWidget);
-
-		assignWidget(mButtonOk, "Ok");
-		assignWidget(mButtonCancel, "Cancel");
-
-		assignBase(mSettingsGeneralControl, "SettingsGeneralControl");
-		assignBase(mSettingsResourcesControl, "SettingsResourcesControl");
-		assignBase(mSettingsResourcePathsControl, "SettingsResourcePathsControl");
-
-		mButtonOk->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyOk);
-		mButtonCancel->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWindow::notifyCancel);
-
-		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
-		if (window != nullptr)
-			window->eventWindowButtonPressed += MyGUI::newDelegate(this, &SettingsWindow::notifyWindowButtonPressed);
-
-		loadSettings();
-
-		mMainWidget->setVisible(false);
 	}
 
 	SettingsWindow::~SettingsWindow()
 	{
 	}
 
-	void SettingsWindow::notifyOk(MyGUI::Widget* _sender)
+	void SettingsWindow::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
+		Control::OnInitialise(_parent, _place, _layoutName);
+
+		setDialogRoot(mMainWidget);
+
+		CommandManager::getInstance().registerCommand("Command_SettingsAccept", MyGUI::newDelegate(this, &SettingsWindow::commandSettingsAccept));
+		CommandManager::getInstance().registerCommand("Command_SettingsCancel", MyGUI::newDelegate(this, &SettingsWindow::commandSettingsCancel));
+
+		mMainWidget->setVisible(false);
+	}
+
+	bool SettingsWindow::checkCommand()
+	{
+		return isDialogModal();
+	}
+
+	void SettingsWindow::commandSettingsAccept(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
 		eventEndDialog(this, true);
+
+		_result = true;
 	}
 
-	void SettingsWindow::notifyCancel(MyGUI::Widget* _sender)
+	void SettingsWindow::commandSettingsCancel(const MyGUI::UString& _commandName, bool& _result)
 	{
+		if (!checkCommand())
+			return;
+
 		eventEndDialog(this, false);
+
+		_result = true;
 	}
-
-	void SettingsWindow::onDoModal()
-	{
-		loadSettings();
-
-		MyGUI::IntSize windowSize = mMainWidget->getSize();
-		MyGUI::IntSize parentSize = mMainWidget->getParentSize();
-
-		mMainWidget->setPosition((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2);
-	}
-
-	void SettingsWindow::onEndModal()
-	{
-	}
-
-	void SettingsWindow::saveSettings()
-	{
-		mSettingsGeneralControl->saveSettings();
-		mSettingsResourcesControl->saveSettings();
-		mSettingsResourcePathsControl->saveSettings();
-	}
-
-	void SettingsWindow::loadSettings()
-	{
-		mSettingsGeneralControl->loadSettings();
-		mSettingsResourcesControl->loadSettings();
-		mSettingsResourcePathsControl->loadSettings();
-	}
-
-	void SettingsWindow::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
-	{
-		if (_name == "close")
-			eventEndDialog(this, false);
-	}
-
-} // namespace tools
+}

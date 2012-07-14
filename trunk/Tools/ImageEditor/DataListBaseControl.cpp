@@ -30,9 +30,9 @@ namespace tools
 	{
 	}
 
-	void DataListBaseControl::Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void DataListBaseControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
-		Control::Initialise(_parent, _place, _layoutName);
+		Control::OnInitialise(_parent, _place, _layoutName);
 
 		const VectorControl& childs = getChilds();
 		for (VectorControl::const_iterator child = childs.begin(); child != childs.end(); child ++)
@@ -48,6 +48,8 @@ namespace tools
 		if (mListBoxControl != nullptr)
 		{
 			mListBoxControl->setEnableChangePosition(true);
+			mListBoxControl->eventChangePosition.connect(this, &DataListBaseControl::notifyChangePosition);
+			mListBoxControl->eventChangeName.connect(this, &DataListBaseControl::notifyChangeName);
 		}
 	}
 
@@ -115,40 +117,6 @@ namespace tools
 		_result = true;
 	}
 
-	void DataListBaseControl::OnCommand(const std::string& _commandName, MyGUI::Any _data)
-	{
-		if (_commandName == "OnChangePositionData")
-		{
-			typedef std::pair<Data*, Data*> PairData;
-			PairData *pairData = _data.castType<PairData>(false);
-			if (pairData != nullptr)
-			{
-				ActionChangePositionData* command = new ActionChangePositionData();
-				command->setData1(pairData->first);
-				command->setData2(pairData->second);
-
-				ActionManager::getInstance().doAction(command);
-			}
-		}
-		else if (_commandName == "OnChangeNameData")
-		{
-			typedef std::pair<Data*, MyGUI::UString> PairData;
-			PairData *pairData = _data.castType<PairData>(false);
-			if (pairData != nullptr)
-			{
-				ActionRenameData* command = new ActionRenameData();
-				command->setData(pairData->first);
-				command->setName(pairData->second);
-
-				ActionManager::getInstance().doAction(command);
-			}
-		}
-		else
-		{
-			Control::OnCommand(_commandName, _data);
-		}
-	}
-
 	void DataListBaseControl::setDataInfo(const std::string& _parentType, const std::string& _currentType, const std::string& _property)
 	{
 		mParentType = _parentType;
@@ -157,5 +125,23 @@ namespace tools
 
 		if (mListBoxControl != nullptr)
 			mListBoxControl->setDataInfo(mParentType, mPropertyForName);
+	}
+
+	void DataListBaseControl::notifyChangePosition(Data* _data1, Data* _data2)
+	{
+		ActionChangePositionData* command = new ActionChangePositionData();
+		command->setData1(_data1);
+		command->setData2(_data2);
+
+		ActionManager::getInstance().doAction(command);
+	}
+
+	void DataListBaseControl::notifyChangeName(Data* _data, const std::string& _name)
+	{
+		ActionRenameData* command = new ActionRenameData();
+		command->setData(_data);
+		command->setName(_name);
+
+		ActionManager::getInstance().doAction(command);
 	}
 }

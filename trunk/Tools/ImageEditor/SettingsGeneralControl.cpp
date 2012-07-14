@@ -6,23 +6,18 @@
 #include "Precompiled.h"
 #include "SettingsGeneralControl.h"
 #include "SettingsManager.h"
+#include "FactoryManager.h"
 
 namespace tools
 {
-	SettingsGeneralControl::SettingsGeneralControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("SettingsGeneralControl.layout", _parent),
+	FACTORY_ITEM_ATTRIBUTE(SettingsGeneralControl);
+
+	SettingsGeneralControl::SettingsGeneralControl() :
 		mGridStep(0),
 		mGridEdit(nullptr),
 		mSaveLastTexture(nullptr),
 		mInterfaceLanguage(nullptr)
 	{
-		assignWidget(mGridEdit, "gridEdit");
-		assignWidget(mSaveLastTexture, "SaveLastTexture");
-		assignWidget(mInterfaceLanguage, "InterfaceLanguage");
-
-		mGridEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStepAccept);
-		mGridEdit->eventKeyLostFocus += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStep);
-		mSaveLastTexture->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonClick);
 	}
 
 	SettingsGeneralControl::~SettingsGeneralControl()
@@ -30,6 +25,19 @@ namespace tools
 		mSaveLastTexture->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonClick);
 		mGridEdit->eventEditSelectAccept -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStepAccept);
 		mGridEdit->eventKeyLostFocus -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStep);
+	}
+
+	void SettingsGeneralControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::OnInitialise(_parent, _place, _layoutName);
+
+		assignWidget(mGridEdit, "gridEdit");
+		assignWidget(mSaveLastTexture, "SaveLastTexture");
+		assignWidget(mInterfaceLanguage, "InterfaceLanguage");
+
+		mGridEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStepAccept);
+		mGridEdit->eventKeyLostFocus += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStep);
+		mSaveLastTexture->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonClick);
 	}
 
 	void SettingsGeneralControl::loadSettings()
@@ -93,4 +101,13 @@ namespace tools
 		return mInterfaceLanguage->getItemNameAt(mInterfaceLanguage->getIndexSelected());
 	}
 
-} // namespace tools
+	void SettingsGeneralControl::OnCommand(const std::string& _command)
+	{
+		Control::OnCommand(_command);
+
+		if (_command == "Command_LoadSettings")
+			loadSettings();
+		else if (_command == "Command_SaveSettings")
+			saveSettings();
+	}
+}

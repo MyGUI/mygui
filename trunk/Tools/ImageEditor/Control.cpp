@@ -31,10 +31,10 @@ namespace tools
 
 	void Control::Initialise(const std::string& _layoutName)
 	{
-		Initialise(nullptr, nullptr, _layoutName);
+		OnInitialise(nullptr, nullptr, _layoutName);
 	}
 
-	void Control::Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void Control::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
 		mParent = _parent;
 		if (_parent != nullptr)
@@ -47,7 +47,7 @@ namespace tools
 			initialise(_layoutName, nullptr);
 		}
 
-		CheckTabControl(mMainWidget);
+		AdviceWidget(mMainWidget);
 
 		for (size_t index = 0; index < getRoot()->getChildCount(); index ++)
 			CreateChilds(this, getRoot()->getChildAt(index));
@@ -55,11 +55,7 @@ namespace tools
 
 	void Control::CreateChilds(Control* _parent, MyGUI::Widget* _widget)
 	{
-		std::string command = _widget->getUserString("CommandClick");
-		if (!command.empty())
-			_widget->eventMouseButtonClick += MyGUI::newDelegate(this, &Control::notifyMouseButtonClick);
-
-		CheckTabControl(_widget);
+		AdviceWidget(_widget);
 
 		std::string controlType = _widget->getUserString("ControlType");
 		if (!controlType.empty())
@@ -72,7 +68,7 @@ namespace tools
 				Control* control = dynamic_cast<Control*>(item);
 				if (control != nullptr)
 				{
-					control->Initialise(_parent, _widget, controlLayout);
+					control->OnInitialise(_parent, _widget, controlLayout);
 					return;
 				}
 				else
@@ -88,20 +84,7 @@ namespace tools
 
 	void Control::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
-		OnCommand(_sender->getUserString("CommandClick"));
-	}
-
-	void Control::OnCommand(const std::string& _commandName, MyGUI::Any _data)
-	{
-		if (mParent != nullptr)
-		{
-			mParent->OnCommand(_commandName, _data);
-		}
-		else
-		{
-			//CommandManager::getInstance().setCommandData
-			CommandManager::getInstance().executeCommand(_commandName);
-		}
+		CommandManager::getInstance().executeCommand(_sender->getUserString("CommandClick"));
 	}
 
 	const Control::VectorControl& Control::getChilds() const
@@ -112,22 +95,42 @@ namespace tools
 	void Control::notifyTabChangeSelect(MyGUI::TabControl* _sender, size_t _index)
 	{
 		if (_index != MyGUI::ITEM_NONE)
-			OnCommand(_sender->getItemAt(_index)->getUserString("CommandActivate"));
+			CommandManager::getInstance().executeCommand(_sender->getItemAt(_index)->getUserString("CommandActivate"));
 	}
 
-	void Control::CheckTabControl(MyGUI::Widget* _widget)
+	void Control::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
 	{
+		if (_name == "close")
+			CommandManager::getInstance().executeCommand(_sender->getUserString("CommandClose"));
+	}
+
+	void Control::AdviceWidget(MyGUI::Widget* _widget)
+	{
+		std::string command = _widget->getUserString("CommandClick");
+		if (!command.empty())
+			_widget->eventMouseButtonClick += MyGUI::newDelegate(this, &Control::notifyMouseButtonClick);
+
 		MyGUI::TabControl* tab = _widget->castType<MyGUI::TabControl>(false);
 		if (tab != nullptr)
 		{
-			for (size_t index = 0; index < tab->getItemCount(); index ++)
-			{
-				if (tab->getItemAt(index)->getUserString("CommandActivate") != "")
-				{
-					tab->eventTabChangeSelect += MyGUI::newDelegate(this, &Control::notifyTabChangeSelect);
-					break;
-				}
-			}
+			if (tab->getItemCount() != 0 && tab->getItemAt(0)->getUserString("CommandActivate") != "")
+				tab->eventTabChangeSelect += MyGUI::newDelegate(this, &Control::notifyTabChangeSelect);
 		}
+
+		MyGUI::Window* window = _widget->castType<MyGUI::Window>(false);
+		if (window != nullptr && window->getUserString("CommandClose") != "")
+			window->eventWindowButtonPressed += MyGUI::newDelegate(this, &Control::notifyWindowButtonPressed);
+	}
+
+	void Control::SendCommand(const std::string& _command)
+	{
+		OnCommand(_command);
+
+		for (VectorControl::iterator child = mChilds.begin(); child != mChilds.end(); child ++)
+			(*child)->SendCommand(_command);
+	}
+
+	void Control::OnCommand(const std::string& _command)
+	{
 	}
 }

@@ -17,7 +17,7 @@
 		MainTabControl();
 		virtual ~MainTabControl();
 
-		virtual void Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 	};
 }*/
 

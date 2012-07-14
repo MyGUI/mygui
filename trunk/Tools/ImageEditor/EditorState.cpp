@@ -34,7 +34,6 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_FileSaveAs", MyGUI::newDelegate(this, &EditorState::commandSaveAs));
 		CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &EditorState::commandClear));
 		CommandManager::getInstance().registerCommand("Command_Settings", MyGUI::newDelegate(this, &EditorState::commandSettings));
-		//CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &EditorState::commandTest));
 		CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &EditorState::commandRecentFiles));
 		CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &EditorState::commandQuit));
 		CommandManager::getInstance().registerCommand("Command_Undo", MyGUI::newDelegate(this, &EditorState::commandUndo));
@@ -56,6 +55,7 @@ namespace tools
 		mMessageBoxFadeControl = new MessageBoxFadeControl();
 
 		mSettingsWindow = new SettingsWindow();
+		mSettingsWindow->Initialise("SettingsWindow.layout");
 		mSettingsWindow->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifySettingsWindowEndDialog);
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
@@ -461,6 +461,7 @@ namespace tools
 
 	void EditorState::commandSettings(const MyGUI::UString& _commandName, bool& _result)
 	{
+		mSettingsWindow->SendCommand("Command_LoadSettings");
 		mSettingsWindow->doModal();
 
 		_result = true;
@@ -471,7 +472,7 @@ namespace tools
 		MYGUI_ASSERT(mSettingsWindow == _dialog, "mSettingsWindow == _sender");
 
 		if (_result)
-			mSettingsWindow->saveSettings();
+			mSettingsWindow->SendCommand("Command_SaveSettings");
 
 		mSettingsWindow->endModal();
 	}

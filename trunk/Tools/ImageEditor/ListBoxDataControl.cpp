@@ -30,9 +30,9 @@ namespace tools
 		mTextFieldControl = nullptr;
 	}
 
-	void ListBoxDataControl::Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void ListBoxDataControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
-		Control::Initialise(_parent, _place, _layoutName);
+		Control::OnInitialise(_parent, _place, _layoutName);
 
 		mListBox = mMainWidget->castType<MyGUI::ListBox>(false);
 
@@ -59,7 +59,7 @@ namespace tools
 				{
 					Data* data1 = *mListBox->getItemDataAt<Data*>(mLastIndex);
 					Data* data2 = *mListBox->getItemDataAt<Data*>(_index);
-					OnCommand("OnChangePositionData", std::make_pair(data1, data2));
+					eventChangePosition(data1, data2);
 				}
 			}
 		}
@@ -175,7 +175,7 @@ namespace tools
 		if (_result)
 		{
 			Data* data = *mTextFieldControl->getUserData<Data*>();
-			OnCommand("OnChangeNameData", std::make_pair(data, mTextFieldControl->getTextField()));
+			eventChangeName(data, mTextFieldControl->getTextField());
 		}
 	}
 

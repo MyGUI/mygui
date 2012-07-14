@@ -21,13 +21,16 @@ namespace tools
 		ListBoxDataControl();
 		virtual ~ListBoxDataControl();
 
-		virtual void Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 		void OnRenameData();
 
 		void setEnableChangePosition(bool _value);
 
 		void setDataInfo(const std::string& _parentType, const std::string& _property);
+
+		sigslot::signal2<Data*, Data*> eventChangePosition;
+		sigslot::signal2<Data*, const std::string&> eventChangeName;
 
 	private:
 		void notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index);

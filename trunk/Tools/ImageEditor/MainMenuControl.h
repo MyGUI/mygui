@@ -18,7 +18,7 @@ namespace tools
 		MainMenuControl();
 		virtual ~MainMenuControl();
 
-		virtual void Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
 		void notifyMenuCtrlAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item);

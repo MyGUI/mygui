@@ -20,9 +20,9 @@ namespace tools
 	{
 	}
 
-	void IndexListControl::Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void IndexListControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
-		DataListBaseControl::Initialise(_parent, _place, _layoutName);
+		DataListBaseControl::OnInitialise(_parent, _place, _layoutName);
 
 		CommandManager::getInstance().registerCommand("Command_CreateIndexData", MyGUI::newDelegate((DataListBaseControl*)this, &DataListBaseControl::commandCreateImageData));
 		CommandManager::getInstance().registerCommand("Command_DestroyIndexData", MyGUI::newDelegate((DataListBaseControl*)this, &DataListBaseControl::commandDestroyImageData));

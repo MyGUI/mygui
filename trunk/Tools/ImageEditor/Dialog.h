@@ -20,6 +20,7 @@ namespace tools
 		virtual ~Dialog();
 
 		void setDialogRoot(MyGUI::Widget* _root);
+		bool isDialogModal();
 
 		void doModal();
 		void endModal();

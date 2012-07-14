@@ -31,9 +31,9 @@ namespace tools
 		}
 	}
 
-	void SeparatorControl::Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void SeparatorControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
-		Control::Initialise(_parent, _place, _layoutName);
+		Control::OnInitialise(_parent, _place, _layoutName);
 
 		CreateSeparators();
 

@@ -13,13 +13,14 @@
 namespace tools
 {
 	class DataListBaseControl :
-		public Control
+		public Control,
+		public sigslot::has_slots<>
 	{
 	public:
 		DataListBaseControl();
 		virtual ~DataListBaseControl();
 
-		virtual void Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 		void commandCreateImageData(const MyGUI::UString& _commandName, bool& _result);
 		void commandDestroyImageData(const MyGUI::UString& _commandName, bool& _result);
@@ -27,10 +28,10 @@ namespace tools
 
 		void setDataInfo(const std::string& _parentType, const std::string& _currentType, const std::string& _property);
 
-	protected:
-		virtual void OnCommand(const std::string& _commandName, MyGUI::Any _data);
-
 	private:
+		void notifyChangePosition(Data* _data1, Data* _data2);
+		void notifyChangeName(Data* _data, const std::string& _name);
+
 		bool checkCommand(bool _result);
 
 	private:

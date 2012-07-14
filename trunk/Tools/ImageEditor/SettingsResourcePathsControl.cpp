@@ -7,16 +7,33 @@
 #include "SettingsResourcePathsControl.h"
 #include "SettingsManager.h"
 #include "Localise.h"
+#include "FactoryManager.h"
 
 namespace tools
 {
-	SettingsResourcePathsControl::SettingsResourcePathsControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("SettingsResourcePathsControl.layout", _parent),
+	FACTORY_ITEM_ATTRIBUTE(SettingsResourcePathsControl);
+
+	SettingsResourcePathsControl::SettingsResourcePathsControl() :
 		mResourcePathAdd(nullptr),
 		mResourcePathDelete(nullptr),
 		mResourcePaths(nullptr),
 		mOpenSaveFileDialog(nullptr)
 	{
+	}
+
+	SettingsResourcePathsControl::~SettingsResourcePathsControl()
+	{
+		mResourcePathAdd->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickResourcePathAdd);
+		mResourcePathDelete->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickResourcePathDelete);
+
+		delete mOpenSaveFileDialog;
+		mOpenSaveFileDialog = nullptr;
+	}
+
+	void SettingsResourcePathsControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::OnInitialise(_parent, _place, _layoutName);
+
 		assignWidget(mResourcePathAdd, "ResourcePathAdd");
 		assignWidget(mResourcePathDelete, "ResourcePathDelete");
 		assignWidget(mResourcePaths, "ResourcePaths");
@@ -27,15 +44,6 @@ namespace tools
 
 		mResourcePathAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickResourcePathAdd);
 		mResourcePathDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickResourcePathDelete);
-	}
-
-	SettingsResourcePathsControl::~SettingsResourcePathsControl()
-	{
-		mResourcePathAdd->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickResourcePathAdd);
-		mResourcePathDelete->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickResourcePathDelete);
-
-		delete mOpenSaveFileDialog;
-		mOpenSaveFileDialog = nullptr;
 	}
 
 	void SettingsResourcePathsControl::loadSettings()
@@ -74,4 +82,13 @@ namespace tools
 		mOpenSaveFileDialog->endModal();
 	}
 
-} // namespace tools
+	void SettingsResourcePathsControl::OnCommand(const std::string& _command)
+	{
+		Control::OnCommand(_command);
+
+		if (_command == "Command_LoadSettings")
+			loadSettings();
+		else if (_command == "Command_SaveSettings")
+			saveSettings();
+	}
+}
