@@ -30,9 +30,7 @@ namespace tools
 		Data* getRoot();
 
 		Data* getSelectedDataByType(const std::string& _type);
-		//void invalidateDatas();
 
-		//sigslot::signal0<> eventChangeData;
 	private:
 		Data* getSelectedDataByType(Data* _data, DataInfo* _info);
 

@@ -61,11 +61,6 @@ namespace tools
 		return mRoot;
 	}
 	
-	/*void DataManager::invalidateDatas()
-	{
-		eventChangeData();
-	}*/
-
 	Data* DataManager::getSelectedDataByType(const std::string& _type)
 	{
 		DataInfo* info = DataInfoManager::getInstance().getData(_type);

@@ -14,6 +14,9 @@
         </Widget>
         <Widget type="Widget" skin="Panel1Skin_Dark" position="561 1 230 326" align="Right VStretch">
             <UserString key="MinSize" value="100"/>
+            <Widget type="ListBox" skin="ListBox_Dark" position="5 5 220 316" align="Stretch">
+                <UserString key="ControlType" value="ListBoxDataControl"/>
+            </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="551 1 10 326" align="Right VStretch">
             <Property key="Pointer" value="size_horz"/>

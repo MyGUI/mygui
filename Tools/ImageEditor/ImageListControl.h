@@ -7,14 +7,12 @@
 #define _6561a945_ae72_4279_988c_99c42a82a99a_
 
 #include "Control.h"
-#include "sigslot.h"
 #include "Data.h"
 
 namespace tools
 {
 	class ImageListControl :
-		public Control,
-		public sigslot::has_slots<>
+		public Control
 	{
 	public:
 		ImageListControl();
@@ -29,18 +27,8 @@ namespace tools
 		void commandDestroyData(const MyGUI::UString& _commandName, bool& _result);
 		void commandRenameData(const MyGUI::UString& _commandName, bool& _result);
 
-		void notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index);
-		void notifyChangeDataSelector(Data* _data, bool _changeOnlySelection);
-
-		void invalidateList();
-		void invalidateSelection();
-
-		Data* getDataSelection();
-
 	private:
 		size_t mNameIndex;
-		MyGUI::ListBox* mListBox;
-		Data* mParentData;
 	};
 }
 
