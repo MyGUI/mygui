@@ -1118,4 +1118,17 @@ namespace MyGUI
 		eventNotifyItem(this, IBNotifyItemData(ITEM_NONE, IBNotifyItemData::KeyReleased, _key));
 	}
 
+	Widget* ListBox::getWidgetByIndex(size_t _index)
+	{
+		if (_index == MyGUI::ITEM_NONE)
+			return nullptr;
+
+		// индекс в нашем массиве
+		size_t index = _index + (size_t)mTopIndex;
+
+		if (index < mWidgetLines.size())
+			return mWidgetLines[index];
+		return nullptr;
+	}
+
 } // namespace MyGUI
