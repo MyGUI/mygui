@@ -22,6 +22,7 @@
 #include "Grid.h"
 #include "DataManager.h"
 #include "DataInfoManager.h"
+#include "DataSelectorManager.h"
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
@@ -30,8 +31,7 @@ namespace tools
 {
 
 	Application::Application() :
-		mEditorState(nullptr)//,
-		//mTestState(nullptr)
+		mEditorState(nullptr)
 	{
 	}
 
@@ -76,9 +76,6 @@ namespace tools
 		new CommandManager();
 		CommandManager::getInstance().initialise();
 
-		//new SkinManager();
-		//SkinManager::getInstance().initialise();
-
 		new ActionManager();
 		ActionManager::getInstance().initialise();
 
@@ -103,13 +100,16 @@ namespace tools
 		new Grid();
 		Grid::getInstance().initialise();
 
+	
 		new tools::DataInfoManager();
-		new tools::DataManager();
-		
 		tools::DataInfoManager::getInstance().initialise();
+		tools::DataInfoManager::getInstance().load("ImageDataInfo.xml");
+
+		new tools::DataManager();
 		tools::DataManager::getInstance().initialise();
 
-		tools::DataInfoManager::getInstance().load("ImageDataInfo.xml");
+		new tools::DataSelectorManager();
+		tools::DataSelectorManager::getInstance().initialise();
 
 		MyGUI::ResourceManager::getInstance().load("Initialise.xml");
 
@@ -136,16 +136,12 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_UpdateAppCaption", MyGUI::newDelegate(this, &Application::command_UpdateAppCaption));
 
 		mEditorState = new EditorState();
-		//mTestState = new TestState();
 
 		StateManager::getInstance().registerState(this, "Application");
 		StateManager::getInstance().registerState(mEditorState, "EditorState");
-		//StateManager::getInstance().registerState(mTestState, "TestState");
 
 		StateManager::getInstance().registerEventState("Application", "Start", "EditorState");
-		//StateManager::getInstance().registerEventState("EditorState", "Test", "TestState");
 		StateManager::getInstance().registerEventState("EditorState", "Exit", "Application");
-		//StateManager::getInstance().registerEventState("TestState", "Exit", "EditorState");
 
 		StateManager::getInstance().pushState(this);
 		StateManager::getInstance().stateEvent(this, "Start");
@@ -159,9 +155,6 @@ namespace tools
 
 		delete mEditorState;
 		mEditorState = nullptr;
-
-		//delete mTestState;
-		//mTestState = nullptr;
 
 		Grid::getInstance().shutdown();
 		delete Grid::getInstancePtr();
@@ -187,9 +180,6 @@ namespace tools
 		ActionManager::getInstance().shutdown();
 		delete ActionManager::getInstancePtr();
 
-		//SkinManager::getInstance().shutdown();
-		//delete SkinManager::getInstancePtr();
-
 		CommandManager::getInstance().shutdown();
 		delete CommandManager::getInstancePtr();
 
@@ -199,10 +189,13 @@ namespace tools
 		SettingsManager::getInstance().shutdown();
 		delete SettingsManager::getInstancePtr();
 
-		tools::DataInfoManager::getInstance().shutdown();
-		tools::DataManager::getInstance().shutdown();
+		tools::DataSelectorManager::getInstance().shutdown();
+		delete tools::DataSelectorManager::getInstancePtr();
 
+		tools::DataManager::getInstance().shutdown();
 		delete tools::DataManager::getInstancePtr();
+
+		tools::DataInfoManager::getInstance().shutdown();
 		delete tools::DataInfoManager::getInstancePtr();
 
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::FilterNone>("BasisSkin");

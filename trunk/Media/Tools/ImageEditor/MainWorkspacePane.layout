@@ -9,6 +9,8 @@
         </Widget>
         <Widget type="Widget" skin="Panel1Skin_Dark" position="241 1 310 326" align="Stretch">
             <UserString key="MinSize" value="100"/>
+            <UserString key="ControlType" value="ImageListControl"/>
+            <UserString key="ControlLayout" value="ImageListControl.layout"/>
         </Widget>
         <Widget type="Widget" skin="Panel1Skin_Dark" position="561 1 230 326" align="Right VStretch">
             <UserString key="MinSize" value="100"/>

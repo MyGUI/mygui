@@ -16,6 +16,7 @@
 #include "RecentFilesManager.h"
 #include "ExportManager.h"
 #include "DataManager.h"
+#include "DataSelectorManager.h"
 
 namespace tools
 {
@@ -397,6 +398,7 @@ namespace tools
 	{
 		DataManager::getInstance().clear();
 		ActionManager::getInstance().reset();
+		DataSelectorManager::getInstance().changeParent(DataManager::getInstance().getRoot());
 
 		pugi::xml_document doc;
 		pugi::xml_parse_result result = doc.load_file(mFileName.asWStr_c_str());
@@ -408,7 +410,8 @@ namespace tools
 				if (mFileName != mDefaultFileName)
 					RecentFilesManager::getInstance().addRecentFile(mFileName);
 
-				DataManager::getInstance().invalidateDatas();
+				//DataManager::getInstance().invalidateDatas();
+				DataSelectorManager::getInstance().changeParent(DataManager::getInstance().getRoot());
 			}
 			else
 			{

@@ -7,6 +7,7 @@
 #include "Precompiled.h"
 #include "ActionRenameData.h"
 #include "DataManager.h"
+#include "DataSelectorManager.h"
 
 namespace tools
 {
@@ -24,14 +25,18 @@ namespace tools
 		mOldName = mData->getPropertyValue("Name");
 		mData->setPropertyValue("Name", mName);
 
-		DataManager::getInstance().invalidateDatas();
+		//DataManager::getInstance().invalidateDatas();
+		// FIXME тут нужно обновлять через систему свойств
+		DataSelectorManager::getInstance().changeParent(mData->getParent());
 	}
 
 	void ActionRenameData::undoAction()
 	{
 		mData->setPropertyValue("Name", mOldName);
 
-		DataManager::getInstance().invalidateDatas();
+		//DataManager::getInstance().invalidateDatas();
+		// FIXME тут нужно обновлять через систему свойств
+		DataSelectorManager::getInstance().changeParent(mData->getParent());
 	}
 
 	void ActionRenameData::setData(Data* _data)

@@ -30,12 +30,16 @@ namespace tools
 		void removeChild(Data* _child);
 
 		size_t getChildIndex(Data* _child);
+		Data* getChildByIndex(size_t _index);
 
 		typedef std::map<std::string, std::string> MapString;
 		const MapString getProperties() const;
 
 		const std::string& getPropertyValue(const std::string& _name) const;
 		void setPropertyValue(const std::string& _name, const std::string& _value);
+
+		Data* getChildSelected();
+		void setChildSelected(Data* _child);
 
 	private:
 		void clear();
@@ -45,6 +49,7 @@ namespace tools
 		Data* mParent;
 		VectorData mChilds;
 		MapString mProperties;
+		size_t mIndexSelected;
 	};
 }
 
