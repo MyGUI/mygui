@@ -33,6 +33,7 @@ namespace tools
 		MyGUI::ListBox* mListBox;
 		Data* mParentData;
 		size_t mLastIndex;
+		std::string mPropertyForName;
 	};
 }
 
