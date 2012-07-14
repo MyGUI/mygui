@@ -7,6 +7,7 @@
 #include "Precompiled.h"
 #include "ActionDestroyData.h"
 #include "DataManager.h"
+#include "DataSelectorManager.h"
 
 namespace tools
 {
@@ -33,7 +34,8 @@ namespace tools
 		mIndex = mParent->getChildIndex(mData);
 		mParent->removeChild(mData);
 
-		DataManager::getInstance().invalidateDatas();
+		//DataManager::getInstance().invalidateDatas();
+		DataSelectorManager::getInstance().changeParent(mParent);
 
 		mComplete = true;
 	}
@@ -42,7 +44,8 @@ namespace tools
 	{
 		mParent->insertChild(mIndex, mData);
 
-		DataManager::getInstance().invalidateDatas();
+		//DataManager::getInstance().invalidateDatas();
+		DataSelectorManager::getInstance().changeParent(mParent);
 
 		mComplete = false;
 	}

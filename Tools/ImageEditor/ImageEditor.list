@@ -1,4 +1,5 @@
 set (HEADER_FILES
+  DataSelectorManager.h
   Application.h
   AreaSelectorControl.h
   BackgroundControl.h
@@ -101,6 +102,7 @@ set (HEADER_FILES
 set (SOURCE_FILES
   pugiconfig.hpp
   pugixml.hpp
+  DataSelectorManager.cpp
   Application.cpp
   AreaSelectorControl.cpp
   BackgroundControl.cpp
@@ -325,6 +327,9 @@ SOURCE_GROUP("Utility" FILES
 SOURCE_GROUP("Source Files" FILES
   ../../Common/Precompiled.cpp
 )
+SOURCE_GROUP("Data" FILES
+  DataSelectorManager.cpp
+)
 SOURCE_GROUP("Header Files" FILES
   Application.h
   AreaSelectorControl.h
@@ -476,6 +481,9 @@ SOURCE_GROUP("Utility" FILES
   sigslot.h
   pugiconfig.hpp
   pugixml.hpp
+)
+SOURCE_GROUP("Data" FILES
+  DataSelectorManager.h
 )
 SOURCE_GROUP("Resources" FILES
   ImageEditor.rc

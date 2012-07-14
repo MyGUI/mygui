@@ -7,6 +7,7 @@
 #include "Precompiled.h"
 #include "ActionSwapData.h"
 #include "DataManager.h"
+#include "DataSelectorManager.h"
 
 namespace tools
 {
@@ -31,9 +32,11 @@ namespace tools
 
 			parent->removeChild(mData1);
 			parent->insertChild(index2, mData1);
+
+			DataSelectorManager::getInstance().changeParent(parent);
 		}
 
-		DataManager::getInstance().invalidateDatas();
+		//DataManager::getInstance().invalidateDatas();
 	}
 
 	void ActionSwapData::undoAction()
@@ -44,9 +47,11 @@ namespace tools
 
 			parent->removeChild(mData1);
 			parent->insertChild(mIndex, mData1);
+
+			DataSelectorManager::getInstance().changeParent(parent);
 		}
 
-		DataManager::getInstance().invalidateDatas();
+		//DataManager::getInstance().invalidateDatas();
 	}
 
 	void ActionSwapData::setData1(Data* _data)

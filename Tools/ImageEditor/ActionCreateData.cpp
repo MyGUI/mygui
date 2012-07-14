@@ -8,6 +8,7 @@
 #include "ActionCreateData.h"
 #include "DataInfoManager.h"
 #include "DataManager.h"
+#include "DataSelectorManager.h"
 
 namespace tools
 {
@@ -38,7 +39,8 @@ namespace tools
 
 		mParent->addChild(mData);
 
-		DataManager::getInstance().invalidateDatas();
+		DataSelectorManager::getInstance().changeParent(mParent);
+		//DataManager::getInstance().invalidateDatas();
 
 		mComplete = true;
 	}
@@ -47,7 +49,8 @@ namespace tools
 	{
 		mParent->removeChild(mData);
 
-		DataManager::getInstance().invalidateDatas();
+		//DataManager::getInstance().invalidateDatas();
+		DataSelectorManager::getInstance().changeParent(mParent);
 
 		mComplete = false;
 	}

@@ -61,8 +61,26 @@ namespace tools
 		return mRoot;
 	}
 	
-	void DataManager::invalidateDatas()
+	/*void DataManager::invalidateDatas()
 	{
 		eventChangeData();
+	}*/
+
+	Data* DataManager::getSelectedDataByType(const std::string& _type)
+	{
+		DataInfo* info = DataInfoManager::getInstance().getData(_type);
+
+		return getSelectedDataByType(mRoot, info);
+	}
+
+	Data* DataManager::getSelectedDataByType(Data* _data, DataInfo* _info)
+	{
+		if (_data == nullptr)
+			return nullptr;
+
+		if (_data->getType() == _info)
+			return _data;
+
+		return getSelectedDataByType(_data->getChildSelected(), _info);
 	}
 }

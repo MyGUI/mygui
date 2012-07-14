@@ -30,6 +30,3 @@ SOURCE_GROUP("Header Files" FILES
   include/MyGUI_DirectXRTTexture.h
   include/MyGUI_DirectXVertexBuffer.h
 )
-SOURCE_GROUP("" FILES
-  CMakeLists.txt
-)

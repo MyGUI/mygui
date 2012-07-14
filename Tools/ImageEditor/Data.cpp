@@ -12,7 +12,8 @@ namespace tools
 {
 	Data::Data() :
 		mType(nullptr),
-		mParent(nullptr)
+		mParent(nullptr),
+		mIndexSelected(MyGUI::ITEM_NONE)
 	{
 	}
 
@@ -88,6 +89,9 @@ namespace tools
 	{
 		MYGUI_ASSERT(_child->getParent() == this, "Child not found");
 
+		if (_child == getChildSelected())
+			mIndexSelected = MyGUI::ITEM_NONE;
+
 		mChilds.erase(std::remove(mChilds.begin(), mChilds.end(), _child), mChilds.end());
 		_child->mParent = nullptr;
 	}
@@ -110,6 +114,9 @@ namespace tools
 
 	size_t Data::getChildIndex(Data* _child)
 	{
+		if (_child == nullptr)
+			return MyGUI::ITEM_NONE;
+
 		for (size_t index = 0; index < mChilds.size(); index ++)
 		{
 			if (_child == mChilds[index])
@@ -118,5 +125,24 @@ namespace tools
 
 		MYGUI_ASSERT(false, "Child data not found");
 		return MyGUI::ITEM_NONE;
+	}
+
+	Data* Data::getChildByIndex(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE_AND_NONE(_index, mChilds.size(), "Data::getChildSelected");
+
+		if (_index == MyGUI::ITEM_NONE)
+			return nullptr;
+		return mChilds[_index];
+	}
+
+	Data* Data::getChildSelected()
+	{
+		return getChildByIndex(mIndexSelected);
+	}
+
+	void Data::setChildSelected(Data* _child)
+	{
+		mIndexSelected = getChildIndex(_child);
 	}
 }
