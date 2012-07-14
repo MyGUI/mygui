@@ -24,6 +24,9 @@ namespace tools
 		void Initialise(const std::string& _layoutName);
 		virtual void Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
+	protected:
+		virtual void OnCommand(const std::string& _commandName, MyGUI::Any _data = MyGUI::Any::Null);
+
 	private:
 		void CreateChilds(Control* _parent, MyGUI::Widget* _widget);
 		void CreateCommands(Control* _parent, MyGUI::Widget* _widget);

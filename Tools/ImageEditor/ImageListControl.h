@@ -20,6 +20,9 @@ namespace tools
 
 		virtual void Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
+	protected:
+		virtual void OnCommand(const std::string& _commandName, MyGUI::Any _data);
+
 	private:
 		bool checkCommand(bool _result);
 

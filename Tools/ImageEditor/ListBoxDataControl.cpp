@@ -9,8 +9,6 @@
 #include "FactoryManager.h"
 #include "DataManager.h"
 #include "DataSelectorManager.h"
-#include "ActionManager.h"
-#include "ActionSwapData.h"
 
 namespace tools
 {
@@ -55,14 +53,12 @@ namespace tools
 		{
 			if (MyGUI::InputManager::getInstance().isControlPressed())
 			{
-				Data* data1 = *mListBox->getItemDataAt<Data*>(mLastIndex);
-				Data* data2 = *mListBox->getItemDataAt<Data*>(_index);
-
-				ActionSwapData* command = new ActionSwapData();
-				command->setData1(data1);
-				command->setData2(data2);
-
-				ActionManager::getInstance().doAction(command);
+				if (!mMainWidget->isUserString("DisableChangePosition"))
+				{
+					Data* data1 = *mListBox->getItemDataAt<Data*>(mLastIndex);
+					Data* data2 = *mListBox->getItemDataAt<Data*>(_index);
+					OnCommand("OnChangePositionData", std::make_pair(data1, data2));
+				}
 			}
 		}
 

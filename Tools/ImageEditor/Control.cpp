@@ -93,6 +93,19 @@ namespace tools
 
 	void Control::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
-		CommandManager::getInstance().executeCommand(_sender->getUserString("CommandClick"));
+		OnCommand(_sender->getUserString("CommandClick"));
+	}
+
+	void Control::OnCommand(const std::string& _commandName, MyGUI::Any _data)
+	{
+		if (mParent != nullptr)
+		{
+			mParent->OnCommand(_commandName, _data);
+		}
+		else
+		{
+			//CommandManager::getInstance().setCommandData
+			CommandManager::getInstance().executeCommand(_commandName);
+		}
 	}
 }
