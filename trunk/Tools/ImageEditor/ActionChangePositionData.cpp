@@ -11,18 +11,18 @@
 
 namespace tools
 {
-	ActionSwapData::ActionSwapData() :
+	ActionChangePositionData::ActionChangePositionData() :
 		mData1(nullptr),
 		mData2(nullptr),
 		mIndex(MyGUI::ITEM_NONE)
 	{
 	}
 
-	ActionSwapData::~ActionSwapData()
+	ActionChangePositionData::~ActionChangePositionData()
 	{
 	}
 
-	void ActionSwapData::doAction()
+	void ActionChangePositionData::doAction()
 	{
 		if (mData1 != mData2 && mData1->getParent() == mData2->getParent())
 		{
@@ -37,7 +37,7 @@ namespace tools
 		}
 	}
 
-	void ActionSwapData::undoAction()
+	void ActionChangePositionData::undoAction()
 	{
 		if (mIndex != MyGUI::ITEM_NONE)
 		{
@@ -50,12 +50,12 @@ namespace tools
 		}
 	}
 
-	void ActionSwapData::setData1(Data* _data)
+	void ActionChangePositionData::setData1(Data* _data)
 	{
 		mData1 = _data;
 	}
 
-	void ActionSwapData::setData2(Data* _data)
+	void ActionChangePositionData::setData2(Data* _data)
 	{
 		mData2 = _data;
 	}

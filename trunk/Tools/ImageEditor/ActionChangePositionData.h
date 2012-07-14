@@ -11,12 +11,12 @@
 
 namespace tools
 {
-	class ActionSwapData :
+	class ActionChangePositionData :
 		public Action
 	{
 	public:
-		ActionSwapData();
-		virtual ~ActionSwapData();
+		ActionChangePositionData();
+		virtual ~ActionChangePositionData();
 
 		virtual void doAction();
 		virtual void undoAction();
