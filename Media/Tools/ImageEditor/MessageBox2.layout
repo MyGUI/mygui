@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="Window" skin="WindowC_Dark" position="20 20 170 113" layer="Info" name="Root">
+    <Widget type="Window" skin="WindowCX2_Dark" position="20 20 170 125" layer="Info" name="Root">
         <Property key="Snap" value="true"/>
         <UserString key="ButtonSkin" value="Button_Dark"/>
-        <Widget type="TextBox" skin="TextBox" position="9 5 143 50" align="Stretch" name="Text">
-            <Property key="TextAlign" value="Left VCenter"/>
+        <Widget type="TextBox" skin="TextBox" position="8 9 146 41" align="Stretch" name="Text">
+            <Property key="TextAlign" value="Center"/>
             <Property key="FontName" value="DejaVuSansFont.13"/>
         </Widget>
-        <Widget type="Widget" skin="PanelEmpty" position="20 60 120 20" align="HStretch Bottom" name="ButtonPlace">
+        <Widget type="Widget" skin="PanelEmpty" position="20 65 120 20" align="HStretch Bottom" name="ButtonPlace">
             <Widget type="Button" skin="Button_Dark" position="10 0 100 20" name="ButtonTemplate"/>
         </Widget>
     </Widget>

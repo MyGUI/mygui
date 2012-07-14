@@ -381,6 +381,16 @@ namespace MyGUI
 			{
 				mButtonSize = widget->getSize();
 			}
+
+			Window* window = mMainWidget->castType<Window>(false);
+			if (window != nullptr)
+				window->eventWindowButtonPressed += newDelegate(this, &Message::notifyWindowButtonPressed);
+		}
+
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
+		{
+			if (_name == "close")
+				endMessage();
 		}
 
 	private:

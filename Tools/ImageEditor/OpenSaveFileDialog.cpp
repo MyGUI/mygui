@@ -11,7 +11,7 @@
 namespace tools
 {
 	OpenSaveFileDialog::OpenSaveFileDialog() :
-		wraps::BaseLayout("OpenSaveFileDialog.layout"),
+		wraps::BaseLayout("OpenSaveFileDialog2.layout"),
 		mWindow(nullptr),
 		mListFiles(nullptr),
 		mEditFileName(nullptr),
