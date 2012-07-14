@@ -22,7 +22,8 @@ namespace tools
 	FACTORY_ITEM_ATTRIBUTE(ImageListControl);
 
 	ImageListControl::ImageListControl() :
-		mNameIndex(0)
+		mNameIndex(0),
+		mListBoxControl(nullptr)
 	{
 	}
 
@@ -34,9 +35,25 @@ namespace tools
 	{
 		Control::Initialise(_parent, _place, _layoutName);
 
-		CommandManager::getInstance().registerCommand("Command_CreateData", MyGUI::newDelegate(this, &ImageListControl::commandCreateData));
-		CommandManager::getInstance().registerCommand("Command_DestroyData", MyGUI::newDelegate(this, &ImageListControl::commandDestroyData));
-		CommandManager::getInstance().registerCommand("Command_RenameData", MyGUI::newDelegate(this, &ImageListControl::commandRenameData));
+		CommandManager::getInstance().registerCommand("Command_CreateImageData", MyGUI::newDelegate(this, &ImageListControl::commandCreateImageData));
+		CommandManager::getInstance().registerCommand("Command_DestroyImageData", MyGUI::newDelegate(this, &ImageListControl::commandDestroyImageData));
+		CommandManager::getInstance().registerCommand("Command_RenameImageData", MyGUI::newDelegate(this, &ImageListControl::commandRenameImageData));
+
+		const VectorControl& childs = getChilds();
+		for (VectorControl::const_iterator child = childs.begin(); child != childs.end(); child ++)
+		{
+			ListBoxDataControl* list = dynamic_cast<ListBoxDataControl*>(*child);
+			if (list != nullptr)
+			{
+				mListBoxControl = list;
+				break;
+			}
+		}
+
+		if (mListBoxControl != nullptr)
+		{
+			mListBoxControl->setEnableChangePosition(true);
+		}
 	}
 
 	bool ImageListControl::checkCommand(bool _result)
@@ -53,7 +70,7 @@ namespace tools
 		return true;
 	}
 
-	void ImageListControl::commandCreateData(const MyGUI::UString& _commandName, bool& _result)
+	void ImageListControl::commandCreateImageData(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand(_result))
 			return;
@@ -70,7 +87,7 @@ namespace tools
 		_result = true;
 	}
 
-	void ImageListControl::commandDestroyData(const MyGUI::UString& _commandName, bool& _result)
+	void ImageListControl::commandDestroyImageData(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand(_result))
 			return;
@@ -87,22 +104,13 @@ namespace tools
 		_result = true;
 	}
 
-	void ImageListControl::commandRenameData(const MyGUI::UString& _commandName, bool& _result)
+	void ImageListControl::commandRenameImageData(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand(_result))
 			return;
 
-		Data* data = DataManager::getInstance().getSelectedDataByType("Image");
-		if (data != nullptr)
-		{
-			ActionRenameData* command = new ActionRenameData();
-			command->setData(data);
-			command->setName(MyGUI::utility::toString("item ", mNameIndex));
-
-			ActionManager::getInstance().doAction(command);
-		}
-
-		mNameIndex ++;
+		if (mListBoxControl != nullptr)
+			mListBoxControl->OnRenameData();
 
 		_result = true;
 	}
@@ -112,12 +120,25 @@ namespace tools
 		if (_commandName == "OnChangePositionData")
 		{
 			typedef std::pair<Data*, Data*> PairData;
-			PairData *data = _data.castType<PairData>(false);
-			if (data != nullptr)
+			PairData *pairData = _data.castType<PairData>(false);
+			if (pairData != nullptr)
 			{
 				ActionChangePositionData* command = new ActionChangePositionData();
-				command->setData1(data->first);
-				command->setData2(data->second);
+				command->setData1(pairData->first);
+				command->setData2(pairData->second);
+
+				ActionManager::getInstance().doAction(command);
+			}
+		}
+		else if (_commandName == "OnChangeNameData")
+		{
+			typedef std::pair<Data*, MyGUI::UString> PairData;
+			PairData *pairData = _data.castType<PairData>(false);
+			if (pairData != nullptr)
+			{
+				ActionRenameData* command = new ActionRenameData();
+				command->setData(pairData->first);
+				command->setName(pairData->second);
 
 				ActionManager::getInstance().doAction(command);
 			}

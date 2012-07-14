@@ -24,6 +24,9 @@ namespace tools
 		void Initialise(const std::string& _layoutName);
 		virtual void Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
+		typedef std::vector<Control*> VectorControl;
+		const VectorControl& getChilds() const;
+
 	protected:
 		virtual void OnCommand(const std::string& _commandName, MyGUI::Any _data = MyGUI::Any::Null);
 
@@ -33,7 +36,6 @@ namespace tools
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 
 	private:
-		typedef std::vector<Control*> VectorControl;
 		VectorControl mChilds;
 		Control* mParent;
 	};

@@ -9,6 +9,7 @@
 #include "FactoryManager.h"
 #include "DataManager.h"
 #include "DataSelectorManager.h"
+#include "Localise.h"
 
 namespace tools
 {
@@ -18,12 +19,16 @@ namespace tools
 		mListBox(nullptr),
 		mParentData(nullptr),
 		mLastIndex(MyGUI::ITEM_NONE),
-		mContextMenu(nullptr)
+		mContextMenu(nullptr),
+		mTextFieldControl(nullptr),
+		mEnableChangePosition(false)
 	{
 	}
 
 	ListBoxDataControl::~ListBoxDataControl()
 	{
+		delete mTextFieldControl;
+		mTextFieldControl = nullptr;
 	}
 
 	void ListBoxDataControl::Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
@@ -50,6 +55,9 @@ namespace tools
 			mParentData = DataManager::getInstance().getSelectedDataByType(dataType);
 			notifyChangeDataSelector(mParentData, false);
 		}
+
+		mTextFieldControl = new TextFieldControl();
+		mTextFieldControl->eventEndDialog = MyGUI::newDelegate(this, &ListBoxDataControl::notifyEndDialog);
 	}
 
 	void ListBoxDataControl::notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index)
@@ -58,7 +66,7 @@ namespace tools
 		{
 			if (MyGUI::InputManager::getInstance().isControlPressed())
 			{
-				if (!mMainWidget->isUserString("DisableChangePosition"))
+				if (mEnableChangePosition)
 				{
 					Data* data1 = *mListBox->getItemDataAt<Data*>(mLastIndex);
 					Data* data2 = *mListBox->getItemDataAt<Data*>(_index);
@@ -149,5 +157,41 @@ namespace tools
 				}
 			}
 		}
+	}
+
+	void ListBoxDataControl::OnRenameData()
+	{
+		size_t index = mListBox->getIndexSelected();
+		if (index != MyGUI::ITEM_NONE)
+		{
+			mListBox->beginToItemAt(index);
+			MyGUI::Widget* widget = mListBox->getWidgetByIndex(index);
+			if (widget != nullptr)
+			{
+				Data* data = *mListBox->getItemDataAt<Data*>(index);
+
+				mTextFieldControl->setCaption(replaceTags("CaptionEnterName"));
+				mTextFieldControl->setTextField(data->getPropertyValue(mPropertyForName));
+				mTextFieldControl->setUserData(data);
+				mTextFieldControl->setCoord(MyGUI::IntCoord(widget->getAbsoluteLeft(), widget->getAbsoluteTop(), widget->getWidth(), widget->getHeight()));
+				mTextFieldControl->doModal();
+			}
+		}
+	}
+
+	void ListBoxDataControl::notifyEndDialog(Dialog* _sender, bool _result)
+	{
+		_sender->endModal();
+
+		if (_result)
+		{
+			Data* data = *mTextFieldControl->getUserData<Data*>();
+			OnCommand("OnChangeNameData", std::make_pair(data, mTextFieldControl->getTextField()));
+		}
+	}
+
+	void ListBoxDataControl::setEnableChangePosition(bool _value)
+	{
+		mEnableChangePosition = _value;
 	}
 }

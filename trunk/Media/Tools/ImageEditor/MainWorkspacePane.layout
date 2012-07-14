@@ -20,7 +20,6 @@
                 <UserString key="ControlType" value="ListBoxDataControl"/>
                 <UserString key="ParentDataType" value="Index"/>
                 <UserString key="PropertyForName" value="Point"/>
-                <UserString key="DisableRename" value=""/>
             </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="553 0 10 328" align="Right VStretch">
