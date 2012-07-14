@@ -33,14 +33,13 @@ namespace tools
 		if (mData == nullptr)
 		{
 			mData = new Data();
-			mData->setType(DataInfoManager::getInstance().getData("ResourceImageSet"));
+			mData->setType(DataInfoManager::getInstance().getData("Resource"));
 			mData->setPropertyValue("Name", mName);
 		}
 
 		mParent->addChild(mData);
 
 		DataSelectorManager::getInstance().changeParent(mParent);
-		//DataManager::getInstance().invalidateDatas();
 
 		mComplete = true;
 	}
@@ -49,7 +48,6 @@ namespace tools
 	{
 		mParent->removeChild(mData);
 
-		//DataManager::getInstance().invalidateDatas();
 		DataSelectorManager::getInstance().changeParent(mParent);
 
 		mComplete = false;

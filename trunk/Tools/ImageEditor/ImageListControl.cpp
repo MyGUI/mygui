@@ -76,7 +76,7 @@ namespace tools
 		if (!checkCommand(_result))
 			return;
 
-		Data* data = DataManager::getInstance().getSelectedDataByType("ResourceImageSet");
+		Data* data = DataManager::getInstance().getSelectedDataByType("Image");
 		if (data != nullptr)
 		{
 			ActionDestroyData* command = new ActionDestroyData();
@@ -93,7 +93,7 @@ namespace tools
 		if (!checkCommand(_result))
 			return;
 
-		Data* data = DataManager::getInstance().getSelectedDataByType("ResourceImageSet");
+		Data* data = DataManager::getInstance().getSelectedDataByType("Image");
 		if (data != nullptr)
 		{
 			ActionRenameData* command = new ActionRenameData();
