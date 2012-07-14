@@ -142,7 +142,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		//if (ActionManager::getInstance().getChanges())
+		if (ActionManager::getInstance().getChanges())
 		{
 			save();
 		}
@@ -237,18 +237,6 @@ namespace tools
 
 		_result = true;
 	}
-
-	/*void EditorState::commandTest(const MyGUI::UString& _commandName, bool& _result)
-	{
-		if (!checkCommand())
-			return;
-
-		SkinItem* item = SkinManager::getInstance().getItemSelected();
-		if (item != nullptr)
-			StateManager::getInstance().stateEvent(this, "Test");
-
-		_result = true;
-	}*/
 
 	void EditorState::notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 	{
@@ -387,6 +375,7 @@ namespace tools
 	{
 		DataManager::getInstance().clear();
 		ActionManager::getInstance().reset();
+		DataSelectorManager::getInstance().changeParent(DataManager::getInstance().getRoot());
 
 		mFileName = mDefaultFileName;
 		addUserTag("CurrentFileName", mFileName);
@@ -410,7 +399,6 @@ namespace tools
 				if (mFileName != mDefaultFileName)
 					RecentFilesManager::getInstance().addRecentFile(mFileName);
 
-				//DataManager::getInstance().invalidateDatas();
 				DataSelectorManager::getInstance().changeParent(DataManager::getInstance().getRoot());
 			}
 			else

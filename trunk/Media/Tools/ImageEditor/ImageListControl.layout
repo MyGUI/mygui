@@ -10,7 +10,8 @@
             <Property key="Caption" value="#{Delete}"/>
             <UserString key="CommandClick" value="Command_DestroyData"/>
         </Widget>
-        <Widget type="ListBox" skin="ListBox2_Dark" position="4 4 248 437" align="Stretch" name="ListBoxControl">
+        <Widget type="ListBox" skin="ListBox2_Dark" position="4 4 248 437" align="Stretch">
+            <UserString key="ControlType" value="ListBoxDataControl"/>
             <Widget type="PopupMenu" skin="PopupMenu_Dark" position="25 555 99 70" style="Popup" layer="Popup" name="ContextMenu">
                 <Property key="Visible" value="false"/>
                 <Widget type="MenuItem" skin="" position="0 0 93 18">
