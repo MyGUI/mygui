@@ -34,11 +34,11 @@
             <Property key="Caption" value="#{Ok}"/>
             <UserString key="CommandClick" value="Command_SettingsAccept"/>
         </Widget>
-        <Widget type="Button" skin="Button_Dark" position="385 320 80 20" align="Right Bottom" name="Cancel">
+        <Widget type="Button" skin="Button_Dark" position="384 320 80 20" align="Right Bottom" name="Cancel">
             <Property key="Caption" value="#{Cancel}"/>
             <UserString key="CommandClick" value="Command_SettingsCancel"/>
         </Widget>
-        <Widget type="ListBox" skin="ListBox_Dark" position="5 5 110 305" name="ListSettings"/>
-        <Widget type="Widget" skin="PopupMenuSeparator_Dark" position="124 309 341 1" align="HStretch Bottom"/>
+        <Widget type="ListBox" skin="ListBox_Dark" position="6 6 109 296" name="ListSettings"/>
+        <Widget type="Widget" skin="PopupMenuSeparator_Dark" position="5 309 460 1" align="HStretch Bottom"/>
     </Widget>
 </MyGUI>

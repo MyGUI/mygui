@@ -7,11 +7,11 @@
             <Property key="Caption" value="#{TextAdditionalResources}"/>
             <Property key="FontName" value="DejaVuSansFont.13"/>
         </Widget>
-        <Widget type="ListBox" skin="ListBox_Dark" position="0 20 258 276" align="Stretch" name="Resources"/>
-        <Widget type="Button" skin="Button_Dark" position="263 20 80 20" align="Right Top" name="ResourceAdd">
+        <Widget type="ListBox" skin="ListBox_Dark" position="0 23 253 273" align="Stretch" name="Resources"/>
+        <Widget type="Button" skin="Button_Dark" position="261 23 80 20" align="Right Top" name="ResourceAdd">
             <Property key="Caption" value="#{Add}"/>
         </Widget>
-        <Widget type="Button" skin="Button_Dark" position="263 45 80 20" align="Right Top" name="ResourceDelete">
+        <Widget type="Button" skin="Button_Dark" position="261 50 80 20" align="Right Top" name="ResourceDelete">
             <Property key="Caption" value="#{Delete}"/>
         </Widget>
     </Widget>
