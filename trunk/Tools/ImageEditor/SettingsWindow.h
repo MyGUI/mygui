@@ -27,6 +27,13 @@ namespace tools
 		bool checkCommand();
 		void commandSettingsAccept(const MyGUI::UString& _commandName, bool& _result);
 		void commandSettingsCancel(const MyGUI::UString& _commandName, bool& _result);
+
+		void InitialiseListTab();
+		void notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index);
+
+	private:
+		MyGUI::ListBox* mListSettings;
+		MyGUI::TabControl* mTabSettings;
 	};
 }
 

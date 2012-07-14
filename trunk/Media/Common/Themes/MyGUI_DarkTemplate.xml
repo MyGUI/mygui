@@ -452,4 +452,14 @@
             <Widget type="Widget" skin="PanelEmpty" position="2 2 23 20" align="Stretch" name="Client"/>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="TabControlEmpty_Dark" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="5 5 100 100" name="Root">
+            <UserString key="LE_TargetWidgetType" value="TabControl"/>
+            <UserString key="ButtonSkin" value="TabButton2_Dark"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 0 100 100" align="Stretch">
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 100 100" align="Stretch" name="TabItem"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="0 0 100 0" align="HStretch Top" name="HeaderPlace"/>
+        </Widget>
+    </Resource>
 </MyGUI>
