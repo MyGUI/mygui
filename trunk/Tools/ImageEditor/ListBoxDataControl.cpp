@@ -37,7 +37,12 @@ namespace tools
 		{
 			mListBox->eventListChangePosition += MyGUI::newDelegate(this, &ListBoxDataControl::notifyListChangePosition);
 
+			mPropertyForName = mMainWidget->getUserString("PropertyForName");
+			if (mPropertyForName.empty())
+				mPropertyForName = "Name";
+
 			std::string dataType = mMainWidget->getUserString("ParentDataType");
+
 			DataSelectorManager::getInstance().getEvent(dataType)->connect(this, &ListBoxDataControl::notifyChangeDataSelector);
 			mParentData = DataManager::getInstance().getSelectedDataByType(dataType);
 			notifyChangeDataSelector(mParentData, false);
@@ -88,7 +93,7 @@ namespace tools
 			for (size_t index = 0; index < childs.size(); index ++)
 			{
 				Data* child = childs.at(index);
-				mListBox->setItemNameAt(index, child->getPropertyValue("Name"));
+				mListBox->setItemNameAt(index, child->getPropertyValue(mPropertyForName));
 				mListBox->setItemDataAt(index, child);
 			}
 		}
@@ -100,21 +105,22 @@ namespace tools
 
 	void ListBoxDataControl::invalidateSelection()
 	{
-		size_t currentIndex = mListBox->getIndexSelected();
-		size_t needIndex = mParentData->getChildIndex(mParentData->getChildSelected());
+		if (mParentData != nullptr)
+		{
+			size_t currentIndex = mListBox->getIndexSelected();
+			size_t needIndex = mParentData->getChildIndex(mParentData->getChildSelected());
 
-		if (currentIndex != needIndex)
-			mListBox->setIndexSelected(needIndex);
+			if (currentIndex != needIndex)
+				mListBox->setIndexSelected(needIndex);
+		}
 	}
 
 	void ListBoxDataControl::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
 	{
 		mParentData = _data;
-		if (mParentData != nullptr)
-		{
-			if (!_changeOnlySelection)
-				invalidateList();
-			invalidateSelection();
-		}
+
+		if (!_changeOnlySelection)
+			invalidateList();
+		invalidateSelection();
 	}
 }

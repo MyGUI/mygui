@@ -6,6 +6,7 @@
 
 #include "Precompiled.h"
 #include "DataSelectorManager.h"
+#include "DataInfoManager.h"
 
 namespace tools
 {
@@ -60,21 +61,38 @@ namespace tools
 
 	void DataSelectorManager::changeParent(Data* _parent)
 	{
-		EventType* event = getEvent(_parent->getType()->getType());
-		if (event != nullptr)
-		{
-			event->operator()(_parent, false);
-		}
+		onChangeData(_parent, _parent->getType(), false);
 	}
 
 	void DataSelectorManager::changeParentSelection(Data* _parent, Data* _selectedChild)
 	{
 		_parent->setChildSelected(_selectedChild);
 
-		EventType* event = getEvent(_parent->getType()->getType());
+		onChangeData(_parent, _parent->getType(), true);
+	}
+
+	void DataSelectorManager::onChangeData(Data* _parent, DataInfo* _type, bool _changeOnlySelection)
+	{
+		EventType* event = getEvent(_type->getType());
 		if (event != nullptr)
 		{
-			event->operator()(_parent, true);
+			event->operator()(_parent, _changeOnlySelection);
+		}
+
+		Data* childSelected = _parent != nullptr ? _parent->getChildSelected() : nullptr;
+
+		const DataInfo::VectorString& childs = _type->getChilds();
+		for (DataInfo::VectorString::const_iterator childName = childs.begin(); childName != childs.end(); childName ++)
+		{
+			DataInfo* childType = DataInfoManager::getInstance().getData(*childName);
+			if (childType != nullptr)
+			{
+				Data* child = childSelected;
+				if (child != nullptr && child->getType() != childType)
+					child = nullptr;
+
+				onChangeData(child, childType, false);
+			}
 		}
 	}
 }

@@ -1,37 +1,51 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="Widget" skin="PanelEmpty" position="51 95 792 328" align="Stretch" name="Root">
+    <Widget type="Widget" skin="PanelEmpty" position="51 95 794 328" align="Stretch" name="Root">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="Widget" skin="PanelEmpty" position="1 1 230 326" align="Left VStretch">
+        <Widget type="Widget" skin="PanelEmpty" position="0 0 231 328" align="Left VStretch">
             <UserString key="ControlType" value="Control"/>
             <UserString key="ControlLayout" value="MainPaneTab.layout"/>
             <UserString key="MinSize" value="256"/>
         </Widget>
-        <Widget type="Widget" skin="Panel1Skin_Dark" position="241 1 310 326" align="Stretch">
+        <Widget type="Widget" skin="Panel1Skin_Dark" position="241 0 39 328" align="Stretch">
             <UserString key="MinSize" value="100"/>
-            <UserString key="ControlType" value="ImageListControl"/>
-            <UserString key="ControlLayout" value="ImageListControl.layout"/>
-        </Widget>
-        <Widget type="Widget" skin="Panel1Skin_Dark" position="561 1 230 326" align="Right VStretch">
-            <UserString key="MinSize" value="100"/>
-            <Widget type="ListBox" skin="ListBox_Dark" position="5 5 220 316" align="Stretch">
+            <Widget type="ListBox" skin="ListBox_Dark" position="5 5 29 318" align="Stretch">
                 <UserString key="ControlType" value="ListBoxDataControl"/>
-                <UserString key="ParentDataType" value="ResourceImageSet"/>
+                <UserString key="ParentDataType" value="Image"/>
             </Widget>
         </Widget>
-        <Widget type="Widget" skin="PanelEmpty" position="551 1 10 326" align="Right VStretch">
+        <Widget type="Widget" skin="Panel1Skin_Dark" position="563 0 231 328" align="Right VStretch">
+            <UserString key="MinSize" value="100"/>
+            <Widget type="ListBox" skin="ListBox_Dark" position="5 5 221 318" align="Stretch">
+                <UserString key="ControlType" value="ListBoxDataControl"/>
+                <UserString key="ParentDataType" value="Index"/>
+                <UserString key="PropertyForName" value="Point"/>
+            </Widget>
+        </Widget>
+        <Widget type="Widget" skin="PanelEmpty" position="553 0 10 328" align="Right VStretch">
             <Property key="Pointer" value="size_horz"/>
             <UserString key="Separator" value="Horizontal"/>
-            <Widget type="Widget" skin="SeparatorV2Skin_Dark" position="4 158 2 10" align="Center">
+            <Widget type="Widget" skin="SeparatorV2Skin_Dark" position="4 159 2 10" align="Center">
                 <Property key="NeedMouse" value="false"/>
             </Widget>
         </Widget>
-        <Widget type="Widget" skin="PanelEmpty" position="231 1 10 326" align="Left VStretch">
+        <Widget type="Widget" skin="PanelEmpty" position="231 0 10 328" align="Left VStretch">
             <Property key="Pointer" value="size_horz"/>
             <UserString key="Separator" value="Horizontal"/>
-            <Widget type="Widget" skin="SeparatorV2Skin_Dark" position="4 158 2 10" align="Center">
+            <Widget type="Widget" skin="SeparatorV2Skin_Dark" position="4 159 2 10" align="Center">
                 <Property key="NeedMouse" value="false"/>
             </Widget>
+        </Widget>
+        <Widget type="Widget" skin="Panel1Skin_Dark" position="290 0 263 328" align="Right VStretch">
+            <UserString key="MinSize" value="100"/>
+            <Widget type="ListBox" skin="ListBox_Dark" position="5 5 253 318" align="Stretch">
+                <UserString key="ControlType" value="ListBoxDataControl"/>
+                <UserString key="ParentDataType" value="Group"/>
+            </Widget>
+        </Widget>
+        <Widget type="Widget" skin="PanelEmpty" position="280 0 10 328" align="Right VStretch">
+            <UserString key="Separator" value="Horizontal"/>
+            <Widget type="Widget" skin="SeparatorV2Skin_Dark" position="4 159 2 10" align="Center"/>
         </Widget>
     </Widget>
 </MyGUI>
