@@ -147,6 +147,35 @@
             <State name="normal" offset="109 26 42 21"/>
         </BasisSkin>
     </Resource>
+    <Resource type="ResourceSkin" name="Window2Skin_Dark" size="22 42" texture="MyGUI_Dark.png">
+        <BasisSkin type="SubSkin" offset="0 0 5 24" align="Left Top">
+            <State name="normal" offset="480 2 5 24"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="5 0 10 24" align="HStretch Top">
+            <State name="normal" offset="485 2 10 24"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="15 0 7 24" align="Right Top">
+            <State name="normal" offset="495 2 7 24"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="15 24 7 11" align="Right VStretch">
+            <State name="normal" offset="495 26 7 11"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="15 35 7 7" align="Right Bottom">
+            <State name="normal" offset="495 37 7 7"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="5 35 10 7" align="HStretch Bottom">
+            <State name="normal" offset="485 37 10 7"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 35 5 7" align="Left Bottom">
+            <State name="normal" offset="480 37 5 7"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 24 5 11" align="Left VStretch">
+            <State name="normal" offset="480 26 5 11"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="5 24 10 11" align="Stretch">
+            <State name="normal" offset="485 26 10 11"/>
+        </BasisSkin>
+    </Resource>
     <Resource type="ResourceSkin" name="ListBoxItemSkin_Dark" size="20 20" texture="MyGUI_Dark.png">
         <BasisSkin type="SubSkin" offset="0 0 5 5" align="Left Top">
             <State name="normal" offset="206 68 5 5"/>

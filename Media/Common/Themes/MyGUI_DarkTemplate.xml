@@ -462,4 +462,17 @@
             <Widget type="Widget" skin="PanelEmpty" position="0 0 100 0" align="HStretch Top" name="HeaderPlace"/>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="WindowCX2_Dark" version="3.2.0">
+        <Widget type="Widget" skin="Window2Skin_Dark" position="20 20 50 50" name="Root">
+            <UserString key="LE_TargetWidgetType" value="Window"/>
+            <Widget type="TextBox" skin="TextBox" position="4 4 24 16" align="HStretch Top" name="Caption">
+                <Property key="FontName" value="DejaVuSansFont.13"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="3 22 42 23" align="Stretch" name="Client"/>
+            <Widget type="Button" skin="WindowXSkin_Dark" position="32 7 10 10" align="Right Top" name="Button">
+                <UserString key="Event" value="close"/>
+            </Widget>
+        </Widget>
+    </Resource>
 </MyGUI>
