@@ -95,4 +95,8 @@
 	<Tag name="SkinNamePattern">Имя скина #{SkinNameIndex}</Tag>
 	<Tag name="PropertyPanel">Свойства</Tag>
 	<Tag name="TexturePanel">Предпросмотр</Tag>
+	<Tag name="ImageListControlHelp">Нажмите кнопку '#{Create}' чтобы добавить изображение.</Tag>
+	<Tag name="GroupListControlHelp">Нажмите кнопку '#{Create}' чтобы добавить группу.</Tag>
+	<Tag name="IndexListControlHelp">Нажмите кнопку '#{Create}' чтобы добавить индекс.</Tag>
+	<Tag name="FrameListControlHelp">Нажмите кнопку '#{Create}' чтобы добавить кадр.</Tag>
 </MyGUI>

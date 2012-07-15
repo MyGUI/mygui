@@ -44,6 +44,7 @@ namespace tools
 
 	private:
 		MyGUI::ListBox* mListBox;
+		MyGUI::EditBox* mHelpPanel;
 		Data* mParentData;
 		size_t mLastIndex;
 		std::string mPropertyForName;
