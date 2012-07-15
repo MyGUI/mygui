@@ -14,26 +14,26 @@
 namespace tools
 {
 
-	class DataInfo
+	class DataType
 	{
 	public:
-		DataInfo();
-		~DataInfo();
+		DataType();
+		~DataType();
 
 		void deserialization(pugi::xml_node _node);
 
-		const std::string& getType() const;
+		const std::string& getName() const;
 
 		typedef std::vector<std::string> VectorString;
 		const VectorString& getChilds() const;
 
-		typedef std::vector<DataPropertyInfo*> VectorProperty;
+		typedef std::vector<DataTypeProperty*> VectorProperty;
 		const VectorProperty& getProperties() const;
 
-		bool isChild(DataInfo* _child);
+		bool isChild(DataType* _child);
 
 	private:
-		std::string mType;
+		std::string mName;
 		VectorString mChilds;
 		VectorProperty mProperties;
 	};

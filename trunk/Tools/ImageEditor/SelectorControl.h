@@ -9,7 +9,7 @@
 
 #include "BaseLayout/BaseLayout.h"
 
-namespace tools
+/*namespace tools
 {
 
 	class SelectorControl;
@@ -62,6 +62,6 @@ namespace tools
 		std::string mPropertyColour;
 	};
 
-}
+}*/
 
 #endif

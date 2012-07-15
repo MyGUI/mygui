@@ -38,7 +38,7 @@ namespace tools
 
 	private:
 		void clear();
-		void onChangeData(Data* _parent, DataInfo* _type, bool _changeOnlySelection);
+		void onChangeData(Data* _parent, DataType* _type, bool _changeOnlySelection);
 
 	private:
 		static DataSelectorManager* mInstance;

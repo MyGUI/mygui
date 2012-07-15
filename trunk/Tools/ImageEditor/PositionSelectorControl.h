@@ -9,7 +9,7 @@
 
 #include "SelectorControl.h"
 
-namespace tools
+/*namespace tools
 {
 
 	class PositionSelectorControl :
@@ -20,6 +20,6 @@ namespace tools
 		virtual ~PositionSelectorControl();
 	};
 
-}
+}*/
 
 #endif

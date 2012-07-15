@@ -7,7 +7,7 @@
 #include "Precompiled.h"
 #include "AreaSelectorControl.h"
 
-namespace tools
+/*namespace tools
 {
 
 	AreaSelectorControl::AreaSelectorControl(MyGUI::Widget* _parent) :
@@ -20,4 +20,4 @@ namespace tools
 	{
 	}
 
-}
+}*/

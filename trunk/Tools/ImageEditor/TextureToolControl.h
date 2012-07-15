@@ -9,7 +9,7 @@
 
 #include "TextureControl.h"
 
-namespace tools
+/*namespace tools
 {
 
 	class TextureToolControl :
@@ -48,6 +48,6 @@ namespace tools
 		bool mActivate;
 	};
 
-}
+}*/
 
 #endif

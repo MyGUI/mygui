@@ -12,7 +12,7 @@
 #include "ItemBox/BaseItemBox.h"
 #include "TextureBrowseCell.h"
 
-namespace tools
+/*namespace tools
 {
 
 	ATTRIBUTE_CLASS_LAYOUT(TextureBrowseControl, "TextureBrowseControl.layout");
@@ -51,6 +51,6 @@ namespace tools
 		std::string mCurrentTextureName;
 	};
 
-}
+}*/
 
 #endif

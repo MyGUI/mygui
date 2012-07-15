@@ -8,7 +8,7 @@
 #include "SelectorControl.h"
 #include "SettingsManager.h"
 
-namespace tools
+/*namespace tools
 {
 
 	SelectorControl::SelectorControl(const std::string& _layout, MyGUI::Widget* _parent) :
@@ -178,4 +178,4 @@ namespace tools
 		return mMainWidget;
 	}
 
-}
+}*/

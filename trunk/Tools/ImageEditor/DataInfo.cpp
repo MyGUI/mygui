@@ -10,20 +10,20 @@
 namespace tools
 {
 
-	DataInfo::DataInfo()
+	DataType::DataType()
 	{
 	}
 
-	DataInfo::~DataInfo()
+	DataType::~DataType()
 	{
 		for (VectorProperty::iterator property = mProperties.begin(); property != mProperties.end(); property ++)
 			delete *property;
 		mProperties.clear();
 	}
 
-	void DataInfo::deserialization(pugi::xml_node _node)
+	void DataType::deserialization(pugi::xml_node _node)
 	{
-		mType = _node.select_single_node("Type").node().child_value();
+		mName = _node.select_single_node("Name").node().child_value();
 
 		pugi::xpath_node_set childs = _node.select_nodes("Childs/Child/Type");
 		for (pugi::xpath_node_set::const_iterator child = childs.begin(); child != childs.end(); child ++)
@@ -32,32 +32,32 @@ namespace tools
 		pugi::xpath_node_set properties = _node.select_nodes("Properties/Property");
 		for (pugi::xpath_node_set::const_iterator property = properties.begin(); property != properties.end(); property ++)
 		{
-			DataPropertyInfo* info = new DataPropertyInfo();
+			DataTypeProperty* info = new DataTypeProperty();
 			info->deserialization((*property).node());
 			mProperties.push_back(info);
 		}
 	}
 
-	const std::string& DataInfo::getType() const
+	const std::string& DataType::getName() const
 	{
-		return mType;
+		return mName;
 	}
 
-	const DataInfo::VectorString& DataInfo::getChilds() const
+	const DataType::VectorString& DataType::getChilds() const
 	{
 		return mChilds;
 	}
 
-	const DataInfo::VectorProperty& DataInfo::getProperties() const
+	const DataType::VectorProperty& DataType::getProperties() const
 	{
 		return mProperties;
 	}
 
-	bool DataInfo::isChild(DataInfo* _child)
+	bool DataType::isChild(DataType* _child)
 	{
 		for (VectorString::const_iterator child = mChilds.begin(); child != mChilds.end(); child ++)
 		{
-			if ((*child) == _child->getType())
+			if ((*child) == _child->getName())
 				return true;
 		}
 
