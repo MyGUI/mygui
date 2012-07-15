@@ -207,6 +207,7 @@ set (SOURCE_FILES
   ImageEditor.rc
 )
 SOURCE_GROUP("Controls" FILES
+  PropertyPanelControl.cpp
   MainTabControl.cpp
   DataListBaseControl.cpp
   FrameListControl.cpp
@@ -391,7 +392,7 @@ SOURCE_GROUP("Application" FILES
   ../../Common/Precompiled.cpp
 )
 SOURCE_GROUP("Controls" FILES
-  PropertyPanelControl.cpp
+  PropertyPanelControl.h
   MainTabControl.h
   DataListBaseControl.h
   FrameListControl.h
@@ -595,9 +596,6 @@ SOURCE_GROUP("Utility" FILES
   sigslot.h
   pugiconfig.hpp
   pugixml.hpp
-)
-SOURCE_GROUP("Controls" FILES
-  PropertyPanelControl.h
 )
 SOURCE_GROUP("Resources" FILES
   ImageEditor.rc

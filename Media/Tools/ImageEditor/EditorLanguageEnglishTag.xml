@@ -95,4 +95,8 @@
 	<Tag name="SkinNamePattern">Skin name #{SkinNameIndex}</Tag>
 	<Tag name="PropertyPanel">Options</Tag>
 	<Tag name="TexturePanel">Texture preview</Tag>
+	<Tag name="ImageListControlHelp">Click '#{Create}' to create image.</Tag>
+	<Tag name="GroupListControlHelp">Click '#{Create}' to create group.</Tag>
+	<Tag name="IndexListControlHelp">Click '#{Create}' to create index.</Tag>
+	<Tag name="FrameListControlHelp">Click '#{Create}' to create frame.</Tag>
 </MyGUI>

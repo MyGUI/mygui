@@ -20,7 +20,8 @@ namespace tools
 		mLastIndex(MyGUI::ITEM_NONE),
 		mContextMenu(nullptr),
 		mTextFieldControl(nullptr),
-		mEnableChangePosition(false)
+		mEnableChangePosition(false),
+		mHelpPanel(nullptr)
 	{
 	}
 
@@ -47,6 +48,8 @@ namespace tools
 
 		mTextFieldControl = new TextFieldControl();
 		mTextFieldControl->eventEndDialog = MyGUI::newDelegate(this, &ListBoxDataControl::notifyEndDialog);
+
+		assignWidget(mHelpPanel, "HelpPanel", false, false);
 	}
 
 	void ListBoxDataControl::notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index)
@@ -99,6 +102,9 @@ namespace tools
 		{
 			mListBox->removeAllItems();
 		}
+
+		if (mHelpPanel != nullptr)
+			mHelpPanel->setVisible(mListBox->getItemCount() == 0);
 	}
 
 	void ListBoxDataControl::invalidateSelection()

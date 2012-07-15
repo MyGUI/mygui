@@ -2,18 +2,27 @@
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Widget" skin="PanelEmpty" position="26 26 256 472" align="Stretch" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="Button" skin="Button_Dark" position="4 449 120 20" align="Left Bottom">
+        <Widget type="Button" skin="Button_Dark" position="4 447 120 20" align="Left Bottom">
             <Property key="Caption" value="#{Create}"/>
             <UserString key="CommandClick" value="Command_CreateFrameData"/>
         </Widget>
-        <Widget type="Button" skin="Button_Dark" position="132 449 120 20" align="Right Bottom">
+        <Widget type="Button" skin="Button_Dark" position="132 447 120 20" align="Right Bottom">
             <Property key="Caption" value="#{Delete}"/>
             <UserString key="CommandClick" value="Command_DestroyFrameData"/>
         </Widget>
-        <Widget type="ListBox" skin="ListBox2_Dark" position="4 4 248 437" align="Stretch">
+        <Widget type="ListBox" skin="ListBox2_Dark" position="4 4 248 435" align="Stretch">
             <UserString key="ControlType" value="ListBoxDataControl"/>
             <UserString key="PropertyForName" value="Point"/>
-            <Widget type="PopupMenu" skin="PopupMenu_Dark" position="25 555 91 42" style="Popup" layer="Popup" name="ContextMenu">
+			<Widget type="EditBox" skin="EditBoxEmpty" position="0 0 244 431" align="Stretch" name="HelpPanel">
+				<Property key="Caption" value="#{FrameListControlHelp}"/>
+				<Property key="FontName" value="DejaVuSans_28"/>
+				<Property key="TextAlign" value="Center"/>
+				<Property key="MultiLine" value="true"/>
+				<Property key="WordWrap" value="true"/>
+				<Property key="Static" value="true"/>
+				<Property key="TextColour" value="#595959"/>
+			</Widget>
+			<Widget type="PopupMenu" skin="PopupMenu_Dark" position="25 555 91 42" style="Popup" layer="Popup" name="ContextMenu">
                 <Property key="Visible" value="false"/>
                 <Widget type="MenuItem" skin="" position="0 0 85 18">
                     <Property key="Caption" value="#{Create}"/>
