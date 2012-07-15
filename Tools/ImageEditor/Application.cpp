@@ -102,9 +102,9 @@ namespace tools
 		GridManager::getInstance().initialise();
 
 	
-		new tools::DataInfoManager();
-		tools::DataInfoManager::getInstance().initialise();
-		tools::DataInfoManager::getInstance().load("ImageDataInfo.xml");
+		new tools::DataTypeManager();
+		tools::DataTypeManager::getInstance().initialise();
+		tools::DataTypeManager::getInstance().load("ImageDataInfo.xml");
 
 		new tools::DataManager();
 		tools::DataManager::getInstance().initialise();
@@ -196,8 +196,8 @@ namespace tools
 		tools::DataManager::getInstance().shutdown();
 		delete tools::DataManager::getInstancePtr();
 
-		tools::DataInfoManager::getInstance().shutdown();
-		delete tools::DataInfoManager::getInstancePtr();
+		tools::DataTypeManager::getInstance().shutdown();
+		delete tools::DataTypeManager::getInstancePtr();
 
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::FilterNone>("BasisSkin");
 	}

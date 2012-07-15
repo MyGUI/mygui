@@ -23,7 +23,7 @@ namespace tools
 		clear();
 	}
 
-	void Data::setType(DataInfo* _value)
+	void Data::setType(DataType* _value)
 	{
 		mType = _value;
 
@@ -31,13 +31,13 @@ namespace tools
 
 		if (mType != nullptr)
 		{
-			const DataInfo::VectorProperty& properties = mType->getProperties();
-			for (DataInfo::VectorProperty::const_iterator property = properties.begin(); property != properties.end(); property++)
+			const DataType::VectorProperty& properties = mType->getProperties();
+			for (DataType::VectorProperty::const_iterator property = properties.begin(); property != properties.end(); property++)
 				mProperties[(*property)->getName()] = (*property)->getDefaultValue();
 		}
 	}
 
-	DataInfo* Data::getType()
+	DataType* Data::getType()
 	{
 		return mType;
 	}

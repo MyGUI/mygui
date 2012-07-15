@@ -13,11 +13,11 @@
 namespace tools
 {
 
-	class DataPropertyInfo
+	class DataTypeProperty
 	{
 	public:
-		DataPropertyInfo();
-		~DataPropertyInfo();
+		DataTypeProperty();
+		~DataTypeProperty();
 
 		void deserialization(pugi::xml_node _node);
 

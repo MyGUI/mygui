@@ -38,7 +38,7 @@ namespace tools
 	void DataManager::initialise()
 	{
 		mRoot = new Data();
-		mRoot->setType(DataInfoManager::getInstance().getData("Root"));
+		mRoot->setType(DataTypeManager::getInstance().getData("Root"));
 	}
 
 	void DataManager::shutdown()
@@ -64,12 +64,12 @@ namespace tools
 	
 	Data* DataManager::getSelectedDataByType(const std::string& _type)
 	{
-		DataInfo* info = DataInfoManager::getInstance().getData(_type);
+		DataType* info = DataTypeManager::getInstance().getData(_type);
 
 		return getSelectedDataByType(mRoot, info);
 	}
 
-	Data* DataManager::getSelectedDataByType(Data* _data, DataInfo* _info)
+	Data* DataManager::getSelectedDataByType(Data* _data, DataType* _info)
 	{
 		if (_data == nullptr)
 			return nullptr;

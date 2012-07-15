@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Document>
-	<DataInfos>
-		<DataInfo>
-			<Type>Root</Type>
+	<DataTypes>
+		<DataType>
+			<Name>Root</Name>
 			<Childs>
 				<Child>
 					<Type>Image</Type>
 				</Child>
 			</Childs>
-		</DataInfo>
-		<DataInfo>
-			<Type>Image</Type>
+		</DataType>
+		<DataType>
+			<Name>Image</Name>
 			<Properties>
 				<Property>
 					<Name>Name</Name>
@@ -23,9 +23,9 @@
 					<Type>Group</Type>
 				</Child>
 			</Childs>
-		</DataInfo>
-		<DataInfo>
-			<Type>Group</Type>
+		</DataType>
+		<DataType>
+			<Name>Group</Name>
 			<Properties>
 				<Property>
 					<Name>Name</Name>
@@ -47,9 +47,9 @@
 					<Type>Index</Type>
 				</Child>
 			</Childs>
-		</DataInfo>
-		<DataInfo>
-			<Type>Index</Type>
+		</DataType>
+		<DataType>
+			<Name>Index</Name>
 			<Properties>
 				<Property>
 					<Name>Name</Name>
@@ -67,9 +67,9 @@
 					<Type>Frame</Type>
 				</Child>
 			</Childs>
-		</DataInfo>
-		<DataInfo>
-			<Type>Frame</Type>
+		</DataType>
+		<DataType>
+			<Name>Frame</Name>
 			<Properties>
 				<Property>
 					<Name>Point</Name>
@@ -82,6 +82,6 @@
 					<Default>1</Default>
 				</Property>
 			</Properties>
-		</DataInfo>
-	</DataInfos>
+		</DataType>
+	</DataTypes>
 </Document>

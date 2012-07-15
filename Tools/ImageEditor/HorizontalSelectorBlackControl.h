@@ -9,7 +9,7 @@
 
 #include "SelectorControl.h"
 
-namespace tools
+/*namespace tools
 {
 
 	class HorizontalSelectorBlackControl :
@@ -20,6 +20,6 @@ namespace tools
 		virtual ~HorizontalSelectorBlackControl();
 	};
 
-}
+}*/
 
 #endif

@@ -14,14 +14,14 @@
 namespace tools
 {
 
-	class DataInfoManager
+	class DataTypeManager
 	{
 	public:
-		DataInfoManager();
-		~DataInfoManager();
+		DataTypeManager();
+		~DataTypeManager();
 
-		static DataInfoManager& getInstance();
-		static DataInfoManager* getInstancePtr();
+		static DataTypeManager& getInstance();
+		static DataTypeManager* getInstancePtr();
 
 		void initialise();
 		void shutdown();
@@ -29,11 +29,11 @@ namespace tools
 		void load(const std::string& _fileName);
 		void clear();
 
-		DataInfo* getData(const std::string& _type);
+		DataType* getData(const std::string& _type);
 
 	private:
-		static DataInfoManager* mInstance;
-		typedef std::vector<DataInfo*> VectorDataInfo;
+		static DataTypeManager* mInstance;
+		typedef std::vector<DataType*> VectorDataInfo;
 		VectorDataInfo mDataInfos;
 	};
 

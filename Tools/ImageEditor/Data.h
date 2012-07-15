@@ -19,8 +19,8 @@ namespace tools
 		Data();
 		~Data();
 
-		void setType(DataInfo* _value);
-		DataInfo* getType();
+		void setType(DataType* _value);
+		DataType* getType();
 
 		Data* getParent();
 
@@ -47,7 +47,7 @@ namespace tools
 		void clear();
 
 	private:
-		DataInfo* mType;
+		DataType* mType;
 		Data* mParent;
 		VectorData mChilds;
 		MapString mProperties;

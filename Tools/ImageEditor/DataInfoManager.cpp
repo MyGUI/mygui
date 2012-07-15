@@ -12,66 +12,66 @@
 namespace tools
 {
 
-	DataInfoManager* DataInfoManager::mInstance = nullptr;
+	DataTypeManager* DataTypeManager::mInstance = nullptr;
 
-	DataInfoManager::DataInfoManager()
+	DataTypeManager::DataTypeManager()
 	{
 		mInstance = this;
 	}
 
-	DataInfoManager::~DataInfoManager()
+	DataTypeManager::~DataTypeManager()
 	{
 		mInstance = nullptr;
 	}
 
-	DataInfoManager& DataInfoManager::getInstance()
+	DataTypeManager& DataTypeManager::getInstance()
 	{
 		return *mInstance;
 	}
 
-	DataInfoManager* DataInfoManager::getInstancePtr()
+	DataTypeManager* DataTypeManager::getInstancePtr()
 	{
 		return mInstance;
 	}
 
-	void DataInfoManager::initialise()
+	void DataTypeManager::initialise()
 	{
 	}
 
-	void DataInfoManager::shutdown()
+	void DataTypeManager::shutdown()
 	{
 		clear();
 	}
 
-	void DataInfoManager::load(const std::string& _fileName)
+	void DataTypeManager::load(const std::string& _fileName)
 	{
 		std::string fileName = MyGUI::DataManager::getInstance().getDataPath(_fileName);
 		pugi::xml_document doc;
 		pugi::xml_parse_result result = doc.load_file(fileName.c_str());
 		if (result)
 		{
-			pugi::xpath_node_set nodes = doc.select_nodes("Document/DataInfos/DataInfo");
+			pugi::xpath_node_set nodes = doc.select_nodes("Document/DataTypes/DataType");
 			for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
 			{
-				DataInfo* data = new DataInfo();
+				DataType* data = new DataType();
 				data->deserialization((*node).node());
 				mDataInfos.push_back(data);
 			}
 		}
 	}
 
-	void DataInfoManager::clear()
+	void DataTypeManager::clear()
 	{
 		for (VectorDataInfo::iterator data = mDataInfos.begin(); data != mDataInfos.end(); data ++)
 			delete *data;
 		mDataInfos.clear();
 	}
 
-	DataInfo* DataInfoManager::getData(const std::string& _type)
+	DataType* DataTypeManager::getData(const std::string& _type)
 	{
 		for (VectorDataInfo::const_iterator data = mDataInfos.begin(); data != mDataInfos.end(); data ++)
 		{
-			if ((*data)->getType() == _type)
+			if ((*data)->getName() == _type)
 				return *data;
 		}
 

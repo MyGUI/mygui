@@ -7,7 +7,7 @@
 #include "Precompiled.h"
 #include "HorizontalSelectorBlackControl.h"
 
-namespace tools
+/*namespace tools
 {
 
 	HorizontalSelectorBlackControl::HorizontalSelectorBlackControl(MyGUI::Widget* _parent) :
@@ -21,4 +21,4 @@ namespace tools
 	{
 	}
 
-}
+}*/

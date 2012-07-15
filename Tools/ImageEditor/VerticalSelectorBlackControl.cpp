@@ -7,7 +7,7 @@
 #include "Precompiled.h"
 #include "VerticalSelectorBlackControl.h"
 
-namespace tools
+/*namespace tools
 {
 
 	VerticalSelectorBlackControl::VerticalSelectorBlackControl(MyGUI::Widget* _parent) :
@@ -21,4 +21,4 @@ namespace tools
 	{
 	}
 
-}
+}*/

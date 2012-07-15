@@ -7,7 +7,7 @@
 #include "Precompiled.h"
 #include "PositionSelectorControl.h"
 
-namespace tools
+/*namespace tools
 {
 
 	PositionSelectorControl::PositionSelectorControl(MyGUI::Widget* _parent) :
@@ -20,4 +20,4 @@ namespace tools
 	{
 	}
 
-}
+}*/

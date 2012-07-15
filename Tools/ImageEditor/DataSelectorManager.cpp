@@ -72,9 +72,9 @@ namespace tools
 		onChangeData(_parent, _parent->getType(), true);
 	}
 
-	void DataSelectorManager::onChangeData(Data* _parent, DataInfo* _type, bool _changeOnlySelection)
+	void DataSelectorManager::onChangeData(Data* _parent, DataType* _type, bool _changeOnlySelection)
 	{
-		EventType* event = getEvent(_type->getType());
+		EventType* event = getEvent(_type->getName());
 		if (event != nullptr)
 		{
 			event->operator()(_parent, _changeOnlySelection);
@@ -84,10 +84,10 @@ namespace tools
 		if (_parent != nullptr)
 			childSelected = _parent->getChildSelected();
 
-		const DataInfo::VectorString& childs = _type->getChilds();
-		for (DataInfo::VectorString::const_iterator childName = childs.begin(); childName != childs.end(); childName ++)
+		const DataType::VectorString& childs = _type->getChilds();
+		for (DataType::VectorString::const_iterator childName = childs.begin(); childName != childs.end(); childName ++)
 		{
-			DataInfo* childType = DataInfoManager::getInstance().getData(*childName);
+			DataType* childType = DataTypeManager::getInstance().getData(*childName);
 			if (childType != nullptr)
 			{
 				Data* child = childSelected;

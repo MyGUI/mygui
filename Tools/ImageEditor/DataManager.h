@@ -34,7 +34,7 @@ namespace tools
 		Data* getSelectedDataByType(const std::string& _type);
 
 	private:
-		Data* getSelectedDataByType(Data* _data, DataInfo* _info);
+		Data* getSelectedDataByType(Data* _data, DataType* _info);
 
 	private:
 		static DataManager* mInstance;
