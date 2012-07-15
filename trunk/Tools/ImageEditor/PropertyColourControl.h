@@ -3,17 +3,18 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __PROPERTY_COLOUR_CONTROL_H__
-#define __PROPERTY_COLOUR_CONTROL_H__
+
+#ifndef _322f22c1_b944_4d2b_b2a6_bcf620978547_
+#define _322f22c1_b944_4d2b_b2a6_bcf620978547_
 
 #include "BaseLayout/BaseLayout.h"
 #include "PropertyControl.h"
 #include "ColourPanel.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class PropertyColourControl :
+	class PropertyColourControl :
 		public wraps::BaseLayout,
 		public PropertyControl
 	{
@@ -49,8 +50,8 @@ namespace tools
 
 		MyGUI::Colour mCurrentColour;
 		MyGUI::Colour mPreviewColour;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __PROPERTY_COLOUR_CONTROL_H__
+#endif

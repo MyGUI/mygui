@@ -3,13 +3,14 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __BINARY_H__
-#define __BINARY_H__
 
-namespace tools
+#ifndef _331e8752_8ea9_46f1_8bac_ec5b741792e0_
+#define _331e8752_8ea9_46f1_8bac_ec5b741792e0_
+
+/*namespace tools
 {
 
-	/*template <unsigned long N>
+	template <unsigned long N>
 	struct Binary
 	{
 		static unsigned const value
@@ -21,8 +22,8 @@ namespace tools
 	struct Binary<0>                      // terminates recursion
 	{
 		static unsigned const value = 0;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __BINARY_H__
+#endif

@@ -12,6 +12,7 @@
 
 namespace tools
 {
+
 	FACTORY_ITEM_ATTRIBUTE(OpenSaveFileDialog);
 
 	OpenSaveFileDialog::OpenSaveFileDialog() :
@@ -272,4 +273,5 @@ namespace tools
 
 		_result = true;
 	}
+
 }

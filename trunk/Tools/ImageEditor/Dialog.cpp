@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2008
 */
+
 #include "Precompiled.h"
 #include "Dialog.h"
 #include "DialogManager.h"
@@ -58,4 +59,4 @@ namespace tools
 		return mModal;
 	}
 
-} // namespace tools
+}

@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #ifndef _d92392a8_2d98_4639_8dfe_7cb945c817b5_
 #define _d92392a8_2d98_4639_8dfe_7cb945c817b5_
 
@@ -11,6 +12,7 @@
 
 namespace tools
 {
+
 	class ActionDestroyData :
 		public Action
 	{
@@ -29,6 +31,7 @@ namespace tools
 		bool mComplete;
 		size_t mIndex;
 	};
+
 }
 
 #endif

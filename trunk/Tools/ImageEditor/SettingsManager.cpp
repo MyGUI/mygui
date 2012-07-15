@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "SettingsManager.h"
 
@@ -11,6 +12,7 @@ template <> const char* MyGUI::Singleton<tools::SettingsManager>::mClassTypeName
 
 namespace tools
 {
+
 	const std::string LogSection = "LayoutEditor";
 
 	SettingsManager::SettingsManager() :
@@ -141,4 +143,4 @@ namespace tools
 		eventSettingsChanged(_sector->getName(), _propertyName);
 	}
 
-} // namespace tools
+}

@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		09/2010
 */
+
 #include "Precompiled.h"
 #include "SettingsGeneralControl.h"
 #include "SettingsManager.h"
@@ -10,6 +11,7 @@
 
 namespace tools
 {
+
 	FACTORY_ITEM_ATTRIBUTE(SettingsGeneralControl);
 
 	SettingsGeneralControl::SettingsGeneralControl() :
@@ -110,4 +112,5 @@ namespace tools
 		else if (_command == "Command_SaveSettings")
 			saveSettings();
 	}
+
 }

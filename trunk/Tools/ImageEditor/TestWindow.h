@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		09/2008
 */
-#ifndef __TEST_WINDOW_H__
-#define __TEST_WINDOW_H__
+
+#ifndef _2836f03e_07c4_4388_aca4_d133e07c887f_
+#define _2836f03e_07c4_4388_aca4_d133e07c887f_
 
 #include <MyGUI.h>
 #include "Dialog.h"
@@ -43,6 +44,6 @@
 		MyGUI::UString mSkinName;
 	};
 
-} // namespace tools
-*/
-#endif // __TEST_WINDOW_H__
+}*/
+
+#endif

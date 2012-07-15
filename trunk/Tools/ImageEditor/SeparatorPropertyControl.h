@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __SEPARATOR_PROPERTY_CONTROL_H__
-#define __SEPARATOR_PROPERTY_CONTROL_H__
+
+#ifndef _2ebffdf5_c16a_44bf_8fa6_7ad3150b9ab4_
+#define _2ebffdf5_c16a_44bf_8fa6_7ad3150b9ab4_
 
 #include "BaseLayout/BaseLayout.h"
 #include "Property.h"
@@ -13,10 +14,10 @@
 #include "PropertyBoolControl.h"
 #include "PropertyIntControl.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class SeparatorPropertyControl :
+	class SeparatorPropertyControl :
 		public wraps::BaseLayout,
 		public PropertyAdvisor
 	{
@@ -30,8 +31,8 @@ namespace tools
 	private:
 		PropertyBoolControl* mPropertyVisibleControl;
 		PropertyIntControl* mPropertyPositionControl;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __SEPARATOR_PROPERTY_CONTROL_H__
+#endif

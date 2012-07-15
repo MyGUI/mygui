@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "DialogManager.h"
 
@@ -11,6 +12,7 @@ template <> const char* MyGUI::Singleton<tools::DialogManager>::mClassTypeName("
 
 namespace tools
 {
+
 	DialogManager::DialogManager()
 	{
 	}
@@ -52,4 +54,4 @@ namespace tools
 		mDialogs.erase(item);
 	}
 
-} // namespace tools
+}

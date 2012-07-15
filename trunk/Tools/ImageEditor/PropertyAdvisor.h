@@ -3,16 +3,17 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __PROPERTY_ADVISOR_H__
-#define __PROPERTY_ADVISOR_H__
+
+#ifndef _c2ac7c68_fbf9_4a6e_afad_764277d6c3c8_
+#define _c2ac7c68_fbf9_4a6e_afad_764277d6c3c8_
 
 #include <MyGUI.h>
 #include "SkinManager.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class PropertyAdvisor
+	class PropertyAdvisor
 	{
 	public:
 		PropertyAdvisor() :
@@ -199,8 +200,8 @@ namespace tools
 		StateItem* mCurrentState;
 		SeparatorItem* mCurrentSeparator;
 		RegionItem* mCurrentRegion;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __PROPERTY_ADVISOR_H__
+#endif

@@ -3,16 +3,17 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __PROPERTY_CONTROL_H__
-#define __PROPERTY_CONTROL_H__
+
+#ifndef _e14ab35f_103d_4acf_ab0e_643de48cf55f_
+#define _e14ab35f_103d_4acf_ab0e_643de48cf55f_
 
 #include <MyGUI.h>
 #include "Property.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class PropertyControl
+	class PropertyControl
 	{
 	public:
 		PropertyControl();
@@ -35,8 +36,8 @@ namespace tools
 	private:
 		Property* mProperty;
 		MyGUI::UString mTypeName;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __PROPERTY_CONTROL_H__
+#endif

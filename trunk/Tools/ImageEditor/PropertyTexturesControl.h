@@ -3,17 +3,19 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __PROPERTY_TEXTURES_CONTROL_H__
-#define __PROPERTY_TEXTURES_CONTROL_H__
+
+#ifndef _07f612bd_91d2_4e55_828d_a10206631a31_
+#define _07f612bd_91d2_4e55_828d_a10206631a31_
 
 #include "BaseLayout/BaseLayout.h"
 #include "PropertyControl.h"
 #include "TextureBrowseControl.h"
 #include "Dialog.h"
 
-namespace tools
+/*namespace tools
 {
-	/*class PropertyTexturesControl :
+
+	class PropertyTexturesControl :
 		public wraps::BaseLayout,
 		public PropertyControl
 	{
@@ -39,8 +41,8 @@ namespace tools
 
 		TextureBrowseControl* mTextureBrowseControl;
 		MyGUI::VectorString mTextures;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __PROPERTY_TEXTURES_CONTROL_H__
+#endif

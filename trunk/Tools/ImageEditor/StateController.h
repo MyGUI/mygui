@@ -3,13 +3,15 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __STATE_CONTROLLER_H__
-#define __STATE_CONTROLLER_H__
+
+#ifndef _5bbd7ceb_411b_45fa_8c83_dbd118de6b83_
+#define _5bbd7ceb_411b_45fa_8c83_dbd118de6b83_
 
 #include <MyGUI.h>
 
 namespace tools
 {
+
 	class StateController
 	{
 	public:
@@ -23,6 +25,6 @@ namespace tools
 		virtual void resumeState() { }
 	};
 
-} // namespace tools
+}
 
-#endif // __STATE_CONTROLLER_H__
+#endif

@@ -3,6 +3,7 @@
 
 namespace components
 {
+
 	FactoryManager* FactoryManager::GetInstancePtr()
 	{
 		static FactoryManager instance;

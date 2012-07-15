@@ -10,6 +10,7 @@
 
 namespace tools
 {
+
 	ActionManager* ActionManager::mInstance = nullptr;
 
 	ActionManager::ActionManager() :
@@ -182,4 +183,5 @@ namespace tools
 		mCurrentAction = mActions.begin();
 		mActionAsSave = mActions.begin();
 	}
+
 }

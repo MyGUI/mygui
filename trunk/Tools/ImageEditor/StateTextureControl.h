@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __STATE_TEXTURE_CONTROL_H__
-#define __STATE_TEXTURE_CONTROL_H__
+
+#ifndef _2ab5bf01_bc70_46bf_8541_376e7a97fbf0_
+#define _2ab5bf01_bc70_46bf_8541_376e7a97fbf0_
 
 #include "TextureToolControl.h"
 #include "Property.h"
@@ -13,9 +14,10 @@
 #include "PropertyAdvisor.h"
 #include "PositionSelectorBlackControl.h"
 
-namespace tools
+/*namespace tools
 {
-	/*class StateTextureControl :
+
+	class StateTextureControl :
 		public TextureToolControl,
 		public PropertyAdvisor
 	{
@@ -72,8 +74,8 @@ namespace tools
 
 		std::vector<PositionSelectorBlackControl*> mBlackSelectors;
 		MyGUI::IntPoint mPointValue;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __STATE_TEXTURE_CONTROL_H__
+#endif

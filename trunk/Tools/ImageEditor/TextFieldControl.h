@@ -3,14 +3,16 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __TEXT_FIELD_CONTROL_H__
-#define __TEXT_FIELD_CONTROL_H__
+
+#ifndef _8b808213_c477_406c_ae46_1237d418557f_
+#define _8b808213_c477_406c_ae46_1237d418557f_
 
 #include "Dialog.h"
 #include "BaseLayout/BaseLayout.h"
 
 namespace tools
 {
+
 	class TextFieldControl :
 		public Dialog,
 		public wraps::BaseLayout
@@ -51,6 +53,6 @@ namespace tools
 		MyGUI::Button* mCancel;
 	};
 
-} // namespace tools
+}
 
-#endif // __TEXT_FIELD_CONTROL_H__
+#endif

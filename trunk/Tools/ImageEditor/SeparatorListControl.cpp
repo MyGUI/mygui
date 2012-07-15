@@ -3,16 +3,17 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "SeparatorListControl.h"
 #include "SkinManager.h"
 #include "Binary.h"
 #include "Localise.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*enum SeparatorPreset
+	enum SeparatorPreset
 	{
 		SeparatorPresetScale = Binary<0>::value,
 		SeparatorPreset9Slice = Binary<1111>::value,
@@ -199,6 +200,6 @@ namespace tools
 		{
 			mPresets->setEnabled(false);
 		}
-	}*/
+	}
 
-} // namespace tools
+}*/

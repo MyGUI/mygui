@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #ifndef _dd541c2d_6b2d_440f_a2b3_a08454979c7b_
 #define _dd541c2d_6b2d_440f_a2b3_a08454979c7b_
 
@@ -12,6 +13,7 @@
 
 namespace tools
 {
+
 	class DataInfo
 	{
 	public:
@@ -35,6 +37,7 @@ namespace tools
 		VectorString mChilds;
 		VectorProperty mProperties;
 	};
+
 }
 
 #endif

@@ -3,13 +3,15 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __SETTINGS_SECTOR_H__
-#define __SETTINGS_SECTOR_H__
+
+#ifndef _cfb05f5b_c9ef_41f4_a202_909af3ad767a_
+#define _cfb05f5b_c9ef_41f4_a202_909af3ad767a_
 
 #include <MyGUI.h>
 
 namespace tools
 {
+
 	class SettingsSector;
 	typedef MyGUI::delegates::CDelegate2<SettingsSector*, const MyGUI::UString&> EventSettingsChanged;
 	typedef std::vector<SettingsSector*> VectorSettingsSector;
@@ -78,6 +80,6 @@ namespace tools
 		MapUString mProperties;
 	};
 
-} // namespace tools
+}
 
-#endif // __SETTINGS_SECTOR_H__
+#endif

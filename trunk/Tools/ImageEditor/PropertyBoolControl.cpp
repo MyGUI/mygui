@@ -3,13 +3,14 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "PropertyBoolControl.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*PropertyBoolControl::PropertyBoolControl(MyGUI::Widget* _parent) :
+	PropertyBoolControl::PropertyBoolControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("PropertyComboBoxControl.layout", _parent),
 		mComboBox(nullptr)
 	{
@@ -71,6 +72,6 @@ namespace tools
 		}
 
 		return result;
-	}*/
+	}
 
-} // namespace tools
+}*/

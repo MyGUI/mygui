@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __POSITION_SELECTOR_BLACK_CONTROL_H__
-#define __POSITION_SELECTOR_BLACK_CONTROL_H__
+
+#ifndef _1b53ad22_6e74_4d8a_aae1_17b0bd2a5d47_
+#define _1b53ad22_6e74_4d8a_aae1_17b0bd2a5d47_
 
 #include "SelectorControl.h"
 
@@ -19,6 +20,6 @@ namespace tools
 		virtual ~PositionSelectorBlackControl();
 	};
 
-} // namespace tools
+}
 
-#endif // __POSITION_SELECTOR_BLACK_CONTROL_H__
+#endif

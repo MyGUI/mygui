@@ -3,12 +3,14 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #include "Precompiled.h"
 #include "PropertyPanelControl.h"
 #include "FactoryManager.h"
 
 namespace tools
 {
+
 	FACTORY_ITEM_ATTRIBUTE(PropertyPanelControl);
 
 	PropertyPanelControl::PropertyPanelControl()
@@ -23,4 +25,5 @@ namespace tools
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 	}
+
 }

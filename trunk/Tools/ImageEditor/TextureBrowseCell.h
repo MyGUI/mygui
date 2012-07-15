@@ -3,14 +3,16 @@
 	@author		Albert Semenov
 	@date		09/2010
 */
-#ifndef __TEXTURE_BROWSE_CELL_H__
-#define __TEXTURE_BROWSE_CELL_H__
+
+#ifndef _da9a7d14_7a9f_4612_a33d_a5d0fb74c488_
+#define _da9a7d14_7a9f_4612_a33d_a5d0fb74c488_
 
 #include <MyGUI.h>
 #include "ItemBox/BaseCellView.h"
 
 namespace tools
 {
+
 	class TextureBrowseCell :
 		public wraps::BaseCellView<std::string>
 	{
@@ -28,6 +30,6 @@ namespace tools
 		MyGUI::ImageBox* mImage;
 	};
 
-} // namespace tools
+}
 
-#endif // __TEXTURE_BROWSE_CELL_H__
+#endif

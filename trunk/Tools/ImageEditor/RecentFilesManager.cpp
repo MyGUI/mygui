@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "RecentFilesManager.h"
 #include "SettingsManager.h"
@@ -13,6 +14,7 @@ template <> const char* MyGUI::Singleton<tools::RecentFilesManager>::mClassTypeN
 
 namespace tools
 {
+
 	RecentFilesManager::RecentFilesManager() :
 		mMaxRecentFolders(8),
 		mMaxRecentFiles(8)
@@ -93,4 +95,4 @@ namespace tools
 		return mRecentFiles;
 	}
 
-} // namespace tools
+}

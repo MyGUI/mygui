@@ -12,6 +12,7 @@
 
 namespace tools
 {
+
 	class SettingsResourcesControl :
 		public Control
 	{
@@ -39,6 +40,7 @@ namespace tools
 
 		TextFieldControl* mTextFieldControl;
 	};
+
 }
 
 #endif

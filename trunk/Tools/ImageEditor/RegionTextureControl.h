@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __REGION_TEXTURE_CONTROL_H__
-#define __REGION_TEXTURE_CONTROL_H__
+
+#ifndef _e8af7455_9fad_4811_9d1f_cee2f8ab4d1e_
+#define _e8af7455_9fad_4811_9d1f_cee2f8ab4d1e_
 
 #include "TextureToolControl.h"
 #include "PropertyAdvisor.h"
@@ -12,9 +13,10 @@
 #include "PositionSelectorControl.h"
 #include "PositionSelectorBlackControl.h"
 
-namespace tools
+/*namespace tools
 {
-	/*class RegionTextureControl :
+
+	class RegionTextureControl :
 		public TextureToolControl,
 		public PropertyAdvisor
 	{
@@ -87,8 +89,8 @@ namespace tools
 
 		std::vector<PositionSelectorBlackControl*> mBlackSelectors;
 		MyGUI::IntCoord mCoordValue;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __REGION_TEXTURE_CONTROL_H__
+#endif

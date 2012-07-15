@@ -3,14 +3,16 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __STATE_MANAGER_H__
-#define __STATE_MANAGER_H__
+
+#ifndef _89360b4d_f172_4c02_9008_673f376bdee7_
+#define _89360b4d_f172_4c02_9008_673f376bdee7_
 
 #include <MyGUI.h>
 #include "StateController.h"
 
 namespace tools
 {
+
 	class StateManager :
 		public MyGUI::Singleton<StateManager>
 	{
@@ -50,6 +52,6 @@ namespace tools
 		VectorPairPairString mLinks;
 	};
 
-} // namespace tools
+}
 
-#endif // __STATE_MANAGER_H__
+#endif

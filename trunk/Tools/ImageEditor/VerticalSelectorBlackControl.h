@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __VERTICAL_SELECTOR_BLACK_CONTROL_H__
-#define __VERTICAL_SELECTOR_BLACK_CONTROL_H__
+
+#ifndef _12fe23cd_0f44_4609_aae4_d395a8063c3f_
+#define _12fe23cd_0f44_4609_aae4_d395a8063c3f_
 
 #include "SelectorControl.h"
 
@@ -19,6 +20,6 @@ namespace tools
 		virtual ~VerticalSelectorBlackControl();
 	};
 
-} // namespace tools
+}
 
-#endif // __VERTICAL_SELECTOR_BLACK_CONTROL_H__
+#endif

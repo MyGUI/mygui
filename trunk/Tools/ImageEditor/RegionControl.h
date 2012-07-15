@@ -3,18 +3,19 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __REGION_CONTROL_H__
-#define __REGION_CONTROL_H__
+
+#ifndef _cd5ba577_b2ad_4bbf_b707_83c403770435_
+#define _cd5ba577_b2ad_4bbf_b707_83c403770435_
 
 #include "BaseLayout/BaseLayout.h"
 #include "RegionListControl.h"
 #include "RegionPropertyControl.h"
 #include "RegionTextureControl.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class RegionControl :
+	class RegionControl :
 		public wraps::BaseLayout
 	{
 	public:
@@ -27,8 +28,8 @@ namespace tools
 		RegionListControl* mRegionListControl;
 		RegionPropertyControl* mRegionPropertyControl;
 		RegionTextureControl* mRegionTextureControl;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __REGION_CONTROL_H__
+#endif

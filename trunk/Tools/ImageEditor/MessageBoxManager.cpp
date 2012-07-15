@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "MessageBoxManager.h"
 
@@ -68,4 +69,4 @@ namespace tools
 			mMessages.erase(item);
 	}
 
-} // namespace tools
+}

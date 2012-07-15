@@ -3,15 +3,17 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "SeparatorTextureControl.h"
 #include "CommandManager.h"
 #include "Localise.h"
 #include "GridManager.h"
 
-namespace tools
+/*namespace tools
 {
-	/*SeparatorTextureControl::SeparatorTextureControl(MyGUI::Widget* _parent) :
+
+	SeparatorTextureControl::SeparatorTextureControl(MyGUI::Widget* _parent) :
 		TextureToolControl(_parent),
 		mTextureVisible(false),
 		mHorizontalSelectorControl(nullptr),
@@ -577,6 +579,6 @@ namespace tools
 	{
 		if (getActivate())
 			updateCaption();
-	}*/
+	}
 
-} // namespace tools
+}*/

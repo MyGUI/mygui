@@ -3,16 +3,18 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
-#ifndef __LIST_BOX_CONTROL_H__
-#define __LIST_BOX_CONTROL_H__
+
+#ifndef _c0b91375_3314_4f80_9d74_10ee635a2d6f_
+#define _c0b91375_3314_4f80_9d74_10ee635a2d6f_
 
 #include <MyGUI.h>
 #include "ItemBox/BaseItemBox.h"
 #include "ListBoxItemControl.h"
 
-namespace tools
+/*namespace tools
 {
-	/*class ListBoxControl :
+
+	class ListBoxControl :
 		public wraps::BaseItemBox<ListBoxItemControl>
 	{
 	public:
@@ -65,7 +67,8 @@ namespace tools
 
 	private:
 		MyGUI::PopupMenu* mContextMenu;
-	};*/
-}
+	};
+
+}*/
 
 #endif

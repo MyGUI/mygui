@@ -3,13 +3,14 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "SkinControl.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*SkinControl::SkinControl(MyGUI::Widget* _parent) :
+	SkinControl::SkinControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("SkinControl.layout", _parent),
 		mSkinListControl(nullptr),
 		mSkinPropertyControl(nullptr),
@@ -27,6 +28,6 @@ namespace tools
 	void SkinControl::setActivate(bool _value)
 	{
 		mSkinTextureControl->setActivate(_value);
-	}*/
+	}
 
-} // namespace tools
+}*/

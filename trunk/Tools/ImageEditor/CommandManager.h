@@ -3,13 +3,15 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __COMMAND_MANAGER_H__
-#define __COMMAND_MANAGER_H__
+
+#ifndef _76731bb0_9d85_4b74_a603_1b3f5f6a8067_
+#define _76731bb0_9d85_4b74_a603_1b3f5f6a8067_
 
 #include <MyGUI.h>
 
 namespace tools
 {
+
 	typedef MyGUI::delegates::CMultiDelegate2<const MyGUI::UString&, bool&> CommandDelegate;
 
 	class CommandManager :
@@ -36,6 +38,6 @@ namespace tools
 		MyGUI::UString mData;
 	};
 
-} // namespace tools
+}
 
-#endif // __COMMAND_MANAGER_H__
+#endif

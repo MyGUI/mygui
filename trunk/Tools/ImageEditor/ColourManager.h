@@ -3,14 +3,16 @@
 	@author		Albert Semenov
 	@date		09/2010
 */
-#ifndef __COLOUR_MANAGER_H__
-#define __COLOUR_MANAGER_H__
+
+#ifndef _aece60c1_4ddf_414b_b272_9e0962156c24_
+#define _aece60c1_4ddf_414b_b272_9e0962156c24_
 
 #include <MyGUI.h>
 #include "ColourPanel.h"
 
 namespace tools
 {
+
 	class ColourManager :
 		public MyGUI::Singleton<ColourManager>
 	{
@@ -40,6 +42,6 @@ namespace tools
 		std::string mCurrentColourType;
 	};
 
-} // namespace tools
+}
 
-#endif // __COLOUR_MANAGER_H__
+#endif

@@ -3,15 +3,18 @@
 	@author		George Evmenov
 	@date		03/2011
 */
-#ifndef __GRID_H__
-#define __GRID_H__
+
+#ifndef _8ff292d0_326a_4105_8cf2_e1648d87659e_
+#define _8ff292d0_326a_4105_8cf2_e1648d87659e_
 
 #include <MyGUI_Singleton.h>
 #include "BaseLayout/BaseLayout.h"
 
 namespace tools
 {
-	class GridManager : public MyGUI::Singleton<GridManager>
+
+	class GridManager :
+		public MyGUI::Singleton<GridManager>
 	{
 	public:
 		GridManager();
@@ -28,6 +31,6 @@ namespace tools
 		int mGridStep;
 	};
 
-} // namespace tools
+}
 
-#endif // __GRID_H__
+#endif

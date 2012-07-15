@@ -3,17 +3,18 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __SEPARATOR_LIST_CONTROL_H__
-#define __SEPARATOR_LIST_CONTROL_H__
+
+#ifndef _c102caee_550e_490f_ae66_4d1d56a92e6c_
+#define _c102caee_550e_490f_ae66_4d1d56a92e6c_
 
 #include "BaseLayout/BaseLayout.h"
 #include "SkinItem.h"
 #include "PropertyAdvisor.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class SeparatorListControl :
+	class SeparatorListControl :
 		public wraps::BaseLayout,
 		public PropertyAdvisor
 	{
@@ -40,8 +41,8 @@ namespace tools
 
 		MyGUI::ListBox* mList;
 		MyGUI::ComboBox* mPresets;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __SEPARATOR_LIST_CONTROL_H__
+#endif

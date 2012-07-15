@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __HOT_KEY_MANAGER_H__
-#define __HOT_KEY_MANAGER_H__
+
+#ifndef _a64ca567_5ede_4f68_bc3d_2cc6a37a3863_
+#define _a64ca567_5ede_4f68_bc3d_2cc6a37a3863_
 
 #include <MyGUI.h>
 #include "HotKeyCommand.h"
@@ -38,6 +39,6 @@ namespace tools
 		MapCommand mCommands;
 	};
 
-} // namespace tools
+}
 
-#endif // __HOT_KEY_MANAGER_H__
+#endif

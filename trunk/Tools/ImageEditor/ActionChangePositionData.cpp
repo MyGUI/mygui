@@ -11,6 +11,7 @@
 
 namespace tools
 {
+
 	ActionChangePositionData::ActionChangePositionData() :
 		mData1(nullptr),
 		mData2(nullptr),
@@ -59,4 +60,5 @@ namespace tools
 	{
 		mData2 = _data;
 	}
+
 }

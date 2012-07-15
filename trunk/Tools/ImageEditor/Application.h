@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #ifndef _e5a988fe_bba2_480f_a287_d5c967f58266_
 #define _e5a988fe_bba2_480f_a287_d5c967f58266_
 
@@ -13,6 +14,7 @@
 
 namespace tools
 {
+
 	class Application :
 		public base::BaseManager,
 		public MyGUI::Singleton<Application>,
@@ -60,6 +62,7 @@ namespace tools
 		std::string mLocale;
 		VectorWString mParams;
 	};
+
 }
 
 #endif

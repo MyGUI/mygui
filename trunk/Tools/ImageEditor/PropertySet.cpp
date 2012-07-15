@@ -3,13 +3,14 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "PropertySet.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*PropertySet::PropertySet()
+	PropertySet::PropertySet()
 	{
 	}
 
@@ -132,5 +133,4 @@ namespace tools
 		}
 	}
 
-	*/
-} // namespace tools
+}*/

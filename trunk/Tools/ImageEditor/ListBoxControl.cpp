@@ -3,12 +3,13 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #include "Precompiled.h"
 #include "ListBoxControl.h"
 
-namespace tools
+/*namespace tools
 {
-	/*ListBoxControl::ListBoxControl(MyGUI::Widget* _parent) :
+	ListBoxControl::ListBoxControl(MyGUI::Widget* _parent) :
 		wraps::BaseItemBox<ListBoxItemControl>(_parent),
 		mContextMenu(nullptr)
 	{
@@ -231,5 +232,6 @@ namespace tools
 		if (widget != nullptr)
 			return MyGUI::IntCoord(widget->getAbsoluteLeft(), widget->getAbsoluteTop(), widget->getWidth(), widget->getHeight());
 		return MyGUI::IntCoord();
-	}*/
-}
+	}
+
+}*/

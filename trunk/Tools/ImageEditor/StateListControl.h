@@ -3,17 +3,18 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __STATES_LIST_CONTROL_H__
-#define __STATES_LIST_CONTROL_H__
+
+#ifndef _88a270ae_2c9a_4df4_81fd_5ad2351804c1_
+#define _88a270ae_2c9a_4df4_81fd_5ad2351804c1_
 
 #include "BaseLayout/BaseLayout.h"
 #include "SkinItem.h"
 #include "PropertyAdvisor.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class StatesListControl :
+	class StatesListControl :
 		public wraps::BaseLayout,
 		public PropertyAdvisor
 	{
@@ -40,8 +41,8 @@ namespace tools
 		MyGUI::UString mTypeName;
 		MyGUI::ListBox* mList;
 		MyGUI::ComboBox* mPresets;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __STATES_LIST_CONTROL_H__
+#endif

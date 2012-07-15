@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #ifndef _992be787_40d0_4bde_8e4c_db4ba7a18854_
 #define _992be787_40d0_4bde_8e4c_db4ba7a18854_
 
@@ -12,6 +13,7 @@
 
 namespace tools
 {
+
 	class ActionCreateData :
 		public Action
 	{
@@ -35,6 +37,7 @@ namespace tools
 		Data* mParent;
 		bool mComplete;
 	};
+
 }
 
 #endif

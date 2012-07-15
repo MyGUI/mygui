@@ -3,14 +3,15 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "SkinPropertyControl.h"
 #include "SkinManager.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*SkinPropertyControl::SkinPropertyControl(MyGUI::Widget* _parent) :
+	SkinPropertyControl::SkinPropertyControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("SkinPropertyControl.layout", _parent),
 		mPropertyCoordControl(nullptr),
 		mPropertyTexturesControl(nullptr)
@@ -31,6 +32,6 @@ namespace tools
 		SkinItem* skin = getCurrentSkin();
 		mPropertyCoordControl->setProperty(skin != nullptr ? skin->getPropertySet()->getChild("Coord") : nullptr);
 		mPropertyTexturesControl->setProperty(skin != nullptr ? skin->getPropertySet()->getChild("Texture") : nullptr);
-	}*/
+	}
 
-} // namespace tools
+}*/

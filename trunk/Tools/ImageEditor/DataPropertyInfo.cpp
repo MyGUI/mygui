@@ -9,6 +9,7 @@
 
 namespace tools
 {
+
 	DataPropertyInfo::DataPropertyInfo()
 	{
 	}
@@ -38,4 +39,5 @@ namespace tools
 	{
 		return mDefaultValue;
 	}
+
 }

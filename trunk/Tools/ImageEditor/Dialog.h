@@ -3,13 +3,15 @@
 	@author		Albert Semenov
 	@date		09/2008
 */
-#ifndef __DIALOG_H__
-#define __DIALOG_H__
+
+#ifndef _1b12f1d3_3f8d_4436_a78b_bac3214b47db_
+#define _1b12f1d3_3f8d_4436_a78b_bac3214b47db_
 
 #include <MyGUI.h>
 
 namespace tools
 {
+
 	class Dialog
 	{
 	public:
@@ -36,6 +38,6 @@ namespace tools
 		MyGUI::Widget* mRootWidget;
 	};
 
-} // namespace tools
+}
 
-#endif // __DIALOG_H__
+#endif

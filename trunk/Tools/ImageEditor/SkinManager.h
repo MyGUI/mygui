@@ -3,16 +3,17 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __SKIN_MANAGER_H__
-#define __SKIN_MANAGER_H__
+
+#ifndef _54adfd9e_558b_474e_b5cf_852274305e79_
+#define _54adfd9e_558b_474e_b5cf_852274305e79_
 
 #include "SkinItem.h"
 #include "ItemHolder.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class SkinManager :
+	class SkinManager :
 		public MyGUI::Singleton<SkinManager>,
 		public ItemHolder<SkinItem>,
 		public MyGUI::ISerializable
@@ -32,8 +33,8 @@ namespace tools
 	private:
 		void _serialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
 		//void _deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __SKIN_MANAGER_H__
+#endif

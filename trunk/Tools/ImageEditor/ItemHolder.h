@@ -3,12 +3,13 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __ITEM_HOLDER_H__
-#define __ITEM_HOLDER_H__
+
+#ifndef _0bc094f6_7aec_40d5_94ce_5441eb881934_
+#define _0bc094f6_7aec_40d5_94ce_5441eb881934_
 
 #include <MyGUI.h>
 
-namespace tools
+/*namespace tools
 {
 
 	template <typename T>
@@ -139,6 +140,6 @@ namespace tools
 		T* mItemSelected;
 	};
 
-} // namespace tools
+}*/
 
-#endif // __ITEM_HOLDER_H__
+#endif

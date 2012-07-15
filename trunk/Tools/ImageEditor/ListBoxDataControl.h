@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #ifndef _b0713d87_24ee_44cf_bee9_c96494be178e_
 #define _b0713d87_24ee_44cf_bee9_c96494be178e_
 
@@ -13,6 +14,7 @@
 
 namespace tools
 {
+
 	class ListBoxDataControl :
 		public Control,
 		public sigslot::has_slots<>
@@ -52,6 +54,7 @@ namespace tools
 		TextFieldControl* mTextFieldControl;
 		bool mEnableChangePosition;
 	};
+
 }
 
 #endif

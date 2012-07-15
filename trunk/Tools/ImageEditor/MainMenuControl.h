@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __MAIN_MENU_CONTROL_H__
-#define __MAIN_MENU_CONTROL_H__
+
+#ifndef _77263d40_3ebd_4f36_abc7_64ce6f294aef_
+#define _77263d40_3ebd_4f36_abc7_64ce6f294aef_
 
 #include "Control.h"
 
@@ -30,6 +31,6 @@ namespace tools
 		MyGUI::MenuBar* mMainMenu;
 	};
 
-} // namespace tools
+}
 
-#endif // __MAIN_MENU_CONTROL_H__
+#endif

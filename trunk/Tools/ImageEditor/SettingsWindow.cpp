@@ -11,6 +11,7 @@
 
 namespace tools
 {
+
 	FACTORY_ITEM_ATTRIBUTE(SettingsWindow);
 
 	SettingsWindow::SettingsWindow() :
@@ -87,4 +88,5 @@ namespace tools
 
 		mTabSettings->setIndexSelected(_index);
 	}
+
 }

@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #ifndef _075ca0ae_fb89_4108_881e_3eca688913d4_
 #define _075ca0ae_fb89_4108_881e_3eca688913d4_
 
@@ -12,6 +13,7 @@
 
 namespace tools
 {
+
 	class DataListBaseControl :
 		public Control,
 		public sigslot::has_slots<>
@@ -42,6 +44,7 @@ namespace tools
 		std::string mCurrentType;
 		std::string mPropertyForName;
 	};
+
 }
 
 #endif

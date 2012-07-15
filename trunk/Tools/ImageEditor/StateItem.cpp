@@ -3,13 +3,14 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "StateItem.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*StateItem::StateItem() :
+	StateItem::StateItem() :
 		mPropertySet(nullptr)
 	{
 		mPropertySet = new PropertySet();
@@ -45,6 +46,6 @@ namespace tools
 
 		MyGUI::xml::Element* node = _node->createChild("PropertySet");
 		mPropertySet->serialization(node, _version);
-	}*/
+	}
 
-} // namespace tools
+}*/

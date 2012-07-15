@@ -3,14 +3,16 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __SETTINGS_MANAGER_H__
-#define __SETTINGS_MANAGER_H__
+
+#ifndef _a0cda403_f913_404c_a422_f70caab3fa05_
+#define _a0cda403_f913_404c_a422_f70caab3fa05_
 
 #include <MyGUI.h>
 #include "SettingsSector.h"
 
 namespace tools
 {
+
 	typedef MyGUI::delegates::CMultiDelegate2<const MyGUI::UString&, const MyGUI::UString&> EventSectorSettingsChanged;
 
 	class SettingsManager :
@@ -43,6 +45,6 @@ namespace tools
 		MyGUI::UString mUserFileName;
 	};
 
-} // namespace tools
+}
 
-#endif // __SETTINGS_MANAGER_H__
+#endif

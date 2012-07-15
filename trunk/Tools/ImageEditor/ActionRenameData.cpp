@@ -11,6 +11,7 @@
 
 namespace tools
 {
+
 	ActionRenameData::ActionRenameData() :
 		mData(nullptr)
 	{
@@ -46,4 +47,5 @@ namespace tools
 	{
 		mName = _value;
 	}
+
 }

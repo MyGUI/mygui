@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		09/2010
 */
+
 #ifndef _b8560ae2_b63d_469a_9007_4562b883e6e1_
 #define _b8560ae2_b63d_469a_9007_4562b883e6e1_
 
@@ -10,6 +11,7 @@
 
 namespace tools
 {
+
 	class SettingsGeneralControl :
 		public Control
 	{
@@ -41,6 +43,7 @@ namespace tools
 		MyGUI::Button* mSaveLastTexture;
 		MyGUI::ComboBox* mInterfaceLanguage;
 	};
+
 }
 
 #endif

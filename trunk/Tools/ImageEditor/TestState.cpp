@@ -3,16 +3,17 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "TestState.h"
 #include "CommandManager.h"
 #include "StateManager.h"
 #include "SkinManager.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*TestState::TestState() :
+	TestState::TestState() :
 		mTestWindow(nullptr)
 	{
 	}
@@ -57,6 +58,6 @@ namespace tools
 		_sender->endModal();
 
 		StateManager::getInstance().stateEvent(this, "Exit");
-	}*/
+	}
 
-} // namespace tools
+}*/

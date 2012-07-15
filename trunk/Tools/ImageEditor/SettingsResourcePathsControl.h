@@ -12,6 +12,7 @@
 
 namespace tools
 {
+
 	class SettingsResourcePathsControl :
 		public Control
 	{
@@ -39,6 +40,7 @@ namespace tools
 
 		OpenSaveFileDialog* mOpenSaveFileDialog;
 	};
+
 }
 
 #endif
