@@ -24,6 +24,7 @@
 #include "DataManager.h"
 #include "DataTypeManager.h"
 #include "DataSelectorManager.h"
+#include "ScopeManager.h"
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
@@ -101,6 +102,8 @@ namespace tools
 		new GridManager();
 		GridManager::getInstance().initialise();
 
+		new ScopeManager();
+		ScopeManager::getInstance().initialise();
 	
 		new tools::DataTypeManager();
 		tools::DataTypeManager::getInstance().initialise();
@@ -156,6 +159,9 @@ namespace tools
 
 		delete mEditorState;
 		mEditorState = nullptr;
+
+		ScopeManager::getInstance().shutdown();
+		delete ScopeManager::getInstancePtr();
 
 		GridManager::getInstance().shutdown();
 		delete GridManager::getInstancePtr();
