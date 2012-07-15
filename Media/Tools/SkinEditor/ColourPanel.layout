@@ -46,17 +46,17 @@
         <Widget type="TextBox" skin="TextBox" position="260 61 73 26" align="Right Top">
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="Caption" value="#{ColourBlue}"/>
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
         </Widget>
         <Widget type="TextBox" skin="TextBox" position="260 33 73 26" align="Right Top">
             <Property key="TextAlign" value="Right VCenter"/>
             <Property key="Caption" value="#{ColourGreen}"/>
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
         </Widget>
         <Widget type="TextBox" skin="TextBox" position="260 7 73 24" align="Right Top">
             <Property key="Caption" value="#{ColourRed}"/>
             <Property key="TextAlign" value="Right VCenter"/>
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
         </Widget>
         <Widget type="EditBox" skin="EditBox_Dark" position="338 63 44 20" align="Right Top" name="edit_Blue">
             <Property key="Caption" value="256"/>
@@ -82,7 +82,7 @@
         <Widget type="TextBox" skin="TextBox" position="260 88 73 26" align="Right Top" name="TextAlpha">
             <Property key="Caption" value="#{ColourAlpha}"/>
             <Property key="TextAlign" value="Right VCenter"/>
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
         </Widget>
         <Widget type="EditBox" skin="EditBox_Dark" position="338 90 44 20" align="Right Top" name="InputAlpha">
             <Property key="TextAlign" value="Center"/>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI>
 	<MyGUI type="Font">
-		<Property key="Default" value="DejaVuSansFont.15"/>
+		<Property key="Default" value="DejaVuSansFont_15"/>
 	</MyGUI>
 	<MyGUI type="Pointer">
 		<Property key="Default" value="arrow"/>

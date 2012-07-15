@@ -5,7 +5,7 @@
         <Widget type="TextBox" skin="TextBox" position="3 8 413 24" align="HStretch Top">
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="Caption" value="#{TextAdditionalResources}"/>
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
         </Widget>
         <Widget type="ListBox" skin="ListBox_Dark" position="3 37 415 112" align="Stretch" name="Resources"/>
         <Widget type="Button" skin="Button_Dark" position="298 160 120 20" align="Right Bottom" name="ResourceAdd">

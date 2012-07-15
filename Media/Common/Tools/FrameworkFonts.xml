@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource" version="1.1">
-	<Resource type="ResourceTrueTypeFont" name="DejaVuSansFont.13">
+	<Resource type="ResourceTrueTypeFont" name="DejaVuSansFont_13">
 		<Property key="Source" value="DejaVuSans.ttf"/>
 		<Property key="Size" value="8"/>
 		<Property key="Hinting" value="disable_auto"/>
@@ -12,7 +12,19 @@
 			<Code hide="1104"/>
 		</Codes>
 	</Resource>
-	<Resource type="ResourceManualFont" name="MicroFont.11">
+	<Resource type="ResourceTrueTypeFont" name="DejaVuSans_28">
+		<Property key="Source" value="DejaVuSans.ttf"/>
+		<Property key="Size" value="17"/>
+		<Property key="Hinting" value="disable_auto"/>
+		<Codes>
+			<Code range="32 126"/>
+			<Code range="1025 1105"/>
+			<Code hide="8470 8470"/>
+			<Code hide="1026 1039"/>
+			<Code hide="1104"/>
+		</Codes>
+	</Resource>
+	<Resource type="ResourceManualFont" name="MicroFont_11">
 		<Property key="Source" value="MicroFont.png"/>
 		<Property key="DefaultHeight" value="11"/>
 		<Codes>

@@ -2,17 +2,17 @@
 <MyGUI type="Resource">
     <Resource type="ResourceLayout" name="Button_Dark" version="3.2.0">
         <Widget type="Widget" skin="ButtonSkin_Dark" position="20 20 50 20" name="Root">
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
             <Property key="TextAlign" value="Center"/>
             <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="EditBox_Dark" version="3.2.0">
         <Widget type="Widget" skin="EditBoxSkin_Dark" position="20 20 50 20" name="Root">
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
             <UserString key="LE_TargetWidgetType" value="EditBox"/>
             <Widget type="TextBox" skin="EditClientSkin_Dark" position="2 2 46 16" align="Stretch" name="Client">
-                <Property key="FontName" value="DejaVuSansFont.13"/>
+                <Property key="FontName" value="DejaVuSansFont_13"/>
                 <Property key="TextAlign" value="Left VCenter"/>
                 <Property key="Pointer" value="beam"/>
             </Widget>
@@ -20,11 +20,11 @@
     </Resource>
     <Resource type="ResourceLayout" name="EditBoxStretch_Dark" version="3.2.0">
         <Widget type="Widget" skin="EditBoxSkin_Dark" position="20 20 50 50" name="Root">
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
             <Property key="MultiLine" value="true"/>
             <UserString key="LE_TargetWidgetType" value="EditBox"/>
             <Widget type="TextBox" skin="EditClientSkin_Dark" position="2 2 32 32" align="Stretch" name="Client">
-                <Property key="FontName" value="DejaVuSansFont.13"/>
+                <Property key="FontName" value="DejaVuSansFont_13"/>
                 <Property key="TextAlign" value="Left Top"/>
                 <Property key="Pointer" value="beam"/>
             </Widget>
@@ -36,7 +36,7 @@
         <Widget type="Widget" skin="WindowSkin_Dark" position="20 20 50 50" name="Root">
             <UserString key="LE_TargetWidgetType" value="Window"/>
             <Widget type="TextBox" skin="TextBox" position="4 4 40 16" align="HStretch Top" name="Caption">
-                <Property key="FontName" value="DejaVuSansFont.13"/>
+                <Property key="FontName" value="DejaVuSansFont_13"/>
                 <Property key="TextAlign" value="Left VCenter"/>
             </Widget>
             <Widget type="Widget" skin="PanelEmpty" position="3 24 42 21" align="Stretch" name="Client"/>
@@ -46,7 +46,7 @@
         <Widget type="Widget" skin="WindowSkin_Dark" position="20 20 50 50" name="Root">
             <UserString key="LE_TargetWidgetType" value="Window"/>
             <Widget type="TextBox" skin="TextBox" position="4 4 24 16" align="HStretch Top" name="Caption">
-                <Property key="FontName" value="DejaVuSansFont.13"/>
+                <Property key="FontName" value="DejaVuSansFont_13"/>
                 <Property key="TextAlign" value="Left VCenter"/>
             </Widget>
             <Widget type="Widget" skin="PanelEmpty" position="3 24 42 21" align="Stretch" name="Client"/>
@@ -59,7 +59,7 @@
         <Widget type="Widget" skin="WindowSkin_Dark" position="20 20 50 50" name="Root">
             <UserString key="LE_TargetWidgetType" value="Window"/>
             <Widget type="TextBox" skin="TextBox" position="4 4 24 16" align="HStretch Top" name="Caption">
-                <Property key="FontName" value="DejaVuSansFont.13"/>
+                <Property key="FontName" value="DejaVuSansFont_13"/>
                 <Property key="TextAlign" value="Left VCenter"/>
             </Widget>
             <Widget type="Widget" skin="PanelEmpty" position="3 24 42 21" align="Stretch" name="Client"/>
@@ -77,7 +77,7 @@
     <Resource type="ResourceLayout" name="ListBoxItem_Dark" version="3.2.0">
         <Widget type="Widget" skin="ListBoxItemSkin_Dark" position="20 20 20 20" name="Root">
             <Property key="TextAlign" value="Left VCenter"/>
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
             <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
@@ -108,7 +108,7 @@
         <Widget type="Widget" skin="EditBoxSkin_Dark" position="20 20 50 20" name="Root">
             <UserString key="LE_TargetWidgetType" value="ComboBox"/>
             <Widget type="TextBox" skin="EditClientSkin_Dark" position="2 3 32 15" align="Stretch" name="Client">
-                <Property key="FontName" value="DejaVuSansFont.13"/>
+                <Property key="FontName" value="DejaVuSansFont_13"/>
                 <Property key="TextAlign" value="Left VCenter"/>
                 <Property key="Pointer" value="beam"/>
             </Widget>
@@ -120,13 +120,13 @@
     </Resource>
     <Resource type="ResourceLayout" name="CheckBox_Dark" version="3.2.0">
         <Widget type="Widget" skin="CheckBoxSkin_Dark" position="20 20 12 12" name="Root">
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
             <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="RadioButton_Dark" version="3.2.0">
         <Widget type="Widget" skin="RadioButtonSkin_Bark" position="20 20 12 12" name="Root">
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
             <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
@@ -271,7 +271,7 @@
     </Resource>
     <Resource type="ResourceLayout" name="MenuBarButton_Dark" version="3.2.0">
         <Widget type="Widget" skin="MenuBarButtonSkin_Dark" position="20 20 20 20" name="Root">
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
             <Property key="TextAlign" value="Center"/>
             <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
@@ -306,7 +306,7 @@
     </Resource>
     <Resource type="ResourceLayout" name="PopupMenuNormal_Dark" version="3.2.0">
         <Widget type="Widget" skin="PopupMenuItemNormalSkin_Dark" position="20 25 43 14" name="Root">
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
             <Property key="TextAlign" value="Left VCenter"/>
             <UserString key="LE_TargetWidgetType" value="Button"/>
             <Widget type="Widget" skin="PopupMenuCheckSkin_Dark" position="2 3 10 8" align="Left VCenter" name="Check"/>
@@ -314,7 +314,7 @@
     </Resource>
     <Resource type="ResourceLayout" name="PopupMenuPopup_Dark" version="3.2.0">
         <Widget type="Widget" skin="PopupMenuItemNormalSkin_Dark" position="20 25 43 14" name="Root">
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
             <Property key="TextAlign" value="Left VCenter"/>
             <UserString key="LE_TargetWidgetType" value="Button"/>
             <Widget type="Widget" skin="PopupMenuExpSkin_Dark" position="33 1 8 12" align="Right VCenter">
@@ -324,14 +324,14 @@
     </Resource>
     <Resource type="ResourceLayout" name="TabButton1_Dark" version="3.2.0">
         <Widget type="Widget" skin="TabButton1Skin_Dark" position="20 20 50 20" name="Root">
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
             <Property key="TextAlign" value="Center"/>
             <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="TabButton2_Dark" version="3.2.0">
         <Widget type="Widget" skin="TabButton2Skin_Dark" position="20 20 50 20" name="Root">
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
             <Property key="TextAlign" value="Center"/>
             <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
@@ -385,10 +385,10 @@
     </Resource>
     <Resource type="ResourceLayout" name="EditBox2_Dark" version="3.2.0">
         <Widget type="Widget" skin="ListBox2Skin_Dark" position="20 20 50 20" name="Root">
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
             <UserString key="LE_TargetWidgetType" value="EditBox"/>
             <Widget type="TextBox" skin="EditClientSkin_Dark" position="2 2 46 16" align="Stretch" name="Client">
-                <Property key="FontName" value="DejaVuSansFont.13"/>
+                <Property key="FontName" value="DejaVuSansFont_13"/>
                 <Property key="TextAlign" value="Left VCenter"/>
                 <Property key="Pointer" value="beam"/>
             </Widget>
@@ -417,14 +417,14 @@
     </Resource>
     <Resource type="ResourceLayout" name="MenuBarButton2_Dark" version="3.2.0">
         <Widget type="Widget" skin="MenuBarButton2Skin_Dark" position="20 20 20 20" name="Root">
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
             <Property key="TextAlign" value="Center"/>
             <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="PopupMenuNormal2_Dark" version="3.2.0">
         <Widget type="Widget" skin="PopupMenuItemNormal2Skin_Dark" position="20 25 43 14" name="Root">
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
             <Property key="TextAlign" value="Left VCenter"/>
             <UserString key="LE_TargetWidgetType" value="Button"/>
             <Widget type="Widget" skin="PopupMenuCheckSkin_Dark" position="2 3 10 8" align="Left VCenter" name="Check"/>
@@ -432,7 +432,7 @@
     </Resource>
     <Resource type="ResourceLayout" name="PopupMenuPopup2_Dark" version="3.2.0">
         <Widget type="Widget" skin="PopupMenuItemNormal2Skin_Dark" position="20 25 43 14" name="Root">
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
             <Property key="TextAlign" value="Left VCenter"/>
             <UserString key="LE_TargetWidgetType" value="Button"/>
             <Widget type="Widget" skin="PopupMenuExpSkin_Dark" position="33 1 8 12" align="Right VCenter">
@@ -466,7 +466,7 @@
         <Widget type="Widget" skin="Window2Skin_Dark" position="20 20 50 50" name="Root">
             <UserString key="LE_TargetWidgetType" value="Window"/>
             <Widget type="TextBox" skin="TextBox" position="4 4 24 16" align="HStretch Top" name="Caption">
-                <Property key="FontName" value="DejaVuSansFont.13"/>
+                <Property key="FontName" value="DejaVuSansFont_13"/>
                 <Property key="TextAlign" value="Left VCenter"/>
             </Widget>
             <Widget type="Widget" skin="PanelEmpty" position="3 22 42 23" align="Stretch" name="Client"/>
