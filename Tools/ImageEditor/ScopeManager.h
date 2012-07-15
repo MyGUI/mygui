@@ -8,7 +8,7 @@
 #define _a7965834_942c_4633_8ac1_01eedbd48d34_
 
 #include <MyGUI_Singleton.h>
-#include "BaseLayout/BaseLayout.h"
+#include "sigslot.h"
 
 namespace tools
 {
@@ -22,6 +22,16 @@ namespace tools
 
 		void initialise();
 		void shutdown();
+
+		const std::string& getCurrentScope() const;
+
+		sigslot::signal1<const std::string&> eventChangeScope;
+
+	private:
+		void commandChangeScope(const MyGUI::UString& _commandName, bool& _result);
+
+	private:
+		std::string mCurrentScope;
 	};
 
 }

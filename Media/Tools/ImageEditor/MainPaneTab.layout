@@ -4,7 +4,7 @@
         <UserString key="SnapTo" value="Stretch"/>
         <Widget type="TabItem" skin="" position="2 22 491 302">
             <Property key="Caption" value="#{TabImages}"/>
-            <UserString key="CommandActivate" value="Command_ImageScope"/>
+            <UserString key="CommandActivate" value="Command_ChangeScope.Image"/>
             <Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
                 <UserString key="ControlType" value="ImageListControl"/>
                 <UserString key="ControlLayout" value="ImageListControl.layout"/>
@@ -12,7 +12,7 @@
         </Widget>
         <Widget type="TabItem" skin="" position="2 22 491 302">
             <Property key="Caption" value="#{TabGroups}"/>
-            <UserString key="CommandActivate" value="Command_GroupScope"/>
+            <UserString key="CommandActivate" value="Command_ChangeScope.Group"/>
             <Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
                 <UserString key="ControlType" value="GroupListControl"/>
                 <UserString key="ControlLayout" value="GroupListControl.layout"/>
@@ -20,7 +20,7 @@
         </Widget>
         <Widget type="TabItem" skin="" position="2 22 491 302">
             <Property key="Caption" value="#{TabIndexes}"/>
-            <UserString key="CommandActivate" value="Command_IndexScope"/>
+            <UserString key="CommandActivate" value="Command_ChangeScope.Index"/>
             <Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
                 <UserString key="ControlType" value="IndexListControl"/>
                 <UserString key="ControlLayout" value="IndexListControl.layout"/>
@@ -28,7 +28,7 @@
         </Widget>
         <Widget type="TabItem" skin="" position="2 22 491 302">
             <Property key="Caption" value="#{TabFrames}"/>
-            <UserString key="CommandActivate" value="Command_FrameScope"/>
+            <UserString key="CommandActivate" value="Command_ChangeScope.Frame"/>
             <Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
                 <UserString key="ControlType" value="FrameListControl"/>
                 <UserString key="ControlLayout" value="FrameListControl.layout"/>
