@@ -93,4 +93,6 @@
 	<Tag name="MessageIncorrectFileFormat">Файл : #{\n}'#{CurrentFileName}'#{\n}не соответствует формату.</Tag>
 	<Tag name="FormatRecentFile">#{IndexRecentFile}: #{RecentFile}</Tag>
 	<Tag name="SkinNamePattern">Имя скина #{SkinNameIndex}</Tag>
+	<Tag name="PropertyPanel">Свойства</Tag>
+	<Tag name="TexturePanel">Предпросмотр</Tag>
 </MyGUI>
