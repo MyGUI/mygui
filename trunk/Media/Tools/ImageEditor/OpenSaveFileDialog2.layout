@@ -1,13 +1,25 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="Window" skin="WindowCSX" position="136 104 400 352" layer="Overlapped" name="_Main">
+    <Widget type="Window" skin="WindowCX2_Dark" position="40 40 478 376" align="Center" layer="Overlapped" name="Root">
         <Property key="MinSize" value="200 200"/>
-        <Widget type="EditBox" skin="EditBox" position="2 286 286 28" align="HStretch Bottom" name="EditFileName"/>
-        <Widget type="ListBox" skin="ListBox" position="2 30 388 255" align="Stretch" name="ListFiles"/>
-        <Widget type="Button" skin="Button" position="289 287 100 27" align="Right Bottom" name="ButtonOpenSave"/>
-        <Widget type="ComboBox" skin="ComboBox" position="56 3 334 27" align="HStretch Top" name="CurrentFolder"/>
-        <Widget type="Button" skin="Button" position="2 3 54 27" name="ButtonUp">
-            <Property key="Caption" value="#{ButtonUp}"/>
+        <UserString key="SnapTo" value="Center"/>
+        <UserString key="CommandClose" value="Command_OpenSaveCancel"/>
+        <Widget type="EditBox" skin="EditBox_Dark" position="6 320 279 20" align="HStretch Bottom" name="EditFileName">
+            <UserString key="CommandAccept" value="Command_OpenSaveAccept"/>
         </Widget>
+        <Widget type="ListBox" skin="ListBox_Dark" position="6 37 459 265" align="Stretch" name="ListFiles"/>
+        <Widget type="Button" skin="Button_Dark" position="295 320 80 20" align="Right Bottom" name="ButtonOpenSave">
+            <UserString key="CommandClick" value="Command_OpenSaveAccept"/>
+        </Widget>
+        <Widget type="ComboBox" skin="ComboBox_Dark" position="6 7 386 20" align="HStretch Top" name="CurrentFolder"/>
+        <Widget type="Button" skin="Button_Dark" position="401 7 64 20" name="ButtonUp">
+            <Property key="Caption" value="#{ButtonUp}"/>
+            <UserString key="CommandClick" value="Command_OpenSaveFolderUp"/>
+        </Widget>
+        <Widget type="Button" skin="Button_Dark" position="384 320 80 20" align="Right Bottom">
+            <Property key="Caption" value="#{Cancel}"/>
+            <UserString key="CommandClick" value="Command_OpenSaveCancel"/>
+        </Widget>
+        <Widget type="Widget" skin="PopupMenuSeparator_Dark" position="5 309 460 1"/>
     </Widget>
 </MyGUI>

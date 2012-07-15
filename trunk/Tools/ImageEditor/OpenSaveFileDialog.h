@@ -3,21 +3,22 @@
 	@author		Albert Semenov
 	@date		09/2008
 */
-#ifndef __OPEN_SAVE_FILE_DIALOG_H__
-#define __OPEN_SAVE_FILE_DIALOG_H__
+#ifndef _75bf3bc8_5f9f_4d93_ad22_949d0cd2f50b_
+#define _75bf3bc8_5f9f_4d93_ad22_949d0cd2f50b_
 
 #include <MyGUI.h>
 #include "Dialog.h"
-#include "BaseLayout/BaseLayout.h"
+#include "Control.h"
 
 namespace tools
 {
 	class OpenSaveFileDialog :
 		public Dialog,
-		public wraps::BaseLayout
+		public Control
 	{
 	public:
 		OpenSaveFileDialog();
+		virtual ~OpenSaveFileDialog();
 
 		void setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button, bool _folderMode = false);
 
@@ -40,15 +41,18 @@ namespace tools
 		virtual void onDoModal();
 		virtual void onEndModal();
 
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+
 	private:
-		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
+		bool checkCommand();
+		void commandOpenSaveAccept(const MyGUI::UString& _commandName, bool& _result);
+		void commandOpenSaveCancel(const MyGUI::UString& _commandName, bool& _result);
+		void commandOpenSaveFolderUp(const MyGUI::UString& _commandName, bool& _result);
+
 		void notifyDirectoryComboAccept(MyGUI::ComboBox* _sender, size_t _index);
 		void notifyDirectoryComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
 		void notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index);
 		void notifyListSelectAccept(MyGUI::ListBox* _sender, size_t _index);
-		void notifyEditSelectAccept(MyGUI::EditBox* _sender);
-		void notifyMouseButtonClick(MyGUI::Widget* _sender);
-		void notifyUpButtonClick(MyGUI::Widget* _sender);
 
 		void update();
 		void accept();
@@ -56,10 +60,8 @@ namespace tools
 		void upFolder();
 
 	private:
-		MyGUI::Window* mWindow;
 		MyGUI::ListBox* mListFiles;
 		MyGUI::EditBox* mEditFileName;
-		MyGUI::Button* mButtonUp;
 		MyGUI::ComboBox* mCurrentFolderField;
 		MyGUI::Button* mButtonOpenSave;
 
@@ -70,7 +72,6 @@ namespace tools
 		MyGUI::UString mMode;
 		bool mFolderMode;
 	};
+}
 
-} // namespace tools
-
-#endif // __OPEN_SAVE_FILE_DIALOG_H__
+#endif

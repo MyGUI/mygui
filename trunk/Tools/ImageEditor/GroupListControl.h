@@ -17,6 +17,7 @@ namespace tools
 		GroupListControl();
 		virtual ~GroupListControl();
 
+	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 	};
 }

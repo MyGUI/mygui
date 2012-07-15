@@ -17,6 +17,7 @@ namespace tools
 		FrameListControl();
 		virtual ~FrameListControl();
 
+	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 	};
 }
