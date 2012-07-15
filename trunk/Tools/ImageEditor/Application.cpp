@@ -104,7 +104,7 @@ namespace tools
 	
 		new tools::DataTypeManager();
 		tools::DataTypeManager::getInstance().initialise();
-		tools::DataTypeManager::getInstance().load("ImageDataInfo.xml");
+		tools::DataTypeManager::getInstance().load("ImageDataType.xml");
 
 		new tools::DataManager();
 		tools::DataManager::getInstance().initialise();
