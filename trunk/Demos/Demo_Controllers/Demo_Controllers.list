@@ -3,11 +3,7 @@ set (HEADER_FILES
   State.h
 )
 set (SOURCE_FILES
-  DemoKeeper.cpp
-  State.cpp
   ../../Common/Base/BaseResource.rc
-)
-SOURCE_GROUP("Source Files" FILES
   DemoKeeper.cpp
   State.cpp
 )
@@ -18,4 +14,8 @@ SOURCE_GROUP("Header Files" FILES
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
   CMakeLists.txt
+)
+SOURCE_GROUP("Source Files" FILES
+  DemoKeeper.cpp
+  State.cpp
 )

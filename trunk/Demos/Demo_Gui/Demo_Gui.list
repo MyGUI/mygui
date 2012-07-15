@@ -9,16 +9,7 @@ set (HEADER_FILES
   MainPanel.h
 )
 set (SOURCE_FILES
-  ColourWindow.cpp
-  ColourWindowBox.cpp
-  ColourWindowCellView.cpp
-  DemoKeeper.cpp
-  EditorWindow.cpp
-  InformationWindow.cpp
-  MainPanel.cpp
   ../../Common/Base/BaseResource.rc
-)
-SOURCE_GROUP("Source Files" FILES
   ColourWindow.cpp
   ColourWindowBox.cpp
   ColourWindowCellView.cpp
@@ -40,4 +31,13 @@ SOURCE_GROUP("Header Files" FILES
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
   CMakeLists.txt
+)
+SOURCE_GROUP("Source Files" FILES
+  ColourWindow.cpp
+  ColourWindowBox.cpp
+  ColourWindowCellView.cpp
+  DemoKeeper.cpp
+  EditorWindow.cpp
+  InformationWindow.cpp
+  MainPanel.cpp
 )

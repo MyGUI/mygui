@@ -4,12 +4,7 @@ set (HEADER_FILES
   EditPanel.h
 )
 set (SOURCE_FILES
-  ColourPanel.cpp
-  DemoKeeper.cpp
-  EditPanel.cpp
   ../../Common/Base/BaseResource.rc
-)
-SOURCE_GROUP("Source Files" FILES
   ColourPanel.cpp
   DemoKeeper.cpp
   EditPanel.cpp
@@ -22,4 +17,9 @@ SOURCE_GROUP("Header Files" FILES
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
   CMakeLists.txt
+)
+SOURCE_GROUP("Source Files" FILES
+  ColourPanel.cpp
+  DemoKeeper.cpp
+  EditPanel.cpp
 )

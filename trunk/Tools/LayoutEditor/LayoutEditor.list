@@ -1,4 +1,173 @@
 set (HEADER_FILES
+  ../../Common/Tools/Dialog.h
+  ../../Common/Tools/DialogManager.h
+  ../../Common/Tools/OpenSaveFileDialog.h
+  Application.h
+  AreaSelectorControl.h
+  BackgroundControl.h
+  BackwardCompatibilityManager.h
+  CodeGenerator.h
+  ColourManager.h
+  ColourPanel.h
+  CommandManager.h
+  Common.h
+  CyclicBuffer.h
+  EditorState.h
+  EditorToolTip.h
+  EditorWidgets.h
+  Grid.h
+  GroupMessage.h
+  HotKeyCommand.h
+  HotKeyManager.h
+  IPropertyField.h
+  Localise.h
+  MainMenuControl.h
+  MainPaneControl.h
+  MainWorkspaceControl.h
+  MessageBoxFadeControl.h
+  MessageBoxManager.h
+  MyGUI_FilterNoneSkin.h
+  MyGUI_RTTLayer.h
+  PanelControllers.h
+  PanelExtensionProperties.h
+  PanelItems.h
+  PanelMainProperties.h
+  PanelProperties.h
+  PanelTemplateProperties.h
+  PanelUserData.h
+  PanelView.h
+  PanelViewCell.h
+  Parse.h
+  PositionSelectorControl.h
+  PossibleValue.h
+  ProjectControl.h
+  PropertiesPanelView.h
+  PropertyFieldAlpha.h
+  PropertyFieldColour.h
+  PropertyFieldComboBox.h
+  PropertyFieldEditBox.h
+  PropertyFieldFileName.h
+  PropertyFieldFont.h
+  PropertyFieldManager.h
+  PropertyFieldNumeric.h
+  PropertyFieldPosition.h
+  PropertyFieldSkin.h
+  PropertyFieldType.h
+  RecentFilesManager.h
+  SelectorControl.h
+  SeparatorPartControl.h
+  SettingsGeneralControl.h
+  SettingsManager.h
+  SettingsResourcePathsControl.h
+  SettingsResourcesControl.h
+  SettingsSector.h
+  SettingsUpdateResourcesControl.h
+  SettingsWidgetsControl.h
+  SettingsWindow.h
+  SkinInfo.h
+  StateController.h
+  StateManager.h
+  TestState.h
+  TextFieldControl.h
+  TextureControl.h
+  TextureToolControl.h
+  ToolsControl.h
+  UndoManager.h
+  WidgetContainer.h
+  WidgetCreatorManager.h
+  WidgetSelectorManager.h
+  WidgetStyle.h
+  WidgetTypes.h
+  WidgetsWindow.h
+  WorkspaceControl.h
+  resource.h
+)
+set (SOURCE_FILES
+  ../../Common/Precompiled.cpp
+  ../../Common/Tools/Dialog.cpp
+  ../../Common/Tools/DialogManager.cpp
+  ../../Common/Tools/OpenSaveFileDialog.cpp
+  Application.cpp
+  AreaSelectorControl.cpp
+  BackgroundControl.cpp
+  BackwardCompatibilityManager.cpp
+  CodeGenerator.cpp
+  ColourManager.cpp
+  ColourPanel.cpp
+  CommandManager.cpp
+  EditorState.cpp
+  EditorToolTip.cpp
+  EditorWidgets.cpp
+  Grid.cpp
+  GroupMessage.cpp
+  HotKeyManager.cpp
+  LayoutEditor.rc
+  MainMenuControl.cpp
+  MainPaneControl.cpp
+  MainWorkspaceControl.cpp
+  MessageBoxFadeControl.cpp
+  MessageBoxManager.cpp
+  MyGUI_FilterNoneSkin.cpp
+  MyGUI_RTTLayer.cpp
+  PanelControllers.cpp
+  PanelExtensionProperties.cpp
+  PanelItems.cpp
+  PanelMainProperties.cpp
+  PanelProperties.cpp
+  PanelTemplateProperties.cpp
+  PanelUserData.cpp
+  Parse.cpp
+  PositionSelectorControl.cpp
+  ProjectControl.cpp
+  PropertiesPanelView.cpp
+  PropertyFieldAlpha.cpp
+  PropertyFieldColour.cpp
+  PropertyFieldComboBox.cpp
+  PropertyFieldEditBox.cpp
+  PropertyFieldFileName.cpp
+  PropertyFieldFont.cpp
+  PropertyFieldManager.cpp
+  PropertyFieldNumeric.cpp
+  PropertyFieldPosition.cpp
+  PropertyFieldSkin.cpp
+  PropertyFieldType.cpp
+  RecentFilesManager.cpp
+  SelectorControl.cpp
+  SeparatorPartControl.cpp
+  SettingsGeneralControl.cpp
+  SettingsManager.cpp
+  SettingsResourcePathsControl.cpp
+  SettingsResourcesControl.cpp
+  SettingsSector.cpp
+  SettingsUpdateResourcesControl.cpp
+  SettingsWidgetsControl.cpp
+  SettingsWindow.cpp
+  StateManager.cpp
+  TestState.cpp
+  TextFieldControl.cpp
+  TextureControl.cpp
+  TextureToolControl.cpp
+  ToolsControl.cpp
+  UndoManager.cpp
+  WidgetContainer.cpp
+  WidgetCreatorManager.cpp
+  WidgetSelectorManager.cpp
+  WidgetTypes.cpp
+  WidgetsWindow.cpp
+  WorkspaceControl.cpp
+)
+SOURCE_GROUP("CodeGenerator" FILES
+  CodeGenerator.cpp
+  CodeGenerator.h
+)
+SOURCE_GROUP("GroupedMessage" FILES
+  GroupMessage.cpp
+  GroupMessage.h
+)
+SOURCE_GROUP("Header Files" FILES
+  ../../Common/Tools/Dialog.h
+  ../../Common/Tools/DialogManager.h
+  ../../Common/Tools/OpenSaveFileDialog.h
   Application.h
   AreaSelectorControl.h
   BackgroundControl.h
@@ -8,8 +177,6 @@ set (HEADER_FILES
   CommandManager.h
   Common.h
   CyclicBuffer.h
-  ../../Common/Tools/Dialog.h
-  ../../Common/Tools/DialogManager.h
   EditorState.h
   EditorToolTip.h
   EditorWidgets.h
@@ -25,7 +192,6 @@ set (HEADER_FILES
   MessageBoxManager.h
   MyGUI_FilterNoneSkin.h
   MyGUI_RTTLayer.h
-  ../../Common/Tools/OpenSaveFileDialog.h
   PanelExtensionProperties.h
   PanelTemplateProperties.h
   PositionSelectorControl.h
@@ -43,7 +209,6 @@ set (HEADER_FILES
   PropertyFieldSkin.h
   PropertyFieldType.h
   RecentFilesManager.h
-  resource.h
   SelectorControl.h
   SeparatorPartControl.h
   SettingsGeneralControl.h
@@ -68,157 +233,7 @@ set (HEADER_FILES
   WidgetStyle.h
   WidgetTypes.h
   WorkspaceControl.h
-  PanelControllers.h
-  PanelItems.h
-  PanelMainProperties.h
-  PanelProperties.h
-  PanelUserData.h
-  PanelView.h
-  PanelViewCell.h
-  PropertiesPanelView.h
-  SettingsWindow.h
-  WidgetsWindow.h
-  Parse.h
-  GroupMessage.h
-  CodeGenerator.h
-)
-set (SOURCE_FILES
-  Application.cpp
-  AreaSelectorControl.cpp
-  BackgroundControl.cpp
-  BackwardCompatibilityManager.cpp
-  ColourManager.cpp
-  ColourPanel.cpp
-  CommandManager.cpp
-  ../../Common/Tools/Dialog.cpp
-  ../../Common/Tools/DialogManager.cpp
-  EditorState.cpp
-  EditorToolTip.cpp
-  EditorWidgets.cpp
-  Grid.cpp
-  HotKeyManager.cpp
-  MainMenuControl.cpp
-  MainPaneControl.cpp
-  MainWorkspaceControl.cpp
-  MessageBoxFadeControl.cpp
-  MessageBoxManager.cpp
-  MyGUI_FilterNoneSkin.cpp
-  MyGUI_RTTLayer.cpp
-  ../../Common/Tools/OpenSaveFileDialog.cpp
-  PanelExtensionProperties.cpp
-  PanelTemplateProperties.cpp
-  PositionSelectorControl.cpp
-  ProjectControl.cpp
-  PropertyFieldAlpha.cpp
-  PropertyFieldColour.cpp
-  PropertyFieldComboBox.cpp
-  PropertyFieldEditBox.cpp
-  PropertyFieldFileName.cpp
-  PropertyFieldFont.cpp
-  PropertyFieldManager.cpp
-  PropertyFieldNumeric.cpp
-  PropertyFieldPosition.cpp
-  PropertyFieldSkin.cpp
-  PropertyFieldType.cpp
-  RecentFilesManager.cpp
-  SelectorControl.cpp
-  SeparatorPartControl.cpp
-  SettingsGeneralControl.cpp
-  SettingsManager.cpp
-  SettingsResourcePathsControl.cpp
-  SettingsResourcesControl.cpp
-  SettingsSector.cpp
-  SettingsUpdateResourcesControl.cpp
-  SettingsWidgetsControl.cpp
-  StateManager.cpp
-  TestState.cpp
-  TextFieldControl.cpp
-  TextureControl.cpp
-  TextureToolControl.cpp
-  ToolsControl.cpp
-  UndoManager.cpp
-  WidgetContainer.cpp
-  WidgetCreatorManager.cpp
-  WidgetSelectorManager.cpp
-  WidgetTypes.cpp
-  WorkspaceControl.cpp
-  LayoutEditor.rc
-  ../../Common/Precompiled.cpp
-  PanelControllers.cpp
-  PanelItems.cpp
-  PanelMainProperties.cpp
-  PanelProperties.cpp
-  PanelUserData.cpp
-  PropertiesPanelView.cpp
-  SettingsWindow.cpp
-  WidgetsWindow.cpp
-  Parse.cpp
-  GroupMessage.cpp
-  CodeGenerator.cpp
-)
-SOURCE_GROUP("Source Files" FILES
-  Application.cpp
-  AreaSelectorControl.cpp
-  BackgroundControl.cpp
-  BackwardCompatibilityManager.cpp
-  ColourManager.cpp
-  ColourPanel.cpp
-  CommandManager.cpp
-  ../../Common/Tools/Dialog.cpp
-  ../../Common/Tools/DialogManager.cpp
-  EditorState.cpp
-  EditorToolTip.cpp
-  EditorWidgets.cpp
-  Grid.cpp
-  HotKeyManager.cpp
-  MainMenuControl.cpp
-  MainPaneControl.cpp
-  MainWorkspaceControl.cpp
-  MessageBoxFadeControl.cpp
-  MessageBoxManager.cpp
-  MyGUI_FilterNoneSkin.cpp
-  MyGUI_RTTLayer.cpp
-  ../../Common/Tools/OpenSaveFileDialog.cpp
-  PanelExtensionProperties.cpp
-  PanelTemplateProperties.cpp
-  PositionSelectorControl.cpp
-  ProjectControl.cpp
-  PropertyFieldAlpha.cpp
-  PropertyFieldColour.cpp
-  PropertyFieldComboBox.cpp
-  PropertyFieldEditBox.cpp
-  PropertyFieldFileName.cpp
-  PropertyFieldFont.cpp
-  PropertyFieldManager.cpp
-  PropertyFieldNumeric.cpp
-  PropertyFieldPosition.cpp
-  PropertyFieldSkin.cpp
-  PropertyFieldType.cpp
-  RecentFilesManager.cpp
-  SelectorControl.cpp
-  SeparatorPartControl.cpp
-  SettingsGeneralControl.cpp
-  SettingsManager.cpp
-  SettingsResourcePathsControl.cpp
-  SettingsResourcesControl.cpp
-  SettingsSector.cpp
-  SettingsUpdateResourcesControl.cpp
-  SettingsWidgetsControl.cpp
-  StateManager.cpp
-  TestState.cpp
-  TextFieldControl.cpp
-  TextureControl.cpp
-  TextureToolControl.cpp
-  ToolsControl.cpp
-  UndoManager.cpp
-  WidgetContainer.cpp
-  WidgetCreatorManager.cpp
-  WidgetSelectorManager.cpp
-  WidgetTypes.cpp
-  WorkspaceControl.cpp
-)
-SOURCE_GROUP("Resources" FILES
-  ../../Common/Precompiled.cpp
+  resource.h
 )
 SOURCE_GROUP("Panels" FILES
   PanelControllers.cpp
@@ -227,90 +242,6 @@ SOURCE_GROUP("Panels" FILES
   PanelProperties.cpp
   PanelUserData.cpp
   PropertiesPanelView.cpp
-)
-SOURCE_GROUP("Windows" FILES
-  SettingsWindow.cpp
-  WidgetsWindow.cpp
-)
-SOURCE_GROUP("Parse" FILES
-  Parse.cpp
-)
-SOURCE_GROUP("GroupedMessage" FILES
-  GroupMessage.cpp
-)
-SOURCE_GROUP("CodeGenerator" FILES
-  CodeGenerator.cpp
-)
-SOURCE_GROUP("Header Files" FILES
-  Application.h
-  AreaSelectorControl.h
-  BackgroundControl.h
-  BackwardCompatibilityManager.h
-  ColourManager.h
-  ColourPanel.h
-  CommandManager.h
-  Common.h
-  CyclicBuffer.h
-  ../../Common/Tools/Dialog.h
-  ../../Common/Tools/DialogManager.h
-  EditorState.h
-  EditorToolTip.h
-  EditorWidgets.h
-  Grid.h
-  HotKeyCommand.h
-  HotKeyManager.h
-  IPropertyField.h
-  Localise.h
-  MainMenuControl.h
-  MainPaneControl.h
-  MainWorkspaceControl.h
-  MessageBoxFadeControl.h
-  MessageBoxManager.h
-  MyGUI_FilterNoneSkin.h
-  MyGUI_RTTLayer.h
-  ../../Common/Tools/OpenSaveFileDialog.h
-  PanelExtensionProperties.h
-  PanelTemplateProperties.h
-  PositionSelectorControl.h
-  PossibleValue.h
-  ProjectControl.h
-  PropertyFieldAlpha.h
-  PropertyFieldColour.h
-  PropertyFieldComboBox.h
-  PropertyFieldEditBox.h
-  PropertyFieldFileName.h
-  PropertyFieldFont.h
-  PropertyFieldManager.h
-  PropertyFieldNumeric.h
-  PropertyFieldPosition.h
-  PropertyFieldSkin.h
-  PropertyFieldType.h
-  RecentFilesManager.h
-  resource.h
-  SelectorControl.h
-  SeparatorPartControl.h
-  SettingsGeneralControl.h
-  SettingsManager.h
-  SettingsResourcePathsControl.h
-  SettingsResourcesControl.h
-  SettingsSector.h
-  SettingsUpdateResourcesControl.h
-  SettingsWidgetsControl.h
-  SkinInfo.h
-  StateController.h
-  StateManager.h
-  TestState.h
-  TextFieldControl.h
-  TextureControl.h
-  TextureToolControl.h
-  ToolsControl.h
-  UndoManager.h
-  WidgetContainer.h
-  WidgetCreatorManager.h
-  WidgetSelectorManager.h
-  WidgetStyle.h
-  WidgetTypes.h
-  WorkspaceControl.h
 )
 SOURCE_GROUP("Panels\\Header" FILES
   PanelControllers.h
@@ -322,20 +253,79 @@ SOURCE_GROUP("Panels\\Header" FILES
   PanelViewCell.h
   PropertiesPanelView.h
 )
-SOURCE_GROUP("Windows" FILES
-  SettingsWindow.h
-  WidgetsWindow.h
-)
 SOURCE_GROUP("Parse" FILES
+  Parse.cpp
   Parse.h
 )
-SOURCE_GROUP("GroupedMessage" FILES
-  GroupMessage.h
-)
-SOURCE_GROUP("CodeGenerator" FILES
-  CodeGenerator.h
-)
 SOURCE_GROUP("Resources" FILES
-  LayoutEditor.rc
+  ../../Common/Precompiled.cpp
   CMakeLists.txt
+  LayoutEditor.rc
+)
+SOURCE_GROUP("Source Files" FILES
+  ../../Common/Tools/Dialog.cpp
+  ../../Common/Tools/DialogManager.cpp
+  ../../Common/Tools/OpenSaveFileDialog.cpp
+  Application.cpp
+  AreaSelectorControl.cpp
+  BackgroundControl.cpp
+  BackwardCompatibilityManager.cpp
+  ColourManager.cpp
+  ColourPanel.cpp
+  CommandManager.cpp
+  EditorState.cpp
+  EditorToolTip.cpp
+  EditorWidgets.cpp
+  Grid.cpp
+  HotKeyManager.cpp
+  MainMenuControl.cpp
+  MainPaneControl.cpp
+  MainWorkspaceControl.cpp
+  MessageBoxFadeControl.cpp
+  MessageBoxManager.cpp
+  MyGUI_FilterNoneSkin.cpp
+  MyGUI_RTTLayer.cpp
+  PanelExtensionProperties.cpp
+  PanelTemplateProperties.cpp
+  PositionSelectorControl.cpp
+  ProjectControl.cpp
+  PropertyFieldAlpha.cpp
+  PropertyFieldColour.cpp
+  PropertyFieldComboBox.cpp
+  PropertyFieldEditBox.cpp
+  PropertyFieldFileName.cpp
+  PropertyFieldFont.cpp
+  PropertyFieldManager.cpp
+  PropertyFieldNumeric.cpp
+  PropertyFieldPosition.cpp
+  PropertyFieldSkin.cpp
+  PropertyFieldType.cpp
+  RecentFilesManager.cpp
+  SelectorControl.cpp
+  SeparatorPartControl.cpp
+  SettingsGeneralControl.cpp
+  SettingsManager.cpp
+  SettingsResourcePathsControl.cpp
+  SettingsResourcesControl.cpp
+  SettingsSector.cpp
+  SettingsUpdateResourcesControl.cpp
+  SettingsWidgetsControl.cpp
+  StateManager.cpp
+  TestState.cpp
+  TextFieldControl.cpp
+  TextureControl.cpp
+  TextureToolControl.cpp
+  ToolsControl.cpp
+  UndoManager.cpp
+  WidgetContainer.cpp
+  WidgetCreatorManager.cpp
+  WidgetSelectorManager.cpp
+  WidgetTypes.cpp
+  WorkspaceControl.cpp
+)
+SOURCE_GROUP("Windows" FILES
+  SettingsWindow.cpp
+  SettingsWindow.h
+  WidgetsWindow.cpp
+  WidgetsWindow.h
 )
