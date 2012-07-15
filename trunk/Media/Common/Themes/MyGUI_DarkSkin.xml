@@ -1342,6 +1342,35 @@
             <State name="normal" offset="380 73 40 10"/>
         </BasisSkin>
     </Resource>
+    <Resource type="ResourceSkin" name="Panel3Skin_Dark" size="50 20" texture="MyGUI_Dark.png">
+        <BasisSkin type="SubSkin" offset="0 0 5 5" align="Left Top">
+            <State name="normal" offset="375 90 5 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="5 0 40 5" align="HStretch Top">
+            <State name="normal" offset="380 90 40 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="45 0 5 5" align="Right Top">
+            <State name="normal" offset="420 90 5 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="45 5 5 10" align="Right VStretch">
+            <State name="normal" offset="420 95 5 10"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="45 15 5 5" align="Right Bottom">
+            <State name="normal" offset="420 105 5 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="5 15 40 5" align="HStretch Bottom">
+            <State name="normal" offset="380 105 40 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 15 5 5" align="Left Bottom">
+            <State name="normal" offset="375 105 5 5"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 5 5 10" align="Left VStretch">
+            <State name="normal" offset="375 95 5 10"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="5 5 40 10" align="Stretch">
+            <State name="normal" offset="380 95 40 10"/>
+        </BasisSkin>
+    </Resource>
     <Resource type="ResourceSkin" name="EditClientSkin_Dark" size="16 16" texture="">
         <BasisSkin type="EditText" offset="0 0 16 16" align="Stretch">
             <State name="disabled" colour="0.398438 0.398438 0.398438" shift="0"/>

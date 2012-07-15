@@ -93,4 +93,6 @@
 	<Tag name="MessageIncorrectFileFormat">File : #{\n}'#{CurrentFileName}'#{\n}have incorrect format.</Tag>
 	<Tag name="FormatRecentFile">#{IndexRecentFile}: #{RecentFile}</Tag>
 	<Tag name="SkinNamePattern">Skin name #{SkinNameIndex}</Tag>
+	<Tag name="PropertyPanel">Options</Tag>
+	<Tag name="TexturePanel">Texture preview</Tag>
 </MyGUI>

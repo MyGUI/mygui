@@ -1,4 +1,5 @@
 set (HEADER_FILES
+  PropertyPanelControl.h
   MainTabControl.h
   DataListBaseControl.h
   FrameListControl.h
@@ -108,6 +109,7 @@ set (HEADER_FILES
 set (SOURCE_FILES
   pugiconfig.hpp
   pugixml.hpp
+  PropertyPanelControl.cpp
   MainTabControl.cpp
   DataListBaseControl.cpp
   FrameListControl.cpp
@@ -220,6 +222,16 @@ SOURCE_GROUP("Controls" FILES
 SOURCE_GROUP("Data" FILES
   DataSelectorManager.cpp
 )
+SOURCE_GROUP("Application" FILES
+  Application.cpp
+)
+SOURCE_GROUP("Controls" FILES
+  AreaSelectorControl.cpp
+  BackgroundControl.cpp
+)
+SOURCE_GROUP("Managers" FILES
+  ColourManager.cpp
+)
 SOURCE_GROUP("Controls" FILES
   ColourPanel.cpp
 )
@@ -233,11 +245,66 @@ SOURCE_GROUP("Managers\\Dialog" FILES
 SOURCE_GROUP("States" FILES
   EditorState.cpp
 )
+SOURCE_GROUP("Managers" FILES
+  ExportManager.cpp
+  Grid.cpp
+)
+SOURCE_GROUP("Controls" FILES
+  HorizontalSelectorBlackControl.cpp
+  HorizontalSelectorControl.cpp
+)
 SOURCE_GROUP("Managers\\Commands" FILES
   HotKeyManager.cpp
 )
 SOURCE_GROUP("Controls" FILES
   MessageBoxFadeControl.cpp
+)
+SOURCE_GROUP("Managers" FILES
+  MessageBoxManager.cpp
+)
+SOURCE_GROUP("Application" FILES
+  MyGUI_FilterNoneSkin.cpp
+)
+SOURCE_GROUP("Controls" FILES
+  OpenSaveFileDialog.cpp
+  PositionSelectorBlackControl.cpp
+  PositionSelectorControl.cpp
+)
+SOURCE_GROUP("Properties" FILES
+  Property.cpp
+  PropertyAlignControl.cpp
+  PropertyBoolControl.cpp
+  PropertyColourControl.cpp
+  PropertyControl.cpp
+  PropertyInt2Control.cpp
+  PropertyInt4Control.cpp
+  PropertyIntControl.cpp
+  PropertyRegionTypeControl.cpp
+  PropertySet.cpp
+  PropertyTexturesControl.cpp
+)
+SOURCE_GROUP("Managers" FILES
+  RecentFilesManager.cpp
+)
+SOURCE_GROUP("Controls" FILES
+  RegionControl.cpp
+)
+SOURCE_GROUP("Data" FILES
+  RegionItem.cpp
+)
+SOURCE_GROUP("Controls" FILES
+  RegionListControl.cpp
+  RegionPropertyControl.cpp
+  RegionTextureControl.cpp
+  SelectorControl.cpp
+)
+SOURCE_GROUP("Data" FILES
+  SeparatorItem.cpp
+)
+SOURCE_GROUP("Controls" FILES
+  SeparatorListControl.cpp
+  SeparatorPropertyControl.cpp
+  SeparatorTextureControl.cpp
   SettingsGeneralControl.cpp
 )
 SOURCE_GROUP("Managers\\Settings" FILES
@@ -252,13 +319,49 @@ SOURCE_GROUP("Managers\\Settings" FILES
 )
 SOURCE_GROUP("Controls" FILES
   SettingsWindow.cpp
+)
+SOURCE_GROUP("Data" FILES
+  SkinItem.cpp
+)
+SOURCE_GROUP("Controls" FILES
   ImageListControl.cpp
+)
+SOURCE_GROUP("Managers" FILES
+  SkinManager.cpp
+)
+SOURCE_GROUP("Controls" FILES
+  SkinPropertyControl.cpp
+  SkinTextureControl.cpp
+  StateControl.cpp
+)
+SOURCE_GROUP("Data" FILES
+  StateItem.cpp
+)
+SOURCE_GROUP("Controls" FILES
+  StateListControl.cpp
 )
 SOURCE_GROUP("States" FILES
   StateManager.cpp
-  TestState.cpp
 )
 SOURCE_GROUP("Controls" FILES
+  StatePropertyControl.cpp
+  StateTextureControl.cpp
+)
+SOURCE_GROUP("States" FILES
+  TestState.cpp
+  TestWindow.cpp
+)
+SOURCE_GROUP("Controls" FILES
+  TextFieldControl.cpp
+  TextureBrowseCell.cpp
+  TextureBrowseControl.cpp
+  TextureControl.cpp
+  TextureToolControl.cpp
+  VerticalSelectorBlackControl.cpp
+  VerticalSelectorControl.cpp
+  ListBoxControl.cpp
+  ListBoxItemControl.cpp
+  SkinControl.cpp
   MainMenuControl.cpp
   SeparatorControl.cpp
 )
@@ -284,79 +387,11 @@ SOURCE_GROUP("Data" FILES
 SOURCE_GROUP("Utility" FILES
   pugixml.cpp
 )
-SOURCE_GROUP("Controls" FILES
-  OpenSaveFileDialog.cpp
-)
-SOURCE_GROUP("Managers" FILES
-  ExportManager.cpp
-  ColourManager.cpp
-  MessageBoxManager.cpp
-  RecentFilesManager.cpp
-)
-SOURCE_GROUP("States" FILES
-  TestWindow.cpp
-)
-SOURCE_GROUP("Properties" FILES
-  Property.cpp
-  PropertyTexturesControl.cpp
-  PropertyAlignControl.cpp
-  PropertyBoolControl.cpp
-  PropertyColourControl.cpp
-  PropertyControl.cpp
-  PropertyInt2Control.cpp
-  PropertyInt4Control.cpp
-  PropertyIntControl.cpp
-  PropertyRegionTypeControl.cpp
-  PropertySet.cpp
-)
-SOURCE_GROUP("Controls" FILES
-  AreaSelectorControl.cpp
-  BackgroundControl.cpp
-  HorizontalSelectorBlackControl.cpp
-  HorizontalSelectorControl.cpp
-  ListBoxControl.cpp
-  ListBoxItemControl.cpp
-  PositionSelectorBlackControl.cpp
-  PositionSelectorControl.cpp
-  RegionControl.cpp
-  RegionListControl.cpp
-  RegionPropertyControl.cpp
-  RegionTextureControl.cpp
-  SelectorControl.cpp
-  SeparatorListControl.cpp
-  SeparatorPropertyControl.cpp
-  SeparatorTextureControl.cpp
-  SkinControl.cpp
-  SkinPropertyControl.cpp
-  SkinTextureControl.cpp
-  StateControl.cpp
-  StateListControl.cpp
-  StatePropertyControl.cpp
-  StateTextureControl.cpp
-  TextFieldControl.cpp
-  TextureBrowseCell.cpp
-  TextureBrowseControl.cpp
-  TextureControl.cpp
-  TextureToolControl.cpp
-  VerticalSelectorBlackControl.cpp
-  VerticalSelectorControl.cpp
-)
-SOURCE_GROUP("Managers" FILES
-  Grid.cpp
-  SkinManager.cpp
-)
-SOURCE_GROUP("Data" FILES
-  SkinItem.cpp
-  StateItem.cpp
-  SeparatorItem.cpp
-  RegionItem.cpp
-)
 SOURCE_GROUP("Application" FILES
-  Application.cpp
   ../../Common/Precompiled.cpp
-  MyGUI_FilterNoneSkin.cpp
 )
 SOURCE_GROUP("Controls" FILES
+  PropertyPanelControl.cpp
   MainTabControl.h
   DataListBaseControl.h
   FrameListControl.h
@@ -372,6 +407,19 @@ SOURCE_GROUP("Controls" FILES
 SOURCE_GROUP("Data" FILES
   DataSelectorManager.h
 )
+SOURCE_GROUP("Application" FILES
+  Application.h
+)
+SOURCE_GROUP("Controls" FILES
+  AreaSelectorControl.h
+  BackgroundControl.h
+)
+SOURCE_GROUP("Utility" FILES
+  Binary.h
+)
+SOURCE_GROUP("Managers" FILES
+  ColourManager.h
+)
 SOURCE_GROUP("Controls" FILES
   ColourPanel.h
 )
@@ -385,12 +433,74 @@ SOURCE_GROUP("Managers\\Dialog" FILES
 SOURCE_GROUP("States" FILES
   EditorState.h
 )
+SOURCE_GROUP("Managers" FILES
+  ExportManager.h
+  Grid.h
+)
+SOURCE_GROUP("Controls" FILES
+  HorizontalSelectorBlackControl.h
+  HorizontalSelectorControl.h
+)
 SOURCE_GROUP("Managers\\Commands" FILES
   HotKeyCommand.h
   HotKeyManager.h
 )
+SOURCE_GROUP("Data" FILES
+  ItemHolder.h
+)
+SOURCE_GROUP("Utility" FILES
+  Localise.h
+)
 SOURCE_GROUP("Controls" FILES
   MessageBoxFadeControl.h
+)
+SOURCE_GROUP("Managers" FILES
+  MessageBoxManager.h
+)
+SOURCE_GROUP("Application" FILES
+  MyGUI_FilterNoneSkin.h
+)
+SOURCE_GROUP("Controls" FILES
+  OpenSaveFileDialog.h
+  PositionSelectorBlackControl.h
+  PositionSelectorControl.h
+)
+SOURCE_GROUP("Properties" FILES
+  Property.h
+  PropertyAdvisor.h
+  PropertyAlignControl.h
+  PropertyBoolControl.h
+  PropertyColourControl.h
+  PropertyControl.h
+  PropertyInt2Control.h
+  PropertyInt4Control.h
+  PropertyIntControl.h
+  PropertyRegionTypeControl.h
+  PropertySet.h
+  PropertyTexturesControl.h
+)
+SOURCE_GROUP("Managers" FILES
+  RecentFilesManager.h
+)
+SOURCE_GROUP("Controls" FILES
+  RegionControl.h
+)
+SOURCE_GROUP("Data" FILES
+  RegionItem.h
+)
+SOURCE_GROUP("Controls" FILES
+  RegionListControl.h
+  RegionPropertyControl.h
+  RegionTextureControl.h
+  SelectorControl.h
+)
+SOURCE_GROUP("Data" FILES
+  SeparatorItem.h
+)
+SOURCE_GROUP("Controls" FILES
+  SeparatorListControl.h
+  SeparatorPropertyControl.h
+  SeparatorTextureControl.h
   SettingsGeneralControl.h
 )
 SOURCE_GROUP("Managers\\Settings" FILES
@@ -405,14 +515,52 @@ SOURCE_GROUP("Managers\\Settings" FILES
 )
 SOURCE_GROUP("Controls" FILES
   SettingsWindow.h
+)
+SOURCE_GROUP("Data" FILES
+  SkinItem.h
+)
+SOURCE_GROUP("Controls" FILES
   ImageListControl.h
+)
+SOURCE_GROUP("Managers" FILES
+  SkinManager.h
+)
+SOURCE_GROUP("Controls" FILES
+  SkinPropertyControl.h
+  SkinTextureControl.h
+  StateControl.h
 )
 SOURCE_GROUP("States" FILES
   StateController.h
-  StateManager.h
-  TestState.h
+)
+SOURCE_GROUP("Data" FILES
+  StateItem.h
 )
 SOURCE_GROUP("Controls" FILES
+  StateListControl.h
+)
+SOURCE_GROUP("States" FILES
+  StateManager.h
+)
+SOURCE_GROUP("Controls" FILES
+  StatePropertyControl.h
+  StateTextureControl.h
+)
+SOURCE_GROUP("States" FILES
+  TestState.h
+  TestWindow.h
+)
+SOURCE_GROUP("Controls" FILES
+  TextFieldControl.h
+  TextureBrowseCell.h
+  TextureBrowseControl.h
+  TextureControl.h
+  TextureToolControl.h
+  VerticalSelectorBlackControl.h
+  VerticalSelectorControl.h
+  ListBoxControl.h
+  ListBoxItemControl.h
+  SkinControl.h
   SeparatorControl.h
   MainMenuControl.h
 )
@@ -433,6 +581,9 @@ SOURCE_GROUP("Managers\\Factory" FILES
 SOURCE_GROUP("Controls" FILES
   Control.h
 )
+SOURCE_GROUP("Utility" FILES
+  SeparatorUtility.h
+)
 SOURCE_GROUP("Data" FILES
   Data.h
   DataInfo.h
@@ -446,90 +597,7 @@ SOURCE_GROUP("Utility" FILES
   pugixml.hpp
 )
 SOURCE_GROUP("Controls" FILES
-  OpenSaveFileDialog.h
-)
-SOURCE_GROUP("Managers" FILES
-  ColourManager.h
-  ExportManager.h
-  MessageBoxManager.h
-  RecentFilesManager.h
-)
-SOURCE_GROUP("Utility" FILES
-  SeparatorUtility.h
-)
-SOURCE_GROUP("States" FILES
-  TestWindow.h
-)
-SOURCE_GROUP("Properties" FILES
-  Property.h
-  PropertyTexturesControl.h
-  PropertyAdvisor.h
-  PropertyAlignControl.h
-  PropertyBoolControl.h
-  PropertyColourControl.h
-  PropertyControl.h
-  PropertyInt2Control.h
-  PropertyInt4Control.h
-  PropertyIntControl.h
-  PropertyRegionTypeControl.h
-  PropertySet.h
-)
-SOURCE_GROUP("Controls" FILES
-  AreaSelectorControl.h
-  BackgroundControl.h
-  HorizontalSelectorBlackControl.h
-  HorizontalSelectorControl.h
-  ListBoxControl.h
-  ListBoxItemControl.h
-  PositionSelectorBlackControl.h
-  PositionSelectorControl.h
-  RegionControl.h
-  RegionListControl.h
-  RegionPropertyControl.h
-  RegionTextureControl.h
-  SelectorControl.h
-  SeparatorListControl.h
-  SeparatorPropertyControl.h
-  SeparatorTextureControl.h
-  SkinControl.h
-  SkinPropertyControl.h
-  SkinTextureControl.h
-  StateControl.h
-  StateListControl.h
-  StatePropertyControl.h
-  StateTextureControl.h
-  TextFieldControl.h
-  TextureBrowseCell.h
-  TextureBrowseControl.h
-  TextureControl.h
-  TextureToolControl.h
-  VerticalSelectorBlackControl.h
-  VerticalSelectorControl.h
-)
-SOURCE_GROUP("Managers" FILES
-  Grid.h
-)
-SOURCE_GROUP("Data" FILES
-  RegionItem.h
-  SeparatorItem.h
-  SkinItem.h
-  StateItem.h
-)
-SOURCE_GROUP("Managers" FILES
-  SkinManager.h
-)
-SOURCE_GROUP("Utility" FILES
-  Localise.h
-)
-SOURCE_GROUP("Data" FILES
-  ItemHolder.h
-)
-SOURCE_GROUP("Utility" FILES
-  Binary.h
-)
-SOURCE_GROUP("Application" FILES
-  Application.h
-  MyGUI_FilterNoneSkin.h
+  PropertyPanelControl.h
 )
 SOURCE_GROUP("Resources" FILES
   ImageEditor.rc
