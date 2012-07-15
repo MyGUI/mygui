@@ -225,7 +225,6 @@ SOURCE_GROUP("Source Files" FILES
   AreaSelectorControl.cpp
   BackgroundControl.cpp
   ColourManager.cpp
-  ColourPanel.cpp
 )
 SOURCE_GROUP("Commands" FILES
   CommandManager.cpp
@@ -247,8 +246,6 @@ SOURCE_GROUP("Commands" FILES
   HotKeyManager.cpp
 )
 SOURCE_GROUP("Source Files" FILES
-  MessageBoxFadeControl.cpp
-  MessageBoxManager.cpp
   MyGUI_FilterNoneSkin.cpp
   OpenSaveFileDialog.cpp
   PositionSelectorBlackControl.cpp
@@ -359,6 +356,13 @@ SOURCE_GROUP("Source Files" FILES
   ../../Common/Precompiled.cpp
 )
 SOURCE_GROUP("Controls" FILES
+  MessageBoxFadeControl.cpp
+)
+SOURCE_GROUP("Source Files" FILES
+  MessageBoxManager.cpp
+)
+SOURCE_GROUP("Controls" FILES
+  ColourPanel.cpp
   MainTabControl.h
   DataListBaseControl.h
   FrameListControl.h
@@ -380,7 +384,6 @@ SOURCE_GROUP("Header Files" FILES
   BackgroundControl.h
   Binary.h
   ColourManager.h
-  ColourPanel.h
 )
 SOURCE_GROUP("Commands" FILES
   CommandManager.h
@@ -405,8 +408,6 @@ SOURCE_GROUP("Commands" FILES
 SOURCE_GROUP("Header Files" FILES
   ItemHolder.h
   Localise.h
-  MessageBoxFadeControl.h
-  MessageBoxManager.h
   MyGUI_FilterNoneSkin.h
   OpenSaveFileDialog.h
   PositionSelectorBlackControl.h
@@ -528,6 +529,15 @@ SOURCE_GROUP("Utility" FILES
   sigslot.h
   pugiconfig.hpp
   pugixml.hpp
+)
+SOURCE_GROUP("Controls" FILES
+  MessageBoxFadeControl.h
+)
+SOURCE_GROUP("Header Files" FILES
+  MessageBoxManager.h
+)
+SOURCE_GROUP("Controls" FILES
+  ColourPanel.h
 )
 SOURCE_GROUP("Resources" FILES
   ImageEditor.rc
