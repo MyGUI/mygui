@@ -39,6 +39,7 @@ namespace tools
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 		void notifyTabChangeSelect(MyGUI::TabControl* _sender, size_t _index);
 		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
+		void notifyEditSelectAccept(MyGUI::EditBox* _sender);
 
 	private:
 		VectorControl mChilds;

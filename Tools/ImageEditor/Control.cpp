@@ -120,6 +120,14 @@ namespace tools
 		MyGUI::Window* window = _widget->castType<MyGUI::Window>(false);
 		if (window != nullptr && window->getUserString("CommandClose") != "")
 			window->eventWindowButtonPressed += MyGUI::newDelegate(this, &Control::notifyWindowButtonPressed);
+
+		command = _widget->getUserString("CommandAccept");
+		if (!command.empty())
+		{
+			MyGUI::EditBox* edit = _widget->castType<MyGUI::EditBox>(false);
+			if (edit != nullptr)
+				edit->eventEditSelectAccept += MyGUI::newDelegate(this, &Control::notifyEditSelectAccept);
+		}
 	}
 
 	void Control::SendCommand(const std::string& _command)
@@ -132,5 +140,10 @@ namespace tools
 
 	void Control::OnCommand(const std::string& _command)
 	{
+	}
+
+	void Control::notifyEditSelectAccept(MyGUI::EditBox* _sender)
+	{
+		CommandManager::getInstance().executeCommand(_sender->getUserString("CommandAccept"));
 	}
 }

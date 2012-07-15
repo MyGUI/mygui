@@ -21,8 +21,6 @@ namespace tools
 		ListBoxDataControl();
 		virtual ~ListBoxDataControl();
 
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
-
 		void OnRenameData();
 
 		void setEnableChangePosition(bool _value);
@@ -31,6 +29,9 @@ namespace tools
 
 		sigslot::signal2<Data*, Data*> eventChangePosition;
 		sigslot::signal2<Data*, const std::string&> eventChangeName;
+
+	protected:
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
 		void notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index);

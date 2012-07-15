@@ -20,13 +20,14 @@ namespace tools
 		DataListBaseControl();
 		virtual ~DataListBaseControl();
 
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
-
 		void commandCreateImageData(const MyGUI::UString& _commandName, bool& _result);
 		void commandDestroyImageData(const MyGUI::UString& _commandName, bool& _result);
 		void commandRenameImageData(const MyGUI::UString& _commandName, bool& _result);
 
 		void setDataInfo(const std::string& _parentType, const std::string& _currentType, const std::string& _property);
+
+	protected:
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
 		void notifyChangePosition(Data* _data1, Data* _data2);

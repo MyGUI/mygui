@@ -3,75 +3,66 @@
 	@author		Albert Semenov
 	@date		08/2008
 */
+
 #include "Precompiled.h"
 #include "OpenSaveFileDialog.h"
-
+#include "FactoryManager.h"
 #include "FileSystemInfo/FileSystemInfo.h"
+#include "CommandManager.h"
 
 namespace tools
 {
+	FACTORY_ITEM_ATTRIBUTE(OpenSaveFileDialog);
+
 	OpenSaveFileDialog::OpenSaveFileDialog() :
-		wraps::BaseLayout("OpenSaveFileDialog2.layout"),
-		mWindow(nullptr),
 		mListFiles(nullptr),
 		mEditFileName(nullptr),
-		mButtonUp(nullptr),
 		mCurrentFolderField(nullptr),
 		mButtonOpenSave(nullptr),
 		mFileMask("*.*"),
 		mFolderMode(false)
 	{
+	}
+
+	OpenSaveFileDialog::~OpenSaveFileDialog()
+	{
+	}
+
+	void OpenSaveFileDialog::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::OnInitialise(_parent, _place, _layoutName);
+
 		setDialogRoot(mMainWidget);
 
 		assignWidget(mListFiles, "ListFiles");
 		assignWidget(mEditFileName, "EditFileName");
-		assignWidget(mButtonUp, "ButtonUp");
 		assignWidget(mCurrentFolderField, "CurrentFolder");
 		assignWidget(mButtonOpenSave, "ButtonOpenSave");
 
 		mListFiles->eventListChangePosition += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyListChangePosition);
 		mListFiles->eventListSelectAccept += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyListSelectAccept);
-		mEditFileName->eventEditSelectAccept += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyEditSelectAccept);
-		mButtonUp->eventMouseButtonClick += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyUpButtonClick);
 		mCurrentFolderField->eventComboAccept += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyDirectoryComboAccept);
 		mCurrentFolderField->eventComboChangePosition += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyDirectoryComboChangePosition);
-		mButtonOpenSave->eventMouseButtonClick += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyMouseButtonClick);
-
-		mWindow = mMainWidget->castType<MyGUI::Window>();
-		mWindow->eventWindowButtonPressed += MyGUI::newDelegate(this, &OpenSaveFileDialog::notifyWindowButtonPressed);
 
 		mCurrentFolder = common::getSystemCurrentFolder();
+
+		CommandManager::getInstance().registerCommand("Command_OpenSaveAccept", MyGUI::newDelegate(this, &OpenSaveFileDialog::commandOpenSaveAccept));
+		CommandManager::getInstance().registerCommand("Command_OpenSaveCancel", MyGUI::newDelegate(this, &OpenSaveFileDialog::commandOpenSaveCancel));
+		CommandManager::getInstance().registerCommand("Command_OpenSaveFolderUp", MyGUI::newDelegate(this, &OpenSaveFileDialog::commandOpenSaveFolderUp));
 
 		mMainWidget->setVisible(false);
 
 		update();
 	}
 
-	void OpenSaveFileDialog::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
-	{
-		if (_name == "close")
-			eventEndDialog(this, false);
-	}
-
-	void OpenSaveFileDialog::notifyEditSelectAccept(MyGUI::EditBox* _sender)
-	{
-		accept();
-	}
-
-	void OpenSaveFileDialog::notifyMouseButtonClick(MyGUI::Widget* _sender)
-	{
-		accept();
-	}
-
-	void OpenSaveFileDialog::notifyUpButtonClick(MyGUI::Widget* _sender)
-	{
-		upFolder();
-	}
-
 	void OpenSaveFileDialog::setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button, bool _folderMode)
 	{
 		mFolderMode = _folderMode;
-		mWindow->setCaption(_caption);
+
+		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
+		if (window != nullptr)
+			window->setCaption(_caption);
+
 		mButtonOpenSave->setCaption(_button);
 		mEditFileName->setVisible(!_folderMode);
 	}
@@ -202,11 +193,6 @@ namespace tools
 	void OpenSaveFileDialog::onDoModal()
 	{
 		update();
-
-		MyGUI::IntSize windowSize = mMainWidget->getSize();
-		MyGUI::IntSize parentSize = mMainWidget->getParentSize();
-
-		mMainWidget->setPosition((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2);
 	}
 
 	void OpenSaveFileDialog::onEndModal()
@@ -252,4 +238,38 @@ namespace tools
 			setCurrentFolder(_sender->getItemNameAt(_index));
 	}
 
-} // namespace tools
+	bool OpenSaveFileDialog::checkCommand()
+	{
+		return isDialogModal();
+	}
+
+	void OpenSaveFileDialog::commandOpenSaveAccept(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		accept();
+
+		_result = true;
+	}
+
+	void OpenSaveFileDialog::commandOpenSaveCancel(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		eventEndDialog(this, false);
+
+		_result = true;
+	}
+
+	void OpenSaveFileDialog::commandOpenSaveFolderUp(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		upFolder();
+
+		_result = true;
+	}
+}
