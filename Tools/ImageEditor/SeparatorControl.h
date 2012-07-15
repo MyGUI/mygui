@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #ifndef _9ddc5ebb_b8bc_434c_8584_6b203c298deb_
 #define _9ddc5ebb_b8bc_434c_8584_6b203c298deb_
 
@@ -11,6 +12,7 @@
 
 namespace tools
 {
+
 	class SeparatorControl :
 		public Control
 	{
@@ -35,6 +37,7 @@ namespace tools
 		VectorWidget mChilds;
 		bool mHorizontal;
 	};
+
 }
 
 #endif

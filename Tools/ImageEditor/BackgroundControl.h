@@ -3,17 +3,18 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __BACKGROUND_CONTROL_H__
-#define __BACKGROUND_CONTROL_H__
+
+#ifndef _69aa4137_5008_46ba_93bd_56b31a158763_
+#define _69aa4137_5008_46ba_93bd_56b31a158763_
 
 #include "BaseLayout/BaseLayout.h"
 #include "Property.h"
 #include "ColourPanel.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class BackgroundControl :
+	class BackgroundControl :
 		public wraps::BaseLayout
 	{
 	public:
@@ -29,8 +30,8 @@ namespace tools
 	private:
 		MyGUI::Widget* mBackground;
 		MyGUI::Widget* mCanvas;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __BACKGROUND_CONTROL_H__
+#endif

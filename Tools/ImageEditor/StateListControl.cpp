@@ -3,15 +3,16 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "StateListControl.h"
 #include "SkinManager.h"
 #include "Binary.h"
 #include "Localise.h"
 
-namespace tools
+/*namespace tools
 {
-	/*enum PresetEnum
+	enum PresetEnum
 	{
 		PresetNormalOnly = Binary<10>::value,
 		PresetFirst4States = Binary<1111>::value,
@@ -193,7 +194,6 @@ namespace tools
 		{
 			mPresets->setEnabled(false);
 		}
+	}
 
-	}*/
-
-} // namespace tools
+}*/

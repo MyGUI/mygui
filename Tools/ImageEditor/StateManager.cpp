@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "StateManager.h"
 
@@ -135,4 +136,4 @@ namespace tools
 		return nullptr;
 	}
 
-} // namespace tools
+}

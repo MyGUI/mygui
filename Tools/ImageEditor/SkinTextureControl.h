@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __SKIN_TEXTURE_CONTROL_H__
-#define __SKIN_TEXTURE_CONTROL_H__
+
+#ifndef _31513eda_9f1b_4986_a5a5_466942db581b_
+#define _31513eda_9f1b_4986_a5a5_466942db581b_
 
 #include "TextureToolControl.h"
 #include "Property.h"
@@ -12,9 +13,10 @@
 #include "AreaSelectorControl.h"
 #include "PropertyAdvisor.h"
 
-namespace tools
+/*namespace tools
 {
-	/*class SkinTextureControl :
+
+	class SkinTextureControl :
 		public TextureToolControl,
 		public PropertyAdvisor
 	{
@@ -67,8 +69,8 @@ namespace tools
 
 		MyGUI::UString mTypeName;
 		MyGUI::IntCoord mCoordValue;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __SKIN_TEXTURE_CONTROL_H__
+#endif

@@ -11,6 +11,7 @@
 
 namespace tools
 {
+
 	DataInfoManager* DataInfoManager::mInstance = nullptr;
 
 	DataInfoManager::DataInfoManager()
@@ -76,4 +77,5 @@ namespace tools
 
 		return nullptr;
 	}
+
 }

@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #include "Precompiled.h"
 #include "ListBoxDataControl.h"
 #include "FactoryManager.h"
@@ -12,6 +13,7 @@
 
 namespace tools
 {
+
 	FACTORY_ITEM_ATTRIBUTE(ListBoxDataControl);
 
 	ListBoxDataControl::ListBoxDataControl() :
@@ -197,4 +199,5 @@ namespace tools
 		mParentData = DataManager::getInstance().getSelectedDataByType(_parentType);
 		notifyChangeDataSelector(mParentData, false);
 	}
+
 }

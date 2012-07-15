@@ -3,16 +3,17 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __PROPERTY_REGION_TYPE_CONTROL_H__
-#define __PROPERTY_REGION_TYPE_CONTROL_H__
+
+#ifndef _c792faa7_fc4f_4632_b4b6_e27b5ae814c1_
+#define _c792faa7_fc4f_4632_b4b6_e27b5ae814c1_
 
 #include "BaseLayout/BaseLayout.h"
 #include "PropertyControl.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class PropertyRegionTypeControl :
+	class PropertyRegionTypeControl :
 		public wraps::BaseLayout,
 		public PropertyControl
 	{
@@ -30,8 +31,8 @@ namespace tools
 
 	private:
 		MyGUI::ComboBox* mComboBox;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __PROPERTY_REGION_TYPE_CONTROL_H__
+#endif

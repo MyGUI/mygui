@@ -10,6 +10,7 @@
 
 namespace tools
 {
+
 	DataSelectorManager* DataSelectorManager::mInstance = nullptr;
 
 	DataSelectorManager::DataSelectorManager()
@@ -110,4 +111,5 @@ namespace tools
 			}
 		}
 	}
+
 }

@@ -11,6 +11,7 @@
 
 namespace tools
 {
+
 	DataManager* DataManager::mInstance = nullptr;
 
 	DataManager::DataManager() :
@@ -78,4 +79,5 @@ namespace tools
 
 		return getSelectedDataByType(_data->getChildSelected(), _info);
 	}
+
 }

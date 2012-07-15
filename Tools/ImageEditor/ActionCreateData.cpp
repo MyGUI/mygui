@@ -12,6 +12,7 @@
 
 namespace tools
 {
+
 	ActionCreateData::ActionCreateData() :
 		mData(nullptr),
 		mComplete(false),
@@ -72,4 +73,5 @@ namespace tools
 	{
 		mPropertyName = _value;
 	}
+
 }

@@ -3,11 +3,13 @@
 	@author		Albert Semenov
 	@date		08/2008
 */
+
 #include "Precompiled.h"
 #include "TextureBrowseControl.h"
 
 namespace tools
 {
+
 	TextureBrowseControl::TextureBrowseControl() :
 		mTextures(nullptr)
 	{
@@ -103,4 +105,4 @@ namespace tools
 			mCurrentTextureName = "";
 	}
 
-} // namespace tools
+}

@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __STATE_PROPERTY_CONTROL_H__
-#define __STATE_PROPERTY_CONTROL_H__
+
+#ifndef _4c7cce74_fdc1_4984_9ac6_cd6d53097d89_
+#define _4c7cce74_fdc1_4984_9ac6_cd6d53097d89_
 
 #include "BaseLayout/BaseLayout.h"
 #include "Property.h"
@@ -15,10 +16,10 @@
 #include "PropertyIntControl.h"
 #include "PropertyColourControl.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class StatePropertyControl :
+	class StatePropertyControl :
 		public wraps::BaseLayout,
 		public PropertyAdvisor
 	{
@@ -34,8 +35,8 @@ namespace tools
 		PropertyInt2Control* mPropertyPositionControl;
 		PropertyColourControl* mPropertyColourControl;
 		PropertyIntControl* mPropertyOffsetControl;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __STATE_PROPERTY_CONTROL_H__
+#endif

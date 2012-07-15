@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __TEXTURE_TOOL_CONTROL_H__
-#define __TEXTURE_TOOL_CONTROL_H__
+
+#ifndef _535c1422_4ed5_44f0_a04c_83a1cb68b28b_
+#define _535c1422_4ed5_44f0_a04c_83a1cb68b28b_
 
 #include "TextureControl.h"
 
@@ -47,6 +48,6 @@ namespace tools
 		bool mActivate;
 	};
 
-} // namespace tools
+}
 
-#endif // __TEXTURE_TOOL_CONTROL_H__
+#endif

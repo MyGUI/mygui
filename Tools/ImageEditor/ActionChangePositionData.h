@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #ifndef _eb5f2935_ea69_4254_a22e_d2f73c8e9f1c_
 #define _eb5f2935_ea69_4254_a22e_d2f73c8e9f1c_
 
@@ -11,6 +12,7 @@
 
 namespace tools
 {
+
 	class ActionChangePositionData :
 		public Action
 	{
@@ -29,6 +31,7 @@ namespace tools
 		Data* mData2;
 		size_t mIndex;
 	};
+
 }
 
 #endif

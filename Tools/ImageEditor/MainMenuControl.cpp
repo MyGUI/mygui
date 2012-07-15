@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "MainMenuControl.h"
 #include "CommandManager.h"
@@ -12,6 +13,7 @@
 
 namespace tools
 {
+
 	FACTORY_ITEM_ATTRIBUTE(MainMenuControl);
 
 	MainMenuControl::MainMenuControl() :
@@ -67,4 +69,4 @@ namespace tools
 		}
 	}
 
-} // namespace tools
+}

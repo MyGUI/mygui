@@ -3,13 +3,14 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "SeparatorItem.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*SeparatorItem::SeparatorItem() :
+	SeparatorItem::SeparatorItem() :
 		mPropertySet(nullptr)
 	{
 		mPropertySet = new PropertySet();
@@ -56,5 +57,4 @@ namespace tools
 		mPropertySet->serialization(node, _version);
 	}
 
-*/
-} // namespace tools
+}*/

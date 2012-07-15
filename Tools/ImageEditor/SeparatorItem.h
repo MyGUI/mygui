@@ -3,16 +3,17 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __SEPARATOR_ITEM_H__
-#define __SEPARATOR_ITEM_H__
+
+#ifndef _2a82eab5_dbeb_4ce3_9421_223f269e9c2b_
+#define _2a82eab5_dbeb_4ce3_9421_223f269e9c2b_
 
 #include <MyGUI.h>
 #include "PropertySet.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class SeparatorItem :
+	class SeparatorItem :
 		public MyGUI::ISerializable
 	{
 	public:
@@ -33,8 +34,8 @@ namespace tools
 	private:
 		MyGUI::UString mName;
 		PropertySet* mPropertySet;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __SEPARATOR_ITEM_H__
+#endif

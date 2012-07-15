@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __SEPARATOR_TEXTURE_CONTROL_H__
-#define __SEPARATOR_TEXTURE_CONTROL_H__
+
+#ifndef _f96ae2f6_466f_4e19_a979_1f87162629f9_
+#define _f96ae2f6_466f_4e19_a979_1f87162629f9_
 
 #include "TextureToolControl.h"
 #include "PropertyAdvisor.h"
@@ -13,9 +14,10 @@
 #include "HorizontalSelectorBlackControl.h"
 #include "VerticalSelectorBlackControl.h"
 
-namespace tools
+/*namespace tools
 {
-	/*class SeparatorTextureControl :
+
+	class SeparatorTextureControl :
 		public TextureToolControl,
 		public PropertyAdvisor
 	{
@@ -81,8 +83,8 @@ namespace tools
 		std::vector<VerticalSelectorBlackControl*> mVerticalBlackSelectors;
 
 		int mValue;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __SEPARATOR_TEXTURE_CONTROL_H__
+#endif

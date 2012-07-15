@@ -3,14 +3,15 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "Property.h"
 #include "ActionManager.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*Property::Property(const MyGUI::UString& _name, const MyGUI::UString& _type) :
+	Property::Property(const MyGUI::UString& _name, const MyGUI::UString& _type) :
 		mName(_name),
 		mType(_type),
 		mReadOnly(false)
@@ -65,5 +66,4 @@ namespace tools
 		_node->setContent(mValue);
 	}
 
-*/
-} // namespace tools
+}*/

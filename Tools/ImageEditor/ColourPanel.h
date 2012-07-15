@@ -13,6 +13,7 @@
 
 namespace tools
 {
+
 	typedef MyGUI::delegates::CDelegate1<const MyGUI::Colour&> Event_PreviewColour;
 
 	ATTRIBUTE_CLASS_LAYOUT(ColourPanel, "ColourPanel.layout");
@@ -111,6 +112,7 @@ namespace tools
 		MyGUI::UString mTextureName;
 		bool mAlphaSupport;
 	};
+
 }
 
 #endif

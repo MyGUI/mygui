@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		09/2010
 */
+
 #include "Precompiled.h"
 #include "ColourManager.h"
 #include "CommandManager.h"
@@ -96,4 +97,4 @@ namespace tools
 		return SettingsManager::getInstance().getSector("Settings")->getPropertyValue<MyGUI::Colour>(mCurrentColourType);
 	}
 
-} // namespace tools
+}

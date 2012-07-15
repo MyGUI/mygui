@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __AREA_SELECTOR_CONTROL_H__
-#define __AREA_SELECTOR_CONTROL_H__
+
+#ifndef _463505b4_6ae5_4365_bf63_0f003a5dbde1_
+#define _463505b4_6ae5_4365_bf63_0f003a5dbde1_
 
 #include "SelectorControl.h"
 
@@ -19,6 +20,6 @@ namespace tools
 		virtual ~AreaSelectorControl();
 	};
 
-} // namespace tools
+}
 
-#endif // __AREA_SELECTOR_CONTROL_H__
+#endif

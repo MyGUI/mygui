@@ -3,14 +3,15 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "PropertyInt2Control.h"
 #include "Localise.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*PropertyInt2Control::PropertyInt2Control(MyGUI::Widget* _parent) :
+	PropertyInt2Control::PropertyInt2Control(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("PropertyEditControl.layout", _parent),
 		mEdit(nullptr)
 	{
@@ -88,6 +89,6 @@ namespace tools
 		size_t index = mEdit->getTextCursor();
 		mEdit->setCaption(value);
 		mEdit->setTextCursor(index);
-	}*/
+	}
 
-} // namespace tools
+}*/

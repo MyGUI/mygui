@@ -11,6 +11,7 @@
 
 namespace tools
 {
+
 	ActionDestroyData::ActionDestroyData() :
 		mData(nullptr),
 		mComplete(false),
@@ -52,4 +53,5 @@ namespace tools
 	{
 		mData = _data;
 	}
+
 }

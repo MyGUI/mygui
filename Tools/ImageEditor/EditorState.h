@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __EDITOR_STATE_H__
-#define __EDITOR_STATE_H__
+
+#ifndef _9242b3ed_2b1a_44f5_b31d_6a24f2db0fe2_
+#define _9242b3ed_2b1a_44f5_b31d_6a24f2db0fe2_
 
 #include "StateController.h"
 #include "Control.h"
@@ -16,6 +17,7 @@
 
 namespace tools
 {
+
 	class EditorState :
 		public StateController,
 		public sigslot::has_slots<>
@@ -75,6 +77,6 @@ namespace tools
 		SettingsWindow* mSettingsWindow;
 	};
 
-} // namespace tools
+}
 
-#endif // __EDITOR_STATE_H__
+#endif

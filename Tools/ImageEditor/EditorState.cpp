@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "EditorState.h"
 #include "Application.h"
@@ -20,6 +21,7 @@
 
 namespace tools
 {
+
 	EditorState::EditorState() :
 		mFileName("unnamed.xml"),
 		mDefaultFileName("unnamed.xml"),
@@ -500,4 +502,5 @@ namespace tools
 
 		_result = true;
 	}
+
 }

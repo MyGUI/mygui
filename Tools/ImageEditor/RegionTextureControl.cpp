@@ -3,15 +3,17 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "RegionTextureControl.h"
 #include "CommandManager.h"
 #include "Localise.h"
 #include "GridManager.h"
 
-namespace tools
+/*namespace tools
 {
-	/*RegionTextureControl::RegionTextureControl(MyGUI::Widget* _parent) :
+
+	RegionTextureControl::RegionTextureControl(MyGUI::Widget* _parent) :
 		TextureToolControl(_parent),
 		mTextureVisible(false),
 		mAreaSelectorControl(nullptr),
@@ -558,6 +560,6 @@ namespace tools
 	{
 		if (getActivate())
 			updateCaption();
-	}*/
+	}
 
-} // namespace tools
+}*/

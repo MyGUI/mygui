@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #ifndef _897c30fe_12de_4067_91d0_a2a336a18f83_
 #define _897c30fe_12de_4067_91d0_a2a336a18f83_
 
@@ -12,6 +13,7 @@
 
 namespace tools
 {
+
 	class ActionManager
 	{
 	public:
@@ -55,6 +57,7 @@ namespace tools
 		ListAction::iterator mActionAsSave;
 		size_t mMaxActions;
 	};
+
 }
 
 #endif

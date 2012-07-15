@@ -14,6 +14,7 @@
 
 namespace tools
 {
+
 	class DataSelectorManager
 	{
 	public:
@@ -44,6 +45,7 @@ namespace tools
 		typedef std::map<std::string, EventType*> MapEvent;
 		MapEvent mEvents;
 	};
+
 }
 
 #endif

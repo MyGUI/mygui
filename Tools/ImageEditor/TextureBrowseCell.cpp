@@ -3,11 +3,13 @@
 	@author		Albert Semenov
 	@date		09/2010
 */
+
 #include "Precompiled.h"
 #include "TextureBrowseCell.h"
 
 namespace tools
 {
+
 	void TextureBrowseCell::getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord& _coord, bool _drop)
 	{
 		_coord.set(0, 0, 180, 180);
@@ -57,4 +59,4 @@ namespace tools
 			mSelector->setAlpha(0);
 	}
 
-} // namespace tools
+}

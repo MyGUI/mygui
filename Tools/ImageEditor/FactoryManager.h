@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #ifndef _60e2a077_d22d_435e_866e_ac48372e1eed_
 #define _60e2a077_d22d_435e_866e_ac48372e1eed_
 
@@ -14,6 +15,7 @@
 
 namespace components
 {
+
 	class FactoryManager
 	{
 	public:
@@ -34,6 +36,7 @@ namespace components
 		typedef std::map<std::string, IFactory*> MapFactory;
 		MapFactory mFactories;
 	};
+
 }
 
 #endif

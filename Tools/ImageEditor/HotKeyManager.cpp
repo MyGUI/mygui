@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "HotKeyManager.h"
 #include "CommandManager.h"
@@ -256,4 +257,4 @@ namespace tools
 		return result;
 	}
 
-} // namespace tools
+}

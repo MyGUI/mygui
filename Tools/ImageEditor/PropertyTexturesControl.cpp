@@ -3,12 +3,14 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "PropertyTexturesControl.h"
 
-namespace tools
+/*namespace tools
 {
-	/*PropertyTexturesControl::PropertyTexturesControl(MyGUI::Widget* _parent) :
+
+	PropertyTexturesControl::PropertyTexturesControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("PropertyTextureBrowseControl.layout", _parent),
 		mComboBox(nullptr),
 		mBrowse(nullptr),
@@ -124,5 +126,6 @@ namespace tools
 		paths = MyGUI::DataManager::getInstance().getDataListNames("*.jpg");
 		for (MyGUI::VectorString::iterator iter = paths.begin(); iter != paths.end(); ++iter)
 			mTextures.push_back(*iter);
-	}*/
-} // namespace tools
+	}
+
+}*/

@@ -3,17 +3,18 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __REGION_LIST_CONTROL_H__
-#define __REGION_LIST_CONTROL_H__
+
+#ifndef _555aab1d_b0cd_40a1_83ba_9ae755d11e0f_
+#define _555aab1d_b0cd_40a1_83ba_9ae755d11e0f_
 
 #include "BaseLayout/BaseLayout.h"
 #include "RegionItem.h"
 #include "PropertyAdvisor.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class RegionListControl :
+	class RegionListControl :
 		public wraps::BaseLayout,
 		public PropertyAdvisor
 	{
@@ -49,8 +50,9 @@ namespace tools
 		MyGUI::UString mTypeName;
 
 		MyGUI::IntCoord mCoordValue;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __REGION_LIST_CONTROL_H__
+
+#endif

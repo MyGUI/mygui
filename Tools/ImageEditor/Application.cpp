@@ -30,6 +30,7 @@ template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Ap
 
 namespace tools
 {
+
 	Application::Application() :
 		mEditorState(nullptr)
 	{
@@ -461,6 +462,6 @@ namespace tools
 		SettingsManager::getInstance().getSector("Window")->setPropertyValue("Coord", getWindowCoord());
 	}
 
-} // namespace tools
+}
 
 MYGUI_APP(tools::Application)

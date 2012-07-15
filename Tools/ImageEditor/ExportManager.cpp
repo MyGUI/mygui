@@ -14,6 +14,7 @@ template <> const char* MyGUI::Singleton<tools::ExportManager>::mClassTypeName("
 
 namespace tools
 {
+
 	ExportManager::ExportManager()
 	{
 	}
@@ -154,4 +155,5 @@ namespace tools
 		if (!value.empty())
 			node.append_attribute("count").set_value(value.c_str());
 	}
+
 }

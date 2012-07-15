@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "SkinManager.h"
 #include "ExportManager.h"
@@ -77,4 +78,4 @@ namespace tools
 			ExportManager::getInstancePtr()->convertSkin(skins.current(), _node->createChild("Resource"));
 	}
 
-} // namespace tools*/
+}*/

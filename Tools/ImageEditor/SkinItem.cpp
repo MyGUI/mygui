@@ -3,13 +3,14 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "SkinItem.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*SkinItem::SkinItem() :
+	SkinItem::SkinItem() :
 		mPropertySet(nullptr)
 	{
 		mPropertySet = new PropertySet();
@@ -707,6 +708,6 @@ namespace tools
 	void SkinItem::setUniqum(bool _value)
 	{
 		mUniqum = _value;
-	}*/
+	}
 
-} // namespace tools
+}*/

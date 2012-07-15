@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __PROPERTY_H__
-#define __PROPERTY_H__
+
+#ifndef _faf0ef48_7615_4de7_812c_48520c83de61_
+#define _faf0ef48_7615_4de7_812c_48520c83de61_
 
 #include <MyGUI.h>
 
@@ -42,6 +43,6 @@
 		bool mReadOnly;
 	};
 
-} // namespace tools
-*/
-#endif // __PROPERTY_H__
+}*/
+
+#endif

@@ -3,14 +3,15 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "RegionPropertyControl.h"
 #include "SkinManager.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*RegionPropertyControl::RegionPropertyControl(MyGUI::Widget* _parent) :
+	RegionPropertyControl::RegionPropertyControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("RegionPropertyControl.layout", _parent),
 		mPropertyPositionControl(nullptr),
 		mPropertyVisibleControl(nullptr),
@@ -40,6 +41,6 @@ namespace tools
 		mPropertyEnabledControl->setProperty(region != nullptr ? region->getPropertySet()->getChild("Enabled") : nullptr);
 		mPropertyAlignControl->setProperty(region != nullptr ? region->getPropertySet()->getChild("Align") : nullptr);
 		mPropertyRegionTypeControl->setProperty(region != nullptr ? region->getPropertySet()->getChild("RegionType") : nullptr);
-	}*/
+	}
 
-} // namespace tools
+}*/

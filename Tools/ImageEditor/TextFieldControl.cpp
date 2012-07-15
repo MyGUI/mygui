@@ -3,11 +3,13 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "TextFieldControl.h"
 
 namespace tools
 {
+
 	TextFieldControl::TextFieldControl() :
 		wraps::BaseLayout("TextField.layout"),
 		mText(nullptr),

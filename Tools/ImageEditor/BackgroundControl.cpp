@@ -3,16 +3,17 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "BackgroundControl.h"
 #include "SkinManager.h"
 #include "Localise.h"
 #include "SettingsManager.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*BackgroundControl::BackgroundControl(MyGUI::Widget* _parent) :
+	BackgroundControl::BackgroundControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("BackgroundControl.layout", _parent),
 		mBackground(nullptr),
 		mCanvas(nullptr)
@@ -52,6 +53,6 @@ namespace tools
 				setColour(colour);
 			}
 		}
-	}*/
+	}
 
-} // namespace tools
+}*/

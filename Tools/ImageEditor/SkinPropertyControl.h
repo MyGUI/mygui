@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __SKIN_PROPERTY_CONTROL_H__
-#define __SKIN_PROPERTY_CONTROL_H__
+
+#ifndef _fabe9a65_52dd_41df_b60c_a6d64f4791a0_
+#define _fabe9a65_52dd_41df_b60c_a6d64f4791a0_
 
 #include "BaseLayout/BaseLayout.h"
 #include "Property.h"
@@ -13,10 +14,10 @@
 #include "PropertyInt4Control.h"
 #include "PropertyTexturesControl.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class SkinPropertyControl :
+	class SkinPropertyControl :
 		public wraps::BaseLayout,
 		public PropertyAdvisor
 	{
@@ -30,8 +31,8 @@ namespace tools
 	private:
 		PropertyInt4Control* mPropertyCoordControl;
 		PropertyTexturesControl* mPropertyTexturesControl;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __SKIN_PROPERTY_CONTROL_H__
+#endif

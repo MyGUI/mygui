@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		09/2010
 */
+
 #include "Precompiled.h"
 #include "SettingsResourcePathsControl.h"
 #include "SettingsManager.h"
@@ -11,6 +12,7 @@
 
 namespace tools
 {
+
 	FACTORY_ITEM_ATTRIBUTE(SettingsResourcePathsControl);
 
 	SettingsResourcePathsControl::SettingsResourcePathsControl() :
@@ -92,4 +94,5 @@ namespace tools
 		else if (_command == "Command_SaveSettings")
 			saveSettings();
 	}
+
 }

@@ -3,16 +3,17 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __PROPERTY_INT_2_CONTROL_H__
-#define __PROPERTY_INT_2_CONTROL_H__
+
+#ifndef _b3697c6a_b56b_4edd_b9e0_1f2e871d0da1_
+#define _b3697c6a_b56b_4edd_b9e0_1f2e871d0da1_
 
 #include "BaseLayout/BaseLayout.h"
 #include "PropertyControl.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class PropertyInt2Control :
+	class PropertyInt2Control :
 		public wraps::BaseLayout,
 		public PropertyControl
 	{
@@ -32,8 +33,8 @@ namespace tools
 
 	private:
 		MyGUI::EditBox* mEdit;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __PROPERTY_INT_2_CONTROL_H__
+#endif

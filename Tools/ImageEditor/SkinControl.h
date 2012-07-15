@@ -3,18 +3,19 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __SKIN_CONTROL_H__
-#define __SKIN_CONTROL_H__
 
-//#include "BaseLayout/BaseLayout.h"
+#ifndef _43f33462_3a5f_4080_8a51_cc677f756569_
+#define _43f33462_3a5f_4080_8a51_cc677f756569_
+
+#include "BaseLayout/BaseLayout.h"
 //#include "SkinListControl.h"
-//#include "SkinPropertyControl.h"
-//#include "SkinTextureControl.h"
+#include "SkinPropertyControl.h"
+#include "SkinTextureControl.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class SkinControl :
+	class SkinControl :
 		public wraps::BaseLayout
 	{
 	public:
@@ -27,8 +28,8 @@ namespace tools
 		SkinListControl* mSkinListControl;
 		SkinPropertyControl* mSkinPropertyControl;
 		SkinTextureControl* mSkinTextureControl;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __SKIN_CONTROL_H__
+#endif

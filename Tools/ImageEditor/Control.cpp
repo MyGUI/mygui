@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #include "Precompiled.h"
 #include "Control.h"
 #include "FactoryManager.h"
@@ -10,6 +11,7 @@
 
 namespace tools
 {
+
 	FACTORY_ITEM_ATTRIBUTE(Control);
 
 	Control::Control() :
@@ -154,4 +156,5 @@ namespace tools
 
 		return MyGUI::Gui::getInstance().createWidgetT(_typeName, MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default, "");
 	}
+
 }

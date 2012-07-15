@@ -3,16 +3,17 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __PROPERTY_BOOL_CONTROL_H__
-#define __PROPERTY_BOOL_CONTROL_H__
+
+#ifndef _1ff1ce31_9c20_47d9_ab7e_79bf431cc819_
+#define _1ff1ce31_9c20_47d9_ab7e_79bf431cc819_
 
 #include "BaseLayout/BaseLayout.h"
 #include "PropertyControl.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class PropertyBoolControl :
+	class PropertyBoolControl :
 		public wraps::BaseLayout,
 		public PropertyControl
 	{
@@ -30,8 +31,8 @@ namespace tools
 
 	private:
 		MyGUI::ComboBox* mComboBox;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __PROPERTY_BOOL_CONTROL_H__
+#endif

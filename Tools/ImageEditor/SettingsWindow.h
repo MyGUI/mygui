@@ -12,6 +12,7 @@
 
 namespace tools
 {
+
 	class SettingsWindow :
 		public Dialog,
 		public Control
@@ -35,6 +36,7 @@ namespace tools
 		MyGUI::ListBox* mListSettings;
 		MyGUI::TabControl* mTabSettings;
 	};
+
 }
 
 #endif

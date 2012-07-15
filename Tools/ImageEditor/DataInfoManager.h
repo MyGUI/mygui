@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #ifndef _ccf347aa_fadc_4b79_8b3b_73475259614d_
 #define _ccf347aa_fadc_4b79_8b3b_73475259614d_
 
@@ -12,6 +13,7 @@
 
 namespace tools
 {
+
 	class DataInfoManager
 	{
 	public:
@@ -34,6 +36,7 @@ namespace tools
 		typedef std::vector<DataInfo*> VectorDataInfo;
 		VectorDataInfo mDataInfos;
 	};
+
 }
 
 #endif

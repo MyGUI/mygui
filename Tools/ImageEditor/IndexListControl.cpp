@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #include "Precompiled.h"
 #include "IndexListControl.h"
 #include "FactoryManager.h"
@@ -10,6 +11,7 @@
 
 namespace tools
 {
+
 	FACTORY_ITEM_ATTRIBUTE(IndexListControl);
 
 	IndexListControl::IndexListControl()
@@ -30,4 +32,5 @@ namespace tools
 
 		setDataInfo("Group", "Index", "Name");
 	}
+
 }

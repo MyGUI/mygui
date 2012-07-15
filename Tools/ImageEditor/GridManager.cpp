@@ -3,6 +3,7 @@
 	@author		George Evmenov
 	@date		03/2011
 */
+
 #include "Precompiled.h"
 #include "GridManager.h"
 #include "SettingsManager.h"
@@ -12,6 +13,7 @@ template <> const char* MyGUI::Singleton<tools::GridManager>::mClassTypeName("Gr
 
 namespace tools
 {
+
 	GridManager::GridManager() :
 		mGridStep(0)
 	{
@@ -56,4 +58,4 @@ namespace tools
 		return _value;
 	}
 
-} // namespace tools
+}

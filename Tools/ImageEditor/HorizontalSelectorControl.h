@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __HORIZONTAL_SELECTOR_CONTROL_H__
-#define __HORIZONTAL_SELECTOR_CONTROL_H__
+
+#ifndef _39219b72_a449_46ee_91b4_d738499b34cf_
+#define _39219b72_a449_46ee_91b4_d738499b34cf_
 
 #include "SelectorControl.h"
 
@@ -19,6 +20,6 @@ namespace tools
 		virtual ~HorizontalSelectorControl();
 	};
 
-} // namespace tools
+}
 
-#endif // __HORIZONTAL_SELECTOR_CONTROL_H__
+#endif

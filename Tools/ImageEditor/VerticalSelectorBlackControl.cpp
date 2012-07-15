@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "VerticalSelectorBlackControl.h"
 
@@ -20,4 +21,4 @@ namespace tools
 	{
 	}
 
-} // namespace tools
+}

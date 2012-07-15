@@ -3,14 +3,15 @@
 	@author		Albert Semenov
 	@date		08/2008
 */
+
 #include "Precompiled.h"
 #include "TestWindow.h"
 #include "ExportManager.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*TestWindow::TestWindow() :
+	TestWindow::TestWindow() :
 		Dialog("TestWindow.layout"),
 		mBackgroundControl(nullptr),
 		mSkinItem(nullptr),
@@ -115,6 +116,6 @@ namespace tools
 		resourceNode->setAttribute("name", mSkinName);
 
 		MyGUI::ResourceManager::getInstance().loadFromXmlNode(rootOut, "", MyGUI::Version(1, 1, 0));
-	}*/
+	}
 
-} // namespace tools
+}*/

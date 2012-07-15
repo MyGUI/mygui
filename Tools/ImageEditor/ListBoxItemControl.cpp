@@ -3,13 +3,15 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #include "Precompiled.h"
 #include "ListBoxItemControl.h"
 #include "Localise.h"
 
-namespace tools
+/*namespace tools
 {
-	/*void ListBoxItemControl::getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord& _coord, bool _drop)
+
+	void ListBoxItemControl::getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord& _coord, bool _drop)
 	{
 		int height = MyGUI::utility::parseValue<int>(_sender->getUserString("CellHeight"));
 		_coord.set(0, 0, _sender->getClientCoord().width, height);
@@ -80,5 +82,6 @@ namespace tools
 		}
 
 		mMainWidget->_setWidgetState(state);
-	}*/
-}
+	}
+
+}*/

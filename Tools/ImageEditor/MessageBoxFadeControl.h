@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __MESSAGE_BOX_FADE_CONTROL_H__
-#define __MESSAGE_BOX_FADE_CONTROL_H__
+
+#ifndef _05ab6d18_ce9a_43df_93dc_98653055410f_
+#define _05ab6d18_ce9a_43df_93dc_98653055410f_
 
 #include "BaseLayout/BaseLayout.h"
 
@@ -25,6 +26,6 @@ namespace tools
 		float mMaxAlpha;
 	};
 
-} // namespace tools
+}
 
-#endif // __MESSAGE_BOX_FADE_CONTROL_H__
+#endif

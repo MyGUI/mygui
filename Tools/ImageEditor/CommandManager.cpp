@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "CommandManager.h"
 
@@ -83,4 +84,4 @@ namespace tools
 		return mData;
 	}
 
-} // namespace tools
+}

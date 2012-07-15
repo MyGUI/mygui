@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #include "Precompiled.h"
 #include "FrameListControl.h"
 #include "FactoryManager.h"
@@ -10,6 +11,7 @@
 
 namespace tools
 {
+
 	FACTORY_ITEM_ATTRIBUTE(FrameListControl);
 
 	FrameListControl::FrameListControl()
@@ -29,4 +31,5 @@ namespace tools
 
 		setDataInfo("Index", "Frame", "Point");
 	}
+
 }

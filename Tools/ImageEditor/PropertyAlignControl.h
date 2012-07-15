@@ -3,16 +3,17 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __PROPERTY_ALIGN_CONTROL_H__
-#define __PROPERTY_ALIGN_CONTROL_H__
+
+#ifndef _d705ec84_7d33_4cc9_88db_4fd50608b60b_
+#define _d705ec84_7d33_4cc9_88db_4fd50608b60b_
 
 #include "BaseLayout/BaseLayout.h"
 #include "PropertyControl.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class PropertyAlignControl :
+	class PropertyAlignControl :
 		public wraps::BaseLayout,
 		public PropertyControl
 	{
@@ -30,8 +31,8 @@ namespace tools
 
 	private:
 		MyGUI::ComboBox* mComboBox;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __PROPERTY_ALIGN_CONTROL_H__
+#endif

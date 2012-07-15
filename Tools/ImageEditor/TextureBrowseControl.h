@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		10/2008
 */
-#ifndef __TEXTURE_BROWSE_CONTROL_H__
-#define __TEXTURE_BROWSE_CONTROL_H__
+
+#ifndef _2122a0ba_a0a9_497c_8186_e1fa60400305_
+#define _2122a0ba_a0a9_497c_8186_e1fa60400305_
 
 #include <MyGUI.h>
 #include "Dialog.h"
@@ -13,6 +14,7 @@
 
 namespace tools
 {
+
 	ATTRIBUTE_CLASS_LAYOUT(TextureBrowseControl, "TextureBrowseControl.layout");
 	class TextureBrowseControl :
 		public Dialog,
@@ -49,6 +51,6 @@ namespace tools
 		std::string mCurrentTextureName;
 	};
 
-} // namespace tools
+}
 
-#endif // __TEXTURE_BROWSE_CONTROL_H__
+#endif

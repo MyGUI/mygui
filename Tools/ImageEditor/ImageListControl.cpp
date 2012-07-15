@@ -11,6 +11,7 @@
 
 namespace tools
 {
+
 	FACTORY_ITEM_ATTRIBUTE(ImageListControl);
 
 	ImageListControl::ImageListControl()
@@ -31,4 +32,5 @@ namespace tools
 
 		setDataInfo("Root", "Image", "Name");
 	}
+
 }

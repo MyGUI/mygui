@@ -3,13 +3,14 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "PropertyRegionTypeControl.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*PropertyRegionTypeControl::PropertyRegionTypeControl(MyGUI::Widget* _parent) :
+	PropertyRegionTypeControl::PropertyRegionTypeControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("PropertyComboBoxControl.layout", _parent),
 		mComboBox(nullptr)
 	{
@@ -77,6 +78,6 @@ namespace tools
 		}
 
 		return result;
-	}*/
+	}
 
-} // namespace tools
+}*/

@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __REGION_PROPERTY_CONTROL_H__
-#define __REGION_PROPERTY_CONTROL_H__
+
+#ifndef _0f0d895e_0207_467d_a4e3_ce2f53719e9e_
+#define _0f0d895e_0207_467d_a4e3_ce2f53719e9e_
 
 #include "BaseLayout/BaseLayout.h"
 #include "Property.h"
@@ -15,10 +16,10 @@
 #include "PropertyAlignControl.h"
 #include "PropertyRegionTypeControl.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class RegionPropertyControl :
+	class RegionPropertyControl :
 		public wraps::BaseLayout,
 		public PropertyAdvisor
 	{
@@ -35,8 +36,8 @@ namespace tools
 		PropertyBoolControl* mPropertyEnabledControl;
 		PropertyAlignControl* mPropertyAlignControl;
 		PropertyRegionTypeControl* mPropertyRegionTypeControl;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __REGION_PROPERTY_CONTROL_H__
+#endif

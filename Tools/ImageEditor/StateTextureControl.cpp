@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "StateTextureControl.h"
 #include "SkinManager.h"
@@ -10,9 +11,10 @@
 #include "Localise.h"
 #include "GridManager.h"
 
-namespace tools
+/*namespace tools
 {
-	/*StateTextureControl::StateTextureControl(MyGUI::Widget* _parent) :
+
+	StateTextureControl::StateTextureControl(MyGUI::Widget* _parent) :
 		TextureToolControl(_parent),
 		mAreaSelectorControl(nullptr)
 	{
@@ -366,6 +368,6 @@ namespace tools
 	{
 		if (getActivate())
 			updateCaption();
-	}*/
+	}
 
-} // namespace tools
+}*/

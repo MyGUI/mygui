@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __PROPERTY_SET_H__
-#define __PROPERTY_SET_H__
+
+#ifndef _cf23d6a7_e1ab_48df_bf24_5e3608425824_
+#define _cf23d6a7_e1ab_48df_bf24_5e3608425824_
 
 #include <MyGUI.h>
 #include "Property.h"
@@ -55,6 +56,6 @@
 		VectorProperty mChilds;
 	};
 
-} // namespace tools
-*/
-#endif // __PROPERTY_SET_H__
+}*/
+
+#endif

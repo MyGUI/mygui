@@ -3,16 +3,18 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
-#ifndef __LIST_BOX_ITEM_CONTROL_H__
-#define __LIST_BOX_ITEM_CONTROL_H__
+
+#ifndef _e8891c61_38c4_4281_8f4b_2edb63565811_
+#define _e8891c61_38c4_4281_8f4b_2edb63565811_
 
 #include <MyGUI.h>
 #include "ItemBox/BaseCellView.h"
 #include "SkinItem.h"
 
-namespace tools
+/*namespace tools
 {
-	/*class ListBoxItemControl :
+
+	class ListBoxItemControl :
 		public wraps::BaseCellView<SkinItem*>
 	{
 	public:
@@ -20,7 +22,8 @@ namespace tools
 
 		void update(const MyGUI::IBDrawItemInfo& _info, SkinItem* _data);
 		static void getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord& _coord, bool _drop);
-	};*/
-}
+	};
+
+}*/
 
 #endif

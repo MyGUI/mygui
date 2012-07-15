@@ -3,16 +3,17 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __REGION_ITEM_H__
-#define __REGION_ITEM_H__
+
+#ifndef _0f1cbb62_e28d_4689_aefb_12b330a9c669_
+#define _0f1cbb62_e28d_4689_aefb_12b330a9c669_
 
 #include <MyGUI.h>
 #include "PropertySet.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class RegionItem :
+	class RegionItem :
 		public MyGUI::ISerializable
 	{
 	public:
@@ -33,8 +34,8 @@ namespace tools
 	private:
 		MyGUI::UString mName;
 		PropertySet* mPropertySet;
-	};*/
+	};
 
-} // namespace tools
+}*/
 
-#endif // __REGION_ITEM_H__
+#endif

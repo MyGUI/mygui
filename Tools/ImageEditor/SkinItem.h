@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __SKIN_ITEM_H__
-#define __SKIN_ITEM_H__
+
+#ifndef _ab3415aa_44d0_431f_afea_9960cdb57f30_
+#define _ab3415aa_44d0_431f_afea_9960cdb57f30_
 
 #include <MyGUI.h>
 #include "PropertySet.h"
@@ -13,10 +14,10 @@
 #include "RegionItem.h"
 #include "ItemHolder.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*class SkinItem :
+	class SkinItem :
 		public MyGUI::ISerializable
 	{
 	public:
@@ -56,7 +57,7 @@ namespace tools
 		ItemHolder<RegionItem> mRegions;
 		bool mUniqum;
 	};
-	*/
-} // namespace tools
 
-#endif // __SKIN_ITEM_H__
+}*/
+
+#endif

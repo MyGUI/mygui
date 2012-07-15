@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __MESSAGE_BOX_MANAGER_H__
-#define __MESSAGE_BOX_MANAGER_H__
+
+#ifndef _5faf9ff7_560b_4d0a_b812_8923f8da7805_
+#define _5faf9ff7_560b_4d0a_b812_8923f8da7805_
 
 #include <MyGUI.h>
 #include "MessageBox/MessageBox.h"
@@ -35,6 +36,6 @@ namespace tools
 		VectorMessage mMessages;
 	};
 
-} // namespace tools
+}
 
-#endif // __MESSAGE_BOX_MANAGER_H__
+#endif

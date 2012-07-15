@@ -3,15 +3,16 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "RegionListControl.h"
 #include "SkinManager.h"
 #include "Localise.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*RegionListControl::RegionListControl(MyGUI::Widget* _parent) :
+	RegionListControl::RegionListControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("RegionListControl.layout", _parent),
 		mList(nullptr)
 	{
@@ -286,6 +287,6 @@ namespace tools
 				return item;
 		}
 		return nullptr;
-	}*/
+	}
 
-} // namespace tools
+}*/

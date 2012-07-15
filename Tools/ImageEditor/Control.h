@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #ifndef _695efc39_8196_4b64_bc11_76874525dba1_
 #define _695efc39_8196_4b64_bc11_76874525dba1_
 
@@ -11,6 +12,7 @@
 
 namespace tools
 {
+
 	class Control :
 		public wraps::BaseLayout,
 		public components::IFactoryItem
@@ -72,6 +74,7 @@ namespace tools
 		VectorControl mChilds;
 		Control* mParent;
 	};
+
 }
 
 #endif

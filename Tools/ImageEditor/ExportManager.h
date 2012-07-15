@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #ifndef _fde958f2_c1bc_4976_8cff_8a45a828b009_
 #define _fde958f2_c1bc_4976_8cff_8a45a828b009_
 
@@ -12,6 +13,7 @@
 
 namespace tools
 {
+
 	class ExportManager :
 		public MyGUI::Singleton<ExportManager>
 	{
@@ -35,6 +37,7 @@ namespace tools
 		void writeIndex(pugi::xml_node _parent, Data* _data);
 		void writeFrame(pugi::xml_node _parent, Data* _data);
 	};
+
 }
 
 #endif

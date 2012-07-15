@@ -3,13 +3,14 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "RegionControl.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*RegionControl::RegionControl(MyGUI::Widget* _parent) :
+	RegionControl::RegionControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("RegionControl.layout", _parent),
 		mRegionListControl(nullptr),
 		mRegionPropertyControl(nullptr),
@@ -27,6 +28,6 @@ namespace tools
 	void RegionControl::setActivate(bool _value)
 	{
 		mRegionTextureControl->setActivate(_value);
-	}*/
+	}
 
-} // namespace tools
+}*/

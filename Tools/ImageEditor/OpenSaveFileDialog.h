@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		09/2008
 */
+
 #ifndef _75bf3bc8_5f9f_4d93_ad22_949d0cd2f50b_
 #define _75bf3bc8_5f9f_4d93_ad22_949d0cd2f50b_
 
@@ -12,6 +13,7 @@
 
 namespace tools
 {
+
 	class OpenSaveFileDialog :
 		public Dialog,
 		public Control
@@ -72,6 +74,7 @@ namespace tools
 		MyGUI::UString mMode;
 		bool mFolderMode;
 	};
+
 }
 
 #endif

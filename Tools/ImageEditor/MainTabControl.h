@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #ifndef _cf5fec8e_754d_4748_b827_670e473f5c82_
 #define _cf5fec8e_754d_4748_b827_670e473f5c82_
 
@@ -10,6 +11,7 @@
 
 /*namespace tools
 {
+
 	class MainTabControl :
 		public Control
 	{
@@ -19,6 +21,7 @@
 
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 	};
+
 }*/
 
 #endif

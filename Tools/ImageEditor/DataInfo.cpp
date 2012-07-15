@@ -9,6 +9,7 @@
 
 namespace tools
 {
+
 	DataInfo::DataInfo()
 	{
 	}
@@ -62,4 +63,5 @@ namespace tools
 
 		return false;
 	}
+
 }

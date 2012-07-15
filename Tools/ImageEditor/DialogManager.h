@@ -3,14 +3,16 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __DIALOG_MANAGER_H__
-#define __DIALOG_MANAGER_H__
+
+#ifndef _625c2a75_11e0_40d3_9ce1_78e805050dcf_
+#define _625c2a75_11e0_40d3_9ce1_78e805050dcf_
 
 #include <MyGUI.h>
 #include "Dialog.h"
 
 namespace tools
 {
+
 	class DialogManager :
 		public MyGUI::Singleton<DialogManager>
 	{
@@ -33,6 +35,6 @@ namespace tools
 		VectorDialog mDialogs;
 	};
 
-} // namespace tools
+}
 
-#endif // __DIALOG_MANAGER_H__
+#endif

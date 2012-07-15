@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __HOT_KEY_COMMAND_H__
-#define __HOT_KEY_COMMAND_H__
+
+#ifndef _c51113dc_3e4d_4f5c_8ef4_7521ea4edfb3_
+#define _c51113dc_3e4d_4f5c_8ef4_7521ea4edfb3_
 
 #include <MyGUI.h>
 
@@ -75,6 +76,6 @@ namespace tools
 		MyGUI::UString mCommand;
 	};
 
-} // namespace tools
+}
 
-#endif // __HOT_KEY_COMMAND_H__
+#endif

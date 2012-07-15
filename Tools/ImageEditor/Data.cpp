@@ -10,6 +10,7 @@
 
 namespace tools
 {
+
 	Data::Data() :
 		mType(nullptr),
 		mParent(nullptr),
@@ -148,4 +149,5 @@ namespace tools
 	{
 		mIndexSelected = getChildIndex(_child);
 	}
+
 }

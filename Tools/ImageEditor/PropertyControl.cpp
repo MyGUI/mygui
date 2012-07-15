@@ -3,13 +3,14 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "PropertyControl.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*PropertyControl::PropertyControl() :
+	PropertyControl::PropertyControl() :
 		mProperty(nullptr)
 	{
 		mTypeName = MyGUI::utility::toString((size_t)this);
@@ -63,6 +64,6 @@ namespace tools
 	const MyGUI::UString& PropertyControl::getTypeName() const
 	{
 		return mTypeName;
-	}*/
+	}
 
-} // namespace tools
+}*/

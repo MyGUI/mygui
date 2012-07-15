@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "SelectorControl.h"
 #include "SettingsManager.h"
@@ -177,4 +178,4 @@ namespace tools
 		return mMainWidget;
 	}
 
-} // namespace tools
+}

@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		07/2012
 */
+
 #include "Precompiled.h"
 #include "DataListBaseControl.h"
 #include "FactoryManager.h"
@@ -18,6 +19,7 @@
 
 namespace tools
 {
+
 	FACTORY_ITEM_ATTRIBUTE(DataListBaseControl);
 
 	DataListBaseControl::DataListBaseControl() :
@@ -144,4 +146,5 @@ namespace tools
 
 		ActionManager::getInstance().doAction(command);
 	}
+
 }

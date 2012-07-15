@@ -3,14 +3,15 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "PropertyColourControl.h"
 #include "Localise.h"
 
-namespace tools
+/*namespace tools
 {
 
-	/*PropertyColourControl::PropertyColourControl(MyGUI::Widget* _parent) :
+	PropertyColourControl::PropertyColourControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("PropertyColourControl.layout", _parent),
 		mEdit(nullptr),
 		mColour(nullptr),
@@ -244,6 +245,6 @@ namespace tools
 		Property* proper = getProperty();
 		if (proper != nullptr)
 			proper->setValue(MyGUI::utility::toString(mCurrentColour.red, " ", mCurrentColour.green, " ", mCurrentColour.blue), ""); // чтобы мы обновили поле
-	}*/
+	}
 
-} // namespace tools
+}*/
