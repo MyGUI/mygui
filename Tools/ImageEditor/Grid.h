@@ -11,11 +11,11 @@
 
 namespace tools
 {
-	class Grid : public MyGUI::Singleton<Grid>
+	class GridManager : public MyGUI::Singleton<GridManager>
 	{
 	public:
-		Grid();
-		virtual ~Grid();
+		GridManager();
+		virtual ~GridManager();
 
 		void initialise();
 		void shutdown();

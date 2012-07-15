@@ -7,41 +7,41 @@
 #include "Grid.h"
 #include "SettingsManager.h"
 
-template <> tools::Grid* MyGUI::Singleton<tools::Grid>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::Grid>::mClassTypeName("Grid");
+template <> tools::GridManager* MyGUI::Singleton<tools::GridManager>::msInstance = nullptr;
+template <> const char* MyGUI::Singleton<tools::GridManager>::mClassTypeName("GridManager");
 
 namespace tools
 {
-	Grid::Grid() :
+	GridManager::GridManager() :
 		mGridStep(0)
 	{
 	}
 
-	Grid::~Grid()
+	GridManager::~GridManager()
 	{
 	}
 
-	void Grid::initialise()
+	void GridManager::initialise()
 	{
-		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
-		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &Grid::notifySettingsChanged);
+		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("GridManager");
+		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &GridManager::notifySettingsChanged);
 	}
 
-	void Grid::shutdown()
+	void GridManager::shutdown()
 	{
-		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &Grid::notifySettingsChanged);
+		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &GridManager::notifySettingsChanged);
 	}
 
-	void Grid::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
+	void GridManager::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
 	{
 		if (_sectorName == "Settings")
 		{
-			if (_propertyName == "Grid")
-				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
+			if (_propertyName == "GridManager")
+				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("GridManager");
 		}
 	}
 
-	int Grid::toGrid(int _value, GridLine _line) const
+	int GridManager::toGrid(int _value, GridLine _line) const
 	{
 		if (mGridStep < 1)
 			return _value;
