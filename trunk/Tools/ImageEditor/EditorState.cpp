@@ -145,7 +145,10 @@ namespace tools
 
 		if (ActionManager::getInstance().getChanges())
 		{
-			save();
+			if (mFileName == mDefaultFileName)
+				showSaveAsWindow();
+			else
+				save();
 		}
 
 		_result = true;

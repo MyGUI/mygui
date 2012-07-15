@@ -20,6 +20,7 @@
 				<Property key="WordWrap" value="true"/>
 				<Property key="Static" value="true"/>
 				<Property key="TextColour" value="#595959"/>
+				<Property key="NeedMouse" value="false"/>
 			</Widget>
 			<Widget type="PopupMenu" skin="PopupMenu_Dark" position="25 555 99 70" style="Popup" layer="Popup" name="ContextMenu">
                 <Property key="Visible" value="false"/>
