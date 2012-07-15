@@ -97,8 +97,8 @@ namespace tools
 		new ColourManager();
 		ColourManager::getInstance().initialise();
 
-		new Grid();
-		Grid::getInstance().initialise();
+		new GridManager();
+		GridManager::getInstance().initialise();
 
 	
 		new tools::DataInfoManager();
@@ -156,8 +156,8 @@ namespace tools
 		delete mEditorState;
 		mEditorState = nullptr;
 
-		Grid::getInstance().shutdown();
-		delete Grid::getInstancePtr();
+		GridManager::getInstance().shutdown();
+		delete GridManager::getInstancePtr();
 
 		ColourManager::getInstance().shutdown();
 		delete ColourManager::getInstancePtr();
