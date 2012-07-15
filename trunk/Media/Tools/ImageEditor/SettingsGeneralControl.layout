@@ -5,7 +5,7 @@
         <Widget type="TextBox" skin="TextBox" position="55 0 102 20">
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="Caption" value="#{Grid_step}"/>
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
         </Widget>
         <Widget type="EditBox" skin="EditBox_Dark" position="0 0 50 20" align="HStretch Top" name="gridEdit">
             <Property key="Caption" value="8"/>
@@ -22,7 +22,7 @@
         <Widget type="TextBox" skin="TextBox" position="135 30 75 20">
             <Property key="Caption" value="#{TextInterfaceLanguage}"/>
             <Property key="TextAlign" value="Left VCenter"/>
-            <Property key="FontName" value="DejaVuSansFont.13"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
         </Widget>
     </Widget>
 </MyGUI>

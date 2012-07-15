@@ -44,7 +44,7 @@
             <UserString key="MinSize" value="100"/>
             <Widget type="TextBox" skin="TextBox" position="10 0 65 20" align="HStretch Top">
                 <Property key="TextAlign" value="Left VCenter"/>
-                <Property key="FontName" value="DejaVuSansFont.13"/>
+                <Property key="FontName" value="DejaVuSansFont_13"/>
                 <Property key="Caption" value="#{TexturePanel}"/>
             </Widget>
         </Widget>
@@ -64,7 +64,7 @@
             <Widget type="TextBox" skin="TextBox" position="10 0 255 20" align="HStretch Top">
                 <Property key="Caption" value="#{PropertyPanel}"/>
                 <Property key="TextAlign" value="Left VCenter"/>
-                <Property key="FontName" value="DejaVuSansFont.13"/>
+                <Property key="FontName" value="DejaVuSansFont_13"/>
             </Widget>
         </Widget>
     </Widget>

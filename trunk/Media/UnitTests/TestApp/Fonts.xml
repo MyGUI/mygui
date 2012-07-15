@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource" version="1.1">
-	<Resource type="ResourceTrueTypeFont" name="DejaVuSansItalicFont.15">
+	<Resource type="ResourceTrueTypeFont" name="DejaVuSansItalicFont_15">
 		<Property key="Source" value="DejaVuSans-Oblique.ttf"/>
 		<Property key="Size" value="10"/>
 		<Codes>
@@ -11,7 +11,7 @@
 			<Code hide="1104"/>
 		</Codes>
 	</Resource>
-	<Resource type="ResourceTrueTypeFont" name="DejaVuSansBoldFont.15">
+	<Resource type="ResourceTrueTypeFont" name="DejaVuSansBoldFont_15">
 		<Property key="Source" value="DejaVuSans-Bold.ttf"/>
 		<Property key="Size" value="10"/>
 		<Codes>
@@ -22,7 +22,7 @@
 			<Code hide="1104"/>
 		</Codes>
 	</Resource>
-	<Resource type="ResourceTrueTypeFont" name="DejaVuSansBoldItalicFont.15">
+	<Resource type="ResourceTrueTypeFont" name="DejaVuSansBoldItalicFont_15">
 		<Property key="Source" value="DejaVuSans-BoldOblique.ttf"/>
 		<Property key="Size" value="10"/>
 		<Codes>
@@ -33,7 +33,7 @@
 			<Code hide="1104"/>
 		</Codes>
 	</Resource>
-	<Resource type="ResourceTrueTypeFont" name="DejaVuSansFont.19">
+	<Resource type="ResourceTrueTypeFont" name="DejaVuSansFont_19">
 		<Property key="Source" value="DejaVuSans.ttf"/>
 		<Property key="Size" value="12"/>
 		<Codes>
@@ -44,7 +44,7 @@
 			<Code hide="1104"/>
 		</Codes>
 	</Resource>
-	<Resource type="ResourceTrueTypeFont" name="DejaVuSansFont.22">
+	<Resource type="ResourceTrueTypeFont" name="DejaVuSansFont_22">
 		<Property key="Source" value="DejaVuSans.ttf"/>
 		<Property key="Size" value="14"/>
 		<Codes>
@@ -55,7 +55,7 @@
 			<Code hide="1104"/>
 		</Codes>
 	</Resource>
-	<Resource type="ResourceTrueTypeFont" name="DejaVuSansFont.25">
+	<Resource type="ResourceTrueTypeFont" name="DejaVuSansFont_25">
 		<Property key="Source" value="DejaVuSans.ttf"/>
 		<Property key="Size" value="16"/>
 		<Codes>

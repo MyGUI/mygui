@@ -6,13 +6,13 @@
             <Widget type="TextBox" skin="TextBox" position="8 8 232 20" align="HStretch Top">
                 <Property key="Caption" value="#{PropertySeparatorOffset}"/>
                 <Property key="TextAlign" value="Left VCenter"/>
-                <Property key="FontName" value="DejaVuSansFont.13"/>
+                <Property key="FontName" value="DejaVuSansFont_13"/>
             </Widget>
             <Widget type="Widget" skin="PanelEmpty" position="8 28 232 20" align="HStretch Top" name="PropertyPosition"/>
             <Widget type="TextBox" skin="TextBox" position="8 52 232 20" align="HStretch Top">
                 <Property key="TextAlign" value="Left VCenter"/>
                 <Property key="Caption" value="#{PropertySeparatorVisible}"/>
-                <Property key="FontName" value="DejaVuSansFont.13"/>
+                <Property key="FontName" value="DejaVuSansFont_13"/>
             </Widget>
             <Widget type="Widget" skin="PanelEmpty" position="8 72 232 20" align="HStretch Top" name="PropertyVisible"/>
         </Widget>
