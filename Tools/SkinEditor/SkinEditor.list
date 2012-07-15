@@ -1,4 +1,7 @@
 set (HEADER_FILES
+  ../../Common/Tools/Dialog.h
+  ../../Common/Tools/DialogManager.h
+  ../../Common/Tools/OpenSaveFileDialog.h
   ActionManager.h
   Application.h
   AreaSelectorControl.h
@@ -7,8 +10,6 @@ set (HEADER_FILES
   ColourManager.h
   ColourPanel.h
   CommandManager.h
-  ../../Common/Tools/Dialog.h
-  ../../Common/Tools/DialogManager.h
   EditorState.h
   ExportManager.h
   Grid.h
@@ -17,13 +18,14 @@ set (HEADER_FILES
   HotKeyCommand.h
   HotKeyManager.h
   ItemHolder.h
+  ListBoxControl.h
+  ListBoxItemControl.h
   Localise.h
   MainMenuControl.h
   MainPane.h
   MessageBoxFadeControl.h
   MessageBoxManager.h
   MyGUI_FilterNoneSkin.h
-  ../../Common/Tools/OpenSaveFileDialog.h
   PositionSelectorBlackControl.h
   PositionSelectorControl.h
   Property.h
@@ -78,10 +80,12 @@ set (HEADER_FILES
   TextureToolControl.h
   VerticalSelectorBlackControl.h
   VerticalSelectorControl.h
-  ListBoxControl.h
-  ListBoxItemControl.h
 )
 set (SOURCE_FILES
+  ../../Common/Precompiled.cpp
+  ../../Common/Tools/Dialog.cpp
+  ../../Common/Tools/DialogManager.cpp
+  ../../Common/Tools/OpenSaveFileDialog.cpp
   ActionManager.cpp
   Application.cpp
   AreaSelectorControl.cpp
@@ -89,20 +93,19 @@ set (SOURCE_FILES
   ColourManager.cpp
   ColourPanel.cpp
   CommandManager.cpp
-  ../../Common/Tools/Dialog.cpp
-  ../../Common/Tools/DialogManager.cpp
   EditorState.cpp
   ExportManager.cpp
   Grid.cpp
   HorizontalSelectorBlackControl.cpp
   HorizontalSelectorControl.cpp
   HotKeyManager.cpp
+  ListBoxControl.cpp
+  ListBoxItemControl.cpp
   MainMenuControl.cpp
   MainPane.cpp
   MessageBoxFadeControl.cpp
   MessageBoxManager.cpp
   MyGUI_FilterNoneSkin.cpp
-  ../../Common/Tools/OpenSaveFileDialog.cpp
   PositionSelectorBlackControl.cpp
   PositionSelectorControl.cpp
   Property.cpp
@@ -135,85 +138,7 @@ set (SOURCE_FILES
   SettingsSector.cpp
   SettingsWindow.cpp
   SkinControl.cpp
-  SkinItem.cpp
-  SkinListControl.cpp
-  SkinManager.cpp
-  SkinPropertyControl.cpp
-  SkinTextureControl.cpp
-  StateControl.cpp
-  StateItem.cpp
-  StateListControl.cpp
-  StateManager.cpp
-  StatePropertyControl.cpp
-  StateTextureControl.cpp
-  TestState.cpp
-  TestWindow.cpp
-  TextFieldControl.cpp
-  TextureBrowseCell.cpp
-  TextureBrowseControl.cpp
-  TextureControl.cpp
-  TextureToolControl.cpp
-  VerticalSelectorBlackControl.cpp
-  VerticalSelectorControl.cpp
-  ../../Common/Precompiled.cpp
   SkinEditor.rc
-  ListBoxControl.cpp
-  ListBoxItemControl.cpp
-)
-SOURCE_GROUP("Source Files" FILES
-  ActionManager.cpp
-  Application.cpp
-  AreaSelectorControl.cpp
-  BackgroundControl.cpp
-  ColourManager.cpp
-  ColourPanel.cpp
-  CommandManager.cpp
-  ../../Common/Tools/Dialog.cpp
-  ../../Common/Tools/DialogManager.cpp
-  EditorState.cpp
-  ExportManager.cpp
-  Grid.cpp
-  HorizontalSelectorBlackControl.cpp
-  HorizontalSelectorControl.cpp
-  HotKeyManager.cpp
-  MainMenuControl.cpp
-  MainPane.cpp
-  MessageBoxFadeControl.cpp
-  MessageBoxManager.cpp
-  MyGUI_FilterNoneSkin.cpp
-  ../../Common/Tools/OpenSaveFileDialog.cpp
-  PositionSelectorBlackControl.cpp
-  PositionSelectorControl.cpp
-  Property.cpp
-  PropertyAlignControl.cpp
-  PropertyBoolControl.cpp
-  PropertyColourControl.cpp
-  PropertyControl.cpp
-  PropertyInt2Control.cpp
-  PropertyInt4Control.cpp
-  PropertyIntControl.cpp
-  PropertyRegionTypeControl.cpp
-  PropertySet.cpp
-  PropertyTexturesControl.cpp
-  RecentFilesManager.cpp
-  RegionControl.cpp
-  RegionItem.cpp
-  RegionListControl.cpp
-  RegionPropertyControl.cpp
-  RegionTextureControl.cpp
-  SelectorControl.cpp
-  SeparatorControl.cpp
-  SeparatorItem.cpp
-  SeparatorListControl.cpp
-  SeparatorPropertyControl.cpp
-  SeparatorTextureControl.cpp
-  SettingsGeneralControl.cpp
-  SettingsManager.cpp
-  SettingsResourcePathsControl.cpp
-  SettingsResourcesControl.cpp
-  SettingsSector.cpp
-  SettingsWindow.cpp
-  SkinControl.cpp
   SkinItem.cpp
   SkinListControl.cpp
   SkinManager.cpp
@@ -234,15 +159,11 @@ SOURCE_GROUP("Source Files" FILES
   TextureToolControl.cpp
   VerticalSelectorBlackControl.cpp
   VerticalSelectorControl.cpp
-)
-SOURCE_GROUP("Resources" FILES
-  ../../Common/Precompiled.cpp
-)
-SOURCE_GROUP("Source Files" FILES
-  ListBoxControl.cpp
-  ListBoxItemControl.cpp
 )
 SOURCE_GROUP("Header Files" FILES
+  ../../Common/Tools/Dialog.h
+  ../../Common/Tools/DialogManager.h
+  ../../Common/Tools/OpenSaveFileDialog.h
   ActionManager.h
   Application.h
   AreaSelectorControl.h
@@ -251,8 +172,6 @@ SOURCE_GROUP("Header Files" FILES
   ColourManager.h
   ColourPanel.h
   CommandManager.h
-  ../../Common/Tools/Dialog.h
-  ../../Common/Tools/DialogManager.h
   EditorState.h
   ExportManager.h
   Grid.h
@@ -261,13 +180,14 @@ SOURCE_GROUP("Header Files" FILES
   HotKeyCommand.h
   HotKeyManager.h
   ItemHolder.h
+  ListBoxControl.h
+  ListBoxItemControl.h
   Localise.h
   MainMenuControl.h
   MainPane.h
   MessageBoxFadeControl.h
   MessageBoxManager.h
   MyGUI_FilterNoneSkin.h
-  ../../Common/Tools/OpenSaveFileDialog.h
   PositionSelectorBlackControl.h
   PositionSelectorControl.h
   Property.h
@@ -322,10 +242,86 @@ SOURCE_GROUP("Header Files" FILES
   TextureToolControl.h
   VerticalSelectorBlackControl.h
   VerticalSelectorControl.h
-  ListBoxControl.h
-  ListBoxItemControl.h
 )
 SOURCE_GROUP("Resources" FILES
-  SkinEditor.rc
+  ../../Common/Precompiled.cpp
   CMakeLists.txt
+  SkinEditor.rc
+)
+SOURCE_GROUP("Source Files" FILES
+  ../../Common/Tools/Dialog.cpp
+  ../../Common/Tools/DialogManager.cpp
+  ../../Common/Tools/OpenSaveFileDialog.cpp
+  ActionManager.cpp
+  Application.cpp
+  AreaSelectorControl.cpp
+  BackgroundControl.cpp
+  ColourManager.cpp
+  ColourPanel.cpp
+  CommandManager.cpp
+  EditorState.cpp
+  ExportManager.cpp
+  Grid.cpp
+  HorizontalSelectorBlackControl.cpp
+  HorizontalSelectorControl.cpp
+  HotKeyManager.cpp
+  ListBoxControl.cpp
+  ListBoxItemControl.cpp
+  MainMenuControl.cpp
+  MainPane.cpp
+  MessageBoxFadeControl.cpp
+  MessageBoxManager.cpp
+  MyGUI_FilterNoneSkin.cpp
+  PositionSelectorBlackControl.cpp
+  PositionSelectorControl.cpp
+  Property.cpp
+  PropertyAlignControl.cpp
+  PropertyBoolControl.cpp
+  PropertyColourControl.cpp
+  PropertyControl.cpp
+  PropertyInt2Control.cpp
+  PropertyInt4Control.cpp
+  PropertyIntControl.cpp
+  PropertyRegionTypeControl.cpp
+  PropertySet.cpp
+  PropertyTexturesControl.cpp
+  RecentFilesManager.cpp
+  RegionControl.cpp
+  RegionItem.cpp
+  RegionListControl.cpp
+  RegionPropertyControl.cpp
+  RegionTextureControl.cpp
+  SelectorControl.cpp
+  SeparatorControl.cpp
+  SeparatorItem.cpp
+  SeparatorListControl.cpp
+  SeparatorPropertyControl.cpp
+  SeparatorTextureControl.cpp
+  SettingsGeneralControl.cpp
+  SettingsManager.cpp
+  SettingsResourcePathsControl.cpp
+  SettingsResourcesControl.cpp
+  SettingsSector.cpp
+  SettingsWindow.cpp
+  SkinControl.cpp
+  SkinItem.cpp
+  SkinListControl.cpp
+  SkinManager.cpp
+  SkinPropertyControl.cpp
+  SkinTextureControl.cpp
+  StateControl.cpp
+  StateItem.cpp
+  StateListControl.cpp
+  StateManager.cpp
+  StatePropertyControl.cpp
+  StateTextureControl.cpp
+  TestState.cpp
+  TestWindow.cpp
+  TextFieldControl.cpp
+  TextureBrowseCell.cpp
+  TextureBrowseControl.cpp
+  TextureControl.cpp
+  TextureToolControl.cpp
+  VerticalSelectorBlackControl.cpp
+  VerticalSelectorControl.cpp
 )

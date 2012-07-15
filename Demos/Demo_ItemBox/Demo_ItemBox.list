@@ -8,15 +8,7 @@ set (HEADER_FILES
   ToolTip.h
 )
 set (SOURCE_FILES
-  CellView.cpp
-  DemoKeeper.cpp
-  ItemBox.cpp
-  ItemBoxWindow.cpp
-  ResourceItemInfo.cpp
-  ToolTip.cpp
   ../../Common/Base/BaseResource.rc
-)
-SOURCE_GROUP("Source Files" FILES
   CellView.cpp
   DemoKeeper.cpp
   ItemBox.cpp
@@ -36,4 +28,12 @@ SOURCE_GROUP("Header Files" FILES
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
   CMakeLists.txt
+)
+SOURCE_GROUP("Source Files" FILES
+  CellView.cpp
+  DemoKeeper.cpp
+  ItemBox.cpp
+  ItemBoxWindow.cpp
+  ResourceItemInfo.cpp
+  ToolTip.cpp
 )

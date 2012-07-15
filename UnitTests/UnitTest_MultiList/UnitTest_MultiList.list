@@ -7,11 +7,7 @@ set (HEADER_FILES
   UnitTest_MultiList.h
 )
 set (SOURCE_FILES
-  BiIndexData.cpp
-  DemoKeeper.cpp
   ../../Common/Base/BaseResource.rc
-)
-SOURCE_GROUP("Source Files" FILES
   BiIndexData.cpp
   DemoKeeper.cpp
 )
@@ -26,4 +22,8 @@ SOURCE_GROUP("Header Files" FILES
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
   CMakeLists.txt
+)
+SOURCE_GROUP("Source Files" FILES
+  BiIndexData.cpp
+  DemoKeeper.cpp
 )
