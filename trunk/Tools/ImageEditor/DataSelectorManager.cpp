@@ -6,7 +6,7 @@
 
 #include "Precompiled.h"
 #include "DataSelectorManager.h"
-#include "DataInfoManager.h"
+#include "DataTypeManager.h"
 
 namespace tools
 {

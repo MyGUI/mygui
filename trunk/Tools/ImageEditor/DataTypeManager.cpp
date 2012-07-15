@@ -5,7 +5,7 @@
 */
 
 #include "Precompiled.h"
-#include "DataInfoManager.h"
+#include "DataTypeManager.h"
 #include "pugixml.hpp"
 #include "MyGUI_DataManager.h"
 

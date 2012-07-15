@@ -101,10 +101,10 @@ set (HEADER_FILES
   Control.h
   SeparatorUtility.h
   Data.h
-  DataInfo.h
-  DataInfoManager.h
+  DataType.h
+  DataTypeManager.h
   DataManager.h
-  DataPropertyInfo.h
+  DataTypeProperty.h
   sigslot.h
 )
 set (SOURCE_FILES
@@ -200,10 +200,10 @@ set (SOURCE_FILES
   FactoryManager.cpp
   Control.cpp
   Data.cpp
-  DataInfo.cpp
-  DataInfoManager.cpp
+  DataType.cpp
+  DataTypeManager.cpp
   DataManager.cpp
-  DataPropertyInfo.cpp
+  DataTypeProperty.cpp
   pugixml.cpp
   ../../Common/Precompiled.cpp
   ImageEditor.rc
@@ -382,10 +382,10 @@ SOURCE_GROUP("Controls" FILES
 )
 SOURCE_GROUP("Data" FILES
   Data.cpp
-  DataInfo.cpp
-  DataInfoManager.cpp
+  DataType.cpp
+  DataTypeManager.cpp
   DataManager.cpp
-  DataPropertyInfo.cpp
+  DataTypeProperty.cpp
 )
 SOURCE_GROUP("Utility" FILES
   pugixml.cpp
@@ -592,10 +592,10 @@ SOURCE_GROUP("Utility" FILES
 )
 SOURCE_GROUP("Data" FILES
   Data.h
-  DataInfo.h
-  DataInfoManager.h
+  DataType.h
+  DataTypeManager.h
   DataManager.h
-  DataPropertyInfo.h
+  DataTypeProperty.h
 )
 SOURCE_GROUP("Utility" FILES
   sigslot.h

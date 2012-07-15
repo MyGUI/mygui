@@ -5,7 +5,7 @@
 */
 
 #include "Precompiled.h"
-#include "DataInfo.h"
+#include "DataType.h"
 
 namespace tools
 {

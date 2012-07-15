@@ -9,7 +9,7 @@
 
 #include <string>
 #include <vector>
-#include "DataInfo.h"
+#include "DataType.h"
 
 namespace tools
 {

@@ -6,7 +6,7 @@
 
 #include "Precompiled.h"
 #include "ActionCreateData.h"
-#include "DataInfoManager.h"
+#include "DataTypeManager.h"
 #include "DataManager.h"
 #include "DataSelectorManager.h"
 
