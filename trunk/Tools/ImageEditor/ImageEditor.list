@@ -19,7 +19,7 @@ set (HEADER_FILES
   DialogManager.h
   EditorState.h
   ExportManager.h
-  Grid.h
+  GridManager.h
   HorizontalSelectorBlackControl.h
   HorizontalSelectorControl.h
   HotKeyCommand.h
@@ -128,7 +128,7 @@ set (SOURCE_FILES
   DialogManager.cpp
   EditorState.cpp
   ExportManager.cpp
-  Grid.cpp
+  GridManager.cpp
   HorizontalSelectorBlackControl.cpp
   HorizontalSelectorControl.cpp
   HotKeyManager.cpp
@@ -248,7 +248,7 @@ SOURCE_GROUP("States" FILES
 )
 SOURCE_GROUP("Managers" FILES
   ExportManager.cpp
-  Grid.cpp
+  GridManager.cpp
 )
 SOURCE_GROUP("Controls" FILES
   HorizontalSelectorBlackControl.cpp
@@ -436,7 +436,7 @@ SOURCE_GROUP("States" FILES
 )
 SOURCE_GROUP("Managers" FILES
   ExportManager.h
-  Grid.h
+  GridManager.h
 )
 SOURCE_GROUP("Controls" FILES
   HorizontalSelectorBlackControl.h

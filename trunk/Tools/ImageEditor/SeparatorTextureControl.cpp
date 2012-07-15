@@ -7,7 +7,7 @@
 #include "SeparatorTextureControl.h"
 #include "CommandManager.h"
 #include "Localise.h"
-#include "Grid.h"
+#include "GridManager.h"
 
 namespace tools
 {
