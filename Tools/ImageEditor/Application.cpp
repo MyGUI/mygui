@@ -22,7 +22,7 @@
 #include "Localise.h"
 #include "GridManager.h"
 #include "DataManager.h"
-#include "DataInfoManager.h"
+#include "DataTypeManager.h"
 #include "DataSelectorManager.h"
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;

@@ -7,7 +7,7 @@
 #include "Precompiled.h"
 #include "ExportManager.h"
 #include "DataManager.h"
-#include "DataInfoManager.h"
+#include "DataTypeManager.h"
 
 template <> tools::ExportManager* MyGUI::Singleton<tools::ExportManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::ExportManager>::mClassTypeName("ExportManager");

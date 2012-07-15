@@ -5,7 +5,7 @@
 */
 
 #include "Precompiled.h"
-#include "DataPropertyInfo.h"
+#include "DataTypeProperty.h"
 
 namespace tools
 {

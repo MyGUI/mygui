@@ -7,7 +7,7 @@
 #include "Precompiled.h"
 #include "DataManager.h"
 #include "MyGUI_DataManager.h"
-#include "DataInfoManager.h"
+#include "DataTypeManager.h"
 
 namespace tools
 {

@@ -9,7 +9,7 @@
 
 #include "pugixml.hpp"
 #include <vector>
-#include "DataPropertyInfo.h"
+#include "DataTypeProperty.h"
 
 namespace tools
 {
