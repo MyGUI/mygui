@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "Application.h"
 #include "Base/Main.h"
@@ -19,7 +20,7 @@
 #include "SettingsManager.h"
 #include "ColourManager.h"
 #include "Localise.h"
-#include "Grid.h"
+#include "GridManager.h"
 #include "DataManager.h"
 #include "DataInfoManager.h"
 #include "DataSelectorManager.h"
@@ -29,7 +30,6 @@ template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Ap
 
 namespace tools
 {
-
 	Application::Application() :
 		mEditorState(nullptr)
 	{

@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __DEMO_KEEPER_H__
-#define __DEMO_KEEPER_H__
+#ifndef _e5a988fe_bba2_480f_a287_d5c967f58266_
+#define _e5a988fe_bba2_480f_a287_d5c967f58266_
 
 #include "BaseManager.h"
 #include "StateController.h"
@@ -13,7 +13,6 @@
 
 namespace tools
 {
-
 	class Application :
 		public base::BaseManager,
 		public MyGUI::Singleton<Application>,
@@ -57,12 +56,10 @@ namespace tools
 
 	private:
 		EditorState* mEditorState;
-		//TestState* mTestState;
 
 		std::string mLocale;
 		VectorWString mParams;
 	};
+}
 
-} // namespace tools
-
-#endif // __DEMO_KEEPER_H__
+#endif

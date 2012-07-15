@@ -4,7 +4,7 @@
 	@date		03/2011
 */
 #include "Precompiled.h"
-#include "Grid.h"
+#include "GridManager.h"
 #include "SettingsManager.h"
 
 template <> tools::GridManager* MyGUI::Singleton<tools::GridManager>::msInstance = nullptr;
