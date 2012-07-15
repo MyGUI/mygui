@@ -3,15 +3,31 @@
 	@author		Albert Semenov
 	@date		08/2008
 */
+
 #include "Precompiled.h"
 #include "ColourPanel.h"
+#include "FactoryManager.h"
+#include "CommandManager.h"
 
 namespace tools
 {
+	FACTORY_ITEM_ATTRIBUTE(ColourPanel);
+
 	ColourPanel::ColourPanel() :
 		mAlphaSupport(true)
 	{
-		initialiseByAttributes(this);
+	}
+
+	ColourPanel::~ColourPanel()
+	{
+		destroyTexture();
+	}
+
+	void ColourPanel::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::OnInitialise(_parent, _place, GetLayoutName(this));
+
+		InitialiseByAttributes(this);
 
 		setDialogRoot(mMainWidget);
 
@@ -31,12 +47,8 @@ namespace tools
 		mEditBlue->eventEditTextChange += MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChange);
 		mInputAlpha->eventEditTextChange += MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChangeAlpha);
 
-		mOk->eventMouseButtonClick += MyGUI::newDelegate(this, &ColourPanel::notifyMouseButtonClickOk);
-		mCancel->eventMouseButtonClick += MyGUI::newDelegate(this, &ColourPanel::notifyMouseButtonClickCancel);
-
-		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
-		if (window != nullptr)
-			window->eventWindowButtonPressed += MyGUI::newDelegate(this, &ColourPanel::notifyWindowButtonPressed);
+		CommandManager::getInstance().registerCommand("Command_ColorAccept", MyGUI::newDelegate(this, &ColourPanel::commandColorAccept));
+		CommandManager::getInstance().registerCommand("Command_ColorCancel", MyGUI::newDelegate(this, &ColourPanel::commandColorCancel));
 
 		mColourRange.push_back(MyGUI::Colour(1, 0, 0));
 		mColourRange.push_back(MyGUI::Colour(1, 0, 1));
@@ -51,11 +63,6 @@ namespace tools
 		createTexture();
 
 		updateFirst();
-	}
-
-	ColourPanel::~ColourPanel()
-	{
-		destroyTexture();
 	}
 
 	void ColourPanel::updateFirst()
@@ -92,6 +99,7 @@ namespace tools
 		MyGUI::uint8* pDest = static_cast<MyGUI::uint8*>(mTexture->lock(MyGUI::TextureUsage::Write));
 
 		for (size_t j = 0; j < size; j++)
+		{
 			for (size_t i = 0; i < size; i++)
 			{
 				float x = (float)i / size;
@@ -101,6 +109,7 @@ namespace tools
 				*pDest++ = MyGUI::uint8((1. - y) * (_colour.red   * x + (1. - x)) * 255); // R
 				*pDest++ = 255; // A
 			}
+		}
 
 		// Unlock the pixel buffer
 		mTexture->unlock();
@@ -114,10 +123,14 @@ namespace tools
 		MyGUI::Widget* parent = mImageColourPicker->getParent();
 		MyGUI::IntPoint point(_left - parent->getAbsoluteLeft(), _top - parent->getAbsoluteTop());
 
-		if (point.left < 0) point.left = 0;
-		if (point.top < 0) point.top = 0;
-		if (point.left > mColourRect->getWidth()) point.left = mColourRect->getWidth();
-		if (point.top > mColourRect->getHeight()) point.top = mColourRect->getHeight();
+		if (point.left < 0)
+			point.left = 0;
+		if (point.top < 0)
+			point.top = 0;
+		if (point.left > mColourRect->getWidth())
+			point.left = mColourRect->getWidth();
+		if (point.top > mColourRect->getHeight())
+			point.top = mColourRect->getHeight();
 
 		mImageColourPicker->setPosition(point.left - (mImageColourPicker->getWidth() / 2), point.top - (mImageColourPicker->getHeight() / 2));
 
@@ -135,10 +148,16 @@ namespace tools
 		// get colour by cursor position Altren 09.2008
 		float x = 1.0f * _point.left / mColourRect->getWidth();
 		float y = 1.0f * _point.top / mColourRect->getHeight();
-		if (x > 1) x = 1;
-		else if (x < 0) x = 0;
-		if (y > 1) y = 1;
-		else if (y < 0) y = 0;
+
+		if (x > 1)
+			x = 1;
+		else if (x < 0)
+			x = 0;
+
+		if (y > 1)
+			y = 1;
+		else if (y < 0)
+			y = 0;
 
 		mCurrentColour.red = (1 - y) * (mBaseColour.red * x + MyGUI::Colour::White.red * (1 - x));
 		mCurrentColour.green = (1 - y) * (mBaseColour.green * x + MyGUI::Colour::White.green * (1 - x));
@@ -186,9 +205,11 @@ namespace tools
 		MyGUI::EditBox* edit = static_cast<MyGUI::EditBox*>(_sender);
 		size_t cursor = edit->getTextCursor();
 		size_t num = MyGUI::utility::parseSizeT(edit->getOnlyText());
-		if (num > 255) num = 255;
+		if (num > 255)
+			num = 255;
 		edit->setCaption(MyGUI::utility::toString(num));
-		if (cursor < edit->getTextLength()) edit->setTextCursor(cursor);
+		if (cursor < edit->getTextLength())
+			edit->setTextCursor(cursor);
 
 		MyGUI::Colour colour(
 			MyGUI::utility::parseFloat(mEditRed->getOnlyText()) / 255.0f,
@@ -244,7 +265,7 @@ namespace tools
 			byIndex(mBaseColour, iMax) = 1.;
 		}
 
-		int i;
+		int i = 0;
 		for (i = 0; i < 6; ++i)
 		{
 			if ((fabs(byIndex(mColourRange[i], iMin) - byIndex(mBaseColour, iMin)) < 0.001) &&
@@ -258,7 +279,8 @@ namespace tools
 		size_t current = i;
 
 		float offset = byIndex(mBaseColour, iAvg);
-		if (byIndex(mColourRange[i+1], iAvg) < byIndex(mColourRange[i], iAvg)) offset = 1 - byIndex(mBaseColour, iAvg);
+		if (byIndex(mColourRange[i+1], iAvg) < byIndex(mColourRange[i], iAvg))
+			offset = 1 - byIndex(mBaseColour, iAvg);
 
 		size_t pos = size_t((current + offset) * sector_size);
 
@@ -303,37 +325,22 @@ namespace tools
 
 	float& ColourPanel::byIndex(MyGUI::Colour& _colour, size_t _index)
 	{
-		if (_index == 0) return _colour.red;
-		else if (_index == 1) return _colour.green;
-		else if (_index == 2) return _colour.blue;
-		else return _colour.alpha;
+		if (_index == 0)
+			return _colour.red;
+		else if (_index == 1)
+			return _colour.green;
+		else if (_index == 2)
+			return _colour.blue;
+		else
+			return _colour.alpha;
 	}
 
 	void ColourPanel::onDoModal()
 	{
-		MyGUI::IntSize windowSize = mMainWidget->getSize();
-		MyGUI::IntSize parentSize = mMainWidget->getParentSize();
-
-		mMainWidget->setPosition((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2);
 	}
 
 	void ColourPanel::onEndModal()
 	{
-	}
-
-	void ColourPanel::notifyMouseButtonClickCancel(MyGUI::Widget* _sender)
-	{
-		eventEndDialog(this, false);
-	}
-
-	void ColourPanel::notifyMouseButtonClickOk(MyGUI::Widget* _sender)
-	{
-		eventEndDialog(this, true);
-	}
-
-	void ColourPanel::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
-	{
-		eventEndDialog(this, false);
 	}
 
 	const MyGUI::Colour& ColourPanel::getColour() const
@@ -407,4 +414,28 @@ namespace tools
 		mAlphaSliderPlace->setVisible(mAlphaSupport);
 	}
 
-} // namespace tools
+	bool ColourPanel::checkCommand()
+	{
+		return isDialogModal();
+	}
+
+	void ColourPanel::commandColorAccept(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		eventEndDialog(this, true);
+
+		_result = true;
+	}
+
+	void ColourPanel::commandColorCancel(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		eventEndDialog(this, false);
+
+		_result = true;
+	}
+}

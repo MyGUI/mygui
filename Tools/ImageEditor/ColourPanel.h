@@ -3,12 +3,13 @@
 	@author		Albert Semenov
 	@date		09/2008
 */
-#ifndef __COLOUR_PANEL_H__
-#define __COLOUR_PANEL_H__
+
+#ifndef _09652fa5_fee6_4cc1_9edb_d68f76fe31e6_
+#define _09652fa5_fee6_4cc1_9edb_d68f76fe31e6_
 
 #include <MyGUI.h>
 #include "Dialog.h"
-#include "BaseLayout/BaseLayout.h"
+#include "Control.h"
 
 namespace tools
 {
@@ -17,7 +18,7 @@ namespace tools
 	ATTRIBUTE_CLASS_LAYOUT(ColourPanel, "ColourPanel.layout");
 	class ColourPanel :
 		public Dialog,
-		public wraps::BaseLayout
+		public Control
 	{
 	public:
 		ColourPanel();
@@ -35,16 +36,19 @@ namespace tools
 		virtual void onDoModal();
 		virtual void onEndModal();
 
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+
 	private:
+		bool checkCommand();
+		void commandColorAccept(const MyGUI::UString& _commandName, bool& _result);
+		void commandColorCancel(const MyGUI::UString& _commandName, bool& _result);
+
 		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyScrollChangePosition(MyGUI::ScrollBar* _sender, size_t _position);
 		void notifyScrollChangePositionAlpha(MyGUI::ScrollBar* _sender, size_t _position);
 		void notifyEditTextChange(MyGUI::EditBox* _sender);
 		void notifyEditTextChangeAlpha(MyGUI::EditBox* _sender);
-		void notifyMouseButtonClickOk(MyGUI::Widget* _sender);
-		void notifyMouseButtonClickCancel(MyGUI::Widget* _sender);
-		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
 
 		void updateFirst();
 
@@ -89,12 +93,6 @@ namespace tools
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mScrollRange, "scroll_Range");
 		MyGUI::ScrollBar* mScrollRange;
 
-		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mOk, "button_OK");
-		MyGUI::Button* mOk;
-
-		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mCancel, "button_Cancel");
-		MyGUI::Button* mCancel;
-
 		ATTRIBUTE_FIELD_WIDGET_NAME(ColourPanel, mAlphaSliderBack, "AlphaSliderBack");
 		MyGUI::Widget* mAlphaSliderBack;
 
@@ -113,7 +111,6 @@ namespace tools
 		MyGUI::UString mTextureName;
 		bool mAlphaSupport;
 	};
+}
 
-} // namespace tools
-
-#endif // __COLOUR_PANEL_H__
+#endif

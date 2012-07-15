@@ -146,4 +146,12 @@ namespace tools
 	{
 		CommandManager::getInstance().executeCommand(_sender->getUserString("CommandAccept"));
 	}
+
+	MyGUI::Widget* Control::CreateFakeWidgetT(const std::string& _typeName, MyGUI::Widget* _parent)
+	{
+		if (_parent)
+			return _parent->createWidgetT(_typeName, MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default);
+
+		return MyGUI::Gui::getInstance().createWidgetT(_typeName, MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default, "");
+	}
 }
