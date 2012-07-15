@@ -8,17 +8,16 @@
 import xml.dom.minidom, os, filecmp, sys, filecmp
 
 headers = []
-source = []
-filters = []
+sources = []
+filters = {}
 currentFolder = ""
-lastFilter = ""
 
 def addSourceOrHeader(fileName):
     #print line
     if fileName.endswith('.h'):
         headers.append("  " + fileName + "\n")
     else:
-        source.append("  " + fileName + "\n")
+        sources.append("  " + fileName + "\n")
 
 def get_a_document(name):
     return xml.dom.minidom.parse(name)
@@ -43,23 +42,31 @@ def parseFilterFile(_node):
       filterName = _node.getElementsByTagName("Filter")[0].childNodes[0].nodeValue
       filterName = filterName.replace("\\", "\\\\")
 
-      global lastFilter
-      if (filterName != lastFilter):
-        if lastFilter != "":
-          # close last filter
-          filters.append(")\n")
-        filters.append("SOURCE_GROUP(\"" + filterName + "\" FILES\n")
-        lastFilter = filterName
+      if not filters.has_key(filterName):
+        filters[filterName] = []
+      filters[filterName].append("  " + fileName + "\n")
 
-      filters.append("  " + fileName + "\n")
+def writeHeaders(FILE):
+    headers.sort()
+    FILE.writelines("set (HEADER_FILES\n")
+    FILE.writelines(headers)
+    FILE.writelines(")\n")
+def writeSources(FILE):
+    sources.sort()
+    FILE.writelines("set (SOURCE_FILES\n")
+    FILE.writelines(sources)
+    FILE.writelines(")\n")
+def writeFilters(FILE):
+    for filterName in sorted(filters.keys()):
+      filters[filterName].sort()
+      FILE.writelines("SOURCE_GROUP(\"" + filterName + "\" FILES\n")
+      FILE.writelines(filters[filterName])
+      FILE.writelines(")\n")
 
 def createFilesList(fileName, listName):
 
     print "Converting " + fileName
     doc = get_a_document(fileName)
-
-    headers.append("set (HEADER_FILES\n")
-    source.append("set (SOURCE_FILES\n")
 
     for rootNode in doc.childNodes:
         for subNode in rootNode.childNodes:
@@ -68,11 +75,6 @@ def createFilesList(fileName, listName):
                     if subSubNode.nodeType == subSubNode.ELEMENT_NODE and (subSubNode.localName == "ClInclude" or subSubNode.localName == "ClCompile" or subSubNode.localName == "ResourceCompile"):
                         parseIncludedFile(subSubNode)
 
-    headers.append(")\n")
-    source.append(")\n")
-
-    global lastFilter
-    lastFilter = ""
     doc = get_a_document(fileName + ".filters")
     for rootNode in doc.childNodes:
         for subNode in rootNode.childNodes:
@@ -81,17 +83,15 @@ def createFilesList(fileName, listName):
                     if subSubNode.nodeType == subSubNode.ELEMENT_NODE and (subSubNode.localName == "ClInclude" or subSubNode.localName == "ClCompile" or subSubNode.localName == "ResourceCompile" or subSubNode.localName == "CustomBuild"):
                         parseFilterFile(subSubNode)
 
-    filters.append(")\n")
-
     FILE = open("tmp.list", "w")
-    FILE.writelines(headers)
-    FILE.writelines(source)
-    FILE.writelines(filters)
+    writeHeaders(FILE)
+    writeSources(FILE)
+    writeFilters(FILE)
     FILE.close()
 
     del headers[:]
-    del source[:]
-    del filters[:]
+    del sources[:]
+    filters.clear()
 
     if (not filecmp.cmp("tmp.list", listName)):
       os.remove(listName)
