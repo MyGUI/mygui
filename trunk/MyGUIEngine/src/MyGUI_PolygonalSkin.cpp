@@ -249,6 +249,10 @@ namespace MyGUI
 		if ((!mVisible) || mEmptyView)
 			return;
 
+		bool update = mRenderItem->getCurrentUpdate();
+		if (update)
+			mGeometryOutdated = true;
+
 		Vertex* verticies = mRenderItem->getCurrentVertexBuffer();
 
 		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
