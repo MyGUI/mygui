@@ -270,27 +270,30 @@ namespace demo
 
 	void DemoKeeper::notifyEndDialog(tools::Dialog* _dialog, bool _result)
 	{
-		if (!_result) return;
-
-		if (mFileDialogSave)
+		if (_result)
 		{
-			std::string filename = mFileDialog->getFileName();
-			size_t index = filename.find_first_of('.');
-			if (index == std::string::npos)
-				filename += ".xml";
-			filename = mFileDialog->getCurrentFolder() + "/" + filename;
+			if (mFileDialogSave)
+			{
+				std::string filename = mFileDialog->getFileName();
+				size_t index = filename.find_first_of('.');
+				if (index == std::string::npos)
+					filename += ".xml";
+				filename = mFileDialog->getCurrentFolder() + "/" + filename;
 
-			saveToFile(filename);
+				saveToFile(filename);
+			}
+			else
+			{
+				ClearGraph();
+
+				std::string filename = mFileDialog->getFileName();
+				filename = mFileDialog->getCurrentFolder() + "/" + filename;
+
+				loadFromFile(filename);
+			}
 		}
-		else
-		{
-			ClearGraph();
 
-			std::string filename = mFileDialog->getFileName();
-			filename = mFileDialog->getCurrentFolder() + "/" + filename;
-
-			loadFromFile(filename);
-		}
+		_dialog->endModal();
 	}
 
 	void DemoKeeper::ClearGraph()
