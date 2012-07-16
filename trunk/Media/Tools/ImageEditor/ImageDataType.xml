@@ -16,6 +16,7 @@
 					<Name>Name</Name>
 					<Type>String</Type>
 					<Default>unnamed</Default>
+					<Visible>false</Visible>
 				</Property>
 			</Properties>
 			<Childs>
@@ -31,15 +32,18 @@
 					<Name>Name</Name>
 					<Type>String</Type>
 					<Default>unnamed</Default>
+					<Visible>false</Visible>
 				</Property>
 				<Property>
 					<Name>Texture</Name>
-					<Type>Texture</Type>
+					<Type>PropertyTexturesControl</Type>
+					<Visible>true</Visible>
 				</Property>
 				<Property>
 					<Name>Size</Name>
 					<Type>PropertyInt2Control</Type>
 					<Default>0 0</Default>
+					<Visible>true</Visible>
 				</Property>
 			</Properties>
 			<Childs>
@@ -55,11 +59,13 @@
 					<Name>Name</Name>
 					<Type>String</Type>
 					<Default>unnamed</Default>
+					<Visible>false</Visible>
 				</Property>
 				<Property>
 					<Name>Rate</Name>
 					<Type>Float</Type>
 					<Default>0</Default>
+					<Visible>true</Visible>
 				</Property>
 			</Properties>
 			<Childs>
@@ -75,11 +81,13 @@
 					<Name>Point</Name>
 					<Type>IntPoint</Type>
 					<Default>0 0</Default>
+					<Visible>false</Visible>
 				</Property>
 				<Property>
 					<Name>Count</Name>
 					<Type>Int</Type>
 					<Default>1</Default>
+					<Visible>true</Visible>
 				</Property>
 			</Properties>
 		</DataType>

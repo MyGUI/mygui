@@ -32,13 +32,14 @@ namespace tools
 		void notifyChangeDataSelector(Data* _data, bool _changeOnlySelection);
 
 		void HideControls();
-		void InitialiseProperty(Property* _property);
+		void InitialiseProperty(Property* _property, int& _height);
 
 	private:
 		DataType* mParentType;
 		Data* mCurrentData;
 		typedef std::vector<std::pair<std::string, PropertyControl*>> VectorPairControl;
 		VectorPairControl mPropertyControls;
+		int mDistance;
 	};
 
 }

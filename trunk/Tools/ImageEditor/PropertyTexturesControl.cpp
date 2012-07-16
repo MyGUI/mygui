@@ -6,16 +6,37 @@
 
 #include "Precompiled.h"
 #include "PropertyTexturesControl.h"
+#include "FactoryManager.h"
 
-/*namespace tools
+namespace tools
 {
 
-	PropertyTexturesControl::PropertyTexturesControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("PropertyTextureBrowseControl.layout", _parent),
+	FACTORY_ITEM_ATTRIBUTE(PropertyTexturesControl)
+
+	PropertyTexturesControl::PropertyTexturesControl() :
+		mImage(nullptr),
+		mName(nullptr),
 		mComboBox(nullptr),
 		mBrowse(nullptr),
 		mTextureBrowseControl(nullptr)
 	{
+	}
+
+	PropertyTexturesControl::~PropertyTexturesControl()
+	{
+		mBrowse->eventMouseButtonClick -= MyGUI::newDelegate(this, &PropertyTexturesControl::notifyMouseButtonClick);
+		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyTexturesControl::notifyComboChangePosition);
+
+		delete mTextureBrowseControl;
+		mTextureBrowseControl = nullptr;
+	}
+
+	void PropertyTexturesControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::OnInitialise(_parent, _place, "PropertyTextureBrowseControl.layout");
+
+		assignWidget(mImage, "Image");
+		assignWidget(mName, "Name");
 		assignWidget(mComboBox, "ComboBox");
 		assignWidget(mBrowse, "Browse");
 
@@ -32,15 +53,15 @@
 
 		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyTexturesControl::notifyComboChangePosition);
 		mBrowse->eventMouseButtonClick += MyGUI::newDelegate(this, &PropertyTexturesControl::notifyMouseButtonClick);
+
+		mMainWidget->eventChangeCoord += MyGUI::newDelegate(this, &PropertyTexturesControl::notifyChangeCoord);
 	}
 
-	PropertyTexturesControl::~PropertyTexturesControl()
+	void PropertyTexturesControl::updateCaption()
 	{
-		mBrowse->eventMouseButtonClick -= MyGUI::newDelegate(this, &PropertyTexturesControl::notifyMouseButtonClick);
-		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyTexturesControl::notifyComboChangePosition);
-
-		delete mTextureBrowseControl;
-		mTextureBrowseControl = nullptr;
+		Property* proper = getProperty();
+		if (proper != nullptr)
+			mName->setCaption(proper->getType()->getName());
 	}
 
 	void PropertyTexturesControl::updateProperty()
@@ -53,12 +74,20 @@
 
 			size_t index = getComboIndex(proper->getValue());
 			mComboBox->setIndexSelected(index);
+
+			mImage->setVisible(true);
+			mImage->setImageTexture(proper->getValue());
+
+			mTextureSize = MyGUI::texture_utility::getTextureSize(proper->getValue());
+
+			updateTexture();
 		}
 		else
 		{
 			mComboBox->setIndexSelected(MyGUI::ITEM_NONE);
 			mComboBox->setEnabled(false);
 			mBrowse->setEnabled(false);
+			mImage->setVisible(false);
 		}
 	}
 
@@ -68,9 +97,9 @@
 		if (proper != nullptr)
 		{
 			if (_index != MyGUI::ITEM_NONE)
-				proper->setValue(mComboBox->getItemNameAt(_index), getTypeName());
+				proper->setValue(mComboBox->getItemNameAt(_index));
 			else
-				proper->setValue("", getTypeName());
+				proper->setValue("");
 		}
 	}
 
@@ -110,7 +139,7 @@
 		{
 			Property* proper = getProperty();
 			if (proper != nullptr)
-				proper->setValue(mTextureBrowseControl->getTextureName(), getTypeName());
+				proper->setValue(mTextureBrowseControl->getTextureName());
 			updateProperty();
 		}
 	}
@@ -128,4 +157,32 @@
 			mTextures.push_back(*iter);
 	}
 
-}*/
+	void PropertyTexturesControl::updateTexture()
+	{
+		if (mTextureSize.width != 0 && mTextureSize.height != 0)
+		{
+			mImage->setVisible(true);
+
+			const MyGUI::IntSize& targetSize = mImage->getParentSize();
+
+			float k1 = (float)targetSize.width / mTextureSize.width;
+			float k2 = (float)targetSize.height / mTextureSize.height;
+			float k = (std::min)(k1, k2);
+			MyGUI::IntSize size = MyGUI::IntSize((int)(k * (float)mTextureSize.width), (int)(k * (float)mTextureSize.height));
+
+			MyGUI::IntSize parentSize = mImage->getParentSize();
+			mImage->setCoord((parentSize.width - size.width) / 2, (parentSize.height - size.height) / 2, size.width, size.height);
+		}
+		else
+		{
+			mImage->setVisible(false);
+		}
+	}
+
+	void PropertyTexturesControl::notifyChangeCoord(MyGUI::Widget* _sender)
+	{
+		if (mImage->getVisible() && mImage->getInheritedVisible())
+			updateTexture();
+	}
+
+}

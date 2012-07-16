@@ -15,6 +15,7 @@ namespace tools
 	FACTORY_ITEM_ATTRIBUTE(PropertyInt2Control)
 
 	PropertyInt2Control::PropertyInt2Control() :
+		mName(nullptr),
 		mEdit(nullptr)
 	{
 	}
@@ -28,9 +29,17 @@ namespace tools
 	{
 		Control::OnInitialise(_parent, _place, "PropertyEditControl.layout");
 
+		assignWidget(mName, "Name");
 		assignWidget(mEdit, "Edit");
 
 		mEdit->eventEditTextChange += MyGUI::newDelegate(this, &PropertyInt2Control::notifyEditTextChange);
+	}
+
+	void PropertyInt2Control::updateCaption()
+	{
+		Property* proper = getProperty();
+		if (proper != nullptr)
+			mName->setCaption(proper->getType()->getName());
 	}
 
 	void PropertyInt2Control::updateProperty()

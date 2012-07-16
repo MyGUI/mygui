@@ -12,37 +12,43 @@
 #include "TextureBrowseControl.h"
 #include "Dialog.h"
 
-/*namespace tools
+namespace tools
 {
 
 	class PropertyTexturesControl :
-		public wraps::BaseLayout,
 		public PropertyControl
 	{
 	public:
-		PropertyTexturesControl(MyGUI::Widget* _parent);
+		PropertyTexturesControl();
 		virtual ~PropertyTexturesControl();
 
 	protected:
+		virtual void updateCaption();
 		virtual void updateProperty();
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 		void notifyEndDialog(Dialog* _sender, bool _result);
+		void notifyChangeCoord(MyGUI::Widget* _sender);
 
 		size_t getComboIndex(const MyGUI::UString& _name);
 
 		void fillTextures();
+		void updateTexture();
 
 	private:
+		MyGUI::ImageBox* mImage;
+		MyGUI::TextBox* mName;
 		MyGUI::ComboBox* mComboBox;
 		MyGUI::Button* mBrowse;
 
 		TextureBrowseControl* mTextureBrowseControl;
 		MyGUI::VectorString mTextures;
+		MyGUI::IntSize mTextureSize;
 	};
 
-}*/
+}
 
 #endif

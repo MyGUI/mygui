@@ -21,6 +21,7 @@ namespace tools
 		virtual ~PropertyInt2Control();
 
 	protected:
+		virtual void updateCaption();
 		virtual void updateProperty();
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
@@ -32,6 +33,7 @@ namespace tools
 		void setColour(bool _validate);
 
 	private:
+		MyGUI::TextBox* mName;
 		MyGUI::EditBox* mEdit;
 	};
 
