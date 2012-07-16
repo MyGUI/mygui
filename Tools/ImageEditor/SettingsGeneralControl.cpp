@@ -12,7 +12,7 @@
 namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(SettingsGeneralControl);
+	FACTORY_ITEM_ATTRIBUTE(SettingsGeneralControl)
 
 	SettingsGeneralControl::SettingsGeneralControl() :
 		mGridStep(0),

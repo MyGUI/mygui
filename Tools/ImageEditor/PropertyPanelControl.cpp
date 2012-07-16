@@ -12,7 +12,7 @@
 namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(PropertyPanelControl);
+	FACTORY_ITEM_ATTRIBUTE(PropertyPanelControl)
 
 	PropertyPanelControl::PropertyPanelControl()
 	{

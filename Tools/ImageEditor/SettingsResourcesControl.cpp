@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(SettingsResourcesControl);
+	FACTORY_ITEM_ATTRIBUTE(SettingsResourcesControl)
 
 	SettingsResourcesControl::SettingsResourcesControl() :
 		mResourceAdd(nullptr),

@@ -14,7 +14,7 @@
 namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(ListBoxDataControl);
+	FACTORY_ITEM_ATTRIBUTE(ListBoxDataControl)
 
 	ListBoxDataControl::ListBoxDataControl() :
 		mListBox(nullptr),

@@ -12,7 +12,7 @@
 namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(ImageListControl);
+	FACTORY_ITEM_ATTRIBUTE(ImageListControl)
 
 	ImageListControl::ImageListControl()
 	{

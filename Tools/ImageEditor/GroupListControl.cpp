@@ -12,7 +12,7 @@
 namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(GroupListControl);
+	FACTORY_ITEM_ATTRIBUTE(GroupListControl)
 
 	GroupListControl::GroupListControl()
 	{

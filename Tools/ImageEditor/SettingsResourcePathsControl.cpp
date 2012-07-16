@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(SettingsResourcePathsControl);
+	FACTORY_ITEM_ATTRIBUTE(SettingsResourcePathsControl)
 
 	SettingsResourcePathsControl::SettingsResourcePathsControl() :
 		mResourcePathAdd(nullptr),

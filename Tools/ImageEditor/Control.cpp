@@ -12,7 +12,7 @@
 namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(Control);
+	FACTORY_ITEM_ATTRIBUTE(Control)
 
 	Control::Control() :
 		mParent(nullptr)

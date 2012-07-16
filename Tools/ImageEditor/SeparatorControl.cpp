@@ -11,7 +11,7 @@
 namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(SeparatorControl);
+	FACTORY_ITEM_ATTRIBUTE(SeparatorControl)
 
 	SeparatorControl::SeparatorControl() :
 		mHorizontal(false)

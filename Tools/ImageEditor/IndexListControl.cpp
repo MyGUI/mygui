@@ -12,7 +12,7 @@
 namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(IndexListControl);
+	FACTORY_ITEM_ATTRIBUTE(IndexListControl)
 
 	IndexListControl::IndexListControl()
 	{

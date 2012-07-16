@@ -12,7 +12,7 @@
 namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(FrameListControl);
+	FACTORY_ITEM_ATTRIBUTE(FrameListControl)
 
 	FrameListControl::FrameListControl()
 	{
