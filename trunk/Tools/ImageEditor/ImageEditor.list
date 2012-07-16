@@ -133,6 +133,7 @@ set (SOURCE_FILES
   DialogManager.cpp
   EditorState.cpp
   ExportManager.cpp
+  FactoryItemRegistrator.cpp
   FactoryManager.cpp
   FrameListControl.cpp
   GridManager.cpp
@@ -383,6 +384,7 @@ SOURCE_GROUP("Managers\\Dialog" FILES
 )
 SOURCE_GROUP("Managers\\Factory" FILES
   FactoryItemAttribute.h
+  FactoryItemRegistrator.cpp
   FactoryItemRegistrator.h
   FactoryManager.cpp
   FactoryManager.h
