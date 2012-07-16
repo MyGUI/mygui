@@ -1915,8 +1915,8 @@ namespace sigslot
 		void emit()
 		{
 			lock_block<mt_policy> lock(this);
-			typename connections_list::const_iterator itNext, it = m_connected_slots.begin();
-			typename connections_list::const_iterator itEnd = m_connected_slots.end();
+			typename connections_list::const_iterator itNext, it = _signal_base0<mt_policy>::m_connected_slots.begin();
+			typename connections_list::const_iterator itEnd = _signal_base0<mt_policy>::m_connected_slots.end();
 
 			while (it != itEnd)
 			{
@@ -1932,8 +1932,8 @@ namespace sigslot
 		void operator()()
 		{
 			lock_block<mt_policy> lock(this);
-			typename connections_list::const_iterator itNext, it = m_connected_slots.begin();
-			typename connections_list::const_iterator itEnd = m_connected_slots.end();
+			typename connections_list::const_iterator itNext, it = _signal_base0<mt_policy>::m_connected_slots.begin();
+			typename connections_list::const_iterator itEnd = _signal_base0<mt_policy>::m_connected_slots.end();
 
 			while (it != itEnd)
 			{
