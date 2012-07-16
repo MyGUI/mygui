@@ -14,9 +14,9 @@ namespace tools
 
 	ActionDestroyData::ActionDestroyData() :
 		mData(nullptr),
+		mParent(nullptr),
 		mComplete(false),
-		mIndex(MyGUI::ITEM_NONE),
-		mParent(nullptr)
+		mIndex(MyGUI::ITEM_NONE)
 	{
 	}
 
