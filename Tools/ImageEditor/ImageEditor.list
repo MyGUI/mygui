@@ -25,6 +25,7 @@ set (HEADER_FILES
   EditorState.h
   ExportManager.h
   FactoryItemAttribute.h
+  FactoryItemRegistrator.h
   FactoryManager.h
   FactoryTemplate.h
   FrameListControl.h
@@ -382,6 +383,7 @@ SOURCE_GROUP("Managers\\Dialog" FILES
 )
 SOURCE_GROUP("Managers\\Factory" FILES
   FactoryItemAttribute.h
+  FactoryItemRegistrator.h
   FactoryManager.cpp
   FactoryManager.h
   FactoryTemplate.h

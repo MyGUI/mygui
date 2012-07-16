@@ -11,6 +11,7 @@
 #include <map>
 #include "IFactory.h"
 #include "FactoryTemplate.h"
+#include "FactoryItemRegistrator.h"
 #include "FactoryItemAttribute.h"
 
 namespace components
