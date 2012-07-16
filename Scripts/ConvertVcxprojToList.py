@@ -96,6 +96,8 @@ def createFilesList(fileName, listName):
     if (not filecmp.cmp("tmp.list", listName)):
       os.remove(listName)
       os.rename("tmp.list", listName)
+    else:
+      os.remove("tmp.list")
 def isIgnoredProject(name):
     ignores = ["Common", "api-docs", "INSTALL", "ALL_BUILD", "ZERO_CHECK", "PACKAGE"]
     for ignore in ignores:
