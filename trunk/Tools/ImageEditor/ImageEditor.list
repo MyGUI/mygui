@@ -229,10 +229,6 @@ SOURCE_GROUP("Application" FILES
   MyGUI_FilterNoneSkin.h
 )
 SOURCE_GROUP("Controls" FILES
-  AreaSelectorControl.cpp
-  AreaSelectorControl.h
-  BackgroundControl.cpp
-  BackgroundControl.h
   ColourPanel.cpp
   ColourPanel.h
   Control.cpp
@@ -243,52 +239,22 @@ SOURCE_GROUP("Controls" FILES
   FrameListControl.h
   GroupListControl.cpp
   GroupListControl.h
-  HorizontalSelectorBlackControl.cpp
-  HorizontalSelectorBlackControl.h
-  HorizontalSelectorControl.cpp
-  HorizontalSelectorControl.h
   ImageListControl.cpp
   ImageListControl.h
   IndexListControl.cpp
   IndexListControl.h
-  ListBoxControl.cpp
-  ListBoxControl.h
   ListBoxDataControl.cpp
   ListBoxDataControl.h
-  ListBoxItemControl.cpp
-  ListBoxItemControl.h
   MainMenuControl.cpp
   MainMenuControl.h
-  MainTabControl.cpp
-  MainTabControl.h
   MessageBoxFadeControl.cpp
   MessageBoxFadeControl.h
   OpenSaveFileDialog.cpp
   OpenSaveFileDialog.h
-  PositionSelectorBlackControl.cpp
-  PositionSelectorBlackControl.h
-  PositionSelectorControl.cpp
-  PositionSelectorControl.h
   PropertyPanelControl.cpp
   PropertyPanelControl.h
-  RegionControl.cpp
-  RegionControl.h
-  RegionListControl.cpp
-  RegionListControl.h
-  RegionPropertyControl.cpp
-  RegionPropertyControl.h
-  RegionTextureControl.cpp
-  RegionTextureControl.h
-  SelectorControl.cpp
-  SelectorControl.h
   SeparatorControl.cpp
   SeparatorControl.h
-  SeparatorListControl.cpp
-  SeparatorListControl.h
-  SeparatorPropertyControl.cpp
-  SeparatorPropertyControl.h
-  SeparatorTextureControl.cpp
-  SeparatorTextureControl.h
   SettingsGeneralControl.cpp
   SettingsGeneralControl.h
   SettingsResourcePathsControl.cpp
@@ -297,18 +263,6 @@ SOURCE_GROUP("Controls" FILES
   SettingsResourcesControl.h
   SettingsWindow.cpp
   SettingsWindow.h
-  SkinControl.cpp
-  SkinControl.h
-  SkinPropertyControl.cpp
-  SkinPropertyControl.h
-  SkinTextureControl.cpp
-  SkinTextureControl.h
-  StateControl.cpp
-  StateControl.h
-  StateListControl.cpp
-  StateListControl.h
-  StatePropertyControl.cpp
-  StatePropertyControl.h
   StateTextureControl.cpp
   StateTextureControl.h
   TextFieldControl.cpp
@@ -325,6 +279,54 @@ SOURCE_GROUP("Controls" FILES
   VerticalSelectorBlackControl.h
   VerticalSelectorControl.cpp
   VerticalSelectorControl.h
+)
+SOURCE_GROUP("Controls\\old" FILES
+  AreaSelectorControl.cpp
+  AreaSelectorControl.h
+  BackgroundControl.cpp
+  BackgroundControl.h
+  HorizontalSelectorBlackControl.cpp
+  HorizontalSelectorBlackControl.h
+  HorizontalSelectorControl.cpp
+  HorizontalSelectorControl.h
+  ListBoxControl.cpp
+  ListBoxControl.h
+  ListBoxItemControl.cpp
+  ListBoxItemControl.h
+  MainTabControl.cpp
+  MainTabControl.h
+  PositionSelectorBlackControl.cpp
+  PositionSelectorBlackControl.h
+  PositionSelectorControl.cpp
+  PositionSelectorControl.h
+  RegionControl.cpp
+  RegionControl.h
+  RegionListControl.cpp
+  RegionListControl.h
+  RegionPropertyControl.cpp
+  RegionPropertyControl.h
+  RegionTextureControl.cpp
+  RegionTextureControl.h
+  SelectorControl.cpp
+  SelectorControl.h
+  SeparatorListControl.cpp
+  SeparatorListControl.h
+  SeparatorPropertyControl.cpp
+  SeparatorPropertyControl.h
+  SeparatorTextureControl.cpp
+  SeparatorTextureControl.h
+  SkinControl.cpp
+  SkinControl.h
+  SkinPropertyControl.cpp
+  SkinPropertyControl.h
+  SkinTextureControl.cpp
+  SkinTextureControl.h
+  StateControl.cpp
+  StateControl.h
+  StateListControl.cpp
+  StateListControl.h
+  StatePropertyControl.cpp
+  StatePropertyControl.h
 )
 SOURCE_GROUP("Data" FILES
   Data.cpp

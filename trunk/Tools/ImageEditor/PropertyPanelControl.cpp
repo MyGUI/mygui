@@ -25,6 +25,13 @@ namespace tools
 	void PropertyPanelControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
+
+		ScopeManager::getInstance().eventChangeScope.connect(this, &PropertyPanelControl::notifyChangeScope);
+		notifyChangeScope(ScopeManager::getInstance().getCurrentScope());
+	}
+
+	void PropertyPanelControl::notifyChangeScope(const std::string& _scope)
+	{
 	}
 
 }
