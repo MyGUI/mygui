@@ -10,19 +10,20 @@
 #include "BaseLayout/BaseLayout.h"
 #include "PropertyControl.h"
 
-/*namespace tools
+namespace tools
 {
 
 	class PropertyIntControl :
-		public wraps::BaseLayout,
 		public PropertyControl
 	{
 	public:
-		PropertyIntControl(MyGUI::Widget* _parent);
+		PropertyIntControl();
 		virtual ~PropertyIntControl();
 
 	protected:
+		virtual void updateCaption();
 		virtual void updateProperty();
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
 		void notifyEditTextChange(MyGUI::EditBox* _sender);
@@ -32,9 +33,10 @@
 		void setColour(bool _validate);
 
 	private:
+		MyGUI::TextBox* mName;
 		MyGUI::EditBox* mEdit;
 	};
 
-}*/
+}
 
 #endif
