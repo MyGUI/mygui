@@ -63,7 +63,7 @@
 				</Property>
 				<Property>
 					<Name>Rate</Name>
-					<Type>Float</Type>
+					<Type>PropertyFloatControl</Type>
 					<Default>0</Default>
 					<Visible>true</Visible>
 				</Property>
@@ -79,13 +79,13 @@
 			<Properties>
 				<Property>
 					<Name>Point</Name>
-					<Type>IntPoint</Type>
+					<Type>PropertyInt2Control</Type>
 					<Default>0 0</Default>
 					<Visible>false</Visible>
 				</Property>
 				<Property>
 					<Name>Count</Name>
-					<Type>Int</Type>
+					<Type>PropertyIntControl</Type>
 					<Default>1</Default>
 					<Visible>true</Visible>
 				</Property>

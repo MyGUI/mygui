@@ -7,7 +7,6 @@
 #ifndef _b3697c6a_b56b_4edd_b9e0_1f2e871d0da1_
 #define _b3697c6a_b56b_4edd_b9e0_1f2e871d0da1_
 
-#include "Control.h"
 #include "PropertyControl.h"
 
 namespace tools

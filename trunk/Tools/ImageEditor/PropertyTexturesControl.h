@@ -7,7 +7,6 @@
 #ifndef _07f612bd_91d2_4e55_828d_a10206631a31_
 #define _07f612bd_91d2_4e55_828d_a10206631a31_
 
-#include "BaseLayout/BaseLayout.h"
 #include "PropertyControl.h"
 #include "TextureBrowseControl.h"
 #include "Dialog.h"
