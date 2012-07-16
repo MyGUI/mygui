@@ -1,81 +1,81 @@
 set (HEADER_FILES
-  DemoKeeper.h
-  ScrollViewPanel.h
-  WrapPanel.h
-  StackPanel.h
-  Panel.h
-  HyperTextBox.h
-  Data.h
-  DataInfo.h
-  DataPropertyInfo.h
-  DataInfoManager.h
-  DataManager.h
   Action.h
   ActionCreateData.h
   ActionDestroyData.h
   ActionManager.h
+  Data.h
+  DataInfo.h
+  DataInfoManager.h
   DataListUI.h
+  DataManager.h
+  DataPropertyInfo.h
+  DemoKeeper.h
+  HyperTextBox.h
+  Panel.h
+  ScrollViewPanel.h
+  StackPanel.h
+  WrapPanel.h
 )
 set (SOURCE_FILES
-  pugiconfig.hpp
-  pugixml.hpp
-  DemoKeeper.cpp
-  ScrollViewPanel.cpp
-  WrapPanel.cpp
-  StackPanel.cpp
-  Panel.cpp
-  HyperTextBox.cpp
   ../../Common/Base/BaseResource.rc
-  Data.cpp
-  DataInfo.cpp
-  DataPropertyInfo.cpp
-  DataInfoManager.cpp
-  DataManager.cpp
-  pugixml.cpp
   ActionCreateData.cpp
   ActionDestroyData.cpp
   ActionManager.cpp
+  Data.cpp
+  DataInfo.cpp
+  DataInfoManager.cpp
   DataListUI.cpp
-)
-SOURCE_GROUP("Source Files" FILES
+  DataManager.cpp
+  DataPropertyInfo.cpp
   DemoKeeper.cpp
-  ScrollViewPanel.cpp
-  WrapPanel.cpp
-  StackPanel.cpp
-  Panel.cpp
   HyperTextBox.cpp
-  Data.cpp
-  DataInfo.cpp
-  DataPropertyInfo.cpp
-  DataInfoManager.cpp
-  DataManager.cpp
+  Panel.cpp
+  ScrollViewPanel.cpp
+  StackPanel.cpp
+  WrapPanel.cpp
+  pugiconfig.hpp
   pugixml.cpp
-  ActionCreateData.cpp
-  ActionDestroyData.cpp
-  ActionManager.cpp
-  DataListUI.cpp
+  pugixml.hpp
 )
 SOURCE_GROUP("Header Files" FILES
-  DemoKeeper.h
-  ScrollViewPanel.h
-  WrapPanel.h
-  StackPanel.h
-  Panel.h
-  HyperTextBox.h
-  Data.h
-  DataInfo.h
-  DataPropertyInfo.h
-  DataInfoManager.h
-  DataManager.h
   Action.h
   ActionCreateData.h
   ActionDestroyData.h
   ActionManager.h
+  Data.h
+  DataInfo.h
+  DataInfoManager.h
   DataListUI.h
+  DataManager.h
+  DataPropertyInfo.h
+  DemoKeeper.h
+  HyperTextBox.h
+  Panel.h
+  ScrollViewPanel.h
+  StackPanel.h
+  WrapPanel.h
   pugiconfig.hpp
   pugixml.hpp
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Base/BaseResource.rc
   CMakeLists.txt
+)
+SOURCE_GROUP("Source Files" FILES
+  ActionCreateData.cpp
+  ActionDestroyData.cpp
+  ActionManager.cpp
+  Data.cpp
+  DataInfo.cpp
+  DataInfoManager.cpp
+  DataListUI.cpp
+  DataManager.cpp
+  DataPropertyInfo.cpp
+  DemoKeeper.cpp
+  HyperTextBox.cpp
+  Panel.cpp
+  ScrollViewPanel.cpp
+  StackPanel.cpp
+  WrapPanel.cpp
+  pugixml.cpp
 )
