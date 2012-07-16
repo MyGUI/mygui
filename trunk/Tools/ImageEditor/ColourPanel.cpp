@@ -11,7 +11,6 @@
 
 namespace tools
 {
-
 	FACTORY_ITEM_ATTRIBUTE(ColourPanel)
 
 	ColourPanel::ColourPanel() :
