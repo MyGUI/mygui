@@ -24,11 +24,13 @@ namespace tools
 		const std::string& getName() const;
 		const std::string& getType() const;
 		const std::string& getDefaultValue() const;
+		bool getReadOnly() const;
 
 	private:
 		std::string mName;
 		std::string mType;
 		std::string mDefaultValue;
+		bool mReadOnly;
 	};
 
 }

@@ -7,17 +7,16 @@
 #include "Precompiled.h"
 #include "PropertyInt2Control.h"
 #include "Localise.h"
+#include "FactoryManager.h"
 
-/*namespace tools
+namespace tools
 {
 
-	PropertyInt2Control::PropertyInt2Control(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("PropertyEditControl.layout", _parent),
+	FACTORY_ITEM_ATTRIBUTE(PropertyInt2Control)
+
+	PropertyInt2Control::PropertyInt2Control() :
 		mEdit(nullptr)
 	{
-		assignWidget(mEdit, "Edit");
-
-		mEdit->eventEditTextChange += MyGUI::newDelegate(this, &PropertyInt2Control::notifyEditTextChange);
 	}
 
 	PropertyInt2Control::~PropertyInt2Control()
@@ -25,12 +24,21 @@
 		mEdit->eventEditTextChange -= MyGUI::newDelegate(this, &PropertyInt2Control::notifyEditTextChange);
 	}
 
+	void PropertyInt2Control::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::OnInitialise(_parent, _place, "PropertyEditControl.layout");
+
+		assignWidget(mEdit, "Edit");
+
+		mEdit->eventEditTextChange += MyGUI::newDelegate(this, &PropertyInt2Control::notifyEditTextChange);
+	}
+
 	void PropertyInt2Control::updateProperty()
 	{
 		Property* proper = getProperty();
 		if (proper != nullptr)
 		{
-			mEdit->setEnabled(!proper->getReadOnly());
+			mEdit->setEnabled(!proper->getType()->getReadOnly());
 			mEdit->setCaption(proper->getValue());
 
 			bool validate = isValidate();
@@ -50,7 +58,7 @@
 		{
 			bool validate = isValidate();
 			if (validate)
-				proper->setValue(getClearValue(), getTypeName());
+				proper->setValue(getClearValue());
 
 			setColour(validate);
 		}
@@ -91,4 +99,4 @@
 		mEdit->setTextCursor(index);
 	}
 
-}*/
+}

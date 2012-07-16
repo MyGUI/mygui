@@ -282,6 +282,26 @@ SOURCE_GROUP("Controls" FILES
   VerticalSelectorControl.cpp
   VerticalSelectorControl.h
 )
+SOURCE_GROUP("Controls\\Properties" FILES
+  PropertyAlignControl.cpp
+  PropertyAlignControl.h
+  PropertyBoolControl.cpp
+  PropertyBoolControl.h
+  PropertyColourControl.cpp
+  PropertyColourControl.h
+  PropertyControl.cpp
+  PropertyControl.h
+  PropertyInt2Control.cpp
+  PropertyInt2Control.h
+  PropertyInt4Control.cpp
+  PropertyInt4Control.h
+  PropertyIntControl.cpp
+  PropertyIntControl.h
+  PropertyRegionTypeControl.cpp
+  PropertyRegionTypeControl.h
+  PropertyTexturesControl.cpp
+  PropertyTexturesControl.h
+)
 SOURCE_GROUP("Controls\\old" FILES
   AreaSelectorControl.cpp
   AreaSelectorControl.h
@@ -402,26 +422,8 @@ SOURCE_GROUP("Properties" FILES
   Property.cpp
   Property.h
   PropertyAdvisor.h
-  PropertyAlignControl.cpp
-  PropertyAlignControl.h
-  PropertyBoolControl.cpp
-  PropertyBoolControl.h
-  PropertyColourControl.cpp
-  PropertyColourControl.h
-  PropertyControl.cpp
-  PropertyControl.h
-  PropertyInt2Control.cpp
-  PropertyInt2Control.h
-  PropertyInt4Control.cpp
-  PropertyInt4Control.h
-  PropertyIntControl.cpp
-  PropertyIntControl.h
-  PropertyRegionTypeControl.cpp
-  PropertyRegionTypeControl.h
   PropertySet.cpp
   PropertySet.h
-  PropertyTexturesControl.cpp
-  PropertyTexturesControl.h
 )
 SOURCE_GROUP("Resources" FILES
   CMakeLists.txt

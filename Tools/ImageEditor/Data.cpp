@@ -33,7 +33,10 @@ namespace tools
 		{
 			const DataType::VectorProperty& properties = mType->getProperties();
 			for (DataType::VectorProperty::const_iterator property = properties.begin(); property != properties.end(); property++)
-				mProperties[(*property)->getName()] = (*property)->getDefaultValue();
+			{
+				Property* data = new Property(*property);
+				mProperties[(*property)->getName()] = data;
+			}
 		}
 	}
 
@@ -105,7 +108,7 @@ namespace tools
 		MapString::const_iterator property = mProperties.find(_name);
 		MYGUI_ASSERT(property != mProperties.end(), "Property " << _name << " not found");
 
-		return (*property).second;
+		return (*property).second->getValue();
 	}
 	
 	void Data::setPropertyValue(const std::string& _name, const std::string& _value)
@@ -113,7 +116,7 @@ namespace tools
 		MapString::iterator property = mProperties.find(_name);
 		MYGUI_ASSERT(property != mProperties.end(), "Property " << _name << " not found");
 
-		mProperties[_name] = _value;
+		mProperties[_name]->setValue(_value);
 	}
 
 	size_t Data::getChildIndex(Data* _child)

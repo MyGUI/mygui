@@ -7,42 +7,33 @@
 #ifndef _faf0ef48_7615_4de7_812c_48520c83de61_
 #define _faf0ef48_7615_4de7_812c_48520c83de61_
 
-#include <MyGUI.h>
+#include "sigslot.h"
+#include "DataTypeProperty.h"
 
-/*namespace tools
+namespace tools
 {
 
-	class Property;
-	typedef MyGUI::delegates::CMultiDelegate2<Property*, const MyGUI::UString&> EventHandle_ChangeProperty;
-
-	class Property :
-		public MyGUI::ISerializable
+	class Property
 	{
 	public:
-		Property(const MyGUI::UString& _name, const MyGUI::UString& _type);
+		Property(DataTypeProperty* _type);
 		~Property();
 
-		const MyGUI::UString& getValue() const;
-		void setValue(const MyGUI::UString& _value, const MyGUI::UString& _owner);
+		const std::string& getValue() const;
+		void setValue(const std::string& _value);
 
-		const MyGUI::UString& getName() const;
-		const MyGUI::UString& getType() const;
+		DataTypeProperty* getType();
 
-		bool getReadOnly() const;
-		void setReadOnly(bool _value);
-
-		EventHandle_ChangeProperty eventChangeProperty;
-
-		virtual void serialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
-		//virtual void deserialization(MyGUI::xml::Element* _node, MyGUI::Version _version);
+		sigslot::signal1<Property*> eventChangeProperty;
 
 	private:
-		MyGUI::UString mName;
-		MyGUI::UString mType;
-		MyGUI::UString mValue;
-		bool mReadOnly;
+		Property() { }
+
+	private:
+		std::string mValue;
+		DataTypeProperty* mType;
 	};
 
-}*/
+}
 
 #endif

@@ -9,11 +9,14 @@
 
 #include <MyGUI.h>
 #include "Property.h"
+#include "Control.h"
 
-/*namespace tools
+namespace tools
 {
 
-	class PropertyControl
+	class PropertyControl :
+		public Control,
+		public sigslot::has_slots<>
 	{
 	public:
 		PropertyControl();
@@ -22,22 +25,19 @@
 		void setProperty(Property* _value);
 		Property* getProperty();
 
-		const MyGUI::UString& getTypeName() const;
-
 	protected:
 		virtual void updateProperty();
 
 	private:
-		void notifyChangeProperty(Property* _sender, const MyGUI::UString& _owner);
+		void notifyChangeProperty(Property* _sender);
 
 		void advice();
 		void unadvice();
 
 	private:
 		Property* mProperty;
-		MyGUI::UString mTypeName;
 	};
 
-}*/
+}
 
 #endif

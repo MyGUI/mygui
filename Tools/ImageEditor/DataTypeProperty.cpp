@@ -10,7 +10,8 @@
 namespace tools
 {
 
-	DataTypeProperty::DataTypeProperty()
+	DataTypeProperty::DataTypeProperty() :
+		mReadOnly(false)
 	{
 	}
 
@@ -23,6 +24,7 @@ namespace tools
 		mName = _node.select_single_node("Name").node().child_value();
 		mType = _node.select_single_node("Type").node().child_value();
 		mDefaultValue = _node.select_single_node("Default").node().child_value();
+		mReadOnly = MyGUI::utility::parseValue<bool>(_node.select_single_node("ReadOnly").node().child_value());
 	}
 
 	const std::string& DataTypeProperty::getName() const
@@ -38,6 +40,11 @@ namespace tools
 	const std::string& DataTypeProperty::getDefaultValue() const
 	{
 		return mDefaultValue;
+	}
+
+	bool DataTypeProperty::getReadOnly() const
+	{
+		return mReadOnly;
 	}
 
 }

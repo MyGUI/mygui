@@ -9,6 +9,7 @@
 
 #include "DataType.h"
 #include <map>
+#include "Property.h"
 
 namespace tools
 {
@@ -34,7 +35,7 @@ namespace tools
 		size_t getChildIndex(Data* _child);
 		Data* getChildByIndex(size_t _index);
 
-		typedef std::map<std::string, std::string> MapString;
+		typedef std::map<std::string, Property*> MapString;
 		const MapString getProperties() const;
 
 		const std::string& getPropertyValue(const std::string& _name) const;

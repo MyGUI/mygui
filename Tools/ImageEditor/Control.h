@@ -24,12 +24,14 @@ namespace tools
 		MyGUI::Widget* getRoot();
 
 		void Initialise(const std::string& _layoutName = "");
+		void Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 		typedef std::vector<Control*> VectorControl;
 		const VectorControl& getChilds() const;
 
 		void SendCommand(const std::string& _command);
 
+	protected:
 		template <typename Type>
 		std::string GetLayoutName(Type* _owner)
 		{
@@ -55,7 +57,6 @@ namespace tools
 			}
 		}
 
-	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 		virtual void OnCommand(const std::string& _command);
 
