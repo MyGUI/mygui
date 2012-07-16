@@ -11,6 +11,7 @@ headers = []
 sources = []
 filters = {}
 currentFolder = ""
+currentRoot = ""
 
 def addSourceOrHeader(fileName):
     #print line
@@ -23,7 +24,7 @@ def get_a_document(name):
     return xml.dom.minidom.parse(name)
 
 def convertRelativePath(fileName):
-    fileName = os.path.join(root, fileName)
+    fileName = os.path.join(currentRoot, fileName)
     fileName = fileName.replace('\\','/')
     fileName = os.path.relpath(fileName, currentFolder)
     fileName = fileName.replace('\\','/')
@@ -94,7 +95,8 @@ def createFilesList(fileName, listName):
     filters.clear()
 
     if (not filecmp.cmp("tmp.list", listName)):
-      os.remove(listName)
+      if (os.path.exists(listName)):
+        os.remove(listName)
       os.rename("tmp.list", listName)
     else:
       os.remove("tmp.list")
@@ -105,31 +107,51 @@ def isIgnoredProject(name):
             return True
     return False
 
-# ----------
-dir_src = '../'
-try:
-  dir_solution = sys.argv[1]
-  print "Sources directory is: " + dir_src
-  print "Solution directory is: " + dir_solution
-except:
-  print "Error: missing argument"
-  print "Usage: parseXML <path_to_solution>"
+def main():
+  global currentRoot
+  global currentFolder
+  dir_src = '../'
+  try:
+    dir_solution = sys.argv[1]
+    print "Sources directory is: " + dir_src
+    print "Solution directory is: " + dir_solution
+  except:
+    print "Error: missing argument"
+    print "Usage: parseXML <path_to_solution>"
+  else:
+    for root, dirs, files in os.walk(dir_solution):
+      for name in files:
+        if name.endswith('.vcxproj') and not isIgnoredProject(name):
+            currentRoot = root
+            f_src = os.path.join(root, name)
+            f_src = f_src.replace('\\','/')
+            currentFolder = f_src
+            currentFolder = currentFolder.replace(name, "")
+            currentFolder = currentFolder.replace('\\','/')
+
+            currentFolder = os.path.join(dir_src, os.path.relpath(currentFolder, dir_solution))
+
+            listName = f_src.replace(".vcxproj", ".list")
+            listName = os.path.relpath(listName, dir_solution)
+            listName = os.path.join(dir_src, listName)
+            #print listName
+            createFilesList(f_src, listName)
+
+    print "Done"
+
+if (not os.path.exists("lock")):
+  try:
+    FILE = open("lock", "w")
+    FILE.close()
+
+    main()
+
+    os.remove("lock")
+  except:
+    if (os.path.exists("lock")):
+      os.remove("lock")
+    if (os.path.exists("tmp.list")):
+      os.remove("tmp.list")
+    raise
 else:
-  for root, dirs, files in os.walk(dir_solution):
-    for name in files:
-      if name.endswith('.vcxproj') and not isIgnoredProject(name):
-          f_src = os.path.join(root, name)
-          f_src = f_src.replace('\\','/')
-          currentFolder = f_src #os.path.realpath(f_src)
-          currentFolder = currentFolder.replace(name, "")
-          currentFolder = currentFolder.replace('\\','/')
-
-          currentFolder = os.path.join(dir_src, os.path.relpath(currentFolder, dir_solution))
-
-          listName = f_src.replace(".vcxproj", ".list")
-          listName = os.path.relpath(listName, dir_solution)
-          listName = os.path.join(dir_src, listName)
-          #print listName
-          createFilesList(f_src, listName)
-
-  print "Done"
+  print "Already converting... Exiting..."
