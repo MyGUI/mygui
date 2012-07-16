@@ -38,7 +38,7 @@
 				</Property>
 				<Property>
 					<Name>Size</Name>
-					<Type>IntSize</Type>
+					<Type>PropertyInt2Control</Type>
 					<Default>0 0</Default>
 				</Property>
 			</Properties>

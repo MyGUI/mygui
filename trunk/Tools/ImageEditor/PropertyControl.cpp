@@ -7,13 +7,12 @@
 #include "Precompiled.h"
 #include "PropertyControl.h"
 
-/*namespace tools
+namespace tools
 {
 
 	PropertyControl::PropertyControl() :
 		mProperty(nullptr)
 	{
-		mTypeName = MyGUI::utility::toString((size_t)this);
 	}
 
 	PropertyControl::~PropertyControl()
@@ -38,7 +37,7 @@
 	{
 		if (mProperty != nullptr)
 		{
-			mProperty->eventChangeProperty += MyGUI::newDelegate(this, &PropertyControl::notifyChangeProperty);
+			mProperty->eventChangeProperty.connect(this, &PropertyControl::notifyChangeProperty);
 		}
 	}
 
@@ -46,7 +45,7 @@
 	{
 		if (mProperty != nullptr)
 		{
-			mProperty->eventChangeProperty -= MyGUI::newDelegate(this, &PropertyControl::notifyChangeProperty);
+			mProperty->eventChangeProperty.disconnect(this);
 			mProperty = nullptr;
 		}
 	}
@@ -55,15 +54,9 @@
 	{
 	}
 
-	void PropertyControl::notifyChangeProperty(Property* _sender, const MyGUI::UString& _owner)
+	void PropertyControl::notifyChangeProperty(Property* _sender)
 	{
-		if (_owner != mTypeName)
-			updateProperty();
+		updateProperty();
 	}
 
-	const MyGUI::UString& PropertyControl::getTypeName() const
-	{
-		return mTypeName;
-	}
-
-}*/
+}

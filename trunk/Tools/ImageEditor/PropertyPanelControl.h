@@ -11,6 +11,7 @@
 #include "sigslot.h"
 #include "Data.h"
 #include "DataType.h"
+#include "PropertyControl.h"
 
 namespace tools
 {
@@ -30,11 +31,14 @@ namespace tools
 		void notifyChangeScope(const std::string& _scope);
 		void notifyChangeDataSelector(Data* _data, bool _changeOnlySelection);
 
+		void HideControls();
+		void InitialiseProperty(Property* _property);
 
 	private:
-		MyGUI::TextBox* mText;
-		//Data* mParentData;
 		DataType* mParentType;
+		Data* mCurrentData;
+		typedef std::vector<std::pair<std::string, PropertyControl*>> VectorPairControl;
+		VectorPairControl mPropertyControls;
 	};
 
 }

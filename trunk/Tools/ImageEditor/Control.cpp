@@ -36,6 +36,11 @@ namespace tools
 		OnInitialise(nullptr, nullptr, _layoutName);
 	}
 
+	void Control::Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		OnInitialise(_parent, _place, _layoutName);
+	}
+
 	void Control::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
 		mParent = _parent;

@@ -6,15 +6,12 @@
 
 #include "Precompiled.h"
 #include "Property.h"
-#include "ActionManager.h"
 
-/*namespace tools
+namespace tools
 {
 
-	Property::Property(const MyGUI::UString& _name, const MyGUI::UString& _type) :
-		mName(_name),
-		mType(_type),
-		mReadOnly(false)
+	Property::Property(DataTypeProperty* _type) :
+		mType(_type)
 	{
 	}
 
@@ -22,48 +19,23 @@
 	{
 	}
 
-	const MyGUI::UString& Property::getValue() const
+	const std::string& Property::getValue() const
 	{
 		return mValue;
 	}
 
-	const MyGUI::UString& Property::getName() const
-	{
-		return mName;
-	}
-
-	const MyGUI::UString& Property::getType() const
-	{
-		return mType;
-	}
-
-	void Property::setValue(const MyGUI::UString& _value, const MyGUI::UString& _owner)
+	void Property::setValue(const std::string& _value)
 	{
 		if (mValue != _value)
 		{
 			mValue = _value;
-			eventChangeProperty(this, _owner);
-
-			ActionManager::getInstance().setChanges(true);
+			eventChangeProperty(this);
 		}
 	}
 
-	bool Property::getReadOnly() const
+	DataTypeProperty* Property::getType()
 	{
-		return mReadOnly;
+		return mType;
 	}
 
-	void Property::setReadOnly(bool _value)
-	{
-		mReadOnly = _value;
-	}
-
-	void Property::serialization(MyGUI::xml::Element* _node, MyGUI::Version _version)
-	{
-		_node->addAttribute("name", mName);
-		_node->addAttribute("type", mType);
-		_node->addAttribute("read_only", mReadOnly ? "True" : "False");
-		_node->setContent(mValue);
-	}
-
-}*/
+}
