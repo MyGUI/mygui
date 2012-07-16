@@ -26,7 +26,7 @@ namespace factories
 		{
 			if (!IsExistFactoryName(mFactoryName))
 			{
-				mFactory = new ::components::FactoryTemplate<Type>();
+				mFactory = new typename ::components::FactoryTemplate<Type>();
 				RegisterFactory(mFactory, mFactoryName);
 			}
 		}
