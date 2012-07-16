@@ -20,7 +20,7 @@
 namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(DataListBaseControl);
+	FACTORY_ITEM_ATTRIBUTE(DataListBaseControl)
 
 	DataListBaseControl::DataListBaseControl() :
 		mNameIndex(0),

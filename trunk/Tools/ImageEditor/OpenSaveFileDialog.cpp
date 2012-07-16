@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(OpenSaveFileDialog);
+	FACTORY_ITEM_ATTRIBUTE(OpenSaveFileDialog)
 
 	OpenSaveFileDialog::OpenSaveFileDialog() :
 		mListFiles(nullptr),

@@ -12,7 +12,7 @@
 namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(SettingsWindow);
+	FACTORY_ITEM_ATTRIBUTE(SettingsWindow)
 
 	SettingsWindow::SettingsWindow() :
 		mListSettings(nullptr),

@@ -14,7 +14,7 @@
 namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(MainMenuControl);
+	FACTORY_ITEM_ATTRIBUTE(MainMenuControl)
 
 	MainMenuControl::MainMenuControl() :
 		mMainMenu(nullptr)

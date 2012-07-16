@@ -11,7 +11,7 @@
 /*namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(MainTabControl);
+	FACTORY_ITEM_ATTRIBUTE(MainTabControl)
 
 	MainTabControl::MainTabControl()
 	{
