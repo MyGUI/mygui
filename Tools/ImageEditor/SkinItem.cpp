@@ -11,7 +11,8 @@
 {
 
 	SkinItem::SkinItem() :
-		mPropertySet(nullptr)
+		mPropertySet(nullptr),
+		mUniqum(false)
 	{
 		mPropertySet = new PropertySet();
 		mPropertySet->createChild("Texture", "Texture");

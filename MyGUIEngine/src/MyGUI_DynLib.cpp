@@ -31,17 +31,15 @@
 
 namespace MyGUI
 {
-	DynLib::DynLib( const std::string& name )
+	DynLib::DynLib(const std::string& name) :
+		mName(name),
+		mInstance(nullptr)
 	{
-		mName = name;
-		mInstance = nullptr;
 	}
-
 
 	DynLib::~DynLib()
 	{
 	}
-
 
 	bool DynLib::load()
 	{

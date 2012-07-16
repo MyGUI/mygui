@@ -35,12 +35,6 @@ namespace input
 		#define GET_HIWORD(param) ((short)HIWORD(param))
 		#define GET_LOWORD(param) ((short)LOWORD(param))
 
-		static int old_x = 0;
-		static int old_y = 0;
-		static int old_z = 0;
-		static bool left_button = false;
-		static bool right_button = false;
-
 		// на нас кидают файлы
 		if (WM_DROPFILES == uMsg)
 		{
@@ -65,6 +59,12 @@ namespace input
 		}
 		else if ((uMsg >= WM_MOUSEFIRST) && (uMsg <= __WM_REALMOUSELAST))
 		{
+			static int old_x = 0;
+			static int old_y = 0;
+			static int old_z = 0;
+			static bool left_button = false;
+			static bool right_button = false;
+
 			switch (uMsg)
 			{
 			case WM_MOUSEMOVE:

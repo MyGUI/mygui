@@ -216,11 +216,11 @@ namespace base
 		{
 			if (node->getName() == "Path")
 			{
-				bool root = false;
 				if (node->findAttribute("root") != "")
 				{
-					root = MyGUI::utility::parseBool(node->findAttribute("root"));
-					if (root) mRootMedia = node->getContent();
+					bool root = MyGUI::utility::parseBool(node->findAttribute("root"));
+					if (root)
+						mRootMedia = node->getContent();
 				}
 				addResourceLocation(node->getContent(), false);
 			}
