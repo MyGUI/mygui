@@ -1908,7 +1908,7 @@ namespace sigslot
 			lock_block<mt_policy> lock(this);
 			_connection0<desttype, mt_policy>* conn = 
 				new _connection0<desttype, mt_policy>(pclass, pmemfun);
-			m_connected_slots.push_back(conn);
+			_signal_base0<mt_policy>::m_connected_slots.push_back(conn);
 			pclass->signal_connect(this);
 		}
 
