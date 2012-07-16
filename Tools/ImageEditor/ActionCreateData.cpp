@@ -34,7 +34,7 @@ namespace tools
 		if (mData == nullptr)
 		{
 			mData = new Data();
-			mData->setType(DataTypeManager::getInstance().getData(mType));
+			mData->setType(DataTypeManager::getInstance().getType(mType));
 			//mData->setPropertyValue(mPropertyName, mName);
 		}
 

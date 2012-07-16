@@ -67,11 +67,22 @@ namespace tools
 		mDataInfos.clear();
 	}
 
-	DataType* DataTypeManager::getData(const std::string& _type)
+	DataType* DataTypeManager::getType(const std::string& _type)
 	{
 		for (VectorDataInfo::const_iterator data = mDataInfos.begin(); data != mDataInfos.end(); data ++)
 		{
 			if ((*data)->getName() == _type)
+				return *data;
+		}
+
+		return nullptr;
+	}
+
+	DataType* DataTypeManager::getParentType(const std::string& _type)
+	{
+		for (VectorDataInfo::const_iterator data = mDataInfos.begin(); data != mDataInfos.end(); data ++)
+		{
+			if ((*data)->isChild(_type))
 				return *data;
 		}
 

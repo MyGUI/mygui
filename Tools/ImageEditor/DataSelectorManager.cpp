@@ -87,7 +87,7 @@ namespace tools
 		const DataType::VectorString& childs = _type->getChilds();
 		for (DataType::VectorString::const_iterator childName = childs.begin(); childName != childs.end(); childName ++)
 		{
-			DataType* childType = DataTypeManager::getInstance().getData(*childName);
+			DataType* childType = DataTypeManager::getInstance().getType(*childName);
 			if (childType != nullptr)
 			{
 				Data* child = childSelected;

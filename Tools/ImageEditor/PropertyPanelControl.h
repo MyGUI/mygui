@@ -9,6 +9,8 @@
 
 #include "Control.h"
 #include "sigslot.h"
+#include "Data.h"
+#include "DataType.h"
 
 namespace tools
 {
@@ -26,6 +28,13 @@ namespace tools
 
 	private:
 		void notifyChangeScope(const std::string& _scope);
+		void notifyChangeDataSelector(Data* _data, bool _changeOnlySelection);
+
+
+	private:
+		MyGUI::TextBox* mText;
+		//Data* mParentData;
+		DataType* mParentType;
 	};
 
 }

@@ -2,5 +2,8 @@
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Widget" skin="Panel3Skin_Dark" position="20 20 240 510" align="Stretch" name="Root">
         <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="TextBox" skin="TextBox" position="0 0 240 510" align="HStretch Top" name="Text">
+            <Property key="Caption" value="test"/>
+        </Widget>
     </Widget>
 </MyGUI>

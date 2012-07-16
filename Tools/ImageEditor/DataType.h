@@ -30,7 +30,7 @@ namespace tools
 		typedef std::vector<DataTypeProperty*> VectorProperty;
 		const VectorProperty& getProperties() const;
 
-		bool isChild(DataType* _child);
+		bool isChild(const std::string& _child);
 
 	private:
 		std::string mName;
