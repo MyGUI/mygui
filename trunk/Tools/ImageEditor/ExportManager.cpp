@@ -57,7 +57,7 @@ namespace tools
 	void ExportManager::parseImage(pugi::xml_node _node)
 	{
 		Data* data = new Data();
-		data->setType(DataTypeManager::getInstance().getData("Image"));
+		data->setType(DataTypeManager::getInstance().getType("Image"));
 		data->setPropertyValue("Name", _node.attribute("name").value());
 
 		DataManager::getInstance().getRoot()->addChild(data);
@@ -70,7 +70,7 @@ namespace tools
 	void ExportManager::parseGroup(pugi::xml_node _node, Data* _parent)
 	{
 		Data* data = new Data();
-		data->setType(DataTypeManager::getInstance().getData("Group"));
+		data->setType(DataTypeManager::getInstance().getType("Group"));
 		std::string value = _node.attribute("name").value();
 		if (value.empty())
 			value = "unnamed";
@@ -88,7 +88,7 @@ namespace tools
 	void ExportManager::parseIndex(pugi::xml_node _node, Data* _parent)
 	{
 		Data* data = new Data();
-		data->setType(DataTypeManager::getInstance().getData("Index"));
+		data->setType(DataTypeManager::getInstance().getType("Index"));
 		std::string value = _node.attribute("name").value();
 		if (value.empty())
 			value = "unnamed";
@@ -105,7 +105,7 @@ namespace tools
 	void ExportManager::parseFrame(pugi::xml_node _node, Data* _parent)
 	{
 		Data* data = new Data();
-		data->setType(DataTypeManager::getInstance().getData("Frame"));
+		data->setType(DataTypeManager::getInstance().getType("Frame"));
 		data->setPropertyValue("Point", _node.attribute("point").value());
 		data->setPropertyValue("Count", _node.attribute("count").value());
 

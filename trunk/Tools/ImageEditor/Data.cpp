@@ -73,7 +73,7 @@ namespace tools
 		MYGUI_ASSERT(_child->getParent() == nullptr, "Child already attached");
 		MYGUI_ASSERT(_child->getType() != nullptr, "Type not found");
 		MYGUI_ASSERT(getType() != nullptr, "Type not found");
-		MYGUI_ASSERT(getType()->isChild(_child->getType()), "Type is not child");
+		MYGUI_ASSERT(getType()->isChild(_child->getType()->getName()), "Type is not child");
 
 		MYGUI_ASSERT_RANGE_INSERT(_index, mChilds.size(), "Data::insertChild");
 

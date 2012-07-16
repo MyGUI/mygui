@@ -29,7 +29,8 @@ namespace tools
 		void load(const std::string& _fileName);
 		void clear();
 
-		DataType* getData(const std::string& _type);
+		DataType* getType(const std::string& _type);
+		DataType* getParentType(const std::string& _type);
 
 	private:
 		static DataTypeManager* mInstance;

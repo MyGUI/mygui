@@ -53,11 +53,11 @@ namespace tools
 		return mProperties;
 	}
 
-	bool DataType::isChild(DataType* _child)
+	bool DataType::isChild(const std::string& _child)
 	{
 		for (VectorString::const_iterator child = mChilds.begin(); child != mChilds.end(); child ++)
 		{
-			if ((*child) == _child->getName())
+			if ((*child) == _child)
 				return true;
 		}
 
