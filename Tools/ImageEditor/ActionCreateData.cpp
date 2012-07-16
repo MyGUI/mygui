@@ -15,8 +15,8 @@ namespace tools
 
 	ActionCreateData::ActionCreateData() :
 		mData(nullptr),
-		mComplete(false),
-		mParent(nullptr)
+		mParent(nullptr),
+		mComplete(false)
 	{
 	}
 
