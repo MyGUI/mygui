@@ -7,7 +7,7 @@
 #include "Precompiled.h"
 #include "TextureBrowseCell.h"
 
-/*namespace tools
+namespace tools
 {
 
 	void TextureBrowseCell::getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord& _coord, bool _drop)
@@ -59,4 +59,4 @@
 			mSelector->setAlpha(0);
 	}
 
-}*/
+}

@@ -27,6 +27,7 @@ namespace tools
 
 	protected:
 		virtual void updateProperty();
+		virtual void updateCaption();
 
 	private:
 		void notifyChangeProperty(Property* _sender);

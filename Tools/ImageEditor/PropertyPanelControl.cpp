@@ -20,7 +20,8 @@ namespace tools
 
 	PropertyPanelControl::PropertyPanelControl() :
 		mParentType(nullptr),
-		mCurrentData(nullptr)
+		mCurrentData(nullptr),
+		mDistance(0)
 	{
 	}
 
@@ -31,6 +32,8 @@ namespace tools
 	void PropertyPanelControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
+
+		mDistance = MyGUI::utility::parseValue<int>(mMainWidget->getUserString("HeightDistance"));
 
 		ScopeManager::getInstance().eventChangeScope.connect(this, &PropertyPanelControl::notifyChangeScope);
 		notifyChangeScope(ScopeManager::getInstance().getCurrentScope());
@@ -57,25 +60,6 @@ namespace tools
 
 	void PropertyPanelControl::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
 	{
-		/*std::string text;
-
-		if (mParentType != nullptr)
-			text += MyGUI::utility::toString(mParentType->getName(), "\n\n");
-
-		if (_data != nullptr)
-		{
-			Data* selected = _data->getChildSelected();
-			if (selected != nullptr)
-			{
-				const Data::MapString& properties = selected->getProperties();
-				for (Data::MapString::const_iterator property = properties.begin(); property != properties.end(); property ++)
-				{
-					text += MyGUI::utility::toString((*property).first, " = ", (*property).second, "\n");
-				}
-			}
-		}
-
-		mText->setCaption(text);*/
 		HideControls();
 
 		if (mCurrentData != nullptr)
@@ -88,10 +72,12 @@ namespace tools
 
 		if (mCurrentData != nullptr)
 		{
+			int height = 0;
 			const Data::MapString& properties = mCurrentData->getProperties();
 			for (Data::MapString::const_iterator property = properties.begin(); property != properties.end(); property ++)
 			{
-				InitialiseProperty((*property).second);
+				if ((*property).second->getType()->getVisible())
+					InitialiseProperty((*property).second, height);
 			}
 		}
 	}
@@ -105,31 +91,35 @@ namespace tools
 		}
 	}
 
-	void PropertyPanelControl::InitialiseProperty(Property* _property)
+	void PropertyPanelControl::InitialiseProperty(Property* _property, int& _height)
 	{
 		std::string type = _property->getType()->getType();
+		PropertyControl* control = nullptr;
 
-		for (VectorPairControl::iterator control = mPropertyControls.begin(); control != mPropertyControls.end(); control ++)
+		for (VectorPairControl::iterator child = mPropertyControls.begin(); child != mPropertyControls.end(); child ++)
 		{
-			if ((*control).first == type && !(*control).second->getRoot()->getVisible())
+			if ((*child).first == type && !(*child).second->getRoot()->getVisible())
 			{
-				(*control).second->setProperty(_property);
-				(*control).second->getRoot()->setVisible(true);
-
-				return;
+				control = (*child).second;
+				control->getRoot()->setVisible(true);
+				break;
 			}
 		}
 
-		if (components::FactoryManager::GetInstance().ExistFactory(_property->getType()->getType()))
+		if (control == nullptr && components::FactoryManager::GetInstance().ExistFactory(_property->getType()->getType()))
 		{
-			PropertyControl* control = dynamic_cast<PropertyControl*>(components::FactoryManager::GetInstance().CreateItem(_property->getType()->getType()));
-			if (control != nullptr)
-			{
-				control->Initialise(this, mMainWidget, "");
+			control = dynamic_cast<PropertyControl*>(components::FactoryManager::GetInstance().CreateItem(_property->getType()->getType()));
+			control->Initialise(this, mMainWidget, "");
 
-				mPropertyControls.push_back(std::make_pair(_property->getType()->getType(), control));
-				control->setProperty(_property);
-			}
+			mPropertyControls.push_back(std::make_pair(_property->getType()->getType(), control));
+		}
+
+		if (control != nullptr)
+		{
+			control->setProperty(_property);
+			control->getRoot()->setPosition(0, _height);
+
+			_height += control->getRoot()->getHeight() + mDistance;
 		}
 	}
 

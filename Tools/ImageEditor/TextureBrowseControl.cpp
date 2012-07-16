@@ -7,7 +7,7 @@
 #include "Precompiled.h"
 #include "TextureBrowseControl.h"
 
-/*namespace tools
+namespace tools
 {
 
 	TextureBrowseControl::TextureBrowseControl() :
@@ -105,4 +105,4 @@
 			mCurrentTextureName = "";
 	}
 
-}*/
+}

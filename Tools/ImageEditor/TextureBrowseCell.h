@@ -10,7 +10,7 @@
 #include <MyGUI.h>
 #include "ItemBox/BaseCellView.h"
 
-/*namespace tools
+namespace tools
 {
 
 	class TextureBrowseCell :
@@ -30,6 +30,6 @@
 		MyGUI::ImageBox* mImage;
 	};
 
-}*/
+}
 
 #endif

@@ -25,6 +25,7 @@ namespace tools
 		mProperty = _value;
 		advice();
 
+		updateCaption();
 		updateProperty();
 	}
 
@@ -57,6 +58,10 @@ namespace tools
 	void PropertyControl::notifyChangeProperty(Property* _sender)
 	{
 		updateProperty();
+	}
+
+	void PropertyControl::updateCaption()
+	{
 	}
 
 }
