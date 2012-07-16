@@ -7,6 +7,7 @@
 #include "Precompiled.h"
 #include "PropertyPanelControl.h"
 #include "FactoryManager.h"
+#include "ScopeManager.h"
 
 namespace tools
 {
