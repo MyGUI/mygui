@@ -65,6 +65,7 @@ set (HEADER_FILES
   PropertyPanelControl.h
   PropertyRegionTypeControl.h
   PropertySet.h
+  PropertyStringControl.h
   PropertyTexturesControl.h
   RecentFilesManager.h
   RegionControl.h
@@ -168,6 +169,7 @@ set (SOURCE_FILES
   PropertyPanelControl.cpp
   PropertyRegionTypeControl.cpp
   PropertySet.cpp
+  PropertyStringControl.cpp
   PropertyTexturesControl.cpp
   RecentFilesManager.cpp
   RegionControl.cpp
@@ -303,6 +305,8 @@ SOURCE_GROUP("Controls\\Properties" FILES
   PropertyIntControl.h
   PropertyRegionTypeControl.cpp
   PropertyRegionTypeControl.h
+  PropertyStringControl.cpp
+  PropertyStringControl.h
   PropertyTexturesControl.cpp
   PropertyTexturesControl.h
 )
