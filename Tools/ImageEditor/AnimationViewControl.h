@@ -37,6 +37,7 @@ namespace tools
 		void rebuildAnimations();
 		void updateImageCoord();
 		void updateFrame();
+		void updateSelectedFrame();
 
 	private:
 		ATTRIBUTE_FIELD_WIDGET_NAME(AnimationViewControl, mImage, "Image");
