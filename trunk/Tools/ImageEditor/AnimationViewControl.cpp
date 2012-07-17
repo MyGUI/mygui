@@ -101,13 +101,8 @@ namespace tools
 			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
 			{
 				size_t count = MyGUI::utility::parseValue<size_t>((*child)->getPropertyValue("Count"));
-				//count = (std::min)(count, mMaxCountFrame);
-				//count = (std::max)(count, 1u);*/
-
 				MyGUI::IntPoint point = MyGUI::IntPoint::parse((*child)->getPropertyValue("Point"));
-
-				//for (size_t index = 0; index < count; index ++)
-					mAnimation.addFrame(point, count);
+				mAnimation.addFrame(point, count);
 			}
 
 			if (!mPlay)
@@ -198,6 +193,8 @@ namespace tools
 		MyGUI::IntPoint point = mAnimation.getFrames()[mCurrentFrame].first;
 
 		mImage->setImageCoord(MyGUI::IntCoord(point.left, point.top, mAnimation.getSize().width, mAnimation.getSize().height));
+		mImage->setImageTile(mAnimation.getSize());
+		mImage->setImageIndex(0);
 		mFrameInfo->setCaption(MyGUI::utility::toString(mCurrentFrame, " : ", mAnimation.getFrames().size()));
 	}
 
