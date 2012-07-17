@@ -12,11 +12,12 @@
 
 namespace tools
 {
+	class Data;
 
 	class Property
 	{
 	public:
-		Property(DataTypeProperty* _type);
+		Property(DataTypeProperty* _type, Data* _owner);
 		~Property();
 
 		const std::string& getValue() const;
@@ -24,14 +25,17 @@ namespace tools
 
 		DataTypeProperty* getType();
 
+		Data* getOwner();
+
 		sigslot::signal1<Property*> eventChangeProperty;
 
 	private:
-		Property() { }
+		Property();
 
 	private:
 		std::string mValue;
 		DataTypeProperty* mType;
+		Data* mOwner;
 	};
 
 }
