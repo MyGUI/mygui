@@ -6,6 +6,7 @@ set (HEADER_FILES
   ActionDestroyData.h
   ActionManager.h
   ActionRenameData.h
+  AnimationInfo.h
   AnimationViewControl.h
   Application.h
   AreaSelectorControl.h
@@ -122,6 +123,7 @@ set (SOURCE_FILES
   ActionDestroyData.cpp
   ActionManager.cpp
   ActionRenameData.cpp
+  AnimationInfo.cpp
   AnimationViewControl.cpp
   Application.cpp
   AreaSelectorControl.cpp
@@ -299,6 +301,10 @@ SOURCE_GROUP("Controls" FILES
   VerticalSelectorBlackControl.h
   VerticalSelectorControl.cpp
   VerticalSelectorControl.h
+)
+SOURCE_GROUP("Controls\\Animations" FILES
+  AnimationInfo.cpp
+  AnimationInfo.h
 )
 SOURCE_GROUP("Controls\\Properties" FILES
   PropertyAlignControl.cpp
