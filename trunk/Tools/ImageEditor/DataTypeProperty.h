@@ -26,6 +26,7 @@ namespace tools
 		const std::string& getDefaultValue() const;
 		bool getReadOnly() const;
 		bool getVisible() const;
+		const std::string& getAction() const;
 
 	private:
 		std::string mName;
@@ -33,6 +34,7 @@ namespace tools
 		std::string mDefaultValue;
 		bool mReadOnly;
 		bool mVisible;
+		std::string mAction;
 	};
 
 }

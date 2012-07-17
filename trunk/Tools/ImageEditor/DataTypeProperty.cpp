@@ -27,6 +27,7 @@ namespace tools
 		mDefaultValue = _node.select_single_node("Default").node().child_value();
 		mReadOnly = MyGUI::utility::parseValue<bool>(_node.select_single_node("ReadOnly").node().child_value());
 		mVisible = MyGUI::utility::parseValue<bool>(_node.select_single_node("Visible").node().child_value());
+		mAction = _node.select_single_node("Action").node().child_value();
 	}
 
 	const std::string& DataTypeProperty::getName() const
@@ -52,6 +53,11 @@ namespace tools
 	bool DataTypeProperty::getVisible() const
 	{
 		return mVisible;
+	}
+
+	const std::string& DataTypeProperty::getAction() const
+	{
+		return mAction;
 	}
 
 }

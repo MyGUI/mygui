@@ -17,6 +17,7 @@
 					<Type>PropertyStringControl</Type>
 					<Default>unnamed</Default>
 					<Visible>true</Visible>
+					<Action>ActionRenameData</Action>
 				</Property>
 			</Properties>
 			<Childs>
@@ -33,6 +34,7 @@
 					<Type>PropertyStringControl</Type>
 					<Default>unnamed</Default>
 					<Visible>true</Visible>
+					<Action>ActionRenameData</Action>
 				</Property>
 				<Property>
 					<Name>Texture</Name>
@@ -60,6 +62,7 @@
 					<Type>PropertyStringControl</Type>
 					<Default>unnamed</Default>
 					<Visible>true</Visible>
+					<Action>ActionRenameData</Action>
 				</Property>
 				<Property>
 					<Name>Rate</Name>
