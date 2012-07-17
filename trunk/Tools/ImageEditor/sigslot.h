@@ -296,6 +296,7 @@ namespace sigslot
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit() = 0;
+		virtual bool compare(_connection_base0<mt_policy>* conn) = 0;
 		virtual _connection_base0* clone() = 0;
 		virtual _connection_base0* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
@@ -306,6 +307,7 @@ namespace sigslot
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type) = 0;
+		virtual bool compare(_connection_base1<arg1_type, mt_policy>* conn) = 0;
 		virtual _connection_base1<arg1_type, mt_policy>* clone() = 0;
 		virtual _connection_base1<arg1_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
@@ -316,6 +318,7 @@ namespace sigslot
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type) = 0;
+		virtual bool compare(_connection_base2<arg1_type, arg2_type, mt_policy>* conn) = 0;
 		virtual _connection_base2<arg1_type, arg2_type, mt_policy>* clone() = 0;
 		virtual _connection_base2<arg1_type, arg2_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
@@ -326,6 +329,7 @@ namespace sigslot
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type) = 0;
+		virtual bool compare(_connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>* conn) = 0;
 		virtual _connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>* clone() = 0;
 		virtual _connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
@@ -336,6 +340,7 @@ namespace sigslot
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type) = 0;
+		virtual bool compare(_connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>* conn) = 0;
 		virtual _connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>* clone() = 0;
 		virtual _connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
@@ -346,6 +351,7 @@ namespace sigslot
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type) = 0;
+		virtual bool compare(_connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>* conn) = 0;
 		virtual _connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>* clone() = 0;
 		virtual _connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
@@ -356,6 +362,7 @@ namespace sigslot
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type) = 0;
+		virtual bool compare(_connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>* conn) = 0;
 		virtual _connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>* clone() = 0;
 		virtual _connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
@@ -366,6 +373,7 @@ namespace sigslot
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type) = 0;
+		virtual bool compare(_connection_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>* conn) = 0;
 		virtual _connection_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>* clone() = 0;
 		virtual _connection_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
@@ -376,6 +384,7 @@ namespace sigslot
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type) = 0;
+		virtual bool compare(_connection_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>* conn) = 0;
 		virtual _connection_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>* clone() = 0;
 		virtual _connection_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
@@ -909,8 +918,8 @@ namespace sigslot
 		{
 		}
 
-		_signal_base4(const _signal_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>& s)
-			: _signal_base<mt_policy>(s)
+		_signal_base4(const _signal_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>& s) :
+			_signal_base<mt_policy>(s)
 		{
 			lock_block<mt_policy> lock(this);
 			typename connections_list::const_iterator it = s.m_connected_slots.begin();
@@ -1020,8 +1029,8 @@ namespace sigslot
 		{
 		}
 
-		_signal_base5(const _signal_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>& s)
-			: _signal_base<mt_policy>(s)
+		_signal_base5(const _signal_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>& s) :
+			_signal_base<mt_policy>(s)
 		{
 			lock_block<mt_policy> lock(this);
 			typename connections_list::const_iterator it = s.m_connected_slots.begin();
@@ -1459,6 +1468,9 @@ namespace sigslot
 		public _connection_base0<mt_policy>
 	{
 	public:
+		typedef _connection_base0<mt_policy> base_type;
+		typedef _connection0<dest_type, mt_policy> this_type;
+
 		_connection0()
 		{
 			m_pobject = NULL;
@@ -1471,19 +1483,25 @@ namespace sigslot
 			m_pmemfun = pmemfun;
 		}
 
-		virtual _connection_base0<mt_policy>* clone()
+		virtual base_type* clone()
 		{
-			return new _connection0<dest_type, mt_policy>(*this);
+			return new this_type(*this);
 		}
 
-		virtual _connection_base0<mt_policy>* duplicate(has_slots<mt_policy>* pnewdest)
+		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
 		{
-			return new _connection0<dest_type, mt_policy>((dest_type *)pnewdest, m_pmemfun);
+			return new this_type((dest_type *)pnewdest, m_pmemfun);
 		}
 
 		virtual void emit()
 		{
 			(m_pobject->*m_pmemfun)();
+		}
+
+		virtual bool compare(base_type* conn)
+		{
+			this_type* pconn = static_cast<this_type*>(conn);
+			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
 		}
 
 		virtual has_slots<mt_policy>* getdest() const
@@ -1501,6 +1519,9 @@ namespace sigslot
 		public _connection_base1<arg1_type, mt_policy>
 	{
 	public:
+		typedef _connection_base1<arg1_type, mt_policy> base_type;
+		typedef _connection1<dest_type, arg1_type, mt_policy> this_type;
+
 		_connection1()
 		{
 			m_pobject = NULL;
@@ -1513,19 +1534,25 @@ namespace sigslot
 			m_pmemfun = pmemfun;
 		}
 
-		virtual _connection_base1<arg1_type, mt_policy>* clone()
+		virtual base_type* clone()
 		{
-			return new _connection1<dest_type, arg1_type, mt_policy>(*this);
+			return new this_type(*this);
 		}
 
-		virtual _connection_base1<arg1_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest)
+		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
 		{
-			return new _connection1<dest_type, arg1_type, mt_policy>((dest_type *)pnewdest, m_pmemfun);
+			return new this_type((dest_type *)pnewdest, m_pmemfun);
 		}
 
 		virtual void emit(arg1_type a1)
 		{
 			(m_pobject->*m_pmemfun)(a1);
+		}
+
+		virtual bool compare(base_type* conn)
+		{
+			this_type* pconn = static_cast<this_type*>(conn);
+			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
 		}
 
 		virtual has_slots<mt_policy>* getdest() const
@@ -1543,6 +1570,9 @@ namespace sigslot
 		public _connection_base2<arg1_type, arg2_type, mt_policy>
 	{
 	public:
+		typedef _connection_base2<arg1_type, arg2_type, mt_policy> base_type;
+		typedef _connection2<dest_type, arg1_type, arg2_type, mt_policy> this_type;
+
 		_connection2()
 		{
 			m_pobject = NULL;
@@ -1556,19 +1586,25 @@ namespace sigslot
 			m_pmemfun = pmemfun;
 		}
 
-		virtual _connection_base2<arg1_type, arg2_type, mt_policy>* clone()
+		virtual base_type* clone()
 		{
-			return new _connection2<dest_type, arg1_type, arg2_type, mt_policy>(*this);
+			return new this_type(*this);
 		}
 
-		virtual _connection_base2<arg1_type, arg2_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest)
+		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
 		{
-			return new _connection2<dest_type, arg1_type, arg2_type, mt_policy>((dest_type *)pnewdest, m_pmemfun);
+			return new this_type((dest_type *)pnewdest, m_pmemfun);
 		}
 
 		virtual void emit(arg1_type a1, arg2_type a2)
 		{
 			(m_pobject->*m_pmemfun)(a1, a2);
+		}
+
+		virtual bool compare(base_type* conn)
+		{
+			this_type* pconn = static_cast<this_type*>(conn);
+			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
 		}
 
 		virtual has_slots<mt_policy>* getdest() const
@@ -1586,6 +1622,9 @@ namespace sigslot
 		public _connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>
 	{
 	public:
+		typedef _connection_base3<arg1_type, arg2_type, arg3_type, mt_policy> base_type;
+		typedef _connection3<dest_type, arg1_type, arg2_type, arg3_type, mt_policy> this_type;
+
 		_connection3()
 		{
 			m_pobject = NULL;
@@ -1598,19 +1637,25 @@ namespace sigslot
 			m_pmemfun = pmemfun;
 		}
 
-		virtual _connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>* clone()
+		virtual base_type* clone()
 		{
-			return new _connection3<dest_type, arg1_type, arg2_type, arg3_type, mt_policy>(*this);
+			return new this_type(*this);
 		}
 
-		virtual _connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest)
+		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
 		{
-			return new _connection3<dest_type, arg1_type, arg2_type, arg3_type, mt_policy>((dest_type *)pnewdest, m_pmemfun);
+			return new this_type((dest_type *)pnewdest, m_pmemfun);
 		}
 
 		virtual void emit(arg1_type a1, arg2_type a2, arg3_type a3)
 		{
 			(m_pobject->*m_pmemfun)(a1, a2, a3);
+		}
+
+		virtual bool compare(base_type* conn)
+		{
+			this_type* pconn = static_cast<this_type*>(conn);
+			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
 		}
 
 		virtual has_slots<mt_policy>* getdest() const
@@ -1628,6 +1673,9 @@ namespace sigslot
 		public _connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>
 	{
 	public:
+		typedef _connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy> base_type;
+		typedef _connection4<dest_type, arg1_type, arg2_type, arg3_type, arg4_type, mt_policy> this_type;
+
 		_connection4()
 		{
 			m_pobject = NULL;
@@ -1640,19 +1688,25 @@ namespace sigslot
 			m_pmemfun = pmemfun;
 		}
 
-		virtual _connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>* clone()
+		virtual base_type* clone()
 		{
-			return new _connection4<dest_type, arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>(*this);
+			return new this_type(*this);
 		}
 
-		virtual _connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest)
+		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
 		{
-			return new _connection4<dest_type, arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>((dest_type *)pnewdest, m_pmemfun);
+			return new this_type((dest_type *)pnewdest, m_pmemfun);
 		}
 
 		virtual void emit(arg1_type a1, arg2_type a2, arg3_type a3, arg4_type a4)
 		{
 			(m_pobject->*m_pmemfun)(a1, a2, a3, a4);
+		}
+
+		virtual bool compare(base_type* conn)
+		{
+			this_type* pconn = static_cast<this_type*>(conn);
+			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
 		}
 
 		virtual has_slots<mt_policy>* getdest() const
@@ -1671,6 +1725,9 @@ namespace sigslot
 		public _connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>
 	{
 	public:
+		typedef _connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy> base_type;
+		typedef _connection5<dest_type, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy> this_type;
+
 		_connection5()
 		{
 			m_pobject = NULL;
@@ -1683,19 +1740,25 @@ namespace sigslot
 			m_pmemfun = pmemfun;
 		}
 
-		virtual _connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>* clone()
+		virtual base_type* clone()
 		{
-			return new _connection5<dest_type, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>(*this);
+			return new this_type(*this);
 		}
 
-		virtual _connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest)
+		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
 		{
-			return new _connection5<dest_type, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>((dest_type *)pnewdest, m_pmemfun);
+			return new this_type((dest_type *)pnewdest, m_pmemfun);
 		}
 
 		virtual void emit(arg1_type a1, arg2_type a2, arg3_type a3, arg4_type a4, arg5_type a5)
 		{
 			(m_pobject->*m_pmemfun)(a1, a2, a3, a4, a5);
+		}
+
+		virtual bool compare(base_type* conn)
+		{
+			this_type* pconn = static_cast<this_type*>(conn);
+			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
 		}
 
 		virtual has_slots<mt_policy>* getdest() const
@@ -1713,32 +1776,40 @@ namespace sigslot
 		public _connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>
 	{
 	public:
+		typedef _connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy> base_type;
+		typedef _connection6<dest_type, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy> this_type;
+
 		_connection6()
 		{
 			m_pobject = NULL;
 			m_pmemfun = NULL;
 		}
 
-		_connection6(dest_type* pobject, void (dest_type::*pmemfun)(arg1_type,
-			arg2_type, arg3_type, arg4_type, arg5_type, arg6_type))
+		_connection6(dest_type* pobject, void (dest_type::*pmemfun)(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type))
 		{
 			m_pobject = pobject;
 			m_pmemfun = pmemfun;
 		}
 
-		virtual _connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>* clone()
+		virtual base_type* clone()
 		{
-			return new _connection6<dest_type, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>(*this);
+			return new this_type(*this);
 		}
 
-		virtual _connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest)
+		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
 		{
-			return new _connection6<dest_type, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>((dest_type *)pnewdest, m_pmemfun);
+			return new this_type((dest_type *)pnewdest, m_pmemfun);
 		}
 
 		virtual void emit(arg1_type a1, arg2_type a2, arg3_type a3, arg4_type a4, arg5_type a5, arg6_type a6)
 		{
 			(m_pobject->*m_pmemfun)(a1, a2, a3, a4, a5, a6);
+		}
+
+		virtual bool compare(base_type* conn)
+		{
+			this_type* pconn = static_cast<this_type*>(conn);
+			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
 		}
 
 		virtual has_slots<mt_policy>* getdest() const
@@ -1756,6 +1827,9 @@ namespace sigslot
 		public _connection_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>
 	{
 	public:
+		typedef _connection_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy> base_type;
+		typedef _connection7<dest_type, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy> this_type;
+
 		_connection7()
 		{
 			m_pobject = NULL;
@@ -1768,19 +1842,25 @@ namespace sigslot
 			m_pmemfun = pmemfun;
 		}
 
-		virtual _connection_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>* clone()
+		virtual base_type* clone()
 		{
-			return new _connection7<dest_type, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>(*this);
+			return new this_type(*this);
 		}
 
-		virtual _connection_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest)
+		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
 		{
-			return new _connection7<dest_type, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>((dest_type *)pnewdest, m_pmemfun);
+			return new this_type((dest_type *)pnewdest, m_pmemfun);
 		}
 
 		virtual void emit(arg1_type a1, arg2_type a2, arg3_type a3, arg4_type a4, arg5_type a5, arg6_type a6, arg7_type a7)
 		{
 			(m_pobject->*m_pmemfun)(a1, a2, a3, a4, a5, a6, a7);
+		}
+
+		virtual bool compare(base_type* conn)
+		{
+			this_type* pconn = static_cast<this_type*>(conn);
+			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
 		}
 
 		virtual has_slots<mt_policy>* getdest() const
@@ -1798,6 +1878,9 @@ namespace sigslot
 		public _connection_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>
 	{
 	public:
+		typedef _connection_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy> base_type;
+		typedef _connection8<dest_type, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy> this_type;
+
 		_connection8()
 		{
 			m_pobject = NULL;
@@ -1810,19 +1893,25 @@ namespace sigslot
 			m_pmemfun = pmemfun;
 		}
 
-		virtual _connection_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>* clone()
+		virtual base_type* clone()
 		{
-			return new _connection8<dest_type, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>(*this);
+			return new this_type(*this);
 		}
 
-		virtual _connection_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest)
+		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
 		{
-			return new _connection8<dest_type, arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>((dest_type *)pnewdest, m_pmemfun);
+			return new this_type((dest_type *)pnewdest, m_pmemfun);
 		}
 
 		virtual void emit(arg1_type a1, arg2_type a2, arg3_type a3, arg4_type a4, arg5_type a5, arg6_type a6, arg7_type a7, arg8_type a8)
 		{
 			(m_pobject->*m_pmemfun)(a1, a2, a3, a4, a5, a6, a7, a8);
+		}
+
+		virtual bool compare(base_type* conn)
+		{
+			this_type* pconn = static_cast<this_type*>(conn);
+			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
 		}
 
 		virtual has_slots<mt_policy>* getdest() const
@@ -1846,8 +1935,8 @@ namespace sigslot
 		{
 		}
 
-		signal0(const signal0<mt_policy>& s)
-			: _signal_base0<mt_policy>(s)
+		signal0(const signal0<mt_policy>& s) :
+			_signal_base0<mt_policy>(s)
 		{
 		}
 
@@ -1918,6 +2007,31 @@ namespace sigslot
 			_connection1<desttype, arg1_type, mt_policy>* conn = new _connection1<desttype, arg1_type, mt_policy>(pclass, pmemfun);
 			base_type::m_connected_slots.push_back(conn);
 			pclass->signal_connect(this);
+		}
+
+		template <typename desttype>
+		bool compare(desttype* pclass, void (desttype::*pmemfun)(arg1_type))
+		{
+			lock_block<mt_policy> lock(this);
+			_connection1<desttype, arg1_type, mt_policy>* conn = new _connection1<desttype, arg1_type, mt_policy>(pclass, pmemfun);
+			typename base_type::connections_list::const_iterator it = base_type::m_connected_slots.begin();
+			typename base_type::connections_list::const_iterator itEnd = base_type::m_connected_slots.end();
+
+			bool result = false;
+
+			while (it != itEnd)
+			{
+				if ((*it)->compare(conn))
+				{
+					result = true;
+					break;
+				}
+
+				++it;
+			}
+
+			delete conn;
+			return result;
 		}
 
 		void emit(arg1_type a1)
