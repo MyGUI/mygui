@@ -24,7 +24,9 @@ namespace tools
 		virtual void undoAction();
 
 	private:
-		std::string mOldName;
+		typedef std::pair<Property*, std::string> PairProprty;
+		typedef std::vector<PairProprty> VectorPairProperty;
+		VectorPairProperty mOldValues;
 	};
 
 }
