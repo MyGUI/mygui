@@ -2,8 +2,26 @@
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Widget" skin="PanelEmpty" position="20 20 180 180" align="Stretch" name="Root">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="ImageBox" skin="ImageBox" position="20 20 140 140" name="Image">
-            <Property key="ImageTexture" value="MyGUI_Dark.png"/>
+        <Widget type="Widget" skin="PanelEmpty" position="0 0 180 150" align="Stretch">
+            <Widget type="ImageBox" skin="ImageBox" position="5 5 170 140" align="Stretch" name="Image">
+                <Property key="ImageTexture" value="MyGUI_Dark.png"/>
+            </Widget>
+        </Widget>
+        <Widget type="Widget" skin="Panel3Skin_Dark" position="7 150 165 30" align="HCenter Bottom">
+            <Widget type="Button" skin="Button_Dark" position="5 5 20 20" name="Play">
+                <Property key="Caption" value="&lt;"/>
+            </Widget>
+            <Widget type="Button" skin="Button_Dark" position="30 5 20 20" name="Left">
+                <Property key="Caption" value="|&lt;"/>
+            </Widget>
+            <Widget type="Button" skin="Button_Dark" position="140 5 20 20" align="Right Top" name="Right">
+                <Property key="Caption" value="&gt;|"/>
+            </Widget>
+            <Widget type="EditBox" skin="EditBox_Dark" position="55 5 80 20" align="HStretch Top" name="Info">
+                <Property key="Static" value="true"/>
+                <Property key="Caption" value="1200 : 1200"/>
+                <Property key="TextAlign" value="Center"/>
+            </Widget>
         </Widget>
     </Widget>
 </MyGUI>

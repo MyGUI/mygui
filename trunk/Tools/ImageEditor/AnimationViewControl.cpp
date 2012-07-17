@@ -16,11 +16,11 @@ namespace tools
 	FACTORY_ITEM_ATTRIBUTE(AnimationViewControl)
 
 	AnimationViewControl::AnimationViewControl() :
-		mImage(nullptr),
 		mParentData(nullptr),
 		mMaxCountFrame(64),
 		mCurrentFrame(0),
-		mTime(0)
+		mTime(0),
+		mPlay(true)
 	{
 	}
 
@@ -32,7 +32,7 @@ namespace tools
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 
-		assignWidget(mImage, "Image");
+		InitialiseByAttributes(this);
 
 		std::string parentType = "Index";
 		DataSelectorManager::getInstance().getEvent(parentType)->connect(this, &AnimationViewControl::notifyChangeDataSelector);
@@ -43,6 +43,10 @@ namespace tools
 		updateImageCoord();
 
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &AnimationViewControl::notifyFrameStart);
+
+		mButtonPlay->eventMouseButtonClick += MyGUI::newDelegate(this, &AnimationViewControl::notifyMouseButtonClick);
+		mButtonLeft->eventMouseButtonClick += MyGUI::newDelegate(this, &AnimationViewControl::notifyMouseButtonClick);
+		mButtonRight->eventMouseButtonClick += MyGUI::newDelegate(this, &AnimationViewControl::notifyMouseButtonClick);
 	}
 
 	void AnimationViewControl::notifyChangeDataSelector(Data* _parent, bool _changeSelectOnly)
@@ -106,6 +110,8 @@ namespace tools
 		mImage->setImageTexture(mAnimation.getTextureName());
 		mImage->setImageCoord(MyGUI::IntCoord());
 
+		mFrameInfo->setCaption(MyGUI::utility::toString(mCurrentFrame, " : ", mAnimation.getFrames().size()));
+
 		updateImageCoord();
 	}
 
@@ -129,7 +135,7 @@ namespace tools
 
 	void AnimationViewControl::notifyFrameStart(float _frame)
 	{
-		if (mAnimation.getFrames().size() == 0)
+		if (mAnimation.getFrames().size() == 0 || !mPlay)
 			return;
 
 		mTime += _frame;
@@ -139,11 +145,44 @@ namespace tools
 			mTime -= mAnimation.getRate();
 			mCurrentFrame ++;
 
-			mCurrentFrame %= mAnimation.getFrames().size();
-			MyGUI::IntPoint point = mAnimation.getFrames()[mCurrentFrame];
-
-			mImage->setImageCoord(MyGUI::IntCoord(point.left, point.top, mAnimation.getSize().width, mAnimation.getSize().height));
+			updateFrame();
 		}
+	}
+
+	void AnimationViewControl::notifyMouseButtonClick(MyGUI::Widget* _sender)
+	{
+		if (_sender == mButtonPlay)
+		{
+			mPlay = !mPlay;
+		}
+		else if (_sender == mButtonLeft)
+		{
+			if (mAnimation.getFrames().size() != 0)
+			{
+				if (mCurrentFrame == 0)
+					mCurrentFrame += mAnimation.getFrames().size();
+
+				mCurrentFrame --;
+				updateFrame();
+			}
+		}
+		else if (_sender == mButtonRight)
+		{
+			if (mAnimation.getFrames().size() != 0)
+			{
+				mCurrentFrame ++;
+				updateFrame();
+			}
+		}
+	}
+
+	void AnimationViewControl::updateFrame()
+	{
+		mCurrentFrame %= mAnimation.getFrames().size();
+		MyGUI::IntPoint point = mAnimation.getFrames()[mCurrentFrame];
+
+		mImage->setImageCoord(MyGUI::IntCoord(point.left, point.top, mAnimation.getSize().width, mAnimation.getSize().height));
+		mFrameInfo->setCaption(MyGUI::utility::toString(mCurrentFrame, " : ", mAnimation.getFrames().size()));
 	}
 
 }
