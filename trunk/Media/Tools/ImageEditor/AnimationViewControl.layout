@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="20 20 180 180" align="Stretch" name="Root">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="ImageBox" skin="ImageBox" position="20 20 140 140" name="Image">
+            <Property key="ImageTexture" value="MyGUI_Dark.png"/>
+        </Widget>
+    </Widget>
+</MyGUI>

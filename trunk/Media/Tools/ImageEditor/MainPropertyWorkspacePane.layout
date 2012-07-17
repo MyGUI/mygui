@@ -4,7 +4,10 @@
         <UserString key="SnapTo" value="Stretch"/>
         <Widget type="Widget" skin="Panel1Skin_Dark" position="0 455 280 275" align="HStretch Bottom">
             <UserString key="MinSize" value="100"/>
-            <Widget type="Widget" skin="PanelEmpty" position="5 5 269 260" align="HStretch Top"/>
+            <Widget type="Widget" skin="PanelEmpty" position="5 5 269 260" align="HStretch Top">
+                <UserString key="ControlType" value="AnimationViewControl"/>
+                <UserString key="ControlLayout" value="AnimationViewControl.layout"/>
+            </Widget>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="0 445 280 10" align="HStretch Bottom">
             <Property key="Pointer" value="size_vert"/>
