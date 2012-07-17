@@ -138,7 +138,10 @@ namespace tools
 
 		if (ActionManager::getInstance().getChanges())
 		{
-			save();
+			if (mFileName == mDefaultFileName)
+				showSaveAsWindow();
+			else
+				save();
 		}
 
 		_result = true;
@@ -349,8 +352,15 @@ namespace tools
 	{
 		if (_result == MyGUI::MessageBoxStyle::Yes)
 		{
-			save();
-			StateManager::getInstance().stateEvent(this, "Exit");
+			if (mFileName == mDefaultFileName)
+			{
+				showSaveAsWindow();
+			}
+			else
+			{
+				save();
+				StateManager::getInstance().stateEvent(this, "Exit");
+			}
 		}
 		else if (_result == MyGUI::MessageBoxStyle::No)
 		{

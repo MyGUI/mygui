@@ -189,7 +189,10 @@ namespace tools
 
 		if (UndoManager::getInstance().isUnsaved())
 		{
-			save();
+			if (mFileName == mDefaultFileName)
+				showSaveAsWindow();
+			else
+				save();
 		}
 
 		_result = true;
@@ -485,9 +488,16 @@ namespace tools
 	{
 		if (_result == MyGUI::MessageBoxStyle::Yes)
 		{
-			if (save())
+			if (mFileName == mDefaultFileName)
 			{
-				StateManager::getInstance().stateEvent(this, "Exit");
+				showSaveAsWindow();
+			}
+			else
+			{
+				if (save())
+				{
+					StateManager::getInstance().stateEvent(this, "Exit");
+				}
 			}
 		}
 		else if (_result == MyGUI::MessageBoxStyle::No)
