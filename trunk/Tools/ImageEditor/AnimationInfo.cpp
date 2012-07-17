@@ -54,9 +54,10 @@ namespace tools
 		return mFrames;
 	}
 
-	void AnimationInfo::addFrame(const MyGUI::IntPoint& _frame)
+	void AnimationInfo::addFrame(const MyGUI::IntPoint& _frame, size_t _count)
 	{
-		mFrames.push_back(_frame);
+		_count = _count < 1 ? 1 : _count;
+		mFrames.push_back(PairFrame(_frame, _count));
 	}
 
 	void AnimationInfo::clearFrames()

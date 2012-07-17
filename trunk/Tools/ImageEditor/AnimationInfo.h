@@ -27,9 +27,10 @@ namespace tools
 		float getRate() const;
 		void setRate(float _value);
 
-		typedef std::vector<MyGUI::IntPoint> VectorFrame;
+		typedef std::pair<MyGUI::IntPoint, size_t> PairFrame;
+		typedef std::vector<PairFrame> VectorFrame;
 		const VectorFrame& getFrames() const;
-		void addFrame(const MyGUI::IntPoint& _frame);
+		void addFrame(const MyGUI::IntPoint& _frame, size_t _count);
 		void clearFrames();
 
 	private:
