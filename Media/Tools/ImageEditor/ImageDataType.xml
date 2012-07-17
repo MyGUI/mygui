@@ -24,6 +24,7 @@
 					<Type>PropertyBoolControl</Type>
 					<Default>True</Default>
 					<Visible>true</Visible>
+					<ReadOnly>true</ReadOnly>
 					<Action>ChangeValueAction</Action>
 				</Property>
 			</Properties>
@@ -48,6 +49,7 @@
 					<Type>PropertyBoolControl</Type>
 					<Default>True</Default>
 					<Visible>true</Visible>
+					<ReadOnly>true</ReadOnly>
 					<Action>ChangeValueAction</Action>
 				</Property>
 				<Property>
@@ -85,6 +87,7 @@
 					<Type>PropertyBoolControl</Type>
 					<Default>True</Default>
 					<Visible>true</Visible>
+					<ReadOnly>true</ReadOnly>
 					<Action>ChangeValueAction</Action>
 				</Property>
 				<Property>
