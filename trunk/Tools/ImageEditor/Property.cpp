@@ -6,12 +6,14 @@
 
 #include "Precompiled.h"
 #include "Property.h"
+#include "Data.h"
 
 namespace tools
 {
 
-	Property::Property(DataTypeProperty* _type) :
-		mType(_type)
+	Property::Property(DataTypeProperty* _type, Data* _owner) :
+		mType(_type),
+		mOwner(_owner)
 	{
 	}
 
@@ -36,6 +38,11 @@ namespace tools
 	DataTypeProperty* Property::getType()
 	{
 		return mType;
+	}
+
+	Data* Property::getOwner()
+	{
+		return mOwner;
 	}
 
 }

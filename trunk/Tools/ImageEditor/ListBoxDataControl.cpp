@@ -98,6 +98,8 @@ namespace tools
 				Data* child = childs.at(index);
 				mListBox->setItemNameAt(index, child->getPropertyValue(mPropertyForName));
 				mListBox->setItemDataAt(index, child);
+
+				connectToProperty(child);
 			}
 		}
 		else
@@ -198,6 +200,30 @@ namespace tools
 		DataSelectorManager::getInstance().getEvent(_parentType)->connect(this, &ListBoxDataControl::notifyChangeDataSelector);
 		mParentData = DataManager::getInstance().getSelectedDataByType(_parentType);
 		notifyChangeDataSelector(mParentData, false);
+	}
+
+	void ListBoxDataControl::connectToProperty(Data* _data)
+	{
+		Property* property = _data->getProperties().find(mPropertyForName)->second;
+		if (!property->eventChangeProperty.compare(this, &ListBoxDataControl::notifyChangeProperty))
+			property->eventChangeProperty.connect(this, &ListBoxDataControl::notifyChangeProperty);
+	}
+
+	void ListBoxDataControl::notifyChangeProperty(Property* _sender)
+	{
+		if (mParentData == nullptr)
+			return;
+		if (mParentData != _sender->getOwner()->getParent())
+			return;
+
+		for (size_t index = 0; index < mListBox->getItemCount(); index ++)
+		{
+			Data* data = *mListBox->getItemDataAt<Data*>(index);
+			if (data == _sender->getOwner())
+			{
+				mListBox->setItemNameAt(index, _sender->getValue());
+			}
+		}
 	}
 
 }

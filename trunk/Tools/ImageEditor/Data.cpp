@@ -34,7 +34,7 @@ namespace tools
 			const DataType::VectorProperty& properties = mType->getProperties();
 			for (DataType::VectorProperty::const_iterator property = properties.begin(); property != properties.end(); property++)
 			{
-				Property* data = new Property(*property);
+				Property* data = new Property(*property, this);
 				mProperties[(*property)->getName()] = data;
 			}
 		}
