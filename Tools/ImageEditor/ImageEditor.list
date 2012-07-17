@@ -6,6 +6,7 @@ set (HEADER_FILES
   ActionDestroyData.h
   ActionManager.h
   ActionRenameData.h
+  AnimationViewControl.h
   Application.h
   AreaSelectorControl.h
   BackgroundControl.h
@@ -121,6 +122,7 @@ set (SOURCE_FILES
   ActionDestroyData.cpp
   ActionManager.cpp
   ActionRenameData.cpp
+  AnimationViewControl.cpp
   Application.cpp
   AreaSelectorControl.cpp
   BackgroundControl.cpp
@@ -245,6 +247,8 @@ SOURCE_GROUP("Application" FILES
   MyGUI_FilterNoneSkin.h
 )
 SOURCE_GROUP("Controls" FILES
+  AnimationViewControl.cpp
+  AnimationViewControl.h
   ColourPanel.cpp
   ColourPanel.h
   Control.cpp
