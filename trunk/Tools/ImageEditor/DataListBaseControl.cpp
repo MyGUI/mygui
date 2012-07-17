@@ -79,10 +79,9 @@ namespace tools
 		if (data != nullptr)
 		{
 			ActionCreateData* command = new ActionCreateData();
-			command->setName(MyGUI::utility::toString("item ", mNameIndex));
 			command->setType(mCurrentType);
-			command->setPropertyName(mPropertyForName);
 			command->setParent(data);
+			command->setUniqueProperty(mPropertyForUnique);
 
 			ActionManager::getInstance().doAction(command);
 
@@ -102,6 +101,7 @@ namespace tools
 		{
 			ActionDestroyData* command = new ActionDestroyData();
 			command->setData(data);
+			command->setUniqueProperty(mPropertyForUnique);
 
 			ActionManager::getInstance().doAction(command);
 		}
