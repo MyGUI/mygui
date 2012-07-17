@@ -141,8 +141,8 @@ namespace tools
 	void DataListBaseControl::notifyChangeName(Data* _data, const std::string& _name)
 	{
 		ActionRenameData* command = new ActionRenameData();
-		command->setData(_data);
-		command->setName(_name);
+		command->setProperty(_data->getProperties().find(mPropertyForName)->second);
+		command->setValue(_name);
 
 		ActionManager::getInstance().doAction(command);
 	}

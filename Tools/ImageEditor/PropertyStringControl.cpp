@@ -61,7 +61,7 @@ namespace tools
 	{
 		Property* proper = getProperty();
 		if (proper != nullptr)
-			proper->setValue(getClearValue());
+			executeAction(getClearValue());
 	}
 
 	MyGUI::UString PropertyStringControl::getClearValue()

@@ -25,6 +25,8 @@ namespace tools
 		void setProperty(Property* _value);
 		Property* getProperty();
 
+		void executeAction(const std::string& _value);
+
 	protected:
 		virtual void updateProperty();
 		virtual void updateCaption();

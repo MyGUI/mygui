@@ -1,5 +1,6 @@
 set (HEADER_FILES
   Action.h
+  ActionChangeDataProperty.h
   ActionChangePositionData.h
   ActionCreateData.h
   ActionDestroyData.h
@@ -112,6 +113,7 @@ set (HEADER_FILES
 )
 set (SOURCE_FILES
   ../../Common/Precompiled.cpp
+  ActionChangeDataProperty.cpp
   ActionChangePositionData.cpp
   ActionCreateData.cpp
   ActionDestroyData.cpp
@@ -216,6 +218,8 @@ set (SOURCE_FILES
 )
 SOURCE_GROUP("Actions" FILES
   Action.h
+  ActionChangeDataProperty.cpp
+  ActionChangeDataProperty.h
   ActionChangePositionData.cpp
   ActionChangePositionData.h
   ActionCreateData.cpp

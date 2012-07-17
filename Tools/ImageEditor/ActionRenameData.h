@@ -7,14 +7,14 @@
 #ifndef _6463bc0c_937b_472d_9c7c_27746cb7d448_
 #define _6463bc0c_937b_472d_9c7c_27746cb7d448_
 
-#include "Action.h"
+#include "ActionChangeDataProperty.h"
 #include "Data.h"
 
 namespace tools
 {
 
 	class ActionRenameData :
-		public Action
+		public ActionChangeDataProperty
 	{
 	public:
 		ActionRenameData();
@@ -23,13 +23,8 @@ namespace tools
 		virtual void doAction();
 		virtual void undoAction();
 
-		void setData(Data* _data);
-		void setName(const std::string& _value);
-
 	private:
-		std::string mName;
 		std::string mOldName;
-		Data* mData;
 	};
 
 }
