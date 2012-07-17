@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="Widget" skin="Panel3Skin_Dark" position="20 20 235 195" align="HStretch Top" layer="Overlapped" name="_Main">
+    <Widget type="Widget" skin="Panel3Skin_Dark" position="20 20 230 195" align="HStretch Top" layer="Overlapped" name="Root">
         <UserString key="SnapTo" value="HStretch Top"/>
-        <Widget type="ComboBox" skin="ComboBox_Dark" position="5 170 200 20" align="HStretch Bottom" name="ComboBox">
+        <Widget type="ComboBox" skin="ComboBox_Dark" position="5 170 195 20" align="HStretch Bottom" name="ComboBox">
             <Property key="ModeDrop" value="true"/>
         </Widget>
-        <Widget type="Button" skin="Button_Dark" position="210 170 20 20" align="Right Bottom" name="Browse">
+        <Widget type="Button" skin="Button_Dark" position="205 170 20 20" align="Right Bottom" name="Browse">
             <Property key="Caption" value="..."/>
         </Widget>
-        <Widget type="TextBox" skin="TextBox" position="5 5 225 20" align="HStretch Top" name="Name">
+        <Widget type="TextBox" skin="TextBox" position="5 5 220 20" align="HStretch Top" name="Name">
             <Property key="FontName" value="DejaVuSansFont_13"/>
             <Property key="TextAlign" value="Left VCenter"/>
         </Widget>
-        <Widget type="Widget" skin="PanelEmpty" position="5 30 225 135" align="Stretch">
-            <Widget type="ImageBox" skin="ImageBox" position="5 5 215 125" name="Image"/>
+        <Widget type="Widget" skin="PanelEmpty" position="5 30 220 135" align="Stretch">
+            <Widget type="ImageBox" skin="ImageBox" position="5 5 210 125" align="Stretch" name="Image"/>
         </Widget>
     </Widget>
 </MyGUI>

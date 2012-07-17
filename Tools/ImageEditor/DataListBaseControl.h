@@ -26,7 +26,7 @@ namespace tools
 		void commandDestroyImageData(const MyGUI::UString& _commandName, bool& _result);
 		void commandRenameImageData(const MyGUI::UString& _commandName, bool& _result);
 
-		void setDataInfo(const std::string& _parentType, const std::string& _currentType, const std::string& _property);
+		void setDataInfo(const std::string& _parentType, const std::string& _currentType, const std::string& _propertyName, const std::string& _propertyUnique);
 
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
@@ -43,6 +43,7 @@ namespace tools
 		std::string mParentType;
 		std::string mCurrentType;
 		std::string mPropertyForName;
+		std::string mPropertyForUnique;
 	};
 
 }

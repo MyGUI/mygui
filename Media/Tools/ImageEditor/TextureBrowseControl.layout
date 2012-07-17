@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="Window" skin="WindowCSX_Dark" position="24 56 584 472" layer="Overlapped" name="_Main">
+    <Widget type="Window" skin="WindowCSX_Dark" position="24 56 584 472" layer="Overlapped" name="Root">
         <Property key="Caption" value="#{CaptionTextureBrowse}"/>
         <Property key="MinSize" value="584 480"/>
         <Widget type="Button" skin="Button_Dark" position="464 416 107 20" align="Right Bottom" name="OK">

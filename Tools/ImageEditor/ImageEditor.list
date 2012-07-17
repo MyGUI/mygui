@@ -69,6 +69,7 @@ set (HEADER_FILES
   PropertySet.h
   PropertyStringControl.h
   PropertyTexturesControl.h
+  PropertyUtility.h
   RecentFilesManager.h
   RegionControl.h
   RegionItem.h
@@ -175,6 +176,7 @@ set (SOURCE_FILES
   PropertySet.cpp
   PropertyStringControl.cpp
   PropertyTexturesControl.cpp
+  PropertyUtility.cpp
   RecentFilesManager.cpp
   RegionControl.cpp
   RegionItem.cpp
@@ -459,6 +461,8 @@ SOURCE_GROUP("States" FILES
 SOURCE_GROUP("Utility" FILES
   Binary.h
   Localise.h
+  PropertyUtility.cpp
+  PropertyUtility.h
   SeparatorUtility.h
   pugiconfig.hpp
   pugixml.cpp

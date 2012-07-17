@@ -6,9 +6,7 @@
 
 #include "Precompiled.h"
 #include "PropertyControl.h"
-#include "FactoryManager.h"
-#include "ActionChangeDataProperty.h"
-#include "ActionManager.h"
+#include "PropertyUtility.h"
 
 namespace tools
 {
@@ -69,28 +67,7 @@ namespace tools
 
 	void PropertyControl::executeAction(const std::string& _value)
 	{
-		if (mProperty->getValue() == _value)
-			return;
-
-		std::string actionName = mProperty->getType()->getAction();
-
-		components::IFactoryItem* item = components::FactoryManager::GetInstance().CreateItem(actionName);
-		if (item != nullptr)
-		{
-			ActionChangeDataProperty* action = dynamic_cast<ActionChangeDataProperty*>(item);
-			if (action != nullptr)
-			{
-				action->setProperty(mProperty);
-				action->setValue(_value);
-
-				ActionManager::getInstance().doAction(action);
-				return;
-			}
-			else
-			{
-				delete item;
-			}
-		}
+		PropertyUtility::executeAction(mProperty, _value);
 	}
 
 }

@@ -6,14 +6,29 @@
 
 #include "Precompiled.h"
 #include "PropertyBoolControl.h"
+#include "FactoryManager.h"
 
-/*namespace tools
+namespace tools
 {
 
-	PropertyBoolControl::PropertyBoolControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("PropertyComboBoxControl.layout", _parent),
+	FACTORY_ITEM_ATTRIBUTE(PropertyBoolControl)
+
+	PropertyBoolControl::PropertyBoolControl() :
+		mName(nullptr),
 		mComboBox(nullptr)
 	{
+	}
+
+	PropertyBoolControl::~PropertyBoolControl()
+	{
+		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyBoolControl::notifyComboChangePosition);
+	}
+
+	void PropertyBoolControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::OnInitialise(_parent, _place, "PropertyComboBoxControl.layout");
+
+		assignWidget(mName, "Name", false);
 		assignWidget(mComboBox, "ComboBox");
 
 		mComboBox->addItem("True");
@@ -24,9 +39,11 @@
 		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyBoolControl::notifyComboChangePosition);
 	}
 
-	PropertyBoolControl::~PropertyBoolControl()
+	void PropertyBoolControl::updateCaption()
 	{
-		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyBoolControl::notifyComboChangePosition);
+		Property* proper = getProperty();
+		if (proper != nullptr)
+			mName->setCaption(proper->getType()->getName());
 	}
 
 	void PropertyBoolControl::updateProperty()
@@ -34,7 +51,7 @@
 		Property* proper = getProperty();
 		if (proper != nullptr)
 		{
-			mComboBox->setEnabled(!proper->getReadOnly());
+			mComboBox->setEnabled(!proper->getType()->getReadOnly());
 			size_t index = getComboIndex(proper->getValue());
 			mComboBox->setIndexSelected(index);
 		}
@@ -50,10 +67,8 @@
 		Property* proper = getProperty();
 		if (proper != nullptr)
 		{
-			if (_index != MyGUI::ITEM_NONE)
-				proper->setValue(mComboBox->getItemNameAt(_index), getTypeName());
-			else
-				proper->setValue("", getTypeName());
+			std::string value = _index != MyGUI::ITEM_NONE ? mComboBox->getItemNameAt(_index) : "";
+			executeAction(value);
 		}
 	}
 
@@ -74,4 +89,4 @@
 		return result;
 	}
 
-}*/
+}
