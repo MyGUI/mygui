@@ -96,8 +96,8 @@ namespace tools
 
 				if (child != nullptr)
 				{
-					Data* childSelected = child->getChildSelected();
-					if (childSelected == nullptr)
+					Data* subChildSelected = child->getChildSelected();
+					if (subChildSelected == nullptr)
 					{
 						if (child->getChilds().size() != 0)
 						{
