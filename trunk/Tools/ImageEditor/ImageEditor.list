@@ -10,6 +10,7 @@ set (HEADER_FILES
   AreaSelectorControl.h
   BackgroundControl.h
   Binary.h
+  ChangeValueAction.h
   ColourManager.h
   ColourPanel.h
   CommandManager.h
@@ -122,6 +123,7 @@ set (SOURCE_FILES
   Application.cpp
   AreaSelectorControl.cpp
   BackgroundControl.cpp
+  ChangeValueAction.cpp
   ColourManager.cpp
   ColourPanel.cpp
   CommandManager.cpp
@@ -230,6 +232,8 @@ SOURCE_GROUP("Actions" FILES
   ActionManager.h
   ActionRenameData.cpp
   ActionRenameData.h
+  ChangeValueAction.cpp
+  ChangeValueAction.h
 )
 SOURCE_GROUP("Application" FILES
   ../../Common/Precompiled.cpp

@@ -69,6 +69,9 @@ namespace tools
 
 	void PropertyControl::executeAction(const std::string& _value)
 	{
+		if (mProperty->getValue() == _value)
+			return;
+
 		std::string actionName = mProperty->getType()->getAction();
 
 		components::IFactoryItem* item = components::FactoryManager::GetInstance().CreateItem(actionName);

@@ -67,7 +67,7 @@ namespace tools
 		{
 			bool validate = isValidate();
 			if (validate)
-				proper->setValue(getClearValue());
+				executeAction(getClearValue());
 
 			setColour(validate);
 		}

@@ -40,12 +40,14 @@
 					<Name>Texture</Name>
 					<Type>PropertyTexturesControl</Type>
 					<Visible>true</Visible>
+					<Action>ChangeValueAction</Action>
 				</Property>
 				<Property>
 					<Name>Size</Name>
 					<Type>PropertyInt2Control</Type>
 					<Default>0 0</Default>
 					<Visible>true</Visible>
+					<Action>ChangeValueAction</Action>
 				</Property>
 			</Properties>
 			<Childs>
@@ -69,6 +71,7 @@
 					<Type>PropertyFloatControl</Type>
 					<Default>0</Default>
 					<Visible>true</Visible>
+					<Action>ChangeValueAction</Action>
 				</Property>
 			</Properties>
 			<Childs>
@@ -85,12 +88,14 @@
 					<Type>PropertyInt2Control</Type>
 					<Default>0 0</Default>
 					<Visible>true</Visible>
+					<Action>ChangeValueAction</Action>
 				</Property>
 				<Property>
 					<Name>Count</Name>
 					<Type>PropertyIntControl</Type>
 					<Default>1</Default>
 					<Visible>true</Visible>
+					<Action>ChangeValueAction</Action>
 				</Property>
 			</Properties>
 		</DataType>
