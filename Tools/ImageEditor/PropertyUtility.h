@@ -17,6 +17,11 @@ namespace tools
 	public:
 		static bool isUniqueName(Data* _data, const std::string& _propertyName);
 		static void executeAction(Property* _property, const std::string& _value);
+
+		typedef std::pair<Property*, std::string> PairProprty;
+		typedef std::vector<PairProprty> VectorPairProperty;
+		static void storeUniqueNameProperty(const std::string& _propertyName, const std::string& _propertyUnique, Data* _parent, VectorPairProperty& _store);
+		static void restoreUniqueNameProperty(VectorPairProperty& _store);
 	};
 }
 

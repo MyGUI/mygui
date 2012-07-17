@@ -15,6 +15,7 @@ namespace tools
 		mType(_type),
 		mOwner(_owner)
 	{
+		mValue = _type->getDefaultValue();
 	}
 
 	Property::~Property()

@@ -54,4 +54,28 @@ namespace tools
 		}
 	}
 
+	void PropertyUtility::storeUniqueNameProperty(const std::string& _propertyName, const std::string& _propertyUnique, Data* _parent, VectorPairProperty& _store)
+	{
+		const Data::VectorData& childs = _parent->getChilds();
+		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
+		{
+			bool unique = isUniqueName((*child), _propertyName);
+			std::string value = unique ? "True" : "False";
+			Property* property = (*child)->getProperties().find(_propertyUnique)->second;
+
+			if (property->getValue() != value)
+			{
+				_store.push_back(std::make_pair(property, property->getValue()));
+				property->setValue(value);
+			}
+		}
+	}
+
+	void PropertyUtility::restoreUniqueNameProperty(VectorPairProperty& _store)
+	{
+		for (VectorPairProperty::const_iterator value = _store.begin(); value != _store.end(); value ++)
+			(*value).first->setValue((*value).second);
+		_store.clear();
+	}
+
 }

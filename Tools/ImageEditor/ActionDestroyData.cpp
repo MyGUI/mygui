@@ -8,6 +8,7 @@
 #include "ActionDestroyData.h"
 #include "DataManager.h"
 #include "DataSelectorManager.h"
+#include "PropertyUtility.h"
 
 namespace tools
 {
@@ -38,6 +39,9 @@ namespace tools
 		DataSelectorManager::getInstance().changeParent(mParent);
 
 		mComplete = true;
+
+		if (!mUniqueProperty.empty())
+			PropertyUtility::storeUniqueNameProperty("Name", mUniqueProperty, mParent, mOldValues);
 	}
 
 	void ActionDestroyData::undoAction()
@@ -47,11 +51,18 @@ namespace tools
 		DataSelectorManager::getInstance().changeParent(mParent);
 
 		mComplete = false;
+
+		PropertyUtility::restoreUniqueNameProperty(mOldValues);
 	}
 
 	void ActionDestroyData::setData(Data* _data)
 	{
 		mData = _data;
+	}
+
+	void ActionDestroyData::setUniqueProperty(const std::string& _value)
+	{
+		mUniqueProperty = _value;
 	}
 
 }

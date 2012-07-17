@@ -9,6 +9,7 @@
 #include "DataTypeManager.h"
 #include "DataManager.h"
 #include "DataSelectorManager.h"
+#include "PropertyUtility.h"
 
 namespace tools
 {
@@ -35,7 +36,6 @@ namespace tools
 		{
 			mData = new Data();
 			mData->setType(DataTypeManager::getInstance().getType(mType));
-			//mData->setPropertyValue(mPropertyName, mName);
 		}
 
 		mParent->addChild(mData);
@@ -43,6 +43,9 @@ namespace tools
 		DataSelectorManager::getInstance().changeParent(mParent);
 
 		mComplete = true;
+
+		if (!mUniqueProperty.empty())
+			PropertyUtility::storeUniqueNameProperty("Name", mUniqueProperty, mParent, mOldValues);
 	}
 
 	void ActionCreateData::undoAction()
@@ -52,11 +55,8 @@ namespace tools
 		DataSelectorManager::getInstance().changeParent(mParent);
 
 		mComplete = false;
-	}
 
-	void ActionCreateData::setName(const std::string& _value)
-	{
-		mName = _value;
+		PropertyUtility::restoreUniqueNameProperty(mOldValues);
 	}
 
 	void ActionCreateData::setParent(Data* _parent)
@@ -69,9 +69,9 @@ namespace tools
 		mType = _value;
 	}
 
-	void ActionCreateData::setPropertyName(const std::string& _value)
+	void ActionCreateData::setUniqueProperty(const std::string& _value)
 	{
-		mPropertyName = _value;
+		mUniqueProperty = _value;
 	}
 
 }
