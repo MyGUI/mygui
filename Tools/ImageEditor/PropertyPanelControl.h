@@ -37,7 +37,7 @@ namespace tools
 	private:
 		DataType* mParentType;
 		Data* mCurrentData;
-		typedef std::vector<std::pair<std::string, PropertyControl*>> VectorPairControl;
+		typedef std::vector<std::pair<std::string, PropertyControl*> > VectorPairControl;
 		VectorPairControl mPropertyControls;
 		int mDistance;
 	};

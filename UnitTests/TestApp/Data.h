@@ -7,6 +7,7 @@
 #define _7f0b8d22_75f3_4772_958b_5d7b1982a44b_
 
 #include "DataInfo.h"
+#include <MyGUI.h>
 #include <map>
 
 namespace tools

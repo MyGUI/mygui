@@ -399,8 +399,8 @@ namespace tools
 		pugi::xml_parse_result result = doc.load_file(mFileName.asWStr_c_str());
 		if (result)
 		{
-			bool result = ExportManager::getInstance().deserialization(doc);
-			if (result)
+			bool success = ExportManager::getInstance().deserialization(doc);
+			if (success)
 			{
 				if (mFileName != mDefaultFileName)
 					RecentFilesManager::getInstance().addRecentFile(mFileName);
@@ -440,7 +440,7 @@ namespace tools
 
 		ExportManager::getInstance().serialization(doc);
 
-		bool result = doc.save_file(mFileName.asWStr_c_str(), "\t", pugi::format_indent | pugi::format_write_bom & ~pugi::format_space_before_slash | pugi::format_win_new_line);
+		bool result = doc.save_file(mFileName.asWStr_c_str(), "\t", (pugi::format_indent | pugi::format_write_bom | pugi::format_win_new_line) & (~pugi::format_space_before_slash));
 
 		if (result)
 		{
