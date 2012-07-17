@@ -8,9 +8,30 @@
 #include "DataInfoManager.h"
 #include "DataManager.h"
 #include "ActionManager.h"
+#include "sigslot.h"
 
 namespace demo
 {
+	class A
+	{
+	public:
+		sigslot::signal1<A*> event;
+	};
+
+	class B :
+		public sigslot::has_slots<>
+	{
+	public:
+		void advise(A* _a)
+		{
+			if (!_a->event.compare(this, &B::onEvent))
+				_a->event.connect(this, &B::onEvent);
+		}
+
+		void onEvent(A* _sender)
+		{
+		}
+	};
 
 	DemoKeeper::DemoKeeper() :
 		mDataListUI(nullptr)
@@ -38,6 +59,12 @@ namespace demo
 		tools::DataInfoManager::getInstance().load("ImageDataInfo.xml");
 
 		mDataListUI = new DataListUI();
+
+		A a;
+		B b;
+
+		b.advise(&a);
+		b.advise(&a);
 
 		//MyGUI::LayoutManager::getInstance().load("");
 
