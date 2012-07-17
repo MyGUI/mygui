@@ -125,70 +125,143 @@ namespace tools
 			return;
 
 		MyGUI::IntPoint point = _point;
-		if (point.left < 0)
-			point.left = 0;
-		if (point.left > _separator->getParentSize().width)
-			point.left = _separator->getParentSize().width;
+		if (mHorizontal)
+		{
+			if (point.left < 0)
+				point.left = 0;
+			if (point.left > _separator->getParentSize().width)
+				point.left = _separator->getParentSize().width;
+		}
+		else
+		{
+			if (point.top < 0)
+				point.top = 0;
+			if (point.top > _separator->getParentSize().height)
+				point.top = _separator->getParentSize().height;
+		}
 
 		MyGUI::IntCoord previousCoord = data->PreviousPart->getCoord();
 		MyGUI::IntCoord nextCoord = data->NextPart->getCoord();
 		MyGUI::IntCoord separatorCoord = _separator->getCoord();
 
-		previousCoord.width = point.left - previousCoord.left;
-		separatorCoord.left = point.left;
-		nextCoord.width = nextCoord.right() - (point.left + separatorCoord.width);
-		nextCoord.left = point.left + separatorCoord.width;
+		if (mHorizontal)
+		{
+			previousCoord.width = point.left - previousCoord.left;
+			separatorCoord.left = point.left;
+			nextCoord.width = nextCoord.right() - (point.left + separatorCoord.width);
+			nextCoord.left = point.left + separatorCoord.width;
+		}
+		else
+		{
+			previousCoord.height = point.top - previousCoord.top;
+			separatorCoord.top = point.top;
+			nextCoord.height = nextCoord.bottom() - (point.top + separatorCoord.height);
+			nextCoord.top = point.top + separatorCoord.height;
+		}
 
 		data->PreviousPart->setCoord(previousCoord);
 		data->NextPart->setCoord(nextCoord);
 		_separator->setCoord(separatorCoord);
 
 		int size = MyGUI::utility::parseValue<int>(data->PreviousPart->getUserString("MinSize"));
-		if (size > previousCoord.width && _modeDirection != Next)
+
+		if (mHorizontal)
 		{
-			if (data->PreviousSeparator != nullptr)
+			if (size > previousCoord.width && _modeDirection != Next)
 			{
-				MoveSeparator(data->PreviousSeparator, point - MyGUI::IntPoint(size + data->PreviousSeparator->getWidth(), data->PreviousSeparator->getHeight()), Previous);
+				if (data->PreviousSeparator != nullptr)
+				{
+					MoveSeparator(data->PreviousSeparator, point - MyGUI::IntPoint(size + data->PreviousSeparator->getWidth(), data->PreviousSeparator->getHeight()), Previous);
+				}
+
+				previousCoord = data->PreviousPart->getCoord();
+				nextCoord = data->NextPart->getCoord();
+				separatorCoord = _separator->getCoord();
+
+				int offset = size - previousCoord.width;
+
+				previousCoord.width += offset;
+				separatorCoord.left += offset;
+				nextCoord.width -= offset;
+				nextCoord.left += offset;
+
+				data->PreviousPart->setCoord(previousCoord);
+				data->NextPart->setCoord(nextCoord);
+				_separator->setCoord(separatorCoord);
 			}
 
-			previousCoord = data->PreviousPart->getCoord();
-			nextCoord = data->NextPart->getCoord();
-			separatorCoord = _separator->getCoord();
+			size = MyGUI::utility::parseValue<int>(data->NextPart->getUserString("MinSize"));
+			if (size > nextCoord.width && _modeDirection != Previous)
+			{
+				if (data->NextSeparator != nullptr)
+				{
+					MoveSeparator(data->NextSeparator, point + MyGUI::IntPoint(size + _separator->getWidth(), _separator->getHeight()), Next);
+				}
 
-			int offset = size - previousCoord.width;
+				previousCoord = data->PreviousPart->getCoord();
+				nextCoord = data->NextPart->getCoord();
+				separatorCoord = _separator->getCoord();
 
-			previousCoord.width += offset;
-			separatorCoord.left += offset;
-			nextCoord.width -= offset;
-			nextCoord.left += offset;
+				int offset = size - nextCoord.width;
 
-			data->PreviousPart->setCoord(previousCoord);
-			data->NextPart->setCoord(nextCoord);
-			_separator->setCoord(separatorCoord);
+				previousCoord.width -= offset;
+				separatorCoord.left -= offset;
+				nextCoord.width += offset;
+				nextCoord.left -= offset;
+
+				data->PreviousPart->setCoord(previousCoord);
+				data->NextPart->setCoord(nextCoord);
+				_separator->setCoord(separatorCoord);
+			}
 		}
-
-		size = MyGUI::utility::parseValue<int>(data->NextPart->getUserString("MinSize"));
-		if (size > nextCoord.width && _modeDirection != Previous)
+		else
 		{
-			if (data->NextSeparator != nullptr)
+			if (size > previousCoord.height && _modeDirection != Next)
 			{
-				MoveSeparator(data->NextSeparator, point + MyGUI::IntPoint(size + _separator->getWidth(), _separator->getHeight()), Next);
+				if (data->PreviousSeparator != nullptr)
+				{
+					MoveSeparator(data->PreviousSeparator, point - MyGUI::IntPoint(data->PreviousSeparator->getWidth(), size + data->PreviousSeparator->getHeight()), Previous);
+				}
+
+				previousCoord = data->PreviousPart->getCoord();
+				nextCoord = data->NextPart->getCoord();
+				separatorCoord = _separator->getCoord();
+
+				int offset = size - previousCoord.height;
+
+				previousCoord.height += offset;
+				separatorCoord.top += offset;
+				nextCoord.height -= offset;
+				nextCoord.top += offset;
+
+				data->PreviousPart->setCoord(previousCoord);
+				data->NextPart->setCoord(nextCoord);
+				_separator->setCoord(separatorCoord);
 			}
 
-			previousCoord = data->PreviousPart->getCoord();
-			nextCoord = data->NextPart->getCoord();
-			separatorCoord = _separator->getCoord();
+			size = MyGUI::utility::parseValue<int>(data->NextPart->getUserString("MinSize"));
+			if (size > nextCoord.height && _modeDirection != Previous)
+			{
+				if (data->NextSeparator != nullptr)
+				{
+					MoveSeparator(data->NextSeparator, point + MyGUI::IntPoint(_separator->getWidth(), size + _separator->getHeight()), Next);
+				}
 
-			int offset = size - nextCoord.width;
+				previousCoord = data->PreviousPart->getCoord();
+				nextCoord = data->NextPart->getCoord();
+				separatorCoord = _separator->getCoord();
 
-			previousCoord.width -= offset;
-			separatorCoord.left -= offset;
-			nextCoord.width += offset;
-			nextCoord.left -= offset;
+				int offset = size - nextCoord.height;
 
-			data->PreviousPart->setCoord(previousCoord);
-			data->NextPart->setCoord(nextCoord);
-			_separator->setCoord(separatorCoord);
+				previousCoord.height -= offset;
+				separatorCoord.top -= offset;
+				nextCoord.height += offset;
+				nextCoord.top -= offset;
+
+				data->PreviousPart->setCoord(previousCoord);
+				data->NextPart->setCoord(nextCoord);
+				_separator->setCoord(separatorCoord);
+			}
 		}
 	}
 
