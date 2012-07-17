@@ -1416,4 +1416,9 @@
             <State name="normal" offset="454 2 2 10"/>
         </BasisSkin>
     </Resource>
+    <Resource type="ResourceSkin" name="SeparatorH2Skin_Dark" size="10 2" texture="MyGUI_Dark.png">
+        <BasisSkin type="SubSkin" offset="0 0 10 2" align="Stretch">
+            <State name="normal" offset="427 24 10 2"/>
+        </BasisSkin>
+    </Resource>
 </MyGUI>
