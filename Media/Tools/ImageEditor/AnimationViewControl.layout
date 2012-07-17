@@ -8,13 +8,13 @@
             </Widget>
         </Widget>
         <Widget type="Widget" skin="Panel3Skin_Dark" position="7 150 165 30" align="HCenter Bottom">
-            <Widget type="Button" skin="Button_Dark" position="5 5 20 20" name="Play">
+            <Widget type="Button" skin="ButtonPlay_Dark" position="8 8 14 14" name="Play">
                 <Property key="Caption" value="&lt;"/>
             </Widget>
-            <Widget type="Button" skin="Button_Dark" position="30 5 20 20" name="Left">
+            <Widget type="Button" skin="ButtonPrev_Dark" position="33 8 14 14" name="Left">
                 <Property key="Caption" value="|&lt;"/>
             </Widget>
-            <Widget type="Button" skin="Button_Dark" position="140 5 20 20" align="Right Top" name="Right">
+            <Widget type="Button" skin="ButtonNext_Dark" position="143 8 14 14" align="Right Top" name="Right">
                 <Property key="Caption" value="&gt;|"/>
             </Widget>
             <Widget type="EditBox" skin="EditBox_Dark" position="55 5 80 20" align="HStretch Top" name="Info">
