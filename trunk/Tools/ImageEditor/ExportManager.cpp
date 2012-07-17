@@ -8,6 +8,7 @@
 #include "ExportManager.h"
 #include "DataManager.h"
 #include "DataTypeManager.h"
+#include "PropertyUtility.h"
 
 template <> tools::ExportManager* MyGUI::Singleton<tools::ExportManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::ExportManager>::mClassTypeName("ExportManager");
@@ -51,6 +52,7 @@ namespace tools
 		for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
 			parseImage((*node).node());
 
+		updateUniqueImageProperty(DataManager::getInstance().getRoot());
 		return true;
 	}
 
@@ -154,6 +156,38 @@ namespace tools
 		std::string value = _data->getPropertyValue("Count");
 		if (!value.empty())
 			node.append_attribute("count").set_value(value.c_str());
+	}
+
+	void ExportManager::updateUniqueImageProperty(Data* _data)
+	{
+		const Data::VectorData& childs = _data->getChilds();
+		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
+		{
+			bool unique = PropertyUtility::isUniqueName((*child), "Name");
+			(*child)->setPropertyValue("UniqueName", unique ? "True" : "False");
+			updateUniqueGroupProperty(*child);
+		}
+	}
+
+	void ExportManager::updateUniqueGroupProperty(Data* _data)
+	{
+		const Data::VectorData& childs = _data->getChilds();
+		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
+		{
+			bool unique = PropertyUtility::isUniqueName((*child), "Name");
+			(*child)->setPropertyValue("UniqueName", unique ? "True" : "False");
+			updateUniqueIndexProperty(*child);
+		}
+	}
+
+	void ExportManager::updateUniqueIndexProperty(Data* _data)
+	{
+		const Data::VectorData& childs = _data->getChilds();
+		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
+		{
+			bool unique = PropertyUtility::isUniqueName((*child), "Name");
+			(*child)->setPropertyValue("UniqueName", unique ? "True" : "False");
+		}
 	}
 
 }

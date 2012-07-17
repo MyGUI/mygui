@@ -19,6 +19,13 @@
 					<Visible>true</Visible>
 					<Action>ActionRenameData</Action>
 				</Property>
+				<Property>
+					<Name>UniqueName</Name>
+					<Type>PropertyBoolControl</Type>
+					<Default>True</Default>
+					<Visible>true</Visible>
+					<Action>ChangeValueAction</Action>
+				</Property>
 			</Properties>
 			<Childs>
 				<Child>
@@ -35,6 +42,13 @@
 					<Default>unnamed</Default>
 					<Visible>true</Visible>
 					<Action>ActionRenameData</Action>
+				</Property>
+				<Property>
+					<Name>UniqueName</Name>
+					<Type>PropertyBoolControl</Type>
+					<Default>True</Default>
+					<Visible>true</Visible>
+					<Action>ChangeValueAction</Action>
 				</Property>
 				<Property>
 					<Name>Texture</Name>
@@ -65,6 +79,13 @@
 					<Default>unnamed</Default>
 					<Visible>true</Visible>
 					<Action>ActionRenameData</Action>
+				</Property>
+				<Property>
+					<Name>UniqueName</Name>
+					<Type>PropertyBoolControl</Type>
+					<Default>True</Default>
+					<Visible>true</Visible>
+					<Action>ChangeValueAction</Action>
 				</Property>
 				<Property>
 					<Name>Rate</Name>

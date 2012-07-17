@@ -29,7 +29,7 @@ namespace tools
 	{
 		Control::OnInitialise(_parent, _place, "PropertyEditControl.layout");
 
-		assignWidget(mName, "Name");
+		assignWidget(mName, "Name", false);
 		assignWidget(mEdit, "Edit");
 
 		mEdit->eventEditTextChange += MyGUI::newDelegate(this, &PropertyStringControl::notifyEditTextChange);

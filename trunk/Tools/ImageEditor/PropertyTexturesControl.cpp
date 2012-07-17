@@ -35,10 +35,10 @@ namespace tools
 	{
 		Control::OnInitialise(_parent, _place, "PropertyTextureBrowseControl.layout");
 
-		assignWidget(mImage, "Image");
-		assignWidget(mName, "Name");
+		assignWidget(mName, "Name", false);
 		assignWidget(mComboBox, "ComboBox");
 		assignWidget(mBrowse, "Browse");
+		assignWidget(mImage, "Image");
 
 		fillTextures();
 

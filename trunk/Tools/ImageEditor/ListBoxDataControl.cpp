@@ -96,7 +96,13 @@ namespace tools
 			for (size_t index = 0; index < childs.size(); index ++)
 			{
 				Data* child = childs.at(index);
-				mListBox->setItemNameAt(index, child->getPropertyValue(mPropertyForName));
+
+				bool unique = isUnique(child, mPropertyForUnique);
+				if (unique)
+					mListBox->setItemNameAt(index, child->getPropertyValue(mPropertyForName));
+				else
+					mListBox->setItemNameAt(index, replaceTags("ColourError") + child->getPropertyValue(mPropertyForName));
+
 				mListBox->setItemDataAt(index, child);
 
 				connectToProperty(child);
@@ -194,9 +200,10 @@ namespace tools
 		mEnableChangePosition = _value;
 	}
 
-	void ListBoxDataControl::setDataInfo(const std::string& _parentType, const std::string& _property)
+	void ListBoxDataControl::setDataInfo(const std::string& _parentType, const std::string& _propertyName, const std::string& _propertyUnique)
 	{
-		mPropertyForName = _property;
+		mPropertyForName = _propertyName;
+		mPropertyForUnique = _propertyUnique;
 		DataSelectorManager::getInstance().getEvent(_parentType)->connect(this, &ListBoxDataControl::notifyChangeDataSelector);
 		mParentData = DataManager::getInstance().getSelectedDataByType(_parentType);
 		notifyChangeDataSelector(mParentData, false);
@@ -207,6 +214,13 @@ namespace tools
 		Property* property = _data->getProperties().find(mPropertyForName)->second;
 		if (!property->eventChangeProperty.compare(this, &ListBoxDataControl::notifyChangeProperty))
 			property->eventChangeProperty.connect(this, &ListBoxDataControl::notifyChangeProperty);
+
+		if (!mPropertyForUnique.empty())
+		{
+			property = _data->getProperties().find(mPropertyForUnique)->second;
+			if (!property->eventChangeProperty.compare(this, &ListBoxDataControl::notifyChangeProperty))
+				property->eventChangeProperty.connect(this, &ListBoxDataControl::notifyChangeProperty);
+		}
 	}
 
 	void ListBoxDataControl::notifyChangeProperty(Property* _sender)
@@ -221,9 +235,21 @@ namespace tools
 			Data* data = *mListBox->getItemDataAt<Data*>(index);
 			if (data == _sender->getOwner())
 			{
-				mListBox->setItemNameAt(index, _sender->getValue());
+				bool unique = isUnique(data, mPropertyForUnique);
+				if (unique)
+					mListBox->setItemNameAt(index, data->getPropertyValue(mPropertyForName));
+				else
+					mListBox->setItemNameAt(index, replaceTags("ColourError") + data->getPropertyValue(mPropertyForName));
 			}
 		}
+	}
+
+	bool ListBoxDataControl::isUnique(Data* _data, const std::string& _propertyName)
+	{
+		if (_propertyName.empty())
+			return true;
+
+		return MyGUI::utility::parseValue<bool>(_data->getPropertyValue(_propertyName));
 	}
 
 }

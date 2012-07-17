@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="Widget" skin="PanelEmpty" position="26 26 256 472" align="Stretch" layer="Overlapped" name="_Main">
+    <Widget type="Widget" skin="PanelEmpty" position="26 26 256 472" align="Stretch" layer="Overlapped" name="Root">
         <UserString key="SnapTo" value="Stretch"/>
         <Widget type="Button" skin="Button_Dark" position="4 447 120 20" align="Left Bottom" name="Create">
             <Property key="Caption" value="#{Create}"/>

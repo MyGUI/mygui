@@ -29,7 +29,7 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_CreateFrameData", MyGUI::newDelegate((DataListBaseControl*)this, &DataListBaseControl::commandCreateImageData));
 		CommandManager::getInstance().registerCommand("Command_DestroyFrameData", MyGUI::newDelegate((DataListBaseControl*)this, &DataListBaseControl::commandDestroyImageData));
 
-		setDataInfo("Index", "Frame", "Point");
+		setDataInfo("Index", "Frame", "Point", "");
 	}
 
 }

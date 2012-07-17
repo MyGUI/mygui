@@ -16,6 +16,7 @@
 #include "ActionDestroyData.h"
 #include "ActionRenameData.h"
 #include "ActionChangePositionData.h"
+#include "PropertyUtility.h"
 
 namespace tools
 {
@@ -119,14 +120,15 @@ namespace tools
 		_result = true;
 	}
 
-	void DataListBaseControl::setDataInfo(const std::string& _parentType, const std::string& _currentType, const std::string& _property)
+	void DataListBaseControl::setDataInfo(const std::string& _parentType, const std::string& _currentType, const std::string& _propertyName, const std::string& _propertyUnique)
 	{
 		mParentType = _parentType;
 		mCurrentType = _currentType;
-		mPropertyForName = _property;
+		mPropertyForName = _propertyName;
+		mPropertyForUnique = _propertyUnique;
 
 		if (mListBoxControl != nullptr)
-			mListBoxControl->setDataInfo(mParentType, mPropertyForName);
+			mListBoxControl->setDataInfo(mParentType, mPropertyForName, mPropertyForUnique);
 	}
 
 	void DataListBaseControl::notifyChangePosition(Data* _data1, Data* _data2)
@@ -140,11 +142,7 @@ namespace tools
 
 	void DataListBaseControl::notifyChangeName(Data* _data, const std::string& _name)
 	{
-		ActionRenameData* command = new ActionRenameData();
-		command->setProperty(_data->getProperties().find(mPropertyForName)->second);
-		command->setValue(_name);
-
-		ActionManager::getInstance().doAction(command);
+		PropertyUtility::executeAction(_data->getProperties().find(mPropertyForName)->second, _name);
 	}
 
 }

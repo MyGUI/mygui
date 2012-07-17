@@ -30,7 +30,7 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_DestroyGroupData", MyGUI::newDelegate((DataListBaseControl*)this, &DataListBaseControl::commandDestroyImageData));
 		CommandManager::getInstance().registerCommand("Command_RenameGroupData", MyGUI::newDelegate((DataListBaseControl*)this, &DataListBaseControl::commandRenameImageData));
 
-		setDataInfo("Image", "Group", "Name");
+		setDataInfo("Image", "Group", "Name", "UniqueName");
 	}
 
 }
