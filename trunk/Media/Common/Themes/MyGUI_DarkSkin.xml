@@ -1421,4 +1421,28 @@
             <State name="normal" offset="427 24 10 2"/>
         </BasisSkin>
     </Resource>
+    <Resource type="ResourceSkin" name="ButtonPlaySkin_Dark" size="14 14" texture="MyGUI_Dark.png">
+        <BasisSkin type="SubSkin" offset="0 0 14 14" align="Stretch">
+            <State name="normal" offset="106 54 14 14"/>
+            <State name="highlighted" offset="106 70 14 14"/>
+            <State name="pushed" offset="106 54 14 14"/>
+            <State name="normal_checked" offset="122 54 14 14"/>
+            <State name="highlighted_checked" offset="122 70 14 14"/>
+            <State name="pushed_checked" offset="122 54 14 14"/>
+        </BasisSkin>
+    </Resource>
+    <Resource type="ResourceSkin" name="ButtonPrevSkin_Dark" size="14 14" texture="MyGUI_Dark.png">
+        <BasisSkin type="SubSkin" offset="0 0 14 14" align="Stretch">
+            <State name="normal" offset="138 54 14 14"/>
+            <State name="highlighted" offset="138 70 14 14"/>
+            <State name="pushed" offset="138 54 14 14"/>
+        </BasisSkin>
+    </Resource>
+    <Resource type="ResourceSkin" name="ButtonNextSkin_Dark" size="14 14" texture="MyGUI_Dark.png">
+        <BasisSkin type="SubSkin" offset="0 0 14 14" align="Stretch">
+            <State name="normal" offset="138 86 14 14"/>
+            <State name="highlighted" offset="138 102 14 14"/>
+            <State name="pushed" offset="138 86 14 14"/>
+        </BasisSkin>
+    </Resource>
 </MyGUI>

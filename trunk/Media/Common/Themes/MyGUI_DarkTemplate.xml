@@ -475,4 +475,25 @@
             </Widget>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="ButtonPlay_Dark" version="3.2.0">
+        <Widget type="Widget" skin="ButtonPlaySkin_Dark" position="20 20 14 14" name="Root">
+            <Property key="FontName" value="DejaVuSansFont_13"/>
+            <Property key="TextAlign" value="Center"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ButtonPrev_Dark" version="3.2.0">
+        <Widget type="Widget" skin="ButtonPrevSkin_Dark" position="20 20 14 14" name="Root">
+            <Property key="FontName" value="DejaVuSansFont_13"/>
+            <Property key="TextAlign" value="Center"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ButtonNext_Dark" version="3.2.0">
+        <Widget type="Widget" skin="ButtonNextSkin_Dark" position="20 20 14 14" name="Root">
+            <Property key="FontName" value="DejaVuSansFont_13"/>
+            <Property key="TextAlign" value="Center"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
 </MyGUI>

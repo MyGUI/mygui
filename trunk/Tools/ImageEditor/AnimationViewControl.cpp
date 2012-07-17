@@ -154,6 +154,7 @@ namespace tools
 		if (_sender == mButtonPlay)
 		{
 			mPlay = !mPlay;
+			mButtonPlay->setStateSelected(!mPlay);
 		}
 		else if (_sender == mButtonLeft)
 		{
