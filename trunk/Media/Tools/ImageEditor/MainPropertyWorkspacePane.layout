@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="20 20 275 730" align="Stretch" name="Root">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="Widget" skin="Panel1Skin_Dark" position="0 455 275 275" align="HStretch Bottom">
+            <UserString key="MinSize" value="100"/>
+            <Widget type="Widget" skin="PanelEmpty" position="5 5 264 260" align="HStretch Top"/>
+        </Widget>
+        <Widget type="Widget" skin="PanelEmpty" position="0 445 275 10" align="HStretch Bottom">
+            <Property key="Pointer" value="size_vert"/>
+            <UserString key="Separator" value="Vertical"/>
+            <Widget type="Widget" skin="SeparatorV2Skin_Dark" position="136 0 2 10" align="Center">
+                <Property key="NeedMouse" value="false"/>
+            </Widget>
+        </Widget>
+        <Widget type="Widget" skin="Panel1Skin_Dark" position="0 0 275 445" align="Stretch">
+            <UserString key="MinSize" value="100"/>
+            <Widget type="Widget" skin="PanelEmpty" position="5 25 265 415" align="Stretch">
+                <UserString key="ControlType" value="PropertyPanelControl"/>
+                <UserString key="ControlLayout" value="PropertyPanel.layout"/>
+            </Widget>
+            <Widget type="TextBox" skin="TextBox" position="10 0 260 20" align="HStretch Top">
+                <Property key="Caption" value="#{PropertyPanel}"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="FontName" value="DejaVuSansFont_13"/>
+            </Widget>
+        </Widget>
+    </Widget>
+</MyGUI>
