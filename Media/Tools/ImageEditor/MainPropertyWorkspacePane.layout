@@ -4,17 +4,13 @@
         <UserString key="SnapTo" value="Stretch"/>
         <Widget type="Widget" skin="Panel1Skin_Dark" position="0 455 280 275" align="HStretch Bottom">
             <UserString key="MinSize" value="100"/>
-            <Widget type="Widget" skin="PanelEmpty" position="5 5 269 265" align="HStretch Top">
+            <Widget type="Widget" skin="PanelEmpty" position="5 5 269 265" align="Stretch">
                 <UserString key="ControlType" value="AnimationViewControl"/>
                 <UserString key="ControlLayout" value="AnimationViewControl.layout"/>
             </Widget>
         </Widget>
-        <Widget type="Widget" skin="PanelEmpty" position="0 445 280 10" align="HStretch Bottom">
-            <Property key="Pointer" value="size_vert"/>
+        <Widget type="Widget" skin="SeparatorV_Dark" position="0 445 280 10" align="HStretch Bottom">
             <UserString key="Separator" value="Vertical"/>
-            <Widget type="Widget" skin="SeparatorH2Skin_Dark" position="135 4 10 2" align="Center">
-                <Property key="NeedMouse" value="false"/>
-            </Widget>
         </Widget>
         <Widget type="Widget" skin="Panel1Skin_Dark" position="0 0 280 445" align="Stretch">
             <UserString key="MinSize" value="100"/>
