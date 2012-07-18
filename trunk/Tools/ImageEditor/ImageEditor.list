@@ -253,6 +253,8 @@ SOURCE_GROUP("Application" FILES
 SOURCE_GROUP("Controls" FILES
   AnimationViewControl.cpp
   AnimationViewControl.h
+  AreaSelectorControl.cpp
+  AreaSelectorControl.h
   ColourPanel.cpp
   ColourPanel.h
   Control.cpp
@@ -277,6 +279,8 @@ SOURCE_GROUP("Controls" FILES
   OpenSaveFileDialog.h
   PropertyPanelControl.cpp
   PropertyPanelControl.h
+  SelectorControl.cpp
+  SelectorControl.h
   SeparatorControl.cpp
   SeparatorControl.h
   SettingsGeneralControl.cpp
@@ -293,6 +297,10 @@ SOURCE_GROUP("Controls" FILES
   TextureBrowseCell.h
   TextureBrowseControl.cpp
   TextureBrowseControl.h
+  TextureControl.cpp
+  TextureControl.h
+  TextureToolControl.cpp
+  TextureToolControl.h
   TextureViewToolControl.cpp
   TextureViewToolControl.h
 )
@@ -325,8 +333,6 @@ SOURCE_GROUP("Controls\\Properties" FILES
   PropertyTexturesControl.h
 )
 SOURCE_GROUP("Controls\\old" FILES
-  AreaSelectorControl.cpp
-  AreaSelectorControl.h
   BackgroundControl.cpp
   BackgroundControl.h
   HorizontalSelectorBlackControl.cpp
@@ -351,8 +357,6 @@ SOURCE_GROUP("Controls\\old" FILES
   RegionPropertyControl.h
   RegionTextureControl.cpp
   RegionTextureControl.h
-  SelectorControl.cpp
-  SelectorControl.h
   SeparatorListControl.cpp
   SeparatorListControl.h
   SeparatorPropertyControl.cpp
@@ -375,10 +379,6 @@ SOURCE_GROUP("Controls\\old" FILES
   StateTextureControl.h
   TestWindow.cpp
   TestWindow.h
-  TextureControl.cpp
-  TextureControl.h
-  TextureToolControl.cpp
-  TextureToolControl.h
   VerticalSelectorBlackControl.cpp
   VerticalSelectorBlackControl.h
   VerticalSelectorControl.cpp

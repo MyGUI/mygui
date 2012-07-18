@@ -8,13 +8,10 @@
 #define _5e4ba082_bfdd_4106_b851_0f79eb318b0e_
 
 #include "BaseLayout/BaseLayout.h"
+#include "sigslot.h"
 
-/*namespace tools
+namespace tools
 {
-
-	class SelectorControl;
-
-	typedef MyGUI::delegates::CMultiDelegate0 EventHandle_ChangePosition;
 
 	class SelectorControl :
 		public wraps::BaseLayout
@@ -38,7 +35,7 @@
 		bool getCapture();
 		MyGUI::IntCoord getActionScale();
 
-		EventHandle_ChangePosition eventChangePosition;
+		sigslot::signal1<SelectorControl*> eventChangePosition;
 
 		MyGUI::Widget* getMainWidget();
 
@@ -62,6 +59,6 @@
 		std::string mPropertyColour;
 	};
 
-}*/
+}
 
 #endif

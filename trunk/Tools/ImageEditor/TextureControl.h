@@ -11,7 +11,7 @@
 #include "SelectorControl.h"
 #include "Dialog.h"
 
-/*namespace tools
+namespace tools
 {
 
 	class TextureControl :
@@ -95,6 +95,6 @@
 		bool mMouseLeftPressed;
 	};
 
-}*/
+}
 
 #endif

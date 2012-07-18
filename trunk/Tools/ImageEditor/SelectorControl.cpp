@@ -8,7 +8,7 @@
 #include "SelectorControl.h"
 #include "SettingsManager.h"
 
-/*namespace tools
+namespace tools
 {
 
 	SelectorControl::SelectorControl(const std::string& _layout, MyGUI::Widget* _parent) :
@@ -112,7 +112,7 @@
 		}
 
 		updateCoord();
-		eventChangePosition();
+		eventChangePosition(this);
 	}
 
 	MyGUI::IntPoint SelectorControl::getPosition()
@@ -178,4 +178,4 @@
 		return mMainWidget;
 	}
 
-}*/
+}
