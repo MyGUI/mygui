@@ -22,6 +22,7 @@ namespace tools
 	{
 		MyGUI::ItemBox* box = mTextures->getItemBox();
 		box->eventChangeItemPosition -= MyGUI::newDelegate(this, &TextureBrowseControl::notifyChangeItemPosition);
+		box->eventSelectItemAccept -= MyGUI::newDelegate(this, &TextureBrowseControl::notifySelectItemAccept);
 	}
 
 	void TextureBrowseControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
@@ -43,6 +44,7 @@ namespace tools
 
 		MyGUI::ItemBox* box = mTextures->getItemBox();
 		box->eventChangeItemPosition += MyGUI::newDelegate(this, &TextureBrowseControl::notifyChangeItemPosition);
+		box->eventSelectItemAccept += MyGUI::newDelegate(this, &TextureBrowseControl::notifySelectItemAccept);
 
 		mMainWidget->setVisible(false);
 	}
@@ -112,6 +114,12 @@ namespace tools
 			mCurrentTextureName = *_sender->getItemDataAt<std::string>(_index);
 		else
 			mCurrentTextureName = "";
+	}
+
+	void TextureBrowseControl::notifySelectItemAccept(MyGUI::ItemBox* _sender, size_t _index)
+	{
+		if (mCurrentTextureName != "")
+			eventEndDialog(this, true);
 	}
 
 }

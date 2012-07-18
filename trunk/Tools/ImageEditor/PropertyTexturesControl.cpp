@@ -138,7 +138,7 @@ namespace tools
 		{
 			Property* proper = getProperty();
 			if (proper != nullptr)
-				proper->setValue(mTextureBrowseControl->getTextureName());
+				executeAction(mTextureBrowseControl->getTextureName());
 			updateProperty();
 		}
 	}
