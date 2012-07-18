@@ -496,4 +496,22 @@
             <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="SeparatorV_Dark" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="20 20 10 10" name="Root">
+            <Property key="Pointer" value="size_vert"/>
+            <UserString key="LE_TargetWidgetType" value="Widget"/>
+            <Widget type="Widget" skin="SeparatorH2Skin_Dark" position="0 4 10 2" align="Center">
+                <Property key="NeedMouse" value="false"/>
+            </Widget>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="SeparatorH_Dark" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="20 20 10 10" name="Root">
+            <Property key="Pointer" value="size_horz"/>
+            <UserString key="LE_TargetWidgetType" value="Widget"/>
+            <Widget type="Widget" skin="SeparatorV2Skin_Dark" position="4 0 2 10" align="Center">
+                <Property key="NeedMouse" value="false"/>
+            </Widget>
+        </Widget>
+    </Resource>
 </MyGUI>
