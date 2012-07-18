@@ -111,6 +111,7 @@ set (HEADER_FILES
   TextureBrowseControl.h
   TextureControl.h
   TextureToolControl.h
+  TextureViewToolControl.h
   VerticalSelectorBlackControl.h
   VerticalSelectorControl.h
   sigslot.h
@@ -218,6 +219,7 @@ set (SOURCE_FILES
   TextureBrowseControl.cpp
   TextureControl.cpp
   TextureToolControl.cpp
+  TextureViewToolControl.cpp
   VerticalSelectorBlackControl.cpp
   VerticalSelectorControl.cpp
   pugiconfig.hpp
@@ -291,6 +293,8 @@ SOURCE_GROUP("Controls" FILES
   TextureBrowseCell.h
   TextureBrowseControl.cpp
   TextureBrowseControl.h
+  TextureViewToolControl.cpp
+  TextureViewToolControl.h
 )
 SOURCE_GROUP("Controls\\Animations" FILES
   AnimationInfo.cpp

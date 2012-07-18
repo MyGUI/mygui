@@ -34,10 +34,14 @@
         </Widget>
         <Widget type="Widget" skin="Panel1Skin_Dark" position="310 0 115 725" align="Stretch">
             <UserString key="MinSize" value="100"/>
-            <Widget type="TextBox" skin="TextBox" position="10 0 105 20" align="HStretch Top">
+            <Widget type="TextBox" skin="TextBox" position="10 0 100 20" align="HStretch Top">
                 <Property key="TextAlign" value="Left VCenter"/>
                 <Property key="FontName" value="DejaVuSansFont_13"/>
                 <Property key="Caption" value="#{TexturePanel}"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="5 20 105 700" align="Stretch">
+                <UserString key="ControlType" value="TextureViewToolControl"/>
+                <UserString key="ControlLayout" value="TextureViewToolControl.layout"/>
             </Widget>
         </Widget>
         <Widget type="Widget" skin="SeparatorH_Dark" position="425 0 10 725" align="Right VStretch">
