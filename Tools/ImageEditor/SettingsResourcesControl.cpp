@@ -41,6 +41,7 @@ namespace tools
 		assignWidget(mResources, "Resources");
 
 		mTextFieldControl = new TextFieldControl();
+		mTextFieldControl->Initialise();
 		mTextFieldControl->eventEndDialog = MyGUI::newDelegate(this, &SettingsResourcesControl::notifyEndDialog);
 
 		mResourceAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickResourcePathAdd);

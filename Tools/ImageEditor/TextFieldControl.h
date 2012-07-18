@@ -8,14 +8,14 @@
 #define _8b808213_c477_406c_ae46_1237d418557f_
 
 #include "Dialog.h"
-#include "BaseLayout/BaseLayout.h"
+#include "Control.h"
 
 namespace tools
 {
 
 	class TextFieldControl :
 		public Dialog,
-		public wraps::BaseLayout
+		public Control
 	{
 	public:
 		TextFieldControl();
@@ -37,6 +37,8 @@ namespace tools
 		}
 
 	protected:
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+
 		virtual void onDoModal();
 		virtual void onEndModal();
 
