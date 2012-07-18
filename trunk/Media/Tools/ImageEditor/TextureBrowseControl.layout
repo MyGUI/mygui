@@ -1,14 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="Window" skin="WindowCSX_Dark" position="24 56 584 472" layer="Overlapped" name="Root">
+    <Widget type="Window" skin="WindowCX2_Dark" position="32 64 478 376" align="Center" layer="Overlapped" name="Root">
         <Property key="Caption" value="#{CaptionTextureBrowse}"/>
         <Property key="MinSize" value="584 480"/>
-        <Widget type="Button" skin="Button_Dark" position="464 416 107 20" align="Right Bottom" name="OK">
+        <UserString key="SnapTo" value="Center"/>
+        <Widget type="Button" skin="Button_Dark" position="295 320 80 20" align="Right Bottom" name="OK">
             <Property key="Caption" value="#{Ok}"/>
         </Widget>
-        <Widget type="Button" skin="Button_Dark" position="5 416 107 20" align="Left Bottom" name="Cancel">
+        <Widget type="Button" skin="Button_Dark" position="384 320 80 20" align="Right Bottom" name="Cancel">
             <Property key="Caption" value="#{Cancel}"/>
         </Widget>
-        <Widget type="ItemBox" skin="ItemBox_Dark" position="4 4 568 397" align="Stretch" name="Textures"/>
+        <Widget type="ItemBox" skin="ItemBox_Dark" position="6 6 459 296" align="Stretch" name="Textures"/>
+        <Widget type="Widget" skin="PopupMenuSeparator_Dark" position="5 309 460 1" align="HStretch Bottom"/>
     </Widget>
 </MyGUI>

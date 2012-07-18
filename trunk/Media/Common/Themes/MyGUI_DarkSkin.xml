@@ -501,32 +501,32 @@
         </BasisSkin>
     </Resource>
     <Resource type="ResourceSkin" name="ScrollBarPanelSkin_Dark" size="17 17" texture="MyGUI_Dark.png">
-        <BasisSkin type="SubSkin" offset="0 0 1 1" align="Left Top">
-            <State name="normal" offset="240 72 1 1"/>
+        <BasisSkin type="SubSkin" offset="0 0 5 5" align="Left Top">
+            <State name="normal" offset="240 72 5 5"/>
         </BasisSkin>
-        <BasisSkin type="SubSkin" offset="1 0 15 1" align="HStretch Top">
-            <State name="normal" offset="241 72 15 1"/>
+        <BasisSkin type="SubSkin" offset="5 0 7 5" align="HStretch Top">
+            <State name="normal" offset="245 72 7 5"/>
         </BasisSkin>
-        <BasisSkin type="SubSkin" offset="16 0 1 1" align="Right Top">
-            <State name="normal" offset="256 72 1 1"/>
+        <BasisSkin type="SubSkin" offset="12 0 5 5" align="Right Top">
+            <State name="normal" offset="252 72 5 5"/>
         </BasisSkin>
-        <BasisSkin type="SubSkin" offset="16 1 1 15" align="Right VStretch">
-            <State name="normal" offset="256 73 1 15"/>
+        <BasisSkin type="SubSkin" offset="12 5 5 7" align="Right VStretch">
+            <State name="normal" offset="252 77 5 7"/>
         </BasisSkin>
-        <BasisSkin type="SubSkin" offset="16 16 1 1" align="Right Bottom">
-            <State name="normal" offset="256 88 1 1"/>
+        <BasisSkin type="SubSkin" offset="12 12 5 5" align="Right Bottom">
+            <State name="normal" offset="252 84 5 5"/>
         </BasisSkin>
-        <BasisSkin type="SubSkin" offset="1 16 15 1" align="HStretch Bottom">
-            <State name="normal" offset="241 88 15 1"/>
+        <BasisSkin type="SubSkin" offset="5 12 7 5" align="HStretch Bottom">
+            <State name="normal" offset="245 84 7 5"/>
         </BasisSkin>
-        <BasisSkin type="SubSkin" offset="0 16 1 1" align="Left Bottom">
-            <State name="normal" offset="240 88 1 1"/>
+        <BasisSkin type="SubSkin" offset="0 12 5 5" align="Left Bottom">
+            <State name="normal" offset="240 84 5 5"/>
         </BasisSkin>
-        <BasisSkin type="SubSkin" offset="0 1 1 15" align="Left VStretch">
-            <State name="normal" offset="240 73 1 15"/>
+        <BasisSkin type="SubSkin" offset="0 5 5 7" align="Left VStretch">
+            <State name="normal" offset="240 77 5 7"/>
         </BasisSkin>
-        <BasisSkin type="SubSkin" offset="1 1 15 15" align="Stretch">
-            <State name="normal" offset="241 73 15 15"/>
+        <BasisSkin type="SubSkin" offset="5 5 7 7" align="Stretch">
+            <State name="normal" offset="245 77 7 7"/>
         </BasisSkin>
     </Resource>
     <Resource type="ResourceSkin" name="ScrollBarTrackVSkin_Dark" size="8 15" texture="MyGUI_Dark.png">
