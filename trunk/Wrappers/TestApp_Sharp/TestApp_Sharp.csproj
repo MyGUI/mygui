@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TestApp.Sharp</RootNamespace>
     <AssemblyName>TestApp_Sharp</AssemblyName>
-    <ApplicationIcon>mygui.ico</ApplicationIcon>
+    <ApplicationIcon>MyGUI.ico</ApplicationIcon>
     <StartupObject>
     </StartupObject>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
