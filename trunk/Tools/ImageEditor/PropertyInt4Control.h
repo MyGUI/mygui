@@ -4,25 +4,25 @@
 	@date		08/2010
 */
 
-#ifndef _9784fddf_46ad_45e8_880a_3a28fe7ea6ee_
-#define _9784fddf_46ad_45e8_880a_3a28fe7ea6ee_
+#ifndef _ad92adf0_6307_4e97_9d74_3ec1782971b6_
+#define _ad92adf0_6307_4e97_9d74_3ec1782971b6_
 
-#include "BaseLayout/BaseLayout.h"
 #include "PropertyControl.h"
 
-/*namespace tools
+namespace tools
 {
 
 	class PropertyInt4Control :
-		public wraps::BaseLayout,
 		public PropertyControl
 	{
 	public:
-		PropertyInt4Control(MyGUI::Widget* _parent);
+		PropertyInt4Control();
 		virtual ~PropertyInt4Control();
 
 	protected:
+		virtual void updateCaption();
 		virtual void updateProperty();
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
 		void notifyEditTextChange(MyGUI::EditBox* _sender);
@@ -32,9 +32,10 @@
 		void setColour(bool _validate);
 
 	private:
+		MyGUI::TextBox* mName;
 		MyGUI::EditBox* mEdit;
 	};
 
-}*/
+}
 
 #endif

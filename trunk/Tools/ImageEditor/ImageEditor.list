@@ -309,12 +309,8 @@ SOURCE_GROUP("Controls\\Animations" FILES
   AnimationInfo.h
 )
 SOURCE_GROUP("Controls\\Properties" FILES
-  PropertyAlignControl.cpp
-  PropertyAlignControl.h
   PropertyBoolControl.cpp
   PropertyBoolControl.h
-  PropertyColourControl.cpp
-  PropertyColourControl.h
   PropertyControl.cpp
   PropertyControl.h
   PropertyFloatControl.cpp
@@ -325,12 +321,18 @@ SOURCE_GROUP("Controls\\Properties" FILES
   PropertyInt4Control.h
   PropertyIntControl.cpp
   PropertyIntControl.h
-  PropertyRegionTypeControl.cpp
-  PropertyRegionTypeControl.h
   PropertyStringControl.cpp
   PropertyStringControl.h
   PropertyTexturesControl.cpp
   PropertyTexturesControl.h
+)
+SOURCE_GROUP("Controls\\Properties\\old" FILES
+  PropertyAlignControl.cpp
+  PropertyAlignControl.h
+  PropertyColourControl.cpp
+  PropertyColourControl.h
+  PropertyRegionTypeControl.cpp
+  PropertyRegionTypeControl.h
 )
 SOURCE_GROUP("Controls\\old" FILES
   BackgroundControl.cpp

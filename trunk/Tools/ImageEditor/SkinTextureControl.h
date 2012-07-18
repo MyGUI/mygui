@@ -34,15 +34,11 @@ namespace tools
 	private:
 		void notifyChangeSelection();
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
-
-		//virtual void updateSkinProperty(Property* _sender, const MyGUI::UString& _owner);
-		virtual void updateSkinProperties();
-
+		void notifyChangeDataSelector(Data* _data, bool _changeOnlySelection);
+		void notifyChangeProperty(Property* _sender);
 		void notifyChangePosition(SelectorControl* _sender);
 
-		void updateTexture();
-		void updateCoord();
-
+		void updateCoord(const std::string& _value);
 		void updateFromCoordValue();
 
 		void CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result);
@@ -65,11 +61,15 @@ namespace tools
 
 		void updateCaption();
 
+		void setValue(const std::string& _value);
+
 	private:
 		AreaSelectorControl* mAreaSelectorControl;
 
 		MyGUI::UString mTypeName;
 		MyGUI::IntCoord mCoordValue;
+
+		Data* mParentData;
 	};
 
 }

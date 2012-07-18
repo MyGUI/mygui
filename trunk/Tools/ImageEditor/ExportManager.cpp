@@ -52,7 +52,7 @@ namespace tools
 		for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
 			parseImage((*node).node());
 
-		updateUniqueImageProperty(DataManager::getInstance().getRoot());
+		updateImageProperty(DataManager::getInstance().getRoot());
 		return true;
 	}
 
@@ -161,29 +161,29 @@ namespace tools
 			node.append_attribute("count").set_value(value.c_str());
 	}
 
-	void ExportManager::updateUniqueImageProperty(Data* _data)
+	void ExportManager::updateImageProperty(Data* _data)
 	{
 		const Data::VectorData& childs = _data->getChilds();
 		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
 		{
 			bool unique = PropertyUtility::isUniqueName((*child), "Name");
 			(*child)->setPropertyValue("UniqueName", unique ? "True" : "False");
-			updateUniqueGroupProperty(*child);
+			updateGroupProperty(*child);
 		}
 	}
 
-	void ExportManager::updateUniqueGroupProperty(Data* _data)
+	void ExportManager::updateGroupProperty(Data* _data)
 	{
 		const Data::VectorData& childs = _data->getChilds();
 		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
 		{
 			bool unique = PropertyUtility::isUniqueName((*child), "Name");
 			(*child)->setPropertyValue("UniqueName", unique ? "True" : "False");
-			updateUniqueIndexProperty(*child);
+			updateIndexProperty(*child);
 		}
 	}
 
-	void ExportManager::updateUniqueIndexProperty(Data* _data)
+	void ExportManager::updateIndexProperty(Data* _data)
 	{
 		const Data::VectorData& childs = _data->getChilds();
 		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
@@ -191,6 +191,29 @@ namespace tools
 			bool unique = PropertyUtility::isUniqueName((*child), "Name");
 			(*child)->setPropertyValue("UniqueName", unique ? "True" : "False");
 		}
+
+		MyGUI::IntPoint point = getFirstFramePoint(_data);
+		MyGUI::IntSize size = MyGUI::IntSize::parse(_data->getPropertyValue("Size"));
+		MyGUI::IntCoord coord(point, size);
+		_data->setPropertyValue("Size", coord.print());
+	}
+
+	MyGUI::IntPoint ExportManager::getFirstFramePoint(Data* _data)
+	{
+		if (_data->getType()->getName() != "Group")
+			return MyGUI::IntPoint();
+
+		if (_data->getChilds().size() != 0)
+		{
+			Data* child = _data->getChildByIndex(0);
+			if (child->getChilds().size() != 0)
+			{
+				return MyGUI::IntPoint::parse(child->getChildByIndex(0)->getPropertyValue("Point"));
+			}
+		}
+
+
+		return MyGUI::IntPoint();
 	}
 
 }

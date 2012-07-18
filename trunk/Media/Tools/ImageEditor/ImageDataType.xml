@@ -63,8 +63,8 @@
 				</Property>
 				<Property>
 					<Name>Size</Name>
-					<Type>PropertyInt2Control</Type>
-					<Default>0 0</Default>
+					<Type>PropertyInt4Control</Type>
+					<Default>0 0 0 0</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
 					<Action>ChangeValueAction</Action>
