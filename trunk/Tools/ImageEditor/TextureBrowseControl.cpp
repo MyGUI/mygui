@@ -6,14 +6,29 @@
 
 #include "Precompiled.h"
 #include "TextureBrowseControl.h"
+#include "FactoryManager.h"
 
 namespace tools
 {
 
+	FACTORY_ITEM_ATTRIBUTE(TextureBrowseControl)
+
 	TextureBrowseControl::TextureBrowseControl() :
 		mTextures(nullptr)
 	{
-		initialiseByAttributes(this);
+	}
+
+	TextureBrowseControl::~TextureBrowseControl()
+	{
+		MyGUI::ItemBox* box = mTextures->getItemBox();
+		box->eventChangeItemPosition -= MyGUI::newDelegate(this, &TextureBrowseControl::notifyChangeItemPosition);
+	}
+
+	void TextureBrowseControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::OnInitialise(_parent, _place, GetLayoutName(this));
+
+		InitialiseByAttributes(this);
 
 		setDialogRoot(mMainWidget);
 
@@ -30,12 +45,6 @@ namespace tools
 		box->eventChangeItemPosition += MyGUI::newDelegate(this, &TextureBrowseControl::notifyChangeItemPosition);
 
 		mMainWidget->setVisible(false);
-	}
-
-	TextureBrowseControl::~TextureBrowseControl()
-	{
-		MyGUI::ItemBox* box = mTextures->getItemBox();
-		box->eventChangeItemPosition -= MyGUI::newDelegate(this, &TextureBrowseControl::notifyChangeItemPosition);
 	}
 
 	void TextureBrowseControl::onDoModal()

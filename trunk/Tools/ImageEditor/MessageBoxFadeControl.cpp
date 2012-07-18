@@ -7,24 +7,33 @@
 #include "Precompiled.h"
 #include "MessageBoxFadeControl.h"
 #include "MessageBoxManager.h"
+#include "FactoryManager.h"
 
 namespace tools
 {
 
+	FACTORY_ITEM_ATTRIBUTE(MessageBoxFadeControl)
+
 	MessageBoxFadeControl::MessageBoxFadeControl() :
-		wraps::BaseLayout("MessageBoxFadeControl.layout"),
 		mMaxAlpha(1)
 	{
-		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &MessageBoxFadeControl::notifyFrameStart);
-
-		mMaxAlpha = mMainWidget->getAlpha();
-		mMainWidget->setAlpha(0);
 	}
 
 	MessageBoxFadeControl::~MessageBoxFadeControl()
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &MessageBoxFadeControl::notifyFrameStart);
 	}
+
+	void MessageBoxFadeControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::OnInitialise(_parent, _place, _layoutName);
+
+		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &MessageBoxFadeControl::notifyFrameStart);
+
+		mMaxAlpha = mMainWidget->getAlpha();
+		mMainWidget->setAlpha(0);
+	}
+
 
 	void MessageBoxFadeControl::notifyFrameStart(float _time)
 	{

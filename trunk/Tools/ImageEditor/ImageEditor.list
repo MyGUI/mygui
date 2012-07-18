@@ -285,22 +285,12 @@ SOURCE_GROUP("Controls" FILES
   SettingsResourcesControl.h
   SettingsWindow.cpp
   SettingsWindow.h
-  StateTextureControl.cpp
-  StateTextureControl.h
   TextFieldControl.cpp
   TextFieldControl.h
   TextureBrowseCell.cpp
   TextureBrowseCell.h
   TextureBrowseControl.cpp
   TextureBrowseControl.h
-  TextureControl.cpp
-  TextureControl.h
-  TextureToolControl.cpp
-  TextureToolControl.h
-  VerticalSelectorBlackControl.cpp
-  VerticalSelectorBlackControl.h
-  VerticalSelectorControl.cpp
-  VerticalSelectorControl.h
 )
 SOURCE_GROUP("Controls\\Animations" FILES
   AnimationInfo.cpp
@@ -377,6 +367,18 @@ SOURCE_GROUP("Controls\\old" FILES
   StateListControl.h
   StatePropertyControl.cpp
   StatePropertyControl.h
+  StateTextureControl.cpp
+  StateTextureControl.h
+  TestWindow.cpp
+  TestWindow.h
+  TextureControl.cpp
+  TextureControl.h
+  TextureToolControl.cpp
+  TextureToolControl.h
+  VerticalSelectorBlackControl.cpp
+  VerticalSelectorBlackControl.h
+  VerticalSelectorControl.cpp
+  VerticalSelectorControl.h
 )
 SOURCE_GROUP("Data" FILES
   Data.cpp
@@ -391,6 +393,8 @@ SOURCE_GROUP("Data" FILES
   DataTypeManager.h
   DataTypeProperty.cpp
   DataTypeProperty.h
+)
+SOURCE_GROUP("Data\\old" FILES
   ItemHolder.h
   RegionItem.cpp
   RegionItem.h
@@ -414,8 +418,6 @@ SOURCE_GROUP("Managers" FILES
   RecentFilesManager.h
   ScopeManager.cpp
   ScopeManager.h
-  SkinManager.cpp
-  SkinManager.h
 )
 SOURCE_GROUP("Managers\\Commands" FILES
   CommandManager.cpp
@@ -446,9 +448,15 @@ SOURCE_GROUP("Managers\\Settings" FILES
   SettingsSector.cpp
   SettingsSector.h
 )
+SOURCE_GROUP("Managers\\old" FILES
+  SkinManager.cpp
+  SkinManager.h
+)
 SOURCE_GROUP("Properties" FILES
   Property.cpp
   Property.h
+)
+SOURCE_GROUP("Properties\\old" FILES
   PropertyAdvisor.h
   PropertySet.cpp
   PropertySet.h
@@ -463,13 +471,12 @@ SOURCE_GROUP("States" FILES
   StateController.h
   StateManager.cpp
   StateManager.h
+)
+SOURCE_GROUP("States\\old" FILES
   TestState.cpp
   TestState.h
-  TestWindow.cpp
-  TestWindow.h
 )
 SOURCE_GROUP("Utility" FILES
-  Binary.h
   Localise.h
   PropertyUtility.cpp
   PropertyUtility.h
@@ -478,4 +485,7 @@ SOURCE_GROUP("Utility" FILES
   pugixml.cpp
   pugixml.hpp
   sigslot.h
+)
+SOURCE_GROUP("Utility\\old" FILES
+  Binary.h
 )

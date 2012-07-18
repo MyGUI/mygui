@@ -49,6 +49,7 @@ namespace tools
 		}
 
 		mTextFieldControl = new TextFieldControl();
+		mTextFieldControl->Initialise();
 		mTextFieldControl->eventEndDialog = MyGUI::newDelegate(this, &ListBoxDataControl::notifyEndDialog);
 
 		assignWidget(mHelpPanel, "HelpPanel", false, false);

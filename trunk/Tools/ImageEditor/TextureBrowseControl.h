@@ -11,6 +11,7 @@
 #include "Dialog.h"
 #include "ItemBox/BaseItemBox.h"
 #include "TextureBrowseCell.h"
+#include "Control.h"
 
 namespace tools
 {
@@ -18,7 +19,7 @@ namespace tools
 	ATTRIBUTE_CLASS_LAYOUT(TextureBrowseControl, "TextureBrowseControl.layout");
 	class TextureBrowseControl :
 		public Dialog,
-		public wraps::BaseLayout
+		public Control
 	{
 	public:
 		TextureBrowseControl();
@@ -30,6 +31,8 @@ namespace tools
 		void setTextures(const MyGUI::VectorString& _textures);
 
 	protected:
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+
 		virtual void onDoModal();
 		virtual void onEndModal();
 

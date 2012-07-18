@@ -6,16 +6,37 @@
 
 #include "Precompiled.h"
 #include "TextFieldControl.h"
+#include "FactoryManager.h"
 
 namespace tools
 {
 
+	FACTORY_ITEM_ATTRIBUTE(TextFieldControl)
+
 	TextFieldControl::TextFieldControl() :
-		wraps::BaseLayout("TextField.layout"),
 		mText(nullptr),
 		mOk(nullptr),
 		mCancel(nullptr)
 	{
+	}
+
+	TextFieldControl::~TextFieldControl()
+	{
+		mMainWidget->eventRootKeyChangeFocus -= MyGUI::newDelegate(this, &TextFieldControl::notifyRootKeyChangeFocus);
+
+		mOk->eventMouseButtonClick -= MyGUI::newDelegate(this, &TextFieldControl::notifyOk);
+		mCancel->eventMouseButtonClick -= MyGUI::newDelegate(this, &TextFieldControl::notifyCancel);
+		mText->eventEditSelectAccept -= MyGUI::newDelegate(this, &TextFieldControl::notifyTextAccept);
+
+		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
+		if (window != nullptr)
+			window->eventWindowButtonPressed -= MyGUI::newDelegate(this, &TextFieldControl::notifyWindowButtonPressed);
+	}
+
+	void TextFieldControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::OnInitialise(_parent, _place, "TextField.layout");
+
 		setDialogRoot(mMainWidget);
 
 		assignWidget(mText, "Text");
@@ -33,19 +54,6 @@ namespace tools
 			window->eventWindowButtonPressed += MyGUI::newDelegate(this, &TextFieldControl::notifyWindowButtonPressed);
 
 		mMainWidget->setVisible(false);
-	}
-
-	TextFieldControl::~TextFieldControl()
-	{
-		mMainWidget->eventRootKeyChangeFocus -= MyGUI::newDelegate(this, &TextFieldControl::notifyRootKeyChangeFocus);
-
-		mOk->eventMouseButtonClick -= MyGUI::newDelegate(this, &TextFieldControl::notifyOk);
-		mCancel->eventMouseButtonClick -= MyGUI::newDelegate(this, &TextFieldControl::notifyCancel);
-		mText->eventEditSelectAccept -= MyGUI::newDelegate(this, &TextFieldControl::notifyTextAccept);
-
-		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
-		if (window != nullptr)
-			window->eventWindowButtonPressed -= MyGUI::newDelegate(this, &TextFieldControl::notifyWindowButtonPressed);
 	}
 
 	void TextFieldControl::notifyOk(MyGUI::Widget* _sender)

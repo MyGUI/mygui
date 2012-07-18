@@ -48,6 +48,7 @@ namespace tools
 		mComboBox->beginToItemFirst();
 
 		mTextureBrowseControl = new TextureBrowseControl();
+		mTextureBrowseControl->Initialise();
 		mTextureBrowseControl->eventEndDialog = MyGUI::newDelegate(this, &PropertyTexturesControl::notifyEndDialog);
 		mTextureBrowseControl->setTextures(mTextures);
 

@@ -55,6 +55,7 @@ namespace tools
 		mMainPane->Initialise("MainPane.layout");
 
 		mMessageBoxFadeControl = new MessageBoxFadeControl();
+		mMessageBoxFadeControl->Initialise("MessageBoxFadeControl.layout");
 
 		mSettingsWindow = new SettingsWindow();
 		mSettingsWindow->Initialise("SettingsWindow.layout");
