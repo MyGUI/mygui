@@ -41,6 +41,7 @@ namespace tools
 		void notifyMouseButtonClickCancel(MyGUI::Widget* _sender);
 		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
 		void notifyChangeItemPosition(MyGUI::ItemBox* _sender, size_t _index);
+		void notifySelectItemAccept(MyGUI::ItemBox* _sender, size_t _index);
 
 	private:
 		ATTRIBUTE_FIELD_WIDGET_NAME(TextureBrowseControl, mOk, "OK");
