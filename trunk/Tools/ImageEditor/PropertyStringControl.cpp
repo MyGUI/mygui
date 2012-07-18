@@ -48,7 +48,8 @@ namespace tools
 		if (proper != nullptr)
 		{
 			mEdit->setEnabled(!proper->getType()->getReadOnly());
-			mEdit->setCaption(proper->getValue());
+			if (mEdit->getOnlyText() != proper->getValue())
+				mEdit->setCaption(proper->getValue());
 		}
 		else
 		{

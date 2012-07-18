@@ -17,13 +17,14 @@
 					<Type>PropertyStringControl</Type>
 					<Default>unnamed</Default>
 					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
 					<Action>ActionRenameData</Action>
 				</Property>
 				<Property>
 					<Name>UniqueName</Name>
 					<Type>PropertyBoolControl</Type>
 					<Default>True</Default>
-					<Visible>true</Visible>
+					<Visible>false</Visible>
 					<ReadOnly>true</ReadOnly>
 					<Action>ChangeValueAction</Action>
 				</Property>
@@ -42,13 +43,14 @@
 					<Type>PropertyStringControl</Type>
 					<Default>unnamed</Default>
 					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
 					<Action>ActionRenameData</Action>
 				</Property>
 				<Property>
 					<Name>UniqueName</Name>
 					<Type>PropertyBoolControl</Type>
 					<Default>True</Default>
-					<Visible>true</Visible>
+					<Visible>false</Visible>
 					<ReadOnly>true</ReadOnly>
 					<Action>ChangeValueAction</Action>
 				</Property>
@@ -56,6 +58,7 @@
 					<Name>Texture</Name>
 					<Type>PropertyTexturesControl</Type>
 					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
 					<Action>ChangeValueAction</Action>
 				</Property>
 				<Property>
@@ -63,6 +66,7 @@
 					<Type>PropertyInt2Control</Type>
 					<Default>0 0</Default>
 					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
 					<Action>ChangeValueAction</Action>
 				</Property>
 			</Properties>
@@ -80,13 +84,14 @@
 					<Type>PropertyStringControl</Type>
 					<Default>unnamed</Default>
 					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
 					<Action>ActionRenameData</Action>
 				</Property>
 				<Property>
 					<Name>UniqueName</Name>
 					<Type>PropertyBoolControl</Type>
 					<Default>True</Default>
-					<Visible>true</Visible>
+					<Visible>false</Visible>
 					<ReadOnly>true</ReadOnly>
 					<Action>ChangeValueAction</Action>
 				</Property>
@@ -95,6 +100,7 @@
 					<Type>PropertyFloatControl</Type>
 					<Default>0</Default>
 					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
 					<Action>ChangeValueAction</Action>
 				</Property>
 			</Properties>
@@ -112,6 +118,7 @@
 					<Type>PropertyInt2Control</Type>
 					<Default>0 0</Default>
 					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
 					<Action>ChangeValueAction</Action>
 				</Property>
 				<Property>
@@ -119,6 +126,7 @@
 					<Type>PropertyIntControl</Type>
 					<Default>1</Default>
 					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
 					<Action>ChangeValueAction</Action>
 				</Property>
 			</Properties>
