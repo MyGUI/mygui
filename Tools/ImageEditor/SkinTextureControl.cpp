@@ -43,6 +43,7 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_GridSizeBottom", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridSizeBottom));
 
 		updateCaption();
+		updateTexture(); // FIXME добавил
 	}
 
 	SkinTextureControl::~SkinTextureControl()
@@ -74,7 +75,8 @@ namespace tools
 		//if (getCurrentSkin() != nullptr)
 			//texture = getCurrentSkin()->getPropertySet()->getPropertyValue("Texture");
 
-		setTextureName(texture);
+		//setTextureName(texture);
+		setTextureName("MyGUI_Dark.png");
 	}
 
 	void SkinTextureControl::updateCoord()

@@ -2,7 +2,7 @@
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Widget" skin="PanelEmpty" position="16 40 248 464" align="Stretch" layer="Overlapped" name="Root">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="ScrollView" skin="ScrollView_Dark" position="0 0 248 464" align="Stretch" name="View">
+        <Widget type="ScrollView" skin="ScrollViewEmpty_Dark" position="0 0 248 464" align="Stretch" name="View">
             <Property key="CanvasAlign" value="Center"/>
             <Property key="CanvasSize" value="256 256"/>
             <Widget type="Widget" skin="BackgroundTile" position="0 0 256 256" align="Stretch">

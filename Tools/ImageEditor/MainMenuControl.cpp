@@ -17,7 +17,8 @@ namespace tools
 	FACTORY_ITEM_ATTRIBUTE(MainMenuControl)
 
 	MainMenuControl::MainMenuControl() :
-		mMainMenu(nullptr)
+		mMainMenu(nullptr),
+		mScaleMenu(nullptr)
 	{
 	}
 
@@ -31,6 +32,10 @@ namespace tools
 		Control::OnInitialise(_parent, _place, _layoutName);
 
 		assignWidget(mMainMenu, "MainMenu");
+
+		mScaleMenu = mMainMenu->findItemById("Scale");
+
+		CommandManager::getInstance().registerCommand("Command_UpdateAppCaption", MyGUI::newDelegate(this, &MainMenuControl::command_UpdateAppCaption));
 
 		mMainMenu->eventMenuCtrlAccept += MyGUI::newDelegate(this, &MainMenuControl::notifyMenuCtrlAccept);
 
@@ -64,6 +69,24 @@ namespace tools
 					addUserTag("IndexRecentFile", MyGUI::utility::toString(index));
 					addUserTag("RecentFile", *iter);
 					recentFilesMenu->getItemChild()->addItem(replaceTags("FormatRecentFile"), MyGUI::MenuItemType::Normal, "Command_RecentFiles", *iter);
+				}
+			}
+		}
+	}
+
+	void MainMenuControl::command_UpdateAppCaption(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (mScaleMenu != nullptr)
+		{
+			MyGUI::MenuControl* menu = mScaleMenu->getItemChild();
+			if (menu != nullptr)
+			{
+				int value = MyGUI::utility::parseValue<int>(replaceTags("CurrentScale"));
+				std::string id = MyGUI::utility::toString("Command_ChangeScale", ".", value);
+				for (size_t index = 0; index < menu->getItemCount(); index ++)
+				{
+					MyGUI::MenuItem* item = menu->getItemAt(index);
+					item->setItemChecked(item->getItemId() == id);
 				}
 			}
 		}
