@@ -7,17 +7,17 @@
 #include "Precompiled.h"
 #include "PropertyInt4Control.h"
 #include "Localise.h"
+#include "FactoryManager.h"
 
-/*namespace tools
+namespace tools
 {
 
-	PropertyInt4Control::PropertyInt4Control(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("PropertyEditControl.layout", _parent),
+	FACTORY_ITEM_ATTRIBUTE(PropertyInt4Control)
+
+	PropertyInt4Control::PropertyInt4Control() :
+		mName(nullptr),
 		mEdit(nullptr)
 	{
-		assignWidget(mEdit, "Edit");
-
-		mEdit->eventEditTextChange += MyGUI::newDelegate(this, &PropertyInt4Control::notifyEditTextChange);
 	}
 
 	PropertyInt4Control::~PropertyInt4Control()
@@ -25,13 +25,31 @@
 		mEdit->eventEditTextChange -= MyGUI::newDelegate(this, &PropertyInt4Control::notifyEditTextChange);
 	}
 
+	void PropertyInt4Control::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::OnInitialise(_parent, _place, "PropertyEditControl.layout");
+
+		assignWidget(mName, "Name", false);
+		assignWidget(mEdit, "Edit");
+
+		mEdit->eventEditTextChange += MyGUI::newDelegate(this, &PropertyInt4Control::notifyEditTextChange);
+	}
+
+	void PropertyInt4Control::updateCaption()
+	{
+		Property* proper = getProperty();
+		if (proper != nullptr)
+			mName->setCaption(proper->getType()->getName());
+	}
+
 	void PropertyInt4Control::updateProperty()
 	{
 		Property* proper = getProperty();
 		if (proper != nullptr)
 		{
-			mEdit->setEnabled(!proper->getReadOnly());
-			mEdit->setCaption(proper->getValue());
+			mEdit->setEnabled(!proper->getType()->getReadOnly());
+			if (mEdit->getOnlyText() != proper->getValue())
+				mEdit->setCaption(proper->getValue());
 
 			bool validate = isValidate();
 			setColour(validate);
@@ -50,7 +68,7 @@
 		{
 			bool validate = isValidate();
 			if (validate)
-				proper->setValue(getClearValue(), getTypeName());
+				executeAction(getClearValue());
 
 			setColour(validate);
 		}
@@ -95,4 +113,4 @@
 		mEdit->setTextCursor(index);
 	}
 
-}*/
+}

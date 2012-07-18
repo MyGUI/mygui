@@ -10,6 +10,8 @@
 #include "CommandManager.h"
 #include "Localise.h"
 #include "GridManager.h"
+#include "DataSelectorManager.h"
+#include "DataManager.h"
 
 // FIXME времено включен
 namespace tools
@@ -17,7 +19,8 @@ namespace tools
 
 	SkinTextureControl::SkinTextureControl(MyGUI::Widget* _parent) :
 		TextureToolControl(_parent),
-		mAreaSelectorControl(nullptr)
+		mAreaSelectorControl(nullptr),
+		mParentData(nullptr)
 	{
 		mTypeName = MyGUI::utility::toString((size_t)this);
 
@@ -43,61 +46,16 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_GridSizeBottom", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridSizeBottom));
 
 		updateCaption();
-		updateTexture(); // FIXME добавил
+
+		std::string parentType = "Image";
+		DataSelectorManager::getInstance().getEvent(parentType)->connect(this, &SkinTextureControl::notifyChangeDataSelector);
+		mParentData = DataManager::getInstance().getSelectedDataByType(parentType);
+		notifyChangeDataSelector(mParentData, false);
 	}
 
 	SkinTextureControl::~SkinTextureControl()
 	{
 		mAreaSelectorControl->eventChangePosition.disconnect(this);
-	}
-
-	/*void SkinTextureControl::updateSkinProperty(Property* _sender, const MyGUI::UString& _owner)
-	{
-		if (_owner != mTypeName)
-		{
-			if (_sender->getName() == "Texture")
-				updateTexture();
-			else if (_sender->getName() == "Coord")
-				updateCoord();
-		}
-	}*/
-
-	void SkinTextureControl::updateSkinProperties()
-	{
-		updateTexture();
-		updateCoord();
-	}
-
-	void SkinTextureControl::updateTexture()
-	{
-		MyGUI::UString texture;
-
-		//if (getCurrentSkin() != nullptr)
-			//texture = getCurrentSkin()->getPropertySet()->getPropertyValue("Texture");
-
-		//setTextureName(texture);
-		setTextureName("MyGUI_Dark.png");
-	}
-
-	void SkinTextureControl::updateCoord()
-	{
-		MyGUI::UString value;
-
-		//if (getCurrentSkin() != nullptr)
-			//value = getCurrentSkin()->getPropertySet()->getPropertyValue("Coord");
-
-		MyGUI::IntCoord coord;
-		if (MyGUI::utility::parseComplex(value, coord.left, coord.top, coord.width, coord.height))
-		{
-			mAreaSelectorControl->setVisible(true);
-
-			mCoordValue = coord;
-			mAreaSelectorControl->setCoord(mCoordValue);
-		}
-		else
-		{
-			mAreaSelectorControl->setVisible(false);
-		}
 	}
 
 	void SkinTextureControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
@@ -112,8 +70,7 @@ namespace tools
 	{
 		mAreaSelectorControl->setCoord(mCoordValue);
 
-		//if (getCurrentSkin() != nullptr)
-			//getCurrentSkin()->getPropertySet()->setPropertyValue("Coord", mCoordValue.print(), mTypeName);
+		setValue(mCoordValue.print());
 	}
 
 	void SkinTextureControl::CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result)
@@ -341,8 +298,7 @@ namespace tools
 			}
 		}
 
-		//if (getCurrentSkin() != nullptr)
-			//getCurrentSkin()->getPropertySet()->setPropertyValue("Coord", mCoordValue.print(), mTypeName);
+		setValue(mCoordValue.print());
 	}
 
 	void SkinTextureControl::onChangeScale()
@@ -365,6 +321,72 @@ namespace tools
 	{
 		if (getActivate())
 			updateCaption();
+	}
+
+	void SkinTextureControl::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
+	{
+		mParentData = _data;
+
+		std::string texture;
+		std::string coord;
+
+		if (mParentData != nullptr)
+		{
+			Data* data = mParentData->getChildSelected();
+			if (data != nullptr)
+			{
+				Property* property = data->getProperties().find("Texture")->second;
+				texture = property->getValue();
+
+				if (!property->eventChangeProperty.compare(this, &SkinTextureControl::notifyChangeProperty))
+					property->eventChangeProperty.connect(this, &SkinTextureControl::notifyChangeProperty);
+
+				property = data->getProperties().find("Size")->second;
+				coord = property->getValue();
+
+				if (!property->eventChangeProperty.compare(this, &SkinTextureControl::notifyChangeProperty))
+					property->eventChangeProperty.connect(this, &SkinTextureControl::notifyChangeProperty);
+			}
+		}
+
+		setTextureName(texture);
+		updateCoord(coord);
+	}
+
+	void SkinTextureControl::notifyChangeProperty(Property* _sender)
+	{
+		if (mParentData != nullptr && mParentData->getChildSelected() == _sender->getOwner())
+		{
+			if (_sender->getType()->getName() == "Texture")
+				setTextureName(_sender->getValue());
+			else if (_sender->getType()->getName() == "Size")
+				updateCoord(_sender->getValue());
+		}
+	}
+
+	void SkinTextureControl::setValue(const std::string& _value)
+	{
+		//if (getCurrentSkin() != nullptr)
+			//getCurrentSkin()->getPropertySet()->setPropertyValue("Coord", _value, mTypeName);
+	}
+
+	void SkinTextureControl::updateCoord(const std::string& _value)
+	{
+		MyGUI::IntCoord coord;
+		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))
+		{
+			if (mCoordValue != coord)
+			{
+				mAreaSelectorControl->setVisible(true);
+
+				mCoordValue = coord;
+				mAreaSelectorControl->setCoord(mCoordValue);
+			}
+		}
+		else
+		{
+			mAreaSelectorControl->setVisible(false);
+		}
 	}
 
 }
