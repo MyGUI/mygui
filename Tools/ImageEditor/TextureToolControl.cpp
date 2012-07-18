@@ -10,7 +10,7 @@
 #include "SettingsManager.h"
 #include "CommandManager.h"
 
-/*namespace tools
+namespace tools
 {
 
 	TextureToolControl::TextureToolControl(MyGUI::Widget* _parent) :
@@ -160,4 +160,4 @@
 	{
 	}
 
-}*/
+}

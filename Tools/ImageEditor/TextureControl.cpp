@@ -8,7 +8,7 @@
 #include "TextureControl.h"
 #include "Localise.h"
 
-/*namespace tools
+namespace tools
 {
 
 	TextureControl::TextureControl(const std::string& _layout, MyGUI::Widget* _parent) :
@@ -273,4 +273,4 @@
 		return mScaleValue;
 	}
 
-}*/
+}

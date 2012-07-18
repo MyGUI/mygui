@@ -13,12 +13,13 @@
 #include "AreaSelectorControl.h"
 #include "PropertyAdvisor.h"
 
-/*namespace tools
+// FIXME времено включен
+namespace tools
 {
 
 	class SkinTextureControl :
 		public TextureToolControl,
-		public PropertyAdvisor
+		public sigslot::has_slots<>
 	{
 	public:
 		SkinTextureControl(MyGUI::Widget* _parent);
@@ -34,10 +35,10 @@
 		void notifyChangeSelection();
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
 
-		virtual void updateSkinProperty(Property* _sender, const MyGUI::UString& _owner);
+		//virtual void updateSkinProperty(Property* _sender, const MyGUI::UString& _owner);
 		virtual void updateSkinProperties();
 
-		void notifyChangePosition();
+		void notifyChangePosition(SelectorControl* _sender);
 
 		void updateTexture();
 		void updateCoord();
@@ -71,6 +72,6 @@
 		MyGUI::IntCoord mCoordValue;
 	};
 
-}*/
+}
 
 #endif
