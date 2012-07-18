@@ -106,6 +106,7 @@ namespace MyGUI
 			(*iter)->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
 			(*iter)->eventMouseButtonReleased += newDelegate(this, &Window::notifyMouseReleased);
 			(*iter)->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
+			(*iter)->eventMouseWheel += newDelegate(this, &Window::notifyMouseWheel);
 		}
 
 		const size_t countNames = 8;
@@ -124,6 +125,7 @@ namespace MyGUI
 				widget->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
 				widget->eventMouseButtonReleased += newDelegate(this, &Window::notifyMouseReleased);
 				widget->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
+				widget->eventMouseWheel += newDelegate(this, &Window::notifyMouseWheel);
 				widget->setUserString("Action", resizers[1][index]);
 			}
 		}
@@ -616,6 +618,12 @@ namespace MyGUI
 	bool Window::getMovable() const
 	{
 		return mMovable;
+	}
+
+	void Window::notifyMouseWheel(MyGUI::Widget* _sender, int _rel)
+	{
+		onMouseWheel(_rel);
+		eventMouseWheel(_sender, _rel);
 	}
 
 } // namespace MyGUI
