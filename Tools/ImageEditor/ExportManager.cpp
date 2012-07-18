@@ -109,7 +109,10 @@ namespace tools
 		Data* data = new Data();
 		data->setType(DataTypeManager::getInstance().getType("Frame"));
 		data->setPropertyValue("Point", _node.attribute("point").value());
-		data->setPropertyValue("Count", _node.attribute("count").value());
+		std::string value = _node.attribute("count").value();
+		if (value.empty())
+			value = "1";
+		data->setPropertyValue("Count", value);
 
 		_parent->addChild(data);
 	}
