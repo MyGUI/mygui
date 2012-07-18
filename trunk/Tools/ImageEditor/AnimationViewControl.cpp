@@ -95,7 +95,7 @@ namespace tools
 		if (mParentData != nullptr)
 		{
 			mAnimation.setTextureName(mParentData->getParent()->getPropertyValue("Texture"));
-			mAnimation.setSize(MyGUI::IntSize::parse(mParentData->getParent()->getPropertyValue("Size")));
+			mAnimation.setSize(MyGUI::IntCoord::parse(mParentData->getParent()->getPropertyValue("Size")).size());
 			mAnimation.setRate(MyGUI::utility::parseValue<float>(mParentData->getPropertyValue("Rate")));
 
 			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
