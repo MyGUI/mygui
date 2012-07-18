@@ -514,4 +514,46 @@
             </Widget>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="ScrollViewEmpty_Dark" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="5 5 55 55" name="Root">
+            <UserString key="LE_TargetWidgetType" value="ScrollView"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 0 41 41" align="Stretch" name="Client"/>
+            <Widget type="ScrollBar" skin="ScrollBarV2_Dark" position="41 0 14 41" align="Right VStretch" name="VScroll"/>
+            <Widget type="ScrollBar" skin="ScrollBarH2_Dark" position="0 41 41 14" align="HStretch Bottom" name="HScroll"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ScrollBarH2_Dark" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="25 50 125 14" name="Root">
+            <Property key="VerticalAlignment" value="false"/>
+            <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
+            <Widget type="Widget" skin="PanelEmpty" position="11 0 103 14" align="Stretch" name="TrackPlace">
+                <Property key="NeedKey" value="false"/>
+                <Property key="InheritsPick" value="true"/>
+                <Widget type="Button" skin="ScrollBarTrackH2Skin_Dark" position="40 3 15 8" align="Left VStretch" name="Track">
+                    <UserString key="MinTrackSize" value="10"/>
+                </Widget>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 40 14" align="Left VStretch" name="FirstPart"/>
+                <Widget type="Widget" skin="PanelEmpty" position="55 0 48 14" align="Left VStretch" name="SecondPart"/>
+            </Widget>
+            <Widget type="Button" skin="ScrollBarLeft2Skin_Dark" position="2 2 6 10" align="Left VCenter" name="Start"/>
+            <Widget type="Button" skin="ScrollBarRight2Skin_Dark" position="117 2 6 10" align="Right VCenter" name="End"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ScrollBarV2_Dark" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="25 50 14 125" name="Root">
+            <Property key="VerticalAlignment" value="true"/>
+            <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 10 14 105" align="Stretch" name="TrackPlace">
+                <Property key="NeedKey" value="false"/>
+                <Property key="InheritsPick" value="true"/>
+                <Widget type="Button" skin="ScrollBarTrackV2Skin_Dark" position="3 45 8 15" align="HStretch Top" name="Track">
+                    <UserString key="MinTrackSize" value="10"/>
+                </Widget>
+                <Widget type="Widget" skin="PanelEmpty" position="0 0 14 45" align="HStretch Top" name="FirstPart"/>
+                <Widget type="Widget" skin="PanelEmpty" position="0 60 14 45" align="HStretch Top" name="SecondPart"/>
+            </Widget>
+            <Widget type="Button" skin="ScrollBarUp2Skin_Dark" position="2 2 10 6" align="HCenter Top" name="Start"/>
+            <Widget type="Button" skin="ScrollBarDown2Skin_Dark" position="2 117 10 6" align="HCenter Bottom" name="End"/>
+        </Widget>
+    </Resource>
 </MyGUI>

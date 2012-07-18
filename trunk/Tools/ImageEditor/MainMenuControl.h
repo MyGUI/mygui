@@ -24,11 +24,13 @@ namespace tools
 
 	private:
 		void notifyMenuCtrlAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item);
+		void command_UpdateAppCaption(const MyGUI::UString& _commandName, bool& _result);
 
 		void updateRecentFilesMenu();
 
 	private:
 		MyGUI::MenuBar* mMainMenu;
+		MyGUI::MenuItem* mScaleMenu;
 	};
 
 }
