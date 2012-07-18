@@ -5,11 +5,11 @@ set (HEADER_FILES
   TextureView.h
 )
 set (SOURCE_FILES
-  ../../Common/Base/BaseResource.rc
   ../../Common/Precompiled.cpp
   DemoKeeper.cpp
   FontPanel.cpp
   FontView.cpp
+  FontViewer.rc
   TextureView.cpp
 )
 SOURCE_GROUP("Header Files" FILES
@@ -19,9 +19,9 @@ SOURCE_GROUP("Header Files" FILES
   TextureView.h
 )
 SOURCE_GROUP("Resources" FILES
-  ../../Common/Base/BaseResource.rc
   ../../Common/Precompiled.cpp
   CMakeLists.txt
+  FontViewer.rc
 )
 SOURCE_GROUP("Source Files" FILES
   DemoKeeper.cpp

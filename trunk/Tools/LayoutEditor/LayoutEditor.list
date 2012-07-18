@@ -80,7 +80,6 @@ set (HEADER_FILES
   WidgetTypes.h
   WidgetsWindow.h
   WorkspaceControl.h
-  resource.h
 )
 set (SOURCE_FILES
   ../../Common/Precompiled.cpp
@@ -233,7 +232,6 @@ SOURCE_GROUP("Header Files" FILES
   WidgetStyle.h
   WidgetTypes.h
   WorkspaceControl.h
-  resource.h
 )
 SOURCE_GROUP("Panels" FILES
   PanelControllers.cpp
