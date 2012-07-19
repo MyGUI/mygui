@@ -63,10 +63,10 @@ namespace tools
 	private:
 		AreaSelectorControl* mAreaSelectorControl;
 
-		MyGUI::UString mTypeName;
 		MyGUI::IntCoord mCoordValue;
 
 		Data* mParentData;
+		std::string mParentTypeName;
 	};
 
 }
