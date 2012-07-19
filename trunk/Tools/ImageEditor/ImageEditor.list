@@ -118,6 +118,7 @@ set (HEADER_FILES
 )
 set (SOURCE_FILES
   ../../Common/Precompiled.cpp
+  Action.cpp
   ActionChangeDataProperty.cpp
   ActionChangePositionData.cpp
   ActionCreateData.cpp
@@ -227,6 +228,7 @@ set (SOURCE_FILES
   pugixml.hpp
 )
 SOURCE_GROUP("Actions" FILES
+  Action.cpp
   Action.h
   ActionChangeDataProperty.cpp
   ActionChangeDataProperty.h

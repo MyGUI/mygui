@@ -28,7 +28,7 @@ namespace tools
 		return true;
 	}
 
-	void PropertyUtility::executeAction(Property* _property, const std::string& _value)
+	void PropertyUtility::executeAction(Property* _property, const std::string& _value, bool _merge)
 	{
 		if (_property->getValue() == _value)
 			return;
@@ -43,6 +43,7 @@ namespace tools
 			{
 				action->setProperty(_property);
 				action->setValue(_value);
+				action->setMerge(_merge);
 
 				ActionManager::getInstance().doAction(action);
 				return;

@@ -16,11 +16,18 @@ namespace tools
 		public components::IFactoryItem
 	{
 	public:
-		Action() { }
-		virtual ~Action() { }
+		Action();
+		virtual ~Action();
 
-		virtual void doAction()  { }
-		virtual void undoAction() { }
+		virtual void doAction();
+		virtual void undoAction();
+		virtual bool doMerge();
+
+		void setMerge(bool _value);
+		bool getMerge() const;
+
+	private:
+		bool mMerge;
 	};
 
 }
