@@ -253,11 +253,6 @@ SOURCE_GROUP("Application" FILES
   MyGUI_FilterNoneSkin.cpp
   MyGUI_FilterNoneSkin.h
 )
-SOURCE_GROUP("Controllers" FILES
-  GroupTextureController.cpp
-  GroupTextureController.h
-  IControlController.h
-)
 SOURCE_GROUP("Controls" FILES
   AnimationViewControl.cpp
   AnimationViewControl.h
@@ -315,6 +310,11 @@ SOURCE_GROUP("Controls" FILES
 SOURCE_GROUP("Controls\\Animations" FILES
   AnimationInfo.cpp
   AnimationInfo.h
+)
+SOURCE_GROUP("Controls\\Controllers" FILES
+  GroupTextureController.cpp
+  GroupTextureController.h
+  IControlController.h
 )
 SOURCE_GROUP("Controls\\Properties" FILES
   PropertyBoolControl.cpp

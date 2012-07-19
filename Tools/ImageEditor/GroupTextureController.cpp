@@ -118,6 +118,8 @@ namespace tools
 					DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &GroupTextureController::notifyChangeDataSelector);
 					mParentData = DataManager::getInstance().getSelectedDataByType(mParentTypeName);
 					notifyChangeDataSelector(mParentData, false);
+
+					mControl->getRoot()->setUserString("CurrentScopeController", mParentTypeName);
 				}
 
 				mActivated = true;
@@ -133,7 +135,14 @@ namespace tools
 
 					DataSelectorManager::getInstance().getEvent(mParentTypeName)->disconnect(this);
 					mParentData = nullptr;
-					notifyChangeDataSelector(mParentData, false);
+
+					// мы еще владельцы контрола сбрасываем его
+					std::string value = mControl->getRoot()->getUserString("CurrentScopeController");
+					if (value == mParentTypeName)
+					{
+						mControl->getRoot()->setUserString("CurrentScopeController", "");
+						notifyChangeDataSelector(mParentData, false);
+					}
 				}
 
 				mActivated = false;
