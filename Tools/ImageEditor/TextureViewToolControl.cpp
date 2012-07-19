@@ -30,7 +30,7 @@ namespace tools
 
 		assignWidget(mPlace, "Place");
 
-		mTextureTool = new SkinTextureControl(mPlace);
+		mTextureTool = new ScopeTextureControl(mPlace);
 	}
 
 }
