@@ -9,6 +9,7 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "IFactoryItem.h"
+#include "IControlController.h"
 
 namespace tools
 {
@@ -30,6 +31,23 @@ namespace tools
 		const VectorControl& getChilds() const;
 
 		void SendCommand(const std::string& _command);
+
+		template <typename Type>
+		Type* findControl()
+		{
+			Type* result = dynamic_cast<Type*>(this);
+			if (result != nullptr)
+				return result;
+
+			for (VectorControl::iterator child = mChilds.begin(); child != mChilds.end(); child ++)
+			{
+				result = (*child)->findControl<Type>();
+				if (result != nullptr)
+					return result;
+			}
+
+			return nullptr;
+		}
 
 	protected:
 		template <typename Type>
@@ -63,6 +81,9 @@ namespace tools
 	private:
 		void CreateChilds(Control* _parent, MyGUI::Widget* _widget);
 		void AdviceWidget(MyGUI::Widget* _widget);
+		void CreateControllers();
+		void ActivateControllers();
+		void DeactivateControllers();
 
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 		void notifyTabChangeSelect(MyGUI::TabControl* _sender, size_t _index);
@@ -74,6 +95,8 @@ namespace tools
 	private:
 		VectorControl mChilds;
 		Control* mParent;
+		typedef std::vector<IControlController*> VectorController;
+		VectorController mControllers;
 	};
 
 }

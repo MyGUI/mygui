@@ -10,6 +10,7 @@
 #include "DataSelectorManager.h"
 #include "DataManager.h"
 #include "PropertyUtility.h"
+#include "ScopeManager.h"
 
 namespace tools
 {
@@ -18,7 +19,8 @@ namespace tools
 
 	GroupTextureController::GroupTextureController() :
 		mControl(nullptr),
-		mParentData(nullptr)
+		mParentData(nullptr),
+		mActivated(false)
 	{
 	}
 
@@ -28,33 +30,20 @@ namespace tools
 
 	void GroupTextureController::setTarget(Control* _control)
 	{
-		mControl = dynamic_cast<ScopeTextureControl*>(_control);
+		mControl = _control->findControl<ScopeTextureControl>();
 	}
 
 	void GroupTextureController::activate()
 	{
 		mParentTypeName = "Image";
 
-		if (mControl != nullptr)
-		{
-			DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &GroupTextureController::notifyChangeDataSelector);
-			mParentData = DataManager::getInstance().getSelectedDataByType(mParentTypeName);
-			notifyChangeDataSelector(mParentData, false);
-
-			mControl->eventChangeValue.connect(this, &GroupTextureController::notifyChangeValue);
-		}
+		ScopeManager::getInstance().eventChangeScope.connect(this, &GroupTextureController::notifyChangeScope);
+		notifyChangeScope(ScopeManager::getInstance().getCurrentScope());
 	}
 
-	void GroupTextureController::diactivate()
+	void GroupTextureController::deactivate()
 	{
-		if (mControl != nullptr)
-		{
-			mControl->eventChangeValue.disconnect(this);
-
-			DataSelectorManager::getInstance().getEvent(mParentTypeName)->disconnect(this);
-			mParentData = nullptr;
-			notifyChangeDataSelector(mParentData, false);
-		}
+		ScopeManager::getInstance().eventChangeScope.disconnect(this);
 	}
 
 	void GroupTextureController::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
@@ -112,6 +101,42 @@ namespace tools
 			{
 				Property* property = selected->getProperties().find("Size")->second;
 				PropertyUtility::executeAction(property, _value, true);
+			}
+		}
+	}
+
+	void GroupTextureController::notifyChangeScope(const std::string& _scope)
+	{
+		if (_scope == "Group")
+		{
+			if (!mActivated)
+			{
+				if (mControl != nullptr)
+				{
+					mControl->eventChangeValue.connect(this, &GroupTextureController::notifyChangeValue);
+
+					DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &GroupTextureController::notifyChangeDataSelector);
+					mParentData = DataManager::getInstance().getSelectedDataByType(mParentTypeName);
+					notifyChangeDataSelector(mParentData, false);
+				}
+
+				mActivated = true;
+			}
+		}
+		else
+		{
+			if (mActivated)
+			{
+				if (mControl != nullptr)
+				{
+					mControl->eventChangeValue.disconnect(this);
+
+					DataSelectorManager::getInstance().getEvent(mParentTypeName)->disconnect(this);
+					mParentData = nullptr;
+					notifyChangeDataSelector(mParentData, false);
+				}
+
+				mActivated = false;
 			}
 		}
 	}

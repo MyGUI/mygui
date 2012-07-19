@@ -23,17 +23,19 @@ namespace tools
 		virtual void setTarget(Control* _control);
 
 		virtual void activate();
-		virtual void diactivate();
+		virtual void deactivate();
 
 	private:
 		void notifyChangeDataSelector(Data* _data, bool _changeOnlySelection);
 		void notifyChangeProperty(Property* _sender);
 		void notifyChangeValue(const std::string& _value);
+		void notifyChangeScope(const std::string& _scope);
 
 	private:
 		ScopeTextureControl* mControl;
 		std::string mParentTypeName;
 		Data* mParentData;
+		bool mActivated;
 	};
 }
 
