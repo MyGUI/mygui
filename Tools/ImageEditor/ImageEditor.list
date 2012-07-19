@@ -35,10 +35,12 @@ set (HEADER_FILES
   FrameListControl.h
   GridManager.h
   GroupListControl.h
+  GroupTextureController.h
   HorizontalSelectorBlackControl.h
   HorizontalSelectorControl.h
   HotKeyCommand.h
   HotKeyManager.h
+  IControlController.h
   IFactory.h
   IFactoryItem.h
   ImageListControl.h
@@ -79,6 +81,7 @@ set (HEADER_FILES
   RegionPropertyControl.h
   RegionTextureControl.h
   ScopeManager.h
+  ScopeTextureControl.h
   SelectorControl.h
   SeparatorControl.h
   SeparatorItem.h
@@ -96,7 +99,6 @@ set (HEADER_FILES
   SkinItem.h
   SkinManager.h
   SkinPropertyControl.h
-  ScopeTextureControl.h
   StateControl.h
   StateController.h
   StateItem.h
@@ -151,6 +153,7 @@ set (SOURCE_FILES
   FrameListControl.cpp
   GridManager.cpp
   GroupListControl.cpp
+  GroupTextureController.cpp
   HorizontalSelectorBlackControl.cpp
   HorizontalSelectorControl.cpp
   HotKeyManager.cpp
@@ -190,6 +193,7 @@ set (SOURCE_FILES
   RegionPropertyControl.cpp
   RegionTextureControl.cpp
   ScopeManager.cpp
+  ScopeTextureControl.cpp
   SelectorControl.cpp
   SeparatorControl.cpp
   SeparatorItem.cpp
@@ -206,7 +210,6 @@ set (SOURCE_FILES
   SkinItem.cpp
   SkinManager.cpp
   SkinPropertyControl.cpp
-  ScopeTextureControl.cpp
   StateControl.cpp
   StateItem.cpp
   StateListControl.cpp
@@ -252,6 +255,11 @@ SOURCE_GROUP("Application" FILES
   MyGUI_FilterNoneSkin.cpp
   MyGUI_FilterNoneSkin.h
 )
+SOURCE_GROUP("Controllers" FILES
+  GroupTextureController.cpp
+  GroupTextureController.h
+  IControlController.h
+)
 SOURCE_GROUP("Controls" FILES
   AnimationViewControl.cpp
   AnimationViewControl.h
@@ -281,6 +289,8 @@ SOURCE_GROUP("Controls" FILES
   OpenSaveFileDialog.h
   PropertyPanelControl.cpp
   PropertyPanelControl.h
+  ScopeTextureControl.cpp
+  ScopeTextureControl.h
   SelectorControl.cpp
   SelectorControl.h
   SeparatorControl.cpp
@@ -293,8 +303,6 @@ SOURCE_GROUP("Controls" FILES
   SettingsResourcesControl.h
   SettingsWindow.cpp
   SettingsWindow.h
-  ScopeTextureControl.cpp
-  ScopeTextureControl.h
   TextFieldControl.cpp
   TextFieldControl.h
   TextureBrowseCell.cpp

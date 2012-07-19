@@ -17,11 +17,21 @@
 namespace tools
 {
 
-	ScopeTextureControl::ScopeTextureControl(MyGUI::Widget* _parent) :
-		TextureToolControl(_parent),
-		mAreaSelectorControl(nullptr),
-		mParentData(nullptr)
+	ScopeTextureControl::ScopeTextureControl() :
+		mAreaSelectorControl(nullptr)//,
+		//mParentData(nullptr)
 	{
+	}
+
+	ScopeTextureControl::~ScopeTextureControl()
+	{
+		mAreaSelectorControl->eventChangePosition.disconnect(this);
+	}
+
+	void ScopeTextureControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		TextureToolControl::OnInitialise(_parent, _place, _layoutName);
+
 		addSelectorControl(mAreaSelectorControl);
 
 		mAreaSelectorControl->eventChangePosition.connect(this, &ScopeTextureControl::notifyChangePosition);
@@ -45,15 +55,12 @@ namespace tools
 
 		updateCaption();
 
-		mParentTypeName = "Image";
+		setTextureValue("");
+		setCoordValue("");
+		/*mParentTypeName = "Image";
 		DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &ScopeTextureControl::notifyChangeDataSelector);
 		mParentData = DataManager::getInstance().getSelectedDataByType(mParentTypeName);
-		notifyChangeDataSelector(mParentData, false);
-	}
-
-	ScopeTextureControl::~ScopeTextureControl()
-	{
-		mAreaSelectorControl->eventChangePosition.disconnect(this);
+		notifyChangeDataSelector(mParentData, false);*/
 	}
 
 	void ScopeTextureControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
@@ -321,7 +328,7 @@ namespace tools
 			updateCaption();
 	}
 
-	void ScopeTextureControl::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
+	/*void ScopeTextureControl::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
 	{
 		mParentData = _data;
 		if (mParentData != nullptr && mParentData->getType()->getName() != mParentTypeName)
@@ -351,9 +358,9 @@ namespace tools
 
 		setTextureName(texture);
 		updateCoord(coord);
-	}
+	}*/
 
-	void ScopeTextureControl::notifyChangeProperty(Property* _sender)
+	/*void ScopeTextureControl::notifyChangeProperty(Property* _sender)
 	{
 		if (mParentData != nullptr &&
 			mParentData->getType()->getName() == mParentTypeName &&
@@ -364,11 +371,11 @@ namespace tools
 			else if (_sender->getType()->getName() == "Size")
 				updateCoord(_sender->getValue());
 		}
-	}
+	}*/
 
 	void ScopeTextureControl::setValue(const std::string& _value)
 	{
-		if (mParentData != nullptr &&
+		/*if (mParentData != nullptr &&
 			mParentData->getType()->getName() == mParentTypeName)
 		{
 			Data* selected = mParentData->getChildSelected();
@@ -377,10 +384,10 @@ namespace tools
 				Property* property = selected->getProperties().find("Size")->second;
 				PropertyUtility::executeAction(property, _value, true);
 			}
-		}
+		}*/
 	}
 
-	void ScopeTextureControl::updateCoord(const std::string& _value)
+	void ScopeTextureControl::setCoordValue(const std::string& _value)
 	{
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))

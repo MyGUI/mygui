@@ -16,13 +16,15 @@ namespace tools
 		public TextureControl
 	{
 	public:
-		TextureToolControl(MyGUI::Widget* _parent);
+		TextureToolControl();
 		virtual ~TextureToolControl();
 
 		void setActivate(bool _value);
 		bool getActivate() const;
 
 	protected:
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+
 		virtual void onMouseWheel(int _rel);
 
 		virtual void onChangeActivate();
