@@ -10,7 +10,7 @@
 #include "BaseLayout/BaseLayout.h"
 //#include "SkinListControl.h"
 #include "SkinPropertyControl.h"
-#include "SkinTextureControl.h"
+//#include "SkinTextureControl.h"
 
 /*namespace tools
 {
