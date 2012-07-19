@@ -3,5 +3,6 @@
     <Widget type="Widget" skin="PanelEmpty" position="20 20 240 510" align="Stretch" name="Root">
         <UserString key="SnapTo" value="Stretch"/>
         <UserString key="HeightDistance" value="5"/>
+        <UserString key="ControlControllers" value="PropertyPanelController"/>
     </Widget>
 </MyGUI>

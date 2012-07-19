@@ -10,7 +10,6 @@
 #include "Control.h"
 #include "sigslot.h"
 #include "Data.h"
-#include "DataType.h"
 #include "PropertyControl.h"
 
 namespace tools
@@ -24,18 +23,16 @@ namespace tools
 		PropertyPanelControl();
 		virtual ~PropertyPanelControl();
 
+		void setCurrentData(Data* _data);
+
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
-		void notifyChangeScope(const std::string& _scope);
-		void notifyChangeDataSelector(Data* _data, bool _changeOnlySelection);
-
 		void HideControls();
 		void InitialiseProperty(Property* _property, int& _height);
 
 	private:
-		DataType* mParentType;
 		Data* mCurrentData;
 		typedef std::vector<std::pair<std::string, PropertyControl*> > VectorPairControl;
 		VectorPairControl mPropertyControls;

@@ -69,6 +69,7 @@ set (HEADER_FILES
   PropertyInt4Control.h
   PropertyIntControl.h
   PropertyPanelControl.h
+  PropertyPanelController.h
   PropertyRegionTypeControl.h
   PropertySet.h
   PropertyStringControl.h
@@ -180,6 +181,7 @@ set (SOURCE_FILES
   PropertyInt4Control.cpp
   PropertyIntControl.cpp
   PropertyPanelControl.cpp
+  PropertyPanelController.cpp
   PropertyRegionTypeControl.cpp
   PropertySet.cpp
   PropertyStringControl.cpp
@@ -315,6 +317,8 @@ SOURCE_GROUP("Controls\\Controllers" FILES
   GroupTextureController.cpp
   GroupTextureController.h
   IControlController.h
+  PropertyPanelController.cpp
+  PropertyPanelController.h
 )
 SOURCE_GROUP("Controls\\Properties" FILES
   PropertyBoolControl.cpp
