@@ -58,21 +58,21 @@ namespace tools
 
 		if (mParentData != nullptr)
 		{
+			Property* property = mParentData->getProperty("Texture");
+			texture = property->getValue();
+
+			if (!property->eventChangeProperty.exist(this, &IndexTextureController::notifyChangeProperty))
+				property->eventChangeProperty.connect(this, &IndexTextureController::notifyChangeProperty);
+
+			property = mParentData->getProperty("Size");
+			coord = property->getValue();
+
+			if (!property->eventChangeProperty.exist(this, &IndexTextureController::notifyChangeProperty))
+				property->eventChangeProperty.connect(this, &IndexTextureController::notifyChangeProperty);
+
 			Data* data = mParentData->getChildSelected();
 			if (data != nullptr)
 			{
-				Property* property = data->getParent()->getProperty("Texture");
-				texture = property->getValue();
-
-				if (!property->eventChangeProperty.exist(this, &IndexTextureController::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &IndexTextureController::notifyChangeProperty);
-
-				property = data->getParent()->getProperty("Size");
-				coord = property->getValue();
-
-				if (!property->eventChangeProperty.exist(this, &IndexTextureController::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &IndexTextureController::notifyChangeProperty);
-
 				for (Data::VectorData::const_iterator child = data->getChilds().begin(); child != data->getChilds().end(); child ++)
 				{
 					property = (*child)->getProperty("Point");
