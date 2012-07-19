@@ -21,6 +21,12 @@ namespace tools
 
 	Control::~Control()
 	{
+		DeactivateControllers();
+
+		for (VectorController::iterator controller = mControllers.begin(); controller != mControllers.end(); controller ++)
+			delete (*controller);
+		mControllers.clear();
+
 		for (VectorControl::iterator child = mChilds.begin(); child != mChilds.end(); child ++)
 			delete *child;
 		mChilds.clear();
@@ -34,11 +40,13 @@ namespace tools
 	void Control::Initialise(const std::string& _layoutName)
 	{
 		OnInitialise(nullptr, nullptr, _layoutName);
+		ActivateControllers();
 	}
 
 	void Control::Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
 		OnInitialise(_parent, _place, _layoutName);
+		ActivateControllers();
 	}
 
 	void Control::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
@@ -160,6 +168,49 @@ namespace tools
 			return _parent->createWidgetT(_typeName, MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default);
 
 		return MyGUI::Gui::getInstance().createWidgetT(_typeName, MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default, "");
+	}
+
+	void Control::CreateControllers()
+	{
+		std::string controllers = mMainWidget->getUserString("ControlControllers");
+		if (!controllers.empty())
+		{
+			std::vector<std::string> values = MyGUI::utility::split(controllers, "\t\n ,");
+			for (std::vector<std::string>::const_iterator value = values.begin(); value != values.end(); value ++)
+			{
+				IFactoryItem* item = components::FactoryManager::GetInstance().CreateItem(*value);
+				if (item != nullptr)
+				{
+					IControlController* controller = dynamic_cast<IControlController*>(item);
+					if (controller != nullptr)
+					{
+						controller->setTarget(this);
+						mControllers.push_back(controller);
+					}
+					else
+					{
+						delete item;
+					}
+				}
+			}
+		}
+	}
+
+	void Control::ActivateControllers()
+	{
+		CreateControllers();
+
+		for (VectorController::iterator controller = mControllers.begin(); controller != mControllers.end(); controller ++)
+			(*controller)->activate();
+
+		for (VectorControl::iterator child = mChilds.begin(); child != mChilds.end(); child ++)
+			(*child)->ActivateControllers();
+	}
+
+	void Control::DeactivateControllers()
+	{
+		for (VectorController::iterator controller = mControllers.begin(); controller != mControllers.end(); controller ++)
+			(*controller)->deactivate();
 	}
 
 }

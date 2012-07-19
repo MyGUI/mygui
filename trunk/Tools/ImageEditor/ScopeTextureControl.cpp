@@ -13,9 +13,12 @@
 #include "DataSelectorManager.h"
 #include "DataManager.h"
 #include "PropertyUtility.h"
+#include "FactoryManager.h"
 
 namespace tools
 {
+
+	FACTORY_ITEM_ATTRIBUTE(ScopeTextureControl)
 
 	ScopeTextureControl::ScopeTextureControl() :
 		mAreaSelectorControl(nullptr)//,
