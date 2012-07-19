@@ -24,6 +24,8 @@ namespace tools
 
 		void setCoordValue(const std::string& _value);
 
+		sigslot::signal1<const std::string&> eventChangeValue;
+
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
