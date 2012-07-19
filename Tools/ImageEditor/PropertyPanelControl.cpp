@@ -7,11 +7,6 @@
 #include "Precompiled.h"
 #include "PropertyPanelControl.h"
 #include "FactoryManager.h"
-#include "ScopeManager.h"
-#include "DataSelectorManager.h"
-#include "DataManager.h"
-#include "DataTypeManager.h"
-#include "PropertyInt2Control.h"
 
 namespace tools
 {
@@ -19,7 +14,6 @@ namespace tools
 	FACTORY_ITEM_ATTRIBUTE(PropertyPanelControl)
 
 	PropertyPanelControl::PropertyPanelControl() :
-		mParentType(nullptr),
 		mCurrentData(nullptr),
 		mDistance(0)
 	{
@@ -34,52 +28,6 @@ namespace tools
 		Control::OnInitialise(_parent, _place, _layoutName);
 
 		mDistance = MyGUI::utility::parseValue<int>(mMainWidget->getUserString("HeightDistance"));
-
-		ScopeManager::getInstance().eventChangeScope.connect(this, &PropertyPanelControl::notifyChangeScope);
-		notifyChangeScope(ScopeManager::getInstance().getCurrentScope());
-	}
-
-	void PropertyPanelControl::notifyChangeScope(const std::string& _scope)
-	{
-		if (mParentType != nullptr)
-		{
-			DataSelectorManager::getInstance().getEvent(mParentType->getName())->disconnect(this);
-			mParentType = nullptr;
-		}
-
-		mParentType = DataTypeManager::getInstance().getParentType(_scope);
-
-		if (mParentType != nullptr)
-		{
-			DataSelectorManager::getInstance().getEvent(mParentType->getName())->connect(this, &PropertyPanelControl::notifyChangeDataSelector);
-
-			Data* parentData = DataManager::getInstance().getSelectedDataByType(mParentType->getName());
-			notifyChangeDataSelector(parentData, false);
-		}
-	}
-
-	void PropertyPanelControl::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
-	{
-		HideControls();
-
-		if (mCurrentData != nullptr)
-		{
-			mCurrentData = nullptr;
-		}
-
-		if (_data != nullptr)
-			mCurrentData = _data->getChildSelected();
-
-		if (mCurrentData != nullptr)
-		{
-			int height = 0;
-			const Data::MapString& properties = mCurrentData->getProperties();
-			for (Data::MapString::const_iterator property = properties.begin(); property != properties.end(); property ++)
-			{
-				if ((*property).second->getType()->getVisible())
-					InitialiseProperty((*property).second, height);
-			}
-		}
 	}
 
 	void PropertyPanelControl::HideControls()
@@ -120,6 +68,24 @@ namespace tools
 			control->getRoot()->setPosition(0, _height);
 
 			_height += control->getRoot()->getHeight() + mDistance;
+		}
+	}
+
+	void PropertyPanelControl::setCurrentData(Data* _data)
+	{
+		mCurrentData = _data;
+
+		HideControls();
+
+		if (mCurrentData != nullptr)
+		{
+			int height = 0;
+			const Data::MapString& properties = mCurrentData->getProperties();
+			for (Data::MapString::const_iterator property = properties.begin(); property != properties.end(); property ++)
+			{
+				if ((*property).second->getType()->getVisible())
+					InitialiseProperty((*property).second, height);
+			}
 		}
 	}
 
