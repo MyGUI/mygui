@@ -8,22 +8,19 @@
 #define _31513eda_9f1b_4986_a5a5_466942db581b_
 
 #include "TextureToolControl.h"
-#include "Property.h"
-#include "SkinItem.h"
 #include "AreaSelectorControl.h"
-#include "PropertyAdvisor.h"
+#include "Property.h"
 
-// FIXME времено включен
 namespace tools
 {
 
-	class SkinTextureControl :
+	class ScopeTextureControl :
 		public TextureToolControl,
 		public sigslot::has_slots<>
 	{
 	public:
-		SkinTextureControl(MyGUI::Widget* _parent);
-		virtual ~SkinTextureControl();
+		ScopeTextureControl(MyGUI::Widget* _parent);
+		virtual ~ScopeTextureControl();
 
 	protected:
 		virtual void onMouseButtonClick(const MyGUI::IntPoint& _point);

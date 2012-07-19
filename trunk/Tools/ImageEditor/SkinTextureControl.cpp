@@ -14,11 +14,10 @@
 #include "DataManager.h"
 #include "PropertyUtility.h"
 
-// FIXME времено включен
 namespace tools
 {
 
-	SkinTextureControl::SkinTextureControl(MyGUI::Widget* _parent) :
+	ScopeTextureControl::ScopeTextureControl(MyGUI::Widget* _parent) :
 		TextureToolControl(_parent),
 		mAreaSelectorControl(nullptr),
 		mParentData(nullptr)
@@ -27,39 +26,39 @@ namespace tools
 
 		addSelectorControl(mAreaSelectorControl);
 
-		mAreaSelectorControl->eventChangePosition.connect(this, &SkinTextureControl::notifyChangePosition);
+		mAreaSelectorControl->eventChangePosition.connect(this, &ScopeTextureControl::notifyChangePosition);
 
-		CommandManager::getInstance().registerCommand("Command_MoveLeft", MyGUI::newDelegate(this, &SkinTextureControl::CommandMoveLeft));
-		CommandManager::getInstance().registerCommand("Command_MoveRight", MyGUI::newDelegate(this, &SkinTextureControl::CommandMoveRight));
-		CommandManager::getInstance().registerCommand("Command_MoveTop", MyGUI::newDelegate(this, &SkinTextureControl::CommandMoveTop));
-		CommandManager::getInstance().registerCommand("Command_MoveBottom", MyGUI::newDelegate(this, &SkinTextureControl::CommandMoveBottom));
-		CommandManager::getInstance().registerCommand("Command_SizeLeft", MyGUI::newDelegate(this, &SkinTextureControl::CommandSizeLeft));
-		CommandManager::getInstance().registerCommand("Command_SizeRight", MyGUI::newDelegate(this, &SkinTextureControl::CommandSizeRight));
-		CommandManager::getInstance().registerCommand("Command_SizeTop", MyGUI::newDelegate(this, &SkinTextureControl::CommandSizeTop));
-		CommandManager::getInstance().registerCommand("Command_SizeBottom", MyGUI::newDelegate(this, &SkinTextureControl::CommandSizeBottom));
-		CommandManager::getInstance().registerCommand("Command_GridMoveLeft", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridMoveLeft));
-		CommandManager::getInstance().registerCommand("Command_GridMoveRight", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridMoveRight));
-		CommandManager::getInstance().registerCommand("Command_GridMoveTop", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridMoveTop));
-		CommandManager::getInstance().registerCommand("Command_GridMoveBottom", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridMoveBottom));
-		CommandManager::getInstance().registerCommand("Command_GridSizeLeft", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridSizeLeft));
-		CommandManager::getInstance().registerCommand("Command_GridSizeRight", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridSizeRight));
-		CommandManager::getInstance().registerCommand("Command_GridSizeTop", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridSizeTop));
-		CommandManager::getInstance().registerCommand("Command_GridSizeBottom", MyGUI::newDelegate(this, &SkinTextureControl::CommandGridSizeBottom));
+		CommandManager::getInstance().registerCommand("Command_MoveLeft", MyGUI::newDelegate(this, &ScopeTextureControl::CommandMoveLeft));
+		CommandManager::getInstance().registerCommand("Command_MoveRight", MyGUI::newDelegate(this, &ScopeTextureControl::CommandMoveRight));
+		CommandManager::getInstance().registerCommand("Command_MoveTop", MyGUI::newDelegate(this, &ScopeTextureControl::CommandMoveTop));
+		CommandManager::getInstance().registerCommand("Command_MoveBottom", MyGUI::newDelegate(this, &ScopeTextureControl::CommandMoveBottom));
+		CommandManager::getInstance().registerCommand("Command_SizeLeft", MyGUI::newDelegate(this, &ScopeTextureControl::CommandSizeLeft));
+		CommandManager::getInstance().registerCommand("Command_SizeRight", MyGUI::newDelegate(this, &ScopeTextureControl::CommandSizeRight));
+		CommandManager::getInstance().registerCommand("Command_SizeTop", MyGUI::newDelegate(this, &ScopeTextureControl::CommandSizeTop));
+		CommandManager::getInstance().registerCommand("Command_SizeBottom", MyGUI::newDelegate(this, &ScopeTextureControl::CommandSizeBottom));
+		CommandManager::getInstance().registerCommand("Command_GridMoveLeft", MyGUI::newDelegate(this, &ScopeTextureControl::CommandGridMoveLeft));
+		CommandManager::getInstance().registerCommand("Command_GridMoveRight", MyGUI::newDelegate(this, &ScopeTextureControl::CommandGridMoveRight));
+		CommandManager::getInstance().registerCommand("Command_GridMoveTop", MyGUI::newDelegate(this, &ScopeTextureControl::CommandGridMoveTop));
+		CommandManager::getInstance().registerCommand("Command_GridMoveBottom", MyGUI::newDelegate(this, &ScopeTextureControl::CommandGridMoveBottom));
+		CommandManager::getInstance().registerCommand("Command_GridSizeLeft", MyGUI::newDelegate(this, &ScopeTextureControl::CommandGridSizeLeft));
+		CommandManager::getInstance().registerCommand("Command_GridSizeRight", MyGUI::newDelegate(this, &ScopeTextureControl::CommandGridSizeRight));
+		CommandManager::getInstance().registerCommand("Command_GridSizeTop", MyGUI::newDelegate(this, &ScopeTextureControl::CommandGridSizeTop));
+		CommandManager::getInstance().registerCommand("Command_GridSizeBottom", MyGUI::newDelegate(this, &ScopeTextureControl::CommandGridSizeBottom));
 
 		updateCaption();
 
 		std::string parentType = "Image";
-		DataSelectorManager::getInstance().getEvent(parentType)->connect(this, &SkinTextureControl::notifyChangeDataSelector);
+		DataSelectorManager::getInstance().getEvent(parentType)->connect(this, &ScopeTextureControl::notifyChangeDataSelector);
 		mParentData = DataManager::getInstance().getSelectedDataByType(parentType);
 		notifyChangeDataSelector(mParentData, false);
 	}
 
-	SkinTextureControl::~SkinTextureControl()
+	ScopeTextureControl::~ScopeTextureControl()
 	{
 		mAreaSelectorControl->eventChangePosition.disconnect(this);
 	}
 
-	void SkinTextureControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
+	void ScopeTextureControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
 	{
 		mCoordValue.left = _point.left - (mCoordValue.width / 2);
 		mCoordValue.top = _point.top - (mCoordValue.height / 2);
@@ -67,14 +66,14 @@ namespace tools
 		updateFromCoordValue();
 	}
 
-	void SkinTextureControl::updateFromCoordValue()
+	void ScopeTextureControl::updateFromCoordValue()
 	{
 		mAreaSelectorControl->setCoord(mCoordValue);
 
 		setValue(mCoordValue.print());
 	}
 
-	void SkinTextureControl::CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result)
+	void ScopeTextureControl::CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -85,7 +84,7 @@ namespace tools
 		_result = true;
 	}
 
-	void SkinTextureControl::CommandMoveRight(const MyGUI::UString& _commandName, bool& _result)
+	void ScopeTextureControl::CommandMoveRight(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -96,7 +95,7 @@ namespace tools
 		_result = true;
 	}
 
-	void SkinTextureControl::CommandMoveTop(const MyGUI::UString& _commandName, bool& _result)
+	void ScopeTextureControl::CommandMoveTop(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -107,7 +106,7 @@ namespace tools
 		_result = true;
 	}
 
-	void SkinTextureControl::CommandMoveBottom(const MyGUI::UString& _commandName, bool& _result)
+	void ScopeTextureControl::CommandMoveBottom(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -118,7 +117,7 @@ namespace tools
 		_result = true;
 	}
 
-	void SkinTextureControl::CommandGridMoveLeft(const MyGUI::UString& _commandName, bool& _result)
+	void ScopeTextureControl::CommandGridMoveLeft(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -129,7 +128,7 @@ namespace tools
 		_result = true;
 	}
 
-	void SkinTextureControl::CommandGridMoveRight(const MyGUI::UString& _commandName, bool& _result)
+	void ScopeTextureControl::CommandGridMoveRight(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -140,7 +139,7 @@ namespace tools
 		_result = true;
 	}
 
-	void SkinTextureControl::CommandGridMoveTop(const MyGUI::UString& _commandName, bool& _result)
+	void ScopeTextureControl::CommandGridMoveTop(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -151,7 +150,7 @@ namespace tools
 		_result = true;
 	}
 
-	void SkinTextureControl::CommandGridMoveBottom(const MyGUI::UString& _commandName, bool& _result)
+	void ScopeTextureControl::CommandGridMoveBottom(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -162,7 +161,7 @@ namespace tools
 		_result = true;
 	}
 
-	void SkinTextureControl::CommandGridSizeLeft(const MyGUI::UString& _commandName, bool& _result)
+	void ScopeTextureControl::CommandGridSizeLeft(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -173,7 +172,7 @@ namespace tools
 		_result = true;
 	}
 
-	void SkinTextureControl::CommandGridSizeRight(const MyGUI::UString& _commandName, bool& _result)
+	void ScopeTextureControl::CommandGridSizeRight(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -184,7 +183,7 @@ namespace tools
 		_result = true;
 	}
 
-	void SkinTextureControl::CommandGridSizeTop(const MyGUI::UString& _commandName, bool& _result)
+	void ScopeTextureControl::CommandGridSizeTop(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -195,7 +194,7 @@ namespace tools
 		_result = true;
 	}
 
-	void SkinTextureControl::CommandGridSizeBottom(const MyGUI::UString& _commandName, bool& _result)
+	void ScopeTextureControl::CommandGridSizeBottom(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -206,7 +205,7 @@ namespace tools
 		_result = true;
 	}
 
-	void SkinTextureControl::CommandSizeLeft(const MyGUI::UString& _commandName, bool& _result)
+	void ScopeTextureControl::CommandSizeLeft(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -217,7 +216,7 @@ namespace tools
 		_result = true;
 	}
 
-	void SkinTextureControl::CommandSizeRight(const MyGUI::UString& _commandName, bool& _result)
+	void ScopeTextureControl::CommandSizeRight(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -228,7 +227,7 @@ namespace tools
 		_result = true;
 	}
 
-	void SkinTextureControl::CommandSizeTop(const MyGUI::UString& _commandName, bool& _result)
+	void ScopeTextureControl::CommandSizeTop(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -239,7 +238,7 @@ namespace tools
 		_result = true;
 	}
 
-	void SkinTextureControl::CommandSizeBottom(const MyGUI::UString& _commandName, bool& _result)
+	void ScopeTextureControl::CommandSizeBottom(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -250,7 +249,7 @@ namespace tools
 		_result = true;
 	}
 
-	void SkinTextureControl::notifyChangePosition(SelectorControl* _sender)
+	void ScopeTextureControl::notifyChangePosition(SelectorControl* _sender)
 	{
 		mCoordValue = mAreaSelectorControl->getCoord();
 
@@ -302,12 +301,12 @@ namespace tools
 		setValue(mCoordValue.print());
 	}
 
-	void SkinTextureControl::onChangeScale()
+	void ScopeTextureControl::onChangeScale()
 	{
 		updateCaption();
 	}
 
-	void SkinTextureControl::updateCaption()
+	void ScopeTextureControl::updateCaption()
 	{
 		if (getActivate())
 		{
@@ -318,13 +317,13 @@ namespace tools
 		}
 	}
 
-	void SkinTextureControl::onChangeActivate()
+	void ScopeTextureControl::onChangeActivate()
 	{
 		if (getActivate())
 			updateCaption();
 	}
 
-	void SkinTextureControl::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
+	void ScopeTextureControl::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
 	{
 		mParentData = _data;
 
@@ -339,14 +338,14 @@ namespace tools
 				Property* property = data->getProperties().find("Texture")->second;
 				texture = property->getValue();
 
-				if (!property->eventChangeProperty.compare(this, &SkinTextureControl::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &SkinTextureControl::notifyChangeProperty);
+				if (!property->eventChangeProperty.compare(this, &ScopeTextureControl::notifyChangeProperty))
+					property->eventChangeProperty.connect(this, &ScopeTextureControl::notifyChangeProperty);
 
 				property = data->getProperties().find("Size")->second;
 				coord = property->getValue();
 
-				if (!property->eventChangeProperty.compare(this, &SkinTextureControl::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &SkinTextureControl::notifyChangeProperty);
+				if (!property->eventChangeProperty.compare(this, &ScopeTextureControl::notifyChangeProperty))
+					property->eventChangeProperty.connect(this, &ScopeTextureControl::notifyChangeProperty);
 			}
 		}
 
@@ -354,7 +353,7 @@ namespace tools
 		updateCoord(coord);
 	}
 
-	void SkinTextureControl::notifyChangeProperty(Property* _sender)
+	void ScopeTextureControl::notifyChangeProperty(Property* _sender)
 	{
 		if (mParentData != nullptr && mParentData->getChildSelected() == _sender->getOwner())
 		{
@@ -365,7 +364,7 @@ namespace tools
 		}
 	}
 
-	void SkinTextureControl::setValue(const std::string& _value)
+	void ScopeTextureControl::setValue(const std::string& _value)
 	{
 		if (mParentData != nullptr)
 		{
@@ -378,7 +377,7 @@ namespace tools
 		}
 	}
 
-	void SkinTextureControl::updateCoord(const std::string& _value)
+	void ScopeTextureControl::updateCoord(const std::string& _value)
 	{
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))
