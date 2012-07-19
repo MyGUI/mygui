@@ -35,8 +35,8 @@ namespace tools
 
 	void FrameTextureController::activate()
 	{
-		//mParentTypeName = "Group";
-		//mTypeName = "Index";
+		mParentTypeName = "Index";
+		mTypeName = "Frame";
 
 		ScopeManager::getInstance().eventChangeScope.connect(this, &FrameTextureController::notifyChangeScope);
 		notifyChangeScope(ScopeManager::getInstance().getCurrentScope());
@@ -58,21 +58,21 @@ namespace tools
 
 		if (mParentData != nullptr)
 		{
-			Data* data = mParentData->getChildSelected();
+			Property* property = mParentData->getParent()->getProperty("Texture");
+			texture = property->getValue();
+
+			if (!property->eventChangeProperty.exist(this, &FrameTextureController::notifyChangeProperty))
+				property->eventChangeProperty.connect(this, &FrameTextureController::notifyChangeProperty);
+
+			property = mParentData->getParent()->getProperty("Size");
+			coord = property->getValue();
+
+			if (!property->eventChangeProperty.exist(this, &FrameTextureController::notifyChangeProperty))
+				property->eventChangeProperty.connect(this, &FrameTextureController::notifyChangeProperty);
+
+			Data* data = mParentData;
 			if (data != nullptr)
 			{
-				Property* property = data->getParent()->getProperty("Texture");
-				texture = property->getValue();
-
-				if (!property->eventChangeProperty.exist(this, &FrameTextureController::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &FrameTextureController::notifyChangeProperty);
-
-				property = data->getParent()->getProperty("Size");
-				coord = property->getValue();
-
-				if (!property->eventChangeProperty.exist(this, &FrameTextureController::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &FrameTextureController::notifyChangeProperty);
-
 				for (Data::VectorData::const_iterator child = data->getChilds().begin(); child != data->getChilds().end(); child ++)
 				{
 					property = (*child)->getProperty("Point");
@@ -92,7 +92,7 @@ namespace tools
 		if (mParentData != nullptr &&
 			mParentData->getType()->getName() == mParentTypeName)
 		{
-			if (mParentData == _sender->getOwner())
+			if (mParentData->getParent() == _sender->getOwner())
 			{
 				if (_sender->getType()->getName() == "Texture")
 				{
@@ -103,7 +103,7 @@ namespace tools
 					updateCoords(_sender->getValue());
 				}
 			}
-			else if (mParentData->getChildSelected() == _sender->getOwner())
+			else if (mParentData == _sender->getOwner())
 			{
 				if (_sender->getType()->getName() == "Point")
 				{
@@ -179,13 +179,19 @@ namespace tools
 	{
 		mFrames.clear();
 
-		Data* selected = mParentData != nullptr ? mParentData->getChildSelected() : nullptr;
-		if (selected != nullptr)
+		Data* selected = mParentData->getChildSelected();
+		if (mParentData != nullptr)
 		{
-			for (Data::VectorData::const_iterator child = selected->getChilds().begin(); child != selected->getChilds().end(); child ++)
+			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
 			{
-				MyGUI::IntPoint value = (*child)->getPropertyValue<MyGUI::IntPoint>("Point");
-				mFrames.push_back(MyGUI::IntCoord(value, mSize));
+				if (selected == (*child))
+				{
+				}
+				else
+				{
+					MyGUI::IntPoint value = (*child)->getPropertyValue<MyGUI::IntPoint>("Point");
+					mFrames.push_back(MyGUI::IntCoord(value, mSize));
+				}
 			}
 		}
 
