@@ -12,6 +12,7 @@
 
 namespace tools
 {
+
 	class IndexTextureController :
 		public IControlController,
 		public sigslot::has_slots<>
@@ -28,15 +29,22 @@ namespace tools
 	private:
 		void notifyChangeDataSelector(Data* _data, bool _changeOnlySelection);
 		void notifyChangeProperty(Property* _sender);
-		void notifyChangeValue(const std::string& _value);
 		void notifyChangeScope(const std::string& _scope);
+
+		void updateCoords(const std::string& _value);
+		void updateFrames();
 
 	private:
 		ScopeTextureControl* mControl;
 		std::string mParentTypeName;
+		std::string mTypeName;
 		Data* mParentData;
 		bool mActivated;
+		MyGUI::IntSize mSize;
+		typedef std::vector<MyGUI::IntCoord> VectorCoord;
+		VectorCoord mFrames;
 	};
+
 }
 
 #endif

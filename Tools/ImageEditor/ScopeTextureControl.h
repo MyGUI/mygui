@@ -22,7 +22,14 @@ namespace tools
 		ScopeTextureControl();
 		virtual ~ScopeTextureControl();
 
-		void setCoordValue(const std::string& _value);
+		void setCoordValue(const MyGUI::IntCoord& _value);
+		void clearCoordValue();
+
+		typedef std::vector<MyGUI::IntCoord> VectorCoord;
+		void setViewSelectors(const VectorCoord& _selectors);
+		void clearViewSelectors();
+
+		void clearAll();
 
 		sigslot::signal1<const std::string&> eventChangeValue;
 
@@ -37,8 +44,6 @@ namespace tools
 	private:
 		void notifyChangeSelection();
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
-		//void notifyChangeDataSelector(Data* _data, bool _changeOnlySelection);
-		//void notifyChangeProperty(Property* _sender);
 		void notifyChangePosition(SelectorControl* _sender);
 
 		void updateFromCoordValue();
@@ -67,11 +72,7 @@ namespace tools
 
 	private:
 		AreaSelectorControl* mAreaSelectorControl;
-
 		MyGUI::IntCoord mCoordValue;
-
-		//Data* mParentData;
-		//std::string mParentTypeName;
 	};
 
 }

@@ -21,8 +21,7 @@ namespace tools
 	FACTORY_ITEM_ATTRIBUTE(ScopeTextureControl)
 
 	ScopeTextureControl::ScopeTextureControl() :
-		mAreaSelectorControl(nullptr)//,
-		//mParentData(nullptr)
+		mAreaSelectorControl(nullptr)
 	{
 	}
 
@@ -59,11 +58,7 @@ namespace tools
 		updateCaption();
 
 		setTextureValue("");
-		setCoordValue("");
-		/*mParentTypeName = "Image";
-		DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &ScopeTextureControl::notifyChangeDataSelector);
-		mParentData = DataManager::getInstance().getSelectedDataByType(mParentTypeName);
-		notifyChangeDataSelector(mParentData, false);*/
+		clearCoordValue();
 	}
 
 	void ScopeTextureControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
@@ -331,83 +326,40 @@ namespace tools
 			updateCaption();
 	}
 
-	/*void ScopeTextureControl::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
-	{
-		mParentData = _data;
-		if (mParentData != nullptr && mParentData->getType()->getName() != mParentTypeName)
-			mParentData = nullptr;
-
-		std::string texture;
-		std::string coord;
-
-		if (mParentData != nullptr)
-		{
-			Data* data = mParentData->getChildSelected();
-			if (data != nullptr)
-			{
-				Property* property = data->getProperties().find("Texture")->second;
-				texture = property->getValue();
-
-				if (!property->eventChangeProperty.compare(this, &ScopeTextureControl::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &ScopeTextureControl::notifyChangeProperty);
-
-				property = data->getProperties().find("Size")->second;
-				coord = property->getValue();
-
-				if (!property->eventChangeProperty.compare(this, &ScopeTextureControl::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &ScopeTextureControl::notifyChangeProperty);
-			}
-		}
-
-		setTextureName(texture);
-		updateCoord(coord);
-	}*/
-
-	/*void ScopeTextureControl::notifyChangeProperty(Property* _sender)
-	{
-		if (mParentData != nullptr &&
-			mParentData->getType()->getName() == mParentTypeName &&
-			mParentData->getChildSelected() == _sender->getOwner())
-		{
-			if (_sender->getType()->getName() == "Texture")
-				setTextureName(_sender->getValue());
-			else if (_sender->getType()->getName() == "Size")
-				updateCoord(_sender->getValue());
-		}
-	}*/
-
 	void ScopeTextureControl::setValue(const std::string& _value)
 	{
 		eventChangeValue(_value);
-		/*if (mParentData != nullptr &&
-			mParentData->getType()->getName() == mParentTypeName)
-		{
-			Data* selected = mParentData->getChildSelected();
-			if (selected != nullptr)
-			{
-				Property* property = selected->getProperties().find("Size")->second;
-				PropertyUtility::executeAction(property, _value, true);
-			}
-		}*/
 	}
 
-	void ScopeTextureControl::setCoordValue(const std::string& _value)
+	void ScopeTextureControl::setCoordValue(const MyGUI::IntCoord& _value)
 	{
-		MyGUI::IntCoord coord;
-		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))
-		{
-			if (mCoordValue != coord)
-			{
-				mAreaSelectorControl->setVisible(true);
+		mAreaSelectorControl->setVisible(true);
 
-				mCoordValue = coord;
-				mAreaSelectorControl->setCoord(mCoordValue);
-			}
-		}
-		else
+		if (mCoordValue != _value)
 		{
-			mAreaSelectorControl->setVisible(false);
+			mCoordValue = _value;
+			mAreaSelectorControl->setCoord(mCoordValue);
 		}
+	}
+
+	void ScopeTextureControl::clearCoordValue()
+	{
+		mAreaSelectorControl->setVisible(false);
+	}
+
+	void ScopeTextureControl::clearAll()
+	{
+		setTextureValue("");
+		clearCoordValue();
+		clearViewSelectors();
+	}
+
+	void ScopeTextureControl::setViewSelectors(const VectorCoord& _selectors)
+	{
+	}
+
+	void ScopeTextureControl::clearViewSelectors()
+	{
 	}
 
 }
