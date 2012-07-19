@@ -45,6 +45,7 @@ set (HEADER_FILES
   IFactoryItem.h
   ImageListControl.h
   IndexListControl.h
+  IndexTextureController.h
   ItemHolder.h
   ListBoxControl.h
   ListBoxDataControl.h
@@ -160,6 +161,7 @@ set (SOURCE_FILES
   ImageEditor.rc
   ImageListControl.cpp
   IndexListControl.cpp
+  IndexTextureController.cpp
   ListBoxControl.cpp
   ListBoxDataControl.cpp
   ListBoxItemControl.cpp
@@ -317,6 +319,8 @@ SOURCE_GROUP("Controls\\Controllers" FILES
   GroupTextureController.cpp
   GroupTextureController.h
   IControlController.h
+  IndexTextureController.cpp
+  IndexTextureController.h
   PropertyPanelController.cpp
   PropertyPanelController.h
 )
