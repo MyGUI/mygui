@@ -36,6 +36,7 @@ namespace tools
 	void GroupTextureController::activate()
 	{
 		mParentTypeName = "Image";
+		mTypeName = "Group";
 
 		ScopeManager::getInstance().eventChangeScope.connect(this, &GroupTextureController::notifyChangeScope);
 		notifyChangeScope(ScopeManager::getInstance().getCurrentScope());
@@ -75,7 +76,7 @@ namespace tools
 		}
 
 		mControl->setTextureValue(texture);
-		mControl->setCoordValue(coord);
+		updateCoords(coord);
 	}
 
 	void GroupTextureController::notifyChangeProperty(Property* _sender)
@@ -87,7 +88,7 @@ namespace tools
 			if (_sender->getType()->getName() == "Texture")
 				mControl->setTextureValue(_sender->getValue());
 			else if (_sender->getType()->getName() == "Size")
-				mControl->setCoordValue(_sender->getValue());
+				updateCoords(_sender->getValue());
 		}
 	}
 
@@ -107,13 +108,14 @@ namespace tools
 
 	void GroupTextureController::notifyChangeScope(const std::string& _scope)
 	{
-		if (_scope == "Group")
+		if (_scope == mTypeName)
 		{
 			if (!mActivated)
 			{
 				if (mControl != nullptr)
 				{
 					mControl->eventChangeValue.connect(this, &GroupTextureController::notifyChangeValue);
+					mControl->clearAll();
 
 					DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &GroupTextureController::notifyChangeDataSelector);
 					mParentData = DataManager::getInstance().getSelectedDataByType(mParentTypeName);
@@ -142,11 +144,26 @@ namespace tools
 					{
 						mControl->getRoot()->setUserString("CurrentScopeController", "");
 						notifyChangeDataSelector(mParentData, false);
+
+						mControl->clearAll();
 					}
 				}
 
 				mActivated = false;
 			}
+		}
+	}
+
+	void GroupTextureController::updateCoords(const std::string& _value)
+	{
+		MyGUI::IntCoord coord;
+		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))
+		{
+			mControl->setCoordValue(coord);
+		}
+		else
+		{
+			mControl->clearCoordValue();
 		}
 	}
 

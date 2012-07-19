@@ -35,7 +35,8 @@ namespace tools
 
 	void IndexTextureController::activate()
 	{
-		//mParentTypeName = "Image";
+		mParentTypeName = "Group";
+		mTypeName = "Index";
 
 		ScopeManager::getInstance().eventChangeScope.connect(this, &IndexTextureController::notifyChangeScope);
 		notifyChangeScope(ScopeManager::getInstance().getCurrentScope());
@@ -60,60 +61,67 @@ namespace tools
 			Data* data = mParentData->getChildSelected();
 			if (data != nullptr)
 			{
-				Property* property = data->getProperties().find("Texture")->second;
+				Property* property = data->getParent()->getProperties().find("Texture")->second;
 				texture = property->getValue();
 
 				if (!property->eventChangeProperty.compare(this, &IndexTextureController::notifyChangeProperty))
 					property->eventChangeProperty.connect(this, &IndexTextureController::notifyChangeProperty);
 
-				property = data->getProperties().find("Size")->second;
+				property = data->getParent()->getProperties().find("Size")->second;
 				coord = property->getValue();
 
 				if (!property->eventChangeProperty.compare(this, &IndexTextureController::notifyChangeProperty))
 					property->eventChangeProperty.connect(this, &IndexTextureController::notifyChangeProperty);
+
+				for (Data::VectorData::const_iterator child = data->getChilds().begin(); child != data->getChilds().end(); child ++)
+				{
+					property = (*child)->getProperties().find("Point")->second;
+					if (!property->eventChangeProperty.compare(this, &IndexTextureController::notifyChangeProperty))
+						property->eventChangeProperty.connect(this, &IndexTextureController::notifyChangeProperty);
+				}
 			}
 		}
 
 		mControl->setTextureValue(texture);
-		mControl->setCoordValue(coord);
+
+		updateCoords(coord);
 	}
 
 	void IndexTextureController::notifyChangeProperty(Property* _sender)
 	{
 		if (mParentData != nullptr &&
-			mParentData->getType()->getName() == mParentTypeName &&
-			mParentData->getChildSelected() == _sender->getOwner())
-		{
-			if (_sender->getType()->getName() == "Texture")
-				mControl->setTextureValue(_sender->getValue());
-			else if (_sender->getType()->getName() == "Size")
-				mControl->setCoordValue(_sender->getValue());
-		}
-	}
-
-	void IndexTextureController::notifyChangeValue(const std::string& _value)
-	{
-		if (mParentData != nullptr &&
 			mParentData->getType()->getName() == mParentTypeName)
 		{
-			Data* selected = mParentData->getChildSelected();
-			if (selected != nullptr)
+			if (mParentData == _sender->getOwner())
 			{
-				Property* property = selected->getProperties().find("Size")->second;
-				PropertyUtility::executeAction(property, _value, true);
+				if (_sender->getType()->getName() == "Texture")
+				{
+					mControl->setTextureValue(_sender->getValue());
+				}
+				else if (_sender->getType()->getName() == "Size")
+				{
+					updateCoords(_sender->getValue());
+				}
+			}
+			else if (mParentData->getChildSelected() == _sender->getOwner())
+			{
+				if (_sender->getType()->getName() == "Point")
+				{
+					updateFrames();
+				}
 			}
 		}
 	}
 
 	void IndexTextureController::notifyChangeScope(const std::string& _scope)
 	{
-		if (_scope == "Group")
+		if (_scope == mTypeName)
 		{
 			if (!mActivated)
 			{
 				if (mControl != nullptr)
 				{
-					mControl->eventChangeValue.connect(this, &IndexTextureController::notifyChangeValue);
+					mControl->clearAll();
 
 					DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &IndexTextureController::notifyChangeDataSelector);
 					mParentData = DataManager::getInstance().getSelectedDataByType(mParentTypeName);
@@ -131,8 +139,6 @@ namespace tools
 			{
 				if (mControl != nullptr)
 				{
-					mControl->eventChangeValue.disconnect(this);
-
 					DataSelectorManager::getInstance().getEvent(mParentTypeName)->disconnect(this);
 					mParentData = nullptr;
 
@@ -142,12 +148,49 @@ namespace tools
 					{
 						mControl->getRoot()->setUserString("CurrentScopeController", "");
 						notifyChangeDataSelector(mParentData, false);
+
+						mControl->clearAll();
 					}
 				}
 
 				mActivated = false;
 			}
 		}
+	}
+
+	void IndexTextureController::updateCoords(const std::string& _value)
+	{
+		MyGUI::IntCoord coord;
+		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))
+			mSize = coord.size();
+		else
+			mSize.clear();
+
+		for (VectorCoord::iterator frame = mFrames.begin(); frame != mFrames.end(); frame ++)
+		{
+			(*frame).width = mSize.width;
+			(*frame).height = mSize.height;
+		}
+
+		updateFrames();
+	}
+
+	void IndexTextureController::updateFrames()
+	{
+		mFrames.clear();
+
+		Data* selected = mParentData != nullptr ? mParentData->getChildSelected() : nullptr;
+		if (selected != nullptr)
+		{
+			for (Data::VectorData::const_iterator child = selected->getChilds().begin(); child != selected->getChilds().end(); child ++)
+			{
+				std::string value = (*child)->getPropertyValue("Point");
+				mFrames.push_back(MyGUI::IntCoord(MyGUI::IntPoint::parse(value), mSize));
+			}
+		}
+
+		if (mControl != nullptr)
+			mControl->setViewSelectors(mFrames);
 	}
 
 }

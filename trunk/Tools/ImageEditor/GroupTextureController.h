@@ -12,6 +12,7 @@
 
 namespace tools
 {
+
 	class GroupTextureController :
 		public IControlController,
 		public sigslot::has_slots<>
@@ -31,12 +32,16 @@ namespace tools
 		void notifyChangeValue(const std::string& _value);
 		void notifyChangeScope(const std::string& _scope);
 
+		void updateCoords(const std::string& _value);
+
 	private:
 		ScopeTextureControl* mControl;
 		std::string mParentTypeName;
+		std::string mTypeName;
 		Data* mParentData;
 		bool mActivated;
 	};
+
 }
 
 #endif
