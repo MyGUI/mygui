@@ -13,11 +13,21 @@
 namespace tools
 {
 
-	TextureToolControl::TextureToolControl(MyGUI::Widget* _parent) :
-		TextureControl("TextureControl.layout", _parent),
+	TextureToolControl::TextureToolControl() :
 		mCurrentScaleValue(100),
 		mActivate(true)
 	{
+	}
+
+	TextureToolControl::~TextureToolControl()
+	{
+		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &TextureToolControl::notifySettingsChanged);
+	}
+
+	void TextureToolControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		TextureControl::OnInitialise(_parent, _place, "TextureControl.layout");
+
 		MyGUI::Colour colour = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<MyGUI::Colour>("ColourBackground");
 		setColour(colour);
 
@@ -28,11 +38,6 @@ namespace tools
 		mScaleValue = SettingsManager::getInstance().getSector("TextureScale")->getPropertyValueList<size_t>("ScaleValue");
 
 		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &TextureToolControl::notifySettingsChanged);
-	}
-
-	TextureToolControl::~TextureToolControl()
-	{
-		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &TextureToolControl::notifySettingsChanged);
 	}
 
 	void TextureToolControl::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)

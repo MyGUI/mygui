@@ -11,8 +11,7 @@
 namespace tools
 {
 
-	TextureControl::TextureControl(const std::string& _layout, MyGUI::Widget* _parent) :
-		wraps::BaseLayout(_layout, _parent),
+	TextureControl::TextureControl() :
 		mView(nullptr),
 		mTexture(nullptr),
 		mBackground(nullptr),
@@ -20,15 +19,6 @@ namespace tools
 		mMouseCapture(false),
 		mMouseLeftPressed(false)
 	{
-		assignWidget(mView, "View");
-		assignWidget(mTexture, "Texture");
-		assignWidget(mBackground, "Background");
-
-		mTexture->eventMouseButtonPressed += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonPressed);
-		mTexture->eventMouseButtonReleased += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonReleased);
-		mTexture->eventMouseDrag += MyGUI::newDelegate(this, &TextureControl::notifyMouseDrag);
-		mTexture->eventMouseMove += MyGUI::newDelegate(this, &TextureControl::notifyMouseMove);
-		mTexture->eventMouseWheel += MyGUI::newDelegate(this, &TextureControl::notifyMouseWheel);
 	}
 
 	TextureControl::~TextureControl()
@@ -38,6 +28,21 @@ namespace tools
 		mTexture->eventMouseButtonReleased -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonReleased);
 		mTexture->eventMouseDrag -= MyGUI::newDelegate(this, &TextureControl::notifyMouseDrag);
 		mTexture->eventMouseMove -= MyGUI::newDelegate(this, &TextureControl::notifyMouseMove);
+	}
+
+	void TextureControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::OnInitialise(_parent, _place, _layoutName);
+
+		assignWidget(mView, "View");
+		assignWidget(mTexture, "Texture");
+		assignWidget(mBackground, "Background");
+
+		mTexture->eventMouseButtonPressed += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonPressed);
+		mTexture->eventMouseButtonReleased += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonReleased);
+		mTexture->eventMouseDrag += MyGUI::newDelegate(this, &TextureControl::notifyMouseDrag);
+		mTexture->eventMouseMove += MyGUI::newDelegate(this, &TextureControl::notifyMouseMove);
+		mTexture->eventMouseWheel += MyGUI::newDelegate(this, &TextureControl::notifyMouseWheel);
 	}
 
 	void TextureControl::updateScale()
@@ -51,7 +56,7 @@ namespace tools
 			(*item)->setScale(mScaleValue);
 	}
 
-	void TextureControl::setTextureName(const MyGUI::UString& _value)
+	void TextureControl::setTextureValue(const MyGUI::UString& _value)
 	{
 		mTextureSize = MyGUI::texture_utility::getTextureSize(_value);
 		mTexture->setImageTexture(_value);

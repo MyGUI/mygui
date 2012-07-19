@@ -19,10 +19,14 @@ namespace tools
 		public sigslot::has_slots<>
 	{
 	public:
-		ScopeTextureControl(MyGUI::Widget* _parent);
+		ScopeTextureControl();
 		virtual ~ScopeTextureControl();
 
+		void setCoordValue(const std::string& _value);
+
 	protected:
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+
 		virtual void onMouseButtonClick(const MyGUI::IntPoint& _point);
 
 		virtual void onChangeScale();
@@ -31,11 +35,10 @@ namespace tools
 	private:
 		void notifyChangeSelection();
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
-		void notifyChangeDataSelector(Data* _data, bool _changeOnlySelection);
-		void notifyChangeProperty(Property* _sender);
+		//void notifyChangeDataSelector(Data* _data, bool _changeOnlySelection);
+		//void notifyChangeProperty(Property* _sender);
 		void notifyChangePosition(SelectorControl* _sender);
 
-		void updateCoord(const std::string& _value);
 		void updateFromCoordValue();
 
 		void CommandMoveLeft(const MyGUI::UString& _commandName, bool& _result);
@@ -65,8 +68,8 @@ namespace tools
 
 		MyGUI::IntCoord mCoordValue;
 
-		Data* mParentData;
-		std::string mParentTypeName;
+		//Data* mParentData;
+		//std::string mParentTypeName;
 	};
 
 }

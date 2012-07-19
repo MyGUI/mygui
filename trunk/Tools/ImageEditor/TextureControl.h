@@ -7,7 +7,7 @@
 #ifndef _989b726c_13e5_4bc9_853d_4630f7b925dc_
 #define _989b726c_13e5_4bc9_853d_4630f7b925dc_
 
-#include "BaseLayout/BaseLayout.h"
+#include "Control.h"
 #include "SelectorControl.h"
 #include "Dialog.h"
 
@@ -15,14 +15,17 @@ namespace tools
 {
 
 	class TextureControl :
-		public wraps::BaseLayout
+		public Control
 	{
 	public:
-		TextureControl(const std::string& _layout, MyGUI::Widget* _parent);
+		TextureControl();
 		virtual ~TextureControl();
 
+		void setTextureValue(const MyGUI::UString& _value);
+
 	protected:
-		void setTextureName(const MyGUI::UString& _value);
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+
 		const MyGUI::IntSize& getTextureSize() const;
 
 		void setTextureRegion(const MyGUI::IntCoord& _value);

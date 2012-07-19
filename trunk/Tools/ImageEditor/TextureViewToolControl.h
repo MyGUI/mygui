@@ -9,12 +9,15 @@
 
 #include "Control.h"
 #include "ScopeTextureControl.h"
+#include "IControlController.h"
+#include "sigslot.h"
 
 namespace tools
 {
 
 	class TextureViewToolControl :
-		public Control
+		public Control,
+		public sigslot::has_slots<>
 	{
 	public:
 		TextureViewToolControl();
@@ -24,8 +27,13 @@ namespace tools
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
+		void notifyChangeScope(const std::string& _scope);
+
+	private:
 		ScopeTextureControl* mTextureTool;
 		MyGUI::Widget* mPlace;
+		IControlController* mGroupController;
+		bool mActivated;
 	};
 
 }
