@@ -291,6 +291,8 @@ SOURCE_GROUP("Controls" FILES
   SettingsResourcesControl.h
   SettingsWindow.cpp
   SettingsWindow.h
+  SkinTextureControl.cpp
+  SkinTextureControl.h
   TextFieldControl.cpp
   TextFieldControl.h
   TextureBrowseCell.cpp
@@ -369,8 +371,6 @@ SOURCE_GROUP("Controls\\old" FILES
   SkinControl.h
   SkinPropertyControl.cpp
   SkinPropertyControl.h
-  SkinTextureControl.cpp
-  SkinTextureControl.h
   StateControl.cpp
   StateControl.h
   StateListControl.cpp
