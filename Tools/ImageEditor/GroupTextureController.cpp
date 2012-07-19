@@ -64,13 +64,13 @@ namespace tools
 				Property* property = data->getProperties().find("Texture")->second;
 				texture = property->getValue();
 
-				if (!property->eventChangeProperty.compare(this, &GroupTextureController::notifyChangeProperty))
+				if (!property->eventChangeProperty.exist(this, &GroupTextureController::notifyChangeProperty))
 					property->eventChangeProperty.connect(this, &GroupTextureController::notifyChangeProperty);
 
 				property = data->getProperties().find("Size")->second;
 				coord = property->getValue();
 
-				if (!property->eventChangeProperty.compare(this, &GroupTextureController::notifyChangeProperty))
+				if (!property->eventChangeProperty.exist(this, &GroupTextureController::notifyChangeProperty))
 					property->eventChangeProperty.connect(this, &GroupTextureController::notifyChangeProperty);
 			}
 		}
