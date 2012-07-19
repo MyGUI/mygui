@@ -356,10 +356,34 @@ namespace tools
 
 	void ScopeTextureControl::setViewSelectors(const VectorCoord& _selectors)
 	{
+		clearViewSelectors();
+
+		while (_selectors.size() > mBlackSelectors.size())
+		{
+			PositionSelectorBlackControl* selector = nullptr;
+			addSelectorControl(selector);
+
+			mBlackSelectors.push_back(selector);
+		}
+
+		for (size_t index = 0; index < mBlackSelectors.size(); ++index)
+		{
+			if (index < _selectors.size())
+			{
+				mBlackSelectors[index]->setVisible(true);
+				mBlackSelectors[index]->setCoord(_selectors[index]);
+			}
+			else
+			{
+				mBlackSelectors[index]->setVisible(false);
+			}
+		}
 	}
 
 	void ScopeTextureControl::clearViewSelectors()
 	{
+		for (size_t index = 0; index < mBlackSelectors.size(); ++index)
+			mBlackSelectors[index]->setVisible(false);
 	}
 
 }

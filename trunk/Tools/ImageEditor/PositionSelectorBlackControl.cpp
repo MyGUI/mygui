@@ -7,7 +7,7 @@
 #include "Precompiled.h"
 #include "PositionSelectorBlackControl.h"
 
-/*namespace tools
+namespace tools
 {
 
 	PositionSelectorBlackControl::PositionSelectorBlackControl(MyGUI::Widget* _parent) :
@@ -21,4 +21,4 @@
 	{
 	}
 
-}*/
+}

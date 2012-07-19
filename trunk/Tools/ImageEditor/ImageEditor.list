@@ -284,6 +284,8 @@ SOURCE_GROUP("Controls" FILES
   MessageBoxFadeControl.h
   OpenSaveFileDialog.cpp
   OpenSaveFileDialog.h
+  PositionSelectorBlackControl.cpp
+  PositionSelectorBlackControl.h
   PropertyPanelControl.cpp
   PropertyPanelControl.h
   ScopeTextureControl.cpp
@@ -363,8 +365,6 @@ SOURCE_GROUP("Controls\\old" FILES
   ListBoxItemControl.h
   MainTabControl.cpp
   MainTabControl.h
-  PositionSelectorBlackControl.cpp
-  PositionSelectorBlackControl.h
   PositionSelectorControl.cpp
   PositionSelectorControl.h
   RegionControl.cpp

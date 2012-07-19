@@ -9,6 +9,7 @@
 
 #include "TextureToolControl.h"
 #include "AreaSelectorControl.h"
+#include "PositionSelectorBlackControl.h"
 #include "Property.h"
 
 namespace tools
@@ -73,6 +74,7 @@ namespace tools
 	private:
 		AreaSelectorControl* mAreaSelectorControl;
 		MyGUI::IntCoord mCoordValue;
+		std::vector<PositionSelectorBlackControl*> mBlackSelectors;
 	};
 
 }
