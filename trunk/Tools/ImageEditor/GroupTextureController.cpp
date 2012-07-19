@@ -9,6 +9,7 @@
 #include "FactoryManager.h"
 #include "DataSelectorManager.h"
 #include "DataManager.h"
+#include "PropertyUtility.h"
 
 namespace tools
 {
@@ -39,6 +40,8 @@ namespace tools
 			DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &GroupTextureController::notifyChangeDataSelector);
 			mParentData = DataManager::getInstance().getSelectedDataByType(mParentTypeName);
 			notifyChangeDataSelector(mParentData, false);
+
+			mControl->eventChangeValue.connect(this, &GroupTextureController::notifyChangeValue);
 		}
 	}
 
@@ -46,6 +49,8 @@ namespace tools
 	{
 		if (mControl != nullptr)
 		{
+			mControl->eventChangeValue.disconnect(this);
+
 			DataSelectorManager::getInstance().getEvent(mParentTypeName)->disconnect(this);
 			mParentData = nullptr;
 			notifyChangeDataSelector(mParentData, false);
@@ -94,6 +99,20 @@ namespace tools
 				mControl->setTextureValue(_sender->getValue());
 			else if (_sender->getType()->getName() == "Size")
 				mControl->setCoordValue(_sender->getValue());
+		}
+	}
+
+	void GroupTextureController::notifyChangeValue(const std::string& _value)
+	{
+		if (mParentData != nullptr &&
+			mParentData->getType()->getName() == mParentTypeName)
+		{
+			Data* selected = mParentData->getChildSelected();
+			if (selected != nullptr)
+			{
+				Property* property = selected->getProperties().find("Size")->second;
+				PropertyUtility::executeAction(property, _value, true);
+			}
 		}
 	}
 

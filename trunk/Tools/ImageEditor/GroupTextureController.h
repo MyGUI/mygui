@@ -28,6 +28,7 @@ namespace tools
 	private:
 		void notifyChangeDataSelector(Data* _data, bool _changeOnlySelection);
 		void notifyChangeProperty(Property* _sender);
+		void notifyChangeValue(const std::string& _value);
 
 	private:
 		ScopeTextureControl* mControl;

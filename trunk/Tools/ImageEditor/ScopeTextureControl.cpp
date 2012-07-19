@@ -375,6 +375,7 @@ namespace tools
 
 	void ScopeTextureControl::setValue(const std::string& _value)
 	{
+		eventChangeValue(_value);
 		/*if (mParentData != nullptr &&
 			mParentData->getType()->getName() == mParentTypeName)
 		{
