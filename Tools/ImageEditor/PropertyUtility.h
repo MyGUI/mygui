@@ -16,7 +16,7 @@ namespace tools
 	{
 	public:
 		static bool isUniqueName(Data* _data, const std::string& _propertyName);
-		static void executeAction(Property* _property, const std::string& _value);
+		static void executeAction(Property* _property, const std::string& _value, bool _merge = false);
 
 		typedef std::pair<Property*, std::string> PairProprty;
 		typedef std::vector<PairProprty> VectorPairProperty;

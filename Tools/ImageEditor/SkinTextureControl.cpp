@@ -373,7 +373,7 @@ namespace tools
 			if (selected != nullptr)
 			{
 				Property* property = selected->getProperties().find("Size")->second;
-				PropertyUtility::executeAction(property, _value);
+				PropertyUtility::executeAction(property, _value, true);
 			}
 		}
 	}
