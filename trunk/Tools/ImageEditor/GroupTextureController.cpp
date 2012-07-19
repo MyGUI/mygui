@@ -34,22 +34,22 @@ namespace tools
 	{
 		mParentTypeName = "Image";
 
-		/*if (mControl != nullptr)
+		if (mControl != nullptr)
 		{
 			DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &GroupTextureController::notifyChangeDataSelector);
 			mParentData = DataManager::getInstance().getSelectedDataByType(mParentTypeName);
 			notifyChangeDataSelector(mParentData, false);
-		}*/
+		}
 	}
 
 	void GroupTextureController::diactivate()
 	{
-		/*if (mControl != nullptr)
+		if (mControl != nullptr)
 		{
 			DataSelectorManager::getInstance().getEvent(mParentTypeName)->disconnect(this);
 			mParentData = nullptr;
 			notifyChangeDataSelector(mParentData, false);
-		}*/
+		}
 	}
 
 	void GroupTextureController::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)

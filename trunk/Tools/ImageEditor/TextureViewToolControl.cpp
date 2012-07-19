@@ -25,7 +25,6 @@ namespace tools
 
 	TextureViewToolControl::~TextureViewToolControl()
 	{
-		//delete mTextureTool;
 		delete mGroupController;
 	}
 
@@ -64,7 +63,7 @@ namespace tools
 			{
 				if (mGroupController != nullptr)
 					mGroupController->activate();
-				mActivated = false;
+				mActivated = true;
 			}
 		}
 		else
