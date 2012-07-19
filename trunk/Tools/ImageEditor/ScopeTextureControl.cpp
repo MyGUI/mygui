@@ -22,8 +22,6 @@ namespace tools
 		mAreaSelectorControl(nullptr),
 		mParentData(nullptr)
 	{
-		mTypeName = MyGUI::utility::toString((size_t)this);
-
 		addSelectorControl(mAreaSelectorControl);
 
 		mAreaSelectorControl->eventChangePosition.connect(this, &ScopeTextureControl::notifyChangePosition);
@@ -47,9 +45,9 @@ namespace tools
 
 		updateCaption();
 
-		std::string parentType = "Image";
-		DataSelectorManager::getInstance().getEvent(parentType)->connect(this, &ScopeTextureControl::notifyChangeDataSelector);
-		mParentData = DataManager::getInstance().getSelectedDataByType(parentType);
+		mParentTypeName = "Image";
+		DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &ScopeTextureControl::notifyChangeDataSelector);
+		mParentData = DataManager::getInstance().getSelectedDataByType(mParentTypeName);
 		notifyChangeDataSelector(mParentData, false);
 	}
 
@@ -326,6 +324,8 @@ namespace tools
 	void ScopeTextureControl::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
 	{
 		mParentData = _data;
+		if (mParentData != nullptr && mParentData->getType()->getName() != mParentTypeName)
+			mParentData = nullptr;
 
 		std::string texture;
 		std::string coord;
@@ -355,7 +355,9 @@ namespace tools
 
 	void ScopeTextureControl::notifyChangeProperty(Property* _sender)
 	{
-		if (mParentData != nullptr && mParentData->getChildSelected() == _sender->getOwner())
+		if (mParentData != nullptr &&
+			mParentData->getType()->getName() == mParentTypeName &&
+			mParentData->getChildSelected() == _sender->getOwner())
 		{
 			if (_sender->getType()->getName() == "Texture")
 				setTextureName(_sender->getValue());
@@ -366,7 +368,8 @@ namespace tools
 
 	void ScopeTextureControl::setValue(const std::string& _value)
 	{
-		if (mParentData != nullptr)
+		if (mParentData != nullptr &&
+			mParentData->getType()->getName() == mParentTypeName)
 		{
 			Data* selected = mParentData->getChildSelected();
 			if (selected != nullptr)

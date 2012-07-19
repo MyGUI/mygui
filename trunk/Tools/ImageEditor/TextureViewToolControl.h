@@ -8,7 +8,7 @@
 #define _be3dabca_96f8_4535_95eb_34f2abc3015b_
 
 #include "Control.h"
-#include "SkinTextureControl.h"
+#include "ScopeTextureControl.h"
 
 namespace tools
 {
