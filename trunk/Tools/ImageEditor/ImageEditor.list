@@ -96,7 +96,7 @@ set (HEADER_FILES
   SkinItem.h
   SkinManager.h
   SkinPropertyControl.h
-  SkinTextureControl.h
+  ScopeTextureControl.h
   StateControl.h
   StateController.h
   StateItem.h
@@ -206,7 +206,7 @@ set (SOURCE_FILES
   SkinItem.cpp
   SkinManager.cpp
   SkinPropertyControl.cpp
-  SkinTextureControl.cpp
+  ScopeTextureControl.cpp
   StateControl.cpp
   StateItem.cpp
   StateListControl.cpp
@@ -293,8 +293,8 @@ SOURCE_GROUP("Controls" FILES
   SettingsResourcesControl.h
   SettingsWindow.cpp
   SettingsWindow.h
-  SkinTextureControl.cpp
-  SkinTextureControl.h
+  ScopeTextureControl.cpp
+  ScopeTextureControl.h
   TextFieldControl.cpp
   TextFieldControl.h
   TextureBrowseCell.cpp
