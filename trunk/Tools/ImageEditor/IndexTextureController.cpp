@@ -64,19 +64,19 @@ namespace tools
 				Property* property = data->getParent()->getProperties().find("Texture")->second;
 				texture = property->getValue();
 
-				if (!property->eventChangeProperty.compare(this, &IndexTextureController::notifyChangeProperty))
+				if (!property->eventChangeProperty.exist(this, &IndexTextureController::notifyChangeProperty))
 					property->eventChangeProperty.connect(this, &IndexTextureController::notifyChangeProperty);
 
 				property = data->getParent()->getProperties().find("Size")->second;
 				coord = property->getValue();
 
-				if (!property->eventChangeProperty.compare(this, &IndexTextureController::notifyChangeProperty))
+				if (!property->eventChangeProperty.exist(this, &IndexTextureController::notifyChangeProperty))
 					property->eventChangeProperty.connect(this, &IndexTextureController::notifyChangeProperty);
 
 				for (Data::VectorData::const_iterator child = data->getChilds().begin(); child != data->getChilds().end(); child ++)
 				{
 					property = (*child)->getProperties().find("Point")->second;
-					if (!property->eventChangeProperty.compare(this, &IndexTextureController::notifyChangeProperty))
+					if (!property->eventChangeProperty.exist(this, &IndexTextureController::notifyChangeProperty))
 						property->eventChangeProperty.connect(this, &IndexTextureController::notifyChangeProperty);
 				}
 			}

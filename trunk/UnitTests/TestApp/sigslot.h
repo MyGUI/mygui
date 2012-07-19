@@ -296,7 +296,7 @@ namespace sigslot
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit() = 0;
-		virtual bool compare(_connection_base0<mt_policy>* conn) = 0;
+		virtual bool exist(_connection_base0<mt_policy>* conn) = 0;
 		virtual _connection_base0* clone() = 0;
 		virtual _connection_base0* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
@@ -307,7 +307,7 @@ namespace sigslot
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type) = 0;
-		virtual bool compare(_connection_base1<arg1_type, mt_policy>* conn) = 0;
+		virtual bool exist(_connection_base1<arg1_type, mt_policy>* conn) = 0;
 		virtual _connection_base1<arg1_type, mt_policy>* clone() = 0;
 		virtual _connection_base1<arg1_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
@@ -318,7 +318,7 @@ namespace sigslot
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type) = 0;
-		virtual bool compare(_connection_base2<arg1_type, arg2_type, mt_policy>* conn) = 0;
+		virtual bool exist(_connection_base2<arg1_type, arg2_type, mt_policy>* conn) = 0;
 		virtual _connection_base2<arg1_type, arg2_type, mt_policy>* clone() = 0;
 		virtual _connection_base2<arg1_type, arg2_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
@@ -329,7 +329,7 @@ namespace sigslot
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type) = 0;
-		virtual bool compare(_connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>* conn) = 0;
+		virtual bool exist(_connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>* conn) = 0;
 		virtual _connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>* clone() = 0;
 		virtual _connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
@@ -340,7 +340,7 @@ namespace sigslot
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type) = 0;
-		virtual bool compare(_connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>* conn) = 0;
+		virtual bool exist(_connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>* conn) = 0;
 		virtual _connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>* clone() = 0;
 		virtual _connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
@@ -351,7 +351,7 @@ namespace sigslot
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type) = 0;
-		virtual bool compare(_connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>* conn) = 0;
+		virtual bool exist(_connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>* conn) = 0;
 		virtual _connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>* clone() = 0;
 		virtual _connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
@@ -362,7 +362,7 @@ namespace sigslot
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type) = 0;
-		virtual bool compare(_connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>* conn) = 0;
+		virtual bool exist(_connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>* conn) = 0;
 		virtual _connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>* clone() = 0;
 		virtual _connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
@@ -373,7 +373,7 @@ namespace sigslot
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type) = 0;
-		virtual bool compare(_connection_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>* conn) = 0;
+		virtual bool exist(_connection_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>* conn) = 0;
 		virtual _connection_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>* clone() = 0;
 		virtual _connection_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
@@ -384,7 +384,7 @@ namespace sigslot
 	public:
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type) = 0;
-		virtual bool compare(_connection_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>* conn) = 0;
+		virtual bool exist(_connection_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>* conn) = 0;
 		virtual _connection_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>* clone() = 0;
 		virtual _connection_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
 	};
@@ -1498,7 +1498,7 @@ namespace sigslot
 			(m_pobject->*m_pmemfun)();
 		}
 
-		virtual bool compare(base_type* conn)
+		virtual bool exist(base_type* conn)
 		{
 			this_type* pconn = static_cast<this_type*>(conn);
 			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
@@ -1549,7 +1549,7 @@ namespace sigslot
 			(m_pobject->*m_pmemfun)(a1);
 		}
 
-		virtual bool compare(base_type* conn)
+		virtual bool exist(base_type* conn)
 		{
 			this_type* pconn = static_cast<this_type*>(conn);
 			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
@@ -1601,7 +1601,7 @@ namespace sigslot
 			(m_pobject->*m_pmemfun)(a1, a2);
 		}
 
-		virtual bool compare(base_type* conn)
+		virtual bool exist(base_type* conn)
 		{
 			this_type* pconn = static_cast<this_type*>(conn);
 			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
@@ -1652,7 +1652,7 @@ namespace sigslot
 			(m_pobject->*m_pmemfun)(a1, a2, a3);
 		}
 
-		virtual bool compare(base_type* conn)
+		virtual bool exist(base_type* conn)
 		{
 			this_type* pconn = static_cast<this_type*>(conn);
 			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
@@ -1703,7 +1703,7 @@ namespace sigslot
 			(m_pobject->*m_pmemfun)(a1, a2, a3, a4);
 		}
 
-		virtual bool compare(base_type* conn)
+		virtual bool exist(base_type* conn)
 		{
 			this_type* pconn = static_cast<this_type*>(conn);
 			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
@@ -1755,7 +1755,7 @@ namespace sigslot
 			(m_pobject->*m_pmemfun)(a1, a2, a3, a4, a5);
 		}
 
-		virtual bool compare(base_type* conn)
+		virtual bool exist(base_type* conn)
 		{
 			this_type* pconn = static_cast<this_type*>(conn);
 			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
@@ -1806,7 +1806,7 @@ namespace sigslot
 			(m_pobject->*m_pmemfun)(a1, a2, a3, a4, a5, a6);
 		}
 
-		virtual bool compare(base_type* conn)
+		virtual bool exist(base_type* conn)
 		{
 			this_type* pconn = static_cast<this_type*>(conn);
 			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
@@ -1857,7 +1857,7 @@ namespace sigslot
 			(m_pobject->*m_pmemfun)(a1, a2, a3, a4, a5, a6, a7);
 		}
 
-		virtual bool compare(base_type* conn)
+		virtual bool exist(base_type* conn)
 		{
 			this_type* pconn = static_cast<this_type*>(conn);
 			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
@@ -1908,7 +1908,7 @@ namespace sigslot
 			(m_pobject->*m_pmemfun)(a1, a2, a3, a4, a5, a6, a7, a8);
 		}
 
-		virtual bool compare(base_type* conn)
+		virtual bool exist(base_type* conn)
 		{
 			this_type* pconn = static_cast<this_type*>(conn);
 			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
@@ -2010,7 +2010,7 @@ namespace sigslot
 		}
 
 		template <typename desttype>
-		bool compare(desttype* pclass, void (desttype::*pmemfun)(arg1_type))
+		bool exist(desttype* pclass, void (desttype::*pmemfun)(arg1_type))
 		{
 			lock_block<mt_policy> lockblock(this);
 			_connection1<desttype, arg1_type, mt_policy>* conn = new _connection1<desttype, arg1_type, mt_policy>(pclass, pmemfun);
@@ -2021,7 +2021,7 @@ namespace sigslot
 
 			while (it != itEnd)
 			{
-				if ((*it)->compare(conn))
+				if ((*it)->exist(conn))
 				{
 					result = true;
 					break;

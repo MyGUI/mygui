@@ -70,17 +70,17 @@ namespace tools
 		{
 			// Index
 			Property* property = mParentData->getProperties().find("Rate")->second;
-			if (!property->eventChangeProperty.compare(this, &AnimationViewControl::notifyChangeProperty))
+			if (!property->eventChangeProperty.exist(this, &AnimationViewControl::notifyChangeProperty))
 				property->eventChangeProperty.connect(this, &AnimationViewControl::notifyChangeProperty);
 
 			// Group
 			property = mParentData->getParent()->getProperties().find("Size")->second;
-			if (!property->eventChangeProperty.compare(this, &AnimationViewControl::notifyChangeProperty))
+			if (!property->eventChangeProperty.exist(this, &AnimationViewControl::notifyChangeProperty))
 				property->eventChangeProperty.connect(this, &AnimationViewControl::notifyChangeProperty);
 
 			// Group
 			property = mParentData->getParent()->getProperties().find("Texture")->second;
-			if (!property->eventChangeProperty.compare(this, &AnimationViewControl::notifyChangeProperty))
+			if (!property->eventChangeProperty.exist(this, &AnimationViewControl::notifyChangeProperty))
 				property->eventChangeProperty.connect(this, &AnimationViewControl::notifyChangeProperty);
 		}
 	}

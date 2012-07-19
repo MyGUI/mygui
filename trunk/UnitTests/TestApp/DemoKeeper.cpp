@@ -24,7 +24,7 @@ namespace demo
 	public:
 		void advise(A* _a)
 		{
-			if (!_a->event.compare(this, &B::onEvent))
+			if (!_a->event.exist(this, &B::onEvent))
 				_a->event.connect(this, &B::onEvent);
 		}
 
