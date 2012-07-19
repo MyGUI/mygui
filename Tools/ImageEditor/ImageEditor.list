@@ -33,6 +33,7 @@ set (HEADER_FILES
   FactoryManager.h
   FactoryTemplate.h
   FrameListControl.h
+  FrameTextureController.h
   GridManager.h
   GroupListControl.h
   GroupTextureController.h
@@ -152,6 +153,7 @@ set (SOURCE_FILES
   FactoryItemRegistrator.cpp
   FactoryManager.cpp
   FrameListControl.cpp
+  FrameTextureController.cpp
   GridManager.cpp
   GroupListControl.cpp
   GroupTextureController.cpp
@@ -318,6 +320,8 @@ SOURCE_GROUP("Controls\\Animations" FILES
   AnimationInfo.h
 )
 SOURCE_GROUP("Controls\\Controllers" FILES
+  FrameTextureController.cpp
+  FrameTextureController.h
   GroupTextureController.cpp
   GroupTextureController.h
   IControlController.h
