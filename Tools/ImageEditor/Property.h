@@ -23,6 +23,24 @@ namespace tools
 		const std::string& getValue() const;
 		void setValue(const std::string& _value);
 
+		template <typename Type>
+		Type getValue() const
+		{
+			return MyGUI::utility::parseValue<Type>(getValue());
+		}
+
+		template <typename Type>
+		void setValue(const Type& _value)
+		{
+			setValue(MyGUI::utility::toString(_value));
+		}
+
+		template <>
+		void setValue(const bool& _value)
+		{
+			setValue(std::string(_value ? "True" : "False"));
+		}
+
 		DataTypeProperty* getType();
 
 		Data* getOwner();

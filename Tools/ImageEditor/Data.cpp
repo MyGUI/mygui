@@ -105,18 +105,12 @@ namespace tools
 
 	const std::string& Data::getPropertyValue(const std::string& _name) const
 	{
-		MapString::const_iterator property = mProperties.find(_name);
-		MYGUI_ASSERT(property != mProperties.end(), "Property " << _name << " not found");
-
-		return (*property).second->getValue();
+		return getProperty(_name)->getValue();
 	}
 	
 	void Data::setPropertyValue(const std::string& _name, const std::string& _value)
 	{
-		MapString::iterator property = mProperties.find(_name);
-		MYGUI_ASSERT(property != mProperties.end(), "Property " << _name << " not found");
-
-		mProperties[_name]->setValue(_value);
+		getProperty(_name)->setValue(_value);
 	}
 
 	size_t Data::getChildIndex(Data* _child)
@@ -151,6 +145,14 @@ namespace tools
 	void Data::setChildSelected(Data* _child)
 	{
 		mIndexSelected = getChildIndex(_child);
+	}
+
+	Property* Data::getProperty(const std::string& _name) const
+	{
+		MapString::const_iterator property = mProperties.find(_name);
+		MYGUI_ASSERT(property != mProperties.end(), "Property " << _name << " not found");
+
+		return (*property).second;
 	}
 
 }

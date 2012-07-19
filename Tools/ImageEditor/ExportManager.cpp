@@ -167,7 +167,7 @@ namespace tools
 		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
 		{
 			bool unique = PropertyUtility::isUniqueName((*child), "Name");
-			(*child)->setPropertyValue("UniqueName", unique ? "True" : "False");
+			(*child)->setPropertyValue("UniqueName", unique);
 			updateGroupProperty(*child);
 		}
 	}
@@ -178,7 +178,7 @@ namespace tools
 		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
 		{
 			bool unique = PropertyUtility::isUniqueName((*child), "Name");
-			(*child)->setPropertyValue("UniqueName", unique ? "True" : "False");
+			(*child)->setPropertyValue("UniqueName", unique);
 			updateIndexProperty(*child);
 		}
 	}
@@ -189,13 +189,13 @@ namespace tools
 		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
 		{
 			bool unique = PropertyUtility::isUniqueName((*child), "Name");
-			(*child)->setPropertyValue("UniqueName", unique ? "True" : "False");
+			(*child)->setPropertyValue("UniqueName", unique);
 		}
 
 		MyGUI::IntPoint point = getFirstFramePoint(_data);
-		MyGUI::IntSize size = MyGUI::IntSize::parse(_data->getPropertyValue("Size"));
+		MyGUI::IntSize size = _data->getPropertyValue<MyGUI::IntSize>("Size");
 		MyGUI::IntCoord coord(point, size);
-		_data->setPropertyValue("Size", coord.print());
+		_data->setPropertyValue("Size", coord);
 	}
 
 	MyGUI::IntPoint ExportManager::getFirstFramePoint(Data* _data)
@@ -208,7 +208,7 @@ namespace tools
 			Data* child = _data->getChildByIndex(0);
 			if (child->getChilds().size() != 0)
 			{
-				return MyGUI::IntPoint::parse(child->getChildByIndex(0)->getPropertyValue("Point"));
+				return child->getChildByIndex(0)->getPropertyValue<MyGUI::IntPoint>("Point");
 			}
 		}
 
