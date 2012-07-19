@@ -21,7 +21,7 @@ namespace tools
 
 		virtual void doAction();
 		virtual void undoAction();
-		virtual bool doMerge();
+		virtual bool doMerge(Action* _action);
 
 		void setMerge(bool _value);
 		bool getMerge() const;

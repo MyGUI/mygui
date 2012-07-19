@@ -22,6 +22,7 @@ namespace tools
 
 		virtual void doAction();
 		virtual void undoAction();
+		virtual bool doMerge(Action* _action);
 
 	private:
 		std::string mOldValue;

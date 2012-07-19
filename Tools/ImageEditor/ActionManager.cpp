@@ -58,12 +58,33 @@ namespace tools
 	{
 		removeRedo();
 
-		mActions.push_back(_command);
-		mCurrentAction ++;
+		bool result = false;
+		if (mCurrentAction != mActions.begin())
+		{
+			if ((*mCurrentAction)->getMerge() && _command->getMerge())
+			{
+				result = (*mCurrentAction)->doMerge(_command);
+			}
+		}
 
-		updateMaxActions();
+		if (result)
+		{
+			delete _command;
 
-		_command->doAction();
+			if (mCurrentAction == mActionAsSave)
+			{
+				mActionAsSave = mActions.end();
+			}
+		}
+		else
+		{
+			mActions.push_back(_command);
+			mCurrentAction ++;
+
+			updateMaxActions();
+
+			_command->doAction();
+		}
 
 		onChangeActions();
 	}
