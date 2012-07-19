@@ -26,7 +26,7 @@ namespace tools
 	{
 	}
 
-	bool Action::doMerge()
+	bool Action::doMerge(Action* _action)
 	{
 		return false;
 	}

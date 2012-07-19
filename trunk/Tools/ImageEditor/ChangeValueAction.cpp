@@ -34,4 +34,19 @@ namespace tools
 		getProperty()->setValue(mOldValue);
 	}
 
+	bool ChangeValueAction::doMerge(Action* _action)
+	{
+		ChangeValueAction* action = dynamic_cast<ChangeValueAction*>(_action);
+		if (action != nullptr)
+		{
+			if (action->getProperty() == getProperty())
+			{
+				getProperty()->setValue(action->getValue());
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 }
