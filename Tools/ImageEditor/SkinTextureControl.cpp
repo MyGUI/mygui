@@ -12,6 +12,7 @@
 #include "GridManager.h"
 #include "DataSelectorManager.h"
 #include "DataManager.h"
+#include "PropertyUtility.h"
 
 // FIXME времено включен
 namespace tools
@@ -366,8 +367,15 @@ namespace tools
 
 	void SkinTextureControl::setValue(const std::string& _value)
 	{
-		//if (getCurrentSkin() != nullptr)
-			//getCurrentSkin()->getPropertySet()->setPropertyValue("Coord", _value, mTypeName);
+		if (mParentData != nullptr)
+		{
+			Data* selected = mParentData->getChildSelected();
+			if (selected != nullptr)
+			{
+				Property* property = selected->getProperties().find("Size")->second;
+				PropertyUtility::executeAction(property, _value);
+			}
+		}
 	}
 
 	void SkinTextureControl::updateCoord(const std::string& _value)
