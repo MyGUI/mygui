@@ -212,13 +212,13 @@ namespace tools
 
 	void ListBoxDataControl::connectToProperty(Data* _data)
 	{
-		Property* property = _data->getProperties().find(mPropertyForName)->second;
+		Property* property = _data->getProperty(mPropertyForName);
 		if (!property->eventChangeProperty.exist(this, &ListBoxDataControl::notifyChangeProperty))
 			property->eventChangeProperty.connect(this, &ListBoxDataControl::notifyChangeProperty);
 
 		if (!mPropertyForUnique.empty())
 		{
-			property = _data->getProperties().find(mPropertyForUnique)->second;
+			property = _data->getProperty(mPropertyForUnique);
 			if (!property->eventChangeProperty.exist(this, &ListBoxDataControl::notifyChangeProperty))
 				property->eventChangeProperty.connect(this, &ListBoxDataControl::notifyChangeProperty);
 		}
@@ -250,7 +250,7 @@ namespace tools
 		if (_propertyName.empty())
 			return true;
 
-		return MyGUI::utility::parseValue<bool>(_data->getPropertyValue(_propertyName));
+		return _data->getPropertyValue<bool>(_propertyName);
 	}
 
 }

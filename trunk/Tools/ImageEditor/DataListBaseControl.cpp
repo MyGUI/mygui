@@ -142,7 +142,7 @@ namespace tools
 
 	void DataListBaseControl::notifyChangeName(Data* _data, const std::string& _name)
 	{
-		PropertyUtility::executeAction(_data->getProperties().find(mPropertyForName)->second, _name);
+		PropertyUtility::executeAction(_data->getProperty(mPropertyForName), _name);
 	}
 
 }

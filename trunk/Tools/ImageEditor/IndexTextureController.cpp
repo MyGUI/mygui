@@ -61,13 +61,13 @@ namespace tools
 			Data* data = mParentData->getChildSelected();
 			if (data != nullptr)
 			{
-				Property* property = data->getParent()->getProperties().find("Texture")->second;
+				Property* property = data->getParent()->getProperty("Texture");
 				texture = property->getValue();
 
 				if (!property->eventChangeProperty.exist(this, &IndexTextureController::notifyChangeProperty))
 					property->eventChangeProperty.connect(this, &IndexTextureController::notifyChangeProperty);
 
-				property = data->getParent()->getProperties().find("Size")->second;
+				property = data->getParent()->getProperty("Size");
 				coord = property->getValue();
 
 				if (!property->eventChangeProperty.exist(this, &IndexTextureController::notifyChangeProperty))
@@ -75,7 +75,7 @@ namespace tools
 
 				for (Data::VectorData::const_iterator child = data->getChilds().begin(); child != data->getChilds().end(); child ++)
 				{
-					property = (*child)->getProperties().find("Point")->second;
+					property = (*child)->getProperty("Point");
 					if (!property->eventChangeProperty.exist(this, &IndexTextureController::notifyChangeProperty))
 						property->eventChangeProperty.connect(this, &IndexTextureController::notifyChangeProperty);
 				}
@@ -184,8 +184,8 @@ namespace tools
 		{
 			for (Data::VectorData::const_iterator child = selected->getChilds().begin(); child != selected->getChilds().end(); child ++)
 			{
-				std::string value = (*child)->getPropertyValue("Point");
-				mFrames.push_back(MyGUI::IntCoord(MyGUI::IntPoint::parse(value), mSize));
+				MyGUI::IntPoint value = (*child)->getPropertyValue<MyGUI::IntPoint>("Point");
+				mFrames.push_back(MyGUI::IntCoord(value, mSize));
 			}
 		}
 

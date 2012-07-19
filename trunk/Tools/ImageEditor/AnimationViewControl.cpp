@@ -69,17 +69,17 @@ namespace tools
 		if (mParentData != nullptr)
 		{
 			// Index
-			Property* property = mParentData->getProperties().find("Rate")->second;
+			Property* property = mParentData->getProperty("Rate");
 			if (!property->eventChangeProperty.exist(this, &AnimationViewControl::notifyChangeProperty))
 				property->eventChangeProperty.connect(this, &AnimationViewControl::notifyChangeProperty);
 
 			// Group
-			property = mParentData->getParent()->getProperties().find("Size")->second;
+			property = mParentData->getParent()->getProperty("Size");
 			if (!property->eventChangeProperty.exist(this, &AnimationViewControl::notifyChangeProperty))
 				property->eventChangeProperty.connect(this, &AnimationViewControl::notifyChangeProperty);
 
 			// Group
-			property = mParentData->getParent()->getProperties().find("Texture")->second;
+			property = mParentData->getParent()->getProperty("Texture");
 			if (!property->eventChangeProperty.exist(this, &AnimationViewControl::notifyChangeProperty))
 				property->eventChangeProperty.connect(this, &AnimationViewControl::notifyChangeProperty);
 		}
@@ -95,13 +95,13 @@ namespace tools
 		if (mParentData != nullptr)
 		{
 			mAnimation.setTextureName(mParentData->getParent()->getPropertyValue("Texture"));
-			mAnimation.setSize(MyGUI::IntCoord::parse(mParentData->getParent()->getPropertyValue("Size")).size());
-			mAnimation.setRate(MyGUI::utility::parseValue<float>(mParentData->getPropertyValue("Rate")));
+			mAnimation.setSize(mParentData->getParent()->getPropertyValue<MyGUI::IntCoord>("Size").size());
+			mAnimation.setRate(mParentData->getPropertyValue<float>("Rate"));
 
 			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
 			{
-				size_t count = MyGUI::utility::parseValue<size_t>((*child)->getPropertyValue("Count"));
-				MyGUI::IntPoint point = MyGUI::IntPoint::parse((*child)->getPropertyValue("Point"));
+				size_t count = (*child)->getPropertyValue<size_t>("Count");
+				MyGUI::IntPoint point = (*child)->getPropertyValue<MyGUI::IntPoint>("Point");
 				mAnimation.addFrame(point, count);
 			}
 

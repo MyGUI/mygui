@@ -61,13 +61,13 @@ namespace tools
 			Data* data = mParentData->getChildSelected();
 			if (data != nullptr)
 			{
-				Property* property = data->getProperties().find("Texture")->second;
+				Property* property = data->getProperty("Texture");
 				texture = property->getValue();
 
 				if (!property->eventChangeProperty.exist(this, &GroupTextureController::notifyChangeProperty))
 					property->eventChangeProperty.connect(this, &GroupTextureController::notifyChangeProperty);
 
-				property = data->getProperties().find("Size")->second;
+				property = data->getProperty("Size");
 				coord = property->getValue();
 
 				if (!property->eventChangeProperty.exist(this, &GroupTextureController::notifyChangeProperty))
@@ -100,7 +100,7 @@ namespace tools
 			Data* selected = mParentData->getChildSelected();
 			if (selected != nullptr)
 			{
-				Property* property = selected->getProperties().find("Size")->second;
+				Property* property = selected->getProperty("Size");
 				PropertyUtility::executeAction(property, _value, true);
 			}
 		}

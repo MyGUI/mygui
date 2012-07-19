@@ -41,6 +41,26 @@ namespace tools
 		const std::string& getPropertyValue(const std::string& _name) const;
 		void setPropertyValue(const std::string& _name, const std::string& _value);
 
+		template <typename Type>
+		Type getPropertyValue(const std::string& _name) const
+		{
+			return MyGUI::utility::parseValue<Type>(getPropertyValue(_name));
+		}
+
+		template <typename Type>
+		void setPropertyValue(const std::string& _name, const Type& _value)
+		{
+			setPropertyValue(_name, MyGUI::utility::toString(_value));
+		}
+
+		template <>
+		void setPropertyValue(const std::string& _name, const bool& _value)
+		{
+			setPropertyValue(_name, std::string(_value ? "True" : "False"));
+		}
+
+		Property* getProperty(const std::string& _name) const;
+
 		Data* getChildSelected();
 		void setChildSelected(Data* _child);
 

@@ -61,13 +61,12 @@ namespace tools
 		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
 		{
 			bool unique = isUniqueName((*child), _propertyName);
-			std::string value = unique ? "True" : "False";
-			Property* property = (*child)->getProperties().find(_propertyUnique)->second;
+			Property* property = (*child)->getProperty(_propertyUnique);
 
-			if (property->getValue() != value)
+			if (property->getValue<bool>() != unique)
 			{
 				_store.push_back(std::make_pair(property, property->getValue()));
-				property->setValue(value);
+				property->setValue(unique);
 			}
 		}
 	}
