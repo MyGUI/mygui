@@ -14,7 +14,8 @@ namespace tools
 {
 
 	class SelectorControl :
-		public Control
+		public Control,
+		public sigslot::has_slots<>
 	{
 	public:
 		SelectorControl();
@@ -51,7 +52,7 @@ namespace tools
 		void setColour(MyGUI::Colour _value);
 		void updateCoord();
 
-		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
+		void notifySettingsChanged(const std::string& _path);
 
 	private:
 		MyGUI::IntCoord mCoordValue;

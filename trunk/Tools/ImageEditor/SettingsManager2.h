@@ -10,6 +10,7 @@
 #include <MyGUI.h>
 #include "pugixml.hpp"
 #include "StringUtility.h"
+#include "sigslot.h"
 
 namespace tools
 {
@@ -87,6 +88,8 @@ namespace tools
 		}
 
 		pugi::xml_node getRootNode() { return mDocument->document_element(); }
+
+		sigslot::signal1<const std::string&> eventSettingsChanged;
 
 	private:
 		void mergeNodes(pugi::xml_node _node1, pugi::xml_node _node2);

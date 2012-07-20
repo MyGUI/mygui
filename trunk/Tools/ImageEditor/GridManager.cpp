@@ -27,21 +27,23 @@ namespace tools
 	{
 		//mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 		mGridStep = SettingsManager2::getInstance().getValue<int>("Settings/Grid");
-		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &GridManager::notifySettingsChanged);
+		//SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &GridManager::notifySettingsChanged);
+		SettingsManager2::getInstance().eventSettingsChanged.connect(this, &GridManager::notifySettingsChanged);
 	}
 
 	void GridManager::shutdown()
 	{
-		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &GridManager::notifySettingsChanged);
+		//SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &GridManager::notifySettingsChanged);
+		SettingsManager2::getInstance().eventSettingsChanged.disconnect(this);
 	}
 
-	void GridManager::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
+	void GridManager::notifySettingsChanged(const std::string& _path)
 	{
-		/*if (_sectorName == "Settings")
+		if (_path == "Settings/Grid")
 		{
-			if (_propertyName == "Grid")
-				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
-		}*/
+			//mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
+			mGridStep = SettingsManager2::getInstance().getValue<int>("Settings/Grid");
+		}
 	}
 
 	int GridManager::toGrid(int _value, GridLine _line) const

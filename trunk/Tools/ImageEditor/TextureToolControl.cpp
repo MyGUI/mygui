@@ -20,7 +20,8 @@ namespace tools
 
 	TextureToolControl::~TextureToolControl()
 	{
-		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &TextureToolControl::notifySettingsChanged);
+		//SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &TextureToolControl::notifySettingsChanged);
+		SettingsManager2::getInstance().eventSettingsChanged.disconnect(this);
 	}
 
 	void TextureToolControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
@@ -38,11 +39,18 @@ namespace tools
 		//mScaleValue = SettingsManager::getInstance().getSector("TextureScale")->getPropertyValueList<size_t>("ScaleValue");
 		mScaleValue = SettingsManager2::getInstance().getValueList<size_t>("TextureScale/ScaleValue.List/ScaleValue");
 
-		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &TextureToolControl::notifySettingsChanged);
+		//SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &TextureToolControl::notifySettingsChanged);
+		SettingsManager2::getInstance().eventSettingsChanged.connect(this, &TextureToolControl::notifySettingsChanged);
 	}
 
-	void TextureToolControl::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
+	void TextureToolControl::notifySettingsChanged(const std::string& _path)
 	{
+		if (_path == "Settings/ColourBackground")
+		{
+			//MyGUI::Colour colour = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<MyGUI::Colour>("ColourBackground");
+			MyGUI::Colour colour = SettingsManager2::getInstance().getValue<MyGUI::Colour>("Settings/ColourBackground");
+			setColour(colour);
+		}
 		/*if (_sectorName == "Settings")
 		{
 			if (_propertyName == "ColourBackground")

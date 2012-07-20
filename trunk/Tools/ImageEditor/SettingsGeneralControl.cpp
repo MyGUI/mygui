@@ -66,7 +66,7 @@ namespace tools
 	void SettingsGeneralControl::notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new)
 	{
 		mGridStep = MyGUI::utility::parseInt(mGridEdit->getOnlyText());
-		mGridStep = std::max(1, mGridStep);
+		mGridStep = (std::max)(1, mGridStep);
 		mGridEdit->setCaption(MyGUI::utility::toString(mGridStep));
 	}
 

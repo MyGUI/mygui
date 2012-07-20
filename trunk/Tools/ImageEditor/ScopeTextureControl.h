@@ -17,8 +17,7 @@ namespace tools
 {
 
 	class ScopeTextureControl :
-		public TextureToolControl,
-		public sigslot::has_slots<>
+		public TextureToolControl
 	{
 	public:
 		ScopeTextureControl();
