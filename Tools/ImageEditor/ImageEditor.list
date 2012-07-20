@@ -98,6 +98,7 @@ set (HEADER_FILES
   SeparatorUtility.h
   SettingsGeneralControl.h
   SettingsManager.h
+  SettingsManager2.h
   SettingsResourcePathsControl.h
   SettingsResourcesControl.h
   SettingsSector.h
@@ -216,6 +217,7 @@ set (SOURCE_FILES
   SeparatorTextureControl.cpp
   SettingsGeneralControl.cpp
   SettingsManager.cpp
+  SettingsManager2.cpp
   SettingsResourcePathsControl.cpp
   SettingsResourcesControl.cpp
   SettingsSector.cpp
@@ -505,6 +507,8 @@ SOURCE_GROUP("Managers\\Factory" FILES
 SOURCE_GROUP("Managers\\Settings" FILES
   SettingsManager.cpp
   SettingsManager.h
+  SettingsManager2.cpp
+  SettingsManager2.h
   SettingsSector.cpp
   SettingsSector.h
 )

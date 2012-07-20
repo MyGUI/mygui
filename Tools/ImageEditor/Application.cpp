@@ -18,6 +18,7 @@
 #include "StateManager.h"
 #include "RecentFilesManager.h"
 #include "SettingsManager.h"
+#include "SettingsManager2.h"
 #include "ColourManager.h"
 #include "Localise.h"
 #include "GridManager.h"
@@ -60,6 +61,10 @@ namespace tools
 
 		new SettingsManager();
 		SettingsManager::getInstance().initialise("ie_user_settings.xml");
+
+		new SettingsManager2();
+		SettingsManager2::getInstance().loadSettingsFile(MyGUI::DataManager::getInstance().getDataPath("Settings2.xml"));
+		SettingsManager2::getInstance().loadUserSettingsFile("ie_user_settings2.xml");
 
 		std::string language = SettingsManager::getInstance().getSector("Settings")->getPropertyValue("InterfaceLanguage");
 		if (language.empty() || language == "Auto")
@@ -193,9 +198,6 @@ namespace tools
 		RecentFilesManager::getInstance().shutdown();
 		delete RecentFilesManager::getInstancePtr();
 
-		SettingsManager::getInstance().shutdown();
-		delete SettingsManager::getInstancePtr();
-
 		tools::DataSelectorManager::getInstance().shutdown();
 		delete tools::DataSelectorManager::getInstancePtr();
 
@@ -204,6 +206,13 @@ namespace tools
 
 		tools::DataTypeManager::getInstance().shutdown();
 		delete tools::DataTypeManager::getInstancePtr();
+
+		SettingsManager2::getInstance().saveSettingsFile("SettingsResult.xml");
+		SettingsManager2::getInstance().saveUserSettingsFile();
+		delete SettingsManager2::getInstancePtr();
+
+		SettingsManager::getInstance().shutdown();
+		delete SettingsManager::getInstancePtr();
 
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::FilterNone>("BasisSkin");
 	}
