@@ -52,17 +52,19 @@ namespace tools
 	void SettingsResourcePathsControl::loadSettings()
 	{
 		mResourcePaths->removeAllItems();
-		SettingsSector::VectorUString paths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalPaths");
-		for (SettingsSector::VectorUString::const_iterator item = paths.begin(); item != paths.end(); ++ item)
+		//SettingsSector::VectorUString paths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalPaths");
+		SettingsManager2::VectorString paths = SettingsManager2::getInstance().getValueListString("Settings/AdditionalPath.List/AdditionalPath");
+		for (SettingsManager2::VectorString::const_iterator item = paths.begin(); item != paths.end(); ++ item)
 			mResourcePaths->addItem(*item);
 	}
 
 	void SettingsResourcePathsControl::saveSettings()
 	{
-		SettingsSector::VectorUString paths;
+		SettingsManager2::VectorString paths;
 		for (size_t index = 0; index < mResourcePaths->getItemCount(); ++ index)
 			paths.push_back(mResourcePaths->getItemNameAt(index));
-		SettingsManager::getInstance().getSector("Settings")->setPropertyValueList("AdditionalPaths", paths);
+		//SettingsManager::getInstance().getSector("Settings")->setPropertyValueList("AdditionalPaths", paths);
+		SettingsManager2::getInstance().setValueList("Settings/AdditionalPath.List/AdditionalPath", paths);
 	}
 
 	void SettingsResourcePathsControl::notifyClickAdd(MyGUI::Widget* _sender)

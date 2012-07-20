@@ -9,6 +9,7 @@
 
 #include <MyGUI.h>
 #include "pugixml.hpp"
+#include "StringUtility.h"
 
 namespace tools
 {
@@ -69,6 +70,20 @@ namespace tools
 				result.push_back(MyGUI::utility::parseValue<Type>(*item));
 
 			return result;
+		}
+
+		void setValueListString(const std::string& _path, const VectorString& _values);
+
+		template <typename Type>
+		void setValueList(const std::string& _path, const std::vector<Type>& _values)
+		{
+			VectorString values;
+			values.reserve(_values.size());
+
+			for (auto item = _values.begin(); item != _values.end(); item ++)
+				values.push_back(MyGUI::utility::toString(*item));
+
+			setValueListString(_path, values);
 		}
 
 		pugi::xml_node getRootNode() { return mDocument->document_element(); }

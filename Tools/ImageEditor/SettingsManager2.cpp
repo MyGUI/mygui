@@ -201,4 +201,8 @@ namespace tools
 		mUserDocument->save_file(mUserSettingsFileName.c_str());
 	}
 
+	void SettingsManager2::setValueListString(const std::string& _path, const VectorString& _values)
+	{
+	}
+
 }

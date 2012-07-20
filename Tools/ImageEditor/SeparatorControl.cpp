@@ -293,9 +293,10 @@ namespace tools
 		if (mSaveAs.empty())
 			return;
 
-		SettingsSector::VectorUString values;
-		values = SettingsManager::getInstance().getSector("Window")->getPropertyValueList(mSaveAs);
-		SettingsSector::VectorUString::const_iterator value = values.begin();
+		SettingsManager2::VectorString values;
+		//values = SettingsManager::getInstance().getSector("Window")->getPropertyValueList(mSaveAs);
+		values = SettingsManager2::getInstance().getValueListString("Window/" + mSaveAs + ".List/Item");
+		SettingsManager2::VectorString::const_iterator value = values.begin();
 
 		for (VectorWidget::const_iterator child = mChilds.begin(); child != mChilds.end(); child ++)
 		{
@@ -323,7 +324,7 @@ namespace tools
 		if (mSaveAs.empty())
 			return;
 
-		SettingsSector::VectorUString values;
+		SettingsManager2::VectorString values;
 		for (VectorWidget::const_iterator child = mChilds.begin(); child != mChilds.end(); child ++)
 		{
 			SeparatorData** data = (*child)->getUserData<SeparatorData*>(false);
@@ -331,7 +332,8 @@ namespace tools
 				values.push_back((*child)->getPosition().print());
 		}
 
-		SettingsManager::getInstance().getSector("Window")->setPropertyValueList(mSaveAs, values);
+		//SettingsManager::getInstance().getSector("Window")->setPropertyValueList(mSaveAs, values);
+		SettingsManager2::getInstance().setValueListString("Window/" + mSaveAs + ".List/Item", values);
 	}
 
 }

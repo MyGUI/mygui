@@ -114,6 +114,7 @@ set (HEADER_FILES
   StateManager.h
   StatePropertyControl.h
   StateTextureControl.h
+  StringUtility.h
   TestState.h
   TestWindow.h
   TextFieldControl.h
@@ -553,6 +554,7 @@ SOURCE_GROUP("States\\old" FILES
 )
 SOURCE_GROUP("Utility" FILES
   Localise.h
+  StringUtility.h
   pugiconfig.hpp
   pugixml.cpp
   pugixml.hpp

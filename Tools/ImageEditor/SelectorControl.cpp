@@ -164,17 +164,18 @@ namespace tools
 
 	void SelectorControl::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
 	{
-		if (!mPropertyColour.empty() && _sectorName == "Settings" && _propertyName == mPropertyColour)
+		/*if (!mPropertyColour.empty() && _sectorName == "Settings" && _propertyName == mPropertyColour)
 		{
 			MyGUI::Colour colour = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<MyGUI::Colour>(mPropertyColour);
 			setColour(colour);
-		}
+		}*/
 	}
 
 	void SelectorControl::setPropertyColour(const std::string& _propertyName)
 	{
 		mPropertyColour = _propertyName;
-		MyGUI::Colour colour = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<MyGUI::Colour>(mPropertyColour);
+		//MyGUI::Colour colour = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<MyGUI::Colour>(mPropertyColour);
+		MyGUI::Colour colour = SettingsManager2::getInstance().getValue<MyGUI::Colour>("Settings/" + mPropertyColour);
 		setColour(colour);
 	}
 
