@@ -9,6 +9,7 @@
 #include "FactoryManager.h"
 #include "ActionManager.h"
 #include "ActionChangeDataProperty.h"
+#include "DataManager.h"
 
 namespace tools
 {
@@ -76,6 +77,38 @@ namespace tools
 		for (VectorPairProperty::const_iterator value = _store.begin(); value != _store.end(); value ++)
 			(*value).first->setValue((*value).second);
 		_store.clear();
+	}
+
+	Property* PropertyUtility::getPropertyByName(Data* _data, const std::string& _dataType, const std::string& _propertyName)
+	{
+		if (_data == nullptr)
+			return nullptr;
+
+		if (_data->getType()->getName() == _dataType)
+			return _data->getProperty(_propertyName);
+
+		return getPropertyByName(_data->getChildSelected(), _dataType, _propertyName);
+	}
+
+	Property* PropertyUtility::getPropertyByName(const std::string& _dataType, const std::string& _propertyName)
+	{
+		return getPropertyByName(DataManager::getInstance().getRoot(), _dataType, _propertyName);
+	}
+
+	bool PropertyUtility::isDataSelected(Data* _data)
+	{
+		return isDataSelected(DataManager::getInstance().getRoot(), _data);
+	}
+
+	bool PropertyUtility::isDataSelected(Data* _parent, Data* _data)
+	{
+		if (_parent == nullptr)
+			return false;
+
+		if (_parent == _data)
+			return true;
+
+		return isDataSelected(_parent->getChildSelected(), _data);
 	}
 
 }

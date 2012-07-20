@@ -22,6 +22,13 @@ namespace tools
 		typedef std::vector<PairProprty> VectorPairProperty;
 		static void storeUniqueNameProperty(const std::string& _propertyName, const std::string& _propertyUnique, Data* _parent, VectorPairProperty& _store);
 		static void restoreUniqueNameProperty(VectorPairProperty& _store);
+
+		static Property* getPropertyByName(const std::string& _dataType, const std::string& _propertyName);
+		static bool isDataSelected(Data* _data);
+
+	private:
+		static Property* getPropertyByName(Data* _data, const std::string& _dataType, const std::string& _propertyName);
+		static bool isDataSelected(Data* _parent, Data* _data);
 	};
 }
 

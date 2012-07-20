@@ -37,7 +37,7 @@ namespace tools
 	private:
 		ScopeTextureControl* mControl;
 		std::string mParentTypeName;
-		std::string mTypeName;
+		std::string mScopeName;
 		Data* mParentData;
 		bool mActivated;
 	};

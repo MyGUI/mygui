@@ -36,7 +36,7 @@ namespace tools
 	void GroupTextureController::activate()
 	{
 		mParentTypeName = "Image";
-		mTypeName = "Group";
+		mScopeName = "Group";
 
 		ScopeManager::getInstance().eventChangeScope.connect(this, &GroupTextureController::notifyChangeScope);
 		notifyChangeScope(ScopeManager::getInstance().getCurrentScope());
@@ -54,25 +54,23 @@ namespace tools
 			mParentData = nullptr;
 
 		std::string texture;
-		std::string coord;
-
-		if (mParentData != nullptr)
+		Property* property = PropertyUtility::getPropertyByName("Group", "Texture");
+		if (property != nullptr)
 		{
-			Data* data = mParentData->getChildSelected();
-			if (data != nullptr)
-			{
-				Property* property = data->getProperty("Texture");
-				texture = property->getValue();
+			texture = property->getValue();
 
-				if (!property->eventChangeProperty.exist(this, &GroupTextureController::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &GroupTextureController::notifyChangeProperty);
+			if (!property->eventChangeProperty.exist(this, &GroupTextureController::notifyChangeProperty))
+				property->eventChangeProperty.connect(this, &GroupTextureController::notifyChangeProperty);
+		}
 
-				property = data->getProperty("Size");
-				coord = property->getValue();
+		std::string coord;
+		property = PropertyUtility::getPropertyByName("Group", "Size");
+		if (property != nullptr)
+		{
+			coord = property->getValue();
 
-				if (!property->eventChangeProperty.exist(this, &GroupTextureController::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &GroupTextureController::notifyChangeProperty);
-			}
+			if (!property->eventChangeProperty.exist(this, &GroupTextureController::notifyChangeProperty))
+				property->eventChangeProperty.connect(this, &GroupTextureController::notifyChangeProperty);
 		}
 
 		mControl->setTextureValue(texture);
@@ -81,9 +79,10 @@ namespace tools
 
 	void GroupTextureController::notifyChangeProperty(Property* _sender)
 	{
-		if (mParentData != nullptr &&
-			mParentData->getType()->getName() == mParentTypeName &&
-			mParentData->getChildSelected() == _sender->getOwner())
+		if (!PropertyUtility::isDataSelected(_sender->getOwner()))
+			return;
+
+		if (_sender->getOwner()->getType()->getName() == "Group")
 		{
 			if (_sender->getType()->getName() == "Texture")
 				mControl->setTextureValue(_sender->getValue());
@@ -94,35 +93,28 @@ namespace tools
 
 	void GroupTextureController::notifyChangeValue(const std::string& _value)
 	{
-		if (mParentData != nullptr &&
-			mParentData->getType()->getName() == mParentTypeName)
-		{
-			Data* selected = mParentData->getChildSelected();
-			if (selected != nullptr)
-			{
-				Property* property = selected->getProperty("Size");
-				PropertyUtility::executeAction(property, _value, true);
-			}
-		}
+		Property* property = PropertyUtility::getPropertyByName("Group", "Size");
+		if (property != nullptr)
+			PropertyUtility::executeAction(property, _value, true);
 	}
 
 	void GroupTextureController::notifyChangeScope(const std::string& _scope)
 	{
-		if (_scope == mTypeName)
+		if (mControl == nullptr)
+			return;
+
+		if (_scope == mScopeName)
 		{
 			if (!mActivated)
 			{
-				if (mControl != nullptr)
-				{
-					mControl->eventChangeValue.connect(this, &GroupTextureController::notifyChangeValue);
-					mControl->clearAll();
+				mControl->eventChangeValue.connect(this, &GroupTextureController::notifyChangeValue);
+				mControl->clearAll();
 
-					DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &GroupTextureController::notifyChangeDataSelector);
-					mParentData = DataManager::getInstance().getSelectedDataByType(mParentTypeName);
-					notifyChangeDataSelector(mParentData, false);
+				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &GroupTextureController::notifyChangeDataSelector);
+				mParentData = DataManager::getInstance().getSelectedDataByType(mParentTypeName);
+				notifyChangeDataSelector(mParentData, false);
 
-					mControl->getRoot()->setUserString("CurrentScopeController", mParentTypeName);
-				}
+				mControl->getRoot()->setUserString("CurrentScopeController", mScopeName);
 
 				mActivated = true;
 			}
@@ -131,22 +123,19 @@ namespace tools
 		{
 			if (mActivated)
 			{
-				if (mControl != nullptr)
+				mControl->eventChangeValue.disconnect(this);
+
+				DataSelectorManager::getInstance().getEvent(mParentTypeName)->disconnect(this);
+				mParentData = nullptr;
+
+				// мы еще владельцы контрола сбрасываем его
+				std::string value = mControl->getRoot()->getUserString("CurrentScopeController");
+				if (value == mScopeName)
 				{
-					mControl->eventChangeValue.disconnect(this);
+					mControl->getRoot()->setUserString("CurrentScopeController", "");
+					notifyChangeDataSelector(mParentData, false);
 
-					DataSelectorManager::getInstance().getEvent(mParentTypeName)->disconnect(this);
-					mParentData = nullptr;
-
-					// мы еще владельцы контрола сбрасываем его
-					std::string value = mControl->getRoot()->getUserString("CurrentScopeController");
-					if (value == mParentTypeName)
-					{
-						mControl->getRoot()->setUserString("CurrentScopeController", "");
-						notifyChangeDataSelector(mParentData, false);
-
-						mControl->clearAll();
-					}
+					mControl->clearAll();
 				}
 
 				mActivated = false;
