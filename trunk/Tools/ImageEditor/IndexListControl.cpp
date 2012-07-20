@@ -27,6 +27,7 @@ namespace tools
 		DataListBaseControl::OnInitialise(_parent, _place, _layoutName);
 
 		CommandManager::getInstance().registerCommand("Command_CreateIndexData", MyGUI::newDelegate((DataListBaseControl*)this, &DataListBaseControl::commandCreateImageData));
+		CommandManager::getInstance().registerCommand("Command_CloneIndexData", MyGUI::newDelegate((DataListBaseControl*)this, &DataListBaseControl::commandCloneImageData));
 		CommandManager::getInstance().registerCommand("Command_DestroyIndexData", MyGUI::newDelegate((DataListBaseControl*)this, &DataListBaseControl::commandDestroyImageData));
 		CommandManager::getInstance().registerCommand("Command_RenameIndexData", MyGUI::newDelegate((DataListBaseControl*)this, &DataListBaseControl::commandRenameImageData));
 

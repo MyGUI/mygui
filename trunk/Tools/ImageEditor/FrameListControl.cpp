@@ -27,6 +27,7 @@ namespace tools
 		DataListBaseControl::OnInitialise(_parent, _place, _layoutName);
 
 		CommandManager::getInstance().registerCommand("Command_CreateFrameData", MyGUI::newDelegate((DataListBaseControl*)this, &DataListBaseControl::commandCreateImageData));
+		CommandManager::getInstance().registerCommand("Command_CloneFrameData", MyGUI::newDelegate((DataListBaseControl*)this, &DataListBaseControl::commandCloneImageData));
 		CommandManager::getInstance().registerCommand("Command_DestroyFrameData", MyGUI::newDelegate((DataListBaseControl*)this, &DataListBaseControl::commandDestroyImageData));
 
 		setDataInfo("Index", "Frame", "Point", "");

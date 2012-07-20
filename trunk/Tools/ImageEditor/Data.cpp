@@ -67,7 +67,7 @@ namespace tools
 		}
 	}
 
-	const Data::MapString Data::getProperties() const
+	const Data::MapString& Data::getProperties() const
 	{
 		return mProperties;
 	}

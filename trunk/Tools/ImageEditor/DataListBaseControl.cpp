@@ -13,11 +13,11 @@
 #include "DataManager.h"
 #include "ActionManager.h"
 #include "ActionCreateData.h"
+#include "ActionCloneData.h"
 #include "ActionDestroyData.h"
 #include "ActionRenameData.h"
 #include "ActionChangePositionData.h"
 #include "PropertyUtility.h"
-#include "DataUtility.h"
 #include "DataUtility.h"
 
 namespace tools
@@ -26,7 +26,6 @@ namespace tools
 	FACTORY_ITEM_ATTRIBUTE(DataListBaseControl)
 
 	DataListBaseControl::DataListBaseControl() :
-		mNameIndex(0),
 		mListBoxControl(nullptr)
 	{
 	}
@@ -86,8 +85,24 @@ namespace tools
 			command->setUniqueProperty(mPropertyForUnique);
 
 			ActionManager::getInstance().doAction(command);
+		}
 
-			mNameIndex ++;
+		_result = true;
+	}
+
+	void DataListBaseControl::commandCloneImageData(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand(_result))
+			return;
+
+		Data* data = DataUtility::getSelectedDataByType(mCurrentType);
+		if (data != nullptr)
+		{
+			ActionCloneData* command = new ActionCloneData();
+			command->setPrototype(data);
+			command->setUniqueProperty(mPropertyForUnique);
+
+			ActionManager::getInstance().doAction(command);
 		}
 
 		_result = true;
