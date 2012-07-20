@@ -283,7 +283,7 @@ namespace tools
 
 	void TextureControl::removeSelectorControl(SelectorControl* _control)
 	{
-		mSelectors.erase(std::remove(mSelectors.begin(), mSelectors.end(), _control), mSelectors.end());
+		mSelectors.erase(std::find(mSelectors.begin(), mSelectors.end(), _control));
 		_control->Shutdown();
 		delete _control;
 	}
