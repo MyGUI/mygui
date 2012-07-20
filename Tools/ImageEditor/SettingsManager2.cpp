@@ -95,7 +95,7 @@ namespace tools
 		pugi::xpath_node node = mUserDocument->document_element().select_single_node(_path.c_str());
 		if (!node.node().empty())
 		{
-			node.node().first_child().set_value(_value.c_str());
+			node.node().text().set(_value.c_str());
 		}
 		else
 		{
