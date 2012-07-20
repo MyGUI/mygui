@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Settings>
+	<Settings>
+		<Grid>1</Grid>
+		<MaxRecentFolders>10</MaxRecentFolders>
+		<MaxRecentFiles>10</MaxRecentFiles>
+		<ColourBackground>0 0 0 0</ColourBackground>
+		<ColourSelector>0 1 0 1</ColourSelector>
+		<ColourSelectorInactive>0 0 0 0.5</ColourSelectorInactive>
+		<SaveLastTexture>true</SaveLastTexture>
+	</Settings>
+	<TextureScale>
+		<ScaleValue.List>
+			<ScaleValue>50</ScaleValue>
+			<ScaleValue>100</ScaleValue>
+			<ScaleValue>200</ScaleValue>
+			<ScaleValue>400</ScaleValue>
+			<ScaleValue>800</ScaleValue>
+			<ScaleValue>1600</ScaleValue>
+		</ScaleValue.List>
+	</TextureScale>
+</Settings>
