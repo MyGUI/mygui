@@ -19,15 +19,10 @@ namespace tools
 		TextureToolControl();
 		virtual ~TextureToolControl();
 
-		void setActivate(bool _value);
-		bool getActivate() const;
-
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 		virtual void onMouseWheel(int _rel);
-
-		virtual void onChangeActivate();
 
 		bool checkCommand();
 		bool checkMenuCommand();
@@ -46,8 +41,6 @@ namespace tools
 		typedef std::vector<size_t> VectorSizeT;
 		VectorSizeT mScaleValue;
 		size_t mCurrentScaleValue;
-
-		bool mActivate;
 	};
 
 }

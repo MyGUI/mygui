@@ -43,7 +43,6 @@ namespace tools
 		virtual void onMouseButtonClick(const MyGUI::IntPoint& _point);
 
 		virtual void onChangeScale();
-		virtual void onChangeActivate();
 
 	private:
 		void notifyChangeSelection();
