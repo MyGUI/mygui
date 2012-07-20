@@ -54,12 +54,15 @@ namespace tools
 			}
 		}
 
-		if (control == nullptr && components::FactoryManager::GetInstance().ExistFactory(_property->getType()->getType()))
+		if (control == nullptr)
 		{
-			control = dynamic_cast<PropertyControl*>(components::FactoryManager::GetInstance().CreateItem(_property->getType()->getType()));
-			control->Initialise(this, mMainWidget, "");
+			control = components::FactoryManager::GetInstance().CreateItem<PropertyControl>(_property->getType()->getType());
+			if (control != nullptr)
+			{
+				control->Initialise(this, mMainWidget, "");
 
-			mPropertyControls.push_back(std::make_pair(_property->getType()->getType(), control));
+				mPropertyControls.push_back(std::make_pair(_property->getType()->getType(), control));
+			}
 		}
 
 		if (control != nullptr)

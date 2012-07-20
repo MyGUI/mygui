@@ -36,6 +36,8 @@ namespace tools
 			{
 				Property* data = new Property(*property, this);
 				mProperties[(*property)->getName()] = data;
+
+				data->initialise();
 			}
 		}
 	}

@@ -33,6 +33,20 @@ namespace components
 
 		IFactoryItem* CreateItem(const std::string& _factoryName);
 
+		template <typename Type>
+		Type* CreateItem(const std::string& _factoryName)
+		{
+			IFactoryItem* item = CreateItem(_factoryName);
+			if (item != nullptr)
+			{
+				Type* result = dynamic_cast<Type*>(item);
+				if (result != nullptr)
+					return result;
+				delete item;
+			}
+			return nullptr;
+		}
+
 	private:
 		typedef std::map<std::string, IFactory*> MapFactory;
 		MapFactory mFactories;
