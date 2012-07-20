@@ -20,6 +20,8 @@ namespace tools
 		Property(DataTypeProperty* _type, Data* _owner);
 		~Property();
 
+		void initialise();
+
 		const std::string& getValue() const;
 		void setValue(const std::string& _value);
 

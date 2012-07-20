@@ -24,6 +24,7 @@ namespace tools
 		const std::string& getName() const;
 		const std::string& getType() const;
 		const std::string& getDefaultValue() const;
+		const std::string& getInitialisator() const;
 		bool getReadOnly() const;
 		bool getVisible() const;
 		const std::string& getAction() const;
@@ -32,6 +33,7 @@ namespace tools
 		std::string mName;
 		std::string mType;
 		std::string mDefaultValue;
+		std::string mInitialisator;
 		bool mReadOnly;
 		bool mVisible;
 		std::string mAction;

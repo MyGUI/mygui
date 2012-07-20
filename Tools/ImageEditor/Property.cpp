@@ -7,6 +7,8 @@
 #include "Precompiled.h"
 #include "Property.h"
 #include "Data.h"
+#include "IPropertyInitialisator.h"
+#include "FactoryManager.h"
 
 namespace tools
 {
@@ -15,7 +17,6 @@ namespace tools
 		mType(_type),
 		mOwner(_owner)
 	{
-		mValue = _type->getDefaultValue();
 	}
 
 	Property::~Property()
@@ -44,6 +45,20 @@ namespace tools
 	Data* Property::getOwner()
 	{
 		return mOwner;
+	}
+
+	void Property::initialise()
+	{
+		if (!mType->getInitialisator().empty())
+		{
+			IPropertyInitialisator* initialisator = components::FactoryManager::GetInstance().CreateItem<IPropertyInitialisator>(mType->getInitialisator());
+			if (initialisator != nullptr)
+				initialisator->initialise(this);
+		}
+		else
+		{
+			mValue = mType->getDefaultValue();
+		}
 	}
 
 }

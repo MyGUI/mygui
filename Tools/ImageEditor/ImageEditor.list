@@ -12,6 +12,7 @@ set (HEADER_FILES
   AreaSelectorControl.h
   BackgroundControl.h
   Binary.h
+  ChangeTextureValueAction.h
   ChangeValueAction.h
   ColourManager.h
   ColourPanel.h
@@ -44,6 +45,7 @@ set (HEADER_FILES
   IControlController.h
   IFactory.h
   IFactoryItem.h
+  IPropertyInitialisator.h
   ImageListControl.h
   IndexListControl.h
   IndexTextureController.h
@@ -115,6 +117,7 @@ set (HEADER_FILES
   TextureBrowseCell.h
   TextureBrowseControl.h
   TextureControl.h
+  TexturePropertyInitialisator.h
   TextureToolControl.h
   VerticalSelectorBlackControl.h
   VerticalSelectorControl.h
@@ -134,6 +137,7 @@ set (SOURCE_FILES
   Application.cpp
   AreaSelectorControl.cpp
   BackgroundControl.cpp
+  ChangeTextureValueAction.cpp
   ChangeValueAction.cpp
   ColourManager.cpp
   ColourPanel.cpp
@@ -227,6 +231,7 @@ set (SOURCE_FILES
   TextureBrowseCell.cpp
   TextureBrowseControl.cpp
   TextureControl.cpp
+  TexturePropertyInitialisator.cpp
   TextureToolControl.cpp
   VerticalSelectorBlackControl.cpp
   VerticalSelectorControl.cpp
@@ -249,6 +254,8 @@ SOURCE_GROUP("Actions" FILES
   ActionManager.h
   ActionRenameData.cpp
   ActionRenameData.h
+  ChangeTextureValueAction.cpp
+  ChangeTextureValueAction.h
   ChangeValueAction.cpp
   ChangeValueAction.h
 )
@@ -493,6 +500,11 @@ SOURCE_GROUP("Managers\\old" FILES
 SOURCE_GROUP("Properties" FILES
   Property.cpp
   Property.h
+)
+SOURCE_GROUP("Properties\\Initialisators" FILES
+  IPropertyInitialisator.h
+  TexturePropertyInitialisator.cpp
+  TexturePropertyInitialisator.h
 )
 SOURCE_GROUP("Properties\\old" FILES
   PropertyAdvisor.h

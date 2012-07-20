@@ -77,19 +77,11 @@ namespace tools
 		{
 			std::string controlLayout = _widget->getUserString("ControlLayout");
 
-			components::IFactoryItem* item = components::FactoryManager::GetInstance().CreateItem(controlType);
-			if (item != nullptr)
+			Control* control = components::FactoryManager::GetInstance().CreateItem<Control>(controlType);
+			if (control != nullptr)
 			{
-				Control* control = dynamic_cast<Control*>(item);
-				if (control != nullptr)
-				{
-					control->OnInitialise(_parent, _widget, controlLayout);
-					return;
-				}
-				else
-				{
-					delete item;
-				}
+				control->OnInitialise(_parent, _widget, controlLayout);
+				return;
 			}
 		}
 
@@ -178,19 +170,11 @@ namespace tools
 			std::vector<std::string> values = MyGUI::utility::split(controllers, "\t\n ,");
 			for (std::vector<std::string>::const_iterator value = values.begin(); value != values.end(); value ++)
 			{
-				IFactoryItem* item = components::FactoryManager::GetInstance().CreateItem(*value);
-				if (item != nullptr)
+				IControlController* controller = components::FactoryManager::GetInstance().CreateItem<IControlController>(*value);
+				if (controller != nullptr)
 				{
-					IControlController* controller = dynamic_cast<IControlController*>(item);
-					if (controller != nullptr)
-					{
-						controller->setTarget(this);
-						mControllers.push_back(controller);
-					}
-					else
-					{
-						delete item;
-					}
+					controller->setTarget(this);
+					mControllers.push_back(controller);
 				}
 			}
 		}

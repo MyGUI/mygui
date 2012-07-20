@@ -36,23 +36,14 @@ namespace tools
 
 		std::string actionName = _property->getType()->getAction();
 
-		components::IFactoryItem* item = components::FactoryManager::GetInstance().CreateItem(actionName);
-		if (item != nullptr)
+		ActionChangeDataProperty* action = components::FactoryManager::GetInstance().CreateItem<ActionChangeDataProperty>(actionName);
+		if (action != nullptr)
 		{
-			ActionChangeDataProperty* action = dynamic_cast<ActionChangeDataProperty*>(item);
-			if (action != nullptr)
-			{
-				action->setProperty(_property);
-				action->setValue(_value);
-				action->setMerge(_merge);
+			action->setProperty(_property);
+			action->setValue(_value);
+			action->setMerge(_merge);
 
-				ActionManager::getInstance().doAction(action);
-				return;
-			}
-			else
-			{
-				delete item;
-			}
+			ActionManager::getInstance().doAction(action);
 		}
 	}
 
