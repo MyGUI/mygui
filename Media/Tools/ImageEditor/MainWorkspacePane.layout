@@ -2,6 +2,7 @@
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Widget" skin="PanelEmpty" position="20 20 705 725" align="Stretch" name="Root">
         <UserString key="SnapTo" value="Stretch"/>
+        <UserString key="SaveAs" value="MainWorkspace"/>
         <Widget type="Widget" skin="PanelEmpty" position="0 0 300 725" align="Left VStretch">
             <UserString key="ControlLayout" value="MainPaneTab.layout"/>
             <UserString key="MinSize" value="256"/>

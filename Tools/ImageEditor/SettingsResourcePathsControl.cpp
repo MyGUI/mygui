@@ -25,8 +25,8 @@ namespace tools
 
 	SettingsResourcePathsControl::~SettingsResourcePathsControl()
 	{
-		mResourcePathAdd->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickResourcePathAdd);
-		mResourcePathDelete->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickResourcePathDelete);
+		mResourcePathAdd->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickAdd);
+		mResourcePathDelete->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickDelete);
 
 		delete mOpenSaveFileDialog;
 		mOpenSaveFileDialog = nullptr;
@@ -45,8 +45,8 @@ namespace tools
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionOpenFolder"), replaceTags("ButtonOpenFolder"), true);
 		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyEndDialogOpenSaveFile);
 
-		mResourcePathAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickResourcePathAdd);
-		mResourcePathDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickResourcePathDelete);
+		mResourcePathAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickAdd);
+		mResourcePathDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickDelete);
 	}
 
 	void SettingsResourcePathsControl::loadSettings()
@@ -65,12 +65,12 @@ namespace tools
 		SettingsManager::getInstance().getSector("Settings")->setPropertyValueList("AdditionalPaths", paths);
 	}
 
-	void SettingsResourcePathsControl::notifyClickResourcePathAdd(MyGUI::Widget* _sender)
+	void SettingsResourcePathsControl::notifyClickAdd(MyGUI::Widget* _sender)
 	{
 		mOpenSaveFileDialog->doModal();
 	}
 
-	void SettingsResourcePathsControl::notifyClickResourcePathDelete(MyGUI::Widget* _sender)
+	void SettingsResourcePathsControl::notifyClickDelete(MyGUI::Widget* _sender)
 	{
 		size_t index = mResourcePaths->getIndexSelected();
 		if (index != MyGUI::ITEM_NONE)
