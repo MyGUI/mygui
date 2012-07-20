@@ -66,7 +66,8 @@ namespace tools
 		SettingsManager2::getInstance().loadSettingsFile(MyGUI::DataManager::getInstance().getDataPath("Settings2.xml"));
 		SettingsManager2::getInstance().loadUserSettingsFile("ie_user_settings2.xml");
 
-		std::string language = SettingsManager::getInstance().getSector("Settings")->getPropertyValue("InterfaceLanguage");
+		//std::string language = SettingsManager::getInstance().getSector("Settings")->getPropertyValue("InterfaceLanguage");
+		std::string language = SettingsManager2::getInstance().getValueString("Settings/InterfaceLanguage");
 		if (language.empty() || language == "Auto")
 		{
 			if (!mLocale.empty())
@@ -122,19 +123,23 @@ namespace tools
 
 		MyGUI::ResourceManager::getInstance().load("Initialise.xml");
 
-		const SettingsSector::VectorUString& additionalPaths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalPaths");
-		for (SettingsSector::VectorUString::const_iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
+		//const SettingsSector::VectorUString& additionalPaths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalPaths");
+		const SettingsManager2::VectorString& additionalPaths = SettingsManager2::getInstance().getValueListString("Settings/AdditionalPath.List/AdditionalPath");
+		for (SettingsManager2::VectorString::const_iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
 			addResourceLocation(*iter);
 
-		const SettingsSector::VectorUString& additionalResources = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalResources");
-		for (SettingsSector::VectorUString::const_iterator iter = additionalResources.begin(); iter != additionalResources.end(); ++iter)
+		//const SettingsSector::VectorUString& additionalResources = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalResources");
+		const SettingsManager2::VectorString& additionalResources = SettingsManager2::getInstance().getValueListString("Settings/AdditionalResource.List/AdditionalResource");
+		for (SettingsManager2::VectorString::const_iterator iter = additionalResources.begin(); iter != additionalResources.end(); ++iter)
 			MyGUI::ResourceManager::getInstance().load(*iter);
 
-		bool maximized = SettingsManager::getInstance().getSector("Window")->getPropertyValue<bool>("Maximized");
+		//bool maximized = SettingsManager::getInstance().getSector("Window")->getPropertyValue<bool>("Maximized");
+		bool maximized = SettingsManager2::getInstance().getValue<bool>("Window/Maximized");
 		setWindowMaximized(maximized);
 		if (!maximized)
 		{
-			MyGUI::IntCoord windowCoord = SettingsManager::getInstance().getSector("Window")->getPropertyValue<MyGUI::IntCoord>("Coord");
+			//MyGUI::IntCoord windowCoord = SettingsManager::getInstance().getSector("Window")->getPropertyValue<MyGUI::IntCoord>("Coord");
+			MyGUI::IntCoord windowCoord = SettingsManager2::getInstance().getValue<MyGUI::IntCoord>("Window/Coord");
 			setWindowCoord(windowCoord);
 		}
 
@@ -473,8 +478,8 @@ namespace tools
 
 	void Application::saveSettings()
 	{
-		SettingsManager::getInstance().getSector("Window")->setPropertyValue("Maximized", getWindowMaximized());
-		SettingsManager::getInstance().getSector("Window")->setPropertyValue("Coord", getWindowCoord());
+		SettingsManager2::getInstance().setValue("Window/Maximized", getWindowMaximized());
+		SettingsManager2::getInstance().setValue("Window/Coord", getWindowCoord());
 	}
 
 }

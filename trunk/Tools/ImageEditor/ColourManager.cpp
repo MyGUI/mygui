@@ -89,12 +89,14 @@ namespace tools
 
 	void ColourManager::setColour(const MyGUI::Colour& _color)
 	{
-		SettingsManager::getInstance().getSector("Settings")->setPropertyValue(mCurrentColourType, _color);
+		//SettingsManager::getInstance().getSector("Settings")->setPropertyValue(mCurrentColourType, _color);
+		SettingsManager2::getInstance().setValue("Settings/" + mCurrentColourType, _color);
 	}
 
 	MyGUI::Colour ColourManager::getColour()
 	{
-		return SettingsManager::getInstance().getSector("Settings")->getPropertyValue<MyGUI::Colour>(mCurrentColourType);
+		//return SettingsManager::getInstance().getSector("Settings")->getPropertyValue<MyGUI::Colour>(mCurrentColourType);
+		return SettingsManager2::getInstance().getValue<MyGUI::Colour>("Settings/" + mCurrentColourType);
 	}
 
 }

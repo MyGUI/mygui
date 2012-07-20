@@ -9,6 +9,7 @@
 
 #include <MyGUI.h>
 #include "SettingsSector.h"
+#include "SettingsManager2.h"
 
 namespace tools
 {
