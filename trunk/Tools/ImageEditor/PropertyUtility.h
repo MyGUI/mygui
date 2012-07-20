@@ -1,7 +1,7 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		08/2010
+	@date		07/2012
 */
 
 #ifndef _0228cbb9_aa86_46b7_b23f_3d6ee87da9f9_

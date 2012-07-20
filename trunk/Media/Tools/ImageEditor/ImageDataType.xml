@@ -15,7 +15,7 @@
 				<Property>
 					<Name>Name</Name>
 					<Type>PropertyStringControl</Type>
-					<Initialisator></Initialisator>
+					<Initialisator>UniqueNamePropertyInitialisator</Initialisator>
 					<Default>unnamed</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
@@ -43,7 +43,7 @@
 				<Property>
 					<Name>Name</Name>
 					<Type>PropertyStringControl</Type>
-					<Initialisator></Initialisator>
+					<Initialisator>UniqueNamePropertyInitialisator</Initialisator>
 					<Default>unnamed</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
@@ -89,7 +89,7 @@
 				<Property>
 					<Name>Name</Name>
 					<Type>PropertyStringControl</Type>
-					<Initialisator></Initialisator>
+					<Initialisator>UniqueNamePropertyInitialisator</Initialisator>
 					<Default>unnamed</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>

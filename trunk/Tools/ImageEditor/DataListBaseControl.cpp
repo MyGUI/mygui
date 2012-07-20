@@ -17,6 +17,8 @@
 #include "ActionRenameData.h"
 #include "ActionChangePositionData.h"
 #include "PropertyUtility.h"
+#include "DataUtility.h"
+#include "DataUtility.h"
 
 namespace tools
 {
@@ -75,7 +77,7 @@ namespace tools
 		if (!checkCommand(_result))
 			return;
 
-		Data* data = DataManager::getInstance().getSelectedDataByType(mParentType);
+		Data* data = DataUtility::getSelectedDataByType(mParentType);
 		if (data != nullptr)
 		{
 			ActionCreateData* command = new ActionCreateData();
@@ -96,7 +98,7 @@ namespace tools
 		if (!checkCommand(_result))
 			return;
 
-		Data* data = DataManager::getInstance().getSelectedDataByType(mCurrentType);
+		Data* data = DataUtility::getSelectedDataByType(mCurrentType);
 		if (data != nullptr)
 		{
 			ActionDestroyData* command = new ActionDestroyData();

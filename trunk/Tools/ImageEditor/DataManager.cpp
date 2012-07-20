@@ -62,22 +62,4 @@ namespace tools
 		return mRoot;
 	}
 	
-	Data* DataManager::getSelectedDataByType(const std::string& _type)
-	{
-		DataType* info = DataTypeManager::getInstance().getType(_type);
-
-		return getSelectedDataByType(mRoot, info);
-	}
-
-	Data* DataManager::getSelectedDataByType(Data* _data, DataType* _info)
-	{
-		if (_data == nullptr)
-			return nullptr;
-
-		if (_data->getType() == _info)
-			return _data;
-
-		return getSelectedDataByType(_data->getChildSelected(), _info);
-	}
-
 }

@@ -11,6 +11,7 @@
 #include "DataManager.h"
 #include "PropertyUtility.h"
 #include "ScopeManager.h"
+#include "DataUtility.h"
 
 namespace tools
 {
@@ -112,7 +113,7 @@ namespace tools
 				mControl->setActiveSelector(false);
 
 				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &GroupTextureController::notifyChangeDataSelector);
-				mParentData = DataManager::getInstance().getSelectedDataByType(mParentTypeName);
+				mParentData = DataUtility::getSelectedDataByType(mParentTypeName);
 				notifyChangeDataSelector(mParentData, false);
 
 				mControl->getRoot()->setUserString("CurrentScopeController", mScopeName);
