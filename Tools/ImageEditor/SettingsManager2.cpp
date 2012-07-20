@@ -66,7 +66,11 @@ namespace tools
 
 	bool SettingsManager2::getExistValue(const std::string& _path)
 	{
-		pugi::xpath_node node = mDocument->document_element().select_single_node(_path.c_str());
+		pugi::xpath_node node = mUserDocument->document_element().select_single_node(_path.c_str());
+		if (!node.node().empty())
+			return true;
+
+		node = mDocument->document_element().select_single_node(_path.c_str());
 		if (!node.node().empty())
 			return true;
 
@@ -75,7 +79,11 @@ namespace tools
 
 	std::string SettingsManager2::getValueString(const std::string& _path)
 	{
-		pugi::xpath_node node = mDocument->document_element().select_single_node(_path.c_str());
+		pugi::xpath_node node = mUserDocument->document_element().select_single_node(_path.c_str());
+		if (!node.node().empty())
+			return node.node().child_value();
+
+		node = mDocument->document_element().select_single_node(_path.c_str());
 		if (!node.node().empty())
 			return node.node().child_value();
 
@@ -84,7 +92,7 @@ namespace tools
 
 	void SettingsManager2::setValueString(const std::string& _path, const std::string& _value)
 	{
-		pugi::xpath_node node = mDocument->document_element().select_single_node(_path.c_str());
+		pugi::xpath_node node = mUserDocument->document_element().select_single_node(_path.c_str());
 		if (!node.node().empty())
 		{
 			node.node().first_child().set_value(_value.c_str());
@@ -95,7 +103,7 @@ namespace tools
 			std::string delims("/");
 			names = MyGUI::utility::split(_path, delims);
 
-			pugi::xml_node currentNode = mDocument->document_element();
+			pugi::xml_node currentNode = mUserDocument->document_element();
 			for (auto name = names.begin(); name != names.end(); name ++)
 			{
 				pugi::xml_node childNode = currentNode.child((*name).c_str());
