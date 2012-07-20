@@ -17,9 +17,12 @@ namespace tools
 		static Data* getSelectedDataByType(const std::string& _type);
 		static Data* getSelectedParentDataByType(const std::string& _type);
 
+		static void cloneData(Data* _target, Data* _prototype);
+
 	private:
 		static Data* getSelectedDataByType(Data* _data, DataType* _info);
 		static Data* getSelectedParentDataByType(Data* _data, DataType* _info);
+		static void copyProperty(Data* _target, Data* _prototype);
 	};
 }
 

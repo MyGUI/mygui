@@ -23,6 +23,7 @@ namespace tools
 		virtual ~DataListBaseControl();
 
 		void commandCreateImageData(const MyGUI::UString& _commandName, bool& _result);
+		void commandCloneImageData(const MyGUI::UString& _commandName, bool& _result);
 		void commandDestroyImageData(const MyGUI::UString& _commandName, bool& _result);
 		void commandRenameImageData(const MyGUI::UString& _commandName, bool& _result);
 
@@ -38,7 +39,6 @@ namespace tools
 		bool checkCommand(bool _result);
 
 	private:
-		size_t mNameIndex;
 		ListBoxDataControl* mListBoxControl;
 		std::string mParentType;
 		std::string mCurrentType;

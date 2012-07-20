@@ -20,6 +20,7 @@
 	<Tag name="MenuScale">Scale</Tag>
 	<Tag name="Add">Add</Tag>
 	<Tag name="Create">Create</Tag>
+	<Tag name="Clone">Clone</Tag>
 	<Tag name="Delete">Delete</Tag>
 	<Tag name="Rename">Rename</Tag>
 	<Tag name="GeneralSettings">General</Tag>

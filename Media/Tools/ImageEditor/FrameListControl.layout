@@ -30,7 +30,12 @@
                     <Property key="MenuItemId" value="Create"/>
                     <UserString key="CommandClick" value="Command_CreateFrameData"/>
                 </Widget>
-                <Widget type="MenuItem" skin="" position="0 18 85 18">
+				<Widget type="MenuItem" skin="" position="0 0 85 18">
+					<Property key="Caption" value="#{Clone}"/>
+					<Property key="MenuItemId" value="Clone"/>
+					<UserString key="CommandClick" value="Command_CloneFrameData"/>
+				</Widget>
+				<Widget type="MenuItem" skin="" position="0 18 85 18">
                     <Property key="Caption" value="#{Delete}"/>
                     <Property key="MenuItemId" value="Delete"/>
                     <UserString key="CommandClick" value="Command_DestroyFrameData"/>

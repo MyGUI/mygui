@@ -2,6 +2,7 @@ set (HEADER_FILES
   Action.h
   ActionChangeDataProperty.h
   ActionChangePositionData.h
+  ActionCloneData.h
   ActionCreateData.h
   ActionDestroyData.h
   ActionManager.h
@@ -130,6 +131,7 @@ set (SOURCE_FILES
   Action.cpp
   ActionChangeDataProperty.cpp
   ActionChangePositionData.cpp
+  ActionCloneData.cpp
   ActionCreateData.cpp
   ActionDestroyData.cpp
   ActionManager.cpp
@@ -250,6 +252,8 @@ SOURCE_GROUP("Actions" FILES
   ActionChangeDataProperty.h
   ActionChangePositionData.cpp
   ActionChangePositionData.h
+  ActionCloneData.cpp
+  ActionCloneData.h
   ActionCreateData.cpp
   ActionCreateData.h
   ActionDestroyData.cpp

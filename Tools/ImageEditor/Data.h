@@ -36,7 +36,7 @@ namespace tools
 		Data* getChildByIndex(size_t _index);
 
 		typedef std::map<std::string, Property*> MapString;
-		const MapString getProperties() const;
+		const MapString& getProperties() const;
 
 		const std::string& getPropertyValue(const std::string& _name) const;
 		void setPropertyValue(const std::string& _name, const std::string& _value);
