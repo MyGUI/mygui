@@ -25,7 +25,7 @@ namespace tools
 
 	void GridManager::initialise()
 	{
-		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("GridManager");
+		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &GridManager::notifySettingsChanged);
 	}
 
@@ -38,8 +38,8 @@ namespace tools
 	{
 		if (_sectorName == "Settings")
 		{
-			if (_propertyName == "GridManager")
-				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("GridManager");
+			if (_propertyName == "Grid")
+				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 		}
 	}
 
