@@ -119,6 +119,8 @@ namespace tools
 
 			textNode.set_value(_value.c_str());
 		}
+
+		eventSettingsChanged(_path);
 	}
 
 	SettingsManager2::VectorString SettingsManager2::getValueListString(const std::string& _path)

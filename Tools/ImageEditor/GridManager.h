@@ -9,12 +9,14 @@
 
 #include <MyGUI_Singleton.h>
 #include "BaseLayout/BaseLayout.h"
+#include "sigslot.h"
 
 namespace tools
 {
 
 	class GridManager :
-		public MyGUI::Singleton<GridManager>
+		public MyGUI::Singleton<GridManager>,
+		public sigslot::has_slots<>
 	{
 	public:
 		GridManager();
@@ -23,10 +25,11 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		enum GridLine{ Previous, Closest, Next };
+		enum GridLine { Previous, Closest, Next };
 		int toGrid(int _value, GridLine _line = Closest) const;
+
 	private:
-		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
+		void notifySettingsChanged(const std::string& _path);
 
 		int mGridStep;
 	};
