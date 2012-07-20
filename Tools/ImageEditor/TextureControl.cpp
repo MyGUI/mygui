@@ -141,8 +141,11 @@ namespace tools
 			return true;
 
 		for (std::vector<SelectorControl*>::iterator item = mSelectors.begin(); item != mSelectors.end(); ++item)
+		{
 			if ((*item)->getCapture())
 				return true;
+		}
+
 		return false;
 	}
 
@@ -280,7 +283,7 @@ namespace tools
 
 	void TextureControl::removeSelectorControl(SelectorControl* _control)
 	{
-		mSelectors.erase(std::find(mSelectors.begin(), mSelectors.end(), _control), mSelectors.end());
+		mSelectors.erase(std::remove(mSelectors.begin(), mSelectors.end(), _control), mSelectors.end());
 		_control->Shutdown();
 		delete _control;
 	}

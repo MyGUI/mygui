@@ -429,9 +429,6 @@ namespace tools
 		{
 			removeSelectorControl(mPositionSelectorControl);
 			mPositionSelectorControl = nullptr;
-			//mPositionSelectorControl->Shutdown();
-			//delete mPositionSelectorControl;
-			//mPositionSelectorControl = nullptr;
 		}
 	}
 }
