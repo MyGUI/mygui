@@ -262,12 +262,8 @@ SOURCE_GROUP("Application" FILES
 SOURCE_GROUP("Controls" FILES
   AnimationViewControl.cpp
   AnimationViewControl.h
-  AreaSelectorControl.cpp
-  AreaSelectorControl.h
   ColourPanel.cpp
   ColourPanel.h
-  Control.cpp
-  Control.h
   DataListBaseControl.cpp
   DataListBaseControl.h
   FrameListControl.cpp
@@ -282,42 +278,14 @@ SOURCE_GROUP("Controls" FILES
   ListBoxDataControl.h
   MainMenuControl.cpp
   MainMenuControl.h
-  MessageBoxFadeControl.cpp
-  MessageBoxFadeControl.h
-  OpenSaveFileDialog.cpp
-  OpenSaveFileDialog.h
-  PositionSelectorBlackControl.cpp
-  PositionSelectorBlackControl.h
-  PropertyPanelControl.cpp
-  PropertyPanelControl.h
-  ScopeTextureControl.cpp
-  ScopeTextureControl.h
-  SelectorControl.cpp
-  SelectorControl.h
-  SeparatorControl.cpp
-  SeparatorControl.h
-  SettingsGeneralControl.cpp
-  SettingsGeneralControl.h
-  SettingsResourcePathsControl.cpp
-  SettingsResourcePathsControl.h
-  SettingsResourcesControl.cpp
-  SettingsResourcesControl.h
-  SettingsWindow.cpp
-  SettingsWindow.h
-  TextFieldControl.cpp
-  TextFieldControl.h
-  TextureBrowseCell.cpp
-  TextureBrowseCell.h
-  TextureBrowseControl.cpp
-  TextureBrowseControl.h
-  TextureControl.cpp
-  TextureControl.h
-  TextureToolControl.cpp
-  TextureToolControl.h
 )
 SOURCE_GROUP("Controls\\Animations" FILES
   AnimationInfo.cpp
   AnimationInfo.h
+)
+SOURCE_GROUP("Controls\\Common" FILES
+  Control.cpp
+  Control.h
 )
 SOURCE_GROUP("Controls\\Controllers" FILES
   FrameTextureController.cpp
@@ -329,6 +297,14 @@ SOURCE_GROUP("Controls\\Controllers" FILES
   IndexTextureController.h
   PropertyPanelController.cpp
   PropertyPanelController.h
+)
+SOURCE_GROUP("Controls\\Framework" FILES
+  MessageBoxFadeControl.cpp
+  MessageBoxFadeControl.h
+  OpenSaveFileDialog.cpp
+  OpenSaveFileDialog.h
+  TextFieldControl.cpp
+  TextFieldControl.h
 )
 SOURCE_GROUP("Controls\\Properties" FILES
   PropertyBoolControl.cpp
@@ -343,6 +319,8 @@ SOURCE_GROUP("Controls\\Properties" FILES
   PropertyInt4Control.h
   PropertyIntControl.cpp
   PropertyIntControl.h
+  PropertyPanelControl.cpp
+  PropertyPanelControl.h
   PropertyStringControl.cpp
   PropertyStringControl.h
   PropertyTexturesControl.cpp
@@ -355,6 +333,44 @@ SOURCE_GROUP("Controls\\Properties\\old" FILES
   PropertyColourControl.h
   PropertyRegionTypeControl.cpp
   PropertyRegionTypeControl.h
+)
+SOURCE_GROUP("Controls\\Selectors" FILES
+  AreaSelectorControl.cpp
+  AreaSelectorControl.h
+  PositionSelectorBlackControl.cpp
+  PositionSelectorBlackControl.h
+  PositionSelectorControl.cpp
+  PositionSelectorControl.h
+  SelectorControl.cpp
+  SelectorControl.h
+)
+SOURCE_GROUP("Controls\\Separators" FILES
+  SeparatorControl.cpp
+  SeparatorControl.h
+)
+SOURCE_GROUP("Controls\\Settings" FILES
+  SettingsGeneralControl.cpp
+  SettingsGeneralControl.h
+  SettingsResourcePathsControl.cpp
+  SettingsResourcePathsControl.h
+  SettingsResourcesControl.cpp
+  SettingsResourcesControl.h
+  SettingsWindow.cpp
+  SettingsWindow.h
+)
+SOURCE_GROUP("Controls\\TextureBrowser" FILES
+  TextureBrowseCell.cpp
+  TextureBrowseCell.h
+  TextureBrowseControl.cpp
+  TextureBrowseControl.h
+)
+SOURCE_GROUP("Controls\\TextureView" FILES
+  ScopeTextureControl.cpp
+  ScopeTextureControl.h
+  TextureControl.cpp
+  TextureControl.h
+  TextureToolControl.cpp
+  TextureToolControl.h
 )
 SOURCE_GROUP("Controls\\old" FILES
   BackgroundControl.cpp
@@ -369,8 +385,6 @@ SOURCE_GROUP("Controls\\old" FILES
   ListBoxItemControl.h
   MainTabControl.cpp
   MainTabControl.h
-  PositionSelectorControl.cpp
-  PositionSelectorControl.h
   RegionControl.cpp
   RegionControl.h
   RegionListControl.cpp
