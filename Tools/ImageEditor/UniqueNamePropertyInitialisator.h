@@ -21,9 +21,6 @@ namespace tools
 		virtual ~UniqueNamePropertyInitialisator();
 
 		virtual void initialise(Property* _property);
-
-	private:
-		bool checkUniqueName(Data* _parent, const std::string& _name);
 	};
 
 }
