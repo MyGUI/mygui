@@ -7,17 +7,17 @@
 #ifndef _5e4ba082_bfdd_4106_b851_0f79eb318b0e_
 #define _5e4ba082_bfdd_4106_b851_0f79eb318b0e_
 
-#include "BaseLayout/BaseLayout.h"
+#include "Control.h"
 #include "sigslot.h"
 
 namespace tools
 {
 
 	class SelectorControl :
-		public wraps::BaseLayout
+		public Control
 	{
 	public:
-		SelectorControl(const std::string& _layout, MyGUI::Widget* _parent);
+		SelectorControl();
 		virtual ~SelectorControl();
 
 		void setVisible(bool _value);
@@ -40,6 +40,7 @@ namespace tools
 		MyGUI::Widget* getMainWidget();
 
 	protected:
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 		void setPropertyColour(const std::string& _propertyName);
 
 	private:

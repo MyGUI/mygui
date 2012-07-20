@@ -334,16 +334,6 @@ SOURCE_GROUP("Controls\\Properties\\old" FILES
   PropertyRegionTypeControl.cpp
   PropertyRegionTypeControl.h
 )
-SOURCE_GROUP("Controls\\Selectors" FILES
-  AreaSelectorControl.cpp
-  AreaSelectorControl.h
-  PositionSelectorBlackControl.cpp
-  PositionSelectorBlackControl.h
-  PositionSelectorControl.cpp
-  PositionSelectorControl.h
-  SelectorControl.cpp
-  SelectorControl.h
-)
 SOURCE_GROUP("Controls\\Separators" FILES
   SeparatorControl.cpp
   SeparatorControl.h
@@ -371,6 +361,16 @@ SOURCE_GROUP("Controls\\TextureView" FILES
   TextureControl.h
   TextureToolControl.cpp
   TextureToolControl.h
+)
+SOURCE_GROUP("Controls\\TextureView\\Selectors" FILES
+  AreaSelectorControl.cpp
+  AreaSelectorControl.h
+  PositionSelectorBlackControl.cpp
+  PositionSelectorBlackControl.h
+  PositionSelectorControl.cpp
+  PositionSelectorControl.h
+  SelectorControl.cpp
+  SelectorControl.h
 )
 SOURCE_GROUP("Controls\\old" FILES
   BackgroundControl.cpp

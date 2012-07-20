@@ -132,6 +132,8 @@ namespace tools
 				mControl->eventChangeValue.connect(this, &FrameTextureController::notifyChangeValue);
 				mControl->clearAll();
 
+				mControl->setActiveSelector(true);
+
 				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &FrameTextureController::notifyChangeDataSelector);
 				mParentData = DataManager::getInstance().getSelectedDataByType(mParentTypeName);
 				notifyChangeDataSelector(mParentData, false);

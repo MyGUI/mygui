@@ -34,7 +34,8 @@ namespace tools
 		template<typename T>
 		void addSelectorControl(T * & _control)
 		{
-			assignBase(_control, "Texture");
+			_control = new T();
+			_control->Initialise(this, mTexture, "");
 			registerSelectorControl(_control);
 		}
 

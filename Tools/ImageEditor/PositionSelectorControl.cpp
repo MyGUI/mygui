@@ -10,14 +10,18 @@
 namespace tools
 {
 
-	PositionSelectorControl::PositionSelectorControl(MyGUI::Widget* _parent) :
-		SelectorControl("PositionSelectorControl.layout", _parent)
+	PositionSelectorControl::PositionSelectorControl()
 	{
-		setPropertyColour("ColourSelector");
 	}
 
 	PositionSelectorControl::~PositionSelectorControl()
 	{
+	}
+
+	void PositionSelectorControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		SelectorControl::OnInitialise(_parent, _place, "PositionSelectorControl.layout");
+		setPropertyColour("ColourSelector");
 	}
 
 }

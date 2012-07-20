@@ -21,22 +21,24 @@ namespace tools
 	FACTORY_ITEM_ATTRIBUTE(ScopeTextureControl)
 
 	ScopeTextureControl::ScopeTextureControl() :
-		mAreaSelectorControl(nullptr)
+		mAreaSelectorControl(nullptr),
+		mPositionSelectorControl(nullptr),
+		mCurrentSelectorControl(nullptr),
+		mActivePositionOnly(false)
 	{
 	}
 
 	ScopeTextureControl::~ScopeTextureControl()
 	{
 		mAreaSelectorControl->eventChangePosition.disconnect(this);
+		mPositionSelectorControl->eventChangePosition.disconnect(this);
 	}
 
 	void ScopeTextureControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
 		TextureToolControl::OnInitialise(_parent, _place, _layoutName);
 
-		addSelectorControl(mAreaSelectorControl);
-
-		mAreaSelectorControl->eventChangePosition.connect(this, &ScopeTextureControl::notifyChangePosition);
+		InitialiseSelectors();
 
 		CommandManager::getInstance().registerCommand("Command_MoveLeft", MyGUI::newDelegate(this, &ScopeTextureControl::CommandMoveLeft));
 		CommandManager::getInstance().registerCommand("Command_MoveRight", MyGUI::newDelegate(this, &ScopeTextureControl::CommandMoveRight));
@@ -71,7 +73,7 @@ namespace tools
 
 	void ScopeTextureControl::updateFromCoordValue()
 	{
-		mAreaSelectorControl->setCoord(mCoordValue);
+		mCurrentSelectorControl->setCoord(mCoordValue);
 
 		setValue(mCoordValue.print());
 	}
@@ -254,13 +256,13 @@ namespace tools
 
 	void ScopeTextureControl::notifyChangePosition(SelectorControl* _sender)
 	{
-		mCoordValue = mAreaSelectorControl->getCoord();
+		mCoordValue = mCurrentSelectorControl->getCoord();
 
 		// снапим к гриду
 		if (!MyGUI::InputManager::getInstance().isShiftPressed())
 		{
 			MyGUI::IntCoord coord = mCoordValue;
-			MyGUI::IntCoord actionScale = mAreaSelectorControl->getActionScale();
+			MyGUI::IntCoord actionScale = mCurrentSelectorControl->getActionScale();
 
 			if (actionScale.left != 0 && actionScale.width != 0)
 			{
@@ -297,7 +299,7 @@ namespace tools
 			if (coord != mCoordValue)
 			{
 				mCoordValue = coord;
-				mAreaSelectorControl->setCoord(mCoordValue);
+				mCurrentSelectorControl->setCoord(mCoordValue);
 			}
 		}
 
@@ -333,18 +335,18 @@ namespace tools
 
 	void ScopeTextureControl::setCoordValue(const MyGUI::IntCoord& _value)
 	{
-		mAreaSelectorControl->setVisible(true);
+		mCurrentSelectorControl->setVisible(true);
 
 		if (mCoordValue != _value)
 		{
 			mCoordValue = _value;
-			mAreaSelectorControl->setCoord(mCoordValue);
+			mCurrentSelectorControl->setCoord(mCoordValue);
 		}
 	}
 
 	void ScopeTextureControl::clearCoordValue()
 	{
-		mAreaSelectorControl->setVisible(false);
+		mCurrentSelectorControl->setVisible(false);
 	}
 
 	void ScopeTextureControl::clearAll()
@@ -356,6 +358,8 @@ namespace tools
 
 	void ScopeTextureControl::setViewSelectors(const VectorCoord& _selectors)
 	{
+		bool changes = false;
+
 		clearViewSelectors();
 
 		while (_selectors.size() > mBlackSelectors.size())
@@ -364,6 +368,8 @@ namespace tools
 			addSelectorControl(selector);
 
 			mBlackSelectors.push_back(selector);
+
+			changes = true;
 		}
 
 		for (size_t index = 0; index < mBlackSelectors.size(); ++index)
@@ -378,6 +384,9 @@ namespace tools
 				mBlackSelectors[index]->setVisible(false);
 			}
 		}
+
+		if (changes)
+			InitialiseSelectors();
 	}
 
 	void ScopeTextureControl::clearViewSelectors()
@@ -386,4 +395,51 @@ namespace tools
 			mBlackSelectors[index]->setVisible(false);
 	}
 
+	void ScopeTextureControl::setActiveSelector(bool _positionOnly)
+	{
+		mActivePositionOnly = _positionOnly;
+
+		if (mActivePositionOnly)
+		{
+			mCurrentSelectorControl = mPositionSelectorControl;
+			mAreaSelectorControl->setVisible(false);
+		}
+		else
+		{
+			mCurrentSelectorControl = mAreaSelectorControl;
+			mPositionSelectorControl->setVisible(false);
+		}
+
+		mCoordValue.clear();
+	}
+
+	void ScopeTextureControl::InitialiseSelectors()
+	{
+		ShutdownSelectors();
+
+		addSelectorControl(mAreaSelectorControl);
+		addSelectorControl(mPositionSelectorControl);
+
+		mAreaSelectorControl->eventChangePosition.connect(this, &ScopeTextureControl::notifyChangePosition);
+		mPositionSelectorControl->eventChangePosition.connect(this, &ScopeTextureControl::notifyChangePosition);
+
+		setActiveSelector(mActivePositionOnly);
+	}
+
+	void ScopeTextureControl::ShutdownSelectors()
+	{
+		if (mAreaSelectorControl != nullptr)
+		{
+			mAreaSelectorControl->Shutdown();
+			delete mAreaSelectorControl;
+			mAreaSelectorControl = nullptr;
+		}
+
+		if (mPositionSelectorControl != nullptr)
+		{
+			mPositionSelectorControl->Shutdown();
+			delete mPositionSelectorControl;
+			mPositionSelectorControl = nullptr;
+		}
+	}
 }

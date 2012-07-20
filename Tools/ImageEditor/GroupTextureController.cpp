@@ -109,6 +109,7 @@ namespace tools
 			{
 				mControl->eventChangeValue.connect(this, &GroupTextureController::notifyChangeValue);
 				mControl->clearAll();
+				mControl->setActiveSelector(false);
 
 				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &GroupTextureController::notifyChangeDataSelector);
 				mParentData = DataManager::getInstance().getSelectedDataByType(mParentTypeName);

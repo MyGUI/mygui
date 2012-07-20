@@ -213,4 +213,12 @@ namespace tools
 			(*controller)->deactivate();
 	}
 
+	void Control::Shutdown()
+	{
+		mParent->mChilds.erase(std::remove(mParent->mChilds.begin(), mParent->mChilds.end(), this), mParent->mChilds.end());
+		mParent = nullptr;
+
+		shutdown();
+	}
+
 }
