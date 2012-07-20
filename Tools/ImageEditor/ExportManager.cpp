@@ -132,7 +132,7 @@ namespace tools
 		pugi::xml_node node = _parent.append_child("Group");
 		node.append_attribute("name").set_value(_data->getPropertyValue("Name").c_str());
 		node.append_attribute("texture").set_value(_data->getPropertyValue("Texture").c_str());
-		node.append_attribute("size").set_value(_data->getPropertyValue("Size").c_str());
+		node.append_attribute("size").set_value(MyGUI::IntCoord::parse(_data->getPropertyValue("Size")).size().print().c_str());
 
 		for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end(); child ++)
 			writeIndex(node, (*child));
@@ -156,9 +156,9 @@ namespace tools
 		pugi::xml_node node = _parent.append_child("Frame");
 		node.append_attribute("point").set_value(_data->getPropertyValue("Point").c_str());
 
-		std::string value = _data->getPropertyValue("Count");
-		if (!value.empty())
-			node.append_attribute("count").set_value(value.c_str());
+		size_t count = MyGUI::utility::parseValue<size_t>(_data->getPropertyValue("Count"));
+		if (count > 1)
+			node.append_attribute("count").set_value(MyGUI::utility::toString(count).c_str());
 	}
 
 	void ExportManager::updateImageProperty(Data* _data)
