@@ -40,6 +40,9 @@ namespace tools
 			mData->setType(DataTypeManager::getInstance().getType(mType));
 
 			DataUtility::cloneData(mData, mPrototype);
+
+			if (!mUniqueProperty.empty())
+				mData->setPropertyValue("Name", DataUtility::getUniqueName(mParent, mPrototype->getPropertyValue("Name") + "_"));
 		}
 
 		mParent->addChild(mData);

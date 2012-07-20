@@ -18,11 +18,13 @@ namespace tools
 		static Data* getSelectedParentDataByType(const std::string& _type);
 
 		static void cloneData(Data* _target, Data* _prototype);
+		static std::string getUniqueName(Data* _parent, const std::string& _pattern);
 
 	private:
 		static Data* getSelectedDataByType(Data* _data, DataType* _info);
 		static Data* getSelectedParentDataByType(Data* _data, DataType* _info);
 		static void copyProperty(Data* _target, Data* _prototype);
+		static bool checkUniqueName(Data* _parent, const std::string& _name);
 	};
 }
 

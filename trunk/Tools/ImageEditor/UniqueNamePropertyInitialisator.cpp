@@ -29,29 +29,8 @@ namespace tools
 		if (parent == nullptr)
 			return;
 
-		for (size_t index = 1; index < (std::numeric_limits<size_t>::max)(); index ++)
-		{
-			std::string name = MyGUI::utility::toString("unnamed_", index);
-			bool unique = checkUniqueName(parent, name);
-			if (unique)
-			{
-				_property->setValue(name);
-				return;
-			}
-		}
-
-		_property->setValue("unnamed");
-	}
-
-	bool UniqueNamePropertyInitialisator::checkUniqueName(Data* _parent, const std::string& _name)
-	{
-		for (Data::VectorData::const_iterator child = _parent->getChilds().begin(); child != _parent->getChilds().end(); child ++)
-		{
-			if ((*child)->getPropertyValue("Name") == _name)
-				return false;
-		}
-
-		return true;
+		std::string name = DataUtility::getUniqueName(parent, "unnamed_");
+		_property->setValue(name);
 	}
 
 }

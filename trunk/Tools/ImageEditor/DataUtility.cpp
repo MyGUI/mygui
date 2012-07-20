@@ -75,4 +75,33 @@ namespace tools
 			_target->setPropertyValue((*property).first, (*property).second->getValue());
 	}
 
+	std::string DataUtility::getUniqueName(Data* _parent, const std::string& _pattern)
+	{
+		std::string result = _pattern;
+
+		for (size_t index = 1; index < (std::numeric_limits<size_t>::max)(); index ++)
+		{
+			std::string name = MyGUI::utility::toString(_pattern, index);
+			bool unique = checkUniqueName(_parent, name);
+			if (unique)
+			{
+				result = name;
+				break;
+			}
+		}
+
+		return result;
+	}
+
+	bool DataUtility::checkUniqueName(Data* _parent, const std::string& _name)
+	{
+		for (Data::VectorData::const_iterator child = _parent->getChilds().begin(); child != _parent->getChilds().end(); child ++)
+		{
+			if ((*child)->getPropertyValue("Name") == _name)
+				return false;
+		}
+
+		return true;
+	}
+
 }
