@@ -171,6 +171,9 @@ namespace tools
 		if (!checkCommand())
 			return;
 
+		if (mActivePositionOnly)
+			return;
+
 		mCoordValue.width = GridManager::getInstance().toGrid(mCoordValue.right(), GridManager::Previous) - mCoordValue.left;
 		updateFromCoordValue();
 
@@ -180,6 +183,9 @@ namespace tools
 	void ScopeTextureControl::CommandGridSizeRight(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
+			return;
+
+		if (mActivePositionOnly)
 			return;
 
 		mCoordValue.width = GridManager::getInstance().toGrid(mCoordValue.right(), GridManager::Next) - mCoordValue.left;
@@ -193,6 +199,9 @@ namespace tools
 		if (!checkCommand())
 			return;
 
+		if (mActivePositionOnly)
+			return;
+
 		mCoordValue.height = GridManager::getInstance().toGrid(mCoordValue.bottom(), GridManager::Previous) - mCoordValue.top;
 		updateFromCoordValue();
 
@@ -202,6 +211,9 @@ namespace tools
 	void ScopeTextureControl::CommandGridSizeBottom(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
+			return;
+
+		if (mActivePositionOnly)
 			return;
 
 		mCoordValue.height = GridManager::getInstance().toGrid(mCoordValue.bottom(), GridManager::Next) - mCoordValue.top;
@@ -215,6 +227,9 @@ namespace tools
 		if (!checkCommand())
 			return;
 
+		if (mActivePositionOnly)
+			return;
+
 		mCoordValue.width --;
 		updateFromCoordValue();
 
@@ -224,6 +239,9 @@ namespace tools
 	void ScopeTextureControl::CommandSizeRight(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
+			return;
+
+		if (mActivePositionOnly)
 			return;
 
 		mCoordValue.width ++;
@@ -237,6 +255,9 @@ namespace tools
 		if (!checkCommand())
 			return;
 
+		if (mActivePositionOnly)
+			return;
+
 		mCoordValue.height --;
 		updateFromCoordValue();
 
@@ -246,6 +267,9 @@ namespace tools
 	void ScopeTextureControl::CommandSizeBottom(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
+			return;
+
+		if (mActivePositionOnly)
 			return;
 
 		mCoordValue.height ++;
