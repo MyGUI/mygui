@@ -148,8 +148,11 @@ namespace tools
 				mListBox->setIndexSelected(_info.index);
 				mLastIndex = _info.index;
 
-				Data* selection = _info.index != MyGUI::ITEM_NONE ? *mListBox->getItemDataAt<Data*>(_info.index) : nullptr;
-				DataSelectorManager::getInstance().changeParentSelection(mParentData, selection);
+				if (mParentData != nullptr)
+				{
+					Data* selection = _info.index != MyGUI::ITEM_NONE ? *mListBox->getItemDataAt<Data*>(_info.index) : nullptr;
+					DataSelectorManager::getInstance().changeParentSelection(mParentData, selection);
+				}
 			}
 		}
 		else if (_info.notify == MyGUI::IBNotifyItemData::MouseReleased)
