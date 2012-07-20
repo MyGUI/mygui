@@ -313,19 +313,10 @@ namespace tools
 
 	void ScopeTextureControl::updateCaption()
 	{
-		if (getActivate())
-		{
-			int scale = (int)(getScale() * (double)100);
-			addUserTag("CurrentScale", MyGUI::utility::toString(scale));
+		int scale = (int)(getScale() * (double)100);
+		addUserTag("CurrentScale", MyGUI::utility::toString(scale));
 
-			CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
-		}
-	}
-
-	void ScopeTextureControl::onChangeActivate()
-	{
-		if (getActivate())
-			updateCaption();
+		CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
 	}
 
 	void ScopeTextureControl::setValue(const std::string& _value)
@@ -430,16 +421,17 @@ namespace tools
 	{
 		if (mAreaSelectorControl != nullptr)
 		{
-			mAreaSelectorControl->Shutdown();
-			delete mAreaSelectorControl;
+			removeSelectorControl(mAreaSelectorControl);
 			mAreaSelectorControl = nullptr;
 		}
 
 		if (mPositionSelectorControl != nullptr)
 		{
-			mPositionSelectorControl->Shutdown();
-			delete mPositionSelectorControl;
+			removeSelectorControl(mPositionSelectorControl);
 			mPositionSelectorControl = nullptr;
+			//mPositionSelectorControl->Shutdown();
+			//delete mPositionSelectorControl;
+			//mPositionSelectorControl = nullptr;
 		}
 	}
 }

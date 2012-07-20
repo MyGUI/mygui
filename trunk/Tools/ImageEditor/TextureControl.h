@@ -39,6 +39,8 @@ namespace tools
 			registerSelectorControl(_control);
 		}
 
+		void removeSelectorControl(SelectorControl* _control);
+
 		void setColour(MyGUI::Colour _value);
 		MyGUI::Colour getColour() const;
 

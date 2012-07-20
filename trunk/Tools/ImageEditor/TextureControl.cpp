@@ -278,4 +278,11 @@ namespace tools
 		return mScaleValue;
 	}
 
+	void TextureControl::removeSelectorControl(SelectorControl* _control)
+	{
+		mSelectors.erase(std::find(mSelectors.begin(), mSelectors.end(), _control), mSelectors.end());
+		_control->Shutdown();
+		delete _control;
+	}
+
 }

@@ -14,8 +14,7 @@ namespace tools
 {
 
 	TextureToolControl::TextureToolControl() :
-		mCurrentScaleValue(100),
-		mActivate(true)
+		mCurrentScaleValue(100)
 	{
 	}
 
@@ -92,14 +91,12 @@ namespace tools
 
 	bool TextureToolControl::checkMenuCommand()
 	{
-		return mActivate &&
-			!getSelectorsCapture();
+		return !getSelectorsCapture();
 	}
 
 	bool TextureToolControl::checkCommand()
 	{
 		return mMainWidget->getRootKeyFocus() &&
-			mActivate &&
 			!getSelectorsCapture();
 	}
 
@@ -147,22 +144,6 @@ namespace tools
 			}
 		}
 		return false;
-	}
-
-	void TextureToolControl::setActivate(bool _value)
-	{
-		mActivate = _value;
-
-		onChangeActivate();
-	}
-
-	bool TextureToolControl::getActivate() const
-	{
-		return mActivate;
-	}
-
-	void TextureToolControl::onChangeActivate()
-	{
 	}
 
 }
