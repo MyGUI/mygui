@@ -27,6 +27,8 @@ namespace tools
 		void Initialise(const std::string& _layoutName = "");
 		void Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
+		void Shutdown();
+
 		typedef std::vector<Control*> VectorControl;
 		const VectorControl& getChilds() const;
 

@@ -16,8 +16,11 @@ namespace tools
 		public SelectorControl
 	{
 	public:
-		PositionSelectorControl(MyGUI::Widget* _parent);
+		PositionSelectorControl();
 		virtual ~PositionSelectorControl();
+
+	protected:
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 	};
 
 }

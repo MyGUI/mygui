@@ -9,6 +9,7 @@
 
 #include "TextureToolControl.h"
 #include "AreaSelectorControl.h"
+#include "PositionSelectorControl.h"
 #include "PositionSelectorBlackControl.h"
 #include "Property.h"
 
@@ -31,6 +32,8 @@ namespace tools
 		void clearViewSelectors();
 
 		void clearAll();
+
+		void setActiveSelector(bool _positionOnly);
 
 		sigslot::signal1<const std::string&> eventChangeValue;
 
@@ -71,10 +74,16 @@ namespace tools
 
 		void setValue(const std::string& _value);
 
+		void ShutdownSelectors();
+		void InitialiseSelectors();
+
 	private:
 		AreaSelectorControl* mAreaSelectorControl;
+		PositionSelectorControl* mPositionSelectorControl;
+		SelectorControl* mCurrentSelectorControl;
 		MyGUI::IntCoord mCoordValue;
 		std::vector<PositionSelectorBlackControl*> mBlackSelectors;
+		bool mActivePositionOnly;
 	};
 
 }

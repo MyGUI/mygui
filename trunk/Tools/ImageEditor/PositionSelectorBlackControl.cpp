@@ -10,15 +10,19 @@
 namespace tools
 {
 
-	PositionSelectorBlackControl::PositionSelectorBlackControl(MyGUI::Widget* _parent) :
-		SelectorControl("PositionSelectorControl.layout", _parent)
+	PositionSelectorBlackControl::PositionSelectorBlackControl()
 	{
-		setPropertyColour("ColourSelectorInactive");
-		mMainWidget->setNeedMouseFocus(false);
 	}
 
 	PositionSelectorBlackControl::~PositionSelectorBlackControl()
 	{
+	}
+
+	void PositionSelectorBlackControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		SelectorControl::OnInitialise(_parent, _place, "PositionSelectorControl.layout");
+		setPropertyColour("ColourSelectorInactive");
+		mMainWidget->setNeedMouseFocus(false);
 	}
 
 }

@@ -11,10 +11,24 @@
 namespace tools
 {
 
-	SelectorControl::SelectorControl(const std::string& _layout, MyGUI::Widget* _parent) :
-		wraps::BaseLayout(_layout, _parent),
+	SelectorControl::SelectorControl() :
 		mScaleValue(1.0)
 	{
+	}
+
+	SelectorControl::~SelectorControl()
+	{
+		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &SelectorControl::notifySettingsChanged);
+
+		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
+		if (window != nullptr)
+			window->eventWindowChangeCoord -= MyGUI::newDelegate(this, &SelectorControl::notifyWindowChangeCoord);
+	}
+
+	void SelectorControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::OnInitialise(_parent, _place, _layoutName);
+
 		assignWidget(mProjection, "Projection", false, false);
 
 		if (mProjection != nullptr)
@@ -32,15 +46,6 @@ namespace tools
 			window->eventWindowChangeCoord += MyGUI::newDelegate(this, &SelectorControl::notifyWindowChangeCoord);
 
 		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &SelectorControl::notifySettingsChanged);
-	}
-
-	SelectorControl::~SelectorControl()
-	{
-		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &SelectorControl::notifySettingsChanged);
-
-		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
-		if (window != nullptr)
-			window->eventWindowChangeCoord -= MyGUI::newDelegate(this, &SelectorControl::notifyWindowChangeCoord);
 	}
 
 	void SelectorControl::setVisible(bool _value)
