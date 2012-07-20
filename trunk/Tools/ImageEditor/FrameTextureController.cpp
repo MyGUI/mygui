@@ -36,7 +36,7 @@ namespace tools
 	void FrameTextureController::activate()
 	{
 		mParentTypeName = "Index";
-		mTypeName = "Frame";
+		mScopeName = "Frame";
 
 		ScopeManager::getInstance().eventChangeScope.connect(this, &FrameTextureController::notifyChangeScope);
 		notifyChangeScope(ScopeManager::getInstance().getCurrentScope());
@@ -54,81 +54,89 @@ namespace tools
 			mParentData = nullptr;
 
 		std::string texture;
-		std::string coord;
-
-		if (mParentData != nullptr)
+		Property* property = PropertyUtility::getPropertyByName("Group", "Texture");
+		if (property != nullptr)
 		{
-			Property* property = mParentData->getParent()->getProperty("Texture");
 			texture = property->getValue();
 
 			if (!property->eventChangeProperty.exist(this, &FrameTextureController::notifyChangeProperty))
 				property->eventChangeProperty.connect(this, &FrameTextureController::notifyChangeProperty);
+		}
 
-			property = mParentData->getParent()->getProperty("Size");
+		std::string coord;
+		property = PropertyUtility::getPropertyByName("Group", "Size");
+		if (property != nullptr)
+		{
 			coord = property->getValue();
 
 			if (!property->eventChangeProperty.exist(this, &FrameTextureController::notifyChangeProperty))
 				property->eventChangeProperty.connect(this, &FrameTextureController::notifyChangeProperty);
+		}
 
-			Data* data = mParentData;
-			if (data != nullptr)
+		if (mParentData != nullptr)
+		{
+			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
 			{
-				for (Data::VectorData::const_iterator child = data->getChilds().begin(); child != data->getChilds().end(); child ++)
-				{
-					property = (*child)->getProperty("Point");
-					if (!property->eventChangeProperty.exist(this, &FrameTextureController::notifyChangeProperty))
-						property->eventChangeProperty.connect(this, &FrameTextureController::notifyChangeProperty);
-				}
+				property = (*child)->getProperty("Point");
+				if (!property->eventChangeProperty.exist(this, &FrameTextureController::notifyChangeProperty))
+					property->eventChangeProperty.connect(this, &FrameTextureController::notifyChangeProperty);
 			}
 		}
 
 		mControl->setTextureValue(texture);
-
 		updateCoords(coord);
 	}
 
 	void FrameTextureController::notifyChangeProperty(Property* _sender)
 	{
-		if (mParentData != nullptr &&
-			mParentData->getType()->getName() == mParentTypeName)
+		if (!PropertyUtility::isDataSelected(_sender->getOwner()))
+			return;
+
+		if (_sender->getOwner()->getType()->getName() == "Group")
 		{
-			if (mParentData->getParent() == _sender->getOwner())
+			if (_sender->getType()->getName() == "Texture")
+				mControl->setTextureValue(_sender->getValue());
+			else if (_sender->getType()->getName() == "Size")
+				updateCoords(_sender->getValue());
+		}
+		else if (_sender->getOwner()->getType()->getName() == "Frame")
+		{
+			if (_sender->getType()->getName() == "Point")
+				updateFrames();
+		}
+	}
+
+	void FrameTextureController::notifyChangeValue(const std::string& _value)
+	{
+		if (mParentData != nullptr)
+		{
+			Data* selected = mParentData->getChildSelected();
+			if (selected != nullptr)
 			{
-				if (_sender->getType()->getName() == "Texture")
-				{
-					mControl->setTextureValue(_sender->getValue());
-				}
-				else if (_sender->getType()->getName() == "Size")
-				{
-					updateCoords(_sender->getValue());
-				}
-			}
-			else if (mParentData == _sender->getOwner())
-			{
-				if (_sender->getType()->getName() == "Point")
-				{
-					updateFrames();
-				}
+				MyGUI::IntCoord coord = MyGUI::IntCoord::parse(_value);
+				Property* property = selected->getProperty("Point");
+				PropertyUtility::executeAction(property, coord.point().print(), true);
 			}
 		}
 	}
 
 	void FrameTextureController::notifyChangeScope(const std::string& _scope)
 	{
-		if (_scope == mTypeName)
+		if (mControl == nullptr)
+			return;
+
+		if (_scope == mScopeName)
 		{
 			if (!mActivated)
 			{
-				if (mControl != nullptr)
-				{
-					mControl->clearAll();
+				mControl->eventChangeValue.connect(this, &FrameTextureController::notifyChangeValue);
+				mControl->clearAll();
 
-					DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &FrameTextureController::notifyChangeDataSelector);
-					mParentData = DataManager::getInstance().getSelectedDataByType(mParentTypeName);
-					notifyChangeDataSelector(mParentData, false);
+				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &FrameTextureController::notifyChangeDataSelector);
+				mParentData = DataManager::getInstance().getSelectedDataByType(mParentTypeName);
+				notifyChangeDataSelector(mParentData, false);
 
-					mControl->getRoot()->setUserString("CurrentScopeController", mParentTypeName);
-				}
+				mControl->getRoot()->setUserString("CurrentScopeController", mScopeName);
 
 				mActivated = true;
 			}
@@ -137,20 +145,19 @@ namespace tools
 		{
 			if (mActivated)
 			{
-				if (mControl != nullptr)
+				mControl->eventChangeValue.disconnect(this);
+
+				DataSelectorManager::getInstance().getEvent(mParentTypeName)->disconnect(this);
+				mParentData = nullptr;
+
+				// мы еще владельцы контрола сбрасываем его
+				std::string value = mControl->getRoot()->getUserString("CurrentScopeController");
+				if (value == mScopeName)
 				{
-					DataSelectorManager::getInstance().getEvent(mParentTypeName)->disconnect(this);
-					mParentData = nullptr;
+					mControl->getRoot()->setUserString("CurrentScopeController", "");
+					notifyChangeDataSelector(mParentData, false);
 
-					// мы еще владельцы контрола сбрасываем его
-					std::string value = mControl->getRoot()->getUserString("CurrentScopeController");
-					if (value == mParentTypeName)
-					{
-						mControl->getRoot()->setUserString("CurrentScopeController", "");
-						notifyChangeDataSelector(mParentData, false);
-
-						mControl->clearAll();
-					}
+					mControl->clearAll();
 				}
 
 				mActivated = false;
@@ -166,12 +173,6 @@ namespace tools
 		else
 			mSize.clear();
 
-		for (VectorCoord::iterator frame = mFrames.begin(); frame != mFrames.end(); frame ++)
-		{
-			(*frame).width = mSize.width;
-			(*frame).height = mSize.height;
-		}
-
 		updateFrames();
 	}
 
@@ -179,19 +180,26 @@ namespace tools
 	{
 		mFrames.clear();
 
-		Data* selected = mParentData->getChildSelected();
 		if (mParentData != nullptr)
 		{
+			Data* selected = mParentData->getChildSelected();
 			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
 			{
-				if (selected == (*child))
+				if (selected == *child)
 				{
+					MyGUI::IntPoint value = (*child)->getPropertyValue<MyGUI::IntPoint>("Point");
+					mControl->setCoordValue(MyGUI::IntCoord(value, mSize));
 				}
 				else
 				{
 					MyGUI::IntPoint value = (*child)->getPropertyValue<MyGUI::IntPoint>("Point");
 					mFrames.push_back(MyGUI::IntCoord(value, mSize));
 				}
+			}
+
+			if (selected == nullptr)
+			{
+				mControl->clearCoordValue();
 			}
 		}
 

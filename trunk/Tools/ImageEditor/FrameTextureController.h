@@ -30,6 +30,7 @@ namespace tools
 		void notifyChangeDataSelector(Data* _data, bool _changeOnlySelection);
 		void notifyChangeProperty(Property* _sender);
 		void notifyChangeScope(const std::string& _scope);
+		void notifyChangeValue(const std::string& _value);
 
 		void updateCoords(const std::string& _value);
 		void updateFrames();
@@ -37,7 +38,7 @@ namespace tools
 	private:
 		ScopeTextureControl* mControl;
 		std::string mParentTypeName;
-		std::string mTypeName;
+		std::string mScopeName;
 		Data* mParentData;
 		bool mActivated;
 		MyGUI::IntSize mSize;

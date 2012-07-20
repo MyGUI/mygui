@@ -82,6 +82,17 @@ namespace tools
 			property = mParentData->getParent()->getProperty("Texture");
 			if (!property->eventChangeProperty.exist(this, &AnimationViewControl::notifyChangeProperty))
 				property->eventChangeProperty.connect(this, &AnimationViewControl::notifyChangeProperty);
+
+			//Data* selected = mParentData->getChildSelected();
+			//if (selected != nullptr)
+			{
+				for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
+				{
+					Property* property = (*child)->getProperty("Point");
+					if (!property->eventChangeProperty.exist(this, &AnimationViewControl::notifyChangeProperty))
+						property->eventChangeProperty.connect(this, &AnimationViewControl::notifyChangeProperty);
+				}
+			}
 		}
 	}
 
@@ -210,7 +221,7 @@ namespace tools
 		{
 			Data* selected = mParentData->getChildSelected();
 
-			mCurrentFrame = mParentData->getChildIndex(mParentData->getChildSelected());
+			mCurrentFrame = mParentData->getChildIndex(selected);
 			updateFrame();
 		}
 	}
