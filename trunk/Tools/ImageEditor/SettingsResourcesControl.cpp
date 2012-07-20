@@ -25,8 +25,8 @@ namespace tools
 
 	SettingsResourcesControl::~SettingsResourcesControl()
 	{
-		mResourceAdd->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickResourcePathAdd);
-		mResourceDelete->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickResourcePathDelete);
+		mResourceAdd->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickAdd);
+		mResourceDelete->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickDelete);
 
 		delete mTextFieldControl;
 		mTextFieldControl = nullptr;
@@ -44,8 +44,8 @@ namespace tools
 		mTextFieldControl->Initialise();
 		mTextFieldControl->eventEndDialog = MyGUI::newDelegate(this, &SettingsResourcesControl::notifyEndDialog);
 
-		mResourceAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickResourcePathAdd);
-		mResourceDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickResourcePathDelete);
+		mResourceAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickAdd);
+		mResourceDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickDelete);
 	}
 
 	void SettingsResourcesControl::loadSettings()
@@ -64,14 +64,22 @@ namespace tools
 		SettingsManager::getInstance().getSector("Settings")->setPropertyValueList("AdditionalResources", paths);
 	}
 
-	void SettingsResourcesControl::notifyClickResourcePathAdd(MyGUI::Widget* _sender)
+	void SettingsResourcesControl::notifyClickAdd(MyGUI::Widget* _sender)
 	{
+		mResources->addItem("");
+		mResources->beginToItemAt(mResources->getItemCount() - 1);
+
 		mTextFieldControl->setCaption(replaceTags("CaptionAddResource"));
 		mTextFieldControl->setTextField("");
+
+		MyGUI::Widget* widget = mResources->getWidgetByIndex(mResources->getItemCount() - 1);
+		if (widget != nullptr)
+			mTextFieldControl->setCoord(MyGUI::IntCoord(widget->getAbsoluteLeft(), widget->getAbsoluteTop(), widget->getWidth(), widget->getHeight()));
+
 		mTextFieldControl->doModal();
 	}
 
-	void SettingsResourcesControl::notifyClickResourcePathDelete(MyGUI::Widget* _sender)
+	void SettingsResourcesControl::notifyClickDelete(MyGUI::Widget* _sender)
 	{
 		size_t index = mResources->getIndexSelected();
 		if (index != MyGUI::ITEM_NONE)
@@ -85,8 +93,13 @@ namespace tools
 		if (_result)
 		{
 			if (mTextFieldControl->getTextField() != "")
-				mResources->addItem(mTextFieldControl->getTextField());
+			{
+				mResources->setItemNameAt(mResources->getItemCount() - 1, mTextFieldControl->getTextField());
+				return;
+			}
 		}
+
+		mResources->removeItemAt(mResources->getItemCount() - 1);
 	}
 
 	void SettingsResourcesControl::OnCommand(const std::string& _command)

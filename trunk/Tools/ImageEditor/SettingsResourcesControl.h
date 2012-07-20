@@ -28,8 +28,8 @@ namespace tools
 		void loadSettings();
 		void saveSettings();
 
-		void notifyClickResourcePathAdd(MyGUI::Widget* _sender);
-		void notifyClickResourcePathDelete(MyGUI::Widget* _sender);
+		void notifyClickAdd(MyGUI::Widget* _sender);
+		void notifyClickDelete(MyGUI::Widget* _sender);
 
 		void notifyEndDialog(Dialog* _sender, bool _result);
 

@@ -32,10 +32,14 @@ namespace tools
 		void notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyChangeCoord(MyGUI::Widget* _sender);
 
+		void LoadSeparators();
+		void SaveSeparators();
+
 	private:
 		typedef std::vector<MyGUI::Widget*> VectorWidget;
 		VectorWidget mChilds;
 		bool mHorizontal;
+		std::string mSaveAs;
 	};
 
 }

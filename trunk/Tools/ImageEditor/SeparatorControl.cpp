@@ -7,6 +7,7 @@
 #include "Precompiled.h"
 #include "SeparatorControl.h"
 #include "FactoryManager.h"
+#include "SettingsManager.h"
 
 namespace tools
 {
@@ -20,6 +21,8 @@ namespace tools
 
 	SeparatorControl::~SeparatorControl()
 	{
+		SaveSeparators();
+
 		mMainWidget->eventChangeCoord -= MyGUI::newDelegate(this, &SeparatorControl::notifyChangeCoord);
 
 		for (VectorWidget::const_iterator child = mChilds.begin(); child != mChilds.end(); child ++)
@@ -38,6 +41,8 @@ namespace tools
 		Control::OnInitialise(_parent, _place, _layoutName);
 
 		CreateSeparators();
+
+		LoadSeparators();
 
 		mMainWidget->eventChangeCoord += MyGUI::newDelegate(this, &SeparatorControl::notifyChangeCoord);
 
@@ -280,6 +285,53 @@ namespace tools
 				MoveSeparator((*child), (*child)->getPosition());
 			}
 		}
+	}
+
+	void SeparatorControl::LoadSeparators()
+	{
+		mSaveAs = mMainWidget->getUserString("SaveAs");
+		if (mSaveAs.empty())
+			return;
+
+		SettingsSector::VectorUString values;
+		values = SettingsManager::getInstance().getSector("Window")->getPropertyValueList(mSaveAs);
+		SettingsSector::VectorUString::const_iterator value = values.begin();
+
+		for (VectorWidget::const_iterator child = mChilds.begin(); child != mChilds.end(); child ++)
+		{
+			SeparatorData** data = (*child)->getUserData<SeparatorData*>(false);
+			if (data != nullptr)
+			{
+				if (value != values.end())
+				{
+					MyGUI::IntPoint point = MyGUI::IntPoint::parse(*value);
+					if (mHorizontal)
+						point.top = 0;
+					else
+						point.left = 0;
+
+					(*child)->setPosition(point);
+
+					value ++;
+				}
+			}
+		}
+	}
+
+	void SeparatorControl::SaveSeparators()
+	{
+		if (mSaveAs.empty())
+			return;
+
+		SettingsSector::VectorUString values;
+		for (VectorWidget::const_iterator child = mChilds.begin(); child != mChilds.end(); child ++)
+		{
+			SeparatorData** data = (*child)->getUserData<SeparatorData*>(false);
+			if (data != nullptr)
+				values.push_back((*child)->getPosition().print());
+		}
+
+		SettingsManager::getInstance().getSector("Window")->setPropertyValueList(mSaveAs, values);
 	}
 
 }
