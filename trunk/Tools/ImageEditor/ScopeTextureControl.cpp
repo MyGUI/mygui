@@ -377,7 +377,15 @@ namespace tools
 		}
 
 		if (changes)
+		{
+			bool visible = mCurrentSelectorControl->getVisible();
+			MyGUI::IntCoord coord = mCoordValue;
+
 			InitialiseSelectors();
+
+			if (visible)
+				setCoordValue(coord);
+		}
 	}
 
 	void ScopeTextureControl::clearViewSelectors()
@@ -390,16 +398,13 @@ namespace tools
 	{
 		mActivePositionOnly = _positionOnly;
 
+		mAreaSelectorControl->setVisible(false);
+		mPositionSelectorControl->setVisible(false);
+
 		if (mActivePositionOnly)
-		{
 			mCurrentSelectorControl = mPositionSelectorControl;
-			mAreaSelectorControl->setVisible(false);
-		}
 		else
-		{
 			mCurrentSelectorControl = mAreaSelectorControl;
-			mPositionSelectorControl->setVisible(false);
-		}
 
 		mCoordValue.clear();
 	}

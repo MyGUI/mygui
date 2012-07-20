@@ -21,6 +21,8 @@ namespace tools
 		virtual ~SelectorControl();
 
 		void setVisible(bool _value);
+		bool getVisible() const;
+
 		void setScale(double _value);
 		void setEnabled(bool _value);
 

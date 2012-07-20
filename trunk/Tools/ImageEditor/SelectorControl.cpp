@@ -183,4 +183,9 @@ namespace tools
 		return mMainWidget;
 	}
 
+	bool SelectorControl::getVisible() const
+	{
+		return mMainWidget->getVisible();
+	}
+
 }
