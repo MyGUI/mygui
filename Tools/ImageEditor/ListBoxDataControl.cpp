@@ -10,6 +10,7 @@
 #include "DataManager.h"
 #include "DataSelectorManager.h"
 #include "Localise.h"
+#include "DataUtility.h"
 
 namespace tools
 {
@@ -209,7 +210,7 @@ namespace tools
 		mPropertyForName = _propertyName;
 		mPropertyForUnique = _propertyUnique;
 		DataSelectorManager::getInstance().getEvent(_parentType)->connect(this, &ListBoxDataControl::notifyChangeDataSelector);
-		mParentData = DataManager::getInstance().getSelectedDataByType(_parentType);
+		mParentData = DataUtility::getSelectedDataByType(_parentType);
 		notifyChangeDataSelector(mParentData, false);
 	}
 

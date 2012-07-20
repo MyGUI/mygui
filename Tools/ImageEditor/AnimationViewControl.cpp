@@ -9,6 +9,7 @@
 #include "FactoryManager.h"
 #include "DataSelectorManager.h"
 #include "DataManager.h"
+#include "DataUtility.h"
 
 namespace tools
 {
@@ -36,7 +37,7 @@ namespace tools
 
 		std::string parentType = "Index";
 		DataSelectorManager::getInstance().getEvent(parentType)->connect(this, &AnimationViewControl::notifyChangeDataSelector);
-		mParentData = DataManager::getInstance().getSelectedDataByType(parentType);
+		mParentData = DataUtility::getSelectedDataByType(parentType);
 		notifyChangeDataSelector(mParentData, false);
 
 		mImage->getParent()->eventChangeCoord += MyGUI::newDelegate(this, &AnimationViewControl::notifyChangeCoord);

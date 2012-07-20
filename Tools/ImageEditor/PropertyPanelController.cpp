@@ -11,6 +11,7 @@
 #include "DataManager.h"
 #include "ScopeManager.h"
 #include "DataTypeManager.h"
+#include "DataUtility.h"
 
 namespace tools
 {
@@ -57,7 +58,7 @@ namespace tools
 		{
 			DataSelectorManager::getInstance().getEvent(mParentType->getName())->connect(this, &PropertyPanelController::notifyChangeDataSelector);
 
-			Data* parentData = DataManager::getInstance().getSelectedDataByType(mParentType->getName());
+			Data* parentData = DataUtility::getSelectedDataByType(mParentType->getName());
 			notifyChangeDataSelector(parentData, false);
 		}
 	}

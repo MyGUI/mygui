@@ -25,6 +25,7 @@ set (HEADER_FILES
   DataType.h
   DataTypeManager.h
   DataTypeProperty.h
+  DataUtility.h
   Dialog.h
   DialogManager.h
   EditorState.h
@@ -119,6 +120,7 @@ set (HEADER_FILES
   TextureControl.h
   TexturePropertyInitialisator.h
   TextureToolControl.h
+  UniqueNamePropertyInitialisator.h
   VerticalSelectorBlackControl.h
   VerticalSelectorControl.h
   sigslot.h
@@ -150,6 +152,7 @@ set (SOURCE_FILES
   DataType.cpp
   DataTypeManager.cpp
   DataTypeProperty.cpp
+  DataUtility.cpp
   Dialog.cpp
   DialogManager.cpp
   EditorState.cpp
@@ -233,6 +236,7 @@ set (SOURCE_FILES
   TextureControl.cpp
   TexturePropertyInitialisator.cpp
   TextureToolControl.cpp
+  UniqueNamePropertyInitialisator.cpp
   VerticalSelectorBlackControl.cpp
   VerticalSelectorControl.cpp
   pugiconfig.hpp
@@ -266,6 +270,17 @@ SOURCE_GROUP("Application" FILES
   MyGUI_FilterNoneSkin.cpp
   MyGUI_FilterNoneSkin.h
 )
+SOURCE_GROUP("Controllers" FILES
+  FrameTextureController.cpp
+  FrameTextureController.h
+  GroupTextureController.cpp
+  GroupTextureController.h
+  IControlController.h
+  IndexTextureController.cpp
+  IndexTextureController.h
+  PropertyPanelController.cpp
+  PropertyPanelController.h
+)
 SOURCE_GROUP("Controls" FILES
   AnimationViewControl.cpp
   AnimationViewControl.h
@@ -293,17 +308,6 @@ SOURCE_GROUP("Controls\\Animations" FILES
 SOURCE_GROUP("Controls\\Common" FILES
   Control.cpp
   Control.h
-)
-SOURCE_GROUP("Controls\\Controllers" FILES
-  FrameTextureController.cpp
-  FrameTextureController.h
-  GroupTextureController.cpp
-  GroupTextureController.h
-  IControlController.h
-  IndexTextureController.cpp
-  IndexTextureController.h
-  PropertyPanelController.cpp
-  PropertyPanelController.h
 )
 SOURCE_GROUP("Controls\\Framework" FILES
   MessageBoxFadeControl.cpp
@@ -344,6 +348,9 @@ SOURCE_GROUP("Controls\\Properties\\old" FILES
 SOURCE_GROUP("Controls\\Separators" FILES
   SeparatorControl.cpp
   SeparatorControl.h
+)
+SOURCE_GROUP("Controls\\Separators\\Utility" FILES
+  SeparatorUtility.h
 )
 SOURCE_GROUP("Controls\\Settings" FILES
   SettingsGeneralControl.cpp
@@ -439,6 +446,10 @@ SOURCE_GROUP("Data" FILES
   DataTypeProperty.cpp
   DataTypeProperty.h
 )
+SOURCE_GROUP("Data\\Utility" FILES
+  DataUtility.cpp
+  DataUtility.h
+)
 SOURCE_GROUP("Data\\old" FILES
   ItemHolder.h
   RegionItem.cpp
@@ -505,6 +516,12 @@ SOURCE_GROUP("Properties\\Initialisators" FILES
   IPropertyInitialisator.h
   TexturePropertyInitialisator.cpp
   TexturePropertyInitialisator.h
+  UniqueNamePropertyInitialisator.cpp
+  UniqueNamePropertyInitialisator.h
+)
+SOURCE_GROUP("Properties\\Utility" FILES
+  PropertyUtility.cpp
+  PropertyUtility.h
 )
 SOURCE_GROUP("Properties\\old" FILES
   PropertyAdvisor.h
@@ -528,9 +545,6 @@ SOURCE_GROUP("States\\old" FILES
 )
 SOURCE_GROUP("Utility" FILES
   Localise.h
-  PropertyUtility.cpp
-  PropertyUtility.h
-  SeparatorUtility.h
   pugiconfig.hpp
   pugixml.cpp
   pugixml.hpp
