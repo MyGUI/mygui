@@ -344,11 +344,6 @@ namespace base
 			mExit = true;
 			return;
 		}
-		else if (_key == MyGUI::KeyCode::F12)
-		{
-			bool visible = mFocusInfo->getFocusVisible();
-			mFocusInfo->setFocusVisible(!visible);
-		}
 
 		MyGUI::InputManager::getInstance().injectKeyPress(_key, _text);
 	}
