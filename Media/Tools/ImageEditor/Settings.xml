@@ -48,7 +48,7 @@
 	<Editor>
 		<UserSettingsFileName>ie_user_settings.xml</UserSettingsFileName>
 		<DataTypeFileName>ImageDataType.xml</DataTypeFileName>
-		<ExportSerializer>SkinExportSerializer</ExportSerializer>
+		<ExportSerializer>ImageExportSerializer</ExportSerializer>
 		<States>
 			<State.List>
 				<Value>EditorState</Value>

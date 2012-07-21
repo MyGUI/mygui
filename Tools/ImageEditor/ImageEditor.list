@@ -47,6 +47,7 @@ set (HEADER_FILES
   IFactory.h
   IFactoryItem.h
   IPropertyInitialisator.h
+  ImageExportSerializer.h
   ImageListControl.h
   IndexListControl.h
   IndexTextureController.h
@@ -139,6 +140,7 @@ set (SOURCE_FILES
   GroupTextureController.cpp
   HotKeyManager.cpp
   ImageEditor.rc
+  ImageExportSerializer.cpp
   ImageListControl.cpp
   IndexListControl.cpp
   IndexTextureController.cpp
@@ -374,6 +376,8 @@ SOURCE_GROUP("Managers\\Exports" FILES
   ExportManager.cpp
   ExportManager.h
   IExportSerializer.h
+  ImageExportSerializer.cpp
+  ImageExportSerializer.h
   SkinExportSerializer.cpp
   SkinExportSerializer.h
 )
