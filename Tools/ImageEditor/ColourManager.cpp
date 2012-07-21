@@ -18,9 +18,9 @@ namespace tools
 	ColourManager::ColourManager() :
 		mColourPanel(nullptr)
 	{
-		CommandManager::getInstance().registerCommand("Command_ChangeColourBackground", MyGUI::newDelegate(this, &ColourManager::commandChangeColourBackground));
-		CommandManager::getInstance().registerCommand("Command_ChangeColourSelector", MyGUI::newDelegate(this, &ColourManager::commandChangeColourSelector));
-		CommandManager::getInstance().registerCommand("Command_ChangeColourSelectorInactive", MyGUI::newDelegate(this, &ColourManager::commandChangeColourSelectorInactive));
+		CommandManager::getInstance().getEvent("Command_ChangeColourBackground")->connect(this, &ColourManager::commandChangeColourBackground);
+		CommandManager::getInstance().getEvent("Command_ChangeColourSelector")->connect(this, &ColourManager::commandChangeColourSelector);
+		CommandManager::getInstance().getEvent("Command_ChangeColourSelectorInactive")->connect(this, &ColourManager::commandChangeColourSelectorInactive);
 	}
 
 	ColourManager::~ColourManager()

@@ -17,7 +17,8 @@ namespace tools
 	ATTRIBUTE_CLASS_LAYOUT(ColourPanel, "ColourPanel.layout");
 	class ColourPanel :
 		public Dialog,
-		public Control
+		public Control,
+		public sigslot::has_slots<>
 	{
 	public:
 		ColourPanel();

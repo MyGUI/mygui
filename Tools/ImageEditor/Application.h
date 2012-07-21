@@ -8,13 +8,15 @@
 #define _e5a988fe_bba2_480f_a287_d5c967f58266_
 
 #include "BaseManager.h"
+#include "sigslot.h"
 
 namespace tools
 {
 
 	class Application :
 		public base::BaseManager,
-		public MyGUI::Singleton<Application>
+		public MyGUI::Singleton<Application>,
+		public sigslot::has_slots<>
 	{
 	public:
 		Application();

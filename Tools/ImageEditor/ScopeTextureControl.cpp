@@ -39,22 +39,22 @@ namespace tools
 
 		InitialiseSelectors();
 
-		CommandManager::getInstance().registerCommand("Command_MoveLeft", MyGUI::newDelegate(this, &ScopeTextureControl::CommandMoveLeft));
-		CommandManager::getInstance().registerCommand("Command_MoveRight", MyGUI::newDelegate(this, &ScopeTextureControl::CommandMoveRight));
-		CommandManager::getInstance().registerCommand("Command_MoveTop", MyGUI::newDelegate(this, &ScopeTextureControl::CommandMoveTop));
-		CommandManager::getInstance().registerCommand("Command_MoveBottom", MyGUI::newDelegate(this, &ScopeTextureControl::CommandMoveBottom));
-		CommandManager::getInstance().registerCommand("Command_SizeLeft", MyGUI::newDelegate(this, &ScopeTextureControl::CommandSizeLeft));
-		CommandManager::getInstance().registerCommand("Command_SizeRight", MyGUI::newDelegate(this, &ScopeTextureControl::CommandSizeRight));
-		CommandManager::getInstance().registerCommand("Command_SizeTop", MyGUI::newDelegate(this, &ScopeTextureControl::CommandSizeTop));
-		CommandManager::getInstance().registerCommand("Command_SizeBottom", MyGUI::newDelegate(this, &ScopeTextureControl::CommandSizeBottom));
-		CommandManager::getInstance().registerCommand("Command_GridMoveLeft", MyGUI::newDelegate(this, &ScopeTextureControl::CommandGridMoveLeft));
-		CommandManager::getInstance().registerCommand("Command_GridMoveRight", MyGUI::newDelegate(this, &ScopeTextureControl::CommandGridMoveRight));
-		CommandManager::getInstance().registerCommand("Command_GridMoveTop", MyGUI::newDelegate(this, &ScopeTextureControl::CommandGridMoveTop));
-		CommandManager::getInstance().registerCommand("Command_GridMoveBottom", MyGUI::newDelegate(this, &ScopeTextureControl::CommandGridMoveBottom));
-		CommandManager::getInstance().registerCommand("Command_GridSizeLeft", MyGUI::newDelegate(this, &ScopeTextureControl::CommandGridSizeLeft));
-		CommandManager::getInstance().registerCommand("Command_GridSizeRight", MyGUI::newDelegate(this, &ScopeTextureControl::CommandGridSizeRight));
-		CommandManager::getInstance().registerCommand("Command_GridSizeTop", MyGUI::newDelegate(this, &ScopeTextureControl::CommandGridSizeTop));
-		CommandManager::getInstance().registerCommand("Command_GridSizeBottom", MyGUI::newDelegate(this, &ScopeTextureControl::CommandGridSizeBottom));
+		CommandManager::getInstance().getEvent("Command_MoveLeft")->connect(this, &ScopeTextureControl::CommandMoveLeft);
+		CommandManager::getInstance().getEvent("Command_MoveRight")->connect(this, &ScopeTextureControl::CommandMoveRight);
+		CommandManager::getInstance().getEvent("Command_MoveTop")->connect(this, &ScopeTextureControl::CommandMoveTop);
+		CommandManager::getInstance().getEvent("Command_MoveBottom")->connect(this, &ScopeTextureControl::CommandMoveBottom);
+		CommandManager::getInstance().getEvent("Command_SizeLeft")->connect(this, &ScopeTextureControl::CommandSizeLeft);
+		CommandManager::getInstance().getEvent("Command_SizeRight")->connect(this, &ScopeTextureControl::CommandSizeRight);
+		CommandManager::getInstance().getEvent("Command_SizeTop")->connect(this, &ScopeTextureControl::CommandSizeTop);
+		CommandManager::getInstance().getEvent("Command_SizeBottom")->connect(this, &ScopeTextureControl::CommandSizeBottom);
+		CommandManager::getInstance().getEvent("Command_GridMoveLeft")->connect(this, &ScopeTextureControl::CommandGridMoveLeft);
+		CommandManager::getInstance().getEvent("Command_GridMoveRight")->connect(this, &ScopeTextureControl::CommandGridMoveRight);
+		CommandManager::getInstance().getEvent("Command_GridMoveTop")->connect(this, &ScopeTextureControl::CommandGridMoveTop);
+		CommandManager::getInstance().getEvent("Command_GridMoveBottom")->connect(this, &ScopeTextureControl::CommandGridMoveBottom);
+		CommandManager::getInstance().getEvent("Command_GridSizeLeft")->connect(this, &ScopeTextureControl::CommandGridSizeLeft);
+		CommandManager::getInstance().getEvent("Command_GridSizeRight")->connect(this, &ScopeTextureControl::CommandGridSizeRight);
+		CommandManager::getInstance().getEvent("Command_GridSizeTop")->connect(this, &ScopeTextureControl::CommandGridSizeTop);
+		CommandManager::getInstance().getEvent("Command_GridSizeBottom")->connect(this, &ScopeTextureControl::CommandGridSizeBottom);
 
 		updateCaption();
 

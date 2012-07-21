@@ -16,7 +16,8 @@ namespace tools
 
 	class OpenSaveFileDialog :
 		public Dialog,
-		public Control
+		public Control,
+		public sigslot::has_slots<>
 	{
 	public:
 		OpenSaveFileDialog();

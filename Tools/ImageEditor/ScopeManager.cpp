@@ -24,7 +24,7 @@ namespace tools
 
 	void ScopeManager::initialise()
 	{
-		CommandManager::getInstance().registerCommand("Command_ChangeScope", MyGUI::newDelegate(this, &ScopeManager::commandChangeScope));
+		CommandManager::getInstance().getEvent("Command_ChangeScope")->connect(this, &ScopeManager::commandChangeScope);
 
 		mCurrentScope = "Image";
 	}

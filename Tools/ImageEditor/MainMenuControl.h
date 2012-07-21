@@ -8,12 +8,14 @@
 #define _77263d40_3ebd_4f36_abc7_64ce6f294aef_
 
 #include "Control.h"
+#include "sigslot.h"
 
 namespace tools
 {
 
 	class MainMenuControl :
-		public Control
+		public Control,
+		public sigslot::has_slots<>
 	{
 	public:
 		MainMenuControl();

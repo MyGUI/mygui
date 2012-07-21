@@ -35,7 +35,7 @@ namespace tools
 
 		mScaleMenu = mMainMenu->findItemById("Scale");
 
-		CommandManager::getInstance().registerCommand("Command_UpdateAppCaption", MyGUI::newDelegate(this, &MainMenuControl::command_UpdateAppCaption));
+		CommandManager::getInstance().getEvent("Command_UpdateAppCaption")->connect(this, &MainMenuControl::command_UpdateAppCaption);
 
 		mMainMenu->eventMenuCtrlAccept += MyGUI::newDelegate(this, &MainMenuControl::notifyMenuCtrlAccept);
 

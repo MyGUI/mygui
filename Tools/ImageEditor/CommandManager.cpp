@@ -40,10 +40,10 @@ namespace tools
 			mData = _command.substr(index + 1);
 		}
 
-		MapDelegate::iterator iter = mDelegates.find(command);
-		if (iter != mDelegates.end())
+		EventType* event = getEvent(command);
+		if (event != nullptr)
 		{
-			iter->second(command, result);
+			event->operator()(command, result);
 		}
 		else
 		{
@@ -55,25 +55,6 @@ namespace tools
 		return result;
 	}
 
-	void CommandManager::registerCommand(const MyGUI::UString& _command, CommandDelegate::IDelegate* _delegate)
-	{
-		MapDelegate::iterator iter = mDelegates.find(_command);
-		if (iter == mDelegates.end())
-			iter = mDelegates.insert(std::make_pair(_command, CommandDelegate())).first;
-		(*iter).second += _delegate;
-	}
-
-	void CommandManager::unregisterCommand(const MyGUI::UString& _command, CommandDelegate::IDelegate* _delegate)
-	{
-		MapDelegate::iterator iter = mDelegates.find(_command);
-		if (iter != mDelegates.end())
-		{
-			(*iter).second -= _delegate;
-			if ((*iter).second.empty())
-				mDelegates.erase(iter);
-		}
-	}
-
 	void CommandManager::setCommandData(const MyGUI::UString& _data)
 	{
 		mData = _data;
@@ -82,6 +63,17 @@ namespace tools
 	const MyGUI::UString& CommandManager::getCommandData() const
 	{
 		return mData;
+	}
+
+	CommandManager::EventType* CommandManager::getEvent(const MyGUI::UString& _command)
+	{
+		MapEvent::iterator event = mEvents.find(_command);
+		if (event != mEvents.end())
+			return (*event).second;
+
+		EventType* type = new EventType();
+		mEvents[_command] = type;
+		return type;
 	}
 
 }

@@ -26,10 +26,10 @@ namespace tools
 	{
 		DataListBaseControl::OnInitialise(_parent, _place, _layoutName);
 
-		CommandManager::getInstance().registerCommand("Command_CreateImageData", MyGUI::newDelegate((DataListBaseControl*)this, &DataListBaseControl::commandCreateImageData));
-		CommandManager::getInstance().registerCommand("Command_CloneImageData", MyGUI::newDelegate((DataListBaseControl*)this, &DataListBaseControl::commandCloneImageData));
-		CommandManager::getInstance().registerCommand("Command_DestroyImageData", MyGUI::newDelegate((DataListBaseControl*)this, &DataListBaseControl::commandDestroyImageData));
-		CommandManager::getInstance().registerCommand("Command_RenameImageData", MyGUI::newDelegate((DataListBaseControl*)this, &DataListBaseControl::commandRenameImageData));
+		CommandManager::getInstance().getEvent("Command_CreateImageData")->connect((DataListBaseControl*)this, &DataListBaseControl::commandCreateImageData);
+		CommandManager::getInstance().getEvent("Command_CloneImageData")->connect((DataListBaseControl*)this, &DataListBaseControl::commandCloneImageData);
+		CommandManager::getInstance().getEvent("Command_DestroyImageData")->connect((DataListBaseControl*)this, &DataListBaseControl::commandDestroyImageData);
+		CommandManager::getInstance().getEvent("Command_RenameImageData")->connect((DataListBaseControl*)this, &DataListBaseControl::commandRenameImageData);
 
 		setDataInfo("Root", "Image", "Name", "UniqueName");
 	}
