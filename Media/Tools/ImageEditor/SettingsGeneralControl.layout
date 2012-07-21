@@ -2,7 +2,7 @@
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Widget" skin="PanelEmpty" position="32 64 343 304" align="Stretch" layer="Overlapped" name="Root">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="TextBox" skin="TextBox" position="55 0 102 20">
+        <Widget type="TextBox" skin="TextBox_Dark" position="55 0 102 20">
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="Caption" value="#{Grid_step}"/>
             <Property key="FontName" value="DejaVuSansFont_13"/>
@@ -19,7 +19,7 @@
             <Property key="AddItem" value="English"/>
             <Property key="AddItem" value="Russian"/>
         </Widget>
-        <Widget type="TextBox" skin="TextBox" position="135 30 75 20">
+        <Widget type="TextBox" skin="TextBox_Dark" position="135 30 75 20">
             <Property key="Caption" value="#{TextInterfaceLanguage}"/>
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="FontName" value="DejaVuSansFont_13"/>

@@ -2,7 +2,7 @@
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Widget" skin="PanelEmpty" position="32 64 343 296" align="Stretch" layer="Overlapped" name="Root">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="TextBox" skin="TextBox" position="0 0 343 20" align="HStretch Top">
+        <Widget type="TextBox" skin="TextBox_Dark" position="0 0 343 20" align="HStretch Top">
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="Caption" value="#{ResourcesPaths}"/>
             <Property key="FontName" value="DejaVuSansFont_13"/>

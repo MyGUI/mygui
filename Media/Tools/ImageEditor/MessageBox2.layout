@@ -3,7 +3,7 @@
     <Widget type="Window" skin="WindowCX2_Dark" position="20 20 170 125" layer="Info" name="Root">
         <Property key="Snap" value="true"/>
         <UserString key="ButtonSkin" value="Button_Dark"/>
-        <Widget type="TextBox" skin="TextBox" position="8 9 146 41" align="Stretch" name="Text">
+        <Widget type="TextBox" skin="TextBox_Dark" position="8 9 146 41" align="Stretch" name="Text">
             <Property key="TextAlign" value="Center"/>
             <Property key="FontName" value="DejaVuSansFont_13"/>
         </Widget>

@@ -3,7 +3,7 @@
     <Widget type="Widget" skin="Panel3Skin_Dark" position="20 20 230 50" align="HStretch Top" layer="Overlapped" name="Root">
         <UserString key="SnapTo" value="HStretch Top"/>
         <Widget type="EditBox" skin="EditBox_Dark" position="5 25 220 20" align="HStretch Bottom" name="Edit"/>
-        <Widget type="TextBox" skin="TextBox" position="5 5 220 20" align="HStretch Top" name="Name">
+        <Widget type="TextBox" skin="TextBox_Dark" position="5 5 220 20" align="HStretch Top" name="Name">
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="FontName" value="DejaVuSansFont_13"/>
         </Widget>
