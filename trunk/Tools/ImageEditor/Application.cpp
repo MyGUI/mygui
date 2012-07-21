@@ -60,7 +60,10 @@ namespace tools
 
 		new SettingsManager();
 		SettingsManager::getInstance().loadSettingsFile(MyGUI::DataManager::getInstance().getDataPath("Settings.xml"));
-		SettingsManager::getInstance().loadUserSettingsFile("ie_user_settings.xml");
+
+		std::string userSettingsFileName = SettingsManager::getInstance().getValueString("Editor/UserSettingsFileName");
+		if (!userSettingsFileName.empty())
+			SettingsManager::getInstance().loadUserSettingsFile(userSettingsFileName);
 
 		std::string language = SettingsManager::getInstance().getValueString("Settings/InterfaceLanguage");
 		if (language.empty() || language == "Auto")
@@ -108,7 +111,10 @@ namespace tools
 	
 		new tools::DataTypeManager();
 		tools::DataTypeManager::getInstance().initialise();
-		tools::DataTypeManager::getInstance().load("ImageDataType.xml");
+
+		std::string dataTypeFileName = SettingsManager::getInstance().getValueString("Editor/DataTypeFileName");
+		if (!dataTypeFileName.empty())
+			tools::DataTypeManager::getInstance().load(dataTypeFileName);
 
 		new tools::DataManager();
 		tools::DataManager::getInstance().initialise();
@@ -116,7 +122,9 @@ namespace tools
 		new tools::DataSelectorManager();
 		tools::DataSelectorManager::getInstance().initialise();
 
-		MyGUI::ResourceManager::getInstance().load("Initialise.xml");
+		const SettingsManager::VectorString& resources = SettingsManager::getInstance().getValueListString("Resources/Resource.List");
+		for (SettingsManager::VectorString::const_iterator iter = resources.begin(); iter != resources.end(); ++iter)
+			MyGUI::ResourceManager::getInstance().load(*iter);
 
 		const SettingsManager::VectorString& additionalPaths = SettingsManager::getInstance().getValueListString("Resources/AdditionalPath.List");
 		for (SettingsManager::VectorString::const_iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
