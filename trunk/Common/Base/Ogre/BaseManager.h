@@ -9,8 +9,6 @@
 
 #include <Ogre.h>
 #include <MyGUI.h>
-#include "Base/StatisticInfo.h"
-#include "Base/InputFocusInfo.h"
 
 #include "InputManager.h"
 #include "PointerManager.h"
@@ -50,9 +48,6 @@ namespace base
 
 		size_t getWindowHandle();
 
-		diagnostic::StatisticInfo* getStatisticInfo(); // FIXME
-		diagnostic::InputFocusInfo* getFocusInput(); // FIXME
-
 		typedef std::map<std::string, std::string> MapString;
 		MapString getStatistic();
 
@@ -72,10 +67,10 @@ namespace base
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
 		virtual void injectKeyRelease(MyGUI::KeyCode _key);
 
-	private:
-		void createGui();
-		void destroyGui();
+		virtual void createGui();
+		virtual void destroyGui();
 
+	private:
 		virtual bool frameStarted(const Ogre::FrameEvent& _evt);
 		virtual bool frameEnded(const Ogre::FrameEvent& _evt);
 		virtual void windowResized(Ogre::RenderWindow* _rw);
@@ -86,8 +81,6 @@ namespace base
 	private:
 		MyGUI::Gui* mGUI;
 		MyGUI::OgrePlatform* mPlatform;
-		diagnostic::StatisticInfo* mInfo; // FIXME
-		diagnostic::InputFocusInfo* mFocusInfo; // FIXME
 
 		Ogre::Root* mRoot;
 		Ogre::Camera* mCamera;

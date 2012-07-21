@@ -413,7 +413,7 @@ namespace tools
 
 	void Application::command_FocusVisible(const MyGUI::UString& _commandName, bool& _result)
 	{
-		getFocusInput()->setFocusVisible(!getFocusInput()->getFocusVisible());
+		//getFocusInput()->setFocusVisible(!getFocusInput()->getFocusVisible());
 
 		_result = true;
 	}
