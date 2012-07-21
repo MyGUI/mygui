@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="Back1Skin_Dark" position="42 66 823 366" align="Stretch" layer="Overlapped" name="Root">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="Widget" skin="PanelEmpty" position="10 30 803 326" align="Stretch"/>
+        <Widget type="Widget" skin="PanelEmpty" position="10 0 803 21" align="HStretch Top"/>
+    </Widget>
+</MyGUI>
