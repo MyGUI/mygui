@@ -27,7 +27,7 @@
 	</Settings>
 	<Resources>
 		<Resource.List>
-			<Value>Initialise.xml</Value>
+			<Value>Hotkeys.xml</Value>
 		</Resource.List>
 	</Resources>
 	<Editor>
