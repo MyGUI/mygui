@@ -26,7 +26,7 @@ namespace tools
 
 	void MessageBoxFadeControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
-		Control::OnInitialise(_parent, _place, _layoutName);
+		Control::OnInitialise(_parent, _place, "MessageBoxFadeControl.layout");
 
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &MessageBoxFadeControl::notifyFrameStart);
 

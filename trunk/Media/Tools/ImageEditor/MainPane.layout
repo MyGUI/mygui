@@ -10,10 +10,5 @@
             <UserString key="ControlType" value="MainMenuControl"/>
             <UserString key="ControlLayout" value="MainMenuControl.layout"/>
         </Widget>
-        <Widget type="Widget" skin="PanelEmpty" position="0 0 10 10">
-            <Property key="NeedMouse" value="false"/>
-            <UserString key="ControlType" value="MessageBoxFadeControl"/>
-            <UserString key="ControlLayout" value="MessageBoxFadeControl.layout"/>
-        </Widget>
     </Widget>
 </MyGUI>
