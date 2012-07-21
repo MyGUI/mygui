@@ -6,7 +6,7 @@
 
 #include "Precompiled.h"
 #include "SelectorControl.h"
-#include "SettingsManager.h"
+#include "SettingsManager2.h"
 
 namespace tools
 {
@@ -45,7 +45,6 @@ namespace tools
 		if (window != nullptr)
 			window->eventWindowChangeCoord += MyGUI::newDelegate(this, &SelectorControl::notifyWindowChangeCoord);
 
-		//SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &SelectorControl::notifySettingsChanged);
 		SettingsManager2::getInstance().eventSettingsChanged.connect(this, &SelectorControl::notifySettingsChanged);
 	}
 
@@ -167,7 +166,6 @@ namespace tools
 	{
 		if (!mPropertyColour.empty() && _path == ("Settings/" + mPropertyColour))
 		{
-			//MyGUI::Colour colour = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<MyGUI::Colour>(mPropertyColour);
 			MyGUI::Colour colour = SettingsManager2::getInstance().getValue<MyGUI::Colour>("Settings/" + mPropertyColour);
 			setColour(colour);
 		}
@@ -176,7 +174,6 @@ namespace tools
 	void SelectorControl::setPropertyColour(const std::string& _propertyName)
 	{
 		mPropertyColour = _propertyName;
-		//MyGUI::Colour colour = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<MyGUI::Colour>(mPropertyColour);
 		MyGUI::Colour colour = SettingsManager2::getInstance().getValue<MyGUI::Colour>("Settings/" + mPropertyColour);
 		setColour(colour);
 	}

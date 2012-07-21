@@ -7,7 +7,7 @@
 #include "Precompiled.h"
 #include "TextureToolControl.h"
 #include "Localise.h"
-#include "SettingsManager.h"
+#include "SettingsManager2.h"
 #include "CommandManager.h"
 
 namespace tools
@@ -20,7 +20,6 @@ namespace tools
 
 	TextureToolControl::~TextureToolControl()
 	{
-		//SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &TextureToolControl::notifySettingsChanged);
 		SettingsManager2::getInstance().eventSettingsChanged.disconnect(this);
 	}
 
@@ -28,7 +27,6 @@ namespace tools
 	{
 		TextureControl::OnInitialise(_parent, _place, "TextureControl.layout");
 
-		//MyGUI::Colour colour = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<MyGUI::Colour>("ColourBackground");
 		MyGUI::Colour colour = SettingsManager2::getInstance().getValue<MyGUI::Colour>("Settings/ColourBackground");
 		setColour(colour);
 
@@ -36,10 +34,8 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_ChangePrevScale", MyGUI::newDelegate(this, &TextureToolControl::CommandChangePrevScale));
 		CommandManager::getInstance().registerCommand("Command_ChangeScale", MyGUI::newDelegate(this, &TextureToolControl::CommandChangeScale));
 
-		//mScaleValue = SettingsManager::getInstance().getSector("TextureScale")->getPropertyValueList<size_t>("ScaleValue");
 		mScaleValue = SettingsManager2::getInstance().getValueList<size_t>("TextureScale/ScaleValue.List");
 
-		//SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &TextureToolControl::notifySettingsChanged);
 		SettingsManager2::getInstance().eventSettingsChanged.connect(this, &TextureToolControl::notifySettingsChanged);
 	}
 
@@ -47,18 +43,9 @@ namespace tools
 	{
 		if (_path == "Settings/ColourBackground")
 		{
-			//MyGUI::Colour colour = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<MyGUI::Colour>("ColourBackground");
 			MyGUI::Colour colour = SettingsManager2::getInstance().getValue<MyGUI::Colour>("Settings/ColourBackground");
 			setColour(colour);
 		}
-		/*if (_sectorName == "Settings")
-		{
-			if (_propertyName == "ColourBackground")
-			{
-				MyGUI::Colour colour = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<MyGUI::Colour>("ColourBackground");
-				setColour(colour);
-			}
-		}*/
 	}
 
 	void TextureToolControl::CommandChangeNextScale(const MyGUI::UString& _commandName, bool& _result)

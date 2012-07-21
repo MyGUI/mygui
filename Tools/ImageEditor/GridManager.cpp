@@ -6,7 +6,7 @@
 
 #include "Precompiled.h"
 #include "GridManager.h"
-#include "SettingsManager.h"
+#include "SettingsManager2.h"
 
 template <> tools::GridManager* MyGUI::Singleton<tools::GridManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::GridManager>::mClassTypeName("GridManager");
@@ -25,15 +25,12 @@ namespace tools
 
 	void GridManager::initialise()
 	{
-		//mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 		mGridStep = SettingsManager2::getInstance().getValue<int>("Settings/Grid");
-		//SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &GridManager::notifySettingsChanged);
 		SettingsManager2::getInstance().eventSettingsChanged.connect(this, &GridManager::notifySettingsChanged);
 	}
 
 	void GridManager::shutdown()
 	{
-		//SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &GridManager::notifySettingsChanged);
 		SettingsManager2::getInstance().eventSettingsChanged.disconnect(this);
 	}
 
@@ -41,7 +38,6 @@ namespace tools
 	{
 		if (_path == "Settings/Grid")
 		{
-			//mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 			mGridStep = SettingsManager2::getInstance().getValue<int>("Settings/Grid");
 		}
 	}

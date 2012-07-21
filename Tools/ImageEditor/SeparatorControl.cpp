@@ -7,7 +7,7 @@
 #include "Precompiled.h"
 #include "SeparatorControl.h"
 #include "FactoryManager.h"
-#include "SettingsManager.h"
+#include "SettingsManager2.h"
 
 namespace tools
 {
@@ -294,7 +294,6 @@ namespace tools
 			return;
 
 		SettingsManager2::VectorString values;
-		//values = SettingsManager::getInstance().getSector("Window")->getPropertyValueList(mSaveAs);
 		values = SettingsManager2::getInstance().getValueListString("Window/" + mSaveAs + ".List");
 		SettingsManager2::VectorString::const_iterator value = values.begin();
 
@@ -332,7 +331,6 @@ namespace tools
 				values.push_back((*child)->getPosition().print());
 		}
 
-		//SettingsManager::getInstance().getSector("Window")->setPropertyValueList(mSaveAs, values);
 		SettingsManager2::getInstance().setValueListString("Window/" + mSaveAs + ".List", values);
 	}
 

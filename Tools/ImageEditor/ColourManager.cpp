@@ -7,7 +7,7 @@
 #include "Precompiled.h"
 #include "ColourManager.h"
 #include "CommandManager.h"
-#include "SettingsManager.h"
+#include "SettingsManager2.h"
 
 template <> tools::ColourManager* MyGUI::Singleton<tools::ColourManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::ColourManager>::mClassTypeName("ColourManager");
@@ -89,13 +89,11 @@ namespace tools
 
 	void ColourManager::setColour(const MyGUI::Colour& _color)
 	{
-		//SettingsManager::getInstance().getSector("Settings")->setPropertyValue(mCurrentColourType, _color);
 		SettingsManager2::getInstance().setValue("Settings/" + mCurrentColourType, _color);
 	}
 
 	MyGUI::Colour ColourManager::getColour()
 	{
-		//return SettingsManager::getInstance().getSector("Settings")->getPropertyValue<MyGUI::Colour>(mCurrentColourType);
 		return SettingsManager2::getInstance().getValue<MyGUI::Colour>("Settings/" + mCurrentColourType);
 	}
 
