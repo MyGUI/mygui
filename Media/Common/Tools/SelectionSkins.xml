@@ -22,6 +22,8 @@
     <Resource type="ResourceLayout" name="StretchBorderWhite" version="3.2.0">
         <Widget type="Widget" skin="" position="30 30 62 62" name="Root">
             <Property key="Snap" value="false"/>
+            <Property key="NeedMouse" value="false"/>
+            <Property key="Pointer" value="hand"/>
             <UserString key="MainMove" value="true"/>
             <UserString key="LE_TargetWidgetType" value="Window"/>
             <Widget type="Button" skin="QuadBorderWhite" position="0 0 6 6" align="Left Top" name="Action">
@@ -56,10 +58,10 @@
                 <Property key="Pointer" value="size_vert"/>
                 <UserString key="Scale" value="0 0 0 1"/>
             </Widget>
-            <Widget type="Button" skin="PanelEmpty" position="11 11 40 40" align="Stretch" name="Action">
-                <Property key="Pointer" value="hand"/>
-                <UserString key="Scale" value="1 1 0 0"/>
-            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="0 6 2 50" align="Left VStretch"/>
+            <Widget type="Widget" skin="PanelEmpty" position="6 0 50 2" align="HStretch Top"/>
+            <Widget type="Widget" skin="PanelEmpty" position="60 6 2 50" align="Right VStretch"/>
+            <Widget type="Widget" skin="PanelEmpty" position="6 60 50 2" align="HStretch Bottom"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="VerticalBorderWhite" version="3.2.0">
