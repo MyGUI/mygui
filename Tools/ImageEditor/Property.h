@@ -37,7 +37,6 @@ namespace tools
 			setValue(MyGUI::utility::toString(_value));
 		}
 
-		template <>
 		void setValue(const bool& _value)
 		{
 			setValue(std::string(_value ? "True" : "False"));

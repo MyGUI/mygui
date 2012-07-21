@@ -86,7 +86,7 @@ namespace tools
 
 			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
 			{
-				Property* property = (*child)->getProperty("Point");
+				property = (*child)->getProperty("Point");
 				if (!property->eventChangeProperty.exist(this, &AnimationViewControl::notifyChangeProperty))
 					property->eventChangeProperty.connect(this, &AnimationViewControl::notifyChangeProperty);
 			}

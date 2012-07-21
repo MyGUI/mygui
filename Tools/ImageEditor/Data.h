@@ -53,7 +53,6 @@ namespace tools
 			setPropertyValue(_name, MyGUI::utility::toString(_value));
 		}
 
-		template <>
 		void setPropertyValue(const std::string& _name, const bool& _value)
 		{
 			setPropertyValue(_name, std::string(_value ? "True" : "False"));

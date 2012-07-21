@@ -81,7 +81,7 @@ namespace tools
 			VectorString values;
 			values.reserve(_values.size());
 
-			for (std::vector<Type>::const_iterator item = _values.begin(); item != _values.end(); item ++)
+			for (typename std::vector<Type>::const_iterator item = _values.begin(); item != _values.end(); item ++)
 				values.push_back(MyGUI::utility::toString(*item));
 
 			setValueListString(_path, values);
