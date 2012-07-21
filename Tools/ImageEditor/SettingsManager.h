@@ -87,7 +87,7 @@ namespace tools
 			setValueListString(_path, values);
 		}
 
-		pugi::xml_node getRootNode() { return mDocument->document_element(); }
+		pugi::xpath_node_set getValueNodeList(const std::string& _path);
 
 		sigslot::signal1<const std::string&> eventSettingsChanged;
 

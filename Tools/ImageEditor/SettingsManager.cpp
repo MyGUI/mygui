@@ -259,4 +259,16 @@ namespace tools
 		eventSettingsChanged(_path);
 	}
 
+	pugi::xpath_node_set SettingsManager::getValueNodeList(const std::string& _path)
+	{
+		std::string path = _path + "/Value";
+
+		pugi::xpath_node_set nodes = mUserDocument->document_element().select_nodes(path.c_str());
+		if (!nodes.empty())
+			return nodes;
+
+		nodes = mDocument->document_element().select_nodes(path.c_str());
+		return nodes;
+	}
+
 }
