@@ -40,7 +40,7 @@
         </Widget>
         <Widget type="Widget" skin="Panel2Skin_Dark" position="264 7 111 68">
             <Widget type="Widget" skin="BackgroundTile" position="2 2 107 64" align="Stretch">
-                <Widget type="Widget" skin="WhiteSkin_Dark" position="0 0 107 64" align="Stretch" name="widget_ColourView">
+                <Widget type="Widget" skin="WhiteSkin" position="0 0 107 64" align="Stretch" name="widget_ColourView">
                     <Property key="Alpha" value="0.5"/>
                 </Widget>
             </Widget>

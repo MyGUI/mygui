@@ -1567,7 +1567,7 @@
             <State name="pushed" offset="244 95 2 7"/>
         </BasisSkin>
     </Resource>
-    <Resource type="ResourceSkin" name="WhiteSkin_Dark" size="2 2" texture="MyGUI_Dark.png">
+    <Resource type="ResourceSkin" name="WhiteSkin" size="2 2" texture="MyGUI_Dark.png">
         <BasisSkin type="SubSkin" offset="0 0 2 2" align="Stretch">
             <State name="normal" offset="504 120 2 2"/>
         </BasisSkin>
