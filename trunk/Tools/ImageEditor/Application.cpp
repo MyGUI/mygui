@@ -61,7 +61,7 @@ namespace tools
 
 		new SettingsManager2();
 		SettingsManager2::getInstance().loadSettingsFile(MyGUI::DataManager::getInstance().getDataPath("Settings2.xml"));
-		SettingsManager2::getInstance().loadUserSettingsFile("ie_user_settings2.xml");
+		SettingsManager2::getInstance().loadUserSettingsFile("ie_user_settings.xml");
 
 		std::string language = SettingsManager2::getInstance().getValueString("Settings/InterfaceLanguage");
 		if (language.empty() || language == "Auto")
