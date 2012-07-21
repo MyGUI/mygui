@@ -67,7 +67,7 @@ namespace tools
 			std::vector<Type> result;
 			result.reserve(resultString.size());
 
-			for (auto item = resultString.begin(); item != resultString.end(); item ++)
+			for (VectorString::const_iterator item = resultString.begin(); item != resultString.end(); item ++)
 				result.push_back(MyGUI::utility::parseValue<Type>(*item));
 
 			return result;
@@ -81,7 +81,7 @@ namespace tools
 			VectorString values;
 			values.reserve(_values.size());
 
-			for (auto item = _values.begin(); item != _values.end(); item ++)
+			for (std::vector<Type>::const_iterator item = _values.begin(); item != _values.end(); item ++)
 				values.push_back(MyGUI::utility::toString(*item));
 
 			setValueListString(_path, values);
