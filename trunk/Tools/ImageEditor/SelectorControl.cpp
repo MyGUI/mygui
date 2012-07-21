@@ -6,7 +6,7 @@
 
 #include "Precompiled.h"
 #include "SelectorControl.h"
-#include "SettingsManager2.h"
+#include "SettingsManager.h"
 
 namespace tools
 {

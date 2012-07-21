@@ -6,7 +6,7 @@
 
 #include "Precompiled.h"
 #include "SettingsGeneralControl.h"
-#include "SettingsManager2.h"
+#include "SettingsManager.h"
 #include "FactoryManager.h"
 
 namespace tools

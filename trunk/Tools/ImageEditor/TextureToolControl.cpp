@@ -7,7 +7,7 @@
 #include "Precompiled.h"
 #include "TextureToolControl.h"
 #include "Localise.h"
-#include "SettingsManager2.h"
+#include "SettingsManager.h"
 #include "CommandManager.h"
 
 namespace tools

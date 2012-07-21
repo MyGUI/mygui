@@ -5,7 +5,7 @@
 */
 
 #include "Precompiled.h"
-#include "SettingsManager2.h"
+#include "SettingsManager.h"
 
 template <> tools::SettingsManager* MyGUI::Singleton<tools::SettingsManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::SettingsManager>::mClassTypeName("SettingsManager");

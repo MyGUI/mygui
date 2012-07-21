@@ -6,7 +6,7 @@
 
 #include "Precompiled.h"
 #include "GridManager.h"
-#include "SettingsManager2.h"
+#include "SettingsManager.h"
 
 template <> tools::GridManager* MyGUI::Singleton<tools::GridManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::GridManager>::mClassTypeName("GridManager");
