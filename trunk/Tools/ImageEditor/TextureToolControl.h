@@ -42,6 +42,7 @@ namespace tools
 		typedef std::vector<size_t> VectorSizeT;
 		VectorSizeT mScaleValue;
 		size_t mCurrentScaleValue;
+		std::string mColourValueName;
 	};
 
 }

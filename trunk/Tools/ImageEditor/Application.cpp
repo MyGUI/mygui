@@ -119,19 +119,19 @@ namespace tools
 
 		MyGUI::ResourceManager::getInstance().load("Initialise.xml");
 
-		const SettingsManager::VectorString& additionalPaths = SettingsManager::getInstance().getValueListString("Settings/AdditionalPath.List");
+		const SettingsManager::VectorString& additionalPaths = SettingsManager::getInstance().getValueListString("Resources/AdditionalPath.List");
 		for (SettingsManager::VectorString::const_iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
 			addResourceLocation(*iter);
 
-		const SettingsManager::VectorString& additionalResources = SettingsManager::getInstance().getValueListString("Settings/AdditionalResource.List");
+		const SettingsManager::VectorString& additionalResources = SettingsManager::getInstance().getValueListString("Resources/AdditionalResource.List");
 		for (SettingsManager::VectorString::const_iterator iter = additionalResources.begin(); iter != additionalResources.end(); ++iter)
 			MyGUI::ResourceManager::getInstance().load(*iter);
 
-		bool maximized = SettingsManager::getInstance().getValue<bool>("Window/Maximized");
+		bool maximized = SettingsManager::getInstance().getValue<bool>("Windows/Main/Maximized");
 		setWindowMaximized(maximized);
 		if (!maximized)
 		{
-			MyGUI::IntCoord windowCoord = SettingsManager::getInstance().getValue<MyGUI::IntCoord>("Window/Coord");
+			MyGUI::IntCoord windowCoord = SettingsManager::getInstance().getValue<MyGUI::IntCoord>("Windows/Main/Coord");
 			setWindowCoord(windowCoord);
 		}
 
@@ -204,7 +204,7 @@ namespace tools
 		tools::DataTypeManager::getInstance().shutdown();
 		delete tools::DataTypeManager::getInstancePtr();
 
-		SettingsManager::getInstance().saveSettingsFile("SettingsResult.xml");
+		//SettingsManager::getInstance().saveSettingsFile("SettingsResult.xml");
 		SettingsManager::getInstance().saveUserSettingsFile();
 		delete SettingsManager::getInstancePtr();
 
@@ -467,8 +467,8 @@ namespace tools
 
 	void Application::saveSettings()
 	{
-		SettingsManager::getInstance().setValue("Window/Maximized", getWindowMaximized());
-		SettingsManager::getInstance().setValue("Window/Coord", getWindowCoord());
+		SettingsManager::getInstance().setValue("Windows/Main/Maximized", getWindowMaximized());
+		SettingsManager::getInstance().setValue("Windows/Main/Coord", getWindowCoord());
 	}
 
 }
