@@ -564,4 +564,15 @@
 			<UserString key="LE_TargetWidgetType" value="TextBox"/>
 		</Widget>
 	</Resource>
+	<Resource type="ResourceLayout" name="EditBoxEmpty_Dark" version="3.2.0">
+		<Widget type="Widget" skin="PanelEmpty" position="65 10 16 16" name="Root">
+			<UserString key="LE_TargetWidgetType" value="EditBox"/>
+			<Widget type="TextBox" skin="EditClientSkin" position="0 0 16 16" align="Stretch" name="Client">
+				<Property key="TextAlign" value="Default"/>
+				<Property key="FontName" value="DejaVuSansFont_13"/>
+				<Property key="TextColour" value="1 1 1"/>
+				<Property key="Pointer" value="beam"/>
+			</Widget>
+		</Widget>
+	</Resource>
 </MyGUI>

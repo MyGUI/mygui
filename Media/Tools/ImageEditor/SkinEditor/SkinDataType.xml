@@ -49,6 +49,61 @@
 					<Action>ChangeValueAction</Action>
 				</Property>
 			</Properties>
+			<Childs>
+				<Child>
+					<Type>State</Type>
+				</Child>
+			</Childs>
+		</DataType>
+		<DataType>
+			<Name>State</Name>
+			<Properties>
+				<Property>
+					<Name>Name</Name>
+					<Type>PropertyStringControl</Type>
+					<Initialisator></Initialisator>
+					<Default></Default>
+					<Visible>true</Visible>
+					<ReadOnly>true</ReadOnly>
+					<Action></Action>
+				</Property>
+				<Property>
+					<Name>Point</Name>
+					<Type>PropertyInt2Control</Type>
+					<Initialisator></Initialisator>
+					<Default>0 0</Default>
+					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
+					<Action>ChangeValueAction</Action>
+				</Property>
+				<Property>
+					<Name>Visible</Name>
+					<Type>PropertyBoolControl</Type>
+					<Initialisator></Initialisator>
+					<Default>false</Default>
+					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
+					<Action>ChangeValueAction</Action>
+				</Property>
+				<Property>
+					<Name>TextColour</Name>
+					<Type>PropertyColourControl</Type>
+					<Initialisator></Initialisator>
+					<Default>1 1 1</Default>
+					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
+					<Action>ChangeValueAction</Action>
+				</Property>
+				<Property>
+					<Name>TextShift</Name>
+					<Type>PropertyIntControl</Type>
+					<Initialisator></Initialisator>
+					<Default>0</Default>
+					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
+					<Action>ChangeValueAction</Action>
+				</Property>
+			</Properties>
 		</DataType>
 	</DataTypes>
 </Document>

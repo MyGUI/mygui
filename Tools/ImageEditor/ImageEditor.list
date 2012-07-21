@@ -87,6 +87,7 @@ set (HEADER_FILES
   SkinListControl.h
   SkinTextureController.h
   StateController.h
+  StateListControl.h
   StateManager.h
   StatisticInfoControl.h
   StringUtility.h
@@ -179,6 +180,7 @@ set (SOURCE_FILES
   SkinExportSerializer.cpp
   SkinListControl.cpp
   SkinTextureController.cpp
+  StateListControl.cpp
   StateManager.cpp
   StatisticInfoControl.cpp
   TextFieldControl.cpp
@@ -239,22 +241,8 @@ SOURCE_GROUP("Controls" FILES
   AnimationViewControl.h
   ColourPanel.cpp
   ColourPanel.h
-  DataListBaseControl.cpp
-  DataListBaseControl.h
-  FrameListControl.cpp
-  FrameListControl.h
-  GroupListControl.cpp
-  GroupListControl.h
-  ImageListControl.cpp
-  ImageListControl.h
-  IndexListControl.cpp
-  IndexListControl.h
-  ListBoxDataControl.cpp
-  ListBoxDataControl.h
   MainMenuControl.cpp
   MainMenuControl.h
-  SkinListControl.cpp
-  SkinListControl.h
 )
 SOURCE_GROUP("Controls\\Animations" FILES
   AnimationInfo.cpp
@@ -275,6 +263,24 @@ SOURCE_GROUP("Controls\\Framework" FILES
   StatisticInfoControl.h
   TextFieldControl.cpp
   TextFieldControl.h
+)
+SOURCE_GROUP("Controls\\Lists" FILES
+  DataListBaseControl.cpp
+  DataListBaseControl.h
+  FrameListControl.cpp
+  FrameListControl.h
+  GroupListControl.cpp
+  GroupListControl.h
+  ImageListControl.cpp
+  ImageListControl.h
+  IndexListControl.cpp
+  IndexListControl.h
+  ListBoxDataControl.cpp
+  ListBoxDataControl.h
+  SkinListControl.cpp
+  SkinListControl.h
+  StateListControl.cpp
+  StateListControl.h
 )
 SOURCE_GROUP("Controls\\Properties" FILES
   PropertyBoolControl.cpp

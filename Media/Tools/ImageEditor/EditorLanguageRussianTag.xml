@@ -38,7 +38,6 @@
 	<Tag name="CaptionEnterName">Введите имя</Tag>
 	<Tag name="CaptionOpenFile">Открытие файла</Tag>
 	<Tag name="CaptionSaveFile">Сохранение файла</Tag>
-	<Tag name="CaptionExportFile">Экспорт файла</Tag>
 	<Tag name="CaptionColourPicker">Выбор цвета</Tag>
 	<Tag name="CaptionOpenFolder">Выбор папки</Tag>
 	<Tag name="CaptionTextureBrowse">Выбор текстуры</Tag>
