@@ -47,9 +47,9 @@ namespace tools
 
 		mCurrentFolder = common::getSystemCurrentFolder();
 
-		CommandManager::getInstance().registerCommand("Command_OpenSaveAccept", MyGUI::newDelegate(this, &OpenSaveFileDialog::commandOpenSaveAccept));
-		CommandManager::getInstance().registerCommand("Command_OpenSaveCancel", MyGUI::newDelegate(this, &OpenSaveFileDialog::commandOpenSaveCancel));
-		CommandManager::getInstance().registerCommand("Command_OpenSaveFolderUp", MyGUI::newDelegate(this, &OpenSaveFileDialog::commandOpenSaveFolderUp));
+		CommandManager::getInstance().getEvent("Command_OpenSaveAccept")->connect(this, &OpenSaveFileDialog::commandOpenSaveAccept);
+		CommandManager::getInstance().getEvent("Command_OpenSaveCancel")->connect(this, &OpenSaveFileDialog::commandOpenSaveCancel);
+		CommandManager::getInstance().getEvent("Command_OpenSaveFolderUp")->connect(this, &OpenSaveFileDialog::commandOpenSaveFolderUp);
 
 		mMainWidget->setVisible(false);
 

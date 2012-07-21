@@ -14,7 +14,8 @@ namespace tools
 {
 
 	class ScopeManager :
-		public MyGUI::Singleton<ScopeManager>
+		public MyGUI::Singleton<ScopeManager>,
+		public sigslot::has_slots<>
 	{
 	public:
 		ScopeManager();

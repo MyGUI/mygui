@@ -31,16 +31,16 @@ namespace tools
 		mOpenSaveFileDialog(nullptr),
 		mSettingsWindow(nullptr)
 	{
-		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &EditorState::commandFileDrop));
-		CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &EditorState::commandLoad));
-		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &EditorState::commandSave));
-		CommandManager::getInstance().registerCommand("Command_FileSaveAs", MyGUI::newDelegate(this, &EditorState::commandSaveAs));
-		CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &EditorState::commandClear));
-		CommandManager::getInstance().registerCommand("Command_Settings", MyGUI::newDelegate(this, &EditorState::commandSettings));
-		CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &EditorState::commandRecentFiles));
-		CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &EditorState::commandQuit));
-		CommandManager::getInstance().registerCommand("Command_Undo", MyGUI::newDelegate(this, &EditorState::commandUndo));
-		CommandManager::getInstance().registerCommand("Command_Redo", MyGUI::newDelegate(this, &EditorState::commandRedo));
+		CommandManager::getInstance().getEvent("Command_FileDrop")->connect(this, &EditorState::commandFileDrop);
+		CommandManager::getInstance().getEvent("Command_FileLoad")->connect(this, &EditorState::commandLoad);
+		CommandManager::getInstance().getEvent("Command_FileSave")->connect(this, &EditorState::commandSave);
+		CommandManager::getInstance().getEvent("Command_FileSaveAs")->connect(this, &EditorState::commandSaveAs);
+		CommandManager::getInstance().getEvent("Command_ClearAll")->connect(this, &EditorState::commandClear);
+		CommandManager::getInstance().getEvent("Command_Settings")->connect(this, &EditorState::commandSettings);
+		CommandManager::getInstance().getEvent("Command_RecentFiles")->connect(this, &EditorState::commandRecentFiles);
+		CommandManager::getInstance().getEvent("Command_Quit")->connect(this, &EditorState::commandQuit);
+		CommandManager::getInstance().getEvent("Command_Undo")->connect(this, &EditorState::commandUndo);
+		CommandManager::getInstance().getEvent("Command_Redo")->connect(this, &EditorState::commandRedo);
 
 		if (!SettingsManager::getInstance().tryGetValue("EditorState/DefaultFileName", mDefaultFileName))
 			mDefaultFileName = "unnamed.xml";

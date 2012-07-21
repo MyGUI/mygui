@@ -33,8 +33,8 @@ namespace tools
 		assignWidget(mListSettings, "ListSettings", false, false);
 		assignWidget(mTabSettings, "TabSettings", false, false);
 
-		CommandManager::getInstance().registerCommand("Command_SettingsAccept", MyGUI::newDelegate(this, &SettingsWindow::commandSettingsAccept));
-		CommandManager::getInstance().registerCommand("Command_SettingsCancel", MyGUI::newDelegate(this, &SettingsWindow::commandSettingsCancel));
+		CommandManager::getInstance().getEvent("Command_SettingsAccept")->connect(this, &SettingsWindow::commandSettingsAccept);
+		CommandManager::getInstance().getEvent("Command_SettingsCancel")->connect(this, &SettingsWindow::commandSettingsCancel);
 
 		mMainWidget->setVisible(false);
 

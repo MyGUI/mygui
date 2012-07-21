@@ -47,8 +47,8 @@ namespace tools
 		mEditBlue->eventEditTextChange += MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChange);
 		mInputAlpha->eventEditTextChange += MyGUI::newDelegate(this, &ColourPanel::notifyEditTextChangeAlpha);
 
-		CommandManager::getInstance().registerCommand("Command_ColorAccept", MyGUI::newDelegate(this, &ColourPanel::commandColorAccept));
-		CommandManager::getInstance().registerCommand("Command_ColorCancel", MyGUI::newDelegate(this, &ColourPanel::commandColorCancel));
+		CommandManager::getInstance().getEvent("Command_ColorAccept")->connect(this, &ColourPanel::commandColorAccept);
+		CommandManager::getInstance().getEvent("Command_ColorCancel")->connect(this, &ColourPanel::commandColorCancel);
 
 		mColourRange.push_back(MyGUI::Colour(1, 0, 0));
 		mColourRange.push_back(MyGUI::Colour(1, 0, 1));
