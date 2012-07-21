@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<MyGUI type="Layout" version="3.2.0">
-    <Widget type="Window" skin="WindowCSX_Dark" position="120 128 427 311" layer="Overlapped" name="Root">
-        <Property key="Caption" value="#{CaptionTestWindow}"/>
-        <Property key="MinSize" value="100 100"/>
-        <Widget type="Widget" skin="PanelEmpty" position="3 3 413 276" align="Stretch" name="BackgroundControl"/>
-    </Widget>
-</MyGUI>
