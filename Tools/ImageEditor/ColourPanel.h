@@ -14,8 +14,6 @@
 namespace tools
 {
 
-	typedef MyGUI::delegates::CDelegate1<const MyGUI::Colour&> Event_PreviewColour;
-
 	ATTRIBUTE_CLASS_LAYOUT(ColourPanel, "ColourPanel.layout");
 	class ColourPanel :
 		public Dialog,
@@ -31,7 +29,7 @@ namespace tools
 		void setAlphaSupport(bool _value);
 		bool getAlphaSupport() const;
 
-		Event_PreviewColour eventPreviewColour;
+		sigslot::signal1<const MyGUI::Colour&> eventPreviewColour;
 
 	protected:
 		virtual void onDoModal();
