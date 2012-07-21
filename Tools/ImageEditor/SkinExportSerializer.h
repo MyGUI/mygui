@@ -42,6 +42,17 @@ namespace tools
 		MyGUI::IntPoint getFirstFramePoint(Data* _data);*/
 
 		void CreateStateData(Data* _data);
+		void FillStateData(Data* _data, pugi::xml_node _node);
+
+		std::string convertEditorToExportStateName(const std::string& _value);
+		std::string convertExportToEditorStateName(const std::string& _value);
+
+		std::string GetStateValue(Data* _data, const std::string& _name, const std::string& _propertyName);
+
+	private:
+		typedef std::map<std::string, std::string> MapString;
+		MapString mEditorToExportNames;
+		MapString mExportToEditorNames;
 	};
 
 }

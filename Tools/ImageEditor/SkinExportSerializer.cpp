@@ -18,6 +18,20 @@ namespace tools
 
 	SkinExportSerializer::SkinExportSerializer()
 	{
+		#define FILL_EXPORT_NAME(value1, value2) \
+			mEditorToExportNames[value1] = value2; \
+			mExportToEditorNames[value2] = value1;
+
+		FILL_EXPORT_NAME("Disabled", "disabled")
+		FILL_EXPORT_NAME("Normal", "normal")
+		FILL_EXPORT_NAME("Over", "highlighted")
+		FILL_EXPORT_NAME("Pressed", "pushed")
+		FILL_EXPORT_NAME("Selected Disabled", "disabled_checked")
+		FILL_EXPORT_NAME("Selected Normal", "normal_checked")
+		FILL_EXPORT_NAME("Selected Over", "highlighted_checked")
+		FILL_EXPORT_NAME("Selected Pressed", "pushed_checked")
+
+		#undef FILL_EXPORT_NAME
 	}
 
 	SkinExportSerializer::~SkinExportSerializer()
@@ -54,12 +68,18 @@ namespace tools
 		data->setType(DataTypeManager::getInstance().getType("Skin"));
 		data->setPropertyValue("Name", _node.attribute("name").value());
 		data->setPropertyValue("Texture", _node.attribute("texture").value());
-		MyGUI::IntSize size = MyGUI::IntSize::parse(_node.attribute("size").value());
-		data->setPropertyValue("Size", MyGUI::IntCoord(0, 0, size.width, size.height).print());
 
 		DataManager::getInstance().getRoot()->addChild(data);
 
 		CreateStateData(data);
+		FillStateData(data, _node);
+
+		std::string value = GetStateValue(data, "Normal", "Point");
+		MyGUI::IntPoint point = MyGUI::IntPoint::parse(value);
+		MyGUI::IntSize size = MyGUI::IntSize::parse(_node.attribute("size").value());
+
+		data->setPropertyValue("Size", MyGUI::IntCoord(point.left, point.top, size.width, size.height).print());
+
 		/*pugi::xpath_node_set nodes = _node.select_nodes("Group");
 		for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
 			parseGroup((*node).node(), data);*/
@@ -224,7 +244,6 @@ namespace tools
 		state = new Data();
 		state->setType(DataTypeManager::getInstance().getType("State"));
 		state->setPropertyValue("Name", "Normal");
-		state->setPropertyValue("Visible", "True");
 		_data->addChild(state);
 
 		state = new Data();
@@ -256,6 +275,66 @@ namespace tools
 		state->setType(DataTypeManager::getInstance().getType("State"));
 		state->setPropertyValue("Name", "Selected Pressed");
 		_data->addChild(state);
+	}
+
+	void SkinExportSerializer::FillStateData(Data* _data, pugi::xml_node _node)
+	{
+		typedef std::map<std::string, MyGUI::IntPoint> MapPoint;
+		MapPoint values;
+
+		pugi::xpath_node_set states = _node.select_nodes("BasisSkin/State");
+		for (pugi::xpath_node_set::const_iterator state = states.begin(); state != states.end(); state ++)
+		{
+			pugi::xml_attribute attribute = (*state).node().attribute("offset");
+			if (!attribute.empty())
+			{
+				MyGUI::IntCoord coord = MyGUI::IntCoord::parse(attribute.value());
+				std::string name = (*state).node().attribute("name").value();
+				MapPoint::iterator valuesIterator = values.find(name);
+				if (valuesIterator != values.end())
+				{
+					(*valuesIterator).second = MyGUI::IntPoint(
+						(std::min)((*valuesIterator).second.left, coord.left),
+						(std::min)((*valuesIterator).second.top, coord.top));
+				}
+				else
+				{
+					values[name] = coord.point();
+				}
+			}
+		}
+
+		for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end(); child ++)
+		{
+			Data* childData = (*child);
+			MapPoint::iterator result = values.find(convertEditorToExportStateName(childData->getPropertyValue("Name")));
+			if (result != values.end())
+			{
+				childData->setPropertyValue("Visible", "True");
+				childData->setPropertyValue("Point", (*result).second);
+			}
+		}
+	}
+
+	std::string SkinExportSerializer::convertEditorToExportStateName(const std::string& _value)
+	{
+		return mEditorToExportNames.find(_value)->second;
+	}
+
+	std::string SkinExportSerializer::convertExportToEditorStateName(const std::string& _value)
+	{
+		return mExportToEditorNames.find(_value)->second;
+	}
+
+	std::string SkinExportSerializer::GetStateValue(Data* _data, const std::string& _name, const std::string& _propertyName)
+	{
+		for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end(); child ++)
+		{
+			if ((*child)->getPropertyValue("Name") == _name)
+				return (*child)->getPropertyValue(_propertyName);
+		}
+
+		return "";
 	}
 
 }
