@@ -88,7 +88,7 @@
         <Widget type="Widget" skin="" position="30 30 50 9" name="Root">
             <Property key="Snap" value="false"/>
             <UserString key="LE_TargetWidgetType" value="Window"/>
-            <Widget type="Button" skin="HorizintalBorderWhite" position="0 0 50 9" align="Stretch" name="Action">
+            <Widget type="Button" skin="HorizintalBorderWhite" position="0 0 50 9" align="HStretch Top" name="Action">
                 <Property key="Pointer" value="size_vert"/>
                 <UserString key="Scale" value="0 1 0 0"/>
             </Widget>
@@ -98,7 +98,7 @@
         <Widget type="Widget" skin="" position="30 30 9 50" name="Root">
             <Property key="Snap" value="false"/>
             <UserString key="LE_TargetWidgetType" value="Window"/>
-            <Widget type="Button" skin="VerticalBorderWhite" position="0 0 9 50" align="Stretch" name="Action">
+            <Widget type="Button" skin="VerticalBorderWhite" position="0 0 9 50" align="Left VStretch" name="Action">
                 <Property key="Pointer" value="size_horz"/>
                 <UserString key="Scale" value="1 0 0 0"/>
             </Widget>
