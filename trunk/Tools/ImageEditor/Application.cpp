@@ -56,7 +56,7 @@ namespace tools
 	{
 		new SettingsManager();
 		SettingsManager::getInstance().loadSettingsFile(MyGUI::DataManager::getInstance().getDataPath("Settings.xml"));
-		SettingsManager::getInstance().loadUserSettingsFile("SkinSettings.xml"); // FIXME для теста
+		SettingsManager::getInstance().loadSettingsFile("SkinSettings.xml"); // FIXME для теста
 
 		std::string userSettingsFileName = SettingsManager::getInstance().getValueString("Editor/UserSettingsFileName");
 		if (!userSettingsFileName.empty())
@@ -189,7 +189,7 @@ namespace tools
 		tools::DataTypeManager::getInstance().shutdown();
 		delete tools::DataTypeManager::getInstancePtr();
 
-		//SettingsManager::getInstance().saveSettingsFile("SettingsResult.xml");
+		SettingsManager::getInstance().saveSettingsFile("SettingsResult.xml");
 		SettingsManager::getInstance().saveUserSettingsFile();
 		delete SettingsManager::getInstancePtr();
 
