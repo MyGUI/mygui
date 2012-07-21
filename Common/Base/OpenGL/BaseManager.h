@@ -51,6 +51,9 @@ namespace base
 		diagnostic::StatisticInfo* getStatisticInfo();
 		diagnostic::InputFocusInfo* getFocusInput();
 
+		typedef std::map<std::string, std::string> MapString;
+		MapString getStatistic() { return MapString(); }
+
 	/*internal:*/
 		void _windowResized();
 		virtual void* loadImage(int& _width, int& _height, MyGUI::PixelFormat& _format, const std::string& _filename);

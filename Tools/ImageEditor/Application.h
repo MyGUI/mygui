@@ -9,6 +9,7 @@
 
 #include "BaseManager.h"
 #include "sigslot.h"
+#include "Control.h"
 
 namespace tools
 {
@@ -35,7 +36,6 @@ namespace tools
 	protected:
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
 
-		void command_StatisticInfo(const MyGUI::UString& _commandName, bool& _result);
 		void command_FocusVisible(const MyGUI::UString& _commandName, bool& _result);
 		void command_ScreenShot(const MyGUI::UString& _commandName, bool& _result);
 		void command_QuitApp(const MyGUI::UString& _commandName, bool& _result);
@@ -55,9 +55,14 @@ namespace tools
 		void LoadStates();
 		void LoadGuiSettings();
 
+		void CreateControls();
+		void DestroyControls();
+
 	private:
 		std::string mLocale;
 		VectorWString mParams;
+		typedef std::vector<Control*> VectorControl;
+		VectorControl mControls;
 	};
 
 }

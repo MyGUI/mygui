@@ -60,6 +60,9 @@ namespace base
 		diagnostic::StatisticInfo* getStatisticInfo();
 		diagnostic::InputFocusInfo* getFocusInput();
 
+		typedef std::map<std::string, std::string> MapString;
+		MapString getStatistic() { return MapString(); }
+
 		/*internal:*/
 		void _windowResized();
 

@@ -41,7 +41,7 @@ namespace base
 		void quit();
 
 		void setWindowCaption(const std::wstring& _text);
-		void createDefaultScene();
+		void createDefaultScene(); // FIXME
 		void makeScreenShot();
 
 		const std::string& getRootMedia();
@@ -50,8 +50,11 @@ namespace base
 
 		size_t getWindowHandle();
 
-		diagnostic::StatisticInfo* getStatisticInfo();
-		diagnostic::InputFocusInfo* getFocusInput();
+		diagnostic::StatisticInfo* getStatisticInfo(); // FIXME
+		diagnostic::InputFocusInfo* getFocusInput(); // FIXME
+
+		typedef std::map<std::string, std::string> MapString;
+		MapString getStatistic();
 
 	/*internal:*/
 		Ogre::SceneManager* getSceneManager();
@@ -83,8 +86,8 @@ namespace base
 	private:
 		MyGUI::Gui* mGUI;
 		MyGUI::OgrePlatform* mPlatform;
-		diagnostic::StatisticInfo* mInfo;
-		diagnostic::InputFocusInfo* mFocusInfo;
+		diagnostic::StatisticInfo* mInfo; // FIXME
+		diagnostic::InputFocusInfo* mFocusInfo; // FIXME
 
 		Ogre::Root* mRoot;
 		Ogre::Camera* mCamera;
@@ -99,7 +102,7 @@ namespace base
 		std::string mResourceFileName;
 		std::string mRootMedia;
 
-		Ogre::SceneNode* mNode;
+		Ogre::SceneNode* mNode; // FIXME
 	};
 
 } // namespace base

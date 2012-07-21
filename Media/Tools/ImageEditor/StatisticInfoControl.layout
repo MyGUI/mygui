@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="30 30 300 300" align="Right Bottom" layer="Statistic" name="Root">
+        <Property key="NeedMouse" value="false"/>
+        <UserString key="SnapTo" value="Right Bottom"/>
+        <Widget type="TextBox" skin="TextBox_Dark" position="0 0 250 250" align="Stretch" name="Text">
+            <Property key="TextAlign" value="Right Bottom"/>
+            <Property key="TextShadow" value="true"/>
+        </Widget>
+    </Widget>
+</MyGUI>

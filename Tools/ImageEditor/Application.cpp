@@ -53,9 +53,6 @@ namespace tools
 
 	void Application::createScene()
 	{
-		if (getStatisticInfo() != nullptr)
-			getStatisticInfo()->setVisible(false);
-
 		new SettingsManager();
 		SettingsManager::getInstance().loadSettingsFile(MyGUI::DataManager::getInstance().getDataPath("Settings.xml"));
 
@@ -132,12 +129,12 @@ namespace tools
 			setWindowCoord(windowCoord);
 		}
 
-		CommandManager::getInstance().getEvent("Command_StatisticInfo")->connect(this, &Application::command_StatisticInfo);
 		CommandManager::getInstance().getEvent("Command_FocusVisible")->connect(this, &Application::command_FocusVisible);
 		CommandManager::getInstance().getEvent("Command_ScreenShot")->connect(this, &Application::command_ScreenShot);
 		CommandManager::getInstance().getEvent("Command_QuitApp")->connect(this, &Application::command_QuitApp);
 		CommandManager::getInstance().getEvent("Command_UpdateAppCaption")->connect(this, &Application::command_UpdateAppCaption);
 
+		CreateControls();
 		LoadStates();
 	}
 
@@ -146,6 +143,8 @@ namespace tools
 		saveSettings();
 
 		StateManager::getInstance().rollbackToState(nullptr);
+
+		DestroyControls();
 
 		ScopeManager::getInstance().shutdown();
 		delete ScopeManager::getInstancePtr();
@@ -412,13 +411,6 @@ namespace tools
 		_result = true;
 	}
 
-	void Application::command_StatisticInfo(const MyGUI::UString& _commandName, bool& _result)
-	{
-		getStatisticInfo()->setVisible(!getStatisticInfo()->getVisible());
-
-		_result = true;
-	}
-
 	void Application::command_FocusVisible(const MyGUI::UString& _commandName, bool& _result)
 	{
 		getFocusInput()->setFocusVisible(!getFocusInput()->getFocusVisible());
@@ -490,6 +482,27 @@ namespace tools
 		const SettingsManager::VectorString& additionalResources = SettingsManager::getInstance().getValueListString("Resources/AdditionalResource.List");
 		for (SettingsManager::VectorString::const_iterator iter = additionalResources.begin(); iter != additionalResources.end(); ++iter)
 			MyGUI::ResourceManager::getInstance().load(*iter);
+	}
+
+	void Application::CreateControls()
+	{
+		const SettingsManager::VectorString& controls = SettingsManager::getInstance().getValueListString("Editor/Controls/Control.List");
+		for (SettingsManager::VectorString::const_iterator controlType = controls.begin(); controlType != controls.end(); controlType ++)
+		{
+			Control* control = components::FactoryManager::GetInstance().CreateItem<Control>(*controlType);
+			if (control != nullptr)
+			{
+				control->Initialise();
+				mControls.push_back(control);
+			}
+		}
+	}
+
+	void Application::DestroyControls()
+	{
+		for (VectorControl::iterator control = mControls.begin(); control != mControls.end(); control ++)
+			delete *control;
+		mControls.clear();
 	}
 
 }
