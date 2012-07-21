@@ -7,7 +7,7 @@
 #include "Precompiled.h"
 #include "TexturePropertyInitialisator.h"
 #include "FactoryManager.h"
-#include "SettingsManager2.h"
+#include "SettingsManager.h"
 
 namespace tools
 {

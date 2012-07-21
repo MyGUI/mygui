@@ -9,7 +9,7 @@
 #include "DataManager.h"
 #include "DataSelectorManager.h"
 #include "FactoryManager.h"
-#include "SettingsManager2.h"
+#include "SettingsManager.h"
 
 namespace tools
 {

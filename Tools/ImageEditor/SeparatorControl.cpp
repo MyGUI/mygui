@@ -7,7 +7,7 @@
 #include "Precompiled.h"
 #include "SeparatorControl.h"
 #include "FactoryManager.h"
-#include "SettingsManager2.h"
+#include "SettingsManager.h"
 
 namespace tools
 {

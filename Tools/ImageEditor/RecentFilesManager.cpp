@@ -6,7 +6,7 @@
 
 #include "Precompiled.h"
 #include "RecentFilesManager.h"
-#include "SettingsManager2.h"
+#include "SettingsManager.h"
 #include "FileSystemInfo/FileSystemInfo.h"
 
 template <> tools::RecentFilesManager* MyGUI::Singleton<tools::RecentFilesManager>::msInstance = nullptr;

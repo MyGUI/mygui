@@ -8,7 +8,7 @@
 #include "BackgroundControl.h"
 #include "SkinManager.h"
 #include "Localise.h"
-#include "SettingsManager2.h"
+#include "SettingsManager.h"
 
 /*namespace tools
 {

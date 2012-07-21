@@ -6,7 +6,7 @@
 
 #include "Precompiled.h"
 #include "SettingsResourcePathsControl.h"
-#include "SettingsManager2.h"
+#include "SettingsManager.h"
 #include "Localise.h"
 #include "FactoryManager.h"
 

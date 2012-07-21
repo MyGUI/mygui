@@ -7,7 +7,7 @@
 #include "Precompiled.h"
 #include "ColourManager.h"
 #include "CommandManager.h"
-#include "SettingsManager2.h"
+#include "SettingsManager.h"
 
 template <> tools::ColourManager* MyGUI::Singleton<tools::ColourManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::ColourManager>::mClassTypeName("ColourManager");
