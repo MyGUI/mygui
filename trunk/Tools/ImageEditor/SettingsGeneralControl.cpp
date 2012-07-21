@@ -6,7 +6,7 @@
 
 #include "Precompiled.h"
 #include "SettingsGeneralControl.h"
-#include "SettingsManager.h"
+#include "SettingsManager2.h"
 #include "FactoryManager.h"
 
 namespace tools
@@ -44,22 +44,16 @@ namespace tools
 
 	void SettingsGeneralControl::loadSettings()
 	{
-		//mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
 		mGridStep = SettingsManager2::getInstance().getValue<int>("Settings/Grid");
 		mGridEdit->setCaption(MyGUI::utility::toString(mGridStep));
-		//mSaveLastTexture->setStateSelected(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("SaveLastTexture"));
 		mSaveLastTexture->setStateSelected(SettingsManager2::getInstance().getValue<bool>("Settings/SaveLastTexture"));
-		//setLanguageValue(SettingsManager::getInstance().getSector("Settings")->getPropertyValue("InterfaceLanguage"));
 		setLanguageValue(SettingsManager2::getInstance().getValueString("Settings/InterfaceLanguage"));
 	}
 
 	void SettingsGeneralControl::saveSettings()
 	{
-		//SettingsManager::getInstance().getSector("Settings")->setPropertyValue("Grid", mGridStep);
 		SettingsManager2::getInstance().setValue("Settings/Grid", mGridStep);
-		//SettingsManager::getInstance().getSector("Settings")->setPropertyValue("SaveLastTexture", mSaveLastTexture->getStateSelected());
 		SettingsManager2::getInstance().setValue("Settings/SaveLastTexture", mSaveLastTexture->getStateSelected());
-		//SettingsManager::getInstance().getSector("Settings")->setPropertyValue("InterfaceLanguage", getLanguageValue());
 		SettingsManager2::getInstance().setValue("Settings/InterfaceLanguage", getLanguageValue());
 	}
 

@@ -6,7 +6,7 @@
 
 #include "Precompiled.h"
 #include "RecentFilesManager.h"
-#include "SettingsManager.h"
+#include "SettingsManager2.h"
 #include "FileSystemInfo/FileSystemInfo.h"
 
 template <> tools::RecentFilesManager* MyGUI::Singleton<tools::RecentFilesManager>::msInstance = nullptr;
@@ -27,23 +27,16 @@ namespace tools
 
 	void RecentFilesManager::initialise()
 	{
-		//if (SettingsManager::getInstance().getSector("Settings")->getExistProperty("MaxRecentFolders"))
-			//mMaxRecentFolders = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<size_t>("MaxRecentFolders");
 		if (!SettingsManager2::getInstance().tryGetValue<size_t>("Settings/MaxRecentFolders", mMaxRecentFolders))
 			mMaxRecentFolders = 8;
 
-		//if (SettingsManager::getInstance().getSector("Settings")->getExistProperty("MaxRecentFiles"))
-			//mMaxRecentFiles = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<size_t>("MaxRecentFiles");
 		if (!SettingsManager2::getInstance().tryGetValue<size_t>("Settings/MaxRecentFiles", mMaxRecentFiles))
 			mMaxRecentFiles = 8;
 
-		//mRecentFolder = SettingsManager::getInstance().getSector("Files")->getPropertyValue("RecentFolder");
 		mRecentFolder = SettingsManager2::getInstance().getValueString("Files/RecentFolder");
 
-		//mRecentFolders = SettingsManager::getInstance().getSector("Files")->getPropertyValueList("RecentFolders");
 		mRecentFolders = SettingsManager2::getInstance().getValueList<MyGUI::UString>("Files/RecentFolder.List");
 
-		//mRecentFiles = SettingsManager::getInstance().getSector("Files")->getPropertyValueList("RecentFiles");
 		mRecentFiles = SettingsManager2::getInstance().getValueList<MyGUI::UString>("Files/RecentFile.List");
 
 		checkArray(mRecentFolders, mMaxRecentFolders);
@@ -52,13 +45,10 @@ namespace tools
 
 	void RecentFilesManager::shutdown()
 	{
-		//SettingsManager::getInstance().getSector("Files")->setPropertyValue("RecentFolder", mRecentFolder);
 		SettingsManager2::getInstance().setValueString("Files/RecentFolder", mRecentFolder);
 
-		//SettingsManager::getInstance().getSector("Files")->setPropertyValueList("RecentFolders", mRecentFolders);
 		SettingsManager2::getInstance().setValueList("Files/RecentFolder.List", mRecentFolders);
 
-		//SettingsManager::getInstance().getSector("Files")->setPropertyValueList("RecentFiles", mRecentFiles);
 		SettingsManager2::getInstance().setValueList("Files/RecentFile.List", mRecentFiles);
 	}
 

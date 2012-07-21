@@ -6,7 +6,7 @@
 
 #include "Precompiled.h"
 #include "SettingsResourcePathsControl.h"
-#include "SettingsManager.h"
+#include "SettingsManager2.h"
 #include "Localise.h"
 #include "FactoryManager.h"
 
@@ -52,7 +52,6 @@ namespace tools
 	void SettingsResourcePathsControl::loadSettings()
 	{
 		mResourcePaths->removeAllItems();
-		//SettingsSector::VectorUString paths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalPaths");
 		SettingsManager2::VectorString paths = SettingsManager2::getInstance().getValueListString("Settings/AdditionalPath.List");
 		for (SettingsManager2::VectorString::const_iterator item = paths.begin(); item != paths.end(); ++ item)
 			mResourcePaths->addItem(*item);
@@ -63,7 +62,6 @@ namespace tools
 		SettingsManager2::VectorString paths;
 		for (size_t index = 0; index < mResourcePaths->getItemCount(); ++ index)
 			paths.push_back(mResourcePaths->getItemNameAt(index));
-		//SettingsManager::getInstance().getSector("Settings")->setPropertyValueList("AdditionalPaths", paths);
 		SettingsManager2::getInstance().setValueList("Settings/AdditionalPath.List", paths);
 	}
 
