@@ -44,7 +44,7 @@ namespace tools
 
 	void SettingsGeneralControl::loadSettings()
 	{
-		mGridStep = SettingsManager::getInstance().getValue<int>("Settings/Grid");
+		mGridStep = SettingsManager::getInstance().getValue<int>("Settings/GridStep");
 		mGridEdit->setCaption(MyGUI::utility::toString(mGridStep));
 		mSaveLastTexture->setStateSelected(SettingsManager::getInstance().getValue<bool>("Settings/SaveLastTexture"));
 		setLanguageValue(SettingsManager::getInstance().getValueString("Settings/InterfaceLanguage"));
@@ -52,7 +52,7 @@ namespace tools
 
 	void SettingsGeneralControl::saveSettings()
 	{
-		SettingsManager::getInstance().setValue("Settings/Grid", mGridStep);
+		SettingsManager::getInstance().setValue("Settings/GridStep", mGridStep);
 		SettingsManager::getInstance().setValue("Settings/SaveLastTexture", mSaveLastTexture->getStateSelected());
 		SettingsManager::getInstance().setValue("Settings/InterfaceLanguage", getLanguageValue());
 	}

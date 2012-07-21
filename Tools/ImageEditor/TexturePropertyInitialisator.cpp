@@ -26,7 +26,7 @@ namespace tools
 	{
 		if (SettingsManager::getInstance().getValue<bool>("Settings/SaveLastTexture"))
 		{
-			std::string texture = SettingsManager::getInstance().getValueString("Settings/LastTextureName");
+			std::string texture = SettingsManager::getInstance().getValueString("Resources/LastTextureName");
 			_property->setValue(texture);
 		}
 	}

@@ -30,7 +30,7 @@ namespace tools
 		getProperty()->setValue(getValue());
 
 		if (SettingsManager::getInstance().getValue<bool>("Settings/SaveLastTexture"))
-			SettingsManager::getInstance().setValue("Settings/LastTextureName", getValue());
+			SettingsManager::getInstance().setValue("Resources/LastTextureName", getValue());
 	}
 
 	void ChangeTextureValueAction::undoAction()

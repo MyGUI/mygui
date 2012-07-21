@@ -31,10 +31,6 @@
                         <Property key="Caption" value="#{Settings}"/>
                         <Property key="MenuItemId" value="Command_Settings"/>
                     </Widget>
-                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 100 152 18">
-                        <Property key="Caption" value="#{Test}"/>
-                        <Property key="MenuItemId" value="Command_Test"/>
-                    </Widget>
                     <Widget type="MenuItem" skin="PopupMenuSeparator_Dark" position="0 118 152 10">
                         <Property key="MenuItemType" value="Separator"/>
                     </Widget>
@@ -65,21 +61,6 @@
                     <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 18 93 18">
                         <Property key="Caption" value="#{MenuRedo}"/>
                         <Property key="MenuItemId" value="Command_Redo"/>
-                    </Widget>
-                    <Widget type="MenuItem" skin="PopupMenuSeparator_Dark" position="0 36 93 10">
-                        <Property key="MenuItemType" value="Separator"/>
-                    </Widget>
-                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 46 93 18">
-                        <Property key="Caption" value="#{Create}"/>
-                        <Property key="MenuItemId" value="Command_CreateImageData"/>
-                    </Widget>
-                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 64 93 18">
-                        <Property key="Caption" value="#{Delete}"/>
-                        <Property key="MenuItemId" value="Command_DestroyImageData"/>
-                    </Widget>
-                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 82 93 18">
-                        <Property key="Caption" value="#{Rename}"/>
-                        <Property key="MenuItemId" value="Command_RenameImageData"/>
                     </Widget>
                 </Widget>
             </Widget>
