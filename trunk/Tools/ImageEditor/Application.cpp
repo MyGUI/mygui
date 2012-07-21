@@ -471,8 +471,14 @@ namespace tools
 				StateManager::getInstance().registerState(state, *value);
 		}
 
-		StateManager::getInstance().registerEventState("ApplicationState", "Start", "EditorState");
-		StateManager::getInstance().registerEventState("EditorState", "Exit", "ApplicationState");
+		pugi::xpath_node_set events = SettingsManager::getInstance().getValueNodeList("Editor/States/Event.List");
+		for (pugi::xpath_node_set::const_iterator event = events.begin(); event != events.end(); event ++)
+		{
+			StateManager::getInstance().registerEventState(
+				(*event).node().child("From").child_value(),
+				(*event).node().child("Name").child_value(),
+				(*event).node().child("To").child_value());
+		}
 
 		std::string firstState = SettingsManager::getInstance().getValueString("Editor/States/FirstState/Name");
 		StateManager::getInstance().pushState(firstState);
