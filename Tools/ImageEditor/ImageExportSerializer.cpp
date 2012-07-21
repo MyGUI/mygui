@@ -186,7 +186,7 @@ namespace tools
 		}
 
 		MyGUI::IntPoint point = getFirstFramePoint(_data);
-		MyGUI::IntSize size = _data->getPropertyValue<MyGUI::IntSize>("Size");
+		MyGUI::IntSize size = _data->getPropertyValue<MyGUI::IntCoord>("Size").size();
 		MyGUI::IntCoord coord(point, size);
 		_data->setPropertyValue("Size", coord);
 	}
