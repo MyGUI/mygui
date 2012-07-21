@@ -10,13 +10,13 @@
 #include "ToolTip.h"
 #include "ItemBoxWindow.h"
 #include "CellView.h"
-#include "BaseManager.h"
+#include "Base/BaseDemoManager.h"
 
 namespace demo
 {
 
 	class DemoKeeper :
-		public base::BaseManager
+		public base::BaseDemoManager
 	{
 	public:
 		DemoKeeper();

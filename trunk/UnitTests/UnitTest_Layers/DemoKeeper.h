@@ -6,7 +6,7 @@
 #ifndef __DEMO_KEEPER_H__
 #define __DEMO_KEEPER_H__
 
-#include "BaseManager.h"
+#include "Base/BaseDemoManager.h"
 #include "CommandManager.h"
 #include "KeyboardPanel.h"
 #include "MonitorPanel.h"
@@ -15,7 +15,7 @@ namespace demo
 {
 
 	class DemoKeeper :
-		public base::BaseManager
+		public base::BaseDemoManager
 	{
 	public:
 		DemoKeeper();

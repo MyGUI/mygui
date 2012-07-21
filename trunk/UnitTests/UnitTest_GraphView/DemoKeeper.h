@@ -6,7 +6,7 @@
 #ifndef __DEMO_KEEPER_H__
 #define __DEMO_KEEPER_H__
 
-#include "BaseManager.h"
+#include "Base/BaseDemoManager.h"
 #include "GraphView.h"
 #include "AnimationGraph.h"
 #include "AnimationGraphFactory.h"
@@ -19,7 +19,7 @@ namespace demo
 {
 
 	class DemoKeeper :
-		public base::BaseManager
+		public base::BaseDemoManager
 	{
 	public:
 		DemoKeeper();
