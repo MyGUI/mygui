@@ -59,6 +59,7 @@ namespace tools
 
 		DataManager::getInstance().getRoot()->addChild(data);
 
+		CreateStateData(data);
 		/*pugi::xpath_node_set nodes = _node.select_nodes("Group");
 		for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
 			parseGroup((*node).node(), data);*/
@@ -212,5 +213,49 @@ namespace tools
 
 		return MyGUI::IntPoint();
 	}*/
+
+	void SkinExportSerializer::CreateStateData(Data* _data)
+	{
+		Data* state = new Data();
+		state->setType(DataTypeManager::getInstance().getType("State"));
+		state->setPropertyValue("Name", "Disabled");
+		_data->addChild(state);
+
+		state = new Data();
+		state->setType(DataTypeManager::getInstance().getType("State"));
+		state->setPropertyValue("Name", "Normal");
+		state->setPropertyValue("Visible", "True");
+		_data->addChild(state);
+
+		state = new Data();
+		state->setType(DataTypeManager::getInstance().getType("State"));
+		state->setPropertyValue("Name", "Over");
+		_data->addChild(state);
+
+		state = new Data();
+		state->setType(DataTypeManager::getInstance().getType("State"));
+		state->setPropertyValue("Name", "Pressed");
+		_data->addChild(state);
+
+		state = new Data();
+		state->setType(DataTypeManager::getInstance().getType("State"));
+		state->setPropertyValue("Name", "Selected Disabled");
+		_data->addChild(state);
+
+		state = new Data();
+		state->setType(DataTypeManager::getInstance().getType("State"));
+		state->setPropertyValue("Name", "Selected Normal");
+		_data->addChild(state);
+
+		state = new Data();
+		state->setType(DataTypeManager::getInstance().getType("State"));
+		state->setPropertyValue("Name", "Selected Over");
+		_data->addChild(state);
+
+		state = new Data();
+		state->setType(DataTypeManager::getInstance().getType("State"));
+		state->setPropertyValue("Name", "Selected Pressed");
+		_data->addChild(state);
+	}
 
 }
