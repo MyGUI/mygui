@@ -45,17 +45,17 @@
                 </Widget>
             </Widget>
         </Widget>
-        <Widget type="TextBox" skin="TextBox" position="315 135 58 20">
+        <Widget type="TextBox" skin="TextBox_Dark" position="315 135 58 20">
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="Caption" value="#{ColourBlue}"/>
             <Property key="FontName" value="DejaVuSansFont_13"/>
         </Widget>
-        <Widget type="TextBox" skin="TextBox" position="315 110 58 20">
+        <Widget type="TextBox" skin="TextBox_Dark" position="315 110 58 20">
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="Caption" value="#{ColourGreen}"/>
             <Property key="FontName" value="DejaVuSansFont_13"/>
         </Widget>
-        <Widget type="TextBox" skin="TextBox" position="315 85 58 20">
+        <Widget type="TextBox" skin="TextBox_Dark" position="315 85 58 20">
             <Property key="Caption" value="#{ColourRed}"/>
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="FontName" value="DejaVuSansFont_13"/>
@@ -83,7 +83,7 @@
             <Property key="Caption" value="#{Cancel}"/>
             <UserString key="CommandClick" value="Command_ColorCancel"/>
         </Widget>
-        <Widget type="TextBox" skin="TextBox" position="315 160 58 20" name="TextAlpha">
+        <Widget type="TextBox" skin="TextBox_Dark" position="315 160 58 20" name="TextAlpha">
             <Property key="Caption" value="#{ColourAlpha}"/>
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="FontName" value="DejaVuSansFont_13"/>

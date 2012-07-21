@@ -7,7 +7,7 @@
         <Widget type="Widget" skin="Panel1Skin_Dark" position="0 0 185 206" align="Stretch">
             <Property key="NeedKey" value="false"/>
             <Property key="NeedMouse" value="false"/>
-            <Widget type="TextBox" skin="TextBox" position="3 181 179 22" align="HStretch Bottom" name="TextureName">
+            <Widget type="TextBox" skin="TextBox_Dark" position="3 181 179 22" align="HStretch Bottom" name="TextureName">
                 <Property key="TextAlign" value="Center"/>
                 <Property key="TextColour" value="1 1 1"/>
                 <Property key="FontName" value="DejaVuSansFont_13"/>

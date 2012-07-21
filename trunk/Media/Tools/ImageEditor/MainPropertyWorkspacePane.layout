@@ -19,7 +19,7 @@
                 <UserString key="ControlType" value="PropertyPanelControl"/>
                 <UserString key="ControlLayout" value="PropertyPanel.layout"/>
             </Widget>
-            <Widget type="TextBox" skin="TextBox" position="10 0 265 20" align="HStretch Top">
+            <Widget type="TextBox" skin="TextBox_Dark" position="10 0 265 20" align="HStretch Top">
                 <Property key="Caption" value="#{PropertyPanel}"/>
                 <Property key="TextAlign" value="Left VCenter"/>
                 <Property key="FontName" value="DejaVuSansFont_13"/>

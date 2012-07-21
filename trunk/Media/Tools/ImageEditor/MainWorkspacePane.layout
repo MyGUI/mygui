@@ -13,7 +13,7 @@
         </Widget>
         <Widget type="Widget" skin="Panel1Skin_Dark" position="310 0 115 725" align="Stretch">
             <UserString key="MinSize" value="100"/>
-            <Widget type="TextBox" skin="TextBox" position="10 0 100 20" align="HStretch Top">
+            <Widget type="TextBox" skin="TextBox_Dark" position="10 0 100 20" align="HStretch Top">
                 <Property key="TextAlign" value="Left VCenter"/>
                 <Property key="FontName" value="DejaVuSansFont_13"/>
                 <Property key="Caption" value="#{TexturePanel}"/>
