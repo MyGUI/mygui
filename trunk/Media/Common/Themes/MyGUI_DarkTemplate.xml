@@ -556,4 +556,12 @@
             <Widget type="Button" skin="ScrollBarDown2Skin_Dark" position="2 117 10 6" align="HCenter Bottom" name="End"/>
         </Widget>
     </Resource>
+	<Resource type="ResourceLayout" name="TextBox" version="3.2.0">
+		<Widget type="Widget" skin="TextBoxSkin" position="20 20 16 16" name="Root">
+			<Property key="TextAlign" value="Default"/>
+			<Property key="FontName" value="DejaVuSansFont_13"/>
+			<Property key="TextColour" value="1 1 1"/>
+			<UserString key="LE_TargetWidgetType" value="TextBox"/>
+		</Widget>
+	</Resource>
 </MyGUI>

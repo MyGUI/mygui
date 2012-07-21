@@ -23,12 +23,6 @@
 		<Pressed>true</Pressed>
 		<Modifier>Control</Modifier>
 	</Command>
-	<!--Command>
-		<Name>Command_Test</Name>
-		<KeyCode>T</KeyCode>
-		<Pressed>true</Pressed>
-		<Modifier>Control</Modifier>
-	</Command-->
 	<Command>
 		<Name>Command_MoveLeft</Name>
 		<KeyCode>ArrowLeft</KeyCode>
