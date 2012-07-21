@@ -7,6 +7,7 @@
 #include "Precompiled.h"
 #include "ScopeManager.h"
 #include "CommandManager.h"
+#include "SettingsManager.h"
 
 template <> tools::ScopeManager* MyGUI::Singleton<tools::ScopeManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::ScopeManager>::mClassTypeName("ScopeManager");
@@ -26,7 +27,7 @@ namespace tools
 	{
 		CommandManager::getInstance().getEvent("Command_ChangeScope")->connect(this, &ScopeManager::commandChangeScope);
 
-		mCurrentScope = "Image";
+		mCurrentScope = SettingsManager::getInstance().getValueString("Editor/DefaultScope");
 	}
 
 	void ScopeManager::shutdown()
