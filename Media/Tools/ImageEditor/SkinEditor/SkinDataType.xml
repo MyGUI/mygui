@@ -5,7 +5,7 @@
 			<Name>Root</Name>
 			<Childs>
 				<Child>
-					<Type>Image</Type>
+					<Type>Skin</Type>
 				</Child>
 			</Childs>
 		</DataType>

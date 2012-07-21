@@ -84,6 +84,7 @@ set (HEADER_FILES
   SettingsResourcesControl.h
   SettingsWindow.h
   SkinExportSerializer.h
+  SkinListControl.h
   StateController.h
   StateManager.h
   StatisticInfoControl.h
@@ -175,6 +176,7 @@ set (SOURCE_FILES
   SettingsResourcesControl.cpp
   SettingsWindow.cpp
   SkinExportSerializer.cpp
+  SkinListControl.cpp
   StateManager.cpp
   StatisticInfoControl.cpp
   TextFieldControl.cpp
@@ -247,6 +249,8 @@ SOURCE_GROUP("Controls" FILES
   ListBoxDataControl.h
   MainMenuControl.cpp
   MainMenuControl.h
+  SkinListControl.cpp
+  SkinListControl.h
 )
 SOURCE_GROUP("Controls\\Animations" FILES
   AnimationInfo.cpp

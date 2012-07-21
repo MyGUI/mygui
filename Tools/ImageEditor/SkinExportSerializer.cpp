@@ -32,7 +32,7 @@ namespace tools
 
 		Data* data = DataManager::getInstance().getRoot();
 		for (Data::VectorData::const_iterator child = data->getChilds().begin(); child != data->getChilds().end(); child ++)
-			writeImage(root, (*child));
+			writeSkin(root, (*child));
 	}
 
 	bool SkinExportSerializer::deserialization(pugi::xml_document& _doc)
@@ -40,28 +40,28 @@ namespace tools
 		if (_doc.select_single_node("MyGUI[@type=\"Resource\"]").node().empty())
 			return false;
 
-		pugi::xpath_node_set nodes = _doc.select_nodes("MyGUI/Resource[@type=\"ResourceImageSet\"]");
+		pugi::xpath_node_set nodes = _doc.select_nodes("MyGUI/Resource[@type=\"ResourceSkin\"]");
 		for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
-			parseImage((*node).node());
+			parseSkin((*node).node());
 
-		updateImageProperty(DataManager::getInstance().getRoot());
+		//updateImageProperty(DataManager::getInstance().getRoot());
 		return true;
 	}
 
-	void SkinExportSerializer::parseImage(pugi::xml_node _node)
+	void SkinExportSerializer::parseSkin(pugi::xml_node _node)
 	{
 		Data* data = new Data();
-		data->setType(DataTypeManager::getInstance().getType("Image"));
+		data->setType(DataTypeManager::getInstance().getType("Skin"));
 		data->setPropertyValue("Name", _node.attribute("name").value());
 
 		DataManager::getInstance().getRoot()->addChild(data);
 
-		pugi::xpath_node_set nodes = _node.select_nodes("Group");
+		/*pugi::xpath_node_set nodes = _node.select_nodes("Group");
 		for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
-			parseGroup((*node).node(), data);
+			parseGroup((*node).node(), data);*/
 	}
 
-	void SkinExportSerializer::parseGroup(pugi::xml_node _node, Data* _parent)
+	/*void SkinExportSerializer::parseGroup(pugi::xml_node _node, Data* _parent)
 	{
 		Data* data = new Data();
 		data->setType(DataTypeManager::getInstance().getType("Group"));
@@ -107,19 +107,19 @@ namespace tools
 		data->setPropertyValue("Count", value);
 
 		_parent->addChild(data);
-	}
+	}*/
 
-	void SkinExportSerializer::writeImage(pugi::xml_node _parent, Data* _data)
+	void SkinExportSerializer::writeSkin(pugi::xml_node _parent, Data* _data)
 	{
 		pugi::xml_node node = _parent.append_child("Resource");
-		node.append_attribute("type").set_value("ResourceImageSet");
+		node.append_attribute("type").set_value("ResourceSkin");
 		node.append_attribute("name").set_value(_data->getPropertyValue("Name").c_str());
 
-		for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end(); child ++)
-			writeGroup(node, (*child));
+		/*for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end(); child ++)
+			writeGroup(node, (*child));*/
 	}
 
-	void SkinExportSerializer::writeGroup(pugi::xml_node _parent, Data* _data)
+	/*void SkinExportSerializer::writeGroup(pugi::xml_node _parent, Data* _data)
 	{
 		pugi::xml_node node = _parent.append_child("Group");
 		node.append_attribute("name").set_value(_data->getPropertyValue("Name").c_str());
@@ -206,6 +206,6 @@ namespace tools
 
 
 		return MyGUI::IntPoint();
-	}
+	}*/
 
 }

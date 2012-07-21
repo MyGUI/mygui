@@ -49,6 +49,7 @@
 		<UserSettingsFileName>ie_user_settings.xml</UserSettingsFileName>
 		<DataTypeFileName>ImageDataType.xml</DataTypeFileName>
 		<ExportSerializer>ImageExportSerializer</ExportSerializer>
+		<DefaultScope>Image</DefaultScope>
 		<States>
 			<State.List>
 				<Value>EditorState</Value>
