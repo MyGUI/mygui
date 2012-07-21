@@ -8,15 +8,13 @@
 #define _1b12f1d3_3f8d_4436_a78b_bac3214b47db_
 
 #include <MyGUI.h>
+#include "sigslot.h"
 
 namespace tools
 {
 
 	class Dialog
 	{
-	public:
-		typedef MyGUI::delegates::CDelegate2<Dialog*, bool> EventHandle_Result;
-
 	public:
 		Dialog();
 		virtual ~Dialog();
@@ -27,7 +25,7 @@ namespace tools
 		void doModal();
 		void endModal();
 
-		EventHandle_Result eventEndDialog;
+		sigslot::signal2<Dialog*, bool> eventEndDialog;
 
 	protected:
 		virtual void onDoModal() { }

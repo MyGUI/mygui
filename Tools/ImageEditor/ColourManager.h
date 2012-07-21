@@ -9,12 +9,14 @@
 
 #include <MyGUI.h>
 #include "ColourPanel.h"
+#include "sigslot.h"
 
 namespace tools
 {
 
 	class ColourManager :
-		public MyGUI::Singleton<ColourManager>
+		public MyGUI::Singleton<ColourManager>,
+		public sigslot::has_slots<>
 	{
 	public:
 		ColourManager();

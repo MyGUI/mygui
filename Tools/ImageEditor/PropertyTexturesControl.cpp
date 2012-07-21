@@ -49,7 +49,7 @@ namespace tools
 
 		mTextureBrowseControl = new TextureBrowseControl();
 		mTextureBrowseControl->Initialise();
-		mTextureBrowseControl->eventEndDialog = MyGUI::newDelegate(this, &PropertyTexturesControl::notifyEndDialog);
+		mTextureBrowseControl->eventEndDialog.connect(this, &PropertyTexturesControl::notifyEndDialog);
 		mTextureBrowseControl->setTextures(mTextures);
 
 		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyTexturesControl::notifyComboChangePosition);

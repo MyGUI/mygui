@@ -48,7 +48,6 @@ namespace tools
 		void commandSaveAs(const MyGUI::UString& _commandName, bool& _result);
 		void commandClear(const MyGUI::UString& _commandName, bool& _result);
 		void commandSettings(const MyGUI::UString& _commandName, bool& _result);
-		//void commandTest(const MyGUI::UString& _commandName, bool& _result);
 		void commandRecentFiles(const MyGUI::UString& _commandName, bool& _result);
 		void commandQuit(const MyGUI::UString& _commandName, bool& _result);
 		void commandUndo(const MyGUI::UString& _commandName, bool& _result);
@@ -73,7 +72,6 @@ namespace tools
 
 		Control* mMainPane;
 		OpenSaveFileDialog* mOpenSaveFileDialog;
-		MessageBoxFadeControl* mMessageBoxFadeControl;
 		SettingsWindow* mSettingsWindow;
 	};
 
