@@ -15,9 +15,20 @@ namespace demo
 		public base::BaseDemoManager
 	{
 	public:
+		DemoKeeper();
+
 		virtual void createScene();
 		virtual void destroyScene();
 		virtual void setupResources();
+
+	private:
+		void createDefaultScene();
+		void notifyFrameStart(float _time);
+
+	private:
+#ifdef MYGUI_OGRE_PLATFORM
+		Ogre::SceneNode* mNode;
+#endif // MYGUI_OGRE_PLATFORM
 	};
 
 } // namespace demo
