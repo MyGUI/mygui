@@ -6,7 +6,6 @@
 
 #include "Precompiled.h"
 #include "ScopeTextureControl.h"
-#include "SkinManager.h"
 #include "CommandManager.h"
 #include "Localise.h"
 #include "GridManager.h"
