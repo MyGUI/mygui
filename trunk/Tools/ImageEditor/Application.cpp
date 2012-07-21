@@ -48,7 +48,7 @@ namespace tools
 		addResourceLocation(getRootMedia() + "/Common/Tools");
 		addResourceLocation(getRootMedia() + "/Common/MessageBox");
 		addResourceLocation(getRootMedia() + "/Common/Themes");
-		setResourceFilename("Editor.xml");
+		setResourceFilename("");
 	}
 
 	void Application::createScene()
@@ -56,14 +56,19 @@ namespace tools
 		if (getStatisticInfo() != nullptr)
 			getStatisticInfo()->setVisible(false);
 
-		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>("BasisSkin");
-
 		new SettingsManager();
 		SettingsManager::getInstance().loadSettingsFile(MyGUI::DataManager::getInstance().getDataPath("Settings.xml"));
 
 		std::string userSettingsFileName = SettingsManager::getInstance().getValueString("Editor/UserSettingsFileName");
 		if (!userSettingsFileName.empty())
 			SettingsManager::getInstance().loadUserSettingsFile(userSettingsFileName);
+
+		new HotKeyManager();
+		HotKeyManager::getInstance().initialise();
+
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>("BasisSkin");
+
+		LoadGuiSettings();
 
 		std::string language = SettingsManager::getInstance().getValueString("Settings/InterfaceLanguage");
 		if (language.empty() || language == "Auto")
@@ -94,9 +99,6 @@ namespace tools
 		new DialogManager();
 		DialogManager::getInstance().initialise();
 
-		new HotKeyManager();
-		HotKeyManager::getInstance().initialise();
-
 		new StateManager();
 		StateManager::getInstance().initialise();
 
@@ -121,18 +123,6 @@ namespace tools
 
 		new tools::DataSelectorManager();
 		tools::DataSelectorManager::getInstance().initialise();
-
-		const SettingsManager::VectorString& resources = SettingsManager::getInstance().getValueListString("Resources/Resource.List");
-		for (SettingsManager::VectorString::const_iterator iter = resources.begin(); iter != resources.end(); ++iter)
-			MyGUI::ResourceManager::getInstance().load(*iter);
-
-		const SettingsManager::VectorString& additionalPaths = SettingsManager::getInstance().getValueListString("Resources/AdditionalPath.List");
-		for (SettingsManager::VectorString::const_iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
-			addResourceLocation(*iter);
-
-		const SettingsManager::VectorString& additionalResources = SettingsManager::getInstance().getValueListString("Resources/AdditionalResource.List");
-		for (SettingsManager::VectorString::const_iterator iter = additionalResources.begin(); iter != additionalResources.end(); ++iter)
-			MyGUI::ResourceManager::getInstance().load(*iter);
 
 		bool maximized = SettingsManager::getInstance().getValue<bool>("Windows/Main/Maximized");
 		setWindowMaximized(maximized);
@@ -485,6 +475,21 @@ namespace tools
 
 		std::string firstEvent = SettingsManager::getInstance().getValueString("Editor/States/FirstState/Event");
 		StateManager::getInstance().stateEvent(firstState, firstEvent);
+	}
+
+	void Application::LoadGuiSettings()
+	{
+		const SettingsManager::VectorString& resources = SettingsManager::getInstance().getValueListString("Resources/Resource.List");
+		for (SettingsManager::VectorString::const_iterator iter = resources.begin(); iter != resources.end(); ++iter)
+			MyGUI::ResourceManager::getInstance().load(*iter);
+
+		const SettingsManager::VectorString& additionalPaths = SettingsManager::getInstance().getValueListString("Resources/AdditionalPath.List");
+		for (SettingsManager::VectorString::const_iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
+			addResourceLocation(*iter);
+
+		const SettingsManager::VectorString& additionalResources = SettingsManager::getInstance().getValueListString("Resources/AdditionalResource.List");
+		for (SettingsManager::VectorString::const_iterator iter = additionalResources.begin(); iter != additionalResources.end(); ++iter)
+			MyGUI::ResourceManager::getInstance().load(*iter);
 	}
 
 }

@@ -53,6 +53,7 @@ namespace tools
 		void saveSettings();
 
 		void LoadStates();
+		void LoadGuiSettings();
 
 	private:
 		std::string mLocale;
