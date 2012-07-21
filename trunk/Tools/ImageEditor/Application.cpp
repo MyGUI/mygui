@@ -45,6 +45,7 @@ namespace tools
 	{
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Tools/ImageEditor");
+		//addResourceLocation(getRootMedia() + "/Tools/ImageEditor/SkinEditor"); // FIXME для теста
 		addResourceLocation(getRootMedia() + "/Common/Tools");
 		addResourceLocation(getRootMedia() + "/Common/MessageBox");
 		addResourceLocation(getRootMedia() + "/Common/Themes");
@@ -55,6 +56,7 @@ namespace tools
 	{
 		new SettingsManager();
 		SettingsManager::getInstance().loadSettingsFile(MyGUI::DataManager::getInstance().getDataPath("Settings.xml"));
+		//SettingsManager::getInstance().loadUserSettingsFile("SkinSettings.xml"); // FIXME для теста
 
 		std::string userSettingsFileName = SettingsManager::getInstance().getValueString("Editor/UserSettingsFileName");
 		if (!userSettingsFileName.empty())
