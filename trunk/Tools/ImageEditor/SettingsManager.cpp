@@ -132,7 +132,7 @@ namespace tools
 		}
 		else
 		{
-			pugi::xpath_node_set nodes = mDocument->document_element().select_nodes(path.c_str());
+			nodes = mDocument->document_element().select_nodes(path.c_str());
 			for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
 				result.push_back((*node).node().child_value());
 		}
@@ -152,7 +152,7 @@ namespace tools
 		pugi::xml_node sourceTextNode = _nodeSource.first_child();
 		if (!sourceTextNode.empty() && sourceTextNode.type() == pugi::node_pcdata)
 		{
-			pugi::xml_node targetTextNode = _nodeTarget.first_child();
+			targetTextNode = _nodeTarget.first_child();
 			if (targetTextNode.empty())
 				targetTextNode = _nodeTarget.append_child(pugi::node_pcdata);
 			targetTextNode.set_value(sourceTextNode.value());
