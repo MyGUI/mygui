@@ -81,6 +81,10 @@ namespace tools
 				property = (*child)->getProperty("Point");
 				if (!property->eventChangeProperty.exist(this, &StateTextureController::notifyChangeProperty))
 					property->eventChangeProperty.connect(this, &StateTextureController::notifyChangeProperty);
+
+				property = (*child)->getProperty("Visible");
+				if (!property->eventChangeProperty.exist(this, &StateTextureController::notifyChangeProperty))
+					property->eventChangeProperty.connect(this, &StateTextureController::notifyChangeProperty);
 			}
 		}
 
@@ -103,6 +107,8 @@ namespace tools
 		else if (_sender->getOwner()->getType()->getName() == "State")
 		{
 			if (_sender->getType()->getName() == "Point")
+				updateFrames();
+			else if (_sender->getType()->getName() == "Visible")
 				updateFrames();
 		}
 	}
@@ -188,15 +194,20 @@ namespace tools
 			Data* selected = mParentData->getChildSelected();
 			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
 			{
+				bool visible = (*child)->getPropertyValue<bool>("Visible");
+				MyGUI::IntPoint value = (*child)->getPropertyValue<MyGUI::IntPoint>("Point");
+
 				if (selected == *child)
 				{
-					MyGUI::IntPoint value = (*child)->getPropertyValue<MyGUI::IntPoint>("Point");
-					mControl->setCoordValue(MyGUI::IntCoord(value, mSize));
+					if (visible)
+						mControl->setCoordValue(MyGUI::IntCoord(value, mSize));
+					else
+						mControl->clearCoordValue();
 				}
 				else
 				{
-					MyGUI::IntPoint value = (*child)->getPropertyValue<MyGUI::IntPoint>("Point");
-					mFrames.push_back(MyGUI::IntCoord(value, mSize));
+					if (visible)
+						mFrames.push_back(MyGUI::IntCoord(value, mSize));
 				}
 			}
 
