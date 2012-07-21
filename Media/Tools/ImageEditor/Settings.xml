@@ -25,4 +25,13 @@
 		<GridStep>1</GridStep>
 		<SaveLastTexture>true</SaveLastTexture>
 	</Settings>
+	<Resources>
+		<Resource.List>
+			<Value>Initialise.xml</Value>
+		</Resource.List>
+	</Resources>
+	<Editor>
+		<UserSettingsFileName>ie_user_settings.xml</UserSettingsFileName>
+		<DataTypeFileName>ImageDataType.xml</DataTypeFileName>
+	</Editor>
 </Settings>

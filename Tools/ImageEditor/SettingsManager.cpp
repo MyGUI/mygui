@@ -214,7 +214,8 @@ namespace tools
 
 	void SettingsManager::saveUserSettingsFile()
 	{
-		mUserDocument->save_file(mUserSettingsFileName.c_str());
+		if (!mUserSettingsFileName.empty())
+			mUserDocument->save_file(mUserSettingsFileName.c_str());
 	}
 
 	void SettingsManager::setValueListString(const std::string& _path, const VectorString& _values)
