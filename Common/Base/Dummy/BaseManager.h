@@ -34,7 +34,6 @@ namespace base
 		void quit();
 
 		void setWindowCaption(const std::wstring& _text);
-		void createDefaultScene() { }
 		void makeScreenShot() { }
 
 		const std::string& getRootMedia();
@@ -61,9 +60,8 @@ namespace base
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
 		virtual void injectKeyRelease(MyGUI::KeyCode _key);
 
-	private:
-		void createGui();
-		void destroyGui();
+		virtual void createGui();
+		virtual void destroyGui();
 
 	private:
 		MyGUI::Gui* mGUI;
