@@ -10,6 +10,7 @@
 #include "DataManager.h"
 #include "DataTypeManager.h"
 #include "PropertyUtility.h"
+#include "SkinDataUtility.h"
 
 namespace tools
 {
@@ -71,7 +72,7 @@ namespace tools
 
 		DataManager::getInstance().getRoot()->addChild(data);
 
-		CreateStateData(data);
+		SkinDataUtility::CreateSkinData(data);
 		FillStateData(data, _node);
 
 		std::string value = GetStateValue(data, "Normal", "Point");
@@ -233,49 +234,6 @@ namespace tools
 
 		return MyGUI::IntPoint();
 	}*/
-
-	void SkinExportSerializer::CreateStateData(Data* _data)
-	{
-		Data* state = new Data();
-		state->setType(DataTypeManager::getInstance().getType("State"));
-		state->setPropertyValue("Name", "Disabled");
-		_data->addChild(state);
-
-		state = new Data();
-		state->setType(DataTypeManager::getInstance().getType("State"));
-		state->setPropertyValue("Name", "Normal");
-		_data->addChild(state);
-
-		state = new Data();
-		state->setType(DataTypeManager::getInstance().getType("State"));
-		state->setPropertyValue("Name", "Over");
-		_data->addChild(state);
-
-		state = new Data();
-		state->setType(DataTypeManager::getInstance().getType("State"));
-		state->setPropertyValue("Name", "Pressed");
-		_data->addChild(state);
-
-		state = new Data();
-		state->setType(DataTypeManager::getInstance().getType("State"));
-		state->setPropertyValue("Name", "Selected Disabled");
-		_data->addChild(state);
-
-		state = new Data();
-		state->setType(DataTypeManager::getInstance().getType("State"));
-		state->setPropertyValue("Name", "Selected Normal");
-		_data->addChild(state);
-
-		state = new Data();
-		state->setType(DataTypeManager::getInstance().getType("State"));
-		state->setPropertyValue("Name", "Selected Over");
-		_data->addChild(state);
-
-		state = new Data();
-		state->setType(DataTypeManager::getInstance().getType("State"));
-		state->setPropertyValue("Name", "Selected Pressed");
-		_data->addChild(state);
-	}
 
 	void SkinExportSerializer::FillStateData(Data* _data, pugi::xml_node _node)
 	{
