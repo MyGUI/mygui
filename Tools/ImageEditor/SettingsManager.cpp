@@ -44,7 +44,7 @@ namespace tools
 	bool SettingsManager::loadSettingsFile(const std::string& _fileName)
 	{
 		pugi::xml_document doc;
-		auto result = doc.load_file(_fileName.c_str());
+		pugi::xml_parse_result result = doc.load_file(_fileName.c_str());
 
 		if (result)
 		{
@@ -104,7 +104,7 @@ namespace tools
 			names = MyGUI::utility::split(_path, delims);
 
 			pugi::xml_node currentNode = mUserDocument->document_element();
-			for (auto name = names.begin(); name != names.end(); name ++)
+			for (std::vector<std::string>::const_iterator name = names.begin(); name != names.end(); name ++)
 			{
 				pugi::xml_node childNode = currentNode.child((*name).c_str());
 				if (childNode.empty())
@@ -127,13 +127,13 @@ namespace tools
 		pugi::xpath_node_set nodes = mUserDocument->document_element().select_nodes(path.c_str());
 		if (!nodes.empty())
 		{
-			for (auto node = nodes.begin(); node != nodes.end(); node ++)
+			for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
 				result.push_back((*node).node().child_value());
 		}
 		else
 		{
 			pugi::xpath_node_set nodes = mDocument->document_element().select_nodes(path.c_str());
-			for (auto node = nodes.begin(); node != nodes.end(); node ++)
+			for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
 				result.push_back((*node).node().child_value());
 		}
 
@@ -158,7 +158,7 @@ namespace tools
 			targetTextNode.set_value(sourceTextNode.value());
 		}
 
-		for (auto child = _nodeSource.begin(); child != _nodeSource.end(); child ++)
+		for (pugi::xml_node::iterator child = _nodeSource.begin(); child != _nodeSource.end(); child ++)
 		{
 			if ((*child).type() != pugi::node_element)
 				continue;
@@ -183,9 +183,9 @@ namespace tools
 
 	void SettingsManager::mergeAttributes(pugi::xml_node _nodeTarget, pugi::xml_node _nodeSource)
 	{
-		for (auto attribute = _nodeSource.attributes_begin(); attribute != _nodeSource.attributes_end(); attribute ++)
+		for (pugi::xml_node::attribute_iterator attribute = _nodeSource.attributes_begin(); attribute != _nodeSource.attributes_end(); attribute ++)
 		{
-			auto attributeNode = _nodeTarget.attribute((*attribute).name());
+			pugi::xml_attribute attributeNode = _nodeTarget.attribute((*attribute).name());
 			if (attributeNode.empty())
 				attributeNode = _nodeTarget.append_attribute((*attribute).name());
 			attributeNode.set_value((*attribute).value());
@@ -197,7 +197,7 @@ namespace tools
 		mUserSettingsFileName = _fileName;
 
 		pugi::xml_document doc;
-		auto result = doc.load_file(_fileName.c_str());
+		pugi::xml_parse_result result = doc.load_file(_fileName.c_str());
 
 		if (result)
 		{
@@ -241,7 +241,7 @@ namespace tools
 			names = MyGUI::utility::split(_path, delims);
 
 			pugi::xml_node currentNode = mUserDocument->document_element();
-			for (auto name = names.begin(); name != names.end(); name ++)
+			for (std::vector<std::string>::const_iterator name = names.begin(); name != names.end(); name ++)
 			{
 				pugi::xml_node childNode = currentNode.child((*name).c_str());
 				if (childNode.empty())
