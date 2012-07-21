@@ -129,7 +129,6 @@ namespace tools
 			setWindowCoord(windowCoord);
 		}
 
-		CommandManager::getInstance().getEvent("Command_FocusVisible")->connect(this, &Application::command_FocusVisible);
 		CommandManager::getInstance().getEvent("Command_ScreenShot")->connect(this, &Application::command_ScreenShot);
 		CommandManager::getInstance().getEvent("Command_QuitApp")->connect(this, &Application::command_QuitApp);
 		CommandManager::getInstance().getEvent("Command_UpdateAppCaption")->connect(this, &Application::command_UpdateAppCaption);
@@ -407,13 +406,6 @@ namespace tools
 				CommandManager::getInstance().executeCommand("Command_Quit");
 			}
 		}
-
-		_result = true;
-	}
-
-	void Application::command_FocusVisible(const MyGUI::UString& _commandName, bool& _result)
-	{
-		//getFocusInput()->setFocusVisible(!getFocusInput()->getFocusVisible());
 
 		_result = true;
 	}

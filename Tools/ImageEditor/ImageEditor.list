@@ -34,6 +34,7 @@ set (HEADER_FILES
   FactoryItemRegistrator.h
   FactoryManager.h
   FactoryTemplate.h
+  FocusInfoControl.h
   FrameListControl.h
   FrameTextureController.h
   GridManager.h
@@ -128,6 +129,7 @@ set (SOURCE_FILES
   ExportManager.cpp
   FactoryItemRegistrator.cpp
   FactoryManager.cpp
+  FocusInfoControl.cpp
   FrameListControl.cpp
   FrameTextureController.cpp
   GridManager.cpp
@@ -250,6 +252,8 @@ SOURCE_GROUP("Controls\\Common" FILES
   Control.h
 )
 SOURCE_GROUP("Controls\\Framework" FILES
+  FocusInfoControl.cpp
+  FocusInfoControl.h
   MessageBoxFadeControl.cpp
   MessageBoxFadeControl.h
   OpenSaveFileDialog.cpp
