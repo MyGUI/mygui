@@ -53,6 +53,9 @@ namespace tools
 		Data* data = new Data();
 		data->setType(DataTypeManager::getInstance().getType("Skin"));
 		data->setPropertyValue("Name", _node.attribute("name").value());
+		data->setPropertyValue("Texture", _node.attribute("texture").value());
+		MyGUI::IntSize size = MyGUI::IntSize::parse(_node.attribute("size").value());
+		data->setPropertyValue("Size", MyGUI::IntCoord(0, 0, size.width, size.height).print());
 
 		DataManager::getInstance().getRoot()->addChild(data);
 
@@ -114,6 +117,8 @@ namespace tools
 		pugi::xml_node node = _parent.append_child("Resource");
 		node.append_attribute("type").set_value("ResourceSkin");
 		node.append_attribute("name").set_value(_data->getPropertyValue("Name").c_str());
+		node.append_attribute("texture").set_value(_data->getPropertyValue("Texture").c_str());
+		node.append_attribute("size").set_value(MyGUI::IntCoord::parse(_data->getPropertyValue("Size")).size().print().c_str());
 
 		/*for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end(); child ++)
 			writeGroup(node, (*child));*/

@@ -19,8 +19,8 @@
                 <Property key="Caption" value="#{TexturePanel}"/>
             </Widget>
             <Widget type="Widget" skin="PanelEmpty" position="5 20 105 700" align="Stretch">
-                <UserString key="ControlLayout" value="TextureViewToolControl.layout"/>
                 <UserString key="ControlType" value="Control"/>
+                <UserString key="ControlLayout" value="SkinTextureViewToolControl.layout"/>
             </Widget>
         </Widget>
         <Widget type="Widget" skin="SeparatorH_Dark" position="425 0 10 725" align="Right VStretch">

@@ -70,7 +70,8 @@ namespace tools
 			value = "unnamed";
 		data->setPropertyValue("Name", value);
 		data->setPropertyValue("Texture", _node.attribute("texture").value());
-		data->setPropertyValue("Size", _node.attribute("size").value());
+		MyGUI::IntSize size = MyGUI::IntSize::parse(_node.attribute("size").value());
+		data->setPropertyValue("Size", MyGUI::IntCoord(0, 0, size.width, size.height).print());
 
 		_parent->addChild(data);
 

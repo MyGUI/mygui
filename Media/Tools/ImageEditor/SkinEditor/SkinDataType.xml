@@ -30,6 +30,24 @@
 					<ReadOnly>true</ReadOnly>
 					<Action>ChangeValueAction</Action>
 				</Property>
+				<Property>
+					<Name>Texture</Name>
+					<Type>PropertyTexturesControl</Type>
+					<Initialisator>TexturePropertyInitialisator</Initialisator>
+					<Default></Default>
+					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
+					<Action>ChangeTextureValueAction</Action>
+				</Property>
+				<Property>
+					<Name>Size</Name>
+					<Type>PropertyInt4Control</Type>
+					<Initialisator></Initialisator>
+					<Default>0 0 16 16</Default>
+					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
+					<Action>ChangeValueAction</Action>
+				</Property>
 			</Properties>
 		</DataType>
 	</DataTypes>
