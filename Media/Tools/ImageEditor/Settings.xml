@@ -81,6 +81,7 @@
 			<Control.List>
 				<Value>StatisticInfoControl</Value>
 				<Value>FocusInfoControl</Value>
+				<Value>MessageBoxFadeControl</Value>
 			</Control.List>
 		</Controls>
 	</Editor>
