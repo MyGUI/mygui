@@ -15,12 +15,12 @@
 namespace tools
 {
 
-	class SettingsManager2 :
-		public MyGUI::Singleton<SettingsManager2>
+	class SettingsManager :
+		public MyGUI::Singleton<SettingsManager>
 	{
 	public:
-		SettingsManager2();
-		virtual ~SettingsManager2();
+		SettingsManager();
+		virtual ~SettingsManager();
 
 		bool loadSettingsFile(const std::string& _fileName);
 		void saveSettingsFile(const std::string& _fileName);

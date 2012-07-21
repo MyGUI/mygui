@@ -51,17 +51,17 @@ namespace tools
 	void SettingsResourcesControl::loadSettings()
 	{
 		mResources->removeAllItems();
-		SettingsManager2::VectorString paths = SettingsManager2::getInstance().getValueListString("Settings/AdditionalResource.List");
-		for (SettingsManager2::VectorString::const_iterator item = paths.begin(); item != paths.end(); ++ item)
+		SettingsManager::VectorString paths = SettingsManager::getInstance().getValueListString("Settings/AdditionalResource.List");
+		for (SettingsManager::VectorString::const_iterator item = paths.begin(); item != paths.end(); ++ item)
 			mResources->addItem(*item);
 	}
 
 	void SettingsResourcesControl::saveSettings()
 	{
-		SettingsManager2::VectorString paths;
+		SettingsManager::VectorString paths;
 		for (size_t index = 0; index < mResources->getItemCount(); ++ index)
 			paths.push_back(mResources->getItemNameAt(index));
-		SettingsManager2::getInstance().setValueList("Settings/AdditionalResource.List", paths);
+		SettingsManager::getInstance().setValueList("Settings/AdditionalResource.List", paths);
 	}
 
 	void SettingsResourcesControl::notifyClickAdd(MyGUI::Widget* _sender)

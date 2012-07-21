@@ -27,17 +27,17 @@ namespace tools
 
 	void RecentFilesManager::initialise()
 	{
-		if (!SettingsManager2::getInstance().tryGetValue<size_t>("Settings/MaxRecentFolders", mMaxRecentFolders))
+		if (!SettingsManager::getInstance().tryGetValue<size_t>("Settings/MaxRecentFolders", mMaxRecentFolders))
 			mMaxRecentFolders = 8;
 
-		if (!SettingsManager2::getInstance().tryGetValue<size_t>("Settings/MaxRecentFiles", mMaxRecentFiles))
+		if (!SettingsManager::getInstance().tryGetValue<size_t>("Settings/MaxRecentFiles", mMaxRecentFiles))
 			mMaxRecentFiles = 8;
 
-		mRecentFolder = SettingsManager2::getInstance().getValueString("Files/RecentFolder");
+		mRecentFolder = SettingsManager::getInstance().getValueString("Files/RecentFolder");
 
-		mRecentFolders = SettingsManager2::getInstance().getValueList<MyGUI::UString>("Files/RecentFolder.List");
+		mRecentFolders = SettingsManager::getInstance().getValueList<MyGUI::UString>("Files/RecentFolder.List");
 
-		mRecentFiles = SettingsManager2::getInstance().getValueList<MyGUI::UString>("Files/RecentFile.List");
+		mRecentFiles = SettingsManager::getInstance().getValueList<MyGUI::UString>("Files/RecentFile.List");
 
 		checkArray(mRecentFolders, mMaxRecentFolders);
 		checkArray(mRecentFiles, mMaxRecentFiles);
@@ -45,11 +45,11 @@ namespace tools
 
 	void RecentFilesManager::shutdown()
 	{
-		SettingsManager2::getInstance().setValueString("Files/RecentFolder", mRecentFolder);
+		SettingsManager::getInstance().setValueString("Files/RecentFolder", mRecentFolder);
 
-		SettingsManager2::getInstance().setValueList("Files/RecentFolder.List", mRecentFolders);
+		SettingsManager::getInstance().setValueList("Files/RecentFolder.List", mRecentFolders);
 
-		SettingsManager2::getInstance().setValueList("Files/RecentFile.List", mRecentFiles);
+		SettingsManager::getInstance().setValueList("Files/RecentFile.List", mRecentFiles);
 	}
 
 	void RecentFilesManager::addRecentFolder(const MyGUI::UString& _folder)

@@ -18,7 +18,7 @@ namespace tools
 
 	SelectorControl::~SelectorControl()
 	{
-		SettingsManager2::getInstance().eventSettingsChanged.disconnect(this);
+		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
@@ -45,7 +45,7 @@ namespace tools
 		if (window != nullptr)
 			window->eventWindowChangeCoord += MyGUI::newDelegate(this, &SelectorControl::notifyWindowChangeCoord);
 
-		SettingsManager2::getInstance().eventSettingsChanged.connect(this, &SelectorControl::notifySettingsChanged);
+		SettingsManager::getInstance().eventSettingsChanged.connect(this, &SelectorControl::notifySettingsChanged);
 	}
 
 	void SelectorControl::setVisible(bool _value)
@@ -166,7 +166,7 @@ namespace tools
 	{
 		if (!mPropertyColour.empty() && _path == ("Settings/" + mPropertyColour))
 		{
-			MyGUI::Colour colour = SettingsManager2::getInstance().getValue<MyGUI::Colour>("Settings/" + mPropertyColour);
+			MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Settings/" + mPropertyColour);
 			setColour(colour);
 		}
 	}
@@ -174,7 +174,7 @@ namespace tools
 	void SelectorControl::setPropertyColour(const std::string& _propertyName)
 	{
 		mPropertyColour = _propertyName;
-		MyGUI::Colour colour = SettingsManager2::getInstance().getValue<MyGUI::Colour>("Settings/" + mPropertyColour);
+		MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Settings/" + mPropertyColour);
 		setColour(colour);
 	}
 
