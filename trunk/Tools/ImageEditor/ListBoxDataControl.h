@@ -28,6 +28,7 @@ namespace tools
 		void setEnableChangePosition(bool _value);
 
 		void setDataInfo(const std::string& _parentType, const std::string& _propertyName, const std::string& _propertyUnique);
+		void setReplaceColourName(const std::string& _value);
 
 		sigslot::signal2<Data*, Data*> eventChangePosition;
 		sigslot::signal2<Data*, const std::string&> eventChangeName;
@@ -59,6 +60,7 @@ namespace tools
 		MyGUI::PopupMenu* mContextMenu;
 		TextFieldControl* mTextFieldControl;
 		bool mEnableChangePosition;
+		std::string mColourName;
 	};
 
 }

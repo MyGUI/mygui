@@ -40,6 +40,8 @@ namespace tools
 		void updateIndexProperty(Data* _data);
 
 		MyGUI::IntPoint getFirstFramePoint(Data* _data);*/
+
+		void CreateStateData(Data* _data);
 	};
 
 }

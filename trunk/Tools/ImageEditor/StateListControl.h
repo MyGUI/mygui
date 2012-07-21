@@ -4,23 +4,34 @@
 	@date		07/2012
 */
 
-#ifndef _8a4eac59_f042_4f5b_900d_d58201ea1791_
-#define _8a4eac59_f042_4f5b_900d_d58201ea1791_
+#ifndef _f8ae0b3a_8708_4ee7_b996_3b3fcc61ad3f_
+#define _f8ae0b3a_8708_4ee7_b996_3b3fcc61ad3f_
 
-#include "DataListBaseControl.h"
+#include "Control.h"
+#include "Data.h"
+#include "ListBoxDataControl.h"
 
 namespace tools
 {
 
 	class StateListControl :
-		public DataListBaseControl
+		public Control,
+		public sigslot::has_slots<>
 	{
 	public:
 		StateListControl();
 		virtual ~StateListControl();
 
+		void setDataInfo(const std::string& _parentType, const std::string& _currentType, const std::string& _propertyName, const std::string& _propertyUnique);
+
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+
+	private:
+		ListBoxDataControl* mListBoxControl;
+		std::string mParentType;
+		std::string mPropertyForName;
+		std::string mPropertyForUnique;
 	};
 
 }

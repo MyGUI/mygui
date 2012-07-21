@@ -38,16 +38,7 @@ namespace tools
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 
-		const VectorControl& childs = getChilds();
-		for (VectorControl::const_iterator child = childs.begin(); child != childs.end(); child ++)
-		{
-			ListBoxDataControl* list = dynamic_cast<ListBoxDataControl*>(*child);
-			if (list != nullptr)
-			{
-				mListBoxControl = list;
-				break;
-			}
-		}
+		mListBoxControl = findControl<ListBoxDataControl>();
 
 		if (mListBoxControl != nullptr)
 		{

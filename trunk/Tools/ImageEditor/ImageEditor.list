@@ -89,6 +89,7 @@ set (HEADER_FILES
   StateController.h
   StateListControl.h
   StateManager.h
+  StateTextureController.h
   StatisticInfoControl.h
   StringUtility.h
   TextFieldControl.h
@@ -182,6 +183,7 @@ set (SOURCE_FILES
   SkinTextureController.cpp
   StateListControl.cpp
   StateManager.cpp
+  StateTextureController.cpp
   StatisticInfoControl.cpp
   TextFieldControl.cpp
   TextureBrowseCell.cpp
@@ -235,6 +237,8 @@ SOURCE_GROUP("Controllers" FILES
   PropertyPanelController.h
   SkinTextureController.cpp
   SkinTextureController.h
+  StateTextureController.cpp
+  StateTextureController.h
 )
 SOURCE_GROUP("Controls" FILES
   AnimationViewControl.cpp

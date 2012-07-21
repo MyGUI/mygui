@@ -54,6 +54,8 @@ namespace tools
 		mTextFieldControl->eventEndDialog.connect(this, &ListBoxDataControl::notifyEndDialog);
 
 		assignWidget(mHelpPanel, "HelpPanel", false, false);
+
+		mColourName = "ColourError";
 	}
 
 	void ListBoxDataControl::notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index)
@@ -103,7 +105,7 @@ namespace tools
 				if (unique)
 					mListBox->setItemNameAt(index, child->getPropertyValue(mPropertyForName));
 				else
-					mListBox->setItemNameAt(index, replaceTags("ColourError") + child->getPropertyValue(mPropertyForName));
+					mListBox->setItemNameAt(index, replaceTags(mColourName) + child->getPropertyValue(mPropertyForName));
 
 				mListBox->setItemDataAt(index, child);
 
@@ -244,7 +246,7 @@ namespace tools
 				if (unique)
 					mListBox->setItemNameAt(index, data->getPropertyValue(mPropertyForName));
 				else
-					mListBox->setItemNameAt(index, replaceTags("ColourError") + data->getPropertyValue(mPropertyForName));
+					mListBox->setItemNameAt(index, replaceTags(mColourName) + data->getPropertyValue(mPropertyForName));
 			}
 		}
 	}
@@ -255,6 +257,11 @@ namespace tools
 			return true;
 
 		return _data->getPropertyValue<bool>(_propertyName);
+	}
+
+	void ListBoxDataControl::setReplaceColourName(const std::string& _value)
+	{
+		mColourName = _value;
 	}
 
 }

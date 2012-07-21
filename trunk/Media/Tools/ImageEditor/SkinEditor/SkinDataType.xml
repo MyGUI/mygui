@@ -63,7 +63,7 @@
 					<Type>PropertyStringControl</Type>
 					<Initialisator></Initialisator>
 					<Default></Default>
-					<Visible>true</Visible>
+					<Visible>false</Visible>
 					<ReadOnly>true</ReadOnly>
 					<Action></Action>
 				</Property>
@@ -80,7 +80,7 @@
 					<Name>Visible</Name>
 					<Type>PropertyBoolControl</Type>
 					<Initialisator></Initialisator>
-					<Default>false</Default>
+					<Default>False</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
 					<Action>ChangeValueAction</Action>
