@@ -42,6 +42,7 @@
 			<Value>MyGUI_DarkSkin.xml</Value>
 			<Value>MyGUI_DarkTemplate.xml</Value>
 			<Value>Hotkeys.xml</Value>
+			<Value>SelectionRects.xml</Value>
 		</Resource.List>
 	</Resources>
 	<Editor>
@@ -73,8 +74,12 @@
 			<StatisticInfoControl>
 				<Visible>false</Visible>
 			</StatisticInfoControl>
+			<FocusInfoControl>
+				<Visible>false</Visible>
+			</FocusInfoControl>
 			<Control.List>
 				<Value>StatisticInfoControl</Value>
+				<Value>FocusInfoControl</Value>
 			</Control.List>
 		</Controls>
 	</Editor>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="30 30 300 300" layer="Statistic" name="Root">
+        <Property key="NeedMouse" value="false"/>
+        <Widget type="Widget" skin="GreenRect" position="350 30 100 100" style="Popup" layer="Statistic" name="MouseView">
+            <Property key="NeedMouse" value="false"/>
+        </Widget>
+        <Widget type="Widget" skin="YellowRect" position="475 30 100 100" style="Popup" layer="Statistic" name="KeyView">
+            <Property key="NeedMouse" value="false"/>
+        </Widget>
+    </Widget>
+</MyGUI>

@@ -21,12 +21,12 @@ namespace tools
 		StatisticInfoControl();
 		virtual ~StatisticInfoControl();
 
+	protected:
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+
 	private:
 		void command_StatisticInfo(const MyGUI::UString& _commandName, bool& _result);
 		void notifyFrameStart(float _time);
-
-	protected:
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
 		MyGUI::TextBox* mText;

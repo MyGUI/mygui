@@ -36,7 +36,6 @@ namespace tools
 	protected:
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
 
-		void command_FocusVisible(const MyGUI::UString& _commandName, bool& _result);
 		void command_ScreenShot(const MyGUI::UString& _commandName, bool& _result);
 		void command_QuitApp(const MyGUI::UString& _commandName, bool& _result);
 		void command_UpdateAppCaption(const MyGUI::UString& _commandName, bool& _result);
