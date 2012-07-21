@@ -9,8 +9,6 @@
 #include "DataManager.h"
 #include "DataSelectorManager.h"
 #include "FactoryManager.h"
-#include "Property.h"
-#include "Data.h"
 
 namespace tools
 {
