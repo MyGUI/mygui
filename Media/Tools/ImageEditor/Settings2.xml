@@ -11,12 +11,12 @@
 	</Settings>
 	<TextureScale>
 		<ScaleValue.List>
-			<ScaleValue>50</ScaleValue>
-			<ScaleValue>100</ScaleValue>
-			<ScaleValue>200</ScaleValue>
-			<ScaleValue>400</ScaleValue>
-			<ScaleValue>800</ScaleValue>
-			<ScaleValue>1600</ScaleValue>
+			<Value>50</Value>
+			<Value>100</Value>
+			<Value>200</Value>
+			<Value>400</Value>
+			<Value>800</Value>
+			<Value>1600</Value>
 		</ScaleValue.List>
 	</TextureScale>
 </Settings>

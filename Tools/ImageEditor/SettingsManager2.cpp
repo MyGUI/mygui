@@ -113,11 +113,7 @@ namespace tools
 				currentNode = childNode;
 			}
 
-			pugi::xml_node textNode = currentNode.first_child();
-			if (textNode.empty())
-				textNode = currentNode.append_child(pugi::node_pcdata);
-
-			textNode.set_value(_value.c_str());
+			currentNode.text().set(_value.c_str());
 		}
 
 		eventSettingsChanged(_path);
@@ -126,10 +122,20 @@ namespace tools
 	SettingsManager2::VectorString SettingsManager2::getValueListString(const std::string& _path)
 	{
 		SettingsManager2::VectorString result;
+		std::string path = _path + "/Value";
 
-		pugi::xpath_node_set nodes = mDocument->document_element().select_nodes(_path.c_str());
-		for (auto node = nodes.begin(); node != nodes.end(); node ++)
-			result.push_back((*node).node().child_value());
+		pugi::xpath_node_set nodes = mUserDocument->document_element().select_nodes(path.c_str());
+		if (!nodes.empty())
+		{
+			for (auto node = nodes.begin(); node != nodes.end(); node ++)
+				result.push_back((*node).node().child_value());
+		}
+		else
+		{
+			pugi::xpath_node_set nodes = mDocument->document_element().select_nodes(path.c_str());
+			for (auto node = nodes.begin(); node != nodes.end(); node ++)
+				result.push_back((*node).node().child_value());
+		}
 
 		return result;
 	}
@@ -213,6 +219,43 @@ namespace tools
 
 	void SettingsManager2::setValueListString(const std::string& _path, const VectorString& _values)
 	{
+		if (!MyGUI::utility::endWith(_path, ".List"))
+			return;
+
+		std::string itemName = "Value";
+
+		pugi::xml_node targetNode;
+
+		pugi::xpath_node node = mUserDocument->document_element().select_single_node(_path.c_str());
+		if (!node.node().empty())
+		{
+			targetNode = node.node();
+			while (!targetNode.first_child().empty())
+				targetNode.remove_child(targetNode.first_child());
+		}
+		else
+		{
+			std::vector<std::string> names;
+			std::string delims("/");
+			names = MyGUI::utility::split(_path, delims);
+
+			pugi::xml_node currentNode = mUserDocument->document_element();
+			for (auto name = names.begin(); name != names.end(); name ++)
+			{
+				pugi::xml_node childNode = currentNode.child((*name).c_str());
+				if (childNode.empty())
+					childNode = currentNode.append_child((*name).c_str());
+
+				currentNode = childNode;
+			}
+
+			targetNode = currentNode;
+		}
+
+		for (VectorString::const_iterator value = _values.begin(); value != _values.end(); value ++)
+			targetNode.append_child(itemName.c_str()).text().set((*value).c_str());
+
+		eventSettingsChanged(_path);
 	}
 
 }
