@@ -10,5 +10,13 @@
                 <UserString key="ControlLayout" value="SkinListControl.layout"/>
             </Widget>
         </Widget>
-    </Widget>
+		<Widget type="TabItem" skin="" position="2 22 491 302">
+			<Property key="Caption" value="#{TabStates}"/>
+			<UserString key="CommandActivate" value="Command_ChangeScope.State"/>
+			<Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
+				<UserString key="ControlType" value="StateListControl"/>
+				<UserString key="ControlLayout" value="StateListControl.layout"/>
+			</Widget>
+		</Widget>
+	</Widget>
 </MyGUI>

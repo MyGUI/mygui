@@ -34,11 +34,10 @@
 	<Tag name="Cancel">Cancel</Tag>
 	<Tag name="Warning">Warning</Tag>
 	<Tag name="Error">Error</Tag>
-	<Tag name="CaptionMainWindow">Image editor - '#{CurrentFileName}' #{CurrentScale} % #{HasChanged}</Tag>
+	<Tag name="CaptionMainWindow">Skin editor - '#{CurrentFileName}' #{CurrentScale} % #{HasChanged}</Tag>
 	<Tag name="CaptionEnterName">Enter name</Tag>
 	<Tag name="CaptionOpenFile">Open file</Tag>
 	<Tag name="CaptionSaveFile">Save file</Tag>
-	<Tag name="CaptionExportFile">Export file</Tag>
 	<Tag name="CaptionColourPicker">Colour picker</Tag>
 	<Tag name="CaptionOpenFolder">Select folder</Tag>
 	<Tag name="CaptionTextureBrowse">Select texture</Tag>
@@ -47,11 +46,8 @@
 	<Tag name="ButtonSaveFile">Save</Tag>
 	<Tag name="ButtonOpenFolder">Select</Tag>
 	<Tag name="ButtonUp">Up</Tag>
-	<Tag name="TabImages">Images</Tag>
-	<Tag name="TabGroups">Groups</Tag>
-	<Tag name="TabIndexes">Indexes</Tag>
-	<Tag name="TabFrames">Frames</Tag>
 	<Tag name="TabSkins">Skins</Tag>
+	<Tag name="TabStates">States</Tag>
 	<Tag name="ColourZero">Zero</Tag>
 	<Tag name="ColourBlack">Black</Tag>
 	<Tag name="ColourWhite">White</Tag>
@@ -72,8 +68,5 @@
 	<Tag name="FormatRecentFile">#{IndexRecentFile}: #{RecentFile}</Tag>
 	<Tag name="PropertyPanel">Options</Tag>
 	<Tag name="TexturePanel">Texture preview</Tag>
-	<Tag name="ImageListControlHelp">Click '#{Create}' to create image.</Tag>
-	<Tag name="GroupListControlHelp">Click '#{Create}' to create group.</Tag>
-	<Tag name="IndexListControlHelp">Click '#{Create}' to create index.</Tag>
-	<Tag name="FrameListControlHelp">Click '#{Create}' to create frame.</Tag>
+	<Tag name="SkinListControlHelp">Click '#{Create}' to create skin.</Tag>
 </MyGUI>

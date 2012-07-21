@@ -38,7 +38,6 @@
 	<Tag name="CaptionEnterName">Enter name</Tag>
 	<Tag name="CaptionOpenFile">Open file</Tag>
 	<Tag name="CaptionSaveFile">Save file</Tag>
-	<Tag name="CaptionExportFile">Export file</Tag>
 	<Tag name="CaptionColourPicker">Colour picker</Tag>
 	<Tag name="CaptionOpenFolder">Select folder</Tag>
 	<Tag name="CaptionTextureBrowse">Select texture</Tag>

@@ -34,11 +34,10 @@
 	<Tag name="Cancel">Отмена</Tag>
 	<Tag name="Warning">Внимание</Tag>
 	<Tag name="Error">Ошибка</Tag>
-	<Tag name="CaptionMainWindow">Редактор изображений - '#{CurrentFileName}' #{CurrentScale} % #{HasChanged}</Tag>
+	<Tag name="CaptionMainWindow">Редактор скинов - '#{CurrentFileName}' #{CurrentScale} % #{HasChanged}</Tag>
 	<Tag name="CaptionEnterName">Введите имя</Tag>
 	<Tag name="CaptionOpenFile">Открытие файла</Tag>
 	<Tag name="CaptionSaveFile">Сохранение файла</Tag>
-	<Tag name="CaptionExportFile">Экспорт файла</Tag>
 	<Tag name="CaptionColourPicker">Выбор цвета</Tag>
 	<Tag name="CaptionOpenFolder">Выбор папки</Tag>
 	<Tag name="CaptionTextureBrowse">Выбор текстуры</Tag>
@@ -47,11 +46,8 @@
 	<Tag name="ButtonSaveFile">Сохранить</Tag>
 	<Tag name="ButtonOpenFolder">Выбрать</Tag>
 	<Tag name="ButtonUp">Вверх</Tag>
-	<Tag name="TabImages">Изображения</Tag>
-	<Tag name="TabGroups">Группы</Tag>
-	<Tag name="TabIndexes">Индексы</Tag>
-	<Tag name="TabFrames">Кадры</Tag>
 	<Tag name="TabSkins">Скины</Tag>
+	<Tag name="TabStates">Состояния</Tag>
 	<Tag name="ColourZero">Нет цвета</Tag>
 	<Tag name="ColourBlack">Черный</Tag>
 	<Tag name="ColourWhite">Белый</Tag>
@@ -72,8 +68,5 @@
 	<Tag name="FormatRecentFile">#{IndexRecentFile}: #{RecentFile}</Tag>
 	<Tag name="PropertyPanel">Свойства</Tag>
 	<Tag name="TexturePanel">Предпросмотр</Tag>
-	<Tag name="ImageListControlHelp">Нажмите кнопку '#{Create}' чтобы добавить изображение.</Tag>
-	<Tag name="GroupListControlHelp">Нажмите кнопку '#{Create}' чтобы добавить группу.</Tag>
-	<Tag name="IndexListControlHelp">Нажмите кнопку '#{Create}' чтобы добавить индекс.</Tag>
-	<Tag name="FrameListControlHelp">Нажмите кнопку '#{Create}' чтобы добавить кадр.</Tag>
+	<Tag name="SkinListControlHelp">Нажмите кнопку '#{Create}' чтобы добавить скин.</Tag>
 </MyGUI>
