@@ -39,7 +39,6 @@ namespace base
 		void quit();
 
 		void setWindowCaption(const std::wstring& _text);
-		void createDefaultScene(); // FIXME
 		void makeScreenShot();
 
 		const std::string& getRootMedia();
@@ -94,8 +93,6 @@ namespace base
 		std::string mResourceXMLName;
 		std::string mResourceFileName;
 		std::string mRootMedia;
-
-		Ogre::SceneNode* mNode; // FIXME
 	};
 
 } // namespace base

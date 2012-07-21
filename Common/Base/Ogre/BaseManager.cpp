@@ -46,8 +46,7 @@ namespace base
 		mExit(false),
 		mPluginCfgName("plugins.cfg"),
 		mResourceXMLName("resources.xml"),
-		mResourceFileName("MyGUI_Core.xml"),
-		mNode(nullptr)
+		mResourceFileName("MyGUI_Core.xml")
 	{
 		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 			mResourcePath = macBundlePath() + "/Contents/Resources/";
@@ -269,12 +268,6 @@ namespace base
 
 		captureInput();
 
-		// для дефолтной сцены
-		if (mNode)
-		{
-			mNode->yaw(Ogre::Radian(Ogre::Degree(evt.timeSinceLastFrame * 10)));
-		}
-
 		return true;
 	}
 
@@ -334,35 +327,6 @@ namespace base
 	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)
 	{
 		addResourceLocation(_name, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, "FileSystem", false);
-	}
-
-	void BaseManager::createDefaultScene()
-	{
-		try
-		{
-			Ogre::Entity* entity = mSceneManager->createEntity("Mikki.mesh", "Mikki.mesh");
-			mNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
-			mNode->attachObject(entity);
-		}
-		catch (Ogre::FileNotFoundException&)
-		{
-			return;
-		}
-
-		try
-		{
-			Ogre::MeshManager::getSingleton().createPlane(
-				"FloorPlane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-				Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), 1000, 1000, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
-
-			Ogre::Entity* entity = getSceneManager()->createEntity("FloorPlane", "FloorPlane");
-			entity->setMaterialName("Ground");
-			mNode->attachObject(entity);
-		}
-		catch (Ogre::FileNotFoundException&)
-		{
-			return;
-		}
 	}
 
 	void BaseManager::injectMouseMove(int _absx, int _absy, int _absz)

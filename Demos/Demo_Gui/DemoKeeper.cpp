@@ -27,6 +27,9 @@ namespace demo
 		mInformationWindow(nullptr),
 		mColourWindow(nullptr)
 	{
+#ifdef MYGUI_OGRE_PLATFORM
+		mNode = nullptr;
+#endif // MYGUI_OGRE_PLATFORM
 	}
 
 	void DemoKeeper::setupResources()
@@ -54,10 +57,14 @@ namespace demo
 		mMainPanel->addObject("Render to Texture");
 
 		mEditorWindow = new EditorWindow();
+
+		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
 	}
 
 	void DemoKeeper::destroyScene()
 	{
+		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
+
 		removeRenderBoxes();
 		destroyWindows();
 
@@ -184,6 +191,44 @@ namespace demo
 		box->setViewport(getCamera());
 		box->setBackgroundColour(MyGUI::Colour::Black);
 		mRenderBoxes.push_back(box);
+#endif // MYGUI_OGRE_PLATFORM
+	}
+
+	void DemoKeeper::createDefaultScene()
+	{
+#ifdef MYGUI_OGRE_PLATFORM
+		try
+		{
+			Ogre::Entity* entity = getSceneManager()->createEntity("Mikki.mesh", "Mikki.mesh");
+			mNode = getSceneManager()->getRootSceneNode()->createChildSceneNode();
+			mNode->attachObject(entity);
+		}
+		catch (Ogre::FileNotFoundException&)
+		{
+			return;
+		}
+
+		try
+		{
+			Ogre::MeshManager::getSingleton().createPlane(
+				"FloorPlane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+				Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), 1000, 1000, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
+
+			Ogre::Entity* entity = getSceneManager()->createEntity("FloorPlane", "FloorPlane");
+			entity->setMaterialName("Ground");
+			mNode->attachObject(entity);
+		}
+		catch (Ogre::FileNotFoundException&)
+		{
+		}
+#endif // MYGUI_OGRE_PLATFORM
+	}
+
+	void DemoKeeper::notifyFrameStart(float _time)
+	{
+#ifdef MYGUI_OGRE_PLATFORM
+		if (mNode)
+			mNode->yaw(Ogre::Radian(Ogre::Degree(_time * 10)));
 #endif // MYGUI_OGRE_PLATFORM
 	}
 

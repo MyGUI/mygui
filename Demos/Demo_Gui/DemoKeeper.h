@@ -32,11 +32,18 @@ namespace demo
 		void removeRenderBoxes();
 		void createRenderBox(MyGUI::Canvas* _canvas);
 
+		void createDefaultScene();
+		void notifyFrameStart(float _time);
+
 	private:
 		EditorWindow* mEditorWindow;
 		MainPanel* mMainPanel;
 		InformationWindow* mInformationWindow;
 		ColourWindow* mColourWindow;
+
+#ifdef MYGUI_OGRE_PLATFORM
+		Ogre::SceneNode* mNode;
+#endif // MYGUI_OGRE_PLATFORM
 	};
 
 } // namespace demo
