@@ -43,6 +43,7 @@ set (HEADER_FILES
   HotKeyCommand.h
   HotKeyManager.h
   IControlController.h
+  IExportSerializer.h
   IFactory.h
   IFactoryItem.h
   IPropertyInitialisator.h
@@ -81,6 +82,7 @@ set (HEADER_FILES
   SettingsResourcePathsControl.h
   SettingsResourcesControl.h
   SettingsWindow.h
+  SkinExportSerializer.h
   StateController.h
   StateManager.h
   StatisticInfoControl.h
@@ -170,6 +172,7 @@ set (SOURCE_FILES
   SettingsResourcePathsControl.cpp
   SettingsResourcesControl.cpp
   SettingsWindow.cpp
+  SkinExportSerializer.cpp
   StateManager.cpp
   StatisticInfoControl.cpp
   TextFieldControl.cpp
@@ -345,8 +348,6 @@ SOURCE_GROUP("Data\\Utility" FILES
 SOURCE_GROUP("Managers" FILES
   ColourManager.cpp
   ColourManager.h
-  ExportManager.cpp
-  ExportManager.h
   GridManager.cpp
   GridManager.h
   MessageBoxManager.cpp
@@ -368,6 +369,13 @@ SOURCE_GROUP("Managers\\Dialog" FILES
   Dialog.h
   DialogManager.cpp
   DialogManager.h
+)
+SOURCE_GROUP("Managers\\Exports" FILES
+  ExportManager.cpp
+  ExportManager.h
+  IExportSerializer.h
+  SkinExportSerializer.cpp
+  SkinExportSerializer.h
 )
 SOURCE_GROUP("Managers\\Factory" FILES
   FactoryItemAttribute.h
