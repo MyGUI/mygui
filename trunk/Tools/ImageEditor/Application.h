@@ -10,7 +10,6 @@
 #include "BaseManager.h"
 #include "StateController.h"
 #include "EditorState.h"
-#include "TestState.h"
 
 namespace tools
 {

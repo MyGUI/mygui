@@ -7,7 +7,6 @@
 #include "Precompiled.h"
 #include "Application.h"
 #include "Base/Main.h"
-#include "SkinManager.h"
 #include "ActionManager.h"
 #include "CommandManager.h"
 #include "ExportManager.h"

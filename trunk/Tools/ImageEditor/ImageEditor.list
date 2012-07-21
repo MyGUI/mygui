@@ -11,8 +11,6 @@ set (HEADER_FILES
   AnimationViewControl.h
   Application.h
   AreaSelectorControl.h
-  BackgroundControl.h
-  Binary.h
   ChangeTextureValueAction.h
   ChangeValueAction.h
   ColourManager.h
@@ -40,8 +38,6 @@ set (HEADER_FILES
   GridManager.h
   GroupListControl.h
   GroupTextureController.h
-  HorizontalSelectorBlackControl.h
-  HorizontalSelectorControl.h
   HotKeyCommand.h
   HotKeyManager.h
   IControlController.h
@@ -51,13 +47,9 @@ set (HEADER_FILES
   ImageListControl.h
   IndexListControl.h
   IndexTextureController.h
-  ItemHolder.h
-  ListBoxControl.h
   ListBoxDataControl.h
-  ListBoxItemControl.h
   Localise.h
   MainMenuControl.h
-  MainTabControl.h
   MessageBoxFadeControl.h
   MessageBoxManager.h
   MyGUI_FilterNoneSkin.h
@@ -65,10 +57,7 @@ set (HEADER_FILES
   PositionSelectorBlackControl.h
   PositionSelectorControl.h
   Property.h
-  PropertyAdvisor.h
-  PropertyAlignControl.h
   PropertyBoolControl.h
-  PropertyColourControl.h
   PropertyControl.h
   PropertyFloatControl.h
   PropertyInt2Control.h
@@ -76,45 +65,23 @@ set (HEADER_FILES
   PropertyIntControl.h
   PropertyPanelControl.h
   PropertyPanelController.h
-  PropertyRegionTypeControl.h
-  PropertySet.h
   PropertyStringControl.h
   PropertyTexturesControl.h
   PropertyUtility.h
   RecentFilesManager.h
-  RegionControl.h
-  RegionItem.h
-  RegionListControl.h
-  RegionPropertyControl.h
-  RegionTextureControl.h
   ScopeManager.h
   ScopeTextureControl.h
   SelectorControl.h
   SeparatorControl.h
-  SeparatorItem.h
-  SeparatorListControl.h
-  SeparatorPropertyControl.h
-  SeparatorTextureControl.h
   SeparatorUtility.h
   SettingsGeneralControl.h
   SettingsManager.h
   SettingsResourcePathsControl.h
   SettingsResourcesControl.h
   SettingsWindow.h
-  SkinControl.h
-  SkinItem.h
-  SkinManager.h
-  SkinPropertyControl.h
-  StateControl.h
   StateController.h
-  StateItem.h
-  StateListControl.h
   StateManager.h
-  StatePropertyControl.h
-  StateTextureControl.h
   StringUtility.h
-  TestState.h
-  TestWindow.h
   TextFieldControl.h
   TextureBrowseCell.h
   TextureBrowseControl.h
@@ -122,8 +89,6 @@ set (HEADER_FILES
   TexturePropertyInitialisator.h
   TextureToolControl.h
   UniqueNamePropertyInitialisator.h
-  VerticalSelectorBlackControl.h
-  VerticalSelectorControl.h
   sigslot.h
 )
 set (SOURCE_FILES
@@ -140,7 +105,6 @@ set (SOURCE_FILES
   AnimationViewControl.cpp
   Application.cpp
   AreaSelectorControl.cpp
-  BackgroundControl.cpp
   ChangeTextureValueAction.cpp
   ChangeValueAction.cpp
   ColourManager.cpp
@@ -166,18 +130,13 @@ set (SOURCE_FILES
   GridManager.cpp
   GroupListControl.cpp
   GroupTextureController.cpp
-  HorizontalSelectorBlackControl.cpp
-  HorizontalSelectorControl.cpp
   HotKeyManager.cpp
   ImageEditor.rc
   ImageListControl.cpp
   IndexListControl.cpp
   IndexTextureController.cpp
-  ListBoxControl.cpp
   ListBoxDataControl.cpp
-  ListBoxItemControl.cpp
   MainMenuControl.cpp
-  MainTabControl.cpp
   MessageBoxFadeControl.cpp
   MessageBoxManager.cpp
   MyGUI_FilterNoneSkin.cpp
@@ -185,9 +144,7 @@ set (SOURCE_FILES
   PositionSelectorBlackControl.cpp
   PositionSelectorControl.cpp
   Property.cpp
-  PropertyAlignControl.cpp
   PropertyBoolControl.cpp
-  PropertyColourControl.cpp
   PropertyControl.cpp
   PropertyFloatControl.cpp
   PropertyInt2Control.cpp
@@ -195,42 +152,20 @@ set (SOURCE_FILES
   PropertyIntControl.cpp
   PropertyPanelControl.cpp
   PropertyPanelController.cpp
-  PropertyRegionTypeControl.cpp
-  PropertySet.cpp
   PropertyStringControl.cpp
   PropertyTexturesControl.cpp
   PropertyUtility.cpp
   RecentFilesManager.cpp
-  RegionControl.cpp
-  RegionItem.cpp
-  RegionListControl.cpp
-  RegionPropertyControl.cpp
-  RegionTextureControl.cpp
   ScopeManager.cpp
   ScopeTextureControl.cpp
   SelectorControl.cpp
   SeparatorControl.cpp
-  SeparatorItem.cpp
-  SeparatorListControl.cpp
-  SeparatorPropertyControl.cpp
-  SeparatorTextureControl.cpp
   SettingsGeneralControl.cpp
   SettingsManager.cpp
   SettingsResourcePathsControl.cpp
   SettingsResourcesControl.cpp
   SettingsWindow.cpp
-  SkinControl.cpp
-  SkinItem.cpp
-  SkinManager.cpp
-  SkinPropertyControl.cpp
-  StateControl.cpp
-  StateItem.cpp
-  StateListControl.cpp
   StateManager.cpp
-  StatePropertyControl.cpp
-  StateTextureControl.cpp
-  TestState.cpp
-  TestWindow.cpp
   TextFieldControl.cpp
   TextureBrowseCell.cpp
   TextureBrowseControl.cpp
@@ -238,8 +173,6 @@ set (SOURCE_FILES
   TexturePropertyInitialisator.cpp
   TextureToolControl.cpp
   UniqueNamePropertyInitialisator.cpp
-  VerticalSelectorBlackControl.cpp
-  VerticalSelectorControl.cpp
   pugiconfig.hpp
   pugixml.cpp
   pugixml.hpp
@@ -340,14 +273,6 @@ SOURCE_GROUP("Controls\\Properties" FILES
   PropertyTexturesControl.cpp
   PropertyTexturesControl.h
 )
-SOURCE_GROUP("Controls\\Properties\\old" FILES
-  PropertyAlignControl.cpp
-  PropertyAlignControl.h
-  PropertyColourControl.cpp
-  PropertyColourControl.h
-  PropertyRegionTypeControl.cpp
-  PropertyRegionTypeControl.h
-)
 SOURCE_GROUP("Controls\\Separators" FILES
   SeparatorControl.cpp
   SeparatorControl.h
@@ -389,52 +314,6 @@ SOURCE_GROUP("Controls\\TextureView\\Selectors" FILES
   SelectorControl.cpp
   SelectorControl.h
 )
-SOURCE_GROUP("Controls\\old" FILES
-  BackgroundControl.cpp
-  BackgroundControl.h
-  HorizontalSelectorBlackControl.cpp
-  HorizontalSelectorBlackControl.h
-  HorizontalSelectorControl.cpp
-  HorizontalSelectorControl.h
-  ListBoxControl.cpp
-  ListBoxControl.h
-  ListBoxItemControl.cpp
-  ListBoxItemControl.h
-  MainTabControl.cpp
-  MainTabControl.h
-  RegionControl.cpp
-  RegionControl.h
-  RegionListControl.cpp
-  RegionListControl.h
-  RegionPropertyControl.cpp
-  RegionPropertyControl.h
-  RegionTextureControl.cpp
-  RegionTextureControl.h
-  SeparatorListControl.cpp
-  SeparatorListControl.h
-  SeparatorPropertyControl.cpp
-  SeparatorPropertyControl.h
-  SeparatorTextureControl.cpp
-  SeparatorTextureControl.h
-  SkinControl.cpp
-  SkinControl.h
-  SkinPropertyControl.cpp
-  SkinPropertyControl.h
-  StateControl.cpp
-  StateControl.h
-  StateListControl.cpp
-  StateListControl.h
-  StatePropertyControl.cpp
-  StatePropertyControl.h
-  StateTextureControl.cpp
-  StateTextureControl.h
-  TestWindow.cpp
-  TestWindow.h
-  VerticalSelectorBlackControl.cpp
-  VerticalSelectorBlackControl.h
-  VerticalSelectorControl.cpp
-  VerticalSelectorControl.h
-)
 SOURCE_GROUP("Data" FILES
   Data.cpp
   Data.h
@@ -452,17 +331,6 @@ SOURCE_GROUP("Data" FILES
 SOURCE_GROUP("Data\\Utility" FILES
   DataUtility.cpp
   DataUtility.h
-)
-SOURCE_GROUP("Data\\old" FILES
-  ItemHolder.h
-  RegionItem.cpp
-  RegionItem.h
-  SeparatorItem.cpp
-  SeparatorItem.h
-  SkinItem.cpp
-  SkinItem.h
-  StateItem.cpp
-  StateItem.h
 )
 SOURCE_GROUP("Managers" FILES
   ColourManager.cpp
@@ -505,10 +373,6 @@ SOURCE_GROUP("Managers\\Settings" FILES
   SettingsManager.cpp
   SettingsManager.h
 )
-SOURCE_GROUP("Managers\\old" FILES
-  SkinManager.cpp
-  SkinManager.h
-)
 SOURCE_GROUP("Properties" FILES
   Property.cpp
   Property.h
@@ -524,11 +388,6 @@ SOURCE_GROUP("Properties\\Utility" FILES
   PropertyUtility.cpp
   PropertyUtility.h
 )
-SOURCE_GROUP("Properties\\old" FILES
-  PropertyAdvisor.h
-  PropertySet.cpp
-  PropertySet.h
-)
 SOURCE_GROUP("Resources" FILES
   CMakeLists.txt
   ImageEditor.rc
@@ -540,10 +399,6 @@ SOURCE_GROUP("States" FILES
   StateManager.cpp
   StateManager.h
 )
-SOURCE_GROUP("States\\old" FILES
-  TestState.cpp
-  TestState.h
-)
 SOURCE_GROUP("Utility" FILES
   Localise.h
   StringUtility.h
@@ -551,7 +406,4 @@ SOURCE_GROUP("Utility" FILES
   pugixml.cpp
   pugixml.hpp
   sigslot.h
-)
-SOURCE_GROUP("Utility\\old" FILES
-  Binary.h
 )
