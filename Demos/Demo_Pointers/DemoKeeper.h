@@ -7,7 +7,7 @@
 #define __DEMO_KEEPER_H__
 
 #include <MyGUI.h>
-#include "BaseManager.h"
+#include "Base/BaseDemoManager.h"
 #include "EnemyPanel.h"
 #include "FriendPanel.h"
 #include "ControlPanel.h"
@@ -17,7 +17,7 @@ namespace demo
 {
 
 	class DemoKeeper :
-		public base::BaseManager,
+		public base::BaseDemoManager,
 		public IPointerSetter
 	{
 	public:

@@ -7,14 +7,14 @@
 #define __DEMO_KEEPER_H__
 
 #include <MyGUI.h>
-#include "BaseManager.h"
+#include "Base/BaseDemoManager.h"
 #include "Console.h"
 
 namespace demo
 {
 
 	class DemoKeeper :
-		public base::BaseManager
+		public base::BaseDemoManager
 	{
 	public:
 		DemoKeeper();
