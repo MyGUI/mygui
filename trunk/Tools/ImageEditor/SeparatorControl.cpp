@@ -293,9 +293,9 @@ namespace tools
 		if (mSaveAs.empty())
 			return;
 
-		SettingsManager2::VectorString values;
-		values = SettingsManager2::getInstance().getValueListString("Window/" + mSaveAs + ".List");
-		SettingsManager2::VectorString::const_iterator value = values.begin();
+		SettingsManager::VectorString values;
+		values = SettingsManager::getInstance().getValueListString("Window/" + mSaveAs + ".List");
+		SettingsManager::VectorString::const_iterator value = values.begin();
 
 		for (VectorWidget::const_iterator child = mChilds.begin(); child != mChilds.end(); child ++)
 		{
@@ -323,7 +323,7 @@ namespace tools
 		if (mSaveAs.empty())
 			return;
 
-		SettingsManager2::VectorString values;
+		SettingsManager::VectorString values;
 		for (VectorWidget::const_iterator child = mChilds.begin(); child != mChilds.end(); child ++)
 		{
 			SeparatorData** data = (*child)->getUserData<SeparatorData*>(false);
@@ -331,7 +331,7 @@ namespace tools
 				values.push_back((*child)->getPosition().print());
 		}
 
-		SettingsManager2::getInstance().setValueListString("Window/" + mSaveAs + ".List", values);
+		SettingsManager::getInstance().setValueListString("Window/" + mSaveAs + ".List", values);
 	}
 
 }

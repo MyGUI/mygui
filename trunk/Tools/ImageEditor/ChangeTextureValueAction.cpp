@@ -29,8 +29,8 @@ namespace tools
 		mOldValue = getProperty()->getValue();
 		getProperty()->setValue(getValue());
 
-		if (SettingsManager2::getInstance().getValue<bool>("Settings/SaveLastTexture"))
-			SettingsManager2::getInstance().setValue("Settings/LastTextureName", getValue());
+		if (SettingsManager::getInstance().getValue<bool>("Settings/SaveLastTexture"))
+			SettingsManager::getInstance().setValue("Settings/LastTextureName", getValue());
 	}
 
 	void ChangeTextureValueAction::undoAction()

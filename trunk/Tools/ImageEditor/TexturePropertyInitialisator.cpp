@@ -24,9 +24,9 @@ namespace tools
 
 	void TexturePropertyInitialisator::initialise(Property* _property)
 	{
-		if (SettingsManager2::getInstance().getValue<bool>("Settings/SaveLastTexture"))
+		if (SettingsManager::getInstance().getValue<bool>("Settings/SaveLastTexture"))
 		{
-			std::string texture = SettingsManager2::getInstance().getValueString("Settings/LastTextureName");
+			std::string texture = SettingsManager::getInstance().getValueString("Settings/LastTextureName");
 			_property->setValue(texture);
 		}
 	}

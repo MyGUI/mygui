@@ -44,17 +44,17 @@ namespace tools
 
 	void SettingsGeneralControl::loadSettings()
 	{
-		mGridStep = SettingsManager2::getInstance().getValue<int>("Settings/Grid");
+		mGridStep = SettingsManager::getInstance().getValue<int>("Settings/Grid");
 		mGridEdit->setCaption(MyGUI::utility::toString(mGridStep));
-		mSaveLastTexture->setStateSelected(SettingsManager2::getInstance().getValue<bool>("Settings/SaveLastTexture"));
-		setLanguageValue(SettingsManager2::getInstance().getValueString("Settings/InterfaceLanguage"));
+		mSaveLastTexture->setStateSelected(SettingsManager::getInstance().getValue<bool>("Settings/SaveLastTexture"));
+		setLanguageValue(SettingsManager::getInstance().getValueString("Settings/InterfaceLanguage"));
 	}
 
 	void SettingsGeneralControl::saveSettings()
 	{
-		SettingsManager2::getInstance().setValue("Settings/Grid", mGridStep);
-		SettingsManager2::getInstance().setValue("Settings/SaveLastTexture", mSaveLastTexture->getStateSelected());
-		SettingsManager2::getInstance().setValue("Settings/InterfaceLanguage", getLanguageValue());
+		SettingsManager::getInstance().setValue("Settings/Grid", mGridStep);
+		SettingsManager::getInstance().setValue("Settings/SaveLastTexture", mSaveLastTexture->getStateSelected());
+		SettingsManager::getInstance().setValue("Settings/InterfaceLanguage", getLanguageValue());
 	}
 
 	void SettingsGeneralControl::notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new)

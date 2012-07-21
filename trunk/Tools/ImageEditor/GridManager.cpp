@@ -25,20 +25,20 @@ namespace tools
 
 	void GridManager::initialise()
 	{
-		mGridStep = SettingsManager2::getInstance().getValue<int>("Settings/Grid");
-		SettingsManager2::getInstance().eventSettingsChanged.connect(this, &GridManager::notifySettingsChanged);
+		mGridStep = SettingsManager::getInstance().getValue<int>("Settings/Grid");
+		SettingsManager::getInstance().eventSettingsChanged.connect(this, &GridManager::notifySettingsChanged);
 	}
 
 	void GridManager::shutdown()
 	{
-		SettingsManager2::getInstance().eventSettingsChanged.disconnect(this);
+		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);
 	}
 
 	void GridManager::notifySettingsChanged(const std::string& _path)
 	{
 		if (_path == "Settings/Grid")
 		{
-			mGridStep = SettingsManager2::getInstance().getValue<int>("Settings/Grid");
+			mGridStep = SettingsManager::getInstance().getValue<int>("Settings/Grid");
 		}
 	}
 

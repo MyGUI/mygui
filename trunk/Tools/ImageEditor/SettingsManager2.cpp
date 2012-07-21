@@ -7,13 +7,13 @@
 #include "Precompiled.h"
 #include "SettingsManager2.h"
 
-template <> tools::SettingsManager2* MyGUI::Singleton<tools::SettingsManager2>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::SettingsManager2>::mClassTypeName("SettingsManager2");
+template <> tools::SettingsManager* MyGUI::Singleton<tools::SettingsManager>::msInstance = nullptr;
+template <> const char* MyGUI::Singleton<tools::SettingsManager>::mClassTypeName("SettingsManager");
 
 namespace tools
 {
 
-	SettingsManager2::SettingsManager2() :
+	SettingsManager::SettingsManager() :
 		mDocument(nullptr),
 		mUserDocument(nullptr)
 	{
@@ -32,7 +32,7 @@ namespace tools
 		mUserDocument->append_child("Settings");
 	}
 
-	SettingsManager2::~SettingsManager2()
+	SettingsManager::~SettingsManager()
 	{
 		delete mDocument;
 		mDocument = nullptr;
@@ -41,7 +41,7 @@ namespace tools
 		mUserDocument = nullptr;
 	}
 
-	bool SettingsManager2::loadSettingsFile(const std::string& _fileName)
+	bool SettingsManager::loadSettingsFile(const std::string& _fileName)
 	{
 		pugi::xml_document doc;
 		auto result = doc.load_file(_fileName.c_str());
@@ -59,12 +59,12 @@ namespace tools
 		return result;
 	}
 
-	void SettingsManager2::saveSettingsFile(const std::string& _fileName)
+	void SettingsManager::saveSettingsFile(const std::string& _fileName)
 	{
 		mDocument->save_file(_fileName.c_str());
 	}
 
-	bool SettingsManager2::getExistValue(const std::string& _path)
+	bool SettingsManager::getExistValue(const std::string& _path)
 	{
 		pugi::xpath_node node = mUserDocument->document_element().select_single_node(_path.c_str());
 		if (!node.node().empty())
@@ -77,7 +77,7 @@ namespace tools
 		return false;
 	}
 
-	std::string SettingsManager2::getValueString(const std::string& _path)
+	std::string SettingsManager::getValueString(const std::string& _path)
 	{
 		pugi::xpath_node node = mUserDocument->document_element().select_single_node(_path.c_str());
 		if (!node.node().empty())
@@ -90,7 +90,7 @@ namespace tools
 		return "";
 	}
 
-	void SettingsManager2::setValueString(const std::string& _path, const std::string& _value)
+	void SettingsManager::setValueString(const std::string& _path, const std::string& _value)
 	{
 		pugi::xpath_node node = mUserDocument->document_element().select_single_node(_path.c_str());
 		if (!node.node().empty())
@@ -119,9 +119,9 @@ namespace tools
 		eventSettingsChanged(_path);
 	}
 
-	SettingsManager2::VectorString SettingsManager2::getValueListString(const std::string& _path)
+	SettingsManager::VectorString SettingsManager::getValueListString(const std::string& _path)
 	{
-		SettingsManager2::VectorString result;
+		SettingsManager::VectorString result;
 		std::string path = _path + "/Value";
 
 		pugi::xpath_node_set nodes = mUserDocument->document_element().select_nodes(path.c_str());
@@ -140,7 +140,7 @@ namespace tools
 		return result;
 	}
 
-	void SettingsManager2::mergeNodes(pugi::xml_node _nodeTarget, pugi::xml_node _nodeSource)
+	void SettingsManager::mergeNodes(pugi::xml_node _nodeTarget, pugi::xml_node _nodeSource)
 	{
 		bool listElement = MyGUI::utility::endWith(_nodeTarget.name(), ".List");
 
@@ -181,7 +181,7 @@ namespace tools
 		}
 	}
 
-	void SettingsManager2::mergeAttributes(pugi::xml_node _nodeTarget, pugi::xml_node _nodeSource)
+	void SettingsManager::mergeAttributes(pugi::xml_node _nodeTarget, pugi::xml_node _nodeSource)
 	{
 		for (auto attribute = _nodeSource.attributes_begin(); attribute != _nodeSource.attributes_end(); attribute ++)
 		{
@@ -192,7 +192,7 @@ namespace tools
 		}
 	}
 
-	bool SettingsManager2::loadUserSettingsFile(const std::string& _fileName)
+	bool SettingsManager::loadUserSettingsFile(const std::string& _fileName)
 	{
 		mUserSettingsFileName = _fileName;
 
@@ -212,12 +212,12 @@ namespace tools
 		return result;
 	}
 
-	void SettingsManager2::saveUserSettingsFile()
+	void SettingsManager::saveUserSettingsFile()
 	{
 		mUserDocument->save_file(mUserSettingsFileName.c_str());
 	}
 
-	void SettingsManager2::setValueListString(const std::string& _path, const VectorString& _values)
+	void SettingsManager::setValueListString(const std::string& _path, const VectorString& _values)
 	{
 		if (!MyGUI::utility::endWith(_path, ".List"))
 			return;
