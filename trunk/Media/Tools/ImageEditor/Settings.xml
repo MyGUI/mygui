@@ -68,6 +68,14 @@
 				<Event>Start</Event>
 			</FirstState>
 		</States>
+		<Controls>
+			<StatisticInfoControl>
+				<Visible>false</Visible>
+			</StatisticInfoControl>
+			<Control.List>
+				<Value>StatisticInfoControl</Value>
+			</Control.List>
+		</Controls>
 	</Editor>
 	<EditorState>
 		<MainPaneLayout>MainPane.layout</MainPaneLayout>

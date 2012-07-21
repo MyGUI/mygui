@@ -82,6 +82,7 @@ set (HEADER_FILES
   SettingsWindow.h
   StateController.h
   StateManager.h
+  StatisticInfoControl.h
   StringUtility.h
   TextFieldControl.h
   TextureBrowseCell.h
@@ -168,6 +169,7 @@ set (SOURCE_FILES
   SettingsResourcesControl.cpp
   SettingsWindow.cpp
   StateManager.cpp
+  StatisticInfoControl.cpp
   TextFieldControl.cpp
   TextureBrowseCell.cpp
   TextureBrowseControl.cpp
@@ -252,6 +254,8 @@ SOURCE_GROUP("Controls\\Framework" FILES
   MessageBoxFadeControl.h
   OpenSaveFileDialog.cpp
   OpenSaveFileDialog.h
+  StatisticInfoControl.cpp
+  StatisticInfoControl.h
   TextFieldControl.cpp
   TextFieldControl.h
 )

@@ -553,4 +553,24 @@ namespace base
 		mWindow->writeContentsToFile(file);
 	}
 
+	BaseManager::MapString BaseManager::getStatistic()
+	{
+		MapString result;
+
+		try
+		{
+			const Ogre::RenderTarget::FrameStats& stats = mWindow->getStatistics();
+			result["FPS"] = MyGUI::utility::toString(stats.lastFPS);
+			result["triangle"] = MyGUI::utility::toString(stats.triangleCount);
+			result["batch"] = MyGUI::utility::toString(stats.batchCount);
+			result["batch gui"] = MyGUI::utility::toString(MyGUI::OgreRenderManager::getInstance().getBatchCount());
+		}
+		catch (...)
+		{
+			MYGUI_LOG(Warning, "Error get statistics");
+		}
+
+		return result;
+	}
+
 } // namespace base

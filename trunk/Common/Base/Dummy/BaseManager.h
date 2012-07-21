@@ -41,6 +41,9 @@ namespace base
 		void setResourceFilename(const std::string& _flename);
 		void addResourceLocation(const std::string& _name, bool _recursive = false);
 
+		typedef std::map<std::string, std::string> MapString;
+		MapString getStatistic() { return MapString(); }
+
 		size_t getWindowHandle();
 
 	/*internal:*/
