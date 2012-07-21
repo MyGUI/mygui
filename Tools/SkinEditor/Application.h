@@ -6,7 +6,7 @@
 #ifndef __DEMO_KEEPER_H__
 #define __DEMO_KEEPER_H__
 
-#include "BaseManager.h"
+#include "Base/BaseDemoManager.h"
 #include "StateController.h"
 #include "EditorState.h"
 #include "TestState.h"
@@ -15,7 +15,7 @@ namespace tools
 {
 
 	class Application :
-		public base::BaseManager,
+		public base::BaseDemoManager,
 		public MyGUI::Singleton<Application>,
 		public StateController
 	{

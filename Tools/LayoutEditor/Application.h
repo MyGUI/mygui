@@ -1,7 +1,7 @@
 #ifndef __APPLICATION_H__
 #define __APPLICATION_H__
 
-#include "BaseManager.h"
+#include "Base/BaseDemoManager.h"
 #include "StateController.h"
 #include "EditorState.h"
 #include "TestState.h"
@@ -9,7 +9,7 @@
 namespace tools
 {
 	class Application :
-		public base::BaseManager,
+		public base::BaseDemoManager,
 		public MyGUI::Singleton<Application>,
 		public StateController
 	{

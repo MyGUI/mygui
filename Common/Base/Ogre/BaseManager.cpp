@@ -39,8 +39,6 @@ namespace base
 	BaseManager::BaseManager() :
 		mGUI(nullptr),
 		mPlatform(nullptr),
-		mInfo(nullptr),
-		mFocusInfo(nullptr),
 		mRoot(nullptr),
 		mCamera(nullptr),
 		mSceneManager(nullptr),
@@ -213,27 +211,12 @@ namespace base
 		mPlatform->initialise(mWindow, mSceneManager);
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise(mResourceFileName);
-
-		mInfo = new diagnostic::StatisticInfo();
-		mFocusInfo = new diagnostic::InputFocusInfo();
 	}
 
 	void BaseManager::destroyGui()
 	{
 		if (mGUI)
 		{
-			if (mInfo)
-			{
-				delete mInfo;
-				mInfo = nullptr;
-			}
-
-			if (mFocusInfo)
-			{
-				delete mFocusInfo;
-				mFocusInfo = nullptr;
-			}
-
 			mGUI->shutdown();
 			delete mGUI;
 			mGUI = nullptr;
@@ -285,29 +268,6 @@ namespace base
 			return true;
 
 		captureInput();
-
-		if (mInfo)
-		{
-			static float time = 0;
-			time += evt.timeSinceLastFrame;
-			if (time > 1)
-			{
-				time -= 1;
-				try
-				{
-					const Ogre::RenderTarget::FrameStats& stats = mWindow->getStatistics();
-					mInfo->change("FPS", (int)stats.lastFPS);
-					mInfo->change("triangle", stats.triangleCount);
-					mInfo->change("batch", stats.batchCount);
-					mInfo->change("batch gui", MyGUI::OgreRenderManager::getInstance().getBatchCount());
-					mInfo->update();
-				}
-				catch (...)
-				{
-					MYGUI_LOG(Warning, "Error get statistics");
-				}
-			}
-		}
 
 		// для дефолтной сцены
 		if (mNode)
@@ -444,11 +404,6 @@ namespace base
 			makeScreenShot();
 			return;
 		}
-		else if (_key == MyGUI::KeyCode::F12)
-		{
-			bool visible = mFocusInfo->getFocusVisible();
-			mFocusInfo->setFocusVisible(!visible);
-		}
 
 		// change polygon mode
 		// TODO: polygon mode require changes in platform
@@ -486,6 +441,7 @@ namespace base
 			mPlatform->getRenderManagerPtr()->setRenderWindow(mWindow);
 		}
 #endif
+
 		MyGUI::InputManager::getInstance().injectKeyPress(_key, _text);
 	}
 
@@ -510,16 +466,6 @@ namespace base
 	void BaseManager::setResourceFilename(const std::string& _flename)
 	{
 		mResourceFileName = _flename;
-	}
-
-	diagnostic::StatisticInfo* BaseManager::getStatisticInfo()
-	{
-		return mInfo;
-	}
-
-	diagnostic::InputFocusInfo* BaseManager::getFocusInput()
-	{
-		return mFocusInfo;
 	}
 
 	Ogre::SceneManager* BaseManager::getSceneManager()
