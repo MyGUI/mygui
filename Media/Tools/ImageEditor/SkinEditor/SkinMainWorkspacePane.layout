@@ -30,6 +30,7 @@
             <UserString key="MinSize" value="100"/>
             <Widget type="TextBox" skin="TextBox_Dark" position="10 0 255 20" align="HStretch Top">
                 <Property key="Caption" value="#{PropertyPanel}"/>
+                <Property key="TextAlign" value="Left VCenter"/>
             </Widget>
             <Widget type="Widget" skin="PanelEmpty" position="5 20 260 700" align="Stretch">
                 <UserString key="ControlType" value="PropertyPanelControl"/>
