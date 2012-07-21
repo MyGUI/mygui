@@ -42,7 +42,7 @@ namespace tools
 
 		mTextFieldControl = new TextFieldControl();
 		mTextFieldControl->Initialise();
-		mTextFieldControl->eventEndDialog = MyGUI::newDelegate(this, &SettingsResourcesControl::notifyEndDialog);
+		mTextFieldControl->eventEndDialog.connect(this, &SettingsResourcesControl::notifyEndDialog);
 
 		mResourceAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickAdd);
 		mResourceDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcesControl::notifyClickDelete);

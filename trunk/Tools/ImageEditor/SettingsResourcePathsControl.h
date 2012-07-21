@@ -14,7 +14,8 @@ namespace tools
 {
 
 	class SettingsResourcePathsControl :
-		public Control
+		public Control,
+		public sigslot::has_slots<>
 	{
 	public:
 		SettingsResourcePathsControl();

@@ -31,7 +31,7 @@ namespace tools
 	{
 		mColourPanel = new ColourPanel();
 		mColourPanel->Initialise();
-		mColourPanel->eventEndDialog = MyGUI::newDelegate(this, &ColourManager::notifyEndDialog);
+		mColourPanel->eventEndDialog.connect(this, &ColourManager::notifyEndDialog);
 		mColourPanel->eventPreviewColour = MyGUI::newDelegate(this, &ColourManager::notifyPreviewColour);
 	}
 

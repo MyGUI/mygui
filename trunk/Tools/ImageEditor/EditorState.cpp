@@ -19,6 +19,7 @@
 #include "DataManager.h"
 #include "DataSelectorManager.h"
 #include "FactoryManager.h"
+#include "SettingsManager.h"
 
 namespace tools
 {
@@ -26,11 +27,8 @@ namespace tools
 	FACTORY_ITEM_ATTRIBUTE(EditorState)
 
 	EditorState::EditorState() :
-		mFileName("unnamed.xml"),
-		mDefaultFileName("unnamed.xml"),
 		mMainPane(nullptr),
 		mOpenSaveFileDialog(nullptr),
-		mMessageBoxFadeControl(nullptr),
 		mSettingsWindow(nullptr)
 	{
 		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &EditorState::commandFileDrop));
@@ -43,6 +41,10 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &EditorState::commandQuit));
 		CommandManager::getInstance().registerCommand("Command_Undo", MyGUI::newDelegate(this, &EditorState::commandUndo));
 		CommandManager::getInstance().registerCommand("Command_Redo", MyGUI::newDelegate(this, &EditorState::commandRedo));
+
+		if (!SettingsManager::getInstance().tryGetValue("EditorState/DefaultFileName", mDefaultFileName))
+			mDefaultFileName = "unnamed.xml";
+		mFileName = mDefaultFileName;
 	}
 
 	EditorState::~EditorState()
@@ -55,21 +57,22 @@ namespace tools
 		addUserTag("CurrentFileName", mFileName);
 
 		mMainPane = new Control();
-		mMainPane->Initialise("MainPane.layout");
-
-		mMessageBoxFadeControl = new MessageBoxFadeControl();
-		mMessageBoxFadeControl->Initialise("MessageBoxFadeControl.layout");
+		mMainPane->Initialise(SettingsManager::getInstance().getValueString("EditorState/MainPaneLayout"));
 
 		mSettingsWindow = new SettingsWindow();
-		mSettingsWindow->Initialise("SettingsWindow.layout");
-		mSettingsWindow->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifySettingsWindowEndDialog);
+		mSettingsWindow->Initialise(SettingsManager::getInstance().getValueString("EditorState/SettingsWindowLayout"));
+		mSettingsWindow->eventEndDialog.connect(this, &EditorState::notifySettingsWindowEndDialog);
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
-		mOpenSaveFileDialog->Initialise("OpenSaveFileDialog2.layout");
-		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialog);
-		mOpenSaveFileDialog->setFileMask("*.xml");
+		mOpenSaveFileDialog->Initialise(SettingsManager::getInstance().getValueString("EditorState/OpenSaveFileDialogLayout"));
+		mOpenSaveFileDialog->eventEndDialog.connect(this, &EditorState::notifyEndDialog);
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
 		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());
+
+		std::string fileMask;
+		if (!SettingsManager::getInstance().tryGetValue("EditorState/DefaultFileMask", fileMask))
+			fileMask = "*.xml";
+		mOpenSaveFileDialog->setFileMask(fileMask);
 
 		ActionManager::getInstance().eventChanges.connect(this, &EditorState::notifyChanges);
 
@@ -89,15 +92,12 @@ namespace tools
 	{
 		ActionManager::getInstance().eventChanges.disconnect(this);
 
-		mOpenSaveFileDialog->eventEndDialog = nullptr;
+		mOpenSaveFileDialog->eventEndDialog.disconnect(this);
 		delete mOpenSaveFileDialog;
 		mOpenSaveFileDialog = nullptr;
 
 		delete mSettingsWindow;
 		mSettingsWindow = nullptr;
-
-		delete mMessageBoxFadeControl;
-		mMessageBoxFadeControl = nullptr;
 
 		delete mMainPane;
 		mMainPane = nullptr;
