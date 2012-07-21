@@ -33,5 +33,27 @@
 	<Editor>
 		<UserSettingsFileName>ie_user_settings.xml</UserSettingsFileName>
 		<DataTypeFileName>ImageDataType.xml</DataTypeFileName>
+		<States>
+			<State.List>
+				<Value>EditorState</Value>
+				<Value>ApplicationState</Value>
+			</State.List>
+			<Event.List>
+				<Value>
+					<Name>Start</Name>
+					<From>ApplicationState</From>
+					<To>EditorState</To>
+				</Value>
+				<Value>
+					<Name>Exit</Name>
+					<From>EditorState</From>
+					<To>ApplicationState</To>
+				</Value>
+			</Event.List>
+			<FirstState>
+				<Name>ApplicationState</Name>
+				<Event>Start</Event>
+			</FirstState>
+		</States>
 	</Editor>
 </Settings>

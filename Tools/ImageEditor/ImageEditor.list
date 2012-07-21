@@ -10,6 +10,7 @@ set (HEADER_FILES
   AnimationInfo.h
   AnimationViewControl.h
   Application.h
+  ApplicationState.h
   AreaSelectorControl.h
   ChangeTextureValueAction.h
   ChangeValueAction.h
@@ -104,6 +105,7 @@ set (SOURCE_FILES
   AnimationInfo.cpp
   AnimationViewControl.cpp
   Application.cpp
+  ApplicationState.cpp
   AreaSelectorControl.cpp
   ChangeTextureValueAction.cpp
   ChangeValueAction.cpp
@@ -393,6 +395,8 @@ SOURCE_GROUP("Resources" FILES
   ImageEditor.rc
 )
 SOURCE_GROUP("States" FILES
+  ApplicationState.cpp
+  ApplicationState.h
   EditorState.cpp
   EditorState.h
   StateController.h

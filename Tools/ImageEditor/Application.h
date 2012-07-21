@@ -8,16 +8,13 @@
 #define _e5a988fe_bba2_480f_a287_d5c967f58266_
 
 #include "BaseManager.h"
-#include "StateController.h"
-#include "EditorState.h"
 
 namespace tools
 {
 
 	class Application :
 		public base::BaseManager,
-		public MyGUI::Singleton<Application>,
-		public StateController
+		public MyGUI::Singleton<Application>
 	{
 	public:
 		Application();
@@ -32,8 +29,6 @@ namespace tools
 
 		typedef std::vector<std::wstring> VectorWString;
 		const VectorWString& getParams();
-
-		virtual void resumeState();
 
 	protected:
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
@@ -55,9 +50,9 @@ namespace tools
 
 		void saveSettings();
 
-	private:
-		EditorState* mEditorState;
+		void LoadStates();
 
+	private:
 		std::string mLocale;
 		VectorWString mParams;
 	};
