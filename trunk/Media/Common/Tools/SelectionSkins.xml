@@ -22,7 +22,6 @@
     <Resource type="ResourceLayout" name="StretchBorderWhite" version="3.2.0">
         <Widget type="Widget" skin="" position="30 30 62 62" name="Root">
             <Property key="Snap" value="false"/>
-            <Property key="NeedMouse" value="false"/>
             <Property key="Pointer" value="hand"/>
             <UserString key="MainMove" value="true"/>
             <UserString key="LE_TargetWidgetType" value="Window"/>
