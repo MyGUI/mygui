@@ -24,6 +24,7 @@ namespace tools
 		void shutdown();
 
 		void pushState(StateController* _state);
+		void pushState(const std::string& _stateName);
 		void popState();
 
 		bool getStateActivate(StateController* _state);
@@ -31,6 +32,7 @@ namespace tools
 		void rollbackToState(StateController* _state);
 
 		void stateEvent(StateController* _state, const std::string& _event);
+		void stateEvent(const std::string& _stateName, const std::string& _event);
 
 		void registerState(StateController* _state, const std::string& _name);
 		void registerEventState(const std::string& _stateName, const std::string& _eventName, const std::string& _toState);

@@ -28,11 +28,15 @@ namespace tools
 	void StateManager::shutdown()
 	{
 		rollbackToState(nullptr);
+
+		for (MapStateController::iterator state = mStateName.begin(); state != mStateName.end(); state ++)
+			delete (*state).second;
+		mStateName.clear();
 	}
 
 	void StateManager::pushState(StateController* _state)
 	{
-		MYGUI_ASSERT(_state != nullptr, "State is nullptr");
+		MYGUI_ASSERT(_state != nullptr, "State not found");
 		MYGUI_ASSERT(std::find(mStates.begin(), mStates.end(), _state) == mStates.end(), "State already added");
 
 		StateController* pauseState = getCurentState();
@@ -43,6 +47,16 @@ namespace tools
 			pauseState->pauseState();
 
 		_state->initState();
+	}
+
+	void StateManager::pushState(const std::string& _stateName)
+	{
+		StateController* state = getStateByName(_stateName);
+
+		MYGUI_ASSERT(state != nullptr, "State not found");
+		MYGUI_ASSERT(std::find(mStates.begin(), mStates.end(), state) == mStates.end(), "State already added");
+
+		pushState(state);
 	}
 
 	void StateManager::popState()
@@ -77,6 +91,15 @@ namespace tools
 	{
 		while (getCurentState() != _state && getCurentState() != nullptr)
 			popState();
+	}
+
+	void StateManager::stateEvent(const std::string& _stateName, const std::string& _event)
+	{
+		StateController* state = getStateByName(_stateName);
+
+		MYGUI_ASSERT(state != nullptr, "State not found");
+
+		stateEvent(state, _event);
 	}
 
 	void StateManager::stateEvent(StateController* _state, const std::string& _event)

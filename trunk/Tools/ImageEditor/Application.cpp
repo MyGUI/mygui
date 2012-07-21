@@ -25,6 +25,7 @@
 #include "DataTypeManager.h"
 #include "DataSelectorManager.h"
 #include "ScopeManager.h"
+#include "FactoryManager.h"
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
@@ -32,8 +33,7 @@ template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Ap
 namespace tools
 {
 
-	Application::Application() :
-		mEditorState(nullptr)
+	Application::Application()
 	{
 	}
 
@@ -148,16 +148,7 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_QuitApp", MyGUI::newDelegate(this, &Application::command_QuitApp));
 		CommandManager::getInstance().registerCommand("Command_UpdateAppCaption", MyGUI::newDelegate(this, &Application::command_UpdateAppCaption));
 
-		mEditorState = new EditorState();
-
-		StateManager::getInstance().registerState(this, "Application");
-		StateManager::getInstance().registerState(mEditorState, "EditorState");
-
-		StateManager::getInstance().registerEventState("Application", "Start", "EditorState");
-		StateManager::getInstance().registerEventState("EditorState", "Exit", "Application");
-
-		StateManager::getInstance().pushState(this);
-		StateManager::getInstance().stateEvent(this, "Start");
+		LoadStates();
 	}
 
 	void Application::destroyScene()
@@ -165,9 +156,6 @@ namespace tools
 		saveSettings();
 
 		StateManager::getInstance().rollbackToState(nullptr);
-
-		delete mEditorState;
-		mEditorState = nullptr;
 
 		ScopeManager::getInstance().shutdown();
 		delete ScopeManager::getInstancePtr();
@@ -434,11 +422,6 @@ namespace tools
 		_result = true;
 	}
 
-	void Application::resumeState()
-	{
-		quit();
-	}
-
 	void Application::command_StatisticInfo(const MyGUI::UString& _commandName, bool& _result)
 	{
 		getStatisticInfo()->setVisible(!getStatisticInfo()->getVisible());
@@ -476,6 +459,26 @@ namespace tools
 	{
 		SettingsManager::getInstance().setValue("Windows/Main/Maximized", getWindowMaximized());
 		SettingsManager::getInstance().setValue("Windows/Main/Coord", getWindowCoord());
+	}
+
+	void Application::LoadStates()
+	{
+		SettingsManager::VectorString values = SettingsManager::getInstance().getValueListString("Editor/States/State.List");
+		for (SettingsManager::VectorString::const_iterator value = values.begin(); value != values.end(); value ++)
+		{
+			StateController* state = components::FactoryManager::GetInstance().CreateItem<StateController>(*value);
+			if (state != nullptr)
+				StateManager::getInstance().registerState(state, *value);
+		}
+
+		StateManager::getInstance().registerEventState("ApplicationState", "Start", "EditorState");
+		StateManager::getInstance().registerEventState("EditorState", "Exit", "ApplicationState");
+
+		std::string firstState = SettingsManager::getInstance().getValueString("Editor/States/FirstState/Name");
+		StateManager::getInstance().pushState(firstState);
+
+		std::string firstEvent = SettingsManager::getInstance().getValueString("Editor/States/FirstState/Event");
+		StateManager::getInstance().stateEvent(firstState, firstEvent);
 	}
 
 }

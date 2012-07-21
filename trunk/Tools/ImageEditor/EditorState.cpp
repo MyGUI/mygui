@@ -18,9 +18,12 @@
 #include "ExportManager.h"
 #include "DataManager.h"
 #include "DataSelectorManager.h"
+#include "FactoryManager.h"
 
 namespace tools
 {
+
+	FACTORY_ITEM_ATTRIBUTE(EditorState)
 
 	EditorState::EditorState() :
 		mFileName("unnamed.xml"),

@@ -8,11 +8,13 @@
 #define _5bbd7ceb_411b_45fa_8c83_dbd118de6b83_
 
 #include <MyGUI.h>
+#include "IFactoryItem.h"
 
 namespace tools
 {
 
-	class StateController
+	class StateController :
+		public components::IFactoryItem
 	{
 	public:
 		StateController() { }
