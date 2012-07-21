@@ -153,4 +153,19 @@ namespace tools
 		PropertyUtility::executeAction(_data->getProperty(mPropertyForName), _name);
 	}
 
+	const std::string& DataListBaseControl::getParentType() const
+	{
+		return mParentType;
+	}
+
+	const std::string& DataListBaseControl::getCurrentType() const
+	{
+		return mCurrentType;
+	}
+
+	const std::string& DataListBaseControl::getPropertyForUnique() const
+	{
+		return mPropertyForUnique;
+	}
+
 }

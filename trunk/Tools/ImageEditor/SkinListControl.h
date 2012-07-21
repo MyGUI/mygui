@@ -21,6 +21,9 @@ namespace tools
 
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+
+	private:
+		void commandCreateImageData(const MyGUI::UString& _commandName, bool& _result);
 	};
 
 }

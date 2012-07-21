@@ -32,11 +32,15 @@ namespace tools
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
+		bool checkCommand(bool _result);
+
+		const std::string& getParentType() const;
+		const std::string& getCurrentType() const;
+		const std::string& getPropertyForUnique() const;
+
 	private:
 		void notifyChangePosition(Data* _data1, Data* _data2);
 		void notifyChangeName(Data* _data, const std::string& _name);
-
-		bool checkCommand(bool _result);
 
 	private:
 		ListBoxDataControl* mListBoxControl;

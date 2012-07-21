@@ -11,6 +11,7 @@
 
 namespace tools
 {
+
 	class DataUtility
 	{
 	public:
@@ -26,6 +27,7 @@ namespace tools
 		static void copyProperty(Data* _target, Data* _prototype);
 		static bool checkUniqueName(Data* _parent, const std::string& _name);
 	};
+
 }
 
 #endif
