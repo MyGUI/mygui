@@ -295,7 +295,7 @@ namespace tools
 
 		SettingsManager2::VectorString values;
 		//values = SettingsManager::getInstance().getSector("Window")->getPropertyValueList(mSaveAs);
-		values = SettingsManager2::getInstance().getValueListString("Window/" + mSaveAs + ".List/Item");
+		values = SettingsManager2::getInstance().getValueListString("Window/" + mSaveAs + ".List");
 		SettingsManager2::VectorString::const_iterator value = values.begin();
 
 		for (VectorWidget::const_iterator child = mChilds.begin(); child != mChilds.end(); child ++)
@@ -333,7 +333,7 @@ namespace tools
 		}
 
 		//SettingsManager::getInstance().getSector("Window")->setPropertyValueList(mSaveAs, values);
-		SettingsManager2::getInstance().setValueListString("Window/" + mSaveAs + ".List/Item", values);
+		SettingsManager2::getInstance().setValueListString("Window/" + mSaveAs + ".List", values);
 	}
 
 }

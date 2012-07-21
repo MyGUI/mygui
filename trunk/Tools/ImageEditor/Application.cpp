@@ -124,12 +124,12 @@ namespace tools
 		MyGUI::ResourceManager::getInstance().load("Initialise.xml");
 
 		//const SettingsSector::VectorUString& additionalPaths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalPaths");
-		const SettingsManager2::VectorString& additionalPaths = SettingsManager2::getInstance().getValueListString("Settings/AdditionalPath.List/AdditionalPath");
+		const SettingsManager2::VectorString& additionalPaths = SettingsManager2::getInstance().getValueListString("Settings/AdditionalPath.List");
 		for (SettingsManager2::VectorString::const_iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
 			addResourceLocation(*iter);
 
 		//const SettingsSector::VectorUString& additionalResources = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalResources");
-		const SettingsManager2::VectorString& additionalResources = SettingsManager2::getInstance().getValueListString("Settings/AdditionalResource.List/AdditionalResource");
+		const SettingsManager2::VectorString& additionalResources = SettingsManager2::getInstance().getValueListString("Settings/AdditionalResource.List");
 		for (SettingsManager2::VectorString::const_iterator iter = additionalResources.begin(); iter != additionalResources.end(); ++iter)
 			MyGUI::ResourceManager::getInstance().load(*iter);
 

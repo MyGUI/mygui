@@ -37,7 +37,7 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_ChangeScale", MyGUI::newDelegate(this, &TextureToolControl::CommandChangeScale));
 
 		//mScaleValue = SettingsManager::getInstance().getSector("TextureScale")->getPropertyValueList<size_t>("ScaleValue");
-		mScaleValue = SettingsManager2::getInstance().getValueList<size_t>("TextureScale/ScaleValue.List/ScaleValue");
+		mScaleValue = SettingsManager2::getInstance().getValueList<size_t>("TextureScale/ScaleValue.List");
 
 		//SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &TextureToolControl::notifySettingsChanged);
 		SettingsManager2::getInstance().eventSettingsChanged.connect(this, &TextureToolControl::notifySettingsChanged);
