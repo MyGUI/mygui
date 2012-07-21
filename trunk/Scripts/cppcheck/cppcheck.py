@@ -10,7 +10,8 @@ ignoredEndings = [
 ]
 ignoredContent = [
 	"(style) The function '", # ignore "Function is never used"
-	"MyGUI_UString", #ignore warnings from MyGUI_UString, because it wasn't written by MyGUI authors
+	"MyGUI_UString", #ignore warnings from UString, because it wasn't written by the MyGUI developers
+	"pugixml", #ignore warnings from pugixml, because it wasn't written by the MyGUI developers
 	") Include file: ", # ignore "(debug) Include file: "name" can not be found."
 	"Technically the member function 'input::", #useless, because with other input system this function could be non-const
 	"Cppcheck cannot find all the include files"
