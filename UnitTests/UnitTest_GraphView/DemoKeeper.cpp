@@ -20,7 +20,6 @@ namespace demo
 {
 
 	DemoKeeper::DemoKeeper() :
-		base::BaseManager(),
 		mGraphView(nullptr),
 		mGraph(nullptr),
 		mFileDialog(nullptr),
