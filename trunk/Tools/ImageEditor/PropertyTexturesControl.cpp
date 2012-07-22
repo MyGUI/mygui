@@ -33,7 +33,7 @@ namespace tools
 
 	void PropertyTexturesControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
-		Control::OnInitialise(_parent, _place, "PropertyTextureBrowseControl.layout");
+		PropertyControl::OnInitialise(_parent, _place, "PropertyTextureBrowseControl.layout");
 
 		assignWidget(mName, "Name", false);
 		assignWidget(mComboBox, "ComboBox");

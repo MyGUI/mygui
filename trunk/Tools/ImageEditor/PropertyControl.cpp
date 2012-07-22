@@ -65,9 +65,9 @@ namespace tools
 	{
 	}
 
-	void PropertyControl::executeAction(const std::string& _value)
+	void PropertyControl::executeAction(const std::string& _value, bool _merge)
 	{
-		PropertyUtility::executeAction(mProperty, _value);
+		PropertyUtility::executeAction(mProperty, _value, _merge);
 	}
 
 }

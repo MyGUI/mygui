@@ -19,20 +19,14 @@ namespace tools
 
 	SkinExportSerializer::SkinExportSerializer()
 	{
-		#define FILL_EXPORT_NAME(value1, value2) \
-			mEditorToExportNames[value1] = value2; \
-			mExportToEditorNames[value2] = value1;
-
-		FILL_EXPORT_NAME("Disabled", "disabled")
-		FILL_EXPORT_NAME("Normal", "normal")
-		FILL_EXPORT_NAME("Over", "highlighted")
-		FILL_EXPORT_NAME("Pressed", "pushed")
-		FILL_EXPORT_NAME("Selected Disabled", "disabled_checked")
-		FILL_EXPORT_NAME("Selected Normal", "normal_checked")
-		FILL_EXPORT_NAME("Selected Over", "highlighted_checked")
-		FILL_EXPORT_NAME("Selected Pressed", "pushed_checked")
-
-		#undef FILL_EXPORT_NAME
+		registerMapName("Disabled", "disabled");
+		registerMapName("Normal", "normal");
+		registerMapName("Over", "highlighted");
+		registerMapName("Pressed", "pushed");
+		registerMapName("Selected Disabled", "disabled_checked");
+		registerMapName("Selected Normal", "normal_checked");
+		registerMapName("Selected Over", "highlighted_checked");
+		registerMapName("Selected Pressed", "pushed_checked");
 	}
 
 	SkinExportSerializer::~SkinExportSerializer()
@@ -296,6 +290,12 @@ namespace tools
 		}
 
 		return "";
+	}
+
+	void SkinExportSerializer::registerMapName(const std::string& _value1, const std::string& _value2)
+	{
+		mEditorToExportNames[_value1] = _value2;
+		mExportToEditorNames[_value2] = _value1;
 	}
 
 }
