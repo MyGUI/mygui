@@ -126,11 +126,26 @@ namespace tools
 		if (mParentData != nullptr)
 		{
 			size_t currentIndex = mListBox->getIndexSelected();
-			size_t needIndex = mParentData->getChildIndex(mParentData->getChildSelected());
+			Data* selection = currentIndex != MyGUI::ITEM_NONE ? *mListBox->getItemDataAt<Data*>(currentIndex) : nullptr;
 
-			if (currentIndex != needIndex)
-				mListBox->setIndexSelected(needIndex);
+			if (selection != mParentData->getChildSelected())
+				selectListItemByData(mParentData->getChildSelected());
 		}
+	}
+
+	void ListBoxDataControl::selectListItemByData(Data* _data)
+	{
+		for (size_t index = 0; index < mListBox->getItemCount(); index ++)
+		{
+			Data* selection = *mListBox->getItemDataAt<Data*>(index);
+			if (selection == _data)
+			{
+				mListBox->setIndexSelected(index);
+				return;
+			}
+		}
+
+		mListBox->setIndexSelected(MyGUI::ITEM_NONE);
 	}
 
 	void ListBoxDataControl::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)

@@ -53,6 +53,7 @@
 				<Child>
 					<Type>State</Type>
 					<Type>Separator</Type>
+					<Type>Region</Type>
 				</Child>
 			</Childs>
 		</DataType>
@@ -135,6 +136,47 @@
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
 					<Action>ChangeValueAction</Action>
+				</Property>
+			</Properties>
+		</DataType>
+		<DataType>
+			<Name>Region</Name>
+			<Properties>
+				<Property>
+					<Name>Name</Name>
+					<Type>PropertyStringControl</Type>
+					<Initialisator></Initialisator>
+					<Default></Default>
+					<Visible>false</Visible>
+					<ReadOnly>true</ReadOnly>
+					<Action></Action>
+				</Property>
+				<Property>
+					<Name>Coord</Name>
+					<Type>PropertyInt4Control</Type>
+					<Initialisator></Initialisator>
+					<Default>0 0 0 0</Default>
+					<Visible>true</Visible>
+					<ReadOnly>true</ReadOnly>
+					<Action></Action>
+				</Property>
+				<Property>
+					<Name>Visible</Name>
+					<Type>PropertyBoolControl</Type>
+					<Initialisator></Initialisator>
+					<Default>False</Default>
+					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
+					<Action>ChangeValueAction</Action>
+				</Property>
+				<Property>
+					<Name>Enable</Name>
+					<Type>PropertyBoolControl</Type>
+					<Initialisator></Initialisator>
+					<Default>False</Default>
+					<Visible>true</Visible>
+					<ReadOnly>true</ReadOnly>
+					<Action></Action>
 				</Property>
 			</Properties>
 		</DataType>
