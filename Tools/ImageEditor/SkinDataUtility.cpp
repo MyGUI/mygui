@@ -52,6 +52,26 @@ namespace tools
 		state->setType(DataTypeManager::getInstance().getType("State"));
 		state->setPropertyValue("Name", "Selected Pressed");
 		_skinData->addChild(state);
+
+		Data* separator = new Data();
+		separator->setType(DataTypeManager::getInstance().getType("Separator"));
+		separator->setPropertyValue("Name", "Left");
+		_skinData->addChild(separator);
+
+		separator = new Data();
+		separator->setType(DataTypeManager::getInstance().getType("Separator"));
+		separator->setPropertyValue("Name", "Top");
+		_skinData->addChild(separator);
+
+		separator = new Data();
+		separator->setType(DataTypeManager::getInstance().getType("Separator"));
+		separator->setPropertyValue("Name", "Right");
+		_skinData->addChild(separator);
+
+		separator = new Data();
+		separator->setType(DataTypeManager::getInstance().getType("Separator"));
+		separator->setPropertyValue("Name", "Bottom");
+		_skinData->addChild(separator);
 	}
 
 }

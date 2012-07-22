@@ -37,6 +37,7 @@ namespace tools
 	void StateTextureController::activate()
 	{
 		mParentTypeName = "Skin";
+		mThisType = "State";
 		mScopeName = "State";
 
 		ScopeManager::getInstance().eventChangeScope.connect(this, &StateTextureController::notifyChangeScope);
@@ -78,6 +79,9 @@ namespace tools
 		{
 			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
 			{
+				if ((*child)->getType()->getName() != mThisType)
+					continue;
+
 				property = (*child)->getProperty("Point");
 				if (!property->eventChangeProperty.exist(this, &StateTextureController::notifyChangeProperty))
 					property->eventChangeProperty.connect(this, &StateTextureController::notifyChangeProperty);
@@ -194,6 +198,9 @@ namespace tools
 			Data* selected = mParentData->getChildSelected();
 			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
 			{
+				if ((*child)->getType()->getName() != mThisType)
+					continue;
+
 				bool visible = (*child)->getPropertyValue<bool>("Visible");
 				MyGUI::IntPoint value = (*child)->getPropertyValue<MyGUI::IntPoint>("Point");
 

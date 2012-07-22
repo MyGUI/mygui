@@ -27,7 +27,7 @@ namespace tools
 
 		void setEnableChangePosition(bool _value);
 
-		void setDataInfo(const std::string& _parentType, const std::string& _propertyName, const std::string& _propertyUnique);
+		void setDataInfo(const std::string& _parentType, const std::string& _thisType, const std::string& _propertyName, const std::string& _propertyUnique);
 		void setReplaceColourName(const std::string& _value);
 
 		sigslot::signal2<Data*, Data*> eventChangePosition;
@@ -57,6 +57,7 @@ namespace tools
 		size_t mLastIndex;
 		std::string mPropertyForName;
 		std::string mPropertyForUnique;
+		std::string mThisType;
 		MyGUI::PopupMenu* mContextMenu;
 		TextFieldControl* mTextFieldControl;
 		bool mEnableChangePosition;

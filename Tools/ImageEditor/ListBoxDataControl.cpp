@@ -207,10 +207,12 @@ namespace tools
 		mEnableChangePosition = _value;
 	}
 
-	void ListBoxDataControl::setDataInfo(const std::string& _parentType, const std::string& _propertyName, const std::string& _propertyUnique)
+	void ListBoxDataControl::setDataInfo(const std::string& _parentType, const std::string& _thisType, const std::string& _propertyName, const std::string& _propertyUnique)
 	{
 		mPropertyForName = _propertyName;
 		mPropertyForUnique = _propertyUnique;
+		mThisType = _thisType;
+
 		DataSelectorManager::getInstance().getEvent(_parentType)->connect(this, &ListBoxDataControl::notifyChangeDataSelector);
 		mParentData = DataUtility::getSelectedDataByType(_parentType);
 		notifyChangeDataSelector(mParentData, false);
