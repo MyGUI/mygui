@@ -66,7 +66,15 @@ namespace tools
 	void PropertyPanelController::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
 	{
 		if (mControl != nullptr)
-			mControl->setCurrentData(_data != nullptr ? _data->getChildSelected() : nullptr);
+		{
+			Data* selected = _data != nullptr ? _data->getChildSelected() : nullptr;
+
+			// выделяем только данные с типом скопа
+			if (selected != nullptr && selected->getType()->getName() != ScopeManager::getInstance().getCurrentScope())
+				selected = nullptr;
+
+			mControl->setCurrentData(selected);
+		}
 	}
 
 }

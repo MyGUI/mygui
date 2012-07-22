@@ -49,6 +49,7 @@
 	<Tag name="TabSkins">Скины</Tag>
 	<Tag name="TabStates">Состояния</Tag>
 	<Tag name="TabSeparators">Разделители</Tag>
+	<Tag name="TabRegions">Регионы</Tag>
 	<Tag name="ColourZero">Нет цвета</Tag>
 	<Tag name="ColourBlack">Черный</Tag>
 	<Tag name="ColourWhite">Белый</Tag>
