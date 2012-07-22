@@ -264,6 +264,9 @@ namespace tools
 
 		for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end(); child ++)
 		{
+			if ((*child)->getType()->getName() != "State")
+				continue;
+
 			Data* childData = (*child);
 			MapPoint::iterator result = values.find(convertEditorToExportStateName(childData->getPropertyValue("Name")));
 			if (result != values.end())

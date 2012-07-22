@@ -56,7 +56,7 @@ namespace tools
 		mPropertyForUnique = _propertyUnique;
 
 		if (mListBoxControl != nullptr)
-			mListBoxControl->setDataInfo(mParentType, mPropertyForName, mPropertyForUnique);
+			mListBoxControl->setDataInfo(mParentType, _currentType, mPropertyForName, mPropertyForUnique);
 	}
 
 }

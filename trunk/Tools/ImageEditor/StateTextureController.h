@@ -39,6 +39,7 @@ namespace tools
 		ScopeTextureControl* mControl;
 		std::string mParentTypeName;
 		std::string mScopeName;
+		std::string mThisType;
 		Data* mParentData;
 		bool mActivated;
 		MyGUI::IntSize mSize;

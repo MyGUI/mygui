@@ -52,6 +52,7 @@
 			<Childs>
 				<Child>
 					<Type>State</Type>
+					<Type>Separator</Type>
 				</Child>
 			</Childs>
 		</DataType>
@@ -99,6 +100,38 @@
 					<Type>PropertyIntControl</Type>
 					<Initialisator></Initialisator>
 					<Default>0</Default>
+					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
+					<Action>ChangeValueAction</Action>
+				</Property>
+			</Properties>
+		</DataType>
+		<DataType>
+			<Name>Separator</Name>
+			<Properties>
+				<Property>
+					<Name>Name</Name>
+					<Type>PropertyStringControl</Type>
+					<Initialisator></Initialisator>
+					<Default></Default>
+					<Visible>false</Visible>
+					<ReadOnly>true</ReadOnly>
+					<Action></Action>
+				</Property>
+				<Property>
+					<Name>Offset</Name>
+					<Type>PropertyIntControl</Type>
+					<Initialisator></Initialisator>
+					<Default>0</Default>
+					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
+					<Action>ChangeValueAction</Action>
+				</Property>
+				<Property>
+					<Name>Visible</Name>
+					<Type>PropertyBoolControl</Type>
+					<Initialisator></Initialisator>
+					<Default>False</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
 					<Action>ChangeValueAction</Action>
