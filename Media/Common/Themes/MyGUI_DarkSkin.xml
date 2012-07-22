@@ -1572,4 +1572,33 @@
             <State name="normal" offset="504 120 2 2"/>
         </BasisSkin>
     </Resource>
+    <Resource type="ResourceSkin" name="WhiteSkin2_Dark" size="10 10" texture="MyGUI_Dark.png">
+        <BasisSkin type="SubSkin" offset="0 0 4 4" align="Left Top">
+            <State name="normal" offset="500 116 4 4"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="4 0 2 4" align="HStretch Top">
+            <State name="normal" offset="504 116 2 4"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="6 0 4 4" align="Right Top">
+            <State name="normal" offset="506 116 4 4"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="6 4 4 2" align="Right VStretch">
+            <State name="normal" offset="506 120 4 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="6 6 4 4" align="Right Bottom">
+            <State name="normal" offset="506 122 4 4"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="4 6 2 4" align="HStretch Bottom">
+            <State name="normal" offset="504 122 2 4"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 6 4 4" align="Left Bottom">
+            <State name="normal" offset="500 122 4 4"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="0 4 4 2" align="Left VStretch">
+            <State name="normal" offset="500 120 4 2"/>
+        </BasisSkin>
+        <BasisSkin type="SubSkin" offset="4 4 2 2" align="Stretch">
+            <State name="normal" offset="504 120 2 2"/>
+        </BasisSkin>
+    </Resource>
 </MyGUI>
