@@ -45,6 +45,7 @@ namespace tools
 
 		std::string convertEditorToExportStateName(const std::string& _value);
 		std::string convertExportToEditorStateName(const std::string& _value);
+		void registerMapName(const std::string& _value1, const std::string& _value2);
 
 		std::string GetStateValue(Data* _data, const std::string& _name, const std::string& _propertyName);
 

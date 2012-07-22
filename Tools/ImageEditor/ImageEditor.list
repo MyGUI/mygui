@@ -63,6 +63,7 @@ set (HEADER_FILES
   PositionSelectorControl.h
   Property.h
   PropertyBoolControl.h
+  PropertyColourControl.h
   PropertyControl.h
   PropertyFloatControl.h
   PropertyInt2Control.h
@@ -161,6 +162,7 @@ set (SOURCE_FILES
   PositionSelectorControl.cpp
   Property.cpp
   PropertyBoolControl.cpp
+  PropertyColourControl.cpp
   PropertyControl.cpp
   PropertyFloatControl.cpp
   PropertyInt2Control.cpp
@@ -295,6 +297,8 @@ SOURCE_GROUP("Controls\\Lists" FILES
 SOURCE_GROUP("Controls\\Properties" FILES
   PropertyBoolControl.cpp
   PropertyBoolControl.h
+  PropertyColourControl.cpp
+  PropertyColourControl.h
   PropertyControl.cpp
   PropertyControl.h
   PropertyFloatControl.cpp

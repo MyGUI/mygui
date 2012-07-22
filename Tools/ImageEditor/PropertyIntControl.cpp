@@ -27,7 +27,7 @@ namespace tools
 
 	void PropertyIntControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
-		Control::OnInitialise(_parent, _place, "PropertyEditControl.layout");
+		PropertyControl::OnInitialise(_parent, _place, "PropertyEditControl.layout");
 
 		assignWidget(mName, "Name", false);
 		assignWidget(mEdit, "Edit");
