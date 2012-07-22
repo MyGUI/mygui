@@ -16,6 +16,11 @@ namespace tools
 	{
 	public:
 		static void CreateSkinData(Data* _skinData);
+
+	private:
+		static void CreateStates(Data* _skinData);
+		static void CreateSeparators(Data* _skinData);
+		static void CreateRegions(Data* _skinData);
 	};
 
 }
