@@ -79,6 +79,7 @@ set (HEADER_FILES
   ScopeTextureControl.h
   SelectorControl.h
   SeparatorControl.h
+  SeparatorListControl.h
   SeparatorUtility.h
   SettingsGeneralControl.h
   SettingsManager.h
@@ -178,6 +179,7 @@ set (SOURCE_FILES
   ScopeTextureControl.cpp
   SelectorControl.cpp
   SeparatorControl.cpp
+  SeparatorListControl.cpp
   SettingsGeneralControl.cpp
   SettingsManager.cpp
   SettingsResourcePathsControl.cpp
@@ -289,6 +291,8 @@ SOURCE_GROUP("Controls\\Lists" FILES
   IndexListControl.h
   ListBoxDataControl.cpp
   ListBoxDataControl.h
+  SeparatorListControl.cpp
+  SeparatorListControl.h
   SkinListControl.cpp
   SkinListControl.h
   StateListControl.cpp

@@ -18,5 +18,13 @@
 				<UserString key="ControlLayout" value="StateListControl.layout"/>
 			</Widget>
 		</Widget>
+		<Widget type="TabItem" skin="" position="2 22 491 302">
+			<Property key="Caption" value="#{TabSeparators}"/>
+			<UserString key="CommandActivate" value="Command_ChangeScope.Separator"/>
+			<Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
+				<UserString key="ControlType" value="SeparatorListControl"/>
+				<UserString key="ControlLayout" value="StateListControl.layout"/>
+			</Widget>
+		</Widget>
 	</Widget>
 </MyGUI>

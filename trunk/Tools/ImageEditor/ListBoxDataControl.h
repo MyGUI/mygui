@@ -49,6 +49,7 @@ namespace tools
 		void connectToProperty(Data* _data);
 
 		bool isUnique(Data* _data, const std::string& _propertyName);
+		void selectListItemByData(Data* _data);
 
 	private:
 		MyGUI::ListBox* mListBox;

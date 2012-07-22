@@ -48,6 +48,7 @@
 	<Tag name="ButtonUp">Up</Tag>
 	<Tag name="TabSkins">Skins</Tag>
 	<Tag name="TabStates">States</Tag>
+	<Tag name="TabSeparators">Separators</Tag>
 	<Tag name="ColourZero">Zero</Tag>
 	<Tag name="ColourBlack">Black</Tag>
 	<Tag name="ColourWhite">White</Tag>
