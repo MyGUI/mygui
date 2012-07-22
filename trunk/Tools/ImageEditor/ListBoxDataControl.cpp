@@ -89,7 +89,7 @@ namespace tools
 			for (size_t index = 0; index < mListBox->getItemCount(); index ++)
 				mListBox->setItemDataAt(index, nullptr);
 
-			const Data::VectorData& childs = mParentData->getChilds();
+			const Data::VectorData& childs = DataUtility::getChildsByType(mParentData, mThisType);
 
 			while (mListBox->getItemCount() > childs.size())
 				mListBox->removeItemAt(mListBox->getItemCount() - 1);
