@@ -27,6 +27,8 @@
 #include "ScopeManager.h"
 #include "FactoryManager.h"
 
+#include "FileSystemInfo/FileSystemInfo.h" // FIXME
+
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
 
@@ -141,6 +143,29 @@ namespace tools
 
 		CreateControls();
 		LoadStates();
+
+		/*common::VectorWString files;
+		common::scanFolder(files, L"D:\\MyGUI\\MyGUI_Trunk", true, L"*.xml", true);
+
+		for (size_t index = 0; index < files.size(); index ++)
+		{
+			std::wstring file = files[index];
+
+			pugi::xml_document doc;
+			pugi::xml_parse_result resultLoad = doc.load_file(file.c_str());
+			if (resultLoad)
+			{
+				bool resultSave = doc.save_file(file.c_str(), "\t", (pugi::format_indent | pugi::format_write_bom | pugi::format_win_new_line) & (~pugi::format_space_before_slash));
+				if (!resultSave)
+				{
+					int test = 0;
+				}
+			}
+			else
+			{
+				int test = 0;
+			}
+		}*/
 	}
 
 	void Application::destroyScene()
