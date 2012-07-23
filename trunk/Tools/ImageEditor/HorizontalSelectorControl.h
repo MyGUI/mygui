@@ -4,8 +4,8 @@
 	@date		08/2010
 */
 
-#ifndef _cfb9d18e_b6dc_4543_827d_ee5f6fa93fdd_
-#define _cfb9d18e_b6dc_4543_827d_ee5f6fa93fdd_
+#ifndef _fb36ada9_f808_498d_adbf_b028b77a119e_
+#define _fb36ada9_f808_498d_adbf_b028b77a119e_
 
 #include "SelectorControl.h"
 

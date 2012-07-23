@@ -207,10 +207,7 @@ namespace tools
 				if (selected == *child)
 				{
 					if (visible)
-					{
 						mControl->setCoordValue(MyGUI::IntCoord(value, mSize), ScopeTextureControl::SelectorPosition);
-						mControl->setCoordValueReadOnly(false);
-					}
 					else
 						mControl->clearCoordValue();
 				}

@@ -152,7 +152,6 @@ namespace tools
 		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))
 		{
 			mControl->setCoordValue(coord, ScopeTextureControl::SelectorCoord);
-			mControl->setCoordValueReadOnly(false);
 		}
 		else
 		{
