@@ -66,13 +66,23 @@ namespace tools
 		DataManager::getInstance().getRoot()->addChild(data);
 
 		SkinDataUtility::CreateSkinData(data);
-		FillStateData(data, _node);
+		fillStateData(data, _node);
 
-		std::string value = GetStateValue(data, "Normal", "Point");
+		Data* state = getChildData(data, "State", "Normal");
+		std::string value = state != nullptr ? state->getPropertyValue("Point") : "";
 		MyGUI::IntPoint point = MyGUI::IntPoint::parse(value);
 		MyGUI::IntSize size = MyGUI::IntSize::parse(_node.attribute("size").value());
 
 		data->setPropertyValue("Size", MyGUI::IntCoord(point.left, point.top, size.width, size.height).print());
+
+		fillSeparatorData(data, _node);
+
+		MyGUI::IntRect separators = SkinDataUtility::getSeparatorsOffset(data);
+		SkinDataUtility::VectorCoord coords = SkinDataUtility::getRegions(size, separators);
+		SkinDataUtility::fillRegionCoords(data, coords);
+
+		SkinDataUtility::RectVisible visible = SkinDataUtility::getSeparatorsVisible(data);
+		SkinDataUtility::fillRegionEnable(data, visible);
 	}
 
 	void SkinExportSerializer::writeSkin(pugi::xml_node _parent, Data* _data)
@@ -84,7 +94,7 @@ namespace tools
 		node.append_attribute("size").set_value(MyGUI::IntCoord::parse(_data->getPropertyValue("Size")).size().print().c_str());
 	}
 
-	void SkinExportSerializer::FillStateData(Data* _data, pugi::xml_node _node)
+	void SkinExportSerializer::fillStateData(Data* _data, pugi::xml_node _node)
 	{
 		typedef std::map<std::string, MyGUI::IntPoint> MapPoint;
 		MapPoint values;
@@ -157,21 +167,56 @@ namespace tools
 		return mExportToEditorNames.find(_value)->second;
 	}
 
-	std::string SkinExportSerializer::GetStateValue(Data* _data, const std::string& _name, const std::string& _propertyName)
-	{
-		for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end(); child ++)
-		{
-			if ((*child)->getPropertyValue("Name") == _name)
-				return (*child)->getPropertyValue(_propertyName);
-		}
-
-		return "";
-	}
-
 	void SkinExportSerializer::registerMapName(const std::string& _value1, const std::string& _value2)
 	{
 		mEditorToExportNames[_value1] = _value2;
 		mExportToEditorNames[_value2] = _value1;
+	}
+
+	void SkinExportSerializer::fillSeparatorData(Data* _data, pugi::xml_node _node)
+	{
+		pugi::xpath_node_set regions = _node.select_nodes("BasisSkin[@type=\"SubSkin\"or@type=\"TileRect\"]");
+		for (pugi::xpath_node_set::const_iterator region = regions.begin(); region != regions.end(); region ++)
+		{
+			MyGUI::IntCoord offset = MyGUI::IntCoord::parse((*region).node().attribute("offset").value());
+
+			MyGUI::Align align = MyGUI::Align::parse((*region).node().attribute("align").value());
+			if (align.isLeft())
+			{
+				Data* data = getChildData(_data, "Separator", "Left");
+				data->setPropertyValue("Visible", "True");
+				data->setPropertyValue("Offset", MyGUI::utility::toString(offset.width));
+			}
+			else if (align.isRight())
+			{
+				Data* data = getChildData(_data, "Separator", "Right");
+				data->setPropertyValue("Visible", "True");
+				data->setPropertyValue("Offset", MyGUI::utility::toString(offset.width));
+			}
+			if (align.isTop())
+			{
+				Data* data = getChildData(_data, "Separator", "Top");
+				data->setPropertyValue("Visible", "True");
+				data->setPropertyValue("Offset", MyGUI::utility::toString(offset.height));
+			}
+			else if (align.isBottom())
+			{
+				Data* data = getChildData(_data, "Separator", "Bottom");
+				data->setPropertyValue("Visible", "True");
+				data->setPropertyValue("Offset", MyGUI::utility::toString(offset.height));
+			}
+		}
+	}
+
+	Data* SkinExportSerializer::getChildData(Data* _data, const std::string& _dataType, const std::string& _name)
+	{
+		for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end(); child ++)
+		{
+			if ((*child)->getType()->getName() == _dataType && (*child)->getPropertyValue("Name") == _name)
+				return (*child);
+		}
+
+		return nullptr;
 	}
 
 }
