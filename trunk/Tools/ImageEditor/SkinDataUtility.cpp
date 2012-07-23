@@ -41,7 +41,7 @@ namespace tools
 		MyGUI::IntSize size = getSkinSize(_skinData);
 		MyGUI::IntRect separators = getSkinSeparators(_skinData);
 		VectorCoord coords = getRegions(size, separators);
-		FillRegions(_skinData, coords);
+		FillRegionCoords(_skinData, coords);
 	}
 
 	void SkinDataUtility::CreateStates(Data* _skinData)
@@ -137,6 +137,7 @@ namespace tools
 		region = new Data();
 		region->setType(DataTypeManager::getInstance().getType("Region"));
 		region->setPropertyValue("Name", names[RegionCenter]);
+		region->setPropertyValue("Enable", "True"); // Center всегда доступен
 		_skinData->addChild(region);
 
 		region = new Data();
@@ -210,7 +211,7 @@ namespace tools
 		return result;
 	}
 
-	void SkinDataUtility::FillRegions(Data* _skinData, const SkinDataUtility::VectorCoord& _value)
+	void SkinDataUtility::FillRegionCoords(Data* _skinData, const SkinDataUtility::VectorCoord& _value)
 	{
 		const VectorString& names = getRegionNames();
 

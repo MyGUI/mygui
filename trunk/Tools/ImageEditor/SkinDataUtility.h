@@ -34,7 +34,7 @@ namespace tools
 		typedef std::vector<std::string> VectorString;
 		static const VectorString& getRegionNames();
 
-		static void FillRegions(Data* _skinData, const VectorCoord& _value);
+		static void FillRegionCoords(Data* _skinData, const VectorCoord& _value);
 
 	private:
 		static void CreateStates(Data* _skinData);

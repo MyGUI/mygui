@@ -81,7 +81,7 @@ namespace tools
 		MyGUI::IntSize size = SkinDataUtility::getSkinSize(skinData);
 		MyGUI::IntRect separators = SkinDataUtility::getSkinSeparators(skinData);
 		SkinDataUtility::VectorCoord coords = SkinDataUtility::getRegions(size, separators);
-		SkinDataUtility::FillRegions(skinData, coords);
+		SkinDataUtility::FillRegionCoords(skinData, coords);
 	}
 
 }
