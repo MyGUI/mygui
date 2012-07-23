@@ -27,8 +27,10 @@ namespace tools
 
 		void setEnableChangePosition(bool _value);
 
-		void setDataInfo(const std::string& _parentType, const std::string& _thisType, const std::string& _propertyName, const std::string& _propertyUnique);
+		void setDataInfo(const std::string& _parentType, const std::string& _thisType, const std::string& _propertyName);
 		void setReplaceColourName(const std::string& _value);
+
+		void addPropertyNameEnabled(const std::string& _propertyName);
 
 		sigslot::signal2<Data*, Data*> eventChangePosition;
 		sigslot::signal2<Data*, const std::string&> eventChangeName;
@@ -48,7 +50,7 @@ namespace tools
 
 		void connectToProperty(Data* _data);
 
-		bool isUnique(Data* _data, const std::string& _propertyName);
+		bool isDataEnabled(Data* _data);
 		void selectListItemByData(Data* _data);
 
 	private:
@@ -57,12 +59,14 @@ namespace tools
 		Data* mParentData;
 		size_t mLastIndex;
 		std::string mPropertyForName;
-		std::string mPropertyForUnique;
 		std::string mThisType;
 		MyGUI::PopupMenu* mContextMenu;
 		TextFieldControl* mTextFieldControl;
 		bool mEnableChangePosition;
 		std::string mColourName;
+
+		typedef std::vector<std::string> VectorString;
+		VectorString mPropertyNamesEnable;
 	};
 
 }

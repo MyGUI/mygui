@@ -44,19 +44,12 @@ namespace tools
 		{
 			mListBoxControl->setEnableChangePosition(false);
 			mListBoxControl->setReplaceColourName("ColourDisabled");
+
+			mListBoxControl->addPropertyNameEnabled("Visible");
+			mListBoxControl->addPropertyNameEnabled("Enable");
+
+			mListBoxControl->setDataInfo("Skin", "Region", "Name");
 		}
-
-		setDataInfo("Skin", "Region", "Name", "Visible");
-	}
-
-	void RegionListControl::setDataInfo(const std::string& _parentType, const std::string& _currentType, const std::string& _propertyName, const std::string& _propertyUnique)
-	{
-		mParentType = _parentType;
-		mPropertyForName = _propertyName;
-		mPropertyForUnique = _propertyUnique;
-
-		if (mListBoxControl != nullptr)
-			mListBoxControl->setDataInfo(mParentType, _currentType, mPropertyForName, mPropertyForUnique);
 	}
 
 }

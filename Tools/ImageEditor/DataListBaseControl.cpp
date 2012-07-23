@@ -136,7 +136,10 @@ namespace tools
 		mPropertyForUnique = _propertyUnique;
 
 		if (mListBoxControl != nullptr)
-			mListBoxControl->setDataInfo(mParentType, mCurrentType, mPropertyForName, mPropertyForUnique);
+		{
+			mListBoxControl->setDataInfo(mParentType, mCurrentType, mPropertyForName);
+			mListBoxControl->addPropertyNameEnabled(mPropertyForUnique);
+		}
 	}
 
 	void DataListBaseControl::notifyChangePosition(Data* _data1, Data* _data2)
