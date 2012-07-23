@@ -101,7 +101,7 @@ namespace tools
 			{
 				Data* child = childs.at(index);
 
-				bool unique = isUnique(child, mPropertyForUnique);
+				bool unique = isDataEnabled(child);
 				if (unique)
 					mListBox->setItemNameAt(index, child->getPropertyValue(mPropertyForName));
 				else
@@ -222,10 +222,9 @@ namespace tools
 		mEnableChangePosition = _value;
 	}
 
-	void ListBoxDataControl::setDataInfo(const std::string& _parentType, const std::string& _thisType, const std::string& _propertyName, const std::string& _propertyUnique)
+	void ListBoxDataControl::setDataInfo(const std::string& _parentType, const std::string& _thisType, const std::string& _propertyName)
 	{
 		mPropertyForName = _propertyName;
-		mPropertyForUnique = _propertyUnique;
 		mThisType = _thisType;
 
 		DataSelectorManager::getInstance().getEvent(_parentType)->connect(this, &ListBoxDataControl::notifyChangeDataSelector);
@@ -239,9 +238,9 @@ namespace tools
 		if (!property->eventChangeProperty.exist(this, &ListBoxDataControl::notifyChangeProperty))
 			property->eventChangeProperty.connect(this, &ListBoxDataControl::notifyChangeProperty);
 
-		if (!mPropertyForUnique.empty())
+		for (VectorString::const_iterator name = mPropertyNamesEnable.begin(); name != mPropertyNamesEnable.end(); name ++)
 		{
-			property = _data->getProperty(mPropertyForUnique);
+			property = _data->getProperty(*name);
 			if (!property->eventChangeProperty.exist(this, &ListBoxDataControl::notifyChangeProperty))
 				property->eventChangeProperty.connect(this, &ListBoxDataControl::notifyChangeProperty);
 		}
@@ -259,7 +258,7 @@ namespace tools
 			Data* data = *mListBox->getItemDataAt<Data*>(index);
 			if (data == _sender->getOwner())
 			{
-				bool unique = isUnique(data, mPropertyForUnique);
+				bool unique = isDataEnabled(data);
 				if (unique)
 					mListBox->setItemNameAt(index, data->getPropertyValue(mPropertyForName));
 				else
@@ -268,17 +267,25 @@ namespace tools
 		}
 	}
 
-	bool ListBoxDataControl::isUnique(Data* _data, const std::string& _propertyName)
+	bool ListBoxDataControl::isDataEnabled(Data* _data)
 	{
-		if (_propertyName.empty())
-			return true;
+		for (VectorString::const_iterator name = mPropertyNamesEnable.begin(); name != mPropertyNamesEnable.end(); name ++)
+		{
+			if (!_data->getPropertyValue<bool>(*name))
+				return false;
+		}
 
-		return _data->getPropertyValue<bool>(_propertyName);
+		return true;
 	}
 
 	void ListBoxDataControl::setReplaceColourName(const std::string& _value)
 	{
 		mColourName = _value;
+	}
+
+	void ListBoxDataControl::addPropertyNameEnabled(const std::string& _propertyName)
+	{
+		mPropertyNamesEnable.push_back(_propertyName);
 	}
 
 }

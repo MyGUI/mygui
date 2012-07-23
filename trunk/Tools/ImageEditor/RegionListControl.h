@@ -22,16 +22,11 @@ namespace tools
 		RegionListControl();
 		virtual ~RegionListControl();
 
-		void setDataInfo(const std::string& _parentType, const std::string& _currentType, const std::string& _propertyName, const std::string& _propertyUnique);
-
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
 		ListBoxDataControl* mListBoxControl;
-		std::string mParentType;
-		std::string mPropertyForName;
-		std::string mPropertyForUnique;
 	};
 
 }
