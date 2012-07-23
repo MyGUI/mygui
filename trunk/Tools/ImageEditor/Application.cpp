@@ -27,7 +27,7 @@
 #include "ScopeManager.h"
 #include "FactoryManager.h"
 
-#include "FileSystemInfo/FileSystemInfo.h" // FIXME
+//#include "FileSystemInfo/FileSystemInfo.h" // FIXME
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
@@ -155,6 +155,10 @@ namespace tools
 			pugi::xml_parse_result resultLoad = doc.load_file(file.c_str());
 			if (resultLoad)
 			{
+				pugi::xml_node decl = doc.prepend_child(pugi::node_declaration);
+				decl.append_attribute("version") = "1.0";
+				decl.append_attribute("encoding") = "UTF-8";
+
 				bool resultSave = doc.save_file(file.c_str(), "\t", (pugi::format_indent | pugi::format_write_bom | pugi::format_win_new_line) & (~pugi::format_space_before_slash));
 				if (!resultSave)
 				{
