@@ -83,6 +83,8 @@ namespace tools
 
 		SkinDataUtility::RectVisible visible = SkinDataUtility::getSeparatorsVisible(data);
 		SkinDataUtility::fillRegionEnable(data, visible);
+
+		fillRegionData(data, _node);
 	}
 
 	void SkinExportSerializer::writeSkin(pugi::xml_node _parent, Data* _data)
@@ -175,6 +177,16 @@ namespace tools
 
 	void SkinExportSerializer::fillSeparatorData(Data* _data, pugi::xml_node _node)
 	{
+		// по дефолту там может быть что угодно
+		Data* data = getChildData(_data, "Separator", "Left");
+		data->setPropertyValue("Offset", "0"); 
+		data = getChildData(_data, "Separator", "Right");
+		data->setPropertyValue("Offset", "0");
+		data = getChildData(_data, "Separator", "Top");
+		data->setPropertyValue("Offset", "0");
+		data = getChildData(_data, "Separator", "Bottom");
+		data->setPropertyValue("Offset", "0");
+
 		pugi::xpath_node_set regions = _node.select_nodes("BasisSkin[@type=\"SubSkin\"or@type=\"TileRect\"]");
 		for (pugi::xpath_node_set::const_iterator region = regions.begin(); region != regions.end(); region ++)
 		{
@@ -217,6 +229,57 @@ namespace tools
 		}
 
 		return nullptr;
+	}
+
+	void SkinExportSerializer::fillRegionData(Data* _data, pugi::xml_node _node)
+	{
+		pugi::xpath_node_set regions = _node.select_nodes("BasisSkin[@type=\"SubSkin\"or@type=\"TileRect\"]");
+		for (pugi::xpath_node_set::const_iterator region = regions.begin(); region != regions.end(); region ++)
+		{
+			Data* regionData = nullptr;
+
+			MyGUI::Align align = MyGUI::Align::parse((*region).node().attribute("align").value());
+
+			if (align.isLeft() && align.isTop())
+				regionData = getChildData(_data, "Region", "Left Top");
+			else if (align.isLeft() && align.isVStretch())
+				regionData = getChildData(_data, "Region", "Left");
+			else if (align.isLeft() && align.isBottom())
+				regionData = getChildData(_data, "Region", "Left Bottom");
+
+			else if (align.isHStretch() && align.isTop())
+				regionData = getChildData(_data, "Region", "Top");
+			else if (align.isHStretch() && align.isVStretch())
+				regionData = getChildData(_data, "Region", "Center");
+			else if (align.isHStretch() && align.isBottom())
+				regionData = getChildData(_data, "Region", "Bottom");
+
+			else if (align.isRight() && align.isTop())
+				regionData = getChildData(_data, "Region", "Right Top");
+			else if (align.isRight() && align.isVStretch())
+				regionData = getChildData(_data, "Region", "Right");
+			else if (align.isRight() && align.isBottom())
+				regionData = getChildData(_data, "Region", "Right Bottom");
+
+			if (regionData == nullptr)
+				continue;
+
+			regionData->setPropertyValue("Visible", "True");
+
+			std::string type = (*region).node().attribute("type").value();
+			if (type == "TileRect")
+			{
+				bool vert = MyGUI::utility::parseValue<bool>((*region).node().select_single_node("State/Property[@key=\"TileV\"]/@value").attribute().value());
+				bool horz = MyGUI::utility::parseValue<bool>((*region).node().select_single_node("State/Property[@key=\"TileH\"]/@value").attribute().value());
+
+				if (vert && !horz)
+					type = "TileRect Vert";
+				else if (!vert && horz)
+					type = "TileRect Horz";
+			}
+
+			regionData->setPropertyValue("Type", type);
+		}
 	}
 
 }
