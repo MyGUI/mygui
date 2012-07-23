@@ -85,6 +85,7 @@ set (HEADER_FILES
   SelectorControl.h
   SeparatorControl.h
   SeparatorListControl.h
+  SeparatorTextureController.h
   SeparatorUtility.h
   SettingsGeneralControl.h
   SettingsManager.h
@@ -190,6 +191,7 @@ set (SOURCE_FILES
   SelectorControl.cpp
   SeparatorControl.cpp
   SeparatorListControl.cpp
+  SeparatorTextureController.cpp
   SettingsGeneralControl.cpp
   SettingsManager.cpp
   SettingsResourcePathsControl.cpp
@@ -263,6 +265,8 @@ SOURCE_GROUP("Controllers" FILES
   PropertyPanelController.h
   RegionTextureController.cpp
   RegionTextureController.h
+  SeparatorTextureController.cpp
+  SeparatorTextureController.h
   SkinTextureController.cpp
   SkinTextureController.h
   StateTextureController.cpp
