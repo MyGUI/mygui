@@ -37,6 +37,7 @@ namespace tools
 
 		ScopeTextureControl::SelectorType getTypeByName(const std::string& _name);
 		MyGUI::IntCoord getCoordByName(const std::string& _name, int _offset);
+		int getOffsetByName(const MyGUI::IntCoord& _coord, const std::string& _name);
 
 	private:
 		ScopeTextureControl* mControl;

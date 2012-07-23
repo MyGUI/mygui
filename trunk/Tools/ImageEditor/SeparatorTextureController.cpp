@@ -119,16 +119,17 @@ namespace tools
 
 	void SeparatorTextureController::notifyChangeValue(const std::string& _value)
 	{
-		/*if (mParentData != nullptr)
+		if (mParentData != nullptr)
 		{
 			Data* selected = mParentData->getChildSelected();
 			if (selected != nullptr)
 			{
-				MyGUI::IntCoord coord = MyGUI::IntCoord::parse(_value);
-				Property* property = selected->getProperty("Point");
-				PropertyUtility::executeAction(property, coord.point().print(), true);
+				MyGUI::IntCoord value = MyGUI::IntCoord::parse(_value);
+				int offset = getOffsetByName(value, selected->getPropertyValue("Name"));
+				Property* property = selected->getProperty("Offset");
+				PropertyUtility::executeAction(property, MyGUI::utility::toString(offset), true);
 			}
-		}*/
+		}
 	}
 
 	void SeparatorTextureController::notifyChangeScope(const std::string& _scope)
@@ -256,6 +257,20 @@ namespace tools
 			return MyGUI::IntCoord(0, mTextureCoord.height - _offset, mTextureCoord.width, 1);
 
 		return MyGUI::IntCoord();
+	}
+
+	int SeparatorTextureController::getOffsetByName(const MyGUI::IntCoord& _coord, const std::string& _name)
+	{
+		if (_name == "Left")
+			return _coord.left;
+		else if (_name == "Right")
+			return mTextureCoord.width - _coord.left;
+		else if (_name == "Top")
+			return _coord.top;
+		else if (_name == "Bottom")
+			return mTextureCoord.height - _coord.top;
+
+		return 0;
 	}
 
 }
