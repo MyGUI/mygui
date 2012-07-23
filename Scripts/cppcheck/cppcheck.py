@@ -1,30 +1,25 @@
 # run from root sources directory: python Scripts/cppcheck/cppcheck.py
 import os
 
-ignoredEndings = [
-	"It is safe to deallocate a NULL pointer",
-	"Exception thrown in destructor",
-	"::initialise' can be const.",
-	"::shutdown' can be const.",
-	"hides typedef with same name"
-]
 ignoredContent = [
+	"It is safe to deallocate a NULL pointer", # ignore, fine for us
+	"Exception thrown in destructor.", # ignore, fine for us
+	"::initialise' can be const.", # ignore, because some are not const and we keep all non-const for similarity
+	"::shutdown' can be const.", # ignore, because some are not const and we keep all non-const for similarity
+	"hides typedef with same name", # false positive
 	"(style) The function '", # ignore "Function is never used"
-	"MyGUI_UString", #ignore warnings from UString, because it wasn't written by the MyGUI developers
-	"pugixml", #ignore warnings from pugixml, because it wasn't written by the MyGUI developers
-	"sigslot", #ignore warnings from sigslot, because it wasn't written by the MyGUI developers
+	"MyGUI_UString", # ignore warnings from UString, because it wasn't written by the MyGUI developers
+	"pugixml", # ignore warnings from pugixml, because it wasn't written by the MyGUI developers
+	"sigslot", # ignore warnings from sigslot, because it wasn't written by the MyGUI developers
 	") Include file: ", # ignore "(debug) Include file: "name" can not be found."
-	"Technically the member function 'input::", #useless, because with other input system this function could be non-const
+	"Technically the member function 'input::", # useless, because with other input system this function could be non-const
 	"Cppcheck cannot find all the include files",
-	"is assigned in constructor body. Consider to perform initalization in initialization list.",
-	"(performance) Prefer prefix ++/-- operators for non-primitive types", # leave this optimisation to compiler
-	"MyGUI_DelegateImplement.h:211]: (warning) 'operator=' should check for assignment to self to avoid problems with dynamic memory." # bug in cppcheck
+	"is assigned in constructor body. Consider to perform initalization in initialization list.", # ignore, fine for us
+	"(performance) Prefer prefix ++/-- operators for non-primitive types", # ignore, fine for us - leave this optimisation to compiler
+	"MyGUI_DelegateImplement.h:211]: (warning) 'operator=' should check for assignment to self to avoid problems with dynamic memory." # false positive
 ]
 
 def isIgnoredWarning(warning):
-	for ignore in ignoredEndings:
-		if warning.endswith(ignore):
-			return True
 	for ignore in ignoredContent:
 		if warning.find(ignore) != -1:
 			return True
