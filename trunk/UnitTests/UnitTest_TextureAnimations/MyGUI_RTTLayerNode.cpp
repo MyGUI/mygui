@@ -142,7 +142,7 @@ namespace MyGUI
 		{
 			// блитим анимацию
 			mVertexBuffer->setVertexCount(count_quad * VertexQuad::VertexCount);
-			VertexQuad* quad = (VertexQuad*)mVertexBuffer->lock();
+			VertexQuad* quad = reinterpret_cast<VertexQuad*>(mVertexBuffer->lock());
 
 			for (size_t index = 0; index < count_quad; ++index)
 			{
@@ -164,7 +164,7 @@ namespace MyGUI
 			if (_update || need_update)
 			{
 				mVertexBuffer->setVertexCount(count_quad * VertexQuad::VertexCount);
-				VertexQuad* quad = (VertexQuad*)mVertexBuffer->lock();
+				VertexQuad* quad = reinterpret_cast<VertexQuad*>(mVertexBuffer->lock());
 
 				// копируем дефолтные данные
 				quad->vertex[VertexQuad::CornerLT] = mDefaultData.vertex[QuadData::CornerLT];

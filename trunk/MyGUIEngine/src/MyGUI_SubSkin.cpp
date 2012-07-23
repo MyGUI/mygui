@@ -242,7 +242,7 @@ namespace MyGUI
 	{
 		if (!mVisible || mEmptyView) return;
 
-		VertexQuad* quad = (VertexQuad*)mRenderItem->getCurrentVertexBuffer();
+		VertexQuad* quad = reinterpret_cast<VertexQuad*>(mRenderItem->getCurrentVertexBuffer());
 
 		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
 

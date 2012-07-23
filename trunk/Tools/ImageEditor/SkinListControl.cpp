@@ -30,9 +30,9 @@ namespace tools
 		DataListBaseControl::OnInitialise(_parent, _place, _layoutName);
 
 		CommandManager::getInstance().getEvent("Command_CreateSkinData")->connect(this, &SkinListControl::commandCreateImageData);
-		CommandManager::getInstance().getEvent("Command_CloneSkinData")->connect((DataListBaseControl*)this, &DataListBaseControl::commandCloneImageData);
-		CommandManager::getInstance().getEvent("Command_DestroySkinData")->connect((DataListBaseControl*)this, &DataListBaseControl::commandDestroyImageData);
-		CommandManager::getInstance().getEvent("Command_RenameSkinData")->connect((DataListBaseControl*)this, &DataListBaseControl::commandRenameImageData);
+		CommandManager::getInstance().getEvent("Command_CloneSkinData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandCloneImageData);
+		CommandManager::getInstance().getEvent("Command_DestroySkinData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandDestroyImageData);
+		CommandManager::getInstance().getEvent("Command_RenameSkinData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandRenameImageData);
 
 		setDataInfo("Root", "Skin", "Name", "UniqueName");
 	}

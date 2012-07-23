@@ -26,10 +26,10 @@ namespace tools
 	{
 		DataListBaseControl::OnInitialise(_parent, _place, _layoutName);
 
-		CommandManager::getInstance().getEvent("Command_CreateGroupData")->connect((DataListBaseControl*)this, &DataListBaseControl::commandCreateImageData);
-		CommandManager::getInstance().getEvent("Command_CloneGroupData")->connect((DataListBaseControl*)this, &DataListBaseControl::commandCloneImageData);
-		CommandManager::getInstance().getEvent("Command_DestroyGroupData")->connect((DataListBaseControl*)this, &DataListBaseControl::commandDestroyImageData);
-		CommandManager::getInstance().getEvent("Command_RenameGroupData")->connect((DataListBaseControl*)this, &DataListBaseControl::commandRenameImageData);
+		CommandManager::getInstance().getEvent("Command_CreateGroupData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandCreateImageData);
+		CommandManager::getInstance().getEvent("Command_CloneGroupData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandCloneImageData);
+		CommandManager::getInstance().getEvent("Command_DestroyGroupData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandDestroyImageData);
+		CommandManager::getInstance().getEvent("Command_RenameGroupData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandRenameImageData);
 
 		setDataInfo("Image", "Group", "Name", "UniqueName");
 	}

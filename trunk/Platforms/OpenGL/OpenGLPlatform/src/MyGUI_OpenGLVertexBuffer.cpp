@@ -55,7 +55,7 @@ namespace MyGUI
 		glBufferDataARB(GL_ARRAY_BUFFER_ARB, mSizeInBytes, 0, GL_STREAM_DRAW_ARB);
 
 
-		Vertex* pBuffer = (Vertex*)glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB);
+		Vertex* pBuffer = reinterpret_cast<Vertex*>(glMapBufferARB(GL_ARRAY_BUFFER_ARB, GL_WRITE_ONLY_ARB));
 
 		MYGUI_PLATFORM_ASSERT(pBuffer, "Error lock vertex buffer");
 
