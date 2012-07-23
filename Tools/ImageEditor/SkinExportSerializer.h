@@ -28,13 +28,14 @@ namespace tools
 		void parseSkin(pugi::xml_node _node);
 		void writeSkin(pugi::xml_node _parent, Data* _data);
 
-		void FillStateData(Data* _data, pugi::xml_node _node);
+		void fillStateData(Data* _data, pugi::xml_node _node);
+		void fillSeparatorData(Data* _data, pugi::xml_node _node);
 
 		std::string convertEditorToExportStateName(const std::string& _value);
 		std::string convertExportToEditorStateName(const std::string& _value);
 		void registerMapName(const std::string& _value1, const std::string& _value2);
 
-		std::string GetStateValue(Data* _data, const std::string& _name, const std::string& _propertyName);
+		Data* getChildData(Data* _data, const std::string& _dataType, const std::string& _name);
 
 	private:
 		typedef std::map<std::string, std::string> MapString;
