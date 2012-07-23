@@ -149,6 +149,6 @@
 		<Name>Command_ScreenShot</Name>
 		<KeyCode>SysRq</KeyCode>
 		<Pressed>true</Pressed>
-		<Modifier></Modifier>
+		<Modifier/>
 	</Command>
 </MyGUI>

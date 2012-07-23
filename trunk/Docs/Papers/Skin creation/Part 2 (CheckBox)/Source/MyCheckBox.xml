@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource" version="1.1">
-
 	<Resource type="ResourceSkin" name="MyCheckBox" size="69 25" texture="MyCheckBox.png">
 		<Property key="FontName" value="Default"/>
 		<BasisSkin type="SubSkin" offset="0 0 27 25" align="Left Top">
@@ -24,5 +23,4 @@
 			<State name="pushed_checked" colour="#FFFFFF"/>
 		</BasisSkin>
 	</Resource>
-
 </MyGUI>

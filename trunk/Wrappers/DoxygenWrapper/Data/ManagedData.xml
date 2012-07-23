@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <Root>
-
 	<Item type="MyGUI::Button" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -12,7 +11,6 @@
 		<Tag key="ThisName" value="Button"/>
 		<Tag key="ThisType" value="Button"/>
 	</Item>
-
 	<Item type="MyGUI::ComboBox" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -28,7 +26,6 @@
 		<Member name="addItem" template="Method2_1.txt"/>
 		<Member name="insertItemAt" template="Method3_2.txt"/>
 	</Item>
-
 	<Item type="MyGUI::DDContainer" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -41,7 +38,6 @@
 		<Tag key="ThisType" value="DDContainer"/>
 		<Member name="requestDragWidgetInfo" template="DelegateRequest3_Ref2.txt"/>
 	</Item>
-
 	<Item type="MyGUI::EditBox" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -53,7 +49,6 @@
 		<Tag key="ThisName" value="EditBox"/>
 		<Tag key="ThisType" value="EditBox"/>
 	</Item>
-
 	<Item type="MyGUI::ItemBox" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -68,7 +63,6 @@
 		<Member name="addItem" template="Method1_0.txt"/>
 		<Member name="insertItemAt" template="Method2_1.txt"/>
 	</Item>
-
 	<Item type="MyGUI::ListBox" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -83,7 +77,6 @@
 		<Member name="addItem" template="Method2_1.txt"/>
 		<Member name="insertItemAt" template="Method3_2.txt"/>
 	</Item>
-
 	<Item type="MyGUI::MenuBar" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -95,7 +88,6 @@
 		<Tag key="ThisName" value="MenuBar"/>
 		<Tag key="ThisType" value="MenuBar"/>
 	</Item>
-
 	<Item type="MyGUI::MenuControl" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -113,7 +105,6 @@
 		<Member name="addItem" template="MethodReturn4_3_2_1.txt"/>
 		<Member name="insertItemAt" template="MethodReturn5_4_3_2.txt"/>
 	</Item>
-
 	<Item type="MyGUI::MultiListBox" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -132,7 +123,6 @@
 		<Member name="addItem" template="Method2_1.txt"/>
 		<Member name="insertItemAt" template="Method3_2.txt"/>
 	</Item>
-
 	<Item type="MyGUI::PopupMenu" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -144,7 +134,6 @@
 		<Tag key="ThisName" value="PopupMenu"/>
 		<Tag key="ThisType" value="PopupMenu"/>
 	</Item>
-
 	<Item type="MyGUI::ProgressBar" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -156,7 +145,6 @@
 		<Tag key="ThisName" value="ProgressBar"/>
 		<Tag key="ThisType" value="ProgressBar"/>
 	</Item>
-
 	<Item type="MyGUI::ScrollView" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -168,7 +156,6 @@
 		<Tag key="ThisName" value="ScrollView"/>
 		<Tag key="ThisType" value="ScrollView"/>
 	</Item>
-
 	<Item type="MyGUI::ImageBox" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -184,7 +171,6 @@
 		<Member name="getItemResource" template="Empty.txt"/>
 		<Member name="setItemResourceInfo" template="Empty.txt"/>
 	</Item>
-
 	<Item type="MyGUI::TextBox" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -196,7 +182,6 @@
 		<Tag key="ThisName" value="TextBox"/>
 		<Tag key="ThisType" value="TextBox"/>
 	</Item>
-
 	<Item type="MyGUI::TabControl" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -212,7 +197,6 @@
 		<Member name="addItem" template="MethodReturn2_1.txt"/>
 		<Member name="insertItemAt" template="MethodReturn3_2.txt"/>
 	</Item>
-
 	<Item type="MyGUI::ScrollBar" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -224,7 +208,6 @@
 		<Tag key="ThisName" value="ScrollBar"/>
 		<Tag key="ThisType" value="ScrollBar"/>
 	</Item>
-
 	<Item type="MyGUI::Widget" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -244,7 +227,6 @@
 		<Member name="createWidget" template="Empty.txt"/>
 		<Member name="findWidgets" template="Empty.txt"/>
 	</Item>
-
 	<Item type="MyGUI::Window" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -256,7 +238,6 @@
 		<Tag key="ThisName" value="Window"/>
 		<Tag key="ThisType" value="Window"/>
 	</Item>
-
 	<Item type="MyGUI::MenuItem" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -271,7 +252,6 @@
 		<Member name="setItemData" template="Empty.txt"/>
 		<Member name="getItemData" template="PropertyDataGetSet.txt"/>
 	</Item>
-
 	<Item type="MyGUI::TabItem" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -283,7 +263,6 @@
 		<Tag key="ThisName" value="TabItem"/>
 		<Tag key="ThisType" value="TabItem"/>
 	</Item>
-
 	<Item type="MyGUI::MultiListItem" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>
 		<Template template="RegisterFactory.txt" type="Managed_Templates" name="GuiFactory.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_GuiFactory.h"/>
@@ -295,7 +274,6 @@
 		<Tag key="ThisName" value="MultiListItem"/>
 		<Tag key="ThisType" value="MultiListItem"/>
 	</Item>
-
 	<Item type="MyGUI::WidgetInput" namespace="MyGUI">
 		<Template type="Managed_Templates" name="Part.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_WidgetInput.h"/>
 		<Tag key="Include" value="#include &quot;MyGUI_Managed_WidgetUserData.h&quot;"/>
@@ -304,7 +282,6 @@
 		<Tag key="ThisType" value="Widget"/>
 		<Member name="setMaskPick" template="Empty.txt"/>
 	</Item>
-
 	<Item type="MyGUI::UserData" namespace="MyGUI">
 		<Template type="Managed_Templates" name="Part.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_WidgetUserData.h"/>
 		<Tag key="Include" value="#include &quot;MyGUI_Managed_WidgetCropped.h&quot;"/>
@@ -314,7 +291,6 @@
 		<Member name="setUserData" template="Empty.txt"/>
 		<Member name="getUserData" template="Empty.txt"/>
 	</Item>
-
 	<Item type="MyGUI::ICroppedRectangle" namespace="MyGUI">
 		<Template type="Managed_Templates" name="Part.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_WidgetCropped.h"/>
 		<Tag key="Include" value="#include &quot;../BaseWidget.h&quot;"/>
@@ -323,5 +299,4 @@
 		<Tag key="ThisType" value="Widget"/>
 		<Member name="getCroppedParent" template="Empty.txt"/>
 	</Item>
-
 </Root>

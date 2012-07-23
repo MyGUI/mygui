@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource" version="1.1">
-
 	<Resource type="ResourceSkin" name="MyButton" size="113 27" texture="MyButton2.png">
 		<Property key="FontName" value="Default"/>
 		<Property key="TextAlign" value="Center"/>
@@ -66,6 +64,4 @@
 			<State name="pushed" colour="#606060" shift="true"/>
 		</BasisSkin>
 	</Resource>
-
 </MyGUI>
-

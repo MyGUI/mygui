@@ -3,12 +3,9 @@
 	<MyGUI type="Widgets">
 		<Widget name="HikariWidget">
 			<Property key="DefaultSkin" value="Canvas"/>
-
 			<Property key="Skin" value="Canvas" group="Plugin" name="HikariWidget"/>
-
 			<Property key="Parent" value="true"/>
 			<Property key="Child" value="true"/>
-
 			<Parameter key="Hikari_Source" value="FileName"/>
 			<Parameter key="Hikari_Transparent" value="Bool"/>
 		</Widget>

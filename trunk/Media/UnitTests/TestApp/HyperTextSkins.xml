@@ -13,8 +13,7 @@
 			<Widget type="ScrollViewPanel" skin="ScrollView" position="0 0 16 16" align="Stretch" name="ScrollViewPanel">
 				<Property key="CanvasAlign" value="Default"/>
 				<Property key="VisibleHScroll" value="false"/>
-				<Widget type="StackPanel" skin="PanelEmpty" position="0 0 16 16" align="Default" name="StackPanel">
-				</Widget>
+				<Widget type="StackPanel" skin="PanelEmpty" position="0 0 16 16" align="Default" name="StackPanel"/>
 			</Widget>
 		</Widget>
 	</Resource>

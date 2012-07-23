@@ -1,20 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <Root>
-
 	<TypeHolder>
-
 		<TypeInfo name="int">
 			<TypeName>int</TypeName>
 			<MarshalTypeName>int</MarshalTypeName>
 			<MarshalTypeNameReturn>int</MarshalTypeNameReturn>
 		</TypeInfo>
-
 		<TypeInfo name="float">
 			<TypeName>float</TypeName>
 			<MarshalTypeName>float</MarshalTypeName>
 			<MarshalTypeNameReturn>float</MarshalTypeNameReturn>
 		</TypeInfo>
-
 		<TypeInfo name="bool">
 			<TypeName>bool</TypeName>
 			<MarshalTypeName>bool</MarshalTypeName>
@@ -22,7 +18,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.U1)]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.U1)]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="bool &amp;">
 			<TypePrefix>ref</TypePrefix>
 			<TypeName>bool</TypeName>
@@ -31,20 +26,16 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.U1)]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.U1)]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="size_t">
 			<TypeName>uint</TypeName>
 			<MarshalTypeName>uint</MarshalTypeName>
 			<MarshalTypeNameReturn>uint</MarshalTypeNameReturn>
 		</TypeInfo>
-
 		<TypeInfo name="unsigned int">
 			<TypeName>uint</TypeName>
 			<MarshalTypeName>uint</MarshalTypeName>
 			<MarshalTypeNameReturn>uint</MarshalTypeNameReturn>
 		</TypeInfo>
-
-
 		<TypeInfo name="const MyGUI::UString &amp;">
 			<TypeName>string</TypeName>
 			<MarshalTypeName>string</MarshalTypeName>
@@ -53,7 +44,6 @@
 			<MarshalConvertBefore> Marshal.PtrToStringUni( </MarshalConvertBefore>
 			<MarshalConvertPost> ) </MarshalConvertPost>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::UString">
 			<TypeName>string</TypeName>
 			<MarshalTypeName>string</MarshalTypeName>
@@ -62,7 +52,6 @@
 			<MarshalConvertBefore> Marshal.PtrToStringUni( </MarshalConvertBefore>
 			<MarshalConvertPost> ) </MarshalConvertPost>
 		</TypeInfo>
-
 		<TypeInfo name="const std::string &amp;">
 			<TypeName>string</TypeName>
 			<MarshalTypeName>string</MarshalTypeName>
@@ -71,7 +60,6 @@
 			<MarshalConvertBefore> Marshal.PtrToStringAnsi( </MarshalConvertBefore>
 			<MarshalConvertPost> ) </MarshalConvertPost>
 		</TypeInfo>
-
 		<TypeInfo name="std::string">
 			<TypeName>string</TypeName>
 			<MarshalTypeName>string</MarshalTypeName>
@@ -80,8 +68,6 @@
 			<MarshalConvertBefore> Marshal.PtrToStringAnsi( </MarshalConvertBefore>
 			<MarshalConvertPost> ) </MarshalConvertPost>
 		</TypeInfo>
-
-
 		<TypeInfo name="MyGUI::types::TPoint &lt; int &gt;">
 			<TypeName>IntPoint</TypeName>
 			<MarshalTypeName>IntPoint</MarshalTypeName>
@@ -136,7 +122,6 @@
 			<MarshalConvertBefore> (FloatPoint)Marshal.PtrToStructure( </MarshalConvertBefore>
 			<MarshalConvertPost> , typeof(FloatPoint) ) </MarshalConvertPost>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::types::TSize &lt; int &gt;">
 			<TypeName>IntSize</TypeName>
 			<MarshalTypeName>IntSize</MarshalTypeName>
@@ -163,7 +148,6 @@
 			<MarshalConvertBefore> (IntSize)Marshal.PtrToStructure( </MarshalConvertBefore>
 			<MarshalConvertPost> , typeof(IntSize) ) </MarshalConvertPost>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::types::TSize &lt; float &gt;">
 			<TypeName>FloatSize</TypeName>
 			<MarshalTypeName>FloatSize</MarshalTypeName>
@@ -191,7 +175,6 @@
 			<MarshalConvertBefore> (FloatSize)Marshal.PtrToStructure( </MarshalConvertBefore>
 			<MarshalConvertPost> , typeof(FloatSize) ) </MarshalConvertPost>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::types::TCoord &lt; int &gt;">
 			<TypeName>IntCoord</TypeName>
 			<MarshalTypeName>IntCoord</MarshalTypeName>
@@ -246,7 +229,6 @@
 			<MarshalConvertBefore> (FloatCoord)Marshal.PtrToStructure( </MarshalConvertBefore>
 			<MarshalConvertPost> , typeof(FloatCoord) ) </MarshalConvertPost>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::types::TRect &lt; int &gt;">
 			<TypeName>IntRect</TypeName>
 			<MarshalTypeName>IntRect</MarshalTypeName>
@@ -301,8 +283,6 @@
 			<MarshalConvertBefore> (FloatRect)Marshal.PtrToStructure( </MarshalConvertBefore>
 			<MarshalConvertPost> , typeof(FloatRect) ) </MarshalConvertPost>
 		</TypeInfo>
-
-
 		<TypeInfo name="MyGUI::Align">
 			<TypeName>Align</TypeName>
 			<MarshalTypeName>Align</MarshalTypeName>
@@ -310,7 +290,6 @@
 			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::FlowDirection">
 			<TypeName>FlowDirection</TypeName>
 			<MarshalTypeName>FlowDirection</MarshalTypeName>
@@ -318,7 +297,6 @@
 			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::ResizingPolicy">
 			<TypeName>ResizingPolicy</TypeName>
 			<MarshalTypeName>ResizingPolicy</MarshalTypeName>
@@ -326,7 +304,6 @@
 			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::WidgetStyle">
 			<TypeName>WidgetStyle</TypeName>
 			<MarshalTypeName>WidgetStyle</MarshalTypeName>
@@ -334,7 +311,6 @@
 			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::KeyCode">
 			<TypeName>KeyCode</TypeName>
 			<MarshalTypeName>KeyCode</MarshalTypeName>
@@ -342,7 +318,6 @@
 			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::MouseButton">
 			<TypeName>MouseButton</TypeName>
 			<MarshalTypeName>MouseButton</MarshalTypeName>
@@ -350,7 +325,6 @@
 			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::MenuItemType">
 			<TypeName>MenuItemType</TypeName>
 			<MarshalTypeName>MenuItemType</MarshalTypeName>
@@ -358,7 +332,6 @@
 			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
 		</TypeInfo>
-
 		<TypeInfo name="const MyGUI::DDWidgetState &amp;">
 			<TypeName>DDWidgetState</TypeName>
 			<MarshalTypeName>DDWidgetState</MarshalTypeName>
@@ -368,7 +341,6 @@
 			<MarshalConvertBefore> (DDWidgetState)Marshal.PtrToStructure( </MarshalConvertBefore>
 			<MarshalConvertPost> , typeof(DDWidgetState) ) </MarshalConvertPost>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::DDItemState">
 			<TypeName>DDItemState</TypeName>
 			<MarshalTypeName>DDItemState</MarshalTypeName>
@@ -376,7 +348,6 @@
 			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
 		</TypeInfo>
-
 		<TypeInfo name="const MyGUI::DDItemInfo &amp;">
 			<TypeName>DDItemInfo</TypeName>
 			<MarshalTypeName>DDItemInfo</MarshalTypeName>
@@ -386,7 +357,6 @@
 			<MarshalConvertBefore> (DDItemInfo)Marshal.PtrToStructure( </MarshalConvertBefore>
 			<MarshalConvertPost> , typeof(DDItemInfo) ) </MarshalConvertPost>
 		</TypeInfo>
-
 		<TypeInfo name="const MyGUI::IBNotifyItemData &amp;">
 			<TypeName>IBNotifyItemData</TypeName>
 			<MarshalTypeName>IBNotifyItemData</MarshalTypeName>
@@ -396,7 +366,6 @@
 			<MarshalConvertBefore> (IBNotifyItemData)Marshal.PtrToStructure( </MarshalConvertBefore>
 			<MarshalConvertPost> , typeof(IBNotifyItemData) ) </MarshalConvertPost>
 		</TypeInfo>
-
 		<TypeInfo name="const MyGUI::ToolTipInfo &amp;">
 			<TypeName>ToolTipInfo</TypeName>
 			<MarshalTypeName>ToolTipInfo</MarshalTypeName>
@@ -406,7 +375,6 @@
 			<MarshalConvertBefore> (ToolTipInfo)Marshal.PtrToStructure( </MarshalConvertBefore>
 			<MarshalConvertPost> , typeof(ToolTipInfo) ) </MarshalConvertPost>
 		</TypeInfo>
-
 		<TypeInfo name="const MyGUI::IBDrawItemInfo &amp;">
 			<TypeName>IBDrawItemInfo</TypeName>
 			<MarshalTypeName>IBDrawItemInfo</MarshalTypeName>
@@ -416,7 +384,6 @@
 			<MarshalConvertBefore> (IBDrawItemInfo)Marshal.PtrToStructure( </MarshalConvertBefore>
 			<MarshalConvertPost> , typeof(IBDrawItemInfo) ) </MarshalConvertPost>
 		</TypeInfo>
-
 		<TypeInfo name="const MyGUI::Colour &amp;">
 			<TypeName>Colour</TypeName>
 			<MarshalTypeName>Colour</MarshalTypeName>
@@ -426,7 +393,6 @@
 			<MarshalConvertBefore> (Colour)Marshal.PtrToStructure( </MarshalConvertBefore>
 			<MarshalConvertPost> , typeof(Colour) ) </MarshalConvertPost>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::Any">
 			<TypeName>object</TypeName>
 			<MarshalTypeName>object</MarshalTypeName>
@@ -434,11 +400,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.IUnknown)]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.IUnknown)]</MarshalAs>
 		</TypeInfo>
-
-
-
-
-
 		<TypeInfo name="MyGUI::Button *">
 			<TypeName>Button</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -446,7 +407,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::ComboBox *">
 			<TypeName>ComboBox</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -454,7 +414,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::DDContainer *">
 			<TypeName>DDContainer</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -462,7 +421,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::EditBox *">
 			<TypeName>EditBox</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -470,7 +428,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::ItemBox *">
 			<TypeName>ItemBox</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -478,7 +435,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::ListBox *">
 			<TypeName>ListBox</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -486,7 +442,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::MenuBar *">
 			<TypeName>MenuBar</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -494,7 +449,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::MenuControl *">
 			<TypeName>MenuControl</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -502,7 +456,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::MultiListBox *">
 			<TypeName>MultiListBox</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -510,7 +463,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::PopupMenu *">
 			<TypeName>PopupMenu</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -518,7 +470,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::ProgressBar *">
 			<TypeName>ProgressBar</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -526,7 +477,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::ScrollView *">
 			<TypeName>ScrollView</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -534,7 +484,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::ImageBox *">
 			<TypeName>ImageBox</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -542,7 +491,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::TextBox *">
 			<TypeName>TextBox</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -550,7 +498,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::TabControl *">
 			<TypeName>TabControl</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -558,7 +505,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::ScrollBar *">
 			<TypeName>ScrollBar</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -566,7 +512,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::Widget *">
 			<TypeName>Widget</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -581,7 +526,6 @@
 			<TypePrefix>ref</TypePrefix>
 			<MarshalAs>[In, Out]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::Window *">
 			<TypeName>Window</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -589,7 +533,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::MenuItem *">
 			<TypeName>MenuItem</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -597,7 +540,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::TabItem *">
 			<TypeName>TabItem</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -605,7 +547,6 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
-
 		<TypeInfo name="MyGUI::MultiListItem *">
 			<TypeName>MultiListItem</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -613,9 +554,7 @@
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]</MarshalAs>
 		</TypeInfo>
-
 	</TypeHolder>
-
 	<Item type="MyGUI::WidgetInput" namespace="MyGUI">
 		<Template type="Export_Templates" name="Derived.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_WidgetInput.cpp"/>
 		<Template type="Sharp_Templates" name="Part.txt" output="..\..\..\..\MyGUI_Sharp\Widgets\Generate\MyGUI_Sharp_WidgetInput.cs"/>
@@ -623,7 +562,6 @@
 		<Tag key="ThisType" value="Widget"/>
 		<Member name="setMaskPick" template="Empty.txt"/>
 	</Item>
-
 	<Item type="MyGUI::UserData" namespace="MyGUI">
 		<Template type="Export_Templates" name="Derived.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_WidgetUserData.cpp"/>
 		<Template type="Sharp_Templates" name="Part.txt" output="..\..\..\..\MyGUI_Sharp\Widgets\Generate\MyGUI_Sharp_WidgetUserData.cs"/>
@@ -631,9 +569,8 @@
 		<Tag key="ThisType" value="Widget"/>
 		<Member name="setUserData" template="Empty.txt"/>
 		<Member name="getUserData" template="Empty.txt"/>
-    <Member name="getUserStrings" template="Empty.txt"/>
-  </Item>
-
+		<Member name="getUserStrings" template="Empty.txt"/>
+	</Item>
 	<Item type="MyGUI::ICroppedRectangle" namespace="MyGUI">
 		<Template type="Export_Templates" name="Derived.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_WidgetCropped.cpp"/>
 		<Template type="Sharp_Templates" name="Part.txt" output="..\..\..\..\MyGUI_Sharp\Widgets\Generate\MyGUI_Sharp_WidgetCropped.cs"/>
@@ -641,7 +578,6 @@
 		<Tag key="ThisType" value="Widget"/>
 		<Member name="getCroppedParent" template="Empty.txt"/>
 	</Item>
-
 	<Item type="MyGUI::Widget" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -661,7 +597,6 @@
 		<Member name="createWidget" template="Empty.txt"/>
 		<Member name="findWidgets" template="Empty.txt"/>
 	</Item>
-
 	<Item type="MyGUI::Button" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -672,7 +607,6 @@
 		<Tag key="ThisName" value="Button"/>
 		<Tag key="ThisType" value="Button"/>
 	</Item>
-
 	<Item type="MyGUI::ComboBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -683,12 +617,9 @@
 		<Tag key="ThisName" value="ComboBox"/>
 		<Tag key="ThisType" value="ComboBox"/>
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
-		<!-- попробовать автоматически -->
 		<Member name="addItem" template="Method2_1.txt"/>
-		<!-- попробовать автоматически -->
 		<Member name="insertItemAt" template="Method3_2.txt"/>
 	</Item>
-
 	<Item type="MyGUI::DDContainer" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -700,7 +631,6 @@
 		<Tag key="ThisType" value="DDContainer"/>
 		<Member name="requestDragWidgetInfo" template="DelegateRequest3_Ref.txt"/>
 	</Item>
-
 	<Item type="MyGUI::EditBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -711,7 +641,6 @@
 		<Tag key="ThisName" value="EditBox"/>
 		<Tag key="ThisType" value="EditBox"/>
 	</Item>
-
 	<Item type="MyGUI::ItemBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -722,12 +651,9 @@
 		<Tag key="ThisName" value="ItemBox"/>
 		<Tag key="ThisType" value="ItemBox"/>
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
-		<!-- попробовать автоматически -->
 		<Member name="addItem" template="Method1_0.txt"/>
-		<!-- попробовать автоматически -->
 		<Member name="insertItemAt" template="Method2_1.txt"/>
 	</Item>
-
 	<Item type="MyGUI::ListBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -738,12 +664,9 @@
 		<Tag key="ThisName" value="ListBox"/>
 		<Tag key="ThisType" value="ListBox"/>
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
-		<!-- попробовать автоматически -->
 		<Member name="addItem" template="Method2_1.txt"/>
-		<!-- попробовать автоматически -->
 		<Member name="insertItemAt" template="Method3_2.txt"/>
 	</Item>
-
 	<Item type="MyGUI::MenuBar" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -754,7 +677,6 @@
 		<Tag key="ThisName" value="MenuBar"/>
 		<Tag key="ThisType" value="MenuBar"/>
 	</Item>
-
 	<Item type="MyGUI::MenuControl" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -768,12 +690,9 @@
 		<Member name="createItemChildTAt" template="Empty.txt"/>
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
 		<Member name="getItemData" template="GetItemDataAt.txt"/>
-		<!-- попробовать автоматически -->
 		<Member name="addItem" template="MethodReturn4_3_2_1.txt"/>
-		<!-- попробовать автоматически -->
 		<Member name="insertItemAt" template="MethodReturn5_4_3_2.txt"/>
 	</Item>
-
 	<Item type="MyGUI::MultiListBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -786,16 +705,11 @@
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
 		<Member name="getColumnDataAt" template="GetItemDataAt.txt"/>
 		<Member name="getSubItemDataAt" template="GetItemDataAt2.txt"/>
-		<!-- попробовать автоматически -->
 		<Member name="addColumn" template="Method3_2.txt"/>
-		<!-- попробовать автоматически -->
 		<Member name="insertColumnAt" template="Method4_3.txt"/>
-		<!-- попробовать автоматически -->
 		<Member name="addItem" template="Method2_1.txt"/>
-		<!-- попробовать автоматически -->
 		<Member name="insertItemAt" template="Method3_2.txt"/>
 	</Item>
-
 	<Item type="MyGUI::PopupMenu" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -806,7 +720,6 @@
 		<Tag key="ThisName" value="PopupMenu"/>
 		<Tag key="ThisType" value="PopupMenu"/>
 	</Item>
-
 	<Item type="MyGUI::ProgressBar" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -817,7 +730,6 @@
 		<Tag key="ThisName" value="ProgressBar"/>
 		<Tag key="ThisType" value="ProgressBar"/>
 	</Item>
-
 	<Item type="MyGUI::ScrollView" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -828,7 +740,6 @@
 		<Tag key="ThisName" value="ScrollView"/>
 		<Tag key="ThisType" value="ScrollView"/>
 	</Item>
-
 	<Item type="MyGUI::ImageBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -843,7 +754,6 @@
 		<Member name="getItemResource" template="Empty.txt"/>
 		<Member name="setItemResourceInfo" template="Empty.txt"/>
 	</Item>
-
 	<Item type="MyGUI::TextBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -854,7 +764,6 @@
 		<Tag key="ThisName" value="TextBox"/>
 		<Tag key="ThisType" value="TextBox"/>
 	</Item>
-
 	<Item type="MyGUI::TabControl" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -866,12 +775,9 @@
 		<Tag key="ThisType" value="TabControl"/>
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
 		<Member name="getItemData" template="GetItemDataAt.txt"/>
-		<!-- попробовать автоматически -->
 		<Member name="addItem" template="MethodReturn2_1.txt"/>
-		<!-- попробовать автоматически -->
 		<Member name="insertItemAt" template="MethodReturn3_2.txt"/>
 	</Item>
-
 	<Item type="MyGUI::ScrollBar" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -882,7 +788,6 @@
 		<Tag key="ThisName" value="ScrollBar"/>
 		<Tag key="ThisType" value="ScrollBar"/>
 	</Item>
-
 	<Item type="MyGUI::Window" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -894,7 +799,6 @@
 		<Tag key="ThisType" value="Window"/>
 		<Member name="destroySmooth" template="Empty.txt"/>
 	</Item>
-
 	<Item type="MyGUI::MenuItem" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -908,7 +812,6 @@
 		<Member name="setItemData" template="Empty.txt"/>
 		<Member name="getItemData" template="PropertyDataGetSet.txt"/>
 	</Item>
-
 	<Item type="MyGUI::TabItem" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -921,7 +824,6 @@
 		<Member name="setItemData" template="Empty.txt"/>
 		<Member name="getItemData" template="PropertyDataGetSet.txt"/>
 	</Item>
-
 	<Item type="MyGUI::MultiListItem" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
 		<Template template="ExportMarshalingWidget.txt" type="Export_Templates" name="ExportMarshaling.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_MarshalingWidget.h"/>
@@ -932,5 +834,4 @@
 		<Tag key="ThisName" value="MultiListItem"/>
 		<Tag key="ThisType" value="MultiListItem"/>
 	</Item>
-
 </Root>
