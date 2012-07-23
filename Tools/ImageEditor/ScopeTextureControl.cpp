@@ -350,8 +350,10 @@ namespace tools
 		eventChangeValue(_value);
 	}
 
-	void ScopeTextureControl::setCoordValue(const MyGUI::IntCoord& _value)
+	void ScopeTextureControl::setCoordValue(const MyGUI::IntCoord& _value, SelectorType _type)
 	{
+		setActiveSelector(_type == SelectorPosition);
+
 		mCurrentSelectorControl->setVisible(true);
 
 		if (mCoordValue != _value)
@@ -392,7 +394,7 @@ namespace tools
 			InitialiseSelectors();
 
 			if (visible)
-				setCoordValue(coord);
+				setCoordValue(coord, ScopeTextureControl::SelectorPosition); //FIXME
 		}
 	}
 

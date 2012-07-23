@@ -24,7 +24,7 @@ namespace tools
 
 		enum SelectorType { SelectorCoord, SelectorPosition, SelectorOffsetH, SelectorOffsetV };
 
-		void setCoordValue(const MyGUI::IntCoord& _value);
+		void setCoordValue(const MyGUI::IntCoord& _value, SelectorType _type);
 		void clearCoordValue();
 
 		typedef std::pair<MyGUI::IntCoord, SelectorType> PairCoordType;
@@ -35,8 +35,6 @@ namespace tools
 		void setCoordValueReadOnly(bool _value);
 
 		void clearAll();
-
-		void setActiveSelector(bool _positionOnly);
 
 		sigslot::signal1<const std::string&> eventChangeValue;
 
@@ -80,6 +78,8 @@ namespace tools
 		void InitialiseSelectors();
 
 		SelectorControl* getFreeSelector(SelectorType _type, bool& _changes);
+
+		void setActiveSelector(bool _positionOnly); // FIXME 
 
 	private:
 		AreaSelectorControl* mAreaSelectorControl;

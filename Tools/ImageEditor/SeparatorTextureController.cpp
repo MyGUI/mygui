@@ -143,8 +143,6 @@ namespace tools
 				mControl->eventChangeValue.connect(this, &SeparatorTextureController::notifyChangeValue);
 				mControl->clearAll();
 
-				mControl->setActiveSelector(true);
-
 				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &SeparatorTextureController::notifyChangeDataSelector);
 				mParentData = DataUtility::getSelectedDataByType(mParentTypeName);
 				notifyChangeDataSelector(mParentData, false);
@@ -203,16 +201,18 @@ namespace tools
 				if ((*child)->getType()->getName() != mThisType)
 					continue;
 
-				std::string name = (*child)->getPropertyValue("Name");
 				bool visible = (*child)->getPropertyValue<bool>("Visible");
 				int offset = (*child)->getPropertyValue<int>("Offset");
+
+				std::string name = (*child)->getPropertyValue("Name");
 				MyGUI::IntCoord value = getCoordByName(name, offset);
+				ScopeTextureControl::SelectorType type = getTypeByName(name);
 
 				if (selected == *child)
 				{
 					if (visible)
 					{
-						mControl->setCoordValue(value);
+						mControl->setCoordValue(value, type);
 						mControl->setCoordValueReadOnly(false);
 					}
 					else
@@ -222,7 +222,6 @@ namespace tools
 				{
 					if (visible)
 					{
-						ScopeTextureControl::SelectorType type = getTypeByName(name);
 						mFrames.push_back(std::make_pair(value, type));
 					}
 				}

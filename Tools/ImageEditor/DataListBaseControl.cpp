@@ -138,7 +138,8 @@ namespace tools
 		if (mListBoxControl != nullptr)
 		{
 			mListBoxControl->setDataInfo(mParentType, mCurrentType, mPropertyForName);
-			mListBoxControl->addPropertyNameEnabled(mPropertyForUnique);
+			if (!mPropertyForUnique.empty())
+				mListBoxControl->addPropertyNameEnabled(mPropertyForUnique);
 		}
 	}
 

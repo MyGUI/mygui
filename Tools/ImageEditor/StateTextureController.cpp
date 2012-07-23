@@ -145,8 +145,6 @@ namespace tools
 				mControl->eventChangeValue.connect(this, &StateTextureController::notifyChangeValue);
 				mControl->clearAll();
 
-				mControl->setActiveSelector(true);
-
 				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &StateTextureController::notifyChangeDataSelector);
 				mParentData = DataUtility::getSelectedDataByType(mParentTypeName);
 				notifyChangeDataSelector(mParentData, false);
@@ -210,7 +208,7 @@ namespace tools
 				{
 					if (visible)
 					{
-						mControl->setCoordValue(MyGUI::IntCoord(value, mSize));
+						mControl->setCoordValue(MyGUI::IntCoord(value, mSize), ScopeTextureControl::SelectorPosition);
 						mControl->setCoordValueReadOnly(false);
 					}
 					else
