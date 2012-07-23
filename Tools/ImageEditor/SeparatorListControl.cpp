@@ -44,21 +44,10 @@ namespace tools
 		{
 			mListBoxControl->setEnableChangePosition(false);
 			mListBoxControl->setReplaceColourName("ColourDisabled");
-		}
 
-		setDataInfo("Skin", "Separator", "Name", "Visible");
-	}
+			mListBoxControl->addPropertyNameEnabled("Visible");
 
-	void SeparatorListControl::setDataInfo(const std::string& _parentType, const std::string& _currentType, const std::string& _propertyName, const std::string& _propertyUnique)
-	{
-		mParentType = _parentType;
-		mPropertyForName = _propertyName;
-		mPropertyForUnique = _propertyUnique;
-
-		if (mListBoxControl != nullptr)
-		{
-			mListBoxControl->setDataInfo(mParentType, _currentType, mPropertyForName);
-			mListBoxControl->addPropertyNameEnabled(mPropertyForUnique);
+			mListBoxControl->setDataInfo("Skin", "Separator", "Name");
 		}
 	}
 
