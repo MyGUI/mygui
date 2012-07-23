@@ -135,7 +135,7 @@
 					<Default>False</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
-					<Action>ChangeValueAction</Action>
+					<Action>ChangeSeparatorVisibleAction</Action>
 				</Property>
 			</Properties>
 		</DataType>

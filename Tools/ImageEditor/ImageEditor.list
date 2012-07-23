@@ -13,6 +13,7 @@ set (HEADER_FILES
   ApplicationState.h
   AreaSelectorControl.h
   ChangeSeparatorOffsetAction.h
+  ChangeSeparatorVisibleAction.h
   ChangeSkinSizeAction.h
   ChangeTextureValueAction.h
   ChangeValueAction.h
@@ -124,6 +125,7 @@ set (SOURCE_FILES
   ApplicationState.cpp
   AreaSelectorControl.cpp
   ChangeSeparatorOffsetAction.cpp
+  ChangeSeparatorVisibleAction.cpp
   ChangeSkinSizeAction.cpp
   ChangeTextureValueAction.cpp
   ChangeValueAction.cpp
@@ -229,6 +231,8 @@ SOURCE_GROUP("Actions" FILES
   ActionRenameData.h
   ChangeSeparatorOffsetAction.cpp
   ChangeSeparatorOffsetAction.h
+  ChangeSeparatorVisibleAction.cpp
+  ChangeSeparatorVisibleAction.h
   ChangeSkinSizeAction.cpp
   ChangeSkinSizeAction.h
   ChangeTextureValueAction.cpp

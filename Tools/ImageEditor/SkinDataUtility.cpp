@@ -39,9 +39,12 @@ namespace tools
 		CreateRegions(_skinData);
 
 		MyGUI::IntSize size = getSkinSize(_skinData);
-		MyGUI::IntRect separators = getSkinSeparators(_skinData);
+		MyGUI::IntRect separators = getSeparatorsOffset(_skinData);
 		VectorCoord coords = getRegions(size, separators);
-		FillRegionCoords(_skinData, coords);
+		fillRegionCoords(_skinData, coords);
+
+		RectVisible visible = getSeparatorsVisible(_skinData);
+		fillRegionEnable(_skinData, visible);
 	}
 
 	void SkinDataUtility::CreateStates(Data* _skinData)
@@ -186,7 +189,7 @@ namespace tools
 		return MyGUI::IntCoord::parse(_skinData->getPropertyValue("Size")).size();
 	}
 
-	MyGUI::IntRect SkinDataUtility::getSkinSeparators(Data* _skinData)
+	MyGUI::IntRect SkinDataUtility::getSeparatorsOffset(Data* _skinData)
 	{
 		MyGUI::IntRect result;
 
@@ -211,7 +214,7 @@ namespace tools
 		return result;
 	}
 
-	void SkinDataUtility::FillRegionCoords(Data* _skinData, const SkinDataUtility::VectorCoord& _value)
+	void SkinDataUtility::fillRegionCoords(Data* _skinData, const SkinDataUtility::VectorCoord& _value)
 	{
 		const VectorString& names = getRegionNames();
 
@@ -240,6 +243,63 @@ namespace tools
 				(*child)->setPropertyValue("Coord", _value[RegionBottom]);
 			else if (name == names[RegionRightBottom])
 				(*child)->setPropertyValue("Coord", _value[RegionRightBottom]);
+		}
+	}
+
+	SkinDataUtility::RectVisible SkinDataUtility::getSeparatorsVisible(Data* _skinData)
+	{
+		RectVisible result;
+
+		for (Data::VectorData::const_iterator child = _skinData->getChilds().begin(); child != _skinData->getChilds().end(); child ++)
+		{
+			if ((*child)->getType()->getName() != "Separator")
+				continue;
+
+			std::string name = (*child)->getPropertyValue("Name");
+			bool visible = (*child)->getPropertyValue<bool>("Visible");
+
+			if (name == "Left")
+				result.left = visible;
+			else if (name == "Top")
+				result.top = visible;
+			else if (name == "Right")
+				result.right = visible;
+			else if (name == "Bottom")
+				result.bottom = visible;
+		}
+
+		return result;
+	}
+
+	void SkinDataUtility::fillRegionEnable(Data* _skinData, const RectVisible& _value)
+	{
+		const VectorString& names = getRegionNames();
+
+		for (Data::VectorData::const_iterator child = _skinData->getChilds().begin(); child != _skinData->getChilds().end(); child ++)
+		{
+			if ((*child)->getType()->getName() != "Region")
+				continue;
+
+			std::string name = (*child)->getPropertyValue("Name");
+
+			if (name == names[RegionLeftTop])
+				(*child)->setPropertyValue("Enable", _value.left && _value.top);
+			else if (name == names[RegionTop])
+				(*child)->setPropertyValue("Enable", _value.top);
+			else if (name == names[RegionRightTop])
+				(*child)->setPropertyValue("Enable", _value.right && _value.top);
+			else if (name == names[RegionLeft])
+				(*child)->setPropertyValue("Enable", _value.left);
+			else if (name == names[RegionCenter])
+				(*child)->setPropertyValue("Enable", true); // всегда доступен
+			else if (name == names[RegionRight])
+				(*child)->setPropertyValue("Enable", _value.right);
+			else if (name == names[RegionLeftBottom])
+				(*child)->setPropertyValue("Enable", _value.left && _value.bottom);
+			else if (name == names[RegionBottom])
+				(*child)->setPropertyValue("Enable", _value.bottom);
+			else if (name == names[RegionRightBottom])
+				(*child)->setPropertyValue("Enable", _value.right && _value.bottom);
 		}
 	}
 

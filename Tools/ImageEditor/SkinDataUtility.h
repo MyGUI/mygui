@@ -29,12 +29,16 @@ namespace tools
 		static VectorCoord getRegions(const MyGUI::IntSize& _size, const MyGUI::IntRect& _separators);
 
 		static MyGUI::IntSize getSkinSize(Data* _skinData);
-		static MyGUI::IntRect getSkinSeparators(Data* _skinData);
+		static MyGUI::IntRect getSeparatorsOffset(Data* _skinData);
+
+		typedef MyGUI::types::TRect<bool> RectVisible;
+		static RectVisible getSeparatorsVisible(Data* _skinData);
 
 		typedef std::vector<std::string> VectorString;
 		static const VectorString& getRegionNames();
 
-		static void FillRegionCoords(Data* _skinData, const VectorCoord& _value);
+		static void fillRegionCoords(Data* _skinData, const VectorCoord& _value);
+		static void fillRegionEnable(Data* _skinData, const RectVisible& _value);
 
 	private:
 		static void CreateStates(Data* _skinData);
