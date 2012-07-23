@@ -181,7 +181,7 @@
 				</Property>
 				<Property>
 					<Name>Type</Name>
-					<Type>PropertyStringControl</Type>
+					<Type>PropertyRegionTypeControl</Type>
 					<Initialisator></Initialisator>
 					<Default>SubSkin</Default>
 					<Visible>true</Visible>
@@ -232,9 +232,9 @@
 				</Property>
 				<Property>
 					<Name>Type</Name>
-					<Type>PropertyStringControl</Type>
+					<Type>PropertyRegionTextTypeControl</Type>
 					<Initialisator></Initialisator>
-					<Default></Default>
+					<Default>SimpleText</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
 					<Action>ChangeValueAction</Action>

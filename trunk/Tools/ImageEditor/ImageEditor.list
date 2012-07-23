@@ -76,6 +76,8 @@ set (HEADER_FILES
   PropertyIntControl.h
   PropertyPanelControl.h
   PropertyPanelController.h
+  PropertyRegionTextTypeControl.h
+  PropertyRegionTypeControl.h
   PropertyStringControl.h
   PropertyTexturesControl.h
   PropertyUtility.h
@@ -186,6 +188,8 @@ set (SOURCE_FILES
   PropertyIntControl.cpp
   PropertyPanelControl.cpp
   PropertyPanelController.cpp
+  PropertyRegionTextTypeControl.cpp
+  PropertyRegionTypeControl.cpp
   PropertyStringControl.cpp
   PropertyTexturesControl.cpp
   PropertyUtility.cpp
@@ -347,6 +351,10 @@ SOURCE_GROUP("Controls\\Properties" FILES
   PropertyIntControl.h
   PropertyPanelControl.cpp
   PropertyPanelControl.h
+  PropertyRegionTextTypeControl.cpp
+  PropertyRegionTextTypeControl.h
+  PropertyRegionTypeControl.cpp
+  PropertyRegionTypeControl.h
   PropertyStringControl.cpp
   PropertyStringControl.h
   PropertyTexturesControl.cpp
