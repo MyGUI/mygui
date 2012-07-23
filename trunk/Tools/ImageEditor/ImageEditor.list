@@ -44,6 +44,8 @@ set (HEADER_FILES
   GridManager.h
   GroupListControl.h
   GroupTextureController.h
+  HorizontalSelectorBlackControl.h
+  HorizontalSelectorControl.h
   HotKeyCommand.h
   HotKeyManager.h
   IControlController.h
@@ -109,6 +111,8 @@ set (HEADER_FILES
   TexturePropertyInitialisator.h
   TextureToolControl.h
   UniqueNamePropertyInitialisator.h
+  VerticalSelectorBlackControl.h
+  VerticalSelectorControl.h
   sigslot.h
 )
 set (SOURCE_FILES
@@ -156,6 +160,8 @@ set (SOURCE_FILES
   GridManager.cpp
   GroupListControl.cpp
   GroupTextureController.cpp
+  HorizontalSelectorBlackControl.cpp
+  HorizontalSelectorControl.cpp
   HotKeyManager.cpp
   ImageEditor.rc
   ImageExportSerializer.cpp
@@ -212,6 +218,8 @@ set (SOURCE_FILES
   TexturePropertyInitialisator.cpp
   TextureToolControl.cpp
   UniqueNamePropertyInitialisator.cpp
+  VerticalSelectorBlackControl.cpp
+  VerticalSelectorControl.cpp
   pugiconfig.hpp
   pugixml.cpp
   pugixml.hpp
@@ -378,12 +386,20 @@ SOURCE_GROUP("Controls\\TextureView" FILES
 SOURCE_GROUP("Controls\\TextureView\\Selectors" FILES
   AreaSelectorControl.cpp
   AreaSelectorControl.h
+  HorizontalSelectorBlackControl.cpp
+  HorizontalSelectorBlackControl.h
+  HorizontalSelectorControl.cpp
+  HorizontalSelectorControl.h
   PositionSelectorBlackControl.cpp
   PositionSelectorBlackControl.h
   PositionSelectorControl.cpp
   PositionSelectorControl.h
   SelectorControl.cpp
   SelectorControl.h
+  VerticalSelectorBlackControl.cpp
+  VerticalSelectorBlackControl.h
+  VerticalSelectorControl.cpp
+  VerticalSelectorControl.h
 )
 SOURCE_GROUP("Data" FILES
   Data.cpp
