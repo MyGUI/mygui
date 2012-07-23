@@ -37,7 +37,7 @@ namespace MyGUI
 		mFrameAdvise( false ),
 		mInvalidateData(false)
 	{
-		mGenTexName = utility::toString( this, "_Canvas" );
+		mGenTexName = utility::toString((size_t)this, "_Canvas");
 	}
 
 	void Canvas::createTexture( TextureResizeMode _resizeMode, TextureUsage _usage, PixelFormat _format )
