@@ -23,6 +23,7 @@ namespace tools
 		void deserialization(pugi::xml_node _node);
 
 		const std::string& getName() const;
+		const std::string& getFriend() const;
 
 		typedef std::vector<std::string> VectorString;
 		const VectorString& getChilds() const;
@@ -34,6 +35,7 @@ namespace tools
 
 	private:
 		std::string mName;
+		std::string mFriend;
 		VectorString mChilds;
 		VectorProperty mProperties;
 	};

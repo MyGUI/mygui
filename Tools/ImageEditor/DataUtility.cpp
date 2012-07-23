@@ -111,7 +111,7 @@ namespace tools
 
 		for (Data::VectorData::const_iterator child = _parent->getChilds().begin(); child != _parent->getChilds().end(); child ++)
 		{
-			if ((*child)->getType()->getName() == _type)
+			if ((*child)->getType()->getName() == _type || (*child)->getType()->getFriend() == _type)
 				result.push_back((*child));
 		}
 

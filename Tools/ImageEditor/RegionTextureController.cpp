@@ -79,7 +79,7 @@ namespace tools
 		{
 			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
 			{
-				if ((*child)->getType()->getName() != mThisType)
+				if ((*child)->getType()->getName() != mThisType && (*child)->getType()->getFriend() != mThisType)
 					continue;
 
 				property = (*child)->getProperty("Coord");
@@ -112,7 +112,7 @@ namespace tools
 			else if (_sender->getType()->getName() == "Size")
 				updateCoords(_sender->getValue());
 		}
-		else if (_sender->getOwner()->getType()->getName() == "Region")
+		else if (_sender->getOwner()->getType()->getName() == mThisType || _sender->getOwner()->getType()->getFriend() == mThisType)
 		{
 			if (_sender->getType()->getName() == "Coord")
 				updateFrames();
@@ -125,16 +125,16 @@ namespace tools
 
 	void RegionTextureController::notifyChangeValue(const std::string& _value)
 	{
-		/*if (mParentData != nullptr)
+		if (mParentData != nullptr)
 		{
 			Data* selected = mParentData->getChildSelected();
 			if (selected != nullptr)
 			{
 				MyGUI::IntCoord coord = MyGUI::IntCoord::parse(_value);
-				Property* property = selected->getProperty("Point");
-				PropertyUtility::executeAction(property, coord.point().print(), true);
+				Property* property = selected->getProperty("Coord");
+				PropertyUtility::executeAction(property, coord.print(), true);
 			}
-		}*/
+		}
 	}
 
 	void RegionTextureController::notifyChangeScope(const std::string& _scope)
@@ -204,7 +204,7 @@ namespace tools
 			Data* selected = mParentData->getChildSelected();
 			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
 			{
-				if ((*child)->getType()->getName() != mThisType)
+				if ((*child)->getType()->getName() != mThisType && (*child)->getType()->getFriend() != mThisType)
 					continue;
 
 				bool visible = (*child)->getPropertyValue<bool>("Visible") && (*child)->getPropertyValue<bool>("Enable");
@@ -214,10 +214,15 @@ namespace tools
 				{
 					if (visible)
 					{
-						mControl->setCoordValue(value, ScopeTextureControl::SelectorPositionReadOnly);
+						if ((*child)->getType()->getName() == mThisType)
+							mControl->setCoordValue(value, ScopeTextureControl::SelectorPositionReadOnly);
+						else
+							mControl->setCoordValue(value, ScopeTextureControl::SelectorCoord);
 					}
 					else
+					{
 						mControl->clearCoordValue();
+					}
 				}
 				else
 				{

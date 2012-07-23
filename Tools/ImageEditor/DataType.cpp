@@ -24,6 +24,7 @@ namespace tools
 	void DataType::deserialization(pugi::xml_node _node)
 	{
 		mName = _node.select_single_node("Name").node().child_value();
+		mFriend = _node.select_single_node("Friend").node().child_value();
 
 		pugi::xpath_node_set childs = _node.select_nodes("Childs/Child/Type");
 		for (pugi::xpath_node_set::const_iterator child = childs.begin(); child != childs.end(); child ++)
@@ -41,6 +42,11 @@ namespace tools
 	const std::string& DataType::getName() const
 	{
 		return mName;
+	}
+
+	const std::string& DataType::getFriend() const
+	{
+		return mFriend;
 	}
 
 	const DataType::VectorString& DataType::getChilds() const

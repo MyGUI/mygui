@@ -162,6 +162,11 @@ namespace tools
 		region->setType(DataTypeManager::getInstance().getType("Region"));
 		region->setPropertyValue("Name", names[RegionRightBottom]);
 		_skinData->addChild(region);
+
+		region = new Data();
+		region->setType(DataTypeManager::getInstance().getType("RegionText"));
+		region->setPropertyValue("Name", "Text");
+		_skinData->addChild(region);
 	}
 
 	SkinDataUtility::VectorCoord SkinDataUtility::getRegions(const MyGUI::IntSize& _size, const MyGUI::IntRect& _separators)
