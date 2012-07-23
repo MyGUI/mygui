@@ -124,6 +124,27 @@ namespace tools
 				childData->setPropertyValue("Point", (*result).second);
 			}
 		}
+
+		states = _node.select_nodes("BasisSkin/State[@colour]");
+		for (pugi::xpath_node_set::const_iterator state = states.begin(); state != states.end(); state ++)
+		{
+			std::string name = (*state).node().attribute("name").value();
+			int textShift = MyGUI::utility::parseValue<int>((*state).node().attribute("shift").value());
+			MyGUI::Colour textColour = MyGUI::utility::parseValue<MyGUI::Colour>((*state).node().attribute("colour").value());
+
+			for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end(); child ++)
+			{
+				if ((*child)->getType()->getName() != "State")
+					continue;
+
+				Data* childData = (*child);
+				if (convertEditorToExportStateName(childData->getPropertyValue("Name")) == name)
+				{
+					childData->setPropertyValue("TextShift", textShift);
+					childData->setPropertyValue("TextColour", MyGUI::utility::toString(textColour.red, " ", textColour.green, " ", textColour.blue));
+				}
+			}
+		}
 	}
 
 	std::string SkinExportSerializer::convertEditorToExportStateName(const std::string& _value)
