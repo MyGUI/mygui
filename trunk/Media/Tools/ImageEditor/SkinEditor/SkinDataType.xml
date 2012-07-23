@@ -123,7 +123,7 @@
 					<Name>Offset</Name>
 					<Type>PropertyIntControl</Type>
 					<Initialisator></Initialisator>
-					<Default>0</Default>
+					<Default>2</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
 					<Action>ChangeValueAction</Action>
