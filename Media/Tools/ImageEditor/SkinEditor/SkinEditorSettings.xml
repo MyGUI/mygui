@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Settings>
+	<Resources>
+		<Resource.List>
+			<Value>SkinEditorLanguage.xml</Value>
+		</Resource.List>
+	</Resources>
+	<Editor>
+		<UserSettingsFileName>se_user_settings2.xml</UserSettingsFileName>
+		<DataTypeFileName>SkinDataType.xml</DataTypeFileName>
+		<ExportSerializer>SkinExportSerializer</ExportSerializer>
+		<DefaultScope>Skin</DefaultScope>
+	</Editor>
+	<EditorState>
+		<MainPaneLayout>SkinMainPane.layout</MainPaneLayout>
+	</EditorState>
+</Settings>

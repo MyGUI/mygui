@@ -18,7 +18,8 @@ namespace tools
 		mGridStep(0),
 		mGridEdit(nullptr),
 		mSaveLastTexture(nullptr),
-		mInterfaceLanguage(nullptr)
+		mInterfaceLanguage(nullptr),
+		mSkinEditor(nullptr)
 	{
 	}
 
@@ -27,6 +28,7 @@ namespace tools
 		mSaveLastTexture->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonClick);
 		mGridEdit->eventEditSelectAccept -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStepAccept);
 		mGridEdit->eventKeyLostFocus -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStep);
+		mSkinEditor->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonClick);
 	}
 
 	void SettingsGeneralControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
@@ -36,10 +38,12 @@ namespace tools
 		assignWidget(mGridEdit, "gridEdit");
 		assignWidget(mSaveLastTexture, "SaveLastTexture");
 		assignWidget(mInterfaceLanguage, "InterfaceLanguage");
+		assignWidget(mSkinEditor, "SkinEditor");
 
 		mGridEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStepAccept);
 		mGridEdit->eventKeyLostFocus += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStep);
 		mSaveLastTexture->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonClick);
+		mSkinEditor->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonClick);
 	}
 
 	void SettingsGeneralControl::loadSettings()
@@ -48,6 +52,7 @@ namespace tools
 		mGridEdit->setCaption(MyGUI::utility::toString(mGridStep));
 		mSaveLastTexture->setStateSelected(SettingsManager::getInstance().getValue<bool>("Settings/SaveLastTexture"));
 		setLanguageValue(SettingsManager::getInstance().getValueString("Settings/InterfaceLanguage"));
+		mSkinEditor->setStateSelected(SettingsManager::getInstance().getValue<bool>("Settings/SkinEditor"));
 	}
 
 	void SettingsGeneralControl::saveSettings()
@@ -55,6 +60,7 @@ namespace tools
 		SettingsManager::getInstance().setValue("Settings/GridStep", mGridStep);
 		SettingsManager::getInstance().setValue("Settings/SaveLastTexture", mSaveLastTexture->getStateSelected());
 		SettingsManager::getInstance().setValue("Settings/InterfaceLanguage", getLanguageValue());
+		SettingsManager::getInstance().setValue("Settings/SkinEditor", mSkinEditor->getStateSelected());
 	}
 
 	void SettingsGeneralControl::notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new)
