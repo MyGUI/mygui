@@ -21,7 +21,7 @@ namespace tools
 		static void cloneData(Data* _target, Data* _prototype);
 		static std::string getUniqueName(Data* _parent, const std::string& _pattern);
 
-		static Data::VectorData getChildsByType(Data* _parent, const std::string& _type);
+		static Data::VectorData getChildsByType(Data* _parent, const std::string& _type, bool _friend = true);
 
 	private:
 		static Data* getSelectedDataByType(Data* _data, DataType* _info);
