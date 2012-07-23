@@ -41,8 +41,7 @@ namespace tools
 		Data* mParentData;
 		bool mActivated;
 		MyGUI::IntSize mSize;
-		typedef std::vector<MyGUI::IntCoord> VectorCoord;
-		VectorCoord mFrames;
+		ScopeTextureControl::VectorCoord mFrames;
 	};
 
 }

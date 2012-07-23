@@ -219,7 +219,7 @@ namespace tools
 				else
 				{
 					if (visible)
-						mFrames.push_back(MyGUI::IntCoord(value, mSize));
+						mFrames.push_back(std::make_pair(MyGUI::IntCoord(value, mSize), ScopeTextureControl::SelectorPosition));
 				}
 			}
 

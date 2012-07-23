@@ -203,9 +203,10 @@ namespace tools
 				if ((*child)->getType()->getName() != mThisType)
 					continue;
 
+				std::string name = (*child)->getPropertyValue("Name");
 				bool visible = (*child)->getPropertyValue<bool>("Visible");
 				int offset = (*child)->getPropertyValue<int>("Offset");
-				MyGUI::IntCoord value;
+				MyGUI::IntCoord value = getCoordByName(name, offset);
 
 				if (selected == *child)
 				{
@@ -220,7 +221,10 @@ namespace tools
 				else
 				{
 					if (visible)
-						mFrames.push_back(value);
+					{
+						ScopeTextureControl::SelectorType type = getTypeByName(name);
+						mFrames.push_back(std::make_pair(value, type));
+					}
 				}
 			}
 
@@ -232,6 +236,30 @@ namespace tools
 
 		if (mControl != nullptr)
 			mControl->setViewSelectors(mFrames);
+	}
+
+	ScopeTextureControl::SelectorType SeparatorTextureController::getTypeByName(const std::string& _name)
+	{
+		if (_name == "Left" || _name == "Right")
+			return ScopeTextureControl::SelectorOffsetV;
+		else if (_name == "Top" || _name == "Bottom")
+			return ScopeTextureControl::SelectorOffsetH;
+
+		return ScopeTextureControl::SelectorPosition;
+	}
+
+	MyGUI::IntCoord SeparatorTextureController::getCoordByName(const std::string& _name, int _offset)
+	{
+		if (_name == "Left")
+			return MyGUI::IntCoord(_offset, 0, 1, mTextureCoord.height);
+		else if (_name == "Right")
+			return MyGUI::IntCoord(mTextureCoord.width - _offset, 0, 1, mTextureCoord.height);
+		else if (_name == "Top")
+			return MyGUI::IntCoord(0, _offset, mTextureCoord.width, 1);
+		else if (_name == "Bottom")
+			return MyGUI::IntCoord(0, mTextureCoord.height - _offset, mTextureCoord.width, 1);
+
+		return MyGUI::IntCoord();
 	}
 
 }

@@ -35,6 +35,9 @@ namespace tools
 		void updateCoords(const std::string& _value);
 		void updateFrames();
 
+		ScopeTextureControl::SelectorType getTypeByName(const std::string& _name);
+		MyGUI::IntCoord getCoordByName(const std::string& _name, int _offset);
+
 	private:
 		ScopeTextureControl* mControl;
 		std::string mParentTypeName;
@@ -43,8 +46,7 @@ namespace tools
 		Data* mParentData;
 		bool mActivated;
 		MyGUI::IntCoord mTextureCoord;
-		typedef std::vector<MyGUI::IntCoord> VectorCoord;
-		VectorCoord mFrames;
+		ScopeTextureControl::VectorCoord mFrames;
 	};
 
 }

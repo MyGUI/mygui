@@ -23,10 +23,13 @@ namespace tools
 		ScopeTextureControl();
 		virtual ~ScopeTextureControl();
 
+		enum SelectorType { SelectorCoord, SelectorPosition, SelectorOffsetH, SelectorOffsetV };
+
 		void setCoordValue(const MyGUI::IntCoord& _value);
 		void clearCoordValue();
 
-		typedef std::vector<MyGUI::IntCoord> VectorCoord;
+		typedef std::pair<MyGUI::IntCoord, SelectorType> PairCoordType;
+		typedef std::vector<PairCoordType> VectorCoord;
 		void setViewSelectors(const VectorCoord& _selectors);
 		void clearViewSelectors();
 

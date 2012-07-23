@@ -391,7 +391,7 @@ namespace tools
 			if (index < _selectors.size())
 			{
 				mBlackSelectors[index]->setVisible(true);
-				mBlackSelectors[index]->setCoord(_selectors[index]);
+				mBlackSelectors[index]->setCoord(_selectors[index].first);
 			}
 			else
 			{

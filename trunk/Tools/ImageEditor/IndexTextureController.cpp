@@ -169,7 +169,7 @@ namespace tools
 			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
 			{
 				MyGUI::IntPoint value = (*child)->getPropertyValue<MyGUI::IntPoint>("Point");
-				mFrames.push_back(MyGUI::IntCoord(value, mSize));
+				mFrames.push_back(std::make_pair(MyGUI::IntCoord(value, mSize), ScopeTextureControl::SelectorPosition));
 			}
 		}
 
