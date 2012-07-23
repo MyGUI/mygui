@@ -94,7 +94,9 @@ namespace tools
 		node.append_attribute("type").set_value("ResourceSkin");
 		node.append_attribute("name").set_value(_data->getPropertyValue("Name").c_str());
 		node.append_attribute("size").set_value(MyGUI::IntCoord::parse(_data->getPropertyValue("Size")).size().print().c_str());
-		node.append_attribute("texture").set_value(_data->getPropertyValue("Texture").c_str());
+		std::string textureName = _data->getPropertyValue("Texture");
+		if (!textureName.empty())
+			node.append_attribute("texture").set_value(textureName.c_str());
 
 		Data::VectorData childs = DataUtility::getChildsByType(_data, "Region", false);
 		sortByAlign(childs);
