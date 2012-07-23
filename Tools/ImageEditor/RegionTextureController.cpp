@@ -225,7 +225,7 @@ namespace tools
 				else
 				{
 					if (visible)
-						mFrames.push_back(value);
+						mFrames.push_back(std::make_pair(value, ScopeTextureControl::SelectorPosition));
 				}
 			}
 
