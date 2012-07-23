@@ -288,4 +288,9 @@ namespace tools
 		delete _control;
 	}
 
+	void TextureControl::resetTextureRegion()
+	{
+		setTextureRegion(MyGUI::IntCoord(0, 0, mTextureSize.width, mTextureSize.height));
+	}
+
 }

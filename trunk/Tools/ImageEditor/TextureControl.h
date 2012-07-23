@@ -23,13 +23,14 @@ namespace tools
 
 		void setTextureValue(const MyGUI::UString& _value);
 
+		void setTextureRegion(const MyGUI::IntCoord& _value);
+		void resetTextureRegion();
+		const MyGUI::IntCoord& getTextureRegion() const;
+
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 		const MyGUI::IntSize& getTextureSize() const;
-
-		void setTextureRegion(const MyGUI::IntCoord& _value);
-		const MyGUI::IntCoord& getTextureRegion() const;
 
 		template<typename T>
 		void addSelectorControl(T * & _control)
