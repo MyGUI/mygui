@@ -173,24 +173,24 @@
 		<Name>Command_Delete</Name>
 		<KeyCode>Delete</KeyCode>
 		<Pressed>true</Pressed>
-		<Modifier></Modifier>
+		<Modifier/>
 	</Command>
 	<Command>
 		<Name>Command_NextItem</Name>
 		<KeyCode>Tab</KeyCode>
 		<Pressed>true</Pressed>
-		<Modifier></Modifier>
+		<Modifier/>
 	</Command>
 	<Command>
 		<Name>Command_FreeChildMode</Name>
 		<KeyCode>F4</KeyCode>
 		<Pressed>true</Pressed>
-		<Modifier></Modifier>
+		<Modifier/>
 	</Command>
 	<Command>
 		<Name>Command_ScreenShot</Name>
 		<KeyCode>SysRq</KeyCode>
 		<Pressed>true</Pressed>
-		<Modifier></Modifier>
+		<Modifier/>
 	</Command>
 </MyGUI>

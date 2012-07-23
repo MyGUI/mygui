@@ -1,122 +1,122 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource" version="1.1">
-    <Resource type="ResourceSkin" name="GreenRect" size="16 16" texture="SelectionRects.png">
-        <BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">
-            <State name="normal" offset="16 0 2 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="2 0 12 2" align="HStretch Top">
-            <State name="normal" offset="18 0 12 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="14 0 2 2" align="Right Top">
-            <State name="normal" offset="30 0 2 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="14 2 2 12" align="Right VStretch">
-            <State name="normal" offset="30 2 2 12"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="14 14 2 2" align="Right Bottom">
-            <State name="normal" offset="30 14 2 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="2 14 12 2" align="HStretch Bottom">
-            <State name="normal" offset="18 14 12 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="0 14 2 2" align="Left Bottom">
-            <State name="normal" offset="16 14 2 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="0 2 2 12" align="Left VStretch">
-            <State name="normal" offset="16 2 2 12"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="2 2 12 12" align="Stretch">
-            <State name="normal" offset="18 2 12 12"/>
-        </BasisSkin>
-    </Resource>
-    <Resource type="ResourceSkin" name="YellowRect" size="16 16" texture="SelectionRects.png">
-        <BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">
-            <State name="normal" offset="48 0 2 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="2 0 12 2" align="HStretch Top">
-            <State name="normal" offset="50 0 12 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="14 0 2 2" align="Right Top">
-            <State name="normal" offset="62 0 2 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="14 2 2 12" align="Right VStretch">
-            <State name="normal" offset="62 2 2 12"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="14 14 2 2" align="Right Bottom">
-            <State name="normal" offset="62 14 2 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="2 14 12 2" align="HStretch Bottom">
-            <State name="normal" offset="50 14 12 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="0 14 2 2" align="Left Bottom">
-            <State name="normal" offset="48 14 2 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="0 2 2 12" align="Left VStretch">
-            <State name="normal" offset="48 2 2 12"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="2 2 12 12" align="Stretch">
-            <State name="normal" offset="50 2 12 12"/>
-        </BasisSkin>
-        <BasisSkin type="SimpleText" offset="0 0 16 16" align="Stretch">
-            <State name="normal" colour="0 0 0" shift="0"/>
-        </BasisSkin>
-    </Resource>
-    <Resource type="ResourceSkin" name="BlueRect" size="16 16" texture="SelectionRects.png">
-        <BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">
-            <State name="normal" offset="0 0 2 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="2 0 12 2" align="HStretch Top">
-            <State name="normal" offset="2 0 12 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="14 0 2 2" align="Right Top">
-            <State name="normal" offset="14 0 2 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="14 2 2 12" align="Right VStretch">
-            <State name="normal" offset="14 2 2 12"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="14 14 2 2" align="Right Bottom">
-            <State name="normal" offset="14 14 2 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="2 14 12 2" align="HStretch Bottom">
-            <State name="normal" offset="2 14 12 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="0 14 2 2" align="Left Bottom">
-            <State name="normal" offset="0 14 2 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="0 2 2 12" align="Left VStretch">
-            <State name="normal" offset="0 2 2 12"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="2 2 12 12" align="Stretch">
-            <State name="normal" offset="2 2 12 12"/>
-        </BasisSkin>
-    </Resource>
-    <Resource type="ResourceSkin" name="RedRect" size="16 16" texture="SelectionRects.png">
-        <BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">
-            <State name="normal" offset="32 0 2 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="2 0 12 2" align="HStretch Top">
-            <State name="normal" offset="34 0 12 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="14 0 2 2" align="Right Top">
-            <State name="normal" offset="46 0 2 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="14 2 2 12" align="Right VStretch">
-            <State name="normal" offset="46 2 2 12"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="14 14 2 2" align="Right Bottom">
-            <State name="normal" offset="46 14 2 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="2 14 12 2" align="HStretch Bottom">
-            <State name="normal" offset="34 14 12 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="0 14 2 2" align="Left Bottom">
-            <State name="normal" offset="32 14 2 2"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="0 2 2 12" align="Left VStretch">
-            <State name="normal" offset="32 2 2 12"/>
-        </BasisSkin>
-        <BasisSkin type="SubSkin" offset="2 2 12 12" align="Stretch">
-            <State name="normal" offset="34 2 12 12"/>
-        </BasisSkin>
-    </Resource>
+	<Resource type="ResourceSkin" name="GreenRect" size="16 16" texture="SelectionRects.png">
+		<BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">
+			<State name="normal" offset="16 0 2 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="2 0 12 2" align="HStretch Top">
+			<State name="normal" offset="18 0 12 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="14 0 2 2" align="Right Top">
+			<State name="normal" offset="30 0 2 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="14 2 2 12" align="Right VStretch">
+			<State name="normal" offset="30 2 2 12"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="14 14 2 2" align="Right Bottom">
+			<State name="normal" offset="30 14 2 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="2 14 12 2" align="HStretch Bottom">
+			<State name="normal" offset="18 14 12 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 14 2 2" align="Left Bottom">
+			<State name="normal" offset="16 14 2 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 2 2 12" align="Left VStretch">
+			<State name="normal" offset="16 2 2 12"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="2 2 12 12" align="Stretch">
+			<State name="normal" offset="18 2 12 12"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="YellowRect" size="16 16" texture="SelectionRects.png">
+		<BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">
+			<State name="normal" offset="48 0 2 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="2 0 12 2" align="HStretch Top">
+			<State name="normal" offset="50 0 12 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="14 0 2 2" align="Right Top">
+			<State name="normal" offset="62 0 2 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="14 2 2 12" align="Right VStretch">
+			<State name="normal" offset="62 2 2 12"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="14 14 2 2" align="Right Bottom">
+			<State name="normal" offset="62 14 2 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="2 14 12 2" align="HStretch Bottom">
+			<State name="normal" offset="50 14 12 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 14 2 2" align="Left Bottom">
+			<State name="normal" offset="48 14 2 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 2 2 12" align="Left VStretch">
+			<State name="normal" offset="48 2 2 12"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="2 2 12 12" align="Stretch">
+			<State name="normal" offset="50 2 12 12"/>
+		</BasisSkin>
+		<BasisSkin type="SimpleText" offset="0 0 16 16" align="Stretch">
+			<State name="normal" colour="0 0 0" shift="0"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="BlueRect" size="16 16" texture="SelectionRects.png">
+		<BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">
+			<State name="normal" offset="0 0 2 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="2 0 12 2" align="HStretch Top">
+			<State name="normal" offset="2 0 12 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="14 0 2 2" align="Right Top">
+			<State name="normal" offset="14 0 2 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="14 2 2 12" align="Right VStretch">
+			<State name="normal" offset="14 2 2 12"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="14 14 2 2" align="Right Bottom">
+			<State name="normal" offset="14 14 2 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="2 14 12 2" align="HStretch Bottom">
+			<State name="normal" offset="2 14 12 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 14 2 2" align="Left Bottom">
+			<State name="normal" offset="0 14 2 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 2 2 12" align="Left VStretch">
+			<State name="normal" offset="0 2 2 12"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="2 2 12 12" align="Stretch">
+			<State name="normal" offset="2 2 12 12"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="RedRect" size="16 16" texture="SelectionRects.png">
+		<BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">
+			<State name="normal" offset="32 0 2 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="2 0 12 2" align="HStretch Top">
+			<State name="normal" offset="34 0 12 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="14 0 2 2" align="Right Top">
+			<State name="normal" offset="46 0 2 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="14 2 2 12" align="Right VStretch">
+			<State name="normal" offset="46 2 2 12"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="14 14 2 2" align="Right Bottom">
+			<State name="normal" offset="46 14 2 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="2 14 12 2" align="HStretch Bottom">
+			<State name="normal" offset="34 14 12 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 14 2 2" align="Left Bottom">
+			<State name="normal" offset="32 14 2 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 2 2 12" align="Left VStretch">
+			<State name="normal" offset="32 2 2 12"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="2 2 12 12" align="Stretch">
+			<State name="normal" offset="34 2 12 12"/>
+		</BasisSkin>
+	</Resource>
 </MyGUI>

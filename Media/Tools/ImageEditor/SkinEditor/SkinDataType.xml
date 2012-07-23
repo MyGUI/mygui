@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <Document>
 	<DataTypes>
 		<DataType>
@@ -24,7 +24,7 @@
 				<Property>
 					<Name>UniqueName</Name>
 					<Type>PropertyBoolControl</Type>
-					<Initialisator></Initialisator>
+					<Initialisator/>
 					<Default>True</Default>
 					<Visible>false</Visible>
 					<ReadOnly>true</ReadOnly>
@@ -34,7 +34,7 @@
 					<Name>Texture</Name>
 					<Type>PropertyTexturesControl</Type>
 					<Initialisator>TexturePropertyInitialisator</Initialisator>
-					<Default></Default>
+					<Default/>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
 					<Action>ChangeTextureValueAction</Action>
@@ -42,7 +42,7 @@
 				<Property>
 					<Name>Size</Name>
 					<Type>PropertyInt4Control</Type>
-					<Initialisator></Initialisator>
+					<Initialisator/>
 					<Default>0 0 16 16</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
@@ -64,16 +64,16 @@
 				<Property>
 					<Name>Name</Name>
 					<Type>PropertyStringControl</Type>
-					<Initialisator></Initialisator>
-					<Default></Default>
+					<Initialisator/>
+					<Default/>
 					<Visible>false</Visible>
 					<ReadOnly>true</ReadOnly>
-					<Action></Action>
+					<Action/>
 				</Property>
 				<Property>
 					<Name>Point</Name>
 					<Type>PropertyInt2Control</Type>
-					<Initialisator></Initialisator>
+					<Initialisator/>
 					<Default>0 0</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
@@ -82,7 +82,7 @@
 				<Property>
 					<Name>Visible</Name>
 					<Type>PropertyBoolControl</Type>
-					<Initialisator></Initialisator>
+					<Initialisator/>
 					<Default>False</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
@@ -91,7 +91,7 @@
 				<Property>
 					<Name>TextColour</Name>
 					<Type>PropertyColourControl</Type>
-					<Initialisator></Initialisator>
+					<Initialisator/>
 					<Default>1 1 1</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
@@ -100,7 +100,7 @@
 				<Property>
 					<Name>TextShift</Name>
 					<Type>PropertyIntControl</Type>
-					<Initialisator></Initialisator>
+					<Initialisator/>
 					<Default>0</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
@@ -114,16 +114,16 @@
 				<Property>
 					<Name>Name</Name>
 					<Type>PropertyStringControl</Type>
-					<Initialisator></Initialisator>
-					<Default></Default>
+					<Initialisator/>
+					<Default/>
 					<Visible>false</Visible>
 					<ReadOnly>true</ReadOnly>
-					<Action></Action>
+					<Action/>
 				</Property>
 				<Property>
 					<Name>Offset</Name>
 					<Type>PropertyIntControl</Type>
-					<Initialisator></Initialisator>
+					<Initialisator/>
 					<Default>2</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
@@ -132,7 +132,7 @@
 				<Property>
 					<Name>Visible</Name>
 					<Type>PropertyBoolControl</Type>
-					<Initialisator></Initialisator>
+					<Initialisator/>
 					<Default>False</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
@@ -146,25 +146,25 @@
 				<Property>
 					<Name>Name</Name>
 					<Type>PropertyStringControl</Type>
-					<Initialisator></Initialisator>
-					<Default></Default>
+					<Initialisator/>
+					<Default/>
 					<Visible>false</Visible>
 					<ReadOnly>true</ReadOnly>
-					<Action></Action>
+					<Action/>
 				</Property>
 				<Property>
 					<Name>Coord</Name>
 					<Type>PropertyInt4Control</Type>
-					<Initialisator></Initialisator>
+					<Initialisator/>
 					<Default>0 0 0 0</Default>
 					<Visible>true</Visible>
 					<ReadOnly>true</ReadOnly>
-					<Action></Action>
+					<Action/>
 				</Property>
 				<Property>
 					<Name>Visible</Name>
 					<Type>PropertyBoolControl</Type>
-					<Initialisator></Initialisator>
+					<Initialisator/>
 					<Default>False</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
@@ -173,16 +173,16 @@
 				<Property>
 					<Name>Enable</Name>
 					<Type>PropertyBoolControl</Type>
-					<Initialisator></Initialisator>
+					<Initialisator/>
 					<Default>False</Default>
 					<Visible>true</Visible>
 					<ReadOnly>true</ReadOnly>
-					<Action></Action>
+					<Action/>
 				</Property>
 				<Property>
 					<Name>Type</Name>
 					<Type>PropertyRegionTypeControl</Type>
-					<Initialisator></Initialisator>
+					<Initialisator/>
 					<Default>SubSkin</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
@@ -197,16 +197,16 @@
 				<Property>
 					<Name>Name</Name>
 					<Type>PropertyStringControl</Type>
-					<Initialisator></Initialisator>
-					<Default></Default>
+					<Initialisator/>
+					<Default/>
 					<Visible>false</Visible>
 					<ReadOnly>true</ReadOnly>
-					<Action></Action>
+					<Action/>
 				</Property>
 				<Property>
 					<Name>Coord</Name>
 					<Type>PropertyInt4Control</Type>
-					<Initialisator></Initialisator>
+					<Initialisator/>
 					<Default>0 0 16 16</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
@@ -215,7 +215,7 @@
 				<Property>
 					<Name>Visible</Name>
 					<Type>PropertyBoolControl</Type>
-					<Initialisator></Initialisator>
+					<Initialisator/>
 					<Default>False</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
@@ -224,16 +224,16 @@
 				<Property>
 					<Name>Enable</Name>
 					<Type>PropertyBoolControl</Type>
-					<Initialisator></Initialisator>
+					<Initialisator/>
 					<Default>True</Default>
 					<Visible>true</Visible>
 					<ReadOnly>true</ReadOnly>
-					<Action></Action>
+					<Action/>
 				</Property>
 				<Property>
 					<Name>Type</Name>
 					<Type>PropertyRegionTextTypeControl</Type>
-					<Initialisator></Initialisator>
+					<Initialisator/>
 					<Default>SimpleText</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
@@ -242,7 +242,7 @@
 				<Property>
 					<Name>Align</Name>
 					<Type>PropertyAlignControl</Type>
-					<Initialisator></Initialisator>
+					<Initialisator/>
 					<Default>Stretch</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
