@@ -28,6 +28,10 @@ namespace tools
 		void parseSkin(pugi::xml_node _node);
 		void writeSkin(pugi::xml_node _parent, Data* _data);
 
+		void writeRegion(pugi::xml_node _parent, Data* _parentData, Data* _data, bool _text);
+		pugi::xml_node writeState(pugi::xml_node _parent, Data* _data, const MyGUI::IntCoord& _value);
+		void writeStateText(pugi::xml_node _parent, Data* _data, const MyGUI::IntCoord& _value);
+
 		void fillStateData(Data* _data, pugi::xml_node _node);
 		void fillSeparatorData(Data* _data, pugi::xml_node _node);
 		void fillRegionData(Data* _data, pugi::xml_node _node);
@@ -37,6 +41,12 @@ namespace tools
 		void registerMapName(const std::string& _value1, const std::string& _value2);
 
 		Data* getChildData(Data* _data, const std::string& _dataType, const std::string& _name);
+
+		std::string convertEditorToExportAlign(const std::string& _value);
+
+		void sortByAlign(Data::VectorData& childs);
+		size_t findIndex(Data::VectorData& childs, const std::string& _name);
+		void moveToEnd(Data::VectorData& childs, size_t _index);
 
 	private:
 		typedef std::map<std::string, std::string> MapString;

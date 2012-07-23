@@ -104,14 +104,14 @@ namespace tools
 		return true;
 	}
 
-	Data::VectorData DataUtility::getChildsByType(Data* _parent, const std::string& _type)
+	Data::VectorData DataUtility::getChildsByType(Data* _parent, const std::string& _type, bool _friend)
 	{
 		Data::VectorData result;
 		result.reserve(_parent->getChilds().size());
 
 		for (Data::VectorData::const_iterator child = _parent->getChilds().begin(); child != _parent->getChilds().end(); child ++)
 		{
-			if ((*child)->getType()->getName() == _type || (*child)->getType()->getFriend() == _type)
+			if ((*child)->getType()->getName() == _type || (_friend && (*child)->getType()->getFriend() == _type))
 				result.push_back((*child));
 		}
 
