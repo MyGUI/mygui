@@ -56,11 +56,15 @@ namespace tools
 	{
 		new SettingsManager();
 		SettingsManager::getInstance().loadSettingsFile(MyGUI::DataManager::getInstance().getDataPath("Settings.xml"));
-		SettingsManager::getInstance().loadSettingsFile("SkinSettings.xml"); // FIXME для теста
 
 		std::string userSettingsFileName = SettingsManager::getInstance().getValueString("Editor/UserSettingsFileName");
 		if (!userSettingsFileName.empty())
 			SettingsManager::getInstance().loadUserSettingsFile(userSettingsFileName);
+
+		// FIXME для теста
+		bool skinEditor = SettingsManager::getInstance().getValue<bool>("Settings/SkinEditor");
+		if (skinEditor)
+			SettingsManager::getInstance().loadSettingsFile(MyGUI::DataManager::getInstance().getDataPath("SkinEditorSettings.xml"));
 
 		new HotKeyManager();
 		HotKeyManager::getInstance().initialise();

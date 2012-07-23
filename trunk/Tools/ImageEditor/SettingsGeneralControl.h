@@ -42,6 +42,7 @@ namespace tools
 		MyGUI::EditBox* mGridEdit;
 		MyGUI::Button* mSaveLastTexture;
 		MyGUI::ComboBox* mInterfaceLanguage;
+		MyGUI::Button* mSkinEditor;
 	};
 
 }
