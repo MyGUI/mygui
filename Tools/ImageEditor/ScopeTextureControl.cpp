@@ -22,7 +22,8 @@ namespace tools
 		mAreaSelectorControl(nullptr),
 		mPositionSelectorControl(nullptr),
 		mCurrentSelectorControl(nullptr),
-		mActivePositionOnly(false)
+		mActivePositionOnly(false),
+		mCoordValueReadOnly(false)
 	{
 	}
 
@@ -458,4 +459,12 @@ namespace tools
 			mPositionSelectorControl = nullptr;
 		}
 	}
+
+	void ScopeTextureControl::setCoordValueReadOnly(bool _value)
+	{
+		mCoordValueReadOnly = _value;
+		mAreaSelectorControl->setEnabled(!mCoordValueReadOnly);
+		mPositionSelectorControl->setEnabled(!mCoordValueReadOnly);
+	}
+
 }

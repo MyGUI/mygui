@@ -79,6 +79,7 @@ set (HEADER_FILES
   PropertyUtility.h
   RecentFilesManager.h
   RegionListControl.h
+  RegionTextureController.h
   ScopeManager.h
   ScopeTextureControl.h
   SelectorControl.h
@@ -183,6 +184,7 @@ set (SOURCE_FILES
   PropertyUtility.cpp
   RecentFilesManager.cpp
   RegionListControl.cpp
+  RegionTextureController.cpp
   ScopeManager.cpp
   ScopeTextureControl.cpp
   SelectorControl.cpp
@@ -259,6 +261,8 @@ SOURCE_GROUP("Controllers" FILES
   IndexTextureController.h
   PropertyPanelController.cpp
   PropertyPanelController.h
+  RegionTextureController.cpp
+  RegionTextureController.h
   SkinTextureController.cpp
   SkinTextureController.h
   StateTextureController.cpp

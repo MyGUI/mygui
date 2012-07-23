@@ -5,7 +5,7 @@
 */
 
 #include "Precompiled.h"
-#include "StateTextureController.h"
+#include "RegionTextureController.h"
 #include "FactoryManager.h"
 #include "DataSelectorManager.h"
 #include "DataManager.h"
@@ -16,40 +16,40 @@
 namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(StateTextureController)
+	FACTORY_ITEM_ATTRIBUTE(RegionTextureController)
 
-	StateTextureController::StateTextureController() :
+	RegionTextureController::RegionTextureController() :
 		mControl(nullptr),
 		mParentData(nullptr),
 		mActivated(false)
 	{
 	}
 
-	StateTextureController::~StateTextureController()
+	RegionTextureController::~RegionTextureController()
 	{
 	}
 
-	void StateTextureController::setTarget(Control* _control)
+	void RegionTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();
 	}
 
-	void StateTextureController::activate()
+	void RegionTextureController::activate()
 	{
 		mParentTypeName = "Skin";
-		mThisType = "State";
-		mScopeName = "State";
+		mThisType = "Region";
+		mScopeName = "Region";
 
-		ScopeManager::getInstance().eventChangeScope.connect(this, &StateTextureController::notifyChangeScope);
+		ScopeManager::getInstance().eventChangeScope.connect(this, &RegionTextureController::notifyChangeScope);
 		notifyChangeScope(ScopeManager::getInstance().getCurrentScope());
 	}
 
-	void StateTextureController::deactivate()
+	void RegionTextureController::deactivate()
 	{
 		ScopeManager::getInstance().eventChangeScope.disconnect(this);
 	}
 
-	void StateTextureController::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
+	void RegionTextureController::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
 	{
 		mParentData = _data;
 		if (mParentData != nullptr && mParentData->getType()->getName() != mParentTypeName)
@@ -61,8 +61,8 @@ namespace tools
 		{
 			texture = property->getValue();
 
-			if (!property->eventChangeProperty.exist(this, &StateTextureController::notifyChangeProperty))
-				property->eventChangeProperty.connect(this, &StateTextureController::notifyChangeProperty);
+			if (!property->eventChangeProperty.exist(this, &RegionTextureController::notifyChangeProperty))
+				property->eventChangeProperty.connect(this, &RegionTextureController::notifyChangeProperty);
 		}
 
 		std::string coord;
@@ -71,8 +71,8 @@ namespace tools
 		{
 			coord = property->getValue();
 
-			if (!property->eventChangeProperty.exist(this, &StateTextureController::notifyChangeProperty))
-				property->eventChangeProperty.connect(this, &StateTextureController::notifyChangeProperty);
+			if (!property->eventChangeProperty.exist(this, &RegionTextureController::notifyChangeProperty))
+				property->eventChangeProperty.connect(this, &RegionTextureController::notifyChangeProperty);
 		}
 
 		if (mParentData != nullptr)
@@ -82,23 +82,25 @@ namespace tools
 				if ((*child)->getType()->getName() != mThisType)
 					continue;
 
-				property = (*child)->getProperty("Point");
-				if (!property->eventChangeProperty.exist(this, &StateTextureController::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &StateTextureController::notifyChangeProperty);
+				property = (*child)->getProperty("Coord");
+				if (!property->eventChangeProperty.exist(this, &RegionTextureController::notifyChangeProperty))
+					property->eventChangeProperty.connect(this, &RegionTextureController::notifyChangeProperty);
 
 				property = (*child)->getProperty("Visible");
-				if (!property->eventChangeProperty.exist(this, &StateTextureController::notifyChangeProperty))
-					property->eventChangeProperty.connect(this, &StateTextureController::notifyChangeProperty);
+				if (!property->eventChangeProperty.exist(this, &RegionTextureController::notifyChangeProperty))
+					property->eventChangeProperty.connect(this, &RegionTextureController::notifyChangeProperty);
+
+				property = (*child)->getProperty("Enable");
+				if (!property->eventChangeProperty.exist(this, &RegionTextureController::notifyChangeProperty))
+					property->eventChangeProperty.connect(this, &RegionTextureController::notifyChangeProperty);
 			}
 		}
 
 		mControl->setTextureValue(texture);
-		mControl->resetTextureRegion();
-
 		updateCoords(coord);
 	}
 
-	void StateTextureController::notifyChangeProperty(Property* _sender)
+	void RegionTextureController::notifyChangeProperty(Property* _sender)
 	{
 		if (!mActivated || !PropertyUtility::isDataSelected(_sender->getOwner()))
 			return;
@@ -110,16 +112,18 @@ namespace tools
 			else if (_sender->getType()->getName() == "Size")
 				updateCoords(_sender->getValue());
 		}
-		else if (_sender->getOwner()->getType()->getName() == "State")
+		else if (_sender->getOwner()->getType()->getName() == "Region")
 		{
-			if (_sender->getType()->getName() == "Point")
+			if (_sender->getType()->getName() == "Coord")
 				updateFrames();
 			else if (_sender->getType()->getName() == "Visible")
+				updateFrames();
+			else if (_sender->getType()->getName() == "Enable")
 				updateFrames();
 		}
 	}
 
-	void StateTextureController::notifyChangeValue(const std::string& _value)
+	/*void RegionTextureController::notifyChangeValue(const std::string& _value)
 	{
 		if (mParentData != nullptr)
 		{
@@ -131,9 +135,9 @@ namespace tools
 				PropertyUtility::executeAction(property, coord.point().print(), true);
 			}
 		}
-	}
+	}*/
 
-	void StateTextureController::notifyChangeScope(const std::string& _scope)
+	void RegionTextureController::notifyChangeScope(const std::string& _scope)
 	{
 		if (mControl == nullptr)
 			return;
@@ -142,12 +146,12 @@ namespace tools
 		{
 			if (!mActivated)
 			{
-				mControl->eventChangeValue.connect(this, &StateTextureController::notifyChangeValue);
+				//mControl->eventChangeValue.connect(this, &RegionTextureController::notifyChangeValue);
 				mControl->clearAll();
 
 				mControl->setActiveSelector(true);
 
-				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &StateTextureController::notifyChangeDataSelector);
+				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &RegionTextureController::notifyChangeDataSelector);
 				mParentData = DataUtility::getSelectedDataByType(mParentTypeName);
 				notifyChangeDataSelector(mParentData, false);
 
@@ -160,7 +164,7 @@ namespace tools
 		{
 			if (mActivated)
 			{
-				mControl->eventChangeValue.disconnect(this);
+				//mControl->eventChangeValue.disconnect(this);
 
 				DataSelectorManager::getInstance().getEvent(mParentTypeName)->disconnect(this);
 				mParentData = nullptr;
@@ -180,18 +184,20 @@ namespace tools
 		}
 	}
 
-	void StateTextureController::updateCoords(const std::string& _value)
+	void RegionTextureController::updateCoords(const std::string& _value)
 	{
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))
-			mSize = coord.size();
+			mTextureCoord = coord;
 		else
-			mSize.clear();
+			mTextureCoord.clear();
+
+		mControl->setTextureRegion(mTextureCoord);
 
 		updateFrames();
 	}
 
-	void StateTextureController::updateFrames()
+	void RegionTextureController::updateFrames()
 	{
 		mFrames.clear();
 
@@ -203,15 +209,15 @@ namespace tools
 				if ((*child)->getType()->getName() != mThisType)
 					continue;
 
-				bool visible = (*child)->getPropertyValue<bool>("Visible");
-				MyGUI::IntPoint value = (*child)->getPropertyValue<MyGUI::IntPoint>("Point");
+				bool visible = (*child)->getPropertyValue<bool>("Visible") && (*child)->getPropertyValue<bool>("Enable");
+				MyGUI::IntCoord value = (*child)->getPropertyValue<MyGUI::IntCoord>("Coord");
 
 				if (selected == *child)
 				{
 					if (visible)
 					{
-						mControl->setCoordValue(MyGUI::IntCoord(value, mSize));
-						mControl->setCoordValueReadOnly(false);
+						mControl->setCoordValue(value);
+						mControl->setCoordValueReadOnly(true);
 					}
 					else
 						mControl->clearCoordValue();
@@ -219,7 +225,7 @@ namespace tools
 				else
 				{
 					if (visible)
-						mFrames.push_back(MyGUI::IntCoord(value, mSize));
+						mFrames.push_back(value);
 				}
 			}
 

@@ -80,7 +80,7 @@ namespace tools
 
 	void GroupTextureController::notifyChangeProperty(Property* _sender)
 	{
-		if (!PropertyUtility::isDataSelected(_sender->getOwner()))
+		if (!mActivated || !PropertyUtility::isDataSelected(_sender->getOwner()))
 			return;
 
 		if (_sender->getOwner()->getType()->getName() == "Group")

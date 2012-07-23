@@ -75,12 +75,14 @@ namespace tools
 		}
 
 		mControl->setTextureValue(texture);
+		mControl->resetTextureRegion();
+
 		updateCoords(coord);
 	}
 
 	void SkinTextureController::notifyChangeProperty(Property* _sender)
 	{
-		if (!PropertyUtility::isDataSelected(_sender->getOwner()))
+		if (!mActivated || !PropertyUtility::isDataSelected(_sender->getOwner()))
 			return;
 
 		if (_sender->getOwner()->getType()->getName() == "Skin")
@@ -151,6 +153,7 @@ namespace tools
 		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))
 		{
 			mControl->setCoordValue(coord);
+			mControl->setCoordValueReadOnly(false);
 		}
 		else
 		{

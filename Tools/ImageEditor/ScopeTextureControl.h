@@ -30,6 +30,8 @@ namespace tools
 		void setViewSelectors(const VectorCoord& _selectors);
 		void clearViewSelectors();
 
+		void setCoordValueReadOnly(bool _value);
+
 		void clearAll();
 
 		void setActiveSelector(bool _positionOnly);
@@ -82,6 +84,7 @@ namespace tools
 		MyGUI::IntCoord mCoordValue;
 		std::vector<PositionSelectorBlackControl*> mBlackSelectors;
 		bool mActivePositionOnly;
+		bool mCoordValueReadOnly;
 	};
 
 }
