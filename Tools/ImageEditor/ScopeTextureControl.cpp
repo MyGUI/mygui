@@ -15,6 +15,10 @@
 #include "PositionSelectorBlackControl.h"
 #include "HorizontalSelectorBlackControl.h"
 #include "VerticalSelectorBlackControl.h"
+#include "AreaSelectorControl.h"
+#include "PositionSelectorControl.h"
+#include "HorizontalSelectorControl.h"
+#include "VerticalSelectorControl.h"
 
 namespace tools
 {
@@ -22,25 +26,20 @@ namespace tools
 	FACTORY_ITEM_ATTRIBUTE(ScopeTextureControl)
 
 	ScopeTextureControl::ScopeTextureControl() :
-		mAreaSelectorControl(nullptr),
-		mPositionSelectorControl(nullptr),
 		mCurrentSelectorControl(nullptr),
-		mActivePositionOnly(false),
-		mCoordValueReadOnly(false)
+		mCurrentSelectorType(SelectorNone)
 	{
 	}
 
 	ScopeTextureControl::~ScopeTextureControl()
 	{
-		mAreaSelectorControl->eventChangePosition.disconnect(this);
-		mPositionSelectorControl->eventChangePosition.disconnect(this);
+		for (VectorSelector::iterator selector = mSelectors.begin(); selector != mSelectors.end(); selector ++)
+			(*selector).first->eventChangePosition.disconnect(this);
 	}
 
 	void ScopeTextureControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
 		TextureToolControl::OnInitialise(_parent, _place, _layoutName);
-
-		InitialiseSelectors();
 
 		CommandManager::getInstance().getEvent("Command_MoveLeft")->connect(this, &ScopeTextureControl::CommandMoveLeft);
 		CommandManager::getInstance().getEvent("Command_MoveRight")->connect(this, &ScopeTextureControl::CommandMoveRight);
@@ -173,9 +172,6 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		if (mActivePositionOnly)
-			return;
-
 		mCoordValue.width = GridManager::getInstance().toGrid(mCoordValue.right(), GridManager::Previous) - mCoordValue.left;
 		updateFromCoordValue();
 
@@ -185,9 +181,6 @@ namespace tools
 	void ScopeTextureControl::CommandGridSizeRight(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
-			return;
-
-		if (mActivePositionOnly)
 			return;
 
 		mCoordValue.width = GridManager::getInstance().toGrid(mCoordValue.right(), GridManager::Next) - mCoordValue.left;
@@ -201,9 +194,6 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		if (mActivePositionOnly)
-			return;
-
 		mCoordValue.height = GridManager::getInstance().toGrid(mCoordValue.bottom(), GridManager::Previous) - mCoordValue.top;
 		updateFromCoordValue();
 
@@ -213,9 +203,6 @@ namespace tools
 	void ScopeTextureControl::CommandGridSizeBottom(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
-			return;
-
-		if (mActivePositionOnly)
 			return;
 
 		mCoordValue.height = GridManager::getInstance().toGrid(mCoordValue.bottom(), GridManager::Next) - mCoordValue.top;
@@ -229,9 +216,6 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		if (mActivePositionOnly)
-			return;
-
 		mCoordValue.width --;
 		updateFromCoordValue();
 
@@ -241,9 +225,6 @@ namespace tools
 	void ScopeTextureControl::CommandSizeRight(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
-			return;
-
-		if (mActivePositionOnly)
 			return;
 
 		mCoordValue.width ++;
@@ -257,9 +238,6 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		if (mActivePositionOnly)
-			return;
-
 		mCoordValue.height --;
 		updateFromCoordValue();
 
@@ -269,9 +247,6 @@ namespace tools
 	void ScopeTextureControl::CommandSizeBottom(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
-			return;
-
-		if (mActivePositionOnly)
 			return;
 
 		mCoordValue.height ++;
@@ -352,7 +327,15 @@ namespace tools
 
 	void ScopeTextureControl::setCoordValue(const MyGUI::IntCoord& _value, SelectorType _type)
 	{
-		setActiveSelector(_type == SelectorPosition);
+		if (mCurrentSelectorType != _type)
+		{
+			clearCoordValue();
+
+			mCurrentSelectorType = _type;
+			bool changes = false;
+			mCurrentSelectorControl = getFreeSelector(mSelectors, false, mCurrentSelectorType, changes);
+			mCurrentSelectorControl->setCoord(mCoordValue);
+		}
 
 		mCurrentSelectorControl->setVisible(true);
 
@@ -365,7 +348,8 @@ namespace tools
 
 	void ScopeTextureControl::clearCoordValue()
 	{
-		mCurrentSelectorControl->setVisible(false);
+		for (VectorSelector::iterator selector = mSelectors.begin(); selector != mSelectors.end(); selector ++)
+			(*selector).first->setVisible(false);
 	}
 
 	void ScopeTextureControl::clearAll()
@@ -380,13 +364,14 @@ namespace tools
 		clearViewSelectors();
 
 		bool changes = false;
-		for (size_t index = 0; index < _selectors.size(); index ++)
+		for (VectorCoord::const_iterator selectorCoord = _selectors.begin(); selectorCoord != _selectors.end(); selectorCoord ++)
 		{
-			SelectorControl* selector = getFreeSelector(_selectors[index].second, changes);
-			selector->setCoord(_selectors[index].first);
+			SelectorControl* selector = getFreeSelector(mBlackSelectors, true, (*selectorCoord).second, changes);
+			selector->setCoord((*selectorCoord).first);
 		}
 
-		if (changes)
+		// FIXME
+		/*if (changes)
 		{
 			bool visible = mCurrentSelectorControl->getVisible();
 			MyGUI::IntCoord coord = mCoordValue;
@@ -395,75 +380,25 @@ namespace tools
 
 			if (visible)
 				setCoordValue(coord, ScopeTextureControl::SelectorPosition); //FIXME
-		}
+		}*/
 	}
 
 	void ScopeTextureControl::clearViewSelectors()
 	{
-		for (size_t index = 0; index < mBlackSelectors.size(); ++index)
-			mBlackSelectors[index].first->setVisible(false);
+		for (VectorSelector::iterator selector = mBlackSelectors.begin(); selector != mBlackSelectors.end(); selector ++)
+			(*selector).first->setVisible(false);
 	}
 
-	void ScopeTextureControl::setActiveSelector(bool _positionOnly)
+	SelectorControl* ScopeTextureControl::getFreeSelector(VectorSelector& _selectors, bool _backType, SelectorType _type, bool& _changes)
 	{
-		mActivePositionOnly = _positionOnly;
-
-		mAreaSelectorControl->setVisible(false);
-		mPositionSelectorControl->setVisible(false);
-
-		if (mActivePositionOnly)
-			mCurrentSelectorControl = mPositionSelectorControl;
-		else
-			mCurrentSelectorControl = mAreaSelectorControl;
-
-		mCoordValue.clear();
-	}
-
-	void ScopeTextureControl::InitialiseSelectors()
-	{
-		ShutdownSelectors();
-
-		addSelectorControl(mAreaSelectorControl);
-		addSelectorControl(mPositionSelectorControl);
-
-		mAreaSelectorControl->eventChangePosition.connect(this, &ScopeTextureControl::notifyChangePosition);
-		mPositionSelectorControl->eventChangePosition.connect(this, &ScopeTextureControl::notifyChangePosition);
-
-		setActiveSelector(mActivePositionOnly);
-	}
-
-	void ScopeTextureControl::ShutdownSelectors()
-	{
-		if (mAreaSelectorControl != nullptr)
+		for (VectorSelector::iterator selector = _selectors.begin(); selector != _selectors.end(); selector ++)
 		{
-			removeSelectorControl(mAreaSelectorControl);
-			mAreaSelectorControl = nullptr;
-		}
-
-		if (mPositionSelectorControl != nullptr)
-		{
-			removeSelectorControl(mPositionSelectorControl);
-			mPositionSelectorControl = nullptr;
-		}
-	}
-
-	void ScopeTextureControl::setCoordValueReadOnly(bool _value)
-	{
-		mCoordValueReadOnly = _value;
-		mAreaSelectorControl->setEnabled(!mCoordValueReadOnly);
-		mPositionSelectorControl->setEnabled(!mCoordValueReadOnly);
-	}
-
-	SelectorControl* ScopeTextureControl::getFreeSelector(SelectorType _type, bool& _changes)
-	{
-		for (size_t index = 0; index < mBlackSelectors.size(); ++index)
-		{
-			if (!mBlackSelectors[index].first->getVisible())
+			if (!(*selector).first->getVisible())
 			{
-				if (mBlackSelectors[index].second == _type)
+				if ((*selector).second == _type)
 				{
-					mBlackSelectors[index].first->setVisible(true);
-					return mBlackSelectors[index].first;
+					(*selector).first->setVisible(true);
+					return (*selector).first;
 				}
 			}
 		}
@@ -472,16 +407,39 @@ namespace tools
 
 		SelectorControl* control = nullptr;
 
-		if (_type == SelectorPosition)
-			control = new PositionSelectorBlackControl();
-		else if (_type == SelectorOffsetH)
-			control = new HorizontalSelectorBlackControl();
-		else if (_type == SelectorOffsetV)
-			control = new VerticalSelectorBlackControl();
+		if (_backType)
+		{
+			if (_type == SelectorPosition)
+				control = new PositionSelectorBlackControl();
+			else if (_type == SelectorOffsetH)
+				control = new HorizontalSelectorBlackControl();
+			else if (_type == SelectorOffsetV)
+				control = new VerticalSelectorBlackControl();
+		}
+		else
+		{
+			if (_type == SelectorPosition)
+				control = new PositionSelectorControl();
+			else if (_type == SelectorPositionReadOnly)
+				control = new PositionSelectorControl();
+			else if (_type == SelectorCoord)
+				control = new AreaSelectorControl();
+			else if (_type == SelectorOffsetH)
+				control = new HorizontalSelectorControl();
+			else if (_type == SelectorOffsetV)
+				control = new VerticalSelectorControl();
+
+			control->eventChangePosition.connect(this, &ScopeTextureControl::notifyChangePosition);
+		}
+
+		MYGUI_ASSERT(control != nullptr, "Selector type not found");
 
 		addSelectorControl(control);
 
-		mBlackSelectors.push_back(std::make_pair(control, _type));
+		if (_type == SelectorPositionReadOnly)
+			control->setEnabled(false);
+
+		_selectors.push_back(std::make_pair(control, _type));
 
 		return control;
 	}

@@ -214,8 +214,7 @@ namespace tools
 				{
 					if (visible)
 					{
-						mControl->setCoordValue(value, ScopeTextureControl::SelectorPosition);
-						mControl->setCoordValueReadOnly(true);
+						mControl->setCoordValue(value, ScopeTextureControl::SelectorPositionReadOnly);
 					}
 					else
 						mControl->clearCoordValue();

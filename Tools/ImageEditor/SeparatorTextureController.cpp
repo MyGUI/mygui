@@ -211,10 +211,7 @@ namespace tools
 				if (selected == *child)
 				{
 					if (visible)
-					{
 						mControl->setCoordValue(value, type);
-						mControl->setCoordValueReadOnly(false);
-					}
 					else
 						mControl->clearCoordValue();
 				}

@@ -8,8 +8,6 @@
 #define _31513eda_9f1b_4986_a5a5_466942db581b_
 
 #include "TextureToolControl.h"
-#include "AreaSelectorControl.h"
-#include "PositionSelectorControl.h"
 #include "Property.h"
 
 namespace tools
@@ -22,7 +20,7 @@ namespace tools
 		ScopeTextureControl();
 		virtual ~ScopeTextureControl();
 
-		enum SelectorType { SelectorCoord, SelectorPosition, SelectorOffsetH, SelectorOffsetV };
+		enum SelectorType { SelectorNone, SelectorCoord, SelectorPosition, SelectorPositionReadOnly, SelectorOffsetH, SelectorOffsetV };
 
 		void setCoordValue(const MyGUI::IntCoord& _value, SelectorType _type);
 		void clearCoordValue();
@@ -31,8 +29,6 @@ namespace tools
 		typedef std::vector<PairCoordType> VectorCoord;
 		void setViewSelectors(const VectorCoord& _selectors);
 		void clearViewSelectors();
-
-		void setCoordValueReadOnly(bool _value);
 
 		void clearAll();
 
@@ -74,22 +70,18 @@ namespace tools
 
 		void setValue(const std::string& _value);
 
-		void ShutdownSelectors();
-		void InitialiseSelectors();
-
-		SelectorControl* getFreeSelector(SelectorType _type, bool& _changes);
-
-		void setActiveSelector(bool _positionOnly); // FIXME 
+		typedef std::pair<SelectorControl*, SelectorType> PairSelectorType;
+		typedef std::vector<PairSelectorType> VectorSelector;
+		SelectorControl* getFreeSelector(VectorSelector& _selectors, bool _backType, SelectorType _type, bool& _changes);
 
 	private:
-		AreaSelectorControl* mAreaSelectorControl;
-		PositionSelectorControl* mPositionSelectorControl;
 		SelectorControl* mCurrentSelectorControl;
+		SelectorType mCurrentSelectorType;
+
 		MyGUI::IntCoord mCoordValue;
-		typedef std::pair<SelectorControl*, SelectorType> PairSelectorType;
-		std::vector<PairSelectorType> mBlackSelectors;
-		bool mActivePositionOnly;
-		bool mCoordValueReadOnly;
+
+		VectorSelector mBlackSelectors;
+		VectorSelector mSelectors;
 	};
 
 }
