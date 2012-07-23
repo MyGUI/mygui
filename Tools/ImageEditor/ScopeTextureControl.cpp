@@ -12,6 +12,9 @@
 #include "DataSelectorManager.h"
 #include "DataManager.h"
 #include "FactoryManager.h"
+#include "PositionSelectorBlackControl.h"
+#include "HorizontalSelectorBlackControl.h"
+#include "VerticalSelectorBlackControl.h"
 
 namespace tools
 {
@@ -372,31 +375,13 @@ namespace tools
 
 	void ScopeTextureControl::setViewSelectors(const VectorCoord& _selectors)
 	{
-		bool changes = false;
-
 		clearViewSelectors();
 
-		while (_selectors.size() > mBlackSelectors.size())
+		bool changes = false;
+		for (size_t index = 0; index < _selectors.size(); index ++)
 		{
-			PositionSelectorBlackControl* selector = nullptr;
-			addSelectorControl(selector);
-
-			mBlackSelectors.push_back(selector);
-
-			changes = true;
-		}
-
-		for (size_t index = 0; index < mBlackSelectors.size(); ++index)
-		{
-			if (index < _selectors.size())
-			{
-				mBlackSelectors[index]->setVisible(true);
-				mBlackSelectors[index]->setCoord(_selectors[index].first);
-			}
-			else
-			{
-				mBlackSelectors[index]->setVisible(false);
-			}
+			SelectorControl* selector = getFreeSelector(_selectors[index].second, changes);
+			selector->setCoord(_selectors[index].first);
 		}
 
 		if (changes)
@@ -414,7 +399,7 @@ namespace tools
 	void ScopeTextureControl::clearViewSelectors()
 	{
 		for (size_t index = 0; index < mBlackSelectors.size(); ++index)
-			mBlackSelectors[index]->setVisible(false);
+			mBlackSelectors[index].first->setVisible(false);
 	}
 
 	void ScopeTextureControl::setActiveSelector(bool _positionOnly)
@@ -465,6 +450,38 @@ namespace tools
 		mCoordValueReadOnly = _value;
 		mAreaSelectorControl->setEnabled(!mCoordValueReadOnly);
 		mPositionSelectorControl->setEnabled(!mCoordValueReadOnly);
+	}
+
+	SelectorControl* ScopeTextureControl::getFreeSelector(SelectorType _type, bool& _changes)
+	{
+		for (size_t index = 0; index < mBlackSelectors.size(); ++index)
+		{
+			if (!mBlackSelectors[index].first->getVisible())
+			{
+				if (mBlackSelectors[index].second == _type)
+				{
+					mBlackSelectors[index].first->setVisible(true);
+					return mBlackSelectors[index].first;
+				}
+			}
+		}
+
+		_changes = true;
+
+		SelectorControl* control = nullptr;
+
+		if (_type == SelectorPosition)
+			control = new PositionSelectorBlackControl();
+		else if (_type == SelectorOffsetH)
+			control = new HorizontalSelectorBlackControl();
+		else if (_type == SelectorOffsetV)
+			control = new VerticalSelectorBlackControl();
+
+		addSelectorControl(control);
+
+		mBlackSelectors.push_back(std::make_pair(control, _type));
+
+		return control;
 	}
 
 }
