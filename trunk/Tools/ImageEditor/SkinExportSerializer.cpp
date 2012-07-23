@@ -280,6 +280,26 @@ namespace tools
 
 			regionData->setPropertyValue("Type", type);
 		}
+
+		pugi::xpath_node regionText = _node.select_single_node("BasisSkin[@type=\"SimpleText\"or@type=\"EditText\"]");
+		if (!regionText.node().empty())
+		{
+			Data* regionData = getChildData(_data, "RegionText", "Text");
+
+			if (regionData != nullptr)
+			{
+				regionData->setPropertyValue("Visible", "True");
+
+				std::string type = regionText.node().attribute("type").value();
+				regionData->setPropertyValue("Type", type);
+
+				MyGUI::IntCoord offset = MyGUI::IntCoord::parse(regionText.node().attribute("offset").value());
+				regionData->setPropertyValue("Coord", offset);
+
+				MyGUI::Align align = MyGUI::Align::parse(regionText.node().attribute("align").value());
+				regionData->setPropertyValue("Align", align);
+			}
+		}
 	}
 
 }
