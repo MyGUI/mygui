@@ -30,6 +30,7 @@ namespace tools
 
 		void fillStateData(Data* _data, pugi::xml_node _node);
 		void fillSeparatorData(Data* _data, pugi::xml_node _node);
+		void fillRegionData(Data* _data, pugi::xml_node _node);
 
 		std::string convertEditorToExportStateName(const std::string& _value);
 		std::string convertExportToEditorStateName(const std::string& _value);

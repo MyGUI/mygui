@@ -179,6 +179,15 @@
 					<ReadOnly>true</ReadOnly>
 					<Action></Action>
 				</Property>
+				<Property>
+					<Name>Type</Name>
+					<Type>PropertyStringControl</Type>
+					<Initialisator></Initialisator>
+					<Default>SubSkin</Default>
+					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
+					<Action>ChangeValueAction</Action>
+				</Property>
 			</Properties>
 		</DataType>
 		<DataType>
@@ -220,6 +229,15 @@
 					<Visible>true</Visible>
 					<ReadOnly>true</ReadOnly>
 					<Action></Action>
+				</Property>
+				<Property>
+					<Name>Type</Name>
+					<Type>PropertyStringControl</Type>
+					<Initialisator></Initialisator>
+					<Default></Default>
+					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
+					<Action>ChangeValueAction</Action>
 				</Property>
 			</Properties>
 		</DataType>
