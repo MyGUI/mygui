@@ -67,6 +67,7 @@ set (HEADER_FILES
   PositionSelectorBlackControl.h
   PositionSelectorControl.h
   Property.h
+  PropertyAlignControl.h
   PropertyBoolControl.h
   PropertyColourControl.h
   PropertyControl.h
@@ -179,6 +180,7 @@ set (SOURCE_FILES
   PositionSelectorBlackControl.cpp
   PositionSelectorControl.cpp
   Property.cpp
+  PropertyAlignControl.cpp
   PropertyBoolControl.cpp
   PropertyColourControl.cpp
   PropertyControl.cpp
@@ -335,6 +337,8 @@ SOURCE_GROUP("Controls\\Lists" FILES
   StateListControl.h
 )
 SOURCE_GROUP("Controls\\Properties" FILES
+  PropertyAlignControl.cpp
+  PropertyAlignControl.h
   PropertyBoolControl.cpp
   PropertyBoolControl.h
   PropertyColourControl.cpp
