@@ -10,7 +10,6 @@
 #include "TextureToolControl.h"
 #include "AreaSelectorControl.h"
 #include "PositionSelectorControl.h"
-#include "PositionSelectorBlackControl.h"
 #include "Property.h"
 
 namespace tools
@@ -80,12 +79,15 @@ namespace tools
 		void ShutdownSelectors();
 		void InitialiseSelectors();
 
+		SelectorControl* getFreeSelector(SelectorType _type, bool& _changes);
+
 	private:
 		AreaSelectorControl* mAreaSelectorControl;
 		PositionSelectorControl* mPositionSelectorControl;
 		SelectorControl* mCurrentSelectorControl;
 		MyGUI::IntCoord mCoordValue;
-		std::vector<PositionSelectorBlackControl*> mBlackSelectors;
+		typedef std::pair<SelectorControl*, SelectorType> PairSelectorType;
+		std::vector<PairSelectorType> mBlackSelectors;
 		bool mActivePositionOnly;
 		bool mCoordValueReadOnly;
 	};

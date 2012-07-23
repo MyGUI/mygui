@@ -40,6 +40,12 @@ namespace tools
 			registerSelectorControl(_control);
 		}
 
+		void addSelectorControl(SelectorControl* _control)
+		{
+			_control->Initialise(this, mTexture, "");
+			registerSelectorControl(_control);
+		}
+
 		void removeSelectorControl(SelectorControl* _control);
 
 		void setColour(MyGUI::Colour _value);
