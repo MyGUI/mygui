@@ -133,8 +133,6 @@ namespace tools
 				mControl->eventChangeValue.connect(this, &FrameTextureController::notifyChangeValue);
 				mControl->clearAll();
 
-				mControl->setActiveSelector(true);
-
 				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &FrameTextureController::notifyChangeDataSelector);
 				mParentData = DataUtility::getSelectedDataByType(mParentTypeName);
 				notifyChangeDataSelector(mParentData, false);
@@ -191,7 +189,7 @@ namespace tools
 				if (selected == *child)
 				{
 					MyGUI::IntPoint value = (*child)->getPropertyValue<MyGUI::IntPoint>("Point");
-					mControl->setCoordValue(MyGUI::IntCoord(value, mSize));
+					mControl->setCoordValue(MyGUI::IntCoord(value, mSize), ScopeTextureControl::SelectorPosition);
 				}
 				else
 				{

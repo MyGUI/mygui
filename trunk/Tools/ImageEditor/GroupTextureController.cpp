@@ -110,7 +110,6 @@ namespace tools
 			{
 				mControl->eventChangeValue.connect(this, &GroupTextureController::notifyChangeValue);
 				mControl->clearAll();
-				mControl->setActiveSelector(false);
 
 				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &GroupTextureController::notifyChangeDataSelector);
 				mParentData = DataUtility::getSelectedDataByType(mParentTypeName);
@@ -150,7 +149,7 @@ namespace tools
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))
 		{
-			mControl->setCoordValue(coord);
+			mControl->setCoordValue(coord, ScopeTextureControl::SelectorCoord);
 		}
 		else
 		{

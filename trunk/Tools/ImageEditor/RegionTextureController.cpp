@@ -123,9 +123,9 @@ namespace tools
 		}
 	}
 
-	/*void RegionTextureController::notifyChangeValue(const std::string& _value)
+	void RegionTextureController::notifyChangeValue(const std::string& _value)
 	{
-		if (mParentData != nullptr)
+		/*if (mParentData != nullptr)
 		{
 			Data* selected = mParentData->getChildSelected();
 			if (selected != nullptr)
@@ -134,8 +134,8 @@ namespace tools
 				Property* property = selected->getProperty("Point");
 				PropertyUtility::executeAction(property, coord.point().print(), true);
 			}
-		}
-	}*/
+		}*/
+	}
 
 	void RegionTextureController::notifyChangeScope(const std::string& _scope)
 	{
@@ -146,10 +146,8 @@ namespace tools
 		{
 			if (!mActivated)
 			{
-				//mControl->eventChangeValue.connect(this, &RegionTextureController::notifyChangeValue);
+				mControl->eventChangeValue.connect(this, &RegionTextureController::notifyChangeValue);
 				mControl->clearAll();
-
-				mControl->setActiveSelector(true);
 
 				DataSelectorManager::getInstance().getEvent(mParentTypeName)->connect(this, &RegionTextureController::notifyChangeDataSelector);
 				mParentData = DataUtility::getSelectedDataByType(mParentTypeName);
@@ -164,7 +162,7 @@ namespace tools
 		{
 			if (mActivated)
 			{
-				//mControl->eventChangeValue.disconnect(this);
+				mControl->eventChangeValue.disconnect(this);
 
 				DataSelectorManager::getInstance().getEvent(mParentTypeName)->disconnect(this);
 				mParentData = nullptr;
@@ -216,7 +214,7 @@ namespace tools
 				{
 					if (visible)
 					{
-						mControl->setCoordValue(value);
+						mControl->setCoordValue(value, ScopeTextureControl::SelectorPosition);
 						mControl->setCoordValueReadOnly(true);
 					}
 					else
