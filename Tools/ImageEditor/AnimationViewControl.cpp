@@ -17,6 +17,11 @@ namespace tools
 	FACTORY_ITEM_ATTRIBUTE(AnimationViewControl)
 
 	AnimationViewControl::AnimationViewControl() :
+		mImage(nullptr),
+		mFrameInfo(nullptr),
+		mButtonPlay(nullptr),
+		mButtonLeft(nullptr),
+		mButtonRight(nullptr),
 		mParentData(nullptr),
 		mMaxCountFrame(64),
 		mCurrentFrame(0),

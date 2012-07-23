@@ -14,6 +14,18 @@ namespace tools
 	FACTORY_ITEM_ATTRIBUTE(ColourPanel)
 
 	ColourPanel::ColourPanel() :
+		mColourRect(nullptr),
+		mImageColourPicker(nullptr),
+		mEditRed(nullptr),
+		mEditGreen(nullptr),
+		mEditBlue(nullptr),
+		mInputAlpha(nullptr),
+		mTextAlpha(nullptr),
+		mScrollRange(nullptr),
+		mAlphaSliderBack(nullptr),
+		mAlphaSliderPlace(nullptr),
+		mAlphaSlider(nullptr),
+		mTexture(nullptr),
 		mAlphaSupport(true)
 	{
 	}

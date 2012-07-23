@@ -14,6 +14,8 @@ namespace tools
 	FACTORY_ITEM_ATTRIBUTE(TextureBrowseControl)
 
 	TextureBrowseControl::TextureBrowseControl() :
+		mOk(nullptr),
+		mCancel(nullptr),
 		mTextures(nullptr)
 	{
 	}

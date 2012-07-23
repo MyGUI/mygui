@@ -81,7 +81,7 @@ namespace MyGUI
 	{
 		if (mNeedVertexCount > mVertexCount) resizeVertexBuffer();
 
-		return (Vertex*)mVertexBuffer->lock(Ogre::HardwareVertexBuffer::HBL_DISCARD);
+		return reinterpret_cast<Vertex*>(mVertexBuffer->lock(Ogre::HardwareVertexBuffer::HBL_DISCARD));
 	}
 
 	void OgreVertexBuffer::unlock()

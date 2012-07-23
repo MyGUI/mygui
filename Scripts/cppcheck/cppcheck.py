@@ -3,7 +3,7 @@ import os
 
 ignoredEndings = [
 	"It is safe to deallocate a NULL pointer",
-	"Throwing exception in destructor",
+	"Exception thrown in destructor",
 	"::initialise' can be const.",
 	"::shutdown' can be const.",
 	"hides typedef with same name"
@@ -15,7 +15,10 @@ ignoredContent = [
 	"sigslot", #ignore warnings from sigslot, because it wasn't written by the MyGUI developers
 	") Include file: ", # ignore "(debug) Include file: "name" can not be found."
 	"Technically the member function 'input::", #useless, because with other input system this function could be non-const
-	"Cppcheck cannot find all the include files"
+	"Cppcheck cannot find all the include files",
+	"is assigned in constructor body. Consider to perform initalization in initialization list.",
+	"(performance) Prefer prefix ++/-- operators for non-primitive types", # leave this optimisation to compiler
+	"MyGUI_DelegateImplement.h:211]: (warning) 'operator=' should check for assignment to self to avoid problems with dynamic memory." # bug in cppcheck
 ]
 
 def isIgnoredWarning(warning):
