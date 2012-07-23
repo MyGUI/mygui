@@ -79,9 +79,9 @@ namespace tools
 
 		Data* skinData = getProperty()->getOwner();
 		MyGUI::IntSize size = SkinDataUtility::getSkinSize(skinData);
-		MyGUI::IntRect separators = SkinDataUtility::getSkinSeparators(skinData);
+		MyGUI::IntRect separators = SkinDataUtility::getSeparatorsOffset(skinData);
 		SkinDataUtility::VectorCoord coords = SkinDataUtility::getRegions(size, separators);
-		SkinDataUtility::FillRegionCoords(skinData, coords);
+		SkinDataUtility::fillRegionCoords(skinData, coords);
 	}
 
 }
