@@ -10,6 +10,23 @@
 		<DataTypeFileName>SkinDataType.xml</DataTypeFileName>
 		<ExportSerializer>SkinExportSerializer</ExportSerializer>
 		<DefaultScope>Skin</DefaultScope>
+		<States>
+			<State.List>
+				<Value>TestState</Value>
+			</State.List>
+			<Event.List>
+				<Value>
+					<Name>Test</Name>
+					<From>EditorState</From>
+					<To>TestState</To>
+				</Value>
+				<Value>
+					<Name>Exit</Name>
+					<From>TestState</From>
+					<To>EditorState</To>
+				</Value>
+			</Event.List>
+		</States>
 	</Editor>
 	<EditorState>
 		<MainPaneLayout>SkinMainPane.layout</MainPaneLayout>
