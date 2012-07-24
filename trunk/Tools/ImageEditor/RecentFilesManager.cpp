@@ -33,7 +33,7 @@ namespace tools
 		if (!SettingsManager::getInstance().tryGetValue<size_t>("Files/MaxRecentFiles", mMaxRecentFiles))
 			mMaxRecentFiles = 8;
 
-		mRecentFolder = SettingsManager::getInstance().getValueString("Files/RecentFolder");
+		mRecentFolder = SettingsManager::getInstance().getValue("Files/RecentFolder");
 
 		mRecentFolders = SettingsManager::getInstance().getValueList<MyGUI::UString>("Files/RecentFolder.List");
 
@@ -45,7 +45,7 @@ namespace tools
 
 	void RecentFilesManager::shutdown()
 	{
-		SettingsManager::getInstance().setValueString("Files/RecentFolder", mRecentFolder);
+		SettingsManager::getInstance().setValue("Files/RecentFolder", mRecentFolder);
 
 		SettingsManager::getInstance().setValueList("Files/RecentFolder.List", mRecentFolders);
 

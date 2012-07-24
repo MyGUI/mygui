@@ -51,7 +51,7 @@ namespace tools
 	void SettingsResourcesControl::loadSettings()
 	{
 		mResources->removeAllItems();
-		SettingsManager::VectorString paths = SettingsManager::getInstance().getValueListString("Resources/AdditionalResource.List");
+		SettingsManager::VectorString paths = SettingsManager::getInstance().getValueList("Resources/AdditionalResource.List");
 		for (SettingsManager::VectorString::const_iterator item = paths.begin(); item != paths.end(); ++ item)
 			mResources->addItem(*item);
 	}

@@ -52,7 +52,7 @@ namespace tools
 	void SettingsResourcePathsControl::loadSettings()
 	{
 		mResourcePaths->removeAllItems();
-		SettingsManager::VectorString paths = SettingsManager::getInstance().getValueListString("Resources/AdditionalPath.List");
+		SettingsManager::VectorString paths = SettingsManager::getInstance().getValueList("Resources/AdditionalPath.List");
 		for (SettingsManager::VectorString::const_iterator item = paths.begin(); item != paths.end(); ++ item)
 			mResourcePaths->addItem(*item);
 	}

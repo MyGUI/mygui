@@ -57,14 +57,14 @@ namespace tools
 		addUserTag("CurrentFileName", mFileName);
 
 		mMainPane = new Control();
-		mMainPane->Initialise(SettingsManager::getInstance().getValueString("EditorState/MainPaneLayout"));
+		mMainPane->Initialise(SettingsManager::getInstance().getValue("EditorState/MainPaneLayout"));
 
 		mSettingsWindow = new SettingsWindow();
-		mSettingsWindow->Initialise(SettingsManager::getInstance().getValueString("EditorState/SettingsWindowLayout"));
+		mSettingsWindow->Initialise(SettingsManager::getInstance().getValue("EditorState/SettingsWindowLayout"));
 		mSettingsWindow->eventEndDialog.connect(this, &EditorState::notifySettingsWindowEndDialog);
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
-		mOpenSaveFileDialog->Initialise(SettingsManager::getInstance().getValueString("EditorState/OpenSaveFileDialogLayout"));
+		mOpenSaveFileDialog->Initialise(SettingsManager::getInstance().getValue("EditorState/OpenSaveFileDialogLayout"));
 		mOpenSaveFileDialog->eventEndDialog.connect(this, &EditorState::notifyEndDialog);
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
 		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());

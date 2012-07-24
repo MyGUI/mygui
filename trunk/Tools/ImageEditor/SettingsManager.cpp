@@ -77,7 +77,7 @@ namespace tools
 		return false;
 	}
 
-	std::string SettingsManager::getValueString(const std::string& _path)
+	std::string SettingsManager::getValue(const std::string& _path)
 	{
 		pugi::xpath_node node = mUserDocument->document_element().select_single_node(_path.c_str());
 		if (!node.node().empty())
@@ -90,7 +90,7 @@ namespace tools
 		return "";
 	}
 
-	void SettingsManager::setValueString(const std::string& _path, const std::string& _value)
+	void SettingsManager::setValue(const std::string& _path, const std::string& _value)
 	{
 		pugi::xpath_node node = mUserDocument->document_element().select_single_node(_path.c_str());
 		if (!node.node().empty())
@@ -119,7 +119,7 @@ namespace tools
 		eventSettingsChanged(_path);
 	}
 
-	SettingsManager::VectorString SettingsManager::getValueListString(const std::string& _path)
+	SettingsManager::VectorString SettingsManager::getValueList(const std::string& _path)
 	{
 		SettingsManager::VectorString result;
 		std::string path = _path + "/Value";
@@ -218,7 +218,7 @@ namespace tools
 			mUserDocument->save_file(mUserSettingsFileName.c_str());
 	}
 
-	void SettingsManager::setValueListString(const std::string& _path, const VectorString& _values)
+	void SettingsManager::setValueList(const std::string& _path, const VectorString& _values)
 	{
 		if (!MyGUI::utility::endWith(_path, ".List"))
 			return;

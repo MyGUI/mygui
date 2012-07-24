@@ -51,7 +51,7 @@ namespace tools
 		mGridStep = SettingsManager::getInstance().getValue<int>("Settings/GridStep");
 		mGridEdit->setCaption(MyGUI::utility::toString(mGridStep));
 		mSaveLastTexture->setStateSelected(SettingsManager::getInstance().getValue<bool>("Settings/SaveLastTexture"));
-		setLanguageValue(SettingsManager::getInstance().getValueString("Settings/InterfaceLanguage"));
+		setLanguageValue(SettingsManager::getInstance().getValue("Settings/InterfaceLanguage"));
 		mSkinEditor->setStateSelected(SettingsManager::getInstance().getValue<bool>("Settings/SkinEditor"));
 	}
 
