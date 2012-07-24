@@ -8,7 +8,7 @@
 #define _b38d3a42_9f99_471a_80ed_7ebdaf3282f4_
 
 #include <MyGUI.h>
-#include "Tools/Dialog.h"
+#include "Dialog.h"
 //#include "BackgroundControl.h"
 //#include "SkinItem.h"
 #include "Data.h"

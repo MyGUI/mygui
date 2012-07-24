@@ -22,20 +22,21 @@ namespace tools
 
 	TestWindow::~TestWindow()
 	{
-		/*MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
+		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
-			window->eventWindowButtonPressed -= MyGUI::newDelegate(this, &TestWindow::notifyWindowButtonPressed);*/
+			window->eventWindowButtonPressed -= MyGUI::newDelegate(this, &TestWindow::notifyWindowButtonPressed);
 	}
 
 	void TestWindow::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, "TestWindow.layout");
 
+		setDialogRoot(mMainWidget);
 		//assignBase(mBackgroundControl, "BackgroundControl");
 
-		/*MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
+		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
-			window->eventWindowButtonPressed += MyGUI::newDelegate(this, &TestWindow::notifyWindowButtonPressed);*/
+			window->eventWindowButtonPressed += MyGUI::newDelegate(this, &TestWindow::notifyWindowButtonPressed);
 
 		//mMainWidget->setVisible(false);
 	}

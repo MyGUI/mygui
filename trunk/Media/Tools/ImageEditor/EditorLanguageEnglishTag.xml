@@ -42,6 +42,7 @@
 	<Tag name="CaptionOpenFolder">Select folder</Tag>
 	<Tag name="CaptionTextureBrowse">Select texture</Tag>
 	<Tag name="CaptionAddResource">Enter file name</Tag>
+	<Tag name="CaptionTestWindow">Test</Tag>
 	<Tag name="ButtonOpenFile">Open</Tag>
 	<Tag name="ButtonSaveFile">Save</Tag>
 	<Tag name="ButtonOpenFolder">Select</Tag>

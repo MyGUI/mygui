@@ -9,6 +9,7 @@
 
 #include "StateController.h"
 #include "sigslot.h"
+#include "TestWindow.h"
 
 namespace tools
 {
@@ -28,9 +29,12 @@ namespace tools
 		virtual void resumeState();
 
 	private:
-		bool checkCommand();
 		void commandTest(const MyGUI::UString& _commandName, bool& _result);
 		void commandQuit(const MyGUI::UString& _commandName, bool& _result);
+		void notifyEndDialogTest(Dialog* _sender, bool _result);
+
+	private:
+		TestWindow* mTestWindow;
 	};
 
 }
