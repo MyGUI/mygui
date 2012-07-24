@@ -19,7 +19,8 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(TestState)
 
-	TestState::TestState()
+	TestState::TestState() :
+		mTestWindow(nullptr)
 	{
 		CommandManager::getInstance().getEvent("Command_Test")->connect(this, &TestState::commandTest);
 		CommandManager::getInstance().getEvent("Command_Quit")->connect(this, &TestState::commandQuit);
@@ -27,14 +28,35 @@ namespace tools
 
 	TestState::~TestState()
 	{
+		delete mTestWindow;
+		mTestWindow = nullptr;
 	}
 
 	void TestState::initState()
 	{
+		if (mTestWindow == nullptr)
+		{
+			mTestWindow = new TestWindow();
+			mTestWindow->Initialise();
+			mTestWindow->eventEndDialog.connect(this, &TestState::notifyEndDialogTest);
+		}
+
+		Data* data = DataUtility::getSelectedDataByType("Skin");
+		if (data != nullptr)
+		{
+			mTestWindow->setSkinItem(data);
+			mTestWindow->getRoot()->setVisible(true);
+			mTestWindow->doModal();
+		}
+		else
+		{
+			StateManager::getInstance().stateEvent(this, "Exit");
+		}
 	}
 
 	void TestState::cleanupState()
 	{
+		mTestWindow->getRoot()->setVisible(false);
 	}
 
 	void TestState::pauseState()
@@ -47,7 +69,10 @@ namespace tools
 
 	void TestState::commandTest(const MyGUI::UString& _commandName, bool& _result)
 	{
-		if (!checkCommand())
+		if (DialogManager::getInstance().getAnyDialog())
+			return;
+
+		if (MessageBoxManager::getInstance().hasAny())
 			return;
 
 		Data* data = DataUtility::getSelectedDataByType("Skin");
@@ -61,7 +86,7 @@ namespace tools
 
 	void TestState::commandQuit(const MyGUI::UString& _commandName, bool& _result)
 	{
-		if (!checkCommand())
+		if (MessageBoxManager::getInstance().hasAny())
 			return;
 
 		if (!StateManager::getInstance().getStateActivate(this))
@@ -72,15 +97,11 @@ namespace tools
 		_result = true;
 	}
 
-	bool TestState::checkCommand()
+	void TestState::notifyEndDialogTest(Dialog* _sender, bool _result)
 	{
-		if (DialogManager::getInstance().getAnyDialog())
-			return false;
+		_sender->endModal();
 
-		if (MessageBoxManager::getInstance().hasAny())
-			return false;
-
-		return true;
+		StateManager::getInstance().stateEvent("TestState", "Exit");
 	}
 
 }

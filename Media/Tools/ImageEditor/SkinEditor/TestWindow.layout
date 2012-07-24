@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Window" skin="WindowCX2_Dark" position="120 128 427 311" align="Default" layer="Overlapped" name="Root">
+        <Property key="Caption" value="#{CaptionTestWindow}"/>
+        <Property key="MinSize" value="100 100"/>
+        <UserString key="SnapTo" value="Center"/>
+        <Widget type="Widget" skin="PanelEmpty" position="3 3 413 278" align="Stretch" name="BackgroundControl"/>
+    </Widget>
+</MyGUI>
