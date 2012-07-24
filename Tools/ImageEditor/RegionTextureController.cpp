@@ -112,7 +112,8 @@ namespace tools
 			else if (_sender->getType()->getName() == "Size")
 				updateCoords(_sender->getValue());
 		}
-		else if (_sender->getOwner()->getType()->getName() == mThisType || _sender->getOwner()->getType()->getFriend() == mThisType)
+		else if (_sender->getOwner()->getType()->getName() == mThisType ||
+			_sender->getOwner()->getType()->getFriend() == mThisType)
 		{
 			if (_sender->getType()->getName() == "Coord")
 				updateFrames();
@@ -207,7 +208,8 @@ namespace tools
 				if ((*child)->getType()->getName() != mThisType && (*child)->getType()->getFriend() != mThisType)
 					continue;
 
-				bool visible = (*child)->getPropertyValue<bool>("Visible") && (*child)->getPropertyValue<bool>("Enable");
+				bool visible = (*child)->getPropertyValue<bool>("Visible") &&
+					(*child)->getPropertyValue<bool>("Enable");
 				MyGUI::IntCoord value = (*child)->getPropertyValue<MyGUI::IntCoord>("Coord");
 
 				if (selected == *child)
