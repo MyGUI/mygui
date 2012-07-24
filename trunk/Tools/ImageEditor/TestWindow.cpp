@@ -6,14 +6,13 @@
 
 #include "Precompiled.h"
 #include "TestWindow.h"
-#include "ExportManager.h"
+#include "SkinExportSerializer.h"
 
 namespace tools
 {
 
 	TestWindow::TestWindow() :
-		//Dialog("TestWindow.layout"),
-		//mBackgroundControl(nullptr),
+		mBackgroundControl(nullptr),
 		mSkinItem(nullptr),
 		mSkinButton(nullptr),
 		mSkinName("GeneratedSkinName")
@@ -32,13 +31,19 @@ namespace tools
 		Control::OnInitialise(_parent, _place, "TestWindow.layout");
 
 		setDialogRoot(mMainWidget);
-		//assignBase(mBackgroundControl, "BackgroundControl");
+
+		assignWidget(mBack, "BackgroundControl");
+
+		mBackgroundControl = findControl<BackgroundControl>();
+
+		mTestSkinFileName = "TestSkin.xml";
+		mDefaultFontName = getRoot()->getUserString("DefaultFontName");
+		if (mDefaultFontName.empty())
+			mDefaultFontName = "Default";
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
 			window->eventWindowButtonPressed += MyGUI::newDelegate(this, &TestWindow::notifyWindowButtonPressed);
-
-		//mMainWidget->setVisible(false);
 	}
 
 	void TestWindow::onDoModal()
@@ -66,33 +71,33 @@ namespace tools
 		if (mSkinItem == nullptr)
 			return;
 
-		//MyGUI::IntSize canvasSize = mBackgroundControl->getCanvas()->getSize();
+		MyGUI::IntSize canvasSize = mBackgroundControl->getCanvas()->getSize();
 
-		/*generateSkin();
+		generateSkin();
 
 		mSkinButton = mBackgroundControl->getCanvas()->createWidget<MyGUI::Button>(mSkinName, MyGUI::IntCoord(0, 0, canvasSize.width, canvasSize.height), MyGUI::Align::Stretch);
-		mSkinButton->setFontName("Default");
+		mSkinButton->setFontName(mDefaultFontName);
 		mSkinButton->setTextAlign(MyGUI::Align::Center);
 		mSkinButton->setCaption("Caption");
 		mSkinButton->eventMouseButtonPressed += MyGUI::newDelegate(this, &TestWindow::notifyMouseButtonPressed);
 
-		MyGUI::IntCoord coord = MyGUI::IntCoord ::parse(mSkinItem->getPropertySet()->getPropertyValue("Coord"));
+		MyGUI::IntCoord coord = mSkinItem->getPropertyValue<MyGUI::IntCoord>("Size");
 		MyGUI::IntSize windowSize = coord.size() + mMainWidget->getSize() - canvasSize;
 		MyGUI::IntSize parentSize = mMainWidget->getParentSize();
 
-		mMainWidget->setCoord((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2, windowSize.width, windowSize.height);*/
+		mMainWidget->setCoord((parentSize.width - windowSize.width) / 2, (parentSize.height - windowSize.height) / 2, windowSize.width, windowSize.height);
 	}
 
 	void TestWindow::deleteSkin()
 	{
-		/*if (mSkinButton != nullptr)
+		if (mSkinButton != nullptr)
 		{
 			mSkinButton->eventMouseButtonPressed -= MyGUI::newDelegate(this, &TestWindow::notifyMouseButtonPressed);
 			MyGUI::WidgetManager::getInstance().destroyWidget(mSkinButton);
 			mSkinButton = nullptr;
 		}
 
-		mSkinItem = nullptr;*/
+		mSkinItem = nullptr;
 	}
 
 	void TestWindow::notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
@@ -103,26 +108,31 @@ namespace tools
 
 	void TestWindow::generateSkin()
 	{
-		/*if (MyGUI::ResourceManager::getInstance().isExist(mSkinName))
+		if (MyGUI::ResourceManager::getInstance().isExist(mSkinName))
 			MyGUI::ResourceManager::getInstance().removeByName(mSkinName);
 
-		MyGUI::xml::Document doc;
-		doc.createDeclaration();
-		MyGUI::xml::Element* root = doc.createRoot("Resource");
-		mSkinItem->serialization(root, MyGUI::Version());
+		pugi::xml_document doc;
+		pugi::xml_node decl = doc.prepend_child(pugi::node_declaration);
+		decl.append_attribute("version") = "1.0";
+		decl.append_attribute("encoding") = "UTF-8";
 
-		MyGUI::xml::Document docOut;
-		docOut.createDeclaration();
-		MyGUI::xml::Element* rootOut = docOut.createRoot("MyGUI");
-		rootOut->addAttribute("type", "Resource");
-		rootOut->addAttribute("version", "1.1");
-		MyGUI::xml::Element* resourceNode = rootOut->createChild("Resource");
+		pugi::xml_node root = doc.append_child("MyGUI");
+		root.append_attribute("type").set_value("Resource");
+		root.append_attribute("version").set_value("1.1");
 
-		ExportManager::getInstance().convertSkin(root, resourceNode);
+		SkinExportSerializer* serializer = new SkinExportSerializer();
+		serializer->writeSkin(root, mSkinItem);
+		delete serializer;
 
-		resourceNode->setAttribute("name", mSkinName);
+		root.select_single_node("Resource/@name").attribute().set_value(mSkinName.c_str());
 
-		MyGUI::ResourceManager::getInstance().loadFromXmlNode(rootOut, "", MyGUI::Version(1, 1, 0));*/
+		bool result = doc.save_file(mTestSkinFileName.c_str(), "\t", (pugi::format_indent | pugi::format_write_bom | pugi::format_win_new_line) & (~pugi::format_space_before_slash));
+
+		MyGUI::xml::Document docLoad;
+		docLoad.open(mTestSkinFileName);
+		MyGUI::xml::Element* resourceNode = docLoad.getRoot();
+
+		MyGUI::ResourceManager::getInstance().loadFromXmlNode(resourceNode, "", MyGUI::Version(1, 1, 0));
 	}
 
 }

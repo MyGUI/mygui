@@ -12,6 +12,7 @@ set (HEADER_FILES
   Application.h
   ApplicationState.h
   AreaSelectorControl.h
+  BackgroundControl.h
   ChangeSeparatorOffsetAction.h
   ChangeSeparatorVisibleAction.h
   ChangeSkinSizeAction.h
@@ -135,6 +136,7 @@ set (SOURCE_FILES
   Application.cpp
   ApplicationState.cpp
   AreaSelectorControl.cpp
+  BackgroundControl.cpp
   ChangeSeparatorOffsetAction.cpp
   ChangeSeparatorVisibleAction.cpp
   ChangeSkinSizeAction.cpp
@@ -293,6 +295,8 @@ SOURCE_GROUP("Controllers" FILES
 SOURCE_GROUP("Controls" FILES
   AnimationViewControl.cpp
   AnimationViewControl.h
+  BackgroundControl.cpp
+  BackgroundControl.h
   ColourPanel.cpp
   ColourPanel.h
   MainMenuControl.cpp

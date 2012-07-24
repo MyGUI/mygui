@@ -24,9 +24,10 @@ namespace tools
 		virtual void serialization(pugi::xml_document& _doc);
 		virtual bool deserialization(pugi::xml_document& _doc);
 
+		void writeSkin(pugi::xml_node _parent, Data* _data);
+
 	private:
 		void parseSkin(pugi::xml_node _node);
-		void writeSkin(pugi::xml_node _parent, Data* _data);
 
 		void writeRegion(pugi::xml_node _parent, Data* _parentData, Data* _data, bool _text);
 		pugi::xml_node writeState(pugi::xml_node _parent, Data* _data, const MyGUI::IntCoord& _value);
