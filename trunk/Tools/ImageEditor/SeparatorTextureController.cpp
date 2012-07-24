@@ -98,7 +98,7 @@ namespace tools
 
 	void SeparatorTextureController::notifyChangeProperty(Property* _sender)
 	{
-		if (!mActivated || !PropertyUtility::isDataSelected(_sender->getOwner()))
+		if (!mActivated)
 			return;
 
 		if (_sender->getOwner()->getType()->getName() == "Skin")
@@ -122,7 +122,7 @@ namespace tools
 		if (mParentData != nullptr)
 		{
 			Data* selected = mParentData->getChildSelected();
-			if (selected != nullptr)
+			if (selected != nullptr && selected->getType()->getName() == "Separator")
 			{
 				MyGUI::IntCoord value = MyGUI::IntCoord::parse(_value);
 				int offset = getOffsetByName(value, selected->getPropertyValue("Name"));
