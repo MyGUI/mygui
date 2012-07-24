@@ -102,7 +102,7 @@ namespace tools
 
 	void RegionTextureController::notifyChangeProperty(Property* _sender)
 	{
-		if (!mActivated || !PropertyUtility::isDataSelected(_sender->getOwner()))
+		if (!mActivated)
 			return;
 
 		if (_sender->getOwner()->getType()->getName() == "Skin")
@@ -129,7 +129,7 @@ namespace tools
 		if (mParentData != nullptr)
 		{
 			Data* selected = mParentData->getChildSelected();
-			if (selected != nullptr)
+			if (selected != nullptr && selected->getType()->getName() == "RegionText")
 			{
 				MyGUI::IntCoord coord = MyGUI::IntCoord::parse(_value);
 				Property* property = selected->getProperty("Coord");
