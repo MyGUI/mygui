@@ -9,10 +9,9 @@
 
 #include <MyGUI.h>
 #include "Dialog.h"
-//#include "BackgroundControl.h"
-//#include "SkinItem.h"
 #include "Data.h"
 #include "Control.h"
+#include "BackgroundControl.h"
 
 namespace tools
 {
@@ -43,10 +42,13 @@ namespace tools
 		void generateSkin();
 
 	private:
-		//BackgroundControl* mBackgroundControl;
+		BackgroundControl* mBackgroundControl;
 		Data* mSkinItem;
 		MyGUI::Button* mSkinButton;
-		MyGUI::UString mSkinName;
+		std::string mSkinName;
+		MyGUI::Widget* mBack;
+		std::string mTestSkinFileName;
+		std::string mDefaultFontName;
 	};
 
 }
