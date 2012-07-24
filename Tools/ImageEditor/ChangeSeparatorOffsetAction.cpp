@@ -78,6 +78,7 @@ namespace tools
 		getProperty()->setValue(getValue());
 
 		Data* skinData = getProperty()->getOwner()->getParent();
+
 		MyGUI::IntSize size = SkinDataUtility::getSkinSize(skinData);
 		MyGUI::IntRect separators = SkinDataUtility::getSeparatorsOffset(skinData);
 		SkinDataUtility::VectorCoord coords = SkinDataUtility::getRegions(size, separators);

@@ -62,8 +62,14 @@ namespace tools
 		getProperty()->setValue(getValue());
 
 		Data* skinData = getProperty()->getOwner()->getParent();
+
 		SkinDataUtility::RectVisible visible = SkinDataUtility::getSeparatorsVisible(skinData);
 		SkinDataUtility::fillRegionEnable(skinData, visible);
+
+		MyGUI::IntSize size = SkinDataUtility::getSkinSize(skinData);
+		MyGUI::IntRect separators = SkinDataUtility::getSeparatorsOffset(skinData);
+		SkinDataUtility::VectorCoord coords = SkinDataUtility::getRegions(size, separators);
+		SkinDataUtility::fillRegionCoords(skinData, coords);
 	}
 
 }
