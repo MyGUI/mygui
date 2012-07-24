@@ -8,6 +8,7 @@
 	<Tag name="Settings">Настройки</Tag>
 	<Tag name="RecentFiles">Предыдущие файлы </Tag>
 	<Tag name="Quit">Выход</Tag>
+	<Tag name="Test">#{ColourMenuTest}Тест</Tag>
 	<Tag name="MenuEdit">Правка</Tag>
 	<Tag name="MenuUndo">Отменить</Tag>
 	<Tag name="MenuRedo">Вернуть</Tag>

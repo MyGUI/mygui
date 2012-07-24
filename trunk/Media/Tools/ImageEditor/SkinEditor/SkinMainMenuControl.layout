@@ -31,7 +31,11 @@
                         <Property key="Caption" value="#{Settings}"/>
                         <Property key="MenuItemId" value="Command_Settings"/>
                     </Widget>
-                    <Widget type="MenuItem" skin="PopupMenuSeparator_Dark" position="0 118 152 10">
+					<Widget type="MenuItem" skin="PopupMenuNormal_Dark" position="0 105 185 19">
+						<Property key="Caption" value="#{Test}"/>
+						<Property key="MenuItemId" value="Command_Test"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuSeparator_Dark" position="0 118 152 10">
                         <Property key="MenuItemType" value="Separator"/>
                     </Widget>
                     <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 128 152 18">

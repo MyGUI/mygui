@@ -8,6 +8,7 @@
 	<Tag name="Settings">Settings</Tag>
 	<Tag name="RecentFiles">Recent Files </Tag>
 	<Tag name="Quit">Quit</Tag>
+	<Tag name="Test">#{ColourMenuTest}Test</Tag>
 	<Tag name="MenuEdit">Edit</Tag>
 	<Tag name="MenuUndo">Undo</Tag>
 	<Tag name="MenuRedo">Redo</Tag>

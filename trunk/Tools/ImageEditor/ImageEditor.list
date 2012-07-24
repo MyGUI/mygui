@@ -107,6 +107,8 @@ set (HEADER_FILES
   StateTextureController.h
   StatisticInfoControl.h
   StringUtility.h
+  TestState.h
+  TestWindow.h
   TextFieldControl.h
   TextureBrowseCell.h
   TextureBrowseControl.h
@@ -217,6 +219,8 @@ set (SOURCE_FILES
   StateManager.cpp
   StateTextureController.cpp
   StatisticInfoControl.cpp
+  TestState.cpp
+  TestWindow.cpp
   TextFieldControl.cpp
   TextureBrowseCell.cpp
   TextureBrowseControl.cpp
@@ -293,6 +297,8 @@ SOURCE_GROUP("Controls" FILES
   ColourPanel.h
   MainMenuControl.cpp
   MainMenuControl.h
+  TestWindow.cpp
+  TestWindow.h
 )
 SOURCE_GROUP("Controls\\Animations" FILES
   AnimationInfo.cpp
@@ -508,6 +514,8 @@ SOURCE_GROUP("States" FILES
   StateController.h
   StateManager.cpp
   StateManager.h
+  TestState.cpp
+  TestState.h
 )
 SOURCE_GROUP("Utility" FILES
   Localise.h
