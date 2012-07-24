@@ -31,4 +31,7 @@
 	<EditorState>
 		<MainPaneLayout>SkinMainPane.layout</MainPaneLayout>
 	</EditorState>
+	<TestState>
+		<BackgroundLayout>TestBackground.layout</BackgroundLayout>
+	</TestState>
 </Settings>

@@ -13,6 +13,7 @@
 #include "MessageBoxManager.h"
 #include "DataManager.h"
 #include "DataUtility.h"
+#include "SettingsManager.h"
 
 namespace tools
 {
@@ -20,7 +21,8 @@ namespace tools
 	FACTORY_ITEM_ATTRIBUTE(TestState)
 
 	TestState::TestState() :
-		mTestWindow(nullptr)
+		mTestWindow(nullptr),
+		mBack(nullptr)
 	{
 		CommandManager::getInstance().getEvent("Command_Test")->connect(this, &TestState::commandTest);
 		CommandManager::getInstance().getEvent("Command_Quit")->connect(this, &TestState::commandQuit);
@@ -28,12 +30,29 @@ namespace tools
 
 	TestState::~TestState()
 	{
-		delete mTestWindow;
-		mTestWindow = nullptr;
+		if (mTestWindow != nullptr)
+		{
+			delete mTestWindow;
+			mTestWindow = nullptr;
+		}
+
+		if (mBack != nullptr)
+		{
+			delete mBack;
+			mBack = nullptr;
+		}
 	}
 
 	void TestState::initState()
 	{
+		if (mBack == nullptr)
+		{
+			mBack = new Control();
+			mBack->Initialise(SettingsManager::getInstance().getValue("TestState/BackgroundLayout"));
+		}
+
+		mBack->getRoot()->setVisible(true);
+
 		if (mTestWindow == nullptr)
 		{
 			mTestWindow = new TestWindow();
@@ -57,6 +76,7 @@ namespace tools
 	void TestState::cleanupState()
 	{
 		mTestWindow->getRoot()->setVisible(false);
+		mBack->getRoot()->setVisible(false);
 	}
 
 	void TestState::pauseState()

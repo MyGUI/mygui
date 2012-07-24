@@ -35,6 +35,7 @@ namespace tools
 
 	private:
 		TestWindow* mTestWindow;
+		Control* mBack;
 	};
 
 }
