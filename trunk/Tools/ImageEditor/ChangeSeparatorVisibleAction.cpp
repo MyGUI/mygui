@@ -46,6 +46,9 @@ namespace tools
 
 			Property* property = (*child)->getProperty("Enable");
 			_store.push_back(std::make_pair(property, property->getValue()));
+
+			property = (*child)->getProperty("Coord");
+			_store.push_back(std::make_pair(property, property->getValue()));
 		}
 	}
 
