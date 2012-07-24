@@ -205,6 +205,9 @@ namespace tools
 
 			std::string name = (*child)->getPropertyValue("Name");
 			int offset = (*child)->getPropertyValue<int>("Offset");
+			bool visible = (*child)->getPropertyValue<bool>("Visible");
+			if (!visible)
+				offset = 0;
 
 			if (name == "Left")
 				result.left = offset;
@@ -305,6 +308,17 @@ namespace tools
 				(*child)->setPropertyValue("Enable", _value.bottom);
 			else if (name == names[RegionRightBottom])
 				(*child)->setPropertyValue("Enable", _value.right && _value.bottom);
+		}
+	}
+
+	void SkinDataUtility::ShowRegions(Data* _skinData)
+	{
+		for (Data::VectorData::const_iterator child = _skinData->getChilds().begin(); child != _skinData->getChilds().end(); child ++)
+		{
+			if ((*child)->getType()->getName() != "Region")
+				continue;
+
+			(*child)->setPropertyValue("Visible", "True");
 		}
 	}
 
