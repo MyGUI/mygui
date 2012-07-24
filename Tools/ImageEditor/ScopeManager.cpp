@@ -27,7 +27,7 @@ namespace tools
 	{
 		CommandManager::getInstance().getEvent("Command_ChangeScope")->connect(this, &ScopeManager::commandChangeScope);
 
-		mCurrentScope = SettingsManager::getInstance().getValueString("Editor/DefaultScope");
+		mCurrentScope = SettingsManager::getInstance().getValue("Editor/DefaultScope");
 	}
 
 	void ScopeManager::shutdown()

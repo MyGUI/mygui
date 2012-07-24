@@ -59,7 +59,7 @@ namespace tools
 		new SettingsManager();
 		SettingsManager::getInstance().loadSettingsFile(MyGUI::DataManager::getInstance().getDataPath("Settings.xml"));
 
-		std::string userSettingsFileName = SettingsManager::getInstance().getValueString("Editor/UserSettingsFileName");
+		std::string userSettingsFileName = SettingsManager::getInstance().getValue("Editor/UserSettingsFileName");
 		if (!userSettingsFileName.empty())
 			SettingsManager::getInstance().loadUserSettingsFile(userSettingsFileName);
 
@@ -75,7 +75,7 @@ namespace tools
 
 		LoadGuiSettings();
 
-		std::string language = SettingsManager::getInstance().getValueString("Settings/InterfaceLanguage");
+		std::string language = SettingsManager::getInstance().getValue("Settings/InterfaceLanguage");
 		if (language.empty() || language == "Auto")
 		{
 			if (!mLocale.empty())
@@ -119,7 +119,7 @@ namespace tools
 		new tools::DataTypeManager();
 		tools::DataTypeManager::getInstance().initialise();
 
-		std::string dataTypeFileName = SettingsManager::getInstance().getValueString("Editor/DataTypeFileName");
+		std::string dataTypeFileName = SettingsManager::getInstance().getValue("Editor/DataTypeFileName");
 		if (!dataTypeFileName.empty())
 			tools::DataTypeManager::getInstance().load(dataTypeFileName);
 
@@ -472,7 +472,7 @@ namespace tools
 
 	void Application::LoadStates()
 	{
-		SettingsManager::VectorString values = SettingsManager::getInstance().getValueListString("Editor/States/State.List");
+		SettingsManager::VectorString values = SettingsManager::getInstance().getValueList("Editor/States/State.List");
 		for (SettingsManager::VectorString::const_iterator value = values.begin(); value != values.end(); value ++)
 		{
 			StateController* state = components::FactoryManager::GetInstance().CreateItem<StateController>(*value);
@@ -489,31 +489,31 @@ namespace tools
 				(*event).node().child("To").child_value());
 		}
 
-		std::string firstState = SettingsManager::getInstance().getValueString("Editor/States/FirstState/Name");
+		std::string firstState = SettingsManager::getInstance().getValue("Editor/States/FirstState/Name");
 		StateManager::getInstance().pushState(firstState);
 
-		std::string firstEvent = SettingsManager::getInstance().getValueString("Editor/States/FirstState/Event");
+		std::string firstEvent = SettingsManager::getInstance().getValue("Editor/States/FirstState/Event");
 		StateManager::getInstance().stateEvent(firstState, firstEvent);
 	}
 
 	void Application::LoadGuiSettings()
 	{
-		const SettingsManager::VectorString& resources = SettingsManager::getInstance().getValueListString("Resources/Resource.List");
+		const SettingsManager::VectorString& resources = SettingsManager::getInstance().getValueList("Resources/Resource.List");
 		for (SettingsManager::VectorString::const_iterator iter = resources.begin(); iter != resources.end(); ++iter)
 			MyGUI::ResourceManager::getInstance().load(*iter);
 
-		const SettingsManager::VectorString& additionalPaths = SettingsManager::getInstance().getValueListString("Resources/AdditionalPath.List");
+		const SettingsManager::VectorString& additionalPaths = SettingsManager::getInstance().getValueList("Resources/AdditionalPath.List");
 		for (SettingsManager::VectorString::const_iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
 			addResourceLocation(*iter);
 
-		const SettingsManager::VectorString& additionalResources = SettingsManager::getInstance().getValueListString("Resources/AdditionalResource.List");
+		const SettingsManager::VectorString& additionalResources = SettingsManager::getInstance().getValueList("Resources/AdditionalResource.List");
 		for (SettingsManager::VectorString::const_iterator iter = additionalResources.begin(); iter != additionalResources.end(); ++iter)
 			MyGUI::ResourceManager::getInstance().load(*iter);
 	}
 
 	void Application::CreateControls()
 	{
-		const SettingsManager::VectorString& controls = SettingsManager::getInstance().getValueListString("Editor/Controls/Control.List");
+		const SettingsManager::VectorString& controls = SettingsManager::getInstance().getValueList("Editor/Controls/Control.List");
 		for (SettingsManager::VectorString::const_iterator controlType = controls.begin(); controlType != controls.end(); controlType ++)
 		{
 			Control* control = components::FactoryManager::GetInstance().CreateItem<Control>(*controlType);

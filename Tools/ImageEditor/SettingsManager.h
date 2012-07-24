@@ -36,34 +36,34 @@ namespace tools
 			_result = Type();
 			if (getExistValue(_path))
 			{
-				std::string value = getValueString(_path);
+				std::string value = getValue(_path);
 				return MyGUI::utility::parseComplex<Type>(value, _result);
 			}
 			return false;
 		}
 
-		std::string getValueString(const std::string& _path);
-		void setValueString(const std::string& _path, const std::string& _value);
+		std::string getValue(const std::string& _path);
+		void setValue(const std::string& _path, const std::string& _value);
 
 		template <typename Type>
 		Type getValue(const std::string& _path)
 		{
-			return MyGUI::utility::parseValue<Type>(getValueString(_path));
+			return MyGUI::utility::parseValue<Type>(getValue(_path));
 		}
 
 		template <typename Type>
 		void setValue(const std::string& _path, const Type& value)
 		{
-			setValueString(_path, MyGUI::utility::toString(value));
+			setValue(_path, MyGUI::utility::toString(value));
 		}
 
 		typedef std::vector<std::string> VectorString;
-		VectorString getValueListString(const std::string& _path);
+		VectorString getValueList(const std::string& _path);
 
 		template <typename Type>
 		std::vector<Type> getValueList(const std::string& _path)
 		{
-			VectorString resultString = getValueListString(_path);
+			VectorString resultString = getValueList(_path);
 			std::vector<Type> result;
 			result.reserve(resultString.size());
 
@@ -73,7 +73,7 @@ namespace tools
 			return result;
 		}
 
-		void setValueListString(const std::string& _path, const VectorString& _values);
+		void setValueList(const std::string& _path, const VectorString& _values);
 
 		template <typename Type>
 		void setValueList(const std::string& _path, const std::vector<Type>& _values)
@@ -84,7 +84,7 @@ namespace tools
 			for (typename std::vector<Type>::const_iterator item = _values.begin(); item != _values.end(); item ++)
 				values.push_back(MyGUI::utility::toString(*item));
 
-			setValueListString(_path, values);
+			setValueList(_path, values);
 		}
 
 		pugi::xpath_node_set getValueNodeList(const std::string& _path);

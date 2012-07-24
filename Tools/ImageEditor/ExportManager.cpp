@@ -26,7 +26,7 @@ namespace tools
 
 	void ExportManager::initialise()
 	{
-		std::string serializer = SettingsManager::getInstance().getValueString("Editor/ExportSerializer");
+		std::string serializer = SettingsManager::getInstance().getValue("Editor/ExportSerializer");
 		mExportSerializer = components::FactoryManager::GetInstance().CreateItem<IExportSerializer>(serializer);
 	}
 
