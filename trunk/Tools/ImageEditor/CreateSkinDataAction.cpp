@@ -38,6 +38,7 @@ namespace tools
 			mData = new Data();
 			mData->setType(DataTypeManager::getInstance().getType(mType));
 			SkinDataUtility::CreateSkinData(mData);
+			SkinDataUtility::ShowRegions(mData);
 		}
 
 		mParent->addChild(mData);

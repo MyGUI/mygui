@@ -40,6 +40,8 @@ namespace tools
 		static void fillRegionCoords(Data* _skinData, const VectorCoord& _value);
 		static void fillRegionEnable(Data* _skinData, const RectVisible& _value);
 
+		static void ShowRegions(Data* _skinData);
+
 	private:
 		static void CreateStates(Data* _skinData);
 		static void CreateSeparators(Data* _skinData);

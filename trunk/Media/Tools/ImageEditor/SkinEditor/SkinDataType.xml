@@ -207,7 +207,7 @@
 					<Name>Coord</Name>
 					<Type>PropertyInt4Control</Type>
 					<Initialisator/>
-					<Default>0 0 16 16</Default>
+					<Default>2 2 12 12</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
 					<Action>ChangeValueAction</Action>

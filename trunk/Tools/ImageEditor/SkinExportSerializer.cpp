@@ -276,16 +276,6 @@ namespace tools
 
 	void SkinExportSerializer::fillSeparatorData(Data* _data, pugi::xml_node _node)
 	{
-		// по дефолту там может быть что угодно
-		Data* data = getChildData(_data, "Separator", "Left");
-		data->setPropertyValue("Offset", "0"); 
-		data = getChildData(_data, "Separator", "Right");
-		data->setPropertyValue("Offset", "0");
-		data = getChildData(_data, "Separator", "Top");
-		data->setPropertyValue("Offset", "0");
-		data = getChildData(_data, "Separator", "Bottom");
-		data->setPropertyValue("Offset", "0");
-
 		pugi::xpath_node_set regions = _node.select_nodes("BasisSkin[@type=\"SubSkin\"or@type=\"TileRect\"]");
 		for (pugi::xpath_node_set::const_iterator region = regions.begin(); region != regions.end(); region ++)
 		{
