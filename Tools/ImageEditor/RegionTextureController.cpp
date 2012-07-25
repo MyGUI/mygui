@@ -49,14 +49,14 @@ namespace tools
 		ScopeManager::getInstance().eventChangeScope.disconnect(this);
 	}
 
-	void RegionTextureController::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
+	void RegionTextureController::notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection)
 	{
 		mParentData = _data;
 		if (mParentData != nullptr && mParentData->getType()->getName() != mParentTypeName)
 			mParentData = nullptr;
 
 		std::string texture;
-		Property* property = PropertyUtility::getPropertyByName("Skin", "Texture");
+		PropertyPtr property = PropertyUtility::getPropertyByName("Skin", "Texture");
 		if (property != nullptr)
 		{
 			texture = property->getValue();
@@ -100,7 +100,7 @@ namespace tools
 		updateCoords(coord);
 	}
 
-	void RegionTextureController::notifyChangeProperty(Property* _sender)
+	void RegionTextureController::notifyChangeProperty(PropertyPtr _sender)
 	{
 		if (!mActivated)
 			return;
@@ -128,11 +128,11 @@ namespace tools
 	{
 		if (mParentData != nullptr)
 		{
-			Data* selected = mParentData->getChildSelected();
+			DataPtr selected = mParentData->getChildSelected();
 			if (selected != nullptr && selected->getType()->getName() == "RegionText")
 			{
 				MyGUI::IntCoord coord = MyGUI::IntCoord::parse(_value);
-				Property* property = selected->getProperty("Coord");
+				PropertyPtr property = selected->getProperty("Coord");
 				PropertyUtility::executeAction(property, coord.print(), true);
 			}
 		}
@@ -202,7 +202,7 @@ namespace tools
 
 		if (mParentData != nullptr)
 		{
-			Data* selected = mParentData->getChildSelected();
+			DataPtr selected = mParentData->getChildSelected();
 			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
 			{
 				if ((*child)->getType()->getName() != mThisType && (*child)->getType()->getFriend() != mThisType)

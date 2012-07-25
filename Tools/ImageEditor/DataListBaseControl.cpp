@@ -67,7 +67,7 @@ namespace tools
 		if (!checkCommand(_result))
 			return;
 
-		Data* data = DataUtility::getSelectedDataByType(mParentType);
+		DataPtr data = DataUtility::getSelectedDataByType(mParentType);
 		if (data != nullptr)
 		{
 			ActionCreateData* command = new ActionCreateData();
@@ -86,7 +86,7 @@ namespace tools
 		if (!checkCommand(_result))
 			return;
 
-		Data* data = DataUtility::getSelectedDataByType(mCurrentType);
+		DataPtr data = DataUtility::getSelectedDataByType(mCurrentType);
 		if (data != nullptr)
 		{
 			ActionCloneData* command = new ActionCloneData();
@@ -104,7 +104,7 @@ namespace tools
 		if (!checkCommand(_result))
 			return;
 
-		Data* data = DataUtility::getSelectedDataByType(mCurrentType);
+		DataPtr data = DataUtility::getSelectedDataByType(mCurrentType);
 		if (data != nullptr)
 		{
 			ActionDestroyData* command = new ActionDestroyData();
@@ -143,7 +143,7 @@ namespace tools
 		}
 	}
 
-	void DataListBaseControl::notifyChangePosition(Data* _data1, Data* _data2)
+	void DataListBaseControl::notifyChangePosition(DataPtr _data1, DataPtr _data2)
 	{
 		ActionChangePositionData* command = new ActionChangePositionData();
 		command->setData1(_data1);
@@ -152,7 +152,7 @@ namespace tools
 		ActionManager::getInstance().doAction(command);
 	}
 
-	void DataListBaseControl::notifyChangeName(Data* _data, const std::string& _name)
+	void DataListBaseControl::notifyChangeName(DataPtr _data, const std::string& _name)
 	{
 		PropertyUtility::executeAction(_data->getProperty(mPropertyForName), _name);
 	}

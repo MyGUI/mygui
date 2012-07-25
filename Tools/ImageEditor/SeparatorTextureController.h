@@ -27,8 +27,8 @@ namespace tools
 		virtual void deactivate();
 
 	private:
-		void notifyChangeDataSelector(Data* _data, bool _changeOnlySelection);
-		void notifyChangeProperty(Property* _sender);
+		void notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection);
+		void notifyChangeProperty(PropertyPtr _sender);
 		void notifyChangeScope(const std::string& _scope);
 		void notifyChangeValue(const std::string& _value);
 
@@ -44,7 +44,7 @@ namespace tools
 		std::string mParentTypeName;
 		std::string mScopeName;
 		std::string mThisType;
-		Data* mParentData;
+		DataPtr mParentData;
 		bool mActivated;
 		MyGUI::IntCoord mTextureCoord;
 		ScopeTextureControl::VectorCoord mFrames;

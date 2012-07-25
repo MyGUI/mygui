@@ -32,31 +32,31 @@ namespace tools
 
 		void addPropertyNameEnabled(const std::string& _propertyName);
 
-		sigslot::signal2<Data*, Data*> eventChangePosition;
-		sigslot::signal2<Data*, const std::string&> eventChangeName;
+		sigslot::signal2<DataPtr, DataPtr> eventChangePosition;
+		sigslot::signal2<DataPtr, const std::string&> eventChangeName;
 
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
 		void notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index);
-		void notifyChangeDataSelector(Data* _data, bool _changeOnlySelection);
+		void notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection);
 		void notifyItem(MyGUI::ListBox* _sender, const MyGUI::IBNotifyItemData& _info);
 		void notifyEndDialog(Dialog* _sender, bool _result);
-		void notifyChangeProperty(Property* _sender);
+		void notifyChangeProperty(PropertyPtr _sender);
 
 		void invalidateList();
 		void invalidateSelection();
 
-		void connectToProperty(Data* _data);
+		void connectToProperty(DataPtr _data);
 
-		bool isDataEnabled(Data* _data);
-		void selectListItemByData(Data* _data);
+		bool isDataEnabled(DataPtr _data);
+		void selectListItemByData(DataPtr _data);
 
 	private:
 		MyGUI::ListBox* mListBox;
 		MyGUI::EditBox* mHelpPanel;
-		Data* mParentData;
+		DataPtr mParentData;
 		size_t mLastIndex;
 		std::string mPropertyForName;
 		std::string mThisType;

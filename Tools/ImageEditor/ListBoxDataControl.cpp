@@ -66,8 +66,8 @@ namespace tools
 			{
 				if (mEnableChangePosition)
 				{
-					Data* data1 = *mListBox->getItemDataAt<Data*>(mLastIndex);
-					Data* data2 = *mListBox->getItemDataAt<Data*>(_index);
+					DataPtr data1 = *mListBox->getItemDataAt<DataPtr>(mLastIndex);
+					DataPtr data2 = *mListBox->getItemDataAt<DataPtr>(_index);
 					eventChangePosition(data1, data2);
 				}
 			}
@@ -75,7 +75,7 @@ namespace tools
 
 		mLastIndex = _index;
 
-		Data* selection = _index != MyGUI::ITEM_NONE ? *mListBox->getItemDataAt<Data*>(_index) : nullptr;
+		DataPtr selection = _index != MyGUI::ITEM_NONE ? *mListBox->getItemDataAt<DataPtr>(_index) : nullptr;
 		DataSelectorManager::getInstance().changeParentSelection(mParentData, selection);
 	}
 
@@ -99,7 +99,7 @@ namespace tools
 
 			for (size_t index = 0; index < childs.size(); index ++)
 			{
-				Data* child = childs.at(index);
+				DataPtr child = childs.at(index);
 
 				bool unique = isDataEnabled(child);
 				if (unique)
@@ -126,18 +126,18 @@ namespace tools
 		if (mParentData != nullptr)
 		{
 			size_t currentIndex = mListBox->getIndexSelected();
-			Data* selection = currentIndex != MyGUI::ITEM_NONE ? *mListBox->getItemDataAt<Data*>(currentIndex) : nullptr;
+			DataPtr selection = currentIndex != MyGUI::ITEM_NONE ? *mListBox->getItemDataAt<DataPtr>(currentIndex) : nullptr;
 
 			if (selection != mParentData->getChildSelected())
 				selectListItemByData(mParentData->getChildSelected());
 		}
 	}
 
-	void ListBoxDataControl::selectListItemByData(Data* _data)
+	void ListBoxDataControl::selectListItemByData(DataPtr _data)
 	{
 		for (size_t index = 0; index < mListBox->getItemCount(); index ++)
 		{
-			Data* selection = *mListBox->getItemDataAt<Data*>(index);
+			DataPtr selection = *mListBox->getItemDataAt<DataPtr>(index);
 			if (selection == _data)
 			{
 				mListBox->setIndexSelected(index);
@@ -148,7 +148,7 @@ namespace tools
 		mListBox->setIndexSelected(MyGUI::ITEM_NONE);
 	}
 
-	void ListBoxDataControl::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
+	void ListBoxDataControl::notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection)
 	{
 		mParentData = _data;
 
@@ -168,7 +168,7 @@ namespace tools
 
 				if (mParentData != nullptr)
 				{
-					Data* selection = _info.index != MyGUI::ITEM_NONE ? *mListBox->getItemDataAt<Data*>(_info.index) : nullptr;
+					DataPtr selection = _info.index != MyGUI::ITEM_NONE ? *mListBox->getItemDataAt<DataPtr>(_info.index) : nullptr;
 					DataSelectorManager::getInstance().changeParentSelection(mParentData, selection);
 				}
 			}
@@ -195,7 +195,7 @@ namespace tools
 			MyGUI::Widget* widget = mListBox->getWidgetByIndex(index);
 			if (widget != nullptr)
 			{
-				Data* data = *mListBox->getItemDataAt<Data*>(index);
+				DataPtr data = *mListBox->getItemDataAt<DataPtr>(index);
 
 				mTextFieldControl->setCaption(replaceTags("CaptionEnterName"));
 				mTextFieldControl->setTextField(data->getPropertyValue(mPropertyForName));
@@ -212,7 +212,7 @@ namespace tools
 
 		if (_result)
 		{
-			Data* data = *mTextFieldControl->getUserData<Data*>();
+			DataPtr data = *mTextFieldControl->getUserData<DataPtr>();
 			eventChangeName(data, mTextFieldControl->getTextField());
 		}
 	}
@@ -232,9 +232,9 @@ namespace tools
 		notifyChangeDataSelector(mParentData, false);
 	}
 
-	void ListBoxDataControl::connectToProperty(Data* _data)
+	void ListBoxDataControl::connectToProperty(DataPtr _data)
 	{
-		Property* property = _data->getProperty(mPropertyForName);
+		PropertyPtr property = _data->getProperty(mPropertyForName);
 		if (!property->eventChangeProperty.exist(this, &ListBoxDataControl::notifyChangeProperty))
 			property->eventChangeProperty.connect(this, &ListBoxDataControl::notifyChangeProperty);
 
@@ -246,7 +246,7 @@ namespace tools
 		}
 	}
 
-	void ListBoxDataControl::notifyChangeProperty(Property* _sender)
+	void ListBoxDataControl::notifyChangeProperty(PropertyPtr _sender)
 	{
 		if (mParentData == nullptr)
 			return;
@@ -255,7 +255,7 @@ namespace tools
 
 		for (size_t index = 0; index < mListBox->getItemCount(); index ++)
 		{
-			Data* data = *mListBox->getItemDataAt<Data*>(index);
+			DataPtr data = *mListBox->getItemDataAt<DataPtr>(index);
 			if (data == _sender->getOwner())
 			{
 				bool unique = isDataEnabled(data);
@@ -267,7 +267,7 @@ namespace tools
 		}
 	}
 
-	bool ListBoxDataControl::isDataEnabled(Data* _data)
+	bool ListBoxDataControl::isDataEnabled(DataPtr _data)
 	{
 		for (VectorString::const_iterator name = mPropertyNamesEnable.begin(); name != mPropertyNamesEnable.end(); name ++)
 		{

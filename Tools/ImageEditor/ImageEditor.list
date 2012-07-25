@@ -98,6 +98,7 @@ set (HEADER_FILES
   SettingsResourcePathsControl.h
   SettingsResourcesControl.h
   SettingsWindow.h
+  SharedPtr.h
   SkinDataUtility.h
   SkinExportSerializer.h
   SkinListControl.h
@@ -523,6 +524,7 @@ SOURCE_GROUP("States" FILES
 )
 SOURCE_GROUP("Utility" FILES
   Localise.h
+  SharedPtr.h
   StringUtility.h
   pugiconfig.hpp
   pugixml.cpp

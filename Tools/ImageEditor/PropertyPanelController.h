@@ -29,11 +29,11 @@ namespace tools
 
 	private:
 		void notifyChangeScope(const std::string& _scope);
-		void notifyChangeDataSelector(Data* _data, bool _changeOnlySelection);
+		void notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection);
 
 	private:
 		PropertyPanelControl* mControl;
-		DataType* mParentType;
+		DataTypePtr mParentType;
 	};
 }
 

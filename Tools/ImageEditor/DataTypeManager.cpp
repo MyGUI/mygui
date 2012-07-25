@@ -53,7 +53,7 @@ namespace tools
 			pugi::xpath_node_set nodes = doc.select_nodes("Document/DataTypes/DataType");
 			for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
 			{
-				DataType* data = new DataType();
+				DataTypePtr data = DataTypePtr(new DataType());
 				data->deserialization((*node).node());
 				mDataInfos.push_back(data);
 			}
@@ -62,12 +62,10 @@ namespace tools
 
 	void DataTypeManager::clear()
 	{
-		for (VectorDataInfo::iterator data = mDataInfos.begin(); data != mDataInfos.end(); data ++)
-			delete *data;
 		mDataInfos.clear();
 	}
 
-	DataType* DataTypeManager::getType(const std::string& _type)
+	DataTypePtr DataTypeManager::getType(const std::string& _type)
 	{
 		for (VectorDataInfo::const_iterator data = mDataInfos.begin(); data != mDataInfos.end(); data ++)
 		{
@@ -78,7 +76,7 @@ namespace tools
 		return nullptr;
 	}
 
-	DataType* DataTypeManager::getParentType(const std::string& _type)
+	DataTypePtr DataTypeManager::getParentType(const std::string& _type)
 	{
 		for (VectorDataInfo::const_iterator data = mDataInfos.begin(); data != mDataInfos.end(); data ++)
 		{

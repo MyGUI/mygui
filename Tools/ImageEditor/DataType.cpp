@@ -16,9 +16,6 @@ namespace tools
 
 	DataType::~DataType()
 	{
-		for (VectorProperty::iterator property = mProperties.begin(); property != mProperties.end(); property ++)
-			delete *property;
-		mProperties.clear();
 	}
 
 	void DataType::deserialization(pugi::xml_node _node)
@@ -33,7 +30,7 @@ namespace tools
 		pugi::xpath_node_set properties = _node.select_nodes("Properties/Property");
 		for (pugi::xpath_node_set::const_iterator property = properties.begin(); property != properties.end(); property ++)
 		{
-			DataTypeProperty* info = new DataTypeProperty();
+			DataTypePropertyPtr info(new DataTypeProperty());
 			info->deserialization((*property).node());
 			mProperties.push_back(info);
 		}
@@ -59,7 +56,7 @@ namespace tools
 		return mProperties;
 	}
 
-	bool DataType::isChild(const std::string& _child)
+	bool DataType::isChild(const std::string& _child) const
 	{
 		for (VectorString::const_iterator child = mChilds.begin(); child != mChilds.end(); child ++)
 		{

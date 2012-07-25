@@ -32,7 +32,7 @@ namespace tools
 		return names;
 	}
 
-	void SkinDataUtility::CreateSkinData(Data* _skinData)
+	void SkinDataUtility::CreateSkinData(DataPtr _skinData)
 	{
 		CreateStates(_skinData);
 		CreateSeparators(_skinData);
@@ -47,123 +47,123 @@ namespace tools
 		fillRegionEnable(_skinData, visible);
 	}
 
-	void SkinDataUtility::CreateStates(Data* _skinData)
+	void SkinDataUtility::CreateStates(DataPtr _skinData)
 	{
-		Data* state = new Data();
+		DataPtr state = Data::CreateInstance();
 		state->setType(DataTypeManager::getInstance().getType("State"));
 		state->setPropertyValue("Name", "Disabled");
 		_skinData->addChild(state);
 
-		state = new Data();
+		state = Data::CreateInstance();
 		state->setType(DataTypeManager::getInstance().getType("State"));
 		state->setPropertyValue("Name", "Normal");
 		_skinData->addChild(state);
 
-		state = new Data();
+		state = Data::CreateInstance();
 		state->setType(DataTypeManager::getInstance().getType("State"));
 		state->setPropertyValue("Name", "Over");
 		_skinData->addChild(state);
 
-		state = new Data();
+		state = Data::CreateInstance();
 		state->setType(DataTypeManager::getInstance().getType("State"));
 		state->setPropertyValue("Name", "Pressed");
 		_skinData->addChild(state);
 
-		state = new Data();
+		state = Data::CreateInstance();
 		state->setType(DataTypeManager::getInstance().getType("State"));
 		state->setPropertyValue("Name", "Selected Disabled");
 		_skinData->addChild(state);
 
-		state = new Data();
+		state = Data::CreateInstance();
 		state->setType(DataTypeManager::getInstance().getType("State"));
 		state->setPropertyValue("Name", "Selected Normal");
 		_skinData->addChild(state);
 
-		state = new Data();
+		state = Data::CreateInstance();
 		state->setType(DataTypeManager::getInstance().getType("State"));
 		state->setPropertyValue("Name", "Selected Over");
 		_skinData->addChild(state);
 
-		state = new Data();
+		state = Data::CreateInstance();
 		state->setType(DataTypeManager::getInstance().getType("State"));
 		state->setPropertyValue("Name", "Selected Pressed");
 		_skinData->addChild(state);
 	}
 
-	void SkinDataUtility::CreateSeparators(Data* _skinData)
+	void SkinDataUtility::CreateSeparators(DataPtr _skinData)
 	{
-		Data* separator = new Data();
+		DataPtr separator = Data::CreateInstance();
 		separator->setType(DataTypeManager::getInstance().getType("Separator"));
 		separator->setPropertyValue("Name", "Left");
 		_skinData->addChild(separator);
 
-		separator = new Data();
+		separator = Data::CreateInstance();
 		separator->setType(DataTypeManager::getInstance().getType("Separator"));
 		separator->setPropertyValue("Name", "Top");
 		_skinData->addChild(separator);
 
-		separator = new Data();
+		separator = Data::CreateInstance();
 		separator->setType(DataTypeManager::getInstance().getType("Separator"));
 		separator->setPropertyValue("Name", "Right");
 		_skinData->addChild(separator);
 
-		separator = new Data();
+		separator = Data::CreateInstance();
 		separator->setType(DataTypeManager::getInstance().getType("Separator"));
 		separator->setPropertyValue("Name", "Bottom");
 		_skinData->addChild(separator);
 	}
 
-	void SkinDataUtility::CreateRegions(Data* _skinData)
+	void SkinDataUtility::CreateRegions(DataPtr _skinData)
 	{
 		const VectorString& names = getRegionNames();
 
-		Data* region = new Data();
+		DataPtr region = Data::CreateInstance();
 		region->setType(DataTypeManager::getInstance().getType("Region"));
 		region->setPropertyValue("Name", names[RegionLeftTop]);
 		_skinData->addChild(region);
 
-		region = new Data();
+		region = Data::CreateInstance();
 		region->setType(DataTypeManager::getInstance().getType("Region"));
 		region->setPropertyValue("Name", names[RegionTop]);
 		_skinData->addChild(region);
 
-		region = new Data();
+		region = Data::CreateInstance();
 		region->setType(DataTypeManager::getInstance().getType("Region"));
 		region->setPropertyValue("Name", names[RegionRightTop]);
 		_skinData->addChild(region);
 
-		region = new Data();
+		region = Data::CreateInstance();
 		region->setType(DataTypeManager::getInstance().getType("Region"));
 		region->setPropertyValue("Name", names[RegionLeft]);
 		_skinData->addChild(region);
 
-		region = new Data();
+		region = Data::CreateInstance();
 		region->setType(DataTypeManager::getInstance().getType("Region"));
 		region->setPropertyValue("Name", names[RegionCenter]);
 		region->setPropertyValue("Enable", "True"); // Center всегда доступен
 		_skinData->addChild(region);
 
-		region = new Data();
+		region = Data::CreateInstance();
 		region->setType(DataTypeManager::getInstance().getType("Region"));
 		region->setPropertyValue("Name", names[RegionRight]);
 		_skinData->addChild(region);
 
-		region = new Data();
+		region = Data::CreateInstance();
 		region->setType(DataTypeManager::getInstance().getType("Region"));
 		region->setPropertyValue("Name", names[RegionLeftBottom]);
 		_skinData->addChild(region);
 
-		region = new Data();
+		region = Data::CreateInstance();
 		region->setType(DataTypeManager::getInstance().getType("Region"));
 		region->setPropertyValue("Name", names[RegionBottom]);
 		_skinData->addChild(region);
 
-		region = new Data();
+		region = Data::CreateInstance();
 		region->setType(DataTypeManager::getInstance().getType("Region"));
 		region->setPropertyValue("Name", names[RegionRightBottom]);
 		_skinData->addChild(region);
 
-		region = new Data();
+		region = Data::CreateInstance();
 		region->setType(DataTypeManager::getInstance().getType("RegionText"));
 		region->setPropertyValue("Name", "Text");
 		_skinData->addChild(region);
@@ -189,12 +189,12 @@ namespace tools
 		return result;
 	}
 
-	MyGUI::IntSize SkinDataUtility::getSkinSize(Data* _skinData)
+	MyGUI::IntSize SkinDataUtility::getSkinSize(DataPtr _skinData)
 	{
 		return MyGUI::IntCoord::parse(_skinData->getPropertyValue("Size")).size();
 	}
 
-	MyGUI::IntRect SkinDataUtility::getSeparatorsOffset(Data* _skinData)
+	MyGUI::IntRect SkinDataUtility::getSeparatorsOffset(DataPtr _skinData)
 	{
 		MyGUI::IntRect result;
 
@@ -222,7 +222,7 @@ namespace tools
 		return result;
 	}
 
-	void SkinDataUtility::fillRegionCoords(Data* _skinData, const SkinDataUtility::VectorCoord& _value)
+	void SkinDataUtility::fillRegionCoords(DataPtr _skinData, const SkinDataUtility::VectorCoord& _value)
 	{
 		const VectorString& names = getRegionNames();
 
@@ -254,7 +254,7 @@ namespace tools
 		}
 	}
 
-	SkinDataUtility::RectVisible SkinDataUtility::getSeparatorsVisible(Data* _skinData)
+	SkinDataUtility::RectVisible SkinDataUtility::getSeparatorsVisible(DataPtr _skinData)
 	{
 		RectVisible result;
 
@@ -279,7 +279,7 @@ namespace tools
 		return result;
 	}
 
-	void SkinDataUtility::fillRegionEnable(Data* _skinData, const RectVisible& _value)
+	void SkinDataUtility::fillRegionEnable(DataPtr _skinData, const RectVisible& _value)
 	{
 		const VectorString& names = getRegionNames();
 
@@ -311,7 +311,7 @@ namespace tools
 		}
 	}
 
-	void SkinDataUtility::ShowRegions(Data* _skinData)
+	void SkinDataUtility::ShowRegions(DataPtr _skinData)
 	{
 		for (Data::VectorData::const_iterator child = _skinData->getChilds().begin(); child != _skinData->getChilds().end(); child ++)
 		{

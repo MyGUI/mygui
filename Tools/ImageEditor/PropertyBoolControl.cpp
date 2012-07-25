@@ -41,14 +41,14 @@ namespace tools
 
 	void PropertyBoolControl::updateCaption()
 	{
-		Property* proper = getProperty();
+		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 			mName->setCaption(proper->getType()->getName());
 	}
 
 	void PropertyBoolControl::updateProperty()
 	{
-		Property* proper = getProperty();
+		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 		{
 			mComboBox->setEnabled(!proper->getType()->getReadOnly());
@@ -64,7 +64,7 @@ namespace tools
 
 	void PropertyBoolControl::notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index)
 	{
-		Property* proper = getProperty();
+		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 		{
 			std::string value = _index != MyGUI::ITEM_NONE ? mComboBox->getItemNameAt(_index) : "";

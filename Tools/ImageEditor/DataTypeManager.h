@@ -29,12 +29,12 @@ namespace tools
 		void load(const std::string& _fileName);
 		void clear();
 
-		DataType* getType(const std::string& _type);
-		DataType* getParentType(const std::string& _type);
+		DataTypePtr getType(const std::string& _type);
+		DataTypePtr getParentType(const std::string& _type);
 
 	private:
 		static DataTypeManager* mInstance;
-		typedef std::vector<DataType*> VectorDataInfo;
+		typedef std::vector<DataTypePtr> VectorDataInfo;
 		VectorDataInfo mDataInfos;
 	};
 

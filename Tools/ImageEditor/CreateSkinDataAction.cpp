@@ -17,25 +17,19 @@ namespace tools
 
 	CreateSkinDataAction::CreateSkinDataAction() :
 		mData(nullptr),
-		mParent(nullptr),
-		mComplete(false)
+		mParent(nullptr)
 	{
 	}
 
 	CreateSkinDataAction::~CreateSkinDataAction()
 	{
-		if (mData != nullptr && !mComplete)
-		{
-			delete mData;
-			mData = nullptr;
-		}
 	}
 
 	void CreateSkinDataAction::doAction()
 	{
 		if (mData == nullptr)
 		{
-			mData = new Data();
+			mData = Data::CreateInstance();
 			mData->setType(DataTypeManager::getInstance().getType(mType));
 			SkinDataUtility::CreateSkinData(mData);
 			SkinDataUtility::ShowRegions(mData);
@@ -44,8 +38,6 @@ namespace tools
 		mParent->addChild(mData);
 
 		DataSelectorManager::getInstance().changeParent(mParent);
-
-		mComplete = true;
 
 		if (!mUniqueProperty.empty())
 			PropertyUtility::storeUniqueNameProperty("Name", mUniqueProperty, mParent, mOldValues);
@@ -57,12 +49,10 @@ namespace tools
 
 		DataSelectorManager::getInstance().changeParent(mParent);
 
-		mComplete = false;
-
 		PropertyUtility::restoreUniqueNameProperty(mOldValues);
 	}
 
-	void CreateSkinDataAction::setParent(Data* _parent)
+	void CreateSkinDataAction::setParent(DataPtr _parent)
 	{
 		mParent = _parent;
 	}

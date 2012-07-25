@@ -10,6 +10,7 @@
 #include "pugixml.hpp"
 #include <vector>
 #include "DataTypeProperty.h"
+#include "SharedPtr.h"
 
 namespace tools
 {
@@ -28,10 +29,10 @@ namespace tools
 		typedef std::vector<std::string> VectorString;
 		const VectorString& getChilds() const;
 
-		typedef std::vector<DataTypeProperty*> VectorProperty;
+		typedef std::vector<DataTypePropertyPtr> VectorProperty;
 		const VectorProperty& getProperties() const;
 
-		bool isChild(const std::string& _child);
+		bool isChild(const std::string& _child) const;
 
 	private:
 		std::string mName;
@@ -39,6 +40,8 @@ namespace tools
 		VectorString mChilds;
 		VectorProperty mProperties;
 	};
+
+	typedef shared_ptr<DataType> DataTypePtr;
 
 }
 

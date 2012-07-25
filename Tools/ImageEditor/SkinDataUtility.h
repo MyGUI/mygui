@@ -23,29 +23,29 @@ namespace tools
 			RegionMax
 		};
 
-		static void CreateSkinData(Data* _skinData);
+		static void CreateSkinData(DataPtr _skinData);
 
 		typedef std::vector<MyGUI::IntCoord> VectorCoord;
 		static VectorCoord getRegions(const MyGUI::IntSize& _size, const MyGUI::IntRect& _separators);
 
-		static MyGUI::IntSize getSkinSize(Data* _skinData);
-		static MyGUI::IntRect getSeparatorsOffset(Data* _skinData);
+		static MyGUI::IntSize getSkinSize(DataPtr _skinData);
+		static MyGUI::IntRect getSeparatorsOffset(DataPtr _skinData);
 
 		typedef MyGUI::types::TRect<bool> RectVisible;
-		static RectVisible getSeparatorsVisible(Data* _skinData);
+		static RectVisible getSeparatorsVisible(DataPtr _skinData);
 
 		typedef std::vector<std::string> VectorString;
 		static const VectorString& getRegionNames();
 
-		static void fillRegionCoords(Data* _skinData, const VectorCoord& _value);
-		static void fillRegionEnable(Data* _skinData, const RectVisible& _value);
+		static void fillRegionCoords(DataPtr _skinData, const VectorCoord& _value);
+		static void fillRegionEnable(DataPtr _skinData, const RectVisible& _value);
 
-		static void ShowRegions(Data* _skinData);
+		static void ShowRegions(DataPtr _skinData);
 
 	private:
-		static void CreateStates(Data* _skinData);
-		static void CreateSeparators(Data* _skinData);
-		static void CreateRegions(Data* _skinData);
+		static void CreateStates(DataPtr _skinData);
+		static void CreateSeparators(DataPtr _skinData);
+		static void CreateRegions(DataPtr _skinData);
 	};
 
 }

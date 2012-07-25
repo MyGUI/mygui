@@ -51,14 +51,14 @@ namespace tools
 
 	void PropertyColourControl::updateCaption()
 	{
-		Property* proper = getProperty();
+		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 			mName->setCaption(proper->getType()->getName());
 	}
 
 	void PropertyColourControl::updateProperty()
 	{
-		Property* proper = getProperty();
+		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 		{
 			mEdit->setEnabled(!proper->getType()->getReadOnly());
@@ -88,7 +88,7 @@ namespace tools
 
 	void PropertyColourControl::notifyEditTextChange(MyGUI::EditBox* _sender)
 	{
-		Property* proper = getProperty();
+		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 		{
 			MyGUI::Colour colour;
@@ -261,7 +261,7 @@ namespace tools
 
 	void PropertyColourControl::updateSetProperty()
 	{
-		Property* proper = getProperty();
+		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 			executeAction(MyGUI::utility::toString(mCurrentColour.red, " ", mCurrentColour.green, " ", mCurrentColour.blue), true);
 	}

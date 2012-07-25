@@ -9,16 +9,23 @@
 
 #include "sigslot.h"
 #include "DataTypeProperty.h"
+#include "SharedPtr.h"
 
 namespace tools
 {
 	class Data;
+	typedef shared_ptr<Data> DataPtr;
 
 	class Property
 	{
 	public:
-		Property(DataTypeProperty* _type, Data* _owner);
+		typedef shared_ptr<Property> PropertyPtr;
+		typedef weak_ptr<Property> PropertyWeak;
+
+		Property(DataTypePropertyPtr _type, DataPtr _owner);
 		~Property();
+
+		static PropertyPtr CreateInstance(DataTypePropertyPtr _type, DataPtr _owner);
 
 		void initialise();
 
@@ -42,20 +49,23 @@ namespace tools
 			setValue(std::string(_value ? "True" : "False"));
 		}
 
-		DataTypeProperty* getType();
+		DataTypePropertyPtr getType();
 
-		Data* getOwner();
+		DataPtr getOwner();
 
-		sigslot::signal1<Property*> eventChangeProperty;
+		sigslot::signal1<PropertyPtr> eventChangeProperty;
 
 	private:
 		Property();
 
 	private:
 		std::string mValue;
-		DataTypeProperty* mType;
-		Data* mOwner;
+		DataTypePropertyPtr mType;
+		DataPtr mOwner;
+		PropertyWeak mWeakThis;
 	};
+
+	typedef Property::PropertyPtr PropertyPtr;
 
 }
 

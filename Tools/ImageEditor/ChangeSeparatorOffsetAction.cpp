@@ -52,7 +52,7 @@ namespace tools
 		return false;
 	}
 
-	void ChangeSeparatorOffsetAction::storeRegionValues(Data* _skinData, VectorPairProperty& _store)
+	void ChangeSeparatorOffsetAction::storeRegionValues(DataPtr _skinData, VectorPairProperty& _store)
 	{
 		const Data::VectorData& childs = _skinData->getChilds();
 		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
@@ -60,7 +60,7 @@ namespace tools
 			if ((*child)->getType()->getName() != "Region")
 				continue;
 
-			Property* property = (*child)->getProperty("Coord");
+			PropertyPtr property = (*child)->getProperty("Coord");
 			_store.push_back(std::make_pair(property, property->getValue()));
 		}
 	}
@@ -69,7 +69,7 @@ namespace tools
 	{
 		mOldValues.push_back(std::make_pair(getProperty(), getProperty()->getValue()));
 
-		Data* skinData = getProperty()->getOwner()->getParent();
+		DataPtr skinData = getProperty()->getOwner()->getParent();
 		storeRegionValues(skinData, mOldValues);
 	}
 
@@ -77,7 +77,7 @@ namespace tools
 	{
 		getProperty()->setValue(getValue());
 
-		Data* skinData = getProperty()->getOwner()->getParent();
+		DataPtr skinData = getProperty()->getOwner()->getParent();
 
 		MyGUI::IntSize size = SkinDataUtility::getSkinSize(skinData);
 		MyGUI::IntRect separators = SkinDataUtility::getSeparatorsOffset(skinData);

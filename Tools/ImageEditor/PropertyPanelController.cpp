@@ -58,16 +58,16 @@ namespace tools
 		{
 			DataSelectorManager::getInstance().getEvent(mParentType->getName())->connect(this, &PropertyPanelController::notifyChangeDataSelector);
 
-			Data* parentData = DataUtility::getSelectedDataByType(mParentType->getName());
+			DataPtr parentData = DataUtility::getSelectedDataByType(mParentType->getName());
 			notifyChangeDataSelector(parentData, false);
 		}
 	}
 
-	void PropertyPanelController::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
+	void PropertyPanelController::notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection)
 	{
 		if (mControl != nullptr)
 		{
-			Data* selected = _data != nullptr ? _data->getChildSelected() : nullptr;
+			DataPtr selected = _data != nullptr ? _data->getChildSelected() : nullptr;
 
 			// выделяем только данные с типом скопа
 			if (selected != nullptr)

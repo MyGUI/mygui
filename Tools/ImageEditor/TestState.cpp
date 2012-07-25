@@ -60,7 +60,7 @@ namespace tools
 			mTestWindow->eventEndDialog.connect(this, &TestState::notifyEndDialogTest);
 		}
 
-		Data* data = DataUtility::getSelectedDataByType("Skin");
+		DataPtr data = DataUtility::getSelectedDataByType("Skin");
 		if (data != nullptr)
 		{
 			mTestWindow->setSkinItem(data);
@@ -95,7 +95,7 @@ namespace tools
 		if (MessageBoxManager::getInstance().hasAny())
 			return;
 
-		Data* data = DataUtility::getSelectedDataByType("Skin");
+		DataPtr data = DataUtility::getSelectedDataByType("Skin");
 		if (data == nullptr)
 			return;
 

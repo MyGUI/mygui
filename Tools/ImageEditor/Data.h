@@ -17,29 +17,34 @@ namespace tools
 	class Data
 	{
 	public:
+		typedef shared_ptr<Data> DataPtr;
+		typedef weak_ptr<Data> DataWeak;
+
 		Data();
 		~Data();
 
-		void setType(DataType* _value);
-		DataType* getType();
+		static DataPtr CreateInstance();
 
-		Data* getParent();
+		void setType(DataTypePtr _value);
+		DataTypePtr getType() const;
 
-		typedef std::vector<Data*> VectorData;
+		DataPtr getParent();
+
+		typedef std::vector<DataPtr> VectorData;
 		const VectorData& getChilds() const;
 
-		void addChild(Data* _child);
-		void insertChild(size_t _index, Data* _child);
-		void removeChild(Data* _child);
+		void addChild(DataPtr _child);
+		void insertChild(size_t _index, DataPtr _child);
+		void removeChild(DataPtr _child);
 
-		size_t getChildIndex(Data* _child);
-		Data* getChildByIndex(size_t _index);
+		size_t getChildIndex(DataPtr _child);
+		DataPtr getChildByIndex(size_t _index);
 
-		typedef std::map<std::string, Property*> MapString;
-		const MapString& getProperties() const;
+		typedef std::map<std::string, PropertyPtr> MapProperty;
+		const MapProperty& getProperties() const;
 
 		const std::string& getPropertyValue(const std::string& _name) const;
-		void setPropertyValue(const std::string& _name, const std::string& _value);
+		void setPropertyValue(const std::string& _name, const std::string& _value) const;
 
 		template <typename Type>
 		Type getPropertyValue(const std::string& _name) const
@@ -48,31 +53,34 @@ namespace tools
 		}
 
 		template <typename Type>
-		void setPropertyValue(const std::string& _name, const Type& _value)
+		void setPropertyValue(const std::string& _name, const Type& _value) const
 		{
 			setPropertyValue(_name, MyGUI::utility::toString(_value));
 		}
 
-		void setPropertyValue(const std::string& _name, const bool& _value)
+		void setPropertyValue(const std::string& _name, const bool& _value) const
 		{
 			setPropertyValue(_name, std::string(_value ? "True" : "False"));
 		}
 
-		Property* getProperty(const std::string& _name) const;
+		PropertyPtr getProperty(const std::string& _name) const;
 
-		Data* getChildSelected();
-		void setChildSelected(Data* _child);
+		DataPtr getChildSelected();
+		void setChildSelected(DataPtr _child);
 
 	private:
 		void clear();
 
 	private:
-		DataType* mType;
-		Data* mParent;
+		DataTypePtr mType;
+		DataPtr mParent;
 		VectorData mChilds;
-		MapString mProperties;
+		MapProperty mProperties;
 		size_t mIndexSelected;
+		DataWeak mWeakThis;
 	};
+
+	typedef Data::DataPtr DataPtr;
 
 }
 

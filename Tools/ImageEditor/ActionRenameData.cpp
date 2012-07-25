@@ -29,7 +29,7 @@ namespace tools
 		mOldValues.push_back(std::make_pair(getProperty(), getProperty()->getValue()));
 		getProperty()->setValue(getValue());
 
-		Data* parent = getProperty()->getOwner()->getParent();
+		DataPtr parent = getProperty()->getOwner()->getParent();
 		PropertyUtility::storeUniqueNameProperty("Name", "UniqueName", parent, mOldValues);
 	}
 

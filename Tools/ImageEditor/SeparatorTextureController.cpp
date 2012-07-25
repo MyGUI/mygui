@@ -49,14 +49,14 @@ namespace tools
 		ScopeManager::getInstance().eventChangeScope.disconnect(this);
 	}
 
-	void SeparatorTextureController::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
+	void SeparatorTextureController::notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection)
 	{
 		mParentData = _data;
 		if (mParentData != nullptr && mParentData->getType()->getName() != mParentTypeName)
 			mParentData = nullptr;
 
 		std::string texture;
-		Property* property = PropertyUtility::getPropertyByName("Skin", "Texture");
+		PropertyPtr property = PropertyUtility::getPropertyByName("Skin", "Texture");
 		if (property != nullptr)
 		{
 			texture = property->getValue();
@@ -96,7 +96,7 @@ namespace tools
 		updateCoords(coord);
 	}
 
-	void SeparatorTextureController::notifyChangeProperty(Property* _sender)
+	void SeparatorTextureController::notifyChangeProperty(PropertyPtr _sender)
 	{
 		if (!mActivated)
 			return;
@@ -121,12 +121,12 @@ namespace tools
 	{
 		if (mParentData != nullptr)
 		{
-			Data* selected = mParentData->getChildSelected();
+			DataPtr selected = mParentData->getChildSelected();
 			if (selected != nullptr && selected->getType()->getName() == "Separator")
 			{
 				MyGUI::IntCoord value = MyGUI::IntCoord::parse(_value);
 				int offset = getOffsetByName(value, selected->getPropertyValue("Name"));
-				Property* property = selected->getProperty("Offset");
+				PropertyPtr property = selected->getProperty("Offset");
 				PropertyUtility::executeAction(property, MyGUI::utility::toString(offset), true);
 			}
 		}
@@ -196,7 +196,7 @@ namespace tools
 
 		if (mParentData != nullptr)
 		{
-			Data* selected = mParentData->getChildSelected();
+			DataPtr selected = mParentData->getChildSelected();
 			for (Data::VectorData::const_iterator child = mParentData->getChilds().begin(); child != mParentData->getChilds().end(); child ++)
 			{
 				if ((*child)->getType()->getName() != mThisType)

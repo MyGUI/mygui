@@ -37,27 +37,24 @@ namespace tools
 
 	void DataManager::initialise()
 	{
-		mRoot = new Data();
+		mRoot = Data::CreateInstance();
 		mRoot->setType(DataTypeManager::getInstance().getType("Root"));
 	}
 
 	void DataManager::shutdown()
 	{
-		delete mRoot;
-		mRoot = nullptr;
 	}
 
 	void DataManager::clear()
 	{
 		while (!mRoot->getChilds().empty())
 		{
-			Data* child = mRoot->getChilds().back();
+			DataPtr child = mRoot->getChilds().back();
 			mRoot->removeChild(child);
-			delete child;
 		}
 	}
 
-	Data* DataManager::getRoot()
+	DataPtr DataManager::getRoot()
 	{
 		return mRoot;
 	}

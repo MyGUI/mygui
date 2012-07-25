@@ -24,12 +24,12 @@ namespace tools
 	{
 	}
 
-	void ActionChangeDataProperty::setProperty(Property* _value)
+	void ActionChangeDataProperty::setProperty(PropertyPtr _value)
 	{
 		mProperty = _value;
 	}
 
-	Property* ActionChangeDataProperty::getProperty()
+	PropertyPtr ActionChangeDataProperty::getProperty()
 	{
 		return mProperty;
 	}

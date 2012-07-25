@@ -27,7 +27,7 @@ namespace tools
 	{
 		if (mData1 != mData2 && mData1->getParent() == mData2->getParent())
 		{
-			Data* parent = mData1->getParent();
+			DataPtr parent = mData1->getParent();
 			mIndex = parent->getChildIndex(mData1);
 			size_t index2 = parent->getChildIndex(mData2);
 
@@ -42,7 +42,7 @@ namespace tools
 	{
 		if (mIndex != MyGUI::ITEM_NONE)
 		{
-			Data* parent = mData1->getParent();
+			DataPtr parent = mData1->getParent();
 
 			parent->removeChild(mData1);
 			parent->insertChild(mIndex, mData1);
@@ -51,12 +51,12 @@ namespace tools
 		}
 	}
 
-	void ActionChangePositionData::setData1(Data* _data)
+	void ActionChangePositionData::setData1(DataPtr _data)
 	{
 		mData1 = _data;
 	}
 
-	void ActionChangePositionData::setData2(Data* _data)
+	void ActionChangePositionData::setData2(DataPtr _data)
 	{
 		mData2 = _data;
 	}

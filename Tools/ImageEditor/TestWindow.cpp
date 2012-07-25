@@ -61,7 +61,7 @@ namespace tools
 		eventEndDialog(this, false);
 	}
 
-	void TestWindow::setSkinItem(Data* _item)
+	void TestWindow::setSkinItem(DataPtr _item)
 	{
 		mSkinItem = _item;
 	}

@@ -22,7 +22,7 @@ namespace tools
 	{
 	}
 
-	void TexturePropertyInitialisator::initialise(Property* _property)
+	void TexturePropertyInitialisator::initialise(PropertyPtr _property)
 	{
 		if (SettingsManager::getInstance().getValue<bool>("Settings/SaveLastTexture"))
 		{

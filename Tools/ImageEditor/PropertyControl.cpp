@@ -20,7 +20,7 @@ namespace tools
 	{
 	}
 
-	void PropertyControl::setProperty(Property* _value)
+	void PropertyControl::setProperty(PropertyPtr _value)
 	{
 		unadvice();
 		mProperty = _value;
@@ -30,7 +30,7 @@ namespace tools
 		updateProperty();
 	}
 
-	Property* PropertyControl::getProperty()
+	PropertyPtr PropertyControl::getProperty()
 	{
 		return mProperty;
 	}
@@ -56,7 +56,7 @@ namespace tools
 	{
 	}
 
-	void PropertyControl::notifyChangeProperty(Property* _sender)
+	void PropertyControl::notifyChangeProperty(PropertyPtr _sender)
 	{
 		updateProperty();
 	}

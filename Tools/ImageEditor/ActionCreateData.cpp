@@ -16,33 +16,25 @@ namespace tools
 
 	ActionCreateData::ActionCreateData() :
 		mData(nullptr),
-		mParent(nullptr),
-		mComplete(false)
+		mParent(nullptr)
 	{
 	}
 
 	ActionCreateData::~ActionCreateData()
 	{
-		if (mData != nullptr && !mComplete)
-		{
-			delete mData;
-			mData = nullptr;
-		}
 	}
 
 	void ActionCreateData::doAction()
 	{
 		if (mData == nullptr)
 		{
-			mData = new Data();
+			mData = Data::CreateInstance();
 			mData->setType(DataTypeManager::getInstance().getType(mType));
 		}
 
 		mParent->addChild(mData);
 
 		DataSelectorManager::getInstance().changeParent(mParent);
-
-		mComplete = true;
 
 		if (!mUniqueProperty.empty())
 			PropertyUtility::storeUniqueNameProperty("Name", mUniqueProperty, mParent, mOldValues);
@@ -54,12 +46,10 @@ namespace tools
 
 		DataSelectorManager::getInstance().changeParent(mParent);
 
-		mComplete = false;
-
 		PropertyUtility::restoreUniqueNameProperty(mOldValues);
 	}
 
-	void ActionCreateData::setParent(Data* _parent)
+	void ActionCreateData::setParent(DataPtr _parent)
 	{
 		mParent = _parent;
 	}

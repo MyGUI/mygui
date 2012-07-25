@@ -48,14 +48,14 @@ namespace tools
 		ScopeManager::getInstance().eventChangeScope.disconnect(this);
 	}
 
-	void GroupTextureController::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
+	void GroupTextureController::notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection)
 	{
 		mParentData = _data;
 		if (mParentData != nullptr && mParentData->getType()->getName() != mParentTypeName)
 			mParentData = nullptr;
 
 		std::string texture;
-		Property* property = PropertyUtility::getPropertyByName("Group", "Texture");
+		PropertyPtr property = PropertyUtility::getPropertyByName("Group", "Texture");
 		if (property != nullptr)
 		{
 			texture = property->getValue();
@@ -78,7 +78,7 @@ namespace tools
 		updateCoords(coord);
 	}
 
-	void GroupTextureController::notifyChangeProperty(Property* _sender)
+	void GroupTextureController::notifyChangeProperty(PropertyPtr _sender)
 	{
 		if (!mActivated || !PropertyUtility::isDataSelected(_sender->getOwner()))
 			return;
@@ -94,7 +94,7 @@ namespace tools
 
 	void GroupTextureController::notifyChangeValue(const std::string& _value)
 	{
-		Property* property = PropertyUtility::getPropertyByName("Group", "Size");
+		PropertyPtr property = PropertyUtility::getPropertyByName("Group", "Size");
 		if (property != nullptr)
 			PropertyUtility::executeAction(property, _value, true);
 	}
