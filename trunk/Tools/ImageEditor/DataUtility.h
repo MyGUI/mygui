@@ -15,19 +15,19 @@ namespace tools
 	class DataUtility
 	{
 	public:
-		static Data* getSelectedDataByType(const std::string& _type);
-		static Data* getSelectedParentDataByType(const std::string& _type);
+		static DataPtr getSelectedDataByType(const std::string& _type);
+		static DataPtr getSelectedParentDataByType(const std::string& _type);
 
-		static void cloneData(Data* _target, Data* _prototype);
-		static std::string getUniqueName(Data* _parent, const std::string& _pattern);
+		static void cloneData(DataPtr _target, DataPtr _prototype);
+		static std::string getUniqueName(DataPtr _parent, const std::string& _pattern);
 
-		static Data::VectorData getChildsByType(Data* _parent, const std::string& _type, bool _friend = true);
+		static Data::VectorData getChildsByType(DataPtr _parent, const std::string& _type, bool _friend = true);
 
 	private:
-		static Data* getSelectedDataByType(Data* _data, DataType* _info);
-		static Data* getSelectedParentDataByType(Data* _data, DataType* _info);
-		static void copyProperty(Data* _target, Data* _prototype);
-		static bool checkUniqueName(Data* _parent, const std::string& _name);
+		static DataPtr getSelectedDataByType(DataPtr _data, DataTypePtr _info);
+		static DataPtr getSelectedParentDataByType(DataPtr _data, DataTypePtr _info);
+		static void copyProperty(DataPtr _target, DataPtr _prototype);
+		static bool checkUniqueName(DataPtr _parent, const std::string& _name);
 	};
 
 }

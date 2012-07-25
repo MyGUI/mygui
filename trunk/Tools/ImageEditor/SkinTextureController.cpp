@@ -48,14 +48,14 @@ namespace tools
 		ScopeManager::getInstance().eventChangeScope.disconnect(this);
 	}
 
-	void SkinTextureController::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
+	void SkinTextureController::notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection)
 	{
 		mParentData = _data;
 		if (mParentData != nullptr && mParentData->getType()->getName() != mParentTypeName)
 			mParentData = nullptr;
 
 		std::string texture;
-		Property* property = PropertyUtility::getPropertyByName("Skin", "Texture");
+		PropertyPtr property = PropertyUtility::getPropertyByName("Skin", "Texture");
 		if (property != nullptr)
 		{
 			texture = property->getValue();
@@ -80,7 +80,7 @@ namespace tools
 		updateCoords(coord);
 	}
 
-	void SkinTextureController::notifyChangeProperty(Property* _sender)
+	void SkinTextureController::notifyChangeProperty(PropertyPtr _sender)
 	{
 		if (!mActivated || !PropertyUtility::isDataSelected(_sender->getOwner()))
 			return;
@@ -96,7 +96,7 @@ namespace tools
 
 	void SkinTextureController::notifyChangeValue(const std::string& _value)
 	{
-		Property* property = PropertyUtility::getPropertyByName("Skin", "Size");
+		PropertyPtr property = PropertyUtility::getPropertyByName("Skin", "Size");
 		if (property != nullptr)
 			PropertyUtility::executeAction(property, _value, true);
 	}

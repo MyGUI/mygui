@@ -14,9 +14,9 @@
 namespace tools
 {
 
-	bool PropertyUtility::isUniqueName(Data* _data, const std::string& _propertyName)
+	bool PropertyUtility::isUniqueName(DataPtr _data, const std::string& _propertyName)
 	{
-		Data* parent = _data->getParent();
+		DataPtr parent = _data->getParent();
 		std::string name = _data->getPropertyValue(_propertyName);
 
 		const Data::VectorData& childs = parent->getChilds();
@@ -29,7 +29,7 @@ namespace tools
 		return true;
 	}
 
-	void PropertyUtility::executeAction(Property* _property, const std::string& _value, bool _merge)
+	void PropertyUtility::executeAction(PropertyPtr _property, const std::string& _value, bool _merge)
 	{
 		if (_property->getValue() == _value)
 			return;
@@ -47,13 +47,13 @@ namespace tools
 		}
 	}
 
-	void PropertyUtility::storeUniqueNameProperty(const std::string& _propertyName, const std::string& _propertyUnique, Data* _parent, VectorPairProperty& _store)
+	void PropertyUtility::storeUniqueNameProperty(const std::string& _propertyName, const std::string& _propertyUnique, DataPtr _parent, VectorPairProperty& _store)
 	{
 		const Data::VectorData& childs = _parent->getChilds();
 		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
 		{
 			bool unique = isUniqueName((*child), _propertyName);
-			Property* property = (*child)->getProperty(_propertyUnique);
+			PropertyPtr property = (*child)->getProperty(_propertyUnique);
 
 			if (property->getValue<bool>() != unique)
 			{
@@ -65,12 +65,12 @@ namespace tools
 
 	void PropertyUtility::restoreUniqueNameProperty(VectorPairProperty& _store)
 	{
-		for (VectorPairProperty::const_iterator value = _store.begin(); value != _store.end(); value ++)
+		for (VectorPairProperty::iterator value = _store.begin(); value != _store.end(); value ++)
 			(*value).first->setValue((*value).second);
 		_store.clear();
 	}
 
-	Property* PropertyUtility::getPropertyByName(Data* _data, const std::string& _dataType, const std::string& _propertyName)
+	PropertyPtr PropertyUtility::getPropertyByName(DataPtr _data, const std::string& _dataType, const std::string& _propertyName)
 	{
 		if (_data == nullptr)
 			return nullptr;
@@ -81,17 +81,17 @@ namespace tools
 		return getPropertyByName(_data->getChildSelected(), _dataType, _propertyName);
 	}
 
-	Property* PropertyUtility::getPropertyByName(const std::string& _dataType, const std::string& _propertyName)
+	PropertyPtr PropertyUtility::getPropertyByName(const std::string& _dataType, const std::string& _propertyName)
 	{
 		return getPropertyByName(DataManager::getInstance().getRoot(), _dataType, _propertyName);
 	}
 
-	bool PropertyUtility::isDataSelected(Data* _data)
+	bool PropertyUtility::isDataSelected(DataPtr _data)
 	{
 		return isDataSelected(DataManager::getInstance().getRoot(), _data);
 	}
 
-	bool PropertyUtility::isDataSelected(Data* _parent, Data* _data)
+	bool PropertyUtility::isDataSelected(DataPtr _parent, DataPtr _data)
 	{
 		if (_parent == nullptr)
 			return false;

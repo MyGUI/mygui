@@ -55,7 +55,7 @@ namespace tools
 		mButtonRight->eventMouseButtonClick += MyGUI::newDelegate(this, &AnimationViewControl::notifyMouseButtonClick);
 	}
 
-	void AnimationViewControl::notifyChangeDataSelector(Data* _parent, bool _changeSelectOnly)
+	void AnimationViewControl::notifyChangeDataSelector(DataPtr _parent, bool _changeSelectOnly)
 	{
 		mParentData = _parent;
 
@@ -75,7 +75,7 @@ namespace tools
 		if (mParentData != nullptr)
 		{
 			// Index
-			Property* property = mParentData->getProperty("Rate");
+			PropertyPtr property = mParentData->getProperty("Rate");
 			if (!property->eventChangeProperty.exist(this, &AnimationViewControl::notifyChangeProperty))
 				property->eventChangeProperty.connect(this, &AnimationViewControl::notifyChangeProperty);
 
@@ -134,7 +134,7 @@ namespace tools
 		updateImageCoord();
 	}
 
-	void AnimationViewControl::notifyChangeProperty(Property* _sender)
+	void AnimationViewControl::notifyChangeProperty(PropertyPtr _sender)
 	{
 		rebuildAnimations();
 	}
@@ -221,7 +221,7 @@ namespace tools
 		}
 		else
 		{
-			Data* selected = mParentData->getChildSelected();
+			DataPtr selected = mParentData->getChildSelected();
 
 			mCurrentFrame = mParentData->getChildIndex(selected);
 			updateFrame();

@@ -27,8 +27,8 @@ namespace tools
 		virtual void deactivate();
 
 	private:
-		void notifyChangeDataSelector(Data* _data, bool _changeOnlySelection);
-		void notifyChangeProperty(Property* _sender);
+		void notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection);
+		void notifyChangeProperty(PropertyPtr _sender);
 		void notifyChangeValue(const std::string& _value);
 		void notifyChangeScope(const std::string& _scope);
 
@@ -38,7 +38,7 @@ namespace tools
 		ScopeTextureControl* mControl;
 		std::string mParentTypeName;
 		std::string mScopeName;
-		Data* mParentData;
+		DataPtr mParentData;
 		bool mActivated;
 	};
 

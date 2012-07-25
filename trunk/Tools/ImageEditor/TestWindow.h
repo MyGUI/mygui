@@ -24,7 +24,7 @@ namespace tools
 		TestWindow();
 		virtual ~TestWindow();
 
-		void setSkinItem(Data* _item);
+		void setSkinItem(DataPtr _item);
 
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
@@ -43,7 +43,7 @@ namespace tools
 
 	private:
 		BackgroundControl* mBackgroundControl;
-		Data* mSkinItem;
+		DataPtr mSkinItem;
 		MyGUI::Button* mSkinButton;
 		std::string mSkinName;
 		MyGUI::Widget* mBack;

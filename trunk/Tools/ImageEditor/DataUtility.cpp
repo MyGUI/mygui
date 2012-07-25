@@ -11,14 +11,14 @@
 namespace tools
 {
 
-	Data* DataUtility::getSelectedDataByType(const std::string& _type)
+	DataPtr DataUtility::getSelectedDataByType(const std::string& _type)
 	{
-		DataType* info = DataTypeManager::getInstance().getType(_type);
+		DataTypePtr info = DataTypeManager::getInstance().getType(_type);
 
 		return getSelectedDataByType(DataManager::getInstance().getRoot(), info);
 	}
 
-	Data* DataUtility::getSelectedDataByType(Data* _data, DataType* _info)
+	DataPtr DataUtility::getSelectedDataByType(DataPtr _data, DataTypePtr _info)
 	{
 		if (_data == nullptr)
 			return nullptr;
@@ -29,14 +29,14 @@ namespace tools
 		return getSelectedDataByType(_data->getChildSelected(), _info);
 	}
 
-	Data* DataUtility::getSelectedParentDataByType(const std::string& _type)
+	DataPtr DataUtility::getSelectedParentDataByType(const std::string& _type)
 	{
-		DataType* info = DataTypeManager::getInstance().getType(_type);
+		DataTypePtr info = DataTypeManager::getInstance().getType(_type);
 
 		return getSelectedParentDataByType(DataManager::getInstance().getRoot(), info);
 	}
 
-	Data* DataUtility::getSelectedParentDataByType(Data* _data, DataType* _info)
+	DataPtr DataUtility::getSelectedParentDataByType(DataPtr _data, DataTypePtr _info)
 	{
 		if (_data == nullptr)
 			return nullptr;
@@ -50,7 +50,7 @@ namespace tools
 		return getSelectedParentDataByType(_data->getChildSelected(), _info);
 	}
 
-	void DataUtility::cloneData(Data* _target, Data* _prototype)
+	void DataUtility::cloneData(DataPtr _target, DataPtr _prototype)
 	{
 		MYGUI_ASSERT(_target != _prototype, "Error clone self");
 		MYGUI_ASSERT(_target->getType() == _prototype->getType(), "Error clone different types");
@@ -60,7 +60,7 @@ namespace tools
 		
 		for (Data::VectorData::const_iterator child = _prototype->getChilds().begin(); child != _prototype->getChilds().end(); child ++)
 		{
-			Data* data = new Data();
+			DataPtr data = Data::CreateInstance();
 			data->setType((*child)->getType());
 
 			_target->addChild(data);
@@ -69,13 +69,13 @@ namespace tools
 		}
 	}
 
-	void DataUtility::copyProperty(Data* _target, Data* _prototype)
+	void DataUtility::copyProperty(DataPtr _target, DataPtr _prototype)
 	{
-		for (Data::MapString::const_iterator property = _prototype->getProperties().begin(); property != _prototype->getProperties().end(); property ++)
+		for (Data::MapProperty::const_iterator property = _prototype->getProperties().begin(); property != _prototype->getProperties().end(); property ++)
 			_target->setPropertyValue((*property).first, (*property).second->getValue());
 	}
 
-	std::string DataUtility::getUniqueName(Data* _parent, const std::string& _pattern)
+	std::string DataUtility::getUniqueName(DataPtr _parent, const std::string& _pattern)
 	{
 		std::string result = _pattern;
 
@@ -93,7 +93,7 @@ namespace tools
 		return result;
 	}
 
-	bool DataUtility::checkUniqueName(Data* _parent, const std::string& _name)
+	bool DataUtility::checkUniqueName(DataPtr _parent, const std::string& _name)
 	{
 		for (Data::VectorData::const_iterator child = _parent->getChilds().begin(); child != _parent->getChilds().end(); child ++)
 		{
@@ -104,7 +104,7 @@ namespace tools
 		return true;
 	}
 
-	Data::VectorData DataUtility::getChildsByType(Data* _parent, const std::string& _type, bool _friend)
+	Data::VectorData DataUtility::getChildsByType(DataPtr _parent, const std::string& _type, bool _friend)
 	{
 		Data::VectorData result;
 		result.reserve(_parent->getChilds().size());

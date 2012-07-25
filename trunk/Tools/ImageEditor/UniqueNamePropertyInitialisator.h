@@ -20,7 +20,7 @@ namespace tools
 		UniqueNamePropertyInitialisator();
 		virtual ~UniqueNamePropertyInitialisator();
 
-		virtual void initialise(Property* _property);
+		virtual void initialise(PropertyPtr _property);
 	};
 
 }

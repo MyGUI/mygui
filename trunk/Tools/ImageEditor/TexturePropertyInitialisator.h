@@ -20,7 +20,7 @@ namespace tools
 		TexturePropertyInitialisator();
 		virtual ~TexturePropertyInitialisator();
 
-		virtual void initialise(Property* _property);
+		virtual void initialise(PropertyPtr _property);
 	};
 
 }

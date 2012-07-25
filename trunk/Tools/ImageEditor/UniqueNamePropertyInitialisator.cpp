@@ -23,9 +23,9 @@ namespace tools
 	{
 	}
 
-	void UniqueNamePropertyInitialisator::initialise(Property* _property)
+	void UniqueNamePropertyInitialisator::initialise(PropertyPtr _property)
 	{
-		Data* parent = DataUtility::getSelectedParentDataByType(_property->getOwner()->getType()->getName());
+		DataPtr parent = DataUtility::getSelectedParentDataByType(_property->getOwner()->getType()->getName());
 		if (parent == nullptr)
 			return;
 

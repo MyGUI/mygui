@@ -60,19 +60,19 @@ namespace tools
 		return type;
 	}
 
-	void DataSelectorManager::changeParent(Data* _parent)
+	void DataSelectorManager::changeParent(DataPtr _parent)
 	{
 		onChangeData(_parent, _parent->getType(), false);
 	}
 
-	void DataSelectorManager::changeParentSelection(Data* _parent, Data* _selectedChild)
+	void DataSelectorManager::changeParentSelection(DataPtr _parent, DataPtr _selectedChild)
 	{
 		_parent->setChildSelected(_selectedChild);
 
 		onChangeData(_parent, _parent->getType(), true);
 	}
 
-	void DataSelectorManager::onChangeData(Data* _parent, DataType* _type, bool _changeOnlySelection)
+	void DataSelectorManager::onChangeData(DataPtr _parent, DataTypePtr _type, bool _changeOnlySelection)
 	{
 		EventType* event = getEvent(_type->getName());
 		if (event != nullptr)
@@ -80,28 +80,28 @@ namespace tools
 			event->operator()(_parent, _changeOnlySelection);
 		}
 
-		Data* childSelected = nullptr;
+		DataPtr childSelected = nullptr;
 		if (_parent != nullptr)
 			childSelected = _parent->getChildSelected();
 
 		const DataType::VectorString& childs = _type->getChilds();
 		for (DataType::VectorString::const_iterator childName = childs.begin(); childName != childs.end(); childName ++)
 		{
-			DataType* childType = DataTypeManager::getInstance().getType(*childName);
+			DataTypePtr childType = DataTypeManager::getInstance().getType(*childName);
 			if (childType != nullptr)
 			{
-				Data* child = childSelected;
+				DataPtr child = childSelected;
 				if (child != nullptr && child->getType() != childType)
 					child = nullptr;
 
 				if (child != nullptr)
 				{
-					Data* subChildSelected = child->getChildSelected();
+					DataPtr subChildSelected = child->getChildSelected();
 					if (subChildSelected == nullptr)
 					{
 						if (child->getChilds().size() != 0)
 						{
-							Data* childData = child->getChildByIndex(0);
+							DataPtr childData = child->getChildByIndex(0);
 							child->setChildSelected(childData);
 						}
 					}

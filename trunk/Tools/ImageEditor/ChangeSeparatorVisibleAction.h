@@ -24,9 +24,9 @@ namespace tools
 		virtual void undoAction();
 
 	private:
-		typedef std::pair<Property*, std::string> PairProprty;
+		typedef std::pair<PropertyPtr, std::string> PairProprty;
 		typedef std::vector<PairProprty> VectorPairProperty;
-		void storeRegionValues(Data* _skinData, VectorPairProperty& _store);
+		void storeRegionValues(DataPtr _skinData, VectorPairProperty& _store);
 
 		void storeOldValues();
 		void setNewValues();

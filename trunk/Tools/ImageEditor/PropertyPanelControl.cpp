@@ -39,7 +39,7 @@ namespace tools
 		}
 	}
 
-	void PropertyPanelControl::InitialiseProperty(Property* _property, int& _height)
+	void PropertyPanelControl::InitialiseProperty(PropertyPtr _property, int& _height)
 	{
 		std::string type = _property->getType()->getType();
 		PropertyControl* control = nullptr;
@@ -74,7 +74,7 @@ namespace tools
 		}
 	}
 
-	void PropertyPanelControl::setCurrentData(Data* _data)
+	void PropertyPanelControl::setCurrentData(DataPtr _data)
 	{
 		mCurrentData = _data;
 
@@ -83,8 +83,8 @@ namespace tools
 		if (mCurrentData != nullptr)
 		{
 			int height = 0;
-			const Data::MapString& properties = mCurrentData->getProperties();
-			for (Data::MapString::const_iterator property = properties.begin(); property != properties.end(); property ++)
+			Data::MapProperty properties = mCurrentData->getProperties();
+			for (Data::MapProperty::iterator property = properties.begin(); property != properties.end(); property ++)
 			{
 				if ((*property).second->getType()->getVisible())
 					InitialiseProperty((*property).second, height);

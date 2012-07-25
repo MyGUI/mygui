@@ -60,14 +60,14 @@ namespace tools
 
 	void PropertyTexturesControl::updateCaption()
 	{
-		Property* proper = getProperty();
+		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 			mName->setCaption(proper->getType()->getName());
 	}
 
 	void PropertyTexturesControl::updateProperty()
 	{
-		Property* proper = getProperty();
+		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 		{
 			mComboBox->setEnabled(!proper->getType()->getReadOnly());
@@ -94,7 +94,7 @@ namespace tools
 
 	void PropertyTexturesControl::notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index)
 	{
-		Property* proper = getProperty();
+		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 		{
 			std::string value = _index != MyGUI::ITEM_NONE ? mComboBox->getItemNameAt(_index) : "";
@@ -121,7 +121,7 @@ namespace tools
 
 	void PropertyTexturesControl::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
-		Property* proper = getProperty();
+		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 			mTextureBrowseControl->setTextureName(proper->getValue());
 		else
@@ -136,7 +136,7 @@ namespace tools
 
 		if (_result)
 		{
-			Property* proper = getProperty();
+			PropertyPtr proper = getProperty();
 			if (proper != nullptr)
 				executeAction(mTextureBrowseControl->getTextureName());
 			updateProperty();

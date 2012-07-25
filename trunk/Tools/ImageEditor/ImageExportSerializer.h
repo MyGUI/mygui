@@ -26,20 +26,20 @@ namespace tools
 
 	private:
 		void parseImage(pugi::xml_node _node);
-		void parseGroup(pugi::xml_node _node, Data* _parent);
-		void parseIndex(pugi::xml_node _node, Data* _parent);
-		void parseFrame(pugi::xml_node _node, Data* _parent);
+		void parseGroup(pugi::xml_node _node, DataPtr _parent);
+		void parseIndex(pugi::xml_node _node, DataPtr _parent);
+		void parseFrame(pugi::xml_node _node, DataPtr _parent);
 
-		void writeImage(pugi::xml_node _parent, Data* _data);
-		void writeGroup(pugi::xml_node _parent, Data* _data);
-		void writeIndex(pugi::xml_node _parent, Data* _data);
-		void writeFrame(pugi::xml_node _parent, Data* _data);
+		void writeImage(pugi::xml_node _parent, DataPtr _data);
+		void writeGroup(pugi::xml_node _parent, DataPtr _data);
+		void writeIndex(pugi::xml_node _parent, DataPtr _data);
+		void writeFrame(pugi::xml_node _parent, DataPtr _data);
 
-		void updateImageProperty(Data* _data);
-		void updateGroupProperty(Data* _data);
-		void updateIndexProperty(Data* _data);
+		void updateImageProperty(DataPtr _data);
+		void updateGroupProperty(DataPtr _data);
+		void updateIndexProperty(DataPtr _data);
 
-		MyGUI::IntPoint getFirstFramePoint(Data* _data);
+		MyGUI::IntPoint getFirstFramePoint(DataPtr _data);
 	};
 
 }

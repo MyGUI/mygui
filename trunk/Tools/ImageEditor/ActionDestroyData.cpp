@@ -16,18 +16,12 @@ namespace tools
 	ActionDestroyData::ActionDestroyData() :
 		mData(nullptr),
 		mParent(nullptr),
-		mComplete(false),
 		mIndex(MyGUI::ITEM_NONE)
 	{
 	}
 
 	ActionDestroyData::~ActionDestroyData()
 	{
-		if (mComplete)
-		{
-			delete mData;
-			mData = nullptr;
-		}
 	}
 
 	void ActionDestroyData::doAction()
@@ -37,8 +31,6 @@ namespace tools
 		mParent->removeChild(mData);
 
 		DataSelectorManager::getInstance().changeParent(mParent);
-
-		mComplete = true;
 
 		if (!mUniqueProperty.empty())
 			PropertyUtility::storeUniqueNameProperty("Name", mUniqueProperty, mParent, mOldValues);
@@ -50,12 +42,10 @@ namespace tools
 
 		DataSelectorManager::getInstance().changeParent(mParent);
 
-		mComplete = false;
-
 		PropertyUtility::restoreUniqueNameProperty(mOldValues);
 	}
 
-	void ActionDestroyData::setData(Data* _data)
+	void ActionDestroyData::setData(DataPtr _data)
 	{
 		mData = _data;
 	}

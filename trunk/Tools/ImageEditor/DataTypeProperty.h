@@ -9,6 +9,7 @@
 
 #include "pugixml.hpp"
 #include <vector>
+#include "SharedPtr.h"
 
 namespace tools
 {
@@ -38,6 +39,8 @@ namespace tools
 		bool mVisible;
 		std::string mAction;
 	};
+
+	typedef shared_ptr<DataTypeProperty> DataTypePropertyPtr;
 
 }
 

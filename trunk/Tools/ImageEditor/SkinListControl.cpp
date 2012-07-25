@@ -42,7 +42,7 @@ namespace tools
 		if (!checkCommand(_result))
 			return;
 
-		Data* data = DataUtility::getSelectedDataByType(getParentType());
+		DataPtr data = DataUtility::getSelectedDataByType(getParentType());
 		if (data != nullptr)
 		{
 			CreateSkinDataAction* command = new CreateSkinDataAction();

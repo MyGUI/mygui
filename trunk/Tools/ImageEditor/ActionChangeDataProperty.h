@@ -21,14 +21,14 @@ namespace tools
 		ActionChangeDataProperty();
 		virtual ~ActionChangeDataProperty();
 
-		void setProperty(Property* _value);
-		Property* getProperty();
+		void setProperty(PropertyPtr _value);
+		PropertyPtr getProperty();
 
 		void setValue(const std::string& _value);
 		const std::string& getValue() const;
 
 	private:
-		Property* mProperty;
+		PropertyPtr mProperty;
 		std::string mValue;
 	};
 

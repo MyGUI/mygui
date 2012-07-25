@@ -15,20 +15,20 @@ namespace tools
 	class PropertyUtility
 	{
 	public:
-		static bool isUniqueName(Data* _data, const std::string& _propertyName);
-		static void executeAction(Property* _property, const std::string& _value, bool _merge = false);
+		static bool isUniqueName(DataPtr _data, const std::string& _propertyName);
+		static void executeAction(PropertyPtr _property, const std::string& _value, bool _merge = false);
 
-		typedef std::pair<Property*, std::string> PairProprty;
+		typedef std::pair<PropertyPtr, std::string> PairProprty;
 		typedef std::vector<PairProprty> VectorPairProperty;
-		static void storeUniqueNameProperty(const std::string& _propertyName, const std::string& _propertyUnique, Data* _parent, VectorPairProperty& _store);
+		static void storeUniqueNameProperty(const std::string& _propertyName, const std::string& _propertyUnique, DataPtr _parent, VectorPairProperty& _store);
 		static void restoreUniqueNameProperty(VectorPairProperty& _store);
 
-		static Property* getPropertyByName(const std::string& _dataType, const std::string& _propertyName);
-		static bool isDataSelected(Data* _data);
+		static PropertyPtr getPropertyByName(const std::string& _dataType, const std::string& _propertyName);
+		static bool isDataSelected(DataPtr _data);
 
 	private:
-		static Property* getPropertyByName(Data* _data, const std::string& _dataType, const std::string& _propertyName);
-		static bool isDataSelected(Data* _parent, Data* _data);
+		static PropertyPtr getPropertyByName(DataPtr _data, const std::string& _dataType, const std::string& _propertyName);
+		static bool isDataSelected(DataPtr _parent, DataPtr _data);
 	};
 }
 

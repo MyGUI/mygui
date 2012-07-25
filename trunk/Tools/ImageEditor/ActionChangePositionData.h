@@ -23,12 +23,12 @@ namespace tools
 		virtual void doAction();
 		virtual void undoAction();
 
-		void setData1(Data* _data);
-		void setData2(Data* _data);
+		void setData1(DataPtr _data);
+		void setData2(DataPtr _data);
 
 	private:
-		Data* mData1;
-		Data* mData2;
+		DataPtr mData1;
+		DataPtr mData2;
 		size_t mIndex;
 	};
 

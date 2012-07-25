@@ -27,18 +27,18 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		typedef sigslot::signal2<Data*, bool> EventType;
+		typedef sigslot::signal2<DataPtr, bool> EventType;
 		EventType* getEvent(const std::string& _dataType);
 
 		// у родителя полностью изменились дети
-		void changeParent(Data* _parent);
+		void changeParent(DataPtr _parent);
 
 		// у родителя изменился только активный ребенок
-		void changeParentSelection(Data* _parent, Data* _selectedChild);
+		void changeParentSelection(DataPtr _parent, DataPtr _selectedChild);
 
 	private:
 		void clear();
-		void onChangeData(Data* _parent, DataType* _type, bool _changeOnlySelection);
+		void onChangeData(DataPtr _parent, DataTypePtr _type, bool _changeOnlySelection);
 
 	private:
 		static DataSelectorManager* mInstance;

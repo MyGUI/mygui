@@ -23,17 +23,16 @@ namespace tools
 		virtual void doAction();
 		virtual void undoAction();
 
-		void setData(Data* _data);
+		void setData(DataPtr _data);
 		void setUniqueProperty(const std::string& _value);
 
 	private:
-		Data* mData;
-		Data* mParent;
-		bool mComplete;
+		DataPtr mData;
+		DataPtr mParent;
 		size_t mIndex;
 		std::string mUniqueProperty;
 
-		typedef std::pair<Property*, std::string> PairProprty;
+		typedef std::pair<PropertyPtr, std::string> PairProprty;
 		typedef std::vector<PairProprty> VectorPairProperty;
 		VectorPairProperty mOldValues;
 	};

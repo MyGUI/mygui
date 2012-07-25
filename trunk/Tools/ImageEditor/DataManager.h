@@ -29,11 +29,11 @@ namespace tools
 
 		void clear();
 
-		Data* getRoot();
+		DataPtr getRoot();
 
 	private:
 		static DataManager* mInstance;
-		Data* mRoot;
+		DataPtr mRoot;
 	};
 
 }

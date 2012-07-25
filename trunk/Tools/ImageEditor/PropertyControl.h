@@ -22,8 +22,8 @@ namespace tools
 		PropertyControl();
 		virtual ~PropertyControl();
 
-		void setProperty(Property* _value);
-		Property* getProperty();
+		void setProperty(PropertyPtr _value);
+		PropertyPtr getProperty();
 
 		void executeAction(const std::string& _value, bool _merge = false);
 
@@ -32,13 +32,13 @@ namespace tools
 		virtual void updateCaption();
 
 	private:
-		void notifyChangeProperty(Property* _sender);
+		void notifyChangeProperty(PropertyPtr _sender);
 
 		void advice();
 		void unadvice();
 
 	private:
-		Property* mProperty;
+		PropertyPtr mProperty;
 	};
 
 }

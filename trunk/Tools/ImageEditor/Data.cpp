@@ -23,7 +23,7 @@ namespace tools
 		clear();
 	}
 
-	void Data::setType(DataType* _value)
+	void Data::setType(DataTypePtr _value)
 	{
 		mType = _value;
 
@@ -34,20 +34,20 @@ namespace tools
 			const DataType::VectorProperty& properties = mType->getProperties();
 			for (DataType::VectorProperty::const_iterator property = properties.begin(); property != properties.end(); property++)
 			{
-				Property* data = new Property(*property, this);
-				mProperties[(*property)->getName()] = data;
-
+				PropertyPtr data = Property::CreateInstance(*property, mWeakThis.lock());
 				data->initialise();
+
+				mProperties[(*property)->getName()] = data;
 			}
 		}
 	}
 
-	DataType* Data::getType()
+	DataTypePtr Data::getType() const
 	{
 		return mType;
 	}
 
-	Data* Data::getParent()
+	DataPtr Data::getParent()
 	{
 		return mParent;
 	}
@@ -61,18 +61,17 @@ namespace tools
 	{
 		while (!mChilds.empty())
 		{
-			Data* child = mChilds.back();
+			DataPtr child = mChilds.back();
 			removeChild(child);
-			delete child;
 		}
 	}
 
-	const Data::MapString& Data::getProperties() const
+	const Data::MapProperty& Data::getProperties() const
 	{
 		return mProperties;
 	}
 
-	void Data::insertChild(size_t _index, Data* _child)
+	void Data::insertChild(size_t _index, DataPtr _child)
 	{
 		MYGUI_ASSERT(_child != nullptr, "Child is nullptr");
 		MYGUI_ASSERT(_child->getParent() == nullptr, "Child already attached");
@@ -86,17 +85,17 @@ namespace tools
 			_index = mChilds.size();
 
 		mChilds.insert(mChilds.begin() + _index, _child);
-		_child->mParent = this;
+		_child->mParent = mWeakThis.lock();
 	}
 
-	void Data::addChild(Data* _child)
+	void Data::addChild(DataPtr _child)
 	{
 		insertChild(MyGUI::ITEM_NONE, _child);
 	}
 	
-	void Data::removeChild(Data* _child)
+	void Data::removeChild(DataPtr _child)
 	{
-		MYGUI_ASSERT(_child->getParent() == this, "Child not found");
+		MYGUI_ASSERT(_child->getParent() == mWeakThis.lock(), "Child not found");
 
 		if (_child == getChildSelected())
 			mIndexSelected = MyGUI::ITEM_NONE;
@@ -110,12 +109,12 @@ namespace tools
 		return getProperty(_name)->getValue();
 	}
 	
-	void Data::setPropertyValue(const std::string& _name, const std::string& _value)
+	void Data::setPropertyValue(const std::string& _name, const std::string& _value) const
 	{
 		getProperty(_name)->setValue(_value);
 	}
 
-	size_t Data::getChildIndex(Data* _child)
+	size_t Data::getChildIndex(DataPtr _child)
 	{
 		if (_child == nullptr)
 			return MyGUI::ITEM_NONE;
@@ -130,7 +129,7 @@ namespace tools
 		return MyGUI::ITEM_NONE;
 	}
 
-	Data* Data::getChildByIndex(size_t _index)
+	DataPtr Data::getChildByIndex(size_t _index)
 	{
 		MYGUI_ASSERT_RANGE_AND_NONE(_index, mChilds.size(), "Data::getChildSelected");
 
@@ -139,22 +138,29 @@ namespace tools
 		return mChilds[_index];
 	}
 
-	Data* Data::getChildSelected()
+	DataPtr Data::getChildSelected()
 	{
 		return getChildByIndex(mIndexSelected);
 	}
 
-	void Data::setChildSelected(Data* _child)
+	void Data::setChildSelected(DataPtr _child)
 	{
 		mIndexSelected = getChildIndex(_child);
 	}
 
-	Property* Data::getProperty(const std::string& _name) const
+	PropertyPtr Data::getProperty(const std::string& _name) const
 	{
-		MapString::const_iterator property = mProperties.find(_name);
+		MapProperty::const_iterator property = mProperties.find(_name);
 		MYGUI_ASSERT(property != mProperties.end(), "Property " << _name << " not found");
 
 		return (*property).second;
+	}
+
+	DataPtr Data::CreateInstance()
+	{
+		DataPtr result = DataPtr(new Data());
+		result->mWeakThis = DataWeak(result);
+		return result;
 	}
 
 }

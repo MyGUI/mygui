@@ -23,17 +23,17 @@ namespace tools
 		PropertyPanelControl();
 		virtual ~PropertyPanelControl();
 
-		void setCurrentData(Data* _data);
+		void setCurrentData(DataPtr _data);
 
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
 		void HideControls();
-		void InitialiseProperty(Property* _property, int& _height);
+		void InitialiseProperty(PropertyPtr _property, int& _height);
 
 	private:
-		Data* mCurrentData;
+		DataPtr mCurrentData;
 		typedef std::vector<std::pair<std::string, PropertyControl*> > VectorPairControl;
 		VectorPairControl mPropertyControls;
 		int mDistance;

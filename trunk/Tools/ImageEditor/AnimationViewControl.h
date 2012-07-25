@@ -27,8 +27,8 @@ namespace tools
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
-		void notifyChangeDataSelector(Data* _parent, bool _changeSelectOnly);
-		void notifyChangeProperty(Property* _sender);
+		void notifyChangeDataSelector(DataPtr _parent, bool _changeSelectOnly);
+		void notifyChangeProperty(PropertyPtr _sender);
 		void notifyChangeCoord(MyGUI::Widget* _sender);
 		void notifyFrameStart(float _frame);
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
@@ -55,7 +55,7 @@ namespace tools
 		ATTRIBUTE_FIELD_WIDGET_NAME(AnimationViewControl, mButtonRight, "Right");
 		MyGUI::Button* mButtonRight;
 
-		Data* mParentData;
+		DataPtr mParentData;
 		AnimationInfo mAnimation;
 		size_t mMaxCountFrame;
 		size_t mCurrentFrame;

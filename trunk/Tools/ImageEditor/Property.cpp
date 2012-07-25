@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	Property::Property(DataTypeProperty* _type, Data* _owner) :
+	Property::Property(DataTypePropertyPtr _type, DataPtr _owner) :
 		mType(_type),
 		mOwner(_owner)
 	{
@@ -33,16 +33,16 @@ namespace tools
 		if (mValue != _value)
 		{
 			mValue = _value;
-			eventChangeProperty(this);
+			eventChangeProperty(mWeakThis.lock());
 		}
 	}
 
-	DataTypeProperty* Property::getType()
+	DataTypePropertyPtr Property::getType()
 	{
 		return mType;
 	}
 
-	Data* Property::getOwner()
+	DataPtr Property::getOwner()
 	{
 		return mOwner;
 	}
@@ -53,12 +53,19 @@ namespace tools
 		{
 			IPropertyInitialisator* initialisator = components::FactoryManager::GetInstance().CreateItem<IPropertyInitialisator>(mType->getInitialisator());
 			if (initialisator != nullptr)
-				initialisator->initialise(this);
+				initialisator->initialise(mWeakThis.lock());
 		}
 		else
 		{
 			mValue = mType->getDefaultValue();
 		}
+	}
+
+	PropertyPtr Property::CreateInstance(DataTypePropertyPtr _type, DataPtr _owner)
+	{
+		PropertyPtr result = PropertyPtr(new Property(_type, _owner));
+		result->mWeakThis = PropertyWeak(result);
+		return result;
 	}
 
 }

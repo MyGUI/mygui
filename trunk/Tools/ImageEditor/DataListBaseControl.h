@@ -39,8 +39,8 @@ namespace tools
 		const std::string& getPropertyForUnique() const;
 
 	private:
-		void notifyChangePosition(Data* _data1, Data* _data2);
-		void notifyChangeName(Data* _data, const std::string& _name);
+		void notifyChangePosition(DataPtr _data1, DataPtr _data2);
+		void notifyChangeName(DataPtr _data, const std::string& _name);
 
 	private:
 		ListBoxDataControl* mListBoxControl;

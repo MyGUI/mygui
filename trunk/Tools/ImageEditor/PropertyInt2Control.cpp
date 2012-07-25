@@ -37,14 +37,14 @@ namespace tools
 
 	void PropertyInt2Control::updateCaption()
 	{
-		Property* proper = getProperty();
+		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 			mName->setCaption(proper->getType()->getName());
 	}
 
 	void PropertyInt2Control::updateProperty()
 	{
-		Property* proper = getProperty();
+		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 		{
 			mEdit->setEnabled(!proper->getType()->getReadOnly());
@@ -63,7 +63,7 @@ namespace tools
 
 	void PropertyInt2Control::notifyEditTextChange(MyGUI::EditBox* _sender)
 	{
-		Property* proper = getProperty();
+		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 		{
 			bool validate = isValidate();

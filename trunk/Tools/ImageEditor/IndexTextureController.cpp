@@ -48,14 +48,14 @@ namespace tools
 		ScopeManager::getInstance().eventChangeScope.disconnect(this);
 	}
 
-	void IndexTextureController::notifyChangeDataSelector(Data* _data, bool _changeOnlySelection)
+	void IndexTextureController::notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection)
 	{
 		mParentData = _data;
 		if (mParentData != nullptr && mParentData->getType()->getName() != mParentTypeName)
 			mParentData = nullptr;
 
 		std::string texture;
-		Property* property = PropertyUtility::getPropertyByName("Group", "Texture");
+		PropertyPtr property = PropertyUtility::getPropertyByName("Group", "Texture");
 		if (property != nullptr)
 		{
 			texture = property->getValue();
@@ -88,7 +88,7 @@ namespace tools
 		updateCoords(coord);
 	}
 
-	void IndexTextureController::notifyChangeProperty(Property* _sender)
+	void IndexTextureController::notifyChangeProperty(PropertyPtr _sender)
 	{
 		if (!mActivated || !PropertyUtility::isDataSelected(_sender->getOwner()))
 			return;
