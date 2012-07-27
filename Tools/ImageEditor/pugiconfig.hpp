@@ -31,6 +31,7 @@
 // #define PUGIXML_CLASS __declspec(dllimport) // to import all classes from DLL
 // #define PUGIXML_FUNCTION __fastcall // to set calling conventions to all public functions to fastcall
 // In absence of PUGIXML_CLASS/PUGIXML_FUNCTION definitions PUGIXML_API is used instead
+#define PUGIXML_API MYGUI_EXPORT_DLL
 
 // Uncomment this to switch to header-only version
 // #define PUGIXML_HEADER_ONLY

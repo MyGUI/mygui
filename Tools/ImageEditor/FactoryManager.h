@@ -17,7 +17,7 @@
 namespace components
 {
 
-	class FactoryManager
+	class MYGUI_EXPORT_DLL FactoryManager
 	{
 	public:
 		FactoryManager();

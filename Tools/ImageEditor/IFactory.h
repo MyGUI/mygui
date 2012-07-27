@@ -12,7 +12,7 @@
 namespace components
 {
 
-	class IFactory
+	class MYGUI_EXPORT_DLL IFactory
 	{
 	public:
 		IFactory() { }

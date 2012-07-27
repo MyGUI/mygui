@@ -35,10 +35,6 @@ set (HEADER_FILES
   DialogManager.h
   EditorState.h
   ExportManager.h
-  FactoryItemAttribute.h
-  FactoryItemRegistrator.h
-  FactoryManager.h
-  FactoryTemplate.h
   FocusInfoControl.h
   FrameListControl.h
   FrameTextureController.h
@@ -51,15 +47,12 @@ set (HEADER_FILES
   HotKeyManager.h
   IControlController.h
   IExportSerializer.h
-  IFactory.h
-  IFactoryItem.h
   IPropertyInitialisator.h
   ImageExportSerializer.h
   ImageListControl.h
   IndexListControl.h
   IndexTextureController.h
   ListBoxDataControl.h
-  Localise.h
   MainMenuControl.h
   MessageBoxFadeControl.h
   MessageBoxManager.h
@@ -98,7 +91,6 @@ set (HEADER_FILES
   SettingsResourcePathsControl.h
   SettingsResourcesControl.h
   SettingsWindow.h
-  SharedPtr.h
   SkinDataUtility.h
   SkinExportSerializer.h
   SkinListControl.h
@@ -108,7 +100,6 @@ set (HEADER_FILES
   StateManager.h
   StateTextureController.h
   StatisticInfoControl.h
-  StringUtility.h
   TestState.h
   TestWindow.h
   TextFieldControl.h
@@ -120,7 +111,6 @@ set (HEADER_FILES
   UniqueNamePropertyInitialisator.h
   VerticalSelectorBlackControl.h
   VerticalSelectorControl.h
-  sigslot.h
 )
 set (SOURCE_FILES
   ../../Common/Precompiled.cpp
@@ -160,8 +150,6 @@ set (SOURCE_FILES
   DialogManager.cpp
   EditorState.cpp
   ExportManager.cpp
-  FactoryItemRegistrator.cpp
-  FactoryManager.cpp
   FocusInfoControl.cpp
   FrameListControl.cpp
   FrameTextureController.cpp
@@ -233,9 +221,6 @@ set (SOURCE_FILES
   UniqueNamePropertyInitialisator.cpp
   VerticalSelectorBlackControl.cpp
   VerticalSelectorControl.cpp
-  pugiconfig.hpp
-  pugixml.cpp
-  pugixml.hpp
 )
 SOURCE_GROUP("Actions" FILES
   Action.cpp
@@ -478,16 +463,6 @@ SOURCE_GROUP("Managers\\Exports" FILES
   SkinExportSerializer.cpp
   SkinExportSerializer.h
 )
-SOURCE_GROUP("Managers\\Factory" FILES
-  FactoryItemAttribute.h
-  FactoryItemRegistrator.cpp
-  FactoryItemRegistrator.h
-  FactoryManager.cpp
-  FactoryManager.h
-  FactoryTemplate.h
-  IFactory.h
-  IFactoryItem.h
-)
 SOURCE_GROUP("Managers\\Settings" FILES
   SettingsManager.cpp
   SettingsManager.h
@@ -521,13 +496,4 @@ SOURCE_GROUP("States" FILES
   StateManager.h
   TestState.cpp
   TestState.h
-)
-SOURCE_GROUP("Utility" FILES
-  Localise.h
-  SharedPtr.h
-  StringUtility.h
-  pugiconfig.hpp
-  pugixml.cpp
-  pugixml.hpp
-  sigslot.h
 )
