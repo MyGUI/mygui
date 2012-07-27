@@ -14,7 +14,7 @@
 namespace tools
 {
 
-	class DataTypeProperty
+	class MYGUI_EXPORT_DLL DataTypeProperty
 	{
 	public:
 		DataTypeProperty();
