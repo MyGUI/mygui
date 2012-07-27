@@ -3,7 +3,6 @@ set (HEADER_FILES
   AnimationViewControl.h
   Application.h
   ApplicationState.h
-  AreaSelectorControl.h
   ChangeSeparatorOffsetAction.h
   ChangeSeparatorVisibleAction.h
   ChangeSkinSizeAction.h
@@ -14,43 +13,21 @@ set (HEADER_FILES
   FrameTextureController.h
   GroupListControl.h
   GroupTextureController.h
-  HorizontalSelectorBlackControl.h
-  HorizontalSelectorControl.h
   ImageExportSerializer.h
   ImageListControl.h
   IndexListControl.h
   IndexTextureController.h
-  MainMenuControl.h
   MyGUI_FilterNoneSkin.h
-  PositionSelectorBlackControl.h
-  PositionSelectorControl.h
   PropertyAlignControl.h
-  PropertyBoolControl.h
-  PropertyColourControl.h
-  PropertyControl.h
-  PropertyFloatControl.h
-  PropertyInt2Control.h
-  PropertyInt4Control.h
-  PropertyIntControl.h
-  PropertyPanelControl.h
-  PropertyPanelController.h
   PropertyRegionTextTypeControl.h
   PropertyRegionTypeControl.h
-  PropertyStringControl.h
-  PropertyTexturesControl.h
-  PropertyUtility.h
   RegionListControl.h
   RegionTextureController.h
-  ScopeTextureControl.h
-  SelectorControl.h
-  SeparatorControl.h
   SeparatorListControl.h
   SeparatorTextureController.h
-  SeparatorUtility.h
   SettingsGeneralControl.h
   SettingsResourcePathsControl.h
   SettingsResourcesControl.h
-  SettingsWindow.h
   SkinDataUtility.h
   SkinExportSerializer.h
   SkinListControl.h
@@ -60,14 +37,6 @@ set (HEADER_FILES
   StatisticInfoControl.h
   TestState.h
   TestWindow.h
-  TextureBrowseCell.h
-  TextureBrowseControl.h
-  TextureControl.h
-  TexturePropertyInitialisator.h
-  TextureToolControl.h
-  UniqueNamePropertyInitialisator.h
-  VerticalSelectorBlackControl.h
-  VerticalSelectorControl.h
 )
 set (SOURCE_FILES
   ../../Common/Precompiled.cpp
@@ -75,7 +44,6 @@ set (SOURCE_FILES
   AnimationViewControl.cpp
   Application.cpp
   ApplicationState.cpp
-  AreaSelectorControl.cpp
   ChangeSeparatorOffsetAction.cpp
   ChangeSeparatorVisibleAction.cpp
   ChangeSkinSizeAction.cpp
@@ -86,43 +54,22 @@ set (SOURCE_FILES
   FrameTextureController.cpp
   GroupListControl.cpp
   GroupTextureController.cpp
-  HorizontalSelectorBlackControl.cpp
-  HorizontalSelectorControl.cpp
   ImageEditor.rc
   ImageExportSerializer.cpp
   ImageListControl.cpp
   IndexListControl.cpp
   IndexTextureController.cpp
-  MainMenuControl.cpp
   MyGUI_FilterNoneSkin.cpp
-  PositionSelectorBlackControl.cpp
-  PositionSelectorControl.cpp
   PropertyAlignControl.cpp
-  PropertyBoolControl.cpp
-  PropertyColourControl.cpp
-  PropertyControl.cpp
-  PropertyFloatControl.cpp
-  PropertyInt2Control.cpp
-  PropertyInt4Control.cpp
-  PropertyIntControl.cpp
-  PropertyPanelControl.cpp
-  PropertyPanelController.cpp
   PropertyRegionTextTypeControl.cpp
   PropertyRegionTypeControl.cpp
-  PropertyStringControl.cpp
-  PropertyTexturesControl.cpp
-  PropertyUtility.cpp
   RegionListControl.cpp
   RegionTextureController.cpp
-  ScopeTextureControl.cpp
-  SelectorControl.cpp
-  SeparatorControl.cpp
   SeparatorListControl.cpp
   SeparatorTextureController.cpp
   SettingsGeneralControl.cpp
   SettingsResourcePathsControl.cpp
   SettingsResourcesControl.cpp
-  SettingsWindow.cpp
   SkinDataUtility.cpp
   SkinExportSerializer.cpp
   SkinListControl.cpp
@@ -132,14 +79,6 @@ set (SOURCE_FILES
   StatisticInfoControl.cpp
   TestState.cpp
   TestWindow.cpp
-  TextureBrowseCell.cpp
-  TextureBrowseControl.cpp
-  TextureControl.cpp
-  TexturePropertyInitialisator.cpp
-  TextureToolControl.cpp
-  UniqueNamePropertyInitialisator.cpp
-  VerticalSelectorBlackControl.cpp
-  VerticalSelectorControl.cpp
 )
 SOURCE_GROUP("Actions" FILES
   ChangeSeparatorOffsetAction.cpp
@@ -181,8 +120,6 @@ SOURCE_GROUP("Controllers" FILES
 SOURCE_GROUP("Controls" FILES
   AnimationViewControl.cpp
   AnimationViewControl.h
-  MainMenuControl.cpp
-  MainMenuControl.h
   TestWindow.cpp
   TestWindow.h
 )
@@ -215,37 +152,10 @@ SOURCE_GROUP("Controls\\Lists" FILES
 SOURCE_GROUP("Controls\\Properties" FILES
   PropertyAlignControl.cpp
   PropertyAlignControl.h
-  PropertyBoolControl.cpp
-  PropertyBoolControl.h
-  PropertyColourControl.cpp
-  PropertyColourControl.h
-  PropertyControl.cpp
-  PropertyControl.h
-  PropertyFloatControl.cpp
-  PropertyFloatControl.h
-  PropertyInt2Control.cpp
-  PropertyInt2Control.h
-  PropertyInt4Control.cpp
-  PropertyInt4Control.h
-  PropertyIntControl.cpp
-  PropertyIntControl.h
-  PropertyPanelControl.cpp
-  PropertyPanelControl.h
   PropertyRegionTextTypeControl.cpp
   PropertyRegionTextTypeControl.h
   PropertyRegionTypeControl.cpp
   PropertyRegionTypeControl.h
-  PropertyStringControl.cpp
-  PropertyStringControl.h
-  PropertyTexturesControl.cpp
-  PropertyTexturesControl.h
-)
-SOURCE_GROUP("Controls\\Separators" FILES
-  SeparatorControl.cpp
-  SeparatorControl.h
-)
-SOURCE_GROUP("Controls\\Separators\\Utility" FILES
-  SeparatorUtility.h
 )
 SOURCE_GROUP("Controls\\Settings" FILES
   SettingsGeneralControl.cpp
@@ -254,40 +164,6 @@ SOURCE_GROUP("Controls\\Settings" FILES
   SettingsResourcePathsControl.h
   SettingsResourcesControl.cpp
   SettingsResourcesControl.h
-  SettingsWindow.cpp
-  SettingsWindow.h
-)
-SOURCE_GROUP("Controls\\TextureBrowser" FILES
-  TextureBrowseCell.cpp
-  TextureBrowseCell.h
-  TextureBrowseControl.cpp
-  TextureBrowseControl.h
-)
-SOURCE_GROUP("Controls\\TextureView" FILES
-  ScopeTextureControl.cpp
-  ScopeTextureControl.h
-  TextureControl.cpp
-  TextureControl.h
-  TextureToolControl.cpp
-  TextureToolControl.h
-)
-SOURCE_GROUP("Controls\\TextureView\\Selectors" FILES
-  AreaSelectorControl.cpp
-  AreaSelectorControl.h
-  HorizontalSelectorBlackControl.cpp
-  HorizontalSelectorBlackControl.h
-  HorizontalSelectorControl.cpp
-  HorizontalSelectorControl.h
-  PositionSelectorBlackControl.cpp
-  PositionSelectorBlackControl.h
-  PositionSelectorControl.cpp
-  PositionSelectorControl.h
-  SelectorControl.cpp
-  SelectorControl.h
-  VerticalSelectorBlackControl.cpp
-  VerticalSelectorBlackControl.h
-  VerticalSelectorControl.cpp
-  VerticalSelectorControl.h
 )
 SOURCE_GROUP("Data\\Utility" FILES
   SkinDataUtility.cpp
@@ -298,16 +174,6 @@ SOURCE_GROUP("Managers\\Exports" FILES
   ImageExportSerializer.h
   SkinExportSerializer.cpp
   SkinExportSerializer.h
-)
-SOURCE_GROUP("Properties\\Initialisators" FILES
-  TexturePropertyInitialisator.cpp
-  TexturePropertyInitialisator.h
-  UniqueNamePropertyInitialisator.cpp
-  UniqueNamePropertyInitialisator.h
-)
-SOURCE_GROUP("Properties\\Utility" FILES
-  PropertyUtility.cpp
-  PropertyUtility.h
 )
 SOURCE_GROUP("Resources" FILES
   CMakeLists.txt

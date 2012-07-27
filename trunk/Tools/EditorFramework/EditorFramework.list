@@ -5,10 +5,40 @@ set (HEADER_FILES
   ActionCreateData.h
   ActionDestroyData.h
   ActionRenameData.h
+  AreaSelectorControl.h
   ChangeValueAction.h
   DataListBaseControl.h
   DataUtility.h
+  HorizontalSelectorBlackControl.h
+  HorizontalSelectorControl.h
   ListBoxDataControl.h
+  MainMenuControl.h
+  PositionSelectorBlackControl.h
+  PositionSelectorControl.h
+  PropertyBoolControl.h
+  PropertyColourControl.h
+  PropertyControl.h
+  PropertyFloatControl.h
+  PropertyInt2Control.h
+  PropertyInt4Control.h
+  PropertyIntControl.h
+  PropertyPanelControl.h
+  PropertyStringControl.h
+  PropertyTexturesControl.h
+  PropertyUtility.h
+  ScopeTextureControl.h
+  SelectorControl.h
+  SeparatorControl.h
+  SeparatorUtility.h
+  SettingsWindow.h
+  TextureBrowseCell.h
+  TextureBrowseControl.h
+  TextureControl.h
+  TexturePropertyInitialisator.h
+  TextureToolControl.h
+  UniqueNamePropertyInitialisator.h
+  VerticalSelectorBlackControl.h
+  VerticalSelectorControl.h
   Action.h
   ActionManager.h
   BackgroundControl.h
@@ -61,10 +91,39 @@ set (SOURCE_FILES
   ActionCreateData.cpp
   ActionDestroyData.cpp
   ActionRenameData.cpp
+  AreaSelectorControl.cpp
   ChangeValueAction.cpp
   DataListBaseControl.cpp
   DataUtility.cpp
+  HorizontalSelectorBlackControl.cpp
+  HorizontalSelectorControl.cpp
   ListBoxDataControl.cpp
+  MainMenuControl.cpp
+  PositionSelectorBlackControl.cpp
+  PositionSelectorControl.cpp
+  PropertyBoolControl.cpp
+  PropertyColourControl.cpp
+  PropertyControl.cpp
+  PropertyFloatControl.cpp
+  PropertyInt2Control.cpp
+  PropertyInt4Control.cpp
+  PropertyIntControl.cpp
+  PropertyPanelControl.cpp
+  PropertyStringControl.cpp
+  PropertyTexturesControl.cpp
+  PropertyUtility.cpp
+  ScopeTextureControl.cpp
+  SelectorControl.cpp
+  SeparatorControl.cpp
+  SettingsWindow.cpp
+  TextureBrowseCell.cpp
+  TextureBrowseControl.cpp
+  TextureControl.cpp
+  TexturePropertyInitialisator.cpp
+  TextureToolControl.cpp
+  UniqueNamePropertyInitialisator.cpp
+  VerticalSelectorBlackControl.cpp
+  VerticalSelectorControl.cpp
   Action.cpp
   ActionManager.cpp
   BackgroundControl.cpp
@@ -120,6 +179,8 @@ SOURCE_GROUP("Actions" FILES
   ActionManager.h
 )
 SOURCE_GROUP("Controls" FILES
+  MainMenuControl.cpp
+  MainMenuControl.h
   BackgroundControl.cpp
   BackgroundControl.h
   ColourPanel.cpp
@@ -147,6 +208,71 @@ SOURCE_GROUP("Controls\\Lists" FILES
   DataListBaseControl.h
   ListBoxDataControl.cpp
   ListBoxDataControl.h
+)
+SOURCE_GROUP("Controls\\Properties" FILES
+  PropertyBoolControl.cpp
+  PropertyBoolControl.h
+  PropertyColourControl.cpp
+  PropertyColourControl.h
+  PropertyControl.cpp
+  PropertyControl.h
+  PropertyFloatControl.cpp
+  PropertyFloatControl.h
+  PropertyInt2Control.cpp
+  PropertyInt2Control.h
+  PropertyInt4Control.cpp
+  PropertyInt4Control.h
+  PropertyIntControl.cpp
+  PropertyIntControl.h
+  PropertyPanelControl.cpp
+  PropertyPanelControl.h
+  PropertyStringControl.cpp
+  PropertyStringControl.h
+  PropertyTexturesControl.cpp
+  PropertyTexturesControl.h
+)
+SOURCE_GROUP("Controls\\Separators" FILES
+  SeparatorControl.cpp
+  SeparatorControl.h
+)
+SOURCE_GROUP("Controls\\Separators\\Utility" FILES
+  SeparatorUtility.h
+)
+SOURCE_GROUP("Controls\\Settings" FILES
+  SettingsWindow.cpp
+  SettingsWindow.h
+)
+SOURCE_GROUP("Controls\\TextureBrowser" FILES
+  TextureBrowseCell.cpp
+  TextureBrowseCell.h
+  TextureBrowseControl.cpp
+  TextureBrowseControl.h
+)
+SOURCE_GROUP("Controls\\TextureView" FILES
+  ScopeTextureControl.cpp
+  ScopeTextureControl.h
+  TextureControl.cpp
+  TextureControl.h
+  TextureToolControl.cpp
+  TextureToolControl.h
+)
+SOURCE_GROUP("Controls\\TextureView\\Selectors" FILES
+  AreaSelectorControl.cpp
+  AreaSelectorControl.h
+  HorizontalSelectorBlackControl.cpp
+  HorizontalSelectorBlackControl.h
+  HorizontalSelectorControl.cpp
+  HorizontalSelectorControl.h
+  PositionSelectorBlackControl.cpp
+  PositionSelectorBlackControl.h
+  PositionSelectorControl.cpp
+  PositionSelectorControl.h
+  SelectorControl.cpp
+  SelectorControl.h
+  VerticalSelectorBlackControl.cpp
+  VerticalSelectorBlackControl.h
+  VerticalSelectorControl.cpp
+  VerticalSelectorControl.h
 )
 SOURCE_GROUP("Data" FILES
   Data.cpp
@@ -219,6 +345,16 @@ SOURCE_GROUP("Managers\\States" FILES
   StateController.h
   StateManager.cpp
   StateManager.h
+)
+SOURCE_GROUP("Properties\\Initialisators" FILES
+  TexturePropertyInitialisator.cpp
+  TexturePropertyInitialisator.h
+  UniqueNamePropertyInitialisator.cpp
+  UniqueNamePropertyInitialisator.h
+)
+SOURCE_GROUP("Properties\\Utility" FILES
+  PropertyUtility.cpp
+  PropertyUtility.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Precompiled.cpp
