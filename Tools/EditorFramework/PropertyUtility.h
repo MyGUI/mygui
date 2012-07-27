@@ -12,7 +12,7 @@
 
 namespace tools
 {
-	class PropertyUtility
+	class MYGUI_EXPORT_DLL PropertyUtility
 	{
 	public:
 		static bool isUniqueName(DataPtr _data, const std::string& _propertyName);

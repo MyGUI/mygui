@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class TexturePropertyInitialisator :
+	class MYGUI_EXPORT_DLL TexturePropertyInitialisator :
 		public IPropertyInitialisator
 	{
 	public:

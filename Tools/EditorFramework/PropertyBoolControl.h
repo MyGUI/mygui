@@ -12,7 +12,7 @@
 namespace tools
 {
 
-	class PropertyBoolControl :
+	class MYGUI_EXPORT_DLL PropertyBoolControl :
 		public PropertyControl
 	{
 	public:

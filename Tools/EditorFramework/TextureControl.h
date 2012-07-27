@@ -14,7 +14,7 @@
 namespace tools
 {
 
-	class TextureControl :
+	class MYGUI_EXPORT_DLL TextureControl :
 		public Control
 	{
 	public:

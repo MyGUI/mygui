@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class SeparatorControl :
+	class MYGUI_EXPORT_DLL SeparatorControl :
 		public Control
 	{
 	public:

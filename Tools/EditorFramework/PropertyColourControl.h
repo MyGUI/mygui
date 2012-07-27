@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class PropertyColourControl :
+	class MYGUI_EXPORT_DLL PropertyColourControl :
 		public PropertyControl
 	{
 	public:

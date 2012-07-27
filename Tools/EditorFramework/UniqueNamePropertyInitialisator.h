@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class UniqueNamePropertyInitialisator :
+	class MYGUI_EXPORT_DLL UniqueNamePropertyInitialisator :
 		public IPropertyInitialisator
 	{
 	public:

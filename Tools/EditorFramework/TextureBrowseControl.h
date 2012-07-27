@@ -17,7 +17,7 @@ namespace tools
 {
 
 	ATTRIBUTE_CLASS_LAYOUT(TextureBrowseControl, "TextureBrowseControl.layout");
-	class TextureBrowseControl :
+	class MYGUI_EXPORT_DLL TextureBrowseControl :
 		public Dialog,
 		public Control
 	{

@@ -14,7 +14,7 @@
 
 namespace tools
 {
-	class PropertyPanelController :
+	class MYGUI_EXPORT_DLL PropertyPanelController :
 		public IControlController,
 		public sigslot::has_slots<>
 	{

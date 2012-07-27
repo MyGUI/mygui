@@ -14,7 +14,7 @@
 namespace tools
 {
 
-	class PropertyControl :
+	class MYGUI_EXPORT_DLL PropertyControl :
 		public Control,
 		public sigslot::has_slots<>
 	{

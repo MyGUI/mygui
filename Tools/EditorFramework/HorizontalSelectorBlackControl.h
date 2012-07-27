@@ -12,7 +12,7 @@
 namespace tools
 {
 
-	class HorizontalSelectorBlackControl :
+	class MYGUI_EXPORT_DLL HorizontalSelectorBlackControl :
 		public SelectorControl
 	{
 	public:

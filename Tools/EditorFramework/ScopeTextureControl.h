@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class ScopeTextureControl :
+	class MYGUI_EXPORT_DLL ScopeTextureControl :
 		public TextureToolControl
 	{
 	public:

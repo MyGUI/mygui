@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class SelectorControl :
+	class MYGUI_EXPORT_DLL SelectorControl :
 		public Control,
 		public sigslot::has_slots<>
 	{

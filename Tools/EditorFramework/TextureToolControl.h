@@ -12,7 +12,7 @@
 namespace tools
 {
 
-	class TextureToolControl :
+	class MYGUI_EXPORT_DLL TextureToolControl :
 		public TextureControl,
 		public sigslot::has_slots<>
 	{

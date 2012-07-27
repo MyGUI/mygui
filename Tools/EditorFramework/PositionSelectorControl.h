@@ -12,7 +12,7 @@
 namespace tools
 {
 
-	class PositionSelectorControl :
+	class MYGUI_EXPORT_DLL PositionSelectorControl :
 		public SelectorControl
 	{
 	public:
