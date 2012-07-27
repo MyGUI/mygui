@@ -105,7 +105,7 @@
 namespace sigslot
 {
 
-	class single_threaded
+	class MYGUI_EXPORT_DLL single_threaded
 	{
 	public:
 		single_threaded()
@@ -127,7 +127,7 @@ namespace sigslot
 
 #ifdef _SIGSLOT_HAS_WIN32_THREADS
 	// The multi threading policies only get compiled in if they are enabled.
-	class multi_threaded_global
+	class MYGUI_EXPORT_DLL multi_threaded_global
 	{
 	public:
 		multi_threaded_global()
@@ -167,7 +167,7 @@ namespace sigslot
 		}
 	};
 
-	class multi_threaded_local
+	class MYGUI_EXPORT_DLL multi_threaded_local
 	{
 	public:
 		multi_threaded_local()
@@ -202,7 +202,7 @@ namespace sigslot
 
 #ifdef _SIGSLOT_HAS_POSIX_THREADS
 	// The multi threading policies only get compiled in if they are enabled.
-	class multi_threaded_global
+	class MYGUI_EXPORT_DLL multi_threaded_global
 	{
 	public:
 		multi_threaded_global()
@@ -236,7 +236,7 @@ namespace sigslot
 		}
 	};
 
-	class multi_threaded_local
+	class MYGUI_EXPORT_DLL multi_threaded_local
 	{
 	public:
 		multi_threaded_local()
@@ -399,7 +399,7 @@ namespace sigslot
 	};
 
 	template <typename mt_policy = SIGSLOT_DEFAULT_MT_POLICY>
-	class has_slots :
+	class MYGUI_EXPORT_DLL has_slots :
 		public mt_policy 
 	{
 	private:
