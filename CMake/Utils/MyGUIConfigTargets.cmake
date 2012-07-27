@@ -102,6 +102,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	include(${PROJECTNAME}.list)
 	
 	if (${SOLUTIONFOLDER} STREQUAL "Tools")
+		include_directories(${MYGUI_SOURCE_DIR}/Tools/EditorFramework)
 		include(PrecompiledHeader)
 		# specify a precompiled header to use
 		use_precompiled_header(${PROJECTNAME}
@@ -202,6 +203,10 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		MyGUIEngine
 	)
 
+	target_link_libraries(${PROJECTNAME}
+		EditorFramework
+	)
+
 	if (MYGUI_GENERATE_LIST_FILES_FROM_VSPROJECT)
 		add_custom_command(TARGET ${PROJECTNAME}
 			POST_BUILD
@@ -217,6 +222,60 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	endif ()
 endfunction(mygui_app)
 
+#setup Tools dll builds
+function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
+	include_directories(
+		.
+		${MYGUI_SOURCE_DIR}/Common
+		${MYGUI_SOURCE_DIR}/MyGUIEngine/include
+	)
+	# define the sources
+	include(${PROJECTNAME}.list)
+	
+	if (${SOLUTIONFOLDER} STREQUAL "Tools")
+		include(PrecompiledHeader)
+		# specify a precompiled header to use
+		use_precompiled_header(${PROJECTNAME}
+			"../../Common/Precompiled.h"
+			"../../Common/Precompiled.cpp"
+		)
+	endif ()
+	
+	add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL")
+	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
+	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER "Tools")
+	add_dependencies(${PROJECTNAME} MyGUIEngine)
+	target_link_libraries(${PROJECTNAME} MyGUIEngine)
+	
+	mygui_config_lib(${PROJECTNAME})
+	
+	add_dependencies(${PROJECTNAME} MyGUIEngine Common)
+
+	mygui_config_sample(${PROJECTNAME})
+	
+	# link Common, Platform and MyGUIEngine
+	target_link_libraries(${PROJECTNAME}
+		Common
+	)
+
+	target_link_libraries(${PROJECTNAME}
+		MyGUIEngine
+	)
+
+	if (MYGUI_GENERATE_LIST_FILES_FROM_VSPROJECT)
+		add_custom_command(TARGET ${PROJECTNAME}
+			POST_BUILD
+			COMMAND ${MYGUI_BINARY_DIR}/updateListFiles.bat
+			COMMENT "Generating *.list files")
+	endif ()
+
+	if (APPLE)
+		find_library(CF_LIBRARY CoreFoundation)
+		find_library(IOKIT_LIBRARY IOKit)
+		target_link_libraries(${PROJECTNAME} ${CF_LIBRARY})
+		target_link_libraries(${PROJECTNAME} ${IOKIT_LIBRARY})
+	endif ()
+endfunction(mygui_dll)
 
 function(mygui_demo PROJECTNAME)
 	mygui_app(${PROJECTNAME} Demos)
@@ -239,9 +298,12 @@ function(mygui_unit_test PROJECTNAME)
 endfunction(mygui_unit_test)
 
 
-#function(mygui_wrapper_base_app PROJECTNAME)
-#	mygui_app(${PROJECTNAME} Wrappers)
-#endfunction(mygui_wrapper_base_app)
+function(mygui_tool_dll PROJECTNAME)
+	mygui_dll(${PROJECTNAME} Tools)
+	if (MYGUI_INSTALL_TOOLS)
+		mygui_install_app(${PROJECTNAME})
+	endif ()
+endfunction(mygui_tool_dll)
 
 
 function(mygui_install_app PROJECTNAME)
