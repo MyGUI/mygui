@@ -1,4 +1,14 @@
 set (HEADER_FILES
+  ActionChangeDataProperty.h
+  ActionChangePositionData.h
+  ActionCloneData.h
+  ActionCreateData.h
+  ActionDestroyData.h
+  ActionRenameData.h
+  ChangeValueAction.h
+  DataListBaseControl.h
+  DataUtility.h
+  ListBoxDataControl.h
   Action.h
   ActionManager.h
   BackgroundControl.h
@@ -45,6 +55,16 @@ set (HEADER_FILES
 )
 set (SOURCE_FILES
   ../../Common/Precompiled.cpp
+  ActionChangeDataProperty.cpp
+  ActionChangePositionData.cpp
+  ActionCloneData.cpp
+  ActionCreateData.cpp
+  ActionDestroyData.cpp
+  ActionRenameData.cpp
+  ChangeValueAction.cpp
+  DataListBaseControl.cpp
+  DataUtility.cpp
+  ListBoxDataControl.cpp
   Action.cpp
   ActionManager.cpp
   BackgroundControl.cpp
@@ -80,6 +100,20 @@ set (SOURCE_FILES
   pugixml.hpp
 )
 SOURCE_GROUP("Actions" FILES
+  ActionChangeDataProperty.cpp
+  ActionChangeDataProperty.h
+  ActionChangePositionData.cpp
+  ActionChangePositionData.h
+  ActionCloneData.cpp
+  ActionCloneData.h
+  ActionCreateData.cpp
+  ActionCreateData.h
+  ActionDestroyData.cpp
+  ActionDestroyData.h
+  ActionRenameData.cpp
+  ActionRenameData.h
+  ChangeValueAction.cpp
+  ChangeValueAction.h
   Action.cpp
   Action.h
   ActionManager.cpp
@@ -108,6 +142,12 @@ SOURCE_GROUP("Controls\\Framework" FILES
   TextFieldControl.cpp
   TextFieldControl.h
 )
+SOURCE_GROUP("Controls\\Lists" FILES
+  DataListBaseControl.cpp
+  DataListBaseControl.h
+  ListBoxDataControl.cpp
+  ListBoxDataControl.h
+)
 SOURCE_GROUP("Data" FILES
   Data.cpp
   Data.h
@@ -126,6 +166,10 @@ SOURCE_GROUP("Data\\Properties" FILES
   IPropertyInitialisator.h
   Property.cpp
   Property.h
+)
+SOURCE_GROUP("Data\\Utility" FILES
+  DataUtility.cpp
+  DataUtility.h
 )
 SOURCE_GROUP("Managers" FILES
   ColourManager.cpp

@@ -1,10 +1,4 @@
 set (HEADER_FILES
-  ActionChangeDataProperty.h
-  ActionChangePositionData.h
-  ActionCloneData.h
-  ActionCreateData.h
-  ActionDestroyData.h
-  ActionRenameData.h
   AnimationInfo.h
   AnimationViewControl.h
   Application.h
@@ -14,10 +8,7 @@ set (HEADER_FILES
   ChangeSeparatorVisibleAction.h
   ChangeSkinSizeAction.h
   ChangeTextureValueAction.h
-  ChangeValueAction.h
   CreateSkinDataAction.h
-  DataListBaseControl.h
-  DataUtility.h
   EditorState.h
   FrameListControl.h
   FrameTextureController.h
@@ -29,7 +20,6 @@ set (HEADER_FILES
   ImageListControl.h
   IndexListControl.h
   IndexTextureController.h
-  ListBoxDataControl.h
   MainMenuControl.h
   MyGUI_FilterNoneSkin.h
   PositionSelectorBlackControl.h
@@ -81,12 +71,6 @@ set (HEADER_FILES
 )
 set (SOURCE_FILES
   ../../Common/Precompiled.cpp
-  ActionChangeDataProperty.cpp
-  ActionChangePositionData.cpp
-  ActionCloneData.cpp
-  ActionCreateData.cpp
-  ActionDestroyData.cpp
-  ActionRenameData.cpp
   AnimationInfo.cpp
   AnimationViewControl.cpp
   Application.cpp
@@ -96,10 +80,7 @@ set (SOURCE_FILES
   ChangeSeparatorVisibleAction.cpp
   ChangeSkinSizeAction.cpp
   ChangeTextureValueAction.cpp
-  ChangeValueAction.cpp
   CreateSkinDataAction.cpp
-  DataListBaseControl.cpp
-  DataUtility.cpp
   EditorState.cpp
   FrameListControl.cpp
   FrameTextureController.cpp
@@ -112,7 +93,6 @@ set (SOURCE_FILES
   ImageListControl.cpp
   IndexListControl.cpp
   IndexTextureController.cpp
-  ListBoxDataControl.cpp
   MainMenuControl.cpp
   MyGUI_FilterNoneSkin.cpp
   PositionSelectorBlackControl.cpp
@@ -162,18 +142,6 @@ set (SOURCE_FILES
   VerticalSelectorControl.cpp
 )
 SOURCE_GROUP("Actions" FILES
-  ActionChangeDataProperty.cpp
-  ActionChangeDataProperty.h
-  ActionChangePositionData.cpp
-  ActionChangePositionData.h
-  ActionCloneData.cpp
-  ActionCloneData.h
-  ActionCreateData.cpp
-  ActionCreateData.h
-  ActionDestroyData.cpp
-  ActionDestroyData.h
-  ActionRenameData.cpp
-  ActionRenameData.h
   ChangeSeparatorOffsetAction.cpp
   ChangeSeparatorOffsetAction.h
   ChangeSeparatorVisibleAction.cpp
@@ -182,8 +150,6 @@ SOURCE_GROUP("Actions" FILES
   ChangeSkinSizeAction.h
   ChangeTextureValueAction.cpp
   ChangeTextureValueAction.h
-  ChangeValueAction.cpp
-  ChangeValueAction.h
   CreateSkinDataAction.cpp
   CreateSkinDataAction.h
 )
@@ -229,8 +195,6 @@ SOURCE_GROUP("Controls\\Framework" FILES
   StatisticInfoControl.h
 )
 SOURCE_GROUP("Controls\\Lists" FILES
-  DataListBaseControl.cpp
-  DataListBaseControl.h
   FrameListControl.cpp
   FrameListControl.h
   GroupListControl.cpp
@@ -239,8 +203,6 @@ SOURCE_GROUP("Controls\\Lists" FILES
   ImageListControl.h
   IndexListControl.cpp
   IndexListControl.h
-  ListBoxDataControl.cpp
-  ListBoxDataControl.h
   RegionListControl.cpp
   RegionListControl.h
   SeparatorListControl.cpp
@@ -328,8 +290,6 @@ SOURCE_GROUP("Controls\\TextureView\\Selectors" FILES
   VerticalSelectorControl.h
 )
 SOURCE_GROUP("Data\\Utility" FILES
-  DataUtility.cpp
-  DataUtility.h
   SkinDataUtility.cpp
   SkinDataUtility.h
 )
