@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class MessageBoxManager :
+	class MYGUI_EXPORT_DLL MessageBoxManager :
 		public MyGUI::Singleton<MessageBoxManager>
 	{
 	public:

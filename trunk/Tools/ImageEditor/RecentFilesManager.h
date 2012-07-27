@@ -12,7 +12,7 @@
 namespace tools
 {
 
-	class RecentFilesManager :
+	class MYGUI_EXPORT_DLL RecentFilesManager :
 		public MyGUI::Singleton<RecentFilesManager>
 	{
 	public:

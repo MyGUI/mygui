@@ -14,7 +14,7 @@
 namespace tools
 {
 
-	class OpenSaveFileDialog :
+	class MYGUI_EXPORT_DLL OpenSaveFileDialog :
 		public Dialog,
 		public Control,
 		public sigslot::has_slots<>

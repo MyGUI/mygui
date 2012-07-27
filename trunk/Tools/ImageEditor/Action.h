@@ -12,7 +12,7 @@
 namespace tools
 {
 
-	class Action :
+	class MYGUI_EXPORT_DLL Action :
 		public components::IFactoryItem
 	{
 	public:

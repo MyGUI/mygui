@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class FocusInfoControl :
+	class MYGUI_EXPORT_DLL FocusInfoControl :
 		public Control,
 		public sigslot::has_slots<>
 	{

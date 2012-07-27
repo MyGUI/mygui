@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class ScopeManager :
+	class MYGUI_EXPORT_DLL ScopeManager :
 		public MyGUI::Singleton<ScopeManager>,
 		public sigslot::has_slots<>
 	{

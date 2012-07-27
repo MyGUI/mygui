@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class StateController :
+	class MYGUI_EXPORT_DLL StateController :
 		public components::IFactoryItem
 	{
 	public:

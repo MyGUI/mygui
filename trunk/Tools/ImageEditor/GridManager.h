@@ -8,13 +8,12 @@
 #define _8ff292d0_326a_4105_8cf2_e1648d87659e_
 
 #include <MyGUI_Singleton.h>
-#include "BaseLayout/BaseLayout.h"
 #include "sigslot.h"
 
 namespace tools
 {
 
-	class GridManager :
+	class MYGUI_EXPORT_DLL GridManager :
 		public MyGUI::Singleton<GridManager>,
 		public sigslot::has_slots<>
 	{

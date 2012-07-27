@@ -12,7 +12,7 @@
 namespace tools
 {
 	class Control;
-	class IControlController :
+	class MYGUI_EXPORT_DLL IControlController :
 		public components::IFactoryItem
 	{
 	public:

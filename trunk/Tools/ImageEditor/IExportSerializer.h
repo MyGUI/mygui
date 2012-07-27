@@ -12,7 +12,7 @@
 
 namespace tools
 {
-	class IExportSerializer :
+	class MYGUI_EXPORT_DLL IExportSerializer :
 		public components::IFactoryItem
 	{
 	public:

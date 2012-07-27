@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class DialogManager :
+	class MYGUI_EXPORT_DLL DialogManager :
 		public MyGUI::Singleton<DialogManager>
 	{
 	public:

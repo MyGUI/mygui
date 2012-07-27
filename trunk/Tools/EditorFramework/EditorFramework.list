@@ -1,33 +1,161 @@
 set (HEADER_FILES
+  ../ImageEditor/Action.h
+  ../ImageEditor/ActionManager.h
+  ../ImageEditor/BackgroundControl.h
+  ../ImageEditor/ColourManager.h
+  ../ImageEditor/ColourPanel.h
+  ../ImageEditor/CommandManager.h
+  ../ImageEditor/Control.h
+  ../ImageEditor/Data.h
+  ../ImageEditor/DataManager.h
+  ../ImageEditor/DataSelectorManager.h
+  ../ImageEditor/DataType.h
+  ../ImageEditor/DataTypeManager.h
+  ../ImageEditor/DataTypeProperty.h
+  ../ImageEditor/Dialog.h
+  ../ImageEditor/DialogManager.h
+  ../ImageEditor/ExportManager.h
   ../ImageEditor/FactoryItemAttribute.h
   ../ImageEditor/FactoryItemRegistrator.h
   ../ImageEditor/FactoryManager.h
   ../ImageEditor/FactoryTemplate.h
+  ../ImageEditor/FocusInfoControl.h
+  ../ImageEditor/GridManager.h
+  ../ImageEditor/HotKeyCommand.h
+  ../ImageEditor/HotKeyManager.h
+  ../ImageEditor/IControlController.h
+  ../ImageEditor/IExportSerializer.h
   ../ImageEditor/IFactory.h
   ../ImageEditor/IFactoryItem.h
+  ../ImageEditor/IPropertyInitialisator.h
   ../ImageEditor/Localise.h
+  ../ImageEditor/MessageBoxFadeControl.h
+  ../ImageEditor/MessageBoxManager.h
+  ../ImageEditor/OpenSaveFileDialog.h
+  ../ImageEditor/Property.h
+  ../ImageEditor/RecentFilesManager.h
+  ../ImageEditor/ScopeManager.h
+  ../ImageEditor/SettingsManager.h
   ../ImageEditor/SharedPtr.h
+  ../ImageEditor/StateController.h
+  ../ImageEditor/StateManager.h
   ../ImageEditor/StringUtility.h
+  ../ImageEditor/TextFieldControl.h
   ../ImageEditor/sigslot.h
-  FontPanel.h
-  FontView.h
-  TextureView.h
 )
 set (SOURCE_FILES
   ../../Common/Precompiled.cpp
+  ../ImageEditor/Action.cpp
+  ../ImageEditor/ActionManager.cpp
+  ../ImageEditor/BackgroundControl.cpp
+  ../ImageEditor/ColourManager.cpp
+  ../ImageEditor/ColourPanel.cpp
+  ../ImageEditor/CommandManager.cpp
+  ../ImageEditor/Control.cpp
+  ../ImageEditor/Data.cpp
+  ../ImageEditor/DataManager.cpp
+  ../ImageEditor/DataSelectorManager.cpp
+  ../ImageEditor/DataType.cpp
+  ../ImageEditor/DataTypeManager.cpp
+  ../ImageEditor/DataTypeProperty.cpp
+  ../ImageEditor/Dialog.cpp
+  ../ImageEditor/DialogManager.cpp
+  ../ImageEditor/ExportManager.cpp
   ../ImageEditor/FactoryItemRegistrator.cpp
   ../ImageEditor/FactoryManager.cpp
+  ../ImageEditor/FocusInfoControl.cpp
+  ../ImageEditor/GridManager.cpp
+  ../ImageEditor/HotKeyManager.cpp
+  ../ImageEditor/MessageBoxFadeControl.cpp
+  ../ImageEditor/MessageBoxManager.cpp
+  ../ImageEditor/OpenSaveFileDialog.cpp
+  ../ImageEditor/Property.cpp
+  ../ImageEditor/RecentFilesManager.cpp
+  ../ImageEditor/ScopeManager.cpp
+  ../ImageEditor/SettingsManager.cpp
+  ../ImageEditor/StateManager.cpp
+  ../ImageEditor/TextFieldControl.cpp
   ../ImageEditor/pugiconfig.hpp
   ../ImageEditor/pugixml.cpp
   ../ImageEditor/pugixml.hpp
-  FontPanel.cpp
-  FontView.cpp
-  TextureView.cpp
 )
-SOURCE_GROUP("Header Files" FILES
-  FontPanel.h
-  FontView.h
-  TextureView.h
+SOURCE_GROUP("Actions" FILES
+  ../ImageEditor/Action.cpp
+  ../ImageEditor/Action.h
+  ../ImageEditor/ActionManager.cpp
+  ../ImageEditor/ActionManager.h
+)
+SOURCE_GROUP("Controls" FILES
+  ../ImageEditor/BackgroundControl.cpp
+  ../ImageEditor/BackgroundControl.h
+  ../ImageEditor/ColourPanel.cpp
+  ../ImageEditor/ColourPanel.h
+)
+SOURCE_GROUP("Controls\\Common" FILES
+  ../ImageEditor/Control.cpp
+  ../ImageEditor/Control.h
+)
+SOURCE_GROUP("Controls\\Controllers" FILES
+  ../ImageEditor/IControlController.h
+)
+SOURCE_GROUP("Controls\\Framework" FILES
+  ../ImageEditor/FocusInfoControl.cpp
+  ../ImageEditor/FocusInfoControl.h
+  ../ImageEditor/MessageBoxFadeControl.cpp
+  ../ImageEditor/MessageBoxFadeControl.h
+  ../ImageEditor/OpenSaveFileDialog.cpp
+  ../ImageEditor/OpenSaveFileDialog.h
+  ../ImageEditor/TextFieldControl.cpp
+  ../ImageEditor/TextFieldControl.h
+)
+SOURCE_GROUP("Data" FILES
+  ../ImageEditor/Data.cpp
+  ../ImageEditor/Data.h
+  ../ImageEditor/DataManager.cpp
+  ../ImageEditor/DataManager.h
+  ../ImageEditor/DataSelectorManager.cpp
+  ../ImageEditor/DataSelectorManager.h
+  ../ImageEditor/DataType.cpp
+  ../ImageEditor/DataType.h
+  ../ImageEditor/DataTypeManager.cpp
+  ../ImageEditor/DataTypeManager.h
+)
+SOURCE_GROUP("Data\\Properties" FILES
+  ../ImageEditor/DataTypeProperty.cpp
+  ../ImageEditor/DataTypeProperty.h
+  ../ImageEditor/IPropertyInitialisator.h
+  ../ImageEditor/Property.cpp
+  ../ImageEditor/Property.h
+)
+SOURCE_GROUP("Managers" FILES
+  ../ImageEditor/ColourManager.cpp
+  ../ImageEditor/ColourManager.h
+  ../ImageEditor/GridManager.cpp
+  ../ImageEditor/GridManager.h
+  ../ImageEditor/MessageBoxManager.cpp
+  ../ImageEditor/MessageBoxManager.h
+  ../ImageEditor/RecentFilesManager.cpp
+  ../ImageEditor/RecentFilesManager.h
+  ../ImageEditor/ScopeManager.cpp
+  ../ImageEditor/ScopeManager.h
+)
+SOURCE_GROUP("Managers\\Commands" FILES
+  ../ImageEditor/CommandManager.cpp
+  ../ImageEditor/CommandManager.h
+  ../ImageEditor/HotKeyCommand.h
+  ../ImageEditor/HotKeyManager.cpp
+  ../ImageEditor/HotKeyManager.h
+)
+SOURCE_GROUP("Managers\\Dialogs" FILES
+  ../ImageEditor/Dialog.cpp
+  ../ImageEditor/Dialog.h
+  ../ImageEditor/DialogManager.cpp
+  ../ImageEditor/DialogManager.h
+)
+SOURCE_GROUP("Managers\\Exports" FILES
+  ../ImageEditor/ExportManager.cpp
+  ../ImageEditor/ExportManager.h
+  ../ImageEditor/IExportSerializer.h
 )
 SOURCE_GROUP("Managers\\Factories" FILES
   ../ImageEditor/FactoryItemAttribute.h
@@ -39,14 +167,18 @@ SOURCE_GROUP("Managers\\Factories" FILES
   ../ImageEditor/IFactory.h
   ../ImageEditor/IFactoryItem.h
 )
+SOURCE_GROUP("Managers\\Settings" FILES
+  ../ImageEditor/SettingsManager.cpp
+  ../ImageEditor/SettingsManager.h
+)
+SOURCE_GROUP("Managers\\States" FILES
+  ../ImageEditor/StateController.h
+  ../ImageEditor/StateManager.cpp
+  ../ImageEditor/StateManager.h
+)
 SOURCE_GROUP("Resources" FILES
   ../../Common/Precompiled.cpp
   CMakeLists.txt
-)
-SOURCE_GROUP("Source Files" FILES
-  FontPanel.cpp
-  FontView.cpp
-  TextureView.cpp
 )
 SOURCE_GROUP("Utility" FILES
   ../ImageEditor/Localise.h

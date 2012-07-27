@@ -14,7 +14,7 @@
 namespace tools
 {
 
-	class ActionManager
+	class MYGUI_EXPORT_DLL ActionManager
 	{
 	public:
 		ActionManager();

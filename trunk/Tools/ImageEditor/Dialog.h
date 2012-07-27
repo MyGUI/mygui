@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class Dialog
+	class MYGUI_EXPORT_DLL Dialog
 	{
 	public:
 		Dialog();
