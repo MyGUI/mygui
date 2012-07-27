@@ -16,7 +16,7 @@ namespace tools
 	class Data;
 	typedef shared_ptr<Data> DataPtr;
 
-	class Property
+	class MYGUI_EXPORT_DLL Property
 	{
 	public:
 		typedef shared_ptr<Property> PropertyPtr;

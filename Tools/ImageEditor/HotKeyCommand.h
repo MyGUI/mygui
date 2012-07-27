@@ -12,7 +12,7 @@
 namespace tools
 {
 
-	class HotKeyCommand
+	class MYGUI_EXPORT_DLL HotKeyCommand
 	{
 	public:
 		HotKeyCommand() :
