@@ -44,6 +44,7 @@ namespace tools
 	void Application::setupResources()
 	{
 		base::BaseManager::setupResources();
+		addResourceLocation(getRootMedia() + "/Tools/EditorFramework");
 		addResourceLocation(getRootMedia() + "/Tools/ImageEditor");
 		addResourceLocation(getRootMedia() + "/Tools/ImageEditor/SkinEditor"); // FIXME для теста
 		addResourceLocation(getRootMedia() + "/Common/Tools");
