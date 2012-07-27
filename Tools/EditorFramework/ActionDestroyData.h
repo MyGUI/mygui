@@ -4,8 +4,8 @@
 	@date		07/2012
 */
 
-#ifndef _c7757d42_4060_44df_a0c2_06275945b83f_
-#define _c7757d42_4060_44df_a0c2_06275945b83f_
+#ifndef _d92392a8_2d98_4639_8dfe_7cb945c817b5_
+#define _d92392a8_2d98_4639_8dfe_7cb945c817b5_
 
 #include "Action.h"
 #include "Data.h"
@@ -13,24 +13,23 @@
 namespace tools
 {
 
-	class ActionCloneData :
+	class MYGUI_EXPORT_DLL ActionDestroyData :
 		public Action
 	{
 	public:
-		ActionCloneData();
-		virtual ~ActionCloneData();
+		ActionDestroyData();
+		virtual ~ActionDestroyData();
 
 		virtual void doAction();
 		virtual void undoAction();
 
-		void setPrototype(DataPtr _prototype);
+		void setData(DataPtr _data);
 		void setUniqueProperty(const std::string& _value);
 
 	private:
-		std::string mType;
 		DataPtr mData;
 		DataPtr mParent;
-		DataPtr mPrototype;
+		size_t mIndex;
 		std::string mUniqueProperty;
 
 		typedef std::pair<PropertyPtr, std::string> PairProprty;

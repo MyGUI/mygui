@@ -12,7 +12,7 @@
 namespace tools
 {
 
-	class DataUtility
+	class MYGUI_EXPORT_DLL DataUtility
 	{
 	public:
 		static DataPtr getSelectedDataByType(const std::string& _type);

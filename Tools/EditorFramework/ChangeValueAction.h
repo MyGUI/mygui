@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class ChangeValueAction :
+	class MYGUI_EXPORT_DLL ChangeValueAction :
 		public ActionChangeDataProperty
 	{
 	public:

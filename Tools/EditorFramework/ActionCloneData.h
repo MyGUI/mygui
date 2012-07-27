@@ -4,34 +4,33 @@
 	@date		07/2012
 */
 
-#ifndef _992be787_40d0_4bde_8e4c_db4ba7a18854_
-#define _992be787_40d0_4bde_8e4c_db4ba7a18854_
+#ifndef _c7757d42_4060_44df_a0c2_06275945b83f_
+#define _c7757d42_4060_44df_a0c2_06275945b83f_
 
 #include "Action.h"
-#include <string>
 #include "Data.h"
 
 namespace tools
 {
 
-	class ActionCreateData :
+	class MYGUI_EXPORT_DLL ActionCloneData :
 		public Action
 	{
 	public:
-		ActionCreateData();
-		virtual ~ActionCreateData();
+		ActionCloneData();
+		virtual ~ActionCloneData();
 
 		virtual void doAction();
 		virtual void undoAction();
 
-		void setParent(DataPtr _parent);
-		void setType(const std::string& _value);
+		void setPrototype(DataPtr _prototype);
 		void setUniqueProperty(const std::string& _value);
 
 	private:
 		std::string mType;
 		DataPtr mData;
 		DataPtr mParent;
+		DataPtr mPrototype;
 		std::string mUniqueProperty;
 
 		typedef std::pair<PropertyPtr, std::string> PairProprty;

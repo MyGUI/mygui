@@ -14,7 +14,7 @@
 namespace tools
 {
 
-	class DataListBaseControl :
+	class MYGUI_EXPORT_DLL DataListBaseControl :
 		public Control,
 		public sigslot::has_slots<>
 	{

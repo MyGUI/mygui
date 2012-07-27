@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class ActionChangePositionData :
+	class MYGUI_EXPORT_DLL ActionChangePositionData :
 		public Action
 	{
 	public:

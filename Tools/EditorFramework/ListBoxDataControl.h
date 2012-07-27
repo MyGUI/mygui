@@ -15,7 +15,7 @@
 namespace tools
 {
 
-	class ListBoxDataControl :
+	class MYGUI_EXPORT_DLL ListBoxDataControl :
 		public Control,
 		public sigslot::has_slots<>
 	{
