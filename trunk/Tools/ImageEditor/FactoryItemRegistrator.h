@@ -13,9 +13,9 @@
 
 namespace factories
 {
-	bool IsExistFactoryName(const std::string& _factoryName);
-	void RegisterFactory(::components::IFactory* _factory, const std::string& _factoryName);
-	void UnregisterFactory(::components::IFactory* _factory, const std::string& _factoryName);
+	bool MYGUI_EXPORT_DLL IsExistFactoryName(const std::string& _factoryName);
+	void MYGUI_EXPORT_DLL RegisterFactory(::components::IFactory* _factory, const std::string& _factoryName);
+	void MYGUI_EXPORT_DLL UnregisterFactory(::components::IFactory* _factory, const std::string& _factoryName);
 
 	template <typename Type>
 	class FactoryItemRegistrator

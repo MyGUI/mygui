@@ -1,10 +1,25 @@
 set (HEADER_FILES
+  ../ImageEditor/FactoryItemAttribute.h
+  ../ImageEditor/FactoryItemRegistrator.h
+  ../ImageEditor/FactoryManager.h
+  ../ImageEditor/FactoryTemplate.h
+  ../ImageEditor/IFactory.h
+  ../ImageEditor/IFactoryItem.h
+  ../ImageEditor/Localise.h
+  ../ImageEditor/SharedPtr.h
+  ../ImageEditor/StringUtility.h
+  ../ImageEditor/sigslot.h
   FontPanel.h
   FontView.h
   TextureView.h
 )
 set (SOURCE_FILES
   ../../Common/Precompiled.cpp
+  ../ImageEditor/FactoryItemRegistrator.cpp
+  ../ImageEditor/FactoryManager.cpp
+  ../ImageEditor/pugiconfig.hpp
+  ../ImageEditor/pugixml.cpp
+  ../ImageEditor/pugixml.hpp
   FontPanel.cpp
   FontView.cpp
   TextureView.cpp
@@ -14,6 +29,16 @@ SOURCE_GROUP("Header Files" FILES
   FontView.h
   TextureView.h
 )
+SOURCE_GROUP("Managers\\Factories" FILES
+  ../ImageEditor/FactoryItemAttribute.h
+  ../ImageEditor/FactoryItemRegistrator.cpp
+  ../ImageEditor/FactoryItemRegistrator.h
+  ../ImageEditor/FactoryManager.cpp
+  ../ImageEditor/FactoryManager.h
+  ../ImageEditor/FactoryTemplate.h
+  ../ImageEditor/IFactory.h
+  ../ImageEditor/IFactoryItem.h
+)
 SOURCE_GROUP("Resources" FILES
   ../../Common/Precompiled.cpp
   CMakeLists.txt
@@ -22,4 +47,13 @@ SOURCE_GROUP("Source Files" FILES
   FontPanel.cpp
   FontView.cpp
   TextureView.cpp
+)
+SOURCE_GROUP("Utility" FILES
+  ../ImageEditor/Localise.h
+  ../ImageEditor/SharedPtr.h
+  ../ImageEditor/StringUtility.h
+  ../ImageEditor/pugiconfig.hpp
+  ../ImageEditor/pugixml.cpp
+  ../ImageEditor/pugixml.hpp
+  ../ImageEditor/sigslot.h
 )
