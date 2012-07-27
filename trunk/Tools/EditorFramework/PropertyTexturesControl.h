@@ -14,7 +14,7 @@
 namespace tools
 {
 
-	class PropertyTexturesControl :
+	class MYGUI_EXPORT_DLL PropertyTexturesControl :
 		public PropertyControl
 	{
 	public:

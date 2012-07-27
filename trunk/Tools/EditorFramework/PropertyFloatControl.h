@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class PropertyFloatControl :
+	class MYGUI_EXPORT_DLL PropertyFloatControl :
 		public PropertyControl
 	{
 	public:

@@ -12,7 +12,7 @@
 namespace tools
 {
 
-	class AreaSelectorControl :
+	class MYGUI_EXPORT_DLL AreaSelectorControl :
 		public SelectorControl
 	{
 	public:

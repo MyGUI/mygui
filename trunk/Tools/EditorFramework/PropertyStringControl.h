@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class PropertyStringControl :
+	class MYGUI_EXPORT_DLL PropertyStringControl :
 		public PropertyControl
 	{
 	public:

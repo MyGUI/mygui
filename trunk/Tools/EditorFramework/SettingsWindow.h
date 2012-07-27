@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class SettingsWindow :
+	class MYGUI_EXPORT_DLL SettingsWindow :
 		public Dialog,
 		public Control,
 		public sigslot::has_slots<>

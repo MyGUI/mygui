@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class MainMenuControl :
+	class MYGUI_EXPORT_DLL MainMenuControl :
 		public Control,
 		public sigslot::has_slots<>
 	{
