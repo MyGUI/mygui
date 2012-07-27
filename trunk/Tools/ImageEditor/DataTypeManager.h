@@ -14,7 +14,7 @@
 namespace tools
 {
 
-	class DataTypeManager
+	class MYGUI_EXPORT_DLL DataTypeManager
 	{
 	public:
 		DataTypeManager();

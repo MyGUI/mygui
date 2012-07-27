@@ -15,7 +15,7 @@
 namespace tools
 {
 
-	class DataType
+	class MYGUI_EXPORT_DLL DataType
 	{
 	public:
 		DataType();
