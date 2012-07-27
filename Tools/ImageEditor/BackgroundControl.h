@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class BackgroundControl :
+	class MYGUI_EXPORT_DLL BackgroundControl :
 		public Control,
 		public sigslot::has_slots<>
 	{

@@ -9,7 +9,6 @@
 #include "FactoryManager.h"
 #include "CommandManager.h"
 #include "SettingsManager.h"
-#include "Application.h"
 
 namespace tools
 {

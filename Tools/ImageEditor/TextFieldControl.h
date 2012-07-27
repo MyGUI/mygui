@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class TextFieldControl :
+	class MYGUI_EXPORT_DLL TextFieldControl :
 		public Dialog,
 		public Control
 	{

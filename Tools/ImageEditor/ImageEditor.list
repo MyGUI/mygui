@@ -1,66 +1,39 @@
 set (HEADER_FILES
-  Action.h
   ActionChangeDataProperty.h
   ActionChangePositionData.h
   ActionCloneData.h
   ActionCreateData.h
   ActionDestroyData.h
-  ActionManager.h
   ActionRenameData.h
   AnimationInfo.h
   AnimationViewControl.h
   Application.h
   ApplicationState.h
   AreaSelectorControl.h
-  BackgroundControl.h
   ChangeSeparatorOffsetAction.h
   ChangeSeparatorVisibleAction.h
   ChangeSkinSizeAction.h
   ChangeTextureValueAction.h
   ChangeValueAction.h
-  ColourManager.h
-  ColourPanel.h
-  CommandManager.h
-  Control.h
   CreateSkinDataAction.h
-  Data.h
   DataListBaseControl.h
-  DataManager.h
-  DataSelectorManager.h
-  DataType.h
-  DataTypeManager.h
-  DataTypeProperty.h
   DataUtility.h
-  Dialog.h
-  DialogManager.h
   EditorState.h
-  ExportManager.h
-  FocusInfoControl.h
   FrameListControl.h
   FrameTextureController.h
-  GridManager.h
   GroupListControl.h
   GroupTextureController.h
   HorizontalSelectorBlackControl.h
   HorizontalSelectorControl.h
-  HotKeyCommand.h
-  HotKeyManager.h
-  IControlController.h
-  IExportSerializer.h
-  IPropertyInitialisator.h
   ImageExportSerializer.h
   ImageListControl.h
   IndexListControl.h
   IndexTextureController.h
   ListBoxDataControl.h
   MainMenuControl.h
-  MessageBoxFadeControl.h
-  MessageBoxManager.h
   MyGUI_FilterNoneSkin.h
-  OpenSaveFileDialog.h
   PositionSelectorBlackControl.h
   PositionSelectorControl.h
-  Property.h
   PropertyAlignControl.h
   PropertyBoolControl.h
   PropertyColourControl.h
@@ -76,10 +49,8 @@ set (HEADER_FILES
   PropertyStringControl.h
   PropertyTexturesControl.h
   PropertyUtility.h
-  RecentFilesManager.h
   RegionListControl.h
   RegionTextureController.h
-  ScopeManager.h
   ScopeTextureControl.h
   SelectorControl.h
   SeparatorControl.h
@@ -87,7 +58,6 @@ set (HEADER_FILES
   SeparatorTextureController.h
   SeparatorUtility.h
   SettingsGeneralControl.h
-  SettingsManager.h
   SettingsResourcePathsControl.h
   SettingsResourcesControl.h
   SettingsWindow.h
@@ -95,14 +65,11 @@ set (HEADER_FILES
   SkinExportSerializer.h
   SkinListControl.h
   SkinTextureController.h
-  StateController.h
   StateListControl.h
-  StateManager.h
   StateTextureController.h
   StatisticInfoControl.h
   TestState.h
   TestWindow.h
-  TextFieldControl.h
   TextureBrowseCell.h
   TextureBrowseControl.h
   TextureControl.h
@@ -114,51 +81,32 @@ set (HEADER_FILES
 )
 set (SOURCE_FILES
   ../../Common/Precompiled.cpp
-  Action.cpp
   ActionChangeDataProperty.cpp
   ActionChangePositionData.cpp
   ActionCloneData.cpp
   ActionCreateData.cpp
   ActionDestroyData.cpp
-  ActionManager.cpp
   ActionRenameData.cpp
   AnimationInfo.cpp
   AnimationViewControl.cpp
   Application.cpp
   ApplicationState.cpp
   AreaSelectorControl.cpp
-  BackgroundControl.cpp
   ChangeSeparatorOffsetAction.cpp
   ChangeSeparatorVisibleAction.cpp
   ChangeSkinSizeAction.cpp
   ChangeTextureValueAction.cpp
   ChangeValueAction.cpp
-  ColourManager.cpp
-  ColourPanel.cpp
-  CommandManager.cpp
-  Control.cpp
   CreateSkinDataAction.cpp
-  Data.cpp
   DataListBaseControl.cpp
-  DataManager.cpp
-  DataSelectorManager.cpp
-  DataType.cpp
-  DataTypeManager.cpp
-  DataTypeProperty.cpp
   DataUtility.cpp
-  Dialog.cpp
-  DialogManager.cpp
   EditorState.cpp
-  ExportManager.cpp
-  FocusInfoControl.cpp
   FrameListControl.cpp
   FrameTextureController.cpp
-  GridManager.cpp
   GroupListControl.cpp
   GroupTextureController.cpp
   HorizontalSelectorBlackControl.cpp
   HorizontalSelectorControl.cpp
-  HotKeyManager.cpp
   ImageEditor.rc
   ImageExportSerializer.cpp
   ImageListControl.cpp
@@ -166,13 +114,9 @@ set (SOURCE_FILES
   IndexTextureController.cpp
   ListBoxDataControl.cpp
   MainMenuControl.cpp
-  MessageBoxFadeControl.cpp
-  MessageBoxManager.cpp
   MyGUI_FilterNoneSkin.cpp
-  OpenSaveFileDialog.cpp
   PositionSelectorBlackControl.cpp
   PositionSelectorControl.cpp
-  Property.cpp
   PropertyAlignControl.cpp
   PropertyBoolControl.cpp
   PropertyColourControl.cpp
@@ -188,17 +132,14 @@ set (SOURCE_FILES
   PropertyStringControl.cpp
   PropertyTexturesControl.cpp
   PropertyUtility.cpp
-  RecentFilesManager.cpp
   RegionListControl.cpp
   RegionTextureController.cpp
-  ScopeManager.cpp
   ScopeTextureControl.cpp
   SelectorControl.cpp
   SeparatorControl.cpp
   SeparatorListControl.cpp
   SeparatorTextureController.cpp
   SettingsGeneralControl.cpp
-  SettingsManager.cpp
   SettingsResourcePathsControl.cpp
   SettingsResourcesControl.cpp
   SettingsWindow.cpp
@@ -207,12 +148,10 @@ set (SOURCE_FILES
   SkinListControl.cpp
   SkinTextureController.cpp
   StateListControl.cpp
-  StateManager.cpp
   StateTextureController.cpp
   StatisticInfoControl.cpp
   TestState.cpp
   TestWindow.cpp
-  TextFieldControl.cpp
   TextureBrowseCell.cpp
   TextureBrowseControl.cpp
   TextureControl.cpp
@@ -223,8 +162,6 @@ set (SOURCE_FILES
   VerticalSelectorControl.cpp
 )
 SOURCE_GROUP("Actions" FILES
-  Action.cpp
-  Action.h
   ActionChangeDataProperty.cpp
   ActionChangeDataProperty.h
   ActionChangePositionData.cpp
@@ -235,8 +172,6 @@ SOURCE_GROUP("Actions" FILES
   ActionCreateData.h
   ActionDestroyData.cpp
   ActionDestroyData.h
-  ActionManager.cpp
-  ActionManager.h
   ActionRenameData.cpp
   ActionRenameData.h
   ChangeSeparatorOffsetAction.cpp
@@ -264,7 +199,6 @@ SOURCE_GROUP("Controllers" FILES
   FrameTextureController.h
   GroupTextureController.cpp
   GroupTextureController.h
-  IControlController.h
   IndexTextureController.cpp
   IndexTextureController.h
   PropertyPanelController.cpp
@@ -281,10 +215,6 @@ SOURCE_GROUP("Controllers" FILES
 SOURCE_GROUP("Controls" FILES
   AnimationViewControl.cpp
   AnimationViewControl.h
-  BackgroundControl.cpp
-  BackgroundControl.h
-  ColourPanel.cpp
-  ColourPanel.h
   MainMenuControl.cpp
   MainMenuControl.h
   TestWindow.cpp
@@ -294,21 +224,9 @@ SOURCE_GROUP("Controls\\Animations" FILES
   AnimationInfo.cpp
   AnimationInfo.h
 )
-SOURCE_GROUP("Controls\\Common" FILES
-  Control.cpp
-  Control.h
-)
 SOURCE_GROUP("Controls\\Framework" FILES
-  FocusInfoControl.cpp
-  FocusInfoControl.h
-  MessageBoxFadeControl.cpp
-  MessageBoxFadeControl.h
-  OpenSaveFileDialog.cpp
-  OpenSaveFileDialog.h
   StatisticInfoControl.cpp
   StatisticInfoControl.h
-  TextFieldControl.cpp
-  TextFieldControl.h
 )
 SOURCE_GROUP("Controls\\Lists" FILES
   DataListBaseControl.cpp
@@ -409,70 +327,19 @@ SOURCE_GROUP("Controls\\TextureView\\Selectors" FILES
   VerticalSelectorControl.cpp
   VerticalSelectorControl.h
 )
-SOURCE_GROUP("Data" FILES
-  Data.cpp
-  Data.h
-  DataManager.cpp
-  DataManager.h
-  DataSelectorManager.cpp
-  DataSelectorManager.h
-  DataType.cpp
-  DataType.h
-  DataTypeManager.cpp
-  DataTypeManager.h
-  DataTypeProperty.cpp
-  DataTypeProperty.h
-)
 SOURCE_GROUP("Data\\Utility" FILES
   DataUtility.cpp
   DataUtility.h
   SkinDataUtility.cpp
   SkinDataUtility.h
 )
-SOURCE_GROUP("Managers" FILES
-  ColourManager.cpp
-  ColourManager.h
-  GridManager.cpp
-  GridManager.h
-  MessageBoxManager.cpp
-  MessageBoxManager.h
-  RecentFilesManager.cpp
-  RecentFilesManager.h
-  ScopeManager.cpp
-  ScopeManager.h
-)
-SOURCE_GROUP("Managers\\Commands" FILES
-  CommandManager.cpp
-  CommandManager.h
-  HotKeyCommand.h
-  HotKeyManager.cpp
-  HotKeyManager.h
-)
-SOURCE_GROUP("Managers\\Dialog" FILES
-  Dialog.cpp
-  Dialog.h
-  DialogManager.cpp
-  DialogManager.h
-)
 SOURCE_GROUP("Managers\\Exports" FILES
-  ExportManager.cpp
-  ExportManager.h
-  IExportSerializer.h
   ImageExportSerializer.cpp
   ImageExportSerializer.h
   SkinExportSerializer.cpp
   SkinExportSerializer.h
 )
-SOURCE_GROUP("Managers\\Settings" FILES
-  SettingsManager.cpp
-  SettingsManager.h
-)
-SOURCE_GROUP("Properties" FILES
-  Property.cpp
-  Property.h
-)
 SOURCE_GROUP("Properties\\Initialisators" FILES
-  IPropertyInitialisator.h
   TexturePropertyInitialisator.cpp
   TexturePropertyInitialisator.h
   UniqueNamePropertyInitialisator.cpp
@@ -491,9 +358,6 @@ SOURCE_GROUP("States" FILES
   ApplicationState.h
   EditorState.cpp
   EditorState.h
-  StateController.h
-  StateManager.cpp
-  StateManager.h
   TestState.cpp
   TestState.h
 )

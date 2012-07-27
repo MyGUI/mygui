@@ -12,7 +12,7 @@
 namespace tools
 {
 
-	class MessageBoxFadeControl :
+	class MYGUI_EXPORT_DLL MessageBoxFadeControl :
 		public Control
 	{
 	public:

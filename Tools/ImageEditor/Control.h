@@ -14,7 +14,7 @@
 namespace tools
 {
 
-	class Control :
+	class MYGUI_EXPORT_DLL Control :
 		public wraps::BaseLayout,
 		public components::IFactoryItem
 	{

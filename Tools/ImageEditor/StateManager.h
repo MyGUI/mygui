@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class StateManager :
+	class MYGUI_EXPORT_DLL StateManager :
 		public MyGUI::Singleton<StateManager>
 	{
 	public:

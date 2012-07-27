@@ -15,7 +15,7 @@
 namespace tools
 {
 
-	class ExportManager :
+	class MYGUI_EXPORT_DLL ExportManager :
 		public MyGUI::Singleton<ExportManager>
 	{
 	public:
