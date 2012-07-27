@@ -26,6 +26,7 @@
 #include "DataSelectorManager.h"
 #include "ScopeManager.h"
 #include "FactoryManager.h"
+#include "FontPanel.h"
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
