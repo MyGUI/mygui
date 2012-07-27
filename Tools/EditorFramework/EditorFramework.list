@@ -1,20 +1,54 @@
 set (HEADER_FILES
+  Action.h
   ActionChangeDataProperty.h
   ActionChangePositionData.h
   ActionCloneData.h
   ActionCreateData.h
   ActionDestroyData.h
+  ActionManager.h
   ActionRenameData.h
   AreaSelectorControl.h
+  BackgroundControl.h
   ChangeValueAction.h
+  ColourManager.h
+  ColourPanel.h
+  CommandManager.h
+  Control.h
+  Data.h
   DataListBaseControl.h
+  DataManager.h
+  DataSelectorManager.h
+  DataType.h
+  DataTypeManager.h
+  DataTypeProperty.h
   DataUtility.h
+  Dialog.h
+  DialogManager.h
+  ExportManager.h
+  FactoryItemAttribute.h
+  FactoryItemRegistrator.h
+  FactoryManager.h
+  FactoryTemplate.h
+  FocusInfoControl.h
+  GridManager.h
   HorizontalSelectorBlackControl.h
   HorizontalSelectorControl.h
+  HotKeyCommand.h
+  HotKeyManager.h
+  IControlController.h
+  IExportSerializer.h
+  IFactory.h
+  IFactoryItem.h
+  IPropertyInitialisator.h
   ListBoxDataControl.h
+  Localise.h
   MainMenuControl.h
+  MessageBoxFadeControl.h
+  MessageBoxManager.h
+  OpenSaveFileDialog.h
   PositionSelectorBlackControl.h
   PositionSelectorControl.h
+  Property.h
   PropertyBoolControl.h
   PropertyColourControl.h
   PropertyControl.h
@@ -26,11 +60,19 @@ set (HEADER_FILES
   PropertyStringControl.h
   PropertyTexturesControl.h
   PropertyUtility.h
+  RecentFilesManager.h
+  ScopeManager.h
   ScopeTextureControl.h
   SelectorControl.h
   SeparatorControl.h
   SeparatorUtility.h
+  SettingsManager.h
   SettingsWindow.h
+  SharedPtr.h
+  StateController.h
+  StateManager.h
+  StringUtility.h
+  TextFieldControl.h
   TextureBrowseCell.h
   TextureBrowseControl.h
   TextureControl.h
@@ -39,68 +81,51 @@ set (HEADER_FILES
   UniqueNamePropertyInitialisator.h
   VerticalSelectorBlackControl.h
   VerticalSelectorControl.h
-  Action.h
-  ActionManager.h
-  BackgroundControl.h
-  ColourManager.h
-  ColourPanel.h
-  CommandManager.h
-  Control.h
-  Data.h
-  DataManager.h
-  DataSelectorManager.h
-  DataType.h
-  DataTypeManager.h
-  DataTypeProperty.h
-  Dialog.h
-  DialogManager.h
-  ExportManager.h
-  FactoryItemAttribute.h
-  FactoryItemRegistrator.h
-  FactoryManager.h
-  FactoryTemplate.h
-  FocusInfoControl.h
-  GridManager.h
-  HotKeyCommand.h
-  HotKeyManager.h
-  IControlController.h
-  IExportSerializer.h
-  IFactory.h
-  IFactoryItem.h
-  IPropertyInitialisator.h
-  Localise.h
-  MessageBoxFadeControl.h
-  MessageBoxManager.h
-  OpenSaveFileDialog.h
-  Property.h
-  RecentFilesManager.h
-  ScopeManager.h
-  SettingsManager.h
-  SharedPtr.h
-  StateController.h
-  StateManager.h
-  StringUtility.h
-  TextFieldControl.h
   sigslot.h
 )
 set (SOURCE_FILES
   ../../Common/Precompiled.cpp
+  Action.cpp
   ActionChangeDataProperty.cpp
   ActionChangePositionData.cpp
   ActionCloneData.cpp
   ActionCreateData.cpp
   ActionDestroyData.cpp
+  ActionManager.cpp
   ActionRenameData.cpp
   AreaSelectorControl.cpp
+  BackgroundControl.cpp
   ChangeValueAction.cpp
+  ColourManager.cpp
+  ColourPanel.cpp
+  CommandManager.cpp
+  Control.cpp
+  Data.cpp
   DataListBaseControl.cpp
+  DataManager.cpp
+  DataSelectorManager.cpp
+  DataType.cpp
+  DataTypeManager.cpp
+  DataTypeProperty.cpp
   DataUtility.cpp
+  Dialog.cpp
+  DialogManager.cpp
+  ExportManager.cpp
+  FactoryItemRegistrator.cpp
+  FactoryManager.cpp
+  FocusInfoControl.cpp
+  GridManager.cpp
   HorizontalSelectorBlackControl.cpp
   HorizontalSelectorControl.cpp
+  HotKeyManager.cpp
   ListBoxDataControl.cpp
   MainMenuControl.cpp
+  MessageBoxFadeControl.cpp
+  MessageBoxManager.cpp
+  OpenSaveFileDialog.cpp
   PositionSelectorBlackControl.cpp
   PositionSelectorControl.cpp
+  Property.cpp
   PropertyBoolControl.cpp
   PropertyColourControl.cpp
   PropertyControl.cpp
@@ -112,10 +137,15 @@ set (SOURCE_FILES
   PropertyStringControl.cpp
   PropertyTexturesControl.cpp
   PropertyUtility.cpp
+  RecentFilesManager.cpp
+  ScopeManager.cpp
   ScopeTextureControl.cpp
   SelectorControl.cpp
   SeparatorControl.cpp
+  SettingsManager.cpp
   SettingsWindow.cpp
+  StateManager.cpp
+  TextFieldControl.cpp
   TextureBrowseCell.cpp
   TextureBrowseControl.cpp
   TextureControl.cpp
@@ -124,41 +154,13 @@ set (SOURCE_FILES
   UniqueNamePropertyInitialisator.cpp
   VerticalSelectorBlackControl.cpp
   VerticalSelectorControl.cpp
-  Action.cpp
-  ActionManager.cpp
-  BackgroundControl.cpp
-  ColourManager.cpp
-  ColourPanel.cpp
-  CommandManager.cpp
-  Control.cpp
-  Data.cpp
-  DataManager.cpp
-  DataSelectorManager.cpp
-  DataType.cpp
-  DataTypeManager.cpp
-  DataTypeProperty.cpp
-  Dialog.cpp
-  DialogManager.cpp
-  ExportManager.cpp
-  FactoryItemRegistrator.cpp
-  FactoryManager.cpp
-  FocusInfoControl.cpp
-  GridManager.cpp
-  HotKeyManager.cpp
-  MessageBoxFadeControl.cpp
-  MessageBoxManager.cpp
-  OpenSaveFileDialog.cpp
-  Property.cpp
-  RecentFilesManager.cpp
-  ScopeManager.cpp
-  SettingsManager.cpp
-  StateManager.cpp
-  TextFieldControl.cpp
   pugiconfig.hpp
   pugixml.cpp
   pugixml.hpp
 )
 SOURCE_GROUP("Actions" FILES
+  Action.cpp
+  Action.h
   ActionChangeDataProperty.cpp
   ActionChangeDataProperty.h
   ActionChangePositionData.cpp
@@ -169,22 +171,20 @@ SOURCE_GROUP("Actions" FILES
   ActionCreateData.h
   ActionDestroyData.cpp
   ActionDestroyData.h
+  ActionManager.cpp
+  ActionManager.h
   ActionRenameData.cpp
   ActionRenameData.h
   ChangeValueAction.cpp
   ChangeValueAction.h
-  Action.cpp
-  Action.h
-  ActionManager.cpp
-  ActionManager.h
 )
 SOURCE_GROUP("Controls" FILES
-  MainMenuControl.cpp
-  MainMenuControl.h
   BackgroundControl.cpp
   BackgroundControl.h
   ColourPanel.cpp
   ColourPanel.h
+  MainMenuControl.cpp
+  MainMenuControl.h
 )
 SOURCE_GROUP("Controls\\Common" FILES
   Control.cpp

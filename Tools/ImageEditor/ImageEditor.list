@@ -106,8 +106,6 @@ SOURCE_GROUP("Controllers" FILES
   GroupTextureController.h
   IndexTextureController.cpp
   IndexTextureController.h
-  PropertyPanelController.cpp
-  PropertyPanelController.h
   RegionTextureController.cpp
   RegionTextureController.h
   SeparatorTextureController.cpp

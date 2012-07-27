@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	class FilterNone :
+	class MYGUI_EXPORT_DLL FilterNone :
 		public SubSkin
 	{
 		MYGUI_RTTI_DERIVED( FilterNone )
