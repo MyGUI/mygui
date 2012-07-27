@@ -11,6 +11,7 @@
 #include "Data.h"
 #include "Property.h"
 #include "AnimationInfo.h"
+#include "sigslot.h"
 
 namespace tools
 {
