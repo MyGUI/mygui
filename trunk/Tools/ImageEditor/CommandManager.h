@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class CommandManager :
+	class MYGUI_EXPORT_DLL CommandManager :
 		public MyGUI::Singleton<CommandManager>
 	{
 	public:

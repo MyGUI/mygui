@@ -13,7 +13,7 @@
 namespace tools
 {
 
-	class HotKeyManager :
+	class MYGUI_EXPORT_DLL HotKeyManager :
 		public MyGUI::Singleton<HotKeyManager>
 	{
 	public:

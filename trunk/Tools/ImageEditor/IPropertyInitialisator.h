@@ -15,7 +15,7 @@ namespace tools
 
 	class Property;
 
-	class IPropertyInitialisator :
+	class MYGUI_EXPORT_DLL IPropertyInitialisator :
 		public components::IFactoryItem
 	{
 	public:

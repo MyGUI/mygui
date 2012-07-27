@@ -14,7 +14,7 @@
 namespace tools
 {
 
-	class Data
+	class MYGUI_EXPORT_DLL Data
 	{
 	public:
 		typedef shared_ptr<Data> DataPtr;

@@ -15,7 +15,7 @@
 namespace tools
 {
 
-	class DataSelectorManager
+	class MYGUI_EXPORT_DLL DataSelectorManager
 	{
 	public:
 		DataSelectorManager();
