@@ -222,7 +222,6 @@ namespace demo
 
 		MyGUI::ResourceManager::getInstance().load("FrameworkFonts.xml");
 		MyGUI::ResourceManager::getInstance().load("TreeControlSkin.xml");
-		MyGUI::ResourceManager::getInstance().load("TreeControlSkin2.xml"); // FIXME
 		MyGUI::ResourceManager::getInstance().load("TreeControlTemplate.xml");
 
 		mSampleLayout = new SampleLayout();
