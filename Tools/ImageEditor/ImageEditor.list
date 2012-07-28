@@ -3,11 +3,7 @@ set (HEADER_FILES
   AnimationViewControl.h
   Application.h
   ApplicationState.h
-  ChangeSeparatorOffsetAction.h
-  ChangeSeparatorVisibleAction.h
-  ChangeSkinSizeAction.h
   ChangeTextureValueAction.h
-  CreateSkinDataAction.h
   EditorState.h
   FrameListControl.h
   FrameTextureController.h
@@ -17,25 +13,10 @@ set (HEADER_FILES
   ImageListControl.h
   IndexListControl.h
   IndexTextureController.h
-  PropertyAlignControl.h
-  PropertyRegionTextTypeControl.h
-  PropertyRegionTypeControl.h
-  RegionListControl.h
-  RegionTextureController.h
-  SeparatorListControl.h
-  SeparatorTextureController.h
   SettingsGeneralControl.h
   SettingsResourcePathsControl.h
   SettingsResourcesControl.h
-  SkinDataUtility.h
-  SkinExportSerializer.h
-  SkinListControl.h
-  SkinTextureController.h
-  StateListControl.h
-  StateTextureController.h
   StatisticInfoControl.h
-  TestState.h
-  TestWindow.h
 )
 set (SOURCE_FILES
   ../../Common/Precompiled.cpp
@@ -43,11 +24,7 @@ set (SOURCE_FILES
   AnimationViewControl.cpp
   Application.cpp
   ApplicationState.cpp
-  ChangeSeparatorOffsetAction.cpp
-  ChangeSeparatorVisibleAction.cpp
-  ChangeSkinSizeAction.cpp
   ChangeTextureValueAction.cpp
-  CreateSkinDataAction.cpp
   EditorState.cpp
   FrameListControl.cpp
   FrameTextureController.cpp
@@ -58,37 +35,14 @@ set (SOURCE_FILES
   ImageListControl.cpp
   IndexListControl.cpp
   IndexTextureController.cpp
-  PropertyAlignControl.cpp
-  PropertyRegionTextTypeControl.cpp
-  PropertyRegionTypeControl.cpp
-  RegionListControl.cpp
-  RegionTextureController.cpp
-  SeparatorListControl.cpp
-  SeparatorTextureController.cpp
   SettingsGeneralControl.cpp
   SettingsResourcePathsControl.cpp
   SettingsResourcesControl.cpp
-  SkinDataUtility.cpp
-  SkinExportSerializer.cpp
-  SkinListControl.cpp
-  SkinTextureController.cpp
-  StateListControl.cpp
-  StateTextureController.cpp
   StatisticInfoControl.cpp
-  TestState.cpp
-  TestWindow.cpp
 )
 SOURCE_GROUP("Actions" FILES
-  ChangeSeparatorOffsetAction.cpp
-  ChangeSeparatorOffsetAction.h
-  ChangeSeparatorVisibleAction.cpp
-  ChangeSeparatorVisibleAction.h
-  ChangeSkinSizeAction.cpp
-  ChangeSkinSizeAction.h
   ChangeTextureValueAction.cpp
   ChangeTextureValueAction.h
-  CreateSkinDataAction.cpp
-  CreateSkinDataAction.h
 )
 SOURCE_GROUP("Application" FILES
   Application.cpp
@@ -101,20 +55,10 @@ SOURCE_GROUP("Controllers" FILES
   GroupTextureController.h
   IndexTextureController.cpp
   IndexTextureController.h
-  RegionTextureController.cpp
-  RegionTextureController.h
-  SeparatorTextureController.cpp
-  SeparatorTextureController.h
-  SkinTextureController.cpp
-  SkinTextureController.h
-  StateTextureController.cpp
-  StateTextureController.h
 )
 SOURCE_GROUP("Controls" FILES
   AnimationViewControl.cpp
   AnimationViewControl.h
-  TestWindow.cpp
-  TestWindow.h
 )
 SOURCE_GROUP("Controls\\Animations" FILES
   AnimationInfo.cpp
@@ -133,22 +77,6 @@ SOURCE_GROUP("Controls\\Lists" FILES
   ImageListControl.h
   IndexListControl.cpp
   IndexListControl.h
-  RegionListControl.cpp
-  RegionListControl.h
-  SeparatorListControl.cpp
-  SeparatorListControl.h
-  SkinListControl.cpp
-  SkinListControl.h
-  StateListControl.cpp
-  StateListControl.h
-)
-SOURCE_GROUP("Controls\\Properties" FILES
-  PropertyAlignControl.cpp
-  PropertyAlignControl.h
-  PropertyRegionTextTypeControl.cpp
-  PropertyRegionTextTypeControl.h
-  PropertyRegionTypeControl.cpp
-  PropertyRegionTypeControl.h
 )
 SOURCE_GROUP("Controls\\Settings" FILES
   SettingsGeneralControl.cpp
@@ -158,15 +86,9 @@ SOURCE_GROUP("Controls\\Settings" FILES
   SettingsResourcesControl.cpp
   SettingsResourcesControl.h
 )
-SOURCE_GROUP("Data\\Utility" FILES
-  SkinDataUtility.cpp
-  SkinDataUtility.h
-)
 SOURCE_GROUP("Managers\\Exports" FILES
   ImageExportSerializer.cpp
   ImageExportSerializer.h
-  SkinExportSerializer.cpp
-  SkinExportSerializer.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Precompiled.cpp
@@ -178,6 +100,4 @@ SOURCE_GROUP("States" FILES
   ApplicationState.h
   EditorState.cpp
   EditorState.h
-  TestState.cpp
-  TestState.h
 )
