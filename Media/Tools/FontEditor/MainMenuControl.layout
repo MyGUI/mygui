@@ -73,14 +73,6 @@
                         <Property key="Caption" value="#{MenuColourBackground}"/>
                         <Property key="MenuItemId" value="Command_ChangeColourBackground"/>
                     </Widget>
-                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 18 184 18">
-                        <Property key="Caption" value="#{MenuColourSelector}"/>
-                        <Property key="MenuItemId" value="Command_ChangeColourSelector"/>
-                    </Widget>
-                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 36 184 18">
-                        <Property key="Caption" value="#{MenuColourSelectorInactive}"/>
-                        <Property key="MenuItemId" value="Command_ChangeColourSelectorInactive"/>
-                    </Widget>
                 </Widget>
             </Widget>
             <Widget type="MenuItem" skin="MenuBarButton2_Dark" position="160 0 64 18">
