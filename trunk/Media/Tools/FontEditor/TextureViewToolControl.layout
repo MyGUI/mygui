@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="20 20 250 250" align="Stretch" layer="Overlapped" name="Root">
+        <UserString key="SnapTo" value="Stretch"/>
+        <UserString key="ControlControllers" value="FontTextureController"/>
+        <Widget type="Widget" skin="PanelEmpty" position="0 0 250 250" align="Stretch">
+            <UserString key="ControlType" value="ScopeTextureControl"/>
+        </Widget>
+    </Widget>
+</MyGUI>

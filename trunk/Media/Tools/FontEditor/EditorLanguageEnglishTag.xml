@@ -68,4 +68,5 @@
 	<Tag name="PropertyPanel">Options</Tag>
 	<Tag name="TexturePanel">Texture preview</Tag>
 	<Tag name="FontListControlHelp">Click '#{Create}' to create font.</Tag>
+	<Tag name="GenerateFont">Generate font</Tag>
 </MyGUI>

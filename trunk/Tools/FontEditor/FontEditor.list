@@ -4,6 +4,7 @@ set (HEADER_FILES
   EditorState.h
   FontExportSerializer.h
   FontListControl.h
+  FontTextureController.h
   GenerateFontNamePropertyInitialisator.h
   PropertyFontHintingControl.h
   PropertyFontSourceControl.h
@@ -20,6 +21,7 @@ set (SOURCE_FILES
   FontEditor.rc
   FontExportSerializer.cpp
   FontListControl.cpp
+  FontTextureController.cpp
   GenerateFontNamePropertyInitialisator.cpp
   PropertyFontHintingControl.cpp
   PropertyFontSourceControl.cpp
@@ -31,6 +33,10 @@ set (SOURCE_FILES
 SOURCE_GROUP("Application" FILES
   Application.cpp
   Application.h
+)
+SOURCE_GROUP("Controllers" FILES
+  FontTextureController.cpp
+  FontTextureController.h
 )
 SOURCE_GROUP("Controls\\Framework" FILES
   StatisticInfoControl.cpp

@@ -7,8 +7,6 @@
 	<Workspace>
 		<Colours>
 			<ColourBackground>0 0 0 0</ColourBackground>
-			<ColourSelector>0 1 0 1</ColourSelector>
-			<ColourSelectorInactive>0 0 0 0.5</ColourSelectorInactive>
 		</Colours>
 		<TextureScale>
 			<ScaleValue.List>
