@@ -4,8 +4,8 @@
 	@date		07/2012
 */
 
-#ifndef _ec693983_b8f8_4345_8dfd_c9858fe58df9_
-#define _ec693983_b8f8_4345_8dfd_c9858fe58df9_
+#ifndef _97897e95_12da_4017_9946_9422c79f905f_
+#define _97897e95_12da_4017_9946_9422c79f905f_
 
 #include "IExportSerializer.h"
 #include "pugixml.hpp"
@@ -14,12 +14,12 @@
 namespace tools
 {
 
-	class ImageExportSerializer :
+	class FontExportSerializer :
 		public IExportSerializer
 	{
 	public:
-		ImageExportSerializer();
-		virtual ~ImageExportSerializer();
+		FontExportSerializer();
+		virtual ~FontExportSerializer();
 
 		virtual void serialization(pugi::xml_document& _doc);
 		virtual bool deserialization(pugi::xml_document& _doc);

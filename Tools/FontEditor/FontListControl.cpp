@@ -12,17 +12,17 @@
 namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(ImageListControl)
+	FACTORY_ITEM_ATTRIBUTE(FontListControl)
 
-	ImageListControl::ImageListControl()
+	FontListControl::FontListControl()
 	{
 	}
 
-	ImageListControl::~ImageListControl()
+	FontListControl::~FontListControl()
 	{
 	}
 
-	void ImageListControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void FontListControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
 		DataListBaseControl::OnInitialise(_parent, _place, _layoutName);
 

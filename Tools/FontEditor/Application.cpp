@@ -45,7 +45,7 @@ namespace tools
 	{
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Tools/EditorFramework");
-		addResourceLocation(getRootMedia() + "/Tools/ImageEditor");
+		addResourceLocation(getRootMedia() + "/Tools/FontEditor");
 		addResourceLocation(getRootMedia() + "/Common/Tools");
 		addResourceLocation(getRootMedia() + "/Common/MessageBox");
 		addResourceLocation(getRootMedia() + "/Common/Themes");

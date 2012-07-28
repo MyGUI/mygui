@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="32 64 343 304" align="Stretch" layer="Overlapped" name="Root">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="TextBox" skin="TextBox_Dark" position="55 0 102 20">
+            <Property key="TextAlign" value="Left VCenter"/>
+            <Property key="Caption" value="#{Grid_step}"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
+        </Widget>
+        <Widget type="EditBox" skin="EditBox_Dark" position="0 0 50 20" align="HStretch Top" name="gridEdit">
+            <Property key="Caption" value="8"/>
+        </Widget>
+        <Widget type="Button" skin="CheckBox_Dark" position="0 65 210 20" align="HStretch Top" name="SaveLastTexture">
+            <Property key="Caption" value="#{TextSaveLastTexture}"/>
+        </Widget>
+        <Widget type="ComboBox" skin="ComboBox_Dark" position="0 30 130 20" name="InterfaceLanguage">
+            <Property key="ModeDrop" value="true"/>
+            <Property key="AddItem" value="Auto"/>
+            <Property key="AddItem" value="English"/>
+            <Property key="AddItem" value="Russian"/>
+        </Widget>
+        <Widget type="TextBox" skin="TextBox_Dark" position="135 30 75 20">
+            <Property key="Caption" value="#{TextInterfaceLanguage}"/>
+            <Property key="TextAlign" value="Left VCenter"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
+        </Widget>
+    </Widget>
+</MyGUI>

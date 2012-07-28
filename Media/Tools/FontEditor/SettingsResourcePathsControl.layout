@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="32 64 343 296" align="Stretch" layer="Overlapped" name="Root">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="TextBox" skin="TextBox_Dark" position="0 0 343 20" align="HStretch Top">
+            <Property key="TextAlign" value="Left VCenter"/>
+            <Property key="Caption" value="#{ResourcesPaths}"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
+        </Widget>
+        <Widget type="ListBox" skin="ListBox_Dark" position="0 23 253 273" align="Stretch" name="ResourcePaths"/>
+        <Widget type="Button" skin="Button_Dark" position="261 23 80 20" align="Right Top" name="ResourcePathAdd">
+            <Property key="Caption" value="#{Add}"/>
+        </Widget>
+        <Widget type="Button" skin="Button_Dark" position="261 50 80 20" align="Right Top" name="ResourcePathDelete">
+            <Property key="Caption" value="#{Delete}"/>
+        </Widget>
+    </Widget>
+</MyGUI>
