@@ -7,6 +7,7 @@
 #include "Precompiled.h"
 #include "PropertyTexturesControl.h"
 #include "FactoryManager.h"
+#include "Localise.h"
 
 namespace tools
 {
@@ -75,6 +76,8 @@ namespace tools
 
 			size_t index = getComboIndex(proper->getValue());
 			mComboBox->setIndexSelected(index);
+			if (index == MyGUI::ITEM_NONE)
+				mComboBox->setCaption(replaceTags("ColourError") + proper->getValue());
 
 			mImage->setVisible(true);
 			mImage->setImageTexture(proper->getValue());
