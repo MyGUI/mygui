@@ -26,9 +26,9 @@ namespace tools
 	{
 		DataListBaseControl::OnInitialise(_parent, _place, _layoutName);
 
-		CommandManager::getInstance().getEvent("Command_CreateFrameData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandCreateImageData);
-		CommandManager::getInstance().getEvent("Command_CloneFrameData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandCloneImageData);
-		CommandManager::getInstance().getEvent("Command_DestroyFrameData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandDestroyImageData);
+		CommandManager::getInstance().getEvent("Command_CreateFrameData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandCreateData);
+		CommandManager::getInstance().getEvent("Command_CloneFrameData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandCloneData);
+		CommandManager::getInstance().getEvent("Command_DestroyFrameData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandDestroyData);
 
 		setDataInfo("Index", "Frame", "Point", "");
 	}

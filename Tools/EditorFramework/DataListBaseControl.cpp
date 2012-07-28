@@ -62,7 +62,7 @@ namespace tools
 		return true;
 	}
 
-	void DataListBaseControl::commandCreateImageData(const MyGUI::UString& _commandName, bool& _result)
+	void DataListBaseControl::commandCreateData(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand(_result))
 			return;
@@ -81,7 +81,7 @@ namespace tools
 		_result = true;
 	}
 
-	void DataListBaseControl::commandCloneImageData(const MyGUI::UString& _commandName, bool& _result)
+	void DataListBaseControl::commandCloneData(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand(_result))
 			return;
@@ -99,7 +99,7 @@ namespace tools
 		_result = true;
 	}
 
-	void DataListBaseControl::commandDestroyImageData(const MyGUI::UString& _commandName, bool& _result)
+	void DataListBaseControl::commandDestroyData(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand(_result))
 			return;
@@ -117,7 +117,7 @@ namespace tools
 		_result = true;
 	}
 
-	void DataListBaseControl::commandRenameImageData(const MyGUI::UString& _commandName, bool& _result)
+	void DataListBaseControl::commandRenameData(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand(_result))
 			return;
