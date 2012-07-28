@@ -108,6 +108,7 @@ namespace tools
 		size_t index = mList->getTextCursor();
 		mList->setCaption(value);
 		mList->setTextCursor(index);
+		ץו ץו =)
 	}*/
 
 	std::string PropertyInt2ListControl::getValue()
