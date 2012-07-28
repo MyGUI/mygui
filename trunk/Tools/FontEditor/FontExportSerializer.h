@@ -25,21 +25,9 @@ namespace tools
 		virtual bool deserialization(pugi::xml_document& _doc);
 
 	private:
-		void parseImage(pugi::xml_node _node);
-		void parseGroup(pugi::xml_node _node, DataPtr _parent);
-		void parseIndex(pugi::xml_node _node, DataPtr _parent);
-		void parseFrame(pugi::xml_node _node, DataPtr _parent);
+		void parseFont(pugi::xml_node _node);
 
-		void writeImage(pugi::xml_node _parent, DataPtr _data);
-		void writeGroup(pugi::xml_node _parent, DataPtr _data);
-		void writeIndex(pugi::xml_node _parent, DataPtr _data);
-		void writeFrame(pugi::xml_node _parent, DataPtr _data);
-
-		void updateImageProperty(DataPtr _data);
-		void updateGroupProperty(DataPtr _data);
-		void updateIndexProperty(DataPtr _data);
-
-		MyGUI::IntPoint getFirstFramePoint(DataPtr _data);
+		void writeFont(pugi::xml_node _parent, DataPtr _data);
 	};
 
 }
