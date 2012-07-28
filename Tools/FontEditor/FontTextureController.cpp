@@ -201,9 +201,13 @@ namespace tools
 
 		MyGUI::xml::ElementPtr node_codes = node->createChild("Codes");
 
-		/*addCodeRange(mEditRange1A, mEditRange1B, node_codes, "range");
-		addCodeRange(mEditRange2A, mEditRange2B, node_codes, "range");
-		addCodeRange(mEditHideA, mEditHideB, node_codes, "hide");*/
+		std::string ranges = _data->getPropertyValue("FontCodeRanges");
+		std::vector<std::string> values = MyGUI::utility::split(ranges, "|");
+		for (size_t index = 0; index < values.size(); index ++)
+		{
+			MyGUI::IntSize size = MyGUI::IntSize::parse(values[index]);
+			node_codes->createChild("Code")->addAttribute("range", size.print());
+		}
 
 		if (!node_codes->getElementEnumerator().next())
 			node->removeChild(node_codes);

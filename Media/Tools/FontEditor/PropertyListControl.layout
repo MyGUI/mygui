@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="Panel3Skin_Dark" position="20 20 230 195" align="HStretch Top" layer="Overlapped" name="Root">
+        <UserString key="SnapTo" value="HStretch Top"/>
+        <Widget type="ListBox" skin="ListBox_Dark" position="5 30 220 160" align="Stretch" name="List"/>
+        <Widget type="TextBox" skin="TextBox_Dark" position="5 5 220 20" align="HStretch Top" name="Name">
+            <Property key="TextAlign" value="Left VCenter"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
+        </Widget>
+    </Widget>
+</MyGUI>
