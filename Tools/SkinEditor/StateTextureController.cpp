@@ -92,9 +92,7 @@ namespace tools
 			}
 		}
 
-		mControl->setTextureValue(texture);
-		mControl->resetTextureRegion();
-
+		updateTexture(texture);
 		updateCoords(coord);
 	}
 
@@ -106,7 +104,7 @@ namespace tools
 		if (_sender->getOwner()->getType()->getName() == "Skin")
 		{
 			if (_sender->getType()->getName() == "Texture")
-				mControl->setTextureValue(_sender->getValue());
+				updateTexture(_sender->getValue());
 			else if (_sender->getType()->getName() == "Size")
 				updateCoords(_sender->getValue());
 		}
@@ -226,6 +224,12 @@ namespace tools
 
 		if (mControl != nullptr)
 			mControl->setViewSelectors(mFrames);
+	}
+
+	void StateTextureController::updateTexture(const std::string& _value)
+	{
+		mControl->setTextureValue(_value);
+		mControl->resetTextureRegion();
 	}
 
 }
