@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="Widget" skin="PanelEmpty" position="20 20 705 725" align="Stretch" name="Root">
+    <Widget type="Widget" skin="PanelEmpty" position="20 20 945 725" align="Stretch" name="Root">
         <UserString key="SnapTo" value="Stretch"/>
         <UserString key="SaveAs" value="MainWorkspace"/>
         <Widget type="Widget" skin="Panel1Skin_Dark" position="0 0 300 725" align="Left VStretch">
@@ -17,38 +17,48 @@
         <Widget type="Widget" skin="SeparatorH_Dark" position="300 0 10 725" align="Left VStretch">
             <UserString key="Separator" value="Horizontal"/>
         </Widget>
-        <Widget type="Widget" skin="Panel1Skin_Dark" position="310 0 115 725" align="Stretch">
+        <Widget type="Widget" skin="PanelEmpty" position="310 0 355 725" align="Stretch">
             <UserString key="MinSize" value="100"/>
-            <Widget type="TextBox" skin="TextBox_Dark" position="10 0 100 20" align="HStretch Top">
-                <Property key="TextAlign" value="Left VCenter"/>
-                <Property key="FontName" value="DejaVuSansFont_13"/>
-                <Property key="Caption" value="#{TexturePanel}"/>
+            <Widget type="Widget" skin="Panel1Skin_Dark" position="0 669 355 56" align="HStretch Bottom">
+                <Widget type="Button" skin="Button_Dark" position="6 6 343 44" align="Stretch">
+                    <Property key="Caption" value="#{GenerateFont}"/>
+                    <Property key="FontName" value="DejaVuSans_28"/>
+                    <UserString key="CommandClick" value="Command_GenerateFont"/>
+                </Widget>
             </Widget>
-            <Widget type="Widget" skin="PanelEmpty" position="6 21 103 645" align="Stretch">
-                <UserString key="ControlLayout" value="TextureViewToolControl.layout"/>
-                <UserString key="ControlType" value="Control"/>
-            </Widget>
-            <Widget type="Button" skin="Button_Dark" position="6 675 103 44" align="HStretch Bottom">
-                <Property key="Caption" value="#{GenerateFont}"/>
-                <Property key="FontName" value="DejaVuSans_28"/>
-                <UserString key="CommandClick" value="Command_GenerateFont"/>
+            <Widget type="TabControl" skin="TabControl2_Dark" position="0 0 355 658" align="Stretch">
+                <Widget type="TabItem" skin="" position="2 22 351 634">
+                    <Property key="Caption" value="#{TexturePanel}"/>
+                    <Widget type="Widget" skin="PanelEmpty" position="4 4 343 626" align="Stretch">
+                        <UserString key="ControlLayout" value="TextureViewToolControl.layout"/>
+                        <UserString key="ControlType" value="Control"/>
+                    </Widget>
+                </Widget>
+                <Widget type="TabItem" skin="" position="2 22 351 634">
+                    <Property key="Caption" value="#{TryFontPanel}"/>
+                    <Widget type="EditBox" skin="EditBox_Dark" position="4 4 343 626" align="Stretch">
+                        <Property key="MultiLine" value="true"/>
+                        <Property key="TabPrinting" value="true"/>
+                        <Property key="WordWrap" value="true"/>
+                        <Property key="TextAlign" value="Left Top"/>
+                        <UserString key="ControlType" value="FontTryControl"/>
+                    </Widget>
+                </Widget>
             </Widget>
         </Widget>
-        <Widget type="Widget" skin="SeparatorH_Dark" position="425 0 10 725" align="Right VStretch">
+        <Widget type="Widget" skin="SeparatorH_Dark" position="665 0 10 725" align="Right VStretch">
             <UserString key="Separator" value="Horizontal"/>
         </Widget>
-        <Widget type="Widget" skin="PanelEmpty" position="435 0 270 725" align="Right VStretch">
+        <Widget type="Widget" skin="Panel1Skin_Dark" position="675 0 270 725" align="Right VStretch">
             <UserString key="MinSize" value="200"/>
-            <Widget type="Widget" skin="Panel1Skin_Dark" position="0 0 270 725" align="Stretch">
-                <Widget type="Widget" skin="PanelEmpty" position="6 21 258 698" align="Stretch">
-                    <UserString key="ControlType" value="PropertyPanelControl"/>
-                    <UserString key="ControlLayout" value="PropertyPanel.layout"/>
-                </Widget>
-                <Widget type="TextBox" skin="TextBox_Dark" position="10 0 255 20" align="HStretch Top">
-                    <Property key="Caption" value="#{PropertyPanel}"/>
-                    <Property key="TextAlign" value="Left VCenter"/>
-                    <Property key="FontName" value="DejaVuSansFont_13"/>
-                </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="6 21 258 698" align="Stretch">
+                <UserString key="ControlType" value="PropertyPanelControl"/>
+                <UserString key="ControlLayout" value="PropertyPanel.layout"/>
+            </Widget>
+            <Widget type="TextBox" skin="TextBox_Dark" position="10 0 255 20" align="HStretch Top">
+                <Property key="Caption" value="#{PropertyPanel}"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="FontName" value="DejaVuSansFont_13"/>
             </Widget>
         </Widget>
     </Widget>

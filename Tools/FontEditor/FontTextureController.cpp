@@ -146,6 +146,8 @@ namespace tools
 				FontExportSerializer::generateFont(font);
 				notifyChangeDataSelector(mParentData, false);
 				updateResultPropery(font);
+
+				CommandManager::getInstance().executeCommand("Command_OnGenerateFont");
 			}
 		}
 	}
