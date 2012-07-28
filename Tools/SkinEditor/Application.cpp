@@ -45,8 +45,7 @@ namespace tools
 	{
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Tools/EditorFramework");
-		//addResourceLocation(getRootMedia() + "/Tools/ImageEditor");
-		addResourceLocation(getRootMedia() + "/Tools/ImageEditor/SkinEditor"); // FIXME для теста
+		addResourceLocation(getRootMedia() + "/Tools/SkinEditor");
 		addResourceLocation(getRootMedia() + "/Common/Tools");
 		addResourceLocation(getRootMedia() + "/Common/MessageBox");
 		addResourceLocation(getRootMedia() + "/Common/Themes");
@@ -61,11 +60,6 @@ namespace tools
 		std::string userSettingsFileName = SettingsManager::getInstance().getValue("Editor/UserSettingsFileName");
 		if (!userSettingsFileName.empty())
 			SettingsManager::getInstance().loadUserSettingsFile(userSettingsFileName);
-
-		// FIXME для теста
-		//bool skinEditor = SettingsManager::getInstance().getValue<bool>("Settings/SkinEditor");
-		//if (skinEditor)
-			//SettingsManager::getInstance().loadSettingsFile(MyGUI::DataManager::getInstance().getDataPath("SkinEditorSettings.xml"));
 
 		new HotKeyManager();
 		HotKeyManager::getInstance().initialise();

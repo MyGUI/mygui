@@ -1,327 +1,141 @@
 set (HEADER_FILES
-  ../../Common/Tools/Dialog.h
-  ../../Common/Tools/DialogManager.h
-  ../../Common/Tools/OpenSaveFileDialog.h
-  ActionManager.h
   Application.h
-  AreaSelectorControl.h
-  BackgroundControl.h
-  Binary.h
-  ColourManager.h
-  ColourPanel.h
-  CommandManager.h
+  ApplicationState.h
+  ChangeSeparatorOffsetAction.h
+  ChangeSeparatorVisibleAction.h
+  ChangeSkinSizeAction.h
+  ChangeTextureValueAction.h
+  CreateSkinDataAction.h
   EditorState.h
-  ExportManager.h
-  Grid.h
-  HorizontalSelectorBlackControl.h
-  HorizontalSelectorControl.h
-  HotKeyCommand.h
-  HotKeyManager.h
-  ItemHolder.h
-  ListBoxControl.h
-  ListBoxItemControl.h
-  Localise.h
-  MainMenuControl.h
-  MainPane.h
-  MessageBoxFadeControl.h
-  MessageBoxManager.h
-  MyGUI_FilterNoneSkin.h
-  PositionSelectorBlackControl.h
-  PositionSelectorControl.h
-  Property.h
-  PropertyAdvisor.h
   PropertyAlignControl.h
-  PropertyBoolControl.h
-  PropertyColourControl.h
-  PropertyControl.h
-  PropertyInt2Control.h
-  PropertyInt4Control.h
-  PropertyIntControl.h
+  PropertyRegionTextTypeControl.h
   PropertyRegionTypeControl.h
-  PropertySet.h
-  PropertyTexturesControl.h
-  RecentFilesManager.h
-  RegionControl.h
-  RegionItem.h
   RegionListControl.h
-  RegionPropertyControl.h
-  RegionTextureControl.h
-  SelectorControl.h
-  SeparatorControl.h
-  SeparatorItem.h
+  RegionTextureController.h
   SeparatorListControl.h
-  SeparatorPropertyControl.h
-  SeparatorTextureControl.h
+  SeparatorTextureController.h
   SettingsGeneralControl.h
-  SettingsManager.h
   SettingsResourcePathsControl.h
   SettingsResourcesControl.h
-  SettingsSector.h
-  SettingsWindow.h
-  SkinControl.h
-  SkinItem.h
+  SkinDataUtility.h
+  SkinExportSerializer.h
   SkinListControl.h
-  SkinManager.h
-  SkinPropertyControl.h
-  SkinTextureControl.h
-  StateControl.h
-  StateController.h
-  StateItem.h
+  SkinTextureController.h
   StateListControl.h
-  StateManager.h
-  StatePropertyControl.h
-  StateTextureControl.h
+  StateTextureController.h
+  StatisticInfoControl.h
   TestState.h
   TestWindow.h
-  TextFieldControl.h
-  TextureBrowseCell.h
-  TextureBrowseControl.h
-  TextureControl.h
-  TextureToolControl.h
-  VerticalSelectorBlackControl.h
-  VerticalSelectorControl.h
 )
 set (SOURCE_FILES
   ../../Common/Precompiled.cpp
-  ../../Common/Tools/Dialog.cpp
-  ../../Common/Tools/DialogManager.cpp
-  ../../Common/Tools/OpenSaveFileDialog.cpp
-  ActionManager.cpp
   Application.cpp
-  AreaSelectorControl.cpp
-  BackgroundControl.cpp
-  ColourManager.cpp
-  ColourPanel.cpp
-  CommandManager.cpp
+  ApplicationState.cpp
+  ChangeSeparatorOffsetAction.cpp
+  ChangeSeparatorVisibleAction.cpp
+  ChangeSkinSizeAction.cpp
+  ChangeTextureValueAction.cpp
+  CreateSkinDataAction.cpp
   EditorState.cpp
-  ExportManager.cpp
-  Grid.cpp
-  HorizontalSelectorBlackControl.cpp
-  HorizontalSelectorControl.cpp
-  HotKeyManager.cpp
-  ListBoxControl.cpp
-  ListBoxItemControl.cpp
-  MainMenuControl.cpp
-  MainPane.cpp
-  MessageBoxFadeControl.cpp
-  MessageBoxManager.cpp
-  MyGUI_FilterNoneSkin.cpp
-  PositionSelectorBlackControl.cpp
-  PositionSelectorControl.cpp
-  Property.cpp
   PropertyAlignControl.cpp
-  PropertyBoolControl.cpp
-  PropertyColourControl.cpp
-  PropertyControl.cpp
-  PropertyInt2Control.cpp
-  PropertyInt4Control.cpp
-  PropertyIntControl.cpp
+  PropertyRegionTextTypeControl.cpp
   PropertyRegionTypeControl.cpp
-  PropertySet.cpp
-  PropertyTexturesControl.cpp
-  RecentFilesManager.cpp
-  RegionControl.cpp
-  RegionItem.cpp
   RegionListControl.cpp
-  RegionPropertyControl.cpp
-  RegionTextureControl.cpp
-  SelectorControl.cpp
-  SeparatorControl.cpp
-  SeparatorItem.cpp
+  RegionTextureController.cpp
   SeparatorListControl.cpp
-  SeparatorPropertyControl.cpp
-  SeparatorTextureControl.cpp
+  SeparatorTextureController.cpp
   SettingsGeneralControl.cpp
-  SettingsManager.cpp
   SettingsResourcePathsControl.cpp
   SettingsResourcesControl.cpp
-  SettingsSector.cpp
-  SettingsWindow.cpp
-  SkinControl.cpp
+  SkinDataUtility.cpp
   SkinEditor.rc
-  SkinItem.cpp
+  SkinExportSerializer.cpp
   SkinListControl.cpp
-  SkinManager.cpp
-  SkinPropertyControl.cpp
-  SkinTextureControl.cpp
-  StateControl.cpp
-  StateItem.cpp
+  SkinTextureController.cpp
   StateListControl.cpp
-  StateManager.cpp
-  StatePropertyControl.cpp
-  StateTextureControl.cpp
+  StateTextureController.cpp
+  StatisticInfoControl.cpp
   TestState.cpp
   TestWindow.cpp
-  TextFieldControl.cpp
-  TextureBrowseCell.cpp
-  TextureBrowseControl.cpp
-  TextureControl.cpp
-  TextureToolControl.cpp
-  VerticalSelectorBlackControl.cpp
-  VerticalSelectorControl.cpp
 )
-SOURCE_GROUP("Header Files" FILES
-  ../../Common/Tools/Dialog.h
-  ../../Common/Tools/DialogManager.h
-  ../../Common/Tools/OpenSaveFileDialog.h
-  ActionManager.h
+SOURCE_GROUP("Actions" FILES
+  ChangeSeparatorOffsetAction.cpp
+  ChangeSeparatorOffsetAction.h
+  ChangeSeparatorVisibleAction.cpp
+  ChangeSeparatorVisibleAction.h
+  ChangeSkinSizeAction.cpp
+  ChangeSkinSizeAction.h
+  ChangeTextureValueAction.cpp
+  ChangeTextureValueAction.h
+  CreateSkinDataAction.cpp
+  CreateSkinDataAction.h
+)
+SOURCE_GROUP("Application" FILES
+  Application.cpp
   Application.h
-  AreaSelectorControl.h
-  BackgroundControl.h
-  Binary.h
-  ColourManager.h
-  ColourPanel.h
-  CommandManager.h
-  EditorState.h
-  ExportManager.h
-  Grid.h
-  HorizontalSelectorBlackControl.h
-  HorizontalSelectorControl.h
-  HotKeyCommand.h
-  HotKeyManager.h
-  ItemHolder.h
-  ListBoxControl.h
-  ListBoxItemControl.h
-  Localise.h
-  MainMenuControl.h
-  MainPane.h
-  MessageBoxFadeControl.h
-  MessageBoxManager.h
-  MyGUI_FilterNoneSkin.h
-  PositionSelectorBlackControl.h
-  PositionSelectorControl.h
-  Property.h
-  PropertyAdvisor.h
-  PropertyAlignControl.h
-  PropertyBoolControl.h
-  PropertyColourControl.h
-  PropertyControl.h
-  PropertyInt2Control.h
-  PropertyInt4Control.h
-  PropertyIntControl.h
-  PropertyRegionTypeControl.h
-  PropertySet.h
-  PropertyTexturesControl.h
-  RecentFilesManager.h
-  RegionControl.h
-  RegionItem.h
-  RegionListControl.h
-  RegionPropertyControl.h
-  RegionTextureControl.h
-  SelectorControl.h
-  SeparatorControl.h
-  SeparatorItem.h
-  SeparatorListControl.h
-  SeparatorPropertyControl.h
-  SeparatorTextureControl.h
-  SettingsGeneralControl.h
-  SettingsManager.h
-  SettingsResourcePathsControl.h
-  SettingsResourcesControl.h
-  SettingsSector.h
-  SettingsWindow.h
-  SkinControl.h
-  SkinItem.h
-  SkinListControl.h
-  SkinManager.h
-  SkinPropertyControl.h
-  SkinTextureControl.h
-  StateControl.h
-  StateController.h
-  StateItem.h
-  StateListControl.h
-  StateManager.h
-  StatePropertyControl.h
-  StateTextureControl.h
-  TestState.h
+)
+SOURCE_GROUP("Controllers" FILES
+  RegionTextureController.cpp
+  RegionTextureController.h
+  SeparatorTextureController.cpp
+  SeparatorTextureController.h
+  SkinTextureController.cpp
+  SkinTextureController.h
+  StateTextureController.cpp
+  StateTextureController.h
+)
+SOURCE_GROUP("Controls" FILES
+  TestWindow.cpp
   TestWindow.h
-  TextFieldControl.h
-  TextureBrowseCell.h
-  TextureBrowseControl.h
-  TextureControl.h
-  TextureToolControl.h
-  VerticalSelectorBlackControl.h
-  VerticalSelectorControl.h
+)
+SOURCE_GROUP("Controls\\Framework" FILES
+  StatisticInfoControl.cpp
+  StatisticInfoControl.h
+)
+SOURCE_GROUP("Controls\\Lists" FILES
+  RegionListControl.cpp
+  RegionListControl.h
+  SeparatorListControl.cpp
+  SeparatorListControl.h
+  SkinListControl.cpp
+  SkinListControl.h
+  StateListControl.cpp
+  StateListControl.h
+)
+SOURCE_GROUP("Controls\\Properties" FILES
+  PropertyAlignControl.cpp
+  PropertyAlignControl.h
+  PropertyRegionTextTypeControl.cpp
+  PropertyRegionTextTypeControl.h
+  PropertyRegionTypeControl.cpp
+  PropertyRegionTypeControl.h
+)
+SOURCE_GROUP("Controls\\Settings" FILES
+  SettingsGeneralControl.cpp
+  SettingsGeneralControl.h
+  SettingsResourcePathsControl.cpp
+  SettingsResourcePathsControl.h
+  SettingsResourcesControl.cpp
+  SettingsResourcesControl.h
+)
+SOURCE_GROUP("Data\\Utility" FILES
+  SkinDataUtility.cpp
+  SkinDataUtility.h
+)
+SOURCE_GROUP("Managers\\Exports" FILES
+  SkinExportSerializer.cpp
+  SkinExportSerializer.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Precompiled.cpp
   CMakeLists.txt
   SkinEditor.rc
 )
-SOURCE_GROUP("Source Files" FILES
-  ../../Common/Tools/Dialog.cpp
-  ../../Common/Tools/DialogManager.cpp
-  ../../Common/Tools/OpenSaveFileDialog.cpp
-  ActionManager.cpp
-  Application.cpp
-  AreaSelectorControl.cpp
-  BackgroundControl.cpp
-  ColourManager.cpp
-  ColourPanel.cpp
-  CommandManager.cpp
+SOURCE_GROUP("States" FILES
+  ApplicationState.cpp
+  ApplicationState.h
   EditorState.cpp
-  ExportManager.cpp
-  Grid.cpp
-  HorizontalSelectorBlackControl.cpp
-  HorizontalSelectorControl.cpp
-  HotKeyManager.cpp
-  ListBoxControl.cpp
-  ListBoxItemControl.cpp
-  MainMenuControl.cpp
-  MainPane.cpp
-  MessageBoxFadeControl.cpp
-  MessageBoxManager.cpp
-  MyGUI_FilterNoneSkin.cpp
-  PositionSelectorBlackControl.cpp
-  PositionSelectorControl.cpp
-  Property.cpp
-  PropertyAlignControl.cpp
-  PropertyBoolControl.cpp
-  PropertyColourControl.cpp
-  PropertyControl.cpp
-  PropertyInt2Control.cpp
-  PropertyInt4Control.cpp
-  PropertyIntControl.cpp
-  PropertyRegionTypeControl.cpp
-  PropertySet.cpp
-  PropertyTexturesControl.cpp
-  RecentFilesManager.cpp
-  RegionControl.cpp
-  RegionItem.cpp
-  RegionListControl.cpp
-  RegionPropertyControl.cpp
-  RegionTextureControl.cpp
-  SelectorControl.cpp
-  SeparatorControl.cpp
-  SeparatorItem.cpp
-  SeparatorListControl.cpp
-  SeparatorPropertyControl.cpp
-  SeparatorTextureControl.cpp
-  SettingsGeneralControl.cpp
-  SettingsManager.cpp
-  SettingsResourcePathsControl.cpp
-  SettingsResourcesControl.cpp
-  SettingsSector.cpp
-  SettingsWindow.cpp
-  SkinControl.cpp
-  SkinItem.cpp
-  SkinListControl.cpp
-  SkinManager.cpp
-  SkinPropertyControl.cpp
-  SkinTextureControl.cpp
-  StateControl.cpp
-  StateItem.cpp
-  StateListControl.cpp
-  StateManager.cpp
-  StatePropertyControl.cpp
-  StateTextureControl.cpp
+  EditorState.h
   TestState.cpp
-  TestWindow.cpp
-  TextFieldControl.cpp
-  TextureBrowseCell.cpp
-  TextureBrowseControl.cpp
-  TextureControl.cpp
-  TextureToolControl.cpp
-  VerticalSelectorBlackControl.cpp
-  VerticalSelectorControl.cpp
+  TestState.h
 )
