@@ -56,13 +56,11 @@ SOURCE_GROUP("Controllers" FILES
   IndexTextureController.cpp
   IndexTextureController.h
 )
-SOURCE_GROUP("Controls" FILES
-  AnimationViewControl.cpp
-  AnimationViewControl.h
-)
 SOURCE_GROUP("Controls\\Animations" FILES
   AnimationInfo.cpp
   AnimationInfo.h
+  AnimationViewControl.cpp
+  AnimationViewControl.h
 )
 SOURCE_GROUP("Controls\\Framework" FILES
   StatisticInfoControl.cpp
@@ -86,7 +84,7 @@ SOURCE_GROUP("Controls\\Settings" FILES
   SettingsResourcesControl.cpp
   SettingsResourcesControl.h
 )
-SOURCE_GROUP("Managers\\Exports" FILES
+SOURCE_GROUP("Exports" FILES
   ImageExportSerializer.cpp
   ImageExportSerializer.h
 )
