@@ -65,6 +65,8 @@ def writeFilters(FILE):
       FILE.writelines(")\n")
 
 def createFilesList(fileName, listName):
+    if (not os.path.exists(listName)):
+        return
 
     print "Converting " + fileName
     doc = get_a_document(fileName)
