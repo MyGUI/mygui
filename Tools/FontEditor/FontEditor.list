@@ -4,6 +4,9 @@ set (HEADER_FILES
   EditorState.h
   FontExportSerializer.h
   FontListControl.h
+  GenerateFontNamePropertyInitialisator.h
+  PropertyFontHintingControl.h
+  PropertyFontSourceControl.h
   SettingsGeneralControl.h
   SettingsResourcePathsControl.h
   SettingsResourcesControl.h
@@ -17,6 +20,9 @@ set (SOURCE_FILES
   FontEditor.rc
   FontExportSerializer.cpp
   FontListControl.cpp
+  GenerateFontNamePropertyInitialisator.cpp
+  PropertyFontHintingControl.cpp
+  PropertyFontSourceControl.cpp
   SettingsGeneralControl.cpp
   SettingsResourcePathsControl.cpp
   SettingsResourcesControl.cpp
@@ -34,6 +40,12 @@ SOURCE_GROUP("Controls\\List" FILES
   FontListControl.cpp
   FontListControl.h
 )
+SOURCE_GROUP("Controls\\Properties" FILES
+  PropertyFontHintingControl.cpp
+  PropertyFontHintingControl.h
+  PropertyFontSourceControl.cpp
+  PropertyFontSourceControl.h
+)
 SOURCE_GROUP("Controls\\Settings" FILES
   SettingsGeneralControl.cpp
   SettingsGeneralControl.h
@@ -45,6 +57,10 @@ SOURCE_GROUP("Controls\\Settings" FILES
 SOURCE_GROUP("Exports" FILES
   FontExportSerializer.cpp
   FontExportSerializer.h
+)
+SOURCE_GROUP("Properties\\Initialisators" FILES
+  GenerateFontNamePropertyInitialisator.cpp
+  GenerateFontNamePropertyInitialisator.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Precompiled.cpp
