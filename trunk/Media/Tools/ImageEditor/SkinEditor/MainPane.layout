@@ -4,11 +4,11 @@
         <UserString key="SnapTo" value="Stretch"/>
         <Widget type="Widget" skin="PanelEmpty" position="10 30 803 326" align="Stretch">
             <UserString key="ControlType" value="SeparatorControl"/>
-            <UserString key="ControlLayout" value="SkinMainWorkspacePane.layout"/>
+            <UserString key="ControlLayout" value="MainWorkspacePane.layout"/>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="10 0 803 21" align="HStretch Top">
             <UserString key="ControlType" value="MainMenuControl"/>
-            <UserString key="ControlLayout" value="SkinMainMenuControl.layout"/>
+            <UserString key="ControlLayout" value="MainMenuControl.layout"/>
         </Widget>
     </Widget>
 </MyGUI>
