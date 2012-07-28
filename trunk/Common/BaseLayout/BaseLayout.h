@@ -18,7 +18,7 @@ namespace wraps
 	{
 	protected:
 		BaseLayout() :
-			 mMainWidget(nullptr)
+			mMainWidget(nullptr)
 		{
 		}
 

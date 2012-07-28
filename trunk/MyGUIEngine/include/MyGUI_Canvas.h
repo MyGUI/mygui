@@ -75,7 +75,7 @@ namespace MyGUI
 			// Текстура всегда растягиваеться во весь виджет.
 			TRM_PT_CONST_SIZE,
 
-			/**	
+			/**
 				Mode when texture pixels look as is.
 				@remarks
 				The texture size is always more or equal than the widget size and is equal to a power of two.
