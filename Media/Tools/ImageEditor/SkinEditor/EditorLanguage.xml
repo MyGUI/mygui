@@ -2,10 +2,10 @@
 <MyGUI type="Language">
 	<Language default="English">
 		<Info name="English">
-			<Source>SkinEditorLanguageEnglishTag.xml</Source>
+			<Source>EditorLanguageEnglishTag.xml</Source>
 		</Info>
 		<Info name="Russian">
-			<Source>SkinEditorLanguageRussianTag.xml</Source>
+			<Source>EditorLanguageRussianTag.xml</Source>
 		</Info>
 	</Language>
 </MyGUI>
