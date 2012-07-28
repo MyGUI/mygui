@@ -4,5 +4,10 @@
         <UserString key="SnapTo" value="Stretch"/>
         <UserString key="HeightDistance" value="5"/>
         <UserString key="ControlControllers" value="PropertyPanelController"/>
+        <Widget type="ScrollView" skin="ScrollViewEmpty_Dark" position="0 0 240 510" align="Stretch" name="ScrollView">
+            <Property key="CanvasSize" value="128 128"/>
+            <Property key="VisibleHScroll" value="false"/>
+            <Property key="CanvasAlign" value="Default"/>
+        </Widget>
     </Widget>
 </MyGUI>

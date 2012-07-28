@@ -15,12 +15,15 @@ namespace tools
 
 	PropertyPanelControl::PropertyPanelControl() :
 		mCurrentData(nullptr),
-		mDistance(0)
+		mDistance(0),
+		mScrollView(nullptr),
+		mContentHeight(0)
 	{
 	}
 
 	PropertyPanelControl::~PropertyPanelControl()
 	{
+		mMainWidget->eventChangeCoord -= MyGUI::newDelegate(this, &PropertyPanelControl::notifyChangeCoord);
 	}
 
 	void PropertyPanelControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
@@ -28,6 +31,9 @@ namespace tools
 		Control::OnInitialise(_parent, _place, _layoutName);
 
 		mDistance = MyGUI::utility::parseValue<int>(mMainWidget->getUserString("HeightDistance"));
+		assignWidget(mScrollView, "ScrollView");
+
+		mMainWidget->eventChangeCoord += MyGUI::newDelegate(this, &PropertyPanelControl::notifyChangeCoord);
 	}
 
 	void PropertyPanelControl::HideControls()
@@ -37,6 +43,9 @@ namespace tools
 			(*control).second->setProperty(nullptr);
 			(*control).second->getRoot()->setVisible(false);
 		}
+
+		mScrollView->setCanvasSize(0, 0);
+		mContentHeight = 0;
 	}
 
 	void PropertyPanelControl::InitialiseProperty(PropertyPtr _property, int& _height)
@@ -59,7 +68,7 @@ namespace tools
 			control = components::FactoryManager::GetInstance().CreateItem<PropertyControl>(_property->getType()->getType());
 			if (control != nullptr)
 			{
-				control->Initialise(this, mMainWidget, "");
+				control->Initialise(this, mScrollView, "");
 
 				mPropertyControls.push_back(std::make_pair(_property->getType()->getType(), control));
 			}
@@ -82,17 +91,31 @@ namespace tools
 
 		if (mCurrentData != nullptr)
 		{
-			int height = 0;
+			mContentHeight = 0;
 			const DataType::VectorProperty& properties = mCurrentData->getType()->getProperties();
 			for (DataType::VectorProperty::const_iterator property = properties.begin(); property != properties.end(); property ++)
 			{
 				if ((*property)->getVisible())
 				{
 					PropertyPtr pr = mCurrentData->getProperty((*property)->getName());
-						InitialiseProperty(pr, height);
+						InitialiseProperty(pr, mContentHeight);
 				}
 			}
+
+			updateView();
 		}
+	}
+
+	void PropertyPanelControl::updateView()
+	{
+		mScrollView->setCanvasSize((std::numeric_limits<int>::max)(), (std::numeric_limits<int>::max)());
+		mScrollView->setCanvasSize(1, mContentHeight);
+		mScrollView->setCanvasSize(mScrollView->getViewCoord().width, mContentHeight);
+	}
+
+	void PropertyPanelControl::notifyChangeCoord(MyGUI::Widget* _sender)
+	{
+		updateView();
 	}
 
 }

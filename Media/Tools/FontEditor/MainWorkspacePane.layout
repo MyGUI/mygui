@@ -38,7 +38,7 @@
             <UserString key="Separator" value="Horizontal"/>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="435 0 270 725" align="Right VStretch">
-            <UserString key="MinSize" value="100"/>
+            <UserString key="MinSize" value="200"/>
             <Widget type="Widget" skin="Panel1Skin_Dark" position="0 0 270 725" align="Stretch">
                 <Widget type="Widget" skin="PanelEmpty" position="6 21 258 698" align="Stretch">
                     <UserString key="ControlType" value="PropertyPanelControl"/>
