@@ -6,7 +6,7 @@
 	</Files>
 	<Workspace>
 		<Colours>
-			<ColourBackground>0 0 0 0</ColourBackground>
+			<ColourBackground>0 0 0 1</ColourBackground>
 		</Colours>
 		<TextureScale>
 			<ScaleValue.List>
