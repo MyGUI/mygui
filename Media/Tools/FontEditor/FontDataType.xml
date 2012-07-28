@@ -67,24 +67,6 @@
 					<Action></Action>
 				</Property>
 				<Property>
-					<Name>TextureSizeResult</Name>
-					<Type>PropertyInt2Control</Type>
-					<Initialisator/>
-					<Default>0 0</Default>
-					<Visible>true</Visible>
-					<ReadOnly>true</ReadOnly>
-					<Action></Action>
-				</Property>
-				<Property>
-					<Name>FontHeightPix</Name>
-					<Type>PropertyIntControl</Type>
-					<Initialisator/>
-					<Default>0</Default>
-					<Visible>true</Visible>
-					<ReadOnly>true</ReadOnly>
-					<Action></Action>
-				</Property>
-				<Property>
 					<Name>Resolution</Name>
 					<Type>PropertyIntControl</Type>
 					<Initialisator/>
@@ -137,6 +119,24 @@
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
 					<Action>ChangeValueAction</Action>
+				</Property>
+				<Property>
+					<Name>TextureSizeResult</Name>
+					<Type>PropertyInt2Control</Type>
+					<Initialisator/>
+					<Default>0 0</Default>
+					<Visible>true</Visible>
+					<ReadOnly>true</ReadOnly>
+					<Action></Action>
+				</Property>
+				<Property>
+					<Name>FontHeightPix</Name>
+					<Type>PropertyIntControl</Type>
+					<Initialisator/>
+					<Default>0</Default>
+					<Visible>true</Visible>
+					<ReadOnly>true</ReadOnly>
+					<Action></Action>
 				</Property>
 			</Properties>
 		</DataType>

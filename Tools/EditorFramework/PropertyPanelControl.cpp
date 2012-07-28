@@ -83,11 +83,14 @@ namespace tools
 		if (mCurrentData != nullptr)
 		{
 			int height = 0;
-			Data::MapProperty properties = mCurrentData->getProperties();
-			for (Data::MapProperty::iterator property = properties.begin(); property != properties.end(); property ++)
+			const DataType::VectorProperty& properties = mCurrentData->getType()->getProperties();
+			for (DataType::VectorProperty::const_iterator property = properties.begin(); property != properties.end(); property ++)
 			{
-				if ((*property).second->getType()->getVisible())
-					InitialiseProperty((*property).second, height);
+				if ((*property)->getVisible())
+				{
+					PropertyPtr pr = mCurrentData->getProperty((*property)->getName());
+						InitialiseProperty(pr, height);
+				}
 			}
 		}
 	}
