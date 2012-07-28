@@ -7,6 +7,7 @@
 #include "Precompiled.h"
 #include "TestWindow.h"
 #include "SkinExportSerializer.h"
+#include "SettingsManager.h"
 
 namespace tools
 {
@@ -36,7 +37,7 @@ namespace tools
 
 		mBackgroundControl = findControl<BackgroundControl>();
 
-		mTestSkinFileName = "TestSkin.xml";
+		mTestSkinFileName = SettingsManager::getInstance().getValue("Editor/TestSkinFileName");
 		mDefaultFontName = getRoot()->getUserString("DefaultFontName");
 		if (mDefaultFontName.empty())
 			mDefaultFontName = "Default";
