@@ -6,7 +6,7 @@
         <Widget type="Widget" skin="PanelEmpty" position="0 0 300 725" align="Left VStretch">
             <UserString key="MinSize" value="256"/>
             <UserString key="ControlType" value="Control"/>
-            <UserString key="ControlLayout" value="SkinMainPaneTab.layout"/>
+            <UserString key="ControlLayout" value="MainPaneTab.layout"/>
         </Widget>
         <Widget type="Widget" skin="SeparatorH_Dark" position="300 0 10 725" align="Left VStretch">
             <UserString key="Separator" value="Horizontal"/>
@@ -20,7 +20,7 @@
             </Widget>
             <Widget type="Widget" skin="PanelEmpty" position="5 20 105 700" align="Stretch">
                 <UserString key="ControlType" value="Control"/>
-                <UserString key="ControlLayout" value="SkinTextureViewToolControl.layout"/>
+                <UserString key="ControlLayout" value="TextureViewToolControl.layout"/>
             </Widget>
         </Widget>
         <Widget type="Widget" skin="SeparatorH_Dark" position="425 0 10 725" align="Right VStretch">
