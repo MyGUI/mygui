@@ -124,9 +124,10 @@ namespace tools
 		nodeProperty.append_attribute("key").set_value("Resolution");
 		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("Resolution").c_str());
 
+		std::string value = MyGUI::utility::toString(MyGUI::utility::parseValue<bool>(_data->getPropertyValue("Antialias")));
 		nodeProperty = node.append_child("Property");
 		nodeProperty.append_attribute("key").set_value("Antialias");
-		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("Antialias").c_str());
+		nodeProperty.append_attribute("value").set_value(value.c_str());
 
 		nodeProperty = node.append_child("Property");
 		nodeProperty.append_attribute("key").set_value("TabWidth");
@@ -141,7 +142,7 @@ namespace tools
 		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("SubstituteCode").c_str());
 
 		pugi::xml_node nodeCodes = node.append_child("Codes");
-		std::string value = _data->getPropertyValue("FontCodeRanges");
+		value = _data->getPropertyValue("FontCodeRanges");
 		std::vector<std::string> values = MyGUI::utility::split(value, "|");
 		for (size_t index = 0; index < values.size(); index ++)
 			nodeCodes.append_child("Code").append_attribute("range").set_value(values[index].c_str());
