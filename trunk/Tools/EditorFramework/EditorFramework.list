@@ -58,6 +58,7 @@ set (HEADER_FILES
   PropertyInt4Control.h
   PropertyIntControl.h
   PropertyPanelControl.h
+  PropertyPanelController.h
   PropertyStringControl.h
   PropertyTexturesControl.h
   PropertyUtility.h
@@ -136,6 +137,7 @@ set (SOURCE_FILES
   PropertyInt4Control.cpp
   PropertyIntControl.cpp
   PropertyPanelControl.cpp
+  PropertyPanelController.cpp
   PropertyStringControl.cpp
   PropertyTexturesControl.cpp
   PropertyUtility.cpp
@@ -196,6 +198,8 @@ SOURCE_GROUP("Controls\\Common" FILES
 )
 SOURCE_GROUP("Controls\\Controllers" FILES
   IControlController.h
+  PropertyPanelController.cpp
+  PropertyPanelController.h
 )
 SOURCE_GROUP("Controls\\Framework" FILES
   FocusInfoControl.cpp
