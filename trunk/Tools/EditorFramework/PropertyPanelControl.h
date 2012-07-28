@@ -29,14 +29,20 @@ namespace tools
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
+		void notifyChangeCoord(MyGUI::Widget* _sender);
+
 		void HideControls();
 		void InitialiseProperty(PropertyPtr _property, int& _height);
+
+		void updateView();
 
 	private:
 		DataPtr mCurrentData;
 		typedef std::vector<std::pair<std::string, PropertyControl*> > VectorPairControl;
 		VectorPairControl mPropertyControls;
 		int mDistance;
+		MyGUI::ScrollView* mScrollView;
+		int mContentHeight;
 	};
 
 }
