@@ -10,39 +10,39 @@
             <Property key="Caption" value="#{Delete}"/>
             <UserString key="CommandClick" value="Command_DestroySkinData"/>
         </Widget>
-        <Widget type="ListBox" skin="ListBox2_Dark" position="4 4 248 435" align="Stretch">
+        <Widget type="ListBox" skin="ListBox_Dark" position="4 4 248 435" align="Stretch">
             <UserString key="ControlType" value="ListBoxDataControl"/>
             <Widget type="EditBox" skin="EditBoxEmpty_Dark" position="0 0 244 431" align="Stretch" name="HelpPanel">
                 <Property key="Caption" value="#{SkinListControlHelp}"/>
-				<Property key="FontName" value="DejaVuSans_28"/>
+                <Property key="FontName" value="DejaVuSans_28"/>
                 <Property key="TextAlign" value="Center"/>
                 <Property key="MultiLine" value="true"/>
                 <Property key="WordWrap" value="true"/>
                 <Property key="Static" value="true"/>
                 <Property key="TextColour" value="#595959"/>
-				<Property key="NeedMouse" value="false"/>
-			</Widget>
-            <Widget type="PopupMenu" skin="PopupMenu_Dark" position="25 555 99 70" style="Popup" layer="Popup" name="ContextMenu">
+                <Property key="NeedMouse" value="false"/>
+            </Widget>
+            <Widget type="PopupMenu" skin="PopupMenu_Dark" position="25 555 99 88" style="Popup" layer="Popup" name="ContextMenu">
                 <Property key="Visible" value="false"/>
                 <Widget type="MenuItem" skin="" position="0 0 93 18">
                     <Property key="Caption" value="#{Create}"/>
                     <Property key="MenuItemId" value="Create"/>
                     <UserString key="CommandClick" value="Command_CreateSkinData"/>
                 </Widget>
-				<Widget type="MenuItem" skin="" position="0 0 93 18">
-					<Property key="Caption" value="#{Clone}"/>
-					<Property key="MenuItemId" value="Clone"/>
-					<UserString key="CommandClick" value="Command_CloneSkinData"/>
-				</Widget>
-				<Widget type="MenuItem" skin="" position="0 18 93 18">
+                <Widget type="MenuItem" skin="" position="0 18 93 18">
+                    <Property key="Caption" value="#{Clone}"/>
+                    <Property key="MenuItemId" value="Clone"/>
+                    <UserString key="CommandClick" value="Command_CloneSkinData"/>
+                </Widget>
+                <Widget type="MenuItem" skin="" position="0 36 93 18">
                     <Property key="Caption" value="#{Delete}"/>
                     <Property key="MenuItemId" value="Delete"/>
                     <UserString key="CommandClick" value="Command_DestroySkinData"/>
                 </Widget>
-                <Widget type="MenuItem" skin="" position="0 36 93 10">
+                <Widget type="MenuItem" skin="" position="0 54 93 10">
                     <Property key="MenuItemType" value="Separator"/>
                 </Widget>
-                <Widget type="MenuItem" skin="" position="0 46 93 18">
+                <Widget type="MenuItem" skin="" position="0 64 93 18">
                     <Property key="Caption" value="#{Rename}"/>
                     <Property key="MenuItemId" value="Rename"/>
                     <UserString key="CommandClick" value="Command_RenameSkinData"/>

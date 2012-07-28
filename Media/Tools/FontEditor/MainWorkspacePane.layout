@@ -3,10 +3,16 @@
     <Widget type="Widget" skin="PanelEmpty" position="20 20 705 725" align="Stretch" name="Root">
         <UserString key="SnapTo" value="Stretch"/>
         <UserString key="SaveAs" value="MainWorkspace"/>
-        <Widget type="Widget" skin="PanelEmpty" position="0 0 300 725" align="Left VStretch">
-            <UserString key="ControlLayout" value="MainPaneTab.layout"/>
+        <Widget type="Widget" skin="Panel1Skin_Dark" position="0 0 300 725" align="Left VStretch">
             <UserString key="MinSize" value="256"/>
-            <UserString key="ControlType" value="Control"/>
+            <Widget type="Widget" skin="PanelEmpty" position="6 20 288 699" align="Stretch">
+                <UserString key="ControlLayout" value="FontListControl.layout"/>
+                <UserString key="ControlType" value="FontListControl"/>
+            </Widget>
+            <Widget type="TextBox" skin="TextBox_Dark" position="10 0 285 20" align="HStretch Top">
+                <Property key="Caption" value="#{TabFonts}"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+            </Widget>
         </Widget>
         <Widget type="Widget" skin="SeparatorH_Dark" position="300 0 10 725" align="Left VStretch">
             <UserString key="Separator" value="Horizontal"/>
@@ -18,7 +24,7 @@
                 <Property key="FontName" value="DejaVuSansFont_13"/>
                 <Property key="Caption" value="#{TexturePanel}"/>
             </Widget>
-            <Widget type="Widget" skin="PanelEmpty" position="5 20 105 646" align="Stretch">
+            <Widget type="Widget" skin="PanelEmpty" position="6 21 103 645" align="Stretch">
                 <UserString key="ControlLayout" value="TextureViewToolControl.layout"/>
                 <UserString key="ControlType" value="Control"/>
             </Widget>
@@ -34,7 +40,7 @@
         <Widget type="Widget" skin="PanelEmpty" position="435 0 270 725" align="Right VStretch">
             <UserString key="MinSize" value="100"/>
             <Widget type="Widget" skin="Panel1Skin_Dark" position="0 0 270 725" align="Stretch">
-                <Widget type="Widget" skin="PanelEmpty" position="5 20 260 700" align="Stretch">
+                <Widget type="Widget" skin="PanelEmpty" position="6 21 258 698" align="Stretch">
                     <UserString key="ControlType" value="PropertyPanelControl"/>
                     <UserString key="ControlLayout" value="PropertyPanel.layout"/>
                 </Widget>

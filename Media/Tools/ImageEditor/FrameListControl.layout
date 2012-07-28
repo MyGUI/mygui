@@ -10,7 +10,7 @@
             <Property key="Caption" value="#{Delete}"/>
             <UserString key="CommandClick" value="Command_DestroyFrameData"/>
         </Widget>
-        <Widget type="ListBox" skin="ListBox2_Dark" position="4 4 248 435" align="Stretch">
+        <Widget type="ListBox" skin="ListBox_Dark" position="4 4 248 435" align="Stretch">
             <UserString key="ControlType" value="ListBoxDataControl"/>
             <UserString key="PropertyForName" value="Point"/>
             <Widget type="EditBox" skin="EditBoxEmpty_Dark" position="0 0 244 431" align="Stretch" name="HelpPanel">
@@ -23,19 +23,19 @@
                 <Property key="TextColour" value="#595959"/>
                 <Property key="NeedMouse" value="false"/>
             </Widget>
-            <Widget type="PopupMenu" skin="PopupMenu_Dark" position="25 555 91 42" style="Popup" layer="Popup" name="ContextMenu">
+            <Widget type="PopupMenu" skin="PopupMenu_Dark" position="25 555 91 60" style="Popup" layer="Popup" name="ContextMenu">
                 <Property key="Visible" value="false"/>
                 <Widget type="MenuItem" skin="" position="0 0 85 18">
                     <Property key="Caption" value="#{Create}"/>
                     <Property key="MenuItemId" value="Create"/>
                     <UserString key="CommandClick" value="Command_CreateFrameData"/>
                 </Widget>
-				<Widget type="MenuItem" skin="" position="0 0 85 18">
-					<Property key="Caption" value="#{Clone}"/>
-					<Property key="MenuItemId" value="Clone"/>
-					<UserString key="CommandClick" value="Command_CloneFrameData"/>
-				</Widget>
-				<Widget type="MenuItem" skin="" position="0 18 85 18">
+                <Widget type="MenuItem" skin="" position="0 18 85 18">
+                    <Property key="Caption" value="#{Clone}"/>
+                    <Property key="MenuItemId" value="Clone"/>
+                    <UserString key="CommandClick" value="Command_CloneFrameData"/>
+                </Widget>
+                <Widget type="MenuItem" skin="" position="0 36 85 18">
                     <Property key="Caption" value="#{Delete}"/>
                     <Property key="MenuItemId" value="Delete"/>
                     <UserString key="CommandClick" value="Command_DestroyFrameData"/>
