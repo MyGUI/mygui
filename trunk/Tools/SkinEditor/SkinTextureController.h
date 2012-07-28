@@ -33,6 +33,7 @@ namespace tools
 		void notifyChangeScope(const std::string& _scope);
 
 		void updateCoords(const std::string& _value);
+		void updateTexture(const std::string& _value);
 
 	private:
 		ScopeTextureControl* mControl;

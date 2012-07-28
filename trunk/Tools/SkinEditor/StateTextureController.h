@@ -34,6 +34,7 @@ namespace tools
 
 		void updateCoords(const std::string& _value);
 		void updateFrames();
+		void updateTexture(const std::string& _value);
 
 	private:
 		ScopeTextureControl* mControl;
