@@ -1,31 +1,59 @@
 set (HEADER_FILES
-  DemoKeeper.h
-  FontPanel.h
-  FontView.h
-  TextureView.h
+  Application.h
+  ApplicationState.h
+  EditorState.h
+  FontExportSerializer.h
+  FontListControl.h
+  SettingsGeneralControl.h
+  SettingsResourcePathsControl.h
+  SettingsResourcesControl.h
+  StatisticInfoControl.h
 )
 set (SOURCE_FILES
   ../../Common/Precompiled.cpp
-  DemoKeeper.cpp
-  FontPanel.cpp
-  FontView.cpp
+  Application.cpp
+  ApplicationState.cpp
+  EditorState.cpp
   FontEditor.rc
-  TextureView.cpp
+  FontExportSerializer.cpp
+  FontListControl.cpp
+  SettingsGeneralControl.cpp
+  SettingsResourcePathsControl.cpp
+  SettingsResourcesControl.cpp
+  StatisticInfoControl.cpp
 )
-SOURCE_GROUP("Header Files" FILES
-  DemoKeeper.h
-  FontPanel.h
-  FontView.h
-  TextureView.h
+SOURCE_GROUP("Application" FILES
+  Application.cpp
+  Application.h
+)
+SOURCE_GROUP("Controls\\Framework" FILES
+  StatisticInfoControl.cpp
+  StatisticInfoControl.h
+)
+SOURCE_GROUP("Controls\\List" FILES
+  FontListControl.cpp
+  FontListControl.h
+)
+SOURCE_GROUP("Controls\\Settings" FILES
+  SettingsGeneralControl.cpp
+  SettingsGeneralControl.h
+  SettingsResourcePathsControl.cpp
+  SettingsResourcePathsControl.h
+  SettingsResourcesControl.cpp
+  SettingsResourcesControl.h
+)
+SOURCE_GROUP("Exports" FILES
+  FontExportSerializer.cpp
+  FontExportSerializer.h
 )
 SOURCE_GROUP("Resources" FILES
   ../../Common/Precompiled.cpp
   CMakeLists.txt
   FontEditor.rc
 )
-SOURCE_GROUP("Source Files" FILES
-  DemoKeeper.cpp
-  FontPanel.cpp
-  FontView.cpp
-  TextureView.cpp
+SOURCE_GROUP("States" FILES
+  ApplicationState.cpp
+  ApplicationState.h
+  EditorState.cpp
+  EditorState.h
 )
