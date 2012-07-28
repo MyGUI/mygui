@@ -3,27 +3,20 @@
 	@author		Albert Semenov
 	@date		08/2008
 */
+
 #include "Precompiled.h"
 #include "TestWindow.h"
-#include "ExportManager.h"
+#include "SkinExportSerializer.h"
 
 namespace tools
 {
 
 	TestWindow::TestWindow() :
-		Dialog("TestWindow.layout"),
 		mBackgroundControl(nullptr),
 		mSkinItem(nullptr),
 		mSkinButton(nullptr),
 		mSkinName("GeneratedSkinName")
 	{
-		assignBase(mBackgroundControl, "BackgroundControl");
-
-		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
-		if (window != nullptr)
-			window->eventWindowButtonPressed += MyGUI::newDelegate(this, &TestWindow::notifyWindowButtonPressed);
-
-		mMainWidget->setVisible(false);
 	}
 
 	TestWindow::~TestWindow()
@@ -31,6 +24,26 @@ namespace tools
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
 			window->eventWindowButtonPressed -= MyGUI::newDelegate(this, &TestWindow::notifyWindowButtonPressed);
+	}
+
+	void TestWindow::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::OnInitialise(_parent, _place, "TestWindow.layout");
+
+		setDialogRoot(mMainWidget);
+
+		assignWidget(mBack, "BackgroundControl");
+
+		mBackgroundControl = findControl<BackgroundControl>();
+
+		mTestSkinFileName = "TestSkin.xml";
+		mDefaultFontName = getRoot()->getUserString("DefaultFontName");
+		if (mDefaultFontName.empty())
+			mDefaultFontName = "Default";
+
+		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
+		if (window != nullptr)
+			window->eventWindowButtonPressed += MyGUI::newDelegate(this, &TestWindow::notifyWindowButtonPressed);
 	}
 
 	void TestWindow::onDoModal()
@@ -48,7 +61,7 @@ namespace tools
 		eventEndDialog(this, false);
 	}
 
-	void TestWindow::setSkinItem(SkinItem* _item)
+	void TestWindow::setSkinItem(DataPtr _item)
 	{
 		mSkinItem = _item;
 	}
@@ -63,12 +76,12 @@ namespace tools
 		generateSkin();
 
 		mSkinButton = mBackgroundControl->getCanvas()->createWidget<MyGUI::Button>(mSkinName, MyGUI::IntCoord(0, 0, canvasSize.width, canvasSize.height), MyGUI::Align::Stretch);
-		mSkinButton->setFontName("Default");
+		mSkinButton->setFontName(mDefaultFontName);
 		mSkinButton->setTextAlign(MyGUI::Align::Center);
 		mSkinButton->setCaption("Caption");
 		mSkinButton->eventMouseButtonPressed += MyGUI::newDelegate(this, &TestWindow::notifyMouseButtonPressed);
 
-		MyGUI::IntCoord coord = MyGUI::IntCoord ::parse(mSkinItem->getPropertySet()->getPropertyValue("Coord"));
+		MyGUI::IntCoord coord = mSkinItem->getPropertyValue<MyGUI::IntCoord>("Size");
 		MyGUI::IntSize windowSize = coord.size() + mMainWidget->getSize() - canvasSize;
 		MyGUI::IntSize parentSize = mMainWidget->getParentSize();
 
@@ -98,23 +111,28 @@ namespace tools
 		if (MyGUI::ResourceManager::getInstance().isExist(mSkinName))
 			MyGUI::ResourceManager::getInstance().removeByName(mSkinName);
 
-		MyGUI::xml::Document doc;
-		doc.createDeclaration();
-		MyGUI::xml::Element* root = doc.createRoot("Resource");
-		mSkinItem->serialization(root, MyGUI::Version());
+		pugi::xml_document doc;
+		pugi::xml_node decl = doc.prepend_child(pugi::node_declaration);
+		decl.append_attribute("version") = "1.0";
+		decl.append_attribute("encoding") = "UTF-8";
 
-		MyGUI::xml::Document docOut;
-		docOut.createDeclaration();
-		MyGUI::xml::Element* rootOut = docOut.createRoot("MyGUI");
-		rootOut->addAttribute("type", "Resource");
-		rootOut->addAttribute("version", "1.1");
-		MyGUI::xml::Element* resourceNode = rootOut->createChild("Resource");
+		pugi::xml_node root = doc.append_child("MyGUI");
+		root.append_attribute("type").set_value("Resource");
+		root.append_attribute("version").set_value("1.1");
 
-		ExportManager::getInstance().convertSkin(root, resourceNode);
+		SkinExportSerializer* serializer = new SkinExportSerializer();
+		serializer->writeSkin(root, mSkinItem);
+		delete serializer;
 
-		resourceNode->setAttribute("name", mSkinName);
+		root.select_single_node("Resource/@name").attribute().set_value(mSkinName.c_str());
 
-		MyGUI::ResourceManager::getInstance().loadFromXmlNode(rootOut, "", MyGUI::Version(1, 1, 0));
+		bool result = doc.save_file(mTestSkinFileName.c_str(), "\t", (pugi::format_indent | pugi::format_write_bom | pugi::format_win_new_line) & (~pugi::format_space_before_slash));
+
+		MyGUI::xml::Document docLoad;
+		docLoad.open(mTestSkinFileName);
+		MyGUI::xml::Element* resourceNode = docLoad.getRoot();
+
+		MyGUI::ResourceManager::getInstance().loadFromXmlNode(resourceNode, "", MyGUI::Version(1, 1, 0));
 	}
 
-} // namespace tools
+}

@@ -1,18 +1,22 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		08/2010
+	@date		07/2012
 */
-#ifndef __TEST_STATE_H__
-#define __TEST_STATE_H__
+
+#ifndef _41f706df_2a78_46f6_a92a_c9e12a910964_
+#define _41f706df_2a78_46f6_a92a_c9e12a910964_
 
 #include "StateController.h"
+#include "sigslot.h"
 #include "TestWindow.h"
 
 namespace tools
 {
+
 	class TestState :
-		public StateController
+		public StateController,
+		public sigslot::has_slots<>
 	{
 	public:
 		TestState();
@@ -25,12 +29,15 @@ namespace tools
 		virtual void resumeState();
 
 	private:
+		void commandTest(const MyGUI::UString& _commandName, bool& _result);
+		void commandQuit(const MyGUI::UString& _commandName, bool& _result);
 		void notifyEndDialogTest(Dialog* _sender, bool _result);
 
 	private:
 		TestWindow* mTestWindow;
+		Control* mBack;
 	};
 
-} // namespace tools
+}
 
-#endif // __TEST_STATE_H__
+#endif

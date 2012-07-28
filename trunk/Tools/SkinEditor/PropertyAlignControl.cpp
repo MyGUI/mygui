@@ -3,16 +3,30 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "PropertyAlignControl.h"
+#include "FactoryManager.h"
 
 namespace tools
 {
 
-	PropertyAlignControl::PropertyAlignControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("PropertyComboBoxControl.layout", _parent),
-		mComboBox(nullptr)
+	FACTORY_ITEM_ATTRIBUTE(PropertyAlignControl)
+
+	PropertyAlignControl::PropertyAlignControl()
 	{
+	}
+
+	PropertyAlignControl::~PropertyAlignControl()
+	{
+		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyAlignControl::notifyComboChangePosition);
+	}
+
+	void PropertyAlignControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		PropertyControl::OnInitialise(_parent, _place, "PropertyComboBoxControl.layout");
+
+		assignWidget(mName, "Name", false);
 		assignWidget(mComboBox, "ComboBox");
 
 		mComboBox->addItem("Default");
@@ -37,23 +51,24 @@ namespace tools
 		mComboBox->addItem("HCenter Bottom");
 		mComboBox->addItem("HCenter VStretch");
 		mComboBox->addItem("HCenter VCenter");
-
 		mComboBox->beginToItemFirst();
 
 		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyAlignControl::notifyComboChangePosition);
 	}
 
-	PropertyAlignControl::~PropertyAlignControl()
+	void PropertyAlignControl::updateCaption()
 	{
-		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyAlignControl::notifyComboChangePosition);
+		PropertyPtr proper = getProperty();
+		if (proper != nullptr)
+			mName->setCaption(proper->getType()->getName());
 	}
 
 	void PropertyAlignControl::updateProperty()
 	{
-		Property* proper = getProperty();
+		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 		{
-			mComboBox->setEnabled(!proper->getReadOnly());
+			mComboBox->setEnabled(!proper->getType()->getReadOnly());
 			size_t index = getComboIndex(proper->getValue());
 			mComboBox->setIndexSelected(index);
 		}
@@ -66,13 +81,11 @@ namespace tools
 
 	void PropertyAlignControl::notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index)
 	{
-		Property* proper = getProperty();
+		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 		{
-			if (_index != MyGUI::ITEM_NONE)
-				proper->setValue(mComboBox->getItemNameAt(_index), getTypeName());
-			else
-				proper->setValue("", getTypeName());
+			std::string value = _index != MyGUI::ITEM_NONE ? mComboBox->getItemNameAt(_index) : "";
+			executeAction(value);
 		}
 	}
 
@@ -93,4 +106,4 @@ namespace tools
 		return result;
 	}
 
-} // namespace tools
+}

@@ -4,20 +4,20 @@
 	@date		08/2010
 */
 
-#ifndef _3b820011_7157_4d96_87d3_07c4e199d2c8_
-#define _3b820011_7157_4d96_87d3_07c4e199d2c8_
+#ifndef _bee00f7e_81b1_4fb4_9da0_7e52abb5d087_
+#define _bee00f7e_81b1_4fb4_9da0_7e52abb5d087_
 
 #include "PropertyControl.h"
 
 namespace tools
 {
 
-	class PropertyAlignControl :
+	class PropertyRegionTextTypeControl :
 		public PropertyControl
 	{
 	public:
-		PropertyAlignControl();
-		virtual ~PropertyAlignControl();
+		PropertyRegionTextTypeControl();
+		virtual ~PropertyRegionTextTypeControl();
 
 	protected:
 		virtual void updateCaption();

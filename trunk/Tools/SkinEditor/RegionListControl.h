@@ -1,56 +1,34 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		08/2010
+	@date		07/2012
 */
-#ifndef __REGION_LIST_CONTROL_H__
-#define __REGION_LIST_CONTROL_H__
 
-#include "BaseLayout/BaseLayout.h"
-#include "RegionItem.h"
-#include "PropertyAdvisor.h"
+#ifndef _33e1ba1a_1c04_42c3_be29_00db6f6cb3a0_
+#define _33e1ba1a_1c04_42c3_be29_00db6f6cb3a0_
+
+#include "Control.h"
+#include "Data.h"
+#include "ListBoxDataControl.h"
 
 namespace tools
 {
 
 	class RegionListControl :
-		public wraps::BaseLayout,
-		public PropertyAdvisor
+		public Control,
+		public sigslot::has_slots<>
 	{
 	public:
-		RegionListControl(MyGUI::Widget* _parent);
+		RegionListControl();
 		virtual ~RegionListControl();
 
-	private:
-		void notifyChangePosition(MyGUI::ListBox* _sender, size_t _index);
-
-		virtual void updateRegionProperties();
-		virtual void updateSeparatorProperties();
-		virtual void updateSkinProperties();
-
-		virtual void updateRegionProperty(Property* _sender, const MyGUI::UString& _owner);
-		virtual void updateSeparatorProperty(Property* _sender, const MyGUI::UString& _owner);
-		virtual void updateSkinProperty(Property* _sender, const MyGUI::UString& _owner);
-
-		void updateList();
-
-		void updateCoord();
-
-		void updateRegionEnabled();
-		void updateRegionPosition();
-
-		bool isSeparatorVisible(MyGUI::Align _value);
-		int getSeparatorPosition(MyGUI::Align _value);
-
-		RegionItem* getRegion(MyGUI::Align _align);
+	protected:
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
-		MyGUI::ListBox* mList;
-		MyGUI::UString mTypeName;
-
-		MyGUI::IntCoord mCoordValue;
+		ListBoxDataControl* mListBoxControl;
 	};
 
-} // namespace tools
+}
 
-#endif // __REGION_LIST_CONTROL_H__
+#endif

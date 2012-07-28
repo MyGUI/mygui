@@ -3,21 +3,21 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __DEMO_KEEPER_H__
-#define __DEMO_KEEPER_H__
 
-#include "Base/BaseDemoManager.h"
-#include "StateController.h"
-#include "EditorState.h"
-#include "TestState.h"
+#ifndef _e5a988fe_bba2_480f_a287_d5c967f58266_
+#define _e5a988fe_bba2_480f_a287_d5c967f58266_
+
+#include "BaseManager.h"
+#include "sigslot.h"
+#include "Control.h"
 
 namespace tools
 {
 
 	class Application :
-		public base::BaseDemoManager,
+		public base::BaseManager,
 		public MyGUI::Singleton<Application>,
-		public StateController
+		public sigslot::has_slots<>
 	{
 	public:
 		Application();
@@ -33,13 +33,9 @@ namespace tools
 		typedef std::vector<std::wstring> VectorWString;
 		const VectorWString& getParams();
 
-		virtual void resumeState();
-
 	protected:
 		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
 
-		void command_StatisticInfo(const MyGUI::UString& _commandName, bool& _result);
-		void command_FocusVisible(const MyGUI::UString& _commandName, bool& _result);
 		void command_ScreenShot(const MyGUI::UString& _commandName, bool& _result);
 		void command_QuitApp(const MyGUI::UString& _commandName, bool& _result);
 		void command_UpdateAppCaption(const MyGUI::UString& _commandName, bool& _result);
@@ -55,14 +51,19 @@ namespace tools
 
 		void saveSettings();
 
-	private:
-		EditorState* mEditorState;
-		TestState* mTestState;
+		void LoadStates();
+		void LoadGuiSettings();
 
+		void CreateControls();
+		void DestroyControls();
+
+	private:
 		std::string mLocale;
 		VectorWString mParams;
+		typedef std::vector<Control*> VectorControl;
+		VectorControl mControls;
 	};
 
-} // namespace tools
+}
 
-#endif // __DEMO_KEEPER_H__
+#endif

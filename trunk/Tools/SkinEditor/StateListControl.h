@@ -1,47 +1,34 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		08/2010
+	@date		07/2012
 */
-#ifndef __STATES_LIST_CONTROL_H__
-#define __STATES_LIST_CONTROL_H__
 
-#include "BaseLayout/BaseLayout.h"
-#include "SkinItem.h"
-#include "PropertyAdvisor.h"
+#ifndef _f8ae0b3a_8708_4ee7_b996_3b3fcc61ad3f_
+#define _f8ae0b3a_8708_4ee7_b996_3b3fcc61ad3f_
+
+#include "Control.h"
+#include "Data.h"
+#include "ListBoxDataControl.h"
 
 namespace tools
 {
 
-	class StatesListControl :
-		public wraps::BaseLayout,
-		public PropertyAdvisor
+	class StateListControl :
+		public Control,
+		public sigslot::has_slots<>
 	{
 	public:
-		StatesListControl(MyGUI::Widget* _parent);
-		virtual ~StatesListControl();
+		StateListControl();
+		virtual ~StateListControl();
+
+	protected:
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
-		void notifyChangePosition(MyGUI::ListBox* _sender, size_t _index);
-		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
-
-		virtual void updateStateProperties();
-		virtual void updateStateProperty(Property* _sender, const MyGUI::UString& _owner);
-
-		virtual void updateSkinProperties();
-
-		void updateList();
-
-		void fillStatePreset();
-
-		void updatePreset();
-
-	private:
-		MyGUI::UString mTypeName;
-		MyGUI::ListBox* mList;
-		MyGUI::ComboBox* mPresets;
+		ListBoxDataControl* mListBoxControl;
 	};
 
-} // namespace tools
+}
 
-#endif // __STATES_LIST_CONTROL_H__
+#endif
