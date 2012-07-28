@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="100 100 300 20" align="Stretch" layer="Overlapped" name="Root">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="MenuBar" skin="MenuBar2_Dark" position="0 0 300 20" align="Stretch" name="MainMenu">
+            <Widget type="MenuItem" skin="MenuBarButton2_Dark" position="0 0 42 18">
+                <Property key="Caption" value="#{File}"/>
+                <Property key="MenuItemType" value="Popup"/>
+                <Property key="MenuItemId" value="File"/>
+                <Widget type="PopupMenu" skin="PopupMenu2_Dark" position="0 0 158 180" style="Popup" layer="Popup">
+                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 0 152 18">
+                        <Property key="Caption" value="#{Load}"/>
+                        <Property key="MenuItemId" value="Command_FileLoad"/>
+                    </Widget>
+                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 18 152 18">
+                        <Property key="Caption" value="#{Save}"/>
+                        <Property key="MenuItemId" value="Command_FileSave"/>
+                    </Widget>
+                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 36 152 18">
+                        <Property key="Caption" value="#{Save_as}"/>
+                        <Property key="MenuItemId" value="Command_FileSaveAs"/>
+                    </Widget>
+                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 54 152 18">
+                        <Property key="Caption" value="#{Clear}"/>
+                        <Property key="MenuItemId" value="Command_ClearAll"/>
+                    </Widget>
+                    <Widget type="MenuItem" skin="PopupMenuSeparator_Dark" position="0 72 152 10">
+                        <Property key="MenuItemType" value="Separator"/>
+                    </Widget>
+                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 82 152 18">
+                        <Property key="Caption" value="#{Settings}"/>
+                        <Property key="MenuItemId" value="Command_Settings"/>
+                    </Widget>
+                    <Widget type="MenuItem" skin="PopupMenuSeparator_Dark" position="0 118 152 10">
+                        <Property key="MenuItemType" value="Separator"/>
+                    </Widget>
+                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 128 152 18">
+                        <Property key="Caption" value="#{RecentFiles}"/>
+                        <Property key="MenuItemType" value="Popup"/>
+                        <Property key="MenuItemId" value="RecentFiles"/>
+                        <Widget type="PopupMenu" skin="PopupMenu2_Dark" position="0 0 6 6" style="Popup" layer="Popup"/>
+                    </Widget>
+                    <Widget type="MenuItem" skin="PopupMenuSeparator_Dark" position="0 146 152 10">
+                        <Property key="MenuItemType" value="Separator"/>
+                    </Widget>
+                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 156 152 18">
+                        <Property key="Caption" value="#{Quit}"/>
+                        <Property key="MenuItemId" value="Command_Quit"/>
+                    </Widget>
+                </Widget>
+            </Widget>
+            <Widget type="MenuItem" skin="MenuBarButton2_Dark" position="48 0 53 18">
+                <Property key="Caption" value="#{MenuEdit}"/>
+                <Property key="MenuItemType" value="Popup"/>
+                <Property key="MenuItemId" value="MenuEdit"/>
+                <Widget type="PopupMenu" skin="PopupMenu2_Dark" position="151 120 99 106" style="Popup" layer="Popup">
+                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 0 93 18">
+                        <Property key="Caption" value="#{MenuUndo}"/>
+                        <Property key="MenuItemId" value="Command_Undo"/>
+                    </Widget>
+                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 18 93 18">
+                        <Property key="Caption" value="#{MenuRedo}"/>
+                        <Property key="MenuItemId" value="Command_Redo"/>
+                    </Widget>
+                </Widget>
+            </Widget>
+            <Widget type="MenuItem" skin="MenuBarButton2_Dark" position="107 0 47 18">
+                <Property key="Caption" value="#{MenuColours}"/>
+                <Property key="MenuItemType" value="Popup"/>
+                <Property key="MenuItemId" value="Colours"/>
+                <Widget type="PopupMenu" skin="PopupMenu2_Dark" position="0 0 190 60" style="Popup" layer="Popup">
+                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 0 184 18">
+                        <Property key="Caption" value="#{MenuColourBackground}"/>
+                        <Property key="MenuItemId" value="Command_ChangeColourBackground"/>
+                    </Widget>
+                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 18 184 18">
+                        <Property key="Caption" value="#{MenuColourSelector}"/>
+                        <Property key="MenuItemId" value="Command_ChangeColourSelector"/>
+                    </Widget>
+                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 36 184 18">
+                        <Property key="Caption" value="#{MenuColourSelectorInactive}"/>
+                        <Property key="MenuItemId" value="Command_ChangeColourSelectorInactive"/>
+                    </Widget>
+                </Widget>
+            </Widget>
+            <Widget type="MenuItem" skin="MenuBarButton2_Dark" position="160 0 64 18">
+                <Property key="Caption" value="#{MenuScale}"/>
+                <Property key="MenuItemType" value="Popup"/>
+                <Property key="MenuItemId" value="Scale"/>
+                <Widget type="PopupMenu" skin="PopupMenu2_Dark" position="0 0 72 114" style="Popup" layer="Popup">
+                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 0 66 18">
+                        <Property key="Caption" value="#{Scale50}"/>
+                        <Property key="MenuItemId" value="Command_ChangeScale.50"/>
+                    </Widget>
+                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 18 66 18">
+                        <Property key="Caption" value="#{Scale100}"/>
+                        <Property key="MenuItemId" value="Command_ChangeScale.100"/>
+                    </Widget>
+                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 36 66 18">
+                        <Property key="Caption" value="#{Scale200}"/>
+                        <Property key="MenuItemId" value="Command_ChangeScale.200"/>
+                    </Widget>
+                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 54 66 18">
+                        <Property key="Caption" value="#{Scale400}"/>
+                        <Property key="MenuItemId" value="Command_ChangeScale.400"/>
+                    </Widget>
+                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 72 66 18">
+                        <Property key="Caption" value="#{Scale800}"/>
+                        <Property key="MenuItemId" value="Command_ChangeScale.800"/>
+                    </Widget>
+                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 90 66 18">
+                        <Property key="Caption" value="#{Scale1600}"/>
+                        <Property key="MenuItemId" value="Command_ChangeScale.1600"/>
+                    </Widget>
+                </Widget>
+            </Widget>
+        </Widget>
+    </Widget>
+</MyGUI>

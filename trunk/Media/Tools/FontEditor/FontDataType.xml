@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Document>
+	<DataTypes>
+		<DataType>
+			<Name>Root</Name>
+			<Childs>
+				<Child>
+					<Type>Font</Type>
+				</Child>
+			</Childs>
+		</DataType>
+		<DataType>
+			<Name>Font</Name>
+			<Properties>
+				<Property>
+					<Name>Name</Name>
+					<Type>PropertyStringControl</Type>
+					<Initialisator>UniqueNamePropertyInitialisator</Initialisator>
+					<Default>unnamed</Default>
+					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
+					<Action>ActionRenameData</Action>
+				</Property>
+				<Property>
+					<Name>UniqueName</Name>
+					<Type>PropertyBoolControl</Type>
+					<Initialisator/>
+					<Default>True</Default>
+					<Visible>false</Visible>
+					<ReadOnly>true</ReadOnly>
+					<Action>ChangeValueAction</Action>
+				</Property>
+			</Properties>
+		</DataType>
+	</DataTypes>
+</Document>

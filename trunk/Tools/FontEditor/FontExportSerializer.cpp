@@ -14,17 +14,17 @@
 namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(ImageExportSerializer)
+	FACTORY_ITEM_ATTRIBUTE(FontExportSerializer)
 
-	ImageExportSerializer::ImageExportSerializer()
+	FontExportSerializer::FontExportSerializer()
 	{
 	}
 
-	ImageExportSerializer::~ImageExportSerializer()
+	FontExportSerializer::~FontExportSerializer()
 	{
 	}
 
-	void ImageExportSerializer::serialization(pugi::xml_document& _doc)
+	void FontExportSerializer::serialization(pugi::xml_document& _doc)
 	{
 		pugi::xml_node root = _doc.append_child("MyGUI");
 		root.append_attribute("type").set_value("Resource");
@@ -35,7 +35,7 @@ namespace tools
 			writeImage(root, (*child));
 	}
 
-	bool ImageExportSerializer::deserialization(pugi::xml_document& _doc)
+	bool FontExportSerializer::deserialization(pugi::xml_document& _doc)
 	{
 		if (_doc.select_single_node("MyGUI[@type=\"Resource\"]").node().empty())
 			return false;
@@ -48,7 +48,7 @@ namespace tools
 		return true;
 	}
 
-	void ImageExportSerializer::parseImage(pugi::xml_node _node)
+	void FontExportSerializer::parseImage(pugi::xml_node _node)
 	{
 		DataPtr data = Data::CreateInstance();
 		data->setType(DataTypeManager::getInstance().getType("Image"));
@@ -61,7 +61,7 @@ namespace tools
 			parseGroup((*node).node(), data);
 	}
 
-	void ImageExportSerializer::parseGroup(pugi::xml_node _node, DataPtr _parent)
+	void FontExportSerializer::parseGroup(pugi::xml_node _node, DataPtr _parent)
 	{
 		DataPtr data = Data::CreateInstance();
 		data->setType(DataTypeManager::getInstance().getType("Group"));
@@ -80,7 +80,7 @@ namespace tools
 			parseIndex((*node).node(), data);
 	}
 
-	void ImageExportSerializer::parseIndex(pugi::xml_node _node, DataPtr _parent)
+	void FontExportSerializer::parseIndex(pugi::xml_node _node, DataPtr _parent)
 	{
 		DataPtr data = Data::CreateInstance();
 		data->setType(DataTypeManager::getInstance().getType("Index"));
@@ -97,7 +97,7 @@ namespace tools
 			parseFrame((*node).node(), data);
 	}
 
-	void ImageExportSerializer::parseFrame(pugi::xml_node _node, DataPtr _parent)
+	void FontExportSerializer::parseFrame(pugi::xml_node _node, DataPtr _parent)
 	{
 		DataPtr data = Data::CreateInstance();
 		data->setType(DataTypeManager::getInstance().getType("Frame"));
@@ -110,7 +110,7 @@ namespace tools
 		_parent->addChild(data);
 	}
 
-	void ImageExportSerializer::writeImage(pugi::xml_node _parent, DataPtr _data)
+	void FontExportSerializer::writeImage(pugi::xml_node _parent, DataPtr _data)
 	{
 		pugi::xml_node node = _parent.append_child("Resource");
 		node.append_attribute("type").set_value("ResourceImageSet");
@@ -120,7 +120,7 @@ namespace tools
 			writeGroup(node, (*child));
 	}
 
-	void ImageExportSerializer::writeGroup(pugi::xml_node _parent, DataPtr _data)
+	void FontExportSerializer::writeGroup(pugi::xml_node _parent, DataPtr _data)
 	{
 		pugi::xml_node node = _parent.append_child("Group");
 		node.append_attribute("name").set_value(_data->getPropertyValue("Name").c_str());
@@ -131,7 +131,7 @@ namespace tools
 			writeIndex(node, (*child));
 	}
 
-	void ImageExportSerializer::writeIndex(pugi::xml_node _parent, DataPtr _data)
+	void FontExportSerializer::writeIndex(pugi::xml_node _parent, DataPtr _data)
 	{
 		pugi::xml_node node = _parent.append_child("Index");
 		node.append_attribute("name").set_value(_data->getPropertyValue("Name").c_str());
@@ -144,7 +144,7 @@ namespace tools
 			writeFrame(node, (*child));
 	}
 	
-	void ImageExportSerializer::writeFrame(pugi::xml_node _parent, DataPtr _data)
+	void FontExportSerializer::writeFrame(pugi::xml_node _parent, DataPtr _data)
 	{
 		pugi::xml_node node = _parent.append_child("Frame");
 		node.append_attribute("point").set_value(_data->getPropertyValue("Point").c_str());
@@ -154,7 +154,7 @@ namespace tools
 			node.append_attribute("count").set_value(MyGUI::utility::toString(count).c_str());
 	}
 
-	void ImageExportSerializer::updateImageProperty(DataPtr _data)
+	void FontExportSerializer::updateImageProperty(DataPtr _data)
 	{
 		const Data::VectorData& childs = _data->getChilds();
 		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
@@ -165,7 +165,7 @@ namespace tools
 		}
 	}
 
-	void ImageExportSerializer::updateGroupProperty(DataPtr _data)
+	void FontExportSerializer::updateGroupProperty(DataPtr _data)
 	{
 		const Data::VectorData& childs = _data->getChilds();
 		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
@@ -176,7 +176,7 @@ namespace tools
 		}
 	}
 
-	void ImageExportSerializer::updateIndexProperty(DataPtr _data)
+	void FontExportSerializer::updateIndexProperty(DataPtr _data)
 	{
 		const Data::VectorData& childs = _data->getChilds();
 		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
@@ -191,7 +191,7 @@ namespace tools
 		_data->setPropertyValue("Size", coord);
 	}
 
-	MyGUI::IntPoint ImageExportSerializer::getFirstFramePoint(DataPtr _data)
+	MyGUI::IntPoint FontExportSerializer::getFirstFramePoint(DataPtr _data)
 	{
 		if (_data->getType()->getName() != "Group")
 			return MyGUI::IntPoint();

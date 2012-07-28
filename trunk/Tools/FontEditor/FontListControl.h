@@ -4,20 +4,20 @@
 	@date		07/2012
 */
 
-#ifndef _6561a945_ae72_4279_988c_99c42a82a99a_
-#define _6561a945_ae72_4279_988c_99c42a82a99a_
+#ifndef _f1059563_afa2_4c08_ba11_3a60f1c91967_
+#define _f1059563_afa2_4c08_ba11_3a60f1c91967_
 
 #include "DataListBaseControl.h"
 
 namespace tools
 {
 
-	class ImageListControl :
+	class FontListControl :
 		public DataListBaseControl
 	{
 	public:
-		ImageListControl();
-		virtual ~ImageListControl();
+		FontListControl();
+		virtual ~FontListControl();
 
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
