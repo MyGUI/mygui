@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource" version="1.1">
-	<Resource type="ResourceSkin" name="ButtonExpandSkin" size="18 18" texture="FrameworkSkin.png">
+	<Resource type="ResourceSkin" name="ButtonExpandSkin" size="18 18" texture="ButtonExpandSkin.png">
 		<BasisSkin type="SubSkin" offset="0 0 18 18" align="Stretch">
 			<State name="disabled" offset="49 2 18 18"/>
 			<State name="normal" offset="49 23 18 18"/>
@@ -12,7 +12,7 @@
 			<State name="pushed_checked" offset="49 149 18 18"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="ButtonExpand2Skin" size="18 18" texture="FrameworkSkin.png">
+	<Resource type="ResourceSkin" name="ButtonExpand2Skin" size="18 18" texture="ButtonExpandSkin.png">
 		<BasisSkin type="SubSkin" offset="0 0 18 18" align="Stretch">
 			<State name="disabled" offset="96 2 18 18"/>
 			<State name="normal" offset="96 23 18 18"/>

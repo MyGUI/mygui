@@ -11,7 +11,7 @@
 	<List file="SelectionSkins.xml"/>
 	<List file="TextureViewerSkins.xml"/>
 	<List file="EditorReplaceSkins.xml"/>
-	<List file="FrameworkSkin.xml"/>
+	<List file="ButtonExpandSkin.xml"/>
 	<List file="MyGUI_Layers.xml"/>
 	<List file="EditorSettings.xml"/>
 	<!-- загружается из кода после регистрации лееров -->
