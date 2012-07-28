@@ -91,7 +91,6 @@ SOURCE_GROUP("Actions" FILES
   CreateSkinDataAction.h
 )
 SOURCE_GROUP("Application" FILES
-  ../../Common/Precompiled.cpp
   Application.cpp
   Application.h
 )
@@ -170,6 +169,7 @@ SOURCE_GROUP("Managers\\Exports" FILES
   SkinExportSerializer.h
 )
 SOURCE_GROUP("Resources" FILES
+  ../../Common/Precompiled.cpp
   CMakeLists.txt
   ImageEditor.rc
 )
