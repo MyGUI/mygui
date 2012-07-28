@@ -46,6 +46,7 @@ namespace tools
 		void commandLoad(const MyGUI::UString& _commandName, bool& _result);
 		void commandSave(const MyGUI::UString& _commandName, bool& _result);
 		void commandSaveAs(const MyGUI::UString& _commandName, bool& _result);
+		void commandExport(const MyGUI::UString& _commandName, bool& _result);
 		void commandClear(const MyGUI::UString& _commandName, bool& _result);
 		void commandSettings(const MyGUI::UString& _commandName, bool& _result);
 		void commandRecentFiles(const MyGUI::UString& _commandName, bool& _result);
@@ -57,9 +58,11 @@ namespace tools
 		bool save();
 		void load();
 		void loadDropFile();
+		void exportFile(const MyGUI::UString& _fileName);
 
 		void showLoadWindow();
 		void showSaveAsWindow();
+		void showExportWindow();
 
 		void updateCaption();
 

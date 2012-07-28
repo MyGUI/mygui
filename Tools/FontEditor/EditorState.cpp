@@ -20,6 +20,7 @@
 #include "DataSelectorManager.h"
 #include "FactoryManager.h"
 #include "SettingsManager.h"
+#include "FontExportSerializer.h"
 
 namespace tools
 {
@@ -35,6 +36,7 @@ namespace tools
 		CommandManager::getInstance().getEvent("Command_FileLoad")->connect(this, &EditorState::commandLoad);
 		CommandManager::getInstance().getEvent("Command_FileSave")->connect(this, &EditorState::commandSave);
 		CommandManager::getInstance().getEvent("Command_FileSaveAs")->connect(this, &EditorState::commandSaveAs);
+		CommandManager::getInstance().getEvent("Command_Export")->connect(this, &EditorState::commandExport);
 		CommandManager::getInstance().getEvent("Command_ClearAll")->connect(this, &EditorState::commandClear);
 		CommandManager::getInstance().getEvent("Command_Settings")->connect(this, &EditorState::commandSettings);
 		CommandManager::getInstance().getEvent("Command_RecentFiles")->connect(this, &EditorState::commandRecentFiles);
@@ -166,6 +168,16 @@ namespace tools
 			return;
 
 		showSaveAsWindow();
+
+		_result = true;
+	}
+
+	void EditorState::commandExport(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		showExportWindow();
 
 		_result = true;
 	}
@@ -313,6 +325,10 @@ namespace tools
 				save();
 				updateCaption();
 			}
+			else if (mOpenSaveFileDialog->getMode() == "Export")
+			{
+				FontExportSerializer::exportData(mOpenSaveFileDialog->getCurrentFolder(), mOpenSaveFileDialog->getFileName());
+			}
 			else if (mOpenSaveFileDialog->getMode() == "Load")
 			{
 				RecentFilesManager::getInstance().setRecentFolder(mOpenSaveFileDialog->getCurrentFolder());
@@ -346,6 +362,15 @@ namespace tools
 		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionSaveFile"), replaceTags("ButtonSaveFile"));
 		mOpenSaveFileDialog->setMode("SaveAs");
+		mOpenSaveFileDialog->doModal();
+	}
+
+	void EditorState::showExportWindow()
+	{
+		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
+		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());
+		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionSaveFile"), replaceTags("ButtonSaveFile"));
+		mOpenSaveFileDialog->setMode("Export");
 		mOpenSaveFileDialog->doModal();
 	}
 

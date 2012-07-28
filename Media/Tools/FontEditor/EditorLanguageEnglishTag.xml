@@ -3,7 +3,8 @@
 	<Tag name="File">File</Tag>
 	<Tag name="Load">Load</Tag>
 	<Tag name="Save">Save</Tag>
-	<Tag name="Save_as">Save as</Tag>
+	<Tag name="Save_as">Save as...</Tag>
+	<Tag name="Export">Export as...</Tag>
 	<Tag name="Clear">Clear</Tag>
 	<Tag name="Settings">Settings</Tag>
 	<Tag name="RecentFiles">Recent Files </Tag>

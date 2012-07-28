@@ -4,6 +4,7 @@
 	<Tag name="Load">Открыть</Tag>
 	<Tag name="Save">Сохранить</Tag>
 	<Tag name="Save_as">Сохранить как...</Tag>
+	<Tag name="Export">Экспортировать как...</Tag>
 	<Tag name="Clear">Очистить</Tag>
 	<Tag name="Settings">Настройки</Tag>
 	<Tag name="RecentFiles">Предыдущие файлы </Tag>

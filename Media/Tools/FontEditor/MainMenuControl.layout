@@ -20,7 +20,11 @@
                         <Property key="Caption" value="#{Save_as}"/>
                         <Property key="MenuItemId" value="Command_FileSaveAs"/>
                     </Widget>
-                    <Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 54 152 18">
+					<Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 36 152 18">
+						<Property key="Caption" value="#{Export}"/>
+						<Property key="MenuItemId" value="Command_Export"/>
+					</Widget>
+					<Widget type="MenuItem" skin="PopupMenuNormal2_Dark" position="0 54 152 18">
                         <Property key="Caption" value="#{Clear}"/>
                         <Property key="MenuItemId" value="Command_ClearAll"/>
                     </Widget>

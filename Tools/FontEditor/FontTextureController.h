@@ -35,10 +35,7 @@ namespace tools
 
 		void commandGenerateFont(const MyGUI::UString& _commandName, bool& _result);
 
-		void generateFont();
-		void generateFontTTFXml(MyGUI::xml::ElementPtr _root, const std::string& _fontName, DataPtr _data);
-		void removeFont(const std::string& _fontName);
-		void updateResultPropery(const std::string& _fontName, DataPtr _data);
+		void updateResultPropery(DataPtr _data);
 
 	private:
 		ScopeTextureControl* mControl;
