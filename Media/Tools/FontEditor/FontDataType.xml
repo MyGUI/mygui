@@ -30,6 +30,33 @@
 					<ReadOnly>true</ReadOnly>
 					<Action>ChangeValueAction</Action>
 				</Property>
+				<Property>
+					<Name>Source</Name>
+					<Type>PropertyFontSourceControl</Type>
+					<Initialisator/>
+					<Default></Default>
+					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
+					<Action>ChangeValueAction</Action>
+				</Property>
+				<Property>
+					<Name>Size</Name>
+					<Type>PropertyIntControl</Type>
+					<Initialisator/>
+					<Default>10</Default>
+					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
+					<Action>ChangeValueAction</Action>
+				</Property>
+				<Property>
+					<Name>Hinting</Name>
+					<Type>PropertyFontHintingControl</Type>
+					<Initialisator/>
+					<Default>use_native</Default>
+					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
+					<Action>ChangeValueAction</Action>
+				</Property>
 			</Properties>
 		</DataType>
 	</DataTypes>

@@ -53,6 +53,15 @@ namespace tools
 		data->setType(DataTypeManager::getInstance().getType("Font"));
 		data->setPropertyValue("Name", _node.attribute("name").value());
 
+		std::string value = _node.select_single_node("Property[@key=\"Source\"]/@value").attribute().value();
+		data->setPropertyValue("Source", value);
+
+		value = _node.select_single_node("Property[@key=\"Size\"]/@value").attribute().value();
+		data->setPropertyValue("Size", value);
+
+		value = _node.select_single_node("Property[@key=\"Hinting\"]/@value").attribute().value();
+		data->setPropertyValue("Hinting", value);
+
 		DataManager::getInstance().getRoot()->addChild(data);
 	}
 
@@ -61,6 +70,18 @@ namespace tools
 		pugi::xml_node node = _parent.append_child("Resource");
 		node.append_attribute("type").set_value("ResourceTrueTypeFont");
 		node.append_attribute("name").set_value(_data->getPropertyValue("Name").c_str());
+
+		pugi::xml_node nodeProperty = node.append_child("Property");
+		nodeProperty.append_attribute("key").set_value("Source");
+		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("Source").c_str());
+
+		nodeProperty = node.append_child("Property");
+		nodeProperty.append_attribute("key").set_value("Size");
+		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("Size").c_str());
+
+		nodeProperty = node.append_child("Property");
+		nodeProperty.append_attribute("key").set_value("Hinting");
+		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("Hinting").c_str());
 	}
 
 }

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+    <Resource type="ResourceLayout" name="Tree" version="3.2.0">
+        <Widget type="Widget" skin="TreeSkin" position="0 0 50 50" name="Root">
+            <UserString key="NeedKey" value="true"/>
+            <UserString key="SkinLine" value="TreeLine"/>
+            <UserString key="HeightLine" value="18"/>
+            <UserString key="LevelOffset" value="14"/>
+            <Widget type="ScrollBar" skin="ScrollBarV" position="29 4 15 40" align="Right VStretch" name="VScroll"/>
+            <Widget type="Widget" skin="PanelEmpty" position="4 4 25 40" align="Stretch" name="Client"/>
+        </Widget>
+    </Resource>
+</MyGUI>
