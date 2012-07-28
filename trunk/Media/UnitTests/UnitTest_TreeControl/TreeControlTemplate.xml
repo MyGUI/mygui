@@ -10,4 +10,11 @@
             <Widget type="Widget" skin="PanelEmpty" position="4 4 25 40" align="Stretch" name="Client"/>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="TreeLine" version="3.2.0">
+        <Widget type="Widget" skin="TreeLineSkin" position="20 20 43 13" name="Root">
+			<Property key="FontName" value="DejaVuSansFont_13"/>
+			<Property key="TextAlign" value="Left VCenter"/>
+			<Widget type="Button" skin="TreeLineExpandCollapse" position="2 3 12 12" name="ButtonExpandCollapse"/>
+		</Widget>
+    </Resource>
 </MyGUI>

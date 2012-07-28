@@ -39,4 +39,106 @@
 			<State name="normal" offset="345 6 13 12"/>
 		</BasisSkin>
 	</Resource>
+	<Resource type="ResourceSkin" name="TreeLineSkin" size="43 10" texture="MyGUI_BlueWhiteSkins.png">
+		<BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">
+			<State name="disabled" offset="204 161 2 2"/>
+			<State name="normal" offset="204 161 2 2"/>
+			<State name="highlighted" offset="204 174 2 2"/>
+			<State name="pushed" offset="204 188 2 2"/>
+			<State name="disabled_checked" offset="204 188 2 2"/>
+			<State name="normal_checked" offset="204 202 2 2"/>
+			<State name="highlighted_checked" offset="204 174 2 2"/>
+			<State name="pushed_checked" offset="204 202 2 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="2 0 39 2" align="HStretch Top">
+			<State name="disabled" offset="206 161 39 2"/>
+			<State name="normal" offset="206 161 39 2"/>
+			<State name="highlighted" offset="206 174 39 2"/>
+			<State name="pushed" offset="206 188 39 2"/>
+			<State name="disabled_checked" offset="206 188 39 2"/>
+			<State name="normal_checked" offset="206 202 39 2"/>
+			<State name="highlighted_checked" offset="206 174 39 2"/>
+			<State name="pushed_checked" offset="206 202 39 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="41 0 2 2" align="Right Top">
+			<State name="disabled" offset="245 161 2 2"/>
+			<State name="normal" offset="245 161 2 2"/>
+			<State name="highlighted" offset="245 174 2 2"/>
+			<State name="pushed" offset="245 188 2 2"/>
+			<State name="disabled_checked" offset="245 188 2 2"/>
+			<State name="normal_checked" offset="245 202 2 2"/>
+			<State name="highlighted_checked" offset="245 174 2 2"/>
+			<State name="pushed_checked" offset="245 202 2 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="41 2 2 6" align="Right VStretch">
+			<State name="disabled" offset="245 163 2 6"/>
+			<State name="normal" offset="245 163 2 6"/>
+			<State name="highlighted" offset="245 176 2 6"/>
+			<State name="pushed" offset="245 190 2 6"/>
+			<State name="disabled_checked" offset="245 190 2 6"/>
+			<State name="normal_checked" offset="245 204 2 6"/>
+			<State name="highlighted_checked" offset="245 176 2 6"/>
+			<State name="pushed_checked" offset="245 204 2 6"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="41 8 2 2" align="Right Bottom">
+			<State name="disabled" offset="245 169 2 2"/>
+			<State name="normal" offset="245 169 2 2"/>
+			<State name="highlighted" offset="245 182 2 2"/>
+			<State name="pushed" offset="245 196 2 2"/>
+			<State name="disabled_checked" offset="245 196 2 2"/>
+			<State name="normal_checked" offset="245 210 2 2"/>
+			<State name="highlighted_checked" offset="245 182 2 2"/>
+			<State name="pushed_checked" offset="245 210 2 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="2 8 39 2" align="HStretch Bottom">
+			<State name="disabled" offset="206 169 39 2"/>
+			<State name="normal" offset="206 169 39 2"/>
+			<State name="highlighted" offset="206 182 39 2"/>
+			<State name="pushed" offset="206 196 39 2"/>
+			<State name="disabled_checked" offset="206 196 39 2"/>
+			<State name="normal_checked" offset="206 210 39 2"/>
+			<State name="highlighted_checked" offset="206 182 39 2"/>
+			<State name="pushed_checked" offset="206 210 39 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 8 2 2" align="Left Bottom">
+			<State name="disabled" offset="204 169 2 2"/>
+			<State name="normal" offset="204 169 2 2"/>
+			<State name="highlighted" offset="204 182 2 2"/>
+			<State name="pushed" offset="204 196 2 2"/>
+			<State name="disabled_checked" offset="204 196 2 2"/>
+			<State name="normal_checked" offset="204 210 2 2"/>
+			<State name="highlighted_checked" offset="204 182 2 2"/>
+			<State name="pushed_checked" offset="204 210 2 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 2 2 6" align="Left VStretch">
+			<State name="disabled" offset="204 163 2 6"/>
+			<State name="normal" offset="204 163 2 6"/>
+			<State name="highlighted" offset="204 176 2 6"/>
+			<State name="pushed" offset="204 190 2 6"/>
+			<State name="disabled_checked" offset="204 190 2 6"/>
+			<State name="normal_checked" offset="204 204 2 6"/>
+			<State name="highlighted_checked" offset="204 176 2 6"/>
+			<State name="pushed_checked" offset="204 204 2 6"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="2 2 39 6" align="Stretch">
+			<State name="disabled" offset="206 163 39 6"/>
+			<State name="normal" offset="206 163 39 6"/>
+			<State name="highlighted" offset="206 176 39 6"/>
+			<State name="pushed" offset="206 190 39 6"/>
+			<State name="disabled_checked" offset="206 190 39 6"/>
+			<State name="normal_checked" offset="206 204 39 6"/>
+			<State name="highlighted_checked" offset="206 176 39 6"/>
+			<State name="pushed_checked" offset="206 204 39 6"/>
+		</BasisSkin>
+		<BasisSkin type="SimpleText" offset="19 1 23 8" align="Stretch">
+			<State name="disabled" colour="0 0 0" shift="0"/>
+			<State name="normal" colour="0 0 0" shift="0"/>
+			<State name="highlighted" colour="0 0 0" shift="0"/>
+			<State name="pushed" colour="0 0 0" shift="0"/>
+			<State name="disabled_checked" colour="0 0 0" shift="0"/>
+			<State name="normal_checked" colour="0 0 0" shift="0"/>
+			<State name="highlighted_checked" colour="0 0 0" shift="0"/>
+			<State name="pushed_checked" colour="0 0 0" shift="0"/>
+		</BasisSkin>
+	</Resource>
 </MyGUI>
