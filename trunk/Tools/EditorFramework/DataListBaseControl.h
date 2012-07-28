@@ -22,10 +22,10 @@ namespace tools
 		DataListBaseControl();
 		virtual ~DataListBaseControl();
 
-		void commandCreateImageData(const MyGUI::UString& _commandName, bool& _result);
-		void commandCloneImageData(const MyGUI::UString& _commandName, bool& _result);
-		void commandDestroyImageData(const MyGUI::UString& _commandName, bool& _result);
-		void commandRenameImageData(const MyGUI::UString& _commandName, bool& _result);
+		void commandCreateData(const MyGUI::UString& _commandName, bool& _result);
+		void commandCloneData(const MyGUI::UString& _commandName, bool& _result);
+		void commandDestroyData(const MyGUI::UString& _commandName, bool& _result);
+		void commandRenameData(const MyGUI::UString& _commandName, bool& _result);
 
 		void setDataInfo(const std::string& _parentType, const std::string& _currentType, const std::string& _propertyName, const std::string& _propertyUnique);
 
