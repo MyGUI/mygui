@@ -45,7 +45,7 @@ namespace tools
 	{
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Tools/EditorFramework");
-		addResourceLocation(getRootMedia() + "/Tools/ImageEditor");
+		//addResourceLocation(getRootMedia() + "/Tools/ImageEditor");
 		addResourceLocation(getRootMedia() + "/Tools/ImageEditor/SkinEditor"); // FIXME для теста
 		addResourceLocation(getRootMedia() + "/Common/Tools");
 		addResourceLocation(getRootMedia() + "/Common/MessageBox");
@@ -63,9 +63,9 @@ namespace tools
 			SettingsManager::getInstance().loadUserSettingsFile(userSettingsFileName);
 
 		// FIXME для теста
-		bool skinEditor = SettingsManager::getInstance().getValue<bool>("Settings/SkinEditor");
-		if (skinEditor)
-			SettingsManager::getInstance().loadSettingsFile(MyGUI::DataManager::getInstance().getDataPath("SkinEditorSettings.xml"));
+		//bool skinEditor = SettingsManager::getInstance().getValue<bool>("Settings/SkinEditor");
+		//if (skinEditor)
+			//SettingsManager::getInstance().loadSettingsFile(MyGUI::DataManager::getInstance().getDataPath("SkinEditorSettings.xml"));
 
 		new HotKeyManager();
 		HotKeyManager::getInstance().initialise();
