@@ -192,8 +192,7 @@ namespace tools
 		addProperty(node, "Size", _data->getPropertyValue<float>("Size"));
 		addProperty(node, "Resolution", _data->getPropertyValue<int>("Resolution"));
 		addProperty(node, "Hinting", _data->getPropertyValue("Hinting"));
-		addProperty(node, "Antialias", _data->getPropertyValue<bool>("Antialias"));
-		addProperty(node, "SpaceWidth", _data->getPropertyValue<int>("SpaceWidth"));
+		addProperty(node, "Antialias", MyGUI::utility::toString(_data->getPropertyValue<bool>("Antialias")));
 		addProperty(node, "TabWidth", _data->getPropertyValue<int>("TabWidth"));
 		addProperty(node, "OffsetHeight", _data->getPropertyValue<int>("OffsetHeight"));
 		addProperty(node, "SubstituteCode", _data->getPropertyValue<int>("SubstituteCode"));

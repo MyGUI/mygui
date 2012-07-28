@@ -8,6 +8,7 @@
 #define _903f2077_c065_4db6_92a4_7c72ee220b5c_
 
 #include "PropertyControl.h"
+#include "TextFieldControl.h"
 
 namespace tools
 {
@@ -28,9 +29,18 @@ namespace tools
 		std::string getValue();
 		void setValue(const std::string& _value);
 
+		void notifyClickAdd(MyGUI::Widget* _sender);
+		void notifyClickDelete(MyGUI::Widget* _sender);
+
+		void notifyEndDialog(Dialog* _sender, bool _result);
+
 	private:
 		MyGUI::TextBox* mName;
 		MyGUI::ListBox* mList;
+		MyGUI::Button* mAdd;
+		MyGUI::Button* mDelete;
+
+		TextFieldControl* mTextFieldControl;
 	};
 
 }

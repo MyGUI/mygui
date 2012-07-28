@@ -2,10 +2,16 @@
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Widget" skin="Panel3Skin_Dark" position="20 20 230 195" align="HStretch Top" layer="Overlapped" name="Root">
         <UserString key="SnapTo" value="HStretch Top"/>
-        <Widget type="ListBox" skin="ListBox_Dark" position="5 30 220 160" align="Stretch" name="List"/>
+        <Widget type="ListBox" skin="ListBox_Dark" position="5 30 220 134" align="Stretch" name="List"/>
         <Widget type="TextBox" skin="TextBox_Dark" position="5 5 220 20" align="HStretch Top" name="Name">
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="FontName" value="DejaVuSansFont_13"/>
+        </Widget>
+        <Widget type="Button" skin="Button_Dark" position="145 170 80 20" align="Right Bottom" name="Delete">
+            <Property key="Caption" value="#{Delete}"/>
+        </Widget>
+        <Widget type="Button" skin="Button_Dark" position="5 170 80 20" align="Left Bottom" name="Add">
+            <Property key="Caption" value="#{Add}"/>
         </Widget>
     </Widget>
 </MyGUI>
