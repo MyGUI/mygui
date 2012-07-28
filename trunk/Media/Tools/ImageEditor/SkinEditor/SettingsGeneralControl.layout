@@ -24,8 +24,5 @@
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="FontName" value="DejaVuSansFont_13"/>
         </Widget>
-        <Widget type="Button" skin="CheckBox_Dark" position="0 95 165 25" name="SkinEditor">
-            <Property key="Caption" value="Skin Editor"/>
-        </Widget>
     </Widget>
 </MyGUI>
