@@ -25,4 +25,3 @@ namespace factories
 		::components::FactoryManager::GetInstancePtr()->UnregisterFactory(_factory, _factoryName);
 	}
 }
-
