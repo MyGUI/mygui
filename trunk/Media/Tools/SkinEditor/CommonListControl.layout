@@ -2,7 +2,7 @@
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Widget" skin="PanelEmpty" position="26 26 256 472" align="Stretch" layer="Overlapped" name="Root">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="ListBox" skin="ListBox2_Dark" position="4 4 248 463" align="Stretch">
+        <Widget type="ListBox" skin="ListBox_Dark" position="4 4 248 463" align="Stretch">
             <UserString key="ControlType" value="ListBoxDataControl"/>
         </Widget>
     </Widget>

@@ -115,7 +115,7 @@
 					<Name>FontCodeRanges</Name>
 					<Type>PropertyInt2ListControl</Type>
 					<Initialisator/>
-					<Default></Default>
+					<Default>32 126</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
 					<Action>ChangeValueAction</Action>
