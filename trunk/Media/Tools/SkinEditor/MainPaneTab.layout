@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="TabControl" skin="TabControl2_Dark" position="30 30 495 326" align="Stretch" name="Root">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="TabItem" skin="" position="2 22 491 302">
+            <Property key="Caption" value="#{TabSkins}"/>
+            <UserString key="CommandActivate" value="Command_ChangeScope.Skin"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
+                <UserString key="ControlType" value="SkinListControl"/>
+                <UserString key="ControlLayout" value="SkinListControl.layout"/>
+            </Widget>
+        </Widget>
+		<Widget type="TabItem" skin="" position="2 22 491 302">
+			<Property key="Caption" value="#{TabStates}"/>
+			<UserString key="CommandActivate" value="Command_ChangeScope.State"/>
+			<Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
+				<UserString key="ControlType" value="StateListControl"/>
+				<UserString key="ControlLayout" value="CommonListControl.layout"/>
+			</Widget>
+		</Widget>
+		<Widget type="TabItem" skin="" position="2 22 491 302">
+			<Property key="Caption" value="#{TabSeparators}"/>
+			<UserString key="CommandActivate" value="Command_ChangeScope.Separator"/>
+			<Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
+				<UserString key="ControlType" value="SeparatorListControl"/>
+				<UserString key="ControlLayout" value="CommonListControl.layout"/>
+			</Widget>
+		</Widget>
+		<Widget type="TabItem" skin="" position="2 22 491 302">
+			<Property key="Caption" value="#{TabRegions}"/>
+			<UserString key="CommandActivate" value="Command_ChangeScope.Region"/>
+			<Widget type="Widget" skin="PanelEmpty" position="0 0 491 302" align="Stretch">
+				<UserString key="ControlType" value="RegionListControl"/>
+				<UserString key="ControlLayout" value="CommonListControl.layout"/>
+			</Widget>
+		</Widget>
+	</Widget>
+</MyGUI>

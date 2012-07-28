@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="Back1Skin_Dark" position="15 15 150 150" align="Stretch" layer="Back" name="Root">
+        <UserString key="SnapTo" value="Stretch"/>
+    </Widget>
+</MyGUI>

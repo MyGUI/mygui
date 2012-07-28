@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<MyGUI type="Layout" version="3.2.0">
-    <Widget type="Widget" skin="PanelEmpty" position="16 40 248 464" align="Stretch" layer="Overlapped" name="_Main">
-        <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="ListBox" skin="ListBox_Dark" position="0 0 248 464" align="Stretch" name="List"/>
-    </Widget>
-</MyGUI>
