@@ -57,6 +57,15 @@
 					<ReadOnly>false</ReadOnly>
 					<Action>ChangeValueAction</Action>
 				</Property>
+				<Property>
+					<Name>FontName</Name>
+					<Type>PropertyStringControl</Type>
+					<Initialisator>GenerateFontNamePropertyInitialisator</Initialisator>
+					<Default>0</Default>
+					<Visible>true</Visible>
+					<ReadOnly>true</ReadOnly>
+					<Action></Action>
+				</Property>
 			</Properties>
 		</DataType>
 	</DataTypes>
