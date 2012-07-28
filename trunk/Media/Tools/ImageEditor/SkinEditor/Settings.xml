@@ -46,14 +46,15 @@
 		</Resource.List>
 	</Resources>
 	<Editor>
-		<UserSettingsFileName>ie_user_settings.xml</UserSettingsFileName>
-		<DataTypeFileName>ImageDataType.xml</DataTypeFileName>
-		<ExportSerializer>ImageExportSerializer</ExportSerializer>
-		<DefaultScope>Image</DefaultScope>
+		<UserSettingsFileName>se_user_settings2.xml</UserSettingsFileName>
+		<DataTypeFileName>SkinDataType.xml</DataTypeFileName>
+		<ExportSerializer>SkinExportSerializer</ExportSerializer>
+		<DefaultScope>Skin</DefaultScope>
 		<States>
 			<State.List>
-				<Value>EditorState</Value>
 				<Value>ApplicationState</Value>
+				<Value>EditorState</Value>
+				<Value>TestState</Value>
 			</State.List>
 			<Event.List>
 				<Value>
@@ -65,6 +66,16 @@
 					<Name>Exit</Name>
 					<From>EditorState</From>
 					<To>ApplicationState</To>
+				</Value>
+				<Value>
+					<Name>Test</Name>
+					<From>EditorState</From>
+					<To>TestState</To>
+				</Value>
+				<Value>
+					<Name>Exit</Name>
+					<From>TestState</From>
+					<To>EditorState</To>
 				</Value>
 			</Event.List>
 			<FirstState>
@@ -87,10 +98,13 @@
 		</Controls>
 	</Editor>
 	<EditorState>
-		<MainPaneLayout>MainPane.layout</MainPaneLayout>
+		<MainPaneLayout>SkinMainPane.layout</MainPaneLayout>
 		<SettingsWindowLayout>SettingsWindow.layout</SettingsWindowLayout>
 		<OpenSaveFileDialogLayout>OpenSaveFileDialog2.layout</OpenSaveFileDialogLayout>
 		<DefaultFileName>unnamed.xml</DefaultFileName>
 		<DefaultFileMask>*.xml</DefaultFileMask>
 	</EditorState>
+	<TestState>
+		<BackgroundLayout>TestBackground.layout</BackgroundLayout>
+	</TestState>
 </Settings>
