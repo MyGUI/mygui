@@ -60,6 +60,8 @@ namespace tools
 		data->setPropertyValue("Size", MyGUI::utility::parseValue<int>(value));
 
 		value = _node.select_single_node("Property[@key=\"Hinting\"]/@value").attribute().value();
+		if (value.empty())
+			value = "use_native";
 		data->setPropertyValue("Hinting", value);
 
 		value = _node.select_single_node("Property[@key=\"Resolution\"]/@value").attribute().value();
@@ -69,10 +71,6 @@ namespace tools
 		value = _node.select_single_node("Property[@key=\"Antialias\"]/@value").attribute().value();
 		if (!value.empty())
 			data->setPropertyValue("Antialias", MyGUI::utility::parseValue<bool>(value));
-
-		value = _node.select_single_node("Property[@key=\"SpaceWidth\"]/@value").attribute().value();
-		if (!value.empty())
-			data->setPropertyValue("SpaceWidth", MyGUI::utility::parseValue<int>(value));
 
 		value = _node.select_single_node("Property[@key=\"TabWidth\"]/@value").attribute().value();
 		if (!value.empty())
@@ -129,10 +127,6 @@ namespace tools
 		nodeProperty = node.append_child("Property");
 		nodeProperty.append_attribute("key").set_value("Antialias");
 		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("Antialias").c_str());
-
-		nodeProperty = node.append_child("Property");
-		nodeProperty.append_attribute("key").set_value("SpaceWidth");
-		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("SpaceWidth").c_str());
 
 		nodeProperty = node.append_child("Property");
 		nodeProperty.append_attribute("key").set_value("TabWidth");
