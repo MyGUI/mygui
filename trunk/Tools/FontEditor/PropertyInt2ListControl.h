@@ -25,12 +25,6 @@ namespace tools
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
-		//void notifyEditTextChange(MyGUI::EditBox* _sender);
-
-		//bool isValidate();
-		//MyGUI::UString getClearValue();
-		//void setColour(bool _validate);
-
 		std::string getValue();
 		void setValue(const std::string& _value);
 

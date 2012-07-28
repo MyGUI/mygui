@@ -22,7 +22,6 @@ namespace tools
 
 	PropertyInt2ListControl::~PropertyInt2ListControl()
 	{
-		//mList->eventEditTextChange -= MyGUI::newDelegate(this, &PropertyInt2ListControl::notifyEditTextChange);
 	}
 
 	void PropertyInt2ListControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
@@ -31,8 +30,6 @@ namespace tools
 
 		assignWidget(mName, "Name", false);
 		assignWidget(mList, "List");
-
-		//mList->eventEditTextChange += MyGUI::newDelegate(this, &PropertyInt2ListControl::notifyEditTextChange);
 	}
 
 	void PropertyInt2ListControl::updateCaption()
@@ -51,9 +48,6 @@ namespace tools
 			std::string value = getValue();
 			if (value != proper->getValue())
 				setValue(proper->getValue());
-
-			//bool validate = isValidate();
-			//setColour(validate);
 		}
 		else
 		{
@@ -61,55 +55,6 @@ namespace tools
 			mList->setEnabled(false);
 		}
 	}
-
-	/*void PropertyInt2ListControl::notifyEditTextChange(MyGUI::EditBox* _sender)
-	{
-		PropertyPtr proper = getProperty();
-		if (proper != nullptr)
-		{
-			bool validate = isValidate();
-			if (validate)
-				executeAction(getClearValue());
-
-			setColour(validate);
-		}
-	}*/
-
-	/*bool PropertyInt2ListControl::isValidate()
-	{
-		MyGUI::UString value = getValue();
-
-		int value1 = 0;
-		int value2 = 0;
-		if (!MyGUI::utility::parseComplex(value, value1, value2))
-			return false;
-
-		return true;
-	}
-
-	MyGUI::UString PropertyInt2ListControl::getClearValue()
-	{
-		MyGUI::UString value = mList->getValue();
-
-		int value1 = 0;
-		int value2 = 0;
-		if (MyGUI::utility::parseComplex(value, value1, value2))
-			return MyGUI::utility::toString(value1, " ", value2);
-
-		return "";
-	}
-
-	void PropertyInt2ListControl::setColour(bool _validate)
-	{
-		MyGUI::UString value = mList->getOnlyText();
-		if (!_validate)
-			value = replaceTags("ColourError") + value;
-
-		size_t index = mList->getTextCursor();
-		mList->setCaption(value);
-		mList->setTextCursor(index);
-		ץו ץו =)
-	}*/
 
 	std::string PropertyInt2ListControl::getValue()
 	{
