@@ -17,7 +17,6 @@ set (HEADER_FILES
   ImageListControl.h
   IndexListControl.h
   IndexTextureController.h
-  MyGUI_FilterNoneSkin.h
   PropertyAlignControl.h
   PropertyRegionTextTypeControl.h
   PropertyRegionTypeControl.h
@@ -59,7 +58,6 @@ set (SOURCE_FILES
   ImageListControl.cpp
   IndexListControl.cpp
   IndexTextureController.cpp
-  MyGUI_FilterNoneSkin.cpp
   PropertyAlignControl.cpp
   PropertyRegionTextTypeControl.cpp
   PropertyRegionTypeControl.cpp
@@ -96,8 +94,6 @@ SOURCE_GROUP("Application" FILES
   ../../Common/Precompiled.cpp
   Application.cpp
   Application.h
-  MyGUI_FilterNoneSkin.cpp
-  MyGUI_FilterNoneSkin.h
 )
 SOURCE_GROUP("Controllers" FILES
   FrameTextureController.cpp

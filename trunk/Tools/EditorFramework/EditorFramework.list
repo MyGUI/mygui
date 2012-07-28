@@ -45,6 +45,7 @@ set (HEADER_FILES
   MainMenuControl.h
   MessageBoxFadeControl.h
   MessageBoxManager.h
+  MyGUI_FilterNoneSkin.h
   OpenSaveFileDialog.h
   PositionSelectorBlackControl.h
   PositionSelectorControl.h
@@ -122,6 +123,7 @@ set (SOURCE_FILES
   MainMenuControl.cpp
   MessageBoxFadeControl.cpp
   MessageBoxManager.cpp
+  MyGUI_FilterNoneSkin.cpp
   OpenSaveFileDialog.cpp
   PositionSelectorBlackControl.cpp
   PositionSelectorControl.cpp
@@ -189,6 +191,8 @@ SOURCE_GROUP("Controls" FILES
 SOURCE_GROUP("Controls\\Common" FILES
   Control.cpp
   Control.h
+  MyGUI_FilterNoneSkin.cpp
+  MyGUI_FilterNoneSkin.h
 )
 SOURCE_GROUP("Controls\\Controllers" FILES
   IControlController.h
