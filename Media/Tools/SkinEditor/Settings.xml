@@ -47,6 +47,7 @@
 	</Resources>
 	<Editor>
 		<UserSettingsFileName>se_user_settings.xml</UserSettingsFileName>
+		<TestSkinFileName>se_test_skin.xml</TestSkinFileName>
 		<DataTypeFileName>SkinDataType.xml</DataTypeFileName>
 		<ExportSerializer>SkinExportSerializer</ExportSerializer>
 		<DefaultScope>Skin</DefaultScope>
