@@ -14,6 +14,7 @@
 #include "DataUtility.h"
 #include "CommandManager.h"
 #include <MyGUI_ResourceTrueTypeFont.h>
+#include "FontExportSerializer.h"
 
 namespace tools
 {
@@ -139,82 +140,19 @@ namespace tools
 	{
 		if (mParentData != nullptr)
 		{
-			generateFont();
-			notifyChangeDataSelector(mParentData, false);
+			DataPtr font = (mParentData != nullptr) ? mParentData->getChildSelected() : nullptr;
+			if (font != nullptr)
+			{
+				FontExportSerializer::generateFont(font);
+				notifyChangeDataSelector(mParentData, false);
+				updateResultPropery(font);
+			}
 		}
 	}
 
-	void FontTextureController::generateFont()
+	void FontTextureController::updateResultPropery(DataPtr _data)
 	{
-		DataPtr font = (mParentData != nullptr) ? mParentData->getChildSelected() : nullptr;
-		if (font != nullptr)
-		{
-			std::string fontName = font->getPropertyValue("FontName");
-
-			removeFont(fontName);
-
-			MyGUI::xml::Document document;
-			document.createDeclaration();
-			MyGUI::xml::ElementPtr root = document.createRoot("MyGUI");
-			generateFontTTFXml(root, fontName, font);
-
-			MyGUI::ResourceManager::getInstance().loadFromXmlNode(root, "", MyGUI::Version());
-
-			updateResultPropery(fontName, font);
-		}
-	}
-
-	template<typename Type>
-	void addProperty(MyGUI::xml::ElementPtr _node, const std::string& _name, Type _value)
-	{
-		MyGUI::xml::ElementPtr node = _node->createChild("Property");
-		node->addAttribute("key", _name);
-		node->addAttribute("value", _value);
-	}
-
-	void FontTextureController::removeFont(const std::string& _fontName)
-	{
-		MyGUI::ResourceManager& manager = MyGUI::ResourceManager::getInstance();
-			if (manager.isExist(_fontName))
-				manager.removeByName(_fontName);
-	}
-
-	void FontTextureController::generateFontTTFXml(MyGUI::xml::ElementPtr _root, const std::string& _fontName, DataPtr _data)
-	{
-		_root->addAttribute("type", "Resource");
-		_root->addAttribute("version", "1.1");
-
-		MyGUI::xml::ElementPtr node = _root->createChild("Resource");
-		node->addAttribute("type", "ResourceTrueTypeFont");
-		node->addAttribute("name", _fontName);
-
-		addProperty(node, "Source", _data->getPropertyValue("Source"));
-		addProperty(node, "Size", _data->getPropertyValue<float>("Size"));
-		addProperty(node, "Resolution", _data->getPropertyValue<int>("Resolution"));
-		addProperty(node, "Hinting", _data->getPropertyValue("Hinting"));
-		addProperty(node, "Antialias", MyGUI::utility::toString(_data->getPropertyValue<bool>("Antialias")));
-		addProperty(node, "TabWidth", _data->getPropertyValue<int>("TabWidth"));
-		addProperty(node, "OffsetHeight", _data->getPropertyValue<int>("OffsetHeight"));
-		addProperty(node, "SubstituteCode", _data->getPropertyValue<int>("SubstituteCode"));
-
-
-		MyGUI::xml::ElementPtr node_codes = node->createChild("Codes");
-
-		std::string ranges = _data->getPropertyValue("FontCodeRanges");
-		std::vector<std::string> values = MyGUI::utility::split(ranges, "|");
-		for (size_t index = 0; index < values.size(); index ++)
-		{
-			MyGUI::IntSize size = MyGUI::IntSize::parse(values[index]);
-			node_codes->createChild("Code")->addAttribute("range", size.print());
-		}
-
-		if (!node_codes->getElementEnumerator().next())
-			node->removeChild(node_codes);
-	}
-
-	void FontTextureController::updateResultPropery(const std::string& _fontName, DataPtr _data)
-	{
-		MyGUI::IResource* resource = MyGUI::ResourceManager::getInstance().findByName(_fontName);
+		MyGUI::IResource* resource = MyGUI::ResourceManager::getInstance().findByName(_data->getPropertyValue("FontName"));
 		MyGUI::ResourceTrueTypeFont* font = resource != nullptr ? resource->castType<MyGUI::ResourceTrueTypeFont>(false) : nullptr;
 		MyGUI::ITexture* texture = font != nullptr ? font->getTextureFont() : nullptr;
 
