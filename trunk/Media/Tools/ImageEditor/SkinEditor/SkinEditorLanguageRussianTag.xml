@@ -43,6 +43,7 @@
 	<Tag name="CaptionOpenFolder">Выбор папки</Tag>
 	<Tag name="CaptionTextureBrowse">Выбор текстуры</Tag>
 	<Tag name="CaptionAddResource">Введите имя файла</Tag>
+	<Tag name="CaptionTestWindow">Тестирование</Tag>
 	<Tag name="ButtonOpenFile">Открыть</Tag>
 	<Tag name="ButtonSaveFile">Сохранить</Tag>
 	<Tag name="ButtonOpenFolder">Выбрать</Tag>
