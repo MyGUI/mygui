@@ -46,7 +46,7 @@
 		</Resource.List>
 	</Resources>
 	<Editor>
-		<UserSettingsFileName>se_user_settings2.xml</UserSettingsFileName>
+		<UserSettingsFileName>se_user_settings.xml</UserSettingsFileName>
 		<DataTypeFileName>SkinDataType.xml</DataTypeFileName>
 		<ExportSerializer>SkinExportSerializer</ExportSerializer>
 		<DefaultScope>Skin</DefaultScope>
@@ -98,7 +98,7 @@
 		</Controls>
 	</Editor>
 	<EditorState>
-		<MainPaneLayout>SkinMainPane.layout</MainPaneLayout>
+		<MainPaneLayout>MainPane.layout</MainPaneLayout>
 		<SettingsWindowLayout>SettingsWindow.layout</SettingsWindowLayout>
 		<OpenSaveFileDialogLayout>OpenSaveFileDialog2.layout</OpenSaveFileDialogLayout>
 		<DefaultFileName>unnamed.xml</DefaultFileName>
