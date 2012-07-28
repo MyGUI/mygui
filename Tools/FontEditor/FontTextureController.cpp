@@ -158,40 +158,9 @@ namespace tools
 			MyGUI::xml::ElementPtr root = document.createRoot("MyGUI");
 			generateFontTTFXml(root, fontName, font);
 
-			try
-			{
-				MyGUI::ResourceManager::getInstance().loadFromXmlNode(root, "", MyGUI::Version());
+			MyGUI::ResourceManager::getInstance().loadFromXmlNode(root, "", MyGUI::Version());
 
-				/*MyGUI::IResource* resource = MyGUI::ResourceManager::getInstance().getByName(fontName, false);
-				MYGUI_ASSERT(resource != nullptr, "Could not find font '" << mFontName << "'");
-				MyGUI::IFont* font = resource->castType<MyGUI::IFont>();
-
-				// גûגמה נואכüםמדמ נאחלונא רנטפעא
-				mFontHeight = font->getDefaultHeight();
-
-				mFontView->setFontName(mFontName);
-				mTextureView->setFontName(mFontName);
-
-				MyGUI::UString fileName = mComboFont->getOnlyText();
-
-				MyGUI::UString::size_type dotIndex = fileName.find_last_of(".");
-
-				if (dotIndex != MyGUI::UString::npos)
-					fileName.erase(fileName.begin() + dotIndex, fileName.end());
-
-				enableSave(true, MyGUI::utility::toString(fileName, '_', mFontHeight));*/
-			}
-			catch (MyGUI::Exception & e)
-			{
-				/*mFontHeight = 0;
-
-				mFontView->setFontName(MyGUI::FontManager::getInstance().getDefaultFont());
-				mTextureView->setFontName(std::string());
-
-				enableSave(false);
-
-				MyGUI::Message::createMessageBox("Error", e.getDescription(), MyGUI::MessageBoxStyle::Ok | MyGUI::MessageBoxStyle::IconInfo);*/
-			}
+			updateResultPropery(fontName, font);
 		}
 	}
 
@@ -227,6 +196,7 @@ namespace tools
 		addProperty(node, "SpaceWidth", _data->getPropertyValue<int>("SpaceWidth"));
 		addProperty(node, "TabWidth", _data->getPropertyValue<int>("TabWidth"));
 		addProperty(node, "OffsetHeight", _data->getPropertyValue<int>("OffsetHeight"));
+		addProperty(node, "SubstituteCode", _data->getPropertyValue<int>("SubstituteCode"));
 
 
 		MyGUI::xml::ElementPtr node_codes = node->createChild("Codes");
@@ -237,9 +207,23 @@ namespace tools
 
 		if (!node_codes->getElementEnumerator().next())
 			node->removeChild(node_codes);
+	}
 
-		/*if (mComboSubstituteCode->getIndexSelected() != 0)
-			addProperty(node, "SubstituteCode", MyGUI::utility::parseValue<int>(mComboSubstituteCode->getOnlyText()));*/
+	void FontTextureController::updateResultPropery(const std::string& _fontName, DataPtr _data)
+	{
+		MyGUI::IResource* resource = MyGUI::ResourceManager::getInstance().findByName(_fontName);
+		MyGUI::ResourceTrueTypeFont* font = resource != nullptr ? resource->castType<MyGUI::ResourceTrueTypeFont>(false) : nullptr;
+		MyGUI::ITexture* texture = font != nullptr ? font->getTextureFont() : nullptr;
+
+		if (texture != nullptr)
+			_data->setPropertyValue("TextureSizeResult", MyGUI::utility::toString(texture->getWidth(), " ", texture->getHeight()));
+		else
+			_data->setPropertyValue("TextureSizeResult", "0 0");
+
+		if (font != nullptr)
+			_data->setPropertyValue("FontHeightPix", font->getDefaultHeight());
+		else
+			_data->setPropertyValue("FontHeightPix", "0");
 	}
 
 }
