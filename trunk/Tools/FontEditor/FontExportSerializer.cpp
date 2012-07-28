@@ -57,10 +57,49 @@ namespace tools
 		data->setPropertyValue("Source", value);
 
 		value = _node.select_single_node("Property[@key=\"Size\"]/@value").attribute().value();
-		data->setPropertyValue("Size", value);
+		data->setPropertyValue("Size", MyGUI::utility::parseValue<int>(value));
 
 		value = _node.select_single_node("Property[@key=\"Hinting\"]/@value").attribute().value();
 		data->setPropertyValue("Hinting", value);
+
+		value = _node.select_single_node("Property[@key=\"Resolution\"]/@value").attribute().value();
+		if (!value.empty())
+			data->setPropertyValue("Resolution", MyGUI::utility::parseValue<int>(value));
+
+		value = _node.select_single_node("Property[@key=\"Antialias\"]/@value").attribute().value();
+		if (!value.empty())
+			data->setPropertyValue("Antialias", MyGUI::utility::parseValue<bool>(value));
+
+		value = _node.select_single_node("Property[@key=\"SpaceWidth\"]/@value").attribute().value();
+		if (!value.empty())
+			data->setPropertyValue("SpaceWidth", MyGUI::utility::parseValue<int>(value));
+
+		value = _node.select_single_node("Property[@key=\"TabWidth\"]/@value").attribute().value();
+		if (!value.empty())
+			data->setPropertyValue("TabWidth", MyGUI::utility::parseValue<int>(value));
+
+		value = _node.select_single_node("Property[@key=\"OffsetHeight\"]/@value").attribute().value();
+		if (!value.empty())
+			data->setPropertyValue("OffsetHeight", MyGUI::utility::parseValue<int>(value));
+
+		value = _node.select_single_node("Property[@key=\"SubstituteCode\"]/@value").attribute().value();
+		if (!value.empty())
+			data->setPropertyValue("SubstituteCode", MyGUI::utility::parseValue<int>(value));
+
+		value = "";
+		pugi::xpath_node_set codes = _node.select_nodes("Codes/Code/@range");
+		for (pugi::xpath_node_set::const_iterator code = codes.begin(); code != codes.end(); code ++)
+		{
+			if (!value.empty())
+				value += "|";
+
+			std::vector<std::string> values = MyGUI::utility::split((*code).attribute().value());
+			if (values.size() == 1)
+				value += MyGUI::utility::toString(values[0], " ", values[0]);
+			else if (values.size() == 2)
+				value += MyGUI::utility::toString(values[0], " ", values[1]);
+		}
+		data->setPropertyValue("FontCodeRanges", value);
 
 		DataManager::getInstance().getRoot()->addChild(data);
 	}
@@ -82,6 +121,36 @@ namespace tools
 		nodeProperty = node.append_child("Property");
 		nodeProperty.append_attribute("key").set_value("Hinting");
 		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("Hinting").c_str());
+
+		nodeProperty = node.append_child("Property");
+		nodeProperty.append_attribute("key").set_value("Resolution");
+		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("Resolution").c_str());
+
+		nodeProperty = node.append_child("Property");
+		nodeProperty.append_attribute("key").set_value("Antialias");
+		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("Antialias").c_str());
+
+		nodeProperty = node.append_child("Property");
+		nodeProperty.append_attribute("key").set_value("SpaceWidth");
+		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("SpaceWidth").c_str());
+
+		nodeProperty = node.append_child("Property");
+		nodeProperty.append_attribute("key").set_value("TabWidth");
+		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("TabWidth").c_str());
+
+		nodeProperty = node.append_child("Property");
+		nodeProperty.append_attribute("key").set_value("OffsetHeight");
+		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("OffsetHeight").c_str());
+
+		nodeProperty = node.append_child("Property");
+		nodeProperty.append_attribute("key").set_value("SubstituteCode");
+		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("SubstituteCode").c_str());
+
+		pugi::xml_node nodeCodes = node.append_child("Codes");
+		std::string value = _data->getPropertyValue("FontCodeRanges");
+		std::vector<std::string> values = MyGUI::utility::split(value, "|");
+		for (size_t index = 0; index < values.size(); index ++)
+			nodeCodes.append_child("Code").append_attribute("range").set_value(values[index].c_str());
 	}
 
 }

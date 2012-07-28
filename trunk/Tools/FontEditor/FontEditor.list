@@ -8,6 +8,7 @@ set (HEADER_FILES
   GenerateFontNamePropertyInitialisator.h
   PropertyFontHintingControl.h
   PropertyFontSourceControl.h
+  PropertyInt2ListControl.h
   SettingsGeneralControl.h
   SettingsResourcePathsControl.h
   SettingsResourcesControl.h
@@ -25,6 +26,7 @@ set (SOURCE_FILES
   GenerateFontNamePropertyInitialisator.cpp
   PropertyFontHintingControl.cpp
   PropertyFontSourceControl.cpp
+  PropertyInt2ListControl.cpp
   SettingsGeneralControl.cpp
   SettingsResourcePathsControl.cpp
   SettingsResourcesControl.cpp
@@ -51,6 +53,8 @@ SOURCE_GROUP("Controls\\Properties" FILES
   PropertyFontHintingControl.h
   PropertyFontSourceControl.cpp
   PropertyFontSourceControl.h
+  PropertyInt2ListControl.cpp
+  PropertyInt2ListControl.h
 )
 SOURCE_GROUP("Controls\\Settings" FILES
   SettingsGeneralControl.cpp

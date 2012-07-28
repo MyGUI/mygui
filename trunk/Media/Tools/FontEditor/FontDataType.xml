@@ -121,6 +121,15 @@
 					<Action>ChangeValueAction</Action>
 				</Property>
 				<Property>
+					<Name>FontCodeRanges</Name>
+					<Type>PropertyInt2ListControl</Type>
+					<Initialisator/>
+					<Default></Default>
+					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
+					<Action>ChangeValueAction</Action>
+				</Property>
+				<Property>
 					<Name>TextureSizeResult</Name>
 					<Type>PropertyInt2Control</Type>
 					<Initialisator/>
