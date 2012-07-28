@@ -5,48 +5,46 @@
 */
 
 #include "Precompiled.h"
-#include "PropertyRegionTypeControl.h"
+#include "PropertyRegionTextTypeControl.h"
 #include "FactoryManager.h"
 
 namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(PropertyRegionTypeControl)
+	FACTORY_ITEM_ATTRIBUTE(PropertyRegionTextTypeControl)
 
-	PropertyRegionTypeControl::PropertyRegionTypeControl()
+	PropertyRegionTextTypeControl::PropertyRegionTextTypeControl()
 	{
 	}
 
-	PropertyRegionTypeControl::~PropertyRegionTypeControl()
+	PropertyRegionTextTypeControl::~PropertyRegionTextTypeControl()
 	{
-		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyRegionTypeControl::notifyComboChangePosition);
+		mComboBox->eventComboChangePosition -= MyGUI::newDelegate(this, &PropertyRegionTextTypeControl::notifyComboChangePosition);
 	}
 
-	void PropertyRegionTypeControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void PropertyRegionTextTypeControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyComboBoxControl.layout");
 
 		assignWidget(mName, "Name", false);
 		assignWidget(mComboBox, "ComboBox");
 
-		mComboBox->addItem("SubSkin");
-		mComboBox->addItem("TileRect");
-		mComboBox->addItem("TileRect Horz");
-		mComboBox->addItem("TileRect Vert");
+		mComboBox->addItem("SimpleText");
+		mComboBox->addItem("EditText");
 
 		mComboBox->beginToItemFirst();
 
-		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyRegionTypeControl::notifyComboChangePosition);
+		mComboBox->eventComboChangePosition += MyGUI::newDelegate(this, &PropertyRegionTextTypeControl::notifyComboChangePosition);
 	}
 
-	void PropertyRegionTypeControl::updateCaption()
+	void PropertyRegionTextTypeControl::updateCaption()
 	{
 		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 			mName->setCaption(proper->getType()->getName());
 	}
 
-	void PropertyRegionTypeControl::updateProperty()
+	void PropertyRegionTextTypeControl::updateProperty()
 	{
 		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
@@ -62,7 +60,7 @@ namespace tools
 		}
 	}
 
-	void PropertyRegionTypeControl::notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index)
+	void PropertyRegionTextTypeControl::notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index)
 	{
 		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
@@ -72,7 +70,7 @@ namespace tools
 		}
 	}
 
-	size_t PropertyRegionTypeControl::getComboIndex(const MyGUI::UString& _name)
+	size_t PropertyRegionTextTypeControl::getComboIndex(const MyGUI::UString& _name)
 	{
 		size_t result = MyGUI::ITEM_NONE;
 

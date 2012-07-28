@@ -3,20 +3,24 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __EDITOR_STATE_H__
-#define __EDITOR_STATE_H__
+
+#ifndef _9242b3ed_2b1a_44f5_b31d_6a24f2db0fe2_
+#define _9242b3ed_2b1a_44f5_b31d_6a24f2db0fe2_
 
 #include "StateController.h"
-#include "MainPane.h"
-#include "Tools/OpenSaveFileDialog.h"
+#include "Control.h"
+#include "OpenSaveFileDialog.h"
 #include "MessageBoxFadeControl.h"
 #include "MessageBox/MessageBox.h"
 #include "SettingsWindow.h"
+#include "sigslot.h"
 
 namespace tools
 {
+
 	class EditorState :
-		public StateController
+		public StateController,
+		public sigslot::has_slots<>
 	{
 	public:
 		EditorState();
@@ -35,7 +39,7 @@ namespace tools
 		void notifyMessageBoxResultLoadDropFile(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
 		void notifyEndDialog(Dialog* _sender, bool _result);
-		void notifyChanges(bool _changes);
+		void notifyChanges();
 		void notifySettingsWindowEndDialog(Dialog* _dialog, bool _result);
 
 		void commandFileDrop(const MyGUI::UString& _commandName, bool& _result);
@@ -44,9 +48,10 @@ namespace tools
 		void commandSaveAs(const MyGUI::UString& _commandName, bool& _result);
 		void commandClear(const MyGUI::UString& _commandName, bool& _result);
 		void commandSettings(const MyGUI::UString& _commandName, bool& _result);
-		void commandTest(const MyGUI::UString& _commandName, bool& _result);
 		void commandRecentFiles(const MyGUI::UString& _commandName, bool& _result);
 		void commandQuit(const MyGUI::UString& _commandName, bool& _result);
+		void commandUndo(const MyGUI::UString& _commandName, bool& _result);
+		void commandRedo(const MyGUI::UString& _commandName, bool& _result);
 
 		void clear();
 		bool save();
@@ -65,12 +70,11 @@ namespace tools
 		MyGUI::UString mDefaultFileName;
 		MyGUI::UString mDropFileName;
 
-		MainPane* mMainPane;
+		Control* mMainPane;
 		OpenSaveFileDialog* mOpenSaveFileDialog;
-		MessageBoxFadeControl* mMessageBoxFadeControl;
 		SettingsWindow* mSettingsWindow;
 	};
 
-} // namespace tools
+}
 
-#endif // __EDITOR_STATE_H__
+#endif

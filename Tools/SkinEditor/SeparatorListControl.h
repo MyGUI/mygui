@@ -1,47 +1,34 @@
 /*!
 	@file
 	@author		Albert Semenov
-	@date		08/2010
+	@date		07/2012
 */
-#ifndef __SEPARATOR_LIST_CONTROL_H__
-#define __SEPARATOR_LIST_CONTROL_H__
 
-#include "BaseLayout/BaseLayout.h"
-#include "SkinItem.h"
-#include "PropertyAdvisor.h"
+#ifndef _655d5259_42ad_447e_a3bc_17890df040c2_
+#define _655d5259_42ad_447e_a3bc_17890df040c2_
+
+#include "Control.h"
+#include "Data.h"
+#include "ListBoxDataControl.h"
 
 namespace tools
 {
 
 	class SeparatorListControl :
-		public wraps::BaseLayout,
-		public PropertyAdvisor
+		public Control,
+		public sigslot::has_slots<>
 	{
 	public:
-		SeparatorListControl(MyGUI::Widget* _parent);
+		SeparatorListControl();
 		virtual ~SeparatorListControl();
 
-	private:
-		void notifyChangePosition(MyGUI::ListBox* _sender, size_t _index);
-		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
-
-		virtual void updateSeparatorProperties();
-		virtual void updateSkinProperties();
-
-		virtual void updateSeparatorProperty(Property* _sender, const MyGUI::UString& _owner);
-
-		void updateList();
-
-		void fillPresets();
-		void updatePreset();
+	protected:
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 
 	private:
-		MyGUI::UString mTypeName;
-
-		MyGUI::ListBox* mList;
-		MyGUI::ComboBox* mPresets;
+		ListBoxDataControl* mListBoxControl;
 	};
 
-} // namespace tools
+}
 
-#endif // __SEPARATOR_LIST_CONTROL_H__
+#endif

@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "EditorState.h"
 #include "Application.h"
@@ -11,30 +12,39 @@
 #include "CommandManager.h"
 #include "ActionManager.h"
 #include "MessageBoxManager.h"
-#include "Tools/DialogManager.h"
+#include "DialogManager.h"
 #include "StateManager.h"
 #include "RecentFilesManager.h"
+#include "ExportManager.h"
+#include "DataManager.h"
+#include "DataSelectorManager.h"
+#include "FactoryManager.h"
+#include "SettingsManager.h"
 
 namespace tools
 {
 
+	FACTORY_ITEM_ATTRIBUTE(EditorState)
+
 	EditorState::EditorState() :
-		mFileName("unnamed.xml"),
-		mDefaultFileName("unnamed.xml"),
 		mMainPane(nullptr),
 		mOpenSaveFileDialog(nullptr),
-		mMessageBoxFadeControl(nullptr),
 		mSettingsWindow(nullptr)
 	{
-		CommandManager::getInstance().registerCommand("Command_FileDrop", MyGUI::newDelegate(this, &EditorState::commandFileDrop));
-		CommandManager::getInstance().registerCommand("Command_FileLoad", MyGUI::newDelegate(this, &EditorState::commandLoad));
-		CommandManager::getInstance().registerCommand("Command_FileSave", MyGUI::newDelegate(this, &EditorState::commandSave));
-		CommandManager::getInstance().registerCommand("Command_FileSaveAs", MyGUI::newDelegate(this, &EditorState::commandSaveAs));
-		CommandManager::getInstance().registerCommand("Command_ClearAll", MyGUI::newDelegate(this, &EditorState::commandClear));
-		CommandManager::getInstance().registerCommand("Command_Settings", MyGUI::newDelegate(this, &EditorState::commandSettings));
-		CommandManager::getInstance().registerCommand("Command_Test", MyGUI::newDelegate(this, &EditorState::commandTest));
-		CommandManager::getInstance().registerCommand("Command_RecentFiles", MyGUI::newDelegate(this, &EditorState::commandRecentFiles));
-		CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &EditorState::commandQuit));
+		CommandManager::getInstance().getEvent("Command_FileDrop")->connect(this, &EditorState::commandFileDrop);
+		CommandManager::getInstance().getEvent("Command_FileLoad")->connect(this, &EditorState::commandLoad);
+		CommandManager::getInstance().getEvent("Command_FileSave")->connect(this, &EditorState::commandSave);
+		CommandManager::getInstance().getEvent("Command_FileSaveAs")->connect(this, &EditorState::commandSaveAs);
+		CommandManager::getInstance().getEvent("Command_ClearAll")->connect(this, &EditorState::commandClear);
+		CommandManager::getInstance().getEvent("Command_Settings")->connect(this, &EditorState::commandSettings);
+		CommandManager::getInstance().getEvent("Command_RecentFiles")->connect(this, &EditorState::commandRecentFiles);
+		CommandManager::getInstance().getEvent("Command_Quit")->connect(this, &EditorState::commandQuit);
+		CommandManager::getInstance().getEvent("Command_Undo")->connect(this, &EditorState::commandUndo);
+		CommandManager::getInstance().getEvent("Command_Redo")->connect(this, &EditorState::commandRedo);
+
+		if (!SettingsManager::getInstance().tryGetValue("EditorState/DefaultFileName", mDefaultFileName))
+			mDefaultFileName = "unnamed.xml";
+		mFileName = mDefaultFileName;
 	}
 
 	EditorState::~EditorState()
@@ -46,19 +56,25 @@ namespace tools
 		addUserTag("\\n", "\n");
 		addUserTag("CurrentFileName", mFileName);
 
-		mMainPane = new MainPane();
-		mMessageBoxFadeControl = new MessageBoxFadeControl();
+		mMainPane = new Control();
+		mMainPane->Initialise(SettingsManager::getInstance().getValue("EditorState/MainPaneLayout"));
 
 		mSettingsWindow = new SettingsWindow();
-		mSettingsWindow->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifySettingsWindowEndDialog);
+		mSettingsWindow->Initialise(SettingsManager::getInstance().getValue("EditorState/SettingsWindowLayout"));
+		mSettingsWindow->eventEndDialog.connect(this, &EditorState::notifySettingsWindowEndDialog);
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
-		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialog);
-		mOpenSaveFileDialog->setFileMask("*.xml");
+		mOpenSaveFileDialog->Initialise(SettingsManager::getInstance().getValue("EditorState/OpenSaveFileDialogLayout"));
+		mOpenSaveFileDialog->eventEndDialog.connect(this, &EditorState::notifyEndDialog);
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
 		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());
 
-		ActionManager::getInstance().eventChanges += MyGUI::newDelegate(this, &EditorState::notifyChanges);
+		std::string fileMask;
+		if (!SettingsManager::getInstance().tryGetValue("EditorState/DefaultFileMask", fileMask))
+			fileMask = "*.xml";
+		mOpenSaveFileDialog->setFileMask(fileMask);
+
+		ActionManager::getInstance().eventChanges.connect(this, &EditorState::notifyChanges);
 
 		updateCaption();
 
@@ -74,17 +90,14 @@ namespace tools
 
 	void EditorState::cleanupState()
 	{
-		ActionManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &EditorState::notifyChanges);
+		ActionManager::getInstance().eventChanges.disconnect(this);
 
-		mOpenSaveFileDialog->eventEndDialog = nullptr;
+		mOpenSaveFileDialog->eventEndDialog.disconnect(this);
 		delete mOpenSaveFileDialog;
 		mOpenSaveFileDialog = nullptr;
 
 		delete mSettingsWindow;
 		mSettingsWindow = nullptr;
-
-		delete mMessageBoxFadeControl;
-		mMessageBoxFadeControl = nullptr;
 
 		delete mMainPane;
 		mMainPane = nullptr;
@@ -92,12 +105,12 @@ namespace tools
 
 	void EditorState::pauseState()
 	{
-		mMainPane->setVisible(false);
+		mMainPane->getRoot()->setVisible(false);
 	}
 
 	void EditorState::resumeState()
 	{
-		mMainPane->setVisible(true);
+		mMainPane->getRoot()->setVisible(true);
 	}
 
 	void EditorState::updateCaption()
@@ -235,18 +248,6 @@ namespace tools
 		_result = true;
 	}
 
-	void EditorState::commandTest(const MyGUI::UString& _commandName, bool& _result)
-	{
-		if (!checkCommand())
-			return;
-
-		SkinItem* item = SkinManager::getInstance().getItemSelected();
-		if (item != nullptr)
-			StateManager::getInstance().stateEvent(this, "Test");
-
-		_result = true;
-	}
-
 	void EditorState::notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result)
 	{
 		if (_result == MyGUI::MessageBoxStyle::Yes)
@@ -368,7 +369,7 @@ namespace tools
 		}
 	}
 
-	void EditorState::notifyChanges(bool _changes)
+	void EditorState::notifyChanges()
 	{
 		updateCaption();
 	}
@@ -389,8 +390,9 @@ namespace tools
 
 	void EditorState::clear()
 	{
-		SkinManager::getInstance().clear();
-		ActionManager::getInstance().setChanges(false);
+		DataManager::getInstance().clear();
+		ActionManager::getInstance().reset();
+		DataSelectorManager::getInstance().changeParent(DataManager::getInstance().getRoot());
 
 		mFileName = mDefaultFileName;
 		addUserTag("CurrentFileName", mFileName);
@@ -400,23 +402,23 @@ namespace tools
 
 	void EditorState::load()
 	{
-		SkinManager::getInstance().clear();
+		DataManager::getInstance().clear();
+		ActionManager::getInstance().reset();
+		DataSelectorManager::getInstance().changeParent(DataManager::getInstance().getRoot());
 
-		MyGUI::xml::Document doc;
-		if (doc.open(mFileName))
+		pugi::xml_document doc;
+		pugi::xml_parse_result result = doc.load_file(mFileName.asWStr_c_str());
+		if (result)
 		{
-			bool result = false;
-			MyGUI::xml::Element* root = doc.getRoot();
-			if (root->getName() == "MyGUI")
+			bool success = ExportManager::getInstance().deserialization(doc);
+			if (success)
 			{
-				SkinManager::getInstance().deserialization(root, MyGUI::Version());
-				result = true;
-
 				if (mFileName != mDefaultFileName)
 					RecentFilesManager::getInstance().addRecentFile(mFileName);
-			}
 
-			if (!result)
+				DataSelectorManager::getInstance().changeParent(DataManager::getInstance().getRoot());
+			}
+			else
 			{
 				/*MyGUI::Message* message =*/ MessageBoxManager::getInstance().create(
 					replaceTags("Error"),
@@ -434,38 +436,35 @@ namespace tools
 		{
 			/*MyGUI::Message* message =*/ MessageBoxManager::getInstance().create(
 				replaceTags("Error"),
-				doc.getLastError(),
+				result.description(),
 				MyGUI::MessageBoxStyle::IconError
 					| MyGUI::MessageBoxStyle::Yes);
 		}
-
-		ActionManager::getInstance().setChanges(false);
 	}
 
 	bool EditorState::save()
 	{
-		MyGUI::xml::Document doc;
-		doc.createDeclaration();
-		MyGUI::xml::Element* root = doc.createRoot("MyGUI");
-		root->addAttribute("type", "Resource");
-		root->addAttribute("version", "1.1");
+		pugi::xml_document doc;
+		pugi::xml_node decl = doc.prepend_child(pugi::node_declaration);
+		decl.append_attribute("version") = "1.0";
+		decl.append_attribute("encoding") = "UTF-8";
 
-		SkinManager::getInstance().serialization(root, MyGUI::Version());
+		ExportManager::getInstance().serialization(doc);
 
-		bool result = doc.save(mFileName);
+		bool result = doc.save_file(mFileName.asWStr_c_str(), "\t", (pugi::format_indent | pugi::format_write_bom | pugi::format_win_new_line) & (~pugi::format_space_before_slash));
 
 		if (result)
 		{
 			if (mFileName != mDefaultFileName)
 				RecentFilesManager::getInstance().addRecentFile(mFileName);
 
-			ActionManager::getInstance().setChanges(false);
+			ActionManager::getInstance().saveChanges();
 			return true;
 		}
 
 		/*MyGUI::Message* message =*/ MessageBoxManager::getInstance().create(
 			replaceTags("Error"),
-			doc.getLastError(),
+			"Error save file",
 			MyGUI::MessageBoxStyle::IconError
 				| MyGUI::MessageBoxStyle::Yes);
 
@@ -479,6 +478,7 @@ namespace tools
 
 	void EditorState::commandSettings(const MyGUI::UString& _commandName, bool& _result)
 	{
+		mSettingsWindow->SendCommand("Command_LoadSettings");
 		mSettingsWindow->doModal();
 
 		_result = true;
@@ -489,9 +489,29 @@ namespace tools
 		MYGUI_ASSERT(mSettingsWindow == _dialog, "mSettingsWindow == _sender");
 
 		if (_result)
-			mSettingsWindow->saveSettings();
+			mSettingsWindow->SendCommand("Command_SaveSettings");
 
 		mSettingsWindow->endModal();
 	}
 
-} // namespace tools
+	void EditorState::commandUndo(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		ActionManager::getInstance().undoAction();
+
+		_result = true;
+	}
+
+	void EditorState::commandRedo(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (!checkCommand())
+			return;
+
+		ActionManager::getInstance().redoAction();
+
+		_result = true;
+	}
+
+}

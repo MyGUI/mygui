@@ -3,27 +3,32 @@
 	@author		Albert Semenov
 	@date		09/2008
 */
-#ifndef __TEST_WINDOW_H__
-#define __TEST_WINDOW_H__
+
+#ifndef _b38d3a42_9f99_471a_80ed_7ebdaf3282f4_
+#define _b38d3a42_9f99_471a_80ed_7ebdaf3282f4_
 
 #include <MyGUI.h>
-#include "Tools/Dialog.h"
+#include "Dialog.h"
+#include "Data.h"
+#include "Control.h"
 #include "BackgroundControl.h"
-#include "SkinItem.h"
 
 namespace tools
 {
 
 	class TestWindow :
-		public Dialog
+		public Dialog,
+		public Control
 	{
 	public:
 		TestWindow();
 		virtual ~TestWindow();
 
-		void setSkinItem(SkinItem* _item);
+		void setSkinItem(DataPtr _item);
 
 	protected:
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+
 		virtual void onDoModal();
 		virtual void onEndModal();
 
@@ -38,11 +43,14 @@ namespace tools
 
 	private:
 		BackgroundControl* mBackgroundControl;
-		SkinItem* mSkinItem;
+		DataPtr mSkinItem;
 		MyGUI::Button* mSkinButton;
-		MyGUI::UString mSkinName;
+		std::string mSkinName;
+		MyGUI::Widget* mBack;
+		std::string mTestSkinFileName;
+		std::string mDefaultFontName;
 	};
 
-} // namespace tools
+}
 
-#endif // __TEST_WINDOW_H__
+#endif

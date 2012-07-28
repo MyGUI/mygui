@@ -3,26 +3,23 @@
 	@author		Albert Semenov
 	@date		09/2010
 */
+
 #include "Precompiled.h"
 #include "SettingsGeneralControl.h"
 #include "SettingsManager.h"
+#include "FactoryManager.h"
 
 namespace tools
 {
-	SettingsGeneralControl::SettingsGeneralControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("SettingsGeneralControl.layout", _parent),
+
+	FACTORY_ITEM_ATTRIBUTE(SettingsGeneralControl)
+
+	SettingsGeneralControl::SettingsGeneralControl() :
 		mGridStep(0),
 		mGridEdit(nullptr),
 		mSaveLastTexture(nullptr),
 		mInterfaceLanguage(nullptr)
 	{
-		assignWidget(mGridEdit, "gridEdit");
-		assignWidget(mSaveLastTexture, "SaveLastTexture");
-		assignWidget(mInterfaceLanguage, "InterfaceLanguage");
-
-		mGridEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStepAccept);
-		mGridEdit->eventKeyLostFocus += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStep);
-		mSaveLastTexture->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonClick);
 	}
 
 	SettingsGeneralControl::~SettingsGeneralControl()
@@ -32,25 +29,38 @@ namespace tools
 		mGridEdit->eventKeyLostFocus -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStep);
 	}
 
+	void SettingsGeneralControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::OnInitialise(_parent, _place, _layoutName);
+
+		assignWidget(mGridEdit, "gridEdit");
+		assignWidget(mSaveLastTexture, "SaveLastTexture");
+		assignWidget(mInterfaceLanguage, "InterfaceLanguage");
+
+		mGridEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStepAccept);
+		mGridEdit->eventKeyLostFocus += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStep);
+		mSaveLastTexture->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonClick);
+	}
+
 	void SettingsGeneralControl::loadSettings()
 	{
-		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
+		mGridStep = SettingsManager::getInstance().getValue<int>("Settings/GridStep");
 		mGridEdit->setCaption(MyGUI::utility::toString(mGridStep));
-		mSaveLastTexture->setStateSelected(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("SaveLastTexture"));
-		setLanguageValue(SettingsManager::getInstance().getSector("Settings")->getPropertyValue("InterfaceLanguage"));
+		mSaveLastTexture->setStateSelected(SettingsManager::getInstance().getValue<bool>("Settings/SaveLastTexture"));
+		setLanguageValue(SettingsManager::getInstance().getValue("Settings/InterfaceLanguage"));
 	}
 
 	void SettingsGeneralControl::saveSettings()
 	{
-		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("Grid", mGridStep);
-		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("SaveLastTexture", mSaveLastTexture->getStateSelected());
-		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("InterfaceLanguage", getLanguageValue());
+		SettingsManager::getInstance().setValue("Settings/GridStep", mGridStep);
+		SettingsManager::getInstance().setValue("Settings/SaveLastTexture", mSaveLastTexture->getStateSelected());
+		SettingsManager::getInstance().setValue("Settings/InterfaceLanguage", getLanguageValue());
 	}
 
 	void SettingsGeneralControl::notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new)
 	{
 		mGridStep = MyGUI::utility::parseInt(mGridEdit->getOnlyText());
-		mGridStep = std::max(1, mGridStep);
+		mGridStep = (std::max)(1, mGridStep);
 		mGridEdit->setCaption(MyGUI::utility::toString(mGridStep));
 	}
 
@@ -93,4 +103,14 @@ namespace tools
 		return mInterfaceLanguage->getItemNameAt(mInterfaceLanguage->getIndexSelected());
 	}
 
-} // namespace tools
+	void SettingsGeneralControl::OnCommand(const std::string& _command)
+	{
+		Control::OnCommand(_command);
+
+		if (_command == "Command_LoadSettings")
+			loadSettings();
+		else if (_command == "Command_SaveSettings")
+			saveSettings();
+	}
+
+}
