@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource" version="1.1">
-	<Resource type="ResourceSkin" name="WindowSmallCaption" size="68 18" texture="FrameworkSkin.png">
+	<Resource type="ResourceSkin" name="WindowSmallCaption" size="68 18" texture="GraphNodeSkin.png">
 		<Property key="FontName" value="DejaVuSansFont_13"/>
 		<Property key="TextAlign" value="Center"/>
 		<Property key="TextColour" value="#{MyGUI_Theme_Button_ColourNormal}"/>
@@ -15,21 +15,21 @@
 		</BasisSkin>
 		<BasisSkin type="SimpleText" offset="2 4 48 15" align="Stretch"/>
 	</Resource>
-	<Resource type="ResourceSkin" name="ButtonRoundBlue" size="14 14" texture="FrameworkSkin.png">
+	<Resource type="ResourceSkin" name="ButtonRoundBlue" size="14 14" texture="GraphNodeSkin.png">
 		<BasisSkin type="MainSkin" offset="0 0 14 14" align="Stretch">
 			<State name="normal" offset="314 134 14 14"/>
 			<State name="highlighted" offset="314 148 14 14"/>
 			<State name="pushed" offset="314 162 14 14"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="ButtonRoundGrey" size="14 14" texture="FrameworkSkin.png">
+	<Resource type="ResourceSkin" name="ButtonRoundGrey" size="14 14" texture="GraphNodeSkin.png">
 		<BasisSkin type="MainSkin" offset="0 0 14 14" align="Stretch">
 			<State name="normal" offset="329 134 14 14"/>
 			<State name="highlighted" offset="329 148 14 14"/>
 			<State name="pushed" offset="329 162 14 14"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="WindowSmallC" size="75 49" texture="FrameworkSkin.png">
+	<Resource type="ResourceSkin" name="WindowSmallC" size="75 49" texture="GraphNodeSkin.png">
 		<Property key="Snap" value="true"/>
 		<Child type="Button" skin="WindowSmallCaption" offset="6 0 64 18" align="HStretch Top" name="Caption">
 			<Property key="Scale" value="1 1 0 0"/>
@@ -62,7 +62,7 @@
 			<State name="normal" offset="401 188 6 6"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="WindowSmallCX" size="75 49" texture="FrameworkSkin.png">
+	<Resource type="ResourceSkin" name="WindowSmallCX" size="75 49" texture="GraphNodeSkin.png">
 		<Property key="Snap" value="true"/>
 		<Child type="Button" skin="WindowSmallCaption" offset="6 0 64 18" align="HStretch Top" name="Caption">
 			<Property key="Scale" value="1 1 0 0"/>
