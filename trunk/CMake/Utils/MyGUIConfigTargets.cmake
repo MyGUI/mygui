@@ -240,7 +240,49 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 			"../../Common/Precompiled.cpp"
 		)
 	endif ()
+
+	# Set up dependencies
+	if(MYGUI_RENDERSYSTEM EQUAL 1)
+		include_directories(../../Common/Base/Dummy)
+		add_definitions("-DMYGUI_DUMMY_PLATFORM")
+		include_directories(
+			${MYGUI_SOURCE_DIR}/Platforms/Dummy/DummyPlatform/include
+		)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
+		include_directories(../../Common/Base/Ogre)
+		add_definitions("-DMYGUI_OGRE_PLATFORM")
+		include_directories(
+			${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include
+			${OGRE_INCLUDE_DIR}
+		)
+		link_directories(${OGRE_LIB_DIR})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
+		include_directories(../../Common/Base/OpenGL)
+		add_definitions("-DMYGUI_OPENGL_PLATFORM")
+		include_directories(
+			${MYGUI_SOURCE_DIR}/Platforms/OpenGL/OpenGLPlatform/include
+			${OPENGL_INCLUDE_DIR}
+		)
+		link_directories(${OPENGL_LIB_DIR})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 5)
+		include_directories(../../Common/Base/DirectX)
+		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
+		include_directories(
+			${MYGUI_SOURCE_DIR}/Platforms/DirectX/DirectXPlatform/include
+			${DirectX_INCLUDE_DIR}
+		)
+		link_directories(${DIRECTX_LIB_DIR})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 6)
+		include_directories(../../Common/Base/DirectX11)
+		add_definitions("-DMYGUI_DIRECTX11_PLATFORM")
+		include_directories(
+			${MYGUI_SOURCE_DIR}/Platforms/DirectX11/DirectX11Platform/include
+			${DirectX_INCLUDE_DIR}
+		)
+		link_directories(${DIRECTX_LIB_DIR})
+	endif()
 	
+		
 	add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL")
 	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER "Tools")
@@ -257,6 +299,19 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 	target_link_libraries(${PROJECTNAME}
 		Common
 	)
+
+	if(MYGUI_RENDERSYSTEM EQUAL 5)
+		add_dependencies(${PROJECTNAME} MyGUI.DirectXPlatform)
+		target_link_libraries(${PROJECTNAME} MyGUI.DirectXPlatform)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
+		add_dependencies(${PROJECTNAME} MyGUI.OgrePlatform)
+		target_link_libraries(${PROJECTNAME} MyGUI.OgrePlatform)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
+		add_dependencies(${PROJECTNAME} MyGUI.OpenGLPlatform)
+		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLPlatform)
+		
+		target_link_libraries(${PROJECTNAME} gdiplus)
+	endif()
 
 	target_link_libraries(${PROJECTNAME}
 		MyGUIEngine
