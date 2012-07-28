@@ -70,4 +70,5 @@
 	<Tag name="TexturePanel">Предпросмотр</Tag>
 	<Tag name="FontListControlHelp">Нажмите кнопку '#{Create}' чтобы добавить шрифт.</Tag>
 	<Tag name="GenerateFont">Сгенерировать шрифт</Tag>
+	<Tag name="TryFontPanel">Проверка</Tag>
 </MyGUI>
