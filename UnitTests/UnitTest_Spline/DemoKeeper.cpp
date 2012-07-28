@@ -31,8 +31,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		MyGUI::ResourceManager::getInstance().load("FrameworkSkin.xml");
-		MyGUI::ResourceManager::getInstance().load("SelectionSkins.xml");
+		MyGUI::ResourceManager::getInstance().load("SplineSkin.xml");
 
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("PolygonalSkin usage. Drag white rectangles to move points for bezier curve.");

@@ -75,7 +75,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		MyGUI::ResourceManager::getInstance().load("FrameworkSkin.xml");
+		MyGUI::ResourceManager::getInstance().load("SplineSkin.xml");
 		MyGUI::ResourceManager::getInstance().load("GraphNodeSkin.xml");
 
 		new tools::DialogManager();
