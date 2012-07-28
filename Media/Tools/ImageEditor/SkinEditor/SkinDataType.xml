@@ -226,7 +226,7 @@
 					<Type>PropertyBoolControl</Type>
 					<Initialisator/>
 					<Default>True</Default>
-					<Visible>true</Visible>
+					<Visible>false</Visible>
 					<ReadOnly>true</ReadOnly>
 					<Action/>
 				</Property>
