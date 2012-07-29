@@ -54,7 +54,6 @@ set (HEADER_FILES
   SettingsWindow.h
   SkinInfo.h
   TestState.h
-  TextFieldControl.h
   TextureControl.h
   TextureToolControl.h
   ToolsControl.h
@@ -117,7 +116,6 @@ set (SOURCE_FILES
   SettingsWidgetsControl.cpp
   SettingsWindow.cpp
   TestState.cpp
-  TextFieldControl.cpp
   TextureControl.cpp
   TextureToolControl.cpp
   ToolsControl.cpp
@@ -177,7 +175,6 @@ SOURCE_GROUP("Header Files" FILES
   SettingsUpdateResourcesControl.h
   SettingsWidgetsControl.h
   SkinInfo.h
-  TextFieldControl.h
   TextureControl.h
   TextureToolControl.h
   ToolsControl.h
@@ -250,7 +247,6 @@ SOURCE_GROUP("Source Files" FILES
   SettingsResourcesControl.cpp
   SettingsUpdateResourcesControl.cpp
   SettingsWidgetsControl.cpp
-  TextFieldControl.cpp
   TextureControl.cpp
   TextureToolControl.cpp
   ToolsControl.cpp
