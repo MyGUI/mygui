@@ -15,8 +15,6 @@ set (HEADER_FILES
   EditorToolTip.h
   EditorWidgets.h
   GroupMessage.h
-  HotKeyCommand.h
-  HotKeyManager.h
   IPropertyField.h
   Localise.h
   MainMenuControl.h
@@ -93,7 +91,6 @@ set (SOURCE_FILES
   EditorToolTip.cpp
   EditorWidgets.cpp
   GroupMessage.cpp
-  HotKeyManager.cpp
   LayoutEditor.rc
   MainMenuControl.cpp
   MainPaneControl.cpp
@@ -170,8 +167,6 @@ SOURCE_GROUP("Header Files" FILES
   EditorState.h
   EditorToolTip.h
   EditorWidgets.h
-  HotKeyCommand.h
-  HotKeyManager.h
   IPropertyField.h
   Localise.h
   MainMenuControl.h
@@ -261,7 +256,6 @@ SOURCE_GROUP("Source Files" FILES
   EditorState.cpp
   EditorToolTip.cpp
   EditorWidgets.cpp
-  HotKeyManager.cpp
   MainMenuControl.cpp
   MainPaneControl.cpp
   MainWorkspaceControl.cpp
