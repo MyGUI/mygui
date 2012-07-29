@@ -29,7 +29,6 @@ namespace tools
 		mCodeGenerator(nullptr),
 		mOpenSaveFileDialog(nullptr),
 		mMessageBoxFadeControl(nullptr),
-		mBackgroundControl(nullptr),
 		mMainPaneControl(nullptr),
 		mFileName("unnamed.layout"),
 		mDefaultFileName("unnamed.layout")
@@ -57,7 +56,6 @@ namespace tools
 		addUserTag("\\n", "\n");
 		setFileName(mFileName);
 
-		mBackgroundControl = new BackgroundControl();
 		mMainPaneControl = new MainPaneControl();
 
 		mSettingsWindow = new SettingsWindow();
@@ -105,9 +103,6 @@ namespace tools
 
 		delete mOpenSaveFileDialog;
 		mOpenSaveFileDialog = nullptr;
-
-		delete mBackgroundControl;
-		mBackgroundControl = nullptr;
 
 		delete mMainPaneControl;
 		mMainPaneControl = nullptr;
