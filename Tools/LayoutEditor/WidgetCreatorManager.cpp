@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "WidgetCreatorManager.h"
 #include "WidgetSelectorManager.h"
@@ -232,4 +233,4 @@ namespace tools
 		return mPopupMode;
 	}
 
-} // namespace tools
+}

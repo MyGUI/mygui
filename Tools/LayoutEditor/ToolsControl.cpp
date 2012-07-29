@@ -3,6 +3,7 @@
 
 namespace tools
 {
+
 	ToolsControl::ToolsControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("ToolsControl.layout", _parent),
 		mPropertiesPanelView(nullptr),
@@ -18,4 +19,4 @@ namespace tools
 	{
 	}
 
-} // namespace tools
+}

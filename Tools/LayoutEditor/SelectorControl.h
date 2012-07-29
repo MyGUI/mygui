@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __SELECTOR_CONTROL_H__
-#define __SELECTOR_CONTROL_H__
+
+#ifndef _618193ae_b8d7_415e_af0e_2c39becbae9c_
+#define _618193ae_b8d7_415e_af0e_2c39becbae9c_
 
 #include "BaseLayout/BaseLayout.h"
 #include "sigslot.h"
@@ -63,6 +64,6 @@ namespace tools
 		std::string mPropertyColour;
 	};
 
-} // namespace tools
+}
 
-#endif // __SELECTOR_CONTROL_H__
+#endif

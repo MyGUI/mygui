@@ -1,5 +1,5 @@
-#ifndef __WIDGET_TYPES_H__
-#define __WIDGET_TYPES_H__
+#ifndef _65c6bab3_d7e3_4691_999e_653b8974ff23_
+#define _65c6bab3_d7e3_4691_999e_653b8974ff23_
 
 #include "SkinInfo.h"
 #include "WidgetStyle.h"
@@ -7,6 +7,7 @@
 
 namespace tools
 {
+
 	class WidgetTypes :
 		public MyGUI::Singleton<WidgetTypes>
 	{
@@ -44,6 +45,6 @@ namespace tools
 		VectorPossibleValue mPossibleValues;
 	};
 
-} // namespace tools
+}
 
-#endif // __WIDGET_TYPES_H__
+#endif

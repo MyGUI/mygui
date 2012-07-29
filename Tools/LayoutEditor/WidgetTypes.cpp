@@ -6,6 +6,7 @@ template <> const char* MyGUI::Singleton<tools::WidgetTypes>::mClassTypeName("Wi
 
 namespace tools
 {
+
 	const std::string DEFAULT_GOROUP_NAME = "Default";
 	const std::string LogSection = "LayoutEditor";
 
@@ -260,4 +261,4 @@ namespace tools
 		return result;
 	}
 
-} // namespace tools
+}

@@ -3,14 +3,16 @@
 	@author		Georgiy Evmenov
 	@date		08/2008
 */
-#ifndef __EDITOR_TOOL_TIP_H__
-#define __EDITOR_TOOL_TIP_H__
+
+#ifndef _5482c1d8_6662_4c64_b13b_1781d34ea0b5_
+#define _5482c1d8_6662_4c64_b13b_1781d34ea0b5_
 
 #include "BaseLayout/BaseLayout.h"
 #include "SkinInfo.h"
 
 namespace tools
 {
+
 	class EditorToolTip :
 		public wraps::BaseLayout,
 		public MyGUI::Singleton<EditorToolTip>
@@ -37,6 +39,6 @@ namespace tools
 		int mMinHeight;
 	};
 
-} // namespace tools
+}
 
-#endif // __EDITOR_TOOL_TIP_H__
+#endif

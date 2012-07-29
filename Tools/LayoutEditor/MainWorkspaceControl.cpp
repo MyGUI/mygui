@@ -17,4 +17,4 @@ namespace tools
 	{
 	}
 
-} // namespace tools
+}

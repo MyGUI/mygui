@@ -3,14 +3,16 @@
 	@author		Albert Semenov
 	@date		09/2010
 */
-#ifndef __BACKWARD_COMPATIBILITY_MANAGER_H__
-#define __BACKWARD_COMPATIBILITY_MANAGER_H__
+
+#ifndef _af635c59_a426_4646_98a5_1e3a7fe03726_
+#define _af635c59_a426_4646_98a5_1e3a7fe03726_
 
 #include <MyGUI.h>
 #include "sigslot.h"
 
 namespace tools
 {
+
 	class BackwardCompatibilityManager :
 		public MyGUI::Singleton<BackwardCompatibilityManager>,
 		public sigslot::has_slots<>
@@ -39,6 +41,6 @@ namespace tools
 		MyGUI::MapString mPropertyNames;
 	};
 
-} // namespace tools
+}
 
-#endif // __BACKWARD_COMPATIBILITY_MANAGER_H__
+#endif

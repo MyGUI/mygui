@@ -3,8 +3,9 @@
 	@author		Georgiy Evmenov
 	@date		09/2008
 */
-#ifndef __PANEL_ITEMS_H__
-#define __PANEL_ITEMS_H__
+
+#ifndef _f8e3cc5e_1360_4275_b9d9_3295570d5149_
+#define _f8e3cc5e_1360_4275_b9d9_3295570d5149_
 
 #include "BaseLayout/BaseLayout.h"
 #include "PanelView/BasePanelViewItem.h"
@@ -12,6 +13,7 @@
 
 namespace tools
 {
+
 	class PanelItems :
 		public wraps::BasePanelViewItem
 	{
@@ -55,6 +57,6 @@ namespace tools
 		int mButtonSpace;
 	};
 
-} // namespace tools
+}
 
-#endif // __PANEL_ITEMS_H__
+#endif

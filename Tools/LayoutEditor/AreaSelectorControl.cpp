@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "AreaSelectorControl.h"
 
@@ -19,4 +20,4 @@ namespace tools
 	{
 	}
 
-} // namespace tools
+}

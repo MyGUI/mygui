@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __WIDGET_CREATOR_MANAGER_H__
-#define __WIDGET_CREATOR_MANAGER_H__
+
+#ifndef _47bb2ab9_21d5_4357_bbf9_061bf6ae41f1_
+#define _47bb2ab9_21d5_4357_bbf9_061bf6ae41f1_
 
 #include <MyGUI.h>
 #include "WidgetContainer.h"
@@ -58,6 +59,6 @@ namespace tools
 		bool mPopupMode;
 	};
 
-} // namespace tools
+}
 
-#endif // __WIDGET_CREATOR_MANAGER_H__
+#endif

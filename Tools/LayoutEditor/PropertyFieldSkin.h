@@ -3,14 +3,16 @@
 	@author		Albert Semenov
 	@date		12/2010
 */
-#ifndef __PROPERTY_FIELD_SKIN_H__
-#define __PROPERTY_FIELD_SKIN_H__
+
+#ifndef _c55048a7_d765_48b3_832e_0966d2307a68_
+#define _c55048a7_d765_48b3_832e_0966d2307a68_
 
 #include "EditorToolTip.h"
 #include "PropertyFieldComboBox.h"
 
 namespace tools
 {
+
 	class PropertyFieldSkin :
 		public PropertyFieldComboBox
 	{
@@ -27,6 +29,6 @@ namespace tools
 		SkinInfo getCellData(size_t _index);
 	};
 
-} // namespace tools
+}
 
-#endif // __PROPERTY_FIELD_SKIN_H__
+#endif

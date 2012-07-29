@@ -3,13 +3,15 @@
 	@author		Albert Semenov
 	@date		01/2009
 */
-#ifndef __PANEL_VIEW_CELL_H__
-#define __PANEL_VIEW_CELL_H__
+
+#ifndef _f4088af8_f82a_48ab_b7ec_f8bdd04e4a85_
+#define _f4088af8_f82a_48ab_b7ec_f8bdd04e4a85_
 
 #include "PanelView/BasePanelViewItem.h"
 
 namespace tools
 {
+
 	class PanelViewCell :
 		public wraps::BasePanelViewCell
 	{
@@ -51,6 +53,6 @@ namespace tools
 
 	};
 
-} // namespace tools
+}
 
-#endif // __PANEL_VIEW_CELL_H__
+#endif

@@ -3,14 +3,16 @@
 	@author		Albert Semenov
 	@date		12/2010
 */
-#ifndef __PROPERTY_FIELD_FILE_NAME_H__
-#define __PROPERTY_FIELD_FILE_NAME_H__
+
+#ifndef _6a9dce6a_9108_40b2_9836_f45702d6e835_
+#define _6a9dce6a_9108_40b2_9836_f45702d6e835_
 
 #include "EditorToolTip.h"
 #include "PropertyFieldEditBox.h"
 
 namespace tools
 {
+
 	class PropertyFieldFileName :
 		public PropertyFieldEditBox
 	{
@@ -22,6 +24,6 @@ namespace tools
 		virtual bool onCheckValue();
 	};
 
-} // namespace tools
+}
 
-#endif // __PROPERTY_FIELD_FILE_NAME_H__
+#endif

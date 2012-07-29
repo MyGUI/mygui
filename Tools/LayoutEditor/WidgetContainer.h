@@ -1,10 +1,11 @@
-#ifndef __WIDGET_CONTAINER_H__
-#define __WIDGET_CONTAINER_H__
+#ifndef _e44ffa34_9013_4f29_805c_ab84ec753b04_
+#define _e44ffa34_9013_4f29_805c_ab84ec753b04_
 
 #include "MyGUI.h"
 
 namespace tools
 {
+
 	const std::string DEFAULT_EDITOR_LAYER = "LayoutEditor_Widgets";
 	const std::string DEFAULT_TEST_MODE_LAYER = "Overlapped";
 
@@ -81,6 +82,6 @@ namespace tools
 		MyGUI::Widget* mWidget;
 	};
 
-} // namespace tools
+}
 
-#endif // __WIDGET_CONTAINER_H__
+#endif

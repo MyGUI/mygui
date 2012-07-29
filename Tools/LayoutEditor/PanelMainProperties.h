@@ -3,8 +3,9 @@
 	@author		Georgiy Evmenov
 	@date		09/2008
 */
-#ifndef __PANEL_MAIN_PROPERTIES_H__
-#define __PANEL_MAIN_PROPERTIES_H__
+
+#ifndef _bdc81da4_7bc6_4966_9409_cdb3d2011d75_
+#define _bdc81da4_7bc6_4966_9409_cdb3d2011d75_
 
 #include "BaseLayout/BaseLayout.h"
 #include "PanelView/BasePanelViewItem.h"
@@ -14,6 +15,7 @@
 
 namespace tools
 {
+
 	class PanelMainProperties :
 		public wraps::BasePanelViewItem
 	{
@@ -50,6 +52,6 @@ namespace tools
 		std::string mUserDataTargetType;
 	};
 
-} // namespace tools
+}
 
-#endif // __PANEL_MAIN_PROPERTIES_H__
+#endif

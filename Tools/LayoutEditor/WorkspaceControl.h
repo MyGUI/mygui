@@ -1,5 +1,5 @@
-#ifndef __WORKSPACE_CONTROL_H__
-#define __WORKSPACE_CONTROL_H__
+#ifndef _ccbbea0f_9b0d_4e19_9404_4b91b70a6477_
+#define _ccbbea0f_9b0d_4e19_9404_4b91b70a6477_
 
 #include "TextureToolControl.h"
 #include "PropertiesPanelView.h"
@@ -78,6 +78,6 @@ namespace tools
 		bool mFreeChildMode;
 	};
 
-} // namespace tools
+}
 
-#endif // __WORKSPACE_CONTROL_H__
+#endif

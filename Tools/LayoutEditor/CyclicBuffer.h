@@ -1,10 +1,11 @@
-#ifndef __CYCLIC_BUFFER_H__
-#define __CYCLIC_BUFFER_H__
+#ifndef _4b696dd2_03ef_42c8_bb20_0c127755865f_
+#define _4b696dd2_03ef_42c8_bb20_0c127755865f_
 
 #include <MyGUI.h>
 
 namespace tools
 {
+
 	/// Fixed size cyclic buffer.
 	template<typename T>
 	class CyclicBuffer
@@ -161,6 +162,6 @@ namespace tools
 		value_type* c;
 	};
 
-} // namespace tools
+}
 
-#endif // __CYCLIC_BUFFER_H__
+#endif

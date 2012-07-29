@@ -11,6 +11,7 @@ namespace tools
 {
 	namespace utility
 	{
+
 		bool checkParseFileName(MyGUI::EditBox* _edit)
 		{
 			const MyGUI::UString& text = _edit->getOnlyText();
@@ -67,5 +68,5 @@ namespace tools
 			}
 		}
 
-	} // namespace utility
-} // namespace tools
+	}
+}

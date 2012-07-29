@@ -12,6 +12,7 @@ template <> const char* MyGUI::Singleton<tools::EditorWidgets>::mClassTypeName("
 
 namespace tools
 {
+
 	const std::string LogSection = "LayoutEditor";
 
 	EditorWidgets::EditorWidgets() :
@@ -765,4 +766,4 @@ namespace tools
 		eventChangeWidgetCoord(_widget, _value, _owner);
 	}
 
-} // namespace tools
+}

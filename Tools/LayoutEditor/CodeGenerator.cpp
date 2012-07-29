@@ -13,6 +13,7 @@
 
 namespace tools
 {
+
 	// FIXME hardcoded template
 	const std::string TemplateName = "BaseLayoutCPP.xml";
 
@@ -241,4 +242,4 @@ namespace tools
 		mOpenSaveFileDialog->endModal();
 	}
 
-} // namespace tools
+}

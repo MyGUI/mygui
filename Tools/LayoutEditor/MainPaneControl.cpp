@@ -3,6 +3,7 @@
 
 namespace tools
 {
+
 	MainPaneControl::MainPaneControl() :
 		wraps::BaseLayout("MainPane.layout"),
 		mMainMenuControl(nullptr),
@@ -21,4 +22,4 @@ namespace tools
 		mMainWidget->setVisible(_value);
 	}
 
-} // namespace tools
+}

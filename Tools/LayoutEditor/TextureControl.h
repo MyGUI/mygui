@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __TEXTURE_CONTROL_H__
-#define __TEXTURE_CONTROL_H__
+
+#ifndef _ddcea3ee_9cb6_479c_94b5_4fadfc82b564_
+#define _ddcea3ee_9cb6_479c_94b5_4fadfc82b564_
 
 #include "BaseLayout/BaseLayout.h"
 #include "SelectorControl.h"
@@ -94,6 +95,6 @@ namespace tools
 		bool mMouseLeftPressed;
 	};
 
-} // namespace tools
+}
 
-#endif // __TEXTURE_CONTROL_H__
+#endif

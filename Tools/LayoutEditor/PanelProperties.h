@@ -3,8 +3,9 @@
 	@author		Georgiy Evmenov
 	@date		09/2008
 */
-#ifndef __PANEL_PROPERTIES_H__
-#define __PANEL_PROPERTIES_H__
+
+#ifndef _96474ba1_c55c_4e24_8076_f88c873a0043_
+#define _96474ba1_c55c_4e24_8076_f88c873a0043_
 
 #include "BaseLayout/BaseLayout.h"
 #include "PanelView/BasePanelViewItem.h"
@@ -14,6 +15,7 @@
 
 namespace tools
 {
+
 	class PanelProperties :
 		public wraps::BasePanelViewItem
 	{
@@ -46,6 +48,6 @@ namespace tools
 		MyGUI::Widget* mCurrentWidget;
 	};
 
-} // namespace tools
+}
 
-#endif // __PANEL_PROPERTIES_H__
+#endif

@@ -3,13 +3,15 @@
 	@author		Albert Semenov
 	@date		12/2010
 */
-#ifndef __I_PROPERTY_FIELD_H__
-#define __I_PROPERTY_FIELD_H__
+
+#ifndef _ecee333e_5aa3_409f_9c32_10117a8bcbfc_
+#define _ecee333e_5aa3_409f_9c32_10117a8bcbfc_
 
 #include <MyGUI.h>
 
 namespace tools
 {
+
 	typedef MyGUI::delegates::CDelegate3<const std::string&, const std::string&, bool> PropertyFieldActionDelegate;
 
 	class IPropertyField
@@ -32,6 +34,6 @@ namespace tools
 		PropertyFieldActionDelegate eventAction;
 	};
 	
-} // namespace tools
+}
 
-#endif // __I_PROPERTY_FIELD_H__
+#endif

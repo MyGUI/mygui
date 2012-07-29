@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "MainMenuControl.h"
 #include "SettingsManager.h"
@@ -15,6 +16,7 @@
 
 namespace tools
 {
+
 	MainMenuControl::MainMenuControl(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("MainMenuControl.layout", _parent),
 		mBar(nullptr),
@@ -209,4 +211,4 @@ namespace tools
 		}
 	}
 
-} // namespace tools
+}

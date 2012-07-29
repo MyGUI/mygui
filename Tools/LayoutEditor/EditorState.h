@@ -1,5 +1,5 @@
-#ifndef __EDITOR_STATE_H__
-#define __EDITOR_STATE_H__
+#ifndef _fb654ad0_db5f_4387_ba52_53c0a5f3b023_
+#define _fb654ad0_db5f_4387_ba52_53c0a5f3b023_
 
 #include "SettingsWindow.h"
 #include "OpenSaveFileDialog.h"
@@ -12,6 +12,7 @@
 
 namespace tools
 {
+
 	class EditorState :
 		public StateController,
 		public sigslot::has_slots<>
@@ -81,6 +82,6 @@ namespace tools
 		MyGUI::UString mDropFileName;
 	};
 
-} // namespace tools
+}
 
-#endif // __EDITOR_STATE_H__
+#endif

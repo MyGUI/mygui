@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "WidgetSelectorManager.h"
 #include "EditorWidgets.h"
@@ -12,6 +13,7 @@ template <> const char* MyGUI::Singleton<tools::WidgetSelectorManager>::mClassTy
 
 namespace tools
 {
+
 	WidgetSelectorManager::WidgetSelectorManager() :
 		mCurrentWidget(nullptr),
 		mSelectDepth(0),
@@ -193,4 +195,4 @@ namespace tools
 		return result;
 	}
 
-} // namespace tools
+}

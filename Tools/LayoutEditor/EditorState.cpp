@@ -616,4 +616,4 @@ namespace tools
 		_result = true;
 	}
 
-} // namespace tools
+}

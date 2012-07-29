@@ -219,4 +219,4 @@ namespace tools
 		return MyGUI::ITEM_NONE;
 	}
 
-} // namespace tools
+}

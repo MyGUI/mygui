@@ -1,10 +1,11 @@
-#ifndef __WIDGET_STYLE_H__
-#define __WIDGET_STYLE_H__
+#ifndef _21378433_c369_4d76_a040_70432196a9db_
+#define _21378433_c369_4d76_a040_70432196a9db_
 
 #include <MyGUI.h>
 
 namespace tools
 {
+
 	struct WidgetStyle;
 	typedef std::vector<WidgetStyle*> VectorWidgetType;
 
@@ -42,6 +43,6 @@ namespace tools
 		bool internalType;
 	};
 
-} // namespace tools
+}
 
-#endif // __WIDGET_STYLE_H__
+#endif

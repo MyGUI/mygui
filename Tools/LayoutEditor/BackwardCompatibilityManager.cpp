@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		09/2010
 */
+
 #include "Precompiled.h"
 #include "BackwardCompatibilityManager.h"
 #include "SettingsManager.h"
@@ -12,6 +13,7 @@ template <> const char* MyGUI::Singleton<tools::BackwardCompatibilityManager>::m
 
 namespace tools
 {
+
 	BackwardCompatibilityManager::BackwardCompatibilityManager()
 	{
 		mVersions.push_back("3.2.0");
@@ -199,4 +201,4 @@ namespace tools
 		mCurrentVersion = _value;
 	}
 
-} // namespace tools
+}

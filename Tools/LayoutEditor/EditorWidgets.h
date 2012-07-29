@@ -1,11 +1,12 @@
-#ifndef __EDITOR_WIDGETS_H__
-#define __EDITOR_WIDGETS_H__
+#ifndef _2430e622_7ed5_481e_91df_1a6805bc9e49_
+#define _2430e622_7ed5_481e_91df_1a6805bc9e49_
 
 #include <sstream>
 #include "WidgetContainer.h"
 
 namespace tools
 {
+
 	typedef MyGUI::delegates::CMultiDelegate0 Event_ChangeWidgets;
 	typedef MyGUI::delegates::CMultiDelegate3<MyGUI::Widget*, const MyGUI::IntCoord&, const std::string&> Event_ChangeWidgetCoord;
 
@@ -87,6 +88,6 @@ namespace tools
 		MyGUI::UString mCurrentItemName;
 	};
 
-} // namespace tools
+}
 
-#endif // __EDITOR_WIDGETS_H__
+#endif

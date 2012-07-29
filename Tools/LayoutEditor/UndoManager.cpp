@@ -8,6 +8,7 @@ template <> const char* MyGUI::Singleton<tools::UndoManager>::mClassTypeName("Un
 
 namespace tools
 {
+
 	const int UNDO_COUNT = 64;
 
 	UndoManager::UndoManager() :
@@ -116,4 +117,4 @@ namespace tools
 		}
 	}
 
-} // namespace tools
+}

@@ -12,6 +12,7 @@
 
 namespace tools
 {
+
 	const std::string DEFAULT_STRING = "[DEFAULT]";
 
 	PropertyFieldComboBox::PropertyFieldComboBox(MyGUI::Widget* _parent) :
@@ -112,4 +113,4 @@ namespace tools
 		return mMainWidget->getVisible();
 	}
 
-} // namespace tools
+}

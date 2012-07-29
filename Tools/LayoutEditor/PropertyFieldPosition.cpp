@@ -13,6 +13,7 @@
 
 namespace tools
 {
+
 	const std::string DEFAULT_STRING = "[DEFAULT]";
 
 	PropertyFieldPosition::PropertyFieldPosition(MyGUI::Widget* _parent) :
@@ -210,4 +211,4 @@ namespace tools
 		return mMainWidget->getVisible();
 	}
 
-} // namespace tools
+}

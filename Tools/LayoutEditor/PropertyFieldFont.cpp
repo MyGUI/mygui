@@ -15,6 +15,7 @@
 
 namespace tools
 {
+
 	PropertyFieldFont::PropertyFieldFont(MyGUI::Widget* _parent) :
 		PropertyFieldComboBox(_parent)
 	{
@@ -46,4 +47,4 @@ namespace tools
 		mField->beginToItemFirst();
 	}
 
-} // namespace tools
+}

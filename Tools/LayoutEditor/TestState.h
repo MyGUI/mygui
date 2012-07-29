@@ -3,14 +3,16 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __TEST_STATE_H__
-#define __TEST_STATE_H__
+
+#ifndef _e7d61788_3d54_4fbc_90c9_77878d1e73c1_
+#define _e7d61788_3d54_4fbc_90c9_77878d1e73c1_
 
 #include "StateController.h"
 #include "sigslot.h"
 
 namespace tools
 {
+
 	class TestState :
 		public StateController,
 		public sigslot::has_slots<>
@@ -34,6 +36,6 @@ namespace tools
 		MyGUI::xml::Document* mTestLayout;
 	};
 
-} // namespace tools
+}
 
-#endif // __TEST_STATE_H__
+#endif

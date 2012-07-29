@@ -1,5 +1,5 @@
-#ifndef __COMMON_H__
-#define __COMMON_H__
+#ifndef _d90c3428_278f_44c7_9400_f8b7e1bff0bd_
+#define _d90c3428_278f_44c7_9400_f8b7e1bff0bd_
 
 #include <MyGUI.h>
 
@@ -7,6 +7,7 @@ namespace tools
 {
 	namespace utility
 	{
+
 		// это можно в методы гуи занести
 		inline MyGUI::IntCoord convertCoordToParentCoord(const MyGUI::IntCoord& _coord, MyGUI::Widget* _widget)
 		{
@@ -55,7 +56,8 @@ namespace tools
 				}
 			}
 		}
-	} // namespace utility
-} // namespace tools
 
-#endif // __COMMON_H__
+	}
+}
+
+#endif

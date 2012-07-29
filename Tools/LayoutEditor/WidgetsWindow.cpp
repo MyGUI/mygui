@@ -15,6 +15,7 @@
 
 namespace tools
 {
+
 	const int MARGIN = 2;
 
 	WidgetsWindow::WidgetsWindow(MyGUI::Widget* _parent) :
@@ -178,4 +179,4 @@ namespace tools
 			WidgetCreatorManager::getInstance().setPopupMode(true);
 	}
 
-} // namespace tools
+}

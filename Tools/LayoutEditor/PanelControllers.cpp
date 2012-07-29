@@ -13,6 +13,7 @@
 
 namespace tools
 {
+
 	PanelControllers::PanelControllers() :
 		BasePanelViewItem("PanelControllers.layout"),
 		mControllerName(nullptr),
@@ -198,4 +199,4 @@ namespace tools
 		}
 	}
 
-} // namespace tools
+}

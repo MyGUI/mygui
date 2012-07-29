@@ -3,8 +3,9 @@
 	@author		Georgiy Evmenov
 	@date		12/2009
 */
-#ifndef __PANEL_CONTROLLERS_H__
-#define __PANEL_CONTROLLERS_H__
+
+#ifndef _7e90e850_b99c_4d13_9681_3bfb0e9c11c0_
+#define _7e90e850_b99c_4d13_9681_3bfb0e9c11c0_
 
 #include "BaseLayout/BaseLayout.h"
 #include "PanelView/BasePanelViewItem.h"
@@ -12,6 +13,7 @@
 
 namespace tools
 {
+
 	class PanelControllers :
 		public wraps::BasePanelViewItem
 	{
@@ -58,6 +60,6 @@ namespace tools
 		size_t mIndexSelected;
 	};
 
-} // namespace tools
+}
 
-#endif // __PANEL_CONTROLLERS_H__
+#endif

@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "PropertyFieldManager.h"
 #include "PropertyFieldComboBox.h"
@@ -91,4 +92,4 @@ namespace tools
 		return result;
 	}
 
-} // namespace tools
+}

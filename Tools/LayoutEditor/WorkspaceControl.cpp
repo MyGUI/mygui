@@ -665,4 +665,4 @@ namespace tools
 		}
 	}
 
-} // namespace tools
+}

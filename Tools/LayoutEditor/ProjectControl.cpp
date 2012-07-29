@@ -18,6 +18,7 @@
 
 namespace tools
 {
+
 	const std::string LogSection = "LayoutEditor";
 
 	ProjectControl::ProjectControl(MyGUI::Widget* _parent) :
@@ -714,4 +715,4 @@ namespace tools
 		return SkinInfo(MyGUI::TextIterator::getOnlyText(name), "", "");
 	}
 
-} // namespace tools
+}
