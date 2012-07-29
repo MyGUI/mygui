@@ -2,7 +2,9 @@
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Widget" skin="PanelEmpty" position="10 10 200 272" align="Stretch" layer="Overlapped" name="_Main">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="ListBox" skin="ListBox" position="0 22 200 250" align="Stretch" name="List"/>
-        <Widget type="TextBox" skin="TextBox" position="0 0 200 20" align="HStretch Top" name="ProjectName"/>
+        <Widget type="ListBox" skin="ListBox_Dark" position="4 22 192 246" align="Stretch" name="List"/>
+        <Widget type="TextBox" skin="TextBox_Dark" position="4 0 196 20" align="HStretch Top" name="ProjectName">
+            <Property key="TextAlign" value="Left VCenter"/>
+        </Widget>
     </Widget>
 </MyGUI>

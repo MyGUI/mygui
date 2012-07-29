@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="Widget" skin="PanelEmpty" position="10 10 200 272" align="Stretch" layer="Overlapped" name="_Main">
+    <Widget type="Widget" skin="PanelEmpty" position="10 10 200 272" align="Stretch" layer="Overlapped" name="Root">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="TabControl" skin="TabControl" position="0 0 200 244" align="Stretch" name="tabSkins"/>
-        <Widget type="Button" skin="Button" position="0 246 120 26" align="Left Bottom" name="PopupMode">
+        <Widget type="TabControl" skin="TabControl1_Dark" position="4 4 192 236" align="Stretch" name="tabSkins"/>
+        <Widget type="Button" skin="Button_Dark" position="4 248 192 20" align="HStretch Bottom" name="PopupMode">
             <Property key="Caption" value="#{ButtonPopupMode}"/>
         </Widget>
     </Widget>
