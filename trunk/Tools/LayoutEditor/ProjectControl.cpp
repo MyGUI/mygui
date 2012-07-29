@@ -41,6 +41,7 @@ namespace tools
 		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());
 
 		mTextFieldControl = new TextFieldControl();
+		mTextFieldControl->Initialise();
 		mTextFieldControl->eventEndDialog.connect(this, &ProjectControl::notifyTextFieldEndDialog);
 
 		CommandManager::getInstance().getEvent("Command_ProjectCreate")->connect(this, &ProjectControl::command_ProjectCreate);
