@@ -5,8 +5,6 @@ set (HEADER_FILES
   BackgroundControl.h
   BackwardCompatibilityManager.h
   CodeGenerator.h
-  ColourManager.h
-  ColourPanel.h
   Common.h
   CyclicBuffer.h
   EditorState.h
@@ -77,8 +75,6 @@ set (SOURCE_FILES
   BackgroundControl.cpp
   BackwardCompatibilityManager.cpp
   CodeGenerator.cpp
-  ColourManager.cpp
-  ColourPanel.cpp
   EditorState.cpp
   EditorToolTip.cpp
   EditorWidgets.cpp
@@ -145,8 +141,6 @@ SOURCE_GROUP("Header Files" FILES
   AreaSelectorControl.h
   BackgroundControl.h
   BackwardCompatibilityManager.h
-  ColourManager.h
-  ColourPanel.h
   Common.h
   CyclicBuffer.h
   EditorToolTip.h
@@ -226,8 +220,6 @@ SOURCE_GROUP("Source Files" FILES
   AreaSelectorControl.cpp
   BackgroundControl.cpp
   BackwardCompatibilityManager.cpp
-  ColourManager.cpp
-  ColourPanel.cpp
   EditorToolTip.cpp
   EditorWidgets.cpp
   MainMenuControl.cpp
