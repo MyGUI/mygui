@@ -7,7 +7,7 @@
                 <Property key="TextAlign" value="Center"/>
                 <Property key="FontName" value="DejaVuSansFont_13"/>
             </Widget>
-            <Widget type="Button" skin="ButtonExpand2Skin" position="175 5 18 18" align="Right Top" name="button_Minimize"/>
+            <Widget type="Button" skin="ExpandSkin_Dark" position="180 10 10 6" align="Right Top" name="button_Minimize"/>
             <Widget type="Widget" skin="Default" position="3 23 195 138" align="Stretch" name="widget_Client"/>
         </Widget>
     </Widget>

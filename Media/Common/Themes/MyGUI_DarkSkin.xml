@@ -1371,7 +1371,7 @@
 			<State name="normal" offset="380 95 40 10"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="EditClientSkin_Dark" size="16 16" texture="">
+	<Resource type="ResourceSkin" name="EditClientSkin_Dark" size="16 16">
 		<BasisSkin type="EditText" offset="0 0 16 16" align="Stretch">
 			<State name="disabled" colour="0.398438 0.398438 0.398438" shift="0"/>
 			<State name="normal" colour="1 1 1" shift="0"/>
@@ -1599,6 +1599,16 @@
 		</BasisSkin>
 		<BasisSkin type="SubSkin" offset="4 4 2 2" align="Stretch">
 			<State name="normal" offset="504 120 2 2"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="ExpandSkin_Dark" size="10 6" texture="MyGUI_Dark.png">
+		<BasisSkin type="SubSkin" offset="0 0 10 6" align="Stretch">
+			<State name="normal" offset="240 2 10 6"/>
+			<State name="highlighted" offset="240 10 10 6"/>
+			<State name="pushed" offset="240 116 10 6"/>
+			<State name="normal_checked" offset="240 19 10 6"/>
+			<State name="highlighted_checked" offset="240 28 10 6"/>
+			<State name="pushed_checked" offset="240 108 10 6"/>
 		</BasisSkin>
 	</Resource>
 </MyGUI>
