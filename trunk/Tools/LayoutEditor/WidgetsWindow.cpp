@@ -23,7 +23,8 @@ namespace tools
 		mTabSkins(nullptr),
 		mPopupMode(nullptr),
 		mWidgetsButtonWidth(0),
-		mWidgetsButtonHeight(0)
+		mWidgetsButtonHeight(0),
+		mWidgetsButtonOffset(0)
 	{
 		assignWidget(mTabSkins, "tabSkins");
 		assignWidget(mPopupMode, "PopupMode");
@@ -32,7 +33,11 @@ namespace tools
 
 		mWidgetsButtonWidth = SettingsManager::getInstance().getValue<int>("Controls/WidgetsWindow/WidgetsButtonWidth");
 		mWidgetsButtonHeight = SettingsManager::getInstance().getValue<int>("Controls/WidgetsWindow/WidgetsButtonHeight");
+		mWidgetsButtonOffset = SettingsManager::getInstance().getValue<int>("Controls/WidgetsWindow/WidgetsButtonOffset");
 		mSkinSheetName = SettingsManager::getInstance().getValue("Controls/WidgetsWindow/LastSkinGroup");
+
+		if (!SettingsManager::getInstance().tryGetValue("Controls/WidgetsWindow/ButtonSkinName", mButtonSkinName))
+			mButtonSkinName = "Button";
 
 		initialise();
 
@@ -49,8 +54,6 @@ namespace tools
 		else
 			mSkinSheetName = "";
 
-		SettingsManager::getInstance().setValue("Controls/WidgetsWindow/WidgetsButtonWidth", mWidgetsButtonWidth);
-		SettingsManager::getInstance().setValue("Controls/WidgetsWindow/WidgetsButtonHeight", mWidgetsButtonHeight);
 		SettingsManager::getInstance().setValue("Controls/WidgetsWindow/LastSkinGroup", mSkinSheetName);
 
 		mPopupMode->eventMouseButtonClick -= MyGUI::newDelegate(this, &WidgetsWindow::notifyMouseButtonClickPopupMode);
@@ -144,7 +147,12 @@ namespace tools
 
 	void WidgetsWindow::requestCreateWidgetItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item)
 	{
-		MyGUI::Button* button = _item->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(0, 0, _item->getWidth(), _item->getHeight()), MyGUI::Align::Stretch);
+		MyGUI::Button* button = _item->createWidget<MyGUI::Button>(mButtonSkinName, MyGUI::IntCoord(
+			mWidgetsButtonOffset,
+			mWidgetsButtonOffset,
+			_item->getWidth() - mWidgetsButtonOffset - mWidgetsButtonOffset,
+			_item->getHeight() - mWidgetsButtonOffset - mWidgetsButtonOffset)
+			, MyGUI::Align::Stretch);
 
 		button->setTextAlign(MyGUI::Align::Center);
 		button->eventMouseButtonClick += MyGUI::newDelegate(this, &WidgetsWindow::notifySelectWidgetType);
@@ -156,7 +164,7 @@ namespace tools
 
 	void WidgetsWindow::requestCoordItem(MyGUI::ItemBox* _sender, MyGUI::IntCoord& _coord, bool _drag)
 	{
-		_coord.set(0, 0, mWidgetsButtonWidth, mWidgetsButtonHeight);
+		_coord.set(0, 0, mWidgetsButtonWidth + mWidgetsButtonOffset + mWidgetsButtonOffset, mWidgetsButtonHeight + mWidgetsButtonOffset + mWidgetsButtonOffset);
 	}
 
 	void WidgetsWindow::requestDrawItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item, const MyGUI::IBDrawItemInfo& _info)

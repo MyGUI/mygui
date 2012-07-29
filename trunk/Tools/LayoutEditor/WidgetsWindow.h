@@ -41,8 +41,10 @@ namespace tools
 
 		int mWidgetsButtonWidth;
 		int mWidgetsButtonHeight;
+		int mWidgetsButtonOffset;
 
 		std::string mSkinSheetName;
+		std::string mButtonSkinName;
 
 		typedef std::vector<MyGUI::ItemBox*> VectorItemBox;
 		VectorItemBox mItemBoxs;

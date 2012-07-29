@@ -33,8 +33,10 @@
 	</Settings>
 	<Controls>
 		<WidgetsWindow>
-			<WidgetsButtonWidth>141</WidgetsButtonWidth>
-			<WidgetsButtonHeight>24</WidgetsButtonHeight>
+			<WidgetsButtonWidth>120</WidgetsButtonWidth>
+			<WidgetsButtonHeight>20</WidgetsButtonHeight>
+			<WidgetsButtonOffset>1</WidgetsButtonOffset>
+			<ButtonSkinName>Button_Dark</ButtonSkinName>
 		</WidgetsWindow>
 	</Controls>
 	<Editor>
