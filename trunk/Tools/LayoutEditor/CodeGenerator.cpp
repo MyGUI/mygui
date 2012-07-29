@@ -192,18 +192,18 @@ namespace tools
 
 	void CodeGenerator::loadTemplate()
 	{
-		mPanelNameEdit->setCaption(SettingsManager::getInstance().getValue("CodeGeneratorSettings/PanelName"));
-		mPanelNamespaceEdit->setCaption(SettingsManager::getInstance().getValue("CodeGeneratorSettings/PanelNamespace"));
-		mIncludeDirectoryEdit->setCaption(SettingsManager::getInstance().getValue("CodeGeneratorSettings/IncludeDirectory"));
-		mSourceDirectoryEdit->setCaption(SettingsManager::getInstance().getValue("CodeGeneratorSettings/SourceDirectory"));
+		mPanelNameEdit->setCaption(SettingsManager::getInstance().getValue("Settings/CodeGenerator/PanelName"));
+		mPanelNamespaceEdit->setCaption(SettingsManager::getInstance().getValue("Settings/CodeGenerator/PanelNamespace"));
+		mIncludeDirectoryEdit->setCaption(SettingsManager::getInstance().getValue("Settings/CodeGenerator/IncludeDirectory"));
+		mSourceDirectoryEdit->setCaption(SettingsManager::getInstance().getValue("Settings/CodeGenerator/SourceDirectory"));
 	}
 
 	void CodeGenerator::saveTemplate()
 	{
-		SettingsManager::getInstance().setValue("CodeGeneratorSettings/PanelName", mPanelNameEdit->getOnlyText());
-		SettingsManager::getInstance().setValue("CodeGeneratorSettings/PanelNamespace", mPanelNamespaceEdit->getOnlyText());
-		SettingsManager::getInstance().setValue("CodeGeneratorSettings/IncludeDirectory", mIncludeDirectoryEdit->getOnlyText());
-		SettingsManager::getInstance().setValue("CodeGeneratorSettings/SourceDirectory", mSourceDirectoryEdit->getOnlyText());
+		SettingsManager::getInstance().setValue("Settings/CodeGenerator/PanelName", mPanelNameEdit->getOnlyText());
+		SettingsManager::getInstance().setValue("Settings/CodeGenerator/PanelNamespace", mPanelNamespaceEdit->getOnlyText());
+		SettingsManager::getInstance().setValue("Settings/CodeGenerator/IncludeDirectory", mIncludeDirectoryEdit->getOnlyText());
+		SettingsManager::getInstance().setValue("Settings/CodeGenerator/SourceDirectory", mSourceDirectoryEdit->getOnlyText());
 
 		UndoManager::getInstance().setUnsaved(true);
 	}

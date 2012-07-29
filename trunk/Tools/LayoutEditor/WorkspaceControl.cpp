@@ -20,7 +20,7 @@ namespace tools
 		mPositionSelectorCreatorControl(nullptr),
 		mFreeChildMode(false)
 	{
-		MyGUI::IntSize size = SettingsManager::getInstance().getValue<MyGUI::IntSize>("Workspace/TextureSize");
+		MyGUI::IntSize size = SettingsManager::getInstance().getValue<MyGUI::IntSize>("Settings/WorkspaceTextureSize");
 
 		setRttLayerSize(size);
 

@@ -391,8 +391,8 @@ namespace tools
 		mProjectName = _fileName;
 		mProjectPath = _filePath;
 
-		SettingsManager::getInstance().setValue("Settings/LastProjectName", mProjectName);
-		SettingsManager::getInstance().setValue("Settings/LastProjectPath", mProjectPath);
+		SettingsManager::getInstance().setValue("Files/LastProjectName", mProjectName);
+		SettingsManager::getInstance().setValue("Files/LastProjectPath", mProjectPath);
 
 		addUserTag("CurrentProjectName", mProjectName);
 	}
@@ -661,8 +661,8 @@ namespace tools
 
 	void ProjectControl::loadLastProject()
 	{
-		MyGUI::UString projectName = SettingsManager::getInstance().getValue("Settings/LastProjectName");
-		MyGUI::UString projectPath = SettingsManager::getInstance().getValue("Settings/LastProjectPath");
+		MyGUI::UString projectName = SettingsManager::getInstance().getValue("Files/LastProjectName");
+		MyGUI::UString projectPath = SettingsManager::getInstance().getValue("Files/LastProjectPath");
 
 		if (projectName.empty())
 			return;

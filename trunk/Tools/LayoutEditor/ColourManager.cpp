@@ -87,12 +87,12 @@ namespace tools
 
 	void ColourManager::setColour(const MyGUI::Colour& _color)
 	{
-		SettingsManager::getInstance().setValue("Settings/" + mCurrentColourType, _color);
+		SettingsManager::getInstance().setValue("Workspace/Colours/" + mCurrentColourType, _color);
 	}
 
 	MyGUI::Colour ColourManager::getColour()
 	{
-		return SettingsManager::getInstance().getValue<MyGUI::Colour>("Settings/" + mCurrentColourType);
+		return SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/" + mCurrentColourType);
 	}
 
 } // namespace tools

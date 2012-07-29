@@ -23,7 +23,7 @@ namespace tools
 
 	void Grid::initialise()
 	{
-		mGridStep = SettingsManager::getInstance().getValue<int>("Settings/Grid");
+		mGridStep = SettingsManager::getInstance().getValue<int>("Settings/GridStep");
 		SettingsManager::getInstance().eventSettingsChanged.connect(this, &Grid::notifySettingsChanged);
 	}
 
@@ -34,8 +34,8 @@ namespace tools
 
 	void Grid::notifySettingsChanged(const std::string& _path)
 	{
-		if (_path == "Settings/Grid")
-			mGridStep = SettingsManager::getInstance().getValue<int>("Settings/Grid");
+		if (_path == "Settings/GridStep")
+			mGridStep = SettingsManager::getInstance().getValue<int>("Settings/GridStep");
 	}
 
 	int Grid::toGrid(int _value, GridLine _line) const

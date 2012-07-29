@@ -29,7 +29,7 @@ namespace tools
 	{
 		DataSelectorManager::getInstance().getEvent("Root")->disconnect(this);
 
-		SettingsManager::getInstance().setValue("Editor/Controls/TryFontControl/Text", mEdit->getCaption());
+		SettingsManager::getInstance().setValue("Controls/TryFontControl/Text", mEdit->getCaption());
 	}
 
 	void FontTryControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
@@ -38,7 +38,7 @@ namespace tools
 
 		mEdit = mMainWidget->castType<MyGUI::EditBox>();
 
-		mEdit->setCaption(SettingsManager::getInstance().getValue("Editor/Controls/TryFontControl/Text"));
+		mEdit->setCaption(SettingsManager::getInstance().getValue("Controls/TryFontControl/Text"));
 		
 		CommandManager::getInstance().getEvent("Command_OnGenerateFont")->connect(this, &FontTryControl::commandOnGenerateFont);
 		DataSelectorManager::getInstance().getEvent("Root")->connect(this, &FontTryControl::notifyChangeDataSelector);

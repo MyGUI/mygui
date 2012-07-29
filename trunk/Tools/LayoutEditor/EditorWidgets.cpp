@@ -434,7 +434,7 @@ namespace tools
 		if (_widget->findAttribute("position_real", position))
 		{
 			container->setRelativeMode(true);
-			MyGUI::IntSize textureSize = SettingsManager::getInstance().getValue<MyGUI::IntSize>("Workspace/TextureSize");
+			MyGUI::IntSize textureSize = SettingsManager::getInstance().getValue<MyGUI::IntSize>("Settings/WorkspaceTextureSize");
 			MyGUI::IntSize size = _testMode ? MyGUI::RenderManager::getInstance().getViewSize() : textureSize;
 			coord = MyGUI::CoordConverter::convertFromRelative(MyGUI::FloatCoord::parse(position), _parent == nullptr ? size : _parent->getClientCoord().size());
 		}

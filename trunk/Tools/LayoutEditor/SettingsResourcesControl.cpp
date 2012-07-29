@@ -40,7 +40,7 @@ namespace tools
 	void SettingsResourcesControl::loadSettings()
 	{
 		mResources->removeAllItems();
-		SettingsManager::VectorString paths = SettingsManager::getInstance().getValueList("Settings/AdditionalResource.List");
+		SettingsManager::VectorString paths = SettingsManager::getInstance().getValueList("Resources/AdditionalResource.List");
 		for (SettingsManager::VectorString::const_iterator item = paths.begin(); item != paths.end(); ++ item)
 			mResources->addItem(*item);
 	}
@@ -51,7 +51,7 @@ namespace tools
 		for (size_t index = 0; index < mResources->getItemCount(); ++ index)
 			paths.push_back(mResources->getItemNameAt(index));
 
-		SettingsManager::getInstance().setValueList("Settings/AdditionalResource.List", paths);
+		SettingsManager::getInstance().setValueList("Resources/AdditionalResource.List", paths);
 	}
 
 	void SettingsResourcesControl::notifyClickResourcePathAdd(MyGUI::Widget* _sender)
