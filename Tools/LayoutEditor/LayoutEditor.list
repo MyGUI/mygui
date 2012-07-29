@@ -127,6 +127,18 @@ SOURCE_GROUP("CodeGenerator" FILES
   CodeGenerator.cpp
   CodeGenerator.h
 )
+SOURCE_GROUP("Controls\\Settings" FILES
+  SettingsGeneralControl.cpp
+  SettingsGeneralControl.h
+  SettingsResourcePathsControl.cpp
+  SettingsResourcePathsControl.h
+  SettingsResourcesControl.cpp
+  SettingsResourcesControl.h
+  SettingsUpdateResourcesControl.cpp
+  SettingsUpdateResourcesControl.h
+  SettingsWidgetsControl.cpp
+  SettingsWidgetsControl.h
+)
 SOURCE_GROUP("GroupedMessage" FILES
   GroupMessage.cpp
   GroupMessage.h
@@ -164,11 +176,6 @@ SOURCE_GROUP("Header Files" FILES
   RecentFilesManager.h
   SelectorControl.h
   SeparatorPartControl.h
-  SettingsGeneralControl.h
-  SettingsResourcePathsControl.h
-  SettingsResourcesControl.h
-  SettingsUpdateResourcesControl.h
-  SettingsWidgetsControl.h
   SkinInfo.h
   TextureControl.h
   TextureToolControl.h
@@ -236,11 +243,6 @@ SOURCE_GROUP("Source Files" FILES
   RecentFilesManager.cpp
   SelectorControl.cpp
   SeparatorPartControl.cpp
-  SettingsGeneralControl.cpp
-  SettingsResourcePathsControl.cpp
-  SettingsResourcesControl.cpp
-  SettingsUpdateResourcesControl.cpp
-  SettingsWidgetsControl.cpp
   TextureControl.cpp
   TextureToolControl.cpp
   ToolsControl.cpp
