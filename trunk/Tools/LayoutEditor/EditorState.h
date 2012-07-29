@@ -3,7 +3,6 @@
 
 #include "SettingsWindow.h"
 #include "OpenSaveFileDialog.h"
-#include "BackgroundControl.h"
 #include "CodeGenerator.h"
 #include "MessageBoxFadeControl.h"
 #include "StateController.h"
@@ -74,7 +73,6 @@ namespace tools
 		OpenSaveFileDialog* mOpenSaveFileDialog;
 
 		MessageBoxFadeControl* mMessageBoxFadeControl;
-		BackgroundControl* mBackgroundControl;
 		MainPaneControl* mMainPaneControl;
 
 		MyGUI::UString mFileName;
