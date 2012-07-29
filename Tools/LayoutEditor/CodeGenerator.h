@@ -8,14 +8,17 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "WidgetContainer.h"
-#include "Tools/Dialog.h"
-#include "Tools/OpenSaveFileDialog.h"
+#include "Dialog.h"
+#include "OpenSaveFileDialog.h"
+#include "sigslot.h"
 
 namespace tools
 {
 	ATTRIBUTE_CLASS_LAYOUT(CodeGenerator, "CodeGeneratorWindow.layout");
 	class CodeGenerator :
-		public Dialog
+		public wraps::BaseLayout,
+		public Dialog,
+		public sigslot::has_slots<>
 	{
 	public:
 

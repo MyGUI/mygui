@@ -10,12 +10,14 @@
 #include "BaseLayout/BaseLayout.h"
 #include "IPropertyField.h"
 #include "ColourPanel.h"
+#include "sigslot.h"
 
 namespace tools
 {
 	class PropertyFieldColour :
 		public wraps::BaseLayout,
-		public IPropertyField
+		public IPropertyField,
+		public sigslot::has_slots<>
 	{
 	public:
 		PropertyFieldColour(MyGUI::Widget* _parent);

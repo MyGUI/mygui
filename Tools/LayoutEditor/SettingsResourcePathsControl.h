@@ -7,12 +7,14 @@
 #define __SETTINGS_RESOURCE_PATHS_CONTROL_H__
 
 #include "BaseLayout/BaseLayout.h"
-#include "Tools/OpenSaveFileDialog.h"
+#include "OpenSaveFileDialog.h"
+#include "sigslot.h"
 
 namespace tools
 {
 	class SettingsResourcePathsControl :
-		public wraps::BaseLayout
+		public wraps::BaseLayout,
+		public sigslot::has_slots<>
 	{
 	public:
 		SettingsResourcePathsControl(MyGUI::Widget* _parent = nullptr);

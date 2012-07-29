@@ -17,14 +17,16 @@ namespace tools
 	const std::string TemplateName = "BaseLayoutCPP.xml";
 
 	CodeGenerator::CodeGenerator() :
-		Dialog(),
 		mOpenSaveFileDialog(nullptr)
 	{
 		initialiseByAttributes(this);
 
+		setDialogRoot(mMainWidget);
+
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
+		mOpenSaveFileDialog->Initialise(SettingsManager::getInstance().getValue("EditorState/OpenSaveFileDialogLayout"));
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionOpenFolder"), replaceTags("ButtonOpenFolder"), true);
-		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &CodeGenerator::notifyEndDialogOpenSaveFile);
+		mOpenSaveFileDialog->eventEndDialog.connect(this, &CodeGenerator::notifyEndDialogOpenSaveFile);
 
 		mGenerateButton->eventMouseButtonClick += MyGUI::newDelegate(this, &CodeGenerator::notifyGeneratePressed);
 		mCancel->eventMouseButtonClick += MyGUI::newDelegate(this, &CodeGenerator::notifyCancel);

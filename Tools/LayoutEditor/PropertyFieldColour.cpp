@@ -33,7 +33,7 @@ namespace tools
 		mColourPlace->eventMouseButtonPressed += MyGUI::newDelegate(this, &PropertyFieldColour::notifyMouseButtonPressed);
 
 		mColourPanel = new ColourPanel();
-		mColourPanel->eventEndDialog = MyGUI::newDelegate(this, &PropertyFieldColour::notifyEndDialog);
+		mColourPanel->eventEndDialog.connect(this, &PropertyFieldColour::notifyEndDialog);
 		mColourPanel->eventPreviewColour = MyGUI::newDelegate(this, &PropertyFieldColour::notifyPreviewColour);
 	}
 

@@ -8,11 +8,13 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "TextFieldControl.h"
+#include "sigslot.h"
 
 namespace tools
 {
 	class SettingsUpdateResourcesControl :
-		public wraps::BaseLayout
+		public wraps::BaseLayout,
+		public sigslot::has_slots<>
 	{
 	public:
 		SettingsUpdateResourcesControl(MyGUI::Widget* _parent = nullptr);

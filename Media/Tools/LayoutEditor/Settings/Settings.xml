@@ -73,4 +73,7 @@
 			</FirstState>
 		</States>
 	</Editor>
+	<EditorState>
+		<OpenSaveFileDialogLayout>OpenSaveFileDialog2.layout</OpenSaveFileDialogLayout>
+	</EditorState>
 </Settings>

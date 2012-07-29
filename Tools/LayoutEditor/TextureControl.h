@@ -8,7 +8,7 @@
 
 #include "BaseLayout/BaseLayout.h"
 #include "SelectorControl.h"
-#include "Tools/Dialog.h"
+#include "Dialog.h"
 
 namespace tools
 {
