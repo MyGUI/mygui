@@ -61,6 +61,7 @@ namespace tools
 		mMainPaneControl = new MainPaneControl();
 
 		mSettingsWindow = new SettingsWindow();
+		mSettingsWindow->Initialise(SettingsManager::getInstance().getValue("EditorState/SettingsWindowLayout"));
 		mSettingsWindow->eventEndDialog.connect(this, &EditorState::notifySettingsWindowEndDialog);
 
 		mCodeGenerator = new CodeGenerator();
@@ -117,9 +118,7 @@ namespace tools
 		MYGUI_ASSERT(mSettingsWindow == _dialog, "mSettingsWindow == _sender");
 
 		if (_result)
-		{
-			mSettingsWindow->saveSettings();
-		}
+			mSettingsWindow->SendCommand("Command_SaveSettings");
 
 		mSettingsWindow->endModal();
 	}
@@ -129,6 +128,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
+		mSettingsWindow->SendCommand("Command_LoadSettings");
 		mSettingsWindow->doModal();
 
 		_result = true;

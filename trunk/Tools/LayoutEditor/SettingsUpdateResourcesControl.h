@@ -3,29 +3,34 @@
 	@author		Albert Semenov
 	@date		09/2010
 */
-#ifndef __SETTINGS_UPDATE_RESOURCES_CONTROL_H__
-#define __SETTINGS_UPDATE_RESOURCES_CONTROL_H__
 
-#include "BaseLayout/BaseLayout.h"
+#ifndef _dcb9de08_d772_483e_b30d_ac0d3e9fdece_
+#define _dcb9de08_d772_483e_b30d_ac0d3e9fdece_
+
+#include "Control.h"
 #include "TextFieldControl.h"
-#include "sigslot.h"
 
 namespace tools
 {
+
 	class SettingsUpdateResourcesControl :
-		public wraps::BaseLayout,
+		public Control,
 		public sigslot::has_slots<>
 	{
 	public:
-		SettingsUpdateResourcesControl(MyGUI::Widget* _parent = nullptr);
+		SettingsUpdateResourcesControl();
 		virtual ~SettingsUpdateResourcesControl();
 
+	protected:
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		virtual void OnCommand(const std::string& _command);
+
+	private:
 		void loadSettings();
 		void saveSettings();
 
-	private:
-		void notifyClickResourcePathAdd(MyGUI::Widget* _sender);
-		void notifyClickResourcePathDelete(MyGUI::Widget* _sender);
+		void notifyClickAdd(MyGUI::Widget* _sender);
+		void notifyClickDelete(MyGUI::Widget* _sender);
 
 		void notifyEndDialog(Dialog* _sender, bool _result);
 
@@ -37,6 +42,6 @@ namespace tools
 		TextFieldControl* mTextFieldControl;
 	};
 
-} // namespace tools
+}
 
-#endif // __SETTINGS_UPDATE_RESOURCES_CONTROL_H__
+#endif

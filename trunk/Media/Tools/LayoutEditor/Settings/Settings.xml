@@ -75,5 +75,6 @@
 	</Editor>
 	<EditorState>
 		<OpenSaveFileDialogLayout>OpenSaveFileDialog2.layout</OpenSaveFileDialogLayout>
+		<SettingsWindowLayout>SettingsWindow.layout</SettingsWindowLayout>
 	</EditorState>
 </Settings>

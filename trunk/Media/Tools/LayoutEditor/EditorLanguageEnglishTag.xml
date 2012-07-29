@@ -53,6 +53,7 @@
 	<Tag name="SettingsLoadLastProject">Load last project</Tag>
 	<Tag name="SettingsTabUpdateResources">Update</Tag>
 	<Tag name="SettingsTextUpdateResources">Resources for update</Tag>
+	<Tag name="SettingsUpdateResources">Update</Tag>
 	<Tag name="SettingsWorkspaceSize">Workspace size</Tag>
 	<Tag name="TextInterfaceLanguage">Language</Tag>
 	<Tag name="Key">Key</Tag>

@@ -50,7 +50,6 @@ set (HEADER_FILES
   SettingsResourcesControl.h
   SettingsUpdateResourcesControl.h
   SettingsWidgetsControl.h
-  SettingsWindow.h
   SkinInfo.h
   TestState.h
   TextureControl.h
@@ -112,7 +111,6 @@ set (SOURCE_FILES
   SettingsResourcesControl.cpp
   SettingsUpdateResourcesControl.cpp
   SettingsWidgetsControl.cpp
-  SettingsWindow.cpp
   TestState.cpp
   TextureControl.cpp
   TextureToolControl.cpp
@@ -264,8 +262,6 @@ SOURCE_GROUP("States" FILES
   TestState.h
 )
 SOURCE_GROUP("Windows" FILES
-  SettingsWindow.cpp
-  SettingsWindow.h
   WidgetsWindow.cpp
   WidgetsWindow.h
 )

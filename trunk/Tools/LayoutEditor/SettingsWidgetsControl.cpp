@@ -3,25 +3,22 @@
 	@author		Albert Semenov
 	@date		09/2010
 */
+
 #include "Precompiled.h"
 #include "SettingsWidgetsControl.h"
 #include "SettingsManager.h"
+#include "FactoryManager.h"
 
 namespace tools
 {
-	SettingsWidgetsControl::SettingsWidgetsControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("SettingsWidgetsControl.layout", _parent),
+
+	FACTORY_ITEM_ATTRIBUTE(SettingsWidgetsControl)
+
+	SettingsWidgetsControl::SettingsWidgetsControl() :
 		mCheckShowName(nullptr),
 		mCheckShowType(nullptr),
 		mCheckShowSkin(nullptr)
 	{
-		assignWidget(mCheckShowName, "checkShowName");
-		assignWidget(mCheckShowType, "checkShowType");
-		assignWidget(mCheckShowSkin, "checkShowSkin");
-
-		mCheckShowName->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWidgetsControl::notifyToggleCheck);
-		mCheckShowType->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWidgetsControl::notifyToggleCheck);
-		mCheckShowSkin->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWidgetsControl::notifyToggleCheck);
 	}
 
 	SettingsWidgetsControl::~SettingsWidgetsControl()
@@ -29,6 +26,19 @@ namespace tools
 		mCheckShowName->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsWidgetsControl::notifyToggleCheck);
 		mCheckShowType->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsWidgetsControl::notifyToggleCheck);
 		mCheckShowSkin->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsWidgetsControl::notifyToggleCheck);
+	}
+
+	void SettingsWidgetsControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::OnInitialise(_parent, _place, _layoutName);
+
+		assignWidget(mCheckShowName, "checkShowName");
+		assignWidget(mCheckShowType, "checkShowType");
+		assignWidget(mCheckShowSkin, "checkShowSkin");
+
+		mCheckShowName->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWidgetsControl::notifyToggleCheck);
+		mCheckShowType->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWidgetsControl::notifyToggleCheck);
+		mCheckShowSkin->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsWidgetsControl::notifyToggleCheck);
 	}
 
 	void SettingsWidgetsControl::loadSettings()
@@ -51,4 +61,14 @@ namespace tools
 		checkbox->setStateSelected(!checkbox->getStateSelected());
 	}
 
-} // namespace tools
+	void SettingsWidgetsControl::OnCommand(const std::string& _command)
+	{
+		Control::OnCommand(_command);
+
+		if (_command == "Command_LoadSettings")
+			loadSettings();
+		else if (_command == "Command_SaveSettings")
+			saveSettings();
+	}
+
+}

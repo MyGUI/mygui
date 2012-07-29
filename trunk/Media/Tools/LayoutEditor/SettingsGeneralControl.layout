@@ -1,32 +1,32 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="Widget" skin="PanelEmpty" position="32 64 420 184" align="Stretch" layer="Overlapped" name="_Main">
+    <Widget type="Widget" skin="PanelEmpty" position="32 64 343 304" align="Stretch" layer="Overlapped" name="Root">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="TextBox" skin="TextBox" position="107 10 300 25" align="HStretch Top">
+        <Widget type="TextBox" skin="TextBox_Dark" position="55 0 102 20">
             <Property key="TextAlign" value="Left VCenter"/>
             <Property key="Caption" value="#{Grid_step}"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
         </Widget>
-        <Widget type="EditBox" skin="EditBox" position="5 10 100 24" align="Left Top" name="gridEdit">
+        <Widget type="EditBox" skin="EditBox_Dark" position="0 0 50 20" align="HStretch Top" name="gridEdit">
             <Property key="Caption" value="8"/>
         </Widget>
-        <Widget type="Button" skin="CheckBox" position="85 70 325 25" align="HStretch Top" name="LoadLastProject">
+        <Widget type="Button" skin="CheckBox_Dark" position="0 65 210 20" align="HStretch Top" name="LoadLastProject">
             <Property key="Caption" value="#{SettingsLoadLastProject}"/>
         </Widget>
-        <Widget type="TextBox" skin="TextBox" position="107 40 301 25" align="HStretch Top">
-            <Property key="Caption" value="#{SettingsWorkspaceSize}"/>
-            <Property key="TextAlign" value="Left VCenter"/>
-        </Widget>
-        <Widget type="EditBox" skin="EditBox" position="5 40 100 24" name="WorkspaceSize">
-            <Property key="Caption" value="128 128"/>
-        </Widget>
-        <Widget type="ComboBox" skin="ComboBox" position="5 100 220 24" name="InterfaceLanguage">
+        <Widget type="ComboBox" skin="ComboBox_Dark" position="0 30 130 20" name="InterfaceLanguage">
             <Property key="ModeDrop" value="true"/>
             <Property key="AddItem" value="Auto"/>
             <Property key="AddItem" value="English"/>
             <Property key="AddItem" value="Russian"/>
         </Widget>
-        <Widget type="TextBox" skin="TextBox" position="230 100 175 25">
+        <Widget type="TextBox" skin="TextBox_Dark" position="135 30 75 20">
             <Property key="Caption" value="#{TextInterfaceLanguage}"/>
+            <Property key="TextAlign" value="Left VCenter"/>
+            <Property key="FontName" value="DejaVuSansFont_13"/>
+        </Widget>
+        <Widget type="EditBox" skin="EditBox_Dark" position="0 90 130 20" name="WorkspaceSize"/>
+        <Widget type="TextBox" skin="TextBox_Dark" position="138 90 204 20">
+            <Property key="Caption" value="#{SettingsWorkspaceSize}"/>
             <Property key="TextAlign" value="Left VCenter"/>
         </Widget>
     </Widget>
