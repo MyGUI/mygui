@@ -19,8 +19,6 @@ set (HEADER_FILES
   MainPaneControl.h
   MainWorkspaceControl.h
   MessageBoxFadeControl.h
-  MessageBoxManager.h
-  MyGUI_FilterNoneSkin.h
   MyGUI_RTTLayer.h
   PanelControllers.h
   PanelExtensionProperties.h
@@ -90,8 +88,6 @@ set (SOURCE_FILES
   MainPaneControl.cpp
   MainWorkspaceControl.cpp
   MessageBoxFadeControl.cpp
-  MessageBoxManager.cpp
-  MyGUI_FilterNoneSkin.cpp
   MyGUI_RTTLayer.cpp
   PanelControllers.cpp
   PanelExtensionProperties.cpp
@@ -161,8 +157,6 @@ SOURCE_GROUP("Header Files" FILES
   MainPaneControl.h
   MainWorkspaceControl.h
   MessageBoxFadeControl.h
-  MessageBoxManager.h
-  MyGUI_FilterNoneSkin.h
   MyGUI_RTTLayer.h
   PanelExtensionProperties.h
   PanelTemplateProperties.h
@@ -240,8 +234,6 @@ SOURCE_GROUP("Source Files" FILES
   MainPaneControl.cpp
   MainWorkspaceControl.cpp
   MessageBoxFadeControl.cpp
-  MessageBoxManager.cpp
-  MyGUI_FilterNoneSkin.cpp
   MyGUI_RTTLayer.cpp
   PanelExtensionProperties.cpp
   PanelTemplateProperties.cpp
