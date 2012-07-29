@@ -3,14 +3,16 @@
 	@author		Georgiy Evmenov
 	@date		09/2008
 */
-#ifndef __WIDGETS_WINDOW_H__
-#define __WIDGETS_WINDOW_H__
+
+#ifndef _ae329786_acd2_4c09_ab3b_73baa2294a60_
+#define _ae329786_acd2_4c09_ab3b_73baa2294a60_
 
 #include "BaseLayout/BaseLayout.h"
 #include "EditorToolTip.h"
 
 namespace tools
 {
+
 	class WidgetsWindow :
 		public wraps::BaseLayout
 	{
@@ -46,6 +48,6 @@ namespace tools
 		VectorItemBox mItemBoxs;
 	};
 
-} // namespace tools
+}
 
-#endif // __WIDGETS_WINDOW_H__
+#endif

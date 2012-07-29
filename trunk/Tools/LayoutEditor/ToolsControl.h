@@ -1,5 +1,5 @@
-#ifndef __TOOLS_CONTROL_H__
-#define __TOOLS_CONTROL_H__
+#ifndef _6fb10723_0bea_4e88_bf83_b4f8da4796a0_
+#define _6fb10723_0bea_4e88_bf83_b4f8da4796a0_
 
 #include "BaseLayout/BaseLayout.h"
 #include "PropertiesPanelView.h"
@@ -22,6 +22,6 @@ namespace tools
 		ProjectControl* mProjectControl;
 	};
 
-} // namespace tools
+}
 
-#endif // __TOOLS_CONTROL_H__
+#endif

@@ -250,4 +250,4 @@ namespace tools
 		widgetContainer->setProperty(_propertyName, _propertyValue, false);
 	}
 
-} // namespace tools
+}

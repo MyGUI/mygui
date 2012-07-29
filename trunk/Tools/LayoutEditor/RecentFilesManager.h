@@ -3,13 +3,15 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __RECENT_FILES_MANAGER_H__
-#define __RECENT_FILES_MANAGER_H__
+
+#ifndef _c8874940_90f6_4b60_868d_8afe9e6d2d47_
+#define _c8874940_90f6_4b60_868d_8afe9e6d2d47_
 
 #include <MyGUI.h>
 
 namespace tools
 {
+
 	class RecentFilesManager :
 		public MyGUI::Singleton<RecentFilesManager>
 	{
@@ -47,6 +49,6 @@ namespace tools
 		size_t mMaxRecentProjects;
 	};
 
-} // namespace tools
+}
 
-#endif // __RECENT_FILES_MANAGER_H__
+#endif

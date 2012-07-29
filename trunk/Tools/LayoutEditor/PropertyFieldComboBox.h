@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		12/2010
 */
-#ifndef __PROPERTY_FIELD_COMBO_BOX_H__
-#define __PROPERTY_FIELD_COMBO_BOX_H__
+
+#ifndef _eca0d7d5_24a7_4e9f_8715_a6f2788d91aa_
+#define _eca0d7d5_24a7_4e9f_8715_a6f2788d91aa_
 
 #include "EditorToolTip.h"
 #include "BaseLayout/BaseLayout.h"
@@ -12,6 +13,7 @@
 
 namespace tools
 {
+
 	class PropertyFieldComboBox :
 		public wraps::BaseLayout,
 		public IPropertyField
@@ -48,6 +50,6 @@ namespace tools
 		std::string mName;
 	};
 
-} // namespace tools
+}
 
-#endif // __PROPERTY_FIELD_COMBO_BOX_H__
+#endif

@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __TEXTURE_TOOL_CONTROL_H__
-#define __TEXTURE_TOOL_CONTROL_H__
+
+#ifndef _17446f2a_aef5_4dfd_a0dd_bff3d3dc18cf_
+#define _17446f2a_aef5_4dfd_a0dd_bff3d3dc18cf_
 
 #include "TextureControl.h"
 #include "sigslot.h"
@@ -49,6 +50,6 @@ namespace tools
 		bool mActivate;
 	};
 
-} // namespace tools
+}
 
-#endif // __TEXTURE_TOOL_CONTROL_H__
+#endif

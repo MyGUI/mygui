@@ -1,10 +1,11 @@
-#ifndef __GROUP_MESSAGE__
-#define __GROUP_MESSAGE__
+#ifndef _0b449527_0787_4563_b64a_2cb4729eb9ab_
+#define _0b449527_0787_4563_b64a_2cb4729eb9ab_
 
 #include <MyGUI.h>
 
 namespace tools
 {
+
 	class GroupMessage :
 		public MyGUI::Singleton<GroupMessage>
 	{
@@ -27,6 +28,6 @@ namespace tools
 		VectorUString mWarningMessages;
 	};
 
-} // namespace tools
+}
 
-#endif // __GROUP_MESSAGE__
+#endif

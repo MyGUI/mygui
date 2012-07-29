@@ -4,8 +4,8 @@
 	@date		12/2009
 */
 
-#ifndef __MYGUI_RTT_LAYER_H__
-#define __MYGUI_RTT_LAYER_H__
+#ifndef _a14ff7f6_117d_4239_aafd_0dc59d7adfe1_
+#define _a14ff7f6_117d_4239_aafd_0dc59d7adfe1_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
@@ -39,6 +39,6 @@ namespace MyGUI
 		bool mOutOfDate;
 	};
 
-} // namespace MyGUI
+}
 
-#endif // __MYGUI_RTT_LAYER_H__
+#endif

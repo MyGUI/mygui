@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		10/2010
 */
-#ifndef __PEOJECT_CONTROL_H__
-#define __PEOJECT_CONTROL_H__
+
+#ifndef _6b0d9374_eb9a_4e43_abf5_7987b55a6c4a_
+#define _6b0d9374_eb9a_4e43_abf5_7987b55a6c4a_
 
 #include "BaseLayout/BaseLayout.h"
 #include "OpenSaveFileDialog.h"
@@ -15,6 +16,7 @@
 
 namespace tools
 {
+
 	class ProjectControl :
 		public wraps::BaseLayout,
 		public sigslot::has_slots<>
@@ -75,6 +77,6 @@ namespace tools
 		MyGUI::TextBox* mProjectNameText;
 	};
 
-} // namespace tools
+}
 
-#endif // __PEOJECT_CONTROL_H__
+#endif

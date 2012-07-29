@@ -3,8 +3,9 @@
 	@author		Albert Semenov
 	@date		12/2010
 */
-#ifndef __PROPERTY_FIELD_MANAGER_H__
-#define __PROPERTY_FIELD_MANAGER_H__
+
+#ifndef _71af0f85_133d_4e97_8f9f_0da6fe5f7d31_
+#define _71af0f85_133d_4e97_8f9f_0da6fe5f7d31_
 
 #include <MyGUI.h>
 #include "IPropertyField.h"
@@ -30,6 +31,6 @@ namespace tools
 		MapFactoryItem mFactories;
 	};
 
-} // namespace tools
+}
 
-#endif // __PROPERTY_FIELD_MANAGER_H__
+#endif

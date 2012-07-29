@@ -112,4 +112,4 @@ namespace MyGUI
 		Base::resizeView(mTextureSize);
 	}
 
-} // namespace MyGUI
+}

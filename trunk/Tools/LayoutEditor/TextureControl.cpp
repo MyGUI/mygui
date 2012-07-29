@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "TextureControl.h"
 #include "Localise.h"
@@ -272,4 +273,4 @@ namespace tools
 		return mScaleValue;
 	}
 
-} // namespace tools
+}

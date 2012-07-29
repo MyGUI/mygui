@@ -1,5 +1,5 @@
-#ifndef __SKIN_INFO_H__
-#define __SKIN_INFO_H__
+#ifndef _6d228d6b_2fdf_4a5e_9809_ccde42293e68_
+#define _6d228d6b_2fdf_4a5e_9809_ccde42293e68_
 
 #include <MyGUI.h>
 
@@ -22,6 +22,6 @@ namespace tools
 	typedef std::vector<SkinInfo> VectorSkinInfo;
 	typedef std::map<std::string, VectorSkinInfo> SkinGroups;
 
-} // namespace tools
+}
 
-#endif // __SKIN_INFO_H__
+#endif

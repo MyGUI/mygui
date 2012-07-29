@@ -324,4 +324,4 @@ namespace tools
 			notifyActionTemplate(_name, _value, _final);
 	}
 
-} // namespace tools
+}

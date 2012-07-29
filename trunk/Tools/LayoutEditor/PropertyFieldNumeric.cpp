@@ -38,4 +38,4 @@ namespace tools
 		return success;
 	}
 
-} // namespace tools
+}

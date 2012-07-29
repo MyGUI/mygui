@@ -13,6 +13,7 @@
 
 namespace tools
 {
+
 	PanelProperties::PanelProperties() :
 		BasePanelViewItem("PanelProperties.layout"),
 		mDeep(0),
@@ -144,4 +145,4 @@ namespace tools
 		return result;
 	}
 
-} // namespace tools
+}

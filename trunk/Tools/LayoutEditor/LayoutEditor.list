@@ -12,7 +12,6 @@ set (HEADER_FILES
   EditorWidgets.h
   GroupMessage.h
   IPropertyField.h
-  Localise.h
   MainMenuControl.h
   MainPaneControl.h
   MainWorkspaceControl.h
@@ -152,7 +151,6 @@ SOURCE_GROUP("Header Files" FILES
   EditorToolTip.h
   EditorWidgets.h
   IPropertyField.h
-  Localise.h
   MainMenuControl.h
   MainPaneControl.h
   MainWorkspaceControl.h

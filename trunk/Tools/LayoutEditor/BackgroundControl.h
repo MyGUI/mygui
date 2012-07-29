@@ -3,14 +3,16 @@
 	@author		Albert Semenov
 	@date		09/2008
 */
-#ifndef __BACKGROUND_CONTROL_H__
-#define __BACKGROUND_CONTROL_H__
+
+#ifndef _dec67650_6f1e_40e7_95a3_8311e4727290_
+#define _dec67650_6f1e_40e7_95a3_8311e4727290_
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
 
 namespace tools
 {
+
 	class BackgroundControl :
 		public wraps::BaseLayout
 	{
@@ -19,6 +21,6 @@ namespace tools
 		virtual ~BackgroundControl();
 	};
 
-} // namespace tools
+}
 
-#endif // __BACKGROUND_CONTROL_H__
+#endif

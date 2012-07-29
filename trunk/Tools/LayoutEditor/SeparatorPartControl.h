@@ -1,5 +1,5 @@
-#ifndef __SEPARATOR_PART_CONTROL_H__
-#define __SEPARATOR_PART_CONTROL_H__
+#ifndef _2b447a49_563a_4768_84f6_f7b835381a82_
+#define _2b447a49_563a_4768_84f6_f7b835381a82_
 
 #include "BaseLayout/BaseLayout.h"
 
@@ -32,6 +32,6 @@ namespace tools
 		MyGUI::IntPoint mStartMousePosition;
 	};
 
-} // namespace tools
+}
 
-#endif // __SEPARATOR_PART_CONTROL_H__
+#endif

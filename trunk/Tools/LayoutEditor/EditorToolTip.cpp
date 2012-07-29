@@ -15,6 +15,7 @@ template <> const char* MyGUI::Singleton<tools::EditorToolTip>::mClassTypeName("
 
 namespace tools
 {
+
 	EditorToolTip::EditorToolTip() :
 		BaseLayout("EditorToolTip.layout"),
 		mText(nullptr),
@@ -175,4 +176,4 @@ namespace tools
 		mMainWidget->setPosition(point);
 	}
 
-} // namespace tools
+}

@@ -12,6 +12,7 @@
 
 namespace tools
 {
+
 	const std::string DEFAULT_STRING = "[DEFAULT]";
 
 	PropertyFieldColour::PropertyFieldColour(MyGUI::Widget* _parent) :
@@ -212,4 +213,4 @@ namespace tools
 		return mMainWidget->getVisible();
 	}
 
-} // namespace tools
+}

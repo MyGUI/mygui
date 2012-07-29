@@ -3,8 +3,9 @@
 	@author		Georgiy Evmenov
 	@date		10/2008
 */
-#ifndef __PARSE_H__
-#define __PARSE_H__
+
+#ifndef _d5b3c9c5_7ae6_45c9_aaf6_fd784ef1ad0e_
+#define _d5b3c9c5_7ae6_45c9_aaf6_fd784ef1ad0e_
 
 #include <MyGUI.h>
 
@@ -60,7 +61,7 @@ namespace tools
 
 		bool checkParseFileName(MyGUI::EditBox* _edit);
 
-	} // namespace utility
-} // namespace tools
+	}
+}
 
-#endif // __PARSE_H__
+#endif

@@ -3,6 +3,7 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
+
 #include "Precompiled.h"
 #include "TextureToolControl.h"
 #include "Localise.h"
@@ -156,4 +157,4 @@ namespace tools
 	{
 	}
 
-} // namespace tools
+}

@@ -1,11 +1,12 @@
-#ifndef __APPLICATION_H__
-#define __APPLICATION_H__
+#ifndef _d79dc96f_0f50_4950_b515_9a5deafd511b_
+#define _d79dc96f_0f50_4950_b515_9a5deafd511b_
 
 #include "Base/BaseDemoManager.h"
 #include "sigslot.h"
 
 namespace tools
 {
+
 	class Application :
 		public base::BaseDemoManager,
 		public MyGUI::Singleton<Application>,
@@ -52,6 +53,6 @@ namespace tools
 		std::string mLocale;
 	};
 
-} // namespace tools
+}
 
-#endif // __APPLICATION_H__
+#endif

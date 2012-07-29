@@ -3,14 +3,16 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __WIDGET_SELECTOR_MANAGER_H__
-#define __WIDGET_SELECTOR_MANAGER_H__
+
+#ifndef _3b456737_fa6e_41b4_bc49_bae1aeea0809_
+#define _3b456737_fa6e_41b4_bc49_bae1aeea0809_
 
 #include <MyGUI.h>
 #include "WidgetContainer.h"
 
 namespace tools
 {
+
 	typedef MyGUI::delegates::CMultiDelegate1<MyGUI::Widget*> Event_ChangeSelectedWidget;
 
 	class WidgetSelectorManager :
@@ -48,6 +50,6 @@ namespace tools
 		std::string mStoreWidgetTag;
 	};
 
-} // namespace tools
+}
 
-#endif // __WIDGET_SELECTOR_MANAGER_H__
+#endif

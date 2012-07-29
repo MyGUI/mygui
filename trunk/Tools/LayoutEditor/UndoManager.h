@@ -1,5 +1,5 @@
-#ifndef __UNDO_MANAGER_H__
-#define __UNDO_MANAGER_H__
+#ifndef _a192a99d_7dc5_414c_9b85_5345449cb7f6_
+#define _a192a99d_7dc5_414c_9b85_5345449cb7f6_
 
 #include "EditorWidgets.h"
 #include "CyclicBuffer.h"
@@ -7,6 +7,7 @@
 
 namespace tools
 {
+
 	enum { PR_DEFAULT, PR_POSITION, PR_PROPERTIES, PR_KEY_POSITION };
 
 	typedef MyGUI::delegates::CMultiDelegate1<bool> Event_Changes;
@@ -55,6 +56,6 @@ namespace tools
 		bool mUnsaved;
 	};
 
-} // namespace tools
+}
 
-#endif // __UNDO_MANAGER_H__
+#endif

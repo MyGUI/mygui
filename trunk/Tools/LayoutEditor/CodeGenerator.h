@@ -3,8 +3,9 @@
 	@author		George Evmenov
 	@date		01/2010
 */
-#ifndef __CODE_GENERATOR_H__
-#define __CODE_GENERATOR_H__
+
+#ifndef _fc5cc036_f17c_438e_abbe_d543bc806f31_
+#define _fc5cc036_f17c_438e_abbe_d543bc806f31_
 
 #include "BaseLayout/BaseLayout.h"
 #include "WidgetContainer.h"
@@ -14,6 +15,7 @@
 
 namespace tools
 {
+
 	ATTRIBUTE_CLASS_LAYOUT(CodeGenerator, "CodeGeneratorWindow.layout");
 	class CodeGenerator :
 		public wraps::BaseLayout,
@@ -67,6 +69,6 @@ namespace tools
 		OpenSaveFileDialog* mOpenSaveFileDialog;
 	};
 
-} // namespace tools
+}
 
-#endif // __CODE_GENERATOR_H__
+#endif

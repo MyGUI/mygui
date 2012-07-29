@@ -8,6 +8,7 @@ template <> const char* MyGUI::Singleton<tools::GroupMessage>::mClassTypeName("G
 
 namespace tools
 {
+
 	GroupMessage::GroupMessage()
 	{
 	}
@@ -98,4 +99,4 @@ namespace tools
 		showMessages();
 	}
 
-} // namespace tools
+}

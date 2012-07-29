@@ -31,6 +31,7 @@ template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Ap
 
 namespace tools
 {
+
 	Application::Application()
 	{
 	}
@@ -516,6 +517,6 @@ namespace tools
 			MyGUI::ResourceManager::getInstance().load(*iter);
 	}
 
-} // namespace tools
+}
 
 MYGUI_APP(tools::Application)

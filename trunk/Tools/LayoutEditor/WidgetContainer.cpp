@@ -9,6 +9,7 @@
 
 namespace tools
 {
+
 	WidgetContainer::WidgetContainer() :
 		mRelativeMode(false),
 		mWidget(nullptr)

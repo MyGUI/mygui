@@ -14,6 +14,7 @@
 
 namespace tools
 {
+
 	PanelUserData::PanelUserData() :
 		BasePanelViewItem("PanelUserData.layout"),
 		mEditKey(nullptr),
@@ -182,4 +183,4 @@ namespace tools
 		return true;
 	}
 
-} // namespace tools
+}
