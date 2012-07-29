@@ -9,7 +9,7 @@
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 #include "UndoManager.h"
-#include "Grid.h"
+#include "GridManager.h"
 
 template <> tools::WidgetCreatorManager* MyGUI::Singleton<tools::WidgetCreatorManager>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::WidgetCreatorManager>::mClassTypeName("WidgetCreatorManager");
@@ -139,8 +139,8 @@ namespace tools
 
 			if (!MyGUI::InputManager::getInstance().isShiftPressed())
 			{
-				mStartPoint.left = Grid::getInstance().toGrid(mStartPoint.left);
-				mStartPoint.top = Grid::getInstance().toGrid(mStartPoint.top);
+				mStartPoint.left = GridManager::getInstance().toGrid(mStartPoint.left);
+				mStartPoint.top = GridManager::getInstance().toGrid(mStartPoint.top);
 			}
 		}
 
@@ -206,8 +206,8 @@ namespace tools
 
 		if (!MyGUI::InputManager::getInstance().isShiftPressed())
 		{
-			point.left = Grid::getInstance().toGrid(point.left);
-			point.top = Grid::getInstance().toGrid(point.top);
+			point.left = GridManager::getInstance().toGrid(point.left);
+			point.top = GridManager::getInstance().toGrid(point.top);
 		}
 
 		MyGUI::IntCoord coord = MyGUI::IntCoord(

@@ -23,7 +23,7 @@
 #include "ColourManager.h"
 #include "EditorToolTip.h"
 #include "PropertyFieldManager.h"
-#include "Grid.h"
+#include "GridManager.h"
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
@@ -133,8 +133,8 @@ namespace tools
 		new PropertyFieldManager();
 		PropertyFieldManager::getInstance().initialise();
 
-		new Grid();
-		Grid::getInstance().initialise();
+		new GridManager();
+		GridManager::getInstance().initialise();
 
 		MyGUI::ResourceManager::getInstance().load("Initialise.xml");
 
@@ -180,8 +180,8 @@ namespace tools
 		delete mTestState;
 		mTestState = nullptr;
 		
-		Grid::getInstance().shutdown();
-		delete Grid::getInstancePtr();
+		GridManager::getInstance().shutdown();
+		delete GridManager::getInstancePtr();
 
 		PropertyFieldManager::getInstance().shutdown();
 		delete PropertyFieldManager::getInstancePtr();
