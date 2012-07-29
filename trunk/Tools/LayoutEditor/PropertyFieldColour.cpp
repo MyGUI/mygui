@@ -33,8 +33,9 @@ namespace tools
 		mColourPlace->eventMouseButtonPressed += MyGUI::newDelegate(this, &PropertyFieldColour::notifyMouseButtonPressed);
 
 		mColourPanel = new ColourPanel();
+		mColourPanel->Initialise();
 		mColourPanel->eventEndDialog.connect(this, &PropertyFieldColour::notifyEndDialog);
-		mColourPanel->eventPreviewColour = MyGUI::newDelegate(this, &PropertyFieldColour::notifyPreviewColour);
+		mColourPanel->eventPreviewColour.connect(this, &PropertyFieldColour::notifyPreviewColour);
 	}
 
 	PropertyFieldColour::~PropertyFieldColour()
