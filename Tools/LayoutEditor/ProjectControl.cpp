@@ -42,14 +42,14 @@ namespace tools
 		mTextFieldControl = new TextFieldControl();
 		mTextFieldControl->eventEndDialog = MyGUI::newDelegate(this, &ProjectControl::notifyTextFieldEndDialog);
 
-		CommandManager::getInstance().registerCommand("Command_ProjectCreate", MyGUI::newDelegate(this, &ProjectControl::command_ProjectCreate));
-		CommandManager::getInstance().registerCommand("Command_ProjectLoad", MyGUI::newDelegate(this, &ProjectControl::command_ProjectLoad));
-		CommandManager::getInstance().registerCommand("Command_ProjectClose", MyGUI::newDelegate(this, &ProjectControl::command_ProjectClose));
-		CommandManager::getInstance().registerCommand("Command_ProjectDeleteItem", MyGUI::newDelegate(this, &ProjectControl::command_ProjectDeleteItem));
-		CommandManager::getInstance().registerCommand("Command_ProjectRenameItem", MyGUI::newDelegate(this, &ProjectControl::command_ProjectRenameItem));
-		CommandManager::getInstance().registerCommand("Command_ProjectAddItem", MyGUI::newDelegate(this, &ProjectControl::command_ProjectAddItem));
-		CommandManager::getInstance().registerCommand("Command_UpdateResources", MyGUI::newDelegate(this, &ProjectControl::command_UpdateResources));
-		CommandManager::getInstance().registerCommand("Command_OpenRecentProject", MyGUI::newDelegate(this, &ProjectControl::command_OpenRecentProject));
+		CommandManager::getInstance().getEvent("Command_ProjectCreate")->connect(this, &ProjectControl::command_ProjectCreate);
+		CommandManager::getInstance().getEvent("Command_ProjectLoad")->connect(this, &ProjectControl::command_ProjectLoad);
+		CommandManager::getInstance().getEvent("Command_ProjectClose")->connect(this, &ProjectControl::command_ProjectClose);
+		CommandManager::getInstance().getEvent("Command_ProjectDeleteItem")->connect(this, &ProjectControl::command_ProjectDeleteItem);
+		CommandManager::getInstance().getEvent("Command_ProjectRenameItem")->connect(this, &ProjectControl::command_ProjectRenameItem);
+		CommandManager::getInstance().getEvent("Command_ProjectAddItem")->connect(this, &ProjectControl::command_ProjectAddItem);
+		CommandManager::getInstance().getEvent("Command_UpdateResources")->connect(this, &ProjectControl::command_UpdateResources);
+		CommandManager::getInstance().getEvent("Command_OpenRecentProject")->connect(this, &ProjectControl::command_OpenRecentProject);
 
 		if (SettingsManager::getInstance().getValue<bool>("Settings/LoadLastProject"))
 			loadLastProject();

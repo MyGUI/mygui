@@ -5,13 +5,15 @@
 #include "StateController.h"
 #include "EditorState.h"
 #include "TestState.h"
+#include "sigslot.h"
 
 namespace tools
 {
 	class Application :
 		public base::BaseDemoManager,
 		public MyGUI::Singleton<Application>,
-		public StateController
+		public StateController,
+		public sigslot::has_slots<>
 	{
 	public:
 		Application();

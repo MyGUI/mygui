@@ -18,7 +18,7 @@ namespace tools
 	TestState::TestState() :
 		mTestLayout(nullptr)
 	{
-		CommandManager::getInstance().registerCommand("Command_Quit", MyGUI::newDelegate(this, &TestState::commandQuit));
+		CommandManager::getInstance().getEvent("Command_Quit")->connect(this, &TestState::commandQuit);
 	}
 
 	TestState::~TestState()

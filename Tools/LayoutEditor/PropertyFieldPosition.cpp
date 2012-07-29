@@ -31,14 +31,14 @@ namespace tools
 
 		mButton->eventMouseButtonClick += newDelegate (this, &PropertyFieldPosition::notifyMouseButtonClick);
 
-		CommandManager::getInstance().registerCommand("Command_ToggleRelativeMode", MyGUI::newDelegate(this, &PropertyFieldPosition::commandToggleRelativeMode));
+		CommandManager::getInstance().getEvent("Command_ToggleRelativeMode")->connect(this, &PropertyFieldPosition::commandToggleRelativeMode);
 		EditorWidgets::getInstance().eventChangeWidgetCoord += MyGUI::newDelegate(this, &PropertyFieldPosition::notifyPropertyChangeCoord);
 	}
 
 	PropertyFieldPosition::~PropertyFieldPosition()
 	{
 		EditorWidgets::getInstance().eventChangeWidgetCoord -= MyGUI::newDelegate(this, &PropertyFieldPosition::notifyPropertyChangeCoord);
-		CommandManager::getInstance().unregisterCommand("Command_ToggleRelativeMode", MyGUI::newDelegate(this, &PropertyFieldPosition::commandToggleRelativeMode));
+		CommandManager::getInstance().getEvent("Command_ToggleRelativeMode")->disconnect(this);
 	}
 
 	void PropertyFieldPosition::initialise(const std::string& _type)

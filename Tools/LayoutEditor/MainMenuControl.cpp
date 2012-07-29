@@ -27,7 +27,7 @@ namespace tools
 		SettingsManager::getInstance().eventSettingsChanged.connect(this, &MainMenuControl::notifySettingsChanged);
 		EditorWidgets::getInstance().eventChangeWidgets += MyGUI::newDelegate(this, &MainMenuControl::notifyChangeWidgets);
 
-		CommandManager::getInstance().registerCommand("Command_OnChangeScale", MyGUI::newDelegate(this, &MainMenuControl::CommandOnChangeScale));
+		CommandManager::getInstance().getEvent("Command_OnChangeScale")->connect(this, &MainMenuControl::CommandOnChangeScale);
 
 		updateMenuScale(100);
 	}

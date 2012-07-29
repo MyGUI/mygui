@@ -3,6 +3,7 @@
 
 #include "EditorWidgets.h"
 #include "CyclicBuffer.h"
+#include "sigslot.h"
 
 namespace tools
 {
@@ -11,7 +12,8 @@ namespace tools
 	typedef MyGUI::delegates::CMultiDelegate1<bool> Event_Changes;
 
 	class UndoManager :
-		public MyGUI::Singleton<UndoManager>
+		public MyGUI::Singleton<UndoManager>,
+		public sigslot::has_slots<>
 	{
 	public:
 		UndoManager();

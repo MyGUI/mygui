@@ -11,11 +11,13 @@
 #include "TextFieldControl.h"
 #include "EditorToolTip.h"
 #include "MessageBox/MessageBox.h"
+#include "sigslot.h"
 
 namespace tools
 {
 	class ProjectControl :
-		public wraps::BaseLayout
+		public wraps::BaseLayout,
+		public sigslot::has_slots<>
 	{
 	public:
 		ProjectControl(MyGUI::Widget* _parent = nullptr);
