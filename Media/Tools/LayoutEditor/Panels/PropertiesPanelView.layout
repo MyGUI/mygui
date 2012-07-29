@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<MyGUI type="Layout">
-    <Widget type="Widget" skin="Default" position="10 10 280 600" align="Stretch" name="_Main">
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="Default" position="10 10 280 600" align="Stretch" name="Root">
         <UserString key="SnapTo" value="Stretch"/>
-        <Widget type="ScrollView" skin="ScrollViewEmpty" position="0 0 280 600" align="Stretch" name="scroll_View">
+        <Widget type="ScrollView" skin="ScrollViewEmpty_Dark" position="4 4 272 592" align="Stretch" name="scroll_View">
             <Property key="VisibleHScroll" value="false"/>
         </Widget>
     </Widget>

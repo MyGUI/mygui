@@ -106,6 +106,7 @@
     </Resource>
     <Resource type="ResourceLayout" name="ComboBox_Dark" version="3.2.0">
         <Widget type="Widget" skin="EditBoxSkin_Dark" position="20 20 50 20" name="Root">
+            <Property key="MaxListLength" value="200"/>
             <UserString key="LE_TargetWidgetType" value="ComboBox"/>
             <Widget type="TextBox" skin="EditClientSkin_Dark" position="2 3 32 15" align="Stretch" name="Client">
                 <Property key="FontName" value="DejaVuSansFont_13"/>
