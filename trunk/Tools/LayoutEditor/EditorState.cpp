@@ -74,6 +74,7 @@ namespace tools
 		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());
 
 		mMessageBoxFadeControl = new MessageBoxFadeControl();
+		mMessageBoxFadeControl->Initialise();
 
 		updateCaption();
 
