@@ -9,13 +9,15 @@
 #include "EditorToolTip.h"
 #include "BaseLayout/BaseLayout.h"
 #include "IPropertyField.h"
+#include "sigslot.h"
 
 namespace tools
 {
 
 	class PropertyFieldPosition :
 		public wraps::BaseLayout,
-		public IPropertyField
+		public IPropertyField,
+		public sigslot::has_slots<>
 	{
 	public:
 		PropertyFieldPosition(MyGUI::Widget* _parent);

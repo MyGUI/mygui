@@ -39,28 +39,28 @@ namespace tools
 
 		EditorWidgets::getInstance().eventChangeWidgetCoord += MyGUI::newDelegate(this, &WorkspaceControl::notifyPropertyChangeCoord);
 
-		CommandManager::getInstance().registerCommand("Command_MoveLeft", MyGUI::newDelegate(this, &WorkspaceControl::Command_MoveLeft));
-		CommandManager::getInstance().registerCommand("Command_MoveRight", MyGUI::newDelegate(this, &WorkspaceControl::Command_MoveRight));
-		CommandManager::getInstance().registerCommand("Command_MoveTop", MyGUI::newDelegate(this, &WorkspaceControl::Command_MoveTop));
-		CommandManager::getInstance().registerCommand("Command_MoveBottom", MyGUI::newDelegate(this, &WorkspaceControl::Command_MoveBottom));
-		CommandManager::getInstance().registerCommand("Command_SizeLeft", MyGUI::newDelegate(this, &WorkspaceControl::Command_SizeLeft));
-		CommandManager::getInstance().registerCommand("Command_SizeRight", MyGUI::newDelegate(this, &WorkspaceControl::Command_SizeRight));
-		CommandManager::getInstance().registerCommand("Command_SizeTop", MyGUI::newDelegate(this, &WorkspaceControl::Command_SizeTop));
-		CommandManager::getInstance().registerCommand("Command_SizeBottom", MyGUI::newDelegate(this, &WorkspaceControl::Command_SizeBottom));
+		CommandManager::getInstance().getEvent("Command_MoveLeft")->connect(this, &WorkspaceControl::Command_MoveLeft);
+		CommandManager::getInstance().getEvent("Command_MoveRight")->connect(this, &WorkspaceControl::Command_MoveRight);
+		CommandManager::getInstance().getEvent("Command_MoveTop")->connect(this, &WorkspaceControl::Command_MoveTop);
+		CommandManager::getInstance().getEvent("Command_MoveBottom")->connect(this, &WorkspaceControl::Command_MoveBottom);
+		CommandManager::getInstance().getEvent("Command_SizeLeft")->connect(this, &WorkspaceControl::Command_SizeLeft);
+		CommandManager::getInstance().getEvent("Command_SizeRight")->connect(this, &WorkspaceControl::Command_SizeRight);
+		CommandManager::getInstance().getEvent("Command_SizeTop")->connect(this, &WorkspaceControl::Command_SizeTop);
+		CommandManager::getInstance().getEvent("Command_SizeBottom")->connect(this, &WorkspaceControl::Command_SizeBottom);
 
-		CommandManager::getInstance().registerCommand("Command_GridMoveLeft", MyGUI::newDelegate(this, &WorkspaceControl::Command_GridMoveLeft));
-		CommandManager::getInstance().registerCommand("Command_GridMoveRight", MyGUI::newDelegate(this, &WorkspaceControl::Command_GridMoveRight));
-		CommandManager::getInstance().registerCommand("Command_GridMoveTop", MyGUI::newDelegate(this, &WorkspaceControl::Command_GridMoveTop));
-		CommandManager::getInstance().registerCommand("Command_GridMoveBottom", MyGUI::newDelegate(this, &WorkspaceControl::Command_GridMoveBottom));
-		CommandManager::getInstance().registerCommand("Command_GridSizeLeft", MyGUI::newDelegate(this, &WorkspaceControl::Command_GridSizeLeft));
-		CommandManager::getInstance().registerCommand("Command_GridSizeRight", MyGUI::newDelegate(this, &WorkspaceControl::Command_GridSizeRight));
-		CommandManager::getInstance().registerCommand("Command_GridSizeTop", MyGUI::newDelegate(this, &WorkspaceControl::Command_GridSizeTop));
-		CommandManager::getInstance().registerCommand("Command_GridSizeBottom", MyGUI::newDelegate(this, &WorkspaceControl::Command_GridSizeBottom));
+		CommandManager::getInstance().getEvent("Command_GridMoveLeft")->connect(this, &WorkspaceControl::Command_GridMoveLeft);
+		CommandManager::getInstance().getEvent("Command_GridMoveRight")->connect(this, &WorkspaceControl::Command_GridMoveRight);
+		CommandManager::getInstance().getEvent("Command_GridMoveTop")->connect(this, &WorkspaceControl::Command_GridMoveTop);
+		CommandManager::getInstance().getEvent("Command_GridMoveBottom")->connect(this, &WorkspaceControl::Command_GridMoveBottom);
+		CommandManager::getInstance().getEvent("Command_GridSizeLeft")->connect(this, &WorkspaceControl::Command_GridSizeLeft);
+		CommandManager::getInstance().getEvent("Command_GridSizeRight")->connect(this, &WorkspaceControl::Command_GridSizeRight);
+		CommandManager::getInstance().getEvent("Command_GridSizeTop")->connect(this, &WorkspaceControl::Command_GridSizeTop);
+		CommandManager::getInstance().getEvent("Command_GridSizeBottom")->connect(this, &WorkspaceControl::Command_GridSizeBottom);
 
-		CommandManager::getInstance().registerCommand("Command_Delete", MyGUI::newDelegate(this, &WorkspaceControl::Command_Delete));
-		CommandManager::getInstance().registerCommand("Command_NextItem", MyGUI::newDelegate(this, &WorkspaceControl::Command_NextItem));
+		CommandManager::getInstance().getEvent("Command_Delete")->connect(this, &WorkspaceControl::Command_Delete);
+		CommandManager::getInstance().getEvent("Command_NextItem")->connect(this, &WorkspaceControl::Command_NextItem);
 
-		CommandManager::getInstance().registerCommand("Command_FreeChildMode", MyGUI::newDelegate(this, &WorkspaceControl::Command_FreeChildMode));
+		CommandManager::getInstance().getEvent("Command_FreeChildMode")->connect(this, &WorkspaceControl::Command_FreeChildMode);
 
 		WidgetCreatorManager::getInstance().eventChangeCreatorMode += MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeCreatorMode);
 		WidgetCreatorManager::getInstance().eventChangeSelector += MyGUI::newDelegate(this, &WorkspaceControl::notifyChangeSelectorCreator);

@@ -8,11 +8,13 @@
 #include "MessageBoxFadeControl.h"
 #include "StateController.h"
 #include "MainPaneControl.h"
+#include "sigslot.h"
 
 namespace tools
 {
 	class EditorState :
-		public StateController
+		public StateController,
+		public sigslot::has_slots<>
 	{
 	public:
 		EditorState();

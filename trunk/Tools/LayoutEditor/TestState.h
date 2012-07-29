@@ -7,11 +7,13 @@
 #define __TEST_STATE_H__
 
 #include "StateController.h"
+#include "sigslot.h"
 
 namespace tools
 {
 	class TestState :
-		public StateController
+		public StateController,
+		public sigslot::has_slots<>
 	{
 	public:
 		TestState();
