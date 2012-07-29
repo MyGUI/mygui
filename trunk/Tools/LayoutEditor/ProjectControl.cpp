@@ -9,7 +9,7 @@
 #include "RecentFilesManager.h"
 #include "CommandManager.h"
 #include "MessageBoxManager.h"
-#include "Tools/DialogManager.h"
+#include "DialogManager.h"
 #include "FileSystemInfo/FileSystemInfo.h"
 #include "Localise.h"
 #include "EditorWidgets.h"
@@ -34,13 +34,14 @@ namespace tools
 		mList->eventToolTip += MyGUI::newDelegate(this, &ProjectControl::notifyToolTip);
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
+		mOpenSaveFileDialog->Initialise(SettingsManager::getInstance().getValue("EditorState/OpenSaveFileDialogLayout"));
 		mOpenSaveFileDialog->setFileMask("*.xml");
-		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &ProjectControl::notifyEndDialogOpenSaveFile);
+		mOpenSaveFileDialog->eventEndDialog.connect(this, &ProjectControl::notifyEndDialogOpenSaveFile);
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
 		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());
 
 		mTextFieldControl = new TextFieldControl();
-		mTextFieldControl->eventEndDialog = MyGUI::newDelegate(this, &ProjectControl::notifyTextFieldEndDialog);
+		mTextFieldControl->eventEndDialog.connect(this, &ProjectControl::notifyTextFieldEndDialog);
 
 		CommandManager::getInstance().getEvent("Command_ProjectCreate")->connect(this, &ProjectControl::command_ProjectCreate);
 		CommandManager::getInstance().getEvent("Command_ProjectLoad")->connect(this, &ProjectControl::command_ProjectLoad);

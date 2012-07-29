@@ -41,7 +41,7 @@ namespace tools
 		assignWidget(mResourcePaths, "ResourcePaths");
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
-		mOpenSaveFileDialog->Initialise("OpenSaveFileDialog2.layout");
+		mOpenSaveFileDialog->Initialise(SettingsManager::getInstance().getValue("EditorState/OpenSaveFileDialogLayout"));
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionOpenFolder"), replaceTags("ButtonOpenFolder"), true);
 		mOpenSaveFileDialog->eventEndDialog.connect(this, &SettingsResourcePathsControl::notifyEndDialogOpenSaveFile);
 

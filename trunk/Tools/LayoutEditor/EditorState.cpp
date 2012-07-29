@@ -11,7 +11,7 @@
 #include "WidgetSelectorManager.h"
 #include "HotKeyManager.h"
 #include "MessageBoxManager.h"
-#include "Tools/DialogManager.h"
+#include "DialogManager.h"
 #include "StateManager.h"
 #include "Localise.h"
 #include "Application.h"
@@ -61,14 +61,15 @@ namespace tools
 		mMainPaneControl = new MainPaneControl();
 
 		mSettingsWindow = new SettingsWindow();
-		mSettingsWindow->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifySettingsWindowEndDialog);
+		mSettingsWindow->eventEndDialog.connect(this, &EditorState::notifySettingsWindowEndDialog);
 
 		mCodeGenerator = new CodeGenerator();
-		mCodeGenerator->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogCodeGenerator);
+		mCodeGenerator->eventEndDialog.connect(this, &EditorState::notifyEndDialogCodeGenerator);
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
+		mOpenSaveFileDialog->Initialise(SettingsManager::getInstance().getValue("EditorState/OpenSaveFileDialogLayout"));
 		mOpenSaveFileDialog->setFileMask("*.layout");
-		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &EditorState::notifyEndDialogOpenSaveFile);
+		mOpenSaveFileDialog->eventEndDialog.connect(this, &EditorState::notifyEndDialogOpenSaveFile);
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
 		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());
 

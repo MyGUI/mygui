@@ -1,7 +1,4 @@
 set (HEADER_FILES
-  ../../Common/Tools/Dialog.h
-  ../../Common/Tools/DialogManager.h
-  ../../Common/Tools/OpenSaveFileDialog.h
   Application.h
   ApplicationState.h
   AreaSelectorControl.h
@@ -76,9 +73,6 @@ set (HEADER_FILES
 )
 set (SOURCE_FILES
   ../../Common/Precompiled.cpp
-  ../../Common/Tools/Dialog.cpp
-  ../../Common/Tools/DialogManager.cpp
-  ../../Common/Tools/OpenSaveFileDialog.cpp
   Application.cpp
   ApplicationState.cpp
   AreaSelectorControl.cpp
@@ -152,9 +146,6 @@ SOURCE_GROUP("GroupedMessage" FILES
   GroupMessage.h
 )
 SOURCE_GROUP("Header Files" FILES
-  ../../Common/Tools/Dialog.h
-  ../../Common/Tools/DialogManager.h
-  ../../Common/Tools/OpenSaveFileDialog.h
   AreaSelectorControl.h
   BackgroundControl.h
   BackwardCompatibilityManager.h
@@ -238,9 +229,6 @@ SOURCE_GROUP("Resources" FILES
   LayoutEditor.rc
 )
 SOURCE_GROUP("Source Files" FILES
-  ../../Common/Tools/Dialog.cpp
-  ../../Common/Tools/DialogManager.cpp
-  ../../Common/Tools/OpenSaveFileDialog.cpp
   AreaSelectorControl.cpp
   BackgroundControl.cpp
   BackwardCompatibilityManager.cpp

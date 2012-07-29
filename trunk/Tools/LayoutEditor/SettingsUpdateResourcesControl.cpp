@@ -22,7 +22,7 @@ namespace tools
 		assignWidget(mResources, "Resources");
 
 		mTextFieldControl = new TextFieldControl();
-		mTextFieldControl->eventEndDialog = MyGUI::newDelegate(this, &SettingsUpdateResourcesControl::notifyEndDialog);
+		mTextFieldControl->eventEndDialog.connect(this, &SettingsUpdateResourcesControl::notifyEndDialog);
 
 		mResourceAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsUpdateResourcesControl::notifyClickResourcePathAdd);
 		mResourceDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsUpdateResourcesControl::notifyClickResourcePathDelete);

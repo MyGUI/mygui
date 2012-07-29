@@ -12,7 +12,7 @@
 #include "WidgetSelectorManager.h"
 #include "HotKeyManager.h"
 #include "MessageBoxManager.h"
-#include "Tools/DialogManager.h"
+#include "DialogManager.h"
 #include "StateManager.h"
 #include "Localise.h"
 #include "WidgetCreatorManager.h"
@@ -42,6 +42,7 @@ namespace tools
 	void Application::setupResources()
 	{
 		base::BaseManager::setupResources();
+		addResourceLocation(getRootMedia() + "/Tools/EditorFramework");
 		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor");
 		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Panels");
 		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Themes");

@@ -14,6 +14,9 @@
 	<List file="ButtonExpandSkin.xml"/>
 	<List file="MyGUI_Layers.xml"/>
 	<List file="EditorSettings.xml"/>
+	<List file="FrameworkFonts.xml"/>
+	<List file="MyGUI_DarkSkin.xml"/>
+	<List file="MyGUI_DarkTemplate.xml"/>
 	<!-- загружается из кода после регистрации лееров -->
 	<!--List file="EditorLayers.xml"/-->
 </MyGUI>

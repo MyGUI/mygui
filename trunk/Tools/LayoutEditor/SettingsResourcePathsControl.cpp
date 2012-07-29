@@ -22,8 +22,9 @@ namespace tools
 		assignWidget(mResourcePaths, "ResourcePaths");
 
 		mOpenSaveFileDialog = new OpenSaveFileDialog();
+		mOpenSaveFileDialog->Initialise(SettingsManager::getInstance().getValue("EditorState/OpenSaveFileDialogLayout"));
 		mOpenSaveFileDialog->setDialogInfo(replaceTags("CaptionOpenFolder"), replaceTags("ButtonOpenFolder"), true);
-		mOpenSaveFileDialog->eventEndDialog = MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyEndDialogOpenSaveFile);
+		mOpenSaveFileDialog->eventEndDialog.connect(this, &SettingsResourcePathsControl::notifyEndDialogOpenSaveFile);
 
 		mResourcePathAdd->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickResourcePathAdd);
 		mResourcePathDelete->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsResourcePathsControl::notifyClickResourcePathDelete);
