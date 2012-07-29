@@ -40,17 +40,18 @@ namespace tools
 	void SettingsResourcesControl::loadSettings()
 	{
 		mResources->removeAllItems();
-		SettingsSector::VectorUString paths = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("AdditionalResources");
-		for (SettingsSector::VectorUString::const_iterator item = paths.begin(); item != paths.end(); ++ item)
+		SettingsManager::VectorString paths = SettingsManager::getInstance().getValueList("Settings/AdditionalResource.List");
+		for (SettingsManager::VectorString::const_iterator item = paths.begin(); item != paths.end(); ++ item)
 			mResources->addItem(*item);
 	}
 
 	void SettingsResourcesControl::saveSettings()
 	{
-		SettingsSector::VectorUString paths;
+		SettingsManager::VectorString paths;
 		for (size_t index = 0; index < mResources->getItemCount(); ++ index)
 			paths.push_back(mResources->getItemNameAt(index));
-		SettingsManager::getInstance().getSector("Settings")->setPropertyValueList("AdditionalResources", paths);
+
+		SettingsManager::getInstance().setValueList("Settings/AdditionalResource.List", paths);
 	}
 
 	void SettingsResourcesControl::notifyClickResourcePathAdd(MyGUI::Widget* _sender)

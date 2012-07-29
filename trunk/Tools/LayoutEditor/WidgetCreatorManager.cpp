@@ -211,8 +211,8 @@ namespace tools
 		}
 
 		MyGUI::IntCoord coord = MyGUI::IntCoord(
-			std::min(mStartPoint.left, point.left),
-			std::min(mStartPoint.top, point.top),
+			(std::min)(mStartPoint.left, point.left),
+			(std::min)(mStartPoint.top, point.top),
 			abs(point.left - mStartPoint.left),
 			abs(point.top - mStartPoint.top));
 

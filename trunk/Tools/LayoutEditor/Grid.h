@@ -8,10 +8,13 @@
 
 #include <MyGUI_Singleton.h>
 #include "BaseLayout/BaseLayout.h"
+#include "sigslot.h"
 
 namespace tools
 {
-	class Grid : public MyGUI::Singleton<Grid>
+	class Grid :
+		public MyGUI::Singleton<Grid>,
+		public sigslot::has_slots<>
 	{
 	public:
 		Grid();
@@ -22,8 +25,9 @@ namespace tools
 
 		enum GridLine{ Previous, Closest, Next };
 		int toGrid(int _value, GridLine _line = Closest) const;
+
 	private:
-		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
+		void notifySettingsChanged(const std::string& _path);
 
 		int mGridStep;
 	};

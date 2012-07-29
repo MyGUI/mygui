@@ -7,12 +7,14 @@
 #define __TEXTURE_TOOL_CONTROL_H__
 
 #include "TextureControl.h"
+#include "sigslot.h"
 
 namespace tools
 {
 
 	class TextureToolControl :
-		public TextureControl
+		public TextureControl,
+		public sigslot::has_slots<>
 	{
 	public:
 		TextureToolControl(MyGUI::Widget* _parent);
@@ -30,7 +32,7 @@ namespace tools
 		bool checkMenuCommand();
 
 	private:
-		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
+		void notifySettingsChanged(const std::string& _path);
 
 		void CommandChangeNextScale(const MyGUI::UString& _commandName, bool& _result);
 		void CommandChangePrevScale(const MyGUI::UString& _commandName, bool& _result);

@@ -23,22 +23,19 @@ namespace tools
 
 	void Grid::initialise()
 	{
-		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
-		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &Grid::notifySettingsChanged);
+		mGridStep = SettingsManager::getInstance().getValue<int>("Settings/Grid");
+		SettingsManager::getInstance().eventSettingsChanged.connect(this, &Grid::notifySettingsChanged);
 	}
 
 	void Grid::shutdown()
 	{
-		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &Grid::notifySettingsChanged);
+		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);
 	}
 
-	void Grid::notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName)
+	void Grid::notifySettingsChanged(const std::string& _path)
 	{
-		if (_sectorName == "Settings")
-		{
-			if (_propertyName == "Grid")
-				mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
-		}
+		if (_path == "Settings/Grid")
+			mGridStep = SettingsManager::getInstance().getValue<int>("Settings/Grid");
 	}
 
 	int Grid::toGrid(int _value, GridLine _line) const

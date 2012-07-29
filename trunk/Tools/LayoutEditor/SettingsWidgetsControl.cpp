@@ -33,16 +33,16 @@ namespace tools
 
 	void SettingsWidgetsControl::loadSettings()
 	{
-		mCheckShowName->setStateSelected(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("ShowName"));
-		mCheckShowType->setStateSelected(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("ShowType"));
-		mCheckShowSkin->setStateSelected(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("ShowSkin"));
+		mCheckShowName->setStateSelected(SettingsManager::getInstance().getValue<bool>("Settings/ShowName"));
+		mCheckShowType->setStateSelected(SettingsManager::getInstance().getValue<bool>("Settings/ShowType"));
+		mCheckShowSkin->setStateSelected(SettingsManager::getInstance().getValue<bool>("Settings/ShowSkin"));
 	}
 
 	void SettingsWidgetsControl::saveSettings()
 	{
-		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("ShowName", mCheckShowName->getStateSelected());
-		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("ShowType", mCheckShowType->getStateSelected());
-		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("ShowSkin", mCheckShowSkin->getStateSelected());
+		SettingsManager::getInstance().setValue("Settings/ShowName", mCheckShowName->getStateSelected());
+		SettingsManager::getInstance().setValue("Settings/ShowType", mCheckShowType->getStateSelected());
+		SettingsManager::getInstance().setValue("Settings/ShowSkin", mCheckShowSkin->getStateSelected());
 	}
 
 	void SettingsWidgetsControl::notifyToggleCheck(MyGUI::Widget* _sender)

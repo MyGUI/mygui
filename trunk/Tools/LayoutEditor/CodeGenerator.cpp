@@ -9,6 +9,7 @@
 #include "EditorWidgets.h"
 #include "UndoManager.h"
 #include "Localise.h"
+#include "SettingsManager.h"
 
 namespace tools
 {
@@ -191,22 +192,18 @@ namespace tools
 
 	void CodeGenerator::loadTemplate()
 	{
-		SettingsSector* sector = EditorWidgets::getInstance().getSector("CodeGeneratorSettings");
-
-		mPanelNameEdit->setCaption(sector->getPropertyValue("PanelName"));
-		mPanelNamespaceEdit->setCaption(sector->getPropertyValue("PanelNamespace"));
-		mIncludeDirectoryEdit->setCaption(sector->getPropertyValue("IncludeDirectory"));
-		mSourceDirectoryEdit->setCaption(sector->getPropertyValue("SourceDirectory"));
+		mPanelNameEdit->setCaption(SettingsManager::getInstance().getValue("CodeGeneratorSettings/PanelName"));
+		mPanelNamespaceEdit->setCaption(SettingsManager::getInstance().getValue("CodeGeneratorSettings/PanelNamespace"));
+		mIncludeDirectoryEdit->setCaption(SettingsManager::getInstance().getValue("CodeGeneratorSettings/IncludeDirectory"));
+		mSourceDirectoryEdit->setCaption(SettingsManager::getInstance().getValue("CodeGeneratorSettings/SourceDirectory"));
 	}
 
 	void CodeGenerator::saveTemplate()
 	{
-		SettingsSector* sector = EditorWidgets::getInstance().getSector("CodeGeneratorSettings");
-
-		sector->setPropertyValue("PanelName", mPanelNameEdit->getOnlyText());
-		sector->setPropertyValue("PanelNamespace", mPanelNamespaceEdit->getOnlyText());
-		sector->setPropertyValue("IncludeDirectory", mIncludeDirectoryEdit->getOnlyText());
-		sector->setPropertyValue("SourceDirectory", mSourceDirectoryEdit->getOnlyText());
+		SettingsManager::getInstance().setValue("CodeGeneratorSettings/PanelName", mPanelNameEdit->getOnlyText());
+		SettingsManager::getInstance().setValue("CodeGeneratorSettings/PanelNamespace", mPanelNamespaceEdit->getOnlyText());
+		SettingsManager::getInstance().setValue("CodeGeneratorSettings/IncludeDirectory", mIncludeDirectoryEdit->getOnlyText());
+		SettingsManager::getInstance().setValue("CodeGeneratorSettings/SourceDirectory", mSourceDirectoryEdit->getOnlyText());
 
 		UndoManager::getInstance().setUnsaved(true);
 	}

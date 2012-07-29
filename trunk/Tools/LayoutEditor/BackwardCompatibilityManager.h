@@ -7,11 +7,13 @@
 #define __BACKWARD_COMPATIBILITY_MANAGER_H__
 
 #include <MyGUI.h>
+#include "sigslot.h"
 
 namespace tools
 {
 	class BackwardCompatibilityManager :
-		public MyGUI::Singleton<BackwardCompatibilityManager>
+		public MyGUI::Singleton<BackwardCompatibilityManager>,
+		public sigslot::has_slots<>
 	{
 	public:
 		BackwardCompatibilityManager();
@@ -29,7 +31,7 @@ namespace tools
 		void serialiseProperty(MyGUI::xml::Element* _node, const std::string& _widgetType, const MyGUI::PairString& _property, bool _compatibility);
 
 	private:
-		void notifySettingsChanged(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName);
+		void notifySettingsChanged(const std::string& _path);
 
 	private:
 		MyGUI::VectorString mVersions;
