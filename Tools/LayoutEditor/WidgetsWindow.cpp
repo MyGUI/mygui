@@ -29,9 +29,9 @@ namespace tools
 
 		mPopupMode->eventMouseButtonClick += MyGUI::newDelegate(this, &WidgetsWindow::notifyMouseButtonClickPopupMode);
 
-		mWidgetsButtonWidth = SettingsManager::getInstance().getSector("WidgetsWindow")->getPropertyValue<int>("widgetsButtonWidth");
-		mWidgetsButtonHeight = SettingsManager::getInstance().getSector("WidgetsWindow")->getPropertyValue<int>("widgetsButtonHeight");
-		mSkinSheetName = SettingsManager::getInstance().getSector("WidgetsWindow")->getPropertyValue("lastSkinGroup");
+		mWidgetsButtonWidth = SettingsManager::getInstance().getValue<int>("WidgetsWindow/widgetsButtonWidth");
+		mWidgetsButtonHeight = SettingsManager::getInstance().getValue<int>("WidgetsWindow/widgetsButtonHeight");
+		mSkinSheetName = SettingsManager::getInstance().getValue("WidgetsWindow/lastSkinGroup");
 
 		initialise();
 
@@ -48,9 +48,9 @@ namespace tools
 		else
 			mSkinSheetName = "";
 
-		SettingsManager::getInstance().getSector("WidgetsWindow")->setPropertyValue("widgetsButtonWidth", mWidgetsButtonWidth);
-		SettingsManager::getInstance().getSector("WidgetsWindow")->setPropertyValue("widgetsButtonHeight", mWidgetsButtonHeight);
-		SettingsManager::getInstance().getSector("WidgetsWindow")->setPropertyValue("lastSkinGroup", mSkinSheetName);
+		SettingsManager::getInstance().setValue("WidgetsWindow/widgetsButtonWidth", mWidgetsButtonWidth);
+		SettingsManager::getInstance().setValue("WidgetsWindow/widgetsButtonHeight", mWidgetsButtonHeight);
+		SettingsManager::getInstance().setValue("WidgetsWindow/lastSkinGroup", mSkinSheetName);
 
 		mPopupMode->eventMouseButtonClick -= MyGUI::newDelegate(this, &WidgetsWindow::notifyMouseButtonClickPopupMode);
 	}

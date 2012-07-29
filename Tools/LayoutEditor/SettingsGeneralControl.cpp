@@ -37,29 +37,29 @@ namespace tools
 
 	void SettingsGeneralControl::loadSettings()
 	{
-		mGridStep = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<int>("Grid");
+		mGridStep = SettingsManager::getInstance().getValue<int>("Settings/Grid");
 		mGridEdit->setCaption(MyGUI::utility::toString(mGridStep));
-		mLoadLastProject->setStateSelected(SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("LoadLastProject"));
-		setLanguageValue(SettingsManager::getInstance().getSector("Settings")->getPropertyValue("InterfaceLanguage"));
+		mLoadLastProject->setStateSelected(SettingsManager::getInstance().getValue<bool>("Settings/LoadLastProject"));
+		setLanguageValue(SettingsManager::getInstance().getValue("Settings/InterfaceLanguage"));
 
-		mWorkspaceSize->setCaption(SettingsManager::getInstance().getSector("Workspace")->getPropertyValue("TextureSize"));
+		mWorkspaceSize->setCaption(SettingsManager::getInstance().getValue("Workspace/TextureSize"));
 	}
 
 	void SettingsGeneralControl::saveSettings()
 	{
-		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("Grid", mGridStep);
-		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("LoadLastProject", mLoadLastProject->getStateSelected());
-		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("InterfaceLanguage", getLanguageValue());
+		SettingsManager::getInstance().setValue("Settings/Grid", mGridStep);
+		SettingsManager::getInstance().setValue("Settings/LoadLastProject", mLoadLastProject->getStateSelected());
+		SettingsManager::getInstance().setValue("Settings/InterfaceLanguage", getLanguageValue());
 
 		MyGUI::IntSize workspaceSize = MyGUI::utility::parseValue<MyGUI::IntSize>(mWorkspaceSize->getCaption());
-		workspaceSize.set(std::max(64, workspaceSize.width), std::max(64, workspaceSize.height));
-		SettingsManager::getInstance().getSector("Workspace")->setPropertyValue("TextureSize", workspaceSize.print());
+		workspaceSize.set((std::max)(64, workspaceSize.width), (std::max)(64, workspaceSize.height));
+		SettingsManager::getInstance().setValue("Workspace/TextureSize", workspaceSize.print());
 	}
 
 	void SettingsGeneralControl::notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new)
 	{
 		mGridStep = MyGUI::utility::parseInt(mGridEdit->getOnlyText());
-		mGridStep = std::max(1, mGridStep);
+		mGridStep = (std::max)(1, mGridStep);
 		mGridEdit->setCaption(MyGUI::utility::toString(mGridStep));
 	}
 

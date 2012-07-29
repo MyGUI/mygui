@@ -51,7 +51,7 @@ namespace tools
 		CommandManager::getInstance().registerCommand("Command_UpdateResources", MyGUI::newDelegate(this, &ProjectControl::command_UpdateResources));
 		CommandManager::getInstance().registerCommand("Command_OpenRecentProject", MyGUI::newDelegate(this, &ProjectControl::command_OpenRecentProject));
 
-		if (SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("LoadLastProject"))
+		if (SettingsManager::getInstance().getValue<bool>("Settings/LoadLastProject"))
 			loadLastProject();
 	}
 
@@ -391,8 +391,8 @@ namespace tools
 		mProjectName = _fileName;
 		mProjectPath = _filePath;
 
-		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("LastProjectName", mProjectName);
-		SettingsManager::getInstance().getSector("Settings")->setPropertyValue("LastProjectPath", mProjectPath);
+		SettingsManager::getInstance().setValue("Settings/LastProjectName", mProjectName);
+		SettingsManager::getInstance().setValue("Settings/LastProjectPath", mProjectPath);
 
 		addUserTag("CurrentProjectName", mProjectName);
 	}
@@ -661,8 +661,8 @@ namespace tools
 
 	void ProjectControl::loadLastProject()
 	{
-		MyGUI::UString projectName = SettingsManager::getInstance().getSector("Settings")->getPropertyValue("LastProjectName");
-		MyGUI::UString projectPath = SettingsManager::getInstance().getSector("Settings")->getPropertyValue("LastProjectPath");
+		MyGUI::UString projectName = SettingsManager::getInstance().getValue("Settings/LastProjectName");
+		MyGUI::UString projectPath = SettingsManager::getInstance().getValue("Settings/LastProjectPath");
 
 		if (projectName.empty())
 			return;

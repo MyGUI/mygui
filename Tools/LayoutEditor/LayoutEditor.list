@@ -57,10 +57,8 @@ set (HEADER_FILES
   SelectorControl.h
   SeparatorPartControl.h
   SettingsGeneralControl.h
-  SettingsManager.h
   SettingsResourcePathsControl.h
   SettingsResourcesControl.h
-  SettingsSector.h
   SettingsUpdateResourcesControl.h
   SettingsWidgetsControl.h
   SettingsWindow.h
@@ -134,10 +132,8 @@ set (SOURCE_FILES
   SelectorControl.cpp
   SeparatorPartControl.cpp
   SettingsGeneralControl.cpp
-  SettingsManager.cpp
   SettingsResourcePathsControl.cpp
   SettingsResourcesControl.cpp
-  SettingsSector.cpp
   SettingsUpdateResourcesControl.cpp
   SettingsWidgetsControl.cpp
   SettingsWindow.cpp
@@ -211,10 +207,8 @@ SOURCE_GROUP("Header Files" FILES
   SelectorControl.h
   SeparatorPartControl.h
   SettingsGeneralControl.h
-  SettingsManager.h
   SettingsResourcePathsControl.h
   SettingsResourcesControl.h
-  SettingsSector.h
   SettingsUpdateResourcesControl.h
   SettingsWidgetsControl.h
   SkinInfo.h
@@ -302,10 +296,8 @@ SOURCE_GROUP("Source Files" FILES
   SelectorControl.cpp
   SeparatorPartControl.cpp
   SettingsGeneralControl.cpp
-  SettingsManager.cpp
   SettingsResourcePathsControl.cpp
   SettingsResourcesControl.cpp
-  SettingsSector.cpp
   SettingsUpdateResourcesControl.cpp
   SettingsWidgetsControl.cpp
   StateManager.cpp

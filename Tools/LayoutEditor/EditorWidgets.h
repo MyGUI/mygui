@@ -3,7 +3,6 @@
 
 #include <sstream>
 #include "WidgetContainer.h"
-#include "SettingsSector.h"
 
 namespace tools
 {
@@ -42,8 +41,6 @@ namespace tools
 		void invalidateWidgets();
 		EnumeratorWidgetContainer getWidgets();
 
-		SettingsSector* getSector(const MyGUI::UString& _sectorName);
-
 		std::string getSkinReplace(const std::string& _skinName);
 
 		const MyGUI::UString& getCurrentFileName() const;
@@ -65,10 +62,6 @@ namespace tools
 
 		void notifyFrameStarted(float _time);
 
-		void loadSector(MyGUI::xml::ElementPtr _sectorNode);
-		void saveSectors(MyGUI::xml::ElementPtr _rootNode);
-
-		void destroyAllSectors();
 		void destroyAllWidgets();
 
 		bool isSkinExist(const std::string& _skinName);
@@ -85,7 +78,6 @@ namespace tools
 		bool mWidgetsChanged;
 		typedef std::vector<std::string> VectorString;
 		VectorString mIgnoreParameters;
-		VectorSettingsSector mSettings;
 		VectorWidgetContainer mWidgets;
 
 		typedef std::map<std::string, std::string> MapString;

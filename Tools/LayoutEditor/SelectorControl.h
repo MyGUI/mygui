@@ -7,6 +7,7 @@
 #define __SELECTOR_CONTROL_H__
 
 #include "BaseLayout/BaseLayout.h"
+#include "sigslot.h"
 
 namespace tools
 {
@@ -16,7 +17,8 @@ namespace tools
 	typedef MyGUI::delegates::CMultiDelegate0 EventHandle_ChangePosition;
 
 	class SelectorControl :
-		public wraps::BaseLayout
+		public wraps::BaseLayout,
+		public sigslot::has_slots<>
 	{
 	public:
 		SelectorControl(const std::string& _layout, MyGUI::Widget* _parent);
@@ -50,7 +52,7 @@ namespace tools
 		void setColour(MyGUI::Colour _value);
 		void updateCoord();
 
-		void notifySettingsChanged(const MyGUI::UString& _sectorName, const MyGUI::UString& _propertyName);
+		void notifySettingsChanged(const std::string& _path);
 
 	private:
 		MyGUI::IntCoord mCoordValue;

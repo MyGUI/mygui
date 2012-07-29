@@ -24,7 +24,7 @@ namespace tools
 
 		createMainMenu();
 
-		SettingsManager::getInstance().eventSettingsChanged += MyGUI::newDelegate(this, &MainMenuControl::notifySettingsChanged);
+		SettingsManager::getInstance().eventSettingsChanged.connect(this, &MainMenuControl::notifySettingsChanged);
 		EditorWidgets::getInstance().eventChangeWidgets += MyGUI::newDelegate(this, &MainMenuControl::notifyChangeWidgets);
 
 		CommandManager::getInstance().registerCommand("Command_OnChangeScale", MyGUI::newDelegate(this, &MainMenuControl::CommandOnChangeScale));
@@ -35,7 +35,7 @@ namespace tools
 	MainMenuControl::~MainMenuControl()
 	{
 		EditorWidgets::getInstance().eventChangeWidgets -= MyGUI::newDelegate(this, &MainMenuControl::notifyChangeWidgets);
-		SettingsManager::getInstance().eventSettingsChanged -= MyGUI::newDelegate(this, &MainMenuControl::notifySettingsChanged);
+		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);
 	}
 
 	void MainMenuControl::createMainMenu()
@@ -68,9 +68,9 @@ namespace tools
 
 	void MainMenuControl::widgetsUpdate()
 	{
-		bool print_name = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("ShowName");
-		bool print_type = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("ShowType");
-		bool print_skin = SettingsManager::getInstance().getSector("Settings")->getPropertyValue<bool>("ShowSkin");
+		bool print_name = SettingsManager::getInstance().getValue<bool>("Settings/ShowName");
+		bool print_type = SettingsManager::getInstance().getValue<bool>("Settings/ShowType");
+		bool print_skin = SettingsManager::getInstance().getValue<bool>("Settings/ShowSkin");
 
 		mPopupMenuWidgets->removeAllItems();
 
@@ -125,23 +125,14 @@ namespace tools
 		widgetsUpdate();
 	}
 
-	void MainMenuControl::notifySettingsChanged(const MyGUI::UString& _sectionName, const MyGUI::UString& _propertyName)
+	void MainMenuControl::notifySettingsChanged(const std::string& _path)
 	{
-		if (_sectionName == "Settings")
-		{
+		if (MyGUI::utility::startWith(_path, "Settings/"))
 			widgetsUpdate();
-		}
-		else if (_sectionName == "Files")
-		{
-			if (_propertyName == "RecentFiles")
-			{
-				updateRecentFilesMenu();
-			}
-			else if (_propertyName == "RecentProjects")
-			{
-				updateRecentProjectsMenu();
-			}
-		}
+		else if (_path == "Files/RecentFile.List")
+			updateRecentFilesMenu();
+		else if (_path == "Files/RecentProject.List")
+			updateRecentProjectsMenu();
 	}
 
 	void MainMenuControl::updateRecentFilesMenu()

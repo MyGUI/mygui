@@ -20,12 +20,11 @@ namespace tools
 		mPositionSelectorCreatorControl(nullptr),
 		mFreeChildMode(false)
 	{
-		SettingsSector* sector = SettingsManager::getInstance().getSector("Workspace");
-		MyGUI::IntSize size = sector->getPropertyValue<MyGUI::IntSize>("TextureSize");
+		MyGUI::IntSize size = SettingsManager::getInstance().getValue<MyGUI::IntSize>("Workspace/TextureSize");
 
 		setRttLayerSize(size);
 
-		setTextureName(sector->getPropertyValue("TextureName"));
+		setTextureName(SettingsManager::getInstance().getValue("Workspace/TextureName"));
 		setTextureRegion(MyGUI::IntCoord(0, 0, size.width, size.height));
 
 		addSelectorControl(mAreaSelectorControl);

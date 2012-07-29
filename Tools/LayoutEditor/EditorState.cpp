@@ -605,12 +605,11 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		typedef std::vector<MyGUI::UString> VectorUString;
-		VectorUString resources = SettingsManager::getInstance().getSector("Settings")->getPropertyValueList("UpdateResources");
+		SettingsManager::VectorString resources = SettingsManager::getInstance().getValueList("Settings/UpdateResource.List");
 		if (resources.empty())
 			return;
 
-		for (VectorUString::iterator resource = resources.begin(); resource != resources.end(); ++resource)
+		for (SettingsManager::VectorString::iterator resource = resources.begin(); resource != resources.end(); ++resource)
 			MyGUI::ResourceManager::getInstance().load(*resource);
 
 		MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
