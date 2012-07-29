@@ -2,9 +2,6 @@
 #define __APPLICATION_H__
 
 #include "Base/BaseDemoManager.h"
-#include "StateController.h"
-#include "EditorState.h"
-#include "TestState.h"
 #include "sigslot.h"
 
 namespace tools
@@ -12,7 +9,6 @@ namespace tools
 	class Application :
 		public base::BaseDemoManager,
 		public MyGUI::Singleton<Application>,
-		public StateController,
 		public sigslot::has_slots<>
 	{
 	public:
@@ -33,8 +29,6 @@ namespace tools
 		typedef std::vector<std::wstring> VectorWString;
 		const VectorWString& getParams();
 
-		virtual void resumeState();
-
 	private:
 		void command_StatisticInfo(const MyGUI::UString& _commandName, bool& _result);
 		void command_FocusVisible(const MyGUI::UString& _commandName, bool& _result);
@@ -50,14 +44,12 @@ namespace tools
 
 		void saveSettings();
 
+		void LoadStates();
 		void LoadGuiSettings();
 
 	private:
 		VectorWString mParams;
 		std::string mLocale;
-
-		EditorState* mEditorState;
-		TestState* mTestState;
 	};
 
 } // namespace tools

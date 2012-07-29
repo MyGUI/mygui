@@ -3,6 +3,7 @@ set (HEADER_FILES
   ../../Common/Tools/DialogManager.h
   ../../Common/Tools/OpenSaveFileDialog.h
   Application.h
+  ApplicationState.h
   AreaSelectorControl.h
   BackgroundControl.h
   BackwardCompatibilityManager.h
@@ -59,8 +60,6 @@ set (HEADER_FILES
   SettingsWidgetsControl.h
   SettingsWindow.h
   SkinInfo.h
-  StateController.h
-  StateManager.h
   TestState.h
   TextFieldControl.h
   TextureControl.h
@@ -81,6 +80,7 @@ set (SOURCE_FILES
   ../../Common/Tools/DialogManager.cpp
   ../../Common/Tools/OpenSaveFileDialog.cpp
   Application.cpp
+  ApplicationState.cpp
   AreaSelectorControl.cpp
   BackgroundControl.cpp
   BackwardCompatibilityManager.cpp
@@ -130,7 +130,6 @@ set (SOURCE_FILES
   SettingsUpdateResourcesControl.cpp
   SettingsWidgetsControl.cpp
   SettingsWindow.cpp
-  StateManager.cpp
   TestState.cpp
   TextFieldControl.cpp
   TextureControl.cpp
@@ -156,7 +155,6 @@ SOURCE_GROUP("Header Files" FILES
   ../../Common/Tools/Dialog.h
   ../../Common/Tools/DialogManager.h
   ../../Common/Tools/OpenSaveFileDialog.h
-  Application.h
   AreaSelectorControl.h
   BackgroundControl.h
   BackwardCompatibilityManager.h
@@ -164,7 +162,6 @@ SOURCE_GROUP("Header Files" FILES
   ColourPanel.h
   Common.h
   CyclicBuffer.h
-  EditorState.h
   EditorToolTip.h
   EditorWidgets.h
   IPropertyField.h
@@ -201,9 +198,6 @@ SOURCE_GROUP("Header Files" FILES
   SettingsUpdateResourcesControl.h
   SettingsWidgetsControl.h
   SkinInfo.h
-  StateController.h
-  StateManager.h
-  TestState.h
   TextFieldControl.h
   TextureControl.h
   TextureToolControl.h
@@ -247,13 +241,11 @@ SOURCE_GROUP("Source Files" FILES
   ../../Common/Tools/Dialog.cpp
   ../../Common/Tools/DialogManager.cpp
   ../../Common/Tools/OpenSaveFileDialog.cpp
-  Application.cpp
   AreaSelectorControl.cpp
   BackgroundControl.cpp
   BackwardCompatibilityManager.cpp
   ColourManager.cpp
   ColourPanel.cpp
-  EditorState.cpp
   EditorToolTip.cpp
   EditorWidgets.cpp
   MainMenuControl.cpp
@@ -286,8 +278,6 @@ SOURCE_GROUP("Source Files" FILES
   SettingsResourcesControl.cpp
   SettingsUpdateResourcesControl.cpp
   SettingsWidgetsControl.cpp
-  StateManager.cpp
-  TestState.cpp
   TextFieldControl.cpp
   TextureControl.cpp
   TextureToolControl.cpp
@@ -298,6 +288,16 @@ SOURCE_GROUP("Source Files" FILES
   WidgetSelectorManager.cpp
   WidgetTypes.cpp
   WorkspaceControl.cpp
+)
+SOURCE_GROUP("States" FILES
+  Application.cpp
+  Application.h
+  ApplicationState.cpp
+  ApplicationState.h
+  EditorState.cpp
+  EditorState.h
+  TestState.cpp
+  TestState.h
 )
 SOURCE_GROUP("Windows" FILES
   SettingsWindow.cpp

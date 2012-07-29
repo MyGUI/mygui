@@ -41,7 +41,6 @@ namespace tools
 		void command_Save(const MyGUI::UString& _commandName, bool& _result);
 		void command_SaveAs(const MyGUI::UString& _commandName, bool& _result);
 		void command_Clear(const MyGUI::UString& _commandName, bool& _result);
-		void command_Test(const MyGUI::UString& _commandName, bool& _result);
 		void command_Quit(const MyGUI::UString& _commandName, bool& _result);
 		void command_Settings(const MyGUI::UString& _commandName, bool& _result);
 		void command_CodeGenerator(const MyGUI::UString& _commandName, bool& _result);

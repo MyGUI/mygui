@@ -11,14 +11,18 @@
 #include "MessageBoxManager.h"
 #include "EditorWidgets.h"
 #include "WidgetSelectorManager.h"
+#include "FactoryManager.h"
 
 namespace tools
 {
+
+	FACTORY_ITEM_ATTRIBUTE(TestState)
 
 	TestState::TestState() :
 		mTestLayout(nullptr)
 	{
 		CommandManager::getInstance().getEvent("Command_Quit")->connect(this, &TestState::commandQuit);
+		CommandManager::getInstance().getEvent("Command_Test")->connect(this, &TestState::command_Test);
 	}
 
 	TestState::~TestState()
@@ -56,26 +60,15 @@ namespace tools
 
 	void TestState::commandQuit(const MyGUI::UString& _commandName, bool& _result)
 	{
-		if (!checkCommand())
+		if (MessageBoxManager::getInstance().hasAny())
 			return;
 
-		StateManager::getInstance().stateEvent(this, "Exit");
+		if (!StateManager::getInstance().getStateActivate(this))
+			return;
+
+		StateManager::getInstance().stateEvent("TestState", "Exit");
 
 		_result = true;
-	}
-
-	bool TestState::checkCommand()
-	{
-		if (DialogManager::getInstance().getAnyDialog())
-			return false;
-
-		if (MessageBoxManager::getInstance().hasAny())
-			return false;
-
-		if (!StateManager::getInstance().getStateActivate(this))
-			return false;
-
-		return true;
 	}
 
 	void TestState::deleteTestLayout()
@@ -85,6 +78,19 @@ namespace tools
 			delete mTestLayout;
 			mTestLayout = nullptr;
 		}
+	}
+
+	void TestState::command_Test(const MyGUI::UString& _commandName, bool& _result)
+	{
+		if (DialogManager::getInstance().getAnyDialog())
+			return;
+
+		if (MessageBoxManager::getInstance().hasAny())
+			return;
+
+		StateManager::getInstance().stateEvent("EditorState", "Test");
+
+		_result = true;
 	}
 
 } // namespace tools
