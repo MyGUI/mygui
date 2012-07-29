@@ -3,24 +3,30 @@
 	@author		Albert Semenov
 	@date		09/2010
 */
-#ifndef __SETTINGS_WIDGETS_CONTROL_H__
-#define __SETTINGS_WIDGETS_CONTROL_H__
 
-#include "BaseLayout/BaseLayout.h"
+#ifndef _62e284bf_ce42_4aeb_a66f_29294b05ea30_
+#define _62e284bf_ce42_4aeb_a66f_29294b05ea30_
+
+#include "Control.h"
 
 namespace tools
 {
+
 	class SettingsWidgetsControl :
-		public wraps::BaseLayout
+		public Control
 	{
 	public:
-		SettingsWidgetsControl(MyGUI::Widget* _parent = nullptr);
+		SettingsWidgetsControl();
 		virtual ~SettingsWidgetsControl();
 
+	protected:
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		virtual void OnCommand(const std::string& _command);
+
+	private:
 		void loadSettings();
 		void saveSettings();
 
-	private:
 		void notifyToggleCheck(MyGUI::Widget* _sender);
 
 	private:
@@ -29,6 +35,6 @@ namespace tools
 		MyGUI::Button* mCheckShowSkin;
 	};
 
-} // namespace tools
+}
 
-#endif // __SETTINGS_WIDGETS_CONTROL_H__
+#endif

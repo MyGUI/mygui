@@ -3,27 +3,33 @@
 	@author		Albert Semenov
 	@date		09/2010
 */
-#ifndef __SETTINGS_GENERAL_CONTROL_H__
-#define __SETTINGS_GENERAL_CONTROL_H__
 
-#include "BaseLayout/BaseLayout.h"
+#ifndef _b8560ae2_b63d_469a_9007_4562b883e6e1_
+#define _b8560ae2_b63d_469a_9007_4562b883e6e1_
+
+#include "Control.h"
 
 namespace tools
 {
+
 	class SettingsGeneralControl :
-		public wraps::BaseLayout
+		public Control
 	{
 	public:
-		SettingsGeneralControl(MyGUI::Widget* _parent = nullptr);
+		SettingsGeneralControl();
 		virtual ~SettingsGeneralControl();
 
+	protected:
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		virtual void OnCommand(const std::string& _command);
+
+	private:
 		void loadSettings();
 		void saveSettings();
 
-	private:
 		void notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new = 0);
 		void notifyNewGridStepAccept(MyGUI::EditBox* _sender);
-		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
+		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 
 		int getGridStep();
 		void setGridStep();
@@ -35,10 +41,10 @@ namespace tools
 
 		MyGUI::EditBox* mGridEdit;
 		MyGUI::Button* mLoadLastProject;
-		MyGUI::EditBox* mWorkspaceSize;
 		MyGUI::ComboBox* mInterfaceLanguage;
+		MyGUI::EditBox* mWorkspaceSize;
 	};
 
-} // namespace tools
+}
 
-#endif // __SETTINGS_GENERAL_CONTROL_H__
+#endif

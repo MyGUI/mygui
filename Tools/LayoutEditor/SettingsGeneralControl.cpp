@@ -3,36 +3,45 @@
 	@author		Albert Semenov
 	@date		09/2010
 */
+
 #include "Precompiled.h"
 #include "SettingsGeneralControl.h"
 #include "SettingsManager.h"
-#include "BackwardCompatibilityManager.h"
+#include "FactoryManager.h"
 
 namespace tools
 {
-	SettingsGeneralControl::SettingsGeneralControl(MyGUI::Widget* _parent) :
-		wraps::BaseLayout("SettingsGeneralControl.layout", _parent),
+
+	FACTORY_ITEM_ATTRIBUTE(SettingsGeneralControl)
+
+	SettingsGeneralControl::SettingsGeneralControl() :
 		mGridStep(0),
 		mGridEdit(nullptr),
 		mLoadLastProject(nullptr),
-		mWorkspaceSize(nullptr),
-		mInterfaceLanguage(nullptr)
+		mInterfaceLanguage(nullptr),
+		mWorkspaceSize(nullptr)
 	{
-		assignWidget(mGridEdit, "gridEdit");
-		assignWidget(mLoadLastProject, "LoadLastProject");
-		assignWidget(mWorkspaceSize, "WorkspaceSize");
-		assignWidget(mInterfaceLanguage, "InterfaceLanguage");
-
-		mGridEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStepAccept);
-		mGridEdit->eventKeyLostFocus += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStep);
-		mLoadLastProject->eventMouseButtonPressed += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonPressed);
 	}
 
 	SettingsGeneralControl::~SettingsGeneralControl()
 	{
-		mLoadLastProject->eventMouseButtonPressed -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonPressed);
+		mLoadLastProject->eventMouseButtonClick -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonClick);
 		mGridEdit->eventEditSelectAccept -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStepAccept);
 		mGridEdit->eventKeyLostFocus -= MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStep);
+	}
+
+	void SettingsGeneralControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	{
+		Control::OnInitialise(_parent, _place, _layoutName);
+
+		assignWidget(mGridEdit, "gridEdit");
+		assignWidget(mLoadLastProject, "LoadLastProject");
+		assignWidget(mInterfaceLanguage, "InterfaceLanguage");
+		assignWidget(mWorkspaceSize, "WorkspaceSize");
+
+		mGridEdit->eventEditSelectAccept += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStepAccept);
+		mGridEdit->eventKeyLostFocus += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyNewGridStep);
+		mLoadLastProject->eventMouseButtonClick += MyGUI::newDelegate(this, &SettingsGeneralControl::notifyMouseButtonClick);
 	}
 
 	void SettingsGeneralControl::loadSettings()
@@ -41,7 +50,6 @@ namespace tools
 		mGridEdit->setCaption(MyGUI::utility::toString(mGridStep));
 		mLoadLastProject->setStateSelected(SettingsManager::getInstance().getValue<bool>("Settings/LoadLastProject"));
 		setLanguageValue(SettingsManager::getInstance().getValue("Settings/InterfaceLanguage"));
-
 		mWorkspaceSize->setCaption(SettingsManager::getInstance().getValue("Settings/WorkspaceTextureSize"));
 	}
 
@@ -68,9 +76,11 @@ namespace tools
 		notifyNewGridStep(_sender);
 	}
 
-	void SettingsGeneralControl::notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
+	void SettingsGeneralControl::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
-		mLoadLastProject->setStateSelected(!mLoadLastProject->getStateSelected());
+		MyGUI::Button* button = _sender->castType<MyGUI::Button>(false);
+		if (button != nullptr)
+			button->setStateSelected(!button->getStateSelected());
 	}
 
 	void SettingsGeneralControl::setLanguageValue(const std::string& _value)
@@ -100,4 +110,14 @@ namespace tools
 		return mInterfaceLanguage->getItemNameAt(mInterfaceLanguage->getIndexSelected());
 	}
 
-} // namespace tools
+	void SettingsGeneralControl::OnCommand(const std::string& _command)
+	{
+		Control::OnCommand(_command);
+
+		if (_command == "Command_LoadSettings")
+			loadSettings();
+		else if (_command == "Command_SaveSettings")
+			saveSettings();
+	}
+
+}
