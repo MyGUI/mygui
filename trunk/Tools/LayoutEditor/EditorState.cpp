@@ -17,9 +17,13 @@
 #include "Application.h"
 #include "RecentFilesManager.h"
 #include "WidgetCreatorManager.h"
+#include "FactoryManager.h"
 
 namespace tools
 {
+
+	FACTORY_ITEM_ATTRIBUTE(EditorState)
+
 	EditorState::EditorState() :
 		mSettingsWindow(nullptr),
 		mCodeGenerator(nullptr),
@@ -34,7 +38,6 @@ namespace tools
 		CommandManager::getInstance().getEvent("Command_FileSave")->connect(this, &EditorState::command_Save);
 		CommandManager::getInstance().getEvent("Command_FileSaveAs")->connect(this, &EditorState::command_SaveAs);
 		CommandManager::getInstance().getEvent("Command_ClearAll")->connect(this, &EditorState::command_Clear);
-		CommandManager::getInstance().getEvent("Command_Test")->connect(this, &EditorState::command_Test);
 		CommandManager::getInstance().getEvent("Command_Quit")->connect(this, &EditorState::command_Quit);
 		CommandManager::getInstance().getEvent("Command_Settings")->connect(this, &EditorState::command_Settings);
 		CommandManager::getInstance().getEvent("Command_CodeGenerator")->connect(this, &EditorState::command_CodeGenerator);
@@ -117,16 +120,6 @@ namespace tools
 		}
 
 		mSettingsWindow->endModal();
-	}
-
-	void EditorState::command_Test(const MyGUI::UString& _commandName, bool& _result)
-	{
-		if (!checkCommand())
-			return;
-
-		StateManager::getInstance().stateEvent(this, "Test");
-
-		_result = true;
 	}
 
 	void EditorState::command_Settings(const MyGUI::UString& _commandName, bool& _result)

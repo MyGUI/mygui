@@ -24,15 +24,14 @@
 #include "EditorToolTip.h"
 #include "PropertyFieldManager.h"
 #include "GridManager.h"
+#include "FactoryManager.h"
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
 
 namespace tools
 {
-	Application::Application() :
-		mEditorState(nullptr),
-		mTestState(nullptr)
+	Application::Application()
 	{
 	}
 
@@ -152,20 +151,7 @@ namespace tools
 		CommandManager::getInstance().getEvent("Command_QuitApp")->connect(this, &Application::command_QuitApp);
 		CommandManager::getInstance().getEvent("Command_UpdateAppCaption")->connect(this, &Application::command_UpdateAppCaption);
 
-		mEditorState = new EditorState();
-		mTestState = new TestState();
-
-		StateManager::getInstance().registerState(this, "Application");
-		StateManager::getInstance().registerState(mEditorState, "EditorState");
-		StateManager::getInstance().registerState(mTestState, "TestState");
-
-		StateManager::getInstance().registerEventState("Application", "Start", "EditorState");
-		StateManager::getInstance().registerEventState("EditorState", "Test", "TestState");
-		StateManager::getInstance().registerEventState("EditorState", "Exit", "Application");
-		StateManager::getInstance().registerEventState("TestState", "Exit", "EditorState");
-
-		StateManager::getInstance().pushState(this);
-		StateManager::getInstance().stateEvent(this, "Start");
+		LoadStates();
 	}
 
 	void Application::destroyScene()
@@ -174,12 +160,6 @@ namespace tools
 
 		StateManager::getInstance().rollbackToState(nullptr);
 
-		delete mEditorState;
-		mEditorState = nullptr;
-
-		delete mTestState;
-		mTestState = nullptr;
-		
 		GridManager::getInstance().shutdown();
 		delete GridManager::getInstancePtr();
 
@@ -483,11 +463,6 @@ namespace tools
 		_result = true;
 	}
 
-	void Application::resumeState()
-	{
-		quit();
-	}
-
 	const Application::VectorWString& Application::getParams()
 	{
 		return mParams;
@@ -497,6 +472,32 @@ namespace tools
 	{
 		SettingsManager::getInstance().setValue("Controls/Main/Maximized", getWindowMaximized());
 		SettingsManager::getInstance().setValue("Controls/Main/Coord", getWindowCoord());
+	}
+
+	void Application::LoadStates()
+	{
+		SettingsManager::VectorString values = SettingsManager::getInstance().getValueList("Editor/States/State.List");
+		for (SettingsManager::VectorString::const_iterator value = values.begin(); value != values.end(); value ++)
+		{
+			StateController* state = components::FactoryManager::GetInstance().CreateItem<StateController>(*value);
+			if (state != nullptr)
+				StateManager::getInstance().registerState(state, *value);
+		}
+
+		pugi::xpath_node_set events = SettingsManager::getInstance().getValueNodeList("Editor/States/Event.List");
+		for (pugi::xpath_node_set::const_iterator event = events.begin(); event != events.end(); event ++)
+		{
+			StateManager::getInstance().registerEventState(
+				(*event).node().child("From").child_value(),
+				(*event).node().child("Name").child_value(),
+				(*event).node().child("To").child_value());
+		}
+
+		std::string firstState = SettingsManager::getInstance().getValue("Editor/States/FirstState/Name");
+		StateManager::getInstance().pushState(firstState);
+
+		std::string firstEvent = SettingsManager::getInstance().getValue("Editor/States/FirstState/Event");
+		StateManager::getInstance().stateEvent(firstState, firstEvent);
 	}
 
 	void Application::LoadGuiSettings()

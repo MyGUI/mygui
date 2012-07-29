@@ -39,5 +39,38 @@
 	</Controls>
 	<Editor>
 		<UserSettingsFileName>le_user_settings.xml</UserSettingsFileName>
+		<States>
+			<State.List>
+				<Value>ApplicationState</Value>
+				<Value>EditorState</Value>
+				<Value>TestState</Value>
+			</State.List>
+			<Event.List>
+				<Value>
+					<Name>Start</Name>
+					<From>ApplicationState</From>
+					<To>EditorState</To>
+				</Value>
+				<Value>
+					<Name>Exit</Name>
+					<From>EditorState</From>
+					<To>ApplicationState</To>
+				</Value>
+				<Value>
+					<Name>Test</Name>
+					<From>EditorState</From>
+					<To>TestState</To>
+				</Value>
+				<Value>
+					<Name>Exit</Name>
+					<From>TestState</From>
+					<To>EditorState</To>
+				</Value>
+			</Event.List>
+			<FirstState>
+				<Name>ApplicationState</Name>
+				<Event>Start</Event>
+			</FirstState>
+		</States>
 	</Editor>
 </Settings>

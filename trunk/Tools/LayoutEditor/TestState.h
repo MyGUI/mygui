@@ -27,7 +27,7 @@ namespace tools
 
 	private:
 		void commandQuit(const MyGUI::UString& _commandName, bool& _result);
-		bool checkCommand();
+		void command_Test(const MyGUI::UString& _commandName, bool& _result);
 		void deleteTestLayout();
 
 	private:
