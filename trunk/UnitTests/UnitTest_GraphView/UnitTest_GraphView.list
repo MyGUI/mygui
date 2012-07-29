@@ -1,7 +1,7 @@
 set (HEADER_FILES
-  ../../Common/Tools/Dialog.h
-  ../../Common/Tools/DialogManager.h
-  ../../Common/Tools/OpenSaveFileDialog.h
+  Dialog.h
+  DialogManager.h
+  OpenSaveFileDialog.h
   AnimationGraph.h
   AnimationGraphFactory.h
   AnimationNodeFactory.h
@@ -37,9 +37,9 @@ set (HEADER_FILES
 )
 set (SOURCE_FILES
   ../../Common/Base/BaseResource.rc
-  ../../Common/Tools/Dialog.cpp
-  ../../Common/Tools/DialogManager.cpp
-  ../../Common/Tools/OpenSaveFileDialog.cpp
+  Dialog.cpp
+  DialogManager.cpp
+  OpenSaveFileDialog.cpp
   AnimationGraphFactory.cpp
   AnimationNodeFactory.cpp
   DemoKeeper.cpp
@@ -98,10 +98,10 @@ SOURCE_GROUP("Demo\\Source" FILES
   GraphNodeFactory.cpp
 )
 SOURCE_GROUP("OpenSaveFileDialog" FILES
-  ../../Common/Tools/Dialog.cpp
-  ../../Common/Tools/Dialog.h
-  ../../Common/Tools/DialogManager.cpp
-  ../../Common/Tools/DialogManager.h
-  ../../Common/Tools/OpenSaveFileDialog.cpp
-  ../../Common/Tools/OpenSaveFileDialog.h
+  Dialog.cpp
+  Dialog.h
+  DialogManager.cpp
+  DialogManager.h
+  OpenSaveFileDialog.cpp
+  OpenSaveFileDialog.h
 )

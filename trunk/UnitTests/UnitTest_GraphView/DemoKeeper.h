@@ -12,7 +12,7 @@
 #include "AnimationGraphFactory.h"
 #include "AnimationNodeFactory.h"
 #include "GraphNodeFactory.h"
-#include "Tools/OpenSaveFileDialog.h"
+#include "OpenSaveFileDialog.h"
 #include "ContextMenu.h"
 
 namespace demo

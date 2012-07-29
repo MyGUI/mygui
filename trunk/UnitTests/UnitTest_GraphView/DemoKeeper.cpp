@@ -14,7 +14,7 @@
 #include "GraphNodeFadeController.h"
 #include "GraphNodeGroup2Controller.h"
 #include "GraphNodeSkeletonState.h"
-#include "Tools/DialogManager.h"
+#include "DialogManager.h"
 
 namespace demo
 {
