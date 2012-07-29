@@ -7,7 +7,7 @@
 #include "UndoManager.h"
 #include "Localise.h"
 #include "MyGUI_RTTLayer.h"
-#include "Grid.h"
+#include "GridManager.h"
 
 namespace tools
 {
@@ -106,33 +106,33 @@ namespace tools
 			if (actionScale.left != 0 && actionScale.width != 0)
 			{
 				int right = coord.right();
-				coord.left = Grid::getInstance().toGrid(coord.left);
+				coord.left = GridManager::getInstance().toGrid(coord.left);
 				coord.width = right - coord.left;
 			}
 			else if (actionScale.width != 0)
 			{
-				int right = Grid::getInstance().toGrid(coord.right());
+				int right = GridManager::getInstance().toGrid(coord.right());
 				coord.width = right - coord.left;
 			}
 			else if (actionScale.left != 0)
 			{
-				coord.left = Grid::getInstance().toGrid(coord.left);
+				coord.left = GridManager::getInstance().toGrid(coord.left);
 			}
 
 			if (actionScale.top != 0 && actionScale.height != 0)
 			{
 				int bottom = coord.bottom();
-				coord.top = Grid::getInstance().toGrid(coord.top);
+				coord.top = GridManager::getInstance().toGrid(coord.top);
 				coord.height = bottom - coord.top;
 			}
 			else if (actionScale.height != 0)
 			{
-				int bottom = Grid::getInstance().toGrid(coord.bottom());
+				int bottom = GridManager::getInstance().toGrid(coord.bottom());
 				coord.height = bottom - coord.top;
 			}
 			else if (actionScale.top != 0)
 			{
-				coord.top = Grid::getInstance().toGrid(coord.top);
+				coord.top = GridManager::getInstance().toGrid(coord.top);
 			}
 
 			if (coord != mCoordValue)
@@ -262,7 +262,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.left = Grid::getInstance().toGrid(mCoordValue.left, Grid::Previous);
+		mCoordValue.left = GridManager::getInstance().toGrid(mCoordValue.left, GridManager::Previous);
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -278,7 +278,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.left = Grid::getInstance().toGrid(mCoordValue.left, Grid::Next);
+		mCoordValue.left = GridManager::getInstance().toGrid(mCoordValue.left, GridManager::Next);
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -294,7 +294,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.top = Grid::getInstance().toGrid(mCoordValue.top, Grid::Previous);
+		mCoordValue.top = GridManager::getInstance().toGrid(mCoordValue.top, GridManager::Previous);
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -310,7 +310,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.top = Grid::getInstance().toGrid(mCoordValue.top, Grid::Next);
+		mCoordValue.top = GridManager::getInstance().toGrid(mCoordValue.top, GridManager::Next);
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -326,7 +326,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.width = Grid::getInstance().toGrid(mCoordValue.right(), Grid::Previous) - mCoordValue.left;
+		mCoordValue.width = GridManager::getInstance().toGrid(mCoordValue.right(), GridManager::Previous) - mCoordValue.left;
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -342,7 +342,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.width = Grid::getInstance().toGrid(mCoordValue.right(), Grid::Next) - mCoordValue.left;
+		mCoordValue.width = GridManager::getInstance().toGrid(mCoordValue.right(), GridManager::Next) - mCoordValue.left;
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -358,7 +358,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.height = Grid::getInstance().toGrid(mCoordValue.bottom(), Grid::Previous) - mCoordValue.top;
+		mCoordValue.height = GridManager::getInstance().toGrid(mCoordValue.bottom(), GridManager::Previous) - mCoordValue.top;
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);
@@ -374,7 +374,7 @@ namespace tools
 		if (!mMoveableWidget)
 			return;
 
-		mCoordValue.height = Grid::getInstance().toGrid(mCoordValue.bottom(), Grid::Next) - mCoordValue.top;
+		mCoordValue.height = GridManager::getInstance().toGrid(mCoordValue.bottom(), GridManager::Next) - mCoordValue.top;
 		updateFromCoordValue();
 
 		UndoManager::getInstance().addValue(PR_KEY_POSITION);

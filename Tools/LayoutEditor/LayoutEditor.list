@@ -15,7 +15,6 @@ set (HEADER_FILES
   EditorState.h
   EditorToolTip.h
   EditorWidgets.h
-  Grid.h
   GroupMessage.h
   HotKeyCommand.h
   HotKeyManager.h
@@ -95,7 +94,6 @@ set (SOURCE_FILES
   EditorState.cpp
   EditorToolTip.cpp
   EditorWidgets.cpp
-  Grid.cpp
   GroupMessage.cpp
   HotKeyManager.cpp
   LayoutEditor.rc
@@ -175,7 +173,6 @@ SOURCE_GROUP("Header Files" FILES
   EditorState.h
   EditorToolTip.h
   EditorWidgets.h
-  Grid.h
   HotKeyCommand.h
   HotKeyManager.h
   IPropertyField.h
@@ -268,7 +265,6 @@ SOURCE_GROUP("Source Files" FILES
   EditorState.cpp
   EditorToolTip.cpp
   EditorWidgets.cpp
-  Grid.cpp
   HotKeyManager.cpp
   MainMenuControl.cpp
   MainPaneControl.cpp
