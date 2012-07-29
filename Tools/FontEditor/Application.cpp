@@ -122,11 +122,11 @@ namespace tools
 		new tools::DataSelectorManager();
 		tools::DataSelectorManager::getInstance().initialise();
 
-		bool maximized = SettingsManager::getInstance().getValue<bool>("Windows/Main/Maximized");
+		bool maximized = SettingsManager::getInstance().getValue<bool>("Controls/Main/Maximized");
 		setWindowMaximized(maximized);
 		if (!maximized)
 		{
-			MyGUI::IntCoord windowCoord = SettingsManager::getInstance().getValue<MyGUI::IntCoord>("Windows/Main/Coord");
+			MyGUI::IntCoord windowCoord = SettingsManager::getInstance().getValue<MyGUI::IntCoord>("Controls/Main/Coord");
 			setWindowCoord(windowCoord);
 		}
 
@@ -432,8 +432,8 @@ namespace tools
 
 	void Application::saveSettings()
 	{
-		SettingsManager::getInstance().setValue("Windows/Main/Maximized", getWindowMaximized());
-		SettingsManager::getInstance().setValue("Windows/Main/Coord", getWindowCoord());
+		SettingsManager::getInstance().setValue("Controls/Main/Maximized", getWindowMaximized());
+		SettingsManager::getInstance().setValue("Controls/Main/Coord", getWindowCoord());
 	}
 
 	void Application::LoadStates()
@@ -479,7 +479,7 @@ namespace tools
 
 	void Application::CreateControls()
 	{
-		const SettingsManager::VectorString& controls = SettingsManager::getInstance().getValueList("Editor/Controls/Control.List");
+		const SettingsManager::VectorString& controls = SettingsManager::getInstance().getValueList("Editor/Control.List");
 		for (SettingsManager::VectorString::const_iterator controlType = controls.begin(); controlType != controls.end(); controlType ++)
 		{
 			Control* control = components::FactoryManager::GetInstance().CreateItem<Control>(*controlType);

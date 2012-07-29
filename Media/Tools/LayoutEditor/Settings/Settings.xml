@@ -1,32 +1,43 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Settings>
-	<WidgetsWindow>
-		<widgetsButtonWidth>141</widgetsButtonWidth>
-		<widgetsButtonHeight>24</widgetsButtonHeight>
-	</WidgetsWindow>
-	<Settings>
-		<Grid>5</Grid>
-		<ShowName>1</ShowName>
-		<ShowType>1</ShowType>
-		<ShowSkin>1</ShowSkin>
+	<Files>
 		<MaxRecentFolders>10</MaxRecentFolders>
 		<MaxRecentFiles>10</MaxRecentFiles>
 		<MaxRecentProjects>10</MaxRecentProjects>
-		<ColourBackground>0 0 0 0</ColourBackground>
-		<ColourSelector>0 1 0 1</ColourSelector>
-		<ColourSelectorInactive>0 0 0 0.5</ColourSelectorInactive>
-		<LoadLastProject>false</LoadLastProject>
-	</Settings>
-	<TextureScale.List>
-		<Value>50</Value>
-		<Value>100</Value>
-		<Value>200</Value>
-		<Value>400</Value>
-		<Value>800</Value>
-		<Value>1600</Value>
-	</TextureScale.List>
+	</Files>
 	<Workspace>
+		<Colours>
+			<ColourBackground>0 0 0 0</ColourBackground>
+			<ColourSelector>0 1 0 1</ColourSelector>
+			<ColourSelectorInactive>0 0 0 0.5</ColourSelectorInactive>
+		</Colours>
+		<TextureScale>
+			<ScaleValue.List>
+				<Value>50</Value>
+				<Value>100</Value>
+				<Value>200</Value>
+				<Value>400</Value>
+				<Value>800</Value>
+				<Value>1600</Value>
+			</ScaleValue.List>
+		</TextureScale>
 		<TextureName>TextureLayer_LayoutEditor_Widgets</TextureName>
-		<TextureSize>1024 1024</TextureSize>
 	</Workspace>
+	<Settings>
+		<GridStep>5</GridStep>
+		<ShowName>1</ShowName>
+		<ShowType>1</ShowType>
+		<ShowSkin>1</ShowSkin>
+		<LoadLastProject>false</LoadLastProject>
+		<WorkspaceTextureSize>1024 1024</WorkspaceTextureSize>
+	</Settings>
+	<Controls>
+		<WidgetsWindow>
+			<WidgetsButtonWidth>141</WidgetsButtonWidth>
+			<WidgetsButtonHeight>24</WidgetsButtonHeight>
+		</WidgetsWindow>
+	</Controls>
+	<Editor>
+		<UserSettingsFileName>le_user_settings.xml</UserSettingsFileName>
+	</Editor>
 </Settings>

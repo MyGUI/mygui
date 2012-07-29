@@ -84,19 +84,11 @@
 				<Event>Start</Event>
 			</FirstState>
 		</States>
-		<Controls>
-			<StatisticInfoControl>
-				<Visible>false</Visible>
-			</StatisticInfoControl>
-			<FocusInfoControl>
-				<Visible>false</Visible>
-			</FocusInfoControl>
-			<Control.List>
-				<Value>StatisticInfoControl</Value>
-				<Value>FocusInfoControl</Value>
-				<Value>MessageBoxFadeControl</Value>
-			</Control.List>
-		</Controls>
+		<Control.List>
+			<Value>StatisticInfoControl</Value>
+			<Value>FocusInfoControl</Value>
+			<Value>MessageBoxFadeControl</Value>
+		</Control.List>
 	</Editor>
 	<EditorState>
 		<MainPaneLayout>MainPane.layout</MainPaneLayout>
@@ -108,4 +100,12 @@
 	<TestState>
 		<BackgroundLayout>TestBackground.layout</BackgroundLayout>
 	</TestState>
+	<Controls>
+		<StatisticInfoControl>
+			<Visible>false</Visible>
+		</StatisticInfoControl>
+		<FocusInfoControl>
+			<Visible>false</Visible>
+		</FocusInfoControl>
+	</Controls>
 </Settings>

@@ -48,6 +48,8 @@ namespace tools
 
 		void saveSettings();
 
+		void LoadGuiSettings();
+
 	private:
 		VectorWString mParams;
 		std::string mLocale;

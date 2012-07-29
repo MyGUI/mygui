@@ -34,7 +34,7 @@ namespace tools
 
 		CommandManager::getInstance().getEvent("Command_StatisticInfo")->connect(this, &StatisticInfoControl::command_StatisticInfo);
 
-		getRoot()->setVisible(SettingsManager::getInstance().getValue<bool>("Editor/Controls/StatisticInfoControl/Visible"));
+		getRoot()->setVisible(SettingsManager::getInstance().getValue<bool>("Controls/StatisticInfoControl/Visible"));
 
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &StatisticInfoControl::notifyFrameStart);
 	}
@@ -42,7 +42,7 @@ namespace tools
 	void StatisticInfoControl::command_StatisticInfo(const MyGUI::UString& _commandName, bool& _result)
 	{
 		getRoot()->setVisible(!getRoot()->getVisible());
-		SettingsManager::getInstance().setValue("Editor/Controls/StatisticInfoControl/Visible", getRoot()->getVisible());
+		SettingsManager::getInstance().setValue("Controls/StatisticInfoControl/Visible", getRoot()->getVisible());
 
 		_result = true;
 	}

@@ -17,14 +17,14 @@ namespace tools
 		mCurrentScaleValue(100),
 		mActivate(true)
 	{
-		MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Settings/ColourBackground");
+		MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/ColourBackground");
 		setColour(colour);
 
 		CommandManager::getInstance().registerCommand("Command_ChangeNextScale", MyGUI::newDelegate(this, &TextureToolControl::CommandChangeNextScale));
 		CommandManager::getInstance().registerCommand("Command_ChangePrevScale", MyGUI::newDelegate(this, &TextureToolControl::CommandChangePrevScale));
 		CommandManager::getInstance().registerCommand("Command_ChangeScale", MyGUI::newDelegate(this, &TextureToolControl::CommandChangeScale));
 
-		mScaleValue = SettingsManager::getInstance().getValueList<size_t>("TextureScale/ScaleValue.List");
+		mScaleValue = SettingsManager::getInstance().getValueList<size_t>("Workspace/TextureScale/ScaleValue.List");
 
 		SettingsManager::getInstance().eventSettingsChanged.connect(this, &TextureToolControl::notifySettingsChanged);
 	}
@@ -36,9 +36,9 @@ namespace tools
 
 	void TextureToolControl::notifySettingsChanged(const std::string& _path)
 	{
-		if (_path == "Settings/ColourBackground")
+		if (_path == "Workspace/Colours/ColourBackground")
 		{
-			MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Settings/ColourBackground");
+			MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/ColourBackground");
 			setColour(colour);
 		}
 	}

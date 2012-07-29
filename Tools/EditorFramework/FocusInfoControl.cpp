@@ -40,7 +40,7 @@ namespace tools
 
 		CommandManager::getInstance().getEvent("Command_FocusVisible")->connect(this, &FocusInfoControl::Command_FocusVisible);
 
-		getRoot()->setVisible(SettingsManager::getInstance().getValue<bool>("Editor/Controls/FocusInfoControl/Visible"));
+		getRoot()->setVisible(SettingsManager::getInstance().getValue<bool>("Controls/FocusInfoControl/Visible"));
 
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &FocusInfoControl::notifyFrameStart);
 	}
@@ -48,7 +48,7 @@ namespace tools
 	void FocusInfoControl::Command_FocusVisible(const MyGUI::UString& _commandName, bool& _result)
 	{
 		getRoot()->setVisible(!getRoot()->getVisible());
-		SettingsManager::getInstance().setValue("Editor/Controls/FocusInfoControl/Visible", getRoot()->getVisible());
+		SettingsManager::getInstance().setValue("Controls/FocusInfoControl/Visible", getRoot()->getVisible());
 
 		mWidgetKeyFocus = nullptr;
 		mWidgetMouseFocus = nullptr;

@@ -605,7 +605,7 @@ namespace tools
 		if (!checkCommand())
 			return;
 
-		SettingsManager::VectorString resources = SettingsManager::getInstance().getValueList("Settings/UpdateResource.List");
+		SettingsManager::VectorString resources = SettingsManager::getInstance().getValueList("Resources/UpdateResource.List");
 		if (resources.empty())
 			return;
 

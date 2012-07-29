@@ -294,7 +294,7 @@ namespace tools
 			return;
 
 		SettingsManager::VectorString values;
-		values = SettingsManager::getInstance().getValueList("Windows/SeparatorControl/" + mSaveAs + ".List");
+		values = SettingsManager::getInstance().getValueList("Controls/SeparatorControl/" + mSaveAs + ".List");
 		SettingsManager::VectorString::const_iterator value = values.begin();
 
 		for (VectorWidget::const_iterator child = mChilds.begin(); child != mChilds.end(); child ++)
@@ -331,7 +331,7 @@ namespace tools
 				values.push_back((*child)->getPosition().print());
 		}
 
-		SettingsManager::getInstance().setValueList("Windows/SeparatorControl/" + mSaveAs + ".List", values);
+		SettingsManager::getInstance().setValueList("Controls/SeparatorControl/" + mSaveAs + ".List", values);
 	}
 
 }

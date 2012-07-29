@@ -70,15 +70,28 @@
 				<Event>Start</Event>
 			</FirstState>
 		</States>
-		<Controls>
-			<StatisticInfoControl>
-				<Visible>false</Visible>
-			</StatisticInfoControl>
-			<FocusInfoControl>
-				<Visible>false</Visible>
-			</FocusInfoControl>
-			<TryFontControl>
-				<Text>01234567890
+		<Control.List>
+			<Value>StatisticInfoControl</Value>
+			<Value>FocusInfoControl</Value>
+			<Value>MessageBoxFadeControl</Value>
+		</Control.List>
+	</Editor>
+	<EditorState>
+		<MainPaneLayout>MainPane.layout</MainPaneLayout>
+		<SettingsWindowLayout>SettingsWindow.layout</SettingsWindowLayout>
+		<OpenSaveFileDialogLayout>OpenSaveFileDialog2.layout</OpenSaveFileDialogLayout>
+		<DefaultFileName>unnamed.xml</DefaultFileName>
+		<DefaultFileMask>*.xml</DefaultFileMask>
+	</EditorState>
+	<Controls>
+		<StatisticInfoControl>
+			<Visible>false</Visible>
+		</StatisticInfoControl>
+		<FocusInfoControl>
+			<Visible>false</Visible>
+		</FocusInfoControl>
+		<TryFontControl>
+			<Text>01234567890
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
 abcdefghijklmnopqrstuvwxyz
 0 1 2 3 4 5 6 7 8 9 0
@@ -88,19 +101,6 @@ a b c d e f g h i j k l m n o p q r s t u v w x y z
 абвгдеёжзиклмнопрстуфхцчшщъыьэюя
 А Б В Г Д Е Ё Ж З И К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ъ Ы Ь Э Ю Я
 а б в г д е ё ж з и к л м н о п р с т у ф х ц ч ш щ ъ ы ь э ю я</Text>
-			</TryFontControl>
-			<Control.List>
-				<Value>StatisticInfoControl</Value>
-				<Value>FocusInfoControl</Value>
-				<Value>MessageBoxFadeControl</Value>
-			</Control.List>
-		</Controls>
-	</Editor>
-	<EditorState>
-		<MainPaneLayout>MainPane.layout</MainPaneLayout>
-		<SettingsWindowLayout>SettingsWindow.layout</SettingsWindowLayout>
-		<OpenSaveFileDialogLayout>OpenSaveFileDialog2.layout</OpenSaveFileDialogLayout>
-		<DefaultFileName>unnamed.xml</DefaultFileName>
-		<DefaultFileMask>*.xml</DefaultFileMask>
-	</EditorState>
+		</TryFontControl>
+	</Controls>
 </Settings>

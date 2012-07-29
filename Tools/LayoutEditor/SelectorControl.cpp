@@ -158,9 +158,9 @@ namespace tools
 
 	void SelectorControl::notifySettingsChanged(const std::string& _path)
 	{
-		if (!mPropertyColour.empty() && _path == ("Settings/" + mPropertyColour))
+		if (!mPropertyColour.empty() && _path == ("Workspace/Colours/" + mPropertyColour))
 		{
-			MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Settings/" + mPropertyColour);
+			MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/" + mPropertyColour);
 			setColour(colour);
 		}
 	}
@@ -168,7 +168,7 @@ namespace tools
 	void SelectorControl::setPropertyColour(const std::string& _propertyName)
 	{
 		mPropertyColour = _propertyName;
-		MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Settings/" + mPropertyColour);
+		MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/" + mPropertyColour);
 		setColour(colour);
 	}
 

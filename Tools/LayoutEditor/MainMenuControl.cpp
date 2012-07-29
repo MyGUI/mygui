@@ -127,7 +127,9 @@ namespace tools
 
 	void MainMenuControl::notifySettingsChanged(const std::string& _path)
 	{
-		if (MyGUI::utility::startWith(_path, "Settings/"))
+		if (_path == "Settings/ShowName" ||
+			_path == "Settings/ShowType" ||
+			_path == "Settings/ShowSkin")
 			widgetsUpdate();
 		else if (_path == "Files/RecentFile.List")
 			updateRecentFilesMenu();
