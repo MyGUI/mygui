@@ -595,4 +595,24 @@
             </Widget>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="MultiListBox_Dark" version="3.2.0">
+        <Widget type="Widget" skin="ListBoxSkin_Dark" position="5 5 55 55" name="Root">
+            <UserString key="LE_TargetWidgetType" value="MultiListBox"/>
+            <UserString key="SkinButton" value="Button_Dark"/>
+            <UserString key="SkinList" value="ListBox3_Dark"/>
+            <Widget type="Widget" skin="PanelEmpty" position="2 22 51 31" align="Stretch" name="Client"/>
+            <Widget type="Widget" skin="PanelEmpty" position="2 2 51 20" align="HStretch Top" name="HeaderPlace">
+                <Widget type="Widget" skin="Button_Dark" position="0 0 51 20" name="Empty"/>
+            </Widget>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ListBox3_Dark" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="20 20 50 50" name="Root">
+            <UserString key="LE_TargetWidgetType" value="ListBox"/>
+            <UserString key="HeightLine" value="20"/>
+            <UserString key="SkinLine" value="ListBoxItem_Dark"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 0 36 50" align="Stretch" name="Client"/>
+            <Widget type="ScrollBar" skin="ScrollBarV_Dark" position="36 0 14 50" align="Right VStretch" name="VScroll"/>
+        </Widget>
+    </Resource>
 </MyGUI>

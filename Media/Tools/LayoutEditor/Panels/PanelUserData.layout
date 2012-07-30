@@ -9,12 +9,12 @@
         <Widget type="Button" skin="Button_Dark" position="135 113 118 20" align="HStretch Top" name="buttonDelete">
             <Property key="Caption" value="#{Delete}"/>
         </Widget>
-        <Widget type="MultiListBox" skin="MultiListBox" position="2 27 251 82" align="HStretch Top" name="multilist">
-            <Widget type="MultiListItem" skin="" position="0 0 121 53">
+        <Widget type="MultiListBox" skin="MultiListBox_Dark" position="2 27 251 82" align="HStretch Top" name="multilist">
+            <Widget type="MultiListItem" skin="" position="0 0 123 58">
                 <Property key="Caption" value="#{Key}"/>
                 <Property key="ItemResizingPolicy" value="Fill"/>
             </Widget>
-            <Widget type="MultiListItem" skin="" position="121 0 122 53">
+            <Widget type="MultiListItem" skin="" position="123 0 124 58">
                 <Property key="Caption" value="#{Value}"/>
                 <Property key="ItemResizingPolicy" value="Fill"/>
             </Widget>
