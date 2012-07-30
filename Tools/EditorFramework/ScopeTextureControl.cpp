@@ -74,7 +74,8 @@ namespace tools
 
 	void ScopeTextureControl::updateFromCoordValue()
 	{
-		mCurrentSelectorControl->setCoord(mCoordValue);
+		if (mCurrentSelectorControl != nullptr)
+			mCurrentSelectorControl->setCoord(mCoordValue);
 
 		setValue(mCoordValue.print());
 	}
