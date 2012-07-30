@@ -179,7 +179,13 @@ namespace tools
 			{
 				if (mContextMenu->getChildCount() != 0)
 				{
-					mContextMenu->setPosition(_info.x, _info.y);
+					MyGUI::IntPoint point = MyGUI::IntPoint(_info.x, _info.y);
+					if ((_info.y + mContextMenu->getHeight()) >= MyGUI::Gui::getInstance().getViewHeight())
+						point.top -= mContextMenu->getHeight();
+					if ((_info.x + mContextMenu->getWidth()) >= MyGUI::Gui::getInstance().getViewWidth())
+						point.left -= mContextMenu->getWidth();
+
+					mContextMenu->setPosition(point.left, point.top);
 					mContextMenu->setVisibleSmooth(true);
 				}
 			}
