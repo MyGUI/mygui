@@ -108,8 +108,8 @@ namespace tools
 
 	void PropertyPanelControl::updateView()
 	{
-		mScrollView->setCanvasSize((std::numeric_limits<int>::max)(), (std::numeric_limits<int>::max)());
-		mScrollView->setCanvasSize(1, mContentHeight);
+		mScrollView->setCanvasSize((std::numeric_limits<int>::max)() / 2, (std::numeric_limits<int>::max)() / 2);
+		mScrollView->setCanvasSize(2, mContentHeight);
 		mScrollView->setCanvasSize(mScrollView->getViewCoord().width, mContentHeight);
 	}
 
