@@ -126,6 +126,38 @@ SOURCE_GROUP("CodeGenerator" FILES
   CodeGenerator.cpp
   CodeGenerator.h
 )
+SOURCE_GROUP("Controls\\Properties" FILES
+  PropertyFieldAlpha.cpp
+  PropertyFieldAlpha.h
+  PropertyFieldColour.cpp
+  PropertyFieldColour.h
+  PropertyFieldComboBox.cpp
+  PropertyFieldComboBox.h
+  PropertyFieldEditBox.cpp
+  PropertyFieldEditBox.h
+  PropertyFieldFileName.cpp
+  PropertyFieldFileName.h
+  PropertyFieldFont.cpp
+  PropertyFieldFont.h
+  PropertyFieldManager.cpp
+  PropertyFieldManager.h
+  PropertyFieldNumeric.cpp
+  PropertyFieldNumeric.h
+  PropertyFieldPosition.cpp
+  PropertyFieldPosition.h
+  PropertyFieldSkin.cpp
+  PropertyFieldSkin.h
+  PropertyFieldType.cpp
+  PropertyFieldType.h
+)
+SOURCE_GROUP("Controls\\Selectors" FILES
+  AreaSelectorControl.cpp
+  AreaSelectorControl.h
+  PositionSelectorControl.cpp
+  PositionSelectorControl.h
+  SelectorControl.cpp
+  SelectorControl.h
+)
 SOURCE_GROUP("Controls\\Settings" FILES
   SettingsGeneralControl.cpp
   SettingsGeneralControl.h
@@ -143,7 +175,6 @@ SOURCE_GROUP("GroupedMessage" FILES
   GroupMessage.h
 )
 SOURCE_GROUP("Header Files" FILES
-  AreaSelectorControl.h
   BackgroundControl.h
   BackwardCompatibilityManager.h
   Common.h
@@ -157,22 +188,9 @@ SOURCE_GROUP("Header Files" FILES
   MyGUI_RTTLayer.h
   PanelExtensionProperties.h
   PanelTemplateProperties.h
-  PositionSelectorControl.h
   PossibleValue.h
   ProjectControl.h
-  PropertyFieldAlpha.h
-  PropertyFieldColour.h
-  PropertyFieldComboBox.h
-  PropertyFieldEditBox.h
-  PropertyFieldFileName.h
-  PropertyFieldFont.h
-  PropertyFieldManager.h
-  PropertyFieldNumeric.h
-  PropertyFieldPosition.h
-  PropertyFieldSkin.h
-  PropertyFieldType.h
   RecentFilesManager.h
-  SelectorControl.h
   SeparatorPartControl.h
   SkinInfo.h
   TextureControl.h
@@ -214,7 +232,6 @@ SOURCE_GROUP("Resources" FILES
   LayoutEditor.rc
 )
 SOURCE_GROUP("Source Files" FILES
-  AreaSelectorControl.cpp
   BackgroundControl.cpp
   BackwardCompatibilityManager.cpp
   EditorToolTip.cpp
@@ -225,21 +242,8 @@ SOURCE_GROUP("Source Files" FILES
   MyGUI_RTTLayer.cpp
   PanelExtensionProperties.cpp
   PanelTemplateProperties.cpp
-  PositionSelectorControl.cpp
   ProjectControl.cpp
-  PropertyFieldAlpha.cpp
-  PropertyFieldColour.cpp
-  PropertyFieldComboBox.cpp
-  PropertyFieldEditBox.cpp
-  PropertyFieldFileName.cpp
-  PropertyFieldFont.cpp
-  PropertyFieldManager.cpp
-  PropertyFieldNumeric.cpp
-  PropertyFieldPosition.cpp
-  PropertyFieldSkin.cpp
-  PropertyFieldType.cpp
   RecentFilesManager.cpp
-  SelectorControl.cpp
   SeparatorPartControl.cpp
   TextureControl.cpp
   TextureToolControl.cpp
