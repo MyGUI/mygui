@@ -1,7 +1,4 @@
 set (HEADER_FILES
-  Dialog.h
-  DialogManager.h
-  OpenSaveFileDialog.h
   AnimationGraph.h
   AnimationGraphFactory.h
   AnimationNodeFactory.h
@@ -13,6 +10,8 @@ set (HEADER_FILES
   ConnectionReceiver.h
   ContextMenu.h
   DemoKeeper.h
+  Dialog.h
+  DialogManager.h
   EventController.h
   FadeController.h
   GraphNodeEventController.h
@@ -31,19 +30,20 @@ set (HEADER_FILES
   IGraphController.h
   IGraphNodeConstruct.h
   LoopController.h
+  OpenSaveFileDialog.h
   PositionController.h
   SkeletonState.h
   WeightController.h
 )
 set (SOURCE_FILES
   ../../Common/Base/BaseResource.rc
-  Dialog.cpp
-  DialogManager.cpp
-  OpenSaveFileDialog.cpp
   AnimationGraphFactory.cpp
   AnimationNodeFactory.cpp
   DemoKeeper.cpp
+  Dialog.cpp
+  DialogManager.cpp
   GraphNodeFactory.cpp
+  OpenSaveFileDialog.cpp
 )
 SOURCE_GROUP("Animation\\Header Files" FILES
   AnimationGraph.h
