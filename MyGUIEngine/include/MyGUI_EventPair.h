@@ -201,8 +201,8 @@ namespace MyGUI
 		template <typename TP1, typename TP2, typename TP3, typename TP4>
 		void operator()( TP1 p1, TP2 p2, TP3 p3 )
 		{
-			m_eventObsolete(p1, p2, p3);
-			m_event(p1, p2, p3, p4);
+			m_eventObsolete(p1, p2);
+			m_event(p1, p2, p3);
 		}
 
 		// 3 to 4
