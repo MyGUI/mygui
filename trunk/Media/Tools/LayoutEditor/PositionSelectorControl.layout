@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<MyGUI type="Layout">
-    <Widget type="Window" skin="PositionBorderWhite" position="162 196 136 112" align="Default" layer="Popup" name="_Main">
-	</Widget>
-</MyGUI>
