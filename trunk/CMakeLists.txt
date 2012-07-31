@@ -187,19 +187,19 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 	else ()
 		if (MYGUI_RENDERSYSTEM EQUAL 3)
 			# to avoid warnings from OGRE
-			add_definitions(-isystem ${OGRE_INCLUDE_DIR})
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem ${OGRE_INCLUDE_DIR}")
 		endif ()
 		if (MYGUI_SAMPLES_INPUT EQUAL 1 OR MYGUI_SAMPLES_INPUT EQUAL 3)
 			# to avoid warnings from OIS
-			add_definitions(-isystem ${OIS_INCLUDE_DIR})
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem ${OIS_INCLUDE_DIR}")
 		endif ()
 		if (NOT APPLE)
-			add_definitions(-fdiagnostics-show-option)
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-show-option")
 		endif ()
 		# very interesting option, but way too many warnings
 		#add_definitions(-Weffc++)
-		add_definitions(-Wno-deprecated -Wall -Wctor-dtor-privacy -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter)
-		add_definitions(-pedantic)
+		SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wall -Wctor-dtor-privacy -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter")
+		SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
 
 		# MyGUI_UString.h ignored from warnings because of this
 		add_definitions(-Wshadow)
