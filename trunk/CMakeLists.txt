@@ -198,11 +198,11 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 		endif ()
 		# very interesting option, but way too many warnings
 		#add_definitions(-Weffc++)
-		SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wall -Wctor-dtor-privacy -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter")
-		SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wall -Wctor-dtor-privacy -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter")
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
 
 		# MyGUI_UString.h ignored from warnings because of this
-		add_definitions(-Wshadow)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wshadow")
 	endif ()
 endif ()
 
