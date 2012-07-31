@@ -29,7 +29,9 @@ namespace MyGUI
 	FilterNone::FilterNone() :
 		SubSkin()
 	{
+#ifdef MYGUI_OGRE_PLATFORM
 		mSeparate = true;
+#endif
 	}
 
 	FilterNone::~FilterNone()
