@@ -150,7 +150,7 @@ namespace demo
 		}
 	}
 
-	void State::notifyPostAction(MyGUI::Widget* _sender)
+	void State::notifyPostAction(MyGUI::Widget* _sender, MyGUI::ControllerItem* _controller)
 	{
 		eventButtonPress(ControllerType::Slowed, true);
 	}

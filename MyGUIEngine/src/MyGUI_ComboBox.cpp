@@ -300,7 +300,7 @@ namespace MyGUI
 		InputManager::getInstance().setKeyFocusWidget(mList);
 	}
 
-	void ComboBox::actionWidgetHide(Widget* _widget)
+	void ComboBox::actionWidgetHide(Widget* _widget, ControllerItem* _controller)
 	{
 		_widget->setVisible(false);
 		_widget->setEnabled(true);

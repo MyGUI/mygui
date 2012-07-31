@@ -144,7 +144,7 @@ namespace MyGUI
 			@param _left - pointer position
 			@param _top - pointer position
 		*/
-		EventPair3to4<EventHandle_WidgetIntInt, EventHandle_WidgetIntIntButton>
+		EventPairAddParameter<EventHandle_WidgetIntInt, EventHandle_WidgetIntIntButton>
 			eventMouseDrag;
 
 		/** Event : Mouse move over widget.\n

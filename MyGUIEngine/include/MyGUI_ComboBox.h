@@ -204,7 +204,7 @@ namespace MyGUI
 		void showList();
 		void hideList();
 
-		void actionWidgetHide(Widget* _widget);
+		void actionWidgetHide(Widget* _widget, ControllerItem* _controller);
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 		IntCoord calculateListPosition();

@@ -28,18 +28,19 @@
 
 namespace MyGUI
 {
+	class ControllerItem;
 
 	namespace action
 	{
 
 		/** Function used for hiding widget with one of controller event */
-		void MYGUI_EXPORT actionWidgetHide(Widget* _widget);
+		void MYGUI_EXPORT actionWidgetHide(Widget* _widget, ControllerItem* _controller);
 
 		/** Function used for showing widget with one of controller event */
-		void MYGUI_EXPORT actionWidgetShow(Widget* _widget);
+		void MYGUI_EXPORT actionWidgetShow(Widget* _widget, ControllerItem* _controller);
 
 		/** Function used for destroying widget with one of controller event */
-		void MYGUI_EXPORT actionWidgetDestroy(Widget* _widget);
+		void MYGUI_EXPORT actionWidgetDestroy(Widget* _widget, ControllerItem* _controller);
 
 		/** Function for ControllerPosition per frame action : Move with constant speed */
 		void MYGUI_EXPORT linearMoveFunction(const IntCoord& _startRect, const IntCoord& _destRect, IntCoord& _result, float _k);
