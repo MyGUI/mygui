@@ -46,7 +46,7 @@ namespace tools
 
 		bool operator==(const shared_ptr<T>& o) const { return ptr == o.ptr; }
 		bool operator!=(const shared_ptr<T>& o) const { return ptr != o.ptr; }
-		bool operator<(const shared_ptr<T>& o) const { return ptr < o.ptr; }    
+		bool operator<(const shared_ptr<T>& o) const { return ptr < o.ptr; }
 
 		unsigned refcount() const { return *count; }
 
@@ -84,7 +84,7 @@ namespace tools
 
 		bool operator==(const shared_ptr<T>& o) const { return ptr == o.ptr; }
 		bool operator!=(const shared_ptr<T>& o) const { return ptr != o.ptr; }
-		bool operator<(const shared_ptr<T>& o) const { return ptr < o.ptr; }    
+		bool operator<(const shared_ptr<T>& o) const { return ptr < o.ptr; }
 
 		unsigned refcount() const { return *count; }
 
