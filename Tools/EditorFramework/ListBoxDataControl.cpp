@@ -180,9 +180,9 @@ namespace tools
 				if (mContextMenu->getChildCount() != 0)
 				{
 					MyGUI::IntPoint point = MyGUI::IntPoint(_info.x, _info.y);
-					if ((_info.y + mContextMenu->getHeight()) >= MyGUI::Gui::getInstance().getViewHeight())
+					if ((_info.y + mContextMenu->getHeight()) >= MyGUI::RenderManager::getInstance().getViewSize().height)
 						point.top -= mContextMenu->getHeight();
-					if ((_info.x + mContextMenu->getWidth()) >= MyGUI::Gui::getInstance().getViewWidth())
+					if ((_info.x + mContextMenu->getWidth()) >= MyGUI::RenderManager::getInstance().getViewSize().width)
 						point.left -= mContextMenu->getWidth();
 
 					mContextMenu->setPosition(point.left, point.top);
