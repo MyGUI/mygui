@@ -72,7 +72,7 @@ namespace MyGUI
 		mStartCoord = _widget->getCoord();
 
 		// вызываем пользовательский делегат для подготовки
-		eventPreAction(_widget);
+		eventPreAction(_widget, this);
 	}
 
 	bool ControllerPosition::addTime(Widget* _widget, float _time)
@@ -91,7 +91,7 @@ namespace MyGUI
 			else if (mCalcSize) _widget->setSize(coord.size());
 
 			// вызываем пользовательский делегат обновления
-			eventUpdateAction(_widget);
+			eventUpdateAction(_widget, this);
 
 			return true;
 		}
@@ -107,10 +107,10 @@ namespace MyGUI
 		else if (mCalcSize) _widget->setSize(coord.size());
 
 		// вызываем пользовательский делегат обновления
-		eventUpdateAction(_widget);
+		eventUpdateAction(_widget, this);
 
 		// вызываем пользовательский делегат пост обработки
-		eventPostAction(_widget);
+		eventPostAction(_widget, this);
 
 		return false;
 	}

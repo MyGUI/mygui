@@ -142,7 +142,7 @@ namespace MyGUI
 	};
 
 	template <typename EventObsolete, typename Event>
-	class EventPair3to4
+	class EventPairAddParameter
 	{
 	public:
 
@@ -189,6 +189,23 @@ namespace MyGUI
 			m_event -= _delegate;
 		}
 
+		// 1 to 2
+		template <typename TP1, typename TP2>
+		void operator()( TP1 p1, TP2 p2 )
+		{
+			m_eventObsolete(p1);
+			m_event(p1, p2);
+		}
+
+		// 2 to 3
+		template <typename TP1, typename TP2, typename TP3, typename TP4>
+		void operator()( TP1 p1, TP2 p2, TP3 p3 )
+		{
+			m_eventObsolete(p1, p2, p3);
+			m_event(p1, p2, p3, p4);
+		}
+
+		// 3 to 4
 		template <typename TP1, typename TP2, typename TP3, typename TP4>
 		void operator()( TP1 p1, TP2 p2, TP3 p3, TP4 p4 )
 		{

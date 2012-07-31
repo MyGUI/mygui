@@ -404,7 +404,7 @@ namespace MyGUI
 		beginToItemSelected();
 	}
 
-	void TabControl::actionWidgetHide(Widget* _widget)
+	void TabControl::actionWidgetHide(Widget* _widget, ControllerItem* _controller)
 	{
 		_widget->setVisible(false);
 		_widget->setEnabled(true);

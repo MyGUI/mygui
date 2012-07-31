@@ -55,7 +55,7 @@ namespace MyGUI
 		if (!mEnabled) InputManager::getInstance().unlinkWidget(_widget);
 
 		// вызываем пользовательский делегат для подготовки
-		eventPreAction(_widget);
+		eventPreAction(_widget, this);
 	}
 
 	bool ControllerFadeAlpha::addTime(Widget* _widget, float _time)
@@ -69,7 +69,7 @@ namespace MyGUI
 			if (mAlpha > alpha)
 			{
 				_widget->setAlpha(alpha);
-				eventUpdateAction(_widget);
+				eventUpdateAction(_widget, this);
 				return true;
 			}
 			else
@@ -83,7 +83,7 @@ namespace MyGUI
 			if (mAlpha < alpha)
 			{
 				_widget->setAlpha(alpha);
-				eventUpdateAction(_widget);
+				eventUpdateAction(_widget, this);
 				return true;
 			}
 			else
@@ -93,7 +93,7 @@ namespace MyGUI
 		}
 
 		// вызываем пользовательский делегат пост обработки
-		eventPostAction(_widget);
+		eventPostAction(_widget, this);
 
 		return false;
 	}

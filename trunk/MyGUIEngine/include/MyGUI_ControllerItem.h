@@ -26,9 +26,15 @@
 #include "MyGUI_WidgetDefines.h"
 #include "MyGUI_IObject.h"
 #include "MyGUI_Delegate.h"
+#include "MyGUI_EventPair.h"
 
 namespace MyGUI
 {
+
+	class ControllerItem;
+
+	typedef delegates::CMultiDelegate1<Widget*> EventHandle_WidgetPtr;
+	typedef delegates::CMultiDelegate2<Widget*, ControllerItem*> EventHandle_WidgetPtrControllerItemPtr;
 
 	/** Base interface for controllers */
 	class MYGUI_EXPORT ControllerItem :
@@ -45,24 +51,24 @@ namespace MyGUI
 		virtual void setProperty(const std::string& _key, const std::string& _value) { }
 
 		/** Event : Before controller started working.\n
-			signature : void method(MyGUI::Widget* _sender)\n
+			signature : void method(MyGUI::Widget* _sender, ControllerItem* _controller)\n
 			@param _sender widget under control
 		*/
-		delegates::CMultiDelegate1<Widget*>
+		EventPairAddParameter<EventHandle_WidgetPtr, EventHandle_WidgetPtrControllerItemPtr>
 			eventPreAction;
 
 		/** Event : Controller updated (called every frame).\n
-			signature : void method(MyGUI::Widget* _sender)\n
+			signature : void method(MyGUI::Widget* _sender, ControllerItem* _controller)\n
 			@param _sender widget under control
 		*/
-		delegates::CMultiDelegate1<Widget*>
+		EventPairAddParameter<EventHandle_WidgetPtr, EventHandle_WidgetPtrControllerItemPtr>
 			eventUpdateAction;
 
 		/** Event : After controller finished working.\n
-			signature : void method(MyGUI::Widget* _sender)\n
+			signature : void method(MyGUI::Widget* _sender, ControllerItem* _controller)\n
 			@param _sender widget under control
 		*/
-		delegates::CMultiDelegate1<Widget*>
+		EventPairAddParameter<EventHandle_WidgetPtr, EventHandle_WidgetPtrControllerItemPtr>
 			eventPostAction;
 
 	};

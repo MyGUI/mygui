@@ -370,7 +370,7 @@ namespace MyGUI
 		ControllerManager::getInstance().addItem(this, controller);
 	}
 
-	void Window::animateStop(Widget* _widget)
+	void Window::animateStop(Widget* _widget, ControllerItem* _controller)
 	{
 		if (mAnimateSmooth)
 		{

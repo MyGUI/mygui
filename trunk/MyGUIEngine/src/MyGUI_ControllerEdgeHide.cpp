@@ -49,7 +49,7 @@ namespace MyGUI
 	{
 		recalculateTime(_widget);
 		// вызываем пользовательский делегат для подготовки
-		eventPreAction(_widget);
+		eventPreAction(_widget, this);
 	}
 
 	bool ControllerEdgeHide::addTime(Widget* _widget, float _time)
@@ -130,7 +130,7 @@ namespace MyGUI
 		}
 		mLastCoord = coord;
 
-		eventUpdateAction(_widget);
+		eventUpdateAction(_widget, this);
 
 		return true;
 	}

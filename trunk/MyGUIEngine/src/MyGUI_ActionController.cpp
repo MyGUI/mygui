@@ -31,17 +31,17 @@ namespace MyGUI
 	namespace action
 	{
 
-		void actionWidgetHide(Widget* _widget)
+		void actionWidgetHide(Widget* _widget, ControllerItem* _controller)
 		{
 			_widget->setVisible(false);
 		}
 
-		void actionWidgetShow(Widget* _widget)
+		void actionWidgetShow(Widget* _widget, ControllerItem* _controller)
 		{
 			_widget->setVisible(true);
 		}
 
-		void actionWidgetDestroy(Widget* _widget)
+		void actionWidgetDestroy(Widget* _widget, ControllerItem* _controller)
 		{
 			WidgetManager::getInstance().destroyWidget(_widget);
 		}

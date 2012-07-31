@@ -145,7 +145,7 @@ namespace MyGUI
 		// просто обновляет альфу взависимости от флагов
 		void updateAlpha();
 
-		void animateStop(Widget* _widget);
+		void animateStop(Widget* _widget, ControllerItem* _controller);
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
