@@ -6,7 +6,7 @@
 		<Property key="Hinting" value="disable_auto"/>
 		<Property key="Resolution" value="96"/>
 		<Property key="Antialias" value="false"/>
-		<Property key="TabWidth" value="0"/>
+		<Property key="TabWidth" value="8"/>
 		<Property key="OffsetHeight" value="0"/>
 		<Property key="SubstituteCode" value="0"/>
 		<Codes>
@@ -21,7 +21,7 @@
 		<Property key="Hinting" value="disable_auto"/>
 		<Property key="Resolution" value="96"/>
 		<Property key="Antialias" value="false"/>
-		<Property key="TabWidth" value="0"/>
+		<Property key="TabWidth" value="8"/>
 		<Property key="OffsetHeight" value="0"/>
 		<Property key="SubstituteCode" value="0"/>
 		<Codes>
