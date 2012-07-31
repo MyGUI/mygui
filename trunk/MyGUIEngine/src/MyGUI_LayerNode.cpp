@@ -187,7 +187,7 @@ namespace MyGUI
 							iter = next;
 							continue;
 						}
-						else if ((*next)->getTexture() == _texture)
+						else if (!(*next)->getManualRender() && (*next)->getTexture() == _texture)
 						{
 							iter = next;
 						}
@@ -203,7 +203,7 @@ namespace MyGUI
 				return (*iter);
 			}
 			// последний буфер с нужной текстурой
-			else if ((*iter)->getTexture() == _texture)
+			else if (!(*iter)->getManualRender() && (*iter)->getTexture() == _texture)
 			{
 				mOutOfDate = false;
 
@@ -298,7 +298,7 @@ namespace MyGUI
 			VectorRenderItem::iterator iter2 = iter1 + 1;
 			while (iter2 != mFirstRenderItems.end())
 			{
-				if ((*iter1)->getNeedVertexCount() == 0 && !(*iter1)->getManualRender())
+				if ((*iter1)->getNeedVertexCount() == 0 && !(*iter1)->getManualRender() && !(*iter2)->getManualRender())
 				{
 					RenderItem* tmp = (*iter1);
 					(*iter1) = (*iter2);
