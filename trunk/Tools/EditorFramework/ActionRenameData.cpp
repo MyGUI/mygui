@@ -8,13 +8,10 @@
 #include "ActionRenameData.h"
 #include "DataManager.h"
 #include "DataSelectorManager.h"
-#include "FactoryManager.h"
 #include "PropertyUtility.h"
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(ActionRenameData)
 
 	ActionRenameData::ActionRenameData()
 	{

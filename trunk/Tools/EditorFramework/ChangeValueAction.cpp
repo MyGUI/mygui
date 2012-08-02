@@ -8,12 +8,9 @@
 #include "ChangeValueAction.h"
 #include "DataManager.h"
 #include "DataSelectorManager.h"
-#include "FactoryManager.h"
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(ChangeValueAction)
 
 	ChangeValueAction::ChangeValueAction()
 	{

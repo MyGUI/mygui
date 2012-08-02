@@ -6,12 +6,9 @@
 
 #include "Precompiled.h"
 #include "TextFieldControl.h"
-#include "FactoryManager.h"
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(TextFieldControl)
 
 	TextFieldControl::TextFieldControl() :
 		mText(nullptr),

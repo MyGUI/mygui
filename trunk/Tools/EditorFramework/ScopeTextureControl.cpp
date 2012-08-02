@@ -11,7 +11,6 @@
 #include "GridManager.h"
 #include "DataSelectorManager.h"
 #include "DataManager.h"
-#include "FactoryManager.h"
 #include "PositionSelectorBlackControl.h"
 #include "HorizontalSelectorBlackControl.h"
 #include "VerticalSelectorBlackControl.h"
@@ -22,8 +21,6 @@
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(ScopeTextureControl)
 
 	ScopeTextureControl::ScopeTextureControl() :
 		mCurrentSelectorControl(nullptr),

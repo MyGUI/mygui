@@ -6,14 +6,11 @@
 
 #include "Precompiled.h"
 #include "FocusInfoControl.h"
-#include "FactoryManager.h"
 #include "CommandManager.h"
 #include "SettingsManager.h"
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(FocusInfoControl)
 
 	FocusInfoControl::FocusInfoControl() :
 		mWidgetKeyFocus(nullptr),

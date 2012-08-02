@@ -6,13 +6,10 @@
 
 #include "Precompiled.h"
 #include "PropertyTexturesControl.h"
-#include "FactoryManager.h"
 #include "Localise.h"
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(PropertyTexturesControl)
 
 	PropertyTexturesControl::PropertyTexturesControl() :
 		mImage(nullptr),

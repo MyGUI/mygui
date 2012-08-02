@@ -9,12 +9,9 @@
 #include "CommandManager.h"
 #include "RecentFilesManager.h"
 #include "Localise.h"
-#include "FactoryManager.h"
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(MainMenuControl)
 
 	MainMenuControl::MainMenuControl() :
 		mMainMenu(nullptr),

@@ -122,6 +122,10 @@ set (SOURCE_FILES
   WidgetsWindow.cpp
   WorkspaceControl.cpp
 )
+SOURCE_GROUP("Application" FILES
+  Application.cpp
+  Application.h
+)
 SOURCE_GROUP("CodeGenerator" FILES
   CodeGenerator.cpp
   CodeGenerator.h
@@ -256,8 +260,6 @@ SOURCE_GROUP("Source Files" FILES
   WorkspaceControl.cpp
 )
 SOURCE_GROUP("States" FILES
-  Application.cpp
-  Application.h
   ApplicationState.cpp
   ApplicationState.h
   EditorState.cpp

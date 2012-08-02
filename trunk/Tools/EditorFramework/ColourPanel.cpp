@@ -6,13 +6,10 @@
 
 #include "Precompiled.h"
 #include "ColourPanel.h"
-#include "FactoryManager.h"
 #include "CommandManager.h"
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(ColourPanel)
 
 	ColourPanel::ColourPanel() :
 		mColourRect(nullptr),

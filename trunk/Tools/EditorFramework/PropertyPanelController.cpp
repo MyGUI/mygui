@@ -6,7 +6,6 @@
 
 #include "Precompiled.h"
 #include "PropertyPanelController.h"
-#include "FactoryManager.h"
 #include "DataSelectorManager.h"
 #include "DataManager.h"
 #include "ScopeManager.h"
@@ -15,8 +14,6 @@
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(PropertyPanelController)
 
 	PropertyPanelController::PropertyPanelController() :
 		mControl(nullptr),

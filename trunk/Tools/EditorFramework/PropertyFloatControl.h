@@ -4,8 +4,8 @@
 	@date		08/2010
 */
 
-#ifndef _ac3769fd_b132_461a_b607_737e76f02a6e_
-#define _ac3769fd_b132_461a_b607_737e76f02a6e_
+#ifndef _ecbac729_1c23_443a_879c_3fb6ec33eabb_
+#define _ecbac729_1c23_443a_879c_3fb6ec33eabb_
 
 #include "BaseLayout/BaseLayout.h"
 #include "PropertyControl.h"

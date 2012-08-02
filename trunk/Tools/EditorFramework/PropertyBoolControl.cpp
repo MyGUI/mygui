@@ -6,12 +6,9 @@
 
 #include "Precompiled.h"
 #include "PropertyBoolControl.h"
-#include "FactoryManager.h"
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(PropertyBoolControl)
 
 	PropertyBoolControl::PropertyBoolControl() :
 		mName(nullptr),

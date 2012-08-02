@@ -6,7 +6,6 @@
 
 #include "Precompiled.h"
 #include "ListBoxDataControl.h"
-#include "FactoryManager.h"
 #include "DataManager.h"
 #include "DataSelectorManager.h"
 #include "Localise.h"
@@ -14,8 +13,6 @@
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(ListBoxDataControl)
 
 	ListBoxDataControl::ListBoxDataControl() :
 		mListBox(nullptr),

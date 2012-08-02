@@ -11,8 +11,6 @@
 namespace tools
 {
 
-	FACTORY_ITEM_ATTRIBUTE(PropertyPanelControl)
-
 	PropertyPanelControl::PropertyPanelControl() :
 		mCurrentData(nullptr),
 		mDistance(0),

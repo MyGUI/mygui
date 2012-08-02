@@ -6,14 +6,11 @@
 
 #include "Precompiled.h"
 #include "OpenSaveFileDialog.h"
-#include "FactoryManager.h"
 #include "FileSystemInfo/FileSystemInfo.h"
 #include "CommandManager.h"
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(OpenSaveFileDialog)
 
 	OpenSaveFileDialog::OpenSaveFileDialog() :
 		mListFiles(nullptr),

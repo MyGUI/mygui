@@ -7,12 +7,9 @@
 #include "Precompiled.h"
 #include "PropertyColourControl.h"
 #include "Localise.h"
-#include "FactoryManager.h"
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(PropertyColourControl)
 
 	PropertyColourControl::PropertyColourControl() :
 		mName(nullptr),

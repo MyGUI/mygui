@@ -6,13 +6,10 @@
 
 #include "Precompiled.h"
 #include "SettingsWindow.h"
-#include "FactoryManager.h"
 #include "CommandManager.h"
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(SettingsWindow)
 
 	SettingsWindow::SettingsWindow() :
 		mListSettings(nullptr),

@@ -4,8 +4,8 @@
 	@date		08/2010
 */
 
-#ifndef _77263d40_3ebd_4f36_abc7_64ce6f294aef_
-#define _77263d40_3ebd_4f36_abc7_64ce6f294aef_
+#ifndef _55ee5c79_b3ce_426d_9486_2e3ac51002a8_
+#define _55ee5c79_b3ce_426d_9486_2e3ac51002a8_
 
 #include "Control.h"
 #include "sigslot.h"

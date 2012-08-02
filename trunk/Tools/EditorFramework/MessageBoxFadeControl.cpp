@@ -7,12 +7,9 @@
 #include "Precompiled.h"
 #include "MessageBoxFadeControl.h"
 #include "MessageBoxManager.h"
-#include "FactoryManager.h"
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(MessageBoxFadeControl)
 
 	MessageBoxFadeControl::MessageBoxFadeControl() :
 		mMaxAlpha(1)

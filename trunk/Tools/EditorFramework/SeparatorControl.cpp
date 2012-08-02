@@ -6,13 +6,10 @@
 
 #include "Precompiled.h"
 #include "SeparatorControl.h"
-#include "FactoryManager.h"
 #include "SettingsManager.h"
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(SeparatorControl)
 
 	SeparatorControl::SeparatorControl() :
 		mHorizontal(false)
