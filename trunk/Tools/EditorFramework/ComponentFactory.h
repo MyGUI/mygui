@@ -10,7 +10,7 @@
 namespace tools
 {
 
-	class ComponentFactory
+	class MYGUI_EXPORT_DLL ComponentFactory
 	{
 	public:
 		static void Initialise();
