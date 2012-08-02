@@ -93,7 +93,7 @@ namespace wraps
 		MyGUI::delegates::CDelegate1<BasePanelViewCell*> eventUpdatePanel;
 
 	private:
-		void notifyUpdateAction(MyGUI::Widget* _widget)
+		void notifyUpdateAction(MyGUI::Widget* _widget, MyGUI::ControllerItem* _controller)
 		{
 			eventUpdatePanel(this);
 		}
