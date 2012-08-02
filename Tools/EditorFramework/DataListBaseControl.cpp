@@ -6,7 +6,6 @@
 
 #include "Precompiled.h"
 #include "DataListBaseControl.h"
-#include "FactoryManager.h"
 #include "CommandManager.h"
 #include "DialogManager.h"
 #include "MessageBoxManager.h"
@@ -22,8 +21,6 @@
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(DataListBaseControl)
 
 	DataListBaseControl::DataListBaseControl() :
 		mListBoxControl(nullptr)

@@ -11,4 +11,6 @@
 
 #define FACTORY_ITEM_ATTRIBUTE(type) namespace { static ::factories::FactoryItemRegistrator<type> instance(#type); }
 
+#define FACTORY_ITEM(type) ::factories::RegisterFactory(new ::components::FactoryTemplate<type>(), #type);
+
 #endif

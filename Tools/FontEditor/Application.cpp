@@ -26,6 +26,7 @@
 #include "DataSelectorManager.h"
 #include "ScopeManager.h"
 #include "FactoryManager.h"
+#include "ComponentFactory.h"
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName("Application");
@@ -35,6 +36,7 @@ namespace tools
 
 	Application::Application()
 	{
+		ComponentFactory::Initialise();
 	}
 
 	Application::~Application()

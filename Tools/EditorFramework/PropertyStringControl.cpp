@@ -7,12 +7,9 @@
 #include "Precompiled.h"
 #include "PropertyStringControl.h"
 #include "Localise.h"
-#include "FactoryManager.h"
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(PropertyStringControl)
 
 	PropertyStringControl::PropertyStringControl() :
 		mName(nullptr),

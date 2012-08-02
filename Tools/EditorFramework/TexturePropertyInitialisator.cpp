@@ -6,13 +6,10 @@
 
 #include "Precompiled.h"
 #include "TexturePropertyInitialisator.h"
-#include "FactoryManager.h"
 #include "SettingsManager.h"
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(TexturePropertyInitialisator)
 
 	TexturePropertyInitialisator::TexturePropertyInitialisator()
 	{

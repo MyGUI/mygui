@@ -13,6 +13,7 @@ set (HEADER_FILES
   ColourManager.h
   ColourPanel.h
   CommandManager.h
+  ComponentFactory.h
   Control.h
   Data.h
   DataListBaseControl.h
@@ -101,6 +102,7 @@ set (SOURCE_FILES
   ColourManager.cpp
   ColourPanel.cpp
   CommandManager.cpp
+  ComponentFactory.cpp
   Control.cpp
   Data.cpp
   DataListBaseControl.cpp
@@ -191,6 +193,8 @@ SOURCE_GROUP("Controls" FILES
   MainMenuControl.h
 )
 SOURCE_GROUP("Controls\\Common" FILES
+  ComponentFactory.cpp
+  ComponentFactory.h
   Control.cpp
   Control.h
   MyGUI_FilterNoneSkin.cpp

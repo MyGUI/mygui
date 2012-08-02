@@ -6,14 +6,11 @@
 
 #include "Precompiled.h"
 #include "UniqueNamePropertyInitialisator.h"
-#include "FactoryManager.h"
 #include "DataManager.h"
 #include "DataUtility.h"
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(UniqueNamePropertyInitialisator)
 
 	UniqueNamePropertyInitialisator::UniqueNamePropertyInitialisator()
 	{

@@ -8,12 +8,9 @@
 #include "ActionChangeDataProperty.h"
 #include "DataManager.h"
 #include "DataSelectorManager.h"
-#include "FactoryManager.h"
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(ActionChangeDataProperty)
 
 	ActionChangeDataProperty::ActionChangeDataProperty() :
 		mProperty(nullptr)

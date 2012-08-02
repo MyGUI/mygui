@@ -7,12 +7,9 @@
 #include "Precompiled.h"
 #include "PropertyFloatControl.h"
 #include "Localise.h"
-#include "FactoryManager.h"
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(PropertyFloatControl)
 
 	PropertyFloatControl::PropertyFloatControl() :
 		mName(nullptr),

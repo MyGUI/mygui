@@ -6,12 +6,9 @@
 
 #include "Precompiled.h"
 #include "TextureBrowseControl.h"
-#include "FactoryManager.h"
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(TextureBrowseControl)
 
 	TextureBrowseControl::TextureBrowseControl() :
 		mOk(nullptr),

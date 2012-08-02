@@ -5,13 +5,10 @@
 */
 #include "Precompiled.h"
 #include "BackgroundControl.h"
-#include "FactoryManager.h"
 #include "SettingsManager.h"
 
 namespace tools
 {
-
-	FACTORY_ITEM_ATTRIBUTE(BackgroundControl)
 
 	BackgroundControl::BackgroundControl() :
 		mBackground(nullptr),
