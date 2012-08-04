@@ -28,6 +28,7 @@ set (HEADER_FILES
   include/MyGUI_DDItemInfo.h
   include/MyGUI_DataFileStream.h
   include/MyGUI_DataManager.h
+  include/MyGUI_DataMemoryStream.h
   include/MyGUI_DataStream.h
   include/MyGUI_DataStreamHolder.h
   include/MyGUI_Delegate.h
@@ -190,6 +191,7 @@ set (SOURCE_FILES
   src/MyGUI_DDContainer.cpp
   src/MyGUI_DataFileStream.cpp
   src/MyGUI_DataManager.cpp
+  src/MyGUI_DataMemoryStream.cpp
   src/MyGUI_DataStream.cpp
   src/MyGUI_DynLib.cpp
   src/MyGUI_DynLibManager.cpp
@@ -411,6 +413,7 @@ SOURCE_GROUP("Header Files\\Utility" FILES
   include/MyGUI_Constants.h
   include/MyGUI_CoordConverter.h
   include/MyGUI_DataFileStream.h
+  include/MyGUI_DataMemoryStream.h
   include/MyGUI_DataStream.h
   include/MyGUI_DataStreamHolder.h
   include/MyGUI_Delegate.h
@@ -549,6 +552,7 @@ SOURCE_GROUP("Source Files\\Core\\Types" FILES
 SOURCE_GROUP("Source Files\\Utility" FILES
   src/MyGUI_Constants.cpp
   src/MyGUI_DataFileStream.cpp
+  src/MyGUI_DataMemoryStream.cpp
   src/MyGUI_DataStream.cpp
   src/MyGUI_DynLib.cpp
   src/MyGUI_GeometryUtility.cpp
