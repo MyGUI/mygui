@@ -28,9 +28,15 @@ namespace MyGUI.Sharp
 			public static void Advise(bool _value)
 			{
 				if (_value)
+				{
 					mHandleDelegate += OnHandleDelegate;
+					ExportDataManager_DelegateIsDataExist(mHandleDelegate);
+				}
 				else
+				{
 					mHandleDelegate -= OnHandleDelegate;
+					ExportDataManager_DelegateIsDataExist(null);
+				}
 			}
 		}
 
@@ -52,15 +58,22 @@ namespace MyGUI.Sharp
 			public static void Advise(bool _value)
 			{
 				if (_value)
+				{
 					mHandleDelegate += OnHandleDelegate;
+					ExportDataManager_DelegateGetDataPath(mHandleDelegate);
+				}
 				else
+				{
 					mHandleDelegate -= OnHandleDelegate;
+					ExportDataManager_DelegateGetDataPath(null);
+				}
 			}
 		}
 
 		struct GetData
 		{
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+			[return: MarshalAs(UnmanagedType.U4)]
 			private delegate uint HandleDelegateSize([MarshalAs(UnmanagedType.LPStr)]string _name);
 
 			private static HandleDelegateSize mHandleDelegateSize;
@@ -72,23 +85,27 @@ namespace MyGUI.Sharp
 				mData = mDataManager.GetData(_name);
 				mDataName = _name;
 
+				if (mData == null)
+					return 0;
+
 				return (uint)mData.Length;
 			}
 
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
-			[return: MarshalAs(UnmanagedType.LPArray)]
-			private delegate byte[] HandleDelegateData([MarshalAs(UnmanagedType.LPStr)]string _name);
+			private delegate void HandleDelegateData([MarshalAs(UnmanagedType.LPStr)]string _name, [Out, In] ref IntPtr _data);
 
 			private static HandleDelegateData mHandleDelegateData;
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportDataManager_DelegateGetData(HandleDelegateData _delegate);
 
-			private static byte[] OnHandleDelegateData(string _name)
+			private static void OnHandleDelegateData(string _name, ref IntPtr _data)
 			{
-				if (mDataName == _name)
-					return mData;
-
-				return null;
+				if (mDataName == _name && mData != null)
+				{
+					IntPtr ptr = Marshal.AllocHGlobal(mData.Length);
+					Marshal.Copy(mData, 0, ptr, mData.Length);
+					_data = ptr;
+				}
 			}
 
 			private static byte[] mData;
@@ -99,12 +116,18 @@ namespace MyGUI.Sharp
 				if (_value)
 				{
 					mHandleDelegateSize += OnHandleDelegateSize;
+					ExportDataManager_DelegateGetDataSize(mHandleDelegateSize);
+
 					mHandleDelegateData += OnHandleDelegateData;
+					ExportDataManager_DelegateGetData(mHandleDelegateData);
 				}
 				else
 				{
 					mHandleDelegateSize -= OnHandleDelegateSize;
+					ExportDataManager_DelegateGetDataSize(null);
+
 					mHandleDelegateData -= OnHandleDelegateData;
+					ExportDataManager_DelegateGetData(null);
 				}
 			}
 		}

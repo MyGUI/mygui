@@ -22,6 +22,7 @@ namespace Export
 		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateIsDataExist( ExportHandle _delegate )
 		{
 			mExportHandle = _delegate;
+			MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateIsDataExist");
 		}
 	}
 	namespace ScopeDataManager_GetDataPath
@@ -33,6 +34,7 @@ namespace Export
 		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateGetDataPath( ExportHandle _delegate )
 		{
 			mExportHandle = _delegate;
+			MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetDataPath");
 		}
 	}
 	namespace ScopeDataManager_GetDataSize
@@ -44,17 +46,20 @@ namespace Export
 		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateGetDataSize( ExportHandle _delegate )
 		{
 			mExportHandle = _delegate;
+			MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetDataSize");
 		}
 	}
 	namespace ScopeDataManager_GetData
 	{
-		typedef Convert< unsigned char* >::Type (MYGUICALLBACK *ExportHandle)(
-			Convert< const std::string& >::Type );
+		typedef void (MYGUICALLBACK *ExportHandle)(
+			Convert< const std::string& >::Type,
+			Convert< void*& >::Type );
 		ExportHandle mExportHandle = nullptr;
 		
 		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateGetData( ExportHandle _delegate )
 		{
 			mExportHandle = _delegate;
+			MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetData");
 		}
 	}
 	namespace ScopeDataManager_DestroyData
@@ -66,6 +71,7 @@ namespace Export
 		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateDestroyData( ExportHandle _delegate )
 		{
 			mExportHandle = _delegate;
+			MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateDestroyData");
 		}
 	}
 	namespace ScopeDataManager_GetDataListSize
@@ -77,6 +83,7 @@ namespace Export
 		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateGetDataListSize( ExportHandle _delegate )
 		{
 			mExportHandle = _delegate;
+			MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetDataListSize");
 		}
 	}
 	namespace ScopeDataManager_GetDataListItem
@@ -88,6 +95,7 @@ namespace Export
 		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateGetDataListItem( ExportHandle _delegate )
 		{
 			mExportHandle = _delegate;
+			MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetDataListItem");
 		}
 	}
 	namespace ScopeDataManager_GetDataListComplete
@@ -98,6 +106,7 @@ namespace Export
 		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateGetDataListComplete( ExportHandle _delegate )
 		{
 			mExportHandle = _delegate;
+			MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetDataListComplete");
 		}
 	}
 }
@@ -125,6 +134,8 @@ namespace MyGUI
 
 	IDataStream* ExportDataManager::getData(const std::string& _name)
 	{
+		MYGUI_PLATFORM_LOG(Info, _name);
+
 		MapData::iterator item = mDatas.find(_name);
 		if (item != mDatas.end())
 		{
@@ -139,15 +150,38 @@ namespace MyGUI
 		if (size == 0)
 			return nullptr;
 
-		unsigned char* data = nullptr;
+		MYGUI_PLATFORM_LOG(Info, size);
+
+		void* data = nullptr;
 		if (Export::ScopeDataManager_GetData::mExportHandle != nullptr)
-			data = Export::Convert< unsigned char* >::From ( Export::ScopeDataManager_GetData::mExportHandle(Export::Convert< const std::string& >::To(_name)) );
+			Export::ScopeDataManager_GetData::mExportHandle(Export::Convert< const std::string& >::To(_name), Export::Convert< void*& >::To(data));
+
+		//MYGUI_PLATFORM_LOG(Info, data);
 
 		if (data == nullptr)
 			return nullptr;
 
-		MyGUI::DataMemoryStream* stream = new MyGUI::DataMemoryStream(data, size);
+		MyGUI::DataMemoryStream* stream = new MyGUI::DataMemoryStream(reinterpret_cast<unsigned char*>(data), size);
 		mDatas[_name] = DataCounter(stream, 1);
+
+		/*MYGUI_PLATFORM_LOG(Info, ((unsigned char*)data)[0]);
+		MYGUI_PLATFORM_LOG(Info, ((unsigned char*)data)[1]);
+		MYGUI_PLATFORM_LOG(Info, ((unsigned char*)data)[2]);
+		MYGUI_PLATFORM_LOG(Info, ((unsigned char*)data)[3]);
+		MYGUI_PLATFORM_LOG(Info, ((unsigned char*)data)[4]);
+		MYGUI_PLATFORM_LOG(Info, ((unsigned char*)data)[5]);
+		MYGUI_PLATFORM_LOG(Info, ((unsigned char*)data)[6]);
+
+		std::stringstream stream((char*)data);
+
+		std::string line;
+		while (!stream.eof())
+		{
+			line.clear();
+			std::getline(stream, line, '\n');
+
+			MYGUI_PLATFORM_LOG(Info, line);
+		}*/
 
 		return stream;
 	}
