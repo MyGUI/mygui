@@ -22,7 +22,7 @@ namespace Export
 		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateIsDataExist( ExportHandle _delegate )
 		{
 			mExportHandle = _delegate;
-			MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateIsDataExist");
+			//MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateIsDataExist");
 		}
 	}
 	namespace ScopeDataManager_GetDataPath
@@ -34,7 +34,7 @@ namespace Export
 		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateGetDataPath( ExportHandle _delegate )
 		{
 			mExportHandle = _delegate;
-			MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetDataPath");
+			//MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetDataPath");
 		}
 	}
 	namespace ScopeDataManager_GetData
@@ -47,7 +47,7 @@ namespace Export
 		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateGetData( ExportHandle _delegate )
 		{
 			mExportHandle = _delegate;
-			MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetData");
+			//MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetData");
 		}
 	}
 	namespace ScopeDataManager_FreeData
@@ -59,7 +59,7 @@ namespace Export
 		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateFreeData( ExportHandle _delegate )
 		{
 			mExportHandle = _delegate;
-			MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateFreeData");
+			//MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateFreeData");
 		}
 	}
 	namespace ScopeDataManager_GetDataListSize
@@ -71,7 +71,7 @@ namespace Export
 		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateGetDataListSize( ExportHandle _delegate )
 		{
 			mExportHandle = _delegate;
-			MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetDataListSize");
+			//MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetDataListSize");
 		}
 	}
 	namespace ScopeDataManager_GetDataListItem
@@ -83,7 +83,7 @@ namespace Export
 		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateGetDataListItem( ExportHandle _delegate )
 		{
 			mExportHandle = _delegate;
-			MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetDataListItem");
+			//MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetDataListItem");
 		}
 	}
 	namespace ScopeDataManager_GetDataListComplete
@@ -94,7 +94,7 @@ namespace Export
 		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateGetDataListComplete( ExportHandle _delegate )
 		{
 			mExportHandle = _delegate;
-			MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetDataListComplete");
+			//MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetDataListComplete");
 		}
 	}
 }
