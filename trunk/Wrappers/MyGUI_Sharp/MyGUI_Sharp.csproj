@@ -47,7 +47,9 @@
     <Compile Include="Core\InputManager.cs" />
     <Compile Include="Core\InterfaceMarshaler.cs" />
     <Compile Include="Core\LayerManager.cs" />
-    <Compile Include="Core\Platform.cs" />
+    <Compile Include="Core\Platform\IPlatformDataManager.cs" />
+    <Compile Include="Core\Platform\Platform.cs" />
+    <Compile Include="Core\Platform\Platform_DataManager.cs" />
     <Compile Include="Core\PointerManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\Align.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="Widgets\Generate\MyGUI_Sharp_WidgetUserData.cs" />
     <Compile Include="Widgets\Generate\MyGUI_Sharp_Window.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
