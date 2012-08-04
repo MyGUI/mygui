@@ -8,6 +8,7 @@
 #include "MyGUI_ExportDiagnostic.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_Timer.h"
+#include "MyGUI_ExportVertexBuffer.h"
 
 namespace MyGUI
 {
@@ -27,16 +28,19 @@ namespace MyGUI
 	{
 		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
 
+		destroyAllTextures();
+
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
 	}
 
 	IVertexBuffer* ExportRenderManager::createVertexBuffer()
 	{
-		return nullptr;
+		return new ExportVertexBuffer();
 	}
 
 	void ExportRenderManager::destroyVertexBuffer(IVertexBuffer* _buffer)
 	{
+		delete _buffer;
 	}
 
 	void ExportRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
@@ -73,15 +77,35 @@ namespace MyGUI
 
 	ITexture* ExportRenderManager::createTexture(const std::string& _name)
 	{
-		return nullptr;
+		MapTexture::iterator textureIter = mTextures.find(_name);
+		if (textureIter != mTextures.end())
+			return (*textureIter).second;
+
+		ExportTexture* texture = new ExportTexture(_name);
+		mTextures[_name] = texture;
+
+		return texture; 
 	}
 
 	void ExportRenderManager::destroyTexture(ITexture* _texture)
 	{
+		for (MapTexture::iterator textureIter = mTextures.begin(); textureIter != mTextures.end(); textureIter ++)
+		{
+			if ((*textureIter).second == _texture)
+			{
+				delete (*textureIter).second;
+				mTextures.erase(textureIter);
+				break;
+			}
+		}
 	}
 
 	ITexture* ExportRenderManager::getTexture(const std::string& _name)
 	{
+		MapTexture::iterator textureIter = mTextures.find(_name);
+		if (textureIter != mTextures.end())
+			return (*textureIter).second;
+
 		return nullptr;
 	}
 
@@ -94,6 +118,13 @@ namespace MyGUI
 	{
 		mViewSize.set(_width, _height);
 		onResizeView(mViewSize);
+	}
+
+	void ExportRenderManager::destroyAllTextures()
+	{
+		for (MapTexture::iterator textureIter = mTextures.begin(); textureIter != mTextures.end(); textureIter ++)
+			delete (*textureIter).second;
+		mTextures.clear();
 	}
 
 } // namespace MyGUI

@@ -10,6 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_RenderManager.h"
+#include "MyGUI_ExportTexture.h"
 
 namespace MyGUI
 {
@@ -79,8 +80,13 @@ namespace MyGUI
 		void setViewSize(int _width, int _height);
 
 	private:
+		void destroyAllTextures();
+
+	private:
 		IntSize mViewSize;
 		RenderTargetInfo mInfo;
+		typedef std::map<std::string, ExportTexture*> MapTexture;
+		MapTexture mTextures;
 	};
 
 } // namespace MyGUI
