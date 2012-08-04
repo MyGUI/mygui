@@ -755,7 +755,7 @@ namespace MyGUI
 		_fontBuffer = new uint8[fontBufferSize];
 		datastream->read(_fontBuffer, fontBufferSize);
 
-		DataManager::getInstance().destroyData(datastream);
+		DataManager::getInstance().freeData(datastream);
 		datastream = nullptr;
 
 		// Determine how many faces the font contains.
