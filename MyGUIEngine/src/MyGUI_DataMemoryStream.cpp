@@ -28,21 +28,20 @@ namespace MyGUI
 	DataMemoryStream::DataMemoryStream() :
 		mData(nullptr),
 		mSize(0),
-		mPosition(0),
-		mIsStream(false)
+		mStream(0)
 	{
 	}
 
 	DataMemoryStream::DataMemoryStream(unsigned char* _data, size_t _size) :
 		mData(_data),
 		mSize(_size),
-		mPosition(0),
-		mIsStream(false)
+		mStream(nullptr)
 	{
 	}
 
 	DataMemoryStream::~DataMemoryStream()
 	{
+		delete mStream;
 	}
 
 	size_t DataMemoryStream::size()
@@ -52,18 +51,18 @@ namespace MyGUI
 
 	bool DataMemoryStream::eof()
 	{
-		if (!mIsStream)
+		if (mStream == nullptr)
 			prepareStream();
 
-		return mStream.eof();
+		return mStream->eof();
 	}
 
 	void DataMemoryStream::readline(std::string& _source, Char _delim)
 	{
-		if (!mIsStream)
+		if (mStream == nullptr)
 			prepareStream();
 
-		std::getline(mStream, _source, (char)_delim);
+		std::getline(*mStream, _source, (char)_delim);
 	}
 
 	size_t DataMemoryStream::read(void* _buf, size_t _count)
@@ -81,7 +80,7 @@ namespace MyGUI
 		if (mData == nullptr)
 			return;
 
-		mStream.rdbuf()->pubsetbuf((char*)mData, mSize);
+		mStream = new std::stringstream((const char*)mData);
 	}
 
 } // namespace MyGUI

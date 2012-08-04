@@ -58,7 +58,8 @@ namespace MyGUI
 			if (mTexture == nullptr)
 			{
 				mTexture = render.createTexture(mSource);
-				mTexture->loadFromFile(mSource);
+				if (mTexture != nullptr)
+					mTexture->loadFromFile(mSource);
 			}
 		}
 	}

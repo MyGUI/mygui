@@ -47,9 +47,7 @@ namespace MyGUI
 	protected:
 		unsigned char* mData;
 		size_t mSize;
-		size_t mPosition;
-		std::istringstream mStream;
-		bool mIsStream;
+		std::stringstream* mStream;
 	};
 
 } // namespace MyGUI
