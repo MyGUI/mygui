@@ -47,9 +47,11 @@
     <Compile Include="Core\InputManager.cs" />
     <Compile Include="Core\InterfaceMarshaler.cs" />
     <Compile Include="Core\LayerManager.cs" />
-    <Compile Include="Core\Platform\IPlatformDataManager.cs" />
+    <Compile Include="Core\Platform\Iterfaces\IPlatformDataManager.cs" />
+    <Compile Include="Core\Platform\Iterfaces\IPlatformRenderManager.cs" />
     <Compile Include="Core\Platform\Platform.cs" />
     <Compile Include="Core\Platform\Platform_DataManager.cs" />
+    <Compile Include="Core\Platform\Platform_RenderManager.cs" />
     <Compile Include="Core\PointerManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\Align.cs" />
