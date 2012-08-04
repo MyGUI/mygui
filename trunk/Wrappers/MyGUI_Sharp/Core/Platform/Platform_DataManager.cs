@@ -22,16 +22,7 @@ namespace MyGUI.Sharp
 
 			private static bool OnHandleDelegate(string _name)
 			{
-				/*try
-				{*/
-					return mDataManager.IsDataExist(_name);
-				/*}
-				catch (Exception _e)
-				{
-					Log(LogLevel.Critical, _e.ToString());
-				}*/
-
-				return false;
+				return mDataManager.IsDataExist(_name);
 			}
 
 			public static void Advise(bool _value)
@@ -61,16 +52,7 @@ namespace MyGUI.Sharp
 
 			private static string OnHandleDelegate(string _name)
 			{
-				/*try
-				{*/
-					return mDataManager.GetDataPath(_name);
-				/*}
-				catch (Exception _e)
-				{
-					Log(LogLevel.Critical, _e.ToString());
-				}*/
-
-				return "";
+				return mDataManager.GetDataPath(_name);
 			}
 
 			public static void Advise(bool _value)
@@ -107,17 +89,7 @@ namespace MyGUI.Sharp
 
 			private static uint OnHandleDelegateData(string _name, ref IntPtr _data)
 			{
-				byte[] data = null;
-
-				/*try
-				{*/
-					data = mDataManager.GetData(_name);
-				/*}
-				catch (Exception _e)
-				{
-					Log(LogLevel.Critical, _e.ToString());
-				}*/
-
+				byte[] data = mDataManager.GetData(_name);
 				if (data == null)
 				{
 					_data = IntPtr.Zero;
@@ -155,14 +127,7 @@ namespace MyGUI.Sharp
 					Log(LogLevel.Warning, string.Format("Cashe for data {0} not found", _name));
 				}
 
-				/*try
-				{*/
-					mDataManager.FreeData(_name);
-				/*}
-				catch (Exception _e)
-				{
-					Log(LogLevel.Critical, _e.ToString());
-				}*/
+				mDataManager.FreeData(_name);
 			}
 
 			public static void Advise(bool _value)
