@@ -351,6 +351,19 @@ namespace Export
 		}
 	};
 
+	template <> struct Convert< unsigned char* >
+	{
+		typedef void* Type;
+		inline static Type To(unsigned char* _value)
+		{
+			return _value;
+		}
+		inline static unsigned char* From(Type _value)
+		{
+			return reinterpret_cast< unsigned char* >(_value);
+		}
+	};
+
 } // namespace Export
 
 #endif // __EXPORT_MARSHALING_H__
