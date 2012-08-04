@@ -56,6 +56,11 @@ namespace MyGUI
 		return data;
 	}
 
+	void DirectXDataManager::destroyData(IDataStream* _data)
+	{
+		delete _data;
+	}
+
 	bool DirectXDataManager::isDataExist(const std::string& _name)
 	{
 		const VectorString& files = getDataListNames(_name);

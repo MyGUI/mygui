@@ -62,6 +62,11 @@ namespace MyGUI
 		return nullptr;
 	}
 
+	void OgreDataManager::destroyData(IDataStream* _data)
+	{
+		delete _data;
+	}
+
 	bool OgreDataManager::isDataExist(const std::string& _name)
 	{
 		const VectorString& files = getDataListNames(_name);

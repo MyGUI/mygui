@@ -19,26 +19,37 @@
 	You should have received a copy of the GNU Lesser General Public License
 	along with MyGUI.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __MYGUI_I_DATA_STREAM_H__
-#define __MYGUI_I_DATA_STREAM_H__
+#ifndef __MYGUI_DATA_STREAM_HOLDER_H__
+#define __MYGUI_DATA_STREAM_HOLDER_H__
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Types.h"
+#include "MyGUI_DataManager.h"
 
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT IDataStream
+	class DataStreamHolder
 	{
 	public:
-		virtual ~IDataStream() { }
+		DataStreamHolder(IDataStream* _data) :
+			mData(_data)
+		{
+		}
 
-		virtual bool eof() = 0;
-		virtual size_t size() = 0;
-		virtual void readline(std::string& _source, Char _delim = '\n') = 0;
-		virtual size_t read(void* _buf, size_t _count) = 0;
+		~DataStreamHolder()
+		{
+			DataManager::getInstance().destroyData(mData);
+		}
+
+		IDataStream* getData()
+		{
+			return mData;
+		}
+
+	private:
+		IDataStream* mData;
 	};
 
 } // namespace MyGUI
 
-#endif // __MYGUI_I_DATA_STREAM_H__
+#endif // __MYGUI_DATA_STREAM_HOLDER_H__

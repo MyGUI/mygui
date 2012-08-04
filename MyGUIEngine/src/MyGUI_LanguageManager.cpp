@@ -25,6 +25,7 @@
 #include "MyGUI_XmlDocument.h"
 #include "MyGUI_DataManager.h"
 #include "MyGUI_FactoryManager.h"
+#include "MyGUI_DataStreamHolder.h"
 
 namespace MyGUI
 {
