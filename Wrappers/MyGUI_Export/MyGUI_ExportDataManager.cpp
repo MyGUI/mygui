@@ -57,6 +57,17 @@ namespace Export
 			mExportHandle = _delegate;
 		}
 	}
+	namespace ScopeDataManager_DestroyData
+	{
+		typedef void (MYGUICALLBACK *ExportHandle)(
+			Convert< const std::string& >::Type );
+		ExportHandle mExportHandle = nullptr;
+		
+		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateDestroyData( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+	}
 	namespace ScopeDataManager_GetDataListSize
 	{
 		typedef Convert< size_t >::Type (MYGUICALLBACK *ExportHandle)(
@@ -114,6 +125,13 @@ namespace MyGUI
 
 	IDataStream* ExportDataManager::getData(const std::string& _name)
 	{
+		MapData::iterator item = mDatas.find(_name);
+		if (item != mDatas.end())
+		{
+			(*item).second.second ++;
+			return (*item).second.first;
+		}
+
 		size_t size = 0;
 		if (Export::ScopeDataManager_GetDataSize::mExportHandle != nullptr)
 			size = Export::Convert< size_t >::From ( Export::ScopeDataManager_GetDataSize::mExportHandle(Export::Convert< const std::string& >::To(_name)) );
@@ -129,6 +147,8 @@ namespace MyGUI
 			return nullptr;
 
 		MyGUI::DataMemoryStream* stream = new MyGUI::DataMemoryStream(data, size);
+		mDatas[_name] = DataCounter(stream, 1);
+
 		return stream;
 	}
 
@@ -137,8 +157,30 @@ namespace MyGUI
 		if (_data == nullptr)
 			return;
 
-		MyGUI::DataMemoryStream* stream = static_cast<MyGUI::DataMemoryStream*>(_data);
-		delete stream;
+		std::string name;
+
+		for (MapData::iterator item = mDatas.begin(); item != mDatas.end(); item ++)
+		{
+			if ((*item).second.first == _data)
+			{
+				if ((*item).second.second > 1)
+				{
+					(*item).second.second --;
+					return;
+				}
+				else
+				{
+					name = (*item).first;
+					mDatas.erase(item);
+					break;
+				}
+			}
+		}
+
+		delete _data;
+
+		if (Export::ScopeDataManager_DestroyData::mExportHandle != nullptr)
+			Export::ScopeDataManager_DestroyData::mExportHandle(Export::Convert< const std::string& >::To(name));
 	}
 
 	bool ExportDataManager::isDataExist(const std::string& _name)

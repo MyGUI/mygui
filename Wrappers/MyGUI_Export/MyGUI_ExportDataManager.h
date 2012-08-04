@@ -45,6 +45,11 @@ namespace MyGUI
 
 		/** @see DataManager::getDataPath(const std::string& _name) */
 		virtual const std::string& getDataPath(const std::string& _name);
+
+	private:
+		typedef std::pair<MyGUI::IDataStream*, size_t> DataCounter;
+		typedef std::map<std::string, DataCounter> MapData;
+		MapData mDatas;
 	};
 
 } // namespace MyGUI
