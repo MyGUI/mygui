@@ -34,6 +34,11 @@ namespace MyGUI
 		return nullptr;
 	}
 
+	void DummyDataManager::destroyData(IDataStream* _data)
+	{
+		delete _data;
+	}
+
 	bool DummyDataManager::isDataExist(const std::string& _name)
 	{
 		return false;

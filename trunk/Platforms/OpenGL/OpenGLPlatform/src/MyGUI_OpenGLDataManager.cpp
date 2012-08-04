@@ -56,6 +56,11 @@ namespace MyGUI
 		return data;
 	}
 
+	void OpenGLDataManager::destroyData(IDataStream* _data)
+	{
+		delete _data;
+	}
+
 	bool OpenGLDataManager::isDataExist(const std::string& _name)
 	{
 		const VectorString& files = getDataListNames(_name);

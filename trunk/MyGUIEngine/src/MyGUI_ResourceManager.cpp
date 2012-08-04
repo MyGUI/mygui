@@ -25,7 +25,7 @@
 #include "MyGUI_IResource.h"
 #include "MyGUI_DataManager.h"
 #include "MyGUI_FactoryManager.h"
-
+#include "MyGUI_DataStreamHolder.h"
 #include "MyGUI_ResourceImageSet.h"
 
 namespace MyGUI

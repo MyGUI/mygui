@@ -22,6 +22,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_ResourceTrueTypeFont.h"
 #include "MyGUI_DataManager.h"
+#include "MyGUI_DataStreamHolder.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_Bitwise.h"
 
@@ -753,7 +754,9 @@ namespace MyGUI
 		size_t fontBufferSize = datastream->size();
 		_fontBuffer = new uint8[fontBufferSize];
 		datastream->read(_fontBuffer, fontBufferSize);
-		delete datastream;
+
+		DataManager::getInstance().destroyData(datastream);
+		datastream = nullptr;
 
 		// Determine how many faces the font contains.
 		if (FT_New_Memory_Face(_ftLibrary, _fontBuffer, (FT_Long)fontBufferSize, -1, &result) != 0)
