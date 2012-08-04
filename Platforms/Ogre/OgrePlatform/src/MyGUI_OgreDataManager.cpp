@@ -62,7 +62,7 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	void OgreDataManager::destroyData(IDataStream* _data)
+	void OgreDataManager::freeData(IDataStream* _data)
 	{
 		delete _data;
 	}

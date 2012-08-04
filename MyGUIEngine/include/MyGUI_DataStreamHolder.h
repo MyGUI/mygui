@@ -38,7 +38,7 @@ namespace MyGUI
 
 		~DataStreamHolder()
 		{
-			DataManager::getInstance().destroyData(mData);
+			DataManager::getInstance().freeData(mData);
 		}
 
 		IDataStream* getData()

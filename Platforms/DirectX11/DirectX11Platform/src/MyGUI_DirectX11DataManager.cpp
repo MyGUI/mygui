@@ -56,7 +56,7 @@ namespace MyGUI
 		return data;
 	}
 
-	void DirectX11DataManager::destroyData(IDataStream* _data)
+	void DirectX11DataManager::freeData(IDataStream* _data)
 	{
 		delete _data;
 	}

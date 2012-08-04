@@ -56,7 +56,7 @@ namespace MyGUI
 		return data;
 	}
 
-	void OpenGLDataManager::destroyData(IDataStream* _data)
+	void OpenGLDataManager::freeData(IDataStream* _data)
 	{
 		delete _data;
 	}

@@ -34,7 +34,7 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	void DummyDataManager::destroyData(IDataStream* _data)
+	void DummyDataManager::freeData(IDataStream* _data)
 	{
 		delete _data;
 	}

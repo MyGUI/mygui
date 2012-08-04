@@ -40,10 +40,10 @@ namespace MyGUI
 		*/
 		virtual IDataStream* getData(const std::string& _name) = 0;
 
-		/** Destroy data stream.
+		/** Free data stream.
 			@param _data Data stream.
 		*/
-		virtual void destroyData(IDataStream* _data) = 0;
+		virtual void freeData(IDataStream* _data) = 0;
 
 		/** Is data with specified name exist.
 			@param _name Resource name.

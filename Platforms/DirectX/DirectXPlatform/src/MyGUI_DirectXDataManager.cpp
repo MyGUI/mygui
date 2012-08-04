@@ -56,7 +56,7 @@ namespace MyGUI
 		return data;
 	}
 
-	void DirectXDataManager::destroyData(IDataStream* _data)
+	void DirectXDataManager::freeData(IDataStream* _data)
 	{
 		delete _data;
 	}
