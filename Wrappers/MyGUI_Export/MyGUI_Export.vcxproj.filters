@@ -175,5 +175,8 @@
     <ClInclude Include="ExportDataManager.h">
       <Filter>Header Files\Platform</Filter>
     </ClInclude>
+    <ClInclude Include="ExportTexture.h">
+      <Filter>Header Files\Platform</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

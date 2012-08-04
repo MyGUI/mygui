@@ -8,6 +8,7 @@
 #include "MyGUI_ExportRenderManager.h"
 #include "MyGUI_ExportDiagnostic.h"
 #include "MyGUI_ExportPlatform.h"
+#include "ExportTexture.h"
 
 namespace MyGUI
 {
@@ -49,6 +50,10 @@ namespace MyGUI
 
 	void ExportTexture::loadFromFile(const std::string& _filename)
 	{
+		if (Export::ScopeRenderManager_Texture_LoadFromFile::mExportHandle != nullptr)
+			Export::ScopeRenderManager_Texture_LoadFromFile::mExportHandle(Export::Convert<const std::string&>::To(_filename), Export::Convert<int&>::To(mWidth), Export::Convert<int&>::To(mHeight));
+
+		MYGUI_PLATFORM_LOG(Info, "Texture " << _filename << " , size : " << mWidth << " x " << mHeight);
 	}
 
 	void ExportTexture::saveToFile(const std::string& _filename)
