@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExportDataManager.h" />
+    <ClInclude Include="ExportTexture.h" />
     <ClInclude Include="MyGUI_ExportDataManager.h" />
     <ClInclude Include="MyGUI_ExportDiagnostic.h" />
     <ClInclude Include="MyGUI_ExportPlatform.h" />

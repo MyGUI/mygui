@@ -364,6 +364,19 @@ namespace Export
 		}
 	};
 
+	template <> struct Convert< int& >
+	{
+		typedef int& Type;
+		static inline Type To(int& _value)
+		{
+			return _value;
+		}
+		static inline int& From(Type _value)
+		{
+			return _value;
+		}
+	};
+
 } // namespace Export
 
 #endif // __EXPORT_MARSHALING_H__
