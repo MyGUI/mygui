@@ -1,14 +1,14 @@
 #include "ExportDefine.h"
 #include "ExportMarshaling.h"
-#include "MyGUI_DummyPlatform.h"
+#include "MyGUI_ExportPlatform.h"
 
 namespace Export
 {
-	MyGUI::DummyPlatform* mPlatform = nullptr;
+	MyGUI::ExportPlatform* mPlatform = nullptr;
 
 	MYGUIEXPORT void MYGUICALL ExportGui_CreatePlatform(Convert<const std::string&>::Type _logName)
 	{
-		mPlatform = new MyGUI::DummyPlatform();
+		mPlatform = new MyGUI::ExportPlatform();
 		mPlatform->initialise(Convert<const std::string&>::From(_logName));
 	}
 
