@@ -6,28 +6,40 @@ namespace Export
 {
 	MyGUI::ExportPlatform* mPlatform = nullptr;
 
-	MYGUIEXPORT void MYGUICALL ExportGui_CreatePlatform(Convert<const std::string&>::Type _logName)
+	MYGUIEXPORT void MYGUICALL ExportPlatform_Create(Convert<const std::string&>::Type _logName)
 	{
 		mPlatform = new MyGUI::ExportPlatform();
 		mPlatform->initialise(Convert<const std::string&>::From(_logName));
 	}
 
-	MYGUIEXPORT void MYGUICALL ExportGui_DestroyPlatform()
+	MYGUIEXPORT void MYGUICALL ExportPlatform_Destroy()
 	{
 		mPlatform->shutdown();
 		delete mPlatform;
 		mPlatform = nullptr;
 	}
 
+	MYGUIEXPORT void MYGUICALL ExportPlatform_Log(
+		Convert<MyGUI::LogLevel>::Type _level,
+		Convert<const std::string&>::Type _message )
+	{
+		MyGUI::LogManager::getInstance().log(
+			Convert<const std::string&>::From(MYGUI_PLATFORM_LOG_SECTION),
+			Convert<MyGUI::LogLevel>::From(_level),
+			Convert<const std::string&>::From(_message),
+			__FILE__,
+			__LINE__);
+	}
+
 	MyGUI::Gui* mGui = nullptr;
 
-	MYGUIEXPORT void MYGUICALL ExportGui_CreateGui(Convert<const std::string&>::Type _coreFileName)
+	MYGUIEXPORT void MYGUICALL ExportGui_Create(Convert<const std::string&>::Type _coreFileName)
 	{
 		mGui = new MyGUI::Gui();
 		mGui->initialise(Convert<const std::string&>::From(_coreFileName));
 	}
 
-	MYGUIEXPORT void MYGUICALL ExportGui_DestroyGui()
+	MYGUIEXPORT void MYGUICALL ExportGui_Destroy()
 	{
 		mGui->shutdown();
 		delete mGui;

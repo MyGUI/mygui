@@ -37,21 +37,9 @@ namespace Export
 			MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetDataPath");
 		}
 	}
-	namespace ScopeDataManager_GetDataSize
-	{
-		typedef Convert< size_t >::Type (MYGUICALLBACK *ExportHandle)(
-			Convert< const std::string& >::Type );
-		ExportHandle mExportHandle = nullptr;
-		
-		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateGetDataSize( ExportHandle _delegate )
-		{
-			mExportHandle = _delegate;
-			MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetDataSize");
-		}
-	}
 	namespace ScopeDataManager_GetData
 	{
-		typedef void (MYGUICALLBACK *ExportHandle)(
+		typedef Convert< size_t >::Type (MYGUICALLBACK *ExportHandle)(
 			Convert< const std::string& >::Type,
 			Convert< void*& >::Type );
 		ExportHandle mExportHandle = nullptr;
@@ -142,15 +130,9 @@ namespace MyGUI
 		}
 
 		size_t size = 0;
-		if (Export::ScopeDataManager_GetDataSize::mExportHandle != nullptr)
-			size = Export::Convert< size_t >::From ( Export::ScopeDataManager_GetDataSize::mExportHandle(Export::Convert< const std::string& >::To(_name)) );
-
-		if (size == 0)
-			return nullptr;
-
 		void* data = nullptr;
 		if (Export::ScopeDataManager_GetData::mExportHandle != nullptr)
-			Export::ScopeDataManager_GetData::mExportHandle(Export::Convert< const std::string& >::To(_name), Export::Convert< void*& >::To(data));
+			size = Export::Convert< size_t >::From (Export::ScopeDataManager_GetData::mExportHandle(Export::Convert< const std::string& >::To(_name), Export::Convert< void*& >::To(data)));
 
 		if (data == nullptr)
 			return nullptr;
