@@ -351,16 +351,16 @@ namespace Export
 		}
 	};
 
-	template <> struct Convert< unsigned char* >
+	template <> struct Convert< void*& >
 	{
-		typedef void* Type;
-		inline static Type To(unsigned char* _value)
+		typedef void*& Type;
+		static inline Type To(void*& _value)
 		{
 			return _value;
 		}
-		inline static unsigned char* From(Type _value)
+		static inline void*& From(Type _value)
 		{
-			return reinterpret_cast< unsigned char* >(_value);
+			return _value;
 		}
 	};
 
