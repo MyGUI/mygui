@@ -57,7 +57,8 @@ namespace MyGUI
 				else
 				{
 					ITexture* texture = render.createTexture(_texture);
-					texture->loadFromFile(_texture);
+					if (texture != nullptr)
+						texture->loadFromFile(_texture);
 				}
 			}
 
