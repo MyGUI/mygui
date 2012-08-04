@@ -62,10 +62,10 @@
     <ClCompile Include="Generate\MyGUI_ExportWidget.cpp">
       <Filter>Source Files\Export\Generate</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Platforms\Dummy\DummyPlatform\src\MyGUI_DummyDataManager.cpp">
+    <ClCompile Include="MyGUI_ExportDataManager.cpp">
       <Filter>Source Files\Platform</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Platforms\Dummy\DummyPlatform\src\MyGUI_DummyRenderManager.cpp">
+    <ClCompile Include="MyGUI_ExportRenderManager.cpp">
       <Filter>Source Files\Platform</Filter>
     </ClCompile>
     <ClCompile Include="ExportPlatform.cpp">
@@ -148,16 +148,16 @@
     <ClInclude Include="Generate\MyGUI_Export_Window.h">
       <Filter>Header Files\Export\Generate</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Platforms\Dummy\DummyPlatform\include\MyGUI_DummyDataManager.h">
+    <ClInclude Include="MyGUI_ExportDataManager.h">
       <Filter>Header Files\Platform</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Platforms\Dummy\DummyPlatform\include\MyGUI_DummyDiagnostic.h">
+    <ClInclude Include="MyGUI_ExportDiagnostic.h">
       <Filter>Header Files\Platform</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Platforms\Dummy\DummyPlatform\include\MyGUI_DummyPlatform.h">
+    <ClInclude Include="MyGUI_ExportPlatform.h">
       <Filter>Header Files\Platform</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Platforms\Dummy\DummyPlatform\include\MyGUI_DummyRenderManager.h">
+    <ClInclude Include="MyGUI_ExportRenderManager.h">
       <Filter>Header Files\Platform</Filter>
     </ClInclude>
   </ItemGroup>
