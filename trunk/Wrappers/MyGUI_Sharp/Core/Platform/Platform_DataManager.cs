@@ -74,62 +74,83 @@ namespace MyGUI.Sharp
 		{
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			[return: MarshalAs(UnmanagedType.U4)]
-			private delegate uint HandleDelegateSize([MarshalAs(UnmanagedType.LPStr)]string _name);
-
-			private static HandleDelegateSize mHandleDelegateSize;
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-			private static extern void ExportDataManager_DelegateGetDataSize(HandleDelegateSize _delegate);
-
-			private static uint OnHandleDelegateSize(string _name)
-			{
-				mData = mDataManager.GetData(_name);
-				mDataName = _name;
-
-				if (mData == null)
-					return 0;
-
-				return (uint)mData.Length;
-			}
-
-			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
-			private delegate void HandleDelegateData([MarshalAs(UnmanagedType.LPStr)]string _name, [Out, In] ref IntPtr _data);
+			private delegate uint HandleDelegateData([MarshalAs(UnmanagedType.LPStr)]string _name, [Out, In] ref IntPtr _data);
 
 			private static HandleDelegateData mHandleDelegateData;
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 			private static extern void ExportDataManager_DelegateGetData(HandleDelegateData _delegate);
 
-			private static void OnHandleDelegateData(string _name, ref IntPtr _data)
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+			private delegate void HandleDelegateFreeData([MarshalAs(UnmanagedType.LPStr)]string _name);
+
+			private static HandleDelegateFreeData mHandleDelegateFreeData;
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			private static extern void ExportDataManager_DelegateFreeData(HandleDelegateFreeData _delegate);
+
+			private static uint OnHandleDelegateData(string _name, ref IntPtr _data)
 			{
-				if (mDataName == _name && mData != null)
+				byte[] data = mDataManager.GetData(_name);
+				if (data == null)
 				{
-					IntPtr ptr = Marshal.AllocHGlobal(mData.Length);
-					Marshal.Copy(mData, 0, ptr, mData.Length);
-					_data = ptr;
+					_data = IntPtr.Zero;
+					return 0;
 				}
+
+				IntPtr ptr;
+				if (mCashe.TryGetValue(_name, out ptr))
+				{
+					Marshal.FreeHGlobal(ptr);
+					ptr = IntPtr.Zero;
+
+					Log(LogLevel.Warning, string.Format("Cashe for data {0} already exist", _name));
+				}
+
+				ptr = Marshal.AllocHGlobal(data.Length);
+				Marshal.Copy(data, 0, ptr, data.Length);
+				_data = ptr;
+
+				mCashe.Add(_name, ptr);
+
+				return (uint)data.Length;
 			}
 
-			private static byte[] mData;
-			private static string mDataName;
+			private static void OnHandleDelegateFreeData(string _name)
+			{
+				IntPtr ptr;
+				if (mCashe.TryGetValue(_name, out ptr))
+				{
+					Marshal.FreeHGlobal(ptr);
+					ptr = IntPtr.Zero;
+				}
+				else
+				{
+					Log(LogLevel.Warning, string.Format("Cashe for data {0} not found", _name));
+				}
+
+				mDataManager.FreeData(_name);
+			}
 
 			public static void Advise(bool _value)
 			{
 				if (_value)
 				{
-					mHandleDelegateSize += OnHandleDelegateSize;
-					ExportDataManager_DelegateGetDataSize(mHandleDelegateSize);
-
 					mHandleDelegateData += OnHandleDelegateData;
 					ExportDataManager_DelegateGetData(mHandleDelegateData);
+
+					mHandleDelegateFreeData += OnHandleDelegateFreeData;
+					ExportDataManager_DelegateFreeData(mHandleDelegateFreeData);
 				}
 				else
 				{
-					mHandleDelegateSize -= OnHandleDelegateSize;
-					ExportDataManager_DelegateGetDataSize(null);
-
 					mHandleDelegateData -= OnHandleDelegateData;
 					ExportDataManager_DelegateGetData(null);
+
+					mHandleDelegateFreeData -= OnHandleDelegateFreeData;
+					ExportDataManager_DelegateFreeData(null);
 				}
 			}
+
+			private static Dictionary<string, IntPtr> mCashe = new Dictionary<string, IntPtr>();
 		}
 
 
