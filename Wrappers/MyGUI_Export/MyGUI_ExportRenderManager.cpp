@@ -87,7 +87,7 @@ namespace MyGUI
 
 	bool ExportRenderManager::isFormatSupported(PixelFormat _format, TextureUsage _usage)
 	{
-		return false;
+		return _format == PixelFormat::R8G8B8A8;
 	}
 
 	void ExportRenderManager::setViewSize(int _width, int _height)

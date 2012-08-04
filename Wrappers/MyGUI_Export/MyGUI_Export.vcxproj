@@ -118,6 +118,8 @@
     <ClCompile Include="Generate\MyGUI_Export_WidgetCropped.cpp" />
     <ClCompile Include="Generate\MyGUI_Export_WidgetInput.cpp" />
     <ClCompile Include="Generate\MyGUI_Export_WidgetUserData.cpp" />
+    <ClCompile Include="MyGUI_ExportTexture.cpp" />
+    <ClCompile Include="MyGUI_ExportVertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyGUI_ExportDataManager.h" />
@@ -149,6 +151,8 @@
     <ClInclude Include="Generate\MyGUI_Export_TextBox.h" />
     <ClInclude Include="Generate\MyGUI_Export_Widget.h" />
     <ClInclude Include="Generate\MyGUI_Export_Window.h" />
+    <ClInclude Include="MyGUI_ExportTexture.h" />
+    <ClInclude Include="MyGUI_ExportVertexBuffer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
