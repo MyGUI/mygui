@@ -10,7 +10,7 @@ namespace MyGUI.Sharp
 
 		byte[] GetData(string _name);
 
-		void DestroyData(string _name);
+		void FreeData(string _name);
 
 		string[] GetDataListNames(string _pattern);
 

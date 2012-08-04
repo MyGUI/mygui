@@ -62,16 +62,16 @@ namespace Export
 			MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetData");
 		}
 	}
-	namespace ScopeDataManager_DestroyData
+	namespace ScopeDataManager_FreeData
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert< const std::string& >::Type );
 		ExportHandle mExportHandle = nullptr;
 		
-		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateDestroyData( ExportHandle _delegate )
+		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateFreeData( ExportHandle _delegate )
 		{
 			mExportHandle = _delegate;
-			MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateDestroyData");
+			MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateFreeData");
 		}
 	}
 	namespace ScopeDataManager_GetDataListSize
@@ -134,8 +134,6 @@ namespace MyGUI
 
 	IDataStream* ExportDataManager::getData(const std::string& _name)
 	{
-		MYGUI_PLATFORM_LOG(Info, _name);
-
 		MapData::iterator item = mDatas.find(_name);
 		if (item != mDatas.end())
 		{
@@ -150,13 +148,9 @@ namespace MyGUI
 		if (size == 0)
 			return nullptr;
 
-		MYGUI_PLATFORM_LOG(Info, size);
-
 		void* data = nullptr;
 		if (Export::ScopeDataManager_GetData::mExportHandle != nullptr)
 			Export::ScopeDataManager_GetData::mExportHandle(Export::Convert< const std::string& >::To(_name), Export::Convert< void*& >::To(data));
-
-		//MYGUI_PLATFORM_LOG(Info, data);
 
 		if (data == nullptr)
 			return nullptr;
@@ -164,29 +158,10 @@ namespace MyGUI
 		MyGUI::DataMemoryStream* stream = new MyGUI::DataMemoryStream(reinterpret_cast<unsigned char*>(data), size);
 		mDatas[_name] = DataCounter(stream, 1);
 
-		/*MYGUI_PLATFORM_LOG(Info, ((unsigned char*)data)[0]);
-		MYGUI_PLATFORM_LOG(Info, ((unsigned char*)data)[1]);
-		MYGUI_PLATFORM_LOG(Info, ((unsigned char*)data)[2]);
-		MYGUI_PLATFORM_LOG(Info, ((unsigned char*)data)[3]);
-		MYGUI_PLATFORM_LOG(Info, ((unsigned char*)data)[4]);
-		MYGUI_PLATFORM_LOG(Info, ((unsigned char*)data)[5]);
-		MYGUI_PLATFORM_LOG(Info, ((unsigned char*)data)[6]);
-
-		std::stringstream stream((char*)data);
-
-		std::string line;
-		while (!stream.eof())
-		{
-			line.clear();
-			std::getline(stream, line, '\n');
-
-			MYGUI_PLATFORM_LOG(Info, line);
-		}*/
-
 		return stream;
 	}
 
-	void ExportDataManager::destroyData(IDataStream* _data)
+	void ExportDataManager::freeData(IDataStream* _data)
 	{
 		if (_data == nullptr)
 			return;
@@ -213,8 +188,8 @@ namespace MyGUI
 
 		delete _data;
 
-		if (Export::ScopeDataManager_DestroyData::mExportHandle != nullptr)
-			Export::ScopeDataManager_DestroyData::mExportHandle(Export::Convert< const std::string& >::To(name));
+		if (Export::ScopeDataManager_FreeData::mExportHandle != nullptr)
+			Export::ScopeDataManager_FreeData::mExportHandle(Export::Convert< const std::string& >::To(name));
 	}
 
 	bool ExportDataManager::isDataExist(const std::string& _name)
