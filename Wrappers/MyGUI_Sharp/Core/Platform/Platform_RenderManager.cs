@@ -39,19 +39,30 @@ namespace MyGUI.Sharp
 			}
 		}
 
-		/*struct GetDataPath
+		struct VertexBuffer
 		{
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
-			[return: MarshalAs(UnmanagedType.LPStr)]
-			private delegate string HandleDelegate([MarshalAs(UnmanagedType.LPStr)]string _name);
+			private delegate void HandleDelegate([Out, In] ref IntPtr _vertexes, [MarshalAs(UnmanagedType.U4)]uint _size);
 
 			private static HandleDelegate mHandleDelegate;
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-			private static extern void ExportDataManager_DelegateGetDataPath(HandleDelegate _delegate);
+			private static extern void ExportRenderManager_DelegateVertex_Lock(HandleDelegate _delegate);
 
-			private static string OnHandleDelegate(string _name)
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+			private delegate void HandleDelegateUnlock([MarshalAs(UnmanagedType.U4)]uint _id);
+
+			private static HandleDelegateUnlock mHandleDelegateUnlock;
+			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			private static extern void ExportRenderManager_DelegateVertex_Unlock(HandleDelegateUnlock _delegate);
+
+			private static void OnHandleDelegate(ref IntPtr _vertextes, uint _size)
 			{
-				return mDataManager.GetDataPath(_name);
+				mRenderManager.Lock(ref _vertextes, _size);
+			}
+
+			private static void OnHandleDelegateUnlock(uint _id)
+			{
+				mRenderManager.Unlock(_id);
 			}
 
 			public static void Advise(bool _value)
@@ -59,99 +70,50 @@ namespace MyGUI.Sharp
 				if (_value)
 				{
 					mHandleDelegate += OnHandleDelegate;
-					ExportDataManager_DelegateGetDataPath(mHandleDelegate);
+					ExportRenderManager_DelegateVertex_Lock(mHandleDelegate);
+
+					mHandleDelegateUnlock += OnHandleDelegateUnlock;
+					ExportRenderManager_DelegateVertex_Unlock(mHandleDelegateUnlock);
 				}
 				else
 				{
 					mHandleDelegate -= OnHandleDelegate;
-					ExportDataManager_DelegateGetDataPath(null);
+					ExportRenderManager_DelegateVertex_Lock(null);
+
+					mHandleDelegateUnlock -= OnHandleDelegateUnlock;
+					ExportRenderManager_DelegateVertex_Unlock(null);
 				}
 			}
 		}
 
-		struct GetData
+		struct DoRender
 		{
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
-			[return: MarshalAs(UnmanagedType.U4)]
-			private delegate uint HandleDelegateData([MarshalAs(UnmanagedType.LPStr)]string _name, [Out, In] ref IntPtr _data);
+			private delegate void HandleDelegate([MarshalAs(UnmanagedType.U4)]uint _bufferId, [MarshalAs(UnmanagedType.LPStr)]string _texture, [MarshalAs(UnmanagedType.U4)]uint _count);
 
-			private static HandleDelegateData mHandleDelegateData;
+			private static HandleDelegate mHandleDelegate;
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-			private static extern void ExportDataManager_DelegateGetData(HandleDelegateData _delegate);
+			private static extern void ExportRenderManager_DelegateDoRender(HandleDelegate _delegate);
 
-			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
-			private delegate void HandleDelegateFreeData([MarshalAs(UnmanagedType.LPStr)]string _name);
-
-			private static HandleDelegateFreeData mHandleDelegateFreeData;
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-			private static extern void ExportDataManager_DelegateFreeData(HandleDelegateFreeData _delegate);
-
-			private static uint OnHandleDelegateData(string _name, ref IntPtr _data)
+			private static void OnHandleDelegate(uint _bufferId, string _texture, uint _count)
 			{
-				byte[] data = mDataManager.GetData(_name);
-				if (data == null)
-				{
-					_data = IntPtr.Zero;
-					return 0;
-				}
-
-				IntPtr ptr;
-				if (mCashe.TryGetValue(_name, out ptr))
-				{
-					Marshal.FreeHGlobal(ptr);
-					ptr = IntPtr.Zero;
-
-					Log(LogLevel.Warning, string.Format("Cashe for data {0} already exist", _name));
-				}
-
-				ptr = Marshal.AllocHGlobal(data.Length);
-				Marshal.Copy(data, 0, ptr, data.Length);
-				_data = ptr;
-
-				mCashe.Add(_name, ptr);
-
-				return (uint)data.Length;
-			}
-
-			private static void OnHandleDelegateFreeData(string _name)
-			{
-				IntPtr ptr;
-				if (mCashe.TryGetValue(_name, out ptr))
-				{
-					Marshal.FreeHGlobal(ptr);
-					ptr = IntPtr.Zero;
-				}
-				else
-				{
-					Log(LogLevel.Warning, string.Format("Cashe for data {0} not found", _name));
-				}
-
-				mDataManager.FreeData(_name);
+				mRenderManager.DoRender(_bufferId, _texture, _count);
 			}
 
 			public static void Advise(bool _value)
 			{
 				if (_value)
 				{
-					mHandleDelegateData += OnHandleDelegateData;
-					ExportDataManager_DelegateGetData(mHandleDelegateData);
-
-					mHandleDelegateFreeData += OnHandleDelegateFreeData;
-					ExportDataManager_DelegateFreeData(mHandleDelegateFreeData);
+					mHandleDelegate += OnHandleDelegate;
+					ExportRenderManager_DelegateDoRender(mHandleDelegate);
 				}
 				else
 				{
-					mHandleDelegateData -= OnHandleDelegateData;
-					ExportDataManager_DelegateGetData(null);
-
-					mHandleDelegateFreeData -= OnHandleDelegateFreeData;
-					ExportDataManager_DelegateFreeData(null);
+					mHandleDelegate -= OnHandleDelegate;
+					ExportRenderManager_DelegateDoRender(null);
 				}
 			}
-
-			private static Dictionary<string, IntPtr> mCashe = new Dictionary<string, IntPtr>();
-		}*/
-
+		}
 
 		#endregion
 
@@ -180,11 +142,15 @@ namespace MyGUI.Sharp
 			mRenderManager = _renderManager;
 
 			GetTextureSize.Advise(true);
+			VertexBuffer.Advise(true);
+			DoRender.Advise(true);
 		}
 
 		private static void ShutdownRenderManager()
 		{
 			GetTextureSize.Advise(false);
+			VertexBuffer.Advise(false);
+			DoRender.Advise(false);
 
 			mRenderManager = null;
 		}
