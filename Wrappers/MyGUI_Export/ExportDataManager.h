@@ -22,18 +22,7 @@ namespace Export
 			//MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateIsDataExist");
 		}
 	}
-	namespace ScopeDataManager_GetDataPath
-	{
-		typedef Convert<const std::string&>::Type(MYGUICALLBACK *ExportHandle)(
-			Convert<const std::string&>::Type);
-		ExportHandle mExportHandle = nullptr;
-		
-		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateGetDataPath(ExportHandle _delegate)
-		{
-			mExportHandle = _delegate;
-			//MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetDataPath");
-		}
-	}
+
 	namespace ScopeDataManager_GetData
 	{
 		typedef Convert<size_t>::Type(MYGUICALLBACK *ExportHandle)(
@@ -47,6 +36,7 @@ namespace Export
 			//MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetData");
 		}
 	}
+
 	namespace ScopeDataManager_FreeData
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
@@ -57,41 +47,6 @@ namespace Export
 		{
 			mExportHandle = _delegate;
 			//MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateFreeData");
-		}
-	}
-	namespace ScopeDataManager_GetDataListSize
-	{
-		typedef Convert<size_t>::Type(MYGUICALLBACK *ExportHandle)(
-			Convert<const std::string&>::Type);
-		ExportHandle mExportHandle = nullptr;
-		
-		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateGetDataListSize(ExportHandle _delegate)
-		{
-			mExportHandle = _delegate;
-			//MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetDataListSize");
-		}
-	}
-	namespace ScopeDataManager_GetDataListItem
-	{
-		typedef Convert<const std::string&>::Type(MYGUICALLBACK *ExportHandle)(
-			Convert<size_t>::Type);
-		ExportHandle mExportHandle = nullptr;
-		
-		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateGetDataListItem(ExportHandle _delegate)
-		{
-			mExportHandle = _delegate;
-			//MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetDataListItem");
-		}
-	}
-	namespace ScopeDataManager_GetDataListComplete
-	{
-		typedef void (MYGUICALLBACK *ExportHandle)( );
-		ExportHandle mExportHandle = nullptr;
-		
-		MYGUIEXPORT void MYGUICALL ExportDataManager_DelegateGetDataListComplete(ExportHandle _delegate)
-		{
-			mExportHandle = _delegate;
-			//MYGUI_PLATFORM_LOG(Info, "ExportDataManager_DelegateGetDataListComplete");
 		}
 	}
 

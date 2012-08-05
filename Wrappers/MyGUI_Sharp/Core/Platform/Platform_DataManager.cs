@@ -40,36 +40,6 @@ namespace MyGUI.Sharp
 			}
 		}
 
-		struct GetDataPath
-		{
-			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
-			[return: MarshalAs(UnmanagedType.LPStr)]
-			private delegate string HandleDelegate([MarshalAs(UnmanagedType.LPStr)]string _name);
-
-			private static HandleDelegate mHandleDelegate;
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-			private static extern void ExportDataManager_DelegateGetDataPath(HandleDelegate _delegate);
-
-			private static string OnHandleDelegate(string _name)
-			{
-				return mDataManager.GetDataPath(_name);
-			}
-
-			public static void Advise(bool _value)
-			{
-				if (_value)
-				{
-					mHandleDelegate += OnHandleDelegate;
-					ExportDataManager_DelegateGetDataPath(mHandleDelegate);
-				}
-				else
-				{
-					mHandleDelegate -= OnHandleDelegate;
-					ExportDataManager_DelegateGetDataPath(null);
-				}
-			}
-		}
-
 		struct GetData
 		{
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
@@ -153,7 +123,6 @@ namespace MyGUI.Sharp
 			private static Dictionary<string, IntPtr> mCashe = new Dictionary<string, IntPtr>();
 		}
 
-
 		#endregion
 
 		private static void InitialiseDataManager(IPlatformDataManager _dataManager)
@@ -161,14 +130,12 @@ namespace MyGUI.Sharp
 			mDataManager = _dataManager;
 
 			IsDataExist.Advise(true);
-			GetDataPath.Advise(true);
 			GetData.Advise(true);
 		}
 
 		private static void ShutdownDataManager()
 		{
 			IsDataExist.Advise(false);
-			GetDataPath.Advise(false);
 			GetData.Advise(false);
 
 			mDataManager = null;

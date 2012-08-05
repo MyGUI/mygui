@@ -11,9 +11,5 @@ namespace MyGUI.Sharp
 		byte[] GetData(string _name);
 
 		void FreeData(string _name);
-
-		string[] GetDataListNames(string _pattern);
-
-		string GetDataPath(string _name);
 	}
 }

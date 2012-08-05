@@ -94,31 +94,12 @@ namespace MyGUI
 	const VectorString& ExportDataManager::getDataListNames(const std::string& _pattern)
 	{
 		static VectorString result;
-		result.clear();
-
-		size_t count = 0;
-		if (Export::ScopeDataManager_GetDataListSize::mExportHandle != nullptr)
-			count = Export::Convert<size_t>::From(Export::ScopeDataManager_GetDataListSize::mExportHandle(Export::Convert<const std::string&>::To(_pattern)));
-
-		if (Export::ScopeDataManager_GetDataListItem::mExportHandle != nullptr)
-		{
-			for (size_t index = 0; index < count; index ++)
-				result.push_back(Export::Convert<const std::string&>::From(Export::ScopeDataManager_GetDataListItem::mExportHandle(Export::Convert<size_t>::To(index))));
-		}
-
-		if (Export::ScopeDataManager_GetDataListComplete::mExportHandle != nullptr)
-			Export::ScopeDataManager_GetDataListComplete::mExportHandle();
-
 		return result;
 	}
 
 	const std::string& ExportDataManager::getDataPath(const std::string& _name)
 	{
 		static std::string result;
-
-		if (Export::ScopeDataManager_GetDataPath::mExportHandle != nullptr)
-			result = Export::Convert<const std::string&>::From(Export::ScopeDataManager_GetDataPath::mExportHandle(Export::Convert<const std::string&>::To(_name)));
-
 		return result;
 	}
 
