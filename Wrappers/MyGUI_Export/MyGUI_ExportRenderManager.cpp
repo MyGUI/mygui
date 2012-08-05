@@ -13,13 +13,26 @@
 namespace MyGUI
 {
 
-	ExportRenderManager::ExportRenderManager()
+	ExportRenderManager& ExportRenderManager::getInstance()
+	{
+		return *getInstancePtr();
+	}
+
+	ExportRenderManager* ExportRenderManager::getInstancePtr()
+	{
+		return static_cast<ExportRenderManager*>(RenderManager::getInstancePtr());
+	}
+
+	ExportRenderManager::ExportRenderManager() :
+		mUpdate(false)
 	{
 	}
 
 	void ExportRenderManager::initialise()
 	{
 		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
+
+		mUpdate = false;
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
 	}
@@ -63,8 +76,10 @@ namespace MyGUI
 		last_time = now_time;
 
 		begin();
-		onRenderToTarget(this, false);
+		onRenderToTarget(this, mUpdate);
 		end();
+
+		mUpdate = false;
 	}
 
 	void ExportRenderManager::begin()
@@ -116,8 +131,23 @@ namespace MyGUI
 
 	void ExportRenderManager::setViewSize(int _width, int _height)
 	{
+		if (_height == 0)
+			_height = 1;
+		if (_width == 0)
+			_width = 1;
+
 		mViewSize.set(_width, _height);
+
+		mInfo.maximumDepth = 0.0f;
+		mInfo.hOffset = -0.5f / float(mViewSize.width);
+		mInfo.vOffset = -0.5f / float(mViewSize.height);
+		mInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
+		mInfo.pixScaleX = 1.0f / float(mViewSize.width);
+		mInfo.pixScaleY = 1.0f / float(mViewSize.height);
+
 		onResizeView(mViewSize);
+
+		mUpdate = true;
 	}
 
 	void ExportRenderManager::destroyAllTextures()
@@ -125,6 +155,21 @@ namespace MyGUI
 		for (MapTexture::iterator textureIter = mTextures.begin(); textureIter != mTextures.end(); textureIter ++)
 			delete (*textureIter).second;
 		mTextures.clear();
+	}
+
+	const RenderTargetInfo& ExportRenderManager::getInfo()
+	{
+		return mInfo;
+	}
+
+	const IntSize& ExportRenderManager::getViewSize() const
+	{
+		return mViewSize;
+	}
+
+	VertexColourType ExportRenderManager::getVertexFormat()
+	{
+		return VertexColourType::ColourARGB;
 	}
 
 } // namespace MyGUI

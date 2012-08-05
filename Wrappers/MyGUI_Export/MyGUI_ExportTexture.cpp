@@ -53,7 +53,7 @@ namespace MyGUI
 		if (Export::ScopeRenderManager_Texture_LoadFromFile::mExportHandle != nullptr)
 			Export::ScopeRenderManager_Texture_LoadFromFile::mExportHandle(Export::Convert<const std::string&>::To(_filename), Export::Convert<int&>::To(mWidth), Export::Convert<int&>::To(mHeight));
 
-		MYGUI_PLATFORM_LOG(Info, "Texture " << _filename << " , size : " << mWidth << " x " << mHeight);
+		//MYGUI_PLATFORM_LOG(Info, "Texture " << _filename << " , size : " << mWidth << " x " << mHeight);
 	}
 
 	void ExportTexture::saveToFile(const std::string& _filename)
