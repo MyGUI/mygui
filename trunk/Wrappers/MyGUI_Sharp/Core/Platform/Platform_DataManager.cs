@@ -139,6 +139,7 @@ namespace MyGUI.Sharp
 			GetData.Advise(false);
 
 			mDataManager = null;
+			mRenderManager = null;
 		}
 
 		private static IPlatformDataManager mDataManager;
