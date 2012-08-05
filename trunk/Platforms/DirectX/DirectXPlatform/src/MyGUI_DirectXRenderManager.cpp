@@ -178,9 +178,9 @@ namespace MyGUI
 	ITexture* DirectXRenderManager::getTexture(const std::string& _name)
 	{
 		MapTexture::const_iterator item = mTextures.find(_name);
-		if (item == mTextures.end())
-			return nullptr;
-		return item->second;
+		if (item != mTextures.end())
+			return item->second;
+		return nullptr;
 	}
 
 	bool DirectXRenderManager::isFormatSupported(PixelFormat _format, TextureUsage _usage)

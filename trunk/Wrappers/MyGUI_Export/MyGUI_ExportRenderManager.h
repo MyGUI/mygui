@@ -25,26 +25,14 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		static ExportRenderManager& getInstance()
-		{
-			return *getInstancePtr();
-		}
-		static ExportRenderManager* getInstancePtr()
-		{
-			return static_cast<ExportRenderManager*>(RenderManager::getInstancePtr());
-		}
+		static ExportRenderManager& getInstance();
+		static ExportRenderManager* getInstancePtr();
 
 		/** @see RenderManager::getViewSize */
-		virtual const IntSize& getViewSize() const
-		{
-			return mViewSize;
-		}
+		virtual const IntSize& getViewSize() const;
 
 		/** @see RenderManager::getVertexFormat */
-		virtual VertexColourType getVertexFormat()
-		{
-			return VertexColourType::ColourARGB;
-		}
+		virtual VertexColourType getVertexFormat();
 
 		/** @see RenderManager::createVertexBuffer */
 		virtual IVertexBuffer* createVertexBuffer();
@@ -70,10 +58,7 @@ namespace MyGUI
 		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
 
 		/** @see IRenderTarget::getInfo */
-		virtual const RenderTargetInfo& getInfo()
-		{
-			return mInfo;
-		}
+		virtual const RenderTargetInfo& getInfo();
 
 		/*internal:*/
 		void drawOneFrame();
@@ -87,6 +72,7 @@ namespace MyGUI
 		RenderTargetInfo mInfo;
 		typedef std::map<std::string, ExportTexture*> MapTexture;
 		MapTexture mTextures;
+		bool mUpdate;
 	};
 
 } // namespace MyGUI

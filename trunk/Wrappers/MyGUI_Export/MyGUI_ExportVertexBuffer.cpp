@@ -11,12 +11,9 @@
 namespace MyGUI
 {
 
-	const size_t VERTEX_IN_QUAD = 6;
-	const size_t RENDER_ITEM_STEEP_REALLOCK = 5 * VERTEX_IN_QUAD;
-
 	ExportVertexBuffer::ExportVertexBuffer() :
 		mNeedVertexCount(0),
-		mVertexCount(RENDER_ITEM_STEEP_REALLOCK),
+		mVertexCount(0),
 		mSizeInBytes(0)
 	{
 	}
@@ -27,9 +24,10 @@ namespace MyGUI
 
 	void ExportVertexBuffer::setVertexCount(size_t _count)
 	{
-		if (_count != mNeedVertexCount)
+		if (mNeedVertexCount != _count)
 		{
 			mNeedVertexCount = _count;
+			// resize
 		}
 	}
 
