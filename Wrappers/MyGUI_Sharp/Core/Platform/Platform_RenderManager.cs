@@ -10,19 +10,18 @@ namespace MyGUI.Sharp
 
 		#region Export
 
-		/*struct IsDataExist
+		struct GetTextureSize
 		{
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
-			[return: MarshalAs(UnmanagedType.U1)]
-			private delegate bool HandleDelegate([MarshalAs(UnmanagedType.LPStr)]string _name);
+			private delegate void HandleDelegate([MarshalAs(UnmanagedType.LPStr)]string _name, [Out, In]ref int _width, [Out, In]ref int _height);
 
 			private static HandleDelegate mHandleDelegate;
 			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-			private static extern void ExportDataManager_DelegateIsDataExist(HandleDelegate _delegate);
+			private static extern void ExportRenderManager_DelegateTexture_LoadFromFile(HandleDelegate _delegate);
 
-			private static bool OnHandleDelegate(string _name)
+			private static void OnHandleDelegate(string _name, ref int _width, ref int _height)
 			{
-				return mDataManager.IsDataExist(_name);
+				mRenderManager.GetTextureSize(_name, out _width, out _height);
 			}
 
 			public static void Advise(bool _value)
@@ -30,17 +29,17 @@ namespace MyGUI.Sharp
 				if (_value)
 				{
 					mHandleDelegate += OnHandleDelegate;
-					ExportDataManager_DelegateIsDataExist(mHandleDelegate);
+					ExportRenderManager_DelegateTexture_LoadFromFile(mHandleDelegate);
 				}
 				else
 				{
 					mHandleDelegate -= OnHandleDelegate;
-					ExportDataManager_DelegateIsDataExist(null);
+					ExportRenderManager_DelegateTexture_LoadFromFile(null);
 				}
 			}
 		}
 
-		struct GetDataPath
+		/*struct GetDataPath
 		{
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			[return: MarshalAs(UnmanagedType.LPStr)]
@@ -155,6 +154,20 @@ namespace MyGUI.Sharp
 
 
 		#endregion
+
+		private static void InitialiseRenderManager(IPlatformRenderManager _renderManager)
+		{
+			mRenderManager = _renderManager;
+
+			GetTextureSize.Advise(true);
+		}
+
+		private static void ShutdownRenderManager()
+		{
+			GetTextureSize.Advise(false);
+
+			mRenderManager = null;
+		}
 
 		private static IPlatformRenderManager mRenderManager;
 	}

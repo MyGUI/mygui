@@ -12,7 +12,7 @@ namespace Export
 
 	namespace ScopeRenderManager_Texture_LoadFromFile
 	{
-		typedef Convert<bool>::Type(MYGUICALLBACK *ExportHandle)(
+		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<const std::string&>::Type,
 			Convert<int&>::Type,
 			Convert<int&>::Type);

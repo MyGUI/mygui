@@ -12,7 +12,7 @@ namespace Export
 
 	namespace ScopeDataManager_IsDataExist
 	{
-		typedef Convert<bool>::Type(MYGUICALLBACK *ExportHandle)(
+		typedef Convert<bool>::Type (MYGUICALLBACK *ExportHandle)(
 			Convert<const std::string&>::Type);
 		ExportHandle mExportHandle = nullptr;
 		
@@ -25,7 +25,7 @@ namespace Export
 
 	namespace ScopeDataManager_GetData
 	{
-		typedef Convert<size_t>::Type(MYGUICALLBACK *ExportHandle)(
+		typedef Convert<size_t>::Type (MYGUICALLBACK *ExportHandle)(
 			Convert<const std::string&>::Type,
 			Convert<void*&>::Type);
 		ExportHandle mExportHandle = nullptr;

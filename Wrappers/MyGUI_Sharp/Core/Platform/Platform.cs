@@ -61,14 +61,16 @@ namespace MyGUI.Sharp
 
 		#region Platform
 
-		public static void InitialisePlatform(IPlatformDataManager _dataManager)
+		public static void InitialisePlatform(IPlatformDataManager _dataManager, IPlatformRenderManager _renderManager)
 		{
 			InitialiseDataManager(_dataManager);
+			InitialiseRenderManager(_renderManager);
 		}
 
 		public static void ShutdownPlatform()
 		{
 			ShutdownDataManager();
+			ShutdownRenderManager();
 		}
 
 		#endregion
