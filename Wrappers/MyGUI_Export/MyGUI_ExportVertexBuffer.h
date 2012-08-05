@@ -26,10 +26,14 @@ namespace MyGUI
 		virtual Vertex* lock();
 		virtual void unlock();
 
+		/*internal:*/
+		size_t getId();
+
 	private:
 		size_t mVertexCount;
 		size_t mNeedVertexCount;
 		size_t mSizeInBytes;
+		size_t mId;
 	};
 
 } // namespace MyGUI

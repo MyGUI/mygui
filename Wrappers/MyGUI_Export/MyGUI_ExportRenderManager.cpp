@@ -9,6 +9,7 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_Timer.h"
 #include "MyGUI_ExportVertexBuffer.h"
+#include "ExportRenderManager.h"
 
 namespace MyGUI
 {
@@ -58,6 +59,14 @@ namespace MyGUI
 
 	void ExportRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
+		if (_texture == nullptr || _buffer == nullptr || _count == 0)
+			return;
+
+		ExportTexture* texture = static_cast<ExportTexture*>(_texture);
+		ExportVertexBuffer* vertexes = static_cast<ExportVertexBuffer*>(_buffer);
+
+		if (Export::ScopeRenderManager_DoRender::mExportHandle != nullptr)
+			Export::ScopeRenderManager_DoRender::mExportHandle(Export::Convert<size_t>::To(vertexes->getId()), Export::Convert<const std::string&>::To(texture->getName()), Export::Convert<size_t>::To(_count));
 	}
 
 	void ExportRenderManager::drawOneFrame()

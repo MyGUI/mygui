@@ -155,6 +155,26 @@ namespace MyGUI.Sharp
 
 		#endregion
 
+		#region Export
+
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportRenderManager_SetViewSize([MarshalAs(UnmanagedType.I4)]int _width, [MarshalAs(UnmanagedType.I4)]int _height);
+
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportRenderManager_DrawOneFrame();
+
+		#endregion
+
+		public static void SetViewSize(int _width, int _height)
+		{
+			ExportRenderManager_SetViewSize(_width, _height);
+		}
+
+		public static void DrawOneFrame()
+		{
+			ExportRenderManager_DrawOneFrame();
+		}
+
 		private static void InitialiseRenderManager(IPlatformRenderManager _renderManager)
 		{
 			mRenderManager = _renderManager;

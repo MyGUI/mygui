@@ -7,6 +7,7 @@
 #include "MyGUI_ExportVertexBuffer.h"
 #include "MyGUI_VertexData.h"
 #include "MyGUI_ExportDiagnostic.h"
+#include "ExportVertexBuffer.h"
 
 namespace MyGUI
 {
@@ -14,8 +15,10 @@ namespace MyGUI
 	ExportVertexBuffer::ExportVertexBuffer() :
 		mNeedVertexCount(0),
 		mVertexCount(0),
-		mSizeInBytes(0)
+		mSizeInBytes(0),
+		mId(0)
 	{
+		mId = (size_t)this;
 	}
 
 	ExportVertexBuffer::~ExportVertexBuffer()
@@ -24,11 +27,7 @@ namespace MyGUI
 
 	void ExportVertexBuffer::setVertexCount(size_t _count)
 	{
-		if (mNeedVertexCount != _count)
-		{
-			mNeedVertexCount = _count;
-			// resize
-		}
+		mNeedVertexCount = _count;
 	}
 
 	size_t ExportVertexBuffer::getVertexCount()
@@ -38,11 +37,23 @@ namespace MyGUI
 
 	Vertex* ExportVertexBuffer::lock()
 	{
-		return nullptr;
+		void* vertexes = nullptr;
+
+		if (Export::ScopeRenderManager_Vertex_Lock::mExportHandle != nullptr)
+			Export::ScopeRenderManager_Vertex_Lock::mExportHandle(Export::Convert<void*&>::To(vertexes), Export::Convert<size_t>::To(mNeedVertexCount));
+
+		return reinterpret_cast<Vertex*>(vertexes);
 	}
 
 	void ExportVertexBuffer::unlock()
 	{
+		if (Export::ScopeRenderManager_Vertex_Unlock::mExportHandle != nullptr)
+			Export::ScopeRenderManager_Vertex_Unlock::mExportHandle(Export::Convert<size_t>::To(mId));
+	}
+
+	size_t ExportVertexBuffer::getId()
+	{
+		return mId;
 	}
 
 } // namespace MyGUI

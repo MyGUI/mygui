@@ -178,5 +178,11 @@
     <ClInclude Include="ExportTexture.h">
       <Filter>Header Files\Platform</Filter>
     </ClInclude>
+    <ClInclude Include="ExportVertexBuffer.h">
+      <Filter>Header Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="ExportRenderManager.h">
+      <Filter>Header Files\Platform</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
