@@ -19,6 +19,18 @@ namespace Export
 		mPlatform = nullptr;
 	}
 
+	MYGUIEXPORT void MYGUICALL ExportRenderManager_DrawOneFrame()
+	{
+		mPlatform->getRenderManagerPtr()->drawOneFrame();
+	}
+
+	MYGUIEXPORT void MYGUICALL ExportRenderManager_SetViewSize(
+		Convert<int>::Type _width,
+		Convert<int>::Type _height)
+	{
+		mPlatform->getRenderManagerPtr()->setViewSize(_width, _height);
+	}
+
 	MYGUIEXPORT void MYGUICALL ExportPlatform_Log(
 		Convert<MyGUI::LogLevel>::Type _level,
 		Convert<const std::string&>::Type _message )
