@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyGUI_ExportDataManager.cpp" />
+    <ClCompile Include="MyGUI_ExportPlatform.cpp" />
     <ClCompile Include="MyGUI_ExportRenderManager.cpp" />
     <ClCompile Include="ExportGui.cpp" />
     <ClCompile Include="ExportInputManager.cpp" />

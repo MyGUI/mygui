@@ -77,6 +77,9 @@
     <ClCompile Include="MyGUI_ExportVertexBuffer.cpp">
       <Filter>Source Files\Platform</Filter>
     </ClCompile>
+    <ClCompile Include="MyGUI_ExportPlatform.cpp">
+      <Filter>Source Files\Platform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExportDefine.h">
