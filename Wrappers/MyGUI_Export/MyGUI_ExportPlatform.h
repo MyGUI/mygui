@@ -19,50 +19,14 @@ namespace MyGUI
 	class ExportPlatform
 	{
 	public:
-		ExportPlatform() :
-			mLogManager(nullptr),
-			mRenderManager(nullptr),
-			mDataManager(nullptr)
-		{
-			mLogManager = new LogManager();
-			mRenderManager = new ExportRenderManager();
-			mDataManager = new ExportDataManager();
-		}
+		ExportPlatform();
+		~ExportPlatform();
 
-		~ExportPlatform()
-		{
-			delete mRenderManager;
-			mRenderManager = nullptr;
-			delete mDataManager;
-			mDataManager = nullptr;
-			delete mLogManager;
-			mLogManager = nullptr;
-		}
+		void initialise(const std::string& _logName = MYGUI_PLATFORM_LOG_FILENAME);
+		void shutdown();
 
-		void initialise(const std::string& _logName = MYGUI_PLATFORM_LOG_FILENAME)
-		{
-			if (!_logName.empty())
-				LogManager::getInstance().createDefaultSource(_logName);
-
-			mRenderManager->initialise();
-			mDataManager->initialise();
-		}
-
-		void shutdown()
-		{
-			mRenderManager->shutdown();
-			mDataManager->shutdown();
-		}
-
-		ExportRenderManager* getRenderManagerPtr()
-		{
-			return mRenderManager;
-		}
-
-		ExportDataManager* getDataManagerPtr()
-		{
-			return mDataManager;
-		}
+		ExportRenderManager* getRenderManagerPtr();
+		ExportDataManager* getDataManagerPtr();
 
 	private:
 		ExportRenderManager* mRenderManager;
