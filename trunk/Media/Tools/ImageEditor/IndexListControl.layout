@@ -14,7 +14,7 @@
             <UserString key="ControlType" value="ListBoxDataControl"/>
             <Widget type="EditBox" skin="EditBoxEmpty_Dark" position="0 0 244 431" align="Stretch" name="HelpPanel">
                 <Property key="Caption" value="#{IndexListControlHelp}"/>
-                <Property key="FontName" value="DejaVuSans_28"/>
+                <Property key="FontName" value="DejaVuSansFont_28"/>
                 <Property key="TextAlign" value="Center"/>
                 <Property key="MultiLine" value="true"/>
                 <Property key="WordWrap" value="true"/>

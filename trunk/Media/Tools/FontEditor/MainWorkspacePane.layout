@@ -22,7 +22,7 @@
             <Widget type="Widget" skin="Panel1Skin_Dark" position="0 669 355 56" align="HStretch Bottom">
                 <Widget type="Button" skin="Button_Dark" position="6 6 343 44" align="Stretch">
                     <Property key="Caption" value="#{GenerateFont}"/>
-                    <Property key="FontName" value="DejaVuSans_28"/>
+                    <Property key="FontName" value="DejaVuSansFont_28"/>
                     <UserString key="CommandClick" value="Command_GenerateFont"/>
                 </Widget>
             </Widget>
