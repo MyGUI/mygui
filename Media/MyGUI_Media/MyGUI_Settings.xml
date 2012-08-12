@@ -2,6 +2,7 @@
 <MyGUI>
 	<MyGUI type="Font">
 		<Property key="Default" value="DejaVuSansFont_15"/>
+		<Property key="DefaultGenerated" value="DejaVuSansFontGenerated_15"/>
 	</MyGUI>
 	<MyGUI type="Pointer">
 		<Property key="Default" value="arrow"/>

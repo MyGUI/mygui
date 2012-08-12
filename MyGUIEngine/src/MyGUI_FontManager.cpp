@@ -192,7 +192,11 @@ namespace MyGUI
 			{
 				const std::string& key = font->findAttribute("key");
 				const std::string& value = font->findAttribute("value");
+#ifdef MYGUI_USE_FREETYPE
 				if (key == "Default")
+#else
+				if (key == "DefaultGenerated")
+#endif
 					mDefaultName = value;
 			}
 		}
