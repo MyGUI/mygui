@@ -17,7 +17,8 @@ namespace Export
 			Convert<size_t>::Type _index,
 			Convert<void*&>::Type _buffer,
 			Convert<size_t&>::Type _countVertex,
-			Convert<size_t&>::Type _id,
+			Convert<size_t&>::Type _vertexId,
+			Convert<size_t&>::Type _textureId,
 			Convert<bool&>::Type _change)
 		{
 			MyGUI::RenderBatchInfo* info = MyGUI::ExportRenderManager::getInstance().getBatchInfo(_index);
@@ -26,10 +27,27 @@ namespace Export
 
 			_buffer = info->Buffer->lock();
 			_countVertex = info->Buffer->getVertexCount();
-			_id = info->Buffer->getId();
+			_vertexId = info->Buffer->getId();
+			_textureId = info->Texture->getId();
 			_change = info->Buffer->getChange();
 
 			return true;
+		}
+	}
+
+	namespace ScopeRenderManager_AddTexture
+	{
+		MYGUIEXPORT void MYGUICALL ExportRenderManager_AddTexture(
+			Convert<const std::string&>::Type _name,
+			Convert<size_t>::Type _id,
+			Convert<int>::Type _width,
+			Convert<int>::Type _height)
+		{
+			MyGUI::ExportRenderManager::getInstance().addTexture(
+				Convert<const std::string&>::From(_name),
+				Convert<size_t>::From(_id),
+				Convert<int>::From(_width),
+				Convert<int>::From(_height));
 		}
 	}
 

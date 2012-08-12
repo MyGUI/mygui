@@ -17,7 +17,8 @@ namespace MyGUI
 		mName(_name),
 		mWidth(0),
 		mHeight(0),
-		mNumElemBytes(0)
+		mNumElemBytes(0),
+		mId(0)
 	{
 	}
 
@@ -33,8 +34,6 @@ namespace MyGUI
 
 	void ExportTexture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format)
 	{
-		mWidth = 1024;
-		mHeight = 256;
 	}
 
 	void ExportTexture::destroy()
@@ -52,12 +51,6 @@ namespace MyGUI
 
 	void ExportTexture::loadFromFile(const std::string& _filename)
 	{
-		/*if (Export::ScopeRenderManager_Texture_LoadFromFile::mExportHandle != nullptr)
-			Export::ScopeRenderManager_Texture_LoadFromFile::mExportHandle(Export::Convert<const std::string&>::To(_filename), Export::Convert<int&>::To(mWidth), Export::Convert<int&>::To(mHeight));*/
-
-		//MYGUI_PLATFORM_LOG(Info, "Texture " << _filename << " , size : " << mWidth << " x " << mHeight);
-		mWidth = 1024;
-		mHeight = 256;
 	}
 
 	void ExportTexture::saveToFile(const std::string& _filename)
@@ -97,6 +90,26 @@ namespace MyGUI
 	IRenderTarget* ExportTexture::getRenderTarget()
 	{
 		return nullptr;
+	}
+
+	void ExportTexture::setId(size_t _id)
+	{
+		mId = _id;
+	}
+
+	size_t ExportTexture::getId() const
+	{
+		return mId;
+	}
+
+	void ExportTexture::setWidth(int _value)
+	{
+		mWidth = _value;
+	}
+
+	void ExportTexture::setHeight(int _value)
+	{
+		mHeight = _value;
 	}
 
 }

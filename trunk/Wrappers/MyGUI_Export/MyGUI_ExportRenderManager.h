@@ -67,6 +67,7 @@ namespace MyGUI
 		void setViewSize(int _width, int _height);
 
 		RenderBatchInfo* getBatchInfo(size_t _index);
+		void addTexture(const std::string& _name, size_t _id, int _width, int _height);
 
 	private:
 		void destroyAllTextures();
