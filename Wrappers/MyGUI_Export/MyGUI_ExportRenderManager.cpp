@@ -162,6 +162,8 @@ namespace MyGUI
 
 		onResizeView(mViewSize);
 
+		MYGUI_PLATFORM_LOG(Info, "View size : " << mViewSize.print());
+
 		mUpdate = true;
 	}
 
@@ -200,6 +202,8 @@ namespace MyGUI
 		texture->setId(_id);
 		texture->setWidth(_width);
 		texture->setHeight(_height);
+
+		MYGUI_PLATFORM_LOG(Info, "Texture : " << _name << " , " << _width << " x " << _height);
 
 		mTextures[_name] = texture;
 	}
