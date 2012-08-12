@@ -56,4 +56,4 @@ namespace MyGUI
 		return mDataManager;
 	}
 
-} // namespace MyGUI
+}

@@ -4,8 +4,8 @@
 	@date		08/2012
 */
 
-#ifndef __MYGUI_EXPORT_DATA_MANAGER_H__
-#define __MYGUI_EXPORT_DATA_MANAGER_H__
+#ifndef _e5216f11_26e7_4658_a14b_ecd7c54a3207_
+#define _e5216f11_26e7_4658_a14b_ecd7c54a3207_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_DataManager.h"
@@ -53,6 +53,6 @@ namespace MyGUI
 		VectorArhivInfo mPaths;
 	};
 
-} // namespace MyGUI
+}
 
-#endif // __MYGUI_EXPORT_DATA_MANAGER_H__
+#endif

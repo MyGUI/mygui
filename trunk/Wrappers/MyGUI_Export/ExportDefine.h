@@ -4,8 +4,9 @@
 	@date		11/2007
 	@module
 */
-#ifndef __EXPORT_DEFINE_H__
-#define __EXPORT_DEFINE_H__
+
+#ifndef _3dd2ef40_ae18_44a3_aa18_5909c0c05ea2_
+#define _3dd2ef40_ae18_44a3_aa18_5909c0c05ea2_
 
 #define MYGUIEXPORT extern "C" __declspec( dllexport )
 #define MYGUICALL __cdecl
@@ -26,4 +27,4 @@ namespace Export
 	MyGUI::WidgetPtr GetNativeByWrapper(Interface _wrapper);
 }
 
-#endif // __EXPORT_DEFINE_H__
+#endif

@@ -4,8 +4,8 @@
 	@date		08/2012
 */
 
-#ifndef __MYGUI_EXPORT_TEXTURE_H__
-#define __MYGUI_EXPORT_TEXTURE_H__
+#ifndef _16ba0d4a_d7f9_41a3_b671_cb0aa8ca2276_
+#define _16ba0d4a_d7f9_41a3_b671_cb0aa8ca2276_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ITexture.h"
@@ -51,6 +51,6 @@ namespace MyGUI
 		TextureUsage mOriginalUsage;
 	};
 
-} // namespace MyGUI
+}
 
-#endif // __MYGUI_EXPORT_TEXTURE_H__
+#endif

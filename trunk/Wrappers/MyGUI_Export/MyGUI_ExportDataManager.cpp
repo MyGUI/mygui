@@ -118,4 +118,4 @@ namespace MyGUI
 		mPaths.push_back(info);
 	}
 
-} // namespace MyGUI
+}

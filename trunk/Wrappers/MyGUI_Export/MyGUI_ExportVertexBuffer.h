@@ -4,8 +4,8 @@
 	@date		08/2012
 */
 
-#ifndef __MYGUI_EXPORT_VERTEX_BUFFER_H__
-#define __MYGUI_EXPORT_VERTEX_BUFFER_H__
+#ifndef _e31e1880_266b_4159_8bf6_bdc04ea3332e_
+#define _e31e1880_266b_4159_8bf6_bdc04ea3332e_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IVertexBuffer.h"
@@ -28,14 +28,18 @@ namespace MyGUI
 
 		/*internal:*/
 		size_t getId();
+		void setChange(bool _value);
+		bool getChange() const;
 
 	private:
 		size_t mVertexCount;
 		size_t mNeedVertexCount;
 		size_t mSizeInBytes;
 		size_t mId;
+		Vertex* mVertex;
+		bool mChange;
 	};
 
-} // namespace MyGUI
+}
 
-#endif // __MYGUI_EXPORT_VERTEX_BUFFER_H__
+#endif
