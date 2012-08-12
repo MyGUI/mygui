@@ -8,7 +8,6 @@
 #include "MyGUI_ExportRenderManager.h"
 #include "MyGUI_ExportDiagnostic.h"
 #include "MyGUI_ExportPlatform.h"
-#include "ExportTexture.h"
 
 namespace MyGUI
 {

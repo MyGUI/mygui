@@ -7,7 +7,6 @@
 #include "MyGUI_ExportVertexBuffer.h"
 #include "MyGUI_VertexData.h"
 #include "MyGUI_ExportDiagnostic.h"
-#include "ExportVertexBuffer.h"
 
 namespace MyGUI
 {

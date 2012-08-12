@@ -117,8 +117,6 @@
     <ClCompile Include="MyGUI_ExportVertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ExportTexture.h" />
-    <ClInclude Include="ExportVertexBuffer.h" />
     <ClInclude Include="MyGUI_ExportDataManager.h" />
     <ClInclude Include="MyGUI_ExportDiagnostic.h" />
     <ClInclude Include="MyGUI_ExportPlatform.h" />

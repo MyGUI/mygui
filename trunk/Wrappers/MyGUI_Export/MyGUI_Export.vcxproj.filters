@@ -181,12 +181,6 @@
     <ClInclude Include="MyGUI_ExportVertexBuffer.h">
       <Filter>Header Files\Platform</Filter>
     </ClInclude>
-    <ClInclude Include="ExportTexture.h">
-      <Filter>Header Files\Platform</Filter>
-    </ClInclude>
-    <ClInclude Include="ExportVertexBuffer.h">
-      <Filter>Header Files\Platform</Filter>
-    </ClInclude>
     <ClInclude Include="RenderBatchInfo.h">
       <Filter>Header Files\Platform</Filter>
     </ClInclude>
