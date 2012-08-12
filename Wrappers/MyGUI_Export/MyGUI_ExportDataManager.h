@@ -22,14 +22,8 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
-		static ExportDataManager& getInstance()
-		{
-			return *getInstancePtr();
-		}
-		static ExportDataManager* getInstancePtr()
-		{
-			return static_cast<ExportDataManager*>(DataManager::getInstancePtr());
-		}
+		static ExportDataManager& getInstance();
+		static ExportDataManager* getInstancePtr();
 
 		/** @see DataManager::getData(const std::string& _name) */
 		virtual IDataStream* getData(const std::string& _name);
@@ -46,10 +40,17 @@ namespace MyGUI
 		/** @see DataManager::getDataPath(const std::string& _name) */
 		virtual const std::string& getDataPath(const std::string& _name);
 
+	/*internal:*/
+		void addResourceLocation(const std::string& _path, bool _recursive);
+
 	private:
-		typedef std::pair<MyGUI::IDataStream*, size_t> DataCounter;
-		typedef std::map<std::string, DataCounter> MapData;
-		MapData mDatas;
+		struct ArhivInfo
+		{
+			std::wstring name;
+			bool recursive;
+		};
+		typedef std::vector<ArhivInfo> VectorArhivInfo;
+		VectorArhivInfo mPaths;
 	};
 
 } // namespace MyGUI

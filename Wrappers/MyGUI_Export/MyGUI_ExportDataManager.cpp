@@ -6,11 +6,21 @@
 
 #include "MyGUI_ExportDataManager.h"
 #include "MyGUI_ExportDiagnostic.h"
-#include "MyGUI_DataMemoryStream.h"
-#include "ExportDataManager.h"
+#include "MyGUI_DataFileStream.h"
+#include "FileSystemInfo/FileSystemInfo.h"
 
 namespace MyGUI
 {
+
+	ExportDataManager& ExportDataManager::getInstance()
+	{
+		return *getInstancePtr();
+	}
+
+	ExportDataManager* ExportDataManager::getInstancePtr()
+	{
+		return static_cast<ExportDataManager*>(DataManager::getInstancePtr());
+	}
 
 	ExportDataManager::ExportDataManager()
 	{
@@ -32,75 +42,80 @@ namespace MyGUI
 
 	IDataStream* ExportDataManager::getData(const std::string& _name)
 	{
-		MapData::iterator item = mDatas.find(_name);
-		if (item != mDatas.end())
-		{
-			(*item).second.second ++;
-			return (*item).second.first;
-		}
-
-		size_t size = 0;
-		void* data = nullptr;
-		if (Export::ScopeDataManager_GetData::mExportHandle != nullptr)
-			size = Export::Convert<size_t>::From(Export::ScopeDataManager_GetData::mExportHandle(Export::Convert<const std::string&>::To(_name), Export::Convert<void*&>::To(data)));
-
-		if (data == nullptr)
+		std::string filepath = getDataPath(_name);
+		if (filepath.empty())
 			return nullptr;
 
-		MyGUI::DataMemoryStream* stream = new MyGUI::DataMemoryStream(reinterpret_cast<unsigned char*>(data), size);
-		mDatas[_name] = DataCounter(stream, 1);
+		std::ifstream* stream = new std::ifstream();
+		stream->open(filepath.c_str(), std::ios_base::binary);
 
-		return stream;
+		if (!stream->is_open())
+		{
+			delete stream;
+			return nullptr;
+		}
+
+		DataFileStream* data = new DataFileStream(stream);
+
+		return data;
 	}
 
 	void ExportDataManager::freeData(IDataStream* _data)
 	{
-		if (_data == nullptr)
-			return;
-
-		std::string name;
-
-		for (MapData::iterator item = mDatas.begin(); item != mDatas.end(); item ++)
-		{
-			if ((*item).second.first == _data)
-			{
-				if ((*item).second.second > 1)
-				{
-					(*item).second.second --;
-					return;
-				}
-				else
-				{
-					name = (*item).first;
-					mDatas.erase(item);
-					break;
-				}
-			}
-		}
-
 		delete _data;
-
-		if (Export::ScopeDataManager_FreeData::mExportHandle != nullptr)
-			Export::ScopeDataManager_FreeData::mExportHandle(Export::Convert<const std::string&>::To(name));
 	}
 
 	bool ExportDataManager::isDataExist(const std::string& _name)
 	{
-		if (Export::ScopeDataManager_IsDataExist::mExportHandle != nullptr)
-			return Export::Convert<bool>::From(Export::ScopeDataManager_IsDataExist::mExportHandle(Export::Convert<const std::string&>::To(_name)));
-		return false;
+		const VectorString& files = getDataListNames(_name);
+		return files.size() == 1;
 	}
 
 	const VectorString& ExportDataManager::getDataListNames(const std::string& _pattern)
 	{
 		static VectorString result;
+		common::VectorWString wresult;
+		result.clear();
+
+		for (VectorArhivInfo::const_iterator item = mPaths.begin(); item != mPaths.end(); ++item)
+		{
+			common::scanFolder(wresult, (*item).name, (*item).recursive, MyGUI::UString(_pattern).asWStr(), false);
+		}
+
+		for (common::VectorWString::const_iterator item = wresult.begin(); item != wresult.end(); ++item)
+		{
+			result.push_back(MyGUI::UString(*item).asUTF8());
+		}
+
 		return result;
 	}
 
 	const std::string& ExportDataManager::getDataPath(const std::string& _name)
 	{
-		static std::string result;
-		return result;
+		static std::string path;
+		VectorString result;
+		common::VectorWString wresult;
+
+		for (VectorArhivInfo::const_iterator item = mPaths.begin(); item != mPaths.end(); ++item)
+		{
+			common::scanFolder(wresult, (*item).name, (*item).recursive, MyGUI::UString(_name).asWStr(), true);
+		}
+
+		for (common::VectorWString::const_iterator item = wresult.begin(); item != wresult.end(); ++item)
+		{
+			result.push_back(MyGUI::UString(*item).asUTF8());
+		}
+
+		path = result.size() == 1 ? result[0] : "";
+		return path;
+	}
+
+	void ExportDataManager::addResourceLocation(const std::string& _path, bool _recursive)
+	{
+		ArhivInfo info;
+		info.name = MyGUI::UString(_path).asWStr();
+		info.recursive = _recursive;
+		mPaths.push_back(info);
 	}
 
 } // namespace MyGUI
