@@ -41,6 +41,7 @@
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_ToolTipManager.h"
+#include "MyGUI_TextureUtility.h"
 
 namespace MyGUI
 {
@@ -186,6 +187,9 @@ namespace MyGUI
 		delete mResourceManager;
 		delete mFactoryManager;
 		delete mToolTipManager;
+
+		// сбрасываем кеш
+		texture_utility::getTextureSize("", false);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
