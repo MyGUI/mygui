@@ -25,6 +25,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ISubWidget.h"
 #include "MyGUI_Colour.h"
+#include "MyGUI_Constants.h"
 
 namespace MyGUI
 {
@@ -137,8 +138,7 @@ namespace MyGUI
 		virtual void setCaption(const UString& _value) { }
 		virtual const UString& getCaption() const
 		{
-			static UString caption;
-			return caption;
+			return Constants::getEmptyUString();
 		}
 
 		virtual void setTextColour(const Colour& _value) { }
@@ -150,8 +150,7 @@ namespace MyGUI
 		virtual void setFontName(const std::string& _value) { }
 		virtual const std::string& getFontName() const
 		{
-			static std::string name;
-			return name;
+			return Constants::getEmptyString();
 		}
 
 		virtual void setFontHeight(int _value) { }

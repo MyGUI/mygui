@@ -66,22 +66,24 @@ namespace MyGUI
 		{
 			mCountVertex = 0;
 			Vertex* buffer = mVertexBuffer->lock();
-
-			for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
+			if (buffer != nullptr)
 			{
-				// перед вызовом запоминаем позицию в буфере
-				mCurrentVertex = buffer;
-				mLastVertexCount = 0;
+				for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
+				{
+					// перед вызовом запоминаем позицию в буфере
+					mCurrentVertex = buffer;
+					mLastVertexCount = 0;
 
-				(*iter).first->doRender();
+					(*iter).first->doRender();
 
-				// колличество отрисованных вершин
-				MYGUI_DEBUG_ASSERT(mLastVertexCount <= (*iter).second, "It is too much vertexes");
-				buffer += mLastVertexCount;
-				mCountVertex += mLastVertexCount;
+					// колличество отрисованных вершин
+					MYGUI_DEBUG_ASSERT(mLastVertexCount <= (*iter).second, "It is too much vertexes");
+					buffer += mLastVertexCount;
+					mCountVertex += mLastVertexCount;
+				}
+
+				mVertexBuffer->unlock();
 			}
-
-			mVertexBuffer->unlock();
 
 			mOutOfDate = false;
 		}

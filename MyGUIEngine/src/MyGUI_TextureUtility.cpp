@@ -24,6 +24,7 @@
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_DataManager.h"
 #include "MyGUI_Bitwise.h"
+#include "MyGUI_Constants.h"
 
 namespace MyGUI
 {
@@ -33,52 +34,51 @@ namespace MyGUI
 
 		const IntSize& getTextureSize(const std::string& _texture, bool _cache)
 		{
-			// предыдущя текстура
-			static std::string old_texture;
-			static IntSize old_size;
+			static std::string prevTexture;
+			static IntSize prevSize;
 
-			if (old_texture == _texture && _cache)
-				return old_size;
-			old_texture = _texture;
-			old_size.clear();
+			if (prevTexture == _texture && _cache)
+				return prevSize;
+
+			prevTexture.clear();
+			prevSize.clear();
 
 			if (_texture.empty())
-				return old_size;
+				return Constants::getZeroIntSize();
 
 			RenderManager& render = RenderManager::getInstance();
-
-			if (nullptr == render.getTexture(_texture))
-			{
-				if (!DataManager::getInstance().isDataExist(_texture))
-				{
-					MYGUI_LOG(Error, "Texture '" + _texture + "' not found");
-					return old_size;
-				}
-				else
-				{
-					ITexture* texture = render.createTexture(_texture);
-					if (texture != nullptr)
-						texture->loadFromFile(_texture);
-				}
-			}
 
 			ITexture* texture = render.getTexture(_texture);
 			if (texture == nullptr)
 			{
-				MYGUI_LOG(Error, "Texture '" + _texture + "' not found");
-				return old_size;
+				if (!DataManager::getInstance().isDataExist(_texture))
+				{
+					MYGUI_LOG(Error, "Texture '" + _texture + "' not found");
+					return Constants::getZeroIntSize();
+				}
+				else
+				{
+					texture = render.createTexture(_texture);
+					if (texture == nullptr)
+					{
+						MYGUI_LOG(Error, "Texture '" + _texture + "' not found");
+						return Constants::getZeroIntSize();
+					}
+					texture->loadFromFile(_texture);
+				}
 			}
 
-			old_size.set(texture->getWidth(), texture->getHeight());
+			prevSize = IntSize(texture->getWidth(), texture->getHeight());
+			prevTexture = _texture;
 
 	#if MYGUI_DEBUG_MODE == 1
-			if (!Bitwise::isPO2(old_size.width) || !Bitwise::isPO2(old_size.height))
+			if (!Bitwise::isPO2(prevSize.width) || !Bitwise::isPO2(prevSize.height))
 			{
 				MYGUI_LOG(Warning, "Texture '" + _texture + "' have non power of two size");
 			}
 	#endif
 
-			return old_size;
+			return prevSize;
 		}
 
 		uint32 toColourARGB(const Colour& _colour)
