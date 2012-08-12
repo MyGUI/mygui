@@ -4,13 +4,16 @@
 	@date		08/2012
 */
 
+#ifndef _30b6abc0_b2dc_4143_801b_641de01fe4a4_
+#define _30b6abc0_b2dc_4143_801b_641de01fe4a4_
+
 #include "ExportDefine.h"
 #include "ExportMarshaling.h"
 
 namespace Export
 {
 
-	namespace ScopeRenderManager_Vertex_Lock
+	/*namespace ScopeRenderManager_Vertex_Lock
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
 			Convert<void*&>::Type,
@@ -33,6 +36,8 @@ namespace Export
 		{
 			mExportHandle = _delegate;
 		}
-	}
+	}*/
 
 }
+
+#endif

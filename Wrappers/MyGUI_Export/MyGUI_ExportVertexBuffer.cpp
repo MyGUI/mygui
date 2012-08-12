@@ -16,18 +16,33 @@ namespace MyGUI
 		mNeedVertexCount(0),
 		mVertexCount(0),
 		mSizeInBytes(0),
-		mId(0)
+		mId(0),
+		mVertex(nullptr),
+		mChange(false)
 	{
 		mId = (size_t)this;
 	}
 
 	ExportVertexBuffer::~ExportVertexBuffer()
 	{
+		if (mVertex != nullptr)
+		{
+			delete mVertex;
+			mVertex = nullptr;
+		}
 	}
 
 	void ExportVertexBuffer::setVertexCount(size_t _count)
 	{
 		mNeedVertexCount = _count;
+
+		if (mVertex != nullptr)
+		{
+			delete mVertex;
+			mVertex = nullptr;
+		}
+
+		mVertex = new Vertex[mNeedVertexCount];
 	}
 
 	size_t ExportVertexBuffer::getVertexCount()
@@ -37,18 +52,12 @@ namespace MyGUI
 
 	Vertex* ExportVertexBuffer::lock()
 	{
-		void* vertexes = nullptr;
-
-		if (Export::ScopeRenderManager_Vertex_Lock::mExportHandle != nullptr)
-			Export::ScopeRenderManager_Vertex_Lock::mExportHandle(Export::Convert<void*&>::To(vertexes), Export::Convert<size_t>::To(mNeedVertexCount));
-
-		return reinterpret_cast<Vertex*>(vertexes);
+		return mVertex;
 	}
 
 	void ExportVertexBuffer::unlock()
 	{
-		if (Export::ScopeRenderManager_Vertex_Unlock::mExportHandle != nullptr)
-			Export::ScopeRenderManager_Vertex_Unlock::mExportHandle(Export::Convert<size_t>::To(mId));
+		mChange = true;
 	}
 
 	size_t ExportVertexBuffer::getId()
@@ -56,4 +65,14 @@ namespace MyGUI
 		return mId;
 	}
 
-} // namespace MyGUI
+	void ExportVertexBuffer::setChange(bool _value)
+	{
+		mChange = _value;
+	}
+
+	bool ExportVertexBuffer::getChange() const
+	{
+		return mChange;
+	}
+
+}

@@ -4,8 +4,9 @@
 	@date		01/2009
 	@module
 */
-#ifndef __EXPORT_MARSHALING_TYPE_H__
-#define __EXPORT_MARSHALING_TYPE_H__
+
+#ifndef _df0a1361_ff6e_4b10_8c28_9638c612ff54_
+#define _df0a1361_ff6e_4b10_8c28_9638c612ff54_
 
 #include "Generate/MyGUI_Export_MarshalingWidget.h"
 
@@ -34,6 +35,6 @@ namespace Export
 		}
 	};
 
-} // namespace Export
+}
 
-#endif // __EXPORT_MARSHALING_TYPE_H__
+#endif

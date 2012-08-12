@@ -4,8 +4,8 @@
 	@date		08/2012
 */
 
-#ifndef __MYGUI_EXPORT_PLATFORM_H__
-#define __MYGUI_EXPORT_PLATFORM_H__
+#ifndef _80486629_6f18_4312_b5f0_3f06d96f7911_
+#define _80486629_6f18_4312_b5f0_3f06d96f7911_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ExportRenderManager.h"
@@ -34,6 +34,6 @@ namespace MyGUI
 		LogManager* mLogManager;
 	};
 
-} // namespace MyGUI
+}
 
-#endif // __MYGUI_EXPORT_PLATFORM_H__
+#endif

@@ -8,8 +8,6 @@
 #include "MyGUI_ExportDiagnostic.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_Timer.h"
-#include "MyGUI_ExportVertexBuffer.h"
-#include "ExportRenderManager.h"
 
 namespace MyGUI
 {
@@ -43,30 +41,41 @@ namespace MyGUI
 		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		destroyAllTextures();
+		mBatchInfo.clear();
+		mExportVertexBuffer.clear();
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
 	}
 
 	IVertexBuffer* ExportRenderManager::createVertexBuffer()
 	{
-		return new ExportVertexBuffer();
+		ExportVertexBuffer* buffer = new ExportVertexBuffer();
+		mExportVertexBuffer.push_back(buffer);
+
+		return buffer;
 	}
 
 	void ExportRenderManager::destroyVertexBuffer(IVertexBuffer* _buffer)
 	{
+		VectorExportVertexBuffer::iterator item = std::find(mExportVertexBuffer.begin(), mExportVertexBuffer.end(), _buffer);
+		mExportVertexBuffer.erase(item);
+
 		delete _buffer;
 	}
 
 	void ExportRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
+		MYGUI_PLATFORM_LOG(Info, "tetxure : " << (int)_texture << " , buffer : " << (int)_buffer << " , count : " << _count);
+
 		if (_texture == nullptr || _buffer == nullptr || _count == 0)
 			return;
 
 		ExportTexture* texture = static_cast<ExportTexture*>(_texture);
 		ExportVertexBuffer* vertexes = static_cast<ExportVertexBuffer*>(_buffer);
 
-		if (Export::ScopeRenderManager_DoRender::mExportHandle != nullptr)
-			Export::ScopeRenderManager_DoRender::mExportHandle(Export::Convert<size_t>::To(vertexes->getId()), Export::Convert<const std::string&>::To(texture->getName()), Export::Convert<size_t>::To(_count));
+		mBatchInfo.push_back(RenderBatchInfo(vertexes, texture, _count));
+
+		//MYGUI_PLATFORM_LOG(Info, _texture->getName() << " : " << vertexes->getId() << " : count buffers all " << mExportVertexBuffer.size());
 	}
 
 	void ExportRenderManager::drawOneFrame()
@@ -93,6 +102,12 @@ namespace MyGUI
 
 	void ExportRenderManager::begin()
 	{
+		MYGUI_PLATFORM_LOG(Info, "    ----    begin " << " , : count buffers all " << mExportVertexBuffer.size());
+
+		mBatchInfo.clear();
+
+		for (VectorExportVertexBuffer::iterator item = mExportVertexBuffer.begin(); item != mExportVertexBuffer.end(); item ++)
+			(*item)->setChange(false);
 	}
 
 	void ExportRenderManager::end()
@@ -181,4 +196,11 @@ namespace MyGUI
 		return VertexColourType::ColourARGB;
 	}
 
-} // namespace MyGUI
+	RenderBatchInfo* ExportRenderManager::getBatchInfo(size_t _index)
+	{
+		if (_index < mBatchInfo.size())
+			return &mBatchInfo[_index];
+		return nullptr;
+	}
+
+}

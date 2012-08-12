@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyGUI.Sharp
+/*namespace MyGUI.Sharp
 {
 	public interface IPlatformRenderManager
 	{
@@ -13,4 +13,4 @@ namespace MyGUI.Sharp
 
 		void DoRender(uint _bufferId, string _texture, uint _count);
 	}
-}
+}*/

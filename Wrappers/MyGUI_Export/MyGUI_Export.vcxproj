@@ -97,6 +97,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ExportDataManager.cpp" />
+    <ClCompile Include="ExportRenderManager.cpp" />
     <ClCompile Include="MyGUI_ExportDataManager.cpp" />
     <ClCompile Include="MyGUI_ExportPlatform.cpp" />
     <ClCompile Include="MyGUI_ExportRenderManager.cpp" />
@@ -115,10 +117,6 @@
     <ClCompile Include="MyGUI_ExportVertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ExportDataManager.cpp">
-      <FileType>CppHeader</FileType>
-    </ClCompile>
-    <ClInclude Include="ExportRenderManager.h" />
     <ClInclude Include="ExportTexture.h" />
     <ClInclude Include="ExportVertexBuffer.h" />
     <ClInclude Include="MyGUI_ExportDataManager.h" />
@@ -152,6 +150,7 @@
     <ClInclude Include="Generate\MyGUI_Export_Window.h" />
     <ClInclude Include="MyGUI_ExportTexture.h" />
     <ClInclude Include="MyGUI_ExportVertexBuffer.h" />
+    <ClInclude Include="RenderBatchInfo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

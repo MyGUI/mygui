@@ -4,13 +4,15 @@
 	@date		08/2012
 */
 
-#ifndef __MYGUI_EXPORT_RENDER_MANAGER_H__
-#define __MYGUI_EXPORT_RENDER_MANAGER_H__
+#ifndef _1fa6ce0c_1576_452a_98d8_ac49ed9e38d1_
+#define _1fa6ce0c_1576_452a_98d8_ac49ed9e38d1_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_ExportTexture.h"
+#include "MyGUI_ExportVertexBuffer.h"
+#include "RenderBatchInfo.h"
 
 namespace MyGUI
 {
@@ -64,6 +66,8 @@ namespace MyGUI
 		void drawOneFrame();
 		void setViewSize(int _width, int _height);
 
+		RenderBatchInfo* getBatchInfo(size_t _index);
+
 	private:
 		void destroyAllTextures();
 
@@ -73,8 +77,12 @@ namespace MyGUI
 		typedef std::map<std::string, ExportTexture*> MapTexture;
 		MapTexture mTextures;
 		bool mUpdate;
+		typedef std::vector<RenderBatchInfo> VectorBatchInfo;
+		VectorBatchInfo mBatchInfo;
+		typedef std::vector<ExportVertexBuffer*> VectorExportVertexBuffer;
+		VectorExportVertexBuffer mExportVertexBuffer;
 	};
 
-} // namespace MyGUI
+}
 
-#endif // __MYGUI_EXPORT_RENDER_MANAGER_H__
+#endif

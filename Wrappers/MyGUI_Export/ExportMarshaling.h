@@ -4,8 +4,9 @@
 	@date		01/2009
 	@module
 */
-#ifndef __EXPORT_MARSHALING_H__
-#define __EXPORT_MARSHALING_H__
+
+#ifndef _0981cba7_579a_4c4d_b104_7ea84cb8f263_
+#define _0981cba7_579a_4c4d_b104_7ea84cb8f263_
 
 #include <MyGUI.h>
 #include "ExportDefine.h"
@@ -377,6 +378,32 @@ namespace Export
 		}
 	};
 
-} // namespace Export
+	template <> struct Convert< size_t& >
+	{
+		typedef size_t& Type;
+		static inline Type To(size_t& _value)
+		{
+			return _value;
+		}
+		static inline size_t& From(Type _value)
+		{
+			return _value;
+		}
+	};
 
-#endif // __EXPORT_MARSHALING_H__
+	template <> struct Convert< bool& >
+	{
+		typedef bool& Type;
+		static inline Type To(bool& _value)
+		{
+			return _value;
+		}
+		static inline bool& From(Type _value)
+		{
+			return _value;
+		}
+	};
+
+}
+
+#endif

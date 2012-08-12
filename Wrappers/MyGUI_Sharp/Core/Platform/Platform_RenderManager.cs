@@ -10,7 +10,7 @@ namespace MyGUI.Sharp
 
 		#region Export
 
-		struct GetTextureSize
+		/*struct GetTextureSize
 		{
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			private delegate void HandleDelegate([MarshalAs(UnmanagedType.LPStr)]string _name, [Out, In]ref int _width, [Out, In]ref int _height);
@@ -37,9 +37,9 @@ namespace MyGUI.Sharp
 					ExportRenderManager_DelegateTexture_LoadFromFile(null);
 				}
 			}
-		}
+		}*/
 
-		struct VertexBuffer
+		/*struct VertexBuffer
 		{
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			private delegate void HandleDelegate([Out, In] ref IntPtr _vertexes, [MarshalAs(UnmanagedType.U4)]uint _size);
@@ -113,7 +113,7 @@ namespace MyGUI.Sharp
 					ExportRenderManager_DelegateDoRender(null);
 				}
 			}
-		}
+		}*/
 
 		#endregion
 
@@ -124,6 +124,15 @@ namespace MyGUI.Sharp
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportRenderManager_DrawOneFrame();
+
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportRenderManager_GetBuffer(
+			[MarshalAs(UnmanagedType.U4)]uint _index,
+			[In, Out] ref IntPtr _buffer,
+			[In, Out, MarshalAs(UnmanagedType.U4)] ref uint _countVertex,
+			[In, Out, MarshalAs(UnmanagedType.U4)] ref uint _id,
+			[In, Out, MarshalAs(UnmanagedType.U1)] ref bool _change);
 
 		#endregion
 
@@ -137,24 +146,29 @@ namespace MyGUI.Sharp
 			ExportRenderManager_DrawOneFrame();
 		}
 
-		private static void InitialiseRenderManager(IPlatformRenderManager _renderManager)
+		public static bool GetBuffer(uint _index, ref IntPtr _buffer, ref uint _countVertex, ref uint _id, ref bool _change)
+		{
+			return ExportRenderManager_GetBuffer(_index, ref _buffer, ref _countVertex, ref _id, ref _change);
+		}
+
+		/*private static void InitialiseRenderManager(IPlatformRenderManager _renderManager)
 		{
 			mRenderManager = _renderManager;
 
 			GetTextureSize.Advise(true);
 			VertexBuffer.Advise(true);
 			DoRender.Advise(true);
-		}
+		}*/
 
-		private static void ShutdownRenderManager()
+		/*private static void ShutdownRenderManager()
 		{
 			GetTextureSize.Advise(false);
 			VertexBuffer.Advise(false);
 			DoRender.Advise(false);
 
 			mRenderManager = null;
-		}
+		}*/
 
-		private static IPlatformRenderManager mRenderManager;
+		//private static IPlatformRenderManager mRenderManager;
 	}
 }

@@ -4,8 +4,8 @@
 	@date		08/2012
 */
 
-#ifndef __MYGUI_EXPORT_DIAGNOSTIC_H__
-#define __MYGUI_EXPORT_DIAGNOSTIC_H__
+#ifndef _5544f037_5fc1_43fd_bdf7_5d4c62f2aa36_
+#define _5544f037_5fc1_43fd_bdf7_5d4c62f2aa36_
 
 #include "MyGUI_Prerequest.h"
 
@@ -34,4 +34,4 @@
 	} \
 }
 
-#endif // __MYGUI_EXPORT_DIAGNOSTIC_H__
+#endif
