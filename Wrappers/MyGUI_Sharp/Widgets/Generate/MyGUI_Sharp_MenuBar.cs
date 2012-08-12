@@ -28,7 +28,7 @@ namespace MyGUI.Sharp
         internal static BaseWidget RequestCreateMenuBar(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
         {
 			MenuBar widget = new MenuBar();
-			widget.CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
+			widget.CreateWidgetImpl(_parent, _style, _skin, _coord, _align, _layer, _name);
             return widget;
         }
         

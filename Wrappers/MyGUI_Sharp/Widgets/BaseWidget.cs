@@ -59,15 +59,17 @@ namespace MyGUI.Sharp
             else mRoots.Add(this);
         }
 
-        internal void CreateWidget(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        public void CreateWidgetImpl(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
         {
             mParent = _parent;
             IntPtr parent = _parent != null ? _parent.GetNative() : IntPtr.Zero;
             mNative = ExportGui_CreateWidget(this, parent, _style, GetWidgetType(), _skin, ref _coord, _align, _layer, _name);
 			mIsWrap = false;
 
-            if (mParent != null) mParent.mChilds.Add(this);
-            else mRoots.Add(this);
+            if (mParent != null)
+				mParent.mChilds.Add(this);
+            else
+				mRoots.Add(this);
         }
 
         public object UserData
@@ -98,7 +100,7 @@ namespace MyGUI.Sharp
         {
             T type = System.Activator.CreateInstance<T>();
             BaseWidget widget = type as BaseWidget;
-            widget.CreateWidget(this, WidgetStyle.Child, _skin, _coord, _align, "", "");
+            widget.CreateWidgetImpl(this, WidgetStyle.Child, _skin, _coord, _align, "", "");
             return type;
         }
 
@@ -106,7 +108,7 @@ namespace MyGUI.Sharp
         {
             T type = System.Activator.CreateInstance<T>();
             BaseWidget widget = type as BaseWidget;
-            widget.CreateWidget(this, WidgetStyle.Child, _skin, _coord, _align, "", _name);
+            widget.CreateWidgetImpl(this, WidgetStyle.Child, _skin, _coord, _align, "", _name);
             return type;
         }
 
@@ -114,7 +116,7 @@ namespace MyGUI.Sharp
         {
             T type = System.Activator.CreateInstance<T>();
             BaseWidget widget = type as BaseWidget;
-            widget.CreateWidget(this, _style, _skin, _coord, _align, _layer, "");
+            widget.CreateWidgetImpl(this, _style, _skin, _coord, _align, _layer, "");
             return type;
         }
 
@@ -122,7 +124,7 @@ namespace MyGUI.Sharp
         {
             T type = System.Activator.CreateInstance<T>();
             BaseWidget widget = type as BaseWidget;
-            widget.CreateWidget(this, _style, _skin, _coord, _align, _layer, _name);
+            widget.CreateWidgetImpl(this, _style, _skin, _coord, _align, _layer, _name);
             return type;
         }
 
