@@ -28,7 +28,7 @@ namespace MyGUI.Sharp
         internal static BaseWidget RequestCreateListBox(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
         {
 			ListBox widget = new ListBox();
-			widget.CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
+			widget.CreateWidgetImpl(_parent, _style, _skin, _coord, _align, _layer, _name);
             return widget;
         }
         

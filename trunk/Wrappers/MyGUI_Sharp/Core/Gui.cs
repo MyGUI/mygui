@@ -37,7 +37,7 @@ namespace MyGUI.Sharp
         {
             T type = System.Activator.CreateInstance<T>();
             BaseWidget widget = type as BaseWidget;
-            widget.CreateWidget(null, WidgetStyle.Overlapped, _skin, _coord, _align, _layer, "");
+            widget.CreateWidgetImpl(null, WidgetStyle.Overlapped, _skin, _coord, _align, _layer, "");
             return type;
         }
 
@@ -45,7 +45,7 @@ namespace MyGUI.Sharp
         {
             T type = System.Activator.CreateInstance<T>();
             BaseWidget widget = type as BaseWidget;
-            widget.CreateWidget(null, WidgetStyle.Overlapped, _skin, _coord, _align, _layer, _name);
+            widget.CreateWidgetImpl(null, WidgetStyle.Overlapped, _skin, _coord, _align, _layer, _name);
             return type;
         }
 

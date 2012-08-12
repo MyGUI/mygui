@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace MyGUI.Sharp
+/*namespace MyGUI.Sharp
 {
 	public partial class Platform
 	{
@@ -144,4 +144,4 @@ namespace MyGUI.Sharp
 
 		private static IPlatformDataManager mDataManager;
 	}
-}
+}*/

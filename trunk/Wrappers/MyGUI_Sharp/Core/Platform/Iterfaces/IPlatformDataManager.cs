@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyGUI.Sharp
+/*namespace MyGUI.Sharp
 {
 	public interface IPlatformDataManager
 	{
@@ -12,4 +12,4 @@ namespace MyGUI.Sharp
 
 		void FreeData(string _name);
 	}
-}
+}*/

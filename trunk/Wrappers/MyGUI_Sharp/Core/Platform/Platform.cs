@@ -61,16 +61,28 @@ namespace MyGUI.Sharp
 
 		#region Platform
 
-		public static void InitialisePlatform(IPlatformDataManager _dataManager, IPlatformRenderManager _renderManager)
+		public static void InitialisePlatform(/*IPlatformDataManager _dataManager, */IPlatformRenderManager _renderManager)
 		{
-			InitialiseDataManager(_dataManager);
+			//InitialiseDataManager(_dataManager);
 			InitialiseRenderManager(_renderManager);
 		}
 
 		public static void ShutdownPlatform()
 		{
-			ShutdownDataManager();
+			//ShutdownDataManager();
 			ShutdownRenderManager();
+		}
+
+		#endregion
+
+		#region DataManager
+
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		private static extern IntPtr ExportDataManager_AddResourceLocation([MarshalAs(UnmanagedType.LPStr)] string _logFileName, [MarshalAs(UnmanagedType.U1)] bool _recursive);
+
+		public static void AddResourceLocation(string _path, bool _recursive)
+		{
+			ExportDataManager_AddResourceLocation(_path, _recursive);
 		}
 
 		#endregion
