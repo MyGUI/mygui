@@ -3,6 +3,7 @@
 	<List file="EditorTheme.xml"/>
 	<List file="EditorLanguage.xml"/>
 	<List file="MessageBoxResources.xml"/>
+	<List file="MyGUI_GeneratedFonts.xml"/>
 	<List file="MyGUI_Fonts.xml"/>
 	<List file="MyGUI_Images.xml"/>
 	<List file="MyGUI_CommonSkins.xml"/>
