@@ -65,7 +65,7 @@ namespace MyGUI
 
 	void ExportRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		MYGUI_PLATFORM_LOG(Info, "tetxure : " << (int)_texture << " , buffer : " << (int)_buffer << " , count : " << _count);
+		//MYGUI_PLATFORM_LOG(Info, "tetxure : " << (int)_texture << " , buffer : " << (int)_buffer << " , count : " << _count);
 
 		if (_texture == nullptr || _buffer == nullptr || _count == 0)
 			return;
@@ -74,8 +74,6 @@ namespace MyGUI
 		ExportVertexBuffer* vertexes = static_cast<ExportVertexBuffer*>(_buffer);
 
 		mBatchInfo.push_back(RenderBatchInfo(vertexes, texture, _count));
-
-		//MYGUI_PLATFORM_LOG(Info, _texture->getName() << " : " << vertexes->getId() << " : count buffers all " << mExportVertexBuffer.size());
 	}
 
 	void ExportRenderManager::drawOneFrame()
@@ -102,7 +100,7 @@ namespace MyGUI
 
 	void ExportRenderManager::begin()
 	{
-		MYGUI_PLATFORM_LOG(Info, "    ----    begin " << " , : count buffers all " << mExportVertexBuffer.size());
+		//MYGUI_PLATFORM_LOG(Info, "    ----    begin " << " , : count buffers all " << mExportVertexBuffer.size());
 
 		mBatchInfo.clear();
 
@@ -116,14 +114,7 @@ namespace MyGUI
 
 	ITexture* ExportRenderManager::createTexture(const std::string& _name)
 	{
-		MapTexture::iterator textureIter = mTextures.find(_name);
-		if (textureIter != mTextures.end())
-			return (*textureIter).second;
-
-		ExportTexture* texture = new ExportTexture(_name);
-		mTextures[_name] = texture;
-
-		return texture; 
+		return nullptr;
 	}
 
 	void ExportRenderManager::destroyTexture(ITexture* _texture)
@@ -201,6 +192,16 @@ namespace MyGUI
 		if (_index < mBatchInfo.size())
 			return &mBatchInfo[_index];
 		return nullptr;
+	}
+
+	void ExportRenderManager::addTexture(const std::string& _name, size_t _id, int _width, int _height)
+	{
+		ExportTexture* texture = new ExportTexture(_name);
+		texture->setId(_id);
+		texture->setWidth(_width);
+		texture->setHeight(_height);
+
+		mTextures[_name] = texture;
 	}
 
 }

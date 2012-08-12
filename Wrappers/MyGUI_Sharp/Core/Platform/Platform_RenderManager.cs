@@ -120,7 +120,9 @@ namespace MyGUI.Sharp
 		#region Export
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportRenderManager_SetViewSize([MarshalAs(UnmanagedType.I4)]int _width, [MarshalAs(UnmanagedType.I4)]int _height);
+		private static extern void ExportRenderManager_SetViewSize(
+			[MarshalAs(UnmanagedType.I4)]int _width,
+			[MarshalAs(UnmanagedType.I4)]int _height);
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportRenderManager_DrawOneFrame();
@@ -131,8 +133,16 @@ namespace MyGUI.Sharp
 			[MarshalAs(UnmanagedType.U4)]uint _index,
 			[In, Out] ref IntPtr _buffer,
 			[In, Out, MarshalAs(UnmanagedType.U4)] ref uint _countVertex,
-			[In, Out, MarshalAs(UnmanagedType.U4)] ref uint _id,
+			[In, Out, MarshalAs(UnmanagedType.U4)] ref uint _vertexId,
+			[In, Out, MarshalAs(UnmanagedType.U4)] ref uint _textureId,
 			[In, Out, MarshalAs(UnmanagedType.U1)] ref bool _change);
+
+		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportRenderManager_AddTexture(
+			[MarshalAs(UnmanagedType.LPStr)] string _name,
+			[MarshalAs(UnmanagedType.U4)] uint _id,
+			[MarshalAs(UnmanagedType.I4)] int _width,
+			[MarshalAs(UnmanagedType.I4)] int _height);
 
 		#endregion
 
@@ -146,29 +156,14 @@ namespace MyGUI.Sharp
 			ExportRenderManager_DrawOneFrame();
 		}
 
-		public static bool GetBuffer(uint _index, ref IntPtr _buffer, ref uint _countVertex, ref uint _id, ref bool _change)
+		public static bool GetBuffer(uint _index, ref IntPtr _buffer, ref uint _countVertex, ref uint _vertexId, ref uint _textureId, ref bool _change)
 		{
-			return ExportRenderManager_GetBuffer(_index, ref _buffer, ref _countVertex, ref _id, ref _change);
+			return ExportRenderManager_GetBuffer(_index, ref _buffer, ref _countVertex, ref _vertexId, ref _textureId, ref _change);
 		}
 
-		/*private static void InitialiseRenderManager(IPlatformRenderManager _renderManager)
+		public static void AddTexture(string _name, uint _id, int _width, int _height)
 		{
-			mRenderManager = _renderManager;
-
-			GetTextureSize.Advise(true);
-			VertexBuffer.Advise(true);
-			DoRender.Advise(true);
-		}*/
-
-		/*private static void ShutdownRenderManager()
-		{
-			GetTextureSize.Advise(false);
-			VertexBuffer.Advise(false);
-			DoRender.Advise(false);
-
-			mRenderManager = null;
-		}*/
-
-		//private static IPlatformRenderManager mRenderManager;
+			ExportRenderManager_AddTexture(_name, _id, _width, _height);
+		}
 	}
 }

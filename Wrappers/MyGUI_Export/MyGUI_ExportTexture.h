@@ -42,6 +42,13 @@ namespace MyGUI
 
 		virtual IRenderTarget* getRenderTarget();
 
+		/*internal:*/
+		void setId(size_t _id);
+		size_t getId() const;
+
+		void setWidth(int _value);
+		void setHeight(int _value);
+
 	private:
 		std::string mName;
 		int mWidth;
@@ -49,6 +56,7 @@ namespace MyGUI
 		size_t mNumElemBytes;
 		PixelFormat mOriginalFormat;
 		TextureUsage mOriginalUsage;
+		size_t mId;
 	};
 
 }
