@@ -26,7 +26,7 @@ namespace Export
 				return false;
 
 			_buffer = info->Buffer->lock();
-			_countVertex = info->Buffer->getVertexCount();
+			_countVertex = info->Count;
 			_vertexId = info->Buffer->getId();
 			_textureId = info->Texture->getId();
 			_change = info->Buffer->getChange();
