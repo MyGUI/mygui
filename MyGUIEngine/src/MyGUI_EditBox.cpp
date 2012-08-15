@@ -645,12 +645,12 @@ namespace MyGUI
 				mStartSelect = mEndSelect = mCursorPosition;
 			}
 		}
-		else if (_char != 0)
+		else
 		{
 			// если не нажат контрл, то обрабатываем как текст
 			if (!input.isControlPressed())
 			{
-				if (!mModeReadOnly)
+				if (!mModeReadOnly && _char != 0)
 				{
 					// сбрасываем повтор
 					commandResetRedo();
