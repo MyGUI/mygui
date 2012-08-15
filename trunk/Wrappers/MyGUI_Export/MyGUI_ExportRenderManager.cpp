@@ -65,8 +65,6 @@ namespace MyGUI
 
 	void ExportRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		//MYGUI_PLATFORM_LOG(Info, "tetxure : " << (int)_texture << " , buffer : " << (int)_buffer << " , count : " << _count);
-
 		if (_texture == nullptr || _buffer == nullptr || _count == 0)
 			return;
 
@@ -100,8 +98,6 @@ namespace MyGUI
 
 	void ExportRenderManager::begin()
 	{
-		//MYGUI_PLATFORM_LOG(Info, "    ----    begin " << " , : count buffers all " << mExportVertexBuffer.size());
-
 		mBatchInfo.clear();
 
 		for (VectorExportVertexBuffer::iterator item = mExportVertexBuffer.begin(); item != mExportVertexBuffer.end(); item ++)
@@ -162,8 +158,6 @@ namespace MyGUI
 
 		onResizeView(mViewSize);
 
-		MYGUI_PLATFORM_LOG(Info, "View size : " << mViewSize.print());
-
 		mUpdate = true;
 	}
 
@@ -202,8 +196,6 @@ namespace MyGUI
 		texture->setId(_id);
 		texture->setWidth(_width);
 		texture->setHeight(_height);
-
-		MYGUI_PLATFORM_LOG(Info, "Texture : " << _name << " , " << _width << " x " << _height);
 
 		mTextures[_name] = texture;
 	}
