@@ -10,6 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ExportTexture.h"
 #include "MyGUI_ExportVertexBuffer.h"
+#include "MyGUI_ILayer.h"
 
 namespace MyGUI
 {
@@ -19,20 +20,23 @@ namespace MyGUI
 		RenderBatchInfo() :
 			Buffer(nullptr),
 			Texture(nullptr),
-			Count(0)
+			Count(0),
+			Layer(nullptr)
 		{
 		}
 
-		RenderBatchInfo(ExportVertexBuffer* _buffer, ExportTexture* _texture, size_t _count) :
+		RenderBatchInfo(ExportVertexBuffer* _buffer, ExportTexture* _texture, size_t _count, ILayer* _layer) :
 			Buffer(_buffer),
 			Texture(_texture),
-			Count(_count)
+			Count(_count),
+			Layer(_layer)
 		{
 		}
 
 		ExportVertexBuffer* Buffer;
 		ExportTexture* Texture;
 		size_t Count;
+		ILayer* Layer;
 	};
 
 }

@@ -249,4 +249,15 @@ namespace MyGUI
 			(*iter)->resizeView(_viewSize);
 	}
 
+	size_t LayerManager::getLayerCount() const
+	{
+		return mLayerNodes.size();
+	}
+
+	ILayer* LayerManager::getLayer(size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mLayerNodes.size(), "LayerManager::getLayer");
+		return mLayerNodes[_index];
+	}
+
 } // namespace MyGUI

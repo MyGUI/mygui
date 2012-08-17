@@ -99,6 +99,7 @@
   <ItemGroup>
     <ClCompile Include="ExportDataManager.cpp" />
     <ClCompile Include="ExportRenderManager.cpp" />
+    <ClCompile Include="MyGUI_CustomLayer.cpp" />
     <ClCompile Include="MyGUI_ExportDataManager.cpp" />
     <ClCompile Include="MyGUI_ExportPlatform.cpp" />
     <ClCompile Include="MyGUI_ExportRenderManager.cpp" />
@@ -117,6 +118,7 @@
     <ClCompile Include="MyGUI_ExportVertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MyGUI_CustomLayer.h" />
     <ClInclude Include="MyGUI_ExportDataManager.h" />
     <ClInclude Include="MyGUI_ExportDiagnostic.h" />
     <ClInclude Include="MyGUI_ExportPlatform.h" />

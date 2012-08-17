@@ -30,6 +30,12 @@
     <Filter Include="Source Files\Platform">
       <UniqueIdentifier>{4351df84-f6f6-4037-8791-867b4db66547}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Extensions">
+      <UniqueIdentifier>{98562d3e-b4d5-405d-ac28-9efa15568b7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Extensions">
+      <UniqueIdentifier>{a53ab679-e5db-4daa-b939-ca5f724467ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ExportGui.cpp">
@@ -85,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="ExportRenderManager.cpp">
       <Filter>Source Files\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="MyGUI_CustomLayer.cpp">
+      <Filter>Source Files\Extensions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +192,9 @@
     </ClInclude>
     <ClInclude Include="RenderBatchInfo.h">
       <Filter>Header Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="MyGUI_CustomLayer.h">
+      <Filter>Header Files\Extensions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

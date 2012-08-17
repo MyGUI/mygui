@@ -1,6 +1,7 @@
 #include "ExportDefine.h"
 #include "ExportMarshaling.h"
 #include "MyGUI_ExportPlatform.h"
+#include "MyGUI_CustomLayer.h"
 
 namespace Export
 {
@@ -49,10 +50,14 @@ namespace Export
 	{
 		mGui = new MyGUI::Gui();
 		mGui->initialise(Convert<const std::string&>::From(_coreFileName));
+
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::CustomLayer>("Layer");
 	}
 
 	MYGUIEXPORT void MYGUICALL ExportGui_Destroy()
 	{
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::CustomLayer>("Layer");
+
 		mGui->shutdown();
 		delete mGui;
 		mGui = nullptr;

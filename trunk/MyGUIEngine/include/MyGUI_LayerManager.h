@@ -72,6 +72,10 @@ namespace MyGUI
 		/** Get layer by name */
 		ILayer* getByName(const std::string& _name, bool _throw = true) const;
 
+		size_t getLayerCount() const;
+
+		ILayer* getLayer(size_t _index);
+
 		/** Get top visible and enabled widget at specified position */
 		Widget* getWidgetFromPoint(int _left, int _top);
 

@@ -59,22 +59,6 @@ namespace MyGUI.Sharp
 
 		#endregion
 
-		/*#region Platform
-
-		public static void InitialisePlatform(IPlatformDataManager _dataManager, IPlatformRenderManager _renderManager)
-		{
-			InitialiseDataManager(_dataManager);
-			InitialiseRenderManager(_renderManager);
-		}
-
-		public static void ShutdownPlatform()
-		{
-			ShutdownDataManager();
-			ShutdownRenderManager();
-		}
-
-		#endregion*/
-
 		#region DataManager
 
 		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
