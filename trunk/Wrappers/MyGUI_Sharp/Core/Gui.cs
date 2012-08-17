@@ -49,7 +49,12 @@ namespace MyGUI.Sharp
             return type;
         }
 
-        #endregion
+		public Widget CreateWidgetT(Widget _parent, WidgetStyle _style, string _type, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+		{
+			return (Widget)mMapCreator[_type](_parent, _style, _skin, _coord, _align, _layer, _name);
+		}
+
+		#endregion
 
         #region LoadLayout
 
