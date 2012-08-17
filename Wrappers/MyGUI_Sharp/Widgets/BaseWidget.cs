@@ -59,7 +59,7 @@ namespace MyGUI.Sharp
             else mRoots.Add(this);
         }
 
-        public void CreateWidgetImpl(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
+        internal void CreateWidgetImpl(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
         {
             mParent = _parent;
             IntPtr parent = _parent != null ? _parent.GetNative() : IntPtr.Zero;
