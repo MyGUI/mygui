@@ -29,376 +29,376 @@ namespace Export
 	};
 
 
-	template <> struct Convert< MyGUI::IntSize >
+	template <> struct Convert<MyGUI::IntSize>
 	{
 		typedef const MyGUI::IntSize& Type;
 		static MyGUI::IntSize mHolder;
-		inline static const MyGUI::IntSize& To(const MyGUI::IntSize& _value)
+		inline static Type To(Type _value)
 		{
 			mHolder = _value;
 			return mHolder;
 		}
-		inline static const MyGUI::IntSize& From(const MyGUI::IntSize& _value)
+		inline static Type From(Type _value)
 		{
 			return _value;
 		}
 	};
 
-	template <> struct Convert< MyGUI::IntPoint >
+	template <> struct Convert<MyGUI::IntPoint>
 	{
 		typedef const MyGUI::IntPoint& Type;
 		static MyGUI::IntPoint mHolder;
-		inline static const MyGUI::IntPoint& To(const MyGUI::IntPoint& _value)
+		inline static const Type To(Type _value)
 		{
 			mHolder = _value;
 			return mHolder;
 		}
-		inline static const MyGUI::IntPoint& From(const MyGUI::IntPoint& _value)
+		inline static Type From(Type _value)
 		{
 			return _value;
 		}
 	};
 
-	template <> struct Convert< MyGUI::IntCoord >
+	template <> struct Convert<MyGUI::IntCoord>
 	{
 		typedef const MyGUI::IntCoord& Type;
 		static MyGUI::IntCoord mHolder;
-		inline static const MyGUI::IntCoord& To(const MyGUI::IntCoord& _value)
+		inline static Type To(Type _value)
 		{
 			mHolder = _value;
 			return mHolder;
 		}
-		inline static const MyGUI::IntCoord& From(const MyGUI::IntCoord& _value)
+		inline static Type From(Type _value)
 		{
 			return _value;
 		}
 	};
 
-	template <> struct Convert< MyGUI::IntRect >
+	template <> struct Convert<MyGUI::IntRect>
 	{
 		typedef const MyGUI::IntRect& Type;
 		static MyGUI::IntRect mHolder;
-		inline static const MyGUI::IntRect& To(const MyGUI::IntRect& _value)
+		inline static Type To(Type _value)
 		{
 			mHolder = _value;
 			return mHolder;
 		}
-		inline static const MyGUI::IntRect& From(const MyGUI::IntRect& _value)
+		inline static Type From(Type _value)
 		{
 			return _value;
 		}
 	};
 
-	template <> struct Convert< MyGUI::FloatSize >
+	template <> struct Convert<MyGUI::FloatSize>
 	{
 		typedef const MyGUI::FloatSize& Type;
 		static MyGUI::FloatSize mHolder;
-		inline static const MyGUI::FloatSize& To(const MyGUI::FloatSize& _value)
+		inline static Type To(Type _value)
 		{
 			mHolder = _value;
 			return mHolder;
 		}
-		inline static const MyGUI::FloatSize& From(const MyGUI::FloatSize& _value)
+		inline static Type From(Type _value)
 		{
 			return _value;
 		}
 	};
 
-	template <> struct Convert< MyGUI::FloatPoint >
+	template <> struct Convert<MyGUI::FloatPoint>
 	{
 		typedef const MyGUI::FloatPoint& Type;
 		static MyGUI::FloatPoint mHolder;
-		inline static const MyGUI::FloatPoint& To(const MyGUI::FloatPoint& _value)
+		inline static const Type To(Type _value)
 		{
 			mHolder = _value;
 			return mHolder;
 		}
-		inline static const MyGUI::FloatPoint& From(const MyGUI::FloatPoint& _value)
+		inline static Type From(Type _value)
 		{
 			return _value;
 		}
 	};
 
-	template <> struct Convert< MyGUI::FloatCoord >
+	template <> struct Convert<MyGUI::FloatCoord>
 	{
 		typedef const MyGUI::FloatCoord& Type;
 		static MyGUI::FloatCoord mHolder;
-		inline static const MyGUI::FloatCoord& To(const MyGUI::FloatCoord& _value)
+		inline static Type To(Type _value)
 		{
 			mHolder = _value;
 			return mHolder;
 		}
-		inline static const MyGUI::FloatCoord& From(const MyGUI::FloatCoord& _value)
+		inline static Type From(Type _value)
 		{
 			return _value;
 		}
 	};
 
-	template <> struct Convert< MyGUI::FloatRect >
+	template <> struct Convert<MyGUI::FloatRect>
 	{
 		typedef const MyGUI::FloatRect& Type;
 		static MyGUI::FloatRect mHolder;
-		inline static const MyGUI::FloatRect& To(const MyGUI::FloatRect& _value)
+		inline static Type To(Type _value)
 		{
 			mHolder = _value;
 			return mHolder;
 		}
-		inline static const MyGUI::FloatRect& From(const MyGUI::FloatRect& _value)
+		inline static Type From(Type _value)
 		{
 			return _value;
 		}
 	};
 
 
-	template <> struct Convert< MyGUI::Colour >
+	template <> struct Convert<MyGUI::Colour>
 	{
 		typedef const MyGUI::Colour& Type;
 		static MyGUI::Colour mHolder;
-		inline static const MyGUI::Colour& To(const MyGUI::Colour& _value)
+		inline static Type To(Type _value)
 		{
 			mHolder = _value;
 			return mHolder;
 		}
-		inline static const MyGUI::Colour& From(const MyGUI::Colour& _value)
+		inline static Type From(Type _value)
 		{
 			return _value;
 		}
 	};
 
-	template <> struct Convert< MyGUI::UString >
+	template <> struct Convert<MyGUI::UString>
 	{
 		typedef const wchar_t* Type;
 		static MyGUI::UString mHolder;
-		inline static const wchar_t* To(const MyGUI::UString& _value)
+		inline static Type To(const MyGUI::UString& _value)
 		{
 			mHolder = _value;
 			return mHolder.asWStr_c_str();
 		}
-		inline static MyGUI::UString From(const wchar_t* _value)
+		inline static MyGUI::UString From(Type _value)
 		{
 			return _value;
 		}
 	};
 
-	template <> struct Convert< std::string >
+	template <> struct Convert<std::string>
 	{
 		typedef const char* Type;
 		static std::string mHolder;
-		inline static const char* To(const std::string& _value)
+		inline static Type To(const std::string& _value)
 		{
 			mHolder = _value;
 			return mHolder.c_str();
 		}
-		inline static std::string From(const char* _value)
+		inline static std::string From(Type _value)
 		{
 			return _value;
 		}
 	};
 
-	template <> struct Convert< const MyGUI::UString& >
+	template <> struct Convert<const MyGUI::UString&>
 	{
 		typedef const wchar_t* Type;
-		inline static const wchar_t* To(const MyGUI::UString& _value)
+		inline static Type To(const MyGUI::UString& _value)
 		{
 			return _value.asWStr_c_str();
 		}
-		inline static MyGUI::UString From(const wchar_t* _value)
+		inline static MyGUI::UString From(Type _value)
 		{
 			return _value;
 		}
 	};
 
-	template <> struct Convert< const std::string& >
+	template <> struct Convert<const std::string&>
 	{
 		typedef const char* Type;
-		inline static const char* To(const std::string& _value)
+		inline static Type To(const std::string& _value)
 		{
 			return _value.c_str();
 		}
-		inline static std::string From(const char* _value)
+		inline static std::string From(Type _value)
 		{
 			return _value;
 		}
 	};
 
-	template <> struct Convert< MyGUI::Align >
+	template <> struct Convert<MyGUI::Align>
 	{
 		typedef int Type;
-		inline static int To(MyGUI::Align _value)
+		inline static Type To(MyGUI::Align _value)
 		{
 			return _value.getValue();
 		}
-		inline static MyGUI::Align From(int _value)
+		inline static MyGUI::Align From(Type _value)
 		{
 			return MyGUI::Align::Enum(_value);
 		}
 	};
 
-	template <> struct Convert< MyGUI::DDItemState >
+	template <> struct Convert<MyGUI::DDItemState>
 	{
 		typedef int Type;
-		inline static int To(MyGUI::DDItemState _value)
+		inline static Type To(MyGUI::DDItemState _value)
 		{
 			return _value.getValue();
 		}
-		inline static MyGUI::DDItemState From(int _value)
+		inline static MyGUI::DDItemState From(Type _value)
 		{
 			return MyGUI::DDItemState::Enum(_value);
 		}
 	};
 
-	template <> struct Convert< MyGUI::KeyCode >
+	template <> struct Convert<MyGUI::KeyCode>
 	{
 		typedef int Type;
-		inline static int To(MyGUI::KeyCode _value)
+		inline static Type To(MyGUI::KeyCode _value)
 		{
 			return _value.getValue();
 		}
-		inline static MyGUI::KeyCode From(int _value)
+		inline static MyGUI::KeyCode From(Type _value)
 		{
 			return MyGUI::KeyCode::Enum(_value);
 		}
 	};
 
-	template <> struct Convert< MyGUI::MenuItemType >
+	template <> struct Convert<MyGUI::MenuItemType>
 	{
 		typedef int Type;
-		inline static int To(MyGUI::MenuItemType _value)
+		inline static Type To(MyGUI::MenuItemType _value)
 		{
 			return _value.getValue();
 		}
-		inline static MyGUI::MenuItemType From(int _value)
+		inline static MyGUI::MenuItemType From(Type _value)
 		{
 			return MyGUI::MenuItemType::Enum(_value);
 		}
 	};
 
-	template <> struct Convert< MyGUI::FlowDirection >
+	template <> struct Convert<MyGUI::FlowDirection>
 	{
 		typedef int Type;
-		inline static int To(MyGUI::FlowDirection _value)
+		inline static Type To(MyGUI::FlowDirection _value)
 		{
 			return _value.getValue();
 		}
-		inline static MyGUI::FlowDirection From(int _value)
+		inline static MyGUI::FlowDirection From(Type _value)
 		{
 			return MyGUI::FlowDirection::Enum(_value);
 		}
 	};
 
-	template <> struct Convert< MyGUI::ResizingPolicy >
+	template <> struct Convert<MyGUI::ResizingPolicy>
 	{
 		typedef int Type;
-		inline static int To(MyGUI::ResizingPolicy _value)
+		inline static Type To(MyGUI::ResizingPolicy _value)
 		{
 			return _value.getValue();
 		}
-		inline static MyGUI::ResizingPolicy From(int _value)
+		inline static MyGUI::ResizingPolicy From(Type _value)
 		{
 			return MyGUI::ResizingPolicy::Enum(_value);
 		}
 	};
 
-	template <> struct Convert< MyGUI::MouseButton >
+	template <> struct Convert<MyGUI::MouseButton>
 	{
 		typedef int Type;
-		inline static int To(MyGUI::MouseButton _value)
+		inline static Type To(MyGUI::MouseButton _value)
 		{
 			return _value.getValue();
 		}
-		inline static MyGUI::MouseButton From(int _value)
+		inline static MyGUI::MouseButton From(Type _value)
 		{
 			return MyGUI::MouseButton::Enum(_value);
 		}
 	};
 
-	template <> struct Convert< MyGUI::WidgetStyle >
+	template <> struct Convert<MyGUI::WidgetStyle>
 	{
 		typedef int Type;
-		inline static int To(MyGUI::WidgetStyle _value)
+		inline static Type To(MyGUI::WidgetStyle _value)
 		{
 			return _value.getValue();
 		}
-		inline static MyGUI::WidgetStyle From(int _value)
+		inline static MyGUI::WidgetStyle From(Type _value)
 		{
 			return MyGUI::WidgetStyle::Enum(_value);
 		}
 	};
 
-	template <> struct Convert< MyGUI::Any >
+	template <> struct Convert<MyGUI::Any>
 	{
 		typedef IUnknown Type;
-		inline static IUnknown To(MyGUI::Any& _value)
+		inline static Type To(MyGUI::Any& _value)
 		{
 			IUnknown* data = _value.castType<IUnknown>(false);
 			return data == nullptr ? nullptr : *data;
 		}
-		inline static MyGUI::Any From(IUnknown _value)
+		inline static MyGUI::Any From(Type _value)
 		{
 			return _value;
 		}
 	};
 
-	template <> struct Convert< MyGUI::LogLevel >
+	template <> struct Convert<MyGUI::LogLevel>
 	{
 		typedef int Type;
-		inline static int To(MyGUI::LogLevel _value)
+		inline static Type To(MyGUI::LogLevel _value)
 		{
 			return _value.getValue();
 		}
-		inline static MyGUI::LogLevel From(int _value)
+		inline static MyGUI::LogLevel From(Type _value)
 		{
 			return MyGUI::LogLevel::Enum(_value);
 		}
 	};
 
-	template <> struct Convert< void*& >
+	template <> struct Convert<void*&>
 	{
 		typedef void*& Type;
-		static inline Type To(void*& _value)
+		inline static Type To(Type _value)
 		{
 			return _value;
 		}
-		static inline void*& From(Type _value)
+		inline static Type From(Type _value)
 		{
 			return _value;
 		}
 	};
 
-	template <> struct Convert< int& >
+	template <> struct Convert<int&>
 	{
 		typedef int& Type;
-		static inline Type To(int& _value)
+		inline static Type To(Type _value)
 		{
 			return _value;
 		}
-		static inline int& From(Type _value)
+		inline static Type From(Type _value)
 		{
 			return _value;
 		}
 	};
 
-	template <> struct Convert< size_t& >
+	template <> struct Convert<size_t&>
 	{
 		typedef size_t& Type;
-		static inline Type To(size_t& _value)
+		inline static Type To(Type _value)
 		{
 			return _value;
 		}
-		static inline size_t& From(Type _value)
+		inline static Type From(Type _value)
 		{
 			return _value;
 		}
 	};
 
-	template <> struct Convert< bool& >
+	template <> struct Convert<bool&>
 	{
 		typedef bool& Type;
-		static inline Type To(bool& _value)
+		inline static Type To(Type _value)
 		{
 			return _value;
 		}
-		static inline bool& From(Type _value)
+		inline static Type From(Type _value)
 		{
 			return _value;
 		}

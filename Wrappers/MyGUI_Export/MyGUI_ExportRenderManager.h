@@ -69,6 +69,8 @@ namespace MyGUI
 		RenderBatchInfo* getBatchInfo(size_t _index);
 		void addTexture(const std::string& _name, size_t _id, int _width, int _height);
 
+		void doRenderLayer(ILayer* _layer);
+
 	private:
 		void destroyAllTextures();
 
@@ -82,6 +84,7 @@ namespace MyGUI
 		VectorBatchInfo mBatchInfo;
 		typedef std::vector<ExportVertexBuffer*> VectorExportVertexBuffer;
 		VectorExportVertexBuffer mExportVertexBuffer;
+		ILayer* mCurrentLayer;
 	};
 
 }

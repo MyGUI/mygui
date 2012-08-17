@@ -8,6 +8,7 @@
 #include "MyGUI_ExportDiagnostic.h"
 #include "MyGUI_Gui.h"
 #include "MyGUI_Timer.h"
+#include "MyGUI_FactoryManager.h"
 
 namespace MyGUI
 {
@@ -23,7 +24,8 @@ namespace MyGUI
 	}
 
 	ExportRenderManager::ExportRenderManager() :
-		mUpdate(false)
+		mUpdate(false),
+		mCurrentLayer(nullptr)
 	{
 	}
 
@@ -71,7 +73,7 @@ namespace MyGUI
 		ExportTexture* texture = static_cast<ExportTexture*>(_texture);
 		ExportVertexBuffer* vertexes = static_cast<ExportVertexBuffer*>(_buffer);
 
-		mBatchInfo.push_back(RenderBatchInfo(vertexes, texture, _count));
+		mBatchInfo.push_back(RenderBatchInfo(vertexes, texture, _count, mCurrentLayer));
 	}
 
 	void ExportRenderManager::drawOneFrame()
@@ -198,6 +200,11 @@ namespace MyGUI
 		texture->setHeight(_height);
 
 		mTextures[_name] = texture;
+	}
+
+	void ExportRenderManager::doRenderLayer(ILayer* _layer)
+	{
+		mCurrentLayer = _layer;
 	}
 
 }
