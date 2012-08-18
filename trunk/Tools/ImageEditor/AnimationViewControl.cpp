@@ -94,6 +94,10 @@ namespace tools
 				property = (*child)->getProperty("Point");
 				if (!property->eventChangeProperty.exist(this, &AnimationViewControl::notifyChangeProperty))
 					property->eventChangeProperty.connect(this, &AnimationViewControl::notifyChangeProperty);
+
+				property = (*child)->getProperty("Count");
+				if (!property->eventChangeProperty.exist(this, &AnimationViewControl::notifyChangeProperty))
+					property->eventChangeProperty.connect(this, &AnimationViewControl::notifyChangeProperty);
 			}
 		}
 	}
