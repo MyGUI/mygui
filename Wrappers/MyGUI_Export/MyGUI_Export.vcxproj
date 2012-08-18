@@ -100,6 +100,7 @@
     <ClCompile Include="ExportDataManager.cpp" />
     <ClCompile Include="ExportRenderManager.cpp" />
     <ClCompile Include="MyGUI_CustomLayer.cpp" />
+    <ClCompile Include="MyGUI_CustomLayerNode.cpp" />
     <ClCompile Include="MyGUI_ExportDataManager.cpp" />
     <ClCompile Include="MyGUI_ExportPlatform.cpp" />
     <ClCompile Include="MyGUI_ExportRenderManager.cpp" />
@@ -119,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyGUI_CustomLayer.h" />
+    <ClInclude Include="MyGUI_CustomLayerNode.h" />
     <ClInclude Include="MyGUI_ExportDataManager.h" />
     <ClInclude Include="MyGUI_ExportDiagnostic.h" />
     <ClInclude Include="MyGUI_ExportPlatform.h" />

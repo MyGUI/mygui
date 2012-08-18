@@ -68,7 +68,6 @@ namespace Export
 			if (index >= count)
 			{
 				_layerId = 0;
-				//_name = Convert<const std::string&>::To("");
 				return false;
 			}
 
@@ -78,13 +77,11 @@ namespace Export
 			if (custom == nullptr)
 			{
 				_layerId = 0;
-				//_name = Convert<const std::string&>::To("");
 				return true;
 			}
 
 			_layerId = (size_t)layer;
 			_name = (void*)layer->getName().c_str();
-			//_name = Convert<const std::string&>::To(layer->getName());
 			return true;
 		}
 	}

@@ -10,7 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_ILayer.h"
-#include "MyGUI_SharedLayerNode.h"
+#include "MyGUI_CustomLayerNode.h"
 
 namespace MyGUI
 {
@@ -48,7 +48,7 @@ namespace MyGUI
 
 	protected:
 		bool mIsPick;
-		SharedLayerNode* mChildItem;
+		CustomLayerNode* mChildItem;
 		bool mOutOfDate;
 		IntSize mViewSize;
 	};
