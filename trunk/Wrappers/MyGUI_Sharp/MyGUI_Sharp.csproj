@@ -48,6 +48,7 @@
     <Compile Include="Core\InterfaceMarshaler.cs" />
     <Compile Include="Core\LayerManager.cs" />
     <Compile Include="Core\Platform\Platform.cs" />
+    <Compile Include="Core\Platform\Platform_Layers.cs" />
     <Compile Include="Core\Platform\Platform_RenderManager.cs" />
     <Compile Include="Core\PointerManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

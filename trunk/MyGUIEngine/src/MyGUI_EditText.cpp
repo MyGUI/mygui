@@ -820,7 +820,7 @@ namespace MyGUI
 			((_renderTargetInfo.pixScaleX * (pix_left + _vertexRect.width()) + _renderTargetInfo.hOffset) * 2.0f) - 1.0f,
 			-(((_renderTargetInfo.pixScaleY * (pix_top + _vertexRect.height()) + _renderTargetInfo.vOffset) * 2.0f) - 1.0f));
 
-		drawQuad(_vertex, _vertexCount, vertexRect, _renderTargetInfo.maximumDepth, _textureRect, _colour);
+		drawQuad(_vertex, _vertexCount, vertexRect, mNode->getNodeDepth(), _textureRect, _colour);
 	}
 
 } // namespace MyGUI

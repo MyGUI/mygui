@@ -36,13 +36,6 @@ namespace MyGUI.Sharp
 			[MarshalAs(UnmanagedType.I4)] int _width,
 			[MarshalAs(UnmanagedType.I4)] int _height);
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
-		[return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportRenderManager_GetLayer(
-			[MarshalAs(UnmanagedType.U4)] uint _index,
-			[Out, MarshalAs(UnmanagedType.U4)] out uint _layerId,
-			[Out] out IntPtr _name);
-
 		#endregion
 
 		public static void SetViewSize(int _width, int _height)
@@ -63,21 +56,6 @@ namespace MyGUI.Sharp
 		public static void AddTexture(string _name, uint _id, int _width, int _height)
 		{
 			ExportRenderManager_AddTexture(_name, _id, _width, _height);
-		}
-
-		public static bool GetLayer(uint _index, out uint _layerId, out string _name)
-		{
-			_name = "";
-			IntPtr name = IntPtr.Zero;
-
-			bool result = ExportRenderManager_GetLayer(_index, out _layerId, out name);
-
-			if (name != IntPtr.Zero)
-			{
-				_name = Marshal.PtrToStringAnsi(name);
-			}
-
-			return result;
 		}
 	}
 }

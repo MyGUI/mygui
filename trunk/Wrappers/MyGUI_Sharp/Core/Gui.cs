@@ -75,7 +75,7 @@ namespace MyGUI.Sharp
 
         [DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr ExportGui_GetPath(
-            [MarshalAs(UnmanagedType.LPStr)]  string _filename );
+            [MarshalAs(UnmanagedType.LPStr)] string _filename);
 
         public List<Widget> LoadLayout(string _file, Widget _parent, string _prefix)
         {
