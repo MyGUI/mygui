@@ -207,13 +207,14 @@ namespace MyGUI
 				mIsMargin = margin;
 
 				// обновить перед выходом
-				if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+				if (nullptr != mNode)
+					mNode->outOfDate(mRenderItem);
 				return;
 			}
 		}
 
 		// мы обрезаны или были обрезаны
-		if ((mIsMargin) || (margin))
+		if (mIsMargin || margin)
 		{
 			mCurrentCoord.width = _getViewWidth();
 			mCurrentCoord.height = _getViewHeight();
@@ -246,7 +247,7 @@ namespace MyGUI
 
 	void PolygonalSkin::doRender()
 	{
-		if ((!mVisible) || mEmptyView)
+		if (!mVisible || mEmptyView)
 			return;
 
 		bool update = mRenderItem->getCurrentUpdate();
@@ -301,8 +302,10 @@ namespace MyGUI
 
 	void PolygonalSkin::_rebuildGeometry()
 	{
-		if (mLinePoints.size() < 2) return;
-		if (!mRenderItem || !mRenderItem->getRenderTarget()) return;
+		if (mLinePoints.size() < 2)
+			return;
+		if (!mRenderItem || !mRenderItem->getRenderTarget())
+			return;
 
 		mGeometryOutdated = false;
 
