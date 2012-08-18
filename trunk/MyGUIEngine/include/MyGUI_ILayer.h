@@ -59,6 +59,10 @@ namespace MyGUI
 		// список детей
 		virtual EnumeratorILayerNode getEnumerator() const = 0;
 
+		virtual size_t getLayerNodeCount() const = 0;
+
+		virtual ILayerNode* getLayerNodeAt(size_t _index) const = 0;
+
 		// возвращает виджет по позиции
 		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) const = 0;
 

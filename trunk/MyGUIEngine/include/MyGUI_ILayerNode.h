@@ -64,6 +64,10 @@ namespace MyGUI
 		// список детей
 		virtual EnumeratorILayerNode getEnumerator() const = 0;
 
+		virtual size_t getLayerNodeCount() const = 0;
+
+		virtual ILayerNode* getLayerNodeAt(size_t _index) const = 0;
+
 		// добавляем айтем к ноду
 		virtual void attachLayerItem(ILayerItem* _item) = 0;
 		// удаляем айтем из нода
