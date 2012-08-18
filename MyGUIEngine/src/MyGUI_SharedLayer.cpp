@@ -160,6 +160,19 @@ namespace MyGUI
 		return EnumeratorILayerNode(nodes);
 	}
 
+	size_t SharedLayer::getLayerNodeCount() const
+	{
+		return mChildItem == nullptr ? 0 : 1;
+	}
+
+	ILayerNode* SharedLayer::getLayerNodeAt(size_t _index) const
+	{
+		size_t count = getLayerNodeCount();
+		MYGUI_ASSERT_RANGE(_index, count, "SharedLayer::getLayerNodeAt");
+
+		return mChildItem;
+	}
+
 	const IntSize& SharedLayer::getSize() const
 	{
 		return mViewSize;

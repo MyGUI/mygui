@@ -180,6 +180,18 @@ namespace MyGUI
 		return EnumeratorILayerNode(mChildItems);
 	}
 
+	size_t OverlappedLayer::getLayerNodeCount() const
+	{
+		return mChildItems.size();
+	}
+
+	ILayerNode* OverlappedLayer::getLayerNodeAt(size_t _index) const
+	{
+		MYGUI_ASSERT_RANGE(_index, mChildItems.size(), "OverlappedLayer::getLayerNodeAt");
+
+		return mChildItems[_index];
+	}
+
 	const IntSize& OverlappedLayer::getSize() const
 	{
 		return mViewSize;

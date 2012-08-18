@@ -290,6 +290,18 @@ namespace MyGUI
 		return EnumeratorILayerNode(mChildItems);
 	}
 
+	size_t LayerNode::getLayerNodeCount() const
+	{
+		return mChildItems.size();
+	}
+
+	ILayerNode* LayerNode::getLayerNodeAt(size_t _index) const
+	{
+		MYGUI_ASSERT_RANGE(_index, mChildItems.size(), "LayerNode::getLayerNodeAt");
+
+		return mChildItems[_index];
+	}
+
 	void LayerNode::updateCompression()
 	{
 		// буферы освобождаются по одному всегда
