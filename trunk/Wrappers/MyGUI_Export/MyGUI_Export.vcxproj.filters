@@ -95,6 +95,9 @@
     <ClCompile Include="MyGUI_CustomLayer.cpp">
       <Filter>Source Files\Extensions</Filter>
     </ClCompile>
+    <ClCompile Include="MyGUI_CustomLayerNode.cpp">
+      <Filter>Source Files\Extensions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExportDefine.h">
@@ -194,6 +197,9 @@
       <Filter>Header Files\Platform</Filter>
     </ClInclude>
     <ClInclude Include="MyGUI_CustomLayer.h">
+      <Filter>Header Files\Extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="MyGUI_CustomLayerNode.h">
       <Filter>Header Files\Extensions</Filter>
     </ClInclude>
   </ItemGroup>

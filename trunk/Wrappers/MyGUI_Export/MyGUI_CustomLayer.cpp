@@ -7,7 +7,7 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_LayerItem.h"
 #include "MyGUI_CustomLayer.h"
-#include "MyGUI_LayerNode.h"
+#include "MyGUI_CustomLayerNode.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_ExportRenderManager.h"
 
@@ -54,7 +54,7 @@ namespace MyGUI
 	ILayerNode* CustomLayer::createChildItemNode()
 	{
 		if (mChildItem == nullptr)
-			mChildItem = new SharedLayerNode(this);
+			mChildItem = new CustomLayerNode(this);
 
 		mChildItem->addUsing();
 
