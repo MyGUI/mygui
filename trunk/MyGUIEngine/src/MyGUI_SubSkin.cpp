@@ -49,10 +49,12 @@ namespace MyGUI
 
 	void SubSkin::setVisible(bool _visible)
 	{
-		if (mVisible == _visible) return;
+		if (mVisible == _visible)
+			return;
 		mVisible = _visible;
 
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 	void SubSkin::setAlpha(float _alpha)
@@ -66,7 +68,8 @@ namespace MyGUI
 
 	void SubSkin::_correctView()
 	{
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 	void SubSkin::_setAlign(const IntSize& _oldsize)
@@ -120,7 +123,6 @@ namespace MyGUI
 			mCurrentCoord = mCoord;
 			_updateView();
 		}
-
 	}
 
 	void SubSkin::_updateView()
@@ -139,23 +141,23 @@ namespace MyGUI
 			// проверка на полный выход за границу
 			if (_checkOutside())
 			{
-
 				// запоминаем текущее состояние
 				mIsMargin = margin;
 
 				// обновить перед выходом
-				if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+				if (nullptr != mNode)
+					mNode->outOfDate(mRenderItem);
 				return;
 			}
 		}
 
 		// мы обрезаны или были обрезаны
-		if ( mIsMargin || margin )
+		if (mIsMargin || margin)
 		{
 			mCurrentCoord.width = _getViewWidth();
 			mCurrentCoord.height = _getViewHeight();
 
-			if ( (mCurrentCoord.width > 0) && (mCurrentCoord.height > 0) )
+			if ((mCurrentCoord.width > 0) && (mCurrentCoord.height > 0))
 			{
 				// теперь смещаем текстуру
 				float UV_lft = mMargin.left / (float)mCoord.width;
@@ -184,7 +186,8 @@ namespace MyGUI
 		// запоминаем текущее состояние
 		mIsMargin = margin;
 
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 	void SubSkin::createDrawItem(ITexture* _texture, ILayerNode* _node)
@@ -207,7 +210,8 @@ namespace MyGUI
 
 	void SubSkin::_setUVSet(const FloatRect& _rect)
 	{
-		if (mRectTexture == _rect) return;
+		if (mRectTexture == _rect)
+			return;
 		mRectTexture = _rect;
 
 		// если обрезаны, то просчитываем с учето обрезки
@@ -228,19 +232,20 @@ namespace MyGUI
 
 			mCurrentTexture.set(UV_lft_total, UV_top_total, UV_rgt_total, UV_btm_total);
 		}
-
 		// мы не обрезаны, базовые координаты
 		else
 		{
 			mCurrentTexture = mRectTexture;
 		}
 
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 	void SubSkin::doRender()
 	{
-		if (!mVisible || mEmptyView) return;
+		if (!mVisible || mEmptyView)
+			return;
 
 		VertexQuad* quad = reinterpret_cast<VertexQuad*>(mRenderItem->getCurrentVertexBuffer());
 

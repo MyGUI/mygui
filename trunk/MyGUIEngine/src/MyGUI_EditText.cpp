@@ -307,7 +307,8 @@ namespace MyGUI
 			mRenderItem->addDrawItem(this, mCountVertex);
 		}
 
-		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
+		if (nullptr != mNode)
+			mNode->outOfDate(mRenderItem);
 	}
 
 	const std::string& EditText::getFontName() const
