@@ -78,6 +78,8 @@ namespace MyGUI
 
 		virtual void resizeView(const IntSize& _viewSize);
 
+		virtual float getNodeDepth();
+
 		bool isOutOfDate() const;
 
 	protected:
@@ -98,6 +100,7 @@ namespace MyGUI
 		ILayerNode* mParent;
 		ILayer* mLayer;
 		bool mOutOfDate;
+		float mDepth;
 	};
 
 } // namespace MyGUI

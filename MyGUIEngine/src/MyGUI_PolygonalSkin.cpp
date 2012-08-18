@@ -258,7 +258,7 @@ namespace MyGUI
 
 		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
 
-		float vertex_z = info.maximumDepth;
+		float vertex_z = mNode->getNodeDepth();
 
 		if (mGeometryOutdated)
 		{

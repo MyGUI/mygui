@@ -251,7 +251,7 @@ namespace MyGUI
 
 		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
 
-		float vertex_z = info.maximumDepth;
+		float vertex_z = mNode->getNodeDepth();
 
 		float vertex_left = ((info.pixScaleX * (float)(mCurrentCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) + info.hOffset) * 2) - 1;
 		float vertex_right = vertex_left + (info.pixScaleX * (float)mCurrentCoord.width * 2);
