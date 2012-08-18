@@ -217,7 +217,7 @@ namespace MyGUI
 		mTextureHeightOne = (mCurrentTexture.bottom - mCurrentTexture.top) / mRealTileHeight;
 		mTextureWidthOne = (mCurrentTexture.right - mCurrentTexture.left) / mRealTileWidth;
 
-		float vertex_z = info.maximumDepth;
+		float vertex_z = mNode->getNodeDepth();
 
 		// абсолютный размер окна
 		float window_left = ((info.pixScaleX * (float)(mCoord.left + mCroppedParent->getAbsoluteLeft() - info.leftOffset) + info.hOffset) * 2) - 1;

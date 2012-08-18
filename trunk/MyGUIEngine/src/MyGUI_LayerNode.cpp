@@ -98,6 +98,8 @@ namespace MyGUI
 
 	void LayerNode::renderToTarget(IRenderTarget* _target, bool _update)
 	{
+		mDepth = _target->getInfo().maximumDepth;
+
 		// проверяем на сжатие пустот
 		bool need_compression = false;
 		for (VectorRenderItem::iterator iter = mFirstRenderItems.begin(); iter != mFirstRenderItems.end(); ++iter)
@@ -343,6 +345,11 @@ namespace MyGUI
 		}
 
 		return mOutOfDate;
+	}
+
+	float LayerNode::getNodeDepth()
+	{
+		return mDepth;
 	}
 
 } // namespace MyGUI

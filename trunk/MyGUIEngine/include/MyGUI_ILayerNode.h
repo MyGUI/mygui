@@ -81,6 +81,8 @@ namespace MyGUI
 		virtual void renderToTarget(IRenderTarget* _target, bool _update) = 0;
 
 		virtual void resizeView(const IntSize& _viewSize) = 0;
+
+		virtual float getNodeDepth() = 0;
 	};
 
 } // namespace MyGUI
