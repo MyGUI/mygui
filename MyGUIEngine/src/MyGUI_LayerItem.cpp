@@ -120,10 +120,11 @@ namespace MyGUI
 	void LayerItem::detachFromLayer()
 	{
 		// мы уже отдетачены в доску
-		if (nullptr == mLayer) return;
+		if (nullptr == mLayer)
+			return;
 
 		// такого быть не должно
-		MYGUI_ASSERT(mLayerNode, "_item->mLayerNode == nullptr");
+		MYGUI_ASSERT(mLayerNode, "mLayerNode == nullptr");
 
 		// отписываемся от пиккинга
 		mLayerNode->detachLayerItem(this);
@@ -142,7 +143,8 @@ namespace MyGUI
 
 	void LayerItem::upLayerItem()
 	{
-		if (mLayerNode) mLayerNode->getLayer()->upChildItemNode(mLayerNode);
+		if (mLayerNode)
+			mLayerNode->getLayer()->upChildItemNode(mLayerNode);
 	}
 
 	void LayerItem::attachToLayerItemNode(ILayerNode* _item, bool _deep)
