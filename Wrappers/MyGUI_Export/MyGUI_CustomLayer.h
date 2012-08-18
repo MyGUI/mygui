@@ -9,48 +9,19 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
-#include "MyGUI_ILayer.h"
-#include "MyGUI_CustomLayerNode.h"
+#include "MyGUI_OverlappedLayer.h"
 
 namespace MyGUI
 {
 
 	class CustomLayer :
-		public ILayer
+		public OverlappedLayer
 	{
 		MYGUI_RTTI_DERIVED( CustomLayer )
 
 	public:
-		CustomLayer();
-		virtual ~CustomLayer();
-
-		virtual void deserialization(xml::ElementPtr _node, Version _version);
-
 		virtual ILayerNode* createChildItemNode();
-
-		virtual void destroyChildItemNode(ILayerNode* _node);
-
-		virtual void upChildItemNode(ILayerNode* _node);
-
-		virtual EnumeratorILayerNode getEnumerator() const;
-
-		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) const;
-
-		virtual IntPoint getPosition(int _left, int _top) const;
-
-		virtual const IntSize& getSize() const;
-
 		virtual void renderToTarget(IRenderTarget* _target, bool _update);
-
-		virtual void resizeView(const IntSize& _viewSize);
-
-		bool isOutOfDate() const;
-
-	protected:
-		bool mIsPick;
-		CustomLayerNode* mChildItem;
-		bool mOutOfDate;
-		IntSize mViewSize;
 	};
 
 }

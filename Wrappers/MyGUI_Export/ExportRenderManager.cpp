@@ -7,8 +7,6 @@
 #include "ExportDefine.h"
 #include "ExportMarshaling.h"
 #include "MyGUI_ExportRenderManager.h"
-#include "MyGUI_LayerManager.h"
-#include "MyGUI_CustomLayer.h"
 
 namespace Export
 {
@@ -52,37 +50,6 @@ namespace Export
 				Convert<size_t>::From(_id),
 				Convert<int>::From(_width),
 				Convert<int>::From(_height));
-		}
-	}
-
-	namespace ScopeRenderManager_GetLayer
-	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportRenderManager_GetLayer(
-			Convert<size_t>::Type _index,
-			Convert<size_t&>::Type _layerId,
-			Convert<void*&>::Type _name)
-		{
-			_name = nullptr;
-			size_t count = MyGUI::LayerManager::getInstance().getLayerCount();
-			size_t index = Convert<size_t>::From(_index);
-			if (index >= count)
-			{
-				_layerId = 0;
-				return false;
-			}
-
-			MyGUI::ILayer* layer = MyGUI::LayerManager::getInstance().getLayer(index);
-			MyGUI::CustomLayer* custom = layer->castType<MyGUI::CustomLayer>(false);
-
-			if (custom == nullptr)
-			{
-				_layerId = 0;
-				return true;
-			}
-
-			_layerId = (size_t)layer;
-			_name = (void*)layer->getName().c_str();
-			return true;
 		}
 	}
 

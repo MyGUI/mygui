@@ -218,4 +218,9 @@ namespace MyGUI
 		return mLayer;
 	}
 
+	ILayerNode* LayerItem::getLayerNode() const
+	{
+		return mLayerNode;
+	}
+
 } // namespace MyGUI

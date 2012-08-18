@@ -40,6 +40,7 @@ namespace MyGUI
 		virtual ~LayerItem();
 
 		ILayer* getLayer() const;
+		ILayerNode* getLayerNode() const;
 
 		virtual void attachItemToNode(ILayer* _layer, ILayerNode* _node);
 		virtual void detachFromLayer();

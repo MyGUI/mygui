@@ -98,6 +98,9 @@
     <ClCompile Include="MyGUI_CustomLayerNode.cpp">
       <Filter>Source Files\Extensions</Filter>
     </ClCompile>
+    <ClCompile Include="ExportLayers.cpp">
+      <Filter>Source Files\Extensions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExportDefine.h">

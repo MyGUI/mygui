@@ -8,13 +8,13 @@
 #define _8b05f275_74eb_41b3_8bf0_08bb66ce8c7d_
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_SharedLayerNode.h"
+#include "MyGUI_LayerNode.h"
 
 namespace MyGUI
 {
 
 	class CustomLayerNode :
-		public SharedLayerNode
+		public LayerNode
 	{
 		MYGUI_RTTI_DERIVED( CustomLayerNode )
 
@@ -24,6 +24,16 @@ namespace MyGUI
 		virtual ILayerNode* createChildItemNode();
 
 		virtual float getNodeDepth();
+
+		void setDepth(float _value);
+
+	private:
+		void updateInheritsDepth(float _value);
+		void invalidateAll();
+
+	private:
+		float mLocalDepth;
+		float mInheritsDepth;
 	};
 
 }
