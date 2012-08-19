@@ -10,8 +10,8 @@
             <UserString key="ControlLayout" value="WorkspaceImageListControl.layout"/>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="50 0 50 100" name="SecondPanel">
-            <UserString key="ControlLayout" value="MainPropertySeparatePanel.layout"/>
             <UserString key="ControlType" value="SeparatePanel"/>
+            <UserString key="ControlLayout" value="SeparatePanel_2.layout"/>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="100 0 10 100" name="SeparatorH">
             <Property key="Pointer" value="size_horz"/>
