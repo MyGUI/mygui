@@ -5,6 +5,7 @@
         <UserString key="MinSize" value="20"/>
         <UserString key="PanelAlign" value="Left"/>
         <UserString key="DefaultSize" value="300"/>
+        <UserString key="SaveAs" value="SeparatePanel_1"/>
         <Widget type="Widget" skin="PanelEmpty" position="0 0 50 100" name="FirstPanel">
             <UserString key="ControlType" value="Control"/>
             <UserString key="ControlLayout" value="WorkspaceImageListPanel.layout"/>
