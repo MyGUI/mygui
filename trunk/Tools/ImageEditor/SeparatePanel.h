@@ -40,7 +40,7 @@ namespace tools
 		MyGUI::Widget* mSeparatorH;
 		MyGUI::Widget* mSeparatorV;
 		int mMinSize;
-		MyGUI::Align mPanleAlign;
+		MyGUI::Align mPanelAlign;
 		MyGUI::IntSize mFirstPanelSize;
 		MyGUI::IntPoint mMousePressedOffset;
 	};

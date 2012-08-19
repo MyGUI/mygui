@@ -19,7 +19,7 @@ namespace tools
 		mSeparatorH(),
 		mSeparatorV(),
 		mMinSize(),
-		mPanleAlign(MyGUI::Align::Left),
+		mPanelAlign(MyGUI::Align::Left),
 		mFirstPanelSize()
 	{
 	}
@@ -47,7 +47,11 @@ namespace tools
 
 		setFirstCoords();
 
-		setPanelAlign(MyGUI::Align::Bottom);
+		mPanelAlign = MyGUI::Align::Left;
+		if (mMainWidget->isUserString("PanelAlign"))
+			mPanelAlign = MyGUI::utility::parseValue<MyGUI::Align>(mMainWidget->getUserString("PanelAlign"));
+
+		setPanelAlign(mPanelAlign);
 	}
 
 	void SeparatePanel::notifyChangeCoord(MyGUI::Widget* _sender)
@@ -66,7 +70,7 @@ namespace tools
 		MyGUI::IntCoord separatorV = _separatorV;
 		MyGUI::IntCoord secondPanel = _secondPanel;
 
-		if (mPanleAlign.isLeft())
+		if (mPanelAlign.isLeft())
 		{
 			updateSize(firstPanel.width, secondPanel.width, separatorH.width, mMainWidget->getWidth(), mFirstPanelSize.width);
 			firstPanel.top = separatorH.top = secondPanel.top = 0;
@@ -75,7 +79,7 @@ namespace tools
 			separatorH.left = firstPanel.right();
 			secondPanel.left = separatorH.right();
 		}
-		else if (mPanleAlign.isRight())
+		else if (mPanelAlign.isRight())
 		{
 			updateSize(firstPanel.width, secondPanel.width, separatorH.width, mMainWidget->getWidth(), mFirstPanelSize.width);
 			firstPanel.top = separatorH.top = secondPanel.top = 0;
@@ -84,7 +88,7 @@ namespace tools
 			separatorH.left = secondPanel.right();
 			firstPanel.left = separatorH.right();
 		}
-		else if (mPanleAlign.isTop())
+		else if (mPanelAlign.isTop())
 		{
 			updateSize(firstPanel.height, secondPanel.height, separatorV.height, mMainWidget->getHeight(), mFirstPanelSize.height);
 			firstPanel.left = separatorV.left = secondPanel.left = 0;
@@ -93,7 +97,7 @@ namespace tools
 			separatorV.top = firstPanel.bottom();
 			secondPanel.top = separatorV.bottom();
 		}
-		else if (mPanleAlign.isBottom())
+		else if (mPanelAlign.isBottom())
 		{
 			updateSize(firstPanel.height, secondPanel.height, separatorV.height, mMainWidget->getHeight(), mFirstPanelSize.height);
 			firstPanel.left = separatorV.left = secondPanel.left = 0;
@@ -118,14 +122,14 @@ namespace tools
 
 	void SeparatePanel::setPanelAlign(MyGUI::Align _value)
 	{
-		mPanleAlign = _value;
+		mPanelAlign = _value;
 
-		if (mPanleAlign.isLeft() || mPanleAlign.isRight())
+		if (mPanelAlign.isLeft() || mPanelAlign.isRight())
 		{
 			mSeparatorH->setVisible(true);
 			mSeparatorV->setVisible(false);
 		}
-		else if (mPanleAlign.isTop() || mPanleAlign.isBottom())
+		else if (mPanelAlign.isTop() || mPanelAlign.isBottom())
 		{
 			mSeparatorH->setVisible(false);
 			mSeparatorV->setVisible(true);
@@ -136,13 +140,13 @@ namespace tools
 
 	MyGUI::Align SeparatePanel::getPanelAlign() const
 	{
-		return mPanleAlign;
+		return mPanelAlign;
 	}
 
 	void SeparatePanel::updateSize(int& _firstWidth, int& _secondWidth, int _separatorWidth, int _mainWidth, int _defaultSize)
 	{
-		/*if (_firstWidth < _defaultSize)
-			_firstWidth = _defaultSize;*/
+		if (_firstWidth < _defaultSize)
+			_firstWidth = _defaultSize;
 
 		if (_firstWidth < mMinSize)
 			_firstWidth = mMinSize;
@@ -216,33 +220,36 @@ namespace tools
 	{
 		MyGUI::IntPoint offset = _mousePosition - mMousePressedOffset - mMainWidget->getAbsolutePosition();
 
+		// сбрасываем дефолтный размер панели
+		mFirstPanelSize.clear();
+
 		MyGUI::IntCoord firstPanel = mFirstPanel->getCoord();
 		MyGUI::IntCoord separatorH = mSeparatorH->getCoord();
 		MyGUI::IntCoord separatorV = mSeparatorV->getCoord();
 		MyGUI::IntCoord secondPanel = mSecondPanel->getCoord();
 
-		if (mPanleAlign.isLeft())
+		if (mPanelAlign.isLeft())
 		{
 			firstPanel.width = offset.left - firstPanel.left;
 			separatorH.left = offset.left;
 			secondPanel.width = secondPanel.right() - (offset.left + separatorH.width);
 			secondPanel.left = offset.left + separatorH.width;
 		}
-		else if (mPanleAlign.isRight())
+		else if (mPanelAlign.isRight())
 		{
 			secondPanel.width = offset.left - secondPanel.left;
 			separatorH.left = offset.left;
 			firstPanel.width = firstPanel.right() - (offset.left + separatorH.width);
 			firstPanel.left = offset.left + separatorH.width;
 		}
-		else if (mPanleAlign.isTop())
+		else if (mPanelAlign.isTop())
 		{
 			firstPanel.height = offset.top - firstPanel.top;
 			separatorV.top = offset.top;
 			secondPanel.height = secondPanel.bottom() - (offset.top + separatorV.height);
 			secondPanel.top = offset.top + separatorV.height;
 		}
-		else if (mPanleAlign.isBottom())
+		else if (mPanelAlign.isBottom())
 		{
 			secondPanel.height = offset.top - secondPanel.top;
 			separatorV.top = offset.top;
