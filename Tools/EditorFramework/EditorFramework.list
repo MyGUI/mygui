@@ -15,6 +15,7 @@ set (HEADER_FILES
   CommandManager.h
   ComponentFactory.h
   Control.h
+  ControlDebug.h
   Data.h
   DataListBaseControl.h
   DataManager.h
@@ -104,6 +105,7 @@ set (SOURCE_FILES
   CommandManager.cpp
   ComponentFactory.cpp
   Control.cpp
+  ControlDebug.cpp
   Data.cpp
   DataListBaseControl.cpp
   DataManager.cpp
@@ -197,6 +199,8 @@ SOURCE_GROUP("Controls\\Common" FILES
   ComponentFactory.h
   Control.cpp
   Control.h
+  ControlDebug.cpp
+  ControlDebug.h
   MyGUI_FilterNoneSkin.cpp
   MyGUI_FilterNoneSkin.h
 )

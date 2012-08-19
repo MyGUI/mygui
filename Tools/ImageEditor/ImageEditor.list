@@ -13,6 +13,7 @@ set (HEADER_FILES
   ImageListControl.h
   IndexListControl.h
   IndexTextureController.h
+  SeparatePanel.h
   SettingsGeneralControl.h
   SettingsResourcePathsControl.h
   SettingsResourcesControl.h
@@ -35,6 +36,7 @@ set (SOURCE_FILES
   ImageListControl.cpp
   IndexListControl.cpp
   IndexTextureController.cpp
+  SeparatePanel.cpp
   SettingsGeneralControl.cpp
   SettingsResourcePathsControl.cpp
   SettingsResourcesControl.cpp
@@ -61,6 +63,10 @@ SOURCE_GROUP("Controls\\Animations" FILES
   AnimationInfo.h
   AnimationViewControl.cpp
   AnimationViewControl.h
+)
+SOURCE_GROUP("Controls\\DockablePanel" FILES
+  SeparatePanel.cpp
+  SeparatePanel.h
 )
 SOURCE_GROUP("Controls\\Framework" FILES
   StatisticInfoControl.cpp
