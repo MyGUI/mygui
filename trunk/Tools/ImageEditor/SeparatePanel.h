@@ -32,7 +32,8 @@ namespace tools
 		void invalidateSize(const MyGUI::IntCoord& _firstPanel, const MyGUI::IntCoord& _separatorH, const MyGUI::IntCoord& _separatorV, const MyGUI::IntCoord& _secondPanel);
 		void updateSize(int& _firstCoord, int& _secondCoord, int _separatorWidth, int _mainSize, int _defaultSize);
 		void moveSeparator(const MyGUI::IntPoint& _mousePosition);
-		void setDefaultSize();
+		void loadDefaultSize();
+		void saveDefaultSize();
 
 	private:
 		MyGUI::Widget* mFirstPanel;
@@ -43,6 +44,7 @@ namespace tools
 		MyGUI::Align mPanelAlign;
 		MyGUI::IntSize mDefaultPanelSize;
 		MyGUI::IntPoint mMousePressedOffset;
+		std::string mSaveAs;
 	};
 
 }
