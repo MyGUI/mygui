@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="20 20 325 315" align="Stretch" name="Root">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="Widget" skin="Panel1Skin_Dark" position="0 0 325 315" align="Stretch">
+            <Widget type="TextBox" skin="TextBox_Dark" position="10 0 310 20" align="HStretch Top">
+                <Property key="TextAlign" value="Left VCenter"/>
+                <Property key="FontName" value="DejaVuSansFont_13"/>
+                <Property key="Caption" value="#{TexturePanel}"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="6 21 313 288" align="Stretch">
+                <UserString key="ControlLayout" value="TextureViewToolControl.layout"/>
+                <UserString key="ControlType" value="Control"/>
+            </Widget>
+        </Widget>
+    </Widget>
+</MyGUI>
