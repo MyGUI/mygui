@@ -3,11 +3,12 @@
     <Widget type="Widget" skin="PanelEmpty" position="40 40 110 110" align="Stretch" name="Root">
         <UserString key="SnapTo" value="Stretch"/>
         <UserString key="MinSize" value="20"/>
-        <Widget type="Widget" skin="WhiteSkin" position="0 0 50 100" name="FirstPanel">
+        <UserString key="PanelAlign" value="Top"/>
+        <Widget type="Widget" skin="PanelEmpty" position="0 0 50 100" name="FirstPanel">
             <UserString key="ControlLayout" value="TextureViewToolControl.layout"/>
             <UserString key="ControlType" value="ControlDebug"/>
         </Widget>
-        <Widget type="Widget" skin="WhiteSkin" position="50 0 50 100" name="SecondPanel"/>
+        <Widget type="Widget" skin="PanelEmpty" position="50 0 50 100" name="SecondPanel"/>
         <Widget type="Widget" skin="PanelEmpty" position="100 0 10 100" name="SeparatorH">
             <Property key="Pointer" value="size_horz"/>
             <Widget type="Widget" skin="SeparatorV2Skin_Dark" position="4 45 2 10" align="Center">
