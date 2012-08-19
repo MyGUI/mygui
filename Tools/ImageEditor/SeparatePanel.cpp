@@ -7,6 +7,7 @@
 #include "Precompiled.h"
 #include "SeparatePanel.h"
 #include "FactoryManager.h"
+#include "SettingsManager.h"
 
 namespace tools
 {
@@ -25,6 +26,7 @@ namespace tools
 
 	SeparatePanel::~SeparatePanel()
 	{
+		saveDefaultSize();
 	}
 
 	void SeparatePanel::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
@@ -44,7 +46,8 @@ namespace tools
 		mSeparatorH->eventMouseDrag += MyGUI::newDelegate(this, &SeparatePanel::notifyMouseDrag);
 		mSeparatorV->eventMouseDrag += MyGUI::newDelegate(this, &SeparatePanel::notifyMouseDrag);
 
-		setDefaultSize();
+		mSaveAs = mMainWidget->getUserString("SaveAs");
+		loadDefaultSize();
 
 		if (mMainWidget->isUserString("PanelAlign"))
 			mPanelAlign = MyGUI::utility::parseValue<MyGUI::Align>(mMainWidget->getUserString("PanelAlign"));
@@ -251,23 +254,33 @@ namespace tools
 		mDefaultPanelSize = mFirstPanel->getSize();
 	}
 
-	void SeparatePanel::setDefaultSize()
+	void SeparatePanel::loadDefaultSize()
 	{
-		MyGUI::IntSize defaultSize;
-		if (mMainWidget->isUserString("DefaultSize"))
+		if (mSaveAs != "")
+			mDefaultPanelSize = SettingsManager::getInstance().getValue<MyGUI::IntSize>("Controls/SeparateControl/" + mSaveAs);
+
+		if (mDefaultPanelSize.empty())
 		{
-			int size = MyGUI::utility::parseValue<int>(mMainWidget->getUserString("DefaultSize"));
-			defaultSize = MyGUI::IntSize(size, size);
-			mDefaultPanelSize = defaultSize;
-		}
-		else
-		{
-			defaultSize = MyGUI::IntSize(
-				(mMainWidget->getWidth() - mSeparatorH->getWidth()) / 2,
-				(mMainWidget->getHeight() - mSeparatorV->getHeight()) / 2);
+			if (mMainWidget->isUserString("DefaultSize"))
+			{
+				int size = MyGUI::utility::parseValue<int>(mMainWidget->getUserString("DefaultSize"));
+				mDefaultPanelSize = MyGUI::IntSize(size, size);
+			}
+			else
+			{
+				mDefaultPanelSize = MyGUI::IntSize(
+					(mMainWidget->getWidth() - mSeparatorH->getWidth()) / 2,
+					(mMainWidget->getHeight() - mSeparatorV->getHeight()) / 2);
+			}
 		}
 
-		mFirstPanel->setSize(defaultSize);
+		mFirstPanel->setSize(mDefaultPanelSize);
+	}
+
+	void SeparatePanel::saveDefaultSize()
+	{
+		if (mSaveAs != "")
+			SettingsManager::getInstance().setValue("Controls/SeparateControl/" + mSaveAs, mDefaultPanelSize);
 	}
 
 }
