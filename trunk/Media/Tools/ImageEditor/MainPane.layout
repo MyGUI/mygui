@@ -8,7 +8,7 @@
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="10 30 380 360" align="Stretch">
             <UserString key="ControlType" value="SeparatePanel"/>
-            <UserString key="ControlLayout" value="MainTabSeparatePanel.layout"/>
+            <UserString key="ControlLayout" value="WorkspaceImageListSeparatePanel.layout"/>
         </Widget>
     </Widget>
 </MyGUI>
