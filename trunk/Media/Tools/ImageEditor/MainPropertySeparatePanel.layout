@@ -11,7 +11,7 @@
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="50 0 50 100" name="SecondPanel">
             <UserString key="ControlType" value="Control"/>
-            <UserString key="ControlLayout" value="MainWorkspaceTexturePanel.layout"/>
+            <UserString key="ControlLayout" value="WorkspaceTexturePanel.layout"/>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="100 0 10 100" name="SeparatorH">
             <Property key="Pointer" value="size_horz"/>
