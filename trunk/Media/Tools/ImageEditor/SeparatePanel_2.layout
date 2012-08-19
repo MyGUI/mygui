@@ -6,8 +6,8 @@
         <UserString key="DefaultSize" value="300"/>
         <UserString key="PanelAlign" value="Right"/>
         <Widget type="Widget" skin="PanelEmpty" position="0 0 50 100" name="FirstPanel">
-            <UserString key="ControlLayout" value="PropertyAndAnimationSeparatePanel.layout"/>
             <UserString key="ControlType" value="SeparatePanel"/>
+            <UserString key="ControlLayout" value="SeparatePanel_3.layout"/>
         </Widget>
         <Widget type="Widget" skin="PanelEmpty" position="50 0 50 100" name="SecondPanel">
             <UserString key="ControlType" value="Control"/>
