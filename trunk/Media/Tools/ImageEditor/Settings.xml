@@ -79,7 +79,7 @@
 		</Control.List>
 	</Editor>
 	<EditorState>
-		<MainPaneLayout>MainPane.layout</MainPaneLayout>
+		<MainPaneLayout>MainPanel.layout</MainPaneLayout>
 		<SettingsWindowLayout>SettingsWindow.layout</SettingsWindowLayout>
 		<OpenSaveFileDialogLayout>OpenSaveFileDialog2.layout</OpenSaveFileDialogLayout>
 		<DefaultFileName>unnamed.xml</DefaultFileName>
