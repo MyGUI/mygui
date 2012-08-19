@@ -273,8 +273,6 @@ namespace tools
 					(mMainWidget->getHeight() - mSeparatorV->getHeight()) / 2);
 			}
 		}
-
-		mFirstPanel->setSize(mDefaultPanelSize);
 	}
 
 	void SeparatePanel::saveDefaultSize()
