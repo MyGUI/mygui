@@ -19,8 +19,7 @@ namespace tools
 		mSeparatorH(),
 		mSeparatorV(),
 		mMinSize(),
-		mPanelAlign(MyGUI::Align::Left),
-		mFirstPanelSize()
+		mPanelAlign(MyGUI::Align::Left)
 	{
 	}
 
@@ -30,7 +29,7 @@ namespace tools
 
 	void SeparatePanel::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
-		Control::OnInitialise(_parent, _place, "SeparatePanel.layout");
+		Control::OnInitialise(_parent, _place, _layoutName);
 
 		assignWidget(mFirstPanel, "FirstPanel");
 		assignWidget(mSecondPanel, "SecondPanel");
@@ -45,9 +44,8 @@ namespace tools
 		mSeparatorH->eventMouseDrag += MyGUI::newDelegate(this, &SeparatePanel::notifyMouseDrag);
 		mSeparatorV->eventMouseDrag += MyGUI::newDelegate(this, &SeparatePanel::notifyMouseDrag);
 
-		setFirstCoords();
+		setDefaultSize();
 
-		mPanelAlign = MyGUI::Align::Left;
 		if (mMainWidget->isUserString("PanelAlign"))
 			mPanelAlign = MyGUI::utility::parseValue<MyGUI::Align>(mMainWidget->getUserString("PanelAlign"));
 
@@ -72,7 +70,7 @@ namespace tools
 
 		if (mPanelAlign.isLeft())
 		{
-			updateSize(firstPanel.width, secondPanel.width, separatorH.width, mMainWidget->getWidth(), mFirstPanelSize.width);
+			updateSize(firstPanel.width, secondPanel.width, separatorH.width, mMainWidget->getWidth(), mDefaultPanelSize.width);
 			firstPanel.top = separatorH.top = secondPanel.top = 0;
 			firstPanel.height = separatorH.height = secondPanel.height = mMainWidget->getHeight();
 			firstPanel.left = 0;
@@ -81,7 +79,7 @@ namespace tools
 		}
 		else if (mPanelAlign.isRight())
 		{
-			updateSize(firstPanel.width, secondPanel.width, separatorH.width, mMainWidget->getWidth(), mFirstPanelSize.width);
+			updateSize(firstPanel.width, secondPanel.width, separatorH.width, mMainWidget->getWidth(), mDefaultPanelSize.width);
 			firstPanel.top = separatorH.top = secondPanel.top = 0;
 			firstPanel.height = separatorH.height = secondPanel.height = mMainWidget->getHeight();
 			secondPanel.left = 0;
@@ -90,7 +88,7 @@ namespace tools
 		}
 		else if (mPanelAlign.isTop())
 		{
-			updateSize(firstPanel.height, secondPanel.height, separatorV.height, mMainWidget->getHeight(), mFirstPanelSize.height);
+			updateSize(firstPanel.height, secondPanel.height, separatorV.height, mMainWidget->getHeight(), mDefaultPanelSize.height);
 			firstPanel.left = separatorV.left = secondPanel.left = 0;
 			firstPanel.width = separatorV.width = secondPanel.width = mMainWidget->getWidth();
 			firstPanel.top = 0;
@@ -99,7 +97,7 @@ namespace tools
 		}
 		else if (mPanelAlign.isBottom())
 		{
-			updateSize(firstPanel.height, secondPanel.height, separatorV.height, mMainWidget->getHeight(), mFirstPanelSize.height);
+			updateSize(firstPanel.height, secondPanel.height, separatorV.height, mMainWidget->getHeight(), mDefaultPanelSize.height);
 			firstPanel.left = separatorV.left = secondPanel.left = 0;
 			firstPanel.width = separatorV.width = secondPanel.width = mMainWidget->getWidth();
 			secondPanel.top = 0;
@@ -190,16 +188,6 @@ namespace tools
 			_secondWidth = _mainWidth - _firstWidth - _separatorWidth;
 	}
 
-	void SeparatePanel::setFirstCoords()
-	{
-		MyGUI::IntSize size = MyGUI::IntSize(
-			(mMainWidget->getWidth() - mSeparatorH->getWidth()) / 2,
-			(mMainWidget->getHeight() - mSeparatorH->getHeight()) / 2);
-
-		mFirstPanel->setSize(size);
-		mSecondPanel->setSize(size);
-	}
-
 	void SeparatePanel::notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
 		if (_id != MyGUI::MouseButton::Left)
@@ -221,7 +209,7 @@ namespace tools
 		MyGUI::IntPoint offset = _mousePosition - mMousePressedOffset - mMainWidget->getAbsolutePosition();
 
 		// сбрасываем дефолтный размер панели
-		mFirstPanelSize.clear();
+		mDefaultPanelSize.clear();
 
 		MyGUI::IntCoord firstPanel = mFirstPanel->getCoord();
 		MyGUI::IntCoord separatorH = mSeparatorH->getCoord();
@@ -260,7 +248,26 @@ namespace tools
 		invalidateSize(firstPanel, separatorH, separatorV, secondPanel);
 
 		// запоминаем дефолтный размер панели
-		mFirstPanelSize = mFirstPanel->getSize();
+		mDefaultPanelSize = mFirstPanel->getSize();
+	}
+
+	void SeparatePanel::setDefaultSize()
+	{
+		MyGUI::IntSize defaultSize;
+		if (mMainWidget->isUserString("DefaultSize"))
+		{
+			int size = MyGUI::utility::parseValue<int>(mMainWidget->getUserString("DefaultSize"));
+			defaultSize = MyGUI::IntSize(size, size);
+			mDefaultPanelSize = defaultSize;
+		}
+		else
+		{
+			defaultSize = MyGUI::IntSize(
+				(mMainWidget->getWidth() - mSeparatorH->getWidth()) / 2,
+				(mMainWidget->getHeight() - mSeparatorV->getHeight()) / 2);
+		}
+
+		mFirstPanel->setSize(defaultSize);
 	}
 
 }
