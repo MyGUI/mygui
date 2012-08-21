@@ -256,8 +256,6 @@ namespace MyGUI
 
 		Vertex* verticies = mRenderItem->getCurrentVertexBuffer();
 
-		const RenderTargetInfo& info = mRenderItem->getRenderTarget()->getInfo();
-
 		float vertex_z = mNode->getNodeDepth();
 
 		if (mGeometryOutdated)
