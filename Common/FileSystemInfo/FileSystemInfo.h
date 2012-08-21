@@ -161,7 +161,7 @@ namespace common
 	inline void scanFolder(VectorWString& _result, const std::wstring& _folder, bool _recursive, const std::wstring& _mask, bool _fullpath)
 	{
 		std::wstring folder = _folder;
-		if (!folder.empty() && folder.back() != '/' && folder.back() != '\\') folder += L"/";
+		if (!folder.empty() && *folder.rbegin() != '/' && *folder.rbegin() != '\\') folder += L"/";
 
 		VectorFileInfo result;
 		getSystemFileList(result, folder, _mask);
