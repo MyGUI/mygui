@@ -33,7 +33,8 @@ namespace MyGUI
 	LayerNode::LayerNode(ILayer* _layer, ILayerNode* _parent) :
 		mParent(_parent),
 		mLayer(_layer),
-		mOutOfDate(false)
+		mOutOfDate(false),
+		mDepth(0.0f)
 	{
 	}
 
