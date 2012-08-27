@@ -22,7 +22,7 @@
                 <Property key="TextColour" value="#595959"/>
                 <Property key="NeedMouse" value="false"/>
             </Widget>
-            <Widget type="PopupMenu" skin="PopupMenu_Dark" position="25 555 99 88" style="Popup" layer="Popup" name="ContextMenu">
+            <Widget type="PopupMenu" skin="PopupMenu2_Dark" position="25 555 99 88" style="Popup" layer="Popup" name="ContextMenu">
                 <Property key="Visible" value="false"/>
                 <Widget type="MenuItem" skin="" position="0 0 93 18">
                     <Property key="Caption" value="#{Create}"/>
