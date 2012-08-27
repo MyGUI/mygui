@@ -151,7 +151,7 @@ namespace MyGUI
 				MYGUI_PLATFORM_LOG(Warning, "There are several files with name '" << _name << "'. '" << result << "' was used.");
 				MYGUI_PLATFORM_LOG(Warning, "Other candidater are:");
 				for (size_t index = 1; index < files.size(); index ++)
-					MYGUI_PLATFORM_LOG(Warning, files[index]);
+					MYGUI_PLATFORM_LOG(Warning, " - '" << files[index] << "'");
 			}
 		}
 
