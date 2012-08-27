@@ -14,6 +14,7 @@
 		<Property key="Skin" value="ButtonUpSkin" group="Other"/>
 		<Property key="Skin" value="ButtonLeftSkin" group="Other"/>
 		<Property key="Skin" value="ButtonRightSkin" group="Other"/>
+		<Property key="Skin" value="Button_Dark" group="_Dark"/>
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 		<Parameter key="StateSelected" value="Bool"/>
@@ -33,6 +34,7 @@
 		<Property key="DefaultSkin" value="ComboBox"/>
 		<Property key="Base" value="EditBox"/>
 		<Property key="Skin" value="ComboBox"/>
+		<Property key="Skin" value="ComboBox_Dark" group="_Dark"/>
 		<Parameter key="ModeDrop" value="Bool"/>
 		<Parameter key="FlowDirection" value="FlowDirection"/>
 		<Parameter key="MaxListLength" value="1 int"/>
@@ -53,6 +55,9 @@
 		<Property key="Skin" value="EditBoxStretch"/>
 		<Property key="Skin" value="EditBoxEmpty"/>
 		<Property key="Skin" value="WordWrapEmpty"/>
+		<Property key="Skin" value="EditBox_Dark" group="_Dark"/>
+		<Property key="Skin" value="EditBoxStretch_Dark" group="_Dark"/>
+		<Property key="Skin" value="EditBox2_Dark" group="_Dark"/>
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 		<Parameter key="CursorPosition" value="1 int"/>
@@ -74,6 +79,8 @@
 		<Property key="DefaultSkin" value="ItemBox"/>
 		<Property key="Base" value="DDContainer"/>
 		<Property key="Skin" value="ItemBox"/>
+		<Property key="Skin" value="ItemBox_Dark" group="_Dark"/>
+		<Property key="Skin" value="ItemBox2_Dark" group="_Dark"/>
 		<Parameter key="VerticalAlignment" value="Bool"/>
 		<TemplateData key="DragLayer" value="Layer"/>
 	</Widget>
@@ -81,6 +88,9 @@
 		<Property key="DefaultSkin" value="ListBox"/>
 		<Property key="Base" value="Widget"/>
 		<Property key="Skin" value="ListBox"/>
+		<Property key="Skin" value="ListBox_Dark" group="_Dark"/>
+		<Property key="Skin" value="ListBox2_Dark" group="_Dark"/>
+		<Property key="Skin" value="ListBox3_Dark" group="_Dark"/>
 		<Property key="ItemManager" value="true"/>
 		<TemplateData key="HeightLine" value="1 int"/>
 		<TemplateData key="SkinLine" value="Skin"/>
@@ -89,6 +99,7 @@
 		<Property key="DefaultSkin" value="MenuBar"/>
 		<Property key="Base" value="MenuControl"/>
 		<Property key="Skin" value="MenuBar"/>
+		<Property key="Skin" value="MenuBar2_Dark" group="_Dark"/>
 		<Property key="ItemManager" value="true"/>
 		<TemplateData key="DistanceButton" value="1 int"/>
 		<TemplateData key="SubMenuLayer" value="Layer"/>
@@ -114,6 +125,7 @@
 		<Property key="DefaultSkin" value="MultiListBox"/>
 		<Property key="Base" value="Widget"/>
 		<Property key="Skin" value="MultiListBox"/>
+		<Property key="Skin" value="MultiListBox_Dark" group="_Dark"/>
 		<Property key="ItemManager" value="true"/>
 	</Widget>
 	<Widget name="MultiListItem" internal="true">
@@ -129,6 +141,7 @@
 		<Property key="Base" value="MenuControl"/>
 		<Property key="Resizeable" value="false"/>
 		<Property key="Skin" value="PopupMenu"/>
+		<Property key="Skin" value="PopupMenu2_Dark" group="_Dark"/>
 		<Property key="ItemManager" value="true"/>
 		<TemplateData key="SubMenuLayer" value="Layer"/>
 		<TemplateData key="NormalSkin" value="Skin"/>
@@ -158,6 +171,12 @@
 		<Property key="Skin" value="ScrollBarH"/>
 		<Property key="Skin" value="SliderV"/>
 		<Property key="Skin" value="SliderH"/>
+		<Property key="Skin" value="ScrollBarV_Dark" group="_Dark"/>
+		<Property key="Skin" value="ScrollBarV2_Dark" group="_Dark"/>
+		<Property key="Skin" value="ScrollBarH_Dark" group="_Dark"/>
+		<Property key="Skin" value="ScrollBarH2_Dark" group="_Dark"/>
+		<Property key="Skin" value="SliderV_Dark" group="_Dark"/>
+		<Property key="Skin" value="SliderH_Dark" group="_Dark"/>
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 		<Parameter key="Range" value="1 int"/>
@@ -173,6 +192,8 @@
 		<Property key="Base" value="Widget"/>
 		<Property key="Skin" value="ScrollView"/>
 		<Property key="Skin" value="ScrollViewEmpty"/>
+		<Property key="Skin" value="ScrollView_Dark" group="_Dark"/>
+		<Property key="Skin" value="ScrollViewEmpty_Dark" group="_Dark"/>
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 		<Parameter key="VisibleVScroll" value="Bool"/>
@@ -199,6 +220,7 @@
 		<Property key="DefaultSkin" value="TextBox"/>
 		<Property key="Base" value="Widget"/>
 		<Property key="Skin" value="TextBox"/>
+		<Property key="Skin" value="TextBox_Dark" group="_Dark"/>
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 		<Parameter key="Caption" value="String"/>
@@ -213,6 +235,8 @@
 		<Property key="DefaultSkin" value="TabControl"/>
 		<Property key="Base" value="Widget"/>
 		<Property key="Skin" value="TabControl"/>
+		<Property key="Skin" value="TabControl1_Dark" group="_Dark"/>
+		<Property key="Skin" value="TabControl2_Dark" group="_Dark"/>
 		<Property key="ItemManager" value="true"/>
 		<Parameter key="ButtonWidth" value="1 int"/>
 		<Parameter key="ButtonAutoWidth" value="Bool"/>
@@ -236,6 +260,10 @@
 		<Property key="Skin" value="SepDownVSkin" group="Other"/>
 		<Property key="Skin" value="SepUpVSkin" group="Other"/>
 		<Property key="Skin" value="WhiteSkin" group="Other"/>
+		<Property key="Skin" value="Panel1Skin_Dark" group="_Dark"/>
+		<Property key="Skin" value="Panel2Skin_Dark" group="_Dark"/>
+		<Property key="Skin" value="Panel3Skin_Dark" group="_Dark"/>
+		<Property key="Skin" value="Back1Skin_Dark" group="_Dark"/>
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 		<Parameter key="Visible" value="Bool"/>
@@ -259,6 +287,8 @@
 		<Property key="Skin" value="WindowCX"/>
 		<Property key="Skin" value="WindowCS"/>
 		<Property key="Skin" value="WindowCSX"/>
+		<Property key="Skin" value="WindowCX2_Dark" group="_Dark"/>
+		<Property key="Skin" value="WindowCXS2_Dark" group="_Dark"/>
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="false"/>
 		<Parameter key="AutoAlpha" value="Bool"/>
