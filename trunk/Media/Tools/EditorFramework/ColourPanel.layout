@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="Window" skin="WindowCX_Dark" position="40 40 390 260" align="Center" layer="Overlapped" name="Root">
+    <Widget type="Window" skin="WindowCXS2_Dark" position="40 40 390 260" align="Center" layer="Overlapped" name="Root">
         <Property key="Caption" value="#{CaptionColourPicker}"/>
         <UserString key="SnapTo" value="Center"/>
         <UserString key="CommandClose" value="Command_ColorCancel"/>
