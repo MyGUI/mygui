@@ -70,7 +70,7 @@ namespace MyGUI
 	bool OgreDataManager::isDataExist(const std::string& _name)
 	{
 		const VectorString& files = getDataListNames(_name);
-		return (files.size() == 1);
+		return (files.size() > 0);
 	}
 
 	const VectorString& OgreDataManager::getDataListNames(const std::string& _pattern)
@@ -143,7 +143,17 @@ namespace MyGUI
 		static std::string result;
 
 		const VectorString& files = getDataListNames(_name, true);
-		result = files.size() == 1 ? files[0] : "";
+		if (files.size() > 0)
+		{
+			result = files[0];
+			if (files.size() > 1)
+			{
+				MYGUI_PLATFORM_LOG(Warning, "There are several files with name '" << _name << "'. '" << result << "' was used.");
+				MYGUI_PLATFORM_LOG(Warning, "Other candidater are:");
+				for (size_t index = 1; index < files.size(); index ++)
+					MYGUI_PLATFORM_LOG(Warning, files[index]);
+			}
+		}
 
 		return result;
 	}
