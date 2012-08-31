@@ -25,9 +25,7 @@
 #include "MyGUI_Diagnostic.h"
 #include <list>
 
-#ifndef MYGUI_RTTI_DISABLE_TYPE_INFO
 #include <typeinfo>
-#endif
 
 // source
 // http://rsdn.ru/article/cpp/delegates.xml

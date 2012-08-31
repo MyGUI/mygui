@@ -110,7 +110,6 @@ endif(WIN32 OR APPLE)
 option(MYGUI_STATIC "Static build" FALSE)
 option(MYGUI_USE_FREETYPE "Use freetype for font rendering" TRUE)
 option(MYGUI_DONT_USE_OBSOLETE "Remove obsole functions from build" FALSE)
-option(MYGUI_RTTI_DISABLE_TYPE_INFO "Don't use C++ rtti, use strings instead" FALSE)
 
 set(MYGUI_RENDERSYSTEM 3 CACHE STRING
 "Specify the Render System. Possible values:
@@ -172,10 +171,6 @@ endif ()
 
 if (MYGUI_DONT_USE_OBSOLETE)
 	add_definitions(-DMYGUI_DONT_USE_OBSOLETE)
-endif ()
-
-if (MYGUI_RTTI_DISABLE_TYPE_INFO)
-	add_definitions(-DMYGUI_RTTI_DISABLE_TYPE_INFO)
 endif ()
 # End of Global defines
 

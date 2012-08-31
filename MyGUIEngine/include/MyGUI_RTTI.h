@@ -27,19 +27,12 @@
 #include "MyGUI_Diagnostic.h"
 #include <string>
 
-#ifndef MYGUI_RTTI_DISABLE_TYPE_INFO
 #include <typeinfo>
-#endif
 
 namespace MyGUI
 {
-#ifndef MYGUI_RTTI_DISABLE_TYPE_INFO
 	#define MYGUI_RTTI_TYPE const std::type_info&
 	#define MYGUI_RTTI_GET_TYPE(type) typeid(type)
-#else
-	#define MYGUI_RTTI_TYPE const std::string&
-	#define MYGUI_RTTI_GET_TYPE(type) type::getClassTypeName()
-#endif
 
 	//VC++ 7.1
 	#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC && MYGUI_COMP_VER <= 1310
