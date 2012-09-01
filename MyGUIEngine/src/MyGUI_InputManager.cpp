@@ -227,6 +227,9 @@ namespace MyGUI
 
 	bool InputManager::injectMousePress(int _absx, int _absy, MouseButton _id)
 	{
+		if (mMousePosition.left != _absx || mMousePosition.top != _absy)
+			injectMouseMove(_absx, _absy, mOldAbsZ);
+
 		Widget* old_key_focus = mWidgetKeyFocus;
 
 		// если мы щелкнули не на гуй
