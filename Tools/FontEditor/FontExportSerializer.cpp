@@ -274,8 +274,8 @@ namespace tools
 	void FontExportSerializer::removeFont(const std::string& _fontName)
 	{
 		MyGUI::ResourceManager& manager = MyGUI::ResourceManager::getInstance();
-			if (manager.isExist(_fontName))
-				manager.removeByName(_fontName);
+		if (manager.isExist(_fontName))
+			manager.removeByName(_fontName);
 	}
 
 	void FontExportSerializer::generateFontTTFXml(MyGUI::xml::ElementPtr _root, const std::string& _fontName, DataPtr _data)
