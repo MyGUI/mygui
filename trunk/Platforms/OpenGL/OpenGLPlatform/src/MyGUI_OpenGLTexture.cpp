@@ -346,9 +346,9 @@ namespace MyGUI
 	{
 		if (mImageLoader)
 		{
-			//void* data = lock(TextureUsage::Read);
-			//mImageLoader->saveImage(mWidth, mHeight, mOriginalFormat, data, _filename);
-			//unlock();
+			void* data = lock(TextureUsage::Read);
+			mImageLoader->saveImage(mWidth, mHeight, mOriginalFormat, data, _filename);
+			unlock();
 		}
 	}
 
