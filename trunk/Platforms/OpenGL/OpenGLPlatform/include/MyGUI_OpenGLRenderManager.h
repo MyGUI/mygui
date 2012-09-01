@@ -26,20 +26,17 @@ namespace MyGUI
 		void initialise(OpenGLImageLoader* _loader = 0);
 		void shutdown();
 
-		static OpenGLRenderManager& getInstance()
-		{
-			return *getInstancePtr();
-		}
-		static OpenGLRenderManager* getInstancePtr()
-		{
-			return static_cast<OpenGLRenderManager*>(RenderManager::getInstancePtr());
-		}
+		static OpenGLRenderManager& getInstance();
+		static OpenGLRenderManager* getInstancePtr();
 
 		/** @see OpenGLRenderManager::getViewSize */
 		virtual const IntSize& getViewSize() const;
 
 		/** @see OpenGLRenderManager::getVertexFormat */
 		virtual VertexColourType getVertexFormat();
+
+		/** @see OpenGLRenderManager::isFormatSupported */
+		virtual bool isFormatSupported(PixelFormat _format, TextureUsage _usage);
 
 		/** @see OpenGLRenderManager::createVertexBuffer */
 		virtual IVertexBuffer* createVertexBuffer();
