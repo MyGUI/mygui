@@ -17,6 +17,16 @@
 namespace MyGUI
 {
 
+	OpenGLRenderManager& OpenGLRenderManager::getInstance()
+	{
+		return *getInstancePtr();
+	}
+
+	OpenGLRenderManager* OpenGLRenderManager::getInstancePtr()
+	{
+		return static_cast<OpenGLRenderManager*>(RenderManager::getInstancePtr());
+	}
+
 	OpenGLRenderManager::OpenGLRenderManager() :
 		mUpdate(false),
 		mImageLoader(nullptr),
@@ -164,6 +174,11 @@ namespace MyGUI
 	VertexColourType OpenGLRenderManager::getVertexFormat()
 	{
 		return mVertexFormat;
+	}
+
+	bool OpenGLRenderManager::isFormatSupported(PixelFormat _format, TextureUsage _usage)
+	{
+		return true;
 	}
 
 	void OpenGLRenderManager::drawOneFrame()

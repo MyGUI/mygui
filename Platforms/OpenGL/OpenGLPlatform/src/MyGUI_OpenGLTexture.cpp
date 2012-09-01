@@ -346,9 +346,9 @@ namespace MyGUI
 	{
 		if (mImageLoader)
 		{
-			void* data = lock(TextureUsage::Read);
-			mImageLoader->saveImage(mWidth, mHeight, mOriginalFormat, data, _filename);
-			unlock();
+			//void* data = lock(TextureUsage::Read);
+			//mImageLoader->saveImage(mWidth, mHeight, mOriginalFormat, data, _filename);
+			//unlock();
 		}
 	}
 
@@ -363,6 +363,36 @@ namespace MyGUI
 	unsigned int OpenGLTexture::getTextureID() const
 	{
 		return mTextureID;
+	}
+
+	int OpenGLTexture::getWidth()
+	{
+		return mWidth;
+	}
+
+	int OpenGLTexture::getHeight()
+	{
+		return mHeight;
+	}
+
+	bool OpenGLTexture::isLocked()
+	{
+		return mLock;
+	}
+
+	PixelFormat OpenGLTexture::getFormat()
+	{
+		return mOriginalFormat;
+	}
+
+	TextureUsage OpenGLTexture::getUsage()
+	{
+		return mOriginalUsage;
+	}
+
+	size_t OpenGLTexture::getNumElemBytes()
+	{
+		return mNumElemBytes;
 	}
 
 } // namespace MyGUI

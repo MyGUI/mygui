@@ -590,8 +590,6 @@ namespace base
 			return;
 		}
 
-		Gdiplus::Bitmap image(_width, _height, bpp * _width, format, (BYTE*)_texture);
-
 		UINT num, size;
 		Gdiplus::GetImageEncodersSize(&num, &size);
 
@@ -614,9 +612,11 @@ namespace base
 			return;
 		}
 
+		Gdiplus::Bitmap image(_width, _height, bpp * _width, format, (BYTE*)_texture);
+
 		HRESULT res = image.Save(MyGUI::UString(_filename).asWStr_c_str(), pngClsid, NULL);
 		if (res != S_OK)
-			MYGUI_LOG(Error, "Texture saving error. result =" << res);
+			MYGUI_LOG(Error, "Texture saving error. result = " << res);
 	}
 
 	void BaseManager::quit()
