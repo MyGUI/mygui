@@ -74,11 +74,13 @@
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="EditBox_BlackTheme" version="3.2.0">
-        <Widget type="Window" skin="EditBoxSkin_BlackTheme" position="30 30 11 18" name="Root">
+        <Widget type="Widget" skin="EditBoxSkin_BlackTheme" position="30 30 50 18" name="Root">
             <Property key="Pointer" value="beam"/>
-            <Widget type="TextBox" skin="EditClientSkin" position="2 2 7 14" align="Stretch" name="Client">
+            <UserString key="LE_TargetWidgetType" value="EditBox"/>
+            <Widget type="TextBox" skin="EditClientSkin" position="2 2 46 14" align="Stretch" name="Client">
                 <Property key="FontName" value="Default"/>
                 <Property key="Pointer" value="beam"/>
+                <Property key="TextAlign" value="Left VCenter"/>
             </Widget>
         </Widget>
     </Resource>
@@ -95,12 +97,70 @@
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="ProgressBar_BlackTheme" version="3.2.0">
-        <Widget type="Widget" skin="ProgressBarPanelSkin_BlackTheme" position="30 30 18 9" name="Root">
+        <Widget type="Widget" skin="ProgressBarPanelSkin_BlackTheme" position="30 30 50 9" name="Root">
             <Property key="Caption" value="test1"/>
             <UserString key="LE_TargetWidgetType" value="ProgressBar"/>
             <UserString key="TrackFill" value="true"/>
             <UserString key="TrackSkin" value="ProgressBarTrackSkin_BlackTheme"/>
             <UserString key="TrackWidth" value="7"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ListBoxItem_BlackTheme" version="3.2.0">
+        <Widget type="Widget" skin="ListBoxItemSkin_BlackTheme" position="30 30 8 17" name="Root">
+            <Property key="FontName" value="Default"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ListBox_BlackTheme" version="3.2.0">
+        <Widget type="Widget" skin="ListBoxPanelSkin_BlackTheme" position="30 30 50 50" name="Root">
+            <Property key="FontName" value="Default"/>
+            <UserString key="LE_TargetWidgetType" value="ListBox"/>
+            <UserString key="HeightLine" value="20"/>
+            <UserString key="SkinLine" value="ListBoxItem_BlackTheme"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="SliderV_BlackTheme" version="3.2.0">
+        <Widget type="Widget" skin="SliderPanelVSkin_BlackTheme" position="30 30 14 125" name="Root">
+            <Property key="FontName" value="Default"/>
+            <Property key="MoveToClick" value="true"/>
+            <Property key="VerticalAlignment" value="true"/>
+            <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
+            <UserString key="MinTrackSize" value="14"/>
+            <Widget type="Button" skin="SliderTrackVSkin_BlackTheme" position="0 55 14 14" align="HCenter Top" name="Track"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 0 14 55" align="HStretch Top" name="FirstPart"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 69 14 56" align="HStretch Bottom" name="SecondPart"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="SliderH_BlackTheme" version="3.2.0">
+        <Widget type="Widget" skin="SliderPanelHSkin_BlackTheme" position="25 50 125 14" name="Root">
+            <Property key="MoveToClick" value="true"/>
+            <Property key="VerticalAlignment" value="false"/>
+            <UserString key="LE_TargetWidgetType" value="ScrollBar"/>
+            <Widget type="Button" skin="SliderTrackHSkin_BlackTheme" position="55 0 14 14" align="Left VCenter" name="Track"/>
+            <Widget type="Widget" skin="PanelEmpty" position="0 0 55 14" align="Left VStretch" name="FirstPart"/>
+            <Widget type="Widget" skin="PanelEmpty" position="69 0 56 14" align="Right VStretch" name="SecondPart"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ListBox2_BlackTheme" version="3.2.0">
+        <Widget type="Widget" skin="ListBoxPanel2Skin_BlackTheme" position="30 30 50 50" name="Root">
+            <Property key="FontName" value="Default"/>
+            <UserString key="LE_TargetWidgetType" value="ListBox"/>
+            <UserString key="HeightLine" value="20"/>
+            <UserString key="SkinLine" value="ListBoxItem_BlackTheme"/>
+            <Widget type="Widget" skin="PanelEmpty" position="3 3 44 44" align="Stretch" name="Client"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="ComboBox_BlackTheme" version="3.2.0">
+        <Widget type="Widget" skin="ComboBoxPanelSkin_BlackTheme" position="30 30 50 18" name="Root">
+            <Property key="MaxListLength" value="300"/>
+            <UserString key="LE_TargetWidgetType" value="ComboBox"/>
+            <Widget type="TextBox" skin="EditClientSkin" position="2 2 30 14" align="Stretch" name="Client">
+                <Property key="FontName" value="Default"/>
+                <Property key="Pointer" value="beam"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+            </Widget>
+            <Widget type="Button" skin="PanelEmpty" position="36 2 12 14" align="Right VCenter" name="Button"/>
+            <Widget type="ListBox" skin="ListBox2_BlackTheme" position="30 51 50 50" style="Popup" layer="Popup" name="List"/>
         </Widget>
     </Resource>
 </MyGUI>
