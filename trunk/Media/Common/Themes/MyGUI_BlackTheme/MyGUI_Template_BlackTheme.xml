@@ -72,4 +72,16 @@
             </Widget>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="CheckBox_DarkTheme" version="3.2.0">
+        <Widget type="Widget" skin="CheckBoxSkin_BlackTheme" position="30 30 40 40" name="Root">
+            <Property key="FontName" value="Default"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="RadioButton_DarkTheme" version="3.2.0">
+        <Widget type="Widget" skin="RadioButtonSkin_BlackTheme" position="30 30 40 40" name="Root">
+            <Property key="FontName" value="Default"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
 </MyGUI>
