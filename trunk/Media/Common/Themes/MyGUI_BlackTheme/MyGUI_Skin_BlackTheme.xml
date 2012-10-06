@@ -55,6 +55,12 @@
 			<State name="highlighted" offset="25 115 15 14"/>
 			<State name="pushed" offset="25 160 15 14"/>
 		</BasisSkin>
+		<BasisSkin type="SimpleText" offset="4 4 17 16" align="Stretch">
+			<State name="disabled" colour="1 1 1" shift="0"/>
+			<State name="normal" colour="1 1 1" shift="0"/>
+			<State name="highlighted" colour="1 1 1" shift="0"/>
+			<State name="pushed" colour="1 1 1" shift="0"/>
+		</BasisSkin>
 	</Resource>
 	<Resource type="ResourceSkin" name="CheckBoxSkin_BlackTheme" size="16 16" texture="MyGUI_BlackTheme.png">
 		<BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">

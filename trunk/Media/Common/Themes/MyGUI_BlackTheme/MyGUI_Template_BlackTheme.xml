@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource">
+    <Resource type="ResourceLayout" name="Button_BlackTheme" version="3.2.0">
+        <Widget type="Widget" skin="ButtonSkin_BlackTheme" position="30 30 25 24" name="Root">
+            <Property key="FontName" value="Default"/>
+            <Property key="TextAlign" value="Center"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
+</MyGUI>
