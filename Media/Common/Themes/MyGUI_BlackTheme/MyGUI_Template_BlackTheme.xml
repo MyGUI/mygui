@@ -84,4 +84,13 @@
             <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="ProgressBar_BlackTheme" version="3.2.0">
+        <Widget type="Widget" skin="ProgressBarPanelSkin_BlackTheme" position="30 30 18 9" name="Root">
+            <Property key="Caption" value="test1"/>
+            <UserString key="LE_TargetWidgetType" value="ProgressBar"/>
+            <UserString key="TrackFill" value="true"/>
+            <UserString key="TrackSkin" value="ProgressBarTrackSkin_BlackTheme"/>
+            <UserString key="TrackWidth" value="7"/>
+        </Widget>
+    </Resource>
 </MyGUI>
