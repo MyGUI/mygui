@@ -46,8 +46,12 @@
             <Widget type="Button" skin="WindowButtonXSkin_BlackTheme" position="62 5 18 18" align="Right Top" name="Button">
                 <UserString key="Event" value="close"/>
             </Widget>
-            <Widget type="Button" skin="WindowButtonResizeLeftSkin_BlackTheme" position="0 38 11 11" align="Left Bottom" name="ResizeLeftBottom"/>
-            <Widget type="Button" skin="WindowButtonResizeRightSkin_BlackTheme" position="74 38 11 11" align="Right Bottom" name="ResizeRightBottom"/>
+            <Widget type="Button" skin="WindowButtonResizeLeftSkin_BlackTheme" position="0 38 11 11" align="Left Bottom" name="ResizeLeftBottom">
+                <Property key="Pointer" value="size_right"/>
+            </Widget>
+            <Widget type="Button" skin="WindowButtonResizeRightSkin_BlackTheme" position="74 38 11 11" align="Right Bottom" name="ResizeRightBottom">
+                <Property key="Pointer" value="size_left"/>
+            </Widget>
             <Widget type="Widget" skin="PanelEmpty" position="4 29 77 16" align="Stretch" name="Client"/>
         </Widget>
     </Resource>
@@ -60,15 +64,21 @@
                 <Property key="FontName" value="Default"/>
                 <Property key="TextAlign" value="Center"/>
             </Widget>
-            <Widget type="Button" skin="WindowButtonResizeLeftSkin_BlackTheme" position="0 38 11 11" align="Left Bottom" name="ResizeLeftBottom"/>
-            <Widget type="Button" skin="WindowButtonResizeRightSkin_BlackTheme" position="74 38 11 11" align="Right Bottom" name="ResizeRightBottom"/>
+            <Widget type="Button" skin="WindowButtonResizeLeftSkin_BlackTheme" position="0 38 11 11" align="Left Bottom" name="ResizeLeftBottom">
+                <Property key="Pointer" value="size_right"/>
+            </Widget>
+            <Widget type="Button" skin="WindowButtonResizeRightSkin_BlackTheme" position="74 38 11 11" align="Right Bottom" name="ResizeRightBottom">
+                <Property key="Pointer" value="size_left"/>
+            </Widget>
             <Widget type="Widget" skin="PanelEmpty" position="4 29 77 16" align="Stretch" name="Client"/>
         </Widget>
     </Resource>
     <Resource type="ResourceLayout" name="EditBox_BlackTheme" version="3.2.0">
         <Widget type="Window" skin="EditBoxSkin_BlackTheme" position="30 30 11 18" name="Root">
+            <Property key="Pointer" value="beam"/>
             <Widget type="TextBox" skin="EditClientSkin" position="2 2 7 14" align="Stretch" name="Client">
                 <Property key="FontName" value="Default"/>
+                <Property key="Pointer" value="beam"/>
             </Widget>
         </Widget>
     </Resource>

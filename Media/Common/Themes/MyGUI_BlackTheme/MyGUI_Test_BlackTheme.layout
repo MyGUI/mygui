@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Window" skin="WindowC_BlackTheme" position="30 30 300 300">
+        <Property key="Caption" value="WindowC_BlackTheme"/>
+        <Widget type="Button" skin="Button_BlackTheme" position="5 5 200 24">
+            <Property key="Caption" value="Button_BlackTheme"/>
+        </Widget>
+        <Widget type="Button" skin="CheckBox_DarkTheme" position="5 40 200 24">
+            <Property key="Caption" value="CheckBox_BlackTheme"/>
+        </Widget>
+        <Widget type="Button" skin="RadioButton_DarkTheme" position="5 70 200 24">
+            <Property key="Caption" value="RadioButton_BlackTheme"/>
+        </Widget>
+        <Widget type="ProgressBar" skin="ProgressBar_BlackTheme" position="5 110 200 9">
+            <Property key="AutoTrack" value="true"/>
+        </Widget>
+        <Widget type="ProgressBar" skin="ProgressBar_BlackTheme" position="5 135 200 9">
+            <Property key="Range" value="10"/>
+            <Property key="RangePosition" value="10"/>
+        </Widget>
+        <Widget type="ProgressBar" skin="ProgressBar_BlackTheme" position="5 160 200 9">
+            <Property key="Range" value="10"/>
+            <Property key="RangePosition" value="5"/>
+        </Widget>
+    </Widget>
+    <Widget type="Window" skin="WindowCX_BlackTheme" position="350 30 300 300">
+        <Property key="Caption" value="WindowCX_BlackTheme"/>
+        <Widget type="EditBox" skin="EditBox_BlackTheme" position="5 5 200 20">
+            <Property key="Caption" value="EditBox_BlackTheme"/>
+        </Widget>
+    </Widget>
+    <Widget type="Window" skin="WindowCS_BlackTheme" position="30 350 300 300">
+        <Property key="Caption" value="WindowCS_BlackTheme"/>
+    </Widget>
+    <Widget type="Window" skin="WindowCXS_BlackTheme" position="350 350 300 300">
+        <Property key="Caption" value="WindowCXS_BlackTheme"/>
+    </Widget>
+</MyGUI>
