@@ -559,4 +559,62 @@
 			<State name="pushed" offset="391 68 5 5"/>
 		</BasisSkin>
 	</Resource>
+	<Resource type="ResourceSkin" name="ProgressBarPanelSkin_BlackTheme" size="18 9" texture="MyGUI_BlackTheme.png">
+		<BasisSkin type="SubSkin" offset="0 0 4 4" align="Left Top">
+			<State name="normal" offset="718 20 4 4"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="4 0 10 4" align="HStretch Top">
+			<State name="normal" offset="722 20 10 4"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="14 0 4 4" align="Right Top">
+			<State name="normal" offset="732 20 4 4"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="14 4 4 1" align="Right VStretch">
+			<State name="normal" offset="732 24 4 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="14 5 4 4" align="Right Bottom">
+			<State name="normal" offset="732 25 4 4"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="4 5 10 4" align="HStretch Bottom">
+			<State name="normal" offset="722 25 10 4"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 5 4 4" align="Left Bottom">
+			<State name="normal" offset="718 25 4 4"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 4 4 1" align="Left VStretch">
+			<State name="normal" offset="718 24 4 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="4 4 10 1" align="Stretch">
+			<State name="normal" offset="722 24 10 1"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="ProgressBarTrackSkin_BlackTheme" size="18 7" texture="MyGUI_BlackTheme.png">
+		<BasisSkin type="SubSkin" offset="0 0 4 3" align="Left Top">
+			<State name="normal" offset="718 31 4 3"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="4 0 10 3" align="HStretch Top">
+			<State name="normal" offset="722 31 10 3"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="14 0 4 3" align="Right Top">
+			<State name="normal" offset="732 31 4 3"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="14 3 4 1" align="Right VStretch">
+			<State name="normal" offset="732 34 4 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="14 4 4 3" align="Right Bottom">
+			<State name="normal" offset="732 35 4 3"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="4 4 10 3" align="HStretch Bottom">
+			<State name="normal" offset="722 35 10 3"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 4 4 3" align="Left Bottom">
+			<State name="normal" offset="718 35 4 3"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 3 4 1" align="Left VStretch">
+			<State name="normal" offset="718 34 4 1"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="4 3 10 1" align="Stretch">
+			<State name="normal" offset="722 34 10 1"/>
+		</BasisSkin>
+	</Resource>
 </MyGUI>
