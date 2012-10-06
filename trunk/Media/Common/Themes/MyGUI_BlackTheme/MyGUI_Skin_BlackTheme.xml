@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource" version="1.1">
-	<Resource type="ResourceSkin" name="ButtonSkin_BlackTheme" size="25 24" texture="BlackTheme.png">
+	<Resource type="ResourceSkin" name="ButtonSkin_BlackTheme" size="25 24" texture="MyGUI_BlackTheme.png">
 		<BasisSkin type="SubSkin" offset="0 0 5 5" align="Left Top">
 			<State name="disabled" offset="20 20 5 5"/>
 			<State name="normal" offset="20 65 5 5"/>
@@ -56,7 +56,7 @@
 			<State name="pushed" offset="25 160 15 14"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="CheckBoxSkin_BlackTheme" size="16 16" texture="BlackTheme.png">
+	<Resource type="ResourceSkin" name="CheckBoxSkin_BlackTheme" size="16 16" texture="MyGUI_BlackTheme.png">
 		<BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">
 			<State name="disabled" offset="65 20 2 2"/>
 			<State name="normal" offset="65 65 2 2"/>
@@ -148,7 +148,7 @@
 			<State name="pushed_checked" offset="67 337 12 12"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="RadioButtonSkin_BlackTheme" size="16 16" texture="BlackTheme.png">
+	<Resource type="ResourceSkin" name="RadioButtonSkin_BlackTheme" size="16 16" texture="MyGUI_BlackTheme.png">
 		<BasisSkin type="SubSkin" offset="0 0 7 7" align="Left Top">
 			<State name="disabled" offset="101 20 7 7"/>
 			<State name="normal" offset="101 65 7 7"/>
@@ -240,7 +240,7 @@
 			<State name="pushed_checked" offset="108 342 2 2"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="EditBoxSkin_BlackTheme" size="11 18" texture="BlackTheme.png">
+	<Resource type="ResourceSkin" name="EditBoxSkin_BlackTheme" size="11 18" texture="MyGUI_BlackTheme.png">
 		<BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">
 			<State name="disabled" offset="142 20 2 2"/>
 			<State name="normal" offset="142 65 2 2"/>
@@ -296,7 +296,7 @@
 			<State name="pushed" offset="144 112 7 14"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="WindowButtonXSkin_BlackTheme" size="18 18" texture="BlackTheme.png">
+	<Resource type="ResourceSkin" name="WindowButtonXSkin_BlackTheme" size="18 18" texture="MyGUI_BlackTheme.png">
 		<BasisSkin type="SubSkin" offset="0 0 4 4" align="Left Top">
 			<State name="disabled" offset="178 20 4 4"/>
 			<State name="normal" offset="178 65 4 4"/>
@@ -352,7 +352,7 @@
 			<State name="pushed" offset="182 159 10 10"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="ScrollPanelVSkin_BlackTheme" size="12 20" texture="BlackTheme.png">
+	<Resource type="ResourceSkin" name="ScrollPanelVSkin_BlackTheme" size="12 20" texture="MyGUI_BlackTheme.png">
 		<BasisSkin type="SubSkin" offset="0 0 5 6" align="Left Top">
 			<State name="normal" offset="216 20 5 6"/>
 		</BasisSkin>
@@ -381,7 +381,7 @@
 			<State name="normal" offset="221 26 2 8"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="ScrollPanelHSkin_BlackTheme" size="20 12" texture="BlackTheme.png">
+	<Resource type="ResourceSkin" name="ScrollPanelHSkin_BlackTheme" size="20 12" texture="MyGUI_BlackTheme.png">
 		<BasisSkin type="SubSkin" offset="0 0 6 5" align="Left Top">
 			<State name="normal" offset="216 94 6 5"/>
 		</BasisSkin>
@@ -410,7 +410,7 @@
 			<State name="normal" offset="222 99 8 2"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="WindowPanelSkin_BlackTheme" size="27 49" texture="BlackTheme.png">
+	<Resource type="ResourceSkin" name="WindowPanelSkin_BlackTheme" size="27 49" texture="MyGUI_BlackTheme.png">
 		<BasisSkin type="SubSkin" offset="0 0 3 28" align="Left Top">
 			<State name="normal" offset="840 20 3 28"/>
 		</BasisSkin>
@@ -439,7 +439,7 @@
 			<State name="normal" offset="843 48 21 18"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="WindowButtonResizeLeftSkin_BlackTheme" size="11 11" texture="BlackTheme.png">
+	<Resource type="ResourceSkin" name="WindowButtonResizeLeftSkin_BlackTheme" size="11 11" texture="MyGUI_BlackTheme.png">
 		<BasisSkin type="SubSkin" offset="0 0 3 3" align="Left Top">
 			<State name="normal" offset="357 20 3 3"/>
 			<State name="highlighted" offset="357 65 3 3"/>
@@ -486,7 +486,7 @@
 			<State name="pushed" offset="360 68 5 5"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="WindowButtonResizeRightSkin_BlackTheme" size="11 11" texture="BlackTheme.png">
+	<Resource type="ResourceSkin" name="WindowButtonResizeRightSkin_BlackTheme" size="11 11" texture="MyGUI_BlackTheme.png">
 		<BasisSkin type="SubSkin" offset="0 0 3 3" align="Left Top">
 			<State name="normal" offset="388 20 3 3"/>
 			<State name="highlighted" offset="388 65 3 3"/>
