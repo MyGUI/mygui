@@ -13,7 +13,9 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(PropertyFontHintingControl)
 
-	PropertyFontHintingControl::PropertyFontHintingControl()
+	PropertyFontHintingControl::PropertyFontHintingControl() :
+		mName(nullptr),
+		mComboBox(nullptr)
 	{
 	}
 

@@ -13,7 +13,9 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(PropertyRegionTypeControl)
 
-	PropertyRegionTypeControl::PropertyRegionTypeControl()
+	PropertyRegionTypeControl::PropertyRegionTypeControl() :
+		mName(nullptr),
+		mComboBox(nullptr)
 	{
 	}
 

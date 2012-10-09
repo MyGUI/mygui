@@ -16,7 +16,7 @@ ignoredContent = [
 	"Cppcheck cannot find all the include files",
 	"is assigned in constructor body. Consider to perform initalization in initialization list.", # ignore, fine for us
 	"(performance) Prefer prefix ++/-- operators for non-primitive types", # ignore, fine for us - leave this optimisation to compiler
-	"MyGUI_DelegateImplement.h:211]: (warning) 'operator=' should check for assignment to self to avoid problems with dynamic memory." # false positive
+	"MyGUI_DelegateImplement.h:195]: (warning) 'operator=' should check for assignment to self to avoid problems with dynamic memory." # false positive
 ]
 
 def isIgnoredWarning(warning):
