@@ -64,7 +64,7 @@ namespace MyGUI
 	bool DirectX11DataManager::isDataExist(const std::string& _name)
 	{
 		const VectorString& files = getDataListNames(_name);
-		return files.size() == 1;
+		return (files.size() > 0);
 	}
 
 	const VectorString& DirectX11DataManager::getDataListNames(const std::string& _pattern)
@@ -102,7 +102,18 @@ namespace MyGUI
 			result.push_back(MyGUI::UString(*item).asUTF8());
 		}
 
-		path = result.size() == 1 ? result[0] : "";
+		if (result.size() > 0)
+		{
+			path = result[0];
+			if (result.size() > 1)
+			{
+				MYGUI_PLATFORM_LOG(Warning, "There are several files with name '" << _name << "'. '" << result << "' was used.");
+				MYGUI_PLATFORM_LOG(Warning, "Other candidater are:");
+				for (size_t index = 1; index < result.size(); index ++)
+					MYGUI_PLATFORM_LOG(Warning, " - '" << result[index] << "'");
+			}
+		}
+
 		return path;
 	}
 
