@@ -111,7 +111,7 @@ namespace MyGUI
 			path = result[0];
 			if (result.size() > 1)
 			{
-				MYGUI_PLATFORM_LOG(Warning, "There are several files with name '" << _name << "'. '" << result << "' was used.");
+				MYGUI_PLATFORM_LOG(Warning, "There are several files with name '" << _name << "'. '" << path << "' was used.");
 				MYGUI_PLATFORM_LOG(Warning, "Other candidater are:");
 				for (size_t index = 1; index < result.size(); index ++)
 					MYGUI_PLATFORM_LOG(Warning, " - '" << result[index] << "'");
