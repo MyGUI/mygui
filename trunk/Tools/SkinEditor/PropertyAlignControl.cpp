@@ -13,7 +13,9 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(PropertyAlignControl)
 
-	PropertyAlignControl::PropertyAlignControl()
+	PropertyAlignControl::PropertyAlignControl() :
+		mName(nullptr),
+		mComboBox(nullptr)
 	{
 	}
 

@@ -51,7 +51,7 @@ namespace MyGUI
 		{
 			MYGUI_PLATFORM_EXCEPT("Failed to lock vertex buffer (error code " << result << ").");
 		}
-		return (Vertex*)lockPtr;
+		return reinterpret_cast<Vertex*>(lockPtr);
 	}
 
 	void DirectXVertexBuffer::unlock()

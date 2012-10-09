@@ -16,7 +16,8 @@ namespace tools
 		mBackgroundControl(nullptr),
 		mSkinItem(nullptr),
 		mSkinButton(nullptr),
-		mSkinName("GeneratedSkinName")
+		mSkinName("GeneratedSkinName"),
+		mBack(nullptr)
 	{
 	}
 
@@ -127,7 +128,7 @@ namespace tools
 
 		root.select_single_node("Resource/@name").attribute().set_value(mSkinName.c_str());
 
-		bool result = doc.save_file(mTestSkinFileName.c_str(), "\t", (pugi::format_indent | pugi::format_write_bom | pugi::format_win_new_line) & (~pugi::format_space_before_slash));
+		/*bool result = */doc.save_file(mTestSkinFileName.c_str(), "\t", (pugi::format_indent | pugi::format_write_bom | pugi::format_win_new_line) & (~pugi::format_space_before_slash));
 
 		MyGUI::xml::Document docLoad;
 		docLoad.open(mTestSkinFileName);
