@@ -14,7 +14,7 @@ ignoredContent = [
 #	") Include file: ", # ignore "(debug) Include file: "name" can not be found."
 #	"Technically the member function 'input::", # useless, because with other input system this function could be non-const
 #	"Cppcheck cannot find all the include files",
-#	"is assigned in constructor body. Consider to perform initalization in initialization list.", # ignore, fine for us
+	"is assigned in constructor body. Consider to perform initalization in initialization list.", # ignore, fine for us
 	"(performance) Prefer prefix ++/-- operators for non-primitive types", # ignore, fine for us - leave this optimisation to compiler
 	"MyGUI_DelegateImplement.h:195]: (warning) 'operator=' should check for assignment to self to avoid problems with dynamic memory." # false positive
 ]
@@ -52,5 +52,5 @@ checkFolderSources('Platforms/Ogre/OgrePlatform/src', '-I Platforms/Ogre/OgrePla
 checkFolderSources('Platforms/DirectX/DirectXPlatform/src', '-I Platforms/DirectX/DirectXPlatform/include -I Common')
 checkFolderSources('Platforms/DirectX11/DirectX11Platform/src', '-I Platforms/DirectX11/DirectX11Platform/include -I Common')
 checkFolderSources('Plugins', '')
-checkFolderSources('Wrappers/MyGUI_Export', '')
+checkFolderSources('Wrappers/MyGUI_Export', ' -I Common')
 
