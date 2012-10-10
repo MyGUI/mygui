@@ -2,19 +2,19 @@
 import os
 
 ignoredContent = [
-	"It is safe to deallocate a NULL pointer", # ignore, fine for us
+#	"It is safe to deallocate a NULL pointer", # ignore, fine for us
 	"Exception thrown in destructor.", # ignore, fine for us
-	"::initialise' can be const.", # ignore, because some are not const and we keep all non-const for similarity
-	"::shutdown' can be const.", # ignore, because some are not const and we keep all non-const for similarity
-	"hides typedef with same name", # false positive
-	"(style) The function '", # ignore "Function is never used"
-	"MyGUI_UString", # ignore warnings from UString, because it wasn't written by the MyGUI developers
-	"pugixml", # ignore warnings from pugixml, because it wasn't written by the MyGUI developers
-	"sigslot", # ignore warnings from sigslot, because it wasn't written by the MyGUI developers
-	") Include file: ", # ignore "(debug) Include file: "name" can not be found."
-	"Technically the member function 'input::", # useless, because with other input system this function could be non-const
-	"Cppcheck cannot find all the include files",
-	"is assigned in constructor body. Consider to perform initalization in initialization list.", # ignore, fine for us
+#	"::initialise' can be const.", # ignore, because some are not const and we keep all non-const for similarity
+#	"::shutdown' can be const.", # ignore, because some are not const and we keep all non-const for similarity
+#	"hides typedef with same name", # false positive
+#	"(style) The function '", # ignore "Function is never used"
+#	"MyGUI_UString", # ignore warnings from UString, because it wasn't written by the MyGUI developers
+#	"pugixml", # ignore warnings from pugixml, because it wasn't written by the MyGUI developers
+#	"sigslot", # ignore warnings from sigslot, because it wasn't written by the MyGUI developers
+#	") Include file: ", # ignore "(debug) Include file: "name" can not be found."
+#	"Technically the member function 'input::", # useless, because with other input system this function could be non-const
+#	"Cppcheck cannot find all the include files",
+#	"is assigned in constructor body. Consider to perform initalization in initialization list.", # ignore, fine for us
 	"(performance) Prefer prefix ++/-- operators for non-primitive types", # ignore, fine for us - leave this optimisation to compiler
 	"MyGUI_DelegateImplement.h:195]: (warning) 'operator=' should check for assignment to self to avoid problems with dynamic memory." # false positive
 ]
@@ -43,14 +43,14 @@ def checkFolderSources(folder, flags) :
 
 checkFolderSources('MyGUIEngine', '')
 
-checkFolderSources('Demos', '-I Common -I Common/Base/Ogre -I Common/Input/OIS -I Platforms/Ogre/OgrePlatform/include')
-checkFolderSources('Tools', '-I Common -I Common/Base/Ogre -I Common/Input/OIS -I Platforms/Ogre/OgrePlatform/include')
+checkFolderSources('Demos', '-I Common -I Common/Base/Ogre -I Common/Input/OIS -I Platforms/Ogre/OgrePlatform/include -I Plugins/Plugin_BerkeliumWidget')
+checkFolderSources('Tools', '-I Common -I Common/Base/Ogre -I Common/Input/OIS -I Platforms/Ogre/OgrePlatform/include -I Tools/EditorFramework')
 checkFolderSources('UnitTests/UnitTest_*', '-I Common -I Common/Base/Ogre -I Common/Input/OIS -I Platforms/Ogre/OgrePlatform/include')
 checkFolderSources('Common', '-I Common')
-checkFolderSources('Platforms/OpenGL/OpenGLPlatform/src', '-I Platforms/OpenGL/OpenGLPlatform/include')
+checkFolderSources('Platforms/OpenGL/OpenGLPlatform/src', '-I Platforms/OpenGL/OpenGLPlatform/include -I Common')
 checkFolderSources('Platforms/Ogre/OgrePlatform/src', '-I Platforms/Ogre/OgrePlatform/include')
-checkFolderSources('Platforms/DirectX/DirectXPlatform/src', '-I Platforms/DirectX/DirectXPlatform/include')
-checkFolderSources('Platforms/DirectX11/DirectXPlatform/src', '-I Platforms/DirectX11/DirectXPlatform/include')
+checkFolderSources('Platforms/DirectX/DirectXPlatform/src', '-I Platforms/DirectX/DirectXPlatform/include -I Common')
+checkFolderSources('Platforms/DirectX11/DirectX11Platform/src', '-I Platforms/DirectX11/DirectX11Platform/include -I Common')
 checkFolderSources('Plugins', '')
-checkFolderSources('Wrappers/WrapperGenerator', '')
+checkFolderSources('Wrappers/MyGUI_Export', '')
 
