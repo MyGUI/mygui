@@ -7,10 +7,10 @@ ignoredContent = [
 #	"::initialise' can be const.", # ignore, because some are not const and we keep all non-const for similarity
 #	"::shutdown' can be const.", # ignore, because some are not const and we keep all non-const for similarity
 #	"hides typedef with same name", # false positive
-#	"(style) The function '", # ignore "Function is never used"
-#	"MyGUI_UString", # ignore warnings from UString, because it wasn't written by the MyGUI developers
-#	"pugixml", # ignore warnings from pugixml, because it wasn't written by the MyGUI developers
-#	"sigslot", # ignore warnings from sigslot, because it wasn't written by the MyGUI developers
+	"(style) The function '", # ignore "Function is never used"
+	"MyGUI_UString", # ignore warnings from UString, because it wasn't written by the MyGUI developers
+	"pugixml", # ignore warnings from pugixml, because it wasn't written by the MyGUI developers
+	"sigslot", # ignore warnings from sigslot, because it wasn't written by the MyGUI developers
 #	") Include file: ", # ignore "(debug) Include file: "name" can not be found."
 #	"Technically the member function 'input::", # useless, because with other input system this function could be non-const
 #	"Cppcheck cannot find all the include files",
