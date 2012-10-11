@@ -56,10 +56,10 @@
 			<State name="pushed" offset="25 160 15 14"/>
 		</BasisSkin>
 		<BasisSkin type="SimpleText" offset="4 4 17 16" align="Stretch">
-			<State name="disabled" colour="1 1 1" shift="0"/>
-			<State name="normal" colour="1 1 1" shift="0"/>
-			<State name="highlighted" colour="1 1 1" shift="0"/>
-			<State name="pushed" colour="1 1 1" shift="0"/>
+			<State name="disabled" colour="0 0 0" shift="0"/>
+			<State name="normal" colour="0 0 0" shift="0"/>
+			<State name="highlighted" colour="0 0 0" shift="0"/>
+			<State name="pushed" colour="0 0 0" shift="0"/>
 		</BasisSkin>
 	</Resource>
 	<Resource type="ResourceSkin" name="CheckBoxSkin_BlackTheme" size="24 19" texture="MyGUI_BlackTheme.png">
@@ -154,12 +154,12 @@
 			<State name="pushed_checked" offset="83 352 4 1"/>
 		</BasisSkin>
 		<BasisSkin type="SimpleText" offset="21 1 2 17" align="Stretch">
-			<State name="disabled" colour="1 1 1" shift="0"/>
-			<State name="normal" colour="1 1 1" shift="0"/>
+			<State name="disabled" colour="0.888889 0.888889 0.888889" shift="0"/>
+			<State name="normal" colour="0.888889 0.888889 0.888889" shift="0"/>
 			<State name="highlighted" colour="1 1 1" shift="0"/>
 			<State name="pushed" colour="1 1 1" shift="0"/>
-			<State name="disabled_checked" colour="1 1 1" shift="0"/>
-			<State name="normal_checked" colour="1 1 1" shift="0"/>
+			<State name="disabled_checked" colour="0.888889 0.888889 0.888889" shift="0"/>
+			<State name="normal_checked" colour="0.888889 0.888889 0.888889" shift="0"/>
 			<State name="highlighted_checked" colour="1 1 1" shift="0"/>
 			<State name="pushed_checked" colour="1 1 1" shift="0"/>
 		</BasisSkin>
@@ -256,12 +256,12 @@
 			<State name="pushed_checked" offset="120 352 3 1"/>
 		</BasisSkin>
 		<BasisSkin type="SimpleText" offset="21 1 2 17" align="Stretch">
-			<State name="disabled" colour="1 1 1" shift="0"/>
-			<State name="normal" colour="1 1 1" shift="0"/>
+			<State name="disabled" colour="0.888889 0.888889 0.888889" shift="0"/>
+			<State name="normal" colour="0.888889 0.888889 0.888889" shift="0"/>
 			<State name="highlighted" colour="1 1 1" shift="0"/>
 			<State name="pushed" colour="1 1 1" shift="0"/>
-			<State name="disabled_checked" colour="1 1 1" shift="0"/>
-			<State name="normal_checked" colour="1 1 1" shift="0"/>
+			<State name="disabled_checked" colour="0.888889 0.888889 0.888889" shift="0"/>
+			<State name="normal_checked" colour="0.888889 0.888889 0.888889" shift="0"/>
 			<State name="highlighted_checked" colour="1 1 1" shift="0"/>
 			<State name="pushed_checked" colour="1 1 1" shift="0"/>
 		</BasisSkin>
@@ -729,10 +729,10 @@
 			<State name="pushed_checked" offset="330 42 4 13"/>
 		</BasisSkin>
 		<BasisSkin type="SimpleText" offset="2 2 4 13" align="Stretch">
-			<State name="normal" colour="1 1 1" shift="0"/>
+			<State name="normal" colour="0.888889 0.888889 0.888889" shift="0"/>
 			<State name="highlighted" colour="1 1 1" shift="0"/>
 			<State name="pushed" colour="1 1 1" shift="0"/>
-			<State name="normal_checked" colour="1 1 1" shift="0"/>
+			<State name="normal_checked" colour="0.888889 0.888889 0.888889" shift="0"/>
 			<State name="highlighted_checked" colour="1 1 1" shift="0"/>
 			<State name="pushed_checked" colour="1 1 1" shift="0"/>
 		</BasisSkin>
@@ -1005,10 +1005,78 @@
 	</Resource>
 	<Resource type="ResourceSkin" name="ComboBoxButtonSkin_BlackTheme" size="12 12" texture="MyGUI_BlackTheme.png">
 		<BasisSkin type="SubSkin" offset="0 0 12 12" align="Stretch">
-			<State name="disabled" offset="443 18 12 12"/>
-			<State name="normal" offset="443 63 12 12"/>
-			<State name="highlighted" offset="443 108 12 12"/>
-			<State name="pushed" offset="443 63 12 12"/>
+			<State name="disabled" offset="766 263 12 12"/>
+			<State name="normal" offset="766 213 12 12"/>
+			<State name="highlighted" offset="766 213 12 12"/>
+			<State name="pushed" offset="766 213 12 12"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="ScrollTrackVSkin_BlackTheme" size="12 16" texture="MyGUI_BlackTheme.png">
+		<BasisSkin type="SubSkin" offset="0 0 5 7" align="Left Top">
+			<State name="normal" offset="216 42 5 7"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="5 0 2 7" align="HStretch Top">
+			<State name="normal" offset="221 42 2 7"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="7 0 5 7" align="Right Top">
+			<State name="normal" offset="223 42 5 7"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="7 7 5 2" align="Right VStretch">
+			<State name="normal" offset="223 49 5 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="7 9 5 7" align="Right Bottom">
+			<State name="normal" offset="223 51 5 7"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="5 9 2 7" align="HStretch Bottom">
+			<State name="normal" offset="221 51 2 7"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 9 5 7" align="Left Bottom">
+			<State name="normal" offset="216 51 5 7"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 7 5 2" align="Left VStretch">
+			<State name="normal" offset="216 49 5 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="5 7 2 2" align="Stretch">
+			<State name="normal" offset="221 49 2 2"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="ScrollTrackHSkin_BlackTheme" size="16 12" texture="MyGUI_BlackTheme.png">
+		<BasisSkin type="SubSkin" offset="0 0 7 5" align="Left Top">
+			<State name="normal" offset="216 108 7 5"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="7 0 2 5" align="HStretch Top">
+			<State name="normal" offset="223 108 2 5"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="9 0 7 5" align="Right Top">
+			<State name="normal" offset="225 108 7 5"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="9 5 7 2" align="Right VStretch">
+			<State name="normal" offset="225 113 7 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="9 7 7 5" align="Right Bottom">
+			<State name="normal" offset="225 115 7 5"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="7 7 2 5" align="HStretch Bottom">
+			<State name="normal" offset="223 115 2 5"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 7 7 5" align="Left Bottom">
+			<State name="normal" offset="216 115 7 5"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 5 7 2" align="Left VStretch">
+			<State name="normal" offset="216 113 7 2"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="7 5 2 2" align="Stretch">
+			<State name="normal" offset="223 113 2 2"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="ScrollTrackDecaleVSkin_BlackTheme" size="6 10" texture="MyGUI_BlackTheme.png">
+		<BasisSkin type="SubSkin" offset="0 0 6 10" align="Stretch">
+			<State name="normal" offset="220 128 6 10"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="ScrollTrackDecaleHSkin_BlackTheme" size="10 6" texture="MyGUI_BlackTheme.png">
+		<BasisSkin type="SubSkin" offset="0 0 10 6" align="Stretch">
+			<State name="normal" offset="236 130 10 6"/>
 		</BasisSkin>
 	</Resource>
 </MyGUI>

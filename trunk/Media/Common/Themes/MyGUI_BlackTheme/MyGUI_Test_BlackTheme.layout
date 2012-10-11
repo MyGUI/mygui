@@ -23,26 +23,84 @@
             <Property key="RangePosition" value="5"/>
         </Widget>
     </Widget>
-    <Widget type="Window" skin="WindowCX_BlackTheme" position="350 30 300 300">
+    <Widget type="Window" skin="WindowCX_BlackTheme" position="350 30 445 300">
         <Property key="Caption" value="WindowCX_BlackTheme"/>
         <Widget type="EditBox" skin="EditBox_BlackTheme" position="5 205 200 20">
             <Property key="Caption" value="EditBox_BlackTheme"/>
         </Widget>
-        <Widget type="ListBox" skin="ListBox_BlackTheme" position="5 5 200 90">
+        <Widget type="ListBox" skin="ListBox_BlackTheme" position="5 5 135 90">
             <Property key="AddItem" value="element 1"/>
             <Property key="AddItem" value="element 2"/>
             <Property key="AddItem" value="element 3"/>
+            <Property key="AddItem" value="element 4"/>
+            <Property key="AddItem" value="element 5"/>
+            <Property key="AddItem" value="element 6"/>
+            <Property key="AddItem" value="element 7"/>
+            <Property key="AddItem" value="element 8"/>
+            <Property key="AddItem" value="element 9"/>
         </Widget>
-        <Widget type="ListBox" skin="ListBox2_BlackTheme" position="5 105 200 90">
+        <Widget type="ListBox" skin="ListBox3_BlackTheme" position="5 105 135 90">
             <Property key="AddItem" value="element 1"/>
             <Property key="AddItem" value="element 2"/>
             <Property key="AddItem" value="element 3"/>
+            <Property key="AddItem" value="element 4"/>
+            <Property key="AddItem" value="element 5"/>
+            <Property key="AddItem" value="element 6"/>
+            <Property key="AddItem" value="element 7"/>
+            <Property key="AddItem" value="element 8"/>
+            <Property key="AddItem" value="element 9"/>
         </Widget>
         <Widget type="ComboBox" skin="ComboBox_BlackTheme" position="5 235 200 20">
             <Property key="AddItem" value="element 1"/>
             <Property key="AddItem" value="element 2"/>
             <Property key="AddItem" value="element 3"/>
             <Property key="Caption" value="ComboBox_BlackTheme"/>
+            <Property key="AddItem" value="element 4"/>
+            <Property key="AddItem" value="element 5"/>
+            <Property key="AddItem" value="element 6"/>
+            <Property key="AddItem" value="element 7"/>
+            <Property key="AddItem" value="element 8"/>
+            <Property key="AddItem" value="element 9"/>
+            <Property key="AddItem" value="element 10"/>
+            <Property key="AddItem" value="element 11"/>
+            <Property key="AddItem" value="element 12"/>
+            <Property key="AddItem" value="element 13"/>
+            <Property key="AddItem" value="element 14"/>
+            <Property key="AddItem" value="element 15"/>
+            <Property key="AddItem" value="element 16"/>
+            <Property key="AddItem" value="element 17"/>
+        </Widget>
+        <Widget type="ListBox" skin="ListBox5_BlackTheme" position="150 5 135 90">
+            <Property key="AddItem" value="element 1"/>
+            <Property key="AddItem" value="element 2"/>
+            <Property key="AddItem" value="element 3"/>
+            <Property key="AddItem" value="element 4"/>
+            <Property key="AddItem" value="element 5"/>
+            <Property key="AddItem" value="element 6"/>
+            <Property key="AddItem" value="element 7"/>
+            <Property key="AddItem" value="element 8"/>
+            <Property key="AddItem" value="element 9"/>
+        </Widget>
+        <Widget type="ListBox" skin="ListBox4_BlackTheme" position="150 105 135 90">
+            <Property key="AddItem" value="element 1"/>
+            <Property key="AddItem" value="element 2"/>
+            <Property key="AddItem" value="element 3"/>
+            <Property key="AddItem" value="element 4"/>
+            <Property key="AddItem" value="element 5"/>
+            <Property key="AddItem" value="element 6"/>
+            <Property key="AddItem" value="element 7"/>
+            <Property key="AddItem" value="element 8"/>
+            <Property key="AddItem" value="element 9"/>
+        </Widget>
+        <Widget type="ListBox" skin="ListBox5_BlackTheme" position="295 5 135 90">
+            <Property key="AddItem" value="element 1"/>
+            <Property key="AddItem" value="element 2"/>
+            <Property key="AddItem" value="element 3"/>
+        </Widget>
+        <Widget type="ListBox" skin="ListBox4_BlackTheme" position="295 105 135 90">
+            <Property key="AddItem" value="element 1"/>
+            <Property key="AddItem" value="element 2"/>
+            <Property key="AddItem" value="element 3"/>
         </Widget>
     </Widget>
     <Widget type="Window" skin="WindowCS_BlackTheme" position="30 350 300 300">
@@ -55,8 +113,20 @@
             <Property key="Range" value="200"/>
             <Property key="RangePosition" value="100"/>
         </Widget>
+        <Widget type="ScrollBar" skin="ScrollBarV_BlackTheme" position="240 5 13 200">
+            <Property key="Range" value="200"/>
+            <Property key="RangePosition" value="100"/>
+            <Property key="Page" value="50"/>
+            <Property key="ViewPage" value="50"/>
+        </Widget>
+        <Widget type="ScrollBar" skin="ScrollBarH_BlackTheme" position="5 215 200 13">
+            <Property key="Range" value="200"/>
+            <Property key="RangePosition" value="100"/>
+            <Property key="Page" value="50"/>
+            <Property key="ViewPage" value="50"/>
+        </Widget>
     </Widget>
-    <Widget type="Window" skin="WindowCXS_BlackTheme" position="350 350 300 300">
+    <Widget type="Window" skin="WindowCXS_BlackTheme" position="350 350 445 300">
         <Property key="Caption" value="WindowCXS_BlackTheme"/>
     </Widget>
 </MyGUI>
