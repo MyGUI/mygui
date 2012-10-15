@@ -223,7 +223,8 @@ namespace MyGUI
 
 	}
 
-	const int ResourceTrueTypeFont::mGlyphSpacing = 1;
+	const int ResourceTrueTypeFont::mDefaultGlyphSpacing = 1;
+	const float ResourceTrueTypeFont::mDefaultTabWidth = 8.0f;
 	const float ResourceTrueTypeFont::mSelectedWidth = 1.0f;
 	const float ResourceTrueTypeFont::mCursorWidth = 2.0f;
 
@@ -233,6 +234,7 @@ namespace MyGUI
 		mHinting(HintingUseNative),
 		mAntialias(false),
 		mSpaceWidth(0.0f),
+		mGlyphSpacing(-1),
 		mTabWidth(0.0f),
 		mOffsetHeight(0),
 		mSubstituteCodePoint(FontCodeType::NotDefined),
@@ -285,7 +287,8 @@ namespace MyGUI
 				else if (key == "TabWidth") mTabWidth = utility::parseFloat(value);
 				else if (key == "OffsetHeight") mOffsetHeight = utility::parseInt(value);
 				else if (key == "SubstituteCode") mSubstituteCodePoint = utility::parseInt(value);
-				else if (key == "CursorWidth" || key == "Distance")
+				else if (key == "Distance") mGlyphSpacing = utility::parseInt(value);
+				else if (key == "CursorWidth")
 				{
 					MYGUI_LOG(Warning, _node->findAttribute("type") << ": Property '" << key << "' in font '" << _node->findAttribute("name") << "' is deprecated; value ignored.");
 				}
@@ -332,6 +335,9 @@ namespace MyGUI
 				}
 			}
 		}
+
+		if (mGlyphSpacing == -1)
+			mGlyphSpacing = mDefaultGlyphSpacing;
 
 		initialise();
 	}
@@ -621,7 +627,7 @@ namespace MyGUI
 
 			// If the width of the "Tab" glyph hasn't been customized, make it eight spaces wide.
 			if (mTabWidth == 0.0f)
-				mTabWidth = 8.0f * spaceGlyphInfo->advance;
+				mTabWidth = mDefaultTabWidth * spaceGlyphInfo->advance;
 		}
 
 		// Create the special glyphs. They must be created after the standard glyphs so that they take precedence in case of a

@@ -59,7 +59,7 @@ namespace tools
 		data->setPropertyValue("Source", value);
 
 		value = _node.select_single_node("Property[@key=\"Size\"]/@value").attribute().value();
-		data->setPropertyValue("Size", MyGUI::utility::parseValue<int>(value));
+		data->setPropertyValue("Size", MyGUI::utility::parseValue<float>(value));
 
 		value = _node.select_single_node("Property[@key=\"Hinting\"]/@value").attribute().value();
 		if (value.empty())
@@ -76,7 +76,7 @@ namespace tools
 
 		value = _node.select_single_node("Property[@key=\"TabWidth\"]/@value").attribute().value();
 		if (!value.empty())
-			data->setPropertyValue("TabWidth", MyGUI::utility::parseValue<int>(value));
+			data->setPropertyValue("TabWidth", MyGUI::utility::parseValue<float>(value));
 
 		value = _node.select_single_node("Property[@key=\"OffsetHeight\"]/@value").attribute().value();
 		if (!value.empty())
@@ -85,6 +85,10 @@ namespace tools
 		value = _node.select_single_node("Property[@key=\"SubstituteCode\"]/@value").attribute().value();
 		if (!value.empty())
 			data->setPropertyValue("SubstituteCode", MyGUI::utility::parseValue<int>(value));
+
+		value = _node.select_single_node("Property[@key=\"Distance\"]/@value").attribute().value();
+		if (!value.empty())
+			data->setPropertyValue("Distance", MyGUI::utility::parseValue<int>(value));
 
 		value = "";
 		pugi::xpath_node_set codes = _node.select_nodes("Codes/Code/@range");
@@ -142,6 +146,10 @@ namespace tools
 		nodeProperty = node.append_child("Property");
 		nodeProperty.append_attribute("key").set_value("SubstituteCode");
 		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("SubstituteCode").c_str());
+
+		nodeProperty = node.append_child("Property");
+		nodeProperty.append_attribute("key").set_value("Distance");
+		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("Distance").c_str());
 
 		pugi::xml_node nodeCodes = node.append_child("Codes");
 		value = _data->getPropertyValue("FontCodeRanges");
@@ -292,9 +300,10 @@ namespace tools
 		addProperty(node, "Resolution", _data->getPropertyValue<int>("Resolution"));
 		addProperty(node, "Hinting", _data->getPropertyValue("Hinting"));
 		addProperty(node, "Antialias", MyGUI::utility::toString(_data->getPropertyValue<bool>("Antialias")));
-		addProperty(node, "TabWidth", _data->getPropertyValue<int>("TabWidth"));
+		addProperty(node, "TabWidth", _data->getPropertyValue<float>("TabWidth"));
 		addProperty(node, "OffsetHeight", _data->getPropertyValue<int>("OffsetHeight"));
 		addProperty(node, "SubstituteCode", _data->getPropertyValue<int>("SubstituteCode"));
+		addProperty(node, "Distance", _data->getPropertyValue<int>("Distance"));
 
 
 		MyGUI::xml::ElementPtr node_codes = node->createChild("Codes");

@@ -41,7 +41,7 @@
 				</Property>
 				<Property>
 					<Name>Size</Name>
-					<Type>PropertyIntControl</Type>
+					<Type>PropertyFloatControl</Type>
 					<Initialisator/>
 					<Default>10</Default>
 					<Visible>true</Visible>
@@ -86,7 +86,7 @@
 				</Property>
 				<Property>
 					<Name>TabWidth</Name>
-					<Type>PropertyIntControl</Type>
+					<Type>PropertyFloatControl</Type>
 					<Initialisator/>
 					<Default>8</Default>
 					<Visible>true</Visible>
@@ -107,6 +107,15 @@
 					<Type>PropertyIntControl</Type>
 					<Initialisator/>
 					<Default>0</Default>
+					<Visible>true</Visible>
+					<ReadOnly>false</ReadOnly>
+					<Action>ChangeValueAction</Action>
+				</Property>
+				<Property>
+					<Name>Distance</Name>
+					<Type>PropertyIntControl</Type>
+					<Initialisator/>
+					<Default>1</Default>
 					<Visible>true</Visible>
 					<ReadOnly>false</ReadOnly>
 					<Action>ChangeValueAction</Action>

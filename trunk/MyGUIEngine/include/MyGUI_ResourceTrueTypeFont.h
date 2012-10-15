@@ -90,6 +90,7 @@ namespace MyGUI
 		Hinting mHinting; // What type of hinting to use when rendering the font.
 		bool mAntialias; // Whether or not to anti-alias the font by copying its alpha channel to its luminance channel.
 		float mSpaceWidth; // The width of a "Space" character, in pixels. If zero, the default width is used.
+		int mGlyphSpacing; // How far apart the glyphs are placed from each other in the font texture, in pixels.
 		float mTabWidth; // The width of the "Tab" special character, in pixels.
 		int mOffsetHeight; // How far up to nudge text rendered in this font, in pixels. May be negative to nudge text down.
 		Char mSubstituteCodePoint; // The code point to use as a substitute for code points that don't exist in the font.
@@ -100,7 +101,8 @@ namespace MyGUI
 		MyGUI::ITexture* mTexture; // The texture that contains all of the rendered glyphs in the font.
 
 		// The following constants used to be mutable, but they no longer need to be. Do not modify their values!
-		static const int mGlyphSpacing; // How far apart the glyphs are placed from each other in the font texture, in pixels.
+		static const int mDefaultGlyphSpacing; // How far apart the glyphs are placed from each other in the font texture, in pixels.
+		static const float mDefaultTabWidth; // Default "Tab" width, used only when tab width is no specified.
 		static const float mSelectedWidth; // The width of the "Selected" and "SelectedBack" special characters, in pixels.
 		static const float mCursorWidth; // The width of the "Cursor" special character, in pixels.
 
