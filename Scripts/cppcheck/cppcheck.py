@@ -14,9 +14,10 @@ ignoredContent = [
 #	") Include file: ", # ignore "(debug) Include file: "name" can not be found."
 #	"Technically the member function 'input::", # useless, because with other input system this function could be non-const
 #	"Cppcheck cannot find all the include files",
-	"is assigned in constructor body. Consider to perform initalization in initialization list.", # ignore, fine for us
+	"is assigned in constructor body. Consider performing initialization in initialization list.", # ignore, fine for us
 	"(performance) Prefer prefix ++/-- operators for non-primitive types", # ignore, fine for us - leave this optimisation to compiler
-	"MyGUI_DelegateImplement.h:195]: (warning) 'operator=' should check for assignment to self to avoid problems with dynamic memory." # false positive
+	"MyGUI_DelegateImplement.h:195]: (warning) 'operator=' should check for assignment to self to avoid problems with dynamic memory.", # false positive
+	"(error) Reference to temporary returned." # only false positives (revert later)
 ]
 
 def isIgnoredWarning(warning):
