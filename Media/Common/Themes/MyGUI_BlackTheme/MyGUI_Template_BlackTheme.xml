@@ -253,4 +253,23 @@
             <Widget type="ScrollBar" skin="ScrollBarV2_BlackTheme" position="37 0 13 50" align="Right VStretch" name="VScroll"/>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="TabControl_BlackTheme" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="5 5 89 60" name="Root">
+            <UserString key="LE_TargetWidgetType" value="TabControl"/>
+            <UserString key="ButtonSkin" value="TabControlButton_BlackTheme"/>
+            <Widget type="Widget" skin="TabControlPanelSkin_BlackTheme" position="0 19 89 41" align="Stretch">
+                <Widget type="Widget" skin="PanelEmpty" position="4 4 81 33" align="Stretch" name="TabItem"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="4 0 81 23" align="HStretch Top" name="HeaderPlace">
+                <Widget type="Widget" skin="TabControlTopSkin_BlackTheme" position="0 19 81 4" name="Empty"/>
+            </Widget>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="TabControlButton_BlackTheme" version="3.2.0">
+        <Widget type="Widget" skin="TabControlButtonSkin_BlackTheme" position="30 30 43 23" name="Root">
+            <Property key="FontName" value="Default"/>
+            <Property key="TextAlign" value="Center"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
 </MyGUI>
