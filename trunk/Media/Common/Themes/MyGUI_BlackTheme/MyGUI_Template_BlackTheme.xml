@@ -272,4 +272,62 @@
             <UserString key="LE_TargetWidgetType" value="Button"/>
         </Widget>
     </Resource>
+    <Resource type="ResourceLayout" name="MenuBarButton_BlackTheme" version="3.2.0">
+        <Widget type="Widget" skin="MenuControlButtonSkin_BlackTheme" position="30 30 7 20" name="Root">
+            <Property key="FontName" value="Default"/>
+            <Property key="TextAlign" value="Center"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="MenuBar_BlackTheme" version="3.2.0">
+        <Widget type="Widget" skin="MenuControlPanelSkin_BlackTheme" position="5 5 11 22" name="Root">
+            <Property key="VerticalAlignment" value="false"/>
+            <UserString key="LE_TargetWidgetType" value="MenuBar"/>
+            <UserString key="DistanceButton" value="6"/>
+            <UserString key="SubMenuLayer" value="Popup"/>
+            <UserString key="NormalSkin" value="MenuBarButton_BlackTheme"/>
+            <UserString key="PopupSkin" value="MenuBarButton_BlackTheme"/>
+            <UserString key="SeparatorSkin" value="PanelEmpty"/>
+            <UserString key="SubMenuSkin" value="PopupMenu_BlackTheme"/>
+            <Widget type="Widget" skin="PanelEmpty" position="2 1 7 20" align="Stretch" name="Client"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="PopupMenu_BlackTheme" version="3.2.0">
+        <Widget type="Widget" skin="ListBoxPanel2Skin_BlackTheme" position="5 5 29 26" name="Root">
+            <Property key="VerticalAlignment" value="true"/>
+            <UserString key="SubMenuLayer" value="Popup"/>
+            <UserString key="SubMenuSkin" value="PopupMenu_BlackTheme"/>
+            <UserString key="LE_TargetWidgetType" value="PopupMenu"/>
+            <UserString key="SeparatorSkin" value="PopupMenuSeparator_Dark"/>
+            <UserString key="NormalSkin" value="PopupMenuNormal_BlackTheme"/>
+            <UserString key="PopupSkin" value="PopupMenuPopup_BlackTheme"/>
+            <Widget type="Widget" skin="PanelEmpty" position="3 4 23 18" align="Stretch" name="Client"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="PopupMenuSeparator_BlackTheme" version="3.2.0">
+        <Widget type="Widget" skin="PanelEmpty" position="20 20 10 10" name="Root">
+            <Property key="FontName" value="Default"/>
+            <Property key="TextAlign" value="Center"/>
+            <UserString key="MinSize" value="10 10"/>
+            <Widget type="Widget" skin="MenuControlSeparatorSkin_BlackTheme" position="2 5 6 1" align="HStretch VCenter"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="PopupMenuNormal_BlackTheme" version="3.2.0">
+        <Widget type="Widget" skin="PopupMenuNormalSkin_BlackTheme" position="20 25 43 17" name="Root">
+            <Property key="FontName" value="Default"/>
+            <Property key="TextAlign" value="Left VCenter"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+            <Widget type="Widget" skin="PopupMenuCheckSkin_BlackTheme" position="1 1 16 16" align="Left VCenter" name="Check"/>
+        </Widget>
+    </Resource>
+    <Resource type="ResourceLayout" name="PopupMenuPopup_BlackTheme" version="3.2.0">
+        <Widget type="Widget" skin="PopupMenuNormalSkin_BlackTheme" position="20 25 43 17" name="Root">
+            <Property key="FontName" value="Default"/>
+            <Property key="TextAlign" value="Left VCenter"/>
+            <UserString key="LE_TargetWidgetType" value="Button"/>
+            <Widget type="Widget" skin="ButtonRightSkin_BlackTheme" position="31 5 8 8" align="Right VCenter">
+                <Property key="NeedMouse" value="false"/>
+            </Widget>
+        </Widget>
+    </Resource>
 </MyGUI>
