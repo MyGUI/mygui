@@ -128,5 +128,22 @@
     </Widget>
     <Widget type="Window" skin="WindowCXS_BlackTheme" position="350 350 445 300">
         <Property key="Caption" value="WindowCXS_BlackTheme"/>
+        <Widget type="TabControl" skin="TabControl_BlackTheme" position="10 10 415 245">
+            <Widget type="TabItem" skin="" position="4 23 407 218">
+                <Property key="Caption" value="Tab 1"/>
+                <Widget type="Button" skin="Button_BlackTheme" position="5 5 160 24">
+                    <Property key="Caption" value="Tab 1 test"/>
+                </Widget>
+            </Widget>
+            <Widget type="TabItem" skin="" position="4 23 407 218">
+                <Property key="Caption" value="Tab 2"/>
+            </Widget>
+            <Widget type="TabItem" skin="" position="4 23 407 218">
+                <Property key="Caption" value="Tab 3"/>
+            </Widget>
+            <Widget type="TabItem" skin="" position="4 23 407 218">
+                <Property key="Caption" value="Tab 4"/>
+            </Widget>
+        </Widget>
     </Widget>
 </MyGUI>
