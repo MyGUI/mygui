@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="Window" skin="WindowC_BlackTheme" position="30 30 300 300">
+    <Widget type="Window" skin="WindowC_BlackTheme" position="30 30 300 135">
         <Property key="Caption" value="WindowC_BlackTheme"/>
         <Widget type="Button" skin="Button_BlackTheme" position="5 5 200 24">
             <Property key="Caption" value="Button_BlackTheme"/>
@@ -10,17 +10,6 @@
         </Widget>
         <Widget type="Button" skin="RadioButton_DarkTheme" position="5 70 200 24">
             <Property key="Caption" value="RadioButton_BlackTheme"/>
-        </Widget>
-        <Widget type="ProgressBar" skin="ProgressBar_BlackTheme" position="5 110 200 9">
-            <Property key="AutoTrack" value="true"/>
-        </Widget>
-        <Widget type="ProgressBar" skin="ProgressBar_BlackTheme" position="5 135 200 9">
-            <Property key="Range" value="10"/>
-            <Property key="RangePosition" value="10"/>
-        </Widget>
-        <Widget type="ProgressBar" skin="ProgressBar_BlackTheme" position="5 160 200 9">
-            <Property key="Range" value="10"/>
-            <Property key="RangePosition" value="5"/>
         </Widget>
     </Widget>
     <Widget type="Window" skin="WindowCX_BlackTheme" position="350 30 445 300">
@@ -105,44 +94,116 @@
     </Widget>
     <Widget type="Window" skin="WindowCS_BlackTheme" position="30 350 300 300">
         <Property key="Caption" value="WindowCS_BlackTheme"/>
-        <Widget type="ScrollBar" skin="SliderV_BlackTheme" position="270 5 14 200">
-            <Property key="Range" value="200"/>
-            <Property key="RangePosition" value="100"/>
-        </Widget>
-        <Widget type="ScrollBar" skin="SliderH_BlackTheme" position="5 245 200 14">
-            <Property key="Range" value="200"/>
-            <Property key="RangePosition" value="100"/>
-        </Widget>
-        <Widget type="ScrollBar" skin="ScrollBarV_BlackTheme" position="240 5 13 200">
-            <Property key="Range" value="200"/>
-            <Property key="RangePosition" value="100"/>
-            <Property key="Page" value="50"/>
-            <Property key="ViewPage" value="50"/>
-        </Widget>
-        <Widget type="ScrollBar" skin="ScrollBarH_BlackTheme" position="5 215 200 13">
-            <Property key="Range" value="200"/>
-            <Property key="RangePosition" value="100"/>
-            <Property key="Page" value="50"/>
-            <Property key="ViewPage" value="50"/>
-        </Widget>
-    </Widget>
-    <Widget type="Window" skin="WindowCXS_BlackTheme" position="350 350 445 300">
-        <Property key="Caption" value="WindowCXS_BlackTheme"/>
-        <Widget type="TabControl" skin="TabControl_BlackTheme" position="10 10 415 245">
-            <Widget type="TabItem" skin="" position="4 23 407 218">
+        <Widget type="TabControl" skin="TabControl_BlackTheme" position="10 10 275 245" align="Stretch">
+            <Widget type="TabItem" skin="" position="4 23 267 218">
                 <Property key="Caption" value="Tab 1"/>
-                <Widget type="Button" skin="Button_BlackTheme" position="5 5 160 24">
-                    <Property key="Caption" value="Tab 1 test"/>
+                <Widget type="ScrollBar" skin="SliderV_BlackTheme" position="245 5 14 200">
+                    <Property key="Range" value="200"/>
+                    <Property key="RangePosition" value="100"/>
+                </Widget>
+                <Widget type="ScrollBar" skin="SliderH_BlackTheme" position="5 195 200 14">
+                    <Property key="Range" value="200"/>
+                    <Property key="RangePosition" value="100"/>
+                </Widget>
+                <Widget type="ScrollBar" skin="ScrollBarV_BlackTheme" position="220 5 13 200">
+                    <Property key="Range" value="200"/>
+                    <Property key="RangePosition" value="100"/>
+                    <Property key="Page" value="50"/>
+                    <Property key="ViewPage" value="50"/>
+                </Widget>
+                <Widget type="ScrollBar" skin="ScrollBarH_BlackTheme" position="5 170 200 13">
+                    <Property key="Range" value="200"/>
+                    <Property key="RangePosition" value="100"/>
+                    <Property key="Page" value="50"/>
+                    <Property key="ViewPage" value="50"/>
                 </Widget>
             </Widget>
-            <Widget type="TabItem" skin="" position="4 23 407 218">
+            <Widget type="TabItem" skin="" position="4 23 267 218">
                 <Property key="Caption" value="Tab 2"/>
             </Widget>
-            <Widget type="TabItem" skin="" position="4 23 407 218">
+            <Widget type="TabItem" skin="" position="4 23 267 218">
                 <Property key="Caption" value="Tab 3"/>
             </Widget>
-            <Widget type="TabItem" skin="" position="4 23 407 218">
+            <Widget type="TabItem" skin="" position="4 23 267 218">
                 <Property key="Caption" value="Tab 4"/>
+            </Widget>
+        </Widget>
+    </Widget>
+    <Widget type="Window" skin="WindowCXS_BlackTheme" position="30 180 300 150">
+        <Property key="Caption" value="WindowCXS_BlackTheme"/>
+        <Widget type="ProgressBar" skin="ProgressBar_BlackTheme" position="5 15 200 9">
+            <Property key="AutoTrack" value="true"/>
+        </Widget>
+        <Widget type="ProgressBar" skin="ProgressBar_BlackTheme" position="5 40 200 9">
+            <Property key="Range" value="10"/>
+            <Property key="RangePosition" value="10"/>
+        </Widget>
+        <Widget type="ProgressBar" skin="ProgressBar_BlackTheme" position="5 65 200 9">
+            <Property key="Range" value="10"/>
+            <Property key="RangePosition" value="5"/>
+        </Widget>
+    </Widget>
+    <Widget type="MenuBar" skin="MenuBar_BlackTheme" position="350 350 445 22">
+        <Widget type="MenuItem" skin="" position="0 0 51 21">
+            <Property key="Caption" value="Menu 1"/>
+            <Property key="MenuItemType" value="Popup"/>
+            <Widget type="PopupMenu" skin="PopupMenu_BlackTheme" position="352 372 80 102" style="Popup" layer="Popup">
+                <Widget type="MenuItem" skin="" position="0 0 74 21">
+                    <Property key="Caption" value="line 1"/>
+                </Widget>
+                <Widget type="MenuItem" skin="" position="0 21 74 21">
+                    <Property key="Caption" value="line 2"/>
+                </Widget>
+                <Widget type="MenuItem" skin="" position="0 42 74 10">
+                    <Property key="Caption" value="line 3"/>
+                    <Property key="MenuItemType" value="Separator"/>
+                </Widget>
+                <Widget type="MenuItem" skin="" position="0 52 74 21">
+                    <Property key="Caption" value="line 4"/>
+                </Widget>
+                <Widget type="MenuItem" skin="" position="0 73 74 21">
+                    <Property key="Caption" value="line 5"/>
+                    <Property key="MenuItemType" value="Popup"/>
+                    <Widget type="PopupMenu" skin="PopupMenu_BlackTheme" position="432 445 80 113" style="Popup" layer="Popup">
+                        <Widget type="MenuItem" skin="" position="0 0 74 21">
+                            <Property key="Caption" value="line 1"/>
+                        </Widget>
+                        <Widget type="MenuItem" skin="" position="0 21 74 21">
+                            <Property key="Caption" value="line 2"/>
+                            <Property key="MenuItemChecked" value="true"/>
+                        </Widget>
+                        <Widget type="MenuItem" skin="" position="0 42 74 21">
+                            <Property key="Caption" value="line 3"/>
+                        </Widget>
+                        <Widget type="MenuItem" skin="" position="0 63 74 21">
+                            <Property key="Caption" value="line 4"/>
+                        </Widget>
+                        <Widget type="MenuItem" skin="" position="0 84 74 21">
+                            <Property key="Caption" value="line 5"/>
+                        </Widget>
+                    </Widget>
+                </Widget>
+            </Widget>
+        </Widget>
+        <Widget type="MenuItem" skin="" position="57 0 51 21">
+            <Property key="Caption" value="Menu 2"/>
+            <Property key="MenuItemType" value="Popup"/>
+            <Widget type="PopupMenu" skin="PopupMenu_BlackTheme" position="409 372 80 113" style="Popup" layer="Popup">
+                <Widget type="MenuItem" skin="" position="0 0 74 21">
+                    <Property key="Caption" value="line 1"/>
+                </Widget>
+                <Widget type="MenuItem" skin="" position="0 21 74 21">
+                    <Property key="Caption" value="line 2"/>
+                </Widget>
+                <Widget type="MenuItem" skin="" position="0 42 74 21">
+                    <Property key="Caption" value="line 3"/>
+                </Widget>
+                <Widget type="MenuItem" skin="" position="0 63 74 21">
+                    <Property key="Caption" value="line 4"/>
+                </Widget>
+                <Widget type="MenuItem" skin="" position="0 84 74 21">
+                    <Property key="Caption" value="line 5"/>
+                </Widget>
             </Widget>
         </Widget>
     </Widget>
