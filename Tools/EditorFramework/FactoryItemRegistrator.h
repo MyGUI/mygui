@@ -15,29 +15,18 @@ namespace factories
 {
 	bool MYGUI_EXPORT_DLL IsExistFactoryName(const std::string& _factoryName);
 	void MYGUI_EXPORT_DLL RegisterFactory(::components::IFactory* _factory, const std::string& _factoryName);
-	void MYGUI_EXPORT_DLL UnregisterFactory(::components::IFactory* _factory, const std::string& _factoryName);
 
 	template <typename Type>
 	class FactoryItemRegistrator
 	{
 	public:
 		FactoryItemRegistrator(const std::string& _factoryName) :
-			mFactory(0),
 			mFactoryName(_factoryName)
 		{
 			if (!IsExistFactoryName(mFactoryName))
 			{
-				mFactory = new components::FactoryTemplate<Type>();
-				RegisterFactory(mFactory, mFactoryName);
-			}
-		}
-		~FactoryItemRegistrator()
-		{
-			if (mFactory != 0)
-			{
-				UnregisterFactory(mFactory, mFactoryName);
-				delete mFactory;
-				mFactory = 0;
+				::components::IFactory* factory = new components::FactoryTemplate<Type>();
+				RegisterFactory(factory, mFactoryName);
 			}
 		}
 
@@ -45,7 +34,6 @@ namespace factories
 		FactoryItemRegistrator() { }
 
 	private:
-		::components::IFactory* mFactory;
 		std::string mFactoryName;
 	};
 }

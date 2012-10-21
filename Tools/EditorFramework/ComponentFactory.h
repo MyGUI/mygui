@@ -14,6 +14,7 @@ namespace tools
 	{
 	public:
 		static void Initialise();
+		static void Shutdown();
 	};
 
 }

@@ -33,16 +33,6 @@ namespace components
 		mFactories[_factoryName] = _factory;
 	}
 
-	void FactoryManager::UnregisterFactory(IFactory* _factory, const std::string& _factoryName)
-	{
-		MapFactory::iterator item = mFactories.find(_factoryName);
-		if (item != mFactories.end())
-		{
-			if ((*item).second == _factory)
-				mFactories.erase(item);
-		}
-	}
-
 	IFactoryItem* FactoryManager::CreateItem(const std::string& _factoryName)
 	{
 		MapFactory::iterator item = mFactories.find(_factoryName);
@@ -51,4 +41,10 @@ namespace components
 		return 0;
 	}
 
+	void FactoryManager::UnregisterAllFactories()
+	{
+		for (MapFactory::iterator factory = mFactories.begin(); factory != mFactories.end(); factory ++)
+			delete (*factory).second;
+		mFactories.clear();
+	}
 }

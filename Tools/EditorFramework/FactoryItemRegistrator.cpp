@@ -19,9 +19,4 @@ namespace factories
 	{
 		::components::FactoryManager::GetInstancePtr()->RegisterFactory(_factory, _factoryName);
 	}
-
-	void UnregisterFactory(::components::IFactory* _factory, const std::string& _factoryName)
-	{
-		::components::FactoryManager::GetInstancePtr()->UnregisterFactory(_factory, _factoryName);
-	}
 }
