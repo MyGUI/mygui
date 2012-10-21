@@ -31,14 +31,13 @@
 namespace MyGUI
 {
 
-	const std::string XML_TYPE("Resource");
-	const std::string XML_TYPE_LIST("List");
-
 	template <> ResourceManager* Singleton<ResourceManager>::msInstance = nullptr;
 	template <> const char* Singleton<ResourceManager>::mClassTypeName("ResourceManager");
 
 	ResourceManager::ResourceManager() :
-		mIsInitialise(false)
+		mIsInitialise(false),
+		mCategoryName("Resource"),
+		mXmlListTagName("List")
 	{
 	}
 
@@ -47,11 +46,11 @@ namespace MyGUI
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
-		registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &ResourceManager::loadFromXmlNode);
-		registerLoadXmlDelegate(XML_TYPE_LIST) = newDelegate(this, &ResourceManager::_loadList);
+		registerLoadXmlDelegate(mCategoryName) = newDelegate(this, &ResourceManager::loadFromXmlNode);
+		registerLoadXmlDelegate(mXmlListTagName) = newDelegate(this, &ResourceManager::_loadList);
 
 		// регестрируем дефолтные ресурсы
-		FactoryManager::getInstance().registerFactory<ResourceImageSet>(XML_TYPE);
+		FactoryManager::getInstance().registerFactory<ResourceImageSet>(mCategoryName);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -62,11 +61,11 @@ namespace MyGUI
 		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
-		FactoryManager::getInstance().unregisterFactory<ResourceImageSet>(XML_TYPE);
+		FactoryManager::getInstance().unregisterFactory<ResourceImageSet>(mCategoryName);
 
 		clear();
-		unregisterLoadXmlDelegate(XML_TYPE);
-		unregisterLoadXmlDelegate(XML_TYPE_LIST);
+		unregisterLoadXmlDelegate(mCategoryName);
+		unregisterLoadXmlDelegate(mXmlListTagName);
 
 		mMapLoadXmlDelegate.clear();
 
@@ -85,7 +84,7 @@ namespace MyGUI
 
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator root = _node->getElementEnumerator();
-		while (root.next(XML_TYPE))
+		while (root.next(mCategoryName))
 		{
 			// парсим атрибуты
 			std::string type, name;
@@ -105,7 +104,7 @@ namespace MyGUI
 				mResources.erase(item);
 			}
 
-			IObject* object = factory.createObject(XML_TYPE, type);
+			IObject* object = factory.createObject(mCategoryName, type);
 			if (object == nullptr)
 			{
 				MYGUI_LOG(Error, "resource type '" << type << "' not found");
@@ -123,7 +122,7 @@ namespace MyGUI
 	{
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator node = _node->getElementEnumerator();
-		while (node.next(XML_TYPE_LIST))
+		while (node.next(mXmlListTagName))
 		{
 			std::string source;
 			if (!node->findAttribute("file", source)) continue;
@@ -286,6 +285,11 @@ namespace MyGUI
 	size_t ResourceManager::getCount() const
 	{
 		return mResources.size();
+	}
+
+	const std::string& ResourceManager::getCategory() const
+	{
+		return mCategoryName;
 	}
 
 } // namespace MyGUI

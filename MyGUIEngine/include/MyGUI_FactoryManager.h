@@ -73,6 +73,16 @@ namespace MyGUI
 
 		/** Create object with given _category and _type. Return nullptr if there's no registered factory. */
 		IObject* createObject(const std::string& _category, const std::string& _type);
+		/** Create object with given _category and _type. Return nullptr if there's no registered factory. */
+		template<typename Type>
+		Type* createObject(const std::string& _category)
+		{
+			IObject* item = createObject(_category, Type::getClassTypeName());
+			if (item != nullptr)
+				return item->castType<Type>(false);
+			return nullptr;
+		}
+
 		/** Destroy object */
 		void destroyObject(IObject* _object);
 

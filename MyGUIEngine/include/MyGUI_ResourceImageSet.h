@@ -56,6 +56,8 @@ namespace MyGUI
 		/** Get groups Enumerator */
 		EnumeratorGroupImage getEnumerator() const;
 
+		void AddGroupImage(const GroupImage& _group);
+
 	private:
 		ResourceImageSet();
 		virtual ~ResourceImageSet();

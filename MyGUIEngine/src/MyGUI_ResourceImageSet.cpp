@@ -81,7 +81,7 @@ namespace MyGUI
 				group.indexes.push_back(index);
 			}
 
-			mGroups.push_back(group);
+			AddGroupImage(group);
 		}
 	}
 
@@ -227,6 +227,11 @@ namespace MyGUI
 	EnumeratorGroupImage ResourceImageSet::getEnumerator() const
 	{
 		return EnumeratorGroupImage(mGroups);
+	}
+
+	void ResourceImageSet::AddGroupImage(const GroupImage& _group)
+	{
+		mGroups.push_back(_group);
 	}
 
 } // namespace MyGUI

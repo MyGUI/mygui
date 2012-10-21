@@ -29,6 +29,11 @@ namespace MyGUI
 
 	struct IndexImage
 	{
+		IndexImage() :
+			rate(0)
+		{
+		}
+
 		std::string name;
 		float rate;
 		std::vector<IntPoint> frames;
