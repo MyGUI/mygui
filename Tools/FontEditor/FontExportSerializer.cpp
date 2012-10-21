@@ -275,13 +275,11 @@ namespace tools
 
 		font->setResourceName(fontName);
 
-#ifdef MYGUI_USE_FREETYPE
-
 		font->setSource(_data->getPropertyValue("Source"));
 		font->setSize(_data->getPropertyValue<float>("Size"));
 		font->setResolution(_data->getPropertyValue<int>("Resolution"));
 		font->setHinting(_data->getPropertyValue("Hinting"));
-		font->setAntialias(MyGUI::utility::toString(_data->getPropertyValue<bool>("Antialias")));
+		font->setAntialias(_data->getPropertyValue<bool>("Antialias"));
 		font->setTabWidth(_data->getPropertyValue<float>("TabWidth"));
 		font->setOffsetHeight(_data->getPropertyValue<int>("OffsetHeight"));
 		font->setSubstituteCode(_data->getPropertyValue<int>("SubstituteCode"));
@@ -297,8 +295,6 @@ namespace tools
 
 		font->initialise();
 
-#endif // MYGUI_USE_FREETYPE
-
 		MyGUI::ResourceManager::getInstance().addResource(font);
 	}
 
@@ -308,39 +304,5 @@ namespace tools
 		if (manager.isExist(_fontName))
 			manager.removeByName(_fontName);
 	}
-
-	/*void FontExportSerializer::generateFontTTFXml(MyGUI::xml::ElementPtr _root, const std::string& _fontName, DataPtr _data)
-	{
-		_root->addAttribute("type", "Resource");
-		_root->addAttribute("version", "1.1");
-
-		MyGUI::xml::ElementPtr node = _root->createChild("Resource");
-		node->addAttribute("type", "ResourceTrueTypeFont");
-		node->addAttribute("name", _fontName);
-
-		addProperty(node, "Source", _data->getPropertyValue("Source"));
-		addProperty(node, "Size", _data->getPropertyValue<float>("Size"));
-		addProperty(node, "Resolution", _data->getPropertyValue<int>("Resolution"));
-		addProperty(node, "Hinting", _data->getPropertyValue("Hinting"));
-		addProperty(node, "Antialias", MyGUI::utility::toString(_data->getPropertyValue<bool>("Antialias")));
-		addProperty(node, "TabWidth", _data->getPropertyValue<float>("TabWidth"));
-		addProperty(node, "OffsetHeight", _data->getPropertyValue<int>("OffsetHeight"));
-		addProperty(node, "SubstituteCode", _data->getPropertyValue<int>("SubstituteCode"));
-		addProperty(node, "Distance", _data->getPropertyValue<int>("Distance"));
-
-
-		MyGUI::xml::ElementPtr node_codes = node->createChild("Codes");
-
-		std::string ranges = _data->getPropertyValue("FontCodeRanges");
-		std::vector<std::string> values = MyGUI::utility::split(ranges, "|");
-		for (size_t index = 0; index < values.size(); index ++)
-		{
-			MyGUI::IntSize size = MyGUI::IntSize::parse(values[index]);
-			node_codes->createChild("Code")->addAttribute("range", size.print());
-		}
-
-		if (!node_codes->getElementEnumerator().next())
-			node->removeChild(node_codes);
-	}*/
 
 }

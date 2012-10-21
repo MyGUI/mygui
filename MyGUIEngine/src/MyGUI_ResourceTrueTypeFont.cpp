@@ -96,6 +96,55 @@ namespace MyGUI
 	{
 		return Char();
 	}
+
+	void ResourceTrueTypeFont::initialise()
+	{
+	}
+
+	void ResourceTrueTypeFont::setSource(const std::string& _value)
+	{
+	}
+
+	void ResourceTrueTypeFont::setSize(float _value)
+	{
+	}
+
+	void ResourceTrueTypeFont::setResolution(uint _value)
+	{
+	}
+
+	void ResourceTrueTypeFont::setHinting(const std::string& _value)
+	{
+	}
+
+	void ResourceTrueTypeFont::setAntialias(bool _value)
+	{
+	}
+
+	void ResourceTrueTypeFont::setTabWidth(float _value)
+	{
+	}
+
+	void ResourceTrueTypeFont::setOffsetHeight(int _value)
+	{
+	}
+
+	void ResourceTrueTypeFont::setSubstituteCode(int _value)
+	{
+	}
+
+	void ResourceTrueTypeFont::setDistance(int _value)
+	{
+	}
+
+	void ResourceTrueTypeFont::addCodePointRange(Char _first, Char _second)
+	{
+	}
+
+	void ResourceTrueTypeFont::removeCodePointRange(Char _first, Char _second)
+	{
+	}
+
 #else // MYGUI_USE_FREETYPE
 	namespace
 	{

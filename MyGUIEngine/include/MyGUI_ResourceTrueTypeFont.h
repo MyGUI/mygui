@@ -62,8 +62,6 @@ namespace MyGUI
 		// code point is FontCodeType::NotDefined, but it can be customized in the font definition file.
 		Char getSubstituteCodePoint() const;
 
-#ifdef MYGUI_USE_FREETYPE
-
 		// создаение ресурса по текущим значениям
 		void initialise();
 
@@ -80,6 +78,7 @@ namespace MyGUI
 		void addCodePointRange(Char _first, Char _second);
 		void removeCodePointRange(Char _first, Char _second);
 
+#ifdef MYGUI_USE_FREETYPE
 	private:
 		enum Hinting
 		{
