@@ -101,16 +101,6 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	# define the sources
 	include(${PROJECTNAME}.list)
 	
-	if (${SOLUTIONFOLDER} STREQUAL "Tools")
-		include_directories(${MYGUI_SOURCE_DIR}/Tools/EditorFramework)
-		include(PrecompiledHeader)
-		# specify a precompiled header to use
-		use_precompiled_header(${PROJECTNAME}
-			"../../Common/Precompiled.h"
-			"../../Common/Precompiled.cpp"
-		)
-	endif ()
-	
 	# Set up dependencies
 	if(MYGUI_RENDERSYSTEM EQUAL 1)
 		include_directories(../../Common/Base/Dummy)
@@ -203,10 +193,6 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		MyGUIEngine
 	)
 
-	target_link_libraries(${PROJECTNAME}
-		EditorFramework
-	)
-
 	if (MYGUI_GENERATE_LIST_FILES_FROM_VSPROJECT)
 		add_custom_command(TARGET ${PROJECTNAME}
 			POST_BUILD
@@ -231,15 +217,6 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 	)
 	# define the sources
 	include(${PROJECTNAME}.list)
-	
-	if (${SOLUTIONFOLDER} STREQUAL "Tools")
-		include(PrecompiledHeader)
-		# specify a precompiled header to use
-		use_precompiled_header(${PROJECTNAME}
-			"../../Common/Precompiled.h"
-			"../../Common/Precompiled.cpp"
-		)
-	endif ()
 
 	# Set up dependencies
 	if(MYGUI_RENDERSYSTEM EQUAL 1)
@@ -285,7 +262,7 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 		
 	add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL")
 	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
-	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER "Tools")
+	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER ${SOLUTIONFOLDER})
 	add_dependencies(${PROJECTNAME} MyGUIEngine)
 	target_link_libraries(${PROJECTNAME} MyGUIEngine)
 	
@@ -345,6 +322,18 @@ function(mygui_tool PROJECTNAME)
 	if (MYGUI_INSTALL_TOOLS)
 		mygui_install_app(${PROJECTNAME})
 	endif ()
+
+	include_directories(${MYGUI_SOURCE_DIR}/Tools/EditorFramework)
+	include(PrecompiledHeader)
+	# specify a precompiled header to use
+	use_precompiled_header(${PROJECTNAME}
+		"../../Common/Precompiled.h"
+		"../../Common/Precompiled.cpp"
+	)
+
+	target_link_libraries(${PROJECTNAME}
+		EditorFramework
+	)
 endfunction(mygui_tool)
 
 
@@ -358,6 +347,13 @@ function(mygui_tool_dll PROJECTNAME)
 	if (MYGUI_INSTALL_TOOLS)
 		mygui_install_app(${PROJECTNAME})
 	endif ()
+
+	include(PrecompiledHeader)
+	# specify a precompiled header to use
+	use_precompiled_header(${PROJECTNAME}
+		"../../Common/Precompiled.h"
+		"../../Common/Precompiled.cpp"
+	)
 endfunction(mygui_tool_dll)
 
 
