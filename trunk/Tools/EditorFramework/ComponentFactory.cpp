@@ -76,4 +76,8 @@ namespace tools
 		FACTORY_ITEM(ActionChangeDataProperty)
 	}
 
+	void ComponentFactory::Shutdown()
+	{
+		::components::FactoryManager::GetInstancePtr()->UnregisterAllFactories();
+	}
 }

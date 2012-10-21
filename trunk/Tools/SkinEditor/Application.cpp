@@ -41,6 +41,7 @@ namespace tools
 
 	Application::~Application()
 	{
+		ComponentFactory::Shutdown();
 	}
 
 	void Application::setupResources()

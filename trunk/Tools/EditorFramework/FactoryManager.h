@@ -29,7 +29,7 @@ namespace components
 		bool ExistFactory(const std::string& _factoryName);
 
 		void RegisterFactory(IFactory* _factory, const std::string& _factoryName);
-		void UnregisterFactory(IFactory* _factory, const std::string& _factoryName);
+		void UnregisterAllFactories();
 
 		IFactoryItem* CreateItem(const std::string& _factoryName);
 

@@ -28,9 +28,9 @@ namespace tools
 	void CommandManager::shutdown()
 	{
 		for (MapEvent::iterator iter = mEvents.begin(); iter != mEvents.end(); iter++)
-		{
 			delete iter->second;
-		}
+
+		mEvents.clear();
 	}
 
 	bool CommandManager::executeCommand(const MyGUI::UString& _command)
