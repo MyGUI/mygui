@@ -37,8 +37,13 @@ namespace MyGUI
 		void initialise();
 		void shutdown();
 
+		const std::string& getCategoryName() const;
+		const std::string& getStateCategoryName() const;
+
 	private:
 		bool mIsInitialise;
+		std::string mCategoryName;
+		std::string mStateCategoryName;
 	};
 
 } // namespace MyGUI

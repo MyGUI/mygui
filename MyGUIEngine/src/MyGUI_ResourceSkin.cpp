@@ -23,6 +23,7 @@
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_LanguageManager.h"
+#include "MyGUI_SubWidgetManager.h"
 
 namespace MyGUI
 {
@@ -44,6 +45,8 @@ namespace MyGUI
 	void ResourceSkin::deserialization(xml::ElementPtr _node, Version _version)
 	{
 		Base::deserialization(_node, _version);
+
+		std::string stateCategory = SubWidgetManager::getInstance().getStateCategoryName();
 
 		// парсим атрибуты скина
 		std::string name, texture, tmp;
@@ -77,8 +80,10 @@ namespace MyGUI
 			{
 				// загружаем свойства
 				std::string key, value;
-				if (!basis->findAttribute("key", key)) continue;
-				if (!basis->findAttribute("value", value)) continue;
+				if (!basis->findAttribute("key", key))
+					continue;
+				if (!basis->findAttribute("value", value))
+					continue;
 
 				// поддержка замены тегов в скинах
 				if (_version >= Version(1, 1))
@@ -115,8 +120,10 @@ namespace MyGUI
 				IntCoord offset;
 				Align align = Align::Default;
 				basis->findAttribute("type", basisSkinType);
-				if (basis->findAttribute("offset", tmp_str)) offset = IntCoord::parse(tmp_str);
-				if (basis->findAttribute("align", tmp_str)) align = Align::parse(tmp_str);
+				if (basis->findAttribute("offset", tmp_str))
+					offset = IntCoord::parse(tmp_str);
+				if (basis->findAttribute("align", tmp_str))
+					align = Align::parse(tmp_str);
 
 				bind.create(offset, align, basisSkinType);
 
@@ -156,23 +163,32 @@ namespace MyGUI
 						if (_version < Version(1, 0))
 						{
 							// это обсолет новых типов
-							if (basisStateName == "disable_check") basisStateName = "disabled_checked";
-							else if (basisStateName == "normal_check") basisStateName = "normal_checked";
-							else if (basisStateName == "active_check") basisStateName = "highlighted_checked";
-							else if (basisStateName == "pressed_check") basisStateName = "pushed_checked";
-							else if (basisStateName == "disable") basisStateName = "disabled";
-							else if (basisStateName == "active") basisStateName = "highlighted";
-							else if (basisStateName == "select") basisStateName = "pushed";
+							if (basisStateName == "disable_check")
+								basisStateName = "disabled_checked";
+							else if (basisStateName == "normal_check")
+								basisStateName = "normal_checked";
+							else if (basisStateName == "active_check")
+								basisStateName = "highlighted_checked";
+							else if (basisStateName == "pressed_check")
+								basisStateName = "pushed_checked";
+							else if (basisStateName == "disable")
+								basisStateName = "disabled";
+							else if (basisStateName == "active")
+								basisStateName = "highlighted";
+							else if (basisStateName == "select")
+								basisStateName = "pushed";
 							else if (basisStateName == "pressed")
 							{
-								if (new_format) basisStateName = "pushed";
-								else basisStateName = "normal_checked";
+								if (new_format)
+									basisStateName = "pushed";
+								else
+									basisStateName = "normal_checked";
 							}
 						}
 
 						// конвертируем инфу о стейте
 						IStateInfo* data = nullptr;
-						IObject* object = FactoryManager::getInstance().createObject("BasisSkin/State", basisSkinType);
+						IObject* object = FactoryManager::getInstance().createObject(stateCategory, basisSkinType);
 						if (object != nullptr)
 						{
 							data = object->castType<IStateInfo>();

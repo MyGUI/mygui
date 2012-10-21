@@ -57,7 +57,8 @@ namespace MyGUI
 	template <> const char* Singleton<WidgetManager>::mClassTypeName = "WidgetManager";
 
 	WidgetManager::WidgetManager() :
-		mIsInitialise(false)
+		mIsInitialise(false),
+		mCategoryName("Widget")
 	{
 	}
 
@@ -68,28 +69,28 @@ namespace MyGUI
 
 		FactoryManager& factory = FactoryManager::getInstance();
 
-		factory.registerFactory<Button>("Widget");
-		factory.registerFactory<Canvas>("Widget");
-		factory.registerFactory<ComboBox>("Widget");
-		factory.registerFactory<DDContainer>("Widget");
-		factory.registerFactory<EditBox>("Widget");
-		factory.registerFactory<ItemBox>("Widget");
-		factory.registerFactory<ListBox>("Widget");
-		factory.registerFactory<MenuBar>("Widget");
-		factory.registerFactory<MenuControl>("Widget");
-		factory.registerFactory<MenuItem>("Widget");
-		factory.registerFactory<MultiListBox>("Widget");
-		factory.registerFactory<MultiListItem>("Widget");
-		factory.registerFactory<PopupMenu>("Widget");
-		factory.registerFactory<ProgressBar>("Widget");
-		factory.registerFactory<ScrollBar>("Widget");
-		factory.registerFactory<ScrollView>("Widget");
-		factory.registerFactory<ImageBox>("Widget");
-		factory.registerFactory<TextBox>("Widget");
-		factory.registerFactory<TabControl>("Widget");
-		factory.registerFactory<TabItem>("Widget");
-		factory.registerFactory<Widget>("Widget");
-		factory.registerFactory<Window>("Widget");
+		factory.registerFactory<Button>(mCategoryName);
+		factory.registerFactory<Canvas>(mCategoryName);
+		factory.registerFactory<ComboBox>(mCategoryName);
+		factory.registerFactory<DDContainer>(mCategoryName);
+		factory.registerFactory<EditBox>(mCategoryName);
+		factory.registerFactory<ItemBox>(mCategoryName);
+		factory.registerFactory<ListBox>(mCategoryName);
+		factory.registerFactory<MenuBar>(mCategoryName);
+		factory.registerFactory<MenuControl>(mCategoryName);
+		factory.registerFactory<MenuItem>(mCategoryName);
+		factory.registerFactory<MultiListBox>(mCategoryName);
+		factory.registerFactory<MultiListItem>(mCategoryName);
+		factory.registerFactory<PopupMenu>(mCategoryName);
+		factory.registerFactory<ProgressBar>(mCategoryName);
+		factory.registerFactory<ScrollBar>(mCategoryName);
+		factory.registerFactory<ScrollView>(mCategoryName);
+		factory.registerFactory<ImageBox>(mCategoryName);
+		factory.registerFactory<TextBox>(mCategoryName);
+		factory.registerFactory<TabControl>(mCategoryName);
+		factory.registerFactory<TabItem>(mCategoryName);
+		factory.registerFactory<Widget>(mCategoryName);
+		factory.registerFactory<Window>(mCategoryName);
 
 		BackwardCompatibility::registerWidgetTypes();
 
@@ -109,7 +110,7 @@ namespace MyGUI
 
 		mVectorIUnlinkWidget.clear();
 
-		FactoryManager::getInstance().unregisterFactory("Widget");
+		FactoryManager::getInstance().unregisterFactory(mCategoryName);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
@@ -117,7 +118,7 @@ namespace MyGUI
 
 	Widget* WidgetManager::createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Widget* _parent, ICroppedRectangle* _cropeedParent, const std::string& _name)
 	{
-		IObject* object = FactoryManager::getInstance().createObject("Widget", _type);
+		IObject* object = FactoryManager::getInstance().createObject(mCategoryName, _type);
 		if (object != nullptr)
 		{
 			Widget* widget = object->castType<Widget>();
@@ -167,7 +168,7 @@ namespace MyGUI
 
 	bool WidgetManager::isFactoryExist(const std::string& _type)
 	{
-		if (FactoryManager::getInstance().isFactoryExist("Widget", _type))
+		if (FactoryManager::getInstance().isFactoryExist(mCategoryName, _type))
 		{
 			return true;
 		}
@@ -202,6 +203,11 @@ namespace MyGUI
 				delete (*entry);
 			mDestroyWidgets.clear();
 		}
+	}
+
+	const std::string& WidgetManager::getCategoryName() const
+	{
+		return mCategoryName;
 	}
 
 } // namespace MyGUI
