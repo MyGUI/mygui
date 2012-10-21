@@ -38,7 +38,7 @@ namespace MyGUI
 {
 
 	template <> PointerManager* Singleton<PointerManager>::msInstance = nullptr;
-	template <> const char* Singleton<PointerManager>::mClassTypeName("PointerManager");
+	template <> const char* Singleton<PointerManager>::mClassTypeName = "PointerManager";
 
 	PointerManager::PointerManager() :
 		mVisible(false),

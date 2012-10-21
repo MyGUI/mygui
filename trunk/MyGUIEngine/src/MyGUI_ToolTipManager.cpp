@@ -29,7 +29,7 @@ namespace MyGUI
 {
 
 	template <> ToolTipManager* Singleton<ToolTipManager>::msInstance = nullptr;
-	template <> const char* Singleton<ToolTipManager>::mClassTypeName("ToolTipManager");
+	template <> const char* Singleton<ToolTipManager>::mClassTypeName = "ToolTipManager";
 
 	ToolTipManager::ToolTipManager() :
 		mDelayVisible(0.5f),

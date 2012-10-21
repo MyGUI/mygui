@@ -29,7 +29,7 @@ namespace MyGUI
 {
 
 	template <> LayoutManager* Singleton<LayoutManager>::msInstance = nullptr;
-	template <> const char* Singleton<LayoutManager>::mClassTypeName("LayoutManager");
+	template <> const char* Singleton<LayoutManager>::mClassTypeName = "LayoutManager";
 
 	LayoutManager::LayoutManager() :
 		mIsInitialise(false),

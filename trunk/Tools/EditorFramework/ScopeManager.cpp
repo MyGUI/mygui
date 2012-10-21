@@ -10,7 +10,7 @@
 #include "SettingsManager.h"
 
 template <> tools::ScopeManager* MyGUI::Singleton<tools::ScopeManager>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::ScopeManager>::mClassTypeName("ScopeManager");
+template <> const char* MyGUI::Singleton<tools::ScopeManager>::mClassTypeName = "ScopeManager";
 
 namespace tools
 {

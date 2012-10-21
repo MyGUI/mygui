@@ -27,7 +27,7 @@ namespace MyGUI
 {
 
 	template <> FactoryManager* Singleton<FactoryManager>::msInstance = nullptr;
-	template <> const char* Singleton<FactoryManager>::mClassTypeName("FactoryManager");
+	template <> const char* Singleton<FactoryManager>::mClassTypeName = "FactoryManager";
 
 	FactoryManager::FactoryManager() :
 		mIsInitialise(false)

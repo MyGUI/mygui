@@ -9,7 +9,7 @@
 #include "CommandManager.h"
 
 template <> tools::HotKeyManager* MyGUI::Singleton<tools::HotKeyManager>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::HotKeyManager>::mClassTypeName("HotKeyManager");
+template <> const char* MyGUI::Singleton<tools::HotKeyManager>::mClassTypeName = "HotKeyManager";
 
 namespace tools
 {

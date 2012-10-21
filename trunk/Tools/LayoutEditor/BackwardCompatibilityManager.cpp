@@ -9,7 +9,7 @@
 #include "SettingsManager.h"
 
 template <> tools::BackwardCompatibilityManager* MyGUI::Singleton<tools::BackwardCompatibilityManager>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::BackwardCompatibilityManager>::mClassTypeName("BackwardCompatibilityManager");
+template <> const char* MyGUI::Singleton<tools::BackwardCompatibilityManager>::mClassTypeName = "BackwardCompatibilityManager";
 
 namespace tools
 {

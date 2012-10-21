@@ -28,7 +28,7 @@ namespace MyGUI
 {
 
 	template <> RenderManager* Singleton<RenderManager>::msInstance = nullptr;
-	template <> const char* Singleton<RenderManager>::mClassTypeName("RenderManager");
+	template <> const char* Singleton<RenderManager>::mClassTypeName = "RenderManager";
 
 	bool RenderManager::isFormatSupported(PixelFormat _format, TextureUsage _usage)
 	{

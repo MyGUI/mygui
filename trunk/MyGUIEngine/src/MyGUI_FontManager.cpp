@@ -31,7 +31,7 @@ namespace MyGUI
 {
 
 	template <> FontManager* Singleton<FontManager>::msInstance = nullptr;
-	template <> const char* Singleton<FontManager>::mClassTypeName("FontManager");
+	template <> const char* Singleton<FontManager>::mClassTypeName = "FontManager";
 
 	FontManager::FontManager() :
 		mIsInitialise(false),

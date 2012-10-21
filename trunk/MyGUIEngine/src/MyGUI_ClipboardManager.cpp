@@ -74,7 +74,7 @@ namespace MyGUI
 #endif
 
 	template <> ClipboardManager* Singleton<ClipboardManager>::msInstance = nullptr;
-	template <> const char* Singleton<ClipboardManager>::mClassTypeName("ClipboardManager");
+	template <> const char* Singleton<ClipboardManager>::mClassTypeName = "ClipboardManager";
 
 	ClipboardManager::ClipboardManager() :
 		mIsInitialise(false)

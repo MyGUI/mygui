@@ -9,7 +9,7 @@
 #include "SettingsManager.h"
 
 template <> tools::GridManager* MyGUI::Singleton<tools::GridManager>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::GridManager>::mClassTypeName("GridManager");
+template <> const char* MyGUI::Singleton<tools::GridManager>::mClassTypeName = "GridManager";
 
 namespace tools
 {

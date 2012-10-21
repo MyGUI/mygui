@@ -33,7 +33,7 @@ namespace MyGUI
 {
 
 	template <> ControllerManager* Singleton<ControllerManager>::msInstance = nullptr;
-	template <> const char* Singleton<ControllerManager>::mClassTypeName("ControllerManager");
+	template <> const char* Singleton<ControllerManager>::mClassTypeName = "ControllerManager";
 
 	ControllerManager::ControllerManager() :
 		mIsInitialise(false)

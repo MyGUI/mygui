@@ -2,7 +2,7 @@
 #include "WidgetTypes.h"
 
 template <> tools::WidgetTypes* MyGUI::Singleton<tools::WidgetTypes>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::WidgetTypes>::mClassTypeName("WidgetTypes");
+template <> const char* MyGUI::Singleton<tools::WidgetTypes>::mClassTypeName = "WidgetTypes";
 
 namespace tools
 {

@@ -13,7 +13,7 @@
 #include "GridManager.h"
 
 template <> tools::WidgetCreatorManager* MyGUI::Singleton<tools::WidgetCreatorManager>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::WidgetCreatorManager>::mClassTypeName("WidgetCreatorManager");
+template <> const char* MyGUI::Singleton<tools::WidgetCreatorManager>::mClassTypeName = "WidgetCreatorManager";
 
 namespace tools
 {

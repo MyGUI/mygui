@@ -4,7 +4,7 @@
 #include "WidgetSelectorManager.h"
 
 template <> tools::UndoManager* MyGUI::Singleton<tools::UndoManager>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::UndoManager>::mClassTypeName("UndoManager");
+template <> const char* MyGUI::Singleton<tools::UndoManager>::mClassTypeName = "UndoManager";
 
 namespace tools
 {

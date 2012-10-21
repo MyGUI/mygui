@@ -10,7 +10,7 @@
 #include "FileSystemInfo/FileSystemInfo.h"
 
 template <> tools::RecentFilesManager* MyGUI::Singleton<tools::RecentFilesManager>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::RecentFilesManager>::mClassTypeName("RecentFilesManager");
+template <> const char* MyGUI::Singleton<tools::RecentFilesManager>::mClassTypeName = "RecentFilesManager";
 
 namespace tools
 {

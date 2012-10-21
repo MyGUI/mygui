@@ -35,7 +35,7 @@ namespace MyGUI
 	const float INPUT_INTERVAL_KEY = 0.05f;
 
 	template <> InputManager* Singleton<InputManager>::msInstance = nullptr;
-	template <> const char* Singleton<InputManager>::mClassTypeName("InputManager");
+	template <> const char* Singleton<InputManager>::mClassTypeName = "InputManager";
 
 	InputManager::InputManager() :
 		mWidgetMouseFocus(nullptr),

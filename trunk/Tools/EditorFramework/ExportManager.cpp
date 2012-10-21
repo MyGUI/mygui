@@ -10,7 +10,7 @@
 #include "FactoryManager.h"
 
 template <> tools::ExportManager* MyGUI::Singleton<tools::ExportManager>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::ExportManager>::mClassTypeName("ExportManager");
+template <> const char* MyGUI::Singleton<tools::ExportManager>::mClassTypeName = "ExportManager";
 
 namespace tools
 {

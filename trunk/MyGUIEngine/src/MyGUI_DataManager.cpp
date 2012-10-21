@@ -26,6 +26,6 @@ namespace MyGUI
 {
 
 	template <> DataManager* Singleton<DataManager>::msInstance = nullptr;
-	template <> const char* Singleton<DataManager>::mClassTypeName("DataManager");
+	template <> const char* Singleton<DataManager>::mClassTypeName = "DataManager";
 
 } // namespace MyGUI

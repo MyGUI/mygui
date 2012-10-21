@@ -36,7 +36,7 @@ namespace MyGUI
 {
 
 	template <> SkinManager* Singleton<SkinManager>::msInstance = nullptr;
-	template <> const char* Singleton<SkinManager>::mClassTypeName("SkinManager");
+	template <> const char* Singleton<SkinManager>::mClassTypeName = "SkinManager";
 
 	SkinManager::SkinManager() :
 		mIsInitialise(false),

@@ -31,7 +31,7 @@ namespace MyGUI
 {
 
 	template <> LanguageManager* Singleton<LanguageManager>::msInstance = nullptr;
-	template <> const char* Singleton<LanguageManager>::mClassTypeName("LanguageManager");
+	template <> const char* Singleton<LanguageManager>::mClassTypeName = "LanguageManager";
 
 	LanguageManager::LanguageManager() :
 		mIsInitialise(false),
