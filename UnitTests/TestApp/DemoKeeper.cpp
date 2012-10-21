@@ -116,7 +116,7 @@ namespace demo
 		group.size = MyGUI::texture_utility::getTextureSize(group.texture, false);
 		group.indexes.push_back(index);
 
-		std::string category = MyGUI::ResourceManager::getInstance().getCategory();
+		std::string category = MyGUI::ResourceManager::getInstance().getCategoryName();
 		MyGUI::ResourceImageSet* imageSet = MyGUI::FactoryManager::getInstance().createObject<MyGUI::ResourceImageSet>(category);
 		imageSet->setResourceName("ResourceImageSet_Manual1");
 		imageSet->AddGroupImage(group);

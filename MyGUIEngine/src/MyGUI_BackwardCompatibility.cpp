@@ -657,6 +657,121 @@ namespace MyGUI
 		return ResourceManager::getInstance().load(_file);
 	}
 
+	void MemberObsolete<FontManager>::loadOldFontFormat(xml::ElementPtr _node, const std::string& _file, Version _version)
+	{
+		std::string name;
+		if (!_node->findAttribute("name", name))
+			return;
+
+		std::string type;
+		if (type.empty())
+		{
+			if (_node->findAttribute("resolution").empty())
+				type = "ResourceManualFont";
+			else
+				type = "ResourceTrueTypeFont";
+		}
+
+		xml::Document doc;
+		xml::ElementPtr root = doc.createRoot("MyGUI");
+		xml::ElementPtr node = root->createChild("Resource");
+		node->addAttribute("type", type);
+		node->addAttribute("name", name);
+
+		std::string tmp;
+		if (_node->findAttribute("source", tmp))
+		{
+			xml::ElementPtr prop = node->createChild("Property");
+			prop->addAttribute("key", "Source");
+			prop->addAttribute("value", tmp);
+		}
+
+		if (_node->findAttribute("size", tmp))
+		{
+			xml::ElementPtr prop = node->createChild("Property");
+			prop->addAttribute("key", "Size");
+			prop->addAttribute("value", tmp);
+		}
+
+		if (_node->findAttribute("resolution", tmp))
+		{
+			xml::ElementPtr prop = node->createChild("Property");
+			prop->addAttribute("key", "Resolution");
+			prop->addAttribute("value", tmp);
+		}
+
+		if (_node->findAttribute("antialias_colour", tmp))
+		{
+			xml::ElementPtr prop = node->createChild("Property");
+			prop->addAttribute("key", "Antialias");
+			prop->addAttribute("value", tmp);
+		}
+
+		if (_node->findAttribute("space_width", tmp))
+		{
+			xml::ElementPtr prop = node->createChild("Property");
+			prop->addAttribute("key", "SpaceWidth");
+			prop->addAttribute("value", tmp);
+		}
+
+		if (_node->findAttribute("tab_width", tmp))
+		{
+			xml::ElementPtr prop = node->createChild("Property");
+			prop->addAttribute("key", "TabWidth");
+			prop->addAttribute("value", tmp);
+		}
+
+		if (_node->findAttribute("cursor_width", tmp))
+		{
+			xml::ElementPtr prop = node->createChild("Property");
+			prop->addAttribute("key", "CursorWidth");
+			prop->addAttribute("value", tmp);
+		}
+
+		if (_node->findAttribute("distance", tmp))
+		{
+			xml::ElementPtr prop = node->createChild("Property");
+			prop->addAttribute("key", "Distance");
+			prop->addAttribute("value", tmp);
+		}
+
+		if (_node->findAttribute("offset_height", tmp))
+		{
+			xml::ElementPtr prop = node->createChild("Property");
+			prop->addAttribute("key", "OffsetHeight");
+			prop->addAttribute("value", tmp);
+		}
+
+		if (_node->findAttribute("default_height", tmp))
+		{
+			xml::ElementPtr prop = node->createChild("Property");
+			prop->addAttribute("key", "DefaultHeight");
+			prop->addAttribute("value", tmp);
+		}
+
+		xml::ElementPtr codes = node->createChild("Codes");
+
+		xml::ElementEnumerator codeold = _node->getElementEnumerator();
+		while (codeold.next("Code"))
+		{
+			xml::ElementPtr codenew = codes->createChild("Code");
+
+			if (codeold->findAttribute("range", tmp))
+				codenew->addAttribute("range", tmp);
+
+			if (codeold->findAttribute("hide", tmp))
+				codenew->addAttribute("hide", tmp);
+
+			if (codeold->findAttribute("index", tmp))
+				codenew->addAttribute("index", tmp);
+
+			if (codeold->findAttribute("coord", tmp))
+				codenew->addAttribute("coord", tmp);
+		}
+
+		ResourceManager::getInstance().loadFromXmlNode(root, _file, _version);
+	}
+
 	void MemberObsolete<Gui>::destroyWidgetsVector(VectorWidgetPtr& _widgets)
 	{
 		static_cast<Gui*>(this)->destroyWidgets(_widgets);

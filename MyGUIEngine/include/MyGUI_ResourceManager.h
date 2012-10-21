@@ -83,7 +83,7 @@ namespace MyGUI
 
 		size_t getCount() const;
 
-		const std::string& getCategory() const;
+		const std::string& getCategoryName() const;
 
 	private:
 		void _loadList(xml::ElementPtr _node, const std::string& _file, Version _version);

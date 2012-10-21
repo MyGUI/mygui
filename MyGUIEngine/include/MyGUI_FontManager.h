@@ -62,6 +62,9 @@ namespace MyGUI
 		std::string mDefaultName;
 
 		bool mIsInitialise;
+		std::string mXmlFontTagName;
+		std::string mXmlPropertyTagName;
+		std::string mXmlDefaultFontValue;
 	};
 
 } // namespace MyGUI

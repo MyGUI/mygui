@@ -409,6 +409,7 @@ namespace MyGUI
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : bool ResourceManager::load(const std::string& _file)")
 		bool load(const std::string& _file);
+		void loadOldFontFormat(xml::ElementPtr _node, const std::string& _file, Version _version);
 	};
 
 	template <>
