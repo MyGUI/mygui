@@ -275,6 +275,8 @@ namespace tools
 
 		font->setResourceName(fontName);
 
+#ifdef MYGUI_USE_FREETYPE
+
 		font->setSource(_data->getPropertyValue("Source"));
 		font->setSize(_data->getPropertyValue<float>("Size"));
 		font->setResolution(_data->getPropertyValue<int>("Resolution"));
@@ -294,6 +296,8 @@ namespace tools
 		}
 
 		font->initialise();
+
+#endif // MYGUI_USE_FREETYPE
 
 		MyGUI::ResourceManager::getInstance().addResource(font);
 	}
