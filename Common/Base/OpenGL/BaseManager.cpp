@@ -7,6 +7,12 @@
 
 #include "Precompiled.h"
 #include <windows.h>
+
+#ifdef MYGUI_CHECK_MEMORY_LEAKS
+#	undef new
+#	undef delete
+#endif
+
 #include <gdiplus.h>
 #include "BaseManager.h"
 
