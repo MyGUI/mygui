@@ -47,7 +47,7 @@ namespace MyGUI
 {
 
 	template <> Gui* Singleton<Gui>::msInstance = nullptr;
-	template <> const char* Singleton<Gui>::mClassTypeName("Gui");
+	template <> const char* Singleton<Gui>::mClassTypeName = "Gui";
 
 	Gui::Gui() :
 		mInputManager(nullptr),

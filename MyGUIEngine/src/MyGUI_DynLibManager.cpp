@@ -28,7 +28,7 @@ namespace MyGUI
 {
 
 	template <> DynLibManager* Singleton<DynLibManager>::msInstance = nullptr;
-	template <> const char* Singleton<DynLibManager>::mClassTypeName("DynLibManager");
+	template <> const char* Singleton<DynLibManager>::mClassTypeName = "DynLibManager";
 
 	DynLibManager::DynLibManager() :
 		mIsInitialise(false)

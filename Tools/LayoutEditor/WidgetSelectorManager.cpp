@@ -9,7 +9,7 @@
 #include "EditorWidgets.h"
 
 template <> tools::WidgetSelectorManager* MyGUI::Singleton<tools::WidgetSelectorManager>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::WidgetSelectorManager>::mClassTypeName("WidgetSelectorManager");
+template <> const char* MyGUI::Singleton<tools::WidgetSelectorManager>::mClassTypeName = "WidgetSelectorManager";
 
 namespace tools
 {

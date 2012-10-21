@@ -32,7 +32,7 @@ namespace MyGUI
 {
 
 	template <> ResourceManager* Singleton<ResourceManager>::msInstance = nullptr;
-	template <> const char* Singleton<ResourceManager>::mClassTypeName("ResourceManager");
+	template <> const char* Singleton<ResourceManager>::mClassTypeName = "ResourceManager";
 
 	ResourceManager::ResourceManager() :
 		mIsInitialise(false),

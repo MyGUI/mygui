@@ -31,7 +31,7 @@ namespace MyGUI
 	typedef void (*DLL_STOP_PLUGIN)(void);
 
 	template <> PluginManager* Singleton<PluginManager>::msInstance = nullptr;
-	template <> const char* Singleton<PluginManager>::mClassTypeName("PluginManager");
+	template <> const char* Singleton<PluginManager>::mClassTypeName = "PluginManager";
 
 	PluginManager::PluginManager() :
 		mIsInitialise(false),

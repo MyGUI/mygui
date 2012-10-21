@@ -8,7 +8,7 @@
 #include "SettingsManager.h"
 
 template <> tools::SettingsManager* MyGUI::Singleton<tools::SettingsManager>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::SettingsManager>::mClassTypeName("SettingsManager");
+template <> const char* MyGUI::Singleton<tools::SettingsManager>::mClassTypeName = "SettingsManager";
 
 namespace tools
 {

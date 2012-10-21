@@ -8,7 +8,7 @@
 #include "MessageBoxManager.h"
 
 template <> tools::MessageBoxManager* MyGUI::Singleton<tools::MessageBoxManager>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::MessageBoxManager>::mClassTypeName("MessageBoxManager");
+template <> const char* MyGUI::Singleton<tools::MessageBoxManager>::mClassTypeName = "MessageBoxManager";
 
 namespace tools
 {

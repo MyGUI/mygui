@@ -18,7 +18,7 @@
 #include "PropertyFieldColour.h"
 
 template <> tools::PropertyFieldManager* MyGUI::Singleton<tools::PropertyFieldManager>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::PropertyFieldManager>::mClassTypeName("PropertyFieldManager");
+template <> const char* MyGUI::Singleton<tools::PropertyFieldManager>::mClassTypeName = "PropertyFieldManager";
 
 namespace tools
 {

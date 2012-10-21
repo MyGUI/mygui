@@ -34,7 +34,7 @@ namespace MyGUI
 {
 
 	template <> LayerManager* Singleton<LayerManager>::msInstance = nullptr;
-	template <> const char* Singleton<LayerManager>::mClassTypeName("LayerManager");
+	template <> const char* Singleton<LayerManager>::mClassTypeName = "LayerManager";
 
 	LayerManager::LayerManager() :
 		mIsInitialise(false),

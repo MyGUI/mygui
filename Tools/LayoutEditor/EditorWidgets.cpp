@@ -8,7 +8,7 @@
 #include "SettingsManager.h"
 
 template <> tools::EditorWidgets* MyGUI::Singleton<tools::EditorWidgets>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::EditorWidgets>::mClassTypeName("EditorWidgets");
+template <> const char* MyGUI::Singleton<tools::EditorWidgets>::mClassTypeName = "EditorWidgets";
 
 namespace tools
 {

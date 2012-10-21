@@ -10,7 +10,7 @@
 #include "SettingsManager.h"
 
 template <> tools::ColourManager* MyGUI::Singleton<tools::ColourManager>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::ColourManager>::mClassTypeName("ColourManager");
+template <> const char* MyGUI::Singleton<tools::ColourManager>::mClassTypeName = "ColourManager";
 
 namespace tools
 {
