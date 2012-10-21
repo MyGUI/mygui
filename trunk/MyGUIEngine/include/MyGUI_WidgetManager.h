@@ -65,11 +65,14 @@ namespace MyGUI
 		void _deleteWidget(Widget* _widget);
 		void _deleteDelayWidgets();
 
+		const std::string& getCategoryName() const;
+
 	private:
 		void notifyEventFrameStart(float _time);
 
 	private:
 		bool mIsInitialise;
+		std::string mCategoryName;
 
 		// список менеджеров для отписки при удалении
 		VectorIUnlinkWidget mVectorIUnlinkWidget;

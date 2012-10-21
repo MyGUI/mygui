@@ -61,6 +61,8 @@ namespace MyGUI
 		*/
 		void removeItem(Widget* _widget);
 
+		const std::string& getCategoryName() const;
+
 	private:
 		void _unlinkWidget(Widget* _widget);
 		void frameEntered(float _time);
@@ -72,6 +74,7 @@ namespace MyGUI
 		ListControllerItem mListItem;
 
 		bool mIsInitialise;
+		std::string mCategoryName;
 	};
 
 } // namespace MyGUI

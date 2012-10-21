@@ -39,7 +39,9 @@ namespace MyGUI
 	template <> const char* Singleton<SubWidgetManager>::mClassTypeName = "SubWidgetManager";
 
 	SubWidgetManager::SubWidgetManager() :
-		mIsInitialise(false)
+		mIsInitialise(false),
+		mCategoryName("BasisSkin"),
+		mStateCategoryName("BasisSkin/State")
 	{
 	}
 
@@ -50,21 +52,21 @@ namespace MyGUI
 
 		FactoryManager& factory = FactoryManager::getInstance();
 
-		factory.registerFactory<SubSkinStateInfo>("BasisSkin/State", "SubSkin");
-		factory.registerFactory<SubSkinStateInfo>("BasisSkin/State", "MainSkin");
-		factory.registerFactory<SubSkinStateInfo>("BasisSkin/State", "PolygonalSkin");
-		factory.registerFactory<SubSkinStateInfo>("BasisSkin/State", "RotatingSkin");
-		factory.registerFactory<TileRectStateInfo>("BasisSkin/State", "TileRect");
-		factory.registerFactory<EditTextStateInfo>("BasisSkin/State", "EditText");
-		factory.registerFactory<EditTextStateInfo>("BasisSkin/State", "SimpleText");
+		factory.registerFactory<SubSkinStateInfo>(mStateCategoryName, "SubSkin");
+		factory.registerFactory<SubSkinStateInfo>(mStateCategoryName, "MainSkin");
+		factory.registerFactory<SubSkinStateInfo>(mStateCategoryName, "PolygonalSkin");
+		factory.registerFactory<SubSkinStateInfo>(mStateCategoryName, "RotatingSkin");
+		factory.registerFactory<TileRectStateInfo>(mStateCategoryName, "TileRect");
+		factory.registerFactory<EditTextStateInfo>(mStateCategoryName, "EditText");
+		factory.registerFactory<EditTextStateInfo>(mStateCategoryName, "SimpleText");
 
-		factory.registerFactory<SubSkin>("BasisSkin");
-		factory.registerFactory<MainSkin>("BasisSkin");
-		factory.registerFactory<PolygonalSkin>("BasisSkin");
-		factory.registerFactory<RotatingSkin>("BasisSkin");
-		factory.registerFactory<TileRect>("BasisSkin");
-		factory.registerFactory<EditText>("BasisSkin");
-		factory.registerFactory<SimpleText>("BasisSkin");
+		factory.registerFactory<SubSkin>(mCategoryName);
+		factory.registerFactory<MainSkin>(mCategoryName);
+		factory.registerFactory<PolygonalSkin>(mCategoryName);
+		factory.registerFactory<RotatingSkin>(mCategoryName);
+		factory.registerFactory<TileRect>(mCategoryName);
+		factory.registerFactory<EditText>(mCategoryName);
+		factory.registerFactory<SimpleText>(mCategoryName);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -77,24 +79,34 @@ namespace MyGUI
 
 		FactoryManager& factory = FactoryManager::getInstance();
 
-		factory.unregisterFactory("BasisSkin/State", "SubSkin");
-		factory.unregisterFactory("BasisSkin/State", "MainSkin");
-		factory.unregisterFactory("BasisSkin/State", "PolygonalSkin");
-		factory.unregisterFactory("BasisSkin/State", "RotatingSkin");
-		factory.unregisterFactory("BasisSkin/State", "TileRect");
-		factory.unregisterFactory("BasisSkin/State", "EditText");
-		factory.unregisterFactory("BasisSkin/State", "SimpleText");
+		factory.unregisterFactory(mStateCategoryName, "SubSkin");
+		factory.unregisterFactory(mStateCategoryName, "MainSkin");
+		factory.unregisterFactory(mStateCategoryName, "PolygonalSkin");
+		factory.unregisterFactory(mStateCategoryName, "RotatingSkin");
+		factory.unregisterFactory(mStateCategoryName, "TileRect");
+		factory.unregisterFactory(mStateCategoryName, "EditText");
+		factory.unregisterFactory(mStateCategoryName, "SimpleText");
 
-		factory.unregisterFactory<SubSkin>("BasisSkin");
-		factory.unregisterFactory<MainSkin>("BasisSkin");
-		factory.unregisterFactory<PolygonalSkin>("BasisSkin");
-		factory.unregisterFactory<RotatingSkin>("BasisSkin");
-		factory.unregisterFactory<TileRect>("BasisSkin");
-		factory.unregisterFactory<EditText>("BasisSkin");
-		factory.unregisterFactory<SimpleText>("BasisSkin");
+		factory.unregisterFactory<SubSkin>(mCategoryName);
+		factory.unregisterFactory<MainSkin>(mCategoryName);
+		factory.unregisterFactory<PolygonalSkin>(mCategoryName);
+		factory.unregisterFactory<RotatingSkin>(mCategoryName);
+		factory.unregisterFactory<TileRect>(mCategoryName);
+		factory.unregisterFactory<EditText>(mCategoryName);
+		factory.unregisterFactory<SimpleText>(mCategoryName);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
+	}
+
+	const std::string& SubWidgetManager::getCategoryName() const
+	{
+		return mCategoryName;
+	}
+
+	const std::string& SubWidgetManager::getStateCategoryName() const
+	{
+		return mStateCategoryName;
 	}
 
 } // namespace MyGUI

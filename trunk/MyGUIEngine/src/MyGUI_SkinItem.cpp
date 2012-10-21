@@ -25,6 +25,7 @@
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_RenderManager.h"
+#include "MyGUI_SubWidgetManager.h"
 
 namespace MyGUI
 {
@@ -102,11 +103,12 @@ namespace MyGUI
 
 		setRenderItemTexture(mTexture);
 
+		std::string categoryName = SubWidgetManager::getInstance().getCategoryName();
 		// загружаем кирпичики виджета
 		FactoryManager& factory = FactoryManager::getInstance();
 		for (VectorSubWidgetInfo::const_iterator iter = _info->getBasisInfo().begin(); iter != _info->getBasisInfo().end(); ++iter)
 		{
-			IObject* object = factory.createObject("BasisSkin", (*iter).type);
+			IObject* object = factory.createObject(categoryName, (*iter).type);
 			if (object == nullptr)
 				continue;
 
