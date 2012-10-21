@@ -264,30 +264,29 @@ namespace MyGUI
 			{
 				const std::string& key = node->findAttribute("key");
 				const std::string& value = node->findAttribute("value");
-				if (key == "Source") mSource = value;
-				else if (key == "Size") mSize = utility::parseFloat(value);
-				else if (key == "Resolution") mResolution = utility::parseUInt(value);
+				if (key == "Source")
+					setSource(value);
+				else if (key == "Size")
+					setSize(utility::parseFloat(value));
+				else if (key == "Resolution")
+					setResolution(utility::parseUInt(value));
+				else if (key == "Antialias")
+					setAntialias(utility::parseBool(value));
+				else if (key == "TabWidth")
+					setTabWidth(utility::parseFloat(value));
+				else if (key == "OffsetHeight")
+					setOffsetHeight(utility::parseInt(value));
+				else if (key == "SubstituteCode")
+					setSubstituteCode(utility::parseInt(value));
+				else if (key == "Distance")
+					setDistance(utility::parseInt(value));
 				else if (key == "Hinting")
-				{
-					if (value == "use_native")
-						mHinting = HintingUseNative;
-					if (value == "force_auto")
-						mHinting = HintingForceAuto;
-					if (value == "disable_auto")
-						mHinting = HintingDisableAuto;
-					if (value == "disable_all")
-						mHinting = HintingDisableAll;
-				}
-				else if (key == "Antialias") mAntialias = utility::parseBool(value);
+					setHinting(value);
 				else if (key == "SpaceWidth")
 				{
 					mSpaceWidth = utility::parseFloat(value);
 					MYGUI_LOG(Warning, _node->findAttribute("type") << ": Property '" << key << "' in font '" << _node->findAttribute("name") << "' is deprecated; remove it to use automatic calculation.");
 				}
-				else if (key == "TabWidth") mTabWidth = utility::parseFloat(value);
-				else if (key == "OffsetHeight") mOffsetHeight = utility::parseInt(value);
-				else if (key == "SubstituteCode") mSubstituteCodePoint = utility::parseInt(value);
-				else if (key == "Distance") mGlyphSpacing = utility::parseInt(value);
 				else if (key == "CursorWidth")
 				{
 					MYGUI_LOG(Warning, _node->findAttribute("type") << ": Property '" << key << "' in font '" << _node->findAttribute("name") << "' is deprecated; value ignored.");
@@ -335,9 +334,6 @@ namespace MyGUI
 				}
 			}
 		}
-
-		if (mGlyphSpacing == -1)
-			mGlyphSpacing = mDefaultGlyphSpacing;
 
 		initialise();
 	}
@@ -441,6 +437,9 @@ namespace MyGUI
 
 	void ResourceTrueTypeFont::initialise()
 	{
+		if (mGlyphSpacing == -1)
+			mGlyphSpacing = mDefaultGlyphSpacing;
+
 		// If L8A8 (2 bytes per pixel) is supported, use it; otherwise, use R8G8B8A8 (4 bytes per pixel) as L8L8L8A8.
 		bool laMode = MyGUI::RenderManager::getInstance().isFormatSupported(Pixel<true>::getFormat(), TextureUsage::Static | TextureUsage::Write);
 
@@ -1022,6 +1021,60 @@ namespace MyGUI
 
 		if (width > 0)
 			_texX += mGlyphSpacing + width;
+	}
+
+	void ResourceTrueTypeFont::setSource(const std::string& _value)
+	{
+		mSource = _value;
+	}
+
+	void ResourceTrueTypeFont::setSize(float _value)
+	{
+		mSize = _value;
+	}
+
+	void ResourceTrueTypeFont::setResolution(uint _value)
+	{
+		mResolution = _value;
+	}
+
+	void ResourceTrueTypeFont::setHinting(const std::string& _value)
+	{
+		if (_value == "use_native")
+			mHinting = HintingUseNative;
+		else if (_value == "force_auto")
+			mHinting = HintingForceAuto;
+		else if (_value == "disable_auto")
+			mHinting = HintingDisableAuto;
+		else if (_value == "disable_all")
+			mHinting = HintingDisableAll;
+		else
+			mHinting = HintingUseNative;
+	}
+
+	void ResourceTrueTypeFont::setAntialias(bool _value)
+	{
+		mAntialias = _value;
+	}
+
+	void ResourceTrueTypeFont::setTabWidth(float _value)
+	{
+		mTabWidth = _value;
+	}
+
+	void ResourceTrueTypeFont::setOffsetHeight(int _value)
+	{
+		mOffsetHeight = _value;
+	}
+
+	void ResourceTrueTypeFont::setSubstituteCode(int _value)
+	{
+		mSubstituteCodePoint = _value;
+	}
+
+	void ResourceTrueTypeFont::setDistance(int _value)
+	{
+		mGlyphSpacing = _value;
 	}
 
 #endif // MYGUI_USE_FREETYPE
