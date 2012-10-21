@@ -61,8 +61,11 @@ namespace tools
 		if (getStatisticInfo() != nullptr)
 			getStatisticInfo()->setVisible(false);
 
-		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>("Layer");
-		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>("BasisSkin");
+		std::string layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>(layerCategory);
+
+		std::string subWidgetCategory = MyGUI::SubWidgetManager::getInstance().getCategoryName();
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>(subWidgetCategory);
 
 		MyGUI::ResourceManager::getInstance().load("EditorLayers.xml");
 		MyGUI::ResourceManager::getInstance().load("EditorSettings.xml");
@@ -217,8 +220,11 @@ namespace tools
 		SettingsManager::getInstance().saveUserSettingsFile();
 		delete SettingsManager::getInstancePtr();
 
-		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::FilterNone>("BasisSkin");
-		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::RTTLayer>("Layer");
+		std::string subWidgetCategory = MyGUI::SubWidgetManager::getInstance().getCategoryName();
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::FilterNone>(subWidgetCategory);
+
+		std::string layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::RTTLayer>(layerCategory);
 	}
 
 	void Application::setWindowMaximized(bool _value)

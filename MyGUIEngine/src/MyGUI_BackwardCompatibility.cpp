@@ -1365,18 +1365,19 @@ namespace MyGUI
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		FactoryManager& factory = FactoryManager::getInstance();
-		factory.registerFactory<HScroll>("Widget");
-		factory.registerFactory<VScroll>("Widget");
-		factory.registerFactory<Canvas>("Widget", "RenderBox");
-		factory.registerFactory<TabItem>("Widget", "Sheet");
-		factory.registerFactory<ImageBox>("Widget", "StaticImage");
-		factory.registerFactory<TextBox>("Widget", "StaticText");
-		factory.registerFactory<ProgressBar>("Widget", "Progress");
-		factory.registerFactory<ListBox>("Widget", "List");
-		factory.registerFactory<EditBox>("Widget", "Edit");
-		factory.registerFactory<TabControl>("Widget", "Tab");
-		factory.registerFactory<MultiListBox>("Widget", "MultiList");
-		factory.registerFactory<MenuControl>("Widget", "MenuCtrl");
+		std::string widgetCategory = MyGUI::WidgetManager::getInstance().getCategoryName();
+		factory.registerFactory<HScroll>(widgetCategory);
+		factory.registerFactory<VScroll>(widgetCategory);
+		factory.registerFactory<Canvas>(widgetCategory, "RenderBox");
+		factory.registerFactory<TabItem>(widgetCategory, "Sheet");
+		factory.registerFactory<ImageBox>(widgetCategory, "StaticImage");
+		factory.registerFactory<TextBox>(widgetCategory, "StaticText");
+		factory.registerFactory<ProgressBar>(widgetCategory, "Progress");
+		factory.registerFactory<ListBox>(widgetCategory, "List");
+		factory.registerFactory<EditBox>(widgetCategory, "Edit");
+		factory.registerFactory<TabControl>(widgetCategory, "Tab");
+		factory.registerFactory<MultiListBox>(widgetCategory, "MultiList");
+		factory.registerFactory<MenuControl>(widgetCategory, "MenuCtrl");
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 

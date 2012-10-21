@@ -39,12 +39,17 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		MyGUI::FactoryManager::getInstance().registerFactory<ControllerRandomSelected>("Controller");
-		MyGUI::FactoryManager::getInstance().registerFactory<ControllerRandomProgress>("Controller");
-		MyGUI::FactoryManager::getInstance().registerFactory<ControllerSmoothProgress>("Controller");
-		MyGUI::FactoryManager::getInstance().registerFactory<ControllerSmoothCaption>("Controller");
-		MyGUI::FactoryManager::getInstance().registerFactory<ResourceDevice>("Resource");
-		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>("Layer");
+		std::string controllerCategory = MyGUI::ControllerManager::getInstance().getCategoryName();
+		MyGUI::FactoryManager::getInstance().registerFactory<ControllerRandomSelected>(controllerCategory);
+		MyGUI::FactoryManager::getInstance().registerFactory<ControllerRandomProgress>(controllerCategory);
+		MyGUI::FactoryManager::getInstance().registerFactory<ControllerSmoothProgress>(controllerCategory);
+		MyGUI::FactoryManager::getInstance().registerFactory<ControllerSmoothCaption>(controllerCategory);
+
+		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		MyGUI::FactoryManager::getInstance().registerFactory<ResourceDevice>(resourceCategory);
+
+		std::string layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>(layerCategory);
 
 		createGround();
 		createObject();
@@ -60,12 +65,17 @@ namespace demo
 
 	void DemoKeeper::destroyScene()
 	{
-		MyGUI::FactoryManager::getInstance().unregisterFactory<ControllerRandomSelected>("Controller");
-		MyGUI::FactoryManager::getInstance().unregisterFactory<ControllerRandomProgress>("Controller");
-		MyGUI::FactoryManager::getInstance().unregisterFactory<ControllerSmoothProgress>("Controller");
-		MyGUI::FactoryManager::getInstance().unregisterFactory<ControllerSmoothCaption>("Controller");
-		MyGUI::FactoryManager::getInstance().unregisterFactory<ResourceDevice>("Resource");
-		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::RTTLayer>("Layer");
+		std::string controllerCategory = MyGUI::ControllerManager::getInstance().getCategoryName();
+		MyGUI::FactoryManager::getInstance().unregisterFactory<ControllerRandomSelected>(controllerCategory);
+		MyGUI::FactoryManager::getInstance().unregisterFactory<ControllerRandomProgress>(controllerCategory);
+		MyGUI::FactoryManager::getInstance().unregisterFactory<ControllerSmoothProgress>(controllerCategory);
+		MyGUI::FactoryManager::getInstance().unregisterFactory<ControllerSmoothCaption>(controllerCategory);
+
+		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		MyGUI::FactoryManager::getInstance().unregisterFactory<ResourceDevice>(resourceCategory);
+
+		std::string layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::RTTLayer>(layerCategory);
 
 		delete mKeyboardPanel;
 		mKeyboardPanel = nullptr;

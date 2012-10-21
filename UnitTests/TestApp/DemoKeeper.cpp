@@ -72,10 +72,11 @@ namespace demo
 		MyGUI::ResourceManager::getInstance().load("Fonts.xml");
 		MyGUI::ResourceManager::getInstance().load("HyperTextSkins.xml");
 
-		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::WrapPanel>("Widget");
-		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::StackPanel>("Widget");
-		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::ScrollViewPanel>("Widget");
-		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::HyperTextBox>("Widget");
+		std::string category = MyGUI::WidgetManager::getInstance().getCategory();
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::WrapPanel>(category);
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::StackPanel>(category);
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::ScrollViewPanel>(category);
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::HyperTextBox>(category);
 
 		MyGUI::Window* window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCSX", MyGUI::IntCoord(10, 10, 500, 500), MyGUI::Align::Default, "Main");
 		MyGUI::IntCoord coord = window->getClientCoord();
@@ -133,10 +134,11 @@ namespace demo
 		delete tools::DataManager::getInstancePtr();
 		delete tools::DataInfoManager::getInstancePtr();
 		delete tools::ActionManager::getInstancePtr();
-		/*MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::HyperTextBox>("Widget");
-		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::ScrollViewPanel>("Widget");
-		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::StackPanel>("Widget");
-		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::WrapPanel>("Widget");*/
+		/*std::string category = MyGUI::WidgetManager::getInstance().getCategory();
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::HyperTextBox>(category);
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::ScrollViewPanel>(category);
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::StackPanel>(category);
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::WrapPanel>(category);*/
 	}
 
 	void DemoKeeper::OnClickUrl(MyGUI::HyperTextBox* _sender, const std::string& _url)
