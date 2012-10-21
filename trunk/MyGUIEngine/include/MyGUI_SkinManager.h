@@ -66,6 +66,8 @@ namespace MyGUI
 		std::string mDefaultName;
 
 		bool mIsInitialise;
+		std::string mXmlSkinTagName;
+		std::string mXmlDefaultSkinValue;
 	};
 
 } // namespace MyGUI

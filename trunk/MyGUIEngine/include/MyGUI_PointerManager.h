@@ -112,6 +112,9 @@ namespace MyGUI
 		std::string mCurrentMousePointer;
 
 		bool mIsInitialise;
+		std::string mXmlPointerTagName;
+		std::string mXmlPropertyTagName;
+		std::string mXmlDefaultPointerValue;
 	};
 
 } // namespace MyGUI

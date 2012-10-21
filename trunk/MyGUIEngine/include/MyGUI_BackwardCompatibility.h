@@ -409,7 +409,7 @@ namespace MyGUI
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : bool ResourceManager::load(const std::string& _file)")
 		bool load(const std::string& _file);
-		void loadOldFontFormat(xml::ElementPtr _node, const std::string& _file, Version _version);
+		void loadOldFontFormat(xml::ElementPtr _node, const std::string& _file, Version _version, const std::string& _tag);
 	};
 
 	template <>
@@ -517,6 +517,8 @@ namespace MyGUI
 		bool isShow();
 		MYGUI_OBSOLETE(" is deprecated, use : bool ResourceManager::load(const std::string& _file)")
 		bool load(const std::string& _file);
+
+		void loadOldPointerFormat(xml::ElementPtr _node, const std::string& _file, Version _version, const std::string& _tag);
 	};
 
 	template <>
@@ -537,6 +539,8 @@ namespace MyGUI
 		ResourceSkin* getSkin(const std::string& _name);
 		MYGUI_OBSOLETE(" is deprecated, use : bool ResourceManager::load(const std::string& _file)")
 		bool load(const std::string& _file);
+
+		void loadOldSkinFormat(xml::ElementPtr _node, const std::string& _file, Version _version, const std::string& _tag);
 	};
 
 	template <>

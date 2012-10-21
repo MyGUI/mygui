@@ -35,15 +35,13 @@
 namespace MyGUI
 {
 
-	const std::string XML_TYPE("Skin");
-	const std::string XML_TYPE_RESOURCE("Resource");
-	const std::string RESOURCE_DEFAULT_NAME("Default");
-
 	template <> SkinManager* Singleton<SkinManager>::msInstance = nullptr;
 	template <> const char* Singleton<SkinManager>::mClassTypeName("SkinManager");
 
 	SkinManager::SkinManager() :
-		mIsInitialise(false)
+		mIsInitialise(false),
+		mXmlSkinTagName("Skin"),
+		mXmlDefaultSkinValue("Default")
 	{
 	}
 
@@ -52,8 +50,10 @@ namespace MyGUI
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
-		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &SkinManager::_load);
-		FactoryManager::getInstance().registerFactory<ResourceSkin>(XML_TYPE_RESOURCE);
+		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlSkinTagName) = newDelegate(this, &SkinManager::_load);
+
+		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		FactoryManager::getInstance().registerFactory<ResourceSkin>(resourceCategory);
 
 		mDefaultName = "skin_Default";
 		createDefault(mDefaultName);
@@ -67,8 +67,10 @@ namespace MyGUI
 		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
-		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
-		FactoryManager::getInstance().unregisterFactory<ResourceSkin>(XML_TYPE_RESOURCE);
+		ResourceManager::getInstance().unregisterLoadXmlDelegate(mXmlSkinTagName);
+
+		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		FactoryManager::getInstance().unregisterFactory<ResourceSkin>(resourceCategory);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
@@ -76,48 +78,31 @@ namespace MyGUI
 
 	void SkinManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
-		// берем детей и крутимся, основной цикл со скинами
-		xml::ElementEnumerator skin = _node->getElementEnumerator();
-		while (skin.next(XML_TYPE))
-		{
-			/*std::string name = */skin->findAttribute("name");
-			std::string type = skin->findAttribute("type");
-			if (type.empty())
-				type = "ResourceSkin";
-
-			IObject* object = FactoryManager::getInstance().createObject(XML_TYPE_RESOURCE, type);
-			if (object != nullptr)
-			{
-				ResourceSkin* data = object->castType<ResourceSkin>();
-				data->deserialization(skin.current(), _version);
-
-				ResourceManager::getInstance().addResource(data);
-			}
-		}
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		loadOldSkinFormat(_node, _file, _version, mXmlSkinTagName);
+#endif // MYGUI_DONT_USE_OBSOLETE
 	}
 
 	void SkinManager::createDefault(const std::string& _value)
 	{
-		xml::Document doc;
-		xml::ElementPtr root = doc.createRoot("MyGUI");
-		xml::ElementPtr newnode = root->createChild("Resource");
-		newnode->addAttribute("type", ResourceSkin::getClassTypeName());
-		newnode->addAttribute("name", _value);
+		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		ResourceSkin* skin = FactoryManager::getInstance().createObject<ResourceSkin>(resourceCategory);
 
-		ResourceManager::getInstance().loadFromXmlNode(root, "", Version());
+		skin->setResourceName(_value);
+		ResourceManager::getInstance().addResource(skin);
 	}
 
 	ResourceSkin* SkinManager::getByName(const std::string& _name) const
 	{
 		std::string skinName = BackwardCompatibility::getSkinRename(_name);
 		IResource* result = nullptr;
-		if (!skinName.empty() && skinName != RESOURCE_DEFAULT_NAME)
+		if (!skinName.empty() && skinName != mXmlDefaultSkinValue)
 			result = ResourceManager::getInstance().getByName(skinName, false);
 
 		if (result == nullptr)
 		{
 			result = ResourceManager::getInstance().getByName(mDefaultName, false);
-			if (!skinName.empty() && skinName != RESOURCE_DEFAULT_NAME)
+			if (!skinName.empty() && skinName != mXmlDefaultSkinValue)
 			{
 				MYGUI_LOG(Error, "Skin '" << skinName << "' not found. Replaced with default skin." << " [" << LayoutManager::getInstance().getCurrentLayout() << "]");
 			}

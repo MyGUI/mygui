@@ -28,14 +28,12 @@
 namespace MyGUI
 {
 
-	const std::string XML_TYPE("Layout");
-	const std::string XML_TYPE_RESOURCE("Resource");
-
 	template <> LayoutManager* Singleton<LayoutManager>::msInstance = nullptr;
 	template <> const char* Singleton<LayoutManager>::mClassTypeName("LayoutManager");
 
 	LayoutManager::LayoutManager() :
-		mIsInitialise(false)
+		mIsInitialise(false),
+		mXmlLayoutTagName("Layout")
 	{
 	}
 
@@ -44,8 +42,10 @@ namespace MyGUI
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
-		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayoutManager::_load);
-		FactoryManager::getInstance().registerFactory<ResourceLayout>(XML_TYPE_RESOURCE);
+		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlLayoutTagName) = newDelegate(this, &LayoutManager::_load);
+
+		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		FactoryManager::getInstance().registerFactory<ResourceLayout>(resourceCategory);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -56,8 +56,10 @@ namespace MyGUI
 		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
-		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
-		FactoryManager::getInstance().unregisterFactory<ResourceLayout>(XML_TYPE_RESOURCE);
+		ResourceManager::getInstance().unregisterLoadXmlDelegate(mXmlLayoutTagName);
+
+		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		FactoryManager::getInstance().unregisterFactory<ResourceLayout>(resourceCategory);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;

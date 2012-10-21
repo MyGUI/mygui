@@ -82,6 +82,7 @@ namespace MyGUI
 		PluginList mPlugins;
 
 		bool mIsInitialise;
+		std::string mXmlPluginTagName;
 	};
 
 } // namespace MyGUI

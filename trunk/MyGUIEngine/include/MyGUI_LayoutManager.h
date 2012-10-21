@@ -79,6 +79,7 @@ namespace MyGUI
 	private:
 		bool mIsInitialise;
 		std::string mCurrentLayoutName;
+		std::string mXmlLayoutTagName;
 	};
 
 } // namespace MyGUI
