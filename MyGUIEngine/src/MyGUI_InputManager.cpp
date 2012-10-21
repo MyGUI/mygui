@@ -29,6 +29,7 @@
 
 namespace MyGUI
 {
+
 	const unsigned long INPUT_TIME_DOUBLE_CLICK = 250; //measured in milliseconds
 	const float INPUT_DELAY_FIRST_KEY = 0.4f;
 	const float INPUT_INTERVAL_KEY = 0.05f;

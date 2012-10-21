@@ -29,6 +29,7 @@
 
 namespace MyGUI
 {
+
 	template <> FontManager* Singleton<FontManager>::msInstance = nullptr;
 	template <> const char* Singleton<FontManager>::mClassTypeName("FontManager");
 
@@ -74,22 +75,17 @@ namespace MyGUI
 
 	void FontManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
 	{
-		xml::ElementEnumerator font = _node->getElementEnumerator();
-		while (font.next())
-		{
 #ifndef MYGUI_DONT_USE_OBSOLETE
-			// Совместимость со старым форматом, где шрифт был в теге Font.
-			// Сейчас шрифт это ресурс и загружается сразу в ресурс менеджере.
-			if (font->getName() == mXmlFontTagName)
-			{
-				loadOldFontFormat(font.current(), _file, _version);
-			}
+		loadOldFontFormat(_node, _file, _version, mXmlFontTagName);
 #endif // MYGUI_DONT_USE_OBSOLETE
 
-			if (font->getName() == mXmlPropertyTagName)
+		xml::ElementEnumerator node = _node->getElementEnumerator();
+		while (node.next())
+		{
+			if (node->getName() == mXmlPropertyTagName)
 			{
-				const std::string& key = font->findAttribute("key");
-				const std::string& value = font->findAttribute("value");
+				const std::string& key = node->findAttribute("key");
+				const std::string& value = node->findAttribute("value");
 #ifdef MYGUI_USE_FREETYPE
 				if (key == "Default")
 #else

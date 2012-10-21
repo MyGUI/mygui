@@ -657,119 +657,126 @@ namespace MyGUI
 		return ResourceManager::getInstance().load(_file);
 	}
 
-	void MemberObsolete<FontManager>::loadOldFontFormat(xml::ElementPtr _node, const std::string& _file, Version _version)
+	void MemberObsolete<FontManager>::loadOldFontFormat(xml::ElementPtr _node2, const std::string& _file, Version _version, const std::string& _tag)
 	{
-		std::string name;
-		if (!_node->findAttribute("name", name))
-			return;
-
-		std::string type;
-		if (type.empty())
+		xml::ElementEnumerator _node = _node2->getElementEnumerator();
+		while (_node.next())
 		{
-			if (_node->findAttribute("resolution").empty())
-				type = "ResourceManualFont";
-			else
-				type = "ResourceTrueTypeFont";
+			if (_node->getName() == _tag)
+			{
+				std::string name;
+				if (!_node->findAttribute("name", name))
+					return;
+
+				std::string type;
+				if (type.empty())
+				{
+					if (_node->findAttribute("resolution").empty())
+						type = "ResourceManualFont";
+					else
+						type = "ResourceTrueTypeFont";
+				}
+
+				xml::Document doc;
+				xml::ElementPtr root = doc.createRoot("MyGUI");
+				xml::ElementPtr node = root->createChild("Resource");
+				node->addAttribute("type", type);
+				node->addAttribute("name", name);
+
+				std::string tmp;
+				if (_node->findAttribute("source", tmp))
+				{
+					xml::ElementPtr prop = node->createChild("Property");
+					prop->addAttribute("key", "Source");
+					prop->addAttribute("value", tmp);
+				}
+
+				if (_node->findAttribute("size", tmp))
+				{
+					xml::ElementPtr prop = node->createChild("Property");
+					prop->addAttribute("key", "Size");
+					prop->addAttribute("value", tmp);
+				}
+
+				if (_node->findAttribute("resolution", tmp))
+				{
+					xml::ElementPtr prop = node->createChild("Property");
+					prop->addAttribute("key", "Resolution");
+					prop->addAttribute("value", tmp);
+				}
+
+				if (_node->findAttribute("antialias_colour", tmp))
+				{
+					xml::ElementPtr prop = node->createChild("Property");
+					prop->addAttribute("key", "Antialias");
+					prop->addAttribute("value", tmp);
+				}
+
+				if (_node->findAttribute("space_width", tmp))
+				{
+					xml::ElementPtr prop = node->createChild("Property");
+					prop->addAttribute("key", "SpaceWidth");
+					prop->addAttribute("value", tmp);
+				}
+
+				if (_node->findAttribute("tab_width", tmp))
+				{
+					xml::ElementPtr prop = node->createChild("Property");
+					prop->addAttribute("key", "TabWidth");
+					prop->addAttribute("value", tmp);
+				}
+
+				if (_node->findAttribute("cursor_width", tmp))
+				{
+					xml::ElementPtr prop = node->createChild("Property");
+					prop->addAttribute("key", "CursorWidth");
+					prop->addAttribute("value", tmp);
+				}
+
+				if (_node->findAttribute("distance", tmp))
+				{
+					xml::ElementPtr prop = node->createChild("Property");
+					prop->addAttribute("key", "Distance");
+					prop->addAttribute("value", tmp);
+				}
+
+				if (_node->findAttribute("offset_height", tmp))
+				{
+					xml::ElementPtr prop = node->createChild("Property");
+					prop->addAttribute("key", "OffsetHeight");
+					prop->addAttribute("value", tmp);
+				}
+
+				if (_node->findAttribute("default_height", tmp))
+				{
+					xml::ElementPtr prop = node->createChild("Property");
+					prop->addAttribute("key", "DefaultHeight");
+					prop->addAttribute("value", tmp);
+				}
+
+				xml::ElementPtr codes = node->createChild("Codes");
+
+				xml::ElementEnumerator codeold = _node->getElementEnumerator();
+				while (codeold.next("Code"))
+				{
+					xml::ElementPtr codenew = codes->createChild("Code");
+
+					if (codeold->findAttribute("range", tmp))
+						codenew->addAttribute("range", tmp);
+
+					if (codeold->findAttribute("hide", tmp))
+						codenew->addAttribute("hide", tmp);
+
+					if (codeold->findAttribute("index", tmp))
+						codenew->addAttribute("index", tmp);
+
+					if (codeold->findAttribute("coord", tmp))
+						codenew->addAttribute("coord", tmp);
+				}
+
+				ResourceManager::getInstance().loadFromXmlNode(root, _file, _version);
+			}
 		}
-
-		xml::Document doc;
-		xml::ElementPtr root = doc.createRoot("MyGUI");
-		xml::ElementPtr node = root->createChild("Resource");
-		node->addAttribute("type", type);
-		node->addAttribute("name", name);
-
-		std::string tmp;
-		if (_node->findAttribute("source", tmp))
-		{
-			xml::ElementPtr prop = node->createChild("Property");
-			prop->addAttribute("key", "Source");
-			prop->addAttribute("value", tmp);
-		}
-
-		if (_node->findAttribute("size", tmp))
-		{
-			xml::ElementPtr prop = node->createChild("Property");
-			prop->addAttribute("key", "Size");
-			prop->addAttribute("value", tmp);
-		}
-
-		if (_node->findAttribute("resolution", tmp))
-		{
-			xml::ElementPtr prop = node->createChild("Property");
-			prop->addAttribute("key", "Resolution");
-			prop->addAttribute("value", tmp);
-		}
-
-		if (_node->findAttribute("antialias_colour", tmp))
-		{
-			xml::ElementPtr prop = node->createChild("Property");
-			prop->addAttribute("key", "Antialias");
-			prop->addAttribute("value", tmp);
-		}
-
-		if (_node->findAttribute("space_width", tmp))
-		{
-			xml::ElementPtr prop = node->createChild("Property");
-			prop->addAttribute("key", "SpaceWidth");
-			prop->addAttribute("value", tmp);
-		}
-
-		if (_node->findAttribute("tab_width", tmp))
-		{
-			xml::ElementPtr prop = node->createChild("Property");
-			prop->addAttribute("key", "TabWidth");
-			prop->addAttribute("value", tmp);
-		}
-
-		if (_node->findAttribute("cursor_width", tmp))
-		{
-			xml::ElementPtr prop = node->createChild("Property");
-			prop->addAttribute("key", "CursorWidth");
-			prop->addAttribute("value", tmp);
-		}
-
-		if (_node->findAttribute("distance", tmp))
-		{
-			xml::ElementPtr prop = node->createChild("Property");
-			prop->addAttribute("key", "Distance");
-			prop->addAttribute("value", tmp);
-		}
-
-		if (_node->findAttribute("offset_height", tmp))
-		{
-			xml::ElementPtr prop = node->createChild("Property");
-			prop->addAttribute("key", "OffsetHeight");
-			prop->addAttribute("value", tmp);
-		}
-
-		if (_node->findAttribute("default_height", tmp))
-		{
-			xml::ElementPtr prop = node->createChild("Property");
-			prop->addAttribute("key", "DefaultHeight");
-			prop->addAttribute("value", tmp);
-		}
-
-		xml::ElementPtr codes = node->createChild("Codes");
-
-		xml::ElementEnumerator codeold = _node->getElementEnumerator();
-		while (codeold.next("Code"))
-		{
-			xml::ElementPtr codenew = codes->createChild("Code");
-
-			if (codeold->findAttribute("range", tmp))
-				codenew->addAttribute("range", tmp);
-
-			if (codeold->findAttribute("hide", tmp))
-				codenew->addAttribute("hide", tmp);
-
-			if (codeold->findAttribute("index", tmp))
-				codenew->addAttribute("index", tmp);
-
-			if (codeold->findAttribute("coord", tmp))
-				codenew->addAttribute("coord", tmp);
-		}
-
-		ResourceManager::getInstance().loadFromXmlNode(root, _file, _version);
 	}
 
 	void MemberObsolete<Gui>::destroyWidgetsVector(VectorWidgetPtr& _widgets)
@@ -898,6 +905,87 @@ namespace MyGUI
 	{
 		return ResourceManager::getInstance().load(_file);
 	}
+	void MemberObsolete<PointerManager>::loadOldPointerFormat(xml::ElementPtr _node, const std::string& _file, Version _version, const std::string& _tag)
+	{
+		std::string pointer;
+		std::string layer;
+
+		xml::ElementEnumerator node = _node->getElementEnumerator();
+		while (node.next())
+		{
+			if (node->getName() == _tag)
+			{
+				layer = node->findAttribute("layer");
+				pointer = node->findAttribute("default");
+
+				// сохраняем
+				std::string shared_text = node->findAttribute("texture");
+
+				// берем детей и крутимся, основной цикл
+				xml::ElementEnumerator info = node->getElementEnumerator();
+				while (info.next("Info"))
+				{
+					std::string name = info->findAttribute("name");
+					if (name.empty())
+						continue;
+
+					std::string texture = info->findAttribute("texture");
+
+					std::string type = (shared_text.empty() && texture.empty()) ? "ResourceImageSetPointer" : "ResourceManualPointer";
+
+					xml::Document doc;
+					xml::ElementPtr root = doc.createRoot("MyGUI");
+					xml::ElementPtr newnode = root->createChild("Resource");
+					newnode->addAttribute("type", type);
+					newnode->addAttribute("name", name);
+
+					std::string tmp;
+					if (info->findAttribute("point", tmp))
+					{
+						xml::ElementPtr prop = newnode->createChild("Property");
+						prop->addAttribute("key", "Point");
+						prop->addAttribute("value", tmp);
+					}
+
+					if (info->findAttribute("size", tmp))
+					{
+						xml::ElementPtr prop = newnode->createChild("Property");
+						prop->addAttribute("key", "Size");
+						prop->addAttribute("value", tmp);
+					}
+
+					if (info->findAttribute("resource", tmp))
+					{
+						xml::ElementPtr prop = newnode->createChild("Property");
+						prop->addAttribute("key", "Resource");
+						prop->addAttribute("value", tmp);
+					}
+
+					if (info->findAttribute("offset", tmp))
+					{
+						xml::ElementPtr prop = newnode->createChild("Property");
+						prop->addAttribute("key", "Coord");
+						prop->addAttribute("value", tmp);
+					}
+
+					if (!shared_text.empty() || !texture.empty())
+					{
+						xml::ElementPtr prop = newnode->createChild("Property");
+						prop->addAttribute("key", "Texture");
+						prop->addAttribute("value",  shared_text.empty() ? texture : shared_text);
+					}
+
+					ResourceManager::getInstance().loadFromXmlNode(root, _file, _version);
+				}
+			}
+		}
+
+		if (!layer.empty())
+			static_cast<PointerManager*>(this)->setLayerName(layer);
+
+		if (!pointer.empty())
+			static_cast<PointerManager*>(this)->setDefaultPointer(pointer);
+	}
 
 	size_t MemberObsolete<ResourceManager>::getResourceCount()
 	{
@@ -915,6 +1003,28 @@ namespace MyGUI
 	bool MemberObsolete<SkinManager>::load(const std::string& _file)
 	{
 		return ResourceManager::getInstance().load(_file);
+	}
+	void MemberObsolete<SkinManager>::loadOldSkinFormat(xml::ElementPtr _node, const std::string& _file, Version _version, const std::string& _tag)
+	{
+		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+
+		// берем детей и крутимся, основной цикл со скинами
+		xml::ElementEnumerator skin = _node->getElementEnumerator();
+		while (skin.next(_tag))
+		{
+			std::string type = skin->findAttribute("type");
+			if (type.empty())
+				type = "ResourceSkin";
+
+			IObject* object = FactoryManager::getInstance().createObject(resourceCategory, type);
+			if (object != nullptr)
+			{
+				ResourceSkin* data = object->castType<ResourceSkin>();
+				data->deserialization(skin.current(), _version);
+
+				ResourceManager::getInstance().addResource(data);
+			}
+		}
 	}
 
 
