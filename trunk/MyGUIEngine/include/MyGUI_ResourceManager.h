@@ -83,6 +83,8 @@ namespace MyGUI
 
 		size_t getCount() const;
 
+		const std::string& getCategory() const;
+
 	private:
 		void _loadList(xml::ElementPtr _node, const std::string& _file, Version _version);
 		bool _loadImplement(const std::string& _file, bool _match, const std::string& _type, const std::string& _instance);
@@ -98,6 +100,8 @@ namespace MyGUI
 		VectorResource mRemovedResoures;
 
 		bool mIsInitialise;
+		std::string mCategoryName;
+		std::string mXmlListTagName;
 	};
 
 } // namespace MyGUI

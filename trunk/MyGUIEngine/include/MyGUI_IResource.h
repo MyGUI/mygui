@@ -49,6 +49,11 @@ namespace MyGUI
 			return mResourceName;
 		}
 
+		void setResourceName(const std::string& _value)
+		{
+			mResourceName = _value;
+		}
+
 	private:
 		// constructors and operator =, without implementation, just for private
 		IResource(IResource const&);

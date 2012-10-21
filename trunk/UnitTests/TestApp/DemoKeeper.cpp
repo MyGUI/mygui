@@ -104,6 +104,24 @@ namespace demo
 			"<p float='right' align='right'><img width='48' height='48'>HandPointerImage</img>text1 texttext2 text3 text4 texttext5 texttexttexttext6 text7 text8 texttext9 text10 texttext11 text12</p>");
 
 		hyperText->updateContent();*/
+
+		MyGUI::IndexImage index;
+		index.name = "MyIndex1";
+		index.rate = 0;
+		index.frames.push_back(MyGUI::IntPoint(0, 0));
+
+		MyGUI::GroupImage group;
+		group.name = "MyGroup1";
+		group.texture = "MyTexture1.png";
+		group.size = MyGUI::texture_utility::getTextureSize(group.texture, false);
+		group.indexes.push_back(index);
+
+		std::string category = MyGUI::ResourceManager::getInstance().getCategory();
+		MyGUI::ResourceImageSet* imageSet = MyGUI::FactoryManager::getInstance().createObject<MyGUI::ResourceImageSet>(category);
+		imageSet->setResourceName("ResourceImageSet_Manual1");
+		imageSet->AddGroupImage(group);
+
+		MyGUI::ResourceManager::getInstance().addResource(imageSet);
 	}
 
 	void DemoKeeper::destroyScene()
