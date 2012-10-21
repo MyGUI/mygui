@@ -22,7 +22,8 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
-		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>("Layer");
+		std::string layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>(layerCategory);
 
 		MyGUI::ResourceManager::getInstance().load("Layers.xml");
 		MyGUI::LayoutManager::getInstance().loadLayout("Layers.layout");
@@ -30,7 +31,8 @@ namespace demo
 
 	void DemoKeeper::destroyScene()
 	{
-		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::RTTLayer>("Layer");
+		std::string layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::RTTLayer>(layerCategory);
 	}
 
 } // namespace demo

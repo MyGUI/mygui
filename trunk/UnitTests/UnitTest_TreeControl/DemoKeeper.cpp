@@ -217,8 +217,9 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		MyGUI::FactoryManager& factory = MyGUI::FactoryManager::getInstance();
-		factory.registerFactory<MyGUI::TreeControl>("Widget");
-		factory.registerFactory<MyGUI::TreeControlItem>("Widget");
+		std::string widgetCategory = MyGUI::WidgetManager::getInstance().getCategoryName();
+		factory.registerFactory<MyGUI::TreeControl>(widgetCategory);
+		factory.registerFactory<MyGUI::TreeControlItem>(widgetCategory);
 
 		MyGUI::ResourceManager::getInstance().load("FrameworkFonts.xml");
 		MyGUI::ResourceManager::getInstance().load("TreeControlSkin.xml");
@@ -233,8 +234,9 @@ namespace demo
 		mSampleLayout = nullptr;
 
 		MyGUI::FactoryManager& factory = MyGUI::FactoryManager::getInstance();
-		factory.unregisterFactory<MyGUI::TreeControl>("Widget");
-		factory.unregisterFactory<MyGUI::TreeControlItem>("Widget");
+		std::string widgetCategory = MyGUI::WidgetManager::getInstance().getCategoryName();
+		factory.unregisterFactory<MyGUI::TreeControl>(widgetCategory);
+		factory.unregisterFactory<MyGUI::TreeControlItem>(widgetCategory);
 	}
 } // namespace demo
 

@@ -31,13 +31,15 @@ namespace input
 		manager.setVisible(false);
 		manager.eventChangeMousePointer += MyGUI::newDelegate(this, &PointerManager::notifyChangeMousePointer);
 
-		MyGUI::FactoryManager::getInstance().registerFactory<ResourceW32Pointer>("Resource");
+		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		MyGUI::FactoryManager::getInstance().registerFactory<ResourceW32Pointer>(resourceCategory);
 		MyGUI::ResourceManager::getInstance().load("PointersW32.xml");
 	}
 
 	void PointerManager::destroyPointerManager()
 	{
-		MyGUI::FactoryManager::getInstance().unregisterFactory<ResourceW32Pointer>("Resource");
+		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		MyGUI::FactoryManager::getInstance().unregisterFactory<ResourceW32Pointer>(resourceCategory);
 
 		MyGUI::PointerManager& manager = MyGUI::PointerManager::getInstance();
 		manager.eventChangeMousePointer -= MyGUI::newDelegate(this, &PointerManager::notifyChangeMousePointer);

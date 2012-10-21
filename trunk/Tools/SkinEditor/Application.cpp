@@ -66,7 +66,8 @@ namespace tools
 		new HotKeyManager();
 		HotKeyManager::getInstance().initialise();
 
-		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>("BasisSkin");
+		std::string subWidgetCategory = MyGUI::SubWidgetManager::getInstance().getCategoryName();
+		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>(subWidgetCategory);
 
 		LoadGuiSettings();
 
@@ -194,7 +195,8 @@ namespace tools
 		SettingsManager::getInstance().saveUserSettingsFile();
 		delete SettingsManager::getInstancePtr();
 
-		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::FilterNone>("BasisSkin");
+		std::string subWidgetCategory = MyGUI::SubWidgetManager::getInstance().getCategoryName();
+		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::FilterNone>(subWidgetCategory);
 	}
 
 	void Application::prepare()
