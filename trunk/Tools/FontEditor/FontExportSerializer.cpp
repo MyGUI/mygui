@@ -265,18 +265,37 @@ namespace tools
 		}
 	}
 
-	void FontExportSerializer::generateFont(DataPtr _font)
+	void FontExportSerializer::generateFont(DataPtr _data)
 	{
-		std::string fontName = _font->getPropertyValue("FontName");
-
+		std::string fontName = _data->getPropertyValue("FontName");
 		removeFont(fontName);
 
-		MyGUI::xml::Document document;
-		document.createDeclaration();
-		MyGUI::xml::ElementPtr root = document.createRoot("MyGUI");
-		generateFontTTFXml(root, fontName, _font);
+		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		MyGUI::ResourceTrueTypeFont* font = MyGUI::FactoryManager::getInstance().createObject<MyGUI::ResourceTrueTypeFont>(resourceCategory);
 
-		MyGUI::ResourceManager::getInstance().loadFromXmlNode(root, "", MyGUI::Version());
+		font->setResourceName(fontName);
+
+		font->setSource(_data->getPropertyValue("Source"));
+		font->setSize(_data->getPropertyValue<float>("Size"));
+		font->setResolution(_data->getPropertyValue<int>("Resolution"));
+		font->setHinting(_data->getPropertyValue("Hinting"));
+		font->setAntialias(MyGUI::utility::toString(_data->getPropertyValue<bool>("Antialias")));
+		font->setTabWidth(_data->getPropertyValue<float>("TabWidth"));
+		font->setOffsetHeight(_data->getPropertyValue<int>("OffsetHeight"));
+		font->setSubstituteCode(_data->getPropertyValue<int>("SubstituteCode"));
+		font->setDistance(_data->getPropertyValue<int>("Distance"));
+
+		std::string ranges = _data->getPropertyValue("FontCodeRanges");
+		std::vector<std::string> values = MyGUI::utility::split(ranges, "|");
+		for (size_t index = 0; index < values.size(); index ++)
+		{
+			MyGUI::IntSize size = MyGUI::IntSize::parse(values[index]);
+			font->addCodePointRange(size.width, size.height); // о да
+		}
+
+		font->initialise();
+
+		MyGUI::ResourceManager::getInstance().addResource(font);
 	}
 
 	void FontExportSerializer::removeFont(const std::string& _fontName)
@@ -286,7 +305,7 @@ namespace tools
 			manager.removeByName(_fontName);
 	}
 
-	void FontExportSerializer::generateFontTTFXml(MyGUI::xml::ElementPtr _root, const std::string& _fontName, DataPtr _data)
+	/*void FontExportSerializer::generateFontTTFXml(MyGUI::xml::ElementPtr _root, const std::string& _fontName, DataPtr _data)
 	{
 		_root->addAttribute("type", "Resource");
 		_root->addAttribute("version", "1.1");
@@ -318,6 +337,6 @@ namespace tools
 
 		if (!node_codes->getElementEnumerator().next())
 			node->removeChild(node_codes);
-	}
+	}*/
 
 }

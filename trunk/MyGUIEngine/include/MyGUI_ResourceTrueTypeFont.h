@@ -64,17 +64,23 @@ namespace MyGUI
 
 #ifdef MYGUI_USE_FREETYPE
 
-	private:
-		void addCodePoint(Char _codePoint);
-		void removeCodePoint(Char _codePoint);
+		// создаение ресурса по текущим значениям
+		void initialise();
+
+		void setSource(const std::string& _value);
+		void setSize(float _value);
+		void setResolution(uint _value);
+		void setHinting(const std::string& _value);
+		void setAntialias(bool _value);
+		void setTabWidth(float _value);
+		void setOffsetHeight(int _value);
+		void setSubstituteCode(int _value);
+		void setDistance(int _value);
 
 		void addCodePointRange(Char _first, Char _second);
 		void removeCodePointRange(Char _first, Char _second);
 
-		void clearCodePoints();
-
-		void initialise();
-
+	private:
 		enum Hinting
 		{
 			HintingUseNative,
@@ -82,6 +88,11 @@ namespace MyGUI
 			HintingDisableAuto,
 			HintingDisableAll
 		};
+
+		void addCodePoint(Char _codePoint);
+		void removeCodePoint(Char _codePoint);
+
+		void clearCodePoints();
 
 		// The following variables are set directly from values specified by the user.
 		std::string mSource; // Source (filename) of the font.
