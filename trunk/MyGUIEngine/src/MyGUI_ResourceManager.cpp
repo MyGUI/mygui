@@ -287,7 +287,7 @@ namespace MyGUI
 		return mResources.size();
 	}
 
-	const std::string& ResourceManager::getCategory() const
+	const std::string& ResourceManager::getCategoryName() const
 	{
 		return mCategoryName;
 	}

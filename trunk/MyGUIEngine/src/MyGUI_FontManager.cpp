@@ -29,16 +29,14 @@
 
 namespace MyGUI
 {
-	const std::string XML_TYPE("Font");
-	const std::string XML_TYPE_RESOURCE("Resource");
-	const std::string XML_TYPE_PROPERTY("Property");
-	const std::string RESOURCE_DEFAULT_NAME("Default");
-
 	template <> FontManager* Singleton<FontManager>::msInstance = nullptr;
 	template <> const char* Singleton<FontManager>::mClassTypeName("FontManager");
 
 	FontManager::FontManager() :
-		mIsInitialise(false)
+		mIsInitialise(false),
+		mXmlFontTagName("Font"),
+		mXmlPropertyTagName("Property"),
+		mXmlDefaultFontValue("Default")
 	{
 	}
 
@@ -47,10 +45,11 @@ namespace MyGUI
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
-		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &FontManager::_load);
+		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlFontTagName) = newDelegate(this, &FontManager::_load);
 
-		FactoryManager::getInstance().registerFactory<ResourceManualFont>(XML_TYPE_RESOURCE);
-		FactoryManager::getInstance().registerFactory<ResourceTrueTypeFont>(XML_TYPE_RESOURCE);
+		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		FactoryManager::getInstance().registerFactory<ResourceManualFont>(resourceCategory);
+		FactoryManager::getInstance().registerFactory<ResourceTrueTypeFont>(resourceCategory);
 
 		mDefaultName = "Default";
 
@@ -63,10 +62,11 @@ namespace MyGUI
 		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
-		MyGUI::ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
+		MyGUI::ResourceManager::getInstance().unregisterLoadXmlDelegate(mXmlFontTagName);
 
-		FactoryManager::getInstance().unregisterFactory<ResourceManualFont>(XML_TYPE_RESOURCE);
-		FactoryManager::getInstance().unregisterFactory<ResourceTrueTypeFont>(XML_TYPE_RESOURCE);
+		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		FactoryManager::getInstance().unregisterFactory<ResourceManualFont>(resourceCategory);
+		FactoryManager::getInstance().unregisterFactory<ResourceTrueTypeFont>(resourceCategory);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
@@ -77,118 +77,16 @@ namespace MyGUI
 		xml::ElementEnumerator font = _node->getElementEnumerator();
 		while (font.next())
 		{
-			if (font->getName() == XML_TYPE)
+#ifndef MYGUI_DONT_USE_OBSOLETE
+			// Совместимость со старым форматом, где шрифт был в теге Font.
+			// Сейчас шрифт это ресурс и загружается сразу в ресурс менеджере.
+			if (font->getName() == mXmlFontTagName)
 			{
-				std::string name;
-				if (!font->findAttribute("name", name)) continue;
-
-				std::string type;
-				if (type.empty())
-				{
-					if (font->findAttribute("resolution").empty()) type = "ResourceManualFont";
-					else type = "ResourceTrueTypeFont";
-				}
-
-				xml::Document doc;
-				xml::ElementPtr root = doc.createRoot("MyGUI");
-				xml::ElementPtr node = root->createChild("Resource");
-				node->addAttribute("type", type);
-				node->addAttribute("name", name);
-
-				std::string tmp;
-				if (font->findAttribute("source", tmp))
-				{
-					xml::ElementPtr prop = node->createChild("Property");
-					prop->addAttribute("key", "Source");
-					prop->addAttribute("value", tmp);
-				}
-
-				if (font->findAttribute("size", tmp))
-				{
-					xml::ElementPtr prop = node->createChild("Property");
-					prop->addAttribute("key", "Size");
-					prop->addAttribute("value", tmp);
-				}
-
-				if (font->findAttribute("resolution", tmp))
-				{
-					xml::ElementPtr prop = node->createChild("Property");
-					prop->addAttribute("key", "Resolution");
-					prop->addAttribute("value", tmp);
-				}
-
-				if (font->findAttribute("antialias_colour", tmp))
-				{
-					xml::ElementPtr prop = node->createChild("Property");
-					prop->addAttribute("key", "Antialias");
-					prop->addAttribute("value", tmp);
-				}
-
-				if (font->findAttribute("space_width", tmp))
-				{
-					xml::ElementPtr prop = node->createChild("Property");
-					prop->addAttribute("key", "SpaceWidth");
-					prop->addAttribute("value", tmp);
-				}
-
-				if (font->findAttribute("tab_width", tmp))
-				{
-					xml::ElementPtr prop = node->createChild("Property");
-					prop->addAttribute("key", "TabWidth");
-					prop->addAttribute("value", tmp);
-				}
-
-				if (font->findAttribute("cursor_width", tmp))
-				{
-					xml::ElementPtr prop = node->createChild("Property");
-					prop->addAttribute("key", "CursorWidth");
-					prop->addAttribute("value", tmp);
-				}
-
-				if (font->findAttribute("distance", tmp))
-				{
-					xml::ElementPtr prop = node->createChild("Property");
-					prop->addAttribute("key", "Distance");
-					prop->addAttribute("value", tmp);
-				}
-
-				if (font->findAttribute("offset_height", tmp))
-				{
-					xml::ElementPtr prop = node->createChild("Property");
-					prop->addAttribute("key", "OffsetHeight");
-					prop->addAttribute("value", tmp);
-				}
-
-				if (font->findAttribute("default_height", tmp))
-				{
-					xml::ElementPtr prop = node->createChild("Property");
-					prop->addAttribute("key", "DefaultHeight");
-					prop->addAttribute("value", tmp);
-				}
-
-				xml::ElementPtr codes = node->createChild("Codes");
-
-				xml::ElementEnumerator codeold = font->getElementEnumerator();
-				while (codeold.next("Code"))
-				{
-					xml::ElementPtr codenew = codes->createChild("Code");
-
-					if (codeold->findAttribute("range", tmp))
-						codenew->addAttribute("range", tmp);
-
-					if (codeold->findAttribute("hide", tmp))
-						codenew->addAttribute("hide", tmp);
-
-					if (codeold->findAttribute("index", tmp))
-						codenew->addAttribute("index", tmp);
-
-					if (codeold->findAttribute("coord", tmp))
-						codenew->addAttribute("coord", tmp);
-				}
-
-				ResourceManager::getInstance().loadFromXmlNode(root, _file, _version);
+				loadOldFontFormat(font.current(), _file, _version);
 			}
-			else if (font->getName() == XML_TYPE_PROPERTY)
+#endif // MYGUI_DONT_USE_OBSOLETE
+
+			if (font->getName() == mXmlPropertyTagName)
 			{
 				const std::string& key = font->findAttribute("key");
 				const std::string& value = font->findAttribute("value");
@@ -211,13 +109,13 @@ namespace MyGUI
 	{
 		IResource* result = nullptr;
 		//FIXME для совместимости шрифт может иметь имя Default
-		if (!_name.empty() && _name != RESOURCE_DEFAULT_NAME)
+		if (!_name.empty() && _name != mXmlDefaultFontValue)
 			result = ResourceManager::getInstance().getByName(_name, false);
 
 		if (result == nullptr)
 		{
 			result = ResourceManager::getInstance().getByName(mDefaultName, false);
-			if (!_name.empty() && _name != RESOURCE_DEFAULT_NAME)
+			if (!_name.empty() && _name != mXmlDefaultFontValue)
 			{
 				MYGUI_LOG(Error, "Font '" << _name << "' not found. Replaced with default font.");
 			}

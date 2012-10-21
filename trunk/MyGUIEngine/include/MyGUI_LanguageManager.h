@@ -100,6 +100,7 @@ namespace MyGUI
 		MapListString mMapFile;
 
 		bool mIsInitialise;
+		std::string mXmlLanguageTagName;
 	};
 
 } // namespace MyGUI

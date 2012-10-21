@@ -84,6 +84,8 @@ namespace MyGUI
 
 		void resizeView(const IntSize& _viewSize);
 
+		const std::string& getCategoryName() const;
+
 	private:
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 		void _unlinkWidget(Widget* _widget);
@@ -97,6 +99,7 @@ namespace MyGUI
 		VectorLayer mLayerNodes;
 
 		bool mIsInitialise;
+		std::string mCategoryName;
 	};
 
 } // namespace MyGUI

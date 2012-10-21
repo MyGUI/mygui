@@ -33,13 +33,12 @@
 namespace MyGUI
 {
 
-	const std::string XML_TYPE("Layer");
-
 	template <> LayerManager* Singleton<LayerManager>::msInstance = nullptr;
 	template <> const char* Singleton<LayerManager>::mClassTypeName("LayerManager");
 
 	LayerManager::LayerManager() :
-		mIsInitialise(false)
+		mIsInitialise(false),
+		mCategoryName("Layer")
 	{
 	}
 
@@ -49,10 +48,10 @@ namespace MyGUI
 		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
 		WidgetManager::getInstance().registerUnlinker(this);
-		ResourceManager::getInstance().registerLoadXmlDelegate(XML_TYPE) = newDelegate(this, &LayerManager::_load);
+		ResourceManager::getInstance().registerLoadXmlDelegate(mCategoryName) = newDelegate(this, &LayerManager::_load);
 
-		FactoryManager::getInstance().registerFactory<SharedLayer>(XML_TYPE);
-		FactoryManager::getInstance().registerFactory<OverlappedLayer>(XML_TYPE);
+		FactoryManager::getInstance().registerFactory<SharedLayer>(mCategoryName);
+		FactoryManager::getInstance().registerFactory<OverlappedLayer>(mCategoryName);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -63,14 +62,14 @@ namespace MyGUI
 		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_LOG(Info, "* Shutdown: " << getClassTypeName());
 
-		FactoryManager::getInstance().unregisterFactory<SharedLayer>(XML_TYPE);
-		FactoryManager::getInstance().unregisterFactory<OverlappedLayer>(XML_TYPE);
+		FactoryManager::getInstance().unregisterFactory<SharedLayer>(mCategoryName);
+		FactoryManager::getInstance().unregisterFactory<OverlappedLayer>(mCategoryName);
 
 		// удаляем все хранители слоев
 		clear();
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
-		ResourceManager::getInstance().unregisterLoadXmlDelegate(XML_TYPE);
+		ResourceManager::getInstance().unregisterLoadXmlDelegate(mCategoryName);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
@@ -90,7 +89,7 @@ namespace MyGUI
 		VectorLayer layers;
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator layer = _node->getElementEnumerator();
-		while (layer.next(XML_TYPE))
+		while (layer.next(mCategoryName))
 		{
 
 			std::string name;
@@ -113,7 +112,7 @@ namespace MyGUI
 				type = overlapped ? "OverlappedLayer" : "SharedLayer";
 			}
 
-			IObject* object = FactoryManager::getInstance().createObject(XML_TYPE, type);
+			IObject* object = FactoryManager::getInstance().createObject(mCategoryName, type);
 			MYGUI_ASSERT(object != nullptr, "factory '" << type << "' is not found");
 
 			ILayer* item = object->castType<ILayer>();
@@ -207,6 +206,7 @@ namespace MyGUI
 		MYGUI_LOG(Info, "destroy layer '" << _layer->getName() << "'");
 		delete _layer;
 	}
+
 	Widget* LayerManager::getWidgetFromPoint(int _left, int _top)
 	{
 		VectorLayer::reverse_iterator iter = mLayerNodes.rbegin();
@@ -258,6 +258,11 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_index, mLayerNodes.size(), "LayerManager::getLayer");
 		return mLayerNodes[_index];
+	}
+
+	const std::string& LayerManager::getCategoryName() const
+	{
+		return mCategoryName;
 	}
 
 } // namespace MyGUI
