@@ -237,6 +237,8 @@ namespace tools
 		{
 			std::string textureName = _data->getPropertyValue("Name") + ".png";
 			MyGUI::ITexture* texture = font->getTextureFont();
+			if (texture == nullptr)
+				return;
 			texture->saveToFile(MyGUI::UString(common::concatenatePath(_folderName, MyGUI::UString(textureName))).asUTF8());
 
 			MyGUI::xml::ElementPtr node = _root->createChild("Resource");
