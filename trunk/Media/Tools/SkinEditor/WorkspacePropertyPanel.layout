@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+		<Widget type="Widget" skin="Panel1Skin_Dark" position="20 20 270 725" align="Stretch" name="Root">
+			<UserString key="SnapTo" value="Stretch"/>
+			<Widget type="TextBox" skin="TextBox_Dark" position="10 0 255 20" align="HStretch Top">
+                <Property key="Caption" value="#{PropertyPanel}"/>
+                <Property key="TextAlign" value="Left VCenter"/>
+            </Widget>
+            <Widget type="Widget" skin="PanelEmpty" position="6 21 258 698" align="Stretch">
+                <UserString key="ControlType" value="PropertyPanelControl"/>
+                <UserString key="ControlLayout" value="PropertyPanel.layout"/>
+            </Widget>
+        </Widget>
+</MyGUI>
