@@ -20,7 +20,6 @@
 #include "TextureBrowseControl.h"
 #include "TextFieldControl.h"
 #include "SettingsWindow.h"
-#include "SeparatorControl.h"
 #include "ScopeTextureControl.h"
 #include "PropertyTexturesControl.h"
 #include "PropertyStringControl.h"
@@ -51,7 +50,6 @@ namespace tools
 		FACTORY_ITEM(TextureBrowseControl)
 		FACTORY_ITEM(TextFieldControl)
 		FACTORY_ITEM(SettingsWindow)
-		FACTORY_ITEM(SeparatorControl)
 		FACTORY_ITEM(ScopeTextureControl)
 		FACTORY_ITEM(PropertyTexturesControl)
 		FACTORY_ITEM(PropertyStringControl)
