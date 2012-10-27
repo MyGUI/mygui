@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="40 40 110 110" align="Stretch" name="Root">
+        <UserString key="SnapTo" value="Stretch"/>
+        <UserString key="MinSize" value="20"/>
+        <UserString key="DefaultSize" value="300"/>
+        <UserString key="PanelAlign" value="Right"/>
+        <UserString key="SaveAs" value="SeparatePanel_2"/>
+        <Widget type="Widget" skin="PanelEmpty" position="0 0 50 100" name="FirstPanel">
+			<UserString key="ControlType" value="Control"/>
+			<UserString key="ControlLayout" value="WorkspacePropertyPanel.layout"/>
+        </Widget>
+        <Widget type="Widget" skin="PanelEmpty" position="50 0 50 100" name="SecondPanel">
+			<UserString key="ControlType" value="Control"/>
+			<UserString key="ControlLayout" value="WorkspaceTexturePanel.layout"/>
+		</Widget>
+        <Widget type="Widget" skin="PanelEmpty" position="100 0 10 100" name="SeparatorH">
+            <Property key="Pointer" value="size_horz"/>
+            <Widget type="Widget" skin="SeparatorV2Skin_Dark" position="4 45 2 10" align="Center">
+                <Property key="NeedMouse" value="false"/>
+            </Widget>
+        </Widget>
+        <Widget type="Widget" skin="PanelEmpty" position="0 100 100 10" name="SeparatorV">
+            <Property key="Pointer" value="size_vert"/>
+            <Widget type="Widget" skin="SeparatorH2Skin_Dark" position="45 4 10 2" align="Center">
+                <Property key="NeedMouse" value="false"/>
+            </Widget>
+        </Widget>
+    </Widget>
+</MyGUI>

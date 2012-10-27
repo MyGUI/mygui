@@ -68,6 +68,7 @@ set (HEADER_FILES
   ScopeManager.h
   ScopeTextureControl.h
   SelectorControl.h
+  SeparatePanel.h
   SeparatorControl.h
   SeparatorUtility.h
   SettingsManager.h
@@ -149,6 +150,7 @@ set (SOURCE_FILES
   ScopeManager.cpp
   ScopeTextureControl.cpp
   SelectorControl.cpp
+  SeparatePanel.cpp
   SeparatorControl.cpp
   SettingsManager.cpp
   SettingsWindow.cpp
@@ -208,6 +210,10 @@ SOURCE_GROUP("Controls\\Controllers" FILES
   IControlController.h
   PropertyPanelController.cpp
   PropertyPanelController.h
+)
+SOURCE_GROUP("Controls\\DockablePanel" FILES
+  SeparatePanel.cpp
+  SeparatePanel.h
 )
 SOURCE_GROUP("Controls\\Framework" FILES
   FocusInfoControl.cpp

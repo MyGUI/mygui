@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="Panel1Skin_Dark" position="20 20 300 725" align="Stretch" name="Root">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="Widget" skin="PanelEmpty" position="6 20 288 699" align="Stretch">
+            <UserString key="ControlLayout" value="FontListControl.layout"/>
+            <UserString key="ControlType" value="FontListControl"/>
+        </Widget>
+        <Widget type="TextBox" skin="TextBox_Dark" position="10 0 285 20" align="HStretch Top">
+            <Property key="Caption" value="#{TabFonts}"/>
+            <Property key="TextAlign" value="Left VCenter"/>
+        </Widget>
+    </Widget>
+</MyGUI>
