@@ -36,6 +36,7 @@
 #include "MessageBoxFadeControl.h"
 #include "MainMenuControl.h"
 #include "ListBoxDataControl.h"
+#include "SeparatePanel.h"
 
 namespace tools
 {
@@ -65,6 +66,7 @@ namespace tools
 		FACTORY_ITEM(MessageBoxFadeControl)
 		FACTORY_ITEM(MainMenuControl)
 		FACTORY_ITEM(ListBoxDataControl)
+		FACTORY_ITEM(SeparatePanel)
 
 		FACTORY_ITEM(PropertyPanelController)
 

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout" version="3.2.0">
+    <Widget type="Widget" skin="PanelEmpty" position="20 20 355 725" align="Stretch" name="Root">
+        <UserString key="SnapTo" value="Stretch"/>
+        <Widget type="Widget" skin="Panel1Skin_Dark" position="0 669 355 56" align="HStretch Bottom">
+            <Widget type="Button" skin="Button_Dark" position="6 6 343 44" align="Stretch">
+                <Property key="Caption" value="#{GenerateFont}"/>
+                <Property key="FontName" value="DejaVuSansFont_28"/>
+                <UserString key="CommandClick" value="Command_GenerateFont"/>
+            </Widget>
+        </Widget>
+        <Widget type="TabControl" skin="TabControl2_Dark" position="0 0 355 658" align="Stretch">
+            <Widget type="TabItem" skin="" position="2 22 351 634">
+                <Property key="Caption" value="#{TexturePanel}"/>
+                <Widget type="Widget" skin="PanelEmpty" position="4 4 343 626" align="Stretch">
+                    <UserString key="ControlLayout" value="TextureViewToolControl.layout"/>
+                    <UserString key="ControlType" value="Control"/>
+                </Widget>
+            </Widget>
+            <Widget type="TabItem" skin="" position="2 22 351 634">
+                <Property key="Caption" value="#{TryFontPanel}"/>
+                <Widget type="EditBox" skin="EditBox_Dark" position="4 4 343 626" align="Stretch">
+                    <Property key="MultiLine" value="true"/>
+                    <Property key="TabPrinting" value="true"/>
+                    <Property key="WordWrap" value="true"/>
+                    <Property key="TextAlign" value="Left Top"/>
+                    <UserString key="ControlType" value="FontTryControl"/>
+                </Widget>
+            </Widget>
+        </Widget>
+    </Widget>
+</MyGUI>
