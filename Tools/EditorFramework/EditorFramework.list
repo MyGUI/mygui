@@ -69,8 +69,6 @@ set (HEADER_FILES
   ScopeTextureControl.h
   SelectorControl.h
   SeparatePanel.h
-  SeparatorControl.h
-  SeparatorUtility.h
   SettingsManager.h
   SettingsWindow.h
   SharedPtr.h
@@ -151,7 +149,6 @@ set (SOURCE_FILES
   ScopeTextureControl.cpp
   SelectorControl.cpp
   SeparatePanel.cpp
-  SeparatorControl.cpp
   SettingsManager.cpp
   SettingsWindow.cpp
   StateManager.cpp
@@ -252,13 +249,6 @@ SOURCE_GROUP("Controls\\Properties" FILES
   PropertyStringControl.h
   PropertyTexturesControl.cpp
   PropertyTexturesControl.h
-)
-SOURCE_GROUP("Controls\\Separators" FILES
-  SeparatorControl.cpp
-  SeparatorControl.h
-)
-SOURCE_GROUP("Controls\\Separators\\Utility" FILES
-  SeparatorUtility.h
 )
 SOURCE_GROUP("Controls\\Settings" FILES
   SettingsWindow.cpp
