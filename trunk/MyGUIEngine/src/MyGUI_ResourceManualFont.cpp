@@ -101,13 +101,13 @@ namespace MyGUI
 						{
 							Char id = 0;
 							if (value == "cursor")
-								id = FontCodeType::Cursor;
+								id = static_cast<Char>(FontCodeType::Cursor);
 							else if (value == "selected")
-								id = FontCodeType::Selected;
+								id = static_cast<Char>(FontCodeType::Selected);
 							else if (value == "selected_back")
-								id = FontCodeType::SelectedBack;
+								id = static_cast<Char>(FontCodeType::SelectedBack);
 							else if (value == "substitute")
-								id = FontCodeType::NotDefined;
+								id = static_cast<Char>(FontCodeType::NotDefined);
 							else
 								id = utility::parseUInt(value);
 

@@ -630,7 +630,7 @@ namespace MyGUI
 		if (mVisibleCursor)
 		{
 			IntPoint point = mTextView.getCursorPoint(mCursorPosition) - mViewOffset + mCoord.point();
-			GlyphInfo* cursorGlyph = mFont->getGlyphInfo(FontCodeType::Cursor);
+			GlyphInfo* cursorGlyph = mFont->getGlyphInfo(static_cast<Char>(FontCodeType::Cursor));
 			vertexRect.set((float)point.left, (float)point.top, (float)point.left + cursorGlyph->width, (float)(point.top + mFontHeight));
 
 			drawGlyph(renderTargetInfo, vertex, vertexCount, vertexRect, cursorGlyph->uvRect, mCurrentColourNative | 0x00FFFFFF);
