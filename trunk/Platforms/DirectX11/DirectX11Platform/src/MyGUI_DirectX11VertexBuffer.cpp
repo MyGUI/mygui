@@ -48,7 +48,7 @@ namespace MyGUI
 		D3D11_MAPPED_SUBRESOURCE map;
 		memset(&map, 0, sizeof(map));
 		mManager->mpD3DContext->Map(mBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &map);
-		return (Vertex*)map.pData;
+		return static_cast<Vertex*>(map.pData);
 	}
 
 	void DirectX11VertexBuffer::unlock()

@@ -49,14 +49,14 @@ namespace MyGUI
 	private:
 		friend class DirectX11RTTexture;
 		ID3D11Texture2D*          mTexture;
-		ID3D11Texture2D*          mReadData;
 		void*                     mWriteData;
 
 	public:
 		ID3D11ShaderResourceView* mResourceView;
 
 	private:
-		int                       mWidth, mHeight;
+		int                       mWidth;
+		int                       mHeight;
 		TextureUsage              mTextureUsage;
 		size_t                    mNumElemBytes;
 		std::string               mName;
