@@ -10,6 +10,10 @@
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #	include <windows.h>
+#elif MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
+#	include <X11/Xlib.h>
+#	include <X11/Xutil.h>
+#	include <X11/Xatom.h>
 #endif
 
 namespace base
@@ -307,6 +311,19 @@ namespace base
 	{
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		::SetWindowTextW((HWND)getWindowHandle(), _text.c_str());
+	#elif MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
+		Display* xDisplay = nullptr;
+		unsigned long windowHandle = 0;
+		mWindow->getCustomAttribute("XDISPLAY", &xDisplay);
+		mWindow->getCustomAttribute("WINDOW", &windowHandle);
+		Window win = (Window)windowHandle;
+
+		XTextProperty windowName;
+		windowName.value    = (unsigned char *)(MyGUI::UString(_text).asUTF8_c_str());
+		windowName.encoding = XA_STRING;
+		windowName.format   = 8;
+		windowName.nitems   = strlen((char *)(windowName.value));
+		XSetWMName(xDisplay, win, &windowName);
 	#endif
 	}
 
