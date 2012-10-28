@@ -82,6 +82,9 @@ namespace MyGUI
 		/** Get current tile index */
 		size_t getImageIndex() const;
 
+		/** Get size of currently used image */
+		IntSize getImageSize() const;
+
 		//------------------------------------------------------------------------------//
 		// The expanded interface
 		//------------------------------------------------------------------------------//
