@@ -112,7 +112,7 @@ namespace tools
 
 		new ScopeManager();
 		ScopeManager::getInstance().initialise();
-	
+
 		new tools::DataTypeManager();
 		tools::DataTypeManager::getInstance().initialise();
 

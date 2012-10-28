@@ -151,8 +151,8 @@ namespace tools
 			mWidgetsButtonOffset,
 			mWidgetsButtonOffset,
 			_item->getWidth() - mWidgetsButtonOffset - mWidgetsButtonOffset,
-			_item->getHeight() - mWidgetsButtonOffset - mWidgetsButtonOffset)
-			, MyGUI::Align::Stretch);
+			_item->getHeight() - mWidgetsButtonOffset - mWidgetsButtonOffset),
+			MyGUI::Align::Stretch);
 
 		button->setTextAlign(MyGUI::Align::Center);
 		button->eventMouseButtonClick += MyGUI::newDelegate(this, &WidgetsWindow::notifySelectWidgetType);

@@ -2,7 +2,20 @@
 import os
 
 ignoredEndings = []
-ignoredContent = ["CMakeFiles", "MyGUI_UString", "pugixml", "sigslot", "Wrappers", "MyGUI_KeyCode.h:58", "InputConverter.h:896", "MyGUI_RTTLayer.h:21", "HotKeyManager.cpp:44", "HotKeyManager.cpp:45"]
+ignoredContent = [
+	"CMakeFiles",
+	"MyGUI_UString",
+	"pugixml",
+	"sigslot",
+	"Wrappers",
+	"MyGUI_KeyCode.h:58",
+	"InputConverter.h:896",
+	"MyGUI_RTTLayer.h:21",
+	"HotKeyManager.cpp:44",
+	"HotKeyManager.cpp:45",
+	"Common/Base/OpenGL/BaseManager.cpp:12",
+	"Common/Base/OpenGL/BaseManager.cpp:13"
+	]
 
 def isIgnoredWarning(warning):
 	for ignore in ignoredEndings:
