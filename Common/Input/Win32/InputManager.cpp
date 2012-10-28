@@ -166,7 +166,7 @@ namespace input
 			text = wParam;
 #else
 			char mbstr[3];
-			BYTE hiByte = wParam >> 8;
+			BYTE hiByte = static_cast<BYTE>(wParam >> 8);
 			BYTE loByte = wParam & 0x000000FF;
 			if (hiByte == 0)
 			{

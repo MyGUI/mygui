@@ -286,7 +286,7 @@ namespace MyGUI
 		mGlyphSpacing(-1),
 		mTabWidth(0.0f),
 		mOffsetHeight(0),
-		mSubstituteCodePoint(FontCodeType::NotDefined),
+		mSubstituteCodePoint(static_cast<Char>(FontCodeType::NotDefined)),
 		mDefaultHeight(0),
 		mSubstituteGlyphInfo(nullptr),
 		mTexture(nullptr)
@@ -685,20 +685,20 @@ namespace MyGUI
 
 		float height = (float)mDefaultHeight;
 
-		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(FontCodeType::Tab, 0.0f, 0.0f, mTabWidth, 0.0f, 0.0f), glyphHeightMap);
-		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(FontCodeType::Selected, mSelectedWidth, height, 0.0f, 0.0f, 0.0f), glyphHeightMap);
-		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(FontCodeType::SelectedBack, mSelectedWidth, height, 0.0f, 0.0f, 0.0f), glyphHeightMap);
-		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(FontCodeType::Cursor, mCursorWidth, height, 0.0f, 0.0f, 0.0f), glyphHeightMap);
+		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(static_cast<Char>(FontCodeType::Tab), 0.0f, 0.0f, mTabWidth, 0.0f, 0.0f), glyphHeightMap);
+		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(static_cast<Char>(FontCodeType::Selected), mSelectedWidth, height, 0.0f, 0.0f, 0.0f), glyphHeightMap);
+		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(static_cast<Char>(FontCodeType::SelectedBack), mSelectedWidth, height, 0.0f, 0.0f, 0.0f), glyphHeightMap);
+		texWidth += createGlyph(nextGlyphIndex++, GlyphInfo(static_cast<Char>(FontCodeType::Cursor), mCursorWidth, height, 0.0f, 0.0f, 0.0f), glyphHeightMap);
 
 		// If a substitute code point has been specified, check to make sure that it exists in the character map. If it doesn't,
 		// revert to the default "Not Defined" code point. This is not a real code point but rather an invalid Unicode value that
 		// is guaranteed to cause the "Not Defined" special glyph to be created.
 		if (mSubstituteCodePoint != FontCodeType::NotDefined && mCharMap.find(mSubstituteCodePoint) == mCharMap.end())
-			mSubstituteCodePoint = FontCodeType::NotDefined;
+			mSubstituteCodePoint = static_cast<Char>(FontCodeType::NotDefined);
 
 		// Create the "Not Defined" code point (and its corresponding glyph) if it's in use as the substitute code point.
 		if (mSubstituteCodePoint == FontCodeType::NotDefined)
-			texWidth += createFaceGlyph(0, FontCodeType::NotDefined, fontAscent, ftFace, ftLoadFlags, glyphHeightMap);
+			texWidth += createFaceGlyph(0, static_cast<Char>(FontCodeType::NotDefined), fontAscent, ftFace, ftLoadFlags, glyphHeightMap);
 
 		// Cache a pointer to the substitute glyph info for fast lookup.
 		mSubstituteGlyphInfo = &mGlyphMap.find(mCharMap.find(mSubstituteCodePoint)->second)->second;
