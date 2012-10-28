@@ -472,6 +472,11 @@ namespace MyGUI
 		return getItemSelect();
 	}
 
+	IntSize ImageBox::getImageSize() const
+	{
+		return mSizeTexture;
+	}
+
 	void ImageBox::setItemSelect(size_t _index)
 	{
 		if (mIndexSelect != _index) updateSelectIndex(_index);
