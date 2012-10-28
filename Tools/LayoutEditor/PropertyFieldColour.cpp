@@ -88,9 +88,7 @@ namespace tools
 
 	bool PropertyFieldColour::onCheckValue()
 	{
-		bool success = true;
-
-		success = utility::checkParse<float>(mField, 3);
+		bool success = utility::checkParse<float>(mField, 3);
 
 		updateColourPlace(success);
 

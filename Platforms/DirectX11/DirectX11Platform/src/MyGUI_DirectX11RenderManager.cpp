@@ -189,7 +189,7 @@ namespace MyGUI
 		samplerDesc.BorderColor[0] = samplerDesc.BorderColor[1] = samplerDesc.BorderColor[2] = samplerDesc.BorderColor[3] = 0.0f;
 		samplerDesc.ComparisonFunc = (D3D11_COMPARISON_FUNC)0;
 		samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-		samplerDesc.MaxAnisotropy = 1.0f;
+		samplerDesc.MaxAnisotropy = 1;
 		samplerDesc.MaxLOD = 0;
 		samplerDesc.MinLOD = 0;
 		samplerDesc.MipLODBias = 0.0f;
@@ -290,10 +290,10 @@ namespace MyGUI
 
 	void DirectX11RenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		DirectX11Texture* texture = (DirectX11Texture*)_texture;
+		DirectX11Texture* texture = static_cast<DirectX11Texture*>(_texture);
 		if ( texture == 0 || texture->mResourceView == 0 )
 		{
-			DirectX11VertexBuffer* buffer = (DirectX11VertexBuffer*)_buffer;
+			DirectX11VertexBuffer* buffer = static_cast<DirectX11VertexBuffer*>(_buffer);
 			mpD3DContext->PSSetShader(mPixelShader0, 0, 0);
 			mpD3DContext->VSSetShader(mVertexShader0, 0, 0);
 
@@ -304,7 +304,7 @@ namespace MyGUI
 		}
 		else
 		{
-			DirectX11VertexBuffer* buffer = (DirectX11VertexBuffer*)_buffer;
+			DirectX11VertexBuffer* buffer = static_cast<DirectX11VertexBuffer*>(_buffer);
 			mpD3DContext->PSSetShader(mPixelShader1, 0, 0);
 			mpD3DContext->VSSetShader(mVertexShader1, 0, 0);
 

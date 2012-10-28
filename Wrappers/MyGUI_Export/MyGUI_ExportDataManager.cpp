@@ -68,7 +68,7 @@ namespace MyGUI
 	bool ExportDataManager::isDataExist(const std::string& _name)
 	{
 		const VectorString& files = getDataListNames(_name);
-		return (files.size() > 0);
+		return !files.empty();
 	}
 
 	const VectorString& ExportDataManager::getDataListNames(const std::string& _pattern)
@@ -106,7 +106,7 @@ namespace MyGUI
 			result.push_back(MyGUI::UString(*item).asUTF8());
 		}
 
-		if (result.size() > 0)
+		if (!result.empty())
 		{
 			path = result[0];
 			if (result.size() > 1)

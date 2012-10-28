@@ -13,6 +13,7 @@ namespace tools
 
 	ColourPanel::ColourPanel() :
 		mColourRect(nullptr),
+		mColourView(nullptr),
 		mImageColourPicker(nullptr),
 		mEditRed(nullptr),
 		mEditGreen(nullptr),
