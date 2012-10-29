@@ -98,6 +98,7 @@ namespace MyGUI
 		loadInfo.pSrcInfo       = &fileInfo;
 
 		HRESULT hr = D3DX11CreateTextureFromFileA( mManager->mpD3DDevice, fullname.c_str(), &loadInfo, NULL, (ID3D11Resource**)&mTexture, NULL );
+		MYGUI_PLATFORM_ASSERT(hr == S_OK, "CreateTextureFromFile failed!");
 
 		D3D11_TEXTURE2D_DESC desc;
 		mTexture->GetDesc(&desc);

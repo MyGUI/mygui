@@ -610,7 +610,7 @@ namespace tools
 		if (!_container->getStyle().empty())
 			node->addAttribute("style", _container->getStyle());
 
-		if ("" != _container->getLayerName())
+		if (!_container->getLayerName().empty())
 			node->addAttribute("layer", _container->getLayerName());
 
 		if (!_container->getName().empty())
