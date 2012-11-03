@@ -2,7 +2,7 @@
 #define __DEMO_KEEPER_H__
 
 #include "Base/BaseDemoManager.h"
-#include "DataListUI.h"
+#include "HyperTextBox.h"
 
 namespace demo
 {
@@ -18,8 +18,7 @@ namespace demo
 	private:
 		virtual void setupResources();
 
-	private:
-		DataListUI* mDataListUI;
+		void OnClickUrl(MyGUI::HyperTextBox* _sender, const std::string& _url);
 	};
 
 } // namespace demo

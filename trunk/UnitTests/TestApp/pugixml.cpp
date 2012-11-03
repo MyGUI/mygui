@@ -41,6 +41,11 @@
 // For placement new
 #include <new>
 
+#ifdef MYGUI_CHECK_MEMORY_LEAKS
+#	undef new
+#	undef delete
+#endif
+
 #ifdef _MSC_VER
 #	pragma warning(push)
 #	pragma warning(disable: 4127) // conditional expression is constant

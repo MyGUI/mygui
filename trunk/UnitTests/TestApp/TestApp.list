@@ -10,11 +10,6 @@ set (HEADER_FILES
   DataManager.h
   DataPropertyInfo.h
   DemoKeeper.h
-  HyperTextBox.h
-  Panel.h
-  ScrollViewPanel.h
-  StackPanel.h
-  WrapPanel.h
 )
 set (SOURCE_FILES
   ../../Common/Base/BaseResource.rc
@@ -28,11 +23,6 @@ set (SOURCE_FILES
   DataManager.cpp
   DataPropertyInfo.cpp
   DemoKeeper.cpp
-  HyperTextBox.cpp
-  Panel.cpp
-  ScrollViewPanel.cpp
-  StackPanel.cpp
-  WrapPanel.cpp
   pugiconfig.hpp
   pugixml.cpp
   pugixml.hpp
@@ -49,11 +39,6 @@ SOURCE_GROUP("Header Files" FILES
   DataManager.h
   DataPropertyInfo.h
   DemoKeeper.h
-  HyperTextBox.h
-  Panel.h
-  ScrollViewPanel.h
-  StackPanel.h
-  WrapPanel.h
   pugiconfig.hpp
   pugixml.hpp
 )
@@ -72,10 +57,5 @@ SOURCE_GROUP("Source Files" FILES
   DataManager.cpp
   DataPropertyInfo.cpp
   DemoKeeper.cpp
-  HyperTextBox.cpp
-  Panel.cpp
-  ScrollViewPanel.cpp
-  StackPanel.cpp
-  WrapPanel.cpp
   pugixml.cpp
 )
