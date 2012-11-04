@@ -69,7 +69,6 @@ namespace demo
 
 	void DemoKeeper::OnClickUrl(MyGUI::HyperTextBox* _sender, const std::string& _url)
 	{
-		int test = 0;
 	}
 
 } // namespace demo
