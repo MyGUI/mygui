@@ -43,6 +43,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
+		base::BaseDemoManager::createScene();
 		new tools::DataInfoManager();
 		new tools::DataManager();
 		new tools::ActionManager();

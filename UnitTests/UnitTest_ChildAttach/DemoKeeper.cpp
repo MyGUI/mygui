@@ -40,6 +40,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
+		base::BaseDemoManager::createScene();
 		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper.layout");
 		MyGUI::ResourceManager::getInstance().load("SquadSlotPortraitIcons.xml");
 

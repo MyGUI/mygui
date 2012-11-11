@@ -32,13 +32,14 @@ namespace input
 		manager.setVisible(false);
 		manager.eventChangeMousePointer += MyGUI::newDelegate(this, &PointerManager::notifyChangeMousePointer);
 
-		MyGUI::FactoryManager::getInstance().registerFactory<ResourceW32Pointer>("Resource");
-		MyGUI::ResourceManager::getInstance().load("PointersW32.xml");
+		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		MyGUI::FactoryManager::getInstance().registerFactory<ResourceW32Pointer>(resourceCategory);
 	}
 
 	void PointerManager::destroyPointerManager()
 	{
-		MyGUI::FactoryManager::getInstance().unregisterFactory<ResourceW32Pointer>("Resource");
+		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		MyGUI::FactoryManager::getInstance().unregisterFactory<ResourceW32Pointer>(resourceCategory);
 
 		MyGUI::PointerManager& manager = MyGUI::PointerManager::getInstance();
 		manager.eventChangeMousePointer -= MyGUI::newDelegate(this, &PointerManager::notifyChangeMousePointer);
@@ -110,6 +111,11 @@ namespace input
 				}
 			}
 		}
+	}
+
+	void PointerManager::loadPointerResources()
+	{
+		MyGUI::ResourceManager::getInstance().load("PointersW32.xml");
 	}
 
 } // namespace input

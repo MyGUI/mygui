@@ -33,7 +33,6 @@ namespace input
 
 		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<ResourceW32Pointer>(resourceCategory);
-		MyGUI::ResourceManager::getInstance().load("PointersW32.xml");
 	}
 
 	void PointerManager::destroyPointerManager()
@@ -111,6 +110,11 @@ namespace input
 				}
 			}
 		}
+	}
+
+	void PointerManager::loadPointerResources()
+	{
+		MyGUI::ResourceManager::getInstance().load("PointersW32.xml");
 	}
 
 } // namespace input

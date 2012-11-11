@@ -42,6 +42,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
+		base::BaseDemoManager::createScene();
 		createDefaultScene();
 		const MyGUI::VectorWidgetPtr& root = MyGUI::LayoutManager::getInstance().loadLayout("HelpPanel.layout");
 		if (root.size() == 1)

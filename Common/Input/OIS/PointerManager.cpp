@@ -37,4 +37,8 @@ namespace input
 		MyGUI::PointerManager::getInstance().setPointer(_name);
 	}
 
+	void PointerManager::loadPointerResources()
+	{
+	}
+
 } // namespace input

@@ -216,6 +216,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
+		base::BaseDemoManager::createScene();
 		MyGUI::FactoryManager& factory = MyGUI::FactoryManager::getInstance();
 		std::string widgetCategory = MyGUI::WidgetManager::getInstance().getCategoryName();
 		factory.registerFactory<MyGUI::TreeControl>(widgetCategory);
