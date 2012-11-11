@@ -30,8 +30,8 @@
 			<Value>EditorTheme.xml</Value>
 			<Value>EditorLanguage.xml</Value>
 			<Value>MessageBoxResources.xml</Value>
-			<Value>MyGUI_Images.xml</Value>
 			<Value>MyGUI_CommonSkins.xml</Value>
+			<Value>MyGUI_PointerImages.xml</Value>
 			<Value>MyGUI_Pointers.xml</Value>
 			<Value>PointersW32.xml</Value>
 			<Value>MyGUI_Layers.xml</Value>

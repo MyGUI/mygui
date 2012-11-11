@@ -31,6 +31,31 @@
 		<LoadLastProject>false</LoadLastProject>
 		<WorkspaceTextureSize>1024 1024</WorkspaceTextureSize>
 	</Settings>
+	<Resources>
+		<Resource.List>
+			<Value>EditorTheme.xml</Value>
+			<Value>EditorLanguage.xml</Value>
+			<Value>MessageBoxResources.xml</Value>
+			<Value>MyGUI_GeneratedFonts.xml</Value>
+			<Value>MyGUI_Fonts.xml</Value>
+			<Value>MyGUI_CommonSkins.xml</Value>
+			<Value>MyGUI_BlackOrangeTheme.xml</Value>
+			<Value>MyGUI_PointerImages.xml</Value>
+			<Value>MyGUI_Pointers.xml</Value>
+			<Value>PointersW32.xml</Value>
+			<Value>SelectionSkins.xml</Value>
+			<Value>TextureViewerSkins.xml</Value>
+			<Value>EditorReplaceSkins.xml</Value>
+			<Value>ButtonExpandSkin.xml</Value>
+			<Value>MyGUI_Layers.xml</Value>
+			<Value>EditorSettings.xml</Value>
+			<Value>FrameworkFonts.xml</Value>
+			<Value>MyGUI_DarkSkin.xml</Value>
+			<Value>MyGUI_DarkTemplate.xml</Value>
+			<Value>EditorLayers.xml</Value>
+			<Value>EditorSettings.xml</Value>
+		</Resource.List>
+	</Resources>
 	<Controls>
 		<WidgetsWindow>
 			<WidgetsButtonWidth>120</WidgetsButtonWidth>
