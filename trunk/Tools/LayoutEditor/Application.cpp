@@ -49,11 +49,12 @@ namespace tools
 		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Themes");
 		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Settings");
 		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/CodeTemplates");
+		addResourceLocation(getRootMedia() + "/Common/Base");
 		addResourceLocation(getRootMedia() + "/Common/Demos");
 		addResourceLocation(getRootMedia() + "/Common/Tools");
 		addResourceLocation(getRootMedia() + "/Common/MessageBox");
 		addResourceLocation(getRootMedia() + "/Common/Themes");
-		setResourceFilename("Editor.xml");
+		setResourceFilename("");
 	}
 
 	void Application::createScene()
@@ -66,9 +67,6 @@ namespace tools
 
 		std::string subWidgetCategory = MyGUI::SubWidgetManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::FilterNone>(subWidgetCategory);
-
-		MyGUI::ResourceManager::getInstance().load("EditorLayers.xml");
-		MyGUI::ResourceManager::getInstance().load("EditorSettings.xml");
 
 		new SettingsManager();
 		SettingsManager::getInstance().loadSettingsFile(MyGUI::DataManager::getInstance().getDataPath("Settings.xml"));
