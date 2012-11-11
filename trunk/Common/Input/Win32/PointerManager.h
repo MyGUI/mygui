@@ -24,6 +24,8 @@ namespace input
 		void setPointerVisible(bool _value);
 		void setPointerName(const std::string& _name);
 
+		void loadPointerResources();
+
 	private:
 		void notifyChangeMousePointer(const std::string& _name);
 		void setPointerHandle(size_t _id);

@@ -39,6 +39,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
+		base::BaseDemoManager::createScene();
 		std::string controllerCategory = MyGUI::ControllerManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<ControllerRandomSelected>(controllerCategory);
 		MyGUI::FactoryManager::getInstance().registerFactory<ControllerRandomProgress>(controllerCategory);

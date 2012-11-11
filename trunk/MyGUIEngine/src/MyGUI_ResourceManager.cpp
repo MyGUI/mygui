@@ -94,6 +94,13 @@ namespace MyGUI
 			if (name.empty())
 				continue;
 
+			IObject* object = factory.createObject(mCategoryName, type);
+			if (object == nullptr)
+			{
+				MYGUI_LOG(Error, "resource type '" << type << "' not found");
+				continue;
+			}
+
 			MapResource::iterator item = mResources.find(name);
 			if (item != mResources.end())
 			{
@@ -102,13 +109,6 @@ namespace MyGUI
 				// ресурсами могут пользоваться
 				mRemovedResoures.push_back((*item).second);
 				mResources.erase(item);
-			}
-
-			IObject* object = factory.createObject(mCategoryName, type);
-			if (object == nullptr)
-			{
-				MYGUI_LOG(Error, "resource type '" << type << "' not found");
-				continue;
 			}
 
 			IResourcePtr resource = object->castType<IResource>();

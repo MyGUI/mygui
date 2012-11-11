@@ -51,6 +51,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
+		base::BaseDemoManager::createScene();
 		MyGUI::Gui* gui = MyGUI::Gui::getInstancePtr();
 		MyGUI::Button* button1 = gui->createWidget<MyGUI::Button>("Button", MyGUI::IntCoord(10, 10, 200, 30), MyGUI::Align::Default, "Main");
 		button1->setCaption("Function");

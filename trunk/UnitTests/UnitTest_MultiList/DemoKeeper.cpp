@@ -23,6 +23,7 @@ namespace demo
 
 	void DemoKeeper::createScene()
 	{
+		base::BaseDemoManager::createScene();
 		MyGUI::LayoutManager::getInstance().loadLayout("Wallpaper.layout");
 
 		unittest_list = new unittest::UnitTest_List();
