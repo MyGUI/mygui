@@ -272,6 +272,7 @@ namespace MyGUI
 		if ( mRasterizerState ) mRasterizerState->Release();
 		if ( mInputLayout0 ) mInputLayout0->Release();
 		if ( mInputLayout1 ) mInputLayout1->Release();
+		if ( mpD3DContext) mpD3DContext->Release();
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
