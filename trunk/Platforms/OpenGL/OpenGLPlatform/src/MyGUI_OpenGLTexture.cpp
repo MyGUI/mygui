@@ -51,8 +51,8 @@ namespace MyGUI
 
 		if (_usage == TextureUsage::Default)
 		{
-			mUsage = GL_STATIC_READ_ARB;
-			mAccess = GL_READ_ONLY_ARB;
+			mUsage = GL_STATIC_READ;
+			mAccess = GL_READ_ONLY;
 		}
 		else if (_usage.isValue(TextureUsage::Static))
 		{
@@ -60,19 +60,19 @@ namespace MyGUI
 			{
 				if (_usage.isValue(TextureUsage::Write))
 				{
-					mUsage = GL_STATIC_COPY_ARB;
-					mAccess = GL_READ_WRITE_ARB;
+					mUsage = GL_STATIC_COPY;
+					mAccess = GL_READ_WRITE;
 				}
 				else
 				{
-					mUsage = GL_STATIC_READ_ARB;
-					mAccess = GL_READ_ONLY_ARB;
+					mUsage = GL_STATIC_READ;
+					mAccess = GL_READ_ONLY;
 				}
 			}
 			else if (_usage.isValue(TextureUsage::Write))
 			{
-				mUsage = GL_STATIC_DRAW_ARB;
-				mAccess = GL_WRITE_ONLY_ARB;
+				mUsage = GL_STATIC_DRAW;
+				mAccess = GL_WRITE_ONLY;
 			}
 		}
 		else if (_usage.isValue(TextureUsage::Dynamic))
@@ -81,19 +81,19 @@ namespace MyGUI
 			{
 				if (_usage.isValue(TextureUsage::Write))
 				{
-					mUsage = GL_DYNAMIC_COPY_ARB;
-					mAccess = GL_READ_WRITE_ARB;
+					mUsage = GL_DYNAMIC_COPY;
+					mAccess = GL_READ_WRITE;
 				}
 				else
 				{
-					mUsage = GL_DYNAMIC_READ_ARB;
-					mAccess = GL_READ_ONLY_ARB;
+					mUsage = GL_DYNAMIC_READ;
+					mAccess = GL_READ_ONLY;
 				}
 			}
 			else if (_usage.isValue(TextureUsage::Write))
 			{
-				mUsage = GL_DYNAMIC_DRAW_ARB;
-				mAccess = GL_WRITE_ONLY_ARB;
+				mUsage = GL_DYNAMIC_DRAW;
+				mAccess = GL_WRITE_ONLY;
 			}
 		}
 		else if (_usage.isValue(TextureUsage::Stream))
@@ -102,19 +102,19 @@ namespace MyGUI
 			{
 				if (_usage.isValue(TextureUsage::Write))
 				{
-					mUsage = GL_STREAM_COPY_ARB;
-					mAccess = GL_READ_WRITE_ARB;
+					mUsage = GL_STREAM_COPY;
+					mAccess = GL_READ_WRITE;
 				}
 				else
 				{
-					mUsage = GL_STREAM_READ_ARB;
-					mAccess = GL_READ_ONLY_ARB;
+					mUsage = GL_STREAM_READ;
+					mAccess = GL_READ_ONLY;
 				}
 			}
 			else if (_usage.isValue(TextureUsage::Write))
 			{
-				mUsage = GL_STREAM_DRAW_ARB;
-				mAccess = GL_WRITE_ONLY_ARB;
+				mUsage = GL_STREAM_DRAW;
+				mAccess = GL_WRITE_ONLY;
 			}
 		}
 	}
@@ -192,10 +192,10 @@ namespace MyGUI
 		if (!_data && OpenGLRenderManager::getInstance().isPixelBufferObjectSupported())
 		{
 			//создаем текстурнный буфер
-			glGenBuffersARB(1, &mPboID);
-			glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, mPboID);
-			glBufferDataARB(GL_PIXEL_UNPACK_BUFFER_ARB, mDataSize, 0, mUsage);
-			glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
+			glGenBuffers(1, &mPboID);
+			glBindBuffer(GL_PIXEL_UNPACK_BUFFER, mPboID);
+			glBufferData(GL_PIXEL_UNPACK_BUFFER, mDataSize, 0, mUsage);
+			glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
 		}
 	}
 
@@ -214,7 +214,7 @@ namespace MyGUI
 		}
 		if (mPboID != 0)
 		{
-			glDeleteBuffersARB(1, &mPboID);
+			glDeleteBuffers(1, &mPboID);
 			mPboID = 0;
 		}
 
@@ -258,22 +258,22 @@ namespace MyGUI
 		else
 		{
 			// bind the PBO
-			glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, mPboID);
+			glBindBuffer(GL_PIXEL_UNPACK_BUFFER, mPboID);
 			
-			// Note that glMapBufferARB() causes sync issue.
-			// If GPU is working with this buffer, glMapBufferARB() will wait(stall)
+			// Note that glMapBuffer() causes sync issue.
+			// If GPU is working with this buffer, glMapBuffer() will wait(stall)
 			// until GPU to finish its job. To avoid waiting (idle), you can call
-			// first glBufferDataARB() with NULL pointer before glMapBufferARB().
+			// first glBufferData() with NULL pointer before glMapBuffer().
 			// If you do that, the previous data in PBO will be discarded and
-			// glMapBufferARB() returns a new allocated pointer immediately
+			// glMapBuffer() returns a new allocated pointer immediately
 			// even if GPU is still working with the previous data.
-			glBufferDataARB(GL_PIXEL_UNPACK_BUFFER_ARB, mDataSize, 0, mUsage);
+			glBufferData(GL_PIXEL_UNPACK_BUFFER, mDataSize, 0, mUsage);
 
 			// map the buffer object into client's memory
-			mBuffer = (GLubyte*)glMapBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, mAccess);
+			mBuffer = (GLubyte*)glMapBuffer(GL_PIXEL_UNPACK_BUFFER, mAccess);
 			if (!mBuffer)
 			{
-				glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
+				glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
 				glBindTexture(GL_TEXTURE_2D, 0);
 				MYGUI_PLATFORM_EXCEPT("Error texture lock");
 			}
@@ -307,7 +307,7 @@ namespace MyGUI
 		else
 		{
 			// release the mapped buffer
-			glUnmapBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB);
+			glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER);
 
 			// copy pixels from PBO to texture object
 			// Use offset instead of ponter.
@@ -315,7 +315,7 @@ namespace MyGUI
 
 			// it is good idea to release PBOs with ID 0 after use.
 			// Once bound with 0, all pixel operations are back to normal ways.
-			glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
+			glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
 		}
 		
 		glBindTexture(GL_TEXTURE_2D, 0);
