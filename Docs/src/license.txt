@@ -3,10 +3,7 @@
 
 \section Licensing
 
-\n	MyGUI source code (everything in MyGUIEngine folder) licensed under LGPL with some exclusions:
-\n	1. Building against MyGUI headers which have inlined code does not constitute a derived work.
-\n	2. Code which subclasses MyGUI classes outside of the MyGUI libraries does not form a derived work.
-\n	3. Statically linking the MyGUI libraries into a user application does not make the user application a derived work.
+\n	MyGUI is released under the [MIT License](http://opensource.org/licenses/mit-license.php), which is a permissive open source license. The only condition is that you distribute the license text included in our distribution with any software that uses MyGUI.
 \n
 \n	Plugins that based on some library are licensed under same license that librariy use.
 \n	All media except some Media pointed below licensed under MIT license.
