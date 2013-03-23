@@ -102,6 +102,7 @@
     <ClCompile Include="ExportDataManager.cpp" />
     <ClCompile Include="ExportLayers.cpp" />
     <ClCompile Include="ExportRenderManager.cpp" />
+    <ClCompile Include="Export_PolygonalSkin.cpp" />
     <ClCompile Include="MyGUI_CustomLayer.cpp" />
     <ClCompile Include="MyGUI_CustomLayerNode.cpp" />
     <ClCompile Include="MyGUI_ExportDataManager.cpp" />
