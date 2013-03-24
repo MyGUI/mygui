@@ -54,6 +54,8 @@
 			<Value>MyGUI_DarkTemplate.xml</Value>
 			<Value>EditorLayers.xml</Value>
 			<Value>EditorSettings.xml</Value>
+			<Value>SelectionRectsSkin.xml</Value>
+			<Value>SelectionRectsTemplate.xml</Value>
 		</Resource.List>
 	</Resources>
 	<Controls>
@@ -99,6 +101,11 @@
 				<Event>Start</Event>
 			</FirstState>
 		</States>
+		<Control.List>
+			<Value>StatisticInfoControl</Value>
+			<Value>FocusInfoControl</Value>
+			<Value>MessageBoxFadeControl</Value>
+		</Control.List>
 	</Editor>
 	<EditorState>
 		<OpenSaveFileDialogLayout>OpenSaveFileDialog2.layout</OpenSaveFileDialogLayout>

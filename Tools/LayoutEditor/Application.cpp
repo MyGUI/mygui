@@ -25,6 +25,7 @@
 #include "PropertyFieldManager.h"
 #include "GridManager.h"
 #include "FactoryManager.h"
+#include "ComponentFactory.h"
 
 template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
 template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName = "Application";
@@ -34,10 +35,12 @@ namespace tools
 
 	Application::Application()
 	{
+		ComponentFactory::Initialise();
 	}
 
 	Application::~Application()
 	{
+		ComponentFactory::Shutdown();
 	}
 
 	void Application::setupResources()
@@ -154,6 +157,7 @@ namespace tools
 		CommandManager::getInstance().getEvent("Command_QuitApp")->connect(this, &Application::command_QuitApp);
 		CommandManager::getInstance().getEvent("Command_UpdateAppCaption")->connect(this, &Application::command_UpdateAppCaption);
 
+		CreateControls();
 		LoadStates();
 	}
 
@@ -162,6 +166,8 @@ namespace tools
 		saveSettings();
 
 		StateManager::getInstance().rollbackToState(nullptr);
+
+		DestroyControls();
 
 		GridManager::getInstance().shutdown();
 		delete GridManager::getInstancePtr();
@@ -519,6 +525,31 @@ namespace tools
 		const SettingsManager::VectorString& additionalResources = SettingsManager::getInstance().getValueList("Resources/AdditionalResource.List");
 		for (SettingsManager::VectorString::const_iterator iter = additionalResources.begin(); iter != additionalResources.end(); ++iter)
 			MyGUI::ResourceManager::getInstance().load(*iter);
+	}
+
+	void Application::CreateControls()
+	{
+		const SettingsManager::VectorString& controls = SettingsManager::getInstance().getValueList("Editor/Control.List");
+		for (SettingsManager::VectorString::const_iterator controlType = controls.begin(); controlType != controls.end(); controlType ++)
+		{
+			Control* control = components::FactoryManager::GetInstance().CreateItem<Control>(*controlType);
+			if (control != nullptr)
+			{
+				control->Initialise();
+				mControls.push_back(control);
+			}
+			else
+			{
+				MYGUI_LOG(Warning, "Control factory '" << (*controlType) << "' not found");
+			}
+		}
+	}
+
+	void Application::DestroyControls()
+	{
+		for (VectorControl::iterator control = mControls.begin(); control != mControls.end(); control ++)
+			delete *control;
+		mControls.clear();
 	}
 
 }

@@ -493,6 +493,10 @@ namespace tools
 				control->Initialise();
 				mControls.push_back(control);
 			}
+			else
+			{
+				MYGUI_LOG(Warning, "Control factory '" << (*controlType) << "' not found");
+			}
 		}
 	}
 
