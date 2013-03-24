@@ -2,11 +2,11 @@
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Widget" skin="PanelEmpty" position="30 30 300 300" layer="Statistic" name="Root">
         <Property key="NeedMouse" value="false"/>
-        <Widget type="Widget" skin="GreenRect" position="350 30 100 100" style="Popup" layer="Statistic" name="MouseView">
-            <Property key="NeedMouse" value="false"/>
+        <Widget type="Widget" skin="WhiteRectSkin1" position="50 50 100 100" style="Popup" layer="Statistic" name="MouseView">
+            <Property key="Colour" value="1 1 0"/>
         </Widget>
-        <Widget type="Widget" skin="YellowRect" position="475 30 100 100" style="Popup" layer="Statistic" name="KeyView">
-            <Property key="NeedMouse" value="false"/>
+        <Widget type="Widget" skin="WhiteRectSkin1" position="190 195 100 100" style="Popup" layer="Statistic" name="KeyView">
+            <Property key="Colour" value="0 1 0"/>
         </Widget>
     </Widget>
 </MyGUI>

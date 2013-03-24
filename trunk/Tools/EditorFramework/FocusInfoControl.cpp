@@ -13,8 +13,6 @@ namespace tools
 {
 
 	FocusInfoControl::FocusInfoControl() :
-		mWidgetKeyFocus(nullptr),
-		mWidgetMouseFocus(nullptr),
 		mMouseView(nullptr),
 		mKeyView(nullptr)
 	{
@@ -33,7 +31,9 @@ namespace tools
 		assignWidget(mKeyView, "KeyView");
 
 		mMouseView->setVisible(false);
+		mMouseView->setCoord(MyGUI::IntCoord());
 		mKeyView->setVisible(false);
+		mKeyView->setCoord(MyGUI::IntCoord());
 
 		CommandManager::getInstance().getEvent("Command_FocusVisible")->connect(this, &FocusInfoControl::Command_FocusVisible);
 
@@ -47,8 +47,6 @@ namespace tools
 		getRoot()->setVisible(!getRoot()->getVisible());
 		SettingsManager::getInstance().setValue("Controls/FocusInfoControl/Visible", getRoot()->getVisible());
 
-		mWidgetKeyFocus = nullptr;
-		mWidgetMouseFocus = nullptr;
 		mMouseView->setVisible(false);
 		mKeyView->setVisible(false);
 
@@ -68,35 +66,40 @@ namespace tools
 			return;
 
 		MyGUI::Widget* mouse = input->getMouseFocusWidget();
-		if (mouse != mWidgetMouseFocus)
+		if (mouse != nullptr)
 		{
-			mWidgetMouseFocus = mouse;
-
-			if (mWidgetMouseFocus == nullptr)
-			{
-				mMouseView->setVisible(false);
-			}
-			else
-			{
+			if (!mMouseView->getVisible())
 				mMouseView->setVisible(true);
-				mMouseView->setCoord(mWidgetMouseFocus->getAbsoluteCoord());
+
+			if (mouse->getAbsoluteCoord() != mMouseCoord)
+			{
+				mMouseCoord = mouse->getAbsoluteCoord();
+				mMouseView->setCoord(mMouseCoord);
 			}
 		}
+		else
+		{
+			if (mMouseView->getVisible())
+				mMouseView->setVisible(false);
+		}
+
 
 		MyGUI::Widget* key = input->getKeyFocusWidget();
-		if (key != mWidgetKeyFocus)
+		if (key != nullptr)
 		{
-			mWidgetKeyFocus = key;
-
-			if (mWidgetKeyFocus == nullptr)
-			{
-				mKeyView->setVisible(false);
-			}
-			else
-			{
+			if (!mKeyView->getVisible())
 				mKeyView->setVisible(true);
-				mKeyView->setCoord(mWidgetKeyFocus->getAbsoluteCoord());
+
+			if (key->getAbsoluteCoord() != mKeyCoord)
+			{
+				mKeyCoord = key->getAbsoluteCoord();
+				mKeyView->setCoord(mKeyCoord.left - 1, mKeyCoord.top - 1, mKeyCoord.width + 2, mKeyCoord.height + 2);
 			}
+		}
+		else
+		{
+			if (mKeyView->getVisible())
+				mKeyView->setVisible(false);
 		}
 	}
 }
