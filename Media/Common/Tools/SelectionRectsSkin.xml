@@ -119,4 +119,78 @@
 			<State name="normal" offset="34 2 12 12"/>
 		</BasisSkin>
 	</Resource>
+	<Resource type="ResourceSkin" name="WhiteRectSkin1" size="16 16" texture="SelectionRectsSkin.png">
+		<BasisSkin type="SubSkin" offset="0 0 4 4" align="Left Top">
+			<State name="normal" offset="32 16 4 4"/>
+		</BasisSkin>
+		<BasisSkin type="TileRect" offset="4 0 8 4" align="HStretch Top">
+			<State name="normal" offset="36 16 8 4">
+				<Property key="TileSize" value="8 4"/>
+				<Property key="TileH" value="true"/>
+				<Property key="TileV" value="false"/>
+			</State>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="12 0 4 4" align="Right Top">
+			<State name="normal" offset="44 16 4 4"/>
+		</BasisSkin>
+		<BasisSkin type="TileRect" offset="12 4 4 8" align="Right VStretch">
+			<State name="normal" offset="44 20 4 8">
+				<Property key="TileSize" value="4 8"/>
+				<Property key="TileH" value="false"/>
+				<Property key="TileV" value="true"/>
+			</State>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="12 12 4 4" align="Right Bottom">
+			<State name="normal" offset="44 28 4 4"/>
+		</BasisSkin>
+		<BasisSkin type="TileRect" offset="4 12 8 4" align="HStretch Bottom">
+			<State name="normal" offset="36 28 8 4">
+				<Property key="TileSize" value="8 4"/>
+				<Property key="TileH" value="true"/>
+				<Property key="TileV" value="false"/>
+			</State>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 12 4 4" align="Left Bottom">
+			<State name="normal" offset="32 28 4 4"/>
+		</BasisSkin>
+		<BasisSkin type="TileRect" offset="0 4 4 8" align="Left VStretch">
+			<State name="normal" offset="32 20 4 8">
+				<Property key="TileSize" value="4 8"/>
+				<Property key="TileH" value="false"/>
+				<Property key="TileV" value="true"/>
+			</State>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="4 4 8 8" align="Stretch">
+			<State name="normal" offset="36 20 8 8"/>
+		</BasisSkin>
+	</Resource>
+	<Resource type="ResourceSkin" name="WhiteRectSkin2" size="16 16" texture="SelectionRectsSkin.png">
+		<BasisSkin type="SubSkin" offset="0 0 4 4" align="Left Top">
+			<State name="normal" offset="48 16 4 4"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="4 0 8 4" align="HStretch Top">
+			<State name="normal" offset="52 16 8 4"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="12 0 4 4" align="Right Top">
+			<State name="normal" offset="60 16 4 4"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="12 4 4 8" align="Right VStretch">
+			<State name="normal" offset="60 20 4 8"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="12 12 4 4" align="Right Bottom">
+			<State name="normal" offset="60 28 4 4"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="4 12 8 4" align="HStretch Bottom">
+			<State name="normal" offset="52 28 8 4"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 12 4 4" align="Left Bottom">
+			<State name="normal" offset="48 28 4 4"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="0 4 4 8" align="Left VStretch">
+			<State name="normal" offset="48 20 4 8"/>
+		</BasisSkin>
+		<BasisSkin type="SubSkin" offset="4 4 8 8" align="Stretch">
+			<State name="normal" offset="52 20 8 8"/>
+		</BasisSkin>
+	</Resource>
 </MyGUI>
