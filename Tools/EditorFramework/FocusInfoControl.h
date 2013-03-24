@@ -31,10 +31,10 @@ namespace tools
 		void updateFocusWidgetHelpers();
 
 	private:
-		MyGUI::Widget* mWidgetKeyFocus;
-		MyGUI::Widget* mWidgetMouseFocus;
 		MyGUI::Widget* mMouseView;
 		MyGUI::Widget* mKeyView;
+		MyGUI::IntCoord mKeyCoord;
+		MyGUI::IntCoord mMouseCoord;
 	};
 
 }
