@@ -3,6 +3,7 @@
 
 #include "Base/BaseDemoManager.h"
 #include "sigslot.h"
+#include "Control.h"
 
 namespace tools
 {
@@ -48,9 +49,14 @@ namespace tools
 		void LoadStates();
 		void LoadGuiSettings();
 
+		void CreateControls();
+		void DestroyControls();
+
 	private:
 		VectorWString mParams;
 		std::string mLocale;
+		typedef std::vector<Control*> VectorControl;
+		VectorControl mControls;
 	};
 
 }

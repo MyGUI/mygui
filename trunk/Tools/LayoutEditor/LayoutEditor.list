@@ -50,6 +50,7 @@ set (HEADER_FILES
   SettingsUpdateResourcesControl.h
   SettingsWidgetsControl.h
   SkinInfo.h
+  StatisticInfoControl.h
   TestState.h
   TextureControl.h
   TextureToolControl.h
@@ -110,6 +111,7 @@ set (SOURCE_FILES
   SettingsResourcesControl.cpp
   SettingsUpdateResourcesControl.cpp
   SettingsWidgetsControl.cpp
+  StatisticInfoControl.cpp
   TestState.cpp
   TextureControl.cpp
   TextureToolControl.cpp
@@ -129,6 +131,10 @@ SOURCE_GROUP("Application" FILES
 SOURCE_GROUP("CodeGenerator" FILES
   CodeGenerator.cpp
   CodeGenerator.h
+)
+SOURCE_GROUP("Controls\\Framework" FILES
+  StatisticInfoControl.cpp
+  StatisticInfoControl.h
 )
 SOURCE_GROUP("Controls\\Properties" FILES
   PropertyFieldAlpha.cpp

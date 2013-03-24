@@ -28,7 +28,6 @@ namespace tools
 		mSettingsWindow(nullptr),
 		mCodeGenerator(nullptr),
 		mOpenSaveFileDialog(nullptr),
-		mMessageBoxFadeControl(nullptr),
 		mMainPaneControl(nullptr),
 		mFileName("unnamed.layout"),
 		mDefaultFileName("unnamed.layout")
@@ -72,9 +71,6 @@ namespace tools
 		mOpenSaveFileDialog->setCurrentFolder(RecentFilesManager::getInstance().getRecentFolder());
 		mOpenSaveFileDialog->setRecentFolders(RecentFilesManager::getInstance().getRecentFolders());
 
-		mMessageBoxFadeControl = new MessageBoxFadeControl();
-		mMessageBoxFadeControl->Initialise();
-
 		updateCaption();
 
 		if (!Application::getInstance().getParams().empty())
@@ -91,9 +87,6 @@ namespace tools
 	void EditorState::cleanupState()
 	{
 		UndoManager::getInstance().eventChanges -= MyGUI::newDelegate(this, &EditorState::notifyChanges);
-
-		delete mMessageBoxFadeControl;
-		mMessageBoxFadeControl = nullptr;
 
 		delete mSettingsWindow;
 		mSettingsWindow = nullptr;

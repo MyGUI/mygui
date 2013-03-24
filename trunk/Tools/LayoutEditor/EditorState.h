@@ -4,7 +4,6 @@
 #include "SettingsWindow.h"
 #include "OpenSaveFileDialog.h"
 #include "CodeGenerator.h"
-#include "MessageBoxFadeControl.h"
 #include "StateController.h"
 #include "MainPaneControl.h"
 #include "sigslot.h"
@@ -72,7 +71,6 @@ namespace tools
 		CodeGenerator* mCodeGenerator;
 		OpenSaveFileDialog* mOpenSaveFileDialog;
 
-		MessageBoxFadeControl* mMessageBoxFadeControl;
 		MainPaneControl* mMainPaneControl;
 
 		MyGUI::UString mFileName;
