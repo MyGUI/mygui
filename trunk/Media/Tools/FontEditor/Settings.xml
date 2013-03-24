@@ -41,7 +41,6 @@
 			<Value>MyGUI_DarkTemplate.xml</Value>
 			<Value>Hotkeys.xml</Value>
 			<Value>SelectionRectsSkin.xml</Value>
-			<Value>SelectionRectsTemplate.xml</Value>
 		</Resource.List>
 	</Resources>
 	<Editor>
