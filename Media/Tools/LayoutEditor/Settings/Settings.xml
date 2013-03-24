@@ -55,7 +55,6 @@
 			<Value>EditorLayers.xml</Value>
 			<Value>EditorSettings.xml</Value>
 			<Value>SelectionRectsSkin.xml</Value>
-			<Value>SelectionRectsTemplate.xml</Value>
 		</Resource.List>
 	</Resources>
 	<Controls>
