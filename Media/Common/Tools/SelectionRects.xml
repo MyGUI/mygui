@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource" version="1.1">
-	<Resource type="ResourceSkin" name="GreenRect" size="16 16" texture="SelectionRects.png">
+	<Resource type="ResourceSkin" name="GreenRectSkin" size="16 16" texture="SelectionRects.png">
 		<BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">
 			<State name="normal" offset="16 0 2 2"/>
 		</BasisSkin>
@@ -29,7 +29,7 @@
 			<State name="normal" offset="18 2 12 12"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="YellowRect" size="16 16" texture="SelectionRects.png">
+	<Resource type="ResourceSkin" name="YellowRectSkin" size="16 16" texture="SelectionRects.png">
 		<BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">
 			<State name="normal" offset="48 0 2 2"/>
 		</BasisSkin>
@@ -61,7 +61,7 @@
 			<State name="normal" colour="0 0 0" shift="0"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="BlueRect" size="16 16" texture="SelectionRects.png">
+	<Resource type="ResourceSkin" name="BlueRectSkin" size="16 16" texture="SelectionRects.png">
 		<BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">
 			<State name="normal" offset="0 0 2 2"/>
 		</BasisSkin>
@@ -90,7 +90,7 @@
 			<State name="normal" offset="2 2 12 12"/>
 		</BasisSkin>
 	</Resource>
-	<Resource type="ResourceSkin" name="RedRect" size="16 16" texture="SelectionRects.png">
+	<Resource type="ResourceSkin" name="RedRectSkin" size="16 16" texture="SelectionRects.png">
 		<BasisSkin type="SubSkin" offset="0 0 2 2" align="Left Top">
 			<State name="normal" offset="32 0 2 2"/>
 		</BasisSkin>
