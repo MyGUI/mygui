@@ -8,21 +8,27 @@ namespace TestApp
 
     public class Export
     {
-#if DEBUG
-		private const string m_dllName = "MyGUI_RenderWindow_Export_d.dll";
-#else
-		private const string m_dllName = "MyGUI_RenderWindow_Export.dll";
-#endif
 
-		#region Export
-		[DllImport(m_dllName, CallingConvention = CallingConvention.Cdecl)]
+        #region Export
+#if DEBUG
+		[DllImport("MyGUI_RenderWindow_Export_d.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_Initialise();
-		[DllImport(m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_RenderWindow_Export_d.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_AddFrameDelegate(HandleFrameStart _delegate);
-		[DllImport(m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_RenderWindow_Export_d.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_Run();
-		[DllImport(m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("MyGUI_RenderWindow_Export_d.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void ExportDemo_Shutdown();
+#else
+        [DllImport("MyGUI_RenderWindow_Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void ExportDemo_Initialise();
+        [DllImport("MyGUI_RenderWindow_Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void ExportDemo_AddFrameDelegate(HandleFrameStart _delegate);
+        [DllImport("MyGUI_RenderWindow_Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void ExportDemo_Run();
+        [DllImport("MyGUI_RenderWindow_Export.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void ExportDemo_Shutdown();
+#endif
 
 		#endregion
 
