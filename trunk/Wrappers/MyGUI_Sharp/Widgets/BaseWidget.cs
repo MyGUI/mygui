@@ -90,7 +90,7 @@ namespace MyGUI.Sharp
 
         protected abstract string GetWidgetType();
 
-        internal IntPtr GetNative() { return mNative; }
+        public IntPtr GetNative() { return mNative; }
 
         #endregion
 
