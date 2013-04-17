@@ -101,9 +101,6 @@
     <ClCompile Include="ExportLayers.cpp">
       <Filter>Source Files\Extensions</Filter>
     </ClCompile>
-    <ClCompile Include="Export_PolygonalSkin.cpp">
-      <Filter>Source Files\Extensions</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExportDefine.h">
