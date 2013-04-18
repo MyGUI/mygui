@@ -8,9 +8,9 @@ namespace MyGUI.Sharp
 
 		#region Platform
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern IntPtr ExportPlatform_Create([MarshalAs(UnmanagedType.LPStr)] string _logFileName);
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern IntPtr ExportPlatform_Destroy();
 
 		public static void CreatePlatform(string _logFileName)
@@ -27,7 +27,7 @@ namespace MyGUI.Sharp
 
 		#region Platform Log
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportPlatform_Log(
 			[MarshalAs(UnmanagedType.I4)] LogLevel _level,
 			[MarshalAs(UnmanagedType.LPStr)] string _message
@@ -42,9 +42,9 @@ namespace MyGUI.Sharp
 
 		#region Gui
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern IntPtr ExportGui_Create([MarshalAs(UnmanagedType.LPStr)] string _coreFileName);
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern IntPtr ExportGui_Destroy();
 
 		public static void CreateGui(string _coreFileName)
@@ -61,7 +61,7 @@ namespace MyGUI.Sharp
 
 		#region DataManager
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern IntPtr ExportDataManager_AddResourceLocation([MarshalAs(UnmanagedType.LPStr)] string _logFileName, [MarshalAs(UnmanagedType.U1)] bool _recursive);
 
 		public static void AddResourceLocation(string _path, bool _recursive)

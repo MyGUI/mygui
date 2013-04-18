@@ -10,15 +10,15 @@ namespace MyGUI.Sharp
 
 		#region Export
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportRenderManager_SetViewSize(
 			[MarshalAs(UnmanagedType.I4)] int _width,
 			[MarshalAs(UnmanagedType.I4)] int _height);
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportRenderManager_DrawOneFrame();
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportRenderManager_GetBuffer(
 			[MarshalAs(UnmanagedType.U4)] uint _index,
@@ -29,7 +29,7 @@ namespace MyGUI.Sharp
 			[Out, MarshalAs(UnmanagedType.U4)] out uint _layerId,
 			[Out, MarshalAs(UnmanagedType.U1)] out bool _change);
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportRenderManager_AddTexture(
 			[MarshalAs(UnmanagedType.LPStr)] string _name,
 			[MarshalAs(UnmanagedType.U4)] uint _id,

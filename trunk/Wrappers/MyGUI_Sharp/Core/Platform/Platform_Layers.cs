@@ -11,14 +11,14 @@ namespace MyGUI.Sharp
 
 		#region Export
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportLayers_GetLayer(
 			[MarshalAs(UnmanagedType.U4)] uint _index,
 			[Out, MarshalAs(UnmanagedType.U4)] out uint _layerId,
 			[Out] out IntPtr _name);
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportLayers_SetWidgetDepth(
 			IntPtr _widget,
 			[MarshalAs(UnmanagedType.R4)] float _depth);
