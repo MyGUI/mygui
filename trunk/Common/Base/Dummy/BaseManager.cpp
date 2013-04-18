@@ -85,10 +85,10 @@ namespace base
 		setInputViewSize(width, height);
 	}
 
-	bool BaseManager::create()
+	bool BaseManager::create(int _width, int _height)
 	{
-		const unsigned int width = 640;
-		const unsigned int height = 480;
+		const unsigned int width = _width;
+		const unsigned int height = _height;
 
 		// регистрируем класс окна
 		WNDCLASS wc =

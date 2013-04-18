@@ -63,7 +63,7 @@ namespace base
 	{
 	}
 
-	bool BaseManager::create()
+	bool BaseManager::create(int _width, int _height)
 	{
 		Ogre::String pluginsPath;
 
@@ -205,7 +205,6 @@ namespace base
 			delete mRoot;
 			mRoot = nullptr;
 		}
-
 	}
 
 	void BaseManager::createGui()

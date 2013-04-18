@@ -33,7 +33,7 @@ namespace base
 		virtual ~BaseManager();
 
 		virtual void prepare();
-		bool create();
+		bool create(int _width = 1024, int _height = 768);
 		void destroy();
 		void run();
 		void quit();
