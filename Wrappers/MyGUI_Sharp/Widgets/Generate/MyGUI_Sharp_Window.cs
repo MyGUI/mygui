@@ -38,7 +38,7 @@ namespace MyGUI.Sharp
 		//InsertPoint
 		#region Event WindowChangeCoord
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWindowEvent_AdviseWindowChangeCoord( IntPtr _native, bool _advise );
 
 		public delegate void HandleWindowChangeCoord(
@@ -69,7 +69,7 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventWindowChangeCoord
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 			public static extern void ExportWindowEvent_DelegateWindowChangeCoord( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
@@ -89,7 +89,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event WindowButtonPressed
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWindowEvent_AdviseWindowButtonPressed( IntPtr _native, bool _advise );
 
 		public delegate void HandleWindowButtonPressed(
@@ -121,7 +121,7 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventWindowButtonPressed
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 			public static extern void ExportWindowEvent_DelegateWindowButtonPressed( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
@@ -144,7 +144,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetCoord
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWindow_SetCoord_left_top_width_height( IntPtr _native ,
 			  int _left ,
 			  int _top ,
@@ -167,7 +167,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetSize
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWindow_SetSize_width_height( IntPtr _native ,
 			  int _width ,
 			  int _height );
@@ -184,7 +184,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetPosition
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWindow_SetPosition_left_top( IntPtr _native ,
 			  int _left ,
 			  int _top );
@@ -201,7 +201,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetMaxSize
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWindow_SetMaxSize_width_height( IntPtr _native ,
 			  int _width ,
 			  int _height );
@@ -218,7 +218,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetMinSize
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWindow_SetMinSize_width_height( IntPtr _native ,
 			  int _width ,
 			  int _height );
@@ -235,7 +235,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method SetVisibleSmooth
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWindow_SetVisibleSmooth_value( IntPtr _native ,
 			[MarshalAs(UnmanagedType.U1)]  bool _value );
 
@@ -249,10 +249,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property Movable
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportWindow_GetMovable( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWindow_SetMovable( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool Movable
@@ -264,7 +264,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property ActionScale
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportWindow_GetActionScale( IntPtr _native );
 
@@ -276,10 +276,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property Snap
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportWindow_GetSnap( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWindow_SetSnap( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool Snap
@@ -291,10 +291,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property MaxSize
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportWindow_GetMaxSize( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWindow_SetMaxSize( IntPtr _widget, [In] ref IntSize _value );
 
 		public IntSize MaxSize
@@ -306,10 +306,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property MinSize
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportWindow_GetMinSize( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWindow_SetMinSize( IntPtr _widget, [In] ref IntSize _value );
 
 		public IntSize MinSize
@@ -321,7 +321,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property CaptionWidget
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
 		private static extern TextBox ExportWindow_GetCaptionWidget( IntPtr _native );
 
@@ -333,10 +333,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property AutoAlpha
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportWindow_GetAutoAlpha( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWindow_SetAutoAlpha( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool AutoAlpha

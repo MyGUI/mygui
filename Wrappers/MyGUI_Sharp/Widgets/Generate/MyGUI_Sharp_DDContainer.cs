@@ -38,7 +38,7 @@ namespace MyGUI.Sharp
 		//InsertPoint
 		#region Event UpdateDropState
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainerEvent_AdviseUpdateDropState( IntPtr _native, bool _advise );
 
 		public delegate void HandleUpdateDropState(
@@ -71,7 +71,7 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventUpdateDropState
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 			public static extern void ExportDDContainerEvent_DelegateUpdateDropState( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
@@ -97,7 +97,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Request DragWidgetInfo
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainerEvent_AdviseDragWidgetInfo( IntPtr _native, bool _advise );
 
 		public delegate void HandleDragWidgetInfo(
@@ -130,7 +130,7 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventDragWidgetInfo
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 			public static extern void ExportDDContainerEvent_DelegateDragWidgetInfo( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
@@ -160,7 +160,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event ChangeDDState
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainerEvent_AdviseChangeDDState( IntPtr _native, bool _advise );
 
 		public delegate void HandleChangeDDState(
@@ -192,7 +192,7 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventChangeDDState
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 			public static extern void ExportDDContainerEvent_DelegateChangeDDState( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
@@ -215,7 +215,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event DropResult
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainerEvent_AdviseDropResult( IntPtr _native, bool _advise );
 
 		public delegate void HandleDropResult(
@@ -248,7 +248,7 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventDropResult
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 			public static extern void ExportDDContainerEvent_DelegateDropResult( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
@@ -274,7 +274,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event RequestDrop
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainerEvent_AdviseRequestDrop( IntPtr _native, bool _advise );
 
 		public delegate void HandleRequestDrop(
@@ -307,7 +307,7 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventRequestDrop
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 			public static extern void ExportDDContainerEvent_DelegateRequestDrop( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
@@ -333,7 +333,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Event StartDrag
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainerEvent_AdviseStartDrag( IntPtr _native, bool _advise );
 
 		public delegate void HandleStartDrag(
@@ -366,7 +366,7 @@ namespace MyGUI.Sharp
 
 		private struct ExportEventStartDrag
 		{
-			[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+			[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 			public static extern void ExportDDContainerEvent_DelegateStartDrag( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
@@ -392,7 +392,7 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Method ResetDrag
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainer_ResetDrag( IntPtr _native );
 
 		public void ResetDrag( )
@@ -403,10 +403,10 @@ namespace MyGUI.Sharp
 		#endregion
 		#region Property NeedDragDrop
 
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
 		private static extern bool ExportDDContainer_GetNeedDragDrop( IntPtr _widget );
-		[DllImport("MyGUI_Export", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportDDContainer_SetNeedDragDrop( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
 
 		public bool NeedDragDrop
