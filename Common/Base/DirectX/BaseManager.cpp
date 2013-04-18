@@ -443,7 +443,7 @@ namespace base
 
 		if (SUCCEEDED(mDevice->BeginScene()))
 		{
-			mDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x00000000, 1.0f, 0);
+			mDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, 0x001589FF, 1.0f, 0);
 			mPlatform->getRenderManagerPtr()->drawOneFrame();
 			mDevice->EndScene();
 		}
