@@ -97,10 +97,10 @@ namespace base
 		setInputViewSize(width, height);
 	}
 
-	bool BaseManager::create()
+	bool BaseManager::create(int _width, int _height)
 	{
-		const unsigned int width = 1024;
-		const unsigned int height = 768;
+		const unsigned int width = _width;
+		const unsigned int height = _height;
 		bool windowed = true;
 
 		// регистрируем класс окна

@@ -28,7 +28,7 @@ namespace base
 		virtual ~BaseManager();
 
 		virtual void prepare(); // инициализация коммандной строки
-		bool create(); // создаем начальную точки каркаса приложения
+		bool create(int _width = 1024, int _height = 768); // создаем начальную точки каркаса приложения
 		void destroy(); // очищаем все параметры каркаса приложения
 		void run();
 		void quit();
