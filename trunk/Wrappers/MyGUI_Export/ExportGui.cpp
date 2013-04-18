@@ -127,11 +127,12 @@ namespace Export
 	MYGUIEXPORT void MYGUICALL ExportGui_SetProperty(
 		MyGUI::Widget* _widget,
 		Convert<const std::string&>::Type _key ,
-		Convert<const std::string&>::Type _value )
+		Convert<const MyGUI::UString &>::Type _value )
 	{
+		const MyGUI::UString & value = Convert<const MyGUI::UString &>::From(_value);
 		_widget->setProperty(
 			Convert<const std::string&>::From(_key) ,
-			Convert<const std::string&>::From(_value) );
+			value.asUTF8());
 	}
 
 	MYGUIEXPORT Convert<const std::string&>::Type MYGUICALL ExportGui_GetPath(

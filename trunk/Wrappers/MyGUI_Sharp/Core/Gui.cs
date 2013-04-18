@@ -220,9 +220,9 @@ namespace MyGUI.Sharp
         private static extern void ExportGui_SetProperty(
             IntPtr _widget,
             [MarshalAs(UnmanagedType.LPStr)]  string _key ,
-            [MarshalAs(UnmanagedType.LPStr)]  string _value );
+            [MarshalAs(UnmanagedType.LPWStr)]  string _value );
 
-        void SetProperty(Widget _widget, string _key, string _value)
+        public static void SetProperty(Widget _widget, string _key, string _value)
         {
             ExportGui_SetProperty(_widget.GetNative(), _key, _value);
         }
