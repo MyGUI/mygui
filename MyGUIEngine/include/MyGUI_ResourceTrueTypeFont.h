@@ -12,8 +12,8 @@
 #include "MyGUI_IFont.h"
 
 #ifdef MYGUI_USE_FREETYPE
-	#include <ft2build.h>
-	#include FT_FREETYPE_H
+#	include <ft2build.h>
+#	include FT_FREETYPE_H
 #endif // MYGUI_USE_FREETYPE
 
 namespace MyGUI

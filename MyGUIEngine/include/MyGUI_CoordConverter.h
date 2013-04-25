@@ -24,8 +24,7 @@ namespace MyGUI
 				(float)_coord.left / (float)_textureSize.width,
 				(float)_coord.top / (float)_textureSize.height,
 				(float)_coord.right() / (float)_textureSize.width,
-				(float)_coord.bottom() / (float)_textureSize.height
-			);
+				(float)_coord.bottom() / (float)_textureSize.height);
 		}
 
 		/* Convert from relative to pixel coordinates.

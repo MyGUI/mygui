@@ -147,8 +147,7 @@ namespace MyGUI
 			signature : void method(float _time)\n
 			@param _time Time elapsed since last frame
 		*/
-		EventHandle_FrameEventDelegate
-			eventFrameStart;
+		EventHandle_FrameEventDelegate eventFrameStart;
 
 		/*internal:*/
 		void _linkChildWidget(Widget* _widget);

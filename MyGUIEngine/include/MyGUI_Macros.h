@@ -20,8 +20,8 @@ namespace MyGUI
 	const float ALPHA_MIN = 0.0f;
 
 	//FIXME заменить на шаблоны
-	#define MYGUI_FLAG_NONE  0
-	#define MYGUI_FLAG(num)  (1<<(num))
+#define MYGUI_FLAG_NONE  0
+#define MYGUI_FLAG(num)  (1<<(num))
 
 } // namespace MyGUI
 

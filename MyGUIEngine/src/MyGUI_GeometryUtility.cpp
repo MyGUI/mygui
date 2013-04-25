@@ -99,16 +99,14 @@ namespace MyGUI
 				return FloatPoint();
 			return FloatPoint(
 				(point.top * dirX.left - point.left * dirX.top) / div,
-				(point.left * dirY.top - point.top * dirY.left) / div
-				);
+				(point.left * dirY.top - point.top * dirY.left) / div);
 		}
 
 		FloatPoint getUVFromPositionInsideRect(const FloatPoint& _point, const FloatPoint& _v0, const FloatPoint& _v1, const FloatPoint& _baseUV)
 		{
 			return FloatPoint(
 				_baseUV.left + _point.left * _v0.left + _point.top * _v1.left,
-				_baseUV.top  + _point.left * _v0.top  + _point.top * _v1.top
-				);
+				_baseUV.top  + _point.left * _v0.top  + _point.top * _v1.top);
 		}
 
 	} // namespace geometry_utility

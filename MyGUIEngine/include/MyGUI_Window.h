@@ -101,15 +101,13 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _name of pressed button
 		*/
-		EventPair<EventHandle_WidgetString, EventHandle_WindowPtrCStringRef>
-			eventWindowButtonPressed;
+		EventPair<EventHandle_WidgetString, EventHandle_WindowPtrCStringRef> eventWindowButtonPressed;
 
 		/** Event : Window coordinate changed (window was resized or moved).\n
 			signature : void method(MyGUI::Window* _sender)
 			@param _sender widget that called this event
 		*/
-		EventPair<EventHandle_WidgetVoid, EventHandle_WindowPtr>
-			eventWindowChangeCoord;
+		EventPair<EventHandle_WidgetVoid, EventHandle_WindowPtr> eventWindowChangeCoord;
 
 	protected:
 		virtual void initialiseOverride();

@@ -243,15 +243,13 @@ namespace MyGUI
 			signature : void method(MyGUI::EditBox* _sender)
 			@param _sender widget that called this event
 		*/
-		EventPair<EventHandle_WidgetVoid, EventHandle_EditPtr>
-			eventEditSelectAccept;
+		EventPair<EventHandle_WidgetVoid, EventHandle_EditPtr> eventEditSelectAccept;
 
 		/** Event : Text changed.\n
 			signature : void method(MyGUI::EditBox* _sender)
 			@param _sender widget that called this event
 		*/
-		EventPair<EventHandle_WidgetVoid, EventHandle_EditPtr>
-			eventEditTextChange;
+		EventPair<EventHandle_WidgetVoid, EventHandle_EditPtr> eventEditTextChange;
 
 	protected:
 		virtual void initialiseOverride();

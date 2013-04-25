@@ -255,15 +255,13 @@ namespace MyGUI
 			@param _key
 			@param _value
 		*/
-		EventHandle_WidgetStringString
-			eventChangeProperty;
+		EventHandle_WidgetStringString eventChangeProperty;
 
 		/** Event : Widget coordinate changed (widget was resized or moved).\n
 			signature : void method(MyGUI::Widget* _sender)
 			@param _sender widget that called this event
 		*/
-		EventHandle_WidgetVoid
-			eventChangeCoord;
+		EventHandle_WidgetVoid eventChangeCoord;
 
 		/*internal:*/
 		// метод для запроса номера айтема и контейнера
@@ -316,7 +314,7 @@ namespace MyGUI
 		virtual const IntCoord& getLayerItemCoord() const;
 
 		template <typename T>
-		void assignWidget(T * & _widget, const std::string& _name)
+		void assignWidget(T*& _widget, const std::string& _name)
 		{
 			_widget = nullptr;
 			for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)

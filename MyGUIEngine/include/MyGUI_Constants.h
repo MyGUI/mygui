@@ -17,10 +17,22 @@ namespace MyGUI
 	class MYGUI_EXPORT Constants
 	{
 	public:
-		static const UString& getEmptyUString() { return mUString; }
-		static const std::string& getEmptyString() { return mString; }
-		static const IntSize& getZeroIntSize() { return mIntSize; }
-		static const IntPoint& getZeroIntPoint() { return mIntPoint; }
+		static const UString& getEmptyUString()
+		{
+			return mUString;
+		}
+		static const std::string& getEmptyString()
+		{
+			return mString;
+		}
+		static const IntSize& getZeroIntSize()
+		{
+			return mIntSize;
+		}
+		static const IntPoint& getZeroIntPoint()
+		{
+			return mIntPoint;
+		}
 
 	private:
 		static UString mUString;
