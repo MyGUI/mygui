@@ -13,29 +13,29 @@
 
 #ifdef MYGUI_USE_FREETYPE
 
-	#include FT_GLYPH_H
-	#include FT_TRUETYPE_TABLES_H
-	#include FT_BITMAP_H
-	#include FT_WINFONTS_H
+#	include FT_GLYPH_H
+#	include FT_TRUETYPE_TABLES_H
+#	include FT_BITMAP_H
+#	include FT_WINFONTS_H
 
-	// The following macro enables a workaround for a bug in FreeType's bytecode interpreter that, when using certain fonts at
-	// certain sizes, causes FreeType to start measuring and rendering some glyphs inconsistently after certain other glyphs have
-	// been loaded. See FreeType bug #35374 for details: https://savannah.nongnu.org/bugs/?35374
-	//
-	// To reproduce the bug, first disable the workaround by defining MYGUI_USE_FREETYPE_BYTECODE_BUG_FIX to 0. Then load the
-	// DejaVu Sans font at 10 pt using default values for all other properties. Observe that the glyphs for the "0", 6", "8", and
-	// "9" characters are now badly corrupted when rendered.
-	//
-	// This bug still exists as of FreeType 2.4.8 and there are currently no plans to fix it. If the bug is ever fixed, this
-	// workaround should be disabled, as it causes fonts to take longer to load.
-	//
-	// The bug can currently also be suppressed by disabling FreeType's bytecode interpreter altogether. To do so, remove the
-	// TT_CONFIG_OPTION_BYTECODE_INTERPRETER macro in the "ftoption.h" FreeType header file. Once this is done, this workaround can
-	// be safely disabled. Note that disabling FreeType's bytecode interpreter will cause rendered text to look somewhat different.
-	// Whether it looks better or worse is a matter of taste and may also depend on the font.
-	#ifndef MYGUI_USE_FREETYPE_BYTECODE_BUG_FIX
-		#define MYGUI_USE_FREETYPE_BYTECODE_BUG_FIX 1
-	#endif
+//	The following macro enables a workaround for a bug in FreeType's bytecode interpreter that, when using certain fonts at
+//	certain sizes, causes FreeType to start measuring and rendering some glyphs inconsistently after certain other glyphs have
+//	been loaded. See FreeType bug #35374 for details: https://savannah.nongnu.org/bugs/?35374
+//
+//	To reproduce the bug, first disable the workaround by defining MYGUI_USE_FREETYPE_BYTECODE_BUG_FIX to 0. Then load the
+//	DejaVu Sans font at 10 pt using default values for all other properties. Observe that the glyphs for the "0", 6", "8", and
+//	"9" characters are now badly corrupted when rendered.
+//
+//	This bug still exists as of FreeType 2.4.8 and there are currently no plans to fix it. If the bug is ever fixed, this
+//	workaround should be disabled, as it causes fonts to take longer to load.
+//
+//	The bug can currently also be suppressed by disabling FreeType's bytecode interpreter altogether. To do so, remove the
+//	TT_CONFIG_OPTION_BYTECODE_INTERPRETER macro in the "ftoption.h" FreeType header file. Once this is done, this workaround can
+//	be safely disabled. Note that disabling FreeType's bytecode interpreter will cause rendered text to look somewhat different.
+//	Whether it looks better or worse is a matter of taste and may also depend on the font.
+#	ifndef MYGUI_USE_FREETYPE_BYTECODE_BUG_FIX
+#		define MYGUI_USE_FREETYPE_BYTECODE_BUG_FIX 1
+#	endif
 
 #endif // MYGUI_USE_FREETYPE
 
@@ -149,7 +149,7 @@ namespace MyGUI
 			std::make_pair(FontCodeType::Tab, (const uint8)'\x00')
 		};
 
-		const std::map<const Char, const uint8> charMask(charMaskData, charMaskData + sizeof charMaskData / sizeof *charMaskData);
+		const std::map<const Char, const uint8> charMask(charMaskData, charMaskData + sizeof charMaskData / sizeof(*charMaskData));
 
 		const uint8 charMaskBlack = (const uint8)'\x00';
 		const uint8 charMaskWhite = (const uint8)'\xFF';

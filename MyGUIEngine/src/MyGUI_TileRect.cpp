@@ -322,8 +322,7 @@ namespace MyGUI
 					texture_top,
 					texture_right,
 					texture_bottom,
-					mCurrentColour
-				);
+					mCurrentColour);
 
 				count ++;
 			}

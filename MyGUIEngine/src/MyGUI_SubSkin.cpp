@@ -253,8 +253,7 @@ namespace MyGUI
 			mCurrentTexture.top,
 			mCurrentTexture.right,
 			mCurrentTexture.bottom,
-			mCurrentColour
-		);
+			mCurrentColour);
 
 		mRenderItem->setLastVertexCount(VertexQuad::VertexCount);
 	}

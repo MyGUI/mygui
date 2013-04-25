@@ -258,11 +258,11 @@ namespace MyGUI
 			else if (_sender->getVisible())
 			{
 
-	#if MYGUI_DEBUG_MODE == 1
+#if MYGUI_DEBUG_MODE == 1
 				_checkMapping("ListBox::notifyMousePressed");
 				MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>(), mWidgetLines.size(), "ListBox::notifyMousePressed");
 				MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>() + mTopIndex, mItemsInfo.size(), "ListBox::notifyMousePressed");
-	#endif
+#endif
 
 				size_t index = *_sender->_getInternalData<size_t>() + mTopIndex;
 
