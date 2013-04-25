@@ -77,8 +77,7 @@ namespace MyGUI
 			MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
 			(LPTSTR) &lpMsgBuf,
 			0,
-			NULL
-		);
+			NULL);
 		std::string ret = (char*)lpMsgBuf;
 		// Free the buffer.
 		LocalFree( lpMsgBuf );

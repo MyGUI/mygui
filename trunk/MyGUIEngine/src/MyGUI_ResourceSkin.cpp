@@ -88,8 +88,7 @@ namespace MyGUI
 					IntCoord::parse(basis->findAttribute("offset")),
 					Align::parse(basis->findAttribute("align")),
 					basis->findAttribute("layer"),
-					basis->findAttribute("name")
-				);
+					basis->findAttribute("name"));
 
 				xml::ElementEnumerator child_params = basis->getElementEnumerator();
 				while (child_params.next("Property"))

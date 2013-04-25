@@ -183,9 +183,7 @@ namespace MyGUI
 					0,
 					0,
 					(float) mReqTexSize.width  / (float) getTextureRealWidth(),
-					(float) mReqTexSize.height / (float) getTextureRealHeight()
-				)
-			);
+					(float) mReqTexSize.height / (float) getTextureRealHeight()));
 		}
 
 		if ( mTexResizeMode == TRM_PT_CONST_SIZE || mTexResizeMode == TRM_PT_VIEW_ALL )

@@ -115,7 +115,7 @@ namespace MyGUI
 									coord.top / textureHeight,
 									coord.right() / textureWidth,
 									coord.bottom() / textureHeight)
-							))).first->second;
+								))).first->second;
 
 							if (id == FontCodeType::NotDefined)
 								mSubstituteGlyphInfo = &glyphInfo;
