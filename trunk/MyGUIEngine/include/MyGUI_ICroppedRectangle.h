@@ -235,9 +235,9 @@ namespace MyGUI
 		bool _checkOutside() const // проверка на полный выход за границу
 		{
 			return ( (getRight() < mCroppedParent->mMargin.left ) || // совсем уехали налево
-					(getLeft() > mCroppedParent->getWidth() - mCroppedParent->mMargin.right ) || // совсем уехали направо
-					(getBottom() < mCroppedParent->mMargin.top  ) || // совсем уехали вверх
-					(getTop() > mCroppedParent->getHeight() - mCroppedParent->mMargin.bottom ) );  // совсем уехали вниз
+				(getLeft() > mCroppedParent->getWidth() - mCroppedParent->mMargin.right ) || // совсем уехали направо
+				(getBottom() < mCroppedParent->mMargin.top  ) || // совсем уехали вверх
+				(getTop() > mCroppedParent->getHeight() - mCroppedParent->mMargin.bottom ) );  // совсем уехали вниз
 		}
 
 	protected:

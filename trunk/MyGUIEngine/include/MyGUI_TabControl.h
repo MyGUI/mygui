@@ -221,8 +221,7 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _index Index of selected sheet
 		*/
-		EventPair<EventHandle_WidgetSizeT, EventHandle_TabPtrSizeT>
-			eventTabChangeSelect;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_TabPtrSizeT> eventTabChangeSelect;
 
 		/*internal:*/
 		// IItemContainer impl

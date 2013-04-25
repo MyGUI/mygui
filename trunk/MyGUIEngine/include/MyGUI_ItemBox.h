@@ -140,8 +140,7 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _item widget item pointer
 		*/
-		EventHandle_ItemBoxPtrWidgetPtr
-			requestCreateWidgetItem;
+		EventHandle_ItemBoxPtrWidgetPtr requestCreateWidgetItem;
 
 		/** Event : Request for item coordinate.\n
 			signature : void method(MyGUI::ItemBox* _sender, MyGUI::IntCoord& _coord, bool _drag)
@@ -149,8 +148,7 @@ namespace MyGUI
 			@param _coord write heer item coordinate
 			@param _drag is this item dragging
 		*/
-		EventHandle_ItemBoxPtrIntCoordRefBool
-			requestCoordItem;
+		EventHandle_ItemBoxPtrIntCoordRefBool requestCoordItem;
 
 		/** Event : Request for item redraw.\n
 			signature : void method(MyGUI::ItemBox* _sender, MyGUI::Widget* _item, const MyGUI::IBDrawItemInfo& _info)
@@ -158,40 +156,35 @@ namespace MyGUI
 			@param _item widget item pointer
 			@param _info item info
 		*/
-		EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef
-			requestDrawItem;
+		EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef requestDrawItem;
 
 		/** Event : Doubleclick or enter pressed on item.\n
 			signature : void method(MyGUI::ItemBox* _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index item index
 		*/
-		EventHandle_ItemBoxPtrSizeT
-			eventSelectItemAccept;
+		EventHandle_ItemBoxPtrSizeT eventSelectItemAccept;
 
 		/** Event : Position of selected item was changed.\n
 			signature : void method(MyGUI::ItemBox* _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index item index
 		*/
-		EventHandle_ItemBoxPtrSizeT
-			eventChangeItemPosition;
+		EventHandle_ItemBoxPtrSizeT eventChangeItemPosition;
 
 		/** Event : Click on item.\n
 			signature : void method(MyGUI::ItemBox* _sender, size_t _index)
 			@param _sender widget that called this event
 			@param _index item index
 		*/
-		EventHandle_ItemBoxPtrSizeT
-			eventMouseItemActivate;
+		EventHandle_ItemBoxPtrSizeT eventMouseItemActivate;
 
 		/** Event : Notify about event in item widget.\n
 			signature : void method(MyGUI::ItemBox* _sender, const MyGUI::IBNotifyItemData& _info)
 			@param _sender widget that called this event
 			@param _info info about item notify
 		*/
-		EventHandle_ItemBoxPtrCIBNotifyCellDataRef
-			eventNotifyItem;
+		EventHandle_ItemBoxPtrCIBNotifyCellDataRef eventNotifyItem;
 
 		/*internal:*/
 		virtual void _resetContainer(bool _update);

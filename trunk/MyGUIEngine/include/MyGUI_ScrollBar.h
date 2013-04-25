@@ -99,8 +99,7 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _position - new tracker position
 		*/
-		EventHandle_ScrollBarPtrSizeT
-			eventScrollChangePosition;
+		EventHandle_ScrollBarPtrSizeT eventScrollChangePosition;
 
 	protected:
 		virtual void initialiseOverride();

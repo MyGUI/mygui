@@ -58,8 +58,7 @@ namespace MyGUI
 			signature : void method(const std::string& _pointerName)\n
 			@param _pointerName Name of current mouse pointer
 		*/
-		delegates::CMultiDelegate1<const std::string&>
-			eventChangeMousePointer;
+		delegates::CMultiDelegate1<const std::string&> eventChangeMousePointer;
 
 	private:
 		void _unlinkWidget(Widget* _widget);

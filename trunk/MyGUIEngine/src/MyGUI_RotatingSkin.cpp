@@ -293,9 +293,7 @@ namespace MyGUI
 					parent->_getMarginLeft() - mCroppedParent->getLeft(),
 					parent->_getMarginTop() - mCroppedParent->getTop(),
 					parent->_getViewWidth(),
-					parent->_getViewHeight()
-					)
-				);
+					parent->_getViewHeight()));
 
 			for (size_t i = 0; i < resultVerticiesPos.size(); ++i)
 			{

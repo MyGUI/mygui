@@ -35,8 +35,7 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _position - new tracker position
 		*/
-		EventPair<EventHandle_WidgetSizeT, EventHandle_VScrollPtrSizeT>
-			eventScrollChangePosition;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_VScrollPtrSizeT> eventScrollChangePosition;
 	};
 
 	class MYGUI_EXPORT HScroll :

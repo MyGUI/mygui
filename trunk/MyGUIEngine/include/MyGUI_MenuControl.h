@@ -243,15 +243,13 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _item Selected item
 		*/
-		EventHandle_MenuCtrlPtrMenuItemPtr
-			eventMenuCtrlAccept;
+		EventHandle_MenuCtrlPtrMenuItemPtr eventMenuCtrlAccept;
 
 		/** Event : Menu was closed by select or focus change.\n
 			signature : void method(MyGUI::MenuControl* _sender)\n
 			@param _sender widget that called this event
 		*/
-		EventHandle_MenuCtrlPtr
-			eventMenuCtrlClose;
+		EventHandle_MenuCtrlPtr eventMenuCtrlClose;
 
 
 		/*internal:*/

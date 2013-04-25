@@ -53,8 +53,7 @@ namespace MyGUI
 			@param _key UserString value.
 			@note Happens only when UserString was loaded from layout, but not when it was added in code.
 		*/
-		EventHandle_AddUserStringDelegate
-			eventAddUserString;
+		EventHandle_AddUserStringDelegate eventAddUserString;
 
 		const std::string& getCurrentLayout() const;
 

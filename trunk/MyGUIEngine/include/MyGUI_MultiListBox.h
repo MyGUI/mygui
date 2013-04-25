@@ -268,16 +268,14 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _index of selected item
 		*/
-		EventPair<EventHandle_WidgetSizeT, EventHandle_MultiListPtrSizeT>
-			eventListSelectAccept;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_MultiListPtrSizeT> eventListSelectAccept;
 
 		/** Event : Selected item position changed.\n
 			signature : void method(MyGUI::MultiListBox* _sender, size_t _index)\n
 			@param _sender widget that called this event
 			@param _index of new item
 		*/
-		EventPair<EventHandle_WidgetSizeT, EventHandle_MultiListPtrSizeT>
-			eventListChangePosition;
+		EventPair<EventHandle_WidgetSizeT, EventHandle_MultiListPtrSizeT> eventListChangePosition;
 
 		/** Event : Less than operator for sort multilist by columns.\n
 			signature : void method(MyGUI::MultiListBox* _sender, size_t _column, const UString& _firstItem, const UString& _secondItem, bool& _less)\n
@@ -287,8 +285,7 @@ namespace MyGUI
 			@param _secondItem Strings for compare
 			@param _less Comparsion result (write your value here)
 		*/
-		EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef
-			requestOperatorLess;
+		EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef requestOperatorLess;
 
 		/*internal:*/
 		// IItemContainer impl

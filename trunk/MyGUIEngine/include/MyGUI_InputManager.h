@@ -116,15 +116,13 @@ namespace MyGUI
 			signature : void method(MyGUI::Widget* _widget)\n
 			@param _widget
 		*/
-		delegates::CMultiDelegate1<Widget*>
-			eventChangeMouseFocus;
+		delegates::CMultiDelegate1<Widget*> eventChangeMouseFocus;
 
 		/** Event : MultiDelegate. Key focus was changed.\n
 			signature : void method(MyGUI::Widget* _widget)\n
 			@param _widget
 		*/
-		delegates::CMultiDelegate1<Widget*>
-			eventChangeKeyFocus;
+		delegates::CMultiDelegate1<Widget*> eventChangeKeyFocus;
 
 		/*internal:*/
 		void _resetMouseFocusWidget();
