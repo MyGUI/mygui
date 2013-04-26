@@ -113,6 +113,10 @@ namespace MyGUI
 					MYGUI_PLATFORM_LOG(Warning, " - '" << result[index] << "'");
 			}
 		}
+		else
+		{
+			path.clear();
+		}
 
 		return path;
 	}
