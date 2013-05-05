@@ -51,11 +51,13 @@ if (NOT OGRE_FOUND)
 			set(BOOST_ROOT ${BOOST_ROOT} CACHE PATH "Path to Boost (required if Ogre was built with boost)")
 			FIND_PACKAGE(Boost)
 			
-			#message("Threads!" ${OGRE_CONFIG_THREADS})
-			
 			if (Boost_FOUND)
 				set (OGRE_INCLUDE_DIR ${OGRE_INCLUDE_DIR} ${Boost_INCLUDE_DIR})
 				set (OGRE_LIB_DIR ${OGRE_LIB_DIR} ${Boost_LIBRARY_DIRS} ${BOOST_LIBRARYDIR})
+			else()
+				# trying to get boost from OGRE_SOURCE
+				set (OGRE_INCLUDE_DIR ${OGRE_INCLUDE_DIR} ${OGRE_SOURCE}/boost)
+				set (OGRE_LIB_DIR ${OGRE_LIB_DIR} ${OGRE_SOURCE}/boost/lib)
 			endif()
 			
 			add_definitions("-DBOOST_ALL_NO_LIB")
