@@ -202,7 +202,6 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 endif ()
 
 if (MSVC)
-	add_definitions(/fp:fast)
 	add_definitions("-D_CRT_SECURE_NO_WARNINGS")
 	
 	# Use the highest warning level for visual studio.
