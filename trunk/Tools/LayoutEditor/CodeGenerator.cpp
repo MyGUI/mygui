@@ -142,7 +142,7 @@ namespace tools
 
 		lm.addUserTag("Panel_Name", panelName);
 		lm.addUserTag("Panel_Namespace", panelNamespace);
-		lm.addUserTag("Layout_Name", MyGUI::LanguageManager::getInstance().getTag("CurrentFileName_Short"));
+		lm.addUserTag("Layout_Name", MyGUI::LanguageManager::getInstance().getTag("ResourceName"));
 		lm.addUserTag("Include_Directory", includeDirectory);
 		lm.addUserTag("Source_Directory", sourceDirectory);
 		lm.addUserTag("Uppercase_Panel_Name", stringToUpperCase(panelName));
