@@ -529,14 +529,14 @@ namespace tools
 	{
 		mFileName = _fileName;
 		addUserTag("CurrentFileName", convertProjectName(mFileName));
-
-		size_t pos = mFileName.find_last_of("\\/");
-		MyGUI::UString shortName = pos == MyGUI::UString::npos ? mFileName : mFileName.substr(pos + 1);
-		addUserTag("CurrentFileName_Short", shortName);
 	}
 
 	MyGUI::UString EditorState::convertProjectName(const MyGUI::UString& _fileName)
 	{
+		size_t pos = mFileName.find_last_of("\\/");
+		MyGUI::UString shortName = pos == MyGUI::UString::npos ? mFileName : mFileName.substr(pos + 1);
+		addUserTag("ResourceName", shortName);
+
 		size_t index = _fileName.find("|");
 		if (index == MyGUI::UString::npos)
 			return _fileName;
@@ -564,7 +564,9 @@ namespace tools
 					if (itemIndex == 0)
 					{
 						// поменять на теги
-						return MyGUI::utility::toString(fileName, " [", element->findAttribute("name"), "]");
+						std::string resourceName = element->findAttribute("name");
+						addUserTag("ResourceName", resourceName);
+						return MyGUI::utility::toString(fileName, " [", resourceName, "]");
 					}
 					else
 					{
