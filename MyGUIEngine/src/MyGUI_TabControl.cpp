@@ -951,11 +951,11 @@ namespace MyGUI
 
 	void TabControl::updateBarNew()
 	{
-		// подстраховка
-		if (mHeaderPlace->getWidth() < 1)
+		if (mHeaderPlace == nullptr)
 			return;
 
-		if (mHeaderPlace == nullptr)
+		// подстраховка
+		if (mHeaderPlace->getWidth() < 1)
 			return;
 
 		int widthControls = 0;
