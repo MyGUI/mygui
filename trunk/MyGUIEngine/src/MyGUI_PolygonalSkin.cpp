@@ -398,7 +398,7 @@ namespace MyGUI
 				// check orientation
 				FloatPoint normal2 = _getPerpendicular(mLinePoints[i], mLinePoints[i + 1]);
 				lineDir = mLinePoints[i - 1] - mLinePoints[i];
-				if ((lineDir.left * normal2.top - lineDir.top * normal2.left < 0))
+				if (lineDir.left * normal2.top - lineDir.top * normal2.left < 0)
 				{
 					normal2.left = -normal2.left;
 					normal2.top = -normal2.top;
