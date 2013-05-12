@@ -52,6 +52,8 @@ namespace tools
 
 		virtual void _unlinkWidget(MyGUI::Widget* _widget);
 
+		MyGUI::MapString& getCodeGeneratorSettings();
+
 	private:
 		WidgetContainer* _find(MyGUI::Widget* _widget, const std::string& _name, std::vector<WidgetContainer*> _widgets);
 
@@ -75,17 +77,22 @@ namespace tools
 
 		void loadWidgetsFromXmlNode(MyGUI::xml::ElementPtr _root, bool _testMode = false);
 		void saveWidgetsToXmlNode(MyGUI::xml::ElementPtr _root, bool _compatibility = false);
+
+		void loadCodeGeneratorSettings(MyGUI::xml::ElementPtr _sectorNode);
+		void saveCodeGeneratorSettings(MyGUI::xml::ElementPtr _rootNode);
+
 	private:
 		bool mWidgetsChanged;
 		typedef std::vector<std::string> VectorString;
 		VectorString mIgnoreParameters;
 		VectorWidgetContainer mWidgets;
 
-		typedef std::map<std::string, std::string> MapString;
-		MapString mSkinReplaces;
+		MyGUI::MapString mSkinReplaces;
 
 		MyGUI::UString mCurrentFileName;
 		MyGUI::UString mCurrentItemName;
+
+		MyGUI::MapString mCodeGeneratorSettings;
 	};
 
 }
