@@ -29,8 +29,7 @@ namespace tools
 		void addChild(Data* _child);
 		void removeChild(Data* _child);
 
-		typedef std::map<std::string, std::string> MapString;
-		const MapString getProperties() const;
+		const MyGUI::MapString getProperties() const;
 
 		const std::string& getPropertyValue(const std::string& _name) const;
 		void setPropertyValue(const std::string& _name, const std::string& _value);
@@ -42,7 +41,7 @@ namespace tools
 		DataInfo* mType;
 		Data* mParent;
 		VectorData mChilds;
-		MapString mProperties;
+		MyGUI::MapString mProperties;
 	};
 }
 

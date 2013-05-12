@@ -47,8 +47,7 @@ namespace base
 
 		size_t getWindowHandle();
 
-		typedef std::map<std::string, std::string> MapString;
-		MapString getStatistic();
+		MyGUI::MapString getStatistic();
 
 	/*internal:*/
 		Ogre::SceneManager* getSceneManager();
