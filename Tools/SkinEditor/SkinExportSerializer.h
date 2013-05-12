@@ -50,9 +50,8 @@ namespace tools
 		void moveToEnd(Data::VectorData& childs, size_t _index);
 
 	private:
-		typedef std::map<std::string, std::string> MapString;
-		MapString mEditorToExportNames;
-		MapString mExportToEditorNames;
+		MyGUI::MapString mEditorToExportNames;
+		MyGUI::MapString mExportToEditorNames;
 	};
 
 }

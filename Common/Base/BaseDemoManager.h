@@ -103,8 +103,8 @@ namespace base
 				{
 					time -= 1;
 
-					MapString statistic = getStatistic();
-					for (base::BaseManager::MapString::const_iterator info = statistic.begin(); info != statistic.end(); info ++)
+					MyGUI::MapString statistic = getStatistic();
+					for (MyGUI::MapString::const_iterator info = statistic.begin(); info != statistic.end(); info ++)
 						mInfo->change((*info).first, (*info).second);
 					mInfo->update();
 				}

@@ -50,8 +50,7 @@ namespace base
 
 		size_t getWindowHandle();
 
-		typedef std::map<std::string, std::string> MapString;
-		MapString getStatistic() { return MapString(); }
+		MyGUI::MapString getStatistic() { return MyGUI::MapString(); }
 
 	/*internal:*/
 		void _windowResized();

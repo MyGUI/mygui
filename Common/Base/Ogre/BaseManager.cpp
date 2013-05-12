@@ -479,9 +479,9 @@ namespace base
 		mWindow->writeContentsToFile(file);
 	}
 
-	BaseManager::MapString BaseManager::getStatistic()
+	MyGUI::MapString BaseManager::getStatistic()
 	{
-		MapString result;
+		MyGUI::MapString result;
 
 		try
 		{
