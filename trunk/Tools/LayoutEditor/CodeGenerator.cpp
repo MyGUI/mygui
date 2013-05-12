@@ -195,18 +195,20 @@ namespace tools
 
 	void CodeGenerator::loadTemplate()
 	{
-		mPanelNameEdit->setCaption(SettingsManager::getInstance().getValue("Settings/CodeGenerator/PanelName"));
-		mPanelNamespaceEdit->setCaption(SettingsManager::getInstance().getValue("Settings/CodeGenerator/PanelNamespace"));
-		mIncludeDirectoryEdit->setCaption(SettingsManager::getInstance().getValue("Settings/CodeGenerator/IncludeDirectory"));
-		mSourceDirectoryEdit->setCaption(SettingsManager::getInstance().getValue("Settings/CodeGenerator/SourceDirectory"));
+		MyGUI::MapString& codeGeneratorSettings = EditorWidgets::getInstance().getCodeGeneratorSettings();
+		mPanelNameEdit->setCaption(codeGeneratorSettings["PanelName"]);
+		mPanelNamespaceEdit->setCaption(codeGeneratorSettings["PanelNamespace"]);
+		mIncludeDirectoryEdit->setCaption(codeGeneratorSettings["IncludeDirectory"]);
+		mSourceDirectoryEdit->setCaption(codeGeneratorSettings["SourceDirectory"]);
 	}
 
 	void CodeGenerator::saveTemplate()
 	{
-		SettingsManager::getInstance().setValue("Settings/CodeGenerator/PanelName", mPanelNameEdit->getOnlyText());
-		SettingsManager::getInstance().setValue("Settings/CodeGenerator/PanelNamespace", mPanelNamespaceEdit->getOnlyText());
-		SettingsManager::getInstance().setValue("Settings/CodeGenerator/IncludeDirectory", mIncludeDirectoryEdit->getOnlyText());
-		SettingsManager::getInstance().setValue("Settings/CodeGenerator/SourceDirectory", mSourceDirectoryEdit->getOnlyText());
+		MyGUI::MapString& codeGeneratorSettings = EditorWidgets::getInstance().getCodeGeneratorSettings();
+		codeGeneratorSettings["PanelName"] = mPanelNameEdit->getOnlyText();
+		codeGeneratorSettings["PanelNamespace"] = mPanelNamespaceEdit->getOnlyText();
+		codeGeneratorSettings["IncludeDirectory"] = mIncludeDirectoryEdit->getOnlyText();
+		codeGeneratorSettings["SourceDirectory"] = mSourceDirectoryEdit->getOnlyText();
 
 		UndoManager::getInstance().setUnsaved(true);
 	}

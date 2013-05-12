@@ -14,6 +14,7 @@ namespace tools
 {
 
 	const std::string LogSection = "LayoutEditor";
+	const std::string CodeGeneratorSettingsNodeName = "CodeGeneratorSettings";
 
 	EditorWidgets::EditorWidgets() :
 		mWidgetsChanged(false)
@@ -41,6 +42,8 @@ namespace tools
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &EditorWidgets::notifyFrameStarted);
 
 		destroyAllWidgets();
+
+		mCodeGeneratorSettings.clear();
 	}
 
 	void EditorWidgets::destroyAllWidgets()
@@ -379,6 +382,8 @@ namespace tools
 		{
 			remove(mWidgets[mWidgets.size()-1]);
 		}
+
+		mCodeGeneratorSettings.clear();
 	}
 
 	WidgetContainer* EditorWidgets::find(MyGUI::Widget* _widget)
@@ -679,7 +684,7 @@ namespace tools
 
 	std::string EditorWidgets::getSkinReplace(const std::string& _skinName)
 	{
-		MapString::iterator item = mSkinReplaces.find(_skinName);
+		MyGUI::MapString::iterator item = mSkinReplaces.find(_skinName);
 		if (item != mSkinReplaces.end())
 			return (*item).second;
 		return _skinName;
@@ -738,6 +743,11 @@ namespace tools
 		}
 	}
 
+	MyGUI::MapString& EditorWidgets::getCodeGeneratorSettings()
+	{
+		return mCodeGeneratorSettings;
+	}
+
 	void EditorWidgets::loadWidgetsFromXmlNode(MyGUI::xml::ElementPtr _root, bool _testMode)
 	{
 		// берем детей и крутимся
@@ -746,6 +756,8 @@ namespace tools
 		{
 			if (element->getName() == "Widget")
 				parseWidget(element, nullptr, _testMode);
+			else if (element->getName() == CodeGeneratorSettingsNodeName)
+				loadCodeGeneratorSettings(element.current());
 		}
 	}
 
@@ -758,6 +770,40 @@ namespace tools
 			// в корень только сирот
 			if (nullptr == (*iter)->getWidget()->getParent())
 				serialiseWidget(*iter, _root, _compatibility);
+		}
+
+		saveCodeGeneratorSettings(_root);
+	}
+
+	void EditorWidgets::loadCodeGeneratorSettings(MyGUI::xml::ElementPtr _sectorNode)
+	{
+		MyGUI::xml::ElementEnumerator widget = _sectorNode->getElementEnumerator();
+		while (widget.next())
+		{
+			std::string key, value;
+
+			if (widget->getName() == "Property")
+			{
+				// парсим атрибуты
+				if (!widget->findAttribute("key", key))
+					continue;
+				if (!widget->findAttribute("value", value))
+					continue;
+
+				mCodeGeneratorSettings[key] = value;
+			}
+		}
+	}
+
+	void EditorWidgets::saveCodeGeneratorSettings(MyGUI::xml::ElementPtr _rootNode)
+	{
+		MyGUI::xml::ElementPtr node = _rootNode->createChild(CodeGeneratorSettingsNodeName);
+
+		for (MyGUI::MapString::const_iterator iter = mCodeGeneratorSettings.begin(); iter != mCodeGeneratorSettings.end(); ++iter)
+		{
+			MyGUI::xml::ElementPtr nodeProp = node->createChild("Property");
+			nodeProp->addAttribute("key", iter->first);
+			nodeProp->addAttribute("value", iter->second);
 		}
 	}
 
