@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
-    <Widget type="Window" skin="WindowCS" position="90 70 715 445" layer="Main">
+    <Widget type="Window" skin="WindowCS" position="90 70 715 466" layer="Main">
         <Property key="Caption" value="Bezier curve"/>
         <Property key="MinSize" value="200 200"/>
         <Widget type="Widget" skin="PanelSkin" position="5 6 695 371" align="Stretch">
@@ -8,8 +8,14 @@
         </Widget>
         <Widget type="TextBox" skin="TextBox" position="6 382 84 20" align="Left Bottom" name="SplineText"/>
         <Widget type="ScrollBar" skin="SliderH" position="98 385 600 15" align="HStretch Bottom" name="SplineQuality">
-            <Property key="Range" value="124"/>
+            <Property key="Range" value="253"/>
             <Property key="RangePosition" value="12"/>
         </Widget>
+        <Widget type="TextBox" skin="TextBox" position="6 407 84 20" align="Left Bottom" name="StrokeText"/>
+        <Widget type="ScrollBar" skin="SliderH" position="98 410 600 15" align="HStretch Bottom" name="StrokeQuality">
+            <Property key="Range" value="17"/>
+            <Property key="RangePosition" value="0"/>
+        </Widget>
     </Widget>
+    <CodeGeneratorSettings/>
 </MyGUI>

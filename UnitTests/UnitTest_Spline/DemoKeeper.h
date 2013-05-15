@@ -28,12 +28,14 @@ namespace demo
 		void notifyPointMove(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyPointPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);
 		void notifyChangeQuality(MyGUI::ScrollBar* _sender, size_t _position);
+		void notifyChangeStroke(MyGUI::ScrollBar* _sender, size_t _position);
 
 	private:
 		MyGUI::Widget* mClient;
 		std::vector<MyGUI::FloatPoint> mLinePoints;
 		MyGUI::PolygonalSkin* mPolygonalSkin;
 		MyGUI::TextBox* mQualityText;
+		MyGUI::TextBox* mStrokeText;
 		MyGUI::IntPoint mOffset;
 	};
 
