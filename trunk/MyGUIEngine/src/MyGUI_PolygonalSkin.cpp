@@ -17,7 +17,7 @@ namespace MyGUI
 	PolygonalSkin::PolygonalSkin() :
 		mGeometryOutdated(false),
 		mLineWidth(1.0f),
-		mLineStroke(ITEM_NONE),
+		mLineStroke(0),
 		mLineLength(0.0f),
 		mVertexCount(0),
 		mEmptyView(false),
@@ -331,14 +331,14 @@ namespace MyGUI
 		float currentLength = 0.0f;
 		for (size_t i = 1; i < mLinePoints.size(); ++i)
 		{
-			if (stroke >= mLineStroke)
-			{
-				stroke = 0;
-				draw = !draw;
-			}
-			else
+			if (mLineStroke != 0)
 			{
 				stroke++;
+				if (stroke == mLineStroke)
+				{
+					stroke = 0;
+					draw = !draw;
+				}
 			}
 
 			currentLength += len(mLinePoints[i - 1].left - mLinePoints[i].left,  mLinePoints[i - 1].top - mLinePoints[i].top);
