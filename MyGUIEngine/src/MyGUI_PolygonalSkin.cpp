@@ -19,7 +19,7 @@ namespace MyGUI
 		mLineWidth(1.0f),
 		mLineStroke(0),
 		mLineLength(0.0f),
-		mVertexCount(0),
+		mVertexCount(VertexQuad::VertexCount),
 		mEmptyView(false),
 		mCurrentColour(0xFFFFFFFF),
 		mNode(nullptr),
