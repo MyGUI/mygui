@@ -30,6 +30,9 @@ namespace MyGUI
 		/** Set line width in pixels. */
 		void setWidth(float _width);
 
+		/** Set line stroke. */
+		void setStroke(size_t _value);
+
 		virtual void setAlpha(float _alpha);
 
 		virtual void setVisible(bool _visible);
@@ -61,6 +64,7 @@ namespace MyGUI
 		bool mGeometryOutdated;
 
 		float mLineWidth;
+		size_t mLineStroke;
 		std::vector<FloatPoint> mLinePoints;
 		float mLineLength;
 
