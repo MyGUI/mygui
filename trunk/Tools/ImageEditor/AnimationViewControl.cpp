@@ -23,7 +23,6 @@ namespace tools
 		mButtonLeft(nullptr),
 		mButtonRight(nullptr),
 		mParentData(nullptr),
-		mMaxCountFrame(64),
 		mCurrentFrame(0),
 		mTime(0),
 		mPlay(true)

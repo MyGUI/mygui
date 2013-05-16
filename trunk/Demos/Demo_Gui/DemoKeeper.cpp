@@ -13,7 +13,7 @@
 
 namespace demo
 {
-	std::vector<wraps::RenderBox*> mRenderBoxes;
+	static std::vector<wraps::RenderBox*> mRenderBoxes;
 }
 
 #endif // MYGUI_OGRE_PLATFORM
@@ -92,7 +92,7 @@ namespace demo
 		mColourWindow = new ColourWindow(mEditorWindow->getView());
 	}
 
-	int getRand(int _min, int _max)
+	static int getRand(int _min, int _max)
 	{
 		if (_max < _min)
 			std::swap(_max, _min);

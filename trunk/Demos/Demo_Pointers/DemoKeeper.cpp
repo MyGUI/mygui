@@ -12,9 +12,9 @@ namespace demo
 {
 
 #ifdef MYGUI_OGRE_PLATFORM
-	Ogre::RaySceneQuery* gRaySceneQuery = 0;
-	float gAngleH = 90;
-	float gAngleV = -25;
+	static Ogre::RaySceneQuery* gRaySceneQuery = 0;
+	static float gAngleH = 90;
+	static float gAngleV = -25;
 #endif
 
 	DemoKeeper::DemoKeeper() :

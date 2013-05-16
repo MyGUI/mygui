@@ -184,7 +184,7 @@ namespace tools
 		node->addAttribute("value", _value);
 	}
 
-	void addCode(MyGUI::xml::Element* _node, MyGUI::Char _code, MyGUI::ResourceTrueTypeFont* _font, bool _isSubstitute)
+	static void addCode(MyGUI::xml::Element* _node, MyGUI::Char _code, MyGUI::ResourceTrueTypeFont* _font, bool _isSubstitute)
 	{
 		MyGUI::xml::Element* codeNode = _node->createChild("Code");
 

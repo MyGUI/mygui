@@ -110,10 +110,10 @@ namespace tools
 
 	void SkinExportSerializer::writeRegion(pugi::xml_node _parent, DataPtr _parentData, DataPtr _data, bool _text)
 	{
-		bool visible = MyGUI::utility::parseValue<bool>(_data->getPropertyValue("Visible")) &&
+		bool isVisible = MyGUI::utility::parseValue<bool>(_data->getPropertyValue("Visible")) &&
 			MyGUI::utility::parseValue<bool>(_data->getPropertyValue("Enable"));
 
-		if (!visible)
+		if (!isVisible)
 			return;
 
 		MyGUI::IntCoord coord = MyGUI::IntCoord::parse(_data->getPropertyValue("Coord"));

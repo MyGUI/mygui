@@ -577,7 +577,7 @@ namespace tools
 		if (_index == MyGUI::ITEM_NONE)
 			return;
 
-		MyGUI::UString data = MyGUI::utility::toString(common::concatenatePath(mProjectPath, mProjectName), "|", _index);
+		MyGUI::UString data = MyGUI::utility::toString(MyGUI::UString(common::concatenatePath(mProjectPath, mProjectName)), "|", _index);
 		CommandManager::getInstance().setCommandData(data);
 		CommandManager::getInstance().executeCommand("Command_FileDrop");
 	}
@@ -612,7 +612,7 @@ namespace tools
 
 		if (indexItem != MyGUI::ITEM_NONE)
 		{
-			MyGUI::UString fileName = MyGUI::utility::toString(common::concatenatePath(mProjectPath, mProjectName), "|", indexItem);
+			MyGUI::UString fileName = MyGUI::utility::toString(MyGUI::UString(common::concatenatePath(mProjectPath, mProjectName)), "|", indexItem);
 			CommandManager::getInstance().setCommandData(fileName);
 			CommandManager::getInstance().executeCommand("Command_SaveItemAs");
 		}

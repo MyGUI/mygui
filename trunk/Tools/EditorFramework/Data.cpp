@@ -126,7 +126,6 @@ namespace tools
 		}
 
 		MYGUI_ASSERT(false, "Child data not found");
-		return MyGUI::ITEM_NONE;
 	}
 
 	DataPtr Data::getChildByIndex(size_t _index)

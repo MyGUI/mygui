@@ -25,7 +25,6 @@ namespace MyGUI
 		mSortUp(true),
 		mSortColumnIndex(ITEM_NONE),
 		mWidthSeparator(0),
-		mOffsetButtonSeparator(2),
 		mItemSelected(ITEM_NONE),
 		mFrameAdvise(false),
 		mClient(nullptr),

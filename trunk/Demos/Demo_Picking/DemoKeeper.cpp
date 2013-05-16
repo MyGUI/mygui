@@ -10,13 +10,13 @@
 namespace demo
 {
 
-	void notifyMouseSetFocus(MyGUI::Widget* _sender, MyGUI::Widget* _old)
+	static void notifyMouseSetFocus(MyGUI::Widget* _sender, MyGUI::Widget* _old)
 	{
 		MyGUI::ImageBox* image = _sender->castType<MyGUI::ImageBox>();
 		image->setItemName("Active");
 	}
 
-	void notifyMouseLostFocus(MyGUI::Widget* _sender, MyGUI::Widget* _new)
+	static void notifyMouseLostFocus(MyGUI::Widget* _sender, MyGUI::Widget* _new)
 	{
 		MyGUI::ImageBox* image = _sender->castType<MyGUI::ImageBox>();
 		image->setItemName("Normal");
