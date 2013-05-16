@@ -58,7 +58,6 @@ namespace tools
 
 		DataPtr mParentData;
 		AnimationInfo mAnimation;
-		size_t mMaxCountFrame;
 		size_t mCurrentFrame;
 		float mTime;
 		bool mPlay;

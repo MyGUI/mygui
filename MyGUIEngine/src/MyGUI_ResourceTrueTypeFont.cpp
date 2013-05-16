@@ -565,7 +565,7 @@ namespace MyGUI
 			// discrepancies between the glyph metrics and the actual rendered bitmap metrics.
 			ftLoadFlags = FT_LOAD_NO_HINTING | FT_LOAD_RENDER;
 			break;
-		case HintingUseNative:
+		//case HintingUseNative:
 		default:
 			ftLoadFlags = FT_LOAD_DEFAULT;
 			break;

@@ -248,7 +248,6 @@ namespace tools
 
 	void TextureControl::loadMouseRelative()
 	{
-		MyGUI::IntPoint viewOffset = mView->getViewOffset();
 		MyGUI::IntCoord viewCoord = mView->getViewCoord();
 		MyGUI::IntSize canvasSize = mView->getCanvasSize();
 		MyGUI::IntPoint mousePoint = MyGUI::InputManager::getInstance().getMousePositionByLayer();

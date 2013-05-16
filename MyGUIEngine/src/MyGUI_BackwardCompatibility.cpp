@@ -1035,7 +1035,7 @@ namespace MyGUI
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
-	std::string convertAlignToDirection(const std::string& _value)
+	static std::string convertAlignToDirection(const std::string& _value)
 	{
 		Align align = utility::parseValue<Align>(_value);
 		if (align == Align::Right)
@@ -1047,7 +1047,7 @@ namespace MyGUI
 		return FlowDirection(FlowDirection::LeftToRight).print();
 	}
 
-	std::string convertRectToCoord(const std::string& _value)
+	static std::string convertRectToCoord(const std::string& _value)
 	{
 		IntRect rect = IntRect::parse(_value);
 		IntCoord coord(rect.left, rect.top, rect.width(), rect.height());

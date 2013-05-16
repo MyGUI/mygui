@@ -15,7 +15,7 @@ namespace MyGUI
 
 		namespace utility
 		{
-			std::string convert_from_xml(const std::string& _string, bool& _ok)
+			static std::string convert_from_xml(const std::string& _string, bool& _ok)
 			{
 				std::string ret;
 				_ok = true;
@@ -58,7 +58,7 @@ namespace MyGUI
 				return ret;
 			}
 
-			std::string convert_to_xml(const std::string& _string)
+			static std::string convert_to_xml(const std::string& _string)
 			{
 				std::string ret;
 

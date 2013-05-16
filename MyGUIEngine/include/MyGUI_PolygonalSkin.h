@@ -30,7 +30,7 @@ namespace MyGUI
 		/** Set line width in pixels. */
 		void setWidth(float _width);
 
-		/** Set line stroke. */
+		/** Set line stroke step. 0 to disable stroke. */
 		void setStroke(size_t _value);
 
 		virtual void setAlpha(float _alpha);
