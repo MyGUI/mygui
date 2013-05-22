@@ -38,6 +38,7 @@
 
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 // disable: warning C4275: non dll-interface class '***' used as base for dll-interface clas '***'
+#	pragma warning (push)
 #	pragma warning (disable : 4275)
 #endif
 
@@ -1099,7 +1100,7 @@ namespace MyGUI
 } // namespace MyGUI
 
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-#	pragma warning (default : 4275)
+#	pragma warning (pop)
 #endif
 
 #endif  // __MYGUI_U_STRING_H__
