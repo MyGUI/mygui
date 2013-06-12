@@ -90,7 +90,7 @@
     <Compile Include="Test_Window.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="mygui.ico" />
+    <Content Include="MyGUI.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

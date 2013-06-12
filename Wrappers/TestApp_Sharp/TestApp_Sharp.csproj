@@ -71,7 +71,7 @@
     <Compile Include="Test_Window.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="mygui.ico" />
+    <Content Include="MyGUI.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyGUI_Sharp\MyGUI_Sharp.csproj">
