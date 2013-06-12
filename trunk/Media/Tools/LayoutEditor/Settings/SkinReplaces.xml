@@ -5,6 +5,7 @@
 	<Skin key="TextBox">LE_TextBox</Skin>
 	<Skin key="EditClient">LE_TextBox</Skin>
 	<Skin key="ImageBox">LE_ImageBox</Skin>
+	<Skin key="PolygonalSkin">LE_ImageBox</Skin>
 	<Skin key="ItemBoxEmpty">LE_ItemBoxEmpty</Skin>
 	<Skin key="StaticImage">LE_ImageBox</Skin>
 	<Skin key="StaticText">LE_TextBox</Skin>
