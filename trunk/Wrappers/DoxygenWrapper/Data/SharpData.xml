@@ -640,6 +640,9 @@
 		<Tag key="BaseName" value="TextBox"/>
 		<Tag key="ThisName" value="EditBox"/>
 		<Tag key="ThisType" value="EditBox"/>
+		<Member name="setCoord" template="Empty.txt"/>
+		<Member name="setSize" template="Empty.txt"/>
+		<Member name="setPosition" template="Empty.txt"/>
 	</Item>
 	<Item type="MyGUI::ItemBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
@@ -653,6 +656,10 @@
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
 		<Member name="addItem" template="Method1_0.txt"/>
 		<Member name="insertItemAt" template="Method2_1.txt"/>
+		<Member name="setCoord" template="Empty.txt"/>
+		<Member name="setSize" template="Empty.txt"/>
+		<Member name="setPosition" template="Empty.txt"/>
+		<Member name="resetDrag" template="Empty.txt"/>
 	</Item>
 	<Item type="MyGUI::ListBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
@@ -666,6 +673,9 @@
 		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
 		<Member name="addItem" template="Method2_1.txt"/>
 		<Member name="insertItemAt" template="Method3_2.txt"/>
+		<Member name="setCoord" template="Empty.txt"/>
+		<Member name="setSize" template="Empty.txt"/>
+		<Member name="setPosition" template="Empty.txt"/>
 	</Item>
 	<Item type="MyGUI::MenuBar" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
@@ -709,6 +719,9 @@
 		<Member name="insertColumnAt" template="Method4_3.txt"/>
 		<Member name="addItem" template="Method2_1.txt"/>
 		<Member name="insertItemAt" template="Method3_2.txt"/>
+		<Member name="setCoord" template="Empty.txt"/>
+		<Member name="setSize" template="Empty.txt"/>
+		<Member name="setPosition" template="Empty.txt"/>
 	</Item>
 	<Item type="MyGUI::PopupMenu" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
@@ -729,6 +742,9 @@
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="ProgressBar"/>
 		<Tag key="ThisType" value="ProgressBar"/>
+		<Member name="setCoord" template="Empty.txt"/>
+		<Member name="setSize" template="Empty.txt"/>
+		<Member name="setPosition" template="Empty.txt"/>
 	</Item>
 	<Item type="MyGUI::ScrollView" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
@@ -739,6 +755,9 @@
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="ScrollView"/>
 		<Tag key="ThisType" value="ScrollView"/>
+		<Member name="setCoord" template="Empty.txt"/>
+		<Member name="setSize" template="Empty.txt"/>
+		<Member name="setPosition" template="Empty.txt"/>
 	</Item>
 	<Item type="MyGUI::ImageBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
@@ -777,6 +796,9 @@
 		<Member name="getItemData" template="GetItemDataAt.txt"/>
 		<Member name="addItem" template="MethodReturn2_1.txt"/>
 		<Member name="insertItemAt" template="MethodReturn3_2.txt"/>
+		<Member name="setCoord" template="Empty.txt"/>
+		<Member name="setSize" template="Empty.txt"/>
+		<Member name="setPosition" template="Empty.txt"/>
 	</Item>
 	<Item type="MyGUI::ScrollBar" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
@@ -787,6 +809,9 @@
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="ScrollBar"/>
 		<Tag key="ThisType" value="ScrollBar"/>
+		<Member name="setCoord" template="Empty.txt"/>
+		<Member name="setSize" template="Empty.txt"/>
+		<Member name="setPosition" template="Empty.txt"/>
 	</Item>
 	<Item type="MyGUI::Window" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
@@ -798,6 +823,9 @@
 		<Tag key="ThisName" value="Window"/>
 		<Tag key="ThisType" value="Window"/>
 		<Member name="destroySmooth" template="Empty.txt"/>
+		<Member name="setCoord" template="Empty.txt"/>
+		<Member name="setSize" template="Empty.txt"/>
+		<Member name="setPosition" template="Empty.txt"/>
 	</Item>
 	<Item type="MyGUI::MenuItem" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
