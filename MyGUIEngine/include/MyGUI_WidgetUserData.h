@@ -43,7 +43,7 @@ namespace MyGUI
 
 		/** Get user data and cast it to ValueType */
 		template <typename ValueType>
-		ValueType* getUserData(bool _throw = true)
+		ValueType* getUserData(bool _throw = true) const
 		{
 			return mUserData.castType<ValueType>(_throw);
 		}
@@ -52,7 +52,7 @@ namespace MyGUI
 		void _setInternalData(Any _data);
 
 		template <typename ValueType>
-		ValueType* _getInternalData(bool _throw = true)
+		ValueType* _getInternalData(bool _throw = true) const
 		{
 			return mInternalData.castType<ValueType>(_throw);
 		}
