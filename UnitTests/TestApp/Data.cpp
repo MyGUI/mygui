@@ -59,7 +59,7 @@ namespace tools
 		}
 	}
 
-	const Data::MapString Data::getProperties() const
+	const MyGUI::MapString Data::getProperties() const
 	{
 		return mProperties;
 	}
@@ -83,7 +83,7 @@ namespace tools
 
 	const std::string& Data::getPropertyValue(const std::string& _name) const
 	{
-		MapString::const_iterator property = mProperties.find(_name);
+		MyGUI::MapString::const_iterator property = mProperties.find(_name);
 		MYGUI_ASSERT(property != mProperties.end(), "Property " << _name << " not found");
 
 		return (*property).second;
@@ -91,7 +91,7 @@ namespace tools
 	
 	void Data::setPropertyValue(const std::string& _name, const std::string& _value)
 	{
-		MapString::iterator property = mProperties.find(_name);
+		MyGUI::MapString::iterator property = mProperties.find(_name);
 		MYGUI_ASSERT(property != mProperties.end(), "Property " << _name << " not found");
 
 		mProperties[_name] = _value;
