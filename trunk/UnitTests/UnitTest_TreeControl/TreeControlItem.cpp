@@ -59,6 +59,6 @@ namespace MyGUI
 
 	TreeControl::Node* TreeControlItem::getNode() const
 	{
-		return *(const_cast<TreeControlItem*>(this)->getUserData<TreeControl::Node*>());
+		return *getUserData<TreeControl::Node*>();
 	}
 }
