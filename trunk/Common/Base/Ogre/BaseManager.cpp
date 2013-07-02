@@ -89,18 +89,15 @@ namespace base
 		size_t handle = getWindowHandle();
 
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		// берем имя нашего экзешника
 		char buf[MAX_PATH];
 		::GetModuleFileNameA(0, (LPCH)&buf, MAX_PATH);
-		// берем инстанс нашего модуля
 		HINSTANCE instance = ::GetModuleHandleA(buf);
-		// побыстрому грузим иконку
-		HICON hIcon = ::LoadIcon(instance, MAKEINTRESOURCE(1001));
-		if (hIcon)
-		{
-			::SendMessageA((HWND)handle, WM_SETICON, 1, (LPARAM)hIcon);
-			::SendMessageA((HWND)handle, WM_SETICON, 0, (LPARAM)hIcon);
-		}
+		HICON hIconSmall = static_cast<HICON>(LoadImage(instance, MAKEINTRESOURCE(1001), IMAGE_ICON, 16, 16, LR_DEFAULTSIZE));
+		HICON hIconBig = static_cast<HICON>(LoadImage(instance, MAKEINTRESOURCE(1001), IMAGE_ICON, 256, 256, LR_DEFAULTSIZE));
+		if (hIconSmall)
+			::SendMessageA((HWND)handle, WM_SETICON, 0, (LPARAM)hIconSmall);
+		if (hIconBig)
+			::SendMessageA((HWND)handle, WM_SETICON, 1, (LPARAM)hIconBig);
 	#endif
 
 		mSceneManager = mRoot->createSceneManager(Ogre::ST_GENERIC, "BaseSceneManager");
@@ -121,7 +118,7 @@ namespace base
 		mSceneManager->setAmbientLight(Ogre::ColourValue::White);
 		Ogre::Light* light = mSceneManager->createLight("MainLight");
 		light->setType(Ogre::Light::LT_DIRECTIONAL);
-		Ogre::Vector3 vec(-0.3, -0.3, -0.3);
+		Ogre::Vector3 vec(-0.3f, -0.3f, -0.3f);
 		vec.normalise();
 		light->setDirection(vec);
 
