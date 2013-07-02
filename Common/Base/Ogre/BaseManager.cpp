@@ -92,7 +92,7 @@ namespace base
 		char buf[MAX_PATH];
 		::GetModuleFileNameA(0, (LPCH)&buf, MAX_PATH);
 		HINSTANCE instance = ::GetModuleHandleA(buf);
-		HICON hIconSmall = static_cast<HICON>(LoadImage(instance, MAKEINTRESOURCE(1001), IMAGE_ICON, 16, 16, LR_DEFAULTSIZE));
+		HICON hIconSmall = static_cast<HICON>(LoadImage(instance, MAKEINTRESOURCE(1001), IMAGE_ICON, 32, 32, LR_DEFAULTSIZE));
 		HICON hIconBig = static_cast<HICON>(LoadImage(instance, MAKEINTRESOURCE(1001), IMAGE_ICON, 256, 256, LR_DEFAULTSIZE));
 		if (hIconSmall)
 			::SendMessageA((HWND)handle, WM_SETICON, 0, (LPARAM)hIconSmall);
