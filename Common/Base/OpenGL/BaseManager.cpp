@@ -131,18 +131,15 @@ namespace base
 		}
 
 	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		// берем имя нашего экзешника
 		char buf[MAX_PATH];
 		::GetModuleFileNameA(0, (LPCH)&buf, MAX_PATH);
-		// берем инстанс нашего модуля
 		HINSTANCE instance = ::GetModuleHandleA(buf);
-		// побыстрому грузим иконку
-		HICON hIcon = ::LoadIcon(instance, MAKEINTRESOURCE(1001));
-		if (hIcon)
-		{
-			::SendMessageA((HWND)hWnd, WM_SETICON, 1, (LPARAM)hIcon);
-			::SendMessageA((HWND)hWnd, WM_SETICON, 0, (LPARAM)hIcon);
-		}
+		HICON hIconSmall = static_cast<HICON>(LoadImage(instance, MAKEINTRESOURCE(1001), IMAGE_ICON, 16, 16, LR_DEFAULTSIZE));
+		HICON hIconBig = static_cast<HICON>(LoadImage(instance, MAKEINTRESOURCE(1001), IMAGE_ICON, 256, 256, LR_DEFAULTSIZE));
+		if (hIconSmall)
+			::SendMessageA(hWnd, WM_SETICON, 0, (LPARAM)hIconSmall);
+		if (hIconBig)
+			::SendMessageA(hWnd, WM_SETICON, 1, (LPARAM)hIconBig);
 	#endif
 
 		hInstance = wc.hInstance;
