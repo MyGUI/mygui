@@ -69,13 +69,7 @@ namespace MyGUI
 		mRectImage.right = _coord.left + _coord.width;
 		mRectImage.bottom = _coord.top + _coord.height;
 
-		// если тайл еще не установлен, то ставим тот что у координат
-		if (mSizeTile.empty()) mSizeTile = _coord.size();
-		//если индекса еще нет, то ставим 0
-		if (mIndexSelect == ITEM_NONE) mIndexSelect = 0;
-
-		recalcIndexes();
-		updateSelectIndex(mIndexSelect);
+		setImageRect(mRectImage);
 	}
 
 	void ImageBox::setImageRect(const IntRect& _rect)
