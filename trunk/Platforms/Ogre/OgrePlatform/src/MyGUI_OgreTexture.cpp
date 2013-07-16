@@ -207,6 +207,7 @@ namespace MyGUI
 		setFormat(_format);
 		setUsage(_usage);
 
+#if (OGRE_VERSION < MYGUI_DEFINE_VERSION(1, 9, 0))
 		mTexture = Ogre::TextureManager::getSingleton().createManual(
 			mName,
 			mGroup,
@@ -217,6 +218,18 @@ namespace MyGUI
 			mPixelFormat,
 			mUsage,
 			this);
+#else
+		mTexture = Ogre::TextureManager::getSingleton().createManual(
+			mName,
+			mGroup,
+			Ogre::TEX_TYPE_2D,
+			_width,
+			_height,
+			0,
+			mPixelFormat,
+			mUsage,
+			this).staticCast<Ogre::Texture>();
+#endif
 
 		mTexture->load();
 
@@ -242,7 +255,11 @@ namespace MyGUI
 		}
 		else
 		{
+#if (OGRE_VERSION < MYGUI_DEFINE_VERSION(1, 9, 0))
 			mTexture = manager->getByName(_filename);
+#else
+			mTexture = manager->getByName(_filename).staticCast<Ogre::Texture>();
+#endif
 		}
 
 		setFormatByOgreTexture();

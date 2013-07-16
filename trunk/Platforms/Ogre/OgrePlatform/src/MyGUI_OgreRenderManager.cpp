@@ -374,7 +374,11 @@ namespace MyGUI
 		MapTexture::const_iterator item = mTextures.find(_name);
 		if (item == mTextures.end())
 		{
+#if (OGRE_VERSION < MYGUI_DEFINE_VERSION(1, 9, 0))
 			Ogre::TexturePtr texture = (Ogre::TexturePtr)Ogre::TextureManager::getSingleton().getByName(_name);
+#else
+			Ogre::TexturePtr texture = (Ogre::TexturePtr)Ogre::TextureManager::getSingleton().getByName(_name).staticCast<Ogre::Texture>();
+#endif
 			if (!texture.isNull())
 			{
 				ITexture* result = createTexture(_name);
