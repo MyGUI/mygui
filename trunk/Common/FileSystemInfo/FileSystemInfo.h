@@ -93,7 +93,8 @@ namespace common
 		//FIXME add optional parameter?
 		bool ms_IgnoreHidden = true;
 
-		long lHandle, res;
+		intptr_t lHandle;
+		int res;
 		struct _wfinddata_t tagData;
 
 		// pattern can contain a directory name, separate it from mask
