@@ -36,63 +36,6 @@ namespace MyGUI.Sharp
 	
 		
 		//InsertPoint
-		#region Method SetCoord
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportProgressBar_SetCoord_left_top_width_height( IntPtr _native ,
-			  int _left ,
-			  int _top ,
-			  int _width ,
-			  int _height );
-
-		public void SetCoord(
-			int _left ,
-			int _top ,
-			int _width ,
-			int _height )
-		{
-			ExportProgressBar_SetCoord_left_top_width_height( mNative , 
-				 _left ,
-				 _top ,
-				 _width ,
-				 _height );
-		}
-
-		#endregion
-		#region Method SetSize
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportProgressBar_SetSize_width_height( IntPtr _native ,
-			  int _width ,
-			  int _height );
-
-		public void SetSize(
-			int _width ,
-			int _height )
-		{
-			ExportProgressBar_SetSize_width_height( mNative , 
-				 _width ,
-				 _height );
-		}
-
-		#endregion
-		#region Method SetPosition
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportProgressBar_SetPosition_left_top( IntPtr _native ,
-			  int _left ,
-			  int _top );
-
-		public void SetPosition(
-			int _left ,
-			int _top )
-		{
-			ExportProgressBar_SetPosition_left_top( mNative , 
-				 _left ,
-				 _top );
-		}
-
-		#endregion
 		#region Property FlowDirection
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]

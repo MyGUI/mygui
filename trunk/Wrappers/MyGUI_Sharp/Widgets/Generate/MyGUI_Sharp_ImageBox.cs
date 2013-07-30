@@ -423,6 +423,18 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
+		#region Property ImageSize
+
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern IntPtr ExportImageBox_GetImageSize( IntPtr _native );
+
+		public IntSize ImageSize
+		{
+			get { return  (IntSize)Marshal.PtrToStructure(  ExportImageBox_GetImageSize( mNative )  , typeof(IntSize) )  ; }
+		}
+
+		#endregion
 		#region Property ImageIndex
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]

@@ -72,43 +72,6 @@ namespace Export
 				static_cast< MyGUI::Window* >(_widget)->eventWindowButtonPressed -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-	namespace ScopeWindowMethod_SetCoord
-	{
-		MYGUIEXPORT void MYGUICALL ExportWindow_SetCoord_left_top_width_height( MyGUI::Widget* _native,
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top ,
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			static_cast< MyGUI::Window * >(_native)->setCoord(
-				Convert<int>::From( _left ) ,
-				Convert<int>::From( _top ) ,
-				Convert<int>::From( _width ) ,
-				Convert<int>::From( _height ) );
-		}
-	}
-	namespace ScopeWindowMethod_SetSize
-	{
-		MYGUIEXPORT void MYGUICALL ExportWindow_SetSize_width_height( MyGUI::Widget* _native,
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			static_cast< MyGUI::Window * >(_native)->setSize(
-				Convert<int>::From( _width ) ,
-				Convert<int>::From( _height ) );
-		}
-	}
-	namespace ScopeWindowMethod_SetPosition
-	{
-		MYGUIEXPORT void MYGUICALL ExportWindow_SetPosition_left_top( MyGUI::Widget* _native,
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top )
-		{
-			static_cast< MyGUI::Window * >(_native)->setPosition(
-				Convert<int>::From( _left ) ,
-				Convert<int>::From( _top ) );
-		}
-	}
 	namespace ScopeWindowMethod_SetMaxSize
 	{
 		MYGUIEXPORT void MYGUICALL ExportWindow_SetMaxSize_width_height( MyGUI::Widget* _native,

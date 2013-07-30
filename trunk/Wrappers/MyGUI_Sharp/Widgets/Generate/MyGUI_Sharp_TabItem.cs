@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 namespace MyGUI.Sharp
 {
 
-    public  class TabItem : Widget
+    public  class TabItem : TextBox
     {
 
         #region TabItem

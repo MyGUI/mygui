@@ -429,74 +429,6 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-		#region Method SetCoord
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportItemBox_SetCoord_left_top_width_height( IntPtr _native ,
-			  int _left ,
-			  int _top ,
-			  int _width ,
-			  int _height );
-
-		public void SetCoord(
-			int _left ,
-			int _top ,
-			int _width ,
-			int _height )
-		{
-			ExportItemBox_SetCoord_left_top_width_height( mNative , 
-				 _left ,
-				 _top ,
-				 _width ,
-				 _height );
-		}
-
-		#endregion
-		#region Method SetSize
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportItemBox_SetSize_width_height( IntPtr _native ,
-			  int _width ,
-			  int _height );
-
-		public void SetSize(
-			int _width ,
-			int _height )
-		{
-			ExportItemBox_SetSize_width_height( mNative , 
-				 _width ,
-				 _height );
-		}
-
-		#endregion
-		#region Method SetPosition
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportItemBox_SetPosition_left_top( IntPtr _native ,
-			  int _left ,
-			  int _top );
-
-		public void SetPosition(
-			int _left ,
-			int _top )
-		{
-			ExportItemBox_SetPosition_left_top( mNative , 
-				 _left ,
-				 _top );
-		}
-
-		#endregion
-		#region Method ResetDrag
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportItemBox_ResetDrag( IntPtr _native );
-
-		public void ResetDrag( )
-		{
-			ExportItemBox_ResetDrag(  mNative );
-		}
-
-		#endregion
 		#region Method GetWidgetByIndex
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
@@ -681,6 +613,21 @@ namespace MyGUI.Sharp
 		{
 			ExportItemBox_InsertItemAt_index( mNative , 
 				 _index );
+		}
+
+		#endregion
+		#region Property ViewOffset
+
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+        
+		private static extern IntPtr ExportItemBox_GetViewOffset( IntPtr _widget );
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportItemBox_SetViewOffset( IntPtr _widget, [In] ref IntPoint _value );
+
+		public IntPoint ViewOffset
+		{
+			get { return  (IntPoint)Marshal.PtrToStructure(  ExportItemBox_GetViewOffset( mNative )  , typeof(IntPoint) )  ; }
+			set { ExportItemBox_SetViewOffset( mNative, ref value ); }
 		}
 
 		#endregion

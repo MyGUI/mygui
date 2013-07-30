@@ -360,43 +360,6 @@ namespace Export
 				Convert<const MyGUI::UString &>::From( _name ) ));
 		}
 	}
-	namespace ScopeTabControlMethod_SetCoord
-	{
-		MYGUIEXPORT void MYGUICALL ExportTabControl_SetCoord_left_top_width_height( MyGUI::Widget* _native,
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top ,
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			static_cast< MyGUI::TabControl * >(_native)->setCoord(
-				Convert<int>::From( _left ) ,
-				Convert<int>::From( _top ) ,
-				Convert<int>::From( _width ) ,
-				Convert<int>::From( _height ) );
-		}
-	}
-	namespace ScopeTabControlMethod_SetSize
-	{
-		MYGUIEXPORT void MYGUICALL ExportTabControl_SetSize_width_height( MyGUI::Widget* _native,
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			static_cast< MyGUI::TabControl * >(_native)->setSize(
-				Convert<int>::From( _width ) ,
-				Convert<int>::From( _height ) );
-		}
-	}
-	namespace ScopeTabControlMethod_SetPosition
-	{
-		MYGUIEXPORT void MYGUICALL ExportTabControl_SetPosition_left_top( MyGUI::Widget* _native,
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top )
-		{
-			static_cast< MyGUI::TabControl * >(_native)->setPosition(
-				Convert<int>::From( _left ) ,
-				Convert<int>::From( _top ) );
-		}
-	}
 	namespace ScopeTabControlProperty_SmoothShow
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportTabControl_GetSmoothShow( MyGUI::Widget* _native )

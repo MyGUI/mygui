@@ -19,43 +19,6 @@ namespace Export
 
 	//InsertPoint
 
-	namespace ScopeProgressBarMethod_SetCoord
-	{
-		MYGUIEXPORT void MYGUICALL ExportProgressBar_SetCoord_left_top_width_height( MyGUI::Widget* _native,
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top ,
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			static_cast< MyGUI::ProgressBar * >(_native)->setCoord(
-				Convert<int>::From( _left ) ,
-				Convert<int>::From( _top ) ,
-				Convert<int>::From( _width ) ,
-				Convert<int>::From( _height ) );
-		}
-	}
-	namespace ScopeProgressBarMethod_SetSize
-	{
-		MYGUIEXPORT void MYGUICALL ExportProgressBar_SetSize_width_height( MyGUI::Widget* _native,
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			static_cast< MyGUI::ProgressBar * >(_native)->setSize(
-				Convert<int>::From( _width ) ,
-				Convert<int>::From( _height ) );
-		}
-	}
-	namespace ScopeProgressBarMethod_SetPosition
-	{
-		MYGUIEXPORT void MYGUICALL ExportProgressBar_SetPosition_left_top( MyGUI::Widget* _native,
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top )
-		{
-			static_cast< MyGUI::ProgressBar * >(_native)->setPosition(
-				Convert<int>::From( _left ) ,
-				Convert<int>::From( _top ) );
-		}
-	}
 	namespace ScopeProgressBarProperty_FlowDirection
 	{
 		MYGUIEXPORT Convert<MyGUI::FlowDirection>::Type MYGUICALL ExportProgressBar_GetFlowDirection( MyGUI::Widget* _native )

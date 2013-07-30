@@ -212,50 +212,6 @@ namespace Export
 			static_cast< MyGUI::ItemBox* >(_widget)->requestCreateWidgetItem = _advise ? MyGUI::newDelegate(OnEvent) : nullptr;
 		}
 	}
-	namespace ScopeItemBoxMethod_SetCoord
-	{
-		MYGUIEXPORT void MYGUICALL ExportItemBox_SetCoord_left_top_width_height( MyGUI::Widget* _native,
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top ,
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			static_cast< MyGUI::ItemBox * >(_native)->setCoord(
-				Convert<int>::From( _left ) ,
-				Convert<int>::From( _top ) ,
-				Convert<int>::From( _width ) ,
-				Convert<int>::From( _height ) );
-		}
-	}
-	namespace ScopeItemBoxMethod_SetSize
-	{
-		MYGUIEXPORT void MYGUICALL ExportItemBox_SetSize_width_height( MyGUI::Widget* _native,
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			static_cast< MyGUI::ItemBox * >(_native)->setSize(
-				Convert<int>::From( _width ) ,
-				Convert<int>::From( _height ) );
-		}
-	}
-	namespace ScopeItemBoxMethod_SetPosition
-	{
-		MYGUIEXPORT void MYGUICALL ExportItemBox_SetPosition_left_top( MyGUI::Widget* _native,
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top )
-		{
-			static_cast< MyGUI::ItemBox * >(_native)->setPosition(
-				Convert<int>::From( _left ) ,
-				Convert<int>::From( _top ) );
-		}
-	}
-	namespace ScopeItemBoxMethod_ResetDrag
-	{
-		MYGUIEXPORT void MYGUICALL ExportItemBox_ResetDrag( MyGUI::Widget* _native )
-		{
-			static_cast< MyGUI::ItemBox * >(_native)->resetDrag( );
-		}
-	}
 	namespace ScopeItemBoxMethod_GetWidgetByIndex
 	{
 		MYGUIEXPORT Convert<MyGUI::Widget *>::Type MYGUICALL ExportItemBox_GetWidgetByIndex_index( MyGUI::Widget* _native,
@@ -372,6 +328,17 @@ namespace Export
 		{
 			static_cast< MyGUI::ItemBox * >(_native)->insertItemAt(
 				Convert<size_t>::From( _index ) );
+		}
+	}
+	namespace ScopeItemBoxProperty_ViewOffset
+	{
+		MYGUIEXPORT Convert<MyGUI::types::TPoint < int >>::Type MYGUICALL ExportItemBox_GetViewOffset( MyGUI::Widget* _native )
+		{
+			return Convert<MyGUI::types::TPoint < int >>::To( static_cast< MyGUI::ItemBox * >(_native)->getViewOffset( ) );
+		}
+		MYGUIEXPORT void MYGUICALL ExportItemBox_SetViewOffset( MyGUI::Widget* _native , Convert<const MyGUI::types::TPoint < int > &>::Type _value )
+		{
+			static_cast< MyGUI::ItemBox * >(_native)->setViewOffset( Convert<const MyGUI::types::TPoint < int > &>::From( _value ) );
 		}
 	}
 	namespace ScopeItemBoxProperty_WidgetDrag

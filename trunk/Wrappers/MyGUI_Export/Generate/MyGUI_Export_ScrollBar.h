@@ -47,43 +47,6 @@ namespace Export
 				static_cast< MyGUI::ScrollBar* >(_widget)->eventScrollChangePosition -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-	namespace ScopeScrollBarMethod_SetCoord
-	{
-		MYGUIEXPORT void MYGUICALL ExportScrollBar_SetCoord_left_top_width_height( MyGUI::Widget* _native,
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top ,
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			static_cast< MyGUI::ScrollBar * >(_native)->setCoord(
-				Convert<int>::From( _left ) ,
-				Convert<int>::From( _top ) ,
-				Convert<int>::From( _width ) ,
-				Convert<int>::From( _height ) );
-		}
-	}
-	namespace ScopeScrollBarMethod_SetSize
-	{
-		MYGUIEXPORT void MYGUICALL ExportScrollBar_SetSize_width_height( MyGUI::Widget* _native,
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			static_cast< MyGUI::ScrollBar * >(_native)->setSize(
-				Convert<int>::From( _width ) ,
-				Convert<int>::From( _height ) );
-		}
-	}
-	namespace ScopeScrollBarMethod_SetPosition
-	{
-		MYGUIEXPORT void MYGUICALL ExportScrollBar_SetPosition_left_top( MyGUI::Widget* _native,
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top )
-		{
-			static_cast< MyGUI::ScrollBar * >(_native)->setPosition(
-				Convert<int>::From( _left ) ,
-				Convert<int>::From( _top ) );
-		}
-	}
 	namespace ScopeScrollBarProperty_MoveToClick
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportScrollBar_GetMoveToClick( MyGUI::Widget* _native )
