@@ -268,6 +268,13 @@ namespace Export
 			return Convert<size_t>::To( static_cast< MyGUI::ImageBox * >(_native)->getItemCount( ) );
 		}
 	}
+	namespace ScopeImageBoxProperty_ImageSize
+	{
+		MYGUIEXPORT Convert<MyGUI::types::TSize < int >>::Type MYGUICALL ExportImageBox_GetImageSize( MyGUI::Widget* _native )
+		{
+			return Convert<MyGUI::types::TSize < int >>::To( static_cast< MyGUI::ImageBox * >(_native)->getImageSize( ) );
+		}
+	}
 	namespace ScopeImageBoxProperty_ImageIndex
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportImageBox_GetImageIndex( MyGUI::Widget* _native )

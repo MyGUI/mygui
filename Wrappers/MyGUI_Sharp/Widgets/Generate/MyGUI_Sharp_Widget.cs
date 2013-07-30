@@ -36,6 +36,57 @@ namespace MyGUI.Sharp
 	
 		
 		//InsertPoint
+		#region Event ChangeCoord
+
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportWidgetEvent_AdviseChangeCoord( IntPtr _native, bool _advise );
+
+		public delegate void HandleChangeCoord(
+			 Widget _sender );
+			
+		private HandleChangeCoord mEventChangeCoord;
+		public event HandleChangeCoord EventChangeCoord
+		{
+			add
+			{
+				if (ExportEventChangeCoord.mDelegate == null)
+				{
+					ExportEventChangeCoord.mDelegate = new ExportEventChangeCoord.ExportHandle( OnExportChangeCoord );
+					ExportEventChangeCoord.ExportWidgetEvent_DelegateChangeCoord( ExportEventChangeCoord.mDelegate );
+				}
+
+				if (mEventChangeCoord == null)
+					ExportWidgetEvent_AdviseChangeCoord( mNative, true );
+				mEventChangeCoord += value;
+			}
+			remove
+			{
+				mEventChangeCoord -= value;
+				if (mEventChangeCoord == null)
+					ExportWidgetEvent_AdviseChangeCoord( mNative, false );
+			}
+		}
+
+		private struct ExportEventChangeCoord
+		{
+			[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+			public static extern void ExportWidgetEvent_DelegateChangeCoord( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+			public delegate void ExportHandle(
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender );
+				
+			public static ExportHandle mDelegate;
+		}
+
+		private static void OnExportChangeCoord(
+			 Widget _sender )
+		{
+			if (_sender.mEventChangeCoord != null)
+				_sender.mEventChangeCoord(
+					 _sender );
+		}
+
+		#endregion
 		#region Event ChangeProperty
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]

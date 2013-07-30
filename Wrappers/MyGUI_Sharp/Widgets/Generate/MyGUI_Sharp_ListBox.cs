@@ -36,6 +36,61 @@ namespace MyGUI.Sharp
 	
 		
 		//InsertPoint
+		#region Event NotifyItem
+
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportListBoxEvent_AdviseNotifyItem( IntPtr _native, bool _advise );
+
+		public delegate void HandleNotifyItem(
+			 ListBox _sender ,
+			ref IBNotifyItemData _info );
+			
+		private HandleNotifyItem mEventNotifyItem;
+		public event HandleNotifyItem EventNotifyItem
+		{
+			add
+			{
+				if (ExportEventNotifyItem.mDelegate == null)
+				{
+					ExportEventNotifyItem.mDelegate = new ExportEventNotifyItem.ExportHandle( OnExportNotifyItem );
+					ExportEventNotifyItem.ExportListBoxEvent_DelegateNotifyItem( ExportEventNotifyItem.mDelegate );
+				}
+
+				if (mEventNotifyItem == null)
+					ExportListBoxEvent_AdviseNotifyItem( mNative, true );
+				mEventNotifyItem += value;
+			}
+			remove
+			{
+				mEventNotifyItem -= value;
+				if (mEventNotifyItem == null)
+					ExportListBoxEvent_AdviseNotifyItem( mNative, false );
+			}
+		}
+
+		private struct ExportEventNotifyItem
+		{
+			[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+			public static extern void ExportListBoxEvent_DelegateNotifyItem( ExportHandle _delegate );
+			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+			public delegate void ExportHandle(
+				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ListBox _sender ,
+				[In] ref IBNotifyItemData _info );
+				
+			public static ExportHandle mDelegate;
+		}
+
+		private static void OnExportNotifyItem(
+			 ListBox _sender ,
+			ref IBNotifyItemData _info )
+		{
+			if (_sender.mEventNotifyItem != null)
+				_sender.mEventNotifyItem(
+					 _sender ,
+					ref _info );
+		}
+
+		#endregion
 		#region Event ListChangeScroll
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
@@ -311,6 +366,21 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
+		#region Method GetWidgetByIndex
+
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
+		private static extern Widget ExportListBox_GetWidgetByIndex_index( IntPtr _native ,
+			  uint _index );
+
+		public Widget GetWidgetByIndex(
+			uint _index )
+		{
+			return  ExportListBox_GetWidgetByIndex_index( mNative , 
+				 _index )  ;
+		}
+
+		#endregion
 		#region Method GetItemNameAt
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
@@ -340,63 +410,6 @@ namespace MyGUI.Sharp
 			ExportListBox_SetItemNameAt_index_name( mNative , 
 				 _index ,
 				 _name );
-		}
-
-		#endregion
-		#region Method SetCoord
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportListBox_SetCoord_left_top_width_height( IntPtr _native ,
-			  int _left ,
-			  int _top ,
-			  int _width ,
-			  int _height );
-
-		public void SetCoord(
-			int _left ,
-			int _top ,
-			int _width ,
-			int _height )
-		{
-			ExportListBox_SetCoord_left_top_width_height( mNative , 
-				 _left ,
-				 _top ,
-				 _width ,
-				 _height );
-		}
-
-		#endregion
-		#region Method SetSize
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportListBox_SetSize_width_height( IntPtr _native ,
-			  int _width ,
-			  int _height );
-
-		public void SetSize(
-			int _width ,
-			int _height )
-		{
-			ExportListBox_SetSize_width_height( mNative , 
-				 _width ,
-				 _height );
-		}
-
-		#endregion
-		#region Method SetPosition
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportListBox_SetPosition_left_top( IntPtr _native ,
-			  int _left ,
-			  int _top );
-
-		public void SetPosition(
-			int _left ,
-			int _top )
-		{
-			ExportListBox_SetPosition_left_top( mNative , 
-				 _left ,
-				 _top );
 		}
 
 		#endregion

@@ -30,43 +30,6 @@ namespace Export
 				Convert<int>::From( _height ) );
 		}
 	}
-	namespace ScopeScrollViewMethod_SetCoord
-	{
-		MYGUIEXPORT void MYGUICALL ExportScrollView_SetCoord_left_top_width_height( MyGUI::Widget* _native,
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top ,
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			static_cast< MyGUI::ScrollView * >(_native)->setCoord(
-				Convert<int>::From( _left ) ,
-				Convert<int>::From( _top ) ,
-				Convert<int>::From( _width ) ,
-				Convert<int>::From( _height ) );
-		}
-	}
-	namespace ScopeScrollViewMethod_SetSize
-	{
-		MYGUIEXPORT void MYGUICALL ExportScrollView_SetSize_width_height( MyGUI::Widget* _native,
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			static_cast< MyGUI::ScrollView * >(_native)->setSize(
-				Convert<int>::From( _width ) ,
-				Convert<int>::From( _height ) );
-		}
-	}
-	namespace ScopeScrollViewMethod_SetPosition
-	{
-		MYGUIEXPORT void MYGUICALL ExportScrollView_SetPosition_left_top( MyGUI::Widget* _native,
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top )
-		{
-			static_cast< MyGUI::ScrollView * >(_native)->setPosition(
-				Convert<int>::From( _left ) ,
-				Convert<int>::From( _top ) );
-		}
-	}
 	namespace ScopeScrollViewProperty_ViewOffset
 	{
 		MYGUIEXPORT Convert<MyGUI::types::TPoint < int >>::Type MYGUICALL ExportScrollView_GetViewOffset( MyGUI::Widget* _native )

@@ -19,6 +19,34 @@ namespace Export
 
 	//InsertPoint
 
+	namespace ScopeListBoxEvent_NotifyItem
+	{
+		typedef void (MYGUICALLBACK *ExportHandle)(
+			Convert<MyGUI::ListBox *>::Type ,
+			Convert<const MyGUI::IBNotifyItemData &>::Type );
+		ExportHandle mExportHandle = nullptr;
+		
+		void OnEvent(
+			MyGUI::ListBox * _sender ,
+			const MyGUI::IBNotifyItemData & _info )
+		{
+			mExportHandle(
+				Convert<MyGUI::ListBox *>::To( _sender ) ,
+				Convert<const MyGUI::IBNotifyItemData &>::To( _info ) );
+		}
+		
+		MYGUIEXPORT void MYGUICALL ExportListBoxEvent_DelegateNotifyItem( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+		MYGUIEXPORT void MYGUICALL ExportListBoxEvent_AdviseNotifyItem( MyGUI::Widget* _widget, bool _advise )
+		{
+			if (_advise)
+				static_cast< MyGUI::ListBox* >(_widget)->eventNotifyItem += MyGUI::newDelegate(OnEvent);
+			else
+				static_cast< MyGUI::ListBox* >(_widget)->eventNotifyItem -= MyGUI::newDelegate(OnEvent);
+		}
+	}
 	namespace ScopeListBoxEvent_ListChangeScroll
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
@@ -159,6 +187,15 @@ namespace Export
 				static_cast< MyGUI::ListBox* >(_widget)->eventListSelectAccept -= MyGUI::newDelegate(OnEvent);
 		}
 	}
+	namespace ScopeListBoxMethod_GetWidgetByIndex
+	{
+		MYGUIEXPORT Convert<MyGUI::Widget *>::Type MYGUICALL ExportListBox_GetWidgetByIndex_index( MyGUI::Widget* _native,
+			Convert<size_t>::Type _index )
+		{
+			return Convert<MyGUI::Widget *>::To( static_cast< MyGUI::ListBox * >(_native)->getWidgetByIndex(
+				Convert<size_t>::From( _index ) ));
+		}
+	}
 	namespace ScopeListBoxMethod_GetItemNameAt
 	{
 		MYGUIEXPORT Convert<const MyGUI::UString &>::Type MYGUICALL ExportListBox_GetItemNameAt_index( MyGUI::Widget* _native,
@@ -177,43 +214,6 @@ namespace Export
 			static_cast< MyGUI::ListBox * >(_native)->setItemNameAt(
 				Convert<size_t>::From( _index ) ,
 				Convert<const MyGUI::UString &>::From( _name ) );
-		}
-	}
-	namespace ScopeListBoxMethod_SetCoord
-	{
-		MYGUIEXPORT void MYGUICALL ExportListBox_SetCoord_left_top_width_height( MyGUI::Widget* _native,
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top ,
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			static_cast< MyGUI::ListBox * >(_native)->setCoord(
-				Convert<int>::From( _left ) ,
-				Convert<int>::From( _top ) ,
-				Convert<int>::From( _width ) ,
-				Convert<int>::From( _height ) );
-		}
-	}
-	namespace ScopeListBoxMethod_SetSize
-	{
-		MYGUIEXPORT void MYGUICALL ExportListBox_SetSize_width_height( MyGUI::Widget* _native,
-			Convert<int>::Type _width ,
-			Convert<int>::Type _height )
-		{
-			static_cast< MyGUI::ListBox * >(_native)->setSize(
-				Convert<int>::From( _width ) ,
-				Convert<int>::From( _height ) );
-		}
-	}
-	namespace ScopeListBoxMethod_SetPosition
-	{
-		MYGUIEXPORT void MYGUICALL ExportListBox_SetPosition_left_top( MyGUI::Widget* _native,
-			Convert<int>::Type _left ,
-			Convert<int>::Type _top )
-		{
-			static_cast< MyGUI::ListBox * >(_native)->setPosition(
-				Convert<int>::From( _left ) ,
-				Convert<int>::From( _top ) );
 		}
 	}
 	namespace ScopeListBoxMethod_SetScrollPosition

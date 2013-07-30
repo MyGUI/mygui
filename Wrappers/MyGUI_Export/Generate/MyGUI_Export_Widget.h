@@ -19,6 +19,31 @@ namespace Export
 
 	//InsertPoint
 
+	namespace ScopeWidgetEvent_ChangeCoord
+	{
+		typedef void (MYGUICALLBACK *ExportHandle)(
+			Convert<MyGUI::Widget *>::Type );
+		ExportHandle mExportHandle = nullptr;
+		
+		void OnEvent(
+			MyGUI::Widget * _sender )
+		{
+			mExportHandle(
+				Convert<MyGUI::Widget *>::To( _sender ) );
+		}
+		
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateChangeCoord( ExportHandle _delegate )
+		{
+			mExportHandle = _delegate;
+		}
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseChangeCoord( MyGUI::Widget* _widget, bool _advise )
+		{
+			if (_advise)
+				static_cast< MyGUI::Widget* >(_widget)->eventChangeCoord += MyGUI::newDelegate(OnEvent);
+			else
+				static_cast< MyGUI::Widget* >(_widget)->eventChangeCoord -= MyGUI::newDelegate(OnEvent);
+		}
+	}
 	namespace ScopeWidgetEvent_ChangeProperty
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(

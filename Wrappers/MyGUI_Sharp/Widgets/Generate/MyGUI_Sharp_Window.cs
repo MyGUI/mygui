@@ -142,63 +142,6 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-		#region Method SetCoord
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWindow_SetCoord_left_top_width_height( IntPtr _native ,
-			  int _left ,
-			  int _top ,
-			  int _width ,
-			  int _height );
-
-		public void SetCoord(
-			int _left ,
-			int _top ,
-			int _width ,
-			int _height )
-		{
-			ExportWindow_SetCoord_left_top_width_height( mNative , 
-				 _left ,
-				 _top ,
-				 _width ,
-				 _height );
-		}
-
-		#endregion
-		#region Method SetSize
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWindow_SetSize_width_height( IntPtr _native ,
-			  int _width ,
-			  int _height );
-
-		public void SetSize(
-			int _width ,
-			int _height )
-		{
-			ExportWindow_SetSize_width_height( mNative , 
-				 _width ,
-				 _height );
-		}
-
-		#endregion
-		#region Method SetPosition
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWindow_SetPosition_left_top( IntPtr _native ,
-			  int _left ,
-			  int _top );
-
-		public void SetPosition(
-			int _left ,
-			int _top )
-		{
-			ExportWindow_SetPosition_left_top( mNative , 
-				 _left ,
-				 _top );
-		}
-
-		#endregion
 		#region Method SetMaxSize
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
