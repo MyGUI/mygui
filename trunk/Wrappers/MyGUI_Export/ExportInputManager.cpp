@@ -112,4 +112,13 @@ namespace Export
 			_absZ );
 	}
 
+	MYGUIEXPORT void MYGUICALL ExportInputManager_GetMousePosition(
+		Convert<int&>::Type _x,
+		Convert<int&>::Type _y
+	)
+	{
+		const MyGUI::IntPoint& point = MyGUI::InputManager::getInstance().getMousePosition();
+		_x = point.left;
+		_y = point.top;
+	}
 }

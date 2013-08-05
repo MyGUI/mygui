@@ -173,5 +173,24 @@ namespace MyGUI.Sharp
 
         #endregion
 
-    }
+		#region MousePosition
+
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportInputManager_GetMousePosition(
+			[Out, MarshalAs(UnmanagedType.I4)] out int _x,
+			[Out, MarshalAs(UnmanagedType.I4)] out int _y);
+
+		public IntPoint MousePosition
+		{
+			get
+			{
+				IntPoint result = new IntPoint();
+				ExportInputManager_GetMousePosition(out result.left, out result.top);
+				return result;
+			}
+		}
+
+		#endregion
+
+	}
 }
