@@ -8,7 +8,7 @@
 		public #{TypeName} #{MethodName}(
 			#{TypeName1} #{ValueName1} )
 		{
-			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}( mNative , 
+			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}( Native , 
 				#{TypePrefix1} #{ValueName1} ) #{MarshalConvertPost} ;
 		}
 

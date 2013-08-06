@@ -8,8 +8,8 @@
 
 		public object #{PropertyName}
 		{
-			get { return Export#{ThisName}_Get#{PropertyName}( mNative ); }
-			set { Export#{ThisName}_Set#{PropertyName}( mNative, value ); }
+			get { return Export#{ThisName}_Get#{PropertyName}( Native ); }
+			set { Export#{ThisName}_Set#{PropertyName}( Native, value ); }
 		}
 
 		#endregion

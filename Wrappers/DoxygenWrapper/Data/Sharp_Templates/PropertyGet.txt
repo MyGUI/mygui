@@ -6,7 +6,7 @@
 
 		public #{TypeName} #{PropertyName}
 		{
-			get { return #{MarshalConvertBefore} Export#{ThisName}_Get#{PropertyName}( mNative ) #{MarshalConvertPost} ; }
+			get { return #{MarshalConvertBefore} Export#{ThisName}_Get#{PropertyName}( Native ) #{MarshalConvertPost} ; }
 		}
 
 		#endregion

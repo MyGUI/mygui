@@ -11,7 +11,7 @@
 			#{TypeName2} #{ValueName2} ,
 			#{TypeName3} #{ValueName3} )
 		{
-			Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}( mNative , 
+			Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}( Native , 
 				#{TypePrefix1} #{ValueName1} ,
 				#{TypePrefix2} #{ValueName2} ,
 				#{TypePrefix3} #{ValueName3} );
@@ -26,7 +26,7 @@
 			#{TypeName1} #{ValueName1} ,
 			#{TypeName2} #{ValueName2} )
 		{
-			Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( mNative , 
+			Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( Native , 
 				#{TypePrefix1} #{ValueName1} ,
 				#{TypePrefix2} #{ValueName2} );
 		}

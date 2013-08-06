@@ -8,8 +8,8 @@
 
 		public #{TypeName} #{PropertyName}
 		{
-			get { return #{MarshalConvertBefore} Export#{ThisName}_Get#{PropertyName}( mNative ) #{MarshalConvertPost} ; }
-			set { Export#{ThisName}_Set#{PropertyName}( mNative, #{TypePrefix1} value ); }
+			get { return #{MarshalConvertBefore} Export#{ThisName}_Get#{PropertyName}( Native ) #{MarshalConvertPost} ; }
+			set { Export#{ThisName}_Set#{PropertyName}( Native, #{TypePrefix1} value ); }
 		}
 
 		#endregion
