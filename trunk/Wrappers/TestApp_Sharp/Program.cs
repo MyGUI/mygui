@@ -1,20 +1,18 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using MyGUI.Sharp;
 
 namespace TestApp.Sharp
 {
-    class Program
-    {
+	class Program
+	{
 		[STAThread]
-        public static void Main(string[] args)
-        {
-            Gui.Instance.ExportTest();
+		public static void Main(string[] args)
+		{
+			Gui.Instance.ExportTest();
 
 			//PoorPlatformTest();
 			DefaultPlatformTest();
-        }
+		}
 
 		private static void DefaultPlatformTest()
 		{
@@ -45,5 +43,5 @@ namespace TestApp.Sharp
 			Platform.DestroyGui();
 			Platform.DestroyPlatform();
 		}
-    }
+	}
 }

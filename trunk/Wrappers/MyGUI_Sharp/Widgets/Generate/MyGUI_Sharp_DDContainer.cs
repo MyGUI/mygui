@@ -95,69 +95,6 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-		#region Request DragWidgetInfo
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportDDContainerEvent_AdviseDragWidgetInfo( IntPtr _native, bool _advise );
-
-		public delegate void HandleDragWidgetInfo(
-			 DDContainer _sender ,
-			ref Widget _item ,
-			ref IntCoord _dimension );
-			
-		private HandleDragWidgetInfo mEventDragWidgetInfo;
-		public event HandleDragWidgetInfo RequestDragWidgetInfo
-		{
-			add
-			{
-				if (ExportEventDragWidgetInfo.mDelegate == null)
-				{
-					ExportEventDragWidgetInfo.mDelegate = new ExportEventDragWidgetInfo.ExportHandle( OnExportDragWidgetInfo );
-					ExportEventDragWidgetInfo.ExportDDContainerEvent_DelegateDragWidgetInfo( ExportEventDragWidgetInfo.mDelegate );
-				}
-
-				if (mEventDragWidgetInfo == null)
-					ExportDDContainerEvent_AdviseDragWidgetInfo( mNative, true );
-				mEventDragWidgetInfo += value;
-			}
-			remove
-			{
-				mEventDragWidgetInfo -= value;
-				if (mEventDragWidgetInfo == null)
-					ExportDDContainerEvent_AdviseDragWidgetInfo( mNative, false );
-			}
-		}
-
-		private struct ExportEventDragWidgetInfo
-		{
-			[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-			public static extern void ExportDDContainerEvent_DelegateDragWidgetInfo( ExportHandle _delegate );
-			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
-			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  DDContainer _sender ,
-				[In, Out] ref IntPtr _item ,
-				[In, Out] ref IntCoord _dimension );
-				
-			public static ExportHandle mDelegate;
-		}
-
-		private static void OnExportDragWidgetInfo(
-			 DDContainer _sender ,
-			ref IntPtr _item ,
-			ref IntCoord _dimension )
-		{
-            Widget __item = null;
-            
-			if (_sender.mEventDragWidgetInfo != null)
-				_sender.mEventDragWidgetInfo(
-					 _sender ,
-					ref __item ,
-					ref _dimension );
-					
-            _item = (__item == null) ? IntPtr.Zero : __item.GetNative();
-		}
-
-		#endregion
 		#region Event ChangeDDState
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
