@@ -40,6 +40,7 @@ namespace MyGUI.Sharp
 			mNative = _native;
 
 			ExportGui_WrapWidget(this, mNative);
+			mWidgets.Add(mNative, this);
 			mIsWrap = true;
 
 			if (mParent != null)
@@ -53,6 +54,7 @@ namespace MyGUI.Sharp
 			mParent = _parent;
 			IntPtr parent = _parent != null ? _parent.Native : IntPtr.Zero;
 			mNative = ExportGui_CreateWidget(this, parent, _style, GetWidgetType(), _skin, ref _coord, _align, _layer, _name);
+			mWidgets.Add(mNative, this);
 			mIsWrap = false;
 
 			if (mParent != null)
@@ -133,11 +135,13 @@ namespace MyGUI.Sharp
 				{
 					mRoots.Remove(this);
 				}
+
 				if (!mIsWrap)
 					ExportGui_DestroyWidget(mNative);
 				else
 					ExportGui_UnwrapWidget(mNative);
 
+				mWidgets.Remove(mNative);
 				mNative = IntPtr.Zero;
 			}
 		}
@@ -160,9 +164,10 @@ namespace MyGUI.Sharp
 		private BaseWidget mParent;
 		private List<BaseWidget> mChilds = new List<BaseWidget>();
 		private object mUserData;
+
 		private static List<BaseWidget> mRoots = new List<BaseWidget>();
+		private static Dictionary<IntPtr, BaseWidget> mWidgets = new Dictionary<IntPtr, BaseWidget>();
 
 		#endregion
 	}
-
 }
