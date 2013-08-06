@@ -58,14 +58,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventUpdateDropState == null)
-					ExportDDContainerEvent_AdviseUpdateDropState( mNative, true );
+					ExportDDContainerEvent_AdviseUpdateDropState( Native, true );
 				mEventUpdateDropState += value;
 			}
 			remove
 			{
 				mEventUpdateDropState -= value;
 				if (mEventUpdateDropState == null)
-					ExportDDContainerEvent_AdviseUpdateDropState( mNative, false );
+					ExportDDContainerEvent_AdviseUpdateDropState( Native, false );
 			}
 		}
 
@@ -116,14 +116,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventChangeDDState == null)
-					ExportDDContainerEvent_AdviseChangeDDState( mNative, true );
+					ExportDDContainerEvent_AdviseChangeDDState( Native, true );
 				mEventChangeDDState += value;
 			}
 			remove
 			{
 				mEventChangeDDState -= value;
 				if (mEventChangeDDState == null)
-					ExportDDContainerEvent_AdviseChangeDDState( mNative, false );
+					ExportDDContainerEvent_AdviseChangeDDState( Native, false );
 			}
 		}
 
@@ -172,14 +172,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventDropResult == null)
-					ExportDDContainerEvent_AdviseDropResult( mNative, true );
+					ExportDDContainerEvent_AdviseDropResult( Native, true );
 				mEventDropResult += value;
 			}
 			remove
 			{
 				mEventDropResult -= value;
 				if (mEventDropResult == null)
-					ExportDDContainerEvent_AdviseDropResult( mNative, false );
+					ExportDDContainerEvent_AdviseDropResult( Native, false );
 			}
 		}
 
@@ -231,14 +231,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventRequestDrop == null)
-					ExportDDContainerEvent_AdviseRequestDrop( mNative, true );
+					ExportDDContainerEvent_AdviseRequestDrop( Native, true );
 				mEventRequestDrop += value;
 			}
 			remove
 			{
 				mEventRequestDrop -= value;
 				if (mEventRequestDrop == null)
-					ExportDDContainerEvent_AdviseRequestDrop( mNative, false );
+					ExportDDContainerEvent_AdviseRequestDrop( Native, false );
 			}
 		}
 
@@ -290,14 +290,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventStartDrag == null)
-					ExportDDContainerEvent_AdviseStartDrag( mNative, true );
+					ExportDDContainerEvent_AdviseStartDrag( Native, true );
 				mEventStartDrag += value;
 			}
 			remove
 			{
 				mEventStartDrag -= value;
 				if (mEventStartDrag == null)
-					ExportDDContainerEvent_AdviseStartDrag( mNative, false );
+					ExportDDContainerEvent_AdviseStartDrag( Native, false );
 			}
 		}
 
@@ -334,7 +334,7 @@ namespace MyGUI.Sharp
 
 		public void ResetDrag( )
 		{
-			ExportDDContainer_ResetDrag(  mNative );
+			ExportDDContainer_ResetDrag(  Native );
 		}
 
 		#endregion
@@ -348,8 +348,8 @@ namespace MyGUI.Sharp
 
 		public bool NeedDragDrop
 		{
-			get { return  ExportDDContainer_GetNeedDragDrop( mNative )  ; }
-			set { ExportDDContainer_SetNeedDragDrop( mNative,  value ); }
+			get { return  ExportDDContainer_GetNeedDragDrop( Native )  ; }
+			set { ExportDDContainer_SetNeedDragDrop( Native,  value ); }
 		}
 
 		#endregion

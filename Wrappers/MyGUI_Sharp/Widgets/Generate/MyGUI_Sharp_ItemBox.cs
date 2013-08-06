@@ -57,14 +57,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventNotifyItem == null)
-					ExportItemBoxEvent_AdviseNotifyItem( mNative, true );
+					ExportItemBoxEvent_AdviseNotifyItem( Native, true );
 				mEventNotifyItem += value;
 			}
 			remove
 			{
 				mEventNotifyItem -= value;
 				if (mEventNotifyItem == null)
-					ExportItemBoxEvent_AdviseNotifyItem( mNative, false );
+					ExportItemBoxEvent_AdviseNotifyItem( Native, false );
 			}
 		}
 
@@ -112,14 +112,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventMouseItemActivate == null)
-					ExportItemBoxEvent_AdviseMouseItemActivate( mNative, true );
+					ExportItemBoxEvent_AdviseMouseItemActivate( Native, true );
 				mEventMouseItemActivate += value;
 			}
 			remove
 			{
 				mEventMouseItemActivate -= value;
 				if (mEventMouseItemActivate == null)
-					ExportItemBoxEvent_AdviseMouseItemActivate( mNative, false );
+					ExportItemBoxEvent_AdviseMouseItemActivate( Native, false );
 			}
 		}
 
@@ -167,14 +167,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventChangeItemPosition == null)
-					ExportItemBoxEvent_AdviseChangeItemPosition( mNative, true );
+					ExportItemBoxEvent_AdviseChangeItemPosition( Native, true );
 				mEventChangeItemPosition += value;
 			}
 			remove
 			{
 				mEventChangeItemPosition -= value;
 				if (mEventChangeItemPosition == null)
-					ExportItemBoxEvent_AdviseChangeItemPosition( mNative, false );
+					ExportItemBoxEvent_AdviseChangeItemPosition( Native, false );
 			}
 		}
 
@@ -222,14 +222,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventSelectItemAccept == null)
-					ExportItemBoxEvent_AdviseSelectItemAccept( mNative, true );
+					ExportItemBoxEvent_AdviseSelectItemAccept( Native, true );
 				mEventSelectItemAccept += value;
 			}
 			remove
 			{
 				mEventSelectItemAccept -= value;
 				if (mEventSelectItemAccept == null)
-					ExportItemBoxEvent_AdviseSelectItemAccept( mNative, false );
+					ExportItemBoxEvent_AdviseSelectItemAccept( Native, false );
 			}
 		}
 
@@ -278,14 +278,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventDrawItem == null)
-					ExportItemBoxEvent_AdviseDrawItem( mNative, true );
+					ExportItemBoxEvent_AdviseDrawItem( Native, true );
 				mEventDrawItem += value;
 			}
 			remove
 			{
 				mEventDrawItem -= value;
 				if (mEventDrawItem == null)
-					ExportItemBoxEvent_AdviseDrawItem( mNative, false );
+					ExportItemBoxEvent_AdviseDrawItem( Native, false );
 			}
 		}
 
@@ -337,14 +337,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventCoordItem == null)
-					ExportItemBoxEvent_AdviseCoordItem( mNative, true );
+					ExportItemBoxEvent_AdviseCoordItem( Native, true );
 				mEventCoordItem += value;
 			}
 			remove
 			{
 				mEventCoordItem -= value;
 				if (mEventCoordItem == null)
-					ExportItemBoxEvent_AdviseCoordItem( mNative, false );
+					ExportItemBoxEvent_AdviseCoordItem( Native, false );
 			}
 		}
 
@@ -395,14 +395,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventCreateWidgetItem == null)
-					ExportItemBoxEvent_AdviseCreateWidgetItem( mNative, true );
+					ExportItemBoxEvent_AdviseCreateWidgetItem( Native, true );
 				mEventCreateWidgetItem += value;
 			}
 			remove
 			{
 				mEventCreateWidgetItem -= value;
 				if (mEventCreateWidgetItem == null)
-					ExportItemBoxEvent_AdviseCreateWidgetItem( mNative, false );
+					ExportItemBoxEvent_AdviseCreateWidgetItem( Native, false );
 			}
 		}
 
@@ -439,7 +439,7 @@ namespace MyGUI.Sharp
 		public Widget GetWidgetByIndex(
 			uint _index )
 		{
-			return  ExportItemBox_GetWidgetByIndex_index( mNative , 
+			return  ExportItemBox_GetWidgetByIndex_index( Native , 
 				 _index )  ;
 		}
 
@@ -454,7 +454,7 @@ namespace MyGUI.Sharp
 		public uint GetIndexByWidget(
 			Widget _widget )
 		{
-			return  ExportItemBox_GetIndexByWidget_widget( mNative , 
+			return  ExportItemBox_GetIndexByWidget_widget( Native , 
 				 _widget )  ;
 		}
 
@@ -466,7 +466,7 @@ namespace MyGUI.Sharp
 
 		public void ClearIndexSelected( )
 		{
-			ExportItemBox_ClearIndexSelected(  mNative );
+			ExportItemBox_ClearIndexSelected(  Native );
 		}
 
 		#endregion
@@ -477,7 +477,7 @@ namespace MyGUI.Sharp
 
 		public void RedrawAllItems( )
 		{
-			ExportItemBox_RedrawAllItems(  mNative );
+			ExportItemBox_RedrawAllItems(  Native );
 		}
 
 		#endregion
@@ -490,7 +490,7 @@ namespace MyGUI.Sharp
 		public void RedrawItemAt(
 			uint _index )
 		{
-			ExportItemBox_RedrawItemAt_index( mNative , 
+			ExportItemBox_RedrawItemAt_index( Native , 
 				 _index );
 		}
 
@@ -502,7 +502,7 @@ namespace MyGUI.Sharp
 
 		public void RemoveAllItems( )
 		{
-			ExportItemBox_RemoveAllItems(  mNative );
+			ExportItemBox_RemoveAllItems(  Native );
 		}
 
 		#endregion
@@ -515,7 +515,7 @@ namespace MyGUI.Sharp
 		public void RemoveItemAt(
 			uint _index )
 		{
-			ExportItemBox_RemoveItemAt_index( mNative , 
+			ExportItemBox_RemoveItemAt_index( Native , 
 				 _index );
 		}
 
@@ -527,7 +527,7 @@ namespace MyGUI.Sharp
 
 		public void AddItem( )
 		{
-			ExportItemBox_AddItem_data(  mNative );
+			ExportItemBox_AddItem_data(  Native );
 		}
 
 		#endregion
@@ -540,7 +540,7 @@ namespace MyGUI.Sharp
 		public void InsertItemAt(
 			uint _index )
 		{
-			ExportItemBox_InsertItemAt_index( mNative , 
+			ExportItemBox_InsertItemAt_index( Native , 
 				 _index );
 		}
 
@@ -555,8 +555,8 @@ namespace MyGUI.Sharp
 
 		public IntPoint ViewOffset
 		{
-			get { return  (IntPoint)Marshal.PtrToStructure(  ExportItemBox_GetViewOffset( mNative )  , typeof(IntPoint) )  ; }
-			set { ExportItemBox_SetViewOffset( mNative, ref value ); }
+			get { return  (IntPoint)Marshal.PtrToStructure(  ExportItemBox_GetViewOffset( Native )  , typeof(IntPoint) )  ; }
+			set { ExportItemBox_SetViewOffset( Native, ref value ); }
 		}
 
 		#endregion
@@ -568,7 +568,7 @@ namespace MyGUI.Sharp
 
 		public Widget WidgetDrag
 		{
-			get { return  ExportItemBox_GetWidgetDrag( mNative )  ; }
+			get { return  ExportItemBox_GetWidgetDrag( Native )  ; }
 		}
 
 		#endregion
@@ -582,8 +582,8 @@ namespace MyGUI.Sharp
 
 		public bool VerticalAlignment
 		{
-			get { return  ExportItemBox_GetVerticalAlignment( mNative )  ; }
-			set { ExportItemBox_SetVerticalAlignment( mNative,  value ); }
+			get { return  ExportItemBox_GetVerticalAlignment( Native )  ; }
+			set { ExportItemBox_SetVerticalAlignment( Native,  value ); }
 		}
 
 		#endregion
@@ -597,8 +597,8 @@ namespace MyGUI.Sharp
 
 		public uint IndexSelected
 		{
-			get { return  ExportItemBox_GetIndexSelected( mNative )  ; }
-			set { ExportItemBox_SetIndexSelected( mNative,  value ); }
+			get { return  ExportItemBox_GetIndexSelected( Native )  ; }
+			set { ExportItemBox_SetIndexSelected( Native,  value ); }
 		}
 
 		#endregion
@@ -610,7 +610,7 @@ namespace MyGUI.Sharp
 
 		public uint ItemCount
 		{
-			get { return  ExportItemBox_GetItemCount( mNative )  ; }
+			get { return  ExportItemBox_GetItemCount( Native )  ; }
 		}
 
 		#endregion

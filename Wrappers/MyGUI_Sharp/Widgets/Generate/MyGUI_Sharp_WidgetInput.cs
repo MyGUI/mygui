@@ -36,14 +36,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventRootKeyChangeFocus == null)
-					ExportWidgetEvent_AdviseRootKeyChangeFocus( mNative, true );
+					ExportWidgetEvent_AdviseRootKeyChangeFocus( Native, true );
 				mEventRootKeyChangeFocus += value;
 			}
 			remove
 			{
 				mEventRootKeyChangeFocus -= value;
 				if (mEventRootKeyChangeFocus == null)
-					ExportWidgetEvent_AdviseRootKeyChangeFocus( mNative, false );
+					ExportWidgetEvent_AdviseRootKeyChangeFocus( Native, false );
 			}
 		}
 
@@ -91,14 +91,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventRootMouseChangeFocus == null)
-					ExportWidgetEvent_AdviseRootMouseChangeFocus( mNative, true );
+					ExportWidgetEvent_AdviseRootMouseChangeFocus( Native, true );
 				mEventRootMouseChangeFocus += value;
 			}
 			remove
 			{
 				mEventRootMouseChangeFocus -= value;
 				if (mEventRootMouseChangeFocus == null)
-					ExportWidgetEvent_AdviseRootMouseChangeFocus( mNative, false );
+					ExportWidgetEvent_AdviseRootMouseChangeFocus( Native, false );
 			}
 		}
 
@@ -146,14 +146,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventKeyButtonReleased == null)
-					ExportWidgetEvent_AdviseKeyButtonReleased( mNative, true );
+					ExportWidgetEvent_AdviseKeyButtonReleased( Native, true );
 				mEventKeyButtonReleased += value;
 			}
 			remove
 			{
 				mEventKeyButtonReleased -= value;
 				if (mEventKeyButtonReleased == null)
-					ExportWidgetEvent_AdviseKeyButtonReleased( mNative, false );
+					ExportWidgetEvent_AdviseKeyButtonReleased( Native, false );
 			}
 		}
 
@@ -202,14 +202,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventKeyButtonPressed == null)
-					ExportWidgetEvent_AdviseKeyButtonPressed( mNative, true );
+					ExportWidgetEvent_AdviseKeyButtonPressed( Native, true );
 				mEventKeyButtonPressed += value;
 			}
 			remove
 			{
 				mEventKeyButtonPressed -= value;
 				if (mEventKeyButtonPressed == null)
-					ExportWidgetEvent_AdviseKeyButtonPressed( mNative, false );
+					ExportWidgetEvent_AdviseKeyButtonPressed( Native, false );
 			}
 		}
 
@@ -260,14 +260,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventKeySetFocus == null)
-					ExportWidgetEvent_AdviseKeySetFocus( mNative, true );
+					ExportWidgetEvent_AdviseKeySetFocus( Native, true );
 				mEventKeySetFocus += value;
 			}
 			remove
 			{
 				mEventKeySetFocus -= value;
 				if (mEventKeySetFocus == null)
-					ExportWidgetEvent_AdviseKeySetFocus( mNative, false );
+					ExportWidgetEvent_AdviseKeySetFocus( Native, false );
 			}
 		}
 
@@ -315,14 +315,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventKeyLostFocus == null)
-					ExportWidgetEvent_AdviseKeyLostFocus( mNative, true );
+					ExportWidgetEvent_AdviseKeyLostFocus( Native, true );
 				mEventKeyLostFocus += value;
 			}
 			remove
 			{
 				mEventKeyLostFocus -= value;
 				if (mEventKeyLostFocus == null)
-					ExportWidgetEvent_AdviseKeyLostFocus( mNative, false );
+					ExportWidgetEvent_AdviseKeyLostFocus( Native, false );
 			}
 		}
 
@@ -369,14 +369,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventMouseButtonDoubleClick == null)
-					ExportWidgetEvent_AdviseMouseButtonDoubleClick( mNative, true );
+					ExportWidgetEvent_AdviseMouseButtonDoubleClick( Native, true );
 				mEventMouseButtonDoubleClick += value;
 			}
 			remove
 			{
 				mEventMouseButtonDoubleClick -= value;
 				if (mEventMouseButtonDoubleClick == null)
-					ExportWidgetEvent_AdviseMouseButtonDoubleClick( mNative, false );
+					ExportWidgetEvent_AdviseMouseButtonDoubleClick( Native, false );
 			}
 		}
 
@@ -420,14 +420,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventMouseButtonClick == null)
-					ExportWidgetEvent_AdviseMouseButtonClick( mNative, true );
+					ExportWidgetEvent_AdviseMouseButtonClick( Native, true );
 				mEventMouseButtonClick += value;
 			}
 			remove
 			{
 				mEventMouseButtonClick -= value;
 				if (mEventMouseButtonClick == null)
-					ExportWidgetEvent_AdviseMouseButtonClick( mNative, false );
+					ExportWidgetEvent_AdviseMouseButtonClick( Native, false );
 			}
 		}
 
@@ -474,14 +474,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventMouseButtonReleased == null)
-					ExportWidgetEvent_AdviseMouseButtonReleased( mNative, true );
+					ExportWidgetEvent_AdviseMouseButtonReleased( Native, true );
 				mEventMouseButtonReleased += value;
 			}
 			remove
 			{
 				mEventMouseButtonReleased -= value;
 				if (mEventMouseButtonReleased == null)
-					ExportWidgetEvent_AdviseMouseButtonReleased( mNative, false );
+					ExportWidgetEvent_AdviseMouseButtonReleased( Native, false );
 			}
 		}
 
@@ -537,14 +537,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventMouseButtonPressed == null)
-					ExportWidgetEvent_AdviseMouseButtonPressed( mNative, true );
+					ExportWidgetEvent_AdviseMouseButtonPressed( Native, true );
 				mEventMouseButtonPressed += value;
 			}
 			remove
 			{
 				mEventMouseButtonPressed -= value;
 				if (mEventMouseButtonPressed == null)
-					ExportWidgetEvent_AdviseMouseButtonPressed( mNative, false );
+					ExportWidgetEvent_AdviseMouseButtonPressed( Native, false );
 			}
 		}
 
@@ -598,14 +598,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventMouseWheel == null)
-					ExportWidgetEvent_AdviseMouseWheel( mNative, true );
+					ExportWidgetEvent_AdviseMouseWheel( Native, true );
 				mEventMouseWheel += value;
 			}
 			remove
 			{
 				mEventMouseWheel -= value;
 				if (mEventMouseWheel == null)
-					ExportWidgetEvent_AdviseMouseWheel( mNative, false );
+					ExportWidgetEvent_AdviseMouseWheel( Native, false );
 			}
 		}
 
@@ -654,14 +654,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventMouseMove == null)
-					ExportWidgetEvent_AdviseMouseMove( mNative, true );
+					ExportWidgetEvent_AdviseMouseMove( Native, true );
 				mEventMouseMove += value;
 			}
 			remove
 			{
 				mEventMouseMove -= value;
 				if (mEventMouseMove == null)
-					ExportWidgetEvent_AdviseMouseMove( mNative, false );
+					ExportWidgetEvent_AdviseMouseMove( Native, false );
 			}
 		}
 
@@ -714,14 +714,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventMouseDrag == null)
-					ExportWidgetEvent_AdviseMouseDrag( mNative, true );
+					ExportWidgetEvent_AdviseMouseDrag( Native, true );
 				mEventMouseDrag += value;
 			}
 			remove
 			{
 				mEventMouseDrag -= value;
 				if (mEventMouseDrag == null)
-					ExportWidgetEvent_AdviseMouseDrag( mNative, false );
+					ExportWidgetEvent_AdviseMouseDrag( Native, false );
 			}
 		}
 
@@ -775,14 +775,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventMouseSetFocus == null)
-					ExportWidgetEvent_AdviseMouseSetFocus( mNative, true );
+					ExportWidgetEvent_AdviseMouseSetFocus( Native, true );
 				mEventMouseSetFocus += value;
 			}
 			remove
 			{
 				mEventMouseSetFocus -= value;
 				if (mEventMouseSetFocus == null)
-					ExportWidgetEvent_AdviseMouseSetFocus( mNative, false );
+					ExportWidgetEvent_AdviseMouseSetFocus( Native, false );
 			}
 		}
 
@@ -830,14 +830,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventMouseLostFocus == null)
-					ExportWidgetEvent_AdviseMouseLostFocus( mNative, true );
+					ExportWidgetEvent_AdviseMouseLostFocus( Native, true );
 				mEventMouseLostFocus += value;
 			}
 			remove
 			{
 				mEventMouseLostFocus -= value;
 				if (mEventMouseLostFocus == null)
-					ExportWidgetEvent_AdviseMouseLostFocus( mNative, false );
+					ExportWidgetEvent_AdviseMouseLostFocus( Native, false );
 			}
 		}
 
@@ -876,7 +876,7 @@ namespace MyGUI.Sharp
 			IntPoint _point ,
 			IntCoord _coord )
 		{
-			return  ExportWidget_IsMaskPickInside_point_coord( mNative , 
+			return  ExportWidget_IsMaskPickInside_point_coord( Native , 
 				ref _point ,
 				ref _coord )  ;
 		}
@@ -890,7 +890,7 @@ namespace MyGUI.Sharp
 
 		public bool RootKeyFocus
 		{
-			get { return  ExportWidget_GetRootKeyFocus( mNative )  ; }
+			get { return  ExportWidget_GetRootKeyFocus( Native )  ; }
 		}
 
 		#endregion
@@ -902,7 +902,7 @@ namespace MyGUI.Sharp
 
 		public bool RootMouseFocus
 		{
-			get { return  ExportWidget_GetRootMouseFocus( mNative )  ; }
+			get { return  ExportWidget_GetRootMouseFocus( Native )  ; }
 		}
 
 		#endregion
@@ -916,8 +916,8 @@ namespace MyGUI.Sharp
 
 		public bool InheritsPick
 		{
-			get { return  ExportWidget_GetInheritsPick( mNative )  ; }
-			set { ExportWidget_SetInheritsPick( mNative,  value ); }
+			get { return  ExportWidget_GetInheritsPick( Native )  ; }
+			set { ExportWidget_SetInheritsPick( Native,  value ); }
 		}
 
 		#endregion
@@ -931,8 +931,8 @@ namespace MyGUI.Sharp
 
 		public bool NeedMouseFocus
 		{
-			get { return  ExportWidget_GetNeedMouseFocus( mNative )  ; }
-			set { ExportWidget_SetNeedMouseFocus( mNative,  value ); }
+			get { return  ExportWidget_GetNeedMouseFocus( Native )  ; }
+			set { ExportWidget_SetNeedMouseFocus( Native,  value ); }
 		}
 
 		#endregion
@@ -946,8 +946,8 @@ namespace MyGUI.Sharp
 
 		public bool NeedKeyFocus
 		{
-			get { return  ExportWidget_GetNeedKeyFocus( mNative )  ; }
-			set { ExportWidget_SetNeedKeyFocus( mNative,  value ); }
+			get { return  ExportWidget_GetNeedKeyFocus( Native )  ; }
+			set { ExportWidget_SetNeedKeyFocus( Native,  value ); }
 		}
 
 		#endregion
@@ -961,8 +961,8 @@ namespace MyGUI.Sharp
 
 		public string Pointer
 		{
-			get { return  Marshal.PtrToStringAnsi(  ExportWidget_GetPointer( mNative )  )  ; }
-			set { ExportWidget_SetPointer( mNative,  value ); }
+			get { return  Marshal.PtrToStringAnsi(  ExportWidget_GetPointer( Native )  )  ; }
+			set { ExportWidget_SetPointer( Native,  value ); }
 		}
 
 		#endregion
@@ -976,8 +976,8 @@ namespace MyGUI.Sharp
 
 		public bool NeedToolTip
 		{
-			get { return  ExportWidget_GetNeedToolTip( mNative )  ; }
-			set { ExportWidget_SetNeedToolTip( mNative,  value ); }
+			get { return  ExportWidget_GetNeedToolTip( Native )  ; }
+			set { ExportWidget_SetNeedToolTip( Native,  value ); }
 		}
 
 		#endregion

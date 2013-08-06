@@ -56,14 +56,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventChangeCoord == null)
-					ExportWidgetEvent_AdviseChangeCoord( mNative, true );
+					ExportWidgetEvent_AdviseChangeCoord( Native, true );
 				mEventChangeCoord += value;
 			}
 			remove
 			{
 				mEventChangeCoord -= value;
 				if (mEventChangeCoord == null)
-					ExportWidgetEvent_AdviseChangeCoord( mNative, false );
+					ExportWidgetEvent_AdviseChangeCoord( Native, false );
 			}
 		}
 
@@ -109,14 +109,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventChangeProperty == null)
-					ExportWidgetEvent_AdviseChangeProperty( mNative, true );
+					ExportWidgetEvent_AdviseChangeProperty( Native, true );
 				mEventChangeProperty += value;
 			}
 			remove
 			{
 				mEventChangeProperty -= value;
 				if (mEventChangeProperty == null)
-					ExportWidgetEvent_AdviseChangeProperty( mNative, false );
+					ExportWidgetEvent_AdviseChangeProperty( Native, false );
 			}
 		}
 
@@ -157,7 +157,7 @@ namespace MyGUI.Sharp
 			string _key ,
 			string _value )
 		{
-			ExportWidget_SetProperty_key_value( mNative , 
+			ExportWidget_SetProperty_key_value( Native , 
 				 _key ,
 				 _value );
 		}
@@ -174,7 +174,7 @@ namespace MyGUI.Sharp
 			WidgetStyle _style ,
 			string _layer )
 		{
-			ExportWidget_SetWidgetStyle_style_layer( mNative , 
+			ExportWidget_SetWidgetStyle_style_layer( Native , 
 				 _style ,
 				 _layer );
 		}
@@ -189,7 +189,7 @@ namespace MyGUI.Sharp
 		public void ChangeWidgetSkin(
 			string _skinName )
 		{
-			ExportWidget_ChangeWidgetSkin_skinName( mNative , 
+			ExportWidget_ChangeWidgetSkin_skinName( Native , 
 				 _skinName );
 		}
 
@@ -207,7 +207,7 @@ namespace MyGUI.Sharp
 			WidgetStyle _style ,
 			string _layer )
 		{
-			ExportWidget_AttachToWidget_parent_style_layer( mNative , 
+			ExportWidget_AttachToWidget_parent_style_layer( Native , 
 				 _parent ,
 				 _style ,
 				 _layer );
@@ -223,7 +223,7 @@ namespace MyGUI.Sharp
 		public void DetachFromWidget(
 			string _layer )
 		{
-			ExportWidget_DetachFromWidget_layer( mNative , 
+			ExportWidget_DetachFromWidget_layer( Native , 
 				 _layer );
 		}
 
@@ -237,7 +237,7 @@ namespace MyGUI.Sharp
 		public void SetEnabledSilent(
 			bool _value )
 		{
-			ExportWidget_SetEnabledSilent_value( mNative , 
+			ExportWidget_SetEnabledSilent_value( Native , 
 				 _value );
 		}
 
@@ -252,7 +252,7 @@ namespace MyGUI.Sharp
 		public Widget FindWidget(
 			string _name )
 		{
-			return  ExportWidget_FindWidget_name( mNative , 
+			return  ExportWidget_FindWidget_name( Native , 
 				 _name )  ;
 		}
 
@@ -267,7 +267,7 @@ namespace MyGUI.Sharp
 		public Widget GetChildAt(
 			uint _index )
 		{
-			return  ExportWidget_GetChildAt_index( mNative , 
+			return  ExportWidget_GetChildAt_index( Native , 
 				 _index )  ;
 		}
 
@@ -281,7 +281,7 @@ namespace MyGUI.Sharp
 		public void SetColour(
 			Colour _value )
 		{
-			ExportWidget_SetColour_value( mNative , 
+			ExportWidget_SetColour_value( Native , 
 				ref _value );
 		}
 
@@ -301,7 +301,7 @@ namespace MyGUI.Sharp
 			float _width ,
 			float _height )
 		{
-			ExportWidget_SetRealCoord_left_top_width_height( mNative , 
+			ExportWidget_SetRealCoord_left_top_width_height( Native , 
 				 _left ,
 				 _top ,
 				 _width ,
@@ -320,7 +320,7 @@ namespace MyGUI.Sharp
 			float _width ,
 			float _height )
 		{
-			ExportWidget_SetRealSize_width_height( mNative , 
+			ExportWidget_SetRealSize_width_height( Native , 
 				 _width ,
 				 _height );
 		}
@@ -337,7 +337,7 @@ namespace MyGUI.Sharp
 			float _left ,
 			float _top )
 		{
-			ExportWidget_SetRealPosition_left_top( mNative , 
+			ExportWidget_SetRealPosition_left_top( Native , 
 				 _left ,
 				 _top );
 		}
@@ -352,7 +352,7 @@ namespace MyGUI.Sharp
 		public void SetRealCoord(
 			FloatCoord _value )
 		{
-			ExportWidget_SetRealCoord_value( mNative , 
+			ExportWidget_SetRealCoord_value( Native , 
 				ref _value );
 		}
 
@@ -366,7 +366,7 @@ namespace MyGUI.Sharp
 		public void SetRealSize(
 			FloatSize _value )
 		{
-			ExportWidget_SetRealSize_value( mNative , 
+			ExportWidget_SetRealSize_value( Native , 
 				ref _value );
 		}
 
@@ -380,7 +380,7 @@ namespace MyGUI.Sharp
 		public void SetRealPosition(
 			FloatPoint _value )
 		{
-			ExportWidget_SetRealPosition_value( mNative , 
+			ExportWidget_SetRealPosition_value( Native , 
 				ref _value );
 		}
 
@@ -400,7 +400,7 @@ namespace MyGUI.Sharp
 			int _width ,
 			int _height )
 		{
-			ExportWidget_SetCoord_left_top_width_height( mNative , 
+			ExportWidget_SetCoord_left_top_width_height( Native , 
 				 _left ,
 				 _top ,
 				 _width ,
@@ -419,7 +419,7 @@ namespace MyGUI.Sharp
 			int _width ,
 			int _height )
 		{
-			ExportWidget_SetSize_width_height( mNative , 
+			ExportWidget_SetSize_width_height( Native , 
 				 _width ,
 				 _height );
 		}
@@ -436,7 +436,7 @@ namespace MyGUI.Sharp
 			int _left ,
 			int _top )
 		{
-			ExportWidget_SetPosition_left_top( mNative , 
+			ExportWidget_SetPosition_left_top( Native , 
 				 _left ,
 				 _top );
 		}
@@ -450,7 +450,7 @@ namespace MyGUI.Sharp
 
 		public WidgetStyle WidgetStyle
 		{
-			get { return  ExportWidget_GetWidgetStyle( mNative )  ; }
+			get { return  ExportWidget_GetWidgetStyle( Native )  ; }
 		}
 
 		#endregion
@@ -462,7 +462,7 @@ namespace MyGUI.Sharp
 
 		public Widget ClientWidget
 		{
-			get { return  ExportWidget_GetClientWidget( mNative )  ; }
+			get { return  ExportWidget_GetClientWidget( Native )  ; }
 		}
 
 		#endregion
@@ -474,7 +474,7 @@ namespace MyGUI.Sharp
 
 		public IntCoord ClientCoord
 		{
-			get { return  (IntCoord)Marshal.PtrToStructure(  ExportWidget_GetClientCoord( mNative )  , typeof(IntCoord) )  ; }
+			get { return  (IntCoord)Marshal.PtrToStructure(  ExportWidget_GetClientCoord( Native )  , typeof(IntCoord) )  ; }
 		}
 
 		#endregion
@@ -486,7 +486,7 @@ namespace MyGUI.Sharp
 
 		public bool InheritedEnabled
 		{
-			get { return  ExportWidget_GetInheritedEnabled( mNative )  ; }
+			get { return  ExportWidget_GetInheritedEnabled( Native )  ; }
 		}
 
 		#endregion
@@ -500,8 +500,8 @@ namespace MyGUI.Sharp
 
 		public bool Enabled
 		{
-			get { return  ExportWidget_GetEnabled( mNative )  ; }
-			set { ExportWidget_SetEnabled( mNative,  value ); }
+			get { return  ExportWidget_GetEnabled( Native )  ; }
+			set { ExportWidget_SetEnabled( Native,  value ); }
 		}
 
 		#endregion
@@ -513,7 +513,7 @@ namespace MyGUI.Sharp
 
 		public uint ChildCount
 		{
-			get { return  ExportWidget_GetChildCount( mNative )  ; }
+			get { return  ExportWidget_GetChildCount( Native )  ; }
 		}
 
 		#endregion
@@ -525,7 +525,7 @@ namespace MyGUI.Sharp
 
 		public IntSize ParentSize
 		{
-			get { return  (IntSize)Marshal.PtrToStructure(  ExportWidget_GetParentSize( mNative )  , typeof(IntSize) )  ; }
+			get { return  (IntSize)Marshal.PtrToStructure(  ExportWidget_GetParentSize( Native )  , typeof(IntSize) )  ; }
 		}
 
 		#endregion
@@ -537,7 +537,7 @@ namespace MyGUI.Sharp
 
 		public Widget Parent
 		{
-			get { return  ExportWidget_GetParent( mNative )  ; }
+			get { return  ExportWidget_GetParent( Native )  ; }
 		}
 
 		#endregion
@@ -549,7 +549,7 @@ namespace MyGUI.Sharp
 
 		public bool IsRootWidget
 		{
-			get { return  ExportWidget_IsRootWidget( mNative )  ; }
+			get { return  ExportWidget_IsRootWidget( Native )  ; }
 		}
 
 		#endregion
@@ -563,8 +563,8 @@ namespace MyGUI.Sharp
 
 		public bool InheritsAlpha
 		{
-			get { return  ExportWidget_GetInheritsAlpha( mNative )  ; }
-			set { ExportWidget_SetInheritsAlpha( mNative,  value ); }
+			get { return  ExportWidget_GetInheritsAlpha( Native )  ; }
+			set { ExportWidget_SetInheritsAlpha( Native,  value ); }
 		}
 
 		#endregion
@@ -578,8 +578,8 @@ namespace MyGUI.Sharp
 
 		public float Alpha
 		{
-			get { return  ExportWidget_GetAlpha( mNative )  ; }
-			set { ExportWidget_SetAlpha( mNative,  value ); }
+			get { return  ExportWidget_GetAlpha( Native )  ; }
+			set { ExportWidget_SetAlpha( Native,  value ); }
 		}
 
 		#endregion
@@ -593,8 +593,8 @@ namespace MyGUI.Sharp
 
 		public Align Align
 		{
-			get { return  ExportWidget_GetAlign( mNative )  ; }
-			set { ExportWidget_SetAlign( mNative,  value ); }
+			get { return  ExportWidget_GetAlign( Native )  ; }
+			set { ExportWidget_SetAlign( Native,  value ); }
 		}
 
 		#endregion
@@ -606,7 +606,7 @@ namespace MyGUI.Sharp
 
 		public bool InheritedVisible
 		{
-			get { return  ExportWidget_GetInheritedVisible( mNative )  ; }
+			get { return  ExportWidget_GetInheritedVisible( Native )  ; }
 		}
 
 		#endregion
@@ -620,8 +620,8 @@ namespace MyGUI.Sharp
 
 		public bool Visible
 		{
-			get { return  ExportWidget_GetVisible( mNative )  ; }
-			set { ExportWidget_SetVisible( mNative,  value ); }
+			get { return  ExportWidget_GetVisible( Native )  ; }
+			set { ExportWidget_SetVisible( Native,  value ); }
 		}
 
 		#endregion
@@ -633,7 +633,7 @@ namespace MyGUI.Sharp
 
 		public string Name
 		{
-			get { return  Marshal.PtrToStringAnsi(  ExportWidget_GetName( mNative )  )  ; }
+			get { return  Marshal.PtrToStringAnsi(  ExportWidget_GetName( Native )  )  ; }
 		}
 
 		#endregion

@@ -45,7 +45,7 @@ namespace MyGUI.Sharp
 		public void SetItemName(
 			string _value )
 		{
-			ExportImageBox_SetItemName_value( mNative , 
+			ExportImageBox_SetItemName_value( Native , 
 				 _value );
 		}
 
@@ -59,7 +59,7 @@ namespace MyGUI.Sharp
 		public void SetItemGroup(
 			string _value )
 		{
-			ExportImageBox_SetItemGroup_value( mNative , 
+			ExportImageBox_SetItemGroup_value( Native , 
 				 _value );
 		}
 
@@ -74,7 +74,7 @@ namespace MyGUI.Sharp
 		public bool SetItemResource(
 			string _name )
 		{
-			return  ExportImageBox_SetItemResource_name( mNative , 
+			return  ExportImageBox_SetItemResource_name( Native , 
 				 _name )  ;
 		}
 
@@ -89,7 +89,7 @@ namespace MyGUI.Sharp
 		public float GetItemFrameRate(
 			uint _index )
 		{
-			return  ExportImageBox_GetItemFrameRate_index( mNative , 
+			return  ExportImageBox_GetItemFrameRate_index( Native , 
 				 _index )  ;
 		}
 
@@ -105,7 +105,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			float _rate )
 		{
-			ExportImageBox_SetItemFrameRate_index_rate( mNative , 
+			ExportImageBox_SetItemFrameRate_index_rate( Native , 
 				 _index ,
 				 _rate );
 		}
@@ -120,7 +120,7 @@ namespace MyGUI.Sharp
 		public void DeleteAllItemFrames(
 			uint _index )
 		{
-			ExportImageBox_DeleteAllItemFrames_index( mNative , 
+			ExportImageBox_DeleteAllItemFrames_index( Native , 
 				 _index );
 		}
 
@@ -136,7 +136,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			uint _indexFrame )
 		{
-			ExportImageBox_DeleteItemFrame_index_indexFrame( mNative , 
+			ExportImageBox_DeleteItemFrame_index_indexFrame( Native , 
 				 _index ,
 				 _indexFrame );
 		}
@@ -155,7 +155,7 @@ namespace MyGUI.Sharp
 			uint _indexFrame ,
 			IntCoord _item )
 		{
-			ExportImageBox_SetItemFrame_index_indexFrame_item( mNative , 
+			ExportImageBox_SetItemFrame_index_indexFrame_item( Native , 
 				 _index ,
 				 _indexFrame ,
 				ref _item );
@@ -175,7 +175,7 @@ namespace MyGUI.Sharp
 			uint _indexFrame ,
 			uint _indexSourceFrame )
 		{
-			ExportImageBox_InsertItemFrameDublicate_index_indexFrame_indexSourceFrame( mNative , 
+			ExportImageBox_InsertItemFrameDublicate_index_indexFrame_indexSourceFrame( Native , 
 				 _index ,
 				 _indexFrame ,
 				 _indexSourceFrame );
@@ -193,7 +193,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			uint _indexSourceFrame )
 		{
-			ExportImageBox_AddItemFrameDublicate_index_indexSourceFrame( mNative , 
+			ExportImageBox_AddItemFrameDublicate_index_indexSourceFrame( Native , 
 				 _index ,
 				 _indexSourceFrame );
 		}
@@ -212,7 +212,7 @@ namespace MyGUI.Sharp
 			uint _indexFrame ,
 			IntCoord _item )
 		{
-			ExportImageBox_InsertItemFrame_index_indexFrame_item( mNative , 
+			ExportImageBox_InsertItemFrame_index_indexFrame_item( Native , 
 				 _index ,
 				 _indexFrame ,
 				ref _item );
@@ -230,7 +230,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			IntCoord _item )
 		{
-			ExportImageBox_AddItemFrame_index_item( mNative , 
+			ExportImageBox_AddItemFrame_index_item( Native , 
 				 _index ,
 				ref _item );
 		}
@@ -243,7 +243,7 @@ namespace MyGUI.Sharp
 
 		public void DeleteAllItems( )
 		{
-			ExportImageBox_DeleteAllItems(  mNative );
+			ExportImageBox_DeleteAllItems(  Native );
 		}
 
 		#endregion
@@ -256,7 +256,7 @@ namespace MyGUI.Sharp
 		public void DeleteItem(
 			uint _index )
 		{
-			ExportImageBox_DeleteItem_index( mNative , 
+			ExportImageBox_DeleteItem_index( Native , 
 				 _index );
 		}
 
@@ -272,7 +272,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			IntCoord _item )
 		{
-			ExportImageBox_SetItem_index_item( mNative , 
+			ExportImageBox_SetItem_index_item( Native , 
 				 _index ,
 				ref _item );
 		}
@@ -287,7 +287,7 @@ namespace MyGUI.Sharp
 		public void AddItem(
 			IntCoord _item )
 		{
-			ExportImageBox_AddItem_item( mNative , 
+			ExportImageBox_AddItem_item( Native , 
 				ref _item );
 		}
 
@@ -303,7 +303,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			IntCoord _item )
 		{
-			ExportImageBox_InsertItem_index_item( mNative , 
+			ExportImageBox_InsertItem_index_item( Native , 
 				 _index ,
 				ref _item );
 		}
@@ -316,7 +316,7 @@ namespace MyGUI.Sharp
 
 		public void ResetItemSelect( )
 		{
-			ExportImageBox_ResetItemSelect(  mNative );
+			ExportImageBox_ResetItemSelect(  Native );
 		}
 
 		#endregion
@@ -329,7 +329,7 @@ namespace MyGUI.Sharp
 		public void SetImageTile(
 			IntSize _value )
 		{
-			ExportImageBox_SetImageTile_value( mNative , 
+			ExportImageBox_SetImageTile_value( Native , 
 				ref _value );
 		}
 
@@ -343,7 +343,7 @@ namespace MyGUI.Sharp
 		public void SetImageCoord(
 			IntCoord _value )
 		{
-			ExportImageBox_SetImageCoord_value( mNative , 
+			ExportImageBox_SetImageCoord_value( Native , 
 				ref _value );
 		}
 
@@ -357,7 +357,7 @@ namespace MyGUI.Sharp
 		public void SetImageRect(
 			IntRect _value )
 		{
-			ExportImageBox_SetImageRect_value( mNative , 
+			ExportImageBox_SetImageRect_value( Native , 
 				ref _value );
 		}
 
@@ -371,7 +371,7 @@ namespace MyGUI.Sharp
 		public void SetImageTexture(
 			string _value )
 		{
-			ExportImageBox_SetImageTexture_value( mNative , 
+			ExportImageBox_SetImageTexture_value( Native , 
 				 _value );
 		}
 
@@ -389,7 +389,7 @@ namespace MyGUI.Sharp
 			IntCoord _coord ,
 			IntSize _tile )
 		{
-			ExportImageBox_SetImageInfo_texture_coord_tile( mNative , 
+			ExportImageBox_SetImageInfo_texture_coord_tile( Native , 
 				 _texture ,
 				ref _coord ,
 				ref _tile );
@@ -406,8 +406,8 @@ namespace MyGUI.Sharp
 
 		public uint ItemSelect
 		{
-			get { return  ExportImageBox_GetItemSelect( mNative )  ; }
-			set { ExportImageBox_SetItemSelect( mNative,  value ); }
+			get { return  ExportImageBox_GetItemSelect( Native )  ; }
+			set { ExportImageBox_SetItemSelect( Native,  value ); }
 		}
 
 		#endregion
@@ -419,7 +419,7 @@ namespace MyGUI.Sharp
 
 		public uint ItemCount
 		{
-			get { return  ExportImageBox_GetItemCount( mNative )  ; }
+			get { return  ExportImageBox_GetItemCount( Native )  ; }
 		}
 
 		#endregion
@@ -431,7 +431,7 @@ namespace MyGUI.Sharp
 
 		public IntSize ImageSize
 		{
-			get { return  (IntSize)Marshal.PtrToStructure(  ExportImageBox_GetImageSize( mNative )  , typeof(IntSize) )  ; }
+			get { return  (IntSize)Marshal.PtrToStructure(  ExportImageBox_GetImageSize( Native )  , typeof(IntSize) )  ; }
 		}
 
 		#endregion
@@ -445,8 +445,8 @@ namespace MyGUI.Sharp
 
 		public uint ImageIndex
 		{
-			get { return  ExportImageBox_GetImageIndex( mNative )  ; }
-			set { ExportImageBox_SetImageIndex( mNative,  value ); }
+			get { return  ExportImageBox_GetImageIndex( Native )  ; }
+			set { ExportImageBox_SetImageIndex( Native,  value ); }
 		}
 
 		#endregion

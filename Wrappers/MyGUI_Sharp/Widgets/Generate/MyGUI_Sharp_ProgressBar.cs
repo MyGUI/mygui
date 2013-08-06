@@ -46,8 +46,8 @@ namespace MyGUI.Sharp
 
 		public FlowDirection FlowDirection
 		{
-			get { return  ExportProgressBar_GetFlowDirection( mNative )  ; }
-			set { ExportProgressBar_SetFlowDirection( mNative,  value ); }
+			get { return  ExportProgressBar_GetFlowDirection( Native )  ; }
+			set { ExportProgressBar_SetFlowDirection( Native,  value ); }
 		}
 
 		#endregion
@@ -61,8 +61,8 @@ namespace MyGUI.Sharp
 
 		public bool ProgressAutoTrack
 		{
-			get { return  ExportProgressBar_GetProgressAutoTrack( mNative )  ; }
-			set { ExportProgressBar_SetProgressAutoTrack( mNative,  value ); }
+			get { return  ExportProgressBar_GetProgressAutoTrack( Native )  ; }
+			set { ExportProgressBar_SetProgressAutoTrack( Native,  value ); }
 		}
 
 		#endregion
@@ -76,8 +76,8 @@ namespace MyGUI.Sharp
 
 		public uint ProgressPosition
 		{
-			get { return  ExportProgressBar_GetProgressPosition( mNative )  ; }
-			set { ExportProgressBar_SetProgressPosition( mNative,  value ); }
+			get { return  ExportProgressBar_GetProgressPosition( Native )  ; }
+			set { ExportProgressBar_SetProgressPosition( Native,  value ); }
 		}
 
 		#endregion
@@ -91,8 +91,8 @@ namespace MyGUI.Sharp
 
 		public uint ProgressRange
 		{
-			get { return  ExportProgressBar_GetProgressRange( mNative )  ; }
-			set { ExportProgressBar_SetProgressRange( mNative,  value ); }
+			get { return  ExportProgressBar_GetProgressRange( Native )  ; }
+			set { ExportProgressBar_SetProgressRange( Native,  value ); }
 		}
 
 		#endregion

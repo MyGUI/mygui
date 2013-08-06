@@ -45,7 +45,7 @@ namespace MyGUI.Sharp
 		public void SetCaptionWithReplacing(
 			string _value )
 		{
-			ExportTextBox_SetCaptionWithReplacing_value( mNative , 
+			ExportTextBox_SetCaptionWithReplacing_value( Native , 
 				 _value );
 		}
 
@@ -60,8 +60,8 @@ namespace MyGUI.Sharp
 
 		public bool TextShadow
 		{
-			get { return  ExportTextBox_GetTextShadow( mNative )  ; }
-			set { ExportTextBox_SetTextShadow( mNative,  value ); }
+			get { return  ExportTextBox_GetTextShadow( Native )  ; }
+			set { ExportTextBox_SetTextShadow( Native,  value ); }
 		}
 
 		#endregion
@@ -75,8 +75,8 @@ namespace MyGUI.Sharp
 
 		public Colour TextShadowColour
 		{
-			get { return  (Colour)Marshal.PtrToStructure(  ExportTextBox_GetTextShadowColour( mNative )  , typeof(Colour) )  ; }
-			set { ExportTextBox_SetTextShadowColour( mNative, ref value ); }
+			get { return  (Colour)Marshal.PtrToStructure(  ExportTextBox_GetTextShadowColour( Native )  , typeof(Colour) )  ; }
+			set { ExportTextBox_SetTextShadowColour( Native, ref value ); }
 		}
 
 		#endregion
@@ -90,8 +90,8 @@ namespace MyGUI.Sharp
 
 		public Colour TextColour
 		{
-			get { return  (Colour)Marshal.PtrToStructure(  ExportTextBox_GetTextColour( mNative )  , typeof(Colour) )  ; }
-			set { ExportTextBox_SetTextColour( mNative, ref value ); }
+			get { return  (Colour)Marshal.PtrToStructure(  ExportTextBox_GetTextColour( Native )  , typeof(Colour) )  ; }
+			set { ExportTextBox_SetTextColour( Native, ref value ); }
 		}
 
 		#endregion
@@ -105,8 +105,8 @@ namespace MyGUI.Sharp
 
 		public Align TextAlign
 		{
-			get { return  ExportTextBox_GetTextAlign( mNative )  ; }
-			set { ExportTextBox_SetTextAlign( mNative,  value ); }
+			get { return  ExportTextBox_GetTextAlign( Native )  ; }
+			set { ExportTextBox_SetTextAlign( Native,  value ); }
 		}
 
 		#endregion
@@ -120,8 +120,8 @@ namespace MyGUI.Sharp
 
 		public int FontHeight
 		{
-			get { return  ExportTextBox_GetFontHeight( mNative )  ; }
-			set { ExportTextBox_SetFontHeight( mNative,  value ); }
+			get { return  ExportTextBox_GetFontHeight( Native )  ; }
+			set { ExportTextBox_SetFontHeight( Native,  value ); }
 		}
 
 		#endregion
@@ -135,8 +135,8 @@ namespace MyGUI.Sharp
 
 		public string FontName
 		{
-			get { return  Marshal.PtrToStringAnsi(  ExportTextBox_GetFontName( mNative )  )  ; }
-			set { ExportTextBox_SetFontName( mNative,  value ); }
+			get { return  Marshal.PtrToStringAnsi(  ExportTextBox_GetFontName( Native )  )  ; }
+			set { ExportTextBox_SetFontName( Native,  value ); }
 		}
 
 		#endregion
@@ -150,8 +150,8 @@ namespace MyGUI.Sharp
 
 		public string Caption
 		{
-			get { return  Marshal.PtrToStringUni(  ExportTextBox_GetCaption( mNative )  )  ; }
-			set { ExportTextBox_SetCaption( mNative,  value ); }
+			get { return  Marshal.PtrToStringUni(  ExportTextBox_GetCaption( Native )  )  ; }
+			set { ExportTextBox_SetCaption( Native,  value ); }
 		}
 
 		#endregion
@@ -163,7 +163,7 @@ namespace MyGUI.Sharp
 
 		public IntSize TextSize
 		{
-			get { return  (IntSize)Marshal.PtrToStructure(  ExportTextBox_GetTextSize( mNative )  , typeof(IntSize) )  ; }
+			get { return  (IntSize)Marshal.PtrToStructure(  ExportTextBox_GetTextSize( Native )  , typeof(IntSize) )  ; }
 		}
 
 		#endregion
@@ -175,7 +175,7 @@ namespace MyGUI.Sharp
 
 		public IntCoord TextRegion
 		{
-			get { return  (IntCoord)Marshal.PtrToStructure(  ExportTextBox_GetTextRegion( mNative )  , typeof(IntCoord) )  ; }
+			get { return  (IntCoord)Marshal.PtrToStructure(  ExportTextBox_GetTextRegion( Native )  , typeof(IntCoord) )  ; }
 		}
 
 		#endregion

@@ -45,7 +45,7 @@ namespace MyGUI.Sharp
 		public void SetItemChildVisible(
 			bool _value )
 		{
-			ExportMenuItem_SetItemChildVisible_value( mNative , 
+			ExportMenuItem_SetItemChildVisible_value( Native , 
 				 _value );
 		}
 
@@ -58,7 +58,7 @@ namespace MyGUI.Sharp
 
 		public MenuControl CreateItemChild( )
 		{
-			return  ExportMenuItem_CreateItemChild( mNative )  ;
+			return  ExportMenuItem_CreateItemChild( Native )  ;
 		}
 
 		#endregion
@@ -69,7 +69,7 @@ namespace MyGUI.Sharp
 
 		public void RemoveItem( )
 		{
-			ExportMenuItem_RemoveItem(  mNative );
+			ExportMenuItem_RemoveItem(  Native );
 		}
 
 		#endregion
@@ -83,8 +83,8 @@ namespace MyGUI.Sharp
 
 		public bool ItemChecked
 		{
-			get { return  ExportMenuItem_GetItemChecked( mNative )  ; }
-			set { ExportMenuItem_SetItemChecked( mNative,  value ); }
+			get { return  ExportMenuItem_GetItemChecked( Native )  ; }
+			set { ExportMenuItem_SetItemChecked( Native,  value ); }
 		}
 
 		#endregion
@@ -96,7 +96,7 @@ namespace MyGUI.Sharp
 
 		public MenuControl ItemChild
 		{
-			get { return  ExportMenuItem_GetItemChild( mNative )  ; }
+			get { return  ExportMenuItem_GetItemChild( Native )  ; }
 		}
 
 		#endregion
@@ -108,7 +108,7 @@ namespace MyGUI.Sharp
 
 		public MenuControl MenuCtrlParent
 		{
-			get { return  ExportMenuItem_GetMenuCtrlParent( mNative )  ; }
+			get { return  ExportMenuItem_GetMenuCtrlParent( Native )  ; }
 		}
 
 		#endregion
@@ -122,8 +122,8 @@ namespace MyGUI.Sharp
 
 		public MenuItemType ItemType
 		{
-			get { return  ExportMenuItem_GetItemType( mNative )  ; }
-			set { ExportMenuItem_SetItemType( mNative,  value ); }
+			get { return  ExportMenuItem_GetItemType( Native )  ; }
+			set { ExportMenuItem_SetItemType( Native,  value ); }
 		}
 
 		#endregion
@@ -135,7 +135,7 @@ namespace MyGUI.Sharp
 
 		public uint ItemIndex
 		{
-			get { return  ExportMenuItem_GetItemIndex( mNative )  ; }
+			get { return  ExportMenuItem_GetItemIndex( Native )  ; }
 		}
 
 		#endregion
@@ -149,8 +149,8 @@ namespace MyGUI.Sharp
 
 		public string ItemId
 		{
-			get { return  Marshal.PtrToStringAnsi(  ExportMenuItem_GetItemId( mNative )  )  ; }
-			set { ExportMenuItem_SetItemId( mNative,  value ); }
+			get { return  Marshal.PtrToStringAnsi(  ExportMenuItem_GetItemId( Native )  )  ; }
+			set { ExportMenuItem_SetItemId( Native,  value ); }
 		}
 
 		#endregion
@@ -164,8 +164,8 @@ namespace MyGUI.Sharp
 
 		public string ItemName
 		{
-			get { return  Marshal.PtrToStringUni(  ExportMenuItem_GetItemName( mNative )  )  ; }
-			set { ExportMenuItem_SetItemName( mNative,  value ); }
+			get { return  Marshal.PtrToStringUni(  ExportMenuItem_GetItemName( Native )  )  ; }
+			set { ExportMenuItem_SetItemName( Native,  value ); }
 		}
 
 		#endregion
