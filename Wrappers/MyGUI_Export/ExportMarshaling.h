@@ -17,7 +17,7 @@ namespace Export
 	// базовые шаблоны для конвертации переменных и типов
 	template <typename T> struct Convert
 	{
-		typedef T Type;
+		/*typedef T Type;
 		static inline Type To(T _value)
 		{
 			return _value;
@@ -25,9 +25,61 @@ namespace Export
 		static inline T From(Type _value)
 		{
 			return _value;
+		}*/
+	};
+
+
+	template <> struct Convert<bool>
+	{
+		typedef bool Type;
+		inline static Type To(Type _value)
+		{
+			return _value;
+		}
+		inline static Type From(Type _value)
+		{
+			return _value;
 		}
 	};
 
+	template <> struct Convert<int>
+	{
+		typedef int Type;
+		inline static Type To(Type _value)
+		{
+			return _value;
+		}
+		inline static Type From(Type _value)
+		{
+			return _value;
+		}
+	};
+
+	template <> struct Convert<unsigned int>
+	{
+		typedef unsigned int Type;
+		inline static Type To(Type _value)
+		{
+			return _value;
+		}
+		inline static Type From(Type _value)
+		{
+			return _value;
+		}
+	};
+
+	template <> struct Convert<float>
+	{
+		typedef float Type;
+		inline static Type To(Type _value)
+		{
+			return _value;
+		}
+		inline static Type From(Type _value)
+		{
+			return _value;
+		}
+	};
 
 	template <> struct Convert<MyGUI::IntSize>
 	{
@@ -37,6 +89,19 @@ namespace Export
 		{
 			mHolder = _value;
 			return mHolder;
+		}
+		inline static Type From(Type _value)
+		{
+			return _value;
+		}
+	};
+
+	template <> struct Convert<const MyGUI::IntSize&>
+	{
+		typedef const MyGUI::IntSize& Type;
+		inline static Type To(Type _value)
+		{
+			return _value;
 		}
 		inline static Type From(Type _value)
 		{
@@ -59,6 +124,19 @@ namespace Export
 		}
 	};
 
+	template <> struct Convert<const MyGUI::IntPoint&>
+	{
+		typedef const MyGUI::IntPoint& Type;
+		inline static const Type To(Type _value)
+		{
+			return _value;
+		}
+		inline static Type From(Type _value)
+		{
+			return _value;
+		}
+	};
+
 	template <> struct Convert<MyGUI::IntCoord>
 	{
 		typedef const MyGUI::IntCoord& Type;
@@ -67,6 +145,32 @@ namespace Export
 		{
 			mHolder = _value;
 			return mHolder;
+		}
+		inline static Type From(Type _value)
+		{
+			return _value;
+		}
+	};
+
+	template <> struct Convert<const MyGUI::IntCoord&>
+	{
+		typedef const MyGUI::IntCoord& Type;
+		inline static Type To(Type _value)
+		{
+			return _value;
+		}
+		inline static Type From(Type _value)
+		{
+			return _value;
+		}
+	};
+
+	template <> struct Convert<MyGUI::IntCoord&>
+	{
+		typedef MyGUI::IntCoord& Type;
+		inline static Type To(Type _value)
+		{
+			return _value;
 		}
 		inline static Type From(Type _value)
 		{
@@ -89,6 +193,19 @@ namespace Export
 		}
 	};
 
+	template <> struct Convert<const MyGUI::IntRect&>
+	{
+		typedef const MyGUI::IntRect& Type;
+		inline static Type To(Type _value)
+		{
+			return _value;
+		}
+		inline static Type From(Type _value)
+		{
+			return _value;
+		}
+	};
+
 	template <> struct Convert<MyGUI::FloatSize>
 	{
 		typedef const MyGUI::FloatSize& Type;
@@ -97,6 +214,19 @@ namespace Export
 		{
 			mHolder = _value;
 			return mHolder;
+		}
+		inline static Type From(Type _value)
+		{
+			return _value;
+		}
+	};
+
+	template <> struct Convert<const MyGUI::FloatSize&>
+	{
+		typedef const MyGUI::FloatSize& Type;
+		inline static Type To(Type _value)
+		{
+			return _value;
 		}
 		inline static Type From(Type _value)
 		{
@@ -119,6 +249,19 @@ namespace Export
 		}
 	};
 
+	template <> struct Convert<const MyGUI::FloatPoint&>
+	{
+		typedef const MyGUI::FloatPoint& Type;
+		inline static const Type To(Type _value)
+		{
+			return _value;
+		}
+		inline static Type From(Type _value)
+		{
+			return _value;
+		}
+	};
+
 	template <> struct Convert<MyGUI::FloatCoord>
 	{
 		typedef const MyGUI::FloatCoord& Type;
@@ -127,6 +270,19 @@ namespace Export
 		{
 			mHolder = _value;
 			return mHolder;
+		}
+		inline static Type From(Type _value)
+		{
+			return _value;
+		}
+	};
+
+	template <> struct Convert<const MyGUI::FloatCoord&>
+	{
+		typedef const MyGUI::FloatCoord& Type;
+		inline static Type To(Type _value)
+		{
+			return _value;
 		}
 		inline static Type From(Type _value)
 		{
@@ -149,6 +305,18 @@ namespace Export
 		}
 	};
 
+	template <> struct Convert<const MyGUI::FloatRect&>
+	{
+		typedef const MyGUI::FloatRect& Type;
+		inline static Type To(Type _value)
+		{
+			return _value;
+		}
+		inline static Type From(Type _value)
+		{
+			return _value;
+		}
+	};
 
 	template <> struct Convert<MyGUI::Colour>
 	{
@@ -158,6 +326,19 @@ namespace Export
 		{
 			mHolder = _value;
 			return mHolder;
+		}
+		inline static Type From(Type _value)
+		{
+			return _value;
+		}
+	};
+
+	template <> struct Convert<const MyGUI::Colour&>
+	{
+		typedef const MyGUI::Colour& Type;
+		inline static Type To(Type _value)
+		{
+			return _value;
 		}
 		inline static Type From(Type _value)
 		{
@@ -394,6 +575,45 @@ namespace Export
 	template <> struct Convert<bool&>
 	{
 		typedef bool& Type;
+		inline static Type To(Type _value)
+		{
+			return _value;
+		}
+		inline static Type From(Type _value)
+		{
+			return _value;
+		}
+	};
+
+	template <> struct Convert<const MyGUI::DDWidgetState &>
+	{
+		typedef const MyGUI::DDWidgetState & Type;
+		inline static Type To(Type _value)
+		{
+			return _value;
+		}
+		inline static Type From(Type _value)
+		{
+			return _value;
+		}
+	};
+
+	template <> struct Convert<const MyGUI::IBDrawItemInfo &>
+	{
+		typedef const MyGUI::IBDrawItemInfo & Type;
+		inline static Type To(Type _value)
+		{
+			return _value;
+		}
+		inline static Type From(Type _value)
+		{
+			return _value;
+		}
+	};
+
+	template <> struct Convert<const MyGUI::IBNotifyItemData &>
+	{
+		typedef const MyGUI::IBNotifyItemData & Type;
 		inline static Type To(Type _value)
 		{
 			return _value;
