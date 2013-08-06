@@ -561,6 +561,7 @@
 		<Tag key="ThisName" value="Widget"/>
 		<Tag key="ThisType" value="Widget"/>
 		<Member name="setMaskPick" template="Empty.txt"/>
+		<Member name="eventToolTip" template="Empty.txt"/>
 	</Item>
 	<Item type="MyGUI::UserData" namespace="MyGUI">
 		<Template type="Export_Templates" name="Derived.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_Export_WidgetUserData.cpp"/>
@@ -635,6 +636,7 @@
 		<Tag key="ThisName" value="DDContainer"/>
 		<Tag key="ThisType" value="DDContainer"/>
 		<Member name="requestDragWidgetInfo" template="DelegateRequest3_Ref.txt"/>
+		<Member name="requestDragWidgetInfo" template="Empty.txt"/>
 	</Item>
 	<Item type="MyGUI::EditBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
