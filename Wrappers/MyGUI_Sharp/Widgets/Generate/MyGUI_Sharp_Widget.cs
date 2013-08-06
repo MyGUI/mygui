@@ -146,23 +146,6 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-		#region Method SetProperty
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWidget_SetProperty_key_value( IntPtr _native ,
-			[MarshalAs(UnmanagedType.LPStr)]  string _key ,
-			[MarshalAs(UnmanagedType.LPStr)]  string _value );
-
-		public void SetProperty(
-			string _key ,
-			string _value )
-		{
-			ExportWidget_SetProperty_key_value( Native , 
-				 _key ,
-				 _value );
-		}
-
-		#endregion
 		#region Method SetWidgetStyle
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
