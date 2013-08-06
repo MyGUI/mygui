@@ -3,175 +3,174 @@ using System.Runtime.InteropServices;
 
 namespace MyGUI.Sharp
 {
-    public class InputManager
-    {
+	public class InputManager
+	{
+		#region Instance
 
-        #region Instance
+		private static InputManager mInstance = new InputManager();
 
-        private static InputManager mInstance = new InputManager();
+		public static InputManager Instance
+		{
+			get { return mInstance; }
+		}
 
-        public static InputManager Instance
-        {
-            get { return mInstance; }
-        }
+		#endregion
 
-        #endregion
+		#region KeyFocus
 
-        #region KeyFocus
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportInputManager_GetKeyFocus();
 
-        [DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        private static extern bool ExportInputManager_GetKeyFocus();
+		public bool KeyFocus
+		{
+			get { return ExportInputManager_GetKeyFocus(); }
+		}
 
-        public bool KeyFocus
-        {
-            get { return ExportInputManager_GetKeyFocus(); }
-        }
+		#endregion
 
-        #endregion
+		#region KeyFocusWidget
 
-        #region KeyFocusWidget
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
+		private static extern Widget ExportInputManager_GetKeyFocusWidget();
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportInputManager_SetKeyFocusWidget(IntPtr _widget);
 
-        [DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
-        private static extern Widget ExportInputManager_GetKeyFocusWidget();
-        [DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        private static extern void ExportInputManager_SetKeyFocusWidget(IntPtr _widget);
+		public Widget KeyFocusWidget
+		{
+			get { return ExportInputManager_GetKeyFocusWidget(); }
+			set { ExportInputManager_SetKeyFocusWidget(value == null ? IntPtr.Zero : value.Native); }
+		}
 
-        public Widget KeyFocusWidget
-        {
-            get { return ExportInputManager_GetKeyFocusWidget(); }
-            set { ExportInputManager_SetKeyFocusWidget(value == null ? IntPtr.Zero : value.Native); }
-        }
+		#endregion
 
-        #endregion
+		#region MouseFocus
 
-        #region MouseFocus
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportInputManager_GetMouseFocus();
 
-        [DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        private static extern bool ExportInputManager_GetMouseFocus();
+		public bool MouseFocus
+		{
+			get { return ExportInputManager_GetMouseFocus(); }
+		}
 
-        public bool MouseFocus
-        {
-            get { return ExportInputManager_GetMouseFocus(); }
-        }
+		#endregion
 
-        #endregion
+		#region MouseFocusWidget
 
-        #region MouseFocusWidget
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
+		private static extern Widget ExportInputManager_GetMouseFocusWidget();
 
-        [DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
-        private static extern Widget ExportInputManager_GetMouseFocusWidget();
+		public Widget MouseFocusWidget
+		{
+			get { return ExportInputManager_GetMouseFocusWidget(); }
+		}
 
-        public Widget MouseFocusWidget
-        {
-            get { return ExportInputManager_GetMouseFocusWidget(); }
-        }
+		#endregion
 
-        #endregion
+		#region ResetKeyFocus
 
-        #region ResetKeyFocus
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportInputManager_ResetKeyFocusWidget();
 
-        [DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        private static extern void ExportInputManager_ResetKeyFocusWidget();
+		public void ResetKeyFocus()
+		{
+			ExportInputManager_ResetKeyFocusWidget();
+		}
 
-        public void ResetKeyFocus()
-        {
-            ExportInputManager_ResetKeyFocusWidget();
-        }
+		#endregion
 
-        #endregion
+		#region AddWidgetModal
 
-        #region AddWidgetModal
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportInputManager_AddWidgetModal(IntPtr _widget);
 
-        [DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        private static extern void ExportInputManager_AddWidgetModal(IntPtr _widget);
+		public void AddWidgetModal(Widget _widget)
+		{
+			ExportInputManager_AddWidgetModal(_widget.Native);
+		}
 
-        public void AddWidgetModal(Widget _widget)
-        {
-            ExportInputManager_AddWidgetModal(_widget.Native);
-        }
+		#endregion
 
-        #endregion
+		#region RemoveWidgetModal
 
-        #region RemoveWidgetModal
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		private static extern void ExportInputManager_RemoveWidgetModal(IntPtr _widget);
 
-        [DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        private static extern void ExportInputManager_RemoveWidgetModal(IntPtr _widget);
+		public void RemoveWidgetModal(Widget _widget)
+		{
+			ExportInputManager_RemoveWidgetModal(_widget.Native);
+		}
 
-        public void RemoveWidgetModal(Widget _widget)
-        {
-            ExportInputManager_RemoveWidgetModal(_widget.Native);
-        }
+		#endregion
 
-        #endregion
+		#region InjectKeyPress
 
-        #region InjectKeyPress
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportInputManager_InjectKeyPress(KeyCode _keyCode, uint _char);
 
-        [DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        private static extern bool ExportInputManager_InjectKeyPress(KeyCode _keyCode, uint _char);
+		public bool InjectKeyPress(KeyCode _keyCode, uint _char)
+		{
+			return ExportInputManager_InjectKeyPress(_keyCode, _char);
+		}
 
-        public bool InjectKeyPress(KeyCode _keyCode, uint _char)
-        {
-            return ExportInputManager_InjectKeyPress(_keyCode, _char);
-        }
+		#endregion
 
-        #endregion
+		#region InjectKeyRelease
 
-        #region InjectKeyRelease
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportInputManager_InjectKeyRelease(KeyCode _keyCode);
 
-        [DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        private static extern bool ExportInputManager_InjectKeyRelease(KeyCode _keyCode);
+		public bool InjectKeyRelease(KeyCode _keyCode)
+		{
+			return ExportInputManager_InjectKeyRelease(_keyCode);
+		}
 
-        public bool InjectKeyRelease(KeyCode _keyCode)
-        {
-            return ExportInputManager_InjectKeyRelease(_keyCode);
-        }
+		#endregion
 
-        #endregion
+		#region InjectMousePress
 
-        #region InjectMousePress
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportInputManager_InjectMousePress(int _absX, int _absY, MouseButton _mouseButton);
 
-        [DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        private static extern bool ExportInputManager_InjectMousePress(int _absX, int _absY, MouseButton _mouseButton);
+		public bool InjectMousePress(int _absX, int _absY, MouseButton _mouseButton)
+		{
+			return ExportInputManager_InjectMousePress(_absX, _absY, _mouseButton);
+		}
 
-        public bool InjectMousePress(int _absX, int _absY, MouseButton _mouseButton)
-        {
-            return ExportInputManager_InjectMousePress(_absX, _absY, _mouseButton);
-        }
+		#endregion
 
-        #endregion
+		#region InjectMouseRelease
 
-        #region InjectMouseRelease
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportInputManager_InjectMouseRelease(int _absX, int _absY, MouseButton _mouseButton);
 
-        [DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        private static extern bool ExportInputManager_InjectMouseRelease(int _absX, int _absY, MouseButton _mouseButton);
+		public bool InjectMouseRelease(int _absX, int _absY, MouseButton _mouseButton)
+		{
+			return ExportInputManager_InjectMouseRelease(_absX, _absY, _mouseButton);
+		}
 
-        public bool InjectMouseRelease(int _absX, int _absY, MouseButton _mouseButton)
-        {
-            return ExportInputManager_InjectMouseRelease(_absX, _absY, _mouseButton);
-        }
+		#endregion
 
-        #endregion
+		#region InjectMouseMove
 
-        #region InjectMouseMove
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.U1)]
+		private static extern bool ExportInputManager_InjectMouseMove(int _absX, int _absY, int _absZ);
 
-        [DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-        private static extern bool ExportInputManager_InjectMouseMove(int _absX, int _absY, int _absZ);
+		public bool InjectMouseMove(int _absX, int _absY, int _absZ)
+		{
+			return ExportInputManager_InjectMouseMove(_absX, _absY, _absZ);
+		}
 
-        public bool InjectMouseMove(int _absX, int _absY, int _absZ)
-        {
-            return ExportInputManager_InjectMouseMove(_absX, _absY, _absZ);
-        }
-
-        #endregion
+		#endregion
 
 		#region MousePosition
 
@@ -191,6 +190,5 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
 	}
 }
