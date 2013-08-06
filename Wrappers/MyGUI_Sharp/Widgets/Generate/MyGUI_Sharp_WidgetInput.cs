@@ -15,61 +15,6 @@ namespace MyGUI.Sharp
     {
 
 		//InsertPoint
-		#region Event ToolTip
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportWidgetEvent_AdviseToolTip( IntPtr _native, bool _advise );
-
-		public delegate void HandleToolTip(
-			 Widget _sender ,
-			ref ToolTipInfo _info );
-			
-		private HandleToolTip mEventToolTip;
-		public event HandleToolTip EventToolTip
-		{
-			add
-			{
-				if (ExportEventToolTip.mDelegate == null)
-				{
-					ExportEventToolTip.mDelegate = new ExportEventToolTip.ExportHandle( OnExportToolTip );
-					ExportEventToolTip.ExportWidgetEvent_DelegateToolTip( ExportEventToolTip.mDelegate );
-				}
-
-				if (mEventToolTip == null)
-					ExportWidgetEvent_AdviseToolTip( mNative, true );
-				mEventToolTip += value;
-			}
-			remove
-			{
-				mEventToolTip -= value;
-				if (mEventToolTip == null)
-					ExportWidgetEvent_AdviseToolTip( mNative, false );
-			}
-		}
-
-		private struct ExportEventToolTip
-		{
-			[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-			public static extern void ExportWidgetEvent_DelegateToolTip( ExportHandle _delegate );
-			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
-			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
-				[In] ref ToolTipInfo _info );
-				
-			public static ExportHandle mDelegate;
-		}
-
-		private static void OnExportToolTip(
-			 Widget _sender ,
-			ref ToolTipInfo _info )
-		{
-			if (_sender.mEventToolTip != null)
-				_sender.mEventToolTip(
-					 _sender ,
-					ref _info );
-		}
-
-		#endregion
 		#region Event RootKeyChangeFocus
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]

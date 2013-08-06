@@ -1,39 +1,38 @@
-using System;
 using MyGUI.Sharp;
 
 namespace TestApp.Sharp
 {
-    public class Test_Gui
-    {
-        public static void Test()
-        {
-            Button button = Gui.Instance.CreateWidget<Button>("Button", new IntCoord(760, 420, 100, 100), Align.Default, "Main");
-            button.Caption = "Gui";
+	public class Test_Gui
+	{
+		public static void Test()
+		{
+			Button button = Gui.Instance.CreateWidget<Button>("Button", new IntCoord(760, 420, 100, 100), Align.Default, "Main");
+			button.Caption = "Gui";
 
-            bool focus = InputManager.Instance.KeyFocus;
-            Widget widget = InputManager.Instance.KeyFocusWidget;
-            InputManager.Instance.KeyFocusWidget = button;
-            InputManager.Instance.ResetKeyFocus();
+			bool focus = InputManager.Instance.KeyFocus;
+			Widget widget = InputManager.Instance.KeyFocusWidget;
+			InputManager.Instance.KeyFocusWidget = button;
+			InputManager.Instance.ResetKeyFocus();
 
-            InputManager.Instance.AddWidgetModal(button);
-            InputManager.Instance.RemoveWidgetModal(button);
+			InputManager.Instance.AddWidgetModal(button);
+			InputManager.Instance.RemoveWidgetModal(button);
 
-            LayerManager.Instance.AttachToLayer("Popup", button);
-            LayerManager.Instance.UpWidget(button);
+			LayerManager.Instance.AttachToLayer("Popup", button);
+			LayerManager.Instance.UpWidget(button);
 
-            Gui.Instance.LoadResource("core_layer.xml");
+			Gui.Instance.LoadResource("core_layer.xml");
 
-            focus = InputManager.Instance.MouseFocus;
-            widget = InputManager.Instance.MouseFocusWidget;
+			focus = InputManager.Instance.MouseFocus;
+			widget = InputManager.Instance.MouseFocusWidget;
 
-            Gui.Instance.LoadLayout("Mix.layout");
-        }
+			Gui.Instance.LoadLayout("Mix.layout");
+		}
 
-        public static void Update()
-        {
-            string mouse = InputManager.Instance.MouseFocus.ToString() + "(" + (InputManager.Instance.MouseFocusWidget == null ? "null" : InputManager.Instance.MouseFocusWidget.ToString()) + ")";
-            string key = InputManager.Instance.KeyFocus.ToString() + "(" + (InputManager.Instance.KeyFocusWidget == null ? "null" : InputManager.Instance.KeyFocusWidget.ToString()) + ")";
-            Gui.Instance.Log("TestApp", LogLevel.Info, "GUI: mouse=" + mouse + "   key=" + key);
-        }
-    }
+		public static void Update()
+		{
+			string mouse = InputManager.Instance.MouseFocus.ToString() + "(" + (InputManager.Instance.MouseFocusWidget == null ? "null" : InputManager.Instance.MouseFocusWidget.ToString()) + ")";
+			string key = InputManager.Instance.KeyFocus.ToString() + "(" + (InputManager.Instance.KeyFocusWidget == null ? "null" : InputManager.Instance.KeyFocusWidget.ToString()) + ")";
+			Gui.Instance.Log("TestApp", LogLevel.Info, "GUI: mouse=" + mouse + "   key=" + key);
+		}
+	}
 }
