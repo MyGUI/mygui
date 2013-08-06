@@ -93,7 +93,7 @@ namespace Export
 		}
 	}
 
-	Interface getMangedParent( MyGUI::WidgetPtr _widget )
+	Interface GetMangedParent( MyGUI::WidgetPtr _widget )
 	{
 		MyGUI::WidgetPtr parent = _widget->getParent();
 		while (parent != nullptr)
@@ -108,7 +108,7 @@ namespace Export
 	Interface CreateWrapper( MyGUI::WidgetPtr _widget )
 	{
 		if (_widget == nullptr) return nullptr;
-		return ScopeGuiEvent_CreateWrapp::mExportHandle( Convert<const std::string&>::To( _widget->getTypeName() ), getMangedParent(_widget), _widget );
+		return ScopeGuiEvent_CreateWrapp::mExportHandle( Convert<const std::string&>::To( _widget->getTypeName() ), GetMangedParent(_widget), _widget );
 	}
 
 	MyGUI::Widget* GetNativeByWrapper( Interface _wrapper )
