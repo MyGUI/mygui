@@ -5,7 +5,6 @@ namespace MyGUI.Sharp
 {
 	public partial class Platform
 	{
-
 		#region Platform
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
@@ -70,6 +69,5 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-
 	}
 }
