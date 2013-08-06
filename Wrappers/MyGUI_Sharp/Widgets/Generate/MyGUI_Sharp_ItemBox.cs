@@ -74,19 +74,21 @@ namespace MyGUI.Sharp
 			public static extern void ExportItemBoxEvent_DelegateNotifyItem( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
+				IntPtr _sender ,
 				[In] ref IBNotifyItemData _info );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportNotifyItem(
-			 ItemBox _sender ,
+			IntPtr _sender ,
 			ref IBNotifyItemData _info )
 		{
-			if (_sender.mEventNotifyItem != null)
-				_sender.mEventNotifyItem(
-					 _sender ,
+			 ItemBox sender = (  ItemBox )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventNotifyItem != null)
+				sender.mEventNotifyItem(
+					sender ,
 					ref _info );
 		}
 
@@ -129,19 +131,21 @@ namespace MyGUI.Sharp
 			public static extern void ExportItemBoxEvent_DelegateMouseItemActivate( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
+				IntPtr _sender ,
 				  uint _index );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportMouseItemActivate(
-			 ItemBox _sender ,
+			IntPtr _sender ,
 			 uint _index )
 		{
-			if (_sender.mEventMouseItemActivate != null)
-				_sender.mEventMouseItemActivate(
-					 _sender ,
+			 ItemBox sender = (  ItemBox )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventMouseItemActivate != null)
+				sender.mEventMouseItemActivate(
+					sender ,
 					 _index );
 		}
 
@@ -184,19 +188,21 @@ namespace MyGUI.Sharp
 			public static extern void ExportItemBoxEvent_DelegateChangeItemPosition( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
+				IntPtr _sender ,
 				  uint _index );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportChangeItemPosition(
-			 ItemBox _sender ,
+			IntPtr _sender ,
 			 uint _index )
 		{
-			if (_sender.mEventChangeItemPosition != null)
-				_sender.mEventChangeItemPosition(
-					 _sender ,
+			 ItemBox sender = (  ItemBox )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventChangeItemPosition != null)
+				sender.mEventChangeItemPosition(
+					sender ,
 					 _index );
 		}
 
@@ -239,19 +245,21 @@ namespace MyGUI.Sharp
 			public static extern void ExportItemBoxEvent_DelegateSelectItemAccept( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
+				IntPtr _sender ,
 				  uint _index );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportSelectItemAccept(
-			 ItemBox _sender ,
+			IntPtr _sender ,
 			 uint _index )
 		{
-			if (_sender.mEventSelectItemAccept != null)
-				_sender.mEventSelectItemAccept(
-					 _sender ,
+			 ItemBox sender = (  ItemBox )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventSelectItemAccept != null)
+				sender.mEventSelectItemAccept(
+					sender ,
 					 _index );
 		}
 
@@ -295,7 +303,7 @@ namespace MyGUI.Sharp
 			public static extern void ExportItemBoxEvent_DelegateDrawItem( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
+				IntPtr _sender ,
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _item ,
 				[In] ref IBDrawItemInfo _info );
 				
@@ -303,13 +311,15 @@ namespace MyGUI.Sharp
 		}
 
 		private static void OnExportDrawItem(
-			 ItemBox _sender ,
+			IntPtr _sender ,
 			 Widget _item ,
 			ref IBDrawItemInfo _info )
 		{
-			if (_sender.mEventDrawItem != null)
-				_sender.mEventDrawItem(
-					 _sender ,
+			 ItemBox sender = (  ItemBox )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventDrawItem != null)
+				sender.mEventDrawItem(
+					sender ,
 					 _item ,
 					ref _info );
 		}
@@ -354,7 +364,7 @@ namespace MyGUI.Sharp
 			public static extern void ExportItemBoxEvent_DelegateCoordItem( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
+				IntPtr _sender ,
 				[In, Out] ref IntCoord _coord ,
 				[MarshalAs(UnmanagedType.U1)]  bool _drag );
 				
@@ -362,13 +372,15 @@ namespace MyGUI.Sharp
 		}
 
 		private static void OnExportCoordItem(
-			 ItemBox _sender ,
+			IntPtr _sender ,
 			ref IntCoord _coord ,
 			 bool _drag )
 		{
-			if (_sender.mEventCoordItem != null)
-				_sender.mEventCoordItem(
-					 _sender ,
+			 ItemBox sender = (  ItemBox )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventCoordItem != null)
+				sender.mEventCoordItem(
+					sender ,
 					ref _coord ,
 					 _drag );
 		}
@@ -412,19 +424,21 @@ namespace MyGUI.Sharp
 			public static extern void ExportItemBoxEvent_DelegateCreateWidgetItem( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ItemBox _sender ,
+				IntPtr _sender ,
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _item );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportCreateWidgetItem(
-			 ItemBox _sender ,
+			IntPtr _sender ,
 			 Widget _item )
 		{
-			if (_sender.mEventCreateWidgetItem != null)
-				_sender.mEventCreateWidgetItem(
-					 _sender ,
+			 ItemBox sender = (  ItemBox )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventCreateWidgetItem != null)
+				sender.mEventCreateWidgetItem(
+					sender ,
 					 _item );
 		}
 

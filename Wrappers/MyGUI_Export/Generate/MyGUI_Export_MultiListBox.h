@@ -22,7 +22,7 @@ namespace Export
 	namespace ScopeMultiListBoxEvent_OperatorLess
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::MultiListBox *>::Type ,
+			MyGUI::MultiListBox * ,
 			Convert<size_t>::Type ,
 			Convert<const MyGUI::UString &>::Type ,
 			Convert<const MyGUI::UString &>::Type ,
@@ -37,7 +37,7 @@ namespace Export
 			bool & _less )
 		{
 			mExportHandle(
-				Convert<MyGUI::MultiListBox *>::To( _sender ) ,
+				_sender ,
 				Convert<size_t>::To( _column ) ,
 				Convert<const MyGUI::UString &>::To( _firstItem ) ,
 				Convert<const MyGUI::UString &>::To( _secondItem ) ,
@@ -56,7 +56,7 @@ namespace Export
 	namespace ScopeMultiListBoxEvent_ListChangePosition
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::MultiListBox *>::Type ,
+			MyGUI::MultiListBox * ,
 			Convert<size_t>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -65,7 +65,7 @@ namespace Export
 			size_t _index )
 		{
 			mExportHandle(
-				Convert<MyGUI::MultiListBox *>::To( _sender ) ,
+				_sender ,
 				Convert<size_t>::To( _index ) );
 		}
 		
@@ -84,7 +84,7 @@ namespace Export
 	namespace ScopeMultiListBoxEvent_ListSelectAccept
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::MultiListBox *>::Type ,
+			MyGUI::MultiListBox * ,
 			Convert<size_t>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -93,7 +93,7 @@ namespace Export
 			size_t _index )
 		{
 			mExportHandle(
-				Convert<MyGUI::MultiListBox *>::To( _sender ) ,
+				_sender ,
 				Convert<size_t>::To( _index ) );
 		}
 		

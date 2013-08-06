@@ -74,19 +74,21 @@ namespace MyGUI.Sharp
 			public static extern void ExportTabControlEvent_DelegateTabChangeSelect( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  TabControl _sender ,
+				IntPtr _sender ,
 				  uint _index );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportTabChangeSelect(
-			 TabControl _sender ,
+			IntPtr _sender ,
 			 uint _index )
 		{
-			if (_sender.mEventTabChangeSelect != null)
-				_sender.mEventTabChangeSelect(
-					 _sender ,
+			 TabControl sender = (  TabControl )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventTabChangeSelect != null)
+				sender.mEventTabChangeSelect(
+					sender ,
 					 _index );
 		}
 

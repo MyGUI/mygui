@@ -22,14 +22,14 @@ namespace Export
 	namespace ScopeWidgetEvent_ChangeCoord
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::Widget *>::Type );
+			MyGUI::Widget * );
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
 			MyGUI::Widget * _sender )
 		{
 			mExportHandle(
-				Convert<MyGUI::Widget *>::To( _sender ) );
+				_sender );
 		}
 		
 		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateChangeCoord( ExportHandle _delegate )
@@ -47,7 +47,7 @@ namespace Export
 	namespace ScopeWidgetEvent_ChangeProperty
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::Widget *>::Type ,
+			MyGUI::Widget * ,
 			Convert<const std::string &>::Type ,
 			Convert<const std::string &>::Type );
 		ExportHandle mExportHandle = nullptr;
@@ -58,7 +58,7 @@ namespace Export
 			const std::string & _value )
 		{
 			mExportHandle(
-				Convert<MyGUI::Widget *>::To( _sender ) ,
+				_sender ,
 				Convert<const std::string &>::To( _key ) ,
 				Convert<const std::string &>::To( _value ) );
 		}

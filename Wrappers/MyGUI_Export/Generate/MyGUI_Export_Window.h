@@ -22,14 +22,14 @@ namespace Export
 	namespace ScopeWindowEvent_WindowChangeCoord
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::Window *>::Type );
+			MyGUI::Window * );
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
 			MyGUI::Window * _sender )
 		{
 			mExportHandle(
-				Convert<MyGUI::Window *>::To( _sender ) );
+				_sender );
 		}
 		
 		MYGUIEXPORT void MYGUICALL ExportWindowEvent_DelegateWindowChangeCoord( ExportHandle _delegate )
@@ -47,7 +47,7 @@ namespace Export
 	namespace ScopeWindowEvent_WindowButtonPressed
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::Window *>::Type ,
+			MyGUI::Window * ,
 			Convert<const std::string &>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -56,7 +56,7 @@ namespace Export
 			const std::string & _name )
 		{
 			mExportHandle(
-				Convert<MyGUI::Window *>::To( _sender ) ,
+				_sender ,
 				Convert<const std::string &>::To( _name ) );
 		}
 		

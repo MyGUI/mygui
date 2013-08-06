@@ -22,7 +22,7 @@ namespace Export
 	namespace ScopeDDContainerEvent_UpdateDropState
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::DDContainer *>::Type ,
+			MyGUI::DDContainer * ,
 			Convert<MyGUI::Widget *>::Type ,
 			Convert<const MyGUI::DDWidgetState &>::Type );
 		ExportHandle mExportHandle = nullptr;
@@ -33,7 +33,7 @@ namespace Export
 			const MyGUI::DDWidgetState & _state )
 		{
 			mExportHandle(
-				Convert<MyGUI::DDContainer *>::To( _sender ) ,
+				_sender ,
 				Convert<MyGUI::Widget *>::To( _items ) ,
 				Convert<const MyGUI::DDWidgetState &>::To( _state ) );
 		}
@@ -53,7 +53,7 @@ namespace Export
 	namespace ScopeDDContainerEvent_ChangeDDState
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::DDContainer *>::Type ,
+			MyGUI::DDContainer * ,
 			Convert<MyGUI::DDItemState>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -62,7 +62,7 @@ namespace Export
 			MyGUI::DDItemState _state )
 		{
 			mExportHandle(
-				Convert<MyGUI::DDContainer *>::To( _sender ) ,
+				_sender ,
 				Convert<MyGUI::DDItemState>::To( _state ) );
 		}
 		
@@ -81,7 +81,7 @@ namespace Export
 	namespace ScopeDDContainerEvent_DropResult
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::DDContainer *>::Type ,
+			MyGUI::DDContainer * ,
 			Convert<const MyGUI::DDItemInfo &>::Type ,
 			Convert<bool>::Type );
 		ExportHandle mExportHandle = nullptr;
@@ -92,7 +92,7 @@ namespace Export
 			bool _result )
 		{
 			mExportHandle(
-				Convert<MyGUI::DDContainer *>::To( _sender ) ,
+				_sender ,
 				Convert<const MyGUI::DDItemInfo &>::To( _info ) ,
 				Convert<bool>::To( _result ) );
 		}
@@ -112,7 +112,7 @@ namespace Export
 	namespace ScopeDDContainerEvent_RequestDrop
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::DDContainer *>::Type ,
+			MyGUI::DDContainer * ,
 			Convert<const MyGUI::DDItemInfo &>::Type ,
 			Convert<bool &>::Type );
 		ExportHandle mExportHandle = nullptr;
@@ -123,7 +123,7 @@ namespace Export
 			bool & _result )
 		{
 			mExportHandle(
-				Convert<MyGUI::DDContainer *>::To( _sender ) ,
+				_sender ,
 				Convert<const MyGUI::DDItemInfo &>::To( _info ) ,
 				Convert<bool &>::To( _result ) );
 		}
@@ -143,7 +143,7 @@ namespace Export
 	namespace ScopeDDContainerEvent_StartDrag
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::DDContainer *>::Type ,
+			MyGUI::DDContainer * ,
 			Convert<const MyGUI::DDItemInfo &>::Type ,
 			Convert<bool &>::Type );
 		ExportHandle mExportHandle = nullptr;
@@ -154,7 +154,7 @@ namespace Export
 			bool & _result )
 		{
 			mExportHandle(
-				Convert<MyGUI::DDContainer *>::To( _sender ) ,
+				_sender ,
 				Convert<const MyGUI::DDItemInfo &>::To( _info ) ,
 				Convert<bool &>::To( _result ) );
 		}

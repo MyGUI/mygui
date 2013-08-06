@@ -75,7 +75,7 @@ namespace MyGUI.Sharp
 			public static extern void ExportDDContainerEvent_DelegateUpdateDropState( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  DDContainer _sender ,
+				IntPtr _sender ,
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _items ,
 				[In] ref DDWidgetState _state );
 				
@@ -83,13 +83,15 @@ namespace MyGUI.Sharp
 		}
 
 		private static void OnExportUpdateDropState(
-			 DDContainer _sender ,
+			IntPtr _sender ,
 			 Widget _items ,
 			ref DDWidgetState _state )
 		{
-			if (_sender.mEventUpdateDropState != null)
-				_sender.mEventUpdateDropState(
-					 _sender ,
+			 DDContainer sender = (  DDContainer )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventUpdateDropState != null)
+				sender.mEventUpdateDropState(
+					sender ,
 					 _items ,
 					ref _state );
 		}
@@ -133,19 +135,21 @@ namespace MyGUI.Sharp
 			public static extern void ExportDDContainerEvent_DelegateChangeDDState( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  DDContainer _sender ,
+				IntPtr _sender ,
 				[MarshalAs(UnmanagedType.I4)]  DDItemState _state );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportChangeDDState(
-			 DDContainer _sender ,
+			IntPtr _sender ,
 			 DDItemState _state )
 		{
-			if (_sender.mEventChangeDDState != null)
-				_sender.mEventChangeDDState(
-					 _sender ,
+			 DDContainer sender = (  DDContainer )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventChangeDDState != null)
+				sender.mEventChangeDDState(
+					sender ,
 					 _state );
 		}
 
@@ -189,7 +193,7 @@ namespace MyGUI.Sharp
 			public static extern void ExportDDContainerEvent_DelegateDropResult( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  DDContainer _sender ,
+				IntPtr _sender ,
 				[In] ref DDItemInfo _info ,
 				[MarshalAs(UnmanagedType.U1)]  bool _result );
 				
@@ -197,13 +201,15 @@ namespace MyGUI.Sharp
 		}
 
 		private static void OnExportDropResult(
-			 DDContainer _sender ,
+			IntPtr _sender ,
 			ref DDItemInfo _info ,
 			 bool _result )
 		{
-			if (_sender.mEventDropResult != null)
-				_sender.mEventDropResult(
-					 _sender ,
+			 DDContainer sender = (  DDContainer )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventDropResult != null)
+				sender.mEventDropResult(
+					sender ,
 					ref _info ,
 					 _result );
 		}
@@ -248,7 +254,7 @@ namespace MyGUI.Sharp
 			public static extern void ExportDDContainerEvent_DelegateRequestDrop( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  DDContainer _sender ,
+				IntPtr _sender ,
 				[In] ref DDItemInfo _info ,
 				[MarshalAs(UnmanagedType.U1)] ref bool _result );
 				
@@ -256,13 +262,15 @@ namespace MyGUI.Sharp
 		}
 
 		private static void OnExportRequestDrop(
-			 DDContainer _sender ,
+			IntPtr _sender ,
 			ref DDItemInfo _info ,
 			ref bool _result )
 		{
-			if (_sender.mEventRequestDrop != null)
-				_sender.mEventRequestDrop(
-					 _sender ,
+			 DDContainer sender = (  DDContainer )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventRequestDrop != null)
+				sender.mEventRequestDrop(
+					sender ,
 					ref _info ,
 					ref _result );
 		}
@@ -307,7 +315,7 @@ namespace MyGUI.Sharp
 			public static extern void ExportDDContainerEvent_DelegateStartDrag( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  DDContainer _sender ,
+				IntPtr _sender ,
 				[In] ref DDItemInfo _info ,
 				[MarshalAs(UnmanagedType.U1)] ref bool _result );
 				
@@ -315,13 +323,15 @@ namespace MyGUI.Sharp
 		}
 
 		private static void OnExportStartDrag(
-			 DDContainer _sender ,
+			IntPtr _sender ,
 			ref DDItemInfo _info ,
 			ref bool _result )
 		{
-			if (_sender.mEventStartDrag != null)
-				_sender.mEventStartDrag(
-					 _sender ,
+			 DDContainer sender = (  DDContainer )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventStartDrag != null)
+				sender.mEventStartDrag(
+					sender ,
 					ref _info ,
 					ref _result );
 		}

@@ -22,7 +22,7 @@ namespace Export
 	namespace ScopeItemBoxEvent_NotifyItem
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::ItemBox *>::Type ,
+			MyGUI::ItemBox * ,
 			Convert<const MyGUI::IBNotifyItemData &>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -31,7 +31,7 @@ namespace Export
 			const MyGUI::IBNotifyItemData & _info )
 		{
 			mExportHandle(
-				Convert<MyGUI::ItemBox *>::To( _sender ) ,
+				_sender ,
 				Convert<const MyGUI::IBNotifyItemData &>::To( _info ) );
 		}
 		
@@ -50,7 +50,7 @@ namespace Export
 	namespace ScopeItemBoxEvent_MouseItemActivate
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::ItemBox *>::Type ,
+			MyGUI::ItemBox * ,
 			Convert<size_t>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -59,7 +59,7 @@ namespace Export
 			size_t _index )
 		{
 			mExportHandle(
-				Convert<MyGUI::ItemBox *>::To( _sender ) ,
+				_sender ,
 				Convert<size_t>::To( _index ) );
 		}
 		
@@ -78,7 +78,7 @@ namespace Export
 	namespace ScopeItemBoxEvent_ChangeItemPosition
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::ItemBox *>::Type ,
+			MyGUI::ItemBox * ,
 			Convert<size_t>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -87,7 +87,7 @@ namespace Export
 			size_t _index )
 		{
 			mExportHandle(
-				Convert<MyGUI::ItemBox *>::To( _sender ) ,
+				_sender ,
 				Convert<size_t>::To( _index ) );
 		}
 		
@@ -106,7 +106,7 @@ namespace Export
 	namespace ScopeItemBoxEvent_SelectItemAccept
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::ItemBox *>::Type ,
+			MyGUI::ItemBox * ,
 			Convert<size_t>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -115,7 +115,7 @@ namespace Export
 			size_t _index )
 		{
 			mExportHandle(
-				Convert<MyGUI::ItemBox *>::To( _sender ) ,
+				_sender ,
 				Convert<size_t>::To( _index ) );
 		}
 		
@@ -134,7 +134,7 @@ namespace Export
 	namespace ScopeItemBoxEvent_DrawItem
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::ItemBox *>::Type ,
+			MyGUI::ItemBox * ,
 			Convert<MyGUI::Widget *>::Type ,
 			Convert<const MyGUI::IBDrawItemInfo &>::Type );
 		ExportHandle mExportHandle = nullptr;
@@ -145,7 +145,7 @@ namespace Export
 			const MyGUI::IBDrawItemInfo & _info )
 		{
 			mExportHandle(
-				Convert<MyGUI::ItemBox *>::To( _sender ) ,
+				_sender ,
 				Convert<MyGUI::Widget *>::To( _item ) ,
 				Convert<const MyGUI::IBDrawItemInfo &>::To( _info ) );
 		}
@@ -162,7 +162,7 @@ namespace Export
 	namespace ScopeItemBoxEvent_CoordItem
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::ItemBox *>::Type ,
+			MyGUI::ItemBox * ,
 			Convert<MyGUI::types::TCoord < int > &>::Type ,
 			Convert<bool>::Type );
 		ExportHandle mExportHandle = nullptr;
@@ -173,7 +173,7 @@ namespace Export
 			bool _drag )
 		{
 			mExportHandle(
-				Convert<MyGUI::ItemBox *>::To( _sender ) ,
+				_sender ,
 				Convert<MyGUI::types::TCoord < int > &>::To( _coord ) ,
 				Convert<bool>::To( _drag ) );
 		}
@@ -190,7 +190,7 @@ namespace Export
 	namespace ScopeItemBoxEvent_CreateWidgetItem
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::ItemBox *>::Type ,
+			MyGUI::ItemBox * ,
 			Convert<MyGUI::Widget *>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -199,7 +199,7 @@ namespace Export
 			MyGUI::Widget * _item )
 		{
 			mExportHandle(
-				Convert<MyGUI::ItemBox *>::To( _sender ) ,
+				_sender ,
 				Convert<MyGUI::Widget *>::To( _item ) );
 		}
 		

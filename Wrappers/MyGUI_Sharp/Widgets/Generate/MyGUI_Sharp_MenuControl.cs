@@ -73,17 +73,19 @@ namespace MyGUI.Sharp
 			public static extern void ExportMenuControlEvent_DelegateMenuCtrlClose( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  MenuControl _sender );
+				IntPtr _sender );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportMenuCtrlClose(
-			 MenuControl _sender )
+			IntPtr _sender )
 		{
-			if (_sender.mEventMenuCtrlClose != null)
-				_sender.mEventMenuCtrlClose(
-					 _sender );
+			 MenuControl sender = (  MenuControl )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventMenuCtrlClose != null)
+				sender.mEventMenuCtrlClose(
+					sender );
 		}
 
 		#endregion
@@ -125,19 +127,21 @@ namespace MyGUI.Sharp
 			public static extern void ExportMenuControlEvent_DelegateMenuCtrlAccept( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  MenuControl _sender ,
+				IntPtr _sender ,
 				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  MenuItem _item );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportMenuCtrlAccept(
-			 MenuControl _sender ,
+			IntPtr _sender ,
 			 MenuItem _item )
 		{
-			if (_sender.mEventMenuCtrlAccept != null)
-				_sender.mEventMenuCtrlAccept(
-					 _sender ,
+			 MenuControl sender = (  MenuControl )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventMenuCtrlAccept != null)
+				sender.mEventMenuCtrlAccept(
+					sender ,
 					 _item );
 		}
 

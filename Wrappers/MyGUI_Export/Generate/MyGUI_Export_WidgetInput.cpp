@@ -19,7 +19,7 @@ namespace Export
 	namespace ScopeWidgetEvent_RootKeyChangeFocus
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::Widget *>::Type ,
+			MyGUI::Widget * ,
 			Convert<bool>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -28,7 +28,7 @@ namespace Export
 			bool _focus )
 		{
 			mExportHandle(
-				Convert<MyGUI::Widget *>::To( _sender ) ,
+				_sender ,
 				Convert<bool>::To( _focus ) );
 		}
 		
@@ -47,7 +47,7 @@ namespace Export
 	namespace ScopeWidgetEvent_RootMouseChangeFocus
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::Widget *>::Type ,
+			MyGUI::Widget * ,
 			Convert<bool>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -56,7 +56,7 @@ namespace Export
 			bool _focus )
 		{
 			mExportHandle(
-				Convert<MyGUI::Widget *>::To( _sender ) ,
+				_sender ,
 				Convert<bool>::To( _focus ) );
 		}
 		
@@ -75,7 +75,7 @@ namespace Export
 	namespace ScopeWidgetEvent_KeyButtonReleased
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::Widget *>::Type ,
+			MyGUI::Widget * ,
 			Convert<MyGUI::KeyCode>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -84,7 +84,7 @@ namespace Export
 			MyGUI::KeyCode _key )
 		{
 			mExportHandle(
-				Convert<MyGUI::Widget *>::To( _sender ) ,
+				_sender ,
 				Convert<MyGUI::KeyCode>::To( _key ) );
 		}
 		
@@ -103,7 +103,7 @@ namespace Export
 	namespace ScopeWidgetEvent_KeyButtonPressed
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::Widget *>::Type ,
+			MyGUI::Widget * ,
 			Convert<MyGUI::KeyCode>::Type ,
 			Convert<unsigned int>::Type );
 		ExportHandle mExportHandle = nullptr;
@@ -114,7 +114,7 @@ namespace Export
 			unsigned int _char )
 		{
 			mExportHandle(
-				Convert<MyGUI::Widget *>::To( _sender ) ,
+				_sender ,
 				Convert<MyGUI::KeyCode>::To( _key ) ,
 				Convert<unsigned int>::To( _char ) );
 		}
@@ -134,7 +134,7 @@ namespace Export
 	namespace ScopeWidgetEvent_KeySetFocus
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::Widget *>::Type ,
+			MyGUI::Widget * ,
 			Convert<MyGUI::Widget *>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -143,7 +143,7 @@ namespace Export
 			MyGUI::Widget * _old )
 		{
 			mExportHandle(
-				Convert<MyGUI::Widget *>::To( _sender ) ,
+				_sender ,
 				Convert<MyGUI::Widget *>::To( _old ) );
 		}
 		
@@ -162,7 +162,7 @@ namespace Export
 	namespace ScopeWidgetEvent_KeyLostFocus
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::Widget *>::Type ,
+			MyGUI::Widget * ,
 			Convert<MyGUI::Widget *>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -171,7 +171,7 @@ namespace Export
 			MyGUI::Widget * _new )
 		{
 			mExportHandle(
-				Convert<MyGUI::Widget *>::To( _sender ) ,
+				_sender ,
 				Convert<MyGUI::Widget *>::To( _new ) );
 		}
 		
@@ -190,14 +190,14 @@ namespace Export
 	namespace ScopeWidgetEvent_MouseButtonDoubleClick
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::Widget *>::Type );
+			MyGUI::Widget * );
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
 			MyGUI::Widget * _sender )
 		{
 			mExportHandle(
-				Convert<MyGUI::Widget *>::To( _sender ) );
+				_sender );
 		}
 		
 		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateMouseButtonDoubleClick( ExportHandle _delegate )
@@ -215,14 +215,14 @@ namespace Export
 	namespace ScopeWidgetEvent_MouseButtonClick
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::Widget *>::Type );
+			MyGUI::Widget * );
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
 			MyGUI::Widget * _sender )
 		{
 			mExportHandle(
-				Convert<MyGUI::Widget *>::To( _sender ) );
+				_sender );
 		}
 		
 		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateMouseButtonClick( ExportHandle _delegate )
@@ -240,7 +240,7 @@ namespace Export
 	namespace ScopeWidgetEvent_MouseButtonReleased
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::Widget *>::Type ,
+			MyGUI::Widget * ,
 			Convert<int>::Type ,
 			Convert<int>::Type ,
 			Convert<MyGUI::MouseButton>::Type );
@@ -253,7 +253,7 @@ namespace Export
 			MyGUI::MouseButton _id )
 		{
 			mExportHandle(
-				Convert<MyGUI::Widget *>::To( _sender ) ,
+				_sender ,
 				Convert<int>::To( _left ) ,
 				Convert<int>::To( _top ) ,
 				Convert<MyGUI::MouseButton>::To( _id ) );
@@ -274,7 +274,7 @@ namespace Export
 	namespace ScopeWidgetEvent_MouseButtonPressed
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::Widget *>::Type ,
+			MyGUI::Widget * ,
 			Convert<int>::Type ,
 			Convert<int>::Type ,
 			Convert<MyGUI::MouseButton>::Type );
@@ -287,7 +287,7 @@ namespace Export
 			MyGUI::MouseButton _id )
 		{
 			mExportHandle(
-				Convert<MyGUI::Widget *>::To( _sender ) ,
+				_sender ,
 				Convert<int>::To( _left ) ,
 				Convert<int>::To( _top ) ,
 				Convert<MyGUI::MouseButton>::To( _id ) );
@@ -308,7 +308,7 @@ namespace Export
 	namespace ScopeWidgetEvent_MouseWheel
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::Widget *>::Type ,
+			MyGUI::Widget * ,
 			Convert<int>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -317,7 +317,7 @@ namespace Export
 			int _rel )
 		{
 			mExportHandle(
-				Convert<MyGUI::Widget *>::To( _sender ) ,
+				_sender ,
 				Convert<int>::To( _rel ) );
 		}
 		
@@ -336,7 +336,7 @@ namespace Export
 	namespace ScopeWidgetEvent_MouseMove
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::Widget *>::Type ,
+			MyGUI::Widget * ,
 			Convert<int>::Type ,
 			Convert<int>::Type );
 		ExportHandle mExportHandle = nullptr;
@@ -347,7 +347,7 @@ namespace Export
 			int _top )
 		{
 			mExportHandle(
-				Convert<MyGUI::Widget *>::To( _sender ) ,
+				_sender ,
 				Convert<int>::To( _left ) ,
 				Convert<int>::To( _top ) );
 		}
@@ -367,7 +367,7 @@ namespace Export
 	namespace ScopeWidgetEvent_MouseDrag
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::Widget *>::Type ,
+			MyGUI::Widget * ,
 			Convert<int>::Type ,
 			Convert<int>::Type ,
 			Convert<MyGUI::MouseButton>::Type );
@@ -380,7 +380,7 @@ namespace Export
 			MyGUI::MouseButton _value4 )
 		{
 			mExportHandle(
-				Convert<MyGUI::Widget *>::To( _sender ) ,
+				_sender ,
 				Convert<int>::To( _left ) ,
 				Convert<int>::To( _top ) ,
 				Convert<MyGUI::MouseButton>::To( _value4 ) );
@@ -401,7 +401,7 @@ namespace Export
 	namespace ScopeWidgetEvent_MouseSetFocus
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::Widget *>::Type ,
+			MyGUI::Widget * ,
 			Convert<MyGUI::Widget *>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -410,7 +410,7 @@ namespace Export
 			MyGUI::Widget * _old )
 		{
 			mExportHandle(
-				Convert<MyGUI::Widget *>::To( _sender ) ,
+				_sender ,
 				Convert<MyGUI::Widget *>::To( _old ) );
 		}
 		
@@ -429,7 +429,7 @@ namespace Export
 	namespace ScopeWidgetEvent_MouseLostFocus
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::Widget *>::Type ,
+			MyGUI::Widget * ,
 			Convert<MyGUI::Widget *>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -438,7 +438,7 @@ namespace Export
 			MyGUI::Widget * _new )
 		{
 			mExportHandle(
-				Convert<MyGUI::Widget *>::To( _sender ) ,
+				_sender ,
 				Convert<MyGUI::Widget *>::To( _new ) );
 		}
 		

@@ -1,14 +1,14 @@
 ﻿	namespace Scope#{ThisName}Event_#{DelegateName}
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<#{OriginalTypeName1}>::Type );
+			#{OriginalTypeName1} );
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
 			#{OriginalTypeName1} #{ValueName1} )
 		{
 			mExportHandle(
-				Convert<#{OriginalTypeName1}>::To( #{ValueName1} ) );
+				#{ValueName1} );
 		}
 		
 		MYGUIEXPORT void MYGUICALL Export#{ThisName}Event_Delegate#{DelegateName}( ExportHandle _delegate )

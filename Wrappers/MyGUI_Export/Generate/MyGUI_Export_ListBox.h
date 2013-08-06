@@ -22,7 +22,7 @@ namespace Export
 	namespace ScopeListBoxEvent_NotifyItem
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::ListBox *>::Type ,
+			MyGUI::ListBox * ,
 			Convert<const MyGUI::IBNotifyItemData &>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -31,7 +31,7 @@ namespace Export
 			const MyGUI::IBNotifyItemData & _info )
 		{
 			mExportHandle(
-				Convert<MyGUI::ListBox *>::To( _sender ) ,
+				_sender ,
 				Convert<const MyGUI::IBNotifyItemData &>::To( _info ) );
 		}
 		
@@ -50,7 +50,7 @@ namespace Export
 	namespace ScopeListBoxEvent_ListChangeScroll
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::ListBox *>::Type ,
+			MyGUI::ListBox * ,
 			Convert<size_t>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -59,7 +59,7 @@ namespace Export
 			size_t _position )
 		{
 			mExportHandle(
-				Convert<MyGUI::ListBox *>::To( _sender ) ,
+				_sender ,
 				Convert<size_t>::To( _position ) );
 		}
 		
@@ -78,7 +78,7 @@ namespace Export
 	namespace ScopeListBoxEvent_ListMouseItemFocus
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::ListBox *>::Type ,
+			MyGUI::ListBox * ,
 			Convert<size_t>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -87,7 +87,7 @@ namespace Export
 			size_t _index )
 		{
 			mExportHandle(
-				Convert<MyGUI::ListBox *>::To( _sender ) ,
+				_sender ,
 				Convert<size_t>::To( _index ) );
 		}
 		
@@ -106,7 +106,7 @@ namespace Export
 	namespace ScopeListBoxEvent_ListMouseItemActivate
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::ListBox *>::Type ,
+			MyGUI::ListBox * ,
 			Convert<size_t>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -115,7 +115,7 @@ namespace Export
 			size_t _index )
 		{
 			mExportHandle(
-				Convert<MyGUI::ListBox *>::To( _sender ) ,
+				_sender ,
 				Convert<size_t>::To( _index ) );
 		}
 		
@@ -134,7 +134,7 @@ namespace Export
 	namespace ScopeListBoxEvent_ListChangePosition
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::ListBox *>::Type ,
+			MyGUI::ListBox * ,
 			Convert<size_t>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -143,7 +143,7 @@ namespace Export
 			size_t _index )
 		{
 			mExportHandle(
-				Convert<MyGUI::ListBox *>::To( _sender ) ,
+				_sender ,
 				Convert<size_t>::To( _index ) );
 		}
 		
@@ -162,7 +162,7 @@ namespace Export
 	namespace ScopeListBoxEvent_ListSelectAccept
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::ListBox *>::Type ,
+			MyGUI::ListBox * ,
 			Convert<size_t>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -171,7 +171,7 @@ namespace Export
 			size_t _index )
 		{
 			mExportHandle(
-				Convert<MyGUI::ListBox *>::To( _sender ) ,
+				_sender ,
 				Convert<size_t>::To( _index ) );
 		}
 		

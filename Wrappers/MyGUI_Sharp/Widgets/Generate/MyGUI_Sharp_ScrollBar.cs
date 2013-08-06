@@ -74,19 +74,21 @@ namespace MyGUI.Sharp
 			public static extern void ExportScrollBarEvent_DelegateScrollChangePosition( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ScrollBar _sender ,
+				IntPtr _sender ,
 				  uint _position );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportScrollChangePosition(
-			 ScrollBar _sender ,
+			IntPtr _sender ,
 			 uint _position )
 		{
-			if (_sender.mEventScrollChangePosition != null)
-				_sender.mEventScrollChangePosition(
-					 _sender ,
+			 ScrollBar sender = (  ScrollBar )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventScrollChangePosition != null)
+				sender.mEventScrollChangePosition(
+					sender ,
 					 _position );
 		}
 

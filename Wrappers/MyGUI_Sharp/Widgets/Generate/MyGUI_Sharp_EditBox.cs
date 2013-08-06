@@ -73,17 +73,19 @@ namespace MyGUI.Sharp
 			public static extern void ExportEditBoxEvent_DelegateEditTextChange( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  EditBox _sender );
+				IntPtr _sender );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportEditTextChange(
-			 EditBox _sender )
+			IntPtr _sender )
 		{
-			if (_sender.mEventEditTextChange != null)
-				_sender.mEventEditTextChange(
-					 _sender );
+			 EditBox sender = (  EditBox )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventEditTextChange != null)
+				sender.mEventEditTextChange(
+					sender );
 		}
 
 		#endregion
@@ -124,17 +126,19 @@ namespace MyGUI.Sharp
 			public static extern void ExportEditBoxEvent_DelegateEditSelectAccept( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  EditBox _sender );
+				IntPtr _sender );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportEditSelectAccept(
-			 EditBox _sender )
+			IntPtr _sender )
 		{
-			if (_sender.mEventEditSelectAccept != null)
-				_sender.mEventEditSelectAccept(
-					 _sender );
+			 EditBox sender = (  EditBox )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventEditSelectAccept != null)
+				sender.mEventEditSelectAccept(
+					sender );
 		}
 
 		#endregion

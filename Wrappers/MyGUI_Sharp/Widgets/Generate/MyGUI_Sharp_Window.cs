@@ -73,17 +73,19 @@ namespace MyGUI.Sharp
 			public static extern void ExportWindowEvent_DelegateWindowChangeCoord( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Window _sender );
+				IntPtr _sender );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportWindowChangeCoord(
-			 Window _sender )
+			IntPtr _sender )
 		{
-			if (_sender.mEventWindowChangeCoord != null)
-				_sender.mEventWindowChangeCoord(
-					 _sender );
+			 Window sender = (  Window )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventWindowChangeCoord != null)
+				sender.mEventWindowChangeCoord(
+					sender );
 		}
 
 		#endregion
@@ -125,19 +127,21 @@ namespace MyGUI.Sharp
 			public static extern void ExportWindowEvent_DelegateWindowButtonPressed( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Window _sender ,
+				IntPtr _sender ,
 				[MarshalAs(UnmanagedType.LPStr)]  string _name );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportWindowButtonPressed(
-			 Window _sender ,
+			IntPtr _sender ,
 			 string _name )
 		{
-			if (_sender.mEventWindowButtonPressed != null)
-				_sender.mEventWindowButtonPressed(
-					 _sender ,
+			 Window sender = (  Window )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventWindowButtonPressed != null)
+				sender.mEventWindowButtonPressed(
+					sender ,
 					 _name );
 		}
 

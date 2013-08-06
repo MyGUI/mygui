@@ -22,14 +22,14 @@ namespace Export
 	namespace ScopeMenuControlEvent_MenuCtrlClose
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::MenuControl *>::Type );
+			MyGUI::MenuControl * );
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
 			MyGUI::MenuControl * _sender )
 		{
 			mExportHandle(
-				Convert<MyGUI::MenuControl *>::To( _sender ) );
+				_sender );
 		}
 		
 		MYGUIEXPORT void MYGUICALL ExportMenuControlEvent_DelegateMenuCtrlClose( ExportHandle _delegate )
@@ -47,7 +47,7 @@ namespace Export
 	namespace ScopeMenuControlEvent_MenuCtrlAccept
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::MenuControl *>::Type ,
+			MyGUI::MenuControl * ,
 			Convert<MyGUI::MenuItem *>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -56,7 +56,7 @@ namespace Export
 			MyGUI::MenuItem * _item )
 		{
 			mExportHandle(
-				Convert<MyGUI::MenuControl *>::To( _sender ) ,
+				_sender ,
 				Convert<MyGUI::MenuItem *>::To( _item ) );
 		}
 		
