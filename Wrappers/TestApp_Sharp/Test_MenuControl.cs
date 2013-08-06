@@ -11,9 +11,9 @@ namespace TestApp.Sharp
             menu.EventMenuCtrlClose += new MenuControl.HandleMenuCtrlClose(menu_EventMenuCtrlClose);
             menu.EventMenuCtrlAccept += new MenuControl.HandleMenuCtrlAccept(menu_EventMenuCtrlAccept);
 
-            menu.AddItem("line0", MenuItemType.Normal, "id1", "0");
-            menu.InsertItemAt(0, "insert line0", MenuItemType.Normal, "id2", "0");
-            menu.AddItem("line2", MenuItemType.Normal, "id3", "0");
+            menu.AddItem("line0", MenuItemType.Normal, "id1");//, "0");
+            menu.InsertItemAt(0, "insert line0", MenuItemType.Normal, "id2");//, "0");
+            menu.AddItem("line2", MenuItemType.Normal, "id3");//, "0");
 
             MenuItem parent = menu.MenuItemParent;
             menu.PopupAccept = !menu.PopupAccept;
@@ -30,11 +30,11 @@ namespace TestApp.Sharp
             MenuItem item = menu.GetItemById("id2");
             string id = menu.GetItemIdAt(0);
 
-            string data = menu.GetItemDataAt(0) as string;
-            menu.ClearItemDataAt(0);
-            data = menu.GetItemDataAt(0) as string;
-            menu.SetItemDataAt(0, "new data0");
-            data = menu.GetItemDataAt(0) as string;
+            //string data = menu.GetItemDataAt(0) as string;
+            //menu.ClearItemDataAt(0);
+            //data = menu.GetItemDataAt(0) as string;
+            //menu.SetItemDataAt(0, "new data0");
+            //data = menu.GetItemDataAt(0) as string;
 
             //MenuItem test start
             child = item.ItemChild;
@@ -46,13 +46,13 @@ namespace TestApp.Sharp
             item.ItemId = item.ItemId + "_newid";
             item.ItemName = item.ItemName + "_newname";
 
-            data = item.ItemData as string;
-            item.ItemData = "new data";
-            data = menu.GetItemData(item) as string;
-            data = menu.GetItemDataAt(0) as string;
-            data = item.ItemData as string;
-            item.ItemData = null;
-            data = item.ItemData as string;
+            //data = item.ItemData as string;
+            //item.ItemData = "new data";
+            //data = menu.GetItemData(item) as string;
+            //data = menu.GetItemDataAt(0) as string;
+            //data = item.ItemData as string;
+            //item.ItemData = null;
+            //data = item.ItemData as string;
             //MenuItem test end
 
             index = menu.GetItemIndex(item);

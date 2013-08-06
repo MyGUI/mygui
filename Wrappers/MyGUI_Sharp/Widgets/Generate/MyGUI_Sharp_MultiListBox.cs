@@ -213,61 +213,6 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-		#region Method GetSubItemDataAt
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.IUnknown)]
-		private static extern object ExportMultiListBox_GetSubItemDataAt_column_index( IntPtr _native ,
-			  uint _column ,
-			  uint _index );
-
-		public object GetSubItemDataAt(
-			uint _column ,
-			uint _index )
-		{
-			return ExportMultiListBox_GetSubItemDataAt_column_index( mNative , 
-				 _column ,
-				 _index );
-		}
-
-		#endregion
-		#region Method ClearSubItemDataAt
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMultiListBox_ClearSubItemDataAt_column_index( IntPtr _native ,
-			  uint _column ,
-			  uint _index );
-
-		public void ClearSubItemDataAt(
-			uint _column ,
-			uint _index )
-		{
-			ExportMultiListBox_ClearSubItemDataAt_column_index( mNative , 
-				 _column ,
-				 _index );
-		}
-
-		#endregion
-		#region Method SetSubItemDataAt
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMultiListBox_SetSubItemDataAt_column_index_data( IntPtr _native ,
-			  uint _column ,
-			  uint _index ,
-			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
-
-		public void SetSubItemDataAt(
-			uint _column ,
-			uint _index ,
-			object _data )
-		{
-			ExportMultiListBox_SetSubItemDataAt_column_index_data( mNative , 
-				 _column ,
-				 _index ,
-				 _data );
-		}
-
-		#endregion
 		#region Method FindSubItemWith
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
@@ -321,52 +266,6 @@ namespace MyGUI.Sharp
 				 _column ,
 				 _index ,
 				 _name );
-		}
-
-		#endregion
-		#region Method GetItemDataAt
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.IUnknown)]
-		private static extern object ExportMultiListBox_GetItemDataAt_index( IntPtr _native ,
-			  uint _index );
-
-		public object GetItemDataAt(
-			uint _index )
-		{
-			return ExportMultiListBox_GetItemDataAt_index( mNative , 
-				 _index );
-		}
-
-		#endregion
-		#region Method ClearItemDataAt
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMultiListBox_ClearItemDataAt_index( IntPtr _native ,
-			  uint _index );
-
-		public void ClearItemDataAt(
-			uint _index )
-		{
-			ExportMultiListBox_ClearItemDataAt_index( mNative , 
-				 _index );
-		}
-
-		#endregion
-		#region Method SetItemDataAt
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMultiListBox_SetItemDataAt_index_data( IntPtr _native ,
-			  uint _index ,
-			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
-
-		public void SetItemDataAt(
-			uint _index ,
-			object _data )
-		{
-			ExportMultiListBox_SetItemDataAt_index_data( mNative , 
-				 _index ,
-				 _data );
 		}
 
 		#endregion
@@ -458,20 +357,6 @@ namespace MyGUI.Sharp
 		#region Method AddItem
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMultiListBox_AddItem_name_data( IntPtr _native ,
-			[MarshalAs(UnmanagedType.LPWStr)]  string _name ,
-			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
-
-		public void AddItem(
-			string _name ,
-			object _data )
-		{
-			ExportMultiListBox_AddItem_name_data( mNative , 
-				 _name ,
-				 _data );
-		}
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMultiListBox_AddItem_name( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
 
@@ -486,23 +371,6 @@ namespace MyGUI.Sharp
 		#region Method InsertItemAt
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMultiListBox_InsertItemAt_index_name_data( IntPtr _native ,
-			  uint _index ,
-			[MarshalAs(UnmanagedType.LPWStr)]  string _name ,
-			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
-
-		public void InsertItemAt(
-			uint _index ,
-			string _name ,
-			object _data )
-		{
-			ExportMultiListBox_InsertItemAt_index_name_data( mNative , 
-				 _index ,
-				 _name ,
-				 _data );
-		}
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMultiListBox_InsertItemAt_index_name( IntPtr _native ,
 			  uint _index ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
@@ -514,52 +382,6 @@ namespace MyGUI.Sharp
 			ExportMultiListBox_InsertItemAt_index_name( mNative , 
 				 _index ,
 				 _name );
-		}
-
-		#endregion
-		#region Method GetColumnDataAt
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.IUnknown)]
-		private static extern object ExportMultiListBox_GetColumnDataAt_index( IntPtr _native ,
-			  uint _index );
-
-		public object GetColumnDataAt(
-			uint _index )
-		{
-			return ExportMultiListBox_GetColumnDataAt_index( mNative , 
-				 _index );
-		}
-
-		#endregion
-		#region Method ClearColumnDataAt
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMultiListBox_ClearColumnDataAt_index( IntPtr _native ,
-			  uint _index );
-
-		public void ClearColumnDataAt(
-			uint _index )
-		{
-			ExportMultiListBox_ClearColumnDataAt_index( mNative , 
-				 _index );
-		}
-
-		#endregion
-		#region Method SetColumnDataAt
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMultiListBox_SetColumnDataAt_index_data( IntPtr _native ,
-			  uint _index ,
-			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
-
-		public void SetColumnDataAt(
-			uint _index ,
-			object _data )
-		{
-			ExportMultiListBox_SetColumnDataAt_index_data( mNative , 
-				 _index ,
-				 _data );
 		}
 
 		#endregion
@@ -787,23 +609,6 @@ namespace MyGUI.Sharp
 		#region Method AddColumn
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMultiListBox_AddColumn_name_width_data( IntPtr _native ,
-			[MarshalAs(UnmanagedType.LPWStr)]  string _name ,
-			  int _width ,
-			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
-
-		public void AddColumn(
-			string _name ,
-			int _width ,
-			object _data )
-		{
-			ExportMultiListBox_AddColumn_name_width_data( mNative , 
-				 _name ,
-				 _width ,
-				 _data );
-		}
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMultiListBox_AddColumn_name_width( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name ,
 			  int _width );
@@ -819,26 +624,6 @@ namespace MyGUI.Sharp
 
 		#endregion
 		#region Method InsertColumnAt
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMultiListBox_InsertColumnAt_column_name_width_data( IntPtr _native ,
-			  uint _column ,
-			[MarshalAs(UnmanagedType.LPWStr)]  string _name ,
-			  int _width ,
-			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
-
-		public void InsertColumnAt(
-			uint _column ,
-			string _name ,
-			int _width ,
-			object _data )
-		{
-			ExportMultiListBox_InsertColumnAt_column_name_width_data( mNative , 
-				 _column ,
-				 _name ,
-				 _width ,
-				 _data );
-		}
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMultiListBox_InsertColumnAt_column_name_width( IntPtr _native ,

@@ -31,10 +31,10 @@ namespace TestApp.Sharp
             string name = box.GetItemNameAt(0);
             box.SetItemNameAt(0, "set line0");
             name = box.GetItemNameAt(0);
-            box.SetItemDataAt(0, "0");
-            string data = box.GetItemDataAt(0) as string;
-            box.ClearItemDataAt(0);
-            data = box.GetItemDataAt(0) as string;
+            //box.SetItemDataAt(0, "0");
+            //string data = box.GetItemDataAt(0) as string;
+            //box.ClearItemDataAt(0);
+            //data = box.GetItemDataAt(0) as string;
             box.ClearIndexSelected();
             box.IndexSelected = 0;
             uint index = box.FindItemIndexWith("line3");

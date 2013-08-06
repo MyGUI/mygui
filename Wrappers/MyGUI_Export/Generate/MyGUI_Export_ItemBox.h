@@ -230,37 +230,6 @@ namespace Export
 				Convert<MyGUI::Widget *>::From( _widget ) ));
 		}
 	}
-	namespace ScopeItemBoxMethod_GetItemDataAt
-	{
-		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportItemBox_GetItemDataAt_index( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index )
-		{
-			Convert<MyGUI::Any>::Type* data = 
-				static_cast< MyGUI::ItemBox * >(_native)->getItemDataAt< Convert<MyGUI::Any>::Type >(
-					Convert<size_t>::From( _index ) , false );
-			return data == nullptr ? nullptr : *data;
-		}
-	}
-	namespace ScopeItemBoxMethod_ClearItemDataAt
-	{
-		MYGUIEXPORT void MYGUICALL ExportItemBox_ClearItemDataAt_index( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index )
-		{
-			static_cast< MyGUI::ItemBox * >(_native)->clearItemDataAt(
-				Convert<size_t>::From( _index ) );
-		}
-	}
-	namespace ScopeItemBoxMethod_SetItemDataAt
-	{
-		MYGUIEXPORT void MYGUICALL ExportItemBox_SetItemDataAt_index_data( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			static_cast< MyGUI::ItemBox * >(_native)->setItemDataAt(
-				Convert<size_t>::From( _index ) ,
-				Convert<MyGUI::Any>::From( _data ) );
-		}
-	}
 	namespace ScopeItemBoxMethod_ClearIndexSelected
 	{
 		MYGUIEXPORT void MYGUICALL ExportItemBox_ClearIndexSelected( MyGUI::Widget* _native )
@@ -302,12 +271,6 @@ namespace Export
 	}
 	namespace ScopeItemBoxMethod_AddItem
 	{
-		MYGUIEXPORT void MYGUICALL ExportItemBox_AddItem_data( MyGUI::Widget* _native,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			static_cast< MyGUI::ItemBox * >(_native)->addItem(
-				Convert<MyGUI::Any>::From( _data ) );
-		}
 		MYGUIEXPORT void MYGUICALL ExportItemBox_AddItem( MyGUI::Widget* _native )
 		{
 			static_cast< MyGUI::ItemBox * >(_native)->addItem( );
@@ -315,14 +278,6 @@ namespace Export
 	}
 	namespace ScopeItemBoxMethod_InsertItemAt
 	{
-		MYGUIEXPORT void MYGUICALL ExportItemBox_InsertItemAt_index_data( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			static_cast< MyGUI::ItemBox * >(_native)->insertItemAt(
-				Convert<size_t>::From( _index ) ,
-				Convert<MyGUI::Any>::From( _data ) );
-		}
 		MYGUIEXPORT void MYGUICALL ExportItemBox_InsertItemAt_index( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index )
 		{

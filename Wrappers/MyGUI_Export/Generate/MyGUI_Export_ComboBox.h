@@ -125,37 +125,6 @@ namespace Export
 				Convert<const MyGUI::UString &>::From( _name ) );
 		}
 	}
-	namespace ScopeComboBoxMethod_GetItemDataAt
-	{
-		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportComboBox_GetItemDataAt_index( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index )
-		{
-			Convert<MyGUI::Any>::Type* data = 
-				static_cast< MyGUI::ComboBox * >(_native)->getItemDataAt< Convert<MyGUI::Any>::Type >(
-					Convert<size_t>::From( _index ) , false );
-			return data == nullptr ? nullptr : *data;
-		}
-	}
-	namespace ScopeComboBoxMethod_ClearItemDataAt
-	{
-		MYGUIEXPORT void MYGUICALL ExportComboBox_ClearItemDataAt_index( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index )
-		{
-			static_cast< MyGUI::ComboBox * >(_native)->clearItemDataAt(
-				Convert<size_t>::From( _index ) );
-		}
-	}
-	namespace ScopeComboBoxMethod_SetItemDataAt
-	{
-		MYGUIEXPORT void MYGUICALL ExportComboBox_SetItemDataAt_index_data( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			static_cast< MyGUI::ComboBox * >(_native)->setItemDataAt(
-				Convert<size_t>::From( _index ) ,
-				Convert<MyGUI::Any>::From( _data ) );
-		}
-	}
 	namespace ScopeComboBoxMethod_ClearIndexSelected
 	{
 		MYGUIEXPORT void MYGUICALL ExportComboBox_ClearIndexSelected( MyGUI::Widget* _native )
@@ -190,14 +159,6 @@ namespace Export
 	}
 	namespace ScopeComboBoxMethod_AddItem
 	{
-		MYGUIEXPORT void MYGUICALL ExportComboBox_AddItem_name_data( MyGUI::Widget* _native,
-			Convert<const MyGUI::UString &>::Type _name ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			static_cast< MyGUI::ComboBox * >(_native)->addItem(
-				Convert<const MyGUI::UString &>::From( _name ) ,
-				Convert<MyGUI::Any>::From( _data ) );
-		}
 		MYGUIEXPORT void MYGUICALL ExportComboBox_AddItem_name( MyGUI::Widget* _native,
 			Convert<const MyGUI::UString &>::Type _name )
 		{
@@ -207,16 +168,6 @@ namespace Export
 	}
 	namespace ScopeComboBoxMethod_InsertItemAt
 	{
-		MYGUIEXPORT void MYGUICALL ExportComboBox_InsertItemAt_index_name_data( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index ,
-			Convert<const MyGUI::UString &>::Type _name ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			static_cast< MyGUI::ComboBox * >(_native)->insertItemAt(
-				Convert<size_t>::From( _index ) ,
-				Convert<const MyGUI::UString &>::From( _name ) ,
-				Convert<MyGUI::Any>::From( _data ) );
-		}
 		MYGUIEXPORT void MYGUICALL ExportComboBox_InsertItemAt_index_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
 			Convert<const MyGUI::UString &>::Type _name )

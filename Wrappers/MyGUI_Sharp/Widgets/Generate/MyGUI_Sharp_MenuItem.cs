@@ -73,21 +73,6 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-		#region Property ItemData
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.IUnknown)]
-		private static extern object ExportMenuItem_GetItemData( IntPtr _widget );
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMenuItem_SetItemData( IntPtr _widget, [MarshalAs(UnmanagedType.IUnknown)] object _value );
-
-		public object ItemData
-		{
-			get { return ExportMenuItem_GetItemData( mNative ); }
-			set { ExportMenuItem_SetItemData( mNative, value ); }
-		}
-
-		#endregion
 		#region Property ItemChecked
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]

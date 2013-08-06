@@ -325,7 +325,7 @@ namespace Export
 		}
 	};
 
-	template <> struct Convert<MyGUI::Any>
+	/*template <> struct Convert<MyGUI::Any>
 	{
 		typedef IUnknown Type;
 		inline static Type To(MyGUI::Any& _value)
@@ -337,7 +337,7 @@ namespace Export
 		{
 			return _value;
 		}
-	};
+	};*/
 
 	template <> struct Convert<MyGUI::LogLevel>
 	{

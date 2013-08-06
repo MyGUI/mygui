@@ -284,37 +284,6 @@ namespace Export
 				Convert<size_t>::From( _index ) );
 		}
 	}
-	namespace ScopeListBoxMethod_GetItemDataAt
-	{
-		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportListBox_GetItemDataAt_index( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index )
-		{
-			Convert<MyGUI::Any>::Type* data = 
-				static_cast< MyGUI::ListBox * >(_native)->getItemDataAt< Convert<MyGUI::Any>::Type >(
-					Convert<size_t>::From( _index ) , false );
-			return data == nullptr ? nullptr : *data;
-		}
-	}
-	namespace ScopeListBoxMethod_ClearItemDataAt
-	{
-		MYGUIEXPORT void MYGUICALL ExportListBox_ClearItemDataAt_index( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index )
-		{
-			static_cast< MyGUI::ListBox * >(_native)->clearItemDataAt(
-				Convert<size_t>::From( _index ) );
-		}
-	}
-	namespace ScopeListBoxMethod_SetItemDataAt
-	{
-		MYGUIEXPORT void MYGUICALL ExportListBox_SetItemDataAt_index_data( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			static_cast< MyGUI::ListBox * >(_native)->setItemDataAt(
-				Convert<size_t>::From( _index ) ,
-				Convert<MyGUI::Any>::From( _data ) );
-		}
-	}
 	namespace ScopeListBoxMethod_ClearIndexSelected
 	{
 		MYGUIEXPORT void MYGUICALL ExportListBox_ClearIndexSelected( MyGUI::Widget* _native )
@@ -360,14 +329,6 @@ namespace Export
 	}
 	namespace ScopeListBoxMethod_AddItem
 	{
-		MYGUIEXPORT void MYGUICALL ExportListBox_AddItem_name_data( MyGUI::Widget* _native,
-			Convert<const MyGUI::UString &>::Type _name ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			static_cast< MyGUI::ListBox * >(_native)->addItem(
-				Convert<const MyGUI::UString &>::From( _name ) ,
-				Convert<MyGUI::Any>::From( _data ) );
-		}
 		MYGUIEXPORT void MYGUICALL ExportListBox_AddItem_name( MyGUI::Widget* _native,
 			Convert<const MyGUI::UString &>::Type _name )
 		{
@@ -377,16 +338,6 @@ namespace Export
 	}
 	namespace ScopeListBoxMethod_InsertItemAt
 	{
-		MYGUIEXPORT void MYGUICALL ExportListBox_InsertItemAt_index_name_data( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index ,
-			Convert<const MyGUI::UString &>::Type _name ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			static_cast< MyGUI::ListBox * >(_native)->insertItemAt(
-				Convert<size_t>::From( _index ) ,
-				Convert<const MyGUI::UString &>::From( _name ) ,
-				Convert<MyGUI::Any>::From( _data ) );
-		}
 		MYGUIEXPORT void MYGUICALL ExportListBox_InsertItemAt_index_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
 			Convert<const MyGUI::UString &>::Type _name )

@@ -11,9 +11,9 @@ namespace TestApp.Sharp
             tab.EventTabChangeSelect += new TabControl.HandleTabChangeSelect(tab_EventTabChangeSelect);
 
             TabItem item = tab.AddItem("sheet1");
-            tab.AddItem("sheet2", "2");
+            tab.AddItem("sheet2");//, "2");
             tab.InsertItemAt(0, "insert sheet1");
-            tab.InsertItemAt(0, "insert sheet2", "2");
+            tab.InsertItemAt(0, "insert sheet2");//, "2");
 
             tab.SmoothShow = !tab.SmoothShow;
             tab.ButtonAutoWidth = !tab.ButtonAutoWidth;
@@ -38,11 +38,11 @@ namespace TestApp.Sharp
             tab.SetItemNameAt(0, "new name0");
             name = tab.GetItemNameAt(0);
 
-            object data = tab.GetItemDataAt(0) as string;
-            tab.SetItemDataAt(0, "0");
-            data = tab.GetItemDataAt(0) as string;
-            tab.ClearItemDataAt(0);
-            data = tab.GetItemDataAt(0) as string;
+            //object data = tab.GetItemDataAt(0) as string;
+            //tab.SetItemDataAt(0, "0");
+            //data = tab.GetItemDataAt(0) as string;
+            //tab.ClearItemDataAt(0);
+            //data = tab.GetItemDataAt(0) as string;
 
             uint index = tab.IndexSelected;
             tab.IndexSelected = 0;

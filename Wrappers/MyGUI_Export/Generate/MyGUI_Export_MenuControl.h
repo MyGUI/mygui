@@ -306,68 +306,6 @@ namespace Export
 				Convert<const std::string &>::From( _id ) );
 		}
 	}
-	namespace ScopeMenuControlMethod_GetItemData
-	{
-		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportMenuControl_GetItemData_item( MyGUI::Widget* _native,
-			Convert<MyGUI::MenuItem *>::Type _item )
-		{
-			Convert<MyGUI::Any>::Type* data = 
-				static_cast< MyGUI::MenuControl * >(_native)->getItemData< Convert<MyGUI::Any>::Type >(
-					Convert<MyGUI::MenuItem *>::From( _item ) , false );
-			return data == nullptr ? nullptr : *data;
-		}
-	}
-	namespace ScopeMenuControlMethod_GetItemDataAt
-	{
-		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportMenuControl_GetItemDataAt_index( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index )
-		{
-			Convert<MyGUI::Any>::Type* data = 
-				static_cast< MyGUI::MenuControl * >(_native)->getItemDataAt< Convert<MyGUI::Any>::Type >(
-					Convert<size_t>::From( _index ) , false );
-			return data == nullptr ? nullptr : *data;
-		}
-	}
-	namespace ScopeMenuControlMethod_ClearItemData
-	{
-		MYGUIEXPORT void MYGUICALL ExportMenuControl_ClearItemData_item( MyGUI::Widget* _native,
-			Convert<MyGUI::MenuItem *>::Type _item )
-		{
-			static_cast< MyGUI::MenuControl * >(_native)->clearItemData(
-				Convert<MyGUI::MenuItem *>::From( _item ) );
-		}
-	}
-	namespace ScopeMenuControlMethod_ClearItemDataAt
-	{
-		MYGUIEXPORT void MYGUICALL ExportMenuControl_ClearItemDataAt_index( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index )
-		{
-			static_cast< MyGUI::MenuControl * >(_native)->clearItemDataAt(
-				Convert<size_t>::From( _index ) );
-		}
-	}
-	namespace ScopeMenuControlMethod_SetItemData
-	{
-		MYGUIEXPORT void MYGUICALL ExportMenuControl_SetItemData_item_data( MyGUI::Widget* _native,
-			Convert<MyGUI::MenuItem *>::Type _item ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			static_cast< MyGUI::MenuControl * >(_native)->setItemData(
-				Convert<MyGUI::MenuItem *>::From( _item ) ,
-				Convert<MyGUI::Any>::From( _data ) );
-		}
-	}
-	namespace ScopeMenuControlMethod_SetItemDataAt
-	{
-		MYGUIEXPORT void MYGUICALL ExportMenuControl_SetItemDataAt_index_data( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			static_cast< MyGUI::MenuControl * >(_native)->setItemDataAt(
-				Convert<size_t>::From( _index ) ,
-				Convert<MyGUI::Any>::From( _data ) );
-		}
-	}
 	namespace ScopeMenuControlMethod_FindItemWith
 	{
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuControl_FindItemWith_name( MyGUI::Widget* _native,
@@ -431,18 +369,6 @@ namespace Export
 	}
 	namespace ScopeMenuControlMethod_AddItem
 	{
-		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuControl_AddItem_name_type_id_data( MyGUI::Widget* _native,
-			Convert<const MyGUI::UString &>::Type _name ,
-			Convert<MyGUI::MenuItemType>::Type _type ,
-			Convert<const std::string &>::Type _id ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			return Convert<MyGUI::MenuItem *>::To( static_cast< MyGUI::MenuControl * >(_native)->addItem(
-				Convert<const MyGUI::UString &>::From( _name ) ,
-				Convert<MyGUI::MenuItemType>::From( _type ) ,
-				Convert<const std::string &>::From( _id ) ,
-				Convert<MyGUI::Any>::From( _data ) ));
-		}
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuControl_AddItem_name_type_id( MyGUI::Widget* _native,
 			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<MyGUI::MenuItemType>::Type _type ,
@@ -468,39 +394,8 @@ namespace Export
 				Convert<const MyGUI::UString &>::From( _name ) ));
 		}
 	}
-	namespace ScopeMenuControlMethod_InsertItem
-	{
-		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuControl_InsertItem_to_name_type_id_data( MyGUI::Widget* _native,
-			Convert<MyGUI::MenuItem *>::Type _to ,
-			Convert<const MyGUI::UString &>::Type _name ,
-			Convert<MyGUI::MenuItemType>::Type _type ,
-			Convert<const std::string &>::Type _id ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			return Convert<MyGUI::MenuItem *>::To( static_cast< MyGUI::MenuControl * >(_native)->insertItem(
-				Convert<MyGUI::MenuItem *>::From( _to ) ,
-				Convert<const MyGUI::UString &>::From( _name ) ,
-				Convert<MyGUI::MenuItemType>::From( _type ) ,
-				Convert<const std::string &>::From( _id ) ,
-				Convert<MyGUI::Any>::From( _data ) ));
-		}
-	}
 	namespace ScopeMenuControlMethod_InsertItemAt
 	{
-		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuControl_InsertItemAt_index_name_type_id_data( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index ,
-			Convert<const MyGUI::UString &>::Type _name ,
-			Convert<MyGUI::MenuItemType>::Type _type ,
-			Convert<const std::string &>::Type _id ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			return Convert<MyGUI::MenuItem *>::To( static_cast< MyGUI::MenuControl * >(_native)->insertItemAt(
-				Convert<size_t>::From( _index ) ,
-				Convert<const MyGUI::UString &>::From( _name ) ,
-				Convert<MyGUI::MenuItemType>::From( _type ) ,
-				Convert<const std::string &>::From( _id ) ,
-				Convert<MyGUI::Any>::From( _data ) ));
-		}
 		MYGUIEXPORT Convert<MyGUI::MenuItem *>::Type MYGUICALL ExportMenuControl_InsertItemAt_index_name_type_id( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
 			Convert<const MyGUI::UString &>::Type _name ,
