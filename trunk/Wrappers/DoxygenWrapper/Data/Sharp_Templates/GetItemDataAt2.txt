@@ -10,7 +10,7 @@
 			#{TypeName1} #{ValueName1} ,
 			#{TypeName2} #{ValueName2} )
 		{
-			return Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( mNative , 
+			return Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( Native , 
 				#{TypePrefix1} #{ValueName1} ,
 				#{TypePrefix2} #{ValueName2} );
 		}

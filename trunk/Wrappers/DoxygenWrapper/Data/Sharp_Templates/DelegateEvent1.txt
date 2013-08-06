@@ -18,14 +18,14 @@
 				}
 
 				if (mEvent#{DelegateName} == null)
-					Export#{ThisName}Event_Advise#{DelegateName}( mNative, true );
+					Export#{ThisName}Event_Advise#{DelegateName}( Native, true );
 				mEvent#{DelegateName} += value;
 			}
 			remove
 			{
 				mEvent#{DelegateName} -= value;
 				if (mEvent#{DelegateName} == null)
-					Export#{ThisName}Event_Advise#{DelegateName}( mNative, false );
+					Export#{ThisName}Event_Advise#{DelegateName}( Native, false );
 			}
 		}
 

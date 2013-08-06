@@ -5,7 +5,7 @@
 
 		public void #{MethodName}( )
 		{
-			Export#{ThisName}_#{MethodName}#{ValueName1}(  mNative );
+			Export#{ThisName}_#{MethodName}#{ValueName1}(  Native );
 		}
 
 		#endregion

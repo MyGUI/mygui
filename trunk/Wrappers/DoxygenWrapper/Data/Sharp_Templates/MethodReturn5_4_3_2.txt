@@ -16,7 +16,7 @@
 			#{TypeName4} #{ValueName4} ,
 			#{TypeName5} #{ValueName5} )
 		{
-			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}#{ValueName5}( mNative , 
+			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}#{ValueName5}( Native , 
 				#{TypePrefix1} #{ValueName1} ,
 				#{TypePrefix2} #{ValueName2} ,
 				#{TypePrefix3} #{ValueName3} ,
@@ -38,7 +38,7 @@
 			#{TypeName3} #{ValueName3} ,
 			#{TypeName4} #{ValueName4} )
 		{
-			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}( mNative , 
+			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}( Native , 
 				#{TypePrefix1} #{ValueName1} ,
 				#{TypePrefix2} #{ValueName2} ,
 				#{TypePrefix3} #{ValueName3} ,
@@ -57,7 +57,7 @@
 			#{TypeName2} #{ValueName2} ,
 			#{TypeName3} #{ValueName3} )
 		{
-			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}( mNative , 
+			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}( Native , 
 				#{TypePrefix1} #{ValueName1} ,
 				#{TypePrefix2} #{ValueName2} ,
 				#{TypePrefix3} #{ValueName3} ) #{MarshalConvertPost} ;
@@ -73,7 +73,7 @@
 			#{TypeName1} #{ValueName1} ,
 			#{TypeName2} #{ValueName2} )
 		{
-			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( mNative , 
+			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( Native , 
 				#{TypePrefix1} #{ValueName1} ,
 				#{TypePrefix2} #{ValueName2} ) #{MarshalConvertPost} ;
 		}

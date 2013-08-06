@@ -13,7 +13,7 @@
 			#{TypeName3} #{ValueName3} ,
 			#{TypeName4} #{ValueName4} )
 		{
-			Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}( mNative , 
+			Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}( Native , 
 				#{TypePrefix1} #{ValueName1} ,
 				#{TypePrefix2} #{ValueName2} ,
 				#{TypePrefix3} #{ValueName3} ,
@@ -31,7 +31,7 @@
 			#{TypeName2} #{ValueName2} ,
 			#{TypeName3} #{ValueName3} )
 		{
-			Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}( mNative , 
+			Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}( Native , 
 				#{TypePrefix1} #{ValueName1} ,
 				#{TypePrefix2} #{ValueName2} ,
 				#{TypePrefix3} #{ValueName3} );

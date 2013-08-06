@@ -6,7 +6,7 @@
 
 		public #{TypeName} #{MethodName}( )
 		{
-			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}( mNative ) #{MarshalConvertPost} ;
+			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}( Native ) #{MarshalConvertPost} ;
 		}
 
 		#endregion
