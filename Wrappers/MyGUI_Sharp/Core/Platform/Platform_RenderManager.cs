@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
 
 namespace MyGUI.Sharp
 {
 	public partial class Platform
 	{
-
 		#region Export
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
