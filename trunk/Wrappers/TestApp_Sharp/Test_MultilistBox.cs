@@ -11,14 +11,14 @@ namespace TestApp.Sharp
             box.EventListChangePosition += new MultiListBox.HandleListChangePosition(box_EventListChangePosition);
             box.EventListSelectAccept += new MultiListBox.HandleListSelectAccept(box_EventListSelectAccept);
 
-            box.AddColumn("column2", 96, "column2");
+            box.AddColumn("column2", 96);//, "column2");
             box.AddColumn("column3", 96);
-            box.InsertColumnAt(0, "column1", 96, "column1");
+            box.InsertColumnAt(0, "column1", 96);//, "column1");
             box.InsertColumnAt(0, "column4", 96);
 
-            string data = box.GetColumnDataAt(0) as string;
-            box.ClearColumnDataAt(0);
-            data = box.GetColumnDataAt(0) as string;
+            //string data = box.GetColumnDataAt(0) as string;
+            //box.ClearColumnDataAt(0);
+            //data = box.GetColumnDataAt(0) as string;
 
             uint count = box.ColumnCount;
 
@@ -28,11 +28,11 @@ namespace TestApp.Sharp
             box.SetColumnWidthAt(0, width + 1);
             width = box.GetColumnWidthAt(0);
 
-            box.AddItem("item0", "0");
-            box.AddItem("item1", "1");
+            box.AddItem("item0");//, "0");
+            box.AddItem("item1");//, "1");
             box.AddItem("item2");
-            box.AddItem("item3", "3");
-            box.InsertItemAt(0, "insert item4", "4");
+            box.AddItem("item3");//, "3");
+            box.InsertItemAt(0, "insert item4");//, "4");
             box.InsertItemAt(0, "insert item5");
 
             count = box.ItemCount;
@@ -41,18 +41,18 @@ namespace TestApp.Sharp
             box.SetItemNameAt(0, "new item 0");
             name = box.GetItemNameAt(0);
 
-            data = box.GetItemDataAt(0) as string;
-            box.ClearItemDataAt(0);
-            data = box.GetItemDataAt(0) as string;
+            //data = box.GetItemDataAt(0) as string;
+            //box.ClearItemDataAt(0);
+            //data = box.GetItemDataAt(0) as string;
 
             box.SetSubItemNameAt(0, 3, "sub item 3");
             name = box.GetSubItemNameAt(0, 0);
             box.SetSubItemNameAt(1, 4, "sub item 4");
 
-            box.SetSubItemDataAt(0, 0, "sub item0");
-            data = box.GetSubItemDataAt(0, 0) as string;
-            box.ClearSubItemDataAt(0, 0);
-            data = box.GetSubItemDataAt(0, 0) as string;
+            //box.SetSubItemDataAt(0, 0, "sub item0");
+            //data = box.GetSubItemDataAt(0, 0) as string;
+            //box.ClearSubItemDataAt(0, 0);
+            //data = box.GetSubItemDataAt(0, 0) as string;
 
             box.SwapItemsAt(0, 1);
 

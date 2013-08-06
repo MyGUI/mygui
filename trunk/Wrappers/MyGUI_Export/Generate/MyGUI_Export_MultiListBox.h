@@ -109,43 +109,6 @@ namespace Export
 				static_cast< MyGUI::MultiListBox* >(_widget)->eventListSelectAccept -= MyGUI::newDelegate(OnEvent);
 		}
 	}
-	namespace ScopeMultiListBoxMethod_GetSubItemDataAt
-	{
-		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportMultiListBox_GetSubItemDataAt_column_index( MyGUI::Widget* _native,
-			Convert<size_t>::Type _column ,
-			Convert<size_t>::Type _index )
-		{
-			Convert<MyGUI::Any>::Type* data = 
-				static_cast< MyGUI::MultiListBox * >(_native)->getSubItemDataAt< Convert<MyGUI::Any>::Type >(
-					Convert<size_t>::From( _column ) ,
-					Convert<size_t>::From( _index ) , false );
-			return data == nullptr ? nullptr : *data;
-		}
-	}
-	namespace ScopeMultiListBoxMethod_ClearSubItemDataAt
-	{
-		MYGUIEXPORT void MYGUICALL ExportMultiListBox_ClearSubItemDataAt_column_index( MyGUI::Widget* _native,
-			Convert<size_t>::Type _column ,
-			Convert<size_t>::Type _index )
-		{
-			static_cast< MyGUI::MultiListBox * >(_native)->clearSubItemDataAt(
-				Convert<size_t>::From( _column ) ,
-				Convert<size_t>::From( _index ) );
-		}
-	}
-	namespace ScopeMultiListBoxMethod_SetSubItemDataAt
-	{
-		MYGUIEXPORT void MYGUICALL ExportMultiListBox_SetSubItemDataAt_column_index_data( MyGUI::Widget* _native,
-			Convert<size_t>::Type _column ,
-			Convert<size_t>::Type _index ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			static_cast< MyGUI::MultiListBox * >(_native)->setSubItemDataAt(
-				Convert<size_t>::From( _column ) ,
-				Convert<size_t>::From( _index ) ,
-				Convert<MyGUI::Any>::From( _data ) );
-		}
-	}
 	namespace ScopeMultiListBoxMethod_FindSubItemWith
 	{
 		MYGUIEXPORT Convert<size_t>::Type MYGUICALL ExportMultiListBox_FindSubItemWith_column_name( MyGUI::Widget* _native,
@@ -179,37 +142,6 @@ namespace Export
 				Convert<size_t>::From( _column ) ,
 				Convert<size_t>::From( _index ) ,
 				Convert<const MyGUI::UString &>::From( _name ) );
-		}
-	}
-	namespace ScopeMultiListBoxMethod_GetItemDataAt
-	{
-		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportMultiListBox_GetItemDataAt_index( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index )
-		{
-			Convert<MyGUI::Any>::Type* data = 
-				static_cast< MyGUI::MultiListBox * >(_native)->getItemDataAt< Convert<MyGUI::Any>::Type >(
-					Convert<size_t>::From( _index ) , false );
-			return data == nullptr ? nullptr : *data;
-		}
-	}
-	namespace ScopeMultiListBoxMethod_ClearItemDataAt
-	{
-		MYGUIEXPORT void MYGUICALL ExportMultiListBox_ClearItemDataAt_index( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index )
-		{
-			static_cast< MyGUI::MultiListBox * >(_native)->clearItemDataAt(
-				Convert<size_t>::From( _index ) );
-		}
-	}
-	namespace ScopeMultiListBoxMethod_SetItemDataAt
-	{
-		MYGUIEXPORT void MYGUICALL ExportMultiListBox_SetItemDataAt_index_data( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			static_cast< MyGUI::MultiListBox * >(_native)->setItemDataAt(
-				Convert<size_t>::From( _index ) ,
-				Convert<MyGUI::Any>::From( _data ) );
 		}
 	}
 	namespace ScopeMultiListBoxMethod_ClearIndexSelected
@@ -268,14 +200,6 @@ namespace Export
 	}
 	namespace ScopeMultiListBoxMethod_AddItem
 	{
-		MYGUIEXPORT void MYGUICALL ExportMultiListBox_AddItem_name_data( MyGUI::Widget* _native,
-			Convert<const MyGUI::UString &>::Type _name ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			static_cast< MyGUI::MultiListBox * >(_native)->addItem(
-				Convert<const MyGUI::UString &>::From( _name ) ,
-				Convert<MyGUI::Any>::From( _data ) );
-		}
 		MYGUIEXPORT void MYGUICALL ExportMultiListBox_AddItem_name( MyGUI::Widget* _native,
 			Convert<const MyGUI::UString &>::Type _name )
 		{
@@ -285,16 +209,6 @@ namespace Export
 	}
 	namespace ScopeMultiListBoxMethod_InsertItemAt
 	{
-		MYGUIEXPORT void MYGUICALL ExportMultiListBox_InsertItemAt_index_name_data( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index ,
-			Convert<const MyGUI::UString &>::Type _name ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			static_cast< MyGUI::MultiListBox * >(_native)->insertItemAt(
-				Convert<size_t>::From( _index ) ,
-				Convert<const MyGUI::UString &>::From( _name ) ,
-				Convert<MyGUI::Any>::From( _data ) );
-		}
 		MYGUIEXPORT void MYGUICALL ExportMultiListBox_InsertItemAt_index_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
 			Convert<const MyGUI::UString &>::Type _name )
@@ -302,37 +216,6 @@ namespace Export
 			static_cast< MyGUI::MultiListBox * >(_native)->insertItemAt(
 				Convert<size_t>::From( _index ) ,
 				Convert<const MyGUI::UString &>::From( _name ) );
-		}
-	}
-	namespace ScopeMultiListBoxMethod_GetColumnDataAt
-	{
-		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportMultiListBox_GetColumnDataAt_index( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index )
-		{
-			Convert<MyGUI::Any>::Type* data = 
-				static_cast< MyGUI::MultiListBox * >(_native)->getColumnDataAt< Convert<MyGUI::Any>::Type >(
-					Convert<size_t>::From( _index ) , false );
-			return data == nullptr ? nullptr : *data;
-		}
-	}
-	namespace ScopeMultiListBoxMethod_ClearColumnDataAt
-	{
-		MYGUIEXPORT void MYGUICALL ExportMultiListBox_ClearColumnDataAt_index( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index )
-		{
-			static_cast< MyGUI::MultiListBox * >(_native)->clearColumnDataAt(
-				Convert<size_t>::From( _index ) );
-		}
-	}
-	namespace ScopeMultiListBoxMethod_SetColumnDataAt
-	{
-		MYGUIEXPORT void MYGUICALL ExportMultiListBox_SetColumnDataAt_index_data( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			static_cast< MyGUI::MultiListBox * >(_native)->setColumnDataAt(
-				Convert<size_t>::From( _index ) ,
-				Convert<MyGUI::Any>::From( _data ) );
 		}
 	}
 	namespace ScopeMultiListBoxMethod_SetColumnResizingPolicyAt
@@ -477,16 +360,6 @@ namespace Export
 	}
 	namespace ScopeMultiListBoxMethod_AddColumn
 	{
-		MYGUIEXPORT void MYGUICALL ExportMultiListBox_AddColumn_name_width_data( MyGUI::Widget* _native,
-			Convert<const MyGUI::UString &>::Type _name ,
-			Convert<int>::Type _width ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			static_cast< MyGUI::MultiListBox * >(_native)->addColumn(
-				Convert<const MyGUI::UString &>::From( _name ) ,
-				Convert<int>::From( _width ) ,
-				Convert<MyGUI::Any>::From( _data ) );
-		}
 		MYGUIEXPORT void MYGUICALL ExportMultiListBox_AddColumn_name_width( MyGUI::Widget* _native,
 			Convert<const MyGUI::UString &>::Type _name ,
 			Convert<int>::Type _width )
@@ -498,18 +371,6 @@ namespace Export
 	}
 	namespace ScopeMultiListBoxMethod_InsertColumnAt
 	{
-		MYGUIEXPORT void MYGUICALL ExportMultiListBox_InsertColumnAt_column_name_width_data( MyGUI::Widget* _native,
-			Convert<size_t>::Type _column ,
-			Convert<const MyGUI::UString &>::Type _name ,
-			Convert<int>::Type _width ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			static_cast< MyGUI::MultiListBox * >(_native)->insertColumnAt(
-				Convert<size_t>::From( _column ) ,
-				Convert<const MyGUI::UString &>::From( _name ) ,
-				Convert<int>::From( _width ) ,
-				Convert<MyGUI::Any>::From( _data ) );
-		}
 		MYGUIEXPORT void MYGUICALL ExportMultiListBox_InsertColumnAt_column_name_width( MyGUI::Widget* _native,
 			Convert<size_t>::Type _column ,
 			Convert<const MyGUI::UString &>::Type _name ,

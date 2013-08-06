@@ -17,7 +17,7 @@ namespace TestApp.Sharp
             box.RequestCoordItem += new ItemBox.HandleCoordItem(box_RequestCoordItem);
             box.RequestCreateWidgetItem += new ItemBox.HandleCreateWidgetItem(box_RequestCreateWidgetItem);
 
-            box.AddItem("cell0");
+            box.AddItem();//"cell0");
 
             box.ResetDrag();
             Widget cell = box.GetWidgetByIndex(0);
@@ -27,8 +27,8 @@ namespace TestApp.Sharp
 			}
             Widget drag = box.WidgetDrag;
             box.VerticalAlignment = !box.VerticalAlignment;
-            box.ClearItemDataAt(0);
-            box.SetItemDataAt(0, "new cell0");
+            //box.ClearItemDataAt(0);
+            //box.SetItemDataAt(0, "new cell0");
             box.ClearIndexSelected();
             box.IndexSelected = 0;
             box.RedrawAllItems();
@@ -36,9 +36,9 @@ namespace TestApp.Sharp
             box.RemoveItemAt(0);
             box.RemoveAllItems();
 
-            box.AddItem("cell0");
-            box.SetItemDataAt(0, "new cell0");
-            box.InsertItemAt(0, "insert cell0");
+            box.AddItem();//"cell0");
+            //box.SetItemDataAt(0, "new cell0");
+            box.InsertItemAt(0);//, "insert cell0");
             uint count = box.ItemCount;
         }
 
@@ -59,8 +59,8 @@ namespace TestApp.Sharp
         static void box_RequestDrawItem(ItemBox _sender, Widget _item, ref IBDrawItemInfo _info)
         {
             EditBox cell = _item.UserData as EditBox;
-            string str = _sender.GetItemDataAt(_info.index) as string;
-            if (str != null) cell.OnlyText = str;
+            //string str = _sender.GetItemDataAt(_info.index) as string;
+            //if (str != null) cell.OnlyText = str;
         }
 
         static void box_EventSelectItemAccept(ItemBox _sender, uint _index)

@@ -166,68 +166,6 @@ namespace Export
 				Convert<const MyGUI::UString &>::From( _name ) );
 		}
 	}
-	namespace ScopeTabControlMethod_GetItemData
-	{
-		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportTabControl_GetItemData_item( MyGUI::Widget* _native,
-			Convert<MyGUI::TabItem *>::Type _item )
-		{
-			Convert<MyGUI::Any>::Type* data = 
-				static_cast< MyGUI::TabControl * >(_native)->getItemData< Convert<MyGUI::Any>::Type >(
-					Convert<MyGUI::TabItem *>::From( _item ) , false );
-			return data == nullptr ? nullptr : *data;
-		}
-	}
-	namespace ScopeTabControlMethod_GetItemDataAt
-	{
-		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportTabControl_GetItemDataAt_index( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index )
-		{
-			Convert<MyGUI::Any>::Type* data = 
-				static_cast< MyGUI::TabControl * >(_native)->getItemDataAt< Convert<MyGUI::Any>::Type >(
-					Convert<size_t>::From( _index ) , false );
-			return data == nullptr ? nullptr : *data;
-		}
-	}
-	namespace ScopeTabControlMethod_ClearItemData
-	{
-		MYGUIEXPORT void MYGUICALL ExportTabControl_ClearItemData_item( MyGUI::Widget* _native,
-			Convert<MyGUI::TabItem *>::Type _item )
-		{
-			static_cast< MyGUI::TabControl * >(_native)->clearItemData(
-				Convert<MyGUI::TabItem *>::From( _item ) );
-		}
-	}
-	namespace ScopeTabControlMethod_ClearItemDataAt
-	{
-		MYGUIEXPORT void MYGUICALL ExportTabControl_ClearItemDataAt_index( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index )
-		{
-			static_cast< MyGUI::TabControl * >(_native)->clearItemDataAt(
-				Convert<size_t>::From( _index ) );
-		}
-	}
-	namespace ScopeTabControlMethod_SetItemData
-	{
-		MYGUIEXPORT void MYGUICALL ExportTabControl_SetItemData_item_data( MyGUI::Widget* _native,
-			Convert<MyGUI::TabItem *>::Type _item ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			static_cast< MyGUI::TabControl * >(_native)->setItemData(
-				Convert<MyGUI::TabItem *>::From( _item ) ,
-				Convert<MyGUI::Any>::From( _data ) );
-		}
-	}
-	namespace ScopeTabControlMethod_SetItemDataAt
-	{
-		MYGUIEXPORT void MYGUICALL ExportTabControl_SetItemDataAt_index_data( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			static_cast< MyGUI::TabControl * >(_native)->setItemDataAt(
-				Convert<size_t>::From( _index ) ,
-				Convert<MyGUI::Any>::From( _data ) );
-		}
-	}
 	namespace ScopeTabControlMethod_SwapItems
 	{
 		MYGUIEXPORT void MYGUICALL ExportTabControl_SwapItems_index1_index2( MyGUI::Widget* _native,
@@ -311,14 +249,6 @@ namespace Export
 	}
 	namespace ScopeTabControlMethod_AddItem
 	{
-		MYGUIEXPORT Convert<MyGUI::TabItem *>::Type MYGUICALL ExportTabControl_AddItem_name_data( MyGUI::Widget* _native,
-			Convert<const MyGUI::UString &>::Type _name ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			return Convert<MyGUI::TabItem *>::To( static_cast< MyGUI::TabControl * >(_native)->addItem(
-				Convert<const MyGUI::UString &>::From( _name ) ,
-				Convert<MyGUI::Any>::From( _data ) ));
-		}
 		MYGUIEXPORT Convert<MyGUI::TabItem *>::Type MYGUICALL ExportTabControl_AddItem_name( MyGUI::Widget* _native,
 			Convert<const MyGUI::UString &>::Type _name )
 		{
@@ -326,31 +256,8 @@ namespace Export
 				Convert<const MyGUI::UString &>::From( _name ) ));
 		}
 	}
-	namespace ScopeTabControlMethod_InsertItem
-	{
-		MYGUIEXPORT Convert<MyGUI::TabItem *>::Type MYGUICALL ExportTabControl_InsertItem_to_name_data( MyGUI::Widget* _native,
-			Convert<MyGUI::TabItem *>::Type _to ,
-			Convert<const MyGUI::UString &>::Type _name ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			return Convert<MyGUI::TabItem *>::To( static_cast< MyGUI::TabControl * >(_native)->insertItem(
-				Convert<MyGUI::TabItem *>::From( _to ) ,
-				Convert<const MyGUI::UString &>::From( _name ) ,
-				Convert<MyGUI::Any>::From( _data ) ));
-		}
-	}
 	namespace ScopeTabControlMethod_InsertItemAt
 	{
-		MYGUIEXPORT Convert<MyGUI::TabItem *>::Type MYGUICALL ExportTabControl_InsertItemAt_index_name_data( MyGUI::Widget* _native,
-			Convert<size_t>::Type _index ,
-			Convert<const MyGUI::UString &>::Type _name ,
-			Convert<MyGUI::Any>::Type _data )
-		{
-			return Convert<MyGUI::TabItem *>::To( static_cast< MyGUI::TabControl * >(_native)->insertItemAt(
-				Convert<size_t>::From( _index ) ,
-				Convert<const MyGUI::UString &>::From( _name ) ,
-				Convert<MyGUI::Any>::From( _data ) ));
-		}
 		MYGUIEXPORT Convert<MyGUI::TabItem *>::Type MYGUICALL ExportTabControl_InsertItemAt_index_name( MyGUI::Widget* _native,
 			Convert<size_t>::Type _index ,
 			Convert<const MyGUI::UString &>::Type _name )

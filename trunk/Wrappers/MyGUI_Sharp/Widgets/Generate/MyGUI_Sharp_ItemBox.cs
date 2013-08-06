@@ -459,52 +459,6 @@ namespace MyGUI.Sharp
 		}
 
 		#endregion
-		#region Method GetItemDataAt
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.IUnknown)]
-		private static extern object ExportItemBox_GetItemDataAt_index( IntPtr _native ,
-			  uint _index );
-
-		public object GetItemDataAt(
-			uint _index )
-		{
-			return ExportItemBox_GetItemDataAt_index( mNative , 
-				 _index );
-		}
-
-		#endregion
-		#region Method ClearItemDataAt
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportItemBox_ClearItemDataAt_index( IntPtr _native ,
-			  uint _index );
-
-		public void ClearItemDataAt(
-			uint _index )
-		{
-			ExportItemBox_ClearItemDataAt_index( mNative , 
-				 _index );
-		}
-
-		#endregion
-		#region Method SetItemDataAt
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportItemBox_SetItemDataAt_index_data( IntPtr _native ,
-			  uint _index ,
-			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
-
-		public void SetItemDataAt(
-			uint _index ,
-			object _data )
-		{
-			ExportItemBox_SetItemDataAt_index_data( mNative , 
-				 _index ,
-				 _data );
-		}
-
-		#endregion
 		#region Method ClearIndexSelected
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
@@ -569,40 +523,15 @@ namespace MyGUI.Sharp
 		#region Method AddItem
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportItemBox_AddItem_data( IntPtr _native ,
-			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
-
-		public void AddItem(
-			object _data )
-		{
-			ExportItemBox_AddItem_data( mNative , 
-				 _data );
-		}
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportItemBox_AddItem( IntPtr _native );
+		private static extern void ExportItemBox_AddItem_data( IntPtr _native );
 
 		public void AddItem( )
 		{
-			ExportItemBox_AddItem( mNative );
+			ExportItemBox_AddItem_data(  mNative );
 		}
 
 		#endregion
 		#region Method InsertItemAt
-
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportItemBox_InsertItemAt_index_data( IntPtr _native ,
-			  uint _index ,
-			[MarshalAs(UnmanagedType.IUnknown)]  object _data );
-
-		public void InsertItemAt(
-			uint _index ,
-			object _data )
-		{
-			ExportItemBox_InsertItemAt_index_data( mNative , 
-				 _index ,
-				 _data );
-		}
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportItemBox_InsertItemAt_index( IntPtr _native ,

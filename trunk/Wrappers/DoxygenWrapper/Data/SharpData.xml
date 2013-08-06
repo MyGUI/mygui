@@ -393,13 +393,13 @@
 			<MarshalConvertBefore> (Colour)Marshal.PtrToStructure( </MarshalConvertBefore>
 			<MarshalConvertPost> , typeof(Colour) ) </MarshalConvertPost>
 		</TypeInfo>
-		<TypeInfo name="MyGUI::Any">
+		<!--TypeInfo name="MyGUI::Any">
 			<TypeName>object</TypeName>
 			<MarshalTypeName>object</MarshalTypeName>
 			<MarshalTypeNameReturn>object</MarshalTypeNameReturn>
 			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.IUnknown)]</MarshalAsReturn>
 			<MarshalAs>[MarshalAs(UnmanagedType.IUnknown)]</MarshalAs>
-		</TypeInfo>
+		</TypeInfo-->
 		<TypeInfo name="MyGUI::Button *">
 			<TypeName>Button</TypeName>
 			<MarshalTypeName>BaseWidget</MarshalTypeName>
@@ -616,9 +616,14 @@
 		<Tag key="BaseName" value="EditBox"/>
 		<Tag key="ThisName" value="ComboBox"/>
 		<Tag key="ThisType" value="ComboBox"/>
-		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
-		<Member name="addItem" template="Method2_1.txt"/>
-		<Member name="insertItemAt" template="Method3_2.txt"/>
+		<Member name="clearItemDataAt" template="Empty.txt"/>
+		<Member name="getItemDataAt" template="Empty.txt"/>
+		<Member name="setItemDataAt" template="Empty.txt"/>
+		<Member name="clearItemData" template="Empty.txt"/>
+		<Member name="getItemData" template="Empty.txt"/>
+		<Member name="setItemData" template="Empty.txt"/>
+		<Member name="addItem" template="Method1.txt"/>
+		<Member name="insertItemAt" template="Method2.txt"/>
 	</Item>
 	<Item type="MyGUI::DDContainer" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
@@ -653,9 +658,14 @@
 		<Tag key="BaseName" value="DDContainer"/>
 		<Tag key="ThisName" value="ItemBox"/>
 		<Tag key="ThisType" value="ItemBox"/>
-		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
-		<Member name="addItem" template="Method1_0.txt"/>
-		<Member name="insertItemAt" template="Method2_1.txt"/>
+		<Member name="clearItemDataAt" template="Empty.txt"/>
+		<Member name="getItemDataAt" template="Empty.txt"/>
+		<Member name="setItemDataAt" template="Empty.txt"/>
+		<Member name="clearItemData" template="Empty.txt"/>
+		<Member name="getItemData" template="Empty.txt"/>
+		<Member name="setItemData" template="Empty.txt"/>
+		<Member name="addItem" template="Method0.txt"/>
+		<Member name="insertItemAt" template="Method1.txt"/>
 		<Member name="setCoord" template="Empty.txt"/>
 		<Member name="setSize" template="Empty.txt"/>
 		<Member name="setPosition" template="Empty.txt"/>
@@ -670,9 +680,14 @@
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="ListBox"/>
 		<Tag key="ThisType" value="ListBox"/>
-		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
-		<Member name="addItem" template="Method2_1.txt"/>
-		<Member name="insertItemAt" template="Method3_2.txt"/>
+		<Member name="clearItemDataAt" template="Empty.txt"/>
+		<Member name="getItemDataAt" template="Empty.txt"/>
+		<Member name="setItemDataAt" template="Empty.txt"/>
+		<Member name="clearItemData" template="Empty.txt"/>
+		<Member name="getItemData" template="Empty.txt"/>
+		<Member name="setItemData" template="Empty.txt"/>
+		<Member name="addItem" template="Method1.txt"/>
+		<Member name="insertItemAt" template="Method2.txt"/>
 		<Member name="setCoord" template="Empty.txt"/>
 		<Member name="setSize" template="Empty.txt"/>
 		<Member name="setPosition" template="Empty.txt"/>
@@ -698,10 +713,15 @@
 		<Tag key="ThisType" value="MenuControl"/>
 		<Member name="createItemChildT" template="Empty.txt"/>
 		<Member name="createItemChildTAt" template="Empty.txt"/>
-		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
-		<Member name="getItemData" template="GetItemDataAt.txt"/>
-		<Member name="addItem" template="MethodReturn4_3_2_1.txt"/>
-		<Member name="insertItemAt" template="MethodReturn5_4_3_2.txt"/>
+		<Member name="clearItemDataAt" template="Empty.txt"/>
+		<Member name="getItemDataAt" template="Empty.txt"/>
+		<Member name="setItemDataAt" template="Empty.txt"/>
+		<Member name="clearItemData" template="Empty.txt"/>
+		<Member name="getItemData" template="Empty.txt"/>
+		<Member name="setItemData" template="Empty.txt"/>
+		<Member name="addItem" template="MethodReturn3_2_1.txt"/>
+		<Member name="insertItem" template="Empty.txt"/>
+		<Member name="insertItemAt" template="MethodReturn4_3_2.txt"/>
 	</Item>
 	<Item type="MyGUI::MultiListBox" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
@@ -712,13 +732,28 @@
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="MultiListBox"/>
 		<Tag key="ThisType" value="MultiListBox"/>
-		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
-		<Member name="getColumnDataAt" template="GetItemDataAt.txt"/>
-		<Member name="getSubItemDataAt" template="GetItemDataAt2.txt"/>
-		<Member name="addColumn" template="Method3_2.txt"/>
-		<Member name="insertColumnAt" template="Method4_3.txt"/>
-		<Member name="addItem" template="Method2_1.txt"/>
-		<Member name="insertItemAt" template="Method3_2.txt"/>
+		<Member name="clearItemDataAt" template="Empty.txt"/>
+		<Member name="getItemDataAt" template="Empty.txt"/>
+		<Member name="setItemDataAt" template="Empty.txt"/>
+		<Member name="clearItemData" template="Empty.txt"/>
+		<Member name="getItemData" template="Empty.txt"/>
+		<Member name="setItemData" template="Empty.txt"/>
+		<Member name="clearColumnDataAt" template="Empty.txt"/>
+		<Member name="getColumnDataAt" template="Empty.txt"/>
+		<Member name="setColumnDataAt" template="Empty.txt"/>
+		<Member name="clearColumnData" template="Empty.txt"/>
+		<Member name="getColumnData" template="Empty.txt"/>
+		<Member name="setColumnData" template="Empty.txt"/>
+		<Member name="clearSubItemDataAt" template="Empty.txt"/>
+		<Member name="getSubItemDataAt" template="Empty.txt"/>
+		<Member name="setSubItemDataAt" template="Empty.txt"/>
+		<Member name="clearSubItemData" template="Empty.txt"/>
+		<Member name="getSubItemData" template="Empty.txt"/>
+		<Member name="setSubItemData" template="Empty.txt"/>
+		<Member name="addColumn" template="Method2.txt"/>
+		<Member name="insertColumnAt" template="Method3.txt"/>
+		<Member name="addItem" template="Method1.txt"/>
+		<Member name="insertItemAt" template="Method2.txt"/>
 		<Member name="setCoord" template="Empty.txt"/>
 		<Member name="setSize" template="Empty.txt"/>
 		<Member name="setPosition" template="Empty.txt"/>
@@ -792,10 +827,15 @@
 		<Tag key="BaseName" value="Widget"/>
 		<Tag key="ThisName" value="TabControl"/>
 		<Tag key="ThisType" value="TabControl"/>
-		<Member name="getItemDataAt" template="GetItemDataAt.txt"/>
-		<Member name="getItemData" template="GetItemDataAt.txt"/>
-		<Member name="addItem" template="MethodReturn2_1.txt"/>
-		<Member name="insertItemAt" template="MethodReturn3_2.txt"/>
+		<Member name="clearItemDataAt" template="Empty.txt"/>
+		<Member name="getItemDataAt" template="Empty.txt"/>
+		<Member name="setItemDataAt" template="Empty.txt"/>
+		<Member name="clearItemData" template="Empty.txt"/>
+		<Member name="getItemData" template="Empty.txt"/>
+		<Member name="setItemData" template="Empty.txt"/>
+		<Member name="addItem" template="MethodReturn1.txt"/>
+		<Member name="insertItem" template="Empty.txt"/>
+		<Member name="insertItemAt" template="MethodReturn2.txt"/>
 		<Member name="setCoord" template="Empty.txt"/>
 		<Member name="setSize" template="Empty.txt"/>
 		<Member name="setPosition" template="Empty.txt"/>
@@ -837,8 +877,12 @@
 		<Tag key="ThisName" value="MenuItem"/>
 		<Tag key="ThisType" value="MenuItem"/>
 		<Member name="createItemChildT" template="Empty.txt"/>
+		<Member name="clearItemDataAt" template="Empty.txt"/>
+		<Member name="getItemDataAt" template="Empty.txt"/>
+		<Member name="setItemDataAt" template="Empty.txt"/>
+		<Member name="clearItemData" template="Empty.txt"/>
+		<Member name="getItemData" template="Empty.txt"/>
 		<Member name="setItemData" template="Empty.txt"/>
-		<Member name="getItemData" template="PropertyDataGetSet.txt"/>
 	</Item>
 	<Item type="MyGUI::TabItem" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>
@@ -849,8 +893,12 @@
 		<Tag key="BaseName" value="TextBox"/>
 		<Tag key="ThisName" value="TabItem"/>
 		<Tag key="ThisType" value="TabItem"/>
+		<Member name="clearItemDataAt" template="Empty.txt"/>
+		<Member name="getItemDataAt" template="Empty.txt"/>
+		<Member name="setItemDataAt" template="Empty.txt"/>
+		<Member name="clearItemData" template="Empty.txt"/>
+		<Member name="getItemData" template="Empty.txt"/>
 		<Member name="setItemData" template="Empty.txt"/>
-		<Member name="getItemData" template="PropertyDataGetSet.txt"/>
 	</Item>
 	<Item type="MyGUI::MultiListItem" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>

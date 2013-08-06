@@ -42,18 +42,6 @@ namespace Export
 			static_cast< MyGUI::MenuItem * >(_native)->removeItem( );
 		}
 	}
-	namespace ScopeMenuItemProperty_ItemData
-	{
-		MYGUIEXPORT Convert<MyGUI::Any>::Type MYGUICALL ExportMenuItem_GetItemData( MyGUI::Widget* _native )
-		{
-			Convert<MyGUI::Any>::Type* data = static_cast< MyGUI::MenuItem * >(_native)->getItemData<Convert<MyGUI::Any>::Type>( false );
-			return data == nullptr ? nullptr : *data;
-		}
-		MYGUIEXPORT void MYGUICALL ExportMenuItem_SetItemData( MyGUI::Widget* _native , Convert<bool>::Type _value )
-		{
-			static_cast< MyGUI::MenuItem * >(_native)->setItemData( Convert<bool>::From( _value ) );
-		}
-	}
 	namespace ScopeMenuItemProperty_ItemChecked
 	{
 		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportMenuItem_GetItemChecked( MyGUI::Widget* _native )
