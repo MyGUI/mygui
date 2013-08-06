@@ -586,7 +586,7 @@ namespace MyGUI.Sharp
 
 		public void RemoveAllItems( )
 		{
-			ExportMenuControl_RemoveAllItems(  Native );
+			ExportMenuControl_RemoveAllItems( Native );
 		}
 
 		#endregion

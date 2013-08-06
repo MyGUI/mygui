@@ -481,7 +481,7 @@ namespace MyGUI.Sharp
 
 		public void BeginToItemSelected( )
 		{
-			ExportListBox_BeginToItemSelected(  Native );
+			ExportListBox_BeginToItemSelected( Native );
 		}
 
 		#endregion
@@ -492,7 +492,7 @@ namespace MyGUI.Sharp
 
 		public void BeginToItemLast( )
 		{
-			ExportListBox_BeginToItemLast(  Native );
+			ExportListBox_BeginToItemLast( Native );
 		}
 
 		#endregion
@@ -503,7 +503,7 @@ namespace MyGUI.Sharp
 
 		public void BeginToItemFirst( )
 		{
-			ExportListBox_BeginToItemFirst(  Native );
+			ExportListBox_BeginToItemFirst( Native );
 		}
 
 		#endregion
@@ -528,7 +528,7 @@ namespace MyGUI.Sharp
 
 		public void ClearIndexSelected( )
 		{
-			ExportListBox_ClearIndexSelected(  Native );
+			ExportListBox_ClearIndexSelected( Native );
 		}
 
 		#endregion
@@ -571,7 +571,7 @@ namespace MyGUI.Sharp
 
 		public void RemoveAllItems( )
 		{
-			ExportListBox_RemoveAllItems(  Native );
+			ExportListBox_RemoveAllItems( Native );
 		}
 
 		#endregion

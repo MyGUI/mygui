@@ -334,7 +334,7 @@ namespace MyGUI.Sharp
 
 		public void ResetDrag( )
 		{
-			ExportDDContainer_ResetDrag(  Native );
+			ExportDDContainer_ResetDrag( Native );
 		}
 
 		#endregion

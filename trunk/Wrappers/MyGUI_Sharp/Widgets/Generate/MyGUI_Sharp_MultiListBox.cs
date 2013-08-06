@@ -276,7 +276,7 @@ namespace MyGUI.Sharp
 
 		public void ClearIndexSelected( )
 		{
-			ExportMultiListBox_ClearIndexSelected(  Native );
+			ExportMultiListBox_ClearIndexSelected( Native );
 		}
 
 		#endregion
@@ -336,7 +336,7 @@ namespace MyGUI.Sharp
 
 		public void RemoveAllItems( )
 		{
-			ExportMultiListBox_RemoveAllItems(  Native );
+			ExportMultiListBox_RemoveAllItems( Native );
 		}
 
 		#endregion
@@ -588,7 +588,7 @@ namespace MyGUI.Sharp
 
 		public void RemoveAllColumns( )
 		{
-			ExportMultiListBox_RemoveAllColumns(  Native );
+			ExportMultiListBox_RemoveAllColumns( Native );
 		}
 
 		#endregion

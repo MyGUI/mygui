@@ -243,7 +243,7 @@ namespace MyGUI.Sharp
 
 		public void DeleteAllItems( )
 		{
-			ExportImageBox_DeleteAllItems(  Native );
+			ExportImageBox_DeleteAllItems( Native );
 		}
 
 		#endregion
@@ -316,7 +316,7 @@ namespace MyGUI.Sharp
 
 		public void ResetItemSelect( )
 		{
-			ExportImageBox_ResetItemSelect(  Native );
+			ExportImageBox_ResetItemSelect( Native );
 		}
 
 		#endregion

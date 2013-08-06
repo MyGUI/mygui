@@ -153,7 +153,7 @@ namespace MyGUI.Sharp
 
 		public void BeginToItemSelected( )
 		{
-			ExportComboBox_BeginToItemSelected(  Native );
+			ExportComboBox_BeginToItemSelected( Native );
 		}
 
 		#endregion
@@ -164,7 +164,7 @@ namespace MyGUI.Sharp
 
 		public void BeginToItemLast( )
 		{
-			ExportComboBox_BeginToItemLast(  Native );
+			ExportComboBox_BeginToItemLast( Native );
 		}
 
 		#endregion
@@ -175,7 +175,7 @@ namespace MyGUI.Sharp
 
 		public void BeginToItemFirst( )
 		{
-			ExportComboBox_BeginToItemFirst(  Native );
+			ExportComboBox_BeginToItemFirst( Native );
 		}
 
 		#endregion
@@ -232,7 +232,7 @@ namespace MyGUI.Sharp
 
 		public void ClearIndexSelected( )
 		{
-			ExportComboBox_ClearIndexSelected(  Native );
+			ExportComboBox_ClearIndexSelected( Native );
 		}
 
 		#endregion
@@ -258,7 +258,7 @@ namespace MyGUI.Sharp
 
 		public void RemoveAllItems( )
 		{
-			ExportComboBox_RemoveAllItems(  Native );
+			ExportComboBox_RemoveAllItems( Native );
 		}
 
 		#endregion

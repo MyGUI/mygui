@@ -69,7 +69,7 @@ namespace MyGUI.Sharp
 
 		public void RemoveItem( )
 		{
-			ExportMenuItem_RemoveItem(  Native );
+			ExportMenuItem_RemoveItem( Native );
 		}
 
 		#endregion
