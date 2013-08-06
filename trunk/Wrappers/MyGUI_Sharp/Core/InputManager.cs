@@ -41,7 +41,7 @@ namespace MyGUI.Sharp
         public Widget KeyFocusWidget
         {
             get { return ExportInputManager_GetKeyFocusWidget(); }
-            set { ExportInputManager_SetKeyFocusWidget(value == null ? IntPtr.Zero : value.GetNative()); }
+            set { ExportInputManager_SetKeyFocusWidget(value == null ? IntPtr.Zero : value.Native); }
         }
 
         #endregion
@@ -91,7 +91,7 @@ namespace MyGUI.Sharp
 
         public void AddWidgetModal(Widget _widget)
         {
-            ExportInputManager_AddWidgetModal(_widget.GetNative());
+            ExportInputManager_AddWidgetModal(_widget.Native);
         }
 
         #endregion
@@ -103,7 +103,7 @@ namespace MyGUI.Sharp
 
         public void RemoveWidgetModal(Widget _widget)
         {
-            ExportInputManager_RemoveWidgetModal(_widget.GetNative());
+            ExportInputManager_RemoveWidgetModal(_widget.Native);
         }
 
         #endregion

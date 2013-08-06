@@ -42,7 +42,7 @@ namespace MyGUI.Sharp
 
 		public static void SetWidgetDepth(Widget _widget, float _depth)
 		{
-			ExportLayers_SetWidgetDepth(_widget.GetNative(), _depth);
+			ExportLayers_SetWidgetDepth(_widget.Native, _depth);
 		}
 	}
 }

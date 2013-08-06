@@ -26,7 +26,7 @@ namespace MyGUI.Sharp
 
         public void AttachToLayer(string _layer, Widget _widget)
         {
-            ExportLayerManager_AttachToLayer(_layer, _widget.GetNative());
+            ExportLayerManager_AttachToLayer(_layer, _widget.Native);
         }
 
         #endregion
@@ -38,7 +38,7 @@ namespace MyGUI.Sharp
 
         public void UpWidget(Widget _widget)
         {
-            ExportLayerManager_UpWidget(_widget.GetNative());
+            ExportLayerManager_UpWidget(_widget.Native);
         }
 
         #endregion
