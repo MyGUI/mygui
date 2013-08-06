@@ -81,6 +81,13 @@ namespace MyGUI.Sharp
 
 		protected abstract string GetWidgetType();
 
+		public static BaseWidget GetByNative(IntPtr _value)
+		{
+			BaseWidget result;
+			mWidgets.TryGetValue(_value, out result);
+			return result;
+		}
+
 		#endregion
 
 		#region CreateWidget
