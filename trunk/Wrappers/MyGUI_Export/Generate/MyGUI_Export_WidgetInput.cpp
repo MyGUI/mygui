@@ -16,34 +16,6 @@ namespace Export
 
 	//InsertPoint
 
-	namespace ScopeWidgetEvent_ToolTip
-	{
-		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::Widget *>::Type ,
-			Convert<const MyGUI::ToolTipInfo &>::Type );
-		ExportHandle mExportHandle = nullptr;
-		
-		void OnEvent(
-			MyGUI::Widget * _sender ,
-			const MyGUI::ToolTipInfo & _info )
-		{
-			mExportHandle(
-				Convert<MyGUI::Widget *>::To( _sender ) ,
-				Convert<const MyGUI::ToolTipInfo &>::To( _info ) );
-		}
-		
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateToolTip( ExportHandle _delegate )
-		{
-			mExportHandle = _delegate;
-		}
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseToolTip( MyGUI::Widget* _widget, bool _advise )
-		{
-			if (_advise)
-				static_cast< MyGUI::Widget* >(_widget)->eventToolTip += MyGUI::newDelegate(OnEvent);
-			else
-				static_cast< MyGUI::Widget* >(_widget)->eventToolTip -= MyGUI::newDelegate(OnEvent);
-		}
-	}
 	namespace ScopeWidgetEvent_RootKeyChangeFocus
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
