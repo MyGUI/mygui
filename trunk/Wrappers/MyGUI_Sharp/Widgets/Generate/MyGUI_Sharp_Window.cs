@@ -56,14 +56,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventWindowChangeCoord == null)
-					ExportWindowEvent_AdviseWindowChangeCoord( mNative, true );
+					ExportWindowEvent_AdviseWindowChangeCoord( Native, true );
 				mEventWindowChangeCoord += value;
 			}
 			remove
 			{
 				mEventWindowChangeCoord -= value;
 				if (mEventWindowChangeCoord == null)
-					ExportWindowEvent_AdviseWindowChangeCoord( mNative, false );
+					ExportWindowEvent_AdviseWindowChangeCoord( Native, false );
 			}
 		}
 
@@ -108,14 +108,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventWindowButtonPressed == null)
-					ExportWindowEvent_AdviseWindowButtonPressed( mNative, true );
+					ExportWindowEvent_AdviseWindowButtonPressed( Native, true );
 				mEventWindowButtonPressed += value;
 			}
 			remove
 			{
 				mEventWindowButtonPressed -= value;
 				if (mEventWindowButtonPressed == null)
-					ExportWindowEvent_AdviseWindowButtonPressed( mNative, false );
+					ExportWindowEvent_AdviseWindowButtonPressed( Native, false );
 			}
 		}
 
@@ -153,7 +153,7 @@ namespace MyGUI.Sharp
 			int _width ,
 			int _height )
 		{
-			ExportWindow_SetMaxSize_width_height( mNative , 
+			ExportWindow_SetMaxSize_width_height( Native , 
 				 _width ,
 				 _height );
 		}
@@ -170,7 +170,7 @@ namespace MyGUI.Sharp
 			int _width ,
 			int _height )
 		{
-			ExportWindow_SetMinSize_width_height( mNative , 
+			ExportWindow_SetMinSize_width_height( Native , 
 				 _width ,
 				 _height );
 		}
@@ -185,7 +185,7 @@ namespace MyGUI.Sharp
 		public void SetVisibleSmooth(
 			bool _value )
 		{
-			ExportWindow_SetVisibleSmooth_value( mNative , 
+			ExportWindow_SetVisibleSmooth_value( Native , 
 				 _value );
 		}
 
@@ -200,8 +200,8 @@ namespace MyGUI.Sharp
 
 		public bool Movable
 		{
-			get { return  ExportWindow_GetMovable( mNative )  ; }
-			set { ExportWindow_SetMovable( mNative,  value ); }
+			get { return  ExportWindow_GetMovable( Native )  ; }
+			set { ExportWindow_SetMovable( Native,  value ); }
 		}
 
 		#endregion
@@ -213,7 +213,7 @@ namespace MyGUI.Sharp
 
 		public IntCoord ActionScale
 		{
-			get { return  (IntCoord)Marshal.PtrToStructure(  ExportWindow_GetActionScale( mNative )  , typeof(IntCoord) )  ; }
+			get { return  (IntCoord)Marshal.PtrToStructure(  ExportWindow_GetActionScale( Native )  , typeof(IntCoord) )  ; }
 		}
 
 		#endregion
@@ -227,8 +227,8 @@ namespace MyGUI.Sharp
 
 		public bool Snap
 		{
-			get { return  ExportWindow_GetSnap( mNative )  ; }
-			set { ExportWindow_SetSnap( mNative,  value ); }
+			get { return  ExportWindow_GetSnap( Native )  ; }
+			set { ExportWindow_SetSnap( Native,  value ); }
 		}
 
 		#endregion
@@ -242,8 +242,8 @@ namespace MyGUI.Sharp
 
 		public IntSize MaxSize
 		{
-			get { return  (IntSize)Marshal.PtrToStructure(  ExportWindow_GetMaxSize( mNative )  , typeof(IntSize) )  ; }
-			set { ExportWindow_SetMaxSize( mNative, ref value ); }
+			get { return  (IntSize)Marshal.PtrToStructure(  ExportWindow_GetMaxSize( Native )  , typeof(IntSize) )  ; }
+			set { ExportWindow_SetMaxSize( Native, ref value ); }
 		}
 
 		#endregion
@@ -257,8 +257,8 @@ namespace MyGUI.Sharp
 
 		public IntSize MinSize
 		{
-			get { return  (IntSize)Marshal.PtrToStructure(  ExportWindow_GetMinSize( mNative )  , typeof(IntSize) )  ; }
-			set { ExportWindow_SetMinSize( mNative, ref value ); }
+			get { return  (IntSize)Marshal.PtrToStructure(  ExportWindow_GetMinSize( Native )  , typeof(IntSize) )  ; }
+			set { ExportWindow_SetMinSize( Native, ref value ); }
 		}
 
 		#endregion
@@ -270,7 +270,7 @@ namespace MyGUI.Sharp
 
 		public TextBox CaptionWidget
 		{
-			get { return  ExportWindow_GetCaptionWidget( mNative )  ; }
+			get { return  ExportWindow_GetCaptionWidget( Native )  ; }
 		}
 
 		#endregion
@@ -284,8 +284,8 @@ namespace MyGUI.Sharp
 
 		public bool AutoAlpha
 		{
-			get { return  ExportWindow_GetAutoAlpha( mNative )  ; }
-			set { ExportWindow_SetAutoAlpha( mNative,  value ); }
+			get { return  ExportWindow_GetAutoAlpha( Native )  ; }
+			set { ExportWindow_SetAutoAlpha( Native,  value ); }
 		}
 
 		#endregion

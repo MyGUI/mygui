@@ -45,7 +45,7 @@ namespace MyGUI.Sharp
 		public void SetButtonWidth(
 			int _value )
 		{
-			ExportTabItem_SetButtonWidth_value( mNative , 
+			ExportTabItem_SetButtonWidth_value( Native , 
 				 _value );
 		}
 

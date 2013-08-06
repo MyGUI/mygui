@@ -56,14 +56,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventEditTextChange == null)
-					ExportEditBoxEvent_AdviseEditTextChange( mNative, true );
+					ExportEditBoxEvent_AdviseEditTextChange( Native, true );
 				mEventEditTextChange += value;
 			}
 			remove
 			{
 				mEventEditTextChange -= value;
 				if (mEventEditTextChange == null)
-					ExportEditBoxEvent_AdviseEditTextChange( mNative, false );
+					ExportEditBoxEvent_AdviseEditTextChange( Native, false );
 			}
 		}
 
@@ -107,14 +107,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventEditSelectAccept == null)
-					ExportEditBoxEvent_AdviseEditSelectAccept( mNative, true );
+					ExportEditBoxEvent_AdviseEditSelectAccept( Native, true );
 				mEventEditSelectAccept += value;
 			}
 			remove
 			{
 				mEventEditSelectAccept -= value;
 				if (mEventEditSelectAccept == null)
-					ExportEditBoxEvent_AdviseEditSelectAccept( mNative, false );
+					ExportEditBoxEvent_AdviseEditSelectAccept( Native, false );
 			}
 		}
 
@@ -147,7 +147,7 @@ namespace MyGUI.Sharp
 		public void SetPasswordChar(
 			string _char )
 		{
-			ExportEditBox_SetPasswordChar_char( mNative , 
+			ExportEditBox_SetPasswordChar_char( Native , 
 				 _char );
 		}
 
@@ -163,7 +163,7 @@ namespace MyGUI.Sharp
 			uint _start ,
 			uint _count )
 		{
-			ExportEditBox_EraseText_start_count( mNative , 
+			ExportEditBox_EraseText_start_count( Native , 
 				 _start ,
 				 _count );
 		}
@@ -178,7 +178,7 @@ namespace MyGUI.Sharp
 		public void AddText(
 			string _text )
 		{
-			ExportEditBox_AddText_text( mNative , 
+			ExportEditBox_AddText_text( Native , 
 				 _text );
 		}
 
@@ -194,7 +194,7 @@ namespace MyGUI.Sharp
 			string _text ,
 			uint _index )
 		{
-			ExportEditBox_InsertText_text_index( mNative , 
+			ExportEditBox_InsertText_text_index( Native , 
 				 _text ,
 				 _index );
 		}
@@ -209,7 +209,7 @@ namespace MyGUI.Sharp
 		public void SetTextSelectionColour(
 			Colour _value )
 		{
-			ExportEditBox_SetTextSelectionColour_value( mNative , 
+			ExportEditBox_SetTextSelectionColour_value( Native , 
 				ref _value );
 		}
 
@@ -221,7 +221,7 @@ namespace MyGUI.Sharp
 
 		public void DeleteTextSelection( )
 		{
-			ExportEditBox_DeleteTextSelection(  mNative );
+			ExportEditBox_DeleteTextSelection(  Native );
 		}
 
 		#endregion
@@ -236,7 +236,7 @@ namespace MyGUI.Sharp
 			uint _start ,
 			uint _end )
 		{
-			ExportEditBox_SetTextSelection_start_end( mNative , 
+			ExportEditBox_SetTextSelection_start_end( Native , 
 				 _start ,
 				 _end );
 		}
@@ -254,7 +254,7 @@ namespace MyGUI.Sharp
 			uint _start ,
 			uint _count )
 		{
-			return  Marshal.PtrToStringUni(  ExportEditBox_GetTextInterval_start_count( mNative , 
+			return  Marshal.PtrToStringUni(  ExportEditBox_GetTextInterval_start_count( Native , 
 				 _start ,
 				 _count )  )  ;
 		}
@@ -273,7 +273,7 @@ namespace MyGUI.Sharp
 			uint _count ,
 			Colour _colour )
 		{
-			ExportEditBox_SetTextIntervalColour_start_count_colour( mNative , 
+			ExportEditBox_SetTextIntervalColour_start_count_colour( Native , 
 				 _start ,
 				 _count ,
 				ref _colour );
@@ -290,8 +290,8 @@ namespace MyGUI.Sharp
 
 		public uint HScrollPosition
 		{
-			get { return  ExportEditBox_GetHScrollPosition( mNative )  ; }
-			set { ExportEditBox_SetHScrollPosition( mNative,  value ); }
+			get { return  ExportEditBox_GetHScrollPosition( Native )  ; }
+			set { ExportEditBox_SetHScrollPosition( Native,  value ); }
 		}
 
 		#endregion
@@ -303,7 +303,7 @@ namespace MyGUI.Sharp
 
 		public uint HScrollRange
 		{
-			get { return  ExportEditBox_GetHScrollRange( mNative )  ; }
+			get { return  ExportEditBox_GetHScrollRange( Native )  ; }
 		}
 
 		#endregion
@@ -317,8 +317,8 @@ namespace MyGUI.Sharp
 
 		public bool IsVisibleHScroll
 		{
-			get { return  ExportEditBox_IsVisibleHScroll( mNative )  ; }
-			set { ExportEditBox_SetVisibleHScroll( mNative,  value ); }
+			get { return  ExportEditBox_IsVisibleHScroll( Native )  ; }
+			set { ExportEditBox_SetVisibleHScroll( Native,  value ); }
 		}
 
 		#endregion
@@ -332,8 +332,8 @@ namespace MyGUI.Sharp
 
 		public uint VScrollPosition
 		{
-			get { return  ExportEditBox_GetVScrollPosition( mNative )  ; }
-			set { ExportEditBox_SetVScrollPosition( mNative,  value ); }
+			get { return  ExportEditBox_GetVScrollPosition( Native )  ; }
+			set { ExportEditBox_SetVScrollPosition( Native,  value ); }
 		}
 
 		#endregion
@@ -345,7 +345,7 @@ namespace MyGUI.Sharp
 
 		public uint VScrollRange
 		{
-			get { return  ExportEditBox_GetVScrollRange( mNative )  ; }
+			get { return  ExportEditBox_GetVScrollRange( Native )  ; }
 		}
 
 		#endregion
@@ -359,8 +359,8 @@ namespace MyGUI.Sharp
 
 		public bool IsVisibleVScroll
 		{
-			get { return  ExportEditBox_IsVisibleVScroll( mNative )  ; }
-			set { ExportEditBox_SetVisibleVScroll( mNative,  value ); }
+			get { return  ExportEditBox_IsVisibleVScroll( Native )  ; }
+			set { ExportEditBox_SetVisibleVScroll( Native,  value ); }
 		}
 
 		#endregion
@@ -374,8 +374,8 @@ namespace MyGUI.Sharp
 
 		public bool InvertSelected
 		{
-			get { return  ExportEditBox_GetInvertSelected( mNative )  ; }
-			set { ExportEditBox_SetInvertSelected( mNative,  value ); }
+			get { return  ExportEditBox_GetInvertSelected( Native )  ; }
+			set { ExportEditBox_SetInvertSelected( Native,  value ); }
 		}
 
 		#endregion
@@ -389,8 +389,8 @@ namespace MyGUI.Sharp
 
 		public bool TabPrinting
 		{
-			get { return  ExportEditBox_GetTabPrinting( mNative )  ; }
-			set { ExportEditBox_SetTabPrinting( mNative,  value ); }
+			get { return  ExportEditBox_GetTabPrinting( Native )  ; }
+			set { ExportEditBox_SetTabPrinting( Native,  value ); }
 		}
 
 		#endregion
@@ -404,8 +404,8 @@ namespace MyGUI.Sharp
 
 		public bool EditWordWrap
 		{
-			get { return  ExportEditBox_GetEditWordWrap( mNative )  ; }
-			set { ExportEditBox_SetEditWordWrap( mNative,  value ); }
+			get { return  ExportEditBox_GetEditWordWrap( Native )  ; }
+			set { ExportEditBox_SetEditWordWrap( Native,  value ); }
 		}
 
 		#endregion
@@ -419,8 +419,8 @@ namespace MyGUI.Sharp
 
 		public uint PasswordChar
 		{
-			get { return  ExportEditBox_GetPasswordChar( mNative )  ; }
-			set { ExportEditBox_SetPasswordChar( mNative,  value ); }
+			get { return  ExportEditBox_GetPasswordChar( Native )  ; }
+			set { ExportEditBox_SetPasswordChar( Native,  value ); }
 		}
 
 		#endregion
@@ -434,8 +434,8 @@ namespace MyGUI.Sharp
 
 		public bool EditStatic
 		{
-			get { return  ExportEditBox_GetEditStatic( mNative )  ; }
-			set { ExportEditBox_SetEditStatic( mNative,  value ); }
+			get { return  ExportEditBox_GetEditStatic( Native )  ; }
+			set { ExportEditBox_SetEditStatic( Native,  value ); }
 		}
 
 		#endregion
@@ -449,8 +449,8 @@ namespace MyGUI.Sharp
 
 		public bool EditMultiLine
 		{
-			get { return  ExportEditBox_GetEditMultiLine( mNative )  ; }
-			set { ExportEditBox_SetEditMultiLine( mNative,  value ); }
+			get { return  ExportEditBox_GetEditMultiLine( Native )  ; }
+			set { ExportEditBox_SetEditMultiLine( Native,  value ); }
 		}
 
 		#endregion
@@ -464,8 +464,8 @@ namespace MyGUI.Sharp
 
 		public bool EditPassword
 		{
-			get { return  ExportEditBox_GetEditPassword( mNative )  ; }
-			set { ExportEditBox_SetEditPassword( mNative,  value ); }
+			get { return  ExportEditBox_GetEditPassword( Native )  ; }
+			set { ExportEditBox_SetEditPassword( Native,  value ); }
 		}
 
 		#endregion
@@ -479,8 +479,8 @@ namespace MyGUI.Sharp
 
 		public bool EditReadOnly
 		{
-			get { return  ExportEditBox_GetEditReadOnly( mNative )  ; }
-			set { ExportEditBox_SetEditReadOnly( mNative,  value ); }
+			get { return  ExportEditBox_GetEditReadOnly( Native )  ; }
+			set { ExportEditBox_SetEditReadOnly( Native,  value ); }
 		}
 
 		#endregion
@@ -494,8 +494,8 @@ namespace MyGUI.Sharp
 
 		public uint MaxTextLength
 		{
-			get { return  ExportEditBox_GetMaxTextLength( mNative )  ; }
-			set { ExportEditBox_SetMaxTextLength( mNative,  value ); }
+			get { return  ExportEditBox_GetMaxTextLength( Native )  ; }
+			set { ExportEditBox_SetMaxTextLength( Native,  value ); }
 		}
 
 		#endregion
@@ -509,8 +509,8 @@ namespace MyGUI.Sharp
 
 		public bool OverflowToTheLeft
 		{
-			get { return  ExportEditBox_GetOverflowToTheLeft( mNative )  ; }
-			set { ExportEditBox_SetOverflowToTheLeft( mNative,  value ); }
+			get { return  ExportEditBox_GetOverflowToTheLeft( Native )  ; }
+			set { ExportEditBox_SetOverflowToTheLeft( Native,  value ); }
 		}
 
 		#endregion
@@ -522,7 +522,7 @@ namespace MyGUI.Sharp
 
 		public uint TextLength
 		{
-			get { return  ExportEditBox_GetTextLength( mNative )  ; }
+			get { return  ExportEditBox_GetTextLength( Native )  ; }
 		}
 
 		#endregion
@@ -536,8 +536,8 @@ namespace MyGUI.Sharp
 
 		public string OnlyText
 		{
-			get { return  Marshal.PtrToStringUni(  ExportEditBox_GetOnlyText( mNative )  )  ; }
-			set { ExportEditBox_SetOnlyText( mNative,  value ); }
+			get { return  Marshal.PtrToStringUni(  ExportEditBox_GetOnlyText( Native )  )  ; }
+			set { ExportEditBox_SetOnlyText( Native,  value ); }
 		}
 
 		#endregion
@@ -551,8 +551,8 @@ namespace MyGUI.Sharp
 
 		public uint TextCursor
 		{
-			get { return  ExportEditBox_GetTextCursor( mNative )  ; }
-			set { ExportEditBox_SetTextCursor( mNative,  value ); }
+			get { return  ExportEditBox_GetTextCursor( Native )  ; }
+			set { ExportEditBox_SetTextCursor( Native,  value ); }
 		}
 
 		#endregion
@@ -564,7 +564,7 @@ namespace MyGUI.Sharp
 
 		public bool IsTextSelection
 		{
-			get { return  ExportEditBox_IsTextSelection( mNative )  ; }
+			get { return  ExportEditBox_IsTextSelection( Native )  ; }
 		}
 
 		#endregion
@@ -576,7 +576,7 @@ namespace MyGUI.Sharp
 
 		public string TextSelection
 		{
-			get { return  Marshal.PtrToStringUni(  ExportEditBox_GetTextSelection( mNative )  )  ; }
+			get { return  Marshal.PtrToStringUni(  ExportEditBox_GetTextSelection( Native )  )  ; }
 		}
 
 		#endregion
@@ -588,7 +588,7 @@ namespace MyGUI.Sharp
 
 		public uint TextSelectionLength
 		{
-			get { return  ExportEditBox_GetTextSelectionLength( mNative )  ; }
+			get { return  ExportEditBox_GetTextSelectionLength( Native )  ; }
 		}
 
 		#endregion
@@ -600,7 +600,7 @@ namespace MyGUI.Sharp
 
 		public uint TextSelectionEnd
 		{
-			get { return  ExportEditBox_GetTextSelectionEnd( mNative )  ; }
+			get { return  ExportEditBox_GetTextSelectionEnd( Native )  ; }
 		}
 
 		#endregion
@@ -612,7 +612,7 @@ namespace MyGUI.Sharp
 
 		public uint TextSelectionStart
 		{
-			get { return  ExportEditBox_GetTextSelectionStart( mNative )  ; }
+			get { return  ExportEditBox_GetTextSelectionStart( Native )  ; }
 		}
 
 		#endregion

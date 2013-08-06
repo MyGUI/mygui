@@ -57,14 +57,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventTabChangeSelect == null)
-					ExportTabControlEvent_AdviseTabChangeSelect( mNative, true );
+					ExportTabControlEvent_AdviseTabChangeSelect( Native, true );
 				mEventTabChangeSelect += value;
 			}
 			remove
 			{
 				mEventTabChangeSelect -= value;
 				if (mEventTabChangeSelect == null)
-					ExportTabControlEvent_AdviseTabChangeSelect( mNative, false );
+					ExportTabControlEvent_AdviseTabChangeSelect( Native, false );
 			}
 		}
 
@@ -101,7 +101,7 @@ namespace MyGUI.Sharp
 		public int GetButtonWidth(
 			TabItem _item )
 		{
-			return  ExportTabControl_GetButtonWidth_item( mNative , 
+			return  ExportTabControl_GetButtonWidth_item( Native , 
 				 _item )  ;
 		}
 
@@ -116,7 +116,7 @@ namespace MyGUI.Sharp
 		public int GetButtonWidthAt(
 			uint _index )
 		{
-			return  ExportTabControl_GetButtonWidthAt_index( mNative , 
+			return  ExportTabControl_GetButtonWidthAt_index( Native , 
 				 _index )  ;
 		}
 
@@ -132,7 +132,7 @@ namespace MyGUI.Sharp
 			TabItem _item ,
 			int _width )
 		{
-			ExportTabControl_SetButtonWidth_item_width( mNative , 
+			ExportTabControl_SetButtonWidth_item_width( Native , 
 				 _item ,
 				 _width );
 		}
@@ -149,7 +149,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			int _width )
 		{
-			ExportTabControl_SetButtonWidthAt_index_width( mNative , 
+			ExportTabControl_SetButtonWidthAt_index_width( Native , 
 				 _index ,
 				 _width );
 		}
@@ -162,7 +162,7 @@ namespace MyGUI.Sharp
 
 		public void BeginToItemSelected( )
 		{
-			ExportTabControl_BeginToItemSelected(  mNative );
+			ExportTabControl_BeginToItemSelected(  Native );
 		}
 
 		#endregion
@@ -173,7 +173,7 @@ namespace MyGUI.Sharp
 
 		public void BeginToItemLast( )
 		{
-			ExportTabControl_BeginToItemLast(  mNative );
+			ExportTabControl_BeginToItemLast(  Native );
 		}
 
 		#endregion
@@ -184,7 +184,7 @@ namespace MyGUI.Sharp
 
 		public void BeginToItemFirst( )
 		{
-			ExportTabControl_BeginToItemFirst(  mNative );
+			ExportTabControl_BeginToItemFirst(  Native );
 		}
 
 		#endregion
@@ -197,7 +197,7 @@ namespace MyGUI.Sharp
 		public void BeginToItem(
 			TabItem _item )
 		{
-			ExportTabControl_BeginToItem_item( mNative , 
+			ExportTabControl_BeginToItem_item( Native , 
 				 _item );
 		}
 
@@ -211,7 +211,7 @@ namespace MyGUI.Sharp
 		public void BeginToItemAt(
 			uint _index )
 		{
-			ExportTabControl_BeginToItemAt_index( mNative , 
+			ExportTabControl_BeginToItemAt_index( Native , 
 				 _index );
 		}
 
@@ -226,7 +226,7 @@ namespace MyGUI.Sharp
 		public string GetItemName(
 			TabItem _item )
 		{
-			return  Marshal.PtrToStringUni(  ExportTabControl_GetItemName_item( mNative , 
+			return  Marshal.PtrToStringUni(  ExportTabControl_GetItemName_item( Native , 
 				 _item )  )  ;
 		}
 
@@ -241,7 +241,7 @@ namespace MyGUI.Sharp
 		public string GetItemNameAt(
 			uint _index )
 		{
-			return  Marshal.PtrToStringUni(  ExportTabControl_GetItemNameAt_index( mNative , 
+			return  Marshal.PtrToStringUni(  ExportTabControl_GetItemNameAt_index( Native , 
 				 _index )  )  ;
 		}
 
@@ -257,7 +257,7 @@ namespace MyGUI.Sharp
 			TabItem _item ,
 			string _name )
 		{
-			ExportTabControl_SetItemName_item_name( mNative , 
+			ExportTabControl_SetItemName_item_name( Native , 
 				 _item ,
 				 _name );
 		}
@@ -274,7 +274,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			string _name )
 		{
-			ExportTabControl_SetItemNameAt_index_name( mNative , 
+			ExportTabControl_SetItemNameAt_index_name( Native , 
 				 _index ,
 				 _name );
 		}
@@ -291,7 +291,7 @@ namespace MyGUI.Sharp
 			uint _index1 ,
 			uint _index2 )
 		{
-			ExportTabControl_SwapItems_index1_index2( mNative , 
+			ExportTabControl_SwapItems_index1_index2( Native , 
 				 _index1 ,
 				 _index2 );
 		}
@@ -307,7 +307,7 @@ namespace MyGUI.Sharp
 		public TabItem FindItemWith(
 			string _name )
 		{
-			return  ExportTabControl_FindItemWith_name( mNative , 
+			return  ExportTabControl_FindItemWith_name( Native , 
 				 _name )  ;
 		}
 
@@ -322,7 +322,7 @@ namespace MyGUI.Sharp
 		public uint FindItemIndexWith(
 			string _name )
 		{
-			return  ExportTabControl_FindItemIndexWith_name( mNative , 
+			return  ExportTabControl_FindItemIndexWith_name( Native , 
 				 _name )  ;
 		}
 
@@ -337,7 +337,7 @@ namespace MyGUI.Sharp
 		public uint FindItemIndex(
 			TabItem _item )
 		{
-			return  ExportTabControl_FindItemIndex_item( mNative , 
+			return  ExportTabControl_FindItemIndex_item( Native , 
 				 _item )  ;
 		}
 
@@ -352,7 +352,7 @@ namespace MyGUI.Sharp
 		public uint GetItemIndex(
 			TabItem _item )
 		{
-			return  ExportTabControl_GetItemIndex_item( mNative , 
+			return  ExportTabControl_GetItemIndex_item( Native , 
 				 _item )  ;
 		}
 
@@ -367,7 +367,7 @@ namespace MyGUI.Sharp
 		public TabItem GetItemAt(
 			uint _index )
 		{
-			return  ExportTabControl_GetItemAt_index( mNative , 
+			return  ExportTabControl_GetItemAt_index( Native , 
 				 _index )  ;
 		}
 
@@ -379,7 +379,7 @@ namespace MyGUI.Sharp
 
 		public void RemoveAllItems( )
 		{
-			ExportTabControl_RemoveAllItems(  mNative );
+			ExportTabControl_RemoveAllItems(  Native );
 		}
 
 		#endregion
@@ -392,7 +392,7 @@ namespace MyGUI.Sharp
 		public void RemoveItem(
 			TabItem _item )
 		{
-			ExportTabControl_RemoveItem_item( mNative , 
+			ExportTabControl_RemoveItem_item( Native , 
 				 _item );
 		}
 
@@ -406,7 +406,7 @@ namespace MyGUI.Sharp
 		public void RemoveItemAt(
 			uint _index )
 		{
-			ExportTabControl_RemoveItemAt_index( mNative , 
+			ExportTabControl_RemoveItemAt_index( Native , 
 				 _index );
 		}
 
@@ -421,7 +421,7 @@ namespace MyGUI.Sharp
 		public TabItem AddItem(
 			string _name )
 		{
-			return  ExportTabControl_AddItem_name( mNative , 
+			return  ExportTabControl_AddItem_name( Native , 
 				 _name )  ;
 		}
 
@@ -438,7 +438,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			string _name )
 		{
-			return  ExportTabControl_InsertItemAt_index_name( mNative , 
+			return  ExportTabControl_InsertItemAt_index_name( Native , 
 				 _index ,
 				 _name )  ;
 		}
@@ -454,8 +454,8 @@ namespace MyGUI.Sharp
 
 		public bool SmoothShow
 		{
-			get { return  ExportTabControl_GetSmoothShow( mNative )  ; }
-			set { ExportTabControl_SetSmoothShow( mNative,  value ); }
+			get { return  ExportTabControl_GetSmoothShow( Native )  ; }
+			set { ExportTabControl_SetSmoothShow( Native,  value ); }
 		}
 
 		#endregion
@@ -469,8 +469,8 @@ namespace MyGUI.Sharp
 
 		public bool ButtonAutoWidth
 		{
-			get { return  ExportTabControl_GetButtonAutoWidth( mNative )  ; }
-			set { ExportTabControl_SetButtonAutoWidth( mNative,  value ); }
+			get { return  ExportTabControl_GetButtonAutoWidth( Native )  ; }
+			set { ExportTabControl_SetButtonAutoWidth( Native,  value ); }
 		}
 
 		#endregion
@@ -484,8 +484,8 @@ namespace MyGUI.Sharp
 
 		public int ButtonDefaultWidth
 		{
-			get { return  ExportTabControl_GetButtonDefaultWidth( mNative )  ; }
-			set { ExportTabControl_SetButtonDefaultWidth( mNative,  value ); }
+			get { return  ExportTabControl_GetButtonDefaultWidth( Native )  ; }
+			set { ExportTabControl_SetButtonDefaultWidth( Native,  value ); }
 		}
 
 		#endregion
@@ -499,8 +499,8 @@ namespace MyGUI.Sharp
 
 		public TabItem ItemSelected
 		{
-			get { return  ExportTabControl_GetItemSelected( mNative )  ; }
-			set { ExportTabControl_SetItemSelected( mNative,  value ); }
+			get { return  ExportTabControl_GetItemSelected( Native )  ; }
+			set { ExportTabControl_SetItemSelected( Native,  value ); }
 		}
 
 		#endregion
@@ -514,8 +514,8 @@ namespace MyGUI.Sharp
 
 		public uint IndexSelected
 		{
-			get { return  ExportTabControl_GetIndexSelected( mNative )  ; }
-			set { ExportTabControl_SetIndexSelected( mNative,  value ); }
+			get { return  ExportTabControl_GetIndexSelected( Native )  ; }
+			set { ExportTabControl_SetIndexSelected( Native,  value ); }
 		}
 
 		#endregion
@@ -527,7 +527,7 @@ namespace MyGUI.Sharp
 
 		public uint ItemCount
 		{
-			get { return  ExportTabControl_GetItemCount( mNative )  ; }
+			get { return  ExportTabControl_GetItemCount( Native )  ; }
 		}
 
 		#endregion

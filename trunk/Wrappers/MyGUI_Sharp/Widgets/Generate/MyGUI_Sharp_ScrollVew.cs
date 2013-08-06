@@ -47,7 +47,7 @@ namespace MyGUI.Sharp
 			int _width ,
 			int _height )
 		{
-			ExportScrollView_SetCanvasSize_width_height( mNative , 
+			ExportScrollView_SetCanvasSize_width_height( Native , 
 				 _width ,
 				 _height );
 		}
@@ -63,8 +63,8 @@ namespace MyGUI.Sharp
 
 		public IntPoint ViewOffset
 		{
-			get { return  (IntPoint)Marshal.PtrToStructure(  ExportScrollView_GetViewOffset( mNative )  , typeof(IntPoint) )  ; }
-			set { ExportScrollView_SetViewOffset( mNative, ref value ); }
+			get { return  (IntPoint)Marshal.PtrToStructure(  ExportScrollView_GetViewOffset( Native )  , typeof(IntPoint) )  ; }
+			set { ExportScrollView_SetViewOffset( Native, ref value ); }
 		}
 
 		#endregion
@@ -76,7 +76,7 @@ namespace MyGUI.Sharp
 
 		public IntCoord ViewCoord
 		{
-			get { return  (IntCoord)Marshal.PtrToStructure(  ExportScrollView_GetViewCoord( mNative )  , typeof(IntCoord) )  ; }
+			get { return  (IntCoord)Marshal.PtrToStructure(  ExportScrollView_GetViewCoord( Native )  , typeof(IntCoord) )  ; }
 		}
 
 		#endregion
@@ -90,8 +90,8 @@ namespace MyGUI.Sharp
 
 		public IntSize CanvasSize
 		{
-			get { return  (IntSize)Marshal.PtrToStructure(  ExportScrollView_GetCanvasSize( mNative )  , typeof(IntSize) )  ; }
-			set { ExportScrollView_SetCanvasSize( mNative, ref value ); }
+			get { return  (IntSize)Marshal.PtrToStructure(  ExportScrollView_GetCanvasSize( Native )  , typeof(IntSize) )  ; }
+			set { ExportScrollView_SetCanvasSize( Native, ref value ); }
 		}
 
 		#endregion
@@ -105,8 +105,8 @@ namespace MyGUI.Sharp
 
 		public Align CanvasAlign
 		{
-			get { return  ExportScrollView_GetCanvasAlign( mNative )  ; }
-			set { ExportScrollView_SetCanvasAlign( mNative,  value ); }
+			get { return  ExportScrollView_GetCanvasAlign( Native )  ; }
+			set { ExportScrollView_SetCanvasAlign( Native,  value ); }
 		}
 
 		#endregion
@@ -120,8 +120,8 @@ namespace MyGUI.Sharp
 
 		public bool IsVisibleHScroll
 		{
-			get { return  ExportScrollView_IsVisibleHScroll( mNative )  ; }
-			set { ExportScrollView_SetVisibleHScroll( mNative,  value ); }
+			get { return  ExportScrollView_IsVisibleHScroll( Native )  ; }
+			set { ExportScrollView_SetVisibleHScroll( Native,  value ); }
 		}
 
 		#endregion
@@ -135,8 +135,8 @@ namespace MyGUI.Sharp
 
 		public bool IsVisibleVScroll
 		{
-			get { return  ExportScrollView_IsVisibleVScroll( mNative )  ; }
-			set { ExportScrollView_SetVisibleVScroll( mNative,  value ); }
+			get { return  ExportScrollView_IsVisibleVScroll( Native )  ; }
+			set { ExportScrollView_SetVisibleVScroll( Native,  value ); }
 		}
 
 		#endregion

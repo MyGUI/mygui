@@ -57,14 +57,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventScrollChangePosition == null)
-					ExportScrollBarEvent_AdviseScrollChangePosition( mNative, true );
+					ExportScrollBarEvent_AdviseScrollChangePosition( Native, true );
 				mEventScrollChangePosition += value;
 			}
 			remove
 			{
 				mEventScrollChangePosition -= value;
 				if (mEventScrollChangePosition == null)
-					ExportScrollBarEvent_AdviseScrollChangePosition( mNative, false );
+					ExportScrollBarEvent_AdviseScrollChangePosition( Native, false );
 			}
 		}
 
@@ -101,8 +101,8 @@ namespace MyGUI.Sharp
 
 		public bool MoveToClick
 		{
-			get { return  ExportScrollBar_GetMoveToClick( mNative )  ; }
-			set { ExportScrollBar_SetMoveToClick( mNative,  value ); }
+			get { return  ExportScrollBar_GetMoveToClick( Native )  ; }
+			set { ExportScrollBar_SetMoveToClick( Native,  value ); }
 		}
 
 		#endregion
@@ -116,8 +116,8 @@ namespace MyGUI.Sharp
 
 		public int MinTrackSize
 		{
-			get { return  ExportScrollBar_GetMinTrackSize( mNative )  ; }
-			set { ExportScrollBar_SetMinTrackSize( mNative,  value ); }
+			get { return  ExportScrollBar_GetMinTrackSize( Native )  ; }
+			set { ExportScrollBar_SetMinTrackSize( Native,  value ); }
 		}
 
 		#endregion
@@ -131,8 +131,8 @@ namespace MyGUI.Sharp
 
 		public int TrackSize
 		{
-			get { return  ExportScrollBar_GetTrackSize( mNative )  ; }
-			set { ExportScrollBar_SetTrackSize( mNative,  value ); }
+			get { return  ExportScrollBar_GetTrackSize( Native )  ; }
+			set { ExportScrollBar_SetTrackSize( Native,  value ); }
 		}
 
 		#endregion
@@ -144,7 +144,7 @@ namespace MyGUI.Sharp
 
 		public int LineSize
 		{
-			get { return  ExportScrollBar_GetLineSize( mNative )  ; }
+			get { return  ExportScrollBar_GetLineSize( Native )  ; }
 		}
 
 		#endregion
@@ -158,8 +158,8 @@ namespace MyGUI.Sharp
 
 		public uint ScrollViewPage
 		{
-			get { return  ExportScrollBar_GetScrollViewPage( mNative )  ; }
-			set { ExportScrollBar_SetScrollViewPage( mNative,  value ); }
+			get { return  ExportScrollBar_GetScrollViewPage( Native )  ; }
+			set { ExportScrollBar_SetScrollViewPage( Native,  value ); }
 		}
 
 		#endregion
@@ -173,8 +173,8 @@ namespace MyGUI.Sharp
 
 		public uint ScrollPage
 		{
-			get { return  ExportScrollBar_GetScrollPage( mNative )  ; }
-			set { ExportScrollBar_SetScrollPage( mNative,  value ); }
+			get { return  ExportScrollBar_GetScrollPage( Native )  ; }
+			set { ExportScrollBar_SetScrollPage( Native,  value ); }
 		}
 
 		#endregion
@@ -188,8 +188,8 @@ namespace MyGUI.Sharp
 
 		public uint ScrollPosition
 		{
-			get { return  ExportScrollBar_GetScrollPosition( mNative )  ; }
-			set { ExportScrollBar_SetScrollPosition( mNative,  value ); }
+			get { return  ExportScrollBar_GetScrollPosition( Native )  ; }
+			set { ExportScrollBar_SetScrollPosition( Native,  value ); }
 		}
 
 		#endregion
@@ -203,8 +203,8 @@ namespace MyGUI.Sharp
 
 		public uint ScrollRange
 		{
-			get { return  ExportScrollBar_GetScrollRange( mNative )  ; }
-			set { ExportScrollBar_SetScrollRange( mNative,  value ); }
+			get { return  ExportScrollBar_GetScrollRange( Native )  ; }
+			set { ExportScrollBar_SetScrollRange( Native,  value ); }
 		}
 
 		#endregion
@@ -218,8 +218,8 @@ namespace MyGUI.Sharp
 
 		public bool VerticalAlignment
 		{
-			get { return  ExportScrollBar_GetVerticalAlignment( mNative )  ; }
-			set { ExportScrollBar_SetVerticalAlignment( mNative,  value ); }
+			get { return  ExportScrollBar_GetVerticalAlignment( Native )  ; }
+			set { ExportScrollBar_SetVerticalAlignment( Native,  value ); }
 		}
 
 		#endregion

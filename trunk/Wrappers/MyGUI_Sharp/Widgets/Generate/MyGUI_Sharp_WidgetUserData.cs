@@ -22,7 +22,7 @@ namespace MyGUI.Sharp
 
 		public void ClearUserStrings( )
 		{
-			ExportWidget_ClearUserStrings(  mNative );
+			ExportWidget_ClearUserStrings(  Native );
 		}
 
 		#endregion
@@ -36,7 +36,7 @@ namespace MyGUI.Sharp
 		public bool IsUserString(
 			string _key )
 		{
-			return  ExportWidget_IsUserString_key( mNative , 
+			return  ExportWidget_IsUserString_key( Native , 
 				 _key )  ;
 		}
 
@@ -51,7 +51,7 @@ namespace MyGUI.Sharp
 		public bool ClearUserString(
 			string _key )
 		{
-			return  ExportWidget_ClearUserString_key( mNative , 
+			return  ExportWidget_ClearUserString_key( Native , 
 				 _key )  ;
 		}
 
@@ -66,7 +66,7 @@ namespace MyGUI.Sharp
 		public string GetUserString(
 			string _key )
 		{
-			return  Marshal.PtrToStringAnsi(  ExportWidget_GetUserString_key( mNative , 
+			return  Marshal.PtrToStringAnsi(  ExportWidget_GetUserString_key( Native , 
 				 _key )  )  ;
 		}
 
@@ -82,7 +82,7 @@ namespace MyGUI.Sharp
 			string _key ,
 			string _value )
 		{
-			ExportWidget_SetUserString_key_value( mNative , 
+			ExportWidget_SetUserString_key_value( Native , 
 				 _key ,
 				 _value );
 		}

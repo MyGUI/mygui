@@ -57,14 +57,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventComboChangePosition == null)
-					ExportComboBoxEvent_AdviseComboChangePosition( mNative, true );
+					ExportComboBoxEvent_AdviseComboChangePosition( Native, true );
 				mEventComboChangePosition += value;
 			}
 			remove
 			{
 				mEventComboChangePosition -= value;
 				if (mEventComboChangePosition == null)
-					ExportComboBoxEvent_AdviseComboChangePosition( mNative, false );
+					ExportComboBoxEvent_AdviseComboChangePosition( Native, false );
 			}
 		}
 
@@ -112,14 +112,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventComboAccept == null)
-					ExportComboBoxEvent_AdviseComboAccept( mNative, true );
+					ExportComboBoxEvent_AdviseComboAccept( Native, true );
 				mEventComboAccept += value;
 			}
 			remove
 			{
 				mEventComboAccept -= value;
 				if (mEventComboAccept == null)
-					ExportComboBoxEvent_AdviseComboAccept( mNative, false );
+					ExportComboBoxEvent_AdviseComboAccept( Native, false );
 			}
 		}
 
@@ -153,7 +153,7 @@ namespace MyGUI.Sharp
 
 		public void BeginToItemSelected( )
 		{
-			ExportComboBox_BeginToItemSelected(  mNative );
+			ExportComboBox_BeginToItemSelected(  Native );
 		}
 
 		#endregion
@@ -164,7 +164,7 @@ namespace MyGUI.Sharp
 
 		public void BeginToItemLast( )
 		{
-			ExportComboBox_BeginToItemLast(  mNative );
+			ExportComboBox_BeginToItemLast(  Native );
 		}
 
 		#endregion
@@ -175,7 +175,7 @@ namespace MyGUI.Sharp
 
 		public void BeginToItemFirst( )
 		{
-			ExportComboBox_BeginToItemFirst(  mNative );
+			ExportComboBox_BeginToItemFirst(  Native );
 		}
 
 		#endregion
@@ -188,7 +188,7 @@ namespace MyGUI.Sharp
 		public void BeginToItemAt(
 			uint _index )
 		{
-			ExportComboBox_BeginToItemAt_index( mNative , 
+			ExportComboBox_BeginToItemAt_index( Native , 
 				 _index );
 		}
 
@@ -203,7 +203,7 @@ namespace MyGUI.Sharp
 		public string GetItemNameAt(
 			uint _index )
 		{
-			return  Marshal.PtrToStringUni(  ExportComboBox_GetItemNameAt_index( mNative , 
+			return  Marshal.PtrToStringUni(  ExportComboBox_GetItemNameAt_index( Native , 
 				 _index )  )  ;
 		}
 
@@ -219,7 +219,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			string _name )
 		{
-			ExportComboBox_SetItemNameAt_index_name( mNative , 
+			ExportComboBox_SetItemNameAt_index_name( Native , 
 				 _index ,
 				 _name );
 		}
@@ -232,7 +232,7 @@ namespace MyGUI.Sharp
 
 		public void ClearIndexSelected( )
 		{
-			ExportComboBox_ClearIndexSelected(  mNative );
+			ExportComboBox_ClearIndexSelected(  Native );
 		}
 
 		#endregion
@@ -246,7 +246,7 @@ namespace MyGUI.Sharp
 		public uint FindItemIndexWith(
 			string _name )
 		{
-			return  ExportComboBox_FindItemIndexWith_name( mNative , 
+			return  ExportComboBox_FindItemIndexWith_name( Native , 
 				 _name )  ;
 		}
 
@@ -258,7 +258,7 @@ namespace MyGUI.Sharp
 
 		public void RemoveAllItems( )
 		{
-			ExportComboBox_RemoveAllItems(  mNative );
+			ExportComboBox_RemoveAllItems(  Native );
 		}
 
 		#endregion
@@ -271,7 +271,7 @@ namespace MyGUI.Sharp
 		public void RemoveItemAt(
 			uint _index )
 		{
-			ExportComboBox_RemoveItemAt_index( mNative , 
+			ExportComboBox_RemoveItemAt_index( Native , 
 				 _index );
 		}
 
@@ -285,7 +285,7 @@ namespace MyGUI.Sharp
 		public void AddItem(
 			string _name )
 		{
-			ExportComboBox_AddItem_name( mNative , 
+			ExportComboBox_AddItem_name( Native , 
 				 _name );
 		}
 
@@ -301,7 +301,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			string _name )
 		{
-			ExportComboBox_InsertItemAt_index_name( mNative , 
+			ExportComboBox_InsertItemAt_index_name( Native , 
 				 _index ,
 				 _name );
 		}
@@ -317,8 +317,8 @@ namespace MyGUI.Sharp
 
 		public FlowDirection FlowDirection
 		{
-			get { return  ExportComboBox_GetFlowDirection( mNative )  ; }
-			set { ExportComboBox_SetFlowDirection( mNative,  value ); }
+			get { return  ExportComboBox_GetFlowDirection( Native )  ; }
+			set { ExportComboBox_SetFlowDirection( Native,  value ); }
 		}
 
 		#endregion
@@ -332,8 +332,8 @@ namespace MyGUI.Sharp
 
 		public int MaxListLength
 		{
-			get { return  ExportComboBox_GetMaxListLength( mNative )  ; }
-			set { ExportComboBox_SetMaxListLength( mNative,  value ); }
+			get { return  ExportComboBox_GetMaxListLength( Native )  ; }
+			set { ExportComboBox_SetMaxListLength( Native,  value ); }
 		}
 
 		#endregion
@@ -347,8 +347,8 @@ namespace MyGUI.Sharp
 
 		public bool SmoothShow
 		{
-			get { return  ExportComboBox_GetSmoothShow( mNative )  ; }
-			set { ExportComboBox_SetSmoothShow( mNative,  value ); }
+			get { return  ExportComboBox_GetSmoothShow( Native )  ; }
+			set { ExportComboBox_SetSmoothShow( Native,  value ); }
 		}
 
 		#endregion
@@ -362,8 +362,8 @@ namespace MyGUI.Sharp
 
 		public bool ComboModeDrop
 		{
-			get { return  ExportComboBox_GetComboModeDrop( mNative )  ; }
-			set { ExportComboBox_SetComboModeDrop( mNative,  value ); }
+			get { return  ExportComboBox_GetComboModeDrop( Native )  ; }
+			set { ExportComboBox_SetComboModeDrop( Native,  value ); }
 		}
 
 		#endregion
@@ -377,8 +377,8 @@ namespace MyGUI.Sharp
 
 		public uint IndexSelected
 		{
-			get { return  ExportComboBox_GetIndexSelected( mNative )  ; }
-			set { ExportComboBox_SetIndexSelected( mNative,  value ); }
+			get { return  ExportComboBox_GetIndexSelected( Native )  ; }
+			set { ExportComboBox_SetIndexSelected( Native,  value ); }
 		}
 
 		#endregion
@@ -390,7 +390,7 @@ namespace MyGUI.Sharp
 
 		public uint ItemCount
 		{
-			get { return  ExportComboBox_GetItemCount( mNative )  ; }
+			get { return  ExportComboBox_GetItemCount( Native )  ; }
 		}
 
 		#endregion

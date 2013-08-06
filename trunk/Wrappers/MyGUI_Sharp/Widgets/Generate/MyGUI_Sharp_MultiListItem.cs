@@ -45,7 +45,7 @@ namespace MyGUI.Sharp
 		public void SetItemWidth(
 			int _value )
 		{
-			ExportMultiListItem_SetItemWidth_value( mNative , 
+			ExportMultiListItem_SetItemWidth_value( Native , 
 				 _value );
 		}
 
@@ -59,7 +59,7 @@ namespace MyGUI.Sharp
 		public void SetItemResizingPolicy(
 			ResizingPolicy _value )
 		{
-			ExportMultiListItem_SetItemResizingPolicy_value( mNative , 
+			ExportMultiListItem_SetItemResizingPolicy_value( Native , 
 				 _value );
 		}
 

@@ -57,14 +57,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventNotifyItem == null)
-					ExportListBoxEvent_AdviseNotifyItem( mNative, true );
+					ExportListBoxEvent_AdviseNotifyItem( Native, true );
 				mEventNotifyItem += value;
 			}
 			remove
 			{
 				mEventNotifyItem -= value;
 				if (mEventNotifyItem == null)
-					ExportListBoxEvent_AdviseNotifyItem( mNative, false );
+					ExportListBoxEvent_AdviseNotifyItem( Native, false );
 			}
 		}
 
@@ -112,14 +112,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventListChangeScroll == null)
-					ExportListBoxEvent_AdviseListChangeScroll( mNative, true );
+					ExportListBoxEvent_AdviseListChangeScroll( Native, true );
 				mEventListChangeScroll += value;
 			}
 			remove
 			{
 				mEventListChangeScroll -= value;
 				if (mEventListChangeScroll == null)
-					ExportListBoxEvent_AdviseListChangeScroll( mNative, false );
+					ExportListBoxEvent_AdviseListChangeScroll( Native, false );
 			}
 		}
 
@@ -167,14 +167,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventListMouseItemFocus == null)
-					ExportListBoxEvent_AdviseListMouseItemFocus( mNative, true );
+					ExportListBoxEvent_AdviseListMouseItemFocus( Native, true );
 				mEventListMouseItemFocus += value;
 			}
 			remove
 			{
 				mEventListMouseItemFocus -= value;
 				if (mEventListMouseItemFocus == null)
-					ExportListBoxEvent_AdviseListMouseItemFocus( mNative, false );
+					ExportListBoxEvent_AdviseListMouseItemFocus( Native, false );
 			}
 		}
 
@@ -222,14 +222,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventListMouseItemActivate == null)
-					ExportListBoxEvent_AdviseListMouseItemActivate( mNative, true );
+					ExportListBoxEvent_AdviseListMouseItemActivate( Native, true );
 				mEventListMouseItemActivate += value;
 			}
 			remove
 			{
 				mEventListMouseItemActivate -= value;
 				if (mEventListMouseItemActivate == null)
-					ExportListBoxEvent_AdviseListMouseItemActivate( mNative, false );
+					ExportListBoxEvent_AdviseListMouseItemActivate( Native, false );
 			}
 		}
 
@@ -277,14 +277,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventListChangePosition == null)
-					ExportListBoxEvent_AdviseListChangePosition( mNative, true );
+					ExportListBoxEvent_AdviseListChangePosition( Native, true );
 				mEventListChangePosition += value;
 			}
 			remove
 			{
 				mEventListChangePosition -= value;
 				if (mEventListChangePosition == null)
-					ExportListBoxEvent_AdviseListChangePosition( mNative, false );
+					ExportListBoxEvent_AdviseListChangePosition( Native, false );
 			}
 		}
 
@@ -332,14 +332,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventListSelectAccept == null)
-					ExportListBoxEvent_AdviseListSelectAccept( mNative, true );
+					ExportListBoxEvent_AdviseListSelectAccept( Native, true );
 				mEventListSelectAccept += value;
 			}
 			remove
 			{
 				mEventListSelectAccept -= value;
 				if (mEventListSelectAccept == null)
-					ExportListBoxEvent_AdviseListSelectAccept( mNative, false );
+					ExportListBoxEvent_AdviseListSelectAccept( Native, false );
 			}
 		}
 
@@ -376,7 +376,7 @@ namespace MyGUI.Sharp
 		public Widget GetWidgetByIndex(
 			uint _index )
 		{
-			return  ExportListBox_GetWidgetByIndex_index( mNative , 
+			return  ExportListBox_GetWidgetByIndex_index( Native , 
 				 _index )  ;
 		}
 
@@ -391,7 +391,7 @@ namespace MyGUI.Sharp
 		public string GetItemNameAt(
 			uint _index )
 		{
-			return  Marshal.PtrToStringUni(  ExportListBox_GetItemNameAt_index( mNative , 
+			return  Marshal.PtrToStringUni(  ExportListBox_GetItemNameAt_index( Native , 
 				 _index )  )  ;
 		}
 
@@ -407,7 +407,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			string _name )
 		{
-			ExportListBox_SetItemNameAt_index_name( mNative , 
+			ExportListBox_SetItemNameAt_index_name( Native , 
 				 _index ,
 				 _name );
 		}
@@ -422,7 +422,7 @@ namespace MyGUI.Sharp
 		public void SetScrollPosition(
 			uint _position )
 		{
-			ExportListBox_SetScrollPosition_position( mNative , 
+			ExportListBox_SetScrollPosition_position( Native , 
 				 _position );
 		}
 
@@ -436,7 +436,7 @@ namespace MyGUI.Sharp
 		public void SetScrollVisible(
 			bool _visible )
 		{
-			ExportListBox_SetScrollVisible_visible( mNative , 
+			ExportListBox_SetScrollVisible_visible( Native , 
 				 _visible );
 		}
 
@@ -451,7 +451,7 @@ namespace MyGUI.Sharp
 		public bool IsItemSelectedVisible(
 			bool _fill )
 		{
-			return  ExportListBox_IsItemSelectedVisible_fill( mNative , 
+			return  ExportListBox_IsItemSelectedVisible_fill( Native , 
 				 _fill )  ;
 		}
 
@@ -468,7 +468,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			bool _fill )
 		{
-			return  ExportListBox_IsItemVisibleAt_index_fill( mNative , 
+			return  ExportListBox_IsItemVisibleAt_index_fill( Native , 
 				 _index ,
 				 _fill )  ;
 		}
@@ -481,7 +481,7 @@ namespace MyGUI.Sharp
 
 		public void BeginToItemSelected( )
 		{
-			ExportListBox_BeginToItemSelected(  mNative );
+			ExportListBox_BeginToItemSelected(  Native );
 		}
 
 		#endregion
@@ -492,7 +492,7 @@ namespace MyGUI.Sharp
 
 		public void BeginToItemLast( )
 		{
-			ExportListBox_BeginToItemLast(  mNative );
+			ExportListBox_BeginToItemLast(  Native );
 		}
 
 		#endregion
@@ -503,7 +503,7 @@ namespace MyGUI.Sharp
 
 		public void BeginToItemFirst( )
 		{
-			ExportListBox_BeginToItemFirst(  mNative );
+			ExportListBox_BeginToItemFirst(  Native );
 		}
 
 		#endregion
@@ -516,7 +516,7 @@ namespace MyGUI.Sharp
 		public void BeginToItemAt(
 			uint _index )
 		{
-			ExportListBox_BeginToItemAt_index( mNative , 
+			ExportListBox_BeginToItemAt_index( Native , 
 				 _index );
 		}
 
@@ -528,7 +528,7 @@ namespace MyGUI.Sharp
 
 		public void ClearIndexSelected( )
 		{
-			ExportListBox_ClearIndexSelected(  mNative );
+			ExportListBox_ClearIndexSelected(  Native );
 		}
 
 		#endregion
@@ -542,7 +542,7 @@ namespace MyGUI.Sharp
 		public uint FindItemIndexWith(
 			string _name )
 		{
-			return  ExportListBox_FindItemIndexWith_name( mNative , 
+			return  ExportListBox_FindItemIndexWith_name( Native , 
 				 _name )  ;
 		}
 
@@ -558,7 +558,7 @@ namespace MyGUI.Sharp
 			uint _index1 ,
 			uint _index2 )
 		{
-			ExportListBox_SwapItemsAt_index1_index2( mNative , 
+			ExportListBox_SwapItemsAt_index1_index2( Native , 
 				 _index1 ,
 				 _index2 );
 		}
@@ -571,7 +571,7 @@ namespace MyGUI.Sharp
 
 		public void RemoveAllItems( )
 		{
-			ExportListBox_RemoveAllItems(  mNative );
+			ExportListBox_RemoveAllItems(  Native );
 		}
 
 		#endregion
@@ -584,7 +584,7 @@ namespace MyGUI.Sharp
 		public void RemoveItemAt(
 			uint _index )
 		{
-			ExportListBox_RemoveItemAt_index( mNative , 
+			ExportListBox_RemoveItemAt_index( Native , 
 				 _index );
 		}
 
@@ -598,7 +598,7 @@ namespace MyGUI.Sharp
 		public void AddItem(
 			string _name )
 		{
-			ExportListBox_AddItem_name( mNative , 
+			ExportListBox_AddItem_name( Native , 
 				 _name );
 		}
 
@@ -614,7 +614,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			string _name )
 		{
-			ExportListBox_InsertItemAt_index_name( mNative , 
+			ExportListBox_InsertItemAt_index_name( Native , 
 				 _index ,
 				 _name );
 		}
@@ -628,7 +628,7 @@ namespace MyGUI.Sharp
 
 		public int OptimalHeight
 		{
-			get { return  ExportListBox_GetOptimalHeight( mNative )  ; }
+			get { return  ExportListBox_GetOptimalHeight( Native )  ; }
 		}
 
 		#endregion
@@ -642,8 +642,8 @@ namespace MyGUI.Sharp
 
 		public uint IndexSelected
 		{
-			get { return  ExportListBox_GetIndexSelected( mNative )  ; }
-			set { ExportListBox_SetIndexSelected( mNative,  value ); }
+			get { return  ExportListBox_GetIndexSelected( Native )  ; }
+			set { ExportListBox_SetIndexSelected( Native,  value ); }
 		}
 
 		#endregion
@@ -655,7 +655,7 @@ namespace MyGUI.Sharp
 
 		public uint ItemCount
 		{
-			get { return  ExportListBox_GetItemCount( mNative )  ; }
+			get { return  ExportListBox_GetItemCount( Native )  ; }
 		}
 
 		#endregion

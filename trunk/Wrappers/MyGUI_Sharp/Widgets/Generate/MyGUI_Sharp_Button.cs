@@ -45,7 +45,7 @@ namespace MyGUI.Sharp
 		public void SetImageName(
 			string _name )
 		{
-			ExportButton_SetImageName_name( mNative , 
+			ExportButton_SetImageName_name( Native , 
 				 _name );
 		}
 
@@ -59,7 +59,7 @@ namespace MyGUI.Sharp
 		public void SetImageGroup(
 			string _name )
 		{
-			ExportButton_SetImageGroup_name( mNative , 
+			ExportButton_SetImageGroup_name( Native , 
 				 _name );
 		}
 
@@ -73,7 +73,7 @@ namespace MyGUI.Sharp
 		public void SetImageResource(
 			string _name )
 		{
-			ExportButton_SetImageResource_name( mNative , 
+			ExportButton_SetImageResource_name( Native , 
 				 _name );
 		}
 
@@ -88,8 +88,8 @@ namespace MyGUI.Sharp
 
 		public bool ModeImage
 		{
-			get { return  ExportButton_GetModeImage( mNative )  ; }
-			set { ExportButton_SetModeImage( mNative,  value ); }
+			get { return  ExportButton_GetModeImage( Native )  ; }
+			set { ExportButton_SetModeImage( Native,  value ); }
 		}
 
 		#endregion
@@ -103,8 +103,8 @@ namespace MyGUI.Sharp
 
 		public bool StateSelected
 		{
-			get { return  ExportButton_GetStateSelected( mNative )  ; }
-			set { ExportButton_SetStateSelected( mNative,  value ); }
+			get { return  ExportButton_GetStateSelected( Native )  ; }
+			set { ExportButton_SetStateSelected( Native,  value ); }
 		}
 
 		#endregion

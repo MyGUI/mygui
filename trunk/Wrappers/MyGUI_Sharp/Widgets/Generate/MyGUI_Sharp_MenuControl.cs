@@ -56,14 +56,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventMenuCtrlClose == null)
-					ExportMenuControlEvent_AdviseMenuCtrlClose( mNative, true );
+					ExportMenuControlEvent_AdviseMenuCtrlClose( Native, true );
 				mEventMenuCtrlClose += value;
 			}
 			remove
 			{
 				mEventMenuCtrlClose -= value;
 				if (mEventMenuCtrlClose == null)
-					ExportMenuControlEvent_AdviseMenuCtrlClose( mNative, false );
+					ExportMenuControlEvent_AdviseMenuCtrlClose( Native, false );
 			}
 		}
 
@@ -108,14 +108,14 @@ namespace MyGUI.Sharp
 				}
 
 				if (mEventMenuCtrlAccept == null)
-					ExportMenuControlEvent_AdviseMenuCtrlAccept( mNative, true );
+					ExportMenuControlEvent_AdviseMenuCtrlAccept( Native, true );
 				mEventMenuCtrlAccept += value;
 			}
 			remove
 			{
 				mEventMenuCtrlAccept -= value;
 				if (mEventMenuCtrlAccept == null)
-					ExportMenuControlEvent_AdviseMenuCtrlAccept( mNative, false );
+					ExportMenuControlEvent_AdviseMenuCtrlAccept( Native, false );
 			}
 		}
 
@@ -153,7 +153,7 @@ namespace MyGUI.Sharp
 			MenuItem _item ,
 			MenuItemType _type )
 		{
-			ExportMenuControl_SetItemType_item_type( mNative , 
+			ExportMenuControl_SetItemType_item_type( Native , 
 				 _item ,
 				 _type );
 		}
@@ -170,7 +170,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			MenuItemType _type )
 		{
-			ExportMenuControl_SetItemTypeAt_index_type( mNative , 
+			ExportMenuControl_SetItemTypeAt_index_type( Native , 
 				 _index ,
 				 _type );
 		}
@@ -186,7 +186,7 @@ namespace MyGUI.Sharp
 		public MenuItemType GetItemType(
 			MenuItem _item )
 		{
-			return  ExportMenuControl_GetItemType_item( mNative , 
+			return  ExportMenuControl_GetItemType_item( Native , 
 				 _item )  ;
 		}
 
@@ -201,7 +201,7 @@ namespace MyGUI.Sharp
 		public MenuItemType GetItemTypeAt(
 			uint _index )
 		{
-			return  ExportMenuControl_GetItemTypeAt_index( mNative , 
+			return  ExportMenuControl_GetItemTypeAt_index( Native , 
 				 _index )  ;
 		}
 
@@ -215,7 +215,7 @@ namespace MyGUI.Sharp
 		public void RemoveItemChild(
 			MenuItem _item )
 		{
-			ExportMenuControl_RemoveItemChild_item( mNative , 
+			ExportMenuControl_RemoveItemChild_item( Native , 
 				 _item );
 		}
 
@@ -229,7 +229,7 @@ namespace MyGUI.Sharp
 		public void RemoveItemChildAt(
 			uint _index )
 		{
-			ExportMenuControl_RemoveItemChildAt_index( mNative , 
+			ExportMenuControl_RemoveItemChildAt_index( Native , 
 				 _index );
 		}
 
@@ -244,7 +244,7 @@ namespace MyGUI.Sharp
 		public MenuControl CreateItemChild(
 			MenuItem _item )
 		{
-			return  ExportMenuControl_CreateItemChild_item( mNative , 
+			return  ExportMenuControl_CreateItemChild_item( Native , 
 				 _item )  ;
 		}
 
@@ -259,7 +259,7 @@ namespace MyGUI.Sharp
 		public MenuControl CreateItemChildAt(
 			uint _index )
 		{
-			return  ExportMenuControl_CreateItemChildAt_index( mNative , 
+			return  ExportMenuControl_CreateItemChildAt_index( Native , 
 				 _index )  ;
 		}
 
@@ -274,7 +274,7 @@ namespace MyGUI.Sharp
 		public MenuControl GetItemChild(
 			MenuItem _item )
 		{
-			return  ExportMenuControl_GetItemChild_item( mNative , 
+			return  ExportMenuControl_GetItemChild_item( Native , 
 				 _item )  ;
 		}
 
@@ -289,7 +289,7 @@ namespace MyGUI.Sharp
 		public MenuControl GetItemChildAt(
 			uint _index )
 		{
-			return  ExportMenuControl_GetItemChildAt_index( mNative , 
+			return  ExportMenuControl_GetItemChildAt_index( Native , 
 				 _index )  ;
 		}
 
@@ -305,7 +305,7 @@ namespace MyGUI.Sharp
 			MenuItem _item ,
 			bool _visible )
 		{
-			ExportMenuControl_SetItemChildVisible_item_visible( mNative , 
+			ExportMenuControl_SetItemChildVisible_item_visible( Native , 
 				 _item ,
 				 _visible );
 		}
@@ -322,7 +322,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			bool _visible )
 		{
-			ExportMenuControl_SetItemChildVisibleAt_index_visible( mNative , 
+			ExportMenuControl_SetItemChildVisibleAt_index_visible( Native , 
 				 _index ,
 				 _visible );
 		}
@@ -338,7 +338,7 @@ namespace MyGUI.Sharp
 		public uint FindItemIndexWith(
 			string _name )
 		{
-			return  ExportMenuControl_FindItemIndexWith_name( mNative , 
+			return  ExportMenuControl_FindItemIndexWith_name( Native , 
 				 _name )  ;
 		}
 
@@ -353,7 +353,7 @@ namespace MyGUI.Sharp
 		public string GetItemName(
 			MenuItem _item )
 		{
-			return  Marshal.PtrToStringUni(  ExportMenuControl_GetItemName_item( mNative , 
+			return  Marshal.PtrToStringUni(  ExportMenuControl_GetItemName_item( Native , 
 				 _item )  )  ;
 		}
 
@@ -368,7 +368,7 @@ namespace MyGUI.Sharp
 		public string GetItemNameAt(
 			uint _index )
 		{
-			return  Marshal.PtrToStringUni(  ExportMenuControl_GetItemNameAt_index( mNative , 
+			return  Marshal.PtrToStringUni(  ExportMenuControl_GetItemNameAt_index( Native , 
 				 _index )  )  ;
 		}
 
@@ -384,7 +384,7 @@ namespace MyGUI.Sharp
 			MenuItem _item ,
 			string _name )
 		{
-			ExportMenuControl_SetItemName_item_name( mNative , 
+			ExportMenuControl_SetItemName_item_name( Native , 
 				 _item ,
 				 _name );
 		}
@@ -401,7 +401,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			string _name )
 		{
-			ExportMenuControl_SetItemNameAt_index_name( mNative , 
+			ExportMenuControl_SetItemNameAt_index_name( Native , 
 				 _index ,
 				 _name );
 		}
@@ -417,7 +417,7 @@ namespace MyGUI.Sharp
 		public uint GetItemIndexById(
 			string _id )
 		{
-			return  ExportMenuControl_GetItemIndexById_id( mNative , 
+			return  ExportMenuControl_GetItemIndexById_id( Native , 
 				 _id )  ;
 		}
 
@@ -434,7 +434,7 @@ namespace MyGUI.Sharp
 			string _id ,
 			bool _recursive )
 		{
-			return  ExportMenuControl_FindItemById_id_recursive( mNative , 
+			return  ExportMenuControl_FindItemById_id_recursive( Native , 
 				 _id ,
 				 _recursive )  ;
 		}
@@ -450,7 +450,7 @@ namespace MyGUI.Sharp
 		public MenuItem GetItemById(
 			string _id )
 		{
-			return  ExportMenuControl_GetItemById_id( mNative , 
+			return  ExportMenuControl_GetItemById_id( Native , 
 				 _id )  ;
 		}
 
@@ -465,7 +465,7 @@ namespace MyGUI.Sharp
 		public string GetItemId(
 			MenuItem _item )
 		{
-			return  Marshal.PtrToStringAnsi(  ExportMenuControl_GetItemId_item( mNative , 
+			return  Marshal.PtrToStringAnsi(  ExportMenuControl_GetItemId_item( Native , 
 				 _item )  )  ;
 		}
 
@@ -480,7 +480,7 @@ namespace MyGUI.Sharp
 		public string GetItemIdAt(
 			uint _index )
 		{
-			return  Marshal.PtrToStringAnsi(  ExportMenuControl_GetItemIdAt_index( mNative , 
+			return  Marshal.PtrToStringAnsi(  ExportMenuControl_GetItemIdAt_index( Native , 
 				 _index )  )  ;
 		}
 
@@ -496,7 +496,7 @@ namespace MyGUI.Sharp
 			MenuItem _item ,
 			string _id )
 		{
-			ExportMenuControl_SetItemId_item_id( mNative , 
+			ExportMenuControl_SetItemId_item_id( Native , 
 				 _item ,
 				 _id );
 		}
@@ -513,7 +513,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			string _id )
 		{
-			ExportMenuControl_SetItemIdAt_index_id( mNative , 
+			ExportMenuControl_SetItemIdAt_index_id( Native , 
 				 _index ,
 				 _id );
 		}
@@ -529,7 +529,7 @@ namespace MyGUI.Sharp
 		public MenuItem FindItemWith(
 			string _name )
 		{
-			return  ExportMenuControl_FindItemWith_name( mNative , 
+			return  ExportMenuControl_FindItemWith_name( Native , 
 				 _name )  ;
 		}
 
@@ -544,7 +544,7 @@ namespace MyGUI.Sharp
 		public uint FindItemIndex(
 			MenuItem _item )
 		{
-			return  ExportMenuControl_FindItemIndex_item( mNative , 
+			return  ExportMenuControl_FindItemIndex_item( Native , 
 				 _item )  ;
 		}
 
@@ -559,7 +559,7 @@ namespace MyGUI.Sharp
 		public uint GetItemIndex(
 			MenuItem _item )
 		{
-			return  ExportMenuControl_GetItemIndex_item( mNative , 
+			return  ExportMenuControl_GetItemIndex_item( Native , 
 				 _item )  ;
 		}
 
@@ -574,7 +574,7 @@ namespace MyGUI.Sharp
 		public MenuItem GetItemAt(
 			uint _index )
 		{
-			return  ExportMenuControl_GetItemAt_index( mNative , 
+			return  ExportMenuControl_GetItemAt_index( Native , 
 				 _index )  ;
 		}
 
@@ -586,7 +586,7 @@ namespace MyGUI.Sharp
 
 		public void RemoveAllItems( )
 		{
-			ExportMenuControl_RemoveAllItems(  mNative );
+			ExportMenuControl_RemoveAllItems(  Native );
 		}
 
 		#endregion
@@ -599,7 +599,7 @@ namespace MyGUI.Sharp
 		public void RemoveItem(
 			MenuItem _item )
 		{
-			ExportMenuControl_RemoveItem_item( mNative , 
+			ExportMenuControl_RemoveItem_item( Native , 
 				 _item );
 		}
 
@@ -613,7 +613,7 @@ namespace MyGUI.Sharp
 		public void RemoveItemAt(
 			uint _index )
 		{
-			ExportMenuControl_RemoveItemAt_index( mNative , 
+			ExportMenuControl_RemoveItemAt_index( Native , 
 				 _index );
 		}
 
@@ -632,7 +632,7 @@ namespace MyGUI.Sharp
 			MenuItemType _type ,
 			string _id )
 		{
-			return  ExportMenuControl_AddItem_name_type_id( mNative , 
+			return  ExportMenuControl_AddItem_name_type_id( Native , 
 				 _name ,
 				 _type ,
 				 _id )  ;
@@ -648,7 +648,7 @@ namespace MyGUI.Sharp
 			string _name ,
 			MenuItemType _type )
 		{
-			return  ExportMenuControl_AddItem_name_type( mNative , 
+			return  ExportMenuControl_AddItem_name_type( Native , 
 				 _name ,
 				 _type )  ;
 		}
@@ -661,7 +661,7 @@ namespace MyGUI.Sharp
 		public MenuItem AddItem(
 			string _name )
 		{
-			return  ExportMenuControl_AddItem_name( mNative , 
+			return  ExportMenuControl_AddItem_name( Native , 
 				 _name )  ;
 		}
 		
@@ -682,7 +682,7 @@ namespace MyGUI.Sharp
 			MenuItemType _type ,
 			string _id )
 		{
-			return  ExportMenuControl_InsertItemAt_index_name_type_id( mNative , 
+			return  ExportMenuControl_InsertItemAt_index_name_type_id( Native , 
 				 _index ,
 				 _name ,
 				 _type ,
@@ -701,7 +701,7 @@ namespace MyGUI.Sharp
 			string _name ,
 			MenuItemType _type )
 		{
-			return  ExportMenuControl_InsertItemAt_index_name_type( mNative , 
+			return  ExportMenuControl_InsertItemAt_index_name_type( Native , 
 				 _index ,
 				 _name ,
 				 _type )  ;
@@ -717,7 +717,7 @@ namespace MyGUI.Sharp
 			uint _index ,
 			string _name )
 		{
-			return  ExportMenuControl_InsertItemAt_index_name( mNative , 
+			return  ExportMenuControl_InsertItemAt_index_name( Native , 
 				 _index ,
 				 _name )  ;
 		}
@@ -732,7 +732,7 @@ namespace MyGUI.Sharp
 		public void SetVisibleSmooth(
 			bool _value )
 		{
-			ExportMenuControl_SetVisibleSmooth_value( mNative , 
+			ExportMenuControl_SetVisibleSmooth_value( Native , 
 				 _value );
 		}
 
@@ -747,8 +747,8 @@ namespace MyGUI.Sharp
 
 		public bool VerticalAlignment
 		{
-			get { return  ExportMenuControl_GetVerticalAlignment( mNative )  ; }
-			set { ExportMenuControl_SetVerticalAlignment( mNative,  value ); }
+			get { return  ExportMenuControl_GetVerticalAlignment( Native )  ; }
+			set { ExportMenuControl_SetVerticalAlignment( Native,  value ); }
 		}
 
 		#endregion
@@ -760,7 +760,7 @@ namespace MyGUI.Sharp
 
 		public MenuItem MenuItemParent
 		{
-			get { return  ExportMenuControl_GetMenuItemParent( mNative )  ; }
+			get { return  ExportMenuControl_GetMenuItemParent( Native )  ; }
 		}
 
 		#endregion
@@ -774,8 +774,8 @@ namespace MyGUI.Sharp
 
 		public bool PopupAccept
 		{
-			get { return  ExportMenuControl_GetPopupAccept( mNative )  ; }
-			set { ExportMenuControl_SetPopupAccept( mNative,  value ); }
+			get { return  ExportMenuControl_GetPopupAccept( Native )  ; }
+			set { ExportMenuControl_SetPopupAccept( Native,  value ); }
 		}
 
 		#endregion
@@ -787,7 +787,7 @@ namespace MyGUI.Sharp
 
 		public uint ItemCount
 		{
-			get { return  ExportMenuControl_GetItemCount( mNative )  ; }
+			get { return  ExportMenuControl_GetItemCount( Native )  ; }
 		}
 
 		#endregion

@@ -23,7 +23,7 @@ namespace MyGUI.Sharp
 
 		public int Height
 		{
-			get { return  ExportWidget_GetHeight( mNative )  ; }
+			get { return  ExportWidget_GetHeight( Native )  ; }
 		}
 
 		#endregion
@@ -35,7 +35,7 @@ namespace MyGUI.Sharp
 
 		public int Width
 		{
-			get { return  ExportWidget_GetWidth( mNative )  ; }
+			get { return  ExportWidget_GetWidth( Native )  ; }
 		}
 
 		#endregion
@@ -47,7 +47,7 @@ namespace MyGUI.Sharp
 
 		public int Bottom
 		{
-			get { return  ExportWidget_GetBottom( mNative )  ; }
+			get { return  ExportWidget_GetBottom( Native )  ; }
 		}
 
 		#endregion
@@ -59,7 +59,7 @@ namespace MyGUI.Sharp
 
 		public int Top
 		{
-			get { return  ExportWidget_GetTop( mNative )  ; }
+			get { return  ExportWidget_GetTop( Native )  ; }
 		}
 
 		#endregion
@@ -71,7 +71,7 @@ namespace MyGUI.Sharp
 
 		public int Right
 		{
-			get { return  ExportWidget_GetRight( mNative )  ; }
+			get { return  ExportWidget_GetRight( Native )  ; }
 		}
 
 		#endregion
@@ -83,7 +83,7 @@ namespace MyGUI.Sharp
 
 		public int Left
 		{
-			get { return  ExportWidget_GetLeft( mNative )  ; }
+			get { return  ExportWidget_GetLeft( Native )  ; }
 		}
 
 		#endregion
@@ -95,7 +95,7 @@ namespace MyGUI.Sharp
 
 		public int AbsoluteTop
 		{
-			get { return  ExportWidget_GetAbsoluteTop( mNative )  ; }
+			get { return  ExportWidget_GetAbsoluteTop( Native )  ; }
 		}
 
 		#endregion
@@ -107,7 +107,7 @@ namespace MyGUI.Sharp
 
 		public int AbsoluteLeft
 		{
-			get { return  ExportWidget_GetAbsoluteLeft( mNative )  ; }
+			get { return  ExportWidget_GetAbsoluteLeft( Native )  ; }
 		}
 
 		#endregion
@@ -119,7 +119,7 @@ namespace MyGUI.Sharp
 
 		public IntCoord AbsoluteCoord
 		{
-			get { return  (IntCoord)Marshal.PtrToStructure(  ExportWidget_GetAbsoluteCoord( mNative )  , typeof(IntCoord) )  ; }
+			get { return  (IntCoord)Marshal.PtrToStructure(  ExportWidget_GetAbsoluteCoord( Native )  , typeof(IntCoord) )  ; }
 		}
 
 		#endregion
@@ -131,7 +131,7 @@ namespace MyGUI.Sharp
 
 		public IntRect AbsoluteRect
 		{
-			get { return  (IntRect)Marshal.PtrToStructure(  ExportWidget_GetAbsoluteRect( mNative )  , typeof(IntRect) )  ; }
+			get { return  (IntRect)Marshal.PtrToStructure(  ExportWidget_GetAbsoluteRect( Native )  , typeof(IntRect) )  ; }
 		}
 
 		#endregion
@@ -143,7 +143,7 @@ namespace MyGUI.Sharp
 
 		public IntPoint AbsolutePosition
 		{
-			get { return  (IntPoint)Marshal.PtrToStructure(  ExportWidget_GetAbsolutePosition( mNative )  , typeof(IntPoint) )  ; }
+			get { return  (IntPoint)Marshal.PtrToStructure(  ExportWidget_GetAbsolutePosition( Native )  , typeof(IntPoint) )  ; }
 		}
 
 		#endregion
@@ -157,8 +157,8 @@ namespace MyGUI.Sharp
 
 		public IntCoord Coord
 		{
-			get { return  (IntCoord)Marshal.PtrToStructure(  ExportWidget_GetCoord( mNative )  , typeof(IntCoord) )  ; }
-			set { ExportWidget_SetCoord( mNative, ref value ); }
+			get { return  (IntCoord)Marshal.PtrToStructure(  ExportWidget_GetCoord( Native )  , typeof(IntCoord) )  ; }
+			set { ExportWidget_SetCoord( Native, ref value ); }
 		}
 
 		#endregion
@@ -172,8 +172,8 @@ namespace MyGUI.Sharp
 
 		public IntSize Size
 		{
-			get { return  (IntSize)Marshal.PtrToStructure(  ExportWidget_GetSize( mNative )  , typeof(IntSize) )  ; }
-			set { ExportWidget_SetSize( mNative, ref value ); }
+			get { return  (IntSize)Marshal.PtrToStructure(  ExportWidget_GetSize( Native )  , typeof(IntSize) )  ; }
+			set { ExportWidget_SetSize( Native, ref value ); }
 		}
 
 		#endregion
@@ -187,8 +187,8 @@ namespace MyGUI.Sharp
 
 		public IntPoint Position
 		{
-			get { return  (IntPoint)Marshal.PtrToStructure(  ExportWidget_GetPosition( mNative )  , typeof(IntPoint) )  ; }
-			set { ExportWidget_SetPosition( mNative, ref value ); }
+			get { return  (IntPoint)Marshal.PtrToStructure(  ExportWidget_GetPosition( Native )  , typeof(IntPoint) )  ; }
+			set { ExportWidget_SetPosition( Native, ref value ); }
 		}
 
 		#endregion
