@@ -4,10 +4,9 @@ using System.Runtime.InteropServices;
 
 namespace MyGUI.Sharp
 {
-
-	public abstract class BaseWidget : IDisposable
+	public abstract class BaseWidget :
+		IDisposable
 	{
-
 		#region Export
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
@@ -17,7 +16,7 @@ namespace MyGUI.Sharp
 			WidgetStyle _style,
 			[MarshalAs(UnmanagedType.LPStr)]string _type,
 			[MarshalAs(UnmanagedType.LPStr)]string _skin,
-			[InAttribute] ref IntCoord _coord,
+			[In] ref IntCoord _coord,
 			Align _align,
 			[MarshalAs(UnmanagedType.LPStr)]string _layer,
 			[MarshalAs(UnmanagedType.LPStr)]string _name);
@@ -43,14 +42,16 @@ namespace MyGUI.Sharp
 			ExportGui_WrapWidget(this, mNative);
 			mIsWrap = true;
 
-			if (mParent != null) mParent.mChilds.Add(this);
-			else mRoots.Add(this);
+			if (mParent != null)
+				mParent.mChilds.Add(this);
+			else
+				mRoots.Add(this);
 		}
 
 		internal void CreateWidgetImpl(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name)
 		{
 			mParent = _parent;
-			IntPtr parent = _parent != null ? _parent.GetNative() : IntPtr.Zero;
+			IntPtr parent = _parent != null ? _parent.Native : IntPtr.Zero;
 			mNative = ExportGui_CreateWidget(this, parent, _style, GetWidgetType(), _skin, ref _coord, _align, _layer, _name);
 			mIsWrap = false;
 
@@ -66,7 +67,7 @@ namespace MyGUI.Sharp
 			set { mUserData = value; }
 		}
 
-		void DestroyChilds()
+		private void DestroyChilds()
 		{
 			while (mChilds.Count > 0)
 			{
@@ -77,8 +78,6 @@ namespace MyGUI.Sharp
 		}
 
 		protected abstract string GetWidgetType();
-
-		public IntPtr GetNative() { return mNative; }
 
 		#endregion
 

@@ -224,7 +224,7 @@ namespace MyGUI.Sharp
 
         public static void SetProperty(Widget _widget, string _key, string _value)
         {
-            ExportGui_SetProperty(_widget.GetNative(), _key, _value);
+            ExportGui_SetProperty(_widget.Native, _key, _value);
         }
 
         #endregion
@@ -284,9 +284,9 @@ namespace MyGUI.Sharp
 
         HandleDelegateNativeByWrapper mDelegateNativeByWrapper;
 
-        IntPtr OnRequestNativeByWrapper(BaseWidget _wrapper)
+        private IntPtr OnRequestNativeByWrapper(BaseWidget _wrapper)
         {
-            return _wrapper == null ? IntPtr.Zero : _wrapper.GetNative();
+            return _wrapper != null ? _wrapper.Native : IntPtr.Zero;
         }
 
         #endregion
