@@ -22,7 +22,7 @@ namespace Export
 	namespace ScopeScrollBarEvent_ScrollChangePosition
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::ScrollBar *>::Type ,
+			MyGUI::ScrollBar * ,
 			Convert<size_t>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -31,7 +31,7 @@ namespace Export
 			size_t _position )
 		{
 			mExportHandle(
-				Convert<MyGUI::ScrollBar *>::To( _sender ) ,
+				_sender ,
 				Convert<size_t>::To( _position ) );
 		}
 		

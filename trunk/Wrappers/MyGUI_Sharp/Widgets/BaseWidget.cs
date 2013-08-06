@@ -30,6 +30,13 @@ namespace MyGUI.Sharp
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportGui_UnwrapWidget(IntPtr _widget);
 
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		private static extern IntPtr ExportGui_GetManagedParent(IntPtr _widget);
+
+		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.LPStr)]
+		private static extern string ExportGui_GetWidgetType(IntPtr _widget);
+
 		#endregion
 
 		#region BaseWidget
@@ -83,8 +90,19 @@ namespace MyGUI.Sharp
 
 		public static BaseWidget GetByNative(IntPtr _value)
 		{
+			if (_value == IntPtr.Zero)
+				return null;
+
 			BaseWidget result;
-			mWidgets.TryGetValue(_value, out result);
+			if (!mWidgets.TryGetValue(_value, out result))
+			{
+				string widgetType = ExportGui_GetWidgetType(_value);
+				IntPtr parentPtr = ExportGui_GetManagedParent(_value);
+				BaseWidget parent;
+				mWidgets.TryGetValue(parentPtr, out parent);
+
+				return Gui.CreateWrapper(widgetType, parent, _value);
+			}
 			return result;
 		}
 

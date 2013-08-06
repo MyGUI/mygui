@@ -74,19 +74,21 @@ namespace MyGUI.Sharp
 			public static extern void ExportListBoxEvent_DelegateNotifyItem( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ListBox _sender ,
+				IntPtr _sender ,
 				[In] ref IBNotifyItemData _info );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportNotifyItem(
-			 ListBox _sender ,
+			IntPtr _sender ,
 			ref IBNotifyItemData _info )
 		{
-			if (_sender.mEventNotifyItem != null)
-				_sender.mEventNotifyItem(
-					 _sender ,
+			 ListBox sender = (  ListBox )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventNotifyItem != null)
+				sender.mEventNotifyItem(
+					sender ,
 					ref _info );
 		}
 
@@ -129,19 +131,21 @@ namespace MyGUI.Sharp
 			public static extern void ExportListBoxEvent_DelegateListChangeScroll( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ListBox _sender ,
+				IntPtr _sender ,
 				  uint _position );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportListChangeScroll(
-			 ListBox _sender ,
+			IntPtr _sender ,
 			 uint _position )
 		{
-			if (_sender.mEventListChangeScroll != null)
-				_sender.mEventListChangeScroll(
-					 _sender ,
+			 ListBox sender = (  ListBox )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventListChangeScroll != null)
+				sender.mEventListChangeScroll(
+					sender ,
 					 _position );
 		}
 
@@ -184,19 +188,21 @@ namespace MyGUI.Sharp
 			public static extern void ExportListBoxEvent_DelegateListMouseItemFocus( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ListBox _sender ,
+				IntPtr _sender ,
 				  uint _index );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportListMouseItemFocus(
-			 ListBox _sender ,
+			IntPtr _sender ,
 			 uint _index )
 		{
-			if (_sender.mEventListMouseItemFocus != null)
-				_sender.mEventListMouseItemFocus(
-					 _sender ,
+			 ListBox sender = (  ListBox )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventListMouseItemFocus != null)
+				sender.mEventListMouseItemFocus(
+					sender ,
 					 _index );
 		}
 
@@ -239,19 +245,21 @@ namespace MyGUI.Sharp
 			public static extern void ExportListBoxEvent_DelegateListMouseItemActivate( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ListBox _sender ,
+				IntPtr _sender ,
 				  uint _index );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportListMouseItemActivate(
-			 ListBox _sender ,
+			IntPtr _sender ,
 			 uint _index )
 		{
-			if (_sender.mEventListMouseItemActivate != null)
-				_sender.mEventListMouseItemActivate(
-					 _sender ,
+			 ListBox sender = (  ListBox )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventListMouseItemActivate != null)
+				sender.mEventListMouseItemActivate(
+					sender ,
 					 _index );
 		}
 
@@ -294,19 +302,21 @@ namespace MyGUI.Sharp
 			public static extern void ExportListBoxEvent_DelegateListChangePosition( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ListBox _sender ,
+				IntPtr _sender ,
 				  uint _index );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportListChangePosition(
-			 ListBox _sender ,
+			IntPtr _sender ,
 			 uint _index )
 		{
-			if (_sender.mEventListChangePosition != null)
-				_sender.mEventListChangePosition(
-					 _sender ,
+			 ListBox sender = (  ListBox )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventListChangePosition != null)
+				sender.mEventListChangePosition(
+					sender ,
 					 _index );
 		}
 
@@ -349,19 +359,21 @@ namespace MyGUI.Sharp
 			public static extern void ExportListBoxEvent_DelegateListSelectAccept( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ListBox _sender ,
+				IntPtr _sender ,
 				  uint _index );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportListSelectAccept(
-			 ListBox _sender ,
+			IntPtr _sender ,
 			 uint _index )
 		{
-			if (_sender.mEventListSelectAccept != null)
-				_sender.mEventListSelectAccept(
-					 _sender ,
+			 ListBox sender = (  ListBox )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventListSelectAccept != null)
+				sender.mEventListSelectAccept(
+					sender ,
 					 _index );
 		}
 

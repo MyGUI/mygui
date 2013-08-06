@@ -39,7 +39,7 @@
 			public static extern void Export#{ThisName}Event_Delegate#{DelegateName}( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				#{MarshalAs1} #{TypePrefix1} #{TypeName1} #{ValueName1} ,
+				IntPtr #{ValueName1} ,
 				#{MarshalAs2} #{TypePrefix2} #{TypeName2} #{ValueName2} ,
 				#{MarshalAs3} #{TypePrefix3} #{TypeName3} #{ValueName3} ,
 				#{MarshalAs4} #{TypePrefix4} #{TypeName4} #{ValueName4} ,
@@ -49,15 +49,17 @@
 		}
 
 		private static void OnExport#{DelegateName}(
-			#{TypePrefix1} #{TypeName1} #{ValueName1} ,
+			IntPtr #{ValueName1} ,
 			#{TypePrefix2} #{TypeName2} #{ValueName2} ,
 			#{TypePrefix3} #{TypeName3} #{ValueName3} ,
 			#{TypePrefix4} #{TypeName4} #{ValueName4} ,
 			#{TypePrefix5} #{TypeName5} #{ValueName5} )
 		{
-			if (#{ValueName1}.mEvent#{DelegateName} != null)
-				#{ValueName1}.mEvent#{DelegateName}(
-					#{TypePrefix1} #{ValueName1} ,
+			#{TypePrefix1} #{TypeName1} sender = ( #{TypePrefix1} #{TypeName1} )BaseWidget.GetByNative( #{ValueName1} );
+
+			if (sender.mEvent#{DelegateName} != null)
+				sender.mEvent#{DelegateName}(
+					sender ,
 					#{TypePrefix2} #{ValueName2} ,
 					#{TypePrefix3} #{ValueName3} ,
 					#{TypePrefix4} #{ValueName4} ,

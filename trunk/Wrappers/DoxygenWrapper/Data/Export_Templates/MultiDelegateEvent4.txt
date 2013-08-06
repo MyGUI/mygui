@@ -1,7 +1,7 @@
 ﻿	namespace Scope#{ThisName}Event_#{DelegateName}
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<#{OriginalTypeName1}>::Type ,
+			#{OriginalTypeName1} ,
 			Convert<#{OriginalTypeName2}>::Type ,
 			Convert<#{OriginalTypeName3}>::Type ,
 			Convert<#{OriginalTypeName4}>::Type );
@@ -14,7 +14,7 @@
 			#{OriginalTypeName4} #{ValueName4} )
 		{
 			mExportHandle(
-				Convert<#{OriginalTypeName1}>::To( #{ValueName1} ) ,
+				#{ValueName1} ,
 				Convert<#{OriginalTypeName2}>::To( #{ValueName2} ) ,
 				Convert<#{OriginalTypeName3}>::To( #{ValueName3} ) ,
 				Convert<#{OriginalTypeName4}>::To( #{ValueName4} ) );

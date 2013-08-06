@@ -22,7 +22,7 @@ namespace Export
 	namespace ScopeTabControlEvent_TabChangeSelect
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::TabControl *>::Type ,
+			MyGUI::TabControl * ,
 			Convert<size_t>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -31,7 +31,7 @@ namespace Export
 			size_t _index )
 		{
 			mExportHandle(
-				Convert<MyGUI::TabControl *>::To( _sender ) ,
+				_sender ,
 				Convert<size_t>::To( _index ) );
 		}
 		

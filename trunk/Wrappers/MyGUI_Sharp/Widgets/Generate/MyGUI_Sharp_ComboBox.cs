@@ -74,19 +74,21 @@ namespace MyGUI.Sharp
 			public static extern void ExportComboBoxEvent_DelegateComboChangePosition( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ComboBox _sender ,
+				IntPtr _sender ,
 				  uint _index );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportComboChangePosition(
-			 ComboBox _sender ,
+			IntPtr _sender ,
 			 uint _index )
 		{
-			if (_sender.mEventComboChangePosition != null)
-				_sender.mEventComboChangePosition(
-					 _sender ,
+			 ComboBox sender = (  ComboBox )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventComboChangePosition != null)
+				sender.mEventComboChangePosition(
+					sender ,
 					 _index );
 		}
 
@@ -129,19 +131,21 @@ namespace MyGUI.Sharp
 			public static extern void ExportComboBoxEvent_DelegateComboAccept( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  ComboBox _sender ,
+				IntPtr _sender ,
 				  uint _index );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportComboAccept(
-			 ComboBox _sender ,
+			IntPtr _sender ,
 			 uint _index )
 		{
-			if (_sender.mEventComboAccept != null)
-				_sender.mEventComboAccept(
-					 _sender ,
+			 ComboBox sender = (  ComboBox )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventComboAccept != null)
+				sender.mEventComboAccept(
+					sender ,
 					 _index );
 		}
 

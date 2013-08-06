@@ -73,17 +73,19 @@ namespace MyGUI.Sharp
 			public static extern void ExportWidgetEvent_DelegateChangeCoord( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender );
+				IntPtr _sender );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportChangeCoord(
-			 Widget _sender )
+			IntPtr _sender )
 		{
-			if (_sender.mEventChangeCoord != null)
-				_sender.mEventChangeCoord(
-					 _sender );
+			 Widget sender = (  Widget )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventChangeCoord != null)
+				sender.mEventChangeCoord(
+					sender );
 		}
 
 		#endregion
@@ -126,7 +128,7 @@ namespace MyGUI.Sharp
 			public static extern void ExportWidgetEvent_DelegateChangeProperty( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _sender ,
+				IntPtr _sender ,
 				[MarshalAs(UnmanagedType.LPStr)]  string _key ,
 				[MarshalAs(UnmanagedType.LPStr)]  string _value );
 				
@@ -134,13 +136,15 @@ namespace MyGUI.Sharp
 		}
 
 		private static void OnExportChangeProperty(
-			 Widget _sender ,
+			IntPtr _sender ,
 			 string _key ,
 			 string _value )
 		{
-			if (_sender.mEventChangeProperty != null)
-				_sender.mEventChangeProperty(
-					 _sender ,
+			 Widget sender = (  Widget )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventChangeProperty != null)
+				sender.mEventChangeProperty(
+					sender ,
 					 _key ,
 					 _value );
 		}

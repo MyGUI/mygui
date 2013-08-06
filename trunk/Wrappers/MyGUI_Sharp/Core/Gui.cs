@@ -252,7 +252,7 @@ namespace MyGUI.Sharp
 		#region WrapperCreator
 
 		private delegate BaseWidget HandleWrapWidget(BaseWidget _parent, IntPtr _widget);
-		Dictionary<string, HandleWrapWidget> mMapWrapper = new Dictionary<string, HandleWrapWidget>();
+		private Dictionary<string, HandleWrapWidget> mMapWrapper = new Dictionary<string, HandleWrapWidget>();
 
 		private delegate BaseWidget HandleCreateWidget(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name);
 		Dictionary<string, HandleCreateWidget> mMapCreator = new Dictionary<string, HandleCreateWidget>();
@@ -269,6 +269,11 @@ namespace MyGUI.Sharp
 		BaseWidget OnRequestWrapperCreator(string _type, BaseWidget _parent, IntPtr _widget)
 		{
 			return mMapWrapper[_type](_parent, _widget);
+		}
+
+		internal static BaseWidget CreateWrapper(string _type, BaseWidget _parent, IntPtr _widget)
+		{
+			return Gui.Instance.mMapWrapper[_type](_parent, _widget);
 		}
 
 		#endregion

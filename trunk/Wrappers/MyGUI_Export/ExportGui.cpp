@@ -7,6 +7,7 @@
 
 namespace Export
 {
+	//struct HasManagedParentTrait { };
 
 	MYGUIEXPORT MyGUI::Widget* MYGUICALL ExportGui_CreateWidget(
 		Interface _wrapper,
@@ -64,11 +65,30 @@ namespace Export
 	MYGUIEXPORT void MYGUICALL ExportGui_WrapWidget( Interface _wrapper, MyGUI::Widget* _widget )
 	{
 		_widget->setUserData(_wrapper);
+		_widget->setUserString("Internal__HasManagedParent", "");
 	}
 
 	MYGUIEXPORT void MYGUICALL ExportGui_UnwrapWidget( MyGUI::Widget* _widget )
 	{
 		_widget->setUserData(MyGUI::Any::Null);
+	}
+
+	MYGUIEXPORT MyGUI::Widget* MYGUICALL ExportGui_GetManagedParent( MyGUI::Widget* _widget )
+	{
+		MyGUI::Widget* parent = _widget->getParent();
+		while (parent != nullptr)
+		{
+			if (parent->isUserString("Internal__HasManagedParent"))
+				return parent;
+			parent = parent->getParent();
+		}
+
+		return nullptr;
+	}
+
+	MYGUIEXPORT Convert<const std::string&>::Type MYGUICALL ExportGui_GetWidgetType( MyGUI::Widget* _widget )
+	{
+		return Convert<const std::string&>::To(_widget->getTypeName());
 	}
 
 	namespace ScopeGuiEvent_CreateWrapp

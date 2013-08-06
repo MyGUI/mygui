@@ -77,7 +77,7 @@ namespace MyGUI.Sharp
 			public static extern void ExportMultiListBoxEvent_DelegateOperatorLess( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  MultiListBox _sender ,
+				IntPtr _sender ,
 				  uint _column ,
 				[MarshalAs(UnmanagedType.LPWStr)]  string _firstItem ,
 				[MarshalAs(UnmanagedType.LPWStr)]  string _secondItem ,
@@ -87,15 +87,17 @@ namespace MyGUI.Sharp
 		}
 
 		private static void OnExportOperatorLess(
-			 MultiListBox _sender ,
+			IntPtr _sender ,
 			 uint _column ,
 			 string _firstItem ,
 			 string _secondItem ,
 			ref bool _less )
 		{
-			if (_sender.mEventOperatorLess != null)
-				_sender.mEventOperatorLess(
-					 _sender ,
+			 MultiListBox sender = (  MultiListBox )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventOperatorLess != null)
+				sender.mEventOperatorLess(
+					sender ,
 					 _column ,
 					 _firstItem ,
 					 _secondItem ,
@@ -141,19 +143,21 @@ namespace MyGUI.Sharp
 			public static extern void ExportMultiListBoxEvent_DelegateListChangePosition( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  MultiListBox _sender ,
+				IntPtr _sender ,
 				  uint _index );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportListChangePosition(
-			 MultiListBox _sender ,
+			IntPtr _sender ,
 			 uint _index )
 		{
-			if (_sender.mEventListChangePosition != null)
-				_sender.mEventListChangePosition(
-					 _sender ,
+			 MultiListBox sender = (  MultiListBox )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventListChangePosition != null)
+				sender.mEventListChangePosition(
+					sender ,
 					 _index );
 		}
 
@@ -196,19 +200,21 @@ namespace MyGUI.Sharp
 			public static extern void ExportMultiListBoxEvent_DelegateListSelectAccept( ExportHandle _delegate );
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  MultiListBox _sender ,
+				IntPtr _sender ,
 				  uint _index );
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportListSelectAccept(
-			 MultiListBox _sender ,
+			IntPtr _sender ,
 			 uint _index )
 		{
-			if (_sender.mEventListSelectAccept != null)
-				_sender.mEventListSelectAccept(
-					 _sender ,
+			 MultiListBox sender = (  MultiListBox )BaseWidget.GetByNative( _sender );
+
+			if (sender.mEventListSelectAccept != null)
+				sender.mEventListSelectAccept(
+					sender ,
 					 _index );
 		}
 

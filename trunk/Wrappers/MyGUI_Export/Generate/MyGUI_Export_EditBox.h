@@ -22,14 +22,14 @@ namespace Export
 	namespace ScopeEditBoxEvent_EditTextChange
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::EditBox *>::Type );
+			MyGUI::EditBox * );
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
 			MyGUI::EditBox * _sender )
 		{
 			mExportHandle(
-				Convert<MyGUI::EditBox *>::To( _sender ) );
+				_sender );
 		}
 		
 		MYGUIEXPORT void MYGUICALL ExportEditBoxEvent_DelegateEditTextChange( ExportHandle _delegate )
@@ -47,14 +47,14 @@ namespace Export
 	namespace ScopeEditBoxEvent_EditSelectAccept
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::EditBox *>::Type );
+			MyGUI::EditBox * );
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
 			MyGUI::EditBox * _sender )
 		{
 			mExportHandle(
-				Convert<MyGUI::EditBox *>::To( _sender ) );
+				_sender );
 		}
 		
 		MYGUIEXPORT void MYGUICALL ExportEditBoxEvent_DelegateEditSelectAccept( ExportHandle _delegate )

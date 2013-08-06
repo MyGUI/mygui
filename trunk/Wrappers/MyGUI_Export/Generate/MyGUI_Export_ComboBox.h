@@ -22,7 +22,7 @@ namespace Export
 	namespace ScopeComboBoxEvent_ComboChangePosition
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::ComboBox *>::Type ,
+			MyGUI::ComboBox * ,
 			Convert<size_t>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -31,7 +31,7 @@ namespace Export
 			size_t _index )
 		{
 			mExportHandle(
-				Convert<MyGUI::ComboBox *>::To( _sender ) ,
+				_sender ,
 				Convert<size_t>::To( _index ) );
 		}
 		
@@ -50,7 +50,7 @@ namespace Export
 	namespace ScopeComboBoxEvent_ComboAccept
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			Convert<MyGUI::ComboBox *>::Type ,
+			MyGUI::ComboBox * ,
 			Convert<size_t>::Type );
 		ExportHandle mExportHandle = nullptr;
 		
@@ -59,7 +59,7 @@ namespace Export
 			size_t _index )
 		{
 			mExportHandle(
-				Convert<MyGUI::ComboBox *>::To( _sender ) ,
+				_sender ,
 				Convert<size_t>::To( _index ) );
 		}
 		
