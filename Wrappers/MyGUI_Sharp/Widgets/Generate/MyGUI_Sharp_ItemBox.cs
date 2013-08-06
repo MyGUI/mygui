@@ -466,7 +466,7 @@ namespace MyGUI.Sharp
 
 		public void ClearIndexSelected( )
 		{
-			ExportItemBox_ClearIndexSelected(  Native );
+			ExportItemBox_ClearIndexSelected( Native );
 		}
 
 		#endregion
@@ -477,7 +477,7 @@ namespace MyGUI.Sharp
 
 		public void RedrawAllItems( )
 		{
-			ExportItemBox_RedrawAllItems(  Native );
+			ExportItemBox_RedrawAllItems( Native );
 		}
 
 		#endregion
@@ -502,7 +502,7 @@ namespace MyGUI.Sharp
 
 		public void RemoveAllItems( )
 		{
-			ExportItemBox_RemoveAllItems(  Native );
+			ExportItemBox_RemoveAllItems( Native );
 		}
 
 		#endregion
@@ -523,11 +523,11 @@ namespace MyGUI.Sharp
 		#region Method AddItem
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportItemBox_AddItem_data( IntPtr _native );
+		private static extern void ExportItemBox_AddItem( IntPtr _native );
 
 		public void AddItem( )
 		{
-			ExportItemBox_AddItem_data(  Native );
+			ExportItemBox_AddItem( Native );
 		}
 
 		#endregion

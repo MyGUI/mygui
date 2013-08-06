@@ -22,7 +22,7 @@ namespace MyGUI.Sharp
 
 		public void ClearUserStrings( )
 		{
-			ExportWidget_ClearUserStrings(  Native );
+			ExportWidget_ClearUserStrings( Native );
 		}
 
 		#endregion

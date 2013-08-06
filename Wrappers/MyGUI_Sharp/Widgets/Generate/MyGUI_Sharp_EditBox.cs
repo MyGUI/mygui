@@ -221,7 +221,7 @@ namespace MyGUI.Sharp
 
 		public void DeleteTextSelection( )
 		{
-			ExportEditBox_DeleteTextSelection(  Native );
+			ExportEditBox_DeleteTextSelection( Native );
 		}
 
 		#endregion

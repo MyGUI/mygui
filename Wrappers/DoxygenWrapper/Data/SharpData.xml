@@ -597,6 +597,7 @@
 		<Member name="createWidgetReal" template="Empty.txt"/>
 		<Member name="createWidget" template="Empty.txt"/>
 		<Member name="findWidgets" template="Empty.txt"/>
+		<Member name="setProperty" template="Empty.txt"/>
 	</Item>
 	<Item type="MyGUI::Button" namespace="MyGUI">
 		<Template template="ExportWidget.txt" type="Export_Templates" name="Export.txt" output="..\..\..\..\MyGUI_Export\Generate\MyGUI_ExportWidget.cpp"/>

@@ -162,7 +162,7 @@ namespace MyGUI.Sharp
 
 		public void BeginToItemSelected( )
 		{
-			ExportTabControl_BeginToItemSelected(  Native );
+			ExportTabControl_BeginToItemSelected( Native );
 		}
 
 		#endregion
@@ -173,7 +173,7 @@ namespace MyGUI.Sharp
 
 		public void BeginToItemLast( )
 		{
-			ExportTabControl_BeginToItemLast(  Native );
+			ExportTabControl_BeginToItemLast( Native );
 		}
 
 		#endregion
@@ -184,7 +184,7 @@ namespace MyGUI.Sharp
 
 		public void BeginToItemFirst( )
 		{
-			ExportTabControl_BeginToItemFirst(  Native );
+			ExportTabControl_BeginToItemFirst( Native );
 		}
 
 		#endregion
@@ -379,7 +379,7 @@ namespace MyGUI.Sharp
 
 		public void RemoveAllItems( )
 		{
-			ExportTabControl_RemoveAllItems(  Native );
+			ExportTabControl_RemoveAllItems( Native );
 		}
 
 		#endregion

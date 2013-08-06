@@ -2,7 +2,7 @@
 <MyGUI type="Layout">
     <Widget type="Window" skin="WindowCSX" position="80 80 672 600" layer="Overlapped" name="_Main">
         <Property key="Window_MinMax" value="500 500 1000 1000"/>
-        <Property key="Caption" value="WindowCSX"/>
+        <Property key="Caption" value="Тест WindowCSX"/>
         <Widget type="TabControl" skin="TabControl" position="16 42 632 510" align="Stretch">
             <Widget type="TabItem" skin="Default" position="4 26 623 478">
                 <Property key="Caption" value="item1"/>
