@@ -20,6 +20,19 @@ namespace Export
 	};
 
 
+	template <> struct Convert<void*>
+	{
+		typedef void* Type;
+		inline static Type To(Type _value)
+		{
+			return _value;
+		}
+		inline static Type From(Type _value)
+		{
+			return _value;
+		}
+	};
+
 	template <> struct Convert<bool>
 	{
 		typedef bool Type;
