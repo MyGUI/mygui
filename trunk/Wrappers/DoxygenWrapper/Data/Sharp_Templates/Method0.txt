@@ -1,11 +1,11 @@
 ﻿		#region Method #{MethodName}
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void Export#{ThisName}_#{MethodName}( IntPtr _native );
+		private static extern void Export#{ThisName}_#{MethodName}(IntPtr _native);
 
 		public void #{MethodName}( )
 		{
-			Export#{ThisName}_#{MethodName}( Native );
+			Export#{ThisName}_#{MethodName}(Native);
 		}
 
 		#endregion

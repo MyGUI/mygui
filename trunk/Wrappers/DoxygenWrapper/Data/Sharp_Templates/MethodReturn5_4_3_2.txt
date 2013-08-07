@@ -1,81 +1,81 @@
 ﻿		#region Method #{MethodName}
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        #{MarshalAsReturn}
-		private static extern #{MarshalTypeNameReturn} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}#{ValueName5}( IntPtr _native ,
-			#{MarshalAs1} #{TypePrefix1} #{MarshalTypeName1} #{ValueName1} ,
-			#{MarshalAs2} #{TypePrefix2} #{MarshalTypeName2} #{ValueName2} ,
-			#{MarshalAs3} #{TypePrefix3} #{MarshalTypeName3} #{ValueName3} ,
-			#{MarshalAs4} #{TypePrefix4} #{MarshalTypeName4} #{ValueName4} ,
-			#{MarshalAs5} #{TypePrefix5} #{MarshalTypeName5} #{ValueName5} );
+        #{ReturnValueMarshalAs}
+		private static extern #{ReturnTypeName} Export#{ThisName}_#{MethodName}_#{ValueName1}_#{ValueName2}_#{ValueName3}_#{ValueName4}_#{ValueName5}(IntPtr _native,
+			#{ValueMarshalAs1}#{ValueTypePrefix1}#{ValueTypeName1} #{ValueName1},
+			#{ValueMarshalAs2}#{ValueTypePrefix2}#{ValueTypeName2} #{ValueName2},
+			#{ValueMarshalAs3}#{ValueTypePrefix3}#{ValueTypeName3} #{ValueName3},
+			#{ValueMarshalAs4}#{ValueTypePrefix4}#{ValueTypeName4} #{ValueName4},
+			#{ValueMarshalAs5}#{ValueTypePrefix5}#{ValueTypeName5} #{ValueName5});
 
 		public #{TypeName} #{MethodName}(
-			#{TypeName1} #{ValueName1} ,
-			#{TypeName2} #{ValueName2} ,
-			#{TypeName3} #{ValueName3} ,
-			#{TypeName4} #{ValueName4} ,
-			#{TypeName5} #{ValueName5} )
+			#{TypeName1} #{ValueName1},
+			#{TypeName2} #{ValueName2},
+			#{TypeName3} #{ValueName3},
+			#{TypeName4} #{ValueName4},
+			#{TypeName5} #{ValueName5})
 		{
-			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}#{ValueName5}( Native , 
-				#{TypePrefix1} #{ValueName1} #{MarshalValueNative1} ,
-				#{TypePrefix2} #{ValueName2} #{MarshalValueNative2} ,
-				#{TypePrefix3} #{ValueName3} #{MarshalValueNative3} ,
-				#{TypePrefix4} #{ValueName4} #{MarshalValueNative4} ,
-				#{TypePrefix5} #{ValueName5} #{MarshalValueNative5} ) #{MarshalConvertPost} ;
+			return #{ReturnConvertBefore}Export#{ThisName}_#{MethodName}_#{ValueName1}_#{ValueName2}_#{ValueName3}_#{ValueName4}_#{ValueName5}(Native,
+				#{ConvertBefore1}#{ValueTypePrefix1}#{ValueName1}#{ConvertPost1},
+				#{ConvertBefore2}#{ValueTypePrefix2}#{ValueName2}#{ConvertPost2},
+				#{ConvertBefore3}#{ValueTypePrefix3}#{ValueName3}#{ConvertPost3},
+				#{ConvertBefore4}#{ValueTypePrefix4}#{ValueName4}#{ConvertPost4},
+				#{ConvertBefore5}#{ValueTypePrefix5}#{ValueName5}#{ConvertPost5})#{ReturnConvertPost};
 		}
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        #{MarshalAsReturn}
-		private static extern #{MarshalTypeNameReturn} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}( IntPtr _native ,
-			#{MarshalAs1} #{TypePrefix1} #{MarshalTypeName1} #{ValueName1} ,
-			#{MarshalAs2} #{TypePrefix2} #{MarshalTypeName2} #{ValueName2} ,
-			#{MarshalAs3} #{TypePrefix3} #{MarshalTypeName3} #{ValueName3} ,
-			#{MarshalAs4} #{TypePrefix4} #{MarshalTypeName4} #{ValueName4} );
+        #{ReturnValueMarshalAs}
+		private static extern #{ReturnTypeName} Export#{ThisName}_#{MethodName}_#{ValueName1}_#{ValueName2}_#{ValueName3}_#{ValueName4}(IntPtr _native,
+			#{ValueMarshalAs1}#{ValueTypePrefix1}#{ValueTypeName1} #{ValueName1},
+			#{ValueMarshalAs2}#{ValueTypePrefix2}#{ValueTypeName2} #{ValueName2},
+			#{ValueMarshalAs3}#{ValueTypePrefix3}#{ValueTypeName3} #{ValueName3},
+			#{ValueMarshalAs4}#{ValueTypePrefix4}#{ValueTypeName4} #{ValueName4});
 
 		public #{TypeName} #{MethodName}(
-			#{TypeName1} #{ValueName1} ,
-			#{TypeName2} #{ValueName2} ,
-			#{TypeName3} #{ValueName3} ,
-			#{TypeName4} #{ValueName4} )
+			#{TypeName1} #{ValueName1},
+			#{TypeName2} #{ValueName2},
+			#{TypeName3} #{ValueName3},
+			#{TypeName4} #{ValueName4})
 		{
-			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}( Native , 
-				#{TypePrefix1} #{ValueName1} #{MarshalValueNative1} ,
-				#{TypePrefix2} #{ValueName2} #{MarshalValueNative2} ,
-				#{TypePrefix3} #{ValueName3} #{MarshalValueNative3} ,
-				#{TypePrefix4} #{ValueName4} #{MarshalValueNative4} ) #{MarshalConvertPost} ;
+			return #{ReturnConvertBefore}Export#{ThisName}_#{MethodName}_#{ValueName1}_#{ValueName2}_#{ValueName3}_#{ValueName4}(Native,
+				#{ConvertBefore1}#{ValueTypePrefix1}#{ValueName1}#{ConvertPost1},
+				#{ConvertBefore2}#{ValueTypePrefix2}#{ValueName2}#{ConvertPost2},
+				#{ConvertBefore3}#{ValueTypePrefix3}#{ValueName3}#{ConvertPost3},
+				#{ConvertBefore4}#{ValueTypePrefix4}#{ValueName4}#{ConvertPost4})#{ReturnConvertPost};
 		}
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        #{MarshalAsReturn}
-		private static extern #{MarshalTypeNameReturn} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}( IntPtr _native ,
-			#{MarshalAs1} #{TypePrefix1} #{MarshalTypeName1} #{ValueName1} ,
-			#{MarshalAs2} #{TypePrefix2} #{MarshalTypeName2} #{ValueName2} ,
-			#{MarshalAs3} #{TypePrefix3} #{MarshalTypeName3} #{ValueName3} );
+        #{ReturnValueMarshalAs}
+		private static extern #{ReturnTypeName} Export#{ThisName}_#{MethodName}_#{ValueName1}_#{ValueName2}_#{ValueName3}(IntPtr _native,
+			#{ValueMarshalAs1}#{ValueTypePrefix1}#{ValueTypeName1} #{ValueName1},
+			#{ValueMarshalAs2}#{ValueTypePrefix2}#{ValueTypeName2} #{ValueName2},
+			#{ValueMarshalAs3}#{ValueTypePrefix3}#{ValueTypeName3} #{ValueName3});
 
 		public #{TypeName} #{MethodName}(
-			#{TypeName1} #{ValueName1} ,
-			#{TypeName2} #{ValueName2} ,
-			#{TypeName3} #{ValueName3} )
+			#{TypeName1} #{ValueName1},
+			#{TypeName2} #{ValueName2},
+			#{TypeName3} #{ValueName3})
 		{
-			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}( Native , 
-				#{TypePrefix1} #{ValueName1} #{MarshalValueNative1} ,
-				#{TypePrefix2} #{ValueName2} #{MarshalValueNative2} ,
-				#{TypePrefix3} #{ValueName3} #{MarshalValueNative3} ) #{MarshalConvertPost} ;
+			return #{ReturnConvertBefore}Export#{ThisName}_#{MethodName}_#{ValueName1}_#{ValueName2}_#{ValueName3}(Native,
+				#{ConvertBefore1}#{ValueTypePrefix1}#{ValueName1}#{ConvertPost1},
+				#{ConvertBefore2}#{ValueTypePrefix2}#{ValueName2}#{ConvertPost2},
+				#{ConvertBefore3}#{ValueTypePrefix3}#{ValueName3}#{ConvertPost3})#{ReturnConvertPost};
 		}
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        #{MarshalAsReturn}
-		private static extern #{MarshalTypeNameReturn} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( IntPtr _native ,
-			#{MarshalAs1} #{TypePrefix1} #{MarshalTypeName1} #{ValueName1} ,
-			#{MarshalAs2} #{TypePrefix2} #{MarshalTypeName2} #{ValueName2} );
+        #{ReturnValueMarshalAs}
+		private static extern #{ReturnTypeName} Export#{ThisName}_#{MethodName}_#{ValueName1}_#{ValueName2}(IntPtr _native,
+			#{ValueMarshalAs1}#{ValueTypePrefix1}#{ValueTypeName1} #{ValueName1},
+			#{ValueMarshalAs2}#{ValueTypePrefix2}#{ValueTypeName2} #{ValueName2});
 
 		public #{TypeName} #{MethodName}(
-			#{TypeName1} #{ValueName1} ,
-			#{TypeName2} #{ValueName2} )
+			#{TypeName1} #{ValueName1},
+			#{TypeName2} #{ValueName2})
 		{
-			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( Native , 
-				#{TypePrefix1} #{ValueName1} #{MarshalValueNative1} ,
-				#{TypePrefix2} #{ValueName2} #{MarshalValueNative2} ) #{MarshalConvertPost} ;
+			return #{ReturnConvertBefore}Export#{ThisName}_#{MethodName}_#{ValueName1}_#{ValueName2}(Native,
+				#{ConvertBefore1}#{ValueTypePrefix1}#{ValueName1}#{ConvertPost1},
+				#{ConvertBefore2}#{ValueTypePrefix2}#{ValueName2}#{ConvertPost2})#{ReturnConvertPost};
 		}
 
 		#endregion

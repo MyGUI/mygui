@@ -3,619 +3,980 @@
 	<TypeHolder>
 		<TypeInfo name="int">
 			<TypeName>int</TypeName>
-			<MarshalTypeName>int</MarshalTypeName>
-			<MarshalTypeNameReturn>int</MarshalTypeNameReturn>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>int</ValueTypeName>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>int</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore></ReturnConvertBefore>
+			<ReturnConvertPost></ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="float">
 			<TypeName>float</TypeName>
-			<MarshalTypeName>float</MarshalTypeName>
-			<MarshalTypeNameReturn>float</MarshalTypeNameReturn>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>float</ValueTypeName>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>float</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore></ReturnConvertBefore>
+			<ReturnConvertPost></ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="bool">
 			<TypeName>bool</TypeName>
-			<MarshalTypeName>bool</MarshalTypeName>
-			<MarshalTypeNameReturn>bool</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.U1)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.U1)]</MarshalAs>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>bool</ValueTypeName>
+			<ValueMarshalAs>[MarshalAs(UnmanagedType.U1)] </ValueMarshalAs>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>bool</ReturnTypeName>
+			<ReturnMarshalAs>[return: MarshalAs(UnmanagedType.U1)]</ReturnMarshalAs>
+			<ReturnConvertBefore></ReturnConvertBefore>
+			<ReturnConvertPost></ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="bool &amp;">
-			<TypePrefix>ref</TypePrefix>
 			<TypeName>bool</TypeName>
-			<MarshalTypeName>bool</MarshalTypeName>
-			<MarshalTypeNameReturn>bool</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.U1)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.U1)]</MarshalAs>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>bool</ValueTypeName>
+			<ValueMarshalAs>[MarshalAs(UnmanagedType.U1)] </ValueMarshalAs>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>bool</ReturnTypeName>
+			<ReturnMarshalAs>[return: MarshalAs(UnmanagedType.U1)]</ReturnMarshalAs>
+			<ReturnConvertBefore></ReturnConvertBefore>
+			<ReturnConvertPost></ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="size_t">
 			<TypeName>uint</TypeName>
-			<MarshalTypeName>uint</MarshalTypeName>
-			<MarshalTypeNameReturn>uint</MarshalTypeNameReturn>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>uint</ValueTypeName>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>uint</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore></ReturnConvertBefore>
+			<ReturnConvertPost></ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="unsigned int">
 			<TypeName>uint</TypeName>
-			<MarshalTypeName>uint</MarshalTypeName>
-			<MarshalTypeNameReturn>uint</MarshalTypeNameReturn>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>uint</ValueTypeName>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>uint</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore></ReturnConvertBefore>
+			<ReturnConvertPost></ReturnConvertPost>
 		</TypeInfo>
+		<!-- Строки -->
 		<TypeInfo name="const MyGUI::UString &amp;">
 			<TypeName>string</TypeName>
-			<MarshalTypeName>string</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.LPWStr)]</MarshalAs>
-			<MarshalConvertBefore> Marshal.PtrToStringUni( </MarshalConvertBefore>
-			<MarshalConvertPost> ) </MarshalConvertPost>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>string</ValueTypeName>
+			<ValueMarshalAs>[MarshalAs(UnmanagedType.LPWStr)] </ValueMarshalAs>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>Marshal.PtrToStringUni(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::UString">
 			<TypeName>string</TypeName>
-			<MarshalTypeName>string</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.LPWStr)]</MarshalAs>
-			<MarshalConvertBefore> Marshal.PtrToStringUni( </MarshalConvertBefore>
-			<MarshalConvertPost> ) </MarshalConvertPost>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>string</ValueTypeName>
+			<ValueMarshalAs>[MarshalAs(UnmanagedType.LPWStr)] </ValueMarshalAs>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>Marshal.PtrToStringUni(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="const std::string &amp;">
 			<TypeName>string</TypeName>
-			<MarshalTypeName>string</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.LPStr)]</MarshalAs>
-			<MarshalConvertBefore> Marshal.PtrToStringAnsi( </MarshalConvertBefore>
-			<MarshalConvertPost> ) </MarshalConvertPost>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>string</ValueTypeName>
+			<ValueMarshalAs>[MarshalAs(UnmanagedType.LPStr)] </ValueMarshalAs>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>Marshal.PtrToStringAnsi(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="std::string">
 			<TypeName>string</TypeName>
-			<MarshalTypeName>string</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.LPStr)]</MarshalAs>
-			<MarshalConvertBefore> Marshal.PtrToStringAnsi( </MarshalConvertBefore>
-			<MarshalConvertPost> ) </MarshalConvertPost>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>string</ValueTypeName>
+			<ValueMarshalAs>[MarshalAs(UnmanagedType.LPStr)] </ValueMarshalAs>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>Marshal.PtrToStringAnsi(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
-		<TypeInfo name="MyGUI::types::TPoint &lt; int &gt;">
-			<TypeName>IntPoint</TypeName>
-			<MarshalTypeName>IntPoint</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (IntPoint)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(IntPoint) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="const MyGUI::types::TPoint &lt; int &gt; &amp;">
-			<TypeName>IntPoint</TypeName>
-			<MarshalTypeName>IntPoint</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (IntPoint)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(IntPoint) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="MyGUI::types::TPoint &lt; int &gt; &amp;">
-			<TypeName>IntPoint</TypeName>
-			<MarshalTypeName>IntPoint</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In, Out]</MarshalAs>
-			<MarshalConvertBefore> (IntPoint)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(IntPoint) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="MyGUI::types::TPoint &lt; float &gt;">
-			<TypeName>FloatPoint</TypeName>
-			<MarshalTypeName>FloatPoint</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (FloatPoint)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(FloatPoint) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="const MyGUI::types::TPoint &lt; float &gt; &amp;">
-			<TypeName>FloatPoint</TypeName>
-			<MarshalTypeName>FloatPoint</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (FloatPoint)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(FloatPoint) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="MyGUI::types::TPoint &lt; float &gt; &amp;">
-			<TypeName>FloatPoint</TypeName>
-			<MarshalTypeName>FloatPoint</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In, Out]</MarshalAs>
-			<MarshalConvertBefore> (FloatPoint)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(FloatPoint) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="MyGUI::types::TSize &lt; int &gt;">
-			<TypeName>IntSize</TypeName>
-			<MarshalTypeName>IntSize</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (IntSize)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(IntSize) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="const MyGUI::types::TSize &lt; int &gt; &amp;">
-			<TypeName>IntSize</TypeName>
-			<MarshalTypeName>IntSize</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalConvertBefore> (IntSize)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(IntSize) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="MyGUI::types::TSize &lt; int &gt; &amp;">
-			<TypeName>IntSize</TypeName>
-			<MarshalTypeName>IntSize</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In, Out]</MarshalAs>
-			<MarshalConvertBefore> (IntSize)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(IntSize) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="MyGUI::types::TSize &lt; float &gt;">
-			<TypeName>FloatSize</TypeName>
-			<MarshalTypeName>FloatSize</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (FloatSize)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(FloatSize) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="const MyGUI::types::TSize &lt; float &gt; &amp;">
-			<TypeName>FloatSize</TypeName>
-			<MarshalTypeName>FloatSize</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (FloatSize)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(FloatSize) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="MyGUI::types::TSize &lt; float &gt; &amp;">
-			<TypeName>FloatSize</TypeName>
-			<MarshalTypeName>FloatSize</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In, Out]</MarshalAs>
-			<MarshalConvertBefore> (FloatSize)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(FloatSize) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="MyGUI::types::TCoord &lt; int &gt;">
-			<TypeName>IntCoord</TypeName>
-			<MarshalTypeName>IntCoord</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (IntCoord)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(IntCoord) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="const MyGUI::types::TCoord &lt; int &gt; &amp;">
-			<TypeName>IntCoord</TypeName>
-			<MarshalTypeName>IntCoord</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (IntCoord)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(IntCoord) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="MyGUI::types::TCoord &lt; int &gt; &amp;">
-			<TypeName>IntCoord</TypeName>
-			<MarshalTypeName>IntCoord</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In, Out]</MarshalAs>
-			<MarshalConvertBefore> (IntCoord)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(IntCoord) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="MyGUI::types::TCoord &lt; float &gt;">
-			<TypeName>FloatCoord</TypeName>
-			<MarshalTypeName>FloatCoord</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (FloatCoord)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(FloatCoord) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="const MyGUI::types::TCoord &lt; float &gt; &amp;">
-			<TypeName>FloatCoord</TypeName>
-			<MarshalTypeName>FloatCoord</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (FloatCoord)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(FloatCoord) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="MyGUI::types::TCoord &lt; float &gt; &amp;">
-			<TypeName>FloatCoord</TypeName>
-			<MarshalTypeName>FloatCoord</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In, Out]</MarshalAs>
-			<MarshalConvertBefore> (FloatCoord)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(FloatCoord) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="MyGUI::types::TRect &lt; int &gt;">
-			<TypeName>IntRect</TypeName>
-			<MarshalTypeName>IntRect</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (IntRect)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(IntRect) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="const MyGUI::types::TRect &lt; int &gt; &amp;">
-			<TypeName>IntRect</TypeName>
-			<MarshalTypeName>IntRect</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (IntRect)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(IntRect) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="MyGUI::types::TRect &lt; int &gt; &amp;">
-			<TypeName>IntRect</TypeName>
-			<MarshalTypeName>IntRect</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In, Out]</MarshalAs>
-			<MarshalConvertBefore> (IntRect)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(IntRect) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="MyGUI::types::TRect &lt; float &gt;">
-			<TypeName>FloatRect</TypeName>
-			<MarshalTypeName>FloatRect</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (FloatRect)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(FloatRect) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="const MyGUI::types::TRect &lt; float &gt; &amp;">
-			<TypeName>FloatRect</TypeName>
-			<MarshalTypeName>FloatRect</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (FloatRect)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(FloatRect) ) </MarshalConvertPost>
-		</TypeInfo>
-		<TypeInfo name="MyGUI::types::TRect &lt; float &gt; &amp;">
-			<TypeName>FloatRect</TypeName>
-			<MarshalTypeName>FloatRect</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In, Out]</MarshalAs>
-			<MarshalConvertBefore> (FloatRect)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(FloatRect) ) </MarshalConvertPost>
-		</TypeInfo>
+		<!-- Перечисления -->
 		<TypeInfo name="MyGUI::Align">
 			<TypeName>Align</TypeName>
-			<MarshalTypeName>Align</MarshalTypeName>
-			<MarshalTypeNameReturn>Align</MarshalTypeNameReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>Align</ValueTypeName>
+			<ValueMarshalAs>[MarshalAs(UnmanagedType.I4)] </ValueMarshalAs>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>Align</ReturnTypeName>
+			<ReturnMarshalAs>[return: MarshalAs(UnmanagedType.I4)]</ReturnMarshalAs>
+			<ReturnConvertBefore></ReturnConvertBefore>
+			<ReturnConvertPost></ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::FlowDirection">
 			<TypeName>FlowDirection</TypeName>
-			<MarshalTypeName>FlowDirection</MarshalTypeName>
-			<MarshalTypeNameReturn>FlowDirection</MarshalTypeNameReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>FlowDirection</ValueTypeName>
+			<ValueMarshalAs>[MarshalAs(UnmanagedType.I4)] </ValueMarshalAs>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>FlowDirection</ReturnTypeName>
+			<ReturnMarshalAs>[return: MarshalAs(UnmanagedType.I4)]</ReturnMarshalAs>
+			<ReturnConvertBefore></ReturnConvertBefore>
+			<ReturnConvertPost></ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::ResizingPolicy">
 			<TypeName>ResizingPolicy</TypeName>
-			<MarshalTypeName>ResizingPolicy</MarshalTypeName>
-			<MarshalTypeNameReturn>ResizingPolicy</MarshalTypeNameReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>ResizingPolicy</ValueTypeName>
+			<ValueMarshalAs>[MarshalAs(UnmanagedType.I4)] </ValueMarshalAs>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>ResizingPolicy</ReturnTypeName>
+			<ReturnMarshalAs>[return: MarshalAs(UnmanagedType.I4)]</ReturnMarshalAs>
+			<ReturnConvertBefore></ReturnConvertBefore>
+			<ReturnConvertPost></ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::WidgetStyle">
 			<TypeName>WidgetStyle</TypeName>
-			<MarshalTypeName>WidgetStyle</MarshalTypeName>
-			<MarshalTypeNameReturn>WidgetStyle</MarshalTypeNameReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>WidgetStyle</ValueTypeName>
+			<ValueMarshalAs>[MarshalAs(UnmanagedType.I4)] </ValueMarshalAs>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>WidgetStyle</ReturnTypeName>
+			<ReturnMarshalAs>[return: MarshalAs(UnmanagedType.I4)]</ReturnMarshalAs>
+			<ReturnConvertBefore></ReturnConvertBefore>
+			<ReturnConvertPost></ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::KeyCode">
 			<TypeName>KeyCode</TypeName>
-			<MarshalTypeName>KeyCode</MarshalTypeName>
-			<MarshalTypeNameReturn>KeyCode</MarshalTypeNameReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>KeyCode</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs>[MarshalAs(UnmanagedType.I4)] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>KeyCode</ReturnTypeName>
+			<ReturnMarshalAs>[return: MarshalAs(UnmanagedType.I4)]</ReturnMarshalAs>
+			<ReturnConvertBefore></ReturnConvertBefore>
+			<ReturnConvertPost></ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::MouseButton">
 			<TypeName>MouseButton</TypeName>
-			<MarshalTypeName>MouseButton</MarshalTypeName>
-			<MarshalTypeNameReturn>MouseButton</MarshalTypeNameReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>MouseButton</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs>[MarshalAs(UnmanagedType.I4)] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>MouseButton</ReturnTypeName>
+			<ReturnMarshalAs>[return: MarshalAs(UnmanagedType.I4)]</ReturnMarshalAs>
+			<ReturnConvertBefore></ReturnConvertBefore>
+			<ReturnConvertPost></ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::MenuItemType">
 			<TypeName>MenuItemType</TypeName>
-			<MarshalTypeName>MenuItemType</MarshalTypeName>
-			<MarshalTypeNameReturn>MenuItemType</MarshalTypeNameReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>MenuItemType</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs>[MarshalAs(UnmanagedType.I4)] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>MenuItemType</ReturnTypeName>
+			<ReturnMarshalAs>[return: MarshalAs(UnmanagedType.I4)]</ReturnMarshalAs>
+			<ReturnConvertBefore></ReturnConvertBefore>
+			<ReturnConvertPost></ReturnConvertPost>
+		</TypeInfo>
+		<!-- Структуры -->
+		<TypeInfo name="MyGUI::types::TPoint &lt; int &gt;">
+			<TypeName>IntPoint</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>IntPoint</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(IntPoint)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(IntPoint))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="const MyGUI::types::TPoint &lt; int &gt; &amp;">
+			<TypeName>IntPoint</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>IntPoint</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(IntPoint)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(IntPoint))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="MyGUI::types::TPoint &lt; int &gt; &amp;">
+			<TypeName>IntPoint</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>IntPoint</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(IntPoint)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(IntPoint))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="MyGUI::types::TPoint &lt; float &gt;">
+			<TypeName>FloatPoint</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>FloatPoint</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(FloatPoint)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(FloatPoint))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="const MyGUI::types::TPoint &lt; float &gt; &amp;">
+			<TypeName>FloatPoint</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>FloatPoint</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(FloatPoint)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(FloatPoint))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="MyGUI::types::TPoint &lt; float &gt; &amp;">
+			<TypeName>FloatPoint</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>FloatPoint</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(FloatPoint)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(FloatPoint))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="MyGUI::types::TSize &lt; int &gt;">
+			<TypeName>IntSize</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>IntSize</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(IntSize)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(IntSize))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="const MyGUI::types::TSize &lt; int &gt; &amp;">
+			<TypeName>IntSize</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>IntSize</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(IntSize)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(IntSize))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="MyGUI::types::TSize &lt; int &gt; &amp;">
+			<TypeName>IntSize</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>IntSize</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(IntSize)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(IntSize))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="MyGUI::types::TSize &lt; float &gt;">
+			<TypeName>FloatSize</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>FloatSize</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(FloatSize)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(FloatSize))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="const MyGUI::types::TSize &lt; float &gt; &amp;">
+			<TypeName>FloatSize</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>FloatSize</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(FloatSize)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(FloatSize))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="MyGUI::types::TSize &lt; float &gt; &amp;">
+			<TypeName>FloatSize</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>FloatSize</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(FloatSize)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(FloatSize))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="MyGUI::types::TCoord &lt; int &gt;">
+			<TypeName>IntCoord</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>IntCoord</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(IntCoord)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(IntCoord))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="const MyGUI::types::TCoord &lt; int &gt; &amp;">
+			<TypeName>IntCoord</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>IntCoord</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(IntCoord)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(IntCoord))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="MyGUI::types::TCoord &lt; int &gt; &amp;">
+			<TypeName>IntCoord</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>IntCoord</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(IntCoord)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(IntCoord))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="MyGUI::types::TCoord &lt; float &gt;">
+			<TypeName>FloatCoord</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>FloatCoord</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(FloatCoord)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(FloatCoord))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="const MyGUI::types::TCoord &lt; float &gt; &amp;">
+			<TypeName>FloatCoord</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>FloatCoord</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(FloatCoord)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(FloatCoord))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="MyGUI::types::TCoord &lt; float &gt; &amp;">
+			<TypeName>FloatCoord</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>FloatCoord</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(FloatCoord)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(FloatCoord))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="MyGUI::types::TRect &lt; int &gt;">
+			<TypeName>IntRect</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>IntRect</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(IntRect)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(IntRect))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="const MyGUI::types::TRect &lt; int &gt; &amp;">
+			<TypeName>IntRect</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>IntRect</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(IntRect)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(IntRect))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="MyGUI::types::TRect &lt; int &gt; &amp;">
+			<TypeName>IntRect</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>IntRect</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(IntRect)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(IntRect))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="MyGUI::types::TRect &lt; float &gt;">
+			<TypeName>FloatRect</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>FloatRect</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(FloatRect)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(FloatRect))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="const MyGUI::types::TRect &lt; float &gt; &amp;">
+			<TypeName>FloatRect</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>FloatRect</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(FloatRect)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(FloatRect))</ReturnConvertPost>
+		</TypeInfo>
+		<TypeInfo name="MyGUI::types::TRect &lt; float &gt; &amp;">
+			<TypeName>FloatRect</TypeName>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>FloatRect</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(FloatRect)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(FloatRect))</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="const MyGUI::DDWidgetState &amp;">
 			<TypeName>DDWidgetState</TypeName>
-			<MarshalTypeName>DDWidgetState</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (DDWidgetState)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(DDWidgetState) ) </MarshalConvertPost>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>DDWidgetState</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(DDWidgetState)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(DDWidgetState))</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::DDItemState">
 			<TypeName>DDItemState</TypeName>
-			<MarshalTypeName>DDItemState</MarshalTypeName>
-			<MarshalTypeNameReturn>DDItemState</MarshalTypeNameReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.I4)]</MarshalAs>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.I4)]</MarshalAsReturn>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>DDItemState</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs>[MarshalAs(UnmanagedType.I4)] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>DDItemState</ReturnTypeName>
+			<ReturnMarshalAs>[return: MarshalAs(UnmanagedType.I4)]</ReturnMarshalAs>
+			<ReturnConvertBefore></ReturnConvertBefore>
+			<ReturnConvertPost></ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="const MyGUI::DDItemInfo &amp;">
 			<TypeName>DDItemInfo</TypeName>
-			<MarshalTypeName>DDItemInfo</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (DDItemInfo)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(DDItemInfo) ) </MarshalConvertPost>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>DDItemInfo</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(DDItemInfo)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(DDItemInfo))</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="const MyGUI::IBNotifyItemData &amp;">
 			<TypeName>IBNotifyItemData</TypeName>
-			<MarshalTypeName>IBNotifyItemData</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (IBNotifyItemData)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(IBNotifyItemData) ) </MarshalConvertPost>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>IBNotifyItemData</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(IBNotifyItemData)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(IBNotifyItemData))</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="const MyGUI::ToolTipInfo &amp;">
 			<TypeName>ToolTipInfo</TypeName>
-			<MarshalTypeName>ToolTipInfo</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (ToolTipInfo)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(ToolTipInfo) ) </MarshalConvertPost>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>ToolTipInfo</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(ToolTipInfo)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(ToolTipInfo))</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="const MyGUI::IBDrawItemInfo &amp;">
 			<TypeName>IBDrawItemInfo</TypeName>
-			<MarshalTypeName>IBDrawItemInfo</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (IBDrawItemInfo)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(IBDrawItemInfo) ) </MarshalConvertPost>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>IBDrawItemInfo</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(IBDrawItemInfo)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(IBDrawItemInfo))</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="const MyGUI::Colour &amp;">
 			<TypeName>Colour</TypeName>
-			<MarshalTypeName>Colour</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In]</MarshalAs>
-			<MarshalConvertBefore> (Colour)Marshal.PtrToStructure( </MarshalConvertBefore>
-			<MarshalConvertPost> , typeof(Colour) ) </MarshalConvertPost>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost></ConvertPost>
+			<ValueTypeName>Colour</ValueTypeName>
+			<ValueTypePrefix>ref </ValueTypePrefix>
+			<ValueMarshalAs>[In] </ValueMarshalAs>
+			<ValueConvertBefore></ValueConvertBefore>
+			<ValueConvertPost></ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(Colour)Marshal.PtrToStructure(</ReturnConvertBefore>
+			<ReturnConvertPost>, typeof(Colour))</ReturnConvertPost>
 		</TypeInfo>
-		<!--TypeInfo name="MyGUI::Any">
-			<TypeName>object</TypeName>
-			<MarshalTypeName>object</MarshalTypeName>
-			<MarshalTypeNameReturn>object</MarshalTypeNameReturn>
-			<MarshalAsReturn>[return: MarshalAs(UnmanagedType.IUnknown)]</MarshalAsReturn>
-			<MarshalAs>[MarshalAs(UnmanagedType.IUnknown)]</MarshalAs>
-		</TypeInfo-->
+		<!-- Widgets -->
 		<TypeInfo name="MyGUI::Button *">
 			<TypeName>Button</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(Button)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(Button)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(Button)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::ComboBox *">
 			<TypeName>ComboBox</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(ComboBox)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(ComboBox)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(ComboBox)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::DDContainer *">
 			<TypeName>DDContainer</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(DDContainer)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(DDContainer)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(DDContainer)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::EditBox *">
 			<TypeName>EditBox</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(EditBox)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(EditBox)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(EditBox)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::ItemBox *">
 			<TypeName>ItemBox</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(ItemBox)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(ItemBox)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(ItemBox)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::ListBox *">
 			<TypeName>ListBox</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(ListBox)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(ListBox)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(ListBox)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::MenuBar *">
 			<TypeName>MenuBar</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(MenuBar)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(MenuBar)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(MenuBar)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::MenuControl *">
 			<TypeName>MenuControl</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(MenuControl)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(MenuControl)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(MenuControl)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::MultiListBox *">
 			<TypeName>MultiListBox</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(MultiListBox)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(MultiListBox)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(MultiListBox)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::PopupMenu *">
 			<TypeName>PopupMenu</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(PopupMenu)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(PopupMenu)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(PopupMenu)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::ProgressBar *">
 			<TypeName>ProgressBar</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(ProgressBar)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(ProgressBar)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(ProgressBar)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::ScrollView *">
 			<TypeName>ScrollView</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(ScrollView)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(ScrollView)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(ScrollView)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::ImageBox *">
 			<TypeName>ImageBox</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(ImageBox)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(ImageBox)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(ImageBox)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::TextBox *">
 			<TypeName>TextBox</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(TextBox)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(TextBox)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(TextBox)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::TabControl *">
 			<TypeName>TabControl</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(TabControl)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(TabControl)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(TabControl)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::ScrollBar *">
 			<TypeName>ScrollBar</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(ScrollBar)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(ScrollBar)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(ScrollBar)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::Widget *">
 			<TypeName>Widget</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(Widget)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(Widget)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(Widget)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
-		<TypeInfo name="MyGUI::Widget * &amp;">
+		<!--TypeInfo name="MyGUI::Widget * &amp;">
 			<TypeName>Widget</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>Widget</MarshalTypeNameReturn>
-			<TypePrefix>ref</TypePrefix>
-			<MarshalAs>[In, Out]</MarshalAs>
-		</TypeInfo>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ReturnTypeName>Widget</ReturnTypeName>
+			<ValueTypePrefix>ref</ValueTypePrefix>
+			<ValueMarshalAs>[In, Out]</ValueMarshalAs>
+		</TypeInfo-->
 		<TypeInfo name="MyGUI::Window *">
 			<TypeName>Window</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(Window)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(Window)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(Window)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::MenuItem *">
 			<TypeName>MenuItem</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(MenuItem)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(MenuItem)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(MenuItem)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::TabItem *">
 			<TypeName>TabItem</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(TabItem)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(TabItem)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(TabItem)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 		<TypeInfo name="MyGUI::MultiListItem *">
 			<TypeName>MultiListItem</TypeName>
-			<MarshalTypeName>IntPtr</MarshalTypeName>
-			<MarshalTypeNameReturn>IntPtr</MarshalTypeNameReturn>
-			<MarshalAsReturn></MarshalAsReturn>
-			<MarshalAs></MarshalAs>
-			<MarshalConvertBefore>(MultiListItem)BaseWidget.GetByNative(</MarshalConvertBefore>
-			<MarshalConvertPost>)</MarshalConvertPost>
-			<MarshalValueNative>.Native</MarshalValueNative>
+			<ConvertBefore></ConvertBefore>
+			<ConvertPost>.Native</ConvertPost>
+			<ValueTypeName>IntPtr</ValueTypeName>
+			<ValueTypePrefix></ValueTypePrefix>
+			<ValueMarshalAs></ValueMarshalAs>
+			<ValueConvertBefore>(MultiListItem)BaseWidget.GetByNative(</ValueConvertBefore>
+			<ValueConvertPost>)</ValueConvertPost>
+			<ReturnTypeName>IntPtr</ReturnTypeName>
+			<ReturnMarshalAs></ReturnMarshalAs>
+			<ReturnConvertBefore>(MultiListItem)BaseWidget.GetByNative(</ReturnConvertBefore>
+			<ReturnConvertPost>)</ReturnConvertPost>
 		</TypeInfo>
 	</TypeHolder>
 	<Item type="MyGUI::WidgetInput" namespace="MyGUI">

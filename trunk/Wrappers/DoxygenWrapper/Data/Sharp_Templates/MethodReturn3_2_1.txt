@@ -1,48 +1,48 @@
 ﻿		#region Method #{MethodName}
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        #{MarshalAsReturn}
-		private static extern #{MarshalTypeNameReturn} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}( IntPtr _native ,
-			#{MarshalAs1} #{TypePrefix1} #{MarshalTypeName1} #{ValueName1} ,
-			#{MarshalAs2} #{TypePrefix2} #{MarshalTypeName2} #{ValueName2} ,
-			#{MarshalAs3} #{TypePrefix3} #{MarshalTypeName3} #{ValueName3} );
+        #{ReturnValueMarshalAs}
+		private static extern #{ReturnTypeName} Export#{ThisName}_#{MethodName}_#{ValueName1}_#{ValueName2}_#{ValueName3}(IntPtr _native,
+			#{ValueMarshalAs1}#{ValueTypePrefix1}#{ValueTypeName1} #{ValueName1},
+			#{ValueMarshalAs2}#{ValueTypePrefix2}#{ValueTypeName2} #{ValueName2},
+			#{ValueMarshalAs3}#{ValueTypePrefix3}#{ValueTypeName3} #{ValueName3});
 
 		public #{TypeName} #{MethodName}(
-			#{TypeName1} #{ValueName1} ,
-			#{TypeName2} #{ValueName2} ,
-			#{TypeName3} #{ValueName3} )
+			#{TypeName1} #{ValueName1},
+			#{TypeName2} #{ValueName2},
+			#{TypeName3} #{ValueName3})
 		{
-			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}( Native , 
-				#{TypePrefix1} #{ValueName1} #{MarshalValueNative1} ,
-				#{TypePrefix2} #{ValueName2} #{MarshalValueNative2} ,
-				#{TypePrefix3} #{ValueName3} #{MarshalValueNative3} ) #{MarshalConvertPost} ;
+			return #{ReturnConvertBefore}Export#{ThisName}_#{MethodName}_#{ValueName1}_#{ValueName2}_#{ValueName3}(Native,
+				#{ConvertBefore1}#{ValueTypePrefix1}#{ValueName1}#{ConvertPost1},
+				#{ConvertBefore2}#{ValueTypePrefix2}#{ValueName2}#{ConvertPost2},
+				#{ConvertBefore3}#{ValueTypePrefix3}#{ValueName3}#{ConvertPost3})#{ReturnConvertPost};
 		}
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        #{MarshalAsReturn}
-		private static extern #{MarshalTypeNameReturn} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( IntPtr _native ,
-			#{MarshalAs1} #{TypePrefix1} #{MarshalTypeName1} #{ValueName1} ,
-			#{MarshalAs2} #{TypePrefix2} #{MarshalTypeName2} #{ValueName2} );
+        #{ReturnValueMarshalAs}
+		private static extern #{ReturnTypeName} Export#{ThisName}_#{MethodName}_#{ValueName1}_#{ValueName2}(IntPtr _native,
+			#{ValueMarshalAs1}#{ValueTypePrefix1}#{ValueTypeName1} #{ValueName1},
+			#{ValueMarshalAs2}#{ValueTypePrefix2}#{ValueTypeName2} #{ValueName2});
 
 		public #{TypeName} #{MethodName}(
-			#{TypeName1} #{ValueName1} ,
-			#{TypeName2} #{ValueName2} )
+			#{TypeName1} #{ValueName1},
+			#{TypeName2} #{ValueName2})
 		{
-			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( Native , 
-				#{TypePrefix1} #{ValueName1} #{MarshalValueNative1} ,
-				#{TypePrefix2} #{ValueName2} #{MarshalValueNative2} ) #{MarshalConvertPost} ;
+			return #{ReturnConvertBefore}Export#{ThisName}_#{MethodName}_#{ValueName1}_#{ValueName2}(Native,
+				#{ConvertBefore1}#{ValueTypePrefix1}#{ValueName1}#{ConvertPost1},
+				#{ConvertBefore2}#{ValueTypePrefix2}#{ValueName2}#{ConvertPost2})#{ReturnConvertPost};
 		}
 		
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        #{MarshalAsReturn}
-		private static extern #{MarshalTypeNameReturn} Export#{ThisName}_#{MethodName}#{ValueName1}( IntPtr _native ,
-			#{MarshalAs1} #{TypePrefix1} #{MarshalTypeName1} #{ValueName1} );
+        #{ReturnValueMarshalAs}
+		private static extern #{ReturnTypeName} Export#{ThisName}_#{MethodName}_#{ValueName1}(IntPtr _native,
+			#{ValueMarshalAs1}#{ValueTypePrefix1}#{ValueTypeName1} #{ValueName1});
 
 		public #{TypeName} #{MethodName}(
-			#{TypeName1} #{ValueName1} )
+			#{TypeName1} #{ValueName1})
 		{
-			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}( Native , 
-				#{TypePrefix1} #{ValueName1} #{MarshalValueNative1} ) #{MarshalConvertPost} ;
+			return #{ReturnConvertBefore}Export#{ThisName}_#{MethodName}_#{ValueName1}(Native,
+				#{ConvertBefore1}#{ValueTypePrefix1}#{ValueName1}#{ConvertPost1})#{ReturnConvertPost};
 		}
 		
 		#endregion

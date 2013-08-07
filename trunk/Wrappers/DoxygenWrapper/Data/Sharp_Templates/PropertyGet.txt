@@ -1,12 +1,12 @@
 ﻿		#region Property #{PropertyName}
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        #{MarshalAsReturn}
-		private static extern #{MarshalTypeNameReturn} Export#{ThisName}_Get#{PropertyName}( IntPtr _native );
+        #{ReturnValueMarshalAs}
+		private static extern #{ReturnTypeName} Export#{ThisName}_Get#{PropertyName}(IntPtr _native);
 
 		public #{TypeName} #{PropertyName}
 		{
-			get { return #{MarshalConvertBefore} Export#{ThisName}_Get#{PropertyName}( Native ) #{MarshalConvertPost} ; }
+			get { return #{ReturnConvertBefore}Export#{ThisName}_Get#{PropertyName}(Native)#{ReturnConvertPost}; }
 		}
 
 		#endregion

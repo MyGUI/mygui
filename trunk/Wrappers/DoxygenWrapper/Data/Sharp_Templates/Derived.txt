@@ -10,10 +10,9 @@ using System.Runtime.InteropServices;
 
 namespace MyGUI.Sharp
 {
-
-    public #{Partial} class #{ThisName} : #{BaseName}
+    public #{Partial} class #{ThisName} :
+		#{BaseName}
     {
-
         #region #{ThisName}
 
         protected override string GetWidgetType() { return "#{ThisType}"; }
@@ -38,5 +37,4 @@ namespace MyGUI.Sharp
 		//InsertPoint
 		
     }
-
 }

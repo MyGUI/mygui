@@ -1,22 +1,22 @@
 ﻿		#region Method #{MethodName}
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void Export#{ThisName}_#{MethodName}#{ValueName1}( IntPtr _native ,
-			#{MarshalAs1} #{TypePrefix1} #{MarshalTypeName1} #{ValueName1} );
+		private static extern void Export#{ThisName}_#{MethodName}_#{ValueName1}(IntPtr _native,
+			#{ValueMarshalAs1}#{ValueTypePrefix1}#{ValueTypeName1} #{ValueName1});
 
 		public void #{MethodName}(
-			#{TypeName1} #{ValueName1} )
+			#{TypeName1} #{ValueName1})
 		{
-			Export#{ThisName}_#{MethodName}#{ValueName1}( Native , 
-				#{TypePrefix1} #{ValueName1} );
+			Export#{ThisName}_#{MethodName}_#{ValueName1}(Native,
+				#{ValueTypePrefix1} #{ValueName1});
 		}
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void Export#{ThisName}_#{MethodName}( IntPtr _native );
+		private static extern void Export#{ThisName}_#{MethodName}(IntPtr _native);
 
 		public void #{MethodName}( )
 		{
-			Export#{ThisName}_#{MethodName}( Native );
+			Export#{ThisName}_#{MethodName}(Native);
 		}
 
 		#endregion
