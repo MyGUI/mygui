@@ -10,7 +10,7 @@ namespace DoxygenWrapper.Wrappers
 	{
 		public void DoReplace(FileData _data, IReplacer[] _replacers)
 		{
-			for (int index = 0; index < _data.Data.Length; index ++)
+			for (int index = 0; index < _data.Data.Length; )
 			{
 				if ((_data.Data[index] == '#') && (index + 1 < _data.Data.Length) && (_data.Data[index + 1] == '{'))
 				{
@@ -31,6 +31,10 @@ namespace DoxygenWrapper.Wrappers
 						_data.Data.Remove(index, count);
 						_data.Data.Insert(index, ReplaceTag(destination, _replacers));
 					}
+				}
+				else
+				{
+					index++;
 				}
 			}
 		}
