@@ -11,8 +11,8 @@
 			#{TypeName2} #{ValueName2} )
 		{
 			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( Native , 
-				#{TypePrefix1} #{ValueName1} ,
-				#{TypePrefix2} #{ValueName2} ) #{MarshalConvertPost} ;
+				#{TypePrefix1} #{ValueName1} #{MarshalValueNative1} ,
+				#{TypePrefix2} #{ValueName2} #{MarshalValueNative2} ) #{MarshalConvertPost} ;
 		}
 		
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
@@ -24,7 +24,7 @@
 			#{TypeName1} #{ValueName1} )
 		{
 			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}( Native , 
-				#{TypePrefix1} #{ValueName1} ) #{MarshalConvertPost} ;
+				#{TypePrefix1} #{ValueName1} #{MarshalValueNative1} ) #{MarshalConvertPost} ;
 		}
 		
 		#endregion

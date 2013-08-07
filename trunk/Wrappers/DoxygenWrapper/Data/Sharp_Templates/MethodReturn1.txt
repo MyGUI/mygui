@@ -9,7 +9,7 @@
 			#{TypeName1} #{ValueName1} )
 		{
 			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}( Native , 
-				#{TypePrefix1} #{ValueName1} ) #{MarshalConvertPost} ;
+				#{TypePrefix1} #{ValueName1} #{MarshalValueNative1} ) #{MarshalConvertPost} ;
 		}
 
 		#endregion

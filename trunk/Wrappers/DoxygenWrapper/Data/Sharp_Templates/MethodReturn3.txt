@@ -13,9 +13,9 @@
 			#{TypeName3} #{ValueName3} )
 		{
 			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}( Native , 
-				#{TypePrefix1} #{ValueName1} ,
-				#{TypePrefix2} #{ValueName2} ,
-				#{TypePrefix3} #{ValueName3} ) #{MarshalConvertPost} ;
+				#{TypePrefix1} #{ValueName1} #{MarshalValueNative1} ,
+				#{TypePrefix2} #{ValueName2} #{MarshalValueNative2} ,
+				#{TypePrefix3} #{ValueName3} #{MarshalValueNative3} ) #{MarshalConvertPost} ;
 		}
 
 		#endregion

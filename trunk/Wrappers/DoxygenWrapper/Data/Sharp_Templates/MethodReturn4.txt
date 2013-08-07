@@ -15,10 +15,10 @@
 			#{TypeName4} #{ValueName4} )
 		{
 			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}( Native , 
-				#{TypePrefix1} #{ValueName1} ,
-				#{TypePrefix2} #{ValueName2} ,
-				#{TypePrefix3} #{ValueName3} ,
-				#{TypePrefix4} #{ValueName4} ) #{MarshalConvertPost} ;
+				#{TypePrefix1} #{ValueName1} #{MarshalValueNative1} ,
+				#{TypePrefix2} #{ValueName2} #{MarshalValueNative2} ,
+				#{TypePrefix3} #{ValueName3} #{MarshalValueNative3} ,
+				#{TypePrefix4} #{ValueName4} #{MarshalValueNative4} ) #{MarshalConvertPost} ;
 		}
 
 		#endregion
