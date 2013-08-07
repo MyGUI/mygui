@@ -10,10 +10,9 @@ using System.Runtime.InteropServices;
 
 namespace MyGUI.Sharp
 {
-
-    public  class MenuBar : MenuControl
+    public  class MenuBar :
+		MenuControl
     {
-
         #region MenuBar
 
         protected override string GetWidgetType() { return "MenuBar"; }
@@ -38,5 +37,4 @@ namespace MyGUI.Sharp
 		//InsertPoint
 		
     }
-
 }

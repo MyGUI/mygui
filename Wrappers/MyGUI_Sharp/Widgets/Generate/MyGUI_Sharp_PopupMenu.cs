@@ -10,10 +10,9 @@ using System.Runtime.InteropServices;
 
 namespace MyGUI.Sharp
 {
-
-    public  class PopupMenu : MenuControl
+    public  class PopupMenu :
+		MenuControl
     {
-
         #region PopupMenu
 
         protected override string GetWidgetType() { return "PopupMenu"; }
@@ -38,5 +37,4 @@ namespace MyGUI.Sharp
 		//InsertPoint
 		
     }
-
 }

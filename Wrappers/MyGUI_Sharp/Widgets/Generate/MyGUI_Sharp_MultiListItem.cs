@@ -10,10 +10,9 @@ using System.Runtime.InteropServices;
 
 namespace MyGUI.Sharp
 {
-
-    public  class MultiListItem : Widget
+    public  class MultiListItem :
+		Widget
     {
-
         #region MultiListItem
 
         protected override string GetWidgetType() { return "MultiListItem"; }
@@ -39,32 +38,31 @@ namespace MyGUI.Sharp
 		#region Method SetItemWidth
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMultiListItem_SetItemWidth_value( IntPtr _native ,
-			  int _value );
+		private static extern void ExportMultiListItem_SetItemWidth__value(IntPtr _native,
+			int _value);
 
 		public void SetItemWidth(
-			int _value )
+			int _value)
 		{
-			ExportMultiListItem_SetItemWidth_value( Native , 
-				 _value  );
+			ExportMultiListItem_SetItemWidth__value(Native,
+				_value);
 		}
 
 		#endregion
 		#region Method SetItemResizingPolicy
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportMultiListItem_SetItemResizingPolicy_value( IntPtr _native ,
-			[MarshalAs(UnmanagedType.I4)]  ResizingPolicy _value );
+		private static extern void ExportMultiListItem_SetItemResizingPolicy__value(IntPtr _native,
+			[MarshalAs(UnmanagedType.I4)] ResizingPolicy _value);
 
 		public void SetItemResizingPolicy(
-			ResizingPolicy _value )
+			ResizingPolicy _value)
 		{
-			ExportMultiListItem_SetItemResizingPolicy_value( Native , 
-				 _value  );
+			ExportMultiListItem_SetItemResizingPolicy__value(Native,
+				_value);
 		}
 
 		#endregion
 		
     }
-
 }
