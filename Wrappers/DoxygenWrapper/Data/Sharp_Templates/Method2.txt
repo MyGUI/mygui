@@ -1,17 +1,17 @@
 ﻿		#region Method #{MethodName}
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( IntPtr _native ,
-			#{MarshalAs1} #{TypePrefix1} #{MarshalTypeName1} #{ValueName1} ,
-			#{MarshalAs2} #{TypePrefix2} #{MarshalTypeName2} #{ValueName2} );
+		private static extern void Export#{ThisName}_#{MethodName}_#{ValueName1}_#{ValueName2}(IntPtr _native,
+			#{ValueMarshalAs1}#{ValueTypePrefix1}#{ValueTypeName1} #{ValueName1},
+			#{ValueMarshalAs2}#{ValueTypePrefix2}#{ValueTypeName2} #{ValueName2});
 
 		public void #{MethodName}(
-			#{TypeName1} #{ValueName1} ,
-			#{TypeName2} #{ValueName2} )
+			#{TypeName1} #{ValueName1},
+			#{TypeName2} #{ValueName2})
 		{
-			Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( Native , 
-				#{TypePrefix1} #{ValueName1} #{MarshalValueNative1},
-				#{TypePrefix2} #{ValueName2} #{MarshalValueNative2} );
+			Export#{ThisName}_#{MethodName}_#{ValueName1}_#{ValueName2}(Native,
+				#{ConvertBefore1}#{ValueTypePrefix1}#{ValueName1}#{ConvertPost1},
+				#{ConvertBefore2}#{ValueTypePrefix2}#{ValueName2}#{ConvertPost2});
 		}
 
 		#endregion

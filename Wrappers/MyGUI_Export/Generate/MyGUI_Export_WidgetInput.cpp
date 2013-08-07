@@ -13,525 +13,524 @@
 
 namespace Export
 {
-
 	//InsertPoint
 
 	namespace ScopeWidgetEvent_RootKeyChangeFocus
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			MyGUI::Widget * ,
-			Convert<bool>::Type );
+			MyGUI::Widget *,
+			Convert<bool>::Type);
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
-			MyGUI::Widget * _sender ,
-			bool _focus )
+			MyGUI::Widget * _sender,
+			bool _focus)
 		{
 			mExportHandle(
-				_sender ,
-				Convert<bool>::To( _focus ) );
+				_sender,
+				Convert<bool>::To(_focus));
 		}
 		
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateRootKeyChangeFocus( ExportHandle _delegate )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateRootKeyChangeFocus(ExportHandle _delegate)
 		{
 			mExportHandle = _delegate;
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseRootKeyChangeFocus( MyGUI::Widget* _widget, bool _advise )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseRootKeyChangeFocus(MyGUI::Widget* _widget, bool _advise)
 		{
 			if (_advise)
-				static_cast< MyGUI::Widget* >(_widget)->eventRootKeyChangeFocus += MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventRootKeyChangeFocus += MyGUI::newDelegate(OnEvent);
 			else
-				static_cast< MyGUI::Widget* >(_widget)->eventRootKeyChangeFocus -= MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventRootKeyChangeFocus -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 	namespace ScopeWidgetEvent_RootMouseChangeFocus
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			MyGUI::Widget * ,
-			Convert<bool>::Type );
+			MyGUI::Widget *,
+			Convert<bool>::Type);
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
-			MyGUI::Widget * _sender ,
-			bool _focus )
+			MyGUI::Widget * _sender,
+			bool _focus)
 		{
 			mExportHandle(
-				_sender ,
-				Convert<bool>::To( _focus ) );
+				_sender,
+				Convert<bool>::To(_focus));
 		}
 		
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateRootMouseChangeFocus( ExportHandle _delegate )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateRootMouseChangeFocus(ExportHandle _delegate)
 		{
 			mExportHandle = _delegate;
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseRootMouseChangeFocus( MyGUI::Widget* _widget, bool _advise )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseRootMouseChangeFocus(MyGUI::Widget* _widget, bool _advise)
 		{
 			if (_advise)
-				static_cast< MyGUI::Widget* >(_widget)->eventRootMouseChangeFocus += MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventRootMouseChangeFocus += MyGUI::newDelegate(OnEvent);
 			else
-				static_cast< MyGUI::Widget* >(_widget)->eventRootMouseChangeFocus -= MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventRootMouseChangeFocus -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 	namespace ScopeWidgetEvent_KeyButtonReleased
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			MyGUI::Widget * ,
-			Convert<MyGUI::KeyCode>::Type );
+			MyGUI::Widget *,
+			Convert<MyGUI::KeyCode>::Type);
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
-			MyGUI::Widget * _sender ,
-			MyGUI::KeyCode _key )
+			MyGUI::Widget * _sender,
+			MyGUI::KeyCode _key)
 		{
 			mExportHandle(
-				_sender ,
-				Convert<MyGUI::KeyCode>::To( _key ) );
+				_sender,
+				Convert<MyGUI::KeyCode>::To(_key));
 		}
 		
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateKeyButtonReleased( ExportHandle _delegate )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateKeyButtonReleased(ExportHandle _delegate)
 		{
 			mExportHandle = _delegate;
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseKeyButtonReleased( MyGUI::Widget* _widget, bool _advise )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseKeyButtonReleased(MyGUI::Widget* _widget, bool _advise)
 		{
 			if (_advise)
-				static_cast< MyGUI::Widget* >(_widget)->eventKeyButtonReleased += MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventKeyButtonReleased += MyGUI::newDelegate(OnEvent);
 			else
-				static_cast< MyGUI::Widget* >(_widget)->eventKeyButtonReleased -= MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventKeyButtonReleased -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 	namespace ScopeWidgetEvent_KeyButtonPressed
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			MyGUI::Widget * ,
-			Convert<MyGUI::KeyCode>::Type ,
-			Convert<unsigned int>::Type );
+			MyGUI::Widget *,
+			Convert<MyGUI::KeyCode>::Type,
+			Convert<unsigned int>::Type);
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
-			MyGUI::Widget * _sender ,
-			MyGUI::KeyCode _key ,
-			unsigned int _char )
+			MyGUI::Widget * _sender,
+			MyGUI::KeyCode _key,
+			unsigned int _char)
 		{
 			mExportHandle(
-				_sender ,
-				Convert<MyGUI::KeyCode>::To( _key ) ,
-				Convert<unsigned int>::To( _char ) );
+				_sender,
+				Convert<MyGUI::KeyCode>::To(_key),
+				Convert<unsigned int>::To(_char));
 		}
 		
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateKeyButtonPressed( ExportHandle _delegate )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateKeyButtonPressed(ExportHandle _delegate)
 		{
 			mExportHandle = _delegate;
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseKeyButtonPressed( MyGUI::Widget* _widget, bool _advise )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseKeyButtonPressed(MyGUI::Widget* _widget, bool _advise)
 		{
 			if (_advise)
-				static_cast< MyGUI::Widget* >(_widget)->eventKeyButtonPressed += MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventKeyButtonPressed += MyGUI::newDelegate(OnEvent);
 			else
-				static_cast< MyGUI::Widget* >(_widget)->eventKeyButtonPressed -= MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventKeyButtonPressed -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 	namespace ScopeWidgetEvent_KeySetFocus
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			MyGUI::Widget * ,
-			Convert<MyGUI::Widget *>::Type );
+			MyGUI::Widget *,
+			Convert<MyGUI::Widget *>::Type);
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
-			MyGUI::Widget * _sender ,
-			MyGUI::Widget * _old )
+			MyGUI::Widget * _sender,
+			MyGUI::Widget * _old)
 		{
 			mExportHandle(
-				_sender ,
-				Convert<MyGUI::Widget *>::To( _old ) );
+				_sender,
+				Convert<MyGUI::Widget *>::To(_old));
 		}
 		
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateKeySetFocus( ExportHandle _delegate )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateKeySetFocus(ExportHandle _delegate)
 		{
 			mExportHandle = _delegate;
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseKeySetFocus( MyGUI::Widget* _widget, bool _advise )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseKeySetFocus(MyGUI::Widget* _widget, bool _advise)
 		{
 			if (_advise)
-				static_cast< MyGUI::Widget* >(_widget)->eventKeySetFocus += MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventKeySetFocus += MyGUI::newDelegate(OnEvent);
 			else
-				static_cast< MyGUI::Widget* >(_widget)->eventKeySetFocus -= MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventKeySetFocus -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 	namespace ScopeWidgetEvent_KeyLostFocus
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			MyGUI::Widget * ,
-			Convert<MyGUI::Widget *>::Type );
+			MyGUI::Widget *,
+			Convert<MyGUI::Widget *>::Type);
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
-			MyGUI::Widget * _sender ,
-			MyGUI::Widget * _new )
+			MyGUI::Widget * _sender,
+			MyGUI::Widget * _new)
 		{
 			mExportHandle(
-				_sender ,
-				Convert<MyGUI::Widget *>::To( _new ) );
+				_sender,
+				Convert<MyGUI::Widget *>::To(_new));
 		}
 		
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateKeyLostFocus( ExportHandle _delegate )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateKeyLostFocus(ExportHandle _delegate)
 		{
 			mExportHandle = _delegate;
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseKeyLostFocus( MyGUI::Widget* _widget, bool _advise )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseKeyLostFocus(MyGUI::Widget* _widget, bool _advise)
 		{
 			if (_advise)
-				static_cast< MyGUI::Widget* >(_widget)->eventKeyLostFocus += MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventKeyLostFocus += MyGUI::newDelegate(OnEvent);
 			else
-				static_cast< MyGUI::Widget* >(_widget)->eventKeyLostFocus -= MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventKeyLostFocus -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 	namespace ScopeWidgetEvent_MouseButtonDoubleClick
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			MyGUI::Widget * );
+			MyGUI::Widget *);
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
-			MyGUI::Widget * _sender )
+			MyGUI::Widget * _sender)
 		{
 			mExportHandle(
-				_sender );
+				_sender);
 		}
 		
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateMouseButtonDoubleClick( ExportHandle _delegate )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateMouseButtonDoubleClick(ExportHandle _delegate)
 		{
 			mExportHandle = _delegate;
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseMouseButtonDoubleClick( MyGUI::Widget* _widget, bool _advise )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseMouseButtonDoubleClick(MyGUI::Widget* _widget, bool _advise)
 		{
 			if (_advise)
-				static_cast< MyGUI::Widget* >(_widget)->eventMouseButtonDoubleClick += MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventMouseButtonDoubleClick += MyGUI::newDelegate(OnEvent);
 			else
-				static_cast< MyGUI::Widget* >(_widget)->eventMouseButtonDoubleClick -= MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventMouseButtonDoubleClick -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 	namespace ScopeWidgetEvent_MouseButtonClick
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			MyGUI::Widget * );
+			MyGUI::Widget *);
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
-			MyGUI::Widget * _sender )
+			MyGUI::Widget * _sender)
 		{
 			mExportHandle(
-				_sender );
+				_sender);
 		}
 		
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateMouseButtonClick( ExportHandle _delegate )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateMouseButtonClick(ExportHandle _delegate)
 		{
 			mExportHandle = _delegate;
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseMouseButtonClick( MyGUI::Widget* _widget, bool _advise )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseMouseButtonClick(MyGUI::Widget* _widget, bool _advise)
 		{
 			if (_advise)
-				static_cast< MyGUI::Widget* >(_widget)->eventMouseButtonClick += MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventMouseButtonClick += MyGUI::newDelegate(OnEvent);
 			else
-				static_cast< MyGUI::Widget* >(_widget)->eventMouseButtonClick -= MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventMouseButtonClick -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 	namespace ScopeWidgetEvent_MouseButtonReleased
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			MyGUI::Widget * ,
-			Convert<int>::Type ,
-			Convert<int>::Type ,
-			Convert<MyGUI::MouseButton>::Type );
+			MyGUI::Widget *,
+			Convert<int>::Type,
+			Convert<int>::Type,
+			Convert<MyGUI::MouseButton>::Type);
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
-			MyGUI::Widget * _sender ,
-			int _left ,
-			int _top ,
-			MyGUI::MouseButton _id )
+			MyGUI::Widget * _sender,
+			int _left,
+			int _top,
+			MyGUI::MouseButton _id)
 		{
 			mExportHandle(
-				_sender ,
-				Convert<int>::To( _left ) ,
-				Convert<int>::To( _top ) ,
-				Convert<MyGUI::MouseButton>::To( _id ) );
+				_sender,
+				Convert<int>::To(_left),
+				Convert<int>::To(_top),
+				Convert<MyGUI::MouseButton>::To(_id));
 		}
 		
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateMouseButtonReleased( ExportHandle _delegate )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateMouseButtonReleased(ExportHandle _delegate)
 		{
 			mExportHandle = _delegate;
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseMouseButtonReleased( MyGUI::Widget* _widget, bool _advise )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseMouseButtonReleased(MyGUI::Widget* _widget, bool _advise)
 		{
 			if (_advise)
-				static_cast< MyGUI::Widget* >(_widget)->eventMouseButtonReleased += MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventMouseButtonReleased += MyGUI::newDelegate(OnEvent);
 			else
-				static_cast< MyGUI::Widget* >(_widget)->eventMouseButtonReleased -= MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventMouseButtonReleased -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 	namespace ScopeWidgetEvent_MouseButtonPressed
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			MyGUI::Widget * ,
-			Convert<int>::Type ,
-			Convert<int>::Type ,
-			Convert<MyGUI::MouseButton>::Type );
+			MyGUI::Widget *,
+			Convert<int>::Type,
+			Convert<int>::Type,
+			Convert<MyGUI::MouseButton>::Type);
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
-			MyGUI::Widget * _sender ,
-			int _left ,
-			int _top ,
-			MyGUI::MouseButton _id )
+			MyGUI::Widget * _sender,
+			int _left,
+			int _top,
+			MyGUI::MouseButton _id)
 		{
 			mExportHandle(
-				_sender ,
-				Convert<int>::To( _left ) ,
-				Convert<int>::To( _top ) ,
-				Convert<MyGUI::MouseButton>::To( _id ) );
+				_sender,
+				Convert<int>::To(_left),
+				Convert<int>::To(_top),
+				Convert<MyGUI::MouseButton>::To(_id));
 		}
 		
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateMouseButtonPressed( ExportHandle _delegate )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateMouseButtonPressed(ExportHandle _delegate)
 		{
 			mExportHandle = _delegate;
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseMouseButtonPressed( MyGUI::Widget* _widget, bool _advise )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseMouseButtonPressed(MyGUI::Widget* _widget, bool _advise)
 		{
 			if (_advise)
-				static_cast< MyGUI::Widget* >(_widget)->eventMouseButtonPressed += MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventMouseButtonPressed += MyGUI::newDelegate(OnEvent);
 			else
-				static_cast< MyGUI::Widget* >(_widget)->eventMouseButtonPressed -= MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventMouseButtonPressed -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 	namespace ScopeWidgetEvent_MouseWheel
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			MyGUI::Widget * ,
-			Convert<int>::Type );
+			MyGUI::Widget *,
+			Convert<int>::Type);
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
-			MyGUI::Widget * _sender ,
-			int _rel )
+			MyGUI::Widget * _sender,
+			int _rel)
 		{
 			mExportHandle(
-				_sender ,
-				Convert<int>::To( _rel ) );
+				_sender,
+				Convert<int>::To(_rel));
 		}
 		
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateMouseWheel( ExportHandle _delegate )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateMouseWheel(ExportHandle _delegate)
 		{
 			mExportHandle = _delegate;
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseMouseWheel( MyGUI::Widget* _widget, bool _advise )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseMouseWheel(MyGUI::Widget* _widget, bool _advise)
 		{
 			if (_advise)
-				static_cast< MyGUI::Widget* >(_widget)->eventMouseWheel += MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventMouseWheel += MyGUI::newDelegate(OnEvent);
 			else
-				static_cast< MyGUI::Widget* >(_widget)->eventMouseWheel -= MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventMouseWheel -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 	namespace ScopeWidgetEvent_MouseMove
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			MyGUI::Widget * ,
-			Convert<int>::Type ,
-			Convert<int>::Type );
+			MyGUI::Widget *,
+			Convert<int>::Type,
+			Convert<int>::Type);
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
-			MyGUI::Widget * _sender ,
-			int _left ,
-			int _top )
+			MyGUI::Widget * _sender,
+			int _left,
+			int _top)
 		{
 			mExportHandle(
-				_sender ,
-				Convert<int>::To( _left ) ,
-				Convert<int>::To( _top ) );
+				_sender,
+				Convert<int>::To(_left),
+				Convert<int>::To(_top));
 		}
 		
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateMouseMove( ExportHandle _delegate )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateMouseMove(ExportHandle _delegate)
 		{
 			mExportHandle = _delegate;
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseMouseMove( MyGUI::Widget* _widget, bool _advise )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseMouseMove(MyGUI::Widget* _widget, bool _advise)
 		{
 			if (_advise)
-				static_cast< MyGUI::Widget* >(_widget)->eventMouseMove += MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventMouseMove += MyGUI::newDelegate(OnEvent);
 			else
-				static_cast< MyGUI::Widget* >(_widget)->eventMouseMove -= MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventMouseMove -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 	namespace ScopeWidgetEvent_MouseDrag
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			MyGUI::Widget * ,
-			Convert<int>::Type ,
-			Convert<int>::Type ,
-			Convert<MyGUI::MouseButton>::Type );
+			MyGUI::Widget *,
+			Convert<int>::Type,
+			Convert<int>::Type,
+			Convert<MyGUI::MouseButton>::Type);
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
-			MyGUI::Widget * _sender ,
-			int _left ,
-			int _top ,
-			MyGUI::MouseButton _value4 )
+			MyGUI::Widget * _sender,
+			int _left,
+			int _top,
+			MyGUI::MouseButton _value4)
 		{
 			mExportHandle(
-				_sender ,
-				Convert<int>::To( _left ) ,
-				Convert<int>::To( _top ) ,
-				Convert<MyGUI::MouseButton>::To( _value4 ) );
+				_sender,
+				Convert<int>::To(_left),
+				Convert<int>::To(_top),
+				Convert<MyGUI::MouseButton>::To(_value4));
 		}
 		
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateMouseDrag( ExportHandle _delegate )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateMouseDrag(ExportHandle _delegate)
 		{
 			mExportHandle = _delegate;
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseMouseDrag( MyGUI::Widget* _widget, bool _advise )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseMouseDrag(MyGUI::Widget* _widget, bool _advise)
 		{
 			if (_advise)
-				static_cast< MyGUI::Widget* >(_widget)->eventMouseDrag += MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventMouseDrag += MyGUI::newDelegate(OnEvent);
 			else
-				static_cast< MyGUI::Widget* >(_widget)->eventMouseDrag -= MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventMouseDrag -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 	namespace ScopeWidgetEvent_MouseSetFocus
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			MyGUI::Widget * ,
-			Convert<MyGUI::Widget *>::Type );
+			MyGUI::Widget *,
+			Convert<MyGUI::Widget *>::Type);
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
-			MyGUI::Widget * _sender ,
-			MyGUI::Widget * _old )
+			MyGUI::Widget * _sender,
+			MyGUI::Widget * _old)
 		{
 			mExportHandle(
-				_sender ,
-				Convert<MyGUI::Widget *>::To( _old ) );
+				_sender,
+				Convert<MyGUI::Widget *>::To(_old));
 		}
 		
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateMouseSetFocus( ExportHandle _delegate )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateMouseSetFocus(ExportHandle _delegate)
 		{
 			mExportHandle = _delegate;
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseMouseSetFocus( MyGUI::Widget* _widget, bool _advise )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseMouseSetFocus(MyGUI::Widget* _widget, bool _advise)
 		{
 			if (_advise)
-				static_cast< MyGUI::Widget* >(_widget)->eventMouseSetFocus += MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventMouseSetFocus += MyGUI::newDelegate(OnEvent);
 			else
-				static_cast< MyGUI::Widget* >(_widget)->eventMouseSetFocus -= MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventMouseSetFocus -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 	namespace ScopeWidgetEvent_MouseLostFocus
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			MyGUI::Widget * ,
-			Convert<MyGUI::Widget *>::Type );
+			MyGUI::Widget *,
+			Convert<MyGUI::Widget *>::Type);
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
-			MyGUI::Widget * _sender ,
-			MyGUI::Widget * _new )
+			MyGUI::Widget * _sender,
+			MyGUI::Widget * _new)
 		{
 			mExportHandle(
-				_sender ,
-				Convert<MyGUI::Widget *>::To( _new ) );
+				_sender,
+				Convert<MyGUI::Widget *>::To(_new));
 		}
 		
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateMouseLostFocus( ExportHandle _delegate )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_DelegateMouseLostFocus(ExportHandle _delegate)
 		{
 			mExportHandle = _delegate;
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseMouseLostFocus( MyGUI::Widget* _widget, bool _advise )
+		MYGUIEXPORT void MYGUICALL ExportWidgetEvent_AdviseMouseLostFocus(MyGUI::Widget* _widget, bool _advise)
 		{
 			if (_advise)
-				static_cast< MyGUI::Widget* >(_widget)->eventMouseLostFocus += MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventMouseLostFocus += MyGUI::newDelegate(OnEvent);
 			else
-				static_cast< MyGUI::Widget* >(_widget)->eventMouseLostFocus -= MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::Widget*>(_widget)->eventMouseLostFocus -= MyGUI::newDelegate(OnEvent);
 		}
 	}
 	namespace ScopeWidgetMethod_IsMaskPickInside
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_IsMaskPickInside_point_coord( MyGUI::Widget* _native,
-			Convert<const MyGUI::types::TPoint < int > &>::Type _point ,
-			Convert<const MyGUI::types::TCoord < int > &>::Type _coord )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_IsMaskPickInside__point__coord(MyGUI::Widget* _native,
+			Convert<const MyGUI::types::TPoint < int > &>::Type _point,
+			Convert<const MyGUI::types::TCoord < int > &>::Type _coord)
 		{
-			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->isMaskPickInside(
-				Convert<const MyGUI::types::TPoint < int > &>::From( _point ) ,
-				Convert<const MyGUI::types::TCoord < int > &>::From( _coord ) ));
+			return Convert<bool>::To(static_cast<MyGUI::Widget*>(_native)->isMaskPickInside(
+				Convert<const MyGUI::types::TPoint < int > &>::From(_point),
+				Convert<const MyGUI::types::TCoord < int > &>::From(_coord)));
 		}
 	}
 	namespace ScopeWidgetProperty_RootKeyFocus
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetRootKeyFocus( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetRootKeyFocus(MyGUI::Widget* _native)
 		{
-			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->getRootKeyFocus( ) );
+			return Convert<bool>::To(static_cast<MyGUI::Widget*>(_native)->getRootKeyFocus());
 		}
 	}
 	namespace ScopeWidgetProperty_RootMouseFocus
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetRootMouseFocus( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetRootMouseFocus(MyGUI::Widget* _native)
 		{
-			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->getRootMouseFocus( ) );
+			return Convert<bool>::To(static_cast<MyGUI::Widget*>(_native)->getRootMouseFocus());
 		}
 	}
 	namespace ScopeWidgetProperty_InheritsPick
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetInheritsPick( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetInheritsPick(MyGUI::Widget* _native)
 		{
-			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->getInheritsPick( ) );
+			return Convert<bool>::To(static_cast<MyGUI::Widget*>(_native)->getInheritsPick());
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetInheritsPick( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetInheritsPick(MyGUI::Widget* _native, Convert<bool>::Type _value)
 		{
-			static_cast< MyGUI::Widget * >(_native)->setInheritsPick( Convert<bool>::From( _value ) );
+			static_cast<MyGUI::Widget*>(_native)->setInheritsPick(Convert<bool>::From(_value));
 		}
 	}
 	namespace ScopeWidgetProperty_NeedMouseFocus
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetNeedMouseFocus( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetNeedMouseFocus(MyGUI::Widget* _native)
 		{
-			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->getNeedMouseFocus( ) );
+			return Convert<bool>::To(static_cast<MyGUI::Widget*>(_native)->getNeedMouseFocus());
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetNeedMouseFocus( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetNeedMouseFocus(MyGUI::Widget* _native, Convert<bool>::Type _value)
 		{
-			static_cast< MyGUI::Widget * >(_native)->setNeedMouseFocus( Convert<bool>::From( _value ) );
+			static_cast<MyGUI::Widget*>(_native)->setNeedMouseFocus(Convert<bool>::From(_value));
 		}
 	}
 	namespace ScopeWidgetProperty_NeedKeyFocus
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetNeedKeyFocus( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetNeedKeyFocus(MyGUI::Widget* _native)
 		{
-			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->getNeedKeyFocus( ) );
+			return Convert<bool>::To(static_cast<MyGUI::Widget*>(_native)->getNeedKeyFocus());
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetNeedKeyFocus( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetNeedKeyFocus(MyGUI::Widget* _native, Convert<bool>::Type _value)
 		{
-			static_cast< MyGUI::Widget * >(_native)->setNeedKeyFocus( Convert<bool>::From( _value ) );
+			static_cast<MyGUI::Widget*>(_native)->setNeedKeyFocus(Convert<bool>::From(_value));
 		}
 	}
 	namespace ScopeWidgetProperty_Pointer
 	{
-		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportWidget_GetPointer( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<const std::string &>::Type MYGUICALL ExportWidget_GetPointer(MyGUI::Widget* _native)
 		{
-			return Convert<const std::string &>::To( static_cast< MyGUI::Widget * >(_native)->getPointer( ) );
+			return Convert<const std::string &>::To(static_cast<MyGUI::Widget*>(_native)->getPointer());
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetPointer( MyGUI::Widget* _native , Convert<const std::string &>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetPointer(MyGUI::Widget* _native, Convert<const std::string &>::Type _value)
 		{
-			static_cast< MyGUI::Widget * >(_native)->setPointer( Convert<const std::string &>::From( _value ) );
+			static_cast<MyGUI::Widget*>(_native)->setPointer(Convert<const std::string &>::From(_value));
 		}
 	}
 	namespace ScopeWidgetProperty_NeedToolTip
 	{
-		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetNeedToolTip( MyGUI::Widget* _native )
+		MYGUIEXPORT Convert<bool>::Type MYGUICALL ExportWidget_GetNeedToolTip(MyGUI::Widget* _native)
 		{
-			return Convert<bool>::To( static_cast< MyGUI::Widget * >(_native)->getNeedToolTip( ) );
+			return Convert<bool>::To(static_cast<MyGUI::Widget*>(_native)->getNeedToolTip());
 		}
-		MYGUIEXPORT void MYGUICALL ExportWidget_SetNeedToolTip( MyGUI::Widget* _native , Convert<bool>::Type _value )
+		MYGUIEXPORT void MYGUICALL ExportWidget_SetNeedToolTip(MyGUI::Widget* _native, Convert<bool>::Type _value)
 		{
-			static_cast< MyGUI::Widget * >(_native)->setNeedToolTip( Convert<bool>::From( _value ) );
+			static_cast<MyGUI::Widget*>(_native)->setNeedToolTip(Convert<bool>::From(_value));
 		}
 	}
 }

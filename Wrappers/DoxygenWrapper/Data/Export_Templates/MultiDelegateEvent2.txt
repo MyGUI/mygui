@@ -1,28 +1,28 @@
 ﻿	namespace Scope#{ThisName}Event_#{DelegateName}
 	{
 		typedef void (MYGUICALLBACK *ExportHandle)(
-			#{OriginalTypeName1} ,
-			Convert<#{OriginalTypeName2}>::Type );
+			#{OriginalTypeName1},
+			Convert<#{OriginalTypeName2}>::Type);
 		ExportHandle mExportHandle = nullptr;
 		
 		void OnEvent(
-			#{OriginalTypeName1} #{ValueName1} ,
-			#{OriginalTypeName2} #{ValueName2} )
+			#{OriginalTypeName1} #{ValueName1},
+			#{OriginalTypeName2} #{ValueName2})
 		{
 			mExportHandle(
-				#{ValueName1} ,
-				Convert<#{OriginalTypeName2}>::To( #{ValueName2} ) );
+				#{ValueName1},
+				Convert<#{OriginalTypeName2}>::To(#{ValueName2}));
 		}
 		
-		MYGUIEXPORT void MYGUICALL Export#{ThisName}Event_Delegate#{DelegateName}( ExportHandle _delegate )
+		MYGUIEXPORT void MYGUICALL Export#{ThisName}Event_Delegate#{DelegateName}(ExportHandle _delegate)
 		{
 			mExportHandle = _delegate;
 		}
-		MYGUIEXPORT void MYGUICALL Export#{ThisName}Event_Advise#{DelegateName}( MyGUI::Widget* _widget, bool _advise )
+		MYGUIEXPORT void MYGUICALL Export#{ThisName}Event_Advise#{DelegateName}(MyGUI::Widget* _widget, bool _advise)
 		{
 			if (_advise)
-				static_cast< MyGUI::#{ThisType}* >(_widget)->event#{DelegateName} += MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::#{ThisType}*>(_widget)->event#{DelegateName} += MyGUI::newDelegate(OnEvent);
 			else
-				static_cast< MyGUI::#{ThisType}* >(_widget)->event#{DelegateName} -= MyGUI::newDelegate(OnEvent);
+				static_cast<MyGUI::#{ThisType}*>(_widget)->event#{DelegateName} -= MyGUI::newDelegate(OnEvent);
 		}
 	}

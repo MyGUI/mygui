@@ -16,9 +16,8 @@
 
 namespace Export
 {
-
 	//InsertPoint
 
 }
 
-#endif // __EXPORT_WIDGET_MenuBar_H__
+#endif

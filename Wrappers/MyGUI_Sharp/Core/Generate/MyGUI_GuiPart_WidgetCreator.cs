@@ -2,10 +2,9 @@ using System;
 
 namespace MyGUI.Sharp
 {
-
 	public partial class Gui
 	{
-		void InitialiseWidgetCreator()
+		private void InitialiseWidgetCreator()
 		{
 			//InsertPoint
 			mMapWrapper.Add("MultiListItem", MultiListItem.RequestWrapMultiListItem);
@@ -52,5 +51,4 @@ namespace MyGUI.Sharp
 			mMapCreator.Add("Widget", Widget.RequestCreateWidget);
 		}
 	}
-	
-} // namespace MyGUI.Sharp
+}

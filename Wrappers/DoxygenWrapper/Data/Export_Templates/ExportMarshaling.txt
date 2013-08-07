@@ -12,9 +12,8 @@
 
 namespace Export
 {
-
 	//InsertPoint
 
-} // namespace Export
+}
 
 #endif // __EXPORT_MARSHALING_WIDGET_H__

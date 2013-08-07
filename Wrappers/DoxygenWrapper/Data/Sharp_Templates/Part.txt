@@ -10,12 +10,9 @@ using System.Runtime.InteropServices;
 
 namespace MyGUI.Sharp
 {
-
     public partial class #{ThisName}
     {
-
 		//InsertPoint
 		
     }
-
 }
