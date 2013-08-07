@@ -89,52 +89,6 @@ namespace Export
 		return Convert<const std::string&>::To(_widget->getTypeName());
 	}
 
-	/*namespace ScopeGuiEvent_CreateWrapp
-	{
-		typedef Interface (MYGUICALLBACK* ExportHandle)( Convert<const std::string&>::Type _type, Interface _parent, MyGUI::Widget* _widget );
-		ExportHandle mExportHandle = nullptr;
-
-		MYGUIEXPORT void MYGUICALL ExportGui_SetCreatorWrapps( ExportHandle _delegate )
-		{
-			mExportHandle = _delegate;
-		}
-	}*/
-
-	/*namespace ScopeGuiEvent_GetNativeByWrapper
-	{
-		typedef MyGUI::Widget* (MYGUICALLBACK* ExportHandle)( Interface _wrapper );
-		ExportHandle mExportHandle = nullptr;
-
-		MYGUIEXPORT void MYGUICALL ExportGui_SetGetNativeByWrapper( ExportHandle _delegate )
-		{
-			mExportHandle = _delegate;
-		}
-	}*/
-
-	/*Interface GetMangedParent( MyGUI::WidgetPtr _widget )
-	{
-		MyGUI::WidgetPtr parent = _widget->getParent();
-		while (parent != nullptr)
-		{
-			Interface* obj = parent->getUserData<Interface>(false);
-			if (obj != nullptr) return *obj;
-			parent = parent->getParent();
-		}
-		return nullptr;
-	}*/
-
-	/*Interface CreateWrapper( MyGUI::WidgetPtr _widget )
-	{
-		if (_widget == nullptr) return nullptr;
-		return ScopeGuiEvent_CreateWrapp::mExportHandle( Convert<const std::string&>::To( _widget->getTypeName() ), GetMangedParent(_widget), _widget );
-	}*/
-
-	/*MyGUI::Widget* GetNativeByWrapper( Interface _wrapper )
-	{
-		if (_wrapper == nullptr) return nullptr;
-		return ScopeGuiEvent_GetNativeByWrapper::mExportHandle( _wrapper );
-	}*/
-
 	MYGUIEXPORT void MYGUICALL ExportGui_LoadResource(
 		Convert<const std::string&>::Type _source)
 	{
