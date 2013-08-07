@@ -10,10 +10,9 @@ using System.Runtime.InteropServices;
 
 namespace MyGUI.Sharp
 {
-
-    public  class TabControl : Widget
+    public  class TabControl :
+		Widget
     {
-
         #region TabControl
 
         protected override string GetWidgetType() { return "TabControl"; }
@@ -39,11 +38,11 @@ namespace MyGUI.Sharp
 		#region Event TabChangeSelect
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabControlEvent_AdviseTabChangeSelect( IntPtr _native, bool _advise );
+		private static extern void ExportTabControlEvent_AdviseTabChangeSelect(IntPtr _native, bool _advise);
 
 		public delegate void HandleTabChangeSelect(
-			 TabControl _sender ,
-			 uint _index );
+			TabControl _sender,
+			uint _index);
 			
 		private HandleTabChangeSelect mEventTabChangeSelect;
 		public event HandleTabChangeSelect EventTabChangeSelect
@@ -52,44 +51,44 @@ namespace MyGUI.Sharp
 			{
 				if (ExportEventTabChangeSelect.mDelegate == null)
 				{
-					ExportEventTabChangeSelect.mDelegate = new ExportEventTabChangeSelect.ExportHandle( OnExportTabChangeSelect );
-					ExportEventTabChangeSelect.ExportTabControlEvent_DelegateTabChangeSelect( ExportEventTabChangeSelect.mDelegate );
+					ExportEventTabChangeSelect.mDelegate = new ExportEventTabChangeSelect.ExportHandle(OnExportTabChangeSelect);
+					ExportEventTabChangeSelect.ExportTabControlEvent_DelegateTabChangeSelect(ExportEventTabChangeSelect.mDelegate);
 				}
 
 				if (mEventTabChangeSelect == null)
-					ExportTabControlEvent_AdviseTabChangeSelect( Native, true );
+					ExportTabControlEvent_AdviseTabChangeSelect(Native, true);
 				mEventTabChangeSelect += value;
 			}
 			remove
 			{
 				mEventTabChangeSelect -= value;
 				if (mEventTabChangeSelect == null)
-					ExportTabControlEvent_AdviseTabChangeSelect( Native, false );
+					ExportTabControlEvent_AdviseTabChangeSelect(Native, false);
 			}
 		}
 
 		private struct ExportEventTabChangeSelect
 		{
 			[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-			public static extern void ExportTabControlEvent_DelegateTabChangeSelect( ExportHandle _delegate );
+			public static extern void ExportTabControlEvent_DelegateTabChangeSelect(ExportHandle _delegate);
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
-				IntPtr _sender ,
-				  uint _index );
+				IntPtr _sender,
+				uint _index);
 				
 			public static ExportHandle mDelegate;
 		}
 
 		private static void OnExportTabChangeSelect(
-			IntPtr _sender ,
-			 uint _index )
+			IntPtr _sender,
+			uint _index)
 		{
-			 TabControl sender = (  TabControl )BaseWidget.GetByNative( _sender );
+			TabControl sender = (TabControl)BaseWidget.GetByNative(_sender);
 
 			if (sender.mEventTabChangeSelect != null)
 				sender.mEventTabChangeSelect(
 					sender ,
-					 _index );
+					_index);
 		}
 
 		#endregion
@@ -97,14 +96,14 @@ namespace MyGUI.Sharp
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern int ExportTabControl_GetButtonWidth_item( IntPtr _native ,
-			  IntPtr _item );
+		private static extern int ExportTabControl_GetButtonWidth__item(IntPtr _native,
+			IntPtr _item);
 
 		public int GetButtonWidth(
-			TabItem _item )
+			TabItem _item)
 		{
-			return  ExportTabControl_GetButtonWidth_item( Native , 
-				 _item .Native )  ;
+			return ExportTabControl_GetButtonWidth__item(Native,
+				_item.Native);
 		}
 
 		#endregion
@@ -112,109 +111,109 @@ namespace MyGUI.Sharp
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern int ExportTabControl_GetButtonWidthAt_index( IntPtr _native ,
-			  uint _index );
+		private static extern int ExportTabControl_GetButtonWidthAt__index(IntPtr _native,
+			uint _index);
 
 		public int GetButtonWidthAt(
-			uint _index )
+			uint _index)
 		{
-			return  ExportTabControl_GetButtonWidthAt_index( Native , 
-				 _index  )  ;
+			return ExportTabControl_GetButtonWidthAt__index(Native,
+				_index);
 		}
 
 		#endregion
 		#region Method SetButtonWidth
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabControl_SetButtonWidth_item_width( IntPtr _native ,
-			  IntPtr _item ,
-			  int _width );
+		private static extern void ExportTabControl_SetButtonWidth__item__width(IntPtr _native,
+			IntPtr _item,
+			int _width);
 
 		public void SetButtonWidth(
-			TabItem _item ,
-			int _width )
+			TabItem _item,
+			int _width)
 		{
-			ExportTabControl_SetButtonWidth_item_width( Native , 
-				 _item .Native,
-				 _width  );
+			ExportTabControl_SetButtonWidth__item__width(Native,
+				_item.Native,
+				_width);
 		}
 
 		#endregion
 		#region Method SetButtonWidthAt
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabControl_SetButtonWidthAt_index_width( IntPtr _native ,
-			  uint _index ,
-			  int _width );
+		private static extern void ExportTabControl_SetButtonWidthAt__index__width(IntPtr _native,
+			uint _index,
+			int _width);
 
 		public void SetButtonWidthAt(
-			uint _index ,
-			int _width )
+			uint _index,
+			int _width)
 		{
-			ExportTabControl_SetButtonWidthAt_index_width( Native , 
-				 _index ,
-				 _width  );
+			ExportTabControl_SetButtonWidthAt__index__width(Native,
+				_index,
+				_width);
 		}
 
 		#endregion
 		#region Method BeginToItemSelected
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabControl_BeginToItemSelected( IntPtr _native );
+		private static extern void ExportTabControl_BeginToItemSelected(IntPtr _native);
 
 		public void BeginToItemSelected( )
 		{
-			ExportTabControl_BeginToItemSelected( Native );
+			ExportTabControl_BeginToItemSelected(Native);
 		}
 
 		#endregion
 		#region Method BeginToItemLast
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabControl_BeginToItemLast( IntPtr _native );
+		private static extern void ExportTabControl_BeginToItemLast(IntPtr _native);
 
 		public void BeginToItemLast( )
 		{
-			ExportTabControl_BeginToItemLast( Native );
+			ExportTabControl_BeginToItemLast(Native);
 		}
 
 		#endregion
 		#region Method BeginToItemFirst
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabControl_BeginToItemFirst( IntPtr _native );
+		private static extern void ExportTabControl_BeginToItemFirst(IntPtr _native);
 
 		public void BeginToItemFirst( )
 		{
-			ExportTabControl_BeginToItemFirst( Native );
+			ExportTabControl_BeginToItemFirst(Native);
 		}
 
 		#endregion
 		#region Method BeginToItem
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabControl_BeginToItem_item( IntPtr _native ,
-			  IntPtr _item );
+		private static extern void ExportTabControl_BeginToItem__item(IntPtr _native,
+			IntPtr _item);
 
 		public void BeginToItem(
-			TabItem _item )
+			TabItem _item)
 		{
-			ExportTabControl_BeginToItem_item( Native , 
-				 _item .Native );
+			ExportTabControl_BeginToItem__item(Native,
+				_item.Native);
 		}
 
 		#endregion
 		#region Method BeginToItemAt
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabControl_BeginToItemAt_index( IntPtr _native ,
-			  uint _index );
+		private static extern void ExportTabControl_BeginToItemAt__index(IntPtr _native,
+			uint _index);
 
 		public void BeginToItemAt(
-			uint _index )
+			uint _index)
 		{
-			ExportTabControl_BeginToItemAt_index( Native , 
-				 _index  );
+			ExportTabControl_BeginToItemAt__index(Native,
+				_index);
 		}
 
 		#endregion
@@ -222,14 +221,14 @@ namespace MyGUI.Sharp
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern IntPtr ExportTabControl_GetItemName_item( IntPtr _native ,
-			  IntPtr _item );
+		private static extern IntPtr ExportTabControl_GetItemName__item(IntPtr _native,
+			IntPtr _item);
 
 		public string GetItemName(
-			TabItem _item )
+			TabItem _item)
 		{
-			return  Marshal.PtrToStringUni(  ExportTabControl_GetItemName_item( Native , 
-				 _item .Native )  )  ;
+			return Marshal.PtrToStringUni(ExportTabControl_GetItemName__item(Native,
+				_item.Native));
 		}
 
 		#endregion
@@ -237,65 +236,65 @@ namespace MyGUI.Sharp
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern IntPtr ExportTabControl_GetItemNameAt_index( IntPtr _native ,
-			  uint _index );
+		private static extern IntPtr ExportTabControl_GetItemNameAt__index(IntPtr _native,
+			uint _index);
 
 		public string GetItemNameAt(
-			uint _index )
+			uint _index)
 		{
-			return  Marshal.PtrToStringUni(  ExportTabControl_GetItemNameAt_index( Native , 
-				 _index  )  )  ;
+			return Marshal.PtrToStringUni(ExportTabControl_GetItemNameAt__index(Native,
+				_index));
 		}
 
 		#endregion
 		#region Method SetItemName
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabControl_SetItemName_item_name( IntPtr _native ,
-			  IntPtr _item ,
-			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
+		private static extern void ExportTabControl_SetItemName__item__name(IntPtr _native,
+			IntPtr _item,
+			[MarshalAs(UnmanagedType.LPWStr)] string _name);
 
 		public void SetItemName(
-			TabItem _item ,
-			string _name )
+			TabItem _item,
+			string _name)
 		{
-			ExportTabControl_SetItemName_item_name( Native , 
-				 _item .Native,
-				 _name  );
+			ExportTabControl_SetItemName__item__name(Native,
+				_item.Native,
+				_name);
 		}
 
 		#endregion
 		#region Method SetItemNameAt
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabControl_SetItemNameAt_index_name( IntPtr _native ,
-			  uint _index ,
-			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
+		private static extern void ExportTabControl_SetItemNameAt__index__name(IntPtr _native,
+			uint _index,
+			[MarshalAs(UnmanagedType.LPWStr)] string _name);
 
 		public void SetItemNameAt(
-			uint _index ,
-			string _name )
+			uint _index,
+			string _name)
 		{
-			ExportTabControl_SetItemNameAt_index_name( Native , 
-				 _index ,
-				 _name  );
+			ExportTabControl_SetItemNameAt__index__name(Native,
+				_index,
+				_name);
 		}
 
 		#endregion
 		#region Method SwapItems
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabControl_SwapItems_index1_index2( IntPtr _native ,
-			  uint _index1 ,
-			  uint _index2 );
+		private static extern void ExportTabControl_SwapItems__index1__index2(IntPtr _native,
+			uint _index1,
+			uint _index2);
 
 		public void SwapItems(
-			uint _index1 ,
-			uint _index2 )
+			uint _index1,
+			uint _index2)
 		{
-			ExportTabControl_SwapItems_index1_index2( Native , 
-				 _index1 ,
-				 _index2  );
+			ExportTabControl_SwapItems__index1__index2(Native,
+				_index1,
+				_index2);
 		}
 
 		#endregion
@@ -303,14 +302,14 @@ namespace MyGUI.Sharp
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern IntPtr ExportTabControl_FindItemWith_name( IntPtr _native ,
-			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
+		private static extern IntPtr ExportTabControl_FindItemWith__name(IntPtr _native,
+			[MarshalAs(UnmanagedType.LPWStr)] string _name);
 
 		public TabItem FindItemWith(
-			string _name )
+			string _name)
 		{
-			return (TabItem)BaseWidget.GetByNative( ExportTabControl_FindItemWith_name( Native , 
-				 _name  ) ) ;
+			return (TabItem)BaseWidget.GetByNative(ExportTabControl_FindItemWith__name(Native,
+				_name));
 		}
 
 		#endregion
@@ -318,14 +317,14 @@ namespace MyGUI.Sharp
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern uint ExportTabControl_FindItemIndexWith_name( IntPtr _native ,
-			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
+		private static extern uint ExportTabControl_FindItemIndexWith__name(IntPtr _native,
+			[MarshalAs(UnmanagedType.LPWStr)] string _name);
 
 		public uint FindItemIndexWith(
-			string _name )
+			string _name)
 		{
-			return  ExportTabControl_FindItemIndexWith_name( Native , 
-				 _name  )  ;
+			return ExportTabControl_FindItemIndexWith__name(Native,
+				_name);
 		}
 
 		#endregion
@@ -333,14 +332,14 @@ namespace MyGUI.Sharp
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern uint ExportTabControl_FindItemIndex_item( IntPtr _native ,
-			  IntPtr _item );
+		private static extern uint ExportTabControl_FindItemIndex__item(IntPtr _native,
+			IntPtr _item);
 
 		public uint FindItemIndex(
-			TabItem _item )
+			TabItem _item)
 		{
-			return  ExportTabControl_FindItemIndex_item( Native , 
-				 _item .Native )  ;
+			return ExportTabControl_FindItemIndex__item(Native,
+				_item.Native);
 		}
 
 		#endregion
@@ -348,14 +347,14 @@ namespace MyGUI.Sharp
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern uint ExportTabControl_GetItemIndex_item( IntPtr _native ,
-			  IntPtr _item );
+		private static extern uint ExportTabControl_GetItemIndex__item(IntPtr _native,
+			IntPtr _item);
 
 		public uint GetItemIndex(
-			TabItem _item )
+			TabItem _item)
 		{
-			return  ExportTabControl_GetItemIndex_item( Native , 
-				 _item .Native )  ;
+			return ExportTabControl_GetItemIndex__item(Native,
+				_item.Native);
 		}
 
 		#endregion
@@ -363,53 +362,53 @@ namespace MyGUI.Sharp
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern IntPtr ExportTabControl_GetItemAt_index( IntPtr _native ,
-			  uint _index );
+		private static extern IntPtr ExportTabControl_GetItemAt__index(IntPtr _native,
+			uint _index);
 
 		public TabItem GetItemAt(
-			uint _index )
+			uint _index)
 		{
-			return (TabItem)BaseWidget.GetByNative( ExportTabControl_GetItemAt_index( Native , 
-				 _index  ) ) ;
+			return (TabItem)BaseWidget.GetByNative(ExportTabControl_GetItemAt__index(Native,
+				_index));
 		}
 
 		#endregion
 		#region Method RemoveAllItems
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabControl_RemoveAllItems( IntPtr _native );
+		private static extern void ExportTabControl_RemoveAllItems(IntPtr _native);
 
 		public void RemoveAllItems( )
 		{
-			ExportTabControl_RemoveAllItems( Native );
+			ExportTabControl_RemoveAllItems(Native);
 		}
 
 		#endregion
 		#region Method RemoveItem
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabControl_RemoveItem_item( IntPtr _native ,
-			  IntPtr _item );
+		private static extern void ExportTabControl_RemoveItem__item(IntPtr _native,
+			IntPtr _item);
 
 		public void RemoveItem(
-			TabItem _item )
+			TabItem _item)
 		{
-			ExportTabControl_RemoveItem_item( Native , 
-				 _item .Native );
+			ExportTabControl_RemoveItem__item(Native,
+				_item.Native);
 		}
 
 		#endregion
 		#region Method RemoveItemAt
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabControl_RemoveItemAt_index( IntPtr _native ,
-			  uint _index );
+		private static extern void ExportTabControl_RemoveItemAt__index(IntPtr _native,
+			uint _index);
 
 		public void RemoveItemAt(
-			uint _index )
+			uint _index)
 		{
-			ExportTabControl_RemoveItemAt_index( Native , 
-				 _index  );
+			ExportTabControl_RemoveItemAt__index(Native,
+				_index);
 		}
 
 		#endregion
@@ -417,14 +416,14 @@ namespace MyGUI.Sharp
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern IntPtr ExportTabControl_AddItem_name( IntPtr _native ,
-			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
+		private static extern IntPtr ExportTabControl_AddItem__name(IntPtr _native,
+			[MarshalAs(UnmanagedType.LPWStr)] string _name);
 
 		public TabItem AddItem(
-			string _name )
+			string _name)
 		{
-			return (TabItem)BaseWidget.GetByNative( ExportTabControl_AddItem_name( Native , 
-				 _name  ) ) ;
+			return (TabItem)BaseWidget.GetByNative(ExportTabControl_AddItem__name(Native,
+				_name));
 		}
 
 		#endregion
@@ -432,47 +431,47 @@ namespace MyGUI.Sharp
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern IntPtr ExportTabControl_InsertItemAt_index_name( IntPtr _native ,
-			  uint _index ,
-			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
+		private static extern IntPtr ExportTabControl_InsertItemAt__index__name(IntPtr _native,
+			uint _index,
+			[MarshalAs(UnmanagedType.LPWStr)] string _name);
 
 		public TabItem InsertItemAt(
-			uint _index ,
-			string _name )
+			uint _index,
+			string _name)
 		{
-			return (TabItem)BaseWidget.GetByNative( ExportTabControl_InsertItemAt_index_name( Native , 
-				 _index  ,
-				 _name  ) ) ;
+			return (TabItem)BaseWidget.GetByNative(ExportTabControl_InsertItemAt__index__name(Native,
+				_index,
+				_name));
 		}
 
 		#endregion
 		#region Property SmoothShow
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportTabControl_GetSmoothShow( IntPtr _widget );
+        
+		private static extern bool ExportTabControl_GetSmoothShow(IntPtr _widget);
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabControl_SetSmoothShow( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
+		private static extern void ExportTabControl_SetSmoothShow(IntPtr _widget, [MarshalAs(UnmanagedType.U1)] bool _value);
 
 		public bool SmoothShow
 		{
-			get { return  ExportTabControl_GetSmoothShow( Native )  ; }
-			set { ExportTabControl_SetSmoothShow( Native,  value ); }
+			get { return ExportTabControl_GetSmoothShow(Native); }
+			set { ExportTabControl_SetSmoothShow(Native, value); }
 		}
 
 		#endregion
 		#region Property ButtonAutoWidth
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.U1)]
-		private static extern bool ExportTabControl_GetButtonAutoWidth( IntPtr _widget );
+        
+		private static extern bool ExportTabControl_GetButtonAutoWidth(IntPtr _widget);
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabControl_SetButtonAutoWidth( IntPtr _widget, [MarshalAs(UnmanagedType.U1)]  bool _value );
+		private static extern void ExportTabControl_SetButtonAutoWidth(IntPtr _widget, [MarshalAs(UnmanagedType.U1)] bool _value);
 
 		public bool ButtonAutoWidth
 		{
-			get { return  ExportTabControl_GetButtonAutoWidth( Native )  ; }
-			set { ExportTabControl_SetButtonAutoWidth( Native,  value ); }
+			get { return ExportTabControl_GetButtonAutoWidth(Native); }
+			set { ExportTabControl_SetButtonAutoWidth(Native, value); }
 		}
 
 		#endregion
@@ -480,14 +479,14 @@ namespace MyGUI.Sharp
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern int ExportTabControl_GetButtonDefaultWidth( IntPtr _widget );
+		private static extern int ExportTabControl_GetButtonDefaultWidth(IntPtr _widget);
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabControl_SetButtonDefaultWidth( IntPtr _widget,   int _value );
+		private static extern void ExportTabControl_SetButtonDefaultWidth(IntPtr _widget, int _value);
 
 		public int ButtonDefaultWidth
 		{
-			get { return  ExportTabControl_GetButtonDefaultWidth( Native )  ; }
-			set { ExportTabControl_SetButtonDefaultWidth( Native,  value ); }
+			get { return ExportTabControl_GetButtonDefaultWidth(Native); }
+			set { ExportTabControl_SetButtonDefaultWidth(Native, value); }
 		}
 
 		#endregion
@@ -495,14 +494,14 @@ namespace MyGUI.Sharp
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern IntPtr ExportTabControl_GetItemSelected( IntPtr _widget );
+		private static extern IntPtr ExportTabControl_GetItemSelected(IntPtr _widget);
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabControl_SetItemSelected( IntPtr _widget,   TabItem _value );
+		private static extern void ExportTabControl_SetItemSelected(IntPtr _widget, TabItem _value);
 
 		public TabItem ItemSelected
 		{
-			get { return (TabItem)BaseWidget.GetByNative( ExportTabControl_GetItemSelected( Native ) ) ; }
-			set { ExportTabControl_SetItemSelected( Native,  value ); }
+			get { return (TabItem)BaseWidget.GetByNative(ExportTabControl_GetItemSelected(Native)); }
+			set { ExportTabControl_SetItemSelected(Native, value); }
 		}
 
 		#endregion
@@ -510,14 +509,14 @@ namespace MyGUI.Sharp
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern uint ExportTabControl_GetIndexSelected( IntPtr _widget );
+		private static extern uint ExportTabControl_GetIndexSelected(IntPtr _widget);
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabControl_SetIndexSelected( IntPtr _widget,   uint _value );
+		private static extern void ExportTabControl_SetIndexSelected(IntPtr _widget, uint _value);
 
 		public uint IndexSelected
 		{
-			get { return  ExportTabControl_GetIndexSelected( Native )  ; }
-			set { ExportTabControl_SetIndexSelected( Native,  value ); }
+			get { return ExportTabControl_GetIndexSelected(Native); }
+			set { ExportTabControl_SetIndexSelected(Native, value); }
 		}
 
 		#endregion
@@ -525,15 +524,14 @@ namespace MyGUI.Sharp
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
-		private static extern uint ExportTabControl_GetItemCount( IntPtr _native );
+		private static extern uint ExportTabControl_GetItemCount(IntPtr _native);
 
 		public uint ItemCount
 		{
-			get { return  ExportTabControl_GetItemCount( Native )  ; }
+			get { return ExportTabControl_GetItemCount(Native); }
 		}
 
 		#endregion
 		
     }
-
 }

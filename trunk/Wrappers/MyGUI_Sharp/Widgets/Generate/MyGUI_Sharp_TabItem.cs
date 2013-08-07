@@ -10,10 +10,9 @@ using System.Runtime.InteropServices;
 
 namespace MyGUI.Sharp
 {
-
-    public  class TabItem : TextBox
+    public  class TabItem :
+		TextBox
     {
-
         #region TabItem
 
         protected override string GetWidgetType() { return "TabItem"; }
@@ -39,18 +38,17 @@ namespace MyGUI.Sharp
 		#region Method SetButtonWidth
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportTabItem_SetButtonWidth_value( IntPtr _native ,
-			  int _value );
+		private static extern void ExportTabItem_SetButtonWidth__value(IntPtr _native,
+			int _value);
 
 		public void SetButtonWidth(
-			int _value )
+			int _value)
 		{
-			ExportTabItem_SetButtonWidth_value( Native , 
-				 _value  );
+			ExportTabItem_SetButtonWidth__value(Native,
+				_value);
 		}
 
 		#endregion
 		
     }
-
 }
