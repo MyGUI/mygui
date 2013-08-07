@@ -17,15 +17,6 @@ namespace Export
 	// базовые шаблоны для конвертации переменных и типов
 	template <typename T> struct Convert
 	{
-		/*typedef T Type;
-		static inline Type To(T _value)
-		{
-			return _value;
-		}
-		static inline T From(Type _value)
-		{
-			return _value;
-		}*/
 	};
 
 
@@ -505,20 +496,6 @@ namespace Export
 			return MyGUI::WidgetStyle::Enum(_value);
 		}
 	};
-
-	/*template <> struct Convert<MyGUI::Any>
-	{
-		typedef IUnknown Type;
-		inline static Type To(MyGUI::Any& _value)
-		{
-			IUnknown* data = _value.castType<IUnknown>(false);
-			return data == nullptr ? nullptr : *data;
-		}
-		inline static MyGUI::Any From(Type _value)
-		{
-			return _value;
-		}
-	};*/
 
 	template <> struct Convert<MyGUI::LogLevel>
 	{
