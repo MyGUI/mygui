@@ -45,7 +45,6 @@
     <Compile Include="Core\Generate\MyGUI_GuiPart_WidgetCreator.cs" />
     <Compile Include="Core\Gui.cs" />
     <Compile Include="Core\InputManager.cs" />
-    <Compile Include="Core\InterfaceMarshaler.cs" />
     <Compile Include="Core\LayerManager.cs" />
     <Compile Include="Core\Platform\DllName.cs" />
     <Compile Include="Core\Platform\Platform.cs" />

@@ -193,7 +193,7 @@ namespace MyGUI.Sharp
 			uint _index )
 		{
 			ExportComboBox_BeginToItemAt_index( Native , 
-				 _index );
+				 _index  );
 		}
 
 		#endregion
@@ -208,7 +208,7 @@ namespace MyGUI.Sharp
 			uint _index )
 		{
 			return  Marshal.PtrToStringUni(  ExportComboBox_GetItemNameAt_index( Native , 
-				 _index )  )  ;
+				 _index  )  )  ;
 		}
 
 		#endregion
@@ -225,7 +225,7 @@ namespace MyGUI.Sharp
 		{
 			ExportComboBox_SetItemNameAt_index_name( Native , 
 				 _index ,
-				 _name );
+				 _name  );
 		}
 
 		#endregion
@@ -251,7 +251,7 @@ namespace MyGUI.Sharp
 			string _name )
 		{
 			return  ExportComboBox_FindItemIndexWith_name( Native , 
-				 _name )  ;
+				 _name  )  ;
 		}
 
 		#endregion
@@ -276,7 +276,7 @@ namespace MyGUI.Sharp
 			uint _index )
 		{
 			ExportComboBox_RemoveItemAt_index( Native , 
-				 _index );
+				 _index  );
 		}
 
 		#endregion
@@ -290,7 +290,7 @@ namespace MyGUI.Sharp
 			string _name )
 		{
 			ExportComboBox_AddItem_name( Native , 
-				 _name );
+				 _name  );
 		}
 
 		#endregion
@@ -307,7 +307,7 @@ namespace MyGUI.Sharp
 		{
 			ExportComboBox_InsertItemAt_index_name( Native , 
 				 _index ,
-				 _name );
+				 _name  );
 		}
 
 		#endregion

@@ -286,7 +286,7 @@ namespace MyGUI.Sharp
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				IntPtr _sender ,
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _old );
+				  Widget _old );
 				
 			public static ExportHandle mDelegate;
 		}
@@ -343,7 +343,7 @@ namespace MyGUI.Sharp
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				IntPtr _sender ,
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _new );
+				  Widget _new );
 				
 			public static ExportHandle mDelegate;
 		}
@@ -819,7 +819,7 @@ namespace MyGUI.Sharp
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				IntPtr _sender ,
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _old );
+				  Widget _old );
 				
 			public static ExportHandle mDelegate;
 		}
@@ -876,7 +876,7 @@ namespace MyGUI.Sharp
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				IntPtr _sender ,
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _new );
+				  Widget _new );
 				
 			public static ExportHandle mDelegate;
 		}
@@ -907,8 +907,8 @@ namespace MyGUI.Sharp
 			IntCoord _coord )
 		{
 			return  ExportWidget_IsMaskPickInside_point_coord( Native , 
-				ref _point ,
-				ref _coord )  ;
+				ref _point  ,
+				ref _coord  )  ;
 		}
 
 		#endregion

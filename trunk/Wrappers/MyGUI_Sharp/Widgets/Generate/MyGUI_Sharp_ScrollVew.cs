@@ -49,7 +49,7 @@ namespace MyGUI.Sharp
 		{
 			ExportScrollView_SetCanvasSize_width_height( Native , 
 				 _width ,
-				 _height );
+				 _height  );
 		}
 
 		#endregion

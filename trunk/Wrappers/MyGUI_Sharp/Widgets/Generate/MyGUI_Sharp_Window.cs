@@ -159,7 +159,7 @@ namespace MyGUI.Sharp
 		{
 			ExportWindow_SetMaxSize_width_height( Native , 
 				 _width ,
-				 _height );
+				 _height  );
 		}
 
 		#endregion
@@ -176,7 +176,7 @@ namespace MyGUI.Sharp
 		{
 			ExportWindow_SetMinSize_width_height( Native , 
 				 _width ,
-				 _height );
+				 _height  );
 		}
 
 		#endregion
@@ -190,7 +190,7 @@ namespace MyGUI.Sharp
 			bool _value )
 		{
 			ExportWindow_SetVisibleSmooth_value( Native , 
-				 _value );
+				 _value  );
 		}
 
 		#endregion
@@ -269,12 +269,12 @@ namespace MyGUI.Sharp
 		#region Property CaptionWidget
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
-		private static extern TextBox ExportWindow_GetCaptionWidget( IntPtr _native );
+        
+		private static extern IntPtr ExportWindow_GetCaptionWidget( IntPtr _native );
 
 		public TextBox CaptionWidget
 		{
-			get { return  ExportWindow_GetCaptionWidget( Native )  ; }
+			get { return (TextBox)BaseWidget.GetByNative( ExportWindow_GetCaptionWidget( Native ) ) ; }
 		}
 
 		#endregion

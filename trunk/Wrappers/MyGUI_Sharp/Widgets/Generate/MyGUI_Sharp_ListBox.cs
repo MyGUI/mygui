@@ -381,15 +381,15 @@ namespace MyGUI.Sharp
 		#region Method GetWidgetByIndex
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
-		private static extern Widget ExportListBox_GetWidgetByIndex_index( IntPtr _native ,
+        
+		private static extern IntPtr ExportListBox_GetWidgetByIndex_index( IntPtr _native ,
 			  uint _index );
 
 		public Widget GetWidgetByIndex(
 			uint _index )
 		{
-			return  ExportListBox_GetWidgetByIndex_index( Native , 
-				 _index )  ;
+			return (Widget)BaseWidget.GetByNative( ExportListBox_GetWidgetByIndex_index( Native , 
+				 _index  ) ) ;
 		}
 
 		#endregion
@@ -404,7 +404,7 @@ namespace MyGUI.Sharp
 			uint _index )
 		{
 			return  Marshal.PtrToStringUni(  ExportListBox_GetItemNameAt_index( Native , 
-				 _index )  )  ;
+				 _index  )  )  ;
 		}
 
 		#endregion
@@ -421,7 +421,7 @@ namespace MyGUI.Sharp
 		{
 			ExportListBox_SetItemNameAt_index_name( Native , 
 				 _index ,
-				 _name );
+				 _name  );
 		}
 
 		#endregion
@@ -435,7 +435,7 @@ namespace MyGUI.Sharp
 			uint _position )
 		{
 			ExportListBox_SetScrollPosition_position( Native , 
-				 _position );
+				 _position  );
 		}
 
 		#endregion
@@ -449,7 +449,7 @@ namespace MyGUI.Sharp
 			bool _visible )
 		{
 			ExportListBox_SetScrollVisible_visible( Native , 
-				 _visible );
+				 _visible  );
 		}
 
 		#endregion
@@ -464,7 +464,7 @@ namespace MyGUI.Sharp
 			bool _fill )
 		{
 			return  ExportListBox_IsItemSelectedVisible_fill( Native , 
-				 _fill )  ;
+				 _fill  )  ;
 		}
 
 		#endregion
@@ -481,8 +481,8 @@ namespace MyGUI.Sharp
 			bool _fill )
 		{
 			return  ExportListBox_IsItemVisibleAt_index_fill( Native , 
-				 _index ,
-				 _fill )  ;
+				 _index  ,
+				 _fill  )  ;
 		}
 
 		#endregion
@@ -529,7 +529,7 @@ namespace MyGUI.Sharp
 			uint _index )
 		{
 			ExportListBox_BeginToItemAt_index( Native , 
-				 _index );
+				 _index  );
 		}
 
 		#endregion
@@ -555,7 +555,7 @@ namespace MyGUI.Sharp
 			string _name )
 		{
 			return  ExportListBox_FindItemIndexWith_name( Native , 
-				 _name )  ;
+				 _name  )  ;
 		}
 
 		#endregion
@@ -572,7 +572,7 @@ namespace MyGUI.Sharp
 		{
 			ExportListBox_SwapItemsAt_index1_index2( Native , 
 				 _index1 ,
-				 _index2 );
+				 _index2  );
 		}
 
 		#endregion
@@ -597,7 +597,7 @@ namespace MyGUI.Sharp
 			uint _index )
 		{
 			ExportListBox_RemoveItemAt_index( Native , 
-				 _index );
+				 _index  );
 		}
 
 		#endregion
@@ -611,7 +611,7 @@ namespace MyGUI.Sharp
 			string _name )
 		{
 			ExportListBox_AddItem_name( Native , 
-				 _name );
+				 _name  );
 		}
 
 		#endregion
@@ -628,7 +628,7 @@ namespace MyGUI.Sharp
 		{
 			ExportListBox_InsertItemAt_index_name( Native , 
 				 _index ,
-				 _name );
+				 _name  );
 		}
 
 		#endregion

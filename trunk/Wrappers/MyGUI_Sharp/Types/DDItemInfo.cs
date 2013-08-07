@@ -6,12 +6,10 @@ namespace MyGUI.Sharp
     [StructLayout(LayoutKind.Sequential)]
     public struct DDItemInfo
     {
-        [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
-        public DDContainer sender;
+		public IntPtr sender;
         [MarshalAs(UnmanagedType.U4)]
         public uint sender_index;
-        [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
-        public DDContainer receiver;
+        public IntPtr receiver;
         [MarshalAs(UnmanagedType.U4)]
         public uint receiver_index;
     }

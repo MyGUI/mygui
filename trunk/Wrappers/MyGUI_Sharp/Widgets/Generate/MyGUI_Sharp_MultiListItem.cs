@@ -46,7 +46,7 @@ namespace MyGUI.Sharp
 			int _value )
 		{
 			ExportMultiListItem_SetItemWidth_value( Native , 
-				 _value );
+				 _value  );
 		}
 
 		#endregion
@@ -60,7 +60,7 @@ namespace MyGUI.Sharp
 			ResizingPolicy _value )
 		{
 			ExportMultiListItem_SetItemResizingPolicy_value( Native , 
-				 _value );
+				 _value  );
 		}
 
 		#endregion

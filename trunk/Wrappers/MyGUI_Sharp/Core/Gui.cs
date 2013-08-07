@@ -19,11 +19,11 @@ namespace MyGUI.Sharp
 
 		public Gui()
 		{
-			mDelegateNativeByWrapper = new HandleDelegateNativeByWrapper(OnRequestNativeByWrapper);
-			ExportGui_SetGetNativeByWrapper(mDelegateNativeByWrapper);
+			//mDelegateNativeByWrapper = new HandleDelegateNativeByWrapper(OnRequestNativeByWrapper);
+			//ExportGui_SetGetNativeByWrapper(mDelegateNativeByWrapper);
 
-			mDelegateWrapperCreator = new HandleDelegateWrapperCreator(OnRequestWrapperCreator);
-			ExportGui_SetCreatorWrapps(mDelegateWrapperCreator);
+			//mDelegateWrapperCreator = new HandleDelegateWrapperCreator(OnRequestWrapperCreator);
+			//ExportGui_SetCreatorWrapps(mDelegateWrapperCreator);
 
 			InitialiseWidgetCreator();
 		}
@@ -255,21 +255,20 @@ namespace MyGUI.Sharp
 		private Dictionary<string, HandleWrapWidget> mMapWrapper = new Dictionary<string, HandleWrapWidget>();
 
 		private delegate BaseWidget HandleCreateWidget(BaseWidget _parent, WidgetStyle _style, string _skin, IntCoord _coord, Align _align, string _layer, string _name);
-		Dictionary<string, HandleCreateWidget> mMapCreator = new Dictionary<string, HandleCreateWidget>();
+		private Dictionary<string, HandleCreateWidget> mMapCreator = new Dictionary<string, HandleCreateWidget>();
 
-		[UnmanagedFunctionPointer(CallingConvention.StdCall)]
-		[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
-		public delegate BaseWidget HandleDelegateWrapperCreator([MarshalAs(UnmanagedType.LPStr)]string _type, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]BaseWidget _parent, IntPtr _widget);
+		//[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+		//public delegate IntPtr HandleDelegateWrapperCreator([MarshalAs(UnmanagedType.LPStr)]string _type, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]BaseWidget _parent, IntPtr _widget);
 
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportGui_SetCreatorWrapps(HandleDelegateWrapperCreator _delegate);
+		//[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		//private static extern void ExportGui_SetCreatorWrapps(HandleDelegateWrapperCreator _delegate);
 
-		HandleDelegateWrapperCreator mDelegateWrapperCreator;
+		//HandleDelegateWrapperCreator mDelegateWrapperCreator;
 
-		BaseWidget OnRequestWrapperCreator(string _type, BaseWidget _parent, IntPtr _widget)
+		/*BaseWidget OnRequestWrapperCreator(string _type, BaseWidget _parent, IntPtr _widget)
 		{
 			return mMapWrapper[_type](_parent, _widget);
-		}
+		}*/
 
 		internal static BaseWidget CreateWrapper(string _type, BaseWidget _parent, IntPtr _widget)
 		{
@@ -280,18 +279,18 @@ namespace MyGUI.Sharp
 
 		#region GetNativeByWrapper
 
-		[UnmanagedFunctionPointer(CallingConvention.StdCall)]
-		public delegate IntPtr HandleDelegateNativeByWrapper([MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]BaseWidget _wrapper);
+		//[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+		//public delegate IntPtr HandleDelegateNativeByWrapper([MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]BaseWidget _wrapper);
 
-		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportGui_SetGetNativeByWrapper(HandleDelegateNativeByWrapper _delegate);
+		//[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
+		//private static extern void ExportGui_SetGetNativeByWrapper(HandleDelegateNativeByWrapper _delegate);
 
-		HandleDelegateNativeByWrapper mDelegateNativeByWrapper;
+		//HandleDelegateNativeByWrapper mDelegateNativeByWrapper;
 
-		private IntPtr OnRequestNativeByWrapper(BaseWidget _wrapper)
+		/*private IntPtr OnRequestNativeByWrapper(BaseWidget _wrapper)
 		{
 			return _wrapper != null ? _wrapper.Native : IntPtr.Zero;
-		}
+		}*/
 
 		#endregion
 

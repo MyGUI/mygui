@@ -163,7 +163,7 @@ namespace MyGUI.Sharp
 		{
 			ExportWidget_SetWidgetStyle_style_layer( Native , 
 				 _style ,
-				 _layer );
+				 _layer  );
 		}
 
 		#endregion
@@ -177,7 +177,7 @@ namespace MyGUI.Sharp
 			string _skinName )
 		{
 			ExportWidget_ChangeWidgetSkin_skinName( Native , 
-				 _skinName );
+				 _skinName  );
 		}
 
 		#endregion
@@ -185,7 +185,7 @@ namespace MyGUI.Sharp
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportWidget_AttachToWidget_parent_style_layer( IntPtr _native ,
-			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _parent ,
+			  IntPtr _parent ,
 			[MarshalAs(UnmanagedType.I4)]  WidgetStyle _style ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _layer );
 
@@ -195,9 +195,9 @@ namespace MyGUI.Sharp
 			string _layer )
 		{
 			ExportWidget_AttachToWidget_parent_style_layer( Native , 
-				 _parent ,
-				 _style ,
-				 _layer );
+				 _parent .Native ,
+				 _style  ,
+				 _layer  );
 		}
 
 		#endregion
@@ -211,7 +211,7 @@ namespace MyGUI.Sharp
 			string _layer )
 		{
 			ExportWidget_DetachFromWidget_layer( Native , 
-				 _layer );
+				 _layer  );
 		}
 
 		#endregion
@@ -225,37 +225,37 @@ namespace MyGUI.Sharp
 			bool _value )
 		{
 			ExportWidget_SetEnabledSilent_value( Native , 
-				 _value );
+				 _value  );
 		}
 
 		#endregion
 		#region Method FindWidget
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
-		private static extern Widget ExportWidget_FindWidget_name( IntPtr _native ,
+        
+		private static extern IntPtr ExportWidget_FindWidget_name( IntPtr _native ,
 			[MarshalAs(UnmanagedType.LPStr)]  string _name );
 
 		public Widget FindWidget(
 			string _name )
 		{
-			return  ExportWidget_FindWidget_name( Native , 
-				 _name )  ;
+			return (Widget)BaseWidget.GetByNative( ExportWidget_FindWidget_name( Native , 
+				 _name  ) ) ;
 		}
 
 		#endregion
 		#region Method GetChildAt
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
-		private static extern Widget ExportWidget_GetChildAt_index( IntPtr _native ,
+        
+		private static extern IntPtr ExportWidget_GetChildAt_index( IntPtr _native ,
 			  uint _index );
 
 		public Widget GetChildAt(
 			uint _index )
 		{
-			return  ExportWidget_GetChildAt_index( Native , 
-				 _index )  ;
+			return (Widget)BaseWidget.GetByNative( ExportWidget_GetChildAt_index( Native , 
+				 _index  ) ) ;
 		}
 
 		#endregion
@@ -269,7 +269,7 @@ namespace MyGUI.Sharp
 			Colour _value )
 		{
 			ExportWidget_SetColour_value( Native , 
-				ref _value );
+				ref _value  );
 		}
 
 		#endregion
@@ -289,10 +289,10 @@ namespace MyGUI.Sharp
 			float _height )
 		{
 			ExportWidget_SetRealCoord_left_top_width_height( Native , 
-				 _left ,
-				 _top ,
-				 _width ,
-				 _height );
+				 _left  ,
+				 _top  ,
+				 _width  ,
+				 _height  );
 		}
 
 		#endregion
@@ -309,7 +309,7 @@ namespace MyGUI.Sharp
 		{
 			ExportWidget_SetRealSize_width_height( Native , 
 				 _width ,
-				 _height );
+				 _height  );
 		}
 
 		#endregion
@@ -326,7 +326,7 @@ namespace MyGUI.Sharp
 		{
 			ExportWidget_SetRealPosition_left_top( Native , 
 				 _left ,
-				 _top );
+				 _top  );
 		}
 
 		#endregion
@@ -340,7 +340,7 @@ namespace MyGUI.Sharp
 			FloatCoord _value )
 		{
 			ExportWidget_SetRealCoord_value( Native , 
-				ref _value );
+				ref _value  );
 		}
 
 		#endregion
@@ -354,7 +354,7 @@ namespace MyGUI.Sharp
 			FloatSize _value )
 		{
 			ExportWidget_SetRealSize_value( Native , 
-				ref _value );
+				ref _value  );
 		}
 
 		#endregion
@@ -368,7 +368,7 @@ namespace MyGUI.Sharp
 			FloatPoint _value )
 		{
 			ExportWidget_SetRealPosition_value( Native , 
-				ref _value );
+				ref _value  );
 		}
 
 		#endregion
@@ -388,10 +388,10 @@ namespace MyGUI.Sharp
 			int _height )
 		{
 			ExportWidget_SetCoord_left_top_width_height( Native , 
-				 _left ,
-				 _top ,
-				 _width ,
-				 _height );
+				 _left  ,
+				 _top  ,
+				 _width  ,
+				 _height  );
 		}
 
 		#endregion
@@ -408,7 +408,7 @@ namespace MyGUI.Sharp
 		{
 			ExportWidget_SetSize_width_height( Native , 
 				 _width ,
-				 _height );
+				 _height  );
 		}
 
 		#endregion
@@ -425,7 +425,7 @@ namespace MyGUI.Sharp
 		{
 			ExportWidget_SetPosition_left_top( Native , 
 				 _left ,
-				 _top );
+				 _top  );
 		}
 
 		#endregion
@@ -444,12 +444,12 @@ namespace MyGUI.Sharp
 		#region Property ClientWidget
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
-		private static extern Widget ExportWidget_GetClientWidget( IntPtr _native );
+        
+		private static extern IntPtr ExportWidget_GetClientWidget( IntPtr _native );
 
 		public Widget ClientWidget
 		{
-			get { return  ExportWidget_GetClientWidget( Native )  ; }
+			get { return (Widget)BaseWidget.GetByNative( ExportWidget_GetClientWidget( Native ) ) ; }
 		}
 
 		#endregion
@@ -519,12 +519,12 @@ namespace MyGUI.Sharp
 		#region Property Parent
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
-		private static extern Widget ExportWidget_GetParent( IntPtr _native );
+        
+		private static extern IntPtr ExportWidget_GetParent( IntPtr _native );
 
 		public Widget Parent
 		{
-			get { return  ExportWidget_GetParent( Native )  ; }
+			get { return (Widget)BaseWidget.GetByNative( ExportWidget_GetParent( Native ) ) ; }
 		}
 
 		#endregion

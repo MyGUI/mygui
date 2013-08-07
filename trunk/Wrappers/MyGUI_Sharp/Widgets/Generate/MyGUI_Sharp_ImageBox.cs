@@ -46,7 +46,7 @@ namespace MyGUI.Sharp
 			string _value )
 		{
 			ExportImageBox_SetItemName_value( Native , 
-				 _value );
+				 _value  );
 		}
 
 		#endregion
@@ -60,7 +60,7 @@ namespace MyGUI.Sharp
 			string _value )
 		{
 			ExportImageBox_SetItemGroup_value( Native , 
-				 _value );
+				 _value  );
 		}
 
 		#endregion
@@ -75,7 +75,7 @@ namespace MyGUI.Sharp
 			string _name )
 		{
 			return  ExportImageBox_SetItemResource_name( Native , 
-				 _name )  ;
+				 _name  )  ;
 		}
 
 		#endregion
@@ -90,7 +90,7 @@ namespace MyGUI.Sharp
 			uint _index )
 		{
 			return  ExportImageBox_GetItemFrameRate_index( Native , 
-				 _index )  ;
+				 _index  )  ;
 		}
 
 		#endregion
@@ -107,7 +107,7 @@ namespace MyGUI.Sharp
 		{
 			ExportImageBox_SetItemFrameRate_index_rate( Native , 
 				 _index ,
-				 _rate );
+				 _rate  );
 		}
 
 		#endregion
@@ -121,7 +121,7 @@ namespace MyGUI.Sharp
 			uint _index )
 		{
 			ExportImageBox_DeleteAllItemFrames_index( Native , 
-				 _index );
+				 _index  );
 		}
 
 		#endregion
@@ -138,7 +138,7 @@ namespace MyGUI.Sharp
 		{
 			ExportImageBox_DeleteItemFrame_index_indexFrame( Native , 
 				 _index ,
-				 _indexFrame );
+				 _indexFrame  );
 		}
 
 		#endregion
@@ -156,9 +156,9 @@ namespace MyGUI.Sharp
 			IntCoord _item )
 		{
 			ExportImageBox_SetItemFrame_index_indexFrame_item( Native , 
-				 _index ,
-				 _indexFrame ,
-				ref _item );
+				 _index  ,
+				 _indexFrame  ,
+				ref _item  );
 		}
 
 		#endregion
@@ -176,9 +176,9 @@ namespace MyGUI.Sharp
 			uint _indexSourceFrame )
 		{
 			ExportImageBox_InsertItemFrameDublicate_index_indexFrame_indexSourceFrame( Native , 
-				 _index ,
-				 _indexFrame ,
-				 _indexSourceFrame );
+				 _index  ,
+				 _indexFrame  ,
+				 _indexSourceFrame  );
 		}
 
 		#endregion
@@ -195,7 +195,7 @@ namespace MyGUI.Sharp
 		{
 			ExportImageBox_AddItemFrameDublicate_index_indexSourceFrame( Native , 
 				 _index ,
-				 _indexSourceFrame );
+				 _indexSourceFrame  );
 		}
 
 		#endregion
@@ -213,9 +213,9 @@ namespace MyGUI.Sharp
 			IntCoord _item )
 		{
 			ExportImageBox_InsertItemFrame_index_indexFrame_item( Native , 
-				 _index ,
-				 _indexFrame ,
-				ref _item );
+				 _index  ,
+				 _indexFrame  ,
+				ref _item  );
 		}
 
 		#endregion
@@ -232,7 +232,7 @@ namespace MyGUI.Sharp
 		{
 			ExportImageBox_AddItemFrame_index_item( Native , 
 				 _index ,
-				ref _item );
+				ref _item  );
 		}
 
 		#endregion
@@ -257,7 +257,7 @@ namespace MyGUI.Sharp
 			uint _index )
 		{
 			ExportImageBox_DeleteItem_index( Native , 
-				 _index );
+				 _index  );
 		}
 
 		#endregion
@@ -274,7 +274,7 @@ namespace MyGUI.Sharp
 		{
 			ExportImageBox_SetItem_index_item( Native , 
 				 _index ,
-				ref _item );
+				ref _item  );
 		}
 
 		#endregion
@@ -288,7 +288,7 @@ namespace MyGUI.Sharp
 			IntCoord _item )
 		{
 			ExportImageBox_AddItem_item( Native , 
-				ref _item );
+				ref _item  );
 		}
 
 		#endregion
@@ -305,7 +305,7 @@ namespace MyGUI.Sharp
 		{
 			ExportImageBox_InsertItem_index_item( Native , 
 				 _index ,
-				ref _item );
+				ref _item  );
 		}
 
 		#endregion
@@ -330,7 +330,7 @@ namespace MyGUI.Sharp
 			IntSize _value )
 		{
 			ExportImageBox_SetImageTile_value( Native , 
-				ref _value );
+				ref _value  );
 		}
 
 		#endregion
@@ -344,7 +344,7 @@ namespace MyGUI.Sharp
 			IntCoord _value )
 		{
 			ExportImageBox_SetImageCoord_value( Native , 
-				ref _value );
+				ref _value  );
 		}
 
 		#endregion
@@ -358,7 +358,7 @@ namespace MyGUI.Sharp
 			IntRect _value )
 		{
 			ExportImageBox_SetImageRect_value( Native , 
-				ref _value );
+				ref _value  );
 		}
 
 		#endregion
@@ -372,7 +372,7 @@ namespace MyGUI.Sharp
 			string _value )
 		{
 			ExportImageBox_SetImageTexture_value( Native , 
-				 _value );
+				 _value  );
 		}
 
 		#endregion
@@ -390,9 +390,9 @@ namespace MyGUI.Sharp
 			IntSize _tile )
 		{
 			ExportImageBox_SetImageInfo_texture_coord_tile( Native , 
-				 _texture ,
-				ref _coord ,
-				ref _tile );
+				 _texture  ,
+				ref _coord  ,
+				ref _tile  );
 		}
 
 		#endregion

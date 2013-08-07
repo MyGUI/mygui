@@ -37,7 +37,7 @@ namespace MyGUI.Sharp
 			string _key )
 		{
 			return  ExportWidget_IsUserString_key( Native , 
-				 _key )  ;
+				 _key  )  ;
 		}
 
 		#endregion
@@ -52,7 +52,7 @@ namespace MyGUI.Sharp
 			string _key )
 		{
 			return  ExportWidget_ClearUserString_key( Native , 
-				 _key )  ;
+				 _key  )  ;
 		}
 
 		#endregion
@@ -67,7 +67,7 @@ namespace MyGUI.Sharp
 			string _key )
 		{
 			return  Marshal.PtrToStringAnsi(  ExportWidget_GetUserString_key( Native , 
-				 _key )  )  ;
+				 _key  )  )  ;
 		}
 
 		#endregion
@@ -84,7 +84,7 @@ namespace MyGUI.Sharp
 		{
 			ExportWidget_SetUserString_key_value( Native , 
 				 _key ,
-				 _value );
+				 _value  );
 		}
 
 		#endregion
