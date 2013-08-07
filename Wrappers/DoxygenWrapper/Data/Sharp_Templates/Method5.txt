@@ -16,11 +16,11 @@
 			#{TypeName5} #{ValueName5} )
 		{
 			Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}#{ValueName5}( Native , 
-				#{TypePrefix1} #{ValueName1} ,
-				#{TypePrefix2} #{ValueName2} ,
-				#{TypePrefix3} #{ValueName3} ,
-				#{TypePrefix4} #{ValueName4} ,
-				#{TypePrefix5} #{ValueName5} );
+				#{TypePrefix1} #{ValueName1} #{MarshalValueNative1} ,
+				#{TypePrefix2} #{ValueName2} #{MarshalValueNative2} ,
+				#{TypePrefix3} #{ValueName3} #{MarshalValueNative3} ,
+				#{TypePrefix4} #{ValueName4} #{MarshalValueNative4} ,
+				#{TypePrefix5} #{ValueName5} #{MarshalValueNative5} );
 		}
 
 		#endregion

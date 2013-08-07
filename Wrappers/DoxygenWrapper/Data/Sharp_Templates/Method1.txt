@@ -8,7 +8,7 @@
 			#{TypeName1} #{ValueName1} )
 		{
 			Export#{ThisName}_#{MethodName}#{ValueName1}( Native , 
-				#{TypePrefix1} #{ValueName1} );
+				#{TypePrefix1} #{ValueName1} #{MarshalValueNative1} );
 		}
 
 		#endregion

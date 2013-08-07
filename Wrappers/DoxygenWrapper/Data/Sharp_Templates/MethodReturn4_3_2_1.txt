@@ -15,10 +15,10 @@
 			#{TypeName4} #{ValueName4} )
 		{
 			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}#{ValueName4}( Native , 
-				#{TypePrefix1} #{ValueName1} ,
-				#{TypePrefix2} #{ValueName2} ,
-				#{TypePrefix3} #{ValueName3} ,
-				#{TypePrefix4} #{ValueName4} ) #{MarshalConvertPost} ;
+				#{TypePrefix1} #{ValueName1} #{MarshalValueNative1} ,
+				#{TypePrefix2} #{ValueName2} #{MarshalValueNative2} ,
+				#{TypePrefix3} #{ValueName3} #{MarshalValueNative3} ,
+				#{TypePrefix4} #{ValueName4} #{MarshalValueNative4} ) #{MarshalConvertPost} ;
 		}
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
@@ -34,9 +34,9 @@
 			#{TypeName3} #{ValueName3} )
 		{
 			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}#{ValueName3}( Native , 
-				#{TypePrefix1} #{ValueName1} ,
-				#{TypePrefix2} #{ValueName2} ,
-				#{TypePrefix3} #{ValueName3} ) #{MarshalConvertPost} ;
+				#{TypePrefix1} #{ValueName1} #{MarshalValueNative1} ,
+				#{TypePrefix2} #{ValueName2} #{MarshalValueNative2} ,
+				#{TypePrefix3} #{ValueName3} #{MarshalValueNative3} ) #{MarshalConvertPost} ;
 		}
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
@@ -50,8 +50,8 @@
 			#{TypeName2} #{ValueName2} )
 		{
 			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}#{ValueName2}( Native , 
-				#{TypePrefix1} #{ValueName1} ,
-				#{TypePrefix2} #{ValueName2} ) #{MarshalConvertPost} ;
+				#{TypePrefix1} #{ValueName1} #{MarshalValueNative1} ,
+				#{TypePrefix2} #{ValueName2} #{MarshalValueNative2} ) #{MarshalConvertPost} ;
 		}
 		
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
@@ -63,7 +63,7 @@
 			#{TypeName1} #{ValueName1} )
 		{
 			return #{MarshalConvertBefore} Export#{ThisName}_#{MethodName}#{ValueName1}( Native , 
-				#{TypePrefix1} #{ValueName1} ) #{MarshalConvertPost} ;
+				#{TypePrefix1} #{ValueName1} #{MarshalValueNative1} ) #{MarshalConvertPost} ;
 		}
 		
 		#endregion
