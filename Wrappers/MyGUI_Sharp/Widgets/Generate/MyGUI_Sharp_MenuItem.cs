@@ -46,19 +46,19 @@ namespace MyGUI.Sharp
 			bool _value )
 		{
 			ExportMenuItem_SetItemChildVisible_value( Native , 
-				 _value );
+				 _value  );
 		}
 
 		#endregion
 		#region Method CreateItemChild
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
-		private static extern MenuControl ExportMenuItem_CreateItemChild( IntPtr _native );
+        
+		private static extern IntPtr ExportMenuItem_CreateItemChild( IntPtr _native );
 
 		public MenuControl CreateItemChild( )
 		{
-			return  ExportMenuItem_CreateItemChild( Native )  ;
+			return (MenuControl)BaseWidget.GetByNative( ExportMenuItem_CreateItemChild( Native ) ) ;
 		}
 
 		#endregion
@@ -91,24 +91,24 @@ namespace MyGUI.Sharp
 		#region Property ItemChild
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
-		private static extern MenuControl ExportMenuItem_GetItemChild( IntPtr _native );
+        
+		private static extern IntPtr ExportMenuItem_GetItemChild( IntPtr _native );
 
 		public MenuControl ItemChild
 		{
-			get { return  ExportMenuItem_GetItemChild( Native )  ; }
+			get { return (MenuControl)BaseWidget.GetByNative( ExportMenuItem_GetItemChild( Native ) ) ; }
 		}
 
 		#endregion
 		#region Property MenuCtrlParent
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
-		private static extern MenuControl ExportMenuItem_GetMenuCtrlParent( IntPtr _native );
+        
+		private static extern IntPtr ExportMenuItem_GetMenuCtrlParent( IntPtr _native );
 
 		public MenuControl MenuCtrlParent
 		{
-			get { return  ExportMenuItem_GetMenuCtrlParent( Native )  ; }
+			get { return (MenuControl)BaseWidget.GetByNative( ExportMenuItem_GetMenuCtrlParent( Native ) ) ; }
 		}
 
 		#endregion

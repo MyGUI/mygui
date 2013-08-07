@@ -76,7 +76,7 @@ namespace MyGUI.Sharp
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				IntPtr _sender ,
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _items ,
+				  Widget _items ,
 				[In] ref DDWidgetState _state );
 				
 			public static ExportHandle mDelegate;

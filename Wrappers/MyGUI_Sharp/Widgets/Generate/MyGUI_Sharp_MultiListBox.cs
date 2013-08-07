@@ -232,8 +232,8 @@ namespace MyGUI.Sharp
 			string _name )
 		{
 			return  ExportMultiListBox_FindSubItemWith_column_name( Native , 
-				 _column ,
-				 _name )  ;
+				 _column  ,
+				 _name  )  ;
 		}
 
 		#endregion
@@ -250,8 +250,8 @@ namespace MyGUI.Sharp
 			uint _index )
 		{
 			return  Marshal.PtrToStringUni(  ExportMultiListBox_GetSubItemNameAt_column_index( Native , 
-				 _column ,
-				 _index )  )  ;
+				 _column  ,
+				 _index  )  )  ;
 		}
 
 		#endregion
@@ -269,9 +269,9 @@ namespace MyGUI.Sharp
 			string _name )
 		{
 			ExportMultiListBox_SetSubItemNameAt_column_index_name( Native , 
-				 _column ,
-				 _index ,
-				 _name );
+				 _column  ,
+				 _index  ,
+				 _name  );
 		}
 
 		#endregion
@@ -297,7 +297,7 @@ namespace MyGUI.Sharp
 			uint _index )
 		{
 			return  Marshal.PtrToStringUni(  ExportMultiListBox_GetItemNameAt_index( Native , 
-				 _index )  )  ;
+				 _index  )  )  ;
 		}
 
 		#endregion
@@ -314,7 +314,7 @@ namespace MyGUI.Sharp
 		{
 			ExportMultiListBox_SetItemNameAt_index_name( Native , 
 				 _index ,
-				 _name );
+				 _name  );
 		}
 
 		#endregion
@@ -331,7 +331,7 @@ namespace MyGUI.Sharp
 		{
 			ExportMultiListBox_SwapItemsAt_index1_index2( Native , 
 				 _index1 ,
-				 _index2 );
+				 _index2  );
 		}
 
 		#endregion
@@ -356,7 +356,7 @@ namespace MyGUI.Sharp
 			uint _index )
 		{
 			ExportMultiListBox_RemoveItemAt_index( Native , 
-				 _index );
+				 _index  );
 		}
 
 		#endregion
@@ -370,7 +370,7 @@ namespace MyGUI.Sharp
 			string _name )
 		{
 			ExportMultiListBox_AddItem_name( Native , 
-				 _name );
+				 _name  );
 		}
 
 		#endregion
@@ -387,7 +387,7 @@ namespace MyGUI.Sharp
 		{
 			ExportMultiListBox_InsertItemAt_index_name( Native , 
 				 _index ,
-				 _name );
+				 _name  );
 		}
 
 		#endregion
@@ -404,7 +404,7 @@ namespace MyGUI.Sharp
 		{
 			ExportMultiListBox_SetColumnResizingPolicyAt_index_value( Native , 
 				 _index ,
-				 _value );
+				 _value  );
 		}
 
 		#endregion
@@ -412,7 +412,7 @@ namespace MyGUI.Sharp
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMultiListBox_SetColumnResizingPolicy_item_value( IntPtr _native ,
-			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item ,
+			  IntPtr _item ,
 			[MarshalAs(UnmanagedType.I4)]  ResizingPolicy _value );
 
 		public void SetColumnResizingPolicy(
@@ -420,8 +420,8 @@ namespace MyGUI.Sharp
 			ResizingPolicy _value )
 		{
 			ExportMultiListBox_SetColumnResizingPolicy_item_value( Native , 
-				 _item ,
-				 _value );
+				 _item .Native,
+				 _value  );
 		}
 
 		#endregion
@@ -430,13 +430,13 @@ namespace MyGUI.Sharp
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern uint ExportMultiListBox_GetColumnIndex_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
+			  IntPtr _item );
 
 		public uint GetColumnIndex(
 			MultiListItem _item )
 		{
 			return  ExportMultiListBox_GetColumnIndex_item( Native , 
-				 _item )  ;
+				 _item .Native )  ;
 		}
 
 		#endregion
@@ -453,7 +453,7 @@ namespace MyGUI.Sharp
 		{
 			ExportMultiListBox_SortByColumn_column_backward( Native , 
 				 _column ,
-				 _backward );
+				 _backward  );
 		}
 
 		#endregion
@@ -468,7 +468,7 @@ namespace MyGUI.Sharp
 			uint _column )
 		{
 			return  ExportMultiListBox_GetColumnWidthAt_column( Native , 
-				 _column )  ;
+				 _column  )  ;
 		}
 
 		#endregion
@@ -477,13 +477,13 @@ namespace MyGUI.Sharp
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern IntPtr ExportMultiListBox_GetColumnName_item( IntPtr _native ,
-			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item );
+			  IntPtr _item );
 
 		public string GetColumnName(
 			MultiListItem _item )
 		{
 			return  Marshal.PtrToStringUni(  ExportMultiListBox_GetColumnName_item( Native , 
-				 _item )  )  ;
+				 _item .Native )  )  ;
 		}
 
 		#endregion
@@ -498,7 +498,7 @@ namespace MyGUI.Sharp
 			uint _column )
 		{
 			return  Marshal.PtrToStringUni(  ExportMultiListBox_GetColumnNameAt_column( Native , 
-				 _column )  )  ;
+				 _column  )  )  ;
 		}
 
 		#endregion
@@ -506,7 +506,7 @@ namespace MyGUI.Sharp
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMultiListBox_SetColumnWidth_item_width( IntPtr _native ,
-			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item ,
+			  IntPtr _item ,
 			  int _width );
 
 		public void SetColumnWidth(
@@ -514,8 +514,8 @@ namespace MyGUI.Sharp
 			int _width )
 		{
 			ExportMultiListBox_SetColumnWidth_item_width( Native , 
-				 _item ,
-				 _width );
+				 _item .Native,
+				 _width  );
 		}
 
 		#endregion
@@ -532,7 +532,7 @@ namespace MyGUI.Sharp
 		{
 			ExportMultiListBox_SetColumnWidthAt_column_width( Native , 
 				 _column ,
-				 _width );
+				 _width  );
 		}
 
 		#endregion
@@ -540,7 +540,7 @@ namespace MyGUI.Sharp
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportMultiListBox_SetColumnName_item_name( IntPtr _native ,
-			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _item ,
+			  IntPtr _item ,
 			[MarshalAs(UnmanagedType.LPWStr)]  string _name );
 
 		public void SetColumnName(
@@ -548,8 +548,8 @@ namespace MyGUI.Sharp
 			string _name )
 		{
 			ExportMultiListBox_SetColumnName_item_name( Native , 
-				 _item ,
-				 _name );
+				 _item .Native,
+				 _name  );
 		}
 
 		#endregion
@@ -566,7 +566,7 @@ namespace MyGUI.Sharp
 		{
 			ExportMultiListBox_SetColumnNameAt_column_name( Native , 
 				 _column ,
-				 _name );
+				 _name  );
 		}
 
 		#endregion
@@ -583,7 +583,7 @@ namespace MyGUI.Sharp
 		{
 			ExportMultiListBox_SwapColumnsAt_index1_index2( Native , 
 				 _index1 ,
-				 _index2 );
+				 _index2  );
 		}
 
 		#endregion
@@ -608,7 +608,7 @@ namespace MyGUI.Sharp
 			uint _column )
 		{
 			ExportMultiListBox_RemoveColumnAt_column( Native , 
-				 _column );
+				 _column  );
 		}
 
 		#endregion
@@ -625,7 +625,7 @@ namespace MyGUI.Sharp
 		{
 			ExportMultiListBox_AddColumn_name_width( Native , 
 				 _name ,
-				 _width );
+				 _width  );
 		}
 
 		#endregion
@@ -643,9 +643,9 @@ namespace MyGUI.Sharp
 			int _width )
 		{
 			ExportMultiListBox_InsertColumnAt_column_name_width( Native , 
-				 _column ,
-				 _name ,
-				 _width );
+				 _column  ,
+				 _name  ,
+				 _width  );
 		}
 
 		#endregion

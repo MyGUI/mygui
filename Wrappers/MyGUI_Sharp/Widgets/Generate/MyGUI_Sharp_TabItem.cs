@@ -46,7 +46,7 @@ namespace MyGUI.Sharp
 			int _value )
 		{
 			ExportTabItem_SetButtonWidth_value( Native , 
-				 _value );
+				 _value  );
 		}
 
 		#endregion

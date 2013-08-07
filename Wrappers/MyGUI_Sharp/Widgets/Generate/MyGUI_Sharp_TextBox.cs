@@ -46,7 +46,7 @@ namespace MyGUI.Sharp
 			string _value )
 		{
 			ExportTextBox_SetCaptionWithReplacing_value( Native , 
-				 _value );
+				 _value  );
 		}
 
 		#endregion

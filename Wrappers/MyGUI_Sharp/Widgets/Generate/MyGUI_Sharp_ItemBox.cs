@@ -304,7 +304,7 @@ namespace MyGUI.Sharp
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				IntPtr _sender ,
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _item ,
+				  Widget _item ,
 				[In] ref IBDrawItemInfo _info );
 				
 			public static ExportHandle mDelegate;
@@ -425,7 +425,7 @@ namespace MyGUI.Sharp
 			[UnmanagedFunctionPointer(CallingConvention.StdCall)]
 			public delegate void ExportHandle(
 				IntPtr _sender ,
-				[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  Widget _item );
+				  Widget _item );
 				
 			public static ExportHandle mDelegate;
 		}
@@ -446,15 +446,15 @@ namespace MyGUI.Sharp
 		#region Method GetWidgetByIndex
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
-		private static extern Widget ExportItemBox_GetWidgetByIndex_index( IntPtr _native ,
+        
+		private static extern IntPtr ExportItemBox_GetWidgetByIndex_index( IntPtr _native ,
 			  uint _index );
 
 		public Widget GetWidgetByIndex(
 			uint _index )
 		{
-			return  ExportItemBox_GetWidgetByIndex_index( Native , 
-				 _index )  ;
+			return (Widget)BaseWidget.GetByNative( ExportItemBox_GetWidgetByIndex_index( Native , 
+				 _index  ) ) ;
 		}
 
 		#endregion
@@ -463,13 +463,13 @@ namespace MyGUI.Sharp
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
         
 		private static extern uint ExportItemBox_GetIndexByWidget_widget( IntPtr _native ,
-			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]  BaseWidget _widget );
+			  IntPtr _widget );
 
 		public uint GetIndexByWidget(
 			Widget _widget )
 		{
 			return  ExportItemBox_GetIndexByWidget_widget( Native , 
-				 _widget )  ;
+				 _widget .Native )  ;
 		}
 
 		#endregion
@@ -505,7 +505,7 @@ namespace MyGUI.Sharp
 			uint _index )
 		{
 			ExportItemBox_RedrawItemAt_index( Native , 
-				 _index );
+				 _index  );
 		}
 
 		#endregion
@@ -530,7 +530,7 @@ namespace MyGUI.Sharp
 			uint _index )
 		{
 			ExportItemBox_RemoveItemAt_index( Native , 
-				 _index );
+				 _index  );
 		}
 
 		#endregion
@@ -555,7 +555,7 @@ namespace MyGUI.Sharp
 			uint _index )
 		{
 			ExportItemBox_InsertItemAt_index( Native , 
-				 _index );
+				 _index  );
 		}
 
 		#endregion
@@ -577,12 +577,12 @@ namespace MyGUI.Sharp
 		#region Property WidgetDrag
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
-		private static extern Widget ExportItemBox_GetWidgetDrag( IntPtr _native );
+        
+		private static extern IntPtr ExportItemBox_GetWidgetDrag( IntPtr _native );
 
 		public Widget WidgetDrag
 		{
-			get { return  ExportItemBox_GetWidgetDrag( Native )  ; }
+			get { return (Widget)BaseWidget.GetByNative( ExportItemBox_GetWidgetDrag( Native ) ) ; }
 		}
 
 		#endregion

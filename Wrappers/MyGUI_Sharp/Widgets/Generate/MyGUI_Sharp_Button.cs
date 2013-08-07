@@ -46,7 +46,7 @@ namespace MyGUI.Sharp
 			string _name )
 		{
 			ExportButton_SetImageName_name( Native , 
-				 _name );
+				 _name  );
 		}
 
 		#endregion
@@ -60,7 +60,7 @@ namespace MyGUI.Sharp
 			string _name )
 		{
 			ExportButton_SetImageGroup_name( Native , 
-				 _name );
+				 _name  );
 		}
 
 		#endregion
@@ -74,7 +74,7 @@ namespace MyGUI.Sharp
 			string _name )
 		{
 			ExportButton_SetImageResource_name( Native , 
-				 _name );
+				 _name  );
 		}
 
 		#endregion

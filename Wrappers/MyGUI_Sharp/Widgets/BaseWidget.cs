@@ -11,7 +11,6 @@ namespace MyGUI.Sharp
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern IntPtr ExportGui_CreateWidget(
-			[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]BaseWidget _wrapper,
 			IntPtr _parent,
 			WidgetStyle _style,
 			[MarshalAs(UnmanagedType.LPStr)]string _type,
@@ -25,7 +24,7 @@ namespace MyGUI.Sharp
 		private static extern void ExportGui_DestroyWidget(IntPtr _widget);
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		private static extern void ExportGui_WrapWidget([MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]BaseWidget _wrapper, IntPtr _widget);
+		private static extern void ExportGui_WrapWidget(IntPtr _widget);
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportGui_UnwrapWidget(IntPtr _widget);
@@ -46,7 +45,7 @@ namespace MyGUI.Sharp
 			mParent = _parent;
 			mNative = _native;
 
-			ExportGui_WrapWidget(this, mNative);
+			ExportGui_WrapWidget(mNative);
 			mWidgets.Add(mNative, this);
 			mIsWrap = true;
 
@@ -60,7 +59,9 @@ namespace MyGUI.Sharp
 		{
 			mParent = _parent;
 			IntPtr parent = _parent != null ? _parent.Native : IntPtr.Zero;
-			mNative = ExportGui_CreateWidget(this, parent, _style, GetWidgetType(), _skin, ref _coord, _align, _layer, _name);
+			mNative = ExportGui_CreateWidget(parent, _style, GetWidgetType(), _skin, ref _coord, _align, _layer, _name);
+
+			ExportGui_WrapWidget(mNative);
 			mWidgets.Add(mNative, this);
 			mIsWrap = false;
 
@@ -163,10 +164,10 @@ namespace MyGUI.Sharp
 
 				if (!mIsWrap)
 					ExportGui_DestroyWidget(mNative);
-				else
-					ExportGui_UnwrapWidget(mNative);
 
+				ExportGui_UnwrapWidget(mNative);
 				mWidgets.Remove(mNative);
+
 				mNative = IntPtr.Zero;
 			}
 		}

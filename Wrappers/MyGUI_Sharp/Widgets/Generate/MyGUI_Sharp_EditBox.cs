@@ -152,7 +152,7 @@ namespace MyGUI.Sharp
 			string _char )
 		{
 			ExportEditBox_SetPasswordChar_char( Native , 
-				 _char );
+				 _char  );
 		}
 
 		#endregion
@@ -169,7 +169,7 @@ namespace MyGUI.Sharp
 		{
 			ExportEditBox_EraseText_start_count( Native , 
 				 _start ,
-				 _count );
+				 _count  );
 		}
 
 		#endregion
@@ -183,7 +183,7 @@ namespace MyGUI.Sharp
 			string _text )
 		{
 			ExportEditBox_AddText_text( Native , 
-				 _text );
+				 _text  );
 		}
 
 		#endregion
@@ -200,7 +200,7 @@ namespace MyGUI.Sharp
 		{
 			ExportEditBox_InsertText_text_index( Native , 
 				 _text ,
-				 _index );
+				 _index  );
 		}
 
 		#endregion
@@ -214,7 +214,7 @@ namespace MyGUI.Sharp
 			Colour _value )
 		{
 			ExportEditBox_SetTextSelectionColour_value( Native , 
-				ref _value );
+				ref _value  );
 		}
 
 		#endregion
@@ -242,7 +242,7 @@ namespace MyGUI.Sharp
 		{
 			ExportEditBox_SetTextSelection_start_end( Native , 
 				 _start ,
-				 _end );
+				 _end  );
 		}
 
 		#endregion
@@ -259,8 +259,8 @@ namespace MyGUI.Sharp
 			uint _count )
 		{
 			return  Marshal.PtrToStringUni(  ExportEditBox_GetTextInterval_start_count( Native , 
-				 _start ,
-				 _count )  )  ;
+				 _start  ,
+				 _count  )  )  ;
 		}
 
 		#endregion
@@ -278,9 +278,9 @@ namespace MyGUI.Sharp
 			Colour _colour )
 		{
 			ExportEditBox_SetTextIntervalColour_start_count_colour( Native , 
-				 _start ,
-				 _count ,
-				ref _colour );
+				 _start  ,
+				 _count  ,
+				ref _colour  );
 		}
 
 		#endregion

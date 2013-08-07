@@ -32,14 +32,13 @@ namespace MyGUI.Sharp
 		#region KeyFocusWidget
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
-		private static extern Widget ExportInputManager_GetKeyFocusWidget();
+		private static extern IntPtr ExportInputManager_GetKeyFocusWidget();
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
 		private static extern void ExportInputManager_SetKeyFocusWidget(IntPtr _widget);
 
 		public Widget KeyFocusWidget
 		{
-			get { return ExportInputManager_GetKeyFocusWidget(); }
+			get { return (Widget)BaseWidget.GetByNative(ExportInputManager_GetKeyFocusWidget()); }
 			set { ExportInputManager_SetKeyFocusWidget(value == null ? IntPtr.Zero : value.Native); }
 		}
 
@@ -61,12 +60,11 @@ namespace MyGUI.Sharp
 		#region MouseFocusWidget
 
 		[DllImport(DllName.m_dllName, CallingConvention = CallingConvention.Cdecl)]
-		[return: MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(InterfaceMarshaler))]
-		private static extern Widget ExportInputManager_GetMouseFocusWidget();
+		private static extern IntPtr ExportInputManager_GetMouseFocusWidget();
 
 		public Widget MouseFocusWidget
 		{
-			get { return ExportInputManager_GetMouseFocusWidget(); }
+			get { return (Widget)BaseWidget.GetByNative(ExportInputManager_GetMouseFocusWidget()); }
 		}
 
 		#endregion
