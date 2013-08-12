@@ -278,7 +278,7 @@ namespace MyGUI
 		EventPair<EventHandle_WidgetSizeT, EventHandle_MultiListPtrSizeT> eventListChangePosition;
 
 		/** Event : Less than operator for sort multilist by columns.\n
-			signature : void method(MyGUI::MultiListBox* _sender, size_t _column, const UString& _firstItem, const UString& _secondItem, bool& _less)\n
+			signature : void method(MyGUI::MultiListBox* _sender, size_t _column, const MyGUI::UString& _firstItem, const MyGUI::UString& _secondItem, bool& _less)\n
 			@param _sender widget that called this event
 			@param _column Index of column
 			@param _firstItem Strings for compare
