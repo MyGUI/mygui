@@ -255,7 +255,7 @@ namespace MyGUI
 
 	void PointerManager::notifyChangeMouseFocus(Widget* _widget)
 	{
-		std::string pointer = (_widget == nullptr || !_widget->getEnabled()) ? "" : _widget->getPointer();
+		std::string pointer = (_widget == nullptr || !_widget->getInheritedEnabled()) ? "" : _widget->getPointer();
 		if (pointer != mCurrentMousePointer)
 		{
 			mCurrentMousePointer = pointer;

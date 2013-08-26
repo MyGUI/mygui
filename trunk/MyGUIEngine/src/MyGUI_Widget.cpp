@@ -947,7 +947,7 @@ namespace MyGUI
 
 	void Widget::baseUpdateEnable()
 	{
-		if (mEnabled)
+		if (getInheritedEnabled())
 			_setWidgetState("normal");
 		else
 			_setWidgetState("disabled");
@@ -989,8 +989,8 @@ namespace MyGUI
 
 	void Widget::_updateEnabled()
 	{
-		mInheritsEnabled = mParent == nullptr || (mParent->getEnabled() && mParent->getInheritedEnabled());
-		bool value = mEnabled && mInheritsEnabled;
+		mInheritsEnabled = mParent == nullptr || (mParent->getInheritedEnabled());
+		mInheritsEnabled = mInheritsEnabled && mEnabled;
 
 		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
 			(*iter)->_updateEnabled();
@@ -999,7 +999,7 @@ namespace MyGUI
 
 		baseUpdateEnable();
 
-		if (!value)
+		if (!mInheritsEnabled)
 			InputManager::getInstance().unlinkWidget(this);
 	}
 

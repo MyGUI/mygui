@@ -1496,8 +1496,10 @@ namespace MyGUI
 
 	void EditBox::updateEditState()
 	{
-		if (!getEnabled())
+		if (!getInheritedEnabled())
+		{
 			_setWidgetState("disabled");
+		}
 		else if (mIsPressed)
 		{
 			if (mIsFocus)
@@ -1506,9 +1508,13 @@ namespace MyGUI
 				_setWidgetState("normal_checked");
 		}
 		else if (mIsFocus)
+		{
 			_setWidgetState("highlighted");
+		}
 		else
+		{
 			_setWidgetState("normal");
+		}
 	}
 
 	void EditBox::setPosition(const IntPoint& _point)
@@ -2219,14 +2225,6 @@ namespace MyGUI
 
 		if (mClientText != nullptr)
 			mClientText->setShadow(_value);
-	}
-
-	void EditBox::baseUpdateEnable()
-	{
-		Base::baseUpdateEnable();
-
-		if (mClient != nullptr && mClient != this)
-			mClient->setEnabled(getEnabled());
 	}
 
 } // namespace MyGUI

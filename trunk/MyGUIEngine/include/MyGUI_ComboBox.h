@@ -169,7 +169,6 @@ namespace MyGUI
 		virtual void shutdownOverride();
 
 		virtual void onKeyButtonPressed(KeyCode _key, Char _char);
-		virtual void baseUpdateEnable();
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 

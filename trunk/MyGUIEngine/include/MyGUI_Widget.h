@@ -209,7 +209,7 @@ namespace MyGUI
 		/** Is widget enabled */
 		bool getEnabled() const;
 
-		/** Is widget enabled and all it's parents in hierarchy is enabled. */
+		/** Is widget enabled and all it's parents in hierarchy are enabled. */
 		bool getInheritedEnabled() const;
 
 		/** Get rectangle where child widgets placed */
