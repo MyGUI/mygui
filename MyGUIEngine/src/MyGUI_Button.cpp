@@ -77,7 +77,7 @@ namespace MyGUI
 	{
 		if (mStateSelected)
 		{
-			if (!getEnabled())
+			if (!getInheritedEnabled())
 			{
 				if (!_setState("disabled_checked"))
 					_setState("disabled");
@@ -97,7 +97,7 @@ namespace MyGUI
 		}
 		else
 		{
-			if (!getEnabled())
+			if (!getInheritedEnabled())
 				_setState("disabled");
 			else if (mIsMousePressed)
 				_setState("pushed");
@@ -126,7 +126,7 @@ namespace MyGUI
 	void Button::baseUpdateEnable()
 	{
 		updateButtonState();
-		if (!getEnabled())
+		if (!getInheritedEnabled())
 		{
 			mIsMouseFocus = false;
 		}

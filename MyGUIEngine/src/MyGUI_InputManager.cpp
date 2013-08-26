@@ -191,12 +191,12 @@ namespace MyGUI
 		//-------------------------------------------------------------------------------------//
 
 		// смена фокуса, проверяем на доступность виджета
-		if (isFocusMouse() && mWidgetMouseFocus->getEnabled())
+		if (isFocusMouse() && mWidgetMouseFocus->getInheritedEnabled())
 		{
 			mWidgetMouseFocus->_riseMouseLostFocus(item);
 		}
 
-		if ((item != nullptr) && (item->getEnabled()))
+		if ((item != nullptr) && (item->getInheritedEnabled()))
 		{
 			item->_riseMouseMove(_absx, _absy);
 			item->_riseMouseSetFocus(mWidgetMouseFocus);
@@ -230,7 +230,7 @@ namespace MyGUI
 
 		// если активный элемент заблокирован
 		//FIXME
-		if (!mWidgetMouseFocus->getEnabled())
+		if (!mWidgetMouseFocus->getInheritedEnabled())
 			return true;
 
 		if (MouseButton::None != _id && MouseButton::MAX != _id)
@@ -290,7 +290,7 @@ namespace MyGUI
 		if (isFocusMouse())
 		{
 			// если активный элемент заблокирован
-			if (!mWidgetMouseFocus->getEnabled())
+			if (!mWidgetMouseFocus->getInheritedEnabled())
 				return true;
 
 			if (_id != MouseButton::None && _id != MouseButton::MAX)
