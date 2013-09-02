@@ -133,6 +133,13 @@ namespace MyGUI
 		if (mWindow != nullptr)
 		{
 			Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
+
+			if (mWindow->getNumViewports() <= mActiveViewport &&
+				!mWindow->getViewport(mActiveViewport)->getOverlaysEnabled())
+			{
+				MYGUI_PLATFORM_LOG(Warning, "Overlays are disabled. MyGUI won't render in selected viewport.");
+			}
+
 			windowResized(mWindow);
 		}
 	}
@@ -161,6 +168,11 @@ namespace MyGUI
 		{
 			Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
 			Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
+
+			if (mWindow->getNumViewports() <= mActiveViewport)
+			{
+				MYGUI_PLATFORM_LOG(Error, "Invalid active viewport index selected. There is no viewport with given index.");
+			}
 
 			// рассылка обновлений
 			windowResized(mWindow);
