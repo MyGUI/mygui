@@ -25,8 +25,9 @@ namespace MyGUI
 		bool empty() const;
 
 	private:
-		std::vector<uint8> data;
-		int width, height;
+		std::vector<uint8> mData;
+		int mWidth;
+		int mHeight;
 	};
 
 } // namespace MyGUI

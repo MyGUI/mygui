@@ -14,8 +14,8 @@ namespace MyGUI
 {
 
 	MaskPickInfo::MaskPickInfo() :
-		width(0),
-		height(0)
+		mWidth(0),
+		mHeight(0)
 	{
 	}
 
@@ -37,10 +37,10 @@ namespace MyGUI
 
 		size_t pixel_size = texture->getNumElemBytes();
 
-		width = texture->getWidth();
-		height = texture->getHeight();
-		size_t size = width * height;
-		data.resize(size);
+		mWidth = texture->getWidth();
+		mHeight = texture->getHeight();
+		size_t size = mWidth * mHeight;
+		mData.resize(size);
 
 		size_t pos = 0;
 		for (size_t pos_pix = 0; pos_pix < size; pos_pix++)
@@ -55,7 +55,7 @@ namespace MyGUI
 				pos++;
 			}
 
-			data[pos_pix] = white;
+			mData[pos_pix] = white;
 		}
 
 		texture->unlock();
@@ -68,15 +68,15 @@ namespace MyGUI
 	{
 		if ((0 == _coord.width) || (0 == _coord.height)) return false;
 
-		int x = ((_point.left * width) - 1) / _coord.width;
-		int y = ((_point.top * height) - 1) / _coord.height;
+		int x = ((_point.left * mWidth) - 1) / _coord.width;
+		int y = ((_point.top * mHeight) - 1) / _coord.height;
 
-		return 0 != data[(size_t)(y * width + x)];
+		return 0 != mData[(size_t)(y * mWidth + x)];
 	}
 
 	bool MaskPickInfo::empty() const
 	{
-		return data.empty();
+		return mData.empty();
 	}
 
 } // namespace MyGUI
