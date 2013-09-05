@@ -276,7 +276,6 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 
 	mygui_config_sample(${PROJECTNAME})
 	
-	# link Common, Platform and MyGUIEngine
 	target_link_libraries(${PROJECTNAME}
 		Common
 	)
