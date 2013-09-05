@@ -120,3 +120,7 @@ elseif(MYGUI_SAMPLES_INPUT EQUAL 3)
 	link_directories(${OIS_LIB_DIR})
 	target_link_libraries(${PROJECTNAME} ${OIS_LIBRARIES})
 endif()
+
+if(NOT WIN32)
+	target_link_libraries(${PROJECTNAME} X11)
+endif()
