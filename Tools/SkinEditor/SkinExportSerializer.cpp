@@ -194,78 +194,49 @@ namespace tools
 
 	void SkinExportSerializer::fillStateData(DataPtr _data, pugi::xml_node _node)
 	{
-		typedef std::map<std::string, MyGUI::IntPoint> MapPoint;
-		MapPoint values;
-
 		pugi::xpath_node_set states = _node.select_nodes("BasisSkin/State");
 		for (pugi::xpath_node_set::const_iterator state = states.begin(); state != states.end(); state ++)
 		{
-			MyGUI::IntCoord coord((std::numeric_limits<int>::max)(), (std::numeric_limits<int>::max)(), 0, 0);
+			std::string name = (*state).node().attribute("name").value();
+			name = convertExportToEditorStateName(name);
+
+			DataPtr childData = getChildData(_data, "State", name);
+			if (childData == nullptr)
+			{
+				childData = Data::CreateInstance();
+				childData->setType(DataTypeManager::getInstance().getType("State"));
+				childData->setPropertyValue("Name", name);
+				_data->addChild(childData);
+			}
+
+			childData->setPropertyValue("Visible", "True");
 
 			pugi::xml_attribute attribute = (*state).node().attribute("offset");
 			if (!attribute.empty())
-				coord = MyGUI::IntCoord::parse(attribute.value());
+				childData->setPropertyValue("Point", MyGUI::IntCoord::parse(attribute.value()).point());
 
-			std::string name = (*state).node().attribute("name").value();
-			MapPoint::iterator valuesIterator = values.find(name);
-			if (valuesIterator != values.end())
-			{
-				(*valuesIterator).second = MyGUI::IntPoint(
-					(std::min)((*valuesIterator).second.left, coord.left),
-					(std::min)((*valuesIterator).second.top, coord.top));
-			}
-			else
-			{
-				values[name] = coord.point();
-			}
-		}
-
-		for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end(); child ++)
-		{
-			if ((*child)->getType()->getName() != "State")
-				continue;
-
-			DataPtr childData = (*child);
-			MapPoint::iterator result = values.find(convertEditorToExportStateName(childData->getPropertyValue("Name")));
-			if (result != values.end())
-			{
-				childData->setPropertyValue("Visible", "True");
-				if ((*result).second.left != (std::numeric_limits<int>::max)() &&
-					(*result).second.top != (std::numeric_limits<int>::max)())
-					childData->setPropertyValue("Point", (*result).second);
-			}
-		}
-
-		states = _node.select_nodes("BasisSkin/State[@colour]");
-		for (pugi::xpath_node_set::const_iterator state = states.begin(); state != states.end(); state ++)
-		{
-			std::string name = (*state).node().attribute("name").value();
 			int textShift = MyGUI::utility::parseValue<int>((*state).node().attribute("shift").value());
+			childData->setPropertyValue("TextShift", textShift);
+
 			MyGUI::Colour textColour = MyGUI::utility::parseValue<MyGUI::Colour>((*state).node().attribute("colour").value());
-
-			for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end(); child ++)
-			{
-				if ((*child)->getType()->getName() != "State")
-					continue;
-
-				DataPtr childData = (*child);
-				if (convertEditorToExportStateName(childData->getPropertyValue("Name")) == name)
-				{
-					childData->setPropertyValue("TextShift", textShift);
-					childData->setPropertyValue("TextColour", MyGUI::utility::toString(textColour.red, " ", textColour.green, " ", textColour.blue));
-				}
-			}
+			childData->setPropertyValue("TextColour", MyGUI::utility::toString(textColour.red, " ", textColour.green, " ", textColour.blue));
 		}
 	}
 
 	std::string SkinExportSerializer::convertEditorToExportStateName(const std::string& _value)
 	{
-		return mEditorToExportNames.find(_value)->second;
+		MyGUI::MapString::const_iterator result = mEditorToExportNames.find(_value);
+		if (result != mEditorToExportNames.end())
+			return result->second;
+		return _value;
 	}
 
 	std::string SkinExportSerializer::convertExportToEditorStateName(const std::string& _value)
 	{
-		return mExportToEditorNames.find(_value)->second;
+		MyGUI::MapString::const_iterator result = mExportToEditorNames.find(_value);
+		if (result != mExportToEditorNames.end())
+			return mExportToEditorNames.find(_value)->second;
+		return _value;
 	}
 
 	void SkinExportSerializer::registerMapName(const std::string& _value1, const std::string& _value2)
