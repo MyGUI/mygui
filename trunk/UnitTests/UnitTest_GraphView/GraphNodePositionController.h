@@ -65,7 +65,7 @@ namespace demo
 			if (node)
 			{
 				mLength = node->getLength();
-				if (mLength > 0.0001) mLength -= 0.0001;
+				if (mLength > 0.0001f) mLength -= 0.0001f;
 			}
 			else
 			{
