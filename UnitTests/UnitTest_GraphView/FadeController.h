@@ -58,7 +58,7 @@ namespace animation
 
 		virtual void addTime(float _value)
 		{
-			const float fade_time = 0.3;
+			const float fade_time = 0.3f;
 			if (mIsAnimationRun)
 			{
 				if (mWeight != 1)
