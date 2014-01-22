@@ -110,12 +110,14 @@
                     <Property key="RangePosition" value="100"/>
                     <Property key="Page" value="50"/>
                     <Property key="ViewPage" value="50"/>
+                    <Property key="WheelPage" value="50"/>
                 </Widget>
                 <Widget type="ScrollBar" skin="ScrollBarH_BlackTheme" position="5 170 200 13">
                     <Property key="Range" value="200"/>
                     <Property key="RangePosition" value="100"/>
                     <Property key="Page" value="50"/>
                     <Property key="ViewPage" value="50"/>
+                    <Property key="WheelPage" value="50"/>
                 </Widget>
             </Widget>
             <Widget type="TabItem" skin="" position="4 23 267 218">
