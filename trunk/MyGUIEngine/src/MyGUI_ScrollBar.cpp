@@ -13,9 +13,6 @@
 namespace MyGUI
 {
 
-	// FIXME - move to widget property
-	const int SCROLL_MOUSE_WHEEL = 50; // колличество пикселей для колеса мыши
-
 	ScrollBar::ScrollBar() :
 		mWidgetStart(nullptr),
 		mWidgetEnd(nullptr),
@@ -28,6 +25,7 @@ namespace MyGUI
 		mScrollPosition(0),
 		mScrollPage(0),
 		mScrollViewPage(0),
+		mScrollWheelPage(0),
 		mMinTrackSize(0),
 		mMoveToClick(false),
 		mVerticalAlignment(true)
@@ -41,6 +39,7 @@ namespace MyGUI
 		// при нуле, будет игнорировать кнопки
 		mScrollPage = 1;
 		mScrollViewPage = 1;
+		mScrollWheelPage = 1;
 		mMinTrackSize = 0;
 		mSkinRangeStart = 0;
 		mSkinRangeEnd = 0;
@@ -446,9 +445,9 @@ namespace MyGUI
 
 		int offset = mScrollPosition;
 		if (_rel < 0)
-			offset += SCROLL_MOUSE_WHEEL;
+			offset += mScrollWheelPage;
 		else
-			offset -= SCROLL_MOUSE_WHEEL;
+			offset -= mScrollWheelPage;
 
 		if (offset < 0)
 			offset = 0;
@@ -474,13 +473,17 @@ namespace MyGUI
 		else if (_key == "RangePosition")
 			setScrollPosition(utility::parseValue<size_t>(_value));
 
-		/// @wproperty{ScrollBar, Page, size_t} Размер прокрутки при нажатии на кнопку начала или конца в пикселях.
+		/// @wproperty{ScrollBar, Page, size_t} Шаг прокрутки при нажатии на кнопку начала или конца.
 		else if (_key == "Page")
 			setScrollPage(utility::parseValue<size_t>(_value));
 
-		/// @wproperty{ScrollBar, ViewPage, size_t} Размер прокрутки при нажатии на одну из частей от кнопки до трекера в пикселях.
+		/// @wproperty{ScrollBar, ViewPage, size_t} Шаг прокрутки при нажатии на одну из частей от кнопки до трекера.
 		else if (_key == "ViewPage")
 			setScrollViewPage(utility::parseValue<size_t>(_value));
+
+		/// @wproperty{ScrollBar, WheelPage, size_t} Шаг прокрутки при прокрутке колесиком мыши.
+		else if (_key == "WheelPage")
+			setScrollWheelPage(utility::parseValue<size_t>(_value));
 
 		/// @wproperty{ScrollBar, MoveToClick, bool} Режим перескакивания бегунка к месту клика.
 		else if (_key == "MoveToClick")
@@ -527,6 +530,15 @@ namespace MyGUI
 	size_t ScrollBar::getScrollViewPage() const
 	{
 		return mScrollViewPage;
+	}
+
+	void ScrollBar::setScrollWheelPage(size_t _value)
+	{
+		mScrollWheelPage = _value;
+	}
+	size_t ScrollBar::getScrollWheelPage() const
+	{
+		return mScrollWheelPage;
 	}
 
 	void ScrollBar::setMinTrackSize(int _value)

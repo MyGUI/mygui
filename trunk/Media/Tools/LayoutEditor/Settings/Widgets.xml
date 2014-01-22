@@ -183,6 +183,7 @@
 		<Parameter key="RangePosition" value="1 int"/>
 		<Parameter key="Page" value="1 int"/>
 		<Parameter key="ViewPage" value="1 int"/>
+		<Parameter key="WheelPage" value="1 int"/>
 		<Parameter key="MoveToClick" value="Bool"/>
 		<Parameter key="VerticalAlignment" value="Bool"/>
 		<TemplateData key="MinTrackSize" value="1 int"/>

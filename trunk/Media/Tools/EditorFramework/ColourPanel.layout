@@ -22,6 +22,7 @@
                     <Property key="RangePosition" value="0"/>
                     <Property key="Page" value="1"/>
                     <Property key="ViewPage" value="32"/>
+                    <Property key="WheelPage" value="32"/>
                 </Widget>
             </Widget>
         </Widget>

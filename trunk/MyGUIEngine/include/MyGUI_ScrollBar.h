@@ -56,6 +56,13 @@ namespace MyGUI
 		/** Get scroll view page */
 		size_t getScrollViewPage() const;
 
+		/** Set scroll view page
+			@param _value Tracker step when mouse wheel scrolled
+		*/
+		void setScrollWheelPage(size_t _value);
+		/** Get scroll view page */
+		size_t getScrollWheelPage() const;
+
 		/** Get size in pixels of area where scroll moves */
 		int getLineSize() const;
 
@@ -137,8 +144,9 @@ namespace MyGUI
 
 		size_t mScrollRange;
 		size_t mScrollPosition;
-		size_t mScrollPage; // на сколько перещелкивать, при щелчке на кнопке
-		size_t mScrollViewPage; // на сколько перещелкивать, при щелчке по полосе
+		size_t mScrollPage; // track step, when clicking buttons
+		size_t mScrollViewPage; // track step, when clicking scroll line
+		size_t mScrollWheelPage; // track step, when scrolling with mouse wheel
 
 		int mMinTrackSize;
 		bool mMoveToClick;
