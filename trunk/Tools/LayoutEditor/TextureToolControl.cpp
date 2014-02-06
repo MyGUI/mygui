@@ -13,29 +13,29 @@
 namespace tools
 {
 
-	TextureToolControl::TextureToolControl(MyGUI::Widget* _parent) :
-		TextureControl("TextureControl.layout", _parent),
+	TextureToolControlLE::TextureToolControlLE(MyGUI::Widget* _parent) :
+		TextureControlLE("TextureControl.layout", _parent),
 		mCurrentScaleValue(100),
 		mActivate(true)
 	{
 		MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/ColourBackground");
 		setColour(colour);
 
-		CommandManager::getInstance().getEvent("Command_ChangeNextScale")->connect(this, &TextureToolControl::CommandChangeNextScale);
-		CommandManager::getInstance().getEvent("Command_ChangePrevScale")->connect(this, &TextureToolControl::CommandChangePrevScale);
-		CommandManager::getInstance().getEvent("Command_ChangeScale")->connect(this, &TextureToolControl::CommandChangeScale);
+		CommandManager::getInstance().getEvent("Command_ChangeNextScale")->connect(this, &TextureToolControlLE::CommandChangeNextScale);
+		CommandManager::getInstance().getEvent("Command_ChangePrevScale")->connect(this, &TextureToolControlLE::CommandChangePrevScale);
+		CommandManager::getInstance().getEvent("Command_ChangeScale")->connect(this, &TextureToolControlLE::CommandChangeScale);
 
 		mScaleValue = SettingsManager::getInstance().getValueList<size_t>("Workspace/TextureScale/ScaleValue.List");
 
-		SettingsManager::getInstance().eventSettingsChanged.connect(this, &TextureToolControl::notifySettingsChanged);
+		SettingsManager::getInstance().eventSettingsChanged.connect(this, &TextureToolControlLE::notifySettingsChanged);
 	}
 
-	TextureToolControl::~TextureToolControl()
+	TextureToolControlLE::~TextureToolControlLE()
 	{
 		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);
 	}
 
-	void TextureToolControl::notifySettingsChanged(const std::string& _path)
+	void TextureToolControlLE::notifySettingsChanged(const std::string& _path)
 	{
 		if (_path == "Workspace/Colours/ColourBackground")
 		{
@@ -44,7 +44,7 @@ namespace tools
 		}
 	}
 
-	void TextureToolControl::CommandChangeNextScale(const MyGUI::UString& _commandName, bool& _result)
+	void TextureToolControlLE::CommandChangeNextScale(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -54,7 +54,7 @@ namespace tools
 		_result = true;
 	}
 
-	void TextureToolControl::CommandChangePrevScale(const MyGUI::UString& _commandName, bool& _result)
+	void TextureToolControlLE::CommandChangePrevScale(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkCommand())
 			return;
@@ -64,7 +64,7 @@ namespace tools
 		_result = true;
 	}
 
-	void TextureToolControl::CommandChangeScale(const MyGUI::UString& _commandName, bool& _result)
+	void TextureToolControlLE::CommandChangeScale(const MyGUI::UString& _commandName, bool& _result)
 	{
 		if (!checkMenuCommand())
 			return;
@@ -82,20 +82,20 @@ namespace tools
 		_result = true;
 	}
 
-	bool TextureToolControl::checkMenuCommand()
+	bool TextureToolControlLE::checkMenuCommand()
 	{
 		return mActivate &&
 			!getSelectorsCapture();
 	}
 
-	bool TextureToolControl::checkCommand()
+	bool TextureToolControlLE::checkCommand()
 	{
 		return mMainWidget->getRootKeyFocus() &&
 			mActivate &&
 			!getSelectorsCapture();
 	}
 
-	void TextureToolControl::onMouseWheel(int _rel)
+	void TextureToolControlLE::onMouseWheel(int _rel)
 	{
 		if (_rel < 0)
 			doPrevScale();
@@ -103,7 +103,7 @@ namespace tools
 			doNextScale();
 	}
 
-	bool TextureToolControl::doPrevScale()
+	bool TextureToolControlLE::doPrevScale()
 	{
 		for (VectorSizeT::const_iterator item = mScaleValue.begin(); item != mScaleValue.end(); ++item)
 		{
@@ -122,7 +122,7 @@ namespace tools
 		return false;
 	}
 
-	bool TextureToolControl::doNextScale()
+	bool TextureToolControlLE::doNextScale()
 	{
 		for (VectorSizeT::const_iterator item = mScaleValue.begin(); item != mScaleValue.end(); ++item)
 		{
@@ -141,19 +141,19 @@ namespace tools
 		return false;
 	}
 
-	void TextureToolControl::setActivate(bool _value)
+	void TextureToolControlLE::setActivate(bool _value)
 	{
 		mActivate = _value;
 
 		onChangeActivate();
 	}
 
-	bool TextureToolControl::getActivate() const
+	bool TextureToolControlLE::getActivate() const
 	{
 		return mActivate;
 	}
 
-	void TextureToolControl::onChangeActivate()
+	void TextureToolControlLE::onChangeActivate()
 	{
 	}
 

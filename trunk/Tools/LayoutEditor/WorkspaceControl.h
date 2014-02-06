@@ -11,7 +11,7 @@ namespace tools
 {
 
 	class WorkspaceControl :
-		public TextureToolControl
+		public TextureToolControlLE
 	{
 	public:
 		WorkspaceControl(MyGUI::Widget* _parent = nullptr);
@@ -70,11 +70,11 @@ namespace tools
 		void setRttLayerSize(const MyGUI::IntSize& _size);
 
 	private:
-		AreaSelectorControl* mAreaSelectorControl;
+		AreaSelectorControlLE* mAreaSelectorControl;
 		MyGUI::IntCoord mCoordValue;
 		MyGUI::Widget* mCurrentWidget;
 		bool mMoveableWidget;
-		PositionSelectorControl* mPositionSelectorCreatorControl;
+		PositionSelectorControlLE* mPositionSelectorCreatorControl;
 		bool mFreeChildMode;
 	};
 

@@ -13,7 +13,7 @@ namespace tools
 {
 
 	WorkspaceControl::WorkspaceControl(MyGUI::Widget* _parent) :
-		TextureToolControl(_parent),
+		TextureToolControlLE(_parent),
 		mAreaSelectorControl(nullptr),
 		mCurrentWidget(nullptr),
 		mMoveableWidget(false),

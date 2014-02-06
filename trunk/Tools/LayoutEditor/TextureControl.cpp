@@ -11,7 +11,7 @@
 namespace tools
 {
 
-	TextureControl::TextureControl(const std::string& _layout, MyGUI::Widget* _parent) :
+	TextureControlLE::TextureControlLE(const std::string& _layout, MyGUI::Widget* _parent) :
 		wraps::BaseLayout(_layout, _parent),
 		mView(nullptr),
 		mTexture(nullptr),
@@ -24,34 +24,34 @@ namespace tools
 		assignWidget(mTexture, "Texture");
 		assignWidget(mBackground, "Background");
 
-		mTexture->eventMouseButtonPressed += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonPressed);
-		mTexture->eventMouseButtonReleased += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonReleased);
-		mTexture->eventMouseDrag += MyGUI::newDelegate(this, &TextureControl::notifyMouseDrag);
-		mTexture->eventMouseMove += MyGUI::newDelegate(this, &TextureControl::notifyMouseMove);
-		mTexture->eventMouseWheel += MyGUI::newDelegate(this, &TextureControl::notifyMouseWheel);
+		mTexture->eventMouseButtonPressed += MyGUI::newDelegate(this, &TextureControlLE::notifyMouseButtonPressed);
+		mTexture->eventMouseButtonReleased += MyGUI::newDelegate(this, &TextureControlLE::notifyMouseButtonReleased);
+		mTexture->eventMouseDrag += MyGUI::newDelegate(this, &TextureControlLE::notifyMouseDrag);
+		mTexture->eventMouseMove += MyGUI::newDelegate(this, &TextureControlLE::notifyMouseMove);
+		mTexture->eventMouseWheel += MyGUI::newDelegate(this, &TextureControlLE::notifyMouseWheel);
 	}
 
-	TextureControl::~TextureControl()
+	TextureControlLE::~TextureControlLE()
 	{
-		mTexture->eventMouseWheel -= MyGUI::newDelegate(this, &TextureControl::notifyMouseWheel);
-		mTexture->eventMouseButtonPressed -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonPressed);
-		mTexture->eventMouseButtonReleased -= MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonReleased);
-		mTexture->eventMouseDrag -= MyGUI::newDelegate(this, &TextureControl::notifyMouseDrag);
-		mTexture->eventMouseMove -= MyGUI::newDelegate(this, &TextureControl::notifyMouseMove);
+		mTexture->eventMouseWheel -= MyGUI::newDelegate(this, &TextureControlLE::notifyMouseWheel);
+		mTexture->eventMouseButtonPressed -= MyGUI::newDelegate(this, &TextureControlLE::notifyMouseButtonPressed);
+		mTexture->eventMouseButtonReleased -= MyGUI::newDelegate(this, &TextureControlLE::notifyMouseButtonReleased);
+		mTexture->eventMouseDrag -= MyGUI::newDelegate(this, &TextureControlLE::notifyMouseDrag);
+		mTexture->eventMouseMove -= MyGUI::newDelegate(this, &TextureControlLE::notifyMouseMove);
 	}
 
-	void TextureControl::updateScale()
+	void TextureControlLE::updateScale()
 	{
 		double width = (double)mTextureRegion.width * mScaleValue;
 		double height = (double)mTextureRegion.height * mScaleValue;
 
 		mView->setCanvasSize(MyGUI::IntSize((int)width, (int)height));
 
-		for (std::vector<SelectorControl*>::iterator item = mSelectors.begin(); item != mSelectors.end(); ++item)
+		for (std::vector<SelectorControlLE*>::iterator item = mSelectors.begin(); item != mSelectors.end(); ++item)
 			(*item)->setScale(mScaleValue);
 	}
 
-	void TextureControl::setTextureName(const MyGUI::UString& _value)
+	void TextureControlLE::setTextureName(const MyGUI::UString& _value)
 	{
 		mTextureSize = MyGUI::texture_utility::getTextureSize(_value);
 		mTexture->setImageTexture(_value);
@@ -61,12 +61,12 @@ namespace tools
 		updateScale();
 	}
 
-	const MyGUI::IntSize& TextureControl::getTextureSize() const
+	const MyGUI::IntSize& TextureControlLE::getTextureSize() const
 	{
 		return mTextureSize;
 	}
 
-	void TextureControl::setTextureRegion(const MyGUI::IntCoord& _value)
+	void TextureControlLE::setTextureRegion(const MyGUI::IntCoord& _value)
 	{
 		mTextureRegion = _value;
 		mTexture->setImageCoord(mTextureRegion);
@@ -76,29 +76,29 @@ namespace tools
 		updateScale();
 	}
 
-	const MyGUI::IntCoord& TextureControl::getTextureRegion() const
+	const MyGUI::IntCoord& TextureControlLE::getTextureRegion() const
 	{
 		return mTextureRegion;
 	}
 
-	void TextureControl::updateColours()
+	void TextureControlLE::updateColours()
 	{
 		mBackground->setColour(mCurrentColour);
 		mBackground->setAlpha(mCurrentColour.alpha);
 	}
 
-	void TextureControl::setColour(MyGUI::Colour _value)
+	void TextureControlLE::setColour(MyGUI::Colour _value)
 	{
 		mCurrentColour = _value;
 		updateColours();
 	}
 
-	MyGUI::Colour TextureControl::getColour() const
+	MyGUI::Colour TextureControlLE::getColour() const
 	{
 		return mCurrentColour;
 	}
 
-	void TextureControl::setScale(double _value)
+	void TextureControlLE::setScale(double _value)
 	{
 		mScaleValue = _value;
 		updateScale();
@@ -106,42 +106,42 @@ namespace tools
 		onChangeScale();
 	}
 
-	void TextureControl::onMouseMove()
+	void TextureControlLE::onMouseMove()
 	{
 	}
 
-	void TextureControl::onMouseWheel(int _rel)
+	void TextureControlLE::onMouseWheel(int _rel)
 	{
 	}
 
-	void TextureControl::onMouseButtonPressed(const MyGUI::IntPoint& _point)
+	void TextureControlLE::onMouseButtonPressed(const MyGUI::IntPoint& _point)
 	{
 	}
 
-	void TextureControl::onMouseButtonReleased(const MyGUI::IntPoint& _point)
+	void TextureControlLE::onMouseButtonReleased(const MyGUI::IntPoint& _point)
 	{
 	}
 
-	void TextureControl::onMouseDrag(const MyGUI::IntPoint& _point)
+	void TextureControlLE::onMouseDrag(const MyGUI::IntPoint& _point)
 	{
 	}
 
-	void TextureControl::onMouseButtonClick(const MyGUI::IntPoint& _point)
+	void TextureControlLE::onMouseButtonClick(const MyGUI::IntPoint& _point)
 	{
 	}
 
-	bool TextureControl::getSelectorsCapture()
+	bool TextureControlLE::getSelectorsCapture()
 	{
 		if (mMouseCapture)
 			return true;
 
-		for (std::vector<SelectorControl*>::iterator item = mSelectors.begin(); item != mSelectors.end(); ++item)
+		for (std::vector<SelectorControlLE*>::iterator item = mSelectors.begin(); item != mSelectors.end(); ++item)
 			if ((*item)->getCapture())
 				return true;
 		return false;
 	}
 
-	void TextureControl::notifyMouseWheel(MyGUI::Widget* _sender, int _rel)
+	void TextureControlLE::notifyMouseWheel(MyGUI::Widget* _sender, int _rel)
 	{
 		mMouseLeftPressed = false;
 
@@ -153,18 +153,18 @@ namespace tools
 		}
 	}
 
-	void TextureControl::registerSelectorControl(SelectorControl* _control)
+	void TextureControlLE::registerSelectorControl(SelectorControlLE* _control)
 	{
 		mSelectors.push_back(_control);
 		_control->setScale(mScaleValue);
-		_control->getMainWidget()->eventMouseWheel += MyGUI::newDelegate(this, &TextureControl::notifyMouseWheel);
-		_control->getMainWidget()->eventMouseButtonPressed += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonPressed);
-		_control->getMainWidget()->eventMouseButtonReleased += MyGUI::newDelegate(this, &TextureControl::notifyMouseButtonReleased);
-		_control->getMainWidget()->eventMouseDrag += MyGUI::newDelegate(this, &TextureControl::notifyMouseDrag);
-		_control->getMainWidget()->eventMouseMove += MyGUI::newDelegate(this, &TextureControl::notifyMouseMove);
+		_control->getMainWidget()->eventMouseWheel += MyGUI::newDelegate(this, &TextureControlLE::notifyMouseWheel);
+		_control->getMainWidget()->eventMouseButtonPressed += MyGUI::newDelegate(this, &TextureControlLE::notifyMouseButtonPressed);
+		_control->getMainWidget()->eventMouseButtonReleased += MyGUI::newDelegate(this, &TextureControlLE::notifyMouseButtonReleased);
+		_control->getMainWidget()->eventMouseDrag += MyGUI::newDelegate(this, &TextureControlLE::notifyMouseDrag);
+		_control->getMainWidget()->eventMouseMove += MyGUI::newDelegate(this, &TextureControlLE::notifyMouseMove);
 	}
 
-	void TextureControl::notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
+	void TextureControlLE::notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
 		if (_id == MyGUI::MouseButton::Right)
 		{
@@ -183,7 +183,7 @@ namespace tools
 		}
 	}
 
-	void TextureControl::notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
+	void TextureControlLE::notifyMouseButtonReleased(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
 		if (_id == MyGUI::MouseButton::Right)
 		{
@@ -204,7 +204,7 @@ namespace tools
 		}
 	}
 
-	void TextureControl::notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
+	void TextureControlLE::notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id)
 	{
 		mMouseLeftPressed = false;
 
@@ -222,14 +222,14 @@ namespace tools
 		}
 	}
 
-	void TextureControl::notifyMouseMove(MyGUI::Widget* _sender, int _left, int _top)
+	void TextureControlLE::notifyMouseMove(MyGUI::Widget* _sender, int _left, int _top)
 	{
 		MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getLastPressedPosition(MyGUI::MouseButton::Left);
 		if (point.left != _left && point.top != _top)
 			onMouseMove();
 	}
 
-	void TextureControl::saveMouseRelative()
+	void TextureControlLE::saveMouseRelative()
 	{
 		MyGUI::IntSize canvasSize = mView->getCanvasSize();
 		MyGUI::IntPoint mousePoint = MyGUI::InputManager::getInstance().getMousePositionByLayer();
@@ -238,7 +238,7 @@ namespace tools
 		mMouseRelative.set((float)mouseOffset.left / (float)canvasSize.width, (float)mouseOffset.top / (float)canvasSize.height);
 	}
 
-	void TextureControl::loadMouseRelative()
+	void TextureControlLE::loadMouseRelative()
 	{
 		MyGUI::IntCoord viewCoord = mView->getViewCoord();
 		MyGUI::IntSize canvasSize = mView->getCanvasSize();
@@ -254,7 +254,7 @@ namespace tools
 		mView->setViewOffset(MyGUI::IntPoint(-canvasOffset.left, -canvasOffset.top));
 	}
 
-	MyGUI::IntPoint TextureControl::getMousePosition()
+	MyGUI::IntPoint TextureControlLE::getMousePosition()
 	{
 		MyGUI::IntPoint point = MyGUI::InputManager::getInstance().getMousePosition() - mTexture->getAbsolutePosition();
 		point.left = (int)((double)point.left / mScaleValue);
@@ -263,11 +263,11 @@ namespace tools
 		return point;
 	}
 
-	void TextureControl::onChangeScale()
+	void TextureControlLE::onChangeScale()
 	{
 	}
 
-	double TextureControl::getScale() const
+	double TextureControlLE::getScale() const
 	{
 		return mScaleValue;
 	}

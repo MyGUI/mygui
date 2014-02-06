@@ -10,13 +10,13 @@
 namespace tools
 {
 
-	AreaSelectorControl::AreaSelectorControl(MyGUI::Widget* _parent) :
-		SelectorControl("AreaSelectorControl.layout", _parent)
+	AreaSelectorControlLE::AreaSelectorControlLE(MyGUI::Widget* _parent) :
+		SelectorControlLE("AreaSelectorControl.layout", _parent)
 	{
 		setPropertyColour("ColourSelector");
 	}
 
-	AreaSelectorControl::~AreaSelectorControl()
+	AreaSelectorControlLE::~AreaSelectorControlLE()
 	{
 	}
 

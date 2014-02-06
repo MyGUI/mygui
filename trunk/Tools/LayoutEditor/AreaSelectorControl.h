@@ -12,12 +12,12 @@
 namespace tools
 {
 
-	class AreaSelectorControl :
-		public SelectorControl
+	class AreaSelectorControlLE :
+		public SelectorControlLE
 	{
 	public:
-		AreaSelectorControl(MyGUI::Widget* _parent);
-		virtual ~AreaSelectorControl();
+		AreaSelectorControlLE(MyGUI::Widget* _parent);
+		virtual ~AreaSelectorControlLE();
 	};
 
 }

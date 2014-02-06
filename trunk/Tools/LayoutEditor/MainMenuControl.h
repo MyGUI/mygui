@@ -15,13 +15,13 @@
 namespace tools
 {
 
-	class MainMenuControl :
+	class MainMenuControlLE :
 		public wraps::BaseLayout,
 		public sigslot::has_slots<>
 	{
 	public:
-		MainMenuControl(MyGUI::Widget* _parent = nullptr);
-		virtual ~MainMenuControl();
+		MainMenuControlLE(MyGUI::Widget* _parent = nullptr);
+		virtual ~MainMenuControlLE();
 
 		void setVisible(bool _value);
 

@@ -13,13 +13,13 @@
 namespace tools
 {
 
-	class TextureToolControl :
-		public TextureControl,
+	class TextureToolControlLE :
+		public TextureControlLE,
 		public sigslot::has_slots<>
 	{
 	public:
-		TextureToolControl(MyGUI::Widget* _parent);
-		virtual ~TextureToolControl();
+		TextureToolControlLE(MyGUI::Widget* _parent);
+		virtual ~TextureToolControlLE();
 
 		void setActivate(bool _value);
 		bool getActivate() const;
