@@ -12,12 +12,12 @@
 namespace tools
 {
 
-	class PositionSelectorControl :
-		public SelectorControl
+	class PositionSelectorControlLE :
+		public SelectorControlLE
 	{
 	public:
-		PositionSelectorControl(MyGUI::Widget* _parent);
-		virtual ~PositionSelectorControl();
+		PositionSelectorControlLE(MyGUI::Widget* _parent);
+		virtual ~PositionSelectorControlLE();
 	};
 
 }

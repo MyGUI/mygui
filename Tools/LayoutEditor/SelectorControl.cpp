@@ -11,7 +11,7 @@
 namespace tools
 {
 
-	SelectorControl::SelectorControl(const std::string& _layout, MyGUI::Widget* _parent) :
+	SelectorControlLE::SelectorControlLE(const std::string& _layout, MyGUI::Widget* _parent) :
 		wraps::BaseLayout(_layout, _parent),
 		mScaleValue(1.0)
 	{
@@ -29,50 +29,50 @@ namespace tools
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
-			window->eventWindowChangeCoord += MyGUI::newDelegate(this, &SelectorControl::notifyWindowChangeCoord);
+			window->eventWindowChangeCoord += MyGUI::newDelegate(this, &SelectorControlLE::notifyWindowChangeCoord);
 
-		SettingsManager::getInstance().eventSettingsChanged.connect(this, &SelectorControl::notifySettingsChanged);
+		SettingsManager::getInstance().eventSettingsChanged.connect(this, &SelectorControlLE::notifySettingsChanged);
 	}
 
-	SelectorControl::~SelectorControl()
+	SelectorControlLE::~SelectorControlLE()
 	{
 		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);
 
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
-			window->eventWindowChangeCoord -= MyGUI::newDelegate(this, &SelectorControl::notifyWindowChangeCoord);
+			window->eventWindowChangeCoord -= MyGUI::newDelegate(this, &SelectorControlLE::notifyWindowChangeCoord);
 	}
 
-	void SelectorControl::setVisible(bool _value)
+	void SelectorControlLE::setVisible(bool _value)
 	{
 		mMainWidget->setVisible(_value);
 	}
 
-	void SelectorControl::setSize(const MyGUI::IntSize& _value)
+	void SelectorControlLE::setSize(const MyGUI::IntSize& _value)
 	{
 		mCoordValue = _value;
 		updateCoord();
 	}
 
-	void SelectorControl::setPosition(const MyGUI::IntPoint& _value)
+	void SelectorControlLE::setPosition(const MyGUI::IntPoint& _value)
 	{
 		mCoordValue = _value;
 		updateCoord();
 	}
 
-	void SelectorControl::setCoord(const MyGUI::IntCoord& _value)
+	void SelectorControlLE::setCoord(const MyGUI::IntCoord& _value)
 	{
 		mCoordValue = _value;
 		updateCoord();
 	}
 
-	void SelectorControl::setScale(double _value)
+	void SelectorControlLE::setScale(double _value)
 	{
 		mScaleValue = _value;
 		updateCoord();
 	}
 
-	void SelectorControl::updateCoord()
+	void SelectorControlLE::updateCoord()
 	{
 		mCoordReal.left = (int)((double)mCoordValue.left * mScaleValue) + mProjectionDiff.left;
 		mCoordReal.top = (int)((double)mCoordValue.top * mScaleValue) + mProjectionDiff.top;
@@ -82,7 +82,7 @@ namespace tools
 		mMainWidget->setCoord(mCoordReal);
 	}
 
-	void SelectorControl::notifyWindowChangeCoord(MyGUI::Window* _sender)
+	void SelectorControlLE::notifyWindowChangeCoord(MyGUI::Window* _sender)
 	{
 		MyGUI::IntCoord coord = _sender->getCoord() - mProjectionDiff;
 		const MyGUI::IntCoord& actionScale = _sender->getActionScale();
@@ -115,27 +115,27 @@ namespace tools
 		eventChangePosition();
 	}
 
-	MyGUI::IntPoint SelectorControl::getPosition()
+	MyGUI::IntPoint SelectorControlLE::getPosition()
 	{
 		return mCoordValue.point();
 	}
 
-	MyGUI::IntSize SelectorControl::getSize()
+	MyGUI::IntSize SelectorControlLE::getSize()
 	{
 		return mCoordValue.size();
 	}
 
-	const MyGUI::IntCoord& SelectorControl::getCoord() const
+	const MyGUI::IntCoord& SelectorControlLE::getCoord() const
 	{
 		return mCoordValue;
 	}
 
-	void SelectorControl::setEnabled(bool _value)
+	void SelectorControlLE::setEnabled(bool _value)
 	{
 		mMainWidget->setNeedMouseFocus(_value);
 	}
 
-	bool SelectorControl::getCapture()
+	bool SelectorControlLE::getCapture()
 	{
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
@@ -143,7 +143,7 @@ namespace tools
 		return false;
 	}
 
-	MyGUI::IntCoord SelectorControl::getActionScale() const
+	MyGUI::IntCoord SelectorControlLE::getActionScale() const
 	{
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr)
@@ -151,13 +151,13 @@ namespace tools
 		return MyGUI::IntCoord();
 	}
 
-	void SelectorControl::setColour(MyGUI::Colour _value)
+	void SelectorControlLE::setColour(MyGUI::Colour _value)
 	{
 		mMainWidget->setColour(_value);
 		mMainWidget->setAlpha(_value.alpha);
 	}
 
-	void SelectorControl::notifySettingsChanged(const std::string& _path)
+	void SelectorControlLE::notifySettingsChanged(const std::string& _path)
 	{
 		if (!mPropertyColour.empty() && _path == ("Workspace/Colours/" + mPropertyColour))
 		{
@@ -166,14 +166,14 @@ namespace tools
 		}
 	}
 
-	void SelectorControl::setPropertyColour(const std::string& _propertyName)
+	void SelectorControlLE::setPropertyColour(const std::string& _propertyName)
 	{
 		mPropertyColour = _propertyName;
 		MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/" + mPropertyColour);
 		setColour(colour);
 	}
 
-	MyGUI::Widget* SelectorControl::getMainWidget()
+	MyGUI::Widget* SelectorControlLE::getMainWidget()
 	{
 		return mMainWidget;
 	}

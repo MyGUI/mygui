@@ -17,7 +17,7 @@
 namespace tools
 {
 
-	MainMenuControl::MainMenuControl(MyGUI::Widget* _parent) :
+	MainMenuControlLE::MainMenuControlLE(MyGUI::Widget* _parent) :
 		wraps::BaseLayout("MainMenuControl.layout", _parent),
 		mBar(nullptr),
 		mPopupMenuWidgets(nullptr)
@@ -26,21 +26,21 @@ namespace tools
 
 		createMainMenu();
 
-		SettingsManager::getInstance().eventSettingsChanged.connect(this, &MainMenuControl::notifySettingsChanged);
-		EditorWidgets::getInstance().eventChangeWidgets += MyGUI::newDelegate(this, &MainMenuControl::notifyChangeWidgets);
+		SettingsManager::getInstance().eventSettingsChanged.connect(this, &MainMenuControlLE::notifySettingsChanged);
+		EditorWidgets::getInstance().eventChangeWidgets += MyGUI::newDelegate(this, &MainMenuControlLE::notifyChangeWidgets);
 
-		CommandManager::getInstance().getEvent("Command_OnChangeScale")->connect(this, &MainMenuControl::CommandOnChangeScale);
+		CommandManager::getInstance().getEvent("Command_OnChangeScale")->connect(this, &MainMenuControlLE::CommandOnChangeScale);
 
 		updateMenuScale(100);
 	}
 
-	MainMenuControl::~MainMenuControl()
+	MainMenuControlLE::~MainMenuControlLE()
 	{
-		EditorWidgets::getInstance().eventChangeWidgets -= MyGUI::newDelegate(this, &MainMenuControl::notifyChangeWidgets);
+		EditorWidgets::getInstance().eventChangeWidgets -= MyGUI::newDelegate(this, &MainMenuControlLE::notifyChangeWidgets);
 		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);
 	}
 
-	void MainMenuControl::createMainMenu()
+	void MainMenuControlLE::createMainMenu()
 	{
 		updateRecentFilesMenu();
 		updateRecentProjectsMenu();
@@ -50,12 +50,12 @@ namespace tools
 
 		//FIXME
 		mPopupMenuWidgets->setPopupAccept(true);
-		mPopupMenuWidgets->eventMenuCtrlAccept += MyGUI::newDelegate(this, &MainMenuControl::notifyWidgetsSelect);
+		mPopupMenuWidgets->eventMenuCtrlAccept += MyGUI::newDelegate(this, &MainMenuControlLE::notifyWidgetsSelect);
 
-		mBar->eventMenuCtrlAccept += newDelegate(this, &MainMenuControl::notifyPopupMenuAccept);
+		mBar->eventMenuCtrlAccept += newDelegate(this, &MainMenuControlLE::notifyPopupMenuAccept);
 	}
 
-	void MainMenuControl::notifyPopupMenuAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item)
+	void MainMenuControlLE::notifyPopupMenuAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item)
 	{
 		MyGUI::UString* data = _item->getItemData<MyGUI::UString>(false);
 		if (data != nullptr)
@@ -68,7 +68,7 @@ namespace tools
 		}
 	}
 
-	void MainMenuControl::widgetsUpdate()
+	void MainMenuControlLE::widgetsUpdate()
 	{
 		bool print_name = SettingsManager::getInstance().getValue<bool>("Settings/ShowName");
 		bool print_type = SettingsManager::getInstance().getValue<bool>("Settings/ShowType");
@@ -81,7 +81,7 @@ namespace tools
 			createWidgetPopup(widget.current(), mPopupMenuWidgets, print_name, print_type, print_skin);
 	}
 
-	void MainMenuControl::createWidgetPopup(WidgetContainer* _container, MyGUI::MenuControl* _parentPopup, bool _print_name, bool _print_type, bool _print_skin)
+	void MainMenuControlLE::createWidgetPopup(WidgetContainer* _container, MyGUI::MenuControl* _parentPopup, bool _print_name, bool _print_type, bool _print_skin)
 	{
 		bool submenu = !_container->childContainers.empty();
 
@@ -91,7 +91,7 @@ namespace tools
 		if (submenu)
 		{
 			MyGUI::MenuControl* child = _parentPopup->createItemChildAt(_parentPopup->getItemCount() - 1);
-			child->eventMenuCtrlAccept += MyGUI::newDelegate(this, &MainMenuControl::notifyWidgetsSelect);
+			child->eventMenuCtrlAccept += MyGUI::newDelegate(this, &MainMenuControlLE::notifyWidgetsSelect);
 			child->setPopupAccept(true);
 
 			for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter )
@@ -101,13 +101,13 @@ namespace tools
 		}
 	}
 
-	void MainMenuControl::notifyWidgetsSelect(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item)
+	void MainMenuControlLE::notifyWidgetsSelect(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item)
 	{
 		MyGUI::Widget* widget = *_item->getItemData<MyGUI::Widget*>();
 		WidgetSelectorManager::getInstance().setSelectedWidget(widget);
 	}
 
-	std::string MainMenuControl::getDescriptionString(MyGUI::Widget* _widget, bool _print_name, bool _print_type, bool _print_skin)
+	std::string MainMenuControlLE::getDescriptionString(MyGUI::Widget* _widget, bool _print_name, bool _print_type, bool _print_skin)
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
 
@@ -122,12 +122,12 @@ namespace tools
 		return replaceTags("MenuItemWidgetInfo");
 	}
 
-	void MainMenuControl::notifyChangeWidgets()
+	void MainMenuControlLE::notifyChangeWidgets()
 	{
 		widgetsUpdate();
 	}
 
-	void MainMenuControl::notifySettingsChanged(const std::string& _path)
+	void MainMenuControlLE::notifySettingsChanged(const std::string& _path)
 	{
 		if (_path == "Settings/ShowName" ||
 			_path == "Settings/ShowType" ||
@@ -139,7 +139,7 @@ namespace tools
 			updateRecentProjectsMenu();
 	}
 
-	void MainMenuControl::updateRecentFilesMenu()
+	void MainMenuControlLE::updateRecentFilesMenu()
 	{
 		MyGUI::MenuItem* recentFilesMenu = mBar->findItemById("RecentFiles", true);
 		if (recentFilesMenu != nullptr)
@@ -160,7 +160,7 @@ namespace tools
 		}
 	}
 
-	void MainMenuControl::updateRecentProjectsMenu()
+	void MainMenuControlLE::updateRecentProjectsMenu()
 	{
 		MyGUI::MenuItem* recentProjectsMenu = mBar->findItemById("RecentProjects", true);
 		if (recentProjectsMenu != nullptr)
@@ -181,19 +181,19 @@ namespace tools
 		}
 	}
 
-	void MainMenuControl::setVisible(bool _value)
+	void MainMenuControlLE::setVisible(bool _value)
 	{
 		mBar->setVisible(_value);
 	}
 
-	void MainMenuControl::CommandOnChangeScale(const MyGUI::UString& _commandName, bool& _result)
+	void MainMenuControlLE::CommandOnChangeScale(const MyGUI::UString& _commandName, bool& _result)
 	{
 		updateMenuScale(MyGUI::utility::parseValue<size_t>(CommandManager::getInstance().getCommandData()));
 
 		_result = true;
 	}
 
-	void MainMenuControl::updateMenuScale(size_t _scale)
+	void MainMenuControlLE::updateMenuScale(size_t _scale)
 	{
 		MyGUI::MenuItem* scaleMenu = mBar->findItemById("Scale", true);
 		if (scaleMenu != nullptr)

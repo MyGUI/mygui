@@ -14,12 +14,12 @@
 namespace tools
 {
 
-	class TextureControl :
+	class TextureControlLE :
 		public wraps::BaseLayout
 	{
 	public:
-		TextureControl(const std::string& _layout, MyGUI::Widget* _parent);
-		virtual ~TextureControl();
+		TextureControlLE(const std::string& _layout, MyGUI::Widget* _parent);
+		virtual ~TextureControlLE();
 
 	protected:
 		void setTextureName(const MyGUI::UString& _value);
@@ -71,7 +71,7 @@ namespace tools
 		void updateRegionCoord();
 		void updateColours();
 
-		void registerSelectorControl(SelectorControl* _control);
+		void registerSelectorControl(SelectorControlLE* _control);
 
 		MyGUI::IntPoint getMousePosition();
 
@@ -85,7 +85,7 @@ namespace tools
 		MyGUI::IntCoord mTextureRegion;
 		MyGUI::Colour mCurrentColour;
 
-		std::vector<SelectorControl*> mSelectors;
+		std::vector<SelectorControlLE*> mSelectors;
 
 		MyGUI::IntPoint mRightMouseClick;
 		MyGUI::IntPoint mViewOffset;

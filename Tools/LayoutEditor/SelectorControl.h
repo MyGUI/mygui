@@ -13,17 +13,17 @@
 namespace tools
 {
 
-	class SelectorControl;
+	class SelectorControlLE;
 
 	typedef MyGUI::delegates::CMultiDelegate0 EventHandle_ChangePosition;
 
-	class SelectorControl :
+	class SelectorControlLE :
 		public wraps::BaseLayout,
 		public sigslot::has_slots<>
 	{
 	public:
-		SelectorControl(const std::string& _layout, MyGUI::Widget* _parent);
-		virtual ~SelectorControl();
+		SelectorControlLE(const std::string& _layout, MyGUI::Widget* _parent);
+		virtual ~SelectorControlLE();
 
 		void setVisible(bool _value);
 		void setScale(double _value);

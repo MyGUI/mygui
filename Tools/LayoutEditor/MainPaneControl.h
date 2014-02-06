@@ -18,7 +18,7 @@ namespace tools
 		void setVisible(bool _value);
 
 	private:
-		MainMenuControl* mMainMenuControl;
+		MainMenuControlLE* mMainMenuControl;
 		MainWorkspaceControl* mMainWorkspaceControl;
 	};
 
