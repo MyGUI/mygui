@@ -21,7 +21,6 @@ namespace MyGUI
 		mRealClient(nullptr)
 	{
 		mChangeContentByResize = false;
-		mContentAlign = Align::Center;
 	}
 
 	void ScrollView::initialiseOverride()
