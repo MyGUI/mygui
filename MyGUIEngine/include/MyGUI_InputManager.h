@@ -147,8 +147,8 @@ namespace MyGUI
 		Widget* mWidgetKeyFocus;
 		ILayer* mLayerMouseFocus;
 
-		// таймер для двойного клика
-		Timer mTimer; //used for double click timing
+		//used for double click timing
+		float mTimerDoubleClick; // time since the last click
 
 		// нажат ли шифт
 		bool mIsShiftPressed;
