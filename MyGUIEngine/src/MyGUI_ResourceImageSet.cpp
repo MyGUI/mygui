@@ -35,7 +35,7 @@ namespace MyGUI
 			group.name = group_node->findAttribute("name");
 
 			group.texture = group_node->findAttribute("texture");
-			// поддержка замены тегов
+			// tags replacement support for Skins
 			if (_version >= Version(1, 1))
 			{
 				group.texture = LanguageManager::getInstance().replaceTags(group.texture);
