@@ -45,7 +45,7 @@ namespace MyGUI
 		// вспомогательный класс для биндинга сабскинов
 		SubWidgetBinding bind;
 
-		// поддержка замены тегов в скинах
+		// tags replacement support for Skins
 		if (_version >= Version(1, 1))
 		{
 			texture = localizator.replaceTags(texture);
@@ -70,7 +70,7 @@ namespace MyGUI
 				if (!basis->findAttribute("value", value))
 					continue;
 
-				// поддержка замены тегов в скинах
+				// tags replacement support for Skins
 				if (_version >= Version(1, 1))
 				{
 					value = localizator.replaceTags(value);
