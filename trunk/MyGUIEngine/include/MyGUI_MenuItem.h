@@ -31,6 +31,12 @@ namespace MyGUI
 		/** @copydoc TextBox::setCaption(const UString& _value) */
 		virtual void setCaption(const UString& _value);
 
+		/** @copydoc TextBox::setFontName(const std::string& _value) */
+		virtual void setFontName(const std::string& _value);
+
+		/** @copydoc TextBox::setFontHeight(int _value) */
+		virtual void setFontHeight(int _value);
+
 		//! Replace an item name
 		void setItemName(const UString& _value);
 		//! Get item name
