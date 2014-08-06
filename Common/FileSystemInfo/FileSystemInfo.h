@@ -153,6 +153,9 @@ namespace common
 		::GetCurrentDirectoryW(MAX_PATH, buff);
 		return buff;
 #else
+#	ifndef PATH_MAX
+#		define PATH_MAX 256
+#	endif
 		char buff[PATH_MAX+1];
 		return getcwd(buff, PATH_MAX) ? MyGUI::UString(buff).asWStr() : std::wstring();
 #endif
