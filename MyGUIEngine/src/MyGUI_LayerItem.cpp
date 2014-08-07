@@ -70,6 +70,9 @@ namespace MyGUI
 
 	void LayerItem::setRenderItemTexture(ITexture* _texture)
 	{
+		if (mTexture == _texture)
+			return;
+
 		mTexture = _texture;
 		if (mLayerNode)
 		{

@@ -289,23 +289,21 @@ namespace MyGUI
 
 	void LayerNode::updateCompression()
 	{
-		// буферы освобождаются по одному всегда
+		// pushing all empty buffers to the end of buffers list
 		if (mFirstRenderItems.size() > 1)
 		{
-			// пытаемся поднять пустой буфер выше полных
-			VectorRenderItem::iterator iter1 = mFirstRenderItems.begin();
-			VectorRenderItem::iterator iter2 = iter1 + 1;
-			while (iter2 != mFirstRenderItems.end())
+			VectorRenderItem nonEmptyItems;
+			VectorRenderItem emptyItems;
+
+			for (VectorRenderItem::iterator iter = mFirstRenderItems.begin(); iter != mFirstRenderItems.end(); ++iter)
 			{
-				if ((*iter1)->getNeedVertexCount() == 0 && !(*iter1)->getManualRender() && !(*iter2)->getManualRender())
-				{
-					RenderItem* tmp = (*iter1);
-					(*iter1) = (*iter2);
-					(*iter2) = tmp;
-				}
-				iter1 = iter2;
-				++iter2;
+				if ((*iter)->getNeedVertexCount() == 0 && !(*iter)->getManualRender())
+					emptyItems.push_back(*iter);
+				else
+					nonEmptyItems.push_back(*iter);
 			}
+			nonEmptyItems.insert(nonEmptyItems.end(), emptyItems.begin(), emptyItems.end());
+			std::swap(mFirstRenderItems, nonEmptyItems);
 		}
 
 		mOutOfDate = true;
