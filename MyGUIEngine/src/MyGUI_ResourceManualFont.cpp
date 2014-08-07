@@ -98,16 +98,16 @@ namespace MyGUI
 
 							float advance(utility::parseValue<float>(element->findAttribute("advance")));
 							FloatPoint bearing(utility::parseValue<FloatPoint>(element->findAttribute("bearing")));
-							
+
 							// texture coordinates
 							FloatCoord coord(utility::parseValue<FloatCoord>(element->findAttribute("coord")));
-							
+
 							// glyph size, default to texture coordinate size
 							std::string sizeString;
-							IntSize size (coord.width, coord.height);
+							FloatSize size(coord.width, coord.height);
 							if (element->findAttribute("size", sizeString))
 							{
-								size = utility::parseValue<IntSize>(sizeString);
+								size = utility::parseValue<FloatSize>(sizeString);
 							}
 
 							if (advance == 0.0f)
