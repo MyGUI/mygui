@@ -131,8 +131,16 @@ namespace MyGUI
 
 	void LayerItem::upLayerItem()
 	{
-		if (mLayerNode)
-			mLayerNode->getLayer()->upChildItemNode(mLayerNode);
+		if (!mLayerNode)
+			return;
+
+		MyGUI::ILayerNode* node = mLayerNode;
+		while (node->getParent())
+		{
+			node = node->getParent();
+		}
+		if (node)
+			node->getLayer()->upChildItemNode(node);
 	}
 
 	void LayerItem::attachToLayerItemNode(ILayerNode* _item, bool _deep)
