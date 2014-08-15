@@ -523,7 +523,7 @@ namespace MyGUI
 		if (item != mWidgetChild.end())
 		{
 			mWidgetChild.erase(item);
-			mWidgetChild.insert(mWidgetChild.begin(), _widget);
+			mWidgetChild.push_back(_widget);
 		}
 	}
 
