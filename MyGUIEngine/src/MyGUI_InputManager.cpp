@@ -268,20 +268,6 @@ namespace MyGUI
 			{
 				// поднимаем виджет, надо подумать что делать если поменялся фокус клавы
 				LayerManager::getInstance().upLayerItem(mWidgetMouseFocus);
-
-				// поднимаем пикинг Overlapped окон
-				Widget* pick = mWidgetMouseFocus;
-				do
-				{
-					// если оверлаппед, то поднимаем пикинг
-					if (pick->getWidgetStyle() == WidgetStyle::Overlapped)
-					{
-						if (pick->getParent()) pick->getParent()->_forcePick(pick);
-					}
-
-					pick = pick->getParent();
-				}
-				while (pick);
 			}
 		}
 
