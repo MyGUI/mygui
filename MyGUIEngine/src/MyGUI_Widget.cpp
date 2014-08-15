@@ -976,6 +976,8 @@ namespace MyGUI
 
 		if (!value && InputManager::getInstance().getMouseFocusWidget() == this)
 			InputManager::getInstance()._resetMouseFocusWidget();
+		if (!value && InputManager::getInstance().getKeyFocusWidget() == this)
+			InputManager::getInstance().resetKeyFocusWidget();
 	}
 
 	void Widget::setEnabled(bool _value)
