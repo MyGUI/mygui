@@ -40,7 +40,8 @@ namespace MyGUI
 		mWidgetStyle(WidgetStyle::Child),
 		mContainer(nullptr),
 		mAlign(Align::Default),
-		mVisible(true)
+		mVisible(true),
+		mDeep(0)
 	{
 	}
 
@@ -303,7 +304,7 @@ namespace MyGUI
 			else
 			{
 				widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, this, _style == WidgetStyle::Popup ? nullptr : this, _name);
-				mWidgetChild.push_back(widget);
+				addWidget(widget);
 			}
 		}
 
@@ -347,7 +348,6 @@ namespace MyGUI
 
 				return;
 			}
-
 		}
 		// мы не обрезаны и были нормальные
 		else if (!mIsMargin)
@@ -485,7 +485,7 @@ namespace MyGUI
 			if (item != nullptr)
 				return item;
 		}
-		// спрашиваем у детишек скна
+		// спрашиваем у детишек скина
 		for (VectorWidgetPtr::const_reverse_iterator widget = mWidgetChildSkin.rbegin(); widget != mWidgetChildSkin.rend(); ++widget)
 		{
 			ILayerItem* item = (*widget)->getLayerItemByPoint(_left - mCoord.left, _top - mCoord.top);
@@ -513,17 +513,17 @@ namespace MyGUI
 		_correctSkinItemView();
 	}
 
+	// FIXME переделать
 	void Widget::_forcePick(Widget* _widget)
 	{
 		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
 		if (mWidgetClient != nullptr)
 			mWidgetClient->_forcePick(_widget);
 
-		VectorWidgetPtr::iterator item = std::remove(mWidgetChild.begin(), mWidgetChild.end(), _widget);
-		if (item != mWidgetChild.end())
+		VectorWidgetPtr copy = mWidgetChild;
+		for (VectorWidgetPtr::iterator widget = copy.begin(); widget != copy.end(); ++widget)
 		{
-			mWidgetChild.erase(item);
-			mWidgetChild.push_back(_widget);
+			(*widget)->setDeep((*widget) == _widget ? 0 : 1);
 		}
 	}
 
@@ -1038,7 +1038,7 @@ namespace MyGUI
 	{
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		MYGUI_ASSERT(iter == mWidgetChild.end(), "widget already exist");
-		mWidgetChild.push_back(_widget);
+		addWidget(_widget);
 	}
 
 	void Widget::_unlinkChildWidget(Widget* _widget)
@@ -1149,6 +1149,10 @@ namespace MyGUI
 		/// @wproperty{Widget, Visible, bool} Show or hide widget.
 		else if (_key == "Visible")
 			setVisible(utility::parseValue<bool>(_value));
+
+		/// @wproperty{Widget, Visible, int} Глубина виджета
+		else if (_key == "Deep")
+			setDeep(utility::parseValue<int>(_value));
 
 		/// @wproperty{Widget, Alpha, float} Прозрачность виджета от 0 до 1.
 		else if (_key == "Alpha")
@@ -1327,6 +1331,54 @@ namespace MyGUI
 	void Widget::resizeLayerItemView(const IntSize& _oldView, const IntSize& _newView)
 	{
 		_setAlign(_oldView, _newView);
+	}
+
+	void Widget::setDeep(int _value)
+	{
+		if (mDeep == _value)
+			return;
+
+		mDeep = _value;
+
+		if (mParent != nullptr)
+		{
+			mParent->_unlinkChildWidget(this);
+			mParent->_linkChildWidget(this);
+		}
+	}
+
+	int Widget::getDeep() const
+	{
+		return mDeep;
+	}
+
+	void Widget::addWidget(Widget* _widget)
+	{
+		// сортировка глубины от большого к меньшему
+
+		if (mWidgetChild.empty())
+		{
+			mWidgetChild.push_back(_widget);
+			return;
+		}
+
+		int deep = _widget->getDeep();
+
+		if (mWidgetChild.back()->getDeep() >= deep)
+		{
+			mWidgetChild.push_back(_widget);
+			return;
+		}
+
+		for (int index = 0; index < mWidgetChild.size(); ++index)
+		{
+			Widget* widget = mWidgetChild[index];
+			if (widget->getDeep() <= deep)
+			{
+				mWidgetChild.insert(mWidgetChild.begin() + index, _widget);
+				return;
+			}
+		}
 	}
 
 } // namespace MyGUI

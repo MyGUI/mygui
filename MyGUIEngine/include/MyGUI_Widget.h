@@ -144,6 +144,9 @@ namespace MyGUI
 		/** Return true if visible */
 		bool getVisible() const;
 
+		void setDeep(int _value);
+		int getDeep() const;
+
 		/** Return widget's visibility based on it's and parents visibility. */
 		bool getInheritedVisible() const;
 
@@ -368,6 +371,8 @@ namespace MyGUI
 
 		virtual void resizeLayerItemView(const IntSize& _oldView, const IntSize& _newView);
 
+		void addWidget(Widget* _widget);
+
 	private:
 		// клиентская зона окна
 		// если виджет имеет пользовательские окна не в себе
@@ -402,6 +407,7 @@ namespace MyGUI
 
 		Align mAlign;
 		bool mVisible;
+		int mDeep;
 	};
 
 } // namespace MyGUI
