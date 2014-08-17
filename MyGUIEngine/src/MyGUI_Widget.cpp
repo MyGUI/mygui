@@ -513,17 +513,26 @@ namespace MyGUI
 		_correctSkinItemView();
 	}
 
-	// FIXME переделать
 	void Widget::_forcePick(Widget* _widget)
 	{
 		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
 		if (mWidgetClient != nullptr)
+		{
 			mWidgetClient->_forcePick(_widget);
+			return;
+		}
+
+		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
+		if (iter == mWidgetChild.end())
+			return;
 
 		VectorWidgetPtr copy = mWidgetChild;
 		for (VectorWidgetPtr::iterator widget = copy.begin(); widget != copy.end(); ++widget)
 		{
-			(*widget)->setDepth((*widget) == _widget ? 0 : 1);
+			if ((*widget) == _widget)
+				(*widget)->setDepth(-1);
+			else if ((*widget)->getDepth() == -1)
+				(*widget)->setDepth(0);
 		}
 	}
 
@@ -1357,29 +1366,19 @@ namespace MyGUI
 	{
 		// сортировка глубины от большого к меньшему
 
-		if (mWidgetChild.empty())
-		{
-			mWidgetChild.push_back(_widget);
-			return;
-		}
-
 		int depth = _widget->getDepth();
-
-		if (mWidgetChild.back()->getDepth() >= depth)
-		{
-			mWidgetChild.push_back(_widget);
-			return;
-		}
 
 		for (size_t index = 0; index < mWidgetChild.size(); ++index)
 		{
 			Widget* widget = mWidgetChild[index];
-			if (widget->getDepth() <= depth)
+			if (widget->getDepth() < depth)
 			{
 				mWidgetChild.insert(mWidgetChild.begin() + index, _widget);
 				return;
 			}
 		}
+
+		mWidgetChild.push_back(_widget);
 	}
 
 	void Widget::_updateChilds()
