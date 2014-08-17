@@ -144,7 +144,10 @@ namespace MyGUI
 		/** Return true if visible */
 		bool getVisible() const;
 
-		/** Set child widget rendering depth for ordering child widgets. For root widgets use layer property instead. */
+		/** Set child widget rendering depth for ordering child widgets.
+			Widget with higher depth is rendered below widget with lower depth.
+			Available only for child widgets. For root widgets use layer property instead.
+		*/
 		void setDepth(int _value);
 		/** Get child widget rendering depth */
 		int getDepth() const;
