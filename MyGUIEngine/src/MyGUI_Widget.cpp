@@ -41,7 +41,7 @@ namespace MyGUI
 		mContainer(nullptr),
 		mAlign(Align::Default),
 		mVisible(true),
-		mDeep(0)
+		mDepth(0)
 	{
 	}
 
@@ -523,7 +523,7 @@ namespace MyGUI
 		VectorWidgetPtr copy = mWidgetChild;
 		for (VectorWidgetPtr::iterator widget = copy.begin(); widget != copy.end(); ++widget)
 		{
-			(*widget)->setDeep((*widget) == _widget ? 0 : 1);
+			(*widget)->setDepth((*widget) == _widget ? 0 : 1);
 		}
 	}
 
@@ -1151,8 +1151,8 @@ namespace MyGUI
 			setVisible(utility::parseValue<bool>(_value));
 
 		/// @wproperty{Widget, Visible, int} Глубина виджета
-		else if (_key == "Deep")
-			setDeep(utility::parseValue<int>(_value));
+		else if (_key == "Depth")
+			setDepth(utility::parseValue<int>(_value));
 
 		/// @wproperty{Widget, Alpha, float} Прозрачность виджета от 0 до 1.
 		else if (_key == "Alpha")
@@ -1333,12 +1333,12 @@ namespace MyGUI
 		_setAlign(_oldView, _newView);
 	}
 
-	void Widget::setDeep(int _value)
+	void Widget::setDepth(int _value)
 	{
-		if (mDeep == _value)
+		if (mDepth == _value)
 			return;
 
-		mDeep = _value;
+		mDepth = _value;
 
 		if (mParent != nullptr)
 		{
@@ -1348,9 +1348,9 @@ namespace MyGUI
 		}
 	}
 
-	int Widget::getDeep() const
+	int Widget::getDepth() const
 	{
-		return mDeep;
+		return mDepth;
 	}
 
 	void Widget::addWidget(Widget* _widget)
@@ -1363,9 +1363,9 @@ namespace MyGUI
 			return;
 		}
 
-		int deep = _widget->getDeep();
+		int depth = _widget->getDepth();
 
-		if (mWidgetChild.back()->getDeep() >= deep)
+		if (mWidgetChild.back()->getDepth() >= depth)
 		{
 			mWidgetChild.push_back(_widget);
 			return;
@@ -1374,7 +1374,7 @@ namespace MyGUI
 		for (size_t index = 0; index < mWidgetChild.size(); ++index)
 		{
 			Widget* widget = mWidgetChild[index];
-			if (widget->getDeep() <= deep)
+			if (widget->getDepth() <= depth)
 			{
 				mWidgetChild.insert(mWidgetChild.begin() + index, _widget);
 				return;

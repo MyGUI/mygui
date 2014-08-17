@@ -144,8 +144,10 @@ namespace MyGUI
 		/** Return true if visible */
 		bool getVisible() const;
 
-		void setDeep(int _value);
-		int getDeep() const;
+		/** Set child widget rendering depth for ordering child widgets. For root widgets use layer property instead. */
+		void setDepth(int _value);
+		/** Get child widget rendering depth */
+		int getDepth() const;
 
 		/** Return widget's visibility based on it's and parents visibility. */
 		bool getInheritedVisible() const;
@@ -410,7 +412,7 @@ namespace MyGUI
 
 		Align mAlign;
 		bool mVisible;
-		int mDeep;
+		int mDepth;
 	};
 
 } // namespace MyGUI
