@@ -1374,6 +1374,7 @@ namespace MyGUI
 			if (widget->getDepth() < depth)
 			{
 				mWidgetChild.insert(mWidgetChild.begin() + index, _widget);
+				_updateChilds();
 				return;
 			}
 		}
