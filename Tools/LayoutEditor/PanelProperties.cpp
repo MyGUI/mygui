@@ -49,6 +49,10 @@ namespace tools
 		{
 			std::string value = widgetContainer->getProperty(iter->first);
 
+			// TODO: add extra property to WidgetStyle.parameter
+			if (iter->first == "Depth" && mCurrentWidget->isRootWidget())
+				continue;
+
 			IPropertyField* field = getPropertyField(mWidgetClient, iter->first, iter->second);
 			field->setTarget(_currentWidget);
 			field->setValue(value);
