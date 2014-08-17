@@ -1159,7 +1159,7 @@ namespace MyGUI
 		else if (_key == "Visible")
 			setVisible(utility::parseValue<bool>(_value));
 
-		/// @wproperty{Widget, Visible, int} Child widget rendering depth.
+		/// @wproperty{Widget, Depth, int} Child widget rendering depth.
 		else if (_key == "Depth")
 			setDepth(utility::parseValue<int>(_value));
 
