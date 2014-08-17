@@ -118,7 +118,18 @@ namespace tools
 			return;
 
 		if (_container->getWidget()->getAbsoluteCoord().inside(_point))
+		{
+			if (_result != nullptr)
+			{
+				if (_result->getParent() == _container->getWidget()->getParent())
+				{
+					if (_result->getDeep() < _container->getWidget()->getDeep())
+						return;
+				}
+			}
+
 			_result = _container->getWidget();
+		}
 
 		for (std::vector<WidgetContainer*>::iterator item = _container->childContainers.begin(); item != _container->childContainers.end(); ++item)
 		{
