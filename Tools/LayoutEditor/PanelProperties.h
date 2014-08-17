@@ -27,8 +27,8 @@ namespace tools
 
 		void update(MyGUI::Widget* _currentWidget, WidgetStyle* _widgetType);
 
-		void setDeep(size_t _value);
-		size_t getDeep() const;
+		void setDepth(size_t _value);
+		size_t getDepth() const;
 
 	private:
 		void notifyAction(const std::string& _name, const std::string& _value, bool _final);
@@ -44,7 +44,7 @@ namespace tools
 	private:
 		typedef std::map<std::string, IPropertyField*> MapPropertyField;
 		MapPropertyField mFields;
-		size_t mDeep;
+		size_t mDepth;
 		MyGUI::Widget* mCurrentWidget;
 	};
 

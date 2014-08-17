@@ -123,7 +123,7 @@ namespace tools
 			{
 				if (_result->getParent() == _container->getWidget()->getParent())
 				{
-					if (_result->getDeep() < _container->getWidget()->getDeep())
+					if (_result->getDepth() < _container->getWidget()->getDepth())
 						return;
 				}
 			}

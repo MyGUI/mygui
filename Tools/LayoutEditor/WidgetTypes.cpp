@@ -150,7 +150,7 @@ namespace tools
 				widget_type->base = "Widget";
 		}
 
-		updateDeep();
+		updateDepth();
 	}
 
 	PossibleValue* WidgetTypes::getPossibleValue(const std::string& _name)
@@ -242,13 +242,13 @@ namespace tools
 		return nullptr;
 	}
 
-	void WidgetTypes::updateDeep()
+	void WidgetTypes::updateDepth()
 	{
 		for (VectorWidgetType::iterator item = mWidgetTypes.begin(); item != mWidgetTypes.end(); ++ item)
-			(*item)->deep = updateDeep(*item);
+			(*item)->depth = updateDepth(*item);
 	}
 
-	size_t WidgetTypes::updateDeep(WidgetStyle* _style)
+	size_t WidgetTypes::updateDepth(WidgetStyle* _style)
 	{
 		size_t result = 0;
 

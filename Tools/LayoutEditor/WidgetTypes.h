@@ -36,8 +36,8 @@ namespace tools
 
 		PossibleValue* getPossibleValue(const std::string& _name);
 
-		void updateDeep();
-		size_t updateDeep(WidgetStyle* _style);
+		void updateDepth();
+		size_t updateDepth(WidgetStyle* _style);
 
 	private:
 		VectorWidgetType mWidgetTypes;

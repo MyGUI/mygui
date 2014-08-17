@@ -165,7 +165,7 @@ namespace tools
 
 			while (widgetType != nullptr)
 			{
-				PanelProperties* panel = getPropertyWindow(widgetType, widgetType->deep);
+				PanelProperties* panel = getPropertyWindow(widgetType, widgetType->depth);
 				panel->setVisible(true);
 				panel->update(mCurrentWidget, widgetType);
 
@@ -177,15 +177,15 @@ namespace tools
 		}
 	}
 
-	PanelProperties* PropertiesPanelView::getPropertyWindow(WidgetStyle* _style, size_t _deep)
+	PanelProperties* PropertiesPanelView::getPropertyWindow(WidgetStyle* _style, size_t _depth)
 	{
 		MapPropertyWindow::iterator item = mMapPropertyWindow.find(_style);
 		if (item == mMapPropertyWindow.end())
 		{
 			PanelProperties* result = new PanelProperties();
-			result->setDeep(_deep);
+			result->setDepth(_depth);
 
-			mPanelView->insertItem(getIndexByDeep(_deep), result);
+			mPanelView->insertItem(getIndexByDepth(_depth), result);
 
 			mMapPropertyWindow[_style] = result;
 			return result;
@@ -194,12 +194,12 @@ namespace tools
 		return (*item).second;
 	}
 
-	size_t PropertiesPanelView::getIndexByDeep(size_t _deep)
+	size_t PropertiesPanelView::getIndexByDepth(size_t _depth)
 	{
 		size_t result = 1;
 		for (MapPropertyWindow::iterator item = mMapPropertyWindow.begin(); item != mMapPropertyWindow.end(); ++ item)
 		{
-			if ((*item).second->getDeep() < _deep)
+			if ((*item).second->getDepth() < _depth)
 			{
 				size_t index = getIndexPanel((*item).second);
 				if (index >= result)

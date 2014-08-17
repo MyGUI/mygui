@@ -16,7 +16,7 @@ namespace tools
 
 	PanelProperties::PanelProperties() :
 		BasePanelViewItem("PanelProperties.layout"),
-		mDeep(0),
+		mDepth(0),
 		mCurrentWidget(nullptr)
 	{
 	}
@@ -31,14 +31,14 @@ namespace tools
 		destroyPropertyFields();
 	}
 
-	void PanelProperties::setDeep(size_t _value)
+	void PanelProperties::setDepth(size_t _value)
 	{
-		mDeep = _value;
+		mDepth = _value;
 	}
 
-	size_t PanelProperties::getDeep() const
+	size_t PanelProperties::getDepth() const
 	{
-		return mDeep;
+		return mDepth;
 	}
 
 	size_t PanelProperties::addParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, MyGUI::Widget* _currentWidget)
