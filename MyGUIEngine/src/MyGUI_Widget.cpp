@@ -1344,6 +1344,7 @@ namespace MyGUI
 		{
 			mParent->_unlinkChildWidget(this);
 			mParent->_linkChildWidget(this);
+			mParent->_updateChilds();
 		}
 	}
 
@@ -1370,13 +1371,34 @@ namespace MyGUI
 			return;
 		}
 
-		for (int index = 0; index < mWidgetChild.size(); ++index)
+		for (size_t index = 0; index < mWidgetChild.size(); ++index)
 		{
 			Widget* widget = mWidgetChild[index];
 			if (widget->getDeep() <= deep)
 			{
 				mWidgetChild.insert(mWidgetChild.begin() + index, _widget);
 				return;
+			}
+		}
+	}
+
+	void Widget::_updateChilds()
+	{
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+		{
+			if ((*widget)->getWidgetStyle() == WidgetStyle::Child)
+			{
+				(*widget)->detachFromLayerItemNode(true);
+				removeChildItem((*widget));
+			}
+		}
+
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+		{
+			if ((*widget)->getWidgetStyle() == WidgetStyle::Child)
+			{
+				addChildItem((*widget));
+				(*widget)->_updateView();
 			}
 		}
 	}

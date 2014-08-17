@@ -292,6 +292,9 @@ namespace MyGUI
 
 		bool _setWidgetState(const std::string& _value);
 
+		// перерисовывает детей
+		void _updateChilds();
+
 	protected:
 		// все создание только через фабрику
 		virtual ~Widget();
