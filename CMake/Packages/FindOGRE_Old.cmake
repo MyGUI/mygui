@@ -60,7 +60,7 @@ if (NOT OGRE_FOUND)
 				set (OGRE_LIB_DIR ${OGRE_LIB_DIR} ${OGRE_SOURCE_DIR}/boost/lib)
 			endif()
 			
-			add_definitions("-DBOOST_ALL_NO_LIB")
+			#add_definitions("-DBOOST_ALL_NO_LIB")
 			
 			return()
 		endif ()
