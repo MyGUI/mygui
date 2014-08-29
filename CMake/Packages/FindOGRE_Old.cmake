@@ -28,7 +28,8 @@ if (NOT OGRE_FOUND)
 		if(WIN32 OR APPLE)
 			set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${OGRE_SOURCE_DIR}/CMake ${OGRE_SOURCE_DIR}/CMake/Packages)
 		else()
-			set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} /usr/local/lib/OGRE/cmake)
+			set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} /usr/local/lib/OGRE/cmake
+			/usr/share/OGRE/cmake/modules /usr/local/share/OGRE/cmake/modules)
 		endif()
 		
 		IF (NOT OGRE_SOURCE_DIR)
@@ -40,8 +41,10 @@ if (NOT OGRE_FOUND)
 		endif ()
 
 		if (EXISTS ${OGRE_SOURCE_DIR}/CMake)
-			MESSAGE(STATUS "Original FindOGRE.cmake found, trying to use it")
+			MESSAGE(STATUS "Original FindOGRE.cmake found in OGRE_SOURCE_DIR, trying to use it")
 			set (OGRE_HOME ${OGRE_SOURCE_DIR})
+			FIND_PACKAGE(OGRE)
+		else()
 			FIND_PACKAGE(OGRE)
 		endif()
 
