@@ -34,6 +34,14 @@ namespace MyGUI
 		// дефолтная высота, указанная в настройках шрифта
 		virtual int getDefaultHeight();
 
+		// Manual loading methods, not needed when loading from XML
+		// Set the source texture name
+		void setSource(const std::string& value);
+		// Set the default height of the font
+		void setDefaultHeight(int value);
+		// Add a glyph for character 'id'
+		void addGlyphInfo(Char id, const GlyphInfo& info);
+
 	private:
 		// Loads the texture specified by mSource.
 		void loadTexture();
