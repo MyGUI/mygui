@@ -146,4 +146,24 @@ namespace MyGUI
 		return mDefaultHeight;
 	}
 
+	void ResourceManualFont::setSource(const std::string& value)
+	{
+		mTexture = nullptr;
+		mSource = value;
+		loadTexture();
+	}
+
+	void ResourceManualFont::setDefaultHeight(int value)
+	{
+		mDefaultHeight = value;
+	}
+
+	void ResourceManualFont::addGlyphInfo(Char id, const GlyphInfo& info)
+	{
+		GlyphInfo& inserted = mCharMap.insert(CharMap::value_type(id, info)).first->second;
+
+		if (id == FontCodeType::NotDefined)
+			mSubstituteGlyphInfo = &inserted;
+	}
+
 } // namespace MyGUI
