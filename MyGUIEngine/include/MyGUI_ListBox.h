@@ -179,6 +179,11 @@ namespace MyGUI
 		//! Return optimal height to fit all items in ListBox
 		int getOptimalHeight();
 
+		/** Enable "Activate on click" mode that requires a full mouse click (press and release)
+			to activate an item. By default, items are activated on mouse press.
+		*/
+		void setActivateOnClick(bool activateOnClick);
+
 		/** Get item Widget pointer by item index if it is visible
 			@note returned widget can be deleted, so this pointer
 			is valid only at time when you got it and can be invalid
@@ -261,6 +266,7 @@ namespace MyGUI
 
 		void notifyScrollChangePosition(ScrollBar* _sender, size_t _rel);
 		void notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id);
+		void notifyMouseClick(Widget* _sender);
 		void notifyMouseDoubleClick(Widget* _sender);
 		void notifyMouseWheel(Widget* _sender, int _rel);
 		void notifyMouseSetFocus(Widget* _sender, Widget* _old);
@@ -271,6 +277,9 @@ namespace MyGUI
 
 		void updateScroll();
 		void updateLine(bool _reset = false);
+
+		void _activateItem(Widget* _sender);
+
 		void _setScrollView(size_t _position);
 
 		// перерисовывает от индекса до низа
@@ -301,6 +310,8 @@ namespace MyGUI
 		// наши дети в строках
 		typedef std::vector<Button*> VectorButton;
 		VectorButton mWidgetLines;
+
+		bool mActivateOnClick; // Require a full mouse click rather than only mouse press to activate an item
 
 		int mHeightLine; // высота одной строки
 		int mTopIndex; // индекс самого верхнего элемента
