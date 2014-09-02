@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Widget" skin="PanelSkin" position="440 256 200 168" align="HStretch Top" layer="Overlapped" name="_Main">
         <Widget type="TextBox" skin="TextBox" position="19 3 156 20" align="HStretch Top" name="text_Caption">

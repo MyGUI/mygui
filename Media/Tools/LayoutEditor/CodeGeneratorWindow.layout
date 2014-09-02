@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Window" skin="WindowCX2_Dark" position="32 64 478 376" align="Center" layer="Overlapped" name="Root">
         <Property key="Caption" value="#{Widgets}"/>

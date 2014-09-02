@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <AnimationGraph>
 	<Node type="LoopController" name="Loop_2"/>
 	<Node type="SkeletonState" name="Skeleton_3">

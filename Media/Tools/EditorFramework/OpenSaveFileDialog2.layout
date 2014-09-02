@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Window" skin="WindowCX2_Dark" position="40 40 575 430" align="Center" stype="Popup" layer="Overlapped" name="Root">
         <Property key="MinSize" value="200 200"/>

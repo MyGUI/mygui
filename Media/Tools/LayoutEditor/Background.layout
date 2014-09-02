@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="ImageBox" skin="ImageBox" position_real="0 0 1 1" align="Stretch" layer="Background" name="_Main">
         <Property key="ImageTexture" value="Wallpaper.png"/>

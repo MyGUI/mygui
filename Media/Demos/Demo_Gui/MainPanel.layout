@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Window" skin="WindowC" position="20 72 211 309" layer="Overlapped" name="_Main">
         <Widget type="TabControl" skin="TabControl" position="2 2 197 268">

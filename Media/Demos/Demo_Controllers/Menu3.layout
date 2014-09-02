@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Widget" skin="PanelSkin" position="40 408 360 296" layer="Main" name="_Main">
         <Widget type="ImageBox" skin="ImageBox" position="11 12 128 128">

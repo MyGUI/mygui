@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource">
 	<Resource type="ResourceLayout" name="ExampleWindowTemplate" version="3.2.0">
 		<Widget type="Widget" skin="ExampleWindowSkin" position="40 40 208 208" name="Root">
