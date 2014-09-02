@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Window" skin="WindowC" position="88 184 264 200" layer="Overlapped" name="_Main">
         <Property key="Caption" value="Control panel"/>

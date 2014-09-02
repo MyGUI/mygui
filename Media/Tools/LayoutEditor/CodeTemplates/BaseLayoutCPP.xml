@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="LECodeTemplate" name="C++ BaseLayout">
 	<File template="BaseLayoutTemplate.h" out_file="#{Include_Directory}/#{Panel_Name}.h"/>
 	<File template="BaseLayoutTemplate.cpp" out_file="#{Source_Directory}/#{Panel_Name}.cpp"/>

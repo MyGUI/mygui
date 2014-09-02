@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Window" skin="WindowC" position="496 400 427 311" layer="Overlapped" name="_Main">
         <Property key="Caption" value="Colour picker"/>

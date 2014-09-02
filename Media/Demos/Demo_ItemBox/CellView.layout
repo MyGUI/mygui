@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
 	<Widget type="Widget" skin="Default" position="0 0 90 74" align="Stretch" name="_Main">
 		<Property key="NeedMouse" value="false"/>

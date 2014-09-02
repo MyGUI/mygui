@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="ImageBox" skin="ImageBox" position="48 144 1024 256" layer="RTT_Keyboard" name="_Main">
         <Property key="ImageTexture" value="KeyboardBack.png"/>

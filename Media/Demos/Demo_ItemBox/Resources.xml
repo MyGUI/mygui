@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Resource">
 	<Resource type="ResourceImageSet" name="pic_ItemBackImage">
 		<Group name="States" texture="Crystal_Clear_Items.png" size="74 74">
