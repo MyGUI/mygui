@@ -25,6 +25,16 @@ endif ()
 # setup MyGUIEngine target
 add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 set_target_properties(${PROJECTNAME} PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION ${MYGUI_VERSION_MAJOR})
+
+if (UNIX)
+	# some platforms require explicit linking to libdl, see if it's available
+	find_library(DL_LIBRARY NAMES dl dlsym)
+	mark_as_advanced(DL_LIBRARY)
+	if (DL_LIBRARY)
+		target_link_libraries(${PROJECTNAME} dl)
+	endif ()
+endif()
+
 if (MYGUI_USE_FREETYPE)
 	target_link_libraries(${PROJECTNAME}
 		${FREETYPE_LIBRARIES}
