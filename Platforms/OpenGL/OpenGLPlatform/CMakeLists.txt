@@ -16,7 +16,7 @@ add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 
 add_dependencies(${PROJECTNAME} MyGUIEngine)
 
-target_link_libraries(${PROJECTNAME} ${OPENGL_LIBRARIES} ${PNG_LIBRARIES} ${ZLIB_LIBRARIES})
+target_link_libraries(${PROJECTNAME} ${OPENGL_gl_LIBRARY} ${PNG_LIBRARIES} ${ZLIB_LIBRARIES})
 link_directories(${OPENGL_LIB_DIR} ${PNG_LIBRARY})
 
 # installation rules

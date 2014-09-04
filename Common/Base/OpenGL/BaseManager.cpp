@@ -17,7 +17,6 @@
 #include "BaseManager.h"
 
 #include <GL/gl.h>
-#include <GL/glu.h>
 
 //for image loader
 #include <malloc.h>
@@ -373,14 +372,6 @@ namespace base
 			_height = 1;
 
 		glViewport(0, 0, _width, _height);
-
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-
-		gluPerspective(45.0f, (GLfloat)_width / (GLfloat)_height, 0.1f, 100.0f);
-
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
 	}
 
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
