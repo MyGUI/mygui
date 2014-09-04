@@ -73,9 +73,12 @@ namespace MyGUI
 
 	protected:
 		void updateCompression();
-
+		RenderItem* addToRenderItemFirstQueue(ITexture* _texture, bool _manualRender);
+		RenderItem* addToRenderItemSecondQueue(ITexture* _texture, bool _manualRender);
 	protected:
-		// список двух очередей отрисовки, для сабскинов и текста
+		// two render queues, for subskins and text
+		// first queue keep render order based on order of creation
+		// second queue ignore creation order and always merge render items with same texture
 		VectorRenderItem mFirstRenderItems;
 		VectorRenderItem mSecondRenderItems;
 

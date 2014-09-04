@@ -85,20 +85,6 @@ namespace MyGUI
 	{
 		mDepth = _target->getInfo().maximumDepth;
 
-		// проверяем на сжатие пустот
-		bool need_compression = false;
-		for (VectorRenderItem::iterator iter = mFirstRenderItems.begin(); iter != mFirstRenderItems.end(); ++iter)
-		{
-			if ((*iter)->getCompression())
-			{
-				need_compression = true;
-				break;
-			}
-		}
-
-		if (need_compression)
-			updateCompression();
-
 		// сначала отрисовываем свое
 		for (VectorRenderItem::iterator iter = mFirstRenderItems.begin(); iter != mFirstRenderItems.end(); ++iter)
 			(*iter)->renderToTarget(_target, _update);
@@ -143,100 +129,96 @@ namespace MyGUI
 
 	RenderItem* LayerNode::addToRenderItem(ITexture* _texture, bool _firstQueue, bool _manualRender)
 	{
-		// для первичной очереди нужен порядок
+		RenderItem* item = nullptr;
 		if (_firstQueue)
+			item = addToRenderItemFirstQueue(_texture, _manualRender);
+		else
+			item = addToRenderItemSecondQueue(_texture, _manualRender);
+
+		mOutOfDate = false;
+		return item;
+	}
+
+	RenderItem* LayerNode::addToRenderItemFirstQueue(ITexture* _texture, bool _manualRender)
+	{
+		if (mFirstRenderItems.empty() || _manualRender)
 		{
-			if (mFirstRenderItems.empty() || _manualRender)
-			{
-				// создаем новый буфер
-				RenderItem* item = new RenderItem();
-				item->setTexture(_texture);
-				item->setManualRender(_manualRender);
-				mFirstRenderItems.push_back(item);
-
-				mOutOfDate = false;
-
-				return item;
-			}
-
-			// если в конце пустой буфер, то нуна найти последний пустой с краю
-			// либо с нужной текстурой за пустым
-			VectorRenderItem::reverse_iterator iter = mFirstRenderItems.rbegin();
-			if ((*iter)->getNeedVertexCount() == 0)
-			{
-				while (true)
-				{
-					VectorRenderItem::reverse_iterator next = iter + 1;
-					if (next != mFirstRenderItems.rend())
-					{
-						if ((*next)->getNeedVertexCount() == 0)
-						{
-							iter = next;
-							continue;
-						}
-						else if (!(*next)->getManualRender() && (*next)->getTexture() == _texture)
-						{
-							iter = next;
-						}
-					}
-
-					break;
-				}
-
-				(*iter)->setTexture(_texture);
-
-				mOutOfDate = false;
-
-				return (*iter);
-			}
-			// последний буфер с нужной текстурой
-			else if (!(*iter)->getManualRender() && (*iter)->getTexture() == _texture)
-			{
-				mOutOfDate = false;
-
-				return *iter;
-			}
-
-			// создаем новый буфер
 			RenderItem* item = new RenderItem();
 			item->setTexture(_texture);
 			item->setManualRender(_manualRender);
 			mFirstRenderItems.push_back(item);
 
-			mOutOfDate = false;
-
 			return item;
 		}
 
-		// для второй очереди порядок неважен
+		updateCompression();
+
+		// first queue keep order
+
+		// use either first empty buffer
+		// or last non-empty buffer if it have same texture
+		VectorRenderItem::reverse_iterator iter = mFirstRenderItems.rbegin();
+		bool itemFound = false;
+		while (iter != mFirstRenderItems.rend())
+		{
+			if ((*iter)->getNeedVertexCount() == 0)
+			{
+				iter++;
+				itemFound = true;
+				continue;
+			}
+			else if (!(*iter)->getManualRender() && (*iter)->getTexture() == _texture)
+			{
+				iter++;
+				itemFound = true;
+				break;
+			}
+
+			break;
+		}
+
+		if (itemFound)
+		{
+			iter--;
+			(*iter)->setTexture(_texture);
+
+			return (*iter);
+		}
+
+		// not found, create new
+		RenderItem* item = new RenderItem();
+		item->setTexture(_texture);
+		item->setManualRender(_manualRender);
+		mFirstRenderItems.push_back(item);
+
+		return item;
+	}
+
+	RenderItem* LayerNode::addToRenderItemSecondQueue(ITexture* _texture, bool _manualRender)
+	{
+		// order is not important in second queue
+		// use first buffer with same texture or empty buffer
 		for (VectorRenderItem::iterator iter = mSecondRenderItems.begin(); iter != mSecondRenderItems.end(); ++iter)
 		{
-			// либо такая же текстура, либо пустой буфер
 			if ((*iter)->getTexture() == _texture)
 			{
-				mOutOfDate = false;
-
 				return (*iter);
 			}
 			else if ((*iter)->getNeedVertexCount() == 0)
 			{
 				(*iter)->setTexture(_texture);
 
-				mOutOfDate = false;
-
 				return (*iter);
 			}
 		}
-		// не найденно создадим новый
+
+		// not found, create new
 		RenderItem* item = new RenderItem();
 		item->setTexture(_texture);
 		item->setManualRender(_manualRender);
-
 		mSecondRenderItems.push_back(item);
 
-		mOutOfDate = false;
-
-		return mSecondRenderItems.back();
+		return item;
 	}
 
 	void LayerNode::attachLayerItem(ILayerItem* _item)
@@ -289,14 +271,29 @@ namespace MyGUI
 
 	void LayerNode::updateCompression()
 	{
+		if (mFirstRenderItems.size() <= 1)
+			return;
+
+		bool need_compression = false;
+		for (VectorRenderItem::iterator iter = mFirstRenderItems.begin(); iter != mFirstRenderItems.end(); ++iter)
+		{
+			if ((*iter)->getNeedCompression())
+			{
+				need_compression = true;
+				break;
+			}
+		}
+
 		// pushing all empty buffers to the end of buffers list
-		if (mFirstRenderItems.size() > 1)
+		if (need_compression)
 		{
 			VectorRenderItem nonEmptyItems;
 			VectorRenderItem emptyItems;
 
 			for (VectorRenderItem::iterator iter = mFirstRenderItems.begin(); iter != mFirstRenderItems.end(); ++iter)
 			{
+				(*iter)->setNeedCompression(false);
+
 				if ((*iter)->getNeedVertexCount() == 0 && !(*iter)->getManualRender())
 					emptyItems.push_back(*iter);
 				else

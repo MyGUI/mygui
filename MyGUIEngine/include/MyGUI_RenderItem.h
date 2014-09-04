@@ -50,7 +50,8 @@ namespace MyGUI
 
 		IRenderTarget* getRenderTarget();
 
-		bool getCompression();
+		void setNeedCompression(bool _compression);
+		bool getNeedCompression() const;
 
 	private:
 #if MYGUI_DEBUG_MODE == 1
@@ -74,7 +75,7 @@ namespace MyGUI
 		IVertexBuffer* mVertexBuffer;
 		IRenderTarget* mRenderTarget;
 
-		bool mCompression;
+		bool mNeedCompression;
 		bool mManualRender;
 	};
 
