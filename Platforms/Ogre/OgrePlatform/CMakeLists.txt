@@ -12,7 +12,7 @@ add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 
 add_dependencies(${PROJECTNAME} MyGUIEngine)
 
-target_link_libraries(${PROJECTNAME} ${OGRE_LIBRARIES})
+target_link_libraries(${PROJECTNAME} ${OGRE_LIBRARIES} MyGUIEngine)
 link_directories(${OGRE_LIB_DIR})
 
 install(FILES ${HEADER_FILES}
