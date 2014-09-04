@@ -15,6 +15,7 @@ add_dependencies(${PROJECTNAME} MyGUIEngine)
 target_link_libraries(${PROJECTNAME} ${OGRE_LIBRARIES} MyGUIEngine)
 link_directories(${OGRE_LIB_DIR})
 
+# installation rules
 install(FILES ${HEADER_FILES}
 	DESTINATION include/MYGUI
 )
@@ -25,9 +26,3 @@ if (APPLE)
 	include_directories(/usr/local/include /usr/include)
 	target_link_libraries(${PROJECTNAME} ${Carbon_LIBRARY})
 endif ()
-
-# installation rules
-install(FILES ${HEADER_FILES}
-	DESTINATION include/MYGUI
-)
-mygui_install_target(${PROJECTNAME} "")
