@@ -13,5 +13,5 @@ add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 
 add_dependencies(${PROJECTNAME} MyGUIEngine)
 
-target_link_libraries(${PROJECTNAME} ${DirectX11_LIBRARIES})
+target_link_libraries(${PROJECTNAME} ${DirectX11_LIBRARIES} MyGUIEngine)
 link_directories(${DirectX_LIBRARY_DIRS})
