@@ -15,7 +15,7 @@ ignoredContent = [
 #	"Cppcheck cannot find all the include files",
 	"is assigned in constructor body. Consider performing initialization in initialization list.", # ignore, fine for us
 	"(performance) Prefer prefix ++/-- operators for non-primitive types", # ignore, fine for us - leave this optimisation to compiler
-	"MyGUI_DelegateImplement.h:195]: (warning) 'operator=' should check for assignment to self to avoid problems with dynamic memory.", # false positive
+	"MyGUI_DelegateImplement.h:179]: (warning) 'operator=' should check for assignment to self to avoid problems with dynamic memory.", # false positive
 #	"(error) Reference to temporary returned." # only false positives (revert later)
 	"does not have a copy constructor which is recommended since the class contains a pointer to allocated memory." # ignore, not important
 ]
