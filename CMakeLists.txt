@@ -121,6 +121,10 @@ set(MYGUI_RENDERSYSTEM 3 CACHE STRING
   6 - Direct3D 11"
 )
 
+if(MYGUI_RENDERSYSTEM EQUAL 4)
+	option(MYGUI_USE_SYSTEM_GLEW "Use system OpenGL Extension Wrangler Library (GLEW)" FALSE)
+endif()
+
 option(MYGUI_BUILD_DEMOS "Build MyGUI demos" TRUE)
 option(MYGUI_BUILD_PLUGINS "Build MyGUI plugins" TRUE)
 option(MYGUI_BUILD_TOOLS "Build the tools" TRUE)
