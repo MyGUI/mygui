@@ -45,7 +45,7 @@ if (NOT APPLE)
 	set(CMAKE_DEBUG_POSTFIX "_d")
 endif ()
 
-if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_COMPILER_IS_CLANGXX)
+if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 	# Test for GCC visibility
 	include(CheckCXXCompilerFlag)
 	check_cxx_compiler_flag(-fvisibility=hidden MYGUI_GCC_VISIBILITY)

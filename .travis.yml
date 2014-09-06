@@ -23,6 +23,7 @@ script:
  - make -j2
 
 after_script:
+ - cd ..
  - python ./Scripts/cppcheck/cppcheck.py
 notifications:
   recipients:
