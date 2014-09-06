@@ -14,7 +14,7 @@ before_install:
  - echo "yes" | sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu `lsb_release -sc` main universe restricted multiverse"
  - echo "yes" | sudo apt-add-repository ppa:openmw/openmw
  - sudo apt-get update -qq
- - sudo apt-get install -qq cmake libogre-1.9-dev libfreetype6-dev libois-dev graphviz libgl1-mesa-dev libglew-dev doxygen cppcheck
+ - sudo apt-get install -qq cmake libogre-1.9-dev libfreetype6-dev libois-dev graphviz libgl1-mesa-dev libglew-dev doxygen python cppcheck
 before_script:
  - mkdir build
  - cd build
