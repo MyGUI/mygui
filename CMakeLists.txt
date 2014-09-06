@@ -45,7 +45,7 @@ if (NOT APPLE)
 	set(CMAKE_DEBUG_POSTFIX "_d")
 endif ()
 
-if (CMAKE_COMPILER_IS_GNUCXX)
+if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_COMPILER_IS_CLANGXX)
 	# Test for GCC visibility
 	include(CheckCXXCompilerFlag)
 	check_cxx_compiler_flag(-fvisibility=hidden MYGUI_GCC_VISIBILITY)
@@ -73,7 +73,7 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 	if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64" AND NOT APPLE)
 		add_definitions(-fPIC)
 	endif()  
-endif (CMAKE_COMPILER_IS_GNUCXX)
+endif ()
 
 # determine system endianess
 include(TestBigEndian)

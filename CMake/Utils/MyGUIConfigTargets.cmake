@@ -405,7 +405,7 @@ function(mygui_config_lib PROJECTNAME)
 		# add static prefix, if compiling static version
 		set_target_properties(${PROJECTNAME} PROPERTIES OUTPUT_NAME ${PROJECTNAME}Static)
 	else (MYGUI_STATIC)
-		if (CMAKE_COMPILER_IS_GNUCXX)
+		if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_COMPILER_IS_CLANGXX)
 			# add GCC visibility flags to shared library build
 			set_target_properties(${PROJECTNAME} PROPERTIES COMPILE_FLAGS "${MYGUI_GCC_VISIBILITY_FLAGS}")
 			if (APPLE)
@@ -416,7 +416,7 @@ function(mygui_config_lib PROJECTNAME)
 				set_target_properties(${PROJECTNAME} PROPERTIES BUILD_WITH_INSTALL_RPATH TRUE)
 				set_target_properties(${PROJECTNAME} PROPERTIES INSTALL_NAME_DIR "@executable_path/../Frameworks")
 			endif (APPLE)
-		endif (CMAKE_COMPILER_IS_GNUCXX)
+		endif ()
 	endif (MYGUI_STATIC)
 	mygui_install_target(${PROJECTNAME} "")
 	
