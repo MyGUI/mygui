@@ -23,7 +23,7 @@ script:
  - make -j2
 
 after_script:
- - python Scripts/cppcheck/cppcheck.py
+ - python ./Scripts/cppcheck/cppcheck.py
 notifications:
   recipients:
     - psi29a+travis.ci@gmail.com

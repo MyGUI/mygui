@@ -405,7 +405,7 @@ function(mygui_config_lib PROJECTNAME)
 		# add static prefix, if compiling static version
 		set_target_properties(${PROJECTNAME} PROPERTIES OUTPUT_NAME ${PROJECTNAME}Static)
 	else (MYGUI_STATIC)
-		if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_COMPILER_IS_CLANGXX)
+		if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 			# add GCC visibility flags to shared library build
 			set_target_properties(${PROJECTNAME} PROPERTIES COMPILE_FLAGS "${MYGUI_GCC_VISIBILITY_FLAGS}")
 			if (APPLE)
