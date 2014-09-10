@@ -9,6 +9,8 @@
 #include "MyGUI_InputManager.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_ResourceSkin.h"
+#include "MyGUI_ControllerRepeatClick.h"
+#include "MyGUI_ControllerManager.h"
 
 namespace MyGUI
 {
@@ -28,7 +30,10 @@ namespace MyGUI
 		mScrollWheelPage(0),
 		mMinTrackSize(0),
 		mMoveToClick(false),
-		mVerticalAlignment(true)
+		mVerticalAlignment(true),
+		mEnableRepeat(true),
+		mRepeatTriggerTime(0.f),
+		mRepeatStepTime(0.f)
 	{
 	}
 
@@ -44,11 +49,15 @@ namespace MyGUI
 		mSkinRangeStart = 0;
 		mSkinRangeEnd = 0;
 
+		mRepeatTriggerTime = 0.5;
+		mRepeatStepTime = 0.1;
+
 		///@wskin_child{ScrollBar, Button, Start} Кнопка начала диапазона.
 		assignWidget(mWidgetStart, "Start");
 		if (mWidgetStart != nullptr)
 		{
 			mWidgetStart->eventMouseButtonPressed += newDelegate(this, &ScrollBar::notifyMousePressed);
+			mWidgetStart->eventMouseButtonReleased += newDelegate(this, &ScrollBar::notifyMouseReleased);
 			mWidgetStart->eventMouseWheel += newDelegate(this, &ScrollBar::notifyMouseWheel);
 		}
 
@@ -57,6 +66,7 @@ namespace MyGUI
 		if (mWidgetEnd != nullptr)
 		{
 			mWidgetEnd->eventMouseButtonPressed += newDelegate(this, &ScrollBar::notifyMousePressed);
+			mWidgetEnd->eventMouseButtonReleased += newDelegate(this, &ScrollBar::notifyMouseReleased);
 			mWidgetEnd->eventMouseWheel += newDelegate(this, &ScrollBar::notifyMouseWheel);
 		}
 
@@ -76,6 +86,7 @@ namespace MyGUI
 		if (mWidgetFirstPart != nullptr)
 		{
 			mWidgetFirstPart->eventMouseButtonPressed += newDelegate(this, &ScrollBar::notifyMousePressed);
+			mWidgetFirstPart->eventMouseButtonReleased += newDelegate(this, &ScrollBar::notifyMouseReleased);
 			mWidgetFirstPart->eventMouseWheel += newDelegate(this, &ScrollBar::notifyMouseWheel);
 		}
 
@@ -84,6 +95,7 @@ namespace MyGUI
 		if (mWidgetSecondPart != nullptr)
 		{
 			mWidgetSecondPart->eventMouseButtonPressed += newDelegate(this, &ScrollBar::notifyMousePressed);
+			mWidgetSecondPart->eventMouseButtonReleased += newDelegate(this, &ScrollBar::notifyMouseReleased);
 			mWidgetSecondPart->eventMouseWheel += newDelegate(this, &ScrollBar::notifyMouseWheel);
 		}
 
@@ -262,6 +274,15 @@ namespace MyGUI
 		if (MouseButton::Left != _id)
 			return;
 
+		if (mEnableRepeat && _sender != mWidgetTrack)
+		{
+			ControllerItem* item = ControllerManager::getInstance().createItem(ControllerRepeatClick::getClassTypeName());
+			ControllerRepeatClick* controller = item->castType<ControllerRepeatClick>();
+			controller->eventRepeatClick += newDelegate(this, &ScrollBar::repeatClick);
+			controller->setRepeat(mRepeatTriggerTime, mRepeatStepTime);
+			ControllerManager::getInstance().addItem(_sender, controller);
+		}
+
 		if (mMoveToClick &&
 			_sender != mWidgetTrack &&
 			_sender != mWidgetStart &&
@@ -280,67 +301,19 @@ namespace MyGUI
 		}
 		else if (_sender == mWidgetStart)
 		{
-			// минимальное значение
-			if (mScrollPosition == 0)
-				return;
-
-			// расчитываем следующее положение
-			if (mScrollPosition > mScrollPage)
-				mScrollPosition -= mScrollPage;
-			else
-				mScrollPosition = 0;
-
-			// оповещаем
-			eventScrollChangePosition(this, (int)mScrollPosition);
-			updateTrack();
+			widgetStartPressed();
 		}
 		else if (_sender == mWidgetEnd)
 		{
-			// максимальное значение
-			if ((mScrollRange < 2) || (mScrollPosition >= (mScrollRange - 1)))
-				return;
-
-			// расчитываем следующее положение
-			if ((mScrollPosition + mScrollPage) < (mScrollRange - 1))
-				mScrollPosition += mScrollPage;
-			else
-				mScrollPosition = mScrollRange - 1;
-
-			// оповещаем
-			eventScrollChangePosition(this, (int)mScrollPosition);
-			updateTrack();
+			widgetEndPressed();
 		}
 		else if (_sender == mWidgetFirstPart)
 		{
-			// минимальное значение
-			if (mScrollPosition == 0)
-				return;
-
-			// расчитываем следующее положение
-			if (mScrollPosition > mScrollViewPage)
-				mScrollPosition -= mScrollViewPage;
-			else
-				mScrollPosition = 0;
-
-			// оповещаем
-			eventScrollChangePosition(this, (int)mScrollPosition);
-			updateTrack();
+			widgetFirstPartPressed();
 		}
 		else if (_sender == mWidgetSecondPart)
 		{
-			// максимальное значение
-			if ((mScrollRange < 2) || (mScrollPosition >= (mScrollRange - 1)))
-				return;
-
-			// расчитываем следующее положение
-			if ((mScrollPosition + mScrollViewPage) < (mScrollRange - 1))
-				mScrollPosition += mScrollViewPage;
-			else
-				mScrollPosition = mScrollRange - 1;
-
-			// оповещаем
-			eventScrollChangePosition(this, (int)mScrollPosition);
-			updateTrack();
+			widgetSecondPartPressed();
 		}
 		else if (_sender == mWidgetTrack)
 		{
@@ -352,6 +325,7 @@ namespace MyGUI
 	void ScrollBar::notifyMouseReleased(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
 		updateTrack();
+		MyGUI::ControllerManager::getInstance().removeItem(_sender);
 	}
 
 	void ScrollBar::notifyMouseDrag(Widget* _sender, int _left, int _top, MouseButton _id)
@@ -410,8 +384,37 @@ namespace MyGUI
 			else
 				mWidgetTrack->setSize(((int)_size < (int)mMinTrackSize) ? (int)mMinTrackSize : (int)_size, mWidgetTrack->getHeight());
 		}
-
 		updateTrack();
+	}
+
+	void ScrollBar::setRepeatTriggerTime(float time)
+	{
+		mRepeatTriggerTime = time;
+	}
+
+	void ScrollBar::setRepeatStepTime(float time)
+	{
+		mRepeatStepTime = time;
+	}
+
+	float ScrollBar::getRepeatTriggerTime(float time) const
+	{
+		return mRepeatTriggerTime;
+	}
+
+	float ScrollBar::getRepeatStepTime(float time) const
+	{
+		return mRepeatStepTime;
+	}
+
+	void ScrollBar::setRepeatEnabled(bool enabled)
+	{
+		mEnableRepeat = enabled;
+	}
+
+	bool ScrollBar::getRepeatEnabled() const
+	{
+		return mEnableRepeat;
 	}
 
 	int ScrollBar::getTrackSize() const
@@ -463,6 +466,86 @@ namespace MyGUI
 		}
 	}
 
+	void ScrollBar::repeatClick(Widget *_widget, ControllerItem *_controller)
+	{
+		if (_widget == mWidgetStart)
+			widgetStartPressed();
+		else if (_widget == mWidgetEnd)
+			widgetEndPressed();
+		else if (_widget == mWidgetFirstPart)
+			widgetFirstPartPressed();
+		else if (_widget == mWidgetSecondPart)
+			widgetSecondPartPressed();
+	}
+
+	void ScrollBar::widgetStartPressed()
+	{
+		// минимальное значение
+		if (mScrollPosition == 0)
+			return;
+
+		// расчитываем следующее положение
+		if (mScrollPosition > mScrollPage)
+			mScrollPosition -= mScrollPage;
+		else
+			mScrollPosition = 0;
+
+		// оповещаем
+		eventScrollChangePosition(this, (int)mScrollPosition);
+		updateTrack();
+	}
+
+	void ScrollBar::widgetEndPressed()
+	{
+		// максимальное значение
+		if ((mScrollRange < 2) || (mScrollPosition >= (mScrollRange - 1)))
+			return;
+
+		// расчитываем следующее положение
+		if ((mScrollPosition + mScrollPage) < (mScrollRange - 1))
+			mScrollPosition += mScrollPage;
+		else
+			mScrollPosition = mScrollRange - 1;
+
+		// оповещаем
+		eventScrollChangePosition(this, (int)mScrollPosition);
+		updateTrack();
+	}
+
+	void ScrollBar::widgetFirstPartPressed()
+	{
+		// минимальное значение
+		if (mScrollPosition == 0)
+			return;
+
+		// расчитываем следующее положение
+		if (mScrollPosition > mScrollViewPage)
+			mScrollPosition -= mScrollViewPage;
+		else
+			mScrollPosition = 0;
+
+		// оповещаем
+		eventScrollChangePosition(this, (int)mScrollPosition);
+		updateTrack();
+	}
+
+	void ScrollBar::widgetSecondPartPressed()
+	{
+		// максимальное значение
+		if ((mScrollRange < 2) || (mScrollPosition >= (mScrollRange - 1)))
+			return;
+
+		// расчитываем следующее положение
+		if ((mScrollPosition + mScrollViewPage) < (mScrollRange - 1))
+			mScrollPosition += mScrollViewPage;
+		else
+			mScrollPosition = mScrollRange - 1;
+
+		// оповещаем
+		eventScrollChangePosition(this, (int)mScrollPosition);
+		updateTrack();
+	}
+
 	void ScrollBar::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
 		/// @wproperty{ScrollBar, Range, size_t} Диапазон прокрутки.
@@ -492,6 +575,18 @@ namespace MyGUI
 		/// @wproperty{ScrollBar, VerticalAlignment, bool} Вертикальное выравнивание.
 		else if (_key == "VerticalAlignment")
 			setVerticalAlignment(utility::parseValue<bool>(_value));
+
+		/// @wproperty{ScrollBar, Repeat, bool} Sets whether scrollbar buttons should be triggered repeatedly so long as the mouse button is pressed down.
+		else if (_key == "Repeat")
+			setRepeatEnabled(utility::parseValue<bool>(_value));
+
+		/// @wproperty{ScrollBar, RepeatTriggerTime, float} How long the mouse needs to be pressed on a scrollbar button for repeating to start.
+		else if (_key == "RepeatTriggerTime")
+			setRepeatTriggerTime(utility::parseValue<float>(_value));
+
+		/// @wproperty{ScrollBar, RepeatStepTime, float) The time between each repeat step once repeating has started.
+		else if (_key == "RepeatStepTime")
+			setRepeatStepTime(utility::parseValue<float>(_value));
 
 		else
 		{
