@@ -23,6 +23,7 @@ set (HEADER_FILES
   include/MyGUI_ControllerItem.h
   include/MyGUI_ControllerManager.h
   include/MyGUI_ControllerPosition.h
+  include/MyGUI_ControllerRepeatClick.h
   include/MyGUI_CoordConverter.h
   include/MyGUI_CustomAllocator.h
   include/MyGUI_DDContainer.h
@@ -190,6 +191,7 @@ set (SOURCE_FILES
   src/MyGUI_ControllerFadeAlpha.cpp
   src/MyGUI_ControllerManager.cpp
   src/MyGUI_ControllerPosition.cpp
+  src/MyGUI_ControllerRepeatClick.cpp
   src/MyGUI_DDContainer.cpp
   src/MyGUI_DataFileStream.cpp
   src/MyGUI_DataManager.cpp

@@ -13,6 +13,8 @@
 namespace MyGUI
 {
 
+	class ControllerItem;
+
 	typedef delegates::CMultiDelegate2<ScrollBar*, size_t> EventHandle_ScrollBarPtrSizeT;
 
 	/** \brief @wpage{ScrollBar}
@@ -86,6 +88,25 @@ namespace MyGUI
 		/** Get move to click mode flag */
 		bool getMoveToClick() const;
 
+		/** Set whether clicks on scrollbar buttons should be repeated at set intervals
+			as long as the mouse button is pressed down. Enabled (true) by default.
+		 */
+		void setRepeatEnabled(bool enabled);
+		/** Get whether Repeat mode is enabled
+			@see setRepeatEnabled
+		 */
+		bool getRepeatEnabled() const;
+
+		/** Set time that buttons need to be pressed down to start repeating. */
+		void setRepeatTriggerTime(float time);
+		/** Get time that buttons need to be pressed down to start repeating. */
+		float getRepeatTriggerTime(float time) const;
+
+		/** Set how much time between scrollbar button repeats. */
+		void setRepeatStepTime(float time);
+		/** Get how much time between scrollbar button repeats. */
+		float getRepeatStepTime(float time) const;
+
 		//! @copydoc Widget::setPosition(const IntPoint& _value)
 		virtual void setPosition(const IntPoint& _value);
 		//! @copydoc Widget::setSize(const IntSize& _value)
@@ -126,6 +147,13 @@ namespace MyGUI
 
 		int getTrackPlaceLength() const;
 
+	private:
+		void repeatClick(MyGUI::Widget* _widget, MyGUI::ControllerItem* _controller);
+		void widgetStartPressed();
+		void widgetEndPressed();
+		void widgetFirstPartPressed();
+		void widgetSecondPartPressed();
+
 	protected:
 		// наши кнопки
 		Button* mWidgetStart;
@@ -147,6 +175,10 @@ namespace MyGUI
 		size_t mScrollPage; // track step, when clicking buttons
 		size_t mScrollViewPage; // track step, when clicking scroll line
 		size_t mScrollWheelPage; // track step, when scrolling with mouse wheel
+
+		bool mEnableRepeat; // Repeat clicks on the scrollbar buttons when the mouse button remains pressed down
+		float mRepeatTriggerTime; // Time the mouse button needs to be held for repeating to start
+		float mRepeatStepTime; // Time between repeats
 
 		int mMinTrackSize;
 		bool mMoveToClick;
