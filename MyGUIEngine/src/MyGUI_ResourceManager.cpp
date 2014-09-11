@@ -89,7 +89,7 @@ namespace MyGUI
 			MapResource::iterator item = mResources.find(name);
 			if (item != mResources.end())
 			{
-				MYGUI_LOG(Warning, "dublicate resource name '" << name << "'");
+				MYGUI_LOG(Warning, "duplicate resource name '" << name << "'");
 
 				// ресурсами могут пользоваться
 				mRemovedResoures.push_back((*item).second);
