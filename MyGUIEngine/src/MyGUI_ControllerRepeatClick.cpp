@@ -24,6 +24,9 @@ namespace MyGUI
 		if(mTimeLeft == 0)
 			mTimeLeft = mInit;
 
+		if (mStep <= 0)
+			return true;
+
 		mTimeLeft -= _time;
 		while (mTimeLeft <= 0)
 		{
