@@ -318,6 +318,7 @@ SOURCE_GROUP("Header Files\\Core\\Controller" FILES
   include/MyGUI_ControllerFadeAlpha.h
   include/MyGUI_ControllerItem.h
   include/MyGUI_ControllerPosition.h
+  include/MyGUI_ControllerRepeatClick.h
 )
 SOURCE_GROUP("Header Files\\Core\\LayerItem" FILES
   include/MyGUI_LayerItem.h
@@ -496,6 +497,7 @@ SOURCE_GROUP("Source Files\\Core\\Controller" FILES
   src/MyGUI_ControllerEdgeHide.cpp
   src/MyGUI_ControllerFadeAlpha.cpp
   src/MyGUI_ControllerPosition.cpp
+  src/MyGUI_ControllerRepeatClick.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\LayerItem" FILES
   src/MyGUI_LayerItem.cpp
