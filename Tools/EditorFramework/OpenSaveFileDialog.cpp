@@ -9,6 +9,21 @@
 #include "FileSystemInfo/FileSystemInfo.h"
 #include "CommandManager.h"
 
+namespace
+{
+
+	bool sortFiles (const common::FileInfo& left, const common::FileInfo& right)
+	{
+		if (left.folder < right.folder)
+			return true;
+		if (left.folder > right.folder)
+			return false;
+
+		return left.name < right.name;
+	}
+
+}
+
 namespace tools
 {
 
@@ -150,6 +165,7 @@ namespace tools
 		// add all folders first
 		common::VectorFileInfo infos;
 		getSystemFileList(infos, mCurrentFolder, L"*.*");
+		std::sort(infos.begin(), infos.end(), sortFiles);
 
 		for (common::VectorFileInfo::iterator item = infos.begin(); item != infos.end(); ++item)
 		{
@@ -162,6 +178,7 @@ namespace tools
 			// add files by given mask
 			infos.clear();
 			getSystemFileList(infos, mCurrentFolder, mFileMask);
+			std::sort(infos.begin(), infos.end(), sortFiles);
 
 			for (common::VectorFileInfo::iterator item = infos.begin(); item != infos.end(); ++item)
 			{
