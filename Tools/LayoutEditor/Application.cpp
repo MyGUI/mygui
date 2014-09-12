@@ -80,6 +80,8 @@ namespace tools
 		new HotKeyManager();
 		HotKeyManager::getInstance().initialise();
 
+		MyGUI::ResourceManager::getInstance().load("EditorPlugin.xml");
+
 		LoadGuiSettings();
 
 		std::string language = SettingsManager::getInstance().getValue("Settings/InterfaceLanguage");

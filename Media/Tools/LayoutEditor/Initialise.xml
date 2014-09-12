@@ -6,5 +6,4 @@
 	<List file="Ignore.xml"/>
 	<List file="Hotkeys.xml"/>
 	<List file="SkinReplaces.xml"/>
-	<List file="EditorPlugin.xml"/>
 </MyGUI>
