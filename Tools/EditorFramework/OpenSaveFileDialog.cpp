@@ -12,6 +12,14 @@
 namespace
 {
 
+	bool comparei(std::wstring stringA , std::wstring stringB)
+	{
+		std::transform(stringA.begin(), stringA.end(), stringA.begin(), tolower);
+		std::transform(stringB.begin(), stringB.end(), stringB.begin(), tolower);
+
+		return (stringA < stringB);
+	}
+
 	bool sortFiles (const common::FileInfo& left, const common::FileInfo& right)
 	{
 		if (left.folder < right.folder)
@@ -19,7 +27,7 @@ namespace
 		if (left.folder > right.folder)
 			return false;
 
-		return left.name < right.name;
+		return comparei(left.name, right.name);
 	}
 
 }
