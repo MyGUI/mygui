@@ -12,10 +12,18 @@
 namespace
 {
 
+	std::wstring &toLower(std::wstring &inout)
+	{
+		static std::locale sLocale("");
+		for (unsigned int i=0; i<inout.size(); ++i)
+			inout[i] = std::tolower(inout[i], sLocale);
+		return inout;
+	}
+
 	bool comparei(std::wstring stringA , std::wstring stringB)
 	{
-		std::transform(stringA.begin(), stringA.end(), stringA.begin(), tolower);
-		std::transform(stringB.begin(), stringB.end(), stringB.begin(), tolower);
+		toLower(stringA);
+		toLower(stringB);
 
 		return (stringA < stringB);
 	}
