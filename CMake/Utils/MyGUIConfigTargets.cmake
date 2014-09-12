@@ -386,7 +386,7 @@ function(mygui_plugin PROJECTNAME)
 	
 	add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL")
 	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
-	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER "Plugins")
+	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER "Plugins" PREFIX "")
 	add_dependencies(${PROJECTNAME} MyGUIEngine)
 	target_link_libraries(${PROJECTNAME} MyGUIEngine)
 	
