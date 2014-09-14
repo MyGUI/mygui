@@ -462,6 +462,9 @@ namespace MyGUI
 		{
 			mouseFocus->_riseMouseLostFocus(nullptr);
 		}
+
+		if (mouseFocus != mWidgetMouseFocus)
+			eventChangeMouseFocus(mWidgetMouseFocus);
 	}
 
 	// удаляем данный виджет из всех возможных мест
