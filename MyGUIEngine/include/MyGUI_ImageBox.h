@@ -19,7 +19,8 @@ namespace MyGUI
 		ImageBox widget description should be here.
 	*/
 	class MYGUI_EXPORT ImageBox :
-		public Widget
+		public Widget,
+		public MemberObsolete<ImageBox>
 	{
 		MYGUI_RTTI_DERIVED( ImageBox )
 
@@ -114,14 +115,14 @@ namespace MyGUI
 			@param _index Image item index
 			@param _indexSourceFrame Frame index of frame that we copying
 		*/
-		void addItemFrameDublicate(size_t _index, size_t _indexSourceFrame);
+		void addItemFrameDuplicate(size_t _index, size_t _indexSourceFrame);
 
 		/** Insert copy of frame (similar to ImageBox::insertItemFrame but we copy frame coordinates)
 			@param _index Image item index
 			@param _indexFrame Frame index where we insert frame
 			@param _indexSourceFrame Frame index of frame that we copying
 		*/
-		void insertItemFrameDublicate(size_t _index, size_t _indexFrame, size_t _indexSourceFrame);
+		void insertItemFrameDuplicate(size_t _index, size_t _indexFrame, size_t _indexSourceFrame);
 
 		/** Change frame
 			@param _index Image item index
