@@ -73,6 +73,15 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
+	void MemberObsolete<ImageBox>::addItemFrameDublicate(size_t _index, size_t _indexSourceFrame)
+	{
+		static_cast<ImageBox*>(this)->addItemFrameDuplicate(_index, _indexSourceFrame);
+	}
+	void MemberObsolete<ImageBox>::insertItemFrameDublicate(size_t _index, size_t _indexFrame, size_t _indexSourceFrame)
+	{
+		static_cast<ImageBox*>(this)->insertItemFrameDuplicate(_index, _indexFrame, _indexSourceFrame);
+	}
+
 
 	size_t MemberObsolete<ComboBox>::getItemIndexSelected()
 	{

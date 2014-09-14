@@ -45,6 +45,16 @@ namespace MyGUI
 	};
 
 	template <>
+	class MYGUI_EXPORT MemberObsolete<ImageBox>
+	{
+	public:
+		MYGUI_OBSOLETE(" is deprecated, use : void ImageBox::addItemFrameDuplicate(size_t _index, size_t _indexSourceFrame)")
+		void addItemFrameDublicate(size_t _index, size_t _indexSourceFrame);
+		MYGUI_OBSOLETE(" is deprecated, use : void ImageBox::insertItemFrameDuplicate(size_t _index, size_t _indexFrame, size_t _indexSourceFrame)")
+		void insertItemFrameDublicate(size_t _index, size_t _indexFrame, size_t _indexSourceFrame);
+	};
+
+	template <>
 	class MYGUI_EXPORT MemberObsolete<ComboBox>
 	{
 	public:
