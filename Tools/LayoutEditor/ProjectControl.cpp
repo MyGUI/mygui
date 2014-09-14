@@ -547,7 +547,7 @@ namespace tools
 	bool ProjectControl::isExistFile(const MyGUI::UString& _filePath, const MyGUI::UString& _fileName)
 	{
 		common::VectorFileInfo fileInfo;
-		common::getSystemFileList(fileInfo, _filePath, _fileName);
+		common::getSystemFileList(fileInfo, _filePath, _fileName, false);
 
 		return !fileInfo.empty();
 	}

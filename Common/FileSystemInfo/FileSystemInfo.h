@@ -21,6 +21,7 @@
 
 #include <string>
 #include <vector>
+#include <locale>
 
 namespace common
 {
@@ -32,6 +33,26 @@ namespace common
 		bool folder;
 	};
 	typedef std::vector<FileInfo> VectorFileInfo;
+
+	inline std::wstring toLower(const std::wstring& _input)
+	{
+		std::wstring result;
+		result.resize(_input.size());
+		static std::locale sLocale("");
+		for (unsigned int i=0; i<_input.size(); ++i)
+			result[i] = std::tolower(_input[i], sLocale);
+		return result;
+	}
+
+	inline bool sortFiles(const common::FileInfo& left, const common::FileInfo& right)
+	{
+		if (left.folder < right.folder)
+			return true;
+		if (left.folder > right.folder)
+			return false;
+
+		return toLower(left.name) < toLower(right.name);
+	}
 
 	inline bool isAbsolutePath(const wchar_t* path)
 	{
@@ -87,7 +108,7 @@ namespace common
 		return (_fn [0] == '.' && _fn [1] == '.' && _fn [2] == 0);
 	}
 
-	inline void getSystemFileList(VectorFileInfo& _result, const std::wstring& _folder, const std::wstring& _mask)
+	inline void getSystemFileList(VectorFileInfo& _result, const std::wstring& _folder, const std::wstring& _mask, bool _sorted = true)
 	{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		//FIXME add optional parameter?
@@ -143,6 +164,10 @@ namespace common
 
 		closedir(dir);
 #endif
+		if (_sorted)
+		{
+			std::sort(_result.begin(), _result.end(), sortFiles);
+		}
 	}
 
 	inline std::wstring getSystemCurrentFolder()
