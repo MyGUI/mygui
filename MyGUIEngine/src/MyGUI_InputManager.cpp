@@ -228,9 +228,6 @@ namespace MyGUI
 		{
 			resetKeyFocusWidget();
 
-			if (old_key_focus != mWidgetKeyFocus)
-				eventChangeKeyFocus(mWidgetKeyFocus);
-
 			return false;
 		}
 
@@ -284,9 +281,6 @@ namespace MyGUI
 				while (pick);
 			}
 		}
-
-		if (old_key_focus != mWidgetKeyFocus)
-			eventChangeKeyFocus(mWidgetKeyFocus);
 
 		return true;
 	}
@@ -437,6 +431,8 @@ namespace MyGUI
 		}
 
 		mWidgetKeyFocus = _widget;
+
+		eventChangeKeyFocus(mWidgetKeyFocus);
 	}
 
 	void InputManager::_resetMouseFocusWidget()
@@ -466,6 +462,9 @@ namespace MyGUI
 		{
 			mouseFocus->_riseMouseLostFocus(nullptr);
 		}
+
+		if (mouseFocus != mWidgetMouseFocus)
+			eventChangeMouseFocus(mWidgetMouseFocus);
 	}
 
 	// удаляем данный виджет из всех возможных мест
