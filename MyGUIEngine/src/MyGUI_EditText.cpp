@@ -436,6 +436,11 @@ namespace MyGUI
 		return size;
 	}
 
+	const VectorLineInfo& EditText::getLineInfo() const
+	{
+		return mTextView.getData();
+	}
+
 	void EditText::setViewOffset(const IntPoint& _point)
 	{
 		mViewOffset = _point;
