@@ -110,6 +110,8 @@ namespace MyGUI
 
 		virtual void _setAlign(const IntSize& _oldsize);
 
+		virtual const VectorLineInfo& getLineInfo() const;
+
 	private:
 		void _setTextColour(const Colour& _value);
 		void checkVertexSize();
