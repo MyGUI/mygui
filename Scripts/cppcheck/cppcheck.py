@@ -2,7 +2,6 @@
 import os
 
 ignoredContent = [
-#	"It is safe to deallocate a NULL pointer", # ignore, fine for us
 	"Exception thrown in destructor.", # ignore, fine for us
 #	"::initialise' can be const.", # ignore, because some are not const and we keep all non-const for similarity
 #	"::shutdown' can be const.", # ignore, because some are not const and we keep all non-const for similarity
