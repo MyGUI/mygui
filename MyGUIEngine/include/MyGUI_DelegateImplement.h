@@ -162,11 +162,8 @@ namespace delegates
 
 		void clear()
 		{
-			if (mDelegate)
-			{
-				delete mDelegate;
-				mDelegate = nullptr;
-			}
+			delete mDelegate;
+			mDelegate = nullptr;
 		}
 
 		MYGUI_C_DELEGATE  MYGUI_TEMPLATE_ARGS& operator=(IDelegate* _delegate)
