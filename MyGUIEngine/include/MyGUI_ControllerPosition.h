@@ -46,12 +46,11 @@ namespace MyGUI
 		*/
 		void setAction(FrameAction::IDelegate* _value);
 
+		virtual bool addTime(Widget* _widget, float _time);
+		virtual void prepareItem(Widget* _widget);
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	private:
-		bool addTime(Widget* _widget, float _time);
-		void prepareItem(Widget* _widget);
-
 		IntCoord mStartCoord;
 		IntCoord mDestCoord;
 		float mTime;

@@ -23,8 +23,7 @@ namespace demo
 		ControllerRandomProgress() : mTime(0) { }
 		virtual ~ControllerRandomProgress() { }
 
-	private:
-		bool addTime(MyGUI::Widget* _widget, float _time)
+		virtual bool addTime(MyGUI::Widget* _widget, float _time)
 		{
 			const float slice = 0.2;
 			mTime += _time;
@@ -37,12 +36,13 @@ namespace demo
 			return true;
 		}
 
-		void prepareItem(MyGUI::Widget* _widget)
+		virtual void prepareItem(MyGUI::Widget* _widget)
 		{
 			mTime = 0;
 			action(_widget);
 		}
 
+	private:
 		void action(MyGUI::Widget* _widget)
 		{
 			if ((::rand() % 2) == 0)

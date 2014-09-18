@@ -23,8 +23,7 @@ namespace demo
 		ControllerRandomSelected() : mTime(0) { }
 		virtual ~ControllerRandomSelected() { }
 
-	private:
-		bool addTime(MyGUI::Widget* _widget, float _time)
+		virtual bool addTime(MyGUI::Widget* _widget, float _time)
 		{
 			mTime += _time;
 			if (mTime > 1)
@@ -36,12 +35,13 @@ namespace demo
 			return true;
 		}
 
-		void prepareItem(MyGUI::Widget* _widget)
+		virtual void prepareItem(MyGUI::Widget* _widget)
 		{
 			mTime = 0;
 			action(_widget);
 		}
 
+	private:
 		void action(MyGUI::Widget* _widget)
 		{
 			if ((::rand() % 3) == 0)

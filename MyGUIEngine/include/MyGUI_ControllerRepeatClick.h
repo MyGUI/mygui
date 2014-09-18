@@ -33,6 +33,8 @@ namespace MyGUI
 		 */
 		void setRepeat(float init, float step);
 
+		virtual bool addTime(Widget* _widget, float _time);
+		virtual void prepareItem(Widget* _widget);
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 		typedef delegates::CMultiDelegate2<Widget*, ControllerItem*> EventHandle_RepeatClick;
@@ -41,10 +43,6 @@ namespace MyGUI
 			signature : void method(MyGUI::Widget* _sender, MyGUI::ControllerItem *_controller)\n
 		*/
 		EventHandle_RepeatClick eventRepeatClick;
-
-	private:
-		bool addTime(MyGUI::Widget* _widget, float _time);
-		void prepareItem(MyGUI::Widget* _widget);
 
 	private:
 		float mInit;
