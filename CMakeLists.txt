@@ -179,7 +179,7 @@ endif ()
 # End of Global defines
 
 # Set compiler specific build flags
-if (CMAKE_COMPILER_IS_GNUCXX)
+if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 	if (NOT MYGUI_HIGH_LEVEL_WARNINGS)
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
 	else ()
