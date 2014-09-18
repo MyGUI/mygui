@@ -49,8 +49,8 @@ namespace MyGUI
 		mSkinRangeStart = 0;
 		mSkinRangeEnd = 0;
 
-		mRepeatTriggerTime = 0.5;
-		mRepeatStepTime = 0.1;
+		mRepeatTriggerTime = 0.5f;
+		mRepeatStepTime = 0.1f;
 
 		///@wskin_child{ScrollBar, Button, Start} Кнопка начала диапазона.
 		assignWidget(mWidgetStart, "Start");

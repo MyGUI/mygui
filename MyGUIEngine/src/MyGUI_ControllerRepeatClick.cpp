@@ -10,8 +10,8 @@
 namespace MyGUI
 {
 	ControllerRepeatClick::ControllerRepeatClick() :
-		mInit(0.5),
-		mStep(0.1),
+		mInit(0.5f),
+		mStep(0.1f),
 		mTimeLeft(0)
 	{
 	}
