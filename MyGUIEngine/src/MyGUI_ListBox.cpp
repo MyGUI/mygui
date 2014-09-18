@@ -17,6 +17,7 @@ namespace MyGUI
 
 	ListBox::ListBox() :
 		mWidgetScroll(nullptr),
+		mActivateOnClick(false),
 		mHeightLine(1),
 		mTopIndex(0),
 		mOffsetTop(0),
@@ -25,8 +26,7 @@ namespace MyGUI
 		mIndexSelect(ITEM_NONE),
 		mLineActive(ITEM_NONE),
 		mNeedVisibleScroll(true),
-		mClient(nullptr),
-		mActivateOnClick(false)
+		mClient(nullptr)
 	{
 	}
 

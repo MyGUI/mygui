@@ -123,8 +123,7 @@ namespace MyGUI
 
 	public:
 		RotatingSkinStateInfo() :
-			mAngle(0),
-			mCenter(0,0)
+			mAngle(0)
 		{
 		}
 

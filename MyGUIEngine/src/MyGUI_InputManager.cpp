@@ -221,8 +221,6 @@ namespace MyGUI
 	{
 		injectMouseMove(_absx, _absy, mOldAbsZ);
 
-		Widget* old_key_focus = mWidgetKeyFocus;
-
 		// если мы щелкнули не на гуй
 		if (!isFocusMouse())
 		{

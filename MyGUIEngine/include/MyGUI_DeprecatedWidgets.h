@@ -16,8 +16,6 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate2<VScroll*, size_t> EventHandle_VScrollPtrSizeT;
-
 	class MYGUI_EXPORT VScroll :
 		public ScrollBar
 	{
@@ -28,14 +26,6 @@ namespace MyGUI
 		{
 			mVerticalAlignment = true;
 		}
-
-		/*events:*/
-		/** Event : scroll tracker position changed.\n
-			signature : void method(MyGUI::VScroll* _sender, size_t _position)\n
-			@param _sender widget that called this event
-			@param _position - new tracker position
-		*/
-		EventPair<EventHandle_WidgetSizeT, EventHandle_VScrollPtrSizeT> eventScrollChangePosition;
 	};
 
 	class MYGUI_EXPORT HScroll :

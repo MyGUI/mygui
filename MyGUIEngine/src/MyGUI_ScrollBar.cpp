@@ -28,12 +28,12 @@ namespace MyGUI
 		mScrollPage(0),
 		mScrollViewPage(0),
 		mScrollWheelPage(0),
-		mMinTrackSize(0),
-		mMoveToClick(false),
-		mVerticalAlignment(true),
 		mEnableRepeat(true),
 		mRepeatTriggerTime(0.f),
-		mRepeatStepTime(0.f)
+		mRepeatStepTime(0.f),
+		mMinTrackSize(0),
+		mMoveToClick(false),
+		mVerticalAlignment(true)
 	{
 	}
 
