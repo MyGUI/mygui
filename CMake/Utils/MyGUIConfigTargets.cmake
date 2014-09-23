@@ -391,7 +391,14 @@ function(mygui_plugin PROJECTNAME)
 	target_link_libraries(${PROJECTNAME} MyGUIEngine)
 	
 	mygui_config_lib(${PROJECTNAME})
-	
+
+	# Plugins are loaded at runtime and not linked at buildtime, so they should go to the same
+	# output directory as the executables, so the plugin loader can find them there.
+	set_target_properties(${PROJECTNAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+
+	# Remove default library prefix (e.g. "lib" on Linux), as the plugin loader doesn't know about it
+	set_target_properties(${PROJECTNAME} PROPERTIES PREFIX "")
+
 	install(FILES ${HEADER_FILES}
 		DESTINATION include/MYGUI
 	)
