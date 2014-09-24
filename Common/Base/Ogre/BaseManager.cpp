@@ -207,7 +207,7 @@ namespace base
 	void BaseManager::createGui()
 	{
 		mPlatform = new MyGUI::OgrePlatform();
-		mPlatform->initialise(mWindow, mSceneManager);
+		mPlatform->initialise(mWindow, mSceneManager, Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise(mResourceFileName);
 	}
