@@ -11,8 +11,8 @@
 	</MyGUI>
 	<MyGUI type="Plugin">
 		<Plugin>
-			<Source>Plugin_StrangeButton</Source>
-			<Source build="Debug">Plugin_StrangeButton_d</Source>
+			<Source>./Plugin_StrangeButton</Source>
+			<Source build="Debug">./Plugin_StrangeButton_d</Source>
 		</Plugin>
 	</MyGUI>
 </MyGUI>

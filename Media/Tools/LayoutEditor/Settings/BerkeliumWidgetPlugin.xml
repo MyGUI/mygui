@@ -11,8 +11,8 @@
 	</MyGUI>
 	<MyGUI type="Plugin">
 		<Plugin>
-			<Source>Plugin_BerkeliumWidget</Source>
-			<Source build="Debug">Plugin_BerkeliumWidget_d</Source>
+			<Source>./Plugin_BerkeliumWidget</Source>
+			<Source build="Debug">./Plugin_BerkeliumWidget_d</Source>
 		</Plugin>
 	</MyGUI>
 </MyGUI>
