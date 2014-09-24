@@ -80,8 +80,6 @@ namespace tools
 		new HotKeyManager();
 		HotKeyManager::getInstance().initialise();
 
-		LoadGuiSettings();
-
 		std::string language = SettingsManager::getInstance().getValue("Settings/InterfaceLanguage");
 		if (language.empty() || language == "Auto")
 		{
@@ -142,6 +140,8 @@ namespace tools
 		GridManager::getInstance().initialise();
 
 		MyGUI::ResourceManager::getInstance().load("Initialise.xml");
+
+		LoadGuiSettings();
 
 		bool maximized = SettingsManager::getInstance().getValue<bool>("Controls/Main/Maximized");
 		setWindowMaximized(maximized);
