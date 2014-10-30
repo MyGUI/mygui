@@ -31,8 +31,6 @@ namespace demo
 		if (root.size() == 1)
 			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Sample colour picker implementation. Select text in EditBox and then select colour to colour selected part of text.");
 
-		MyGUI::ResourceManager::getInstance().load("ColourSliderSkin.xml");
-
 		mColourPanel = new ColourPanel();
 		mEditPanel = new EditPanel();
 
