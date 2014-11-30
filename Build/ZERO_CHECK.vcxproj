@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{5B76EE0F-A5D4-4C66-956A-87A0F1A5CBAB}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>ZERO_CHECK</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="CMakeFiles\856c170b18c38ca9d4fcd3a3a174c28b\generate.stamp.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Checking Build System</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "$(SolutionPath)"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "$(SolutionPath)"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/generate.stamp.rule;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeDependentOption.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindDoxygen.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindOpenGL.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPkgConfig.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\TestBigEndian.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCXXCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeRCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeSystem.cmake;D:\Pro\MyGUI\CMake\CMakeLists.txt;D:\Pro\MyGUI\CMake\ConfigureBuild.cmake;D:\Pro\MyGUI\CMake\Dependencies.cmake;D:\Pro\MyGUI\CMake\InstallResources.cmake;D:\Pro\MyGUI\CMake\MyGUIInstallDependencies.cmake;D:\Pro\MyGUI\CMake\Packages\FindFreetype.cmake;D:\Pro\MyGUI\CMake\Packaging.cmake;D:\Pro\MyGUI\CMake\Templates\VisualStudioUserFile.vcproj.user.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\updateListFiles.bat.in;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;D:\Pro\MyGUI\CMake\Utils\MacroLogFeature.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIConfigTargets.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIGetVersion.cmake;D:\Pro\MyGUI\CMake\Utils\PrecompiledHeader.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;D:\Pro\MyGUI\CMakeLists.txt;D:\Pro\MyGUI\Common\CMakeLists.txt;D:\Pro\MyGUI\Demos\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Colour\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Colour\Demo_Colour.list;D:\Pro\MyGUI\Demos\Demo_Console\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Console\Demo_Console.list;D:\Pro\MyGUI\Demos\Demo_Controllers\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Controllers\Demo_Controllers.list;D:\Pro\MyGUI\Demos\Demo_Gui\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Gui\Demo_Gui.list;D:\Pro\MyGUI\Demos\Demo_ItemBox\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_ItemBox\Demo_ItemBox.list;D:\Pro\MyGUI\Demos\Demo_PanelView\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_PanelView\Demo_PanelView.list;D:\Pro\MyGUI\Demos\Demo_Picking\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Picking\Demo_Picking.list;D:\Pro\MyGUI\Demos\Demo_PluginStrangeButton\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_PluginStrangeButton\Demo_PluginStrangeButton.list;D:\Pro\MyGUI\Demos\Demo_Pointers\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Pointers\Demo_Pointers.list;D:\Pro\MyGUI\Demos\Demo_RenderBox\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_RenderBox\Demo_RenderBox.list;D:\Pro\MyGUI\Demos\Demo_ScrollView\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_ScrollView\Demo_ScrollView.list;D:\Pro\MyGUI\Demos\Demo_Themes\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Themes\Demo_Themes.list;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;D:\Pro\MyGUI\MyGUIEngine\MyGUIEngine.list;D:\Pro\MyGUI\Platforms\CMakeLists.txt;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\CMakeLists.txt;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\MyGUI.OpenGLPlatform.list;D:\Pro\MyGUI\Plugins\CMakeLists.txt;D:\Pro\MyGUI\Plugins\Plugin_StrangeButton\CMakeLists.txt;D:\Pro\MyGUI\Plugins\Plugin_StrangeButton\Plugin_StrangeButton.list;D:\Pro\MyGUI\Tools\CMakeLists.txt;D:\Pro\MyGUI\Tools\EditorFramework\CMakeLists.txt;D:\Pro\MyGUI\Tools\EditorFramework\EditorFramework.list;D:\Pro\MyGUI\Tools\FontEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\FontEditor\FontEditor.list;D:\Pro\MyGUI\Tools\ImageEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\ImageEditor\ImageEditor.list;D:\Pro\MyGUI\Tools\LayoutEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\LayoutEditor\LayoutEditor.list;D:\Pro\MyGUI\Tools\SkinEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\SkinEditor\SkinEditor.list;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/generate.stamp.rule;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeDependentOption.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindDoxygen.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindOpenGL.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPkgConfig.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\TestBigEndian.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCXXCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeRCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeSystem.cmake;D:\Pro\MyGUI\CMake\CMakeLists.txt;D:\Pro\MyGUI\CMake\ConfigureBuild.cmake;D:\Pro\MyGUI\CMake\Dependencies.cmake;D:\Pro\MyGUI\CMake\InstallResources.cmake;D:\Pro\MyGUI\CMake\MyGUIInstallDependencies.cmake;D:\Pro\MyGUI\CMake\Packages\FindFreetype.cmake;D:\Pro\MyGUI\CMake\Packaging.cmake;D:\Pro\MyGUI\CMake\Templates\VisualStudioUserFile.vcproj.user.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\updateListFiles.bat.in;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;D:\Pro\MyGUI\CMake\Utils\MacroLogFeature.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIConfigTargets.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIGetVersion.cmake;D:\Pro\MyGUI\CMake\Utils\PrecompiledHeader.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;D:\Pro\MyGUI\CMakeLists.txt;D:\Pro\MyGUI\Common\CMakeLists.txt;D:\Pro\MyGUI\Demos\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Colour\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Colour\Demo_Colour.list;D:\Pro\MyGUI\Demos\Demo_Console\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Console\Demo_Console.list;D:\Pro\MyGUI\Demos\Demo_Controllers\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Controllers\Demo_Controllers.list;D:\Pro\MyGUI\Demos\Demo_Gui\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Gui\Demo_Gui.list;D:\Pro\MyGUI\Demos\Demo_ItemBox\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_ItemBox\Demo_ItemBox.list;D:\Pro\MyGUI\Demos\Demo_PanelView\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_PanelView\Demo_PanelView.list;D:\Pro\MyGUI\Demos\Demo_Picking\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Picking\Demo_Picking.list;D:\Pro\MyGUI\Demos\Demo_PluginStrangeButton\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_PluginStrangeButton\Demo_PluginStrangeButton.list;D:\Pro\MyGUI\Demos\Demo_Pointers\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Pointers\Demo_Pointers.list;D:\Pro\MyGUI\Demos\Demo_RenderBox\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_RenderBox\Demo_RenderBox.list;D:\Pro\MyGUI\Demos\Demo_ScrollView\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_ScrollView\Demo_ScrollView.list;D:\Pro\MyGUI\Demos\Demo_Themes\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Themes\Demo_Themes.list;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;D:\Pro\MyGUI\MyGUIEngine\MyGUIEngine.list;D:\Pro\MyGUI\Platforms\CMakeLists.txt;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\CMakeLists.txt;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\MyGUI.OpenGLPlatform.list;D:\Pro\MyGUI\Plugins\CMakeLists.txt;D:\Pro\MyGUI\Plugins\Plugin_StrangeButton\CMakeLists.txt;D:\Pro\MyGUI\Plugins\Plugin_StrangeButton\Plugin_StrangeButton.list;D:\Pro\MyGUI\Tools\CMakeLists.txt;D:\Pro\MyGUI\Tools\EditorFramework\CMakeLists.txt;D:\Pro\MyGUI\Tools\EditorFramework\EditorFramework.list;D:\Pro\MyGUI\Tools\FontEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\FontEditor\FontEditor.list;D:\Pro\MyGUI\Tools\ImageEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\ImageEditor\ImageEditor.list;D:\Pro\MyGUI\Tools\LayoutEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\LayoutEditor\LayoutEditor.list;D:\Pro\MyGUI\Tools\SkinEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\SkinEditor\SkinEditor.list;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Platforms\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Platforms\OpenGL\OpenGLPlatform\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Common\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Plugins\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Plugins\Plugin_StrangeButton\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Colour\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Console\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Controllers\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Gui\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_ItemBox\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_PanelView\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Picking\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_PluginStrangeButton\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_RenderBox\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_ScrollView\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Themes\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Pointers\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\EditorFramework\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\LayoutEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\SkinEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\ImageEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\FontEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\CMake\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Platforms\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Platforms\OpenGL\OpenGLPlatform\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Common\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Plugins\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Plugins\Plugin_StrangeButton\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Colour\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Console\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Controllers\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Gui\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_ItemBox\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_PanelView\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Picking\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_PluginStrangeButton\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_RenderBox\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_ScrollView\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Themes\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Pointers\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\EditorFramework\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\LayoutEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\SkinEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\ImageEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\FontEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\CMake\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Checking Build System</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "$(SolutionPath)"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "$(SolutionPath)"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/generate.stamp.rule;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeDependentOption.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindDoxygen.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindOpenGL.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPkgConfig.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\TestBigEndian.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCXXCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeRCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeSystem.cmake;D:\Pro\MyGUI\CMake\CMakeLists.txt;D:\Pro\MyGUI\CMake\ConfigureBuild.cmake;D:\Pro\MyGUI\CMake\Dependencies.cmake;D:\Pro\MyGUI\CMake\InstallResources.cmake;D:\Pro\MyGUI\CMake\MyGUIInstallDependencies.cmake;D:\Pro\MyGUI\CMake\Packages\FindFreetype.cmake;D:\Pro\MyGUI\CMake\Packaging.cmake;D:\Pro\MyGUI\CMake\Templates\VisualStudioUserFile.vcproj.user.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\updateListFiles.bat.in;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;D:\Pro\MyGUI\CMake\Utils\MacroLogFeature.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIConfigTargets.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIGetVersion.cmake;D:\Pro\MyGUI\CMake\Utils\PrecompiledHeader.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;D:\Pro\MyGUI\CMakeLists.txt;D:\Pro\MyGUI\Common\CMakeLists.txt;D:\Pro\MyGUI\Demos\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Colour\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Colour\Demo_Colour.list;D:\Pro\MyGUI\Demos\Demo_Console\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Console\Demo_Console.list;D:\Pro\MyGUI\Demos\Demo_Controllers\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Controllers\Demo_Controllers.list;D:\Pro\MyGUI\Demos\Demo_Gui\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Gui\Demo_Gui.list;D:\Pro\MyGUI\Demos\Demo_ItemBox\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_ItemBox\Demo_ItemBox.list;D:\Pro\MyGUI\Demos\Demo_PanelView\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_PanelView\Demo_PanelView.list;D:\Pro\MyGUI\Demos\Demo_Picking\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Picking\Demo_Picking.list;D:\Pro\MyGUI\Demos\Demo_PluginStrangeButton\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_PluginStrangeButton\Demo_PluginStrangeButton.list;D:\Pro\MyGUI\Demos\Demo_Pointers\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Pointers\Demo_Pointers.list;D:\Pro\MyGUI\Demos\Demo_RenderBox\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_RenderBox\Demo_RenderBox.list;D:\Pro\MyGUI\Demos\Demo_ScrollView\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_ScrollView\Demo_ScrollView.list;D:\Pro\MyGUI\Demos\Demo_Themes\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Themes\Demo_Themes.list;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;D:\Pro\MyGUI\MyGUIEngine\MyGUIEngine.list;D:\Pro\MyGUI\Platforms\CMakeLists.txt;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\CMakeLists.txt;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\MyGUI.OpenGLPlatform.list;D:\Pro\MyGUI\Plugins\CMakeLists.txt;D:\Pro\MyGUI\Plugins\Plugin_StrangeButton\CMakeLists.txt;D:\Pro\MyGUI\Plugins\Plugin_StrangeButton\Plugin_StrangeButton.list;D:\Pro\MyGUI\Tools\CMakeLists.txt;D:\Pro\MyGUI\Tools\EditorFramework\CMakeLists.txt;D:\Pro\MyGUI\Tools\EditorFramework\EditorFramework.list;D:\Pro\MyGUI\Tools\FontEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\FontEditor\FontEditor.list;D:\Pro\MyGUI\Tools\ImageEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\ImageEditor\ImageEditor.list;D:\Pro\MyGUI\Tools\LayoutEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\LayoutEditor\LayoutEditor.list;D:\Pro\MyGUI\Tools\SkinEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\SkinEditor\SkinEditor.list;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/generate.stamp.rule;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeDependentOption.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindDoxygen.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindOpenGL.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPkgConfig.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\TestBigEndian.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCXXCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeRCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeSystem.cmake;D:\Pro\MyGUI\CMake\CMakeLists.txt;D:\Pro\MyGUI\CMake\ConfigureBuild.cmake;D:\Pro\MyGUI\CMake\Dependencies.cmake;D:\Pro\MyGUI\CMake\InstallResources.cmake;D:\Pro\MyGUI\CMake\MyGUIInstallDependencies.cmake;D:\Pro\MyGUI\CMake\Packages\FindFreetype.cmake;D:\Pro\MyGUI\CMake\Packaging.cmake;D:\Pro\MyGUI\CMake\Templates\VisualStudioUserFile.vcproj.user.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\updateListFiles.bat.in;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;D:\Pro\MyGUI\CMake\Utils\MacroLogFeature.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIConfigTargets.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIGetVersion.cmake;D:\Pro\MyGUI\CMake\Utils\PrecompiledHeader.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;D:\Pro\MyGUI\CMakeLists.txt;D:\Pro\MyGUI\Common\CMakeLists.txt;D:\Pro\MyGUI\Demos\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Colour\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Colour\Demo_Colour.list;D:\Pro\MyGUI\Demos\Demo_Console\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Console\Demo_Console.list;D:\Pro\MyGUI\Demos\Demo_Controllers\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Controllers\Demo_Controllers.list;D:\Pro\MyGUI\Demos\Demo_Gui\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Gui\Demo_Gui.list;D:\Pro\MyGUI\Demos\Demo_ItemBox\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_ItemBox\Demo_ItemBox.list;D:\Pro\MyGUI\Demos\Demo_PanelView\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_PanelView\Demo_PanelView.list;D:\Pro\MyGUI\Demos\Demo_Picking\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Picking\Demo_Picking.list;D:\Pro\MyGUI\Demos\Demo_PluginStrangeButton\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_PluginStrangeButton\Demo_PluginStrangeButton.list;D:\Pro\MyGUI\Demos\Demo_Pointers\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Pointers\Demo_Pointers.list;D:\Pro\MyGUI\Demos\Demo_RenderBox\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_RenderBox\Demo_RenderBox.list;D:\Pro\MyGUI\Demos\Demo_ScrollView\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_ScrollView\Demo_ScrollView.list;D:\Pro\MyGUI\Demos\Demo_Themes\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Themes\Demo_Themes.list;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;D:\Pro\MyGUI\MyGUIEngine\MyGUIEngine.list;D:\Pro\MyGUI\Platforms\CMakeLists.txt;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\CMakeLists.txt;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\MyGUI.OpenGLPlatform.list;D:\Pro\MyGUI\Plugins\CMakeLists.txt;D:\Pro\MyGUI\Plugins\Plugin_StrangeButton\CMakeLists.txt;D:\Pro\MyGUI\Plugins\Plugin_StrangeButton\Plugin_StrangeButton.list;D:\Pro\MyGUI\Tools\CMakeLists.txt;D:\Pro\MyGUI\Tools\EditorFramework\CMakeLists.txt;D:\Pro\MyGUI\Tools\EditorFramework\EditorFramework.list;D:\Pro\MyGUI\Tools\FontEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\FontEditor\FontEditor.list;D:\Pro\MyGUI\Tools\ImageEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\ImageEditor\ImageEditor.list;D:\Pro\MyGUI\Tools\LayoutEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\LayoutEditor\LayoutEditor.list;D:\Pro\MyGUI\Tools\SkinEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\SkinEditor\SkinEditor.list;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Platforms\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Platforms\OpenGL\OpenGLPlatform\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Common\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Plugins\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Plugins\Plugin_StrangeButton\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Colour\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Console\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Controllers\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Gui\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_ItemBox\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_PanelView\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Picking\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_PluginStrangeButton\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_RenderBox\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_ScrollView\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Themes\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Pointers\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\EditorFramework\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\LayoutEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\SkinEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\ImageEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\FontEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\CMake\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Platforms\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Platforms\OpenGL\OpenGLPlatform\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Common\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Plugins\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Plugins\Plugin_StrangeButton\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Colour\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Console\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Controllers\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Gui\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_ItemBox\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_PanelView\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Picking\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_PluginStrangeButton\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_RenderBox\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_ScrollView\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Themes\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Pointers\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\EditorFramework\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\LayoutEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\SkinEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\ImageEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\FontEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\CMake\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Checking Build System</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "$(SolutionPath)"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "$(SolutionPath)"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/generate.stamp.rule;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeDependentOption.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindDoxygen.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindOpenGL.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPkgConfig.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\TestBigEndian.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCXXCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeRCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeSystem.cmake;D:\Pro\MyGUI\CMake\CMakeLists.txt;D:\Pro\MyGUI\CMake\ConfigureBuild.cmake;D:\Pro\MyGUI\CMake\Dependencies.cmake;D:\Pro\MyGUI\CMake\InstallResources.cmake;D:\Pro\MyGUI\CMake\MyGUIInstallDependencies.cmake;D:\Pro\MyGUI\CMake\Packages\FindFreetype.cmake;D:\Pro\MyGUI\CMake\Packaging.cmake;D:\Pro\MyGUI\CMake\Templates\VisualStudioUserFile.vcproj.user.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\updateListFiles.bat.in;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;D:\Pro\MyGUI\CMake\Utils\MacroLogFeature.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIConfigTargets.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIGetVersion.cmake;D:\Pro\MyGUI\CMake\Utils\PrecompiledHeader.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;D:\Pro\MyGUI\CMakeLists.txt;D:\Pro\MyGUI\Common\CMakeLists.txt;D:\Pro\MyGUI\Demos\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Colour\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Colour\Demo_Colour.list;D:\Pro\MyGUI\Demos\Demo_Console\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Console\Demo_Console.list;D:\Pro\MyGUI\Demos\Demo_Controllers\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Controllers\Demo_Controllers.list;D:\Pro\MyGUI\Demos\Demo_Gui\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Gui\Demo_Gui.list;D:\Pro\MyGUI\Demos\Demo_ItemBox\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_ItemBox\Demo_ItemBox.list;D:\Pro\MyGUI\Demos\Demo_PanelView\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_PanelView\Demo_PanelView.list;D:\Pro\MyGUI\Demos\Demo_Picking\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Picking\Demo_Picking.list;D:\Pro\MyGUI\Demos\Demo_PluginStrangeButton\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_PluginStrangeButton\Demo_PluginStrangeButton.list;D:\Pro\MyGUI\Demos\Demo_Pointers\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Pointers\Demo_Pointers.list;D:\Pro\MyGUI\Demos\Demo_RenderBox\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_RenderBox\Demo_RenderBox.list;D:\Pro\MyGUI\Demos\Demo_ScrollView\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_ScrollView\Demo_ScrollView.list;D:\Pro\MyGUI\Demos\Demo_Themes\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Themes\Demo_Themes.list;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;D:\Pro\MyGUI\MyGUIEngine\MyGUIEngine.list;D:\Pro\MyGUI\Platforms\CMakeLists.txt;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\CMakeLists.txt;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\MyGUI.OpenGLPlatform.list;D:\Pro\MyGUI\Plugins\CMakeLists.txt;D:\Pro\MyGUI\Plugins\Plugin_StrangeButton\CMakeLists.txt;D:\Pro\MyGUI\Plugins\Plugin_StrangeButton\Plugin_StrangeButton.list;D:\Pro\MyGUI\Tools\CMakeLists.txt;D:\Pro\MyGUI\Tools\EditorFramework\CMakeLists.txt;D:\Pro\MyGUI\Tools\EditorFramework\EditorFramework.list;D:\Pro\MyGUI\Tools\FontEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\FontEditor\FontEditor.list;D:\Pro\MyGUI\Tools\ImageEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\ImageEditor\ImageEditor.list;D:\Pro\MyGUI\Tools\LayoutEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\LayoutEditor\LayoutEditor.list;D:\Pro\MyGUI\Tools\SkinEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\SkinEditor\SkinEditor.list;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/generate.stamp.rule;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeDependentOption.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindDoxygen.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindOpenGL.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPkgConfig.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\TestBigEndian.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCXXCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeRCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeSystem.cmake;D:\Pro\MyGUI\CMake\CMakeLists.txt;D:\Pro\MyGUI\CMake\ConfigureBuild.cmake;D:\Pro\MyGUI\CMake\Dependencies.cmake;D:\Pro\MyGUI\CMake\InstallResources.cmake;D:\Pro\MyGUI\CMake\MyGUIInstallDependencies.cmake;D:\Pro\MyGUI\CMake\Packages\FindFreetype.cmake;D:\Pro\MyGUI\CMake\Packaging.cmake;D:\Pro\MyGUI\CMake\Templates\VisualStudioUserFile.vcproj.user.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\updateListFiles.bat.in;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;D:\Pro\MyGUI\CMake\Utils\MacroLogFeature.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIConfigTargets.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIGetVersion.cmake;D:\Pro\MyGUI\CMake\Utils\PrecompiledHeader.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;D:\Pro\MyGUI\CMakeLists.txt;D:\Pro\MyGUI\Common\CMakeLists.txt;D:\Pro\MyGUI\Demos\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Colour\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Colour\Demo_Colour.list;D:\Pro\MyGUI\Demos\Demo_Console\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Console\Demo_Console.list;D:\Pro\MyGUI\Demos\Demo_Controllers\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Controllers\Demo_Controllers.list;D:\Pro\MyGUI\Demos\Demo_Gui\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Gui\Demo_Gui.list;D:\Pro\MyGUI\Demos\Demo_ItemBox\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_ItemBox\Demo_ItemBox.list;D:\Pro\MyGUI\Demos\Demo_PanelView\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_PanelView\Demo_PanelView.list;D:\Pro\MyGUI\Demos\Demo_Picking\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Picking\Demo_Picking.list;D:\Pro\MyGUI\Demos\Demo_PluginStrangeButton\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_PluginStrangeButton\Demo_PluginStrangeButton.list;D:\Pro\MyGUI\Demos\Demo_Pointers\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Pointers\Demo_Pointers.list;D:\Pro\MyGUI\Demos\Demo_RenderBox\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_RenderBox\Demo_RenderBox.list;D:\Pro\MyGUI\Demos\Demo_ScrollView\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_ScrollView\Demo_ScrollView.list;D:\Pro\MyGUI\Demos\Demo_Themes\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Themes\Demo_Themes.list;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;D:\Pro\MyGUI\MyGUIEngine\MyGUIEngine.list;D:\Pro\MyGUI\Platforms\CMakeLists.txt;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\CMakeLists.txt;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\MyGUI.OpenGLPlatform.list;D:\Pro\MyGUI\Plugins\CMakeLists.txt;D:\Pro\MyGUI\Plugins\Plugin_StrangeButton\CMakeLists.txt;D:\Pro\MyGUI\Plugins\Plugin_StrangeButton\Plugin_StrangeButton.list;D:\Pro\MyGUI\Tools\CMakeLists.txt;D:\Pro\MyGUI\Tools\EditorFramework\CMakeLists.txt;D:\Pro\MyGUI\Tools\EditorFramework\EditorFramework.list;D:\Pro\MyGUI\Tools\FontEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\FontEditor\FontEditor.list;D:\Pro\MyGUI\Tools\ImageEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\ImageEditor\ImageEditor.list;D:\Pro\MyGUI\Tools\LayoutEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\LayoutEditor\LayoutEditor.list;D:\Pro\MyGUI\Tools\SkinEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\SkinEditor\SkinEditor.list;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Platforms\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Platforms\OpenGL\OpenGLPlatform\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Common\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Plugins\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Plugins\Plugin_StrangeButton\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Colour\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Console\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Controllers\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Gui\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_ItemBox\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_PanelView\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Picking\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_PluginStrangeButton\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_RenderBox\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_ScrollView\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Themes\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Pointers\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\EditorFramework\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\LayoutEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\SkinEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\ImageEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\FontEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\CMake\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Platforms\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Platforms\OpenGL\OpenGLPlatform\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Common\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Plugins\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Plugins\Plugin_StrangeButton\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Colour\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Console\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Controllers\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Gui\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_ItemBox\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_PanelView\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Picking\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_PluginStrangeButton\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_RenderBox\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_ScrollView\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Themes\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Pointers\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\EditorFramework\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\LayoutEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\SkinEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\ImageEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\FontEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\CMake\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Checking Build System</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "$(SolutionPath)"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "$(SolutionPath)"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/generate.stamp.rule;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeDependentOption.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindDoxygen.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindOpenGL.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPkgConfig.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\TestBigEndian.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCXXCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeRCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeSystem.cmake;D:\Pro\MyGUI\CMake\CMakeLists.txt;D:\Pro\MyGUI\CMake\ConfigureBuild.cmake;D:\Pro\MyGUI\CMake\Dependencies.cmake;D:\Pro\MyGUI\CMake\InstallResources.cmake;D:\Pro\MyGUI\CMake\MyGUIInstallDependencies.cmake;D:\Pro\MyGUI\CMake\Packages\FindFreetype.cmake;D:\Pro\MyGUI\CMake\Packaging.cmake;D:\Pro\MyGUI\CMake\Templates\VisualStudioUserFile.vcproj.user.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\updateListFiles.bat.in;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;D:\Pro\MyGUI\CMake\Utils\MacroLogFeature.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIConfigTargets.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIGetVersion.cmake;D:\Pro\MyGUI\CMake\Utils\PrecompiledHeader.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;D:\Pro\MyGUI\CMakeLists.txt;D:\Pro\MyGUI\Common\CMakeLists.txt;D:\Pro\MyGUI\Demos\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Colour\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Colour\Demo_Colour.list;D:\Pro\MyGUI\Demos\Demo_Console\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Console\Demo_Console.list;D:\Pro\MyGUI\Demos\Demo_Controllers\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Controllers\Demo_Controllers.list;D:\Pro\MyGUI\Demos\Demo_Gui\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Gui\Demo_Gui.list;D:\Pro\MyGUI\Demos\Demo_ItemBox\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_ItemBox\Demo_ItemBox.list;D:\Pro\MyGUI\Demos\Demo_PanelView\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_PanelView\Demo_PanelView.list;D:\Pro\MyGUI\Demos\Demo_Picking\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Picking\Demo_Picking.list;D:\Pro\MyGUI\Demos\Demo_PluginStrangeButton\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_PluginStrangeButton\Demo_PluginStrangeButton.list;D:\Pro\MyGUI\Demos\Demo_Pointers\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Pointers\Demo_Pointers.list;D:\Pro\MyGUI\Demos\Demo_RenderBox\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_RenderBox\Demo_RenderBox.list;D:\Pro\MyGUI\Demos\Demo_ScrollView\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_ScrollView\Demo_ScrollView.list;D:\Pro\MyGUI\Demos\Demo_Themes\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Themes\Demo_Themes.list;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;D:\Pro\MyGUI\MyGUIEngine\MyGUIEngine.list;D:\Pro\MyGUI\Platforms\CMakeLists.txt;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\CMakeLists.txt;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\MyGUI.OpenGLPlatform.list;D:\Pro\MyGUI\Plugins\CMakeLists.txt;D:\Pro\MyGUI\Plugins\Plugin_StrangeButton\CMakeLists.txt;D:\Pro\MyGUI\Plugins\Plugin_StrangeButton\Plugin_StrangeButton.list;D:\Pro\MyGUI\Tools\CMakeLists.txt;D:\Pro\MyGUI\Tools\EditorFramework\CMakeLists.txt;D:\Pro\MyGUI\Tools\EditorFramework\EditorFramework.list;D:\Pro\MyGUI\Tools\FontEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\FontEditor\FontEditor.list;D:\Pro\MyGUI\Tools\ImageEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\ImageEditor\ImageEditor.list;D:\Pro\MyGUI\Tools\LayoutEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\LayoutEditor\LayoutEditor.list;D:\Pro\MyGUI\Tools\SkinEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\SkinEditor\SkinEditor.list;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/generate.stamp.rule;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeDependentOption.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindDoxygen.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindOpenGL.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPkgConfig.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\TestBigEndian.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCXXCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeRCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeSystem.cmake;D:\Pro\MyGUI\CMake\CMakeLists.txt;D:\Pro\MyGUI\CMake\ConfigureBuild.cmake;D:\Pro\MyGUI\CMake\Dependencies.cmake;D:\Pro\MyGUI\CMake\InstallResources.cmake;D:\Pro\MyGUI\CMake\MyGUIInstallDependencies.cmake;D:\Pro\MyGUI\CMake\Packages\FindFreetype.cmake;D:\Pro\MyGUI\CMake\Packaging.cmake;D:\Pro\MyGUI\CMake\Templates\VisualStudioUserFile.vcproj.user.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\updateListFiles.bat.in;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;D:\Pro\MyGUI\CMake\Utils\MacroLogFeature.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIConfigTargets.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIGetVersion.cmake;D:\Pro\MyGUI\CMake\Utils\PrecompiledHeader.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;D:\Pro\MyGUI\CMakeLists.txt;D:\Pro\MyGUI\Common\CMakeLists.txt;D:\Pro\MyGUI\Demos\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Colour\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Colour\Demo_Colour.list;D:\Pro\MyGUI\Demos\Demo_Console\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Console\Demo_Console.list;D:\Pro\MyGUI\Demos\Demo_Controllers\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Controllers\Demo_Controllers.list;D:\Pro\MyGUI\Demos\Demo_Gui\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Gui\Demo_Gui.list;D:\Pro\MyGUI\Demos\Demo_ItemBox\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_ItemBox\Demo_ItemBox.list;D:\Pro\MyGUI\Demos\Demo_PanelView\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_PanelView\Demo_PanelView.list;D:\Pro\MyGUI\Demos\Demo_Picking\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Picking\Demo_Picking.list;D:\Pro\MyGUI\Demos\Demo_PluginStrangeButton\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_PluginStrangeButton\Demo_PluginStrangeButton.list;D:\Pro\MyGUI\Demos\Demo_Pointers\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Pointers\Demo_Pointers.list;D:\Pro\MyGUI\Demos\Demo_RenderBox\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_RenderBox\Demo_RenderBox.list;D:\Pro\MyGUI\Demos\Demo_ScrollView\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_ScrollView\Demo_ScrollView.list;D:\Pro\MyGUI\Demos\Demo_Themes\CMakeLists.txt;D:\Pro\MyGUI\Demos\Demo_Themes\Demo_Themes.list;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;D:\Pro\MyGUI\MyGUIEngine\MyGUIEngine.list;D:\Pro\MyGUI\Platforms\CMakeLists.txt;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\CMakeLists.txt;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\MyGUI.OpenGLPlatform.list;D:\Pro\MyGUI\Plugins\CMakeLists.txt;D:\Pro\MyGUI\Plugins\Plugin_StrangeButton\CMakeLists.txt;D:\Pro\MyGUI\Plugins\Plugin_StrangeButton\Plugin_StrangeButton.list;D:\Pro\MyGUI\Tools\CMakeLists.txt;D:\Pro\MyGUI\Tools\EditorFramework\CMakeLists.txt;D:\Pro\MyGUI\Tools\EditorFramework\EditorFramework.list;D:\Pro\MyGUI\Tools\FontEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\FontEditor\FontEditor.list;D:\Pro\MyGUI\Tools\ImageEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\ImageEditor\ImageEditor.list;D:\Pro\MyGUI\Tools\LayoutEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\LayoutEditor\LayoutEditor.list;D:\Pro\MyGUI\Tools\SkinEditor\CMakeLists.txt;D:\Pro\MyGUI\Tools\SkinEditor\SkinEditor.list;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Platforms\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Platforms\OpenGL\OpenGLPlatform\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Common\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Plugins\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Plugins\Plugin_StrangeButton\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Colour\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Console\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Controllers\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Gui\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_ItemBox\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_PanelView\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Picking\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_PluginStrangeButton\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_RenderBox\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_ScrollView\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Themes\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Pointers\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\EditorFramework\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\LayoutEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\SkinEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\ImageEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\FontEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\CMake\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Platforms\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Platforms\OpenGL\OpenGLPlatform\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Common\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Plugins\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Plugins\Plugin_StrangeButton\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Colour\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Console\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Controllers\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Gui\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_ItemBox\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_PanelView\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Picking\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_PluginStrangeButton\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_RenderBox\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_ScrollView\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Themes\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Demos\Demo_Pointers\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\EditorFramework\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\LayoutEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\SkinEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\ImageEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\Tools\FontEditor\CMakeFiles\generate.stamp;D:\Pro\MyGUI\Build\CMake\CMakeFiles\generate.stamp</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="CMakeFiles\856c170b18c38ca9d4fcd3a3a174c28b\ZERO_CHECK.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/ZERO_CHECK.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/ZERO_CHECK.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Pro\MyGUI\Build\CMakeFiles\ZERO_CHECK</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Pro\MyGUI\Build\CMakeFiles\ZERO_CHECK</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/ZERO_CHECK.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/ZERO_CHECK.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Pro\MyGUI\Build\CMakeFiles\ZERO_CHECK</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Pro\MyGUI\Build\CMakeFiles\ZERO_CHECK</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+      </Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+      </Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/ZERO_CHECK.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/ZERO_CHECK.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Pro\MyGUI\Build\CMakeFiles\ZERO_CHECK</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Pro\MyGUI\Build\CMakeFiles\ZERO_CHECK</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+      </Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+      </Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/ZERO_CHECK.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/ZERO_CHECK.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Pro\MyGUI\Build\CMakeFiles\ZERO_CHECK</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Pro\MyGUI\Build\CMakeFiles\ZERO_CHECK</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CMakeFiles\ZERO_CHECK" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

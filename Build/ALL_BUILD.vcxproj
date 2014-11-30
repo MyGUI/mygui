@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{AAEA972D-5E0D-40DA-925C-17704A144312}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>ALL_BUILD</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule D:/Pro/MyGUI/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/Pro/MyGUI/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-file D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-file D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:/Pro/MyGUI/CMakeLists.txt;D:\Pro\MyGUI\CMakeLists.txt;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeSystem.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCXXCompiler.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeDependentOption.cmake;D:\Pro\MyGUI\CMake\Utils\MacroLogFeature.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIConfigTargets.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIGetVersion.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\TestBigEndian.cmake;D:\Pro\MyGUI\CMake\Dependencies.cmake;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;D:\Pro\MyGUI\CMake\MyGUIInstallDependencies.cmake;D:\Pro\MyGUI\CMake\Packages\FindFreetype.cmake;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPkgConfig.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindOpenGL.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindDoxygen.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;D:\Pro\MyGUI\CMake\ConfigureBuild.cmake;D:\Pro\MyGUI\CMake\Templates\updateListFiles.bat.in;D:\Pro\MyGUI\CMake\InstallResources.cmake;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Packaging.cmake;D:\Pro\MyGUI\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/Pro/MyGUI/CMakeLists.txt;D:\Pro\MyGUI\CMakeLists.txt;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeSystem.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCXXCompiler.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeDependentOption.cmake;D:\Pro\MyGUI\CMake\Utils\MacroLogFeature.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIConfigTargets.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIGetVersion.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\TestBigEndian.cmake;D:\Pro\MyGUI\CMake\Dependencies.cmake;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;D:\Pro\MyGUI\CMake\MyGUIInstallDependencies.cmake;D:\Pro\MyGUI\CMake\Packages\FindFreetype.cmake;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPkgConfig.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindOpenGL.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindDoxygen.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;D:\Pro\MyGUI\CMake\ConfigureBuild.cmake;D:\Pro\MyGUI\CMake\Templates\updateListFiles.bat.in;D:\Pro\MyGUI\CMake\InstallResources.cmake;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Packaging.cmake;D:\Pro\MyGUI\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule D:/Pro/MyGUI/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/Pro/MyGUI/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-file D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-file D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:/Pro/MyGUI/CMakeLists.txt;D:\Pro\MyGUI\CMakeLists.txt;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeSystem.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCXXCompiler.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeDependentOption.cmake;D:\Pro\MyGUI\CMake\Utils\MacroLogFeature.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIConfigTargets.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIGetVersion.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\TestBigEndian.cmake;D:\Pro\MyGUI\CMake\Dependencies.cmake;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;D:\Pro\MyGUI\CMake\MyGUIInstallDependencies.cmake;D:\Pro\MyGUI\CMake\Packages\FindFreetype.cmake;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPkgConfig.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindOpenGL.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindDoxygen.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;D:\Pro\MyGUI\CMake\ConfigureBuild.cmake;D:\Pro\MyGUI\CMake\Templates\updateListFiles.bat.in;D:\Pro\MyGUI\CMake\InstallResources.cmake;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Packaging.cmake;D:\Pro\MyGUI\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/Pro/MyGUI/CMakeLists.txt;D:\Pro\MyGUI\CMakeLists.txt;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeSystem.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCXXCompiler.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeDependentOption.cmake;D:\Pro\MyGUI\CMake\Utils\MacroLogFeature.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIConfigTargets.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIGetVersion.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\TestBigEndian.cmake;D:\Pro\MyGUI\CMake\Dependencies.cmake;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;D:\Pro\MyGUI\CMake\MyGUIInstallDependencies.cmake;D:\Pro\MyGUI\CMake\Packages\FindFreetype.cmake;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPkgConfig.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindOpenGL.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindDoxygen.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;D:\Pro\MyGUI\CMake\ConfigureBuild.cmake;D:\Pro\MyGUI\CMake\Templates\updateListFiles.bat.in;D:\Pro\MyGUI\CMake\InstallResources.cmake;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Packaging.cmake;D:\Pro\MyGUI\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule D:/Pro/MyGUI/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule D:/Pro/MyGUI/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-file D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-file D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:/Pro/MyGUI/CMakeLists.txt;D:\Pro\MyGUI\CMakeLists.txt;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeSystem.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCXXCompiler.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeDependentOption.cmake;D:\Pro\MyGUI\CMake\Utils\MacroLogFeature.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIConfigTargets.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIGetVersion.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\TestBigEndian.cmake;D:\Pro\MyGUI\CMake\Dependencies.cmake;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;D:\Pro\MyGUI\CMake\MyGUIInstallDependencies.cmake;D:\Pro\MyGUI\CMake\Packages\FindFreetype.cmake;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPkgConfig.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindOpenGL.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindDoxygen.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;D:\Pro\MyGUI\CMake\ConfigureBuild.cmake;D:\Pro\MyGUI\CMake\Templates\updateListFiles.bat.in;D:\Pro\MyGUI\CMake\InstallResources.cmake;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Packaging.cmake;D:\Pro\MyGUI\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/Pro/MyGUI/CMakeLists.txt;D:\Pro\MyGUI\CMakeLists.txt;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeSystem.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCXXCompiler.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeDependentOption.cmake;D:\Pro\MyGUI\CMake\Utils\MacroLogFeature.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIConfigTargets.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIGetVersion.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\TestBigEndian.cmake;D:\Pro\MyGUI\CMake\Dependencies.cmake;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;D:\Pro\MyGUI\CMake\MyGUIInstallDependencies.cmake;D:\Pro\MyGUI\CMake\Packages\FindFreetype.cmake;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPkgConfig.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindOpenGL.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindDoxygen.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;D:\Pro\MyGUI\CMake\ConfigureBuild.cmake;D:\Pro\MyGUI\CMake\Templates\updateListFiles.bat.in;D:\Pro\MyGUI\CMake\InstallResources.cmake;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Packaging.cmake;D:\Pro\MyGUI\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule D:/Pro/MyGUI/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule D:/Pro/MyGUI/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-file D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-file D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:/Pro/MyGUI/CMakeLists.txt;D:\Pro\MyGUI\CMakeLists.txt;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeSystem.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCXXCompiler.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeDependentOption.cmake;D:\Pro\MyGUI\CMake\Utils\MacroLogFeature.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIConfigTargets.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIGetVersion.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\TestBigEndian.cmake;D:\Pro\MyGUI\CMake\Dependencies.cmake;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;D:\Pro\MyGUI\CMake\MyGUIInstallDependencies.cmake;D:\Pro\MyGUI\CMake\Packages\FindFreetype.cmake;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPkgConfig.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindOpenGL.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindDoxygen.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;D:\Pro\MyGUI\CMake\ConfigureBuild.cmake;D:\Pro\MyGUI\CMake\Templates\updateListFiles.bat.in;D:\Pro\MyGUI\CMake\InstallResources.cmake;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Packaging.cmake;D:\Pro\MyGUI\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:/Pro/MyGUI/CMakeLists.txt;D:\Pro\MyGUI\CMakeLists.txt;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeSystem.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCCompiler.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeCXXCompiler.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;D:\Pro\MyGUI\Build\CMakeFiles\3.0.2\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeDependentOption.cmake;D:\Pro\MyGUI\CMake\Utils\MacroLogFeature.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIConfigTargets.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;D:\Pro\MyGUI\CMake\Utils\MyGUIGetVersion.cmake;D:\Pro\MyGUI\CMake\Utils\PreprocessorUtils.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\TestBigEndian.cmake;D:\Pro\MyGUI\CMake\Dependencies.cmake;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;D:\Pro\MyGUI\CMake\MyGUIInstallDependencies.cmake;D:\Pro\MyGUI\CMake\Packages\FindFreetype.cmake;D:\Pro\MyGUI\CMake\Utils\FindPkgMacros.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPkgConfig.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindOpenGL.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindDoxygen.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake\share\cmake-3.0\Modules\CMakeParseArguments.cmake;D:\Pro\MyGUI\CMake\ConfigureBuild.cmake;D:\Pro\MyGUI\CMake\Templates\updateListFiles.bat.in;D:\Pro\MyGUI\CMake\InstallResources.cmake;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Templates\resources.xml.in;D:\Pro\MyGUI\CMake\Packaging.cmake;D:\Pro\MyGUI\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Pro\MyGUI\Build\CMakeFiles\generate.stamp</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="CMakeFiles\856c170b18c38ca9d4fcd3a3a174c28b\ALL_BUILD.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Build all projects</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Build all projects</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Pro\MyGUI\Build\CMakeFiles\ALL_BUILD</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Pro\MyGUI\Build\CMakeFiles\ALL_BUILD</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Build all projects</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Build all projects</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Pro\MyGUI\Build\CMakeFiles\ALL_BUILD</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Pro\MyGUI\Build\CMakeFiles\ALL_BUILD</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Build all projects</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Build all projects</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Pro\MyGUI\Build\CMakeFiles\ALL_BUILD</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Pro\MyGUI\Build\CMakeFiles\ALL_BUILD</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Build all projects</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Build all projects</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:/Pro/MyGUI/Build/CMakeFiles/856c170b18c38ca9d4fcd3a3a174c28b/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Pro\MyGUI\Build\CMakeFiles\ALL_BUILD</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Pro\MyGUI\Build\CMakeFiles\ALL_BUILD</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CMakeFiles\ALL_BUILD" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/Common/Common.vcxproj">
+      <Project>8585FF76-B70D-46B7-8B0B-286D869C9117</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/Demos/Demo_Colour/Demo_Colour.vcxproj">
+      <Project>EA194106-CBF2-4FFF-B7B4-F6586A580C22</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/Demos/Demo_Console/Demo_Console.vcxproj">
+      <Project>5DB14B76-DA6C-4CCE-AA01-8676C63ACFF5</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/Demos/Demo_Controllers/Demo_Controllers.vcxproj">
+      <Project>CEDE4B8F-4C1C-48CC-9065-996852A6EA1A</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/Demos/Demo_Gui/Demo_Gui.vcxproj">
+      <Project>8E4CACAB-146B-442C-A212-338132AA7DE1</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/Demos/Demo_ItemBox/Demo_ItemBox.vcxproj">
+      <Project>2E2EC0F2-4FB1-4799-8967-258A5A497900</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/Demos/Demo_PanelView/Demo_PanelView.vcxproj">
+      <Project>6A364B73-5C95-49AF-8F70-DD047B4F2394</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/Demos/Demo_Picking/Demo_Picking.vcxproj">
+      <Project>DDFAA46E-6CFD-4EC6-8857-F7EA256FED32</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/Demos/Demo_PluginStrangeButton/Demo_PluginStrangeButton.vcxproj">
+      <Project>0F445FBA-235D-4EE5-B3D1-8A27A41EF207</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/Demos/Demo_Pointers/Demo_Pointers.vcxproj">
+      <Project>53F832CA-A4BB-4B75-8FE6-CA2E78528695</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/Demos/Demo_RenderBox/Demo_RenderBox.vcxproj">
+      <Project>94B55A42-2669-433A-ADF8-0D5B7FA5296B</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/Demos/Demo_ScrollView/Demo_ScrollView.vcxproj">
+      <Project>56BD59EA-6D13-4261-9E85-4ABE419ED8EB</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/Demos/Demo_Themes/Demo_Themes.vcxproj">
+      <Project>A132D0E2-0665-409B-AC37-81E2C1540DBA</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/Tools/EditorFramework/EditorFramework.vcxproj">
+      <Project>DC2079F0-4B2E-43EB-9733-60F5A3F4C64F</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/Tools/FontEditor/FontEditor.vcxproj">
+      <Project>EF5FE8CD-0E68-414B-AFFD-8B0B58885835</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/Tools/ImageEditor/ImageEditor.vcxproj">
+      <Project>05F22DAC-39BE-4A37-83F7-10EEE4E979E0</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/Tools/LayoutEditor/LayoutEditor.vcxproj">
+      <Project>1288A1A3-8C17-4D43-9014-A64C816987DD</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/Platforms/OpenGL/OpenGLPlatform/MyGUI.OpenGLPlatform.vcxproj">
+      <Project>96EE31CE-2A00-4404-AA9A-30C8D63B8406</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/MyGUIEngine/MyGUIEngine.vcxproj">
+      <Project>EF9EEAFA-59A4-45C8-8388-A10C18231321</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/Plugins/Plugin_StrangeButton/Plugin_StrangeButton.vcxproj">
+      <Project>CB366411-ED50-4A18-B005-28411DC73C70</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/Tools/SkinEditor/SkinEditor.vcxproj">
+      <Project>9649AD37-EE20-441C-B4C3-9979AA17FC47</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/ZERO_CHECK.vcxproj">
+      <Project>5B76EE0F-A5D4-4C66-956A-87A0F1A5CBAB</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
