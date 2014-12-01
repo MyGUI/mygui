@@ -47,7 +47,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -97,7 +97,7 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MyGUIEngine_d</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MyGUIEngine_d</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.dll</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
@@ -201,7 +201,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_USE_FREETYPE;MYGUI_BUILD;CMAKE_INTDIR="Debug";MyGUIEngine_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_USE_FREETYPE;MYGUI_BUILD;MYGUI_STATIC;CMAKE_INTDIR="Debug";MyGUIEngine_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
@@ -618,6 +618,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Canvas.h" />
     <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ChildSkinInfo.h" />
     <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ClipboardManager.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ColorPanel.h" />
     <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_WindowsClipboardHandler.h" />
     <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Colour.h" />
     <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ComboBox.h" />
@@ -787,6 +788,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_Canvas.cpp" />
     <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ChildSkinInfo.cpp" />
     <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ClipboardManager.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ColorPanel.cpp" />
     <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_WindowsClipboardHandler.cpp" />
     <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_Colour.cpp" />
     <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ComboBox.cpp" />

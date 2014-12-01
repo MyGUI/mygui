@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="Windows-1252"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ActionController.cpp">
@@ -291,6 +291,9 @@
     </ClCompile>
     <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_XmlDocument.cpp">
       <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ColorPanel.cpp">
+      <Filter>Source Files\Widget\Widget</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -812,6 +815,9 @@
     </ClInclude>
     <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_XmlDocument.h">
       <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ColorPanel.h">
+      <Filter>Header Files\Widget\Widget</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
