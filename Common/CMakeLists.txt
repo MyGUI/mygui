@@ -124,3 +124,8 @@ endif()
 if(NOT WIN32)
 	target_link_libraries(${PROJECTNAME} X11)
 endif()
+
+if(CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
+	# For Xenocara
+	include_directories(/usr/X11R6/include)
+endif()
