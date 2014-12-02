@@ -32,7 +32,6 @@
 #include "MyGUI_TabItem.h"
 #include "MyGUI_Widget.h"
 #include "MyGUI_Window.h"
-#include "MyGUI_ColorPanel.h"
 
 #include "MyGUI_BackwardCompatibility.h"
 
@@ -77,8 +76,6 @@ namespace MyGUI
 		factory.registerFactory<TabItem>(mCategoryName);
 		factory.registerFactory<Widget>(mCategoryName);
 		factory.registerFactory<Window>(mCategoryName);
-
-		factory.registerFactory<ColorPanel>(mCategoryName);
 
 		BackwardCompatibility::registerWidgetTypes();
 

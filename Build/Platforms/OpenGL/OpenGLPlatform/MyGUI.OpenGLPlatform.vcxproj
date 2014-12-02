@@ -137,11 +137,11 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\include;D:\Pro\MyGUI\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -167,11 +167,11 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\include;D:\Pro\MyGUI\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -197,11 +197,11 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>
       </DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\include;D:\Pro\MyGUI\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -227,11 +227,11 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>
       </DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\include;D:\Pro\MyGUI\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -257,11 +257,11 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>
       </DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\include;D:\Pro\MyGUI\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -287,11 +287,11 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>
       </DebugInformationFormat>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\include;D:\Pro\MyGUI\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -316,11 +316,11 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\include;D:\Pro\MyGUI\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -345,11 +345,11 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;GLEW_STATIC;GL_GLEXT_PROTOTYPES;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\MyGUI\Platforms\OpenGL\OpenGLPlatform\include;D:\Pro\MyGUI\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>

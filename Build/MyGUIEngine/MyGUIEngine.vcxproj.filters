@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Windows-1252"?>
+﻿<?xml version="1.0" encoding="Windows-1252"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ActionController.cpp">
@@ -291,9 +291,6 @@
     </ClCompile>
     <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_XmlDocument.cpp">
       <Filter>Source Files\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ColorPanel.cpp">
-      <Filter>Source Files\Widget\Widget</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -816,34 +813,28 @@
     <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_XmlDocument.h">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ColorPanel.h">
-      <Filter>Header Files\Widget\Widget</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\MyGUIEngine\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Source Files\Core\Common">
-      <UniqueIdentifier>{26EDE80A-EB4D-419D-8FD6-BB0C3E68D953}</UniqueIdentifier>
+    <Filter Include="Header Files\Core\Common\Base">
+      <UniqueIdentifier>{E778498F-D0B7-4563-9370-44FA6201F6BC}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Core\Controller">
-      <UniqueIdentifier>{1B1D1E40-9D8F-468A-BFDD-A8A544545E02}</UniqueIdentifier>
+    <Filter Include="Header Files\Core\Common\Interfaces">
+      <UniqueIdentifier>{54CB5EDF-3C7F-4EC8-BDE3-2BF114794D2D}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Core\LayerItem">
-      <UniqueIdentifier>{50185D78-0B66-415D-BED4-F56E6B0E4B96}</UniqueIdentifier>
+    <Filter Include="Header Files\Core\Resource\Data">
+      <UniqueIdentifier>{D58F657A-C63F-42CE-9B47-8EB93329A1A5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Core\Manager">
-      <UniqueIdentifier>{3BDC4774-D23C-4A3E-8341-D048E315911C}</UniqueIdentifier>
+    <Filter Include="Header Files\Core\Resource\Interface">
+      <UniqueIdentifier>{F039AF8E-A5D6-4144-9FB4-F8843806930B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Core\Resource">
-      <UniqueIdentifier>{849CF057-3DB4-460B-B6B3-8A0121E717C9}</UniqueIdentifier>
+    <Filter Include="Header Files\Widget\Types">
+      <UniqueIdentifier>{6E1BBD55-8FCD-4B0D-9205-74B0AA35330B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Core\SubWidget">
-      <UniqueIdentifier>{0305727A-CF00-4430-848B-A30F7A5BF6DF}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Core\Types">
-      <UniqueIdentifier>{E94C9D4A-1CD0-4F65-8545-9EA73CB377E7}</UniqueIdentifier>
+    <Filter Include="Header Files\Widget\Widget">
+      <UniqueIdentifier>{0E686ACB-75CC-4C84-9CC0-BE14777B36D6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Core\Common">
       <UniqueIdentifier>{D276B9B0-913C-452D-9A0E-B944B43F287C}</UniqueIdentifier>
@@ -866,23 +857,14 @@
     <Filter Include="Header Files\Core\Types">
       <UniqueIdentifier>{87CEE18D-4488-4DA4-921B-18E8413DBBDF}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Core\Common\Base">
-      <UniqueIdentifier>{E778498F-D0B7-4563-9370-44FA6201F6BC}</UniqueIdentifier>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{8746C612-63AE-43ED-95BA-03C156ADA3FC}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Core\Common\Interfaces">
-      <UniqueIdentifier>{54CB5EDF-3C7F-4EC8-BDE3-2BF114794D2D}</UniqueIdentifier>
+    <Filter Include="Source Files\Utility">
+      <UniqueIdentifier>{BF39F878-C3B4-4884-9571-F16D27EE8C55}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Core\Resource\Data">
-      <UniqueIdentifier>{D58F657A-C63F-42CE-9B47-8EB93329A1A5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Core\Resource\Interface">
-      <UniqueIdentifier>{F039AF8E-A5D6-4144-9FB4-F8843806930B}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Widget\Types">
-      <UniqueIdentifier>{6E1BBD55-8FCD-4B0D-9205-74B0AA35330B}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Widget\Widget">
-      <UniqueIdentifier>{0E686ACB-75CC-4C84-9CC0-BE14777B36D6}</UniqueIdentifier>
+    <Filter Include="Source Files\Widget">
+      <UniqueIdentifier>{D8656395-AD14-40FB-9EA0-7AD89DE49122}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Core">
       <UniqueIdentifier>{4975F521-2175-4D1F-9BD9-B01633EE350F}</UniqueIdentifier>
@@ -893,26 +875,20 @@
     <Filter Include="Header Files\Widget">
       <UniqueIdentifier>{22697D9F-CB67-4565-BEA8-89BA9031A2A3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Core">
-      <UniqueIdentifier>{8746C612-63AE-43ED-95BA-03C156ADA3FC}</UniqueIdentifier>
+    <Filter Include="Header Files\Core\SubWidget\Interfaces">
+      <UniqueIdentifier>{18BE9AD9-2E70-438C-8974-7E8C4B94893A}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Utility">
-      <UniqueIdentifier>{BF39F878-C3B4-4884-9571-F16D27EE8C55}</UniqueIdentifier>
+    <Filter Include="Header Files\Utility\Logging">
+      <UniqueIdentifier>{F45A2979-EC81-4EE2-912F-606B429FBBFE}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Widget">
-      <UniqueIdentifier>{D8656395-AD14-40FB-9EA0-7AD89DE49122}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{15B60DC4-FB2B-4E65-A9C5-D98F60B7A11B}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{0344D503-6AFC-4BA7-9B67-B0168F6F77AC}</UniqueIdentifier>
+    <Filter Include="Source Files\Core\Common\Base">
+      <UniqueIdentifier>{BE5AEFDE-2CC0-46C0-8981-3FEB51F4FB3C}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Core\Resource\Data">
       <UniqueIdentifier>{9388090C-26B5-4DEB-A968-EA84A4A27C01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Core\Common\Base">
-      <UniqueIdentifier>{BE5AEFDE-2CC0-46C0-8981-3FEB51F4FB3C}</UniqueIdentifier>
+    <Filter Include="Source Files\Utility\Logging">
+      <UniqueIdentifier>{EDD5E0F1-B914-4C44-9AFD-F7630CADD211}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Widget\Widget">
       <UniqueIdentifier>{13CAE367-0383-49CC-91A8-0306E96A640E}</UniqueIdentifier>
@@ -920,14 +896,32 @@
     <Filter Include="Header Files\Core\LayerItem\Interfaces">
       <UniqueIdentifier>{64606E4B-2C3E-4E11-B967-1BE0BABBA9E0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Core\SubWidget\Interfaces">
-      <UniqueIdentifier>{18BE9AD9-2E70-438C-8974-7E8C4B94893A}</UniqueIdentifier>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{15B60DC4-FB2B-4E65-A9C5-D98F60B7A11B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Utility\Logging">
-      <UniqueIdentifier>{F45A2979-EC81-4EE2-912F-606B429FBBFE}</UniqueIdentifier>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{0344D503-6AFC-4BA7-9B67-B0168F6F77AC}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Utility\Logging">
-      <UniqueIdentifier>{EDD5E0F1-B914-4C44-9AFD-F7630CADD211}</UniqueIdentifier>
+    <Filter Include="Source Files\Core\Common">
+      <UniqueIdentifier>{26EDE80A-EB4D-419D-8FD6-BB0C3E68D953}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Controller">
+      <UniqueIdentifier>{1B1D1E40-9D8F-468A-BFDD-A8A544545E02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\LayerItem">
+      <UniqueIdentifier>{50185D78-0B66-415D-BED4-F56E6B0E4B96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Manager">
+      <UniqueIdentifier>{3BDC4774-D23C-4A3E-8341-D048E315911C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Resource">
+      <UniqueIdentifier>{849CF057-3DB4-460B-B6B3-8A0121E717C9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\SubWidget">
+      <UniqueIdentifier>{0305727A-CF00-4430-848B-A30F7A5BF6DF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Types">
+      <UniqueIdentifier>{E94C9D4A-1CD0-4F65-8545-9EA73CB377E7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
