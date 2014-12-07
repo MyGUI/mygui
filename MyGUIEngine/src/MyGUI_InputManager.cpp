@@ -1,8 +1,8 @@
 /*
- * This source file is part of MyGUI. For the latest info, see http://mygui.info/
- * Distributed under the MIT License
- * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
- */
+* This source file is part of MyGUI. For the latest info, see http://mygui.info/
+* Distributed under the MIT License
+* (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
+*/
 
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_InputManager.h"
@@ -24,7 +24,7 @@ namespace MyGUI
 	template <> const char* Singleton<InputManager>::mClassTypeName = "InputManager";
 
 	InputManager::InputManager() :
-		mWidgetMouseFocus(nullptr),
+	mWidgetMouseFocus(nullptr),
 		mWidgetKeyFocus(nullptr),
 		mLayerMouseFocus(nullptr),
 		mTimerDoubleClick(INPUT_TIME_DOUBLE_CLICK),
@@ -305,25 +305,22 @@ namespace MyGUI
 			// после вызова, виджет может быть сброшен
 			if (nullptr != mWidgetMouseFocus)
 			{
-				if (MouseButton::Left == _id)
+				if (mTimerDoubleClick < INPUT_TIME_DOUBLE_CLICK)
 				{
-					if (mTimerDoubleClick < INPUT_TIME_DOUBLE_CLICK)
+					mWidgetMouseFocus->_riseMouseButtonClick();
+					// после вызова, виджет может быть сброшен
+					if (nullptr != mWidgetMouseFocus)
+						mWidgetMouseFocus->_riseMouseButtonDoubleClick();
+				}
+				else
+				{
+					// проверяем над тем ли мы окном сейчас что и были при нажатии
+					Widget* item = LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
+					if ( item == mWidgetMouseFocus)
 					{
 						mWidgetMouseFocus->_riseMouseButtonClick();
-						// после вызова, виджет может быть сброшен
-						if (nullptr != mWidgetMouseFocus)
-							mWidgetMouseFocus->_riseMouseButtonDoubleClick();
 					}
-					else
-					{
-						// проверяем над тем ли мы окном сейчас что и были при нажатии
-						Widget* item = LayerManager::getInstance().getWidgetFromPoint(_absx, _absy);
-						if ( item == mWidgetMouseFocus)
-						{
-							mWidgetMouseFocus->_riseMouseButtonClick();
-						}
-						mTimerDoubleClick = 0;
-					}
+					mTimerDoubleClick = 0;
 				}
 			}
 
