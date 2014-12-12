@@ -77,7 +77,7 @@ namespace MyGUI
 		return stream.str();
 	}
 
-	Colour Colour::parse(const std::string& _value)
+  Colour Colour::parse(const std::string& _value)
 	{
 		if (!_value.empty())
 		{
