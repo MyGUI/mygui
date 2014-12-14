@@ -122,10 +122,7 @@ elseif(MYGUI_SAMPLES_INPUT EQUAL 3)
 endif()
 
 if(NOT WIN32)
+	find_package(X11)
 	target_link_libraries(${PROJECTNAME} X11)
-endif()
-
-if(CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
-	# For Xenocara
-	include_directories(/usr/X11R6/include)
+	include_directories(${X11_INCLUDE_DIR})
 endif()
