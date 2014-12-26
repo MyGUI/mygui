@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_STRING_UTILITY_H__
-#define __MYGUI_STRING_UTILITY_H__
+#ifndef MYGUI_STRING_UTILITY_H_
+#define MYGUI_STRING_UTILITY_H_
 
 #include "MyGUI_Prerequest.h"
 #include <vector>
@@ -425,4 +425,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_STRING_UTILITY_H__
+#endif // MYGUI_STRING_UTILITY_H_

@@ -4,8 +4,8 @@
 	@date		06/2009
 */
 
-#ifndef __MYGUI_DIRECTX_DIAGNOSTIC_H__
-#define __MYGUI_DIRECTX_DIAGNOSTIC_H__
+#ifndef MYGUI_DIRECTX_DIAGNOSTIC_H_
+#define MYGUI_DIRECTX_DIAGNOSTIC_H_
 
 #include "MyGUI_Prerequest.h"
 
@@ -34,4 +34,4 @@
 	} \
 }
 
-#endif // __MYGUI_DIRECTX_DIAGNOSTIC_H__
+#endif // MYGUI_DIRECTX_DIAGNOSTIC_H_

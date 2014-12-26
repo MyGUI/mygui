@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		08/2009
 */
-#ifndef __I_GRAPH_CONTROLLER_H__
-#define __I_GRAPH_CONTROLLER_H__
+#ifndef I_GRAPH_CONTROLLER_H_
+#define I_GRAPH_CONTROLLER_H_
 
 namespace wraps
 {
@@ -24,4 +24,4 @@ namespace wraps
 
 } // namespace wraps
 
-#endif // __I_GRAPH_CONTROLLER_H__
+#endif // I_GRAPH_CONTROLLER_H_

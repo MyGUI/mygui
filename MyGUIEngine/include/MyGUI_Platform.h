@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_PLATFORM_H__
-#define __MYGUI_PLATFORM_H__
+#ifndef MYGUI_PLATFORM_H_
+#define MYGUI_PLATFORM_H_
 
 // Definition of platforms
 #define MYGUI_PLATFORM_WIN32		1
@@ -123,4 +123,4 @@
 #endif
 
 
-#endif // __MYGUI_PLATFORM_H__
+#endif // MYGUI_PLATFORM_H_

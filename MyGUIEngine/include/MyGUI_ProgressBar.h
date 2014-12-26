@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_PROGRESS_BAR_H__
-#define __MYGUI_PROGRESS_BAR_H__
+#ifndef MYGUI_PROGRESS_BAR_H_
+#define MYGUI_PROGRESS_BAR_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Align.h"
@@ -94,4 +94,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_PROGRESS_BAR_H__
+#endif // MYGUI_PROGRESS_BAR_H_

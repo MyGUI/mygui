@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		12/2008
 */
-#ifndef __MENU_1_H__
-#define __MENU_1_H__
+#ifndef MENU_1_H_
+#define MENU_1_H_
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
@@ -77,4 +77,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __MENU_1_H__
+#endif // MENU_1_H_

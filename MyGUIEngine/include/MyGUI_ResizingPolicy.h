@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_RESIZING_POLICY_H__
-#define __MYGUI_RESIZING_POLICY_H__
+#ifndef MYGUI_RESIZING_POLICY_H_
+#define MYGUI_RESIZING_POLICY_H_
 
 #include "MyGUI_Prerequest.h"
 
@@ -89,4 +89,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_RESIZING_POLICY_H__
+#endif // MYGUI_RESIZING_POLICY_H_

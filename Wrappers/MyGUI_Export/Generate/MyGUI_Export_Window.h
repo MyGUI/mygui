@@ -5,8 +5,8 @@
 	@module
 */
 
-#ifndef __EXPORT_WIDGET_Window_H__
-#define __EXPORT_WIDGET_Window_H__
+#ifndef EXPORT_WIDGET_Window_H_
+#define EXPORT_WIDGET_Window_H_
 
 #include "../ExportDefine.h"
 #include "../ExportMarshaling.h"

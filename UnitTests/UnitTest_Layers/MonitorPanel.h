@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2009
 */
-#ifndef __MONITOR_PANEL_H__
-#define __MONITOR_PANEL_H__
+#ifndef MONITOR_PANEL_H_
+#define MONITOR_PANEL_H_
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
@@ -40,4 +40,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __MONITOR_PANEL_H__
+#endif // MONITOR_PANEL_H_

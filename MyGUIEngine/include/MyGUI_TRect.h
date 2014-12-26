@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_TRECT_H__
-#define __MYGUI_TRECT_H__
+#ifndef MYGUI_TRECT_H_
+#define MYGUI_TRECT_H_
 
 #include "MyGUI_Prerequest.h"
 
@@ -201,4 +201,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_TRECT_H__
+#endif // MYGUI_TRECT_H_

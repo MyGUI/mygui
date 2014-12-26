@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		08/2009
 */
-#ifndef __SKELETON_STATE_H__
-#define __SKELETON_STATE_H__
+#ifndef SKELETON_STATE_H_
+#define SKELETON_STATE_H_
 
 #include <Ogre.h>
 #include "IAnimationNode.h"
@@ -114,4 +114,4 @@ namespace animation
 
 } // namespace animation
 
-#endif // __SKELETON_STATE_H__
+#endif // SKELETON_STATE_H_

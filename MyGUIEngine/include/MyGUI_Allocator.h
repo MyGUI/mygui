@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_ALLOCATOR_H__
-#define __MYGUI_ALLOCATOR_H__
+#ifndef MYGUI_ALLOCATOR_H_
+#define MYGUI_ALLOCATOR_H_
 
 #include <memory>
 #include <limits>
@@ -88,4 +88,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_ALLOCATOR_H__
+#endif // MYGUI_ALLOCATOR_H_

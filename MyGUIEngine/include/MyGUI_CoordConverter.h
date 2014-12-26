@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_COORD_CONVERTER_H__
-#define __MYGUI_COORD_CONVERTER_H__
+#ifndef MYGUI_COORD_CONVERTER_H_
+#define MYGUI_COORD_CONVERTER_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
@@ -72,4 +72,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_COORD_CONVERTER_H__
+#endif // MYGUI_COORD_CONVERTER_H_

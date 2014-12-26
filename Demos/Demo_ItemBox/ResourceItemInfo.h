@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		09/2008
 */
-#ifndef __DEMO_RESOURCE_ITEM_INFO_H__
-#define __DEMO_RESOURCE_ITEM_INFO_H__
+#ifndef DEMO_RESOURCE_ITEM_INFO_H_
+#define DEMO_RESOURCE_ITEM_INFO_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_XmlDocument.h"
@@ -44,4 +44,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __DEMO_RESOURCE_ITEM_INFO_H__
+#endif // DEMO_RESOURCE_ITEM_INFO_H_

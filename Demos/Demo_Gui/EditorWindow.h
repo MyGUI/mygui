@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		10/2008
 */
-#ifndef __EDITOR_WINDOW_H__
-#define __EDITOR_WINDOW_H__
+#ifndef EDITOR_WINDOW_H_
+#define EDITOR_WINDOW_H_
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
@@ -25,4 +25,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __EDITOR_WINDOW_H__
+#endif // EDITOR_WINDOW_H_

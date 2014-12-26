@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		08/2009
 */
-#ifndef __GRAPH_VIEW_H__
-#define __GRAPH_VIEW_H__
+#ifndef GRAPH_VIEW_H_
+#define GRAPH_VIEW_H_
 
 #include <MyGUI.h>
 #include "BaseGraphView.h"
@@ -25,4 +25,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __GRAPH_VIEW_H__
+#endif // GRAPH_VIEW_H_

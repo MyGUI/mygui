@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_DEPRECATED_WIDGETS_H__
-#define __MYGUI_DEPRECATED_WIDGETS_H__
+#ifndef MYGUI_DEPRECATED_WIDGETS_H_
+#define MYGUI_DEPRECATED_WIDGETS_H_
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
@@ -44,4 +44,4 @@ namespace MyGUI
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
-#endif // __MYGUI_DEPRECATED_WIDGETS_H__
+#endif // MYGUI_DEPRECATED_WIDGETS_H_

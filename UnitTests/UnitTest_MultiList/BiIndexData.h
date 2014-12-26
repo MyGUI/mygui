@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		10/2008
 */
-#ifndef __BIINDEX_DATA_H__
-#define __BIINDEX_DATA_H__
+#ifndef BIINDEX_DATA_H_
+#define BIINDEX_DATA_H_
 
 #include "MyGUI_BiIndexBase.h"
 
@@ -48,4 +48,4 @@ namespace unittest
 
 } // namespace unittest
 
-#endif // __BIINDEX_DATA_H__
+#endif // BIINDEX_DATA_H_

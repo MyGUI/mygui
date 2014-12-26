@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_COMMON_H__
-#define __MYGUI_COMMON_H__
+#ifndef MYGUI_COMMON_H_
+#define MYGUI_COMMON_H_
 
 #include "MyGUI_Prerequest.h"
 
@@ -45,4 +45,4 @@
 #include "MyGUI_UString.h"
 #include "MyGUI_Delegate.h"
 
-#endif // __MYGUI_COMMON_H__
+#endif // MYGUI_COMMON_H_

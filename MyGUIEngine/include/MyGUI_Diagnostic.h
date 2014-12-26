@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_DIAGNOSTIC_H__
-#define __MYGUI_DIAGNOSTIC_H__
+#ifndef MYGUI_DIAGNOSTIC_H_
+#define MYGUI_DIAGNOSTIC_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Exception.h"
@@ -94,4 +94,4 @@
 
 #define MYGUI_OBSOLETE(text) /*! \deprecated text */ MYGUI_OBSOLETE_START(text)MYGUI_OBSOLETE_END
 
-#endif // __MYGUI_DIAGNOSTIC_H__
+#endif // MYGUI_DIAGNOSTIC_H_

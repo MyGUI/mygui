@@ -4,8 +4,8 @@
 	@date		10/2009
 */
 
-#ifndef __MYGUI_OGRE_RTTEXTURE_H__
-#define __MYGUI_OGRE_RTTEXTURE_H__
+#ifndef MYGUI_OGRE_RTTEXTURE_H_
+#define MYGUI_OGRE_RTTEXTURE_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IRenderTarget.h"
@@ -44,4 +44,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_OGRE_RTTEXTURE_H__
+#endif // MYGUI_OGRE_RTTEXTURE_H_

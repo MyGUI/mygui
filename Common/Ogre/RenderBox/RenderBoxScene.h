@@ -5,8 +5,8 @@
 	@module
 */
 
-#ifndef __RENDER_BOX_WRAP_H__
-#define __RENDER_BOX_WRAP_H__
+#ifndef RENDER_BOX_WRAP_H_
+#define RENDER_BOX_WRAP_H_
 
 #include <Ogre.h>
 #include <MyGUI.h>
@@ -345,4 +345,4 @@ namespace wraps
 
 } // namespace wraps
 
-#endif // __RENDER_BOX_WRAP_H__
+#endif // RENDER_BOX_WRAP_H_

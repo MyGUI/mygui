@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		07/2008
 */
-#ifndef __ITEM_DATA_H__
-#define __ITEM_DATA_H__
+#ifndef ITEM_DATA_H_
+#define ITEM_DATA_H_
 
 #include "ResourceItemInfo.h"
 #include "MyGUI_ResourceManager.h"
@@ -79,4 +79,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __ITEM_DATA_H__
+#endif // ITEM_DATA_H_

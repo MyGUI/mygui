@@ -4,8 +4,8 @@
 	@date		11/2009
 */
 
-#ifndef __RESOURCE_POINTER_CONTEXT_H__
-#define __RESOURCE_POINTER_CONTEXT_H__
+#ifndef RESOURCE_POINTER_CONTEXT_H_
+#define RESOURCE_POINTER_CONTEXT_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IResource.h"
@@ -34,4 +34,4 @@ namespace demo
 
 }
 
-#endif // __RESOURCE_POINTER_CONTEXT_H__
+#endif // RESOURCE_POINTER_CONTEXT_H_

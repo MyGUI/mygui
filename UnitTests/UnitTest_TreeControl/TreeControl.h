@@ -3,8 +3,8 @@
 	@author     Pavel Turin
 	@date       08/2009
 */
-#ifndef __TREE_CONTROL_H__
-#define __TREE_CONTROL_H__
+#ifndef TREE_CONTROL_H_
+#define TREE_CONTROL_H_
 
 #include "GenericNode.h"
 
@@ -170,4 +170,4 @@ namespace MyGUI
 	}
 }
 
-#endif // __TREE_CONTROL_H__
+#endif // TREE_CONTROL_H_

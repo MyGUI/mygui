@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2009
 */
-#ifndef __DEMO_RESOURCE_DEVICE_H__
-#define __DEMO_RESOURCE_DEVICE_H__
+#ifndef DEMO_RESOURCE_DEVICE_H_
+#define DEMO_RESOURCE_DEVICE_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_XmlDocument.h"
@@ -86,4 +86,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __DEMO_RESOURCE_DEVICE_H__
+#endif // DEMO_RESOURCE_DEVICE_H_

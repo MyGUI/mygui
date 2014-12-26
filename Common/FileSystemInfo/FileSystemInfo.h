@@ -4,8 +4,8 @@
 	@date		09/2009
 	@module
 */
-#ifndef __FILE_SYSTEM_INFO_H__
-#define __FILE_SYSTEM_INFO_H__
+#ifndef FILE_SYSTEM_INFO_H_
+#define FILE_SYSTEM_INFO_H_
 
 #include <MyGUI.h>
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
@@ -221,4 +221,4 @@ namespace common
 
 }
 
-#endif // __FILE_SYSTEM_INFO_H__
+#endif // FILE_SYSTEM_INFO_H_

@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		08/2009
 */
-#ifndef __BASE_ANIMATION_NODE_H__
-#define __BASE_ANIMATION_NODE_H__
+#ifndef BASE_ANIMATION_NODE_H_
+#define BASE_ANIMATION_NODE_H_
 
 #include <MyGUI.h>
 #include "BaseGraphNode.h"
@@ -83,4 +83,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __BASE_ANIMATION_NODE_H__
+#endif // BASE_ANIMATION_NODE_H_

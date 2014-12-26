@@ -3,8 +3,8 @@
 	@author		Denis Koronchik
 	@date		09/2007
 */
-#ifndef __STRANGE_BUTTON_H__
-#define __STRANGE_BUTTON_H__
+#ifndef STRANGE_BUTTON_H_
+#define STRANGE_BUTTON_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Button.h"
@@ -27,4 +27,4 @@ namespace plugin
 
 } // namespace plugin
 
-#endif // __STRANGE_BUTTON_H__
+#endif // STRANGE_BUTTON_H_

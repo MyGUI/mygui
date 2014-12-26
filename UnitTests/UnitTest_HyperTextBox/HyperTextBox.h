@@ -4,8 +4,8 @@
 	@date		03/2011
 */
 
-#ifndef __MYGUI_HYPER_TEXT_BOX_H__
-#define __MYGUI_HYPER_TEXT_BOX_H__
+#ifndef MYGUI_HYPER_TEXT_BOX_H_
+#define MYGUI_HYPER_TEXT_BOX_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
@@ -123,4 +123,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_HYPER_TEXT_BOX_H__
+#endif // MYGUI_HYPER_TEXT_BOX_H_

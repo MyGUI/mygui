@@ -33,3 +33,8 @@ install(FILES ${HEADER_FILES}
         DESTINATION include/MYGUI
 )
 mygui_install_target(${PROJECTNAME} "")
+
+if (MYGUI_HIGH_LEVEL_WARNINGS)
+        set_source_files_properties(include/GL/glew.c PROPERTIES COMPILE_FLAGS -w)
+        set_source_files_properties(${SOURCE_FILES} PROPERTIES COMPILE_FLAGS -Wno-reserved-id-macro)
+endif ()

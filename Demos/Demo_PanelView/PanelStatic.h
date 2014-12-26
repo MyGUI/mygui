@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		08/2008
 */
-#ifndef __PANEL_STATIC_H__
-#define __PANEL_STATIC_H__
+#ifndef PANEL_STATIC_H_
+#define PANEL_STATIC_H_
 
 #include <MyGUI.h>
 #include "PanelView/BasePanelViewItem.h"
@@ -24,4 +24,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __PANEL_STATIC_H__
+#endif // PANEL_STATIC_H_

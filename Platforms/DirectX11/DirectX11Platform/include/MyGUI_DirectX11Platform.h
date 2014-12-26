@@ -4,8 +4,8 @@
 	@date		09/2011
 */
 
-#ifndef __MYGUI_DIRECTX11_PLATFORM_H__
-#define __MYGUI_DIRECTX11_PLATFORM_H__
+#ifndef MYGUI_DIRECTX11_PLATFORM_H_
+#define MYGUI_DIRECTX11_PLATFORM_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_DirectX11RenderManager.h"
@@ -80,4 +80,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_DIRECTX11_PLATFORM_H__
+#endif // MYGUI_DIRECTX11_PLATFORM_H_

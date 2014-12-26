@@ -4,8 +4,8 @@
 	@date		11/2009
 */
 
-#ifndef __CONTROLLER_RANDOM_SELECTED_H__
-#define __CONTROLLER_RANDOM_SELECTED_H__
+#ifndef CONTROLLER_RANDOM_SELECTED_H_
+#define CONTROLLER_RANDOM_SELECTED_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_WidgetDefines.h"
@@ -59,4 +59,4 @@ namespace demo
 
 }
 
-#endif // __CONTROLLER_RANDOM_SELECTED_H__
+#endif // CONTROLLER_RANDOM_SELECTED_H_

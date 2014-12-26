@@ -1,5 +1,5 @@
-#ifndef __ANIMATION_GRAPH_FACTORY_H__
-#define __ANIMATION_GRAPH_FACTORY_H__
+#ifndef ANIMATION_GRAPH_FACTORY_H_
+#define ANIMATION_GRAPH_FACTORY_H_
 
 #include "AnimationGraph.h"
 #include "AnimationNodeFactory.h"
@@ -20,4 +20,4 @@ namespace animation
 
 } // namespace animation
 
-#endif // __ANIMATION_GRAPH_FACTORY_H__
+#endif // ANIMATION_GRAPH_FACTORY_H_

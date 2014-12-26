@@ -1,5 +1,5 @@
-#ifndef __DEMO_KEEPER_H__
-#define __DEMO_KEEPER_H__
+#ifndef DEMO_KEEPER_H_
+#define DEMO_KEEPER_H_
 
 #include "Base/BaseDemoManager.h"
 #include "HyperTextBox.h"
@@ -23,4 +23,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __DEMO_KEEPER_H__
+#endif // DEMO_KEEPER_H_

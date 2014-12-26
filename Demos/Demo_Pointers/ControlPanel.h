@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2009
 */
-#ifndef __CONTROL_PANEL_H__
-#define __CONTROL_PANEL_H__
+#ifndef CONTROL_PANEL_H_
+#define CONTROL_PANEL_H_
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
@@ -38,4 +38,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __CONTROL_PANEL_H__
+#endif // CONTROL_PANEL_H_

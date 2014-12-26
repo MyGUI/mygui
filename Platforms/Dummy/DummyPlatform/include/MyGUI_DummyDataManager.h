@@ -4,8 +4,8 @@
 	@date		06/2012
 */
 
-#ifndef __MYGUI_DUMMY_DATA_MANAGER_H__
-#define __MYGUI_DUMMY_DATA_MANAGER_H__
+#ifndef MYGUI_DUMMY_DATA_MANAGER_H_
+#define MYGUI_DUMMY_DATA_MANAGER_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_DataManager.h"
@@ -49,4 +49,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_DUMMY_DATA_MANAGER_H__
+#endif // MYGUI_DUMMY_DATA_MANAGER_H_

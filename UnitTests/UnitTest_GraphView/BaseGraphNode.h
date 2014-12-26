@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		01/2009
 */
-#ifndef __BASE_GRAPH_NODE_H__
-#define __BASE_GRAPH_NODE_H__
+#ifndef BASE_GRAPH_NODE_H_
+#define BASE_GRAPH_NODE_H_
 
 #include <MyGUI.h>
 #include "BaseGraphConnection.h"
@@ -179,4 +179,4 @@ namespace wraps
 
 } // namespace wraps
 
-#endif // __BASE_GRAPH_NODE_H__
+#endif // BASE_GRAPH_NODE_H_

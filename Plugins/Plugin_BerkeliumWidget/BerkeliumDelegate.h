@@ -3,8 +3,8 @@
 	@author		George Evmenov
 	@date		02/2011
 */
-#ifndef __WINDOW_DELEGATE_H__
-#define __WINDOW_DELEGATE_H__
+#ifndef WINDOW_DELEGATE_H_
+#define WINDOW_DELEGATE_H_
 
 #include "MyGUI_Prerequest.h"
 #include <string>
@@ -47,4 +47,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __WINDOW_DELEGATE_H__
+#endif // WINDOW_DELEGATE_H_

@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		10/2008
 */
-#ifndef __MAIN_PANEL_H__
-#define __MAIN_PANEL_H__
+#ifndef MAIN_PANEL_H_
+#define MAIN_PANEL_H_
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
@@ -45,4 +45,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __MAIN_PANEL_H__
+#endif // MAIN_PANEL_H_

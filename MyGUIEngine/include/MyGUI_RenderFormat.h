@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_RENDER_FORMAT_H__
-#define __MYGUI_RENDER_FORMAT_H__
+#ifndef MYGUI_RENDER_FORMAT_H_
+#define MYGUI_RENDER_FORMAT_H_
 
 #include "MyGUI_Macros.h"
 
@@ -142,4 +142,4 @@ namespace MyGUI
 } // namespace MyGUI
 
 
-#endif // __MYGUI_RENDER_FORMAT_H__
+#endif // MYGUI_RENDER_FORMAT_H_

@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_OVERLAPPED_LAYER_H__
-#define __MYGUI_OVERLAPPED_LAYER_H__
+#ifndef MYGUI_OVERLAPPED_LAYER_H_
+#define MYGUI_OVERLAPPED_LAYER_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
@@ -63,4 +63,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_OVERLAPPED_LAYER_H__
+#endif // MYGUI_OVERLAPPED_LAYER_H_

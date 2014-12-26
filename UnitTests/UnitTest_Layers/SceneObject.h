@@ -4,8 +4,8 @@
 	@date		12/2009
 */
 
-#ifndef __SCENE_OBJECT_H__
-#define __SCENE_OBJECT_H__
+#ifndef SCENE_OBJECT_H_
+#define SCENE_OBJECT_H_
 
 #ifdef MYGUI_OGRE_PLATFORM
 
@@ -78,4 +78,4 @@ namespace demo
 
 #endif
 
-#endif // __SCENE_OBJECT_H__
+#endif // SCENE_OBJECT_H_

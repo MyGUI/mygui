@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		09/2008
 */
-#ifndef __OPEN_SAVE_FILE_DIALOG_H__
-#define __OPEN_SAVE_FILE_DIALOG_H__
+#ifndef OPEN_SAVE_FILE_DIALOG_H_
+#define OPEN_SAVE_FILE_DIALOG_H_
 
 #include <MyGUI.h>
 #include "Dialog.h"
@@ -71,4 +71,4 @@ namespace tools
 
 } // namespace tools
 
-#endif // __OPEN_SAVE_FILE_DIALOG_H__
+#endif // OPEN_SAVE_FILE_DIALOG_H_

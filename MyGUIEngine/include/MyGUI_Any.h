@@ -11,8 +11,8 @@
 // (See at http://www.boost.org/LICENSE_1_0.txt)
 // -- End original copyright --
 
-#ifndef __MYGUI_ANY_H__
-#define __MYGUI_ANY_H__
+#ifndef MYGUI_ANY_H_
+#define MYGUI_ANY_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Diagnostic.h"
@@ -150,4 +150,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_ANY_H__
+#endif // MYGUI_ANY_H_

@@ -24,8 +24,8 @@
 //
 // - Eric Shorkey (zero/zeroskill) <opengui@rightbracket.com> [January 20th, 2007]
 
-#ifndef __MYGUI_U_STRING_H__
-#define __MYGUI_U_STRING_H__
+#ifndef MYGUI_U_STRING_H_
+#define MYGUI_U_STRING_H_
 
 
 #include "MyGUI_Prerequest.h"

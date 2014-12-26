@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2009
 */
-#ifndef __ENEMY_PANEL_H__
-#define __ENEMY_PANEL_H__
+#ifndef ENEMY_PANEL_H_
+#define ENEMY_PANEL_H_
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
@@ -25,4 +25,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __ENEMY_PANEL_H__
+#endif // ENEMY_PANEL_H_

@@ -3,8 +3,8 @@
 	@author		Ustinov Igor aka Igor', DadyaIgor
 	@date		09/2011
 */
-#ifndef __MYGUI_DIRECTX11_DIAGNOSTIC_H__
-#define __MYGUI_DIRECTX11_DIAGNOSTIC_H__
+#ifndef MYGUI_DIRECTX11_DIAGNOSTIC_H_
+#define MYGUI_DIRECTX11_DIAGNOSTIC_H_
 
 #include "MyGUI_Prerequest.h"
 
@@ -33,4 +33,4 @@
 	} \
 }
 
-#endif // __MYGUI_DIRECTX11_DIAGNOSTIC_H__
+#endif // MYGUI_DIRECTX11_DIAGNOSTIC_H_

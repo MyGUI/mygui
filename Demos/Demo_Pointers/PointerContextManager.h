@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2009
 */
-#ifndef __POINTER_CONTEXT_MANAGER_H__
-#define __POINTER_CONTEXT_MANAGER_H__
+#ifndef POINTER_CONTEXT_MANAGER_H_
+#define POINTER_CONTEXT_MANAGER_H_
 
 #include <MyGUI.h>
 #include "ResourcePointerContext.h"
@@ -48,4 +48,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __POINTER_CONTEXT_MANAGER_H__
+#endif // POINTER_CONTEXT_MANAGER_H_

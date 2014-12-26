@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		08/2008
 */
-#ifndef __ANIMATION_GRAPH_H__
-#define __ANIMATION_GRAPH_H__
+#ifndef ANIMATION_GRAPH_H_
+#define ANIMATION_GRAPH_H_
 
 #include "IAnimationNode.h"
 #include "IAnimationGraph.h"
@@ -105,4 +105,4 @@ namespace animation
 
 } // namespace animation
 
-#endif // __ANIMATION_GRAPH_H__
+#endif // ANIMATION_GRAPH_H_

@@ -5,8 +5,8 @@
 	@module
 */
 
-#ifndef __ATTRIBUTE_H__
-#define __ATTRIBUTE_H__
+#ifndef ATTRIBUTE_H_
+#define ATTRIBUTE_H_
 
 namespace attribute
 {
@@ -121,4 +121,4 @@ namespace attribute
 	static attribute::_attribute<_class> _attribute##_##_class(_value)
 }
 
-#endif // __ATTRIBUTE_H__
+#endif // ATTRIBUTE_H_
