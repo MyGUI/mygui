@@ -96,7 +96,7 @@
 // Add -fvisibility=hidden to compiler options. With -fvisibility=hidden, you are telling
 // GCC that every declaration not explicitly marked with a visibility attribute (MYGUI_EXPORT)
 // has a hidden visibility (like in windows).
-#	if MYGUI_GCC_VISIBILITY
+#	ifdef MYGUI_GCC_VISIBILITY
 #		define MYGUI_EXPORT  __attribute__ ((visibility("default")))
 #		define MYGUI_EXPORT_DLL  __attribute__ ((visibility("default")))
 #	else

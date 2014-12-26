@@ -132,8 +132,6 @@ namespace MyGUI
 # else
 #   define MYGUI_IS_NATIVE_WCHAR_T      0
 # endif
-#elif MYGUI_PLATFORM == MYGUI_PLATFORM_SYMBIAN
-#   define MYGUI_IS_NATIVE_WCHAR_T      0
 #else   // MYGUI_COMPILER != MYGUI_COMPILER_MSVC
 
 // Assumed wchar_t is natively for other compilers
