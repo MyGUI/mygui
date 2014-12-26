@@ -1,1 +1,2 @@
 mygui_tool_dll(EditorFramework)
+set_source_files_properties(pugixml.cpp PROPERTIES COMPILE_FLAGS -w)

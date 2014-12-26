@@ -219,12 +219,12 @@ namespace tools
 				values[name] = coord.point();
 			}
 
-			// Если нет таких данных то создаем
+            // create, if there is no data
 			name = convertExportToEditorStateName(name);
 			DataPtr childData = getChildData(_data, "State", name);
 			if (childData == nullptr)
 			{
-				DataPtr childData = Data::CreateInstance();
+                childData = Data::CreateInstance();
 				childData->setType(DataTypeManager::getInstance().getType("State"));
 				childData->setPropertyValue("Name", name);
 				_data->addChild(childData);
