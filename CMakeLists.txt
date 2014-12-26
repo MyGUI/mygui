@@ -240,6 +240,11 @@ if (MSVC)
 
 endif ()
 
+if (CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
+	# Otherwise, boost complains that there is no threading support.
+	SET(CMAKE_CXX_FLAGS "-pthread ${CMAKE_CXX_FLAGS}")
+endif ()
+
 # Find dependencies
 include(Dependencies)
 
