@@ -191,19 +191,28 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 			# to avoid warnings from OIS
 			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem ${OIS_INCLUDE_DIR}")
 		endif ()
-		if (NOT APPLE AND NOT CMAKE_CXX_COMPILER_ID MATCHES "Intel")
-			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-show-option")
-		endif ()
-		# very interesting option, but way too many warnings
-		#add_definitions(-Weffc++)
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wall  -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter")
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
-		if (NOT CMAKE_CXX_COMPILER_ID MATCHES "Intel")
-			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wctor-dtor-privacy")
-		endif ()
 
-		# MyGUI_UString.h ignored from warnings because of this
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wshadow")
+		if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything")
+			# useful warnings, should NOT be disabled
+                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-undef -Wno-sign-conversion -Wno-conversion")
+                        # might be useful
+                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-documentation -Wno-old-style-cast")
+                        # not useful
+                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-float-equal -Wno-padded -Wno-padded -Wno-weak-vtables -Wno-duplicate-enum -Wno-exit-time-destructors -Wno-unused-parameter -Wno-global-constructors")
+		else ()
+			# very interesting option, but way too many warnings
+			#add_definitions(-Weffc++)
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wall  -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter")
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
+			if (NOT CMAKE_CXX_COMPILER_ID MATCHES "Intel")
+				set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wctor-dtor-privacy")
+				set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-show-option")
+			endif ()
+
+			# MyGUI_UString.h ignored from warnings because of this
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wshadow")
+		endif ()
 	endif ()
 endif ()
 
