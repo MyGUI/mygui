@@ -194,10 +194,8 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 
 		if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
                         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything")
-			# useful warnings, should NOT be disabled
-                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-sign-conversion -Wno-conversion")
                         # might be useful
-                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unknown-warning-option -Wno-c++11-extensions -Wno-documentation -Wno-old-style-cast")
+                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unknown-warning-option -Wno-sign-conversion -Wno-conversion -Wno-c++11-extensions -Wno-documentation -Wno-old-style-cast")
                         # not useful
                         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-float-equal -Wno-padded -Wno-padded -Wno-weak-vtables -Wno-duplicate-enum -Wno-exit-time-destructors -Wno-unused-parameter -Wno-global-constructors")
 		else ()
