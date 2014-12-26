@@ -17,9 +17,9 @@ namespace MyGUI
 	const size_t RENDER_ITEM_STEEP_REALLOCK = 5 * VERTEX_IN_QUAD;
 
 	OpenGLVertexBuffer::OpenGLVertexBuffer() :
-		mNeedVertexCount(0),
-		mVertexCount(RENDER_ITEM_STEEP_REALLOCK),
-		mBufferID(0),
+        mBufferID(0),
+        mVertexCount(RENDER_ITEM_STEEP_REALLOCK),
+        mNeedVertexCount(0),
 		mSizeInBytes(0)
 	{
 	}
