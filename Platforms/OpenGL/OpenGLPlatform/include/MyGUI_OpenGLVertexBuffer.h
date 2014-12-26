@@ -37,7 +37,7 @@ namespace MyGUI
 
 	private:
 		unsigned int mBufferID;
-		size_t mVertexCount;
+        //size_t mVertexCount;
 		size_t mNeedVertexCount;
 		size_t mSizeInBytes;
 	};
