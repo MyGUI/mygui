@@ -11,6 +11,7 @@
 #include "MyGUI_Enumerator.h"
 #include <vector>
 #include <map>
+#include <string>
 
 namespace MyGUI
 {
