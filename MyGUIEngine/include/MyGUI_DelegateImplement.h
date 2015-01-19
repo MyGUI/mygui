@@ -171,6 +171,9 @@ namespace delegates
 
 		MYGUI_C_DELEGATE MYGUI_TEMPLATE_ARGS& operator=(const MYGUI_C_DELEGATE MYGUI_TEMPLATE_ARGS& _event)
 		{
+			if (this == &_event)
+				return *this;
+
 			// take ownership
 			IDelegate* del = _event.mDelegate;
 			const_cast< MYGUI_C_DELEGATE MYGUI_TEMPLATE_ARGS& >(_event).mDelegate = nullptr;
