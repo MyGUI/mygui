@@ -1,4 +1,25 @@
 ----------------------------------------------------------------
+------------------------- Version 3.2.2 ------------------------
+----------------------------------------------------------------
+-- Core --
+- Fixed eventChangeMouseFocus and eventChangeKeyFocus not being triggered in certain cases.
+
+-- Widgets --
+- ComboBox: Fixed mouse events incorrectly going to the widget below the ComboBox when clicking on an item.
+- ScrollBar: Added button repeat support, ScrollBar buttons will trigger repeatedly so long as the mouse is held down.
+
+-- Platforms --
+- OpenGLPlatform: Added option to use system GLEW library.
+- OgrePlatform: Improved performance of OgreDataManager::isDataExist.
+- OgrePlatform: Fixed build failure regarding boost libraries used by Ogre not being found.
+
+-- Resources --
+- ResourceManualFont: Added API to create a ResourceManualFont in code rather than from XML.
+
+-- Tools --
+- Fixed broken file dialog directory listing on Linux and make sure files are sorted.
+
+----------------------------------------------------------------
 ------------------------- Version 3.2.1 ------------------------
 ----------------------------------------------------------------
 
