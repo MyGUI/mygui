@@ -1,4 +1,4 @@
-# MyGUI
+![MyGUI logo](http://mygui.info/images/MyGUI_Logo.png)
 
 [![Build Status](https://travis-ci.org/MyGUI/mygui.svg?branch=master)](https://travis-ci.org/MyGUI/mygui)
 
