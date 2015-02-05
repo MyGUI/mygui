@@ -50,9 +50,8 @@ namespace wraps
 		{
 			clearScene();
 
-			static size_t num = 0;
-			mEntity = mScene->createEntity(MyGUI::utility::toString(this, "_RenderBoxMesh_", _meshName, num++), _meshName);
-			Ogre::SceneNode* node = mNode->createChildSceneNode(_position, _orientation);
+			mEntity = mScene->createEntity(_meshName);
+			Ogre::SceneNode* node = mNode->createChildSceneNode(Ogre::SCENE_DYNAMIC, _position, _orientation);
 			node->attachObject(mEntity);
 
 			updateViewport();
@@ -254,7 +253,11 @@ namespace wraps
 		void createScene()
 		{
 			// создаем новый сцен менеджер
-			mScene = Ogre::Root::getSingleton().createSceneManager(Ogre::ST_GENERIC, MyGUI::utility::toString(this, "_SceneManagerRenderBox"));
+			const size_t numThreads = std::max<int>(1, Ogre::PlatformInformation::getNumLogicalCores());
+			Ogre::InstancingTheadedCullingMethod threadedCullingMethod = Ogre::INSTANCING_CULLING_SINGLETHREAD;
+			if(numThreads > 1)
+				threadedCullingMethod = Ogre::INSTANCING_CULLING_THREADED;
+			mScene = Ogre::Root::getSingleton().createSceneManager(Ogre::ST_GENERIC, numThreads, threadedCullingMethod);
 
 			// создаем нод к которуму будем всякую дрянь атачить
 			mNode = mScene->getRootSceneNode()->createChildSceneNode();
@@ -264,7 +267,9 @@ namespace wraps
 			// главный источник света
 			Ogre::Vector3 dir(-1, -1, 0.5);
 			dir.normalise();
-			Ogre::Light* light = mScene->createLight(MyGUI::utility::toString(this, "_LightRenderBox"));
+			Ogre::Light* light = mScene->createLight();
+			Ogre::SceneNode* lightNode = mScene->getRootSceneNode()->createChildSceneNode(Ogre::SCENE_DYNAMIC);
+			lightNode->attachObject(light);
 			light->setType(Ogre::Light::LT_DIRECTIONAL);
 			light->setDirection(dir);
 
@@ -272,7 +277,8 @@ namespace wraps
 			mCamera = mScene->createCamera(camera);
 			mCamera->setNearClipDistance(1);
 
-			mCameraNode = mScene->getRootSceneNode()->createChildSceneNode(camera);
+			mCameraNode = mScene->getRootSceneNode()->createChildSceneNode(Ogre::SCENE_DYNAMIC);
+			mCamera->detachFromParent();
 			mCameraNode->attachObject(mCamera);
 
 			if (mCanvas->getHeight() == 0)
@@ -297,8 +303,8 @@ namespace wraps
 				// вычисляем расстояние, чтобы был виден весь объект
 				Ogre::AxisAlignedBox box;
 
-				box.merge(mEntity->getBoundingBox().getMinimum() + mEntity->getParentSceneNode()->_getDerivedPosition());
-				box.merge(mEntity->getBoundingBox().getMaximum() + mEntity->getParentSceneNode()->_getDerivedPosition());
+				box.merge(mEntity->getWorldAabbUpdated().getMinimum());
+				box.merge(mEntity->getWorldAabbUpdated().getMaximum());
 
 				if (box.isNull()) return;
 

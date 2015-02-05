@@ -200,7 +200,7 @@ namespace demo
 #ifdef MYGUI_OGRE_PLATFORM
 		try
 		{
-			Ogre::Entity* entity = getSceneManager()->createEntity("Mikki.mesh", "Mikki.mesh");
+			Ogre::Entity* entity = getSceneManager()->createEntity("Mikki.mesh");
 			mNode = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 			mNode->attachObject(entity);
 		}
@@ -215,7 +215,7 @@ namespace demo
 				"FloorPlane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 				Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), 1000, 1000, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
 
-			Ogre::Entity* entity = getSceneManager()->createEntity("FloorPlane", "FloorPlane");
+			Ogre::Entity* entity = getSceneManager()->createEntity("FloorPlane");
 			entity->setMaterialName("Ground");
 			mNode->attachObject(entity);
 		}

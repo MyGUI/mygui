@@ -8,6 +8,8 @@
 #define BASE_MANAGER_H_
 
 #include <Ogre.h>
+#include <OgreFrameListener.h>
+
 #include <MyGUI.h>
 
 #include "InputManager.h"

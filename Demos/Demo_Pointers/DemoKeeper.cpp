@@ -197,12 +197,14 @@ namespace demo
 	void DemoKeeper::createEntities()
 	{
 #ifdef MYGUI_OGRE_PLATFORM
-		Ogre::Entity* entity = getSceneManager()->createEntity("friend", "Mikki.mesh");
+		Ogre::Entity* entity = getSceneManager()->createEntity("Mikki.mesh");
+		entity->setName("friend");
 		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		node->attachObject(entity);
 		node->setPosition(0, 0, 300);
 
-		entity = getSceneManager()->createEntity("enemy", "Robot.mesh");
+		entity = getSceneManager()->createEntity("Robot.mesh");
+		entity->setName("enemy");
 		node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		node->attachObject(entity);
 		node->setPosition(0, 0, -300);
@@ -212,7 +214,8 @@ namespace demo
 			"FloorPlane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 			Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), 2000, 2000, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
 
-		entity = getSceneManager()->createEntity("floor", "FloorPlane");
+		entity = getSceneManager()->createEntity("FloorPlane");
+		entity->setName("floor");
 		entity->setMaterialName("Ground");
 		node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		node->attachObject(entity);

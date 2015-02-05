@@ -55,7 +55,6 @@ namespace MyGUI
 		if (mViewport == nullptr)
 		{
 			mViewport = rtt->addViewport(nullptr);
-			mViewport->setClearEveryFrame(false);
 			mViewport->setOverlaysEnabled(false);
 		}
 

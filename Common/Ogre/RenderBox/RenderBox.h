@@ -9,6 +9,8 @@
 #define RENDER_BOX_H_
 
 #include <Ogre.h>
+#include <Compositor/OgreCompositorManager2.h>
+#include <Compositor/OgreCompositorWorkspaceDef.h>
 #include <MyGUI.h>
 #include <MyGUI_OgrePlatform.h>
 
@@ -22,7 +24,8 @@ namespace wraps
 			mCanvas(nullptr),
 			mCamera(nullptr),
 			mRenderTarget(nullptr),
-			mColour(Ogre::ColourValue::ZERO)
+			mColour(Ogre::ColourValue::ZERO),
+			mWorkspace(nullptr)
 		{
 		}
 
@@ -65,6 +68,12 @@ namespace wraps
 		{
 			if (mCanvas)
 			{
+				if (mWorkspace)
+				{
+					Ogre::Root::getSingleton().getCompositorManager2()->removeWorkspace(mWorkspace);
+					mWorkspace = nullptr;
+				}
+
 				mCanvas->eventPreTextureChanges -= MyGUI::newDelegate(this, &RenderBox::eventPreTextureChanges);
 				mCanvas->requestUpdateCanvas = nullptr;
 				mCanvas->destroyTexture();
@@ -93,7 +102,6 @@ namespace wraps
 		{
 			if (mRenderTarget != nullptr)
 			{
-				mRenderTarget->removeAllViewports();
 				mRenderTarget = nullptr;
 				if (mCanvas)
 					Ogre::Root::getSingleton().getRenderSystem()->destroyRenderTexture(mCanvas->getTexture()->getName());
@@ -113,6 +121,12 @@ namespace wraps
 			if (!(_event.textureChanged || _event.requested))
 				return;
 
+			if (mWorkspace)
+			{
+				Ogre::Root::getSingleton().getCompositorManager2()->removeWorkspace(mWorkspace);
+			}
+			mWorkspace = nullptr;
+
 			Ogre::TexturePtr texture = static_cast<MyGUI::OgreTexture*>(mCanvas->getTexture())->getOgreTexture();
 			Ogre::RenderTexture* target = texture->getBuffer()->getRenderTarget();
 
@@ -122,12 +136,16 @@ namespace wraps
 			{
 				mRenderTarget = target;
 
-				mRenderTarget->removeAllViewports();
-				Ogre::Viewport* viewport = mRenderTarget->addViewport(mCamera);
-				viewport->setBackgroundColour(mColour);
-				viewport->setClearEveryFrame(true);
-				viewport->setOverlaysEnabled(false);
-
+				Ogre::String workspaceDefName ("RenderBox");
+				static int i=0;
+				workspaceDefName += Ogre::StringConverter::toString(i++);
+				Ogre::Root::getSingleton().getCompositorManager2()->createBasicWorkspaceDef(Ogre::IdString(workspaceDefName),
+					mColour);
+				mWorkspace =
+				Ogre::Root::getSingleton().getCompositorManager2()->addWorkspace(mCamera->getSceneManager(), mRenderTarget,
+					 mCamera, Ogre::IdString(workspaceDefName), true,
+					 // Position=0, to make sure it gets updated before the main RenderWindow
+					 0);
 			}
 		}
 
@@ -136,6 +154,7 @@ namespace wraps
 		Ogre::Camera* mCamera;
 		Ogre::RenderTarget* mRenderTarget;
 		Ogre::ColourValue mColour;
+		Ogre::CompositorWorkspace* mWorkspace;
 	};
 
 } // namespace wraps

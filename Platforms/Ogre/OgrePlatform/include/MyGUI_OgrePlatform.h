@@ -40,7 +40,7 @@ namespace MyGUI
 			delete mLogManager;
 		}
 
-		void initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene, const std::string& _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, const std::string& _logName = MYGUI_PLATFORM_LOG_FILENAME)
+		void initialise(Ogre::RenderWindow* _window, const std::string& _group = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, const std::string& _logName = MYGUI_PLATFORM_LOG_FILENAME)
 		{
 			assert(!mIsInitialise);
 			mIsInitialise = true;
@@ -48,7 +48,7 @@ namespace MyGUI
 			if (!_logName.empty())
 				LogManager::getInstance().createDefaultSource(_logName);
 
-			mRenderManager->initialise(_window, _scene);
+			mRenderManager->initialise(_window);
 			mDataManager->initialise(_group);
 		}
 

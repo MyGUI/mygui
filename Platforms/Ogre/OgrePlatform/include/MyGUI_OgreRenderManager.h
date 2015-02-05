@@ -13,23 +13,79 @@
 #include "MyGUI_RenderManager.h"
 
 #include <Ogre.h>
+#include <OgreFrameListener.h>
+
+#include <Compositor/Pass/OgreCompositorPass.h>
+#include <Compositor/Pass/OgreCompositorPassDef.h>
+#include <Compositor/Pass/OgreCompositorPassProvider.h>
 
 #include "MyGUI_LastHeader.h"
 
 namespace MyGUI
 {
 
+	class OgreRenderManager;
+	class MyGUIPassDef : public Ogre::CompositorPassDef
+	{
+	public:
+		MyGUIPassDef(uint32 rtIndex)
+			: Ogre::CompositorPassDef(Ogre::PASS_CUSTOM, rtIndex)
+		{
+		}
+	};
+
+	// TODO: The compositor manager allows adding this pass to any number of targets,
+	// but MyGUI was designed to handle one window target only. For example,
+	// when we add the pass to multiple targets, all RTTLayers would be unnecessarily updated multiple times.
+	class MyGUIPass : public Ogre::CompositorPass
+	{
+	public:
+		MyGUIPass( const Ogre::CompositorPassDef *definition, const Ogre::CompositorChannel &target,
+						Ogre::CompositorNode *parentNode );
+
+		virtual void execute( const Ogre::Camera *lodCameraconst );
+	};
+
+	// The factory for the MyGUI compositor pass. Note that only one provider can be
+	// registered with Ogre at a time, which is why we have exposed the MyGUIPass and MyGUIPassDef classes
+	// publicly in this header. If users need their own custom passes, they can implement their own provider
+	// which would return either a MyGUI pass or other custom passes depending on the customId.
+	class OgreCompositorPassProvider : public Ogre::CompositorPassProvider
+	{
+	public:
+		Ogre::CompositorPassDef* addPassDef( Ogre::CompositorPassType passType,
+											   Ogre::IdString customId,
+											   Ogre::uint32 rtIndex,
+											   Ogre::CompositorNodeDef *parentNodeDef )
+		{
+			if (customId == mPassId)
+				return OGRE_NEW MyGUI::MyGUIPassDef(rtIndex);
+		}
+
+		Ogre::CompositorPass* addPass( const Ogre::CompositorPassDef *definition, Ogre::Camera *defaultCamera,
+										 Ogre::CompositorNode *parentNode, const Ogre::CompositorChannel &target,
+										 Ogre::SceneManager *sceneManager )
+		{
+			return OGRE_NEW MyGUI::MyGUIPass(definition, target, parentNode);
+		}
+
+		static Ogre::IdString mPassId;
+	};
+
 	class OgreRenderManager :
 		public RenderManager,
 		public IRenderTarget,
 		public Ogre::WindowEventListener,
-		public Ogre::RenderQueueListener,
-		public Ogre::RenderSystem::Listener
+		public Ogre::RenderSystem::Listener,
+		public Ogre::FrameListener
 	{
 	public:
 		OgreRenderManager();
 
-		void initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene);
+		// FrameListener
+		bool frameStarted(const Ogre::FrameEvent &evt);
+
+		void initialise(Ogre::RenderWindow* _window);
 		void shutdown();
 
 		static OgreRenderManager& getInstance();
@@ -72,15 +128,6 @@ namespace MyGUI
 
 		void setRenderWindow(Ogre::RenderWindow* _window);
 
-		/** Set scene manager where MyGUI will be rendered */
-		void setSceneManager(Ogre::SceneManager* _scene);
-
-		/** Get GUI viewport index */
-		size_t getActiveViewport();
-
-		/** Set GUI viewport index */
-		void setActiveViewport(unsigned short _num);
-
 		Ogre::RenderWindow* getRenderWindow();
 
 		bool getManualRender();
@@ -93,8 +140,6 @@ namespace MyGUI
 #endif
 
 	private:
-		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
-		virtual void renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation);
 		virtual void windowResized(Ogre::RenderWindow* _window);
 
 		// восстанавливаем буферы
@@ -109,15 +154,10 @@ namespace MyGUI
 
 		IntSize mViewSize;
 
-		Ogre::SceneManager* mSceneManager;
-
 		VertexColourType mVertexFormat;
 
 		// окно, на которое мы подписываемся для изменения размеров
 		Ogre::RenderWindow* mWindow;
-
-		// вьюпорт, с которым работает система
-		unsigned short mActiveViewport;
 
 		Ogre::RenderSystem* mRenderSystem;
 		Ogre::TextureUnitState::UVWAddressingMode mTextureAddressMode;
@@ -131,6 +171,12 @@ namespace MyGUI
 		bool mIsInitialise;
 		bool mManualRender;
 		size_t mCountBatch;
+
+	private:
+		void render();
+		friend class MyGUIPass;
+
+		std::auto_ptr<OgreCompositorPassProvider> mPassProvider;
 	};
 
 } // namespace MyGUI

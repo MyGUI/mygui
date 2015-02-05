@@ -13,6 +13,8 @@
 
 #include <OgreResource.h>
 #include <OgreTexture.h>
+#include <OgrePixelBox.h>
+#include <OgreSharedPtr.h>
 
 #include "MyGUI_LastHeader.h"
 

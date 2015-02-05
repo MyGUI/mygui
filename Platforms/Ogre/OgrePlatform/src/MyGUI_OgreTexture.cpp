@@ -11,6 +11,7 @@
 #include "MyGUI_OgreDiagnostic.h"
 #include "MyGUI_OgreRTTexture.h"
 #include <Ogre.h>
+#include <OgreTexture.h>
 
 #include "MyGUI_LastHeader.h"
 

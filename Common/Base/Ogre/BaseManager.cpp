@@ -6,7 +6,21 @@
 
 #include "Precompiled.h"
 #include "BaseManager.h"
+
+#include <stdexcept>
+
 #include <MyGUI_OgrePlatform.h>
+
+#include <MyGUI_OgreRenderManager.h>
+
+#include <Compositor/OgreCompositorManager2.h>
+#include <Compositor/OgreCompositorNodeDef.h>
+#include <Compositor/Pass/OgreCompositorPass.h>
+#include <Compositor/Pass/OgreCompositorPassDef.h>
+#include <Compositor/Pass/PassScene/OgreCompositorPassSceneDef.h>
+#include <Compositor/Pass/PassClear/OgreCompositorPassClearDef.h>
+#include <Compositor/OgreCompositorWorkspaceDef.h>
+#include <OgreFrameStats.h>
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #	include <windows.h>
@@ -100,23 +114,24 @@ namespace base
 			::SendMessageA((HWND)handle, WM_SETICON, 1, (LPARAM)hIconBig);
 	#endif
 
-		mSceneManager = mRoot->createSceneManager(Ogre::ST_GENERIC, "BaseSceneManager");
+		const size_t numThreads = std::max<int>(1, Ogre::PlatformInformation::getNumLogicalCores());
+		Ogre::InstancingTheadedCullingMethod threadedCullingMethod = Ogre::INSTANCING_CULLING_SINGLETHREAD;
+		if(numThreads > 1)
+			threadedCullingMethod = Ogre::INSTANCING_CULLING_THREADED;
+		mSceneManager = Ogre::Root::getSingleton().createSceneManager(Ogre::ST_GENERIC, numThreads, threadedCullingMethod);
 
 		mCamera = mSceneManager->createCamera("BaseCamera");
 		mCamera->setNearClipDistance(5);
 		mCamera->setPosition(400, 400, 400);
 		mCamera->lookAt(0, 150, 0);
 
-		// Create one viewport, entire window
-		Ogre::Viewport* vp = mWindow->addViewport(mCamera);
-		// Alter the camera aspect ratio to match the viewport
-		mCamera->setAspectRatio((float)vp->getActualWidth() / (float)vp->getActualHeight());
-
 		// Set default mipmap level (NB some APIs ignore this)
 		Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 
 		mSceneManager->setAmbientLight(Ogre::ColourValue::White);
-		Ogre::Light* light = mSceneManager->createLight("MainLight");
+		Ogre::SceneNode* lightNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
+		Ogre::Light* light = mSceneManager->createLight();
+		lightNode->attachObject(light);
 		light->setType(Ogre::Light::LT_DIRECTIONAL);
 		Ogre::Vector3 vec(-0.3f, -0.3f, -0.3f);
 		vec.normalise();
@@ -207,7 +222,37 @@ namespace base
 	void BaseManager::createGui()
 	{
 		mPlatform = new MyGUI::OgrePlatform();
-		mPlatform->initialise(mWindow, mSceneManager, Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
+		mPlatform->initialise(mWindow, Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
+
+		const Ogre::String workspaceName = "scene workspace";
+		const Ogre::IdString workspaceNameHash = workspaceName;
+
+		Ogre::CompositorManager2* pCompositorManager = Ogre::Root::getSingleton().getCompositorManager2();
+		Ogre::CompositorNodeDef *nodeDef = pCompositorManager->addNodeDefinition( "myworkspace" );
+		//Input texture
+		nodeDef->addTextureSourceName( "WindowRT", 0, Ogre::TextureDefinitionBase::TEXTURE_INPUT );
+		nodeDef->setNumTargetPass( 1 );
+		{
+			Ogre::CompositorTargetDef *targetDef = nodeDef->addTargetPass( "WindowRT" );
+			targetDef->setNumPasses( 3 );
+			{
+				{
+					Ogre::CompositorPassClearDef* passClear = static_cast<Ogre::CompositorPassClearDef*>
+																( targetDef->addPass( Ogre::PASS_CLEAR ) );
+					Ogre::CompositorPassSceneDef *passScene = static_cast<Ogre::CompositorPassSceneDef*>
+																( targetDef->addPass( Ogre::PASS_SCENE ) );
+					passScene->mShadowNode = Ogre::IdString();
+
+					// For the MyGUI pass
+					targetDef->addPass( Ogre::PASS_CUSTOM, MyGUI::OgreCompositorPassProvider::mPassId  );
+				}
+			}
+		}
+		Ogre::CompositorWorkspaceDef *workDef = pCompositorManager->addWorkspaceDefinition( workspaceName );
+		workDef->connectOutput( nodeDef->getName(), 0 );
+
+		pCompositorManager->addWorkspace(mSceneManager, mWindow, mCamera, workspaceNameHash, true);
+
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise(mResourceFileName);
 	}
@@ -482,10 +527,11 @@ namespace base
 
 		try
 		{
-			const Ogre::RenderTarget::FrameStats& stats = mWindow->getStatistics();
-			result["FPS"] = MyGUI::utility::toString(stats.lastFPS);
-			result["triangle"] = MyGUI::utility::toString(stats.triangleCount);
-			result["batch"] = MyGUI::utility::toString(stats.batchCount);
+			const Ogre::FrameStats* stats = mRoot->getFrameStats();
+			result["FPS"] = MyGUI::utility::toString(stats->getFps());
+			const Ogre::RenderTarget::FrameStats rtStats = mWindow->getStatistics();
+			result["triangle"] = MyGUI::utility::toString(rtStats.triangleCount);
+			result["batch"] = MyGUI::utility::toString(rtStats.batchCount);
 			result["batch gui"] = MyGUI::utility::toString(MyGUI::OgreRenderManager::getInstance().getBatchCount());
 		}
 		catch (...)
