@@ -27,37 +27,39 @@ namespace MyGUI
 		ILayer() { }
 		virtual ~ILayer() { }
 
-		// имя леера
 		const std::string& getName() const
 		{
 			return mName;
 		}
 
-		// создаем дочерний нод
+		void setName(const std::string& _name)
+		{
+			mName = _name;
+		}
+
 		virtual ILayerNode* createChildItemNode() = 0;
-		// удаляем дочерний нод
 		virtual void destroyChildItemNode(ILayerNode* _node) = 0;
 
-		// поднимаем дочерний нод
+		// up child item (make it draw and pick above other)
 		virtual void upChildItemNode(ILayerNode* _node) = 0;
 
-		// список детей
+		// child items list
 		virtual EnumeratorILayerNode getEnumerator() const = 0;
 
 		virtual size_t getLayerNodeCount() const = 0;
 
 		virtual ILayerNode* getLayerNodeAt(size_t _index) const = 0;
 
-		// возвращает виджет по позиции
+		// return widget at position
 		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) const = 0;
 
-		// возвращает позицию в координатах леера
+		// return position in layer coordinates
 		virtual IntPoint getPosition(int _left, int _top) const = 0;
 
-		// возвращает размер леера
+		// return layer size
 		virtual const IntSize& getSize() const = 0;
 
-		// рисует леер
+		// render layer
 		virtual void renderToTarget(IRenderTarget* _target, bool _update) = 0;
 
 		virtual void resizeView(const IntSize& _viewSize) = 0;

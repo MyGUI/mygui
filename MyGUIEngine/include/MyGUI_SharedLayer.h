@@ -26,29 +26,31 @@ namespace MyGUI
 
 		virtual void deserialization(xml::ElementPtr _node, Version _version);
 
-		// создаем дочерний нод
+		void setPick(bool _pick);
+
 		virtual ILayerNode* createChildItemNode();
-		// удаляем дочерний нод
 		virtual void destroyChildItemNode(ILayerNode* _node);
 
-		// поднимаем дочерний нод
+		// up child item (make it draw and pick above other)
 		virtual void upChildItemNode(ILayerNode* _node);
 
-		// список детей
+		// child items list
 		virtual EnumeratorILayerNode getEnumerator() const;
 
 		virtual size_t getLayerNodeCount() const;
 
 		virtual ILayerNode* getLayerNodeAt(size_t _index) const;
 
-		// возвращает виджет по позиции
+		// return widget at position
 		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) const;
 
+		// return position in layer coordinates
 		virtual IntPoint getPosition(int _left, int _top) const;
 
+		// return layer size
 		virtual const IntSize& getSize() const;
 
-		// рисует леер
+		// render layer
 		virtual void renderToTarget(IRenderTarget* _target, bool _update);
 
 		virtual void resizeView(const IntSize& _viewSize);

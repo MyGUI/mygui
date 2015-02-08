@@ -36,17 +36,22 @@ namespace MyGUI
 				const std::string& key = propert->findAttribute("key");
 				const std::string& value = propert->findAttribute("value");
 				if (key == "Pick")
-					mIsPick = utility::parseValue<bool>(value);
+					setPick(utility::parseValue<bool>(value));
 			}
 		}
 		else if (_version >= Version(1, 0))
 		{
-			mIsPick = utility::parseBool(_node->findAttribute("pick"));
+			setPick(utility::parseBool(_node->findAttribute("pick")));
 		}
 		else
 		{
-			mIsPick = utility::parseBool(_node->findAttribute("peek"));
+			setPick(utility::parseBool(_node->findAttribute("peek")));
 		}
+	}
+
+	void OverlappedLayer::setPick(bool _pick)
+	{
+		mIsPick = _pick;
 	}
 
 	ILayerNode* OverlappedLayer::createChildItemNode()

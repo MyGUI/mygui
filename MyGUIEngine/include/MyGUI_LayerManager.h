@@ -54,6 +54,13 @@ namespace MyGUI
 		/** Get layer nodes Enumerator */
 		EnumeratorLayer getEnumerator() const;
 
+		/** Create new layer;
+			@param _name Layer name
+			@param _type Could be OverlappedLayer, SharedLayer or any custom registered layer type.
+			@param _index New layer will be placed before old layer with given index.
+		*/
+		ILayer* createLayerAt(const std::string& _name, const std::string& _type, size_t _index);
+
 		/** Get layer by name */
 		ILayer* getByName(const std::string& _name, bool _throw = true) const;
 
@@ -74,6 +81,8 @@ namespace MyGUI
 	private:
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 		void _unlinkWidget(Widget* _widget);
+
+		ILayer* _createLayerObject(const std::string& _type);
 
 		void clear();
 
