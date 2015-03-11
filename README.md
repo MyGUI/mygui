@@ -8,3 +8,5 @@ MyGUI is a cross-platform library for creating graphical user interfaces (GUIs) 
 
 * There you can find basic information about how to build MyGUI:
 	http://www.ogre3d.org/tikiwiki/MyGUI+Compiling
+
+* Note: support for Ogre3D 2.0 is currently in beta state and available in a separate [branch](https://github.com/MyGUI/mygui/tree/ogre2).
