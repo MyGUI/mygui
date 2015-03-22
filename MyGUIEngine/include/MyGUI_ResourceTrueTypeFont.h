@@ -20,7 +20,8 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT ResourceTrueTypeFont :
-		public IFont
+		public IFont,
+		public ITextureInvalidateListener
 	{
 		MYGUI_RTTI_DERIVED( ResourceTrueTypeFont )
 
@@ -38,6 +39,9 @@ namespace MyGUI
 
 		// получившаяся высота при генерации в пикселях
 		virtual int getDefaultHeight();
+
+		// update texture after render device lost event
+		virtual void textureInvalidate(ITexture* _texture);
 
 		// Returns a collection of code-point ranges that are supported by this font. Each range is specified as [first, second];
 		// for example, a range containing a single code point will have the same value for both first and second.

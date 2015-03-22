@@ -20,6 +20,7 @@ namespace MyGUI
 	{
 	public:
 		virtual ~ITextureInvalidateListener() { }
+		// update texture after render device lost event
 		virtual void textureInvalidate(ITexture* _texture) = 0;
 	};
 
