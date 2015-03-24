@@ -9,6 +9,7 @@
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_SubWidgetManager.h"
+#include "MyGUI_Gui.h"
 
 namespace MyGUI
 {
@@ -29,6 +30,7 @@ namespace MyGUI
 
 	void ResourceSkin::deserialization(xml::ElementPtr _node, Version _version)
 	{
+		float scaleFactor = Gui::getInstance().getScaleFactor();
 		Base::deserialization(_node, _version);
 
 		std::string stateCategory = SubWidgetManager::getInstance().getStateCategoryName();
@@ -38,7 +40,7 @@ namespace MyGUI
 		IntSize size;
 		_node->findAttribute("name", name);
 		_node->findAttribute("texture", texture);
-		if (_node->findAttribute("size", tmp)) size = IntSize::parse(tmp);
+		if (_node->findAttribute("size", tmp)) size = IntSize::parse(tmp) * scaleFactor;
 
 		LanguageManager& localizator = LanguageManager::getInstance();
 
@@ -85,8 +87,8 @@ namespace MyGUI
 					basis->findAttribute("type"),
 					WidgetStyle::parse(basis->findAttribute("style")),
 					basis->findAttribute("skin"),
-					IntCoord::parse(basis->findAttribute("offset")),
-					Align::parse(basis->findAttribute("align")),
+					IntCoord::parse(localizator.replaceTags(basis->findAttribute("offset"))) * scaleFactor,
+					Align::parse(localizator.replaceTags(basis->findAttribute("align"))),
 					basis->findAttribute("layer"),
 					basis->findAttribute("name"));
 
@@ -105,7 +107,7 @@ namespace MyGUI
 				Align align = Align::Default;
 				basis->findAttribute("type", basisSkinType);
 				if (basis->findAttribute("offset", tmp_str))
-					offset = IntCoord::parse(tmp_str);
+					offset = IntCoord::parse(localizator.replaceTags(tmp_str)) * scaleFactor;
 				if (basis->findAttribute("align", tmp_str))
 					align = Align::parse(tmp_str);
 

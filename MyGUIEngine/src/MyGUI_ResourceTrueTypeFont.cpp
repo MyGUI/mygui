@@ -10,6 +10,7 @@
 #include "MyGUI_DataStreamHolder.h"
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_Bitwise.h"
+#include "MyGUI_Gui.h"
 
 #ifdef MYGUI_USE_FREETYPE
 
@@ -289,6 +290,8 @@ namespace MyGUI
 
 	void ResourceTrueTypeFont::deserialization(xml::ElementPtr _node, Version _version)
 	{
+		float scaleFactor = Gui::getInstance().getScaleFactor();
+
 		Base::deserialization(_node, _version);
 
 		xml::ElementEnumerator node = _node->getElementEnumerator();
@@ -301,15 +304,15 @@ namespace MyGUI
 				if (key == "Source")
 					setSource(value);
 				else if (key == "Size")
-					setSize(utility::parseFloat(value));
+					setSize(utility::parseFloat(value) * scaleFactor);
 				else if (key == "Resolution")
 					setResolution(utility::parseUInt(value));
 				else if (key == "Antialias")
 					setAntialias(utility::parseBool(value));
 				else if (key == "TabWidth")
-					setTabWidth(utility::parseFloat(value));
+					setTabWidth(utility::parseFloat(value) * scaleFactor);
 				else if (key == "OffsetHeight")
-					setOffsetHeight(utility::parseInt(value));
+					setOffsetHeight(utility::parseInt(value) * scaleFactor);
 				else if (key == "SubstituteCode")
 					setSubstituteCode(utility::parseInt(value));
 				else if (key == "Distance")
@@ -318,7 +321,7 @@ namespace MyGUI
 					setHinting(value);
 				else if (key == "SpaceWidth")
 				{
-					mSpaceWidth = utility::parseFloat(value);
+					mSpaceWidth = utility::parseFloat(value) * scaleFactor;
 					MYGUI_LOG(Warning, _node->findAttribute("type") << ": Property '" << key << "' in font '" << _node->findAttribute("name") << "' is deprecated; remove it to use automatic calculation.");
 				}
 				else if (key == "CursorWidth")

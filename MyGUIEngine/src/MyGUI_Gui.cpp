@@ -51,7 +51,8 @@ namespace MyGUI
 		mResourceManager(nullptr),
 		mFactoryManager(nullptr),
 		mToolTipManager(nullptr),
-		mIsInitialise(false)
+		mIsInitialise(false),
+		mScaleFactor(1.0f)
 	{
 	}
 

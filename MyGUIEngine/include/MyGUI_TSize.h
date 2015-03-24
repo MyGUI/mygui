@@ -52,6 +52,13 @@ namespace MyGUI
 				return *this;
 			}
 
+			TSize& operator *= (float const& _scale)
+			{
+				width *= _scale;
+				height *= _scale;
+				return *this;
+			}
+
 			TSize operator - (TSize const& _obj) const
 			{
 				return TSize(width - _obj.width, height - _obj.height);
@@ -60,6 +67,11 @@ namespace MyGUI
 			TSize operator + (TSize const& _obj) const
 			{
 				return TSize(width + _obj.width, height + _obj.height);
+			}
+
+			TSize operator * (float const& _scale) const
+			{
+				return TSize(width * _scale, height * _scale);
 			}
 
 			TSize& operator = (TSize const& _obj)

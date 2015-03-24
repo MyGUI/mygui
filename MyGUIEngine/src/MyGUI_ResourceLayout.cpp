@@ -57,7 +57,7 @@ namespace MyGUI
 		IntCoord coord;
 		if (_widget->findAttribute("position", tmp))
 		{
-			widgetInfo.intCoord = IntCoord::parse(tmp);
+			widgetInfo.intCoord = IntCoord::parse(tmp) * Gui::getInstance().getScaleFactor();
 			widgetInfo.positionType = WidgetInfo::Pixels;
 		}
 		else if (_widget->findAttribute("position_real", tmp))

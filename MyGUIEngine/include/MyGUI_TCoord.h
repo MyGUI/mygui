@@ -74,6 +74,15 @@ namespace MyGUI
 				return *this;
 			}
 
+			TCoord& operator *= (float const& _scale)
+			{
+				left *= _scale;
+				top *= _scale;
+				width *= _scale;
+				height *= _scale;
+				return *this;
+			}
+
 			TCoord operator - (TCoord const& _obj) const
 			{
 				return TCoord(left - _obj.left, top - _obj.top, width - _obj.width, height - _obj.height);
@@ -102,6 +111,11 @@ namespace MyGUI
 			TCoord operator + (TSize<T> const& _obj) const
 			{
 				return TCoord(left, top, width + _obj.width, height + _obj.height);
+			}
+
+			TCoord operator * (float const& _scale) const
+			{
+				return TCoord(left * _scale, top * _scale, width * _scale, height * _scale);
 			}
 
 			TCoord& operator = (TCoord const& _obj)
