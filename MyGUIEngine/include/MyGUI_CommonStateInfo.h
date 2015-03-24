@@ -22,11 +22,21 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( SubSkinStateInfo )
 
 	public:
+		SubSkinStateInfo() : 
+			mColour(Colour::White)
+		{
+		}
+
 		virtual ~SubSkinStateInfo() { }
 
 		const FloatRect& getRect() const
 		{
 			return mRect;
+		}
+
+		const Colour& getColour() const
+		{
+			return mColour;
 		}
 
 	private:
@@ -43,10 +53,22 @@ namespace MyGUI
 			const IntSize& size = texture_utility::getTextureSize(texture);
 			const IntCoord& coord = IntCoord::parse(_node->findAttribute("offset"));
 			mRect = CoordConverter::convertTextureCoord(coord, size);
+
+			std::string colour;
+			if(_node->findAttribute("colour", colour))
+			{
+				if (_version >= Version(1, 1))
+				{
+					colour = LanguageManager::getInstance().replaceTags(colour);
+				}
+
+				mColour = Colour::parse(colour);
+			}
 		}
 
 	private:
 		FloatRect mRect;
+		Colour mColour;
 	};
 
 	class MYGUI_EXPORT TileRectStateInfo :

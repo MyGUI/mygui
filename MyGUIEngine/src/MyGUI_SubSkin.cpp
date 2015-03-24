@@ -270,7 +270,9 @@ namespace MyGUI
 
 	void SubSkin::setStateData(IStateInfo* _data)
 	{
-		_setUVSet(_data->castType<SubSkinStateInfo>()->getRect());
+		SubSkinStateInfo* skinInfo = _data->castType<SubSkinStateInfo>();
+		_setUVSet(skinInfo->getRect());
+		_setColour(skinInfo->getColour());
 	}
 
 } // namespace MyGUI
