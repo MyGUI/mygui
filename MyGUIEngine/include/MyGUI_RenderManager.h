@@ -34,6 +34,8 @@ namespace MyGUI
 		virtual ITexture* createTexture(const std::string& _name) = 0;
 		/** Destroy texture */
 		virtual void destroyTexture(ITexture* _texture) = 0;
+		/** Destroy texture by name if it exists*/
+		virtual void destroyTexture(const std::string& _name) = 0;
 		/** Get texture by name */
 		virtual ITexture* getTexture(const std::string& _name) = 0;
 

@@ -291,6 +291,18 @@ namespace MyGUI
 		delete _texture;
 	}
 
+	void OgreRenderManager::destroyTexture(const std::string& _name)
+	{
+		MapTexture::iterator item = mTextures.find(_name);
+
+		if (item != mTextures.end())
+		{
+			ITexture* texture = item->second;
+			mTextures.erase(item);
+			delete texture;
+		}
+	}
+
 	ITexture* OgreRenderManager::getTexture(const std::string& _name)
 	{
 		MapTexture::const_iterator item = mTextures.find(_name);

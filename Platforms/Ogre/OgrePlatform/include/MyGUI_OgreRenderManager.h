@@ -48,6 +48,8 @@ namespace MyGUI
 		virtual ITexture* createTexture(const std::string& _name);
 		/** @see RenderManager::destroyTexture */
 		virtual void destroyTexture(ITexture* _texture);
+		/** @see RenderManager::destroyTexture */
+		virtual void destroyTexture(const std::string& _name);
 		/** @see RenderManager::getTexture */
 		virtual ITexture* getTexture(const std::string& _name);
 
