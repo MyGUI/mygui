@@ -83,11 +83,38 @@ namespace MyGUI
 			}
 			else if (basis->getName() == "Child")
 			{
+				IntCoord childCoord;
+				if(basis->findAttribute("offset", tmp))
+				{
+					childCoord = IntCoord::parse(localizator.replaceTags(tmp)) * scaleFactor;
+				}
+				else if(basis->findAttribute("coord", tmp))
+				{
+					//Convert from (left, top, right, bottom) to (left, top, width, height)
+					childCoord = IntCoord::parse(localizator.replaceTags(tmp)) * scaleFactor;
+					if(childCoord.width < 0)
+					{
+						childCoord.width = size.width + childCoord.width - childCoord.left;
+					}
+					else
+					{
+						childCoord.width = childCoord.width - childCoord.left;
+					}
+					if(childCoord.height < 0)
+					{
+						childCoord.height = size.height + childCoord.height - childCoord.top;
+					}
+					else
+					{
+						childCoord.height = childCoord.height - childCoord.top;
+					}
+				}
+
 				ChildSkinInfo child(
 					basis->findAttribute("type"),
 					WidgetStyle::parse(basis->findAttribute("style")),
 					basis->findAttribute("skin"),
-					IntCoord::parse(localizator.replaceTags(basis->findAttribute("offset"))) * scaleFactor,
+					childCoord,
 					Align::parse(localizator.replaceTags(basis->findAttribute("align"))),
 					basis->findAttribute("layer"),
 					basis->findAttribute("name"));
