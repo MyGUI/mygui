@@ -296,6 +296,97 @@ namespace MyGUI
 				addInfo(right);
 				addInfo(bottom);
 			}
+			else if (basis->getName() == "BorderBottom" ||
+					 basis->getName() == "BorderTop" ||
+					 basis->getName() == "BorderLeft" ||
+					 basis->getName() == "BorderRight")
+			{
+				std::string tmp_str;
+				int borderWidth = 1;
+				if (basis->findAttribute("width", tmp_str))
+				{
+					borderWidth = utility::parseInt(tmp_str);
+				}
+				borderWidth *= scaleFactor;
+				if (borderWidth < 1)
+				{
+					borderWidth = 1;
+				}
+
+				IntCoord offset;
+				Align align;
+				std::string basisSkinType = "SubSkin";
+
+				if (basis->getName() == "BorderTop") //Top
+				{
+					offset.set(0, 0, size.width, borderWidth);
+					align = Align::HStretch | Align::Top;
+				}
+				else if (basis->getName() == "BorderLeft") //Left
+				{
+					offset.set(0, 0, borderWidth, size.height);
+					align = Align::Left | Align::VStretch;
+				}
+				else if (basis->getName() == "BorderRight") //Right
+				{
+					offset.set(size.width - borderWidth, 0, borderWidth, size.height);
+					align = Align::Right | Align::VStretch;
+				}
+				else if (basis->getName() == "BorderBottom") //Bottom
+				{
+					offset.set(0, size.height - borderWidth, size.width, borderWidth);
+					align = Align::HStretch | Align::Bottom;
+				}
+
+				bind.create(offset, align, basisSkinType);
+
+				xml::ElementEnumerator state = basis->getElementEnumerator();
+				while (state.next())
+				{
+					if (state->getName() == "State")
+					{
+						// парсим атрибуты стейта
+						std::string basisStateName;
+						state->findAttribute("name", basisStateName);
+
+						IStateInfo* topData = nullptr;
+						IObject* object = FactoryManager::getInstance().createObject(stateCategory, basisSkinType);
+						if (object != nullptr)
+						{
+							topData = object->castType<IStateInfo>();
+							topData->deserialization(state.current(), _version);
+						}
+
+						IStateInfo* leftData = nullptr;
+						object = FactoryManager::getInstance().createObject(stateCategory, basisSkinType);
+						if (object != nullptr)
+						{
+							leftData = object->castType<IStateInfo>();
+							leftData->deserialization(state.current(), _version);
+						}
+
+						IStateInfo* rightData = nullptr;
+						object = FactoryManager::getInstance().createObject(stateCategory, basisSkinType);
+						if (object != nullptr)
+						{
+							rightData = object->castType<IStateInfo>();
+							rightData->deserialization(state.current(), _version);
+						}
+
+						IStateInfo* bottomData = nullptr;
+						object = FactoryManager::getInstance().createObject(stateCategory, basisSkinType);
+						if (object != nullptr)
+						{
+							bottomData = object->castType<IStateInfo>();
+							bottomData->deserialization(state.current(), _version);
+						}
+
+						// добавляем инфо о стайте
+						bind.add(basisStateName, topData, name);
+					}
+				}
+				addInfo(bind);
+			}
 		}
 	}
 
