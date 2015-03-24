@@ -1327,6 +1327,19 @@ namespace MyGUI
 		_setAlign(_oldView, _newView);
 	}
 
+	bool Widget::onSendScrollGesture(const int& absx, const int& absy, const int& deltax, const int& deltay)
+	{
+		if(mParent != NULL)
+		{
+			//The default just refires the event to the parent, the WidgetInput class does not know the parent, so this has to be done here.
+			return mParent->_sendScrollGesture(absx, absy, deltax, deltay);
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	Widget* Widget::findWidgetChildSkin(const std::string& _name)
 	{
 		Widget* result;
