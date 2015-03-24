@@ -151,7 +151,7 @@ namespace MyGUI
 			if (nullptr != mWidgetSecondPart)
 			{
 				int top = pos + mWidgetTrack->getHeight();
-				int height = mWidgetSecondPart->getHeight() + mWidgetSecondPart->getTop() - top;
+				int height = getTrackPlaceLength() - top;
 				mWidgetSecondPart->setCoord(mWidgetSecondPart->getLeft(), top, mWidgetSecondPart->getWidth(), height);
 			}
 		}
@@ -183,7 +183,7 @@ namespace MyGUI
 			if (nullptr != mWidgetSecondPart)
 			{
 				int top = pos + mWidgetTrack->getWidth();
-				int height = mWidgetSecondPart->getWidth() + mWidgetSecondPart->getLeft() - top;
+				int height = getTrackPlaceLength() - top;
 				mWidgetSecondPart->setCoord(top, mWidgetSecondPart->getTop(), height, mWidgetSecondPart->getHeight());
 			}
 		}
