@@ -131,6 +131,9 @@ namespace MyGUI
 		bool mIsInitialise;
 		bool mManualRender;
 		size_t mCountBatch;
+
+		Ogre::HighLevelGpuProgramPtr vertProg;
+		Ogre::HighLevelGpuProgramPtr fragProg;
 	};
 
 } // namespace MyGUI

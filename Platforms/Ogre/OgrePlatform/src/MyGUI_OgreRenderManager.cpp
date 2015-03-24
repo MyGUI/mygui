@@ -68,6 +68,11 @@ namespace MyGUI
 		setRenderWindow(_window);
 		setSceneManager(_scene);
 
+		vertProg = Ogre::HighLevelGpuProgramManager::getSingletonPtr()->getByName("MyGUITextureVS");
+		vertProg->load();
+		fragProg = Ogre::HighLevelGpuProgramManager::getSingletonPtr()->getByName("MyGUITexturePS");
+		fragProg->load();
+
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
@@ -329,8 +334,10 @@ namespace MyGUI
 		mRenderSystem->_setCullingMode(Ogre::CULL_NONE);
 		mRenderSystem->_setFog(Ogre::FOG_NONE);
 		mRenderSystem->_setColourBufferWriteEnabled(true, true, true, true);
-		mRenderSystem->unbindGpuProgram(Ogre::GPT_FRAGMENT_PROGRAM);
-		mRenderSystem->unbindGpuProgram(Ogre::GPT_VERTEX_PROGRAM);
+		//mRenderSystem->unbindGpuProgram(Ogre::GPT_FRAGMENT_PROGRAM);
+		//mRenderSystem->unbindGpuProgram(Ogre::GPT_VERTEX_PROGRAM);
+		mRenderSystem->bindGpuProgram(vertProg->_getBindingDelegate());
+		mRenderSystem->bindGpuProgram(fragProg->_getBindingDelegate());
 		mRenderSystem->setShadingType(Ogre::SO_GOURAUD);
 
 		// initialise texture settings
