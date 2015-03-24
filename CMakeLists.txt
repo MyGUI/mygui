@@ -76,8 +76,12 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 endif (CMAKE_COMPILER_IS_GNUCXX)
 
 # determine system endianess
-include(TestBigEndian)
-test_big_endian(MYGUI_TEST_BIG_ENDIAN)
+IF(ANDROID)
+	set(MYGUI_TEST_BIG_ENDIAN FALSE)
+ELSE()
+	include(TestBigEndian)
+	test_big_endian(MYGUI_TEST_BIG_ENDIAN)
+ENDIF()
 
 # Add MyGUIEngine include path
 
