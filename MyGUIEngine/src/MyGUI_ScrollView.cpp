@@ -241,7 +241,7 @@ namespace MyGUI
 
 		/// @wproperty{ScrollView, CanvasSize, int int} Размер содержимого.
 		else if (_key == "CanvasSize")
-			setCanvasSize(utility::parseValue<IntSize>(_value) * Gui::getInstance().getScaleFactor());
+			setCanvasSize(Gui::getInstance().scalePreserve(utility::parseValue<IntSize>(_value)));
 
 		else
 		{

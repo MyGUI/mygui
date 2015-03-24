@@ -57,7 +57,7 @@ namespace MyGUI
 		IntCoord coord;
 		if (_widget->findAttribute("position", tmp))
 		{
-			widgetInfo.intCoord = IntCoord::parse(tmp) * Gui::getInstance().getScaleFactor();
+			widgetInfo.intCoord = Gui::getInstance().scalePreserve(IntCoord::parse(tmp));
 			widgetInfo.positionType = WidgetInfo::Pixels;
 		}
 		else if (_widget->findAttribute("position_real", tmp))
@@ -67,7 +67,7 @@ namespace MyGUI
 		}
 		else if (_widget->findAttribute("position_derived", tmp))
 		{
-			widgetInfo.intCoord = IntCoord::parse(tmp) * Gui::getInstance().getScaleFactor();
+			widgetInfo.intCoord = Gui::getInstance().scalePreserve(IntCoord::parse(tmp));
 			widgetInfo.positionType = WidgetInfo::Derived;
 		}
 

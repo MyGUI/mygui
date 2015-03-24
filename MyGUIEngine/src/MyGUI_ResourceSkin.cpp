@@ -31,7 +31,8 @@ namespace MyGUI
 
 	void ResourceSkin::deserialization(xml::ElementPtr _node, Version _version)
 	{
-		float scaleFactor = Gui::getInstance().getScaleFactor();
+		Gui* gui = Gui::getInstancePtr();
+		float scaleFactor = gui->getScaleFactor();
 		Base::deserialization(_node, _version);
 
 		std::string stateCategory = SubWidgetManager::getInstance().getStateCategoryName();
@@ -41,7 +42,7 @@ namespace MyGUI
 		IntSize size;
 		_node->findAttribute("name", name);
 		_node->findAttribute("texture", texture);
-		if (_node->findAttribute("size", tmp)) size = IntSize::parse(tmp) * scaleFactor;
+		if (_node->findAttribute("size", tmp)) size = gui->scalePreserve(IntSize::parse(tmp));
 
 		LanguageManager& localizator = LanguageManager::getInstance();
 
@@ -87,11 +88,12 @@ namespace MyGUI
 				IntCoord childCoord;
 				if(basis->findAttribute("offset", tmp))
 				{
-					childCoord = IntCoord::parse(localizator.replaceTags(tmp)) * scaleFactor;
+					childCoord = gui->scalePreserve(IntCoord::parse(localizator.replaceTags(tmp)));
 				}
 				else if(basis->findAttribute("offset_derived", tmp))
 				{
-					childCoord = CoordConverter::deriveCoord(IntCoord::parse(localizator.replaceTags(tmp)) * scaleFactor, size);
+					childCoord = gui->scalePreserve(IntCoord::parse(localizator.replaceTags(tmp)));
+					childCoord = CoordConverter::deriveCoord(childCoord, size);
 				}
 
 				ChildSkinInfo child(
@@ -118,7 +120,7 @@ namespace MyGUI
 				Align align = Align::Default;
 				basis->findAttribute("type", basisSkinType);
 				if (basis->findAttribute("offset", tmp_str))
-					offset = IntCoord::parse(localizator.replaceTags(tmp_str)) * scaleFactor;
+					offset = gui->scalePreserve(IntCoord::parse(localizator.replaceTags(tmp_str)));
 				if (basis->findAttribute("align", tmp_str))
 					align = Align::parse(tmp_str);
 
