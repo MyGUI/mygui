@@ -1,7 +1,7 @@
-/*!
-	@file
-	@author		Albert Semenov
-	@date		08/2008
+﻿/*!
+@file
+@author		Albert Semenov
+@date		08/2008
 */
 
 #include "Precompiled.h"
@@ -31,7 +31,7 @@ namespace base
 		assert(mainBundle);
 		CFURLRef mainBundleURL = CFBundleCopyBundleURL(mainBundle);
 		assert(mainBundleURL);
-		CFStringRef cfStringRef = CFURLCopyFileSystemPath( mainBundleURL, kCFURLPOSIXPathStyle);
+		CFStringRef cfStringRef = CFURLCopyFileSystemPath(mainBundleURL, kCFURLPOSIXPathStyle);
 		assert(cfStringRef);
 		CFStringGetCString(cfStringRef, path, 1024, kCFStringEncodingASCII);
 		CFRelease(mainBundleURL);
@@ -52,11 +52,11 @@ namespace base
 		mResourceXMLName("resources.xml"),
 		mResourceFileName("MyGUI_Core.xml")
 	{
-		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-			mResourcePath = macBundlePath() + "/Contents/Resources/";
-		#else
-			mResourcePath = "";
-		#endif
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
+		mResourcePath = macBundlePath() + "/Contents/Resources/";
+#else
+		mResourcePath = "";
+#endif
 	}
 
 	BaseManager::~BaseManager()
@@ -67,9 +67,9 @@ namespace base
 	{
 		Ogre::String pluginsPath;
 
-		#ifndef OGRE_STATIC_LIB
-			pluginsPath = mResourcePath + mPluginCfgName;
-		#endif
+#ifndef OGRE_STATIC_LIB
+		pluginsPath = mResourcePath + mPluginCfgName;
+#endif
 
 		mRoot = new Ogre::Root(pluginsPath, mResourcePath + "ogre.cfg", mResourcePath + "Ogre.log");
 
@@ -88,7 +88,7 @@ namespace base
 		// вытаскиваем дискриптор окна
 		size_t handle = getWindowHandle();
 
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		char buf[MAX_PATH];
 		::GetModuleFileNameA(0, (LPCH)&buf, MAX_PATH);
 		HINSTANCE instance = ::GetModuleHandleA(buf);
@@ -98,9 +98,10 @@ namespace base
 			::SendMessageA((HWND)handle, WM_SETICON, 0, (LPARAM)hIconSmall);
 		if (hIconBig)
 			::SendMessageA((HWND)handle, WM_SETICON, 1, (LPARAM)hIconBig);
-	#endif
+#endif
 
 		mSceneManager = mRoot->createSceneManager(Ogre::ST_GENERIC, "BaseSceneManager");
+		mSceneManager->addListener(this);
 
 		mCamera = mSceneManager->createCamera("BaseCamera");
 		mCamera->setNearClipDistance(5);
@@ -111,6 +112,9 @@ namespace base
 		Ogre::Viewport* vp = mWindow->addViewport(mCamera);
 		// Alter the camera aspect ratio to match the viewport
 		mCamera->setAspectRatio((float)vp->getActualWidth() / (float)vp->getActualHeight());
+		vp->setBackgroundColour(Ogre::ColourValue(1.0f, 0.0f, 1.0f, 0.0f));
+		vp->setClearEveryFrame(false);
+		vp->clear();
 
 		// Set default mipmap level (NB some APIs ignore this)
 		Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
@@ -161,7 +165,7 @@ namespace base
 			if (!mRoot->renderOneFrame())
 				break;
 
-// выставляем слип, чтобы другие потоки не стопорились
+			// выставляем слип, чтобы другие потоки не стопорились
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 			::Sleep(0);
 #endif
@@ -207,7 +211,7 @@ namespace base
 	void BaseManager::createGui()
 	{
 		mPlatform = new MyGUI::OgrePlatform();
-		mPlatform->initialise(mWindow, mSceneManager);
+		mPlatform->initialise(mWindow->getWidth(), mWindow->getHeight());
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise(mResourceFileName);
 	}
@@ -255,7 +259,21 @@ namespace base
 			}
 		}
 
-		addResourceLocation(getRootMedia() + "/Common/Base");
+		addResourceLocation(getRootMedia() + "/Common/Base", true);
+	}
+
+	void BaseManager::preFindVisibleObjects(Ogre::SceneManager* source, Ogre::SceneManager::IlluminationRenderStage irs, Ogre::Viewport* v)
+	{
+		static Ogre::Timer timer;
+		static unsigned long last_time = timer.getMilliseconds();
+		unsigned long now_time = timer.getMilliseconds();
+		unsigned long time = now_time - last_time;
+
+		mPlatform->getRenderManagerPtr()->manualFrameEvent((float)((double)(time) / (double)1000));
+
+		last_time = now_time;
+
+		mPlatform->getRenderManagerPtr()->update();
 	}
 
 	bool BaseManager::frameStarted(const Ogre::FrameEvent& evt)
@@ -287,6 +305,8 @@ namespace base
 			mCamera->setAspectRatio((float)width / (float)height);
 
 			setInputViewSize(width, height);
+
+			mPlatform->getRenderManagerPtr()->windowResized(width, height);
 		}
 	}
 
@@ -305,9 +325,9 @@ namespace base
 
 	void BaseManager::setWindowCaption(const std::wstring& _text)
 	{
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		::SetWindowTextW((HWND)getWindowHandle(), _text.c_str());
-	#elif MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
+#elif MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
 		Display* xDisplay = nullptr;
 		unsigned long windowHandle = 0;
 		mWindow->getCustomAttribute("XDISPLAY", &xDisplay);
@@ -315,12 +335,12 @@ namespace base
 		Window win = (Window)windowHandle;
 
 		XTextProperty windowName;
-		windowName.value    = (unsigned char *)(MyGUI::UString(_text).asUTF8_c_str());
+		windowName.value = (unsigned char *)(MyGUI::UString(_text).asUTF8_c_str());
 		windowName.encoding = XA_STRING;
-		windowName.format   = 8;
-		windowName.nitems   = strlen((char *)(windowName.value));
+		windowName.format = 8;
+		windowName.nitems = strlen((char *)(windowName.value));
 		XSetWMName(xDisplay, win, &windowName);
-	#endif
+#endif
 	}
 
 	void BaseManager::prepare()
@@ -329,12 +349,12 @@ namespace base
 
 	void BaseManager::addResourceLocation(const std::string& _name, const std::string& _group, const std::string& _type, bool _recursive)
 	{
-		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-			// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
-			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + _name), _type, _group, _recursive);
-		#else
-			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_name, _type, _group, _recursive);
-		#endif
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
+		// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + _name), _type, _group, _recursive);
+#else
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_name, _type, _group, _recursive);
+#endif
 	}
 
 	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)
@@ -471,8 +491,7 @@ namespace base
 			}
 			file = MyGUI::utility::toString("screenshot_", ++num, ".png");
 			stream.open(file.c_str());
-		}
-		while (stream.is_open());
+		} while (stream.is_open());
 		mWindow->writeContentsToFile(file);
 	}
 

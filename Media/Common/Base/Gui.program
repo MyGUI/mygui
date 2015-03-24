@@ -1,0 +1,48 @@
+//-------------------------------------
+//Vertex Programs
+//-------------------------------------
+vertex_program MyGUITextureVS_D3D11 hlsl
+{
+	source Gui/D3D11/TextureVS.hlsl
+	entry_point main
+	target vs_4_0
+}
+
+fragment_program MyGUITextureVS_GLSL glsl
+{
+	source Gui/glsl/TextureVS.glsl
+	profiles glsl
+}
+
+vertex_program MyGUITextureVS unified
+{
+	delegate MyGUITextureVS_D3D11
+	delegate MyGUITextureVS_GLSL
+}
+
+//----------------------------------------------------------
+//Fragment Programs
+//----------------------------------------------------------
+fragment_program MyGUITexturePS_D3D11 hlsl
+{
+	source Gui/D3D11/TexturePS.hlsl
+	entry_point main
+	target ps_4_0
+}
+
+fragment_program MyGUITexturePS_GLSL glsl
+{
+	source Gui/glsl/TexturePS.glsl
+	profiles glsl
+	
+	default_params
+	{        
+        param_named colorTexture int 0
+	}
+}
+
+fragment_program MyGUITexturePS unified
+{
+	delegate MyGUITexturePS_D3D11
+	delegate MyGUITexturePS_GLSL
+}
