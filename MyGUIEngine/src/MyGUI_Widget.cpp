@@ -1327,4 +1327,20 @@ namespace MyGUI
 		_setAlign(_oldView, _newView);
 	}
 
+	Widget* Widget::findWidgetChildSkin(const std::string& _name)
+	{
+		Widget* result;
+
+		for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
+		{
+			result = (*iter)->findWidget(_name);
+			if (result != NULL)
+			{
+				return result;
+			}
+		}
+
+		return NULL;
+	}
+
 } // namespace MyGUI

@@ -289,6 +289,28 @@ namespace MyGUI
 
 		bool _setWidgetState(const std::string& _value);
 
+		//Added Functions
+		virtual bool onSendScrollGesture(const int& absx, const int& absy, const int& deltax, const int& deltay);
+
+		/** Get the WidgetChildSkin count */
+		size_t getWidgetChildSkinCount();
+
+		/** Get the WidgetChildSkin at the given index */
+		Widget* getWidgetChildSkinAt(size_t _index);
+
+		/** Find the child widget with the given name */
+		Widget* findWidgetChildSkin(const std::string& _name);
+
+		void setForwardMouseWheelToParent(bool value) { forwardMouseWheelToParent = value; }
+
+		bool getForwardMouseWheelToParent() { return forwardMouseWheelToParent; }
+
+		//Destructor callback to delete wrapper objects
+		void _setDestructorCallback(WidgetDestructorCallback destructorCallback)
+		{
+			this->destructorCallback = destructorCallback;
+		}
+
 	protected:
 		// все создание только через фабрику
 		virtual ~Widget();
