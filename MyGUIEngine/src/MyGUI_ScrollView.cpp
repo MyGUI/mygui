@@ -345,4 +345,87 @@ namespace MyGUI
 		return mVScroll;
 	}
 
+	IntPoint ScrollView::getCanvasPosition()
+	{
+		if (mRealClient != nullptr)
+		{
+			return IntPoint() - mRealClient->getPosition();
+		}
+		return IntPoint();
+	}
+
+	void ScrollView::setCanvasPosition(const IntPoint& _point)
+	{
+		if (mRealClient != nullptr)
+		{
+			if(mHScroll != nullptr)
+			{
+				mHScroll->setScrollPosition(_point.left);
+			}
+			if (mVScroll != nullptr)
+			{
+				mVScroll->setScrollPosition(_point.top);
+			}
+			IntPoint point = IntPoint() - _point;
+			mRealClient->setPosition(point);
+			onCanvasPositionChanged(point.left, point.top);
+		}
+	}
+
+	bool ScrollView::onSendScrollGesture(const int& absx, const int& absy, const int& deltax, const int& deltay)
+	{
+		IntPoint currentPosition = getCanvasPosition();
+		IntCoord coord = mRealClient->getCoord();
+		IntCoord viewCoord = getViewCoord();
+		int width = viewCoord.width;
+		int height = viewCoord.height;
+
+		bool makeChanges = false;
+
+		if (coord.height > height)
+		{
+			makeChanges = true;
+
+			currentPosition.top -= deltay;
+			coord.top += deltay;
+			int bottom = coord.top + coord.height;
+			
+			if (bottom < height)
+			{
+				currentPosition.top = coord.height - height;
+			}
+
+			if (coord.top > 0)
+			{
+				currentPosition.top = 0;
+			}
+		}
+
+		if (coord.width > width)
+		{
+			makeChanges = true;
+
+			currentPosition.left -= deltax;
+			coord.left += deltax;
+			int right = coord.left + coord.width;
+
+			if (right < width)
+			{
+				currentPosition.left = coord.width - width;
+			}
+
+			if (coord.left > 0)
+			{
+				currentPosition.left = 0;
+			}
+		}
+
+		if (makeChanges)
+		{
+			setCanvasPosition(currentPosition);
+			return true;
+		}
+		return false;
+	}
+
 } // namespace MyGUI
