@@ -54,7 +54,6 @@ namespace MyGUI
 	protected:
 		virtual void onResizeView(const IntSize& _viewSize);
 		virtual void onRenderToTarget(IRenderTarget* _target, bool _update);
-		virtual void onFrameEvent(float _time);
 	};
 
 } // namespace MyGUI

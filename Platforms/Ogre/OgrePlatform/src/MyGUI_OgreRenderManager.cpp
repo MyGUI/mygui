@@ -132,15 +132,6 @@ namespace MyGUI
 
 		mCountBatch = 0;
 
-		static Timer timer;
-		static unsigned long last_time = timer.getMilliseconds();
-		unsigned long now_time = timer.getMilliseconds();
-		unsigned long time = now_time - last_time;
-
-		onFrameEvent((float)((double)(time) / (double)1000));
-
-		last_time = now_time;
-
 		//begin();
 		setManualRender(true);
 		onRenderToTarget(this, mUpdate);

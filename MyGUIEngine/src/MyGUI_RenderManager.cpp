@@ -41,11 +41,4 @@ namespace MyGUI
 			layers->renderToTarget(_target, _update);
 	}
 
-	void RenderManager::onFrameEvent(float _time)
-	{
-		Gui* gui = Gui::getInstancePtr();
-		if (gui != nullptr)
-			gui->frameEvent(_time);
-	}
-
 } // namespace MyGUI
