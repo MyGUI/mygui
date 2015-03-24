@@ -127,6 +127,13 @@ namespace MyGUI
 		/*internal:*/
 		void _resetMouseFocusWidget();
 
+		//Added Functions
+		/**
+			Inject a scroll gesture. absx, y are the position of the gesture and deltax, y is the amount
+			the gesture has moved.
+		*/
+		bool injectScrollGesture(int absx, int absy, int deltax, int deltay);
+
 	private:
 		// удаляем данный виджет из всех возможных мест
 		void _unlinkWidget(Widget* _widget);

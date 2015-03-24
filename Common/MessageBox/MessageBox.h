@@ -224,6 +224,54 @@ namespace MyGUI
 			return mess;
 		}
 
+		/** Static method for creating message with one command
+			@param
+				_modal if true all other GUI elements will be blocked untill message is closed
+			@param
+				_style any combination of flags from ViewValueInfo
+			@param
+				_button1 ... _button4 specific buttons names
+		*/
+		static Message* createMessageBoxAltLayout(
+			const UString& _layoutName,
+			const UString& _caption,
+			const UString& _message,
+			MessageBoxStyle _style = MessageBoxStyle::Ok | MessageBoxStyle::IconDefault,
+			const std::string& _layer = "",
+			bool _modal = true,
+			const std::string& _button1 = "",
+			const std::string& _button2 = "",
+			const std::string& _button3 = "",
+			const std::string& _button4 = "")
+		{
+			Message* mess = new Message(_layoutName);
+
+			mess->setCaption(_caption);
+			mess->setMessageText(_message);
+
+			mess->setSmoothShow(true);
+
+			mess->setMessageStyle(_style);
+
+			if (!_button1.empty())
+			{
+				mess->addButtonName(_button1);
+				if (!_button2.empty())
+				{
+					mess->addButtonName(_button2);
+					if (!_button3.empty())
+					{
+						mess->addButtonName(_button3);
+					}
+				}
+			}
+
+			if (_modal)
+				InputManager::getInstance().addWidgetModal(mess->mMainWidget);
+
+			return mess;
+		}
+
 	/*events:*/
 		/** Event : button on message window pressed.\n
 			signature : void method(tools::Message* _sender, MessageBoxStyle _result)\n

@@ -20,6 +20,7 @@
 
 namespace MyGUI
 {
+	typedef void (*WidgetDestructorCallback)(MyGUI::Widget* widget);
 
 	typedef delegates::CMultiDelegate3<Widget*, const std::string&, const std::string&> EventHandle_WidgetStringString;
 
@@ -355,6 +356,10 @@ namespace MyGUI
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
+		//Added Properties
+		bool forwardMouseWheelToParent;
+		WidgetDestructorCallback destructorCallback;
+
 	private:
 		void frameEntered(float _frame);
 
@@ -418,6 +423,9 @@ namespace MyGUI
 
 		Align mAlign;
 		bool mVisible;
+
+		FloatCoord mRelativeCoord;
+		bool mDisableUpdateRelative;
 	};
 
 } // namespace MyGUI

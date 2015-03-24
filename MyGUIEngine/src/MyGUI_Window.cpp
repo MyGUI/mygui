@@ -611,4 +611,13 @@ namespace MyGUI
 		eventMouseWheel(_sender, _rel);
 	}
 
+	void Window::setActionWidgetsEnabled(bool value)
+	{
+		VectorWidgetPtr actions = getSkinWidgetsByName("Action");
+		for (VectorWidgetPtr::iterator iter = actions.begin(); iter != actions.end(); ++iter)
+		{
+			(*iter)->setVisible(value);
+		}
+	}
+
 } // namespace MyGUI

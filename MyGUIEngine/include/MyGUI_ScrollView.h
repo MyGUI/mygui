@@ -71,6 +71,28 @@ namespace MyGUI
 		/** Get view area offset. */
 		IntPoint getViewOffset() const;
 
+		//Added Functions
+		/** Get canvas position */
+		IntPoint getCanvasPosition();
+		/** Set canvas position */
+		void setCanvasPosition(const IntPoint& _point);
+
+		void setFavorVertical(bool value) { mFavorVertical = value; }
+		bool getFavorVertical() { return mFavorVertical; }
+
+		void setAllowMouseScroll(bool value) { mAllowMouseScroll = value; }
+		bool getAllowMouseScroll() { return mAllowMouseScroll; }
+
+		virtual bool onSendScrollGesture(const int& absx, const int& absy, const int& deltax, const int& deltay);
+
+		/*events*/
+		EventHandle_WidgetIntInt eventCanvasPositionChanged;
+
+		virtual void onCanvasPositionChanged(int x, int y)
+		{
+			eventCanvasPositionChanged(this, x, y);// (mWidgetEventSender, x, y);
+		}
+
 	protected:
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
@@ -86,6 +108,10 @@ namespace MyGUI
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 
 		ScrollBar* getVScroll();
+
+		//Added Properties
+		bool mFavorVertical;
+		bool mAllowMouseScroll;
 
 		int mScrollViewMouseWheel; // колличество пикселей для колеса мыши
 		int mScrollViewScrollPage; // колличество пикселей для кнопок скрола

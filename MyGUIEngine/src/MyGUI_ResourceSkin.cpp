@@ -122,7 +122,7 @@ namespace MyGUI
 				if (basis->findAttribute("offset", tmp_str))
 					offset = gui->scalePreserve(IntCoord::parse(localizator.replaceTags(tmp_str)));
 				if (basis->findAttribute("align", tmp_str))
-					align = Align::parse(tmp_str);
+					align = Align::parse(localizator.replaceTags(tmp_str));
 
 				bind.create(offset, align, basisSkinType);
 

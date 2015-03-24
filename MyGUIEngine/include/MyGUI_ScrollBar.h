@@ -56,6 +56,9 @@ namespace MyGUI
 		/** Get scroll view page */
 		size_t getScrollViewPage() const;
 
+		void setScrollIncrement(size_t _value) { mScrollIncrement = _value; }
+		size_t getScrollIncrement() { return mScrollIncrement; }
+
 		/** Get size in pixels of area where scroll moves */
 		int getLineSize() const;
 
@@ -140,6 +143,7 @@ namespace MyGUI
 		size_t mScrollPosition;
 		size_t mScrollPage; // на сколько перещелкивать, при щелчке на кнопке
 		size_t mScrollViewPage; // на сколько перещелкивать, при щелчке по полосе
+		size_t mScrollIncrement;
 
 		int mMinTrackSize;
 		bool mMoveToClick;

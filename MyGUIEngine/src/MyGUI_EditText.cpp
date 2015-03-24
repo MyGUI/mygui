@@ -41,7 +41,7 @@ namespace MyGUI
 		mEndSelect(0),
 		mCursorPosition(0),
 		mVisibleCursor(false),
-		mInvertSelect(true),
+		mInvertSelect(false),
 		mShadow(false),
 		mNode(nullptr),
 		mRenderItem(nullptr),
@@ -568,7 +568,7 @@ namespace MyGUI
 				{
 					colour = sim->getColour() | (colour & 0xFF000000);
 					inverseColour = colour ^ 0x00FFFFFF;
-					selectedColour = mInvertSelect ? inverseColour : colour | 0x00FFFFFF;
+					selectedColour = mInvertSelect ? inverseColour : mSelectionBgColor;
 					continue;
 				}
 
@@ -807,6 +807,14 @@ namespace MyGUI
 			-(((_renderTargetInfo.pixScaleY * (pix_top + _vertexRect.height()) + _renderTargetInfo.vOffset) * 2.0f) - 1.0f));
 
 		drawQuad(_vertex, _vertexCount, vertexRect, mNode->getNodeDepth(), _textureRect, _colour);
+	}
+
+	void EditText::setSelectionBgColor(const Colour& _value)
+	{
+		uint32 color = texture_utility::toColourARGB(mColour);
+		if(mSelectionBgColor == color) return;
+		mSelectionBgColor = color;
+		if (nullptr != mNode) mNode->outOfDate(mRenderItem);
 	}
 
 } // namespace MyGUI

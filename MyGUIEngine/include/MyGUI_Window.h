@@ -109,6 +109,12 @@ namespace MyGUI
 		*/
 		EventPair<EventHandle_WidgetVoid, EventHandle_WindowPtr> eventWindowChangeCoord;
 
+		//Added Functions
+		/**
+			Enable or Disable the widgets that resize the window.
+		*/
+		void setActionWidgetsEnabled(bool value);
+
 	protected:
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();

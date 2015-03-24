@@ -55,6 +55,7 @@ namespace MyGUI
 	typedef delegates::CMultiDelegate2<Widget*, KeyCode> EventHandle_WidgetKeyCode;
 	typedef delegates::CMultiDelegate3<Widget*, KeyCode, Char> EventHandle_WidgetKeyCodeChar;
 	typedef delegates::CMultiDelegate2<Widget*, const ToolTipInfo& > EventHandle_WidgetToolTip;
+	typedef delegates::CMultiDelegate5<Widget*, int, int, int, int> EventHandle_WidgetIntIntIntInt;
 
 	class MYGUI_EXPORT WidgetInput
 	{
@@ -226,6 +227,14 @@ namespace MyGUI
 		*/
 		EventHandle_WidgetToolTip eventToolTip;
 
+		/** Event : Event about getting a scroll event, likely from multitouch.\n
+			signature : void method(MyGUI::Widget* _sender, int absx, int absy, int deltax, int deltay);
+			@param _sender widget that called this event
+			@param _info about tooltip
+		*/
+		EventHandle_WidgetIntIntIntInt
+			eventScrollGesture;
+
 		/*internal:*/
 		void _riseMouseLostFocus(Widget* _new);
 		void _riseMouseSetFocus(Widget* _old);
@@ -246,6 +255,8 @@ namespace MyGUI
 		void _setRootMouseFocus(bool _value);
 		void _setRootKeyFocus(bool _value);
 
+		bool _sendScrollGesture(const int& absx, const int& absy, const int& deltax, const int& deltay);
+
 	protected:
 		virtual void onMouseLostFocus(Widget* _new);
 		virtual void onMouseSetFocus(Widget* _old);
@@ -262,6 +273,7 @@ namespace MyGUI
 		virtual void onKeyButtonReleased(KeyCode _key);
 		virtual void onMouseChangeRootFocus(bool _focus);
 		virtual void onKeyChangeRootFocus(bool _focus);
+		virtual bool onSendScrollGesture(const int& absx, const int& absy, const int& deltax, const int& deltay) = 0;
 
 	private:
 		std::string mPointer;

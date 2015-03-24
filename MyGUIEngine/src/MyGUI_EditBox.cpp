@@ -16,6 +16,7 @@
 #include "MyGUI_ScrollBar.h"
 
 #include <ctype.h>
+#include <algorithm>
 
 namespace MyGUI
 {
@@ -50,7 +51,8 @@ namespace MyGUI
 		mCharPassword('*'),
 		mOverflowToTheLeft(false),
 		mMaxTextLength(EDIT_DEFAULT_MAX_TEXT_LENGTH),
-		mClientText(nullptr)
+		mClientText(nullptr),
+		mAllowMouseScroll(true)
 	{
 		mChangeContentByResize = true;
 	}
@@ -1443,6 +1445,7 @@ namespace MyGUI
 	{
 		// копируем из буфера обмена
 		std::string clipboard = ClipboardManager::getInstance().getClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
+		clipboard.erase(remove(clipboard.begin(), clipboard.end(), '\r'), clipboard.end());
 		if ((!mModeReadOnly) && (!clipboard.empty()))
 		{
 			// попытка объединения двух комманд
@@ -1642,8 +1645,11 @@ namespace MyGUI
 
 	void EditBox::notifyMouseWheel(Widget* _sender, int _rel)
 	{
-		if (mClientText == nullptr)
+		if (!mAllowMouseScroll || mClientText == nullptr)
+		{
+			this->onMouseWheel(_rel);
 			return;
+		}
 
 		if (mVRange != 0)
 		{

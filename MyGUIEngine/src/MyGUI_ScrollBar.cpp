@@ -14,9 +14,6 @@
 namespace MyGUI
 {
 
-	// FIXME - move to widget property
-	const int SCROLL_MOUSE_WHEEL = 50; // колличество пикселей для колеса мыши
-
 	ScrollBar::ScrollBar() :
 		mWidgetStart(nullptr),
 		mWidgetEnd(nullptr),
@@ -461,9 +458,9 @@ namespace MyGUI
 
 		int offset = mScrollPosition;
 		if (_rel < 0)
-			offset += SCROLL_MOUSE_WHEEL;
+			offset += mScrollIncrement;
 		else
-			offset -= SCROLL_MOUSE_WHEEL;
+			offset -= mScrollIncrement;
 
 		if (offset < 0)
 			offset = 0;
