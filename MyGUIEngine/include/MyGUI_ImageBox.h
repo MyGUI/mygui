@@ -179,6 +179,9 @@ namespace MyGUI
 		/** Select current item resource, group and name */
 		void setItemResourceInfo(ResourceImageSetPtr _resource, const std::string& _group, const std::string& _name);
 
+		/** Get the size of the item group currently set **/
+		IntSize getItemGroupSize();
+
 	protected:
 		virtual void shutdownOverride();
 
