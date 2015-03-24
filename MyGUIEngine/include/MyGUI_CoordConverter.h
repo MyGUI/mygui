@@ -76,16 +76,11 @@ namespace MyGUI
 		*/
 		static IntCoord deriveCoord(const IntCoord& _coord, const IntSize& _size)
 		{
-			IntCoord ret = _coord;
-			if(_coord.width < 0)
-			{
-				ret.width = _size.width + _coord.width - _coord.left;
-			}
-			if(_coord.height < 0)
-			{
-				ret.height = _size.height + _coord.height - _coord.top;
-			}
-			return ret;
+			return IntCoord(
+				_coord.left, 
+				_coord.top, 
+				_coord.width < 0 ? _size.width + _coord.width - _coord.left : _coord.width,
+				_coord.height < 0 ? _size.height + _coord.height - _coord.top : _coord.height);
 		}
 	};
 
