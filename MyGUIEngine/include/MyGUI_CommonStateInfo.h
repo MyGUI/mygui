@@ -42,27 +42,34 @@ namespace MyGUI
 	private:
 		virtual void deserialization(xml::ElementPtr _node, Version _version)
 		{
+			LanguageManager& localizator = LanguageManager::getInstance();
+
 			std::string texture = _node->getParent()->getParent()->findAttribute("texture");
+			std::string tmp;
 
 			// поддержка замены тегов в скинах
 			if (_version >= Version(1, 1))
 			{
-				texture = LanguageManager::getInstance().replaceTags(texture);
+				texture = localizator.replaceTags(texture);
 			}
 
 			const IntSize& size = texture_utility::getTextureSize(texture);
-			const IntCoord& coord = IntCoord::parse(_node->findAttribute("offset"));
-			mRect = CoordConverter::convertTextureCoord(coord, size);
 
-			std::string colour;
-			if(_node->findAttribute("colour", colour))
+			if(_node->findAttribute("offset", tmp))
 			{
-				if (_version >= Version(1, 1))
-				{
-					colour = LanguageManager::getInstance().replaceTags(colour);
-				}
+				const IntCoord& coord = IntCoord::parse(tmp);
+				mRect = CoordConverter::convertTextureCoord(coord, size);
+			}
+			else if(_node->findAttribute("offsetNamed", tmp))
+			{
+				const IntCoord& coord = IntCoord::parse(localizator.getTag(tmp));
+				mRect = CoordConverter::convertTextureCoord(coord, size);
+			}
 
-				mColour = Colour::parse(colour);
+			if(_node->findAttribute("colour", tmp))
+			{
+				tmp = localizator.replaceTags(tmp);
+				mColour = Colour::parse(tmp);
 			}
 		}
 
