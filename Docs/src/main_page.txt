@@ -55,12 +55,6 @@
 	\li \link MyGUI::ControllerEdgeHide ControllerEdgeHide \endlink
 	\li \link MyGUI::ControllerFadeAlpha ControllerFadeAlpha \endlink
 	\li \link MyGUI::ControllerPosition ControllerPosition \endlink
-	\section Links
-		MyGUI website - http://mygui.info
-	\n	MyGUI wiki - http://www.ogre3d.org/wiki/index.php/MyGUI
-	\n  MyGUI project page at sourceforge - http://sourceforge.net/projects/my-gui/
-	\n 	MyGUI forum - http://www.ogre3d.org/addonforums/viewforum.php?f=17
-	\n 	MyGUI Russian forum - http://www.ogre3d.ru/forum/viewforum.php?f=20
 
 
 */

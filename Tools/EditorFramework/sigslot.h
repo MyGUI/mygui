@@ -75,8 +75,8 @@
 //
 //
 
-#ifndef SIGSLOT_H__
-#define SIGSLOT_H__
+#ifndef SIGSLOT_H_
+#define SIGSLOT_H_
 
 #include <set>
 #include <list>
@@ -87,7 +87,7 @@
 #	define _SIGSLOT_HAS_WIN32_THREADS
 #	include <windows.h>
 #elif defined(__GNUG__) || defined(SIGSLOT_USE_POSIX_THREADS)
-#	define _SIGSLOT_HAS_POSIX_THREADS
+#	define SIGSLOT_HAS_POSIX_THREADS_
 #	include <pthread.h>
 #else
 #	define _SIGSLOT_SINGLE_THREADED
@@ -200,7 +200,7 @@ namespace sigslot
 	};
 #endif
 
-#ifdef _SIGSLOT_HAS_POSIX_THREADS
+#ifdef SIGSLOT_HAS_POSIX_THREADS_
 	// The multi threading policies only get compiled in if they are enabled.
 	class MYGUI_EXPORT_DLL multi_threaded_global
 	{

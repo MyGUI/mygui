@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_RESOURCE_SKIN_H__
-#define __MYGUI_RESOURCE_SKIN_H__
+#ifndef MYGUI_RESOURCE_SKIN_H_
+#define MYGUI_RESOURCE_SKIN_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_SubWidgetBinding.h"
@@ -63,4 +63,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_RESOURCE_SKIN_H__
+#endif // MYGUI_RESOURCE_SKIN_H_

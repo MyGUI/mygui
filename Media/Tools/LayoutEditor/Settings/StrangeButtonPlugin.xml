@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI>
 	<MyGUI type="Widgets">
 		<Widget name="StrangeButton">
@@ -11,8 +11,8 @@
 	</MyGUI>
 	<MyGUI type="Plugin">
 		<Plugin>
-			<Source>Plugin_StrangeButton.dll</Source>
-			<Source build="Debug">Plugin_StrangeButton_d.dll</Source>
+			<Source>./Plugin_StrangeButton</Source>
+			<Source build="Debug">./Plugin_StrangeButton_d</Source>
 		</Plugin>
 	</MyGUI>
 </MyGUI>

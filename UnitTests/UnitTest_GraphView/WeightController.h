@@ -1,5 +1,5 @@
-#ifndef __WEIGHT_CONTROLLER_H__
-#define __WEIGHT_CONTROLLER_H__
+#ifndef WEIGHT_CONTROLLER_H_
+#define WEIGHT_CONTROLLER_H_
 
 #include "IAnimationNode.h"
 #include "IAnimationGraph.h"
@@ -47,4 +47,4 @@ namespace animation
 
 } // namespace animation
 
-#endif // __WEIGHT_CONTROLLER_H__
+#endif // WEIGHT_CONTROLLER_H_

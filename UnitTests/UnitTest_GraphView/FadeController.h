@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		08/2008
 */
-#ifndef __FADE_CONTROLLER_H__
-#define __FADE_CONTROLLER_H__
+#ifndef FADE_CONTROLLER_H_
+#define FADE_CONTROLLER_H_
 
 #include "IAnimationNode.h"
 #include "IAnimationGraph.h"
@@ -58,7 +58,7 @@ namespace animation
 
 		virtual void addTime(float _value)
 		{
-			const float fade_time = 0.3;
+			const float fade_time = 0.3f;
 			if (mIsAnimationRun)
 			{
 				if (mWeight != 1)
@@ -91,4 +91,4 @@ namespace animation
 
 } // namespace animation
 
-#endif // __FADE_CONTROLLER_H__
+#endif // FADE_CONTROLLER_H_

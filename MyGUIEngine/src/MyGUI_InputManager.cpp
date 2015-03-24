@@ -15,7 +15,8 @@
 namespace MyGUI
 {
 
-	const unsigned long INPUT_TIME_DOUBLE_CLICK = 250; //measured in milliseconds
+	// In seconds
+	const float INPUT_TIME_DOUBLE_CLICK = 0.25f;
 	const float INPUT_DELAY_FIRST_KEY = 0.4f;
 	const float INPUT_INTERVAL_KEY = 0.05f;
 
@@ -26,6 +27,7 @@ namespace MyGUI
 		mWidgetMouseFocus(nullptr),
 		mWidgetKeyFocus(nullptr),
 		mLayerMouseFocus(nullptr),
+		mTimerDoubleClick(INPUT_TIME_DOUBLE_CLICK),
 		mIsShiftPressed(false),
 		mIsControlPressed(false),
 		mHoldKey(KeyCode::None),
@@ -216,7 +218,11 @@ namespace MyGUI
 		mWidgetMouseFocus = item;
 
 		if (old_mouse_focus != mWidgetMouseFocus)
+		{
+			// Reset double click timer, double clicks should only work when clicking on the *same* item twice
+			mTimerDoubleClick = INPUT_TIME_DOUBLE_CLICK;
 			eventChangeMouseFocus(mWidgetMouseFocus);
+		}
 
 		return isFocusMouse();
 	}
@@ -225,15 +231,10 @@ namespace MyGUI
 	{
 		injectMouseMove(_absx, _absy, mOldAbsZ);
 
-		Widget* old_key_focus = mWidgetKeyFocus;
-
 		// если мы щелкнули не на гуй
 		if (!isFocusMouse())
 		{
 			resetKeyFocusWidget();
-
-			if (old_key_focus != mWidgetKeyFocus)
-				eventChangeKeyFocus(mWidgetKeyFocus);
 
 			return false;
 		}
@@ -289,9 +290,6 @@ namespace MyGUI
 			}
 		}
 
-		if (old_key_focus != mWidgetKeyFocus)
-			eventChangeKeyFocus(mWidgetKeyFocus);
-
 		return true;
 	}
 
@@ -319,7 +317,7 @@ namespace MyGUI
 			{
 				if (MouseButton::Left == _id)
 				{
-					if (mTimer.getMilliseconds() < INPUT_TIME_DOUBLE_CLICK)
+					if (mTimerDoubleClick < INPUT_TIME_DOUBLE_CLICK)
 					{
 						mWidgetMouseFocus->_riseMouseButtonClick();
 						// после вызова, виджет может быть сброшен
@@ -334,7 +332,7 @@ namespace MyGUI
 						{
 							mWidgetMouseFocus->_riseMouseButtonClick();
 						}
-						mTimer.reset();
+						mTimerDoubleClick = 0;
 					}
 				}
 			}
@@ -441,6 +439,8 @@ namespace MyGUI
 		}
 
 		mWidgetKeyFocus = _widget;
+
+		eventChangeKeyFocus(mWidgetKeyFocus);
 	}
 
 	void InputManager::_resetMouseFocusWidget()
@@ -470,6 +470,9 @@ namespace MyGUI
 		{
 			mouseFocus->_riseMouseLostFocus(nullptr);
 		}
+
+		if (mouseFocus != mWidgetMouseFocus)
+			eventChangeMouseFocus(mWidgetMouseFocus);
 	}
 
 	// удаляем данный виджет из всех возможных мест
@@ -557,6 +560,8 @@ namespace MyGUI
 
 	void InputManager::frameEntered(float _frame)
 	{
+		mTimerDoubleClick += _frame;
+
 		if ( mHoldKey == KeyCode::None)
 			return;
 

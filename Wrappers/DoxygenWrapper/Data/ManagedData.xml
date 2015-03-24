@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Root>
 	<Item type="MyGUI::Button" namespace="MyGUI">
 		<Template template="IncludeWidget.txt" type="Managed_Templates" name="Include.txt" output="..\..\..\..\MyGUI_Managed\Generate\MyGUI_Managed_IncludeWidgets.h"/>

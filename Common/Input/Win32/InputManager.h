@@ -4,8 +4,8 @@
 	@date		09/2009
 */
 
-#ifndef __INPUT_MANAGER_H__
-#define __INPUT_MANAGER_H__
+#ifndef INPUT_MANAGER_H_
+#define INPUT_MANAGER_H_
 
 #include <MyGUI.h>
 #include <windows.h>
@@ -61,4 +61,4 @@ namespace input
 
 } // namespace input
 
-#endif // __INPUT_MANAGER_H__
+#endif // INPUT_MANAGER_H_

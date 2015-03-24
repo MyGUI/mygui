@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_TAB_ITEM_H__
-#define __MYGUI_TAB_ITEM_H__
+#ifndef MYGUI_TAB_ITEM_H_
+#define MYGUI_TAB_ITEM_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_TextBox.h"
@@ -18,7 +18,7 @@ namespace MyGUI
 		TabItem widget description should be here.
 	*/
 	class MYGUI_EXPORT TabItem :
-		public TextBox // FIXME пока для кэпшена вместо виджета текст (Bug #190)
+        public TextBox // FIXME temporary use TextBox instead of Widget for caption
 	{
 		MYGUI_RTTI_DERIVED( TabItem )
 
@@ -42,4 +42,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_TAB_ITEM_H__
+#endif // MYGUI_TAB_ITEM_H_

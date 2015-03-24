@@ -32,8 +32,8 @@ namespace tools
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
 		void notifyWindowChangeCoord(MyGUI::Window* _sender);
 
-		PanelProperties* getPropertyWindow(WidgetStyle* _style, size_t _deep);
-		size_t getIndexByDeep(size_t _deep);
+		PanelProperties* getPropertyWindow(WidgetStyle* _style, size_t _depth);
+		size_t getIndexByDepth(size_t _depth);
 		size_t getIndexPanel(PanelProperties* _panel);
 
 	private:

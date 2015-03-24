@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_DEPRECATED_TYPES_H__
-#define __MYGUI_DEPRECATED_TYPES_H__
+#ifndef MYGUI_DEPRECATED_TYPES_H_
+#define MYGUI_DEPRECATED_TYPES_H_
 
 namespace MyGUI
 {
@@ -70,4 +70,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_DEPRECATED_TYPES_H__
+#endif // MYGUI_DEPRECATED_TYPES_H_

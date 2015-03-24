@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2009
 */
-#ifndef __KEYBOARD_PANEL_H__
-#define __KEYBOARD_PANEL_H__
+#ifndef KEYBOARD_PANEL_H_
+#define KEYBOARD_PANEL_H_
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
@@ -36,4 +36,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __KEYBOARD_PANEL_H__
+#endif // KEYBOARD_PANEL_H_

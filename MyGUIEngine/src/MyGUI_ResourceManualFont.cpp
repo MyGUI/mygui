@@ -98,15 +98,25 @@ namespace MyGUI
 
 							float advance(utility::parseValue<float>(element->findAttribute("advance")));
 							FloatPoint bearing(utility::parseValue<FloatPoint>(element->findAttribute("bearing")));
+
+							// texture coordinates
 							FloatCoord coord(utility::parseValue<FloatCoord>(element->findAttribute("coord")));
 
+							// glyph size, default to texture coordinate size
+							std::string sizeString;
+							FloatSize size(coord.width, coord.height);
+							if (element->findAttribute("size", sizeString))
+							{
+								size = utility::parseValue<FloatSize>(sizeString);
+							}
+
 							if (advance == 0.0f)
-								advance = coord.width;
+								advance = size.width;
 
 							GlyphInfo& glyphInfo = mCharMap.insert(CharMap::value_type(id, GlyphInfo(
 								id,
-								coord.width,
-								coord.height,
+								size.width,
+								size.height,
 								advance,
 								bearing.left,
 								bearing.top,
@@ -134,6 +144,26 @@ namespace MyGUI
 	int ResourceManualFont::getDefaultHeight()
 	{
 		return mDefaultHeight;
+	}
+
+	void ResourceManualFont::setSource(const std::string& value)
+	{
+		mTexture = nullptr;
+		mSource = value;
+		loadTexture();
+	}
+
+	void ResourceManualFont::setDefaultHeight(int value)
+	{
+		mDefaultHeight = value;
+	}
+
+	void ResourceManualFont::addGlyphInfo(Char id, const GlyphInfo& info)
+	{
+		GlyphInfo& inserted = mCharMap.insert(CharMap::value_type(id, info)).first->second;
+
+		if (id == FontCodeType::NotDefined)
+			mSubstituteGlyphInfo = &inserted;
 	}
 
 } // namespace MyGUI

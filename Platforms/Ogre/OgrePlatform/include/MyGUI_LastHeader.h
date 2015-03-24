@@ -4,8 +4,8 @@
 	@date		10/2008
 */
 
-#ifndef __MYGUI_LAST_HEADER_H__
-#define __MYGUI_LAST_HEADER_H__
+#ifndef MYGUI_LAST_HEADER_H_
+#define MYGUI_LAST_HEADER_H_
 
 #include "MyGUI_Prerequest.h"
 
@@ -16,4 +16,4 @@
 
 #endif
 
-#endif // __MYGUI_LAST_HEADER_H__
+#endif // MYGUI_LAST_HEADER_H_

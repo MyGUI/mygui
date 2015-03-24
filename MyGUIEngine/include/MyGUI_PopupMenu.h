@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_POPUP_MENU_H__
-#define __MYGUI_POPUP_MENU_H__
+#ifndef MYGUI_POPUP_MENU_H_
+#define MYGUI_POPUP_MENU_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_MenuControl.h"
@@ -27,4 +27,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_POPUP_MENU_H__
+#endif // MYGUI_POPUP_MENU_H_

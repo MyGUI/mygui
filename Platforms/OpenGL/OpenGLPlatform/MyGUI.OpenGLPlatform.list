@@ -8,7 +8,6 @@ set (HEADER_FILES
   include/MyGUI_OpenGLVertexBuffer.h
 )
 set (SOURCE_FILES
-  include/GL/glew.c
   src/MyGUI_OpenGLDataManager.cpp
   src/MyGUI_OpenGLPlatform.cpp
   src/MyGUI_OpenGLRTTexture.cpp

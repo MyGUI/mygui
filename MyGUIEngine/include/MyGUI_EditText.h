@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_EDIT_TEXT_H__
-#define __MYGUI_EDIT_TEXT_H__
+#ifndef MYGUI_EDIT_TEXT_H_
+#define MYGUI_EDIT_TEXT_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_XmlDocument.h"
@@ -110,6 +110,8 @@ namespace MyGUI
 
 		virtual void _setAlign(const IntSize& _oldsize);
 
+		virtual const VectorLineInfo& getLineInfo() const;
+
 		//Added Functions
 		// Set the background color to use for selection when invertSelected is false.
 		void setSelectionBgColor(const Colour& _value);
@@ -183,4 +185,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_EDIT_TEXT_H__
+#endif // MYGUI_EDIT_TEXT_H_

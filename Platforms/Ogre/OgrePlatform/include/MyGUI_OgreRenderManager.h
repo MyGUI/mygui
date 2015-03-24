@@ -4,8 +4,8 @@
 	@date		04/2008
 */
 
-#ifndef __MYGUI_OGRE_RENDER_MANAGER_H__
-#define __MYGUI_OGRE_RENDER_MANAGER_H__
+#ifndef MYGUI_OGRE_RENDER_MANAGER_H_
+#define MYGUI_OGRE_RENDER_MANAGER_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_RenderFormat.h"
@@ -118,4 +118,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_OGRE_RENDER_MANAGER_H__
+#endif // MYGUI_OGRE_RENDER_MANAGER_H_

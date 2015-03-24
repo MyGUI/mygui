@@ -13,6 +13,7 @@
 #include "MyGUI_ControllerEdgeHide.h"
 #include "MyGUI_ControllerFadeAlpha.h"
 #include "MyGUI_ControllerPosition.h"
+#include "MyGUI_ControllerRepeatClick.h"
 
 namespace MyGUI
 {
@@ -36,6 +37,7 @@ namespace MyGUI
 		FactoryManager::getInstance().registerFactory<ControllerEdgeHide>(mCategoryName);
 		FactoryManager::getInstance().registerFactory<ControllerFadeAlpha>(mCategoryName);
 		FactoryManager::getInstance().registerFactory<ControllerPosition>(mCategoryName);
+		FactoryManager::getInstance().registerFactory<ControllerRepeatClick>(mCategoryName);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -49,6 +51,7 @@ namespace MyGUI
 		FactoryManager::getInstance().unregisterFactory<ControllerEdgeHide>(mCategoryName);
 		FactoryManager::getInstance().unregisterFactory<ControllerFadeAlpha>(mCategoryName);
 		FactoryManager::getInstance().unregisterFactory<ControllerPosition>(mCategoryName);
+		FactoryManager::getInstance().unregisterFactory<ControllerRepeatClick>(mCategoryName);
 
 		WidgetManager::getInstance().unregisterUnlinker(this);
 		clear();

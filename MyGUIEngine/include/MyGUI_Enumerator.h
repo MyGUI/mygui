@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_ENUMERATOR_H__
-#define __MYGUI_ENUMERATOR_H__
+#ifndef MYGUI_ENUMERATOR_H_
+#define MYGUI_ENUMERATOR_H_
 
 #include <assert.h>
 
@@ -102,4 +102,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_ENUMERATOR_H__
+#endif // MYGUI_ENUMERATOR_H_

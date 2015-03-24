@@ -5,8 +5,8 @@
 	@module
 */
 
-#ifndef __WRAPS_ATTRIBUTE_H__
-#define __WRAPS_ATTRIBUTE_H__
+#ifndef WRAPS_ATTRIBUTE_H_
+#define WRAPS_ATTRIBUTE_H_
 
 #include <MyGUI.h>
 #include "Attribute.h"
@@ -44,4 +44,4 @@ namespace attribute
 
 }
 
-#endif // __WRAPS_ATTRIBUTE_H__
+#endif // WRAPS_ATTRIBUTE_H_

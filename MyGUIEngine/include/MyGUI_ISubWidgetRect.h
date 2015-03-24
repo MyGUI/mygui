@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_I_SUB_WIDGET_RECT_H__
-#define __MYGUI_I_SUB_WIDGET_RECT_H__
+#ifndef MYGUI_I_SUB_WIDGET_RECT_H_
+#define MYGUI_I_SUB_WIDGET_RECT_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ISubWidget.h"
@@ -28,4 +28,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_I_SUB_WIDGET_RECT_H__
+#endif // MYGUI_I_SUB_WIDGET_RECT_H_

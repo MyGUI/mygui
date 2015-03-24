@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_EXCEPTION_H__
-#define __MYGUI_EXCEPTION_H__
+#ifndef MYGUI_EXCEPTION_H_
+#define MYGUI_EXCEPTION_H_
 
 #include "MyGUI_Prerequest.h"
 #include <exception>
@@ -50,4 +50,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_EXCEPTION_H__
+#endif // MYGUI_EXCEPTION_H_

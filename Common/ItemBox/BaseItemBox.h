@@ -5,8 +5,8 @@
 	@module
 */
 
-#ifndef __BASE_ITEM_BOX_H__
-#define __BASE_ITEM_BOX_H__
+#ifndef BASE_ITEM_BOX_H_
+#define BASE_ITEM_BOX_H_
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
@@ -162,4 +162,4 @@ namespace wraps
 
 } // namespace wraps
 
-#endif // __BASE_ITEM_BOX_H__
+#endif // BASE_ITEM_BOX_H_

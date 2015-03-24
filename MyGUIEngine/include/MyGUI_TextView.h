@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_TEXT_VIEW_H__
-#define __MYGUI_TEXT_VIEW_H__
+#ifndef MYGUI_TEXT_VIEW_H_
+#define MYGUI_TEXT_VIEW_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_TextureUtility.h"
@@ -41,4 +41,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_TEXT_VIEW_H__
+#endif // MYGUI_TEXT_VIEW_H_

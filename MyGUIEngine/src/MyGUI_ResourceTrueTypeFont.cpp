@@ -400,6 +400,12 @@ namespace MyGUI
 		return mDefaultHeight;
 	}
 
+	void ResourceTrueTypeFont::textureInvalidate(ITexture* _texture)
+	{
+		mGlyphMap.clear();
+		initialise();
+	}
+
 	std::vector<std::pair<Char, Char> > ResourceTrueTypeFont::getCodePointRanges() const
 	{
 		std::vector<std::pair<Char, Char> > result;
@@ -753,9 +759,16 @@ namespace MyGUI
 		// Create the texture and render the glyphs onto it.
 		//-------------------------------------------------------------------//
 
+		if (mTexture)
+		{
+			RenderManager::getInstance().destroyTexture( mTexture );
+			mTexture = nullptr;
+		}
+
 		mTexture = RenderManager::getInstance().createTexture(MyGUI::utility::toString((size_t)this, "_TrueTypeFont"));
 
 		mTexture->createManual(texWidth, texHeight, TextureUsage::Static | TextureUsage::Write, Pixel<LAMode>::getFormat());
+		mTexture->setInvalidateListener(this);
 
 		uint8* texBuffer = static_cast<uint8*>(mTexture->lock(TextureUsage::Write));
 

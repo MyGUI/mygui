@@ -1933,7 +1933,6 @@ namespace MyGUI
 					delete m_buffer.mUTF32StrBuffer;
 					break;
 				case bt_none: // under the worse of circumstances, this is all we can do, and hope it works out
-				default:
 					//delete m_buffer.mVoidBuffer;
 					// delete void* is undefined, don't do that
 					assert("This should never happen - mVoidBuffer should never contain something if we "

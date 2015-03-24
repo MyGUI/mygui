@@ -40,7 +40,7 @@ namespace MyGUI
 		factory.registerFactory<SubSkinStateInfo>(mStateCategoryName, "SubSkin");
 		factory.registerFactory<SubSkinStateInfo>(mStateCategoryName, "MainSkin");
 		factory.registerFactory<SubSkinStateInfo>(mStateCategoryName, "PolygonalSkin");
-		factory.registerFactory<SubSkinStateInfo>(mStateCategoryName, "RotatingSkin");
+		factory.registerFactory<RotatingSkinStateInfo>(mStateCategoryName, "RotatingSkin");
 		factory.registerFactory<TileRectStateInfo>(mStateCategoryName, "TileRect");
 		factory.registerFactory<EditTextStateInfo>(mStateCategoryName, "EditText");
 		factory.registerFactory<EditTextStateInfo>(mStateCategoryName, "SimpleText");

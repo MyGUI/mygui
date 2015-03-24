@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Window" skin="WindowCXS2_Dark" position="40 40 390 260" align="Center" layer="Overlapped" name="Root">
         <Property key="Caption" value="#{CaptionColourPicker}"/>
@@ -22,6 +22,7 @@
                     <Property key="RangePosition" value="0"/>
                     <Property key="Page" value="1"/>
                     <Property key="ViewPage" value="32"/>
+                    <Property key="WheelPage" value="32"/>
                 </Widget>
             </Widget>
         </Widget>

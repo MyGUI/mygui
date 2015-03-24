@@ -4,8 +4,8 @@
 	@date		02/2008
 */
 
-#ifndef __MYGUI_RTT_LAYER_NODE_H__
-#define __MYGUI_RTT_LAYER_NODE_H__
+#ifndef MYGUI_RTT_LAYER_NODE_H_
+#define MYGUI_RTT_LAYER_NODE_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_LayerNode.h"
@@ -86,4 +86,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_RTT_LAYER_NODE_H__
+#endif // MYGUI_RTT_LAYER_NODE_H_

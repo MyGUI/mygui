@@ -59,6 +59,8 @@ namespace MyGUI
 
 		if (mList != nullptr)
 		{
+			mList->setActivateOnClick(true);
+
 			mList->setVisible(false);
 			mList->eventKeyLostFocus += newDelegate(this, &ComboBox::notifyListLostFocus);
 			mList->eventListSelectAccept += newDelegate(this, &ComboBox::notifyListSelectAccept);

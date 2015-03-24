@@ -4,13 +4,14 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_WIDGET_DEFINES_H__
-#define __MYGUI_WIDGET_DEFINES_H__
+#ifndef MYGUI_WIDGET_DEFINES_H_
+#define MYGUI_WIDGET_DEFINES_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Enumerator.h"
 #include <vector>
 #include <map>
+#include <string>
 
 namespace MyGUI
 {
@@ -22,4 +23,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_WIDGET_DEFINES_H__
+#endif // MYGUI_WIDGET_DEFINES_H_

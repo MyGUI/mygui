@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		07/2008
 */
-#ifndef __TOOL_TIP_H__
-#define __TOOL_TIP_H__
+#ifndef TOOL_TIP_H_
+#define TOOL_TIP_H_
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
@@ -34,4 +34,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __TOOL_TIP_H__
+#endif // TOOL_TIP_H_

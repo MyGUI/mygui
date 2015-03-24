@@ -17,7 +17,7 @@ namespace tools
 			child(true),
 			resizeable(true),
 			many_items(false),
-			deep(0),
+			depth(0),
 			internalType(false)
 		{
 		}
@@ -38,8 +38,8 @@ namespace tools
 		bool resizeable;
 		// have many items (such as ListBox, ComboBox, TabControl, MenuBar, etc...)
 		bool many_items;
-		// глубина иерархии
-		size_t deep;
+		// hierarchy depths
+		size_t depth;
 		bool internalType;
 	};
 

@@ -1,5 +1,5 @@
-#ifndef __ANIMATION_NODE_FACTORY_H__
-#define __ANIMATION_NODE_FACTORY_H__
+#ifndef ANIMATION_NODE_FACTORY_H_
+#define ANIMATION_NODE_FACTORY_H_
 
 #include "IAnimationNode.h"
 #include "IAnimationNodeConstruct.h"
@@ -26,4 +26,4 @@ namespace animation
 
 } // namespace animation
 
-#endif // __ANIMATION_NODE_FACTORY_H__
+#endif // ANIMATION_NODE_FACTORY_H_

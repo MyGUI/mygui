@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_LAYER_NODE_H__
-#define __MYGUI_LAYER_NODE_H__
+#ifndef MYGUI_LAYER_NODE_H_
+#define MYGUI_LAYER_NODE_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ILayer.h"
@@ -73,9 +73,12 @@ namespace MyGUI
 
 	protected:
 		void updateCompression();
-
+		RenderItem* addToRenderItemFirstQueue(ITexture* _texture, bool _manualRender);
+		RenderItem* addToRenderItemSecondQueue(ITexture* _texture, bool _manualRender);
 	protected:
-		// список двух очередей отрисовки, для сабскинов и текста
+		// two render queues, for subskins and text
+		// first queue keep render order based on order of creation
+		// second queue ignore creation order and always merge render items with same texture
 		VectorRenderItem mFirstRenderItems;
 		VectorRenderItem mSecondRenderItems;
 
@@ -94,4 +97,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_LAYER_NODE_H__
+#endif // MYGUI_LAYER_NODE_H_

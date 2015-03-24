@@ -1,5 +1,5 @@
-#ifndef __EVENT_CONTROLLER_H__
-#define __EVENT_CONTROLLER_H__
+#ifndef EVENT_CONTROLLER_H_
+#define EVENT_CONTROLLER_H_
 
 #include "IAnimationNode.h"
 #include "IAnimationGraph.h"
@@ -47,4 +47,4 @@ namespace animation
 
 } // namespace animation
 
-#endif // __EVENT_CONTROLLER_H__
+#endif // EVENT_CONTROLLER_H_

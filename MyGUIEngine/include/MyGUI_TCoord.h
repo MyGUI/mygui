@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MyGUI_TCOORD_H__
-#define __MyGUI_TCOORD_H__
+#ifndef MyGUI_TCOORD_H_
+#define MyGUI_TCOORD_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_TPoint.h"
@@ -245,4 +245,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MyGUI_TCOORD_H__
+#endif // MyGUI_TCOORD_H_

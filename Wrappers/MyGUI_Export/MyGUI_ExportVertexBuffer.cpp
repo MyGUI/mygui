@@ -24,11 +24,8 @@ namespace MyGUI
 
 	ExportVertexBuffer::~ExportVertexBuffer()
 	{
-		if (mVertex != nullptr)
-		{
-			delete mVertex;
-			mVertex = nullptr;
-		}
+		delete mVertex;
+		mVertex = nullptr;
 	}
 
 	void ExportVertexBuffer::setVertexCount(size_t _count)

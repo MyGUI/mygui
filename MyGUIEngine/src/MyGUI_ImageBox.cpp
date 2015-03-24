@@ -262,12 +262,12 @@ namespace MyGUI
 		return iter->frame_rate;
 	}
 
-	void ImageBox::addItemFrameDublicate(size_t _index, size_t _indexSourceFrame)
+	void ImageBox::addItemFrameDuplicate(size_t _index, size_t _indexSourceFrame)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItems.size(), "ImageBox::addItemFrameDublicate");
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "ImageBox::addItemFrameDuplicate");
 
 		VectorImages::iterator iter = mItems.begin() + _index;
-		MYGUI_ASSERT_RANGE(_indexSourceFrame, iter->images.size(), "ImageBox::addItemFrameDublicate");
+		MYGUI_ASSERT_RANGE(_indexSourceFrame, iter->images.size(), "ImageBox::addItemFrameDuplicate");
 		iter->images.push_back(iter->images[_indexSourceFrame]);
 	}
 
@@ -283,15 +283,15 @@ namespace MyGUI
 			CoordConverter::convertTextureCoord(_item, mSizeTexture));
 	}
 
-	void ImageBox::insertItemFrameDublicate(size_t _index, size_t _indexFrame, size_t _indexSourceFrame)
+	void ImageBox::insertItemFrameDuplicate(size_t _index, size_t _indexFrame, size_t _indexSourceFrame)
 	{
-		MYGUI_ASSERT_RANGE(_index, mItems.size(), "ImageBox::insertItemFrameDublicate");
+		MYGUI_ASSERT_RANGE(_index, mItems.size(), "ImageBox::insertItemFrameDuplicate");
 
 		VectorImages::iterator iter = mItems.begin() + _index;
-		MYGUI_ASSERT_RANGE_INSERT(_indexFrame, iter->images.size(), "ImageBox::insertItemFrameDublicate");
+		MYGUI_ASSERT_RANGE_INSERT(_indexFrame, iter->images.size(), "ImageBox::insertItemFrameDuplicate");
 		if (_indexFrame == ITEM_NONE) _indexFrame = iter->images.size() - 1;
 
-		MYGUI_ASSERT_RANGE(_indexSourceFrame, iter->images.size(), "ImageBox::insertItemFrameDublicate");
+		MYGUI_ASSERT_RANGE(_indexSourceFrame, iter->images.size(), "ImageBox::insertItemFrameDuplicate");
 
 		iter->images.insert(iter->images.begin() + _indexFrame, iter->images[_indexSourceFrame]);
 	}

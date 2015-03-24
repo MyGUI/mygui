@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_LOG_LEVEL_H__
-#define __MYGUI_LOG_LEVEL_H__
+#ifndef MYGUI_LOG_LEVEL_H_
+#define MYGUI_LOG_LEVEL_H_
 
 #include "MyGUI_Prerequest.h"
 
@@ -115,4 +115,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_LOG_LEVEL_H__
+#endif // MYGUI_LOG_LEVEL_H_

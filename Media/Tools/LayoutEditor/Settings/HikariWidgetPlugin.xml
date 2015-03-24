@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI>
 	<MyGUI type="Widgets">
 		<Widget name="HikariWidget">
@@ -12,8 +12,8 @@
 	</MyGUI>
 	<MyGUI type="Plugin">
 		<Plugin>
-			<Source>Plugin_HikariWidget.dll</Source>
-			<Source build="Debug">Plugin_HikariWidget_d.dll</Source>
+			<Source>./Plugin_HikariWidget</Source>
+			<Source build="Debug">./Plugin_HikariWidget_d</Source>
 		</Plugin>
 	</MyGUI>
 </MyGUI>

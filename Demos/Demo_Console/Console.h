@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		08/2008
 */
-#ifndef __CONSOLE_H__
-#define __CONSOLE_H__
+#ifndef CONSOLE_H_
+#define CONSOLE_H_
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
@@ -130,4 +130,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __CONSOLE_H__
+#endif // CONSOLE_H_

@@ -16,7 +16,7 @@ namespace tools
 
 	PanelProperties::PanelProperties() :
 		BasePanelViewItem("PanelProperties.layout"),
-		mDeep(0),
+		mDepth(0),
 		mCurrentWidget(nullptr)
 	{
 	}
@@ -31,14 +31,14 @@ namespace tools
 		destroyPropertyFields();
 	}
 
-	void PanelProperties::setDeep(size_t _value)
+	void PanelProperties::setDepth(size_t _value)
 	{
-		mDeep = _value;
+		mDepth = _value;
 	}
 
-	size_t PanelProperties::getDeep() const
+	size_t PanelProperties::getDepth() const
 	{
-		return mDeep;
+		return mDepth;
 	}
 
 	size_t PanelProperties::addParametrs(WidgetStyle* widgetType, WidgetContainer* widgetContainer, MyGUI::Widget* _currentWidget)
@@ -48,6 +48,10 @@ namespace tools
 		for (MyGUI::VectorStringPairs::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
 		{
 			std::string value = widgetContainer->getProperty(iter->first);
+
+			// TODO: add extra property to WidgetStyle.parameter
+			if (iter->first == "Depth" && mCurrentWidget->isRootWidget())
+				continue;
 
 			IPropertyField* field = getPropertyField(mWidgetClient, iter->first, iter->second);
 			field->setTarget(_currentWidget);

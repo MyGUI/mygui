@@ -45,7 +45,7 @@ if (NOT APPLE)
 	set(CMAKE_DEBUG_POSTFIX "_d")
 endif ()
 
-if (CMAKE_COMPILER_IS_GNUCXX)
+if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "Intel")
 	# Test for GCC visibility
 	include(CheckCXXCompilerFlag)
 	check_cxx_compiler_flag(-fvisibility=hidden MYGUI_GCC_VISIBILITY)
@@ -73,7 +73,7 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 	if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64" AND NOT APPLE)
 		add_definitions(-fPIC)
 	endif()  
-endif (CMAKE_COMPILER_IS_GNUCXX)
+endif ()
 
 # determine system endianess
 IF(ANDROID)
@@ -124,6 +124,10 @@ set(MYGUI_RENDERSYSTEM 3 CACHE STRING
   5 - Direct3D 9
   6 - Direct3D 11"
 )
+
+if(MYGUI_RENDERSYSTEM EQUAL 4)
+	option(MYGUI_USE_SYSTEM_GLEW "Use system OpenGL Extension Wrangler Library (GLEW)" FALSE)
+endif()
 
 option(MYGUI_BUILD_DEMOS "Build MyGUI demos" TRUE)
 option(MYGUI_BUILD_PLUGINS "Build MyGUI plugins" TRUE)
@@ -179,7 +183,7 @@ endif ()
 # End of Global defines
 
 # Set compiler specific build flags
-if (CMAKE_COMPILER_IS_GNUCXX)
+if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "Intel")
 	if (NOT MYGUI_HIGH_LEVEL_WARNINGS)
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
 	else ()
@@ -191,17 +195,27 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 			# to avoid warnings from OIS
 			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -isystem ${OIS_INCLUDE_DIR}")
 		endif ()
-		if (NOT APPLE)
-			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-show-option")
-		endif ()
+
+		if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything")
+                        # might be useful
+                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unknown-warning-option -Wno-sign-conversion -Wno-conversion -Wno-c++11-extensions -Wno-documentation -Wno-old-style-cast")
+                        # not useful
+                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-float-equal -Wno-padded -Wno-padded -Wno-weak-vtables -Wno-duplicate-enum -Wno-exit-time-destructors -Wno-unused-parameter -Wno-global-constructors")
+		else ()
 		# very interesting option, but way too many warnings
 		#add_definitions(-Weffc++)
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wall -Wctor-dtor-privacy -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter")
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wall  -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter")
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
+			if (NOT CMAKE_CXX_COMPILER_ID MATCHES "Intel")
+				set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wctor-dtor-privacy")
+				set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-show-option")
+			endif ()
 
 		# MyGUI_UString.h ignored from warnings because of this
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wshadow")
 	endif ()
+endif ()
 endif ()
 
 if (MSVC)
@@ -226,6 +240,11 @@ if (MSVC)
 		SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNING_LEVEL}")
 	endif ()
 
+endif ()
+
+if (CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
+	# Otherwise, boost complains that there is no threading support.
+	SET(CMAKE_CXX_FLAGS "-pthread ${CMAKE_CXX_FLAGS}")
 endif ()
 
 # Find dependencies

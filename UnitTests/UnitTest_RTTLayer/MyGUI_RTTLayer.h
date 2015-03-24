@@ -4,8 +4,8 @@
 	@date		12/2009
 */
 
-#ifndef __MYGUI_RTT_LAYER_H__
-#define __MYGUI_RTT_LAYER_H__
+#ifndef MYGUI_RTT_LAYER_H_
+#define MYGUI_RTT_LAYER_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
@@ -38,4 +38,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_RTT_LAYER_H__
+#endif // MYGUI_RTT_LAYER_H_

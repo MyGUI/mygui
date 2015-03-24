@@ -183,8 +183,12 @@
 		<Parameter key="RangePosition" value="1 int"/>
 		<Parameter key="Page" value="1 int"/>
 		<Parameter key="ViewPage" value="1 int"/>
+		<Parameter key="WheelPage" value="1 int"/>
 		<Parameter key="MoveToClick" value="Bool"/>
 		<Parameter key="VerticalAlignment" value="Bool"/>
+		<Parameter key="Repeat" value="Bool"/>
+		<Parameter key="RepeatTriggerTime" value="1 float"/>
+		<Parameter key="RepeatStepTime" value="1 float"/>
 		<TemplateData key="MinTrackSize" value="1 int"/>
 	</Widget>
 	<Widget name="ScrollView">
@@ -267,6 +271,7 @@
 		<Property key="Parent" value="true"/>
 		<Property key="Child" value="true"/>
 		<Parameter key="Visible" value="Bool"/>
+		<Parameter key="Depth" value="1 int"/>
 		<Parameter key="Alpha" value="Alpha"/>
 		<Parameter key="InheritsAlpha" value="Bool"/>
 		<Parameter key="InheritsPick" value="Bool"/>

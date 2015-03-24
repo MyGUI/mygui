@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Window" skin="WindowCS" position="400 88 232 544" layer="Overlapped" name="_Main">
         <Property key="Caption" value="PanelView demo"/>

@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_PRECOMPILED_H__
-#define __MYGUI_PRECOMPILED_H__
+#ifndef MYGUI_PRECOMPILED_H_
+#define MYGUI_PRECOMPILED_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
@@ -28,4 +28,4 @@
 #include "MyGUI_ISerializable.h"
 #include "MyGUI_GenericFactory.h"
 
-#endif // __MYGUI_PRECOMPILED_H__
+#endif // MYGUI_PRECOMPILED_H_

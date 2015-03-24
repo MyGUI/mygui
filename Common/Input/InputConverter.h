@@ -4,8 +4,8 @@
 	@date		02/2010
 	@module
 */
-#ifndef __INPUT_CONVERTER_H__
-#define __INPUT_CONVERTER_H__
+#ifndef INPUT_CONVERTER_H_
+#define INPUT_CONVERTER_H_
 
 #include <MyGUI.h>
 
@@ -1143,4 +1143,4 @@ namespace input
 
 }
 
-#endif // __INPUT_CONVERTER_H__
+#endif // INPUT_CONVERTER_H_

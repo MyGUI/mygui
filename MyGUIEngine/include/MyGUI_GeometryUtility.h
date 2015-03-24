@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_GEOMETRY_UTILITY_H__
-#define __MYGUI_GEOMETRY_UTILITY_H__
+#ifndef MYGUI_GEOMETRY_UTILITY_H_
+#define MYGUI_GEOMETRY_UTILITY_H_
 
 #include "MyGUI_Prerequest.h"
 
@@ -30,4 +30,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_GEOMETRY_UTILITY_H__
+#endif // MYGUI_GEOMETRY_UTILITY_H_

@@ -5,8 +5,8 @@
 	@module
 */
 
-#ifndef __EXPORT_WIDGET_ItemBox_H__
-#define __EXPORT_WIDGET_ItemBox_H__
+#ifndef EXPORT_WIDGET_ItemBox_H_
+#define EXPORT_WIDGET_ItemBox_H_
 
 #include "../ExportDefine.h"
 #include "../ExportMarshaling.h"

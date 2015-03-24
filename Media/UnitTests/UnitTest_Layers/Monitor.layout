@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="ImageBox" skin="ImageBox" position="32 64 1024 512" layer="RTT_Monitor" name="_Main">
         <Property key="ImageTexture" value="MonitorBack.png"/>

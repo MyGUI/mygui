@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_SCROLL_VIEW_BASE_H__
-#define __MYGUI_SCROLL_VIEW_BASE_H__
+#ifndef MYGUI_SCROLL_VIEW_BASE_H_
+#define MYGUI_SCROLL_VIEW_BASE_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
@@ -57,4 +57,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_SCROLL_VIEW_BASE_H__
+#endif // MYGUI_SCROLL_VIEW_BASE_H_

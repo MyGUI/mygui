@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_TOOL_TIP_MANAGER_H__
-#define __MYGUI_TOOL_TIP_MANAGER_H__
+#ifndef MYGUI_TOOL_TIP_MANAGER_H_
+#define MYGUI_TOOL_TIP_MANAGER_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IUnlinkWidget.h"
@@ -54,4 +54,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_TOOL_TIP_MANAGER_H__
+#endif // MYGUI_TOOL_TIP_MANAGER_H_

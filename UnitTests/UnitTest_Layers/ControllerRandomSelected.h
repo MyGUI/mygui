@@ -4,8 +4,8 @@
 	@date		11/2009
 */
 
-#ifndef __CONTROLLER_RANDOM_SELECTED_H__
-#define __CONTROLLER_RANDOM_SELECTED_H__
+#ifndef CONTROLLER_RANDOM_SELECTED_H_
+#define CONTROLLER_RANDOM_SELECTED_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_WidgetDefines.h"
@@ -23,8 +23,7 @@ namespace demo
 		ControllerRandomSelected() : mTime(0) { }
 		virtual ~ControllerRandomSelected() { }
 
-	private:
-		bool addTime(MyGUI::Widget* _widget, float _time)
+		virtual bool addTime(MyGUI::Widget* _widget, float _time)
 		{
 			mTime += _time;
 			if (mTime > 1)
@@ -36,12 +35,13 @@ namespace demo
 			return true;
 		}
 
-		void prepareItem(MyGUI::Widget* _widget)
+		virtual void prepareItem(MyGUI::Widget* _widget)
 		{
 			mTime = 0;
 			action(_widget);
 		}
 
+	private:
 		void action(MyGUI::Widget* _widget)
 		{
 			if ((::rand() % 3) == 0)
@@ -59,4 +59,4 @@ namespace demo
 
 }
 
-#endif // __CONTROLLER_RANDOM_SELECTED_H__
+#endif // CONTROLLER_RANDOM_SELECTED_H_

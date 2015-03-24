@@ -19,8 +19,8 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __FlashValue_H__
-#define __FlashValue_H__
+#ifndef FlashValue_H_
+#define FlashValue_H_
 
 #include <MyGUI.h>
 

@@ -4,8 +4,8 @@
 	@date		11/2009
 */
 
-#ifndef __CONTROLLER_SMOOTH_PROGRESS_H__
-#define __CONTROLLER_SMOOTH_PROGRESS_H__
+#ifndef CONTROLLER_SMOOTH_PROGRESS_H_
+#define CONTROLLER_SMOOTH_PROGRESS_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_WidgetDefines.h"
@@ -27,8 +27,7 @@ namespace demo
 		{ }
 		virtual ~ControllerSmoothProgress() { }
 
-	private:
-		bool addTime(MyGUI::Widget* _widget, float _time)
+		virtual bool addTime(MyGUI::Widget* _widget, float _time)
 		{
 			const float slice = 0.04;
 			mTime += _time;
@@ -41,7 +40,7 @@ namespace demo
 			return true;
 		}
 
-		void prepareItem(MyGUI::Widget* _widget)
+		virtual void prepareItem(MyGUI::Widget* _widget)
 		{
 			mTime = 0;
 			mCurrentPosition = 0;
@@ -54,6 +53,7 @@ namespace demo
 			}
 		}
 
+	private:
 		void update(MyGUI::Widget* _widget)
 		{
 			if (mCurrentPosition != mNeedPosition)
@@ -97,4 +97,4 @@ namespace demo
 
 }
 
-#endif // __CONTROLLER_SMOOTH_PROGRESS_H__
+#endif // CONTROLLER_SMOOTH_PROGRESS_H_

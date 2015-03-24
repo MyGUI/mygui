@@ -312,7 +312,7 @@ namespace MyGUI
 
 		// UV vectors
 		FloatPoint vectorU = baseVerticiesUV[1] - baseVerticiesUV[0];
-		FloatPoint vectorV = baseVerticiesUV[3] - baseVerticiesUV[0];
+		//FloatPoint vectorV = baseVerticiesUV[3] - baseVerticiesUV[0];
 
 		FloatPoint vertex1;
 		FloatPoint vertex2;

@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		10/2008
 */
-#ifndef __INFORMATION_WINDOW_H__
-#define __INFORMATION_WINDOW_H__
+#ifndef INFORMATION_WINDOW_H_
+#define INFORMATION_WINDOW_H_
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
@@ -30,4 +30,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __INFORMATION_WINDOW_H__
+#endif // INFORMATION_WINDOW_H_

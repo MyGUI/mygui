@@ -97,10 +97,7 @@ namespace MyGUI
 				type = overlapped ? "OverlappedLayer" : "SharedLayer";
 			}
 
-			IObject* object = FactoryManager::getInstance().createObject(mCategoryName, type);
-			MYGUI_ASSERT(object != nullptr, "factory '" << type << "' is not found");
-
-			ILayer* item = object->castType<ILayer>();
+			ILayer* item = _createLayerObject(type);
 			item->deserialization(layer.current(), _version);
 
 			layers.push_back(item);
@@ -108,6 +105,14 @@ namespace MyGUI
 
 		// теперь мержим новые и старые слои
 		merge(layers);
+	}
+
+	ILayer* LayerManager::_createLayerObject(const std::string& _type)
+	{
+		IObject* object = FactoryManager::getInstance().createObject(mCategoryName, _type);
+		MYGUI_ASSERT(object != nullptr, "factory '" << _type << "' is not found");
+
+		return object->castType<ILayer>();
 	}
 
 	void LayerManager::_unlinkWidget(Widget* _widget)
@@ -184,6 +189,18 @@ namespace MyGUI
 
 		// теперь в основной
 		mLayerNodes = _layers;
+	}
+
+	ILayer* LayerManager::createLayerAt(const std::string& _name, const std::string& _type, size_t _index)
+	{
+		MYGUI_ASSERT_RANGE(_index, mLayerNodes.size() + 1, "LayerManager::getLayer");
+
+		ILayer* item = _createLayerObject(_type);
+		item->setName(_name);
+
+		mLayerNodes.insert(mLayerNodes.begin() + _index, item);
+
+		return item;
 	}
 
 	void LayerManager::destroy(ILayer* _layer)

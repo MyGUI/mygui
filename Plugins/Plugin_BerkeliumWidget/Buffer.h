@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		02/2010
 */
-#ifndef __BUFFER_H__
-#define __BUFFER_H__
+#ifndef BUFFER_H_
+#define BUFFER_H_
 
 namespace helpers
 {
@@ -272,4 +272,4 @@ namespace helpers
 	};
 }
 
-#endif // __BUFFER_H__
+#endif // BUFFER_H_

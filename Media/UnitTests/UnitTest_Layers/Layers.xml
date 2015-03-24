@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layer" version="1.0">
 	<Layer name="Back" overlapped="false" pick="true"/>
 	<Layer name="Overlapped" overlapped="true" pick="true"/>

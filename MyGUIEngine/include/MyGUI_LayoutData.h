@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_LAYOUT_DATA_H__
-#define __MYGUI_LAYOUT_DATA_H__
+#ifndef MYGUI_LAYOUT_DATA_H_
+#define MYGUI_LAYOUT_DATA_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Common.h"
@@ -52,4 +52,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_LAYOUT_DATA_H__
+#endif // MYGUI_LAYOUT_DATA_H_

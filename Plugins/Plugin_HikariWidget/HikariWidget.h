@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		10/2009
 */
-#ifndef __HIKARI_WIDGET_H__
-#define __HIKARI_WIDGET_H__
+#ifndef HIKARI_WIDGET_H_
+#define HIKARI_WIDGET_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Canvas.h"
@@ -162,4 +162,4 @@ namespace Hikari
 
 } // namespace Hikari
 
-#endif // __HIKARI_WIDGET_H__
+#endif // HIKARI_WIDGET_H_

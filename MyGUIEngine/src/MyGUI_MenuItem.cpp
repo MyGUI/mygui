@@ -72,6 +72,20 @@ namespace MyGUI
 		mOwner->_notifyUpdateName(this);
 	}
 
+	void MenuItem::setFontName(const std::string& _value)
+	{
+		Button::setFontName(_value);
+		if (!getCaption().empty())
+			mOwner->_notifyUpdateName(this);
+	}
+
+	void MenuItem::setFontHeight(int _value)
+	{
+		Button::setFontHeight(_value);
+		if (!getCaption().empty())
+			mOwner->_notifyUpdateName(this);
+	}
+
 	const UString& MenuItem::getItemName()
 	{
 		return mOwner->getItemName(this);

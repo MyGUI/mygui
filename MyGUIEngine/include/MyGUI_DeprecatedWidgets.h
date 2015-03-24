@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_DEPRECATED_WIDGETS_H__
-#define __MYGUI_DEPRECATED_WIDGETS_H__
+#ifndef MYGUI_DEPRECATED_WIDGETS_H_
+#define MYGUI_DEPRECATED_WIDGETS_H_
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
@@ -15,8 +15,6 @@
 
 namespace MyGUI
 {
-
-	typedef delegates::CMultiDelegate2<VScroll*, size_t> EventHandle_VScrollPtrSizeT;
 
 	class MYGUI_EXPORT VScroll :
 		public ScrollBar
@@ -28,14 +26,6 @@ namespace MyGUI
 		{
 			mVerticalAlignment = true;
 		}
-
-		/*events:*/
-		/** Event : scroll tracker position changed.\n
-			signature : void method(MyGUI::VScroll* _sender, size_t _position)\n
-			@param _sender widget that called this event
-			@param _position - new tracker position
-		*/
-		EventPair<EventHandle_WidgetSizeT, EventHandle_VScrollPtrSizeT> eventScrollChangePosition;
 	};
 
 	class MYGUI_EXPORT HScroll :
@@ -54,4 +44,4 @@ namespace MyGUI
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
-#endif // __MYGUI_DEPRECATED_WIDGETS_H__
+#endif // MYGUI_DEPRECATED_WIDGETS_H_

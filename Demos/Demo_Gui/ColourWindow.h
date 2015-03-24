@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		01/2009
 */
-#ifndef __COLOUR_WINDOW_H__
-#define __COLOUR_WINDOW_H__
+#ifndef COLOUR_WINDOW_H_
+#define COLOUR_WINDOW_H_
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
@@ -40,4 +40,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __COLOUR_WINDOW_H__
+#endif // COLOUR_WINDOW_H_

@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_WIDGET_H__
-#define __MYGUI_WIDGET_H__
+#ifndef MYGUI_WIDGET_H_
+#define MYGUI_WIDGET_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Any.h"
@@ -144,6 +144,14 @@ namespace MyGUI
 		virtual void setVisible(bool _value);
 		/** Return true if visible */
 		bool getVisible() const;
+
+		/** Set child widget rendering depth for ordering child widgets.
+			Widget with higher depth is rendered below widget with lower depth.
+			Available only for child widgets. For root widgets use layer property instead.
+		*/
+		void setDepth(int _value);
+		/** Get child widget rendering depth */
+		int getDepth() const;
 
 		/** Return widget's visibility based on it's and parents visibility. */
 		bool getInheritedVisible() const;
@@ -290,6 +298,9 @@ namespace MyGUI
 
 		bool _setWidgetState(const std::string& _value);
 
+		// перерисовывает детей
+		void _updateChilds();
+
 		//Added Functions
 		virtual bool onSendScrollGesture(const int& absx, const int& absy, const int& deltax, const int& deltay);
 
@@ -389,6 +400,8 @@ namespace MyGUI
 
 		virtual void resizeLayerItemView(const IntSize& _oldView, const IntSize& _newView);
 
+		void addWidget(Widget* _widget);
+
 	private:
 		// клиентская зона окна
 		// если виджет имеет пользовательские окна не в себе
@@ -423,6 +436,7 @@ namespace MyGUI
 
 		Align mAlign;
 		bool mVisible;
+		int mDepth;
 
 		FloatCoord mRelativeCoord;
 		bool mDisableUpdateRelative;
@@ -430,4 +444,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_WIDGET_H__
+#endif // MYGUI_WIDGET_H_

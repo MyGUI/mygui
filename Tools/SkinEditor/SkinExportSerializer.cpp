@@ -218,6 +218,17 @@ namespace tools
 			{
 				values[name] = coord.point();
 			}
+
+            // create, if there is no data
+			name = convertExportToEditorStateName(name);
+			DataPtr childData = getChildData(_data, "State", name);
+			if (childData == nullptr)
+			{
+                childData = Data::CreateInstance();
+				childData->setType(DataTypeManager::getInstance().getType("State"));
+				childData->setPropertyValue("Name", name);
+				_data->addChild(childData);
+			}
 		}
 
 		for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end(); child ++)
@@ -260,12 +271,18 @@ namespace tools
 
 	std::string SkinExportSerializer::convertEditorToExportStateName(const std::string& _value)
 	{
-		return mEditorToExportNames.find(_value)->second;
+		MyGUI::MapString::const_iterator result = mEditorToExportNames.find(_value);
+		if (result != mEditorToExportNames.end())
+			return result->second;
+		return _value;
 	}
 
 	std::string SkinExportSerializer::convertExportToEditorStateName(const std::string& _value)
 	{
-		return mExportToEditorNames.find(_value)->second;
+		MyGUI::MapString::const_iterator result = mExportToEditorNames.find(_value);
+		if (result != mExportToEditorNames.end())
+			return result->second;
+		return _value;
 	}
 
 	void SkinExportSerializer::registerMapName(const std::string& _value1, const std::string& _value2)

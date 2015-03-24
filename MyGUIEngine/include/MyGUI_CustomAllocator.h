@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_CUSTOM_ALLOCATOR_H__
-#define __MYGUI_CUSTOM_ALLOCATOR_H__
+#ifndef MYGUI_CUSTOM_ALLOCATOR_H_
+#define MYGUI_CUSTOM_ALLOCATOR_H_
 
 #include <memory>
 #include <limits>
@@ -100,4 +100,4 @@ namespace MyGUI
 #include <OgreMemoryMacros.h>
 #endif
 
-#endif // __MYGUI_CUSTOM_ALLOCATOR_H__
+#endif // MYGUI_CUSTOM_ALLOCATOR_H_

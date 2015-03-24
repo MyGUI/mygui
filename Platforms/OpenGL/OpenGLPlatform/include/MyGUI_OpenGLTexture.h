@@ -4,8 +4,8 @@
 	@date		07/2009
 */
 
-#ifndef __MYGUI_OPENGL_TEXTURE_H__
-#define __MYGUI_OPENGL_TEXTURE_H__
+#ifndef MYGUI_OPENGL_TEXTURE_H_
+#define MYGUI_OPENGL_TEXTURE_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ITexture.h"
@@ -74,4 +74,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_OPENGL_TEXTURE_H__
+#endif // MYGUI_OPENGL_TEXTURE_H_

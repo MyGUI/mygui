@@ -14,26 +14,6 @@ if (MYGUI_USE_FREETYPE)
 	add_definitions(-DMYGUI_USE_FREETYPE)
 endif ()
 
-# Get Svn revision
-MACRO(Subversion_GET_REVISION variable)
-	FIND_PROGRAM(SVN_EXECUTABLE svnversion
-		DOC "subversion command line client")
-
-	EXECUTE_PROCESS(
-		COMMAND ${SVN_EXECUTABLE} ${MYGUI_SOURCE_DIR}
-		OUTPUT_STRIP_TRAILING_WHITESPACE
-		OUTPUT_VARIABLE ${variable})
-	#MESSAGE(STATUS  ${MYGUI_SOURCE_DIR} ${variable})
-ENDMACRO(Subversion_GET_REVISION)
-
-Subversion_GET_REVISION(ProjectRevision)
-if (NOT "${ProjectRevision}" STREQUAL "")
-	add_definitions(-DMYGUI_SVN_REVISION="${ProjectRevision}")
-	MESSAGE(STATUS "Using svn revision ${ProjectRevision}.")
-else ()
-	MESSAGE(STATUS "Unknown svn revision. It won't be included into build.")
-endif ()
-
 add_definitions(-DMYGUI_BUILD)
 
 if (MSVC)
@@ -45,6 +25,16 @@ endif ()
 # setup MyGUIEngine target
 add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 set_target_properties(${PROJECTNAME} PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION ${MYGUI_VERSION_MAJOR})
+
+if (UNIX)
+	# some platforms require explicit linking to libdl, see if it's available
+	find_library(DL_LIBRARY NAMES dl dlsym)
+	mark_as_advanced(DL_LIBRARY)
+	if (DL_LIBRARY)
+		target_link_libraries(${PROJECTNAME} dl)
+	endif ()
+endif()
+
 if (MYGUI_USE_FREETYPE)
 	target_link_libraries(${PROJECTNAME}
 		${FREETYPE_LIBRARIES}

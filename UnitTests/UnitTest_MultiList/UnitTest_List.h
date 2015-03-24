@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		10/2008
 */
-#ifndef __UNITTEST_LIST_H__
-#define __UNITTEST_LIST_H__
+#ifndef UNITTEST_LIST_H_
+#define UNITTEST_LIST_H_
 
 #include "MyGUI.h"
 #include "Mirror_List.h"
@@ -155,4 +155,4 @@ namespace unittest
 
 }
 
-#endif // __UNITTEST_LIST_H__
+#endif // UNITTEST_LIST_H_

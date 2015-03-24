@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		08/2008
 */
-#ifndef __LOOP_CONTROLLER_H__
-#define __LOOP_CONTROLLER_H__
+#ifndef LOOP_CONTROLLER_H_
+#define LOOP_CONTROLLER_H_
 
 #include "IAnimationNode.h"
 #include "IAnimationGraph.h"
@@ -119,4 +119,4 @@ namespace animation
 
 } // namespace animation
 
-#endif // __LOOP_CONTROLLER_H__
+#endif // LOOP_CONTROLLER_H_

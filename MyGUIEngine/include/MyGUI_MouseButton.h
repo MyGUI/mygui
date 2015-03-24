@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_MOUSE_BUTTON_H__
-#define __MYGUI_MOUSE_BUTTON_H__
+#ifndef MYGUI_MOUSE_BUTTON_H_
+#define MYGUI_MOUSE_BUTTON_H_
 
 #include "MyGUI_Prerequest.h"
 
@@ -59,4 +59,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_MOUSE_BUTTON_H__
+#endif // MYGUI_MOUSE_BUTTON_H_

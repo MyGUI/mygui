@@ -1,5 +1,5 @@
-#ifndef __GRAPH_NODE_CONSTRUCT_H__
-#define __GRAPH_NODE_CONSTRUCT_H__
+#ifndef GRAPH_NODE_CONSTRUCT_H_
+#define GRAPH_NODE_CONSTRUCT_H_
 
 #include "BaseAnimationNode.h"
 
@@ -29,4 +29,4 @@ namespace demo
 
 }
 
-#endif // __GRAPH_NODE_CONSTRUCT_H__
+#endif // GRAPH_NODE_CONSTRUCT_H_

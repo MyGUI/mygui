@@ -1,5 +1,5 @@
-#ifndef __I_ANIMATION_NODE_CONSTRUCT_H__
-#define __I_ANIMATION_NODE_CONSTRUCT_H__
+#ifndef I_ANIMATION_NODE_CONSTRUCT_H_
+#define I_ANIMATION_NODE_CONSTRUCT_H_
 
 #include "IAnimationNode.h"
 #include "IAnimationGraph.h"
@@ -30,4 +30,4 @@ namespace animation
 
 } // namespace animation
 
-#endif // __I_ANIMATION_NODE_CONSTRUCT_H__
+#endif // I_ANIMATION_NODE_CONSTRUCT_H_

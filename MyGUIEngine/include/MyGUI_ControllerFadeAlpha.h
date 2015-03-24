@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_CONTROLLER_FADE_ALPHA_H__
-#define __MYGUI_CONTROLLER_FADE_ALPHA_H__
+#ifndef MYGUI_CONTROLLER_FADE_ALPHA_H_
+#define MYGUI_CONTROLLER_FADE_ALPHA_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_WidgetDefines.h"
@@ -39,11 +39,9 @@ namespace MyGUI
 		*/
 		void setEnabled(bool _value);
 
+		virtual bool addTime(Widget* _widget, float _time);
+		virtual void prepareItem(Widget* _widget);
 		virtual void setProperty(const std::string& _key, const std::string& _value);
-
-	private:
-		bool addTime(Widget* _widget, float _time);
-		void prepareItem(Widget* _widget);
 
 	private:
 		float mAlpha;
@@ -53,4 +51,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_CONTROLLER_FADE_ALPHA_H__
+#endif // MYGUI_CONTROLLER_FADE_ALPHA_H_

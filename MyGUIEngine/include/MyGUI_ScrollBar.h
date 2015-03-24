@@ -4,14 +4,16 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_SCROLL_BAR_H__
-#define __MYGUI_SCROLL_BAR_H__
+#ifndef MYGUI_SCROLL_BAR_H_
+#define MYGUI_SCROLL_BAR_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Widget.h"
 
 namespace MyGUI
 {
+
+	class ControllerItem;
 
 	typedef delegates::CMultiDelegate2<ScrollBar*, size_t> EventHandle_ScrollBarPtrSizeT;
 
@@ -56,8 +58,12 @@ namespace MyGUI
 		/** Get scroll view page */
 		size_t getScrollViewPage() const;
 
-		void setScrollIncrement(size_t _value) { mScrollIncrement = _value; }
-		size_t getScrollIncrement() { return mScrollIncrement; }
+		/** Set scroll view page
+			@param _value Tracker step when mouse wheel scrolled
+		*/
+		void setScrollWheelPage(size_t _value);
+		/** Get scroll view page */
+		size_t getScrollWheelPage() const;
 
 		/** Get size in pixels of area where scroll moves */
 		int getLineSize() const;
@@ -81,6 +87,25 @@ namespace MyGUI
 		void setMoveToClick(bool _value);
 		/** Get move to click mode flag */
 		bool getMoveToClick() const;
+
+		/** Set whether clicks on scrollbar buttons should be repeated at set intervals
+			as long as the mouse button is pressed down. Enabled (true) by default.
+		 */
+		void setRepeatEnabled(bool enabled);
+		/** Get whether Repeat mode is enabled
+			@see setRepeatEnabled
+		 */
+		bool getRepeatEnabled() const;
+
+		/** Set time that buttons need to be pressed down to start repeating. */
+		void setRepeatTriggerTime(float time);
+		/** Get time that buttons need to be pressed down to start repeating. */
+		float getRepeatTriggerTime(float time) const;
+
+		/** Set how much time between scrollbar button repeats. */
+		void setRepeatStepTime(float time);
+		/** Get how much time between scrollbar button repeats. */
+		float getRepeatStepTime(float time) const;
 
 		//! @copydoc Widget::setPosition(const IntPoint& _value)
 		virtual void setPosition(const IntPoint& _value);
@@ -123,6 +148,13 @@ namespace MyGUI
 
 		int getTrackPlaceLength() const;
 
+	private:
+		void repeatClick(MyGUI::Widget* _widget, MyGUI::ControllerItem* _controller);
+		void widgetStartPressed();
+		void widgetEndPressed();
+		void widgetFirstPartPressed();
+		void widgetSecondPartPressed();
+
 	protected:
 		// наши кнопки
 		Button* mWidgetStart;
@@ -141,9 +173,13 @@ namespace MyGUI
 
 		size_t mScrollRange;
 		size_t mScrollPosition;
-		size_t mScrollPage; // на сколько перещелкивать, при щелчке на кнопке
-		size_t mScrollViewPage; // на сколько перещелкивать, при щелчке по полосе
-		size_t mScrollIncrement;
+		size_t mScrollPage; // track step, when clicking buttons
+		size_t mScrollViewPage; // track step, when clicking scroll line
+		size_t mScrollWheelPage; // track step, when scrolling with mouse wheel
+
+		bool mEnableRepeat; // Repeat clicks on the scrollbar buttons when the mouse button remains pressed down
+		float mRepeatTriggerTime; // Time the mouse button needs to be held for repeating to start
+		float mRepeatStepTime; // Time between repeats
 
 		int mMinTrackSize;
 		bool mMoveToClick;
@@ -153,4 +189,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_SCROLL_BAR_H__
+#endif // MYGUI_SCROLL_BAR_H_

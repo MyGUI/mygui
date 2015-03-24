@@ -3,8 +3,8 @@
 	@author     Pavel Turin
 	@date       08/2009
 */
-#ifndef __GENERIC_NODE_H__
-#define __GENERIC_NODE_H__
+#ifndef GENERIC_NODE_H_
+#define GENERIC_NODE_H_
 
 namespace MyGUI
 {
@@ -224,4 +224,4 @@ namespace MyGUI
 	}
 }
 
-#endif // __GENERIC_NODE_H__
+#endif // GENERIC_NODE_H_

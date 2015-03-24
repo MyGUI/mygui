@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI>
 	<MyGUI type="Widgets">
 		<Widget name="BerkeliumWidget">
@@ -11,8 +11,8 @@
 	</MyGUI>
 	<MyGUI type="Plugin">
 		<Plugin>
-			<Source>Plugin_BerkeliumWidget.dll</Source>
-			<Source build="Debug">Plugin_BerkeliumWidget_d.dll</Source>
+			<Source>./Plugin_BerkeliumWidget</Source>
+			<Source build="Debug">./Plugin_BerkeliumWidget_d</Source>
 		</Plugin>
 	</MyGUI>
 </MyGUI>

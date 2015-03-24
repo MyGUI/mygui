@@ -69,7 +69,10 @@ namespace MyGUI
 
 	bool OgreDataManager::isDataExist(const std::string& _name)
 	{
-		return Ogre::ResourceGroupManager::getSingleton().resourceExists(mGroup, _name);
+		if (mAllGroups)
+			return Ogre::ResourceGroupManager::getSingleton().resourceExistsInAnyGroup(_name);
+		else
+			return Ogre::ResourceGroupManager::getSingleton().resourceExists(mGroup, _name);
 	}
 
 	const VectorString& OgreDataManager::getDataListNames(const std::string& _pattern)

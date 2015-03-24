@@ -122,5 +122,7 @@ elseif(MYGUI_SAMPLES_INPUT EQUAL 3)
 endif()
 
 if(NOT WIN32)
+	find_package(X11)
 	target_link_libraries(${PROJECTNAME} X11)
+	include_directories(${X11_INCLUDE_DIR})
 endif()

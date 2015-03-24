@@ -1,4 +1,85 @@
 ----------------------------------------------------------------
+------------------------- Version 3.2.2 ------------------------
+----------------------------------------------------------------
+-- Core --
+- Fixed eventChangeMouseFocus and eventChangeKeyFocus not being triggered in certain cases.
+
+-- Widgets --
+- ComboBox: Fixed mouse events incorrectly going to the widget below the ComboBox when clicking on an item.
+- ScrollBar: Added button repeat support, ScrollBar buttons will trigger repeatedly so long as the mouse is held down.
+
+-- Platforms --
+- OpenGLPlatform: Added option to use system GLEW library.
+- OgrePlatform: Improved performance of OgreDataManager::isDataExist.
+- OgrePlatform: Fixed build failure regarding boost libraries used by Ogre not being found.
+
+-- Resources --
+- ResourceManualFont: Added API to create a ResourceManualFont in code rather than from XML.
+
+-- Tools --
+- Fixed broken file dialog directory listing on Linux and make sure files are sorted.
+
+----------------------------------------------------------------
+------------------------- Version 3.2.1 ------------------------
+----------------------------------------------------------------
+
+-- Core --
+- Added events to clipboard manager: eventClipboardRequested, eventClipboardChanged.
+- Added API access to child LayerNodes. 
+- Added pointer to ControllerItem in all controller events.
+- Key focus will be reset when the key focus widget is hidden.
+- Fixed incorrectly detecting double click when clicking on different widgets.
+- Fixed a memory leak when creating or changing widgets in several cases.
+- Fixed a lot of warnings from cppcheck.
+- Other minor fixes.
+- Remove possibility to compile without std::typeinfo (no longer needed for android, MYGUI_RTTI_DISABLE_TYPE_INFO option removed).
+- Remove -msse from compiler flags.
+
+-- Widgets --
+- Added Depth property for child widgets, that can be used for rendering order.
+- Added eventChangeCoord event.
+- Fixed Enabled property not being inherited from parent widgets.
+- ListBox: Added eventNotifyItem for key or mouse press on item widgets.
+- ListBox: Added getWidgetByIndex public API to allow item widget access from outside.
+- EditBox: Fixed several keyboard shortcuts (such as copy & paste) not working when key and text events are injected separately by the user.
+- ImageBox: Added getImageSize method.
+- ScrollBar: Added WheelPage property for mouse wheel scroll step.
+
+-- SubWidgets --
+- PolygonalSkin: Added stroke support for drawing dashed lines (can be seen in UnitTest_Spline).
+- RotatingSkin: Added properties to skin XML.
+
+-- Resources --
+- ResourceTrueTypeFont: Added Distance parameter for margin between glyphs in generated font texture.
+- ResourceImageSet, ResourceTrueTypeFont: Added public API to allow creating in code rather than from XML.
+- ResourceManualFont: Added support to set glyph size separately rather than deriving it from image coordinates.
+
+-- Skins --
+- Added Dark skin (used by default in Tools).
+- Added Black skin.
+- Minor updates to other skins.
+
+-- Tools --
+- Significant improvements to LayoutEditor, FontEditor, ImageEditor and SkinEditor.
+
+-- Demos --
+- Minor updates to several demos.
+
+-- UnitTests --
+- Added DataInfoTest.
+
+-- Platforms --
+- Added Dummy platform.
+- Various fixes for DirectX11 platform.
+- Slightly refactored OpenGL platform.
+- Added DataMemoryStream class.
+
+-- Other --
+- Updated C# wrapper.
+- Switched from LGPL to MIT license.
+- Documentation improvements.
+
+----------------------------------------------------------------
 ------------------------- Version 3.2.0 ------------------------
 ----------------------------------------------------------------
 

@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_TILE_RECT_H__
-#define __MYGUI_TILE_RECT_H__
+#ifndef MYGUI_TILE_RECT_H_
+#define MYGUI_TILE_RECT_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_XmlDocument.h"
@@ -76,4 +76,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_TILE_RECT_H__
+#endif // MYGUI_TILE_RECT_H_

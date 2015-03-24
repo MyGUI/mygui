@@ -1,0 +1,34 @@
+language: cpp
+compiler:
+ - gcc
+ - clang
+env:
+ - RENDER_SYSTEM=3 BUILD_DEMOS_AND_TOOLS=TRUE # Ogre3D Platform
+ - RENDER_SYSTEM=4 BUILD_DEMOS_AND_TOOLS=FALSE # OpenGL Platform
+branches:
+  only:
+    - master
+before_install:
+ - pwd
+ - git submodule update --init --recursive
+ - echo "yes" | sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu `lsb_release -sc` main universe restricted multiverse"
+ - echo "yes" | sudo apt-add-repository ppa:openmw/openmw
+ - sudo apt-get update -qq
+ - sudo apt-get install -qq cmake libogre-1.9-dev libfreetype6-dev libois-dev graphviz libgl1-mesa-dev libglew-dev doxygen python cppcheck
+before_script:
+ - mkdir build
+ - cd build
+ - cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DMYGUI_HIGH_LEVEL_WARNINGS=TRUE -DMYGUI_RENDERSYSTEM=$RENDER_SYSTEM -DMYGUI_BUILD_DEMOS=$BUILD_DEMOS_AND_TOOLS -DMYGUI_BUILD_TOOLS=$BUILD_DEMOS_AND_TOOLS -DMYGUI_BUILD_UNITTESTS=$BUILD_DEMOS_AND_TOOLS ..
+script:
+ - make -j2
+
+after_script:
+ - cd ..
+ - python ./Scripts/cppcheck/cppcheck.py
+notifications:
+  recipients:
+    - psi29a+travis.ci@gmail.com
+    - altren@gmail.com
+  email:
+    on_success: change
+    on_failure: always

@@ -4,8 +4,8 @@
 	@date		09/2009
 	@module
 */
-#ifndef __FILE_SYSTEM_INFO_H__
-#define __FILE_SYSTEM_INFO_H__
+#ifndef FILE_SYSTEM_INFO_H_
+#define FILE_SYSTEM_INFO_H_
 
 #include <MyGUI.h>
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
@@ -17,10 +17,12 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <fnmatch.h>
 #endif
 
 #include <string>
 #include <vector>
+#include <locale>
 
 namespace common
 {
@@ -32,6 +34,26 @@ namespace common
 		bool folder;
 	};
 	typedef std::vector<FileInfo> VectorFileInfo;
+
+	inline std::wstring toLower(const std::wstring& _input)
+	{
+		std::wstring result;
+		result.resize(_input.size());
+		static std::locale sLocale("");
+		for (unsigned int i=0; i<_input.size(); ++i)
+			result[i] = std::tolower(_input[i], sLocale);
+		return result;
+	}
+
+	inline bool sortFiles(const common::FileInfo& left, const common::FileInfo& right)
+	{
+		if (left.folder < right.folder)
+			return true;
+		if (left.folder > right.folder)
+			return false;
+
+		return toLower(left.name) < toLower(right.name);
+	}
 
 	inline bool isAbsolutePath(const wchar_t* path)
 	{
@@ -87,7 +109,7 @@ namespace common
 		return (_fn [0] == '.' && _fn [1] == '.' && _fn [2] == 0);
 	}
 
-	inline void getSystemFileList(VectorFileInfo& _result, const std::wstring& _folder, const std::wstring& _mask)
+	inline void getSystemFileList(VectorFileInfo& _result, const std::wstring& _folder, const std::wstring& _mask, bool _sorted = true)
 	{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		//FIXME add optional parameter?
@@ -132,18 +154,21 @@ namespace common
 
 		while ((dp = readdir (dir)) != NULL)
 		{
-			if (!isReservedDir(MyGUI::UString(dp->d_name).asWStr_c_str()))
+			if ((fnmatch(MyGUI::UString(_mask).asUTF8_c_str(), dp->d_name, 0) == 0) && !isReservedDir(MyGUI::UString(dp->d_name).asWStr_c_str()))
 			{
 				struct stat fInfo;
-				char path[NAME_MAX];
-				//snprintf(path, NAME_MAX, "%s/%s", MyGUI::UString(_folder).asUTF8_c_str(), dp->d_name);
-				if (stat(path, &fInfo) == -1)perror("stat");
+				std::string path = MyGUI::UString(_folder).asUTF8() + "/" + dp->d_name;
+				if (stat(path.c_str(), &fInfo) == -1)perror("stat");
 				_result.push_back(FileInfo(MyGUI::UString(dp->d_name).asWStr(), (S_ISDIR(fInfo.st_mode))));
 			}
 		}
 
 		closedir(dir);
 #endif
+		if (_sorted)
+		{
+			std::sort(_result.begin(), _result.end(), sortFiles);
+		}
 	}
 
 	inline std::wstring getSystemCurrentFolder()
@@ -153,6 +178,9 @@ namespace common
 		::GetCurrentDirectoryW(MAX_PATH, buff);
 		return buff;
 #else
+#	ifndef PATH_MAX
+#		define PATH_MAX 256
+#	endif
 		char buff[PATH_MAX+1];
 		return getcwd(buff, PATH_MAX) ? MyGUI::UString(buff).asWStr() : std::wstring();
 #endif
@@ -194,4 +222,4 @@ namespace common
 
 }
 
-#endif // __FILE_SYSTEM_INFO_H__
+#endif // FILE_SYSTEM_INFO_H_

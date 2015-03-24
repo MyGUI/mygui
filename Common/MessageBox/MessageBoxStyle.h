@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		10/2010
 */
-#ifndef __MESSAGE_BOX_STYLE_H__
-#define __MESSAGE_BOX_STYLE_H__
+#ifndef MESSAGE_BOX_STYLE_H_
+#define MESSAGE_BOX_STYLE_H_
 
 #include <MyGUI.h>
 
@@ -226,4 +226,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MESSAGE_BOX_STYLE_H__
+#endif // MESSAGE_BOX_STYLE_H_

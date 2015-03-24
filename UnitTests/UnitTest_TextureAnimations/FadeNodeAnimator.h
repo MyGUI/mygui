@@ -3,8 +3,8 @@
 	@author     Albert Semenov
 	@date       08/2008
 */
-#ifndef __FADE_NODE_ANIMATOR_H__
-#define __FADE_NODE_ANIMATOR_H__
+#ifndef FADE_NODE_ANIMATOR_H_
+#define FADE_NODE_ANIMATOR_H_
 
 #include <MyGUI.h>
 #include "MyGUI_LayerNodeAnimation.h"
@@ -58,4 +58,4 @@ namespace demo
 
 }
 
-#endif // __FADE_NODE_ANIMATOR_H__
+#endif // FADE_NODE_ANIMATOR_H_

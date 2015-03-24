@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		10/2008
 */
-#ifndef __MIRROR_MULTI_LIST_H__
-#define __MIRROR_MULTI_LIST_H__
+#ifndef MIRROR_MULTI_LIST_H_
+#define MIRROR_MULTI_LIST_H_
 
 #include "MyGUI.h"
 #include "Mirror_List.h"
@@ -312,4 +312,4 @@ namespace unittest
 
 }
 
-#endif // __MIRROR_MULTILIST_H__
+#endif // MIRROR_MULTILIST_H_

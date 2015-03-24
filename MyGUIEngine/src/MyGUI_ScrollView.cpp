@@ -22,7 +22,6 @@ namespace MyGUI
 		mScrollViewScrollPage(Gui::getInstance().scalePreserve(16))
 	{
 		mChangeContentByResize = false;
-		mContentAlign = Align::Center;
 	}
 
 	void ScrollView::initialiseOverride()

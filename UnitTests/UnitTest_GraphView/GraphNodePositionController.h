@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		08/2009
 */
-#ifndef __GRAPH_NODE_POSITION_H__
-#define __GRAPH_NODE_POSITION_H__
+#ifndef GRAPH_NODE_POSITION_H_
+#define GRAPH_NODE_POSITION_H_
 
 #include <MyGUI.h>
 #include "BaseAnimationNode.h"
@@ -65,7 +65,7 @@ namespace demo
 			if (node)
 			{
 				mLength = node->getLength();
-				if (mLength > 0.0001) mLength -= 0.0001;
+				if (mLength > 0.0001f) mLength -= 0.0001f;
 			}
 			else
 			{
@@ -143,4 +143,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __GRAPH_NODE_POSITION_H__
+#endif // GRAPH_NODE_POSITION_H_

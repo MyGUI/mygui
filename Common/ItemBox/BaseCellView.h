@@ -5,8 +5,8 @@
 	@module
 */
 
-#ifndef __BASE_CELL_VIEW_H__
-#define __BASE_CELL_VIEW_H__
+#ifndef BASE_CELL_VIEW_H_
+#define BASE_CELL_VIEW_H_
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
@@ -29,4 +29,4 @@ namespace wraps
 
 } // namespace wraps
 
-#endif // __BASE_CELL_VIEW_H__
+#endif // BASE_CELL_VIEW_H_

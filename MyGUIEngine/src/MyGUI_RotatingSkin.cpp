@@ -199,7 +199,12 @@ namespace MyGUI
 
 	void RotatingSkin::setStateData(IStateInfo* _data)
 	{
-		_setUVSet(_data->castType<SubSkinStateInfo>()->getRect());
+		RotatingSkinStateInfo* data = _data->castType<RotatingSkinStateInfo>();
+
+		setAngle(data->getAngle());
+		setCenter(data->getCenter());
+
+		_setUVSet(data->getRect());
 	}
 
 	void RotatingSkin::_setUVSet(const FloatRect& _rect)

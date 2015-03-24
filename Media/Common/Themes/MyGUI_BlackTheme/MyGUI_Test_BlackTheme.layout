@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout" version="3.2.0">
     <Widget type="Window" skin="WindowC_BlackTheme" position="30 30 300 135">
         <Property key="Caption" value="WindowC_BlackTheme"/>
@@ -110,12 +110,14 @@
                     <Property key="RangePosition" value="100"/>
                     <Property key="Page" value="50"/>
                     <Property key="ViewPage" value="50"/>
+                    <Property key="WheelPage" value="50"/>
                 </Widget>
                 <Widget type="ScrollBar" skin="ScrollBarH_BlackTheme" position="5 170 200 13">
                     <Property key="Range" value="200"/>
                     <Property key="RangePosition" value="100"/>
                     <Property key="Page" value="50"/>
                     <Property key="ViewPage" value="50"/>
+                    <Property key="WheelPage" value="50"/>
                 </Widget>
             </Widget>
             <Widget type="TabItem" skin="" position="4 23 267 218">

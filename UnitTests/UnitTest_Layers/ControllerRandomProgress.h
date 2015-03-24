@@ -4,8 +4,8 @@
 	@date		11/2009
 */
 
-#ifndef __CONTROLLER_RANDOM_PROGRESS_H__
-#define __CONTROLLER_RANDOM_PROGRESS_H__
+#ifndef CONTROLLER_RANDOM_PROGRESS_H_
+#define CONTROLLER_RANDOM_PROGRESS_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_WidgetDefines.h"
@@ -23,8 +23,7 @@ namespace demo
 		ControllerRandomProgress() : mTime(0) { }
 		virtual ~ControllerRandomProgress() { }
 
-	private:
-		bool addTime(MyGUI::Widget* _widget, float _time)
+		virtual bool addTime(MyGUI::Widget* _widget, float _time)
 		{
 			const float slice = 0.2;
 			mTime += _time;
@@ -37,12 +36,13 @@ namespace demo
 			return true;
 		}
 
-		void prepareItem(MyGUI::Widget* _widget)
+		virtual void prepareItem(MyGUI::Widget* _widget)
 		{
 			mTime = 0;
 			action(_widget);
 		}
 
+	private:
 		void action(MyGUI::Widget* _widget)
 		{
 			if ((::rand() % 2) == 0)
@@ -76,4 +76,4 @@ namespace demo
 
 }
 
-#endif // __CONTROLLER_RANDOM_PROGRESS_H__
+#endif // CONTROLLER_RANDOM_PROGRESS_H_

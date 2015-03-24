@@ -26,7 +26,7 @@ namespace MyGUI
 		mLastVertexCount(0),
 		mVertexBuffer(nullptr),
 		mRenderTarget(nullptr),
-		mCompression(false),
+		mNeedCompression(false),
 		mManualRender(false)
 	{
 		mVertexBuffer = RenderManager::getInstance().createVertexBuffer();
@@ -113,7 +113,7 @@ namespace MyGUI
 				if (mDrawItems.empty())
 				{
 					mTexture = nullptr;
-					mCompression = true;
+					mNeedCompression = true;
 				}
 
 				return;
@@ -182,11 +182,14 @@ namespace MyGUI
 		return mTexture;
 	}
 
-	bool RenderItem::getCompression()
+	void RenderItem::setNeedCompression(bool _compression)
 	{
-		bool result = mCompression;
-		mCompression = false;
-		return result;
+		mNeedCompression = _compression;
+	}
+
+	bool RenderItem::getNeedCompression() const
+	{
+		return mNeedCompression;
 	}
 
 	void RenderItem::setManualRender(bool _value)

@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_H__
-#define __MYGUI_H__
+#ifndef MYGUI_H_
+#define MYGUI_H_
 
 #include "MyGUI_Gui.h"
 
@@ -71,4 +71,4 @@
 #include "MyGUI_Constants.h"
 #include "MyGUI_Bitwise.h"
 
-#endif // __MYGUI_H__
+#endif // MYGUI_H_

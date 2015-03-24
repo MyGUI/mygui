@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2009
 */
-#ifndef __COMMAND_MANAGER_H__
-#define __COMMAND_MANAGER_H__
+#ifndef COMMAND_MANAGER_H_
+#define COMMAND_MANAGER_H_
 
 #include <MyGUI.h>
 
@@ -38,4 +38,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __COMMAND_MANAGER_H__
+#endif // COMMAND_MANAGER_H_

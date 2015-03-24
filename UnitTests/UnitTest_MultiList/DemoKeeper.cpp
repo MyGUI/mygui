@@ -36,16 +36,11 @@ namespace demo
 	{
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
 
-		if (unittest_multilist)
-		{
-			delete unittest_multilist;
-			unittest_multilist = 0;
-		}
-		if (unittest_list)
-		{
-			delete unittest_list;
-			unittest_list = 0;
-		}
+		delete unittest_multilist;
+		unittest_multilist = 0;
+
+		delete unittest_list;
+		unittest_list = 0;
 	}
 
 	void DemoKeeper::notifyFrameStarted(float _time)

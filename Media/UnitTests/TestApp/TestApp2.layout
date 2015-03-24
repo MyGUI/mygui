@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Button" skin="Button" position="104 128 528 136" layer="Back" name="Root">
         <Property key="TextAlign" value="Default"/>

@@ -17,6 +17,7 @@ namespace MyGUI
 
 	ListBox::ListBox() :
 		mWidgetScroll(nullptr),
+		mActivateOnClick(false),
 		mHeightLine(1),
 		mTopIndex(0),
 		mOffsetTop(0),
@@ -239,47 +240,16 @@ namespace MyGUI
 
 	void ListBox::notifyMousePressed(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
-		if (MouseButton::Left == _id)
-		{
-			// если выделен клиент, то сбрасываем
-			if (_sender == _getClientWidget())
-			{
-				if (mIndexSelect != ITEM_NONE)
-				{
-					_selectIndex(mIndexSelect, false);
-					mIndexSelect = ITEM_NONE;
-					eventListChangePosition(this, mIndexSelect);
-				}
-				eventListMouseItemActivate(this, mIndexSelect);
-
-				// если не клиент, то просчитывам
-			}
-			// ячейка может быть скрыта
-			else if (_sender->getVisible())
-			{
-
-#if MYGUI_DEBUG_MODE == 1
-				_checkMapping("ListBox::notifyMousePressed");
-				MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>(), mWidgetLines.size(), "ListBox::notifyMousePressed");
-				MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>() + mTopIndex, mItemsInfo.size(), "ListBox::notifyMousePressed");
-#endif
-
-				size_t index = *_sender->_getInternalData<size_t>() + mTopIndex;
-
-				if (mIndexSelect != index)
-				{
-					_selectIndex(mIndexSelect, false);
-					_selectIndex(index, true);
-					mIndexSelect = index;
-					eventListChangePosition(this, mIndexSelect);
-				}
-				eventListMouseItemActivate(this, mIndexSelect);
-			}
-
-			_resetContainer(true);
-		}
+		if (MouseButton::Left == _id && !mActivateOnClick)
+			_activateItem(_sender);
 
 		eventNotifyItem(this, IBNotifyItemData(getIndexByWidget(_sender), IBNotifyItemData::MousePressed, _left, _top, _id));
+	}
+
+	void ListBox::notifyMouseClick(MyGUI::Widget* _sender)
+	{
+		if (mActivateOnClick)
+			_activateItem(_sender);
 	}
 
 	void ListBox::notifyMouseDoubleClick(Widget* _sender)
@@ -365,6 +335,7 @@ namespace MyGUI
 				// подписываемся на всякие там события
 				line->eventMouseButtonPressed += newDelegate(this, &ListBox::notifyMousePressed);
 				line->eventMouseButtonReleased += newDelegate(this, &ListBox::notifyMouseButtonReleased);
+				line->eventMouseButtonClick += newDelegate(this, &ListBox::notifyMouseClick);
 				line->eventMouseButtonDoubleClick += newDelegate(this, &ListBox::notifyMouseDoubleClick);
 				line->eventMouseWheel += newDelegate(this, &ListBox::notifyMouseWheel);
 				line->eventKeyButtonPressed += newDelegate(this, &ListBox::notifyKeyButtonPressed);
@@ -1039,7 +1010,8 @@ namespace MyGUI
 		// не коментировать
 		if (_key == "AddItem")
 			addItem(_value);
-
+		else if (_key == "ActivateOnClick")
+			mActivateOnClick = utility::parseBool(_value);
 		else
 		{
 			Base::setPropertyOverride(_key, _value);
@@ -1047,6 +1019,46 @@ namespace MyGUI
 		}
 
 		eventChangeProperty(this, _key, _value);
+	}
+
+	void ListBox::_activateItem(MyGUI::Widget* _sender)
+	{
+		// если выделен клиент, то сбрасываем
+		if (_sender == _getClientWidget())
+		{
+			if (mIndexSelect != ITEM_NONE)
+			{
+				_selectIndex(mIndexSelect, false);
+				mIndexSelect = ITEM_NONE;
+				eventListChangePosition(this, mIndexSelect);
+			}
+			eventListMouseItemActivate(this, mIndexSelect);
+
+			// если не клиент, то просчитывам
+		}
+		// ячейка может быть скрыта
+		else if (_sender->getVisible())
+		{
+
+#if MYGUI_DEBUG_MODE == 1
+			_checkMapping("ListBox::notifyMousePressed");
+			MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>(), mWidgetLines.size(), "ListBox::notifyMousePressed");
+			MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>() + mTopIndex, mItemsInfo.size(), "ListBox::notifyMousePressed");
+#endif
+
+			size_t index = *_sender->_getInternalData<size_t>() + mTopIndex;
+
+			if (mIndexSelect != index)
+			{
+				_selectIndex(mIndexSelect, false);
+				_selectIndex(index, true);
+				mIndexSelect = index;
+				eventListChangePosition(this, mIndexSelect);
+			}
+			eventListMouseItemActivate(this, mIndexSelect);
+		}
+
+		_resetContainer(true);
 	}
 
 	size_t ListBox::_getItemCount()
@@ -1101,6 +1113,11 @@ namespace MyGUI
 		Base::onKeyButtonReleased(_key);
 
 		eventNotifyItem(this, IBNotifyItemData(ITEM_NONE, IBNotifyItemData::KeyReleased, _key));
+	}
+
+	void ListBox::setActivateOnClick(bool activateOnClick)
+	{
+		mActivateOnClick = activateOnClick;
 	}
 
 	Widget* ListBox::getWidgetByIndex(size_t _index)

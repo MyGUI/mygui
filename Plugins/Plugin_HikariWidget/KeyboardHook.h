@@ -1,5 +1,5 @@
-#ifndef __KeyboardHook_H__
-#define __KeyboardHook_H__
+#ifndef KeyboardHook_H_
+#define KeyboardHook_H_
 
 /*
 	This file is part of NaviLibrary, a library that allows developers to create and

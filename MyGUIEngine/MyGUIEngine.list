@@ -11,6 +11,7 @@ set (HEADER_FILES
   include/MyGUI_Canvas.h
   include/MyGUI_ChildSkinInfo.h
   include/MyGUI_ClipboardManager.h
+  include/MyGUI_WindowsClipboardHandler.h
   include/MyGUI_Colour.h
   include/MyGUI_ComboBox.h
   include/MyGUI_Common.h
@@ -22,6 +23,7 @@ set (HEADER_FILES
   include/MyGUI_ControllerItem.h
   include/MyGUI_ControllerManager.h
   include/MyGUI_ControllerPosition.h
+  include/MyGUI_ControllerRepeatClick.h
   include/MyGUI_CoordConverter.h
   include/MyGUI_CustomAllocator.h
   include/MyGUI_DDContainer.h
@@ -180,6 +182,7 @@ set (SOURCE_FILES
   src/MyGUI_Canvas.cpp
   src/MyGUI_ChildSkinInfo.cpp
   src/MyGUI_ClipboardManager.cpp
+  src/MyGUI_WindowsClipboardHandler.cpp
   src/MyGUI_Colour.cpp
   src/MyGUI_ComboBox.cpp
   src/MyGUI_ConsoleLogListener.cpp
@@ -188,6 +191,7 @@ set (SOURCE_FILES
   src/MyGUI_ControllerFadeAlpha.cpp
   src/MyGUI_ControllerManager.cpp
   src/MyGUI_ControllerPosition.cpp
+  src/MyGUI_ControllerRepeatClick.cpp
   src/MyGUI_DDContainer.cpp
   src/MyGUI_DataFileStream.cpp
   src/MyGUI_DataManager.cpp
@@ -314,6 +318,7 @@ SOURCE_GROUP("Header Files\\Core\\Controller" FILES
   include/MyGUI_ControllerFadeAlpha.h
   include/MyGUI_ControllerItem.h
   include/MyGUI_ControllerPosition.h
+  include/MyGUI_ControllerRepeatClick.h
 )
 SOURCE_GROUP("Header Files\\Core\\LayerItem" FILES
   include/MyGUI_LayerItem.h
@@ -332,6 +337,7 @@ SOURCE_GROUP("Header Files\\Core\\LayerItem\\Interfaces" FILES
 )
 SOURCE_GROUP("Header Files\\Core\\Manager" FILES
   include/MyGUI_ClipboardManager.h
+  include/MyGUI_WindowsClipboardHandler.h
   include/MyGUI_ControllerManager.h
   include/MyGUI_DataManager.h
   include/MyGUI_DynLibManager.h
@@ -491,6 +497,7 @@ SOURCE_GROUP("Source Files\\Core\\Controller" FILES
   src/MyGUI_ControllerEdgeHide.cpp
   src/MyGUI_ControllerFadeAlpha.cpp
   src/MyGUI_ControllerPosition.cpp
+  src/MyGUI_ControllerRepeatClick.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\LayerItem" FILES
   src/MyGUI_LayerItem.cpp
@@ -503,6 +510,7 @@ SOURCE_GROUP("Source Files\\Core\\LayerItem" FILES
 )
 SOURCE_GROUP("Source Files\\Core\\Manager" FILES
   src/MyGUI_ClipboardManager.cpp
+  src/MyGUI_WindowsClipboardHandler.cpp
   src/MyGUI_ControllerManager.cpp
   src/MyGUI_DataManager.cpp
   src/MyGUI_DynLibManager.cpp

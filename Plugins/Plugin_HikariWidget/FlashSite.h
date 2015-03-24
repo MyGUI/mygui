@@ -19,8 +19,8 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __FlashSite_H__
-#define __FlashSite_H__
+#ifndef FlashSite_H_
+#define FlashSite_H_
 
 #import "PROGID:ShockwaveFlash.ShockwaveFlash" named_guids
 

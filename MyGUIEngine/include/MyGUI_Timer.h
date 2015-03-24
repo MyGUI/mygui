@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_TIMER_H__
-#define __MYGUI_TIMER_H__
+#ifndef MYGUI_TIMER_H_
+#define MYGUI_TIMER_H_
 
 #include "MyGUI_Prerequest.h"
 
@@ -29,4 +29,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_TIMER_H__
+#endif // MYGUI_TIMER_H_

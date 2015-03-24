@@ -10,13 +10,13 @@
 namespace tools
 {
 
-	PositionSelectorControl::PositionSelectorControl(MyGUI::Widget* _parent) :
-		SelectorControl("PositionSelectorControl.layout", _parent)
+	PositionSelectorControlLE::PositionSelectorControlLE(MyGUI::Widget* _parent) :
+		SelectorControlLE("PositionSelectorControl.layout", _parent)
 	{
 		setPropertyColour("ColourSelector");
 	}
 
-	PositionSelectorControl::~PositionSelectorControl()
+	PositionSelectorControlLE::~PositionSelectorControlLE()
 	{
 	}
 

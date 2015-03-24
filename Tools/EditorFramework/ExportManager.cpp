@@ -32,11 +32,8 @@ namespace tools
 
 	void ExportManager::shutdown()
 	{
-		if (mExportSerializer != nullptr)
-		{
-			delete mExportSerializer;
-			mExportSerializer = nullptr;
-		}
+		delete mExportSerializer;
+		mExportSerializer = nullptr;
 	}
 
 	void ExportManager::serialization(pugi::xml_document& _doc)

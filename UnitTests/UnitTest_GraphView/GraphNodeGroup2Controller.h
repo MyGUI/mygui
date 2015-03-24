@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		08/2009
 */
-#ifndef __GRAPH_NODE_GROUP2_CONTROLLER_H__
-#define __GRAPH_NODE_GROUP2_CONTROLLER_H__
+#ifndef GRAPH_NODE_GROUP2_CONTROLLER_H_
+#define GRAPH_NODE_GROUP2_CONTROLLER_H_
 
 #include <MyGUI.h>
 #include "BaseAnimationNode.h"
@@ -56,4 +56,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __GRAPH_NODE_GROUP2_CONTROLLER_H__
+#endif // GRAPH_NODE_GROUP2_CONTROLLER_H_

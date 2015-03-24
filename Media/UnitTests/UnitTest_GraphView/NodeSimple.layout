@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <MyGUI type="Layout">
     <Widget type="Window" skin="WindowSmallC" position="20 50 147 164" name="_Main">
         <Widget type="Button" skin="ButtonRoundBlue" position="1 124 14 14" align="Left Bottom" name="ConnectionIn1">

@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_CONTROLLER_POSITION_H__
-#define __MYGUI_CONTROLLER_POSITION_H__
+#ifndef MYGUI_CONTROLLER_POSITION_H_
+#define MYGUI_CONTROLLER_POSITION_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Delegate.h"
@@ -46,12 +46,11 @@ namespace MyGUI
 		*/
 		void setAction(FrameAction::IDelegate* _value);
 
+		virtual bool addTime(Widget* _widget, float _time);
+		virtual void prepareItem(Widget* _widget);
 		virtual void setProperty(const std::string& _key, const std::string& _value);
 
 	private:
-		bool addTime(Widget* _widget, float _time);
-		void prepareItem(Widget* _widget);
-
 		IntCoord mStartCoord;
 		IntCoord mDestCoord;
 		float mTime;
@@ -74,4 +73,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_CONTROLLER_POSITION_H__
+#endif // MYGUI_CONTROLLER_POSITION_H_

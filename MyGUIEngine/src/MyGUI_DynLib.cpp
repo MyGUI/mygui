@@ -30,10 +30,22 @@ namespace MyGUI
 		// Log library load
 		MYGUI_LOG(Info, "Loading library " << mName);
 
+		std::string name = mName;
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+		const std::string extension = ".dll";
+#elif MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
+		const std::string extension = ".so";
+#else
+		const std::string extension = "";
+#endif
+
+		if (!extension.empty() && name.find(extension) == std::string::npos)
+			name += extension;
+
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 		//APPLE SPECIFIC CODE HERE
 #else
-		mInstance = (MYGUI_DYNLIB_HANDLE)MYGUI_DYNLIB_LOAD( mName.c_str() );
+		mInstance = (MYGUI_DYNLIB_HANDLE)MYGUI_DYNLIB_LOAD( name.c_str() );
 #endif
 
 		return mInstance != 0;

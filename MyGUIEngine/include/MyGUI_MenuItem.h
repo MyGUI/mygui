@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_MENU_ITEM_H__
-#define __MYGUI_MENU_ITEM_H__
+#ifndef MYGUI_MENU_ITEM_H_
+#define MYGUI_MENU_ITEM_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Button.h"
@@ -30,6 +30,12 @@ namespace MyGUI
 
 		/** @copydoc TextBox::setCaption(const UString& _value) */
 		virtual void setCaption(const UString& _value);
+
+		/** @copydoc TextBox::setFontName(const std::string& _value) */
+		virtual void setFontName(const std::string& _value);
+
+		/** @copydoc TextBox::setFontHeight(int _value) */
+		virtual void setFontHeight(int _value);
 
 		//! Replace an item name
 		void setItemName(const UString& _value);
@@ -108,4 +114,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_MENU_ITEM_H__
+#endif // MYGUI_MENU_ITEM_H_

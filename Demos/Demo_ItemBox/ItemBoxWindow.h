@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		07/2008
 */
-#ifndef __ITEM_BOXV_H__
-#define __ITEM_BOXV_H__
+#ifndef ITEM_BOXV_H_
+#define ITEM_BOXV_H_
 
 #include <MyGUI.h>
 #include "ItemBox.h"
@@ -29,4 +29,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __ITEM_BOXV_H__
+#endif // ITEM_BOXV_H_

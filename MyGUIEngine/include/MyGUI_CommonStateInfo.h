@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_COMMON_STATE_INFO_H__
-#define __MYGUI_COMMON_STATE_INFO_H__
+#ifndef MYGUI_COMMON_STATE_INFO_H_
+#define MYGUI_COMMON_STATE_INFO_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IStateInfo.h"
@@ -47,7 +47,7 @@ namespace MyGUI
 			std::string texture = _node->getParent()->getParent()->findAttribute("texture");
 			std::string tmp;
 
-			// поддержка замены тегов в скинах
+			// tags replacement support for Skins
 			if (_version >= Version(1, 1))
 			{
 				texture = localizator.replaceTags(texture);
@@ -117,7 +117,7 @@ namespace MyGUI
 		{
 			std::string texture = _node->getParent()->getParent()->findAttribute("texture");
 
-			// поддержка замены тегов в скинах
+			// tags replacement support for Skins
 			if (_version >= Version(1, 1))
 			{
 				texture = LanguageManager::getInstance().replaceTags(texture);
@@ -144,6 +144,66 @@ namespace MyGUI
 		bool mTileH;
 		bool mTileV;
 	};
+
+	class MYGUI_EXPORT RotatingSkinStateInfo :
+		public IStateInfo
+	{
+		MYGUI_RTTI_DERIVED( RotatingSkinStateInfo )
+
+	public:
+		RotatingSkinStateInfo() :
+			mAngle(0)
+		{
+		}
+
+		virtual ~RotatingSkinStateInfo() { }
+
+		float getAngle() const
+		{
+			return mAngle;
+		}
+
+		const IntPoint& getCenter() const
+		{
+			return mCenter;
+		}
+
+		const FloatRect& getRect() const
+		{
+			return mRect;
+		}
+
+	private:
+		virtual void deserialization(xml::ElementPtr _node, Version _version)
+		{
+			xml::ElementEnumerator prop = _node->getElementEnumerator();
+			while (prop.next("Property"))
+			{
+				const std::string& key = prop->findAttribute("key");
+				const std::string& value = prop->findAttribute("value");
+				if (key == "Angle") mAngle = utility::parseFloat(value);
+				if (key == "Center") mCenter = IntPoint::parse(value);
+			}
+
+			std::string texture = _node->getParent()->getParent()->findAttribute("texture");
+
+			// tags replacement support for Skins
+			if (_version >= Version(1, 1))
+			{
+				texture = LanguageManager::getInstance().replaceTags(texture);
+			}
+
+			const IntSize& size = texture_utility::getTextureSize(texture);
+			const IntCoord& coord = IntCoord::parse(_node->findAttribute("offset"));
+			mRect = CoordConverter::convertTextureCoord(coord, size);
+		}
+
+	private:
+		FloatRect mRect;
+		IntPoint mCenter;
+		float mAngle; // Angle in radians
+	};
+
 
 	class MYGUI_EXPORT EditTextStateInfo :
 		public IStateInfo
@@ -190,4 +250,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_COMMON_STATE_INFO_H__
+#endif // MYGUI_COMMON_STATE_INFO_H_

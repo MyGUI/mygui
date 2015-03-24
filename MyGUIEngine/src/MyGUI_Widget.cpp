@@ -41,6 +41,7 @@ namespace MyGUI
 		mContainer(nullptr),
 		mAlign(Align::Default),
 		mVisible(true),
+		mDepth(0),
 		forwardMouseWheelToParent(false),
 		destructorCallback(0),
 		mDisableUpdateRelative(false)
@@ -334,7 +335,7 @@ namespace MyGUI
 			else
 			{
 				widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, this, _style == WidgetStyle::Popup ? nullptr : this, _name);
-				mWidgetChild.push_back(widget);
+				addWidget(widget);
 			}
 		}
 
@@ -378,7 +379,6 @@ namespace MyGUI
 
 				return;
 			}
-
 		}
 		// мы не обрезаны и были нормальные
 		else if (!mIsMargin)
@@ -516,7 +516,7 @@ namespace MyGUI
 			if (item != nullptr)
 				return item;
 		}
-		// спрашиваем у детишек скна
+		// спрашиваем у детишек скина
 		for (VectorWidgetPtr::const_reverse_iterator widget = mWidgetChildSkin.rbegin(); widget != mWidgetChildSkin.rend(); ++widget)
 		{
 			ILayerItem* item = (*widget)->getLayerItemByPoint(_left - mCoord.left, _top - mCoord.top);
@@ -548,13 +548,22 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
 		if (mWidgetClient != nullptr)
-			mWidgetClient->_forcePick(_widget);
-
-		VectorWidgetPtr::iterator item = std::remove(mWidgetChild.begin(), mWidgetChild.end(), _widget);
-		if (item != mWidgetChild.end())
 		{
-			mWidgetChild.erase(item);
-			mWidgetChild.insert(mWidgetChild.begin(), _widget);
+			mWidgetClient->_forcePick(_widget);
+			return;
+		}
+
+		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
+		if (iter == mWidgetChild.end())
+			return;
+
+		VectorWidgetPtr copy = mWidgetChild;
+		for (VectorWidgetPtr::iterator widget = copy.begin(); widget != copy.end(); ++widget)
+		{
+			if ((*widget) == _widget)
+				(*widget)->setDepth(-1);
+			else if ((*widget)->getDepth() == -1)
+				(*widget)->setDepth(0);
 		}
 	}
 
@@ -1130,6 +1139,8 @@ namespace MyGUI
 
 		if (!value && InputManager::getInstance().getMouseFocusWidget() == this)
 			InputManager::getInstance()._resetMouseFocusWidget();
+		if (!value && InputManager::getInstance().getKeyFocusWidget() == this)
+			InputManager::getInstance().resetKeyFocusWidget();
 	}
 
 	void Widget::setEnabled(bool _value)
@@ -1190,7 +1201,7 @@ namespace MyGUI
 	{
 		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		MYGUI_ASSERT(iter == mWidgetChild.end(), "widget already exist");
-		mWidgetChild.push_back(_widget);
+		addWidget(_widget);
 	}
 
 	void Widget::_unlinkChildWidget(Widget* _widget)
@@ -1301,6 +1312,10 @@ namespace MyGUI
 		/// @wproperty{Widget, Visible, bool} Show or hide widget.
 		else if (_key == "Visible")
 			setVisible(utility::parseValue<bool>(_value));
+
+		/// @wproperty{Widget, Depth, int} Child widget rendering depth.
+		else if (_key == "Depth")
+			setDepth(utility::parseValue<int>(_value));
 
 		/// @wproperty{Widget, Alpha, float} Прозрачность виджета от 0 до 1.
 		else if (_key == "Alpha")
@@ -1479,6 +1494,67 @@ namespace MyGUI
 	void Widget::resizeLayerItemView(const IntSize& _oldView, const IntSize& _newView)
 	{
 		_setAlign(_oldView, _newView);
+	}
+
+	void Widget::setDepth(int _value)
+	{
+		if (mDepth == _value)
+			return;
+
+		mDepth = _value;
+
+		if (mParent != nullptr)
+		{
+			mParent->_unlinkChildWidget(this);
+			mParent->_linkChildWidget(this);
+			mParent->_updateChilds();
+		}
+	}
+
+	int Widget::getDepth() const
+	{
+		return mDepth;
+	}
+
+	void Widget::addWidget(Widget* _widget)
+	{
+		// сортировка глубины от большого к меньшему
+
+		int depth = _widget->getDepth();
+
+		for (size_t index = 0; index < mWidgetChild.size(); ++index)
+		{
+			Widget* widget = mWidgetChild[index];
+			if (widget->getDepth() < depth)
+			{
+				mWidgetChild.insert(mWidgetChild.begin() + index, _widget);
+				_updateChilds();
+				return;
+			}
+		}
+
+		mWidgetChild.push_back(_widget);
+	}
+
+	void Widget::_updateChilds()
+	{
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+		{
+			if ((*widget)->getWidgetStyle() == WidgetStyle::Child)
+			{
+				(*widget)->detachFromLayerItemNode(true);
+				removeChildItem((*widget));
+			}
+		}
+
+		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+		{
+			if ((*widget)->getWidgetStyle() == WidgetStyle::Child)
+			{
+				addChildItem((*widget));
+				(*widget)->_updateView();
+			}
+		}
 	}
 
 	bool Widget::onSendScrollGesture(const int& absx, const int& absy, const int& deltax, const int& deltay)

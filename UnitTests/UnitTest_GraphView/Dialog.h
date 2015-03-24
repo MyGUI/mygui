@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		09/2008
 */
-#ifndef __DIALOG_H__
-#define __DIALOG_H__
+#ifndef DIALOG_H_
+#define DIALOG_H_
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
@@ -37,4 +37,4 @@ namespace tools
 
 } // namespace tools
 
-#endif // __DIALOG_H__
+#endif // DIALOG_H_

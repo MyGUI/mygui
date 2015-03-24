@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		02/2010
 */
-#ifndef __BERKELIUM_WIDGET_H__
-#define __BERKELIUM_WIDGET_H__
+#ifndef BERKELIUM_WIDGET_H_
+#define BERKELIUM_WIDGET_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Canvas.h"
@@ -69,4 +69,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __BERKELIUM_WIDGET_H__
+#endif // BERKELIUM_WIDGET_H_

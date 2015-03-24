@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_RESOURCE_MANUAL_FONT_H__
-#define __MYGUI_RESOURCE_MANUAL_FONT_H__
+#ifndef MYGUI_RESOURCE_MANUAL_FONT_H_
+#define MYGUI_RESOURCE_MANUAL_FONT_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ITexture.h"
@@ -34,6 +34,14 @@ namespace MyGUI
 		// дефолтная высота, указанная в настройках шрифта
 		virtual int getDefaultHeight();
 
+		// Manual loading methods, not needed when loading from XML
+		// Set the source texture name
+		void setSource(const std::string& value);
+		// Set the default height of the font
+		void setDefaultHeight(int value);
+		// Add a glyph for character 'id'
+		void addGlyphInfo(Char id, const GlyphInfo& info);
+
 	private:
 		// Loads the texture specified by mSource.
 		void loadTexture();
@@ -54,4 +62,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_RESOURCE_MANUAL_FONT_H__
+#endif // MYGUI_RESOURCE_MANUAL_FONT_H_

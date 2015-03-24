@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		07/2008
 */
-#ifndef __CELL_VIEW_H__
-#define __CELL_VIEW_H__
+#ifndef CELL_VIEW_H_
+#define CELL_VIEW_H_
 
 #include <MyGUI.h>
 #include "ItemBox/BaseCellView.h"
@@ -32,4 +32,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __CELL_VIEW_H__
+#endif // CELL_VIEW_H_
