@@ -5,8 +5,8 @@
 	@module
 */
 
-#ifndef __INPUT_FOCUS_INFO_H__
-#define __INPUT_FOCUS_INFO_H__
+#ifndef INPUT_FOCUS_INFO_H_
+#define INPUT_FOCUS_INFO_H_
 
 #include <MyGUI.h>
 
@@ -164,4 +164,4 @@ namespace diagnostic
 
 } // namespace diagnostic
 
-#endif // __INPUT_FOCUS_INFO_H__
+#endif // INPUT_FOCUS_INFO_H_

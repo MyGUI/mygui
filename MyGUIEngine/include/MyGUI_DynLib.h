@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_DYNLIB_H__
-#define __MYGUI_DYNLIB_H__
+#ifndef MYGUI_DYNLIB_H_
+#define MYGUI_DYNLIB_H_
 
 #include "MyGUI_Prerequest.h"
 #include <string>
@@ -89,4 +89,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_DYNLIB_H__
+#endif // MYGUI_DYNLIB_H_

@@ -25,12 +25,6 @@ if (NOT OGRE_FOUND)
 		CMAKE_POLICY(POP)
 	else()
 
-		if(WIN32 OR APPLE)
-			set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${OGRE_SOURCE_DIR}/CMake ${OGRE_SOURCE_DIR}/CMake/Packages)
-		else()
-			set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} /usr/lib/OGRE/cmake/ /usr/local/lib/OGRE/cmake /usr/share/OGRE/cmake/modules /usr/local/share/OGRE/cmake/modules)
-		endif()
-		
 		IF (NOT OGRE_SOURCE_DIR)
 			set(OGRE_SOURCE_DIR "" CACHE PATH "Path to Ogre sources (set it if you don't have OGRE_HOME or OGRE_SRC environment variables)")
 		ENDIF ()
@@ -38,6 +32,14 @@ if (NOT OGRE_FOUND)
 		if (NOT OGRE_BUILD)
 			set(OGRE_BUILD ${OGRE_SOURCE_DIR} CACHE PATH "Path to Ogre build directory (same as OGRE_SOURCE_DIR by default)")
 		endif ()
+
+		if (NOT ${OGRE_SOURCE_DIR} STREQUAL "")
+			set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${OGRE_SOURCE_DIR}/CMake ${OGRE_SOURCE_DIR}/CMake/Packages)
+		endif()
+
+		if (NOT (WIN32 OR APPLE))
+			set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} /usr/lib/OGRE/cmake/ /usr/local/lib/OGRE/cmake /usr/share/OGRE/cmake/modules /usr/local/share/OGRE/cmake/modules)
+		endif()
 
 		if (EXISTS ${OGRE_SOURCE_DIR}/CMake)
 			MESSAGE(STATUS "Original FindOGRE.cmake found in OGRE_SOURCE_DIR, trying to use it")

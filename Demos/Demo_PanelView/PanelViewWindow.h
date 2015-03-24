@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		01/2009
 */
-#ifndef __PANEL_VIEW_WINDOW_H__
-#define __PANEL_VIEW_WINDOW_H__
+#ifndef PANEL_VIEW_WINDOW_H_
+#define PANEL_VIEW_WINDOW_H_
 
 #include "PanelView.h"
 #include "BaseLayout/BaseLayout.h"
@@ -34,4 +34,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __PANEL_VIEW_WINDOW_H__
+#endif // PANEL_VIEW_WINDOW_H_

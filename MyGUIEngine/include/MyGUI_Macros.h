@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_MACROS_H__
-#define __MYGUI_MACROS_H__
+#ifndef MYGUI_MACROS_H_
+#define MYGUI_MACROS_H_
 
 #include "MyGUI_Prerequest.h"
 #include <limits>
@@ -25,4 +25,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_MACROS_H__
+#endif // MYGUI_MACROS_H_

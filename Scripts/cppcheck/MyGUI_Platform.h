@@ -3,8 +3,8 @@
 // include directories while checking something like:
 // # cppcheck trunk/MyGUIEngine/src -I trunk/Scripts/cppcheck -I trunk/MyGUIEngine/include --enable=all
 
-#ifndef __MYGUI_PLATFORM_H__
-#define __MYGUI_PLATFORM_H__
+#ifndef MYGUI_PLATFORM_H_
+#define MYGUI_PLATFORM_H_
 
 #define MYGUI_PLATFORM 1
 #define MYGUI_COMPILER 2
@@ -13,4 +13,4 @@
 #define MYGUI_EXPORT_DLL
 #define MYGUI_DEBUG_MODE 1
 
-#endif // __MYGUI_PLATFORM_H__
+#endif // MYGUI_PLATFORM_H_

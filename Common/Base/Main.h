@@ -5,8 +5,8 @@
 	@module
 */
 
-#ifndef __BASEMAIN_H__
-#define __BASEMAIN_H__
+#ifndef BASEMAIN_H_
+#define BASEMAIN_H_
 
 #include "Precompiled.h"
 

@@ -4,8 +4,8 @@
 	@date		06/2008
 */
 
-#ifndef __MYGUI_TESSELATOR_H__
-#define __MYGUI_TESSELATOR_H__
+#ifndef MYGUI_TESSELATOR_H_
+#define MYGUI_TESSELATOR_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_LayerNodeAnimation.h"
@@ -68,4 +68,4 @@ namespace demo
 
 } // namespace MyGUI
 
-#endif // __MYGUI_TESSELATOR_H__
+#endif // MYGUI_TESSELATOR_H_

@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_PLATFORM_H__
-#define __MYGUI_PLATFORM_H__
+#ifndef MYGUI_PLATFORM_H_
+#define MYGUI_PLATFORM_H_
 
 // Definition of platforms
 #define MYGUI_PLATFORM_WIN32		1
@@ -96,7 +96,7 @@
 // Add -fvisibility=hidden to compiler options. With -fvisibility=hidden, you are telling
 // GCC that every declaration not explicitly marked with a visibility attribute (MYGUI_EXPORT)
 // has a hidden visibility (like in windows).
-#	if MYGUI_GCC_VISIBILITY
+#	ifdef MYGUI_GCC_VISIBILITY
 #		define MYGUI_EXPORT  __attribute__ ((visibility("default")))
 #		define MYGUI_EXPORT_DLL  __attribute__ ((visibility("default")))
 #	else
@@ -123,4 +123,4 @@
 #endif
 
 
-#endif // __MYGUI_PLATFORM_H__
+#endif // MYGUI_PLATFORM_H_

@@ -5,8 +5,8 @@
 	@module
 */
 
-#ifndef __RESOURCE_W32_POINTER_H__
-#define __RESOURCE_W32_POINTER_H__
+#ifndef RESOURCE_W32_POINTER_H_
+#define RESOURCE_W32_POINTER_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IResource.h"
@@ -36,4 +36,4 @@ namespace input
 
 }
 
-#endif // __RESOURCE_W32_POINTER_H__
+#endif // RESOURCE_W32_POINTER_H_

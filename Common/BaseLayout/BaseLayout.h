@@ -5,8 +5,8 @@
 	@module
 */
 
-#ifndef __BASE_LAYOUT_H__
-#define __BASE_LAYOUT_H__
+#ifndef BASE_LAYOUT_H_
+#define BASE_LAYOUT_H_
 
 #include <MyGUI.h>
 #include "WrapsAttribute.h"
@@ -260,4 +260,4 @@ namespace wraps
 
 } // namespace wraps
 
-#endif // __BASE_LAYOUT_H__
+#endif // BASE_LAYOUT_H_

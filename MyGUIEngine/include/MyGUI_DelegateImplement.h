@@ -141,15 +141,11 @@ namespace delegates
 		MYGUI_C_DELEGATE () : mDelegate(nullptr) { }
 		MYGUI_C_DELEGATE (const MYGUI_C_DELEGATE MYGUI_TEMPLATE_ARGS& _event) : mDelegate(nullptr)
 		{
-			// забираем себе владение
-			IDelegate* del = _event.mDelegate;
+			// take ownership
+			mDelegate = _event.mDelegate;
 			const_cast< MYGUI_C_DELEGATE MYGUI_TEMPLATE_ARGS& >(_event).mDelegate = nullptr;
-
-			if (mDelegate != nullptr && !mDelegate->compare(del))
-				delete mDelegate;
-
-			mDelegate = del;
 		}
+
 		~MYGUI_C_DELEGATE ()
 		{
 			clear();
@@ -175,7 +171,10 @@ namespace delegates
 
 		MYGUI_C_DELEGATE MYGUI_TEMPLATE_ARGS& operator=(const MYGUI_C_DELEGATE MYGUI_TEMPLATE_ARGS& _event)
 		{
-			// забираем себе владение
+			if (this == &_event)
+				return *this;
+
+			// take ownership
 			IDelegate* del = _event.mDelegate;
 			const_cast< MYGUI_C_DELEGATE MYGUI_TEMPLATE_ARGS& >(_event).mDelegate = nullptr;
 
@@ -295,7 +294,7 @@ namespace delegates
 
 		MYGUI_C_MULTI_DELEGATE (const MYGUI_C_MULTI_DELEGATE MYGUI_TEMPLATE_ARGS& _event)
 		{
-			// забираем себе владение
+			// take ownership
 			ListDelegate del = _event.mListDelegates;
 			const_cast< MYGUI_C_MULTI_DELEGATE MYGUI_TEMPLATE_ARGS& >(_event).mListDelegates.clear();
 
@@ -306,7 +305,7 @@ namespace delegates
 
 		MYGUI_C_MULTI_DELEGATE MYGUI_TEMPLATE_ARGS& operator=(const MYGUI_C_MULTI_DELEGATE MYGUI_TEMPLATE_ARGS& _event)
 		{
-			// забираем себе владение
+			// take ownership
 			ListDelegate del = _event.mListDelegates;
 			const_cast< MYGUI_C_MULTI_DELEGATE MYGUI_TEMPLATE_ARGS& >(_event).mListDelegates.clear();
 

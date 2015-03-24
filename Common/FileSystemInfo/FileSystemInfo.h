@@ -4,8 +4,8 @@
 	@date		09/2009
 	@module
 */
-#ifndef __FILE_SYSTEM_INFO_H__
-#define __FILE_SYSTEM_INFO_H__
+#ifndef FILE_SYSTEM_INFO_H_
+#define FILE_SYSTEM_INFO_H_
 
 #include <MyGUI.h>
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
@@ -17,6 +17,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <fnmatch.h>
 #endif
 
 #include <string>
@@ -153,7 +154,7 @@ namespace common
 
 		while ((dp = readdir (dir)) != NULL)
 		{
-			if (!isReservedDir(MyGUI::UString(dp->d_name).asWStr_c_str()))
+			if ((fnmatch(MyGUI::UString(_mask).asUTF8_c_str(), dp->d_name, 0) == 0) && !isReservedDir(MyGUI::UString(dp->d_name).asWStr_c_str()))
 			{
 				struct stat fInfo;
 				std::string path = MyGUI::UString(_folder).asUTF8() + "/" + dp->d_name;
@@ -221,4 +222,4 @@ namespace common
 
 }
 
-#endif // __FILE_SYSTEM_INFO_H__
+#endif // FILE_SYSTEM_INFO_H_

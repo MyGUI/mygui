@@ -24,8 +24,8 @@
 //
 // - Eric Shorkey (zero/zeroskill) <opengui@rightbracket.com> [January 20th, 2007]
 
-#ifndef __MYGUI_U_STRING_H__
-#define __MYGUI_U_STRING_H__
+#ifndef MYGUI_U_STRING_H_
+#define MYGUI_U_STRING_H_
 
 
 #include "MyGUI_Prerequest.h"
@@ -132,8 +132,6 @@ namespace MyGUI
 # else
 #   define MYGUI_IS_NATIVE_WCHAR_T      0
 # endif
-#elif MYGUI_PLATFORM == MYGUI_PLATFORM_SYMBIAN
-#   define MYGUI_IS_NATIVE_WCHAR_T      0
 #else   // MYGUI_COMPILER != MYGUI_COMPILER_MSVC
 
 // Assumed wchar_t is natively for other compilers

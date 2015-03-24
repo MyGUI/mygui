@@ -3,8 +3,8 @@
 	@author		George Evmenov
 	@date		01/2011
 */
-#ifndef __FUNCTOR_DELEGATE_H__
-#define __FUNCTOR_DELEGATE_H__
+#ifndef FUNCTOR_DELEGATE_H_
+#define FUNCTOR_DELEGATE_H_
 
 #include "MyGUI_Diagnostic.h"
 #include <typeinfo>
@@ -107,4 +107,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_DELEGATE_H__
+#endif // MYGUI_DELEGATE_H_

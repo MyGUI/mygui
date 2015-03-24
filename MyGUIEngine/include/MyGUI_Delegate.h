@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_DELEGATE_H__
-#define __MYGUI_DELEGATE_H__
+#ifndef MYGUI_DELEGATE_H_
+#define MYGUI_DELEGATE_H_
 
 #include "MyGUI_Diagnostic.h"
 #include <list>
@@ -144,4 +144,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_DELEGATE_H__
+#endif // MYGUI_DELEGATE_H_

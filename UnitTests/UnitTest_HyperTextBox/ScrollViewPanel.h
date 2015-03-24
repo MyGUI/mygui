@@ -4,8 +4,8 @@
 	@date		03/2011
 */
 
-#ifndef __MYGUI_SCROLL_VIEW_PANEL_H__
-#define __MYGUI_SCROLL_VIEW_PANEL_H__
+#ifndef MYGUI_SCROLL_VIEW_PANEL_H_
+#define MYGUI_SCROLL_VIEW_PANEL_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ScrollView.h"
@@ -40,4 +40,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_SCROLL_VIEW_PANEL_H__
+#endif // MYGUI_SCROLL_VIEW_PANEL_H_

@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		01/2009
 */
-#ifndef __EDIT_PANEL_H__
-#define __EDIT_PANEL_H__
+#ifndef EDIT_PANEL_H_
+#define EDIT_PANEL_H_
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"

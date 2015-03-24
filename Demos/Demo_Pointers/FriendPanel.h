@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		11/2009
 */
-#ifndef __FRIEND_PANEL_H__
-#define __FRIEND_PANEL_H__
+#ifndef FRIEND_PANEL_H_
+#define FRIEND_PANEL_H_
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
@@ -25,4 +25,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __FRIEND_PANEL_H__
+#endif // FRIEND_PANEL_H_

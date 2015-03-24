@@ -5,8 +5,8 @@
 	@module
 */
 
-#ifndef __ITEM_DROP_INFO_H__
-#define __ITEM_DROP_INFO_H__
+#ifndef ITEM_DROP_INFO_H_
+#define ITEM_DROP_INFO_H_
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
@@ -32,4 +32,4 @@ namespace wraps
 
 } // namespace wraps
 
-#endif // __ITEM_DROP_INFO_H__
+#endif // ITEM_DROP_INFO_H_

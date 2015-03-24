@@ -4,8 +4,8 @@
 	@date		08/2008
 */
 
-#ifndef __BASE_MANAGER_H__
-#define __BASE_MANAGER_H__
+#ifndef BASE_MANAGER_H_
+#define BASE_MANAGER_H_
 
 #include <MyGUI.h>
 #include <MyGUI_OpenGLPlatform.h>
@@ -92,4 +92,4 @@ namespace base
 
 } // namespace base
 
-#endif // __BASE_MANAGER_H__
+#endif // BASE_MANAGER_H_

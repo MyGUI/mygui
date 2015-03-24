@@ -3,8 +3,8 @@
 	@author     Pavel Turin
 	@date       08/2009
 */
-#ifndef __TREE_CONTROL_ITEM_H__
-#define __TREE_CONTROL_ITEM_H__
+#ifndef TREE_CONTROL_ITEM_H_
+#define TREE_CONTROL_ITEM_H_
 
 #include "TreeControl.h"
 #include "MyGUI_Button.h"
@@ -46,4 +46,4 @@ namespace MyGUI
 
 }
 
-#endif // __TREE_CONTROL_ITEM_H__
+#endif // TREE_CONTROL_ITEM_H_

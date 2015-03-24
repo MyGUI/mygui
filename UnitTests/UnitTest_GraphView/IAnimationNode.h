@@ -1,5 +1,5 @@
-#ifndef __I_ANIMATION_NODE_H__
-#define __I_ANIMATION_NODE_H__
+#ifndef I_ANIMATION_NODE_H_
+#define I_ANIMATION_NODE_H_
 
 #include <MyGUI.h>
 
@@ -69,4 +69,4 @@ namespace animation
 
 } // namespace animation
 
-#endif // __I_ANIMATION_NODE_H__
+#endif // I_ANIMATION_NODE_H_

@@ -4,8 +4,8 @@
 	@date		07/2009
 */
 
-#ifndef __MYGUI_OPENGL_DIAGNOSTIC_H__
-#define __MYGUI_OPENGL_DIAGNOSTIC_H__
+#ifndef MYGUI_OPENGL_DIAGNOSTIC_H_
+#define MYGUI_OPENGL_DIAGNOSTIC_H_
 
 #include "MyGUI_Prerequest.h"
 
@@ -34,4 +34,4 @@
 	} \
 }
 
-#endif // __MYGUI_OPENGL_DIAGNOSTIC_H__
+#endif // MYGUI_OPENGL_DIAGNOSTIC_H_

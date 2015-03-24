@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_FLOW_DIRECTION_H__
-#define __MYGUI_FLOW_DIRECTION_H__
+#ifndef MYGUI_FLOW_DIRECTION_H_
+#define MYGUI_FLOW_DIRECTION_H_
 
 #include "MyGUI_Prerequest.h"
 #include <string>
@@ -100,4 +100,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_FLOW_DIRECTION_H__
+#endif // MYGUI_FLOW_DIRECTION_H_

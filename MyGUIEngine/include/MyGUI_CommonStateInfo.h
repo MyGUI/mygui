@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_COMMON_STATE_INFO_H__
-#define __MYGUI_COMMON_STATE_INFO_H__
+#ifndef MYGUI_COMMON_STATE_INFO_H_
+#define MYGUI_COMMON_STATE_INFO_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IStateInfo.h"
@@ -221,4 +221,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_COMMON_STATE_INFO_H__
+#endif // MYGUI_COMMON_STATE_INFO_H_

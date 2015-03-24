@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_CONSOLE_LOG_LISTENER_H__
-#define __MYGUI_CONSOLE_LOG_LISTENER_H__
+#ifndef MYGUI_CONSOLE_LOG_LISTENER_H_
+#define MYGUI_CONSOLE_LOG_LISTENER_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ILogListener.h"
@@ -34,4 +34,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_CONSOLE_LOG_LISTENER_H__
+#endif // MYGUI_CONSOLE_LOG_LISTENER_H_

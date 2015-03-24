@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_LEVEL_LOG_FILTER_H__
-#define __MYGUI_LEVEL_LOG_FILTER_H__
+#ifndef MYGUI_LEVEL_LOG_FILTER_H_
+#define MYGUI_LEVEL_LOG_FILTER_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ILogFilter.h"
@@ -38,4 +38,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_LEVEL_LOG_FILTER_H__
+#endif // MYGUI_LEVEL_LOG_FILTER_H_

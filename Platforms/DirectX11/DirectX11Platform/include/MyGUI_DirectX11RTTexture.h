@@ -4,8 +4,8 @@
 	@date		09/2011
 */
 
-#ifndef __MYGUI_DIRECTX11_RTTEXTURE_H__
-#define __MYGUI_DIRECTX11_RTTEXTURE_H__
+#ifndef MYGUI_DIRECTX11_RTTEXTURE_H_
+#define MYGUI_DIRECTX11_RTTEXTURE_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ITexture.h"
@@ -49,4 +49,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_DIRECTX_RTTEXTURE_H__
+#endif // MYGUI_DIRECTX_RTTEXTURE_H_

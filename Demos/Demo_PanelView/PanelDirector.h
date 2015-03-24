@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		08/2008
 */
-#ifndef __PANEL_DIRECTOR_H__
-#define __PANEL_DIRECTOR_H__
+#ifndef PANEL_DIRECTOR_H_
+#define PANEL_DIRECTOR_H_
 
 #include <MyGUI.h>
 #include "PanelView/BasePanelViewItem.h"
@@ -44,4 +44,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __PANEL_DIRECTOR_H__
+#endif // PANEL_DIRECTOR_H_

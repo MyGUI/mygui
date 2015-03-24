@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		01/2009
 */
-#ifndef __BASE_GRAPH_VIEW_H__
-#define __BASE_GRAPH_VIEW_H__
+#ifndef BASE_GRAPH_VIEW_H_
+#define BASE_GRAPH_VIEW_H_
 
 #include <MyGUI.h>
 #include "MyGUI_Canvas.h"
@@ -545,4 +545,4 @@ namespace wraps
 
 } // namespace wraps
 
-#endif // __BASE_GRAPH_VIEW_H__
+#endif // BASE_GRAPH_VIEW_H_

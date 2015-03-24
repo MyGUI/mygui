@@ -5,8 +5,8 @@
 	@module
 */
 
-#ifndef __STATISTIC_INFO_H__
-#define __STATISTIC_INFO_H__
+#ifndef STATISTIC_INFO_H_
+#define STATISTIC_INFO_H_
 
 #include <MyGUI.h>
 
@@ -133,4 +133,4 @@ namespace diagnostic
 
 } // namespace diagnostic
 
-#endif // __STATISTIC_INFO_H__
+#endif // STATISTIC_INFO_H_

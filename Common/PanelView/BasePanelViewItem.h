@@ -5,8 +5,8 @@
 	@module
 */
 
-#ifndef __BASE_PANEL_VIEW_ITEM_H__
-#define __BASE_PANEL_VIEW_ITEM_H__
+#ifndef BASE_PANEL_VIEW_ITEM_H_
+#define BASE_PANEL_VIEW_ITEM_H_
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
@@ -88,4 +88,4 @@ namespace wraps
 
 } // namespace wraps
 
-#endif // __BASE_PANEL_VIEW_ITEM_H__
+#endif // BASE_PANEL_VIEW_ITEM_H_

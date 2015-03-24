@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_LOG_SOURCE_H__
-#define __MYGUI_LOG_SOURCE_H__
+#ifndef MYGUI_LOG_SOURCE_H_
+#define MYGUI_LOG_SOURCE_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ILogFilter.h"
@@ -43,4 +43,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_LOG_SOURCE_H__
+#endif // MYGUI_LOG_SOURCE_H_

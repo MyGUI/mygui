@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		10/2008
 */
-#ifndef __UNITTEST_MULTILIST_H__
-#define __UNITTEST_MULTILIST_H__
+#ifndef UNITTEST_MULTILIST_H_
+#define UNITTEST_MULTILIST_H_
 
 #include "MyGUI.h"
 #include "Mirror_MultiList.h"
@@ -320,4 +320,4 @@ namespace unittest
 
 }
 
-#endif // __UNITTEST_MULTILIST_H__
+#endif // UNITTEST_MULTILIST_H_

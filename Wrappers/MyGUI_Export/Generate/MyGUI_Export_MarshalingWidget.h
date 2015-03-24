@@ -4,8 +4,8 @@
 	@date		01/2009
 	@module
 */
-#ifndef __EXPORT_MARSHALING_WIDGET_H__
-#define __EXPORT_MARSHALING_WIDGET_H__
+#ifndef EXPORT_MARSHALING_WIDGET_H_
+#define EXPORT_MARSHALING_WIDGET_H_
 
 #include "../ExportDefine.h"
 #include "../ExportMarshaling.h"
@@ -268,4 +268,4 @@ namespace Export
 	};
 }
 
-#endif // __EXPORT_MARSHALING_WIDGET_H__
+#endif // EXPORT_MARSHALING_WIDGET_H_

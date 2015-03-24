@@ -4,8 +4,8 @@
 	@date		06/2012
 */
 
-#ifndef __MYGUI_DUMMY_PLATFORM_H__
-#define __MYGUI_DUMMY_PLATFORM_H__
+#ifndef MYGUI_DUMMY_PLATFORM_H_
+#define MYGUI_DUMMY_PLATFORM_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_DummyRenderManager.h"
@@ -72,4 +72,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_DUMMY_PLATFORM_H__
+#endif // MYGUI_DUMMY_PLATFORM_H_

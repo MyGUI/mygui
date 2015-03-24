@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		08/2010
 */
-#ifndef __DIALOG_MANAGER_H__
-#define __DIALOG_MANAGER_H__
+#ifndef DIALOG_MANAGER_H_
+#define DIALOG_MANAGER_H_
 
 #include <MyGUI.h>
 #include "Dialog.h"
@@ -35,4 +35,4 @@ namespace tools
 
 } // namespace tools
 
-#endif // __DIALOG_MANAGER_H__
+#endif // DIALOG_MANAGER_H_

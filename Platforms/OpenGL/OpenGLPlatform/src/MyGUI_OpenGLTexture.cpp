@@ -16,19 +16,19 @@ namespace MyGUI
 {
 
 	OpenGLTexture::OpenGLTexture(const std::string& _name, OpenGLImageLoader* _loader) :
-		mName(_name),
-		mTextureID(0),
-		mPboID(0),
+        mName(_name),
 		mWidth(0),
-		mHeight(0),
-		mLock(false),
+        mHeight(0),
 		mPixelFormat(0),
-		mDataSize(0),
-		mUsage(0),
-		mBuffer(0),
-		mInternalPixelFormat(0),
-		mAccess(0),
-		mNumElemBytes(0),
+        mInternalPixelFormat(0),
+        mUsage(0),
+        mAccess(0),
+        mNumElemBytes(0),
+        mDataSize(0),
+        mTextureID(0),
+        mPboID(0),
+        mLock(false),
+        mBuffer(0),
 		mImageLoader(_loader),
 		mRenderTarget(nullptr)
 	{
@@ -288,7 +288,7 @@ namespace MyGUI
 	{
 		if (!mLock && mBuffer)
 		{
-			delete mBuffer;
+            delete[] (char*)mBuffer;
 			mBuffer = 0;
 
 			glBindTexture(GL_TEXTURE_2D, 0);
@@ -302,7 +302,7 @@ namespace MyGUI
 		{
 			//Fallback if PBO's are not supported
 			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, mWidth, mHeight, mPixelFormat, GL_UNSIGNED_BYTE, mBuffer);
-			delete mBuffer;
+            delete[] (char*)mBuffer;
 		}
 		else
 		{
@@ -337,7 +337,7 @@ namespace MyGUI
 			if (data)
 			{
 				createManual(width, height, TextureUsage::Static | TextureUsage::Write, format, data);
-				delete data;
+                delete[] (unsigned char*)data;
 			}
 		}
 	}

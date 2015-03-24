@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		01/2009
 */
-#ifndef __PANEL_VIEW_H__
-#define __PANEL_VIEW_H__
+#ifndef PANEL_VIEW_H_
+#define PANEL_VIEW_H_
 
 #include "PanelView/BasePanelView.h"
 #include "PanelViewCell.h"
@@ -24,4 +24,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __PANEL_VIEW_H__
+#endif // PANEL_VIEW_H_

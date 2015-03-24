@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		01/2009
 */
-#ifndef __CONNECTION_INFO_H__
-#define __CONNECTION_INFO_H__
+#ifndef CONNECTION_INFO_H_
+#define CONNECTION_INFO_H_
 
 #include <MyGUI.h>
 
@@ -41,4 +41,4 @@ namespace wraps
 
 } // namespace wraps
 
-#endif // __CONNECTION_INFO_H__
+#endif // CONNECTION_INFO_H_

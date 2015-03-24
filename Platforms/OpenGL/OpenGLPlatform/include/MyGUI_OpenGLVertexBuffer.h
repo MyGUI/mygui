@@ -4,8 +4,8 @@
 	@date		07/2009
 */
 
-#ifndef __MYGUI_OPENGL_VERTEX_BUFFER_H__
-#define __MYGUI_OPENGL_VERTEX_BUFFER_H__
+#ifndef MYGUI_OPENGL_VERTEX_BUFFER_H_
+#define MYGUI_OPENGL_VERTEX_BUFFER_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IVertexBuffer.h"
@@ -37,11 +37,11 @@ namespace MyGUI
 
 	private:
 		unsigned int mBufferID;
-		size_t mVertexCount;
+        //size_t mVertexCount;
 		size_t mNeedVertexCount;
 		size_t mSizeInBytes;
 	};
 
 } // namespace MyGUI
 
-#endif // __MYGUI_OPENGL_VERTEX_BUFFER_H__
+#endif // MYGUI_OPENGL_VERTEX_BUFFER_H_

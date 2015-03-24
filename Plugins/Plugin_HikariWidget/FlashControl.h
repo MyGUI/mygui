@@ -19,8 +19,8 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __FlashControl_H__
-#define __FlashControl_H__
+#ifndef FlashControl_H_
+#define FlashControl_H_
 
 #include <windows.h>
 #include "FlashValue.h"

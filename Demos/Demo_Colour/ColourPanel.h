@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		09/2008
 */
-#ifndef __COLOUR_PANEL_H__
-#define __COLOUR_PANEL_H__
+#ifndef COLOUR_PANEL_H_
+#define COLOUR_PANEL_H_
 
 #include <MyGUI.h>
 #include "BaseLayout/BaseLayout.h"
@@ -80,4 +80,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __COLOUR_PANEL_H__
+#endif // COLOUR_PANEL_H_

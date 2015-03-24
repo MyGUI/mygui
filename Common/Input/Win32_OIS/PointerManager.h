@@ -5,8 +5,8 @@
 	@module
 */
 
-#ifndef __POINTER_MANAGER_H__
-#define __POINTER_MANAGER_H__
+#ifndef POINTER_MANAGER_H_
+#define POINTER_MANAGER_H_
 
 #include "ResourceW32Pointer.h"
 
@@ -42,4 +42,4 @@ namespace input
 
 } // namespace input
 
-#endif // __POINTER_MANAGER_H__
+#endif // POINTER_MANAGER_H_

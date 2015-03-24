@@ -3,8 +3,8 @@
 	@author     Albert Semenov
 	@date       08/2008
 */
-#ifndef __WOBBLE_NODE_ANIMATOR_H__
-#define __WOBBLE_NODE_ANIMATOR_H__
+#ifndef WOBBLE_NODE_ANIMATOR_H_
+#define WOBBLE_NODE_ANIMATOR_H_
 
 #include <MyGUI.h>
 #include "MyGUI_LayerNodeAnimation.h"
@@ -63,4 +63,4 @@ namespace demo
 
 }
 
-#endif // __WOBBLE_NODE_ANIMATOR_H__
+#endif // WOBBLE_NODE_ANIMATOR_H_

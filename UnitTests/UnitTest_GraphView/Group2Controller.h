@@ -1,5 +1,5 @@
-#ifndef __GROUP_2_CONTROLLER_H__
-#define __GROUP_2_CONTROLLER_H__
+#ifndef GROUP_2_CONTROLLER_H_
+#define GROUP_2_CONTROLLER_H_
 
 #include "IAnimationNode.h"
 #include "IAnimationGraph.h"
@@ -61,4 +61,4 @@ namespace animation
 
 } // namespace animation
 
-#endif // __GROUP_2_CONTROLLER_H__
+#endif // GROUP_2_CONTROLLER_H_

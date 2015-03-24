@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		01/2009
 */
-#ifndef __BASE_GRAPH_CONNECTION_H__
-#define __BASE_GRAPH_CONNECTION_H__
+#ifndef BASE_GRAPH_CONNECTION_H_
+#define BASE_GRAPH_CONNECTION_H_
 
 #include <MyGUI.h>
 #include <BaseLayout/BaseLayout.h>
@@ -123,4 +123,4 @@ namespace wraps
 
 }
 
-#endif // __BASE_GRAPH_CONNECTION_H__
+#endif // BASE_GRAPH_CONNECTION_H_

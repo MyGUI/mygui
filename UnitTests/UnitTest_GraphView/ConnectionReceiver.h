@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		08/2008
 */
-#ifndef __CONNECTION_RECEIVER_H__
-#define __CONNECTION_RECEIVER_H__
+#ifndef CONNECTION_RECEIVER_H_
+#define CONNECTION_RECEIVER_H_
 
 #include "IAnimationNode.h"
 #include "IAnimationGraph.h"
@@ -62,4 +62,4 @@ namespace animation
 
 } // namespace animation
 
-#endif // __CONNECTION_RECEIVER_H__
+#endif // CONNECTION_RECEIVER_H_

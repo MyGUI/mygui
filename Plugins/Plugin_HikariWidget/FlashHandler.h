@@ -19,8 +19,8 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __FlashHandler_H__
-#define __FlashHandler_H__
+#ifndef FlashHandler_H_
+#define FlashHandler_H_
 
 #import "PROGID:ShockwaveFlash.ShockwaveFlash" named_guids
 #include "FlashValue.h"

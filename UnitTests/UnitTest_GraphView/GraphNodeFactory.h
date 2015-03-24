@@ -1,5 +1,5 @@
-#ifndef __GRAPH_NODE_FACTORY_H__
-#define __GRAPH_NODE_FACTORY_H__
+#ifndef GRAPH_NODE_FACTORY_H_
+#define GRAPH_NODE_FACTORY_H_
 
 #include "IGraphNodeConstruct.h"
 
@@ -24,4 +24,4 @@ namespace demo
 
 } // namespace demo
 
-#endif // __GRAPH_NODE_FACTORY_H__
+#endif // GRAPH_NODE_FACTORY_H_

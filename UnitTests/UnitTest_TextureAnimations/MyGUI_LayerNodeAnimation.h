@@ -4,8 +4,8 @@
 	@date		06/2008
 */
 
-#ifndef __MYGUI_LAYER_NODE_ANIMATION_H__
-#define __MYGUI_LAYER_NODE_ANIMATION_H__
+#ifndef MYGUI_LAYER_NODE_ANIMATION_H_
+#define MYGUI_LAYER_NODE_ANIMATION_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IVertexBuffer.h"
@@ -75,4 +75,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_LAYER_NODE_ANIMATION_H__
+#endif // MYGUI_LAYER_NODE_ANIMATION_H_

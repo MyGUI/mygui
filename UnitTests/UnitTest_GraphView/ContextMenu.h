@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		01/2009
 */
-#ifndef __CONTEXT_MENU_H__
-#define __CONTEXT_MENU_H__
+#ifndef CONTEXT_MENU_H_
+#define CONTEXT_MENU_H_
 
 #include <MyGUI.h>
 #include <BaseLayout/BaseLayout.h>
@@ -55,4 +55,4 @@ namespace wraps
 
 } // namespace wraps
 
-#endif // __CONTEXT_MENU_H__
+#endif // CONTEXT_MENU_H_

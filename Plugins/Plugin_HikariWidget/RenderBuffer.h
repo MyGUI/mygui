@@ -19,8 +19,8 @@
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef __RenderBuffer_H__
-#define __RenderBuffer_H__
+#ifndef RenderBuffer_H_
+#define RenderBuffer_H_
 
 #include <windows.h>
 

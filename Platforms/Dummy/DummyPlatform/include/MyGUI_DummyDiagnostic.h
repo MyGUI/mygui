@@ -4,8 +4,8 @@
 	@date		06/2012
 */
 
-#ifndef __MYGUI_DUMMY_DIAGNOSTIC_H__
-#define __MYGUI_DUMMY_DIAGNOSTIC_H__
+#ifndef MYGUI_DUMMY_DIAGNOSTIC_H_
+#define MYGUI_DUMMY_DIAGNOSTIC_H_
 
 #include "MyGUI_Prerequest.h"
 
@@ -34,4 +34,4 @@
 	} \
 }
 
-#endif // __MYGUI_DUMMY_DIAGNOSTIC_H__
+#endif // MYGUI_DUMMY_DIAGNOSTIC_H_

@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_SKIN_ITEM_H__
-#define __MYGUI_SKIN_ITEM_H__
+#ifndef MYGUI_SKIN_ITEM_H_
+#define MYGUI_SKIN_ITEM_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_LayerItem.h"
@@ -62,4 +62,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_SKIN_ITEM_H__
+#endif // MYGUI_SKIN_ITEM_H_

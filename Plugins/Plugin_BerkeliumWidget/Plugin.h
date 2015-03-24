@@ -4,8 +4,8 @@
 	@date		02/2010
 */
 
-#ifndef __PLUGIN_H__
-#define __PLUGIN_H__
+#ifndef PLUGIN_H_
+#define PLUGIN_H_
 
 #include "MyGUI_Plugin.h"
 
@@ -44,4 +44,4 @@ namespace plugin
 
 } // namespace plugin
 
-#endif // __PLUGIN_H__
+#endif // PLUGIN_H_

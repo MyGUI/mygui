@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_RESOURCE_TRUE_TYPE_FONT_H__
-#define __MYGUI_RESOURCE_TRUE_TYPE_FONT_H__
+#ifndef MYGUI_RESOURCE_TRUE_TYPE_FONT_H_
+#define MYGUI_RESOURCE_TRUE_TYPE_FONT_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ITexture.h"
@@ -20,7 +20,8 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT ResourceTrueTypeFont :
-		public IFont
+		public IFont,
+		public ITextureInvalidateListener
 	{
 		MYGUI_RTTI_DERIVED( ResourceTrueTypeFont )
 
@@ -38,6 +39,9 @@ namespace MyGUI
 
 		// получившаяся высота при генерации в пикселях
 		virtual int getDefaultHeight();
+
+		// update texture after render device lost event
+		virtual void textureInvalidate(ITexture* _texture);
 
 		// Returns a collection of code-point ranges that are supported by this font. Each range is specified as [first, second];
 		// for example, a range containing a single code point will have the same value for both first and second.
@@ -155,4 +159,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_RESOURCE_TRUE_TYPE_FONT_H__
+#endif // MYGUI_RESOURCE_TRUE_TYPE_FONT_H_

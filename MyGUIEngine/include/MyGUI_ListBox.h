@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_LIST_BOX_H__
-#define __MYGUI_LIST_BOX_H__
+#ifndef MYGUI_LIST_BOX_H_
+#define MYGUI_LIST_BOX_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Button.h"
@@ -336,4 +336,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_LIST_BOX_H__
+#endif // MYGUI_LIST_BOX_H_

@@ -1,5 +1,5 @@
-#ifndef __KeyboardHookImpl_H__
-#define __KeyboardHookImpl_H__
+#ifndef KeyboardHookImpl_H_
+#define KeyboardHookImpl_H_
 
 #include "KeyboardHook.h"
 #include "HikariWidget.h"

@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		02/2011
 */
-#ifndef __WRAP_PANEL_H__
-#define __WRAP_PANEL_H__
+#ifndef WRAP_PANEL_H_
+#define WRAP_PANEL_H_
 
 #include "MyGUI_Prerequest.h"
 #include "Panel.h"
@@ -54,4 +54,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __WRAP_PANEL_H__
+#endif // WRAP_PANEL_H_

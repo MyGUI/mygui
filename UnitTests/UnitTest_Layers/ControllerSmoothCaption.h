@@ -4,8 +4,8 @@
 	@date		11/2009
 */
 
-#ifndef __CONTROLLER_SMOOTH_CAPTION_H__
-#define __CONTROLLER_SMOOTH_CAPTION_H__
+#ifndef CONTROLLER_SMOOTH_CAPTION_H_
+#define CONTROLLER_SMOOTH_CAPTION_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_WidgetDefines.h"
@@ -86,4 +86,4 @@ namespace demo
 
 }
 
-#endif // __CONTROLLER_SMOOTH_CAPTION_H__
+#endif // CONTROLLER_SMOOTH_CAPTION_H_

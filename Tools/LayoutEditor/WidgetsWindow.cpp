@@ -16,8 +16,6 @@
 namespace tools
 {
 
-	const int MARGIN = 2;
-
 	WidgetsWindow::WidgetsWindow(MyGUI::Widget* _parent) :
 		BaseLayout("WidgetsWindow.layout", _parent),
 		mTabSkins(nullptr),

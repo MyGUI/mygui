@@ -1,5 +1,5 @@
-#ifndef __POSITION_CONTROLLER_H__
-#define __POSITION_CONTROLLER_H__
+#ifndef POSITION_CONTROLLER_H_
+#define POSITION_CONTROLLER_H_
 
 #include "IAnimationNode.h"
 #include "IAnimationGraph.h"
@@ -47,4 +47,4 @@ namespace animation
 
 } // namespace animation
 
-#endif // __POSITION_CONTROLLER_H__
+#endif // POSITION_CONTROLLER_H_

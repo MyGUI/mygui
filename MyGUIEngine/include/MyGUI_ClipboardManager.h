@@ -4,8 +4,8 @@
  * (See accompanying file COPYING.MIT or copy at http://opensource.org/licenses/MIT)
  */
 
-#ifndef __MYGUI_CLIPBOARD_MANAGER_H__
-#define __MYGUI_CLIPBOARD_MANAGER_H__
+#ifndef MYGUI_CLIPBOARD_MANAGER_H_
+#define MYGUI_CLIPBOARD_MANAGER_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Singleton.h"
@@ -70,4 +70,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __MYGUI_CLIPBOARD_MANAGER_H__
+#endif // MYGUI_CLIPBOARD_MANAGER_H_

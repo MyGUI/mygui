@@ -3,8 +3,8 @@
 	@author		Albert Semenov
 	@date		02/2011
 */
-#ifndef __STACK_PANEL_H__
-#define __STACK_PANEL_H__
+#ifndef STACK_PANEL_H_
+#define STACK_PANEL_H_
 
 #include "MyGUI_Prerequest.h"
 #include "Panel.h"
@@ -33,4 +33,4 @@ namespace MyGUI
 
 } // namespace MyGUI
 
-#endif // __STACK_PANEL_H__
+#endif // STACK_PANEL_H_
