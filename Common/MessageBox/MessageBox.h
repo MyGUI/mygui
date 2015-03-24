@@ -358,10 +358,6 @@ namespace MyGUI
 			}
 
 			assignWidget(mIcon, "Icon", false);
-			if (mIcon != nullptr)
-			{
-				mLeftOffset2 = mIcon->getRight() + 3;
-			}
 
 			mButtonType = Button::getClassTypeName();
 
