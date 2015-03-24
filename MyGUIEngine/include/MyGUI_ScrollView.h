@@ -87,6 +87,9 @@ namespace MyGUI
 
 		ScrollBar* getVScroll();
 
+		int mScrollViewMouseWheel; // колличество пикселей для колеса мыши
+		int mScrollViewScrollPage; // колличество пикселей для кнопок скрола
+
 	private:
 		// размер данных
 		virtual IntSize getContentSize();

@@ -368,4 +368,9 @@ namespace MyGUI
 			scaleAndKeepValue(original.height, mScaleFactor));
 	}
 
+	int Gui::scalePreserve(const int& original)
+	{
+		return scaleAndKeepValue(original, mScaleFactor);
+	}
+
 } // namespace MyGUI

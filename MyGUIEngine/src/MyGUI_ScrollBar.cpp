@@ -9,6 +9,7 @@
 #include "MyGUI_InputManager.h"
 #include "MyGUI_Button.h"
 #include "MyGUI_ResourceSkin.h"
+#include "MyGUI_Gui.h"
 
 namespace MyGUI
 {
@@ -30,7 +31,8 @@ namespace MyGUI
 		mScrollViewPage(0),
 		mMinTrackSize(0),
 		mMoveToClick(false),
-		mVerticalAlignment(true)
+		mVerticalAlignment(true),
+		mScrollIncrement(Gui::getInstance().scalePreserve(50))
 	{
 	}
 
@@ -489,6 +491,9 @@ namespace MyGUI
 		/// @wproperty{ScrollBar, VerticalAlignment, bool} Вертикальное выравнивание.
 		else if (_key == "VerticalAlignment")
 			setVerticalAlignment(utility::parseValue<bool>(_value));
+
+		else if (_key == "Scroll_Increment") 
+			setScrollIncrement(Gui::getInstance().scalePreserve(utility::parseValue<size_t>(_value)));
 
 		else
 		{

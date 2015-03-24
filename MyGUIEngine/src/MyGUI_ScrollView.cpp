@@ -13,13 +13,13 @@
 
 namespace MyGUI
 {
-
-	const int SCROLL_VIEW_MOUSE_WHEEL = 50; // колличество пикселей для колеса мыши
-	const int SCROLL_VIEW_SCROLL_PAGE = 16; // колличество пикселей для кнопок скрола
-
 	ScrollView::ScrollView() :
 		mContentAlign(Align::Center),
-		mRealClient(nullptr)
+		mRealClient(nullptr),
+		mFavorVertical(true),
+		mAllowMouseScroll(true),
+		mScrollViewMouseWheel(Gui::getInstance().scalePreserve(50)),
+		mScrollViewScrollPage(Gui::getInstance().scalePreserve(16))
 	{
 		mChangeContentByResize = false;
 		mContentAlign = Align::Center;
@@ -120,8 +120,8 @@ namespace MyGUI
 		{
 			IntPoint point = mRealClient->getPosition();
 			int offset = -point.top;
-			if (_rel < 0) offset += SCROLL_VIEW_MOUSE_WHEEL;
-			else  offset -= SCROLL_VIEW_MOUSE_WHEEL;
+			if (_rel < 0) offset += mScrollViewMouseWheel;
+			else  offset -= mScrollViewMouseWheel;
 
 			if (offset < 0) offset = 0;
 			else if (offset > (int)mVRange) offset = mVRange;
@@ -140,8 +140,8 @@ namespace MyGUI
 		{
 			IntPoint point = mRealClient->getPosition();
 			int offset = -point.left;
-			if (_rel < 0) offset += SCROLL_VIEW_MOUSE_WHEEL;
-			else  offset -= SCROLL_VIEW_MOUSE_WHEEL;
+			if (_rel < 0) offset += mScrollViewMouseWheel;
+			else  offset -= mScrollViewMouseWheel;
 
 			if (offset < 0) offset = 0;
 			else if (offset > (int)mHRange) offset = mHRange;
@@ -181,12 +181,12 @@ namespace MyGUI
 
 	size_t ScrollView::getVScrollPage()
 	{
-		return SCROLL_VIEW_SCROLL_PAGE;
+		return mScrollViewScrollPage;
 	}
 
 	size_t ScrollView::getHScrollPage()
 	{
-		return SCROLL_VIEW_SCROLL_PAGE;
+		return mScrollViewScrollPage;
 	}
 
 	void ScrollView::updateView()
