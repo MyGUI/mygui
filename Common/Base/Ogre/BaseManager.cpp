@@ -269,7 +269,7 @@ namespace base
 		unsigned long now_time = timer.getMilliseconds();
 		unsigned long time = now_time - last_time;
 
-		mPlatform->getRenderManagerPtr()->manualFrameEvent((float)((double)(time) / (double)1000));
+		mGUI->frameEvent((float)((double)(time) / (double)1000));
 
 		last_time = now_time;
 
