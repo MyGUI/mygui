@@ -50,7 +50,8 @@ namespace MyGUI
 		mShiftText(false),
 		mWordWrap(false),
 		mManualColour(false),
-		mOldWidth(0)
+		mOldWidth(0),
+		mSelectionBgColor(0xffcc9966)
 	{
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 
@@ -545,7 +546,7 @@ namespace MyGUI
 		// текущие цвета
 		uint32 colour = mCurrentColourNative;
 		uint32 inverseColour = mInverseColourNative;
-		uint32 selectedColour = mInvertSelect ? inverseColour : colour | 0x00FFFFFF;
+		uint32 selectedColour = mInvertSelect ? inverseColour : mSelectionBgColor;
 
 		const VectorLineInfo& textViewData = mTextView.getData();
 
