@@ -9,6 +9,7 @@
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_ISubWidgetText.h"
 #include "MyGUI_ScrollBar.h"
+#include "MyGUI_Gui.h"
 
 namespace MyGUI
 {
@@ -240,7 +241,7 @@ namespace MyGUI
 
 		/// @wproperty{ScrollView, CanvasSize, int int} Размер содержимого.
 		else if (_key == "CanvasSize")
-			setCanvasSize(utility::parseValue<IntSize>(_value));
+			setCanvasSize(utility::parseValue<IntSize>(_value) * Gui::getInstance().getScaleFactor());
 
 		else
 		{
