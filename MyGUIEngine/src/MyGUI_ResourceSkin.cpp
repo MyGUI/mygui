@@ -10,6 +10,7 @@
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_SubWidgetManager.h"
 #include "MyGUI_Gui.h"
+#include "MyGUI_CoordConverter.h"
 
 namespace MyGUI
 {
@@ -88,26 +89,9 @@ namespace MyGUI
 				{
 					childCoord = IntCoord::parse(localizator.replaceTags(tmp)) * scaleFactor;
 				}
-				else if(basis->findAttribute("coord", tmp))
+				else if(basis->findAttribute("offset_derived", tmp))
 				{
-					//Convert from (left, top, right, bottom) to (left, top, width, height)
-					childCoord = IntCoord::parse(localizator.replaceTags(tmp)) * scaleFactor;
-					if(childCoord.width < 0)
-					{
-						childCoord.width = size.width + childCoord.width - childCoord.left;
-					}
-					else
-					{
-						childCoord.width = childCoord.width - childCoord.left;
-					}
-					if(childCoord.height < 0)
-					{
-						childCoord.height = size.height + childCoord.height - childCoord.top;
-					}
-					else
-					{
-						childCoord.height = childCoord.height - childCoord.top;
-					}
+					childCoord = CoordConverter::deriveCoord(IntCoord::parse(localizator.replaceTags(tmp)) * scaleFactor, size);
 				}
 
 				ChildSkinInfo child(
