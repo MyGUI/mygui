@@ -109,7 +109,7 @@ namespace base
 		mCamera->lookAt(0, 150, 0);
 
 		// Create one viewport, entire window
-		Ogre::Viewport* vp = mWindow->addViewport(mCamera);
+		vp = mWindow->addViewport(mCamera);
 		// Alter the camera aspect ratio to match the viewport
 		mCamera->setAspectRatio((float)vp->getActualWidth() / (float)vp->getActualHeight());
 		vp->setBackgroundColour(Ogre::ColourValue(1.0f, 0.0f, 1.0f, 0.0f));
@@ -264,16 +264,19 @@ namespace base
 
 	void BaseManager::preFindVisibleObjects(Ogre::SceneManager* source, Ogre::SceneManager::IlluminationRenderStage irs, Ogre::Viewport* v)
 	{
-		static Ogre::Timer timer;
-		static unsigned long last_time = timer.getMilliseconds();
-		unsigned long now_time = timer.getMilliseconds();
-		unsigned long time = now_time - last_time;
+		if (v == vp)
+		{
+			static Ogre::Timer timer;
+			static unsigned long last_time = timer.getMilliseconds();
+			unsigned long now_time = timer.getMilliseconds();
+			unsigned long time = now_time - last_time;
 
-		mGUI->frameEvent((float)((double)(time) / (double)1000));
+			mGUI->frameEvent((float)((double)(time) / (double)1000));
 
-		last_time = now_time;
+			last_time = now_time;
 
-		mPlatform->getRenderManagerPtr()->update();
+			mPlatform->getRenderManagerPtr()->update();
+		}
 	}
 
 	bool BaseManager::frameStarted(const Ogre::FrameEvent& evt)
@@ -283,6 +286,8 @@ namespace base
 
 		if (!mGUI)
 			return true;
+
+		vp->clear();
 
 		captureInput();
 

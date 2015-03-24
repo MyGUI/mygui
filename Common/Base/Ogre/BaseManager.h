@@ -87,6 +87,7 @@ namespace base
 		Ogre::Camera* mCamera;
 		Ogre::SceneManager* mSceneManager;
 		Ogre::RenderWindow* mWindow;
+		Ogre::Viewport* vp;
 
 		bool mExit;
 
