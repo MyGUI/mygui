@@ -759,14 +759,16 @@ namespace MyGUI
 		// Create the texture and render the glyphs onto it.
 		//-------------------------------------------------------------------//
 
-		if (mTexture)
+		if (!mTexture)
 		{
-			RenderManager::getInstance().destroyTexture( mTexture );
-			mTexture = nullptr;
+			mTexture = RenderManager::getInstance().createTexture(MyGUI::utility::toString((size_t)this, "_TrueTypeFont"));
+		}
+		else
+		{
+			mTexture->destroy();
 		}
 
-		mTexture = RenderManager::getInstance().createTexture(MyGUI::utility::toString((size_t)this, "_TrueTypeFont"));
-
+		mTexture->setInvalidateListener(nullptr);
 		mTexture->createManual(texWidth, texHeight, TextureUsage::Static | TextureUsage::Write, Pixel<LAMode>::getFormat());
 		mTexture->setInvalidateListener(this);
 
