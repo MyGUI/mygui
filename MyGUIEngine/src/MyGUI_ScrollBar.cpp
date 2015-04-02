@@ -330,6 +330,8 @@ namespace MyGUI
 
 	void ScrollBar::notifyMouseDrag(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
+		if (mScrollRange < 2)
+			return;
 		if (_id == MouseButton::Left)
 			TrackMove(_left, _top);
 	}
