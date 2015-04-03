@@ -46,7 +46,7 @@ namespace MyGUI
 		}
 		else
 		{
-			setPick(utility::parseBool(_node->findAttribute("pick")));
+			setPick(utility::parseBool(_node->findAttribute("peek")));
 		}
 	}
 
