@@ -72,6 +72,10 @@ namespace MyGUI
 		return 0;
 	}
 
+	void ResourceTrueTypeFont::textureInvalidate(ITexture* _texture)
+	{
+	}
+
 	std::vector<std::pair<Char, Char> > ResourceTrueTypeFont::getCodePointRanges() const
 	{
 		return std::vector<std::pair<Char, Char> >();
