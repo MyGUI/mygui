@@ -228,6 +228,17 @@ namespace MyGUI
 		return mCurrentLanguageName;
 	}
 
+	/** Get all available languages */
+	VectorString LanguageManager::getLanguages() const
+	{
+		VectorString result;
+		for (MapListString::const_iterator iter = mMapFile.begin(); iter != mMapFile.end(); ++iter)
+		{
+			result.push_back(iter->first);
+		}
+		return result;
+	}
+
 	void LanguageManager::addUserTag(const UString& _tag, const UString& _replace)
 	{
 		mUserMapLanguage[_tag] = _replace;
