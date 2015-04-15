@@ -15,9 +15,40 @@
 
 #include <Compositor/OgreCompositorManager2.h>
 #include <OgreRoot.h>
+#include <OgreHighLevelGpuProgramManager.h>
 
 namespace MyGUI
 {
+	static const char vsSourceD3D11[] =
+	{
+		"void main( in float3 inPosition : POSITION0, in float4 inColor : COLOR0, out float4 outPosition : SV_POSITION, out float4 outColor : TEXCOORD0 ) {\n"
+		"	outPosition = float4(inPosition, 1.0f);\n"
+		"	outColor = inColor;\n"
+		"}\n"
+	};
+
+	static const char psSourceD3D11[] =
+	{
+		"void main(  in float4 inPosition : SV_POSITION, in float4 inColor : TEXCOORD0, out float4 Out : SV_TARGET ) {\n"
+		"	Out = inColor;\n"
+		"}\n"
+	};
+
+	static const char vsTexturedSourceD3D11[] =
+	{
+		"void main( in float3 inPosition : POSITION0, in float4 inColor : COLOR0, in float2 inTexcoord : TEXCOORD0, out float4 outPosition : SV_POSITION, out float4 outColor : TEXCOORD0, out float2 outTexcoord : TEXCOORD1 ) {\n"
+		"	outPosition = float4(inPosition, 1.0f);\n"
+		"	outColor = inColor;\n"
+		"	outTexcoord = inTexcoord;\n"
+		"}\n"
+	};
+
+	static const char psTexturedSourceD3D11[] =
+	{
+		"void main( uniform Texture2D<float4> sampleTexture : register(t0), uniform SamplerState sampleSampler : register(s0), in float4 inPosition : SV_POSITION, in float4 inColor : TEXCOORD0, in float2 inTexcoord : TEXCOORD1, out float4 Out : SV_TARGET ) {\n"
+		"	Out = sampleTexture.SampleLevel(sampleSampler, inTexcoord, 0).rgba * inColor;\n"
+		"}\n"
+	};
 
 	Ogre::IdString OgreCompositorPassProvider::mPassId = Ogre::IdString("MYGUI");
 
@@ -89,6 +120,56 @@ namespace MyGUI
 
 		root->addFrameListener(this);
 
+
+		//On D3D11, we need to create shaders to render the geometry
+		if (root->getRenderSystem()->getName() == "Direct3D11 Rendering Subsystem")
+		{
+			Ogre::HighLevelGpuProgramManager& mgr = Ogre::HighLevelGpuProgramManager::getSingleton();
+			mFlatVertexShader = mgr.getByName("MyGUIFlatVertexProgram");
+			if (mFlatVertexShader.isNull())
+			{
+				mFlatVertexShader = mgr.createProgram("MyGUIFlatVertexProgram", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+					"hlsl", Ogre::GPT_VERTEX_PROGRAM);
+				mFlatVertexShader->setParameter("target", "vs_4_0");
+				mFlatVertexShader->setParameter("entry_point", "main");
+				mFlatVertexShader->setSource(vsSourceD3D11);
+				mFlatVertexShader->load();
+			}
+			mFlatPixelShader = mgr.getByName("MyGUIFlatFragmentProgram");
+			if (mFlatPixelShader.isNull())
+			{
+				mFlatPixelShader = mgr.createProgram("MyGUIFlatFragmentProgram", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+					"hlsl", Ogre::GPT_FRAGMENT_PROGRAM);
+				mFlatPixelShader->setParameter("target", "ps_4_0");
+				mFlatPixelShader->setParameter("entry_point", "main");
+				mFlatPixelShader->setSource(psSourceD3D11);
+				mFlatPixelShader->load();
+			}
+
+			//now the textured shader
+			mTexturedVertexShader = mgr.getByName("MyGUITexturedVertexProgram");
+			if (mTexturedVertexShader.isNull())
+			{
+				mTexturedVertexShader = mgr.createProgram("MyGUITexturedVertexProgram", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+					"hlsl", Ogre::GPT_VERTEX_PROGRAM);
+				mTexturedVertexShader->setParameter("target", "vs_4_0");
+				mTexturedVertexShader->setParameter("entry_point", "main");
+				mTexturedVertexShader->setSource(vsTexturedSourceD3D11);
+				mTexturedVertexShader->load();
+			}
+			mTexturedPixelShader = mgr.getByName("MyGUITexturedFragmentProgram");
+			if (mTexturedPixelShader.isNull())
+			{
+				mTexturedPixelShader = mgr.createProgram("MyGUITexturedFragmentProgram", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+					"hlsl", Ogre::GPT_FRAGMENT_PROGRAM);
+				mTexturedPixelShader->setParameter("target", "ps_4_0");
+				mTexturedPixelShader->setParameter("entry_point", "main");
+				mTexturedPixelShader->setSource(psTexturedSourceD3D11);
+				mTexturedPixelShader->load();
+			}
+			
+		}
+
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
@@ -117,7 +198,7 @@ namespace MyGUI
 
 	void OgreRenderManager::setRenderSystem(Ogre::RenderSystem* _render)
 	{
-		// отписываемся
+		// ????????????
 		if (mRenderSystem != nullptr)
 		{
 			mRenderSystem->removeListener(this);
@@ -126,12 +207,12 @@ namespace MyGUI
 
 		mRenderSystem = _render;
 
-		// подписываемся на рендер евент
+		// ????????????? ?? ?????? ?????
 		if (mRenderSystem != nullptr)
 		{
 			mRenderSystem->addListener(this);
 
-			// формат цвета в вершинах
+			// ?????? ????? ? ????????
 			Ogre::VertexElementType vertex_type = mRenderSystem->getColourVertexElementType();
 			if (vertex_type == Ogre::VET_COLOUR_ARGB)
 				mVertexFormat = VertexColourType::ColourARGB;
@@ -149,7 +230,7 @@ namespace MyGUI
 
 	void OgreRenderManager::setRenderWindow(Ogre::RenderWindow* _window)
 	{
-		// отписываемся
+		// ????????????
 		if (mWindow != nullptr)
 		{
 			Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
@@ -196,7 +277,7 @@ namespace MyGUI
 		onRenderToTarget(this, mUpdate);
 		//end();
 
-		// сбрасываем флаг
+		// ?????????? ????
 		mUpdate = false;
 	}
 
@@ -207,7 +288,7 @@ namespace MyGUI
 		}
 		else if (eventName == "DeviceRestored")
 		{
-			// обновить всех
+			// ???????? ????
 			mUpdate = true;
 		}
 	}
@@ -222,13 +303,13 @@ namespace MyGUI
 		delete _buffer;
 	}
 
-	// для оповещений об изменении окна рендера
+	// ??? ?????????? ?? ????????? ???? ???????
 	void OgreRenderManager::windowResized(Ogre::RenderWindow* _window)
 	{
 		// FIXME: set viewsize from dimensions of viewport
 		mViewSize.set(_window->getWidth(), _window->getHeight());
 
-		// обновить всех
+		// ???????? ????
 		mUpdate = true;
 
 		updateRenderInfo();
@@ -240,7 +321,14 @@ namespace MyGUI
 	{
 		if (mRenderSystem != nullptr)
 		{
-			mInfo.maximumDepth = mRenderSystem->getMaximumDepthInputValue();
+			if (mRenderSystem->getName() == "Direct3D11 Rendering Subsystem") // special case, it's not working with the value returned by the rendersystem
+			{
+				mInfo.maximumDepth = 0.0f;
+			}
+			else
+			{
+				mInfo.maximumDepth = mRenderSystem->getMaximumDepthInputValue();
+			}
 			mInfo.hOffset = mRenderSystem->getHorizontalTexelOffset() / float(mViewSize.width);
 			mInfo.vOffset = mRenderSystem->getVerticalTexelOffset() / float(mViewSize.height);
 			mInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
@@ -265,6 +353,22 @@ namespace MyGUI
 			{
 				mRenderSystem->_setTexture(0, true, texture_ptr);
 				mRenderSystem->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
+
+				//if there is a shader for rendering, bind it
+				if (!mTexturedVertexShader.isNull())
+				{
+					mRenderSystem->bindGpuProgram(mTexturedVertexShader.get());
+					mRenderSystem->bindGpuProgram(mTexturedPixelShader.get());
+				}
+			}
+		}
+		else
+		{
+			//if there is a shader for rendering, bind it
+			if (!mFlatVertexShader.isNull())
+			{
+				mRenderSystem->bindGpuProgram(mFlatVertexShader.get());
+				mRenderSystem->bindGpuProgram(mFlatPixelShader.get());
 			}
 		}
 

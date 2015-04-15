@@ -177,6 +177,14 @@ namespace MyGUI
 		friend class MyGUIPass;
 
 		std::auto_ptr<OgreCompositorPassProvider> mPassProvider;
+
+
+		//the gpu programs used for D3D11 rendersystem
+		Ogre::HighLevelGpuProgramPtr	mFlatVertexShader;
+		Ogre::HighLevelGpuProgramPtr	mFlatPixelShader;
+
+		Ogre::HighLevelGpuProgramPtr	mTexturedVertexShader;
+		Ogre::HighLevelGpuProgramPtr	mTexturedPixelShader;
 	};
 
 } // namespace MyGUI
