@@ -1,0 +1,35 @@
+set (HEADER_FILES
+  include/MyGUI_OpenGL3DataManager.h
+  include/MyGUI_OpenGL3Diagnostic.h
+  include/MyGUI_OpenGL3Platform.h
+  include/MyGUI_OpenGL3RTTexture.h
+  include/MyGUI_OpenGL3RenderManager.h
+  include/MyGUI_OpenGL3Texture.h
+  include/MyGUI_OpenGL3VertexBuffer.h
+)
+set (SOURCE_FILES
+  src/MyGUI_OpenGL3DataManager.cpp
+  src/MyGUI_OpenGL3Platform.cpp
+  src/MyGUI_OpenGL3RTTexture.cpp
+  src/MyGUI_OpenGL3RenderManager.cpp
+  src/MyGUI_OpenGL3Texture.cpp
+  src/MyGUI_OpenGL3VertexBuffer.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  include/MyGUI_OpenGL3DataManager.h
+  include/MyGUI_OpenGL3Diagnostic.h
+  include/MyGUI_OpenGL3Platform.h
+  include/MyGUI_OpenGL3RTTexture.h
+  include/MyGUI_OpenGL3RenderManager.h
+  include/MyGUI_OpenGL3Texture.h
+  include/MyGUI_OpenGL3VertexBuffer.h
+)
+SOURCE_GROUP("Source Files" FILES
+  include/GL/glew.c
+  src/MyGUI_OpenGL3DataManager.cpp
+  src/MyGUI_OpenGL3Platform.cpp
+  src/MyGUI_OpenGL3RTTexture.cpp
+  src/MyGUI_OpenGL3RenderManager.cpp
+  src/MyGUI_OpenGL3Texture.cpp
+  src/MyGUI_OpenGL3VertexBuffer.cpp
+)

@@ -144,6 +144,14 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 			${DirectX_INCLUDE_DIR}
 		)
 		link_directories(${DIRECTX_LIB_DIR})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
+		include_directories(../../Common/Base/OpenGL3)
+		add_definitions("-DMYGUI_OPENGL3_PLATFORM")
+		include_directories(
+			${MYGUI_SOURCE_DIR}/Platforms/OpenGL3/OpenGL3Platform/include
+			${OPENGL_INCLUDE_DIR}
+		)
+		link_directories(${OPENGL_LIB_DIR})
 	endif()
 	
 	if(MYGUI_SAMPLES_INPUT EQUAL 1)
@@ -190,6 +198,11 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
 		add_dependencies(${PROJECTNAME} MyGUI.OpenGLPlatform)
 		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLPlatform)
+		
+		target_link_libraries(${PROJECTNAME} gdiplus)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
+		add_dependencies(${PROJECTNAME} MyGUI.OpenGL3Platform)
+		target_link_libraries(${PROJECTNAME} MyGUI.OpenGL3Platform)
 		
 		target_link_libraries(${PROJECTNAME} gdiplus)
 	endif()
@@ -261,6 +274,14 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 			${DirectX_INCLUDE_DIR}
 		)
 		link_directories(${DIRECTX_LIB_DIR})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
+		include_directories(../../Common/Base/OpenGL3)
+		add_definitions("-DMYGUI_OPENGL3_PLATFORM")
+		include_directories(
+			${MYGUI_SOURCE_DIR}/Platforms/OpenGL3/OpenGL3Platform/include
+			${OPENGL_INCLUDE_DIR}
+		)
+		link_directories(${OPENGL_LIB_DIR})
 	endif()
 	
 		
@@ -289,6 +310,11 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
 		add_dependencies(${PROJECTNAME} MyGUI.OpenGLPlatform)
 		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLPlatform)
+		
+		target_link_libraries(${PROJECTNAME} gdiplus)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
+		add_dependencies(${PROJECTNAME} MyGUI.OpenGL3Platform)
+		target_link_libraries(${PROJECTNAME} MyGUI.OpenGL3Platform)
 		
 		target_link_libraries(${PROJECTNAME} gdiplus)
 	endif()

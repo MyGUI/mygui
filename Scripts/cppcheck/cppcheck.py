@@ -49,6 +49,7 @@ checkFolderSources('Platforms/OpenGL/OpenGLPlatform/src', '-I Platforms/OpenGL/O
 checkFolderSources('Platforms/Ogre/OgrePlatform/src', '-I Platforms/Ogre/OgrePlatform/include')
 checkFolderSources('Platforms/DirectX/DirectXPlatform/src', '-I Platforms/DirectX/DirectXPlatform/include -I Common')
 checkFolderSources('Platforms/DirectX11/DirectX11Platform/src', '-I Platforms/DirectX11/DirectX11Platform/include -I Common')
+checkFolderSources('Platforms/OpenGL3/OpenGL3Platform/src', '-I Platforms/OpenGL3/OpenGL3Platform/include -I Common')
 checkFolderSources('Plugins', '')
 checkFolderSources('Wrappers/MyGUI_Export', ' -I Common')
 
