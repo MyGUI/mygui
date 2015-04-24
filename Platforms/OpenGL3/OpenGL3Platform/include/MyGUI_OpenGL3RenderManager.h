@@ -60,6 +60,8 @@ namespace MyGUI
 		/** @see IRenderTarget::getInfo */
 		virtual const RenderTargetInfo& getInfo();
 
+    /* for use with RTT, flips Y coordinate when rendering */
+    void doRenderRTT(IVertexBuffer* _buffer, ITexture* _texture, size_t _count); 
 
 	/*internal:*/
 		void drawOneFrame();
@@ -76,12 +78,14 @@ namespace MyGUI
 		VertexColourType mVertexFormat;
 		RenderTargetInfo mInfo;
     unsigned int mProgramID;
+    unsigned int mReferenceCount; // for nested rendering
+    int mYScaleUniformLocation;
 
 		typedef std::map<std::string, ITexture*> MapTexture;
 		MapTexture mTextures;
 		OpenGL3ImageLoader* mImageLoader;
 		bool mPboIsSupported;
-
+        
 		bool mIsInitialise;
   };
 

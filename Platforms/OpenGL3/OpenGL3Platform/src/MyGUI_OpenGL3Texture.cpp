@@ -117,6 +117,11 @@ namespace MyGUI
 				mAccess = GL_WRITE_ONLY;
 			}
 		}
+    else if (_usage.isValue(TextureUsage::RenderTarget))
+    {
+      mUsage = GL_DYNAMIC_READ;
+      mAccess = GL_READ_ONLY;
+    }
 	}
 
 	void OpenGL3Texture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format)

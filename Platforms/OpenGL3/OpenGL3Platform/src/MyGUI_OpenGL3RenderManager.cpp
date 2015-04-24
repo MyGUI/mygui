@@ -69,11 +69,14 @@ namespace MyGUI
       "in vec3 VertexPosition;\n"
       "in vec4 VertexColor;\n"
       "in vec2 VertexTexCoord;\n"
+      "uniform float YScale;\n"
       "void main()\n"
       "{\n"
       "  TexCoord = VertexTexCoord;\n"
       "  Color = VertexColor;\n"
-      "  gl_Position = vec4(VertexPosition, 1.0);\n"
+      "  vec4 vpos = vec4(VertexPosition,1.0);\n"
+      "  vpos.y *= YScale;\n"
+      "  gl_Position = vpos;\n"
       "}\n"
       ;
 
@@ -125,8 +128,13 @@ namespace MyGUI
     if (textureUniLoc == -1) {
       MYGUI_PLATFORM_EXCEPT("Unable to retrieve uniform variable location");
     }
+    mYScaleUniformLocation = glGetUniformLocation(progID, "YScale");
+    if (mYScaleUniformLocation == -1) {
+      MYGUI_PLATFORM_EXCEPT("Unable to retrieve YScale variable location");
+    }
     glUseProgram(progID);
     glUniform1i(textureUniLoc, 0); // set active sampler for 'Texture' to GL_TEXTURE0
+    glUniform1f(mYScaleUniformLocation, 1.0f);
     glUseProgram(0);
 
     return progID;
@@ -141,6 +149,8 @@ namespace MyGUI
 
 		mUpdate = false;
 		mImageLoader = _loader;
+
+    mReferenceCount = 0;
 
 		glewInit();
 
@@ -178,9 +188,16 @@ namespace MyGUI
 		delete _buffer;
 	}
 
+  void OpenGL3RenderManager::doRenderRTT(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
+  {
+    glUniform1f(mYScaleUniformLocation, -1.0f);
+    doRender(_buffer, _texture, _count);
+    glUniform1f(mYScaleUniformLocation, 1.0f);
+  }
+
 	void OpenGL3RenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		OpenGL3VertexBuffer* buffer = static_cast<OpenGL3VertexBuffer*>(_buffer);
+    OpenGL3VertexBuffer* buffer = static_cast<OpenGL3VertexBuffer*>(_buffer);
 		unsigned int buffer_id = buffer->getBufferID();
 		MYGUI_PLATFORM_ASSERT(buffer_id, "Vertex buffer is not created");
 
@@ -203,17 +220,21 @@ namespace MyGUI
 
 	void OpenGL3RenderManager::begin()
 	{
+    ++mReferenceCount;
+
     glUseProgram(mProgramID);
     glActiveTexture(GL_TEXTURE0);
   
     glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	}
+  }
 
 	void OpenGL3RenderManager::end()
 	{
-    glDisable(GL_BLEND);
-    glUseProgram(0);
+    if (--mReferenceCount == 0) {
+      glDisable(GL_BLEND);
+      glUseProgram(0);
+    }
   }
 
 	const RenderTargetInfo& OpenGL3RenderManager::getInfo()

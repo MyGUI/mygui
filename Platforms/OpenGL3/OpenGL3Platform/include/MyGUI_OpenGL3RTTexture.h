@@ -37,7 +37,10 @@ namespace MyGUI
 		unsigned int mTextureID;
 		int mWidth;
 		int mHeight;
-		unsigned int mFBOID;
+
+    int mSavedViewport[4];
+    
+    unsigned int mFBOID;
 		unsigned int mRBOID;
 	};
 
