@@ -153,6 +153,12 @@ namespace MyGUI
 		loadTexture();
 	}
 
+	void ResourceManualFont::setTexture(ITexture *texture)
+	{
+		mTexture = texture;
+		mSource.clear();
+	}
+
 	void ResourceManualFont::setDefaultHeight(int value)
 	{
 		mDefaultHeight = value;

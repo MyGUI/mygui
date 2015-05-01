@@ -35,8 +35,11 @@ namespace MyGUI
 		virtual int getDefaultHeight();
 
 		// Manual loading methods, not needed when loading from XML
-		// Set the source texture name
+		// Set the source texture by name
 		void setSource(const std::string& value);
+		// Set the source texture directly
+		// Note: the user is responsible for deallocation of the texture.
+		void setTexture(MyGUI::ITexture* texture);
 		// Set the default height of the font
 		void setDefaultHeight(int value);
 		// Add a glyph for character 'id'
