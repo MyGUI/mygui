@@ -11,6 +11,7 @@
 #include "MyGUI_Enumerator.h"
 #include "MyGUI_IObject.h"
 #include "MyGUI_IRenderTarget.h"
+#include "MyGUI_Types.h"
 
 namespace MyGUI
 {

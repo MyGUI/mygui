@@ -8,6 +8,7 @@
 #define MYGUI_I_LAYER_ITEM_H_
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Types.h"
 
 namespace MyGUI
 {

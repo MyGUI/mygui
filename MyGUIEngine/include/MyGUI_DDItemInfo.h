@@ -8,6 +8,7 @@
 #define MYGUI_ITEM_DROP_INFO_H_
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Macros.h"
 
 namespace MyGUI
 {

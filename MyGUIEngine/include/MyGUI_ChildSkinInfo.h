@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_WidgetStyle.h"
+#include "MyGUI_Types.h"
 
 namespace MyGUI
 {

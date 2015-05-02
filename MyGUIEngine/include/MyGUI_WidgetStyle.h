@@ -8,7 +8,9 @@
 #define MYGUI_WIDGET_STYLE_H_
 
 #include "MyGUI_Prerequest.h"
+#include <string>
 #include <string.h>
+#include <iostream>
 
 namespace MyGUI
 {

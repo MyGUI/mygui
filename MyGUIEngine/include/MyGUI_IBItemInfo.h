@@ -8,6 +8,9 @@
 #define MYGUI_ITEM_INFO_H_
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_KeyCode.h"
+#include "MyGUI_MouseButton.h"
+#include "MyGUI_Types.h"
 
 namespace MyGUI
 {

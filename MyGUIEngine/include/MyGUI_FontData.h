@@ -8,6 +8,7 @@
 #define MYGUI_FONT_DATA_H_
 
 #include "MyGUI_Prerequest.h"
+#include "MyGUI_Types.h"
 
 namespace MyGUI
 {

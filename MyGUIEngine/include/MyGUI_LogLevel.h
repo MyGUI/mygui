@@ -8,6 +8,9 @@
 #define MYGUI_LOG_LEVEL_H_
 
 #include "MyGUI_Prerequest.h"
+#include <string>
+#include <string.h>
+#include <iostream>
 
 namespace MyGUI
 {

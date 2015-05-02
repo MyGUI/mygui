@@ -8,6 +8,8 @@
 #define MYGUI_BIINDEX_BASE_H_
 
 #include "MyGUI_Prerequest.h"
+#include <vector>
+#include <stddef.h>
 
 namespace MyGUI
 {

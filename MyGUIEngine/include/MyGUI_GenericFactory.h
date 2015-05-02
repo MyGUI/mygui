@@ -10,6 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
 #include "MyGUI_Delegate.h"
+#include "MyGUI_IObject.h"
 
 namespace MyGUI
 {
