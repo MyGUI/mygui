@@ -14,7 +14,9 @@ ignoredContent = [
 	"HotKeyManager.cpp:44",
 	"HotKeyManager.cpp:45",
 	"Common/Base/OpenGL/BaseManager.cpp:12",
-	"Common/Base/OpenGL/BaseManager.cpp:13"
+	"Common/Base/OpenGL/BaseManager.cpp:13",
+	"Common/Base/OpenGL3/BaseManager.cpp:12",
+	"Common/Base/OpenGL3/BaseManager.cpp:13"
 	]
 
 def isIgnoredWarning(warning):

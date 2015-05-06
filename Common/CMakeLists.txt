@@ -76,6 +76,14 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 6)
 		${DirectX_INCLUDE_DIR}
 	)
 	link_directories(${DIRECTX_LIB_DIR})
+elseif(MYGUI_RENDERSYSTEM EQUAL 7)
+	mygui_add_base_manager_source(OpenGL3)
+	add_definitions("-DMYGUI_OPENGL3_PLATFORM")
+	include_directories(
+		${MYGUI_SOURCE_DIR}/Platforms/OpenGL3/OpenGL3Platform/include
+		${OPENGL_INCLUDE_DIR}
+	)
+	link_directories(${OPENGL_LIB_DIR})
 endif()
 
 if(MYGUI_SAMPLES_INPUT EQUAL 1)
@@ -105,6 +113,9 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 5)
 elseif(MYGUI_RENDERSYSTEM EQUAL 6)
 	add_dependencies(${PROJECTNAME} MyGUI.DirectX11Platform)
 	target_link_libraries(${PROJECTNAME} MyGUI.DirectX11Platform)
+elseif(MYGUI_RENDERSYSTEM EQUAL 7)
+	add_dependencies(${PROJECTNAME} MyGUI.OpenGL3Platform)
+	target_link_libraries(${PROJECTNAME} MyGUI.OpenGL3Platform)
 endif()
 
 add_dependencies(${PROJECTNAME} MyGUIEngine)

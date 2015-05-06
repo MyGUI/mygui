@@ -118,10 +118,11 @@ set(MYGUI_RENDERSYSTEM 3 CACHE STRING
   3 - Ogre
   4 - OpenGL
   5 - Direct3D 9
-  6 - Direct3D 11"
+  6 - Direct3D 11
+  7 - OpenGL 3.x"
 )
 
-if(MYGUI_RENDERSYSTEM EQUAL 4)
+if(MYGUI_RENDERSYSTEM EQUAL 4 OR MYGUI_RENDERSYSTEM EQUAL 7)
 	option(MYGUI_USE_SYSTEM_GLEW "Use system OpenGL Extension Wrangler Library (GLEW)" FALSE)
 endif()
 
