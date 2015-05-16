@@ -1,6 +1,7 @@
 set (HEADER_FILES
   include/MyGUI_OpenGL3DataManager.h
   include/MyGUI_OpenGL3Diagnostic.h
+  include/MyGUI_OpenGL3ImageLoader.h
   include/MyGUI_OpenGL3Platform.h
   include/MyGUI_OpenGL3RTTexture.h
   include/MyGUI_OpenGL3RenderManager.h
@@ -18,6 +19,7 @@ set (SOURCE_FILES
 SOURCE_GROUP("Header Files" FILES
   include/MyGUI_OpenGL3DataManager.h
   include/MyGUI_OpenGL3Diagnostic.h
+  include/MyGUI_OpenGL3ImageLoader.h
   include/MyGUI_OpenGL3Platform.h
   include/MyGUI_OpenGL3RTTexture.h
   include/MyGUI_OpenGL3RenderManager.h
