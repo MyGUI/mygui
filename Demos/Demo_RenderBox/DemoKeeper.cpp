@@ -48,7 +48,7 @@ namespace demo
 
 		const MyGUI::IntSize& size = MyGUI::RenderManager::getInstance().getViewSize();
 
-		MyGUI::Window* window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(10, size.height - 10 - 230, 300, 230), MyGUI::Align::Default, "Overlapped");
+		MyGUI::Window* window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(10, 10, 300, 230), MyGUI::Align::Default, "Overlapped");
 		window->setCaption("Camera view");
 		window->setMinSize(MyGUI::IntSize(100, 100));
 		MyGUI::Canvas* canvas = window->createWidget<MyGUI::Canvas>("Canvas", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);

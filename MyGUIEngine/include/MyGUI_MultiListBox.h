@@ -296,6 +296,17 @@ namespace MyGUI
 		virtual void _setItemNameAt(size_t _index, const UString& _name);
 		virtual const UString& _getItemNameAt(size_t _index);
 
+		//Added Functions
+		void setSortOnChanges(bool _value)
+		{
+			sortOnChanges = _value;
+		}
+
+		bool getSortOnChanges()
+		{
+			return sortOnChanges;
+		}
+
 	protected:
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
@@ -374,6 +385,8 @@ namespace MyGUI
 		bool mFrameAdvise;
 		Widget* mClient;
 		Widget* mHeaderPlace;
+
+		bool sortOnChanges;
 	};
 
 } // namespace MyGUI

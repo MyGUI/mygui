@@ -68,6 +68,20 @@ namespace MyGUI
 		{
 			return FloatPoint(_point.left / (float)_view.width, _point.top / (float)_view.height);
 		}
+
+		/* Derive coord based on a size. Allows negative width and height, which
+		   are calculated based on the input size.
+			@param _coord coordinates to derive.
+			@param _size The size to derive from.
+		*/
+		static IntCoord deriveCoord(const IntCoord& _coord, const IntSize& _size)
+		{
+			return IntCoord(
+				_coord.left, 
+				_coord.top, 
+				_coord.width < 0 ? _size.width + _coord.width - _coord.left : _coord.width,
+				_coord.height < 0 ? _size.height + _coord.height - _coord.top : _coord.height);
+		}
 	};
 
 } // namespace MyGUI

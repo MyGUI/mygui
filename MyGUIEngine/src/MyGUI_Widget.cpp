@@ -41,12 +41,19 @@ namespace MyGUI
 		mContainer(nullptr),
 		mAlign(Align::Default),
 		mVisible(true),
-		mDepth(0)
+		mDepth(0),
+		forwardMouseWheelToParent(false),
+		destructorCallback(0),
+		mDisableUpdateRelative(false)
 	{
 	}
 
 	Widget::~Widget()
 	{
+		if(destructorCallback != 0)
+		{
+			destructorCallback(this);
+		}
 	}
 
 	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, const std::string& _skinName, Widget* _parent, ICroppedRectangle* _croppedParent, const std::string& _name)
@@ -92,6 +99,30 @@ namespace MyGUI
 
 		if (nullptr != mCroppedParent)
 			mAbsolutePosition += mCroppedParent->getAbsolutePosition();
+
+		const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : RenderManager::getInstance().getViewSize();
+
+		if (parent_size.width)
+		{
+			mRelativeCoord.left = (float)_coord.left / (float)parent_size.width;
+			mRelativeCoord.width = (float)_coord.width / (float)parent_size.width;
+		}
+		else
+		{
+			mRelativeCoord.left = 0;
+			mRelativeCoord.width = 0;
+		}
+
+		if (parent_size.height)
+		{
+			mRelativeCoord.top = (float)_coord.top / (float)parent_size.height;
+			mRelativeCoord.height = (float)_coord.height / (float)parent_size.height;
+		}
+		else
+		{
+			mRelativeCoord.top = 0;
+			mRelativeCoord.height = 0;
+		}
 
 		const WidgetInfo* root = initialiseWidgetSkinBase(skinInfo, templateInfo);
 
@@ -577,7 +608,12 @@ namespace MyGUI
 		IntCoord coord = mCoord;
 
 		// первоначальное выравнивание
-		if (mAlign.isHStretch())
+		if (mAlign.isHRelative())
+		{
+			coord.left = int((float)size.width * mRelativeCoord.left);
+			coord.width = int((float)size.width * mRelativeCoord.width);
+		}
+		else if (mAlign.isHStretch())
 		{
 			// растягиваем
 			coord.width = mCoord.width + (size.width - _oldsize.width);
@@ -596,7 +632,12 @@ namespace MyGUI
 			need_move = true;
 		}
 
-		if (mAlign.isVStretch())
+		if (mAlign.isVRelative())
+		{
+			coord.top = int((float)size.height * mRelativeCoord.top);
+			coord.height = int((float)size.height * mRelativeCoord.height);
+		}
+		else if (mAlign.isVStretch())
 		{
 			// растягиваем
 			coord.height = mCoord.height + (size.height - _oldsize.height);
@@ -615,7 +656,13 @@ namespace MyGUI
 			need_move = true;
 		}
 
-		if (need_move)
+		if (mAlign.isHRelative() || mAlign.isVRelative())
+		{
+			mDisableUpdateRelative = true;
+			setCoord(coord);
+			mDisableUpdateRelative = false;
+		}
+		else if (need_move)
 		{
 			if (need_size)
 				setCoord(coord);
@@ -634,6 +681,31 @@ namespace MyGUI
 
 	void Widget::setPosition(const IntPoint& _point)
 	{
+		if (mAlign.isHRelative() || mAlign.isVRelative())
+		{
+
+			const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : RenderManager::getInstance().getViewSize();
+
+			if (parent_size.width)
+			{
+				mRelativeCoord.left = (float)_point.left / (float)parent_size.width;
+			}
+			else
+			{
+				mRelativeCoord.left = 0;
+			}
+
+			if (parent_size.height)
+			{
+				mRelativeCoord.top = (float)_point.top / (float)parent_size.height;
+			}
+			else
+			{
+				mRelativeCoord.top = 0;
+			}
+
+		}
+
 		// обновляем абсолютные координаты
 		mAbsolutePosition += _point - mCoord.point();
 
@@ -651,6 +723,31 @@ namespace MyGUI
 
 	void Widget::setSize(const IntSize& _size)
 	{
+		if (mAlign.isHRelative() || mAlign.isVRelative())
+		{
+
+			const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : RenderManager::getInstance().getViewSize();
+
+			if (parent_size.width)
+			{
+				mRelativeCoord.width = (float)_size.width / (float)parent_size.width;
+			}
+			else
+			{
+				mRelativeCoord.width = 0;
+			}
+
+			if (parent_size.height)
+			{
+				mRelativeCoord.height = (float)_size.height / (float)parent_size.height;
+			}
+			else
+			{
+				mRelativeCoord.height = 0;
+			}
+
+		}
+
 		// устанавливаем новую координату а старую пускаем в расчеты
 		IntSize old = mCoord.size();
 		mCoord = _size;
@@ -688,6 +785,35 @@ namespace MyGUI
 
 	void Widget::setCoord(const IntCoord& _coord)
 	{
+		if (!mDisableUpdateRelative && (mAlign.isHRelative() || mAlign.isVRelative()))
+		{
+
+			const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : RenderManager::getInstance().getViewSize();
+
+			if (parent_size.width)
+			{
+				mRelativeCoord.left = (float)_coord.left / (float)parent_size.width;
+				mRelativeCoord.width = (float)_coord.width / (float)parent_size.width;
+			}
+			else
+			{
+				mRelativeCoord.left = 0;
+				mRelativeCoord.width = 0;
+			}
+
+			if (parent_size.height)
+			{
+				mRelativeCoord.top = (float)_coord.top / (float)parent_size.height;
+				mRelativeCoord.height = (float)_coord.height / (float)parent_size.height;
+			}
+			else
+			{
+				mRelativeCoord.top = 0;
+				mRelativeCoord.height = 0;
+			}
+
+		}
+
 		// обновляем абсолютные координаты
 		mAbsolutePosition += _coord.point() - mCoord.point();
 
@@ -734,6 +860,34 @@ namespace MyGUI
 	void Widget::setAlign(Align _value)
 	{
 		mAlign = _value;
+
+		if (mAlign.isHRelative() || mAlign.isVRelative())
+		{
+			const IntSize& parent_size = mCroppedParent ? mCroppedParent->getSize() : RenderManager::getInstance().getViewSize();
+
+			if (parent_size.width)
+			{
+				mRelativeCoord.left = (float)mCoord.left / (float)parent_size.width;
+				mRelativeCoord.width = (float)mCoord.width / (float)parent_size.width;
+			}
+			else
+			{
+				mRelativeCoord.left = 0;
+				mRelativeCoord.width = 0;
+			}
+
+			if (parent_size.height)
+			{
+				mRelativeCoord.top = (float)mCoord.top / (float)parent_size.height;
+				mRelativeCoord.height = (float)mCoord.height / (float)parent_size.height;
+			}
+			else
+			{
+				mRelativeCoord.top = 0;
+				mRelativeCoord.height = 0;
+			}
+
+		}
 	}
 
 	void Widget::detachFromWidget(const std::string& _layer)
@@ -1401,6 +1555,35 @@ namespace MyGUI
 				(*widget)->_updateView();
 			}
 		}
+	}
+
+	bool Widget::onSendScrollGesture(const int& absx, const int& absy, const int& deltax, const int& deltay)
+	{
+		if(mParent != NULL)
+		{
+			//The default just refires the event to the parent, the WidgetInput class does not know the parent, so this has to be done here.
+			return mParent->_sendScrollGesture(absx, absy, deltax, deltay);
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	Widget* Widget::findWidgetChildSkin(const std::string& _name)
+	{
+		Widget* result;
+
+		for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
+		{
+			result = (*iter)->findWidget(_name);
+			if (result != NULL)
+			{
+				return result;
+			}
+		}
+
+		return NULL;
 	}
 
 } // namespace MyGUI

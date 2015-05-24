@@ -26,7 +26,8 @@ namespace base
 		public input::InputManager,
 		public input::PointerManager,
 		public Ogre::FrameListener,
-		public Ogre::WindowEventListener
+		public Ogre::WindowEventListener, 
+		public Ogre::SceneManager::Listener
 	{
 	public:
 		BaseManager();
@@ -69,6 +70,8 @@ namespace base
 		virtual void destroyGui();
 
 	private:
+		virtual void preFindVisibleObjects(Ogre::SceneManager* source, Ogre::SceneManager::IlluminationRenderStage irs, Ogre::Viewport* v);
+
 		virtual bool frameStarted(const Ogre::FrameEvent& _evt);
 		virtual bool frameEnded(const Ogre::FrameEvent& _evt);
 		virtual void windowResized(Ogre::RenderWindow* _rw);
@@ -84,6 +87,7 @@ namespace base
 		Ogre::Camera* mCamera;
 		Ogre::SceneManager* mSceneManager;
 		Ogre::RenderWindow* mWindow;
+		Ogre::Viewport* vp;
 
 		bool mExit;
 

@@ -16,6 +16,7 @@
 #include "MyGUI_ScrollBar.h"
 
 #include <ctype.h>
+#include <algorithm>
 
 namespace MyGUI
 {
@@ -29,7 +30,6 @@ namespace MyGUI
 	const float EDIT_OFFSET_HORZ_CURSOR = 10.0f; // дополнительное смещение для курсора
 	const int EDIT_ACTION_MOUSE_ZONE = 1500; // область для восприятия мыши за пределом эдита
 	const std::string EDIT_CLIPBOARD_TYPE_TEXT = "Text";
-	const int EDIT_MOUSE_WHEEL = 50; // область для восприятия мыши за пределом эдита
 
 	EditBox::EditBox() :
 		mIsPressed(false),
@@ -51,7 +51,8 @@ namespace MyGUI
 		mCharPassword('*'),
 		mOverflowToTheLeft(false),
 		mMaxTextLength(EDIT_DEFAULT_MAX_TEXT_LENGTH),
-		mClientText(nullptr)
+		mClientText(nullptr),
+		mAllowMouseScroll(true)
 	{
 		mChangeContentByResize = true;
 	}
@@ -1444,6 +1445,7 @@ namespace MyGUI
 	{
 		// копируем из буфера обмена
 		std::string clipboard = ClipboardManager::getInstance().getClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
+		clipboard.erase(remove(clipboard.begin(), clipboard.end(), '\r'), clipboard.end());
 		if ((!mModeReadOnly) && (!clipboard.empty()))
 		{
 			// попытка объединения двух комманд
@@ -1643,17 +1645,20 @@ namespace MyGUI
 
 	void EditBox::notifyMouseWheel(Widget* _sender, int _rel)
 	{
-		if (mClientText == nullptr)
+		if (!mAllowMouseScroll || mClientText == nullptr)
+		{
+			this->onMouseWheel(_rel);
 			return;
+		}
 
 		if (mVRange != 0)
 		{
 			IntPoint point = mClientText->getViewOffset();
 			int offset = point.top;
 			if (_rel < 0)
-				offset += EDIT_MOUSE_WHEEL;
+				offset += getHScrollPage() * 3;
 			else
-				offset -= EDIT_MOUSE_WHEEL;
+				offset -= getHScrollPage() * 3;
 
 			if (offset < 0)
 				offset = 0;
@@ -1673,9 +1678,9 @@ namespace MyGUI
 			IntPoint point = mClientText->getViewOffset();
 			int offset = point.left;
 			if (_rel < 0)
-				offset += EDIT_MOUSE_WHEEL;
+				offset += getHScrollPage() * 3;
 			else
-				offset -= EDIT_MOUSE_WHEEL;
+				offset -= getHScrollPage() * 3;
 
 			if (offset < 0)
 				offset = 0;

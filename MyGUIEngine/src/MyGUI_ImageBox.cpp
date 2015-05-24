@@ -531,4 +531,14 @@ namespace MyGUI
 		return mResource;
 	}
 
+	IntSize ImageBox::getItemGroupSize()
+	{
+		if(mResource != nullptr)
+		{
+			const ImageIndexInfo& indexInfo = mResource->getIndexInfo(mItemGroup, mItemName);
+			return indexInfo.size;
+		}
+		return Constants::getZeroIntSize();
+	}
+
 } // namespace MyGUI

@@ -203,6 +203,19 @@ namespace MyGUI
 		mRootKeyFocus = _value;
 	}
 
+	bool WidgetInput::_sendScrollGesture(const int& absx, const int& absy, const int& deltax, const int& deltay)
+	{
+		if(eventScrollGesture.empty())
+		{
+			return onSendScrollGesture(absx, absy, deltax, deltay);
+		}
+		else
+		{
+			eventScrollGesture(static_cast<Widget*>(this), absx, absy, deltax, deltay);
+			return true;
+		}
+	}
+
 	void WidgetInput::onMouseLostFocus(Widget* _new)
 	{
 	}

@@ -251,6 +251,25 @@ namespace MyGUI
 		*/
 		EventPair<EventHandle_WidgetVoid, EventHandle_EditPtr> eventEditTextChange;
 
+		//Added Functions
+		void setAllowMouseScroll(bool value) { mAllowMouseScroll = value; }
+		bool getAllowMouseScroll() { return mAllowMouseScroll; }
+
+		void cut()
+		{
+			commandCut();
+		}
+
+		void copy()
+		{
+			commandCopy();
+		}
+
+		void paste()
+		{
+			commandPast();
+		}
+
 	protected:
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
@@ -384,6 +403,9 @@ namespace MyGUI
 		size_t mMaxTextLength;
 
 		ISubWidgetText* mClientText;
+
+		//Added Properties
+		bool mAllowMouseScroll;
 	};
 
 } // namespace MyGUI

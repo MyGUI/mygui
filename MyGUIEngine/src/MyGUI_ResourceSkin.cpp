@@ -9,6 +9,8 @@
 #include "MyGUI_FactoryManager.h"
 #include "MyGUI_LanguageManager.h"
 #include "MyGUI_SubWidgetManager.h"
+#include "MyGUI_Gui.h"
+#include "MyGUI_CoordConverter.h"
 
 namespace MyGUI
 {
@@ -29,6 +31,8 @@ namespace MyGUI
 
 	void ResourceSkin::deserialization(xml::ElementPtr _node, Version _version)
 	{
+		Gui* gui = Gui::getInstancePtr();
+		float scaleFactor = gui->getScaleFactor();
 		Base::deserialization(_node, _version);
 
 		std::string stateCategory = SubWidgetManager::getInstance().getStateCategoryName();
@@ -38,7 +42,7 @@ namespace MyGUI
 		IntSize size;
 		_node->findAttribute("name", name);
 		_node->findAttribute("texture", texture);
-		if (_node->findAttribute("size", tmp)) size = IntSize::parse(tmp);
+		if (_node->findAttribute("size", tmp)) size = gui->scalePreserve(IntSize::parse(tmp));
 
 		LanguageManager& localizator = LanguageManager::getInstance();
 
@@ -81,12 +85,23 @@ namespace MyGUI
 			}
 			else if (basis->getName() == "Child")
 			{
+				IntCoord childCoord;
+				if(basis->findAttribute("offset", tmp))
+				{
+					childCoord = gui->scalePreserve(IntCoord::parse(localizator.replaceTags(tmp)));
+				}
+				else if(basis->findAttribute("offset_derived", tmp))
+				{
+					childCoord = gui->scalePreserve(IntCoord::parse(localizator.replaceTags(tmp)));
+					childCoord = CoordConverter::deriveCoord(childCoord, size);
+				}
+
 				ChildSkinInfo child(
 					basis->findAttribute("type"),
 					WidgetStyle::parse(basis->findAttribute("style")),
 					basis->findAttribute("skin"),
-					IntCoord::parse(basis->findAttribute("offset")),
-					Align::parse(basis->findAttribute("align")),
+					childCoord,
+					Align::parse(localizator.replaceTags(basis->findAttribute("align"))),
 					basis->findAttribute("layer"),
 					basis->findAttribute("name"));
 
@@ -105,9 +120,9 @@ namespace MyGUI
 				Align align = Align::Default;
 				basis->findAttribute("type", basisSkinType);
 				if (basis->findAttribute("offset", tmp_str))
-					offset = IntCoord::parse(tmp_str);
+					offset = gui->scalePreserve(IntCoord::parse(localizator.replaceTags(tmp_str)));
 				if (basis->findAttribute("align", tmp_str))
-					align = Align::parse(tmp_str);
+					align = Align::parse(localizator.replaceTags(tmp_str));
 
 				bind.create(offset, align, basisSkinType);
 
@@ -187,7 +202,191 @@ namespace MyGUI
 				// теперь всё вместе добавляем в скин
 				addInfo(bind);
 			}
+			else if(basis->getName() == "Border")
+			{
+				std::string tmp_str;
+				int borderWidth = 1;
+				if (basis->findAttribute("width", tmp_str))
+				{
+					borderWidth = utility::parseInt(tmp_str);
+				}
+				borderWidth *= scaleFactor;
+				if(borderWidth < 1)
+				{
+					borderWidth = 1;
+				}
 
+				IntCoord offset;
+				Align align;
+				std::string basisSkinType = "SubSkin";
+
+				//Top
+				offset.set(0, 0, size.width, borderWidth);
+				align = Align::HStretch | Align::Top;
+				bind.create(offset, align, basisSkinType);
+				
+				//Left
+				offset.set(0, 0, borderWidth, size.height);
+				align = Align::Left | Align::VStretch;
+				SubWidgetBinding left;
+				left.create(offset, align, basisSkinType);
+
+				//Right
+				offset.set(size.width - borderWidth, 0, borderWidth, size.height);
+				align = Align::Right | Align::VStretch;
+				SubWidgetBinding right;
+				right.create(offset, align, basisSkinType);
+
+				//Bottom
+				offset.set(0, size.height - borderWidth, size.width, borderWidth);
+				align = Align::HStretch | Align::Bottom;
+				SubWidgetBinding bottom;
+				bottom.create(offset, align, basisSkinType);
+
+				xml::ElementEnumerator state = basis->getElementEnumerator();
+				while (state.next())
+				{
+					if (state->getName() == "State")
+					{
+						// парсим атрибуты стейта
+						std::string basisStateName;
+						state->findAttribute("name", basisStateName);
+
+						IStateInfo* topData = nullptr;
+						IObject* object = FactoryManager::getInstance().createObject(stateCategory, basisSkinType);
+						if (object != nullptr)
+						{
+							topData = object->castType<IStateInfo>();
+							topData->deserialization(state.current(), _version);
+						}
+
+						IStateInfo* leftData = nullptr;
+						object = FactoryManager::getInstance().createObject(stateCategory, basisSkinType);
+						if (object != nullptr)
+						{
+							leftData = object->castType<IStateInfo>();
+							leftData->deserialization(state.current(), _version);
+						}
+
+						IStateInfo* rightData = nullptr;
+						object = FactoryManager::getInstance().createObject(stateCategory, basisSkinType);
+						if (object != nullptr)
+						{
+							rightData = object->castType<IStateInfo>();
+							rightData->deserialization(state.current(), _version);
+						}
+
+						IStateInfo* bottomData = nullptr;
+						object = FactoryManager::getInstance().createObject(stateCategory, basisSkinType);
+						if (object != nullptr)
+						{
+							bottomData = object->castType<IStateInfo>();
+							bottomData->deserialization(state.current(), _version);
+						}
+
+						// добавляем инфо о стайте
+						bind.add(basisStateName, topData, name);
+						left.add(basisStateName, leftData, name);
+						right.add(basisStateName, rightData, name);
+						bottom.add(basisStateName, bottomData, name);
+					}
+				}
+				addInfo(bind);
+				addInfo(left);
+				addInfo(right);
+				addInfo(bottom);
+			}
+			else if (basis->getName() == "BorderBottom" ||
+					 basis->getName() == "BorderTop" ||
+					 basis->getName() == "BorderLeft" ||
+					 basis->getName() == "BorderRight")
+			{
+				std::string tmp_str;
+				int borderWidth = 1;
+				if (basis->findAttribute("width", tmp_str))
+				{
+					borderWidth = utility::parseInt(tmp_str);
+				}
+				borderWidth *= scaleFactor;
+				if (borderWidth < 1)
+				{
+					borderWidth = 1;
+				}
+
+				IntCoord offset;
+				Align align;
+				std::string basisSkinType = "SubSkin";
+
+				if (basis->getName() == "BorderTop") //Top
+				{
+					offset.set(0, 0, size.width, borderWidth);
+					align = Align::HStretch | Align::Top;
+				}
+				else if (basis->getName() == "BorderLeft") //Left
+				{
+					offset.set(0, 0, borderWidth, size.height);
+					align = Align::Left | Align::VStretch;
+				}
+				else if (basis->getName() == "BorderRight") //Right
+				{
+					offset.set(size.width - borderWidth, 0, borderWidth, size.height);
+					align = Align::Right | Align::VStretch;
+				}
+				else if (basis->getName() == "BorderBottom") //Bottom
+				{
+					offset.set(0, size.height - borderWidth, size.width, borderWidth);
+					align = Align::HStretch | Align::Bottom;
+				}
+
+				bind.create(offset, align, basisSkinType);
+
+				xml::ElementEnumerator state = basis->getElementEnumerator();
+				while (state.next())
+				{
+					if (state->getName() == "State")
+					{
+						// парсим атрибуты стейта
+						std::string basisStateName;
+						state->findAttribute("name", basisStateName);
+
+						IStateInfo* topData = nullptr;
+						IObject* object = FactoryManager::getInstance().createObject(stateCategory, basisSkinType);
+						if (object != nullptr)
+						{
+							topData = object->castType<IStateInfo>();
+							topData->deserialization(state.current(), _version);
+						}
+
+						IStateInfo* leftData = nullptr;
+						object = FactoryManager::getInstance().createObject(stateCategory, basisSkinType);
+						if (object != nullptr)
+						{
+							leftData = object->castType<IStateInfo>();
+							leftData->deserialization(state.current(), _version);
+						}
+
+						IStateInfo* rightData = nullptr;
+						object = FactoryManager::getInstance().createObject(stateCategory, basisSkinType);
+						if (object != nullptr)
+						{
+							rightData = object->castType<IStateInfo>();
+							rightData->deserialization(state.current(), _version);
+						}
+
+						IStateInfo* bottomData = nullptr;
+						object = FactoryManager::getInstance().createObject(stateCategory, basisSkinType);
+						if (object != nullptr)
+						{
+							bottomData = object->castType<IStateInfo>();
+							bottomData->deserialization(state.current(), _version);
+						}
+
+						// добавляем инфо о стайте
+						bind.add(basisStateName, topData, name);
+					}
+				}
+				addInfo(bind);
+			}
 		}
 	}
 

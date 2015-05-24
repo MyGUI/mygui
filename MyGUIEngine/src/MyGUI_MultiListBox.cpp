@@ -28,7 +28,8 @@ namespace MyGUI
 		mItemSelected(ITEM_NONE),
 		mFrameAdvise(false),
 		mClient(nullptr),
-		mHeaderPlace(nullptr)
+		mHeaderPlace(nullptr),
+		sortOnChanges(true)
 	{
 	}
 
@@ -315,7 +316,14 @@ namespace MyGUI
 
 	void MultiListBox::frameEntered(float _frame)
 	{
-		sortList();
+		if(sortOnChanges)
+		{
+			sortList();
+		}
+		else
+		{
+			frameAdvise(false);
+		}
 	}
 
 	void MultiListBox::frameAdvise(bool _advise)

@@ -134,7 +134,7 @@ namespace MyGUI
 	{
 		/// @wproperty{TextBox, TextColour, Colour} Цвет текста.
 		if (_key == "TextColour")
-			setTextColour(utility::parseValue<Colour>(_value));
+			setTextColour(utility::parseValue<Colour>(LanguageManager::getInstance().replaceTags(_value)));
 
 		/// @wproperty{TextBox, TextAlign, Align} Выравнивание текста.
 		else if (_key == "TextAlign")

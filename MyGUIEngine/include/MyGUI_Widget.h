@@ -20,6 +20,7 @@
 
 namespace MyGUI
 {
+	typedef void (*WidgetDestructorCallback)(MyGUI::Widget* widget);
 
 	typedef delegates::CMultiDelegate3<Widget*, const std::string&, const std::string&> EventHandle_WidgetStringString;
 
@@ -300,6 +301,22 @@ namespace MyGUI
 		// перерисовывает детей
 		void _updateChilds();
 
+		//Added Functions
+		virtual bool onSendScrollGesture(const int& absx, const int& absy, const int& deltax, const int& deltay);
+
+		/** Find the child widget with the given name */
+		Widget* findWidgetChildSkin(const std::string& _name);
+
+		void setForwardMouseWheelToParent(bool value) { forwardMouseWheelToParent = value; }
+
+		bool getForwardMouseWheelToParent() { return forwardMouseWheelToParent; }
+
+		//Destructor callback to delete wrapper objects
+		void _setDestructorCallback(WidgetDestructorCallback destructorCallback)
+		{
+			this->destructorCallback = destructorCallback;
+		}
+
 	protected:
 		// все создание только через фабрику
 		virtual ~Widget();
@@ -349,6 +366,10 @@ namespace MyGUI
 		void setWidgetClient(Widget* _widget);
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
+
+		//Added Properties
+		bool forwardMouseWheelToParent;
+		WidgetDestructorCallback destructorCallback;
 
 	private:
 		void frameEntered(float _frame);
@@ -416,6 +437,9 @@ namespace MyGUI
 		Align mAlign;
 		bool mVisible;
 		int mDepth;
+
+		FloatCoord mRelativeCoord;
+		bool mDisableUpdateRelative;
 	};
 
 } // namespace MyGUI

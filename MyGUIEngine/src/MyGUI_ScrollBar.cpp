@@ -11,6 +11,7 @@
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_ControllerRepeatClick.h"
 #include "MyGUI_ControllerManager.h"
+#include "MyGUI_Gui.h"
 
 namespace MyGUI
 {
@@ -59,6 +60,7 @@ namespace MyGUI
 			mWidgetStart->eventMouseButtonPressed += newDelegate(this, &ScrollBar::notifyMousePressed);
 			mWidgetStart->eventMouseButtonReleased += newDelegate(this, &ScrollBar::notifyMouseReleased);
 			mWidgetStart->eventMouseWheel += newDelegate(this, &ScrollBar::notifyMouseWheel);
+			mWidgetStart->eventMouseButtonReleased += newDelegate(this, &ScrollBar::notifyMouseReleasedNoUpdate);
 		}
 
 		///@wskin_child{ScrollBar, Button, End} Кнопка конца диапазона.
@@ -68,6 +70,7 @@ namespace MyGUI
 			mWidgetEnd->eventMouseButtonPressed += newDelegate(this, &ScrollBar::notifyMousePressed);
 			mWidgetEnd->eventMouseButtonReleased += newDelegate(this, &ScrollBar::notifyMouseReleased);
 			mWidgetEnd->eventMouseWheel += newDelegate(this, &ScrollBar::notifyMouseWheel);
+			mWidgetEnd->eventMouseButtonReleased += newDelegate(this, &ScrollBar::notifyMouseReleasedNoUpdate);
 		}
 
 		///@wskin_child{ScrollBar, Button, Track} Кнопка трекера.
@@ -88,6 +91,7 @@ namespace MyGUI
 			mWidgetFirstPart->eventMouseButtonPressed += newDelegate(this, &ScrollBar::notifyMousePressed);
 			mWidgetFirstPart->eventMouseButtonReleased += newDelegate(this, &ScrollBar::notifyMouseReleased);
 			mWidgetFirstPart->eventMouseWheel += newDelegate(this, &ScrollBar::notifyMouseWheel);
+			mWidgetFirstPart->eventMouseButtonReleased += newDelegate(this, &ScrollBar::notifyMouseReleasedNoUpdate);
 		}
 
 		///@wskin_child{ScrollBar, Widget, SecondPart} Виджет второй половины прокрутки от трекера до конца, при нажатии восприницмается как прокрутка страницы.
@@ -97,6 +101,7 @@ namespace MyGUI
 			mWidgetSecondPart->eventMouseButtonPressed += newDelegate(this, &ScrollBar::notifyMousePressed);
 			mWidgetSecondPart->eventMouseButtonReleased += newDelegate(this, &ScrollBar::notifyMouseReleased);
 			mWidgetSecondPart->eventMouseWheel += newDelegate(this, &ScrollBar::notifyMouseWheel);
+			mWidgetSecondPart->eventMouseButtonReleased += newDelegate(this, &ScrollBar::notifyMouseReleasedNoUpdate);
 		}
 
 		if (isUserString("MinTrackSize"))
@@ -160,7 +165,7 @@ namespace MyGUI
 			if (nullptr != mWidgetSecondPart)
 			{
 				int top = pos + mWidgetTrack->getHeight();
-				int height = mWidgetSecondPart->getHeight() + mWidgetSecondPart->getTop() - top;
+				int height = getTrackPlaceLength() - top;
 				mWidgetSecondPart->setCoord(mWidgetSecondPart->getLeft(), top, mWidgetSecondPart->getWidth(), height);
 			}
 		}
@@ -192,7 +197,7 @@ namespace MyGUI
 			if (nullptr != mWidgetSecondPart)
 			{
 				int top = pos + mWidgetTrack->getWidth();
-				int height = mWidgetSecondPart->getWidth() + mWidgetSecondPart->getLeft() - top;
+				int height = getTrackPlaceLength() - top;
 				mWidgetSecondPart->setCoord(top, mWidgetSecondPart->getTop(), height, mWidgetSecondPart->getHeight());
 			}
 		}
@@ -322,8 +327,17 @@ namespace MyGUI
 		}
 	}
 
+	void ScrollBar::notifyMouseReleasedNoUpdate(Widget* _sender, int _left, int _top, MouseButton _id)
+	{
+		//This version just fires the mouse button released event, it does not try to also
+		//update the track, this was added to properly fire mouse released events for the
+		//scroll bar widget.
+		eventMouseButtonReleased(this, _left, _top, _id);
+	}
+
 	void ScrollBar::notifyMouseReleased(Widget* _sender, int _left, int _top, MouseButton _id)
 	{
+		eventMouseButtonReleased(this, _left, _top, _id);
 		updateTrack();
 		MyGUI::ControllerManager::getInstance().removeItem(_sender);
 	}

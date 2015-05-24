@@ -51,7 +51,8 @@ namespace MyGUI
 		mResourceManager(nullptr),
 		mFactoryManager(nullptr),
 		mToolTipManager(nullptr),
-		mIsInitialise(false)
+		mIsInitialise(false),
+		mScaleFactor(1.0f)
 	{
 	}
 
@@ -326,6 +327,42 @@ namespace MyGUI
 	void Gui::frameEvent(float _time)
 	{
 		eventFrameStart(_time);
+	}
+
+	int scaleAndKeepValue(const int& _original, const float& _scale)
+	{
+		int _new = _original * _scale;
+		if(_new == 0)
+		{
+			if(_original < 0)
+			{
+				_new = -1;
+			}
+			else if(_original > 0)
+			{
+				_new = 1;
+			}
+		}
+		return _new;
+	}
+
+	IntSize Gui::scalePreserve(const IntSize& original)
+	{
+		return IntSize(scaleAndKeepValue(original.width, mScaleFactor), scaleAndKeepValue(original.height, mScaleFactor));
+	}
+
+	IntCoord Gui::scalePreserve(const IntCoord& original)
+	{
+		return IntCoord(
+			scaleAndKeepValue(original.left, mScaleFactor), 
+			scaleAndKeepValue(original.top, mScaleFactor), 
+			scaleAndKeepValue(original.width, mScaleFactor), 
+			scaleAndKeepValue(original.height, mScaleFactor));
+	}
+
+	int Gui::scalePreserve(const int& original)
+	{
+		return scaleAndKeepValue(original, mScaleFactor);
 	}
 
 } // namespace MyGUI

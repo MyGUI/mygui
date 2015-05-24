@@ -33,7 +33,11 @@ namespace MyGUI
 			VStretch = Top | Bottom, /**< stretch vertically proportionate to parent window (and center horizontally) */
 
 			Stretch = HStretch | VStretch, /**< stretch proportionate to parent window */
-			Default = Left | Top /**< default value (value from left and top) */
+			Default = Left | Top, /**< default value (value from left and top) */
+
+			HRelative = MYGUI_FLAG(5),
+			VRelative = MYGUI_FLAG(6),
+			Relative = HRelative | VRelative
 		};
 
 		Align(Enum _value = Default) :
@@ -94,6 +98,21 @@ namespace MyGUI
 		bool isDefault() const
 		{
 			return (Default == (mValue & ((int)Stretch)));
+		}
+
+		bool isHRelative() const 
+		{ 
+			return HRelative == (mValue & (int)HRelative); 
+		}
+
+		bool isVRelative() const 
+		{ 
+			return VRelative == (mValue & (int)VRelative); 
+		}
+
+		bool isRelative() const 
+		{ 
+			return Relative == (mValue & (int)Relative); 
 		}
 
 		Align& operator |= (Align const& _other)
@@ -236,6 +255,9 @@ namespace MyGUI
 				MYGUI_REGISTER_VALUE(map_names, VStretch);
 				MYGUI_REGISTER_VALUE(map_names, Stretch);
 				MYGUI_REGISTER_VALUE(map_names, Default);
+				MYGUI_REGISTER_VALUE(map_names, HRelative);
+				MYGUI_REGISTER_VALUE(map_names, VRelative);
+				MYGUI_REGISTER_VALUE(map_names, Relative);
 			}
 
 			return map_names;

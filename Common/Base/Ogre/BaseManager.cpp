@@ -101,6 +101,7 @@ namespace base
 	#endif
 
 		mSceneManager = mRoot->createSceneManager(Ogre::ST_GENERIC, "BaseSceneManager");
+		mSceneManager->addListener(this);
 
 		mCamera = mSceneManager->createCamera("BaseCamera");
 		mCamera->setNearClipDistance(5);
@@ -108,9 +109,12 @@ namespace base
 		mCamera->lookAt(0, 150, 0);
 
 		// Create one viewport, entire window
-		Ogre::Viewport* vp = mWindow->addViewport(mCamera);
+		vp = mWindow->addViewport(mCamera);
 		// Alter the camera aspect ratio to match the viewport
 		mCamera->setAspectRatio((float)vp->getActualWidth() / (float)vp->getActualHeight());
+		vp->setBackgroundColour(Ogre::ColourValue(1.0f, 0.0f, 1.0f, 0.0f));
+		vp->setClearEveryFrame(false);
+		vp->clear();
 
 		// Set default mipmap level (NB some APIs ignore this)
 		Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
@@ -207,7 +211,7 @@ namespace base
 	void BaseManager::createGui()
 	{
 		mPlatform = new MyGUI::OgrePlatform();
-		mPlatform->initialise(mWindow, mSceneManager, Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
+		mPlatform->initialise(mWindow->getWidth(), mWindow->getHeight());
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise(mResourceFileName);
 	}
@@ -255,7 +259,24 @@ namespace base
 			}
 		}
 
-		addResourceLocation(getRootMedia() + "/Common/Base");
+		addResourceLocation(getRootMedia() + "/Common/Base", true);
+	}
+
+	void BaseManager::preFindVisibleObjects(Ogre::SceneManager* source, Ogre::SceneManager::IlluminationRenderStage irs, Ogre::Viewport* v)
+	{
+		if (v == vp)
+		{
+			static Ogre::Timer timer;
+			static unsigned long last_time = timer.getMilliseconds();
+			unsigned long now_time = timer.getMilliseconds();
+			unsigned long time = now_time - last_time;
+
+			mGUI->frameEvent((float)((double)(time) / (double)1000));
+
+			last_time = now_time;
+
+			mPlatform->getRenderManagerPtr()->update();
+		}
 	}
 
 	bool BaseManager::frameStarted(const Ogre::FrameEvent& evt)
@@ -265,6 +286,8 @@ namespace base
 
 		if (!mGUI)
 			return true;
+
+		vp->clear();
 
 		captureInput();
 
@@ -287,6 +310,8 @@ namespace base
 			mCamera->setAspectRatio((float)width / (float)height);
 
 			setInputViewSize(width, height);
+
+			mPlatform->getRenderManagerPtr()->windowResized(width, height);
 		}
 	}
 

@@ -27,9 +27,6 @@ namespace MyGUI
 
 	OgreRenderManager::OgreRenderManager() :
 		mUpdate(false),
-		mSceneManager(nullptr),
-		mWindow(nullptr),
-		mActiveViewport(0),
 		mRenderSystem(nullptr),
 		mIsInitialise(false),
 		mManualRender(false),
@@ -37,7 +34,7 @@ namespace MyGUI
 	{
 	}
 
-	void OgreRenderManager::initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene)
+	void OgreRenderManager::initialise(int windowWidth, int windowHeight)
 	{
 		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
@@ -56,17 +53,21 @@ namespace MyGUI
 		mTextureAddressMode.v = Ogre::TextureUnitState::TAM_CLAMP;
 		mTextureAddressMode.w = Ogre::TextureUnitState::TAM_CLAMP;
 
-		mSceneManager = nullptr;
-		mWindow = nullptr;
 		mUpdate = false;
 		mRenderSystem = nullptr;
-		mActiveViewport = 0;
 
 		Ogre::Root* root = Ogre::Root::getSingletonPtr();
 		if (root != nullptr)
+		{
 			setRenderSystem(root->getRenderSystem());
-		setRenderWindow(_window);
-		setSceneManager(_scene);
+		}
+
+		windowResized(windowWidth, windowHeight);
+
+		vertProg = Ogre::HighLevelGpuProgramManager::getSingletonPtr()->getByName("MyGUITextureVS");
+		vertProg->load();
+		fragProg = Ogre::HighLevelGpuProgramManager::getSingletonPtr()->getByName("MyGUITexturePS");
+		fragProg->load();
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -79,8 +80,6 @@ namespace MyGUI
 
 		destroyAllResources();
 
-		setSceneManager(nullptr);
-		setRenderWindow(nullptr);
 		setRenderSystem(nullptr);
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
@@ -106,9 +105,13 @@ namespace MyGUI
 			// формат цвета в вершинах
 			Ogre::VertexElementType vertex_type = mRenderSystem->getColourVertexElementType();
 			if (vertex_type == Ogre::VET_COLOUR_ARGB)
+			{
 				mVertexFormat = VertexColourType::ColourARGB;
+			}
 			else if (vertex_type == Ogre::VET_COLOUR_ABGR)
+			{
 				mVertexFormat = VertexColourType::ColourABGR;
+			}
 
 			updateRenderInfo();
 		}
@@ -119,94 +122,15 @@ namespace MyGUI
 		return mRenderSystem;
 	}
 
-	void OgreRenderManager::setRenderWindow(Ogre::RenderWindow* _window)
-	{
-		// отписываемся
-		if (mWindow != nullptr)
-		{
-			Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
-			mWindow = nullptr;
-		}
-
-		mWindow = _window;
-
-		if (mWindow != nullptr)
-		{
-			Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
-
-			if (mWindow->getNumViewports() <= mActiveViewport &&
-				!mWindow->getViewport(mActiveViewport)->getOverlaysEnabled())
-			{
-				MYGUI_PLATFORM_LOG(Warning, "Overlays are disabled. MyGUI won't render in selected viewport.");
-			}
-
-			windowResized(mWindow);
-		}
-	}
-
-	void OgreRenderManager::setSceneManager(Ogre::SceneManager* _scene)
-	{
-		if (nullptr != mSceneManager)
-		{
-			mSceneManager->removeRenderQueueListener(this);
-			mSceneManager = nullptr;
-		}
-
-		mSceneManager = _scene;
-
-		if (nullptr != mSceneManager)
-		{
-			mSceneManager->addRenderQueueListener(this);
-		}
-	}
-
-	void OgreRenderManager::setActiveViewport(unsigned short _num)
-	{
-		mActiveViewport = _num;
-
-		if (mWindow != nullptr)
-		{
-			Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
-			Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
-
-			if (mWindow->getNumViewports() <= mActiveViewport)
-			{
-				MYGUI_PLATFORM_LOG(Error, "Invalid active viewport index selected. There is no viewport with given index.");
-			}
-
-			// рассылка обновлений
-			windowResized(mWindow);
-		}
-	}
-
-	void OgreRenderManager::renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation)
+	void OgreRenderManager::update()
 	{
 		Gui* gui = Gui::getInstancePtr();
 		if (gui == nullptr)
+		{
 			return;
-
-		if (Ogre::RENDER_QUEUE_OVERLAY != queueGroupId)
-			return;
-
-		Ogre::Viewport* viewport = mSceneManager->getCurrentViewport();
-		if (nullptr == viewport
-			|| !viewport->getOverlaysEnabled())
-			return;
-
-		if (mWindow->getNumViewports() <= mActiveViewport
-			|| viewport != mWindow->getViewport(mActiveViewport))
-			return;
+		}
 
 		mCountBatch = 0;
-
-		static Timer timer;
-		static unsigned long last_time = timer.getMilliseconds();
-		unsigned long now_time = timer.getMilliseconds();
-		unsigned long time = now_time - last_time;
-
-		onFrameEvent((float)((double)(time) / (double)1000));
-
-		last_time = now_time;
 
 		//begin();
 		setManualRender(true);
@@ -215,10 +139,6 @@ namespace MyGUI
 
 		// сбрасываем флаг
 		mUpdate = false;
-	}
-
-	void OgreRenderManager::renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation)
-	{
 	}
 
 	void OgreRenderManager::eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters)
@@ -244,28 +164,16 @@ namespace MyGUI
 	}
 
 	// для оповещений об изменении окна рендера
-	void OgreRenderManager::windowResized(Ogre::RenderWindow* _window)
+	void OgreRenderManager::windowResized(int windowWidth, int windowHeight)
 	{
-		if (_window->getNumViewports() > mActiveViewport)
-		{
-			Ogre::Viewport* port = _window->getViewport(mActiveViewport);
-#if OGRE_VERSION >= MYGUI_DEFINE_VERSION(1, 7, 0) && OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
-			Ogre::OrientationMode orient = port->getOrientationMode();
-			if (orient == Ogre::OR_DEGREE_90 || orient == Ogre::OR_DEGREE_270)
-				mViewSize.set(port->getActualHeight(), port->getActualWidth());
-			else
-				mViewSize.set(port->getActualWidth(), port->getActualHeight());
-#else
-			mViewSize.set(port->getActualWidth(), port->getActualHeight());
-#endif
+		mViewSize.set(windowWidth, windowHeight);
 
-			// обновить всех
-			mUpdate = true;
+		// обновить всех
+		mUpdate = true;
 
-			updateRenderInfo();
+		updateRenderInfo();
 
-			onResizeView(mViewSize);
-		}
+		onResizeView(mViewSize);
 	}
 
 	void OgreRenderManager::updateRenderInfo()
@@ -316,7 +224,7 @@ namespace MyGUI
 		mRenderSystem->_setViewMatrix(Ogre::Matrix4::IDENTITY);
 
 #if OGRE_VERSION >= MYGUI_DEFINE_VERSION(1, 7, 0) && OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
-		Ogre::OrientationMode orient = mWindow->getViewport(mActiveViewport)->getOrientationMode();
+		Ogre::OrientationMode orient = mViewport->getOrientationMode();
 		mRenderSystem->_setProjectionMatrix(Ogre::Matrix4::IDENTITY * Ogre::Quaternion(Ogre::Degree(orient * 90.f), Ogre::Vector3::UNIT_Z));
 #else
 		mRenderSystem->_setProjectionMatrix(Ogre::Matrix4::IDENTITY);
@@ -329,8 +237,10 @@ namespace MyGUI
 		mRenderSystem->_setCullingMode(Ogre::CULL_NONE);
 		mRenderSystem->_setFog(Ogre::FOG_NONE);
 		mRenderSystem->_setColourBufferWriteEnabled(true, true, true, true);
-		mRenderSystem->unbindGpuProgram(Ogre::GPT_FRAGMENT_PROGRAM);
-		mRenderSystem->unbindGpuProgram(Ogre::GPT_VERTEX_PROGRAM);
+		//mRenderSystem->unbindGpuProgram(Ogre::GPT_FRAGMENT_PROGRAM);
+		//mRenderSystem->unbindGpuProgram(Ogre::GPT_VERTEX_PROGRAM);
+		mRenderSystem->bindGpuProgram(vertProg->_getBindingDelegate());
+		mRenderSystem->bindGpuProgram(fragProg->_getBindingDelegate());
 		mRenderSystem->setShadingType(Ogre::SO_GOURAUD);
 
 		// initialise texture settings
@@ -379,6 +289,18 @@ namespace MyGUI
 
 		mTextures.erase(item);
 		delete _texture;
+	}
+
+	void OgreRenderManager::destroyTexture(const std::string& _name)
+	{
+		MapTexture::iterator item = mTextures.find(_name);
+
+		if (item != mTextures.end())
+		{
+			ITexture* texture = item->second;
+			mTextures.erase(item);
+			delete texture;
+		}
 	}
 
 	ITexture* OgreRenderManager::getTexture(const std::string& _name)
@@ -440,16 +362,6 @@ namespace MyGUI
 	const RenderTargetInfo& OgreRenderManager::getInfo()
 	{
 		return mInfo;
-	}
-
-	size_t OgreRenderManager::getActiveViewport()
-	{
-		return mActiveViewport;
-	}
-
-	Ogre::RenderWindow* OgreRenderManager::getRenderWindow()
-	{
-		return mWindow;
 	}
 
 	bool OgreRenderManager::getManualRender()

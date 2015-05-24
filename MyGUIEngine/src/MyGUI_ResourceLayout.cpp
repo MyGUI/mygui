@@ -57,13 +57,18 @@ namespace MyGUI
 		IntCoord coord;
 		if (_widget->findAttribute("position", tmp))
 		{
-			widgetInfo.intCoord = IntCoord::parse(tmp);
+			widgetInfo.intCoord = Gui::getInstance().scalePreserve(IntCoord::parse(tmp));
 			widgetInfo.positionType = WidgetInfo::Pixels;
 		}
 		else if (_widget->findAttribute("position_real", tmp))
 		{
 			widgetInfo.floatCoord = FloatCoord::parse(tmp);
 			widgetInfo.positionType = WidgetInfo::Relative;
+		}
+		else if (_widget->findAttribute("position_derived", tmp))
+		{
+			widgetInfo.intCoord = Gui::getInstance().scalePreserve(IntCoord::parse(tmp));
+			widgetInfo.positionType = WidgetInfo::Derived;
 		}
 
 		// берем детей и крутимся
@@ -133,6 +138,13 @@ namespace MyGUI
 				coord = CoordConverter::convertFromRelative(_widgetInfo.floatCoord, RenderManager::getInstance().getViewSize());
 			else
 				coord = CoordConverter::convertFromRelative(_widgetInfo.floatCoord, _parent->getClientCoord().size());
+		}
+		else if(_widgetInfo.positionType == WidgetInfo::Derived)
+		{
+			if (_parent == nullptr || style == WidgetStyle::Popup)
+				coord = CoordConverter::deriveCoord(_widgetInfo.intCoord, RenderManager::getInstance().getViewSize());
+			else
+				coord = CoordConverter::deriveCoord(_widgetInfo.intCoord, _parent->getClientCoord().size());
 		}
 
 		Widget* wid;

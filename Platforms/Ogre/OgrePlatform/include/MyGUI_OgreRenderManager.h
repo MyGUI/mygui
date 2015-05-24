@@ -22,14 +22,12 @@ namespace MyGUI
 	class OgreRenderManager :
 		public RenderManager,
 		public IRenderTarget,
-		public Ogre::WindowEventListener,
-		public Ogre::RenderQueueListener,
 		public Ogre::RenderSystem::Listener
 	{
 	public:
 		OgreRenderManager();
 
-		void initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene);
+		void initialise(int windowWidth, int windowHeight);
 		void shutdown();
 
 		static OgreRenderManager& getInstance();
@@ -50,6 +48,8 @@ namespace MyGUI
 		virtual ITexture* createTexture(const std::string& _name);
 		/** @see RenderManager::destroyTexture */
 		virtual void destroyTexture(ITexture* _texture);
+		/** @see RenderManager::destroyTexture */
+		virtual void destroyTexture(const std::string& _name);
 		/** @see RenderManager::getTexture */
 		virtual ITexture* getTexture(const std::string& _name);
 
@@ -70,34 +70,22 @@ namespace MyGUI
 		void setRenderSystem(Ogre::RenderSystem* _render);
 		Ogre::RenderSystem* getRenderSystem();
 
-		void setRenderWindow(Ogre::RenderWindow* _window);
-
-		/** Set scene manager where MyGUI will be rendered */
-		void setSceneManager(Ogre::SceneManager* _scene);
-
-		/** Get GUI viewport index */
-		size_t getActiveViewport();
-
-		/** Set GUI viewport index */
-		void setActiveViewport(unsigned short _num);
-
-		Ogre::RenderWindow* getRenderWindow();
-
 		bool getManualRender();
 		void setManualRender(bool _value);
 
 		size_t getBatchCount() const;
+
+		virtual void windowResized(int windowWidth, int windowHeight);
+
+		void update();
 
 #if MYGUI_DEBUG_MODE == 1
 		virtual bool checkTexture(ITexture* _texture);
 #endif
 
 	private:
-		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
-		virtual void renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation);
-		virtual void windowResized(Ogre::RenderWindow* _window);
-
 		// восстанавливаем буферы
+		//Render System Listener
 		virtual void eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters);
 
 		void destroyAllResources();
@@ -109,15 +97,7 @@ namespace MyGUI
 
 		IntSize mViewSize;
 
-		Ogre::SceneManager* mSceneManager;
-
 		VertexColourType mVertexFormat;
-
-		// окно, на которое мы подписываемся для изменения размеров
-		Ogre::RenderWindow* mWindow;
-
-		// вьюпорт, с которым работает система
-		unsigned short mActiveViewport;
 
 		Ogre::RenderSystem* mRenderSystem;
 		Ogre::TextureUnitState::UVWAddressingMode mTextureAddressMode;
@@ -131,6 +111,9 @@ namespace MyGUI
 		bool mIsInitialise;
 		bool mManualRender;
 		size_t mCountBatch;
+
+		Ogre::HighLevelGpuProgramPtr vertProg;
+		Ogre::HighLevelGpuProgramPtr fragProg;
 	};
 
 } // namespace MyGUI

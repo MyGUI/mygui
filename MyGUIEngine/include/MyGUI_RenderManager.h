@@ -34,6 +34,8 @@ namespace MyGUI
 		virtual ITexture* createTexture(const std::string& _name) = 0;
 		/** Destroy texture */
 		virtual void destroyTexture(ITexture* _texture) = 0;
+		/** Destroy texture by name if it exists*/
+		virtual void destroyTexture(const std::string& _name) = 0;
 		/** Get texture by name */
 		virtual ITexture* getTexture(const std::string& _name) = 0;
 
@@ -54,7 +56,6 @@ namespace MyGUI
 	protected:
 		virtual void onResizeView(const IntSize& _viewSize);
 		virtual void onRenderToTarget(IRenderTarget* _target, bool _update);
-		virtual void onFrameEvent(float _time);
 	};
 
 } // namespace MyGUI

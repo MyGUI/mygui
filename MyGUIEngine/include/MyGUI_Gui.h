@@ -137,8 +137,8 @@ namespace MyGUI
 		/** Get root widgets Enumerator */
 		EnumeratorWidgetPtr getEnumerator() const;
 
-		/** Inject frame entered event (called be renderer, do not call it manually).
-			This function is called every frame by renderer.
+		/** Inject frame entered event this must be called manually every frame, our version
+		removes the render manager call of this function.
 		*/
 		void frameEvent(float _time);
 
@@ -152,6 +152,22 @@ namespace MyGUI
 		/*internal:*/
 		void _linkChildWidget(Widget* _widget);
 		void _unlinkChildWidget(Widget* _widget);
+
+		float getScaleFactor()
+		{
+			return mScaleFactor;
+		}
+
+		void setScaleFactor(float _scale)
+		{
+			mScaleFactor = _scale;
+		}
+
+		IntSize scalePreserve(const IntSize& original);
+
+		IntCoord scalePreserve(const IntCoord& original);
+
+		int scalePreserve(const int& original);
 
 	private:
 		// создает виджет
@@ -188,6 +204,7 @@ namespace MyGUI
 		ToolTipManager* mToolTipManager;
 
 		bool mIsInitialise;
+		float mScaleFactor;
 	};
 
 } // namespace MyGUI

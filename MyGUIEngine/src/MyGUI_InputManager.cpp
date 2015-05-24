@@ -91,9 +91,19 @@ namespace MyGUI
 		// проверка на скролл
 		if (relz != 0)
 		{
+			Widget* mouseWheelTarget = mWidgetMouseFocus;
 			bool isFocus = isFocusMouse();
-			if (isFocusMouse())
-				mWidgetMouseFocus->_riseMouseWheel(relz);
+			if(isFocus)
+			{
+				while(mouseWheelTarget != nullptr && mouseWheelTarget->getForwardMouseWheelToParent())
+				{
+					mouseWheelTarget = mouseWheelTarget->getParent();
+				}
+				if (mouseWheelTarget != nullptr)
+				{
+					mouseWheelTarget->_riseMouseWheel(relz);
+				}
+			}
 			return isFocus;
 		}
 
@@ -675,6 +685,16 @@ namespace MyGUI
 	void InputManager::unlinkWidget(Widget* _widget)
 	{
 		_unlinkWidget(_widget);
+	}
+
+	bool InputManager::injectScrollGesture(int absx, int absy, int deltax, int deltay)
+	{
+		Widget* widget = LayerManager::getInstance().getWidgetFromPoint(absx, absy);
+		if(widget != NULL)
+		{
+			return widget->_sendScrollGesture(absx, absy, deltax, deltay);
+		}
+		return false;
 	}
 
 } // namespace MyGUI

@@ -9,16 +9,17 @@
 #include "MyGUI_SkinManager.h"
 #include "MyGUI_ISubWidgetText.h"
 #include "MyGUI_ScrollBar.h"
+#include "MyGUI_Gui.h"
 
 namespace MyGUI
 {
-
-	const int SCROLL_VIEW_MOUSE_WHEEL = 50; // колличество пикселей для колеса мыши
-	const int SCROLL_VIEW_SCROLL_PAGE = 16; // колличество пикселей для кнопок скрола
-
 	ScrollView::ScrollView() :
 		mContentAlign(Align::Center),
-		mRealClient(nullptr)
+		mRealClient(nullptr),
+		mFavorVertical(true),
+		mAllowMouseScroll(true),
+		mScrollViewMouseWheel(Gui::getInstance().scalePreserve(50)),
+		mScrollViewScrollPage(Gui::getInstance().scalePreserve(16))
 	{
 		mChangeContentByResize = false;
 	}
@@ -100,26 +101,32 @@ namespace MyGUI
 			IntPoint point = mRealClient->getPosition();
 			point.top = -(int)_position;
 			mRealClient->setPosition(point);
+			onCanvasPositionChanged(point.left, point.top);
 		}
 		else if (_sender == mHScroll)
 		{
 			IntPoint point = mRealClient->getPosition();
 			point.left = -(int)_position;
 			mRealClient->setPosition(point);
+			onCanvasPositionChanged(point.left, point.top);
 		}
 	}
 
 	void ScrollView::notifyMouseWheel(Widget* _sender, int _rel)
 	{
-		if (mRealClient == nullptr)
+		if (!mAllowMouseScroll || mRealClient == nullptr)
+		{
+			//If the mouse scrolling is turned off fire the scroll event as if it originated from the scroll view widget.
+			this->_riseMouseWheel(_rel);
 			return;
+		}
 
-		if (mVRange != 0)
+		if ((mFavorVertical || mHRange == 0) && mVRange != 0)
 		{
 			IntPoint point = mRealClient->getPosition();
 			int offset = -point.top;
-			if (_rel < 0) offset += SCROLL_VIEW_MOUSE_WHEEL;
-			else  offset -= SCROLL_VIEW_MOUSE_WHEEL;
+			if (_rel < 0) offset += mScrollViewMouseWheel;
+			else  offset -= mScrollViewMouseWheel;
 
 			if (offset < 0) offset = 0;
 			else if (offset > (int)mVRange) offset = mVRange;
@@ -132,14 +139,15 @@ namespace MyGUI
 					mVScroll->setScrollPosition(offset);
 				}
 				mRealClient->setPosition(point);
+				onCanvasPositionChanged(point.left, point.top);
 			}
 		}
 		else if (mHRange != 0)
 		{
 			IntPoint point = mRealClient->getPosition();
 			int offset = -point.left;
-			if (_rel < 0) offset += SCROLL_VIEW_MOUSE_WHEEL;
-			else  offset -= SCROLL_VIEW_MOUSE_WHEEL;
+			if (_rel < 0) offset += mScrollViewMouseWheel;
+			else  offset -= mScrollViewMouseWheel;
 
 			if (offset < 0) offset = 0;
 			else if (offset > (int)mHRange) offset = mHRange;
@@ -152,6 +160,7 @@ namespace MyGUI
 					mHScroll->setScrollPosition(offset);
 				}
 				mRealClient->setPosition(point);
+				onCanvasPositionChanged(point.left, point.top);
 			}
 		}
 	}
@@ -169,7 +178,11 @@ namespace MyGUI
 	void ScrollView::setContentPosition(const IntPoint& _point)
 	{
 		if (mRealClient != nullptr)
-			mRealClient->setPosition(IntPoint() - _point);
+		{
+			IntPoint point = IntPoint() - _point;
+			mRealClient->setPosition(point);
+			onCanvasPositionChanged(point.left, point.top);
+		}
 	}
 
 	IntSize ScrollView::getViewSize()
@@ -179,12 +192,12 @@ namespace MyGUI
 
 	size_t ScrollView::getVScrollPage()
 	{
-		return SCROLL_VIEW_SCROLL_PAGE;
+		return mScrollViewScrollPage;
 	}
 
 	size_t ScrollView::getHScrollPage()
 	{
-		return SCROLL_VIEW_SCROLL_PAGE;
+		return mScrollViewScrollPage;
 	}
 
 	void ScrollView::updateView()
@@ -239,7 +252,7 @@ namespace MyGUI
 
 		/// @wproperty{ScrollView, CanvasSize, int int} Размер содержимого.
 		else if (_key == "CanvasSize")
-			setCanvasSize(utility::parseValue<IntSize>(_value));
+			setCanvasSize(Gui::getInstance().scalePreserve(utility::parseValue<IntSize>(_value)));
 
 		else
 		{
@@ -341,6 +354,89 @@ namespace MyGUI
 	ScrollBar* ScrollView::getVScroll()
 	{
 		return mVScroll;
+	}
+
+	IntPoint ScrollView::getCanvasPosition()
+	{
+		if (mRealClient != nullptr)
+		{
+			return IntPoint() - mRealClient->getPosition();
+		}
+		return IntPoint();
+	}
+
+	void ScrollView::setCanvasPosition(const IntPoint& _point)
+	{
+		if (mRealClient != nullptr)
+		{
+			if(mHScroll != nullptr)
+			{
+				mHScroll->setScrollPosition(_point.left);
+			}
+			if (mVScroll != nullptr)
+			{
+				mVScroll->setScrollPosition(_point.top);
+			}
+			IntPoint point = IntPoint() - _point;
+			mRealClient->setPosition(point);
+			onCanvasPositionChanged(point.left, point.top);
+		}
+	}
+
+	bool ScrollView::onSendScrollGesture(const int& absx, const int& absy, const int& deltax, const int& deltay)
+	{
+		IntPoint currentPosition = getCanvasPosition();
+		IntCoord coord = mRealClient->getCoord();
+		IntCoord viewCoord = getViewCoord();
+		int width = viewCoord.width;
+		int height = viewCoord.height;
+
+		bool makeChanges = false;
+
+		if (coord.height > height)
+		{
+			makeChanges = true;
+
+			currentPosition.top -= deltay;
+			coord.top += deltay;
+			int bottom = coord.top + coord.height;
+			
+			if (bottom < height)
+			{
+				currentPosition.top = coord.height - height;
+			}
+
+			if (coord.top > 0)
+			{
+				currentPosition.top = 0;
+			}
+		}
+
+		if (coord.width > width)
+		{
+			makeChanges = true;
+
+			currentPosition.left -= deltax;
+			coord.left += deltax;
+			int right = coord.left + coord.width;
+
+			if (right < width)
+			{
+				currentPosition.left = coord.width - width;
+			}
+
+			if (coord.left > 0)
+			{
+				currentPosition.left = 0;
+			}
+		}
+
+		if (makeChanges)
+		{
+			setCanvasPosition(currentPosition);
+			return true;
+		}
+		return false;
 	}
 
 } // namespace MyGUI

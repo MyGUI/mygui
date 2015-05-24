@@ -112,6 +112,10 @@ namespace MyGUI
 
 		virtual const VectorLineInfo& getLineInfo() const;
 
+		//Added Functions
+		// Set the background color to use for selection when invertSelected is false.
+		void setSelectionBgColor(const Colour& _value);
+
 	private:
 		void _setTextColour(const Colour& _value);
 		void checkVertexSize();
@@ -174,6 +178,9 @@ namespace MyGUI
 		int mOldWidth;
 
 		TextView mTextView;
+
+		//Added Properties
+		uint32 mSelectionBgColor;
 	};
 
 } // namespace MyGUI

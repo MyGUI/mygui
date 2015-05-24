@@ -76,8 +76,12 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 endif ()
 
 # determine system endianess
-include(TestBigEndian)
-test_big_endian(MYGUI_TEST_BIG_ENDIAN)
+IF(ANDROID)
+	set(MYGUI_TEST_BIG_ENDIAN FALSE)
+ELSE()
+	include(TestBigEndian)
+	test_big_endian(MYGUI_TEST_BIG_ENDIAN)
+ENDIF()
 
 # Add MyGUIEngine include path
 
@@ -200,19 +204,19 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
                         # not useful
                         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-float-equal -Wno-padded -Wno-padded -Wno-weak-vtables -Wno-duplicate-enum -Wno-exit-time-destructors -Wno-unused-parameter -Wno-global-constructors")
 		else ()
-			# very interesting option, but way too many warnings
-			#add_definitions(-Weffc++)
+		# very interesting option, but way too many warnings
+		#add_definitions(-Weffc++)
 			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wall  -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter")
-			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
 			if (NOT CMAKE_CXX_COMPILER_ID MATCHES "Intel")
 				set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wctor-dtor-privacy")
 				set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-show-option")
 			endif ()
 
-			# MyGUI_UString.h ignored from warnings because of this
-			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wshadow")
-		endif ()
+		# MyGUI_UString.h ignored from warnings because of this
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wshadow")
 	endif ()
+endif ()
 endif ()
 
 if (MSVC)
