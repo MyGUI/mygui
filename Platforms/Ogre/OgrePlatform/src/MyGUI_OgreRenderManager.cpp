@@ -208,8 +208,7 @@ namespace MyGUI
 
 		last_time = now_time;
 
-		//begin();
-		setManualRender(true);
+		begin();
 		onRenderToTarget(this, mUpdate);
 		//end();
 
@@ -283,12 +282,6 @@ namespace MyGUI
 
 	void OgreRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		if (getManualRender())
-		{
-			begin();
-			setManualRender(false);
-		}
-
 		if (_texture)
 		{
 			OgreTexture* texture = static_cast<OgreTexture*>(_texture);
