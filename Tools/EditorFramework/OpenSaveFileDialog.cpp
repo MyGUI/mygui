@@ -149,7 +149,7 @@ namespace tools
 
 		// add all folders first
 		common::VectorFileInfo infos;
-		getSystemFileList(infos, mCurrentFolder, L"*.*");
+		getSystemFileList(infos, mCurrentFolder, L"*");
 
 		for (common::VectorFileInfo::iterator item = infos.begin(); item != infos.end(); ++item)
 		{
