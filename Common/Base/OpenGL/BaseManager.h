@@ -10,13 +10,8 @@
 #include <MyGUI.h>
 #include <MyGUI_OpenGLPlatform.h>
 
-#include "InputManager.h"
-#include "PointerManager.h"
-
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-#	include <windows.h>
-#	include <winuser.h>
-#endif
+#include "SDL_InputManager.h"
+#include "SDL_PointerManager.h"
 
 namespace base
 {
@@ -43,12 +38,12 @@ namespace base
 		void setResourceFilename(const std::string& _flename);
 		void addResourceLocation(const std::string& _name, bool _recursive = false);
 
-		size_t getWindowHandle();
+		//size_t getWindowHandle();
 
 		MyGUI::MapString getStatistic() { return MyGUI::MapString(); }
 
 	/*internal:*/
-		void _windowResized();
+		void _windowResized(int w, int h);
 		virtual void* loadImage(int& _width, int& _height, MyGUI::PixelFormat& _format, const std::string& _filename);
 		virtual void saveImage(int _width, int _height, MyGUI::PixelFormat _format, void* _texture, const std::string& _filename);
 
@@ -68,26 +63,25 @@ namespace base
 		virtual void destroyGui();
 
 	private:
-		void windowAdjustSettings(HWND hWnd, int width, int height, bool fullScreen);
-
-		void resizeRender(int _width, int _height);
+		//void resizeRender(int _width, int _height);
 		bool createRender(int _width, int _height, bool _windowed);
 		void drawOneFrame();
 		void destroyRender();
+		void* convertPixelData(SDL_Surface *_SDLimage, MyGUI::PixelFormat& _MyGuiPixelFormat);
 
 	private:
 		MyGUI::Gui* mGUI;
 		MyGUI::OpenGLPlatform* mPlatform;
 
-		HWND hWnd;
-		HDC hDC;
-		HGLRC hRC;
-		HINSTANCE hInstance;
-
 		bool mExit;
-
+		SDL_Event mEvent;
+		SDL_Window* mWindow;
+		SDL_GLContext mContext;
+		SDL_Renderer* mRenderer;
 		std::string mRootMedia;
 		std::string mResourceFileName;
+		bool	mWindowOn;
+		
 	};
 
 } // namespace base
