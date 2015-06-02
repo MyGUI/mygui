@@ -13,8 +13,8 @@
 #	undef delete
 #endif
 
-////for image loader
-//#include <malloc.h>
+//for image loader
+#include <malloc.h>
 
 // имя класса окна
 const char* WND_CLASS_NAME = "MyGUI_Demo_window";
@@ -46,13 +46,6 @@ namespace base
 
 	void BaseManager::_windowResized( int w, int h )
 {
-		//RECT rect = { 0, 0, 0, 0 };
-		//GetClientRect(hWnd, &rect);
-		//int width = rect.right - rect.left;
-		//int height = rect.bottom - rect.top;
-
-		//resizeRender(w, h);
-
 		if (mPlatform)
 			mPlatform->getRenderManagerPtr()->setViewSize(w, h);
 
@@ -72,9 +65,9 @@ namespace base
 		int top = (currDisp.h - height) / 2;
 
 		mWindow = SDL_CreateWindow("OpenGL Render Window", left, top, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
-		MYGUI_ASSERT(mWindow != nullptr, "Failed to create window.");
+		MYGUI_ASSERT(mWindow != nullptr, "Failed to create SDL window.");
 		mContext = SDL_GL_CreateContext(mWindow);
-		MYGUI_ASSERT(mContext != nullptr, "Failed to create context.");
+		MYGUI_ASSERT(mContext != nullptr, "Failed to create SDL context.");
 		mWindowOn = true;
 
 		if (!createRender(width, height, windowed))
@@ -292,14 +285,6 @@ namespace base
 		MyGUI::InputManager::getInstance().injectKeyRelease(_key);
 	}
 
-	//void BaseManager::resizeRender(int _width, int _height)
-	//{
-	//	if (_height == 0)
-	//		_height = 1;
-
-	//	glViewport(0, 0, _width, _height);
-	//}
-
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
 		mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED);
@@ -321,52 +306,6 @@ namespace base
 		SDL_DestroyRenderer(mRenderer);
 		mRenderer = nullptr;
 	}
-
-	//void convertRawData(Gdiplus::BitmapData* _out_data, void* _result, size_t _size, MyGUI::PixelFormat _format)
-	//{
-	//	size_t num = 0;
-
-	//	if (_format == MyGUI::PixelFormat::L8)
-	//	{
-	//		num = 1;
-	//	}
-	//	if (_format == MyGUI::PixelFormat::L8A8)
-	//	{
-	//		num = 2;
-	//	}
-	//	if (_format == MyGUI::PixelFormat::R8G8B8)
-	//	{
-	//		num = 3;
-	//	}
-	//	else if (_format == MyGUI::PixelFormat::R8G8B8A8)
-	//	{
-	//		num = 4;
-	//	}
-	//	else
-	//	{
-	//		return;
-	//	}
-
-	//	unsigned char* ptr_source = (unsigned char*)_out_data->Scan0;
-	//	unsigned char* ptr_dest = (unsigned char*)_result;
-
-	//	size_t stride_source = _out_data->Stride;
-	//	size_t stride_dest = _out_data->Width * num;
-
-	//	if (stride_dest == stride_source)
-	//	{
-	//		memcpy(_result, _out_data->Scan0, _size);
-	//	}
-	//	else
-	//	{
-	//		for (unsigned int y = 0; y < _out_data->Height; ++y)
-	//		{
-	//			memcpy(ptr_dest, ptr_source, stride_dest);
-	//			ptr_dest += stride_dest;
-	//			ptr_source += stride_source;
-	//		}
-	//	}
-	//}
 
 	void* BaseManager::convertPixelData(SDL_Surface *_SDLimage, MyGUI::PixelFormat& _MyGuiPixelFormat)
 	{
@@ -391,7 +330,8 @@ namespace base
 		}
 		SDL_LockSurface(_SDLimage);
 
-		int pitchSrc = _SDLimage->pitch;
+		int pitchSrc = _SDLimage->pitch;	//the length of a row of pixels in bytes
+		int bppSrc = pitchSrc / _SDLimage->w;
 		size_t size = _SDLimage->h * pitchSrc;
 		ret = new unsigned char[size];
 		unsigned char* ptr_source = (unsigned char*)_SDLimage->pixels;
@@ -420,11 +360,24 @@ namespace base
 		std::string fullname = MyGUI::OpenGLDataManager::getInstance().getDataPath(_filename);
 		void* result = nullptr;
 		SDL_Surface *image = nullptr;
+		SDL_Surface *cvtImage = nullptr;		// converted surface with RGBA/RGB pixel format
 		image = IMG_Load(fullname.c_str());
 		if (image != nullptr) {
 			_width = image->w;
 			_height = image->h;
-			result = convertPixelData(image, _format);
+
+			int bpp = image->format->BytesPerPixel;
+			if (bpp < 3) 
+			{
+				result = convertPixelData(image, _format);
+			}
+			else 
+			{
+				Uint32 pixelFmt = bpp == 3 ? SDL_PIXELFORMAT_BGR24 : SDL_PIXELFORMAT_ARGB8888;
+				cvtImage = SDL_ConvertSurfaceFormat(image, pixelFmt, 0);
+				result = convertPixelData(cvtImage, _format);
+				SDL_FreeSurface(cvtImage);
+			}
 			SDL_FreeSurface(image);
 		}
 		MYGUI_ASSERT(result != nullptr, "Failed to load image.");

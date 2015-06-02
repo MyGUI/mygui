@@ -110,6 +110,10 @@ namespace input
 
 	}
 
+	void InputManager::updateCursorPosition()
+	{
+	}
+
 	void InputManager::frameEvent(float _time)
 	{
 		computeMouseMove();
@@ -197,9 +201,4 @@ namespace input
 		else if (mMouseY >= mHeight)
 			mMouseY = mHeight - 1;
 	}
-
-	void InputManager::updateCursorPosition()
-	{
-	}
-
 } // namespace input
