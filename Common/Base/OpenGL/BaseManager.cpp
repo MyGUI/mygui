@@ -6,7 +6,7 @@
 #include "Precompiled.h"
 #include "BaseManager.h"
 #include "MyGUI_Diagnostic.h"
-#include "SDL_image.h"
+#include <SDL_image.h>
 
 #ifdef MYGUI_CHECK_MEMORY_LEAKS
 #	undef new
