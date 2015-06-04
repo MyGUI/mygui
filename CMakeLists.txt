@@ -145,14 +145,18 @@ MARK_AS_ADVANCED(MYGUI_STANDALONE_BUILD)
 option(MYGUI_GENERATE_LIST_FILES_FROM_VSPROJECT "Generate .list files from visual studio project files" FALSE)
 
 if (WIN32)
-	set(MYGUI_SAMPLES_INPUT 4 CACHE STRING
+	set(MYGUI_SAMPLES_INPUT 3 CACHE STRING
 	"Specify the Input Manager for samples. Possible values:
 	  1 - OIS
 	  2 - Win32
-	  3 - Win32 (Mouse) + OIS (Keyboard)"
-      4 - SDL2
+	  3 - Win32 (Mouse) + OIS (Keyboard)
+	  4 - SDL2"
 	)
 else()
+	set(MYGUI_SAMPLES_INPUT 4)
+endif()
+
+if(MYGUI_RENDERSYSTEM EQUAL 4)
 	set(MYGUI_SAMPLES_INPUT 4)
 endif()
 
@@ -317,3 +321,10 @@ add_subdirectory(CMake)
 
 # Provide CPack packaging target
 include(Packaging)
+
+# copy dlls required by SDL2 and SDL2_image
+if(WIN32)
+    if(MYGUI_RENDERSYSTEM EQUAL 4)
+    
+    endif(MYGUI_RENDERSYSTEM EQUAL 4)
+endif(WIN32)

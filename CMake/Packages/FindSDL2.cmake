@@ -1,13 +1,38 @@
-# Find SDL2 and SDL2_image includes and library
+# - Find SDL2 library and headers
+# 
+# Find module for SDL 2.0 (http://www.libsdl.org/).
+# It defines the following variables:
+#  SDL2_INCLUDE_DIRS - The location of the headers, e.g., SDL.h.
+#  SDL2_LIBRARIES - The libraries to link against to use SDL2.
+#  SDL2_FOUND - If false, do not try to use SDL2.
+#  SDL2_VERSION_STRING - Human-readable string containing the version of SDL2.
 #
-# This module defines
-#  SDL2_INCLUDE_DIR
-#  SDL2_LIBRARIES, the libraries to link against to use SDL2.
-#  SDL2_LIB_DIR, the location of the libraries
-#  SDL2_image_INCLUDE_DIR
-#  SDL2_image_LIBRARIES, the libraries to link against to use SDL2_image.
-#  SDL2_image_LIB_DIR, the location of the libraries
-#  SDL2_FOUND, If false, do not try to use SDL2
+# This module responds to the the flag:
+#  SDL2_BUILDING_LIBRARY
+#    If this is defined, then no SDL2_main will be linked in because
+#    only applications need main().
+#    Otherwise, it is assumed you are building an application and this
+#    module will attempt to locate and set the the proper link flags
+#    as part of the returned SDL2_LIBRARIES variable.
+#
+# Also defined, but not for general use are:
+#   SDL2_INCLUDE_DIR - The directory that contains SDL.h.
+#   SDL2_LIBRARY - The location of the SDL2 library.
+#   SDL2MAIN_LIBRARY - The location of the SDL2main library.
+#
+
+#=============================================================================
+# Copyright 2013 Benjamin Eikel
+#
+# Distributed under the OSI-approved BSD License (the "License");
+# see accompanying file Copyright.txt for details.
+#
+# This software is distributed WITHOUT ANY WARRANTY; without even the
+# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the License for more information.
+#=============================================================================
+# (To distribute this file outside of CMake, substitute the full
+#  License text for the above reference.)
 
 include(FindPkgMacros)
 
@@ -21,35 +46,73 @@ IF(NOT SDL2_FOUND)
 # Then try everything else
 	IF(WIN32) #Windows
 		set(SDL2_DIR "${MYGUI_SOURCE_DIR}/Dependencies/SDL2-2.0.3")
-        set(SDL2_INCLUDE_DIR "${SDL2_DIR}/include")
+        set(SDL2_INCLUDE_DIRS "${SDL2_DIR}/include")
         set(SDL2_LIBRARIES sdl2)
         set(SDL2_LIB_DIR "${SDL2_DIR}/lib/x86")
         
         set(SDL2_image_DIR "${MYGUI_SOURCE_DIR}/Dependencies/SDL2_image-2.0.0-dev")
-        set(SDL2_image_INCLUDE_DIR "${SDL2_image_DIR}/include")
-        set(SDL2_image_LIBRARIES sdl2_image)
-        set(SDL2_image_LIB_DIR "${SDL2_image_DIR}/lib/x86")
+        set(SDL2_IMAGE_INCLUDE_DIRS "${SDL2_image_DIR}/include")
+        set(SDL2_IMAGE_LIBRARIES sdl2_image)
+        set(SDL2_IMAGE_LIB_DIR "${SDL2_image_DIR}/lib/x86")
         set(SDL2_FOUND TRUE)
 	ELSE(WIN32) #Unix
         CMAKE_MINIMUM_REQUIRED(VERSION 2.4.7 FATAL_ERROR)
-		FIND_PACKAGE(PkgConfig)
-		PKG_SEARCH_MODULE(SDL2 libsdl2-dev)
-		SET(SDL2_INCLUDE_DIR ${SDL2_INCLUDE_DIRS})
-		SET(SDL2_LIB_DIR ${SDL2_LIBDIR})
+        find_package(PkgConfig QUIET)
+        pkg_check_modules(PC_SDL2 QUIET sdl2)
 
-        PKG_SEARCH_MODULE(SDL2_image libsdl2-image-dev)
-        SET(SDL2_image_INCLUDE_DIR ${SDL2_image_INCLUDE_DIRS})
-		SET(SDL2_image_LIB_DIR ${SDL2_image_LIBDIR})
+        find_path(SDL2_INCLUDE_DIR
+          NAMES SDL.h
+          HINTS
+            ${PC_SDL2_INCLUDEDIR}
+            ${PC_SDL2_INCLUDE_DIRS}
+          PATH_SUFFIXES SDL2
+        )
+
+        find_library(SDL2_LIBRARY
+          NAMES SDL2
+          HINTS
+            ${PC_SDL2_LIBDIR}
+            ${PC_SDL2_LIBRARY_DIRS}
+          PATH_SUFFIXES x64 x86
+        )
         
-		SET(SDL2_INCLUDE_DIR ${SDL2_INCLUDE_DIR} CACHE PATH "")
-		SET(SDL2_LIBRARIES ${SDL2_LIBRARIES} CACHE STRING "")
-		SET(SDL2_LIB_DIR ${SDL2_LIB_DIR} CACHE PATH "")
-        SET(SDL2_image_INCLUDE_DIR ${SDL2_INCLUDE_DIR} CACHE PATH "")
-		SET(SDL2_image_LIBRARIES ${SDL2_LIBRARIES} CACHE STRING "")
-		SET(SDL2_image_LIB_DIR ${SDL2_LIB_DIR} CACHE PATH "")
+        set(SDL2_BUILDING_LIBRARY TRUE)
         
-        IF(SDL2_INCLUDE_DIR AND SDL2_LIBRARIES AND SDL2_image_INCLUDE_DIR AND SDL2_image_LIBRARIES)
-            set(SDL2_FOUND TRUE)
-        ENDIF(SDL2_INCLUDE_DIR AND SDL2_LIBRARIES AND SDL2_image_INCLUDE_DIR AND SDL2_image_LIBRARIES)
+        if(NOT SDL2_BUILDING_LIBRARY)
+          find_library(SDL2MAIN_LIBRARY
+            NAMES SDL2main
+            HINTS
+              ${PC_SDL2_LIBDIR}
+              ${PC_SDL2_LIBRARY_DIRS}
+            PATH_SUFFIXES x64 x86
+          )
+        endif()
+
+        if(SDL2_INCLUDE_DIR AND EXISTS "${SDL2_INCLUDE_DIR}/SDL_version.h")
+          file(STRINGS "${SDL2_INCLUDE_DIR}/SDL_version.h" SDL2_VERSION_MAJOR_LINE REGEX "^#define[ \t]+SDL_MAJOR_VERSION[ \t]+[0-9]+$")
+          file(STRINGS "${SDL2_INCLUDE_DIR}/SDL_version.h" SDL2_VERSION_MINOR_LINE REGEX "^#define[ \t]+SDL_MINOR_VERSION[ \t]+[0-9]+$")
+          file(STRINGS "${SDL2_INCLUDE_DIR}/SDL_version.h" SDL2_VERSION_PATCH_LINE REGEX "^#define[ \t]+SDL_PATCHLEVEL[ \t]+[0-9]+$")
+          string(REGEX REPLACE "^#define[ \t]+SDL_MAJOR_VERSION[ \t]+([0-9]+)$" "\\1" SDL2_VERSION_MAJOR "${SDL2_VERSION_MAJOR_LINE}")
+          string(REGEX REPLACE "^#define[ \t]+SDL_MINOR_VERSION[ \t]+([0-9]+)$" "\\1" SDL2_VERSION_MINOR "${SDL2_VERSION_MINOR_LINE}")
+          string(REGEX REPLACE "^#define[ \t]+SDL_PATCHLEVEL[ \t]+([0-9]+)$" "\\1" SDL2_VERSION_PATCH "${SDL2_VERSION_PATCH_LINE}")
+          set(SDL2_VERSION_STRING ${SDL2_VERSION_MAJOR}.${SDL2_VERSION_MINOR}.${SDL2_VERSION_PATCH})
+          unset(SDL2_VERSION_MAJOR_LINE)
+          unset(SDL2_VERSION_MINOR_LINE)
+          unset(SDL2_VERSION_PATCH_LINE)
+          unset(SDL2_VERSION_MAJOR)
+          unset(SDL2_VERSION_MINOR)
+          unset(SDL2_VERSION_PATCH)
+        endif()
+
+        set(SDL2_INCLUDE_DIRS ${SDL2_INCLUDE_DIR})
+        set(SDL2_LIBRARIES ${SDL2MAIN_LIBRARY} ${SDL2_LIBRARY})
+
+        include(FindPackageHandleStandardArgs)
+
+        find_package_handle_standard_args(SDL2
+                                          REQUIRED_VARS SDL2_INCLUDE_DIR SDL2_LIBRARY
+                                          VERSION_VAR SDL2_VERSION_STRING)
+
+        mark_as_advanced(SDL2_INCLUDE_DIR SDL2_LIBRARY)
 	ENDIF(WIN32)
 ENDIF(NOT SDL2_FOUND)

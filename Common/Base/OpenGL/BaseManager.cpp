@@ -6,7 +6,12 @@
 #include "Precompiled.h"
 #include "BaseManager.h"
 #include "MyGUI_Diagnostic.h"
+
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
+#include <SDL2/SDL_image.h>
+#else
 #include <SDL_image.h>
+#endif
 
 #ifdef MYGUI_CHECK_MEMORY_LEAKS
 #	undef new

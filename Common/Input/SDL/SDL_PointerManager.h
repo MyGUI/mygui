@@ -7,7 +7,11 @@
 #ifndef POINTER_MANAGER_H_
 #define POINTER_MANAGER_H_
 
-#include <SDL.h>
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
+	#include <SDL2/SDL.h>
+#else
+	#include <SDL.h>
+#endif
 
 namespace input
 {
