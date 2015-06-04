@@ -211,7 +211,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		add_dependencies(${PROJECTNAME} MyGUI.OpenGLPlatform)
 		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLPlatform)
 		
-		target_link_libraries(${PROJECTNAME} gdiplus)
+		#target_link_libraries(${PROJECTNAME} gdiplus)
         target_link_libraries(${PROJECTNAME} ${SDL2_LIBRARIES})
         target_link_libraries(${PROJECTNAME} ${SDL2_image_LIBRARIES} )
 
@@ -334,7 +334,7 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 		add_dependencies(${PROJECTNAME} MyGUI.OpenGLPlatform)
 		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLPlatform)
 		
-		target_link_libraries(${PROJECTNAME} gdiplus)
+		#target_link_libraries(${PROJECTNAME} gdiplus)
         target_link_libraries(${PROJECTNAME} ${SDL2_LIBRARIES})
         target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
 

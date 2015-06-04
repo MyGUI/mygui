@@ -13,8 +13,8 @@
 #	undef delete
 #endif
 
-//for image loader
-#include <malloc.h>
+////for image loader
+//#include <malloc.h>
 
 // имя класса окна
 const char* WND_CLASS_NAME = "MyGUI_Demo_window";
