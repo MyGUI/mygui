@@ -67,6 +67,12 @@ namespace base
 
 		virtual void createGui();
 		virtual void destroyGui();
+        
+        virtual void setWindowMaximized(bool _value);
+		virtual bool getWindowMaximized();
+
+		virtual void setWindowCoord(const MyGUI::IntCoord& _value);
+		virtual MyGUI::IntCoord getWindowCoord();
 
 	private:
 		virtual bool frameStarted(const Ogre::FrameEvent& _evt);
