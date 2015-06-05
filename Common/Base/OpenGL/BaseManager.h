@@ -38,8 +38,6 @@ namespace base
 		void setResourceFilename(const std::string& _flename);
 		void addResourceLocation(const std::string& _name, bool _recursive = false);
 
-		//size_t getWindowHandle();
-
 		MyGUI::MapString getStatistic() { return MyGUI::MapString(); }
 
 	/*internal:*/
@@ -61,6 +59,12 @@ namespace base
 
 		virtual void createGui();
 		virtual void destroyGui();
+
+		virtual void setWindowMaximized(bool _value);
+		virtual bool getWindowMaximized();
+
+		virtual void setWindowCoord(const MyGUI::IntCoord& _value);
+		virtual MyGUI::IntCoord getWindowCoord();
 
 	private:
 		//void resizeRender(int _width, int _height);

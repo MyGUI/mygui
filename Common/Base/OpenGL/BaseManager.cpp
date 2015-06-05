@@ -6,6 +6,7 @@
 #include "Precompiled.h"
 #include "BaseManager.h"
 #include "MyGUI_Diagnostic.h"
+#include <stdlib.h>		// for wctomb()
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
 #include <SDL2/SDL_image.h>
@@ -227,14 +228,47 @@ namespace base
 		}
 	}
 
-	//size_t BaseManager::getWindowHandle()
-	//{
-	//	return (size_t)hWnd;
-	//}
+	void BaseManager::setWindowMaximized(bool _value)
+	{
+		if (mWindow != nullptr && _value)
+		{
+			SDL_MaximizeWindow(mWindow);
+		}
+	}
+
+	bool BaseManager::getWindowMaximized()
+	{
+		Uint32 windowState = SDL_GetWindowFlags(mWindow);
+		return windowState & SDL_WINDOW_MAXIMIZED || windowState & SDL_WINDOW_FULLSCREEN;
+	}
+
+	void BaseManager::setWindowCoord(const MyGUI::IntCoord& _value)
+	{
+		if (_value.empty())
+			return;
+
+		MyGUI::IntCoord coord = _value;
+		SDL_Rect screenRect;
+		MYGUI_ASSERT(SDL_GetDisplayBounds(0, &screenRect) != 0, "Failed to get screen size.");
+
+		SDL_SetWindowPosition(mWindow, coord.left, coord.top);
+	}
+
+	MyGUI::IntCoord BaseManager::getWindowCoord()
+	{
+		int left, top, width, height;
+		SDL_GetWindowPosition(mWindow, &left, &top);
+		SDL_GetWindowSize(mWindow, &width, &height);
+		return MyGUI::IntCoord(left, top, width, height);
+	}
 
 	void BaseManager::setWindowCaption(const std::wstring& _text)
 	{
-		//SetWindowTextW(hWnd, _text.c_str());
+		char mbs[256];				// the title should not be bigger than this array
+		size_t len = std::wcstombs(mbs, _text.c_str(), 256);
+		if (len != -1) {
+			SDL_SetWindowTitle(mWindow, mbs);
+		}
 	}
 
 	void BaseManager::prepare()

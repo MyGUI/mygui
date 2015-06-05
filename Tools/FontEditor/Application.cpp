@@ -127,7 +127,7 @@ namespace tools
 		tools::DataSelectorManager::getInstance().initialise();
 
 		bool maximized = SettingsManager::getInstance().getValue<bool>("Controls/Main/Maximized");
-		setWindowMaximized(maximized);
+		//setWindowMaximized(maximized);
 		if (!maximized)
 		{
 			MyGUI::IntCoord windowCoord = SettingsManager::getInstance().getValue<MyGUI::IntCoord>("Controls/Main/Coord");
@@ -317,71 +317,6 @@ namespace tools
 
 		CommandManager::getInstance().executeCommand("Command_QuitApp");
 		return false;
-	}
-
-	void Application::setWindowMaximized(bool _value)
-	{
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		if (_value)
-		{
-			size_t handle = getWindowHandle();
-			::ShowWindow((HWND)handle, SW_SHOWMAXIMIZED);
-		}
-	#endif
-	}
-
-	bool Application::getWindowMaximized()
-	{
-		bool result = false;
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		size_t handle = getWindowHandle();
-		result = ::IsZoomed((HWND)handle) != 0;
-	#endif
-		return result;
-	}
-
-	void Application::setWindowCoord(const MyGUI::IntCoord& _value)
-	{
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		if (_value.empty())
-			return;
-
-		MyGUI::IntCoord coord = _value;
-		if (coord.left < 0)
-			coord.left = 0;
-		if (coord.top < 0)
-			coord.top = 0;
-		if (coord.width < 640)
-			coord.width = 640;
-		if (coord.height < 480)
-			coord.height = 480;
-		if (coord.width > GetSystemMetrics(SM_CXSCREEN))
-			coord.width = GetSystemMetrics(SM_CXSCREEN);
-		if (coord.height > GetSystemMetrics(SM_CYSCREEN))
-			coord.height = GetSystemMetrics(SM_CYSCREEN);
-		if (coord.right() > GetSystemMetrics(SM_CXSCREEN))
-			coord.left = GetSystemMetrics(SM_CXSCREEN) - coord.width;
-		if (coord.bottom() > GetSystemMetrics(SM_CYSCREEN))
-			coord.top = GetSystemMetrics(SM_CYSCREEN) - coord.height;
-
-		size_t handle = getWindowHandle();
-		::MoveWindow((HWND)handle, coord.left, coord.top, coord.width, coord.height, true);
-	#endif
-	}
-
-	MyGUI::IntCoord Application::getWindowCoord()
-	{
-		MyGUI::IntCoord result;
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		size_t handle = getWindowHandle();
-		::RECT rect;
-		::GetWindowRect((HWND)handle, &rect);
-		result.left = rect.left;
-		result.top = rect.top;
-		result.width = rect.right - rect.left;
-		result.height = rect.bottom - rect.top;
-	#endif
-		return result;
 	}
 
 	void Application::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
