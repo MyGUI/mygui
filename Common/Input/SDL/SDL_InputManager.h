@@ -8,11 +8,7 @@
 #define INPUT_MANAGER_H_
 
 #include <MyGUI.h>
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #include <SDL.h>
-#else
-#include <SDL2/SDL.h>
-#endif
 
 namespace input
 {

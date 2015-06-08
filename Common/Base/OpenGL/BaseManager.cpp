@@ -8,11 +8,7 @@
 #include "MyGUI_Diagnostic.h"
 #include <stdlib.h>		// for wctomb()
 
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #include <SDL_image.h>
-#else
-#include <SDL2/SDL_image.h>
-#endif
 
 #ifdef MYGUI_CHECK_MEMORY_LEAKS
 #	undef new
@@ -115,7 +111,7 @@ namespace base
 					break;
 				case SDL_TEXTINPUT:
 					mInputText = mEvent.text.text[0];
-					mKeyCode = SDL_GetKeyFromName(mInputText.c_str());
+					mKeyCode = SDLK_UNKNOWN;
 					keyPressed(mKeyCode, mInputText.c_str());
 					break;
 				case SDL_KEYUP:

@@ -11,11 +11,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IResource.h"
 
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-	#include <SDL.h>
-#else
-	#include <SDL2/SDL.h>
-#endif
+#include <SDL.h>
 
 namespace input
 {
