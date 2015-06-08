@@ -1,5 +1,3 @@
-# - Find SDL2 library and headers
-# 
 # Find module for SDL 2.0 (http://www.libsdl.org/).
 # It defines the following variables:
 #  SDL2_INCLUDE_DIRS - The location of the headers, e.g., SDL.h.
@@ -44,75 +42,64 @@ endif ()
 
 IF(NOT SDL2_FOUND)
 # Then try everything else
-	IF(WIN32) #Windows
-		set(SDL2_DIR "${MYGUI_SOURCE_DIR}/Dependencies/SDL2-2.0.3")
-        set(SDL2_INCLUDE_DIRS "${SDL2_DIR}/include")
-        set(SDL2_LIBRARIES sdl2)
-        set(SDL2_LIB_DIR "${SDL2_DIR}/lib/x86")
-        
-        set(SDL2_image_DIR "${MYGUI_SOURCE_DIR}/Dependencies/SDL2_image-2.0.0-dev")
-        set(SDL2_IMAGE_INCLUDE_DIRS "${SDL2_image_DIR}/include")
-        set(SDL2_IMAGE_LIBRARIES sdl2_image)
-        set(SDL2_IMAGE_LIB_DIR "${SDL2_image_DIR}/lib/x86")
-        set(SDL2_FOUND TRUE)
-	ELSE(WIN32) #Unix
-        CMAKE_MINIMUM_REQUIRED(VERSION 2.4.7 FATAL_ERROR)
-        find_package(PkgConfig QUIET)
-        pkg_check_modules(PC_SDL2 QUIET sdl2)
+    CMAKE_POLICY(PUSH)
+    CMAKE_MINIMUM_REQUIRED(VERSION 2.4.7 FATAL_ERROR)
+    find_package(PkgConfig QUIET)
+    pkg_check_modules(PC_SDL2 QUIET sdl2)
 
-        find_path(SDL2_INCLUDE_DIR
-          NAMES SDL.h
-          HINTS
-            ${PC_SDL2_INCLUDEDIR}
-            ${PC_SDL2_INCLUDE_DIRS}
-          PATH_SUFFIXES SDL2
-        )
+    find_path(SDL2_INCLUDE_DIR
+      NAMES SDL.h
+      HINTS
+        ${PC_SDL2_INCLUDEDIR}
+        ${PC_SDL2_INCLUDE_DIRS}
+      PATH_SUFFIXES SDL2
+    )
 
-        find_library(SDL2_LIBRARY
-          NAMES SDL2
-          HINTS
-            ${PC_SDL2_LIBDIR}
-            ${PC_SDL2_LIBRARY_DIRS}
-          PATH_SUFFIXES x64 x86
-        )
-        
-        set(SDL2_BUILDING_LIBRARY TRUE)
-        
-        if(NOT SDL2_BUILDING_LIBRARY)
-          find_library(SDL2MAIN_LIBRARY
-            NAMES SDL2main
-            HINTS
-              ${PC_SDL2_LIBDIR}
-              ${PC_SDL2_LIBRARY_DIRS}
-            PATH_SUFFIXES x64 x86
-          )
-        endif()
+    find_library(SDL2_LIBRARY
+      NAMES SDL2
+      HINTS
+        ${PC_SDL2_LIBDIR}
+        ${PC_SDL2_LIBRARY_DIRS}
+      PATH_SUFFIXES x64 x86
+    )
+    
+    set(SDL2_BUILDING_LIBRARY TRUE)
+    
+    if(NOT SDL2_BUILDING_LIBRARY)
+      find_library(SDL2MAIN_LIBRARY
+        NAMES SDL2main
+        HINTS
+          ${PC_SDL2_LIBDIR}
+          ${PC_SDL2_LIBRARY_DIRS}
+        PATH_SUFFIXES x64 x86
+      )
+    endif()
 
-        if(SDL2_INCLUDE_DIR AND EXISTS "${SDL2_INCLUDE_DIR}/SDL_version.h")
-          file(STRINGS "${SDL2_INCLUDE_DIR}/SDL_version.h" SDL2_VERSION_MAJOR_LINE REGEX "^#define[ \t]+SDL_MAJOR_VERSION[ \t]+[0-9]+$")
-          file(STRINGS "${SDL2_INCLUDE_DIR}/SDL_version.h" SDL2_VERSION_MINOR_LINE REGEX "^#define[ \t]+SDL_MINOR_VERSION[ \t]+[0-9]+$")
-          file(STRINGS "${SDL2_INCLUDE_DIR}/SDL_version.h" SDL2_VERSION_PATCH_LINE REGEX "^#define[ \t]+SDL_PATCHLEVEL[ \t]+[0-9]+$")
-          string(REGEX REPLACE "^#define[ \t]+SDL_MAJOR_VERSION[ \t]+([0-9]+)$" "\\1" SDL2_VERSION_MAJOR "${SDL2_VERSION_MAJOR_LINE}")
-          string(REGEX REPLACE "^#define[ \t]+SDL_MINOR_VERSION[ \t]+([0-9]+)$" "\\1" SDL2_VERSION_MINOR "${SDL2_VERSION_MINOR_LINE}")
-          string(REGEX REPLACE "^#define[ \t]+SDL_PATCHLEVEL[ \t]+([0-9]+)$" "\\1" SDL2_VERSION_PATCH "${SDL2_VERSION_PATCH_LINE}")
-          set(SDL2_VERSION_STRING ${SDL2_VERSION_MAJOR}.${SDL2_VERSION_MINOR}.${SDL2_VERSION_PATCH})
-          unset(SDL2_VERSION_MAJOR_LINE)
-          unset(SDL2_VERSION_MINOR_LINE)
-          unset(SDL2_VERSION_PATCH_LINE)
-          unset(SDL2_VERSION_MAJOR)
-          unset(SDL2_VERSION_MINOR)
-          unset(SDL2_VERSION_PATCH)
-        endif()
+    if(SDL2_INCLUDE_DIR AND EXISTS "${SDL2_INCLUDE_DIR}/SDL_version.h")
+      file(STRINGS "${SDL2_INCLUDE_DIR}/SDL_version.h" SDL2_VERSION_MAJOR_LINE REGEX "^#define[ \t]+SDL_MAJOR_VERSION[ \t]+[0-9]+$")
+      file(STRINGS "${SDL2_INCLUDE_DIR}/SDL_version.h" SDL2_VERSION_MINOR_LINE REGEX "^#define[ \t]+SDL_MINOR_VERSION[ \t]+[0-9]+$")
+      file(STRINGS "${SDL2_INCLUDE_DIR}/SDL_version.h" SDL2_VERSION_PATCH_LINE REGEX "^#define[ \t]+SDL_PATCHLEVEL[ \t]+[0-9]+$")
+      string(REGEX REPLACE "^#define[ \t]+SDL_MAJOR_VERSION[ \t]+([0-9]+)$" "\\1" SDL2_VERSION_MAJOR "${SDL2_VERSION_MAJOR_LINE}")
+      string(REGEX REPLACE "^#define[ \t]+SDL_MINOR_VERSION[ \t]+([0-9]+)$" "\\1" SDL2_VERSION_MINOR "${SDL2_VERSION_MINOR_LINE}")
+      string(REGEX REPLACE "^#define[ \t]+SDL_PATCHLEVEL[ \t]+([0-9]+)$" "\\1" SDL2_VERSION_PATCH "${SDL2_VERSION_PATCH_LINE}")
+      set(SDL2_VERSION_STRING ${SDL2_VERSION_MAJOR}.${SDL2_VERSION_MINOR}.${SDL2_VERSION_PATCH})
+      unset(SDL2_VERSION_MAJOR_LINE)
+      unset(SDL2_VERSION_MINOR_LINE)
+      unset(SDL2_VERSION_PATCH_LINE)
+      unset(SDL2_VERSION_MAJOR)
+      unset(SDL2_VERSION_MINOR)
+      unset(SDL2_VERSION_PATCH)
+    endif()
 
-        set(SDL2_INCLUDE_DIRS ${SDL2_INCLUDE_DIR})
-        set(SDL2_LIBRARIES ${SDL2MAIN_LIBRARY} ${SDL2_LIBRARY})
+    set(SDL2_INCLUDE_DIRS ${SDL2_INCLUDE_DIR})
+    set(SDL2_LIBRARIES ${SDL2MAIN_LIBRARY} ${SDL2_LIBRARY})
 
-        include(FindPackageHandleStandardArgs)
+    include(FindPackageHandleStandardArgs)
 
-        find_package_handle_standard_args(SDL2
-                                          REQUIRED_VARS SDL2_INCLUDE_DIR SDL2_LIBRARY
-                                          VERSION_VAR SDL2_VERSION_STRING)
+    find_package_handle_standard_args(SDL2
+                                      REQUIRED_VARS SDL2_INCLUDE_DIR SDL2_LIBRARY
+                                      VERSION_VAR SDL2_VERSION_STRING)
 
-        mark_as_advanced(SDL2_INCLUDE_DIR SDL2_LIBRARY)
-	ENDIF(WIN32)
+    mark_as_advanced(SDL2_INCLUDE_DIR SDL2_LIBRARY)
+    CMAKE_POLICY(POP)
 ENDIF(NOT SDL2_FOUND)

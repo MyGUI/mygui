@@ -150,14 +150,17 @@ namespace input
 		return true;
 	}
 
-	bool InputManager::keyPressed(SDL_KeyboardEvent &key)
+	bool InputManager::keyPressed(SDL_Keycode &key, const char* text)
 	{
-		if (mSDLVKeyMap.count(key.keysym.sym) == 0) {
+		if (mSDLVKeyMap.count(key) == 0) {
 			return false;
 		}
-		MyGUI::KeyCode myGuiKeyCode = mSDLVKeyMap[key.keysym.sym];
-		const char* ch = SDL_GetKeyName(key.keysym.sym);
-		injectKeyPress(myGuiKeyCode, MyGUI::Char(*ch));
+		MyGUI::KeyCode myGuiKeyCode = mSDLVKeyMap[key];
+		//const char* ch = SDL_GetKeyName(key.keysym.sym);
+		if (text == NULL) {
+			text = SDL_GetKeyName(key);
+		}
+		injectKeyPress(myGuiKeyCode, MyGUI::Char(*text));
 		return true;
 	}
 

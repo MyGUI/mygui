@@ -72,6 +72,7 @@ namespace base
 		void drawOneFrame();
 		void destroyRender();
 		void* convertPixelData(SDL_Surface *_SDLimage, MyGUI::PixelFormat& _MyGuiPixelFormat);
+		void updateSDL_Keycode();
 
 	private:
 		MyGUI::Gui* mGUI;
@@ -85,7 +86,9 @@ namespace base
 		std::string mRootMedia;
 		std::string mResourceFileName;
 		bool	mWindowOn;
-		
+		std::string mInputText;
+		SDL_Keycode	mKeyCode;
+		bool mTextUpdated;
 	};
 
 } // namespace base

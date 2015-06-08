@@ -8,10 +8,10 @@
 #define INPUT_MANAGER_H_
 
 #include <MyGUI.h>
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
-	#include <SDL2/SDL.h>
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+#include <SDL.h>
 #else
-	#include <SDL.h>
+#include <SDL2/SDL.h>
 #endif
 
 namespace input
@@ -47,7 +47,7 @@ namespace input
 		virtual bool mouseMoved(SDL_MouseMotionEvent &evt);
 		virtual bool mousePressed(SDL_MouseButtonEvent &evt);
 		virtual bool mouseReleased(SDL_MouseButtonEvent &evt);
-		virtual bool keyPressed(SDL_KeyboardEvent &key);
+		virtual bool keyPressed(SDL_Keycode &key, const char* text);
 		virtual bool keyReleased(SDL_KeyboardEvent &key);
 
 		void checkPosition();

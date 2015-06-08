@@ -8,10 +8,10 @@
 #include "MyGUI_Diagnostic.h"
 #include <stdlib.h>		// for wctomb()
 
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
-#include <SDL2/SDL_image.h>
-#else
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #include <SDL_image.h>
+#else
+#include <SDL2/SDL_image.h>
 #endif
 
 #ifdef MYGUI_CHECK_MEMORY_LEAKS
@@ -35,6 +35,7 @@ namespace base
 		mContext(nullptr),
 		mExit(false),
 		mWindowOn(false),
+		mInputText(""),
 		mResourceFileName("MyGUI_Core.xml")
 	{
 		// initialize SDL
@@ -104,14 +105,23 @@ namespace base
 			{
 				switch (mEvent.type)
 				{
-					// keyboard events
+				// keyboard events
 				case SDL_KEYDOWN:
-					keyPressed(mEvent.key);
+					mKeyCode = mEvent.key.keysym.sym;
+					if (mKeyCode == SDLK_BACKSPACE || mKeyCode == SDLK_RETURN) 
+					{
+						keyPressed(mKeyCode, NULL);
+					}
+					break;
+				case SDL_TEXTINPUT:
+					mInputText = mEvent.text.text[0];
+					mKeyCode = SDL_GetKeyFromName(mInputText.c_str());
+					keyPressed(mKeyCode, mInputText.c_str());
 					break;
 				case SDL_KEYUP:
 					keyReleased(mEvent.key);
 					break;
-					// mouse events
+				// mouse events
 				case SDL_MOUSEMOTION:
 					mouseMoved(mEvent.motion);
 					break;
