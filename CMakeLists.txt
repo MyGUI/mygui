@@ -153,7 +153,7 @@ if (WIN32)
 	  4 - SDL2"
 	)
 else()
-	set(MYGUI_SAMPLES_INPUT 4)
+	set(MYGUI_SAMPLES_INPUT 1)
 endif()
 
 if(MYGUI_RENDERSYSTEM EQUAL 4)
