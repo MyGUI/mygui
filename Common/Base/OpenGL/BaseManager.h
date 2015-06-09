@@ -82,7 +82,6 @@ namespace base
 		SDL_Event mEvent;
 		SDL_Window* mWindow;
 		SDL_GLContext mContext;
-		SDL_Renderer* mRenderer;
 		std::string mRootMedia;
 		std::string mResourceFileName;
 		bool	mWindowOn;

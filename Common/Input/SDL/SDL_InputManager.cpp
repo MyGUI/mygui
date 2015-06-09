@@ -70,7 +70,7 @@ namespace input
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_l, MyGUI::KeyCode::L));
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_SEMICOLON, MyGUI::KeyCode::Semicolon));
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_QUOTEDBL, MyGUI::KeyCode::Apostrophe));
-		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::Grave));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_BACKQUOTE, MyGUI::KeyCode::Grave));
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_LSHIFT, MyGUI::KeyCode::LeftShift));
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_BACKSLASH, MyGUI::KeyCode::Backslash));
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_z, MyGUI::KeyCode::Z));
@@ -84,12 +84,83 @@ namespace input
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_PERIOD, MyGUI::KeyCode::Period));
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_SLASH, MyGUI::KeyCode::Slash));
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_RSHIFT, MyGUI::KeyCode::RightShift));
-		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_, MyGUI::KeyCode::Multiply));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_KP_MULTIPLY, MyGUI::KeyCode::Multiply));
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_LALT, MyGUI::KeyCode::LeftAlt));
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_SPACE, MyGUI::KeyCode::Space));
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_CAPSLOCK, MyGUI::KeyCode::Capital));
-		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, SC_F));
-		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, SC_F));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_F1, MyGUI::KeyCode::F1));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_F2, MyGUI::KeyCode::F2));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_F3, MyGUI::KeyCode::F3));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_F4, MyGUI::KeyCode::F4));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_F5, MyGUI::KeyCode::F5));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_F6, MyGUI::KeyCode::F6));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_F7, MyGUI::KeyCode::F7));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_F8, MyGUI::KeyCode::F8));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_F9, MyGUI::KeyCode::F9));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_F10, MyGUI::KeyCode::F10));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_NUMLOCKCLEAR, MyGUI::KeyCode::NumLock));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_SCROLLLOCK, MyGUI::KeyCode::ScrollLock));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_KP_7, MyGUI::KeyCode::Numpad7));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_KP_8, MyGUI::KeyCode::Numpad8));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_KP_9, MyGUI::KeyCode::Numpad9));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_KP_MINUS, MyGUI::KeyCode::Subtract));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_KP_4, MyGUI::KeyCode::Numpad4));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_KP_5, MyGUI::KeyCode::Numpad5));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_KP_6, MyGUI::KeyCode::Numpad6));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_KP_PLUS, MyGUI::KeyCode::Add));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_KP_1, MyGUI::KeyCode::Numpad1));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_KP_2, MyGUI::KeyCode::Numpad2));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_KP_3, MyGUI::KeyCode::Numpad3));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_KP_0, MyGUI::KeyCode::Numpad0));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_KP_PERIOD, MyGUI::KeyCode::Decimal));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::OEM_102));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_F11, MyGUI::KeyCode::F11));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_F12, MyGUI::KeyCode::F12));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_F13, MyGUI::KeyCode::F13));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_F14, MyGUI::KeyCode::F14));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_F15, MyGUI::KeyCode::F15));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::Kana));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::ABNT_C1));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::Convert));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::NoConvert));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::Yen));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::ABNT_C2));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_KP_EQUALS, MyGUI::KeyCode::NumpadEquals));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::PrevTrack));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::At));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::Colon));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::Underline));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::Kanji));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::Stop));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::AX));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::Unlabeled));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::NextTrack));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_KP_DIVIDE, MyGUI::KeyCode::NumpadEnter));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_RCTRL, MyGUI::KeyCode::RightControl));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::Mute));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::Calculator));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::PlayPause));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::MediaStop));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::VolumeDown));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::VolumeUp));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::WebHome));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::NumpadComma));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_KP_DIVIDE, MyGUI::KeyCode::Divide));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_SYSREQ, MyGUI::KeyCode::SysRq));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_RALT, MyGUI::KeyCode::RightAlt));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_PAUSE, MyGUI::KeyCode::Pause));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_HOME, MyGUI::KeyCode::Home));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_UP, MyGUI::KeyCode::ArrowUp));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_RIGHT, MyGUI::KeyCode::ArrowRight));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_END, MyGUI::KeyCode::End));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_DOWN, MyGUI::KeyCode::ArrowDown));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_PAGEDOWN, MyGUI::KeyCode::PageDown));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_INSERT, MyGUI::KeyCode::Insert));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_DELETE, MyGUI::KeyCode::Delete));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_LGUI, MyGUI::KeyCode::LeftWindows));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_RGUI, MyGUI::KeyCode::RightWindows));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_APPLICATION, MyGUI::KeyCode::AppMenu));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::));
 	}
 
 	void InputManager::buildMouseButtonMap()
@@ -156,11 +227,13 @@ namespace input
 			return false;
 		}
 		MyGUI::KeyCode myGuiKeyCode = mSDLVKeyMap[key];
-		//const char* ch = SDL_GetKeyName(key.keysym.sym);
 		if (text == NULL) {
-			text = SDL_GetKeyName(key);
+			injectKeyPress(myGuiKeyCode, NULL);
+		} 
+		else 
+		{
+			injectKeyPress(myGuiKeyCode, MyGUI::Char(*text));
 		}
-		injectKeyPress(myGuiKeyCode, MyGUI::Char(*text));
 		return true;
 	}
 

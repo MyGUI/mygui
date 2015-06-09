@@ -6,7 +6,6 @@
 #include "Precompiled.h"
 #include "BaseManager.h"
 #include "MyGUI_Diagnostic.h"
-#include <stdlib.h>		// for wctomb()
 
 #include <SDL_image.h>
 
@@ -26,7 +25,6 @@ namespace base
 	BaseManager::BaseManager() :
 		mGUI(nullptr),
 		mPlatform(nullptr),
-		mRenderer(nullptr),
 		mWindow(nullptr),
 		mContext(nullptr),
 		mExit(false),
@@ -104,10 +102,7 @@ namespace base
 				// keyboard events
 				case SDL_KEYDOWN:
 					mKeyCode = mEvent.key.keysym.sym;
-					if (mKeyCode == SDLK_BACKSPACE || mKeyCode == SDLK_RETURN) 
-					{
-						keyPressed(mKeyCode, NULL);
-					}
+					keyPressed(mKeyCode, NULL);
 					break;
 				case SDL_TEXTINPUT:
 					mInputText = mEvent.text.text[0];
@@ -215,10 +210,13 @@ namespace base
 
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise(mResourceFileName);
+
+		SDL_StartTextInput();
 	}
 
 	void BaseManager::destroyGui()
 	{
+		SDL_StopTextInput();
 		if (mGUI)
 		{
 			mGUI->shutdown();
@@ -270,11 +268,8 @@ namespace base
 
 	void BaseManager::setWindowCaption(const std::wstring& _text)
 	{
-		char mbs[256];				// the title should not be bigger than this array
-		size_t len = std::wcstombs(mbs, _text.c_str(), 256);
-		if (len != -1) {
-			SDL_SetWindowTitle(mWindow, mbs);
-		}
+		MyGUI::UString title(_text);
+		SDL_SetWindowTitle(mWindow, title.asUTF8_c_str());
 	}
 
 	void BaseManager::prepare()
@@ -334,9 +329,6 @@ namespace base
 
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
-		mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED);
-		MYGUI_ASSERT(mRenderer != nullptr, "Failed to create renderer.");
-		SDL_SetRenderDrawColor(mRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		return true;
 	}
 
@@ -350,8 +342,6 @@ namespace base
 
 	void BaseManager::destroyRender()
 	{
-		SDL_DestroyRenderer(mRenderer);
-		mRenderer = nullptr;
 	}
 
 	void* BaseManager::convertPixelData(SDL_Surface *_SDLimage, MyGUI::PixelFormat& _MyGuiPixelFormat)
