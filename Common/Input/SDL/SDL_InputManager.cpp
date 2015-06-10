@@ -151,6 +151,8 @@ namespace input
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_PAUSE, MyGUI::KeyCode::Pause));
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_HOME, MyGUI::KeyCode::Home));
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_UP, MyGUI::KeyCode::ArrowUp));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_PAGEUP, MyGUI::KeyCode::PageUp));
+		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_LEFT, MyGUI::KeyCode::ArrowLeft));
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_RIGHT, MyGUI::KeyCode::ArrowRight));
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_END, MyGUI::KeyCode::End));
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_DOWN, MyGUI::KeyCode::ArrowDown));
@@ -158,6 +160,7 @@ namespace input
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_INSERT, MyGUI::KeyCode::Insert));
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_DELETE, MyGUI::KeyCode::Delete));
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_LGUI, MyGUI::KeyCode::LeftWindows));
+		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::RightWindow));
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_RGUI, MyGUI::KeyCode::RightWindows));
 		mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(SDLK_APPLICATION, MyGUI::KeyCode::AppMenu));
 		//mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(, MyGUI::KeyCode::));
