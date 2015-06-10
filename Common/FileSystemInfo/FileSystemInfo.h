@@ -148,6 +148,8 @@ namespace common
 		if (dir == NULL)
 		{
 			/* opendir() failed */
+			MYGUI_LOG(Error, (std::string("Can't open ") + MyGUI::UString(_folder).asUTF8_c_str()));
+			return;
 		}
 
 		rewinddir (dir);
