@@ -127,7 +127,7 @@ namespace tools
 		tools::DataSelectorManager::getInstance().initialise();
 
 		bool maximized = SettingsManager::getInstance().getValue<bool>("Controls/Main/Maximized");
-		//setWindowMaximized(maximized);
+		setWindowMaximized(maximized);
 		if (!maximized)
 		{
 			MyGUI::IntCoord windowCoord = SettingsManager::getInstance().getValue<MyGUI::IntCoord>("Controls/Main/Coord");

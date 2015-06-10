@@ -74,12 +74,12 @@ namespace base
 		virtual void createGui();
 		virtual void destroyGui();
 
-        virtual void setWindowMaximized(bool _value);
+		virtual void setWindowMaximized(bool _value);
 		virtual bool getWindowMaximized();
 
 		virtual void setWindowCoord(const MyGUI::IntCoord& _value);
 		virtual MyGUI::IntCoord getWindowCoord();
-        
+
 	private:
 		void windowAdjustSettings(HWND hWnd, int width, int height, bool fullScreen);
 

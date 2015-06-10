@@ -71,7 +71,7 @@ namespace base
 		bool createRender(int _width, int _height, bool _windowed);
 		void drawOneFrame();
 		void destroyRender();
-		void* convertPixelData(SDL_Surface *_SDLimage, MyGUI::PixelFormat& _MyGuiPixelFormat);
+		void* convertPixelData(SDL_Surface *_image, MyGUI::PixelFormat& _myGuiPixelFormat);
 		void updateSDL_Keycode();
 
 	private:

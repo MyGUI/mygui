@@ -14,9 +14,6 @@
 #	undef delete
 #endif
 
-////for image loader
-//#include <malloc.h>
-
 // имя класса окна
 const char* WND_CLASS_NAME = "MyGUI_Demo_window";
 
@@ -342,43 +339,43 @@ namespace base
 	{
 	}
 
-	void* BaseManager::convertPixelData(SDL_Surface *_SDLimage, MyGUI::PixelFormat& _MyGuiPixelFormat)
+	void* BaseManager::convertPixelData(SDL_Surface *_image, MyGUI::PixelFormat& _myGuiPixelFormat)
 	{
 		void* ret = nullptr;
-		SDL_PixelFormat *format = _SDLimage->format;
+		SDL_PixelFormat *format = _image->format;
 		unsigned int bpp = format->BytesPerPixel;
 		switch (bpp) {
 		case 1:
-			_MyGuiPixelFormat = MyGUI::PixelFormat::L8;
+			_myGuiPixelFormat = MyGUI::PixelFormat::L8;
 			break;
 		case 2:
-			_MyGuiPixelFormat = MyGUI::PixelFormat::L8A8;
+			_myGuiPixelFormat = MyGUI::PixelFormat::L8A8;
 			break;
 		case 3:
-			_MyGuiPixelFormat = MyGUI::PixelFormat::R8G8B8;
+			_myGuiPixelFormat = MyGUI::PixelFormat::R8G8B8;
 			break;
 		case 4:
-			_MyGuiPixelFormat = MyGUI::PixelFormat::R8G8B8A8;
+			_myGuiPixelFormat = MyGUI::PixelFormat::R8G8B8A8;
 			break;
 		default:
 			break;
 		}
-		SDL_LockSurface(_SDLimage);
+		SDL_LockSurface(_image);
 
-		int pitchSrc = _SDLimage->pitch;	//the length of a row of pixels in bytes
-		int bppSrc = pitchSrc / _SDLimage->w;
-		size_t size = _SDLimage->h * pitchSrc;
+		int pitchSrc = _image->pitch;	//the length of a row of pixels in bytes
+		int bppSrc = pitchSrc / _image->w;
+		size_t size = _image->h * pitchSrc;
 		ret = new unsigned char[size];
-		unsigned char* ptr_source = (unsigned char*)_SDLimage->pixels;
+		unsigned char* ptr_source = (unsigned char*)_image->pixels;
 		unsigned char* ptr_dst = (unsigned char*)ret;
-		int pitchDst = _SDLimage->w * bpp;
+		int pitchDst = _image->w * bpp;
 		if (pitchSrc == pitchDst)
 		{
-			memcpy(ret, _SDLimage->pixels, size);
+			memcpy(ret, _image->pixels, size);
 		}
 		else
 		{
-			for (unsigned int y = 0; y < (unsigned int)_SDLimage->h; ++y)
+			for (unsigned int y = 0; y < (unsigned int)_image->h; ++y)
 			{
 				memcpy(ptr_dst, ptr_source, pitchDst);
 				ptr_dst += pitchDst;
@@ -386,7 +383,7 @@ namespace base
 			}
 		}
 
-		SDL_UnlockSurface(_SDLimage);
+		SDL_UnlockSurface(_image);
 		return ret;
 	}
 
