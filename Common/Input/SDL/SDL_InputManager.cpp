@@ -221,18 +221,23 @@ namespace input
 		return true;
 	}
 
-	bool InputManager::keyPressed(SDL_Keycode &key, const char* text)
+	bool InputManager::keyPressed(SDL_Keycode &key, const SDL_TextInputEvent* evt)
 	{
 		if (mSDLVKeyMap.count(key) == 0) {
 			return false;
 		}
 		MyGUI::KeyCode myGuiKeyCode = mSDLVKeyMap[key];
-		if (text == NULL) {
+		if (evt == nullptr) {
 			injectKeyPress(myGuiKeyCode, NULL);
 		} 
 		else 
 		{
-			injectKeyPress(myGuiKeyCode, MyGUI::Char(*text));
+			MyGUI::UString ustring(evt->text);
+			MyGUI::UString::utf32string utf32string = ustring.asUTF32();
+			for (MyGUI::UString::utf32string::const_iterator it = utf32string.begin(); it != utf32string.end(); ++it)
+			{
+				injectKeyPress(myGuiKeyCode, *it);
+			}
 		}
 		return true;
 	}

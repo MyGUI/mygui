@@ -29,7 +29,6 @@ namespace base
 		mContext(nullptr),
 		mExit(false),
 		mWindowOn(false),
-		mInputText(""),
 		mResourceFileName("MyGUI_Core.xml")
 	{
 		// initialize SDL
@@ -102,12 +101,11 @@ namespace base
 				// keyboard events
 				case SDL_KEYDOWN:
 					mKeyCode = mEvent.key.keysym.sym;
-					keyPressed(mKeyCode, NULL);
+					keyPressed(mKeyCode, nullptr);
 					break;
 				case SDL_TEXTINPUT:
-					mInputText = mEvent.text.text[0];
 					mKeyCode = SDLK_UNKNOWN;
-					keyPressed(mKeyCode, mInputText.c_str());
+					keyPressed(mKeyCode, &mEvent.text);
 					break;
 				case SDL_KEYUP:
 					keyReleased(mEvent.key);

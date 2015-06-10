@@ -85,7 +85,6 @@ namespace base
 		std::string mRootMedia;
 		std::string mResourceFileName;
 		bool	mWindowOn;
-		std::string mInputText;
 		SDL_Keycode	mKeyCode;
 		bool mTextUpdated;
 	};
