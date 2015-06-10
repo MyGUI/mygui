@@ -247,8 +247,6 @@ namespace base
 			return;
 
 		MyGUI::IntCoord coord = _value;
-		SDL_Rect screenRect;
-		MYGUI_ASSERT(SDL_GetDisplayBounds(0, &screenRect) != 0, "Failed to get screen size.");
 
 		SDL_SetWindowPosition(mWindow, coord.left, coord.top);
 	}
