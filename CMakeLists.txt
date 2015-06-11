@@ -111,7 +111,7 @@ option(MYGUI_STATIC "Static build" FALSE)
 option(MYGUI_USE_FREETYPE "Use freetype for font rendering" TRUE)
 option(MYGUI_DONT_USE_OBSOLETE "Remove obsole functions from build" FALSE)
 
-set(MYGUI_RENDERSYSTEM 4 CACHE STRING
+set(MYGUI_RENDERSYSTEM 3 CACHE STRING
 "Specify the Render System. Possible values:
   1 - Dummy
   2 - Export (latter)
@@ -145,7 +145,7 @@ MARK_AS_ADVANCED(MYGUI_STANDALONE_BUILD)
 option(MYGUI_GENERATE_LIST_FILES_FROM_VSPROJECT "Generate .list files from visual studio project files" FALSE)
 
 if (WIN32)
-	set(MYGUI_SAMPLES_INPUT 3 CACHE STRING
+	set(MYGUI_SAMPLES_INPUT 2 CACHE STRING
 	"Specify the Input Manager for samples. Possible values:
 	  1 - OIS
 	  2 - Win32
