@@ -4,6 +4,7 @@ include_directories(
  include
  ${MYGUI_SOURCE_DIR}/MyGUIEngine/include
  ${OGRE_INCLUDE_DIR}
+ ${OGRE_SOURCE_DIR}
 )
 
 include(${PROJECTNAME}.list)
