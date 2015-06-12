@@ -35,7 +35,7 @@ function(mygui_create_vcproj_userfile TARGETNAME)
 		else()
 			set(MYGUI_WIN_BUILD_CONFIGURATION "Win32")
 		endif()
-		
+
 		#FIXME
 		if (${CMAKE_GENERATOR} STREQUAL "Visual Studio 10" OR ${CMAKE_GENERATOR} STREQUAL "Visual Studio 10 Win64" OR
 			${CMAKE_GENERATOR} STREQUAL "Visual Studio 11" OR ${CMAKE_GENERATOR} STREQUAL "Visual Studio 11 Win64" OR
@@ -53,7 +53,7 @@ function(mygui_create_vcproj_userfile TARGETNAME)
 				@ONLY
 			)
 		endif ()
-		
+
 	endif ()
 endfunction(mygui_create_vcproj_userfile)
 
@@ -104,7 +104,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	)
 	# define the sources
 	include(${PROJECTNAME}.list)
-	
+
 	# Set up dependencies
 	if(MYGUI_RENDERSYSTEM EQUAL 1)
 		include_directories(../../Common/Base/Dummy)
@@ -152,8 +152,16 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 			${OPENGL_INCLUDE_DIR}
 		)
 		link_directories(${OPENGL_LIB_DIR})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
+		include_directories(../../Common/Base/Ogre)
+		add_definitions("-DMYGUI_OGRE2_PLATFORM")
+		include_directories(
+			${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include
+			${OGRE_INCLUDE_DIR}
+		)
+		link_directories(${OGRE_LIB_DIR})
 	endif()
-	
+
 	if(MYGUI_SAMPLES_INPUT EQUAL 1)
 		add_definitions("-DMYGUI_SAMPLES_INPUT_OIS")
 		include_directories(../../Common/Input/OIS)
@@ -166,7 +174,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		include_directories(../../Common/Input/Win32_OIS)
 		include_directories(${OIS_INCLUDE_DIRS})
 	endif()
-	
+
 	# setup demo target
 	if (${SOLUTIONFOLDER} STREQUAL "Wrappers")
 		add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
@@ -180,11 +188,11 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		add_executable(${PROJECTNAME} ${MYGUI_EXEC_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 	endif ()
 	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER ${SOLUTIONFOLDER})
-	
+
 	add_dependencies(${PROJECTNAME} MyGUIEngine Common)
 
 	mygui_config_sample(${PROJECTNAME})
-	
+
 	# link Common, Platform and MyGUIEngine
 	target_link_libraries(${PROJECTNAME}
 		Common
@@ -198,13 +206,16 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
 		add_dependencies(${PROJECTNAME} MyGUI.OpenGLPlatform)
 		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLPlatform)
-		
+
 		target_link_libraries(${PROJECTNAME} gdiplus)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
 		add_dependencies(${PROJECTNAME} MyGUI.OpenGL3Platform)
 		target_link_libraries(${PROJECTNAME} MyGUI.OpenGL3Platform)
-		
+
 		target_link_libraries(${PROJECTNAME} gdiplus)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
+		add_dependencies(${PROJECTNAME} MyGUI.Ogre2Platform)
+		target_link_libraries(${PROJECTNAME} MyGUI.Ogre2Platform)
 	endif()
 	target_link_libraries(${PROJECTNAME}
 		MyGUIEngine
@@ -282,21 +293,29 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 			${OPENGL_INCLUDE_DIR}
 		)
 		link_directories(${OPENGL_LIB_DIR})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
+		include_directories(../../Common/Base/Ogre)
+		add_definitions("-DMYGUI_OGRE2_PLATFORM")
+		include_directories(
+			${MYGUI_SOURCE_DIR}/Platforms/Ogre/Ogre2Platform/include
+			${OGRE_INCLUDE_DIR}
+		)
+		link_directories(${OGRE_LIB_DIR})
 	endif()
-	
-		
+
+
 	add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL")
 	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER ${SOLUTIONFOLDER})
 	add_dependencies(${PROJECTNAME} MyGUIEngine)
 	target_link_libraries(${PROJECTNAME} MyGUIEngine)
-	
+
 	mygui_config_lib(${PROJECTNAME})
-	
+
 	add_dependencies(${PROJECTNAME} MyGUIEngine Common)
 
 	mygui_config_sample(${PROJECTNAME})
-	
+
 	target_link_libraries(${PROJECTNAME}
 		Common
 	)
@@ -310,13 +329,16 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
 		add_dependencies(${PROJECTNAME} MyGUI.OpenGLPlatform)
 		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLPlatform)
-		
+
 		target_link_libraries(${PROJECTNAME} gdiplus)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
 		add_dependencies(${PROJECTNAME} MyGUI.OpenGL3Platform)
 		target_link_libraries(${PROJECTNAME} MyGUI.OpenGL3Platform)
-		
+
 		target_link_libraries(${PROJECTNAME} gdiplus)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
+		add_dependencies(${PROJECTNAME} MyGUI.Ogre2Platform)
+		target_link_libraries(${PROJECTNAME} MyGUI.Ogre2Platform)
 	endif()
 
 	target_link_libraries(${PROJECTNAME}
@@ -398,7 +420,7 @@ function(mygui_install_app PROJECTNAME)
 			CONFIGURATIONS RelWithDebInfo
 		)
 	endif ()
-	
+
 	mygui_install_target(${PROJECTNAME} "")
 endfunction(mygui_install_app)
 
@@ -406,16 +428,16 @@ endfunction(mygui_install_app)
 #setup Plugin builds
 function(mygui_plugin PROJECTNAME)
 	include_directories(.)
-	
+
 	# define the sources
 	include(${PROJECTNAME}.list)
-	
+
 	add_definitions("-D_USRDLL -DMYGUI_BUILD_DLL")
 	add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER "Plugins")
 	add_dependencies(${PROJECTNAME} MyGUIEngine)
 	target_link_libraries(${PROJECTNAME} MyGUIEngine)
-	
+
 	mygui_config_lib(${PROJECTNAME})
 
 	# Plugins are loaded at runtime and not linked at buildtime, so they should go to the same
@@ -452,7 +474,7 @@ function(mygui_config_lib PROJECTNAME)
 		endif ()
 	endif (MYGUI_STATIC)
 	mygui_install_target(${PROJECTNAME} "")
-	
+
 	if (MYGUI_INSTALL_PDB)
 		# install debug pdb files
 		if (MYGUI_STATIC)

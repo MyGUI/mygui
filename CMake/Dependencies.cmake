@@ -7,7 +7,7 @@
 set(MYGUI_DEPENDENCIES_DIR "Dependencies" CACHE PATH "Path to prebuilt MYGUI dependencies")
 include(FindPkgMacros)
 getenv_path(MYGUI_DEPENDENCIES_DIR)
-set(MYGUI_DEP_SEARCH_PATH 
+set(MYGUI_DEP_SEARCH_PATH
   ${MYGUI_DEPENDENCIES_DIR}
   ${ENV_MYGUI_DEPENDENCIES_DIR}
   "${MYGUI_BINARY_DIR}/Dependencies"
@@ -78,6 +78,10 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 7)
 		find_package(GLEW)
 		macro_log_feature(GLEW_FOUND "GLEW" "OpenGL Extension Wrangler Library" "" TRUE "" "")
 	endif()
+elseif(MYGUI_RENDERSYSTEM EQUAL 8)
+    # Find OGRE
+    find_package(OGRE_Old)
+    macro_log_feature(OGRE_FOUND "ogre" "Support for the Ogre render system" "" TRUE "" "")
 endif()
 
 #######################################################################
