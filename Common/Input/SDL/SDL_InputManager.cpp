@@ -177,11 +177,19 @@ namespace input
 	void InputManager::createInput()
 	{
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &InputManager::frameEvent);
+
+		// Removes default MyGUI system clipboard implementation, which is supported on Windows only
+		MyGUI::ClipboardManager::getInstance().eventClipboardChanged.clear();
+		MyGUI::ClipboardManager::getInstance().eventClipboardRequested.clear();
+		// Set the cross-platform SDL system clipboard handler
+		MyGUI::ClipboardManager::getInstance().eventClipboardChanged += MyGUI::newDelegate(this, &InputManager::onClipboardChanged);
+		MyGUI::ClipboardManager::getInstance().eventClipboardRequested += MyGUI::newDelegate(this, &InputManager::onClipboardRequested);
 	}
 
 	void InputManager::destroyInput()
 	{
-
+		MyGUI::ClipboardManager::getInstance().eventClipboardChanged -= MyGUI::newDelegate(this, &InputManager::onClipboardChanged);
+		MyGUI::ClipboardManager::getInstance().eventClipboardRequested -= MyGUI::newDelegate(this, &InputManager::onClipboardRequested);
 	}
 
 	void InputManager::updateCursorPosition()
@@ -285,4 +293,27 @@ namespace input
 		else if (mMouseY >= mHeight)
 			mMouseY = mHeight - 1;
 	}
+
+	void InputManager::onClipboardChanged(const std::string &_type, const std::string &_data)
+	{
+		if (_type == "Text")
+			SDL_SetClipboardText(MyGUI::TextIterator::getOnlyText(MyGUI::UString(_data)).asUTF8().c_str());
+	}
+
+	void InputManager::onClipboardRequested(const std::string &_type, std::string &_data)
+	{
+		if (_type != "Text")
+			return;
+		char* text=0;
+		text = SDL_GetClipboardText();
+		if (text)
+		{
+			// MyGUI's clipboard might still have color information, to retain that information, only set the new text
+			// if it actually changed (clipboard inserted by an external application)
+			if (MyGUI::TextIterator::getOnlyText(_data) != text)
+				_data = text;
+		}
+		SDL_free(text);
+	}
+
 } // namespace input
