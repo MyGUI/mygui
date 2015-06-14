@@ -7,6 +7,7 @@
 #ifndef POINTER_MANAGER_H_
 #define POINTER_MANAGER_H_
 
+#include <string>
 #include <SDL.h>
 
 namespace input
