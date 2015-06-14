@@ -211,7 +211,7 @@ namespace input
 		}
 	}
 
-	bool InputManager::mouseMoved(SDL_MouseMotionEvent &evt)
+	bool InputManager::mouseMoved(const SDL_MouseMotionEvent &evt)
 	{
 		mMouseX = evt.x;
 		mMouseY = evt.y;
@@ -219,21 +219,21 @@ namespace input
 		return true;
 	}
 
-	bool InputManager::mousePressed(SDL_MouseButtonEvent &evt)
+	bool InputManager::mousePressed(const SDL_MouseButtonEvent &evt)
 	{
 		computeMouseMove();
 		injectMousePress(mMouseX, mMouseY, mSDLMouseMap[evt.button]);
 		return true;
 	}
 
-	bool InputManager::mouseReleased(SDL_MouseButtonEvent &evt )
+	bool InputManager::mouseReleased(const SDL_MouseButtonEvent &evt )
 	{
 		computeMouseMove();
 		injectMouseRelease(mMouseX, mMouseY, mSDLMouseMap[evt.button]);
 		return true;
 	}
 
-	bool InputManager::keyPressed(SDL_Keycode &key, const SDL_TextInputEvent* evt)
+	bool InputManager::keyPressed(SDL_Keycode key, const SDL_TextInputEvent* evt)
 	{
 		if (mSDLVKeyMap.count(key) == 0) {
 			return false;
@@ -254,7 +254,7 @@ namespace input
 		return true;
 	}
 
-	bool InputManager::keyReleased(SDL_KeyboardEvent &key)
+	bool InputManager::keyReleased(const SDL_KeyboardEvent &key)
 	{
 		if (mSDLVKeyMap.count(key.keysym.sym) == 0) {
 			return false;
@@ -263,7 +263,7 @@ namespace input
 		return true;
 	}
 
-	bool InputManager::mouseWheelMoved(SDL_MouseWheelEvent &evt)
+	bool InputManager::mouseWheelMoved(const SDL_MouseWheelEvent &evt)
 	{
 		mMouseZ += evt.y;
 		mMouseMove = true;
