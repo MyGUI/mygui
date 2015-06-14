@@ -117,6 +117,9 @@ namespace base
 				case SDL_MOUSEBUTTONUP:
 					mouseReleased(mEvent.button);
 					break;
+				case SDL_MOUSEWHEEL:
+					mouseWheelMoved(mEvent.wheel);
+					break;
 					// drop file events
 				case SDL_DROPFILE:
 					break;

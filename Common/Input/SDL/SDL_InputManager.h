@@ -48,6 +48,7 @@ namespace input
 		virtual bool mouseReleased(SDL_MouseButtonEvent &evt);
 		virtual bool keyPressed(SDL_Keycode &key, const SDL_TextInputEvent* evt);
 		virtual bool keyReleased(SDL_KeyboardEvent &key);
+		virtual bool mouseWheelMoved(SDL_MouseWheelEvent &evt);
 
 		void checkPosition();
 

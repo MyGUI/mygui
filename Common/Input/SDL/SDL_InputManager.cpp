@@ -262,6 +262,12 @@ namespace input
 		return true;
 	}
 
+	bool InputManager::mouseWheelMoved(SDL_MouseWheelEvent &evt)
+	{
+		mMouseZ += evt.y;
+		mMouseMove = true;
+	}
+
 	void InputManager::captureInput()
 	{
 	}
