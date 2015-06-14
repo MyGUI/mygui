@@ -3,107 +3,50 @@
 	@author		Albert Semenov
 	@date		05/2009
 */
-
-
 #include "Precompiled.h"
-#include <windows.h>
+#include "BaseManager.h"
+#include "MyGUI_Diagnostic.h"
+
+#include <SDL_image.h>
 
 #ifdef MYGUI_CHECK_MEMORY_LEAKS
 #	undef new
 #	undef delete
 #endif
 
-#include <gdiplus.h>
-#include "BaseManager.h"
-
-#include <GL/gl.h>
-
-//for image loader
-#include <malloc.h>
-
-#ifdef __MINGW32__
-using namespace Gdiplus;
-#endif
-
 // имя класса окна
 const char* WND_CLASS_NAME = "MyGUI_Demo_window";
 
-LRESULT CALLBACK DXWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
-{
-	switch (uMsg)
-	{
-	case WM_CREATE:
-	{
-		SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)((LPCREATESTRUCT)lParam)->lpCreateParams);
-		break;
-	}
-
-	case WM_MOVE:
-	case WM_SIZE:
-	{
-		base::BaseManager* baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
-		if (baseManager)
-			baseManager->_windowResized();
-		break;
-	}
-
-	case WM_CLOSE:
-	{
-		base::BaseManager* baseManager = (base::BaseManager*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
-		if (baseManager)
-			baseManager->quit();
-	}
-
-	case WM_DESTROY:
-	{
-		PostQuitMessage(0);
-		break;
-	}
-
-	default:
-	{
-		return DefWindowProc(hWnd, uMsg, wParam, lParam);
-	}
-	}
-	return 0;
-}
-
 namespace base
 {
-
-	ULONG_PTR gdiplusToken;
-
 	BaseManager::BaseManager() :
 		mGUI(nullptr),
 		mPlatform(nullptr),
-		hWnd(0),
-		hDC(0),
-		hRC(0),
+		mWindow(nullptr),
+		mContext(nullptr),
 		mExit(false),
+		mWindowOn(false),
 		mResourceFileName("MyGUI_Core.xml")
 	{
-		Gdiplus::GdiplusStartupInput gdiplusStartupInput;
-		Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
+		// initialize SDL
+		MYGUI_ASSERT(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_EVENTS) == 0, "Failed initializing SDL.");
+		// initialize SDL_image
+		MYGUI_ASSERT(IMG_Init(~0) != 0, "Failed to initializing SDL_image");
 	}
 
 	BaseManager::~BaseManager()
 	{
-		Gdiplus::GdiplusShutdown(gdiplusToken);
+		SDL_GL_DeleteContext(mContext);
+		IMG_Quit();
+		SDL_Quit();
 	}
 
-	void BaseManager::_windowResized()
-	{
-		RECT rect = { 0, 0, 0, 0 };
-		GetClientRect(hWnd, &rect);
-		int width = rect.right - rect.left;
-		int height = rect.bottom - rect.top;
-
-		resizeRender(width, height);
-
+	void BaseManager::_windowResized( int w, int h )
+{
 		if (mPlatform)
-			mPlatform->getRenderManagerPtr()->setViewSize(width, height);
+			mPlatform->getRenderManagerPtr()->setViewSize(w, h);
 
-		setInputViewSize(width, height);
+		setInputViewSize(w, h);
 	}
 
 	bool BaseManager::create(int _width, int _height)
@@ -112,38 +55,17 @@ namespace base
 		const unsigned int height = _height;
 		bool windowed = true;
 
-		// регистрируем класс окна
-		WNDCLASS wc =
-		{
-			0, (WNDPROC)DXWndProc, 0, 0, GetModuleHandle(NULL), LoadIcon(NULL, MAKEINTRESOURCE(1001)),
-			LoadCursor(NULL, IDC_ARROW), (HBRUSH)GetStockObject(BLACK_BRUSH), NULL, TEXT(WND_CLASS_NAME),
-		};
-		RegisterClass(&wc);
+		// create window and position it at the center of the screen
+		SDL_DisplayMode currDisp;
+		MYGUI_ASSERT(SDL_GetCurrentDisplayMode(0, &currDisp) == 0, "Failed to retrieve screen info.");
+		int left = (currDisp.w - width) / 2;
+		int top = (currDisp.h - height) / 2;
 
-		// создаем главное окно
-		hWnd = CreateWindow(wc.lpszClassName, TEXT("OpenGL Render Window"), WS_POPUP,
-			0, 0, 0, 0, GetDesktopWindow(), NULL, wc.hInstance, this);
-		if (!hWnd)
-		{
-			//OutException("fatal error!", "failed create window");
-			return false;
-		}
-
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		char buf[MAX_PATH];
-		::GetModuleFileNameA(0, (LPCH)&buf, MAX_PATH);
-		HINSTANCE instance = ::GetModuleHandleA(buf);
-		HICON hIconSmall = static_cast<HICON>(LoadImage(instance, MAKEINTRESOURCE(1001), IMAGE_ICON, 32, 32, LR_DEFAULTSIZE));
-		HICON hIconBig = static_cast<HICON>(LoadImage(instance, MAKEINTRESOURCE(1001), IMAGE_ICON, 256, 256, LR_DEFAULTSIZE));
-		if (hIconSmall)
-			::SendMessageA(hWnd, WM_SETICON, 0, (LPARAM)hIconSmall);
-		if (hIconBig)
-			::SendMessageA(hWnd, WM_SETICON, 1, (LPARAM)hIconBig);
-	#endif
-
-		hInstance = wc.hInstance;
-
-		windowAdjustSettings(hWnd, width, height, !windowed);
+		mWindow = SDL_CreateWindow("OpenGL Render Window", left, top, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+		MYGUI_ASSERT(mWindow != nullptr, "Failed to create SDL window.");
+		mContext = SDL_GL_CreateContext(mWindow);
+		MYGUI_ASSERT(mContext != nullptr, "Failed to create SDL context.");
+		mWindowOn = true;
 
 		if (!createRender(width, height, windowed))
 		{
@@ -152,37 +74,82 @@ namespace base
 
 		createGui();
 
-		createInput((size_t)hWnd);
+		createInput();
 
-		createPointerManager((size_t)hWnd);
+		createPointerManager();
+
+		// this needs to be called before createScene() since some demos require
+		// screen size to properly position the widgets
+		_windowResized(width, height);
 
 		createScene();
-
-		_windowResized();
 
 		return true;
 	}
 
 	void BaseManager::run()
 	{
-		MSG msg;
-		while (true)
+		while (!mExit)
 		{
-			while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+			while (SDL_PollEvent(&mEvent) != 0)
 			{
-				TranslateMessage(&msg);
-				DispatchMessage(&msg);
+				switch (mEvent.type)
+				{
+				// keyboard events
+				case SDL_KEYDOWN:
+					mKeyCode = mEvent.key.keysym.sym;
+					keyPressed(mKeyCode, nullptr);
+					break;
+				case SDL_TEXTINPUT:
+					mKeyCode = SDLK_UNKNOWN;
+					keyPressed(mKeyCode, &mEvent.text);
+					break;
+				case SDL_KEYUP:
+					keyReleased(mEvent.key);
+					break;
+				// mouse events
+				case SDL_MOUSEMOTION:
+					mouseMoved(mEvent.motion);
+					break;
+				case SDL_MOUSEBUTTONDOWN:
+					mousePressed(mEvent.button);
+					break;
+				case SDL_MOUSEBUTTONUP:
+					mouseReleased(mEvent.button);
+					break;
+					// drop file events
+				case SDL_DROPFILE:
+					break;
+					// windows events
+				case SDL_WINDOWEVENT:
+					switch (mEvent.window.event)
+					{
+					case SDL_WINDOWEVENT_CLOSE:
+						mExit = true;
+						break;
+					case SDL_WINDOWEVENT_RESIZED:
+						_windowResized(mEvent.window.data1, mEvent.window.data2);
+						break;
+					case SDL_WINDOWEVENT_SHOWN:
+					case SDL_WINDOWEVENT_RESTORED:
+					case SDL_WINDOWEVENT_EXPOSED:
+					case SDL_WINDOWEVENT_MAXIMIZED:
+						mWindowOn = true;
+						break;
+					case SDL_WINDOWEVENT_MINIMIZED:
+					case SDL_WINDOWEVENT_HIDDEN:
+						mWindowOn = false;
+					default:
+						break;
+					}
+					break;
+				default:
+					break;
+				}
 			}
-			if (mExit)
-				break;
-			else if (msg.message == WM_QUIT)
-				break;
-
-			captureInput();
 			drawOneFrame();
-
-			if (GetActiveWindow() != hWnd)
-				::Sleep(50);
+			if (!mWindowOn)
+				SDL_Delay(50);
 		}
 	}
 
@@ -198,13 +165,6 @@ namespace base
 
 		destroyRender();
 
-		if (hWnd)
-		{
-			DestroyWindow(hWnd);
-			hWnd = 0;
-		}
-
-		UnregisterClass(WND_CLASS_NAME, hInstance);
 	}
 
 	void BaseManager::setupResources()
@@ -245,10 +205,13 @@ namespace base
 
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise(mResourceFileName);
+
+		SDL_StartTextInput();
 	}
 
 	void BaseManager::destroyGui()
 	{
+		SDL_StopTextInput();
 		if (mGUI)
 		{
 			mGUI->shutdown();
@@ -264,14 +227,42 @@ namespace base
 		}
 	}
 
-	size_t BaseManager::getWindowHandle()
+	void BaseManager::setWindowMaximized(bool _value)
 	{
-		return (size_t)hWnd;
+		if (mWindow != nullptr && _value)
+		{
+			SDL_MaximizeWindow(mWindow);
+		}
+	}
+
+	bool BaseManager::getWindowMaximized()
+	{
+		Uint32 windowState = SDL_GetWindowFlags(mWindow);
+		return windowState & SDL_WINDOW_MAXIMIZED || windowState & SDL_WINDOW_FULLSCREEN;
+	}
+
+	void BaseManager::setWindowCoord(const MyGUI::IntCoord& _value)
+	{
+		if (_value.empty())
+			return;
+
+		MyGUI::IntCoord coord = _value;
+
+		SDL_SetWindowPosition(mWindow, coord.left, coord.top);
+	}
+
+	MyGUI::IntCoord BaseManager::getWindowCoord()
+	{
+		int left, top, width, height;
+		SDL_GetWindowPosition(mWindow, &left, &top);
+		SDL_GetWindowSize(mWindow, &width, &height);
+		return MyGUI::IntCoord(left, top, width, height);
 	}
 
 	void BaseManager::setWindowCaption(const std::wstring& _text)
 	{
-		SetWindowTextW(hWnd, _text.c_str());
+		MyGUI::UString title(_text);
+		SDL_SetWindowTitle(mWindow, title.asUTF8_c_str());
 	}
 
 	void BaseManager::prepare()
@@ -281,43 +272,6 @@ namespace base
 	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)
 	{
 		mPlatform->getDataManagerPtr()->addResourceLocation(_name, _recursive);
-	}
-
-	void BaseManager::windowAdjustSettings(HWND hWnd, int width, int height, bool fullScreen)
-	{
-		// стиль окна
-		HWND hwndAfter = 0;
-		unsigned long style = 0;
-		unsigned long style_ex = 0;
-
-		RECT rc = { 0, 0, width, height };
-
-		if (fullScreen)
-		{
-			style = WS_POPUP | WS_VISIBLE;
-			style_ex = GetWindowLongPtr(hWnd, GWL_EXSTYLE) | (WS_EX_TOPMOST);
-			hwndAfter = HWND_TOPMOST;
-		}
-		else
-		{
-			style = WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU | WS_THICKFRAME;
-			style_ex = GetWindowLongPtr(hWnd, GWL_EXSTYLE) & (~WS_EX_TOPMOST);
-			hwndAfter = HWND_NOTOPMOST;
-			AdjustWindowRect(&rc, style, false);
-		}
-
-		SetWindowLongPtr(hWnd, GWL_STYLE, style);
-		SetWindowLongPtr(hWnd, GWL_EXSTYLE, style_ex);
-
-		int desk_width  = GetSystemMetrics(SM_CXSCREEN);
-		int desk_height = GetSystemMetrics(SM_CYSCREEN);
-
-		int w = rc.right - rc.left;
-		int h = rc.bottom - rc.top;
-		int x = fullScreen ? 0 : (desk_width  - w) / 2;
-		int y = fullScreen ? 0 : (desk_height - h) / 2;
-
-		SetWindowPos(hWnd, hwndAfter, x, y, w, h, SWP_FRAMECHANGED | SWP_SHOWWINDOW);
 	}
 
 	void BaseManager::injectMouseMove(int _absx, int _absy, int _absz)
@@ -366,251 +320,103 @@ namespace base
 		MyGUI::InputManager::getInstance().injectKeyRelease(_key);
 	}
 
-	void BaseManager::resizeRender(int _width, int _height)
-	{
-		if (_height == 0)
-			_height = 1;
-
-		glViewport(0, 0, _width, _height);
-	}
-
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
-		BYTE bits = 16;
-
-		static PIXELFORMATDESCRIPTOR pfd =
-		{
-			sizeof(PIXELFORMATDESCRIPTOR),
-			1,
-			PFD_DRAW_TO_WINDOW | // Format Must Support Window
-			PFD_SUPPORT_OPENGL | // Format Must Support OpenGL
-			PFD_DOUBLEBUFFER, // Must Support Double Buffering
-			PFD_TYPE_RGBA, // Request An RGBA Format
-			bits, // Select Our Color Depth
-			0, 0, 0, 0, 0, 0, // Color Bits Ignored
-			0, // No Alpha Buffer
-			0, // Shift Bit Ignored
-			0, // No Accumulation Buffer
-			0, 0, 0, 0, // Accumulation Bits Ignored
-			16, // 16Bit Z-Buffer (Depth Buffer)
-			0, // No Stencil Buffer
-			0, // No Auxiliary Buffer
-			PFD_MAIN_PLANE, // Main Drawing Layer
-			0, // Reserved
-			0, 0, 0 // Layer Masks Ignored
-		};
-
-		GLuint pixel_format;
-
-		hDC = GetDC(hWnd);
-		if (!hDC)
-		{
-			return false;
-		}
-
-		pixel_format = ChoosePixelFormat(hDC, &pfd);
-		if (!pixel_format)
-		{
-			return false;
-		}
-
-		if (!SetPixelFormat(hDC, pixel_format, &pfd))
-		{
-			return false;
-		}
-
-		hRC = wglCreateContext(hDC);
-		if (!hRC)
-		{
-			return false;
-		}
-
-		if (!wglMakeCurrent(hDC, hRC))
-		{
-			return false;
-		}
-
-		glShadeModel(GL_SMOOTH);
-		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-		glClearDepth(1.0f);
-		glEnable(GL_DEPTH_TEST);
-		glDepthFunc(GL_LEQUAL);
-		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-
 		return true;
 	}
 
 	void BaseManager::drawOneFrame()
 	{
-		// First we clear the screen and depth buffer
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		// Then we reset the modelview matrix
-		glLoadIdentity();
-
 		if (mPlatform)
 			mPlatform->getRenderManagerPtr()->drawOneFrame();
 
-		SwapBuffers(hDC);
+		SDL_GL_SwapWindow(mWindow);
 	}
 
 	void BaseManager::destroyRender()
 	{
-		if (hRC)
-		{
-			if (!wglMakeCurrent(NULL, NULL))
-			{
-			}
-			if (!wglDeleteContext(hRC))
-			{
-			}
-			hRC = 0;
-		}
-
-		if (hDC && !ReleaseDC(hWnd, hDC))
-		{
-			hDC = 0;
-		}
 	}
 
-	void convertRawData(Gdiplus::BitmapData* _out_data, void* _result, size_t _size, MyGUI::PixelFormat _format)
+	void* BaseManager::convertPixelData(SDL_Surface *_image, MyGUI::PixelFormat& _myGuiPixelFormat)
 	{
-		size_t num = 0;
+		void* ret = nullptr;
+		SDL_PixelFormat *format = _image->format;
+		unsigned int bpp = format->BytesPerPixel;
+		switch (bpp) {
+		case 1:
+			_myGuiPixelFormat = MyGUI::PixelFormat::L8;
+			break;
+		case 2:
+			_myGuiPixelFormat = MyGUI::PixelFormat::L8A8;
+			break;
+		case 3:
+			_myGuiPixelFormat = MyGUI::PixelFormat::R8G8B8;
+			break;
+		case 4:
+			_myGuiPixelFormat = MyGUI::PixelFormat::R8G8B8A8;
+			break;
+		default:
+			break;
+		}
+		SDL_LockSurface(_image);
 
-		if (_format == MyGUI::PixelFormat::L8)
+		int pitchSrc = _image->pitch;	//the length of a row of pixels in bytes
+		int bppSrc = pitchSrc / _image->w;
+		size_t size = _image->h * pitchSrc;
+		ret = new unsigned char[size];
+		unsigned char* ptr_source = (unsigned char*)_image->pixels;
+		unsigned char* ptr_dst = (unsigned char*)ret;
+		int pitchDst = _image->w * bpp;
+		if (pitchSrc == pitchDst)
 		{
-			num = 1;
-		}
-		if (_format == MyGUI::PixelFormat::L8A8)
-		{
-			num = 2;
-		}
-		if (_format == MyGUI::PixelFormat::R8G8B8)
-		{
-			num = 3;
-		}
-		else if (_format == MyGUI::PixelFormat::R8G8B8A8)
-		{
-			num = 4;
+			memcpy(ret, _image->pixels, size);
 		}
 		else
 		{
-			return;
-		}
-
-		unsigned char* ptr_source = (unsigned char*)_out_data->Scan0;
-		unsigned char* ptr_dest = (unsigned char*)_result;
-
-		size_t stride_source = _out_data->Stride;
-		size_t stride_dest = _out_data->Width * num;
-
-		if (stride_dest == stride_source)
-		{
-			memcpy(_result, _out_data->Scan0, _size);
-		}
-		else
-		{
-			for (unsigned int y = 0; y < _out_data->Height; ++y)
+			for (unsigned int y = 0; y < (unsigned int)_image->h; ++y)
 			{
-				memcpy(ptr_dest, ptr_source, stride_dest);
-				ptr_dest += stride_dest;
-				ptr_source += stride_source;
+				memcpy(ptr_dst, ptr_source, pitchDst);
+				ptr_dst += pitchDst;
+				ptr_source += pitchSrc;
 			}
 		}
+
+		SDL_UnlockSurface(_image);
+		return ret;
 	}
 
 	void* BaseManager::loadImage(int& _width, int& _height, MyGUI::PixelFormat& _format, const std::string& _filename)
 	{
 		std::string fullname = MyGUI::OpenGLDataManager::getInstance().getDataPath(_filename);
+		void* result = nullptr;
+		SDL_Surface *image = nullptr;
+		SDL_Surface *cvtImage = nullptr;		// converted surface with RGBA/RGB pixel format
+		image = IMG_Load(fullname.c_str());
+		if (image != nullptr) {
+			_width = image->w;
+			_height = image->h;
 
-		void* result = 0;
-
-		Gdiplus::Bitmap* image = Gdiplus::Bitmap::FromFile(MyGUI::UString(fullname).asWStr_c_str());
-		if (image)
-		{
-			_width = image->GetWidth();
-			_height = image->GetHeight();
-			Gdiplus::PixelFormat format = image->GetPixelFormat();
-
-			if (format == PixelFormat24bppRGB)
-				_format = MyGUI::PixelFormat::R8G8B8;
-			else if (format == PixelFormat32bppARGB)
-				_format = MyGUI::PixelFormat::R8G8B8A8;
-			else
-				_format = MyGUI::PixelFormat::Unknow;
-
-			if (_format != MyGUI::PixelFormat::Unknow)
+			int bpp = image->format->BytesPerPixel;
+			if (bpp < 3) 
 			{
-				Gdiplus::Rect rect(0, 0, _width, _height);
-				Gdiplus::BitmapData out_data;
-				image->LockBits(&rect, Gdiplus::ImageLockModeRead, format, &out_data);
-
-				size_t size = out_data.Height * out_data.Stride;
-				result = new unsigned char[size];
-
-				convertRawData(&out_data, result, size, _format);
-
-				image->UnlockBits(&out_data);
+				result = convertPixelData(image, _format);
 			}
-
-			delete image;
+			else 
+			{
+				Uint32 pixelFmt = bpp == 3 ? SDL_PIXELFORMAT_BGR24 : SDL_PIXELFORMAT_ARGB8888;
+				cvtImage = SDL_ConvertSurfaceFormat(image, pixelFmt, 0);
+				result = convertPixelData(cvtImage, _format);
+				SDL_FreeSurface(cvtImage);
+			}
+			SDL_FreeSurface(image);
 		}
-
+		MYGUI_ASSERT(result != nullptr, "Failed to load image.");
 		return result;
 	}
 
 	void BaseManager::saveImage(int _width, int _height, MyGUI::PixelFormat _format, void* _texture, const std::string& _filename)
 	{
-		Gdiplus::PixelFormat format;
-		int bpp;
 
-		if (_format == MyGUI::PixelFormat::R8G8B8A8)
-		{
-			bpp = 4;
-			format = PixelFormat32bppARGB;
-		}
-		else if (_format == MyGUI::PixelFormat::R8G8B8)
-		{
-			bpp = 3;
-			format = PixelFormat24bppRGB;
-		}
-		else if (_format == MyGUI::PixelFormat::L8A8)
-		{
-			bpp = 2;
-			format = PixelFormat16bppGrayScale;
-		}
-		else
-		{
-			MYGUI_LOG(Error, "Unsuitable texture format for saving.");
-			return;
-		}
-
-		UINT num, size;
-		Gdiplus::GetImageEncodersSize(&num, &size);
-
-		Gdiplus::ImageCodecInfo* imageCodecInfo = (Gdiplus::ImageCodecInfo*)malloc(size);
-		GetImageEncoders(num, size, imageCodecInfo);
-
-		CLSID* pngClsid = NULL;
-		for (UINT j = 0; j < num; ++j)
-		{
-			if (wcscmp(imageCodecInfo[j].MimeType, L"image/png") == 0)
-			{
-				pngClsid = &imageCodecInfo[j].Clsid;
-				break;
-			}
-		}
-
-		if (pngClsid == NULL)
-		{
-			MYGUI_LOG(Error, "png codec not found");
-			return;
-		}
-
-		Gdiplus::Bitmap image(_width, _height, bpp * _width, format, (BYTE*)_texture);
-
-		HRESULT res = image.Save(MyGUI::UString(_filename).asWStr_c_str(), pngClsid, NULL);
-		if (res != S_OK)
-			MYGUI_LOG(Error, "Texture saving error. result = " << res);
 	}
 
 	void BaseManager::quit()

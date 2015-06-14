@@ -323,7 +323,7 @@ namespace demo
 
 		getStatisticInfo()->change("COUNT", all_widgets.size());
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		::Sleep(10);
 #endif
 
