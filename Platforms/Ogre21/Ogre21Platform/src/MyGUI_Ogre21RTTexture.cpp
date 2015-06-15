@@ -5,13 +5,13 @@
 */
 
 #include <cstring>
-#include "MyGUI_Ogre2RTTexture.h"
-#include "MyGUI_Ogre2RenderManager.h"
+#include "MyGUI_Ogre21RTTexture.h"
+#include "MyGUI_Ogre21RenderManager.h"
 
 namespace MyGUI
 {
 
-	Ogre2RTTexture::Ogre2RTTexture(Ogre::TexturePtr _texture) :
+	Ogre21RTTexture::Ogre21RTTexture(Ogre::TexturePtr _texture) :
 		mViewport(nullptr),
 		mSaveViewport(nullptr),
 		mTexture(_texture)
@@ -44,11 +44,11 @@ namespace MyGUI
 		}
 	}
 
-	Ogre2RTTexture::~Ogre2RTTexture()
+	Ogre21RTTexture::~Ogre21RTTexture()
 	{
 	}
 
-	void Ogre2RTTexture::begin()
+	void Ogre21RTTexture::begin()
 	{
 		Ogre::RenderTexture* rtt = mTexture->getBuffer()->getRenderTarget();
 
@@ -65,7 +65,7 @@ namespace MyGUI
 		system->clearFrameBuffer(Ogre::FBT_COLOUR, Ogre::ColourValue::ZERO);
 	}
 
-	void Ogre2RTTexture::end()
+	void Ogre21RTTexture::end()
 	{
 		Ogre::RenderSystem* system = Ogre::Root::getSingleton().getRenderSystem();
 		system->_setViewport(mSaveViewport);
@@ -77,9 +77,9 @@ namespace MyGUI
 #endif
 	}
 
-	void Ogre2RTTexture::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
+	void Ogre21RTTexture::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		Ogre2RenderManager::getInstance().doRender(_buffer, _texture, _count);
+		Ogre21RenderManager::getInstance().doRender(_buffer, _texture, _count);
 	}
 
 } // namespace MyGUI

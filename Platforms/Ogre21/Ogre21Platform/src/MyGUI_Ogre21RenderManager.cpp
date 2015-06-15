@@ -4,28 +4,28 @@
 	@date		04/2008
 */
 
-#include "MyGUI_Ogre2DataManager.h"
-#include "MyGUI_Ogre2RenderManager.h"
-#include "MyGUI_Ogre2Texture.h"
-#include "MyGUI_Ogre2VertexBuffer.h"
-#include "MyGUI_Ogre2Diagnostic.h"
+#include "MyGUI_Ogre21DataManager.h"
+#include "MyGUI_Ogre21RenderManager.h"
+#include "MyGUI_Ogre21Texture.h"
+#include "MyGUI_Ogre21VertexBuffer.h"
+#include "MyGUI_Ogre21Diagnostic.h"
 #include "MyGUI_Timer.h"
 #include "MyGUI_Gui.h"
 
 namespace MyGUI
 {
-	const Ogre::uint8 Ogre2RenderManager::RENDER_QUEUE_OVERLAY = 254;
+	const Ogre::uint8 Ogre21RenderManager::RENDER_QUEUE_OVERLAY = 254;
 
-	Ogre2RenderManager& Ogre2RenderManager::getInstance()
+	Ogre21RenderManager& Ogre21RenderManager::getInstance()
 	{
 		return *getInstancePtr();
 	}
-	Ogre2RenderManager* Ogre2RenderManager::getInstancePtr()
+	Ogre21RenderManager* Ogre21RenderManager::getInstancePtr()
 	{
-		return static_cast<Ogre2RenderManager*>(RenderManager::getInstancePtr());
+		return static_cast<Ogre21RenderManager*>(RenderManager::getInstancePtr());
 	}
 
-	Ogre2RenderManager::Ogre2RenderManager() :
+	Ogre21RenderManager::Ogre21RenderManager() :
 		mUpdate(false),
 		mSceneManager(nullptr),
 		mWindow(nullptr),
@@ -37,7 +37,7 @@ namespace MyGUI
 	{
 	}
 
-	void Ogre2RenderManager::initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene)
+	void Ogre21RenderManager::initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene)
 	{
 		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
@@ -54,13 +54,13 @@ namespace MyGUI
 		setRenderWindow(_window);
 		setSceneManager(_scene);
 
-		mQueueMoveable = new Ogre2GuiMoveable(_scene);
+		mQueueMoveable = new Ogre21GuiMoveable(_scene);
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
 
-	void Ogre2RenderManager::shutdown()
+	void Ogre21RenderManager::shutdown()
 	{
 		MYGUI_PLATFORM_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
@@ -75,7 +75,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void Ogre2RenderManager::setRenderSystem(Ogre::RenderSystem* _render)
+	void Ogre21RenderManager::setRenderSystem(Ogre::RenderSystem* _render)
 	{
 		// отписываемся
 		if (mRenderSystem != nullptr)
@@ -102,12 +102,12 @@ namespace MyGUI
 		}
 	}
 
-	Ogre::RenderSystem* Ogre2RenderManager::getRenderSystem()
+	Ogre::RenderSystem* Ogre21RenderManager::getRenderSystem()
 	{
 		return mRenderSystem;
 	}
 
-	void Ogre2RenderManager::setRenderWindow(Ogre::RenderWindow* _window)
+	void Ogre21RenderManager::setRenderWindow(Ogre::RenderWindow* _window)
 	{
 		// отписываемся
 		if (mWindow != nullptr)
@@ -132,7 +132,7 @@ namespace MyGUI
 		}
 	}
 
-	void Ogre2RenderManager::setSceneManager(Ogre::SceneManager* _scene)
+	void Ogre21RenderManager::setSceneManager(Ogre::SceneManager* _scene)
 	{
 		if (nullptr != mSceneManager)
 		{
@@ -148,12 +148,12 @@ namespace MyGUI
 		}
 	}
 
-	Ogre::SceneManager* Ogre2RenderManager::getSceneManager()
+	Ogre::SceneManager* Ogre21RenderManager::getSceneManager()
 	{
 		return mSceneManager;
 	}
 
-	void Ogre2RenderManager::setActiveViewport(unsigned short _num)
+	void Ogre21RenderManager::setActiveViewport(unsigned short _num)
 	{
 		mActiveViewport = _num;
 
@@ -172,7 +172,7 @@ namespace MyGUI
 		}
 	}
 
-	void Ogre2RenderManager::renderQueueStarted( Ogre::RenderQueue *rq, Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation )
+	void Ogre21RenderManager::renderQueueStarted( Ogre::RenderQueue *rq, Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation )
 	{
 
 		Gui* gui = Gui::getInstancePtr();
@@ -201,7 +201,7 @@ namespace MyGUI
 		mUpdate = false;
 	}
 
-	void Ogre2RenderManager::eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters)
+	void Ogre21RenderManager::eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters)
 	{
 		if (eventName == "DeviceLost")
 		{
@@ -213,18 +213,18 @@ namespace MyGUI
 		}
 	}
 
-	IVertexBuffer* Ogre2RenderManager::createVertexBuffer()
+	IVertexBuffer* Ogre21RenderManager::createVertexBuffer()
 	{
-		return new Ogre2VertexBuffer();
+		return new Ogre21VertexBuffer();
 	}
 
-	void Ogre2RenderManager::destroyVertexBuffer(IVertexBuffer* _buffer)
+	void Ogre21RenderManager::destroyVertexBuffer(IVertexBuffer* _buffer)
 	{
 		delete _buffer;
 	}
 
 	// для оповещений об изменении окна рендера
-	void Ogre2RenderManager::windowResized(Ogre::RenderWindow* _window)
+	void Ogre21RenderManager::windowResized(Ogre::RenderWindow* _window)
 	{
 
 		mViewSize.set(_window->getWidth(), _window->getHeight());
@@ -237,7 +237,7 @@ namespace MyGUI
 		onResizeView(mViewSize);
 	}
 
-	void Ogre2RenderManager::updateRenderInfo()
+	void Ogre21RenderManager::updateRenderInfo()
 	{
 		if (mRenderSystem != nullptr)
 		{
@@ -250,35 +250,35 @@ namespace MyGUI
 		}
 	}
 
-	void Ogre2RenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
+	void Ogre21RenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
 
-		Ogre2GuiRenderable* renderable = createOrRetrieveRenderable(_buffer, _texture, _count);
+		Ogre21GuiRenderable* renderable = createOrRetrieveRenderable(_buffer, _texture, _count);
 
 		mSceneManager->getRenderQueue()->addRenderableV1(RENDER_QUEUE_OVERLAY, false, renderable , mQueueMoveable);
 
 		++ mCountBatch;
 	}
 
-	void Ogre2RenderManager::begin()
+	void Ogre21RenderManager::begin()
 	{
 	}
 
-	void Ogre2RenderManager::end()
+	void Ogre21RenderManager::end()
 	{
 	}
 
-	ITexture* Ogre2RenderManager::createTexture(const std::string& _name)
+	ITexture* Ogre21RenderManager::createTexture(const std::string& _name)
 	{
 		MapTexture::const_iterator item = mTextures.find(_name);
 		MYGUI_PLATFORM_ASSERT(item == mTextures.end(), "Texture '" << _name << "' already exist");
 
-		Ogre2Texture* texture = new Ogre2Texture(_name, Ogre2DataManager::getInstance().getGroup());
+		Ogre21Texture* texture = new Ogre21Texture(_name, Ogre21DataManager::getInstance().getGroup());
 		mTextures[_name] = texture;
 		return texture;
 	}
 
-	void Ogre2RenderManager::destroyTexture(ITexture* _texture)
+	void Ogre21RenderManager::destroyTexture(ITexture* _texture)
 	{
 		if (_texture == nullptr) return;
 
@@ -289,7 +289,7 @@ namespace MyGUI
 		delete _texture;
 	}
 
-	ITexture* Ogre2RenderManager::getTexture(const std::string& _name)
+	ITexture* Ogre21RenderManager::getTexture(const std::string& _name)
 	{
 		MapTexture::const_iterator item = mTextures.find(_name);
 		if (item == mTextures.end())
@@ -298,7 +298,7 @@ namespace MyGUI
 			if (!texture.isNull())
 			{
 				ITexture* result = createTexture(_name);
-				static_cast<Ogre2Texture*>(result)->setOgreTexture(texture);
+				static_cast<Ogre21Texture*>(result)->setOgreTexture(texture);
 				return result;
 			}
 			return nullptr;
@@ -306,15 +306,15 @@ namespace MyGUI
 		return item->second;
 	}
 
-	bool Ogre2RenderManager::isFormatSupported(PixelFormat _format, TextureUsage _usage)
+	bool Ogre21RenderManager::isFormatSupported(PixelFormat _format, TextureUsage _usage)
 	{
 		return Ogre::TextureManager::getSingleton().isFormatSupported(
 			Ogre::TEX_TYPE_2D,
-			Ogre2Texture::convertFormat(_format),
-			Ogre2Texture::convertUsage(_usage));
+			Ogre21Texture::convertFormat(_format),
+			Ogre21Texture::convertUsage(_usage));
 	}
 
-	void Ogre2RenderManager::destroyAllResources()
+	void Ogre21RenderManager::destroyAllResources()
 	{
 		for (MapTexture::const_iterator item = mTextures.begin(); item != mTextures.end(); ++item)
 		{
@@ -324,7 +324,7 @@ namespace MyGUI
 	}
 
 #if MYGUI_DEBUG_MODE == 1
-	bool Ogre2RenderManager::checkTexture(ITexture* _texture)
+	bool Ogre21RenderManager::checkTexture(ITexture* _texture)
 	{
 		for (MapTexture::const_iterator item = mTextures.begin(); item != mTextures.end(); ++item)
 		{
@@ -335,60 +335,60 @@ namespace MyGUI
 	}
 #endif
 
-	const IntSize& Ogre2RenderManager::getViewSize() const
+	const IntSize& Ogre21RenderManager::getViewSize() const
 	{
 		return mViewSize;
 	}
 
-	VertexColourType Ogre2RenderManager::getVertexFormat()
+	VertexColourType Ogre21RenderManager::getVertexFormat()
 	{
 		return mVertexFormat;
 	}
 
-	const RenderTargetInfo& Ogre2RenderManager::getInfo()
+	const RenderTargetInfo& Ogre21RenderManager::getInfo()
 	{
 		return mInfo;
 	}
 
-	size_t Ogre2RenderManager::getActiveViewport()
+	size_t Ogre21RenderManager::getActiveViewport()
 	{
 		return mActiveViewport;
 	}
 
-	Ogre::RenderWindow* Ogre2RenderManager::getRenderWindow()
+	Ogre::RenderWindow* Ogre21RenderManager::getRenderWindow()
 	{
 		return mWindow;
 	}
 
-	bool Ogre2RenderManager::getManualRender()
+	bool Ogre21RenderManager::getManualRender()
 	{
 		return mManualRender;
 	}
 
-	void Ogre2RenderManager::setManualRender(bool _value)
+	void Ogre21RenderManager::setManualRender(bool _value)
 	{
 		mManualRender = _value;
 	}
 
-	size_t Ogre2RenderManager::getBatchCount() const
+	size_t Ogre21RenderManager::getBatchCount() const
 	{
 		return mCountBatch;
 	}
 
-	Ogre2GuiRenderable* Ogre2RenderManager::createOrRetrieveRenderable( IVertexBuffer* _buffer , ITexture* _texture , size_t _count )
+	Ogre21GuiRenderable* Ogre21RenderManager::createOrRetrieveRenderable( IVertexBuffer* _buffer , ITexture* _texture , size_t _count )
 	{
 
-		Ogre2VertexBuffer* vertexBuffer = static_cast<Ogre2VertexBuffer*>(_buffer);
-		Ogre2Texture* texture = static_cast<Ogre2Texture*>(_texture);
+		Ogre21VertexBuffer* vertexBuffer = static_cast<Ogre21VertexBuffer*>(_buffer);
+		Ogre21Texture* texture = static_cast<Ogre21Texture*>(_texture);
 
 		const unsigned int ID = vertexBuffer->getUniqueID();
 
-		Ogre2GuiRenderable* renderable;
+		Ogre21GuiRenderable* renderable;
 
 		MapRenderable::const_iterator item = mRenderables.find(ID);
 		if (item == mRenderables.end())
 		{
-			mRenderables[ID] = new Ogre2GuiRenderable();
+			mRenderables[ID] = new Ogre21GuiRenderable();
 		}
 
 		renderable = mRenderables[ID];

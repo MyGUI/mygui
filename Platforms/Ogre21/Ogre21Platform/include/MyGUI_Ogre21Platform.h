@@ -4,16 +4,16 @@
 	@date		04/2009
 */
 
-#ifndef MYGUI_OGRE_PLATFORM_H_
-#define MYGUI_OGRE_PLATFORM_H_
+#ifndef MYGUI_OGRE21_PLATFORM_H_
+#define MYGUI_OGRE21_PLATFORM_H_
 
 #include "MyGUI_Prerequest.h"
-#include "MyGUI_Ogre2Texture.h"
-#include "MyGUI_Ogre2VertexBuffer.h"
-#include "MyGUI_Ogre2RenderManager.h"
-#include "MyGUI_Ogre2DataManager.h"
-#include "MyGUI_Ogre2Diagnostic.h"
-#include "MyGUI_Ogre2Texture.h"
+#include "MyGUI_Ogre21Texture.h"
+#include "MyGUI_Ogre21VertexBuffer.h"
+#include "MyGUI_Ogre21RenderManager.h"
+#include "MyGUI_Ogre21DataManager.h"
+#include "MyGUI_Ogre21Diagnostic.h"
+#include "MyGUI_Ogre21Texture.h"
 #include "MyGUI_LogManager.h"
 
 #include "MyGUI_LastHeader.h"
@@ -21,18 +21,18 @@
 namespace MyGUI
 {
 
-	class Ogre2Platform
+	class Ogre21Platform
 	{
 	public:
-		Ogre2Platform() :
+		Ogre21Platform() :
 			mIsInitialise(false)
 		{
 			mLogManager = new LogManager();
-			mRenderManager = new Ogre2RenderManager();
-			mDataManager = new Ogre2DataManager();
+			mRenderManager = new Ogre21RenderManager();
+			mDataManager = new Ogre21DataManager();
 		}
 
-		~Ogre2Platform()
+		~Ogre21Platform()
 		{
 			assert(!mIsInitialise);
 			delete mRenderManager;
@@ -61,13 +61,13 @@ namespace MyGUI
 			mDataManager->shutdown();
 		}
 
-		Ogre2RenderManager* getRenderManagerPtr()
+		Ogre21RenderManager* getRenderManagerPtr()
 		{
 			assert(mIsInitialise);
 			return mRenderManager;
 		}
 
-		Ogre2DataManager* getDataManagerPtr()
+		Ogre21DataManager* getDataManagerPtr()
 		{
 			assert(mIsInitialise);
 			return mDataManager;
@@ -75,8 +75,8 @@ namespace MyGUI
 
 	private:
 		bool mIsInitialise;
-		Ogre2RenderManager* mRenderManager;
-		Ogre2DataManager* mDataManager;
+		Ogre21RenderManager* mRenderManager;
+		Ogre21DataManager* mDataManager;
 		LogManager* mLogManager;
 	};
 

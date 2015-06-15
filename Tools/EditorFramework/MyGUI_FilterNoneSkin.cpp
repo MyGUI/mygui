@@ -51,27 +51,27 @@ namespace MyGUI
 	void FilterNone::doManualRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
 #ifdef MYGUI_OGRE_PLATFORM
-		if (Ogre2RenderManager::getInstancePtr()->getManualRender())
-			Ogre2RenderManager::getInstancePtr()->begin();
+		if (OgreRenderManager::getInstancePtr()->getManualRender())
+			OgreRenderManager::getInstancePtr()->begin();
 
-		Ogre2RenderManager::getInstancePtr()->setManualRender(true);
+		OgreRenderManager::getInstancePtr()->setManualRender(true);
 
 		if (_texture)
 		{
-			Ogre2Texture* texture = static_cast<Ogre2Texture*>(_texture);
+			OgreTexture* texture = static_cast<OgreTexture*>(_texture);
 			Ogre::TexturePtr texture_ptr = texture->getOgreTexture();
 			if (!texture_ptr.isNull())
 			{
-				Ogre2RenderManager::getInstancePtr()->getRenderSystem()->_setTexture(0, true, texture_ptr);
-				Ogre2RenderManager::getInstancePtr()->getRenderSystem()->_setTextureUnitFiltering(0, Ogre::FO_NONE, Ogre::FO_NONE, Ogre::FO_NONE);
+				OgreRenderManager::getInstancePtr()->getRenderSystem()->_setTexture(0, true, texture_ptr);
+				OgreRenderManager::getInstancePtr()->getRenderSystem()->_setTextureUnitFiltering(0, Ogre::FO_NONE, Ogre::FO_NONE, Ogre::FO_NONE);
 			}
 		}
 
-		Ogre2VertexBuffer* buffer = static_cast<Ogre2VertexBuffer*>(_buffer);
+		OgreVertexBuffer* buffer = static_cast<OgreVertexBuffer*>(_buffer);
 		Ogre::RenderOperation* operation = buffer->getRenderOperation();
 		operation->vertexData->vertexCount = _count;
 
-		Ogre2RenderManager::getInstancePtr()->getRenderSystem()->_render(*operation);
+		OgreRenderManager::getInstancePtr()->getRenderSystem()->_render(*operation);
 #elif MYGUI_OPENGL_PLATFORM
 		OpenGLRenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
 #elif MYGUI_DIRECTX_PLATFORM

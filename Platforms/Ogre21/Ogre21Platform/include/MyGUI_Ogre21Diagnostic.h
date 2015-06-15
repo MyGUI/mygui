@@ -4,8 +4,8 @@
 	@date		06/2009
 */
 
-#ifndef MYGUI_OGRE_DIAGNOSTIC_H_
-#define MYGUI_OGRE_DIAGNOSTIC_H_
+#ifndef MYGUI_OGRE21_DIAGNOSTIC_H_
+#define MYGUI_OGRE21_DIAGNOSTIC_H_
 
 #include "MyGUI_Prerequest.h"
 

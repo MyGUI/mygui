@@ -4,7 +4,7 @@
 	@date		04/2009
 */
 
-#include "MyGUI_Ogre2VertexBuffer.h"
+#include "MyGUI_Ogre21VertexBuffer.h"
 
 #include <OgreHardwareVertexBuffer.h>
 
@@ -16,10 +16,10 @@ namespace MyGUI
 	const size_t VERTEX_IN_QUAD = 6;
 	const size_t RENDER_ITEM_STEEP_REALLOCK = 5 * VERTEX_IN_QUAD;
 
-	unsigned int Ogre2VertexBuffer::GlobalID = 0;
+	unsigned int Ogre21VertexBuffer::GlobalID = 0;
 
 
-	Ogre2VertexBuffer::Ogre2VertexBuffer() :
+	Ogre21VertexBuffer::Ogre21VertexBuffer() :
 		mVertexCount(RENDER_ITEM_STEEP_REALLOCK),
 		mNeedVertexCount(0)
 	{
@@ -27,12 +27,12 @@ namespace MyGUI
 		createVertexBuffer();
 	}
 
-	Ogre2VertexBuffer::~Ogre2VertexBuffer()
+	Ogre21VertexBuffer::~Ogre21VertexBuffer()
 	{
 		destroyVertexBuffer();
 	}
 
-	void Ogre2VertexBuffer::createVertexBuffer()
+	void Ogre21VertexBuffer::createVertexBuffer()
 	{
 		mRenderOperation.vertexData = new Ogre::v1::VertexData();
 		mRenderOperation.vertexData->vertexStart = 0;
@@ -57,43 +57,43 @@ namespace MyGUI
 		mRenderOperation.useIndexes = false;
 	}
 
-	void Ogre2VertexBuffer::destroyVertexBuffer()
+	void Ogre21VertexBuffer::destroyVertexBuffer()
 	{
 		delete mRenderOperation.vertexData;
 		mRenderOperation.vertexData = 0;
 		mVertexBuffer.setNull();
 	}
 
-	void Ogre2VertexBuffer::resizeVertexBuffer()
+	void Ogre21VertexBuffer::resizeVertexBuffer()
 	{
 		mVertexCount = mNeedVertexCount + RENDER_ITEM_STEEP_REALLOCK;
 		destroyVertexBuffer();
 		createVertexBuffer();
 	}
 
-	void Ogre2VertexBuffer::setVertexCount(size_t _count)
+	void Ogre21VertexBuffer::setVertexCount(size_t _count)
 	{
 		mNeedVertexCount = _count;
 	}
 
-	void Ogre2VertexBuffer::setOperationVertexCount(size_t _count)
+	void Ogre21VertexBuffer::setOperationVertexCount(size_t _count)
 	{
 		this->mRenderOperation.vertexData->vertexCount = _count;
 	}
 
-	size_t Ogre2VertexBuffer::getVertexCount()
+	size_t Ogre21VertexBuffer::getVertexCount()
 	{
 		return mNeedVertexCount;
 	}
 
-	Vertex* Ogre2VertexBuffer::lock()
+	Vertex* Ogre21VertexBuffer::lock()
 	{
 		if (mNeedVertexCount > mVertexCount) resizeVertexBuffer();
 
 		return reinterpret_cast<Vertex*>(mVertexBuffer->lock(Ogre::v1::HardwareVertexBuffer::HBL_DISCARD));
 	}
 
-	void Ogre2VertexBuffer::unlock()
+	void Ogre21VertexBuffer::unlock()
 	{
 		mVertexBuffer->unlock();
 	}

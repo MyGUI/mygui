@@ -5,11 +5,11 @@
 */
 
 #include <cstring>
-#include "MyGUI_Ogre2Texture.h"
+#include "MyGUI_Ogre21Texture.h"
 #include "MyGUI_DataManager.h"
-#include "MyGUI_Ogre2RenderManager.h"
-#include "MyGUI_Ogre2Diagnostic.h"
-#include "MyGUI_Ogre2RTTexture.h"
+#include "MyGUI_Ogre21RenderManager.h"
+#include "MyGUI_Ogre21Diagnostic.h"
+#include "MyGUI_Ogre21RTTexture.h"
 #include <Ogre.h>
 
 #include "MyGUI_LastHeader.h"
@@ -17,7 +17,7 @@
 namespace MyGUI
 {
 
-	Ogre2Texture::Ogre2Texture(const std::string& _name, const std::string& _group) :
+	Ogre21Texture::Ogre21Texture(const std::string& _name, const std::string& _group) :
 		mName(_name),
 		mGroup(_group),
 		mNumElemBytes(0),
@@ -31,17 +31,17 @@ namespace MyGUI
 		mDataBlock = HLMS_BLOCKS.createUnlitDataBlock(_name);
 	}
 
-	Ogre2Texture::~Ogre2Texture()
+	Ogre21Texture::~Ogre21Texture()
 	{
 		destroy();
 	}
 
-	const std::string& Ogre2Texture::getName() const
+	const std::string& Ogre21Texture::getName() const
 	{
 		return mName;
 	}
 
-	void Ogre2Texture::saveToFile(const std::string& _filename)
+	void Ogre21Texture::saveToFile(const std::string& _filename)
 	{
 		Ogre::uchar* readrefdata = static_cast<Ogre::uchar*>(lock(TextureUsage::Read));
 
@@ -52,12 +52,12 @@ namespace MyGUI
 		unlock();
 	}
 
-	void Ogre2Texture::setInvalidateListener(ITextureInvalidateListener* _listener)
+	void Ogre21Texture::setInvalidateListener(ITextureInvalidateListener* _listener)
 	{
 		mListener = _listener;
 	}
 
-	void Ogre2Texture::destroy()
+	void Ogre21Texture::destroy()
 	{
 		if (mTmpData.data != nullptr)
 		{
@@ -78,17 +78,17 @@ namespace MyGUI
 		}
 	}
 
-	int Ogre2Texture::getWidth()
+	int Ogre21Texture::getWidth()
 	{
 		return (int)mTexture->getWidth();
 	}
 
-	int Ogre2Texture::getHeight()
+	int Ogre21Texture::getHeight()
 	{
 		return (int)mTexture->getHeight();
 	}
 
-	void* Ogre2Texture::lock(TextureUsage _access)
+	void* Ogre21Texture::lock(TextureUsage _access)
 	{
 		if (_access == TextureUsage::Write)
 		{
@@ -112,7 +112,7 @@ namespace MyGUI
 		return mTmpData.data;
 	}
 
-	void Ogre2Texture::unlock()
+	void Ogre21Texture::unlock()
 	{
 		if (mTexture->getBuffer()->isLocked())
 		{
@@ -125,12 +125,12 @@ namespace MyGUI
 		}
 	}
 
-	bool Ogre2Texture::isLocked()
+	bool Ogre21Texture::isLocked()
 	{
 		return mTexture->getBuffer()->isLocked();
 	}
 
-	Ogre::TextureUsage Ogre2Texture::convertUsage(TextureUsage _usage)
+	Ogre::TextureUsage Ogre21Texture::convertUsage(TextureUsage _usage)
 	{
 		if (_usage == TextureUsage::Default)
 		{
@@ -176,7 +176,7 @@ namespace MyGUI
 		return Ogre::TU_DEFAULT;
 	}
 
-	Ogre::PixelFormat Ogre2Texture::convertFormat(PixelFormat _format)
+	Ogre::PixelFormat Ogre21Texture::convertFormat(PixelFormat _format)
 	{
 		if (_format == PixelFormat::L8) return Ogre::PF_BYTE_L;
 		else if (_format == PixelFormat::L8A8) return Ogre::PF_BYTE_LA;
@@ -186,7 +186,7 @@ namespace MyGUI
 		return Ogre::PF_UNKNOWN;
 	}
 
-	void Ogre2Texture::setFormat(PixelFormat _format)
+	void Ogre21Texture::setFormat(PixelFormat _format)
 	{
 		mOriginalFormat = _format;
 		mPixelFormat = convertFormat(_format);
@@ -198,13 +198,13 @@ namespace MyGUI
 		else if (_format == PixelFormat::R8G8B8A8) mNumElemBytes = 4;
 	}
 
-	void Ogre2Texture::setUsage(TextureUsage _usage)
+	void Ogre21Texture::setUsage(TextureUsage _usage)
 	{
 		mOriginalUsage = _usage;
 		mUsage = convertUsage(_usage);
 	}
 
-	void Ogre2Texture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format)
+	void Ogre21Texture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format)
 	{
 		setFormat(_format);
 		setUsage(_usage);
@@ -226,7 +226,7 @@ namespace MyGUI
 		setDataBlockTexture(mTexture);
 	}
 
-	void Ogre2Texture::loadFromFile(const std::string& _filename)
+	void Ogre21Texture::loadFromFile(const std::string& _filename)
 	{
 		setUsage(TextureUsage::Default);
 
@@ -254,7 +254,7 @@ namespace MyGUI
 		setDataBlockTexture(mTexture);
 	}
 
-	void Ogre2Texture::setFormatByOgreTexture()
+	void Ogre21Texture::setFormatByOgreTexture()
 	{
 		mOriginalFormat = PixelFormat::Unknow;
 		mPixelFormat = Ogre::PF_UNKNOWN;
@@ -293,32 +293,32 @@ namespace MyGUI
 		}
 	}
 
-	void Ogre2Texture::loadResource(Ogre::Resource* resource)
+	void Ogre21Texture::loadResource(Ogre::Resource* resource)
 	{
 		if (mListener)
 			mListener->textureInvalidate(this);
 	}
 
-	IRenderTarget* Ogre2Texture::getRenderTarget()
+	IRenderTarget* Ogre21Texture::getRenderTarget()
 	{
 		if (mRenderTarget == nullptr)
-			mRenderTarget = new Ogre2RTTexture(mTexture);
+			mRenderTarget = new Ogre21RTTexture(mTexture);
 
 		return mRenderTarget;
 	}
 
-	void Ogre2Texture::setDataBlockTexture( Ogre::TexturePtr _value )
+	void Ogre21Texture::setDataBlockTexture( Ogre::TexturePtr _value )
 	{
 		mDataBlock->setTexture(TEXTURE_UNIT_NUMBER, 0, _value);
 	}
 
-	Ogre::HlmsDatablock* Ogre2Texture::getDataBlock()
+	Ogre::HlmsDatablock* Ogre21Texture::getDataBlock()
 	{
 		return mDataBlock;
 	}
 
-	const Ogre::uint8 Ogre2Texture::TEXTURE_UNIT_NUMBER = 0;
+	const Ogre::uint8 Ogre21Texture::TEXTURE_UNIT_NUMBER = 0;
 
-	const OgreHlmsBlocks Ogre2Texture::HLMS_BLOCKS;
+	const OgreHlmsBlocks Ogre21Texture::HLMS_BLOCKS;
 
 } // namespace MyGUI

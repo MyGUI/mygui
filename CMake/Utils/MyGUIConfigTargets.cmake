@@ -154,9 +154,9 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		link_directories(${OPENGL_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
 		include_directories(../../Common/Base/Ogre)
-		add_definitions("-DMYGUI_OGRE2_PLATFORM")
+		add_definitions("-DMYGUI_OGRE21_PLATFORM")
 		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include
+			${MYGUI_SOURCE_DIR}/Platforms/Ogre21/Ogre21Platform/include
 			${OGRE_INCLUDE_DIR}
 		)
 		link_directories(${OGRE_LIB_DIR})
@@ -214,8 +214,8 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 
 		target_link_libraries(${PROJECTNAME} gdiplus)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
-		add_dependencies(${PROJECTNAME} MyGUI.Ogre2Platform)
-		target_link_libraries(${PROJECTNAME} MyGUI.Ogre2Platform)
+		add_dependencies(${PROJECTNAME} MyGUI.Ogre21Platform)
+		target_link_libraries(${PROJECTNAME} MyGUI.Ogre21Platform)
 	endif()
 	target_link_libraries(${PROJECTNAME}
 		MyGUIEngine
@@ -295,9 +295,9 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 		link_directories(${OPENGL_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
 		include_directories(../../Common/Base/Ogre)
-		add_definitions("-DMYGUI_OGRE2_PLATFORM")
+		add_definitions("-DMYGUI_OGRE21_PLATFORM")
 		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/Ogre/Ogre2Platform/include
+			${MYGUI_SOURCE_DIR}/Platforms/Ogre21/Ogre21Platform/include
 			${OGRE_INCLUDE_DIR}
 		)
 		link_directories(${OGRE_LIB_DIR})
@@ -337,8 +337,8 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 
 		target_link_libraries(${PROJECTNAME} gdiplus)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
-		add_dependencies(${PROJECTNAME} MyGUI.Ogre2Platform)
-		target_link_libraries(${PROJECTNAME} MyGUI.Ogre2Platform)
+		add_dependencies(${PROJECTNAME} MyGUI.Ogre21Platform)
+		target_link_libraries(${PROJECTNAME} MyGUI.Ogre21Platform)
 	endif()
 
 	target_link_libraries(${PROJECTNAME}
