@@ -267,6 +267,7 @@ namespace input
 	{
 		mMouseZ += evt.y;
 		mMouseMove = true;
+		return true;
 	}
 
 	void InputManager::captureInput()
