@@ -44,6 +44,10 @@ namespace tools
 		const T* operator->() const { return ptr; }
 		const T& operator*() const { return *ptr; }
 
+		bool operator==(const T* o) const { return ptr == o; }
+		bool operator!=(const T* o) const { return ptr != o; }
+		bool operator<(const T* o) const { return ptr < o; }
+
 		bool operator==(const shared_ptr<T>& o) const { return ptr == o.ptr; }
 		bool operator!=(const shared_ptr<T>& o) const { return ptr != o.ptr; }
 		bool operator<(const shared_ptr<T>& o) const { return ptr < o.ptr; }
@@ -81,6 +85,10 @@ namespace tools
 		const T* get() const { return ptr; }
 		const T* operator->() const { return ptr; }
 		const T& operator*() const { return *ptr; }
+
+		bool operator==(const T* o) const { return ptr == o; }
+		bool operator!=(const T* o) const { return ptr != o; }
+		bool operator<(const T* o) const { return ptr < o; }
 
 		bool operator==(const shared_ptr<T>& o) const { return ptr == o.ptr; }
 		bool operator!=(const shared_ptr<T>& o) const { return ptr != o.ptr; }
