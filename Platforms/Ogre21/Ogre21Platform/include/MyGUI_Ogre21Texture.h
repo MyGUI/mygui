@@ -7,9 +7,11 @@
 #ifndef MYGUI_OGRE21_TEXTURE_H_
 #define MYGUI_OGRE21_TEXTURE_H_
 
+#include "MyGUI_Diagnostic.h"
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ITexture.h"
 #include "MyGUI_RenderFormat.h"
+#include "MyGUI_Ogre21Diagnostic.h"
 
 #include <Ogre.h>
 #include <OgreResource.h>
@@ -52,6 +54,8 @@ namespace MyGUI
 		Ogre::HlmsUnlitDatablock* createUnlitDataBlock( Ogre::String id ) const 
 		{
 			Ogre::Hlms* hlms = Ogre::Root::getSingleton().getHlmsManager()->getHlms( Ogre::HLMS_UNLIT );
+
+			MYGUI_PLATFORM_ASSERT(hlms != 0, "Ogre::HLMS_UNLIT model was not properly setup.");
 
 			return static_cast<Ogre::HlmsUnlitDatablock*>(hlms->createDatablock(Ogre::IdString( id ), id, mMacroBlock, mBlendBlock, mParamsVec));
 		}
