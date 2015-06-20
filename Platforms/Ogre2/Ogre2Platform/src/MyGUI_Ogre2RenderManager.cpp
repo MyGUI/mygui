@@ -29,7 +29,6 @@ namespace MyGUI
 		mUpdate(false),
 		mSceneManager(nullptr),
 		mWindow(nullptr),
-		mActiveViewport(0),
 		mRenderSystem(nullptr),
 		mIsInitialise(false),
 		mManualRender(false),
@@ -46,7 +45,6 @@ namespace MyGUI
 		mWindow = nullptr;
 		mUpdate = false;
 		mRenderSystem = nullptr;
-		mActiveViewport = 0;
 
 		Ogre::Root* root = Ogre::Root::getSingletonPtr();
 		if (root != nullptr)
@@ -121,13 +119,6 @@ namespace MyGUI
 		if (mWindow != nullptr)
 		{
 			Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
-
-			if (mWindow->getNumViewports() <= mActiveViewport &&
-				!mWindow->getViewport(mActiveViewport)->getOverlaysEnabled())
-			{
-				MYGUI_PLATFORM_LOG(Warning, "Overlays are disabled. MyGUI won't render in selected viewport.");
-			}
-
 			windowResized(mWindow);
 		}
 	}
@@ -151,25 +142,6 @@ namespace MyGUI
 	Ogre::SceneManager* Ogre2RenderManager::getSceneManager()
 	{
 		return mSceneManager;
-	}
-
-	void Ogre2RenderManager::setActiveViewport(unsigned short _num)
-	{
-		mActiveViewport = _num;
-
-		if (mWindow != nullptr)
-		{
-			Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
-			Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
-
-			if (mWindow->getNumViewports() <= mActiveViewport)
-			{
-				MYGUI_PLATFORM_LOG(Error, "Invalid active viewport index selected. There is no viewport with given index.");
-			}
-
-			// рассылка обновлений
-			windowResized(mWindow);
-		}
 	}
 
 	void Ogre2RenderManager::renderQueueStarted( Ogre::RenderQueue *rq, Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation )
@@ -348,11 +320,6 @@ namespace MyGUI
 	const RenderTargetInfo& Ogre2RenderManager::getInfo()
 	{
 		return mInfo;
-	}
-
-	size_t Ogre2RenderManager::getActiveViewport()
-	{
-		return mActiveViewport;
 	}
 
 	Ogre::RenderWindow* Ogre2RenderManager::getRenderWindow()

@@ -80,12 +80,6 @@ namespace MyGUI
 		void setSceneManager(Ogre::SceneManager* _scene);
 		Ogre::SceneManager* getSceneManager();
 
-		/** Get GUI viewport index */
-		size_t getActiveViewport();
-
-		/** Set GUI viewport index */
-		void setActiveViewport(unsigned short _num);
-
 		Ogre::RenderWindow* getRenderWindow();
 
 		bool getManualRender();
@@ -119,9 +113,6 @@ namespace MyGUI
 
 		// окно, на которое мы подписываемся для изменения размеров
 		Ogre::RenderWindow* mWindow;
-
-		// вьюпорт, с которым работает система
-		unsigned short mActiveViewport;
 
 		Ogre::RenderSystem* mRenderSystem;
 
