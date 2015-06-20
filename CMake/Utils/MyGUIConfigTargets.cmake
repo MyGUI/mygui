@@ -156,7 +156,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		include_directories(../../Common/Base/Ogre)
 		add_definitions("-DMYGUI_OGRE2_PLATFORM")
 		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include
+			${MYGUI_SOURCE_DIR}/Platforms/Ogre2/Ogre2Platform/include
 			${OGRE_INCLUDE_DIR}
 		)
 		link_directories(${OGRE_LIB_DIR})
@@ -297,7 +297,7 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 		include_directories(../../Common/Base/Ogre)
 		add_definitions("-DMYGUI_OGRE2_PLATFORM")
 		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/Ogre/Ogre2Platform/include
+			${MYGUI_SOURCE_DIR}/Platforms/Ogre2/Ogre2Platform/include
 			${OGRE_INCLUDE_DIR}
 		)
 		link_directories(${OGRE_LIB_DIR})
