@@ -324,6 +324,11 @@ namespace MyGUI
 
 	void Ogre2RenderManager::destroyAllResources()
 	{
+		for (MapRenderable::const_iterator item = mRenderables.begin(); item != mRenderables.end(); ++item)
+		{
+			delete item->second;
+		}
+
 		for (MapTexture::const_iterator item = mTextures.begin(); item != mTextures.end(); ++item)
 		{
 			delete item->second;
