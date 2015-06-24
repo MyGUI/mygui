@@ -12,9 +12,24 @@
 #include "MyGUI_Timer.h"
 #include "MyGUI_Gui.h"
 
+#include <Compositor/OgreCompositorManager2.h>
+
 namespace MyGUI
 {
 	const Ogre::uint8 Ogre2RenderManager::RENDER_QUEUE_OVERLAY = 254;
+	Ogre::IdString OgreCompositorPassProvider::mPassId = Ogre::IdString("MYGUI");
+
+	MyGUIPass::MyGUIPass(const Ogre::CompositorPassDef *definition, const Ogre::CompositorChannel &target,
+		Ogre::CompositorNode *parentNode)
+		: Ogre::CompositorPass(definition, target, parentNode)
+	{
+
+	}
+
+	void MyGUIPass::execute(const Ogre::Camera *lodCameraconst)
+	{
+		static_cast<MyGUI::Ogre2RenderManager*>(MyGUI::RenderManager::getInstancePtr())->render();
+	}
 
 	Ogre2RenderManager& Ogre2RenderManager::getInstance()
 	{
@@ -41,6 +56,13 @@ namespace MyGUI
 		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
 
+		mPassProvider.reset(new OgreCompositorPassProvider());
+
+		Ogre::CompositorManager2* pCompositorManager = Ogre::Root::getSingleton().getCompositorManager2();
+		// don't overwrite a custom pass provider that the user may have registered already
+		if (!pCompositorManager->getCompositorPassProvider())
+			pCompositorManager->setCompositorPassProvider(mPassProvider.get());
+
 		mSceneManager = nullptr;
 		mWindow = nullptr;
 		mUpdate = false;
@@ -51,6 +73,8 @@ namespace MyGUI
 			setRenderSystem(root->getRenderSystem());
 		setRenderWindow(_window);
 		setSceneManager(_scene);
+
+		root->addFrameListener(this);
 
 		mQueueMoveable = new Ogre2GuiMoveable(_scene);
 
@@ -68,6 +92,14 @@ namespace MyGUI
 		setSceneManager(nullptr);
 		setRenderWindow(nullptr);
 		setRenderSystem(nullptr);
+
+		Ogre::Root::getSingleton().removeFrameListener(this);
+
+		Ogre::CompositorManager2* pCompositorManager = Ogre::Root::getSingleton().getCompositorManager2();
+		if (pCompositorManager->getCompositorPassProvider() == mPassProvider.get())
+			pCompositorManager->setCompositorPassProvider(NULL);
+
+		mPassProvider.reset();
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
@@ -127,16 +159,10 @@ namespace MyGUI
 	{
 		if (nullptr != mSceneManager)
 		{
-			mSceneManager->removeRenderQueueListener(this);
 			mSceneManager = nullptr;
 		}
 
 		mSceneManager = _scene;
-
-		if (nullptr != mSceneManager)
-		{
-			mSceneManager->addRenderQueueListener(this);
-		}
 	}
 
 	Ogre::SceneManager* Ogre2RenderManager::getSceneManager()
@@ -144,18 +170,11 @@ namespace MyGUI
 		return mSceneManager;
 	}
 
-	void Ogre2RenderManager::renderQueueStarted( Ogre::RenderQueue *rq, Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation )
+	bool Ogre2RenderManager::frameStarted(const Ogre::FrameEvent &evt)
 	{
-
-		Gui* gui = Gui::getInstancePtr();
-		if (gui == nullptr)
-			return;
-
-		if (RENDER_QUEUE_OVERLAY != queueGroupId)
-			return;
-
-		mCountBatch = 0;
-
+		// this used to be done in render(), but can't do this anymore:
+		// adding Workspaces (e.g. RenderBox::requestUpdateCanvas)
+		// can't be done while the CompositorManager is still iterating through workspaces in its update() method
 		static Timer timer;
 		static unsigned long last_time = timer.getMilliseconds();
 		unsigned long now_time = timer.getMilliseconds();
@@ -165,9 +184,26 @@ namespace MyGUI
 
 		last_time = now_time;
 
-		//begin();
+		return true;
+	}
+
+	void Ogre2RenderManager::render()
+	{
+		Gui* gui = Gui::getInstancePtr();
+		if (gui == nullptr)
+			return;
+
+		mCountBatch = 0;
+
+		setManualRender(true);
+
+		mSceneManager->getRenderQueue()->clear();
+		
+		//get mygui to itterate through renderables and call 'doRender'
+		//This will add renderbles to the Ogre render queue
 		onRenderToTarget(this, mUpdate);
-		//end();
+
+		mSceneManager->getRenderQueue()->render(mSceneManager->getDestinationRenderSystem(), RENDER_QUEUE_OVERLAY, RENDER_QUEUE_OVERLAY+1, false, false);
 
 		// сбрасываем флаг
 		mUpdate = false;

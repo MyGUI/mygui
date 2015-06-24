@@ -229,12 +229,41 @@ namespace base
 		mPlatform = new MyGUI::Ogre2Platform();
 		mPlatform->initialise(mWindow, mSceneManager, Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
 
-		Ogre::CompositorManager2* pCompositorManager = Ogre::Root::getSingleton().getCompositorManager2();
-		pCompositorManager->createBasicWorkspaceDef("scene workspace",
-			Ogre::ColourValue(0.6f, 0.0f, 0.6f),
-			Ogre::IdString());
+		//setup workspace
+		//NB this can also been done via a script using the following syntax
+		/*
+		pass custom MYGUI
+		{
+		}
+		*/
+		const Ogre::String workspaceName = "scene workspace";
+		const Ogre::IdString workspaceNameHash = workspaceName;
 
-		pCompositorManager->addWorkspace(mSceneManager, mWindow, mCamera, "scene workspace", true);
+		Ogre::CompositorManager2* pCompositorManager = Ogre::Root::getSingleton().getCompositorManager2();
+		Ogre::CompositorNodeDef *nodeDef = pCompositorManager->addNodeDefinition("myworkspace");
+		//Input texture
+		nodeDef->addTextureSourceName("WindowRT", 0, Ogre::TextureDefinitionBase::TEXTURE_INPUT);
+		nodeDef->setNumTargetPass(1);
+		{
+			Ogre::CompositorTargetDef *targetDef = nodeDef->addTargetPass("WindowRT");
+			targetDef->setNumPasses(3);
+			{
+				{
+					Ogre::CompositorPassClearDef* passClear = static_cast<Ogre::CompositorPassClearDef*>
+					(targetDef->addPass(Ogre::PASS_CLEAR));
+					Ogre::CompositorPassSceneDef *passScene = static_cast<Ogre::CompositorPassSceneDef*>
+						(targetDef->addPass(Ogre::PASS_SCENE));
+					passScene->mShadowNode = Ogre::IdString();
+
+					// For the MyGUI pass
+					targetDef->addPass(Ogre::PASS_CUSTOM, MyGUI::OgreCompositorPassProvider::mPassId);
+				}
+			}
+		}
+		Ogre::CompositorWorkspaceDef *workDef = pCompositorManager->addWorkspaceDefinition(workspaceName);
+		workDef->connectOutput(nodeDef->getName(), 0);
+
+		pCompositorManager->addWorkspace(mSceneManager, mWindow, mCamera, workspaceNameHash, true);
 
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise(mResourceFileName);
