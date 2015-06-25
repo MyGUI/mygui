@@ -21,7 +21,7 @@ namespace tools
 	DataPtr DataUtility::getSelectedDataByType(DataPtr _data, DataTypePtr _info)
 	{
 		if (_data == nullptr)
-			return nullptr;
+			return NULL;
 
 		if (_data->getType() == _info)
 			return _data;
@@ -39,7 +39,7 @@ namespace tools
 	DataPtr DataUtility::getSelectedParentDataByType(DataPtr _data, DataTypePtr _info)
 	{
 		if (_data == nullptr)
-			return nullptr;
+			return NULL;
 
 		for (DataType::VectorString::const_iterator child = _data->getType()->getChilds().begin(); child != _data->getType()->getChilds().end(); child ++)
 		{

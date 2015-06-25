@@ -72,7 +72,7 @@ namespace tools
 
 		mLastIndex = _index;
 
-		DataPtr selection = _index != MyGUI::ITEM_NONE ? *mListBox->getItemDataAt<DataPtr>(_index) : nullptr;
+		DataPtr selection = _index != MyGUI::ITEM_NONE ? *mListBox->getItemDataAt<DataPtr>(_index) : NULL;
 		DataSelectorManager::getInstance().changeParentSelection(mParentData, selection);
 	}
 
@@ -123,7 +123,7 @@ namespace tools
 		if (mParentData != nullptr)
 		{
 			size_t currentIndex = mListBox->getIndexSelected();
-			DataPtr selection = currentIndex != MyGUI::ITEM_NONE ? *mListBox->getItemDataAt<DataPtr>(currentIndex) : nullptr;
+			DataPtr selection = currentIndex != MyGUI::ITEM_NONE ? *mListBox->getItemDataAt<DataPtr>(currentIndex) : NULL;
 
 			if (selection != mParentData->getChildSelected())
 				selectListItemByData(mParentData->getChildSelected());
@@ -165,7 +165,7 @@ namespace tools
 
 				if (mParentData != nullptr)
 				{
-					DataPtr selection = _info.index != MyGUI::ITEM_NONE ? *mListBox->getItemDataAt<DataPtr>(_info.index) : nullptr;
+					DataPtr selection = _info.index != MyGUI::ITEM_NONE ? *mListBox->getItemDataAt<DataPtr>(_info.index) : NULL;
 					DataSelectorManager::getInstance().changeParentSelection(mParentData, selection);
 				}
 			}

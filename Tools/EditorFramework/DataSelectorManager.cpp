@@ -80,7 +80,7 @@ namespace tools
 			event->operator()(_parent, _changeOnlySelection);
 		}
 
-		DataPtr childSelected = nullptr;
+		DataPtr childSelected = NULL;
 		if (_parent != nullptr)
 			childSelected = _parent->getChildSelected();
 

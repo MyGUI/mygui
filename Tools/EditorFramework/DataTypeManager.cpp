@@ -73,7 +73,7 @@ namespace tools
 				return *data;
 		}
 
-		return nullptr;
+		return NULL;
 	}
 
 	DataTypePtr DataTypeManager::getParentType(const std::string& _type)
@@ -84,7 +84,7 @@ namespace tools
 				return *data;
 		}
 
-		return nullptr;
+		return NULL;
 	}
 
 }

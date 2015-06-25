@@ -38,7 +38,7 @@ namespace tools
 	{
 		for (VectorPairControl::iterator control = mPropertyControls.begin(); control != mPropertyControls.end(); control ++)
 		{
-			(*control).second->setProperty(nullptr);
+			(*control).second->setProperty(NULL);
 			(*control).second->getRoot()->setVisible(false);
 		}
 
