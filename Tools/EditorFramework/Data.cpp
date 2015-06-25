@@ -133,7 +133,7 @@ namespace tools
 		MYGUI_ASSERT_RANGE_AND_NONE(_index, mChilds.size(), "Data::getChildSelected");
 
 		if (_index == MyGUI::ITEM_NONE)
-			return nullptr;
+			return NULL;
 		return mChilds[_index];
 	}
 
