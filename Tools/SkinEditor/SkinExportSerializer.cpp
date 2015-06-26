@@ -334,7 +334,7 @@ namespace tools
 				return (*child);
 		}
 
-		return NULL;
+		return nullptr;
 	}
 
 	void SkinExportSerializer::fillRegionData(DataPtr _data, pugi::xml_node _node)
@@ -342,7 +342,7 @@ namespace tools
 		pugi::xpath_node_set regions = _node.select_nodes("BasisSkin[@type=\"SubSkin\"or@type=\"TileRect\"]");
 		for (pugi::xpath_node_set::const_iterator region = regions.begin(); region != regions.end(); region ++)
 		{
-			DataPtr regionData = NULL;
+			DataPtr regionData = nullptr;
 
 			MyGUI::Align align = MyGUI::Align::parse((*region).node().attribute("align").value());
 

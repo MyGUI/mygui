@@ -64,7 +64,7 @@ namespace tools
 	{
 		if (mControl != nullptr)
 		{
-			DataPtr selected = _data != nullptr ? _data->getChildSelected() : NULL;
+			DataPtr selected = _data != nullptr ? _data->getChildSelected() : nullptr;
 
 			// выделяем только данные с типом скопа
 			if (selected != nullptr)

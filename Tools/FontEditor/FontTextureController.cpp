@@ -140,7 +140,7 @@ namespace tools
 	{
 		if (mParentData != nullptr)
 		{
-			DataPtr font = (mParentData != nullptr) ? mParentData->getChildSelected() : NULL;
+			DataPtr font = (mParentData != nullptr) ? mParentData->getChildSelected() : nullptr;
 			if (font != nullptr)
 			{
 				FontExportSerializer::generateFont(font);

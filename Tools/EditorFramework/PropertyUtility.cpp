@@ -73,7 +73,7 @@ namespace tools
 	PropertyPtr PropertyUtility::getPropertyByName(DataPtr _data, const std::string& _dataType, const std::string& _propertyName)
 	{
 		if (_data == nullptr)
-			return NULL;
+			return nullptr;
 
 		if (_data->getType()->getName() == _dataType)
 			return _data->getProperty(_propertyName);
