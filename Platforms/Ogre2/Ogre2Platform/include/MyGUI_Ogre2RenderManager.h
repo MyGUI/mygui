@@ -181,6 +181,11 @@ namespace MyGUI
 
 	private:
 		Ogre2GuiMoveable* mQueueMoveable;
+		Ogre::SceneNode* mQueueSceneNode;
+
+		Ogre::ObjectMemoryManager mDummyObjMemMgr;
+		Ogre::NodeMemoryManager mDummyNodeMemMgr;
+
 
 		typedef std::map<unsigned int, Ogre2GuiRenderable*> MapRenderable;
 		MapRenderable mRenderables;

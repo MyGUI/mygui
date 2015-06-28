@@ -76,7 +76,10 @@ namespace MyGUI
 
 		root->addFrameListener(this);
 
-		mQueueMoveable = new Ogre2GuiMoveable(_scene);
+		mQueueMoveable = new Ogre2GuiMoveable(Ogre::Id::generateNewId<Ogre2GuiRenderable>(), &mDummyObjMemMgr, mSceneManager, RENDER_QUEUE_OVERLAY);
+		mQueueSceneNode = new Ogre::SceneNode(0, 0, &mDummyNodeMemMgr, 0);
+		mQueueSceneNode->_getFullTransformUpdated();
+		mQueueSceneNode->attachObject(mQueueMoveable);
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -88,6 +91,9 @@ namespace MyGUI
 		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
 
 		destroyAllResources();
+
+		delete mQueueSceneNode;
+		delete mQueueMoveable;
 
 		setSceneManager(nullptr);
 		setRenderWindow(nullptr);
