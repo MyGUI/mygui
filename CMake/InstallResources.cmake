@@ -88,7 +88,7 @@ if (MYGUI_INSTALL_SAMPLES OR MYGUI_INSTALL_TOOLS)
 		# create resources.xml
 		configure_file(${MYGUI_TEMPLATES_DIR}/resources.xml.in ${MYGUI_BINARY_DIR}/bin/debug/resources.xml)
 		configure_file(${MYGUI_TEMPLATES_DIR}/resources.xml.in ${MYGUI_BINARY_DIR}/bin/release/resources.xml)
-		if (MYGUI_RENDERSYSTEM EQUAL 3)
+		if (MYGUI_RENDERSYSTEM EQUAL 3 OR 8)
 			# create plugins.cfg
 			configure_file(${MYGUI_TEMPLATES_DIR}/plugins_d.cfg.in ${MYGUI_BINARY_DIR}/bin/debug/plugins.cfg)
 			configure_file(${MYGUI_TEMPLATES_DIR}/plugins.cfg.in ${MYGUI_BINARY_DIR}/bin/release/plugins.cfg)
@@ -100,14 +100,14 @@ if (MYGUI_INSTALL_SAMPLES OR MYGUI_INSTALL_TOOLS)
 		endif ()
 		# create resources.xml
 		configure_file(${MYGUI_TEMPLATES_DIR}/resources.xml.in ${MYGUI_BINARY_DIR}/bin/resources.xml)
-		if (MYGUI_RENDERSYSTEM EQUAL 3)
+		if (MYGUI_RENDERSYSTEM EQUAL 3 OR 8)
 			# create plugins.cfg
 			configure_file(${MYGUI_TEMPLATES_DIR}/plugins${MYGUI_CFG_SUFFIX}.cfg.in ${MYGUI_BINARY_DIR}/bin/plugins.cfg)
 		endif ()
 	endif ()
 	
 	install_file (resources.xml)
-	if (MYGUI_RENDERSYSTEM EQUAL 3)
+	if (MYGUI_RENDERSYSTEM EQUAL 3 OR 8)
 		install_file (plugins.cfg)
 	endif ()
 else ()
@@ -120,7 +120,7 @@ else ()
 		configure_file(${MYGUI_TEMPLATES_DIR}/resources.xml.in ${MYGUI_BINARY_DIR}/bin/release/resources.xml)
 		configure_file(${MYGUI_TEMPLATES_DIR}/resources.xml.in ${MYGUI_BINARY_DIR}/bin/relwithdebinfo/resources.xml)
 		configure_file(${MYGUI_TEMPLATES_DIR}/resources.xml.in ${MYGUI_BINARY_DIR}/bin/minsizerel/resources.xml)
-		if (MYGUI_RENDERSYSTEM EQUAL 3)
+		if (MYGUI_RENDERSYSTEM EQUAL 3 OR 8)
 			# create plugins.cfg
 			configure_file(${MYGUI_TEMPLATES_DIR}/plugins_d.cfg.in ${MYGUI_BINARY_DIR}/bin/debug/plugins.cfg)
 			configure_file(${MYGUI_TEMPLATES_DIR}/plugins.cfg.in ${MYGUI_BINARY_DIR}/bin/release/plugins.cfg)
@@ -134,7 +134,7 @@ else ()
 		endif ()
 		# create resources.xml
 		configure_file(${MYGUI_TEMPLATES_DIR}/resources.xml.in ${MYGUI_BINARY_DIR}/bin/resources.xml)
-		if (MYGUI_RENDERSYSTEM EQUAL 3)
+		if (MYGUI_RENDERSYSTEM EQUAL 3 OR 8)
 			# create plugins.cfg
 			configure_file(${MYGUI_TEMPLATES_DIR}/plugins${MYGUI_CFG_SUFFIX}.cfg.in ${MYGUI_BINARY_DIR}/bin/plugins.cfg)
 		endif ()
