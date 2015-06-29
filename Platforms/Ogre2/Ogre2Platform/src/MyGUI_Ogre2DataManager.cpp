@@ -4,9 +4,9 @@
 	@date		05/2008
 */
 
-#include "MyGUI_Ogre21DataManager.h"
-#include "MyGUI_Ogre21Diagnostic.h"
-#include "MyGUI_Ogre21DataStream.h"
+#include "MyGUI_Ogre2DataManager.h"
+#include "MyGUI_Ogre2Diagnostic.h"
+#include "MyGUI_Ogre2DataStream.h"
 
 #include <Ogre.h>
 
@@ -15,13 +15,13 @@
 namespace MyGUI
 {
 
-	Ogre21DataManager::Ogre21DataManager() :
+	Ogre2DataManager::Ogre2DataManager() :
 		mAllGroups(false),
 		mIsInitialise(false)
 	{
 	}
 
-	void Ogre21DataManager::initialise(const std::string& _group)
+	void Ogre2DataManager::initialise(const std::string& _group)
 	{
 		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
@@ -36,7 +36,7 @@ namespace MyGUI
 		mIsInitialise = true;
 	}
 
-	void Ogre21DataManager::shutdown()
+	void Ogre2DataManager::shutdown()
 	{
 		MYGUI_PLATFORM_ASSERT(mIsInitialise, getClassTypeName() << " is not initialised");
 		MYGUI_PLATFORM_LOG(Info, "* Shutdown: " << getClassTypeName());
@@ -45,12 +45,12 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	IDataStream* Ogre21DataManager::getData(const std::string& _name)
+	IDataStream* Ogre2DataManager::getData(const std::string& _name)
 	{
 		try
 		{
 			Ogre::DataStreamPtr stream = Ogre::ResourceGroupManager::getSingleton().openResource(_name, mGroup, true);
-			Ogre21DataStream* data = new Ogre21DataStream(stream);
+			Ogre2DataStream* data = new Ogre2DataStream(stream);
 
 			return data;
 		}
@@ -62,12 +62,12 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	void Ogre21DataManager::freeData(IDataStream* _data)
+	void Ogre2DataManager::freeData(IDataStream* _data)
 	{
 		delete _data;
 	}
 
-	bool Ogre21DataManager::isDataExist(const std::string& _name)
+	bool Ogre2DataManager::isDataExist(const std::string& _name)
 	{
 		if (mAllGroups)
 			return Ogre::ResourceGroupManager::getSingleton().resourceExistsInAnyGroup(_name);
@@ -75,12 +75,12 @@ namespace MyGUI
 			return Ogre::ResourceGroupManager::getSingleton().resourceExists(mGroup, _name);
 	}
 
-	const VectorString& Ogre21DataManager::getDataListNames(const std::string& _pattern)
+	const VectorString& Ogre2DataManager::getDataListNames(const std::string& _pattern)
 	{
 		return getDataListNames(_pattern, false);
 	}
 
-	const VectorString& Ogre21DataManager::getDataListNames(const std::string& _pattern, bool _fullpath)
+	const VectorString& Ogre2DataManager::getDataListNames(const std::string& _pattern, bool _fullpath)
 	{
 		static VectorString result;
 		result.clear();
@@ -140,7 +140,7 @@ namespace MyGUI
 		return result;
 	}
 
-	const std::string& Ogre21DataManager::getDataPath(const std::string& _name)
+	const std::string& Ogre2DataManager::getDataPath(const std::string& _name)
 	{
 		static std::string result;
 

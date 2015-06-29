@@ -4,8 +4,8 @@
 	@date		04/2009
 */
 
-#ifndef MYGUI_OGRE21_VERTEX_BUFFER_H_
-#define MYGUI_OGRE21_VERTEX_BUFFER_H_
+#ifndef MYGUI_OGRE2_VERTEX_BUFFER_H_
+#define MYGUI_OGRE2_VERTEX_BUFFER_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IVertexBuffer.h"
@@ -23,12 +23,12 @@
 namespace MyGUI
 {
 
-	class Ogre21VertexBuffer :
+	class Ogre2VertexBuffer :
 		public IVertexBuffer
 	{
 	public:
-		Ogre21VertexBuffer();
-		virtual ~Ogre21VertexBuffer();
+		Ogre2VertexBuffer();
+		virtual ~Ogre2VertexBuffer();
 
 		virtual void setVertexCount(size_t _count);
 		virtual void setOperationVertexCount(size_t _count);

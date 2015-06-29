@@ -4,8 +4,8 @@
 	@date		08/2009
 */
 
-#ifndef MYGUI_OGRE21_DATA_STREAM_H_
-#define MYGUI_OGRE21_DATA_STREAM_H_
+#ifndef MYGUI_OGRE2_DATA_STREAM_H_
+#define MYGUI_OGRE2_DATA_STREAM_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IDataStream.h"
@@ -17,12 +17,12 @@
 namespace MyGUI
 {
 
-	class Ogre21DataStream :
+	class Ogre2DataStream :
 		public IDataStream
 	{
 	public:
-		Ogre21DataStream(Ogre::DataStreamPtr _stream);
-		virtual ~Ogre21DataStream();
+		Ogre2DataStream(Ogre::DataStreamPtr _stream);
+		virtual ~Ogre2DataStream();
 
 		virtual bool eof();
 		virtual size_t size();

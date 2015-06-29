@@ -4,14 +4,14 @@
 	@date		04/2009
 */
 
-#ifndef MYGUI_OGRE21_TEXTURE_H_
-#define MYGUI_OGRE21_TEXTURE_H_
+#ifndef MYGUI_OGRE2_TEXTURE_H_
+#define MYGUI_OGRE2_TEXTURE_H_
 
 #include "MyGUI_Diagnostic.h"
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ITexture.h"
 #include "MyGUI_RenderFormat.h"
-#include "MyGUI_Ogre21Diagnostic.h"
+#include "MyGUI_Ogre2Diagnostic.h"
 
 #include <Ogre.h>
 #include <OgreResource.h>
@@ -69,13 +69,13 @@ namespace MyGUI
 
 
 
-	class Ogre21Texture :
+	class Ogre2Texture :
 		public ITexture,
 		public Ogre::ManualResourceLoader
 	{
 	public:
-		Ogre21Texture(const std::string& _name, const std::string& _group);
-		virtual ~Ogre21Texture();
+		Ogre2Texture(const std::string& _name, const std::string& _group);
+		virtual ~Ogre2Texture();
 
 		virtual const std::string& getName() const;
 

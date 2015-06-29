@@ -4,8 +4,8 @@
 	@date		10/2009
 */
 
-#ifndef MYGUI_OGRE21_RTTEXTURE_H_
-#define MYGUI_OGRE21_RTTEXTURE_H_
+#ifndef MYGUI_OGRE2_RTTEXTURE_H_
+#define MYGUI_OGRE2_RTTEXTURE_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IRenderTarget.h"
@@ -17,12 +17,12 @@
 namespace MyGUI
 {
 
-	class Ogre21RTTexture :
+	class Ogre2RTTexture :
 		public IRenderTarget
 	{
 	public:
-		Ogre21RTTexture(Ogre::TexturePtr _texture);
-		virtual ~Ogre21RTTexture();
+		Ogre2RTTexture(Ogre::TexturePtr _texture);
+		virtual ~Ogre2RTTexture();
 
 		virtual void begin();
 		virtual void end();

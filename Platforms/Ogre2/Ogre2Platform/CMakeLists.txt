@@ -1,4 +1,4 @@
-set (PROJECTNAME MyGUI.Ogre21Platform)
+set (PROJECTNAME MyGUI.Ogre2Platform)
 
 include_directories(
  include

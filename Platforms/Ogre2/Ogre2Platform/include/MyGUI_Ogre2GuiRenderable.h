@@ -1,5 +1,5 @@
-#ifndef MYGUI_OGRE21_GUI_RENDERABLE_H_
-#define MYGUI_OGRE21_GUI_RENDERABLE_H_
+#ifndef MYGUI_OGRE2_GUI_RENDERABLE_H_
+#define MYGUI_OGRE2_GUI_RENDERABLE_H_
 
 #include <OgrePrerequisites.h>
 #include <OgreRenderOperation.h>
@@ -8,12 +8,12 @@
 
 namespace MyGUI
 {
-	class Ogre21GuiRenderable : 
+	class Ogre2GuiRenderable : 
 		public Ogre::Renderable
 	{
 	public:
-		Ogre21GuiRenderable();
-		virtual ~Ogre21GuiRenderable();
+		Ogre2GuiRenderable();
+		virtual ~Ogre2GuiRenderable();
 
 		virtual void setRenderOperation( const Ogre::v1::RenderOperation& op );
 		virtual void getRenderOperation( Ogre::v1::RenderOperation& op );

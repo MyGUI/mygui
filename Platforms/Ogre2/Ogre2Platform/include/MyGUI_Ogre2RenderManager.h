@@ -4,16 +4,16 @@
 	@date		04/2008
 */
 
-#ifndef MYGUI_OGRE21_RENDER_MANAGER_H_
-#define MYGUI_OGRE21_RENDER_MANAGER_H_
+#ifndef MYGUI_OGRE2_RENDER_MANAGER_H_
+#define MYGUI_OGRE2_RENDER_MANAGER_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_ITexture.h"
 #include "MyGUI_RenderManager.h"
-#include "MyGUI_Ogre21GuiRenderable.h"
-#include "MyGUI_Ogre21GuiMoveable.h"
+#include "MyGUI_Ogre2GuiRenderable.h"
+#include "MyGUI_Ogre2GuiMoveable.h"
 
 #include <Ogre.h>
 #include <OgreMovableObject.h>
@@ -23,7 +23,7 @@
 namespace MyGUI
 {
 
-	class Ogre21RenderManager :
+	class Ogre2RenderManager :
 		public RenderManager,
 		public IRenderTarget,
 		public Ogre::WindowEventListener,
@@ -31,13 +31,13 @@ namespace MyGUI
 		public Ogre::RenderSystem::Listener
 	{
 	public:
-		Ogre21RenderManager();
+		Ogre2RenderManager();
 
 		void initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene);
 		void shutdown();
 
-		static Ogre21RenderManager& getInstance();
-		static Ogre21RenderManager* getInstancePtr();
+		static Ogre2RenderManager& getInstance();
+		static Ogre2RenderManager* getInstancePtr();
 
 		/** @see RenderManager::getViewSize */
 		virtual const IntSize& getViewSize() const;
@@ -135,14 +135,14 @@ namespace MyGUI
 		size_t mCountBatch;
 
 	private:
-		Ogre21GuiMoveable* mQueueMoveable;
+		Ogre2GuiMoveable* mQueueMoveable;
 
-		typedef std::map<unsigned int, Ogre21GuiRenderable*> MapRenderable;
+		typedef std::map<unsigned int, Ogre2GuiRenderable*> MapRenderable;
 		MapRenderable mRenderables;
 
 		static const Ogre::uint8 RENDER_QUEUE_OVERLAY;
 
-		Ogre21GuiRenderable* createOrRetrieveRenderable(IVertexBuffer* _buffer , ITexture* _texture , size_t _count);
+		Ogre2GuiRenderable* createOrRetrieveRenderable(IVertexBuffer* _buffer , ITexture* _texture , size_t _count);
 	};
 
 } // namespace MyGUI

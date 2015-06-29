@@ -4,8 +4,8 @@
 	@date		05/2008
 */
 
-#ifndef MYGUI_OGRE21_DATA_MANAGER_H_
-#define MYGUI_OGRE21_DATA_MANAGER_H_
+#ifndef MYGUI_OGRE2_DATA_MANAGER_H_
+#define MYGUI_OGRE2_DATA_MANAGER_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_DataManager.h"
@@ -13,22 +13,22 @@
 namespace MyGUI
 {
 
-	class Ogre21DataManager :
+	class Ogre2DataManager :
 		public DataManager
 	{
 	public:
-		Ogre21DataManager();
+		Ogre2DataManager();
 
 		void initialise(const std::string& _group);
 		void shutdown();
 
-		static Ogre21DataManager& getInstance()
+		static Ogre2DataManager& getInstance()
 		{
 			return *getInstancePtr();
 		}
-		static Ogre21DataManager* getInstancePtr()
+		static Ogre2DataManager* getInstancePtr()
 		{
-			return static_cast<Ogre21DataManager*>(DataManager::getInstancePtr());
+			return static_cast<Ogre2DataManager*>(DataManager::getInstancePtr());
 		}
 
 		const std::string& getGroup() const

@@ -1,19 +1,19 @@
-#ifndef MYGUI_OGRE21_GUI_MOVEABLE_H_
-#define MYGUI_OGRE21_GUI_MOVEABLE_H_
+#ifndef MYGUI_OGRE2_GUI_MOVEABLE_H_
+#define MYGUI_OGRE2_GUI_MOVEABLE_H_
 
 #include <Ogre.h>
 #include <OgreSceneManager.h>
 
-#include "MyGUI_Ogre21RenderManager.h"
+#include "MyGUI_Ogre2RenderManager.h"
 
 namespace MyGUI 
 {
-	class Ogre21GuiMoveable : 
+	class Ogre2GuiMoveable : 
 		public Ogre::MovableObject 
 	{
 
 	public:
-		Ogre21GuiMoveable(Ogre::SceneManager* _scene) : 
+		Ogre2GuiMoveable(Ogre::SceneManager* _scene) : 
 			MovableObject(Ogre::Id::generateNewId<Ogre::MovableObject>() , 
 				&_scene->_getEntityMemoryManager( Ogre::SCENE_DYNAMIC ) , 
 				_scene , 
@@ -28,7 +28,7 @@ namespace MyGUI
 
 		}
 
-		~Ogre21GuiMoveable() {
+		~Ogre2GuiMoveable() {
 
 		}
 
