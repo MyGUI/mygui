@@ -4,8 +4,8 @@
 	@date		08/2009
 */
 
-#ifndef MYGUI_OGRE_DATA_STREAM_H_
-#define MYGUI_OGRE_DATA_STREAM_H_
+#ifndef MYGUI_OGRE2_DATA_STREAM_H_
+#define MYGUI_OGRE2_DATA_STREAM_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IDataStream.h"

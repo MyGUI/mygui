@@ -4,8 +4,8 @@
 	@date		04/2009
 */
 
-#ifndef MYGUI_OGRE_PLATFORM_H_
-#define MYGUI_OGRE_PLATFORM_H_
+#ifndef MYGUI_OGRE2_PLATFORM_H_
+#define MYGUI_OGRE2_PLATFORM_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Ogre2Texture.h"

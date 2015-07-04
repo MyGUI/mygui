@@ -4,8 +4,8 @@
 	@date		05/2008
 */
 
-#ifndef MYGUI_OGRE_DATA_MANAGER_H_
-#define MYGUI_OGRE_DATA_MANAGER_H_
+#ifndef MYGUI_OGRE2_DATA_MANAGER_H_
+#define MYGUI_OGRE2_DATA_MANAGER_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_DataManager.h"

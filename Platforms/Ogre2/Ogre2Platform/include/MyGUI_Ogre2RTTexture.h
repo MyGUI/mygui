@@ -4,8 +4,8 @@
 	@date		10/2009
 */
 
-#ifndef MYGUI_OGRE_RTTEXTURE_H_
-#define MYGUI_OGRE_RTTEXTURE_H_
+#ifndef MYGUI_OGRE2_RTTEXTURE_H_
+#define MYGUI_OGRE2_RTTEXTURE_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IRenderTarget.h"

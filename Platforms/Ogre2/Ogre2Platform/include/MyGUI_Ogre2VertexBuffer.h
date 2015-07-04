@@ -4,8 +4,8 @@
 	@date		04/2009
 */
 
-#ifndef MYGUI_OGRE_VERTEX_BUFFER_H_
-#define MYGUI_OGRE_VERTEX_BUFFER_H_
+#ifndef MYGUI_OGRE2_VERTEX_BUFFER_H_
+#define MYGUI_OGRE2_VERTEX_BUFFER_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IVertexBuffer.h"

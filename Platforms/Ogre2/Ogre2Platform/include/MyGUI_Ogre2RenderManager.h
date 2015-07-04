@@ -4,8 +4,8 @@
 	@date		04/2008
 */
 
-#ifndef MYGUI_OGRE_RENDER_MANAGER_H_
-#define MYGUI_OGRE_RENDER_MANAGER_H_
+#ifndef MYGUI_OGRE2_RENDER_MANAGER_H_
+#define MYGUI_OGRE2_RENDER_MANAGER_H_
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_RenderFormat.h"
