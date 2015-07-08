@@ -4,5 +4,7 @@
 PluginFolder=@MYGUI_PLUGIN_DIR_REL@
 
 # Define plugins
-@MYGUI_NO_PLUGIN_OGRE_DIRECTX@Plugin=RenderSystem_Direct3D9
-Plugin=RenderSystem_GL
+@MYGUI_NO_PLUGIN_OGRE_DIRECTX9@Plugin=RenderSystem_Direct3D9
+@MYGUI_NO_PLUGIN_OGRE_DIRECTX11@Plugin=RenderSystem_Direct3D11
+@MYGUI_NO_PLUGIN_OGRE_OPENGL@Plugin=RenderSystem_GL
+@MYGUI_NO_PLUGIN_OGRE_OPENGL3PLUS@Plugin=RenderSystem_GL3Plus

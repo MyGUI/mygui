@@ -12,9 +12,24 @@
 #include "MyGUI_Timer.h"
 #include "MyGUI_Gui.h"
 
+#include <Compositor/OgreCompositorManager2.h>
+
 namespace MyGUI
 {
 	const Ogre::uint8 Ogre2RenderManager::RENDER_QUEUE_OVERLAY = 254;
+	Ogre::IdString OgreCompositorPassProvider::mPassId = Ogre::IdString("MYGUI");
+
+	MyGUIPass::MyGUIPass(const Ogre::CompositorPassDef *definition, const Ogre::CompositorChannel &target,
+		Ogre::CompositorNode *parentNode)
+		: Ogre::CompositorPass(definition, target, parentNode)
+	{
+
+	}
+
+	void MyGUIPass::execute(const Ogre::Camera *lodCameraconst)
+	{
+		static_cast<MyGUI::Ogre2RenderManager*>(MyGUI::RenderManager::getInstancePtr())->render();
+	}
 
 	Ogre2RenderManager& Ogre2RenderManager::getInstance()
 	{
@@ -29,7 +44,6 @@ namespace MyGUI
 		mUpdate(false),
 		mSceneManager(nullptr),
 		mWindow(nullptr),
-		mActiveViewport(0),
 		mRenderSystem(nullptr),
 		mIsInitialise(false),
 		mManualRender(false),
@@ -42,11 +56,17 @@ namespace MyGUI
 		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
 
+		mPassProvider.reset(new OgreCompositorPassProvider());
+
+		Ogre::CompositorManager2* pCompositorManager = Ogre::Root::getSingleton().getCompositorManager2();
+		// don't overwrite a custom pass provider that the user may have registered already
+		if (!pCompositorManager->getCompositorPassProvider())
+			pCompositorManager->setCompositorPassProvider(mPassProvider.get());
+
 		mSceneManager = nullptr;
 		mWindow = nullptr;
 		mUpdate = false;
 		mRenderSystem = nullptr;
-		mActiveViewport = 0;
 
 		Ogre::Root* root = Ogre::Root::getSingletonPtr();
 		if (root != nullptr)
@@ -54,7 +74,12 @@ namespace MyGUI
 		setRenderWindow(_window);
 		setSceneManager(_scene);
 
-		mQueueMoveable = new Ogre2GuiMoveable(_scene);
+		root->addFrameListener(this);
+
+		mQueueMoveable = new Ogre2GuiMoveable(Ogre::Id::generateNewId<Ogre2GuiRenderable>(), &mDummyObjMemMgr, mSceneManager, RENDER_QUEUE_OVERLAY);
+		mQueueSceneNode = new Ogre::SceneNode(0, 0, &mDummyNodeMemMgr, 0);
+		mQueueSceneNode->_getFullTransformUpdated();
+		mQueueSceneNode->attachObject(mQueueMoveable);
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -67,9 +92,20 @@ namespace MyGUI
 
 		destroyAllResources();
 
+		delete mQueueSceneNode;
+		delete mQueueMoveable;
+
 		setSceneManager(nullptr);
 		setRenderWindow(nullptr);
 		setRenderSystem(nullptr);
+
+		Ogre::Root::getSingleton().removeFrameListener(this);
+
+		Ogre::CompositorManager2* pCompositorManager = Ogre::Root::getSingleton().getCompositorManager2();
+		if (pCompositorManager->getCompositorPassProvider() == mPassProvider.get())
+			pCompositorManager->setCompositorPassProvider(NULL);
+
+		mPassProvider.reset();
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;
@@ -121,13 +157,6 @@ namespace MyGUI
 		if (mWindow != nullptr)
 		{
 			Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
-
-			if (mWindow->getNumViewports() <= mActiveViewport &&
-				!mWindow->getViewport(mActiveViewport)->getOverlaysEnabled())
-			{
-				MYGUI_PLATFORM_LOG(Warning, "Overlays are disabled. MyGUI won't render in selected viewport.");
-			}
-
 			windowResized(mWindow);
 		}
 	}
@@ -136,16 +165,10 @@ namespace MyGUI
 	{
 		if (nullptr != mSceneManager)
 		{
-			mSceneManager->removeRenderQueueListener(this);
 			mSceneManager = nullptr;
 		}
 
 		mSceneManager = _scene;
-
-		if (nullptr != mSceneManager)
-		{
-			mSceneManager->addRenderQueueListener(this);
-		}
 	}
 
 	Ogre::SceneManager* Ogre2RenderManager::getSceneManager()
@@ -153,37 +176,11 @@ namespace MyGUI
 		return mSceneManager;
 	}
 
-	void Ogre2RenderManager::setActiveViewport(unsigned short _num)
+	bool Ogre2RenderManager::frameStarted(const Ogre::FrameEvent &evt)
 	{
-		mActiveViewport = _num;
-
-		if (mWindow != nullptr)
-		{
-			Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
-			Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
-
-			if (mWindow->getNumViewports() <= mActiveViewport)
-			{
-				MYGUI_PLATFORM_LOG(Error, "Invalid active viewport index selected. There is no viewport with given index.");
-			}
-
-			// рассылка обновлений
-			windowResized(mWindow);
-		}
-	}
-
-	void Ogre2RenderManager::renderQueueStarted( Ogre::RenderQueue *rq, Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation )
-	{
-
-		Gui* gui = Gui::getInstancePtr();
-		if (gui == nullptr)
-			return;
-
-		if (RENDER_QUEUE_OVERLAY != queueGroupId)
-			return;
-
-		mCountBatch = 0;
-
+		// this used to be done in render(), but can't do this anymore:
+		// adding Workspaces (e.g. RenderBox::requestUpdateCanvas)
+		// can't be done while the CompositorManager is still iterating through workspaces in its update() method
 		static Timer timer;
 		static unsigned long last_time = timer.getMilliseconds();
 		unsigned long now_time = timer.getMilliseconds();
@@ -193,9 +190,26 @@ namespace MyGUI
 
 		last_time = now_time;
 
-		//begin();
+		return true;
+	}
+
+	void Ogre2RenderManager::render()
+	{
+		Gui* gui = Gui::getInstancePtr();
+		if (gui == nullptr)
+			return;
+
+		mCountBatch = 0;
+
+		setManualRender(true);
+
+		mSceneManager->getRenderQueue()->clear();
+		
+		//get mygui to itterate through renderables and call 'doRender'
+		//This will add renderbles to the Ogre render queue
 		onRenderToTarget(this, mUpdate);
-		//end();
+
+		mSceneManager->getRenderQueue()->render(mSceneManager->getDestinationRenderSystem(), RENDER_QUEUE_OVERLAY, RENDER_QUEUE_OVERLAY+1, false, false);
 
 		// сбрасываем флаг
 		mUpdate = false;
@@ -316,6 +330,11 @@ namespace MyGUI
 
 	void Ogre2RenderManager::destroyAllResources()
 	{
+		for (MapRenderable::const_iterator item = mRenderables.begin(); item != mRenderables.end(); ++item)
+		{
+			delete item->second;
+		}
+
 		for (MapTexture::const_iterator item = mTextures.begin(); item != mTextures.end(); ++item)
 		{
 			delete item->second;
@@ -348,11 +367,6 @@ namespace MyGUI
 	const RenderTargetInfo& Ogre2RenderManager::getInfo()
 	{
 		return mInfo;
-	}
-
-	size_t Ogre2RenderManager::getActiveViewport()
-	{
-		return mActiveViewport;
 	}
 
 	Ogre::RenderWindow* Ogre2RenderManager::getRenderWindow()

@@ -10,7 +10,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Ogre2Texture.h"
 #include "MyGUI_Ogre2VertexBuffer.h"
-#include "Ogre2RenderManager.h"
+#include "MyGUI_Ogre2RenderManager.h"
 #include "MyGUI_Ogre2DataManager.h"
 #include "MyGUI_Ogre2Diagnostic.h"
 #include "MyGUI_Ogre2Texture.h"

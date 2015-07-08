@@ -28,11 +28,11 @@ set(STATIC_INST_FILES
 )
 if (APPLE)
   set(INST_FILES ${INST_FILES}
-    Packages/FindIOKit.cmake
+	Packages/FindIOKit.cmake
   )
   set(STATIC_INST_FILES ${STATIC_INST_FILES}
-    Packages/FindCarbon.cmake
-    Packages/FindCocoa.cmake
+	Packages/FindCarbon.cmake
+	Packages/FindCocoa.cmake
   )
 endif ()
 

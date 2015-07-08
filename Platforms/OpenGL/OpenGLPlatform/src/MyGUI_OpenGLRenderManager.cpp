@@ -117,6 +117,10 @@ namespace MyGUI
 
 	void OpenGLRenderManager::begin()
 	{
+		glClearColor(0, 0, 0, 1);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glLoadIdentity();
+
 		//save current attributes
 		glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
 		glPushAttrib(GL_ALL_ATTRIB_BITS);
@@ -218,6 +222,8 @@ namespace MyGUI
 		mInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
 		mInfo.pixScaleX = 1.0f / float(mViewSize.width);
 		mInfo.pixScaleY = 1.0f / float(mViewSize.height);
+
+		glViewport(0, 0, _width, _height);
 
 		onResizeView(mViewSize);
 		mUpdate = true;

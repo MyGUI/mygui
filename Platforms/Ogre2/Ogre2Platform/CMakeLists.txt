@@ -13,7 +13,7 @@ add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 
 add_dependencies(${PROJECTNAME} MyGUIEngine)
 
-target_link_libraries(${PROJECTNAME} ${OGRE_LIBRARIES} MyGUIEngine)
+target_link_libraries(${PROJECTNAME} ${OGRE_LIBRARIES} ${OGRE_HlmsPbs_LIBRARIES} ${OGRE_HlmsUnlit_LIBRARIES} MyGUIEngine)
 link_directories(${OGRE_LIB_DIR})
 
 # installation rules
