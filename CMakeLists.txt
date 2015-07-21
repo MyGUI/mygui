@@ -72,7 +72,7 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 	# Fix x64 issues on Linux
 	if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64" AND NOT APPLE)
 		add_definitions(-fPIC)
-	endif()  
+	endif()
 endif ()
 
 # determine system endianess
@@ -119,7 +119,8 @@ set(MYGUI_RENDERSYSTEM 3 CACHE STRING
   4 - OpenGL
   5 - Direct3D 9
   6 - Direct3D 11
-  7 - OpenGL 3.x"
+  7 - OpenGL 3.x
+  8 - Ogre 2.x"
 )
 
 if(MYGUI_RENDERSYSTEM EQUAL 4 OR MYGUI_RENDERSYSTEM EQUAL 7)
@@ -222,7 +223,7 @@ endif ()
 
 if (MSVC)
 	add_definitions("-D_CRT_SECURE_NO_WARNINGS")
-	
+
 	# Use the highest warning level for visual studio.
 	if (MYGUI_HIGH_LEVEL_WARNINGS)
 		SET(WARNING_LEVEL "/W4")
