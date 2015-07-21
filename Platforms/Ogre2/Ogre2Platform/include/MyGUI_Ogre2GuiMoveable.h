@@ -13,26 +13,18 @@ namespace MyGUI
 	{
 
 	public:
-		Ogre2GuiMoveable(Ogre::SceneManager* _scene) : 
-			MovableObject(Ogre::Id::generateNewId<Ogre::MovableObject>() , 
-				&_scene->_getEntityMemoryManager( Ogre::SCENE_DYNAMIC ) , 
-				_scene , 
-				254 )
+		Ogre2GuiMoveable(Ogre::IdType id, Ogre::ObjectMemoryManager *objectMemoryManager,
+						 Ogre::SceneManager* manager, Ogre::uint8 renderQueueId) :
+			MovableObject(id, objectMemoryManager, manager, renderQueueId )
 		{
-			
-			Ogre::NodeMemoryManager* mNodeMemoryManager = new Ogre::NodeMemoryManager();
-
-			Ogre::SceneNode* mDummyNode = OGRE_NEW Ogre::SceneNode( 0, 0, mNodeMemoryManager, 0 );
-			mDummyNode->_getFullTransformUpdated();
-			mDummyNode->attachObject( this );
-
 		}
 
-		~Ogre2GuiMoveable() {
-
+		virtual ~Ogre2GuiMoveable() 
+		{
 		}
 
-		virtual const Ogre::String& getMovableType( void ) const {
+		virtual const Ogre::String& getMovableType( void ) const 
+		{
 			return Ogre::BLANKSTRING;
 		}
 

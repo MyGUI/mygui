@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Resource" version="1.1">
+	<Resource type="ResourceSDLPointer" name="arrow">
+		<Property key="SourceSystem">SDL_SYSTEM_CURSOR_ARROW</Property>
+	</Resource>
+	<Resource type="ResourceSDLPointer" name="beam">
+		<Property key="SourceSystem">SDL_SYSTEM_CURSOR_IBEAM</Property>
+	</Resource>
+	<Resource type="ResourceSDLPointer" name="size_left">
+		<Property key="SourceSystem">SDL_SYSTEM_CURSOR_SIZENWSE</Property>
+	</Resource>
+	<Resource type="ResourceSDLPointer" name="size_right">
+		<Property key="SourceSystem">SDL_SYSTEM_CURSOR_SIZENESW</Property>
+	</Resource>
+	<Resource type="ResourceSDLPointer" name="size_horz">
+		<Property key="SourceSystem">SDL_SYSTEM_CURSOR_SIZEWE</Property>
+	</Resource>
+	<Resource type="ResourceSDLPointer" name="size_vert">
+		<Property key="SourceSystem">SDL_SYSTEM_CURSOR_SIZENS</Property>
+	</Resource>
+	<Resource type="ResourceSDLPointer" name="hand">
+		<Property key="SourceSystem">SDL_SYSTEM_CURSOR_SIZEALL</Property>
+	</Resource>
+	<Resource type="ResourceSDLPointer" name="link">
+		<Property key="SourceSystem">SDL_SYSTEM_CURSOR_HAND</Property>
+	</Resource>
+</MyGUI>

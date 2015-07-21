@@ -16,13 +16,13 @@
 #include <MyGUI_OgreTexture.h>
 #include <MyGUI_OgreVertexBuffer.h>
 #elif MYGUI_OPENGL_PLATFORM
-#include <MyGUI_OpenGlRenderManager.h>
+#include <MyGUI_OpenGLRenderManager.h>
 #elif MYGUI_DIRECTX_PLATFORM
 #include <MyGUI_DirectXRenderManager.h>
 #elif MYGUI_DIRECTX11_PLATFORM
 #include <MyGUI_DirectX11RenderManager.h>
 #elif MYGUI_OPENGL3_PLATFORM
-#include <MyGUI_OpenGl3RenderManager.h>
+#include <MyGUI_OpenGL3RenderManager.h>
 #endif
 
 namespace MyGUI

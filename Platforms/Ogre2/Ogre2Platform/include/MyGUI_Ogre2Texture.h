@@ -23,7 +23,7 @@
 #include <OgreHlmsDatablock.h>
 #include <OgreHlmsSamplerblock.h>
 #include <OgreHlmsManager.h>
-#include <Components/Hlms/Unlit/include/OgreHlmsUnlitDatablock.h>
+#include <Hlms/Unlit/OgreHlmsUnlitDatablock.h>
 
 #include "MyGUI_LastHeader.h"
 
