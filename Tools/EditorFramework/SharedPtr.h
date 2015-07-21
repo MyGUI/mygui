@@ -10,6 +10,10 @@
 namespace tools
 {
 
+#if __cplusplus >= 201103L
+	template <typename T> using weak_ptr = std::weak_ptr<T>;
+	template <typename T> using shared_ptr = std::shared_ptr<T>;
+#else
 	template <typename T> class weak_ptr;
 
 	template <typename T>
@@ -111,6 +115,7 @@ namespace tools
 		T* ptr;
 		unsigned* count;
 	};
+#endif
 
 }
 

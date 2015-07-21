@@ -109,6 +109,14 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 7)
 		${OPENGL_INCLUDE_DIR}
 	)
 	link_directories(${OPENGL_LIB_DIR})
+elseif(MYGUI_RENDERSYSTEM EQUAL 8)
+	mygui_add_base_manager_source(Ogre2)
+	add_definitions("-DMYGUI_OGRE2_PLATFORM")
+	include_directories(
+		${MYGUI_SOURCE_DIR}/Platforms/Ogre2/Ogre2Platform/include
+		${OGRE_INCLUDE_DIR}
+	)
+	link_directories(${OGRE_LIB_DIR})
 endif()
 
 if(MYGUI_SAMPLES_INPUT EQUAL 1)
@@ -145,6 +153,9 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 6)
 elseif(MYGUI_RENDERSYSTEM EQUAL 7)
 	add_dependencies(${PROJECTNAME} MyGUI.OpenGL3Platform)
 	target_link_libraries(${PROJECTNAME} MyGUI.OpenGL3Platform)
+elseif(MYGUI_RENDERSYSTEM EQUAL 8)
+	add_dependencies(${PROJECTNAME} MyGUI.Ogre2Platform)
+	target_link_libraries(${PROJECTNAME} MyGUI.Ogre2Platform)
 endif()
 
 add_dependencies(${PROJECTNAME} MyGUIEngine)

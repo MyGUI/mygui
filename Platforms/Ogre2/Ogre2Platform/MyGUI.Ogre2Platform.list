@@ -1,0 +1,44 @@
+set (HEADER_FILES
+  include/MyGUI_LastHeader.h
+  include/MyGUI_Ogre2DataManager.h
+  include/MyGUI_Ogre2DataStream.h
+  include/MyGUI_Ogre2Diagnostic.h
+  include/MyGUI_Ogre2Platform.h
+  include/MyGUI_Ogre2RTTexture.h
+  include/MyGUI_Ogre2RenderManager.h
+  include/MyGUI_Ogre2Texture.h
+  include/MyGUI_Ogre2VertexBuffer.h
+  include/MyGUI_Ogre2GuiRenderable.h
+  include/MyGUI_Ogre2GuiMoveable.h
+)
+set (SOURCE_FILES
+  src/MyGUI_Ogre2DataManager.cpp
+  src/MyGUI_Ogre2DataStream.cpp
+  src/MyGUI_Ogre2RTTexture.cpp
+  src/MyGUI_Ogre2RenderManager.cpp
+  src/MyGUI_Ogre2Texture.cpp
+  src/MyGUI_Ogre2VertexBuffer.cpp
+  src/MyGUI_Ogre2GuiRenderable.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  include/MyGUI_LastHeader.h
+  include/MyGUI_Ogre2DataManager.h
+  include/MyGUI_Ogre2DataStream.h
+  include/MyGUI_Ogre2Diagnostic.h
+  include/MyGUI_Ogre2Platform.h
+  include/MyGUI_Ogre2RTTexture.h
+  include/MyGUI_Ogre2RenderManager.h
+  include/MyGUI_Ogre2Texture.h
+  include/MyGUI_Ogre2VertexBuffer.h
+  include/MyGUI_Ogre2GuiRenderable.h
+  include/MyGUI_Ogre2GuiMoveable.h
+)
+SOURCE_GROUP("Source Files" FILES
+  src/MyGUI_Ogre2DataManager.cpp
+  src/MyGUI_Ogre2DataStream.cpp
+  src/MyGUI_Ogre2RTTexture.cpp
+  src/MyGUI_Ogre2RenderManager.cpp
+  src/MyGUI_Ogre2Texture.cpp
+  src/MyGUI_Ogre2VertexBuffer.cpp
+  src/MyGUI_Ogre2GuiRenderable.cpp
+)
