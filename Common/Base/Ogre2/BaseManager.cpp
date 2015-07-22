@@ -131,7 +131,7 @@ namespace base
 		// Set default mipmap level (NB some APIs ignore this)
 		Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 
-		mSceneManager->setAmbientLight(Ogre::ColourValue::White);
+		mSceneManager->setAmbientLight(Ogre::ColourValue::White, Ogre::ColourValue::White, Ogre::Vector3::UNIT_Y);
 		Ogre::SceneNode* lightNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
 		Ogre::Light* light = mSceneManager->createLight();
 		lightNode->attachObject(light);
@@ -286,6 +286,71 @@ namespace base
 		}
 	}
 
+	void BaseManager::setWindowMaximized(bool _value)
+	{
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+		if (_value)
+		{
+			size_t handle = getWindowHandle();
+			::ShowWindow((HWND)handle, SW_SHOWMAXIMIZED);
+		}
+#endif
+	}
+
+	bool BaseManager::getWindowMaximized()
+	{
+		bool result = false;
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+		size_t handle = getWindowHandle();
+		result = ::IsZoomed((HWND)handle) != 0;
+#endif
+		return result;
+	}
+
+	void BaseManager::setWindowCoord(const MyGUI::IntCoord& _value)
+	{
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+		if (_value.empty())
+			return;
+
+		MyGUI::IntCoord coord = _value;
+		if (coord.left < 0)
+			coord.left = 0;
+		if (coord.top < 0)
+			coord.top = 0;
+		if (coord.width < 640)
+			coord.width = 640;
+		if (coord.height < 480)
+			coord.height = 480;
+		if (coord.width > GetSystemMetrics(SM_CXSCREEN))
+			coord.width = GetSystemMetrics(SM_CXSCREEN);
+		if (coord.height > GetSystemMetrics(SM_CYSCREEN))
+			coord.height = GetSystemMetrics(SM_CYSCREEN);
+		if (coord.right() > GetSystemMetrics(SM_CXSCREEN))
+			coord.left = GetSystemMetrics(SM_CXSCREEN) - coord.width;
+		if (coord.bottom() > GetSystemMetrics(SM_CYSCREEN))
+			coord.top = GetSystemMetrics(SM_CYSCREEN) - coord.height;
+
+		size_t handle = getWindowHandle();
+		::MoveWindow((HWND)handle, coord.left, coord.top, coord.width, coord.height, true);
+#endif
+	}
+
+	MyGUI::IntCoord BaseManager::getWindowCoord()
+	{
+		MyGUI::IntCoord result;
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+		size_t handle = getWindowHandle();
+		::RECT rect;
+		::GetWindowRect((HWND)handle, &rect);
+		result.left = rect.left;
+		result.top = rect.top;
+		result.width = rect.right - rect.left;
+		result.height = rect.bottom - rect.top;
+#endif
+		return result;
+	}
+
 	void BaseManager::setupResources()
 	{
 		MyGUI::xml::Document doc;
@@ -334,12 +399,6 @@ namespace base
 
 		Ogre::HlmsUnlit *hlmsUnlit = OGRE_NEW Ogre::HlmsUnlit(archiveUnlit, &libraryCommon);
 		Ogre::Root::getSingleton().getHlmsManager()->registerHlms(hlmsUnlit);
-
-		Ogre::Archive *archivePbs = Ogre::ArchiveManager::getSingletonPtr()->load(
-			getRootMedia() + "/OgreHlms" + "/Pbs" + shaderSyntax,
-			"FileSystem", true);
-		Ogre::HlmsPbs *hlmsPbs = OGRE_NEW Ogre::HlmsPbs(archivePbs, &libraryCommon);
-		Ogre::Root::getSingleton().getHlmsManager()->registerHlms(hlmsPbs);
 	}
 
 	bool BaseManager::frameStarted(const Ogre::FrameEvent& evt)
