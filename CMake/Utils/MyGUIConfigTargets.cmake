@@ -160,7 +160,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		)
 		link_directories(${OPENGL_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
-		include_directories(../../Common/Base/Ogre)
+		include_directories(../../Common/Base/Ogre2)
 		add_definitions("-DMYGUI_OGRE2_PLATFORM")
 		include_directories(
 			${MYGUI_SOURCE_DIR}/Platforms/Ogre2/Ogre2Platform/include
@@ -316,7 +316,7 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 		)
 		link_directories(${OPENGL_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
-		include_directories(../../Common/Base/Ogre)
+		include_directories(../../Common/Base/Ogre2)
 		add_definitions("-DMYGUI_OGRE2_PLATFORM")
 		include_directories(
 			${MYGUI_SOURCE_DIR}/Platforms/Ogre2/Ogre2Platform/include
