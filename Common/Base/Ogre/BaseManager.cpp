@@ -154,18 +154,13 @@ namespace base
 			if (mWindow->isActive() == false)
 			{
 				mWindow->setActive(true);
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-				::Sleep(50);
-#endif
 			}
 			if (!mRoot->renderOneFrame())
 				break;
 
-// выставляем слип, чтобы другие потоки не стопорились
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-			::Sleep(0);
+			::Sleep(50);
 #endif
-
 		};
 	}
 
