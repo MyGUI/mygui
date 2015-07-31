@@ -111,6 +111,25 @@ namespace MyGUI
 				mVertexFormat = VertexColourType::ColourABGR;
 
 			updateRenderInfo();
+
+			if (!mRenderSystem->getFixedPipelineEnabled())
+			{
+				mVertexProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
+					"MyGUI_VP.glsles",
+					OgreDataManager::getInstance().getGroup(),
+					"glsles",
+					Ogre::GPT_VERTEX_PROGRAM);
+				mVertexProgram->setSourceFile("MyGUI_VP.glsles");
+				mVertexProgram->load();
+
+				mFragmentProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
+					"MyGUI_FP.glsles",
+					OgreDataManager::getInstance().getGroup(),
+					"glsles",
+					Ogre::GPT_FRAGMENT_PROGRAM);
+				mFragmentProgram->setSourceFile("MyGUI_FP.glsles");
+				mFragmentProgram->load();
+			}
 		}
 	}
 
@@ -322,8 +341,16 @@ namespace MyGUI
 		mRenderSystem->_setCullingMode(Ogre::CULL_NONE);
 		mRenderSystem->_setFog(Ogre::FOG_NONE);
 		mRenderSystem->_setColourBufferWriteEnabled(true, true, true, true);
-		mRenderSystem->unbindGpuProgram(Ogre::GPT_FRAGMENT_PROGRAM);
-		mRenderSystem->unbindGpuProgram(Ogre::GPT_VERTEX_PROGRAM);
+		if (mRenderSystem->getFixedPipelineEnabled())
+		{
+			mRenderSystem->unbindGpuProgram(Ogre::GPT_FRAGMENT_PROGRAM);
+			mRenderSystem->unbindGpuProgram(Ogre::GPT_VERTEX_PROGRAM);
+		}
+		else
+		{
+			mRenderSystem->bindGpuProgram(mVertexProgram->_getBindingDelegate());
+			mRenderSystem->bindGpuProgram(mFragmentProgram->_getBindingDelegate());
+		}
 		mRenderSystem->setShadingType(Ogre::SO_GOURAUD);
 
 		// initialise texture settings
