@@ -18,7 +18,7 @@ namespace MyGUI
 		mRenderOperation = op;
 	}
 
-	void Ogre2GuiRenderable::getRenderOperation( Ogre::v1::RenderOperation& op )
+	void Ogre2GuiRenderable::getRenderOperation( Ogre::v1::RenderOperation& op, bool casterPass )
 	{
 		op = mRenderOperation;
 	}
