@@ -59,9 +59,17 @@ namespace MyGUI
 		mPassProvider.reset(new OgreCompositorPassProvider());
 
 		Ogre::CompositorManager2* pCompositorManager = Ogre::Root::getSingleton().getCompositorManager2();
+		
 		// don't overwrite a custom pass provider that the user may have registered already
 		if (!pCompositorManager->getCompositorPassProvider())
+		{
 			pCompositorManager->setCompositorPassProvider(mPassProvider.get());
+		}
+		else
+		{
+			MYGUI_PLATFORM_LOG(Warning, "A custom pass provider is already installed." << 
+										"MyGui passes will not work unless the registered provider can create MyGui passes");
+		}
 
 		mSceneManager = nullptr;
 		mWindow = nullptr;
