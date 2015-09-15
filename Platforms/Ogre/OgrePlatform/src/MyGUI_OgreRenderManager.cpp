@@ -37,7 +37,7 @@ namespace MyGUI
 	{
 	}
 
-	void OgreRenderManager::initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene)
+	void OgreRenderManager::initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene, const Ogre::String& _vertexProgramSrcFile, const Ogre::String& _fragmentProgramSrcFile, const Ogre::String& _shaderLanguage)
 	{
 		MYGUI_PLATFORM_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_PLATFORM_LOG(Info, "* Initialise: " << getClassTypeName());
@@ -64,7 +64,7 @@ namespace MyGUI
 
 		Ogre::Root* root = Ogre::Root::getSingletonPtr();
 		if (root != nullptr)
-			setRenderSystem(root->getRenderSystem());
+			setRenderSystem(root->getRenderSystem(), _vertexProgramSrcFile, _fragmentProgramSrcFile, _shaderLanguage);
 		setRenderWindow(_window);
 		setSceneManager(_scene);
 
@@ -87,7 +87,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void OgreRenderManager::setRenderSystem(Ogre::RenderSystem* _render)
+	void OgreRenderManager::setRenderSystem(Ogre::RenderSystem* _render, const Ogre::String& _vertexProgramSrcFile, const Ogre::String& _fragmentProgramSrcFile, const Ogre::String& _shaderLanguage)
 	{
 		// отписываемся
 		if (mRenderSystem != nullptr)
@@ -112,22 +112,22 @@ namespace MyGUI
 
 			updateRenderInfo();
 
-			if (!mRenderSystem->getFixedPipelineEnabled())
+			if (_vertexProgramSrcFile.length() > 0 && _fragmentProgramSrcFile.length() > 0)
 			{
 				mVertexProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
-					"MyGUI_VP.glsles",
+					_vertexProgramSrcFile,
 					OgreDataManager::getInstance().getGroup(),
-					"glsles",
+					_shaderLanguage,
 					Ogre::GPT_VERTEX_PROGRAM);
-				mVertexProgram->setSourceFile("MyGUI_VP.glsles");
+				mVertexProgram->setSourceFile(_vertexProgramSrcFile);
 				mVertexProgram->load();
 
 				mFragmentProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
-					"MyGUI_FP.glsles",
+					_fragmentProgramSrcFile,
 					OgreDataManager::getInstance().getGroup(),
-					"glsles",
+					_shaderLanguage,
 					Ogre::GPT_FRAGMENT_PROGRAM);
-				mFragmentProgram->setSourceFile("MyGUI_FP.glsles");
+				mFragmentProgram->setSourceFile(_fragmentProgramSrcFile);
 				mFragmentProgram->load();
 			}
 		}
@@ -341,7 +341,7 @@ namespace MyGUI
 		mRenderSystem->_setCullingMode(Ogre::CULL_NONE);
 		mRenderSystem->_setFog(Ogre::FOG_NONE);
 		mRenderSystem->_setColourBufferWriteEnabled(true, true, true, true);
-		if (mRenderSystem->getFixedPipelineEnabled())
+		if (mVertexProgram.isNull() || mFragmentProgram.isNull())
 		{
 			mRenderSystem->unbindGpuProgram(Ogre::GPT_FRAGMENT_PROGRAM);
 			mRenderSystem->unbindGpuProgram(Ogre::GPT_VERTEX_PROGRAM);

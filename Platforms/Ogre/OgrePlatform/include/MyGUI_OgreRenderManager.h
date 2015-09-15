@@ -29,7 +29,7 @@ namespace MyGUI
 	public:
 		OgreRenderManager();
 
-		void initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene);
+		void initialise(Ogre::RenderWindow* _window, Ogre::SceneManager* _scene, const Ogre::String& _vertexProgramSrcFile, const Ogre::String& _fragmentProgramSrcFile, const Ogre::String& _shaderLanguage);
 		void shutdown();
 
 		static OgreRenderManager& getInstance();
@@ -67,7 +67,7 @@ namespace MyGUI
 		/** @see IRenderTarget::getInfo */
 		virtual const RenderTargetInfo& getInfo();
 
-		void setRenderSystem(Ogre::RenderSystem* _render);
+		void setRenderSystem(Ogre::RenderSystem* _render, const Ogre::String& _vertexProgramSrcFile = "", const Ogre::String& _fragmentProgramSrcFile = "", const Ogre::String& _shaderLanguage = "");
 		Ogre::RenderSystem* getRenderSystem();
 
 		void setRenderWindow(Ogre::RenderWindow* _window);
@@ -132,7 +132,7 @@ namespace MyGUI
 		bool mManualRender;
 		size_t mCountBatch;
 
-		// shaders for OpenGLES2 render
+		// shaders
 		Ogre::HighLevelGpuProgramPtr mVertexProgram;
 		Ogre::HighLevelGpuProgramPtr mFragmentProgram;
 	};
