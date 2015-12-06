@@ -8,6 +8,7 @@
 #include "MyGUI_Diagnostic.h"
 
 #include <SDL_image.h>
+#include "GL/glew.h"
 
 #ifdef MYGUI_CHECK_MEMORY_LEAKS
 #	undef new
