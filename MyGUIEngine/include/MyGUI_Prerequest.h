@@ -44,7 +44,6 @@ namespace MyGUI
 	class ResourceManager;
 	class RenderManager;
 	class FactoryManager;
-	class TextureManager;
 	class ToolTipManager;
 
 	class Widget;
