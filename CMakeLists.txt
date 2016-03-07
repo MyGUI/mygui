@@ -163,6 +163,7 @@ endif()
 
 if (MSVC)
 	option(MYGUI_USE_PROJECT_FOLDERS "Use Visual Studio solution folders for projects." FALSE)
+	option(MYGUI_BREAKPOINT_ON_EXCEPT "Call the debugger on a MyGUI Exception" TRUE)
 endif ()
 
 # Used to not annoy users with high level warnings (should be TRUE for developers)
@@ -183,6 +184,11 @@ endif ()
 if (MYGUI_DONT_USE_OBSOLETE)
 	add_definitions(-DMYGUI_DONT_USE_OBSOLETE)
 endif ()
+
+if (MYGUI_BREAKPOINT_ON_EXCEPT)
+	add_definitions(-DMYGUI_BREAKPOINT_ON_EXCEPT)
+endif ()
+
 # End of Global defines
 
 # Set compiler specific build flags
