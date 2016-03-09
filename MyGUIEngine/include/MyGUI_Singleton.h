@@ -31,8 +31,8 @@ namespace MyGUI
 
 		virtual ~Singleton()
 		{
-            if (nullptr != msInstance)
-                MYGUI_LOG(Critical, "Destroying Singleton instance " << getClassTypeName() << " before constructing it.");
+			if (nullptr == msInstance)
+				MYGUI_LOG(Critical, "Destroying Singleton instance " << getClassTypeName() << " before constructing it.");
 			msInstance = nullptr;
 		}
 
