@@ -114,21 +114,42 @@ namespace MyGUI
 
 			if (!mRenderSystem->getFixedPipelineEnabled())
 			{
-				mVertexProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
-					"MyGUI_VP.glsles",
-					OgreDataManager::getInstance().getGroup(),
-					"glsles",
-					Ogre::GPT_VERTEX_PROGRAM);
-				mVertexProgram->setSourceFile("MyGUI_VP.glsles");
-				mVertexProgram->load();
+				if (mRenderSystem->getCapabilities()->isShaderProfileSupported("glsles"))
+				{
+					mVertexProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
+						"MyGUI_VP.glsles",
+						OgreDataManager::getInstance().getGroup(),
+						"glsles",
+						Ogre::GPT_VERTEX_PROGRAM);
+					mVertexProgram->setSourceFile("MyGUI_VP.glsles");
+					mVertexProgram->load();
 
-				mFragmentProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
-					"MyGUI_FP.glsles",
-					OgreDataManager::getInstance().getGroup(),
-					"glsles",
-					Ogre::GPT_FRAGMENT_PROGRAM);
-				mFragmentProgram->setSourceFile("MyGUI_FP.glsles");
-				mFragmentProgram->load();
+					mFragmentProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
+						"MyGUI_FP.glsles",
+						OgreDataManager::getInstance().getGroup(),
+						"glsles",
+						Ogre::GPT_FRAGMENT_PROGRAM);
+					mFragmentProgram->setSourceFile("MyGUI_FP.glsles");
+					mFragmentProgram->load();
+				}
+				else if (mRenderSystem->getCapabilities()->isShaderProfileSupported("glsl"))
+				{
+					mVertexProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
+						"MyGUI_VP.glsl",
+						OgreDataManager::getInstance().getGroup(),
+						"glsl",
+						Ogre::GPT_VERTEX_PROGRAM);
+					mVertexProgram->setSourceFile("MyGUI_VP.glsl");
+					mVertexProgram->load();
+
+					mFragmentProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
+						"MyGUI_FP.glsl",
+						OgreDataManager::getInstance().getGroup(),
+						"glsl",
+						Ogre::GPT_FRAGMENT_PROGRAM);
+					mFragmentProgram->setSourceFile("MyGUI_FP.glsl");
+					mFragmentProgram->load();
+				}
 			}
 		}
 	}
