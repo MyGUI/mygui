@@ -79,7 +79,7 @@ namespace MyGUI
 #elif MYGUI_DIRECTX11_PLATFORM
 		DirectX11RenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
 #elif MYGUI_OPENGL3_PLATFORM
-    OpenGL3RenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
+	OpenGL3RenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
 #endif
 	}
 

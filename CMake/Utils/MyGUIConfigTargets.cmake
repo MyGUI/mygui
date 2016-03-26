@@ -23,7 +23,11 @@ elseif (UNIX)
 	set(MYGUI_PLUGIN_PATH "/MYGUI")
 endif ()
 if (APPLE)
-	set(MYGUI_FRAMEWORK_PATH /Library/Frameworks)
+  if (NOT CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    set(MYGUI_FRAMEWORK_PATH ${CMAKE_INSTALL_PREFIX}/lib/${CMAKE_BUILD_TYPE})
+  else ()
+    set(MYGUI_FRAMEWORK_PATH /Library/Frameworks)
+  endif ()
 endif ()
 
 # create vcproj.user file for Visual Studio to set debug working directory
