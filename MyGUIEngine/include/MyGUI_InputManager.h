@@ -157,7 +157,7 @@ namespace MyGUI
 
 		IntPoint mMousePosition;
 
-		// last mouse press position
+		// last mouse press position (in Layer coordinates).
 		IntPoint mLastPressed[MouseButton::MAX];
 
 		// is mouse button captured by active widget

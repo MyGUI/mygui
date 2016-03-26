@@ -131,6 +131,10 @@ namespace MyGUI
 		bool mIsInitialise;
 		bool mManualRender;
 		size_t mCountBatch;
+
+		// shaders for OpenGLES2 render
+		Ogre::HighLevelGpuProgramPtr mVertexProgram;
+		Ogre::HighLevelGpuProgramPtr mFragmentProgram;
 	};
 
 } // namespace MyGUI

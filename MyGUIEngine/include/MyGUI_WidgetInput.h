@@ -90,7 +90,7 @@ namespace MyGUI
 
 		/** Set inherits mode flag
 			This mode makes all child widgets pickable even if widget don't
-			need mouse focus (was set setNeedKeyFocus(false) ).\n
+			need mouse focus (was set setNeedMouseFocus(false) ).\n
 			Disabled (false) by default.
 		*/
 		void setInheritsPick(bool _value);

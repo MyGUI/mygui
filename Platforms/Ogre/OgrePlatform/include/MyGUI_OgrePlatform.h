@@ -28,8 +28,8 @@ namespace MyGUI
 			mIsInitialise(false)
 		{
 			mLogManager = new LogManager();
-			mRenderManager = new OgreRenderManager();
 			mDataManager = new OgreDataManager();
+			mRenderManager = new OgreRenderManager();
 		}
 
 		~OgrePlatform()
@@ -48,8 +48,8 @@ namespace MyGUI
 			if (!_logName.empty())
 				LogManager::getInstance().createDefaultSource(_logName);
 
-			mRenderManager->initialise(_window, _scene);
 			mDataManager->initialise(_group);
+			mRenderManager->initialise(_window, _scene);
 		}
 
 		void shutdown()

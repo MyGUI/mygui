@@ -200,7 +200,10 @@ namespace MyGUI
 
 		if ((item != nullptr) && (item->getInheritedEnabled()))
 		{
-			item->_riseMouseMove(_absx, _absy);
+			MyGUI::IntPoint point (_absx, _absy);
+			if (mLayerMouseFocus != nullptr)
+				point = mLayerMouseFocus->getPosition(_absx, _absy);
+			item->_riseMouseMove(point.left, point.top);
 			item->_riseMouseSetFocus(mWidgetMouseFocus);
 		}
 
@@ -256,7 +259,10 @@ namespace MyGUI
 
 		if (isFocusMouse())
 		{
-			mWidgetMouseFocus->_riseMouseButtonPressed(_absx, _absy, _id);
+			IntPoint point (_absx, _absy);
+			if (mLayerMouseFocus != nullptr)
+				point = mLayerMouseFocus->getPosition(_absx, _absy);
+			mWidgetMouseFocus->_riseMouseButtonPressed(point.left, point.top, _id);
 
 			// после пресса может сброситься
 			if (mWidgetMouseFocus)
@@ -300,7 +306,10 @@ namespace MyGUI
 				}
 			}
 
-			mWidgetMouseFocus->_riseMouseButtonReleased(_absx, _absy, _id);
+			IntPoint point (_absx, _absy);
+			if (mLayerMouseFocus != nullptr)
+				point = mLayerMouseFocus->getPosition(_absx, _absy);
+			mWidgetMouseFocus->_riseMouseButtonReleased(point.left, point.top, _id);
 
 			// после вызова, виджет может быть сброшен
 			if (nullptr != mWidgetMouseFocus)

@@ -35,8 +35,8 @@ namespace MyGUI
 	public:
 		OgreHlmsBlocks() 
 		{
-			mMacroBlock.mCullMode = Ogre::CullingMode::CULL_NONE;
-			mMacroBlock.mPolygonMode = Ogre::PolygonMode::PM_SOLID;
+			mMacroBlock.mCullMode = Ogre::CULL_NONE;
+			mMacroBlock.mPolygonMode = Ogre::PM_SOLID;
 			mMacroBlock.mDepthBiasConstant = 0;
 			mMacroBlock.mDepthBiasSlopeScale = 0;
 			mMacroBlock.mDepthCheck = false;
@@ -46,9 +46,9 @@ namespace MyGUI
 			mBlendBlock.mSourceBlendFactor = Ogre::SBF_SOURCE_ALPHA;
 			mBlendBlock.mDestBlendFactor = Ogre::SBF_ONE_MINUS_SOURCE_ALPHA;
 
-			mSamplerBlock.mU = Ogre::TextureAddressingMode::TAM_CLAMP;
-			mSamplerBlock.mV = Ogre::TextureAddressingMode::TAM_CLAMP;
-			mSamplerBlock.mW = Ogre::TextureAddressingMode::TAM_CLAMP;
+			mSamplerBlock.mU = Ogre::TAM_CLAMP;
+			mSamplerBlock.mV = Ogre::TAM_CLAMP;
+			mSamplerBlock.mW = Ogre::TAM_CLAMP;
 		}
 
 		Ogre::HlmsUnlitDatablock* createUnlitDataBlock( Ogre::String id ) const 

@@ -734,7 +734,8 @@ namespace MyGUI
 			if (texHeight > texWidth * 2)
 				texWidth *= 2;
 
-			int texX = 0, texY = 0;
+			int texX = mGlyphSpacing;
+			int texY = mGlyphSpacing;
 
 			for (GlyphHeightMap::const_iterator j = glyphHeightMap.begin(); j != glyphHeightMap.end(); ++j)
 			{
@@ -909,7 +910,7 @@ namespace MyGUI
 	{
 		if (_glyphWidth > 0 && _texX + mGlyphSpacing + _glyphWidth > _texWidth)
 		{
-			_texX = 0;
+			_texX = mGlyphSpacing;
 			_texY += mGlyphSpacing + _lineHeight;
 		}
 	}
@@ -966,7 +967,7 @@ namespace MyGUI
 		FT_Bitmap ftBitmap;
 		FT_Bitmap_New(&ftBitmap);
 
-		int texX = 0, texY = 0;
+		int texX = mGlyphSpacing, texY = mGlyphSpacing;
 
 		for (GlyphHeightMap::const_iterator j = _glyphHeightMap.begin(); j != _glyphHeightMap.end(); ++j)
 		{
