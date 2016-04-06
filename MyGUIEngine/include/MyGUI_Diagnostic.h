@@ -23,17 +23,9 @@
 
 #define MYGUI_BASE_EXCEPT(desc, src)	 throw MyGUI::Exception(desc, src, __FILE__, __LINE__);
 
-// MSVC specific: sets the breakpoint
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-#	define MYGUI_DBG_BREAK _CrtDbgBreak();
-#else
-#	define MYGUI_DBG_BREAK
-#endif
-
 #define MYGUI_EXCEPT(dest) \
 { \
 	MYGUI_LOG(Critical, dest); \
-	MYGUI_DBG_BREAK;\
 	std::ostringstream stream; \
 	stream << dest << "\n"; \
 	MYGUI_BASE_EXCEPT(stream.str().c_str(), "MyGUI"); \
@@ -44,7 +36,6 @@
 	if ( ! (exp) ) \
 	{ \
 		MYGUI_LOG(Critical, dest); \
-		MYGUI_DBG_BREAK;\
 		std::ostringstream stream; \
 		stream << dest << "\n"; \
 		MYGUI_BASE_EXCEPT(stream.str().c_str(), "MyGUI"); \

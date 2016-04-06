@@ -16,7 +16,6 @@
 #define MYGUI_PLATFORM_EXCEPT(dest) \
 { \
 	MYGUI_PLATFORM_LOG(Critical, dest); \
-	MYGUI_DBG_BREAK;\
 	std::ostringstream stream; \
 	stream << dest << "\n"; \
 	MYGUI_BASE_EXCEPT(stream.str().c_str(), "MyGUI"); \
@@ -27,7 +26,6 @@
 	if ( ! (exp) ) \
 	{ \
 		MYGUI_PLATFORM_LOG(Critical, dest); \
-		MYGUI_DBG_BREAK;\
 		std::ostringstream stream; \
 		stream << dest << "\n"; \
 		MYGUI_BASE_EXCEPT(stream.str().c_str(), "MyGUI"); \

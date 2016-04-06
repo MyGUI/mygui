@@ -47,11 +47,7 @@ namespace MyGUI
 
 	LogManager& LogManager::getInstance()
 	{
-		if (msInstance == nullptr)
-		{
-			MYGUI_DBG_BREAK;
-			MYGUI_BASE_EXCEPT("Singleton instance LogManager was not created", "MyGUI");
-		}
+		MYGUI_ASSERT(nullptr != getInstancePtr(), "Singleton instance LogManager was not created");
 		return *msInstance;
 	}
 
