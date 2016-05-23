@@ -117,8 +117,6 @@ namespace MyGUI
 
 	void OpenGLRenderManager::begin()
 	{
-		glLoadIdentity();
-
 		//save current attributes
 		glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
 		glPushAttrib(GL_ALL_ATTRIB_BITS);
