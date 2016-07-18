@@ -485,7 +485,7 @@ namespace MyGUI
 
 		if (_widget == mWidgetKeyFocus)
 		{
-			mWidgetKeyFocus = nullptr;
+			resetKeyFocusWidget();
 		}
 
 		// ручками сбрасываем, чтобы не менять фокусы
