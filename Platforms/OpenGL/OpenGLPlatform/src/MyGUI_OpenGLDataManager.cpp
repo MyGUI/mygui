@@ -91,6 +91,7 @@ namespace MyGUI
 		static std::string path;
 		VectorString result;
 		common::VectorWString wresult;
+		path.clear();
 
 		for (VectorArhivInfo::const_iterator item = mPaths.begin(); item != mPaths.end(); ++item)
 		{
