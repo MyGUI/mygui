@@ -269,6 +269,8 @@ namespace MyGUI
 		if (mList->getItemCount() == 0)
 			return;
 
+		if (mListShow)
+			return;
 		mListShow = true;
 
 		IntCoord coord = calculateListPosition();
@@ -295,6 +297,8 @@ namespace MyGUI
 
 	void ComboBox::hideList()
 	{
+		if (!mListShow)
+			return;
 		mListShow = false;
 
 		if (mShowSmooth)
