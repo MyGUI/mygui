@@ -77,10 +77,6 @@ namespace MyGUI
 
 	void ControllerManager::addItem(Widget* _widget, ControllerItem* _item)
 	{
-		// если виджет первый, то подписываемся на кадры
-		if (mListItem.empty())
-			Gui::getInstance().eventFrameStart += newDelegate(this, &ControllerManager::frameEntered);
-
 		// подготавливаем
 		_item->prepareItem(_widget);
 
@@ -97,6 +93,10 @@ namespace MyGUI
 				}
 			}
 		}
+
+		// если виджет первый, то подписываемся на кадры
+		if (mListItem.empty())
+			Gui::getInstance().eventFrameStart += newDelegate(this, &ControllerManager::frameEntered);
 
 		// вставляем в самый конец
 		mListItem.push_back(PairControllerItem(_widget, _item));
