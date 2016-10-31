@@ -62,9 +62,9 @@ IF(NOT SDL2_FOUND)
         ${PC_SDL2_LIBRARY_DIRS}
       PATH_SUFFIXES x64 x86
     )
-    
+
     set(SDL2_BUILDING_LIBRARY TRUE)
-    
+
     if(NOT SDL2_BUILDING_LIBRARY)
       find_library(SDL2MAIN_LIBRARY
         NAMES SDL2main
@@ -93,7 +93,9 @@ IF(NOT SDL2_FOUND)
 
     set(SDL2_INCLUDE_DIRS ${SDL2_INCLUDE_DIR})
     set(SDL2_LIBRARIES ${SDL2MAIN_LIBRARY} ${SDL2_LIBRARY})
-
+    if (WIN32)
+        set(SDL2_LIBRARIES ${SDL2_LIBRARIES} winmm imm32 version)
+    endif()
     include(FindPackageHandleStandardArgs)
 
     find_package_handle_standard_args(SDL2
