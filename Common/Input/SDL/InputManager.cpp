@@ -1,11 +1,5 @@
-/*!
-	@file
-	@author		Albert Semenov
-	@date		09/2009
-*/
-
 #include "Precompiled.h"
-#include "SDL_InputManager.h"
+#include "InputManager.h"
 
 namespace input
 {
@@ -241,8 +235,8 @@ namespace input
 		MyGUI::KeyCode myGuiKeyCode = mSDLVKeyMap[key];
 		if (evt == nullptr) {
 			injectKeyPress(myGuiKeyCode, NULL);
-		} 
-		else 
+		}
+		else
 		{
 			MyGUI::UString ustring(evt->text);
 			MyGUI::UString::utf32string utf32string = ustring.asUTF32();
@@ -271,8 +265,8 @@ namespace input
 	}
 
 	void InputManager::captureInput()
-	{
-	}
+    {
+    }
 
 	void InputManager::setInputViewSize(int _width, int _height)
 	{

@@ -10,8 +10,10 @@
 #include <MyGUI.h>
 #include <MyGUI_OpenGLPlatform.h>
 
-#include "SDL_InputManager.h"
-#include "SDL_PointerManager.h"
+#include "InputManager.h"
+#include "PointerManager.h"
+
+#include <SDL_image.h>
 
 namespace base
 {
@@ -84,9 +86,8 @@ namespace base
 		SDL_GLContext mContext;
 		std::string mRootMedia;
 		std::string mResourceFileName;
-		bool	mWindowOn;
+		bool mWindowOn;
 		SDL_Keycode	mKeyCode;
-		bool mTextUpdated;
 	};
 
 } // namespace base

@@ -73,7 +73,7 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 	# Fix x64 issues on Linux
 	if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64" AND NOT APPLE)
 		add_definitions(-fPIC)
-	endif()  
+	endif()
 endif ()
 
 # determine system endianess
@@ -230,7 +230,7 @@ endif ()
 
 if (MSVC)
 	add_definitions("-D_CRT_SECURE_NO_WARNINGS")
-	
+
 	# Use the highest warning level for visual studio.
 	if (MYGUI_HIGH_LEVEL_WARNINGS)
 		SET(WARNING_LEVEL "/W4")
@@ -330,6 +330,6 @@ include(Packaging)
 # copy dlls required by SDL2 and SDL2_image
 if(WIN32)
     if(MYGUI_RENDERSYSTEM EQUAL 4)
-    
+
     endif(MYGUI_RENDERSYSTEM EQUAL 4)
 endif(WIN32)

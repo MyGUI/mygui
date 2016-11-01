@@ -7,7 +7,7 @@
 set(MYGUI_DEPENDENCIES_DIR "Dependencies" CACHE PATH "Path to prebuilt MYGUI dependencies")
 include(FindPkgMacros)
 getenv_path(MYGUI_DEPENDENCIES_DIR)
-set(MYGUI_DEP_SEARCH_PATH 
+set(MYGUI_DEP_SEARCH_PATH
   ${MYGUI_DEPENDENCIES_DIR}
   ${ENV_MYGUI_DEPENDENCIES_DIR}
   "${MYGUI_BINARY_DIR}/Dependencies"
@@ -44,13 +44,7 @@ endif()
 # RenderSystem dependencies
 #######################################################################
 
-if(MYGUI_RENDERSYSTEM EQUAL 5)
-	# Find DirectX
-	if(WIN32)
-		find_package(DirectX)
-		macro_log_feature(DirectX_FOUND "DirectX" "Support for the DirectX render system" "http://msdn.microsoft.com/en-us/directx/" TRUE "" "")
-	endif()
-elseif(MYGUI_RENDERSYSTEM EQUAL 3)
+if(MYGUI_RENDERSYSTEM EQUAL 3)
 	# Find OGRE
 	find_package(OGRE_Old)
 	macro_log_feature(OGRE_FOUND "ogre" "Support for the Ogre render system" "" TRUE "" "")
@@ -66,6 +60,12 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 4)
 	if(MYGUI_USE_SYSTEM_GLEW)
 		find_package(GLEW)
 		macro_log_feature(GLEW_FOUND "GLEW" "OpenGL Extension Wrangler Library" "" TRUE "" "")
+	endif()
+elseif(MYGUI_RENDERSYSTEM EQUAL 5)
+	# Find DirectX
+	if(WIN32)
+		find_package(DirectX)
+		macro_log_feature(DirectX_FOUND "DirectX" "Support for the DirectX render system" "http://msdn.microsoft.com/en-us/directx/" TRUE "" "")
 	endif()
 elseif(MYGUI_RENDERSYSTEM EQUAL 6)
 	# Find DirectX11

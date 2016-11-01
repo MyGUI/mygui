@@ -8,6 +8,7 @@
 #include "MyGUI_Diagnostic.h"
 
 #include <SDL_image.h>
+#include <SDL.h>
 #include "GL/glew.h"
 
 #ifdef MYGUI_CHECK_MEMORY_LEAKS
@@ -399,25 +400,25 @@ namespace base
 		SDL_Surface *image = nullptr;
 		SDL_Surface *cvtImage = nullptr;		// converted surface with RGBA/RGB pixel format
 		image = IMG_Load(fullname.c_str());
-		if (image != nullptr) {
-			_width = image->w;
-			_height = image->h;
+		MYGUI_ASSERT(image != nullptr, "Failed to load image: " + fullname);
 
-			int bpp = image->format->BytesPerPixel;
-			if (bpp < 3) 
-			{
-				result = convertPixelData(image, _format);
-			}
-			else 
-			{
-				Uint32 pixelFmt = bpp == 3 ? SDL_PIXELFORMAT_BGR24 : SDL_PIXELFORMAT_ARGB8888;
-				cvtImage = SDL_ConvertSurfaceFormat(image, pixelFmt, 0);
-				result = convertPixelData(cvtImage, _format);
-				SDL_FreeSurface(cvtImage);
-			}
-			SDL_FreeSurface(image);
+		_width = image->w;
+		_height = image->h;
+
+		int bpp = image->format->BytesPerPixel;
+		if (bpp < 3)
+		{
+			result = convertPixelData(image, _format);
 		}
-		MYGUI_ASSERT(result != nullptr, "Failed to load image.");
+		else
+		{
+			Uint32 pixelFmt = bpp == 3 ? SDL_PIXELFORMAT_BGR24 : SDL_PIXELFORMAT_ARGB8888;
+			cvtImage = SDL_ConvertSurfaceFormat(image, pixelFmt, 0);
+			result = convertPixelData(cvtImage, _format);
+			SDL_FreeSurface(cvtImage);
+		}
+		SDL_FreeSurface(image);
+
 		return result;
 	}
 

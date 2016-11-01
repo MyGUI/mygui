@@ -6,45 +6,24 @@ function(mygui_add_base_manager_source PLATFORM)
 		Base/${PLATFORM}/BaseManager.h
 		Base/${PLATFORM}/BaseManager.cpp
 	)
-	if(${PLATFORM} EQUAL OpenGL)
-		include_directories(${SDL2_INCLUDE_DIRS})
-		link_directories(${SDL2_LIBRARY_DIRS})
-	endif(${PLATFORM} EQUAL OpenGL)
 endfunction(mygui_add_base_manager_source)
 
 function(mygui_add_input_source PLATFORM)
 	include_directories(Input/${PLATFORM})
-	if("${PLATFORM}" STREQUAL "SDL")
-		set (HEADER_FILES ${HEADER_FILES}
-			Input/${PLATFORM}/SDL_InputManager.h
-			Input/${PLATFORM}/SDL_PointerManager.h
-			PARENT_SCOPE)
-		set (SOURCE_FILES ${SOURCE_FILES}
-			Input/${PLATFORM}/SDL_InputManager.cpp
-			Input/${PLATFORM}/SDL_PointerManager.cpp
-			PARENT_SCOPE)
-		SOURCE_GROUP("Base" FILES
-			Input/${PLATFORM}/SDL_InputManager.h
-			Input/${PLATFORM}/SDL_InputManager.cpp
-			Input/${PLATFORM}/SDL_PointerManager.h
-			Input/${PLATFORM}/SDL_PointerManager.cpp
-		)
-	else("${PLATFORM}" STREQUAL "SDL")
-		set (HEADER_FILES ${HEADER_FILES}
-			Input/${PLATFORM}/InputManager.h
-			Input/${PLATFORM}/PointerManager.h
-			PARENT_SCOPE)
-		set (SOURCE_FILES ${SOURCE_FILES}
-			Input/${PLATFORM}/InputManager.cpp
-			Input/${PLATFORM}/PointerManager.cpp
-			PARENT_SCOPE)
-		SOURCE_GROUP("Base" FILES
-			Input/${PLATFORM}/InputManager.h
-			Input/${PLATFORM}/InputManager.cpp
-			Input/${PLATFORM}/PointerManager.h
-			Input/${PLATFORM}/PointerManager.cpp
-		)
-	endif("${PLATFORM}" STREQUAL "SDL")
+	set (HEADER_FILES ${HEADER_FILES}
+		Input/${PLATFORM}/InputManager.h
+		Input/${PLATFORM}/PointerManager.h
+		PARENT_SCOPE)
+	set (SOURCE_FILES ${SOURCE_FILES}
+		Input/${PLATFORM}/InputManager.cpp
+		Input/${PLATFORM}/PointerManager.cpp
+		PARENT_SCOPE)
+	SOURCE_GROUP("Base" FILES
+		Input/${PLATFORM}/InputManager.h
+		Input/${PLATFORM}/InputManager.cpp
+		Input/${PLATFORM}/PointerManager.h
+		Input/${PLATFORM}/PointerManager.cpp
+	)
 endfunction(mygui_add_input_source)
 
 set (PROJECTNAME Common)
