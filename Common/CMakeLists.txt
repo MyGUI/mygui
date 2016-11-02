@@ -86,8 +86,12 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 7)
 	include_directories(
 		${MYGUI_SOURCE_DIR}/Platforms/OpenGL3/OpenGL3Platform/include
 		${OPENGL_INCLUDE_DIR}
+		${SDL2_INCLUDE_DIRS}
+		${SDL2_IMAGE_INCLUDE_DIRS}
 	)
 	link_directories(${OPENGL_LIB_DIR})
+	link_directories(${SDL2_LIB_DIR})
+	link_directories(${SDL2_IMAGE_LIB_DIR})
 endif()
 
 if(MYGUI_SAMPLES_INPUT EQUAL 1)

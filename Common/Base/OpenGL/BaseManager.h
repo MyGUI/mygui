@@ -1,9 +1,3 @@
-/*!
-	@file
-	@author		Albert Semenov
-	@date		08/2008
-*/
-
 #ifndef BASE_MANAGER_H_
 #define BASE_MANAGER_H_
 
@@ -13,7 +7,7 @@
 #include "InputManager.h"
 #include "PointerManager.h"
 
-#include <SDL_image.h>
+#include <SDL.h>
 
 namespace base
 {

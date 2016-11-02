@@ -1,23 +1,10 @@
-/*!
-	@file
-	@author		Albert Semenov
-	@date		05/2009
-*/
+// WARNING: copy of this file is used in OpenGL3 platform, modify both files if possible
 #include "Precompiled.h"
 #include "BaseManager.h"
-#include "MyGUI_Diagnostic.h"
 
 #include <SDL_image.h>
 #include <SDL.h>
 #include "GL/glew.h"
-
-#ifdef MYGUI_CHECK_MEMORY_LEAKS
-#	undef new
-#	undef delete
-#endif
-
-// имя класса окна
-const char* WND_CLASS_NAME = "MyGUI_Demo_window";
 
 namespace base
 {
