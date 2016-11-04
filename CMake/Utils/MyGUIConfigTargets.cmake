@@ -30,37 +30,6 @@ if (APPLE)
   endif ()
 endif ()
 
-# create vcproj.user file for Visual Studio to set debug working directory
-function(mygui_create_vcproj_userfile TARGETNAME)
-	if (MSVC)
-		# for VisualStudioUserFile.vcproj.user.in
-		if(CMAKE_CL_64)
-			set(MYGUI_WIN_BUILD_CONFIGURATION "x64")
-		else()
-			set(MYGUI_WIN_BUILD_CONFIGURATION "Win32")
-		endif()
-
-		#FIXME
-		if (${CMAKE_GENERATOR} STREQUAL "Visual Studio 10" OR ${CMAKE_GENERATOR} STREQUAL "Visual Studio 10 Win64" OR
-			${CMAKE_GENERATOR} STREQUAL "Visual Studio 11" OR ${CMAKE_GENERATOR} STREQUAL "Visual Studio 11 Win64" OR
-			${CMAKE_GENERATOR} STREQUAL "Visual Studio 12" OR ${CMAKE_GENERATOR} STREQUAL "Visual Studio 12 Win64"
-			)
-			configure_file(
-				${MYGUI_TEMPLATES_DIR}/VisualStudio2010UserFile.vcxproj.user.in
-				${CMAKE_CURRENT_BINARY_DIR}/${TARGETNAME}.vcxproj.user
-				@ONLY
-			)
-		else ()
-			configure_file(
-				${MYGUI_TEMPLATES_DIR}/VisualStudioUserFile.vcproj.user.in
-				${CMAKE_CURRENT_BINARY_DIR}/${TARGETNAME}.vcproj.user
-				@ONLY
-			)
-		endif ()
-
-	endif ()
-endfunction(mygui_create_vcproj_userfile)
-
 # install targets according to current build type
 function(mygui_install_target TARGETNAME SUFFIX)
 	install(TARGETS ${TARGETNAME}
@@ -96,7 +65,6 @@ function(mygui_config_common TARGETNAME)
 		LIBRARY_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/lib
 		RUNTIME_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/bin
 	)
-	mygui_create_vcproj_userfile(${TARGETNAME})
 endfunction(mygui_config_common)
 
 #setup Demo builds
