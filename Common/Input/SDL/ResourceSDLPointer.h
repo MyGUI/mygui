@@ -11,7 +11,11 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IResource.h"
 
+#ifdef EMSCRIPTEN
+#include <SDL2/SDL.h>
+#else
 #include <SDL.h>
+#endif
 
 namespace input
 {

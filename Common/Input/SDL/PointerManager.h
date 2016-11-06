@@ -8,7 +8,11 @@
 #define POINTER_MANAGER_H_
 
 #include <string>
+#ifdef EMSCRIPTEN
+#include <SDL2/SDL.h>
+#else
 #include <SDL.h>
+#endif
 
 namespace input
 {

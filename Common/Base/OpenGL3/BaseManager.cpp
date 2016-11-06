@@ -3,7 +3,6 @@
 #include "BaseManager.h"
 
 #include <SDL_image.h>
-#include <SDL.h>
 #include "GL/glew.h"
 
 namespace base
@@ -17,17 +16,10 @@ namespace base
 		mWindowOn(false),
 		mResourceFileName("MyGUI_Core.xml")
 	{
-		// initialize SDL
-		MYGUI_ASSERT(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_EVENTS) == 0, "Failed initializing SDL.");
-		// initialize SDL_image
-		MYGUI_ASSERT(IMG_Init(~0) != 0, "Failed to initializing SDL_image");
 	}
 
 	BaseManager::~BaseManager()
 	{
-		SDL_GL_DeleteContext(mContext);
-		IMG_Quit();
-		SDL_Quit();
 	}
 
 	void BaseManager::_windowResized( int w, int h )
@@ -40,6 +32,21 @@ namespace base
 
 	bool BaseManager::create(int _width, int _height)
 	{
+		// initialize SDL
+		if (SDL_Init(SDL_INIT_VIDEO) != 0)
+		{
+			std::cerr << "Failed to initialize SDL2.";
+			exit(1);
+		}
+		// initialize SDL_image
+#ifndef EMSCRIPTEN
+		if (IMG_Init(~0) == 0)
+		{
+			std::cerr << "Failed to initialize SDL_image.";
+			exit(1);
+		}
+#endif
+
 		const unsigned int width = _width;
 		const unsigned int height = _height;
 		bool windowed = true;
@@ -160,6 +167,9 @@ namespace base
 
 		destroyRender();
 
+		SDL_GL_DeleteContext(mContext);
+		IMG_Quit();
+		SDL_Quit();
 	}
 
 	void BaseManager::setupResources()

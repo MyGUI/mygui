@@ -107,6 +107,24 @@ endif(WIN32 OR APPLE)
 # Provide user options to customise the build process
 ######################################################################
 
+if (EMSCRIPTEN)
+	set(MYGUI_RENDERSYSTEM 7 CACHE STRING "")
+	set(MYGUI_SAMPLES_INPUT 4 CACHE STRING "")
+	set(MYGUI_USE_FREETYPE False CACHE BOOL "")
+	set(MYGUI_STATIC True CACHE BOOL "")
+	set(MYGUI_USE_SYSTEM_GLEW True CACHE BOOL "")
+
+	set(OPENGL_gl_LIBRARY Dummy CACHE STRING "")
+	set(OPENGL_glu_LIBRARY Dummy CACHE STRING "")
+	set(GLEW_LIBRARY Dummy CACHE STRING "")
+	set(SDL2_LIBRARY Dummy CACHE STRING "")
+	set(SDL2_IMAGE_LIBRARY Dummy CACHE STRING "")
+	set(SDL2_INCLUDE_DIR "" CACHE STRING "")
+	set(SDL2_IMAGE_INCLUDE_DIR "" CACHE STRING "")
+
+	set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-O2 -s USE_SDL=2 -s USE_SDL_IMAGE=2")
+endif ()
+
 # Customise what to build
 option(MYGUI_STATIC "Static build" FALSE)
 option(MYGUI_USE_FREETYPE "Use freetype for font rendering" TRUE)

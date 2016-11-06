@@ -7,7 +7,11 @@
 #include "InputManager.h"
 #include "PointerManager.h"
 
+#ifdef EMSCRIPTEN
+#include <SDL2/SDL.h>
+#else
 #include <SDL.h>
+#endif
 
 namespace base
 {

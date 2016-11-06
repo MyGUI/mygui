@@ -8,7 +8,11 @@
 #define INPUT_MANAGER_H_
 
 #include <MyGUI.h>
+#ifdef EMSCRIPTEN
+#include <SDL2/SDL.h>
+#else
 #include <SDL.h>
+#endif
 
 namespace input
 {
