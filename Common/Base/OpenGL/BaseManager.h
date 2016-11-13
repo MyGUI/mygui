@@ -38,7 +38,7 @@ namespace base
 		void setResourceFilename(const std::string& _flename);
 		void addResourceLocation(const std::string& _name, bool _recursive = false);
 
-		MyGUI::MapString getStatistic() { return MyGUI::MapString(); }
+		MyGUI::MapString getStatistic();
 
 	/*internal:*/
 		void _windowResized(int w, int h);
@@ -86,6 +86,7 @@ namespace base
 		std::string mResourceFileName;
 		bool mWindowOn;
 		SDL_Keycode	mKeyCode;
+		int mFpsCounter;
 	};
 
 } // namespace base

@@ -14,7 +14,8 @@ namespace base
 		mContext(nullptr),
 		mExit(false),
 		mWindowOn(false),
-		mResourceFileName("MyGUI_Core.xml")
+		mResourceFileName("MyGUI_Core.xml"),
+		mFpsCounter(0)
 	{
 	}
 
@@ -279,6 +280,14 @@ namespace base
 		mPlatform->getDataManagerPtr()->addResourceLocation(_name, _recursive);
 	}
 
+	MyGUI::MapString BaseManager::getStatistic()
+	{
+		MyGUI::MapString statistics;
+		statistics["FPS"] = MyGUI::utility::toString(mFpsCounter);
+		mFpsCounter = 0;
+		return statistics;
+	}
+
 	void BaseManager::injectMouseMove(int _absx, int _absy, int _absz)
 	{
 		if (!mGUI)
@@ -332,6 +341,7 @@ namespace base
 
 	void BaseManager::drawOneFrame()
 	{
+		mFpsCounter++;
 		if (mPlatform)
 			mPlatform->getRenderManagerPtr()->drawOneFrame();
 
