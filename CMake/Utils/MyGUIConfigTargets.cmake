@@ -137,6 +137,20 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 				${SDL2_LIB_DIR}
 				${SDL2_IMAGE_LIB_DIR}
 		)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
+		include_directories(../../Common/Base/OpenGLES)
+		add_definitions("-DMYGUI_OPENGLES_PLATFORM")
+		include_directories(
+				${MYGUI_SOURCE_DIR}/Platforms/OpenGLES/OpenGLESPlatform/include
+				${OPENGL_INCLUDE_DIR}
+				${SDL2_INCLUDE_DIRS}
+				${SDL2_IMAGE_INCLUDE_DIRS}
+		)
+		link_directories(
+				${OPENGL_LIB_DIR}
+				${SDL2_LIB_DIR}
+				${SDL2_IMAGE_LIB_DIR}
+		)
 	endif()
 
 	if(MYGUI_SAMPLES_INPUT EQUAL 1)
@@ -194,6 +208,12 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
 		add_dependencies(${PROJECTNAME} MyGUI.OpenGL3Platform)
 		target_link_libraries(${PROJECTNAME} MyGUI.OpenGL3Platform)
+
+		target_link_libraries(${PROJECTNAME} ${SDL2_LIBRARIES})
+		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
+		add_dependencies(${PROJECTNAME} MyGUI.OpenGLESPlatform)
+		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLESPlatform)
 
 		target_link_libraries(${PROJECTNAME} ${SDL2_LIBRARIES})
 		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
@@ -282,6 +302,14 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 			${OPENGL_INCLUDE_DIR}
 		)
 		link_directories(${OPENGL_LIB_DIR})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
+		include_directories(../../Common/Base/OpenGLES)
+		add_definitions("-DMYGUI_OPENGLES_PLATFORM")
+		include_directories(
+				${MYGUI_SOURCE_DIR}/Platforms/OpenGLES/OpenGLESPlatform/include
+				${OPENGL_INCLUDE_DIR}
+		)
+		link_directories(${OPENGL_LIB_DIR})
 	endif()
 
 
@@ -317,7 +345,14 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 		add_dependencies(${PROJECTNAME} MyGUI.OpenGL3Platform)
 		target_link_libraries(${PROJECTNAME} MyGUI.OpenGL3Platform)
 
-		target_link_libraries(${PROJECTNAME} gdiplus)
+		target_link_libraries(${PROJECTNAME} ${SDL2_LIBRARIES})
+		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
+		add_dependencies(${PROJECTNAME} MyGUI.OpenGLESPlatform)
+		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLESPlatform)
+
+		target_link_libraries(${PROJECTNAME} ${SDL2_LIBRARIES})
+		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
 	endif()
 
 	target_link_libraries(${PROJECTNAME}

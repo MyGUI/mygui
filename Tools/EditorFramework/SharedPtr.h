@@ -10,7 +10,7 @@
 namespace tools
 {
 
-#if __cplusplus >= 201103L
+#if __cplusplus >= 201103L || defined(EMSCRIPTEN)
 	template <typename T> using weak_ptr = std::weak_ptr<T>;
 	template <typename T> using shared_ptr = std::shared_ptr<T>;
 #else

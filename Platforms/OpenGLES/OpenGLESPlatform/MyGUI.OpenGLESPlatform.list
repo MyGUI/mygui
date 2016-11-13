@@ -1,0 +1,37 @@
+set (HEADER_FILES
+  include/MyGUI_OpenGLESDataManager.h
+  include/MyGUI_OpenGLESDiagnostic.h
+  include/MyGUI_OpenGLESImageLoader.h
+  include/MyGUI_OpenGLESPlatform.h
+  include/MyGUI_OpenGLESRTTexture.h
+  include/MyGUI_OpenGLESRenderManager.h
+  include/MyGUI_OpenGLESTexture.h
+  include/MyGUI_OpenGLESVertexBuffer.h
+)
+set (SOURCE_FILES
+  src/MyGUI_OpenGLESDataManager.cpp
+  src/MyGUI_OpenGLESPlatform.cpp
+  src/MyGUI_OpenGLESRTTexture.cpp
+  src/MyGUI_OpenGLESRenderManager.cpp
+  src/MyGUI_OpenGLESTexture.cpp
+  src/MyGUI_OpenGLESVertexBuffer.cpp
+)
+SOURCE_GROUP("Header Files" FILES
+  include/MyGUI_OpenGLESDataManager.h
+  include/MyGUI_OpenGLESDiagnostic.h
+  include/MyGUI_OpenGLESImageLoader.h
+  include/MyGUI_OpenGLESPlatform.h
+  include/MyGUI_OpenGLESRTTexture.h
+  include/MyGUI_OpenGLESRenderManager.h
+  include/MyGUI_OpenGLESTexture.h
+  include/MyGUI_OpenGLESVertexBuffer.h
+)
+SOURCE_GROUP("Source Files" FILES
+  include/GL/glew.c
+  src/MyGUI_OpenGLESDataManager.cpp
+  src/MyGUI_OpenGLESPlatform.cpp
+  src/MyGUI_OpenGLESRTTexture.cpp
+  src/MyGUI_OpenGLESRenderManager.cpp
+  src/MyGUI_OpenGLESTexture.cpp
+  src/MyGUI_OpenGLESVertexBuffer.cpp
+)

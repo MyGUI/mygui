@@ -18,7 +18,7 @@
 
 #define MYGUI_DEFINE_VERSION(major, minor, patch) ((major << 16) | (minor << 8) | patch)
 
-#ifndef MYGUI_DONT_REPLACE_NULLPTR
+#if !defined(MYGUI_DONT_REPLACE_NULLPTR) && !defined(EMSCRIPTEN)
 #	if __cplusplus < 201103L && !defined(_NATIVE_NULLPTR_SUPPORTED)
 #		define nullptr 0
 #	endif

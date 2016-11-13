@@ -26,6 +26,16 @@
 #	define MYGUI_APP(cls) int main(int argc, char **argv) { return startApp<cls>(); }
 #endif
 
+#ifdef EMSCRIPTEN
+#include <emscripten.h>
+
+template <class AppClass>
+void run(void* arg)
+{
+	reinterpret_cast<AppClass*>(arg)->run();
+}
+#endif
+
 template <class AppClass>
 int startApp()
 {
@@ -45,7 +55,11 @@ int startApp()
 		app->prepare();
 		if (app->create())
 		{
+#ifdef EMSCRIPTEN
+			emscripten_set_main_loop_arg(run<AppClass>, app, 120, true);
+#else
 			app->run();
+#endif
 			app->destroy();
 		}
 		delete app;
