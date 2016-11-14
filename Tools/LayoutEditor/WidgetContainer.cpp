@@ -40,8 +40,9 @@ namespace tools
 	{
 		if (mRelativeMode)
 		{
-			MyGUI::FloatCoord coord = MyGUI::CoordConverter::convertToRelative(mWidget->getCoord(), mWidget->getParentSize());
+			MyGUI::DoubleCoord coord = MyGUI::CoordConverter::convertToRelativeD(mWidget->getCoord(), mWidget->getParentSize());
 			std::ostringstream stream;
+			stream.precision(17);
 			if (_percent)
 				stream << coord.left * 100 << " " << coord.top * 100 << " " << coord.width * 100 << " " << coord.height * 100;
 			else

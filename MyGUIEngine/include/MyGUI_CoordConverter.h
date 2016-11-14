@@ -68,6 +68,16 @@ namespace MyGUI
 		{
 			return FloatPoint(_point.left / (float)_view.width, _point.top / (float)_view.height);
 		}
+
+		static IntCoord convertFromRelative(const DoubleCoord& _coord, const IntSize& _view)
+		{
+			return IntCoord(int(_coord.left * _view.width), int(_coord.top * _view.height), int(_coord.width * _view.width), int(_coord.height * _view.height));
+		}
+
+		static DoubleCoord convertToRelativeD(const IntCoord& _coord, const IntSize& _view)
+		{
+			return DoubleCoord(_coord.left / (double)_view.width, _coord.top / (double)_view.height, _coord.width / (double)_view.width, _coord.height / (float)_view.height);
+		}
 	};
 
 } // namespace MyGUI

@@ -34,6 +34,7 @@ namespace MyGUI
 
 	typedef types::TCoord<int> IntCoord;
 	typedef types::TCoord<float> FloatCoord;
+	typedef types::TCoord<double> DoubleCoord;
 
 	typedef std::map<std::string, std::string> MapString;
 	typedef std::vector<std::string> VectorString;

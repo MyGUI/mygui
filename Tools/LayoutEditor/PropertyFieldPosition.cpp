@@ -79,13 +79,13 @@ namespace tools
 			if (widgetContainer->getRelativeMode())
 			{
 				std::istringstream str(_value);
-				MyGUI::FloatCoord float_coord;
-				str >> float_coord;
-				float_coord.left = float_coord.left / 100;
-				float_coord.top = float_coord.top / 100;
-				float_coord.width = float_coord.width / 100;
-				float_coord.height = float_coord.height / 100;
-				MyGUI::IntCoord coord = MyGUI::CoordConverter::convertFromRelative(float_coord, mCurrentWidget->getParentSize());
+				MyGUI::DoubleCoord double_coord;
+				str >> double_coord;
+				double_coord.left /= 100;
+				double_coord.top /= 100;
+				double_coord.width /= 100;
+				double_coord.height /= 100;
+				MyGUI::IntCoord coord = MyGUI::CoordConverter::convertFromRelative(double_coord, mCurrentWidget->getParentSize());
 
 				mCurrentWidget->setCoord(coord);
 				EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");

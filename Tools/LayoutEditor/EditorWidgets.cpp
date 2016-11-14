@@ -442,7 +442,7 @@ namespace tools
 			container->setRelativeMode(true);
 			MyGUI::IntSize textureSize = SettingsManager::getInstance().getValue<MyGUI::IntSize>("Settings/WorkspaceTextureSize");
 			MyGUI::IntSize size = _testMode ? MyGUI::RenderManager::getInstance().getViewSize() : textureSize;
-			coord = MyGUI::CoordConverter::convertFromRelative(MyGUI::FloatCoord::parse(position), _parent == nullptr ? size : _parent->getClientCoord().size());
+			coord = MyGUI::CoordConverter::convertFromRelative(MyGUI::DoubleCoord::parse(position), _parent == nullptr ? size : _parent->getClientCoord().size());
 		}
 
 		// проверяем скин на присутствие
