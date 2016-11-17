@@ -7,10 +7,12 @@
 #include "MyGUI_Precompiled.h"
 #include "MyGUI_DynLib.h"
 
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-#	include <windows.h>
-#elif MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
-#	include <dlfcn.h>
+#ifndef MYGUI_DONT_USE_DYNLIB
+#  if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+#	 include <windows.h>
+#  elif MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
+#    include <dlfcn.h>
+#  endif
 #endif
 
 namespace MyGUI
@@ -78,7 +80,8 @@ namespace MyGUI
 
 	std::string DynLib::dynlibError() const
 	{
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+#ifndef MYGUI_DONT_USE_DYNLIB
+#  if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		LPVOID lpMsgBuf;
 		FormatMessage(
 			FORMAT_MESSAGE_ALLOCATE_BUFFER |
@@ -94,8 +97,11 @@ namespace MyGUI
 		// Free the buffer.
 		LocalFree( lpMsgBuf );
 		return ret;
-#else
+#  else
 		return "no unix error function defined yet";
+#  endif
+#else
+        return "not implemented";
 #endif
 	}
 

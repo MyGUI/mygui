@@ -10,8 +10,9 @@
 #include "MyGUI_Prerequest.h"
 #include <string>
 
+#ifndef MYGUI_DONT_USE_DYNLIB
 
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+#  if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #    define MYGUI_DYNLIB_HANDLE hInstance
 #    define MYGUI_DYNLIB_LOAD( a ) LoadLibrary( a )
 #    define MYGUI_DYNLIB_GETSYM( a, b ) GetProcAddress( a, b )
@@ -20,18 +21,27 @@
 struct HINSTANCE__;
 typedef struct HINSTANCE__* hInstance;
 
-#elif MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
+#  elif MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
 #    define MYGUI_DYNLIB_HANDLE void*
 #    define MYGUI_DYNLIB_LOAD( a ) dlopen( a, RTLD_LAZY | RTLD_GLOBAL)
 #    define MYGUI_DYNLIB_GETSYM( a, b ) dlsym( a, b )
 #    define MYGUI_DYNLIB_UNLOAD( a ) dlclose( a )
 
-#elif MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
+#  elif MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
 #    include <CoreFoundation/CFBundle.h>
 #    define MYGUI_DYNLIB_HANDLE CFBundleRef
 #    define MYGUI_DYNLIB_LOAD( a ) mac_loadExeBundle( a )
 #    define MYGUI_DYNLIB_GETSYM( a, b ) mac_getBundleSym( a, b )
 #    define MYGUI_DYNLIB_UNLOAD( a ) mac_unloadExeBundle( a )
+#  endif
+
+#else
+
+#    define MYGUI_DYNLIB_HANDLE void*
+#    define MYGUI_DYNLIB_LOAD( a ) 0
+#    define MYGUI_DYNLIB_GETSYM( a, b ) 0
+#    define MYGUI_DYNLIB_UNLOAD( a ) 0
+
 #endif
 
 namespace MyGUI
