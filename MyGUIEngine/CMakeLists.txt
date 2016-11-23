@@ -13,6 +13,9 @@ if (MYGUI_USE_FREETYPE)
 	)
 	add_definitions(-DMYGUI_USE_FREETYPE)
 endif ()
+if (MYGUI_DISABLE_PLUGINS)
+	add_definitions(-DMYGUI_DISABLE_PLUGINS)
+endif ()
 
 add_definitions(-DMYGUI_BUILD)
 
