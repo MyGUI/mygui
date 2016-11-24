@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="Windows-1252"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Platforms\OpenGL\OpenGLPlatform\src\MyGUI_OpenGLDataManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Platforms\OpenGL\OpenGLPlatform\src\MyGUI_OpenGLPlatform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Platforms\OpenGL\OpenGLPlatform\src\MyGUI_OpenGLRTTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Platforms\OpenGL\OpenGLPlatform\src\MyGUI_OpenGLRenderManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Platforms\OpenGL\OpenGLPlatform\src\MyGUI_OpenGLTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Platforms\OpenGL\OpenGLPlatform\src\MyGUI_OpenGLVertexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Platforms\OpenGL\OpenGLPlatform\include\GL\glew.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Platforms\OpenGL\OpenGLPlatform\include\MyGUI_OpenGLDataManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Platforms\OpenGL\OpenGLPlatform\include\MyGUI_OpenGLDiagnostic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Platforms\OpenGL\OpenGLPlatform\include\MyGUI_OpenGLPlatform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Platforms\OpenGL\OpenGLPlatform\include\MyGUI_OpenGLRTTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Platforms\OpenGL\OpenGLPlatform\include\MyGUI_OpenGLRenderManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Platforms\OpenGL\OpenGLPlatform\include\MyGUI_OpenGLTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Platforms\OpenGL\OpenGLPlatform\include\MyGUI_OpenGLVertexBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\..\Platforms\OpenGL\OpenGLPlatform\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{15B60DC4-FB2B-4E65-A9C5-D98F60B7A11B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{0344D503-6AFC-4BA7-9B67-B0168F6F77AC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

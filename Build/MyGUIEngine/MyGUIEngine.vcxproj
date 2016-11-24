@@ -1,0 +1,777 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{EF9EEAFA-59A4-45C8-8388-A10C18231321}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>MyGUIEngine</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Pro\MyGUI\Build\lib\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Pro\MyGUI\Build\lib\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MyGUIEngine.dir\Debug\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MyGUIEngine.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MyGUIEngineStatic_d</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MyGUIEngineStatic_d</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.lib</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Pro\MyGUI\Build\lib\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Pro\MyGUI\Build\lib\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MyGUIEngine.dir\Release\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MyGUIEngine.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MyGUIEngineStatic</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MyGUIEngineStatic</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.lib</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Pro\MyGUI\Build\lib\MinSizeRel\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Pro\MyGUI\Build\lib\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">MyGUIEngine.dir\MinSizeRel\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">MyGUIEngine.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">MyGUIEngineStatic</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">MyGUIEngineStatic</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.lib</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Pro\MyGUI\Build\lib\RelWithDebInfo\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Pro\MyGUI\Build\lib\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">MyGUIEngine.dir\RelWithDebInfo\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">MyGUIEngine.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">MyGUIEngineStatic</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">MyGUIEngineStatic</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.lib</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4661</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>MyGUI_Precompiled.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;MYGUI_USE_FREETYPE;MYGUI_BUILD;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;MYGUI_USE_FREETYPE;MYGUI_BUILD;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4661</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>MyGUI_Precompiled.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;MYGUI_USE_FREETYPE;MYGUI_BUILD;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;MYGUI_USE_FREETYPE;MYGUI_BUILD;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DisableSpecificWarnings>4661</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>MyGUI_Precompiled.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;MYGUI_USE_FREETYPE;MYGUI_BUILD;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;MYGUI_USE_FREETYPE;MYGUI_BUILD;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DisableSpecificWarnings>4661</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>MyGUI_Precompiled.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;MYGUI_USE_FREETYPE;MYGUI_BUILD;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;MYGUI_USE_FREETYPE;MYGUI_BUILD;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DisableSpecificWarnings>4661</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>MyGUI_Precompiled.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;MYGUI_USE_FREETYPE;MYGUI_BUILD;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;MYGUI_USE_FREETYPE;MYGUI_BUILD;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DisableSpecificWarnings>4661</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>MyGUI_Precompiled.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;MYGUI_USE_FREETYPE;MYGUI_BUILD;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;MYGUI_USE_FREETYPE;MYGUI_BUILD;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4661</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>MyGUI_Precompiled.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;MYGUI_USE_FREETYPE;MYGUI_BUILD;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;MYGUI_USE_FREETYPE;MYGUI_BUILD;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4661</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>MyGUI_Precompiled.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;MYGUI_USE_FREETYPE;MYGUI_BUILD;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;MYGUI_DONT_USE_OBSOLETE;_CRT_SECURE_NO_WARNINGS;MYGUI_STATIC;MYGUI_USE_FREETYPE;MYGUI_BUILD;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Pro\MyGUI\MyGUIEngine\include;D:\Pro\Dev\include\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\MyGUIEngine\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule D:/Pro/MyGUI/MyGUIEngine/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/Pro/MyGUI/MyGUIEngine/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-file D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-file D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:/Pro/MyGUI/MyGUIEngine/CMakeLists.txt;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;D:\Pro\MyGUI\CMake\Utils\PrecompiledHeader.cmake;D:\Pro\MyGUI\MyGUIEngine\MyGUIEngine.list;D:\Pro\MyGUI\CMake\Templates\VisualStudioUserFile.vcproj.user.in;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/Pro/MyGUI/MyGUIEngine/CMakeLists.txt;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;D:\Pro\MyGUI\CMake\Utils\PrecompiledHeader.cmake;D:\Pro\MyGUI\MyGUIEngine\MyGUIEngine.list;D:\Pro\MyGUI\CMake\Templates\VisualStudioUserFile.vcproj.user.in;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule D:/Pro/MyGUI/MyGUIEngine/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/Pro/MyGUI/MyGUIEngine/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-file D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-file D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:/Pro/MyGUI/MyGUIEngine/CMakeLists.txt;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;D:\Pro\MyGUI\CMake\Utils\PrecompiledHeader.cmake;D:\Pro\MyGUI\MyGUIEngine\MyGUIEngine.list;D:\Pro\MyGUI\CMake\Templates\VisualStudioUserFile.vcproj.user.in;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/Pro/MyGUI/MyGUIEngine/CMakeLists.txt;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;D:\Pro\MyGUI\CMake\Utils\PrecompiledHeader.cmake;D:\Pro\MyGUI\MyGUIEngine\MyGUIEngine.list;D:\Pro\MyGUI\CMake\Templates\VisualStudioUserFile.vcproj.user.in;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule D:/Pro/MyGUI/MyGUIEngine/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule D:/Pro/MyGUI/MyGUIEngine/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-file D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-file D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:/Pro/MyGUI/MyGUIEngine/CMakeLists.txt;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;D:\Pro\MyGUI\CMake\Utils\PrecompiledHeader.cmake;D:\Pro\MyGUI\MyGUIEngine\MyGUIEngine.list;D:\Pro\MyGUI\CMake\Templates\VisualStudioUserFile.vcproj.user.in;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/Pro/MyGUI/MyGUIEngine/CMakeLists.txt;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;D:\Pro\MyGUI\CMake\Utils\PrecompiledHeader.cmake;D:\Pro\MyGUI\MyGUIEngine\MyGUIEngine.list;D:\Pro\MyGUI\CMake\Templates\VisualStudioUserFile.vcproj.user.in;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule D:/Pro/MyGUI/MyGUIEngine/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule D:/Pro/MyGUI/MyGUIEngine/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-file D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Pro/MyGUI -BD:/Pro/MyGUI/Build --check-stamp-file D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:/Pro/MyGUI/MyGUIEngine/CMakeLists.txt;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;D:\Pro\MyGUI\CMake\Utils\PrecompiledHeader.cmake;D:\Pro\MyGUI\MyGUIEngine\MyGUIEngine.list;D:\Pro\MyGUI\CMake\Templates\VisualStudioUserFile.vcproj.user.in;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:/Pro/MyGUI/MyGUIEngine/CMakeLists.txt;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;D:\Pro\MyGUI\CMake\Utils\PrecompiledHeader.cmake;D:\Pro\MyGUI\MyGUIEngine\MyGUIEngine.list;D:\Pro\MyGUI\CMake\Templates\VisualStudioUserFile.vcproj.user.in;D:\Pro\MyGUI\MyGUIEngine\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Pro\MyGUI\Build\MyGUIEngine\CMakeFiles\generate.stamp</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ActionController.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Align.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Allocator.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Any.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_BackwardCompatibility.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_BiIndexBase.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Bitwise.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Button.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Canvas.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ChildSkinInfo.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ClipboardManager.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_WindowsClipboardHandler.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Colour.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ComboBox.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Common.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_CommonStateInfo.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ConsoleLogListener.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Constants.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ControllerEdgeHide.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ControllerFadeAlpha.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ControllerItem.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ControllerManager.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ControllerPosition.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ControllerRepeatClick.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_CoordConverter.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_CustomAllocator.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_DDContainer.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_DDItemInfo.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_DataFileStream.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_DataManager.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_DataMemoryStream.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_DataStream.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_DataStreamHolder.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Delegate.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_DelegateImplement.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_DeprecatedTypes.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_DeprecatedWidgets.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Diagnostic.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_DynLib.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_DynLibManager.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_EditBox.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_EditText.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Enumerator.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_EventPair.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Exception.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_FactoryManager.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_FileLogListener.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_FlowDirection.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_FontData.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_FontManager.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_GenericFactory.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_GeometryUtility.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Gui.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_IBItemInfo.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ICroppedRectangle.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_IDataStream.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_IFont.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_IItem.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_IItemContainer.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ILayer.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ILayerItem.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ILayerNode.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ILogFilter.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ILogListener.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_IObject.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_IPointer.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_IRenderTarget.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_IResource.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ISerializable.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_IStateInfo.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ISubWidget.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ISubWidgetRect.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ISubWidgetText.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ITexture.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_IUnlinkWidget.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_IVertexBuffer.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ImageBox.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ImageInfo.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_InputManager.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ItemBox.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_KeyCode.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_LanguageManager.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_LayerItem.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_LayerManager.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_LayerNode.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_LayoutData.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_LayoutManager.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_LevelLogFilter.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ListBox.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_LogLevel.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_LogManager.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_LogSource.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_LogStream.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Macros.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_MainSkin.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_MaskPickInfo.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_MenuBar.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_MenuControl.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_MenuItem.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_MenuItemType.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_MouseButton.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_MultiListBox.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_MultiListItem.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_OverlappedLayer.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Platform.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Plugin.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_PluginManager.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_PointerManager.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_PolygonalSkin.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_PopupMenu.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Precompiled.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Prerequest.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ProgressBar.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_RTTI.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_RenderFormat.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_RenderItem.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_RenderManager.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_RenderTargetInfo.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ResizingPolicy.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ResourceImageSet.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ResourceImageSetData.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ResourceImageSetPointer.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ResourceLayout.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ResourceManager.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ResourceManualFont.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ResourceManualPointer.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ResourceSkin.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ResourceTrueTypeFont.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_RotatingSkin.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ScrollBar.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ScrollView.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ScrollViewBase.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_SharedLayer.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_SharedLayerNode.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_SimpleText.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Singleton.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_SkinItem.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_SkinManager.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_StringUtility.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_SubSkin.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_SubWidgetBinding.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_SubWidgetInfo.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_SubWidgetManager.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_TCoord.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_TPoint.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_TRect.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_TSize.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_TabControl.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_TabItem.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_TextBox.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_TextChangeHistory.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_TextIterator.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_TextView.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_TextViewData.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_TextureUtility.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_TileRect.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Timer.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_ToolTipManager.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Types.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_UString.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Version.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_VertexData.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Widget.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_WidgetDefines.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_WidgetInput.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_WidgetManager.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_WidgetStyle.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_WidgetToolTip.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_WidgetTranslate.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_WidgetUserData.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_Window.h" />
+    <ClInclude Include="..\..\MyGUIEngine\include\MyGUI_XmlDocument.h" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ActionController.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_Any.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_BackwardCompatibility.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_BiIndexBase.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_Button.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_Canvas.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ChildSkinInfo.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ClipboardManager.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_WindowsClipboardHandler.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_Colour.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ComboBox.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ConsoleLogListener.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_Constants.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ControllerEdgeHide.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ControllerFadeAlpha.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ControllerManager.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ControllerPosition.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ControllerRepeatClick.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_DDContainer.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_DataFileStream.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_DataManager.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_DataMemoryStream.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_DataStream.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_DynLib.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_DynLibManager.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_EditBox.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_EditText.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_Exception.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_FactoryManager.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_FileLogListener.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_FontManager.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_GeometryUtility.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_Gui.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ImageBox.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_InputManager.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ItemBox.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_LanguageManager.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_LayerItem.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_LayerManager.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_LayerNode.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_LayoutManager.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_LevelLogFilter.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ListBox.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_LogManager.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_LogSource.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_MainSkin.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_MaskPickInfo.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_MenuBar.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_MenuControl.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_MenuItem.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_MultiListBox.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_MultiListItem.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_OverlappedLayer.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_PluginManager.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_PointerManager.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_PolygonalSkin.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_PopupMenu.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_Precompiled.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MyGUI_Precompiled.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MyGUI_Precompiled.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MyGUI_Precompiled.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MyGUI_Precompiled.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">MyGUI_Precompiled.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">MyGUI_Precompiled.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">MyGUI_Precompiled.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">MyGUI_Precompiled.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ProgressBar.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_RenderItem.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_RenderManager.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ResourceImageSet.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ResourceImageSetPointer.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ResourceLayout.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ResourceManager.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ResourceManualFont.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ResourceManualPointer.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ResourceSkin.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ResourceTrueTypeFont.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_RotatingSkin.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ScrollBar.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ScrollView.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ScrollViewBase.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_SharedLayer.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_SharedLayerNode.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_SimpleText.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_SkinItem.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_SkinManager.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_SubSkin.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_SubWidgetBinding.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_SubWidgetManager.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_TabControl.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_TabItem.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_TextBox.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_TextIterator.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_TextView.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_TextureUtility.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_TileRect.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_Timer.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_ToolTipManager.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_UString.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_Widget.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_WidgetInput.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_WidgetManager.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_WidgetUserData.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_Window.cpp" />
+    <ClCompile Include="..\..\MyGUIEngine\src\MyGUI_XmlDocument.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="D:/Pro/MyGUI/Build/ZERO_CHECK.vcxproj">
+      <Project>5B76EE0F-A5D4-4C66-956A-87A0F1A5CBAB</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

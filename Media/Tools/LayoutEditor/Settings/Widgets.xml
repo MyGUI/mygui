@@ -302,4 +302,15 @@
 		<Parameter key="MaxSize" value="2 int"/>
 		<Parameter key="Movable" value="Bool"/>
 	</Widget>
+	<Widget name="ColorPanel">  
+        <Property key="DefaultSkin" value="ColorPanel"/>
+		<Property key="Skin" value="ColorPanel" group="Other"/>
+        <Property key="Base" value="Widget"/>  
+        <Property key="Parent" value="true"/>  
+        <Property key="Child" value="true"/>  
+        <Parameter key="RowsCols" value="2 int"/>  
+        <Parameter key="ItemSize" value="2 int"/>  
+        <Parameter key="ItemLayout" value="String"/>  
+        <Parameter key="Vertical" value="Bool"/>  
+    </Widget>  
 </MyGUI>

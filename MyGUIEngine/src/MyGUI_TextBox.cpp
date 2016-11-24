@@ -148,7 +148,7 @@ namespace MyGUI
 		else if (_key == "FontHeight")
 			setFontHeight(utility::parseValue<int>(_value));
 
-		/// @wproperty{TextBox, Caption, string} Содержимое поля редактирования.
+		/// @wproperty{TextBox, Caption, string} Содержимое по? редактирован?.
 		else if (_key == "Caption")
 			setCaptionWithReplacing(_value);
 
@@ -156,7 +156,7 @@ namespace MyGUI
 		else if (_key == "TextShadowColour")
 			setTextShadowColour(utility::parseValue<Colour>(_value));
 
-		/// @wproperty{TextBox, TextShadow, bool} Режим показа тени текста.
+		/// @wproperty{TextBox, TextShadow, bool} Режи?показа тени текста.
 		else if (_key == "TextShadow")
 			setTextShadow(utility::parseValue<bool>(_value));
 

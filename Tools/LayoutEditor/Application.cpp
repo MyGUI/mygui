@@ -57,6 +57,7 @@ namespace tools
 		addResourceLocation(getRootMedia() + "/Common/Tools");
 		addResourceLocation(getRootMedia() + "/Common/MessageBox");
 		addResourceLocation(getRootMedia() + "/Common/Themes");
+		addResourceLocation("D:\Pro\Dev\bin\debug64\Asserts\GUI");
 		setResourceFilename("");
 	}
 

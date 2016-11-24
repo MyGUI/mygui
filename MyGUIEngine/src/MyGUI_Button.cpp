@@ -26,7 +26,7 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		///@wskin_child{Button, ImageBox, Image} Картинка, в режиме картинки отображает состояние кнопки.
+		///@wskin_child{Button, ImageBox, Image} Картинка, ?режиме картинки отображает сост?ни?кнопки.
 		assignWidget(mImage, "Image");
 	}
 
@@ -178,7 +178,7 @@ namespace MyGUI
 		if (_key == "StateSelected")
 			setStateSelected(utility::parseValue<bool>(_value));
 
-		/// @wproperty{Button, ModeImage, bool} Устанавливает режим работы кнопки, в котором она свои состояния берет из картинки.
+		/// @wproperty{Button, ModeImage, bool} Устанавливае?режи?работы кнопки, ?которо?он?свои сост?ния бере?из картинки.
 		else if (_key == "ModeImage")
 			setModeImage(utility::parseValue<bool>(_value));
 
@@ -186,11 +186,11 @@ namespace MyGUI
 		else if (_key == "ImageResource")
 			setImageResource(_value);
 
-		/// @wproperty{Button, ImageGroup, string} Группа картинки в ресурсе.
+		/// @wproperty{Button, ImageGroup, string} Группа картинки ?ресурс?
 		else if (_key == "ImageGroup")
 			setImageGroup(_value);
 
-		/// @wproperty{Button, ImageName, string} Имя картинки в ресурсе.
+		/// @wproperty{Button, ImageName, string} Имя картинки ?ресурс?
 		else if (_key == "ImageName")
 			setImageName(_value);
 

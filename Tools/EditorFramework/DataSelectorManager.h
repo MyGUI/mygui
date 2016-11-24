@@ -30,10 +30,10 @@ namespace tools
 		typedef sigslot::signal2<DataPtr, bool> EventType;
 		EventType* getEvent(const std::string& _dataType);
 
-		// у родителя полностью изменились дети
+		// ?родите? полность?изменились дети
 		void changeParent(DataPtr _parent);
 
-		// у родителя изменился только активный ребенок
+		// ?родите? изменился только активный ребено?
 		void changeParentSelection(DataPtr _parent, DataPtr _selectedChild);
 
 	private:
