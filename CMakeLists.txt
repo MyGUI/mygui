@@ -261,6 +261,8 @@ if (MSVC)
 		add_definitions(/wd4127)
 		# disable: warning C4512: '***' : assignment operator could not be generated
 		add_definitions(/wd4512)
+		# disable: warning C4275: non dll-interface class '***' used as base for dll-interface clas '***'
+		add_definitions(/wd4275)
 	else ()
 		SET(WARNING_LEVEL "/W3")
 	endif ()
