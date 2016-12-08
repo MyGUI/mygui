@@ -204,7 +204,7 @@ namespace tools
 				{
 					if (!field->findAttribute("key", key))
 						continue;
-					possible_value->values.push_back(MyGUI::LanguageManager::getInstance().replaceTags(key));
+					possible_value->values.push_back(key);
 				}
 			}
 		}

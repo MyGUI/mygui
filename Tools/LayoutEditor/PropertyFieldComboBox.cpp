@@ -48,7 +48,7 @@ namespace tools
 
 		mField->removeAllItems();
 		for (WidgetStyle::VectorString::iterator iter = values.begin(); iter != values.end(); ++iter)
-			mField->addItem(*iter);
+			mField->addItem(MyGUI::LanguageManager::getInstance().replaceTags(*iter));
 		mField->beginToItemFirst();
 	}
 
