@@ -45,6 +45,7 @@ namespace MyGUI
 		void setImageName(const std::string& _name);
 
 		/*internal:*/
+		void _setKeyFocus(bool _focus);
 		void _setMouseFocus(bool _focus);
 
 		ImageBox* _getImageBox();
@@ -53,6 +54,8 @@ namespace MyGUI
 		virtual void initialiseOverride();
 		virtual void shutdownOverride();
 
+		virtual void onKeyLostFocus(Widget* _new);
+		virtual void onKeySetFocus(Widget* _old);
 		virtual void onMouseLostFocus(Widget* _new);
 		virtual void onMouseSetFocus(Widget* _old);
 		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
@@ -68,11 +71,10 @@ namespace MyGUI
 		void updateButtonState();
 
 	private:
-		// нажата ли кнопка
 		bool mIsMousePressed;
-		// в фокусе ли кнопка
+		bool mIsKeyFocus;
 		bool mIsMouseFocus;
-		// статус кнопки нажата или нет
+		// is fixed in pressed position
 		bool mStateSelected;
 
 		ImageBox* mImage;

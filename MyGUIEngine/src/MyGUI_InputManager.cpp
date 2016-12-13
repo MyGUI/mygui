@@ -436,7 +436,7 @@ namespace MyGUI
 		}
 
 		// устанавливаем новый
-		if (_widget && _widget->getNeedKeyFocus())
+		if (_widget)
 		{
 			_widget->_riseKeySetFocus(mWidgetKeyFocus);
 		}

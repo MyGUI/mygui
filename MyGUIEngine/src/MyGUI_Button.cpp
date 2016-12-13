@@ -15,6 +15,7 @@ namespace MyGUI
 
 	Button::Button() :
 		mIsMousePressed(false),
+		mIsKeyFocus(false),
 		mIsMouseFocus(false),
 		mStateSelected(false),
 		mImage(nullptr),
@@ -35,6 +36,20 @@ namespace MyGUI
 		mImage = nullptr;
 
 		Base::shutdownOverride();
+	}
+
+	void Button::onKeySetFocus(Widget* _old)
+	{
+		_setKeyFocus(true);
+
+		Base::onKeySetFocus(_old);
+	}
+
+	void Button::onKeyLostFocus(Widget* _new)
+	{
+		_setKeyFocus(false);
+
+		Base::onKeyLostFocus(_new);
 	}
 
 	void Button::onMouseSetFocus(Widget* _old)
@@ -87,7 +102,7 @@ namespace MyGUI
 				if (!_setState("pushed_checked"))
 					_setState("pushed");
 			}
-			else if (mIsMouseFocus)
+			else if (mIsMouseFocus || mIsKeyFocus)
 			{
 				if (!_setState("highlighted_checked"))
 					_setState("pushed");
@@ -101,7 +116,7 @@ namespace MyGUI
 				_setState("disabled");
 			else if (mIsMousePressed)
 				_setState("pushed");
-			else if (mIsMouseFocus)
+			else if (mIsMouseFocus || mIsKeyFocus)
 				_setState("highlighted");
 			else
 				_setState("normal");
@@ -117,6 +132,12 @@ namespace MyGUI
 		updateButtonState();
 	}
 
+	void Button::_setKeyFocus(bool _focus)
+	{
+		mIsKeyFocus = _focus;
+		updateButtonState();
+	}
+
 	void Button::_setMouseFocus(bool _focus)
 	{
 		mIsMouseFocus = _focus;
@@ -128,6 +149,7 @@ namespace MyGUI
 		updateButtonState();
 		if (!getInheritedEnabled())
 		{
+			mIsKeyFocus = false;
 			mIsMouseFocus = false;
 		}
 	}
