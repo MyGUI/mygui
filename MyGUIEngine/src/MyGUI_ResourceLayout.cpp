@@ -177,6 +177,8 @@ namespace MyGUI
 			}
 		}
 
+		LayoutManager::getInstance().eventCreateWidget(wid, _widgetInfo);
+
 		return wid;
 	}
 

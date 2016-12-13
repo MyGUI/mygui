@@ -17,6 +17,7 @@
 namespace MyGUI
 {
 
+	typedef delegates::CMultiDelegate2<Widget*, const WidgetInfo&> EventHandle_CreateWidgetDelegate;
 	typedef delegates::CMultiDelegate3<Widget*, const std::string&, const std::string&> EventHandle_AddUserStringDelegate;
 
 	class MYGUI_EXPORT LayoutManager :
@@ -45,6 +46,15 @@ namespace MyGUI
 
 		/** Check if skin with specified name exist */
 		bool isExist(const std::string& _name) const;
+
+		/** Event : Multidelegate. Widget was created from layout.\n
+		signature : void method(MyGUI::Widget* _sender, const MyGUI::WidgetInfo& _widgetInfo)
+		@param _widget Widget that got new UserString.
+		@param _key UserString key.
+		@param _key UserString value.
+		@note Happens only when Widget was loaded from layout, but not when it was created in code.
+		*/
+		EventHandle_CreateWidgetDelegate eventCreateWidget;
 
 		/** Event : Multidelegate. UserString was added from layout.\n
 			signature : void method(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value)
