@@ -44,7 +44,9 @@ namespace MyGUI
 		virtual TextureUsage getUsage();
 		virtual size_t       getNumElemBytes();
 
-		virtual IRenderTarget* getRenderTarget();
+		virtual IRenderTarget*	getRenderTarget();
+
+		ID3D11Texture2D*		getTexture();
 
 	private:
 		friend class DirectX11RTTexture;

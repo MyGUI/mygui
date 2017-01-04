@@ -190,4 +190,9 @@ namespace MyGUI
 		return mRenderTarget;
 	}
 
+	ID3D11Texture2D* DirectX11Texture::getTexture()
+	{
+		return mTexture;
+	}
+
 } // namespace MyGUI
