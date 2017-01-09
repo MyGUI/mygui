@@ -9,4 +9,6 @@
 	<Skin key="ItemBoxEmpty">LE_ItemBoxEmpty</Skin>
 	<Skin key="StaticImage">LE_ImageBox</Skin>
 	<Skin key="StaticText">LE_TextBox</Skin>
+	<Skin key="WordWrapEmpty">LE_TextBox</Skin>
+	<Skin key="EditBoxEmpty">LE_TextBox</Skin>
 </MyGUI>
