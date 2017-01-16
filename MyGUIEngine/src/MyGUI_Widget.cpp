@@ -126,6 +126,8 @@ namespace MyGUI
 
 	void Widget::_shutdown()
 	{
+		setUserData(Any::Null);
+
 		// витр метод для наследников
 		shutdownOverride();
 
