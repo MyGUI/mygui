@@ -155,12 +155,15 @@ namespace tools
 			{
 				char str[256];
 				input_file.getline(str, sizeof(str));
-				output_file << lm.replaceTags(str) << std::endl;
 				if (strstr(str, "//%LE Widget_Declaration list start") != 0)
 				{
 					EnumeratorWidgetContainer widget = EditorWidgets::getInstance().getWidgets();
 					while (widget.next())
 						printWidgetDeclaration(widget.current(), output_file);
+				}
+				else
+				{
+					output_file << lm.replaceTags(str) << std::endl;
 				}
 			}
 			output_file.close();
