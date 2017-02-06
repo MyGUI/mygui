@@ -79,6 +79,7 @@
 		<Property key="DefaultSkin" value="ItemBox"/>
 		<Property key="Base" value="DDContainer"/>
 		<Property key="Skin" value="ItemBox"/>
+		<Property key="Skin" value="ItemBoxEmpty"/>
 		<Property key="Skin" value="ItemBox_Dark" group="_Dark"/>
 		<Property key="Skin" value="ItemBox2_Dark" group="_Dark"/>
 		<Parameter key="VerticalAlignment" value="Bool"/>
