@@ -328,14 +328,17 @@ namespace MyGUI
 		_resetContainer(true);
 	}
 
-	void ItemBox::insertItemAt(size_t _index, Any _data)
+	void ItemBox::insertItemAt(size_t _index, Any _data, bool update)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "ItemBox::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
-		_resetContainer(false);
+		if (update)
+		{
+			_resetContainer(false);
 
-		resetCurrentActiveItem();
+			resetCurrentActiveItem();
+		}
 
 		mItemsInfo.insert(mItemsInfo.begin() + _index, ItemDataInfo(_data));
 
@@ -348,20 +351,26 @@ namespace MyGUI
 			}
 		}
 
-		updateScrollSize();
-		updateScrollPosition();
+		if (update)
+		{
+			updateScrollSize();
+			updateScrollPosition();
 
-		findCurrentActiveItem();
+			findCurrentActiveItem();
 
-		_updateAllVisible(true);
+			_updateAllVisible(true);
+		}
 	}
 
-	void ItemBox::removeItemAt(size_t _index)
+	void ItemBox::removeItemAt(size_t _index, bool update)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ItemBox::removeItemAt");
 
-		_resetContainer(false);
-		resetCurrentActiveItem();
+		if (update)
+		{
+			_resetContainer(false);
+			resetCurrentActiveItem();
+		}
 
 		mItemsInfo.erase(mItemsInfo.begin() + _index);
 
@@ -378,12 +387,15 @@ namespace MyGUI
 			}
 		}
 
-		updateScrollSize();
-		updateScrollPosition();
+		if (update)
+		{
+			updateScrollSize();
+			updateScrollPosition();
 
-		findCurrentActiveItem();
+			findCurrentActiveItem();
 
-		_updateAllVisible(true);
+			_updateAllVisible(true);
+		}
 	}
 
 	void ItemBox::removeAllItems()
@@ -869,9 +881,9 @@ namespace MyGUI
 		return mItemsInfo.size();
 	}
 
-	void ItemBox::addItem(Any _data)
+	void ItemBox::addItem(Any _data, bool update)
 	{
-		insertItemAt(ITEM_NONE, _data);
+		insertItemAt(ITEM_NONE, _data, update);
 	}
 
 	size_t ItemBox::getIndexSelected() const
