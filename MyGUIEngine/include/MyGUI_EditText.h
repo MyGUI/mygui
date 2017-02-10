@@ -115,6 +115,7 @@ namespace MyGUI
 	private:
 		void _setTextColour(const Colour& _value);
 		void checkVertexSize();
+		unsigned int getMixedNativeAlpha(float secondAlpha);
 
 		void drawQuad(
 			Vertex*& _vertex,
@@ -136,7 +137,6 @@ namespace MyGUI
 		bool mEmptyView;
 		uint32 mCurrentColourNative;
 		uint32 mInverseColourNative;
-		uint32 mCurrentAlphaNative;
 		uint32 mShadowColourNative;
 		IntCoord mCurrentCoord;
 

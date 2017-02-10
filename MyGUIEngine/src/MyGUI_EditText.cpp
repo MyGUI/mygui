@@ -24,9 +24,8 @@ namespace MyGUI
 	EditText::EditText() :
 		ISubWidgetText(),
 		mEmptyView(false),
-		mCurrentColourNative(0x00FFFFFF),
+		mCurrentColourNative(0xFFFFFFFF),
 		mInverseColourNative(0x00000000),
-		mCurrentAlphaNative(0xFF000000),
 		mShadowColourNative(0x00000000),
 		mTextOutDate(false),
 		mTextAlign(Align::Default),
@@ -53,13 +52,6 @@ namespace MyGUI
 		mOldWidth(0)
 	{
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
-
-		mCurrentColourNative = texture_utility::toColourARGB(mColour);
-		texture_utility::convertColour(mCurrentColourNative, mVertexFormat);
-
-		mCurrentColourNative = (mCurrentColourNative & 0x00FFFFFF) | (mCurrentAlphaNative & 0xFF000000);
-		mShadowColourNative =  (mShadowColourNative & 0x00FFFFFF) | (mCurrentAlphaNative & 0xFF000000);
-		mInverseColourNative = mCurrentColourNative ^ 0x00FFFFFF;
 	}
 
 	EditText::~EditText()
@@ -208,6 +200,11 @@ namespace MyGUI
 		}
 	}
 
+	unsigned int EditText::getMixedNativeAlpha(float secondAlpha)
+	{
+		return (uint8)(mAlpha * secondAlpha * 255) << 24;
+	}
+
 	const UString& EditText::getCaption() const
 	{
 		return mCaption;
@@ -229,7 +226,7 @@ namespace MyGUI
 
 		texture_utility::convertColour(mCurrentColourNative, mVertexFormat);
 
-		mCurrentColourNative = (mCurrentColourNative & 0x00FFFFFF) | (mCurrentAlphaNative & 0xFF000000);
+		mCurrentColourNative = (mCurrentColourNative & 0x00FFFFFF) | getMixedNativeAlpha(mColour.alpha);
 		mInverseColourNative = mCurrentColourNative ^ 0x00FFFFFF;
 
 		if (nullptr != mNode)
@@ -247,9 +244,8 @@ namespace MyGUI
 			return;
 		mAlpha = _value;
 
-		mCurrentAlphaNative = ((uint8)(mAlpha * 255) << 24);
-		mCurrentColourNative = (mCurrentColourNative & 0x00FFFFFF) | (mCurrentAlphaNative & 0xFF000000);
-		mShadowColourNative = (mShadowColourNative & 0x00FFFFFF) | (mCurrentAlphaNative & 0xFF000000);
+		mCurrentColourNative = (mCurrentColourNative & 0x00FFFFFF) | getMixedNativeAlpha(mColour.alpha);
+		mShadowColourNative = (mShadowColourNative & 0x00FFFFFF) | getMixedNativeAlpha(mShadowColour.alpha);
 		mInverseColourNative = mCurrentColourNative ^ 0x00FFFFFF;
 
 		if (nullptr != mNode)
@@ -668,7 +664,7 @@ namespace MyGUI
 
 		texture_utility::convertColour(mShadowColourNative, mVertexFormat);
 
-		mShadowColourNative = (mShadowColourNative & 0x00FFFFFF) | (mCurrentAlphaNative & 0xFF000000);
+		mShadowColourNative = (mShadowColourNative & 0x00FFFFFF) | getMixedNativeAlpha(mShadowColour.alpha);
 
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);
