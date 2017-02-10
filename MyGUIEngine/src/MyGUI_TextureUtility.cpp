@@ -50,18 +50,17 @@ namespace MyGUI
 						return Constants::getZeroIntSize();
 					}
 					texture->loadFromFile(_texture);
+#if MYGUI_DEBUG_MODE == 1
+					if (!Bitwise::isPO2(prevSize.width) || !Bitwise::isPO2(prevSize.height))
+					{
+						MYGUI_LOG(Warning, "Texture '" + _texture + "' have non power of two size");
+					}
+#endif
 				}
 			}
 
 			prevSize = IntSize(texture->getWidth(), texture->getHeight());
 			prevTexture = _texture;
-
-#if MYGUI_DEBUG_MODE == 1
-			if (!Bitwise::isPO2(prevSize.width) || !Bitwise::isPO2(prevSize.height))
-			{
-				MYGUI_LOG(Warning, "Texture '" + _texture + "' have non power of two size");
-			}
-#endif
 
 			return prevSize;
 		}
