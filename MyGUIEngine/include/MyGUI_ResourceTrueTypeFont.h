@@ -110,7 +110,7 @@ namespace MyGUI
 		typedef std::map<Char, FT_UInt> CharMap;
 
 		// A map of glyph indices to glyph info objects.
-		typedef std::map<FT_UInt, GlyphInfo> GlyphMap;
+		typedef std::map<Char, GlyphInfo> GlyphMap;
 
 		// A map of glyph heights to the set of paired glyph indices and glyph info objects that are of that height.
 		typedef std::map<FT_Pos, std::map<FT_UInt, GlyphInfo*> > GlyphHeightMap;
@@ -151,7 +151,7 @@ namespace MyGUI
 		void renderGlyph(GlyphInfo& _info, uint8 _luminance0, uint8 _luminance1, uint8 _alpha, int _lineHeight, uint8* _texBuffer, int _texWidth, int _texHeight, int& _texX, int& _texY, uint8* _glyphBuffer = nullptr);
 
 		CharMap mCharMap; // A map of code points to glyph indices.
-		GlyphMap mGlyphMap; // A map of glyph indices to glyph info objects.
+		GlyphMap mGlyphMap; // A map of code points to glyph info objects.
 
 #endif // MYGUI_USE_FREETYPE
 

@@ -18,25 +18,6 @@
 #	include FT_BITMAP_H
 #	include FT_WINFONTS_H
 
-//	The following macro enables a workaround for a bug in FreeType's bytecode interpreter that, when using certain fonts at
-//	certain sizes, causes FreeType to start measuring and rendering some glyphs inconsistently after certain other glyphs have
-//	been loaded. See FreeType bug #35374 for details: https://savannah.nongnu.org/bugs/?35374
-//
-//	To reproduce the bug, first disable the workaround by defining MYGUI_USE_FREETYPE_BYTECODE_BUG_FIX to 0. Then load the
-//	DejaVu Sans font at 10 pt using default values for all other properties. Observe that the glyphs for the "0", 6", "8", and
-//	"9" characters are now badly corrupted when rendered.
-//
-//	This bug still exists as of FreeType 2.4.8 and there are currently no plans to fix it. If the bug is ever fixed, this
-//	workaround should be disabled, as it causes fonts to take longer to load.
-//
-//	The bug can currently also be suppressed by disabling FreeType's bytecode interpreter altogether. To do so, remove the
-//	TT_CONFIG_OPTION_BYTECODE_INTERPRETER macro in the "ftoption.h" FreeType header file. Once this is done, this workaround can
-//	be safely disabled. Note that disabling FreeType's bytecode interpreter will cause rendered text to look somewhat different.
-//	Whether it looks better or worse is a matter of taste and may also depend on the font.
-#	ifndef MYGUI_USE_FREETYPE_BYTECODE_BUG_FIX
-#		define MYGUI_USE_FREETYPE_BYTECODE_BUG_FIX 1
-#	endif
-
 #endif // MYGUI_USE_FREETYPE
 
 namespace MyGUI
@@ -378,14 +359,11 @@ namespace MyGUI
 
 	GlyphInfo* ResourceTrueTypeFont::getGlyphInfo(Char _id)
 	{
-		CharMap::const_iterator charIter = mCharMap.find(_id);
+		GlyphMap::iterator glyphIter = mGlyphMap.find(_id);
 
-		if (charIter != mCharMap.end())
+		if (glyphIter != mGlyphMap.end())
 		{
-			GlyphMap::iterator glyphIter = mGlyphMap.find(charIter->second);
-
-			if (glyphIter != mGlyphMap.end())
-				return &glyphIter->second;
+			return &glyphIter->second;
 		}
 
 		return mSubstituteGlyphInfo;
@@ -608,53 +586,6 @@ namespace MyGUI
 				mCharMap.erase(iter++);
 		}
 
-#if MYGUI_USE_FREETYPE_BYTECODE_BUG_FIX
-
-		bool isBytecodeAvailable = (ftFace->face_flags & FT_FACE_FLAG_HINTER) != 0;
-		bool isBytecodeUsedByLoadFlags = (ftLoadFlags & (FT_LOAD_FORCE_AUTOHINT | FT_LOAD_NO_HINTING)) == 0;
-
-		if (isBytecodeAvailable && isBytecodeUsedByLoadFlags)
-		{
-			for (GlyphMap::iterator iter = mGlyphMap.begin(); iter != mGlyphMap.end(); ++iter)
-			{
-				if (FT_Load_Glyph(ftFace, iter->first, ftLoadFlags) == 0)
-				{
-					GlyphInfo& info = iter->second;
-					GlyphInfo newInfo = createFaceGlyphInfo(0, fontAscent, ftFace->glyph);
-
-					if (info.width != newInfo.width)
-					{
-						texWidth += (int)ceil(newInfo.width) - (int)ceil(info.width);
-						info.width = newInfo.width;
-					}
-
-					if (info.height != newInfo.height)
-					{
-						GlyphHeightMap::mapped_type oldHeightMap = glyphHeightMap[(FT_Pos)info.height];
-						GlyphHeightMap::mapped_type::iterator heightMapItem = oldHeightMap.find(iter->first);
-						glyphHeightMap[(FT_Pos)newInfo.height].insert(*heightMapItem);
-						oldHeightMap.erase(heightMapItem);
-						info.height = newInfo.height;
-					}
-
-					if (info.advance != newInfo.advance)
-						info.advance = newInfo.advance;
-
-					if (info.bearingX != newInfo.bearingX)
-						info.bearingX = newInfo.bearingX;
-
-					if (info.bearingY != newInfo.bearingY)
-						info.bearingY = newInfo.bearingY;
-				}
-				else
-				{
-					MYGUI_LOG(Warning, "ResourceTrueTypeFont: Cannot load glyph " << iter->first << " for character " << iter->second.codePoint << " in font '" << getResourceName() << "'.");
-				}
-			}
-		}
-
-#endif // MYGUI_USE_FREETYPE_BYTECODE_BUG_FIX
-
 		// Do some special handling for the "Space" and "Tab" glyphs.
 		GlyphInfo* spaceGlyphInfo = getGlyphInfo(FontCodeType::Space);
 
@@ -696,7 +627,7 @@ namespace MyGUI
 			texWidth += createFaceGlyph(0, static_cast<Char>(FontCodeType::NotDefined), fontAscent, ftFace, ftLoadFlags, glyphHeightMap);
 
 		// Cache a pointer to the substitute glyph info for fast lookup.
-		mSubstituteGlyphInfo = &mGlyphMap.find(mCharMap.find(mSubstituteCodePoint)->second)->second;
+		mSubstituteGlyphInfo = &mGlyphMap.find(mSubstituteCodePoint)->second;
 
 		// Calculate the average height of all of the glyphs that are in use. This value will be used for estimating how large the
 		// texture needs to be.
@@ -938,7 +869,7 @@ namespace MyGUI
 		int height = (int)ceil(_glyphInfo.height);
 
 		mCharMap[_glyphInfo.codePoint] = _glyphIndex;
-		GlyphInfo& info = mGlyphMap.insert(GlyphMap::value_type(_glyphIndex, _glyphInfo)).first->second;
+		GlyphInfo& info = mGlyphMap.insert(GlyphMap::value_type(_glyphInfo.codePoint, _glyphInfo)).first->second;
 		_glyphHeightMap[(FT_Pos)height].insert(std::make_pair(_glyphIndex, &info));
 
 		return (width > 0) ? mGlyphSpacing + width : 0;
@@ -946,7 +877,7 @@ namespace MyGUI
 
 	int ResourceTrueTypeFont::createFaceGlyph(FT_UInt _glyphIndex, Char _codePoint, int _fontAscent, const FT_Face& _ftFace, FT_Int32 _ftLoadFlags, GlyphHeightMap& _glyphHeightMap)
 	{
-		if (mGlyphMap.find(_glyphIndex) == mGlyphMap.end())
+		if (mGlyphMap.find(_codePoint) == mGlyphMap.end())
 		{
 			if (FT_Load_Glyph(_ftFace, _glyphIndex, _ftLoadFlags) == 0)
 				return createGlyph(_glyphIndex, createFaceGlyphInfo(_codePoint, _fontAscent, _ftFace->glyph), _glyphHeightMap);
