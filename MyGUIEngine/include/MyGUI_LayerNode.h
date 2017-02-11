@@ -72,6 +72,7 @@ namespace MyGUI
 		bool isOutOfDate() const;
 
 	protected:
+		// push all empty buffers to the end of buffers list
 		void updateCompression();
 		RenderItem* addToRenderItemFirstQueue(ITexture* _texture, bool _manualRender);
 		RenderItem* addToRenderItemSecondQueue(ITexture* _texture, bool _manualRender);
@@ -82,16 +83,18 @@ namespace MyGUI
 		VectorRenderItem mFirstRenderItems;
 		VectorRenderItem mSecondRenderItems;
 
-		// список всех рутовых виджетов
-		// у перекрывающегося слоя здесь только один
+		size_t mLastNotEmptyItem;
+
+		// root widgets list
+		// overlapping layers have only one item here
 		VectorLayerItem mLayerItems;
 
-		// список такиж как мы, для построения дерева
 		VectorILayerNode mChildItems;
 
 		ILayerNode* mParent;
 		ILayer* mLayer;
 		bool mOutOfDate;
+		bool mOutOfDateCompression;
 		float mDepth;
 	};
 

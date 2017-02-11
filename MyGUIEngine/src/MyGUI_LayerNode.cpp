@@ -15,9 +15,11 @@ namespace MyGUI
 {
 
 	LayerNode::LayerNode(ILayer* _layer, ILayerNode* _parent) :
+		mLastNotEmptyItem(0),
 		mParent(_parent),
 		mLayer(_layer),
 		mOutOfDate(false),
+		mOutOfDateCompression(false),
 		mDepth(0.0f)
 	{
 	}
@@ -85,6 +87,12 @@ namespace MyGUI
 	{
 		mDepth = _target->getInfo().maximumDepth;
 
+		if (mOutOfDateCompression)
+		{
+			updateCompression();
+			mOutOfDateCompression = false;
+		}
+
 		// сначала отрисовываем свое
 		for (VectorRenderItem::iterator iter = mFirstRenderItems.begin(); iter != mFirstRenderItems.end(); ++iter)
 			(*iter)->renderToTarget(_target, _update);
@@ -146,49 +154,40 @@ namespace MyGUI
 			RenderItem* item = new RenderItem();
 			item->setTexture(_texture);
 			item->setManualRender(_manualRender);
+			mLastNotEmptyItem = mFirstRenderItems.size();
 			mFirstRenderItems.push_back(item);
 
 			return item;
 		}
 
-		updateCompression();
+		mOutOfDateCompression = true;
+		mOutOfDate = true;
 
 		// first queue keep order
 
-		// use either first empty buffer
-		// or last non-empty buffer if it have same texture
-		VectorRenderItem::reverse_iterator iter = mFirstRenderItems.rbegin();
-		bool itemFound = false;
-		while (iter != mFirstRenderItems.rend())
+		// use either last non-empty buffer if it have same texture
+		// or empty buffer (if found in the end)
+		if (mLastNotEmptyItem < mFirstRenderItems.size())
 		{
-			if ((*iter)->getNeedVertexCount() == 0)
+			RenderItem* item = mFirstRenderItems[mLastNotEmptyItem];
+			if (!item->getManualRender() && item->getTexture() == _texture)
 			{
-				iter++;
-				itemFound = true;
-				continue;
+				return item;
 			}
-			else if (!(*iter)->getManualRender() && (*iter)->getTexture() == _texture)
-			{
-				iter++;
-				itemFound = true;
-				break;
-			}
-
-			break;
 		}
 
-		if (itemFound)
+		if (mLastNotEmptyItem + 1 < mFirstRenderItems.size())
 		{
-			iter--;
-			(*iter)->setTexture(_texture);
-
-			return (*iter);
+			++mLastNotEmptyItem;
+			mFirstRenderItems[mLastNotEmptyItem]->setTexture(_texture);
+			return mFirstRenderItems[mLastNotEmptyItem];
 		}
 
 		// not found, create new
 		RenderItem* item = new RenderItem();
 		item->setTexture(_texture);
 		item->setManualRender(_manualRender);
+		mLastNotEmptyItem = mFirstRenderItems.size();
 		mFirstRenderItems.push_back(item);
 
 		return item;
@@ -284,13 +283,18 @@ namespace MyGUI
 			}
 		}
 
-		// pushing all empty buffers to the end of buffers list
-		if (need_compression)
+		if (!need_compression)
 		{
+			mLastNotEmptyItem = mFirstRenderItems.size() - 1;
+		}
+		else
+		{
+			// pushing all empty buffers to the end of buffers list
 			VectorRenderItem nonEmptyItems;
+			nonEmptyItems.reserve(mFirstRenderItems.size());
 			VectorRenderItem emptyItems;
 
-			for (VectorRenderItem::iterator iter = mFirstRenderItems.begin(); iter != mFirstRenderItems.end(); ++iter)
+			for (VectorRenderItem::const_iterator iter = mFirstRenderItems.begin(); iter != mFirstRenderItems.end(); ++iter)
 			{
 				(*iter)->setNeedCompression(false);
 
@@ -299,11 +303,10 @@ namespace MyGUI
 				else
 					nonEmptyItems.push_back(*iter);
 			}
+			mLastNotEmptyItem = nonEmptyItems.size() - 1;
 			nonEmptyItems.insert(nonEmptyItems.end(), emptyItems.begin(), emptyItems.end());
 			std::swap(mFirstRenderItems, nonEmptyItems);
 		}
-
-		mOutOfDate = true;
 	}
 
 	ILayer* LayerNode::getLayer() const
