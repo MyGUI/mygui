@@ -25,6 +25,13 @@ include(Utils)
 set(MYGUI_TEMPLATES_DIR "${MYGUI_SOURCE_DIR}/CMake/Templates")
 set(MYGUI_WORK_DIR ${MYGUI_BINARY_DIR})
 
+# detect and enable C++11 if available
+find_package (CXX11)
+if (CXX11_FOUND)
+	SET(CMAKE_CXX_STANDARD 11)
+else ()
+	add_definitions(-DMYGUI_NO_CXX11)
+endif ()
 
 #####################################################################
 # Set up the basic build environment

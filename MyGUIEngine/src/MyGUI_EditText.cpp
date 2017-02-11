@@ -259,7 +259,7 @@ namespace MyGUI
 
 	void EditText::setFontName(const std::string& _value)
 	{
-		mTexture = 0;
+		mTexture = nullptr;
 		mFont = FontManager::getInstance().getByName(_value);
 		if (mFont != nullptr)
 		{

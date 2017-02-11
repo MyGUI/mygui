@@ -16,6 +16,10 @@
 #	include FT_FREETYPE_H
 #endif // MYGUI_USE_FREETYPE
 
+#ifndef MYGUI_NO_CXX11
+#	include <unordered_map>
+#endif
+
 namespace MyGUI
 {
 
@@ -110,7 +114,11 @@ namespace MyGUI
 		typedef std::map<Char, FT_UInt> CharMap;
 
 		// A map of glyph indices to glyph info objects.
+#ifdef MYGUI_NO_CXX11
 		typedef std::map<Char, GlyphInfo> GlyphMap;
+#else
+		typedef std::unordered_map<Char, GlyphInfo> GlyphMap;
+#endif
 
 		// A map of glyph heights to the set of paired glyph indices and glyph info objects that are of that height.
 		typedef std::map<FT_Pos, std::map<FT_UInt, GlyphInfo*> > GlyphHeightMap;
