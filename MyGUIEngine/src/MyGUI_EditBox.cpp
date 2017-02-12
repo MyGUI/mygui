@@ -2076,11 +2076,11 @@ namespace MyGUI
 		else if (_key == "Static")
 			setEditStatic(utility::parseValue<bool>(_value));
 
-		/// @wproperty{EditBox, VisibleVScroll, bool} Видимость вертикальной полосы прокрутки.
+		/// @wproperty{EditBox, VisibleVScroll, bool} Vertical scroll bar visibility.
 		else if (_key == "VisibleVScroll")
 			setVisibleVScroll(utility::parseValue<bool>(_value));
 
-		/// @wproperty{EditBox, VisibleHScroll, bool} Видимость горизонтальной полосы прокрутки.
+		/// @wproperty{ItemBox, VisibleHScroll, bool} Horizontal scroll bar visibility.
 		else if (_key == "VisibleHScroll")
 			setVisibleHScroll(utility::parseValue<bool>(_value));
 

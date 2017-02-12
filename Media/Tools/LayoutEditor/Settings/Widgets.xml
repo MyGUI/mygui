@@ -83,6 +83,8 @@
 		<Property key="Skin" value="ItemBox_Dark" group="_Dark"/>
 		<Property key="Skin" value="ItemBox2_Dark" group="_Dark"/>
 		<Parameter key="VerticalAlignment" value="Bool"/>
+		<Parameter key="VisibleVScroll" value="Bool"/>
+		<Parameter key="VisibleHScroll" value="Bool"/>
 		<TemplateData key="DragLayer" value="Layer"/>
 	</Widget>
 	<Widget name="ListBox">

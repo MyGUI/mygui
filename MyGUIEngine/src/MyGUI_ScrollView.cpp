@@ -225,11 +225,11 @@ namespace MyGUI
 
 	void ScrollView::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		/// @wproperty{ScrollView, VisibleVScroll, bool} Видимость вертикальной полосы прокрутки.
+		/// @wproperty{ScrollView, VisibleVScroll, bool} Horizontal scroll bar visibility.
 		if (_key == "VisibleVScroll")
 			setVisibleVScroll(utility::parseValue<bool>(_value));
 
-		/// @wproperty{ScrollView, VisibleHScroll, bool} Видимость горизонтальной полосы прокрутки.
+		/// @wproperty{ScrollView, VisibleHScroll, bool} Horizontal scroll bar visibility.
 		else if (_key == "VisibleHScroll")
 			setVisibleHScroll(utility::parseValue<bool>(_value));
 

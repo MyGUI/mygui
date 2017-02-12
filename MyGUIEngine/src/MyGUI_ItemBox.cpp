@@ -919,11 +919,41 @@ namespace MyGUI
 		setCoord(IntCoord(_left, _top, _width, _height));
 	}
 
+	void ItemBox::setVisibleVScroll(bool _value)
+	{
+		mVisibleVScroll = _value;
+		updateFromResize();
+	}
+
+	void ItemBox::setVisibleHScroll(bool _value)
+	{
+		mVisibleHScroll = _value;
+		updateFromResize();
+	}
+
+	bool ItemBox::isVisibleVScroll() const
+	{
+		return mVisibleVScroll;
+	}
+
+	bool ItemBox::isVisibleHScroll() const
+	{
+		return mVisibleHScroll;
+	}
+
 	void ItemBox::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		/// @wproperty{ItemBox, VerticalAlignment, bool} Вертикальное выравнивание.
+		/// @wproperty{ItemBox, VerticalAlignment, bool} Vertical or horizontal alignment.
 		if (_key == "VerticalAlignment")
 			setVerticalAlignment(utility::parseValue<bool>(_value));
+
+		/// @wproperty{ItemBox, VisibleVScroll, bool} Vertical scroll bar visibility.
+		else if (_key == "VisibleVScroll")
+			setVisibleVScroll(utility::parseValue<bool>(_value));
+
+		/// @wproperty{ItemBox, VisibleHScroll, bool} Horizontal scroll bar visibility.
+		else if (_key == "VisibleHScroll")
+			setVisibleHScroll(utility::parseValue<bool>(_value));
 
 		else
 		{

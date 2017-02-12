@@ -127,6 +127,16 @@ namespace MyGUI
 		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
 		void setCoord(int _left, int _top, int _width, int _height);
 
+		/** Show VScroll when content size larger than view */
+		void setVisibleVScroll(bool _value);
+		/** Get Show VScroll flag */
+		bool isVisibleVScroll() const;
+
+		/** Show HScroll when content size larger than view */
+		void setVisibleHScroll(bool _value);
+		/** Get Show HScroll flag */
+		bool isVisibleHScroll() const;
+
 		/** Set view area offset. */
 		void setViewOffset(const IntPoint& _value);
 		/** Get view area offset. */
