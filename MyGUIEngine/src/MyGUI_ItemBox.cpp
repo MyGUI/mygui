@@ -333,12 +333,8 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "ItemBox::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
 
-		if (update)
-		{
-			_resetContainer(false);
-
-			resetCurrentActiveItem();
-		}
+		_resetContainer(false);
+		resetCurrentActiveItem();
 
 		mItemsInfo.insert(mItemsInfo.begin() + _index, ItemDataInfo(_data));
 
@@ -366,11 +362,8 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ItemBox::removeItemAt");
 
-		if (update)
-		{
-			_resetContainer(false);
-			resetCurrentActiveItem();
-		}
+		_resetContainer(false);
+		resetCurrentActiveItem();
 
 		mItemsInfo.erase(mItemsInfo.begin() + _index);
 
