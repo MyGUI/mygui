@@ -25,7 +25,7 @@ namespace MyGUI
 		ISubWidgetText(),
 		mEmptyView(false),
 		mCurrentColourNative(0xFFFFFFFF),
-		mInverseColourNative(0x00000000),
+		mInverseColourNative(0xFF000000),
 		mShadowColourNative(0x00000000),
 		mTextOutDate(false),
 		mTextAlign(Align::Default),
