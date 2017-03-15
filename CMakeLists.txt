@@ -262,17 +262,17 @@ if (MSVC)
 	# Use the highest warning level for visual studio.
 	if (MYGUI_HIGH_LEVEL_WARNINGS)
 		SET(WARNING_LEVEL "/W4")
-		# disable: warning C4100: '***' : unreferenced formal parameter
-		add_definitions(/wd4100)
-		# disable: warning C4127: conditional expression is constant
-		add_definitions(/wd4127)
-		# disable: warning C4512: '***' : assignment operator could not be generated
-		add_definitions(/wd4512)
-		# disable: warning C4275: non dll-interface class '***' used as base for dll-interface clas '***'
-		add_definitions(/wd4275)
 	else ()
 		SET(WARNING_LEVEL "/W3")
 	endif ()
+	# disable: warning C4100: '***' : unreferenced formal parameter
+	add_definitions(/wd4100)
+	# disable: warning C4127: conditional expression is constant
+	add_definitions(/wd4127)
+	# disable: warning C4512: '***' : assignment operator could not be generated
+	add_definitions(/wd4512)
+	# disable: warning C4275: non dll-interface class '***' used as base for dll-interface clas '***'
+	add_definitions(/wd4275)
 
 	if (CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
 		STRING(REGEX REPLACE "/W[0-4]" "${WARNING_LEVEL}" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
