@@ -44,7 +44,7 @@ int startApp()
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		// set working directory to exe location
 		LPSTR fileName = new CHAR[256];
-		int bytes = GetModuleFileName(NULL, fileName, 256);
+		GetModuleFileName(NULL, fileName, 256);
 		std::string path = fileName;
 		int path_directory_index = path.find_last_of('\\');
 		std::string exedir = path.substr(0, path_directory_index + 1);

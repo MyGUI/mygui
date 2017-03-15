@@ -428,7 +428,6 @@ namespace MyGUI
 
 	IntCoord Widget::getClientCoord()
 	{
-		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
 		if (mWidgetClient != nullptr)
 			return mWidgetClient->getCoord();
 		return IntCoord(0, 0, mCoord.width, mCoord.height);
@@ -517,7 +516,6 @@ namespace MyGUI
 
 	void Widget::_forcePick(Widget* _widget)
 	{
-		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
 		if (mWidgetClient != nullptr)
 		{
 			mWidgetClient->_forcePick(_widget);
@@ -542,7 +540,6 @@ namespace MyGUI
 	{
 		if (_name == mName)
 			return this;
-		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
 		if (mWidgetClient != nullptr)
 			return mWidgetClient->findWidget(_name);
 
@@ -933,7 +930,6 @@ namespace MyGUI
 
 	EnumeratorWidgetPtr Widget::getEnumerator() const
 	{
-		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
 		if (mWidgetClient != nullptr)
 			return mWidgetClient->getEnumerator();
 		return Enumerator<VectorWidgetPtr>(mWidgetChild.begin(), mWidgetChild.end());
@@ -941,7 +937,6 @@ namespace MyGUI
 
 	size_t Widget::getChildCount()
 	{
-		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
 		if (mWidgetClient != nullptr)
 			return mWidgetClient->getChildCount();
 		return mWidgetChild.size();
@@ -949,7 +944,6 @@ namespace MyGUI
 
 	Widget* Widget::getChildAt(size_t _index)
 	{
-		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
 		if (mWidgetClient != nullptr)
 			return mWidgetClient->getChildAt(_index);
 		MYGUI_ASSERT_RANGE(_index, mWidgetChild.size(), "Widget::getChildAt");
@@ -1065,6 +1059,8 @@ namespace MyGUI
 
 	void Widget::initialiseOverride()
 	{
+		///@wskin_child{Widget, Widget, Client} Client area, all child widgets are created inside this area.
+		assignWidget(mWidgetClient, "Client");
 	}
 
 	void Widget::setSkinProperty(ResourceSkin* _info)
@@ -1107,7 +1103,6 @@ namespace MyGUI
 		if (_name == mName)
 			_result.push_back(this);
 
-		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
 		if (mWidgetClient != nullptr)
 		{
 			mWidgetClient->findWidgets(_name, _result);
@@ -1135,7 +1130,13 @@ namespace MyGUI
 
 	void Widget::setWidgetClient(Widget* _widget)
 	{
+		MYGUI_ASSERT(mWidgetClient != this, "mWidgetClient can not be this widget");
 		mWidgetClient = _widget;
+	}
+
+	Widget* Widget::_getClientWidget()
+	{
+		return getClientWidget() == nullptr ? this : getClientWidget();
 	}
 
 	Widget* Widget::_createSkinWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
@@ -1290,6 +1291,11 @@ namespace MyGUI
 	}
 
 	Widget* Widget::getClientWidget()
+	{
+		return mWidgetClient;
+	}
+
+	const Widget* Widget::getClientWidget() const
 	{
 		return mWidgetClient;
 	}

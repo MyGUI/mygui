@@ -28,7 +28,7 @@ namespace MyGUI
 		mAutoPosition(0.0f),
 		mAutoTrack(false),
 		mFillTrack(false),
-		mClient(nullptr)
+		mTrackPlace(nullptr)
 	{
 	}
 
@@ -37,15 +37,15 @@ namespace MyGUI
 		Base::initialiseOverride();
 
 		///@wskin_child{MultiListBox, Widget, TrackPlace} Место для трекера.
-		assignWidget(mClient, "TrackPlace");
+		assignWidget(mTrackPlace, "TrackPlace");
 
-		if (nullptr == mClient)
+		if (nullptr == mTrackPlace)
 		{
 			//OBSOLETE
-			assignWidget(mClient, "Client");
+			assignWidget(mTrackPlace, "Client");
 
-			if (nullptr == mClient)
-				mClient = this;
+			if (nullptr == mTrackPlace)
+				mTrackPlace = this;
 		}
 
 		if (isUserString("TrackSkin"))
@@ -76,7 +76,7 @@ namespace MyGUI
 
 	void ProgressBar::shutdownOverride()
 	{
-		mClient = nullptr;
+		mTrackPlace = nullptr;
 
 		Base::shutdownOverride();
 	}
@@ -171,7 +171,7 @@ namespace MyGUI
 		{
 			if (mVectorTrack.empty())
 			{
-				Widget* widget = mClient->createWidget<Widget>(mTrackSkin, IntCoord(), Align::Left | Align::VStretch);
+				Widget* widget = mTrackPlace->createWidget<Widget>(mTrackSkin, IntCoord(), Align::Left | Align::VStretch);
 				mVectorTrack.push_back(widget);
 			}
 			else
@@ -218,7 +218,7 @@ namespace MyGUI
 
 		while ((int)mVectorTrack.size() < count)
 		{
-			Widget* widget = mClient->createWidget<Widget>(mTrackSkin, IntCoord(/*(int)mVectorTrack.size() * mTrackStep, 0, mTrackWidth, getClientHeight()*/), Align::Left | Align::VStretch);
+			Widget* widget = mTrackPlace->createWidget<Widget>(mTrackSkin, IntCoord(/*(int)mVectorTrack.size() * mTrackStep, 0, mTrackWidth, getClientHeight()*/), Align::Left | Align::VStretch);
 			widget->setVisible(false);
 			mVectorTrack.push_back(widget);
 		}
@@ -287,19 +287,19 @@ namespace MyGUI
 	void ProgressBar::setTrackPosition(Widget* _widget, int _left, int _top, int _width, int _height)
 	{
 		if (mFlowDirection == FlowDirection::LeftToRight) _widget->setCoord(_left, _top, _width, _height);
-		else if (mFlowDirection == FlowDirection::RightToLeft) _widget->setCoord(mClient->getWidth() - _left - _width, _top, _width, _height);
+		else if (mFlowDirection == FlowDirection::RightToLeft) _widget->setCoord(mTrackPlace->getWidth() - _left - _width, _top, _width, _height);
 		else if (mFlowDirection == FlowDirection::TopToBottom) _widget->setCoord(_top, _left, _height, _width);
-		else if (mFlowDirection == FlowDirection::BottomToTop) _widget->setCoord(_top, mClient->getHeight() - _left - _width, _height, _width);
+		else if (mFlowDirection == FlowDirection::BottomToTop) _widget->setCoord(_top, mTrackPlace->getHeight() - _left - _width, _height, _width);
 	}
 
 	int ProgressBar::getClientWidth()
 	{
-		return mFlowDirection.isHorizontal() ? mClient->getWidth() : mClient->getHeight();
+		return mFlowDirection.isHorizontal() ? mTrackPlace->getWidth() : mTrackPlace->getHeight();
 	}
 
 	int ProgressBar::getClientHeight()
 	{
-		return mFlowDirection.isHorizontal() ? mClient->getHeight() : mClient->getWidth();
+		return mFlowDirection.isHorizontal() ? mTrackPlace->getHeight() : mTrackPlace->getWidth();
 	}
 
 	void ProgressBar::setFlowDirection(FlowDirection _value)

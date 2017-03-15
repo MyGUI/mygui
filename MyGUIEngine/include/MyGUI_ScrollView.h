@@ -103,7 +103,6 @@ namespace MyGUI
 
 	protected:
 		Align mContentAlign;
-		Widget* mRealClient;
 	};
 
 } // namespace MyGUI

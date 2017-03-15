@@ -89,7 +89,7 @@ namespace MyGUI
 
 		FlowDirection mFlowDirection;
 
-		Widget* mClient;
+		Widget* mTrackPlace;
 	};
 
 } // namespace MyGUI

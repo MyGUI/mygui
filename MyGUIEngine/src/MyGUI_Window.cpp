@@ -29,7 +29,6 @@ namespace MyGUI
 		mIsAutoAlpha(false),
 		mSnap(false),
 		mAnimateSmooth(false),
-		mClient(nullptr),
 		mMovable(true)
 	{
 	}
@@ -55,18 +54,15 @@ namespace MyGUI
 			main_move = true;
 		}
 
-		///@wskin_child{Window, Widget, Client} Клиентская зона.
-		assignWidget(mClient, "Client");
-		if (mClient != nullptr)
+		if (getClientWidget() != nullptr)
 		{
 			if (main_move)
 			{
-				mClient->setUserString("Scale", "1 1 0 0");
-				mClient->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
-				mClient->eventMouseButtonReleased += newDelegate(this, &Window::notifyMouseReleased);
-				mClient->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
+				getClientWidget()->setUserString("Scale", "1 1 0 0");
+				getClientWidget()->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
+				getClientWidget()->eventMouseButtonReleased += newDelegate(this, &Window::notifyMouseReleased);
+				getClientWidget()->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
 			}
-			setWidgetClient(mClient);
 		}
 
 		///@wskin_child{Window, TextBox, Caption} Caption for window.
@@ -118,7 +114,6 @@ namespace MyGUI
 
 	void Window::shutdownOverride()
 	{
-		mClient = nullptr;
 		mWidgetCaption = nullptr;
 
 		Base::shutdownOverride();

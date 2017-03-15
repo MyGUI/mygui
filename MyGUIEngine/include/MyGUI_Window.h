@@ -160,7 +160,6 @@ namespace MyGUI
 		IntCoord mCurrentActionScale;
 		bool mAnimateSmooth;
 
-		Widget* mClient;
 		bool mMovable;
 	};
 

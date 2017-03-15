@@ -65,18 +65,16 @@ namespace MyGUI
 		// FIXME нам нужен фокус клавы
 		setNeedKeyFocus(true);
 
-		///@wskin_child{EditBox, Widget, Client} Клиентская зона.
 		assignWidget(mClient, "Client");
-		if (mClient != nullptr)
+		if (getClientWidget() != nullptr)
 		{
-			mClient->eventMouseSetFocus += newDelegate(this, &EditBox::notifyMouseSetFocus);
-			mClient->eventMouseLostFocus += newDelegate(this, &EditBox::notifyMouseLostFocus);
-			mClient->eventMouseButtonPressed += newDelegate(this, &EditBox::notifyMousePressed);
-			mClient->eventMouseButtonReleased += newDelegate(this, &EditBox::notifyMouseReleased);
-			mClient->eventMouseDrag += newDelegate(this, &EditBox::notifyMouseDrag);
-			mClient->eventMouseButtonDoubleClick += newDelegate(this, &EditBox::notifyMouseButtonDoubleClick);
-			mClient->eventMouseWheel += newDelegate(this, &EditBox::notifyMouseWheel);
-			setWidgetClient(mClient);
+			getClientWidget()->eventMouseSetFocus += newDelegate(this, &EditBox::notifyMouseSetFocus);
+			getClientWidget()->eventMouseLostFocus += newDelegate(this, &EditBox::notifyMouseLostFocus);
+			getClientWidget()->eventMouseButtonPressed += newDelegate(this, &EditBox::notifyMousePressed);
+			getClientWidget()->eventMouseButtonReleased += newDelegate(this, &EditBox::notifyMouseReleased);
+			getClientWidget()->eventMouseDrag += newDelegate(this, &EditBox::notifyMouseDrag);
+			getClientWidget()->eventMouseButtonDoubleClick += newDelegate(this, &EditBox::notifyMouseButtonDoubleClick);
+			getClientWidget()->eventMouseWheel += newDelegate(this, &EditBox::notifyMouseWheel);
 		}
 
 		///@wskin_child{EditBox, ScrollBar, VScroll} Вертикальная полоса прокрутки.
@@ -94,9 +92,9 @@ namespace MyGUI
 		}
 
 		mClientText = getSubWidgetText();
-		if (mClient != nullptr)
+		if (getClientWidget() != nullptr)
 		{
-			ISubWidgetText* text = mClient->getSubWidgetText();
+			ISubWidgetText* text = getClientWidget()->getSubWidgetText();
 			if (text)
 				mClientText = text;
 		}
@@ -122,7 +120,7 @@ namespace MyGUI
 
 	void EditBox::notifyMouseSetFocus(Widget* _sender, Widget* _old)
 	{
-		if ((_old == mClient) || (mIsFocus))
+		if ((_old == getClientWidget()) || (mIsFocus))
 			return;
 
 		mIsFocus = true;
@@ -131,7 +129,7 @@ namespace MyGUI
 
 	void EditBox::notifyMouseLostFocus(Widget* _sender, Widget* _new)
 	{
-		if ((_new == mClient) || (!mIsFocus))
+		if ((_new == getClientWidget()) || (!mIsFocus))
 			return;
 
 		mIsFocus = false;
@@ -293,7 +291,7 @@ namespace MyGUI
 
 	void EditBox::onKeyButtonPressed(KeyCode _key, Char _char)
 	{
-		if (mClientText == nullptr || mClient == nullptr)
+		if (mClientText == nullptr || getClientWidget() == nullptr)
 		{
 			Base::onKeyButtonPressed(_key, _char);
 			return;
@@ -568,7 +566,7 @@ namespace MyGUI
 		{
 			// на размер окна, но не меньше одной строки
 			IntPoint point = mClientText->getCursorPoint(mCursorPosition);
-			point.top -= (mClient->getHeight() > mClientText->getFontHeight()) ? mClient->getHeight() : mClientText->getFontHeight();
+			point.top -= (getClientWidget()->getHeight() > mClientText->getFontHeight()) ? getClientWidget()->getHeight() : mClientText->getFontHeight();
 			size_t old = mCursorPosition;
 			mCursorPosition = mClientText->getCursorPosition(point);
 			// самая верхняя строчка
@@ -597,7 +595,7 @@ namespace MyGUI
 		{
 			// на размер окна, но не меньше одной строки
 			IntPoint point = mClientText->getCursorPoint(mCursorPosition);
-			point.top += (mClient->getHeight() > mClientText->getFontHeight()) ? mClient->getHeight() : mClientText->getFontHeight();
+			point.top += (getClientWidget()->getHeight() > mClientText->getFontHeight()) ? getClientWidget()->getHeight() : mClientText->getFontHeight();
 			size_t old = mCursorPosition;
 			mCursorPosition = mClientText->getCursorPosition(point);
 			// самая нижняя строчка
@@ -729,7 +727,7 @@ namespace MyGUI
 			if (mActionMouseTimer > EDIT_ACTION_MOUSE_TIMER)
 			{
 				IntPoint mouse = InputManager::getInstance().getMousePositionByLayer();
-				const IntRect& view = mClient->getAbsoluteRect();
+				const IntRect& view = getClientWidget()->getAbsoluteRect();
 				mouse.left -= view.left;
 				mouse.top -= view.top;
 				IntPoint point;
@@ -739,7 +737,7 @@ namespace MyGUI
 				// вверх на одну строчку
 				if ((mouse.top < 0) && (mouse.top > -EDIT_ACTION_MOUSE_ZONE))
 				{
-					if ((mouse.left > 0) && (mouse.left <= mClient->getWidth()))
+					if ((mouse.left > 0) && (mouse.left <= getClientWidget()->getWidth()))
 					{
 						point = mClientText->getCursorPoint(mCursorPosition);
 						point.top -= mClientText->getFontHeight();
@@ -747,9 +745,9 @@ namespace MyGUI
 					}
 				}
 				// вниз на одну строчку
-				else if ((mouse.top > mClient->getHeight()) && (mouse.top < (mClient->getHeight() + EDIT_ACTION_MOUSE_ZONE)))
+				else if ((mouse.top > getClientWidget()->getHeight()) && (mouse.top < (getClientWidget()->getHeight() + EDIT_ACTION_MOUSE_ZONE)))
 				{
-					if ((mouse.left > 0) && (mouse.left <= mClient->getWidth()))
+					if ((mouse.left > 0) && (mouse.left <= getClientWidget()->getWidth()))
 					{
 						point = mClientText->getCursorPoint(mCursorPosition);
 						point.top += mClientText->getFontHeight();
@@ -765,7 +763,7 @@ namespace MyGUI
 					action = true;
 				}
 				// вправо на небольшое расстояние
-				else if ((mouse.left > mClient->getWidth()) && (mouse.left < (mClient->getWidth() + EDIT_ACTION_MOUSE_ZONE)))
+				else if ((mouse.left > getClientWidget()->getWidth()) && (mouse.left < (getClientWidget()->getWidth() + EDIT_ACTION_MOUSE_ZONE)))
 				{
 					point = mClientText->getCursorPoint(mCursorPosition);
 					point.left += (int)EDIT_OFFSET_HORZ_CURSOR;
@@ -1736,7 +1734,7 @@ namespace MyGUI
 
 	void EditBox::updateCursorPosition()
 	{
-		if (mClientText == nullptr || mClient == nullptr)
+		if (mClientText == nullptr || getClientWidget() == nullptr)
 			return;
 
 		// размер контекста текста
@@ -1752,7 +1750,7 @@ namespace MyGUI
 		cursor.right ++;
 
 		// абсолютные координаты вью
-		const IntRect& view = mClient->getAbsoluteRect();
+		const IntRect& view = getClientWidget()->getAbsoluteRect();
 
 		// проверяем и показываем курсор
 		if (!view.inside(cursor))
@@ -1946,12 +1944,12 @@ namespace MyGUI
 		mModeStatic = _value;
 		resetSelect();
 
-		if (mClient != nullptr)
+		if (getClientWidget() != nullptr)
 		{
 			if (mModeStatic)
-				mClient->setPointer("");
+				getClientWidget()->setPointer("");
 			else
-				mClient->setPointer(mOriginalPointer);
+				getClientWidget()->setPointer(mOriginalPointer);
 		}
 	}
 

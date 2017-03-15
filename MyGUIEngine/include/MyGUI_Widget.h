@@ -225,6 +225,7 @@ namespace MyGUI
 
 		/** Get client area widget or nullptr if widget don't have client */
 		Widget* getClientWidget();
+		const Widget* getClientWidget() const;
 
 		/** Detach widget from widgets hierarchy
 			@param _layer Attach to specified layer (if any)
@@ -347,6 +348,8 @@ namespace MyGUI
 		virtual void onWidgetDestroy(Widget* _widget);
 
 		void setWidgetClient(Widget* _widget);
+		/// If there is client widget return it, otherwise return this
+		Widget* _getClientWidget();
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 

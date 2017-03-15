@@ -89,7 +89,6 @@ namespace MyGUI
 	{
 		mList = nullptr;
 		mButton = nullptr;
-		mClient = nullptr;
 
 		Base::shutdownOverride();
 	}

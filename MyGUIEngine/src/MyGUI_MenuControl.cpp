@@ -35,7 +35,6 @@ namespace MyGUI
 		mOwner(nullptr),
 		mAnimateSmooth(false),
 		mChangeChildSkin(false),
-		mClient(nullptr),
 		mInternalCreateChild(false)
 	{
 	}
@@ -62,13 +61,6 @@ namespace MyGUI
 
 		// FIXME нам нужен фокус клавы
 		setNeedKeyFocus(true);
-
-		///@wskin_child{MenuControl, Widget, Client} Клиентская зона.
-		assignWidget(mClient, "Client");
-		if (mClient != nullptr)
-		{
-			setWidgetClient(mClient);
-		}
 
 		//OBSOLETE
 		if (isUserString("SkinLine"))
@@ -688,11 +680,6 @@ namespace MyGUI
 				return index;
 		}
 		return ITEM_NONE;
-	}
-
-	Widget* MenuControl::_getClientWidget()
-	{
-		return mClient == nullptr ? this : mClient;
 	}
 
 	size_t MenuControl::getItemCount() const

@@ -300,8 +300,6 @@ namespace MyGUI
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 
-		Widget* _getClientWidget();
-
 		void _setItemChildVisibleAt(size_t _index, bool _visible, bool _smooth);
 
 	protected:
@@ -332,7 +330,6 @@ namespace MyGUI
 		bool mAnimateSmooth;
 
 		bool mChangeChildSkin;
-		Widget* mClient;
 		bool mInternalCreateChild;
 	};
 

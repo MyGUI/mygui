@@ -372,7 +372,6 @@ namespace MyGUI
 		size_t mItemSelected;
 
 		bool mFrameAdvise;
-		Widget* mClient;
 		Widget* mHeaderPlace;
 	};
 

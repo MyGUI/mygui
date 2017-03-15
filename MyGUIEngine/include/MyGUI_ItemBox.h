@@ -274,9 +274,6 @@ namespace MyGUI
 		virtual Align getContentAlign();
 		virtual void setContentPosition(const IntPoint& _point);
 
-		IntRect _getClientAbsoluteRect();
-		Widget* _getClientWidget();
-
 	private:
 		// наши дети в строках
 		VectorWidgetPtr mVectorItems;

@@ -299,8 +299,6 @@ namespace MyGUI
 	private:
 		void _checkMapping(const std::string& _owner);
 
-		Widget* _getClientWidget();
-
 		size_t getIndexByWidget(Widget* _widget);
 
 	private:
@@ -330,8 +328,6 @@ namespace MyGUI
 		bool mNeedVisibleScroll;
 
 		IntSize mOldSize;
-
-		Widget* mClient;
 	};
 
 } // namespace MyGUI

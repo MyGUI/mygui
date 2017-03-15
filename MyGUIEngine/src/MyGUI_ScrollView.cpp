@@ -17,8 +17,7 @@ namespace MyGUI
 	const int SCROLL_VIEW_SCROLL_PAGE = 16; // колличество пикселей для кнопок скрола
 
 	ScrollView::ScrollView() :
-		mContentAlign(Align::Center),
-		mRealClient(nullptr)
+		mContentAlign(Align::Center)
 	{
 		mChangeContentByResize = false;
 	}
@@ -30,19 +29,16 @@ namespace MyGUI
 		// FIXME нам нужен фокус клавы
 		setNeedKeyFocus(true);
 
-		///@wskin_child{ScrollView, Widget, Client} Клиентская зона.
 		assignWidget(mClient, "Client");
-		MyGUI::Widget* realClientOwner = this;
-		if (mClient != nullptr)
+		if (getClientWidget() != nullptr)
 		{
-			mClient->eventMouseWheel += newDelegate(this, &ScrollView::notifyMouseWheel);
-			realClientOwner = mClient;
+			getClientWidget()->eventMouseWheel += newDelegate(this, &ScrollView::notifyMouseWheel);
 		}
 
-		// создаем холcт, реальный владелец детей
-		mRealClient = realClientOwner->createWidget<Widget>("Default", IntCoord(), Align::Default);
-		mRealClient->eventMouseWheel += newDelegate(this, &ScrollView::notifyMouseWheel);
-		setWidgetClient(mRealClient);
+		// create widget that will be real parent for child widgets
+		Widget* realClient = _getClientWidget()->createWidget<Widget>("Default", IntCoord(), Align::Default);
+		realClient->eventMouseWheel += newDelegate(this, &ScrollView::notifyMouseWheel);
+		setWidgetClient(realClient);
 
 		///@wskin_child{ScrollView, ScrollBar, VScroll} Вертикальная полоса прокрутки.
 		assignWidget(mVScroll, "VScroll");
@@ -66,7 +62,6 @@ namespace MyGUI
 		mVScroll = nullptr;
 		mHScroll = nullptr;
 		mClient = nullptr;
-		mRealClient = nullptr;
 
 		Base::shutdownOverride();
 	}
@@ -92,31 +87,25 @@ namespace MyGUI
 
 	void ScrollView::notifyScrollChangePosition(ScrollBar* _sender, size_t _position)
 	{
-		if (mRealClient == nullptr)
-			return;
-
 		if (_sender == mVScroll)
 		{
-			IntPoint point = mRealClient->getPosition();
+			IntPoint point = getClientWidget()->getPosition();
 			point.top = -(int)_position;
-			mRealClient->setPosition(point);
+			getClientWidget()->setPosition(point);
 		}
 		else if (_sender == mHScroll)
 		{
-			IntPoint point = mRealClient->getPosition();
+			IntPoint point = getClientWidget()->getPosition();
 			point.left = -(int)_position;
-			mRealClient->setPosition(point);
+			getClientWidget()->setPosition(point);
 		}
 	}
 
 	void ScrollView::notifyMouseWheel(Widget* _sender, int _rel)
 	{
-		if (mRealClient == nullptr)
-			return;
-
 		if (mVRange != 0)
 		{
-			IntPoint point = mRealClient->getPosition();
+			IntPoint point = getClientWidget()->getPosition();
 			int offset = -point.top;
 			if (_rel < 0) offset += SCROLL_VIEW_MOUSE_WHEEL;
 			else  offset -= SCROLL_VIEW_MOUSE_WHEEL;
@@ -131,12 +120,12 @@ namespace MyGUI
 				{
 					mVScroll->setScrollPosition(offset);
 				}
-				mRealClient->setPosition(point);
+				getClientWidget()->setPosition(point);
 			}
 		}
 		else if (mHRange != 0)
 		{
-			IntPoint point = mRealClient->getPosition();
+			IntPoint point = getClientWidget()->getPosition();
 			int offset = -point.left;
 			if (_rel < 0) offset += SCROLL_VIEW_MOUSE_WHEEL;
 			else  offset -= SCROLL_VIEW_MOUSE_WHEEL;
@@ -151,25 +140,24 @@ namespace MyGUI
 				{
 					mHScroll->setScrollPosition(offset);
 				}
-				mRealClient->setPosition(point);
+				getClientWidget()->setPosition(point);
 			}
 		}
 	}
 
 	IntSize ScrollView::getContentSize()
 	{
-		return mRealClient == nullptr ? IntSize() : mRealClient->getSize();
+		return getClientWidget()->getSize();
 	}
 
 	IntPoint ScrollView::getContentPosition()
 	{
-		return mRealClient == nullptr ? IntPoint() : (IntPoint() - mRealClient->getPosition());
+		return IntPoint() - getClientWidget()->getPosition();
 	}
 
 	void ScrollView::setContentPosition(const IntPoint& _point)
 	{
-		if (mRealClient != nullptr)
-			mRealClient->setPosition(IntPoint() - _point);
+		getClientWidget()->setPosition(IntPoint() - _point);
 	}
 
 	IntSize ScrollView::getViewSize()
@@ -213,14 +201,13 @@ namespace MyGUI
 
 	void ScrollView::setCanvasSize(const IntSize& _value)
 	{
-		if (mRealClient != nullptr)
-			mRealClient->setSize(_value);
+		getClientWidget()->setSize(_value);
 		updateView();
 	}
 
 	IntSize ScrollView::getCanvasSize()
 	{
-		return mRealClient == nullptr ? IntSize() : mRealClient->getSize();
+		return getClientWidget()->getSize();
 	}
 
 	void ScrollView::setPropertyOverride(const std::string& _key, const std::string& _value)
@@ -293,7 +280,7 @@ namespace MyGUI
 	void ScrollView::setViewOffset(const IntPoint& _value)
 	{
 		IntPoint value = _value;
-		IntPoint currentOffset = mRealClient->getPosition();
+		IntPoint currentOffset = getClientWidget()->getPosition();
 
 		if (mHRange != 0)
 		{
@@ -325,12 +312,12 @@ namespace MyGUI
 		if (mVScroll != nullptr)
 			mVScroll->setScrollPosition(-value.top);
 
-		mRealClient->setPosition(value);
+		getClientWidget()->setPosition(value);
 	}
 
 	IntPoint ScrollView::getViewOffset() const
 	{
-		return mRealClient->getPosition();
+		return getClientWidget()->getPosition();
 	}
 
 	IntCoord ScrollView::getViewCoord() const

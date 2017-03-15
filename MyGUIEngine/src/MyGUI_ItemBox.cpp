@@ -44,14 +44,12 @@ namespace MyGUI
 		if (isUserString("DragLayer"))
 			mDragLayer = getUserString("DragLayer");
 
-		///@wskin_child{ItemBox, Widget, Client} Клиентская зона.
 		assignWidget(mClient, "Client");
-		if (mClient != nullptr)
+		if (getClientWidget() != nullptr)
 		{
-			mClient->eventMouseWheel += newDelegate(this, &ItemBox::notifyMouseWheel);
-			mClient->eventMouseButtonPressed += newDelegate(this, &ItemBox::notifyMouseButtonPressed);
-			mClient->eventMouseButtonReleased += newDelegate(this, &ItemBox::notifyMouseButtonReleased);
-			setWidgetClient(mClient);
+			getClientWidget()->eventMouseWheel += newDelegate(this, &ItemBox::notifyMouseWheel);
+			getClientWidget()->eventMouseButtonPressed += newDelegate(this, &ItemBox::notifyMouseButtonPressed);
+			getClientWidget()->eventMouseButtonReleased += newDelegate(this, &ItemBox::notifyMouseButtonReleased);
 		}
 
 		///@wskin_child{ItemBox, ScrollBar, VScroll} Вертикальная полоса прокрутки.
@@ -69,8 +67,8 @@ namespace MyGUI
 		}
 
 		// подписываем клиент для драгэндропа
-		if (mClient != nullptr)
-			mClient->_setContainer(this);
+		if (getClientWidget() != nullptr)
+			getClientWidget()->_setContainer(this);
 
 		requestItemSize();
 
@@ -82,7 +80,6 @@ namespace MyGUI
 	{
 		mVScroll = nullptr;
 		mHScroll = nullptr;
-		mClient = nullptr;
 
 		Base::shutdownOverride();
 	}
@@ -258,7 +255,7 @@ namespace MyGUI
 		const IntPoint& point = InputManager::getInstance().getMousePositionByLayer();
 
 		// сначала проверяем клиентскую зону
-		const IntRect& rect = _getClientAbsoluteRect();
+		const IntRect& rect = _getClientWidget()->getAbsoluteRect();
 		if ((point.left < rect.left) || (point.left > rect.right) || (point.top < rect.top) || (point.top > rect.bottom))
 		{
 			return;
@@ -857,16 +854,6 @@ namespace MyGUI
 	Align ItemBox::getContentAlign()
 	{
 		return Align::Default;
-	}
-
-	IntRect ItemBox::_getClientAbsoluteRect()
-	{
-		return _getClientWidget()->getAbsoluteRect();
-	}
-
-	Widget* ItemBox::_getClientWidget()
-	{
-		return mClient == nullptr ? this : mClient;
 	}
 
 	size_t ItemBox::getItemCount() const
