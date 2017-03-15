@@ -53,7 +53,7 @@ namespace MyGUI
 	void ScrollViewPanel::updateContent()
 	{
 		// размер клиента с полосами
-		IntSize viewSize = mClient->getSize();
+		IntSize viewSize = mScrollViewClient->getSize();
 		if (!getVScroll()->getVisible())
 			viewSize.width -= getVScroll()->getWidth();
 
@@ -67,7 +67,7 @@ namespace MyGUI
 		// содержимое влазиет по высоте, вертикального скрола не будет
 		if (viewSize.height >= resultSize.height)
 		{
-			viewSize = mClient->getSize();
+			viewSize = mScrollViewClient->getSize();
 			if (getVScroll()->getVisible())
 				viewSize.width += getVScroll()->getWidth();
 

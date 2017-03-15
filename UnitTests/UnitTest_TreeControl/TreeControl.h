@@ -106,6 +106,7 @@ namespace MyGUI
 		void scrollTo(size_t nPosition);
 		void sendScrollingEvents(size_t nPosition);
 
+	private:
 		ScrollBar* mpWidgetScroll;
 		VectorTreeItemPtr mItemWidgets;
 		UString mstrSkinLine;
@@ -121,8 +122,6 @@ namespace MyGUI
 		Node* mpRoot;
 		size_t mnExpandedNodes;
 		int mnLevelOffset;
-
-		Widget* mClient;
 	};
 
 
