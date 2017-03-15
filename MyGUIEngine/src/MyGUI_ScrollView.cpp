@@ -29,7 +29,7 @@ namespace MyGUI
 		// FIXME нам нужен фокус клавы
 		setNeedKeyFocus(true);
 
-		assignWidget(mClient, "Client");
+		assignWidget(mScrollViewClient, "Client");
 		if (getClientWidget() != nullptr)
 		{
 			getClientWidget()->eventMouseWheel += newDelegate(this, &ScrollView::notifyMouseWheel);
@@ -61,7 +61,7 @@ namespace MyGUI
 	{
 		mVScroll = nullptr;
 		mHScroll = nullptr;
-		mClient = nullptr;
+		mScrollViewClient = nullptr;
 
 		Base::shutdownOverride();
 	}
@@ -162,7 +162,7 @@ namespace MyGUI
 
 	IntSize ScrollView::getViewSize()
 	{
-		return mClient == nullptr ? getSize() : mClient->getSize();
+		return mScrollViewClient == nullptr ? getSize() : mScrollViewClient->getSize();
 	}
 
 	size_t ScrollView::getVScrollPage()
@@ -322,7 +322,7 @@ namespace MyGUI
 
 	IntCoord ScrollView::getViewCoord() const
 	{
-		return mClient == nullptr ? getCoord() : mClient->getCoord();
+		return mScrollViewClient == nullptr ? getCoord() : mScrollViewClient->getCoord();
 	}
 
 	ScrollBar* ScrollView::getVScroll()

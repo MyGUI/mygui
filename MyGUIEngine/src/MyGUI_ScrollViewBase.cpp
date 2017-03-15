@@ -14,7 +14,7 @@ namespace MyGUI
 	ScrollViewBase::ScrollViewBase() :
 		mVScroll(nullptr),
 		mHScroll(nullptr),
-		mClient(nullptr),
+		mScrollViewClient(nullptr),
 		mVisibleHScroll(true),
 		mVisibleVScroll(true),
 		mVRange(0),
@@ -29,7 +29,7 @@ namespace MyGUI
 
 	void ScrollViewBase::updateScrollSize()
 	{
-		if (mClient == nullptr)
+		if (mScrollViewClient == nullptr)
 			return;
 
 		eraseContent();
@@ -44,7 +44,7 @@ namespace MyGUI
 				if (!mVScroll->getVisible() && mVisibleVScroll)
 				{
 					mVScroll->setVisible(true);
-					mClient->setSize(mClient->getWidth() - mVScroll->getWidth(), mClient->getHeight());
+					mScrollViewClient->setSize(mScrollViewClient->getWidth() - mVScroll->getWidth(), mScrollViewClient->getHeight());
 
 					// размер может измениться
 					if (mChangeContentByResize)
@@ -63,7 +63,7 @@ namespace MyGUI
 						if ((contentSize.width > viewSize.width) && ( ! mHScroll->getVisible()) && (mVisibleHScroll))
 						{
 							mHScroll->setVisible(true);
-							mClient->setSize(mClient->getWidth(), mClient->getHeight() - mHScroll->getHeight());
+							mScrollViewClient->setSize(mScrollViewClient->getWidth(), mScrollViewClient->getHeight() - mHScroll->getHeight());
 							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() - mHScroll->getHeight());
 
 							// размер может измениться
@@ -87,7 +87,7 @@ namespace MyGUI
 				if (mVScroll->getVisible())
 				{
 					mVScroll->setVisible(false);
-					mClient->setSize(mClient->getWidth() + mVScroll->getWidth(), mClient->getHeight());
+					mScrollViewClient->setSize(mScrollViewClient->getWidth() + mVScroll->getWidth(), mScrollViewClient->getHeight());
 
 					// размер может измениться
 					if (mChangeContentByResize)
@@ -106,7 +106,7 @@ namespace MyGUI
 						if ((contentSize.width <= viewSize.width) && (mHScroll->getVisible()))
 						{
 							mHScroll->setVisible(false);
-							mClient->setSize(mClient->getWidth(), mClient->getHeight() + mHScroll->getHeight());
+							mScrollViewClient->setSize(mScrollViewClient->getWidth(), mScrollViewClient->getHeight() + mHScroll->getHeight());
 							mVScroll->setSize(mVScroll->getWidth(), mVScroll->getHeight() + mHScroll->getHeight());
 
 							// размер может измениться
@@ -132,7 +132,7 @@ namespace MyGUI
 				if (!mHScroll->getVisible() && mVisibleHScroll)
 				{
 					mHScroll->setVisible(true);
-					mClient->setSize(mClient->getWidth(), mClient->getHeight() - mHScroll->getHeight());
+					mScrollViewClient->setSize(mScrollViewClient->getWidth(), mScrollViewClient->getHeight() - mHScroll->getHeight());
 
 					// размер может измениться
 					if (mChangeContentByResize)
@@ -151,7 +151,7 @@ namespace MyGUI
 						if ((contentSize.height > viewSize.height) && ( ! mVScroll->getVisible()) && (mVisibleVScroll))
 						{
 							mVScroll->setVisible(true);
-							mClient->setSize(mClient->getWidth() - mVScroll->getWidth(), mClient->getHeight());
+							mScrollViewClient->setSize(mScrollViewClient->getWidth() - mVScroll->getWidth(), mScrollViewClient->getHeight());
 							mHScroll->setSize(mHScroll->getWidth() - mVScroll->getWidth(), mHScroll->getHeight());
 
 							// размер может измениться
@@ -175,7 +175,7 @@ namespace MyGUI
 				if (mHScroll->getVisible())
 				{
 					mHScroll->setVisible(false);
-					mClient->setSize(mClient->getWidth(), mClient->getHeight() + mHScroll->getHeight());
+					mScrollViewClient->setSize(mScrollViewClient->getWidth(), mScrollViewClient->getHeight() + mHScroll->getHeight());
 
 					// размер может измениться
 					if (mChangeContentByResize)
@@ -194,7 +194,7 @@ namespace MyGUI
 						if ((contentSize.height <= viewSize.height) && (mVScroll->getVisible()))
 						{
 							mVScroll->setVisible(false);
-							mClient->setSize(mClient->getWidth() + mVScroll->getWidth(), mClient->getHeight());
+							mScrollViewClient->setSize(mScrollViewClient->getWidth() + mVScroll->getWidth(), mScrollViewClient->getHeight());
 							mHScroll->setSize(mHScroll->getWidth() + mVScroll->getWidth(), mHScroll->getHeight());
 
 							// размер может измениться

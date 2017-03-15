@@ -65,7 +65,7 @@ namespace MyGUI
 		// FIXME нам нужен фокус клавы
 		setNeedKeyFocus(true);
 
-		assignWidget(mClient, "Client");
+		assignWidget(mScrollViewClient, "Client");
 		if (getClientWidget() != nullptr)
 		{
 			getClientWidget()->eventMouseSetFocus += newDelegate(this, &EditBox::notifyMouseSetFocus);
@@ -110,7 +110,7 @@ namespace MyGUI
 
 	void EditBox::shutdownOverride()
 	{
-		mClient = nullptr;
+		mScrollViewClient = nullptr;
 		mClientText = nullptr;
 		mVScroll = nullptr;
 		mHScroll = nullptr;

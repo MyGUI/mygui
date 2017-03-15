@@ -43,7 +43,7 @@ namespace MyGUI
 	protected:
 		ScrollBar* mVScroll;
 		ScrollBar* mHScroll;
-		Widget* mClient;
+		Widget* mScrollViewClient;
 
 		bool mVisibleHScroll;
 		bool mVisibleVScroll;

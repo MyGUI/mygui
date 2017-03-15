@@ -44,7 +44,7 @@ namespace MyGUI
 		if (isUserString("DragLayer"))
 			mDragLayer = getUserString("DragLayer");
 
-		assignWidget(mClient, "Client");
+		assignWidget(mScrollViewClient, "Client");
 		if (getClientWidget() != nullptr)
 		{
 			getClientWidget()->eventMouseWheel += newDelegate(this, &ItemBox::notifyMouseWheel);
