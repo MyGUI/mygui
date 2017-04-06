@@ -177,6 +177,10 @@ namespace MyGUI
 		}
 
 		mSceneManager = _scene;
+		if (mSceneManager != nullptr)
+		{
+			mSceneManager->getRenderQueue()->setSortRenderQueue(RENDER_QUEUE_OVERLAY, false);
+		}
 	}
 
 	Ogre::SceneManager* Ogre2RenderManager::getSceneManager()
