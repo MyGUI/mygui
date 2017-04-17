@@ -53,7 +53,7 @@ namespace MyGUI
 
 		// Bind the created buffer to the renderOperation object.  Now we can manipulate the buffer, and the RenderOp keeps the changes.
 		mRenderOperation.vertexData->vertexBufferBinding->setBinding( 0, mVertexBuffer );
-		mRenderOperation.operationType = Ogre::v1::RenderOperation::OT_TRIANGLE_LIST;
+		mRenderOperation.operationType = Ogre::OT_TRIANGLE_LIST;
 		mRenderOperation.useIndexes = false;
 	}
 

@@ -29,10 +29,10 @@ namespace MyGUI
 	class MyGUIPassDef : public Ogre::CompositorPassDef
 	{
 	public:
-		MyGUIPassDef(uint32 rtIndex)
-			: Ogre::CompositorPassDef(Ogre::PASS_CUSTOM, rtIndex)
+		MyGUIPassDef(Ogre::CompositorTargetDef *parentTargetDef)
+			: Ogre::CompositorPassDef(Ogre::PASS_CUSTOM, parentTargetDef)
 		{
-			}
+		}
 	};
 
 	// TODO: The compositor manager allows adding this pass to any number of targets,
@@ -56,11 +56,11 @@ namespace MyGUI
 	public:
 		Ogre::CompositorPassDef* addPassDef(Ogre::CompositorPassType passType,
 			Ogre::IdString customId,
-			Ogre::uint32 rtIndex,
+			Ogre::CompositorTargetDef *parentTargetDef,
 			Ogre::CompositorNodeDef *parentNodeDef)
 		{
 			if (customId == mPassId)
-				return OGRE_NEW MyGUI::MyGUIPassDef(rtIndex);
+				return OGRE_NEW MyGUI::MyGUIPassDef(parentTargetDef);
 		}
 
 		Ogre::CompositorPass* addPass(const Ogre::CompositorPassDef *definition, Ogre::Camera *defaultCamera,

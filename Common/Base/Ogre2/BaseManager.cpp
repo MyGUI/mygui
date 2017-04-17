@@ -261,7 +261,7 @@ namespace base
 			}
 		}
 		Ogre::CompositorWorkspaceDef *workDef = pCompositorManager->addWorkspaceDefinition(workspaceName);
-		workDef->connectOutput(nodeDef->getName(), 0);
+		workDef->connectExternal(0, nodeDef->getName(), 0);
 
 		pCompositorManager->addWorkspace(mSceneManager, mWindow, mCamera, workspaceNameHash, true);
 

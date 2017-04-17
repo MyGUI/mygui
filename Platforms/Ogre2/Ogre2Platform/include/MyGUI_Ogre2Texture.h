@@ -119,6 +119,8 @@ namespace MyGUI
 		void setOgreTexture(Ogre::TexturePtr _value)
 		{
 			mTexture = _value;
+			setFormatByOgreTexture(); 
+			setDataBlockTexture(mTexture); //must be set as well. !!! or youll get a coloured blank myGUI texture.
 		}
 
 		Ogre::HlmsDatablock* getDataBlock();
