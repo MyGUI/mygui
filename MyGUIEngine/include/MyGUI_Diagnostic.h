@@ -24,7 +24,7 @@
 #define MYGUI_BASE_EXCEPT(desc, src)	 throw MyGUI::Exception(desc, src, __FILE__, __LINE__);
 
 // MSVC specific: sets the breakpoint
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+#if (MYGUI_COMPILER == MYGUI_COMPILER_MSVC) && defined(MYGUI_BREAKPOINT_ON_EXCEPT)
 #	define MYGUI_DBG_BREAK _CrtDbgBreak();
 #else
 #	define MYGUI_DBG_BREAK
