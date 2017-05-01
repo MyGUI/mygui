@@ -7,6 +7,10 @@
 #ifndef POINTER_MANAGER_H_
 #define POINTER_MANAGER_H_
 
+#ifdef MYGUI_SAMPLES_INPUT_SDL2
+#include "SdlEmulationLayer.h"
+#endif
+
 #include <string>
 #include <SDL.h>
 

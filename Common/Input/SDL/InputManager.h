@@ -7,6 +7,10 @@
 #ifndef INPUT_MANAGER_H_
 #define INPUT_MANAGER_H_
 
+#ifdef MYGUI_SAMPLES_INPUT_SDL2
+#include "SdlEmulationLayer.h"
+#endif
+
 #include <MyGUI.h>
 #include <SDL.h>
 
@@ -36,7 +40,7 @@ namespace input
 		void setMousePosition(int _x, int _y);
 		void updateCursorPosition();
 
-	protected:
+//	protected:
 		void frameEvent(float _time);
 		void computeMouseMove();
 
@@ -54,6 +58,15 @@ namespace input
 
 		void buildVKeyMap();
 		void buildMouseButtonMap();
+		MyGUI::MouseButton GetMouseButton(int id)
+		{
+			std::map<int, MyGUI::MouseButton>::iterator it = mSDLMouseMap.find(id);
+			if (it == mSDLMouseMap.end()) return MyGUI::MouseButton::None;
+			else return it->second;
+		}
+
+		int getMouseZ(){ return mMouseZ; }
+
 	private:
 		int mMouseX;
 		int mMouseY;

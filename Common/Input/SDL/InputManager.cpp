@@ -5,11 +5,10 @@
 */
 
 #include "Precompiled.h"
-#include "SDL_InputManager.h"
+#include "InputManager.h"
 
 namespace input
 {
-
 	InputManager::InputManager() :
 		mMouseX(0),
 		mMouseY(0),

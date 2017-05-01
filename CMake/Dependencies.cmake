@@ -97,6 +97,8 @@ if (MYGUI_SAMPLES_INPUT EQUAL 1)
 elseif (MYGUI_SAMPLES_INPUT EQUAL 3)
 	find_package(OIS)
 	macro_log_feature(OIS_FOUND "OIS" "Input library needed for the samples" "http://sourceforge.net/projects/wgois" FALSE "" "")
+elseif (MYGUI_SAMPLES_INPUT EQUAL 4)
+	find_package(SDL2)
 endif()
 
 #######################################################################

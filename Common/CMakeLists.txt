@@ -16,18 +16,28 @@ function(mygui_add_input_source PLATFORM)
 	include_directories(Input/${PLATFORM})
 	if("${PLATFORM}" STREQUAL "SDL")
 		set (HEADER_FILES ${HEADER_FILES}
-			Input/${PLATFORM}/SDL_InputManager.h
-			Input/${PLATFORM}/SDL_PointerManager.h
+			Input/${PLATFORM}/InputManager.h
+			Input/${PLATFORM}/PointerManager.h
+			Input/${PLATFORM}/SdlInputHandler.h
+			Input/${PLATFORM}/SdlEmulationLayer.h
+			Input/${PLATFORM}/ResourceSDLPointer.h
 			PARENT_SCOPE)
 		set (SOURCE_FILES ${SOURCE_FILES}
-			Input/${PLATFORM}/SDL_InputManager.cpp
-			Input/${PLATFORM}/SDL_PointerManager.cpp
+			Input/${PLATFORM}/InputManager.cpp
+			Input/${PLATFORM}/PointerManager.cpp
+			Input/${PLATFORM}/SdlInputHandler.cpp
+			Input/${PLATFORM}/ResourceSDLPointer.cpp
 			PARENT_SCOPE)
 		SOURCE_GROUP("Base" FILES
-			Input/${PLATFORM}/SDL_InputManager.h
-			Input/${PLATFORM}/SDL_InputManager.cpp
-			Input/${PLATFORM}/SDL_PointerManager.h
-			Input/${PLATFORM}/SDL_PointerManager.cpp
+			Input/${PLATFORM}/InputManager.h
+			Input/${PLATFORM}/InputManager.cpp
+			Input/${PLATFORM}/PointerManager.h
+			Input/${PLATFORM}/PointerManager.cpp
+			Input/${PLATFORM}/SdlInputHandler.h
+			Input/${PLATFORM}/SdlInputHandler.cpp
+			Input/${PLATFORM}/SdlEmulationLayer.h
+			Input/${PLATFORM}/ResourceSDLPointer.h
+			Input/${PLATFORM}/ResourceSDLPointer.cpp
 		)
 	else("${PLATFORM}" STREQUAL "SDL")
 		set (HEADER_FILES ${HEADER_FILES}

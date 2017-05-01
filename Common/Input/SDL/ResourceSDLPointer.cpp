@@ -5,7 +5,10 @@
 	@module
 */
 
+#include "Precompiled.h"
 #include "ResourceSDLPointer.h"
+
+#if MYGUI_USE_SDL2
 
 namespace input
 {
@@ -62,3 +65,5 @@ namespace input
 	}
 
 }
+
+#endif

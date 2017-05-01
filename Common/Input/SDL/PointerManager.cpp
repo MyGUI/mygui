@@ -5,10 +5,10 @@
 */
 
 #include "Precompiled.h"
-#include "SDL_PointerManager.h"
+#include "PointerManager.h"
 #include <MyGUI.h>
 
-#include "ResourceSDLPointer.cpp"
+#include "ResourceSDLPointer.h"
 
 namespace input
 {

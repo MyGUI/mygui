@@ -16,6 +16,13 @@
 #include "PointerManager.h"
 #include "MyGUI_LastHeader.h"
 
+#ifdef MYGUI_SAMPLES_INPUT_SDL2
+#include "SdlEmulationLayer.h"
+#endif
+#if MYGUI_USE_SDL2
+#include <SDL.h>
+#endif
+
 namespace MyGUI
 {
 	class Ogre2Platform;
@@ -23,7 +30,9 @@ namespace MyGUI
 
 namespace base
 {
-
+#ifdef MYGUI_USE_SDL2
+	class SdlInputHandler;
+#endif
 	class BaseManager :
 		public input::InputManager,
 		public input::PointerManager,
@@ -101,6 +110,11 @@ namespace base
 		std::string mResourceXMLName;
 		std::string mResourceFileName;
 		std::string mRootMedia;
+#ifdef MYGUI_USE_SDL2
+		void handleWindowEvent(const SDL_Event& evt);
+		SDL_Window* mSdlWindow;
+        SdlInputHandler* mInputHandler;
+#endif
 	};
 
 } // namespace base

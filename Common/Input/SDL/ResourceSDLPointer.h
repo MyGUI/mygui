@@ -8,6 +8,10 @@
 #ifndef RESOURCE_W32_POINTER_H_
 #define RESOURCE_W32_POINTER_H_
 
+#ifdef MYGUI_SAMPLES_INPUT_SDL2
+#include "SdlEmulationLayer.h"
+#endif
+
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IResource.h"
 
