@@ -11,6 +11,8 @@
 #include "MyGUI_DirectX11RTTexture.h"
 #include "MyGUI_DirectX11Diagnostic.h"
 
+MyGUI::ICreateTextureCallbackStruct* MyGUI::DirectX11Texture::sCreateTextureCallback = nullptr;
+
 namespace MyGUI
 {
 
@@ -75,30 +77,18 @@ namespace MyGUI
 		destroy();
 
 		std::string fullname = DirectX11DataManager::getInstance().getDataPath(_filename);
+		HRESULT hr;
 
+		if( sCreateTextureCallback )
+		{
+			mTexture = sCreateTextureCallback->createTextureFromFile( fullname );
 
-		D3DX11_IMAGE_INFO fileInfo;
-		D3DX11GetImageInfoFromFile( fullname.c_str(), NULL, &fileInfo, NULL );
+			D3D11_TEXTURE2D_DESC desc;
+			mTexture->GetDesc( &desc );
 
-		mWidth = fileInfo.Width;
-		mHeight = fileInfo.Height;
-
-		D3DX11_IMAGE_LOAD_INFO loadInfo;
-		loadInfo.Width          = fileInfo.Width;
-		loadInfo.Height         = fileInfo.Height;
-		loadInfo.FirstMipLevel  = 0;
-		loadInfo.MipLevels      = fileInfo.MipLevels;
-		loadInfo.Usage          = D3D11_USAGE_DEFAULT;
-		loadInfo.BindFlags      = D3D11_BIND_SHADER_RESOURCE;
-		loadInfo.CpuAccessFlags = 0;
-		loadInfo.MiscFlags      = 0;
-		loadInfo.Format         = fileInfo.Format;
-		loadInfo.Filter         = D3DX11_FILTER_NONE;
-		loadInfo.MipFilter      = D3DX11_FILTER_NONE;
-		loadInfo.pSrcInfo       = &fileInfo;
-
-		HRESULT hr = D3DX11CreateTextureFromFileA( mManager->mpD3DDevice, fullname.c_str(), &loadInfo, NULL, (ID3D11Resource**)&mTexture, NULL );
-		MYGUI_PLATFORM_ASSERT(hr == S_OK, "CreateTextureFromFile failed!");
+			mWidth = desc.Width;
+			mHeight = desc.Height;
+		}
 
 		D3D11_TEXTURE2D_DESC desc;
 		mTexture->GetDesc(&desc);
@@ -193,6 +183,11 @@ namespace MyGUI
 	ID3D11Texture2D* DirectX11Texture::getTexture()
 	{
 		return mTexture;
+	}
+
+	void DirectX11Texture::setCreateTextureCallback( ICreateTextureCallbackStruct* _callbackStruct )
+	{
+		sCreateTextureCallback = _callbackStruct;
 	}
 
 } // namespace MyGUI
