@@ -68,6 +68,7 @@ namespace MyGUI
 		int                       mWidth;
 		int                       mHeight;
 		TextureUsage              mTextureUsage;
+		PixelFormat				  mPixelFormat;
 		size_t                    mNumElemBytes;
 		std::string               mName;
 		bool                      mLock;
