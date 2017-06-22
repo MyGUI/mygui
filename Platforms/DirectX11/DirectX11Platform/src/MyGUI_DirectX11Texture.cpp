@@ -11,6 +11,8 @@
 #include "MyGUI_DirectX11RTTexture.h"
 #include "MyGUI_DirectX11Diagnostic.h"
 
+MyGUI::ICreateTextureCallbackStruct* MyGUI::DirectX11Texture::sCreateTextureCallback = nullptr;
+
 namespace MyGUI
 {
 
@@ -38,18 +40,39 @@ namespace MyGUI
 		return mName;
 	}
 
+	static DXGI_FORMAT getDXGIFormatFromPixelFormat(PixelFormat _format)
+	{
+		switch(_format.getValue())
+		{
+		case PixelFormat::L8:
+			return DXGI_FORMAT_R8_UNORM;
+		case PixelFormat::L8A8:
+			return DXGI_FORMAT_R8G8_UNORM;
+		case PixelFormat::R8G8B8:
+			return DXGI_FORMAT_B8G8R8A8_UNORM;
+		case PixelFormat::R8G8B8A8:
+			return DXGI_FORMAT_B8G8R8A8_UNORM;
+		case PixelFormat::Unknow:
+		default:
+			MYGUI_PLATFORM_ASSERT(false, "Unknown pixel format!");
+			return DXGI_FORMAT_UNKNOWN;
+		}
+	}
+	
 	void DirectX11Texture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format)
 	{
 		destroy();
 
+		mPixelFormat = _format;
+		
 		D3D11_TEXTURE2D_DESC desc;
 		desc.ArraySize = 1;
 		desc.Width = mWidth = _width;
 		desc.Height = mHeight = _height;
 		desc.MipLevels = 1;
 		desc.SampleDesc.Count = 1;
-		desc.SampleDesc.Quality = 0;
-		desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+		desc.SampleDesc.Quality = 0;		
+		desc.Format = getDXGIFormatFromPixelFormat(_format);//DXGI_FORMAT_B8G8R8A8_UNORM;
 		desc.Usage = D3D11_USAGE_DEFAULT;
 		if (_usage == TextureUsage::RenderTarget)
 			desc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
@@ -61,7 +84,7 @@ namespace MyGUI
 		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Create Texture failed!");
 
 		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
-		srvDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+		srvDesc.Format = desc.Format;//DXGI_FORMAT_B8G8R8A8_UNORM;
 		srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 		srvDesc.Texture2D.MipLevels = 1;
 		srvDesc.Texture2D.MostDetailedMip = 0;
@@ -75,30 +98,18 @@ namespace MyGUI
 		destroy();
 
 		std::string fullname = DirectX11DataManager::getInstance().getDataPath(_filename);
+		HRESULT hr;
 
+		if( sCreateTextureCallback )
+		{
+			mTexture = sCreateTextureCallback->createTextureFromFile( fullname );
 
-		D3DX11_IMAGE_INFO fileInfo;
-		D3DX11GetImageInfoFromFile( fullname.c_str(), NULL, &fileInfo, NULL );
+			D3D11_TEXTURE2D_DESC desc;
+			mTexture->GetDesc( &desc );
 
-		mWidth = fileInfo.Width;
-		mHeight = fileInfo.Height;
-
-		D3DX11_IMAGE_LOAD_INFO loadInfo;
-		loadInfo.Width          = fileInfo.Width;
-		loadInfo.Height         = fileInfo.Height;
-		loadInfo.FirstMipLevel  = 0;
-		loadInfo.MipLevels      = fileInfo.MipLevels;
-		loadInfo.Usage          = D3D11_USAGE_DEFAULT;
-		loadInfo.BindFlags      = D3D11_BIND_SHADER_RESOURCE;
-		loadInfo.CpuAccessFlags = 0;
-		loadInfo.MiscFlags      = 0;
-		loadInfo.Format         = fileInfo.Format;
-		loadInfo.Filter         = D3DX11_FILTER_NONE;
-		loadInfo.MipFilter      = D3DX11_FILTER_NONE;
-		loadInfo.pSrcInfo       = &fileInfo;
-
-		HRESULT hr = D3DX11CreateTextureFromFileA( mManager->mpD3DDevice, fullname.c_str(), &loadInfo, NULL, (ID3D11Resource**)&mTexture, NULL );
-		MYGUI_PLATFORM_ASSERT(hr == S_OK, "CreateTextureFromFile failed!");
+			mWidth = desc.Width;
+			mHeight = desc.Height;
+		}
 
 		D3D11_TEXTURE2D_DESC desc;
 		mTexture->GetDesc(&desc);
@@ -109,6 +120,8 @@ namespace MyGUI
 		srvDesc.Texture2D.MipLevels = 1;
 		srvDesc.Texture2D.MostDetailedMip = 0;
 
+		mPixelFormat = PixelFormat::R8G8B8A8;
+		
 		hr = mManager->mpD3DDevice->CreateShaderResourceView(mTexture, &srvDesc, &mResourceView);
 		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Create Shader ResourceView failed!");
 	}
@@ -145,7 +158,7 @@ namespace MyGUI
 
 		if ( _access == TextureUsage::Write )
 		{
-			mWriteData = malloc(mWidth * mHeight * 4);
+			mWriteData = malloc(mWidth * mHeight * getNumElemBytes());
 			return mWriteData;
 		}
 		return 0;
@@ -158,7 +171,7 @@ namespace MyGUI
 
 		if ( mWriteData )
 		{
-			mManager->mpD3DContext->UpdateSubresource(mTexture, D3D11CalcSubresource(0, 0, 0), 0, mWriteData, mWidth * 4, 0);
+			mManager->mpD3DContext->UpdateSubresource(mTexture, D3D11CalcSubresource( 0, 0, 0 ), 0, mWriteData, mWidth * getNumElemBytes(), 0);
 			free(mWriteData);
 			mWriteData = 0;
 		}
@@ -171,12 +184,26 @@ namespace MyGUI
 
 	PixelFormat DirectX11Texture::getFormat()
 	{
-		return PixelFormat::R8G8B8A8;
+		return mPixelFormat;
 	}
 
 	size_t DirectX11Texture::getNumElemBytes()
 	{
-		return 4;
+		switch(mPixelFormat.getValue())
+		{
+		case PixelFormat::L8:
+			return 1;
+		case PixelFormat::L8A8:
+			return 2;
+		case PixelFormat::R8G8B8:
+			return 4;
+		case PixelFormat::R8G8B8A8:
+			return 4;
+		case PixelFormat::Unknow:
+		default:
+			MYGUI_PLATFORM_ASSERT(false, "Unknown pixel format!");
+			return 0;
+		}
 	}
 
 	TextureUsage DirectX11Texture::getUsage()
@@ -188,6 +215,16 @@ namespace MyGUI
 	{
 		if ( mRenderTarget == 0 ) mRenderTarget = new DirectX11RTTexture(this, mManager);
 		return mRenderTarget;
+	}
+
+	ID3D11Texture2D* DirectX11Texture::getTexture()
+	{
+		return mTexture;
+	}
+
+	void DirectX11Texture::setCreateTextureCallback( ICreateTextureCallbackStruct* _callbackStruct )
+	{
+		sCreateTextureCallback = _callbackStruct;
 	}
 
 } // namespace MyGUI

@@ -11,7 +11,6 @@ set (HEADER_FILES
   include/MyGUI_Canvas.h
   include/MyGUI_ChildSkinInfo.h
   include/MyGUI_ClipboardManager.h
-  include/MyGUI_WindowsClipboardHandler.h
   include/MyGUI_Colour.h
   include/MyGUI_ComboBox.h
   include/MyGUI_Common.h
@@ -171,6 +170,7 @@ set (HEADER_FILES
   include/MyGUI_WidgetTranslate.h
   include/MyGUI_WidgetUserData.h
   include/MyGUI_Window.h
+  include/MyGUI_WindowsClipboardHandler.h
   include/MyGUI_XmlDocument.h
 )
 set (SOURCE_FILES
@@ -182,7 +182,6 @@ set (SOURCE_FILES
   src/MyGUI_Canvas.cpp
   src/MyGUI_ChildSkinInfo.cpp
   src/MyGUI_ClipboardManager.cpp
-  src/MyGUI_WindowsClipboardHandler.cpp
   src/MyGUI_Colour.cpp
   src/MyGUI_ComboBox.cpp
   src/MyGUI_ConsoleLogListener.cpp
@@ -270,6 +269,7 @@ set (SOURCE_FILES
   src/MyGUI_WidgetManager.cpp
   src/MyGUI_WidgetUserData.cpp
   src/MyGUI_Window.cpp
+  src/MyGUI_WindowsClipboardHandler.cpp
   src/MyGUI_XmlDocument.cpp
 )
 SOURCE_GROUP("Header Files" FILES
@@ -337,7 +337,6 @@ SOURCE_GROUP("Header Files\\Core\\LayerItem\\Interfaces" FILES
 )
 SOURCE_GROUP("Header Files\\Core\\Manager" FILES
   include/MyGUI_ClipboardManager.h
-  include/MyGUI_WindowsClipboardHandler.h
   include/MyGUI_ControllerManager.h
   include/MyGUI_DataManager.h
   include/MyGUI_DynLibManager.h
@@ -356,6 +355,7 @@ SOURCE_GROUP("Header Files\\Core\\Manager" FILES
   include/MyGUI_SubWidgetManager.h
   include/MyGUI_ToolTipManager.h
   include/MyGUI_WidgetManager.h
+  include/MyGUI_WindowsClipboardHandler.h
 )
 SOURCE_GROUP("Header Files\\Core\\Resource" FILES
   include/MyGUI_ResourceImageSet.h
@@ -510,7 +510,6 @@ SOURCE_GROUP("Source Files\\Core\\LayerItem" FILES
 )
 SOURCE_GROUP("Source Files\\Core\\Manager" FILES
   src/MyGUI_ClipboardManager.cpp
-  src/MyGUI_WindowsClipboardHandler.cpp
   src/MyGUI_ControllerManager.cpp
   src/MyGUI_DataManager.cpp
   src/MyGUI_DynLibManager.cpp
@@ -529,6 +528,7 @@ SOURCE_GROUP("Source Files\\Core\\Manager" FILES
   src/MyGUI_SubWidgetManager.cpp
   src/MyGUI_ToolTipManager.cpp
   src/MyGUI_WidgetManager.cpp
+  src/MyGUI_WindowsClipboardHandler.cpp
 )
 SOURCE_GROUP("Source Files\\Core\\Resource" FILES
   src/MyGUI_ResourceImageSet.cpp

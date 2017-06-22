@@ -19,6 +19,12 @@ namespace MyGUI
 	class DirectX11RenderManager;
 	class DirectX11RTTexture;
 
+	struct ICreateTextureCallbackStruct
+	{
+		virtual ~ICreateTextureCallbackStruct() { }
+		virtual ID3D11Texture2D* createTextureFromFile( const std::string& _fileName ) = 0;
+	};
+
 	class DirectX11Texture : public ITexture
 	{
 	public:
@@ -44,7 +50,11 @@ namespace MyGUI
 		virtual TextureUsage getUsage();
 		virtual size_t       getNumElemBytes();
 
-		virtual IRenderTarget* getRenderTarget();
+		virtual IRenderTarget*	getRenderTarget();
+
+		ID3D11Texture2D*		getTexture();
+
+		static void				setCreateTextureCallback( ICreateTextureCallbackStruct* _callbackStruct );
 
 	private:
 		friend class DirectX11RTTexture;
@@ -58,11 +68,14 @@ namespace MyGUI
 		int                       mWidth;
 		int                       mHeight;
 		TextureUsage              mTextureUsage;
+		PixelFormat				  mPixelFormat;
 		size_t                    mNumElemBytes;
 		std::string               mName;
 		bool                      mLock;
 		DirectX11RTTexture*       mRenderTarget;
 		DirectX11RenderManager*   mManager;
+
+		static ICreateTextureCallbackStruct* sCreateTextureCallback;
 	};
 
 } // namespace MyGUI

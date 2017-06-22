@@ -95,7 +95,7 @@ namespace MyGUI
 		ID3D11Device*            mpD3DDevice;
 		ID3D11DeviceContext*     mpD3DContext;
 		ID3D11VertexShader*      mVertexShader0, *mVertexShader1;
-		ID3D11PixelShader*       mPixelShader0, *mPixelShader1;
+		ID3D11PixelShader*       mPixelShader0, *mPixelShader1, *mPixelShader2;
 		ID3D11SamplerState*      mSamplerState;
 		ID3D11BlendState*        mBlendState;
 		ID3D11RasterizerState*   mRasterizerState;

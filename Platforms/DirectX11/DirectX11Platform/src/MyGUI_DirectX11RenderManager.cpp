@@ -46,6 +46,13 @@ namespace MyGUI
 		"}\n"
 	};
 
+	static const char psTexturedSourceL8A8[] =
+	{
+		"void main( uniform Texture2D<float4> sampleTexture : register(t0), uniform SamplerState sampleSampler : register(s0), in float4 inPosition : SV_POSITION, in float4 inColor : TEXCOORD0, in float2 inTexcoord : TEXCOORD1, out float4 Out : SV_TARGET ) {\n"
+		"	Out = sampleTexture.SampleLevel(sampleSampler, inTexcoord, 0).rrrg * inColor;\n"
+		"}\n"
+	};
+	
 	static const D3D11_INPUT_ELEMENT_DESC vertexLayout[] =
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },
@@ -62,6 +69,7 @@ namespace MyGUI
 		mVertexShader1(nullptr),
 		mPixelShader0(nullptr),
 		mPixelShader1(nullptr),
+		mPixelShader2(nullptr),
 		mSamplerState(nullptr),
 		mDepthStencilState(nullptr),
 		mBlendState(nullptr),
@@ -139,7 +147,6 @@ namespace MyGUI
 		if ( bytecode ) bytecode->Release();
 		if ( errors ) errors->Release();
 
-
 		// Build Textured Vertex Shader
 		bytecode = 0;
 		errors = 0;
@@ -167,7 +174,6 @@ namespace MyGUI
 		if ( bytecode ) bytecode->Release();
 		if ( errors ) errors->Release();
 
-
 		// Build Textured Pixel Shader
 		bytecode = 0;
 		errors = 0;
@@ -180,6 +186,18 @@ namespace MyGUI
 		if ( bytecode ) bytecode->Release();
 		if ( errors ) errors->Release();
 
+		// Build Textured L8A8 Pixel Shader
+		bytecode = 0;
+		errors = 0;
+		hr = D3DCompile(psTexturedSourceL8A8, strlen(psTexturedSource), "PixelShader2", 0, 0, "main", pixelProfile.c_str(), flags, 0, &bytecode, &errors);
+		MYGUI_PLATFORM_ASSERT(hr == S_OK, (errors ? (char*)errors->GetBufferPointer() : "Pixel Shader Compilation failed, unknown errors!"));
+
+		hr = mpD3DDevice->CreatePixelShader(bytecode->GetBufferPointer(), bytecode->GetBufferSize(), 0, &mPixelShader2);
+		MYGUI_PLATFORM_ASSERT(hr == S_OK, (errors ? (char*)errors->GetBufferPointer() : "Pixel Shader Create failed!"));
+
+		if ( bytecode ) bytecode->Release();
+		if ( errors ) errors->Release();
+		
 		// Create Sampler State
 		D3D11_SAMPLER_DESC samplerDesc;
 		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
@@ -266,6 +284,7 @@ namespace MyGUI
 		if ( mVertexShader1 ) mVertexShader1->Release();
 		if ( mPixelShader0 ) mPixelShader0->Release();
 		if ( mPixelShader1 ) mPixelShader1->Release();
+		if ( mPixelShader2 ) mPixelShader2->Release();
 		if ( mSamplerState ) mSamplerState->Release();
 		if ( mBlendState ) mBlendState->Release();
 		if ( mDepthStencilState ) mDepthStencilState->Release();
@@ -305,9 +324,17 @@ namespace MyGUI
 		else
 		{
 			DirectX11VertexBuffer* buffer = static_cast<DirectX11VertexBuffer*>(_buffer);
-			mpD3DContext->PSSetShader(mPixelShader1, 0, 0);
-			mpD3DContext->VSSetShader(mVertexShader1, 0, 0);
 
+			mpD3DContext->VSSetShader(mVertexShader1, 0, 0);
+			if( texture->getFormat() == PixelFormat::L8A8 )
+			{
+				mpD3DContext->PSSetShader(mPixelShader2, 0, 0);
+			}
+			else
+			{
+				mpD3DContext->PSSetShader(mPixelShader1, 0, 0);
+			}
+			
 			mpD3DContext->PSSetSamplers(0, 1, &mSamplerState);
 			mpD3DContext->PSSetShaderResources(0, 1, &texture->mResourceView);
 
@@ -384,8 +411,8 @@ namespace MyGUI
 
 	bool DirectX11RenderManager::isFormatSupported(PixelFormat _format, TextureUsage _usage)
 	{
-		if ( _format != PixelFormat::R8G8B8A8 ) return false;
-		return true;
+		if( _format == PixelFormat::R8G8B8A8 || _format == PixelFormat::R8G8B8 || _format == PixelFormat::L8A8 ) return true;
+		return false;
 	}
 
 	void DirectX11RenderManager::destroyAllResources()
