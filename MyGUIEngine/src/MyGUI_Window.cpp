@@ -178,7 +178,7 @@ namespace MyGUI
 
 	void Window::notifyMouseDrag(MyGUI::Widget* _sender, int _left, int _top, MouseButton _id)
 	{
-		if (_id != MouseButton::Left)
+		if( _id == MouseButton::None )
 			return;
 
 		const IntPoint& point = InputManager::getInstance().getLastPressedPosition(MouseButton::Left);
