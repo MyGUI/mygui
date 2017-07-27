@@ -15,7 +15,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate3<DDContainer*, const DDItemInfo&, bool&> EventHandle_DDContainerPtrCDDItemInfoRefBoolRef;
+	typedef delegates::CMultiDelegate4<DDContainer*, const DDItemInfo&, bool&, const MouseButton&> EventHandle_DDContainerPtrCDDItemInfoRefBoolRef;
 	typedef delegates::CMultiDelegate3<DDContainer*, const DDItemInfo&, bool> EventHandle_DDContainerPtrCDDItemInfoRefBool;
 	typedef delegates::CMultiDelegate2<DDContainer*, DDItemState> EventHandle_EventHandle_DDContainerPtrDDItemState;
 	typedef delegates::CDelegate3<DDContainer*, Widget*&, IntCoord&> EventHandle_EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef;
@@ -47,6 +47,7 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _info information about DDContainers
 			@param _result write here true if container can be draggedor false if it can't
+			@param _id (M.G.) MouseButton starting the drag
 		*/
 		EventHandle_DDContainerPtrCDDItemInfoRefBoolRef eventStartDrag;
 
@@ -55,6 +56,7 @@ namespace MyGUI
 			@param _sender widget that called this event
 			@param _info information about DDContainers
 			@param _result write here true if container accept dragged widget or false if it isn't
+			@param _id (M.G.) MouseButton starting the drag
 		*/
 		EventHandle_DDContainerPtrCDDItemInfoRefBoolRef eventRequestDrop;
 
@@ -141,6 +143,9 @@ namespace MyGUI
 		bool mNeedDragDrop;
 
 		DDContainer* mReseiverContainer;
+
+		// Store which button triggered drop
+		MouseButton mDropButton;
 	};
 
 } // namespace MyGUI
