@@ -245,7 +245,7 @@ namespace input
 		}
 		MyGUI::KeyCode myGuiKeyCode = mSDLVKeyMap[key];
 		if (evt == nullptr) {
-			injectKeyPress(myGuiKeyCode, NULL);
+			injectKeyPress(myGuiKeyCode, 0);
 		}
 		else
 		{
