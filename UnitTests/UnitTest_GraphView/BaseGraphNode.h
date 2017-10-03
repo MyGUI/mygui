@@ -24,7 +24,7 @@ namespace wraps
 		{
 		}
 
-		// ýíóìåðàòîð âñåõ òî÷åê óçëà
+		// ÑÐ½ÑƒÐ¼ÐµÑ€Ð°Ñ‚Ð¾Ñ€ Ð²ÑÐµÑ… Ñ‚Ð¾Ñ‡ÐµÐº ÑƒÐ·Ð»Ð°
 		EnumeratorConnection getConnectionEnumerator() const
 		{
 			return EnumeratorConnection(mListConnection);
@@ -103,7 +103,7 @@ namespace wraps
 				window->eventWindowButtonPressed += MyGUI::newDelegate(this, &BaseGraphNode::notifyWindowButtonPressed);
 			}
 
-			// ïåðåêðûâàþùèéñÿ ñòèëü
+			// Ð¿ÐµÑ€ÐµÐºÑ€Ñ‹Ð²Ð°ÑŽÑ‰Ð¸Ð¹ÑÑ ÑÑ‚Ð¸Ð»ÑŒ
 			mMainWidget->setWidgetStyle(MyGUI::WidgetStyle::Overlapped);
 		}
 

@@ -53,13 +53,13 @@ namespace MyGUI
 
 		virtual void attach(ILayerNode* _node) = 0;
 
-		// атачится айтем
+		// Р°С‚Р°С‡РёС‚СЃСЏ Р°Р№С‚РµРј
 		virtual void create() = 0;
 
-		// детачится айтем
+		// РґРµС‚Р°С‡РёС‚СЃСЏ Р°Р№С‚РµРј
 		virtual void destroy() = 0;
 
-		// перерисовка буфера
+		// РїРµСЂРµСЂРёСЃРѕРІРєР° Р±СѓС„РµСЂР°
 		virtual size_t animate(
 			bool _update,
 			size_t _quad_count,

@@ -27,7 +27,7 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		///@wskin_child{Button, ImageBox, Image} Картинка, в режиме картинки отображает состояние кнопки.
+		///@wskin_child{Button, ImageBox, Image} РљР°СЂС‚РёРЅРєР°, РІ СЂРµР¶РёРјРµ РєР°СЂС‚РёРЅРєРё РѕС‚РѕР±СЂР°Р¶Р°РµС‚ СЃРѕСЃС‚РѕСЏРЅРёРµ РєРЅРѕРїРєРё.
 		assignWidget(mImage, "Image");
 	}
 
@@ -200,19 +200,19 @@ namespace MyGUI
 		if (_key == "StateSelected")
 			setStateSelected(utility::parseValue<bool>(_value));
 
-		/// @wproperty{Button, ModeImage, bool} Устанавливает режим работы кнопки, в котором она свои состояния берет из картинки.
+		/// @wproperty{Button, ModeImage, bool} РЈСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ СЂРµР¶РёРј СЂР°Р±РѕС‚С‹ РєРЅРѕРїРєРё, РІ РєРѕС‚РѕСЂРѕРј РѕРЅР° СЃРІРѕРё СЃРѕСЃС‚РѕСЏРЅРёСЏ Р±РµСЂРµС‚ РёР· РєР°СЂС‚РёРЅРєРё.
 		else if (_key == "ModeImage")
 			setModeImage(utility::parseValue<bool>(_value));
 
-		/// @wproperty{Button, ImageResource, string} Ссылка на ресурс картинки.
+		/// @wproperty{Button, ImageResource, string} РЎСЃС‹Р»РєР° РЅР° СЂРµСЃСѓСЂСЃ РєР°СЂС‚РёРЅРєРё.
 		else if (_key == "ImageResource")
 			setImageResource(_value);
 
-		/// @wproperty{Button, ImageGroup, string} Группа картинки в ресурсе.
+		/// @wproperty{Button, ImageGroup, string} Р“СЂСѓРїРїР° РєР°СЂС‚РёРЅРєРё РІ СЂРµСЃСѓСЂСЃРµ.
 		else if (_key == "ImageGroup")
 			setImageGroup(_value);
 
-		/// @wproperty{Button, ImageName, string} Имя картинки в ресурсе.
+		/// @wproperty{Button, ImageName, string} РРјСЏ РєР°СЂС‚РёРЅРєРё РІ СЂРµСЃСѓСЂСЃРµ.
 		else if (_key == "ImageName")
 			setImageName(_value);
 

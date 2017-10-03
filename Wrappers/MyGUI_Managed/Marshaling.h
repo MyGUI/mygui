@@ -29,7 +29,7 @@ namespace MyGUI
 		};
 
 
-		// базовые шаблоны для конвертации переменных и типов
+		// Р±Р°Р·РѕРІС‹Рµ С€Р°Р±Р»РѕРЅС‹ РґР»СЏ РєРѕРЅРІРµСЂС‚Р°С†РёРё РїРµСЂРµРјРµРЅРЅС‹С… Рё С‚РёРїРѕРІ
 		template <typename T> struct Convert
 		{
 			typedef T Type;
@@ -43,7 +43,7 @@ namespace MyGUI
 			}
 		};
 
-		// перегрузка для базовых типов
+		// РїРµСЂРµРіСЂСѓР·РєР° РґР»СЏ Р±Р°Р·РѕРІС‹С… С‚РёРїРѕРІ
 		template <> struct Convert<size_t>
 		{
 			typedef System::UInt32 Type;
@@ -65,7 +65,7 @@ namespace MyGUI
 			}
 		};
 
-		// перегрузка для строк
+		// РїРµСЂРµРіСЂСѓР·РєР° РґР»СЏ СЃС‚СЂРѕРє
 		template <> struct Convert<const std::string&>
 		{
 			typedef System::String ^ Type;
@@ -103,7 +103,7 @@ namespace MyGUI
 			}
 		};
 
-		// прегрузка для Any
+		// РїСЂРµРіСЂСѓР·РєР° РґР»СЏ Any
 		template <> struct Convert<MyGUI::Any>
 		{
 			typedef System::Object ^ Type;

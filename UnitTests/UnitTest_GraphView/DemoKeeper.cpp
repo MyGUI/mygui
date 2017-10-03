@@ -306,7 +306,7 @@ namespace demo
 	{
 		MyGUI::xml::Document doc;
 
-		// åñòü òàêîé ôàéë
+		// ÐµÑÑ‚ÑŒ Ñ‚Ð°ÐºÐ¾Ð¹ Ñ„Ð°Ð¹Ð»
 		if (!doc.open(_filename))
 		{
 			doc.clear();
@@ -315,7 +315,7 @@ namespace demo
 		doc.createDeclaration();
 		MyGUI::xml::ElementPtr root = doc.createRoot("AnimationGraph");
 
-		// ñîõðàíÿåì ñàìè íîäû
+		// ÑÐ¾Ñ…Ñ€Ð°Ð½ÑÐµÐ¼ ÑÐ°Ð¼Ð¸ Ð½Ð¾Ð´Ñ‹
 		wraps::BaseGraphView::EnumeratorNode node = mGraphView->getNodeEnumerator();
 		while (node.next())
 		{
@@ -329,7 +329,7 @@ namespace demo
 			}
 		}
 
-		// ñîõðàíÿåì ñîåäèíåíèÿ
+		// ÑÐ¾Ñ…Ñ€Ð°Ð½ÑÐµÐ¼ ÑÐ¾ÐµÐ´Ð¸Ð½ÐµÐ½Ð¸Ñ
 		node = mGraphView->getNodeEnumerator();
 		while (node.next())
 		{
@@ -358,7 +358,7 @@ namespace demo
 			}
 		}
 
-		// ñîõðàíÿåì äàííûå äëÿ ðåäàêòîðà
+		// ÑÐ¾Ñ…Ñ€Ð°Ð½ÑÐµÐ¼ Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð´Ð»Ñ Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¾Ñ€Ð°
 		MyGUI::xml::ElementPtr data = root->createChild("EditorData");
 		node = mGraphView->getNodeEnumerator();
 		while (node.next())
@@ -405,7 +405,7 @@ namespace demo
 						BaseAnimationNode* anim_node2 = getNodeByName(conn.current()->findAttribute("node"));
 						if (anim_node2)
 						{
-							//ñîåäèíèòü òî÷êè â íîäå
+							//ÑÐ¾ÐµÐ´Ð¸Ð½Ð¸Ñ‚ÑŒ Ñ‚Ð¾Ñ‡ÐºÐ¸ Ð² Ð½Ð¾Ð´Ðµ
 							const std::string& from_point = conn.current()->findAttribute("from");
 							const std::string& to_point = conn.current()->findAttribute("to");
 

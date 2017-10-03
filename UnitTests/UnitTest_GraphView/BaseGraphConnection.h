@@ -55,7 +55,7 @@ namespace wraps
 			return mOffset;
 		}
 
-		// все присоединениые к нам точки
+		// РІСЃРµ РїСЂРёСЃРѕРµРґРёРЅРµРЅРёС‹Рµ Рє РЅР°Рј С‚РѕС‡РєРё
 		bool isAnyConnection() const
 		{
 			return !mConnection.empty();

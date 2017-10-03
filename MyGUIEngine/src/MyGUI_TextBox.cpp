@@ -132,31 +132,31 @@ namespace MyGUI
 
 	void TextBox::setPropertyOverride(const std::string& _key, const std::string& _value)
 	{
-		/// @wproperty{TextBox, TextColour, Colour} Цвет текста.
+		/// @wproperty{TextBox, TextColour, Colour} Р¦РІРµС‚ С‚РµРєСЃС‚Р°.
 		if (_key == "TextColour")
 			setTextColour(utility::parseValue<Colour>(_value));
 
-		/// @wproperty{TextBox, TextAlign, Align} Выравнивание текста.
+		/// @wproperty{TextBox, TextAlign, Align} Р’С‹СЂР°РІРЅРёРІР°РЅРёРµ С‚РµРєСЃС‚Р°.
 		else if (_key == "TextAlign")
 			setTextAlign(utility::parseValue<Align>(_value));
 
-		/// @wproperty{TextBox, FontName, string} Имя шрифта.
+		/// @wproperty{TextBox, FontName, string} РРјСЏ С€СЂРёС„С‚Р°.
 		else if (_key == "FontName")
 			setFontName(_value);
 
-		/// @wproperty{TextBox, FontHeight, int} Высота шрифта.
+		/// @wproperty{TextBox, FontHeight, int} Р’С‹СЃРѕС‚Р° С€СЂРёС„С‚Р°.
 		else if (_key == "FontHeight")
 			setFontHeight(utility::parseValue<int>(_value));
 
-		/// @wproperty{TextBox, Caption, string} Содержимое поля редактирования.
+		/// @wproperty{TextBox, Caption, string} РЎРѕРґРµСЂР¶РёРјРѕРµ РїРѕР»СЏ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ.
 		else if (_key == "Caption")
 			setCaptionWithReplacing(_value);
 
-		/// @wproperty{TextBox, TextShadowColour, Colour} Цвет тени текста.
+		/// @wproperty{TextBox, TextShadowColour, Colour} Р¦РІРµС‚ С‚РµРЅРё С‚РµРєСЃС‚Р°.
 		else if (_key == "TextShadowColour")
 			setTextShadowColour(utility::parseValue<Colour>(_value));
 
-		/// @wproperty{TextBox, TextShadow, bool} Режим показа тени текста.
+		/// @wproperty{TextBox, TextShadow, bool} Р РµР¶РёРј РїРѕРєР°Р·Р° С‚РµРЅРё С‚РµРєСЃС‚Р°.
 		else if (_key == "TextShadow")
 			setTextShadow(utility::parseValue<bool>(_value));
 

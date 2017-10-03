@@ -11,7 +11,7 @@ namespace demo
 
 	void CellView::getCellDimension(MyGUI::Widget* _sender, MyGUI::IntCoord& _coord, bool _drop)
 	{
-		// размеры ячеек для контейнера и для перетаскивания могут различаться
+		// СЂР°Р·РјРµСЂС‹ СЏС‡РµРµРє РґР»СЏ РєРѕРЅС‚РµР№РЅРµСЂР° Рё РґР»СЏ РїРµСЂРµС‚Р°СЃРєРёРІР°РЅРёСЏ РјРѕРіСѓС‚ СЂР°Р·Р»РёС‡Р°С‚СЊСЃСЏ
 		/*if (_drop)
 			_coord.set(0, 0, 90, 74);
 		else

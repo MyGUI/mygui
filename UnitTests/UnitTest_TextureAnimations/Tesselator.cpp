@@ -35,7 +35,7 @@ namespace demo
 		size_t count = mCountX * mCountY;
 		if (_count == count) return count;
 
-		// запрашивам нужный размер вершин
+		// Р·Р°РїСЂР°С€РёРІР°Рј РЅСѓР¶РЅС‹Р№ СЂР°Р·РјРµСЂ РІРµСЂС€РёРЅ
 		_data.resize(count);
 
 		float vertex_z = _info.maximumDepth;

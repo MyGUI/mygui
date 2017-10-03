@@ -51,8 +51,8 @@ namespace MyGUI
 		mTimer.reset();
 
 		float frameTime = (float)((double)(time) / (double)1000);
-		// ñêîðåå âñåãî ðåíäåð òàðãåò ïåðåñîçäàåòñÿ,
-		// íåîáõîäèìî ïåðåñ÷èòàòü ñìåùåíèå ðåíäåð òàðãåòà
+		// ÑÐºÐ¾Ñ€ÐµÐµ Ð²ÑÐµÐ³Ð¾ Ñ€ÐµÐ½Ð´ÐµÑ€ Ñ‚Ð°Ñ€Ð³ÐµÑ‚ Ð¿ÐµÑ€ÐµÑÐ¾Ð·Ð´Ð°ÐµÑ‚ÑÑ,
+		// Ð½ÐµÐ¾Ð±Ñ…Ð¾Ð´Ð¸Ð¼Ð¾ Ð¿ÐµÑ€ÐµÑÑ‡Ð¸Ñ‚Ð°Ñ‚ÑŒ ÑÐ¼ÐµÑ‰ÐµÐ½Ð¸Ðµ Ñ€ÐµÐ½Ð´ÐµÑ€ Ñ‚Ð°Ñ€Ð³ÐµÑ‚Ð°
 		if (_update)
 		{
 			mOutOfDate = true;
@@ -95,7 +95,7 @@ namespace MyGUI
 					MyGUI::IRenderTarget* target = mTexture->getRenderTarget();
 					if (target != nullptr)
 					{
-						// ñìåùåíèå ðåíäåð òàðãåòà
+						// ÑÐ¼ÐµÑ‰ÐµÐ½Ð¸Ðµ Ñ€ÐµÐ½Ð´ÐµÑ€ Ñ‚Ð°Ñ€Ð³ÐµÑ‚Ð°
 						target->getInfo().setOffset(mCurrentCoord.left, mCurrentCoord.top);
 					}
 				}
@@ -125,7 +125,7 @@ namespace MyGUI
 			);
 		}
 
-		// àíèìèðóåì è ïðîâåðÿåì, èñïîëüçîâàëàñü ëè àíèìàöèÿ
+		// Ð°Ð½Ð¸Ð¼Ð¸Ñ€ÑƒÐµÐ¼ Ð¸ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÑÐµÐ¼, Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð»Ð°ÑÑŒ Ð»Ð¸ Ð°Ð½Ð¸Ð¼Ð°Ñ†Ð¸Ñ
 		bool need_update = mIsAnimate;
 		mIsAnimate = false;
 		size_t count_quad = 1;
@@ -140,13 +140,13 @@ namespace MyGUI
 
 		if (mIsAnimate)
 		{
-			// áëèòèì àíèìàöèþ
+			// Ð±Ð»Ð¸Ñ‚Ð¸Ð¼ Ð°Ð½Ð¸Ð¼Ð°Ñ†Ð¸ÑŽ
 			mVertexBuffer->setVertexCount(count_quad * VertexQuad::VertexCount);
 			VertexQuad* quad = reinterpret_cast<VertexQuad*>(mVertexBuffer->lock());
 
 			for (size_t index = 0; index < count_quad; ++index)
 			{
-				// êîïèðóåì äåôîëòíûå äàííûå
+				// ÐºÐ¾Ð¿Ð¸Ñ€ÑƒÐµÐ¼ Ð´ÐµÑ„Ð¾Ð»Ñ‚Ð½Ñ‹Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ
 				quad[index].vertex[VertexQuad::CornerLT] = mData[index].vertex[QuadData::CornerLT];
 				quad[index].vertex[VertexQuad::CornerRT] = mData[index].vertex[QuadData::CornerRT];
 				quad[index].vertex[VertexQuad::CornerLB] = mData[index].vertex[QuadData::CornerLB];
@@ -166,7 +166,7 @@ namespace MyGUI
 				mVertexBuffer->setVertexCount(count_quad * VertexQuad::VertexCount);
 				VertexQuad* quad = reinterpret_cast<VertexQuad*>(mVertexBuffer->lock());
 
-				// êîïèðóåì äåôîëòíûå äàííûå
+				// ÐºÐ¾Ð¿Ð¸Ñ€ÑƒÐµÐ¼ Ð´ÐµÑ„Ð¾Ð»Ñ‚Ð½Ñ‹Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ
 				quad->vertex[VertexQuad::CornerLT] = mDefaultData.vertex[QuadData::CornerLT];
 				quad->vertex[VertexQuad::CornerRT] = mDefaultData.vertex[QuadData::CornerRT];
 				quad->vertex[VertexQuad::CornerLB] = mDefaultData.vertex[QuadData::CornerLB];

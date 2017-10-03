@@ -44,7 +44,7 @@ namespace plugin
 			MYGUI_LOGGING(LogSection, Error, flash_lib << " not found");
 		}
 
-		// создаем фабрики
+		// СЃРѕР·РґР°РµРј С„Р°Р±СЂРёРєРё
 		MyGUI::FactoryManager::getInstance().registerFactory<Hikari::HikariWidget>("Widget");
 
 		mKeyboardHook = new KeyboardHook(&mHookListenerImpl);
@@ -57,7 +57,7 @@ namespace plugin
 		delete mKeyboardHook;
 		mKeyboardHook = 0;
 
-		// удаляем фабрику
+		// СѓРґР°Р»СЏРµРј С„Р°Р±СЂРёРєСѓ
 		MyGUI::FactoryManager::getInstance().unregisterFactory<Hikari::HikariWidget>("Widget");
 
 		if (msFlashLib)

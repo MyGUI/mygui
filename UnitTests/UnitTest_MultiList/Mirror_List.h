@@ -16,7 +16,7 @@ namespace unittest
 
 	public:
 		//------------------------------------------------------------------------------//
-		// манипуляции айтемами
+		// РјР°РЅРёРїСѓР»СЏС†РёРё Р°Р№С‚РµРјР°РјРё
 
 		//! Get number of items
 		size_t getItemCount() const
@@ -72,7 +72,7 @@ namespace unittest
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РґР°РЅРЅС‹РјРё
 
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, MyGUI::Any _data)
@@ -97,7 +97,7 @@ namespace unittest
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции отображением
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РѕС‚РѕР±СЂР°Р¶РµРЅРёРµРј
 
 		//! Replace an item name at a specified position
 		void setItemNameAt(size_t _index, const MyGUI::UString& _name)

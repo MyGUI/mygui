@@ -104,7 +104,7 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		// FIXME перенесенно из конструктора, проверить смену скина
+		// FIXME РїРµСЂРµРЅРµСЃРµРЅРЅРѕ РёР· РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°, РїСЂРѕРІРµСЂРёС‚СЊ СЃРјРµРЅСѓ СЃРєРёРЅР°
 		mpRoot = new Node(this);
 
 		//FIXME
@@ -146,7 +146,7 @@ namespace MyGUI
 	void TreeControl::shutdownOverride()
 	{
 		mpWidgetScroll = nullptr;
-		// FIXME перенесенно из деструктора, проверить смену скина
+		// FIXME РїРµСЂРµРЅРµСЃРµРЅРЅРѕ РёР· РґРµСЃС‚СЂСѓРєС‚РѕСЂР°, РїСЂРѕРІРµСЂРёС‚СЊ СЃРјРµРЅСѓ СЃРєРёРЅР°
 		delete mpRoot;
 
 		Base::shutdownOverride();
@@ -343,7 +343,7 @@ namespace MyGUI
 
 			if (nIndex >= (size_t)mnTopIndex)
 			{
-				// FIXME проверка вставлена так как падает индекс айтема больше чем всего айтемов
+				// FIXME РїСЂРѕРІРµСЂРєР° РІСЃС‚Р°РІР»РµРЅР° С‚Р°Рє РєР°Рє РїР°РґР°РµС‚ РёРЅРґРµРєСЃ Р°Р№С‚РµРјР° Р±РѕР»СЊС€Рµ С‡РµРј РІСЃРµРіРѕ Р°Р№С‚РµРјРѕРІ
 				if (nItem >= mItemWidgets.size())
 					break;
 

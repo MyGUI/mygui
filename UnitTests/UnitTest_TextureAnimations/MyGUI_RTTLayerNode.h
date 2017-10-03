@@ -25,15 +25,15 @@ namespace MyGUI
 		explicit RTTLayerNode(ILayer* _layer, ILayerNode* _parent = nullptr);
 		virtual ~RTTLayerNode();
 
-		// необходимо обновление нода
+		// РЅРµРѕР±С…РѕРґРёРјРѕ РѕР±РЅРѕРІР»РµРЅРёРµ РЅРѕРґР°
 		virtual void outOfDate(RenderItem* _item);
 
-		// добавляем айтем к ноду
+		// РґРѕР±Р°РІР»СЏРµРј Р°Р№С‚РµРј Рє РЅРѕРґСѓ
 		virtual void attachLayerItem(ILayerItem* _item);
-		// удаляем айтем из нода
+		// СѓРґР°Р»СЏРµРј Р°Р№С‚РµРј РёР· РЅРѕРґР°
 		virtual void detachLayerItem(ILayerItem* _item);
 
-		// рисует леер
+		// СЂРёСЃСѓРµС‚ Р»РµРµСЂ
 		virtual void renderToTarget(IRenderTarget* _target, bool _update);
 
 		bool getCacheUsing() const

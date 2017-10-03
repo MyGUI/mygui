@@ -41,7 +41,7 @@ namespace unittest
 	private:
 		typedef std::vector<std::string> VectorString;
 
-		// тестовые данные
+		// С‚РµСЃС‚РѕРІС‹Рµ РґР°РЅРЅС‹Рµ
 		VectorString mItemsInfo;
 
 	};

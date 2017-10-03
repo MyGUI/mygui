@@ -211,7 +211,7 @@ namespace tools
 	{
 		MyGUI::IntPoint offset = _mousePosition - mMousePressedOffset - mMainWidget->getAbsolutePosition();
 
-		// ñáðàñûâàåì äåôîëòíûé ðàçìåð ïàíåëè
+		// ÑÐ±Ñ€Ð°ÑÑ‹Ð²Ð°ÐµÐ¼ Ð´ÐµÑ„Ð¾Ð»Ñ‚Ð½Ñ‹Ð¹ Ñ€Ð°Ð·Ð¼ÐµÑ€ Ð¿Ð°Ð½ÐµÐ»Ð¸
 		mDefaultPanelSize.clear();
 
 		MyGUI::IntCoord firstPanel = mFirstPanel->getCoord();
@@ -250,7 +250,7 @@ namespace tools
 
 		invalidateSize(firstPanel, separatorH, separatorV, secondPanel);
 
-		// çàïîìèíàåì äåôîëòíûé ðàçìåð ïàíåëè
+		// Ð·Ð°Ð¿Ð¾Ð¼Ð¸Ð½Ð°ÐµÐ¼ Ð´ÐµÑ„Ð¾Ð»Ñ‚Ð½Ñ‹Ð¹ Ñ€Ð°Ð·Ð¼ÐµÑ€ Ð¿Ð°Ð½ÐµÐ»Ð¸
 		mDefaultPanelSize = mFirstPanel->getSize();
 	}
 

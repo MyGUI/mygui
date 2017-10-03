@@ -71,7 +71,7 @@ namespace demo
 			return _quad_count;
 		}
 
-		// проверяем смещения виджета
+		// РїСЂРѕРІРµСЂСЏРµРј СЃРјРµС‰РµРЅРёСЏ РІРёРґР¶РµС‚Р°
 		if (mOldCoord.empty())
 		{
 			mOldCoord = _coord;

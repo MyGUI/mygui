@@ -179,7 +179,7 @@ void FlashControl::load(const std::string& movieFilename)
 		return;
 	}
 
-	// работают только абсолютные пути c левыми слешами
+	// СЂР°Р±РѕС‚Р°СЋС‚ С‚РѕР»СЊРєРѕ Р°Р±СЃРѕР»СЋС‚РЅС‹Рµ РїСѓС‚Рё c Р»РµРІС‹РјРё СЃР»РµС€Р°РјРё
 	std::string absolute_path = full_path.at(0) == '.' ? getCurrentWorkingDirectory() + full_path : full_path;
 	for (size_t index = 0; index < absolute_path.size(); ++index)
 	{
@@ -329,7 +329,7 @@ void FlashControl::update()
 	if (mOwner && !mOwner->getVisible())
 		return;
 
-	// очищаем текстуру
+	// РѕС‡РёС‰Р°РµРј С‚РµРєСЃС‚СѓСЂСѓ
 	if (!mIsInitialise)
 	{
 		if (mOwner)

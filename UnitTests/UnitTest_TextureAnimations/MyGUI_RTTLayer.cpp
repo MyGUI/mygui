@@ -24,7 +24,7 @@ namespace MyGUI
 		{
 			if ((*iter) != nullptr)
 			{
-				// óäàëÿåì òå ÷òîáû ëè ïðèîñòàíîâëåííû íà àíèìàöèþ
+				// ÑƒÐ´Ð°Ð»ÑÐµÐ¼ Ñ‚Ðµ Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð»Ð¸ Ð¿Ñ€Ð¸Ð¾ÑÑ‚Ð°Ð½Ð¾Ð²Ð»ÐµÐ½Ð½Ñ‹ Ð½Ð° Ð°Ð½Ð¸Ð¼Ð°Ñ†Ð¸ÑŽ
 				RTTLayerNode* node = (*iter)->castType<RTTLayerNode>();
 				if (node->getDestroy())
 				{
@@ -55,7 +55,7 @@ namespace MyGUI
 
 	ILayerNode* RTTLayer::createChildItemNode()
 	{
-		// ñîçäàåì ðóòîâûé àéòåì
+		// ÑÐ¾Ð·Ð´Ð°ÐµÐ¼ Ñ€ÑƒÑ‚Ð¾Ð²Ñ‹Ð¹ Ð°Ð¹Ñ‚ÐµÐ¼
 		RTTLayerNode* node = new RTTLayerNode(this);
 		mChildItems.push_back(node);
 
@@ -85,7 +85,7 @@ namespace MyGUI
 
 	void RTTLayer::destroyChildItemNode(ILayerNode* _item)
 	{
-		// åñëè åñòü îòåö, òî ðóñòü ñàì è óäàëÿåò
+		// ÐµÑÐ»Ð¸ ÐµÑÑ‚ÑŒ Ð¾Ñ‚ÐµÑ†, Ñ‚Ð¾ Ñ€ÑƒÑÑ‚ÑŒ ÑÐ°Ð¼ Ð¸ ÑƒÐ´Ð°Ð»ÑÐµÑ‚
 		ILayerNode* parent = _item->getParent();
 		if (parent)
 		{
@@ -93,7 +93,7 @@ namespace MyGUI
 			return;
 		}
 
-		// àéòåì ðóòîâûé, ìû óäàëÿåì
+		// Ð°Ð¹Ñ‚ÐµÐ¼ Ñ€ÑƒÑ‚Ð¾Ð²Ñ‹Ð¹, Ð¼Ñ‹ ÑƒÐ´Ð°Ð»ÑÐµÐ¼
 		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
 		{
 			if ((*iter) == _item)
@@ -113,7 +113,7 @@ namespace MyGUI
 		{
 			if ((*iter) != nullptr)
 			{
-				// åñëè ïîëíîå îáíîâëåíèå è íîä áûë îòëîæåí îò óäàëåíèÿ òî óäàëÿåì
+				// ÐµÑÐ»Ð¸ Ð¿Ð¾Ð»Ð½Ð¾Ðµ Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ðµ Ð¸ Ð½Ð¾Ð´ Ð±Ñ‹Ð» Ð¾Ñ‚Ð»Ð¾Ð¶ÐµÐ½ Ð¾Ñ‚ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ñ Ñ‚Ð¾ ÑƒÐ´Ð°Ð»ÑÐµÐ¼
 				RTTLayerNode* node = (*iter)->castType<RTTLayerNode>();
 
 				if (_update)

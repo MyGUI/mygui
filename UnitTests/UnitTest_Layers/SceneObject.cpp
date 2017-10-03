@@ -250,12 +250,12 @@ namespace demo
 
 	Ogre::Vector2 SceneObject::getCoordByTriangle(Ogre::Vector3 _position, const Ogre::Vector3& _corner0, const Ogre::Vector3& _corner1, const Ogre::Vector3& _corner2) const
 	{
-		Ogre::Vector2 result; // результат
+		Ogre::Vector2 result; // СЂРµР·СѓР»СЊС‚Р°С‚
 
 		Ogre::Vector3 dirX = _corner1 - _corner0;
 		Ogre::Vector3 dirY = _corner2 - _corner0;
 
-		_position -= _corner0; // расстояние от начала координат (от точки 0)
+		_position -= _corner0; // СЂР°СЃСЃС‚РѕСЏРЅРёРµ РѕС‚ РЅР°С‡Р°Р»Р° РєРѕРѕСЂРґРёРЅР°С‚ (РѕС‚ С‚РѕС‡РєРё 0)
 
 		Ogre::Vector3 div = (dirX.crossProduct(dirY));
 		if (div.x != 0.0)
@@ -275,7 +275,7 @@ namespace demo
 		}
 		else
 		{
-			// пипец
+			// РїРёРїРµС†
 		}
 
 		return result;
@@ -289,18 +289,18 @@ namespace demo
 
 		if (mUScale != 1)
 		{
-			float count = 1 / mUScale; // колличество тайлов
-			float x = result.x * count; // пропорцией узнаем положение
-			result.x  = x + 0.5f; // смещаем на половину, чтобы центр тайла был в середине
-			result.x = fmod(result.x, 1); // отбрасываем до запятой получая от 0 до 1
+			float count = 1 / mUScale; // РєРѕР»Р»РёС‡РµСЃС‚РІРѕ С‚Р°Р№Р»РѕРІ
+			float x = result.x * count; // РїСЂРѕРїРѕСЂС†РёРµР№ СѓР·РЅР°РµРј РїРѕР»РѕР¶РµРЅРёРµ
+			result.x  = x + 0.5f; // СЃРјРµС‰Р°РµРј РЅР° РїРѕР»РѕРІРёРЅСѓ, С‡С‚РѕР±С‹ С†РµРЅС‚СЂ С‚Р°Р№Р»Р° Р±С‹Р» РІ СЃРµСЂРµРґРёРЅРµ
+			result.x = fmod(result.x, 1); // РѕС‚Р±СЂР°СЃС‹РІР°РµРј РґРѕ Р·Р°РїСЏС‚РѕР№ РїРѕР»СѓС‡Р°СЏ РѕС‚ 0 РґРѕ 1
 		}
 
 		if (mVScale != 1)
 		{
-			float count = 1 / mVScale; // колличество тайлов
-			float y = result.y * count; // пропорцией узнаем положение
-			result.y  = y + 0.5f; // смещаем на половину, чтобы центр тайла был в середине
-			result.y = fmod(result.y, 1); // отбрасываем до запятой получая от 0 до 1
+			float count = 1 / mVScale; // РєРѕР»Р»РёС‡РµСЃС‚РІРѕ С‚Р°Р№Р»РѕРІ
+			float y = result.y * count; // РїСЂРѕРїРѕСЂС†РёРµР№ СѓР·РЅР°РµРј РїРѕР»РѕР¶РµРЅРёРµ
+			result.y  = y + 0.5f; // СЃРјРµС‰Р°РµРј РЅР° РїРѕР»РѕРІРёРЅСѓ, С‡С‚РѕР±С‹ С†РµРЅС‚СЂ С‚Р°Р№Р»Р° Р±С‹Р» РІ СЃРµСЂРµРґРёРЅРµ
+			result.y = fmod(result.y, 1); // РѕС‚Р±СЂР°СЃС‹РІР°РµРј РґРѕ Р·Р°РїСЏС‚РѕР№ РїРѕР»СѓС‡Р°СЏ РѕС‚ 0 РґРѕ 1
 		}
 
 		return result;
