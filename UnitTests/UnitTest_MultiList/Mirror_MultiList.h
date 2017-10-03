@@ -36,7 +36,7 @@ namespace unittest
 		}
 
 		//------------------------------------------------------------------------------//
-		// манипуляции айтемами
+		// РјР°РЅРёРїСѓР»СЏС†РёРё Р°Р№С‚РµРјР°РјРё
 
 		//! Get number of columns
 		size_t getColumnCount() const
@@ -60,7 +60,7 @@ namespace unittest
 			column.name = _name;
 			column.data = _data;
 
-			// если уже были столбики, то делаем то же колличество полей
+			// РµСЃР»Рё СѓР¶Рµ Р±С‹Р»Рё СЃС‚РѕР»Р±РёРєРё, С‚Рѕ РґРµР»Р°РµРј С‚Рѕ Р¶Рµ РєРѕР»Р»РёС‡РµСЃС‚РІРѕ РїРѕР»РµР№
 			if (false == mVectorColumnInfo.empty())
 			{
 				size_t count = mVectorColumnInfo.front().list->getItemCount();
@@ -97,7 +97,7 @@ namespace unittest
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции отображением
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РѕС‚РѕР±СЂР°Р¶РµРЅРёРµРј
 
 		/** Set column name
 			@param _column Index of column
@@ -117,7 +117,7 @@ namespace unittest
 		}
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РґР°РЅРЅС‹РјРё
 
 		//! Replace an item data at a specified position
 		void setColumnDataAt(size_t _index, MyGUI::Any _data)
@@ -141,13 +141,13 @@ namespace unittest
 		}
 
 		//------------------------------------------------------------------------------//
-		// Methods for work with lines (RU:методы для работы со строками)
+		// Methods for work with lines (RU:РјРµС‚РѕРґС‹ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃРѕ СЃС‚СЂРѕРєР°РјРё)
 		/** @note
 		All indexes used here is indexes of unsorted Multilist. Even if you sorted
 			it - all items indexes will be same as before sort.*/
 
 		//------------------------------------------------------------------------------//
-		// манипуляции айтемами
+		// РјР°РЅРёРїСѓР»СЏС†РёРё Р°Р№С‚РµРјР°РјРё
 
 		/** Get number of items (lines) */
 		size_t getItemCount() const
@@ -163,7 +163,7 @@ namespace unittest
 			MYGUI_ASSERT_RANGE_INSERT(_index, mVectorColumnInfo.front().list->getItemCount(), "MultiListBox::insertItemAt");
 			if (MyGUI::ITEM_NONE == _index) _index = mVectorColumnInfo.front().list->getItemCount();
 
-			// вставляем во все поля пустые, а потом присваиваем первому
+			// РІСЃС‚Р°РІР»СЏРµРј РІРѕ РІСЃРµ РїРѕР»СЏ РїСѓСЃС‚С‹Рµ, Р° РїРѕС‚РѕРј РїСЂРёСЃРІР°РёРІР°РµРј РїРµСЂРІРѕРјСѓ
 			for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 			{
 				(*iter).list->insertItemAt(_index, "");
@@ -209,7 +209,7 @@ namespace unittest
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции отображением
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РѕС‚РѕР±СЂР°Р¶РµРЅРёРµРј
 
 		/** Set item string */
 		void setItemNameAt(size_t _index, const MyGUI::UString& _name)
@@ -224,7 +224,7 @@ namespace unittest
 
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РґР°РЅРЅС‹РјРё
 
 		//! Replace an item data at a specified position
 		void setItemDataAt(size_t _index, MyGUI::Any _data)
@@ -247,9 +247,9 @@ namespace unittest
 
 
 		//------------------------------------------------------------------------------//
-		// Methods for work with sub lines (RU:методы для работы со саб строками)
+		// Methods for work with sub lines (RU:РјРµС‚РѕРґС‹ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃРѕ СЃР°Р± СЃС‚СЂРѕРєР°РјРё)
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РґР°РЅРЅС‹РјРё
 
 		/** Set sub item
 			@param _column Index of column
@@ -281,7 +281,7 @@ namespace unittest
 		}
 
 		//------------------------------------------------------------------------------//
-		// манипуляции данными
+		// РјР°РЅРёРїСѓР»СЏС†РёРё РґР°РЅРЅС‹РјРё
 
 		//! Replace an item data at a specified position
 		void setSubItemDataAt(size_t _column, size_t _index, MyGUI::Any _data)

@@ -136,10 +136,10 @@ namespace demo
 		if (MyGUI::Gui::getInstancePtr() == nullptr)
 			return;
 
-		// при зажатой правой вращаем сцену
+		// РїСЂРё Р·Р°Р¶Р°С‚РѕР№ РїСЂР°РІРѕР№ РІСЂР°С‰Р°РµРј СЃС†РµРЅСѓ
 		if (mRightButtonPressed)
 		{
-			// относительное смещение
+			// РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕРµ СЃРјРµС‰РµРЅРёРµ
 			int rel_x = _absx - mSaveCursorX;
 			int rel_y = _absy - mSaveCursorY;
 
@@ -148,12 +148,12 @@ namespace demo
 
 			setMousePosition(mSaveCursorX, mSaveCursorY);
 
-			// вращаем сцену
+			// РІСЂР°С‰Р°РµРј СЃС†РµРЅСѓ
 			updateCamera(rel_x, rel_y);
 		}
 		else
 		{
-			// ввод мыши находить вне гуя
+			// РІРІРѕРґ РјС‹С€Рё РЅР°С…РѕРґРёС‚СЊ РІРЅРµ РіСѓСЏ
 			if (!MyGUI::InputManager::getInstance().injectMouseMove(_absx, _absy, _absz))
 			{
 			}
@@ -167,7 +167,7 @@ namespace demo
 
 		if (!MyGUI::InputManager::getInstance().injectMousePress(_absx, _absy, _id))
 		{
-			// вращаем сцену только когда не над гуем
+			// РІСЂР°С‰Р°РµРј СЃС†РµРЅСѓ С‚РѕР»СЊРєРѕ РєРѕРіРґР° РЅРµ РЅР°Рґ РіСѓРµРј
 			if (_id == MyGUI::MouseButton::Right)
 			{
 				mRightButtonPressed = true;

@@ -85,14 +85,14 @@ namespace MyGUI
 		{
 			if ((*item) == '<')
 			{
-				// îòðåçàåì òåêñò
+				// Ð¾Ñ‚Ñ€ÐµÐ·Ð°ÐµÐ¼ Ñ‚ÐµÐºÑÑ‚
 				if (textItem < item)
 				{
 					if (mCurrentWrapPanel != nullptr)
 						parseText(mCurrentWrapPanel,	_value.substr(textItem - _value.begin(), item - textItem));
 				}
 
-				// èùåì êîíåö òåãà
+				// Ð¸Ñ‰ÐµÐ¼ ÐºÐ¾Ð½ÐµÑ† Ñ‚ÐµÐ³Ð°
 				for (std::string::const_iterator tagItem = item; tagItem != _value.end(); ++ tagItem)
 				{
 					if ((*tagItem) == '>')
@@ -130,7 +130,7 @@ namespace MyGUI
 
 			ImageBox* image = _parent->createWidget<ImageBox>(mImageSkin, IntCoord(0, 0, mImageSize.width, mImageSize.height), Align::Default);
 			image->setItemResource(_value);
-			// êàðòèíêà êàê óðë
+			// ÐºÐ°Ñ€Ñ‚Ð¸Ð½ÐºÐ° ÐºÐ°Ðº ÑƒÑ€Ð»
 			if (mUrl)
 			{
 				image->setPointer(mLinkPoiner);

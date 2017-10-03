@@ -51,8 +51,8 @@ namespace MyGUI
 				IntSize size = _widget->getSize();
 				_widget->_setInternalData(size);
 
-				// âèäæåò îêàçàëñÿ îáû÷íûì, íî ó âèäæåòà íåò overrideMeasure
-				// è íóíà ðó÷êàìè ñïóñêàòüñÿ âíèç äëÿ îáíîâëåíèÿ
+				// Ð²Ð¸Ð´Ð¶ÐµÑ‚ Ð¾ÐºÐ°Ð·Ð°Ð»ÑÑ Ð¾Ð±Ñ‹Ñ‡Ð½Ñ‹Ð¼, Ð½Ð¾ Ñƒ Ð²Ð¸Ð´Ð¶ÐµÑ‚Ð° Ð½ÐµÑ‚ overrideMeasure
+				// Ð¸ Ð½ÑƒÐ½Ð° Ñ€ÑƒÑ‡ÐºÐ°Ð¼Ð¸ ÑÐ¿ÑƒÑÐºÐ°Ñ‚ÑŒÑÑ Ð²Ð½Ð¸Ð· Ð´Ð»Ñ Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ñ
 				/*if (_widget->getChildCount() != 0)
 				{
 					IntCoord coord = _widget->getClientCoord();
@@ -105,7 +105,7 @@ namespace MyGUI
 			}
 			else
 			{
-				// òóò ïîõîäó âòîðîé êîñÿê
+				// Ñ‚ÑƒÑ‚ Ð¿Ð¾Ñ…Ð¾Ð´Ñƒ Ð²Ñ‚Ð¾Ñ€Ð¾Ð¹ ÐºÐ¾ÑÑÐº
 				const IntSize& size = _widget->getSize();
 				Panel::updateArrange(_widget, IntCoord(0, 0, size.width, size.height));
 			}

@@ -167,7 +167,7 @@ namespace wraps
 			EnumeratorConnection node_conn = _node->getConnectionEnumerator();
 			while (node_conn.next())
 			{
-				// удаляем прямые соединения
+				// СѓРґР°Р»СЏРµРј РїСЂСЏРјС‹Рµ СЃРѕРµРґРёРЅРµРЅРёСЏ
 				while (node_conn.current()->isAnyConnection())
 				{
 					EnumeratorConnection conn = node_conn.current()->getConnectionEnumerator();
@@ -179,7 +179,7 @@ namespace wraps
 					}
 				}
 
-				// удаляем обратные соединения
+				// СѓРґР°Р»СЏРµРј РѕР±СЂР°С‚РЅС‹Рµ СЃРѕРµРґРёРЅРµРЅРёСЏ
 				while (node_conn.current()->isAnyReverseConnection())
 				{
 					EnumeratorConnection conn = node_conn.current()->getReverseConnectionEnumerator();
@@ -205,7 +205,7 @@ namespace wraps
 				bool result = false;
 				requestConnectPoint(this, _connection, nullptr, result);
 
-				// тащим новый конект
+				// С‚Р°С‰РёРј РЅРѕРІС‹Р№ РєРѕРЅРµРєС‚
 				if (result)
 				{
 					mIsDrug = true;
@@ -225,12 +225,12 @@ namespace wraps
 
 					updateCanvas();
 				}
-				// разрываем существующий
+				// СЂР°Р·СЂС‹РІР°РµРј СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёР№
 				else
 				{
 					BaseGraphConnection* drag_node = nullptr;
 					bool disconect = false;
-					// прямое сочленение
+					// РїСЂСЏРјРѕРµ СЃРѕС‡Р»РµРЅРµРЅРёРµ
 					if (_connection->isAnyConnection())
 					{
 						EnumeratorConnection conn = _connection->getConnectionEnumerator();
@@ -250,7 +250,7 @@ namespace wraps
 					}
 					else
 					{
-						// обратное сочленение
+						// РѕР±СЂР°С‚РЅРѕРµ СЃРѕС‡Р»РµРЅРµРЅРёРµ
 						EnumeratorConnection conn = _connection->getReverseConnectionEnumerator();
 						while (conn.next())
 						{
@@ -267,7 +267,7 @@ namespace wraps
 						}
 					}
 
-					// тащим разорваную связь
+					// С‚Р°С‰РёРј СЂР°Р·РѕСЂРІР°РЅСѓСЋ СЃРІСЏР·СЊ
 					if (disconect)
 					{
 						mIsDrug = true;
@@ -298,7 +298,7 @@ namespace wraps
 		{
 			if (mIsDrug)
 			{
-				// нод откуда тянется не всегда может быть сендером
+				// РЅРѕРґ РѕС‚РєСѓРґР° С‚СЏРЅРµС‚СЃСЏ РЅРµ РІСЃРµРіРґР° РјРѕР¶РµС‚ Р±С‹С‚СЊ СЃРµРЅРґРµСЂРѕРј
 				_connection = mConnectionStart;
 
 				connectPoint(_connection);
@@ -314,14 +314,14 @@ namespace wraps
 		{
 			if (mIsDrug)
 			{
-				// нод откуда тянется не всегда может быть сендером
+				// РЅРѕРґ РѕС‚РєСѓРґР° С‚СЏРЅРµС‚СЃСЏ РЅРµ РІСЃРµРіРґР° РјРѕР¶РµС‚ Р±С‹С‚СЊ СЃРµРЅРґРµСЂРѕРј
 				_connection = mConnectionStart;
 
 				const MyGUI::IntPoint& mouse = MyGUI::InputManager::getInstance().getMousePosition();
 				//const MyGUI::IntCoord& coord = _node->getAbsoluteCoord();
 				mDrugLine.point_end.set(mouse.left - mCanvas->getAbsoluteLeft(), mouse.top - mCanvas->getAbsoluteTop());
 
-				// устанавлваем длинну загиба от дистанции
+				// СѓСЃС‚Р°РЅР°РІР»РІР°РµРј РґР»РёРЅРЅСѓ Р·Р°РіРёР±Р° РѕС‚ РґРёСЃС‚Р°РЅС†РёРё
 				double distance = ((mDrugLine.point_end.left - mDrugLine.point_start.left) * (mDrugLine.point_end.left - mDrugLine.point_start.left)) +
 					((mDrugLine.point_end.top - mDrugLine.point_start.top) * (mDrugLine.point_end.top - mDrugLine.point_start.top));
 				distance = std::sqrt(distance);
@@ -343,7 +343,7 @@ namespace wraps
 					else  mDrugLine.start_offset.width = (int)distance;
 				}
 
-				// пикаем виджет под нами
+				// РїРёРєР°РµРј РІРёРґР¶РµС‚ РїРѕРґ РЅР°РјРё
 				MyGUI::Widget* widget = MyGUI::LayerManager::getInstance().getWidgetFromPoint(mouse.left, mouse.top);
 				if (widget != nullptr)
 				{
@@ -386,7 +386,7 @@ namespace wraps
 		{
 			clearCanvas();
 
-			// проходим по всем нодам и перерисовываем связи
+			// РїСЂРѕС…РѕРґРёРј РїРѕ РІСЃРµРј РЅРѕРґР°Рј Рё РїРµСЂРµСЂРёСЃРѕРІС‹РІР°РµРј СЃРІСЏР·Рё
 			for (size_t index = 0; index < mNodes.size(); ++index)
 			{
 				EnumeratorConnection node_point = mNodes[index]->getConnectionEnumerator();
@@ -410,7 +410,7 @@ namespace wraps
 				}
 			}
 
-			// ниточка для драга
+			// РЅРёС‚РѕС‡РєР° РґР»СЏ РґСЂР°РіР°
 			if (mIsDrug)
 				drawCurve(mDrugLine);
 		}
@@ -419,7 +419,7 @@ namespace wraps
 		{
 			const MyGUI::IntPoint& mouse = MyGUI::InputManager::getInstance().getMousePosition();
 
-			// пикаем виджет под нами
+			// РїРёРєР°РµРј РІРёРґР¶РµС‚ РїРѕРґ РЅР°РјРё
 			MyGUI::Widget* widget = MyGUI::LayerManager::getInstance().getWidgetFromPoint(mouse.left, mouse.top);
 			if (widget != nullptr)
 			{
@@ -524,7 +524,7 @@ namespace wraps
 				if (coord.bottom() > result.height) result.height = coord.bottom();
 			}
 
-			// для соединений справа
+			// РґР»СЏ СЃРѕРµРґРёРЅРµРЅРёР№ СЃРїСЂР°РІР°
 			result.width += 10;
 			result.height += 10;
 

@@ -246,7 +246,7 @@ namespace MyGUI
 				Widget ^ _parent,
 				const std::string& _prefix, bool _root)
 			{
-				// ïàðñèì àòðèáóòû âèäæåòà
+				// Ð¿Ð°Ñ€ÑÐ¸Ð¼ Ð°Ñ‚Ñ€Ð¸Ð±ÑƒÑ‚Ñ‹ Ð²Ð¸Ð´Ð¶ÐµÑ‚Ð°
 				std::string type, skin, name, layer, tmp;
 				MyGUI::IntCoord coord;
 				MyGUI::Align align = MyGUI::Align::Default;
@@ -278,10 +278,10 @@ namespace MyGUI
 				else
 					wid = CreateWidget(_parent, style, type, skin, coord, align, layer, name);
 
-				// ñîñòàâëÿåì ñïèñîê ðóòîâ
+				// ÑÐ¾ÑÑ‚Ð°Ð²Ð»ÑÐµÐ¼ ÑÐ¿Ð¸ÑÐ¾Ðº Ñ€ÑƒÑ‚Ð¾Ð²
 				if (_root) _widgets->Add(wid);
 
-				// áåðåì äåòåé è êðóòèìñÿ
+				// Ð±ÐµÑ€ÐµÐ¼ Ð´ÐµÑ‚ÐµÐ¹ Ð¸ ÐºÑ€ÑƒÑ‚Ð¸Ð¼ÑÑ
 				MyGUI::xml::ElementEnumerator widget_element = _widget->getElementEnumerator();
 				while (widget_element.next())
 				{
@@ -293,15 +293,15 @@ namespace MyGUI
 					}
 					else if (widget_element->getName() == "Property")
 					{
-						// ïàðñèì àòðèáóòû
+						// Ð¿Ð°Ñ€ÑÐ¸Ð¼ Ð°Ñ‚Ñ€Ð¸Ð±ÑƒÑ‚Ñ‹
 						if (false == widget_element->findAttribute("key", key)) continue;
 						if (false == widget_element->findAttribute("value", value)) continue;
-						// è ïàðñèì ñâîéñòâî
+						// Ð¸ Ð¿Ð°Ñ€ÑÐ¸Ð¼ ÑÐ²Ð¾Ð¹ÑÑ‚Ð²Ð¾
 						wid->GetNativePtr()->setProperty(key, value);
 					}
 					else if (widget_element->getName() == "UserString")
 					{
-						// ïàðñèì àòðèáóòû
+						// Ð¿Ð°Ñ€ÑÐ¸Ð¼ Ð°Ñ‚Ñ€Ð¸Ð±ÑƒÑ‚Ñ‹
 						if (false == widget_element->findAttribute("key", key)) continue;
 						if (false == widget_element->findAttribute("value", value)) continue;
 						wid->GetNativePtr()->setUserString(key, value);

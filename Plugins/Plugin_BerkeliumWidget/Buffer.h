@@ -21,7 +21,7 @@ namespace helpers
 			mWidthVisible(0),
 			mHeightVisible(0)
 		{
-			// чтобы не проверять везде буфер
+			// С‡С‚РѕР±С‹ РЅРµ РїСЂРѕРІРµСЂСЏС‚СЊ РІРµР·РґРµ Р±СѓС„РµСЂ
 			mBuffer = new byte[0];
 		}
 
@@ -46,14 +46,14 @@ namespace helpers
 			int need_len = mWidthVisible * mHeightVisible;
 			int current_len = mSize;
 
-			// данные не помещаются, пересоздадим буфер
+			// РґР°РЅРЅС‹Рµ РЅРµ РїРѕРјРµС‰Р°СЋС‚СЃСЏ, РїРµСЂРµСЃРѕР·РґР°РґРёРј Р±СѓС„РµСЂ
 			if (need_len > current_len)
 			{
 				const int added = 64;
 				mSize = (mWidthVisible + added) * (mHeightVisible + added);
 				int len = mSize * BIT_IN_COLOUR;
 
-				// создаем новый буфер и копируем в него старый валидный кусок
+				// СЃРѕР·РґР°РµРј РЅРѕРІС‹Р№ Р±СѓС„РµСЂ Рё РєРѕРїРёСЂСѓРµРј РІ РЅРµРіРѕ СЃС‚Р°СЂС‹Р№ РІР°Р»РёРґРЅС‹Р№ РєСѓСЃРѕРє
 				byte* new_data = new byte[len];
 
 				int height = std::min(oldHeight, mHeightVisible);
@@ -64,7 +64,7 @@ namespace helpers
 				int width_bytes_source = oldWidth * BIT_IN_COLOUR;
 				int dif = width_bytes_dest - width_bytes_source;
 
-				// ширина увеличилась, копируем снизу вверх
+				// С€РёСЂРёРЅР° СѓРІРµР»РёС‡РёР»Р°СЃСЊ, РєРѕРїРёСЂСѓРµРј СЃРЅРёР·Сѓ РІРІРµСЂС…
 				if (oldWidth < mWidthVisible)
 				{
 					dest += width_bytes_dest * height;
@@ -74,11 +74,11 @@ namespace helpers
 						dest -= width_bytes_dest;
 						source -= width_bytes_source;
 						memcpy(dest, source, width_bytes_source);
-						// буфер увеличился, закрашиваем белым невалидный кусок
+						// Р±СѓС„РµСЂ СѓРІРµР»РёС‡РёР»СЃСЏ, Р·Р°РєСЂР°С€РёРІР°РµРј Р±РµР»С‹Рј РЅРµРІР°Р»РёРґРЅС‹Р№ РєСѓСЃРѕРє
 						memset(dest + width_bytes_source, (int)0xFFFFFFFF, dif);
 					}
 				}
-				// ширина уменьшилась, копируем сверху вниз
+				// С€РёСЂРёРЅР° СѓРјРµРЅСЊС€РёР»Р°СЃСЊ, РєРѕРїРёСЂСѓРµРј СЃРІРµСЂС…Сѓ РІРЅРёР·
 				else if (oldWidth > mWidthVisible)
 				{
 					for (int y = 0; y < height; ++y)
@@ -89,7 +89,7 @@ namespace helpers
 					}
 				}
 
-				// высота увеличилась, закрашиваем белым невалидный кусок
+				// РІС‹СЃРѕС‚Р° СѓРІРµР»РёС‡РёР»Р°СЃСЊ, Р·Р°РєСЂР°С€РёРІР°РµРј Р±РµР»С‹Рј РЅРµРІР°Р»РёРґРЅС‹Р№ РєСѓСЃРѕРє
 				if (oldHeight < mHeightVisible)
 				{
 					dest = new_data + (oldHeight * width_bytes_dest);
@@ -100,7 +100,7 @@ namespace helpers
 					}
 				}
 
-				// удаляем старый буфер
+				// СѓРґР°Р»СЏРµРј СЃС‚Р°СЂС‹Р№ Р±СѓС„РµСЂ
 				if (mBuffer != 0)
 				{
 					delete [] mBuffer;
@@ -118,8 +118,8 @@ namespace helpers
 				int width_bytes_source = oldWidth * BIT_IN_COLOUR;
 				int dif = width_bytes_dest - width_bytes_source;
 
-				// ширина увеличилась, копируем снизу вверх
-				// буфер один и тот же, используем memmove
+				// С€РёСЂРёРЅР° СѓРІРµР»РёС‡РёР»Р°СЃСЊ, РєРѕРїРёСЂСѓРµРј СЃРЅРёР·Сѓ РІРІРµСЂС…
+				// Р±СѓС„РµСЂ РѕРґРёРЅ Рё С‚РѕС‚ Р¶Рµ, РёСЃРїРѕР»СЊР·СѓРµРј memmove
 				if (oldWidth < mWidthVisible)
 				{
 					dest += width_bytes_dest * height;
@@ -129,12 +129,12 @@ namespace helpers
 						dest -= width_bytes_dest;
 						source -= width_bytes_source;
 						memmove(dest, source, width_bytes_source);
-						// буфер увеличился, закрашиваем белым невалидный кусок
+						// Р±СѓС„РµСЂ СѓРІРµР»РёС‡РёР»СЃСЏ, Р·Р°РєСЂР°С€РёРІР°РµРј Р±РµР»С‹Рј РЅРµРІР°Р»РёРґРЅС‹Р№ РєСѓСЃРѕРє
 						memset(dest + width_bytes_source, (int)0xFFFFFFFF, dif);
 					}
 				}
-				// ширина уменьшилась, копируем сверху вниз
-				// буфер один и тот же, используем memmove
+				// С€РёСЂРёРЅР° СѓРјРµРЅСЊС€РёР»Р°СЃСЊ, РєРѕРїРёСЂСѓРµРј СЃРІРµСЂС…Сѓ РІРЅРёР·
+				// Р±СѓС„РµСЂ РѕРґРёРЅ Рё С‚РѕС‚ Р¶Рµ, РёСЃРїРѕР»СЊР·СѓРµРј memmove
 				else if (oldWidth > mWidthVisible)
 				{
 					for (int y = 0; y < height; ++y)
@@ -145,7 +145,7 @@ namespace helpers
 					}
 				}
 
-				// высота увеличилась, закрашиваем белым невалидный кусок
+				// РІС‹СЃРѕС‚Р° СѓРІРµР»РёС‡РёР»Р°СЃСЊ, Р·Р°РєСЂР°С€РёРІР°РµРј Р±РµР»С‹Рј РЅРµРІР°Р»РёРґРЅС‹Р№ РєСѓСЃРѕРє
 				if (oldHeight < mHeightVisible)
 				{
 					dest = mBuffer + (oldHeight * width_bytes_dest);
@@ -180,7 +180,7 @@ namespace helpers
 		{
 			if (_width > 0 && _height > 0)
 			{
-				// куда бы мы не двигали размер меньше на прокручиваемую область
+				// РєСѓРґР° Р±С‹ РјС‹ РЅРµ РґРІРёРіР°Р»Рё СЂР°Р·РјРµСЂ РјРµРЅСЊС€Рµ РЅР° РїСЂРѕРєСЂСѓС‡РёРІР°РµРјСѓСЋ РѕР±Р»Р°СЃС‚СЊ
 				_width -= std::abs(_dx);
 				_height -= std::abs(_dy);
 
@@ -209,9 +209,9 @@ namespace helpers
 
 			for (int y = 0; y < _height; ++y)
 			{
-				// копируем из себя в себя же, нуна memmove
+				// РєРѕРїРёСЂСѓРµРј РёР· СЃРµР±СЏ РІ СЃРµР±СЏ Р¶Рµ, РЅСѓРЅР° memmove
 				memmove(data, source, width_bytes_dest);
-				// источник мы и есть, ширина строки такая же как и у приемника
+				// РёСЃС‚РѕС‡РЅРёРє РјС‹ Рё РµСЃС‚СЊ, С€РёСЂРёРЅР° СЃС‚СЂРѕРєРё С‚Р°РєР°СЏ Р¶Рµ РєР°Рє Рё Сѓ РїСЂРёРµРјРЅРёРєР°
 				data += width_bytes_visible;
 				source += width_bytes_visible;
 			}
@@ -231,10 +231,10 @@ namespace helpers
 
 			for (int y = 0; y < _height; ++y)
 			{
-				// источник мы и есть, ширина строки такая же как и у приемника
+				// РёСЃС‚РѕС‡РЅРёРє РјС‹ Рё РµСЃС‚СЊ, С€РёСЂРёРЅР° СЃС‚СЂРѕРєРё С‚Р°РєР°СЏ Р¶Рµ РєР°Рє Рё Сѓ РїСЂРёРµРјРЅРёРєР°
 				data -= width_bytes_visible;
 				source -= width_bytes_visible;
-				// копируем из себя в себя же, нуна memmove
+				// РєРѕРїРёСЂСѓРµРј РёР· СЃРµР±СЏ РІ СЃРµР±СЏ Р¶Рµ, РЅСѓРЅР° memmove
 				memmove(data, source, width_bytes_dest);
 			}
 		}

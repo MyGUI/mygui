@@ -140,7 +140,7 @@ namespace tools
 		region = Data::CreateInstance();
 		region->setType(DataTypeManager::getInstance().getType("Region"));
 		region->setPropertyValue("Name", names[RegionCenter]);
-		region->setPropertyValue("Enable", "True"); // Center всегда доступен
+		region->setPropertyValue("Enable", "True"); // Center РІСЃРµРіРґР° РґРѕСЃС‚СѓРїРµРЅ
 		_skinData->addChild(region);
 
 		region = Data::CreateInstance();
@@ -299,7 +299,7 @@ namespace tools
 			else if (name == names[RegionLeft])
 				(*child)->setPropertyValue("Enable", _value.left);
 			else if (name == names[RegionCenter])
-				(*child)->setPropertyValue("Enable", true); // всегда доступен
+				(*child)->setPropertyValue("Enable", true); // РІСЃРµРіРґР° РґРѕСЃС‚СѓРїРµРЅ
 			else if (name == names[RegionRight])
 				(*child)->setPropertyValue("Enable", _value.right);
 			else if (name == names[RegionLeftBottom])

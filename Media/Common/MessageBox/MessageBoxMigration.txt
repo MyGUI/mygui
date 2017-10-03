@@ -1,9 +1,9 @@
-1. добавить в проект путь к ресурсам MesageBox
+1. add MessageBox resources to the project path
 addResourceLocation(getRootMedia() + "/Common/MessageBox");
 
-2. загрузить ресурсы
+2. load resources
 MyGUI::ResourceManager::getInstance().load("MessageBoxResources.xml");
 
-3. подключить заголовок класса
+3. include the class header
 #include "MessageBox/MessageBox.h"
 

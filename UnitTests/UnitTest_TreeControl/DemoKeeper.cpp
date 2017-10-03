@@ -12,7 +12,7 @@
 
 #include "FileSystemInfo/FileSystemInfo.h"
 
-// рутовая папка всей медиа
+// СЂСѓС‚РѕРІР°СЏ РїР°РїРєР° РІСЃРµР№ РјРµРґРёР°
 MyGUI::UString gMediaBase;
 typedef std::pair<std::wstring, common::FileInfo> PairFileInfo;
 
@@ -130,7 +130,7 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 	}
 #else*/
 	PairFileInfo info = *(pNode->getData<PairFileInfo>());
-	// если папка, то добавляем детей
+	// РµСЃР»Рё РїР°РїРєР°, С‚Рѕ РґРѕР±Р°РІР»СЏРµРј РґРµС‚РµР№
 	if (info.second.folder)
 	{
 		std::wstring path = info.first + L"/" + info.second.name;

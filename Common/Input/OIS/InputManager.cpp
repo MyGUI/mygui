@@ -56,19 +56,19 @@ namespace input
 			// http://www.fileformat.info/info/unicode/block/combining_diacritical_marks/images.htm
 			switch (buff[0])
 			{
-			case 0x5E: // Circumflex accent: â
+			case 0x5E: // Circumflex accent: Ã¢
 				deadKey = 0x302;
 				break;
-			case 0x60: // Grave accent: à
+			case 0x60: // Grave accent: Ã 
 				deadKey = 0x300;
 				break;
-			case 0xA8: // Diaeresis: ü
+			case 0xA8: // Diaeresis: Ã¼
 				deadKey = 0x308;
 				break;
-			case 0xB4: // Acute accent: é
+			case 0xB4: // Acute accent: Ã©
 				deadKey = 0x301;
 				break;
-			case 0xB8: // Cedilla: ç
+			case 0xB8: // Cedilla: Ã§
 				deadKey = 0x327;
 				break;
 			default:

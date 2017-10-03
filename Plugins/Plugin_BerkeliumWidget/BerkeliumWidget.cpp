@@ -24,7 +24,7 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		// FIXME нам нужен фокус клавы
+		// FIXME РЅР°Рј РЅСѓР¶РµРЅ С„РѕРєСѓСЃ РєР»Р°РІС‹
 		setNeedKeyFocus(true);
 
 		updateSize();

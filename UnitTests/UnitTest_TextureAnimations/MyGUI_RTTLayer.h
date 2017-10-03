@@ -25,15 +25,15 @@ namespace MyGUI
 
 		virtual void deserialization(xml::ElementPtr _node, Version _version);
 
-		// создаем дочерний нод
+		// СЃРѕР·РґР°РµРј РґРѕС‡РµСЂРЅРёР№ РЅРѕРґ
 		virtual ILayerNode* createChildItemNode();
-		// удаляем дочерний нод
+		// СѓРґР°Р»СЏРµРј РґРѕС‡РµСЂРЅРёР№ РЅРѕРґ
 		virtual void destroyChildItemNode(ILayerNode* _node);
 
-		// возвращает виджет по позиции
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РІРёРґР¶РµС‚ РїРѕ РїРѕР·РёС†РёРё
 		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) const;
 
-		// рисует леер
+		// СЂРёСЃСѓРµС‚ Р»РµРµСЂ
 		virtual void renderToTarget(IRenderTarget* _target, bool _update);
 
 	private:

@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	// без параметров
+	// Р±РµР· РїР°СЂР°РјРµС‚СЂРѕРІ
 	#define MYGUI_SUFFIX       0
 	#define MYGUI_TEMPLATE
 	#define MYGUI_TEMPLATE_PARAMS
@@ -26,7 +26,7 @@ namespace MyGUI
 
 	#include "FunctorDelegateImplementation.h"
 
-	// один параметр
+	// РѕРґРёРЅ РїР°СЂР°РјРµС‚СЂ
 	#define MYGUI_SUFFIX       1
 	#define MYGUI_TEMPLATE	template
 	#define MYGUI_TEMPLATE_PARAMS  <typename TP1>
@@ -39,7 +39,7 @@ namespace MyGUI
 
 	#include "FunctorDelegateImplementation.h"
 
-	// два параметра
+	// РґРІР° РїР°СЂР°РјРµС‚СЂР°
 	#define MYGUI_SUFFIX       2
 	#define MYGUI_TEMPLATE	template
 	#define MYGUI_TEMPLATE_PARAMS  <typename TP1, typename TP2>
@@ -52,7 +52,7 @@ namespace MyGUI
 
 	#include "FunctorDelegateImplementation.h"
 
-	// три параметра
+	// С‚СЂРё РїР°СЂР°РјРµС‚СЂР°
 	#define MYGUI_SUFFIX       3
 	#define MYGUI_TEMPLATE	template
 	#define MYGUI_TEMPLATE_PARAMS  <typename TP1, typename TP2, typename TP3>
@@ -65,7 +65,7 @@ namespace MyGUI
 
 	#include "FunctorDelegateImplementation.h"
 
-	// четыре параметра
+	// С‡РµС‚С‹СЂРµ РїР°СЂР°РјРµС‚СЂР°
 	#define MYGUI_SUFFIX       4
 	#define MYGUI_TEMPLATE	template
 	#define MYGUI_TEMPLATE_PARAMS  <typename TP1, typename TP2, typename TP3, typename TP4>
@@ -78,7 +78,7 @@ namespace MyGUI
 
 	#include "FunctorDelegateImplementation.h"
 
-	// пять параметров
+	// РїСЏС‚СЊ РїР°СЂР°РјРµС‚СЂРѕРІ
 	#define MYGUI_SUFFIX       5
 	#define MYGUI_TEMPLATE	template
 	#define MYGUI_TEMPLATE_PARAMS  <typename TP1, typename TP2, typename TP3, typename TP4, typename TP5>
@@ -91,7 +91,7 @@ namespace MyGUI
 
 	#include "FunctorDelegateImplementation.h"
 
-	// шесть параметров
+	// С€РµСЃС‚СЊ РїР°СЂР°РјРµС‚СЂРѕРІ
 	#define MYGUI_SUFFIX       6
 	#define MYGUI_TEMPLATE	template
 	#define MYGUI_TEMPLATE_PARAMS  <typename TP1, typename TP2, typename TP3, typename TP4, typename TP5, typename TP6>

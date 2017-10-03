@@ -53,7 +53,7 @@ namespace tools
 		}
 		else
 		{
-			// логировать если это ошибка формата xml
+			// Р»РѕРіРёСЂРѕРІР°С‚СЊ РµСЃР»Рё СЌС‚Рѕ РѕС€РёР±РєР° С„РѕСЂРјР°С‚Р° xml
 		}
 
 		return result;
@@ -144,7 +144,7 @@ namespace tools
 	{
 		bool listElement = MyGUI::utility::endWith(_nodeTarget.name(), ".List");
 
-		// затираем текст у цели потому что любое значение текста источника является конечным
+		// Р·Р°С‚РёСЂР°РµРј С‚РµРєСЃС‚ Сѓ С†РµР»Рё РїРѕС‚РѕРјСѓ С‡С‚Рѕ Р»СЋР±РѕРµ Р·РЅР°С‡РµРЅРёРµ С‚РµРєСЃС‚Р° РёСЃС‚РѕС‡РЅРёРєР° СЏРІР»СЏРµС‚СЃСЏ РєРѕРЅРµС‡РЅС‹Рј
 		pugi::xml_node targetTextNode = _nodeTarget.first_child();
 		if (!targetTextNode.empty() && targetTextNode.type() == pugi::node_pcdata)
 			targetTextNode.set_value("");
@@ -206,7 +206,7 @@ namespace tools
 		}
 		else
 		{
-			// логировать если это ошибка формата xml
+			// Р»РѕРіРёСЂРѕРІР°С‚СЊ РµСЃР»Рё СЌС‚Рѕ РѕС€РёР±РєР° С„РѕСЂРјР°С‚Р° xml
 		}
 
 		return result;
