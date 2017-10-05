@@ -302,6 +302,8 @@ namespace MyGUI
 		size_t getIndexByWidget(Widget* _widget);
 
 	private:
+		friend class MultiListBox; // experimental
+
 		std::string mSkinLine;
 		ScrollBar* mWidgetScroll;
 
