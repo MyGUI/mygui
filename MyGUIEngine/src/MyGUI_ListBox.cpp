@@ -60,7 +60,6 @@ namespace MyGUI
 		{
 			mWidgetScroll->eventScrollChangePosition += newDelegate(this, &ListBox::notifyScrollChangePosition);
 			mWidgetScroll->setScrollPage((size_t)mHeightLine);
-			mWidgetScroll->setScrollViewPage((size_t)mHeightLine);
 		}
 
 		updateScroll();
@@ -299,6 +298,7 @@ namespace MyGUI
 		}
 
 		mWidgetScroll->setScrollRange(mRangeIndex + 1);
+		mWidgetScroll->setScrollViewPage(_getClientWidget()->getHeight());
 		if (!mItemsInfo.empty())
 			mWidgetScroll->setTrackSize(mWidgetScroll->getLineSize() * _getClientWidget()->getHeight() / mHeightLine / (int)mItemsInfo.size());
 	}
