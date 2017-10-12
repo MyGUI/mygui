@@ -217,7 +217,7 @@ namespace MyGUI
 		{
 			size_t page = getVScrollPage();
 			mVScroll->setScrollPage(page);
-			mVScroll->setScrollViewPage(viewSize.width > (int)page ? viewSize.width : page);
+			mVScroll->setScrollViewPage(viewSize.height > (int)page ? viewSize.height : page);
 			mVScroll->setScrollRange(mVRange + 1);
 			if (contentSize.height) mVScroll->setTrackSize(int (float(mVScroll->getLineSize() * viewSize.height) / float(contentSize.height)));
 		}
@@ -225,7 +225,7 @@ namespace MyGUI
 		{
 			size_t page = getHScrollPage();
 			mHScroll->setScrollPage(page);
-			mHScroll->setScrollViewPage(viewSize.height > (int)page ? viewSize.height : page);
+			mHScroll->setScrollViewPage(viewSize.width > (int)page ? viewSize.width : page);
 			mHScroll->setScrollRange(mHRange + 1);
 			if (contentSize.width) mHScroll->setTrackSize(int (float(mHScroll->getLineSize() * viewSize.width) / float(contentSize.width)));
 		}
