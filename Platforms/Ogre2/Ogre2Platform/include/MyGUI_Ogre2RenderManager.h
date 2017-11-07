@@ -135,9 +135,6 @@ namespace MyGUI
 
 		Ogre::RenderWindow* getRenderWindow();
 
-		bool getManualRender();
-		void setManualRender(bool _value);
-
 		void render();
 
 		size_t getBatchCount() const;
