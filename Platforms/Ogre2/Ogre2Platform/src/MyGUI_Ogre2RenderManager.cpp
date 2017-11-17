@@ -59,7 +59,7 @@ namespace MyGUI
 		mPassProvider.reset(new OgreCompositorPassProvider());
 
 		Ogre::CompositorManager2* pCompositorManager = Ogre::Root::getSingleton().getCompositorManager2();
-		
+
 		// don't overwrite a custom pass provider that the user may have registered already
 		if (!pCompositorManager->getCompositorPassProvider())
 		{
@@ -67,7 +67,7 @@ namespace MyGUI
 		}
 		else
 		{
-			MYGUI_PLATFORM_LOG(Warning, "A custom pass provider is already installed." << 
+			MYGUI_PLATFORM_LOG(Warning, "A custom pass provider is already installed." <<
 										"MyGui passes will not work unless the registered provider can create MyGui passes");
 		}
 
@@ -179,7 +179,7 @@ namespace MyGUI
 		mSceneManager = _scene;
 		if (mSceneManager != nullptr)
 		{
-			mSceneManager->getRenderQueue()->setSortRenderQueue(RENDER_QUEUE_OVERLAY, false);
+			mSceneManager->getRenderQueue()->setSortRenderQueue(RENDER_QUEUE_OVERLAY, Ogre::RenderQueue::RqSortMode::DisableSort);
 		}
 	}
 
@@ -216,7 +216,7 @@ namespace MyGUI
 		setManualRender(true);
 
 		mSceneManager->getRenderQueue()->clear();
-		
+
 		//get mygui to itterate through renderables and call 'doRender'
 		//This will add renderbles to the Ogre render queue
 		onRenderToTarget(this, mUpdate);
@@ -252,9 +252,8 @@ namespace MyGUI
 	// для оповещений об изменении окна рендера
 	void Ogre2RenderManager::windowResized(Ogre::RenderWindow* _window)
 	{
-
-		mViewSize.set(_window->getWidth(), _window->getHeight());
-
+		float scale = _window->getViewPointToPixelScale();
+		mViewSize.set(_window->getWidth() / scale, _window->getHeight() / scale);
 		// обновить всех
 		mUpdate = true;
 
