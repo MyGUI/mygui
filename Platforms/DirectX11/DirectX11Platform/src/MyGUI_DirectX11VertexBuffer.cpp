@@ -21,6 +21,7 @@ namespace MyGUI
 		mBuffer(nullptr),
 		mManager(_pRenderManager)
 	{
+		create();
 	}
 
 	DirectX11VertexBuffer::~DirectX11VertexBuffer()
@@ -30,11 +31,7 @@ namespace MyGUI
 
 	void DirectX11VertexBuffer::setVertexCount(size_t _count)
 	{
-		if (_count != mNeedVertexCount && _count != 0)
-		{
-			mNeedVertexCount = _count;
-			resize();
-		}
+		mNeedVertexCount = _count;
 	}
 
 	size_t DirectX11VertexBuffer::getVertexCount()
@@ -44,7 +41,8 @@ namespace MyGUI
 
 	Vertex* DirectX11VertexBuffer::lock()
 	{
-		if (!mBuffer) create();
+		if (mNeedVertexCount > mVertexCount) resize();
+		
 		D3D11_MAPPED_SUBRESOURCE map;
 		memset(&map, 0, sizeof(map));
 		mManager->mpD3DContext->Map(mBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &map);
@@ -63,7 +61,7 @@ namespace MyGUI
 		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 		desc.MiscFlags = 0;
 		desc.StructureByteStride = 0;
-		desc.ByteWidth = sizeof(Vertex) * (mNeedVertexCount);
+		desc.ByteWidth = sizeof(Vertex) * (mVertexCount);
 		desc.Usage = D3D11_USAGE_DYNAMIC;
 		HRESULT hr = mManager->mpD3DDevice->CreateBuffer(&desc, 0, &mBuffer);
 		MYGUI_PLATFORM_ASSERT(hr == S_OK, "Create Buffer failed!");
@@ -81,6 +79,7 @@ namespace MyGUI
 
 	void DirectX11VertexBuffer::resize()
 	{
+		mVertexCount = mNeedVertexCount + RENDER_ITEM_STEEP_REALLOCK;
 		destroy();
 		create();
 	}
