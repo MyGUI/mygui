@@ -43,13 +43,13 @@ namespace MyGUI
 		size_t getItemCount() const;
 
 		//! Insert an item into a array at a specified position
-		void insertItemAt(size_t _index, Any _data = Any::Null);
+		void insertItemAt(size_t _index, Any _data = Any::Null, bool update = true);
 
 		//! Add an item to the end of a array
-		void addItem(Any _data = Any::Null);
+		void addItem(Any _data = Any::Null, bool update = true);
 
 		//! Remove item at a specified position
-		void removeItemAt(size_t _index);
+		void removeItemAt(size_t _index, bool update = true);
 
 		//! Remove all items
 		void removeAllItems();
