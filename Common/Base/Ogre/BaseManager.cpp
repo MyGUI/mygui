@@ -8,6 +8,10 @@
 #include "BaseManager.h"
 #include <MyGUI_OgrePlatform.h>
 
+#if (OGRE_VERSION >= ((1 << 16) | (10 << 8) | 0))
+#include <OgreBitesConfigDialog.h>
+#endif
+
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #	include <windows.h>
 #elif MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
@@ -79,7 +83,11 @@ namespace base
 		if (!mRoot->restoreConfig())
 		{
 			// ничего не получилось, покажем диалог
+			#if (OGRE_VERSION >= ((1 << 16) | (10 << 8) | 0))
+			if (!mRoot->showConfigDialog(OgreBites::getNativeConfigDialog())) return false;
+			#else
 			if (!mRoot->showConfigDialog()) return false;
+			#endif
 		}
 
 		mWindow = mRoot->initialise(true);

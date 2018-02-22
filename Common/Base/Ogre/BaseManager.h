@@ -14,6 +14,8 @@
 #include "PointerManager.h"
 #include "MyGUI_LastHeader.h"
 
+#include <OgreWindowEventUtilities.h>
+
 namespace MyGUI
 {
 	class OgrePlatform;
