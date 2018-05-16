@@ -13,6 +13,7 @@
 #include "MyGUI_RenderManager.h"
 
 #include <Ogre.h>
+#include <OgreWindowEventUtilities.h>
 
 #include "MyGUI_LastHeader.h"
 

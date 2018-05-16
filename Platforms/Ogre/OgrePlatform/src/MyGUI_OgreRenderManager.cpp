@@ -112,7 +112,7 @@ namespace MyGUI
 
 			updateRenderInfo();
 
-			if (!mRenderSystem->getFixedPipelineEnabled())
+			if (!mRenderSystem->getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION))
 			{
 				mVertexProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
 					"MyGUI_VP.glsles",
@@ -341,7 +341,7 @@ namespace MyGUI
 		mRenderSystem->_setCullingMode(Ogre::CULL_NONE);
 		mRenderSystem->_setFog(Ogre::FOG_NONE);
 		mRenderSystem->_setColourBufferWriteEnabled(true, true, true, true);
-		if (mRenderSystem->getFixedPipelineEnabled())
+		if (mRenderSystem->getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION))
 		{
 			mRenderSystem->unbindGpuProgram(Ogre::GPT_FRAGMENT_PROGRAM);
 			mRenderSystem->unbindGpuProgram(Ogre::GPT_VERTEX_PROGRAM);
