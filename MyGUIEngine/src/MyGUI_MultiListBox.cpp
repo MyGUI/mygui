@@ -88,6 +88,12 @@ namespace MyGUI
 		updateColumns();
 	}
 
+	void MultiListBox::setColumnSkinLineAt(size_t _column, const std::string& _skin)
+	{
+		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::setColumnSkinLineAt");
+		mVectorColumnInfo[_column].list->mSkinLine = _skin;
+	}
+
 	void MultiListBox::setColumnWidthAt(size_t _column, int _width)
 	{
 		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::setColumnWidthAt");

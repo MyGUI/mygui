@@ -140,6 +140,13 @@ namespace MyGUI
 		*/
 		void setColumnResizingPolicyAt(size_t _index, ResizingPolicy _value);
 
+		/** Set column item skin (experimental)
+		@param _column Index of column
+		@param _skin New skin (default: "ListBoxItem")
+		@note Should be called before adding item
+		*/
+		void setColumnSkinLineAt(size_t _column, const std::string& _skin);
+
 		//------------------------------------------------------------------------------//
 		// манипуляции данными
 
