@@ -376,9 +376,14 @@ namespace MyGUI
 		if (mSortUp)
 			std::swap(_left, _right);
 		if (requestOperatorLess.empty())
+		{
 			result = _list->getItemNameAt(_left) < _list->getItemNameAt(_right);
+		}
 		else
-			requestOperatorLess(this, mSortColumnIndex, _list->getItemNameAt(_left), _list->getItemNameAt(_right), result);
+		{
+			requestOperatorLess.m_eventObsolete(this, mSortColumnIndex, _list->getItemNameAt(_left), _list->getItemNameAt(_right), result);
+			requestOperatorLess.m_event(this, mSortColumnIndex, BiIndexBase::convertToFace(_left), BiIndexBase::convertToFace(_right), result);
+		}
 		return result;
 	}
 

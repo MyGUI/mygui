@@ -24,6 +24,7 @@ namespace MyGUI
 	typedef delegates::CMultiDelegate5<Widget*, size_t, const UString&, const UString&, bool&> EventHandle_WidgetIntUTFStringUTFStringBool;
 
 	typedef delegates::CDelegate5<MultiListBox*, size_t, const UString&, const UString&, bool&> EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef;
+	typedef delegates::CDelegate5<MultiListBox*, size_t, size_t, size_t, bool&> EventHandle_MultiListPtrSizeTSizeTSizeTBoolRef;
 	typedef delegates::CMultiDelegate2<MultiListBox*, size_t> EventHandle_MultiListPtrSizeT;
 
 	/** \brief @wpage{MultiListBox}
@@ -278,14 +279,14 @@ namespace MyGUI
 		EventPair<EventHandle_WidgetSizeT, EventHandle_MultiListPtrSizeT> eventListChangePosition;
 
 		/** Event : Less than operator for sort multilist by columns.\n
-			signature : void method(MyGUI::MultiListBox* _sender, size_t _column, const MyGUI::UString& _firstItem, const MyGUI::UString& _secondItem, bool& _less)\n
+			signature : void method(MyGUI::MultiListBox* _sender, size_t _column, size_t _index1, size_t _index2, bool& _less)\n
 			@param _sender widget that called this event
 			@param _column Index of column
-			@param _firstItem Strings for compare
-			@param _secondItem Strings for compare
+			@param _index1 Index of row for compare
+			@param _index2 Index of row for compare
 			@param _less Comparsion result (write your value here)
 		*/
-		EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef requestOperatorLess;
+		EventPair<EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef, EventHandle_MultiListPtrSizeTSizeTSizeTBoolRef> requestOperatorLess;
 
 		/*internal:*/
 		// IItemContainer impl
