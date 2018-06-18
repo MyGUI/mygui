@@ -375,7 +375,9 @@ namespace MyGUI
 		bool result = false;
 		if (mSortUp)
 			std::swap(_left, _right);
-		if (requestOperatorLess.empty())
+		if (!requestOperatorLess2.empty())
+			requestOperatorLess2(this, mSortColumnIndex, BiIndexBase::convertToFace(_left), BiIndexBase::convertToFace(_right), result);
+		else if (requestOperatorLess.empty())
 			result = _list->getItemNameAt(_left) < _list->getItemNameAt(_right);
 		else
 			requestOperatorLess(this, mSortColumnIndex, _list->getItemNameAt(_left), _list->getItemNameAt(_right), result);
