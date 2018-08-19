@@ -21,6 +21,7 @@ struct ID3D11Device;
 struct ID3D11DeviceContext;
 struct ID3D11RenderTargetView;
 struct IDXGISwapChain;
+struct ID3D11Texture2D;
 
 
 struct HWND__;
@@ -96,6 +97,7 @@ namespace base
 		ID3D11Device* mDevice;
 		ID3D11DeviceContext* mDeviceContext;
 		IDXGISwapChain* mSwapChain;
+		ID3D11Texture2D* mBackBuffer;
 		ID3D11RenderTargetView* mRenderTarget;
 		HINSTANCE hInstance;
 
