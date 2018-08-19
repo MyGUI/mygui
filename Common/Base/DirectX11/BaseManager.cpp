@@ -422,8 +422,29 @@ namespace base
 	{
 		if (mDevice != nullptr)
 		{
-			// Ресайзимся
+
+			// Release the current render target view and its back buffer
+			mDeviceContext->OMSetRenderTargets(0, NULL, NULL);
+			if (mRenderTarget)
+			{
+				mRenderTarget->Release();
+				mRenderTarget = nullptr;
+			}
+			if (mBackBuffer) {
+				mBackBuffer->Release();
+				mBackBuffer = nullptr;
+			}
+
+			// Resize
 			mSwapChain->ResizeBuffers(1, _width, _height, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
+
+			// Acquire the new back buffer
+			mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&mBackBuffer);
+
+			// Create a new render target from the resized buffer
+			mDevice->CreateRenderTargetView(mBackBuffer, NULL, &mRenderTarget);
+			// Set the new render target
+			mDeviceContext->OMSetRenderTargets(1, &mRenderTarget, NULL);
 
 			// Устанавливаем новый вьюпорт
 			D3D11_VIEWPORT vp;
@@ -490,14 +511,12 @@ namespace base
 		{
 			return false;
 		}
-
-		ID3D11Texture2D* backBuffer;
-
+		
 		// Достаём back buffer из swap chain
-		hr = mSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&backBuffer );
+		hr = mSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&mBackBuffer);
 
 		// Создаём render target для back buffer
-		mDevice->CreateRenderTargetView( backBuffer, NULL, &mRenderTarget );
+		mDevice->CreateRenderTargetView(mBackBuffer, NULL, &mRenderTarget );
 
 		// Устанавливаем back buffer rt текущим
 		mDeviceContext->OMSetRenderTargets( 1, &mRenderTarget, NULL );
@@ -535,6 +554,10 @@ namespace base
 		{
 			mRenderTarget->Release();
 			mRenderTarget = nullptr;
+		}
+		if (mBackBuffer) {
+			mBackBuffer->Release();
+			mBackBuffer = nullptr;
 		}
 		if (mSwapChain)
 		{
