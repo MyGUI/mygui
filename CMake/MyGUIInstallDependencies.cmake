@@ -69,7 +69,5 @@ if (MYGUI_TRY_TO_COPY_DLLS)
 		endif ()
 		
 		install_dll_file(${DEBUG_DLLS_DIR}/ ${RELEASE_DLLS_DIR}/ OgreMain)
-		install_dll_file(${DEBUG_DLLS_DIR}/ ${RELEASE_DLLS_DIR}/ RenderSystem_Direct3D9)
-		install_dll_file(${DEBUG_DLLS_DIR}/ ${RELEASE_DLLS_DIR}/ RenderSystem_GL)
 	endif ()
 endif ()
