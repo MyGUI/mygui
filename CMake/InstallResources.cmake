@@ -30,21 +30,14 @@ function(install_file FILENAME)
 endfunction(install_file)
 
 if (MYGUI_RENDERSYSTEM EQUAL 3)
+	# copy plugins.cfg
 	if (WIN32)
-		option(MYGUI_OGRE_WAS_BUILT_WITH_DIRECTX "Ogre have DirectX render ssystem and we don't need to disable it" TRUE)
-		MARK_AS_ADVANCED(MYGUI_OGRE_WAS_BUILT_WITH_DIRECTX)
-		
-		set(MYGUI_PLUGIN_DIR_DBG ".")
-		set(MYGUI_PLUGIN_DIR_REL ".")
-		if (MYGUI_OGRE_WAS_BUILT_WITH_DIRECTX)
-			set(MYGUI_NO_PLUGIN_OGRE_DIRECTX "")
-		else ()
-			set(MYGUI_NO_PLUGIN_OGRE_DIRECTX "#")
-		endif ()
-	elseif (UNIX)
-		set(MYGUI_PLUGIN_DIR_DBG ${OGRE_PLUGIN_DIR_DBG})
-		set(MYGUI_PLUGIN_DIR_REL ${OGRE_PLUGIN_DIR_REL})
-		set(MYGUI_NO_PLUGIN_OGRE_DIRECTX "#")
+		configure_file(${OGRE_CONFIG_DIR}/plugins_d.cfg ${MYGUI_BINARY_DIR}/bin/debug/plugins.cfg)
+		file(COPY ${OGRE_CONFIG_DIR}/plugins.cfg DESTINATION ${MYGUI_BINARY_DIR}/bin/release/)
+		file(COPY ${OGRE_CONFIG_DIR}/plugins.cfg DESTINATION ${MYGUI_BINARY_DIR}/bin/relwithdebinfo/)
+		file(COPY ${OGRE_CONFIG_DIR}/plugins.cfg DESTINATION ${MYGUI_BINARY_DIR}/bin/minsizerel/)
+	else()
+		file(COPY ${OGRE_CONFIG_DIR}/plugins.cfg DESTINATION ${MYGUI_BINARY_DIR}/bin/)
 	endif()
 endif ()
 
@@ -61,11 +54,6 @@ if (MYGUI_INSTALL_SAMPLES OR MYGUI_INSTALL_TOOLS)
 		# create resources.xml
 		configure_file(${MYGUI_TEMPLATES_DIR}/resources.xml.in ${MYGUI_BINARY_DIR}/bin/debug/resources.xml)
 		configure_file(${MYGUI_TEMPLATES_DIR}/resources.xml.in ${MYGUI_BINARY_DIR}/bin/release/resources.xml)
-		if (MYGUI_RENDERSYSTEM EQUAL 3)
-			# create plugins.cfg
-			configure_file(${MYGUI_TEMPLATES_DIR}/plugins_d.cfg.in ${MYGUI_BINARY_DIR}/bin/debug/plugins.cfg)
-			configure_file(${MYGUI_TEMPLATES_DIR}/plugins.cfg.in ${MYGUI_BINARY_DIR}/bin/release/plugins.cfg)
-		endif ()
 	else() # other OS only need one cfg file
 		string(TOLOWER "${CMAKE_BUILD_TYPE}" MYGUI_BUILD_TYPE)
 		if (MYGUI_BUILD_TYPE STREQUAL "debug" AND NOT APPLE)
@@ -73,10 +61,6 @@ if (MYGUI_INSTALL_SAMPLES OR MYGUI_INSTALL_TOOLS)
 		endif ()
 		# create resources.xml
 		configure_file(${MYGUI_TEMPLATES_DIR}/resources.xml.in ${MYGUI_BINARY_DIR}/bin/resources.xml)
-		if (MYGUI_RENDERSYSTEM EQUAL 3)
-			# create plugins.cfg
-			configure_file(${MYGUI_TEMPLATES_DIR}/plugins${MYGUI_CFG_SUFFIX}.cfg.in ${MYGUI_BINARY_DIR}/bin/plugins.cfg)
-		endif ()
 	endif ()
 	
 	install_file (resources.xml)
@@ -93,13 +77,6 @@ else ()
 		configure_file(${MYGUI_TEMPLATES_DIR}/resources.xml.in ${MYGUI_BINARY_DIR}/bin/release/resources.xml)
 		configure_file(${MYGUI_TEMPLATES_DIR}/resources.xml.in ${MYGUI_BINARY_DIR}/bin/relwithdebinfo/resources.xml)
 		configure_file(${MYGUI_TEMPLATES_DIR}/resources.xml.in ${MYGUI_BINARY_DIR}/bin/minsizerel/resources.xml)
-		if (MYGUI_RENDERSYSTEM EQUAL 3)
-			# create plugins.cfg
-			configure_file(${MYGUI_TEMPLATES_DIR}/plugins_d.cfg.in ${MYGUI_BINARY_DIR}/bin/debug/plugins.cfg)
-			configure_file(${MYGUI_TEMPLATES_DIR}/plugins.cfg.in ${MYGUI_BINARY_DIR}/bin/release/plugins.cfg)
-			configure_file(${MYGUI_TEMPLATES_DIR}/plugins.cfg.in ${MYGUI_BINARY_DIR}/bin/relwithdebinfo/plugins.cfg)
-			configure_file(${MYGUI_TEMPLATES_DIR}/plugins.cfg.in ${MYGUI_BINARY_DIR}/bin/minsizerel/plugins.cfg)
-		endif ()
 	else() # other OS only need one cfg file
 		string(TOLOWER "${CMAKE_BUILD_TYPE}" MYGUI_BUILD_TYPE)
 		if (MYGUI_BUILD_TYPE STREQUAL "debug" AND NOT APPLE)
@@ -107,10 +84,6 @@ else ()
 		endif ()
 		# create resources.xml
 		configure_file(${MYGUI_TEMPLATES_DIR}/resources.xml.in ${MYGUI_BINARY_DIR}/bin/resources.xml)
-		if (MYGUI_RENDERSYSTEM EQUAL 3)
-			# create plugins.cfg
-			configure_file(${MYGUI_TEMPLATES_DIR}/plugins${MYGUI_CFG_SUFFIX}.cfg.in ${MYGUI_BINARY_DIR}/bin/plugins.cfg)
-		endif ()
 	endif ()
 
 endif ()

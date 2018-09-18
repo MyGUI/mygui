@@ -134,6 +134,15 @@ if (NOT OGRE_FOUND)
 		ENDIF (OGRE_INCLUDE_DIR AND OGRE_LIBRARIES)
 
 		IF (OGRE_FOUND)
+			# compatibility with CMakeConfig script
+			IF(NOT OGRE_CONFIG_DIR)
+				IF(WIN32)
+					SET(OGRE_CONFIG_DIR "${OGRE_MEDIA_DIR}/../bin/")
+				ELSE()
+					SET(OGRE_CONFIG_DIR "${OGRE_MEDIA_DIR}/../")
+				ENDIF()
+			ENDIF()
+
 			IF (NOT OGRE_FIND_QUIETLY)
 				MESSAGE(STATUS "  libraries : ${OGRE_LIBRARIES} from ${OGRE_LIB_DIR}")
 				MESSAGE(STATUS "  includes  : ${OGRE_INCLUDE_DIR}")
