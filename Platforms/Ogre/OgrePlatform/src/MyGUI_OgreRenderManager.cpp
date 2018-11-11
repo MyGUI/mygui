@@ -114,20 +114,28 @@ namespace MyGUI
 
 			if (!mRenderSystem->getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION))
 			{
+				std::string shaderLanguage;
+				if (Ogre::HighLevelGpuProgramManager::getSingleton().isLanguageSupported("glsl"))
+					shaderLanguage = "glsl";
+				else if (Ogre::HighLevelGpuProgramManager::getSingleton().isLanguageSupported("glsles"))
+					shaderLanguage = "glsles";
+
+				MYGUI_ASSERT(!shaderLanguage.empty(), "No supported shader was found. Only glsl and glsles are implemented so far.")
+
 				mVertexProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
-					"MyGUI_VP.glsles",
+					"MyGUI_VP." + shaderLanguage,
 					OgreDataManager::getInstance().getGroup(),
-					"glsles",
+					shaderLanguage,
 					Ogre::GPT_VERTEX_PROGRAM);
-				mVertexProgram->setSourceFile("MyGUI_VP.glsles");
+				mVertexProgram->setSourceFile("MyGUI_VP." + shaderLanguage);
 				mVertexProgram->load();
 
 				mFragmentProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
-					"MyGUI_FP.glsles",
+					"MyGUI_FP." + shaderLanguage,
 					OgreDataManager::getInstance().getGroup(),
-					"glsles",
+					shaderLanguage,
 					Ogre::GPT_FRAGMENT_PROGRAM);
-				mFragmentProgram->setSourceFile("MyGUI_FP.glsles");
+				mFragmentProgram->setSourceFile("MyGUI_FP." + shaderLanguage);
 				mFragmentProgram->load();
 			}
 		}
