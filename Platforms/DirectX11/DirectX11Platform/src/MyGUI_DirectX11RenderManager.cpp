@@ -159,10 +159,10 @@ namespace MyGUI
 		bytecode = 0;
 		errors = 0;
 		hr = D3DCompile(psSource, strlen(psSource), "PixelShader0", 0, 0, "main", pixelProfile.c_str(), flags, 0, &bytecode, &errors);
-		MYGUI_PLATFORM_ASSERT(hr == S_OK, (errors ? (char*)errors->GetBufferPointer() : "Vertex Shader Compilation failed, unknown errors!"));
+		MYGUI_PLATFORM_ASSERT(hr == S_OK, (errors ? (char*)errors->GetBufferPointer() : "Pixel Shader Compilation failed, unknown errors!"));
 
 		hr = mpD3DDevice->CreatePixelShader(bytecode->GetBufferPointer(), bytecode->GetBufferSize(), 0, &mPixelShader0);
-		MYGUI_PLATFORM_ASSERT(hr == S_OK, (errors ? (char*)errors->GetBufferPointer() : "Vertex Shader Create failed!"));
+		MYGUI_PLATFORM_ASSERT(hr == S_OK, (errors ? (char*)errors->GetBufferPointer() : "Pixel Shader Create failed!"));
 
 		if ( bytecode ) bytecode->Release();
 		if ( errors ) errors->Release();
@@ -172,10 +172,10 @@ namespace MyGUI
 		bytecode = 0;
 		errors = 0;
 		hr = D3DCompile(psTexturedSource, strlen(psTexturedSource), "PixelShader1", 0, 0, "main", pixelProfile.c_str(), flags, 0, &bytecode, &errors);
-		MYGUI_PLATFORM_ASSERT(hr == S_OK, (errors ? (char*)errors->GetBufferPointer() : "Vertex Shader Compilation failed, unknown errors!"));
+		MYGUI_PLATFORM_ASSERT(hr == S_OK, (errors ? (char*)errors->GetBufferPointer() : "Pixel Shader Compilation failed, unknown errors!"));
 
 		hr = mpD3DDevice->CreatePixelShader(bytecode->GetBufferPointer(), bytecode->GetBufferSize(), 0, &mPixelShader1);
-		MYGUI_PLATFORM_ASSERT(hr == S_OK, (errors ? (char*)errors->GetBufferPointer() : "Vertex Shader Create failed!"));
+		MYGUI_PLATFORM_ASSERT(hr == S_OK, (errors ? (char*)errors->GetBufferPointer() : "Pixel Shader Create failed!"));
 
 		if ( bytecode ) bytecode->Release();
 		if ( errors ) errors->Release();

@@ -119,8 +119,10 @@ namespace MyGUI
 					shaderLanguage = "glsl";
 				else if (Ogre::HighLevelGpuProgramManager::getSingleton().isLanguageSupported("glsles"))
 					shaderLanguage = "glsles";
-
-				MYGUI_ASSERT(!shaderLanguage.empty(), "No supported shader was found. Only glsl and glsles are implemented so far.")
+				else if (Ogre::HighLevelGpuProgramManager::getSingleton().isLanguageSupported("hlsl"))
+					shaderLanguage = "hlsl";
+				else
+					MYGUI_EXCEPT("No supported shader was found. Only glsl, glsles and hlsl are implemented so far.")
 
 				mVertexProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
 					"MyGUI_VP." + shaderLanguage,
@@ -128,6 +130,11 @@ namespace MyGUI
 					shaderLanguage,
 					Ogre::GPT_VERTEX_PROGRAM);
 				mVertexProgram->setSourceFile("MyGUI_VP." + shaderLanguage);
+				if (shaderLanguage == "hlsl")
+				{
+					mVertexProgram->setParameter("target", "vs_4_0");
+					mVertexProgram->setParameter("entry_point", "main");
+				}
 				mVertexProgram->load();
 
 				mFragmentProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
@@ -136,6 +143,11 @@ namespace MyGUI
 					shaderLanguage,
 					Ogre::GPT_FRAGMENT_PROGRAM);
 				mFragmentProgram->setSourceFile("MyGUI_FP." + shaderLanguage);
+				if (shaderLanguage == "hlsl")
+				{
+					mFragmentProgram->setParameter("target", "ps_4_0");
+					mFragmentProgram->setParameter("entry_point", "main");
+				}
 				mFragmentProgram->load();
 			}
 		}
@@ -298,7 +310,14 @@ namespace MyGUI
 	{
 		if (mRenderSystem != nullptr)
 		{
-			mInfo.maximumDepth = mRenderSystem->getMaximumDepthInputValue();
+			if (mRenderSystem->getName() == "Direct3D11 Rendering Subsystem") // special case, it's not working with the value returned by the rendersystem
+			{
+				mInfo.maximumDepth = 0.0f;
+			}
+			else
+			{
+				mInfo.maximumDepth = mRenderSystem->getMaximumDepthInputValue();
+			}
 			mInfo.hOffset = mRenderSystem->getHorizontalTexelOffset() / float(mViewSize.width);
 			mInfo.vOffset = mRenderSystem->getVerticalTexelOffset() / float(mViewSize.height);
 			mInfo.aspectCoef = float(mViewSize.height) / float(mViewSize.width);
