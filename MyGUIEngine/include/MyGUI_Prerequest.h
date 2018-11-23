@@ -18,10 +18,6 @@
 
 #define MYGUI_DEFINE_VERSION(major, minor, patch) ((major << 16) | (minor << 8) | patch)
 
-#ifdef MYGUI_NO_CXX11
-#	define nullptr 0
-#endif
-
 namespace MyGUI
 {
 	class Gui;

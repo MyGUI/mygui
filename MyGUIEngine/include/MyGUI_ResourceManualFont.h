@@ -11,9 +11,7 @@
 #include "MyGUI_ITexture.h"
 #include "MyGUI_IFont.h"
 
-#ifndef MYGUI_NO_CXX11
-#	include <unordered_map>
-#endif
+#include <unordered_map>
 
 namespace MyGUI
 {
@@ -54,11 +52,7 @@ namespace MyGUI
 		void loadTexture();
 
 		// A map of code points to glyph info objects.
-#ifdef MYGUI_NO_CXX11
-		typedef std::map<Char, GlyphInfo> CharMap;
-#else
 		typedef std::unordered_map<Char, GlyphInfo> CharMap;
-#endif
 
 		// The following variables are set directly from values specified by the user.
 		std::string mSource; // Source (filename) of the font.
