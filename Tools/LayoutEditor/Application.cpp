@@ -353,7 +353,7 @@ namespace tools
 		CommandManager::getInstance().executeCommand("Command_FileDrop");
 	}
 
-	bool Application::onWinodwClose(size_t _handle)
+	bool Application::onWindowClose(size_t _handle)
 	{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		if (::IsIconic((HWND)_handle))

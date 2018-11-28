@@ -26,7 +26,7 @@ namespace tools
 
 		virtual void prepare();
 		virtual void onFileDrop(const std::wstring& _filename);
-		virtual bool onWinodwClose(size_t _handle);
+		virtual bool onWindowClose(size_t _handle);
 
 		typedef std::vector<std::wstring> VectorWString;
 		const VectorWString& getParams();

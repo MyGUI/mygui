@@ -57,7 +57,7 @@ namespace input
 		// нас пытаются закрыть
 		else if (WM_CLOSE == uMsg)
 		{
-			if (!msInputManager->onWinodwClose((size_t)hWnd))
+			if (!msInputManager->onWindowClose((size_t)hWnd))
 				return 0;
 		}
 		else if ((uMsg >= WM_MOUSEFIRST) && (uMsg <= __WM_REALMOUSELAST))
