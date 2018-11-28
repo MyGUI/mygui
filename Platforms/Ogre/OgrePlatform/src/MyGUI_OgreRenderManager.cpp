@@ -281,7 +281,6 @@ namespace MyGUI
 		delete _buffer;
 	}
 
-	// для оповещений об изменении окна рендера
 	void OgreRenderManager::windowResized(Ogre::RenderWindow* _window)
 	{
 		if (_window->getNumViewports() > mActiveViewport)
@@ -290,19 +289,12 @@ namespace MyGUI
 #if OGRE_VERSION >= MYGUI_DEFINE_VERSION(1, 7, 0) && OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
 			Ogre::OrientationMode orient = port->getOrientationMode();
 			if (orient == Ogre::OR_DEGREE_90 || orient == Ogre::OR_DEGREE_270)
-				mViewSize.set(port->getActualHeight(), port->getActualWidth());
+				setViewSize(port->getActualHeight(), port->getActualWidth());
 			else
-				mViewSize.set(port->getActualWidth(), port->getActualHeight());
+				setViewSize(port->getActualWidth(), port->getActualHeight());
 #else
-			mViewSize.set(port->getActualWidth(), port->getActualHeight());
+			setViewSize(port->getActualWidth(), port->getActualHeight());
 #endif
-
-			// обновить всех
-			mUpdate = true;
-
-			updateRenderInfo();
-
-			onResizeView(mViewSize);
 		}
 	}
 
@@ -512,6 +504,14 @@ namespace MyGUI
 	size_t OgreRenderManager::getBatchCount() const
 	{
 		return mCountBatch;
+	}
+
+	void OgreRenderManager::setViewSize(int _width, int _height)
+	{
+		mViewSize.set(_width, _height);
+		mUpdate = true;
+		updateRenderInfo();
+		onResizeView(mViewSize);
 	}
 
 } // namespace MyGUI

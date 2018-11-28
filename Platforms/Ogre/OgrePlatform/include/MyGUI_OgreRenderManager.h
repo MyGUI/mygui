@@ -93,6 +93,9 @@ namespace MyGUI
 		virtual bool checkTexture(ITexture* _texture);
 #endif
 
+	/*internal:*/
+		void setViewSize(int _width, int _height);
+
 	private:
 		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
 		virtual void renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation);
