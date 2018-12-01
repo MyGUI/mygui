@@ -32,22 +32,22 @@ namespace MyGUI
 			return static_cast<OpenGLESRenderManager*>(RenderManager::getInstancePtr());
 		}
 
-		/** @see OpenGLESRenderManager::getViewSize */
+		/** @see RenderManager::getViewSize */
 		virtual const IntSize& getViewSize() const;
 
-		/** @see OpenGLESRenderManager::getVertexFormat */
+		/** @see RenderManager::getVertexFormat */
 		virtual VertexColourType getVertexFormat();
 
-		/** @see OpenGLESRenderManager::createVertexBuffer */
+		/** @see RenderManager::createVertexBuffer */
 		virtual IVertexBuffer* createVertexBuffer();
-		/** @see OpenGLESRenderManager::destroyVertexBuffer */
+		/** @see RenderManager::destroyVertexBuffer */
 		virtual void destroyVertexBuffer(IVertexBuffer* _buffer);
 
-		/** @see OpenGLESRenderManager::createTexture */
+		/** @see RenderManager::createTexture */
 		virtual ITexture* createTexture(const std::string& _name);
-		/** @see OpenGLESRenderManager::destroyTexture */
+		/** @see RenderManager::destroyTexture */
 		virtual void destroyTexture(ITexture* _texture);
-		/** @see OpenGLESRenderManager::getTexture */
+		/** @see RenderManager::getTexture */
 		virtual ITexture* getTexture(const std::string& _name);
 
 
@@ -60,10 +60,11 @@ namespace MyGUI
 		/** @see IRenderTarget::getInfo */
 		virtual const RenderTargetInfo& getInfo();
 
+		/** @see RenderManager::setViewSize */
+		void setViewSize(int _width, int _height) override;
 
 	/*internal:*/
 		void drawOneFrame();
-		void setViewSize(int _width, int _height);
 		bool isPixelBufferObjectSupported() const;
 
 	private:

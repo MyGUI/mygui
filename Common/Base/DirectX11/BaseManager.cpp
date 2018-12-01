@@ -90,8 +90,7 @@ namespace base
 
 		resizeRender(width, height);
 
-		if (mPlatform)
-			mPlatform->getRenderManagerPtr()->setViewSize(width, height);
+		MyGUI::RenderManager::getInstance().setViewSize(width, height);
 
 		setInputViewSize(width, height);
 	}
@@ -456,8 +455,7 @@ namespace base
 			vp.TopLeftY = 0.0f;
 			mDeviceContext->RSSetViewports( 1, &vp );
 
-			// Устанавливаем новый view size
-			mPlatform->getRenderManagerPtr()->setViewSize(_width, _height);
+			MyGUI::RenderManager::getInstance().setViewSize(_width, _height);
 		}
 	}
 

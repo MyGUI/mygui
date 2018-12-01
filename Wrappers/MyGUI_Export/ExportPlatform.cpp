@@ -29,7 +29,7 @@ namespace Export
 		Convert<int>::Type _width,
 		Convert<int>::Type _height)
 	{
-		mPlatform->getRenderManagerPtr()->setViewSize(_width, _height);
+		MyGUI::RenderManager::getInstance().setViewSize(_width, _height);
 	}
 
 	MYGUIEXPORT void MYGUICALL ExportPlatform_Log(

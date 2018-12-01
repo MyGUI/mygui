@@ -79,8 +79,7 @@ namespace base
 		int width = rect.right - rect.left;
 		int height = rect.bottom - rect.top;
 
-		if (mPlatform)
-			mPlatform->getRenderManagerPtr()->setViewSize(width, height);
+		MyGUI::RenderManager::getInstance().setViewSize(width, height);
 
 		setInputViewSize(width, height);
 	}

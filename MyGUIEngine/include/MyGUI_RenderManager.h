@@ -46,6 +46,9 @@ namespace MyGUI
 		/** Check if texture format supported by hardware */
 		virtual bool isFormatSupported(PixelFormat _format, TextureUsage _usage);
 
+        /** Set render view size. Should be called on every window resize */
+		virtual void setViewSize(int _width, int _height) = 0;
+
 #if MYGUI_DEBUG_MODE == 1
 		/** Check if texture is valid */
 		virtual bool checkTexture(ITexture* _texture);

@@ -29,25 +29,25 @@ namespace MyGUI
 		static OpenGLRenderManager& getInstance();
 		static OpenGLRenderManager* getInstancePtr();
 
-		/** @see OpenGLRenderManager::getViewSize */
+		/** @see RenderManager::getViewSize */
 		virtual const IntSize& getViewSize() const;
 
-		/** @see OpenGLRenderManager::getVertexFormat */
+		/** @see RenderManager::getVertexFormat */
 		virtual VertexColourType getVertexFormat();
 
-		/** @see OpenGLRenderManager::isFormatSupported */
+		/** @see RenderManager::isFormatSupported */
 		virtual bool isFormatSupported(PixelFormat _format, TextureUsage _usage);
 
-		/** @see OpenGLRenderManager::createVertexBuffer */
+		/** @see RenderManager::createVertexBuffer */
 		virtual IVertexBuffer* createVertexBuffer();
-		/** @see OpenGLRenderManager::destroyVertexBuffer */
+		/** @see RenderManager::destroyVertexBuffer */
 		virtual void destroyVertexBuffer(IVertexBuffer* _buffer);
 
-		/** @see OpenGLRenderManager::createTexture */
+		/** @see RenderManager::createTexture */
 		virtual ITexture* createTexture(const std::string& _name);
-		/** @see OpenGLRenderManager::destroyTexture */
+		/** @see RenderManager::destroyTexture */
 		virtual void destroyTexture(ITexture* _texture);
-		/** @see OpenGLRenderManager::getTexture */
+		/** @see RenderManager::getTexture */
 		virtual ITexture* getTexture(const std::string& _name);
 
 
@@ -60,10 +60,11 @@ namespace MyGUI
 		/** @see IRenderTarget::getInfo */
 		virtual const RenderTargetInfo& getInfo();
 
+		/** @see RenderManager::setViewSize */
+		void setViewSize(int _width, int _height) override;
 
 	/*internal:*/
 		void drawOneFrame();
-		void setViewSize(int _width, int _height);
 		bool isPixelBufferObjectSupported() const;
 
 	private:

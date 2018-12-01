@@ -160,19 +160,10 @@ namespace MyGUI
 
 	void OgreRenderManager::setRenderWindow(Ogre::RenderWindow* _window)
 	{
-		// отписываемся
-		if (mWindow != nullptr)
-		{
-			Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
-			mWindow = nullptr;
-		}
-
 		mWindow = _window;
 
 		if (mWindow != nullptr)
 		{
-			Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
-
 			if (mWindow->getNumViewports() <= mActiveViewport &&
 				!mWindow->getViewport(mActiveViewport)->getOverlaysEnabled())
 			{
@@ -205,9 +196,6 @@ namespace MyGUI
 
 		if (mWindow != nullptr)
 		{
-			Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
-			Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
-
 			if (mWindow->getNumViewports() <= mActiveViewport)
 			{
 				MYGUI_PLATFORM_LOG(Error, "Invalid active viewport index selected. There is no viewport with given index.");

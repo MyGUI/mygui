@@ -25,8 +25,7 @@ namespace base
 
 	void BaseManager::_windowResized( int w, int h )
 	{
-		if (mPlatform)
-			mPlatform->getRenderManagerPtr()->setViewSize(w, h);
+		MyGUI::RenderManager::getInstance().setViewSize(w, h);
 
 		setInputViewSize(w, h);
 	}

@@ -62,9 +62,11 @@ namespace MyGUI
 		/** @see IRenderTarget::getInfo */
 		virtual const RenderTargetInfo& getInfo();
 
+		/** @see RenderManager::setViewSize */
+		void setViewSize(int _width, int _height) override;
+
 		/*internal:*/
 		void drawOneFrame();
-		void setViewSize(int _width, int _height);
 
 		RenderBatchInfo* getBatchInfo(size_t _index);
 		void addTexture(const std::string& _name, size_t _id, int _width, int _height);

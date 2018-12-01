@@ -13,7 +13,6 @@
 #include "MyGUI_RenderManager.h"
 
 #include <Ogre.h>
-#include <OgreWindowEventUtilities.h>
 
 #include "MyGUI_LastHeader.h"
 
@@ -23,7 +22,6 @@ namespace MyGUI
 	class OgreRenderManager :
 		public RenderManager,
 		public IRenderTarget,
-		public Ogre::WindowEventListener,
 		public Ogre::RenderQueueListener,
 		public Ogre::RenderSystem::Listener
 	{
@@ -89,12 +87,14 @@ namespace MyGUI
 
 		size_t getBatchCount() const;
 
+		/** @see RenderManager::setViewSize */
+		void setViewSize(int _width, int _height) override;
+
 #if MYGUI_DEBUG_MODE == 1
 		virtual bool checkTexture(ITexture* _texture);
 #endif
 
 	/*internal:*/
-		void setViewSize(int _width, int _height);
 
 	private:
 		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);

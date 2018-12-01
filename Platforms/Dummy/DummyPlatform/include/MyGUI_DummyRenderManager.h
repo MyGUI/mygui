@@ -74,9 +74,11 @@ namespace MyGUI
 			return mInfo;
 		}
 
+		/** @see RenderManager::setViewSize */
+		void setViewSize(int _width, int _height) override;
+
 		/*internal:*/
 		void drawOneFrame();
-		void setViewSize(int _width, int _height);
 
 	private:
 		IntSize mViewSize;

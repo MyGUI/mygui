@@ -91,8 +91,7 @@ namespace base
 
 		resizeRender(width, height);
 
-		if (mPlatform)
-			mPlatform->getRenderManagerPtr()->setViewSize(width, height);
+		MyGUI::RenderManager::getInstance().setViewSize(width, height);
 
 		setInputViewSize(width, height);
 	}
@@ -473,7 +472,7 @@ namespace base
 
 	void BaseManager::drawOneFrame()
 	{
-		if (mIsDeviceLost == true)
+		if (mIsDeviceLost)
 		{
 			Sleep( 100 );
 
