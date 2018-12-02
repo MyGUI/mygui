@@ -357,6 +357,10 @@ namespace MyGUI
 		{
 			mRenderSystem->bindGpuProgram(mVertexProgram->_getBindingDelegate());
 			mRenderSystem->bindGpuProgram(mFragmentProgram->_getBindingDelegate());
+
+			Ogre::GpuProgramParametersSharedPtr params = mVertexProgram->getDefaultParameters();
+			params->setNamedConstant("YFlipScale", 1.0f);
+			mRenderSystem->bindGpuProgramParameters(Ogre::GPT_VERTEX_PROGRAM, params, Ogre::GPV_ALL);
 		}
 		mRenderSystem->setShadingType(Ogre::SO_GOURAUD);
 
@@ -500,6 +504,27 @@ namespace MyGUI
 		mUpdate = true;
 		updateRenderInfo();
 		onResizeView(mViewSize);
+	}
+
+	void OgreRenderManager::doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, bool flipY)
+	{
+		if (flipY && !mRenderSystem->getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION))
+		{
+			Ogre::GpuProgramParametersSharedPtr params = mVertexProgram->getDefaultParameters();;
+			params->setNamedConstant("YFlipScale", -1.0f);
+			mRenderSystem->bindGpuProgramParameters(Ogre::GPT_VERTEX_PROGRAM,
+				params, Ogre::GPV_ALL);
+		}
+
+		doRender(_buffer, _texture, _count);
+
+		if (flipY && !mRenderSystem->getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION))
+		{
+			Ogre::GpuProgramParametersSharedPtr params = mVertexProgram->getDefaultParameters();;
+			params->setNamedConstant("YFlipScale", 1.0f);
+			mRenderSystem->bindGpuProgramParameters(Ogre::GPT_VERTEX_PROGRAM,
+				params, Ogre::GPV_ALL);
+		}
 	}
 
 } // namespace MyGUI

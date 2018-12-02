@@ -95,6 +95,8 @@ namespace MyGUI
 #endif
 
 	/*internal:*/
+		/* for use with RTT, flips Y coordinate if necesary when rendering */
+		void doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, bool flipY);
 
 	private:
 		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
