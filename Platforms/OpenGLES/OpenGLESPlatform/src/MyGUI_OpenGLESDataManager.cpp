@@ -87,6 +87,7 @@ namespace MyGUI
 		static std::string path;
 		VectorString result;
 		common::VectorWString wresult;
+		path.clear();
 
 		for (VectorArhivInfo::const_iterator item = mPaths.begin(); item != mPaths.end(); ++item)
 		{
@@ -98,7 +99,18 @@ namespace MyGUI
 			result.push_back(MyGUI::UString(*item).asUTF8());
 		}
 
-		path = result.size() == 1 ? result[0] : "";
+		if (!result.empty())
+		{
+			path = result[0];
+			if (result.size() > 1)
+			{
+				MYGUI_PLATFORM_LOG(Warning, "There are several files with name '" << _name << "'. '" << path << "' was used.");
+				MYGUI_PLATFORM_LOG(Warning, "Other candidates are:");
+				for (size_t index = 1; index < result.size(); index ++)
+					MYGUI_PLATFORM_LOG(Warning, " - '" << result[index] << "'");
+			}
+		}
+
 		return path;
 	}
 

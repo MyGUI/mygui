@@ -143,6 +143,7 @@ namespace MyGUI
 	const std::string& OgreDataManager::getDataPath(const std::string& _name)
 	{
 		static std::string result;
+		result.clear();
 
 		const VectorString& files = getDataListNames(_name, true);
 		if (!files.empty())
@@ -151,7 +152,7 @@ namespace MyGUI
 			if (files.size() > 1)
 			{
 				MYGUI_PLATFORM_LOG(Warning, "There are several files with name '" << _name << "'. '" << result << "' was used.");
-				MYGUI_PLATFORM_LOG(Warning, "Other candidater are:");
+				MYGUI_PLATFORM_LOG(Warning, "Other candidates are:");
 				for (size_t index = 1; index < files.size(); index ++)
 					MYGUI_PLATFORM_LOG(Warning, " - '" << files[index] << "'");
 			}
