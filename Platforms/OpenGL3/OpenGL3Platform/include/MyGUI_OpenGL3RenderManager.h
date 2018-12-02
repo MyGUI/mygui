@@ -64,7 +64,7 @@ namespace MyGUI
 		void setViewSize(int _width, int _height) override;
 
 		/* for use with RTT, flips Y coordinate when rendering */
-		void doRenderRTT(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
+		void doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
 
 	/*internal:*/
 		void drawOneFrame();

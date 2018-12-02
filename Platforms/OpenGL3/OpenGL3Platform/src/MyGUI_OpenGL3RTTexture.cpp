@@ -94,7 +94,7 @@ namespace MyGUI
 
 	void OpenGL3RTTexture::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		OpenGL3RenderManager::getInstance().doRenderRTT(_buffer, _texture, _count);
+		OpenGL3RenderManager::getInstance().doRenderRtt(_buffer, _texture, _count);
 	}
 
 } // namespace MyGUI

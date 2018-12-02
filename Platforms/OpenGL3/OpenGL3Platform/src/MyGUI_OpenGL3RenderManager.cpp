@@ -35,110 +35,113 @@ namespace MyGUI
 	{
 	}
 
+	GLuint buildShader(const char* text, GLenum type)
+	{
+		GLuint id = glCreateShader(type);
+		glShaderSource(id, 1, &text, 0);
+		glCompileShader(id);
 
-  GLuint buildShader(const char* text, GLenum type)
-  {
-    GLuint id = glCreateShader(type);
-    glShaderSource(id, 1, &text, 0);
-    glCompileShader(id);
+		GLint success;
+		glGetShaderiv(id, GL_COMPILE_STATUS, &success);
 
-    GLint success;
-    glGetShaderiv(id, GL_COMPILE_STATUS, &success);
+		if (success == GL_FALSE)
+		{
+			GLint len = 0;
+			glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len);
 
-    if (success == GL_FALSE) {
-      GLint len = 0;
-      glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len);
+			GLchar* buffer = new GLchar[len];
+			glGetShaderInfoLog(id, len, NULL, buffer);
+			std::string infoLog = buffer;
+			delete[] buffer;
 
-      GLchar* buffer = new GLchar[len];
-      glGetShaderInfoLog(id, len, NULL, buffer);
-      std::string infoLog = buffer;
-      delete[] buffer;
+			MYGUI_PLATFORM_EXCEPT(infoLog);
+		}
 
-      MYGUI_PLATFORM_EXCEPT(infoLog);
-    }
+		return id;
+	}
 
-    return id;
-  }
+	GLuint OpenGL3RenderManager::createShaderProgram(void)
+	{
+		const char vertexShader[] = R"(
+			#version 130
+			out vec4 Color;
+			out vec2 TexCoord;
+			in vec3 VertexPosition;
+			in vec4 VertexColor;
+			in vec2 VertexTexCoord;
+			uniform float YScale;
+			void main()
+			{
+				TexCoord = VertexTexCoord;
+				Color = VertexColor;
+				vec4 vpos = vec4(VertexPosition,1.0);
+				vpos.y *= YScale;
+				gl_Position = vpos;
+			}
+			)";
 
-  GLuint OpenGL3RenderManager::createShaderProgram(void)
-  {
-    const char vertexShader[] =
-      "#version 130\n" // GLSL 1.30 = OpenGL 3.0
-      "out vec4 Color;\n"
-      "out vec2 TexCoord;\n"
-      "in vec3 VertexPosition;\n"
-      "in vec4 VertexColor;\n"
-      "in vec2 VertexTexCoord;\n"
-      "uniform float YScale;\n"
-      "void main()\n"
-      "{\n"
-      "  TexCoord = VertexTexCoord;\n"
-      "  Color = VertexColor;\n"
-      "  vec4 vpos = vec4(VertexPosition,1.0);\n"
-      "  vpos.y *= YScale;\n"
-      "  gl_Position = vpos;\n"
-      "}\n"
-      ;
+		const char fragmentShader[] = R"(
+			#version 130
+			in vec4 Color;
+			in vec2 TexCoord;
+			out vec4 FragColor;
+			uniform sampler2D Texture;
+			void main(void)
+			{
+				FragColor = texture2D(Texture, TexCoord) * Color;
+			}
+			)";
 
-    const char fragmentShader[] =
-      "#version 130\n"
-      "in vec4 Color; \n"
-      "in vec2 TexCoord;\n"
-      "out vec4 FragColor;\n"
-      "uniform sampler2D Texture;\n"
-      "void main(void)\n"
-      "{\n"
-      "  FragColor = texture2D(Texture, TexCoord) * Color;\n"
-      "}\n"
-      ;
+		GLuint vsID = buildShader(vertexShader, GL_VERTEX_SHADER);
+		GLuint fsID = buildShader(fragmentShader, GL_FRAGMENT_SHADER);
 
-    GLuint vsID = buildShader(vertexShader, GL_VERTEX_SHADER);
-    GLuint fsID = buildShader(fragmentShader, GL_FRAGMENT_SHADER);
+		GLuint progID = glCreateProgram();
+		glAttachShader(progID, vsID);
+		glAttachShader(progID, fsID);
 
-    GLuint progID = glCreateProgram();
-    glAttachShader(progID, vsID);
-    glAttachShader(progID, fsID);
+		// setup vertex attribute positions for vertex buffer
+		glBindAttribLocation(progID, 0, "VertexPosition");
+		glBindAttribLocation(progID, 1, "VertexColor");
+		glBindAttribLocation(progID, 2, "VertexTexCoord");
+		glBindFragDataLocation(progID, 0, "FragColor");
 
-    // setup vertex attribute positions for vertex buffer
-    glBindAttribLocation(progID, 0, "VertexPosition");
-    glBindAttribLocation(progID, 1, "VertexColor");
-    glBindAttribLocation(progID, 2, "VertexTexCoord");
-    glBindFragDataLocation(progID, 0, "FragColor");
+		glLinkProgram(progID);
 
-    glLinkProgram(progID);
+		GLint success;
+		glGetProgramiv(progID, GL_LINK_STATUS, &success);
 
-    GLint success;
-    glGetProgramiv(progID, GL_LINK_STATUS, &success);
+		if (success == GL_FALSE)
+		{
+			GLint len = 0;
+			glGetProgramiv(progID, GL_INFO_LOG_LENGTH, &len);
 
-    if (success == GL_FALSE) {
-      GLint len = 0;
-      glGetProgramiv(progID, GL_INFO_LOG_LENGTH, &len);
+			GLchar* buffer = new GLchar[len];
+			glGetProgramInfoLog(progID, len, NULL, buffer);
+			std::string infoLog = buffer;
+			delete[] buffer;
 
-      GLchar* buffer = new GLchar[len];
-      glGetProgramInfoLog(progID, len, NULL, buffer);
-      std::string infoLog = buffer;
-      delete[] buffer;
+			MYGUI_PLATFORM_EXCEPT(infoLog);
+		}
+		glDeleteShader(vsID); // flag for deletion on call to glDeleteProgram
+		glDeleteShader(fsID);
 
-      MYGUI_PLATFORM_EXCEPT(infoLog);
-    }
-    glDeleteShader(vsID); // flag for deletion on call to glDeleteProgram
-    glDeleteShader(fsID);
+		int textureUniLoc = glGetUniformLocation(progID, "Texture");
+		if (textureUniLoc == -1)
+		{
+			MYGUI_PLATFORM_EXCEPT("Unable to retrieve uniform variable location");
+		}
+		mYScaleUniformLocation = glGetUniformLocation(progID, "YScale");
+		if (mYScaleUniformLocation == -1)
+		{
+			MYGUI_PLATFORM_EXCEPT("Unable to retrieve YScale variable location");
+		}
+		glUseProgram(progID);
+		glUniform1i(textureUniLoc, 0); // set active sampler for 'Texture' to GL_TEXTURE0
+		glUniform1f(mYScaleUniformLocation, 1.0f);
+		glUseProgram(0);
 
-    int textureUniLoc = glGetUniformLocation(progID, "Texture");
-    if (textureUniLoc == -1) {
-      MYGUI_PLATFORM_EXCEPT("Unable to retrieve uniform variable location");
-    }
-    mYScaleUniformLocation = glGetUniformLocation(progID, "YScale");
-    if (mYScaleUniformLocation == -1) {
-      MYGUI_PLATFORM_EXCEPT("Unable to retrieve YScale variable location");
-    }
-    glUseProgram(progID);
-    glUniform1i(textureUniLoc, 0); // set active sampler for 'Texture' to GL_TEXTURE0
-    glUniform1f(mYScaleUniformLocation, 1.0f);
-    glUseProgram(0);
-
-    return progID;
-  }
+		return progID;
+	}
 
 	void OpenGL3RenderManager::initialise(OpenGL3ImageLoader* _loader)
 	{
@@ -188,7 +191,7 @@ namespace MyGUI
 		delete _buffer;
 	}
 
-  void OpenGL3RenderManager::doRenderRTT(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
+  void OpenGL3RenderManager::doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
   {
     glUniform1f(mYScaleUniformLocation, -1.0f);
     doRender(_buffer, _texture, _count);

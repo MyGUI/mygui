@@ -9,33 +9,33 @@
 #include <GLES3/gl2ext.h>
 #include "platform.h"
 
-const char* vShader = " \n\
-\n\
-attribute vec3 a_position;                             \n\
-attribute vec4 a_color;                                \n\
-attribute vec2 a_texCoord;                             \n\
-uniform        mat4 u_MVPMatrix;                       \n\
-\n\
-varying lowp vec4 v_fragmentColor;                     \n\
-varying mediump vec2 v_texCoord;                       \n\
-\n\
-void main()                                            \n\
-{                                                      \n\
-gl_Position = (vec4(a_position,1));                    \n\
-v_fragmentColor = a_color;                             \n\
-v_texCoord = a_texCoord;                               \n\
-}                                                      \n\
-";
+const char* vShader = R"(
+	attribute vec3 a_position;
+	attribute vec4 a_color;
+	attribute vec2 a_texCoord;
+	uniform mat4 u_MVPMatrix;
 
-const char* fShader = " \n\
-precision lowp float;                                  \n\
-varying vec4 v_fragmentColor;                          \n\
-varying vec2 v_texCoord;                               \n\
-uniform sampler2D u_texture;                           \n\
-void main(void) {                                      \n\
-    gl_FragColor = texture2D(u_texture, v_texCoord).zyxw * v_fragmentColor;   \n\
-}                                                      \n\
-";
+	varying lowp vec4 v_fragmentColor;
+	varying mediump vec2 v_texCoord;
+
+	void main()
+	{
+		gl_Position = (vec4(a_position,1));
+		v_fragmentColor = a_color;
+		v_texCoord = a_texCoord;
+	}
+	)";
+
+const char* fShader = R"(
+	precision lowp float;
+	varying vec4 v_fragmentColor;
+	varying vec2 v_texCoord;
+	uniform sampler2D u_texture;
+	void main(void) {
+		gl_FragColor = texture2D(u_texture, v_texCoord).zyxw * v_fragmentColor;
+	}
+	)";
+
 
 namespace MyGUI
 {
