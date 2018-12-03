@@ -17,8 +17,8 @@ namespace tools
 	class MYGUI_EXPORT_DLL Data
 	{
 	public:
-		typedef shared_ptr<Data> DataPtr;
-		typedef weak_ptr<Data> DataWeak;
+		typedef std::shared_ptr<Data> DataPtr;
+		typedef std::weak_ptr<Data> DataWeak;
 
 		Data();
 		~Data();

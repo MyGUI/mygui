@@ -71,7 +71,6 @@ set (HEADER_FILES
   SeparatePanel.h
   SettingsManager.h
   SettingsWindow.h
-  SharedPtr.h
   StateController.h
   StateManager.h
   StringUtility.h
@@ -374,7 +373,6 @@ SOURCE_GROUP("Resources" FILES
 )
 SOURCE_GROUP("Utility" FILES
   Localise.h
-  SharedPtr.h
   StringUtility.h
   pugiconfig.hpp
   pugixml.cpp

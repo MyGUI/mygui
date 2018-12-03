@@ -7,20 +7,20 @@
 #ifndef _faf0ef48_7615_4de7_812c_48520c83de61_
 #define _faf0ef48_7615_4de7_812c_48520c83de61_
 
+#include <memory>
 #include "sigslot.h"
 #include "DataTypeProperty.h"
-#include "SharedPtr.h"
 
 namespace tools
 {
 	class Data;
-	typedef shared_ptr<Data> DataPtr;
+	typedef std::shared_ptr<Data> DataPtr;
 
 	class MYGUI_EXPORT_DLL Property
 	{
 	public:
-		typedef shared_ptr<Property> PropertyPtr;
-		typedef weak_ptr<Property> PropertyWeak;
+		typedef std::shared_ptr<Property> PropertyPtr;
+		typedef std::weak_ptr<Property> PropertyWeak;
 
 		Property(DataTypePropertyPtr _type, DataPtr _owner);
 		~Property();
