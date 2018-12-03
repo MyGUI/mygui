@@ -45,9 +45,9 @@ namespace MyGUI
 		MYGUI_ASSERT(!mIsInitialise, getClassTypeName() << " initialised twice");
 		MYGUI_LOG(Info, "* Initialise: " << getClassTypeName());
 
-		mWidgetMouseFocus = 0;
-		mWidgetKeyFocus = 0;
-		mLayerMouseFocus = 0;
+		mWidgetMouseFocus = nullptr;
+		mWidgetKeyFocus = nullptr;
+		mLayerMouseFocus = nullptr;
 		for (int i = MouseButton::Button0; i < MouseButton::MAX; ++i)
 		{
 			mMouseCapture[i] = false;

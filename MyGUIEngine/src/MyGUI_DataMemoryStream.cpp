@@ -13,7 +13,7 @@ namespace MyGUI
 	DataMemoryStream::DataMemoryStream() :
 		mData(nullptr),
 		mSize(0),
-		mStream(0)
+		mStream(nullptr)
 	{
 	}
 

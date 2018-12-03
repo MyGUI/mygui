@@ -383,8 +383,8 @@ namespace MyGUI
 		// class Document
 		//----------------------------------------------------------------------//
 		Document::Document():
-			mRoot(0),
-			mDeclaration(0),
+			mRoot(nullptr),
+			mDeclaration(nullptr),
 			mLastErrorFile(""),
 			mLine(0),
 			mCol(0)
@@ -502,7 +502,7 @@ namespace MyGUI
 			// это строка из файла
 			std::string read;
 			// текущий узел для разбора
-			ElementPtr currentNode = 0;
+			ElementPtr currentNode = nullptr;
 
 			while (!_stream->eof())
 			{
@@ -580,7 +580,7 @@ namespace MyGUI
 				}
 				else
 				{
-					_currentNode = new Element("", 0);
+					_currentNode = new Element("", nullptr);
 					// если это первый то запоминаем
 					if (!mRoot)
 						mRoot = _currentNode;
@@ -594,7 +594,7 @@ namespace MyGUI
 			// проверяем на коментарии
 			if (simbol == '!')
 			{
-				if (_currentNode != 0)
+				if (_currentNode != nullptr)
 				{
 					//_currentNode->createChild("", _content, ElementType::Comment);
 				}
@@ -612,7 +612,7 @@ namespace MyGUI
 			// проверяем на закрытие тега
 			if (simbol == '/')
 			{
-				if (_currentNode == 0)
+				if (_currentNode == nullptr)
 				{
 					// чета мы закрывам а ниче даже и не открыто
 					if (!mRoot)
@@ -671,7 +671,7 @@ namespace MyGUI
 							mLastError = ErrorType::MoreThanOneXMLDeclaration;
 							return false;
 						}
-						_currentNode = new Element(cut, 0, ElementType::Declaration);
+						_currentNode = new Element(cut, nullptr, ElementType::Declaration);
 						mDeclaration = _currentNode;
 					}
 					else
@@ -682,7 +682,7 @@ namespace MyGUI
 							mLastError = ErrorType::MoreThanOneRootElement;
 							return false;
 						}
-						_currentNode = new Element(cut, 0, ElementType::Normal);
+						_currentNode = new Element(cut, nullptr, ElementType::Normal);
 						mRoot = _currentNode;
 					}
 				}
@@ -837,7 +837,7 @@ namespace MyGUI
 			if (mDeclaration)
 			{
 				delete mDeclaration;
-				mDeclaration = 0;
+				mDeclaration = nullptr;
 			}
 		}
 
@@ -846,14 +846,14 @@ namespace MyGUI
 			if (mRoot)
 			{
 				delete mRoot;
-				mRoot = 0;
+				mRoot = nullptr;
 			}
 		}
 
 		ElementPtr Document::createDeclaration(const std::string& _version, const std::string& _encoding)
 		{
 			clearDeclaration();
-			mDeclaration = new Element("xml", 0, ElementType::Declaration);
+			mDeclaration = new Element("xml", nullptr, ElementType::Declaration);
 			mDeclaration->addAttribute("version", _version);
 			mDeclaration->addAttribute("encoding", _encoding);
 			return mDeclaration;
@@ -862,7 +862,7 @@ namespace MyGUI
 		ElementPtr Document::createRoot(const std::string& _name)
 		{
 			clearRoot();
-			mRoot = new Element(_name, 0, ElementType::Normal);
+			mRoot = new Element(_name, nullptr, ElementType::Normal);
 			return mRoot;
 		}
 
@@ -899,7 +899,7 @@ namespace MyGUI
 					// текущий символ
 					mCol = 0;
 
-					if (_element != 0)
+					if (_element != nullptr)
 					{
 						bool ok = true;
 						_element->setContent(utility::convert_from_xml(body_str, ok));

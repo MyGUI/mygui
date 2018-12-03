@@ -245,6 +245,7 @@ namespace MyGUI
 		public:
 			_fwd_iterator();
 			_fwd_iterator( const _fwd_iterator& i );
+			_fwd_iterator& operator=( const _fwd_iterator& i );
 
 			//! pre-increment
 			_fwd_iterator& operator++();
@@ -290,6 +291,7 @@ namespace MyGUI
 		public:
 			_const_fwd_iterator();
 			_const_fwd_iterator( const _const_fwd_iterator& i );
+			_const_fwd_iterator& operator=( const _const_fwd_iterator& i );
 			_const_fwd_iterator( const _fwd_iterator& i );
 
 			//! pre-increment

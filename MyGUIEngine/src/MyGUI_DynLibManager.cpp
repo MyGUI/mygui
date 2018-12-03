@@ -58,7 +58,7 @@ namespace MyGUI
 		if (!pLib->load())
 		{
 			delete pLib;
-			return 0;
+			return nullptr;
 		}
 
 		mLibsMap[fileName] = pLib;

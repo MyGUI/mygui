@@ -146,7 +146,7 @@ namespace MyGUI
 						index = peeki; // skip both as one newline
 				}
 
-				line_info.width = (int)ceil(width);
+				line_info.width = (int)std::ceil(width);
 				line_info.count = count;
 				mLength += line_info.count + 1;
 
@@ -248,7 +248,7 @@ namespace MyGUI
 				line_info.simbols.erase(line_info.simbols.begin() + roll_back.getPosition(), line_info.simbols.end());
 
 				// запоминаем место отката, как полную строку
-				line_info.width = (int)ceil(width);
+				line_info.width = (int)std::ceil(width);
 				line_info.count = count;
 				mLength += line_info.count + 1;
 
@@ -271,7 +271,7 @@ namespace MyGUI
 			count ++;
 		}
 
-		line_info.width = (int)ceil(width);
+		line_info.width = (int)std::ceil(width);
 		line_info.count = count;
 		mLength += line_info.count;
 

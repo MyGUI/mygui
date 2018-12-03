@@ -76,7 +76,7 @@ namespace MyGUI
 
 		static DoubleCoord convertToRelativeD(const IntCoord& _coord, const IntSize& _view)
 		{
-			return DoubleCoord(_coord.left / (double)_view.width, _coord.top / (double)_view.height, _coord.width / (double)_view.width, _coord.height / (float)_view.height);
+			return DoubleCoord(_coord.left / (double)_view.width, _coord.top / (double)_view.height, _coord.width / (double)_view.width, _coord.height / (double)_view.height);
 		}
 	};
 

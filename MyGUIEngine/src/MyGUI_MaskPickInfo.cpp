@@ -29,7 +29,7 @@ namespace MyGUI
 		texture->loadFromFile(_file);
 
 		uint8* buffer = (uint8*)texture->lock(TextureUsage::Read);
-		if (buffer == 0)
+		if (buffer == nullptr)
 		{
 			render.destroyTexture(texture);
 			return false;

@@ -28,9 +28,6 @@ namespace MyGUI
 
 		Exception(const Exception& _rhs);
 
-		// Needed for  compatibility with std::exception
-		~Exception() throw();
-
 		Exception& operator = (const Exception& _rhs);
 
 		virtual const std::string& getFullDescription() const;
@@ -43,8 +40,7 @@ namespace MyGUI
 
 		virtual const std::string& getDescription() const;
 
-		// Override std::exception::what
-		const char* what() const throw();
+		const char* what() const noexcept override;
 
 	protected:
 		std::string mDescription;

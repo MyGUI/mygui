@@ -42,7 +42,7 @@ namespace MyGUI
 
 		inline IDelegateUnlink* GetDelegateUnlink(void* _base)
 		{
-			return 0;
+			return nullptr;
 		}
 		inline IDelegateUnlink* GetDelegateUnlink(IDelegateUnlink* _base)
 		{

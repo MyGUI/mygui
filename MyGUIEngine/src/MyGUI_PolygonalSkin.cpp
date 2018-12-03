@@ -34,7 +34,7 @@ namespace MyGUI
 
 	inline float len(float x, float y)
 	{
-		return sqrt(x * x + y * y);
+		return std::sqrt(x * x + y * y);
 	}
 
 	void PolygonalSkin::setPoints(const std::vector<FloatPoint>& _points)
@@ -356,7 +356,7 @@ namespace MyGUI
 				edge = true;
 				normal = _getPerpendicular(mLinePoints[i - 1], mLinePoints[i]);
 			}
-			else if (len(normal.left, normal.top) > mLineWidth * 1.5)
+			else if (len(normal.left, normal.top) > mLineWidth * 1.5f)
 			{
 				sharp = true;
 				normal = _getPerpendicular(mLinePoints[i - 1], mLinePoints[i]);
@@ -538,7 +538,7 @@ namespace MyGUI
 		FloatPoint result = line1 + line2;
 		// normalise
 		length = len(result.top, result.left);
-		if (length < 1e-6)
+		if (length < 1e-6f)
 		{
 			return _getPerpendicular(_point1, _point2);
 		}
@@ -546,13 +546,13 @@ namespace MyGUI
 		result.top /= length;
 
 		float cos = result.left * line1.left + result.top * line1.top;
-		float angle = acos(cos);
+		float angle = std::acos(cos);
 
 		// too sharp angle
-		if (fabs(angle) < 1e-6 /*< 0.2f*/)
+		if (std::fabs(angle) < 1e-6f /*< 0.2f*/)
 			return FloatPoint();
 
-		float width = mLineWidth / 2 / sin(angle);
+		float width = mLineWidth / 2 / std::sin(angle);
 		result.left *= width;
 		result.top *= width;
 		return result;

@@ -65,7 +65,7 @@ namespace MyGUI
 
 #endif
 
-		return mInstance != 0;
+		return mInstance != nullptr;
 	}
 
 	void DynLib::unload()
@@ -86,7 +86,7 @@ namespace MyGUI
 #endif
 	}
 
-	void* DynLib::getSymbol( const std::string& strName ) const throw()
+	void* DynLib::getSymbol( const std::string& strName ) const noexcept
 	{
 #ifdef MYGUI_DISABLE_PLUGINS
 		MYGUI_EXCEPT("Plugins support disabled, rebuild MyGUI without MYGUI_DISABLE_PLUGINS");

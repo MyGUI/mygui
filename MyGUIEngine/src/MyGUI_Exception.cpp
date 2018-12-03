@@ -28,10 +28,6 @@ namespace MyGUI
 	{
 	}
 
-	Exception::~Exception() throw()
-	{
-	}
-
 	Exception& Exception::operator = (const Exception& _rhs)
 	{
 		mDescription = _rhs.mDescription;
@@ -80,7 +76,7 @@ namespace MyGUI
 	}
 
 	// Override std::exception::what
-	const char* Exception::what() const throw()
+	const char* Exception::what() const noexcept
 	{
 		return getFullDescription().c_str();
 	}

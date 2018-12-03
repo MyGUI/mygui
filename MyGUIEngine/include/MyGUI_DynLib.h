@@ -61,7 +61,7 @@ namespace MyGUI
 				If the function succeeds, the returned value is a handle to the symbol.
 				If the function fails, the returned value is <b>nullptr</b>.
 		*/
-		void* getSymbol( const std::string& strName ) const throw();
+		void* getSymbol( const std::string& strName ) const noexcept;
 
 	protected:
 		//! Gets the last loading error

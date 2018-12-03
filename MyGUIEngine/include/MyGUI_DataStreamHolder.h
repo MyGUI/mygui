@@ -21,6 +21,8 @@ namespace MyGUI
 		{
 		}
 
+		DataStreamHolder(const DataStreamHolder& _other) = default;
+
 		~DataStreamHolder()
 		{
 			DataManager::getInstance().freeData(mData);

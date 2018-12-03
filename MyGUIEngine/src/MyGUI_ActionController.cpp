@@ -41,12 +41,13 @@ namespace MyGUI
 
 		void inertionalMoveFunction(const IntCoord& _startRect, const IntCoord& _destRect, IntCoord& _result, float _current_time)
 		{
-#ifndef M_PI
-			const float M_PI = 3.141593f;
+#ifdef M_PI
+#undef M_PI
 #endif
-			float k = sin(M_PI * _current_time - M_PI / 2.0f);
-			if (k < 0) k = (-pow(-k, 0.7f) + 1) / 2;
-			else k = (pow(k, 0.7f) + 1) / 2;
+			const float M_PI = 3.141593f;
+			float k = std::sin(M_PI * _current_time - M_PI / 2.0f);
+			if (k < 0) k = (-std::pow(-k, 0.7f) + 1) / 2;
+			else k = (std::pow(k, 0.7f) + 1) / 2;
 			linearMoveFunction(_startRect, _destRect, _result, k);
 		}
 

@@ -15,11 +15,11 @@ namespace MyGUI
 {
 
 	Canvas::Canvas() :
-		mTexture( nullptr ),
+		mTexture(nullptr),
 		mTexResizeMode( TRM_PT_CONST_SIZE ),
-		mTexData( 0 ),
-		mTexManaged( true ),
-		mFrameAdvise( false ),
+		mTexData(nullptr),
+		mTexManaged(true),
+		mFrameAdvise(false),
 		mInvalidateData(false)
 	{
 		mGenTexName = utility::toString((size_t)this, "_Canvas");

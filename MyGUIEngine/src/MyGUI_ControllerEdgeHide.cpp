@@ -14,9 +14,10 @@
 namespace MyGUI
 {
 
-#ifndef M_PI
-	const float M_PI = 3.141593f;
+#ifdef M_PI
+#undef M_PI
 #endif
+	const float M_PI = 3.141593f;
 
 	ControllerEdgeHide::ControllerEdgeHide() :
 		mTime(1.0),
@@ -67,9 +68,9 @@ namespace MyGUI
 			return true;
 		}
 
-		float k = sin(M_PI * mElapsedTime / mTime - M_PI / 2);
-		if (k < 0) k = (-pow(-k, 0.7f) + 1) / 2;
-		else k = (pow(k, 0.7f) + 1) / 2;
+		float k = std::sin(M_PI * mElapsedTime / mTime - M_PI / 2);
+		if (k < 0) k = (-std::pow(-k, 0.7f) + 1) / 2;
+		else k = (std::pow(k, 0.7f) + 1) / 2;
 
 		MyGUI::IntCoord coord = _widget->getCoord();
 		// if widget was moved
@@ -157,9 +158,9 @@ namespace MyGUI
 		//mElapsedTime = (asin(k)/M_PI + 1./2) * mTime;
 		// this is reversed formula from ControllerEdgeHide::addTime k calculation
 		if (k > 0.5f)
-			mElapsedTime = (asin( pow( 2 * k - 1, 1 / 0.7f)) / M_PI + 1.f / 2) * mTime;
+			mElapsedTime = (std::asin( std::pow( 2 * k - 1, 1 / 0.7f)) / M_PI + 1.f / 2) * mTime;
 		else
-			mElapsedTime = (asin(-pow(-2 * k + 1, 1 / 0.7f)) / M_PI + 1.f / 2) * mTime;
+			mElapsedTime = (std::asin(-std::pow(-2 * k + 1, 1 / 0.7f)) / M_PI + 1.f / 2) * mTime;
 	}
 
 	void ControllerEdgeHide::setTime(float _value)

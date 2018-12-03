@@ -18,6 +18,7 @@ namespace MyGUI
 	public:
 		Colour();
 		Colour(float _red, float _green, float _blue, float _alpha = 1);
+		Colour(const Colour& _value) = default;
 		explicit Colour(const std::string& _value);
 
 		Colour& operator = (Colour const& _value);

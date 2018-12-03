@@ -9,7 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_Types.h"
-#include <math.h>
+#include <cmath>
 
 namespace MyGUI
 {
@@ -38,7 +38,7 @@ namespace MyGUI
 		template <int N>
 		inline void acceleratedMoveFunction(const IntCoord& _startRect, const IntCoord& _destRect, IntCoord& _result, float _current_time)
 		{
-			float k = (float)pow (_current_time, N / 10.f /*3 by default as Accelerated and 0.4 by default as Slowed*/);
+			float k = std::pow(_current_time, N / 10.f /*3 by default as Accelerated and 0.4 by default as Slowed*/);
 			linearMoveFunction(_startRect, _destRect, _result, k);
 		}
 
@@ -46,7 +46,7 @@ namespace MyGUI
 		template <int N>
 		inline void jumpMoveFunction(const IntCoord& _startRect, const IntCoord& _destRect, IntCoord& _result, float _current_time)
 		{
-			float k = pow (_current_time, 2) * (-2 - N / 10.f) + _current_time * (3 + N / 10.f);
+			float k = std::pow(_current_time, 2.0f) * (-2 - N / 10.f) + _current_time * (3 + N / 10.f);
 			linearMoveFunction(_startRect, _destRect, _result, k);
 		}
 

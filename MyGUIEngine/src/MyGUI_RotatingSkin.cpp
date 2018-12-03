@@ -219,7 +219,7 @@ namespace MyGUI
 
 	inline float len(float x, float y)
 	{
-		return sqrt(x * x + y * y);
+		return std::sqrt(x * x + y * y);
 	}
 
 	void RotatingSkin::_rebuildGeometry()
@@ -228,19 +228,20 @@ namespace MyGUI
 			0 1
 			3 2
 		*/
-#ifndef M_PI
-		const float M_PI = 3.141593f;
+#ifdef M_PI
+#undef M_PI
 #endif
+		const float M_PI = 3.141593f;
 
 		float width_base = (float)mCurrentCoord.width;
 		float height_base = (float)mCurrentCoord.height;
 
 		// calculate original unrotated angles of uncropped rectangle verticies: between axis and line from center of rotation to vertex)
 		float baseAngles[RECT_VERTICIES_COUNT];
-		baseAngles[0] = atan2((float)mCenterPos.left, (float)mCenterPos.top) + M_PI / 2;
-		baseAngles[1] = atan2(- width_base + (float)mCenterPos.left, (float)mCenterPos.top) + M_PI / 2;
-		baseAngles[2] = atan2(- width_base + (float)mCenterPos.left, - height_base + (float)mCenterPos.top) + M_PI / 2;
-		baseAngles[3] = atan2((float)mCenterPos.left, - height_base + (float)mCenterPos.top) + M_PI / 2;
+		baseAngles[0] = std::atan2((float)mCenterPos.left, (float)mCenterPos.top) + M_PI / 2;
+		baseAngles[1] = std::atan2(- width_base + (float)mCenterPos.left, (float)mCenterPos.top) + M_PI / 2;
+		baseAngles[2] = std::atan2(- width_base + (float)mCenterPos.left, - height_base + (float)mCenterPos.top) + M_PI / 2;
+		baseAngles[3] = std::atan2((float)mCenterPos.left, - height_base + (float)mCenterPos.top) + M_PI / 2;
 
 		// calculate original unrotated distances of uncropped rectangle verticies: between center of rotation and vertex)
 		float baseDistances[RECT_VERTICIES_COUNT];
@@ -258,8 +259,8 @@ namespace MyGUI
 
 		for (int i = 0; i < RECT_VERTICIES_COUNT; ++i)
 		{
-			baseVerticiesPos[i].left = offsetX + cos(-mAngle + baseAngles[i]) * baseDistances[i];
-			baseVerticiesPos[i].top = offsetY - sin(-mAngle + baseAngles[i]) * baseDistances[i];
+			baseVerticiesPos[i].left = offsetX + std::cos(-mAngle + baseAngles[i]) * baseDistances[i];
+			baseVerticiesPos[i].top = offsetY - std::sin(-mAngle + baseAngles[i]) * baseDistances[i];
 		}
 
 		// base texture coordinates
