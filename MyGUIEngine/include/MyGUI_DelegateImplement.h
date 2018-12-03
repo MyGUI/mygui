@@ -203,7 +203,7 @@ namespace delegates
 	{
 	public:
 		typedef MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS IDelegate;
-		typedef MYGUI_TYPENAME std::list<IDelegate* /*, Allocator<IDelegate*>*/ > ListDelegate;
+		typedef MYGUI_TYPENAME std::list<IDelegate*> ListDelegate;
 		typedef MYGUI_TYPENAME ListDelegate::iterator ListDelegateIterator;
 		typedef MYGUI_TYPENAME ListDelegate::const_iterator ConstListDelegateIterator;
 

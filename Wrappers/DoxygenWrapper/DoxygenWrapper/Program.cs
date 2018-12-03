@@ -82,7 +82,6 @@ namespace DoxygenWrapper
 			{
 				ConsoleUtility.WriteLine("Initialise compound manager");
 				mCompoundManager = new CompoundManager();
-				mCompoundManager.SetIgnoredNameList(new string[] { "MyGUI::Allocator", "MyGUI::Allocator::rebind" });
 				mCompoundManager.Initialise(@"..\..\..\doxygen\xml");
 			}
 		}

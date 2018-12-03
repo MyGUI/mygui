@@ -2,7 +2,6 @@ set (HEADER_FILES
   include/MyGUI.h
   include/MyGUI_ActionController.h
   include/MyGUI_Align.h
-  include/MyGUI_Allocator.h
   include/MyGUI_Any.h
   include/MyGUI_BackwardCompatibility.h
   include/MyGUI_BiIndexBase.h
@@ -25,7 +24,6 @@ set (HEADER_FILES
   include/MyGUI_ControllerPosition.h
   include/MyGUI_ControllerRepeatClick.h
   include/MyGUI_CoordConverter.h
-  include/MyGUI_CustomAllocator.h
   include/MyGUI_DDContainer.h
   include/MyGUI_DDItemInfo.h
   include/MyGUI_DataFileStream.h
@@ -271,10 +269,6 @@ set (SOURCE_FILES
   src/MyGUI_WidgetUserData.cpp
   src/MyGUI_Window.cpp
   src/MyGUI_XmlDocument.cpp
-)
-SOURCE_GROUP("Header Files" FILES
-  include/MyGUI_Allocator.h
-  include/MyGUI_CustomAllocator.h
 )
 SOURCE_GROUP("Header Files\\Core\\Common" FILES
   include/MyGUI.h
