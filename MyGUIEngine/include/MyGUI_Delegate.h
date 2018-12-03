@@ -25,7 +25,7 @@ namespace MyGUI
 		class MYGUI_EXPORT IDelegateUnlink
 		{
 		public:
-			virtual ~IDelegateUnlink() { }
+			virtual ~IDelegateUnlink() = default;
 
 			IDelegateUnlink()
 			{

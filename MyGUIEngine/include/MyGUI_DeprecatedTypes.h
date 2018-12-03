@@ -17,54 +17,54 @@ namespace MyGUI
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
-	typedef Widget* WidgetPtr;
-	typedef Button* ButtonPtr;
-	typedef Window* WindowPtr;
-	typedef ComboBox* ComboBoxPtr;
-	typedef TabItem* TabItemPtr;
-	typedef ItemBox* ItemBoxPtr;
-	typedef MenuItem* MenuItemPtr;
-	typedef PopupMenu* PopupMenuPtr;
-	typedef MenuBar* MenuBarPtr;
-	typedef ScrollView* ScrollViewPtr;
-	typedef DDContainer* DDContainerPtr;
-	typedef Canvas* CanvasPtr;
+	using WidgetPtr = Widget*;
+	using ButtonPtr = Button*;
+	using WindowPtr = Window*;
+	using ComboBoxPtr = ComboBox*;
+	using TabItemPtr = TabItem*;
+	using ItemBoxPtr = ItemBox*;
+	using MenuItemPtr = MenuItem*;
+	using PopupMenuPtr = PopupMenu*;
+	using MenuBarPtr = MenuBar*;
+	using ScrollViewPtr = ScrollView*;
+	using DDContainerPtr = DDContainer*;
+	using CanvasPtr = Canvas*;
 
 	class HScroll;
-	typedef HScroll* HScrollPtr;
+	using HScrollPtr = HScroll*;
 
 	class VScroll;
-	typedef VScroll* VScrollPtr;
+	using VScrollPtr = VScroll*;
 
-	typedef TabItem Sheet;
-	typedef TabItem* SheetPtr;
+	using Sheet = TabItem;
+	using SheetPtr = TabItem*;
 
-	typedef Canvas RenderBox;
-	typedef Canvas* RenderBoxPtr;
+	using RenderBox = Canvas;
+	using RenderBoxPtr = Canvas*;
 
-	typedef ImageBox StaticImage;
-	typedef StaticImage* StaticImagePtr;
+	using StaticImage = ImageBox;
+	using StaticImagePtr = StaticImage*;
 
-	typedef TextBox StaticText;
-	typedef StaticText* StaticTextPtr;
+	using StaticText = TextBox;
+	using StaticTextPtr = StaticText*;
 
-	typedef ProgressBar Progress;
-	typedef Progress* ProgressPtr;
+	using Progress = ProgressBar;
+	using ProgressPtr = Progress*;
 
-	typedef ListBox List;
-	typedef List* ListPtr;
+	using List = ListBox;
+	using ListPtr = List*;
 
-	typedef EditBox Edit;
-	typedef Edit* EditPtr;
+	using Edit = EditBox;
+	using EditPtr = Edit*;
 
-	typedef TabControl Tab;
-	typedef Tab* TabPtr;
+	using Tab = TabControl;
+	using TabPtr = Tab*;
 
-	typedef MultiListBox MultiList;
-	typedef MultiList* MultiListPtr;
+	using MultiList = MultiListBox;
+	using MultiListPtr = MultiList*;
 
-	typedef MenuControl MenuCtrl;
-	typedef MenuCtrl* MenuCtrlPtr;
+	using MenuCtrl = MenuControl;
+	using MenuCtrlPtr = MenuCtrl*;
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 

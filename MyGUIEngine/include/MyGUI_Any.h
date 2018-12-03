@@ -109,7 +109,7 @@ namespace MyGUI
 		class Placeholder
 		{
 		public:
-			virtual ~Placeholder() { }
+			virtual ~Placeholder() = default;
 
 		public:
 			virtual const std::type_info& getType() const = 0;
@@ -127,12 +127,12 @@ namespace MyGUI
 			}
 
 		public:
-			virtual const std::type_info& getType() const
+			const std::type_info& getType() const override
 			{
 				return typeid(ValueType);
 			}
 
-			virtual Placeholder* clone() const
+			Placeholder* clone() const override
 			{
 				return new Holder(held);
 			}

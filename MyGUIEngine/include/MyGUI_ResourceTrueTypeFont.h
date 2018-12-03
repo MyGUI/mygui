@@ -58,7 +58,7 @@ namespace MyGUI
 
 		void setSource(const std::string& _value);
 		void setSize(float _value);
-		void setResolution(uint _value);
+		void setResolution(unsigned int _value);
 		void setHinting(const std::string& _value);
 		void setAntialias(bool _value);
 		void setTabWidth(float _value);
@@ -87,7 +87,7 @@ namespace MyGUI
 		// The following variables are set directly from values specified by the user.
 		std::string mSource; // Source (filename) of the font.
 		float mSize; // Size of the font, in points (there are 72 points per inch).
-		uint mResolution; // Resolution of the font, in pixels per inch.
+		unsigned int mResolution; // Resolution of the font, in pixels per inch.
 		Hinting mHinting; // What type of hinting to use when rendering the font.
 		bool mAntialias; // Whether or not to anti-alias the font by copying its alpha channel to its luminance channel.
 		float mSpaceWidth; // The width of a "Space" character, in pixels. If zero, the default width is used.

@@ -15,9 +15,7 @@ namespace MyGUI
 	{
 	}
 
-	LogSource::~LogSource()
-	{
-	}
+	LogSource::~LogSource() = default;
 
 	void LogSource::setLogFilter(ILogFilter* _filter)
 	{

@@ -18,8 +18,8 @@ namespace MyGUI
 		MYGUI_RTTI_BASE( IObject )
 
 	public:
-		IObject() { }
-		virtual ~IObject() { }
+		IObject() = default;
+		virtual ~IObject() = default;
 	};
 
 } // namespace MyGUI

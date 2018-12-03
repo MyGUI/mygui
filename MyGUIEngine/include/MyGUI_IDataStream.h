@@ -16,7 +16,7 @@ namespace MyGUI
 	class MYGUI_EXPORT IDataStream
 	{
 	public:
-		virtual ~IDataStream() { }
+		virtual ~IDataStream() = default;
 
 		virtual bool eof() = 0;
 		virtual size_t size() = 0;

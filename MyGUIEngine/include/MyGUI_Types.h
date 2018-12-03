@@ -23,33 +23,29 @@ namespace MyGUI
 {
 
 	// определяем типы
-	typedef types::TPoint<int> IntPoint;
-	typedef types::TPoint<float> FloatPoint;
+	using IntPoint = types::TPoint<int>;
+	using FloatPoint = types::TPoint<float>;
 
-	typedef types::TSize<int> IntSize;
-	typedef types::TSize<float> FloatSize;
+	using IntSize = types::TSize<int>;
+	using FloatSize = types::TSize<float>;
 
-	typedef types::TRect<int> IntRect;
-	typedef types::TRect<float> FloatRect;
+	using IntRect = types::TRect<int>;
+	using FloatRect = types::TRect<float>;
 
-	typedef types::TCoord<int> IntCoord;
-	typedef types::TCoord<float> FloatCoord;
-	typedef types::TCoord<double> DoubleCoord;
+	using IntCoord = types::TCoord<int>;
+	using FloatCoord = types::TCoord<float>;
+	using DoubleCoord = types::TCoord<double>;
 
 	typedef std::map<std::string, std::string> MapString;
-	typedef std::vector<std::string> VectorString;
+	using VectorString = std::vector<std::string>;
 	typedef std::pair<std::string, std::string> PairString;
-	typedef std::vector<PairString> VectorStringPairs;
+	using VectorStringPairs = std::vector<PairString>;
 
-	typedef char int8;
-	typedef short int16;
-	typedef int int32;
-	typedef unsigned char uint8;
-	typedef unsigned short uint16;
-	typedef unsigned int uint32;
-	typedef unsigned int uint;
+	using uint8 = unsigned char;
+	using uint16 = unsigned short;
+	using uint32 = unsigned int;
 
-	typedef unsigned int Char;
+	using Char = unsigned int;
 
 } // namespace MyGUI
 

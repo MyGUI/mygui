@@ -79,7 +79,7 @@ namespace MyGUI
 	{
 	}
 
-	void ResourceTrueTypeFont::setResolution(uint _value)
+	void ResourceTrueTypeFont::setResolution(unsigned int _value)
 	{
 	}
 
@@ -213,7 +213,7 @@ namespace MyGUI
 		struct Pixel<LAMode, false, Antialias> : PixelBase<LAMode>
 		{
 			// Sets the destination pixel using the specified luminance and alpha. Source is ignored, since FromSource is false.
-			static void set(uint8*& _dest, uint8 _luminance, uint8 _alpha, uint8* = nullptr)
+			static void set(uint8*& _dest, uint8 _luminance, uint8 _alpha, uint8* /*_source*/ = nullptr)
 			{
 				PixelBase<LAMode>::set(_dest, _luminance, _alpha);
 			}
@@ -223,7 +223,7 @@ namespace MyGUI
 		struct Pixel<LAMode, true, false> : PixelBase<LAMode>
 		{
 			// Sets the destination pixel using the specified _luminance and using the alpha from the specified source.
-			static void set(uint8*& _dest, uint8 _luminance, uint8, uint8*& _source)
+			static void set(uint8*& _dest, uint8 _luminance, uint8 /*_alpha*/, uint8*& _source)
 			{
 				PixelBase<LAMode>::set(_dest, _luminance, *_source++);
 			}
@@ -233,7 +233,7 @@ namespace MyGUI
 		struct Pixel<LAMode, true, true> : PixelBase<LAMode>
 		{
 			// Sets the destination pixel using both the luminance and alpha from the specified source, since Antialias is true.
-			static void set(uint8*& _dest, uint8, uint8, uint8*& _source)
+			static void set(uint8*& _dest, uint8 /*_luminance*/, uint8 /*_alpha*/, uint8*& _source)
 			{
 				PixelBase<LAMode>::set(_dest, *_source, *_source);
 				++_source;
@@ -1015,7 +1015,7 @@ namespace MyGUI
 		mSize = _value;
 	}
 
-	void ResourceTrueTypeFont::setResolution(uint _value)
+	void ResourceTrueTypeFont::setResolution(unsigned int _value)
 	{
 		mResolution = _value;
 	}

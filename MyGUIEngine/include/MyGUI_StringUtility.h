@@ -133,9 +133,7 @@ namespace MyGUI
 		template<>
 		inline bool parseValue(const std::string& _value)
 		{
-			if (_value == "True" || _value == "true" || _value == "1")
-				return true;
-			return false;
+			return _value == "True" || _value == "true" || _value == "1";
 		}
 
 		// отдельная имплементация под char

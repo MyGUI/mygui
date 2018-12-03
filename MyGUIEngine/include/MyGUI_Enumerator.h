@@ -7,7 +7,7 @@
 #ifndef MYGUI_ENUMERATOR_H_
 #define MYGUI_ENUMERATOR_H_
 
-#include <assert.h>
+#include <cassert>
 
 namespace MyGUI
 {

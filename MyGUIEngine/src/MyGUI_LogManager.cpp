@@ -9,7 +9,7 @@
 #include "MyGUI_FileLogListener.h"
 #include "MyGUI_ConsoleLogListener.h"
 #include "MyGUI_LevelLogFilter.h"
-#include <time.h>
+#include <ctime>
 
 namespace MyGUI
 {

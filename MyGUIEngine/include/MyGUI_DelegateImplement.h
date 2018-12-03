@@ -24,7 +24,7 @@ namespace delegates
 	class MYGUI_I_DELEGATE
 	{
 	public:
-		virtual ~MYGUI_I_DELEGATE() { }
+		virtual ~MYGUI_I_DELEGATE() = default;
 		virtual bool isType(const std::type_info& _type) = 0;
 		virtual void invoke(MYGUI_PARAMS) = 0;
 		virtual bool compare(MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS* _delegate) const = 0;
@@ -40,27 +40,27 @@ namespace delegates
 	class MYGUI_C_STATIC_DELEGATE : public MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS
 	{
 	public:
-		typedef void (*Func)(MYGUI_PARAMS);
+		using Func = void (*)(MYGUI_PARAMS);
 
 		MYGUI_C_STATIC_DELEGATE (Func _func) : mFunc(_func) { }
 
-		virtual bool isType(const std::type_info& _type)
+		bool isType(const std::type_info& _type) override
 		{
 			return typeid(MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS) == _type;
 		}
 
-		virtual void invoke(MYGUI_PARAMS)
+		void invoke(MYGUI_PARAMS) override
 		{
 			mFunc(MYGUI_ARGS);
 		}
 
-		virtual bool compare(MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS* _delegate) const
+		bool compare(MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS* _delegate) const override
 		{
 			if (nullptr == _delegate || !_delegate->isType(typeid(MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS))) return false;
-			MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS* cast = static_cast<MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS*>(_delegate);
+			auto cast = static_cast<MYGUI_C_STATIC_DELEGATE MYGUI_TEMPLATE_ARGS*>(_delegate);
 			return cast->mFunc == mFunc;
 		}
-		virtual bool compare(IDelegateUnlink* _unlink) const
+		bool compare(IDelegateUnlink* _unlink) const override
 		{
 			return false;
 		}
@@ -75,28 +75,28 @@ namespace delegates
 	class MYGUI_C_METHOD_DELEGATE : public MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS
 	{
 	public:
-		typedef void (T::*Method)(MYGUI_PARAMS);
+		using Method = void (T::*)(MYGUI_PARAMS);
 
 		MYGUI_C_METHOD_DELEGATE(IDelegateUnlink* _unlink, T* _object, Method _method) : mUnlink(_unlink), mObject(_object), mMethod(_method) { }
 
-		virtual bool isType(const std::type_info& _type)
+		bool isType(const std::type_info& _type) override
 		{
 			return typeid(MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS) == _type;
 		}
 
-		virtual void invoke(MYGUI_PARAMS)
+		void invoke(MYGUI_PARAMS) override
 		{
 			(mObject->*mMethod)(MYGUI_ARGS);
 		}
 
-		virtual bool compare(MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS* _delegate) const
+		bool compare(MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS* _delegate) const override
 		{
 			if (nullptr == _delegate || !_delegate->isType(typeid(MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS))) return false;
-			MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS* cast = static_cast< MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS* >(_delegate);
+			auto cast = static_cast< MYGUI_C_METHOD_DELEGATE MYGUI_T_TEMPLATE_ARGS* >(_delegate);
 			return cast->mObject == mObject && cast->mMethod == mMethod;
 		}
 
-		virtual bool compare(IDelegateUnlink* _unlink) const
+		bool compare(IDelegateUnlink* _unlink) const override
 		{
 			return mUnlink == _unlink;
 		}
@@ -136,7 +136,7 @@ namespace delegates
 	class MYGUI_C_DELEGATE
 	{
 	public:
-		typedef MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS IDelegate;
+		using IDelegate = MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS;
 
 		MYGUI_C_DELEGATE () : mDelegate(nullptr) { }
 		MYGUI_C_DELEGATE (const MYGUI_C_DELEGATE MYGUI_TEMPLATE_ARGS& _event) : mDelegate(nullptr)
@@ -202,10 +202,10 @@ namespace delegates
 	class MYGUI_C_MULTI_DELEGATE
 	{
 	public:
-		typedef MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS IDelegate;
-		typedef MYGUI_TYPENAME std::list<IDelegate*> ListDelegate;
-		typedef MYGUI_TYPENAME ListDelegate::iterator ListDelegateIterator;
-		typedef MYGUI_TYPENAME ListDelegate::const_iterator ConstListDelegateIterator;
+		using IDelegate = MYGUI_I_DELEGATE MYGUI_TEMPLATE_ARGS;
+		using ListDelegate = MYGUI_TYPENAME std::list<IDelegate*>;
+		using ListDelegateIterator = MYGUI_TYPENAME ListDelegate::iterator;
+		using ConstListDelegateIterator = MYGUI_TYPENAME ListDelegate::const_iterator;
 
 		MYGUI_C_MULTI_DELEGATE () { }
 		~MYGUI_C_MULTI_DELEGATE ()
@@ -215,16 +215,16 @@ namespace delegates
 
 		bool empty() const
 		{
-			for (ConstListDelegateIterator iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
+			for (const auto& delegate : mListDelegates)
 			{
-				if (*iter) return false;
+				if (delegate) return false;
 			}
 			return true;
 		}
 
 		void clear()
 		{
-			for (ListDelegateIterator iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
+			for (auto iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
 			{
 				if (*iter)
 				{
@@ -236,7 +236,7 @@ namespace delegates
 
 		void clear(IDelegateUnlink* _unlink)
 		{
-			for (ListDelegateIterator iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
+			for (auto iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
 			{
 				if ((*iter) && (*iter)->compare(_unlink))
 				{
@@ -248,7 +248,7 @@ namespace delegates
 
 		MYGUI_C_MULTI_DELEGATE MYGUI_TEMPLATE_ARGS& operator+=(IDelegate* _delegate)
 		{
-			for (ListDelegateIterator iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
+			for (auto iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
 			{
 				if ((*iter) && (*iter)->compare(_delegate))
 				{
@@ -261,7 +261,7 @@ namespace delegates
 
 		MYGUI_C_MULTI_DELEGATE MYGUI_TEMPLATE_ARGS& operator-=(IDelegate* _delegate)
 		{
-			for (ListDelegateIterator iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
+			for (auto iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
 			{
 				if ((*iter) && (*iter)->compare(_delegate))
 				{
@@ -277,7 +277,7 @@ namespace delegates
 
 		void operator()(MYGUI_PARAMS)
 		{
-			ListDelegateIterator iter = mListDelegates.begin();
+			auto iter = mListDelegates.begin();
 			while (iter != mListDelegates.end())
 			{
 				if (nullptr == (*iter))
@@ -327,7 +327,7 @@ namespace delegates
 	private:
 		void safe_clear(ListDelegate& _delegates)
 		{
-			for (ListDelegateIterator iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
+			for (auto iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
 			{
 				if (*iter)
 				{
@@ -340,7 +340,7 @@ namespace delegates
 
 		void delete_is_not_found(IDelegate* _del, ListDelegate& _delegates)
 		{
-			for (ListDelegateIterator iter = _delegates.begin(); iter != _delegates.end(); ++iter)
+			for (auto iter = _delegates.begin(); iter != _delegates.end(); ++iter)
 			{
 				if ((*iter) && (*iter)->compare(_del))
 				{

@@ -61,7 +61,7 @@ namespace MyGUI
 	private:
 		static LogManager* msInstance;
 
-		typedef std::vector<LogSource*> VectorLogSource;
+		using VectorLogSource = std::vector<LogSource*>;
 		VectorLogSource mSources;
 
 		ConsoleLogListener* mConsole;

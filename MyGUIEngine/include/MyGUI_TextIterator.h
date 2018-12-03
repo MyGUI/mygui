@@ -87,7 +87,7 @@ namespace MyGUI
 
 		void clear();
 
-		void normaliseNewLine(UString& _colour);
+		void normaliseNewLine(UString& _text);
 
 	private:
 		UString mText;

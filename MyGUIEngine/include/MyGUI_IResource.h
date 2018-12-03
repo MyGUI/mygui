@@ -16,7 +16,7 @@ namespace MyGUI
 {
 
 	class IResource;
-	typedef IResource* IResourcePtr;
+	using IResourcePtr = IResource*;
 
 	class ResourceManager;
 
@@ -39,16 +39,13 @@ namespace MyGUI
 			mResourceName = _value;
 		}
 
-	private:
-		// constructors and operator =, without implementation, just for private
-		IResource(IResource const&);
-		IResource& operator = (IResource const&);
-
 	protected:
-		IResource() { }
-		virtual ~IResource() { }
+		IResource() = default;
+		~IResource() override = default;
+		IResource(IResource const&) = delete;
+		IResource& operator = (IResource const&) = delete;
 
-		virtual void deserialization(xml::ElementPtr _node, Version _version)
+		void deserialization(xml::ElementPtr _node, Version _version) override
 		{
 			_node->findAttribute("name", mResourceName);
 		}

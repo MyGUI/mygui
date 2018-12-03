@@ -17,9 +17,9 @@ namespace MyGUI
 {
 
 	class Widget;
-	typedef std::vector<Widget*> VectorWidgetPtr;
-	typedef std::map<std::string, Widget*> MapWidgetPtr;
-	typedef Enumerator<VectorWidgetPtr> EnumeratorWidgetPtr;
+	using VectorWidgetPtr = std::vector<Widget*>;
+	using MapWidgetPtr = std::map<std::string, Widget*>;
+	using EnumeratorWidgetPtr = Enumerator<VectorWidgetPtr>;
 
 } // namespace MyGUI
 

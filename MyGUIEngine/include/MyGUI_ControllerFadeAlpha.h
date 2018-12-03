@@ -22,7 +22,7 @@ namespace MyGUI
 
 	public:
 		ControllerFadeAlpha();
-		virtual ~ControllerFadeAlpha();
+		~ControllerFadeAlpha() override;
 
 		/**
 			@param _value Alpha that will be as result of changing
@@ -39,9 +39,9 @@ namespace MyGUI
 		*/
 		void setEnabled(bool _value);
 
-		virtual bool addTime(Widget* _widget, float _time);
-		virtual void prepareItem(Widget* _widget);
-		virtual void setProperty(const std::string& _key, const std::string& _value);
+		bool addTime(Widget* _widget, float _time) override;
+		void prepareItem(Widget* _widget) override;
+		void setProperty(const std::string& _key, const std::string& _value) override;
 
 	private:
 		float mAlpha;

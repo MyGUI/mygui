@@ -18,7 +18,7 @@ namespace MyGUI
 
 	class ControllerItem;
 
-	typedef delegates::CMultiDelegate1<Widget*> EventHandle_WidgetPtr;
+	using EventHandle_WidgetPtr = delegates::CMultiDelegate1<Widget*>;
 	typedef delegates::CMultiDelegate2<Widget*, ControllerItem*> EventHandle_WidgetPtrControllerItemPtr;
 
 	/** Base interface for controllers */
@@ -28,7 +28,7 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ControllerItem )
 
 	public:
-		virtual ~ControllerItem() { }
+		~ControllerItem() override = default;
 
 		virtual void prepareItem(Widget* _widget) = 0;
 		virtual bool addTime(Widget* _widget, float _time) = 0;

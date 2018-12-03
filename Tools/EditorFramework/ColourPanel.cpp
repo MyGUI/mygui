@@ -88,7 +88,7 @@ namespace tools
 
 	void ColourPanel::createTexture()
 	{
-		MyGUI::uint size = 32;
+		int size = 32;
 		mTexture = MyGUI::RenderManager::getInstance().createTexture(mTextureName);
 		mTexture->createManual(size, size,
 			MyGUI::TextureUsage::Static | MyGUI::TextureUsage::Write,

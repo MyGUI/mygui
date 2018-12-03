@@ -9,7 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include <limits>
-#include <stddef.h>
+#include <cstddef>
 
 namespace MyGUI
 {

@@ -23,8 +23,8 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( IFont )
 
 	public:
-		IFont() { }
-		virtual ~IFont() { }
+		IFont() = default;
+		~IFont() override = default;
 
 		virtual GlyphInfo* getGlyphInfo(Char _id) = 0;
 

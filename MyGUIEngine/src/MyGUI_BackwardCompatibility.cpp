@@ -1063,7 +1063,7 @@ namespace MyGUI
 		return coord.print();
 	}
 
-	typedef std::set<std::string> SetString;
+	using SetString = std::set<std::string>;
 	static MapString mPropertyRename;
 	static SetString mPropertyIgnore;
 	static MapString mSkinRename;

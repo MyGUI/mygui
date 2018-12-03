@@ -57,8 +57,8 @@ namespace MyGUI
 		size_t undo, redo, length;
 	};
 
-	typedef std::vector<TextCommandInfo> VectorChangeInfo;
-	typedef std::deque<VectorChangeInfo> DequeUndoRedoInfo;
+	using VectorChangeInfo = std::vector<TextCommandInfo>;
+	using DequeUndoRedoInfo = std::deque<VectorChangeInfo>;
 
 } // namespace MyGUI
 

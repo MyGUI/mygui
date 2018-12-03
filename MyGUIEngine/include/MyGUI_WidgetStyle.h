@@ -9,7 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include <string>
-#include <string.h>
+#include <cstring>
 #include <iostream>
 
 namespace MyGUI

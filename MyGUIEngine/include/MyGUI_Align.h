@@ -129,9 +129,9 @@ namespace MyGUI
 			Align result(Enum(0));
 			const MapAlign& map_names = result.getValueNames();
 			const std::vector<std::string>& vec = utility::split(_value);
-			for (size_t pos = 0; pos < vec.size(); pos++)
+			for (const auto& pos : vec)
 			{
-				MapAlign::const_iterator iter = map_names.find(vec[pos]);
+				auto iter = map_names.find(pos);
 				if (iter != map_names.end())
 				{
 					result.mValue = Enum(int(result.mValue) | int(iter->second));
@@ -184,7 +184,7 @@ namespace MyGUI
 			_stream >> value;
 
 			const MapAlign& map_names = _value.getValueNames();
-			MapAlign::const_iterator iter = map_names.find(value);
+			auto iter = map_names.find(value);
 			if (iter != map_names.end())
 				_value.mValue = Enum(int(_value.mValue) | int(iter->second));
 

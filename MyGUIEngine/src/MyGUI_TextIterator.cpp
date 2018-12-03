@@ -155,7 +155,7 @@ namespace MyGUI
 		if (mCurrent == mEnd) return false;
 
 		// проверяем на цвет хоть чуть чуть
-		if ( (_colour.size() != 7) || (_colour.find(L'#', 1) != _colour.npos) ) return false;
+		if ( (_colour.size() != 7) || (_colour.find(L'#', 1) != MyGUI::UString::npos) ) return false;
 
 		// непосредственная вставка
 		insert(mCurrent, _colour);

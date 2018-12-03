@@ -16,7 +16,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ILogFilter
 	{
 	public:
-		virtual ~ILogFilter() { }
+		virtual ~ILogFilter() = default;
 
 		/** Check if specific log message should be logged.\n
 			For example some log listeners use only messages with high log level.

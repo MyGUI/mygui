@@ -19,12 +19,12 @@ namespace MyGUI
 	public:
 		DataStream();
 		DataStream(std::istream* _stream);
-		virtual ~DataStream();
+		~DataStream() override;
 
-		virtual bool eof();
-		virtual size_t size();
-		virtual void readline(std::string& _source, Char _delim);
-		virtual size_t read(void* _buf, size_t _count);
+		bool eof() override;
+		size_t size() override;
+		void readline(std::string& _source, Char _delim) override;
+		size_t read(void* _buf, size_t _count) override;
 
 	protected:
 		std::istream* mStream;

@@ -16,7 +16,7 @@ namespace MyGUI
 	class MYGUI_EXPORT ILogListener
 	{
 	public:
-		virtual ~ILogListener() { }
+		virtual ~ILogListener() = default;
 
 		/** Opens log listener. (for example open file) */
 		virtual void open() { }

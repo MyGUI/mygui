@@ -36,7 +36,7 @@ namespace MyGUI
 		void log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line);
 
 	private:
-		typedef std::vector<ILogListener*> VectorLogListeners;
+		using VectorLogListeners = std::vector<ILogListener*>;
 		VectorLogListeners mListeners;
 		ILogFilter* mFilter;
 	};

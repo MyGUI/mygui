@@ -182,23 +182,23 @@ namespace MyGUI
 
 	public:
 		//! size type used to indicate string size and character positions within the string
-		typedef size_t size_type;
+		using size_type = size_t;
 		//! the usual constant representing: not found, no limit, etc
 		static const size_type npos = static_cast<size_type>(~0);
 
 		//! a single 32-bit Unicode character
-		typedef uint32 unicode_char;
+		using unicode_char = uint32;
 
 		//! a single UTF-16 code point
-		typedef uint16 code_point;
+		using code_point = uint16;
 
 		//! value type typedef for use in iterators
-		typedef code_point value_type;
+		using value_type = code_point;
 
-		typedef std::basic_string<code_point> dstring; // data string
+		using dstring = std::basic_string<code_point>; // data string
 
 		//! string type used for returning UTF-32 formatted data
-		typedef std::basic_string<unicode_char> utf32string;
+		using utf32string = std::basic_string<unicode_char>;
 
 		//! This exception is used when invalid data streams are encountered
 	class MYGUI_EXPORT invalid_data: public std::runtime_error { /* i don't know why the beautifier is freaking out on this line */
@@ -431,10 +431,10 @@ namespace MyGUI
 		};
 		//#########################################################################
 
-		typedef _fwd_iterator iterator;                     //!< iterator
-		typedef _rev_iterator reverse_iterator;             //!< reverse iterator
-		typedef _const_fwd_iterator const_iterator;         //!< const iterator
-		typedef _const_rev_iterator const_reverse_iterator; //!< const reverse iterator
+		using iterator = _fwd_iterator;                     //!< iterator
+		using reverse_iterator = _rev_iterator;             //!< reverse iterator
+		using const_iterator = _const_fwd_iterator;         //!< const iterator
+		using const_reverse_iterator = _const_rev_iterator; //!< const reverse iterator
 
 
 		//!\name Constructors/Destructor

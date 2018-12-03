@@ -26,7 +26,7 @@ namespace MyGUI
 		typedef delegates::CDelegate4<const IntCoord&, const IntCoord&, IntCoord&, float> FrameAction;
 
 		ControllerPosition();
-		virtual ~ControllerPosition();
+		~ControllerPosition() override;
 
 		void setCoord(const IntCoord& _value);
 
@@ -46,9 +46,9 @@ namespace MyGUI
 		*/
 		void setAction(FrameAction::IDelegate* _value);
 
-		virtual bool addTime(Widget* _widget, float _time);
-		virtual void prepareItem(Widget* _widget);
-		virtual void setProperty(const std::string& _key, const std::string& _value);
+		bool addTime(Widget* _widget, float _time) override;
+		void prepareItem(Widget* _widget) override;
+		void setProperty(const std::string& _key, const std::string& _value) override;
 
 	private:
 		IntCoord mStartCoord;

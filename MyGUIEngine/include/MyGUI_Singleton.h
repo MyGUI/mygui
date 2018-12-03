@@ -21,7 +21,7 @@ namespace MyGUI
 #endif
 	{
 	public:
-		typedef Singleton<T> Base;
+		using Base = Singleton<T>;
 
 		Singleton()
 		{
