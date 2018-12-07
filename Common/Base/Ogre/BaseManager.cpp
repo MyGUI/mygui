@@ -90,8 +90,15 @@ namespace base
 			#endif
 		}
 
+		#if (OGRE_VERSION >= ((1 << 16) | (11 << 8) | 0))
+		Ogre::NameValuePairList miscParams;
+		mWindow = mRoot->initialise(false);
+		miscParams["windowProc"] = Ogre::StringConverter::toString((size_t)Ogre::WindowEventUtilities::_WndProc);
+		mWindow = Ogre::Root::getSingleton().createRenderWindow("MyGUI Demo", 800, 600, false, &miscParams);
+		Ogre::WindowEventUtilities::_addRenderWindow(mWindow);
+		#else
 		mWindow = mRoot->initialise(true);
-
+		#endif
 
 		// вытаскиваем дискриптор окна
 		size_t handle = getWindowHandle();
