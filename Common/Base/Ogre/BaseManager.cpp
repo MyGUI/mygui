@@ -90,7 +90,7 @@ namespace base
 			#endif
 		}
 
-		#if (OGRE_VERSION >= ((1 << 16) | (11 << 8) | 0))
+		#if (OGRE_VERSION >= ((1 << 16) | (11 << 8) | 0)) && MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		Ogre::NameValuePairList miscParams;
 		mWindow = mRoot->initialise(false);
 		miscParams["windowProc"] = Ogre::StringConverter::toString((size_t)Ogre::WindowEventUtilities::_WndProc);
