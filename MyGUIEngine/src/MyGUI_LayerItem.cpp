@@ -19,10 +19,6 @@ namespace MyGUI
 	{
 	}
 
-	LayerItem::~LayerItem()
-	{
-	}
-
 	void LayerItem::addChildItem(LayerItem* _item)
 	{
 		mLayerItems.push_back(_item);

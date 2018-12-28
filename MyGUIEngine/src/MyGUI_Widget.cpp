@@ -45,10 +45,6 @@ namespace MyGUI
 	{
 	}
 
-	Widget::~Widget()
-	{
-	}
-
 	void Widget::_initialise(WidgetStyle _style, const IntCoord& _coord, const std::string& _skinName, Widget* _parent, ICroppedRectangle* _croppedParent, const std::string& _name)
 	{
 		ResourceSkin* skinInfo = nullptr;

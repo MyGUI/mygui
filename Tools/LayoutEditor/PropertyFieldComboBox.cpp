@@ -27,10 +27,6 @@ namespace tools
 		mField->eventComboAccept += newDelegate (this, &PropertyFieldComboBox::notifyForceApplyProperties2);
 	}
 
-	PropertyFieldComboBox::~PropertyFieldComboBox()
-	{
-	}
-
 	void PropertyFieldComboBox::initialise(const std::string& _type)
 	{
 		mType = _type;

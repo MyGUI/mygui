@@ -21,12 +21,11 @@ namespace MyGUI
 
 	public:
 		ResourceImageSetPointer();
-		virtual ~ResourceImageSetPointer();
 
-		virtual void deserialization(xml::ElementPtr _node, Version _version);
+		void deserialization(xml::ElementPtr _node, Version _version) override;
 
-		virtual void setImage(ImageBox* _image);
-		virtual void setPosition(ImageBox* _image, const IntPoint& _point);
+		void setImage(ImageBox* _image) override;
+		void setPosition(ImageBox* _image, const IntPoint& _point) override;
 
 	private:
 		IntPoint mPoint;

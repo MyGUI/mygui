@@ -641,21 +641,6 @@ namespace MyGUI
 		eventChangeProperty(this, _key, _value);
 	}
 
-	void TabControl::setPosition(int _left, int _top)
-	{
-		setPosition(IntPoint(_left, _top));
-	}
-
-	void TabControl::setSize(int _width, int _height)
-	{
-		setSize(IntSize(_width, _height));
-	}
-
-	void TabControl::setCoord(int _left, int _top, int _width, int _height)
-	{
-		setCoord(IntCoord(_left, _top, _width, _height));
-	}
-
 	size_t TabControl::getItemCount() const
 	{
 		return mItemsInfo.size();

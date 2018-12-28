@@ -23,7 +23,6 @@ namespace tools
 	{
 	public:
 		EditorState();
-		virtual ~EditorState();
 
 		virtual void initState();
 		virtual void cleanupState();

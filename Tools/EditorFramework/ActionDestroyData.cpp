@@ -20,10 +20,6 @@ namespace tools
 	{
 	}
 
-	ActionDestroyData::~ActionDestroyData()
-	{
-	}
-
 	void ActionDestroyData::doAction()
 	{
 		mParent = mData->getParent();

@@ -20,7 +20,6 @@ namespace tools
 	{
 	public:
 		PropertyFieldComboBox(MyGUI::Widget* _parent);
-		virtual ~PropertyFieldComboBox();
 
 		virtual void initialise(const std::string& _type);
 

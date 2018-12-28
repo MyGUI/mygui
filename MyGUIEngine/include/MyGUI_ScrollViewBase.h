@@ -17,7 +17,7 @@ namespace MyGUI
 	{
 	protected:
 		ScrollViewBase();
-		virtual ~ScrollViewBase();
+		virtual ~ScrollViewBase() = default;
 
 		void updateScrollSize();
 		void updateScrollPosition();

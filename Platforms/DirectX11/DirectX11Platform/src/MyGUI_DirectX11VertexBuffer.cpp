@@ -75,7 +75,7 @@ namespace MyGUI
 		if (mBuffer)
 		{
 			mBuffer->Release();
-			mBuffer = 0;
+			mBuffer = nullptr;
 		}
 	}
 

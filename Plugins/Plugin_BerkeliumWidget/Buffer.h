@@ -30,7 +30,7 @@ namespace helpers
 			if (mBuffer != 0)
 			{
 				delete [] mBuffer;
-				mBuffer = 0;
+				mBuffer = nullptr;
 			}
 		}
 
@@ -104,7 +104,7 @@ namespace helpers
 				if (mBuffer != 0)
 				{
 					delete [] mBuffer;
-					mBuffer = 0;
+					mBuffer = nullptr;
 				}
 				mBuffer = new_data;
 			}

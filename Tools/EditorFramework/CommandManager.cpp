@@ -13,14 +13,6 @@ template <> const char* MyGUI::Singleton<tools::CommandManager>::mClassTypeName 
 namespace tools
 {
 
-	CommandManager::CommandManager()
-	{
-	}
-
-	CommandManager::~CommandManager()
-	{
-	}
-
 	void CommandManager::initialise()
 	{
 	}

@@ -957,21 +957,6 @@ namespace MyGUI
 		return isItemVisibleAt(mIndexSelect, _fill);
 	}
 
-	void ListBox::setPosition(int _left, int _top)
-	{
-		setPosition(IntPoint(_left, _top));
-	}
-
-	void ListBox::setSize(int _width, int _height)
-	{
-		setSize(IntSize(_width, _height));
-	}
-
-	void ListBox::setCoord(int _left, int _top, int _width, int _height)
-	{
-		setCoord(IntCoord(_left, _top, _width, _height));
-	}
-
 	size_t ListBox::_getItemIndex(Widget* _item)
 	{
 		for (VectorButton::iterator iter = mWidgetLines.begin(); iter != mWidgetLines.end(); ++iter)

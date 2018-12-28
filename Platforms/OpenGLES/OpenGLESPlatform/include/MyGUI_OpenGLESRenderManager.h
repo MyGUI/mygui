@@ -20,7 +20,7 @@ namespace MyGUI
 	public:
 		OpenGLESRenderManager();
 
-		void initialise(OpenGLESImageLoader* _loader = 0);
+		void initialise(OpenGLESImageLoader* _loader = nullptr);
 		void shutdown();
 
 		static OpenGLESRenderManager& getInstance()

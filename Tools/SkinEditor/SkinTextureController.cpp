@@ -25,10 +25,6 @@ namespace tools
 	{
 	}
 
-	SkinTextureController::~SkinTextureController()
-	{
-	}
-
 	void SkinTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();

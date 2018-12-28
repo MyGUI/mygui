@@ -193,7 +193,7 @@ namespace Hikari
 			if ((owner->flashInterface->QueryInterface(IID_IConnectionPointContainer, (void**)&cPointContainer) == S_OK) &&
 					(cPointContainer->FindConnectionPoint(__uuidof(ShockwaveFlashObjects::_IShockwaveFlashEvents), &connectionPoint) == S_OK))
 			{
-				IDispatch* dispatch = 0;
+				IDispatch* dispatch = nullptr;
 				QueryInterface(__uuidof(IDispatch), (void**)&dispatch);
 
 				if (dispatch)

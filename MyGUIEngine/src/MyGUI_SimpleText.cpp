@@ -21,10 +21,6 @@ namespace MyGUI
 		mIsAddCursorWidth = false;
 	}
 
-	SimpleText::~SimpleText()
-	{
-	}
-
 	void SimpleText::setViewOffset(const IntPoint& _point)
 	{
 	}

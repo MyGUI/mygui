@@ -22,10 +22,6 @@ namespace tools
 	{
 	}
 
-	Dialog::~Dialog()
-	{
-	}
-
 	void Dialog::doModal()
 	{
 		MYGUI_ASSERT(mModal != true, "Already modal mode");

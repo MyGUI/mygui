@@ -13,14 +13,6 @@ template <> const char* MyGUI::Singleton<tools::MessageBoxManager>::mClassTypeNa
 namespace tools
 {
 
-	MessageBoxManager::MessageBoxManager()
-	{
-	}
-
-	MessageBoxManager::~MessageBoxManager()
-	{
-	}
-
 	void MessageBoxManager::initialise()
 	{
 	}

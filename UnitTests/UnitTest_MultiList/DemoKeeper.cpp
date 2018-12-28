@@ -12,8 +12,8 @@
 namespace demo
 {
 
-	unittest::UnitTest_List* unittest_list = 0;
-	unittest::UnitTest_MultiList* unittest_multilist = 0;
+	unittest::UnitTest_List* unittest_list = nullptr;
+	unittest::UnitTest_MultiList* unittest_multilist = nullptr;
 
 	void DemoKeeper::setupResources()
 	{

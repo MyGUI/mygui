@@ -18,7 +18,6 @@ namespace tools
 	{
 	public:
 		ActionChangePositionData();
-		virtual ~ActionChangePositionData();
 
 		virtual void doAction();
 		virtual void undoAction();

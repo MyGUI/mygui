@@ -20,10 +20,6 @@ namespace plugin
 	{
 	}
 
-	Plugin::~Plugin()
-	{
-	}
-
 	void Plugin::install()
 	{
 	}

@@ -17,9 +17,6 @@ namespace tools
 		public IPropertyInitialisator
 	{
 	public:
-		UniqueNamePropertyInitialisator();
-		virtual ~UniqueNamePropertyInitialisator();
-
 		virtual void initialise(PropertyPtr _property);
 	};
 

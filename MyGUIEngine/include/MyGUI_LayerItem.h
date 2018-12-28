@@ -22,7 +22,6 @@ namespace MyGUI
 	{
 	public:
 		LayerItem();
-		virtual ~LayerItem();
 
 		ILayer* getLayer() const;
 		ILayerNode* getLayerNode() const;

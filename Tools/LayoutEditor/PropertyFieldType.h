@@ -18,7 +18,6 @@ namespace tools
 	{
 	public:
 		PropertyFieldType(MyGUI::Widget* _parent);
-		virtual ~PropertyFieldType();
 
 	protected:
 		virtual void onFillValues();

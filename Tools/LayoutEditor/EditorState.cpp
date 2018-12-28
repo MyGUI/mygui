@@ -46,10 +46,6 @@ namespace tools
 		CommandManager::getInstance().getEvent("Command_UpdateResources")->connect(this, &EditorState::command_UpdateResources);
 	}
 
-	EditorState::~EditorState()
-	{
-	}
-
 	void EditorState::initState()
 	{
 		addUserTag("\\n", "\n");

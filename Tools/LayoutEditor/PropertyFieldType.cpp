@@ -17,10 +17,6 @@ namespace tools
 	{
 	}
 
-	PropertyFieldType::~PropertyFieldType()
-	{
-	}
-
 	void PropertyFieldType::onFillValues()
 	{
 		WidgetStyle::VectorString values;

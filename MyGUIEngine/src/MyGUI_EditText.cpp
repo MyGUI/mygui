@@ -54,10 +54,6 @@ namespace MyGUI
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 	}
 
-	EditText::~EditText()
-	{
-	}
-
 	void EditText::setVisible(bool _visible)
 	{
 		if (mVisible == _visible)
@@ -250,11 +246,6 @@ namespace MyGUI
 
 		if (nullptr != mNode)
 			mNode->outOfDate(mRenderItem);
-	}
-
-	float EditText::getAlpha() const
-	{
-		return mAlpha;
 	}
 
 	void EditText::setFontName(const std::string& _value)

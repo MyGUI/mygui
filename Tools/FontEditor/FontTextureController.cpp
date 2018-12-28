@@ -28,10 +28,6 @@ namespace tools
 	{
 	}
 
-	FontTextureController::~FontTextureController()
-	{
-	}
-
 	void FontTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();

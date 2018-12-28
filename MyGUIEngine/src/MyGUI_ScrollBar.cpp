@@ -659,21 +659,6 @@ namespace MyGUI
 		return mMoveToClick;
 	}
 
-	void ScrollBar::setPosition(int _left, int _top)
-	{
-		setPosition(IntPoint(_left, _top));
-	}
-
-	void ScrollBar::setSize(int _width, int _height)
-	{
-		setSize(IntSize(_width, _height));
-	}
-
-	void ScrollBar::setCoord(int _left, int _top, int _width, int _height)
-	{
-		setCoord(IntCoord(_left, _top, _width, _height));
-	}
-
 	int ScrollBar::getTrackPlaceLength() const
 	{
 		if (mWidgetTrack != nullptr)

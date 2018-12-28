@@ -11,14 +11,6 @@
 namespace MyGUI
 {
 
-	UserData::UserData()
-	{
-	}
-
-	UserData::~UserData()
-	{
-	}
-
 	void UserData::setUserString(const std::string& _key, const std::string& _value)
 	{
 		mMapUserString[_key] = _value;

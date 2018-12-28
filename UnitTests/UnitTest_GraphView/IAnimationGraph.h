@@ -19,7 +19,6 @@ namespace animation
 	public:
 		IAnimationGraph() : IAnimationNode() { }
 		IAnimationGraph(const std::string& _name) : IAnimationNode(_name, 0) { }
-		virtual ~IAnimationGraph() { }
 
 		virtual Ogre::Any getData(const std::string& _name) = 0;
 		virtual void addData(const std::string& _name, Ogre::Any _any) = 0;

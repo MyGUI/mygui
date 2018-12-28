@@ -15,10 +15,6 @@ namespace tools
 	class MYGUI_EXPORT_DLL AreaSelectorControl :
 		public SelectorControl
 	{
-	public:
-		AreaSelectorControl();
-		virtual ~AreaSelectorControl();
-
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 	};

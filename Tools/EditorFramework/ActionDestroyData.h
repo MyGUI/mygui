@@ -18,7 +18,6 @@ namespace tools
 	{
 	public:
 		ActionDestroyData();
-		virtual ~ActionDestroyData();
 
 		virtual void doAction();
 		virtual void undoAction();

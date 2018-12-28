@@ -21,7 +21,6 @@ namespace plugin
 	{
 	public:
 		Plugin();
-		~Plugin();
 
 	public:
 		//!	Initialization

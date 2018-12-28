@@ -25,7 +25,6 @@ namespace MyGUI
 
 	public:
 		ControllerRepeatClick();
-		virtual ~ControllerRepeatClick();
 
 		/** Change initial delay and time step
 			@param init The delay before the first event will be triggered.
@@ -33,9 +32,9 @@ namespace MyGUI
 		 */
 		void setRepeat(float init, float step);
 
-		virtual bool addTime(Widget* _widget, float _time);
-		virtual void prepareItem(Widget* _widget);
-		virtual void setProperty(const std::string& _key, const std::string& _value);
+		bool addTime(Widget* _widget, float _time) override;
+		void prepareItem(Widget* _widget) override;
+		void setProperty(const std::string& _key, const std::string& _value) override;
 
 		typedef delegates::CMultiDelegate2<Widget*, ControllerItem*> EventHandle_RepeatClick;
 

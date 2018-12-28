@@ -23,13 +23,12 @@ namespace input
 	class ResourceSDLPointer :
 		public MyGUI::IResource
 	{
-		MYGUI_RTTI_DERIVED( ResourceSDLPointer );
+		MYGUI_RTTI_DERIVED( ResourceSDLPointer )
 
 	public:
 		ResourceSDLPointer();
-		virtual ~ResourceSDLPointer() { }
 
-		virtual void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version);
+		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override;
 
 		SDL_SystemCursor getPointerType()
 		{

@@ -17,10 +17,6 @@ namespace tools
 	{
 	}
 
-	SettingsWindow::~SettingsWindow()
-	{
-	}
-
 	void SettingsWindow::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);

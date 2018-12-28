@@ -819,21 +819,6 @@ namespace MyGUI
 			updateColumns();
 	}
 
-	void MultiListBox::setPosition(int _left, int _top)
-	{
-		setPosition(IntPoint(_left, _top));
-	}
-
-	void MultiListBox::setSize(int _width, int _height)
-	{
-		setSize(IntSize(_width, _height));
-	}
-
-	void MultiListBox::setCoord(int _left, int _top, int _width, int _height)
-	{
-		setCoord(IntCoord(_left, _top, _width, _height));
-	}
-
 	bool MultiListBox::getUpdateByResize()
 	{
 		if (mWidgetEmpty != nullptr)

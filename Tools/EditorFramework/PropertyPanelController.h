@@ -21,7 +21,6 @@ namespace tools
 	{
 	public:
 		PropertyPanelController();
-		virtual ~PropertyPanelController();
 
 		virtual void setTarget(Control* _control);
 

@@ -17,9 +17,6 @@ namespace components
 		public IFactory
 	{
 	public:
-		FactoryTemplate() { }
-		virtual ~FactoryTemplate() { }
-
 		virtual IFactoryItem* CreateItem()
 		{
 			IFactoryItem* result = new Type();

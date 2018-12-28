@@ -20,7 +20,6 @@ namespace tools
 	public:
 		Dialog();
 		Dialog(const std::string& _layout);
-		virtual ~Dialog();
 
 		void doModal();
 		void endModal();

@@ -26,10 +26,6 @@ namespace tools
 	{
 	}
 
-	WidgetCreatorManager::~WidgetCreatorManager()
-	{
-	}
-
 	void WidgetCreatorManager::initialise()
 	{
 	}

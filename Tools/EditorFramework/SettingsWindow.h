@@ -20,7 +20,6 @@ namespace tools
 	{
 	public:
 		SettingsWindow();
-		virtual ~SettingsWindow();
 
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);

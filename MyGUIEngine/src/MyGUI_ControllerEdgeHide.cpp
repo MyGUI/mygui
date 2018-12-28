@@ -27,10 +27,6 @@ namespace MyGUI
 	{
 	}
 
-	ControllerEdgeHide::~ControllerEdgeHide()
-	{
-	}
-
 	void ControllerEdgeHide::prepareItem(Widget* _widget)
 	{
 		recalculateTime(_widget);

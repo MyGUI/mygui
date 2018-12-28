@@ -15,8 +15,4 @@ namespace tools
 		assignBase(mProjectControl, "ProjectControl");
 	}
 
-	ToolsControl::~ToolsControl()
-	{
-	}
-
 }

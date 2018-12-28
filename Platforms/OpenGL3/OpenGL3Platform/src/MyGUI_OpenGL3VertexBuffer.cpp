@@ -17,9 +17,10 @@ namespace MyGUI
     //const size_t RENDER_ITEM_STEEP_REALLOCK = 5 * VERTEX_IN_QUAD;
 
 	OpenGL3VertexBuffer::OpenGL3VertexBuffer() :
-      mBufferID(0), mVAOID(0),
-        //mVertexCount(RENDER_ITEM_STEEP_REALLOCK),
-        mNeedVertexCount(0),
+		mVAOID(0),
+		mBufferID(0),
+		//mVertexCount(RENDER_ITEM_STEEP_REALLOCK),
+		mNeedVertexCount(0),
 		mSizeInBytes(0)
 	{
 	}
@@ -52,7 +53,7 @@ namespace MyGUI
 		glBindBuffer(GL_ARRAY_BUFFER, mBufferID);
 
 		// Discard the buffer
-		glBufferData(GL_ARRAY_BUFFER, mSizeInBytes, 0, GL_STREAM_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, mSizeInBytes, nullptr, GL_STREAM_DRAW);
 
 
 		Vertex* pBuffer = reinterpret_cast<Vertex*>(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
@@ -93,7 +94,7 @@ namespace MyGUI
 		MYGUI_PLATFORM_ASSERT(!mBufferID, "Vertex buffer already exist");
 
 		mSizeInBytes = mNeedVertexCount * sizeof(MyGUI::Vertex);
-		void* data = 0;
+		void* data = nullptr;
 
 		glGenBuffers(1, &mBufferID);
     glGenVertexArrays(1, &mVAOID);
@@ -114,7 +115,7 @@ namespace MyGUI
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
     glEnableVertexAttribArray(2);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLubyte *)NULL);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLubyte *)nullptr);
     glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (GLubyte *)offsetof(struct Vertex, colour));
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLubyte *)offsetof(struct Vertex, u));
 

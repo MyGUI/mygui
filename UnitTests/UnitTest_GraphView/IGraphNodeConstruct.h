@@ -9,7 +9,6 @@ namespace demo
 	class IGraphNodeConstruct
 	{
 	public:
-		IGraphNodeConstruct() { }
 		virtual ~IGraphNodeConstruct() { }
 		virtual BaseAnimationNode* create(const std::string& _name) = 0;
 	};
@@ -19,8 +18,6 @@ namespace demo
 		public IGraphNodeConstruct
 	{
 	public:
-		GraphNodeConstruct() { }
-		virtual ~GraphNodeConstruct() { }
 		virtual BaseAnimationNode* create(const std::string& _name)
 		{
 			return new Type(_name);

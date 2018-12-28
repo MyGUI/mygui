@@ -19,10 +19,6 @@ namespace tools
 		mField->eventToolTip += newDelegate (this, &PropertyFieldSkin::notifyToolTip);
 	}
 
-	PropertyFieldSkin::~PropertyFieldSkin()
-	{
-	}
-
 	void PropertyFieldSkin::onFillValues()
 	{
 		WidgetStyle::VectorString values = WidgetTypes::getInstance().findWidgetStyle(mCurrentWidget->getTypeName())->skin;

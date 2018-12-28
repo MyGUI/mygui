@@ -20,7 +20,6 @@ namespace tools
 	{
 	public:
 		PropertyFieldEditBox(MyGUI::Widget* _parent);
-		virtual ~PropertyFieldEditBox();
 
 		virtual void initialise(const std::string& _type);
 

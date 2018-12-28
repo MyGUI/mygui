@@ -25,7 +25,6 @@ namespace MyGUI
 
 	public:
 		ILayer() { }
-		virtual ~ILayer() { }
 
 		const std::string& getName() const
 		{

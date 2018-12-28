@@ -17,9 +17,6 @@ namespace MyGUI
 		public ISerializable
 	{
 		MYGUI_RTTI_DERIVED( IStateInfo )
-
-	public:
-		virtual ~IStateInfo() { }
 	};
 
 	typedef std::vector<IStateInfo*> VectorStateInfo;

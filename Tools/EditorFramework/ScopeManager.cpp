@@ -15,14 +15,6 @@ template <> const char* MyGUI::Singleton<tools::ScopeManager>::mClassTypeName = 
 namespace tools
 {
 
-	ScopeManager::ScopeManager()
-	{
-	}
-
-	ScopeManager::~ScopeManager()
-	{
-	}
-
 	void ScopeManager::initialise()
 	{
 		CommandManager::getInstance().getEvent("Command_ChangeScope")->connect(this, &ScopeManager::commandChangeScope);

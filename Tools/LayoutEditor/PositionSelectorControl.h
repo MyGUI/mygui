@@ -17,7 +17,6 @@ namespace tools
 	{
 	public:
 		PositionSelectorControlLE(MyGUI::Widget* _parent);
-		virtual ~PositionSelectorControlLE();
 	};
 
 }

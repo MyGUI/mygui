@@ -217,7 +217,7 @@ namespace MyGUI
 		}
 
 		D3DFORMAT requestedlFormat = internalFormat;
-		D3DXCheckTextureRequirements(mpD3DDevice, NULL, NULL, NULL, internalUsage, &internalFormat, internalPool);
+		D3DXCheckTextureRequirements(mpD3DDevice, nullptr, nullptr, nullptr, internalUsage, &internalFormat, internalPool);
 
 		bool result = requestedlFormat == internalFormat;
 		if (!result)

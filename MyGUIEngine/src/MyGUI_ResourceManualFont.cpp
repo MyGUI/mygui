@@ -20,10 +20,6 @@ namespace MyGUI
 	{
 	}
 
-	ResourceManualFont::~ResourceManualFont()
-	{
-	}
-
 	GlyphInfo* ResourceManualFont::getGlyphInfo(Char _id)
 	{
 		CharMap::iterator iter = mCharMap.find(_id);

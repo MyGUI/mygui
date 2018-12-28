@@ -63,8 +63,8 @@ namespace MyGUI
 
 		std::string cursor = "arrow";
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		static HCURSOR beam_cursor = ::LoadCursor(NULL, MAKEINTRESOURCE(IDC_IBEAM));
-		static HCURSOR link_cursor = ::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND));
+		static HCURSOR beam_cursor = ::LoadCursor(nullptr, MAKEINTRESOURCE(IDC_IBEAM));
+		static HCURSOR link_cursor = ::LoadCursor(nullptr, MAKEINTRESOURCE(IDC_HAND));
 
 		if (newCursor.GetCursor() == beam_cursor)
 		{

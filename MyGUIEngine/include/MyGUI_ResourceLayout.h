@@ -25,7 +25,7 @@ namespace MyGUI
 
 		ResourceLayout(xml::ElementPtr _node, const std::string& _file);
 
-		virtual void deserialization(xml::ElementPtr _node, Version _version);
+		void deserialization(xml::ElementPtr _node, Version _version) override;
 
 		const VectorWidgetInfo& getLayoutData() const;
 

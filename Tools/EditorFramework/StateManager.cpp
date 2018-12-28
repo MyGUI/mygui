@@ -13,14 +13,6 @@ template <> const char* MyGUI::Singleton<tools::StateManager>::mClassTypeName = 
 namespace tools
 {
 
-	StateManager::StateManager()
-	{
-	}
-
-	StateManager::~StateManager()
-	{
-	}
-
 	void StateManager::initialise()
 	{
 	}

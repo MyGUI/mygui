@@ -17,13 +17,12 @@ namespace input
 	class ResourceW32Pointer :
 		public MyGUI::IResource
 	{
-		MYGUI_RTTI_DERIVED( ResourceW32Pointer );
+		MYGUI_RTTI_DERIVED( ResourceW32Pointer )
 
 	public:
 		ResourceW32Pointer();
-		virtual ~ResourceW32Pointer() { }
 
-		virtual void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version);
+		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override;
 
 		size_t getPointerHandle()
 		{

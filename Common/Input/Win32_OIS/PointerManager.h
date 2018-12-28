@@ -17,7 +17,6 @@ namespace input
 	{
 	public:
 		PointerManager();
-		virtual ~PointerManager();
 
 		void createPointerManager(size_t _handle);
 		void destroyPointerManager();

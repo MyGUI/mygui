@@ -506,21 +506,6 @@ namespace MyGUI
 		setMaxSize(IntSize(_width, _height));
 	}
 
-	void Window::setPosition(int _left, int _top)
-	{
-		setPosition(IntPoint(_left, _top));
-	}
-
-	void Window::setSize(int _width, int _height)
-	{
-		setSize(IntSize(_width, _height));
-	}
-
-	void Window::setCoord(int _left, int _top, int _width, int _height)
-	{
-		setCoord(IntCoord(_left, _top, _width, _height));
-	}
-
 	bool Window::getSnap() const
 	{
 		return mSnap;

@@ -10,14 +10,6 @@
 namespace tools
 {
 
-	AreaSelectorControl::AreaSelectorControl()
-	{
-	}
-
-	AreaSelectorControl::~AreaSelectorControl()
-	{
-	}
-
 	void AreaSelectorControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
 		SelectorControl::OnInitialise(_parent, _place, "AreaSelectorControl.layout");

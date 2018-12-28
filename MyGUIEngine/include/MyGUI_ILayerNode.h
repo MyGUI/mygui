@@ -31,8 +31,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ILayerNode )
 
 	public:
-		virtual ~ILayerNode() { }
-
 		// леер, которому мы принадлежим
 		virtual ILayer* getLayer() const = 0;
 

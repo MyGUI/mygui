@@ -23,10 +23,6 @@ namespace tools
 		CommandManager::getInstance().getEvent("Command_ChangeColourSelectorInactive")->connect(this, &ColourManager::commandChangeColourSelectorInactive);
 	}
 
-	ColourManager::~ColourManager()
-	{
-	}
-
 	void ColourManager::initialise()
 	{
 		mColourPanel = new ColourPanel();

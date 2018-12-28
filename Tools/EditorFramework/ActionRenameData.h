@@ -17,9 +17,6 @@ namespace tools
 		public ActionChangeDataProperty
 	{
 	public:
-		ActionRenameData();
-		virtual ~ActionRenameData();
-
 		virtual void doAction();
 		virtual void undoAction();
 

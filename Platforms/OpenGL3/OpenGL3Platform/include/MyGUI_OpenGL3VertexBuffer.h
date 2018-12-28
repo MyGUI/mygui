@@ -36,8 +36,8 @@ namespace MyGUI
 		}
 
 	private:
-    unsigned int mVAOID;
-    unsigned int mBufferID;
+		unsigned int mVAOID;
+		unsigned int mBufferID;
         //size_t mVertexCount;
 		size_t mNeedVertexCount;
 		size_t mSizeInBytes;

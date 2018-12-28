@@ -28,7 +28,6 @@ namespace MyGUI
 
 	public:
 		ControllerEdgeHide();
-		virtual ~ControllerEdgeHide();
 
 		/**
 			@param _value in which widget will be hidden or shown
@@ -45,9 +44,9 @@ namespace MyGUI
 		*/
 		void setShadowSize(int _value);
 
-		virtual bool addTime(Widget* _widget, float _time);
-		virtual void prepareItem(Widget* _widget);
-		virtual void setProperty(const std::string& _key, const std::string& _value);
+		bool addTime(Widget* _widget, float _time) override;
+		void prepareItem(Widget* _widget) override;
+		void setProperty(const std::string& _key, const std::string& _value) override;
 
 	private:
 		void recalculateTime(Widget* _widget);

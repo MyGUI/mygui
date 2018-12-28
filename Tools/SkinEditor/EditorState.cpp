@@ -47,10 +47,6 @@ namespace tools
 		mFileName = mDefaultFileName;
 	}
 
-	EditorState::~EditorState()
-	{
-	}
-
 	void EditorState::initState()
 	{
 		addUserTag("\\n", "\n");

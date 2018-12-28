@@ -22,38 +22,38 @@ namespace MyGUI
 
 	public:
 		SharedLayer();
-		virtual ~SharedLayer();
+		~SharedLayer() override;
 
-		virtual void deserialization(xml::ElementPtr _node, Version _version);
+		void deserialization(xml::ElementPtr _node, Version _version) override;
 
 		void setPick(bool _pick);
 
-		virtual ILayerNode* createChildItemNode();
-		virtual void destroyChildItemNode(ILayerNode* _node);
+		ILayerNode* createChildItemNode() override;
+		void destroyChildItemNode(ILayerNode* _node) override;
 
 		// up child item (make it draw and pick above other)
-		virtual void upChildItemNode(ILayerNode* _node);
+		void upChildItemNode(ILayerNode* _node) override;
 
 		// child items list
-		virtual EnumeratorILayerNode getEnumerator() const;
+		EnumeratorILayerNode getEnumerator() const override;
 
-		virtual size_t getLayerNodeCount() const;
+		size_t getLayerNodeCount() const override;
 
-		virtual ILayerNode* getLayerNodeAt(size_t _index) const;
+		ILayerNode* getLayerNodeAt(size_t _index) const override;
 
 		// return widget at position
-		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) const;
+		ILayerItem* getLayerItemByPoint(int _left, int _top) const override;
 
 		// return position in layer coordinates
-		virtual IntPoint getPosition(int _left, int _top) const;
+		IntPoint getPosition(int _left, int _top) const override;
 
 		// return layer size
-		virtual const IntSize& getSize() const;
+		const IntSize& getSize() const override;
 
 		// render layer
-		virtual void renderToTarget(IRenderTarget* _target, bool _update);
+		void renderToTarget(IRenderTarget* _target, bool _update) override;
 
-		virtual void resizeView(const IntSize& _viewSize);
+		void resizeView(const IntSize& _viewSize) override;
 
 		bool isOutOfDate() const;
 

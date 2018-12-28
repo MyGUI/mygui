@@ -24,10 +24,6 @@ namespace demo
 		CommandManager::getInstance().execiteCommand("KeyboardClick", std::string(mMainWidget->getUserString("Command")));
 	}
 
-	KeyboardPanel::~KeyboardPanel()
-	{
-	}
-
 	void KeyboardPanel::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
 		MyGUI::Button* button = _sender->castType<MyGUI::Button>();

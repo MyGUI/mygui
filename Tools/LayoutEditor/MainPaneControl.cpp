@@ -13,10 +13,6 @@ namespace tools
 		assignBase(mMainWorkspaceControl, "MainWorkspaceControl");
 	}
 
-	MainPaneControl::~MainPaneControl()
-	{
-	}
-
 	void MainPaneControl::setVisible(bool _value)
 	{
 		mMainWidget->setVisible(_value);

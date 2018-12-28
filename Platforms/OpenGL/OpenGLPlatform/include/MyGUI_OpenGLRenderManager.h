@@ -23,7 +23,7 @@ namespace MyGUI
 	public:
 		OpenGLRenderManager();
 
-		void initialise(OpenGLImageLoader* _loader = 0);
+		void initialise(OpenGLImageLoader* _loader = nullptr);
 		void shutdown();
 
 		static OpenGLRenderManager& getInstance();

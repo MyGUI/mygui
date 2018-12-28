@@ -19,7 +19,6 @@ namespace tools
 	{
 	public:
 		SkinExportSerializer();
-		virtual ~SkinExportSerializer();
 
 		virtual void serialization(pugi::xml_document& _doc);
 		virtual bool deserialization(pugi::xml_document& _doc);

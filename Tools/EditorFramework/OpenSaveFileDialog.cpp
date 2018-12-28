@@ -22,10 +22,6 @@ namespace tools
 	{
 	}
 
-	OpenSaveFileDialog::~OpenSaveFileDialog()
-	{
-	}
-
 	void OpenSaveFileDialog::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);

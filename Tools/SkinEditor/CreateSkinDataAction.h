@@ -19,7 +19,6 @@ namespace tools
 	{
 	public:
 		CreateSkinDataAction();
-		virtual ~CreateSkinDataAction();
 
 		virtual void doAction();
 		virtual void undoAction();

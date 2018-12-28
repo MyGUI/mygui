@@ -20,7 +20,6 @@ namespace tools
 	{
 	public:
 		ColourManager();
-		virtual ~ColourManager();
 
 		void initialise();
 		void shutdown();

@@ -155,7 +155,7 @@ namespace tools
 			{
 				char str[256];
 				input_file.getline(str, sizeof(str));
-				if (strstr(str, "//%LE Widget_Declaration list start") != 0)
+				if (strstr(str, "//%LE Widget_Declaration list start") != nullptr)
 				{
 					EnumeratorWidgetContainer widget = EditorWidgets::getInstance().getWidgets();
 					while (widget.next())

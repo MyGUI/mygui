@@ -20,10 +20,6 @@ namespace tools
 	{
 	}
 
-	ActionCreateData::~ActionCreateData()
-	{
-	}
-
 	void ActionCreateData::doAction()
 	{
 		if (mData == nullptr)

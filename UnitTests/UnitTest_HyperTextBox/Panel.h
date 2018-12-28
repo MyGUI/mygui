@@ -21,11 +21,15 @@ namespace MyGUI
 		Panel();
 
 		/** Set widget position (position of left top corner) */
-		virtual void setPosition(const IntPoint& _value);
+		void setPosition(const IntPoint& _value) override;
 		/** Set widget size */
-		virtual void setSize(const IntSize& _value);
+		void setSize(const IntSize& _value) override;
 		/** Set widget position and size */
-		virtual void setCoord(const IntCoord& _value);
+		void setCoord(const IntCoord& _value) override;
+
+		using Widget::setPosition;
+		using Widget::setSize;
+		using Widget::setCoord;
 
 		//static void invalidateMeasure(Widget* _widget);
 		/*

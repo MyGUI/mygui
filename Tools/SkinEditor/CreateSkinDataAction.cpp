@@ -21,10 +21,6 @@ namespace tools
 	{
 	}
 
-	CreateSkinDataAction::~CreateSkinDataAction()
-	{
-	}
-
 	void CreateSkinDataAction::doAction()
 	{
 		if (mData == nullptr)

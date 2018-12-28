@@ -15,10 +15,6 @@ namespace tools
 	class IndexListControl :
 		public DataListBaseControl
 	{
-	public:
-		IndexListControl();
-		virtual ~IndexListControl();
-
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 	};

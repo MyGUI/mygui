@@ -25,10 +25,6 @@ namespace tools
 	{
 	}
 
-	StateTextureController::~StateTextureController()
-	{
-	}
-
 	void StateTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();

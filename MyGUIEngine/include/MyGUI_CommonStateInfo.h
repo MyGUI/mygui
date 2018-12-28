@@ -22,15 +22,13 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( SubSkinStateInfo )
 
 	public:
-		virtual ~SubSkinStateInfo() { }
-
 		const FloatRect& getRect() const
 		{
 			return mRect;
 		}
 
 	private:
-		virtual void deserialization(xml::ElementPtr _node, Version _version)
+		void deserialization(xml::ElementPtr _node, Version _version) override
 		{
 			std::string texture = _node->getParent()->getParent()->findAttribute("texture");
 
@@ -61,8 +59,6 @@ namespace MyGUI
 		{
 		}
 
-		virtual ~TileRectStateInfo() { }
-
 		const FloatRect& getRect() const
 		{
 			return mRect;
@@ -84,7 +80,7 @@ namespace MyGUI
 		}
 
 	private:
-		virtual void deserialization(xml::ElementPtr _node, Version _version)
+		void deserialization(xml::ElementPtr _node, Version _version) override
 		{
 			std::string texture = _node->getParent()->getParent()->findAttribute("texture");
 
@@ -127,8 +123,6 @@ namespace MyGUI
 		{
 		}
 
-		virtual ~RotatingSkinStateInfo() { }
-
 		float getAngle() const
 		{
 			return mAngle;
@@ -145,7 +139,7 @@ namespace MyGUI
 		}
 
 	private:
-		virtual void deserialization(xml::ElementPtr _node, Version _version)
+		void deserialization(xml::ElementPtr _node, Version _version) override
 		{
 			xml::ElementEnumerator prop = _node->getElementEnumerator();
 			while (prop.next("Property"))
@@ -188,8 +182,6 @@ namespace MyGUI
 		{
 		}
 
-		virtual ~EditTextStateInfo() { }
-
 		const Colour& getColour() const
 		{
 			return mColour;
@@ -201,7 +193,7 @@ namespace MyGUI
 		}
 
 	private:
-		virtual void deserialization(xml::ElementPtr _node, Version _version)
+		void deserialization(xml::ElementPtr _node, Version _version) override
 		{
 			mShift = utility::parseBool(_node->findAttribute("shift"));
 

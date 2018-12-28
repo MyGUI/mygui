@@ -14,14 +14,6 @@ namespace plugin
 
 	const std::string Plugin::LogSection = "Plugin";
 
-	Plugin::Plugin()
-	{
-	}
-
-	Plugin::~Plugin()
-	{
-	}
-
 	void Plugin::install()
 	{
 	}

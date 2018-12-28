@@ -18,10 +18,6 @@ namespace plugin
 		public MyGUI::IPlugin
 	{
 	public:
-		Plugin();
-		~Plugin();
-
-	public:
 		//!	Initialization
 		virtual void initialize();
 

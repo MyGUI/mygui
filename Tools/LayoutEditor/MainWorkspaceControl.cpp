@@ -13,8 +13,4 @@ namespace tools
 		assignBase(mWorkspaceControl, "WorkspaceControl");
 	}
 
-	MainWorkspaceControl::~MainWorkspaceControl()
-	{
-	}
-
 }

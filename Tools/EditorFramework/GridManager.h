@@ -19,7 +19,6 @@ namespace tools
 	{
 	public:
 		GridManager();
-		virtual ~GridManager();
 
 		void initialise();
 		void shutdown();

@@ -10,9 +10,6 @@ namespace tools
 		public MyGUI::Singleton<GroupMessage>
 	{
 	public:
-		GroupMessage();
-		virtual ~GroupMessage();
-
 		void initialise();
 		void shutdown();
 

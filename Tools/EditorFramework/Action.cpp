@@ -14,10 +14,6 @@ namespace tools
 	{
 	}
 
-	Action::~Action()
-	{
-	}
-
 	void Action::doAction()
 	{
 	}

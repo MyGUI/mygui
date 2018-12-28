@@ -17,8 +17,7 @@ namespace MyGUI
 	class MYGUI_EXPORT UserData
 	{
 	public:
-		UserData();
-		virtual ~UserData();
+		virtual ~UserData() = default;
 
 		/** Set user string */
 		void setUserString(const std::string& _key, const std::string& _value);

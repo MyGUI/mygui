@@ -21,10 +21,6 @@ namespace tools
 	{
 	}
 
-	RecentFilesManager::~RecentFilesManager()
-	{
-	}
-
 	void RecentFilesManager::initialise()
 	{
 		if (!SettingsManager::getInstance().tryGetValue<size_t>("Files/MaxRecentFolders", mMaxRecentFolders))

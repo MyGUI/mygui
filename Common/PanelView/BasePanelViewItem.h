@@ -51,7 +51,7 @@ namespace wraps
 				BaseLayout::shutdown();
 			}
 
-			mPanelCell = 0;
+			mPanelCell = nullptr;
 			mWidgetClient = nullptr;
 		}
 

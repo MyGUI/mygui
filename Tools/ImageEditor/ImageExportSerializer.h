@@ -18,9 +18,6 @@ namespace tools
 		public IExportSerializer
 	{
 	public:
-		ImageExportSerializer();
-		virtual ~ImageExportSerializer();
-
 		virtual void serialization(pugi::xml_document& _doc);
 		virtual bool deserialization(pugi::xml_document& _doc);
 

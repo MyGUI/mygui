@@ -15,10 +15,6 @@ namespace tools
 	class SkinListControl :
 		public DataListBaseControl
 	{
-	public:
-		SkinListControl();
-		virtual ~SkinListControl();
-
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 

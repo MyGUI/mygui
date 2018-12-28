@@ -16,9 +16,6 @@ namespace tools
 		public components::IFactoryItem
 	{
 	public:
-		IExportSerializer() { }
-		virtual ~IExportSerializer() { }
-
 		virtual void serialization(pugi::xml_document& _doc) = 0;
 		virtual bool deserialization(pugi::xml_document& _doc) = 0;
 	};

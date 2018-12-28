@@ -14,14 +14,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(ImageListControl)
 
-	ImageListControl::ImageListControl()
-	{
-	}
-
-	ImageListControl::~ImageListControl()
-	{
-	}
-
 	void ImageListControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
 		DataListBaseControl::OnInitialise(_parent, _place, _layoutName);

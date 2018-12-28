@@ -19,7 +19,6 @@ namespace tools
 	{
 	public:
 		ActionCreateData();
-		virtual ~ActionCreateData();
 
 		virtual void doAction();
 		virtual void undoAction();

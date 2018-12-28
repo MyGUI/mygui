@@ -34,10 +34,6 @@ namespace MyGUI
 	{
 	}
 
-	TreeControl::Node::~Node()
-	{
-	}
-
 	void TreeControl::Node::prepare()
 	{
 		if (mbIsPrepared || !mpOwner)

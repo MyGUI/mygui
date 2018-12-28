@@ -18,7 +18,6 @@ namespace tools
 	{
 	public:
 		ActionCloneData();
-		virtual ~ActionCloneData();
 
 		virtual void doAction();
 		virtual void undoAction();

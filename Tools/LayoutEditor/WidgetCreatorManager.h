@@ -21,7 +21,6 @@ namespace tools
 	{
 	public:
 		WidgetCreatorManager();
-		virtual ~WidgetCreatorManager();
 
 		void initialise();
 		void shutdown();

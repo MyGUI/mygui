@@ -15,10 +15,6 @@ namespace tools
 	{
 	}
 
-	AnimationInfo::~AnimationInfo()
-	{
-	}
-
 	const std::string& AnimationInfo::getTextureName() const
 	{
 		return mAnimationName;

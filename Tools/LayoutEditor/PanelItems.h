@@ -30,7 +30,7 @@ namespace tools
 		void addItem(const std::string& _value);
 		void removeItem(size_t _index);
 
-		void notifyAddItem(MyGUI::Widget* _sender = 0);
+		void notifyAddItem(MyGUI::Widget* _sender = nullptr);
 		void notifyDeleteItem(MyGUI::Widget* _sender);
 		void notifyUpdateItem(MyGUI::EditBox* _widget);
 		void notifySelectItem(MyGUI::ListBox* _widget, size_t _position);

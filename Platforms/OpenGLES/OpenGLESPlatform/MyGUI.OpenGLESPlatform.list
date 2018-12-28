@@ -27,7 +27,6 @@ SOURCE_GROUP("Header Files" FILES
   include/MyGUI_OpenGLESVertexBuffer.h
 )
 SOURCE_GROUP("Source Files" FILES
-  include/GL/glew.c
   src/MyGUI_OpenGLESDataManager.cpp
   src/MyGUI_OpenGLESPlatform.cpp
   src/MyGUI_OpenGLESRTTexture.cpp

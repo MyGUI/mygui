@@ -17,9 +17,6 @@ namespace tools
 		public IPropertyInitialisator
 	{
 	public:
-		TexturePropertyInitialisator();
-		virtual ~TexturePropertyInitialisator();
-
 		virtual void initialise(PropertyPtr _property);
 	};
 

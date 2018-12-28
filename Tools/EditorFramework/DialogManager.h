@@ -17,9 +17,6 @@ namespace tools
 		public MyGUI::Singleton<DialogManager>
 	{
 	public:
-		DialogManager();
-		virtual ~DialogManager();
-
 		void initialise();
 		void shutdown();
 

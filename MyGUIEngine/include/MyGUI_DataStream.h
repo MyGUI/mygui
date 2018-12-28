@@ -19,7 +19,6 @@ namespace MyGUI
 	public:
 		DataStream();
 		DataStream(std::istream* _stream);
-		~DataStream() override;
 
 		bool eof() override;
 		size_t size() override;

@@ -29,7 +29,6 @@ namespace MyGUI
 
 	public:
 		ISubWidget() : mVisible(true) { }
-		virtual ~ISubWidget() { }
 
 		virtual void createDrawItem(ITexture* _texture, ILayerNode* _node) = 0;
 		virtual void destroyDrawItem() = 0;

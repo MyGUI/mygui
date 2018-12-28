@@ -19,7 +19,6 @@ namespace tools
 	{
 	public:
 		SkinTextureController();
-		virtual ~SkinTextureController();
 
 		virtual void setTarget(Control* _control);
 

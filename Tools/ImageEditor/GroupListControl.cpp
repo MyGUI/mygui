@@ -14,14 +14,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(GroupListControl)
 
-	GroupListControl::GroupListControl()
-	{
-	}
-
-	GroupListControl::~GroupListControl()
-	{
-	}
-
 	void GroupListControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
 		DataListBaseControl::OnInitialise(_parent, _place, _layoutName);

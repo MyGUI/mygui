@@ -19,7 +19,6 @@ namespace tools
 	{
 	public:
 		StateTextureController();
-		virtual ~StateTextureController();
 
 		virtual void setTarget(Control* _control);
 

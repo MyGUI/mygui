@@ -17,10 +17,6 @@ namespace MyGUI
 	{
 	}
 
-	ResourceImageSetPointer::~ResourceImageSetPointer()
-	{
-	}
-
 	void ResourceImageSetPointer::deserialization(xml::ElementPtr _node, Version _version)
 	{
 		Base::deserialization(_node, _version);

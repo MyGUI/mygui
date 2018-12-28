@@ -3552,7 +3552,7 @@ PUGI__NS_BEGIN
 
 		// read file to a chunk list
 		size_t total = 0;
-		xml_stream_chunk<T>* last = 0;
+		xml_stream_chunk<T>* last = nullptr;
 
 		while (!stream.eof())
 		{
@@ -3634,7 +3634,7 @@ PUGI__NS_BEGIN
 
 	template <typename T> PUGI__FN xml_parse_result load_stream_impl(xml_document& doc, std::basic_istream<T>& stream, unsigned int options, xml_encoding encoding)
 	{
-		void* buffer = 0;
+		void* buffer = nullptr;
 		size_t size = 0;
 
 		// load stream to memory (using seek-based implementation if possible, since it's faster and takes less memory)
@@ -5287,7 +5287,7 @@ namespace pugi
 		xml_encoding buffer_encoding = impl::get_buffer_encoding(encoding, contents, size);
 
 		// get private buffer
-		char_t* buffer = 0;
+		char_t* buffer = nullptr;
 		size_t length = 0;
 
 		if (!impl::convert_buffer(buffer, length, buffer_encoding, contents, size, is_mutable)) return impl::make_parse_result(status_out_of_memory);
@@ -8052,7 +8052,7 @@ PUGI__NS_BEGIN
 			_data.variable = value;
 		}
 		
-		xpath_ast_node(ast_type_t type, xpath_value_type rettype_, xpath_ast_node* left = 0, xpath_ast_node* right = 0):
+		xpath_ast_node(ast_type_t type, xpath_value_type rettype_, xpath_ast_node* left = nullptr, xpath_ast_node* right = nullptr):
 			_type(static_cast<char>(type)), _rettype(static_cast<char>(rettype_)), _axis(0), _test(0), _left(left), _right(right), _next(0)
 		{
 		}
@@ -9123,7 +9123,7 @@ PUGI__NS_BEGIN
 				xpath_lexer_string function = _lexer.contents();
 				_lexer.next();
 				
-				xpath_ast_node* last_arg = 0;
+				xpath_ast_node* last_arg = nullptr;
 				
 				if (_lexer.current() != lex_open_brace)
 					throw_error("Unrecognized function call");
@@ -9312,7 +9312,7 @@ PUGI__NS_BEGIN
 			
 			xpath_ast_node* n = new (alloc_node()) xpath_ast_node(ast_step, set, axis, nt_type, alloc_string(nt_name));
 			
-			xpath_ast_node* last = 0;
+			xpath_ast_node* last = nullptr;
 			
 			while (_lexer.current() == lex_open_square_brace)
 			{

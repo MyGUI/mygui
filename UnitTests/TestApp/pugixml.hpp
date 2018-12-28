@@ -541,11 +541,11 @@ namespace pugi
 	
 	#ifndef PUGIXML_NO_XPATH
 		// Select single node by evaluating XPath query. Returns first node from the resulting node set.
-		xpath_node select_single_node(const char_t* query, xpath_variable_set* variables = 0) const;
+		xpath_node select_single_node(const char_t* query, xpath_variable_set* variables = nullptr) const;
 		xpath_node select_single_node(const xpath_query& query) const;
 
 		// Select node set by evaluating XPath query
-		xpath_node_set select_nodes(const char_t* query, xpath_variable_set* variables = 0) const;
+		xpath_node_set select_nodes(const char_t* query, xpath_variable_set* variables = nullptr) const;
 		xpath_node_set select_nodes(const xpath_query& query) const;
 	#endif
 		
@@ -1032,7 +1032,7 @@ namespace pugi
 	public:
 		// Construct a compiled object from XPath expression.
 		// If PUGIXML_NO_EXCEPTIONS is not defined, throws xpath_exception on compilation errors.
-		explicit xpath_query(const char_t* query, xpath_variable_set* variables = 0);
+		explicit xpath_query(const char_t* query, xpath_variable_set* variables = nullptr);
 
 		// Destructor
 		~xpath_query();
@@ -1207,7 +1207,7 @@ namespace pugi
 	std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> > PUGIXML_FUNCTION as_wide(const std::basic_string<char, std::char_traits<char>, std::allocator<char> >& str);
 #endif
 
-	// Memory allocation function interface; returns pointer to allocated memory or NULL on failure
+	// Memory allocation function interface; returns pointer to allocated memory or nullptr on failure
 	typedef void* (*allocation_function)(size_t size);
 	
 	// Memory deallocation function interface

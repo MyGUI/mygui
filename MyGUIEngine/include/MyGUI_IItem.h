@@ -17,7 +17,6 @@ namespace MyGUI
 	class MYGUI_EXPORT IItem
 	{
 	public:
-		IItem() { }
 		virtual ~IItem() { }
 
 		virtual IItemContainer* _getItemContainer()

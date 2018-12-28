@@ -43,7 +43,7 @@ namespace attribute
 		virtual bool set(OwnerType* _target, typename SetterType::BaseValueType* _value)
 		{
 			_target->*m_offset = SetterType::template convert<FieldType>(_value);
-			return _target->*m_offset != 0;
+			return _target->*m_offset != nullptr;
 		}
 		virtual const std::string& getFieldTypeName()
 		{

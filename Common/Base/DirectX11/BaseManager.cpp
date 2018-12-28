@@ -77,10 +77,6 @@ namespace base
 	{
 	}
 
-	BaseManager::~BaseManager()
-	{
-	}
-
 	void BaseManager::_windowResized()
 	{
 		RECT rect = { 0, 0, 0, 0 };
@@ -104,14 +100,14 @@ namespace base
 		// регистрируем класс окна
 		WNDCLASS wc =
 		{
-			0, (WNDPROC)DXWndProc, 0, 0, GetModuleHandle(NULL), LoadIcon(NULL, MAKEINTRESOURCE(1001)),
-			LoadCursor(NULL, IDC_ARROW), (HBRUSH)GetStockObject(BLACK_BRUSH), NULL, TEXT(WND_CLASS_NAME),
+			0, (WNDPROC)DXWndProc, 0, 0, GetModuleHandle(nullptr), LoadIcon(nullptr, MAKEINTRESOURCE(1001)),
+			LoadCursor(nullptr, IDC_ARROW), (HBRUSH)GetStockObject(BLACK_BRUSH), nullptr, TEXT(WND_CLASS_NAME),
 		};
 		RegisterClass(&wc);
 
 		// создаем главное окно
 		hWnd = CreateWindow(wc.lpszClassName, TEXT("Direct3D11 Render Window"), WS_POPUP,
-			0, 0, 0, 0, GetDesktopWindow(), NULL, wc.hInstance, this);
+			0, 0, 0, 0, GetDesktopWindow(), nullptr, wc.hInstance, this);
 		if (!hWnd)
 		{
 			//OutException("fatal error!", "failed create window");
@@ -154,7 +150,7 @@ namespace base
 		MSG msg;
 		while (true)
 		{
-			while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+			while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 			{
 				TranslateMessage(&msg);
 				DispatchMessage(&msg);
@@ -211,8 +207,8 @@ namespace base
 			{
 				if (node->findAttribute("root") != "")
 				{
-					bool root = MyGUI::utility::parseBool(node->findAttribute("root"));
-					if (root)
+					bool rootAttribute = MyGUI::utility::parseBool(node->findAttribute("root"));
+					if (rootAttribute)
 						mRootMedia = node->getContent();
 				}
 				addResourceLocation(node->getContent(), false);
@@ -423,7 +419,7 @@ namespace base
 		{
 
 			// Release the current render target view and its back buffer
-			mDeviceContext->OMSetRenderTargets(0, NULL, NULL);
+			mDeviceContext->OMSetRenderTargets(0, nullptr, nullptr);
 			if (mRenderTarget)
 			{
 				mRenderTarget->Release();
@@ -441,9 +437,9 @@ namespace base
 			mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&mBackBuffer);
 
 			// Create a new render target from the resized buffer
-			mDevice->CreateRenderTargetView(mBackBuffer, NULL, &mRenderTarget);
+			mDevice->CreateRenderTargetView(mBackBuffer, nullptr, &mRenderTarget);
 			// Set the new render target
-			mDeviceContext->OMSetRenderTargets(1, &mRenderTarget, NULL);
+			mDeviceContext->OMSetRenderTargets(1, &mRenderTarget, nullptr);
 
 			// Устанавливаем новый вьюпорт
 			D3D11_VIEWPORT vp;
@@ -494,9 +490,9 @@ namespace base
 		HRESULT hr = S_OK;
 
 		// Пытаемся создать девайс
-		if ( FAILED (hr = D3D11CreateDeviceAndSwapChain( NULL,
+		if ( FAILED (hr = D3D11CreateDeviceAndSwapChain( nullptr,
 			D3D_DRIVER_TYPE_HARDWARE,
-			NULL,
+			nullptr,
 			0,
 			featureLevels,
 			numFeatureLevels,
@@ -514,10 +510,10 @@ namespace base
 		hr = mSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&mBackBuffer);
 
 		// Создаём render target для back buffer
-		mDevice->CreateRenderTargetView(mBackBuffer, NULL, &mRenderTarget );
+		mDevice->CreateRenderTargetView(mBackBuffer, nullptr, &mRenderTarget );
 
 		// Устанавливаем back buffer rt текущим
-		mDeviceContext->OMSetRenderTargets( 1, &mRenderTarget, NULL );
+		mDeviceContext->OMSetRenderTargets( 1, &mRenderTarget, nullptr );
 
 		// Устанавливаем вьюпорт
 		D3D11_VIEWPORT vp;

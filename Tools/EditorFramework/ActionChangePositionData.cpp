@@ -19,10 +19,6 @@ namespace tools
 	{
 	}
 
-	ActionChangePositionData::~ActionChangePositionData()
-	{
-	}
-
 	void ActionChangePositionData::doAction()
 	{
 		if (mData1 != mData2 && mData1->getParent() == mData2->getParent())

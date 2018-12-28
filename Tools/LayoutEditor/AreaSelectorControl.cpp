@@ -16,8 +16,4 @@ namespace tools
 		setPropertyColour("ColourSelector");
 	}
 
-	AreaSelectorControlLE::~AreaSelectorControlLE()
-	{
-	}
-
 }

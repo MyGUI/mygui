@@ -19,7 +19,6 @@ namespace tools
 	{
 	public:
 		RegionTextureController();
-		virtual ~RegionTextureController();
 
 		virtual void setTarget(Control* _control);
 

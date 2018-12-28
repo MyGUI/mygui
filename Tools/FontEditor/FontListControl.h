@@ -15,10 +15,6 @@ namespace tools
 	class FontListControl :
 		public DataListBaseControl
 	{
-	public:
-		FontListControl();
-		virtual ~FontListControl();
-
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 	};

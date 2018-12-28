@@ -91,10 +91,6 @@ namespace input
 	{
 	}
 
-	InputManager::~InputManager()
-	{
-	}
-
 	void InputManager::createInput(size_t _handle)
 	{
 		std::ostringstream windowHndStr;

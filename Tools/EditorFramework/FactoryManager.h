@@ -20,9 +20,6 @@ namespace components
 	class MYGUI_EXPORT_DLL FactoryManager
 	{
 	public:
-		FactoryManager();
-		~FactoryManager();
-
 		static FactoryManager* GetInstancePtr();
 		static FactoryManager& GetInstance();
 

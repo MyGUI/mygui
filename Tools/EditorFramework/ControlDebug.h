@@ -16,7 +16,6 @@ namespace tools
 	{
 	public:
 		ControlDebug();
-		virtual ~ControlDebug();
 
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);

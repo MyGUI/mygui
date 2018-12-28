@@ -16,7 +16,6 @@ namespace tools
 	{
 	public:
 		AnimationInfo();
-		~AnimationInfo();
 
 		const std::string& getTextureName() const;
 		void setTextureName(const std::string& _value);

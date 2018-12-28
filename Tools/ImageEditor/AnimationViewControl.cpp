@@ -28,11 +28,6 @@ namespace tools
 		mPlay(true)
 	{
 	}
-
-	AnimationViewControl::~AnimationViewControl()
-	{
-	}
-
 	void AnimationViewControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);

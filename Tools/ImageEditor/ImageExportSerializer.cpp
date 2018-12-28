@@ -16,14 +16,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(ImageExportSerializer)
 
-	ImageExportSerializer::ImageExportSerializer()
-	{
-	}
-
-	ImageExportSerializer::~ImageExportSerializer()
-	{
-	}
-
 	void ImageExportSerializer::serialization(pugi::xml_document& _doc)
 	{
 		pugi::xml_node root = _doc.append_child("MyGUI");

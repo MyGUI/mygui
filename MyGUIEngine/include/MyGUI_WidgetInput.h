@@ -60,7 +60,7 @@ namespace MyGUI
 	{
 	public:
 		WidgetInput();
-		virtual ~WidgetInput();
+		virtual ~WidgetInput() = default;
 
 		/** Set need tool tip mode flag. Enable this if you need tool tip events for widget */
 		void setNeedToolTip(bool _value);

@@ -23,7 +23,6 @@ namespace tools
 		typedef std::weak_ptr<Property> PropertyWeak;
 
 		Property(DataTypePropertyPtr _type, DataPtr _owner);
-		~Property();
 
 		static PropertyPtr CreateInstance(DataTypePropertyPtr _type, DataPtr _owner);
 

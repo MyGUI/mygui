@@ -30,9 +30,8 @@ namespace demo
 			mValueHP(0)
 		{
 		}
-		virtual ~ResourceDevice() { }
 
-		virtual void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version)
+		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override
 		{
 			Base::deserialization(_node, _version);
 

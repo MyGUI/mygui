@@ -29,13 +29,13 @@ namespace MyGUI
 		MenuItem();
 
 		/** @copydoc TextBox::setCaption(const UString& _value) */
-		virtual void setCaption(const UString& _value);
+		void setCaption(const UString& _value) override;
 
 		/** @copydoc TextBox::setFontName(const std::string& _value) */
-		virtual void setFontName(const std::string& _value);
+		void setFontName(const std::string& _value) override;
 
 		/** @copydoc TextBox::setFontHeight(int _value) */
-		virtual void setFontHeight(int _value);
+		void setFontHeight(int _value) override;
 
 		//! Replace an item name
 		void setItemName(const UString& _value);
@@ -91,16 +91,16 @@ namespace MyGUI
 		void setItemChecked(bool _value);
 
 		/*internal:*/
-		virtual IItemContainer* _getItemContainer();
+		IItemContainer* _getItemContainer() override;
 		IntSize _getContentSize();
 
 	protected:
-		virtual void initialiseOverride();
-		virtual void shutdownOverride();
+		void initialiseOverride() override;
+		void shutdownOverride() override;
 
-		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
+		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
 
-		virtual void onWidgetCreated(Widget* _widget);
+		void onWidgetCreated(Widget* _widget) override;
 
 	private:
 		void updateCheck();

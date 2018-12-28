@@ -21,10 +21,6 @@ namespace MyGUI
 	{
 	}
 
-	ControllerFadeAlpha::~ControllerFadeAlpha()
-	{
-	}
-
 	void ControllerFadeAlpha::prepareItem(Widget* _widget)
 	{
 		// подготовка виджета, блокируем если только нужно

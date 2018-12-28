@@ -18,7 +18,6 @@ namespace tools
 	{
 	public:
 		DataTypeProperty();
-		~DataTypeProperty();
 
 		void deserialization(pugi::xml_node _node);
 

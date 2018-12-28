@@ -14,14 +14,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(ApplicationState)
 
-	ApplicationState::ApplicationState()
-	{
-	}
-
-	ApplicationState::~ApplicationState()
-	{
-	}
-
 	void ApplicationState::initState()
 	{
 	}

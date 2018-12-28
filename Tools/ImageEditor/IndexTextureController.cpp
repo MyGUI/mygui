@@ -25,10 +25,6 @@ namespace tools
 	{
 	}
 
-	IndexTextureController::~IndexTextureController()
-	{
-	}
-
 	void IndexTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();

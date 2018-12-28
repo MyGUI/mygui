@@ -26,7 +26,6 @@ namespace MyGUI
 		typedef delegates::CDelegate4<const IntCoord&, const IntCoord&, IntCoord&, float> FrameAction;
 
 		ControllerPosition();
-		~ControllerPosition() override;
 
 		void setCoord(const IntCoord& _value);
 

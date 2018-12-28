@@ -30,10 +30,6 @@ namespace tools
 		mLastWidget = nullptr;
 	}
 
-	EditorToolTip::~EditorToolTip()
-	{
-	}
-
 	void EditorToolTip::initialise()
 	{
 	}

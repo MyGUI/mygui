@@ -19,7 +19,6 @@ namespace tools
 	{
 	public:
 		GroupTextureController();
-		virtual ~GroupTextureController();
 
 		virtual void setTarget(Control* _control);
 

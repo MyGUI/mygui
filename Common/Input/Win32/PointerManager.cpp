@@ -19,10 +19,6 @@ namespace input
 	{
 	}
 
-	PointerManager::~PointerManager()
-	{
-	}
-
 	void PointerManager::createPointerManager(size_t _handle)
 	{
 		mHwnd = _handle;

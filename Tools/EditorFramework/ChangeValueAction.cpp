@@ -12,14 +12,6 @@
 namespace tools
 {
 
-	ChangeValueAction::ChangeValueAction()
-	{
-	}
-
-	ChangeValueAction::~ChangeValueAction()
-	{
-	}
-
 	void ChangeValueAction::doAction()
 	{
 		mOldValue = getProperty()->getValue();

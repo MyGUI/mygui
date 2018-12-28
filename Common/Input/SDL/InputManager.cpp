@@ -17,16 +17,12 @@ namespace input
 		buildMouseButtonMap();
 	}
 
-	InputManager::~InputManager()
-	{
-	}
-
 	struct KeyMapItem
 	{
 		int sdlKey;
 		MyGUI::KeyCode myguiKey;
 	};
-	KeyMapItem mapItems[] =
+	static KeyMapItem mapItems[] =
 	{
 		{0, MyGUI::KeyCode::None},
 		{SDLK_UNKNOWN, MyGUI::KeyCode::None},
@@ -168,7 +164,7 @@ namespace input
 	void InputManager::buildVKeyMap()
 	{
 		mSDLVKeyMap.clear();
-		for (int i = 0; i < sizeof(mapItems) / sizeof(KeyMapItem); ++i)
+		for (size_t i = 0; i < sizeof(mapItems) / sizeof(KeyMapItem); ++i)
 			mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(mapItems[i].sdlKey, mapItems[i].myguiKey));
 	}
 
@@ -317,7 +313,7 @@ namespace input
 	{
 		if (_type != "Text")
 			return;
-		char* text=0;
+		char* text = nullptr;
 		text = SDL_GetClipboardText();
 		if (text)
 		{

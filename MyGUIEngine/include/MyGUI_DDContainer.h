@@ -101,11 +101,11 @@ namespace MyGUI
 		delegates::CMultiDelegate3<DDContainer*, Widget*, const DDWidgetState&> eventUpdateDropState;
 
 	protected:
-		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
-		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
-		virtual void onMouseDrag(int _left, int _top, MouseButton _id);
+		void onMouseButtonPressed(int _left, int _top, MouseButton _id) override;
+		void onMouseButtonReleased(int _left, int _top, MouseButton _id) override;
+		void onMouseDrag(int _left, int _top, MouseButton _id) override;
 
-		virtual void notifyInvalideDrop(DDContainer* _sender);
+        virtual void notifyInvalideDrop(DDContainer* _sender);
 
 		virtual void removeDropItems();
 		virtual void updateDropItems();
@@ -117,7 +117,7 @@ namespace MyGUI
 
 		void endDrop(bool _reset);
 
-		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
+		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
 
 	protected:
 		bool mDropResult;

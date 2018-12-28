@@ -126,7 +126,7 @@ namespace MyGUI
 		UINT flags = (1 << 11) | (1 << 15);
 
 		// Build Flat Vertex Shader
-		ID3DBlob* bytecode = 0, *errors = 0, *signature0 = 0, *signature1 = 0;
+		ID3DBlob* bytecode = nullptr, *errors = 0, *signature0 = 0, *signature1 = 0;
 		HRESULT hr = D3DCompile(vsSource, strlen(vsSource), "VertexShader0", 0, 0, "main", vertexProfile.c_str(), flags, 0, &bytecode, &errors);
 		MYGUI_PLATFORM_ASSERT(hr == S_OK, (errors ? (char*)errors->GetBufferPointer() : "Vertex Shader Compilation failed, unknown errors!"));
 

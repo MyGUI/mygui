@@ -22,7 +22,6 @@ namespace MyGUI
 
 	public:
 		RotatingSkin();
-		virtual ~RotatingSkin();
 
 		/** Set angle of rotation in radians */
 		void setAngle(float _angle);
@@ -36,26 +35,26 @@ namespace MyGUI
 		/** Get center of rotation */
 		IntPoint getCenter(bool _local = true) const;
 
-		virtual void setAlpha(float _alpha);
+		void setAlpha(float _alpha) override;
 
-		virtual void setVisible(bool _visible);
+		void setVisible(bool _visible) override;
 
-		virtual void setStateData(IStateInfo* _data);
+		void setStateData(IStateInfo* _data) override;
 
-		virtual void createDrawItem(ITexture* _texture, ILayerNode* _node);
-		virtual void destroyDrawItem();
+		void createDrawItem(ITexture* _texture, ILayerNode* _node) override;
+		void destroyDrawItem() override;
 
 		// метод для отрисовки себя
-		virtual void doRender();
+		void doRender() override;
 
 		/*internal:*/
-		virtual void _updateView();
-		virtual void _correctView();
+		void _updateView() override;
+		void _correctView() override;
 
-		virtual void _setAlign(const IntSize& _oldsize);
+		void _setAlign(const IntSize& _oldsize) override;
 
-		virtual void _setUVSet(const FloatRect& _rect);
-		virtual void _setColour(const Colour& _value);
+		void _setUVSet(const FloatRect& _rect) override;
+		void _setColour(const Colour& _value) override;
 
 	protected:
 		void _rebuildGeometry();

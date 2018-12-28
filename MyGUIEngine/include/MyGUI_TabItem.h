@@ -26,18 +26,18 @@ namespace MyGUI
 		TabItem();
 
 		/** Set item caption */
-		virtual void setCaption(const UString& _value);
+		void setCaption(const UString& _value) override;
 		/** Get item caption */
-		virtual const UString& getCaption();
+		const UString& getCaption() override;
 
 		//! Set button width
 		void setButtonWidth(int _value = DEFAULT);
 
 	protected:
-		virtual void initialiseOverride();
-		virtual void shutdownOverride();
+		void initialiseOverride() override;
+		void shutdownOverride() override;
 
-		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
+		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
 	};
 
 } // namespace MyGUI

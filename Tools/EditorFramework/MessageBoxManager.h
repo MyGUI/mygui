@@ -17,9 +17,6 @@ namespace tools
 		public MyGUI::Singleton<MessageBoxManager>
 	{
 	public:
-		MessageBoxManager();
-		virtual ~MessageBoxManager();
-
 		void initialise();
 		void shutdown();
 

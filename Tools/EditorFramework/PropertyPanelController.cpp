@@ -21,10 +21,6 @@ namespace tools
 	{
 	}
 
-	PropertyPanelController::~PropertyPanelController()
-	{
-	}
-
 	void PropertyPanelController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<PropertyPanelControl>();

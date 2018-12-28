@@ -44,10 +44,7 @@ namespace MyGUI
 		void AddGroupImage(const GroupImage& _group);
 
 	private:
-		ResourceImageSet();
-		virtual ~ResourceImageSet();
-
-		virtual void deserialization(xml::ElementPtr _node, Version _version);
+		void deserialization(xml::ElementPtr _node, Version _version) override;
 
 		size_t getGroupIndex(const std::string& _name);
 		size_t getGroupIndex(const IntSize& _size);

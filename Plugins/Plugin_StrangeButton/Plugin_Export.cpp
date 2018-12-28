@@ -7,7 +7,7 @@
 #include "Plugin.h"
 #include "MyGUI_PluginManager.h"
 
-plugin::Plugin* plugin_item = nullptr;
+static plugin::Plugin* plugin_item = nullptr;
 
 extern "C" MYGUI_EXPORT_DLL void dllStartPlugin(void)
 {

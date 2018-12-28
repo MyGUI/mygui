@@ -17,8 +17,7 @@ namespace MyGUI
 	class MYGUI_EXPORT BiIndexBase
 	{
 	public:
-		BiIndexBase();
-		virtual ~BiIndexBase();
+		virtual ~BiIndexBase() = default;
 
 	protected:
 		size_t getIndexCount() const;

@@ -78,7 +78,7 @@ namespace MyGUI
 
 
 		D3DX11_IMAGE_INFO fileInfo;
-		D3DX11GetImageInfoFromFile( fullname.c_str(), NULL, &fileInfo, NULL );
+		D3DX11GetImageInfoFromFile( fullname.c_str(), nullptr, &fileInfo, nullptr );
 
 		mWidth = fileInfo.Width;
 		mHeight = fileInfo.Height;
@@ -97,7 +97,7 @@ namespace MyGUI
 		loadInfo.MipFilter      = D3DX11_FILTER_NONE;
 		loadInfo.pSrcInfo       = &fileInfo;
 
-		HRESULT hr = D3DX11CreateTextureFromFileA( mManager->mpD3DDevice, fullname.c_str(), &loadInfo, NULL, (ID3D11Resource**)&mTexture, NULL );
+		HRESULT hr = D3DX11CreateTextureFromFileA( mManager->mpD3DDevice, fullname.c_str(), &loadInfo, nullptr, (ID3D11Resource**)&mTexture, nullptr );
 		MYGUI_PLATFORM_ASSERT(hr == S_OK, "CreateTextureFromFile failed!");
 
 		D3D11_TEXTURE2D_DESC desc;

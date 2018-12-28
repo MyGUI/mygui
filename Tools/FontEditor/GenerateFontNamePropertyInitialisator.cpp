@@ -14,14 +14,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(GenerateFontNamePropertyInitialisator)
 
-	GenerateFontNamePropertyInitialisator::GenerateFontNamePropertyInitialisator()
-	{
-	}
-
-	GenerateFontNamePropertyInitialisator::~GenerateFontNamePropertyInitialisator()
-	{
-	}
-
 	void GenerateFontNamePropertyInitialisator::initialise(PropertyPtr _property)
 	{
 		_property->setValue(MyGUI::utility::toString((size_t)_property.get(), "_GenerateFontName"));

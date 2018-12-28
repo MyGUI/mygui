@@ -18,7 +18,6 @@ namespace tools
 	{
 	public:
 		PropertyFieldFont(MyGUI::Widget* _parent);
-		virtual ~PropertyFieldFont();
 
 	protected:
 		virtual void onFillValues();

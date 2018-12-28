@@ -20,7 +20,7 @@ namespace MyGUI
 		mVertexCount(RENDER_ITEM_STEEP_REALLOCK),
 		mpD3DDevice(_device),
 		pRenderManager(_pRenderManager),
-		mpBuffer(NULL)
+		mpBuffer(nullptr)
 	{
 	}
 

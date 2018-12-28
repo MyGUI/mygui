@@ -115,12 +115,12 @@ void FlashControl::createControl(HMODULE _lib)
 	{
 		typedef HRESULT (__stdcall * GetClassObject)(REFCLSID rclsid, REFIID riid, LPVOID * ppv);
 
-		IClassFactory* factory = 0;
+		IClassFactory* factory = nullptr;
 		GetClassObject getClassFunc = (GetClassObject)GetProcAddress(_lib, "DllGetClassObject");
 		HRESULT result = getClassFunc(ShockwaveFlashObjects::CLSID_ShockwaveFlash, IID_IClassFactory, (void**)&factory);
 		if (SUCCEEDED(result))
 		{
-			factory->CreateInstance(NULL, IID_IOleObject, (void**)&oleObject);
+			factory->CreateInstance(nullptr, IID_IOleObject, (void**)&oleObject);
 			factory->Release();
 		}
 	}
@@ -135,12 +135,12 @@ void FlashControl::createControl(HMODULE _lib)
 		}
 	}
 
-	IOleClientSite* clientSite = 0;
+	IOleClientSite* clientSite = nullptr;
 	site->QueryInterface(__uuidof(IOleClientSite), (void**)&clientSite);
 	oleObject->SetClientSite(clientSite);
 	clientSite->Release();
 
-	IOleInPlaceObject* inPlaceObject = 0;
+	IOleInPlaceObject* inPlaceObject = nullptr;
 	oleObject->QueryInterface(__uuidof(IOleInPlaceObject), (LPVOID*)&inPlaceObject);
 
 	if (inPlaceObject)
@@ -164,7 +164,7 @@ void FlashControl::createControl(HMODULE _lib)
 	handler->AddRef();
 	handler->Init(this);
 
-	IViewObject* curView = 0;
+	IViewObject* curView = nullptr;
 	flashInterface->QueryInterface(IID_IViewObject, (void**)&curView);
 }
 
@@ -348,7 +348,7 @@ void FlashControl::update()
 	static int lastDirtyWidth = 0;
 	static int lastDirtyHeight = 0;
 
-	IViewObject* curView = 0;
+	IViewObject* curView = nullptr;
 	flashInterface->QueryInterface(IID_IViewObject, (void**)&curView);
 
 	if (!oleObject || !curView)
@@ -449,7 +449,7 @@ void FlashControl::setSize(int _width, int _height)
 
 	renderBuffer->reserve(width, height);
 
-	IOleInPlaceObject* inPlaceObject = 0;
+	IOleInPlaceObject* inPlaceObject = nullptr;
 	oleObject->QueryInterface(__uuidof(IOleInPlaceObject), (LPVOID*)&inPlaceObject);
 
 	if (inPlaceObject)

@@ -10,14 +10,6 @@
 namespace MyGUI
 {
 
-	BiIndexBase::BiIndexBase()
-	{
-	}
-
-	BiIndexBase::~BiIndexBase()
-	{
-	}
-
 	size_t BiIndexBase::getIndexCount() const
 	{
 		return mIndexFace.size();

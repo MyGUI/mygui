@@ -10,14 +10,6 @@
 namespace tools
 {
 
-	DataType::DataType()
-	{
-	}
-
-	DataType::~DataType()
-	{
-	}
-
 	void DataType::deserialization(pugi::xml_node _node)
 	{
 		mName = _node.select_single_node("Name").node().child_value();

@@ -20,7 +20,6 @@ namespace tools
 	{
 	public:
 		PropertyControl();
-		virtual ~PropertyControl();
 
 		void setProperty(PropertyPtr _value);
 		PropertyPtr getProperty();

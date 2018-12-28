@@ -28,10 +28,6 @@ namespace MyGUI
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 	}
 
-	PolygonalSkin::~PolygonalSkin()
-	{
-	}
-
 	inline float len(float x, float y)
 	{
 		return std::sqrt(x * x + y * y);

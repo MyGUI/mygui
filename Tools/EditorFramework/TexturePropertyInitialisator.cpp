@@ -11,14 +11,6 @@
 namespace tools
 {
 
-	TexturePropertyInitialisator::TexturePropertyInitialisator()
-	{
-	}
-
-	TexturePropertyInitialisator::~TexturePropertyInitialisator()
-	{
-	}
-
 	void TexturePropertyInitialisator::initialise(PropertyPtr _property)
 	{
 		if (SettingsManager::getInstance().getValue<bool>("Settings/SaveLastTexture"))

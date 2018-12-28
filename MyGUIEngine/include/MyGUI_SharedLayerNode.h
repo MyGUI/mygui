@@ -20,7 +20,6 @@ namespace MyGUI
 
 	public:
 		explicit SharedLayerNode(ILayer* _layer, ILayerNode* _parent = nullptr);
-		virtual ~SharedLayerNode();
 
 		void addUsing();
 		void removeUsing();

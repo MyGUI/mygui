@@ -12,7 +12,7 @@ namespace demo
 {
 
 #ifdef MYGUI_OGRE_PLATFORM
-	static Ogre::RaySceneQuery* gRaySceneQuery = 0;
+	static Ogre::RaySceneQuery* gRaySceneQuery = nullptr;
 	static float gAngleH = 90;
 	static float gAngleV = -25;
 #endif

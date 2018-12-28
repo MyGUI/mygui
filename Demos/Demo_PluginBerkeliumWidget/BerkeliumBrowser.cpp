@@ -26,10 +26,6 @@ namespace demo
 		mWebPageBerkeliumWidget->setWindowDelegate(this);
 	}
 
-	BerkeliumBrowser::~BerkeliumBrowser()
-	{
-	}
-
 	void BerkeliumBrowser::notifyEditSelectAccept(MyGUI::EditBox* _sender)
 	{
 		mWebPageBerkeliumWidget->loadURL(_sender->getOnlyText());

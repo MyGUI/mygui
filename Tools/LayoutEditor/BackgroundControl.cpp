@@ -16,8 +16,4 @@ namespace tools
 	{
 	}
 
-	BackgroundControl::~BackgroundControl()
-	{
-	}
-
 }

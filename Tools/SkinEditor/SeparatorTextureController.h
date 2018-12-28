@@ -19,7 +19,6 @@ namespace tools
 	{
 	public:
 		SeparatorTextureController();
-		virtual ~SeparatorTextureController();
 
 		virtual void setTarget(Control* _control);
 

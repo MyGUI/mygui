@@ -25,10 +25,6 @@ namespace tools
 	{
 	}
 
-	RegionTextureController::~RegionTextureController()
-	{
-	}
-
 	void RegionTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();

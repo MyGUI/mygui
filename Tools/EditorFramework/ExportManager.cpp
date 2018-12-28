@@ -20,10 +20,6 @@ namespace tools
 	{
 	}
 
-	ExportManager::~ExportManager()
-	{
-	}
-
 	void ExportManager::initialise()
 	{
 		std::string serializer = SettingsManager::getInstance().getValue("Editor/ExportSerializer");

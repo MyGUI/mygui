@@ -23,7 +23,6 @@ namespace base
 	{
 	public:
 		BaseManager();
-		virtual ~BaseManager();
 
 		virtual void prepare();
 		bool create(int _width = 1024, int _height = 768);

@@ -20,7 +20,6 @@ namespace MyGUI
 
 	public:
 		FilterNone();
-		virtual ~FilterNone();
 
 		virtual void doManualRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
 

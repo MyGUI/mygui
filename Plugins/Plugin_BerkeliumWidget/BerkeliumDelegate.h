@@ -21,7 +21,6 @@ namespace MyGUI
 	{
 	public:
 		BerkeliumDelegate();
-		virtual ~BerkeliumDelegate() { }
 
 		void setWindow(Berkelium::Window* _window);
 		void setBuffer(helpers::Buffer* _buffer);

@@ -38,7 +38,6 @@ namespace base
 	{
 	public:
 		BaseManager();
-		virtual ~BaseManager();
 
 		virtual void prepare(); // инициализация коммандной строки
 		bool create(int _width = 1024, int _height = 768); // создаем начальную точки каркаса приложения

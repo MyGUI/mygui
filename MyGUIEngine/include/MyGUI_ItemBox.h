@@ -114,18 +114,15 @@ namespace MyGUI
 		void resetDrag();
 
 		//! @copydoc Widget::setPosition(const IntPoint& _value)
-		virtual void setPosition(const IntPoint& _value);
+		void setPosition(const IntPoint& _value) override;
 		//! @copydoc Widget::setSize(const IntSize& _value)
-		virtual void setSize(const IntSize& _value);
+		void setSize(const IntSize& _value) override;
 		//! @copydoc Widget::setCoord(const IntCoord& _value)
-		virtual void setCoord(const IntCoord& _value);
+		void setCoord(const IntCoord& _value) override;
 
-		/** @copydoc Widget::setPosition(int _left, int _top) */
-		void setPosition(int _left, int _top);
-		/** @copydoc Widget::setSize(int _width, int _height) */
-		void setSize(int _width, int _height);
-		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
-		void setCoord(int _left, int _top, int _width, int _height);
+		using Widget::setPosition;
+		using Widget::setSize;
+		using Widget::setCoord;
 
 		/** Show VScroll when content size larger than view */
 		void setVisibleVScroll(bool _value);
@@ -142,7 +139,7 @@ namespace MyGUI
 		/** Get view area offset. */
 		IntPoint getViewOffset();
 
-		virtual IntSize getViewSize();
+		IntSize getViewSize() override;
 
 		/*events:*/
 		/** Event : Request for creating new item.\n
@@ -197,11 +194,11 @@ namespace MyGUI
 		EventHandle_ItemBoxPtrCIBNotifyCellDataRef eventNotifyItem;
 
 		/*internal:*/
-		virtual void _resetContainer(bool _update);
+		void _resetContainer(bool _update) override;
 
 	protected:
-		virtual void initialiseOverride();
-		virtual void shutdownOverride();
+		void initialiseOverride() override;
+		void shutdownOverride() override;
 
 		struct ItemDataInfo
 		{
@@ -211,15 +208,15 @@ namespace MyGUI
 		};
 		typedef std::vector<ItemDataInfo> VectorItemInfo;
 
-		virtual void onMouseButtonPressed(int _left, int _top, MouseButton _id);
-		virtual void onMouseButtonReleased(int _left, int _top, MouseButton _id);
-		virtual void onKeyButtonPressed(KeyCode _key, Char _char);
-		virtual void onKeyButtonReleased(KeyCode _key);
-		virtual void onMouseDrag(int _left, int _top, MouseButton _id);
+		void onMouseButtonPressed(int _left, int _top, MouseButton _id) override;
+		void onMouseButtonReleased(int _left, int _top, MouseButton _id) override;
+		void onKeyButtonPressed(KeyCode _key, Char _char) override;
+		void onKeyButtonReleased(KeyCode _key) override;
+		void onMouseDrag(int _left, int _top, MouseButton _id) override;
 
-		virtual void onMouseWheel(int _rel);
-		virtual void onKeyLostFocus(Widget* _new);
-		virtual void onKeySetFocus(Widget* _old);
+		void onMouseWheel(int _rel) override;
+		void onKeyLostFocus(Widget* _new) override;
+		void onKeySetFocus(Widget* _old) override;
 
 		void notifyKeyButtonPressed(Widget* _sender, KeyCode _key, Char _char);
 		void notifyKeyButtonReleased(Widget* _sender, KeyCode _key);
@@ -227,15 +224,15 @@ namespace MyGUI
 		void notifyMouseWheel(Widget* _sender, int _rel);
 		void notifyRootMouseChangeFocus(Widget* _sender, bool _focus);
 		void notifyMouseButtonDoubleClick(Widget* _sender);
-		virtual size_t _getItemIndex(Widget* _item);
+		size_t _getItemIndex(Widget* _item) override;
 		void notifyMouseDrag(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonReleased(Widget* _sender, int _left, int _top, MouseButton _id);
 
 
-		virtual void removeDropItems();
-		virtual void updateDropItems();
-		virtual void updateDropItemsState(const DDWidgetState& _state);
+		void removeDropItems() override;
+		void updateDropItems() override;
+		void updateDropItemsState(const DDWidgetState& _state) override;
 
 		// Обновляет данные о айтемах, при изменении размеров
 		void updateMetrics();
@@ -249,7 +246,7 @@ namespace MyGUI
 		// запросы только последовательно
 		Widget* getItemWidget(size_t _index);
 
-		void _setContainerItemInfo(size_t _index, bool _set, bool _accept);
+		void _setContainerItemInfo(size_t _index, bool _set, bool _accept) override;
 
 		// сбрасываем старую подсветку
 		void resetCurrentActiveItem();
@@ -257,22 +254,22 @@ namespace MyGUI
 		void findCurrentActiveItem();
 
 		// запрашиваем у конейтера айтем по позиции мыши
-		virtual size_t _getContainerIndex(const IntPoint& _point);
+		size_t _getContainerIndex(const IntPoint& _point) override;
 
-		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
+		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
 
 	private:
 		size_t calcIndexByWidget(Widget* _widget);
 
 		void requestItemSize();
 
-		virtual IntSize getContentSize();
-		virtual IntPoint getContentPosition();
-		virtual void eraseContent();
-		virtual size_t getHScrollPage();
-		virtual size_t getVScrollPage();
-		virtual Align getContentAlign();
-		virtual void setContentPosition(const IntPoint& _point);
+		IntSize getContentSize() override;
+		IntPoint getContentPosition() override;
+		void eraseContent() override;
+		size_t getHScrollPage() override;
+		size_t getVScrollPage() override;
+		Align getContentAlign() override;
+		void setContentPosition(const IntPoint& _point) override;
 
 	private:
 		// наши дети в строках

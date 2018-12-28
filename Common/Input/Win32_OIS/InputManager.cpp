@@ -16,7 +16,7 @@ namespace input
 	InputManager* InputManager::msInputManager = 0;
 
 	// старая процедура, которую мы заменили
-	LRESULT InputManager::msOldWindowProc = NULL;
+	LRESULT InputManager::msOldWindowProc = nullptr;
 
 	bool InputManager::msSkipMove = false;
 
@@ -40,7 +40,7 @@ namespace input
 		{
 			HDROP hDrop = (HDROP)wParam;
 			wchar_t buff[MAX_PATH] = { 0 };
-			UINT fcount = DragQueryFileW(hDrop, 0xFFFFFFFF, NULL, 0);
+			UINT fcount = DragQueryFileW(hDrop, 0xFFFFFFFF, nullptr, 0);
 
 			for (UINT index = 0; index < fcount; ++index)
 			{

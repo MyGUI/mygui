@@ -30,7 +30,7 @@ namespace tools
 
 		virtual void notifyChangeWidth(int _width);
 
-		void notifyAdd(MyGUI::Widget* _sender = 0);
+		void notifyAdd(MyGUI::Widget* _sender = nullptr);
 		void notifyDelete(MyGUI::Widget* _sender);
 		void notifySelectItem(MyGUI::ListBox* _sender, size_t _index);
 

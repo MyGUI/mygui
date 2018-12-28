@@ -10,7 +10,6 @@ namespace MyGUI
 	class OpenGLESImageLoader
 	{
 	public:
-		OpenGLESImageLoader() { }
 		virtual ~OpenGLESImageLoader() { }
 
 		virtual void* loadImage(int& _width, int& _height, PixelFormat& _format, const std::string& _filename) = 0;

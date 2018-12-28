@@ -123,10 +123,6 @@ namespace tools
 		mPropertyNames["3.1.0-ComboBox-AddItem"] = "Combo_AddItem";
 	}
 
-	BackwardCompatibilityManager::~BackwardCompatibilityManager()
-	{
-	}
-
 	void BackwardCompatibilityManager::initialise()
 	{
 		if (!SettingsManager::getInstance().tryGetValue("Settings/LayoutVersion", mCurrentVersion))

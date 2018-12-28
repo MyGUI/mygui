@@ -25,10 +25,6 @@ namespace MyGUI
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 	}
 
-	RotatingSkin::~RotatingSkin()
-	{
-	}
-
 	void RotatingSkin::setAngle(float _angle)
 	{
 		mAngle = _angle;

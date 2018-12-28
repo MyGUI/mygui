@@ -18,7 +18,6 @@ namespace MyGUI
 	{
 	public:
 		ConsoleLogListener();
-		virtual ~ConsoleLogListener();
 
 		//! @copydoc ILogListener::log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line)
 		virtual void log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line);

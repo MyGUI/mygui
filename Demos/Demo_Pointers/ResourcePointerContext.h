@@ -20,9 +20,8 @@ namespace demo
 
 	public:
 		ResourcePointerContext();
-		virtual ~ResourcePointerContext() { }
 
-		virtual void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version);
+		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override;
 
 		bool isHighLevel() const;
 		std::string getPointer(const std::string& _type);

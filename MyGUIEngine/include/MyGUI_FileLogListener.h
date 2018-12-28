@@ -19,9 +19,6 @@ namespace MyGUI
 		public ILogListener
 	{
 	public:
-		FileLogListener();
-		virtual ~FileLogListener();
-
 		//! @copydoc ILogListener::open()
 		virtual void open();
 		//! @copydoc ILogListener::close()

@@ -25,10 +25,6 @@ namespace tools
 	{
 	}
 
-	FrameTextureController::~FrameTextureController()
-	{
-	}
-
 	void FrameTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();

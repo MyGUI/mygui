@@ -13,14 +13,6 @@
 namespace tools
 {
 
-	ActionRenameData::ActionRenameData()
-	{
-	}
-
-	ActionRenameData::~ActionRenameData()
-	{
-	}
-
 	void ActionRenameData::doAction()
 	{
 		mOldValues.push_back(std::make_pair(getProperty(), getProperty()->getValue()));

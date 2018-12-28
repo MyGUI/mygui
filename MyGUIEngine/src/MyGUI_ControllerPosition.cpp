@@ -23,10 +23,6 @@ namespace MyGUI
 	{
 	}
 
-	ControllerPosition::~ControllerPosition()
-	{
-	}
-
 	void ControllerPosition::setCoord(const IntCoord& _destCoord)
 	{
 		mDestCoord = _destCoord;

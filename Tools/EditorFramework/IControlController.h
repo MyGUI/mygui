@@ -16,9 +16,6 @@ namespace tools
 		public components::IFactoryItem
 	{
 	public:
-		IControlController() { }
-		virtual ~IControlController() { }
-
 		virtual void setTarget(Control* _control) = 0;
 
 		virtual void activate() = 0;

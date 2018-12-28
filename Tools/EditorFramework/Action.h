@@ -17,7 +17,6 @@ namespace tools
 	{
 	public:
 		Action();
-		virtual ~Action();
 
 		virtual void doAction();
 		virtual void undoAction();

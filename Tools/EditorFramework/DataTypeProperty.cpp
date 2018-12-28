@@ -16,10 +16,6 @@ namespace tools
 	{
 	}
 
-	DataTypeProperty::~DataTypeProperty()
-	{
-	}
-
 	void DataTypeProperty::deserialization(pugi::xml_node _node)
 	{
 		mName = _node.select_single_node("Name").node().child_value();

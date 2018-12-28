@@ -10,14 +10,6 @@
 namespace tools
 {
 
-	HorizontalSelectorControl::HorizontalSelectorControl()
-	{
-	}
-
-	HorizontalSelectorControl::~HorizontalSelectorControl()
-	{
-	}
-
 	void HorizontalSelectorControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
 		SelectorControl::OnInitialise(_parent, _place, "HorizontalSelectorControl.layout");

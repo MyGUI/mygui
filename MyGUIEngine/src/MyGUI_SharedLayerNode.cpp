@@ -16,10 +16,6 @@ namespace MyGUI
 	{
 	}
 
-	SharedLayerNode::~SharedLayerNode()
-	{
-	}
-
 	void SharedLayerNode::addUsing()
 	{
 		mCountUsing++;

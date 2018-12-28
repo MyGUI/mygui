@@ -17,9 +17,6 @@ namespace tools
 		public ActionChangeDataProperty
 	{
 	public:
-		ChangeSeparatorOffsetAction();
-		virtual ~ChangeSeparatorOffsetAction();
-
 		virtual void doAction();
 		virtual void undoAction();
 		virtual bool doMerge(Action* _action);

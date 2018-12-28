@@ -19,7 +19,6 @@ namespace tools
 	{
 	public:
 		FontTextureController();
-		virtual ~FontTextureController();
 
 		virtual void setTarget(Control* _control);
 

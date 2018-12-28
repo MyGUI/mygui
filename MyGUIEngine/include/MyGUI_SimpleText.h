@@ -23,11 +23,10 @@ namespace MyGUI
 
 	public:
 		SimpleText();
-		virtual ~SimpleText();
 
-		virtual void setViewOffset(const IntPoint& _point);
+		void setViewOffset(const IntPoint& _point) override;
 
-		virtual void doRender();
+		void doRender() override;
 	};
 
 } // namespace MyGUI

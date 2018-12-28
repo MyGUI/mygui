@@ -69,10 +69,10 @@ namespace MyGUI
 		delegates::CMultiDelegate2<HyperTextBox*, const std::string&> eventUrlClick;
 
 	protected:
-		virtual void initialiseOverride();
-		virtual void shutdownOverride();
+		void initialiseOverride() override;
+		void shutdownOverride() override;
 
-		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
+		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
 
 	private:
 		void parseParagraph(Widget* _parent, const std::string& _value);

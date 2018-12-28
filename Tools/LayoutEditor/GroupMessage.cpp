@@ -9,14 +9,6 @@ template <> const char* MyGUI::Singleton<tools::GroupMessage>::mClassTypeName = 
 namespace tools
 {
 
-	GroupMessage::GroupMessage()
-	{
-	}
-
-	GroupMessage::~GroupMessage()
-	{
-	}
-
 	void GroupMessage::initialise()
 	{
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &GroupMessage::notifyFrameStarted);

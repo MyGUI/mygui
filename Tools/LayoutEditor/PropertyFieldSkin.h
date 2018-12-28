@@ -18,7 +18,6 @@ namespace tools
 	{
 	public:
 		PropertyFieldSkin(MyGUI::Widget* _parent);
-		virtual ~PropertyFieldSkin();
 
 	protected:
 		virtual void onFillValues();

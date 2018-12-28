@@ -31,8 +31,8 @@ namespace MyGUI
 		}
 
 	protected:
-		virtual void initialiseOverride();
-		virtual void shutdownOverride();
+		void initialiseOverride() override;
+		void shutdownOverride() override;
 
 		void notifyMouseSetFocus(Widget* pSender, Widget* pPreviousWidget);
 		void notifyMouseLostFocus(Widget* pSender, Widget* pNextWidget);

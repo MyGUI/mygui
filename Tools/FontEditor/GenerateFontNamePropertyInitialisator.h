@@ -17,9 +17,6 @@ namespace tools
 		public IPropertyInitialisator
 	{
 	public:
-		GenerateFontNamePropertyInitialisator();
-		virtual ~GenerateFontNamePropertyInitialisator();
-
 		virtual void initialise(PropertyPtr _property);
 	};
 

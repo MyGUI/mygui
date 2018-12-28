@@ -27,19 +27,19 @@ namespace MyGUI
 		MultiListItem();
 
 		/** Set item caption */
-		virtual void setCaption(const UString& _value);
+		void setCaption(const UString& _value) override;
 		/** Get item caption */
-		virtual const UString& getCaption();
+		const UString& getCaption() override;
 
 		void setItemResizingPolicy(ResizingPolicy _value);
 
 		void setItemWidth(int _value);
 
 	protected:
-		virtual void initialiseOverride();
-		virtual void shutdownOverride();
+		void initialiseOverride() override;
+		void shutdownOverride() override;
 
-		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
+		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
 
 	private:
 		MultiListBox* getOwner();

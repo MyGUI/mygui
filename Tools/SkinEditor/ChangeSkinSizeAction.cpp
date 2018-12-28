@@ -17,14 +17,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(ChangeSkinSizeAction)
 
-	ChangeSkinSizeAction::ChangeSkinSizeAction()
-	{
-	}
-
-	ChangeSkinSizeAction::~ChangeSkinSizeAction()
-	{
-	}
-
 	void ChangeSkinSizeAction::doAction()
 	{
 		storeOldValues();

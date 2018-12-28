@@ -13,14 +13,6 @@ template <> const char* MyGUI::Singleton<tools::DialogManager>::mClassTypeName =
 namespace tools
 {
 
-	DialogManager::DialogManager()
-	{
-	}
-
-	DialogManager::~DialogManager()
-	{
-	}
-
 	void DialogManager::initialise()
 	{
 	}

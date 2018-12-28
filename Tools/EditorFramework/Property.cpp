@@ -19,10 +19,6 @@ namespace tools
 	{
 	}
 
-	Property::~Property()
-	{
-	}
-
 	const std::string& Property::getValue() const
 	{
 		return mValue;

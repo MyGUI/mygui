@@ -19,10 +19,6 @@ namespace tools
 	{
 	}
 
-	GridManager::~GridManager()
-	{
-	}
-
 	void GridManager::initialise()
 	{
 		mGridStep = SettingsManager::getInstance().getValue<int>("Settings/GridStep");

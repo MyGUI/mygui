@@ -15,10 +15,6 @@ namespace tools
 	class FrameListControl :
 		public DataListBaseControl
 	{
-	public:
-		FrameListControl();
-		virtual ~FrameListControl();
-
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 	};

@@ -15,14 +15,6 @@ namespace components
 		return *GetInstancePtr();
 	}
 
-	FactoryManager::FactoryManager()
-	{
-	}
-
-	FactoryManager::~FactoryManager()
-	{
-	}
-
 	bool FactoryManager::ExistFactory(const std::string& _factoryName)
 	{
 		return mFactories.find(_factoryName) != mFactories.end();
@@ -38,7 +30,7 @@ namespace components
 		MapFactory::iterator item = mFactories.find(_factoryName);
 		if (item != mFactories.end())
 			return (*item).second->CreateItem();
-		return 0;
+		return nullptr;
 	}
 
 	void FactoryManager::UnregisterAllFactories()

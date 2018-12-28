@@ -21,7 +21,6 @@ namespace tools
 	{
 	public:
 		OpenSaveFileDialog();
-		virtual ~OpenSaveFileDialog();
 
 		void setDialogInfo(const MyGUI::UString& _caption, const MyGUI::UString& _button, bool _folderMode = false);
 

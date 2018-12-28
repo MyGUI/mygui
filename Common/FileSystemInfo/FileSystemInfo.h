@@ -145,7 +145,7 @@ namespace common
 		DIR* dir = opendir(MyGUI::UString(_folder).asUTF8_c_str());
 		struct dirent* dp;
 
-		if (dir == NULL)
+		if (dir == nullptr)
 		{
 			/* opendir() failed */
 			MYGUI_LOG(Error, (std::string("Can't open ") + MyGUI::UString(_folder).asUTF8_c_str()));
@@ -154,7 +154,7 @@ namespace common
 
 		rewinddir (dir);
 
-		while ((dp = readdir (dir)) != NULL)
+		while ((dp = readdir (dir)) != nullptr)
 		{
 			if ((fnmatch(MyGUI::UString(_mask).asUTF8_c_str(), dp->d_name, 0) == 0) && !isReservedDir(MyGUI::UString(dp->d_name).asWStr_c_str()))
 			{

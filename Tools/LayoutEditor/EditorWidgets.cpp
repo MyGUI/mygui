@@ -21,10 +21,6 @@ namespace tools
 	{
 	}
 
-	EditorWidgets::~EditorWidgets()
-	{
-	}
-
 	void EditorWidgets::initialise()
 	{
 		mWidgetsChanged = true;

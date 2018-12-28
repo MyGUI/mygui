@@ -18,14 +18,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(FontExportSerializer)
 
-	FontExportSerializer::FontExportSerializer()
-	{
-	}
-
-	FontExportSerializer::~FontExportSerializer()
-	{
-	}
-
 	void FontExportSerializer::serialization(pugi::xml_document& _doc)
 	{
 		pugi::xml_node root = _doc.append_child("MyGUI");

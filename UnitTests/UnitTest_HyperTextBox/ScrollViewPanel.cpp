@@ -35,21 +35,6 @@ namespace MyGUI
 		updateContent();
 	}
 
-	void ScrollViewPanel::setPosition(int _left, int _top)
-	{
-		setPosition(IntPoint(_left, _top));
-	}
-
-	void ScrollViewPanel::setSize(int _width, int _height)
-	{
-		setSize(IntSize(_width, _height));
-	}
-
-	void ScrollViewPanel::setCoord(int _left, int _top, int _width, int _height)
-	{
-		setCoord(IntCoord(_left, _top, _width, _height));
-	}
-
 	void ScrollViewPanel::updateContent()
 	{
 		// размер клиента с полосами

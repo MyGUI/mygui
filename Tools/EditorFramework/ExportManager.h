@@ -20,7 +20,6 @@ namespace tools
 	{
 	public:
 		ExportManager();
-		virtual ~ExportManager();
 
 		void initialise();
 		void shutdown();

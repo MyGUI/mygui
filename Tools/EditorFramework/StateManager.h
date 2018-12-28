@@ -17,9 +17,6 @@ namespace tools
 		public MyGUI::Singleton<StateManager>
 	{
 	public:
-		StateManager();
-		virtual ~StateManager();
-
 		void initialise();
 		void shutdown();
 

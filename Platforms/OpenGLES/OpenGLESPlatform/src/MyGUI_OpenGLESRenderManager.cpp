@@ -90,7 +90,7 @@ namespace MyGUI
 	GLuint OpenGLESRenderManager::BuildShader(const char* source, GLenum shaderType) const
 	{
 		GLuint shaderHandle = glCreateShader(shaderType);
-		glShaderSource(shaderHandle, 1, &source, 0);
+		glShaderSource(shaderHandle, 1, &source, nullptr);
 		glCompileShader(shaderHandle);
 		CHECK_GL_ERROR_DEBUG();
 
@@ -100,7 +100,7 @@ namespace MyGUI
 		if (compileSuccess == GL_FALSE)
 		{
 			GLchar messages[256];
-			glGetShaderInfoLog(shaderHandle, sizeof(messages), 0, &messages[0]);
+			glGetShaderInfoLog(shaderHandle, sizeof(messages), nullptr, &messages[0]);
 			MYGUI_PLATFORM_EXCEPT(messages);
 		}
 
@@ -123,7 +123,7 @@ namespace MyGUI
 		if (linkSuccess == GL_FALSE)
 		{
 			GLchar messages[256];
-			glGetProgramInfoLog(programHandle, sizeof(messages), 0, &messages[0]);
+			glGetProgramInfoLog(programHandle, sizeof(messages), nullptr, &messages[0]);
 			MYGUI_PLATFORM_EXCEPT(messages);
 		}
 

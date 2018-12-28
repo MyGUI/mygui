@@ -31,7 +31,6 @@ namespace MyGUI
 			Node(TreeControl* pOwner);
 			Node(const UString& strText, Node* pParent = nullptr);
 			Node(const UString& strText, const UString& strImage, Node* pParent = nullptr);
-			virtual ~Node();
 
 			bool isPrepared() const;
 			void setPrepared(bool bIsPrepared);
@@ -80,8 +79,8 @@ namespace MyGUI
 		EventHandle_TreeControlPtrSizeT eventTreeScrolled;
 
 	protected:
-		virtual void initialiseOverride();
-		virtual void shutdownOverride();
+		void initialiseOverride() override;
+		void shutdownOverride() override;
 
 		void notifyMousePressed(Widget* pSender, int nLeft, int nTop, MouseButton nID);
 		void notifyMouseWheel(Widget* pSender, int nValue);
@@ -92,8 +91,8 @@ namespace MyGUI
 		void notifyExpandCollapse(Widget* pSender);
 		void notifyFrameEntered(float nTime);
 
-		virtual void onMouseWheel(int nValue);
-		virtual void onKeyButtonPressed(KeyCode Key, Char Character);
+		void onMouseWheel(int nValue) override;
+		void onKeyButtonPressed(KeyCode Key, Char Character) override;
 
 	private:
 		typedef std::vector<TreeControlItem*> VectorTreeItemPtr;

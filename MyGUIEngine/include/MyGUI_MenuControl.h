@@ -70,7 +70,7 @@ namespace MyGUI
 
 	public:
 		/** @copydoc Widget::setVisible */
-		virtual void setVisible(bool _value);
+		void setVisible(bool _value) override;
 
 		/** Hide or show Menu smooth */
 		void setVisibleSmooth(bool _value);
@@ -259,26 +259,26 @@ namespace MyGUI
 		void _wrapItemChild(MenuItem* _item, MenuControl* _widget);
 
 		// IItemContainer impl
-		virtual size_t _getItemCount();
-		virtual void _addItem(const MyGUI::UString& _name);
-		virtual void _removeItemAt(size_t _index);
-		virtual Widget* _getItemAt(size_t _index);
-		virtual void _setItemNameAt(size_t _index, const UString& _name);
-		virtual const UString& _getItemNameAt(size_t _index);
-		virtual void _setItemSelected(IItem* _item);
+		size_t _getItemCount() override;
+		void _addItem(const MyGUI::UString& _name) override;
+		void _removeItemAt(size_t _index) override;
+		Widget* _getItemAt(size_t _index) override;
+		void _setItemNameAt(size_t _index, const UString& _name) override;
+		const UString& _getItemNameAt(size_t _index) override;
+		void _setItemSelected(IItem* _item) override;
 
 		void _updateItems(size_t _index);
 		void _updateSizeForEmpty();
 
 	protected:
-		virtual void initialiseOverride();
-		virtual void shutdownOverride();
+		void initialiseOverride() override;
+		void shutdownOverride() override;
 
-		virtual void onKeyChangeRootFocus(bool _focus);
+		void onKeyChangeRootFocus(bool _focus) override;
 
-		virtual void onWidgetCreated(Widget* _widget);
+		void onWidgetCreated(Widget* _widget) override;
 
-		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
+		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
 
 	private:
 		void notifyRootKeyChangeFocus(Widget* _sender, bool _focus);

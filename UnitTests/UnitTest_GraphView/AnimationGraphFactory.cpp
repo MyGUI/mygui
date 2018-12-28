@@ -9,7 +9,7 @@ namespace animation
 
 	AnimationGraph* AnimationGraphFactory::createGraph(const std::string& _filename)
 	{
-		AnimationGraph* result = 0;
+		AnimationGraph* result = nullptr;
 
 		MyGUI::xml::Document doc;
 		if (doc.open(_filename))

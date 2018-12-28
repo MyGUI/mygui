@@ -13,7 +13,6 @@ namespace tools
 	{
 	public:
 		MainWorkspaceControl(MyGUI::Widget* _parent);
-		virtual ~MainWorkspaceControl();
 
 	private:
 		ToolsControl* mToolsControl;

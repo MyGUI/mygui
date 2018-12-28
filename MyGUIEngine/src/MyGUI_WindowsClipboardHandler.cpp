@@ -17,7 +17,7 @@
 namespace MyGUI
 {
 
-	HWND g_hWnd = NULL;
+	HWND g_hWnd = nullptr;
 
 	BOOL CALLBACK EnumWindowProc(HWND hWnd, LPARAM lParam)
 	{
@@ -27,7 +27,7 @@ namespace MyGUI
 		if (dwProcessID != (DWORD)lParam)
 			return TRUE;
 
-		if (GetParent(hWnd) == NULL)
+		if (GetParent(hWnd) == nullptr)
 		{
 			// Нашли. hWnd - то что надо
 			g_hWnd = hWnd;
@@ -91,7 +91,7 @@ namespace MyGUI
 			{
 				EmptyClipboard(); //очищаем буфер
 				HGLOBAL hgBuffer = GlobalAlloc(GMEM_DDESHARE, size);//выделяем память
-				wchar_t* chBuffer = hgBuffer ? (wchar_t*)GlobalLock(hgBuffer) : NULL;
+				wchar_t* chBuffer = hgBuffer ? (wchar_t*)GlobalLock(hgBuffer) : nullptr;
 				if (chBuffer)
 				{
 					memcpy(chBuffer, mPutTextInClipboard.asWStr_c_str(), size);
@@ -112,7 +112,7 @@ namespace MyGUI
 			if (OpenClipboard((HWND)mHwnd))
 			{
 				HANDLE hData = GetClipboardData(CF_UNICODETEXT);//извлекаем текст из буфера обмена
-				wchar_t* chBuffer = hData ? (wchar_t*)GlobalLock(hData) : NULL;
+				wchar_t* chBuffer = hData ? (wchar_t*)GlobalLock(hData) : nullptr;
 				if (chBuffer)
 				{
 					buff = chBuffer;

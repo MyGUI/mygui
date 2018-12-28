@@ -16,10 +16,6 @@ namespace tools
 	{
 	}
 
-	PropertyFieldAlpha::~PropertyFieldAlpha()
-	{
-	}
-
 	bool PropertyFieldAlpha::onCheckValue()
 	{
 		bool success = utility::checkParseInterval<float>(mField, 1, 0., 1.);

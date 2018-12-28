@@ -35,10 +35,6 @@ namespace MyGUI
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 	}
 
-	TileRect::~TileRect()
-	{
-	}
-
 	void TileRect::setVisible(bool _visible)
 	{
 		if (mVisible == _visible)

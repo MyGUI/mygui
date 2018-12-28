@@ -20,11 +20,6 @@ namespace tools
 		mStoreWidgetTag("LE_StoreWidgetTag")
 	{
 	}
-
-	WidgetSelectorManager::~WidgetSelectorManager()
-	{
-	}
-
 	void WidgetSelectorManager::initialise()
 	{
 	}

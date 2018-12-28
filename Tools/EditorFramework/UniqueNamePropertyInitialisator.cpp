@@ -12,14 +12,6 @@
 namespace tools
 {
 
-	UniqueNamePropertyInitialisator::UniqueNamePropertyInitialisator()
-	{
-	}
-
-	UniqueNamePropertyInitialisator::~UniqueNamePropertyInitialisator()
-	{
-	}
-
 	void UniqueNamePropertyInitialisator::initialise(PropertyPtr _property)
 	{
 		DataPtr parent = DataUtility::getSelectedParentDataByType(_property->getOwner()->getType()->getName());

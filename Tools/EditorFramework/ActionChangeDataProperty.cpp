@@ -17,10 +17,6 @@ namespace tools
 	{
 	}
 
-	ActionChangeDataProperty::~ActionChangeDataProperty()
-	{
-	}
-
 	void ActionChangeDataProperty::setProperty(PropertyPtr _value)
 	{
 		mProperty = _value;

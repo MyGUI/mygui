@@ -19,7 +19,6 @@ namespace tools
 	{
 	public:
 		IndexTextureController();
-		virtual ~IndexTextureController();
 
 		virtual void setTarget(Control* _control);
 

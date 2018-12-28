@@ -15,10 +15,6 @@ namespace tools
 	class MYGUI_EXPORT_DLL VerticalSelectorBlackControl :
 		public SelectorControl
 	{
-	public:
-		VerticalSelectorBlackControl();
-		virtual ~VerticalSelectorBlackControl();
-
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 	};

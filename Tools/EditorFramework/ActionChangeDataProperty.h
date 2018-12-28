@@ -19,7 +19,6 @@ namespace tools
 	{
 	public:
 		ActionChangeDataProperty();
-		virtual ~ActionChangeDataProperty();
 
 		void setProperty(PropertyPtr _value);
 		PropertyPtr getProperty();

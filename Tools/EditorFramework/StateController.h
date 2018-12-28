@@ -17,9 +17,6 @@ namespace tools
 		public components::IFactoryItem
 	{
 	public:
-		StateController() { }
-		virtual ~StateController() { }
-
 		virtual void initState() { }
 		virtual void cleanupState() { }
 

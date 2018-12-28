@@ -38,8 +38,6 @@ namespace MyGUI
 	protected:
 		DynLib(const std::string& name);
 
-		~DynLib();
-
 	public:
 
 		/*! Load the library

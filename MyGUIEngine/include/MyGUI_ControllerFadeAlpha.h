@@ -22,7 +22,6 @@ namespace MyGUI
 
 	public:
 		ControllerFadeAlpha();
-		~ControllerFadeAlpha() override;
 
 		/**
 			@param _value Alpha that will be as result of changing

@@ -48,9 +48,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( LayerNodeAnimation )
 
 	public:
-		LayerNodeAnimation() { }
-		virtual ~LayerNodeAnimation() { }
-
 		virtual void attach(ILayerNode* _node) = 0;
 
 		// атачится айтем

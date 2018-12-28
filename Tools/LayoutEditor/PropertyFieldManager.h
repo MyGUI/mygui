@@ -17,9 +17,6 @@ namespace tools
 		public MyGUI::Singleton<PropertyFieldManager>
 	{
 	public:
-		PropertyFieldManager();
-		virtual ~PropertyFieldManager();
-
 		void initialise();
 		void shutdown();
 

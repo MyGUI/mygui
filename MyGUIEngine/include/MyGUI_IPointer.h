@@ -19,9 +19,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( IPointer )
 
 	public:
-		IPointer() { }
-		virtual ~IPointer() { }
-
 		virtual void setImage(ImageBox* _image) = 0;
 		virtual void setPosition(ImageBox* _image, const IntPoint& _point) = 0;
 	};

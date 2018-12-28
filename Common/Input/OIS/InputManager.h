@@ -19,7 +19,7 @@ namespace input
 	{
 	public:
 		InputManager();
-		virtual ~InputManager();
+		virtual ~InputManager() = default;
 
 		void createInput(size_t _handle);
 		void destroyInput();

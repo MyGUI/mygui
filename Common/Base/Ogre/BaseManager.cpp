@@ -63,10 +63,6 @@ namespace base
 		#endif
 	}
 
-	BaseManager::~BaseManager()
-	{
-	}
-
 	bool BaseManager::create(int _width, int _height)
 	{
 		Ogre::String pluginsPath;
@@ -327,8 +323,8 @@ namespace base
 			{
 				if (node->findAttribute("root") != "")
 				{
-					bool rootAttr = MyGUI::utility::parseBool(node->findAttribute("root"));
-					if (rootAttr)
+					bool rootAttribute = MyGUI::utility::parseBool(node->findAttribute("root"));
+					if (rootAttribute)
 						mRootMedia = node->getContent();
 				}
 				addResourceLocation(node->getContent());

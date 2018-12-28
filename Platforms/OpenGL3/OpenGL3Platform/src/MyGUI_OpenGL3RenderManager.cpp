@@ -38,7 +38,7 @@ namespace MyGUI
 	GLuint buildShader(const char* text, GLenum type)
 	{
 		GLuint id = glCreateShader(type);
-		glShaderSource(id, 1, &text, 0);
+		glShaderSource(id, 1, &text, nullptr);
 		glCompileShader(id);
 
 		GLint success;
@@ -50,7 +50,7 @@ namespace MyGUI
 			glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len);
 
 			GLchar* buffer = new GLchar[len];
-			glGetShaderInfoLog(id, len, NULL, buffer);
+			glGetShaderInfoLog(id, len, nullptr, buffer);
 			std::string infoLog = buffer;
 			delete[] buffer;
 
@@ -116,7 +116,7 @@ namespace MyGUI
 			glGetProgramiv(progID, GL_INFO_LOG_LENGTH, &len);
 
 			GLchar* buffer = new GLchar[len];
-			glGetProgramInfoLog(progID, len, NULL, buffer);
+			glGetProgramInfoLog(progID, len, nullptr, buffer);
 			std::string infoLog = buffer;
 			delete[] buffer;
 

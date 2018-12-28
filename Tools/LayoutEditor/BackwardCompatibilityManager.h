@@ -19,7 +19,6 @@ namespace tools
 	{
 	public:
 		BackwardCompatibilityManager();
-		virtual ~BackwardCompatibilityManager();
 
 		void initialise();
 		void shutdown();

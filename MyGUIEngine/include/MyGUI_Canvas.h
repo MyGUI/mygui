@@ -138,14 +138,13 @@ namespace MyGUI
 		const std::string& getTextureName() const;
 
 		//! @copydoc Widget::setSize(const IntSize& _value)
-		virtual void setSize(const IntSize& _value);
+		void setSize(const IntSize& _value) override;
 		//! @copydoc Widget::setCoord(const IntCoord& _value)
-		virtual void setCoord(const IntCoord& _value);
+		void setCoord(const IntCoord& _value) override;
 
-		/** @copydoc Widget::setSize(int _width, int _height) */
-		void setSize(int _width, int _height);
-		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
-		void setCoord(int _left, int _top, int _width, int _height);
+		using Widget::setPosition;
+		using Widget::setSize;
+		using Widget::setCoord;
 
 		/// Returns resize mode
 		TextureResizeMode getResizeMode() const;
@@ -189,8 +188,8 @@ namespace MyGUI
 		EventHandle_CanvasPtrEvent requestUpdateCanvas;
 
 	protected:
-		virtual void shutdownOverride();
-		virtual void initialiseOverride();
+		void shutdownOverride() override;
+		void initialiseOverride() override;
 
 		/// Destroys texture
 		void _destroyTexture(bool _sendEvent);
@@ -216,7 +215,7 @@ namespace MyGUI
 		/// For updating once per frame.
 		void frameEntered(float _time);
 
-		virtual void textureInvalidate(ITexture* _texture);
+		void textureInvalidate(ITexture* _texture) override;
 
 		void _setUVSet(const FloatRect& _rect);
 

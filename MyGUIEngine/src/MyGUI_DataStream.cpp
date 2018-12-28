@@ -22,10 +22,6 @@ namespace MyGUI
 	{
 	}
 
-	DataStream::~DataStream()
-	{
-	}
-
 	size_t DataStream::size()
 	{
 		if (mStream == nullptr) return 0;

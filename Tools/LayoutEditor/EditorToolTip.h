@@ -19,7 +19,6 @@ namespace tools
 	{
 	public:
 		EditorToolTip();
-		virtual ~EditorToolTip();
 
 		void initialise();
 		void shutdown();

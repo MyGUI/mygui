@@ -18,7 +18,6 @@ namespace MyGUI
 	class MYGUI_EXPORT IPlugin
 	{
 	public:
-		IPlugin() { }
 		virtual ~IPlugin() { }
 
 		/*!	Get the name of the plugin.

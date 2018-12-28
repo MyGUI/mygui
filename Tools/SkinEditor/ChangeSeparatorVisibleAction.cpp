@@ -17,14 +17,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(ChangeSeparatorVisibleAction)
 
-	ChangeSeparatorVisibleAction::ChangeSeparatorVisibleAction()
-	{
-	}
-
-	ChangeSeparatorVisibleAction::~ChangeSeparatorVisibleAction()
-	{
-	}
-
 	void ChangeSeparatorVisibleAction::doAction()
 	{
 		storeOldValues();

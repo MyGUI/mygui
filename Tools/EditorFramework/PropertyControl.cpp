@@ -16,10 +16,6 @@ namespace tools
 	{
 	}
 
-	PropertyControl::~PropertyControl()
-	{
-	}
-
 	void PropertyControl::setProperty(PropertyPtr _value)
 	{
 		unadvice();

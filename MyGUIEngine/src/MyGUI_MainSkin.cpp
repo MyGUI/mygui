@@ -13,15 +13,6 @@
 namespace MyGUI
 {
 
-	MainSkin::MainSkin() :
-		SubSkin()
-	{
-	}
-
-	MainSkin::~MainSkin()
-	{
-	}
-
 	void MainSkin::_setAlign(const IntSize& _oldsize)
 	{
 		mCurrentCoord.set(0, 0, mCroppedParent->getWidth(), mCroppedParent->getHeight());

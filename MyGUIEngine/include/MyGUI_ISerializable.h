@@ -21,9 +21,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ISerializable )
 
 	public:
-		ISerializable() = default;
-		~ISerializable() override = default;
-
 		virtual void serialization(xml::ElementPtr _node, Version _version) { }
 		virtual void deserialization(xml::ElementPtr _node, Version _version) { }
 	};

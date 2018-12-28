@@ -237,21 +237,6 @@ namespace MyGUI
 		eventChangeProperty(this, _key, _value);
 	}
 
-	void ScrollView::setPosition(int _left, int _top)
-	{
-		setPosition(IntPoint(_left, _top));
-	}
-
-	void ScrollView::setSize(int _width, int _height)
-	{
-		setSize(IntSize(_width, _height));
-	}
-
-	void ScrollView::setCoord(int _left, int _top, int _width, int _height)
-	{
-		setCoord(IntCoord(_left, _top, _width, _height));
-	}
-
 	bool ScrollView::isVisibleVScroll() const
 	{
 		return mVisibleVScroll;

@@ -17,7 +17,6 @@ namespace MyGUI
 	class OpenGL3ImageLoader
 	{
 	public:
-		OpenGL3ImageLoader() { }
 		virtual ~OpenGL3ImageLoader() { }
 
 		virtual void* loadImage(int& _width, int& _height, PixelFormat& _format, const std::string& _filename) = 0;

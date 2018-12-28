@@ -48,7 +48,7 @@ namespace MyGUI
 		CHECK_GL_ERROR_DEBUG();
 
 		// Discard the buffer
-		glBufferData(GL_ARRAY_BUFFER, mSizeInBytes, 0, GL_STREAM_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, mSizeInBytes, nullptr, GL_STREAM_DRAW);
 		CHECK_GL_ERROR_DEBUG();
 
 
@@ -96,7 +96,7 @@ namespace MyGUI
 		MYGUI_PLATFORM_ASSERT(!mBufferID, "Vertex buffer already exist");
 
 		mSizeInBytes = mNeedVertexCount * sizeof(MyGUI::Vertex);
-		void* data = 0;
+		void* data = nullptr;
 
 		glGenBuffers(1, (GLuint * ) & mBufferID); //wdy
 		CHECK_GL_ERROR_DEBUG();

@@ -89,7 +89,7 @@ namespace MyGUI
 		MYGUI_PLATFORM_ASSERT(!mBufferID, "Vertex buffer already exist");
 
 		mSizeInBytes = mNeedVertexCount * sizeof(MyGUI::Vertex);
-		void* data = 0;
+		void* data = nullptr;
 
 		glGenBuffers(1, &mBufferID);
 		glBindBuffer(GL_ARRAY_BUFFER, mBufferID);

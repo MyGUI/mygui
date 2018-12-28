@@ -21,10 +21,6 @@ namespace tools
 	{
 	}
 
-	PropertyFieldFont::~PropertyFieldFont()
-	{
-	}
-
 	void PropertyFieldFont::onFillValues()
 	{
 		WidgetStyle::VectorString values;

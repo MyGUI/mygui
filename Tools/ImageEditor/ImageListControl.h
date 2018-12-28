@@ -15,10 +15,6 @@ namespace tools
 	class ImageListControl :
 		public DataListBaseControl
 	{
-	public:
-		ImageListControl();
-		virtual ~ImageListControl();
-
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 	};

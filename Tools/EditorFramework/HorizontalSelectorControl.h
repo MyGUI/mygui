@@ -15,10 +15,6 @@ namespace tools
 	class MYGUI_EXPORT_DLL HorizontalSelectorControl :
 		public SelectorControl
 	{
-	public:
-		HorizontalSelectorControl();
-		virtual ~HorizontalSelectorControl();
-
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 	};

@@ -16,14 +16,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(ChangeTextureValueAction)
 
-	ChangeTextureValueAction::ChangeTextureValueAction()
-	{
-	}
-
-	ChangeTextureValueAction::~ChangeTextureValueAction()
-	{
-	}
-
 	void ChangeTextureValueAction::doAction()
 	{
 		mOldValue = getProperty()->getValue();

@@ -19,7 +19,6 @@ namespace tools
 		typedef std::vector<MyGUI::UString> VectorUString;
 
 		RecentFilesManager();
-		virtual ~RecentFilesManager();
 
 		void initialise();
 		void shutdown();

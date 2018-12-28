@@ -18,7 +18,6 @@ namespace demo
 	{
 	public:
 		KeyboardPanel();
-		virtual ~KeyboardPanel();
 
 	private:
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);

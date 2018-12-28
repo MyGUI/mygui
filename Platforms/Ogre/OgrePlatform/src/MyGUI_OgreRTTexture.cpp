@@ -44,10 +44,6 @@ namespace MyGUI
 		}
 	}
 
-	OgreRTTexture::~OgreRTTexture()
-	{
-	}
-
 	void OgreRTTexture::begin()
 	{
 		Ogre::RenderTexture* rtt = mTexture->getBuffer()->getRenderTarget();

@@ -18,9 +18,6 @@ namespace tools
 		public sigslot::has_slots<>
 	{
 	public:
-		ScopeManager();
-		virtual ~ScopeManager();
-
 		void initialise();
 		void shutdown();
 

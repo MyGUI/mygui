@@ -17,14 +17,6 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(ChangeSeparatorOffsetAction)
 
-	ChangeSeparatorOffsetAction::ChangeSeparatorOffsetAction()
-	{
-	}
-
-	ChangeSeparatorOffsetAction::~ChangeSeparatorOffsetAction()
-	{
-	}
-
 	void ChangeSeparatorOffsetAction::doAction()
 	{
 		storeOldValues();

@@ -16,7 +16,7 @@ namespace MyGUI
 	DirectXTexture::DirectXTexture(const std::string& _name, IDirect3DDevice9* _device) :
 		mName(_name),
 		mpD3DDevice(_device),
-		mpTexture(NULL),
+		mpTexture(nullptr),
 		mNumElemBytes(0),
 		mLock(false),
 		mRenderTarget(nullptr),
@@ -83,7 +83,7 @@ namespace MyGUI
 			MYGUI_PLATFORM_EXCEPT("Creating texture with unknown pixel formal.");
 		}
 
-		HRESULT result = mpD3DDevice->CreateTexture(mSize.width, mSize.height, 1, mInternalUsage, mInternalFormat, mInternalPool, &mpTexture, NULL);
+		HRESULT result = mpD3DDevice->CreateTexture(mSize.width, mSize.height, 1, mInternalUsage, mInternalFormat, mInternalPool, &mpTexture, nullptr);
 		if (FAILED(result))
 		{
 			MYGUI_PLATFORM_EXCEPT("Failed to create texture (error code " << result <<"): size '" << mSize <<
@@ -177,7 +177,7 @@ namespace MyGUI
 		D3DLOCKED_RECT d3dlr;
 		int lockFlag = (_access == TextureUsage::Write) ? D3DLOCK_DISCARD : D3DLOCK_READONLY;
 
-		HRESULT result = mpTexture->LockRect(0, &d3dlr, NULL, lockFlag);
+		HRESULT result = mpTexture->LockRect(0, &d3dlr, nullptr, lockFlag);
 		if (FAILED(result))
 		{
 			MYGUI_PLATFORM_EXCEPT("Failed to lock texture (error code " << result << ").");
@@ -241,7 +241,7 @@ namespace MyGUI
 	{
 		if (mInternalPool == D3DPOOL_DEFAULT)
 		{
-			HRESULT result = mpD3DDevice->CreateTexture(mSize.width, mSize.height, 1, mInternalUsage, mInternalFormat, D3DPOOL_DEFAULT, &mpTexture, NULL);
+			HRESULT result = mpD3DDevice->CreateTexture(mSize.width, mSize.height, 1, mInternalUsage, mInternalFormat, D3DPOOL_DEFAULT, &mpTexture, nullptr);
 			if (FAILED(result))
 			{
 				MYGUI_PLATFORM_EXCEPT("Failed to recreate texture on device restore (error code " << result << ").");

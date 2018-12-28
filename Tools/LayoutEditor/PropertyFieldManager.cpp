@@ -40,14 +40,6 @@ namespace tools
 		}
 	};
 
-	PropertyFieldManager::PropertyFieldManager()
-	{
-	}
-
-	PropertyFieldManager::~PropertyFieldManager()
-	{
-	}
-
 	void PropertyFieldManager::initialise()
 	{
 		mFactories["Name"] = GenericFactory<PropertyFieldEditBox>::getFactory();

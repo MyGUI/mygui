@@ -17,9 +17,6 @@ namespace tools
 		public ActionChangeDataProperty
 	{
 	public:
-		ChangeSeparatorVisibleAction();
-		virtual ~ChangeSeparatorVisibleAction();
-
 		virtual void doAction();
 		virtual void undoAction();
 

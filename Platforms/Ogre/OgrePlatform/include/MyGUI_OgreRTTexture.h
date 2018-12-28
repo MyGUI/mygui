@@ -22,7 +22,6 @@ namespace MyGUI
 	{
 	public:
 		OgreRTTexture(Ogre::TexturePtr _texture);
-		virtual ~OgreRTTexture();
 
 		virtual void begin();
 		virtual void end();

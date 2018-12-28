@@ -28,7 +28,7 @@ namespace tools
 	private:
 		virtual void notifyChangeWidth(int _width);
 
-		void notifyAddUserData(MyGUI::Widget* _sender = 0);
+		void notifyAddUserData(MyGUI::Widget* _sender = nullptr);
 		void notifyDeleteUserData(MyGUI::Widget* _sender);
 		void notifyUpdateUserData(MyGUI::EditBox* _widget);
 		void notifySelectUserDataItem(MyGUI::MultiListBox* _widget, size_t _index);

@@ -8,13 +8,6 @@
 
 namespace tools
 {
-	DataPropertyInfo::DataPropertyInfo()
-	{
-	}
-
-	DataPropertyInfo::~DataPropertyInfo()
-	{
-	}
 
 	void DataPropertyInfo::deserialization(pugi::xml_node _node)
 	{

@@ -21,7 +21,6 @@ namespace demo
 
 	public:
 		ControllerRandomSelected() : mTime(0) { }
-		virtual ~ControllerRandomSelected() { }
 
 		virtual bool addTime(MyGUI::Widget* _widget, float _time)
 		{

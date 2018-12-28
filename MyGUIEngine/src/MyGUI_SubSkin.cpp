@@ -28,10 +28,6 @@ namespace MyGUI
 		mVertexFormat = RenderManager::getInstance().getVertexFormat();
 	}
 
-	SubSkin::~SubSkin()
-	{
-	}
-
 	void SubSkin::setVisible(bool _visible)
 	{
 		if (mVisible == _visible)

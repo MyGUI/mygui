@@ -14,8 +14,8 @@ namespace MyGUI
 	DirectXRTTexture::DirectXRTTexture(IDirect3DDevice9* _device, IDirect3DTexture9* _texture) :
 		mpD3DDevice(_device),
 		mpTexture(_texture),
-		mpRenderSurface(NULL),
-		mpBackBuffer(NULL)
+		mpRenderSurface(nullptr),
+		mpBackBuffer(nullptr)
 	{
 		mpTexture->GetSurfaceLevel(0, &mpRenderSurface);
 
@@ -46,7 +46,7 @@ namespace MyGUI
 		mpD3DDevice->GetRenderTarget(0, &mpBackBuffer);
 
 		mpD3DDevice->SetRenderTarget(0, mpRenderSurface);
-		mpD3DDevice->Clear(0, NULL, D3DCLEAR_TARGET,
+		mpD3DDevice->Clear(0, nullptr, D3DCLEAR_TARGET,
 			D3DCOLOR_RGBA(0, 0, 0, 0), 1, 0);
 
 		mpD3DDevice->BeginScene();

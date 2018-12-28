@@ -224,7 +224,7 @@ namespace MyGUI
 		mPixelFormat = 0;
 		mDataSize = 0;
 		mUsage = 0;
-		mBuffer = 0;
+		mBuffer = nullptr;
 		mInternalPixelFormat = 0;
 		mAccess = 0;
 		mNumElemBytes = 0;
@@ -263,7 +263,7 @@ namespace MyGUI
 			// Note that glMapBuffer() causes sync issue.
 			// If GPU is working with this buffer, glMapBuffer() will wait(stall)
 			// until GPU to finish its job. To avoid waiting (idle), you can call
-			// first glBufferData() with NULL pointer before glMapBuffer().
+			// first glBufferData() with nullptr pointer before glMapBuffer().
 			// If you do that, the previous data in PBO will be discarded and
 			// glMapBuffer() returns a new allocated pointer immediately
 			// even if GPU is still working with the previous data.
@@ -289,7 +289,7 @@ namespace MyGUI
 		if (!mLock && mBuffer)
 		{
             delete[] (char*)mBuffer;
-			mBuffer = 0;
+			mBuffer = nullptr;
 
 			glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -319,7 +319,7 @@ namespace MyGUI
 		}
 		
 		glBindTexture(GL_TEXTURE_2D, 0);
-		mBuffer = 0;
+		mBuffer = nullptr;
 		mLock = false;
 	}
 

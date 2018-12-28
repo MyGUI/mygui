@@ -16,10 +16,6 @@ namespace tools
 	{
 	}
 
-	PropertyFieldFileName::~PropertyFieldFileName()
-	{
-	}
-
 	bool PropertyFieldFileName::onCheckValue()
 	{
 		bool success = utility::checkParseFileName(mField);

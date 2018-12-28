@@ -891,21 +891,6 @@ namespace MyGUI
 		return mItemDrag;
 	}
 
-	void ItemBox::setPosition(int _left, int _top)
-	{
-		setPosition(IntPoint(_left, _top));
-	}
-
-	void ItemBox::setSize(int _width, int _height)
-	{
-		setSize(IntSize(_width, _height));
-	}
-
-	void ItemBox::setCoord(int _left, int _top, int _width, int _height)
-	{
-		setCoord(IntCoord(_left, _top, _width, _height));
-	}
-
 	void ItemBox::setVisibleVScroll(bool _value)
 	{
 		mVisibleVScroll = _value;

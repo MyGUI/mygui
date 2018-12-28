@@ -12,14 +12,6 @@
 namespace MyGUI
 {
 
-	FileLogListener::FileLogListener()
-	{
-	}
-
-	FileLogListener::~FileLogListener()
-	{
-	}
-
 	void FileLogListener::open()
 	{
 		/*time_t ctTime;

@@ -29,21 +29,21 @@ namespace MyGUI
 
 	public:
 		ResourceTrueTypeFont();
-		virtual ~ResourceTrueTypeFont();
+		~ResourceTrueTypeFont() override;
 
-		virtual void deserialization(xml::ElementPtr _node, Version _version);
+		void deserialization(xml::ElementPtr _node, Version _version) override;
 
 		// Returns the glyph info for the specified code point, or the glyph info for a substitute glyph if the code point does not
 		// exist in this font. Returns nullptr if there is a problem with the font.
-		virtual GlyphInfo* getGlyphInfo(Char _id);
+		GlyphInfo* getGlyphInfo(Char _id) override;
 
-		virtual ITexture* getTextureFont();
+		ITexture* getTextureFont() override;
 
 		// получившаяся высота при генерации в пикселях
-		virtual int getDefaultHeight();
+		int getDefaultHeight() override;
 
 		// update texture after render device lost event
-		virtual void textureInvalidate(ITexture* _texture);
+		void textureInvalidate(ITexture* _texture) override;
 
 		// Returns a collection of code-point ranges that are supported by this font. Each range is specified as [first, second];
 		// for example, a range containing a single code point will have the same value for both first and second.

@@ -19,7 +19,6 @@ namespace tools
 	{
 	public:
 		FrameTextureController();
-		virtual ~FrameTextureController();
 
 		virtual void setTarget(Control* _control);
 

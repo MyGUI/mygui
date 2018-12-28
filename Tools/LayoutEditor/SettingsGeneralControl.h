@@ -27,7 +27,7 @@ namespace tools
 		void loadSettings();
 		void saveSettings();
 
-		void notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new = 0);
+		void notifyNewGridStep(MyGUI::Widget* _sender, MyGUI::Widget* _new = nullptr);
 		void notifyNewGridStepAccept(MyGUI::EditBox* _sender);
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 

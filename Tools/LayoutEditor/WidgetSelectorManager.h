@@ -20,7 +20,6 @@ namespace tools
 	{
 	public:
 		WidgetSelectorManager();
-		virtual ~WidgetSelectorManager();
 
 		void initialise();
 		void shutdown();

@@ -30,10 +30,6 @@ namespace tools
 		registerMapName("Selected Pressed", "pushed_checked");
 	}
 
-	SkinExportSerializer::~SkinExportSerializer()
-	{
-	}
-
 	void SkinExportSerializer::serialization(pugi::xml_document& _doc)
 	{
 		pugi::xml_node root = _doc.append_child("MyGUI");

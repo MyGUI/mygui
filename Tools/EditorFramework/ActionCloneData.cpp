@@ -22,10 +22,6 @@ namespace tools
 	{
 	}
 
-	ActionCloneData::~ActionCloneData()
-	{
-	}
-
 	void ActionCloneData::doAction()
 	{
 		if (mData == nullptr)

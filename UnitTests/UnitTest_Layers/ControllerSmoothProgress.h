@@ -25,7 +25,6 @@ namespace demo
 			mCurrentPosition(0),
 			mNeedPosition(0)
 		{ }
-		virtual ~ControllerSmoothProgress() { }
 
 		virtual bool addTime(MyGUI::Widget* _widget, float _time)
 		{

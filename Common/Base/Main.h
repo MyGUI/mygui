@@ -44,7 +44,7 @@ int startApp()
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		// set working directory to exe location
 		LPSTR fileName = new CHAR[256];
-		GetModuleFileName(NULL, fileName, 256);
+		GetModuleFileName(nullptr, fileName, 256);
 		std::string path = fileName;
 		int path_directory_index = path.find_last_of('\\');
 		std::string exedir = path.substr(0, path_directory_index + 1);
@@ -63,12 +63,12 @@ int startApp()
 			app->destroy();
 		}
 		delete app;
-		app = 0;
+		app = nullptr;
 	}
 	catch (MyGUI::Exception& _e)
 	{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		MessageBoxA( NULL, _e.getFullDescription().c_str(), "An exception has occured", MB_OK | MB_ICONERROR | MB_TASKMODAL);
+		MessageBoxA( nullptr, _e.getFullDescription().c_str(), "An exception has occured", MB_OK | MB_ICONERROR | MB_TASKMODAL);
 #else
 		std::cerr << "An exception has occured" << " : " << _e.getFullDescription().c_str();
 #endif

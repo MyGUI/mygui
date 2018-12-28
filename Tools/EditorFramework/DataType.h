@@ -18,9 +18,6 @@ namespace tools
 	class MYGUI_EXPORT_DLL DataType
 	{
 	public:
-		DataType();
-		~DataType();
-
 		void deserialization(pugi::xml_node _node);
 
 		const std::string& getName() const;

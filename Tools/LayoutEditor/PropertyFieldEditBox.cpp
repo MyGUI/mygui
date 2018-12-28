@@ -27,10 +27,6 @@ namespace tools
 		mField->eventEditSelectAccept += newDelegate (this, &PropertyFieldEditBox::notifyForceApplyProperties);
 	}
 
-	PropertyFieldEditBox::~PropertyFieldEditBox()
-	{
-	}
-
 	void PropertyFieldEditBox::initialise(const std::string& _type)
 	{
 		mType = _type;

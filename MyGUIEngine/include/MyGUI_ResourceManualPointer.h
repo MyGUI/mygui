@@ -19,13 +19,10 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ResourceManualPointer )
 
 	public:
-		ResourceManualPointer();
-		virtual ~ResourceManualPointer();
+		void deserialization(xml::ElementPtr _node, Version _version) override;
 
-		virtual void deserialization(xml::ElementPtr _node, Version _version);
-
-		virtual void setImage(ImageBox* _image);
-		virtual void setPosition(ImageBox* _image, const IntPoint& _point);
+		void setImage(ImageBox* _image) override;
+		void setPosition(ImageBox* _image, const IntPoint& _point) override;
 
 	private:
 		IntPoint mPoint;

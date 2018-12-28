@@ -73,7 +73,7 @@ namespace MyGUI
 		bool getTextShadow();
 
 	protected:
-		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
+		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
 	};
 
 } // namespace MyGUI

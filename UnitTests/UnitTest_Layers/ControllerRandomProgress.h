@@ -21,7 +21,6 @@ namespace demo
 
 	public:
 		ControllerRandomProgress() : mTime(0) { }
-		virtual ~ControllerRandomProgress() { }
 
 		virtual bool addTime(MyGUI::Widget* _widget, float _time)
 		{

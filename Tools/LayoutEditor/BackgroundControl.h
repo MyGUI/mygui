@@ -18,7 +18,6 @@ namespace tools
 	{
 	public:
 		BackgroundControl();
-		virtual ~BackgroundControl();
 	};
 
 }

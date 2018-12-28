@@ -18,7 +18,6 @@ namespace tools
 	{
 	public:
 		PropertyFieldFileName(MyGUI::Widget* _parent);
-		virtual ~PropertyFieldFileName();
 
 	protected:
 		virtual bool onCheckValue();

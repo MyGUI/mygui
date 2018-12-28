@@ -18,7 +18,6 @@ namespace MyGUI
 	class MYGUI_EXPORT IItemContainer
 	{
 	public:
-		IItemContainer() { }
 		virtual ~IItemContainer() { }
 
 		virtual size_t _getItemCount()

@@ -23,10 +23,6 @@ namespace MyGUI
 	{
 	}
 
-	ScrollViewBase::~ScrollViewBase()
-	{
-	}
-
 	void ScrollViewBase::updateScrollSize()
 	{
 		if (mScrollViewClient == nullptr)

@@ -16,9 +16,6 @@ namespace tools
 		public StateController
 	{
 	public:
-		ApplicationState();
-		virtual ~ApplicationState();
-
 		virtual void initState();
 		virtual void cleanupState();
 

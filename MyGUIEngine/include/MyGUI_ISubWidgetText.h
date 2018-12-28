@@ -21,8 +21,6 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ISubWidgetText )
 
 	public:
-		virtual ~ISubWidgetText()  { }
-
 		/** Get index of start of selection */
 		virtual size_t getTextSelectionStart() const
 		{

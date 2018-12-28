@@ -16,10 +16,6 @@ namespace tools
 	{
 	}
 
-	PropertyFieldNumeric::~PropertyFieldNumeric()
-	{
-	}
-
 	bool PropertyFieldNumeric::onCheckValue()
 	{
 		bool success = true;

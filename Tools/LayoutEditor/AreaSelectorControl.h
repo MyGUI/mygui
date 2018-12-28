@@ -17,7 +17,6 @@ namespace tools
 	{
 	public:
 		AreaSelectorControlLE(MyGUI::Widget* _parent);
-		virtual ~AreaSelectorControlLE();
 	};
 
 }

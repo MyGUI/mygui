@@ -25,9 +25,9 @@ namespace MyGUI
 
 	public:
 		ResourceSkin();
-		virtual ~ResourceSkin();
+		~ResourceSkin() override;
 
-		virtual void deserialization(xml::ElementPtr _node, Version _version);
+		void deserialization(xml::ElementPtr _node, Version _version) override;
 
 		const IntSize& getSize() const;
 		const std::string& getTextureName() const;

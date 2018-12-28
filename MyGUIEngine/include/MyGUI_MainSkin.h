@@ -19,11 +19,8 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( MainSkin )
 
 	public:
-		MainSkin();
-		virtual ~MainSkin();
-
 		/*internal:*/
-		virtual void _setAlign(const IntSize& _oldsize);
+		void _setAlign(const IntSize& _oldsize) override;
 	};
 
 } // namespace MyGUI

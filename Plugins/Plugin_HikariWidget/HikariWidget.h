@@ -16,7 +16,7 @@ namespace Hikari
 	class MYGUI_EXPORT_DLL HikariWidget :
 		public MyGUI::Canvas
 	{
-		MYGUI_RTTI_DERIVED( HikariWidget );
+		MYGUI_RTTI_DERIVED( HikariWidget )
 
 	public:
 		HikariWidget();
@@ -141,20 +141,20 @@ namespace Hikari
 		FlashControl* getControl();
 
 	protected:
-		virtual void initialiseOverride();
-		virtual void shutdownOverride();
+		void initialiseOverride() override;
+		void shutdownOverride() override;
 
-		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
+		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
 
 	private:
 		void notifyUpdateCanvas(MyGUI::Canvas* _canvas, MyGUI::Canvas::Event _event);
 		void notifyFrameStart(float _time);
 
-		virtual void onMouseDrag(int _left, int _top, MyGUI::MouseButton _id);
-		virtual void onMouseMove(int _left, int _top);
-		virtual void onMouseWheel(int _rel);
-		virtual void onMouseButtonPressed(int _left, int _top, MyGUI::MouseButton _id);
-		virtual void onMouseButtonReleased(int _left, int _top, MyGUI::MouseButton _id);
+		void onMouseDrag(int _left, int _top, MyGUI::MouseButton _id) override;
+		void onMouseMove(int _left, int _top) override;
+		void onMouseWheel(int _rel) override;
+		void onMouseButtonPressed(int _left, int _top, MyGUI::MouseButton _id) override;
+		void onMouseButtonReleased(int _left, int _top, MyGUI::MouseButton _id) override;
 
 	private:
 		FlashControl* mControl;

@@ -75,7 +75,7 @@ namespace MyGUI
 		/** Set edit text applying tags */
 		virtual void setCaption(const UString& _value);
 		/** Get edit text with tags */
-		virtual const UString& getCaption();
+		const UString& getCaption() override;
 
 		/** Set edit text without tags */
 		void setOnlyText(const UString& _value);
@@ -171,18 +171,15 @@ namespace MyGUI
 		void setInvertSelected(bool _value);
 
 		//! @copydoc Widget::setPosition(const IntPoint& _value)
-		virtual void setPosition(const IntPoint& _value);
+		void setPosition(const IntPoint& _value) override;
 		//! @copydoc Widget::setSize(const IntSize& _value)
-		virtual void setSize(const IntSize& _value);
+		void setSize(const IntSize& _value) override;
 		//! @copydoc Widget::setCoord(const IntCoord& _value)
-		virtual void setCoord(const IntCoord& _value);
+		void setCoord(const IntCoord& _value) override;
 
-		/** @copydoc Widget::setPosition(int _left, int _top) */
-		void setPosition(int _left, int _top);
-		/** @copydoc Widget::setSize(int _width, int _height) */
-		void setSize(int _width, int _height);
-		/** @copydoc Widget::setCoord(int _left, int _top, int _width, int _height) */
-		void setCoord(int _left, int _top, int _width, int _height);
+		using Widget::setPosition;
+		using Widget::setSize;
+		using Widget::setCoord;
 
 		/** Show VScroll when text size larger than EditBox */
 		void setVisibleVScroll(bool _value);
@@ -217,26 +214,26 @@ namespace MyGUI
 
 
 		//! @copydoc TextBox::setFontName
-		virtual void setFontName(const std::string& _value);
+		void setFontName(const std::string& _value) override;
 		//! @copydoc TextBox::setFontHeight
-		virtual void setFontHeight(int _value);
+		void setFontHeight(int _value) override;
 
 		//! @copydoc TextBox::setTextAlign
-		virtual void setTextAlign(Align _value);
+		void setTextAlign(Align _value) override;
 		//! @copydoc TextBox::setTextColour
-		virtual void setTextColour(const Colour& _value);
+		void setTextColour(const Colour& _value) override;
 
 		//! @copydoc TextBox::getTextRegion
-		virtual IntCoord getTextRegion();
+		IntCoord getTextRegion() override;
 
 		//! @copydoc TextBox::getTextSize
-		virtual IntSize getTextSize();
+		IntSize getTextSize() override;
 
 		//! @copydoc TextBox::setTextShadowColour
-		virtual void setTextShadowColour(const Colour& _value);
+		void setTextShadowColour(const Colour& _value) override;
 
 		//! @copydoc TextBox::setTextShadow
-		virtual void setTextShadow(bool _value);
+		void setTextShadow(bool _value) override;
 
 		/*events:*/
 		/** Event : Enter pressed (Ctrl+enter in multiline mode).\n
@@ -252,13 +249,13 @@ namespace MyGUI
 		EventPair<EventHandle_WidgetVoid, EventHandle_EditPtr> eventEditTextChange;
 
 	protected:
-		virtual void initialiseOverride();
-		virtual void shutdownOverride();
+		void initialiseOverride() override;
+		void shutdownOverride() override;
 
-		virtual void onMouseDrag(int _left, int _top, MouseButton _id);
-		virtual void onKeyLostFocus(Widget* _new);
-		virtual void onKeySetFocus(Widget* _old);
-		virtual void onKeyButtonPressed(KeyCode _key, Char _char);
+		void onMouseDrag(int _left, int _top, MouseButton _id) override;
+		void onKeyLostFocus(Widget* _new) override;
+		void onKeySetFocus(Widget* _old) override;
+		void onKeyButtonPressed(KeyCode _key, Char _char) override;
 
 		// потом убрать все нотифи в сраку
 		void notifyMouseSetFocus(Widget* _sender, Widget* _old);
@@ -277,7 +274,7 @@ namespace MyGUI
 
 		void eraseView();
 
-		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
+		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
 
 	private:
 		// устанавливает текст
@@ -327,17 +324,17 @@ namespace MyGUI
 		void updateCursorPosition();
 
 		// размер данных
-		virtual IntSize getContentSize();
+		IntSize getContentSize() override;
 		// смещение данных
-		virtual IntPoint getContentPosition();
-		virtual void setContentPosition(const IntPoint& _point);
+		IntPoint getContentPosition() override;
+		void setContentPosition(const IntPoint& _point) override;
 		// размер окна, через которые видно данные
-		virtual IntSize getViewSize();
+		IntSize getViewSize() override;
 		// размер на который прокручиваются данные при щелчке по скролу
-		virtual size_t getVScrollPage();
-		virtual size_t getHScrollPage();
+		size_t getVScrollPage() override;
+		size_t getHScrollPage() override;
 
-		virtual Align getContentAlign();
+		Align getContentAlign() override;
 
 	protected:
 		// нажата ли кнопка

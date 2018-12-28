@@ -13,7 +13,6 @@ namespace tools
 	{
 	public:
 		MainPaneControl();
-		virtual ~MainPaneControl();
 
 		void setVisible(bool _value);
 

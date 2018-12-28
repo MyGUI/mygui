@@ -25,10 +25,6 @@ namespace tools
 	{
 	}
 
-	GroupTextureController::~GroupTextureController()
-	{
-	}
-
 	void GroupTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();

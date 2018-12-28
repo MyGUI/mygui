@@ -36,10 +36,6 @@ namespace MyGUI
 #endif
 	}
 
-	FilterNone::~FilterNone()
-	{
-	}
-
 	void FilterNone::_setAlign(const IntSize& _oldsize)
 	{
 		mCurrentCoord.set(0, 0, mCroppedParent->getWidth(), mCroppedParent->getHeight());

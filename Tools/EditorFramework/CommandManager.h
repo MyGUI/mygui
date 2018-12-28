@@ -17,9 +17,6 @@ namespace tools
 		public MyGUI::Singleton<CommandManager>
 	{
 	public:
-		CommandManager();
-		virtual ~CommandManager();
-
 		void initialise();
 		void shutdown();
 

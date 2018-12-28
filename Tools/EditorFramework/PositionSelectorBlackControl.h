@@ -15,10 +15,6 @@ namespace tools
 	class MYGUI_EXPORT_DLL PositionSelectorBlackControl :
 		public SelectorControl
 	{
-	public:
-		PositionSelectorBlackControl();
-		virtual ~PositionSelectorBlackControl();
-
 	protected:
 		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
 	};

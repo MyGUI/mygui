@@ -20,7 +20,6 @@ namespace tools
 	{
 	public:
 		DataListBaseControl();
-		virtual ~DataListBaseControl();
 
 		void commandCreateData(const MyGUI::UString& _commandName, bool& _result);
 		void commandCloneData(const MyGUI::UString& _commandName, bool& _result);

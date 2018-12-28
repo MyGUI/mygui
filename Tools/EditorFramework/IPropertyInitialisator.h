@@ -19,9 +19,6 @@ namespace tools
 		public components::IFactoryItem
 	{
 	public:
-		IPropertyInitialisator() { }
-		virtual ~IPropertyInitialisator() { }
-
 		virtual void initialise(std::shared_ptr<Property> _property) = 0;
 	};
 

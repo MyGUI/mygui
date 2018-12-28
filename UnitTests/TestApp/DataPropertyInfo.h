@@ -14,9 +14,6 @@ namespace tools
 	class DataPropertyInfo
 	{
 	public:
-		DataPropertyInfo();
-		~DataPropertyInfo();
-
 		void deserialization(pugi::xml_node _node);
 
 		const std::string& getName() const;

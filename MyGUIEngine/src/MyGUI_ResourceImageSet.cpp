@@ -15,14 +15,6 @@ namespace MyGUI
 
 	std::vector<IntPoint> ResourceImageSet::mFramesEmpty;
 
-	ResourceImageSet::ResourceImageSet()
-	{
-	}
-
-	ResourceImageSet::~ResourceImageSet()
-	{
-	}
-
 	void ResourceImageSet::deserialization(xml::ElementPtr _node, Version _version)
 	{
 		Base::deserialization(_node, _version);

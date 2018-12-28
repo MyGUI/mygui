@@ -20,7 +20,6 @@ namespace demo
 	{
 	public:
 		BerkeliumBrowser(MyGUI::Widget* _parent = nullptr);
-		virtual ~BerkeliumBrowser();
 
 		void notifyEditSelectAccept(MyGUI::EditBox* _sender);
 		void notifyBackButtonClick(MyGUI::Widget* _sender);

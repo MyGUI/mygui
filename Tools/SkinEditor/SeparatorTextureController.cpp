@@ -25,10 +25,6 @@ namespace tools
 	{
 	}
 
-	SeparatorTextureController::~SeparatorTextureController()
-	{
-	}
-
 	void SeparatorTextureController::setTarget(Control* _control)
 	{
 		mControl = _control->findControl<ScopeTextureControl>();

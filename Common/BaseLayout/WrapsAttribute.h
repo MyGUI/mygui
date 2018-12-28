@@ -21,7 +21,7 @@ namespace attribute
 		template <typename Type>
 		static Type* convert(BaseValueType* _value)
 		{
-			return _value == 0 ? 0 : _value->castType<Type>(false);
+			return _value == nullptr ? nullptr : _value->castType<Type>(false);
 		}
 	};
 

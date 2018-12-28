@@ -21,10 +21,6 @@ namespace MyGUI
 	{
 	}
 
-	WidgetInput::~WidgetInput()
-	{
-	}
-
 	void WidgetInput::setMaskPick(const std::string& _filename)
 	{
 		if (_filename.empty())

@@ -10,14 +10,6 @@
 namespace tools
 {
 
-	PositionSelectorBlackControl::PositionSelectorBlackControl()
-	{
-	}
-
-	PositionSelectorBlackControl::~PositionSelectorBlackControl()
-	{
-	}
-
 	void PositionSelectorBlackControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
 	{
 		SelectorControl::OnInitialise(_parent, _place, "PositionSelectorControl.layout");

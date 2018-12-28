@@ -18,7 +18,6 @@ namespace MyGUI
 	{
 	public:
 		LevelLogFilter();
-		virtual ~LevelLogFilter();
 
 		//! @copydoc ILogFilter::shouldLog(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line)
 		virtual bool shouldLog(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line);

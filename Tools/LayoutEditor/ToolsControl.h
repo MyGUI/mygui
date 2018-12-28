@@ -14,7 +14,6 @@ namespace tools
 	{
 	public:
 		ToolsControl(MyGUI::Widget* _parent = nullptr);
-		virtual ~ToolsControl();
 
 	private:
 		PropertiesPanelView* mPropertiesPanelView;
