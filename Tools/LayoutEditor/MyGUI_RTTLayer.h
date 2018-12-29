@@ -21,11 +21,11 @@ namespace MyGUI
 
 	public:
 		RTTLayer();
-		virtual ~RTTLayer();
+		~RTTLayer() override;
 
-		virtual void deserialization(xml::ElementPtr _node, Version _version);
-		virtual void renderToTarget(IRenderTarget* _target, bool _update);
-		virtual void resizeView(const IntSize& _viewSize);
+		void deserialization(xml::ElementPtr _node, Version _version) override;
+		void renderToTarget(IRenderTarget* _target, bool _update) override;
+		void resizeView(const IntSize& _viewSize) override;
 
 		void setTextureSize(const IntSize& _size);
 		void setTextureName(const std::string& _name);
@@ -36,7 +36,7 @@ namespace MyGUI
 		MyGUI::ITexture* mTexture;
 		IntSize mTextureSize;
 		std::string mTextureName;
-		bool mOutOfDate;
+		bool mOutOfDateRtt;
 	};
 
 }

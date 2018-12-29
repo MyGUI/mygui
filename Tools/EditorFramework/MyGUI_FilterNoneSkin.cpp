@@ -11,17 +11,17 @@
 #include "MyGUI_LayerManager.h"
 #include "MyGUI_CommonStateInfo.h"
 
-#ifdef MYGUI_OGRE_PLATFORM
+#if defined(MYGUI_OGRE_PLATFORM)
 #include <MyGUI_OgreRenderManager.h>
 #include <MyGUI_OgreTexture.h>
 #include <MyGUI_OgreVertexBuffer.h>
-#elif MYGUI_OPENGL_PLATFORM
+#elif defined(MYGUI_OPENGL_PLATFORM)
 #include <MyGUI_OpenGLRenderManager.h>
-#elif MYGUI_DIRECTX_PLATFORM
+#elif defined(MYGUI_DIRECTX_PLATFORM)
 #include <MyGUI_DirectXRenderManager.h>
-#elif MYGUI_DIRECTX11_PLATFORM
+#elif defined(MYGUI_DIRECTX11_PLATFORM)
 #include <MyGUI_DirectX11RenderManager.h>
-#elif MYGUI_OPENGL3_PLATFORM
+#elif defined(MYGUI_OPENGL3_PLATFORM)
 #include <MyGUI_OpenGL3RenderManager.h>
 #endif
 
@@ -46,7 +46,7 @@ namespace MyGUI
 
 	void FilterNone::doManualRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-#ifdef MYGUI_OGRE_PLATFORM
+#if defined(MYGUI_OGRE_PLATFORM)
 		if (OgreRenderManager::getInstancePtr()->getManualRender())
 			OgreRenderManager::getInstancePtr()->begin();
 
@@ -68,13 +68,13 @@ namespace MyGUI
 		operation->vertexData->vertexCount = _count;
 
 		OgreRenderManager::getInstancePtr()->getRenderSystem()->_render(*operation);
-#elif MYGUI_OPENGL_PLATFORM
+#elif defined(MYGUI_OPENGL_PLATFORM)
 		OpenGLRenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
-#elif MYGUI_DIRECTX_PLATFORM
+#elif defined(MYGUI_DIRECTX_PLATFORM)
 		DirectXRenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
-#elif MYGUI_DIRECTX11_PLATFORM
+#elif defined(MYGUI_DIRECTX11_PLATFORM)
 		DirectX11RenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
-#elif MYGUI_OPENGL3_PLATFORM
+#elif defined(MYGUI_OPENGL3_PLATFORM)
 	OpenGL3RenderManager::getInstancePtr()->doRender(_buffer, _texture, _count);
 #endif
 	}

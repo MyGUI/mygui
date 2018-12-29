@@ -115,9 +115,9 @@ namespace tools
 			{
 				float x = (float)i / size;
 				float y = (float)j / size;
-				*pDest++ = MyGUI::uint8((1. - y) * (_colour.blue  * x + (1. - x)) * 255); // B
-				*pDest++ = MyGUI::uint8((1. - y) * (_colour.green * x + (1. - x)) * 255); // G
-				*pDest++ = MyGUI::uint8((1. - y) * (_colour.red   * x + (1. - x)) * 255); // R
+				*pDest++ = MyGUI::uint8((1.f - y) * (_colour.blue  * x + (1.f - x)) * 255); // B
+				*pDest++ = MyGUI::uint8((1.f - y) * (_colour.green * x + (1.f - x)) * 255); // G
+				*pDest++ = MyGUI::uint8((1.f - y) * (_colour.red   * x + (1.f - x)) * 255); // R
 				*pDest++ = 255; // A
 			}
 		}
@@ -279,10 +279,10 @@ namespace tools
 		int i = 0;
 		for (i = 0; i < 6; ++i)
 		{
-			if ((fabs(byIndex(mColourRange[i], iMin) - byIndex(mBaseColour, iMin)) < 0.001) &&
-				(fabs(byIndex(mColourRange[i], iMax) - byIndex(mBaseColour, iMax)) < 0.001) &&
-				(fabs(byIndex(mColourRange[i+1], iMin) - byIndex(mBaseColour, iMin)) < 0.001) &&
-				(fabs(byIndex(mColourRange[i+1], iMax) - byIndex(mBaseColour, iMax)) < 0.001))
+			if ((std::fabs(byIndex(mColourRange[i], iMin) - byIndex(mBaseColour, iMin)) < 0.001f) &&
+				(std::fabs(byIndex(mColourRange[i], iMax) - byIndex(mBaseColour, iMax)) < 0.001f) &&
+				(std::fabs(byIndex(mColourRange[i+1], iMin) - byIndex(mBaseColour, iMin)) < 0.001f) &&
+				(std::fabs(byIndex(mColourRange[i+1], iMax) - byIndex(mBaseColour, iMax)) < 0.001f))
 				break;
 		}
 

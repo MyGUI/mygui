@@ -294,7 +294,9 @@ namespace sigslot
 	class _connection_base0
 	{
 	public:
-		virtual ~_connection_base0() { }
+		virtual ~_connection_base0() = default;
+		_connection_base0() = default;
+		_connection_base0(const _connection_base0& other) = default;
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit() = 0;
 		virtual bool exist(_connection_base0<mt_policy>* conn) = 0;
@@ -306,7 +308,9 @@ namespace sigslot
 	class _connection_base1
 	{
 	public:
-		virtual ~_connection_base1() { }
+		virtual ~_connection_base1() = default;
+		_connection_base1() = default;
+		_connection_base1(const _connection_base1& other) = default;
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type) = 0;
 		virtual bool exist(_connection_base1<arg1_type, mt_policy>* conn) = 0;
@@ -318,7 +322,9 @@ namespace sigslot
 	class _connection_base2
 	{
 	public:
-		virtual ~_connection_base2() { }
+		virtual ~_connection_base2() = default;
+		_connection_base2() = default;
+		_connection_base2(const _connection_base2& other) = default;
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type) = 0;
 		virtual bool exist(_connection_base2<arg1_type, arg2_type, mt_policy>* conn) = 0;
@@ -330,7 +336,9 @@ namespace sigslot
 	class _connection_base3
 	{
 	public:
-		virtual ~_connection_base3() { }
+		virtual ~_connection_base3() = default;
+		_connection_base3() = default;
+		_connection_base3(const _connection_base3& other) = default;
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type) = 0;
 		virtual bool exist(_connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>* conn) = 0;
@@ -342,7 +350,9 @@ namespace sigslot
 	class _connection_base4
 	{
 	public:
-		virtual ~_connection_base4() { }
+		virtual ~_connection_base4() = default;
+		_connection_base4() = default;
+		_connection_base4(const _connection_base4& other) = default;
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type) = 0;
 		virtual bool exist(_connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>* conn) = 0;
@@ -354,7 +364,9 @@ namespace sigslot
 	class _connection_base5
 	{
 	public:
-		virtual ~_connection_base5() { }
+		virtual ~_connection_base5() = default;
+		_connection_base5() = default;
+		_connection_base5(const _connection_base5& other) = default;
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type) = 0;
 		virtual bool exist(_connection_base5<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, mt_policy>* conn) = 0;
@@ -366,7 +378,9 @@ namespace sigslot
 	class _connection_base6
 	{
 	public:
-		virtual ~_connection_base6() { }
+		virtual ~_connection_base6() = default;
+		_connection_base6() = default;
+		_connection_base6(const _connection_base6& other) = default;
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type) = 0;
 		virtual bool exist(_connection_base6<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, mt_policy>* conn) = 0;
@@ -378,7 +392,9 @@ namespace sigslot
 	class _connection_base7
 	{
 	public:
-		virtual ~_connection_base7() { }
+		virtual ~_connection_base7() = default;
+		_connection_base7() = default;
+		_connection_base7(const _connection_base7& other) = default;
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type) = 0;
 		virtual bool exist(_connection_base7<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, mt_policy>* conn) = 0;
@@ -390,7 +406,9 @@ namespace sigslot
 	class _connection_base8
 	{
 	public:
-		virtual ~_connection_base8() { }
+		virtual ~_connection_base8() = default;
+		_connection_base8() = default;
+		_connection_base8(const _connection_base8& other) = default;
 		virtual has_slots<mt_policy>* getdest() const = 0;
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type) = 0;
 		virtual bool exist(_connection_base8<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>* conn) = 0;

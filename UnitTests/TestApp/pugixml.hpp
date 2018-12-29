@@ -1087,7 +1087,7 @@ namespace pugi
 		explicit xpath_exception(const xpath_parse_result& result);
 
 		// Get error message
-		virtual const char* what() const throw();
+		virtual const char* what() const noexcept;
 
 		// Get parse result
 		const xpath_parse_result& result() const;
