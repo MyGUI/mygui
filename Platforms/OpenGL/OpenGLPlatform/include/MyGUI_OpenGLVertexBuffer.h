@@ -9,7 +9,6 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IVertexBuffer.h"
-//#include "MyGUI_OpenGLRenderManager.h"
 
 namespace MyGUI
 {
@@ -18,26 +17,28 @@ namespace MyGUI
 	{
 	public:
 		OpenGLVertexBuffer();
-		virtual ~OpenGLVertexBuffer();
+		~OpenGLVertexBuffer() override;
 
-		virtual void setVertexCount(size_t _count);
-		virtual size_t getVertexCount();
+		void setVertexCount(size_t _count) override;
+		size_t getVertexCount() override;
 
-		virtual Vertex* lock();
-		virtual void unlock();
+		Vertex* lock() override;
+		void unlock() override;
 
 	/*internal:*/
-		void destroy();
-		void create();
-
 		unsigned int getBufferID() const
 		{
 			return mBufferID;
 		}
 
 	private:
+		void create();
+		void destroy();
+		void resize();
+
+	private:
 		unsigned int mBufferID;
-        //size_t mVertexCount;
+		size_t mVertexCount;
 		size_t mNeedVertexCount;
 		size_t mSizeInBytes;
 	};

@@ -18,8 +18,7 @@
 namespace MyGUI
 {
 
-	const size_t VERTEX_IN_QUAD = 6;
-	const size_t SIMPLETEXT_COUNT_VERTEX = 32 * VERTEX_IN_QUAD;
+	const size_t SIMPLETEXT_COUNT_VERTEX = 32 * VertexQuad::VertexCount;
 
 	EditText::EditText() :
 		ISubWidgetText(),
@@ -187,7 +186,7 @@ namespace MyGUI
 	void EditText::checkVertexSize()
 	{
 		// если вершин не хватит, делаем реалок, с учетом выделения * 2 и курсора
-		size_t need = (mCaption.size() * (mShadow ? 3 : 2) + 2) * VERTEX_IN_QUAD;
+		size_t need = (mCaption.size() * (mShadow ? 3 : 2) + 2) * VertexQuad::VertexCount;
 		if (mCountVertex < need)
 		{
 			mCountVertex = need + SIMPLETEXT_COUNT_VERTEX;
@@ -716,8 +715,8 @@ namespace MyGUI
 		_vertex[4].u = _textureRect.right;
 		_vertex[4].v = _textureRect.bottom;
 
-		_vertex += VERTEX_IN_QUAD;
-		_vertexCount += VERTEX_IN_QUAD;
+		_vertex += VertexQuad::VertexCount;
+		_vertexCount += VertexQuad::VertexCount;
 	}
 
 	void EditText::drawGlyph(

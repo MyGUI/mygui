@@ -28,13 +28,13 @@ namespace MyGUI
 	{
 	public:
 		OgreVertexBuffer();
-		virtual ~OgreVertexBuffer();
+		~OgreVertexBuffer() override;
 
-		virtual void setVertexCount(size_t _count);
-		virtual size_t getVertexCount();
+		void setVertexCount(size_t _count) override;
+		size_t getVertexCount() override;
 
-		virtual Vertex* lock();
-		virtual void unlock();
+		Vertex* lock() override;
+		void unlock() override;
 
 		Ogre::RenderOperation* getRenderOperation()
 		{
@@ -42,9 +42,9 @@ namespace MyGUI
 		}
 
 	private:
-		void createVertexBuffer();
-		void destroyVertexBuffer();
-		void resizeVertexBuffer();
+		void create();
+		void destroy();
+		void resize();
 
 	private:
 		size_t mVertexCount;

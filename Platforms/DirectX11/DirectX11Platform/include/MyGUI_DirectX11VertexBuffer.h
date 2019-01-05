@@ -20,26 +20,26 @@ namespace MyGUI
 	{
 	public:
 		DirectX11VertexBuffer(DirectX11RenderManager* _pRenderManager);
-		virtual ~DirectX11VertexBuffer();
+		~DirectX11VertexBuffer() override;
 
-		virtual void setVertexCount(size_t _count);
-		virtual size_t getVertexCount();
+		void setVertexCount(size_t _count) override;
+		size_t getVertexCount() override;
 
-		virtual Vertex* lock();
-		virtual void unlock();
+		Vertex* lock() override;
+		void unlock() override;
 
 	private:
-		bool create();
+		void create();
 		void destroy();
 		void resize();
 
 	private:
 		DirectX11RenderManager* mManager;
-		size_t                  mVertexCount;
-		size_t                  mNeedVertexCount;
+		size_t mVertexCount;
+		size_t mNeedVertexCount;
 
 	public:
-		ID3D11Buffer*           mBuffer;
+		ID3D11Buffer* mBuffer;
 	};
 
 } // namespace MyGUI

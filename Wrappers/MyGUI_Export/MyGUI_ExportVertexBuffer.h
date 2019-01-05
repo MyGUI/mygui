@@ -18,18 +18,23 @@ namespace MyGUI
 	{
 	public:
 		ExportVertexBuffer();
-		virtual ~ExportVertexBuffer();
+		~ExportVertexBuffer() override;
 
-		virtual void setVertexCount(size_t _count);
-		virtual size_t getVertexCount();
+		void setVertexCount(size_t _count) override;
+		size_t getVertexCount() override;
 
-		virtual Vertex* lock();
-		virtual void unlock();
+		Vertex* lock() override;
+		void unlock() override;
 
 		/*internal:*/
 		size_t getId();
 		void setChange(bool _value);
 		bool getChange() const;
+
+	private:
+		void createVertexBuffer();
+		void destroyVertexBuffer();
+		void resizeVertexBuffer();
 
 	private:
 		size_t mVertexCount;

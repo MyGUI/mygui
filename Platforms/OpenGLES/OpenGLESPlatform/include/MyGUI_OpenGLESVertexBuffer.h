@@ -14,22 +14,23 @@ namespace MyGUI
 	{
 	public:
 		OpenGLESVertexBuffer();
-		virtual ~OpenGLESVertexBuffer();
+		~OpenGLESVertexBuffer() override;
 
-		virtual void setVertexCount(size_t _count);
-		virtual size_t getVertexCount();
+		void setVertexCount(size_t _count) override;
+		size_t getVertexCount() override;
 
-		virtual Vertex* lock();
-		virtual void unlock();
+		Vertex* lock() override;
+		void unlock() override;
 
 	/*internal:*/
-		void destroy();
-		void create();
-
 		unsigned int getBufferID() const
 		{
 			return mBufferID;
 		}
+	private:
+		void create();
+		void destroy();
+		void resize();
 
 	private:
 		unsigned int mBufferID;

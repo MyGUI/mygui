@@ -5,7 +5,6 @@
 */
 
 #include "MyGUI_OpenGL3VertexBuffer.h"
-#include "MyGUI_VertexData.h"
 #include "MyGUI_OpenGL3Diagnostic.h"
 
 #include "GL/glew.h"
@@ -13,13 +12,12 @@
 namespace MyGUI
 {
 
-    //const size_t VERTEX_IN_QUAD = 6;
-    //const size_t RENDER_ITEM_STEEP_REALLOCK = 5 * VERTEX_IN_QUAD;
+	const size_t VERTEX_BUFFER_REALLOCK_STEP = 5 * VertexQuad::VertexCount;
 
 	OpenGL3VertexBuffer::OpenGL3VertexBuffer() :
 		mVAOID(0),
 		mBufferID(0),
-		//mVertexCount(RENDER_ITEM_STEEP_REALLOCK),
+		mVertexCount(0),
 		mNeedVertexCount(0),
 		mSizeInBytes(0)
 	{
@@ -32,12 +30,7 @@ namespace MyGUI
 
 	void OpenGL3VertexBuffer::setVertexCount(size_t _count)
 	{
-		if (_count != mNeedVertexCount)
-		{
-			mNeedVertexCount = _count;
-			destroy();
-			create();
-		}
+		mNeedVertexCount = _count;
 	}
 
 	size_t OpenGL3VertexBuffer::getVertexCount()
@@ -47,6 +40,9 @@ namespace MyGUI
 
 	Vertex* OpenGL3VertexBuffer::lock()
 	{
+		if (mNeedVertexCount > mVertexCount || mVertexCount == 0)
+			resize();
+
 		MYGUI_PLATFORM_ASSERT(mBufferID, "Vertex buffer in not created");
 
 		// Use glMapBuffer
@@ -76,31 +72,18 @@ namespace MyGUI
 		MYGUI_PLATFORM_ASSERT(result, "Error unlock vertex buffer");
 	}
 
-	void OpenGL3VertexBuffer::destroy()
-	{
-		if (mBufferID != 0)
-		{
-			glDeleteBuffers(1, &mBufferID);
-			mBufferID = 0;
-		}
-    if (mVAOID != 0) {
-      glDeleteVertexArrays(1, &mVAOID);
-      mVAOID = 0;
-    }
-  }
-
 	void OpenGL3VertexBuffer::create()
 	{
 		MYGUI_PLATFORM_ASSERT(!mBufferID, "Vertex buffer already exist");
 
-		mSizeInBytes = mNeedVertexCount * sizeof(MyGUI::Vertex);
+		mSizeInBytes = mVertexCount * sizeof(Vertex);
 		void* data = nullptr;
 
 		glGenBuffers(1, &mBufferID);
-    glGenVertexArrays(1, &mVAOID);
+		glGenVertexArrays(1, &mVAOID);
 
-    glBindVertexArray(mVAOID);
-    glBindBuffer(GL_ARRAY_BUFFER, mBufferID);
+		glBindVertexArray(mVAOID);
+		glBindBuffer(GL_ARRAY_BUFFER, mBufferID);
 		glBufferData(GL_ARRAY_BUFFER, mSizeInBytes, data, GL_STREAM_DRAW);
 
 		// check data size in VBO is same as input array, if not return 0 and delete VBO
@@ -112,22 +95,43 @@ namespace MyGUI
 			MYGUI_PLATFORM_EXCEPT("Data size is mismatch with input array");
 		}
 
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLubyte *)nullptr);
-    glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (GLubyte *)offsetof(struct Vertex, colour));
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLubyte *)offsetof(struct Vertex, u));
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLubyte*)nullptr);
+		glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (GLubyte*)offsetof(struct Vertex, colour));
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLubyte*)offsetof(struct Vertex, u));
 
-    //glVertexPointer(3, GL_FLOAT, sizeof(Vertex), (void*)offset);
-    //offset += (sizeof(float) * 3);
-    //glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(Vertex), (void*)offset);
-    //offset += (4);
-    //glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), (void*)offset);
+		//glVertexPointer(3, GL_FLOAT, sizeof(Vertex), (void*)offset);
+		//offset += (sizeof(float) * 3);
+		//glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(Vertex), (void*)offset);
+		//offset += (4);
+		//glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), (void*)offset);
 
-    glBindVertexArray(0);
+		glBindVertexArray(0);
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	void OpenGL3VertexBuffer::destroy()
+	{
+		if (mBufferID != 0)
+		{
+			glDeleteBuffers(1, &mBufferID);
+			mBufferID = 0;
+		}
+		if (mVAOID != 0)
+		{
+			glDeleteVertexArrays(1, &mVAOID);
+			mVAOID = 0;
+		}
+	}
+
+	void OpenGL3VertexBuffer::resize()
+	{
+		mVertexCount = mNeedVertexCount + VERTEX_BUFFER_REALLOCK_STEP;
+		destroy();
+		create();
 	}
 
 } // namespace MyGUI

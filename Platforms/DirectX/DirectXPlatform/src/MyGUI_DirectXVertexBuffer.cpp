@@ -12,12 +12,11 @@
 namespace MyGUI
 {
 
-	const size_t VERTEX_IN_QUAD = 6;
-	const size_t RENDER_ITEM_STEEP_REALLOCK = 5 * VERTEX_IN_QUAD;
+	const size_t VERTEX_BUFFER_REALLOCK_STEP = 5 * VertexQuad::VertexCount;
 
 	DirectXVertexBuffer::DirectXVertexBuffer(IDirect3DDevice9* _device, DirectXRenderManager* _pRenderManager) :
 		mNeedVertexCount(0),
-		mVertexCount(RENDER_ITEM_STEEP_REALLOCK),
+		mVertexCount(0),
 		mpD3DDevice(_device),
 		pRenderManager(_pRenderManager),
 		mpBuffer(nullptr)
@@ -31,11 +30,7 @@ namespace MyGUI
 
 	void DirectXVertexBuffer::setVertexCount(size_t _count)
 	{
-		if (_count != mNeedVertexCount)
-		{
-			mNeedVertexCount = _count;
-			resize();
-		}
+		mNeedVertexCount = _count;
 	}
 
 	size_t DirectXVertexBuffer::getVertexCount()
@@ -45,6 +40,9 @@ namespace MyGUI
 
 	Vertex* DirectXVertexBuffer::lock()
 	{
+		if (mNeedVertexCount > mVertexCount || mVertexCount == 0)
+			resize();
+
 		void* lockPtr = nullptr;
 		HRESULT result = mpBuffer->Lock(0, 0, (void**)&lockPtr, 0);
 		if (FAILED(result))
@@ -70,12 +68,11 @@ namespace MyGUI
 		return false;
 	}
 
-	bool DirectXVertexBuffer::create()
+	void DirectXVertexBuffer::create()
 	{
-		DWORD length = mNeedVertexCount * sizeof(MyGUI::Vertex);
-		if (SUCCEEDED(mpD3DDevice->CreateVertexBuffer(length, 0, 0, D3DPOOL_MANAGED, &mpBuffer, nullptr)))
-			return false;
-		return false;
+		DWORD length = mVertexCount * sizeof(Vertex);
+		bool created = SUCCEEDED(mpD3DDevice->CreateVertexBuffer(length, 0, 0, D3DPOOL_MANAGED, &mpBuffer, nullptr));
+		MYGUI_PLATFORM_ASSERT(created, "Create Buffer failed!");
 	}
 
 	void DirectXVertexBuffer::destroy()
@@ -89,11 +86,9 @@ namespace MyGUI
 
 	void DirectXVertexBuffer::resize()
 	{
-		if (mpD3DDevice)
-		{
-			destroy();
-			create();
-		}
+		mVertexCount = mNeedVertexCount + VERTEX_BUFFER_REALLOCK_STEP;
+		destroy();
+		create();
 	}
 
 } // namespace MyGUI

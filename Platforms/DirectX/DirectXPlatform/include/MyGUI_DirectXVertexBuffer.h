@@ -21,19 +21,19 @@ namespace MyGUI
 	{
 	public:
 		DirectXVertexBuffer(IDirect3DDevice9* _device, DirectXRenderManager* _pRenderManager);
-		virtual ~DirectXVertexBuffer();
+		~DirectXVertexBuffer() override;
 
-		virtual void setVertexCount(size_t _count);
-		virtual size_t getVertexCount();
+		void setVertexCount(size_t _count) override;
+		size_t getVertexCount() override;
 
-		virtual Vertex* lock();
-		virtual void unlock();
+		Vertex* lock() override;
+		void unlock() override;
 
 	/*internal:*/
 		virtual bool setToStream(size_t stream);
 
 	private:
-		bool create();
+		void create();
 		void destroy();
 		void resize();
 

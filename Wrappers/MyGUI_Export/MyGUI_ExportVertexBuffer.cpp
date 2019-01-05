@@ -5,11 +5,12 @@
 */
 
 #include "MyGUI_ExportVertexBuffer.h"
-#include "MyGUI_VertexData.h"
 #include "MyGUI_ExportDiagnostic.h"
 
 namespace MyGUI
 {
+
+	const size_t VERTEX_BUFFER_REALLOCK_STEP = 5 * VertexQuad::VertexCount;
 
 	ExportVertexBuffer::ExportVertexBuffer() :
 		mNeedVertexCount(0),
@@ -24,21 +25,12 @@ namespace MyGUI
 
 	ExportVertexBuffer::~ExportVertexBuffer()
 	{
-		delete mVertex;
-		mVertex = nullptr;
+		destroy();
 	}
 
 	void ExportVertexBuffer::setVertexCount(size_t _count)
 	{
 		mNeedVertexCount = _count;
-
-		if (mVertex != nullptr)
-		{
-			delete mVertex;
-			mVertex = nullptr;
-		}
-
-		mVertex = new Vertex[mNeedVertexCount];
 	}
 
 	size_t ExportVertexBuffer::getVertexCount()
@@ -48,6 +40,9 @@ namespace MyGUI
 
 	Vertex* ExportVertexBuffer::lock()
 	{
+		if (mNeedVertexCount > mVertexCount || mVertexCount == 0)
+			resize();
+
 		return mVertex;
 	}
 
@@ -69,6 +64,24 @@ namespace MyGUI
 	bool ExportVertexBuffer::getChange() const
 	{
 		return mChange;
+	}
+
+	void ExportVertexBuffer::create()
+	{
+		mVertex = new Vertex[mVertexCount];
+	}
+
+	void ExportVertexBuffer::destroy()
+	{
+		delete mVertex;
+		mVertex = nullptr;
+	}
+
+	void ExportVertexBuffer::resize()
+	{
+		mVertexCount = mNeedVertexCount + VERTEX_BUFFER_REALLOCK_STEP;
+		destroy();
+		create();
 	}
 
 }

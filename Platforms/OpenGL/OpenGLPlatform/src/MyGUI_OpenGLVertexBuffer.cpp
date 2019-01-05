@@ -5,7 +5,6 @@
 */
 
 #include "MyGUI_OpenGLVertexBuffer.h"
-#include "MyGUI_VertexData.h"
 #include "MyGUI_OpenGLDiagnostic.h"
 
 #include "GL/glew.h"
@@ -13,13 +12,12 @@
 namespace MyGUI
 {
 
-    //const size_t VERTEX_IN_QUAD = 6;
-    //const size_t RENDER_ITEM_STEEP_REALLOCK = 5 * VERTEX_IN_QUAD;
+	const size_t VERTEX_BUFFER_REALLOCK_STEP = 5 * VertexQuad::VertexCount;
 
 	OpenGLVertexBuffer::OpenGLVertexBuffer() :
-        mBufferID(0),
-        //mVertexCount(RENDER_ITEM_STEEP_REALLOCK),
-        mNeedVertexCount(0),
+		mBufferID(0),
+		mVertexCount(0),
+		mNeedVertexCount(0),
 		mSizeInBytes(0)
 	{
 	}
@@ -31,12 +29,7 @@ namespace MyGUI
 
 	void OpenGLVertexBuffer::setVertexCount(size_t _count)
 	{
-		if (_count != mNeedVertexCount)
-		{
-			mNeedVertexCount = _count;
-			destroy();
-			create();
-		}
+		mNeedVertexCount = _count;
 	}
 
 	size_t OpenGLVertexBuffer::getVertexCount()
@@ -46,6 +39,9 @@ namespace MyGUI
 
 	Vertex* OpenGLVertexBuffer::lock()
 	{
+		if (mNeedVertexCount > mVertexCount || mVertexCount == 0)
+			resize();
+
 		MYGUI_PLATFORM_ASSERT(mBufferID, "Vertex buffer in not created");
 
 		// Use glMapBuffer
@@ -75,20 +71,11 @@ namespace MyGUI
 		MYGUI_PLATFORM_ASSERT(result, "Error unlock vertex buffer");
 	}
 
-	void OpenGLVertexBuffer::destroy()
-	{
-		if (mBufferID != 0)
-		{
-			glDeleteBuffers(1, &mBufferID);
-			mBufferID = 0;
-		}
-	}
-
 	void OpenGLVertexBuffer::create()
 	{
 		MYGUI_PLATFORM_ASSERT(!mBufferID, "Vertex buffer already exist");
 
-		mSizeInBytes = mNeedVertexCount * sizeof(MyGUI::Vertex);
+		mSizeInBytes = mVertexCount * sizeof(Vertex);
 		void* data = nullptr;
 
 		glGenBuffers(1, &mBufferID);
@@ -105,6 +92,22 @@ namespace MyGUI
 		}
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	void OpenGLVertexBuffer::destroy()
+	{
+		if (mBufferID != 0)
+		{
+			glDeleteBuffers(1, &mBufferID);
+			mBufferID = 0;
+		}
+	}
+
+	void OpenGLVertexBuffer::resize()
+	{
+		mVertexCount = mNeedVertexCount + VERTEX_BUFFER_REALLOCK_STEP;
+		destroy();
+		create();
 	}
 
 } // namespace MyGUI

@@ -1,5 +1,4 @@
 #include "MyGUI_OpenGLESVertexBuffer.h"
-#include "MyGUI_VertexData.h"
 #include "MyGUI_OpenGLESDiagnostic.h"
 
 #include "platform.h"
@@ -8,12 +7,11 @@
 namespace MyGUI
 {
 
-	const size_t VERTEX_IN_QUAD = 6;
-	const size_t RENDER_ITEM_STEEP_REALLOCK = 5 * VERTEX_IN_QUAD;
+	const size_t VERTEX_BUFFER_REALLOCK_STEP = 5 * VertexQuad::VertexCount;
 
 	OpenGLESVertexBuffer::OpenGLESVertexBuffer() :
 		mNeedVertexCount(0),
-		mVertexCount(RENDER_ITEM_STEEP_REALLOCK),
+		mVertexCount(0),
 		mBufferID(0),
 		mSizeInBytes(0)
 	{
@@ -26,12 +24,7 @@ namespace MyGUI
 
 	void OpenGLESVertexBuffer::setVertexCount(size_t _count)
 	{
-		if (_count != mNeedVertexCount)
-		{
-			mNeedVertexCount = _count;
-			destroy();
-			create();
-		}
+		mNeedVertexCount = _count;
 	}
 
 	size_t OpenGLESVertexBuffer::getVertexCount()
@@ -41,6 +34,9 @@ namespace MyGUI
 
 	Vertex* OpenGLESVertexBuffer::lock()
 	{
+		if (mNeedVertexCount > mVertexCount || mVertexCount == 0)
+			resize();
+
 		MYGUI_PLATFORM_ASSERT(mBufferID, "Vertex buffer in not created");
 
 		// Use glMapBuffer
@@ -81,21 +77,11 @@ namespace MyGUI
 		MYGUI_PLATFORM_ASSERT(result, "Error unlock vertex buffer");
 	}
 
-	void OpenGLESVertexBuffer::destroy()
-	{
-		if (mBufferID != 0)
-		{
-			glDeleteBuffers(1, (GLuint * ) & mBufferID);
-			CHECK_GL_ERROR_DEBUG();
-			mBufferID = 0;
-		}
-	}
-
 	void OpenGLESVertexBuffer::create()
 	{
 		MYGUI_PLATFORM_ASSERT(!mBufferID, "Vertex buffer already exist");
 
-		mSizeInBytes = mNeedVertexCount * sizeof(MyGUI::Vertex);
+		mSizeInBytes = mVertexCount * sizeof(Vertex);
 		void* data = nullptr;
 
 		glGenBuffers(1, (GLuint * ) & mBufferID); //wdy
@@ -118,6 +104,23 @@ namespace MyGUI
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		CHECK_GL_ERROR_DEBUG();
+	}
+
+	void OpenGLESVertexBuffer::destroy()
+	{
+		if (mBufferID != 0)
+		{
+			glDeleteBuffers(1, (GLuint * ) & mBufferID);
+			CHECK_GL_ERROR_DEBUG();
+			mBufferID = 0;
+		}
+	}
+
+	void OpenGLESVertexBuffer::resize()
+	{
+		mVertexCount = mNeedVertexCount + VERTEX_BUFFER_REALLOCK_STEP;
+		destroy();
+		create();
 	}
 
 } // namespace MyGUI
