@@ -16,7 +16,7 @@ namespace input
 	InputManager* InputManager::msInputManager = 0;
 
 	// старая процедура, которую мы заменили
-	LRESULT InputManager::msOldWindowProc = nullptr;
+	LRESULT InputManager::msOldWindowProc = 0;
 
 	bool InputManager::msSkipMove = false;
 
