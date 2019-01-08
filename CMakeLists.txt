@@ -77,12 +77,6 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 	endif()
 endif ()
 
-# determine system endianess
-include(TestBigEndian)
-test_big_endian(MYGUI_TEST_BIG_ENDIAN)
-
-# Add MyGUIEngine include path
-
 # definitions for samples
 set(MYGUI_LIBRARIES MyGUIEngine)
 
