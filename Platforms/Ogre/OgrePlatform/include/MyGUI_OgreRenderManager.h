@@ -126,7 +126,11 @@ namespace MyGUI
 		unsigned short mActiveViewport;
 
 		Ogre::RenderSystem* mRenderSystem;
+#if OGRE_VERSION >= MYGUI_DEFINE_VERSION(1, 11, 3)
+		Ogre::Sampler::UVWAddressingMode mTextureAddressMode;
+#else
 		Ogre::TextureUnitState::UVWAddressingMode mTextureAddressMode;
+#endif
 		Ogre::LayerBlendModeEx mColorBlendMode, mAlphaBlendMode;
 
 		RenderTargetInfo mInfo;
