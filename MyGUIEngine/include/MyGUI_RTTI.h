@@ -18,7 +18,6 @@ namespace MyGUI
 #define MYGUI_RTTI_TYPE const std::type_info&
 #define MYGUI_RTTI_GET_TYPE(type) typeid(type)
 
-	//VC++ 7.1
 #define MYGUI_DECLARE_TYPE_NAME(Type, Override) \
 		public: \
 			static const std::string& getClassTypeName() { static std::string type = #Type; return type; } \
