@@ -14,7 +14,7 @@ varying vec4 outColor;
 // Texturing vertex program for GLSL ES
 void main()
 {
-	vec4 vpos = vec4(position,1.0);
+	vec4 vpos = position;
 	vpos.y *= YFlipScale;
 	gl_Position = vpos;
 	outUV0 = uv0;
