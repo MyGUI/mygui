@@ -46,7 +46,7 @@ int startApp()
 		LPSTR fileName = new CHAR[256];
 		GetModuleFileName(nullptr, fileName, 256);
 		std::string path = fileName;
-		int path_directory_index = path.find_last_of('\\');
+		size_t path_directory_index = path.find_last_of('\\');
 		std::string exedir = path.substr(0, path_directory_index + 1);
 		_chdir(exedir.c_str());
 #endif
