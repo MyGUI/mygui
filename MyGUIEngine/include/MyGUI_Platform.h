@@ -40,20 +40,6 @@
 #	pragma error "Unknown compiler! Stop building!!!"
 #endif
 
-// See if we can use __forceinline or if we need to use __inline instead
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-#	if MYGUI_COMP_VER >= 1200
-#		define MYGUI_FORCEINLINE __forceinline
-#	endif
-#elif defined(__MINGW32__)
-#	if !defined(MYGUI_FORCEINLINE)
-#		define MYGUI_FORCEINLINE __inline
-#	endif
-#else
-#	define MYGUI_FORCEINLINE __inline
-#endif
-
-
 // Windows settings
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 #
@@ -114,13 +100,6 @@
 #		define MYGUI_DEBUG_MODE 0
 #	endif
 
-#	if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-#		define MYGUI_PLATFORM_LIB "MYGUIPlatform.bundle"
-#	else // if MYGUI_PLATFORM_LINUX
-#		define MYGUI_PLATFORM_LIB "libMYGUIPlatform.so"
-#	endif
-
 #endif
-
 
 #endif // MYGUI_PLATFORM_H_

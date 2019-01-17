@@ -20,7 +20,7 @@ namespace MyGUI
 		MYGUI_EXPORT const IntSize& getTextureSize(const std::string& _texture, bool _cache = true);
 		MYGUI_EXPORT uint32 toColourARGB(const Colour& _colour);
 
-		MYGUI_FORCEINLINE void convertColour(uint32& _colour, VertexColourType _format)
+		inline void convertColour(uint32& _colour, VertexColourType _format)
 		{
 			if (_format == VertexColourType::ColourABGR)
 				_colour = ((_colour & 0x00FF0000) >> 16) | ((_colour & 0x000000FF) << 16) | (_colour & 0xFF00FF00);

@@ -18,7 +18,7 @@ namespace MyGUI
 		/** Returns the closest power-of-two number greater or equal to value.
 		*/
 		template<typename Type>
-		static MYGUI_FORCEINLINE Type firstPO2From(Type _value)
+		static inline Type firstPO2From(Type _value)
 		{
 			--_value;
 			_value |= _value >> 16;
@@ -32,7 +32,7 @@ namespace MyGUI
 
 		/** Determines whether the number is power-of-two or not. */
 		template<typename Type>
-		static MYGUI_FORCEINLINE bool isPO2(Type _value)
+		static inline bool isPO2(Type _value)
 		{
 			return (_value & (_value - 1)) == 0;
 		}
@@ -41,7 +41,7 @@ namespace MyGUI
 		remove right-hand zeros.
 		*/
 		template<typename Type>
-		static MYGUI_FORCEINLINE size_t getBitShift(Type _mask)
+		static inline size_t getBitShift(Type _mask)
 		{
 			if (_mask == 0)
 				return 0;

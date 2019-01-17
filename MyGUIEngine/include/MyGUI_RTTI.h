@@ -15,8 +15,6 @@
 
 namespace MyGUI
 {
-#define MYGUI_RTTI_TYPE const std::type_info&
-#define MYGUI_RTTI_GET_TYPE(type) typeid(type)
 
 #define MYGUI_DECLARE_TYPE_NAME(Type, Override) \
 		public: \
@@ -29,9 +27,9 @@ namespace MyGUI
 			typedef BaseType RTTIBase; \
 			MYGUI_DECLARE_TYPE_NAME(BaseType,) \
 			/** Compare with selected type */ \
-			virtual bool isType(MYGUI_RTTI_TYPE _type) const { return MYGUI_RTTI_GET_TYPE(BaseType) == _type; } \
+			virtual bool isType(const std::type_info& _type) const { return typeid(BaseType) == _type; } \
 			/** Compare with selected type */ \
-			template<typename Type> bool isType() const { return isType(MYGUI_RTTI_GET_TYPE(Type)); } \
+			template<typename Type> bool isType() const { return isType(typeid(Type)); } \
 			/** Try to cast pointer to selected type. \
 				@param _throw If true throw exception when casting in wrong type, else return nullptr \
 			*/ \
@@ -57,9 +55,9 @@ namespace MyGUI
 			typedef RTTIBase Base; \
 			typedef DerivedType RTTIBase; \
 			/** Compare with selected type */ \
-			virtual bool isType(MYGUI_RTTI_TYPE _type) const override { return MYGUI_RTTI_GET_TYPE(DerivedType) == _type || Base::isType(_type); } \
+			virtual bool isType(const std::type_info& _type) const override { return typeid(DerivedType) == _type || Base::isType(_type); } \
 			/** Compare with selected type */ \
-			template<typename Type> bool isType() const { return isType(MYGUI_RTTI_GET_TYPE(Type)); }
+			template<typename Type> bool isType() const { return isType(typeid(Type)); }
 
 } // namespace MyGUI
 
