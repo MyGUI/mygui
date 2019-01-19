@@ -211,9 +211,12 @@ namespace MyGUI
 
 		//#########################################################################
 		//! base iterator class for UString
-	class MYGUI_EXPORT _base_iterator: public std::iterator<std::random_access_iterator_tag, value_type> { /* i don't know why the beautifier is freaking out on this line */
+	class MYGUI_EXPORT _base_iterator
+	{
 			friend class UString;
 		protected:
+			typedef ptrdiff_t difference_type;
+
 			_base_iterator();
 
 			void _seekFwd( size_type c );
@@ -240,7 +243,8 @@ namespace MyGUI
 		class _const_fwd_iterator; // forward declaration
 
 		//! forward iterator for UString
-	class MYGUI_EXPORT _fwd_iterator: public _base_iterator { /* i don't know why the beautifier is freaking out on this line */
+	class MYGUI_EXPORT _fwd_iterator: public _base_iterator
+	{
 			friend class _const_fwd_iterator;
 		public:
 			_fwd_iterator();
