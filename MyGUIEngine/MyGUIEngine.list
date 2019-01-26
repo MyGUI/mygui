@@ -32,7 +32,6 @@ set (HEADER_FILES
   include/MyGUI_DataStream.h
   include/MyGUI_DataStreamHolder.h
   include/MyGUI_Delegate.h
-  include/MyGUI_DelegateImplement.h
   include/MyGUI_DeprecatedTypes.h
   include/MyGUI_DeprecatedWidgets.h
   include/MyGUI_Diagnostic.h
@@ -417,7 +416,6 @@ SOURCE_GROUP("Header Files\\Utility" FILES
   include/MyGUI_DataStream.h
   include/MyGUI_DataStreamHolder.h
   include/MyGUI_Delegate.h
-  include/MyGUI_DelegateImplement.h
   include/MyGUI_DynLib.h
   include/MyGUI_Enumerator.h
   include/MyGUI_EventPair.h
