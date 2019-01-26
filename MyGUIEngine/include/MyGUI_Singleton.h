@@ -23,6 +23,11 @@ namespace MyGUI
 	public:
 		using Base = Singleton<T>;
 
+		#if defined(__clang__)
+			// This constructor is called before the `T` object is fully constructed, and
+			// pointers are not dereferenced anyway, so UBSan shouldn't check vptrs.
+			__attribute__((no_sanitize("vptr")))
+		#endif
 		Singleton()
 		{
 			MYGUI_ASSERT(nullptr == msInstance, "Singleton instance " << getClassTypeName() << " already exsist");

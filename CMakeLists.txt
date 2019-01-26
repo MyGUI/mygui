@@ -255,6 +255,25 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 	endif ()
 endif ()
 
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+	# usage:
+	# UBSAN_OPTIONS=print_stacktrace=1,suppressions=sanitizers/UBSanitizer.supp <command>
+	option(MYGUI_UB_SANITIZER "Compile with undefined behaviour sanitizer" FALSE)
+	if (MYGUI_UB_SANITIZER)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-omit-frame-pointer -fno-optimize-sibling-calls")
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=undefined -fno-sanitize-recover=undefined")
+	endif()
+
+	# usage:
+	# ASAN_OPTIONS=suppressions=alloc_dealloc_mismatch=0,check_initialization_order=1,detect_stack_use_after_return=1 LSAN_OPTIONS=suppressions=sanitizers/LeaksSanitizer.supp <command>
+	# alloc_dealloc_mismatch is here due to issues with Ogre and no clear way to suppress the issue
+	option(MYGUI_ADDRESS_SANITIZER "Compile with address sanitizer" FALSE)
+	if (MYGUI_ADDRESS_SANITIZER)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-omit-frame-pointer -fno-optimize-sibling-calls")
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fsanitize-address-use-after-scope")
+	endif()
+endif ()
+
 if (MSVC)
 	add_definitions("-D_CRT_SECURE_NO_WARNINGS")
 

@@ -61,6 +61,10 @@ namespace MyGUI
 		return mContent ? mContent->getType() : typeid(void);
 	}
 
+#if defined(__clang__)
+	// That's the point of unsafe cast
+	__attribute__((no_sanitize("vptr")))
+#endif
 	void* Any::castUnsafe() const
 	{
 		return mContent ? static_cast<Any::Holder<void*> *>(this->mContent)->held : nullptr;

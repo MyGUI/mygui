@@ -8,9 +8,10 @@
 #define MYGUI_DELEGATE_H_
 
 #include "MyGUI_Diagnostic.h"
+#include "MyGUI_Any.h"
 #include <list>
 
-#include <typeinfo>
+#include <functional>
 
 namespace MyGUI
 {
@@ -18,7 +19,7 @@ namespace MyGUI
 namespace delegates
 {
 	// base class for unsubscribing from multi delegates
-	class MYGUI_EXPORT IDelegateUnlink
+	class IDelegateUnlink
 	{
 	public:
 		virtual ~IDelegateUnlink() = default;
@@ -36,112 +37,78 @@ namespace delegates
 		IDelegateUnlink* m_baseDelegateUnlink;
 	};
 
-	inline IDelegateUnlink* GetDelegateUnlink(void* _base)
-	{
-		return nullptr;
-	}
-	inline IDelegateUnlink* GetDelegateUnlink(IDelegateUnlink* _base)
-	{
-		return _base;
-	}
-
 	template <typename ...Args>
-	class IDelegateFunction
+	class DelegateFunction
 	{
 	public:
-		virtual ~IDelegateFunction() = default;
-		virtual bool isType(const std::type_info& _type) = 0;
-		virtual void invoke(Args... args) = 0;
-		virtual bool compare(IDelegateFunction* _delegate) const = 0;
-		virtual bool compare(IDelegateUnlink* _unlink) const
+		using Function = std::function<void(Args...)>;
+
+		// function or static class method
+		DelegateFunction(Function _function, void* _functionPointer) :
+			mFunction(_function),
+			mFunctionPointer(_functionPointer)
 		{
-			return false;
-		}
-	};
-
-	template <typename ...Args>
-	class StaticDelegateFunction : public IDelegateFunction<Args...>
-	{
-	public:
-		using Func = void(*)(Args... args);
-
-		StaticDelegateFunction(Func _func) : mFunc(_func) { }
-
-		bool isType(const std::type_info& _type) override
-		{
-			return typeid(StaticDelegateFunction) == _type;
 		}
 
-		void invoke(Args... args) override
+		// non-static class method
+		DelegateFunction(Function _function, Any _functionPointer, IDelegateUnlink* _object) :
+			mFunction(_function),
+			mUnlink(_object),
+			mObject(_object),
+			mFunctionPointer(_functionPointer)
 		{
-			mFunc(args...);
 		}
 
-		bool compare(IDelegateFunction<Args...>* _delegate) const override
+		// non-static class method
+		DelegateFunction(Function _function, Any _functionPointer, void* _object) :
+			mFunction(_function),
+			mUnlink(nullptr),
+			mObject(_object),
+			mFunctionPointer(_functionPointer)
 		{
-			if (nullptr == _delegate || !_delegate->isType(typeid(StaticDelegateFunction))) return false;
-			auto cast = static_cast<StaticDelegateFunction*>(_delegate);
-			return cast->mFunc == mFunc;
-		}
-		bool compare(IDelegateUnlink* _unlink) const override
-		{
-			return false;
 		}
 
-	private:
-		Func mFunc;
-	};
-
-	template <typename T, typename ...Args>
-	class MethodDelegateFunction : public IDelegateFunction<Args...>
-	{
-	public:
-		using Method = void (T::*)(Args... args);
-
-		MethodDelegateFunction(IDelegateUnlink* _unlink, T* _object, Method _method) : mUnlink(_unlink), mObject(_object), mMethod(_method) { }
-
-		bool isType(const std::type_info& _type) override
+		void invoke(Args... args)
 		{
-			return typeid(MethodDelegateFunction) == _type;
+			mFunction(args...);
 		}
 
-		void invoke(Args... args) override
+		bool compare(DelegateFunction<Args...>* _delegate) const
 		{
-			(mObject->*mMethod)(args...);
+			if (nullptr == _delegate) return false;
+			return _delegate->mObject == mObject && _delegate->mFunctionPointer.getType() == mFunctionPointer.getType() && _delegate->mFunctionPointer.castUnsafe() == mFunctionPointer.castUnsafe();
 		}
 
-		bool compare(IDelegateFunction<Args...>* _delegate) const override
-		{
-			if (nullptr == _delegate || !_delegate->isType(typeid(MethodDelegateFunction))) return false;
-			auto cast = static_cast<MethodDelegateFunction*>(_delegate);
-			return cast->mObject == mObject && cast->mMethod == mMethod;
-		}
-
-		bool compare(IDelegateUnlink* _unlink) const override
+		bool compare(IDelegateUnlink* _unlink) const
 		{
 			return mUnlink == _unlink;
 		}
 
 	private:
-		IDelegateUnlink* mUnlink;
-		T* mObject;
-		Method mMethod;
+		Function mFunction;
+
+		IDelegateUnlink* mUnlink = nullptr;
+		void* mObject = nullptr;
+		Any mFunctionPointer;
 	};
 
 } // namespace delegates
 
 // Creates delegate from a function or a static class method
 template <typename ...Args>
-inline delegates::IDelegateFunction<Args...>* newDelegate(void(*_func)(Args... args))
+inline delegates::DelegateFunction<Args...>* newDelegate(void(*_func)(Args... args))
 {
-	return new delegates::StaticDelegateFunction<Args...>(_func);
+	return new delegates::DelegateFunction<Args...>(_func, (void*)_func);
 }
 
 // Creates delegate from a non-static class method
 template <typename T, typename ...Args>
-inline delegates::IDelegateFunction<Args...>* newDelegate(T* _object, void (T::*_method)(Args... args))
+inline delegates::DelegateFunction<Args...>* newDelegate(T* _object, void (T::*_method)(Args... args))
 {
-	return new delegates::MethodDelegateFunction<T, Args...>(delegates::GetDelegateUnlink(_object), _object, _method);
+	return new delegates::DelegateFunction<Args...>(
+		[=](Args&&... args) { return (_object->*_method)(std::forward<decltype(args)>(args)...); },
+		Any(_method),
+		_object);
 }
 
 namespace delegates
@@ -151,7 +118,7 @@ namespace delegates
 	class Delegate
 	{
 	public:
-		using IDelegate = IDelegateFunction<Args...>;
+		using IDelegate = DelegateFunction<Args...>;
 
 		Delegate() : mDelegate(nullptr) { }
 		Delegate(const Delegate& _event) : mDelegate(nullptr)
@@ -177,14 +144,14 @@ namespace delegates
 			mDelegate = nullptr;
 		}
 
-		Delegate<Args...>& operator=(IDelegate* _delegate)
+		Delegate& operator=(IDelegate* _delegate)
 		{
 			delete mDelegate;
 			mDelegate = _delegate;
 			return *this;
 		}
 
-		Delegate<Args...>& operator=(const Delegate<Args...>& _event)
+		Delegate& operator=(const Delegate<Args...>& _event)
 		{
 			if (this == &_event)
 				return *this;
@@ -215,7 +182,7 @@ namespace delegates
 	class MultiDelegate
 	{
 	public:
-		using IDelegate = IDelegateFunction<Args...>;
+		using IDelegate = DelegateFunction<Args...>;
 		using ListDelegate = typename std::list<IDelegate*>;
 
 		MultiDelegate() { }
@@ -257,7 +224,7 @@ namespace delegates
 			}
 		}
 
-		MultiDelegate& operator+=(IDelegate* _delegate)
+		void operator+=(IDelegate* _delegate)
 		{
 			for (auto iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
 			{
@@ -267,10 +234,9 @@ namespace delegates
 				}
 			}
 			mListDelegates.push_back(_delegate);
-			return *this;
 		}
 
-		MultiDelegate& operator-=(IDelegate* _delegate)
+		void operator-=(IDelegate* _delegate)
 		{
 			for (auto iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
 			{
@@ -282,7 +248,6 @@ namespace delegates
 				}
 			}
 			delete _delegate;
-			return *this;
 		}
 
 		void operator()(Args... args)
