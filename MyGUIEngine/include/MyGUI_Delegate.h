@@ -46,13 +46,13 @@ namespace delegates
 	}
 
 	template <typename ...Args>
-	class IDelegate
+	class IDelegateFunction
 	{
 	public:
-		virtual ~IDelegate() = default;
+		virtual ~IDelegateFunction() = default;
 		virtual bool isType(const std::type_info& _type) = 0;
 		virtual void invoke(Args... args) = 0;
-		virtual bool compare(IDelegate* _delegate) const = 0;
+		virtual bool compare(IDelegateFunction* _delegate) const = 0;
 		virtual bool compare(IDelegateUnlink* _unlink) const
 		{
 			return false;
@@ -60,16 +60,16 @@ namespace delegates
 	};
 
 	template <typename ...Args>
-	class CStaticDelegate : public IDelegate<Args...>
+	class StaticDelegateFunction : public IDelegateFunction<Args...>
 	{
 	public:
 		using Func = void(*)(Args... args);
 
-		CStaticDelegate(Func _func) : mFunc(_func) { }
+		StaticDelegateFunction(Func _func) : mFunc(_func) { }
 
 		bool isType(const std::type_info& _type) override
 		{
-			return typeid(CStaticDelegate) == _type;
+			return typeid(StaticDelegateFunction) == _type;
 		}
 
 		void invoke(Args... args) override
@@ -77,10 +77,10 @@ namespace delegates
 			mFunc(args...);
 		}
 
-		bool compare(IDelegate<Args...>* _delegate) const override
+		bool compare(IDelegateFunction<Args...>* _delegate) const override
 		{
-			if (nullptr == _delegate || !_delegate->isType(typeid(CStaticDelegate))) return false;
-			auto cast = static_cast<CStaticDelegate*>(_delegate);
+			if (nullptr == _delegate || !_delegate->isType(typeid(StaticDelegateFunction))) return false;
+			auto cast = static_cast<StaticDelegateFunction*>(_delegate);
 			return cast->mFunc == mFunc;
 		}
 		bool compare(IDelegateUnlink* _unlink) const override
@@ -93,16 +93,16 @@ namespace delegates
 	};
 
 	template <typename T, typename ...Args>
-	class CMethodDelegate : public IDelegate<Args...>
+	class MethodDelegateFunction : public IDelegateFunction<Args...>
 	{
 	public:
 		using Method = void (T::*)(Args... args);
 
-		CMethodDelegate(IDelegateUnlink* _unlink, T* _object, Method _method) : mUnlink(_unlink), mObject(_object), mMethod(_method) { }
+		MethodDelegateFunction(IDelegateUnlink* _unlink, T* _object, Method _method) : mUnlink(_unlink), mObject(_object), mMethod(_method) { }
 
 		bool isType(const std::type_info& _type) override
 		{
-			return typeid(CMethodDelegate) == _type;
+			return typeid(MethodDelegateFunction) == _type;
 		}
 
 		void invoke(Args... args) override
@@ -110,10 +110,10 @@ namespace delegates
 			(mObject->*mMethod)(args...);
 		}
 
-		bool compare(IDelegate<Args...>* _delegate) const override
+		bool compare(IDelegateFunction<Args...>* _delegate) const override
 		{
-			if (nullptr == _delegate || !_delegate->isType(typeid(CMethodDelegate))) return false;
-			auto cast = static_cast<CMethodDelegate*>(_delegate);
+			if (nullptr == _delegate || !_delegate->isType(typeid(MethodDelegateFunction))) return false;
+			auto cast = static_cast<MethodDelegateFunction*>(_delegate);
 			return cast->mObject == mObject && cast->mMethod == mMethod;
 		}
 
@@ -132,36 +132,36 @@ namespace delegates
 
 // Creates delegate from a function or a static class method
 template <typename ...Args>
-inline delegates::IDelegate<Args...>* newDelegate(void(*_func)(Args... args))
+inline delegates::IDelegateFunction<Args...>* newDelegate(void(*_func)(Args... args))
 {
-	return new delegates::CStaticDelegate<Args...>(_func);
+	return new delegates::StaticDelegateFunction<Args...>(_func);
 }
 
 // Creates delegate from a non-static class method
 template <typename T, typename ...Args>
-inline delegates::IDelegate<Args...>* newDelegate(T* _object, void (T::*_method)(Args... args))
+inline delegates::IDelegateFunction<Args...>* newDelegate(T* _object, void (T::*_method)(Args... args))
 {
-	return new delegates::CMethodDelegate<T, Args...>(delegates::GetDelegateUnlink(_object), _object, _method);
+	return new delegates::MethodDelegateFunction<T, Args...>(delegates::GetDelegateUnlink(_object), _object, _method);
 }
 
 namespace delegates
 {
 
 	template <typename ...Args>
-	class CDelegate
+	class Delegate
 	{
 	public:
-		using IDelegate = IDelegate<Args...>;
+		using IDelegate = IDelegateFunction<Args...>;
 
-		CDelegate() : mDelegate(nullptr) { }
-		CDelegate(const CDelegate& _event) : mDelegate(nullptr)
+		Delegate() : mDelegate(nullptr) { }
+		Delegate(const Delegate& _event) : mDelegate(nullptr)
 		{
 			// take ownership
 			mDelegate = _event.mDelegate;
-			const_cast<CDelegate&>(_event).mDelegate = nullptr;
+			const_cast<Delegate&>(_event).mDelegate = nullptr;
 		}
 
-		~CDelegate()
+		~Delegate()
 		{
 			clear();
 		}
@@ -177,21 +177,21 @@ namespace delegates
 			mDelegate = nullptr;
 		}
 
-		CDelegate<Args...>& operator=(IDelegate* _delegate)
+		Delegate<Args...>& operator=(IDelegate* _delegate)
 		{
 			delete mDelegate;
 			mDelegate = _delegate;
 			return *this;
 		}
 
-		CDelegate<Args...>& operator=(const CDelegate<Args...>& _event)
+		Delegate<Args...>& operator=(const Delegate<Args...>& _event)
 		{
 			if (this == &_event)
 				return *this;
 
 			// take ownership
 			IDelegate* del = _event.mDelegate;
-			const_cast<CDelegate&>(_event).mDelegate = nullptr;
+			const_cast<Delegate&>(_event).mDelegate = nullptr;
 
 			if (mDelegate != nullptr && !mDelegate->compare(del))
 				delete mDelegate;
@@ -212,14 +212,14 @@ namespace delegates
 	};
 
 	template <typename ...Args>
-	class CMultiDelegate
+	class MultiDelegate
 	{
 	public:
-		using IDelegate = IDelegate<Args...>;
+		using IDelegate = IDelegateFunction<Args...>;
 		using ListDelegate = typename std::list<IDelegate*>;
 
-		CMultiDelegate() { }
-		~CMultiDelegate()
+		MultiDelegate() { }
+		~MultiDelegate()
 		{
 			clear();
 		}
@@ -257,7 +257,7 @@ namespace delegates
 			}
 		}
 
-		CMultiDelegate& operator+=(IDelegate* _delegate)
+		MultiDelegate& operator+=(IDelegate* _delegate)
 		{
 			for (auto iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
 			{
@@ -270,7 +270,7 @@ namespace delegates
 			return *this;
 		}
 
-		CMultiDelegate& operator-=(IDelegate* _delegate)
+		MultiDelegate& operator-=(IDelegate* _delegate)
 		{
 			for (auto iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
 			{
@@ -302,22 +302,22 @@ namespace delegates
 			}
 		}
 
-		CMultiDelegate(const CMultiDelegate& _event)
+		MultiDelegate(const MultiDelegate& _event)
 		{
 			// take ownership
 			ListDelegate del = _event.mListDelegates;
-			const_cast<CMultiDelegate&>(_event).mListDelegates.clear();
+			const_cast<MultiDelegate&>(_event).mListDelegates.clear();
 
 			safe_clear(del);
 
 			mListDelegates = del;
 		}
 
-		CMultiDelegate& operator=(const CMultiDelegate& _event)
+		MultiDelegate& operator=(const MultiDelegate& _event)
 		{
 			// take ownership
 			ListDelegate del = _event.mListDelegates;
-			const_cast<CMultiDelegate&>(_event).mListDelegates.clear();
+			const_cast<MultiDelegate&>(_event).mListDelegates.clear();
 
 			safe_clear(del);
 
@@ -327,7 +327,7 @@ namespace delegates
 		}
 
 		MYGUI_OBSOLETE("use : operator += ")
-		CMultiDelegate& operator=(IDelegate* _delegate)
+		MultiDelegate& operator=(IDelegate* _delegate)
 		{
 			clear();
 			*this += _delegate;
@@ -366,33 +366,33 @@ namespace delegates
 	};
 
 //#ifndef MYGUI_DONT_USE_OBSOLETE // TODO
-	using CDelegate0 = CDelegate<>;
+	using CDelegate0 = Delegate<>;
 	template <typename ...Args>
-	using CDelegate1 = CDelegate<Args...>;
+	using CDelegate1 = Delegate<Args...>;
 	template <typename ...Args>
-	using CDelegate2 = CDelegate<Args...>;
+	using CDelegate2 = Delegate<Args...>;
 	template <typename ...Args>
-	using CDelegate3 = CDelegate<Args...>;
+	using CDelegate3 = Delegate<Args...>;
 	template <typename ...Args>
-	using CDelegate4 = CDelegate<Args...>;
+	using CDelegate4 = Delegate<Args...>;
 	template <typename ...Args>
-	using CDelegate5 = CDelegate<Args...>;
+	using CDelegate5 = Delegate<Args...>;
 	template <typename ...Args>
-	using CDelegate6 = CDelegate<Args...>;
+	using CDelegate6 = Delegate<Args...>;
 
-	using CMultiDelegate0 = CMultiDelegate<>;
+	using CMultiDelegate0 = MultiDelegate<>;
 	template <typename ...Args>
-	using CMultiDelegate1 = CMultiDelegate<Args...>;
+	using CMultiDelegate1 = MultiDelegate<Args...>;
 	template <typename ...Args>
-	using CMultiDelegate2 = CMultiDelegate<Args...>;
+	using CMultiDelegate2 = MultiDelegate<Args...>;
 	template <typename ...Args>
-	using CMultiDelegate3 = CMultiDelegate<Args...>;
+	using CMultiDelegate3 = MultiDelegate<Args...>;
 	template <typename ...Args>
-	using CMultiDelegate4 = CMultiDelegate<Args...>;
+	using CMultiDelegate4 = MultiDelegate<Args...>;
 	template <typename ...Args>
-	using CMultiDelegate5 = CMultiDelegate<Args...>;
+	using CMultiDelegate5 = MultiDelegate<Args...>;
 	template <typename ...Args>
-	using CMultiDelegate6 = CMultiDelegate<Args...>;
+	using CMultiDelegate6 = MultiDelegate<Args...>;
 //#endif
 }
 
