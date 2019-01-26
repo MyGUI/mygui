@@ -103,9 +103,7 @@ endif(WIN32 OR APPLE)
 ######################################################################
 
 if (EMSCRIPTEN)
-	set(MYGUI_RENDERSYSTEM 8 CACHE STRING "")
 	set(MYGUI_SAMPLES_INPUT 4 CACHE STRING "")
-	set(MYGUI_USE_FREETYPE False CACHE BOOL "")
 	set(MYGUI_STATIC True CACHE BOOL "")
 	set(MYGUI_DISABLE_PLUGINS True CACHE BOOL "")
 	set(MYGUI_USE_SYSTEM_GLEW True CACHE BOOL "")
