@@ -38,12 +38,12 @@ namespace MyGUI
 
 	IDataStream* DirectX11DataManager::getData(const std::string& _name)
 	{
-		std::string filepath = getDataPath(_name);
+		MyGUI::UString filepath = getDataPath(_name);
 		if (filepath.empty())
 			return nullptr;
 
 		std::ifstream* stream = new std::ifstream();
-		stream->open(filepath.c_str(), std::ios_base::binary);
+		stream->open(filepath.asWStr_c_str(), std::ios_base::binary);
 
 		if (!stream->is_open())
 		{
