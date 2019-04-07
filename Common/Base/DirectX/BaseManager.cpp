@@ -87,7 +87,8 @@ namespace base
 
 		resizeRender(width, height);
 
-		MyGUI::RenderManager::getInstance().setViewSize(width, height);
+		if (mPlatform)
+			MyGUI::RenderManager::getInstance().setViewSize(width, height);
 
 		setInputViewSize(width, height);
 	}

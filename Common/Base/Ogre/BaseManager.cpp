@@ -357,7 +357,8 @@ namespace base
 		int width = (int)_rw->getWidth();
 		int height = (int)_rw->getHeight();
 
-		MyGUI::RenderManager::getInstance().setViewSize(width, height);
+		if (mPlatform)
+			MyGUI::RenderManager::getInstance().setViewSize(width, height);
 
 		// при удалении окна может вызываться этот метод
 		if (mCamera)

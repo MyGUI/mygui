@@ -20,7 +20,8 @@ namespace base
 
 	void BaseManager::_windowResized( int w, int h )
 	{
-		MyGUI::RenderManager::getInstance().setViewSize(w, h);
+		if (mPlatform)
+			MyGUI::RenderManager::getInstance().setViewSize(w, h);
 
 		setInputViewSize(w, h);
 	}
