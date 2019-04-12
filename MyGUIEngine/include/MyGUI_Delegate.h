@@ -44,7 +44,7 @@ namespace delegates
 		using Function = std::function<void(Args...)>;
 
 		// function or static class method
-		DelegateFunction(Function _function, void* _functionPointer) :
+		DelegateFunction(Function _function, Any _functionPointer) :
 			mFunction(_function),
 			mFunctionPointer(_functionPointer)
 		{
@@ -76,7 +76,7 @@ namespace delegates
 		bool compare(DelegateFunction<Args...>* _delegate) const
 		{
 			if (nullptr == _delegate) return false;
-			return _delegate->mObject == mObject && _delegate->mFunctionPointer.getType() == mFunctionPointer.getType() && _delegate->mFunctionPointer.castUnsafe() == mFunctionPointer.castUnsafe();
+			return _delegate->mObject == mObject && _delegate->mFunctionPointer.compare(mFunctionPointer);
 		}
 
 		bool compare(IDelegateUnlink* _unlink) const
@@ -98,7 +98,7 @@ namespace delegates
 template <typename ...Args>
 inline delegates::DelegateFunction<Args...>* newDelegate(void(*_func)(Args... args))
 {
-	return new delegates::DelegateFunction<Args...>(_func, (void*)_func);
+	return new delegates::DelegateFunction<Args...>(_func, _func);
 }
 
 // Creates delegate from a non-static class method
@@ -107,7 +107,7 @@ inline delegates::DelegateFunction<Args...>* newDelegate(T* _object, void (T::*_
 {
 	return new delegates::DelegateFunction<Args...>(
 		[=](Args&&... args) { return (_object->*_method)(std::forward<decltype(args)>(args)...); },
-		Any(_method),
+		_method,
 		_object);
 }
 

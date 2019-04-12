@@ -105,6 +105,8 @@ namespace MyGUI
 
 		void* castUnsafe() const;
 
+		bool compare(const Any& other) const;
+
 	private:
 		class Placeholder
 		{
@@ -114,6 +116,7 @@ namespace MyGUI
 		public:
 			virtual const std::type_info& getType() const = 0;
 			virtual Placeholder* clone() const = 0;
+			virtual bool compare(Placeholder* other) const = 0;
 		};
 
 		template<typename ValueType>
@@ -126,6 +129,8 @@ namespace MyGUI
 			{
 			}
 
+			Holder& operator=(const Holder&) = delete;
+
 		public:
 			const std::type_info& getType() const override
 			{
@@ -137,11 +142,13 @@ namespace MyGUI
 				return new Holder(held);
 			}
 
+			bool compare(Placeholder* other) const override
+			{
+				return getType() == other->getType() && held == static_cast<Holder*>(other)->held;
+			}
+
 		public:
 			ValueType held;
-
-		private:
-			Holder& operator=(const Holder&);
 		};
 
 	private:

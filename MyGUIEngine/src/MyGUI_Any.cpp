@@ -70,4 +70,11 @@ namespace MyGUI
 		return mContent ? static_cast<Any::Holder<void*> *>(this->mContent)->held : nullptr;
 	}
 
+	bool Any::compare(const Any& other) const
+	{
+		if (mContent == nullptr && other.mContent == nullptr)
+			return true;
+		return mContent != nullptr && other.mContent != nullptr && mContent->compare(other.mContent);
+	}
+
 } // namespace MyGUI
