@@ -263,7 +263,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 	endif()
 
 	# usage:
-	# ASAN_OPTIONS=suppressions=alloc_dealloc_mismatch=0,check_initialization_order=1,detect_stack_use_after_return=1 LSAN_OPTIONS=suppressions=sanitizers/LeaksSanitizer.supp <command>
+	# ASAN_OPTIONS=alloc_dealloc_mismatch=0,check_initialization_order=1,detect_stack_use_after_return=1 LSAN_OPTIONS=suppressions=sanitizers/LeaksSanitizer.supp <command>
 	# alloc_dealloc_mismatch is here due to issues with Ogre and no clear way to suppress the issue
 	option(MYGUI_ADDRESS_SANITIZER "Compile with address sanitizer" FALSE)
 	if (MYGUI_ADDRESS_SANITIZER)
