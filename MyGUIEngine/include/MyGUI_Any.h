@@ -119,6 +119,21 @@ namespace MyGUI
 			virtual bool compare(Placeholder* other) const = 0;
 		};
 
+		template<class T, class EqualTo>
+		struct HasOperatorEqualImpl
+		{
+			template<class U, class V>
+			static auto test(U*) -> decltype(std::declval<U>() == std::declval<V>());
+			template<typename, typename>
+			static auto test(...) -> std::false_type;
+
+			using type = typename std::is_same<bool, decltype(test<T, EqualTo>(0))>::type;
+			static constexpr bool value = type::value;
+		};
+
+		template<class T, class EqualTo = T>
+		struct HasOperatorEqual : HasOperatorEqualImpl<T, EqualTo>::type {};
+
 		template<typename ValueType>
 		class Holder :
 			public Placeholder
@@ -144,7 +159,20 @@ namespace MyGUI
 
 			bool compare(Placeholder* other) const override
 			{
+				return compareImpl(other);
+			}
+		private:
+			template<typename T = ValueType>
+			typename std::enable_if<HasOperatorEqual<T>::value == true, bool>::type compareImpl(Placeholder* other) const
+			{
 				return getType() == other->getType() && held == static_cast<Holder*>(other)->held;
+			}
+
+			template<typename T = ValueType>
+			typename std::enable_if<HasOperatorEqual<T>::value == false, bool>::type compareImpl(Placeholder* other) const
+			{
+				MYGUI_EXCEPT("Type '" << getType().name() << "' is not comparable");
+				return false;
 			}
 
 		public:
