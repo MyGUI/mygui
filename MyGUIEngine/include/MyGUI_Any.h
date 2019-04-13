@@ -119,20 +119,25 @@ namespace MyGUI
 			virtual bool compare(Placeholder* other) const = 0;
 		};
 
-		template<class T, class EqualTo>
+		template<class T>
 		struct HasOperatorEqualImpl
 		{
-			template<class U, class V>
-			static auto test(U*) -> decltype(std::declval<U>() == std::declval<V>());
-			template<typename, typename>
-			static auto test(...) -> std::false_type;
+			template <typename U>
+			static auto test(U*) -> decltype(std::declval<U>() == std::declval<U>());
+			template <typename>
+			static auto test(...)->std::false_type;
 
-			using type = typename std::is_same<bool, decltype(test<T, EqualTo>(0))>::type;
+			using type = typename std::is_same<bool, decltype(test<T>(0))>::type;
 			static constexpr bool value = type::value;
 		};
 
-		template<class T, class EqualTo = T>
-		struct HasOperatorEqual : HasOperatorEqualImpl<T, EqualTo>::type {};
+		template<class T>
+		struct HasOperatorEqual : HasOperatorEqualImpl<T>::type {};
+		template<typename T1, typename T2>
+		struct HasOperatorEqual<std::pair<T1, T2>>
+		{
+			static constexpr bool value = HasOperatorEqualImpl<T1>::value && HasOperatorEqualImpl<T2>::value;
+		};
 
 		template<typename ValueType>
 		class Holder :
