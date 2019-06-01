@@ -145,9 +145,11 @@ namespace base
 
 		createPointerManager(handle);
 
-		createScene();
-
+		// this needs to be called before createScene() since some demos require
+		// screen size to properly position the widgets
 		windowResized(mWindow);
+
+		createScene();
 
 		return true;
 	}
