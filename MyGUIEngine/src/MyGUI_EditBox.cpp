@@ -410,7 +410,29 @@ namespace MyGUI
 		{
 			if ((mCursorPosition) < mTextLength)
 			{
-				mCursorPosition ++;
+				if (input.isControlPressed())
+				{
+					if (mModePassword)
+					{
+						mCursorPosition = mTextLength;
+					}
+					else
+					{
+						const UString& text = getRealString();
+						while (mCursorPosition < mTextLength && (text[mCursorPosition] == ' ' || text[mCursorPosition] == '\t'))
+						{
+							mCursorPosition ++;
+						}
+						while (mCursorPosition < mTextLength && (text[mCursorPosition] != ' ' && text[mCursorPosition] != '\t'))
+						{
+							mCursorPosition ++;
+						}
+					}
+				}
+				else
+				{
+					mCursorPosition ++;
+				}
 				mClientText->setCursorPosition(mCursorPosition);
 				updateSelectText();
 			}
@@ -425,7 +447,29 @@ namespace MyGUI
 		{
 			if (mCursorPosition != 0)
 			{
-				mCursorPosition --;
+				if (input.isControlPressed())
+				{
+					if (mModePassword)
+					{
+						mCursorPosition = 0;
+					}
+					else
+					{
+						const UString& text = getRealString();
+						while (mCursorPosition > 0 && (text[mCursorPosition - 1] == ' ' || text[mCursorPosition - 1] == '\t'))
+						{
+							mCursorPosition --;
+						}
+						while (mCursorPosition > 0 && (text[mCursorPosition - 1] != ' ' && text[mCursorPosition - 1] != '\t'))
+						{
+							mCursorPosition --;
+						}
+					}
+				}
+				else
+				{
+					mCursorPosition --;
+				}
 				mClientText->setCursorPosition(mCursorPosition);
 				updateSelectText();
 			}
