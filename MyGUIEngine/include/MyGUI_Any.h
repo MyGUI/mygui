@@ -177,7 +177,6 @@ namespace MyGUI
 			typename std::enable_if<HasOperatorEqual<T>::value == false, bool>::type compareImpl(Placeholder* other) const
 			{
 				MYGUI_EXCEPT("Type '" << getType().name() << "' is not comparable");
-				return false;
 			}
 
 		public:
