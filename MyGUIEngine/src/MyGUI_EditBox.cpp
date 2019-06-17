@@ -289,6 +289,10 @@ namespace MyGUI
 		Base::onKeyLostFocus(_new);
 	}
 
+	bool isWhitespace(const UString::code_point& c) {
+		return c == ' ' || c == '\t';
+	}
+
 	void EditBox::onKeyButtonPressed(KeyCode _key, Char _char)
 	{
 		if (mClientText == nullptr || getClientWidget() == nullptr)
@@ -410,7 +414,29 @@ namespace MyGUI
 		{
 			if ((mCursorPosition) < mTextLength)
 			{
-				mCursorPosition ++;
+				if (input.isControlPressed())
+				{
+					if (mModePassword)
+					{
+						mCursorPosition = mTextLength;
+					}
+					else
+					{
+						const UString& text = getRealString();
+						while (mCursorPosition < mTextLength && isWhitespace(text[mCursorPosition]))
+						{
+							mCursorPosition ++;
+						}
+						while (mCursorPosition < mTextLength && !isWhitespace(text[mCursorPosition]))
+						{
+							mCursorPosition ++;
+						}
+					}
+				}
+				else
+				{
+					mCursorPosition ++;
+				}
 				mClientText->setCursorPosition(mCursorPosition);
 				updateSelectText();
 			}
@@ -425,7 +451,29 @@ namespace MyGUI
 		{
 			if (mCursorPosition != 0)
 			{
-				mCursorPosition --;
+				if (input.isControlPressed())
+				{
+					if (mModePassword)
+					{
+						mCursorPosition = 0;
+					}
+					else
+					{
+						const UString& text = getRealString();
+						while (mCursorPosition > 0 && isWhitespace(text[mCursorPosition - 1]))
+						{
+							mCursorPosition --;
+						}
+						while (mCursorPosition > 0 && !isWhitespace(text[mCursorPosition - 1]))
+						{
+							mCursorPosition --;
+						}
+					}
+				}
+				else
+				{
+					mCursorPosition --;
+				}
 				mClientText->setCursorPosition(mCursorPosition);
 				updateSelectText();
 			}
