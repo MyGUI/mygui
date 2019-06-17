@@ -289,6 +289,10 @@ namespace MyGUI
 		Base::onKeyLostFocus(_new);
 	}
 
+	bool isWhitespace(const UString::code_point& c) {
+		return c == ' ' || c == '\t';
+	}
+
 	void EditBox::onKeyButtonPressed(KeyCode _key, Char _char)
 	{
 		if (mClientText == nullptr || getClientWidget() == nullptr)
@@ -419,11 +423,11 @@ namespace MyGUI
 					else
 					{
 						const UString& text = getRealString();
-						while (mCursorPosition < mTextLength && (text[mCursorPosition] == ' ' || text[mCursorPosition] == '\t'))
+						while (mCursorPosition < mTextLength && isWhitespace(text[mCursorPosition]))
 						{
 							mCursorPosition ++;
 						}
-						while (mCursorPosition < mTextLength && (text[mCursorPosition] != ' ' && text[mCursorPosition] != '\t'))
+						while (mCursorPosition < mTextLength && !isWhitespace(text[mCursorPosition]))
 						{
 							mCursorPosition ++;
 						}
@@ -456,11 +460,11 @@ namespace MyGUI
 					else
 					{
 						const UString& text = getRealString();
-						while (mCursorPosition > 0 && (text[mCursorPosition - 1] == ' ' || text[mCursorPosition - 1] == '\t'))
+						while (mCursorPosition > 0 && isWhitespace(text[mCursorPosition - 1]))
 						{
 							mCursorPosition --;
 						}
-						while (mCursorPosition > 0 && (text[mCursorPosition - 1] != ' ' && text[mCursorPosition - 1] != '\t'))
+						while (mCursorPosition > 0 && !isWhitespace(text[mCursorPosition - 1]))
 						{
 							mCursorPosition --;
 						}
