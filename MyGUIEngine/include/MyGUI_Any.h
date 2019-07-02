@@ -127,7 +127,7 @@ namespace MyGUI
 			template <typename>
 			static auto test(...)->std::false_type;
 
-			using type = typename std::is_same<bool, decltype(test<T>(0))>::type;
+			using type = typename std::is_same<bool, decltype(test<T>(nullptr))>::type;
 			static constexpr bool value = type::value;
 		};
 

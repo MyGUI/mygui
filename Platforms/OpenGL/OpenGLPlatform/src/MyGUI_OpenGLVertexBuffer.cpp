@@ -48,7 +48,7 @@ namespace MyGUI
 		glBindBuffer(GL_ARRAY_BUFFER, mBufferID);
 
 		// Discard the buffer
-		glBufferData(GL_ARRAY_BUFFER, mSizeInBytes, 0, GL_STREAM_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, mSizeInBytes, nullptr, GL_STREAM_DRAW);
 
 
 		Vertex* pBuffer = reinterpret_cast<Vertex*>(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));

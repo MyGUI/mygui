@@ -396,7 +396,6 @@ namespace base
 		SDL_LockSurface(_image);
 
 		int pitchSrc = _image->pitch;	//the length of a row of pixels in bytes
-		int bppSrc = pitchSrc / _image->w;
 		size_t size = _image->h * pitchSrc;
 		ret = new unsigned char[size];
 		unsigned char* ptr_source = (unsigned char*)_image->pixels;

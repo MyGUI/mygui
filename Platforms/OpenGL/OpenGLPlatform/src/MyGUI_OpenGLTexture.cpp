@@ -28,7 +28,7 @@ namespace MyGUI
         mTextureID(0),
         mPboID(0),
         mLock(false),
-        mBuffer(0),
+        mBuffer(nullptr),
 		mImageLoader(_loader),
 		mRenderTarget(nullptr)
 	{
@@ -121,7 +121,7 @@ namespace MyGUI
 
 	void OpenGLTexture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format)
 	{
-		createManual(_width, _height, _usage, _format, 0);
+		createManual(_width, _height, _usage, _format, nullptr);
 	}
 
 	void OpenGLTexture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format, void* _data)
@@ -194,7 +194,7 @@ namespace MyGUI
 			//создаем текстурнный буфер
 			glGenBuffers(1, &mPboID);
 			glBindBuffer(GL_PIXEL_UNPACK_BUFFER, mPboID);
-			glBufferData(GL_PIXEL_UNPACK_BUFFER, mDataSize, 0, mUsage);
+			glBufferData(GL_PIXEL_UNPACK_BUFFER, mDataSize, nullptr, mUsage);
 			glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
 		}
 	}
@@ -267,7 +267,7 @@ namespace MyGUI
 			// If you do that, the previous data in PBO will be discarded and
 			// glMapBuffer() returns a new allocated pointer immediately
 			// even if GPU is still working with the previous data.
-			glBufferData(GL_PIXEL_UNPACK_BUFFER, mDataSize, 0, mUsage);
+			glBufferData(GL_PIXEL_UNPACK_BUFFER, mDataSize, nullptr, mUsage);
 
 			// map the buffer object into client's memory
 			mBuffer = (GLubyte*)glMapBuffer(GL_PIXEL_UNPACK_BUFFER, mAccess);
@@ -311,7 +311,7 @@ namespace MyGUI
 
 			// copy pixels from PBO to texture object
 			// Use offset instead of ponter.
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, mWidth, mHeight, mPixelFormat, GL_UNSIGNED_BYTE, 0);
+			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, mWidth, mHeight, mPixelFormat, GL_UNSIGNED_BYTE, nullptr);
 
 			// it is good idea to release PBOs with ID 0 after use.
 			// Once bound with 0, all pixel operations are back to normal ways.
