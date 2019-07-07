@@ -26,6 +26,7 @@ namespace MyGUI
 	typedef delegates::CDelegate5<MultiListBox*, size_t, const UString&, const UString&, bool&> EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef;
 	typedef delegates::CDelegate5<MultiListBox*, size_t, size_t, size_t, bool&> EventHandle_MultiListPtrSizeTSizeTSizeTBoolRef;
 	typedef delegates::CMultiDelegate2<MultiListBox*, size_t> EventHandle_MultiListPtrSizeT;
+	typedef delegates::CMultiDelegate2<MultiListBox*, const IBNotifyItemData&> EventHandle_MultiListPtrCIBNotifyCellDataRef;
 
 	/** \brief @wpage{MultiListBox}
 		MultiListBox widget description should be here.
@@ -285,6 +286,13 @@ namespace MyGUI
 		*/
 		EventPair<EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef, EventHandle_MultiListPtrSizeTSizeTSizeTBoolRef> requestOperatorLess;
 
+		/** Event : Notify about event in item widget.\n
+		signature : void method(MyGUI::MultiList* _sender, const MyGUI::IBNotifyItemData& _info)
+		@param _sender widget that called this event
+		@param _info info about item notify
+		*/
+		EventHandle_MultiListPtrCIBNotifyCellDataRef eventNotifyItem;
+
 		/*internal:*/
 		// IItemContainer impl
 		size_t _getItemCount() override;
@@ -307,6 +315,7 @@ namespace MyGUI
 		void notifyListChangeScrollPosition(ListBox* _sender, size_t _position);
 		void notifyButtonClick(Widget* _sender);
 		void notifyListSelectAccept(ListBox* _sender, size_t _position);
+		void notifyListNotifyItem(ListBox* _sender, const MyGUI::IBNotifyItemData& _info);
 
 		void updateColumns();
 		void redrawButtons();
