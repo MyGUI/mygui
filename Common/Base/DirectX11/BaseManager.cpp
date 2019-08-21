@@ -4,7 +4,7 @@
 	@date		09/2011
 */
 #include "Precompiled.h"
-#include <d3dx11.h>
+#include <d3d11.h>
 #include <dxgi.h>
 #include "BaseManager.h"
 #include <MyGUI_DirectX11Platform.h>
