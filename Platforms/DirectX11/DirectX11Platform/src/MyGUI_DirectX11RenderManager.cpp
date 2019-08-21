@@ -3,7 +3,7 @@
 	@author		Ustinov Igor aka Igor', DadyaIgor
 	@date		09/2011
 */
-#include <d3dx11.h>
+#include <d3d11.h>
 #include <D3Dcompiler.h>
 #include "MyGUI_DirectX11RenderManager.h"
 #include "MyGUI_DirectX11Texture.h"

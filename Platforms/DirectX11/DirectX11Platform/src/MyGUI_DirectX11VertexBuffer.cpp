@@ -4,7 +4,7 @@
 	@date		09/2011
 */
 
-#include <d3dx11.h>
+#include <d3d11.h>
 #include "MyGUI_DirectX11VertexBuffer.h"
 #include "MyGUI_VertexData.h"
 #include "MyGUI_DirectX11Diagnostic.h"

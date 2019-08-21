@@ -112,7 +112,7 @@ option(MYGUI_STATIC "Static build" FALSE)
 option(MYGUI_USE_FREETYPE "Use freetype for font rendering" TRUE)
 option(MYGUI_DONT_USE_OBSOLETE "Remove obsole functions from build" FALSE)
 
-set(MYGUI_RENDERSYSTEM 3 CACHE STRING
+set(MYGUI_RENDERSYSTEM 6 CACHE STRING
 "Specify the Render System. Possible values:
   1 - Dummy
   2 - Export (latter)
