@@ -14,8 +14,7 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT Exception :
-		public std::exception
+	class MYGUI_EXPORT Exception
 	{
 	public:
 		Exception(const std::string& _description, const std::string& _source, const char* _file, long _line);
