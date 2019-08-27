@@ -37,7 +37,7 @@ namespace MyGUI
 			}
 
 		private:
-			IDelegateUnlink* m_baseDelegateUnlink;
+			IDelegateUnlink* m_baseDelegateUnlink = nullptr;
 		};
 
 		inline IDelegateUnlink* GetDelegateUnlink(void* _base)

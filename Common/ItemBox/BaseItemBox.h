@@ -107,12 +107,12 @@ namespace wraps
 			cell->update(_data, *mBoxItems->getItemDataAt<DataType>(_data.index));
 		}
 
-		void notifyStartDrop(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result)
+		void notifyStartDrop(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result, const MyGUI::MouseButton& _id)
 		{
 			eventStartDrag(this, DDItemInfo(_info), _result);
 		}
 
-		void notifyRequestDrop(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result)
+		void notifyRequestDrop(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result, const MyGUI::MouseButton& _id)
 		{
 			eventRequestDrop(this, DDItemInfo(_info), _result);
 		}

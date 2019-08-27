@@ -8,6 +8,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_DataManager.h"
+#include <functional>
 
 namespace MyGUI
 {
@@ -47,15 +48,19 @@ namespace MyGUI
 
 		/*internal:*/
 		void addResourceLocation(const std::string& _name, bool _recursive);
+		void setGetPathCallback(const std::function<std::string(std::string, bool&)>& _callback);
+		std::string getFileName( const std::string& _name ) const;
 
 	private:
 		struct ArhivInfo
 		{
 			std::wstring name;
-			bool recursive;
+			bool recursive = false;
 		};
 		typedef std::vector<ArhivInfo> VectorArhivInfo;
 		VectorArhivInfo mPaths;
+
+		std::function<std::string(std::string, bool&)> mGetFullPathCallback;
 
 		bool mIsInitialise;
 	};

@@ -89,28 +89,44 @@ namespace MyGUI
 	const std::string& DirectX11DataManager::getDataPath(const std::string& _name)
 	{
 		static std::string path;
-		VectorString result;
-		common::VectorWString wresult;
-
-		for (VectorArhivInfo::const_iterator item = mPaths.begin(); item != mPaths.end(); ++item)
+		bool callbackSuccess = false;
+		
+		if( mGetFullPathCallback )
 		{
-			common::scanFolder(wresult, (*item).name, (*item).recursive, MyGUI::UString(_name).asWStr(), true);
-		}
+			const std::string result = mGetFullPathCallback(_name, callbackSuccess);
 
-		for (common::VectorWString::const_iterator item = wresult.begin(); item != wresult.end(); ++item)
-		{
-			result.push_back(MyGUI::UString(*item).asUTF8());
-		}
-
-		if (!result.empty())
-		{
-			path = result[0];
-			if (result.size() > 1)
+			if( callbackSuccess )
 			{
-				MYGUI_PLATFORM_LOG(Warning, "There are several files with name '" << _name << "'. '" << path << "' was used.");
-				MYGUI_PLATFORM_LOG(Warning, "Other candidater are:");
-				for (size_t index = 1; index < result.size(); index ++)
-					MYGUI_PLATFORM_LOG(Warning, " - '" << result[index] << "'");
+				path = result;
+			}
+		}
+		
+		if (!callbackSuccess)
+		{
+			VectorString result;
+			common::VectorWString wresult;
+			const std::string fileName = getFileName( _name );
+
+			for (VectorArhivInfo::const_iterator item = mPaths.begin(); item != mPaths.end(); ++item)
+			{
+				common::scanFolder(wresult, (*item).name, (*item).recursive, MyGUI::UString( fileName ).asWStr(), true);
+			}
+
+			for (common::VectorWString::const_iterator item = wresult.begin(); item != wresult.end(); ++item)
+			{
+				result.push_back(MyGUI::UString(*item).asUTF8());
+			}
+
+			if (!result.empty())
+			{
+				path = result[0];
+				if (result.size() > 1)
+				{
+					MYGUI_PLATFORM_LOG(Warning, "There are several files with name '" << fileName << "'. '" << path << "' was used.");
+					MYGUI_PLATFORM_LOG(Warning, "Other candidater are:");
+					for (size_t index = 1; index < result.size(); index++)
+						MYGUI_PLATFORM_LOG(Warning, " - '" << result[index] << "'");
+				}
 			}
 		}
 
@@ -123,6 +139,27 @@ namespace MyGUI
 		info.name = MyGUI::UString(_name).asWStr();
 		info.recursive = _recursive;
 		mPaths.push_back(info);
+	}
+
+	void DirectX11DataManager::setGetPathCallback( const std::function<std::string( std::string, bool& )>& _callback )
+	{
+		mGetFullPathCallback = _callback;
+	}
+
+	std::string DirectX11DataManager::getFileName( const std::string& _name ) const
+	{
+		std::string tmp;
+		std::replace_copy( _name.begin(), _name.end(), std::back_inserter( tmp ), '\\', '/' );
+
+		if ( tmp.find( "./" ) != 0 )
+		{
+			const size_t offset = tmp.find_last_of( '/' );
+			if ( offset + 1 < tmp.size() )
+			{
+				tmp = tmp.substr( offset + 1, tmp.size() );
+			}
+		}
+		return tmp;
 	}
 
 } // namespace MyGUI

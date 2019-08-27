@@ -10,6 +10,8 @@
 #include "MyGUI_DirectX11RenderManager.h"
 #include "MyGUI_DirectX11RTTexture.h"
 #include "MyGUI_DirectX11Diagnostic.h"
+#include "FreeImage.h"
+#include "MyGUI_UString.h"
 
 MyGUI::ICreateTextureCallbackStruct* MyGUI::DirectX11Texture::sCreateTextureCallback = nullptr;
 
@@ -97,7 +99,7 @@ namespace MyGUI
 	{
 		destroy();
 
-		std::string fullname = DirectX11DataManager::getInstance().getDataPath(_filename);
+		UString fullname = DirectX11DataManager::getInstance().getDataPath(_filename);
 		HRESULT hr;
 
 		if( sCreateTextureCallback )
@@ -109,6 +111,61 @@ namespace MyGUI
 
 			mWidth = desc.Width;
 			mHeight = desc.Height;
+		}
+		else
+		{
+			D3D11_TEXTURE2D_DESC desc;
+			D3D11_SUBRESOURCE_DATA srd;
+			FIBITMAP* pBitmap = nullptr;
+
+
+			FREE_IMAGE_FORMAT format = FreeImage_GetFileTypeU( fullname.asWStr_c_str(), 0 );
+			if ( format == FIF_UNKNOWN )
+			{
+				format = FreeImage_GetFIFFromFilenameU( fullname.asWStr_c_str() );
+
+				MYGUI_PLATFORM_ASSERT( format != FIF_UNKNOWN, "Unknown file format! '" + fullname + "'" );
+			}
+
+			pBitmap = FreeImage_LoadU( format, fullname.asWStr_c_str() );
+
+			MYGUI_PLATFORM_ASSERT( pBitmap != nullptr, "Unable to load file! '" + fullname + "'" );
+
+			unsigned uWidth = FreeImage_GetWidth( pBitmap );
+			unsigned uHeight = FreeImage_GetHeight( pBitmap );
+
+			{
+				FIBITMAP* pConvertedBitmap;
+
+				pConvertedBitmap = FreeImage_ConvertTo32Bits( pBitmap );
+
+				FreeImage_Unload( pBitmap );
+				pBitmap = pConvertedBitmap;
+			}
+
+			FreeImage_FlipVertical( pBitmap );
+
+			unsigned uBytesPerPixel = FreeImage_GetBPP( pBitmap ) / 8;
+
+			desc.Usage = D3D11_USAGE_DEFAULT;
+			desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+			desc.CPUAccessFlags = 0;
+			desc.Height = uHeight;
+			desc.Width = uWidth;
+			desc.ArraySize = 1;
+			desc.MipLevels = 1;
+			desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+			desc.SampleDesc.Count = 1;
+			desc.SampleDesc.Quality = 0;
+			desc.MiscFlags = 0;
+
+
+			srd.pSysMem = FreeImage_GetBits( pBitmap );
+			srd.SysMemPitch = FreeImage_GetPitch( pBitmap );
+			srd.SysMemSlicePitch = srd.SysMemPitch * uHeight;
+
+			HRESULT result = mManager->mpD3DDevice->CreateTexture2D( &desc, &srd, &mTexture );
+			FreeImage_Unload( pBitmap );
 		}
 
 		D3D11_TEXTURE2D_DESC desc;
