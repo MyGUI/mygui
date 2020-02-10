@@ -1,4 +1,50 @@
 ----------------------------------------------------------------
+------------------------- Version 3.4.0 ------------------------
+----------------------------------------------------------------
+-- Core --
+- Added LanguageManager::getLanguages
+- Fix lost key focus event not being triggered sometimes
+- Fix inconsistency: _riseMouseButtonMove was using Layer coordinates (most of the time). _riseMouseButtonReleased/Pressed were using absolute coordinates.
+- Other InputManager events fixes.
+- Minor MacOS build fixes.
+- Cleaner and much faster logic for adding and removing render items (it was the performance bottleneck when working with many items on screen).
+
+-- Widgets --
+- ScrollBar: Fixed wrong tracking area bug.
+- Button: make Button with key focus (can be set only manually through code) have highlighted state.
+- ItemBox: add possibility to not update ItemBox content when working with items (huge speed boost, when adding/removing many in single frame)
+- EditText: add support for alpha in text and text shadow colours (multiplied with widget's alpha).
+- ItemBox: add options to hide ItemBox scroll bars (same as for ScrollView and EditBox).
+- MultiListBox: slightly advanced and more flexible custom compare function.
+- EditBox: add Ctrl+Left/Right hotkey support (moves cursor to next word).
+- MultiListBox: add eventNotifyItem.
+
+-- Platforms --
+- OpenGL3Platform: Added new rendering platform.
+- OpenGLESPlatform: Added new rendering platform.
+- Emscripten support (works for Ogre and all OpenGL platforms).
+- OgrePlatform: Many minor build-related fixes and imrovements, including newer Ogre support and better CMake scripts.
+- DirectX 11 and OpenGL3: Fixed application window resizing in editors and demos.
+- All platforms: Fix possible stack overflow in ***DataManager::getDataPath.
+- All platforms: better VertexBuffer reallocation strategy for all platforms (in ::lock call, not in ::setVertexCount).
+- All platforms: Various minor fixes and code cleanup.
+
+-- Resources --
+- ResourceManualFont: Added setTexture.
+- ResourceTrueTypeFont: Optimize TrueTupeFont render speed (half getGlyphInfo search time).
+- ResourceTrueTypeFont: Remove no longer needed freetype bytecode bug fix.
+
+-- Tools --
+- LayoutEditor: Fixed "[DEFAULT]" value not being handles properly (was colored white in ComboBox, was saved in layout).
+- LayoutEditor: Other minor fixes and improvements.
+
+-- Demos --
+- Added SDL2 support.
+
+-- Other --
+- Switched to C++11: various related code improvements and cleanups.
+
+----------------------------------------------------------------
 ------------------------- Version 3.2.2 ------------------------
 ----------------------------------------------------------------
 -- Core --
