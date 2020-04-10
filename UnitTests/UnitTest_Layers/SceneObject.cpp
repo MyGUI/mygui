@@ -330,7 +330,7 @@ namespace demo
 			GetMeshInformation(entity->getMesh(), mVertexCount, mVertices, mIndexCount, mIndices, mTextureCoords, Ogre::Vector3::ZERO, Ogre::Quaternion::IDENTITY, Ogre::Vector3::UNIT_SCALE, mMaterialName);
 
 			Ogre::MaterialPtr material = (Ogre::MaterialPtr)Ogre::MaterialManager::getSingleton().getByName(mMaterialName);
-			if (!material.isNull())
+			if (!material)
 			{
 				mTextureUnit = material->getTechnique(0)->getPass(0)->getTextureUnitState("gui");
 				if (mTextureUnit)

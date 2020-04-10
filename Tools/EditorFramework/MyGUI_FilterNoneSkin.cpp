@@ -56,7 +56,7 @@ namespace MyGUI
 		{
 			OgreTexture* texture = static_cast<OgreTexture*>(_texture);
 			Ogre::TexturePtr texture_ptr = texture->getOgreTexture();
-			if (!texture_ptr.isNull())
+			if (texture_ptr)
 			{
 				OgreRenderManager::getInstancePtr()->getRenderSystem()->_setTexture(0, true, texture_ptr);
 				OgreRenderManager::getInstancePtr()->getRenderSystem()->_setTextureUnitFiltering(0, Ogre::FO_NONE, Ogre::FO_NONE, Ogre::FO_NONE);

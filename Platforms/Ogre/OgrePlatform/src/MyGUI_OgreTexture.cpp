@@ -10,6 +10,7 @@
 #include "MyGUI_OgreRenderManager.h"
 #include "MyGUI_OgreDiagnostic.h"
 #include "MyGUI_OgreRTTexture.h"
+#include "MyGUI_OgreDataManager.h"
 #include <Ogre.h>
 
 #include "MyGUI_LastHeader.h"
@@ -69,10 +70,10 @@ namespace MyGUI
 			mRenderTarget = nullptr;
 		}
 
-		if (!mTexture.isNull())
+		if (mTexture)
 		{
 			Ogre::TextureManager::getSingleton().remove(mTexture->getHandle());
-			mTexture.setNull();
+			mTexture.reset();
 		}
 	}
 
@@ -228,7 +229,7 @@ namespace MyGUI
 
 		Ogre::TextureManager* manager = Ogre::TextureManager::getSingletonPtr();
 
-		if ( !manager->resourceExists(_filename) )
+		if ( !manager->resourceExists(_filename, OgreDataManager::getInstance().getGroup()) )
 		{
 			DataManager& resourcer = DataManager::getInstance();
 			if (!resourcer.isDataExist(_filename))
@@ -242,7 +243,7 @@ namespace MyGUI
 		}
 		else
 		{
-			mTexture = manager->getByName(_filename);
+			mTexture = manager->getByName(_filename, OgreDataManager::getInstance().getGroup());
 		}
 
 		setFormatByOgreTexture();
@@ -254,7 +255,7 @@ namespace MyGUI
 		mPixelFormat = Ogre::PF_UNKNOWN;
 		mNumElemBytes = 0;
 
-		if (!mTexture.isNull())
+		if (mTexture)
 		{
 			mPixelFormat = mTexture->getFormat();
 

@@ -49,7 +49,7 @@ namespace MyGUI
 	{
 		try
 		{
-			Ogre::DataStreamPtr stream = Ogre::ResourceGroupManager::getSingleton().openResource(_name, mGroup, true);
+			Ogre::DataStreamPtr stream = Ogre::ResourceGroupManager::getSingleton().openResource(_name, mGroup);
 			OgreDataStream* data = new OgreDataStream(stream);
 
 			return data;
@@ -106,7 +106,7 @@ namespace MyGUI
 			if (!pFileInfo->empty())
 				pFileInfos.push_back(pFileInfo);
 			else
-				pFileInfo.setNull();
+				pFileInfo.reset();
 		}
 
 		result.reserve(resultSize);
@@ -134,7 +134,7 @@ namespace MyGUI
 				}
 			}
 
-			pFileInfo.setNull();
+			pFileInfo.reset();
 		}
 
 		return result;

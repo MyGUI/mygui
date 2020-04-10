@@ -312,7 +312,7 @@ namespace MyGUI
 		{
 			OgreTexture* texture = static_cast<OgreTexture*>(_texture);
 			Ogre::TexturePtr texture_ptr = texture->getOgreTexture();
-			if (!texture_ptr.isNull())
+			if (texture_ptr)
 			{
 				mRenderSystem->_setTexture(0, true, texture_ptr);
 				mRenderSystem->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
@@ -417,8 +417,8 @@ namespace MyGUI
 		MapTexture::const_iterator item = mTextures.find(_name);
 		if (item == mTextures.end())
 		{
-			Ogre::TexturePtr texture = (Ogre::TexturePtr)Ogre::TextureManager::getSingleton().getByName(_name);
-			if (!texture.isNull())
+			Ogre::TexturePtr texture = (Ogre::TexturePtr)Ogre::TextureManager::getSingleton().getByName(_name, OgreDataManager::getInstance().getGroup());
+			if (texture)
 			{
 				ITexture* result = createTexture(_name);
 				static_cast<OgreTexture*>(result)->setOgreTexture(texture);

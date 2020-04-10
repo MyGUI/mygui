@@ -16,22 +16,22 @@ namespace MyGUI
 
 	OgreDataStream::~OgreDataStream()
 	{
-		mStream.setNull();
+		mStream.reset();
 	}
 
 	bool OgreDataStream::eof()
 	{
-		return mStream.isNull() ? true : mStream->eof();
+		return !mStream ? true : mStream->eof();
 	}
 
 	size_t OgreDataStream::size()
 	{
-		return mStream.isNull() ? 0 : mStream->size();
+		return !mStream ? 0 : mStream->size();
 	}
 
 	void OgreDataStream::readline(std::string& _source, Char _delim)
 	{
-		if (mStream.isNull())
+		if (!mStream)
 		{
 			_source.clear();
 			return;
@@ -41,7 +41,7 @@ namespace MyGUI
 
 	size_t OgreDataStream::read(void* _buf, size_t _count)
 	{
-		if (mStream.isNull()) return 0;
+		if (!mStream) return 0;
 		return mStream->read(_buf, _count);
 	}
 

@@ -55,7 +55,7 @@ namespace MyGUI
 	{
 		delete mRenderOperation.vertexData;
 		mRenderOperation.vertexData = nullptr;
-		mVertexBuffer.setNull();
+		mVertexBuffer.reset();
 	}
 
 	void OgreVertexBuffer::resize()
