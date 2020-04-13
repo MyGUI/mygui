@@ -46,7 +46,7 @@ namespace MyGUI
 					texture = render.createTexture(_texture);
 					if (texture == nullptr)
 					{
-						MYGUI_LOG(Error, "Texture '" + _texture + "' not found");
+						MYGUI_LOG(Error, "Texture '" + _texture + "' cannot be created");
 						return Constants::getZeroIntSize();
 					}
 					texture->loadFromFile(_texture);

@@ -229,21 +229,16 @@ namespace MyGUI
 
 		Ogre::TextureManager* manager = Ogre::TextureManager::getSingletonPtr();
 
-		if ( !manager->resourceExists(_filename, OgreDataManager::getInstance().getGroup()) )
+		auto createResult = Ogre::TextureManager::getSingleton().createOrRetrieve(_filename, OgreDataManager::getInstance().getGroup(), false, nullptr, nullptr, Ogre::TEX_TYPE_2D, 0);
+		if (!createResult.second)
 		{
-			DataManager& resourcer = DataManager::getInstance();
-			if (!resourcer.isDataExist(_filename))
-			{
-				MYGUI_PLATFORM_LOG(Error, "Texture '" + _filename + "' not found, set default texture");
-			}
-			else
-			{
-				mTexture = manager->load(_filename, mGroup, Ogre::TEX_TYPE_2D, 0);
-			}
+			MYGUI_PLATFORM_LOG(Error, "Texture '" + _filename + "' not found, set default texture");
 		}
 		else
 		{
-			mTexture = manager->getByName(_filename, OgreDataManager::getInstance().getGroup());
+			mTexture = std::static_pointer_cast<Ogre::Texture>(createResult.first);
+			if (!mTexture->isLoaded())
+				mTexture->load();
 		}
 
 		setFormatByOgreTexture();
