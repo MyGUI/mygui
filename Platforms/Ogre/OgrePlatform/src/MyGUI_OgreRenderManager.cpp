@@ -414,6 +414,8 @@ namespace MyGUI
 
 	ITexture* OgreRenderManager::getTexture(const std::string& _name)
 	{
+		if (_name.empty())
+			return nullptr;
 		MapTexture::const_iterator item = mTextures.find(_name);
 		if (item == mTextures.end())
 		{
