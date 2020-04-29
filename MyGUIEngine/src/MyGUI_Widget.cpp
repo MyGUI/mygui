@@ -122,6 +122,8 @@ namespace MyGUI
 
 	void Widget::_shutdown()
 	{
+        eventWidgetDestroyed(this);
+
 		setUserData(Any::Null);
 
 		// витр метод для наследников

@@ -272,6 +272,12 @@ namespace MyGUI
 		*/
 		EventHandle_WidgetVoid eventChangeCoord;
 
+        /** Event : Widget is about to be destroyed, but its content is valid at this point.\n
+            signature : void method(MyGUI::Widget* _sender)
+            @param _sender widget that called this event
+        */
+        EventHandle_WidgetVoid eventWidgetDestroyed;
+
 		/*internal:*/
 		// метод для запроса номера айтема и контейнера
 		virtual size_t _getItemIndex(Widget* _item);
