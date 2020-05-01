@@ -4,7 +4,7 @@ compiler:
  - gcc
  - clang
 env:
- - RENDER_SYSTEM=3 BUILD_DEMOS_AND_TOOLS=TRUE # Ogre3D Platform
+# - RENDER_SYSTEM=3 BUILD_DEMOS_AND_TOOLS=TRUE # Ogre3D Platform
  - RENDER_SYSTEM=4 BUILD_DEMOS_AND_TOOLS=TRUE # OpenGL Platform
  - RENDER_SYSTEM=7 BUILD_DEMOS_AND_TOOLS=TRUE # OpenGL3 Platform
 branches:
@@ -14,7 +14,7 @@ before_install:
  - pwd
  - git submodule update --init --recursive
  - sudo apt-get update -qq
- - sudo apt-get install -qq cmake libogre-1.9-dev libfreetype6-dev libois-dev graphviz libgl1-mesa-dev libglew-dev doxygen python cppcheck libsdl2-dev libsdl2-image-dev
+ - sudo apt-get install -qq cmake libfreetype6-dev graphviz libgl1-mesa-dev libglew-dev doxygen python cppcheck libsdl2-dev libsdl2-image-dev
 before_script:
  - mkdir build
  - cd build
