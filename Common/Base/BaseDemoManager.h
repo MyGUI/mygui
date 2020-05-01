@@ -57,11 +57,6 @@ namespace base
 			}
 		}
 
-		virtual void createScene()
-		{
-			loadPointerResources();
-		}
-
 	protected:
 		virtual void createGui()
 		{

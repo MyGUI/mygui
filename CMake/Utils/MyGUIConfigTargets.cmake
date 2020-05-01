@@ -30,6 +30,24 @@ if (APPLE)
   endif ()
 endif ()
 
+function(mygui_set_platform_name PLATFORM_ID)
+	if(${PLATFORM_ID} EQUAL 1)
+		set(MYGUI_PLATFORM_NAME Dummy PARENT_SCOPE)
+	elseif(${PLATFORM_ID} EQUAL 3)
+		set(MYGUI_PLATFORM_NAME Ogre PARENT_SCOPE)
+	elseif(${PLATFORM_ID} EQUAL 4)
+		set(MYGUI_PLATFORM_NAME OpenGL PARENT_SCOPE)
+	elseif(${PLATFORM_ID} EQUAL 5)
+		set(MYGUI_PLATFORM_NAME DirectX PARENT_SCOPE)
+	elseif(${PLATFORM_ID} EQUAL 6)
+		set(MYGUI_PLATFORM_NAME DirectX11 PARENT_SCOPE)
+	elseif(${PLATFORM_ID} EQUAL 7)
+		set(MYGUI_PLATFORM_NAME OpenGL3 PARENT_SCOPE)
+	elseif(${PLATFORM_ID} EQUAL 8)
+		set(MYGUI_PLATFORM_NAME OpenGLES PARENT_SCOPE)
+	endif()
+endfunction(mygui_set_platform_name)
+
 # install targets according to current build type
 function(mygui_install_target TARGETNAME SUFFIX)
 	install(TARGETS ${TARGETNAME}
@@ -77,78 +95,64 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	# define the sources
 	include(${PROJECTNAME}.list)
 
+	include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS}/..)
+	link_directories(${SDL2_LIB_DIR})
+
 	# Set up dependencies
+	mygui_add_base_manager_include(${MYGUI_RENDERSYSTEM})
+	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
+	include_directories(
+		${MYGUI_SOURCE_DIR}/Platforms/${MYGUI_PLATFORM_NAME}/${MYGUI_PLATFORM_NAME}Platform/include
+	)
 	if(MYGUI_RENDERSYSTEM EQUAL 1)
-		include_directories(../../Common/Base/Dummy)
 		add_definitions("-DMYGUI_DUMMY_PLATFORM")
-		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/Dummy/DummyPlatform/include
-		)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
-		include_directories(../../Common/Base/Ogre)
 		add_definitions("-DMYGUI_OGRE_PLATFORM")
 		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include
 			${OGRE_INCLUDE_DIR}
 		)
 		link_directories(${OGRE_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
-		include_directories(../../Common/Base/OpenGL)
 		add_definitions("-DMYGUI_OPENGL_PLATFORM")
 		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/OpenGL/OpenGLPlatform/include
 			${OPENGL_INCLUDE_DIR}
-			${SDL2_INCLUDE_DIRS}
 			${SDL2_IMAGE_INCLUDE_DIRS}
 		)
 		link_directories(
 			${OPENGL_LIB_DIR}
-			${SDL2_LIB_DIR}
 			${SDL2_IMAGE_LIB_DIR}
 		)
 
 	elseif(MYGUI_RENDERSYSTEM EQUAL 5)
-		include_directories(../../Common/Base/DirectX)
 		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
 		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/DirectX/DirectXPlatform/include
 			${DirectX_INCLUDE_DIR}
 		)
 		link_directories(${DIRECTX_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 6)
-		include_directories(../../Common/Base/DirectX11)
 		add_definitions("-DMYGUI_DIRECTX11_PLATFORM")
 		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/DirectX11/DirectX11Platform/include
 			${DirectX_INCLUDE_DIR}
 		)
 		link_directories(${DIRECTX_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
-		include_directories(../../Common/Base/OpenGL3)
 		add_definitions("-DMYGUI_OPENGL3_PLATFORM")
 		include_directories(
-				${MYGUI_SOURCE_DIR}/Platforms/OpenGL3/OpenGL3Platform/include
 				${OPENGL_INCLUDE_DIR}
-				${SDL2_INCLUDE_DIRS}
 				${SDL2_IMAGE_INCLUDE_DIRS}
 		)
 		link_directories(
 				${OPENGL_LIB_DIR}
-				${SDL2_LIB_DIR}
 				${SDL2_IMAGE_LIB_DIR}
 		)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
-		include_directories(../../Common/Base/OpenGLES)
 		add_definitions("-DMYGUI_OPENGLES_PLATFORM")
 		include_directories(
-				${MYGUI_SOURCE_DIR}/Platforms/OpenGLES/OpenGLESPlatform/include
 				${OPENGL_INCLUDE_DIR}
-				${SDL2_INCLUDE_DIRS}
 				${SDL2_IMAGE_INCLUDE_DIRS}
 		)
 		link_directories(
 				${OPENGL_LIB_DIR}
-				${SDL2_LIB_DIR}
 				${SDL2_IMAGE_LIB_DIR}
 		)
 	endif()
@@ -167,7 +171,6 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	elseif(MYGUI_SAMPLES_INPUT EQUAL 4)
 		add_definitions("-DMYGUI_SAMPLES_INPUT_SDL2")
 		include_directories(../../Common/Input/SDL)
-		include_directories(${SDL2_INCLUDE_DIRS})
 		include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
 	endif()
 
@@ -192,30 +195,20 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	# link Common, Platform and MyGUIEngine
 	target_link_libraries(${PROJECTNAME}
 		Common
+		${SDL2_LIBRARIES}
 	)
-	if(MYGUI_RENDERSYSTEM EQUAL 3)
-		add_dependencies(${PROJECTNAME} MyGUI.OgrePlatform)
-		target_link_libraries(${PROJECTNAME} MyGUI.OgrePlatform)
-	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
-		add_dependencies(${PROJECTNAME} MyGUI.OpenGLPlatform)
-		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLPlatform)
 
-		target_link_libraries(${PROJECTNAME} ${SDL2_LIBRARIES})
+	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
+	add_dependencies(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
+	target_link_libraries(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
+	if(MYGUI_RENDERSYSTEM EQUAL 1)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
 		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 5)
-		add_dependencies(${PROJECTNAME} MyGUI.DirectXPlatform)
-		target_link_libraries(${PROJECTNAME} MyGUI.DirectXPlatform)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
-		add_dependencies(${PROJECTNAME} MyGUI.OpenGL3Platform)
-		target_link_libraries(${PROJECTNAME} MyGUI.OpenGL3Platform)
-
-		target_link_libraries(${PROJECTNAME} ${SDL2_LIBRARIES})
 		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
-		add_dependencies(${PROJECTNAME} MyGUI.OpenGLESPlatform)
-		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLESPlatform)
-
-		target_link_libraries(${PROJECTNAME} ${SDL2_LIBRARIES})
 		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
 	endif()
 	target_link_libraries(${PROJECTNAME}
@@ -247,66 +240,56 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 	# define the sources
 	include(${PROJECTNAME}.list)
 
+	include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS}/..)
+	link_directories(${SDL2_LIB_DIR})
+
 	# Set up dependencies
+	mygui_add_base_manager_include(${MYGUI_RENDERSYSTEM})
+	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
+	include_directories(
+		${MYGUI_SOURCE_DIR}/Platforms/${MYGUI_PLATFORM_NAME}/${MYGUI_PLATFORM_NAME}Platform/include
+	)
 	if(MYGUI_RENDERSYSTEM EQUAL 1)
-		include_directories(../../Common/Base/Dummy)
 		add_definitions("-DMYGUI_DUMMY_PLATFORM")
-		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/Dummy/DummyPlatform/include
-		)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
-		include_directories(../../Common/Base/Ogre)
 		add_definitions("-DMYGUI_OGRE_PLATFORM")
 		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/Ogre/OgrePlatform/include
 			${OGRE_INCLUDE_DIR}
 		)
 		link_directories(${OGRE_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
-		include_directories(../../Common/Base/OpenGL)
 		add_definitions("-DMYGUI_OPENGL_PLATFORM")
 		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/OpenGL/OpenGLPlatform/include
 			${OPENGL_INCLUDE_DIR}
-			${SDL2_INCLUDE_DIRS}
 			${SDL2_IMAGE_INCLUDE_DIRS}
 		)
 		link_directories(
 			${OPENGL_LIB_DIR}
-			${SDL2_LIB_DIR}
 			${SDL2_IMAGE_LIB_DIR}
 		)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 5)
-		include_directories(../../Common/Base/DirectX)
 		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
 		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/DirectX/DirectXPlatform/include
 			${DirectX_INCLUDE_DIR}
 		)
 		link_directories(
 			${DIRECTX_LIB_DIR}
 		)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 6)
-		include_directories(../../Common/Base/DirectX11)
 		add_definitions("-DMYGUI_DIRECTX11_PLATFORM")
 		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/DirectX11/DirectX11Platform/include
 			${DirectX_INCLUDE_DIR}
 		)
 		link_directories(${DIRECTX_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
-		include_directories(../../Common/Base/OpenGL3)
 		add_definitions("-DMYGUI_OPENGL3_PLATFORM")
 		include_directories(
-			${MYGUI_SOURCE_DIR}/Platforms/OpenGL3/OpenGL3Platform/include
 			${OPENGL_INCLUDE_DIR}
 		)
 		link_directories(${OPENGL_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
-		include_directories(../../Common/Base/OpenGLES)
 		add_definitions("-DMYGUI_OPENGLES_PLATFORM")
 		include_directories(
-				${MYGUI_SOURCE_DIR}/Platforms/OpenGLES/OpenGLESPlatform/include
 				${OPENGL_INCLUDE_DIR}
 		)
 		link_directories(${OPENGL_LIB_DIR})
@@ -327,31 +310,21 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 
 	target_link_libraries(${PROJECTNAME}
 		Common
+		${SDL2_LIBRARIES}
 	)
 
-	if(MYGUI_RENDERSYSTEM EQUAL 3)
-		add_dependencies(${PROJECTNAME} MyGUI.OgrePlatform)
-		target_link_libraries(${PROJECTNAME} MyGUI.OgrePlatform)
+	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
+	add_dependencies(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
+	target_link_libraries(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
+	if(MYGUI_RENDERSYSTEM EQUAL 1)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
-		add_dependencies(${PROJECTNAME} MyGUI.OpenGLPlatform)
-		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLPlatform)
-
-		target_link_libraries(${PROJECTNAME} ${SDL2_LIBRARIES})
 		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 5)
-		add_dependencies(${PROJECTNAME} MyGUI.DirectXPlatform)
-		target_link_libraries(${PROJECTNAME} MyGUI.DirectXPlatform)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 6)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
-		add_dependencies(${PROJECTNAME} MyGUI.OpenGL3Platform)
-		target_link_libraries(${PROJECTNAME} MyGUI.OpenGL3Platform)
-
-		target_link_libraries(${PROJECTNAME} ${SDL2_LIBRARIES})
 		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
-		add_dependencies(${PROJECTNAME} MyGUI.OpenGLESPlatform)
-		target_link_libraries(${PROJECTNAME} MyGUI.OpenGLESPlatform)
-
-		target_link_libraries(${PROJECTNAME} ${SDL2_LIBRARIES})
 		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
 	endif()
 

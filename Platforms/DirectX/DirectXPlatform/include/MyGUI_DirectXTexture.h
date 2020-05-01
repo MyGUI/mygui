@@ -11,6 +11,7 @@
 #include "MyGUI_ITexture.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_Types.h"
+#include "MyGUI_DirectXDiagnostic.h"
 
 struct IDirect3DTexture9;
 

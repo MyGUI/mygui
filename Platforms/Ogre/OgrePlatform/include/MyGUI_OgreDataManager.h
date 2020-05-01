@@ -51,6 +51,9 @@ namespace MyGUI
 		/** @see DataManager::getDataPath */
 		virtual const std::string& getDataPath(const std::string& _name);
 
+	/*internal:*/
+		void addResourceLocation(const std::string& _name, bool _recursive);
+
 	private:
 		const VectorString& getDataListNames(const std::string& _pattern, bool _fullpath);
 

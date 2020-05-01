@@ -8,6 +8,7 @@
 cmake_minimum_required(VERSION 2.6)
 set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS TRUE)
 cmake_policy(SET CMP0003 NEW)
+cmake_policy(SET CMP0011 NEW)
 
 project(MYGUI)
 
@@ -171,9 +172,10 @@ else()
 	set(MYGUI_SAMPLES_INPUT 1)
 endif()
 
-if(MYGUI_RENDERSYSTEM EQUAL 4 OR MYGUI_RENDERSYSTEM EQUAL 7 OR MYGUI_RENDERSYSTEM EQUAL 8)
-	set(MYGUI_SAMPLES_INPUT 4)
-endif()
+#if(MYGUI_RENDERSYSTEM EQUAL 4 OR MYGUI_RENDERSYSTEM EQUAL 7 OR MYGUI_RENDERSYSTEM EQUAL 8)
+# TODO: remove whole MYGUI_SAMPLES_INPUT option
+set(MYGUI_SAMPLES_INPUT 4)
+#endif()
 
 if (MSVC)
 	option(MYGUI_USE_PROJECT_FOLDERS "Use Visual Studio solution folders for projects." FALSE)
@@ -221,7 +223,7 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 		endif ()
 		if (MYGUI_SAMPLES_INPUT EQUAL 4)
 			# to avoid warnings from SDL2
-			ignore_warnings(${SDL2_INCLUDE_DIRS})
+			ignore_warnings(${SDL2_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS}/..)
 		endif ()
 
 		if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -367,10 +369,3 @@ add_subdirectory(CMake)
 
 # Provide CPack packaging target
 include(Packaging)
-
-# copy dlls required by SDL2 and SDL2_image
-if(WIN32)
-    if(MYGUI_RENDERSYSTEM EQUAL 4)
-
-    endif(MYGUI_RENDERSYSTEM EQUAL 4)
-endif(WIN32)

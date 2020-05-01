@@ -1,89 +1,32 @@
-#ifndef BASE_MANAGER_H_
-#define BASE_MANAGER_H_
+#pragma once
 
-#include <MyGUI.h>
+#include "Base/PlatformBaseManager/SdlBaseManager.h"
+
 #include <MyGUI_OpenGLPlatform.h>
-
-#include "InputManager.h"
-#include "PointerManager.h"
-
-#include <SDL2/SDL.h>
 
 namespace base
 {
 
 	class BaseManager :
-		public input::InputManager,
-		public input::PointerManager,
-		public MyGUI::OpenGLImageLoader
+			public SdlBaseManager,
+			public MyGUI::OpenGLImageLoader
 	{
 	public:
-		BaseManager();
+		bool createRender(int _width, int _height, bool _windowed) override;
+		void destroyRender() override;
+		void drawOneFrame() override;
+		void resizeRender(int _width, int _height) override;
+		void addResourceLocation(const std::string& _name, bool _recursive = false) override;
+		void createGuiPlatform() override;
+		void destroyGuiPlatform() override;
 
-		virtual void prepare();
-		bool create(int _width = 1024, int _height = 768);
-		void destroy();
-		void run();
-		void quit();
-
-		void setWindowCaption(const std::wstring& _text);
-		void makeScreenShot() { }
-
-		const std::string& getRootMedia();
-		void setResourceFilename(const std::string& _flename);
-		void addResourceLocation(const std::string& _name, bool _recursive = false);
-
-		MyGUI::MapString getStatistic();
-
-	/*internal:*/
-		void _windowResized(int w, int h);
-		virtual void* loadImage(int& _width, int& _height, MyGUI::PixelFormat& _format, const std::string& _filename);
-		virtual void saveImage(int _width, int _height, MyGUI::PixelFormat _format, void* _texture, const std::string& _filename);
-
-	protected:
-		virtual void createScene() { }
-		virtual void destroyScene() { }
-
-		virtual void setupResources();
-
-		virtual void injectMouseMove(int _absx, int _absy, int _absz);
-		virtual void injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id);
-		virtual void injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id);
-		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
-		virtual void injectKeyRelease(MyGUI::KeyCode _key);
-
-		virtual void createGui();
-		virtual void destroyGui();
-
-		virtual void setWindowMaximized(bool _value);
-		virtual bool getWindowMaximized();
-
-		virtual void setWindowCoord(const MyGUI::IntCoord& _value);
-		virtual MyGUI::IntCoord getWindowCoord();
+//		/*internal:*/
+		void* loadImage(int& _width, int& _height, MyGUI::PixelFormat& _format, const std::string& _filename) override;
+		void saveImage(int _width, int _height, MyGUI::PixelFormat _format, void* _texture, const std::string& _filename) override;
 
 	private:
-		//void resizeRender(int _width, int _height);
-		bool createRender(int _width, int _height, bool _windowed);
-		void drawOneFrame();
-		void destroyRender();
-		void* convertPixelData(SDL_Surface *_image, MyGUI::PixelFormat& _myGuiPixelFormat);
-		void updateSDL_Keycode();
-
-	private:
-		MyGUI::Gui* mGUI;
-		MyGUI::OpenGLPlatform* mPlatform;
-
-		bool mExit;
-		SDL_Event mEvent;
-		SDL_Window* mWindow;
-		SDL_GLContext mContext;
-		std::string mRootMedia;
-		std::string mResourceFileName;
-		bool mWindowOn;
-		SDL_Keycode	mKeyCode;
-		int mFpsCounter;
+		MyGUI::OpenGLPlatform* mPlatform = nullptr;
+		SDL_GLContext mContext = nullptr;
 	};
 
-} // namespace base
-
-#endif // BASE_MANAGER_H_
+}

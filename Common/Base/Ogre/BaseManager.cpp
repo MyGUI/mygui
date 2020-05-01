@@ -1,30 +1,13 @@
-/*!
-	@file
-	@author		Albert Semenov
-	@date		08/2008
-*/
-
 #include "Precompiled.h"
 #include "BaseManager.h"
-#include <MyGUI_OgrePlatform.h>
 
-#if (OGRE_VERSION >= ((1 << 16) | (10 << 8) | 0))
-#include <OgreBitesConfigDialog.h>
-#endif
-
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-#	include <windows.h>
-#elif MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
-#	include <X11/Xlib.h>
-#	include <X11/Xutil.h>
-#	include <X11/Xatom.h>
-#endif
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_syswm.h>
 
 namespace base
 {
-
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-#include <CoreFoundation/CoreFoundation.h>
+	#include <CoreFoundation/CoreFoundation.h>
 	// This function will locate the path to our application on OS X,
 	// unlike windows you can not rely on the curent working directory
 	// for locating your configuration files and resources.
@@ -44,72 +27,43 @@ namespace base
 	}
 #endif
 
-	BaseManager::BaseManager() :
-		mGUI(nullptr),
-		mPlatform(nullptr),
-		mRoot(nullptr),
-		mCamera(nullptr),
-		mSceneManager(nullptr),
-		mWindow(nullptr),
-		mExit(false),
-		mPluginCfgName("plugins.cfg"),
-		mResourceXMLName("resources.xml"),
-		mResourceFileName("MyGUI_Core.xml")
+	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
-		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-			mResourcePath = macBundlePath() + "/Contents/Resources/";
-		#else
-			mResourcePath = "";
-		#endif
-	}
-
-	bool BaseManager::create(int _width, int _height)
-	{
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
+		const std::string resourcePath = macBundlePath() + "/Contents/Resources/";
+#else
+		const std::string resourcePath = "";
+#endif
 		Ogre::String pluginsPath;
 
-		#ifndef OGRE_STATIC_LIB
-			pluginsPath = mResourcePath + mPluginCfgName;
-		#endif
+#ifndef OGRE_STATIC_LIB
+		pluginsPath = resourcePath + "plugins.cfg";
+#endif
 
-		mRoot = new Ogre::Root(pluginsPath, mResourcePath + "ogre.cfg", mResourcePath + "Ogre.log");
+		mRoot = new Ogre::Root(pluginsPath, resourcePath + "ogre.cfg", resourcePath + "Ogre.log");
+		auto renderSystem = mRoot->getRenderSystemByName(mRoot->getAvailableRenderers()[0]->getName());
+		mRoot->setRenderSystem(renderSystem);
 
-		setupResources();
+		mWindow = mRoot->initialise(false);
 
-		// попробуем завестись на дефолтных
-		if (!mRoot->restoreConfig())
+		SDL_SysWMinfo wmInfo;
+		SDL_VERSION(&wmInfo.version)
+		if (SDL_GetWindowWMInfo(mSdlWindow, &wmInfo) == SDL_FALSE)
 		{
-			// ничего не получилось, покажем диалог
-			#if (OGRE_VERSION >= ((1 << 16) | (10 << 8) | 0))
-			if (!mRoot->showConfigDialog(OgreBites::getNativeConfigDialog())) return false;
-			#else
-			if (!mRoot->showConfigDialog()) return false;
-			#endif
+			OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "Couldn't get WM Info! (SDL2)", "BaseManager::createRender");
 		}
 
-		#if (OGRE_VERSION >= ((1 << 16) | (11 << 8) | 0)) && MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		Ogre::NameValuePairList miscParams;
-		mWindow = mRoot->initialise(false);
-		miscParams["windowProc"] = Ogre::StringConverter::toString((size_t)Ogre::WindowEventUtilities::_WndProc);
-		mWindow = Ogre::Root::getSingleton().createRenderWindow("MyGUI Demo", 800, 600, false, &miscParams);
-		Ogre::WindowEventUtilities::_addRenderWindow(mWindow);
-		#else
-		mWindow = mRoot->initialise(true);
-		#endif
-
-		// вытаскиваем дискриптор окна
-		size_t handle = getWindowHandle();
-
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		char buf[MAX_PATH];
-		::GetModuleFileNameA(0, (LPCH)&buf, MAX_PATH);
-		HINSTANCE instance = ::GetModuleHandleA(buf);
-		HICON hIconSmall = static_cast<HICON>(LoadImage(instance, MAKEINTRESOURCE(1001), IMAGE_ICON, 32, 32, LR_DEFAULTSIZE));
-		HICON hIconBig = static_cast<HICON>(LoadImage(instance, MAKEINTRESOURCE(1001), IMAGE_ICON, 256, 256, LR_DEFAULTSIZE));
-		if (hIconSmall)
-			::SendMessageA((HWND)handle, WM_SETICON, 0, (LPARAM)hIconSmall);
-		if (hIconBig)
-			::SendMessageA((HWND)handle, WM_SETICON, 1, (LPARAM)hIconBig);
-	#endif
+		Ogre::NameValuePairList params;
+#if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
+		params["parentWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.x11.window));
+#elif OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+		params["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.win.window));
+		mHWND = wmInfo.info.win.window;
+#elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE
+		ASSERT(wmInfo.subsystem == SDL_SYSWM_COCOA);
+		params["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.cocoa.window));
+#endif
+		mWindow = mRoot->createRenderWindow("MainRenderWindow", _width, _height, false, &params);
 
 		mSceneManager = mRoot->createSceneManager(Ogre::ST_GENERIC, "BaseSceneManager");
 
@@ -132,67 +86,11 @@ namespace base
 		Ogre::Vector3 vec(-0.3f, -0.3f, -0.3f);
 		vec.normalise();
 		light->setDirection(vec);
-
-		// Load resources
-		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
-
-		mRoot->addFrameListener(this);
-		Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
-
-		createGui();
-
-		createInput(handle);
-
-		createPointerManager(handle);
-
-		// this needs to be called before createScene() since some demos require
-		// screen size to properly position the widgets
-		windowResized(mWindow);
-
-		createScene();
-
 		return true;
 	}
 
-	void BaseManager::run()
+	void BaseManager::destroyRender()
 	{
-		// инициализируем все рендер таргеты
-		mRoot->getRenderSystem()->_initRenderTargets();
-
-		// крутимся бесконечно
-		while (true)
-		{
-			Ogre::WindowEventUtilities::messagePump();
-
-			if (mWindow->isActive() == false)
-			{
-				mWindow->setActive(true);
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-				::Sleep(50);
-#endif
-			}
-			if (!mRoot->renderOneFrame())
-				break;
-
-// выставляем слип, чтобы другие потоки не стопорились
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-			::Sleep(0);
-#endif
-
-		};
-	}
-
-	void BaseManager::destroy()
-	{
-		destroyScene();
-
-		destroyPointerManager();
-
-		destroyInput();
-
-		destroyGui();
-
-		// очищаем сцену
 		if (mSceneManager)
 		{
 			mSceneManager->clearScene();
@@ -217,23 +115,14 @@ namespace base
 		}
 	}
 
-	void BaseManager::createGui()
+	void BaseManager::createGuiPlatform()
 	{
 		mPlatform = new MyGUI::OgrePlatform();
 		mPlatform->initialise(mWindow, mSceneManager, Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
-		mGUI = new MyGUI::Gui();
-		mGUI->initialise(mResourceFileName);
 	}
 
-	void BaseManager::destroyGui()
+	void BaseManager::destroyGuiPlatform()
 	{
-		if (mGUI)
-		{
-			mGUI->shutdown();
-			delete mGUI;
-			mGUI = nullptr;
-		}
-
 		if (mPlatform)
 		{
 			mPlatform->shutdown();
@@ -242,240 +131,89 @@ namespace base
 		}
 	}
 
-    void BaseManager::setWindowMaximized(bool _value)
+	void BaseManager::drawOneFrame()
 	{
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		if (_value)
-		{
-			size_t handle = getWindowHandle();
-			::ShowWindow((HWND)handle, SW_SHOWMAXIMIZED);
-		}
-	#endif
-	}
-    
-    bool BaseManager::getWindowMaximized()
-	{
-		bool result = false;
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		size_t handle = getWindowHandle();
-		result = ::IsZoomed((HWND)handle) != 0;
-	#endif
-		return result;
+		mRoot->renderOneFrame();
 	}
 
-	void BaseManager::setWindowCoord(const MyGUI::IntCoord& _value)
+	void BaseManager::resizeRender(int _width, int _height)
 	{
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		if (_value.empty())
-			return;
-
-		MyGUI::IntCoord coord = _value;
-		if (coord.left < 0)
-			coord.left = 0;
-		if (coord.top < 0)
-			coord.top = 0;
-		if (coord.width < 640)
-			coord.width = 640;
-		if (coord.height < 480)
-			coord.height = 480;
-		if (coord.width > GetSystemMetrics(SM_CXSCREEN))
-			coord.width = GetSystemMetrics(SM_CXSCREEN);
-		if (coord.height > GetSystemMetrics(SM_CYSCREEN))
-			coord.height = GetSystemMetrics(SM_CYSCREEN);
-		if (coord.right() > GetSystemMetrics(SM_CXSCREEN))
-			coord.left = GetSystemMetrics(SM_CXSCREEN) - coord.width;
-		if (coord.bottom() > GetSystemMetrics(SM_CYSCREEN))
-			coord.top = GetSystemMetrics(SM_CYSCREEN) - coord.height;
-
-		size_t handle = getWindowHandle();
-		::MoveWindow((HWND)handle, coord.left, coord.top, coord.width, coord.height, true);
-	#endif
-	}
-
-	MyGUI::IntCoord BaseManager::getWindowCoord()
-	{
-		MyGUI::IntCoord result;
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		size_t handle = getWindowHandle();
-		::RECT rect;
-		::GetWindowRect((HWND)handle, &rect);
-		result.left = rect.left;
-		result.top = rect.top;
-		result.width = rect.right - rect.left;
-		result.height = rect.bottom - rect.top;
-	#endif
-		return result;
-	}
-    
-	void BaseManager::setupResources()
-	{
-		MyGUI::xml::Document doc;
-
-		if (!doc.open(mResourceXMLName))
-			doc.getLastError();
-
-		MyGUI::xml::ElementPtr root = doc.getRoot();
-		if (root == nullptr || root->getName() != "Paths")
-			return;
-
-		MyGUI::xml::ElementEnumerator node = root->getElementEnumerator();
-		while (node.next())
-		{
-			if (node->getName() == "Path")
-			{
-				if (node->findAttribute("root") != "")
-				{
-					bool rootAttribute = MyGUI::utility::parseBool(node->findAttribute("root"));
-					if (rootAttribute)
-						mRootMedia = node->getContent();
-				}
-				addResourceLocation(node->getContent());
-			}
-		}
-
-		addResourceLocation(getRootMedia() + "/Common/Base");
-	}
-
-	bool BaseManager::frameStarted(const Ogre::FrameEvent& evt)
-	{
-		if (mExit)
-			return false;
-
-		if (!mGUI)
-			return true;
-
-		captureInput();
-
-		return true;
-	}
-
-	bool BaseManager::frameEnded(const Ogre::FrameEvent& evt)
-	{
-		return true;
-	}
-
-	void BaseManager::windowResized(Ogre::RenderWindow* _rw)
-	{
-		int width = (int)_rw->getWidth();
-		int height = (int)_rw->getHeight();
-
-		if (mPlatform)
-			MyGUI::RenderManager::getInstance().setViewSize(width, height);
-
-		// при удалении окна может вызываться этот метод
-		if (mCamera)
-		{
-			mCamera->setAspectRatio((float)width / (float)height);
-
-			setInputViewSize(width, height);
-		}
-	}
-
-	void BaseManager::windowClosed(Ogre::RenderWindow* _rw)
-	{
-		mExit = true;
-		destroyInput();
-	}
-
-	size_t BaseManager::getWindowHandle()
-	{
-		size_t handle = 0;
-		mWindow->getCustomAttribute("WINDOW", &handle);
-		return handle;
-	}
-
-	void BaseManager::setWindowCaption(const std::wstring& _text)
-	{
-	#if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		::SetWindowTextW((HWND)getWindowHandle(), _text.c_str());
-	#elif MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
-		Display* xDisplay = nullptr;
-		unsigned long windowHandle = 0;
-		mWindow->getCustomAttribute("XDISPLAY", &xDisplay);
-		mWindow->getCustomAttribute("WINDOW", &windowHandle);
-		Window win = (Window)windowHandle;
-
-		XTextProperty windowName;
-		windowName.value    = (unsigned char *)(MyGUI::UString(_text).asUTF8_c_str());
-		windowName.encoding = XA_STRING;
-		windowName.format   = 8;
-		windowName.nitems   = strlen((char *)(windowName.value));
-		XSetWMName(xDisplay, win, &windowName);
-	#endif
-	}
-
-	void BaseManager::prepare()
-	{
-	}
-
-	void BaseManager::addResourceLocation(const std::string& _name, const std::string& _group, const std::string& _type, bool _recursive)
-	{
-		#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-			// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
-			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(Ogre::String(macBundlePath() + "/" + _name), _type, _group, _recursive);
-		#else
-			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_name, _type, _group, _recursive);
-		#endif
 	}
 
 	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)
 	{
-		addResourceLocation(_name, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, "FileSystem", false);
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
+		// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
+		std::string name = Ogre::String(macBundlePath() + "/" + _name;
+#else
+		std::string name = _name;
+#endif
+
+		mPlatform->getDataManagerPtr()->addResourceLocation(name, _recursive);
 	}
 
-	void BaseManager::injectMouseMove(int _absx, int _absy, int _absz)
+	void BaseManager::makeScreenShot()
 	{
-		if (!mGUI)
-			return;
-
-		MyGUI::InputManager::getInstance().injectMouseMove(_absx, _absy, _absz);
+		std::ifstream stream;
+		std::string file;
+		do
+		{
+			stream.close();
+			static size_t num = 0;
+			const size_t max_shot = 100;
+			if (num == max_shot)
+			{
+				MYGUI_LOG(Info, "The limit of screenshots is exceeded : " << max_shot);
+				return;
+			}
+			file = MyGUI::utility::toString("screenshot_", ++num, ".png");
+			stream.open(file.c_str());
+		}
+		while (stream.is_open());
+		mWindow->writeContentsToFile(file);
 	}
 
-	void BaseManager::injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id)
+	void BaseManager::setupResources()
 	{
-		if (!mGUI)
-			return;
+		SdlBaseManager::setupResources();
 
-		MyGUI::InputManager::getInstance().injectMousePress(_absx, _absy, _id);
+		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	}
 
-	void BaseManager::injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id)
+	MyGUI::MapString BaseManager::getStatistic()
 	{
-		if (!mGUI)
-			return;
+		MyGUI::MapString result;
 
-		MyGUI::InputManager::getInstance().injectMouseRelease(_absx, _absy, _id);
+		try
+		{
+			const Ogre::RenderTarget::FrameStats& stats = mWindow->getStatistics();
+			result["FPS"] = MyGUI::utility::toString(stats.lastFPS);
+			result["triangle"] = MyGUI::utility::toString(stats.triangleCount);
+			result["batch"] = MyGUI::utility::toString(stats.batchCount);
+			result["batch gui"] = MyGUI::utility::toString(MyGUI::OgreRenderManager::getInstance().getBatchCount());
+		}
+		catch (...)
+		{
+			MYGUI_LOG(Warning, "Error get statistics");
+		}
+
+		return result;
 	}
 
 	void BaseManager::injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
 	{
-		if (!mGUI)
-			return;
-
-		if (_key == MyGUI::KeyCode::Escape)
-		{
-			mExit = true;
-			return;
-		}
-		else if (_key == MyGUI::KeyCode::SysRq)
-		{
-			makeScreenShot();
-			return;
-		}
-
 		// change polygon mode
-		// TODO: polygon mode require changes in platform
-		else if (_key == MyGUI::KeyCode::F5)
+		if (_key == MyGUI::KeyCode::F5)
 		{
-			getCamera()->setPolygonMode(Ogre::PM_SOLID);
+			mCamera->setPolygonMode(Ogre::PM_SOLID);
 		}
 		else if (_key == MyGUI::KeyCode::F6)
 		{
-			getCamera()->setPolygonMode(Ogre::PM_WIREFRAME);
+			mCamera->setPolygonMode(Ogre::PM_WIREFRAME);
 		}
 		else if (_key == MyGUI::KeyCode::F7)
 		{
-			getCamera()->setPolygonMode(Ogre::PM_POINTS);
+			mCamera->setPolygonMode(Ogre::PM_POINTS);
 		}
 #if OGRE_VERSION >= MYGUI_DEFINE_VERSION(1, 7, 0) && OGRE_NO_VIEWPORT_ORIENTATIONMODE == 0
 		else if (_key == MyGUI::KeyCode::F1)
@@ -500,30 +238,7 @@ namespace base
 		}
 #endif
 
-		MyGUI::InputManager::getInstance().injectKeyPress(_key, _text);
-	}
-
-	void BaseManager::injectKeyRelease(MyGUI::KeyCode _key)
-	{
-		if (!mGUI)
-			return;
-
-		MyGUI::InputManager::getInstance().injectKeyRelease(_key);
-	}
-
-	void BaseManager::quit()
-	{
-		mExit = true;
-	}
-
-	const std::string& BaseManager::getRootMedia()
-	{
-		return mRootMedia;
-	}
-
-	void BaseManager::setResourceFilename(const std::string& _flename)
-	{
-		mResourceFileName = _flename;
+		SdlBaseManager::injectKeyPress(_key, _text);
 	}
 
 	Ogre::SceneManager* BaseManager::getSceneManager()
@@ -536,45 +251,4 @@ namespace base
 		return mCamera;
 	}
 
-	void BaseManager::makeScreenShot()
-	{
-		std::ifstream stream;
-		std::string file;
-		do
-		{
-			stream.close();
-			static size_t num = 0;
-			const size_t max_shot = 100;
-			if (num == max_shot)
-			{
-				MYGUI_LOG(Info, "The limit of screenshots is exceeded : " << max_shot);
-				return;
-			}
-			file = MyGUI::utility::toString("screenshot_", ++num, ".png");
-			stream.open(file.c_str());
-		}
-		while (stream.is_open());
-		mWindow->writeContentsToFile(file);
-	}
-
-	MyGUI::MapString BaseManager::getStatistic()
-	{
-		MyGUI::MapString result;
-
-		try
-		{
-			const Ogre::RenderTarget::FrameStats& stats = mWindow->getStatistics();
-			result["FPS"] = MyGUI::utility::toString(stats.lastFPS);
-			result["triangle"] = MyGUI::utility::toString(stats.triangleCount);
-			result["batch"] = MyGUI::utility::toString(stats.batchCount);
-			result["batch gui"] = MyGUI::utility::toString(MyGUI::OgreRenderManager::getInstance().getBatchCount());
-		}
-		catch (...)
-		{
-			MYGUI_LOG(Warning, "Error get statistics");
-		}
-
-		return result;
-	}
-
-} // namespace base
+}

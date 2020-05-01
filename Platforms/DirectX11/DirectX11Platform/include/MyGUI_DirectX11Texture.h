@@ -11,8 +11,10 @@
 #include "MyGUI_ITexture.h"
 #include "MyGUI_RenderFormat.h"
 #include "MyGUI_Types.h"
+#include "MyGUI_DirectX11Diagnostic.h"
 
-struct IDirect3DTexture9;
+struct ID3D11Texture2D;
+struct ID3D11ShaderResourceView;
 
 namespace MyGUI
 {

@@ -313,8 +313,7 @@ namespace input
 	{
 		if (_type != "Text")
 			return;
-		char* text = nullptr;
-		text = SDL_GetClipboardText();
+		char* text = SDL_GetClipboardText();
 		if (text)
 		{
 			// MyGUI's clipboard might still have color information, to retain that information, only set the new text

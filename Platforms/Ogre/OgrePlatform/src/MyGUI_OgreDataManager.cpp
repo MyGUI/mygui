@@ -161,4 +161,9 @@ namespace MyGUI
 		return result;
 	}
 
+	void OgreDataManager::addResourceLocation(const std::string &_name, bool _recursive)
+	{
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_name, "FileSystem", mGroup, _recursive);
+	}
+
 } // namespace MyGUI
