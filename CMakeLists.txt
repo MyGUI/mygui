@@ -219,14 +219,9 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 			# to avoid warnings from OIS
 			ignore_warnings(${OIS_INCLUDE_DIR})
 		endif ()
-		if (MYGUI_RENDERSYSTEM EQUAL 4 OR MYGUI_RENDERSYSTEM EQUAL 7 OR MYGUI_RENDERSYSTEM EQUAL 8)
+		if (MYGUI_SAMPLES_INPUT EQUAL 4)
 			# to avoid warnings from SDL2
 			ignore_warnings(${SDL2_INCLUDE_DIRS})
-
-			if (NOT MSVC)
-				# violated in glew.h
-				set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-reserved-id-macro")
-			endif ()
 		endif ()
 
 		if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -240,7 +235,7 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 		else ()
 			# very interesting option, but way too many warnings
 			#add_definitions(-Weffc++)
-			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wall  -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter")
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wall -Wno-reorder -Winit-self -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wextra -Wno-unused-parameter")
 			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
 			if (NOT CMAKE_CXX_COMPILER_ID MATCHES "Intel")
 				set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wctor-dtor-privacy")

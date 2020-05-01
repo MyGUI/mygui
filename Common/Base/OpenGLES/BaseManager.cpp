@@ -51,13 +51,6 @@ namespace base
 			std::cerr << "Failed to load " << fileName << " image" << std::endl;
 			exit(-1);
 		}
-//		fileName = "test.png";
-//		image = IMG_Load(fileName.c_str());
-//		if (image == nullptr)
-//		{
-//			std::cerr << "Failed to load " << fileName << " image" << std::endl;
-//			exit(-1);
-//		}
 
 		const unsigned int width = _width;
 		const unsigned int height = _height;

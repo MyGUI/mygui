@@ -12,7 +12,7 @@
 #include "MyGUI_Gui.h"
 #include "MyGUI_Timer.h"
 
-#include "GL/glew.h"
+#include <GL/glew.h>
 
 namespace MyGUI
 {
