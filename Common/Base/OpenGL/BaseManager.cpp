@@ -427,7 +427,7 @@ namespace base
 
 	void BaseManager::saveImage(int _width, int _height, MyGUI::PixelFormat _format, void* _texture, const std::string& _filename)
 	{
-
+		MYGUI_LOG(Warning, "saveToFile not implemented (was trying to save '" << _filename << "')");
 	}
 
 	void BaseManager::quit()

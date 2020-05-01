@@ -29,7 +29,10 @@ namespace MyGUI
 
 		virtual void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format);
 		virtual void loadFromFile(const std::string& _filename);
-		virtual void saveToFile(const std::string& _filename) { }
+		virtual void saveToFile(const std::string& _filename)
+		{
+			MYGUI_PLATFORM_LOG(Warning, "saveToFile not implemented (was trying to save '" << _filename << "')");
+		}
 
 		virtual void destroy();
 
