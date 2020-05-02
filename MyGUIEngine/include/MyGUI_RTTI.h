@@ -36,7 +36,7 @@ namespace MyGUI
 			template<typename Type> Type* castType(bool _throw = true) \
 			{ \
 				if (this->isType<Type>()) return static_cast<Type*>(this); \
-				MYGUI_ASSERT(!_throw, "Error cast type '" << this->getTypeName() << "' to type '" << Type::getClassTypeName() << "' .") \
+				MYGUI_ASSERT(!_throw, "Error cast type '" << this->getTypeName() << "' to type '" << Type::getClassTypeName() << "' ."); \
 				return nullptr; \
 			} \
 			/** Try to cast pointer to selected type. \
@@ -45,7 +45,7 @@ namespace MyGUI
 			template<typename Type> const Type* castType(bool _throw = true) const \
 			{ \
 				if (this->isType<Type>()) return static_cast<Type*>(this); \
-				MYGUI_ASSERT(!_throw, "Error cast type '" << this->getTypeName() << "' to type '" << Type::getClassTypeName() << "' .") \
+				MYGUI_ASSERT(!_throw, "Error cast type '" << this->getTypeName() << "' to type '" << Type::getClassTypeName() << "' ."); \
 				return nullptr; \
 			}
 

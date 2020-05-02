@@ -122,7 +122,7 @@ namespace MyGUI
 				else if (Ogre::HighLevelGpuProgramManager::getSingleton().isLanguageSupported("hlsl"))
 					shaderLanguage = "hlsl";
 				else
-					MYGUI_EXCEPT("No supported shader was found. Only glsl, glsles and hlsl are implemented so far.")
+					MYGUI_EXCEPT("No supported shader was found. Only glsl, glsles and hlsl are implemented so far.");
 
 				mVertexProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
 					"MyGUI_VP." + shaderLanguage,
