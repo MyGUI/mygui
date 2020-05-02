@@ -38,12 +38,9 @@ option(MYGUI_TRY_TO_COPY_DLLS "Copy dlls needed for sample builds" TRUE)
 
 if (MYGUI_TRY_TO_COPY_DLLS)
 	# copy the dependency DLLs to the right places
-	if (MYGUI_SAMPLES_INPUT EQUAL 1)
-		install_dll_file(${MYGUI_DEP_BIN_DIR}/debug/ ${MYGUI_DEP_BIN_DIR}/release/ OIS)
-	elseif (MYGUI_SAMPLES_INPUT EQUAL 2)
-	elseif (MYGUI_SAMPLES_INPUT EQUAL 3)
-		install_dll_file(${MYGUI_DEP_BIN_DIR}/debug/ ${MYGUI_DEP_BIN_DIR}/release/ OIS)
-	endif ()
+
+	# TODO copy SDL2.dll
+#	install_dll_file(${MYGUI_DEP_BIN_DIR}/debug/ ${MYGUI_DEP_BIN_DIR}/release/ SDL2)
 	
 	if (MYGUI_RENDERSYSTEM EQUAL 3)
 		if (EXISTS ${OGRE_LIB_DIR}/../bin/debug/OgreMain_d.dll)

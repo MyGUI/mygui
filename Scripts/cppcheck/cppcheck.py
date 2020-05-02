@@ -41,10 +41,10 @@ def checkFolderSources(folder, flags) :
 
 checkFolderSources('MyGUIEngine', '')
 
-checkFolderSources('Demos', '-I Common -I Common/Base/Ogre -I Common/Input/OIS -I Platforms/Ogre/OgrePlatform/include -I Plugins/Plugin_BerkeliumWidget')
-checkFolderSources('Tools', '-I Common -I Common/Base/Ogre -I Common/Input/OIS -I Platforms/Ogre/OgrePlatform/include -I Tools/EditorFramework')
-checkFolderSources('UnitTests/UnitTest_*', '-I Common -I Common/Base/Ogre -I Common/Input/OIS -I Platforms/Ogre/OgrePlatform/include')
-checkFolderSources('Common', '-I Common -I Common/Input/OIS -I Platforms/Ogre/OgrePlatform/include')
+checkFolderSources('Demos', '-I Common -I Common/Base/Ogre -I Platforms/Ogre/OgrePlatform/include -I Plugins/Plugin_BerkeliumWidget')
+checkFolderSources('Tools', '-I Common -I Common/Base/Ogre -I Platforms/Ogre/OgrePlatform/include -I Tools/EditorFramework')
+checkFolderSources('UnitTests/UnitTest_*', '-I Common -I Common/Base/Ogre -I Platforms/Ogre/OgrePlatform/include')
+checkFolderSources('Common', '-I Common -I Platforms/Ogre/OgrePlatform/include')
 checkFolderSources('Platforms/OpenGL/OpenGLPlatform/src', '-I Platforms/OpenGL/OpenGLPlatform/include -I Common')
 checkFolderSources('Platforms/Ogre/OgrePlatform/src', '-I Platforms/Ogre/OgrePlatform/include')
 checkFolderSources('Platforms/DirectX/DirectXPlatform/src', '-I Platforms/DirectX/DirectXPlatform/include -I Common')

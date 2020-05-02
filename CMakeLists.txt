@@ -104,7 +104,6 @@ endif(WIN32 OR APPLE)
 ######################################################################
 
 if (EMSCRIPTEN)
-	set(MYGUI_SAMPLES_INPUT 4 CACHE STRING "")
 	set(MYGUI_STATIC True CACHE BOOL "")
 	set(MYGUI_DISABLE_PLUGINS True CACHE BOOL "")
 	set(MYGUI_USE_SYSTEM_GLEW True CACHE BOOL "")
@@ -160,23 +159,6 @@ option(MYGUI_STANDALONE_BUILD "Generate build files that do not reference CMake 
 MARK_AS_ADVANCED(MYGUI_STANDALONE_BUILD)
 option(MYGUI_GENERATE_LIST_FILES_FROM_VSPROJECT "Generate .list files from visual studio project files" FALSE)
 
-if (WIN32)
-	set(MYGUI_SAMPLES_INPUT 2 CACHE STRING
-	"Specify the Input Manager for samples. Possible values:
-	  1 - OIS
-	  2 - Win32
-	  3 - Win32 (Mouse) + OIS (Keyboard)
-	  4 - SDL2"
-	)
-else()
-	set(MYGUI_SAMPLES_INPUT 1)
-endif()
-
-#if(MYGUI_RENDERSYSTEM EQUAL 4 OR MYGUI_RENDERSYSTEM EQUAL 7 OR MYGUI_RENDERSYSTEM EQUAL 8)
-# TODO: remove whole MYGUI_SAMPLES_INPUT option
-set(MYGUI_SAMPLES_INPUT 4)
-#endif()
-
 if (MSVC)
 	option(MYGUI_USE_PROJECT_FOLDERS "Use Visual Studio solution folders for projects." FALSE)
 endif ()
@@ -217,12 +199,8 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 			# to avoid warnings from OGRE
 			ignore_warnings(${OGRE_INCLUDE_DIR})
 		endif ()
-		if (MYGUI_SAMPLES_INPUT EQUAL 1 OR MYGUI_SAMPLES_INPUT EQUAL 3)
-			# to avoid warnings from OIS
-			ignore_warnings(${OIS_INCLUDE_DIR})
-		endif ()
-		if (MYGUI_SAMPLES_INPUT EQUAL 4)
-			# to avoid warnings from SDL2
+
+		if (MYGUI_BUILD_DEMOS OR MYGUI_BUILD_TOOLS OR MYGUI_BUILD_UNITTESTS OR MYGUI_BUILD_TEST_APP)
 			ignore_warnings(${SDL2_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS}/..)
 		endif ()
 

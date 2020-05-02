@@ -6,7 +6,6 @@ if(MYGUI_RENDERSYSTEM EQUAL 3)
 			.
 			#${MYGUI_SOURCE_DIR}/Common
 			${MYGUI_SOURCE_DIR}/MyGUIEngine/include
-			#${OIS_INCLUDE_DIRS}
 		)
 		# define the sources
 		include(${PROJECTNAME}.list)

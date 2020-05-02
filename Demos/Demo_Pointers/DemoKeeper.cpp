@@ -50,13 +50,7 @@ namespace demo
 
 		MyGUI::ResourceManager::getInstance().load("Contexts.xml");
 
-#ifdef MYGUI_SAMPLES_INPUT_OIS
 		MyGUI::ResourceManager::getInstance().load("DemoPointers.xml");
-#elif MYGUI_SAMPLES_INPUT_WIN32
-		MyGUI::ResourceManager::getInstance().load("DemoPointersW32.xml");
-#elif MYGUI_SAMPLES_INPUT_WIN32_OIS
-		MyGUI::ResourceManager::getInstance().load("DemoPointersW32.xml");
-#endif
 
 		mPointerContextManager = new PointerContextManager(this);
 		mPointerContextManager->addContext("ptrx_Normal");

@@ -1,37 +1,7 @@
-function(mygui_add_base_manager_source PLATFORM_ID)
-	mygui_set_platform_name(${PLATFORM_ID})
-	set (HEADER_FILES ${HEADER_FILES} Base/${MYGUI_PLATFORM_NAME}/BaseManager.h Base/PlatformBaseManager/SdlBaseManager.h PARENT_SCOPE)
-	set (SOURCE_FILES ${SOURCE_FILES} Base/${MYGUI_PLATFORM_NAME}/BaseManager.cpp Base/PlatformBaseManager/SdlBaseManager.cpp PARENT_SCOPE)
-	SOURCE_GROUP("Base" FILES
-		Base/${MYGUI_PLATFORM_NAME}/BaseManager.h
-		Base/${MYGUI_PLATFORM_NAME}/BaseManager.cpp
-		Base/PlatformBaseManager/SdlBaseManager.h
-		Base/PlatformBaseManager/SdlBaseManager.cpp
-	)
-endfunction(mygui_add_base_manager_source)
-
 function(mygui_add_base_manager_include PLATFORM_ID)
 	mygui_set_platform_name(${PLATFORM_ID})
 	include_directories(../../Common/Base/${MYGUI_PLATFORM_NAME})
 endfunction(mygui_add_base_manager_include)
-
-function(mygui_add_input_source PLATFORM)
-	include_directories(Input/${PLATFORM})
-	set (HEADER_FILES ${HEADER_FILES}
-		Input/${PLATFORM}/InputManager.h
-		Input/${PLATFORM}/PointerManager.h
-		PARENT_SCOPE)
-	set (SOURCE_FILES ${SOURCE_FILES}
-		Input/${PLATFORM}/InputManager.cpp
-		Input/${PLATFORM}/PointerManager.cpp
-		PARENT_SCOPE)
-	SOURCE_GROUP("Base" FILES
-		Input/${PLATFORM}/InputManager.h
-		Input/${PLATFORM}/InputManager.cpp
-		Input/${PLATFORM}/PointerManager.h
-		Input/${PLATFORM}/PointerManager.cpp
-	)
-endfunction(mygui_add_input_source)
 
 set (PROJECTNAME Common)
 
@@ -47,8 +17,15 @@ set (SOURCE_FILES "")
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS}/..)
 link_directories(${SDL2_LIB_DIR})
 
-mygui_add_base_manager_source(${MYGUI_RENDERSYSTEM})
 mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
+set (HEADER_FILES ${HEADER_FILES} Base/${MYGUI_PLATFORM_NAME}/BaseManager.h Base/PlatformBaseManager/SdlBaseManager.h)
+set (SOURCE_FILES ${SOURCE_FILES} Base/${MYGUI_PLATFORM_NAME}/BaseManager.cpp Base/PlatformBaseManager/SdlBaseManager.cpp)
+SOURCE_GROUP("Base" FILES
+	Base/${MYGUI_PLATFORM_NAME}/BaseManager.h
+	Base/${MYGUI_PLATFORM_NAME}/BaseManager.cpp
+	Base/PlatformBaseManager/SdlBaseManager.h
+	Base/PlatformBaseManager/SdlBaseManager.cpp
+)
 include_directories(
 	${MYGUI_SOURCE_DIR}/Platforms/${MYGUI_PLATFORM_NAME}/${MYGUI_PLATFORM_NAME}Platform/include
 )
@@ -99,19 +76,21 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 8)
 	link_directories(${SDL2_IMAGE_LIB_DIR})
 endif()
 
-if(MYGUI_SAMPLES_INPUT EQUAL 1)
-	include_directories(${OIS_INCLUDE_DIRS})
-	mygui_add_input_source(OIS)
-elseif(MYGUI_SAMPLES_INPUT EQUAL 2)
-	mygui_add_input_source(Win32)
-elseif(MYGUI_SAMPLES_INPUT EQUAL 3)
-	include_directories(${OIS_INCLUDE_DIRS})
-	mygui_add_input_source(Win32_OIS)
-elseif(MYGUI_SAMPLES_INPUT EQUAL 4)
-	include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS}/..)
-	include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
-	mygui_add_input_source(SDL)
-endif()
+include_directories(Input/SDL)
+set (HEADER_FILES ${HEADER_FILES}
+	Input/SDL/InputManager.h
+	Input/SDL/PointerManager.h
+	)
+set (SOURCE_FILES ${SOURCE_FILES}
+	Input/SDL/InputManager.cpp
+	Input/SDL/PointerManager.cpp
+	)
+SOURCE_GROUP("Base" FILES
+	Input/SDL/InputManager.h
+	Input/SDL/InputManager.cpp
+	Input/SDL/PointerManager.h
+	Input/SDL/PointerManager.cpp
+)
 
 add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 
@@ -120,21 +99,3 @@ add_dependencies(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
 target_link_libraries(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
 
 add_dependencies(${PROJECTNAME} MyGUIEngine)
-
-if(MYGUI_SAMPLES_INPUT EQUAL 1)
-	add_definitions("-DMYGUI_SAMPLES_INPUT_OIS")
-	link_directories(${OIS_LIB_DIR})
-	target_link_libraries(${PROJECTNAME} ${OIS_LIBRARIES})
-elseif(MYGUI_SAMPLES_INPUT EQUAL 2)
-	add_definitions("-DMYGUI_SAMPLES_INPUT_WIN32")
-elseif(MYGUI_SAMPLES_INPUT EQUAL 3)
-	add_definitions("-DMYGUI_SAMPLES_INPUT_WIN32_OIS")
-	link_directories(${OIS_LIB_DIR})
-	target_link_libraries(${PROJECTNAME} ${OIS_LIBRARIES})
-elseif(MYGUI_SAMPLES_INPUT EQUAL 4)
-	add_definitions("-DMYGUI_SAMPLES_INPUT_SDL2")
-	link_directories(${SDL2_LIB_DIR})
-	link_directories(${SDL2_IMAGE_LIB_DIR})
-	target_link_libraries(${PROJECTNAME} ${SDL2_LIBRARIES})
-	target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
-endif()

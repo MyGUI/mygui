@@ -320,7 +320,7 @@ namespace input
 		VLK_MAX
 	};
 
-	// Keyboard scan codes - OIS, DirectInput
+	// Keyboard scan codes - DirectInput
 	enum ScanCode
 	{
 		SC_UNASSIGNED = 0x00,

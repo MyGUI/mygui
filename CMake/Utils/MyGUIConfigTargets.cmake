@@ -91,6 +91,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		.
 		${MYGUI_SOURCE_DIR}/Common
 		${MYGUI_SOURCE_DIR}/MyGUIEngine/include
+		${MYGUI_SOURCE_DIR}/Common/Input/SDL
 	)
 	# define the sources
 	include(${PROJECTNAME}.list)
@@ -138,40 +139,23 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
 		add_definitions("-DMYGUI_OPENGL3_PLATFORM")
 		include_directories(
-				${OPENGL_INCLUDE_DIR}
-				${SDL2_IMAGE_INCLUDE_DIRS}
+			${OPENGL_INCLUDE_DIR}
+			${SDL2_IMAGE_INCLUDE_DIRS}
 		)
 		link_directories(
-				${OPENGL_LIB_DIR}
-				${SDL2_IMAGE_LIB_DIR}
+			${OPENGL_LIB_DIR}
+			${SDL2_IMAGE_LIB_DIR}
 		)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
 		add_definitions("-DMYGUI_OPENGLES_PLATFORM")
 		include_directories(
-				${OPENGL_INCLUDE_DIR}
-				${SDL2_IMAGE_INCLUDE_DIRS}
+			${OPENGL_INCLUDE_DIR}
+			${SDL2_IMAGE_INCLUDE_DIRS}
 		)
 		link_directories(
-				${OPENGL_LIB_DIR}
-				${SDL2_IMAGE_LIB_DIR}
+			${OPENGL_LIB_DIR}
+			${SDL2_IMAGE_LIB_DIR}
 		)
-	endif()
-
-	if(MYGUI_SAMPLES_INPUT EQUAL 1)
-		add_definitions("-DMYGUI_SAMPLES_INPUT_OIS")
-		include_directories(../../Common/Input/OIS)
-		include_directories(${OIS_INCLUDE_DIRS})
-	elseif(MYGUI_SAMPLES_INPUT EQUAL 2)
-		add_definitions("-DMYGUI_SAMPLES_INPUT_WIN32")
-		include_directories(../../Common/Input/Win32)
-	elseif(MYGUI_SAMPLES_INPUT EQUAL 3)
-		add_definitions("-DMYGUI_SAMPLES_INPUT_WIN32_OIS")
-		include_directories(../../Common/Input/Win32_OIS)
-		include_directories(${OIS_INCLUDE_DIRS})
-	elseif(MYGUI_SAMPLES_INPUT EQUAL 4)
-		add_definitions("-DMYGUI_SAMPLES_INPUT_SDL2")
-		include_directories(../../Common/Input/SDL)
-		include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
 	endif()
 
 	# setup demo target

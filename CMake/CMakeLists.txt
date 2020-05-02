@@ -11,7 +11,6 @@ else(WIN32)
 endif(WIN32)
 
 set(INST_FILES
-  Packages/FindOIS.cmake
   Packages/FindOGRE.cmake
   Utils/FindPkgMacros.cmake
   Utils/PreprocessorUtils.cmake

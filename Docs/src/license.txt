@@ -23,11 +23,6 @@
 \li	Website:			http://www.ogre3d.org
 \li	Licensed Under:		LGPL or MIT or other. See http://www.ogre3d.org/licensing for details.
 \n
-\subsection	OIS
-\li	Original Authors:	Phillip Castaneda
-\li	Website:			http://www.wreckedgames.com/
-\li	Licensed Under:		Zlib License
-\n
 \n
 \section Acknowledgements
 \subsection	crystal_clear_items Crystal Clear Items
