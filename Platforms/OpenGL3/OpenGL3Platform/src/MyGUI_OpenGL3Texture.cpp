@@ -10,7 +10,7 @@
 #include "MyGUI_OpenGL3Platform.h"
 #include "MyGUI_OpenGL3RTTexture.h"
 
-#include <GL/gl.h>
+#include <GL/glew.h>
 
 namespace MyGUI
 {
