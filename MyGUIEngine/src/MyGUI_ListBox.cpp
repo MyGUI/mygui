@@ -1101,7 +1101,7 @@ namespace MyGUI
 			return nullptr;
 
 		// индекс в нашем массиве
-		size_t index = _index + (size_t)mTopIndex;
+		size_t index = _index - (size_t)mTopIndex;
 
 		if (index < mWidgetLines.size())
 			return mWidgetLines[index];
