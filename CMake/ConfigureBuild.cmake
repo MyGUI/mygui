@@ -4,6 +4,8 @@
 # also prepare package files for pkg-config and CMake.
 #######################################################################
 
+include(GNUInstallDirs)
+
 # should we build static libs?
 if (MYGUI_STATIC)
   set(MYGUI_LIB_TYPE STATIC)
@@ -47,7 +49,7 @@ if (UNIX)
   else ()
     configure_file(${MYGUI_TEMPLATES_DIR}/MYGUI.pc.in ${MYGUI_BINARY_DIR}/pkgconfig/MYGUI${MYGUI_LIB_SUFFIX}.pc @ONLY)
   endif ()
-  install(FILES ${MYGUI_BINARY_DIR}/pkgconfig/MYGUI${MYGUI_LIB_SUFFIX}.pc DESTINATION lib/pkgconfig)
+  install(FILES ${MYGUI_BINARY_DIR}/pkgconfig/MYGUI${MYGUI_LIB_SUFFIX}.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 
   # configure additional packages
   
