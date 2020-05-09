@@ -4,7 +4,9 @@
 	@date		09/2011
 */
 
+#pragma warning(push, 0)
 #include <d3dx11.h>
+#pragma warning(pop)
 #include "MyGUI_DirectX11Texture.h"
 #include "MyGUI_DirectX11DataManager.h"
 #include "MyGUI_DirectX11RenderManager.h"

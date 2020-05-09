@@ -1,10 +1,8 @@
 #include "Precompiled.h"
 #include "BaseManager.h"
 
-#pragma warning(push, 0)
 #include <d3dx9.h>
 #include <MyGUI_DirectXPlatform.h>
-#pragma warning(pop)
 
 #include <SDL2/SDL_syswm.h>
 

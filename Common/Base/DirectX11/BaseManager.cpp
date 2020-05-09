@@ -3,9 +3,8 @@
 
 #pragma warning(push, 0)
 #include <d3dx11.h>
-#include <dxgi.h>
-#include <MyGUI_DirectX11Platform.h>
 #pragma warning(pop)
+#include <MyGUI_DirectX11Platform.h>
 
 #include <SDL2/SDL_syswm.h>
 
