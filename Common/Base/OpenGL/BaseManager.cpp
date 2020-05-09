@@ -2,7 +2,7 @@
 #include "BaseManager.h"
 
 #include <SDL_image.h>
-#include <GL/gl.h>
+#include <GL/glew.h>
 
 namespace base
 {
