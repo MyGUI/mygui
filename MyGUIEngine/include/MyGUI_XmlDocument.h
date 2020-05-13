@@ -83,7 +83,7 @@ namespace MyGUI
 				static const char* values[MAX + 1] =
 				{
 					"Failed to open XML file",
-					"Failed to ceate XML file",
+					"Failed to create XML file",
 					"XML file contain incorrect content",
 					"XML file contain not closed elements",
 					"XML file without declaration",
