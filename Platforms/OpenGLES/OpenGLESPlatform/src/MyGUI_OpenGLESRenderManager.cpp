@@ -36,7 +36,6 @@ const char* fShader = R"(
 	}
 	)";
 
-
 namespace MyGUI
 {
 
@@ -156,25 +155,23 @@ namespace MyGUI
 
 		GLuint textureUniform = glGetUniformLocation(mProgram, "u_texture");
 
-
 		glEnableVertexAttribArray(positionSlot);
 		glEnableVertexAttribArray(colorSlot);
 		glEnableVertexAttribArray(texSlot);
 
 		glUseProgram(mProgram);
 
-
 		size_t offset = 0;
 		int diff = offsetof(Vertex, x);
-		glVertexAttribPointer(positionSlot, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) (offset + diff));
+		glVertexAttribPointer(positionSlot, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(offset + diff));
 		CHECK_GL_ERROR_DEBUG();
 
 		diff = offsetof(Vertex, colour);
-		glVertexAttribPointer(colorSlot, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (void*) (offset + diff));
+		glVertexAttribPointer(colorSlot, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (void*)(offset + diff));
 		CHECK_GL_ERROR_DEBUG();
 
 		diff = offsetof(Vertex, u);
-		glVertexAttribPointer(texSlot, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) (offset + diff));
+		glVertexAttribPointer(texSlot, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(offset + diff));
 		CHECK_GL_ERROR_DEBUG();
 
 		glUniform1i(textureUniform, 0);
@@ -234,7 +231,7 @@ namespace MyGUI
 		unsigned long now_time = timer.getMilliseconds();
 		unsigned long time = now_time - last_time;
 
-		onFrameEvent((float) ((double) (time) / (double) 1000));
+		onFrameEvent((float)((double)(time) / 1000.0));
 
 		last_time = now_time;
 

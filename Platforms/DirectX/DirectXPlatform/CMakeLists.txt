@@ -1,10 +1,10 @@
-set (PROJECTNAME MyGUI.DirectXPlatform)
+set(PROJECTNAME MyGUI.DirectXPlatform)
 
 include_directories(
- include
- ${MYGUI_SOURCE_DIR}/MyGUIEngine/include
- ${DirectX_INCLUDE_DIR}
- ${MYGUI_SOURCE_DIR}/Common
+	include
+	${MYGUI_SOURCE_DIR}/MyGUIEngine/include
+	${DirectX_INCLUDE_DIR}
+	${MYGUI_SOURCE_DIR}/Common
 )
 
 include(${PROJECTNAME}.list)
@@ -18,6 +18,6 @@ link_directories(${DirectX_LIBRARY_DIRS})
 
 # installation rules
 install(FILES ${HEADER_FILES}
-        DESTINATION include/MYGUI
+	DESTINATION include/MYGUI
 )
 mygui_install_target(${PROJECTNAME} "")

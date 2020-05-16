@@ -16,19 +16,19 @@ namespace MyGUI
 {
 
 	OpenGLTexture::OpenGLTexture(const std::string& _name, OpenGLImageLoader* _loader) :
-        mName(_name),
+		mName(_name),
 		mWidth(0),
-        mHeight(0),
+		mHeight(0),
 		mPixelFormat(0),
-        mInternalPixelFormat(0),
-        mUsage(0),
-        mAccess(0),
-        mNumElemBytes(0),
-        mDataSize(0),
-        mTextureID(0),
-        mPboID(0),
-        mLock(false),
-        mBuffer(nullptr),
+		mInternalPixelFormat(0),
+		mUsage(0),
+		mAccess(0),
+		mNumElemBytes(0),
+		mDataSize(0),
+		mTextureID(0),
+		mPboID(0),
+		mLock(false),
+		mBuffer(nullptr),
 		mImageLoader(_loader),
 		mRenderTarget(nullptr)
 	{
@@ -172,8 +172,8 @@ namespace MyGUI
 
 		// Set unpack alignment to one byte
 		int alignment = 0;
-		glGetIntegerv( GL_UNPACK_ALIGNMENT, &alignment );
-		glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
+		glGetIntegerv(GL_UNPACK_ALIGNMENT, &alignment);
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 		// создаем тукстуру
 		glGenTextures(1, &mTextureID);
@@ -183,11 +183,20 @@ namespace MyGUI
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glTexImage2D(GL_TEXTURE_2D, 0, mInternalPixelFormat, mWidth, mHeight, 0, mPixelFormat, GL_UNSIGNED_BYTE, (GLvoid*)_data);
+		glTexImage2D(
+			GL_TEXTURE_2D,
+			0,
+			mInternalPixelFormat,
+			mWidth,
+			mHeight,
+			0,
+			mPixelFormat,
+			GL_UNSIGNED_BYTE,
+			(GLvoid*)_data);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		// Restore old unpack alignment
-		glPixelStorei( GL_UNPACK_ALIGNMENT, alignment );
+		glPixelStorei(GL_UNPACK_ALIGNMENT, alignment);
 
 		if (!_data && OpenGLRenderManager::getInstance().isPixelBufferObjectSupported())
 		{
@@ -259,7 +268,7 @@ namespace MyGUI
 		{
 			// bind the PBO
 			glBindBuffer(GL_PIXEL_UNPACK_BUFFER, mPboID);
-			
+
 			// Note that glMapBuffer() causes sync issue.
 			// If GPU is working with this buffer, glMapBuffer() will wait(stall)
 			// until GPU to finish its job. To avoid waiting (idle), you can call
@@ -288,7 +297,7 @@ namespace MyGUI
 	{
 		if (!mLock && mBuffer)
 		{
-            delete[] (char*)mBuffer;
+			delete[] (char*)mBuffer;
 			mBuffer = nullptr;
 
 			glBindTexture(GL_TEXTURE_2D, 0);
@@ -302,7 +311,7 @@ namespace MyGUI
 		{
 			//Fallback if PBO's are not supported
 			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, mWidth, mHeight, mPixelFormat, GL_UNSIGNED_BYTE, mBuffer);
-            delete[] (char*)mBuffer;
+			delete[] (char*)mBuffer;
 		}
 		else
 		{
@@ -317,7 +326,7 @@ namespace MyGUI
 			// Once bound with 0, all pixel operations are back to normal ways.
 			glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
 		}
-		
+
 		glBindTexture(GL_TEXTURE_2D, 0);
 		mBuffer = nullptr;
 		mLock = false;
@@ -337,7 +346,7 @@ namespace MyGUI
 			if (data)
 			{
 				createManual(width, height, TextureUsage::Static | TextureUsage::Write, format, data);
-                delete[] (unsigned char*)data;
+				delete[] (unsigned char*)data;
 			}
 		}
 	}

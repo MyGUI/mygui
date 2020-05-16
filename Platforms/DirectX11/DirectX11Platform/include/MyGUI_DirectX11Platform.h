@@ -71,10 +71,10 @@ namespace MyGUI
 		}
 
 	private:
-		bool                    mIsInitialise;
+		bool mIsInitialise;
 		DirectX11RenderManager* mRenderManager;
-		DirectX11DataManager*   mDataManager;
-		LogManager*             mLogManager;
+		DirectX11DataManager* mDataManager;
+		LogManager* mLogManager;
 
 	};
 

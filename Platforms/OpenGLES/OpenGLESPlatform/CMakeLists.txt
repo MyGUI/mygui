@@ -1,10 +1,10 @@
-set (PROJECTNAME MyGUI.OpenGLESPlatform)
+set(PROJECTNAME MyGUI.OpenGLESPlatform)
 
 include_directories(
- include
- ${MYGUI_SOURCE_DIR}/MyGUIEngine/include
- ${OPENGL_INCLUDE_DIR}
- ${MYGUI_SOURCE_DIR}/Common
+	include
+	${MYGUI_SOURCE_DIR}/MyGUIEngine/include
+	${OPENGL_INCLUDE_DIR}
+	${MYGUI_SOURCE_DIR}/Common
 )
 
 include(${PROJECTNAME}.list)
@@ -18,6 +18,6 @@ link_directories(${OPENGL_LIB_DIR} ${PNG_LIBRARY})
 
 # installation rules
 install(FILES ${HEADER_FILES}
-        DESTINATION include/MYGUI
+	DESTINATION include/MYGUI
 )
 mygui_install_target(${PROJECTNAME} "")

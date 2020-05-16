@@ -51,7 +51,6 @@ namespace MyGUI
 		// Discard the buffer
 		glBufferData(GL_ARRAY_BUFFER, mSizeInBytes, nullptr, GL_STREAM_DRAW);
 
-
 		Vertex* pBuffer = reinterpret_cast<Vertex*>(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
 
 		MYGUI_PLATFORM_ASSERT(pBuffer, "Error lock vertex buffer");

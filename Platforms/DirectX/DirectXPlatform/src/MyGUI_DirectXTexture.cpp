@@ -83,10 +83,19 @@ namespace MyGUI
 			MYGUI_PLATFORM_EXCEPT("Creating texture with unknown pixel formal.");
 		}
 
-		HRESULT result = mpD3DDevice->CreateTexture(mSize.width, mSize.height, 1, mInternalUsage, mInternalFormat, mInternalPool, &mpTexture, nullptr);
+		HRESULT result = mpD3DDevice->CreateTexture(
+			mSize.width,
+			mSize.height,
+			1,
+			mInternalUsage,
+			mInternalFormat,
+			mInternalPool,
+			&mpTexture,
+			nullptr);
 		if (FAILED(result))
 		{
-			MYGUI_PLATFORM_EXCEPT("Failed to create texture (error code " << result <<"): size '" << mSize <<
+			MYGUI_PLATFORM_EXCEPT(
+				"Failed to create texture (error code " << result << "): size '" << mSize <<
 				"' internal usage '" << mInternalUsage <<
 				"' internal format '" << mInternalFormat << "'."
 				);
@@ -131,7 +140,8 @@ namespace MyGUI
 		HRESULT result = D3DXCreateTextureFromFile(mpD3DDevice, fullname.c_str(), &mpTexture);
 		if (FAILED(result))
 		{
-			MYGUI_PLATFORM_EXCEPT("Failed to load texture '" << _filename <<
+			MYGUI_PLATFORM_EXCEPT(
+				"Failed to load texture '" << _filename <<
 				"' (error code " << result <<
 				"): size '" << mSize <<
 				"' format '" << info.Format << "'."
@@ -241,7 +251,15 @@ namespace MyGUI
 	{
 		if (mInternalPool == D3DPOOL_DEFAULT)
 		{
-			HRESULT result = mpD3DDevice->CreateTexture(mSize.width, mSize.height, 1, mInternalUsage, mInternalFormat, D3DPOOL_DEFAULT, &mpTexture, nullptr);
+			HRESULT result = mpD3DDevice->CreateTexture(
+				mSize.width,
+				mSize.height,
+				1,
+				mInternalUsage,
+				mInternalFormat,
+				D3DPOOL_DEFAULT,
+				&mpTexture,
+				nullptr);
 			if (FAILED(result))
 			{
 				MYGUI_PLATFORM_EXCEPT("Failed to recreate texture on device restore (error code " << result << ").");

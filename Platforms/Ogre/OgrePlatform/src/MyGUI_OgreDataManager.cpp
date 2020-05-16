@@ -114,7 +114,7 @@ namespace MyGUI
 		for (size_t i = 0; i < pFileInfos.size(); i++)
 		{
 			Ogre::FileInfoListPtr pFileInfo = pFileInfos[i];
-			for (Ogre::FileInfoList::iterator fi = pFileInfo->begin(); fi != pFileInfo->end(); ++fi )
+			for (Ogre::FileInfoList::iterator fi = pFileInfo->begin(); fi != pFileInfo->end(); ++fi)
 			{
 				if (fi->path.empty())
 				{
@@ -153,7 +153,7 @@ namespace MyGUI
 			{
 				MYGUI_PLATFORM_LOG(Warning, "There are several files with name '" << _name << "'. '" << result << "' was used.");
 				MYGUI_PLATFORM_LOG(Warning, "Other candidates are:");
-				for (size_t index = 1; index < files.size(); index ++)
+				for (size_t index = 1; index < files.size(); index++)
 					MYGUI_PLATFORM_LOG(Warning, " - '" << files[index] << "'");
 			}
 		}
@@ -161,7 +161,7 @@ namespace MyGUI
 		return result;
 	}
 
-	void OgreDataManager::addResourceLocation(const std::string &_name, bool _recursive)
+	void OgreDataManager::addResourceLocation(const std::string& _name, bool _recursive)
 	{
 		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_name, "FileSystem", mGroup, _recursive);
 	}

@@ -1,4 +1,4 @@
-set (PROJECTNAME MyGUI.DummyPlatform)
+set(PROJECTNAME MyGUI.DummyPlatform)
 
 include_directories(
 	include
@@ -16,6 +16,6 @@ target_link_libraries(${PROJECTNAME} MyGUIEngine)
 
 # installation rules
 install(FILES ${HEADER_FILES}
-        DESTINATION include/MYGUI
+	DESTINATION include/MYGUI
 )
 mygui_install_target(${PROJECTNAME} "")

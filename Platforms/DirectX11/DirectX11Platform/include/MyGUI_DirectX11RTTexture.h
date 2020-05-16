@@ -24,7 +24,7 @@ namespace MyGUI
 		public IRenderTarget
 	{
 	public:
-		DirectX11RTTexture( DirectX11Texture* texture, DirectX11RenderManager* manager );
+		DirectX11RTTexture(DirectX11Texture* texture, DirectX11RenderManager* manager);
 		virtual ~DirectX11RTTexture();
 
 		virtual void begin();
@@ -40,11 +40,11 @@ namespace MyGUI
 	private:
 		ID3D11DepthStencilView* mOldDepthStencil;
 		ID3D11RenderTargetView* mOldRenderTarget;
-		D3D11_VIEWPORT          mOdViewport;
-		DirectX11Texture*       mTexture;
+		D3D11_VIEWPORT mOdViewport;
+		DirectX11Texture* mTexture;
 		DirectX11RenderManager* mManager;
 		ID3D11RenderTargetView* mRenderTarget;
-		RenderTargetInfo        mRenderTargetInfo;
+		RenderTargetInfo mRenderTargetInfo;
 	};
 
 } // namespace MyGUI

@@ -16,7 +16,7 @@
 namespace MyGUI
 {
 
-	DirectX11RTTexture::DirectX11RTTexture( DirectX11Texture* _texture, DirectX11RenderManager* _manager ) :
+	DirectX11RTTexture::DirectX11RTTexture(DirectX11Texture* _texture, DirectX11RenderManager* _manager) :
 		mOldDepthStencil(nullptr),
 		mOldRenderTarget(nullptr),
 		mTexture(_texture),
@@ -61,7 +61,7 @@ namespace MyGUI
 		vp.MaxDepth = 1.0f;
 		vp.TopLeftX = 0.0f;
 		vp.TopLeftY = 0.0f;
-		mManager->mpD3DContext->RSSetViewports( 1, &vp );
+		mManager->mpD3DContext->RSSetViewports(1, &vp);
 
 		const float clearColor[4] = {0.0f, 0.0f, 0.0f, 0.0f};
 		mManager->mpD3DContext->OMSetRenderTargets(1, &mRenderTarget, 0);

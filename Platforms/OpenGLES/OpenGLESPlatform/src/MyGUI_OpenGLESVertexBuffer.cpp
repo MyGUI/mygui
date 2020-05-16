@@ -47,8 +47,7 @@ namespace MyGUI
 		glBufferData(GL_ARRAY_BUFFER, mSizeInBytes, nullptr, GL_STREAM_DRAW);
 		CHECK_GL_ERROR_DEBUG();
 
-
-		Vertex* pBuffer = (Vertex*) glMapBufferRange(
+		Vertex* pBuffer = (Vertex*)glMapBufferRange(
 			GL_ARRAY_BUFFER,
 			0,
 			mSizeInBytes,
@@ -96,7 +95,7 @@ namespace MyGUI
 		int bufferSize = 0;
 		glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, (GLint * ) & bufferSize); //wdy
 		CHECK_GL_ERROR_DEBUG();
-		if (mSizeInBytes != (size_t) bufferSize)
+		if (mSizeInBytes != (size_t)bufferSize)
 		{
 			destroy();
 			MYGUI_PLATFORM_EXCEPT("Data size is mismatch with input array");

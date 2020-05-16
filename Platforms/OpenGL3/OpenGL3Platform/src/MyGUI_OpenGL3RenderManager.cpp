@@ -153,18 +153,19 @@ namespace MyGUI
 		mUpdate = false;
 		mImageLoader = _loader;
 
-    mReferenceCount = 0;
+		mReferenceCount = 0;
 
 		glewInit();
 
-    if (!(GLEW_VERSION_3_0)) {
-      const char *version = (const char *) glGetString(GL_VERSION);
-      MYGUI_PLATFORM_EXCEPT(std::string("OpenGL 3.0 or newer not available, current version is ") + version);
-    }
+		if (!(GLEW_VERSION_3_0))
+		{
+			const char* version = (const char*)glGetString(GL_VERSION);
+			MYGUI_PLATFORM_EXCEPT(std::string("OpenGL 3.0 or newer not available, current version is ") + version);
+		}
 
 		mPboIsSupported = glewIsExtensionSupported("GL_EXT_pixel_buffer_object") != 0;
 
-    mProgramID = createShaderProgram();
+		mProgramID = createShaderProgram();
 
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
@@ -191,16 +192,16 @@ namespace MyGUI
 		delete _buffer;
 	}
 
-  void OpenGL3RenderManager::doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
-  {
-    glUniform1f(mYScaleUniformLocation, -1.0f);
-    doRender(_buffer, _texture, _count);
-    glUniform1f(mYScaleUniformLocation, 1.0f);
-  }
+	void OpenGL3RenderManager::doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
+	{
+		glUniform1f(mYScaleUniformLocation, -1.0f);
+		doRender(_buffer, _texture, _count);
+		glUniform1f(mYScaleUniformLocation, 1.0f);
+	}
 
 	void OpenGL3RenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-    OpenGL3VertexBuffer* buffer = static_cast<OpenGL3VertexBuffer*>(_buffer);
+		OpenGL3VertexBuffer* buffer = static_cast<OpenGL3VertexBuffer*>(_buffer);
 		unsigned int buffer_id = buffer->getBufferID();
 		MYGUI_PLATFORM_ASSERT(buffer_id, "Vertex buffer is not created");
 
@@ -214,31 +215,32 @@ namespace MyGUI
 
 		glBindTexture(GL_TEXTURE_2D, texture_id);
 
-    glBindVertexArray(buffer_id);
-    glDrawArrays(GL_TRIANGLES, 0, _count);
-    glBindVertexArray(0);
+		glBindVertexArray(buffer_id);
+		glDrawArrays(GL_TRIANGLES, 0, _count);
+		glBindVertexArray(0);
 
-    glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 	void OpenGL3RenderManager::begin()
 	{
-    ++mReferenceCount;
+		++mReferenceCount;
 
-    glUseProgram(mProgramID);
-    glActiveTexture(GL_TEXTURE0);
-  
-    glEnable(GL_BLEND);
+		glUseProgram(mProgramID);
+		glActiveTexture(GL_TEXTURE0);
+
+		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-  }
+	}
 
 	void OpenGL3RenderManager::end()
 	{
-    if (--mReferenceCount == 0) {
-      glDisable(GL_BLEND);
-      glUseProgram(0);
-    }
-  }
+		if (--mReferenceCount == 0)
+		{
+			glDisable(GL_BLEND);
+			glUseProgram(0);
+		}
+	}
 
 	const RenderTargetInfo& OpenGL3RenderManager::getInfo()
 	{
@@ -257,12 +259,12 @@ namespace MyGUI
 
 	bool OpenGL3RenderManager::isFormatSupported(PixelFormat _format, TextureUsage _usage)
 	{
-    if (_format == PixelFormat::R8G8B8 ||
-        _format == PixelFormat::R8G8B8A8) 
-        return true;
+		if (_format == PixelFormat::R8G8B8 ||
+			_format == PixelFormat::R8G8B8A8)
+			return true;
 
-    return false;
-  }
+		return false;
+	}
 
 	void OpenGL3RenderManager::drawOneFrame()
 	{
@@ -351,10 +353,11 @@ namespace MyGUI
 		}
 		mTextures.clear();
 
-    if (mProgramID) {
-      glDeleteProgram(mProgramID);
-      mProgramID = 0;
-    }
-  }
+		if (mProgramID)
+		{
+			glDeleteProgram(mProgramID);
+			mProgramID = 0;
+		}
+	}
 
 } // namespace MyGUI

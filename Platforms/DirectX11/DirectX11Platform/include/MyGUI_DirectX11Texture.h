@@ -45,29 +45,30 @@ namespace MyGUI
 		virtual int getWidth();
 		virtual int getHeight();
 
-		virtual PixelFormat  getFormat();
+		virtual PixelFormat getFormat();
 		virtual TextureUsage getUsage();
-		virtual size_t       getNumElemBytes();
+		virtual size_t getNumElemBytes();
 
 		virtual IRenderTarget* getRenderTarget();
 
 	private:
 		friend class DirectX11RTTexture;
-		ID3D11Texture2D*          mTexture;
-		void*                     mWriteData;
+
+		ID3D11Texture2D* mTexture;
+		void* mWriteData;
 
 	public:
 		ID3D11ShaderResourceView* mResourceView;
 
 	private:
-		int                       mWidth;
-		int                       mHeight;
-		TextureUsage              mTextureUsage;
-		size_t                    mNumElemBytes;
-		std::string               mName;
-		bool                      mLock;
-		DirectX11RTTexture*       mRenderTarget;
-		DirectX11RenderManager*   mManager;
+		int mWidth;
+		int mHeight;
+		TextureUsage mTextureUsage;
+		size_t mNumElemBytes;
+		std::string mName;
+		bool mLock;
+		DirectX11RTTexture* mRenderTarget;
+		DirectX11RenderManager* mManager;
 	};
 
 } // namespace MyGUI

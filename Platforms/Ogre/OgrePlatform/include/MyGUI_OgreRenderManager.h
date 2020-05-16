@@ -99,8 +99,14 @@ namespace MyGUI
 		void doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, bool flipY);
 
 	private:
-		virtual void renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation);
-		virtual void renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation);
+		virtual void renderQueueStarted(
+			Ogre::uint8 queueGroupId,
+			const Ogre::String& invocation,
+			bool& skipThisInvocation);
+		virtual void renderQueueEnded(
+			Ogre::uint8 queueGroupId,
+			const Ogre::String& invocation,
+			bool& repeatThisInvocation);
 		virtual void windowResized(Ogre::RenderWindow* _window);
 
 		// восстанавливаем буферы

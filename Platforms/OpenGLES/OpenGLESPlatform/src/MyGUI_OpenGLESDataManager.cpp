@@ -106,7 +106,7 @@ namespace MyGUI
 			{
 				MYGUI_PLATFORM_LOG(Warning, "There are several files with name '" << _name << "'. '" << path << "' was used.");
 				MYGUI_PLATFORM_LOG(Warning, "Other candidates are:");
-				for (size_t index = 1; index < result.size(); index ++)
+				for (size_t index = 1; index < result.size(); index++)
 					MYGUI_PLATFORM_LOG(Warning, " - '" << result[index] << "'");
 			}
 		}

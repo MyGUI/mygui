@@ -50,7 +50,6 @@ namespace MyGUI
 		/** @see RenderManager::getTexture */
 		virtual ITexture* getTexture(const std::string& _name);
 
-
 		/** @see IRenderTarget::begin */
 		virtual void begin();
 		/** @see IRenderTarget::end */
@@ -69,8 +68,8 @@ namespace MyGUI
 
 	private:
 		void destroyAllResources();
-        GLuint BuildShader(const char* source, GLenum shaderType) const;
-        GLuint BuildProgram(const char* vertexShaderSource, const char* fragmentShaderSource) const;
+		GLuint BuildShader(const char* source, GLenum shaderType) const;
+		GLuint BuildProgram(const char* vertexShaderSource, const char* fragmentShaderSource) const;
 
 	private:
 		IntSize mViewSize;
@@ -85,13 +84,13 @@ namespace MyGUI
 
 		bool mIsInitialise;
 
-        GLuint _positionSlot;
-        GLuint _colorSlot;
-        GLuint _texSlot;
+		GLuint _positionSlot;
+		GLuint _colorSlot;
+		GLuint _texSlot;
 
-        GLuint mProgram;
-        GLuint mVertShader;
-        GLuint mFragShader;
+		GLuint mProgram;
+		GLuint mVertShader;
+		GLuint mFragShader;
 	};
 
 } // namespace MyGUI

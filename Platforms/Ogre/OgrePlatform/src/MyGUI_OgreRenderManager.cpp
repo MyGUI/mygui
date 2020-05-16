@@ -206,7 +206,10 @@ namespace MyGUI
 		}
 	}
 
-	void OgreRenderManager::renderQueueStarted(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& skipThisInvocation)
+	void OgreRenderManager::renderQueueStarted(
+		Ogre::uint8 queueGroupId,
+		const Ogre::String& invocation,
+		bool& skipThisInvocation)
 	{
 		Gui* gui = Gui::getInstancePtr();
 		if (gui == nullptr)
@@ -243,7 +246,10 @@ namespace MyGUI
 		mUpdate = false;
 	}
 
-	void OgreRenderManager::renderQueueEnded(Ogre::uint8 queueGroupId, const Ogre::String& invocation, bool& repeatThisInvocation)
+	void OgreRenderManager::renderQueueEnded(
+		Ogre::uint8 queueGroupId,
+		const Ogre::String& invocation,
+		bool& repeatThisInvocation)
 	{
 	}
 
@@ -325,7 +331,7 @@ namespace MyGUI
 
 		mRenderSystem->_render(*operation);
 
-		++ mCountBatch;
+		++mCountBatch;
 	}
 
 	void OgreRenderManager::begin()
@@ -419,7 +425,9 @@ namespace MyGUI
 		MapTexture::const_iterator item = mTextures.find(_name);
 		if (item == mTextures.end())
 		{
-			Ogre::TexturePtr texture = (Ogre::TexturePtr)Ogre::TextureManager::getSingleton().getByName(_name, OgreDataManager::getInstance().getGroup());
+			Ogre::TexturePtr texture = (Ogre::TexturePtr)Ogre::TextureManager::getSingleton().getByName(
+				_name,
+				OgreDataManager::getInstance().getGroup());
 			if (texture)
 			{
 				ITexture* result = createTexture(_name);
@@ -514,7 +522,8 @@ namespace MyGUI
 		{
 			Ogre::GpuProgramParametersSharedPtr params = mVertexProgram->getDefaultParameters();;
 			params->setNamedConstant("YFlipScale", -1.0f);
-			mRenderSystem->bindGpuProgramParameters(Ogre::GPT_VERTEX_PROGRAM,
+			mRenderSystem->bindGpuProgramParameters(
+				Ogre::GPT_VERTEX_PROGRAM,
 				params, Ogre::GPV_ALL);
 		}
 
@@ -524,7 +533,8 @@ namespace MyGUI
 		{
 			Ogre::GpuProgramParametersSharedPtr params = mVertexProgram->getDefaultParameters();;
 			params->setNamedConstant("YFlipScale", 1.0f);
-			mRenderSystem->bindGpuProgramParameters(Ogre::GPT_VERTEX_PROGRAM,
+			mRenderSystem->bindGpuProgramParameters(
+				Ogre::GPT_VERTEX_PROGRAM,
 				params, Ogre::GPV_ALL);
 		}
 	}

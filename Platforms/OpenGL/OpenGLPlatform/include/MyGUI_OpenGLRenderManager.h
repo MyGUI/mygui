@@ -50,7 +50,6 @@ namespace MyGUI
 		/** @see RenderManager::getTexture */
 		virtual ITexture* getTexture(const std::string& _name);
 
-
 		/** @see IRenderTarget::begin */
 		virtual void begin();
 		/** @see IRenderTarget::end */

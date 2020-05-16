@@ -1,9 +1,9 @@
-set (PROJECTNAME MyGUI.OgrePlatform)
+set(PROJECTNAME MyGUI.OgrePlatform)
 
 include_directories(
- include
- ${MYGUI_SOURCE_DIR}/MyGUIEngine/include
- ${OGRE_INCLUDE_DIR}
+	include
+	${MYGUI_SOURCE_DIR}/MyGUIEngine/include
+	${OGRE_INCLUDE_DIR}
 )
 
 include(${PROJECTNAME}.list)

@@ -50,7 +50,6 @@ namespace MyGUI
 		/** @see RenderManager::getTexture */
 		virtual ITexture* getTexture(const std::string& _name);
 
-
 		/** @see IRenderTarget::begin */
 		virtual void begin();
 		/** @see IRenderTarget::end */
@@ -69,7 +68,7 @@ namespace MyGUI
 	/*internal:*/
 		void drawOneFrame();
 		bool isPixelBufferObjectSupported() const;
-    unsigned int createShaderProgram(void);
+		unsigned int createShaderProgram(void);
 
 	private:
 		void destroyAllResources();
@@ -79,17 +78,17 @@ namespace MyGUI
 		bool mUpdate;
 		VertexColourType mVertexFormat;
 		RenderTargetInfo mInfo;
-    unsigned int mProgramID;
-    unsigned int mReferenceCount; // for nested rendering
-    int mYScaleUniformLocation;
+		unsigned int mProgramID;
+		unsigned int mReferenceCount; // for nested rendering
+		int mYScaleUniformLocation;
 
 		typedef std::map<std::string, ITexture*> MapTexture;
 		MapTexture mTextures;
 		OpenGL3ImageLoader* mImageLoader;
 		bool mPboIsSupported;
-        
+
 		bool mIsInitialise;
-  };
+	};
 
 } // namespace MyGUI
 

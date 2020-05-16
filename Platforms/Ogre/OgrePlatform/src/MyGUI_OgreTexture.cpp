@@ -60,7 +60,7 @@ namespace MyGUI
 	{
 		if (mTmpData.data != nullptr)
 		{
-			delete [] (uint8*)mTmpData.data;
+			delete[] (uint8*)mTmpData.data;
 			mTmpData.data = nullptr;
 		}
 
@@ -99,11 +99,15 @@ namespace MyGUI
 		// для чтения копируем в пиксель бокс
 		if (mTmpData.data != nullptr)
 		{
-			delete [] (uint8*)mTmpData.data;
+			delete[] (uint8*)mTmpData.data;
 			mTmpData.data = nullptr;
 		}
 
-		mTmpData = Ogre::PixelBox(mTexture->getWidth(), mTexture->getHeight(), mTexture->getDepth(), mTexture->getFormat());
+		mTmpData = Ogre::PixelBox(
+			mTexture->getWidth(),
+			mTexture->getHeight(),
+			mTexture->getDepth(),
+			mTexture->getFormat());
 		mTmpData.data = new uint8[mTexture->getBuffer()->getSizeInBytes()];
 
 		mTexture->getBuffer()->blitToMemory(mTmpData);
@@ -119,7 +123,7 @@ namespace MyGUI
 		}
 		else if (mTmpData.data != nullptr)
 		{
-			delete [] (uint8*)mTmpData.data;
+			delete[] (uint8*)mTmpData.data;
 			mTmpData.data = nullptr;
 		}
 	}
@@ -229,7 +233,14 @@ namespace MyGUI
 
 		Ogre::TextureManager* manager = Ogre::TextureManager::getSingletonPtr();
 
-		auto createResult = Ogre::TextureManager::getSingleton().createOrRetrieve(_filename, OgreDataManager::getInstance().getGroup(), false, nullptr, nullptr, Ogre::TEX_TYPE_2D, 0);
+		auto createResult = Ogre::TextureManager::getSingleton().createOrRetrieve(
+			_filename,
+			OgreDataManager::getInstance().getGroup(),
+			false,
+			nullptr,
+			nullptr,
+			Ogre::TEX_TYPE_2D,
+			0);
 		if (!createResult.second)
 		{
 			MYGUI_PLATFORM_LOG(Error, "Texture '" + _filename + "' not found, set default texture");

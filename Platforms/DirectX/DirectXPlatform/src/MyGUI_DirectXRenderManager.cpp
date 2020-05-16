@@ -123,15 +123,15 @@ namespace MyGUI
 		mpD3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
 		mpD3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
 
-		mpD3DDevice->SetSamplerState( 0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR );
-		mpD3DDevice->SetSamplerState( 0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR );
-		mpD3DDevice->SetSamplerState( 0, D3DSAMP_MIPFILTER, D3DTEXF_NONE );
+		mpD3DDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
+		mpD3DDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
+		mpD3DDevice->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_NONE);
 
 		mpD3DDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);
 		mpD3DDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);
 
-		mpD3DDevice->SetRenderState(D3DRS_SRCBLEND,   D3DBLEND_SRCALPHA);
-		mpD3DDevice->SetRenderState(D3DRS_DESTBLEND,  D3DBLEND_INVSRCALPHA);
+		mpD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+		mpD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
 		mpD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
 		mpD3DDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
@@ -217,7 +217,14 @@ namespace MyGUI
 		}
 
 		D3DFORMAT requestedlFormat = internalFormat;
-		D3DXCheckTextureRequirements(mpD3DDevice, nullptr, nullptr, nullptr, internalUsage, &internalFormat, internalPool);
+		D3DXCheckTextureRequirements(
+			mpD3DDevice,
+			nullptr,
+			nullptr,
+			nullptr,
+			internalUsage,
+			&internalFormat,
+			internalPool);
 
 		bool result = requestedlFormat == internalFormat;
 		if (!result)
