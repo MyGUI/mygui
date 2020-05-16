@@ -372,42 +372,6 @@ namespace base
 		return ret;
 	}
 
-    // PLATFORM
-	/*void* SdlBaseManager::loadImage(int& _width, int& _height, MyGUI::PixelFormat& _format, const std::string& _filename)
-	{
-		std::string fullname = MyGUI::OpenGLDataManager::getInstance().getDataPath(_filename);
-		void* result = nullptr;
-		SDL_Surface *image = nullptr;
-		SDL_Surface *cvtImage = nullptr;		// converted surface with RGBA/RGB pixel format
-		image = IMG_Load(fullname.c_str());
-		MYGUI_ASSERT(image != nullptr, "Failed to load image: " + fullname);
-
-		_width = image->w;
-		_height = image->h;
-
-		int bpp = image->format->BytesPerPixel;
-		if (bpp < 3)
-		{
-			result = convertPixelData(image, _format);
-		}
-		else
-		{
-			Uint32 pixelFmt = bpp == 3 ? SDL_PIXELFORMAT_BGR24 : SDL_PIXELFORMAT_ARGB8888;
-			cvtImage = SDL_ConvertSurfaceFormat(image, pixelFmt, 0);
-			result = convertPixelData(cvtImage, _format);
-			SDL_FreeSurface(cvtImage);
-		}
-		SDL_FreeSurface(image);
-
-		return result;
-	}*/
-
-    // PLATFORM
-	/*void SdlBaseManager::saveImage(int _width, int _height, MyGUI::PixelFormat _format, void* _texture, const std::string& _filename)
-	{
-		MYGUI_LOG(Warning, "saveToFile not implemented (was trying to save '" << _filename << "')");
-	}*/
-
 	void SdlBaseManager::quit()
 	{
 		mExit = true;

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <MyGUI.h>
-// PLATFORM #include <MyGUI_OpenGLPlatform.h>
 
 #include "InputManager.h"
 #include "PointerManager.h"
