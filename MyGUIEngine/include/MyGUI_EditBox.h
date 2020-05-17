@@ -217,6 +217,8 @@ namespace MyGUI
 		void setFontName(const std::string& _value) override;
 		//! @copydoc TextBox::setFontHeight
 		void setFontHeight(int _value) override;
+		//! @copydoc TextBox::getFontHeight
+		int getFontHeight() override;
 
 		//! @copydoc TextBox::setTextAlign
 		void setTextAlign(Align _value) override;

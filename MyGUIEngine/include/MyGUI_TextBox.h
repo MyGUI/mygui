@@ -43,7 +43,7 @@ namespace MyGUI
 		/** Set widget text font height */
 		virtual void setFontHeight(int _value);
 		/** Get widget text font height */
-		int getFontHeight();
+		virtual int getFontHeight();
 
 		/** Set widget text align */
 		virtual void setTextAlign(Align _value);

@@ -1767,6 +1767,11 @@ namespace MyGUI
 		eraseView();
 	}
 
+	int EditBox::getFontHeight()
+	{
+		return (nullptr == mClientText) ? 0 : mClientText->getFontHeight();
+	}
+
 	void EditBox::updateView()
 	{
 		updateScrollSize();
