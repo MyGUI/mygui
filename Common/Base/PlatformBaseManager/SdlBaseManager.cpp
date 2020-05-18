@@ -34,12 +34,20 @@ namespace base
 
 		// create window and position it at the center of the screen
 		SDL_DisplayMode currDisp;
-		MYGUI_ASSERT(SDL_GetCurrentDisplayMode(0, &currDisp) == 0, "Failed to retrieve screen info.");
+		if (SDL_GetCurrentDisplayMode(0, &currDisp) != 0)
+		{
+			std::cerr << "Failed to retrieve screen info.";
+			exit(1);
+		}
 		int left = (currDisp.w - width) / 2;
 		int top = (currDisp.h - height) / 2;
 
 		mSdlWindow = SDL_CreateWindow("MyGUI Render Window", left, top, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
-		MYGUI_ASSERT(mSdlWindow != nullptr, "Failed to create SDL window.");
+		if (mSdlWindow == nullptr)
+		{
+			std::cerr << "Failed to create SDL window.";
+			exit(1);
+		}
 		mWindowOn = true;
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32

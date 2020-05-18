@@ -41,10 +41,10 @@ if (UNIX)
 endif()
 
 if (MYGUI_USE_FREETYPE)
-	target_link_libraries(${PROJECTNAME}
-		${FREETYPE_LIBRARIES}
-		${ZLIB_LIBRARIES}
-	)
+	target_link_libraries(${PROJECTNAME} ${FREETYPE_LIBRARIES})
+	if (DEFINED ${ZLIB_LIBRARIES})
+		target_link_libraries(${PROJECTNAME} ${ZLIB_LIBRARIES})
+	endif()
 endif()
 
 # platform specific dependencies

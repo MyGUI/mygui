@@ -21,12 +21,12 @@ add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 
 add_dependencies(${PROJECTNAME} MyGUIEngine)
 
-target_link_libraries(${PROJECTNAME} ${OPENGL_gl_LIBRARY} ${PNG_LIBRARIES} ${ZLIB_LIBRARIES} MyGUIEngine)
+target_link_libraries(${PROJECTNAME} ${OPENGL_gl_LIBRARY} MyGUIEngine)
 if (MYGUI_USE_SYSTEM_GLEW)
 	target_link_libraries(${PROJECTNAME} ${GLEW_LIBRARIES})
 endif ()
 
-link_directories(${OPENGL_LIB_DIR} ${PNG_LIBRARY})
+link_directories(${OPENGL_LIB_DIR})
 
 # installation rules
 install(FILES ${HEADER_FILES}

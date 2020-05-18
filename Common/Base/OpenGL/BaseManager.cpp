@@ -9,11 +9,15 @@ namespace base
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
 		mContext = SDL_GL_CreateContext(mSdlWindow);
-		MYGUI_ASSERT(mContext != nullptr, "Failed to create SDL context.");
+		if (mContext == nullptr)
+		{
+			std::cerr << "Failed to create SDL context.";
+			exit(1);
+		}
 #ifndef EMSCRIPTEN
 		if (IMG_Init(~0) == 0)
 		{
-			std::cerr << "Failed to initialize SDL_image.";
+			std::cerr << "Failed to initialize SDL_image: " << IMG_GetError();
 			exit(1);
 		}
 #endif
