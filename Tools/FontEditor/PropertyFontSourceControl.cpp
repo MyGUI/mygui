@@ -12,31 +12,7 @@ namespace tools
 {
 	namespace
 	{
-
-		const char* const fileTypesData[] = { "*.ttf", "*.ttc", "*.otf", "*.pfa", "*.pfb", "*.fon", "*.fnt" };
-
-		const MyGUI::VectorString fileTypes(fileTypesData, fileTypesData + sizeof fileTypesData / sizeof *fileTypesData);
-
-		struct StrCmpI : public std::binary_function<std::string, std::string, bool>
-		{
-			result_type operator()(const first_argument_type& _a, const second_argument_type& _b)
-			{
-				size_t aLength = _a.length(), bLength = _b.length(), length = (std::min)(aLength, bLength);
-				first_argument_type::const_iterator aIter = _a.begin();
-				second_argument_type::const_iterator bIter = _b.begin();
-
-				while (length-- > 0)
-				{
-					int aUpper = toupper(*aIter++), bUpper = toupper(*bIter++);
-
-					if (aUpper != bUpper)
-						return aUpper < bUpper;
-				}
-
-				return aLength < bLength;
-			}
-		};
-
+		const MyGUI::VectorString fileTypes{ "*.ttf", "*.ttc", "*.otf", "*.pfa", "*.pfb", "*.fon", "*.fnt" };
 	}
 
 	FACTORY_ITEM_ATTRIBUTE(PropertyFontSourceControl)
@@ -124,16 +100,16 @@ namespace tools
 	{
 		mResources.clear();
 
-		std::set<std::string, StrCmpI> allFilenames;
+		std::set<std::string> allFilenames;
 
-		for (MyGUI::VectorString::const_iterator fileType = fileTypes.begin(); fileType != fileTypes.end(); ++fileType)
+		for (const auto& fileType : fileTypes)
 		{
-			const MyGUI::VectorString& filenames = MyGUI::DataManager::getInstance().getDataListNames(*fileType);
+			const MyGUI::VectorString& filenames = MyGUI::DataManager::getInstance().getDataListNames(fileType);
 			allFilenames.insert(filenames.begin(), filenames.end());
 		}
 
-		for (std::set<std::string, StrCmpI>::const_iterator iter = allFilenames.begin(); iter != allFilenames.end(); ++iter)
-			mResources.push_back(*iter);
+		for (const auto& fileName : allFilenames)
+			mResources.push_back(fileName);
 	}
 
 }
