@@ -520,7 +520,7 @@ namespace MyGUI
 	{
 		if (flipY && !mRenderSystem->getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION))
 		{
-			Ogre::GpuProgramParametersSharedPtr params = mVertexProgram->getDefaultParameters();;
+			Ogre::GpuProgramParametersSharedPtr params = mVertexProgram->getDefaultParameters();
 			params->setNamedConstant("YFlipScale", -1.0f);
 			mRenderSystem->bindGpuProgramParameters(
 				Ogre::GPT_VERTEX_PROGRAM,
@@ -531,7 +531,7 @@ namespace MyGUI
 
 		if (flipY && !mRenderSystem->getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION))
 		{
-			Ogre::GpuProgramParametersSharedPtr params = mVertexProgram->getDefaultParameters();;
+			Ogre::GpuProgramParametersSharedPtr params = mVertexProgram->getDefaultParameters();
 			params->setNamedConstant("YFlipScale", 1.0f);
 			mRenderSystem->bindGpuProgramParameters(
 				Ogre::GPT_VERTEX_PROGRAM,

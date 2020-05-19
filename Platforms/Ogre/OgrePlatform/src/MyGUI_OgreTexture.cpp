@@ -231,8 +231,6 @@ namespace MyGUI
 	{
 		setUsage(TextureUsage::Default);
 
-		Ogre::TextureManager* manager = Ogre::TextureManager::getSingletonPtr();
-
 		auto createResult = Ogre::TextureManager::getSingleton().createOrRetrieve(
 			_filename,
 			OgreDataManager::getInstance().getGroup(),

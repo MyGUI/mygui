@@ -95,7 +95,7 @@ namespace MyGUI
 #endif
 
 	/*internal:*/
-		/* for use with RTT, flips Y coordinate if necesary when rendering */
+		/* for use with RTT, flips Y coordinate if necessary when rendering */
 		void doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, bool flipY);
 
 	private:
@@ -109,7 +109,7 @@ namespace MyGUI
 			bool& repeatThisInvocation);
 		virtual void windowResized(Ogre::RenderWindow* _window);
 
-		// восстанавливаем буферы
+		// restore buffers
 		virtual void eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters);
 
 		void destroyAllResources();
