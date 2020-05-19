@@ -59,6 +59,7 @@ namespace base
 	{
 		mPlatform = new MyGUI::DirectXPlatform();
 		mPlatform->initialise(mDevice);
+		setupResources();
 	}
 
 	void BaseManager::destroyGuiPlatform()

@@ -16,6 +16,7 @@ namespace base
 	{
 		mPlatform = new MyGUI::DummyPlatform();
 		mPlatform->initialise();
+		setupResources();
 	}
 
 	void BaseManager::destroyGuiPlatform()

@@ -42,7 +42,7 @@ namespace base
 		int left = (currDisp.w - width) / 2;
 		int top = (currDisp.h - height) / 2;
 
-		mSdlWindow = SDL_CreateWindow("MyGUI Render Window", left, top, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+		mSdlWindow = SDL_CreateWindow("MyGUI Render Window", left, top, width, height, SDL_WINDOW_RESIZABLE);
 		if (mSdlWindow == nullptr)
 		{
 			std::cerr << "Failed to create SDL window.";
@@ -223,8 +223,6 @@ namespace base
 
 	void SdlBaseManager::createGui()
 	{
-		setupResources();
-
 		mGUI = new MyGUI::Gui();
 		mGUI->initialise(mResourceFileName);
 

@@ -34,6 +34,7 @@ namespace base
 	{
 		mPlatform = new MyGUI::OpenGL3Platform();
 		mPlatform->initialise(this);
+		setupResources();
 	}
 
 	void BaseManager::destroyGuiPlatform()

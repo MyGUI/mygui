@@ -112,6 +112,7 @@ namespace base
 	{
 		mPlatform = new MyGUI::DirectX11Platform();
 		mPlatform->initialise(mDevice);
+		setupResources();
 	}
 
 	void BaseManager::destroyGuiPlatform()

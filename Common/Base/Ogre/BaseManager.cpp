@@ -58,7 +58,6 @@ namespace base
 		params["parentWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.x11.window));
 #elif OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 		params["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.win.window));
-		mHWND = wmInfo.info.win.window;
 #elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE
 		ASSERT(wmInfo.subsystem == SDL_SYSWM_COCOA);
 		params["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.cocoa.window));
@@ -117,6 +116,7 @@ namespace base
 
 	void BaseManager::createGuiPlatform()
 	{
+		setupResources();
 		mPlatform = new MyGUI::OgrePlatform();
 		mPlatform->initialise(mWindow, mSceneManager, Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
 	}
@@ -149,7 +149,7 @@ namespace base
 		std::string name = _name;
 #endif
 
-		mPlatform->getDataManagerPtr()->addResourceLocation(name, _recursive);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(name, "FileSystem", Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME, _recursive);
 	}
 
 	void BaseManager::makeScreenShot()
