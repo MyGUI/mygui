@@ -8,7 +8,7 @@ uniform sampler2D sampler;
 in vec4 outUV0;
 in vec4 outColor;
 
-// Texturing fragment program for GLSL ES
+// Texturing fragment program for GLSL
 void main()
 {
 	gl_FragColor = outColor * texture(sampler, outUV0.xy);

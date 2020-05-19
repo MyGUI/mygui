@@ -84,7 +84,7 @@ namespace MyGUI
 		if (_texture)
 		{
 			OpenGLTexture* texture = static_cast<OpenGLTexture*>(_texture);
-			texture_id = texture->getTextureID();
+			texture_id = texture->getTextureId();
 			//MYGUI_PLATFORM_ASSERT(texture_id, "Texture is not created");
 		}
 

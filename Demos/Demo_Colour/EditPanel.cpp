@@ -17,6 +17,7 @@ namespace demo
 	void EditPanel::setColourSelected(const MyGUI::Colour& _colour)
 	{
 		mEdit->setTextSelectionColour(_colour);
+		mEdit->setFontHeight(mEdit->getFontHeight() * 1.1);
 	}
 
 } // namespace demo

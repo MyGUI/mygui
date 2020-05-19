@@ -14,14 +14,14 @@ namespace MyGUI
 {
 
 	OpenGL3RTTexture::OpenGL3RTTexture(unsigned int _texture) :
-		mTextureID(_texture),
+		mTextureId(_texture),
 		mWidth(0),
 		mHeight(0),
 		mFBOID(0),
 		mRBOID(0)
 	{
 		int miplevel = 0;
-		glBindTexture(GL_TEXTURE_2D, mTextureID);
+		glBindTexture(GL_TEXTURE_2D, mTextureId);
 		glGetTexLevelParameteriv(GL_TEXTURE_2D, miplevel, GL_TEXTURE_WIDTH, &mWidth);
 		glGetTexLevelParameteriv(GL_TEXTURE_2D, miplevel, GL_TEXTURE_HEIGHT, &mHeight);
 		glBindTexture(GL_TEXTURE_2D, 0);
@@ -49,7 +49,7 @@ namespace MyGUI
 		glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, 0);
 
 		// attach a texture to FBO color attachement point
-		glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, mTextureID, 0);
+		glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, mTextureId, 0);
 
 		// attach a renderbuffer to depth attachment point
 		glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, mRBOID);

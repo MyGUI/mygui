@@ -139,7 +139,7 @@ namespace MyGUI
 		if (_texture)
 		{
 			OpenGLESTexture* texture = static_cast<OpenGLESTexture*>(_texture);
-			texture_id = texture->getTextureID();
+			texture_id = texture->getTextureId();
 			//MYGUI_PLATFORM_ASSERT(texture_id, "Texture is not created");
 		}
 

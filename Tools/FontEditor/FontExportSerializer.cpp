@@ -304,7 +304,7 @@ namespace tools
 		for (size_t index = 0; index < values.size(); index ++)
 		{
 			MyGUI::IntSize size = MyGUI::IntSize::parse(values[index]);
-			font->addCodePointRange(size.width, size.height); // о да
+			font->addCodePointRange(size.width, size.height);
 		}
 
 		font->initialise();

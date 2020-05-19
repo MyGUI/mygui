@@ -11,7 +11,7 @@ namespace MyGUI
 
 	OpenGLESTexture::OpenGLESTexture(const std::string& _name, OpenGLESImageLoader* _loader) :
 		mName(_name),
-		mTextureID(0),
+		mTextureId(0),
 		mPboID(0),
 		mWidth(0),
 		mHeight(0),
@@ -51,7 +51,7 @@ namespace MyGUI
 
 	void OpenGLESTexture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format, void* _data)
 	{
-		MYGUI_PLATFORM_ASSERT(!mTextureID, "Texture already exist");
+		MYGUI_PLATFORM_ASSERT(!mTextureId, "Texture already exist");
 
 		//FIXME перенести в метод
 		mInternalPixelFormat = 0;
@@ -103,9 +103,9 @@ namespace MyGUI
 		CHECK_GL_ERROR_DEBUG();
 
 		// создаем тукстуру
-		glGenTextures(1, (GLuint*) &mTextureID);
+		glGenTextures(1, (GLuint*) &mTextureId);
 		CHECK_GL_ERROR_DEBUG();
-		glBindTexture(GL_TEXTURE_2D, mTextureID);
+		glBindTexture(GL_TEXTURE_2D, mTextureId);
 		CHECK_GL_ERROR_DEBUG();
 		// Set texture parameters
 
@@ -165,10 +165,10 @@ namespace MyGUI
 			mRenderTarget = nullptr;
 		}
 
-		if (mTextureID != 0)
+		if (mTextureId != 0)
 		{
-			glDeleteTextures(1, (GLuint*)&mTextureID);
-			mTextureID = 0;
+			glDeleteTextures(1, (GLuint*)&mTextureId);
+			mTextureId = 0;
 		}
 		if (mPboID != 0)
 		{
@@ -192,12 +192,12 @@ namespace MyGUI
 
 	void* OpenGLESTexture::lock(TextureUsage _access)
 	{
-		MYGUI_PLATFORM_ASSERT(mTextureID, "Texture is not created");
+		MYGUI_PLATFORM_ASSERT(mTextureId, "Texture is not created");
 
 		/*
 		if (_access == TextureUsage::Read)
 		{
-			glBindTexture(GL_TEXTURE_2D, mTextureID);
+			glBindTexture(GL_TEXTURE_2D, mTextureId);
 			CHECK_GL_ERROR_DEBUG();
 
 			mBuffer = new unsigned char[mDataSize];
@@ -209,7 +209,7 @@ namespace MyGUI
 		}*/
 
 		// bind the texture
-		glBindTexture(GL_TEXTURE_2D, mTextureID);
+		glBindTexture(GL_TEXTURE_2D, mTextureId);
 		CHECK_GL_ERROR_DEBUG();
 		if (!OpenGLESRenderManager::getInstance().isPixelBufferObjectSupported())
 		{
@@ -337,14 +337,14 @@ namespace MyGUI
 	IRenderTarget* OpenGLESTexture::getRenderTarget()
 	{
 		if (mRenderTarget == nullptr)
-			mRenderTarget = new OpenGLESRTTexture(mTextureID);
+			mRenderTarget = new OpenGLESRTTexture(mTextureId);
 
 		return mRenderTarget;
 	}
 
-	unsigned int OpenGLESTexture::getTextureID() const
+	unsigned int OpenGLESTexture::getTextureId() const
 	{
-		return mTextureID;
+		return mTextureId;
 	}
 
 } // namespace MyGUI
