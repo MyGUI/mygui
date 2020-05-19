@@ -21,7 +21,6 @@ set(INST_FILES
 set(STATIC_INST_FILES
   Packages/FindDirectX.cmake
   Packages/FindDirectX11.cmake
-  Packages/FindFreetype.cmake
 )
 if (APPLE)
   set(INST_FILES ${INST_FILES}

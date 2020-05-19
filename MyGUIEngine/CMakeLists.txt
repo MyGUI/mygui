@@ -42,7 +42,7 @@ endif()
 
 if (MYGUI_USE_FREETYPE)
 	target_link_libraries(${PROJECTNAME} ${FREETYPE_LIBRARIES})
-	if (DEFINED ${ZLIB_LIBRARIES})
+	if (ZLIB_FOUND) # hacky way to check if freetype was built with zlib
 		target_link_libraries(${PROJECTNAME} ${ZLIB_LIBRARIES})
 	endif()
 endif()
