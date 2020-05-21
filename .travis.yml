@@ -26,9 +26,9 @@ after_script:
  - cd ..
  - python ./Scripts/cppcheck/cppcheck.py
 notifications:
-  recipients:
-    - psi29a+travis.ci@gmail.com
-    - altren@gmail.com
   email:
+    recipients:
+      - psi29a+travis.ci@gmail.com
+      - altren@gmail.com
     on_success: change
     on_failure: always
