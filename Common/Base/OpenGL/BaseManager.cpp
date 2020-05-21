@@ -11,7 +11,7 @@ namespace base
 		mContext = SDL_GL_CreateContext(mSdlWindow);
 		if (mContext == nullptr)
 		{
-			std::cerr << "Failed to create SDL context.";
+			std::cerr << "Failed to create SDL context: " << SDL_GetError();
 			exit(1);
 		}
 #ifndef EMSCRIPTEN
