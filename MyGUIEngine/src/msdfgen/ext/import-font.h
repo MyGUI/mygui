@@ -50,7 +50,7 @@ bool getFontMetrics(FontMetrics &metrics, FontHandle *font);
 /// Outputs the width of the space and tab characters.
 bool getFontWhitespaceWidth(double &spaceAdvance, double &tabAdvance, FontHandle *font);
 /// Loads the geometry of a glyph from a font file.
-bool loadGlyph(Shape &output, FontHandle *font, unicode_t unicode, double *advance = NULL);
+bool loadGlyph(Shape &output, FontHandle *font, unicode_t unicode, double *advance = nullptr);
 /// Outputs the kerning distance adjustment between two specific glyphs.
 bool getKerning(double &output, FontHandle *font, unicode_t unicode1, unicode_t unicode2);
 

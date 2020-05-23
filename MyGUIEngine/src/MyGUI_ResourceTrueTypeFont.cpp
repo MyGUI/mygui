@@ -536,21 +536,10 @@ namespace MyGUI
 		}
 
 #ifdef MYGUI_MSDF_FONTS
-		msdfgen::FreetypeHandle *ft = nullptr;
 		msdfgen::FontHandle* msdfFont = nullptr;
 
 		if (mMsdfMode)
 		{
-			ft = msdfgen::initializeFreetype();
-			MYGUI_ASSERT(ft != nullptr, "ResourceTrueTypeFont: Could not init the FreeType library!");
-			/*msdfFont = msdfgen::loadFont(ft, DataManager::getInstance().getDataPath(mSource).c_str());
-			if (msdfFont == nullptr)
-			{
-				MYGUI_LOG(Error, "ResourceTrueTypeFont: Could not load the msdf font '" << getResourceName() << "'!");
-				deinitializeFreetype(ft);
-				return;
-			}*/
-
 			msdfFont = new msdfgen::FontHandle();
 			msdfFont->face = ftFace;
 		}
@@ -765,9 +754,9 @@ namespace MyGUI
 
 		if (texBuffer != nullptr)
 		{
-			// Make the texture background transparent white.
+			// Make the texture background transparent white (or black for msdf mode).
 			for (uint8* dest = texBuffer, * endDest = dest + texWidth * texHeight * Pixel<LAMode>::getNumBytes(); dest != endDest; )
-				Pixel<LAMode, false, false>::set(dest, charMaskWhite, charMaskBlack);
+				Pixel<LAMode, false, false>::set(dest, mMsdfMode ? charMaskBlack : charMaskWhite, charMaskBlack);
 
 			if (!mMsdfMode)
 				renderGlyphs<LAMode, Antialias>(glyphHeightMap, ftLibrary, ftFace, ftLoadFlags, texBuffer, texWidth, texHeight);
@@ -790,7 +779,6 @@ namespace MyGUI
 		if (mMsdfMode)
 		{
 			delete msdfFont;
-			deinitializeFreetype(ft);
 		}
 #endif
 
@@ -1107,7 +1095,7 @@ namespace MyGUI
 			range = 0;
 		}
 
-		float bearingX = bounds.l;
+		double bearingX = bounds.l;
 
 		return GlyphInfo(
 			_codePoint,

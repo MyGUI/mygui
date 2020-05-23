@@ -9,16 +9,10 @@ file(GLOB_RECURSE msdfgen_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
 
 file(GLOB_RECURSE msdfgen-ext_PUBLIC_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
 	"ext/*.h"
-	"ext/*.hpp"
-)
-
-file(GLOB_RECURSE msdfgen-ext_PRIVATE_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-	"include/*.h"
 )
 
 file(GLOB_RECURSE msdfgen-ext_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
 	"ext/*.cpp"
-	"lib/*.cpp"
 )
 
 add_library(msdfgen
@@ -26,9 +20,14 @@ add_library(msdfgen
 	${msdfgen_HEADERS}
 	${msdfgen_SOURCES}
 	${msdfgen-ext_PUBLIC_HEADERS}
-	${msdfgen-ext_PRIVATE_HEADERS}
 	${msdfgen-ext_SOURCES}
 )
+
+if (NOT MSVC)
+	target_compile_options(msdfgen PRIVATE -w)
+else ()
+	target_compile_options(msdfgen PRIVATE /W0)
+endif ()
 
 target_compile_definitions(msdfgen PUBLIC MSDFGEN_USE_CPP11)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)

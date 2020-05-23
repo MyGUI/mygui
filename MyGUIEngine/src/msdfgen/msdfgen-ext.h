@@ -11,13 +11,7 @@
  * Third party dependencies in extension module:
  * - FreeType 2
  *   (to load input font files)
- * - TinyXML 2 by Lee Thomason
- *   (to aid in parsing input SVG files)
- * - LodePNG by Lode Vandevenne
- *   (to save output PNG images)
  *
  */
 
-#include "ext/save-png.h"
-#include "ext/import-svg.h"
 #include "ext/import-font.h"
