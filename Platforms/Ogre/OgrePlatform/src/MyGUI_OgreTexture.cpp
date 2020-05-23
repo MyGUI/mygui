@@ -193,12 +193,7 @@ namespace MyGUI
 	{
 		mOriginalFormat = _format;
 		mPixelFormat = convertFormat(_format);
-		mNumElemBytes = 0;
-
-		if (_format == PixelFormat::L8) mNumElemBytes = 1;
-		else if (_format == PixelFormat::L8A8) mNumElemBytes = 2;
-		else if (_format == PixelFormat::R8G8B8) mNumElemBytes = 3;
-		else if (_format == PixelFormat::R8G8B8A8) mNumElemBytes = 4;
+		mNumElemBytes = _format.getBytesPerPixel();
 	}
 
 	void OgreTexture::setUsage(TextureUsage _usage)

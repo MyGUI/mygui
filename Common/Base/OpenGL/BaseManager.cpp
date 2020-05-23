@@ -98,7 +98,9 @@ namespace base
 
 	void BaseManager::saveImage(int _width, int _height, MyGUI::PixelFormat _format, void* _texture, const std::string& _filename)
 	{
-		MYGUI_LOG(Warning, "saveToFile not implemented (was trying to save '" << _filename << "')");
+		SDL_Surface* surface = SDL_CreateRGBSurface(0, _width, _height, _format.getBytesPerPixel() * 8, 0, 0, 0, 0);
+		std::memcpy(surface->pixels, _texture, _width * _height * _format.getBytesPerPixel());
+		IMG_SavePNG(surface, _filename.c_str());
 	}
 
 }

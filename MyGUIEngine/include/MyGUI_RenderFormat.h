@@ -77,6 +77,24 @@ namespace MyGUI
 			return mValue;
 		}
 
+		int getBytesPerPixel() const
+		{
+			switch (mValue)
+			{
+				case L8:
+					return 1;
+				case L8A8:
+					return 2;
+				case R8G8B8:
+					return 3;
+				case R8G8B8A8:
+					return 4;
+				case Unknow:
+					return 0;
+			}
+			return 0;
+		}
+
 	private:
 		Enum mValue;
 	};
