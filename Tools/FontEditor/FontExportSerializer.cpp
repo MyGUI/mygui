@@ -101,6 +101,10 @@ namespace tools
 		if (!value.empty())
 			data->setPropertyValue("MsdfMode", MyGUI::utility::parseValue<bool>(value));
 
+		value = _node.select_single_node("Property[@key=\"MsdfRange\"]/@value").attribute().value();
+		if (!value.empty())
+			data->setPropertyValue("MsdfRange", MyGUI::utility::parseValue<int>(value));
+
 		DataManager::getInstance().getRoot()->addChild(data);
 	}
 
@@ -157,6 +161,11 @@ namespace tools
 		nodeProperty = node.append_child("Property");
 		nodeProperty.append_attribute("key").set_value("MsdfMode");
 		nodeProperty.append_attribute("value").set_value(value.c_str());
+
+		nodeProperty = node.append_child("Property");
+		nodeProperty.append_attribute("key").set_value("MsdfRange");
+		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("MsdfRange").c_str());
+
 	}
 
 	bool FontExportSerializer::exportData(const MyGUI::UString& _folderName, const MyGUI::UString& _fileName)
@@ -288,6 +297,7 @@ namespace tools
 		font->setSubstituteCode(_data->getPropertyValue<int>("SubstituteCode"));
 		font->setDistance(_data->getPropertyValue<int>("Distance"));
 		font->setMsdfMode(_data->getPropertyValue<bool>("MsdfMode"));
+		font->setMsdfRange(_data->getPropertyValue<int>("MsdfRange"));
 
 		std::string ranges = _data->getPropertyValue("FontCodeRanges");
 		std::vector<std::string> values = MyGUI::utility::split(ranges, "|");

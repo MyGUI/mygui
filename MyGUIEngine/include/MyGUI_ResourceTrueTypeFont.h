@@ -75,6 +75,7 @@ namespace MyGUI
 		void setSubstituteCode(int _value);
 		void setDistance(int _value);
 		void setMsdfMode(bool _value);
+		void setMsdfRange(int _value);
 
 		void addCodePointRange(Char _first, Char _second);
 		void removeCodePointRange(Char _first, Char _second);
@@ -106,6 +107,7 @@ namespace MyGUI
 		int mOffsetHeight; // How far up to nudge text rendered in this font, in pixels. May be negative to nudge text down.
 		Char mSubstituteCodePoint; // The code point to use as a substitute for code points that don't exist in the font.
 		bool mMsdfMode; // Signed distance field texture, designed to be used with shader (see https://github.com/Chlumsky/msdfgen)
+		int mMsdfRange; // Gragient area range in pixels for msdf mode (higher range is required for thick outlines)
 
 		// The following variables are calculated automatically.
 		int mDefaultHeight; // The nominal height of the font in pixels.

@@ -116,6 +116,10 @@ namespace MyGUI
 	{
 	}
 
+	void ResourceTrueTypeFont::setMsdfRange(int _value)
+	{
+	}
+
 	void ResourceTrueTypeFont::addCodePointRange(Char _first, Char _second)
 	{
 	}
@@ -267,6 +271,7 @@ namespace MyGUI
 		mOffsetHeight(0),
 		mSubstituteCodePoint(static_cast<Char>(FontCodeType::NotDefined)),
 		mMsdfMode(false),
+		mMsdfRange(2),
 		mDefaultHeight(0),
 		mSubstituteGlyphInfo(nullptr),
 		mTexture(nullptr)
@@ -323,6 +328,10 @@ namespace MyGUI
 				else if (key == "MsdfMode")
 				{
 					setMsdfMode(utility::parseBool(value));
+				}
+				else if (key == "MsdfRange")
+				{
+					setMsdfRange(utility::parseInt(value));
 				}
 			}
 			else if (node->getName() == "Codes")
@@ -1091,18 +1100,22 @@ namespace MyGUI
 	GlyphInfo ResourceTrueTypeFont::createMsdfFaceGlyphInfo(Char _codePoint, const msdfgen::Shape& _shape, double _advance, int _fontAscent)
 	{
 		msdfgen::Shape::Bounds bounds = _shape.getBounds();
+		int range = mMsdfRange;
 		if (_shape.contours.empty())
+		{
 			bounds = {0, 0, 0, 0};
+			range = 0;
+		}
 
 		float bearingX = bounds.l;
 
 		return GlyphInfo(
 			_codePoint,
-			bounds.r - bounds.l,
-			bounds.t - bounds.b,
-			_advance - bearingX,
-			bearingX,
-			std::floor(_fontAscent - bounds.t - mOffsetHeight));
+			bounds.r - bounds.l + 2 * range,
+			bounds.t - bounds.b + 2 * range,
+			_advance - bearingX + range,
+			bearingX - range,
+			std::floor(_fontAscent - bounds.t - mOffsetHeight) - range);
 	}
 
 	int ResourceTrueTypeFont::createMsdfGlyph(const GlyphInfo& _glyphInfo, GlyphHeightMap& _glyphHeightMap)
@@ -1171,14 +1184,20 @@ namespace MyGUI
 						if (loadGlyph(shape, _fontHandle, info.codePoint))
 						{
 							msdfgen::Shape::Bounds bounds = shape.getBounds();
+							int range = mMsdfRange;
 							if (shape.contours.empty())
-								bounds = { 0, 0, 0, 0 };
+							{
+								bounds = {0, 0, 0, 0};
+								range = 0;
+							}
 
 							shape.normalize();
 							edgeColoringSimple(shape, 3.0);
 
-							msdfgen::Bitmap<float, 3> msdf(std::ceil(bounds.r - bounds.l), std::ceil(bounds.t - bounds.b));
-							generateMSDF(msdf, shape, 1, 1, msdfgen::Vector2(-bounds.l, -bounds.b));
+							msdfgen::Bitmap<float, 3> msdf(
+								std::ceil(bounds.r - bounds.l) + 2 * range,
+								std::ceil(bounds.t - bounds.b) + 2 * range);
+							generateMSDF(msdf, shape, mMsdfRange, 1, msdfgen::Vector2(-bounds.l + range, -bounds.b + range));
 
 							uint8* glyphBuffer = new uint8[msdf.width() * msdf.height() * 3];
 							uint8* glyphBufferPointer = glyphBuffer;
@@ -1270,6 +1289,11 @@ namespace MyGUI
 #else
 		mMsdfMode = _value;
 #endif
+	}
+
+	void ResourceTrueTypeFont::setMsdfRange(int _value)
+	{
+		mMsdfRange = _value;
 	}
 
 #endif // MYGUI_USE_FREETYPE
