@@ -9,9 +9,13 @@ include(${PROJECTNAME}.list)
 include_directories(include)
 if (MYGUI_USE_FREETYPE)
 	include_directories(
-		${FREETYPE_INCLUDE_DIRS} ${FREETYPE_FT2BUILD_INCLUDE_DIR}
+		${FREETYPE_INCLUDE_DIRS}
 	)
 	add_definitions(-DMYGUI_USE_FREETYPE)
+
+	if (MYGUI_MSDF_FONTS)
+		add_definitions(-DMYGUI_MSDF_FONTS)
+	endif ()
 endif ()
 if (MYGUI_DISABLE_PLUGINS)
 	add_definitions(-DMYGUI_DISABLE_PLUGINS)
@@ -45,6 +49,11 @@ if (MYGUI_USE_FREETYPE)
 	if (ZLIB_FOUND) # hacky way to check if freetype was built with zlib
 		target_link_libraries(${PROJECTNAME} ${ZLIB_LIBRARIES})
 	endif()
+
+	if (MYGUI_MSDF_FONTS)
+		add_subdirectory(src/msdfgen)
+		target_link_libraries(${PROJECTNAME} msdfgen)
+	endif ()
 endif()
 
 # platform specific dependencies

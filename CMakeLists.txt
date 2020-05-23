@@ -122,7 +122,8 @@ endif ()
 # Customise what to build
 option(MYGUI_STATIC "Static build" FALSE)
 option(MYGUI_DISABLE_PLUGINS "Disable plugins support" FALSE)
-option(MYGUI_USE_FREETYPE "Use freetype for font rendering" TRUE)
+option(MYGUI_USE_FREETYPE "Use freetype for font texture rendering" TRUE)
+option(MYGUI_MSDF_FONTS "Enable msdf fonts generation support" TRUE)
 option(MYGUI_DONT_USE_OBSOLETE "Remove obsole functions from build" FALSE)
 
 set(MYGUI_RENDERSYSTEM 3 CACHE STRING
@@ -193,7 +194,6 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 	else ()
 		if (MYGUI_USE_FREETYPE)
 			ignore_warnings(${FREETYPE_INCLUDE_DIRS})
-			ignore_warnings(${FREETYPE_FT2BUILD_INCLUDE_DIR})
 		endif ()
 		if (MYGUI_RENDERSYSTEM EQUAL 3)
 			# to avoid warnings from OGRE

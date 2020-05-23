@@ -41,9 +41,10 @@ namespace MyGUI
 	typedef std::pair<std::string, std::string> PairString;
 	using VectorStringPairs = std::vector<PairString>;
 
-	using uint8 = unsigned char;
-	using uint16 = unsigned short;
-	using uint32 = unsigned int;
+	// TODO: remove this types
+	using uint8 = uint8_t;
+	using uint16 = uint16_t;
+	using uint32 = uint32_t;
 
 	using Char = unsigned int;
 

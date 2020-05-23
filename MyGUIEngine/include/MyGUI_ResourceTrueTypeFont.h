@@ -14,6 +14,15 @@
 #ifdef MYGUI_USE_FREETYPE
 #	include <ft2build.h>
 #	include FT_FREETYPE_H
+
+#ifdef MYGUI_MSDF_FONTS
+namespace msdfgen
+{
+	class FontHandle;
+	class Shape;
+}
+#endif
+
 #endif // MYGUI_USE_FREETYPE
 
 #include <unordered_map>
@@ -65,6 +74,7 @@ namespace MyGUI
 		void setOffsetHeight(int _value);
 		void setSubstituteCode(int _value);
 		void setDistance(int _value);
+		void setMsdfMode(bool _value);
 
 		void addCodePointRange(Char _first, Char _second);
 		void removeCodePointRange(Char _first, Char _second);
@@ -95,6 +105,7 @@ namespace MyGUI
 		float mTabWidth; // The width of the "Tab" special character, in pixels.
 		int mOffsetHeight; // How far up to nudge text rendered in this font, in pixels. May be negative to nudge text down.
 		Char mSubstituteCodePoint; // The code point to use as a substitute for code points that don't exist in the font.
+		bool mMsdfMode; // Signed distance field texture, designed to be used with shader (see https://github.com/Chlumsky/msdfgen)
 
 		// The following variables are calculated automatically.
 		int mDefaultHeight; // The nominal height of the font in pixels.
@@ -115,7 +126,7 @@ namespace MyGUI
 		typedef std::unordered_map<Char, GlyphInfo> GlyphMap;
 
 		// A map of glyph heights to the set of paired glyph indices and glyph info objects that are of that height.
-		typedef std::map<FT_Pos, std::map<FT_UInt, GlyphInfo*> > GlyphHeightMap;
+		typedef std::map<int, std::map<FT_UInt, GlyphInfo*> > GlyphHeightMap;
 
 		template<bool LAMode, bool Antialias>
 		void initialiseFreeType();
@@ -154,6 +165,14 @@ namespace MyGUI
 
 		CharMap mCharMap; // A map of code points to glyph indices.
 		GlyphMap mGlyphMap; // A map of code points to glyph info objects.
+
+#ifdef MYGUI_MSDF_FONTS
+		GlyphInfo createMsdfFaceGlyphInfo(Char _codePoint, const msdfgen::Shape& _shape, double _advance, int _fontAscent);
+		int createMsdfGlyph(const GlyphInfo& _glyphInfo, GlyphHeightMap& _glyphHeightMap);
+		int createMsdfFaceGlyph(Char _codePoint, int _fontAscent, msdfgen::FontHandle* _fontHandle, GlyphHeightMap& _glyphHeightMap);
+
+		void renderMsdfGlyphs(const GlyphHeightMap& _glyphHeightMap, msdfgen::FontHandle* _fontHandle, uint8* _texBuffer, int _texWidth, int _texHeight);
+#endif
 
 #endif // MYGUI_USE_FREETYPE
 

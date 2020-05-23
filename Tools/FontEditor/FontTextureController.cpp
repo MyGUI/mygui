@@ -8,7 +8,6 @@
 #include "FontTextureController.h"
 #include "FactoryManager.h"
 #include "DataSelectorManager.h"
-#include "DataManager.h"
 #include "PropertyUtility.h"
 #include "ScopeManager.h"
 #include "DataUtility.h"
