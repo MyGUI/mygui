@@ -45,15 +45,15 @@ if (UNIX)
 endif()
 
 if (MYGUI_USE_FREETYPE)
-	target_link_libraries(${PROJECTNAME} ${FREETYPE_LIBRARIES})
-	if (ZLIB_FOUND) # hacky way to check if freetype was built with zlib
-		target_link_libraries(${PROJECTNAME} ${ZLIB_LIBRARIES})
-	endif()
-
 	if (MYGUI_MSDF_FONTS)
 		add_subdirectory(src/msdfgen)
 		target_link_libraries(${PROJECTNAME} msdfgen)
 	endif ()
+
+	target_link_libraries(${PROJECTNAME} ${FREETYPE_LIBRARIES})
+	if (ZLIB_FOUND) # hacky way to check if freetype was built with zlib
+		target_link_libraries(${PROJECTNAME} ${ZLIB_LIBRARIES})
+	endif()
 endif()
 
 # platform specific dependencies
