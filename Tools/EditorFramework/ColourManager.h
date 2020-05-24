@@ -15,9 +15,9 @@ namespace tools
 {
 
 	class MYGUI_EXPORT_DLL ColourManager :
-		public MyGUI::Singleton<ColourManager>,
 		public sigslot::has_slots<>
 	{
+		MYGUI_SINGLETON_DECLARATION(ColourManager);
 	public:
 		ColourManager();
 

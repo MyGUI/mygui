@@ -15,10 +15,12 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT DataManager :
-		public Singleton<DataManager>
+	class MYGUI_EXPORT DataManager
 	{
+		MYGUI_SINGLETON_DECLARATION(DataManager);
 	public:
+		DataManager();
+		virtual ~DataManager() = default;
 
 		/** Get data stream from specified resource name.
 			@param _name Resource name (usually file name).

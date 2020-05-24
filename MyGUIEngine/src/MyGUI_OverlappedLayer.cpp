@@ -22,7 +22,8 @@ namespace MyGUI
 
 	OverlappedLayer::~OverlappedLayer()
 	{
-		MYGUI_ASSERT(mChildItems.empty(), "Layer '" << getName() << "' must be empty before destroy");
+		if (!mChildItems.empty())
+			MYGUI_LOG(Critical, "Layer '" << getName() << "' must be empty before destroy");
 	}
 
 	void OverlappedLayer::deserialization(xml::ElementPtr _node, Version _version)

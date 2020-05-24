@@ -6,14 +6,14 @@
 #include "Precompiled.h"
 #include "Console.h"
 
-// внутри неймспейса demo почему то не линкуется, даже если указать абсолютные пути
-template <> demo::Console* MyGUI::Singleton<demo::Console>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<demo::Console>::mClassTypeName = "Console";
-
 namespace demo
 {
 
-	Console::Console() : BaseLayout("Console.layout")
+	MYGUI_SINGLETON_DEFINITION(Console);
+
+	Console::Console() :
+		BaseLayout("Console.layout"),
+		mSingletonHolder(this)
 	{
 		assignWidget(mListHistory, "list_History");
 		assignWidget(mComboCommand, "combo_Command");

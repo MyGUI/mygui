@@ -14,9 +14,9 @@ namespace tools
 {
 
 	class EditorToolTip :
-		public wraps::BaseLayout,
-		public MyGUI::Singleton<EditorToolTip>
+		public wraps::BaseLayout
 	{
+		MYGUI_SINGLETON_DECLARATION(EditorToolTip);
 	public:
 		EditorToolTip();
 

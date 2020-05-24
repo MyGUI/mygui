@@ -10,7 +10,11 @@
 namespace MyGUI
 {
 
-	template <> DataManager* Singleton<DataManager>::msInstance = nullptr;
-	template <> const char* Singleton<DataManager>::mClassTypeName = "DataManager";
+	MYGUI_SINGLETON_DEFINITION(DataManager);
+
+	DataManager::DataManager() :
+		mSingletonHolder(this)
+	{
+	}
 
 } // namespace MyGUI

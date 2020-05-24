@@ -18,9 +18,9 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT LanguageManager :
-		public Singleton<LanguageManager>,
 		public MemberObsolete<LanguageManager>
 	{
+		MYGUI_SINGLETON_DECLARATION(LanguageManager);
 	public:
 		LanguageManager();
 

@@ -19,9 +19,9 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT SkinManager :
-		public Singleton<SkinManager>,
 		public MemberObsolete<SkinManager>
 	{
+		MYGUI_SINGLETON_DECLARATION(SkinManager);
 	public:
 		SkinManager();
 

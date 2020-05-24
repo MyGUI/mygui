@@ -12,9 +12,9 @@
 namespace tools
 {
 
-	class RecentFilesManager :
-		public MyGUI::Singleton<RecentFilesManager>
+	class RecentFilesManager
 	{
+		MYGUI_SINGLETON_DECLARATION(RecentFilesManager);
 	public:
 		typedef std::vector<MyGUI::UString> VectorUString;
 

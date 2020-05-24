@@ -13,10 +13,11 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL MessageBoxManager :
-		public MyGUI::Singleton<MessageBoxManager>
+	class MYGUI_EXPORT_DLL MessageBoxManager
 	{
+		MYGUI_SINGLETON_DECLARATION(MessageBoxManager);
 	public:
+		MessageBoxManager() : mSingletonHolder(this) { }
 		void initialise();
 		void shutdown();
 

@@ -36,9 +36,9 @@ namespace demo
 	}
 
 	class Console :
-		public MyGUI::Singleton<Console>,
 		public wraps::BaseLayout
 	{
+		MYGUI_SINGLETON_DECLARATION(Console);
 	public:
 		Console();
 

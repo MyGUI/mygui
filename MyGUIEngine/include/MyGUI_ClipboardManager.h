@@ -17,9 +17,9 @@ namespace MyGUI
 
 	class WindowsClipboardHandler;
 
-	class MYGUI_EXPORT ClipboardManager :
-		public Singleton<ClipboardManager>
+	class MYGUI_EXPORT ClipboardManager
 	{
+		MYGUI_SINGLETON_DECLARATION(ClipboardManager);
 	public:
 		ClipboardManager();
 

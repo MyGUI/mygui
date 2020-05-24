@@ -13,10 +13,11 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL DialogManager :
-		public MyGUI::Singleton<DialogManager>
+	class MYGUI_EXPORT_DLL DialogManager
 	{
+		MYGUI_SINGLETON_DECLARATION(DialogManager);
 	public:
+		DialogManager() : mSingletonHolder(this) { }
 		void initialise();
 		void shutdown();
 

@@ -13,9 +13,9 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL HotKeyManager :
-		public MyGUI::Singleton<HotKeyManager>
+	class MYGUI_EXPORT_DLL HotKeyManager
 	{
+		MYGUI_SINGLETON_DECLARATION(HotKeyManager);
 	public:
 		HotKeyManager();
 		virtual ~HotKeyManager();

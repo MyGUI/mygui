@@ -11,11 +11,11 @@
 namespace MyGUI
 {
 
-	template <> FactoryManager* Singleton<FactoryManager>::msInstance = nullptr;
-	template <> const char* Singleton<FactoryManager>::mClassTypeName = "FactoryManager";
+	MYGUI_SINGLETON_DEFINITION(FactoryManager);
 
 	FactoryManager::FactoryManager() :
-		mIsInitialise(false)
+		mIsInitialise(false),
+		mSingletonHolder(this)
 	{
 	}
 

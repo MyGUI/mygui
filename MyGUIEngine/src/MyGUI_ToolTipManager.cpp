@@ -13,8 +13,7 @@
 namespace MyGUI
 {
 
-	template <> ToolTipManager* Singleton<ToolTipManager>::msInstance = nullptr;
-	template <> const char* Singleton<ToolTipManager>::mClassTypeName = "ToolTipManager";
+	MYGUI_SINGLETON_DEFINITION(ToolTipManager);
 
 	ToolTipManager::ToolTipManager() :
 		mDelayVisible(0.5f),
@@ -23,7 +22,8 @@ namespace MyGUI
 		mCurrentTime(0),
 		mOldIndex(ITEM_NONE),
 		mNeedToolTip(false),
-		mIsInitialise(false)
+		mIsInitialise(false),
+		mSingletonHolder(this)
 	{
 	}
 

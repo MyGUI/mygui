@@ -13,9 +13,9 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT SubWidgetManager :
-		public Singleton<SubWidgetManager>
+	class MYGUI_EXPORT SubWidgetManager
 	{
+		MYGUI_SINGLETON_DECLARATION(SubWidgetManager);
 	public:
 		SubWidgetManager();
 

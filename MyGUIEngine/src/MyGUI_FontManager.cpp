@@ -15,14 +15,14 @@
 namespace MyGUI
 {
 
-	template <> FontManager* Singleton<FontManager>::msInstance = nullptr;
-	template <> const char* Singleton<FontManager>::mClassTypeName = "FontManager";
+	MYGUI_SINGLETON_DEFINITION(FontManager);
 
 	FontManager::FontManager() :
 		mIsInitialise(false),
 		mXmlFontTagName("Font"),
 		mXmlPropertyTagName("Property"),
-		mXmlDefaultFontValue("Default")
+		mXmlDefaultFontValue("Default"),
+		mSingletonHolder(this)
 	{
 	}
 

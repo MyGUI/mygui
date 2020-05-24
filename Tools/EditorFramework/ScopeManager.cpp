@@ -9,8 +9,7 @@
 #include "CommandManager.h"
 #include "SettingsManager.h"
 
-template <> tools::ScopeManager* MyGUI::Singleton<tools::ScopeManager>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::ScopeManager>::mClassTypeName = "ScopeManager";
+MYGUI_SINGLETON_DEFINITION(tools::ScopeManager);
 
 namespace tools
 {

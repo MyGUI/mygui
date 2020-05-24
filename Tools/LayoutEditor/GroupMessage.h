@@ -6,10 +6,11 @@
 namespace tools
 {
 
-	class GroupMessage :
-		public MyGUI::Singleton<GroupMessage>
+	class GroupMessage
 	{
+		MYGUI_SINGLETON_DECLARATION(GroupMessage);
 	public:
+		GroupMessage() : mSingletonHolder(this) { }
 		void initialise();
 		void shutdown();
 

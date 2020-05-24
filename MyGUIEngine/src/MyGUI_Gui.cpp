@@ -31,8 +31,7 @@
 namespace MyGUI
 {
 
-	template <> Gui* Singleton<Gui>::msInstance = nullptr;
-	template <> const char* Singleton<Gui>::mClassTypeName = "Gui";
+	MYGUI_SINGLETON_DEFINITION(Gui);
 
 	Gui::Gui() :
 		mInputManager(nullptr),
@@ -51,7 +50,8 @@ namespace MyGUI
 		mResourceManager(nullptr),
 		mFactoryManager(nullptr),
 		mToolTipManager(nullptr),
-		mIsInitialise(false)
+		mIsInitialise(false),
+		mSingletonHolder(this)
 	{
 	}
 

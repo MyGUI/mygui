@@ -8,8 +8,7 @@
 #include "WidgetSelectorManager.h"
 #include "EditorWidgets.h"
 
-template <> tools::WidgetSelectorManager* MyGUI::Singleton<tools::WidgetSelectorManager>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::WidgetSelectorManager>::mClassTypeName = "WidgetSelectorManager";
+MYGUI_SINGLETON_DEFINITION(tools::WidgetSelectorManager);
 
 namespace tools
 {
@@ -17,7 +16,8 @@ namespace tools
 	WidgetSelectorManager::WidgetSelectorManager() :
 		mCurrentWidget(nullptr),
 		mSelectDepth(0),
-		mStoreWidgetTag("LE_StoreWidgetTag")
+		mStoreWidgetTag("LE_StoreWidgetTag"),
+		mSingletonHolder(this)
 	{
 	}
 	void WidgetSelectorManager::initialise()

@@ -18,9 +18,9 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT ControllerManager :
-		public Singleton<ControllerManager>,
 		public IUnlinkWidget
 	{
+		MYGUI_SINGLETON_DECLARATION(ControllerManager);
 	public:
 		ControllerManager();
 

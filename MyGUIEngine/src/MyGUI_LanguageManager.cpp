@@ -15,12 +15,12 @@
 namespace MyGUI
 {
 
-	template <> LanguageManager* Singleton<LanguageManager>::msInstance = nullptr;
-	template <> const char* Singleton<LanguageManager>::mClassTypeName = "LanguageManager";
+	MYGUI_SINGLETON_DEFINITION(LanguageManager);
 
 	LanguageManager::LanguageManager() :
 		mIsInitialise(false),
-		mXmlLanguageTagName("Language")
+		mXmlLanguageTagName("Language"),
+		mSingletonHolder(this)
 	{
 	}
 

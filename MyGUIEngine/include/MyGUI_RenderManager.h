@@ -17,10 +17,12 @@
 namespace MyGUI
 {
 
-	class MYGUI_EXPORT RenderManager :
-		public Singleton<RenderManager>
+	class MYGUI_EXPORT RenderManager
 	{
+		MYGUI_SINGLETON_DECLARATION(RenderManager);
 	public:
+		RenderManager();
+		virtual ~RenderManager() = default;
 
 		/** Create vertex buffer.
 			This method should create vertex buffer with triangles list type,

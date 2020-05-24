@@ -25,10 +25,10 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT InputManager :
-		public Singleton<InputManager>,
 		public IUnlinkWidget,
 		public MemberObsolete<InputManager>
 	{
+		MYGUI_SINGLETON_DECLARATION(InputManager);
 	public:
 		InputManager();
 

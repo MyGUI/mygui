@@ -28,13 +28,13 @@
 #include "FactoryManager.h"
 #include "ComponentFactory.h"
 
-template <> tools::Application* MyGUI::Singleton<tools::Application>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::Application>::mClassTypeName = "Application";
+MYGUI_SINGLETON_DEFINITION(tools::Application);
 
 namespace tools
 {
 
-	Application::Application()
+	Application::Application() :
+		mSingletonHolder(this)
 	{
 		ComponentFactory::Initialise();
 	}

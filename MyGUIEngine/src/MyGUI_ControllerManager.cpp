@@ -18,12 +18,12 @@
 namespace MyGUI
 {
 
-	template <> ControllerManager* Singleton<ControllerManager>::msInstance = nullptr;
-	template <> const char* Singleton<ControllerManager>::mClassTypeName = "ControllerManager";
+	MYGUI_SINGLETON_DEFINITION(ControllerManager);
 
 	ControllerManager::ControllerManager() :
 		mIsInitialise(false),
-		mCategoryName("Controller")
+		mCategoryName("Controller"),
+		mSingletonHolder(this)
 	{
 	}
 

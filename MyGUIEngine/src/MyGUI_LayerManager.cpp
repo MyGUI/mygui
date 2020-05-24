@@ -18,12 +18,12 @@
 namespace MyGUI
 {
 
-	template <> LayerManager* Singleton<LayerManager>::msInstance = nullptr;
-	template <> const char* Singleton<LayerManager>::mClassTypeName = "LayerManager";
+	MYGUI_SINGLETON_DEFINITION(LayerManager);
 
 	LayerManager::LayerManager() :
 		mIsInitialise(false),
-		mCategoryName("Layer")
+		mCategoryName("Layer"),
+		mSingletonHolder(this)
 	{
 	}
 

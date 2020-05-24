@@ -13,10 +13,11 @@
 namespace tools
 {
 
-	class PropertyFieldManager :
-		public MyGUI::Singleton<PropertyFieldManager>
+	class PropertyFieldManager
 	{
+		MYGUI_SINGLETON_DECLARATION(PropertyFieldManager);
 	public:
+		PropertyFieldManager() : mSingletonHolder(this) { }
 		void initialise();
 		void shutdown();
 

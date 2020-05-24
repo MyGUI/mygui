@@ -7,8 +7,7 @@
 #include "Precompiled.h"
 #include "CommandManager.h"
 
-template <> tools::CommandManager* MyGUI::Singleton<tools::CommandManager>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::CommandManager>::mClassTypeName = "CommandManager";
+MYGUI_SINGLETON_DEFINITION(tools::CommandManager);
 
 namespace tools
 {

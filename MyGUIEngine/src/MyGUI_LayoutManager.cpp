@@ -13,12 +13,12 @@
 namespace MyGUI
 {
 
-	template <> LayoutManager* Singleton<LayoutManager>::msInstance = nullptr;
-	template <> const char* Singleton<LayoutManager>::mClassTypeName = "LayoutManager";
+	MYGUI_SINGLETON_DEFINITION(LayoutManager);
 
 	LayoutManager::LayoutManager() :
 		mIsInitialise(false),
-		mXmlLayoutTagName("Layout")
+		mXmlLayoutTagName("Layout"),
+		mSingletonHolder(this)
 	{
 	}
 

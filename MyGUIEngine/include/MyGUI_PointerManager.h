@@ -18,10 +18,10 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT PointerManager :
-		public Singleton<PointerManager>,
 		public IUnlinkWidget,
 		public MemberObsolete<PointerManager>
 	{
+		MYGUI_SINGLETON_DECLARATION(PointerManager);
 	public:
 		PointerManager();
 

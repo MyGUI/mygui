@@ -12,11 +12,11 @@
 namespace MyGUI
 {
 
-	template <> DynLibManager* Singleton<DynLibManager>::msInstance = nullptr;
-	template <> const char* Singleton<DynLibManager>::mClassTypeName = "DynLibManager";
+	MYGUI_SINGLETON_DEFINITION(DynLibManager);
 
 	DynLibManager::DynLibManager() :
-		mIsInitialise(false)
+		mIsInitialise(false),
+		mSingletonHolder(this)
 	{
 	}
 

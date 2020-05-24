@@ -21,9 +21,9 @@ namespace MyGUI
 	typedef delegates::CMultiDelegate3<Widget*, const std::string&, const std::string&> EventHandle_AddUserStringDelegate;
 
 	class MYGUI_EXPORT LayoutManager :
-		public Singleton<LayoutManager>,
 		public MemberObsolete<LayoutManager>
 	{
+		MYGUI_SINGLETON_DECLARATION(LayoutManager);
 	public:
 		LayoutManager();
 

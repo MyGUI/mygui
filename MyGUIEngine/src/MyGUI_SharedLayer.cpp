@@ -23,7 +23,8 @@ namespace MyGUI
 
 	SharedLayer::~SharedLayer()
 	{
-		MYGUI_ASSERT(mChildItem == nullptr, "Layer '" << getName() << "' must be empty before destroy");
+		if (mChildItem != nullptr)
+			MYGUI_LOG(Critical, "Layer '" << getName() << "' must be empty before destroy");
 	}
 
 	void SharedLayer::deserialization(xml::ElementPtr _node, Version _version)

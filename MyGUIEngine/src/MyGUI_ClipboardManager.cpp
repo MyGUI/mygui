@@ -15,14 +15,14 @@
 namespace MyGUI
 {
 
-	template <> ClipboardManager* Singleton<ClipboardManager>::msInstance = nullptr;
-	template <> const char* Singleton<ClipboardManager>::mClassTypeName = "ClipboardManager";
+	MYGUI_SINGLETON_DEFINITION(ClipboardManager);
 
 	ClipboardManager::ClipboardManager() :
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		mWindowsClipboardHandler(nullptr),
 #endif
-		mIsInitialise(false)
+		mIsInitialise(false),
+		mSingletonHolder(this)
 	{
 	}
 

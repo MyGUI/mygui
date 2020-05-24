@@ -13,9 +13,9 @@ namespace tools
 	typedef MyGUI::delegates::CMultiDelegate1<bool> Event_Changes;
 
 	class UndoManager :
-		public MyGUI::Singleton<UndoManager>,
 		public sigslot::has_slots<>
 	{
+		MYGUI_SINGLETON_DECLARATION(UndoManager);
 	public:
 		UndoManager();
 

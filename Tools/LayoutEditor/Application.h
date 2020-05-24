@@ -10,9 +10,9 @@ namespace tools
 
 	class Application :
 		public base::BaseDemoManager,
-		public MyGUI::Singleton<Application>,
 		public sigslot::has_slots<>
 	{
+		MYGUI_SINGLETON_DECLARATION(Application);
 	public:
 		Application();
 		virtual ~Application();

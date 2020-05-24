@@ -20,13 +20,13 @@
 namespace MyGUI
 {
 
-	template <> SkinManager* Singleton<SkinManager>::msInstance = nullptr;
-	template <> const char* Singleton<SkinManager>::mClassTypeName = "SkinManager";
+	MYGUI_SINGLETON_DEFINITION(SkinManager);
 
 	SkinManager::SkinManager() :
 		mIsInitialise(false),
 		mXmlSkinTagName("Skin"),
-		mXmlDefaultSkinValue("Default")
+		mXmlDefaultSkinValue("Default"),
+		mSingletonHolder(this)
 	{
 	}
 

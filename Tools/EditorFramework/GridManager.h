@@ -14,9 +14,9 @@ namespace tools
 {
 
 	class MYGUI_EXPORT_DLL GridManager :
-		public MyGUI::Singleton<GridManager>,
 		public sigslot::has_slots<>
 	{
+		MYGUI_SINGLETON_DECLARATION(GridManager);
 	public:
 		GridManager();
 

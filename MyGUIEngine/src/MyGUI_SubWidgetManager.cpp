@@ -20,13 +20,13 @@
 namespace MyGUI
 {
 
-	template <> SubWidgetManager* Singleton<SubWidgetManager>::msInstance = nullptr;
-	template <> const char* Singleton<SubWidgetManager>::mClassTypeName = "SubWidgetManager";
+	MYGUI_SINGLETON_DEFINITION(SubWidgetManager);
 
 	SubWidgetManager::SubWidgetManager() :
 		mIsInitialise(false),
 		mCategoryName("BasisSkin"),
-		mStateCategoryName("BasisSkin/State")
+		mStateCategoryName("BasisSkin/State"),
+		mSingletonHolder(this)
 	{
 	}
 

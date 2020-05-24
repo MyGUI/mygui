@@ -12,8 +12,7 @@
 #include "UndoManager.h"
 #include "GridManager.h"
 
-template <> tools::WidgetCreatorManager* MyGUI::Singleton<tools::WidgetCreatorManager>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::WidgetCreatorManager>::mClassTypeName = "WidgetCreatorManager";
+MYGUI_SINGLETON_DEFINITION(tools::WidgetCreatorManager);
 
 namespace tools
 {
@@ -22,7 +21,8 @@ namespace tools
 		mCreateMode(false),
 		mStartNewWidget(false),
 		mNewWidget(nullptr),
-		mPopupMode(false)
+		mPopupMode(false),
+		mSingletonHolder(this)
 	{
 	}
 

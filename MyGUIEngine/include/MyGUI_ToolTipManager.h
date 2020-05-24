@@ -15,9 +15,9 @@ namespace MyGUI
 {
 
 	class MYGUI_EXPORT ToolTipManager :
-		public Singleton<ToolTipManager>,
 		public IUnlinkWidget
 	{
+		MYGUI_SINGLETON_DECLARATION(ToolTipManager);
 	public:
 		ToolTipManager();
 

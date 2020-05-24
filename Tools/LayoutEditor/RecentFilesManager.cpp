@@ -9,8 +9,7 @@
 #include "SettingsManager.h"
 #include "FileSystemInfo/FileSystemInfo.h"
 
-template <> tools::RecentFilesManager* MyGUI::Singleton<tools::RecentFilesManager>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::RecentFilesManager>::mClassTypeName = "RecentFilesManager";
+MYGUI_SINGLETON_DEFINITION(tools::RecentFilesManager);
 
 namespace tools
 {
@@ -18,7 +17,8 @@ namespace tools
 	RecentFilesManager::RecentFilesManager() :
 		mMaxRecentFolders(0),
 		mMaxRecentFiles(0),
-		mMaxRecentProjects(0)
+		mMaxRecentProjects(0),
+		mSingletonHolder(this)
 	{
 	}
 

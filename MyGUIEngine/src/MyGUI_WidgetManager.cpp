@@ -38,12 +38,12 @@
 namespace MyGUI
 {
 
-	template <> WidgetManager* Singleton<WidgetManager>::msInstance = nullptr;
-	template <> const char* Singleton<WidgetManager>::mClassTypeName = "WidgetManager";
+	MYGUI_SINGLETON_DEFINITION(WidgetManager);
 
 	WidgetManager::WidgetManager() :
 		mIsInitialise(false),
-		mCategoryName("Widget")
+		mCategoryName("Widget"),
+		mSingletonHolder(this)
 	{
 	}
 

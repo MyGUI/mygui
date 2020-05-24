@@ -13,10 +13,11 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL CommandManager :
-		public MyGUI::Singleton<CommandManager>
+	class MYGUI_EXPORT_DLL CommandManager
 	{
+		MYGUI_SINGLETON_DECLARATION(CommandManager);
 	public:
+		CommandManager() : mSingletonHolder(this) { }
 		void initialise();
 		void shutdown();
 

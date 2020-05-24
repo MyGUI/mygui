@@ -15,9 +15,9 @@ namespace tools
 
 	typedef MyGUI::delegates::CMultiDelegate1<MyGUI::Widget*> Event_ChangeSelectedWidget;
 
-	class WidgetSelectorManager :
-		public MyGUI::Singleton<WidgetSelectorManager>
+	class WidgetSelectorManager
 	{
+		MYGUI_SINGLETON_DECLARATION(WidgetSelectorManager);
 	public:
 		WidgetSelectorManager();
 

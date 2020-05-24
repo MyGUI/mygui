@@ -14,9 +14,9 @@ namespace tools
 	typedef MyGUI::Enumerator<VectorWidgetContainer> EnumeratorWidgetContainer;
 
 	class EditorWidgets :
-		public MyGUI::Singleton<EditorWidgets>,
 		public MyGUI::IUnlinkWidget
 	{
+		MYGUI_SINGLETON_DECLARATION(EditorWidgets);
 	public:
 		EditorWidgets();
 

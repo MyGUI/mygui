@@ -22,8 +22,7 @@
 namespace MyGUI
 {
 
-	template <> PointerManager* Singleton<PointerManager>::msInstance = nullptr;
-	template <> const char* Singleton<PointerManager>::mClassTypeName = "PointerManager";
+	MYGUI_SINGLETON_DEFINITION(PointerManager);
 
 	PointerManager::PointerManager() :
 		mVisible(false),
@@ -33,7 +32,8 @@ namespace MyGUI
 		mIsInitialise(false),
 		mXmlPointerTagName("Pointer"),
 		mXmlPropertyTagName("Property"),
-		mXmlDefaultPointerValue("Default")
+		mXmlDefaultPointerValue("Default"),
+		mSingletonHolder(this)
 	{
 	}
 

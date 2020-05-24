@@ -17,9 +17,9 @@ namespace MyGUI
 
 	/*!	\brief Manager of dynamic libraries
 	*/
-	class MYGUI_EXPORT DynLibManager :
-		public Singleton<DynLibManager>
+	class MYGUI_EXPORT DynLibManager
 	{
+		MYGUI_SINGLETON_DECLARATION(DynLibManager);
 	public:
 		DynLibManager();
 

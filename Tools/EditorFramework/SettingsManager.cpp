@@ -7,15 +7,15 @@
 #include "Precompiled.h"
 #include "SettingsManager.h"
 
-template <> tools::SettingsManager* MyGUI::Singleton<tools::SettingsManager>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::SettingsManager>::mClassTypeName = "SettingsManager";
+MYGUI_SINGLETON_DEFINITION(tools::SettingsManager);
 
 namespace tools
 {
 
 	SettingsManager::SettingsManager() :
 		mDocument(nullptr),
-		mUserDocument(nullptr)
+		mUserDocument(nullptr),
+		mSingletonHolder(this)
 	{
 		mDocument = new pugi::xml_document();
 		pugi::xml_node declaration = mDocument->append_child(pugi::node_declaration);

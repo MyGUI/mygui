@@ -16,13 +16,13 @@
 namespace MyGUI
 {
 
-	template <> ResourceManager* Singleton<ResourceManager>::msInstance = nullptr;
-	template <> const char* Singleton<ResourceManager>::mClassTypeName = "ResourceManager";
+	MYGUI_SINGLETON_DEFINITION(ResourceManager);
 
 	ResourceManager::ResourceManager() :
 		mIsInitialise(false),
 		mCategoryName("Resource"),
-		mXmlListTagName("List")
+		mXmlListTagName("List"),
+		mSingletonHolder(this)
 	{
 	}
 

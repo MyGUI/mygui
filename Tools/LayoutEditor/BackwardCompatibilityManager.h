@@ -14,9 +14,9 @@ namespace tools
 {
 
 	class BackwardCompatibilityManager :
-		public MyGUI::Singleton<BackwardCompatibilityManager>,
 		public sigslot::has_slots<>
 	{
+		MYGUI_SINGLETON_DECLARATION(BackwardCompatibilityManager);
 	public:
 		BackwardCompatibilityManager();
 

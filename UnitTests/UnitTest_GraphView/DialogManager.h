@@ -11,9 +11,9 @@
 
 namespace tools
 {
-	class DialogManager :
-		public MyGUI::Singleton<DialogManager>
+	class DialogManager
 	{
+		MYGUI_SINGLETON_DECLARATION(DialogManager);
 	public:
 		void initialise();
 		void shutdown();

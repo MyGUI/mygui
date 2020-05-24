@@ -7,8 +7,7 @@
 #include "WidgetSelectorManager.h"
 #include "SettingsManager.h"
 
-template <> tools::EditorWidgets* MyGUI::Singleton<tools::EditorWidgets>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::EditorWidgets>::mClassTypeName = "EditorWidgets";
+MYGUI_SINGLETON_DEFINITION(tools::EditorWidgets);
 
 namespace tools
 {
@@ -17,7 +16,8 @@ namespace tools
 	const std::string CodeGeneratorSettingsNodeName = "CodeGeneratorSettings";
 
 	EditorWidgets::EditorWidgets() :
-		mWidgetsChanged(false)
+		mWidgetsChanged(false),
+		mSingletonHolder(this)
 	{
 	}
 

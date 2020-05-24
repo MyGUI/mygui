@@ -8,10 +8,11 @@
 namespace tools
 {
 
-	class WidgetTypes :
-		public MyGUI::Singleton<WidgetTypes>
+	class WidgetTypes
 	{
+		MYGUI_SINGLETON_DECLARATION(WidgetTypes);
 	public:
+		WidgetTypes() : mSingletonHolder(this) { }
 		void initialise();
 		void shutdown();
 

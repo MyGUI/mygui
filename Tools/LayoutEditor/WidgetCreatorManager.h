@@ -16,9 +16,9 @@ namespace tools
 	typedef MyGUI::delegates::CMultiDelegate1<bool> Event_ChangeCreatorMode;
 	typedef MyGUI::delegates::CMultiDelegate2<bool, const MyGUI::IntCoord&> Event_ChangeSelector;
 
-	class WidgetCreatorManager :
-		public MyGUI::Singleton<WidgetCreatorManager>
+	class WidgetCreatorManager
 	{
+		MYGUI_SINGLETON_DECLARATION(WidgetCreatorManager);
 	public:
 		WidgetCreatorManager();
 

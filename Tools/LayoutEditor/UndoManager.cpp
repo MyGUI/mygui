@@ -3,8 +3,7 @@
 #include "CommandManager.h"
 #include "WidgetSelectorManager.h"
 
-template <> tools::UndoManager* MyGUI::Singleton<tools::UndoManager>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::UndoManager>::mClassTypeName = "UndoManager";
+MYGUI_SINGLETON_DEFINITION(tools::UndoManager);
 
 namespace tools
 {
@@ -16,7 +15,8 @@ namespace tools
 		mOperations(UNDO_COUNT),
 		mLastProperty(0),
 		mEditorWidgets(nullptr),
-		mUnsaved(false)
+		mUnsaved(false),
+		mSingletonHolder(this)
 	{
 		CommandManager::getInstance().getEvent("Command_Undo")->connect(this, &UndoManager::commandUndo);
 		CommandManager::getInstance().getEvent("Command_Redo")->connect(this, &UndoManager::commandRedo);

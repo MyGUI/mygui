@@ -15,9 +15,9 @@
 namespace tools
 {
 
-	class MYGUI_EXPORT_DLL SettingsManager :
-		public MyGUI::Singleton<SettingsManager>
+	class MYGUI_EXPORT_DLL SettingsManager
 	{
+		MYGUI_SINGLETON_DECLARATION(SettingsManager);
 	public:
 		SettingsManager();
 		virtual ~SettingsManager();

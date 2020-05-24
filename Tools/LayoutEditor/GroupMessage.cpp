@@ -3,8 +3,7 @@
 #include "GroupMessage.h"
 #include "MessageBoxManager.h"
 
-template <> tools::GroupMessage* MyGUI::Singleton<tools::GroupMessage>::msInstance = nullptr;
-template <> const char* MyGUI::Singleton<tools::GroupMessage>::mClassTypeName = "GroupMessage";
+MYGUI_SINGLETON_DEFINITION(tools::GroupMessage);
 
 namespace tools
 {
