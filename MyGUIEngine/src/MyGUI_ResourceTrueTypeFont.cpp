@@ -959,18 +959,19 @@ namespace MyGUI
 
 		int texX = mGlyphSpacing, texY = mGlyphSpacing;
 
-		for (GlyphHeightMap::const_iterator j = _glyphHeightMap.begin(); j != _glyphHeightMap.end(); ++j)
+		for (const auto& sameHeightGlyphs : _glyphHeightMap)
 		{
-			for (GlyphHeightMap::mapped_type::const_iterator i = j->second.begin(); i != j->second.end(); ++i)
+			int glyphHeight = sameHeightGlyphs.first;
+			for (const auto& glyph : sameHeightGlyphs.second)
 			{
-				GlyphInfo& info = *i->second;
+				GlyphInfo& info = *glyph.second;
 
 				switch (info.codePoint)
 				{
 				case FontCodeType::Selected:
 				case FontCodeType::SelectedBack:
 				{
-					renderGlyph<LAMode, false, false>(info, charMaskWhite, charMaskBlack, charMask.find(info.codePoint)->second, j->first, _texBuffer, _texWidth, _texHeight, texX, texY);
+					renderGlyph<LAMode, false, false>(info, charMaskWhite, charMaskBlack, charMask.find(info.codePoint)->second, glyphHeight, _texBuffer, _texWidth, _texHeight, texX, texY);
 
 					// Manually adjust the glyph's width to zero. This prevents artifacts from appearing at the seams when
 					// rendering multi-character selections.
@@ -982,11 +983,11 @@ namespace MyGUI
 
 				case FontCodeType::Cursor:
 				case FontCodeType::Tab:
-					renderGlyph<LAMode, false, false>(info, charMaskWhite, charMaskBlack, charMask.find(info.codePoint)->second, j->first, _texBuffer, _texWidth, _texHeight, texX, texY);
+					renderGlyph<LAMode, false, false>(info, charMaskWhite, charMaskBlack, charMask.find(info.codePoint)->second, glyphHeight, _texBuffer, _texWidth, _texHeight, texX, texY);
 					break;
 
 				default:
-					if (FT_Load_Glyph(_ftFace, i->first, _ftLoadFlags | FT_LOAD_RENDER) == 0)
+					if (FT_Load_Glyph(_ftFace, glyph.first, _ftLoadFlags | FT_LOAD_RENDER) == 0)
 					{
 						if (_ftFace->glyph->bitmap.buffer != nullptr)
 						{
@@ -1012,12 +1013,12 @@ namespace MyGUI
 							}
 
 							if (glyphBuffer != nullptr)
-								renderGlyph<LAMode, true, Antialias>(info, charMaskWhite, charMaskWhite, charMaskWhite, j->first, _texBuffer, _texWidth, _texHeight, texX, texY, glyphBuffer);
+								renderGlyph<LAMode, true, Antialias>(info, charMaskWhite, charMaskWhite, charMaskWhite, glyphHeight, _texBuffer, _texWidth, _texHeight, texX, texY, glyphBuffer);
 						}
 					}
 					else
 					{
-						MYGUI_LOG(Warning, "ResourceTrueTypeFont: Cannot render glyph " << i->first << " for character " << info.codePoint << " in font '" << getResourceName() << "'.");
+						MYGUI_LOG(Warning, "ResourceTrueTypeFont: Cannot render glyph " << glyph.first << " for character " << info.codePoint << " in font '" << getResourceName() << "'.");
 					}
 					break;
 				}
@@ -1141,18 +1142,19 @@ namespace MyGUI
 	{
 		int texX = mGlyphSpacing, texY = mGlyphSpacing;
 
-		for (GlyphHeightMap::const_iterator j = _glyphHeightMap.begin(); j != _glyphHeightMap.end(); ++j)
+		for (const auto& sameHeightGlyphs : _glyphHeightMap)
 		{
-			for (GlyphHeightMap::mapped_type::const_iterator i = j->second.begin(); i != j->second.end(); ++i)
+			int glyphHeight = sameHeightGlyphs.first;
+			for (const auto& glyph : sameHeightGlyphs.second)
 			{
-				GlyphInfo& info = *i->second;
+				GlyphInfo& info = *glyph.second;
 
 				switch (info.codePoint)
 				{
 					case FontCodeType::Selected:
 					case FontCodeType::SelectedBack:
 					{
-						renderGlyph<false, false, false>(info, charMaskWhite, charMaskBlack, charMask.find(info.codePoint)->second, j->first, _texBuffer, _texWidth, _texHeight, texX, texY);
+						renderGlyph<false, false, false>(info, charMaskWhite, charMaskBlack, charMask.find(info.codePoint)->second, glyphHeight, _texBuffer, _texWidth, _texHeight, texX, texY);
 
 						// Manually adjust the glyph's width to zero. This prevents artifacts from appearing at the seams when
 						// rendering multi-character selections.
@@ -1164,7 +1166,7 @@ namespace MyGUI
 
 					case FontCodeType::Cursor:
 					case FontCodeType::Tab:
-						renderGlyph<false, false, false>(info, charMaskWhite, charMaskBlack, charMask.find(info.codePoint)->second, j->first, _texBuffer, _texWidth, _texHeight, texX, texY);
+						renderGlyph<false, false, false>(info, charMaskWhite, charMaskBlack, charMask.find(info.codePoint)->second, glyphHeight, _texBuffer, _texWidth, _texHeight, texX, texY);
 						break;
 
 					default:
@@ -1201,7 +1203,7 @@ namespace MyGUI
 								}
 							}
 
-							renderGlyph<false, true, false>(info, charMaskWhite, charMaskWhite, charMaskWhite, j->first, _texBuffer, _texWidth, _texHeight, texX, texY, glyphBuffer);
+							renderGlyph<false, true, false>(info, charMaskWhite, charMaskWhite, charMaskWhite, glyphHeight, _texBuffer, _texWidth, _texHeight, texX, texY, glyphBuffer);
 							delete[] glyphBuffer;
 						}
 						else
