@@ -80,6 +80,10 @@ namespace MyGUI
 	{
 	}
 
+	void ResourceTrueTypeFont::setShader(const std::string& _value)
+	{
+	}
+
 	void ResourceTrueTypeFont::setSize(float _value)
 	{
 	}
@@ -300,6 +304,8 @@ namespace MyGUI
 				const std::string& value = node->findAttribute("value");
 				if (key == "Source")
 					setSource(value);
+				else if (key == "Shader")
+					setShader(mShader);
 				else if (key == "Size")
 					setSize(utility::parseFloat(value));
 				else if (key == "Resolution")
@@ -750,6 +756,9 @@ namespace MyGUI
 		mTexture->createManual(texWidth, texHeight, TextureUsage::Static | TextureUsage::Write, Pixel<LAMode>::getFormat());
 		mTexture->setInvalidateListener(this);
 
+		if (!mShader.empty())
+			mTexture->setShader(mShader);
+
 		uint8* texBuffer = static_cast<uint8*>(mTexture->lock(TextureUsage::Write));
 
 		if (texBuffer != nullptr)
@@ -1187,7 +1196,15 @@ namespace MyGUI
 							msdfgen::Bitmap<float, 3> msdf(
 								std::ceil(bounds.r - bounds.l) + 2 * range,
 								std::ceil(bounds.t - bounds.b) + 2 * range);
-							generateMSDF(msdf, shape, mMsdfRange, 1, msdfgen::Vector2(-bounds.l + range, -bounds.b + range));
+							msdfgen::generateMSDF(msdf, shape, mMsdfRange, 1, msdfgen::Vector2(-bounds.l + range, -bounds.b + range));
+//							double error = msdfgen::estimateSDFError(
+//								msdfgen::BitmapConstRef<float, 3>{(float*)msdf, msdf.width(), msdf.height()},
+//								shape,
+//								1,
+//								msdfgen::Vector2(-bounds.l + range, -bounds.b + range),
+//								33);
+//							if (100000 * error > 1)
+//								MYGUI_LOG(Warning, "Error for '" << char(info.codePoint) << "' is :" << (int) 100000 * error);
 
 							uint8* glyphBuffer = new uint8[msdf.width() * msdf.height() * 3];
 							uint8* glyphBufferPointer = glyphBuffer;
@@ -1220,6 +1237,11 @@ namespace MyGUI
 	void ResourceTrueTypeFont::setSource(const std::string& _value)
 	{
 		mSource = _value;
+	}
+
+	void ResourceTrueTypeFont::setShader(const std::string& _value)
+	{
+		mShader = _value;
 	}
 
 	void ResourceTrueTypeFont::setSize(float _value)

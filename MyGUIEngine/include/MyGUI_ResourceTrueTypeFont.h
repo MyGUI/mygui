@@ -66,6 +66,7 @@ namespace MyGUI
 		void initialise();
 
 		void setSource(const std::string& _value);
+		void setShader(const std::string& _value);
 		void setSize(float _value);
 		void setResolution(unsigned int _value);
 		void setHinting(const std::string& _value);
@@ -97,6 +98,7 @@ namespace MyGUI
 
 		// The following variables are set directly from values specified by the user.
 		std::string mSource; // Source (filename) of the font.
+		std::string mShader; // Optional shader, applied to the font.
 		float mSize; // Size of the font, in points (there are 72 points per inch).
 		unsigned int mResolution; // Resolution of the font, in pixels per inch.
 		Hinting mHinting; // What type of hinting to use when rendering the font.

@@ -38,6 +38,8 @@ namespace MyGUI
 		// Manual loading methods, not needed when loading from XML
 		// Set the source texture by name
 		void setSource(const std::string& value);
+		// Set the shader by name
+		void setShader(const std::string& value);
 		// Set the source texture directly
 		// Note: the user is responsible for deallocation of the texture.
 		void setTexture(MyGUI::ITexture* texture);
@@ -55,6 +57,7 @@ namespace MyGUI
 
 		// The following variables are set directly from values specified by the user.
 		std::string mSource; // Source (filename) of the font.
+		std::string mShader; // Optional shader, applied to the font.
 
 		// The following variables are calculated automatically.
 		int mDefaultHeight; // The nominal height of the font in pixels.

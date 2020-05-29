@@ -58,6 +58,7 @@ namespace MyGUI
 				const std::string& value = node->findAttribute("value");
 				if (key == "Source") mSource = value;
 				else if (key == "DefaultHeight") mDefaultHeight = utility::parseInt(value);
+				else if (key == "Shader") mShader = value;
 			}
 		}
 
@@ -65,6 +66,8 @@ namespace MyGUI
 
 		if (mTexture != nullptr)
 		{
+			if (!mShader.empty())
+				mTexture->setShader(mShader);
 			int textureWidth = mTexture->getWidth();
 			int textureHeight = mTexture->getHeight();
 
@@ -147,6 +150,13 @@ namespace MyGUI
 		mTexture = nullptr;
 		mSource = value;
 		loadTexture();
+	}
+
+	void ResourceManualFont::setShader(const std::string& value)
+	{
+		mShader = value;
+		if (mTexture != nullptr)
+			mTexture->setShader(mShader);
 	}
 
 	void ResourceManualFont::setTexture(ITexture *texture)

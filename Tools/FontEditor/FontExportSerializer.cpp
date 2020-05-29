@@ -105,6 +105,10 @@ namespace tools
 		if (!value.empty())
 			data->setPropertyValue("MsdfRange", MyGUI::utility::parseValue<int>(value));
 
+		value = _node.select_single_node("Property[@key=\"Shader\"]/@value").attribute().value();
+		if (!value.empty())
+			data->setPropertyValue("Shader", value);
+
 		DataManager::getInstance().getRoot()->addChild(data);
 	}
 
@@ -165,6 +169,10 @@ namespace tools
 		nodeProperty = node.append_child("Property");
 		nodeProperty.append_attribute("key").set_value("MsdfRange");
 		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("MsdfRange").c_str());
+
+		nodeProperty = node.append_child("Property");
+		nodeProperty.append_attribute("key").set_value("Shader");
+		nodeProperty.append_attribute("value").set_value(_data->getPropertyValue("Shader").c_str());
 
 	}
 
@@ -256,6 +264,7 @@ namespace tools
 			node->addAttribute("name", _data->getPropertyValue("Name"));
 
 			addProperty(node, "Source", textureName);
+			addProperty(node, "Shader", _data->getPropertyValue("Shader"));
 			addProperty(node, "SourceSize", MyGUI::IntSize(texture->getWidth(), texture->getHeight()));
 			addProperty(node, "DefaultHeight", font->getDefaultHeight());
 
@@ -298,6 +307,7 @@ namespace tools
 		font->setDistance(_data->getPropertyValue<int>("Distance"));
 		font->setMsdfMode(_data->getPropertyValue<bool>("MsdfMode"));
 		font->setMsdfRange(_data->getPropertyValue<int>("MsdfRange"));
+		font->setShader(_data->getPropertyValue("Shader"));
 
 		std::string ranges = _data->getPropertyValue("FontCodeRanges");
 		std::vector<std::string> values = MyGUI::utility::split(ranges, "|");
