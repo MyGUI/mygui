@@ -63,6 +63,7 @@ namespace MyGUI
 		size_t mNeedVertexCount;
 
 		bool mOutOfDate;
+		bool mHaveEmptyItems;
 		VectorDrawItem mDrawItems;
 
 		// колличество отрендренных реально вершин

@@ -20,6 +20,7 @@ namespace MyGUI
 		mTexture(nullptr),
 		mNeedVertexCount(0),
 		mOutOfDate(false),
+		mHaveEmptyItems(false),
 		mCountVertex(0),
 		mCurrentUpdate(true),
 		mCurrentVertex(nullptr),
@@ -53,16 +54,36 @@ namespace MyGUI
 			Vertex* buffer = mVertexBuffer->lock();
 			if (buffer != nullptr)
 			{
-				for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
+				if (mHaveEmptyItems)
 				{
-					// перед вызовом запоминаем позицию в буфере
+					VectorDrawItem notEmptyItems;
+					for (const auto& drawItem : mDrawItems)
+					{
+						if (drawItem.first != nullptr)
+							notEmptyItems.emplace_back(drawItem);
+					}
+					std::swap(mDrawItems, notEmptyItems);
+					mHaveEmptyItems = false;
+
+					// all childs detached, tell to parent
+					if (mDrawItems.empty())
+					{
+						mTexture = nullptr;
+						mNeedCompression = true;
+					}
+				}
+				for (auto& drawItem : mDrawItems)
+				{
+					if (drawItem.first == nullptr)
+						continue;
+					// remember position in buffer before call
 					mCurrentVertex = buffer;
 					mLastVertexCount = 0;
 
-					(*iter).first->doRender();
+					drawItem.first->doRender();
 
-					// колличество отрисованных вершин
-					MYGUI_DEBUG_ASSERT(mLastVertexCount <= (*iter).second, "It is too much vertexes");
+					// check number of rendered vertices
+					MYGUI_DEBUG_ASSERT(mLastVertexCount <= drawItem.second, "Too many vertices rendered");
 					buffer += mLastVertexCount;
 					mCountVertex += mLastVertexCount;
 				}
@@ -87,8 +108,11 @@ namespace MyGUI
 			// непосредственный рендринг
 			if (mManualRender)
 			{
-				for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
-					(*iter).first->doManualRender(mVertexBuffer, mTexture, mCountVertex);
+				for (auto& drawItem : mDrawItems)
+				{
+					if (drawItem.first != nullptr)
+						drawItem.first->doManualRender(mVertexBuffer, mTexture, mCountVertex);
+				}
 			}
 			else
 			{
@@ -99,23 +123,16 @@ namespace MyGUI
 
 	void RenderItem::removeDrawItem(ISubWidget* _item)
 	{
-		for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
+		for (auto& drawItem : mDrawItems)
 		{
-			if ((*iter).first == _item)
+			if (drawItem.first == _item)
 			{
-				mNeedVertexCount -= (*iter).second;
-				mDrawItems.erase(iter);
+				mNeedVertexCount -= drawItem.second;
+				drawItem.first = nullptr;
+				mHaveEmptyItems = true;
 				mOutOfDate = true;
 
 				mVertexBuffer->setVertexCount(mNeedVertexCount);
-
-				// если все отдетачились, расскажем отцу
-				if (mDrawItems.empty())
-				{
-					mTexture = nullptr;
-					mNeedCompression = true;
-				}
-
 				return;
 			}
 		}
@@ -127,9 +144,9 @@ namespace MyGUI
 
 // проверяем только в дебаге
 #if MYGUI_DEBUG_MODE == 1
-		for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
+		for (const auto& drawItem : mDrawItems)
 		{
-			MYGUI_ASSERT((*iter).first != _item, "DrawItem exist");
+			MYGUI_ASSERT(drawItem.first != _item, "DrawItem exist");
 		}
 #endif
 
@@ -142,16 +159,16 @@ namespace MyGUI
 
 	void RenderItem::reallockDrawItem(ISubWidget* _item, size_t _count)
 	{
-		for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
+		for (auto& drawItem : mDrawItems)
 		{
-			if ((*iter).first == _item)
+			if (drawItem.first == _item)
 			{
 				// если нужно меньше, то ниче не делаем
-				if ((*iter).second < _count)
+				if (drawItem.second < _count)
 				{
-					mNeedVertexCount -= (*iter).second;
+					mNeedVertexCount -= drawItem.second;
 					mNeedVertexCount += _count;
-					(*iter).second = _count;
+					drawItem.second = _count;
 					mOutOfDate = true;
 
 					mVertexBuffer->setVertexCount(mNeedVertexCount);
