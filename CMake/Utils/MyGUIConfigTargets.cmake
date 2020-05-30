@@ -179,8 +179,14 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	# link Common, Platform and MyGUIEngine
 	target_link_libraries(${PROJECTNAME}
 		Common
-		${SDL2_LIBRARIES}
 	)
+
+	if (NOT EMSCRIPTEN)
+		# exclude emscripten, because it link SDL in its own way
+		target_link_libraries(${PROJECTNAME}
+			${SDL2_LIBRARIES}
+		)
+	endif ()
 
 	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
 	add_dependencies(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
@@ -294,8 +300,14 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 
 	target_link_libraries(${PROJECTNAME}
 		Common
-		${SDL2_LIBRARIES}
 	)
+
+	if (NOT EMSCRIPTEN)
+		# exclude emscripten, because it link SDL in its own way
+		target_link_libraries(${PROJECTNAME}
+			${SDL2_LIBRARIES}
+		)
+	endif ()
 
 	mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
 	add_dependencies(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)

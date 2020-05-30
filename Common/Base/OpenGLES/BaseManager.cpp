@@ -2,7 +2,6 @@
 #include "BaseManager.h"
 
 #include <SDL_image.h>
-#include <GL/glew.h>
 
 namespace base
 {
@@ -101,17 +100,6 @@ namespace base
 		SDL_Surface* surface = SDL_CreateRGBSurface(0, _width, _height, _format.getBytesPerPixel() * 8, 0, 0, 0, 0);
 		std::memcpy(surface->pixels, _texture, _width * _height * _format.getBytesPerPixel());
 		IMG_SavePNG(surface, _filename.c_str());
-	}
-
-	void BaseManager::setupResources()
-	{
-#ifdef EMSCRIPTEN
-		mRootMedia = "/";
-		addResourceLocation(mRootMedia, false);
-		addResourceLocation(mRootMedia + "MyGUI_Media/", false);
-#else
-		SdlBaseManager::setupResources();
-#endif
 	}
 
 }

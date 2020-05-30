@@ -73,6 +73,9 @@ if (MYGUI_INSTALL_SAMPLES OR MYGUI_INSTALL_TOOLS)
 else ()
 
 	set(MYGUI_MEDIA_DIR "${MYGUI_SOURCE_DIR}/Media")
+	if (EMSCRIPTEN)
+		set(MYGUI_MEDIA_DIR "/Media")
+	endif ()
 
 	if (WIN32)
 		# create resources.xml

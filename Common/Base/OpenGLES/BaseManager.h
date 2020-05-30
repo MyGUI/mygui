@@ -20,8 +20,6 @@ namespace base
 		void createGuiPlatform() override;
 		void destroyGuiPlatform() override;
 
-		void setupResources() override;
-
 //		/*internal:*/
 		void* loadImage(int& _width, int& _height, MyGUI::PixelFormat& _format, const std::string& _filename) override;
 		void saveImage(int _width, int _height, MyGUI::PixelFormat _format, void* _texture, const std::string& _filename) override;
