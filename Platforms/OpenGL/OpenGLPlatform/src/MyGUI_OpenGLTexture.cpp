@@ -361,6 +361,11 @@ namespace MyGUI
 		}
 	}
 
+	void OpenGLTexture::setShader(const std::string& _shaderName)
+	{
+		MYGUI_PLATFORM_LOG(Warning, "OpenGLTexture::setShader is not implemented");
+	}
+
 	IRenderTarget* OpenGLTexture::getRenderTarget()
 	{
 		if (mRenderTarget == nullptr)

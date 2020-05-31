@@ -192,7 +192,7 @@ namespace MyGUI
 		unsigned long now_time = timer.getMilliseconds();
 		unsigned long time = now_time - last_time;
 
-		onFrameEvent((float)((double)(time) / (double)1000));
+		onFrameEvent(time / 1000.0f);
 
 		last_time = now_time;
 
@@ -223,6 +223,14 @@ namespace MyGUI
 
 		onResizeView(mViewSize);
 		mUpdate = true;
+	}
+
+	void OpenGLRenderManager::registerShader(
+		const std::string& _shaderName,
+		const std::string& _vertexProgramFile,
+		const std::string& _fragmentProgramFile)
+	{
+		MYGUI_PLATFORM_LOG(Warning, "OpenGLRenderManager::registerShader is not implemented");
 	}
 
 	bool OpenGLRenderManager::isPixelBufferObjectSupported() const

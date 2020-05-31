@@ -3,10 +3,19 @@
 
 #include <SDL_image.h>
 
+#include <GLES3/gl3.h>
+#include <GLES3/gl2ext.h>
+
 namespace base
 {
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
+#ifdef EMSCRIPTEN
+		// Enable WebGL 2.0. MyGUI works with WebGL 1, butsome demos use es 300 shaders.
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+#endif
+
 		mContext = SDL_GL_CreateContext(mSdlWindow);
 		if (mContext == nullptr)
 		{

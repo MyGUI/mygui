@@ -15,7 +15,23 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		// MsdfFontShader uses custom fragment program and default vertex program
+#if defined(MYGUI_OGRE_PLATFORM)
+		// TODO
+		MyGUI::RenderManager::getInstance().registerShader("MsdfFontShader", "MyGUI_Ogre_VP.glsl", "Msdf_Ogre_FP.glsl");
+		MyGUI::RenderManager::getInstance().registerShader("MsdfFontShader", "MyGUI_Ogre_VP.glsles", "Msdf_Ogre_FP.glsles");
+		MyGUI::RenderManager::getInstance().registerShader("MsdfFontShader", "MyGUI_Ogre_VP.hlsl", "Msdf_Ogre_FP.hlsl");
+#elif defined(MYGUI_OPENGL_PLATFORM)
+		// TODO not implemented in RenderManager
+#elif defined(MYGUI_DIRECTX_PLATFORM)
+		// TODO not implemented in RenderManager
+#elif defined(MYGUI_DIRECTX11_PLATFORM)
+		// TODO
+		MyGUI::RenderManager::getInstance().registerShader("MsdfFontShader", "MyGUI_DirectX11_VP.glsl", "Msdf_DirectX11_FP.glsl");
+#elif defined(MYGUI_OPENGL3_PLATFORM)
 		MyGUI::RenderManager::getInstance().registerShader("MsdfFontShader", "MyGUI_OpenGL3_VP.glsl", "Msdf_OpenGL3_FP.glsl");
+#elif defined(MYGUI_OPENGLES_PLATFORM)
+		MyGUI::RenderManager::getInstance().registerShader("MsdfFontShader", "MyGUI_OpenGLES_VP.glsl", "Msdf_OpenGLES_FP.glsl");
+#endif
 
 		MyGUI::ResourceManager::getInstance().load("MsdfFont.xml");
 

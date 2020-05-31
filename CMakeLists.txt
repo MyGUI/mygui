@@ -110,7 +110,12 @@ if (EMSCRIPTEN)
 	set(SDL2_INCLUDE_DIR "." CACHE STRING "")
 	set(SDL2_IMAGE_INCLUDE_DIR "." CACHE STRING "")
 
-	set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "--std=c++11 -O2 --preload-file ${CMAKE_CURRENT_SOURCE_DIR}/Media/@/Media --preload-file ${CMAKE_CURRENT_BINARY_DIR}/bin/resources.xml@/resources.xml -s FULL_ES3=1 -s ALLOW_MEMORY_GROWTH=1 -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='[\"png\"]'")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++11 -O2 -s ALLOW_MEMORY_GROWTH=1")
+	# TODO: required only by demos and tools, not by MyGUIEngine or MyGUI.OpenGLESPlatform
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='[\"png\"]' -s FULL_ES3=1 -s USE_WEBGL2=1")
+	# TODO: set preload-file flags for demos and tools only
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --preload-file ${CMAKE_CURRENT_SOURCE_DIR}/Media/@/Media")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --preload-file ${CMAKE_CURRENT_BINARY_DIR}/bin/resources.xml@/resources.xml")
 
 	SET(CMAKE_EXECUTABLE_SUFFIX ".html")
 endif ()

@@ -4,6 +4,8 @@
 #include "MyGUI_OpenGLESPlatform.h"
 #include "MyGUI_OpenGLESRTTexture.h"
 
+#include <GLES3/gl3.h>
+#include <GLES3/gl2ext.h>
 #include "platform.h"
 
 namespace MyGUI
@@ -12,6 +14,7 @@ namespace MyGUI
 	OpenGLESTexture::OpenGLESTexture(const std::string& _name, OpenGLESImageLoader* _loader) :
 		mName(_name),
 		mTextureId(0),
+		mProgramId(0),
 		mPboID(0),
 		mWidth(0),
 		mHeight(0),
@@ -334,6 +337,11 @@ namespace MyGUI
 		}
 	}
 
+	void OpenGLESTexture::setShader(const std::string& _shaderName)
+	{
+		mProgramId = OpenGLESRenderManager::getInstance().getShaderProgramId(_shaderName);
+	}
+
 	IRenderTarget* OpenGLESTexture::getRenderTarget()
 	{
 		if (mRenderTarget == nullptr)
@@ -345,6 +353,11 @@ namespace MyGUI
 	unsigned int OpenGLESTexture::getTextureId() const
 	{
 		return mTextureId;
+	}
+
+	unsigned int OpenGLESTexture::getShaderId() const
+	{
+		return mProgramId;
 	}
 
 } // namespace MyGUI

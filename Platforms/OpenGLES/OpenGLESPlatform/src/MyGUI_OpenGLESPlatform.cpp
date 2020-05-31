@@ -43,13 +43,11 @@ namespace MyGUI
 
 	OpenGLESRenderManager* OpenGLESPlatform::getRenderManagerPtr()
 	{
-		assert(mIsInitialise);
 		return mRenderManager;
 	}
 
 	OpenGLESDataManager* OpenGLESPlatform::getDataManagerPtr()
 	{
-		assert(mIsInitialise);
 		return mDataManager;
 	}
 

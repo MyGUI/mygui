@@ -4,9 +4,6 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IVertexBuffer.h"
 
-#include <GLES3/gl3.h>
-#include <GLES3/gl2ext.h>
-
 namespace MyGUI
 {
 
@@ -25,14 +22,16 @@ namespace MyGUI
 	/*internal:*/
 		unsigned int getBufferID() const
 		{
-			return mBufferID;
+			return mVAOID;
 		}
+
 	private:
 		void create();
 		void destroy();
 		void resize();
 
 	private:
+		unsigned int mVAOID;
 		unsigned int mBufferID;
 		size_t mVertexCount;
 		size_t mNeedVertexCount;

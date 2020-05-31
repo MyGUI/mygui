@@ -67,13 +67,11 @@ namespace MyGUI
 
 		OgreRenderManager* getRenderManagerPtr()
 		{
-			assert(mIsInitialise);
 			return mRenderManager;
 		}
 
 		OgreDataManager* getDataManagerPtr()
 		{
-			assert(mIsInitialise);
 			return mDataManager;
 		}
 

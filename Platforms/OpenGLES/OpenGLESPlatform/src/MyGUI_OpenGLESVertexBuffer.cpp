@@ -1,8 +1,8 @@
 #include "MyGUI_OpenGLESVertexBuffer.h"
 #include "MyGUI_OpenGLESDiagnostic.h"
 
-#include "platform.h"
-#include <assert.h>
+#include <GLES3/gl3.h>
+#include <GLES3/gl2ext.h>
 
 namespace MyGUI
 {
@@ -10,9 +10,10 @@ namespace MyGUI
 	const size_t VERTEX_BUFFER_REALLOCK_STEP = 5 * VertexQuad::VertexCount;
 
 	OpenGLESVertexBuffer::OpenGLESVertexBuffer() :
-		mNeedVertexCount(0),
-		mVertexCount(0),
+		mVAOID(0),
 		mBufferID(0),
+		mVertexCount(0),
+		mNeedVertexCount(0),
 		mSizeInBytes(0)
 	{
 	}
@@ -41,23 +42,19 @@ namespace MyGUI
 
 		// Use glMapBuffer
 		glBindBuffer(GL_ARRAY_BUFFER, mBufferID);
-		CHECK_GL_ERROR_DEBUG();
 
 		// Discard the buffer
 		glBufferData(GL_ARRAY_BUFFER, mSizeInBytes, nullptr, GL_STREAM_DRAW);
-		CHECK_GL_ERROR_DEBUG();
 
 		Vertex* pBuffer = (Vertex*)glMapBufferRange(
 			GL_ARRAY_BUFFER,
 			0,
 			mSizeInBytes,
 			GL_MAP_INVALIDATE_BUFFER_BIT | GL_MAP_WRITE_BIT);
-		CHECK_GL_ERROR_DEBUG();
 
 		MYGUI_PLATFORM_ASSERT(pBuffer, "Error lock vertex buffer");
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		CHECK_GL_ERROR_DEBUG();
 
 		return pBuffer;
 	}
@@ -67,11 +64,8 @@ namespace MyGUI
 		MYGUI_PLATFORM_ASSERT(mBufferID, "Vertex buffer in not created");
 
 		glBindBuffer(GL_ARRAY_BUFFER, mBufferID);
-		CHECK_GL_ERROR_DEBUG();
 		GLboolean result = glUnmapBuffer(GL_ARRAY_BUFFER);
-		CHECK_GL_ERROR_DEBUG();
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		CHECK_GL_ERROR_DEBUG();
 
 		MYGUI_PLATFORM_ASSERT(result, "Error unlock vertex buffer");
 	}
@@ -83,35 +77,45 @@ namespace MyGUI
 		mSizeInBytes = mVertexCount * sizeof(Vertex);
 		void* data = nullptr;
 
-		glGenBuffers(1, (GLuint * ) & mBufferID); //wdy
-		CHECK_GL_ERROR_DEBUG();
-		glBindBuffer(GL_ARRAY_BUFFER, mBufferID);
-		CHECK_GL_ERROR_DEBUG();
-		glBufferData(GL_ARRAY_BUFFER, mSizeInBytes, data, GL_STREAM_DRAW);
-		CHECK_GL_ERROR_DEBUG();
+		glGenBuffers(1, &mBufferID);
+		glGenVertexArrays(1, &mVAOID);
 
+		glBindVertexArray(mVAOID);
+		glBindBuffer(GL_ARRAY_BUFFER, mBufferID);
+		glBufferData(GL_ARRAY_BUFFER, mSizeInBytes, data, GL_STREAM_DRAW);
 
 		// check data size in VBO is same as input array, if not return 0 and delete VBO
 		int bufferSize = 0;
-		glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, (GLint * ) & bufferSize); //wdy
-		CHECK_GL_ERROR_DEBUG();
+		glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &bufferSize);
 		if (mSizeInBytes != (size_t)bufferSize)
 		{
 			destroy();
 			MYGUI_PLATFORM_EXCEPT("Data size is mismatch with input array");
 		}
 
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLubyte*)nullptr);
+		glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (GLubyte*)offsetof(struct Vertex, colour));
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLubyte*)offsetof(struct Vertex, u));
+
+		glBindVertexArray(0);
+
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		CHECK_GL_ERROR_DEBUG();
 	}
 
 	void OpenGLESVertexBuffer::destroy()
 	{
 		if (mBufferID != 0)
 		{
-			glDeleteBuffers(1, (GLuint * ) & mBufferID);
-			CHECK_GL_ERROR_DEBUG();
+			glDeleteBuffers(1, &mBufferID);
 			mBufferID = 0;
+		}
+		if (mVAOID != 0)
+		{
+			glDeleteVertexArrays(1, &mVAOID);
+			mVAOID = 0;
 		}
 	}
 

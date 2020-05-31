@@ -26,12 +26,12 @@ namespace MyGUI
 		mNumElemBytes(0),
 		mDataSize(0),
 		mTextureId(0),
+		mProgramId(0),
 		mPboID(0),
 		mLock(false),
 		mBuffer(nullptr),
 		mImageLoader(_loader),
-		mRenderTarget(nullptr),
-		mProgramId(0)
+		mRenderTarget(nullptr)
 	{
 	}
 

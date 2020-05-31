@@ -65,6 +65,7 @@ namespace MyGUI
 		size_t mNumElemBytes;
 		size_t mDataSize;
 		unsigned int mTextureId;
+		unsigned int mProgramId;
 		unsigned int mPboID;
 		bool mLock;
 		void* mBuffer;
@@ -72,8 +73,6 @@ namespace MyGUI
 		TextureUsage mOriginalUsage;
 		OpenGL3ImageLoader* mImageLoader;
 		OpenGL3RTTexture* mRenderTarget;
-
-		unsigned int mProgramId;
 	};
 
 } // namespace MyGUI

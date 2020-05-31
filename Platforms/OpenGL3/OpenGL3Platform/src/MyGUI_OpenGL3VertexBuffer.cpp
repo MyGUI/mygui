@@ -101,12 +101,6 @@ namespace MyGUI
 		glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (GLubyte*)offsetof(struct Vertex, colour));
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLubyte*)offsetof(struct Vertex, u));
 
-		//glVertexPointer(3, GL_FLOAT, sizeof(Vertex), (void*)offset);
-		//offset += (sizeof(float) * 3);
-		//glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(Vertex), (void*)offset);
-		//offset += (4);
-		//glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), (void*)offset);
-
 		glBindVertexArray(0);
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
