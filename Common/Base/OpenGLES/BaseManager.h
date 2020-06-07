@@ -8,10 +8,11 @@ namespace base
 {
 
 	class BaseManager :
-			public SdlBaseManager,
-			public MyGUI::OpenGLESImageLoader
+		public SdlBaseManager,
+		public MyGUI::OpenGLESImageLoader
 	{
 	public:
+        BaseManager() : SdlBaseManager(true) { }
 		bool createRender(int _width, int _height, bool _windowed) override;
 		void destroyRender() override;
 		void drawOneFrame() override;

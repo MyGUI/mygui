@@ -5,7 +5,8 @@
 
 namespace base
 {
-	SdlBaseManager::SdlBaseManager()
+	SdlBaseManager::SdlBaseManager(bool _isOpenGlWindow) :
+	    mIsOpenGlWindow(_isOpenGlWindow)
 	{
 	}
 
@@ -42,7 +43,7 @@ namespace base
 		int left = (currDisp.w - width) / 2;
 		int top = (currDisp.h - height) / 2;
 
-		mSdlWindow = SDL_CreateWindow("MyGUI Render Window", left, top, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+		mSdlWindow = SDL_CreateWindow("MyGUI Render Window", left, top, width, height, (mIsOpenGlWindow ? SDL_WINDOW_OPENGL : 0) | SDL_WINDOW_RESIZABLE);
 		if (mSdlWindow == nullptr)
 		{
 			std::cerr << "Failed to create SDL window.";

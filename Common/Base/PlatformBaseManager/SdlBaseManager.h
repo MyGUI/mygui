@@ -15,7 +15,7 @@ namespace base
 		public input::PointerManager
 	{
 	public:
-        SdlBaseManager();
+        SdlBaseManager(bool _isOpenGlWindow);
 
         // Block of virtual functions for specific platform implementations
 		virtual bool createRender(int _width, int _height, bool _windowed) = 0;
@@ -71,6 +71,7 @@ namespace base
 	private:
 		MyGUI::Gui* mGUI = nullptr;
 
+        bool mIsOpenGlWindow = false;
 		bool mPlatformReady = false;
 		bool mExit = false;
 		SDL_Event mEvent;
