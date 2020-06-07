@@ -12,6 +12,7 @@ namespace base
 		public MyGUI::OpenGL3ImageLoader
 	{
 	public:
+        BaseManager() : SdlBaseManager(true) { }
 		bool createRender(int _width, int _height, bool _windowed) override;
 		void destroyRender() override;
 		void drawOneFrame() override;

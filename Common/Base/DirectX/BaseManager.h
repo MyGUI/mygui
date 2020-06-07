@@ -22,6 +22,7 @@ namespace base
 		public SdlBaseManager
 	{
 	public:
+        BaseManager() : SdlBaseManager(false) { }
 		bool createRender(int _width, int _height, bool _windowed) override;
 		void destroyRender() override;
 		void drawOneFrame() override;

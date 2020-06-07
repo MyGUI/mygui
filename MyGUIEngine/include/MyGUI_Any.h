@@ -27,34 +27,26 @@ namespace MyGUI
 	@code
 	void f()
 	{
-		// RU: тестовый класс, с простыми типами все аналогично
-		// EN: test class, with simple types all is similar
+		// test class, with simple types everything is similar
 		struct Data { int value; };
 
-		// RU: экземпляр и инициализация
-		// EN: instance and initialization
+		// instance and initialization
 		Data data;
 		data.value = 0xDEAD;
 
-		// RU: создастся копия класса Data
-		// EN: copy of class Data will be created
+		// copy of class Data will be created
 		MyGUI::Any any = data;
-		// RU: копия класса Data
-		// EN: copy of class Data
+		// copy of class Data
 		Data copy_data = *any.castType<Data>();
-		// RU: теперь value == 0xDEAD
-		// EN: now value == 0xDEAD
+		// now value == 0xDEAD
 		int value = copy_data.value;
 
 
-		// RU: создастся копия указателя на класс Data
-		// EN: copy of pointer on class Data will be created
+		// copy of pointer on class Data will be created
 		any = &data;
-		// RU: копия указателя на класс Data и конкретно на объект data
-		// EN: copy of pointer on class Data and on object data
+		// copy of pointer on class Data and on object data
 		Data* copy_ptr = *any.castType<Data*>();
-		// RU: теперь data.value == 0
-		// EN: now value == 0
+		// now value == 0
 		copy_ptr->value = 0;
 	}
 	@endcode

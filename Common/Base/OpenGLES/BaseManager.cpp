@@ -2,12 +2,20 @@
 #include "BaseManager.h"
 
 #include <SDL_image.h>
-#include <GL/glew.h>
+
+#include <GLES3/gl3.h>
+#include <GLES3/gl2ext.h>
 
 namespace base
 {
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
+#ifdef EMSCRIPTEN
+		// Enable WebGL 2.0. MyGUI works with WebGL 1, butsome demos use es 300 shaders.
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+#endif
+
 		mContext = SDL_GL_CreateContext(mSdlWindow);
 		if (mContext == nullptr)
 		{
@@ -33,8 +41,8 @@ namespace base
 	void BaseManager::createGuiPlatform()
 	{
 		mPlatform = new MyGUI::OpenGLESPlatform();
-		mPlatform->initialise(this);
 		setupResources();
+		mPlatform->initialise(this);
 	}
 
 	void BaseManager::destroyGuiPlatform()
@@ -101,17 +109,6 @@ namespace base
 		SDL_Surface* surface = SDL_CreateRGBSurface(0, _width, _height, _format.getBytesPerPixel() * 8, 0, 0, 0, 0);
 		std::memcpy(surface->pixels, _texture, _width * _height * _format.getBytesPerPixel());
 		IMG_SavePNG(surface, _filename.c_str());
-	}
-
-	void BaseManager::setupResources()
-	{
-#ifdef EMSCRIPTEN
-		mRootMedia = "/";
-		addResourceLocation(mRootMedia, false);
-		addResourceLocation(mRootMedia + "MyGUI_Media/", false);
-#else
-		SdlBaseManager::setupResources();
-#endif
 	}
 
 }

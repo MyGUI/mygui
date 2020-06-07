@@ -7,9 +7,6 @@
 #include "MyGUI_RenderManager.h"
 #include "MyGUI_OpenGLESImageLoader.h"
 
-#include <GLES3/gl3.h>
-#include <GLES3/gl2ext.h>
-
 namespace MyGUI
 {
 
@@ -23,20 +20,17 @@ namespace MyGUI
 		void initialise(OpenGLESImageLoader* _loader = nullptr);
 		void shutdown();
 
-		static OpenGLESRenderManager& getInstance()
-		{
-			return *getInstancePtr();
-		}
-		static OpenGLESRenderManager* getInstancePtr()
-		{
-			return static_cast<OpenGLESRenderManager*>(RenderManager::getInstancePtr());
-		}
+		static OpenGLESRenderManager& getInstance();
+		static OpenGLESRenderManager* getInstancePtr();
 
 		/** @see RenderManager::getViewSize */
 		virtual const IntSize& getViewSize() const;
 
 		/** @see RenderManager::getVertexFormat */
 		virtual VertexColourType getVertexFormat();
+
+		/** @see RenderManager::isFormatSupported */
+		virtual bool isFormatSupported(PixelFormat _format, TextureUsage _usage);
 
 		/** @see RenderManager::createVertexBuffer */
 		virtual IVertexBuffer* createVertexBuffer();
@@ -62,20 +56,34 @@ namespace MyGUI
 		/** @see RenderManager::setViewSize */
 		void setViewSize(int _width, int _height) override;
 
-	/*internal:*/
+		/** @see RenderManager::registerShader */
+		void registerShader(
+			const std::string& _shaderName,
+			const std::string& _vertexProgramFile,
+			const std::string& _fragmentProgramFile) override;
+
+		/* for use with RTT, flips Y coordinate when rendering */
+		void doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
+
+		/*internal:*/
 		void drawOneFrame();
 		bool isPixelBufferObjectSupported() const;
+		unsigned int getShaderProgramId(const std::string& _shaderName);
 
 	private:
+		std::string loadFileContent(const std::string& _file);
+		unsigned int createShaderProgram(const std::string& _vertexProgramFile, const std::string& _fragmentProgramFile);
 		void destroyAllResources();
-		GLuint BuildShader(const char* source, GLenum shaderType) const;
-		GLuint BuildProgram(const char* vertexShaderSource, const char* fragmentShaderSource) const;
 
 	private:
 		IntSize mViewSize;
 		bool mUpdate;
 		VertexColourType mVertexFormat;
 		RenderTargetInfo mInfo;
+		unsigned int mDefaultProgramId;
+		std::map<std::string, unsigned int> mRegisteredShaders;
+		unsigned int mReferenceCount; // for nested rendering
+		int mYScaleUniformLocation;
 
 		typedef std::map<std::string, ITexture*> MapTexture;
 		MapTexture mTextures;
@@ -83,14 +91,6 @@ namespace MyGUI
 		bool mPboIsSupported;
 
 		bool mIsInitialise;
-
-		GLuint _positionSlot;
-		GLuint _colorSlot;
-		GLuint _texSlot;
-
-		GLuint mProgram;
-		GLuint mVertShader;
-		GLuint mFragShader;
 	};
 
 } // namespace MyGUI

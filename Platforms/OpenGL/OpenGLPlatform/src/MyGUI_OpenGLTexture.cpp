@@ -25,7 +25,7 @@ namespace MyGUI
 		mAccess(0),
 		mNumElemBytes(0),
 		mDataSize(0),
-		mTextureID(0),
+		mTextureId(0),
 		mPboID(0),
 		mLock(false),
 		mBuffer(nullptr),
@@ -126,7 +126,7 @@ namespace MyGUI
 
 	void OpenGLTexture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format, void* _data)
 	{
-		MYGUI_PLATFORM_ASSERT(!mTextureID, "Texture already exist");
+		MYGUI_PLATFORM_ASSERT(!mTextureId, "Texture already exist");
 
 		//FIXME перенести в метод
 		mInternalPixelFormat = 0;
@@ -176,8 +176,8 @@ namespace MyGUI
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 		// создаем тукстуру
-		glGenTextures(1, &mTextureID);
-		glBindTexture(GL_TEXTURE_2D, mTextureID);
+		glGenTextures(1, &mTextureId);
+		glBindTexture(GL_TEXTURE_2D, mTextureId);
 		// Set texture parameters
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -216,10 +216,10 @@ namespace MyGUI
 			mRenderTarget = nullptr;
 		}
 
-		if (mTextureID != 0)
+		if (mTextureId != 0)
 		{
-			glDeleteTextures(1, &mTextureID);
-			mTextureID = 0;
+			glDeleteTextures(1, &mTextureId);
+			mTextureId = 0;
 		}
 		if (mPboID != 0)
 		{
@@ -243,11 +243,11 @@ namespace MyGUI
 
 	void* OpenGLTexture::lock(TextureUsage _access)
 	{
-		MYGUI_PLATFORM_ASSERT(mTextureID, "Texture is not created");
+		MYGUI_PLATFORM_ASSERT(mTextureId, "Texture is not created");
 
 		if (_access == TextureUsage::Read)
 		{
-			glBindTexture(GL_TEXTURE_2D, mTextureID);
+			glBindTexture(GL_TEXTURE_2D, mTextureId);
 
 			mBuffer = new unsigned char[mDataSize];
 			glGetTexImage(GL_TEXTURE_2D, 0, mPixelFormat, GL_UNSIGNED_BYTE, mBuffer);
@@ -258,7 +258,7 @@ namespace MyGUI
 		}
 
 		// bind the texture
-		glBindTexture(GL_TEXTURE_2D, mTextureID);
+		glBindTexture(GL_TEXTURE_2D, mTextureId);
 		if (!OpenGLRenderManager::getInstance().isPixelBufferObjectSupported())
 		{
 			//Fallback if PBO's are not supported
@@ -361,17 +361,22 @@ namespace MyGUI
 		}
 	}
 
+	void OpenGLTexture::setShader(const std::string& _shaderName)
+	{
+		MYGUI_PLATFORM_LOG(Warning, "OpenGLTexture::setShader is not implemented");
+	}
+
 	IRenderTarget* OpenGLTexture::getRenderTarget()
 	{
 		if (mRenderTarget == nullptr)
-			mRenderTarget = new OpenGLRTTexture(mTextureID);
+			mRenderTarget = new OpenGLRTTexture(mTextureId);
 
 		return mRenderTarget;
 	}
 
-	unsigned int OpenGLTexture::getTextureID() const
+	unsigned int OpenGLTexture::getTextureId() const
 	{
-		return mTextureID;
+		return mTextureId;
 	}
 
 	int OpenGLTexture::getWidth()

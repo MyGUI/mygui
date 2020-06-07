@@ -62,6 +62,12 @@ namespace MyGUI
 		/** @see RenderManager::setViewSize */
 		void setViewSize(int _width, int _height) override;
 
+		/** @see RenderManager::registerShader */
+		void registerShader(
+			const std::string& _shaderName,
+			const std::string& _vertexProgramFile,
+			const std::string& _fragmentProgramFile) override;
+
 	/*internal:*/
 		void drawOneFrame();
 		bool isPixelBufferObjectSupported() const;

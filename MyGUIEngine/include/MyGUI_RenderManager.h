@@ -51,6 +51,14 @@ namespace MyGUI
         /** Set render view size. Should be called on every window resize */
 		virtual void setViewSize(int _width, int _height) = 0;
 
+		/** Register shader, that can set with ITexture::setShader.
+			Registering "Default" shader would change main shader, used for all textures without shader.
+		*/
+		virtual void registerShader(
+			const std::string& _shaderName,
+			const std::string& _vertexProgramFile,
+			const std::string& _fragmentProgramFile) = 0;
+
 #if MYGUI_DEBUG_MODE == 1
 		/** Check if texture is valid */
 		virtual bool checkTexture(ITexture* _texture);

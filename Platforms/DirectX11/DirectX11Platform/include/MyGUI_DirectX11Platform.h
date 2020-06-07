@@ -60,13 +60,11 @@ namespace MyGUI
 
 		DirectX11RenderManager* getRenderManagerPtr()
 		{
-			assert(mIsInitialise);
 			return mRenderManager;
 		}
 
 		DirectX11DataManager* getDataManagerPtr()
 		{
-			assert(mIsInitialise);
 			return mDataManager;
 		}
 

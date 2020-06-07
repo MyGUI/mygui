@@ -19,6 +19,8 @@
 namespace MyGUI
 {
 
+	struct OgreShaderInfo;
+
 	class OgreTexture :
 		public ITexture,
 		public Ogre::ManualResourceLoader
@@ -32,6 +34,7 @@ namespace MyGUI
 		virtual void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format);
 		virtual void loadFromFile(const std::string& _filename);
 		virtual void saveToFile(const std::string& _filename);
+		virtual void setShader(const std::string& _shaderName);
 
 		virtual void setInvalidateListener(ITextureInvalidateListener* _listener);
 
@@ -70,6 +73,10 @@ namespace MyGUI
 		{
 			mTexture = _value;
 		}
+		OgreShaderInfo* getShaderInfo() const
+		{
+			return mShaderInfo;
+		}
 
 	private:
 		void setUsage(TextureUsage _usage);
@@ -80,6 +87,7 @@ namespace MyGUI
 
 	private:
 		Ogre::TexturePtr mTexture;
+		OgreShaderInfo* mShaderInfo = nullptr;
 		std::string mName;
 		std::string mGroup;
 

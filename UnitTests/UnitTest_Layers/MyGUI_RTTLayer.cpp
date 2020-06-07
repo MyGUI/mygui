@@ -52,12 +52,15 @@ namespace MyGUI
 	{
 		bool out_date = false;
 
-		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
+		if (!_update)
 		{
-			if ((*iter)->castType<LayerNode>()->isOutOfDate())
+			for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
 			{
-				out_date = true;
-				break;
+				if ((*iter)->castType<LayerNode>()->isOutOfDate())
+				{
+					out_date = true;
+					break;
+				}
 			}
 		}
 

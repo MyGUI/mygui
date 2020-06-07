@@ -34,6 +34,7 @@ namespace MyGUI
 		virtual void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format) = 0;
 		virtual void loadFromFile(const std::string& _filename) = 0;
 		virtual void saveToFile(const std::string& _filename) = 0;
+		virtual void setShader(const std::string& _shaderName) = 0;
 
 		virtual void setInvalidateListener(ITextureInvalidateListener* _listener) { }
 

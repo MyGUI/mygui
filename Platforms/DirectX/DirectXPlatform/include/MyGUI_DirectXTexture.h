@@ -32,6 +32,7 @@ namespace MyGUI
 		{
 			MYGUI_PLATFORM_LOG(Warning, "saveToFile not implemented (was trying to save '" << _filename << "')");
 		}
+		virtual void setShader(const std::string& _shaderName) { }
 
 		virtual void destroy();
 

@@ -4,6 +4,8 @@
 #include "MyGUI_OpenGLESPlatform.h"
 #include "MyGUI_OpenGLESRTTexture.h"
 
+#include <GLES3/gl3.h>
+#include <GLES3/gl2ext.h>
 #include "platform.h"
 
 namespace MyGUI
@@ -11,7 +13,8 @@ namespace MyGUI
 
 	OpenGLESTexture::OpenGLESTexture(const std::string& _name, OpenGLESImageLoader* _loader) :
 		mName(_name),
-		mTextureID(0),
+		mTextureId(0),
+		mProgramId(0),
 		mPboID(0),
 		mWidth(0),
 		mHeight(0),
@@ -51,7 +54,7 @@ namespace MyGUI
 
 	void OpenGLESTexture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format, void* _data)
 	{
-		MYGUI_PLATFORM_ASSERT(!mTextureID, "Texture already exist");
+		MYGUI_PLATFORM_ASSERT(!mTextureId, "Texture already exist");
 
 		//FIXME перенести в метод
 		mInternalPixelFormat = 0;
@@ -103,19 +106,19 @@ namespace MyGUI
 		CHECK_GL_ERROR_DEBUG();
 
 		// создаем тукстуру
-		glGenTextures(1, (GLuint*) &mTextureID);
+		glGenTextures(1, (GLuint*) &mTextureId);
 		CHECK_GL_ERROR_DEBUG();
-		glBindTexture(GL_TEXTURE_2D, mTextureID);
+		glBindTexture(GL_TEXTURE_2D, mTextureId);
 		CHECK_GL_ERROR_DEBUG();
 		// Set texture parameters
 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // GL_LINEAR
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		CHECK_GL_ERROR_DEBUG();
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		CHECK_GL_ERROR_DEBUG();
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		CHECK_GL_ERROR_DEBUG();
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		CHECK_GL_ERROR_DEBUG();
 
 		glTexImage2D(
@@ -165,10 +168,10 @@ namespace MyGUI
 			mRenderTarget = nullptr;
 		}
 
-		if (mTextureID != 0)
+		if (mTextureId != 0)
 		{
-			glDeleteTextures(1, (GLuint*)&mTextureID);
-			mTextureID = 0;
+			glDeleteTextures(1, (GLuint*)&mTextureId);
+			mTextureId = 0;
 		}
 		if (mPboID != 0)
 		{
@@ -192,12 +195,12 @@ namespace MyGUI
 
 	void* OpenGLESTexture::lock(TextureUsage _access)
 	{
-		MYGUI_PLATFORM_ASSERT(mTextureID, "Texture is not created");
+		MYGUI_PLATFORM_ASSERT(mTextureId, "Texture is not created");
 
 		/*
 		if (_access == TextureUsage::Read)
 		{
-			glBindTexture(GL_TEXTURE_2D, mTextureID);
+			glBindTexture(GL_TEXTURE_2D, mTextureId);
 			CHECK_GL_ERROR_DEBUG();
 
 			mBuffer = new unsigned char[mDataSize];
@@ -209,7 +212,7 @@ namespace MyGUI
 		}*/
 
 		// bind the texture
-		glBindTexture(GL_TEXTURE_2D, mTextureID);
+		glBindTexture(GL_TEXTURE_2D, mTextureId);
 		CHECK_GL_ERROR_DEBUG();
 		if (!OpenGLESRenderManager::getInstance().isPixelBufferObjectSupported())
 		{
@@ -334,17 +337,27 @@ namespace MyGUI
 		}
 	}
 
+	void OpenGLESTexture::setShader(const std::string& _shaderName)
+	{
+		mProgramId = OpenGLESRenderManager::getInstance().getShaderProgramId(_shaderName);
+	}
+
 	IRenderTarget* OpenGLESTexture::getRenderTarget()
 	{
 		if (mRenderTarget == nullptr)
-			mRenderTarget = new OpenGLESRTTexture(mTextureID);
+			mRenderTarget = new OpenGLESRTTexture(mTextureId);
 
 		return mRenderTarget;
 	}
 
-	unsigned int OpenGLESTexture::getTextureID() const
+	unsigned int OpenGLESTexture::getTextureId() const
 	{
-		return mTextureID;
+		return mTextureId;
+	}
+
+	unsigned int OpenGLESTexture::getShaderId() const
+	{
+		return mProgramId;
 	}
 
 } // namespace MyGUI

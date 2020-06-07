@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+	<Widget type="Window" skin="WindowCS" position="30 55 427 311" layer="Overlapped" name="_Main">
+		<Property key="Caption" value="EditBox"/>
+		<Property key="MinSize" value="150 150"/>
+		<Widget type="EditBox" skin="EditBoxStretch" position="3 4 412 268" align="Stretch" name="Edit">
+			<Property key="Caption" value="Some text, rendered with msdf font texture and custom shader. Some complex characters: !@##$%^&amp;*()_+=. Custom msdf font can be generated in the FontEditor, or created in runtime with a common ResourceTrueTypeFont and MsdfMode set to true. #FF0000Red, #00FF00Green, #0000FFBlue."/>
+			<Property key="TabPrinting" value="true"/>
+			<Property key="WordWrap" value="true"/>
+		</Widget>
+    </Widget>
+</MyGUI>

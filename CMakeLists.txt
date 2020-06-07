@@ -106,17 +106,18 @@ endif(WIN32 OR APPLE)
 if (EMSCRIPTEN)
 	set(MYGUI_STATIC True CACHE BOOL "")
 	set(MYGUI_DISABLE_PLUGINS True CACHE BOOL "")
-	set(MYGUI_USE_SYSTEM_GLEW True CACHE BOOL "")
 
-	set(OPENGL_gl_LIBRARY Dummy CACHE STRING "")
-	set(OPENGL_glu_LIBRARY Dummy CACHE STRING "")
-	set(GLEW_LIBRARY Dummy CACHE STRING "")
-	set(SDL2_LIBRARY Dummy CACHE STRING "")
-	set(SDL2_IMAGE_LIBRARY Dummy CACHE STRING "")
-	set(SDL2_INCLUDE_DIR "" CACHE STRING "")
-	set(SDL2_IMAGE_INCLUDE_DIR "" CACHE STRING "")
+	set(SDL2_INCLUDE_DIR "." CACHE STRING "")
+	set(SDL2_IMAGE_INCLUDE_DIR "." CACHE STRING "")
 
-	set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "--std=c++11 -O2 --preload-file ${CMAKE_CURRENT_SOURCE_DIR}/Media/@/ -s FULL_ES3=1 -s ALLOW_MEMORY_GROWTH=1 -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='[\"png\"]'")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++11 -O2 -s ALLOW_MEMORY_GROWTH=1")
+	# TODO: required only by demos and tools, not by MyGUIEngine or MyGUI.OpenGLESPlatform
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='[\"png\"]' -s FULL_ES3=1 -s USE_WEBGL2=1")
+	# TODO: set preload-file flags for demos and tools only
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --preload-file ${CMAKE_CURRENT_SOURCE_DIR}/Media/@/Media")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --preload-file ${CMAKE_CURRENT_BINARY_DIR}/bin/resources.xml@/resources.xml")
+
+	SET(CMAKE_EXECUTABLE_SUFFIX ".html")
 endif ()
 
 # Customise what to build
@@ -129,7 +130,7 @@ option(MYGUI_DONT_USE_OBSOLETE "Remove obsole functions from build" FALSE)
 set(MYGUI_RENDERSYSTEM 3 CACHE STRING
 "Specify the Render System. Possible values:
   1 - Dummy
-  2 - Export (latter)
+  2 - Export (not used)
   3 - Ogre
   4 - OpenGL
   5 - Direct3D 9

@@ -8,10 +8,11 @@ namespace base
 {
 
 	class BaseManager :
-			public SdlBaseManager,
-			public MyGUI::OpenGLESImageLoader
+		public SdlBaseManager,
+		public MyGUI::OpenGLESImageLoader
 	{
 	public:
+        BaseManager() : SdlBaseManager(true) { }
 		bool createRender(int _width, int _height, bool _windowed) override;
 		void destroyRender() override;
 		void drawOneFrame() override;
@@ -19,8 +20,6 @@ namespace base
 		void addResourceLocation(const std::string& _name, bool _recursive = false) override;
 		void createGuiPlatform() override;
 		void destroyGuiPlatform() override;
-
-		void setupResources() override;
 
 //		/*internal:*/
 		void* loadImage(int& _width, int& _height, MyGUI::PixelFormat& _format, const std::string& _filename) override;

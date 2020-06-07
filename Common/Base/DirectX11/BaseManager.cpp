@@ -111,8 +111,8 @@ namespace base
 	void BaseManager::createGuiPlatform()
 	{
 		mPlatform = new MyGUI::DirectX11Platform();
-		mPlatform->initialise(mDevice);
 		setupResources();
+		mPlatform->initialise(mDevice);
 	}
 
 	void BaseManager::destroyGuiPlatform()

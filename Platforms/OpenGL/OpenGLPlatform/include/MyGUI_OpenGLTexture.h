@@ -28,6 +28,7 @@ namespace MyGUI
 		virtual void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format);
 		virtual void loadFromFile(const std::string& _filename);
 		virtual void saveToFile(const std::string& _filename);
+		virtual void setShader(const std::string& _shaderName);
 
 		virtual void destroy();
 
@@ -45,7 +46,7 @@ namespace MyGUI
 		virtual IRenderTarget* getRenderTarget();
 
 	/*internal:*/
-		unsigned int getTextureID() const;
+		unsigned int getTextureId() const;
 		void setUsage(TextureUsage _usage);
 		void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format, void* _data);
 
@@ -62,7 +63,7 @@ namespace MyGUI
 		int mAccess;
 		size_t mNumElemBytes;
 		size_t mDataSize;
-		unsigned int mTextureID;
+		unsigned int mTextureId;
 		unsigned int mPboID;
 		bool mLock;
 		void* mBuffer;

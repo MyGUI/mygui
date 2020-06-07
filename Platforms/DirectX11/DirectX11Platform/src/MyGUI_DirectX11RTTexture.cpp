@@ -64,7 +64,7 @@ namespace MyGUI
 		mManager->mpD3DContext->RSSetViewports(1, &vp);
 
 		const float clearColor[4] = {0.0f, 0.0f, 0.0f, 0.0f};
-		mManager->mpD3DContext->OMSetRenderTargets(1, &mRenderTarget, 0);
+		mManager->mpD3DContext->OMSetRenderTargets(1, &mRenderTarget, nullptr);
 		mManager->mpD3DContext->ClearRenderTargetView(mRenderTarget, clearColor);
 	}
 

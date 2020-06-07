@@ -49,13 +49,11 @@ namespace MyGUI
 
 	OpenGLRenderManager* OpenGLPlatform::getRenderManagerPtr()
 	{
-		assert(mIsInitialise);
 		return mRenderManager;
 	}
 
 	OpenGLDataManager* OpenGLPlatform::getDataManagerPtr()
 	{
-		assert(mIsInitialise);
 		return mDataManager;
 	}
 

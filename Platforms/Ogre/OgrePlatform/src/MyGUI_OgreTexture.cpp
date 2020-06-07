@@ -51,6 +51,11 @@ namespace MyGUI
 		unlock();
 	}
 
+	void OgreTexture::setShader(const std::string& _shaderName)
+	{
+		mShaderInfo = OgreRenderManager::getInstance().getShaderInfo(_shaderName);
+	}
+
 	void OgreTexture::setInvalidateListener(ITextureInvalidateListener* _listener)
 	{
 		mListener = _listener;
