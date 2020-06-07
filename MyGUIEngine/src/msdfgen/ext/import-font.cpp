@@ -7,10 +7,6 @@
 #include FT_FREETYPE_H
 #include FT_OUTLINE_H
 
-#ifdef _WIN32
-    #pragma comment(lib, "freetype.lib")
-#endif
-
 namespace msdfgen {
 
 #define REQUIRE(cond) { if (!(cond)) return false; }
