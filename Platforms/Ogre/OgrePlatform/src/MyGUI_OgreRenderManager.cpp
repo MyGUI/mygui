@@ -566,7 +566,9 @@ namespace MyGUI
 
 		std::string shaderLanguage = getShaderExtension();
 
-		shaderInfo->vertexProgram = Ogre::HighLevelGpuProgramManager::getSingleton().getByName(_vertexProgramFile);
+		shaderInfo->vertexProgram = Ogre::HighLevelGpuProgramManager::getSingleton().getByName(
+			_vertexProgramFile,
+			OgreDataManager::getInstance().getGroup());
 		if (!shaderInfo->vertexProgram)
 		{
 			shaderInfo->vertexProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
@@ -583,7 +585,9 @@ namespace MyGUI
 			shaderInfo->vertexProgram->load();
 		}
 
-		shaderInfo->fragmentProgram = Ogre::HighLevelGpuProgramManager::getSingleton().getByName(_fragmentProgramFile);
+		shaderInfo->fragmentProgram = Ogre::HighLevelGpuProgramManager::getSingleton().getByName(
+			_fragmentProgramFile,
+			OgreDataManager::getInstance().getGroup());
 		if (!shaderInfo->fragmentProgram)
 		{
 			shaderInfo->fragmentProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
