@@ -8,7 +8,7 @@ void main(
 	in float4 inPosition : SV_POSITION,
 	in float4 inColor : TEXCOORD0,
 	in float2 inTexcoord : TEXCOORD1,
-	out float4 Out : SV_TARGET)
+	out float4 Out : SV_TARGET )
 {
 	float pxRange = 2.0;
 	float w;

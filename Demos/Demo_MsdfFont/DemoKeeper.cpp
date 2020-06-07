@@ -2,6 +2,10 @@
 #include "DemoKeeper.h"
 #include "Base/Main.h"
 
+#if defined(MYGUI_OGRE_PLATFORM)
+#include "MyGUI_OgreRenderManager.h"
+#endif
+
 namespace demo
 {
 
@@ -16,10 +20,8 @@ namespace demo
 	{
 		// MsdfFontShader uses custom fragment program and default vertex program
 #if defined(MYGUI_OGRE_PLATFORM)
-		// TODO
-		MyGUI::RenderManager::getInstance().registerShader("MsdfFontShader", "MyGUI_Ogre_VP.glsl", "Msdf_Ogre_FP.glsl");
-		MyGUI::RenderManager::getInstance().registerShader("MsdfFontShader", "MyGUI_Ogre_VP.glsles", "Msdf_Ogre_FP.glsles");
-		MyGUI::RenderManager::getInstance().registerShader("MsdfFontShader", "MyGUI_Ogre_VP.hlsl", "Msdf_Ogre_FP.hlsl");
+		auto& renderManager = MyGUI::OgreRenderManager::getInstance();
+		renderManager.registerShader("MsdfFontShader", "MyGUI_Ogre_VP." + renderManager.getShaderExtension(), "Msdf_Ogre_FP." + renderManager.getShaderExtension());
 #elif defined(MYGUI_OPENGL_PLATFORM)
 		// TODO not implemented in RenderManager
 #elif defined(MYGUI_DIRECTX_PLATFORM)

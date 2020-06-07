@@ -19,6 +19,12 @@
 namespace MyGUI
 {
 
+	struct OgreShaderInfo
+	{
+		Ogre::HighLevelGpuProgramPtr vertexProgram;
+		Ogre::HighLevelGpuProgramPtr fragmentProgram;
+	};
+
 	class OgreRenderManager :
 		public RenderManager,
 		public IRenderTarget,
@@ -100,9 +106,12 @@ namespace MyGUI
 		virtual bool checkTexture(ITexture* _texture);
 #endif
 
+		std::string getShaderExtension() const;
+
 	/*internal:*/
 		/* for use with RTT, flips Y coordinate if necessary when rendering */
 		void doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, bool flipY);
+		OgreShaderInfo* getShaderInfo(const std::string& _shaderName);
 
 	private:
 		virtual void renderQueueStarted(
@@ -120,6 +129,11 @@ namespace MyGUI
 
 		void destroyAllResources();
 		void updateRenderInfo();
+
+		OgreShaderInfo* createShader(
+			const std::string& _shaderName,
+			const std::string& _vertexProgramFile,
+			const std::string& _fragmentProgramFile);
 
 	private:
 		// флаг для обновления всех и вся
@@ -154,8 +168,8 @@ namespace MyGUI
 		bool mManualRender;
 		size_t mCountBatch;
 
-		Ogre::HighLevelGpuProgramPtr mVertexProgram;
-		Ogre::HighLevelGpuProgramPtr mFragmentProgram;
+		OgreShaderInfo* mDefaultShader = nullptr;
+		std::map<std::string, OgreShaderInfo*> mRegisteredShaders;
 	};
 
 } // namespace MyGUI

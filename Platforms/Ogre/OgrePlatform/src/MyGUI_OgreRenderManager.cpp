@@ -68,6 +68,8 @@ namespace MyGUI
 		setRenderWindow(_window);
 		setSceneManager(_scene);
 
+		registerShader("Default", "MyGUI_Ogre_VP." + getShaderExtension(), "MyGUI_Ogre_FP." + getShaderExtension());
+
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully initialized");
 		mIsInitialise = true;
 	}
@@ -111,45 +113,6 @@ namespace MyGUI
 				mVertexFormat = VertexColourType::ColourABGR;
 
 			updateRenderInfo();
-
-			if (!mRenderSystem->getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION))
-			{
-				std::string shaderLanguage;
-				if (Ogre::HighLevelGpuProgramManager::getSingleton().isLanguageSupported("glsl"))
-					shaderLanguage = "glsl";
-				else if (Ogre::HighLevelGpuProgramManager::getSingleton().isLanguageSupported("glsles"))
-					shaderLanguage = "glsles";
-				else if (Ogre::HighLevelGpuProgramManager::getSingleton().isLanguageSupported("hlsl"))
-					shaderLanguage = "hlsl";
-				else
-					MYGUI_EXCEPT("No supported shader was found. Only glsl, glsles and hlsl are implemented so far.");
-
-				mVertexProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
-					"MyGUI_VP." + shaderLanguage,
-					OgreDataManager::getInstance().getGroup(),
-					shaderLanguage,
-					Ogre::GPT_VERTEX_PROGRAM);
-				mVertexProgram->setSourceFile("MyGUI_VP." + shaderLanguage);
-				if (shaderLanguage == "hlsl")
-				{
-					mVertexProgram->setParameter("target", "vs_4_0");
-					mVertexProgram->setParameter("entry_point", "main");
-				}
-				mVertexProgram->load();
-
-				mFragmentProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
-					"MyGUI_FP." + shaderLanguage,
-					OgreDataManager::getInstance().getGroup(),
-					shaderLanguage,
-					Ogre::GPT_FRAGMENT_PROGRAM);
-				mFragmentProgram->setSourceFile("MyGUI_FP." + shaderLanguage);
-				if (shaderLanguage == "hlsl")
-				{
-					mFragmentProgram->setParameter("target", "ps_4_0");
-					mFragmentProgram->setParameter("entry_point", "main");
-				}
-				mFragmentProgram->load();
-			}
 		}
 	}
 
@@ -314,14 +277,23 @@ namespace MyGUI
 
 	void OgreRenderManager::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
 	{
-		if (_texture)
+		MYGUI_ASSERT(_texture != nullptr, "Rendering without texture is not supported");
+
+		OgreTexture* texture = static_cast<OgreTexture*>(_texture);
+		Ogre::TexturePtr texture_ptr = texture->getOgreTexture();
+		if (texture_ptr)
 		{
-			OgreTexture* texture = static_cast<OgreTexture*>(_texture);
-			Ogre::TexturePtr texture_ptr = texture->getOgreTexture();
-			if (texture_ptr)
+			mRenderSystem->_setTexture(0, true, texture_ptr);
+			mRenderSystem->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
+
+			if (texture->getShaderInfo())
 			{
-				mRenderSystem->_setTexture(0, true, texture_ptr);
-				mRenderSystem->_setTextureUnitFiltering(0, Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
+				mRenderSystem->bindGpuProgram(texture->getShaderInfo()->vertexProgram->_getBindingDelegate());
+				mRenderSystem->bindGpuProgram(texture->getShaderInfo()->fragmentProgram->_getBindingDelegate());
+
+				Ogre::GpuProgramParametersSharedPtr params = texture->getShaderInfo()->vertexProgram->getDefaultParameters();
+				params->setNamedConstant("YFlipScale", 1.0f);
+				mRenderSystem->bindGpuProgramParameters(Ogre::GPT_VERTEX_PROGRAM, params, Ogre::GPV_ALL);
 			}
 		}
 
@@ -330,6 +302,16 @@ namespace MyGUI
 		operation->vertexData->vertexCount = _count;
 
 		mRenderSystem->_render(*operation);
+
+		if (texture_ptr && texture->getShaderInfo())
+		{
+			mRenderSystem->bindGpuProgram(mDefaultShader->vertexProgram->_getBindingDelegate());
+			mRenderSystem->bindGpuProgram(mDefaultShader->fragmentProgram->_getBindingDelegate());
+
+			Ogre::GpuProgramParametersSharedPtr params = mDefaultShader->vertexProgram->getDefaultParameters();
+			params->setNamedConstant("YFlipScale", 1.0f);
+			mRenderSystem->bindGpuProgramParameters(Ogre::GPT_VERTEX_PROGRAM, params, Ogre::GPV_ALL);
+		}
 
 		++mCountBatch;
 	}
@@ -354,20 +336,14 @@ namespace MyGUI
 		mRenderSystem->_setCullingMode(Ogre::CULL_NONE);
 		mRenderSystem->_setFog(Ogre::FOG_NONE);
 		mRenderSystem->_setColourBufferWriteEnabled(true, true, true, true);
-		if (mRenderSystem->getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION))
-		{
-			mRenderSystem->unbindGpuProgram(Ogre::GPT_FRAGMENT_PROGRAM);
-			mRenderSystem->unbindGpuProgram(Ogre::GPT_VERTEX_PROGRAM);
-		}
-		else
-		{
-			mRenderSystem->bindGpuProgram(mVertexProgram->_getBindingDelegate());
-			mRenderSystem->bindGpuProgram(mFragmentProgram->_getBindingDelegate());
 
-			Ogre::GpuProgramParametersSharedPtr params = mVertexProgram->getDefaultParameters();
-			params->setNamedConstant("YFlipScale", 1.0f);
-			mRenderSystem->bindGpuProgramParameters(Ogre::GPT_VERTEX_PROGRAM, params, Ogre::GPV_ALL);
-		}
+		mRenderSystem->bindGpuProgram(mDefaultShader->vertexProgram->_getBindingDelegate());
+		mRenderSystem->bindGpuProgram(mDefaultShader->fragmentProgram->_getBindingDelegate());
+
+		Ogre::GpuProgramParametersSharedPtr params = mDefaultShader->vertexProgram->getDefaultParameters();
+		params->setNamedConstant("YFlipScale", 1.0f);
+		mRenderSystem->bindGpuProgramParameters(Ogre::GPT_VERTEX_PROGRAM, params, Ogre::GPV_ALL);
+
 		mRenderSystem->setShadingType(Ogre::SO_GOURAUD);
 
 		// initialise texture settings
@@ -454,6 +430,12 @@ namespace MyGUI
 			delete item->second;
 		}
 		mTextures.clear();
+
+		for (auto& shaderInfo : mRegisteredShaders)
+		{
+			delete shaderInfo.second;
+		}
+		mRegisteredShaders.clear();
 	}
 
 #if MYGUI_DEBUG_MODE == 1
@@ -521,14 +503,33 @@ namespace MyGUI
 		const std::string& _vertexProgramFile,
 		const std::string& _fragmentProgramFile)
 	{
-		// TODO: not implemented
+		auto iter = mRegisteredShaders.find(_shaderName);
+		if (iter != mRegisteredShaders.end())
+		{
+			delete iter->second;
+		}
+		mRegisteredShaders[_shaderName] = createShader(_shaderName, _vertexProgramFile, _fragmentProgramFile);
+		if (_shaderName == "Default")
+			mDefaultShader = mRegisteredShaders[_shaderName];
+	}
+
+	std::string OgreRenderManager::getShaderExtension() const
+	{
+		std::string shaderLanguage;
+		if (Ogre::HighLevelGpuProgramManager::getSingleton().isLanguageSupported("glsl"))
+			return "glsl";
+		else if (Ogre::HighLevelGpuProgramManager::getSingleton().isLanguageSupported("glsles"))
+			return "glsles";
+		else if (Ogre::HighLevelGpuProgramManager::getSingleton().isLanguageSupported("hlsl"))
+			return "hlsl";
+		MYGUI_EXCEPT("No supported shader was found. Only glsl, glsles and hlsl are implemented so far.");
 	}
 
 	void OgreRenderManager::doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, bool flipY)
 	{
-		if (flipY && !mRenderSystem->getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION))
+		if (flipY)
 		{
-			Ogre::GpuProgramParametersSharedPtr params = mVertexProgram->getDefaultParameters();
+			Ogre::GpuProgramParametersSharedPtr params = mDefaultShader->vertexProgram->getDefaultParameters();
 			params->setNamedConstant("YFlipScale", -1.0f);
 			mRenderSystem->bindGpuProgramParameters(
 				Ogre::GPT_VERTEX_PROGRAM,
@@ -537,14 +538,69 @@ namespace MyGUI
 
 		doRender(_buffer, _texture, _count);
 
-		if (flipY && !mRenderSystem->getCapabilities()->hasCapability(Ogre::RSC_FIXED_FUNCTION))
+		if (flipY)
 		{
-			Ogre::GpuProgramParametersSharedPtr params = mVertexProgram->getDefaultParameters();
+			Ogre::GpuProgramParametersSharedPtr params = mDefaultShader->vertexProgram->getDefaultParameters();
 			params->setNamedConstant("YFlipScale", 1.0f);
 			mRenderSystem->bindGpuProgramParameters(
 				Ogre::GPT_VERTEX_PROGRAM,
 				params, Ogre::GPV_ALL);
 		}
+	}
+
+	OgreShaderInfo* OgreRenderManager::getShaderInfo(const std::string& _shaderName)
+	{
+		auto iter = mRegisteredShaders.find(_shaderName);
+		if (iter != mRegisteredShaders.end())
+			return iter->second;
+		MYGUI_PLATFORM_LOG(Error, "Failed to get shader info for shader '" << _shaderName << "'. Did you forgot to register shader?");
+		return nullptr;
+	}
+
+	OgreShaderInfo* OgreRenderManager::createShader(
+		const std::string& _shaderName,
+		const std::string& _vertexProgramFile,
+		const std::string& _fragmentProgramFile)
+	{
+		OgreShaderInfo* shaderInfo = new OgreShaderInfo();
+
+		std::string shaderLanguage = getShaderExtension();
+
+		shaderInfo->vertexProgram = Ogre::HighLevelGpuProgramManager::getSingleton().getByName(_vertexProgramFile);
+		if (!shaderInfo->vertexProgram)
+		{
+			shaderInfo->vertexProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
+				_vertexProgramFile,
+				OgreDataManager::getInstance().getGroup(),
+				shaderLanguage,
+				Ogre::GPT_VERTEX_PROGRAM);
+			shaderInfo->vertexProgram->setSourceFile(_vertexProgramFile);
+			if (shaderLanguage == "hlsl")
+			{
+				shaderInfo->vertexProgram->setParameter("target", "vs_4_0");
+				shaderInfo->vertexProgram->setParameter("entry_point", "main");
+			}
+			shaderInfo->vertexProgram->load();
+		}
+
+		shaderInfo->fragmentProgram = Ogre::HighLevelGpuProgramManager::getSingleton().getByName(_fragmentProgramFile);
+		if (!shaderInfo->fragmentProgram)
+		{
+			shaderInfo->fragmentProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
+				_fragmentProgramFile,
+				OgreDataManager::getInstance().getGroup(),
+				shaderLanguage,
+				Ogre::GPT_FRAGMENT_PROGRAM);
+			shaderInfo->fragmentProgram->setSourceFile(_fragmentProgramFile);
+			if (shaderLanguage == "hlsl")
+			{
+				shaderInfo->fragmentProgram->setParameter("target", "ps_4_0");
+				shaderInfo->fragmentProgram->setParameter("entry_point", "main");
+			}
+			shaderInfo->fragmentProgram->load();
+		}
+
+		return shaderInfo;
 	}
 
 } // namespace MyGUI

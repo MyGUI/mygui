@@ -224,7 +224,7 @@ namespace MyGUI
 		if (iter != mRegisteredShaders.end())
 			return iter->second;
 		MYGUI_PLATFORM_LOG(Error, "Failed to get shader info for shader '" << _shaderName << "'. Did you forgot to register shader?");
-		return {};
+		return nullptr;
 	}
 
 	void DirectX11RenderManager::begin()
