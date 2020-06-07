@@ -25,8 +25,7 @@ namespace demo
 #elif defined(MYGUI_DIRECTX_PLATFORM)
 		// TODO not implemented in RenderManager
 #elif defined(MYGUI_DIRECTX11_PLATFORM)
-		// TODO
-		MyGUI::RenderManager::getInstance().registerShader("MsdfFontShader", "MyGUI_DirectX11_VP.glsl", "Msdf_DirectX11_FP.glsl");
+		MyGUI::RenderManager::getInstance().registerShader("MsdfFontShader", "MyGUI_DirectX11_VP.hlsl", "Msdf_DirectX11_FP.hlsl");
 #elif defined(MYGUI_OPENGL3_PLATFORM)
 		MyGUI::RenderManager::getInstance().registerShader("MsdfFontShader", "MyGUI_OpenGL3_VP.glsl", "Msdf_OpenGL3_FP.glsl");
 #elif defined(MYGUI_OPENGLES_PLATFORM)
