@@ -124,7 +124,7 @@ endif ()
 option(MYGUI_STATIC "Static build" FALSE)
 option(MYGUI_DISABLE_PLUGINS "Disable plugins support" FALSE)
 option(MYGUI_USE_FREETYPE "Use freetype for font texture rendering" TRUE)
-option(MYGUI_MSDF_FONTS "Enable msdf fonts generation support" TRUE)
+option(MYGUI_MSDF_FONTS "Enable msdf fonts generation support" FALSE)
 option(MYGUI_DONT_USE_OBSOLETE "Remove obsole functions from build" FALSE)
 
 set(MYGUI_RENDERSYSTEM 3 CACHE STRING
