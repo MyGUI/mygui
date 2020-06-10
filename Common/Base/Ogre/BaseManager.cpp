@@ -138,6 +138,8 @@ namespace base
 
 	void BaseManager::resizeRender(int _width, int _height)
 	{
+		mWindow->windowMovedOrResized();
+		mCamera->setAspectRatio((float)_width / (float)_height);
 	}
 
 	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)
