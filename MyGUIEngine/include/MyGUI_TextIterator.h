@@ -33,7 +33,7 @@ namespace MyGUI
 
 		bool setTagColour(const Colour& _colour);
 
-		bool setTagColour(UString _colour);
+		bool setTagColour(const UString& _colour);
 
 		// сохраняет текущий итератор
 		bool saveStartPoint();
@@ -47,7 +47,7 @@ namespace MyGUI
 		// возвращает текущую псевдо позицию
 		size_t getPosition() const;
 
-		const UString& getText() const;
+		UString getText() const;
 
 		void insertText(const UString& _insert, bool _multiLine);
 
@@ -78,20 +78,21 @@ namespace MyGUI
 		static UString toTagsString(const UString& _text);
 
 	private:
-		// возвращает цвет
-		bool getTagColour(UString& _colour, UString::iterator& _iter) const;
+		bool getTagColour(UString& _colour, UString::utf32string::iterator& _iter) const;
 
-		void insert(UString::iterator& _start, UString& _insert);
+		bool setTagColour(const UString::utf32string& _colour);
 
-		UString::iterator erase(UString::iterator _start, UString::iterator _end);
+		void insert(UString::utf32string::iterator& _start, const UString::utf32string& _insert);
+
+		UString::utf32string::iterator erase(UString::utf32string::iterator _start, UString::utf32string::iterator _end);
 
 		void clear();
 
 		void normaliseNewLine(UString& _text);
 
 	private:
-		UString mText;
-		UString::iterator mCurrent, mEnd, mSave;
+		UString::utf32string mText;
+		UString::utf32string::iterator mCurrent, mEnd, mSave;
 
 		// позиция и размер
 		size_t mPosition;

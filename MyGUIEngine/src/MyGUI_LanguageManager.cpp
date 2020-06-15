@@ -258,19 +258,17 @@ namespace MyGUI
 	{
 		_replaceResult = false;
 
-		// вот хз, что быстрее, итераторы или математика указателей,
-		// для непонятно какого размера одного символа UTF8
-		UString line(_line);
+		UString::utf32string line(_line.asUTF32());
 
-		UString::iterator end = line.end();
-		for (UString::iterator iter = line.begin(); iter != end; )
+		UString::utf32string::iterator end = line.end();
+		for (UString::utf32string::iterator iter = line.begin(); iter != end; )
 		{
 			if (*iter == '#')
 			{
 				++iter;
 				if (iter == end)
 				{
-					return line;
+					return UString(line);
 				}
 				else
 				{
@@ -279,24 +277,24 @@ namespace MyGUI
 						++iter;
 						continue;
 					}
-					UString::iterator iter2 = iter;
+					UString::utf32string::iterator iter2 = iter;
 					++iter2;
 
 					while (true)
 					{
 						if (iter2 == end)
-							return line;
+							return UString(line);
 
 						if (*iter2 == '}')
 						{
 							size_t start = iter - line.begin();
 							size_t len = (iter2 - line.begin()) - start - 1;
-							const UString& tag = line.substr(start + 1, len);
+							const UString::utf32string & tag = line.substr(start + 1, len);
 							UString replacement;
 
 							bool find = true;
 							// try to find in loaded from resources language strings
-							MapLanguageString::iterator replace = mMapLanguage.find(tag);
+							MapLanguageString::iterator replace = mMapLanguage.find(UString(tag));
 							if (replace != mMapLanguage.end())
 							{
 								replacement = replace->second;
@@ -304,7 +302,7 @@ namespace MyGUI
 							else
 							{
 								// try to find in user language strings
-								replace = mUserMapLanguage.find(tag);
+								replace = mUserMapLanguage.find(UString(tag));
 								if (replace != mUserMapLanguage.end())
 								{
 									replacement = replace->second;
@@ -320,7 +318,7 @@ namespace MyGUI
 							{
 								if (!eventRequestTag.empty())
 								{
-									eventRequestTag(tag, replacement);
+									eventRequestTag(UString(tag), replacement);
 								}
 								else
 								{
@@ -334,11 +332,11 @@ namespace MyGUI
 
 							iter = line.erase(iter - size_t(1), iter2 + size_t(1));
 							size_t pos = iter - line.begin();
-							line.insert(pos, replacement);
+							line.insert(pos, replacement.asUTF32());
 							iter = line.begin() + pos + replacement.length();
 							end = line.end();
 							if (iter == end)
-								return line;
+								return UString(line);
 							break;
 						}
 						++iter2;
@@ -351,7 +349,7 @@ namespace MyGUI
 			}
 		}
 
-		return line;
+		return UString(line);
 	}
 
 } // namespace MyGUI

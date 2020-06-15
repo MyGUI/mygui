@@ -40,7 +40,7 @@ namespace MyGUI
 		{
 		}
 
-		void set(size_t _position, UString::const_iterator& _space_point, size_t _count, float _width)
+		void set(size_t _position, UString::utf32string::const_iterator& _space_point, size_t _count, float _width)
 		{
 			position = _position;
 			space_point = _space_point;
@@ -77,7 +77,7 @@ namespace MyGUI
 			return position;
 		}
 
-		UString::const_iterator getTextIter() const
+		UString::utf32string::const_iterator getTextIter() const
 		{
 			MYGUI_DEBUG_ASSERT(rollback, "rollback point not valid");
 			return space_point;
@@ -85,7 +85,7 @@ namespace MyGUI
 
 	private:
 		size_t position;
-		UString::const_iterator space_point;
+		UString::utf32string::const_iterator space_point;
 		size_t count;
 		float width;
 		bool rollback;
@@ -97,7 +97,7 @@ namespace MyGUI
 	{
 	}
 
-	void TextView::update(const UString& _text, IFont* _font, int _height, Align _align, VertexColourType _format, int _maxWidth)
+	void TextView::update(const UString::utf32string& _text, IFont* _font, int _height, Align _align, VertexColourType _format, int _maxWidth)
 	{
 		mFontHeight = _height;
 
@@ -121,8 +121,8 @@ namespace MyGUI
 		LineInfo line_info;
 		int font_height = _font->getDefaultHeight();
 
-		UString::const_iterator end = _text.end();
-		UString::const_iterator index = _text.begin();
+		UString::utf32string::const_iterator end = _text.end();
+		UString::utf32string::const_iterator index = _text.begin();
 
 		/*if (index == end)
 			return;*/
@@ -140,7 +140,7 @@ namespace MyGUI
 			{
 				if (character == FontCodeType::CR)
 				{
-					UString::const_iterator peeki = index;
+					UString::utf32string::const_iterator peeki = index;
 					++peeki;
 					if ((peeki != end) && (*peeki == FontCodeType::LF))
 						index = peeki; // skip both as one newline

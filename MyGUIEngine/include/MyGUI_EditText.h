@@ -139,6 +139,7 @@ namespace MyGUI
 		IntCoord mCurrentCoord;
 
 		UString mCaption;
+		UString::utf32string mUtf32Caption;
 		bool mTextOutDate;
 		Align mTextAlign;
 

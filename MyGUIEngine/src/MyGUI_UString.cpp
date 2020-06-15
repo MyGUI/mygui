@@ -578,6 +578,12 @@ namespace MyGUI
 		assign( str );
 	}
 	//--------------------------------------------------------------------------
+	UString::UString( const utf32string & str )
+	{
+		_init();
+		assign( str );
+	}
+	//--------------------------------------------------------------------------
 	UString::~UString()
 	{
 		_cleanBuffer();
@@ -954,6 +960,15 @@ namespace MyGUI
 
 			utf16len = _utf32_to_utf16( uc, utf16buff ); // UTF-32 -> UTF-16 conversion
 			append( utf16buff, utf16len ); // append the characters to the string
+		}
+		return *this;
+	}
+
+	UString& UString::assign( const utf32string& str )
+	{
+		for (const auto& character : str)
+		{
+			push_back(character);
 		}
 		return *this;
 	}

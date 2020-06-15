@@ -217,9 +217,9 @@ namespace MyGUI
 		mStartSelect = cursorPosition;
 		mEndSelect = cursorPosition;
 
-		UString text = this->getOnlyText();
-		UString::reverse_iterator iterBack = text.rend() - cursorPosition;
-		UString::iterator iterForw = text.begin() + cursorPosition;
+		UString::utf32string text = this->getOnlyText().asUTF32();
+		UString::utf32string::reverse_iterator iterBack = text.rend() - cursorPosition;
+		UString::utf32string::iterator iterForw = text.begin() + cursorPosition;
 
 		while (iterBack != text.rend())
 		{
@@ -949,41 +949,42 @@ namespace MyGUI
 		if (mVectorUndoChangeInfo.empty())
 			return false;
 
-		// сбрасываем выделение
 		resetSelect();
 
-		// сохраняем последние набор отмен
+		// save last undo info
 		VectorChangeInfo info = mVectorUndoChangeInfo.back();
-		// перекидываем последний набор отмен
+		// move undo info to redo
 		mVectorUndoChangeInfo.pop_back();
 		mVectorRedoChangeInfo.push_back(info);
 
-		// берем текст для издевательств
-		UString text = getRealString();
+		UString::utf32string text = getRealString().asUTF32();
 
-		// восстанавливаем последовательность
-		for (VectorChangeInfo::reverse_iterator iter = info.rbegin(); iter != info.rend(); ++iter)
+		// apply undo
+		for (VectorChangeInfo::const_reverse_iterator iter = info.rbegin(); iter != info.rend(); ++iter)
 		{
-			if ((*iter).type == TextCommandInfo::COMMAND_INSERT)
-				text.erase((*iter).start, (*iter).text.size());
-			else if ((*iter).type == TextCommandInfo::COMMAND_ERASE)
-				text.insert((*iter).start, (*iter).text);
-			else
+			const auto& change = *iter;
+			switch (change.type)
 			{
-				mCursorPosition = (*iter).undo;
-				mTextLength = (*iter).length;
+			case TextCommandInfo::COMMAND_INSERT:
+				text.erase(change.start, change.text.size());
+				break;
+			case TextCommandInfo::COMMAND_ERASE:
+				text.insert(change.start, change.text);
+				break;
+			case TextCommandInfo::COMMAND_POSITION:
+				mCursorPosition = change.undo;
+				mTextLength = change.length;
+				break;
 			}
 		}
 
-		// возвращаем текст
-		setRealString(text);
+		setRealString(UString(text));
 
-		// обновляем по позиции
+		// restore cursor position
 		if (mClientText != nullptr)
 			mClientText->setCursorPosition(mCursorPosition);
 		updateSelectText();
 
-		// отсылаем событие о изменении
 		eventEditTextChange(this);
 
 		return true;
@@ -997,39 +998,40 @@ namespace MyGUI
 		// сбрасываем выделение
 		resetSelect();
 
-		// сохраняем последние набор отмен
+		// save last undo info
 		VectorChangeInfo info = mVectorRedoChangeInfo.back();
-		// перекидываем последний набор отмен
+		// move redo info to undo
 		mVectorRedoChangeInfo.pop_back();
 		mVectorUndoChangeInfo.push_back(info);
 
-		// берем текст для издевательств
-		UString text = getRealString();
+		UString::utf32string text = getRealString().asUTF32();
 
-		// восстанавливаем последовательность
-		for (VectorChangeInfo::iterator iter = info.begin(); iter != info.end(); ++iter)
+		// apply redo
+		for (const auto& change : info)
 		{
-			if ((*iter).type == TextCommandInfo::COMMAND_INSERT)
-				text.insert((*iter).start, (*iter).text);
-			else if ((*iter).type == TextCommandInfo::COMMAND_ERASE)
-				text.erase((*iter).start, (*iter).text.size());
-			else
+			switch (change.type)
 			{
-				mCursorPosition = (*iter).redo;
-				mTextLength = (*iter).length;
+			case TextCommandInfo::COMMAND_INSERT:
+				text.insert(change.start, change.text);
+				break;
+			case TextCommandInfo::COMMAND_ERASE:
+				text.erase(change.start, change.text.size());
+				break;
+			case TextCommandInfo::COMMAND_POSITION:
+				mCursorPosition = change.redo;
+				mTextLength = change.length;
+				break;
 			}
 
 		}
 
-		// возвращаем текст
-		setRealString(text);
+		setRealString(UString(text));
 
-		// обновляем по позиции
+		// restore cursor position
 		if (mClientText != nullptr)
 			mClientText->setCursorPosition(mCursorPosition);
 		updateSelectText();
 
-		// отсылаем событие о изменении
 		eventEditTextChange(this);
 
 		return true;

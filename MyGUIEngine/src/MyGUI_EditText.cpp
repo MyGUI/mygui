@@ -175,6 +175,7 @@ namespace MyGUI
 	void EditText::setCaption(const UString& _value)
 	{
 		mCaption = _value;
+		mUtf32Caption = mCaption.asUTF32();
 		mTextOutDate = true;
 
 		checkVertexSize();
@@ -185,8 +186,8 @@ namespace MyGUI
 
 	void EditText::checkVertexSize()
 	{
-		// если вершин не хватит, делаем реалок, с учетом выделения * 2 и курсора
-		size_t need = (mCaption.size() * (mShadow ? 3 : 2) + 2) * VertexQuad::VertexCount;
+		// reallocate if we need more vertices (extra vertices for selection * 2 and cursor)
+		size_t need = (mUtf32Caption.size() * (mShadow ? 3 : 2) + 2) * VertexQuad::VertexCount;
 		if (mCountVertex < need)
 		{
 			mCountVertex = need + SIMPLETEXT_COUNT_VERTEX;
@@ -507,7 +508,7 @@ namespace MyGUI
 				width -= 2;
 		}
 
-		mTextView.update(mCaption, mFont, mFontHeight, mTextAlign, mVertexFormat, width);
+		mTextView.update(mUtf32Caption, mFont, mFontHeight, mTextAlign, mVertexFormat, width);
 	}
 
 	void EditText::setStateData(IStateInfo* _data)

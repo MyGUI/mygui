@@ -15,10 +15,9 @@
 namespace MyGUI
 {
 
-	// инфо об одной операции
+	// information about single text change operation
 	struct TextCommandInfo
 	{
-		// типы операций
 		enum CommandType
 		{
 			COMMAND_POSITION,
@@ -26,8 +25,8 @@ namespace MyGUI
 			COMMAND_ERASE
 		};
 
-		// для удаления и вставки текста
-		TextCommandInfo(const UString& _text, size_t _start, CommandType _type) :
+		// for COMMAND_INSERT and COMMAND_ERASE
+		TextCommandInfo(const UString::utf32string& _text, size_t _start, CommandType _type) :
 			text(_text),
 			type(_type),
 			start(_start),
@@ -37,7 +36,7 @@ namespace MyGUI
 		{
 		}
 
-		// для указания позиции
+		// for COMMAND_POSITION
 		TextCommandInfo(size_t _undo, size_t _redo, size_t _length) :
 			type(COMMAND_POSITION),
 			start(ITEM_NONE),
@@ -47,13 +46,12 @@ namespace MyGUI
 		{
 		}
 
-		// строка харрактиризуещая изменения
-		UString text;
-		// тип операции
+		// inserted/erased string
+		UString::utf32string text;
 		CommandType type;
-		// инфа о начале позиции
+		// text start position
 		size_t start;
-		// инфа о псевдо позиции
+		// pseudo position
 		size_t undo, redo, length;
 	};
 

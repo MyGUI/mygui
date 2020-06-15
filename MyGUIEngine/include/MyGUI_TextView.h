@@ -20,7 +20,7 @@ namespace MyGUI
 	public:
 		TextView();
 
-		void update(const UString& _text, IFont* _font, int _height, Align _align, VertexColourType _format, int _maxWidth = -1);
+		void update(const UString::utf32string& _text, IFont* _font, int _height, Align _align, VertexColourType _format, int _maxWidth = -1);
 
 		size_t getCursorPosition(const IntPoint& _value);
 

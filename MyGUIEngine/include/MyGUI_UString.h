@@ -468,6 +468,8 @@ namespace MyGUI
 		//! duplicate of \a str (UTF-8 encoding)
 		UString( const std::string& str );
 
+		explicit UString( const utf32string & str );
+
 		//! destructor
 		~UString();
 		//@}
@@ -613,6 +615,8 @@ namespace MyGUI
 #endif
 		//! assign \a str to the current string (\a str is treated as a UTF-8 stream)
 		UString& assign( const std::string& str );
+
+		UString& assign( const utf32string & str );
 		//! assign \a c_str to the current string (\a c_str is treated as a UTF-8 stream)
 		UString& assign( const char* c_str );
 		//! assign the first \a num characters of \a c_str to the current string (\a c_str is treated as a UTF-8 stream)
