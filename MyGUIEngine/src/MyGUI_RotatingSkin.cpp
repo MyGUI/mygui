@@ -338,7 +338,7 @@ namespace MyGUI
 			else
 			{
 				// all unused verticies is equal to last used
-				mResultVerticiesPos[i] = mResultVerticiesPos[size - 1];
+				mResultVerticiesPos[i] = mResultVerticiesPos[size == 0 ? 0 : (size - 1)];
 			}
 		}
 	}
