@@ -317,7 +317,7 @@ namespace MyGUI
 				else
 				{
 					// all unused verticies is equal to last used
-					mResultVerticiesUV[i] = mResultVerticiesUV[size - 1];
+					mResultVerticiesUV[i] = mResultVerticiesUV[size == 0 ? 0 : (size - 1)];
 				}
 			}
 		}
