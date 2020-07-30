@@ -111,10 +111,6 @@ namespace MyGUI
 					}
 				}
 			}
-			else
-			{
-				resetMouseCaptureWidget();
-			}
 
 			return true;
 		}
@@ -224,6 +220,12 @@ namespace MyGUI
 	{
 		injectMouseMove(_absx, _absy, mOldAbsZ);
 
+		if (MouseButton::None != _id && MouseButton::MAX != _id)
+		{
+			// start capture
+			mMouseCapture[_id.getValue()] = true;
+		}
+
 		// если мы щелкнули не на гуй
 		if (!isFocusMouse())
 		{
@@ -239,8 +241,6 @@ namespace MyGUI
 
 		if (MouseButton::None != _id && MouseButton::MAX != _id)
 		{
-			// start capture
-			mMouseCapture[_id.getValue()] = true;
 			// remember last pressed position
 			if (mLayerMouseFocus != nullptr)
 			{
@@ -291,20 +291,20 @@ namespace MyGUI
 
 	bool InputManager::injectMouseRelease(int _absx, int _absy, MouseButton _id)
 	{
+		if (_id != MouseButton::None && _id != MouseButton::MAX)
+		{
+			if (mMouseCapture[_id.getValue()])
+			{
+				// drop capture
+				mMouseCapture[_id.getValue()] = false;
+			}
+		}
+
 		if (isFocusMouse())
 		{
 			// если активный элемент заблокирован
 			if (!mWidgetMouseFocus->getInheritedEnabled())
 				return true;
-
-			if (_id != MouseButton::None && _id != MouseButton::MAX)
-			{
-				if (mMouseCapture[_id.getValue()])
-				{
-					// drop capture
-					mMouseCapture[_id.getValue()] = false;
-				}
-			}
 
 			IntPoint point (_absx, _absy);
 			if (mLayerMouseFocus != nullptr)
