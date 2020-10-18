@@ -92,15 +92,15 @@ namespace MyGUI
 
 	// proxy class to avoid calling initialiseSingleton/shutdownSingleton in constructor/destructor
 	template<class T>
-	class SingletonHandler
+	class SingletonHolder
 	{
 	public:
-		SingletonHandler(T* instance) :
+		SingletonHolder(T* instance) :
 			mInstance(instance)
 		{
 			mInstance->initialiseSingleton();
 		}
-		~SingletonHandler()
+		~SingletonHolder()
 		{
 			mInstance->shutdownSingleton();
 		}
@@ -110,8 +110,8 @@ namespace MyGUI
 
 #define MYGUI_SINGLETON_DECLARATION(ClassName) \
 	private: \
-	friend MyGUI::SingletonHandler<ClassName>; \
-	MyGUI::SingletonHandler<ClassName> mSingletonHolder; \
+	friend MyGUI::SingletonHolder<ClassName>; \
+	MyGUI::SingletonHolder<ClassName> mSingletonHolder; \
 	void initialiseSingleton(); \
 	void shutdownSingleton(); \
 	 \
