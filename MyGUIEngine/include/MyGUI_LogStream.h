@@ -26,7 +26,7 @@ namespace MyGUI
 		}
 
 		template <typename T>
-		LogStream& operator << (T _value)
+		LogStream& operator << (const T& _value)
 		{
 			mStream << _value;
 			return *this;
