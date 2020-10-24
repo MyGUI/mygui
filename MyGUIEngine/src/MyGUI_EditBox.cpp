@@ -826,7 +826,10 @@ namespace MyGUI
 					if (old != mCursorPosition)
 					{
 						mClientText->setCursorPosition(mCursorPosition);
-
+						
+						if (mStartSelect == ITEM_NONE)
+							mStartSelect = old;
+						
 						mEndSelect = (size_t)mCursorPosition;
 						if (mStartSelect > mEndSelect)
 							mClientText->setTextSelection(mEndSelect, mStartSelect);
