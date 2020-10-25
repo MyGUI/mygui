@@ -181,25 +181,25 @@ namespace MyGUI
 		mCursorTimer = 0;
 		mActionMouseTimer = 0;
 
-		size_t Old = mCursorPosition;
+		size_t old = mCursorPosition;
 		IntPoint point(_left, _top);
 		mCursorPosition = mClientText->getCursorPosition(point);
-		if (Old == mCursorPosition)
-			return;
 
-		mClientText->setCursorPosition(mCursorPosition);
+		if (old != mCursorPosition)
+		{
+			mClientText->setCursorPosition(mCursorPosition);
 
-		// если не было выделения
-		if (mStartSelect == ITEM_NONE)
-			mStartSelect = Old;
+			if (mStartSelect == ITEM_NONE)
+				mStartSelect = old;
 
-		// меняем выделение
-		mEndSelect = (size_t)mCursorPosition;
-		if (mStartSelect > mEndSelect)
-			mClientText->setTextSelection(mEndSelect, mStartSelect);
-		else
-			mClientText->setTextSelection(mStartSelect, mEndSelect);
+			mEndSelect = (size_t)mCursorPosition;
+			if (mStartSelect > mEndSelect)
+				mClientText->setTextSelection(mEndSelect, mStartSelect);
+			else
+				mClientText->setTextSelection(mStartSelect, mEndSelect);
 
+			updateViewWithCursor();
+		}
 	}
 
 	void EditBox::notifyMouseButtonDoubleClick(Widget* _sender)
