@@ -259,7 +259,8 @@ namespace MyGUI
 	{
 		if (mRenderSystem != nullptr)
 		{
-			if (mRenderSystem->getName() == "Direct3D11 Rendering Subsystem") // special case, it's not working with the value returned by the rendersystem
+			if (mRenderSystem->getName() == "Direct3D11 Rendering Subsystem" ||
+				mRenderSystem->getName() == "Direct3D9 Rendering Subsystem") // special case, it's not working with the value returned by the rendersystem
 			{
 				mInfo.maximumDepth = 0.0f;
 			}
