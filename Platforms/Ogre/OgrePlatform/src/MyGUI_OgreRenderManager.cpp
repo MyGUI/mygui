@@ -580,7 +580,7 @@ namespace MyGUI
 			shaderInfo->vertexProgram->setSourceFile(_vertexProgramFile);
 			if (shaderLanguage == "hlsl")
 			{
-				shaderInfo->vertexProgram->setParameter("target", "vs_4_0");
+				shaderInfo->vertexProgram->setParameter("target", "vs_3_0");
 				shaderInfo->vertexProgram->setParameter("entry_point", "main");
 			}
 			shaderInfo->vertexProgram->load();
@@ -599,7 +599,7 @@ namespace MyGUI
 			shaderInfo->fragmentProgram->setSourceFile(_fragmentProgramFile);
 			if (shaderLanguage == "hlsl")
 			{
-				shaderInfo->fragmentProgram->setParameter("target", "ps_4_0");
+				shaderInfo->fragmentProgram->setParameter("target", "ps_3_0");
 				shaderInfo->fragmentProgram->setParameter("entry_point", "main");
 			}
 			shaderInfo->fragmentProgram->load();
