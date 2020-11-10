@@ -19,12 +19,6 @@
 namespace MyGUI
 {
 
-	struct OgreShaderInfo
-	{
-		Ogre::HighLevelGpuProgramPtr vertexProgram;
-		Ogre::HighLevelGpuProgramPtr fragmentProgram;
-	};
-
 	class OgreRenderManager :
 		public RenderManager,
 		public IRenderTarget,
@@ -111,7 +105,6 @@ namespace MyGUI
 	/*internal:*/
 		/* for use with RTT, flips Y coordinate if necessary when rendering */
 		void doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, bool flipY);
-		OgreShaderInfo* getShaderInfo(const std::string& _shaderName);
 
 	private:
 		virtual void renderQueueStarted(
@@ -130,11 +123,6 @@ namespace MyGUI
 		void destroyAllResources();
 		void updateRenderInfo();
 
-		OgreShaderInfo* createShader(
-			const std::string& _shaderName,
-			const std::string& _vertexProgramFile,
-			const std::string& _fragmentProgramFile);
-
 	private:
 		// флаг для обновления всех и вся
 		bool mUpdate;
@@ -152,13 +140,6 @@ namespace MyGUI
 		unsigned short mActiveViewport;
 
 		Ogre::RenderSystem* mRenderSystem;
-#if OGRE_VERSION >= MYGUI_DEFINE_VERSION(1, 11, 3)
-		Ogre::Sampler::UVWAddressingMode mTextureAddressMode;
-#else
-		Ogre::TextureUnitState::UVWAddressingMode mTextureAddressMode;
-#endif
-		Ogre::LayerBlendModeEx mColorBlendMode, mAlphaBlendMode;
-
 		RenderTargetInfo mInfo;
 
 		typedef std::map<std::string, ITexture*> MapTexture;
@@ -168,8 +149,23 @@ namespace MyGUI
 		bool mManualRender;
 		size_t mCountBatch;
 
-		OgreShaderInfo* mDefaultShader = nullptr;
-		std::map<std::string, OgreShaderInfo*> mRegisteredShaders;
+		struct DummyRenderable : public Ogre::Renderable
+		{
+			DummyRenderable() {
+				mUseIdentityProjection = true;
+				mUseIdentityView = true;
+			}
+
+			Ogre::RenderOperation mRenderOp;
+			Ogre::MaterialPtr mMaterial;
+
+			void getWorldTransforms(Ogre::Matrix4* xform) const { *xform = Ogre::Matrix4::IDENTITY; }
+			void getRenderOperation(Ogre::RenderOperation& op) { op = mRenderOp; }
+			const Ogre::MaterialPtr& getMaterial() const { return mMaterial; }
+			const Ogre::LightList& getLights(void) const { static Ogre::LightList ll; return ll; }
+			Ogre::Real getSquaredViewDepth(const Ogre::Camera*) const { return 0; }
+		} mRenderable;
+
 	};
 
 } // namespace MyGUI

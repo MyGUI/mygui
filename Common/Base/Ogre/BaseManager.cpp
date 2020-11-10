@@ -4,36 +4,19 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_syswm.h>
 
+#include "OgreFileSystemLayer.h"
+
+#undef KMOD_ALT
+#undef KMOD_CTRL
+#undef KMOD_GUI
+#undef KMOD_SHIFT
+#include "OgreApplicationContextBase.h"
+
 namespace base
 {
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-	#include <CoreFoundation/CoreFoundation.h>
-	// This function will locate the path to our application on OS X,
-	// unlike windows you can not rely on the curent working directory
-	// for locating your configuration files and resources.
-	std::string macBundlePath()
-	{
-		char path[1024];
-		CFBundleRef mainBundle = CFBundleGetMainBundle();
-		assert(mainBundle);
-		CFURLRef mainBundleURL = CFBundleCopyBundleURL(mainBundle);
-		assert(mainBundleURL);
-		CFStringRef cfStringRef = CFURLCopyFileSystemPath( mainBundleURL, kCFURLPOSIXPathStyle);
-		assert(cfStringRef);
-		CFStringGetCString(cfStringRef, path, 1024, kCFStringEncodingASCII);
-		CFRelease(mainBundleURL);
-		CFRelease(cfStringRef);
-		return std::string(path);
-	}
-#endif
-
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-		const std::string resourcePath = macBundlePath() + "/Contents/Resources/";
-#else
-		const std::string resourcePath = "";
-#endif
+		const std::string resourcePath = Ogre::FileSystemLayer::resolveBundlePath("");;
 		Ogre::String pluginsPath;
 
 #ifndef OGRE_STATIC_LIB
@@ -62,9 +45,18 @@ namespace base
 		ASSERT(wmInfo.subsystem == SDL_SYSWM_COCOA);
 		params["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.cocoa.window));
 #endif
+		params["vsync"] = "true";
+
 		mWindow = mRoot->createRenderWindow("MainRenderWindow", _width, _height, false, &params);
 
 		mSceneManager = mRoot->createSceneManager(Ogre::ST_GENERIC, "BaseSceneManager");
+
+		if (Ogre::RTShader::ShaderGenerator::initialize())
+		{
+			auto shaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
+			Ogre::MaterialManager::getSingleton().addListener(new OgreBites::SGTechniqueResolverListener(shaderGenerator));
+			shaderGenerator->addSceneManager(mSceneManager);
+		}
 
 		mCamera = mSceneManager->createCamera("BaseCamera");
 		mCamera->setNearClipDistance(5);
@@ -79,7 +71,6 @@ namespace base
 		// Set default mipmap level (NB some APIs ignore this)
 		Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 
-		mSceneManager->setAmbientLight(Ogre::ColourValue::White);
 		Ogre::Light* light = mSceneManager->createLight("MainLight");
 		light->setType(Ogre::Light::LT_DIRECTIONAL);
 		Ogre::Vector3 vec(-0.3f, -0.3f, -0.3f);
@@ -144,14 +135,8 @@ namespace base
 
 	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)
 	{
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-		// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
-		std::string name = Ogre::String(macBundlePath() + "/" + _name;
-#else
-		std::string name = _name;
-#endif
-
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(name, "FileSystem", Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME, _recursive);
+		auto name = Ogre::FileSystemLayer::resolveBundlePath(_name);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(name, "FileSystem", Ogre::RGN_DEFAULT, _recursive);
 	}
 
 	void BaseManager::makeScreenShot()
@@ -179,6 +164,14 @@ namespace base
 	{
 		SdlBaseManager::setupResources();
 
+		auto ogreMedia = OgreBites::ApplicationContextBase::getDefaultMediaDir();
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(ogreMedia+"/ShadowVolume", "FileSystem", Ogre::RGN_INTERNAL);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(ogreMedia+"/RTShaderLib/GLSL", "FileSystem", Ogre::RGN_INTERNAL);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(ogreMedia+"/RTShaderLib/HLSL_Cg", "FileSystem", Ogre::RGN_INTERNAL);
+	}
+
+	void BaseManager::createScene()
+	{
 		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	}
 

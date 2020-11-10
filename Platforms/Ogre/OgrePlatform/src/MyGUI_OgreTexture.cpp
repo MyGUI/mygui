@@ -53,7 +53,7 @@ namespace MyGUI
 
 	void OgreTexture::setShader(const std::string& _shaderName)
 	{
-		mShaderInfo = OgreRenderManager::getInstance().getShaderInfo(_shaderName);
+		//mShaderInfo = OgreRenderManager::getInstance().getShaderInfo(_shaderName);
 	}
 
 	void OgreTexture::setInvalidateListener(ITextureInvalidateListener* _listener)
@@ -96,7 +96,7 @@ namespace MyGUI
 	{
 		if (_access == TextureUsage::Write)
 		{
-			return mTexture->getBuffer()->lock(Ogre::HardwareBuffer::HBL_DISCARD);
+			return mTexture->getBuffer()->lock(Ogre::HardwareBuffer::HBL_WRITE_ONLY);
 		}
 
 		// здесь проверить режим создания, и возможно так залочить без пиксель бокса

@@ -25,6 +25,8 @@ namespace base
 		MyGUI::MapString getStatistic() override;
 		void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text) override;
 
+		void createScene() override;
+
 	/*internal:*/
 		Ogre::SceneManager* getSceneManager();
 		Ogre::Camera* getCamera();
