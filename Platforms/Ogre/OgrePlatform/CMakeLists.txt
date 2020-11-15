@@ -20,9 +20,3 @@ install(FILES ${HEADER_FILES}
 	DESTINATION include/MYGUI
 )
 mygui_install_target(${PROJECTNAME} "")
-
-# platform specific dependencies
-if (APPLE)
-	include_directories(/usr/local/include /usr/include)
-	target_link_libraries(${PROJECTNAME} ${Carbon_LIBRARY})
-endif ()

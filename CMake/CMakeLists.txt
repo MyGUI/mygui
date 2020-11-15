@@ -22,15 +22,6 @@ set(STATIC_INST_FILES
   Packages/FindDirectX.cmake
   Packages/FindDirectX11.cmake
 )
-if (APPLE)
-  set(INST_FILES ${INST_FILES}
-	Packages/FindIOKit.cmake
-  )
-  set(STATIC_INST_FILES ${STATIC_INST_FILES}
-	Packages/FindCarbon.cmake
-	Packages/FindCocoa.cmake
-  )
-endif ()
 
 #install(FILES ${INST_FILES} DESTINATION ${MYGUI_CMAKE_DIR})
 if (MYGUI_STATIC)

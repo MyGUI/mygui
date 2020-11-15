@@ -212,12 +212,6 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 			COMMENT "Generating *.list files")
 	endif ()
 
-	if (APPLE)
-		find_library(CF_LIBRARY CoreFoundation)
-		find_library(IOKIT_LIBRARY IOKit)
-		target_link_libraries(${PROJECTNAME} ${CF_LIBRARY})
-		target_link_libraries(${PROJECTNAME} ${IOKIT_LIBRARY})
-	endif ()
 endfunction(mygui_app)
 
 #setup Tools dll builds
@@ -335,12 +329,6 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 			COMMENT "Generating *.list files")
 	endif ()
 
-	if (APPLE)
-		find_library(CF_LIBRARY CoreFoundation)
-		find_library(IOKIT_LIBRARY IOKit)
-		target_link_libraries(${PROJECTNAME} ${CF_LIBRARY})
-		target_link_libraries(${PROJECTNAME} ${IOKIT_LIBRARY})
-	endif ()
 endfunction(mygui_dll)
 
 function(mygui_demo PROJECTNAME)

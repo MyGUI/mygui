@@ -84,19 +84,5 @@ find_package(Doxygen)
 macro_log_feature(DOXYGEN_FOUND "Doxygen" "Tool for building API documentation" "http://doxygen.org" FALSE "" "")
 
 
-#######################################################################
-# Apple-specific
-#######################################################################
-if (APPLE)
-  find_package(Carbon)
-  macro_log_feature(Carbon_FOUND "Carbon" "Carbon" "http://www.apple.com" TRUE "" "")
-
-  find_package(Cocoa)
-  macro_log_feature(Cocoa_FOUND "Cocoa" "Cocoa" "http://www.apple.com" TRUE "" "")
-
-  find_package(IOKit)
-  macro_log_feature(IOKit_FOUND "IOKit" "IOKit HID framework needed by the samples" "http://www.apple.com" FALSE "" "")
-endif(APPLE)
-
 # Display results, terminate if anything required is missing
 MACRO_DISPLAY_FEATURE_LOG()
