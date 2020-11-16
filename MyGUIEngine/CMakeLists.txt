@@ -2,8 +2,6 @@ set (PROJECTNAME MyGUIEngine)
 
 project( ${PROJECTNAME} )
 
-include(PrecompiledHeader)
-
 include(${PROJECTNAME}.list)
 
 include_directories(include)
@@ -61,11 +59,7 @@ if (APPLE)
 	include_directories(/usr/local/include /usr/include)
 endif ()
 
-# specify a precompiled header to use
-use_precompiled_header(${PROJECTNAME}
-  "${CMAKE_CURRENT_SOURCE_DIR}/include/MyGUI_Precompiled.h"
-  "${CMAKE_CURRENT_SOURCE_DIR}/src/MyGUI_Precompiled.cpp"
-)
+target_precompile_headers(${PROJECTNAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/MyGUI_Precompiled.h")
 
 set(${PROJECTNAME}_HEADERS ${HEADER_FILES}) # for Mac OS X
 mygui_config_lib(${PROJECTNAME})

@@ -346,12 +346,7 @@ function(mygui_tool PROJECTNAME)
 	endif ()
 
 	include_directories(${MYGUI_SOURCE_DIR}/Tools/EditorFramework)
-	include(PrecompiledHeader)
-	# specify a precompiled header to use
-	use_precompiled_header(${PROJECTNAME}
-		"../../Common/Precompiled.h"
-		"../../Common/Precompiled.cpp"
-	)
+	target_precompile_headers(${PROJECTNAME} PRIVATE "../../Common/Precompiled.h")
 
 	target_link_libraries(${PROJECTNAME}
 		EditorFramework
@@ -370,12 +365,7 @@ function(mygui_tool_dll PROJECTNAME)
 		mygui_install_app(${PROJECTNAME})
 	endif ()
 
-	include(PrecompiledHeader)
-	# specify a precompiled header to use
-	use_precompiled_header(${PROJECTNAME}
-		"../../Common/Precompiled.h"
-		"../../Common/Precompiled.cpp"
-	)
+	target_precompile_headers(${PROJECTNAME} PRIVATE "../../Common/Precompiled.h")
 endfunction(mygui_tool_dll)
 
 
