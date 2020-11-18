@@ -59,7 +59,9 @@ if (APPLE)
 	include_directories(/usr/local/include /usr/include)
 endif ()
 
-target_precompile_headers(${PROJECTNAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/MyGUI_Precompiled.h")
+if (${CMAKE_VERSION} VERSION_EQUAL "3.16" OR ${CMAKE_VERSION} VERSION_GREATER "3.16")
+	target_precompile_headers(${PROJECTNAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/MyGUI_Precompiled.h")
+endif ()
 
 set(${PROJECTNAME}_HEADERS ${HEADER_FILES}) # for Mac OS X
 mygui_config_lib(${PROJECTNAME})
