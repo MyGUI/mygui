@@ -6,7 +6,6 @@
 ######################################################################
 
 cmake_minimum_required(VERSION 2.8.12)
-set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS TRUE)
 cmake_policy(SET CMP0003 NEW)
 cmake_policy(SET CMP0011 NEW)
 
@@ -78,9 +77,6 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 	endif()
 endif ()
 
-# definitions for samples
-set(MYGUI_LIBRARIES MyGUIEngine)
-
 # Specify build paths
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
@@ -125,7 +121,7 @@ option(MYGUI_STATIC "Static build" FALSE)
 option(MYGUI_DISABLE_PLUGINS "Disable plugins support" FALSE)
 option(MYGUI_USE_FREETYPE "Use freetype for font texture rendering" TRUE)
 option(MYGUI_MSDF_FONTS "Enable msdf fonts generation support" FALSE)
-option(MYGUI_DONT_USE_OBSOLETE "Remove obsole functions from build" FALSE)
+option(MYGUI_DONT_USE_OBSOLETE "Remove obsolete functions from build" FALSE)
 
 set(MYGUI_RENDERSYSTEM 3 CACHE STRING
 "Specify the Render System. Possible values:
@@ -162,7 +158,7 @@ MARK_AS_ADVANCED(MYGUI_STANDALONE_BUILD)
 option(MYGUI_GENERATE_LIST_FILES_FROM_VSPROJECT "Generate .list files from visual studio project files" FALSE)
 
 if (MSVC)
-	option(MYGUI_USE_PROJECT_FOLDERS "Use Visual Studio solution folders for projects." FALSE)
+	option(MYGUI_USE_PROJECT_FOLDERS "Use Visual Studio solution folders for projects." TRUE)
 endif ()
 
 # Used to not annoy users with high level warnings (should be TRUE for developers)
@@ -273,11 +269,6 @@ if (MSVC)
 		SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNING_LEVEL}")
 	endif ()
 
-endif ()
-
-if (CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
-	# Otherwise, boost complains that there is no threading support.
-	SET(CMAKE_CXX_FLAGS "-pthread ${CMAKE_CXX_FLAGS}")
 endif ()
 
 cmake_dependent_option(MYGUI_BUILD_DOCS "Generate documentation" TRUE "DOXYGEN_FOUND" FALSE)

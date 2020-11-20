@@ -21,12 +21,6 @@ endif ()
 
 add_definitions(-DMYGUI_BUILD)
 
-if (MSVC)
-	# disable: "no suitable definition provided for explicit template instantiation request"
-	# Occurs for no justifiable reason on all #includes of Singleton
-	add_definitions(/wd4661)
-endif ()
-
 # setup MyGUIEngine target
 add_library(${PROJECTNAME} ${MYGUI_LIB_TYPE} ${HEADER_FILES} ${SOURCE_FILES})
 if (NOT ANDROID)
