@@ -9,13 +9,6 @@ macro(findpkg_begin PREFIX)
   endif ()
 endmacro(findpkg_begin)
 
-# Display a status message unless FIND_QUIETLY is set
-macro(pkg_message PREFIX)
-  if (NOT ${PREFIX}_FIND_QUIETLY)
-    message(STATUS ${ARGN})
-  endif ()
-endmacro(pkg_message)
-
 # Get environment variable, define it as ENV_$var and make sure backslashes are converted to forward slashes
 macro(getenv_path VAR)
    set(ENV_${VAR} $ENV{${VAR}})
@@ -47,40 +40,6 @@ macro(clear_if_changed TESTVAR)
   endif ()
   set(${TESTVAR}_INT_CHECK ${${TESTVAR}} CACHE INTERNAL "x" FORCE)
 endmacro(clear_if_changed)
-
-# Try to get some hints from pkg-config, if available
-macro(use_pkgconfig PREFIX PKGNAME)
-  find_package(PkgConfig)
-  if (PKG_CONFIG_FOUND)
-    pkg_check_modules(${PREFIX} ${PKGNAME})
-  endif ()
-endmacro (use_pkgconfig)
-
-# Couple a set of release AND debug libraries (or frameworks)
-macro(make_library_set PREFIX)
-  if (${PREFIX}_FWK)
-    set(${PREFIX} ${${PREFIX}_FWK})
-  elseif (${PREFIX}_REL AND ${PREFIX}_DBG)
-    set(${PREFIX} optimized ${${PREFIX}_REL} debug ${${PREFIX}_DBG})
-  elseif (${PREFIX}_REL)
-    set(${PREFIX} ${${PREFIX}_REL})
-  elseif (${PREFIX}_DBG)
-    set(${PREFIX} ${${PREFIX}_DBG})
-  endif ()
-endmacro(make_library_set)
-
-# Generate debug names from given release names
-macro(get_debug_names PREFIX)
-  foreach(i ${${PREFIX}})
-    set(${PREFIX}_DBG ${${PREFIX}_DBG} ${i}d ${i}D ${i}_d ${i}_D)
-  endforeach(i)
-endmacro(get_debug_names)
-
-# Add the parent dir from DIR to VAR 
-macro(add_parent_dir VAR DIR)
-  get_filename_component(${DIR}_TEMP "${${DIR}}/.." ABSOLUTE)
-  set(${VAR} ${${VAR}} ${${DIR}_TEMP})
-endmacro(add_parent_dir)
 
 # Do the final processing for the package find.
 macro(findpkg_finish PREFIX)
