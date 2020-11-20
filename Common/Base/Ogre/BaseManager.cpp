@@ -62,6 +62,8 @@ namespace base
 		ASSERT(wmInfo.subsystem == SDL_SYSWM_COCOA);
 		params["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.cocoa.window));
 #endif
+		params["vsync"] = "true";
+
 		mWindow = mRoot->createRenderWindow("MainRenderWindow", _width, _height, false, &params);
 
 		mSceneManager = mRoot->createSceneManager(Ogre::ST_GENERIC, "BaseSceneManager");
@@ -79,7 +81,6 @@ namespace base
 		// Set default mipmap level (NB some APIs ignore this)
 		Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 
-		mSceneManager->setAmbientLight(Ogre::ColourValue::White);
 		Ogre::Light* light = mSceneManager->createLight("MainLight");
 		light->setType(Ogre::Light::LT_DIRECTIONAL);
 		Ogre::Vector3 vec(-0.3f, -0.3f, -0.3f);
@@ -118,7 +119,8 @@ namespace base
 	{
 		setupResources();
 		mPlatform = new MyGUI::OgrePlatform();
-		mPlatform->initialise(mWindow, mSceneManager, Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
+		mPlatform->initialise(mWindow, mSceneManager, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	}
 
 	void BaseManager::destroyGuiPlatform()
@@ -151,7 +153,7 @@ namespace base
 		std::string name = _name;
 #endif
 
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(name, "FileSystem", Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME, _recursive);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(name, "FileSystem", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, _recursive);
 	}
 
 	void BaseManager::makeScreenShot()
@@ -178,8 +180,6 @@ namespace base
 	void BaseManager::setupResources()
 	{
 		SdlBaseManager::setupResources();
-
-		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	}
 
 	MyGUI::MapString BaseManager::getStatistic()
