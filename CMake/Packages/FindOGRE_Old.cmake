@@ -8,11 +8,6 @@
 
 include(FindPkgMacros)
 
-# Try to find framework first on Mac OS X
-if (APPLE)
-	find_framework(OGRE)
-endif ()
-
 if (NOT OGRE_FOUND)
 # Then try everything else
 

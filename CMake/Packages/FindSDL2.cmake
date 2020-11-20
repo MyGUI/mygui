@@ -34,12 +34,6 @@
 
 include(FindPkgMacros)
 
-# Try to find framework first on Mac OS X
-if(APPLE)
-	find_framework(SDL2)
-    find_framework(SDL2_image)
-endif ()
-
 IF(NOT SDL2_FOUND)
 # Then try everything else
     CMAKE_POLICY(PUSH)
