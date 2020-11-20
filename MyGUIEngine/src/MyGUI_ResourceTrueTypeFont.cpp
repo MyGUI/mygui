@@ -305,7 +305,7 @@ namespace MyGUI
 				if (key == "Source")
 					setSource(value);
 				else if (key == "Shader")
-					setShader(mShader);
+					setShader(value);
 				else if (key == "Size")
 					setSize(utility::parseFloat(value));
 				else if (key == "Resolution")
