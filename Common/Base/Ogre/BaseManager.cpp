@@ -62,8 +62,6 @@ namespace base
 		ASSERT(wmInfo.subsystem == SDL_SYSWM_COCOA);
 		params["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.cocoa.window));
 #endif
-		params["vsync"] = "true";
-
 		mWindow = mRoot->createRenderWindow("MainRenderWindow", _width, _height, false, &params);
 
 		mSceneManager = mRoot->createSceneManager(Ogre::ST_GENERIC, "BaseSceneManager");
@@ -119,8 +117,7 @@ namespace base
 	{
 		setupResources();
 		mPlatform = new MyGUI::OgrePlatform();
-		mPlatform->initialise(mWindow, mSceneManager, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+		mPlatform->initialise(mWindow, mSceneManager, Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
 	}
 
 	void BaseManager::destroyGuiPlatform()
@@ -180,6 +177,8 @@ namespace base
 	void BaseManager::setupResources()
 	{
 		SdlBaseManager::setupResources();
+
+		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	}
 
 	MyGUI::MapString BaseManager::getStatistic()
