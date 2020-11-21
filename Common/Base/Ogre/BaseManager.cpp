@@ -79,7 +79,6 @@ namespace base
 		// Set default mipmap level (NB some APIs ignore this)
 		Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 
-		mSceneManager->setAmbientLight(Ogre::ColourValue::White);
 		Ogre::Light* light = mSceneManager->createLight("MainLight");
 		light->setType(Ogre::Light::LT_DIRECTIONAL);
 		Ogre::Vector3 vec(-0.3f, -0.3f, -0.3f);
@@ -151,7 +150,7 @@ namespace base
 		std::string name = _name;
 #endif
 
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(name, "FileSystem", Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME, _recursive);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(name, "FileSystem", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, _recursive);
 	}
 
 	void BaseManager::makeScreenShot()

@@ -15,6 +15,7 @@ namespace tools
 	{
 		MYGUI_SINGLETON_DECLARATION(DialogManager);
 	public:
+		DialogManager() : mSingletonHolder(this) { }
 		void initialise();
 		void shutdown();
 
