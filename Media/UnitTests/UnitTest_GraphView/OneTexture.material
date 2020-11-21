@@ -1,0 +1,23 @@
+
+abstract material OneTexture
+{
+	technique
+	{
+		pass
+		{
+			vertex_program_ref OneTexture_VP
+			{
+				param_named_auto worldViewProj worldviewproj_matrix
+			}
+			
+			fragment_program_ref OneTexture_FP
+			{
+			}
+
+			texture_unit 0
+			{
+				texture $texture_unit
+			}
+		}
+	}
+}

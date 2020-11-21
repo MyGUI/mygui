@@ -1,0 +1,44 @@
+
+vertex_program OneTextureVP_HLSL hlsl
+{
+	source OneTexture_VP.hlsl
+	entry_point OneTexture_VP
+	target vs_2_0
+}
+
+fragment_program OneTextureFP_HLSL hlsl
+{
+	source OneTexture_FP.hlsl
+	entry_point OneTexture_FP
+	target ps_2_0
+}
+
+vertex_program OneTextureVP_GLSL glsl
+{
+	source OneTexture_VP.glsl
+}
+
+fragment_program OneTextureFP_GLSL glsl
+{
+	source OneTexture_FP.glsl
+
+	default_params
+	{
+		param_named texMap int 0
+	}
+
+	//Validation warning! - Sampler value texMap has not been set
+}
+
+// Unified definition
+vertex_program OneTexture_VP unified
+{
+	delegate OneTextureVP_HLSL
+	delegate OneTextureVP_GLSL
+}
+
+fragment_program OneTexture_FP unified
+{
+	delegate OneTextureFP_HLSL
+	delegate OneTextureFP_GLSL
+}
