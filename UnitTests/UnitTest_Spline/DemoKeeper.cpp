@@ -67,6 +67,7 @@ namespace demo
 		}
 
 		notifyChangeQuality(qualityScroll, 12);
+		notifyChangeStroke(strokeScroll, 0);
 		updateSpline();
 	}
 
