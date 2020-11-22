@@ -8,8 +8,6 @@
 
 #include <OgreHardwareVertexBuffer.h>
 
-#include "MyGUI_LastHeader.h"
-
 namespace MyGUI
 {
 

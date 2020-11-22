@@ -16,8 +16,6 @@
 #include "MyGUI_OgreTexture.h"
 #include "MyGUI_LogManager.h"
 
-#include "MyGUI_LastHeader.h"
-
 namespace MyGUI
 {
 

@@ -1,5 +1,4 @@
 set (HEADER_FILES
-  include/MyGUI_LastHeader.h
   include/MyGUI_OgreDataManager.h
   include/MyGUI_OgreDataStream.h
   include/MyGUI_OgreDiagnostic.h
@@ -18,7 +17,6 @@ set (SOURCE_FILES
   src/MyGUI_OgreVertexBuffer.cpp
 )
 SOURCE_GROUP("Header Files" FILES
-  include/MyGUI_LastHeader.h
   include/MyGUI_OgreDataManager.h
   include/MyGUI_OgreDataStream.h
   include/MyGUI_OgreDiagnostic.h

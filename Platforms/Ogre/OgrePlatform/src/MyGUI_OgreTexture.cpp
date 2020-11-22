@@ -13,8 +13,6 @@
 #include "MyGUI_OgreDataManager.h"
 #include <Ogre.h>
 
-#include "MyGUI_LastHeader.h"
-
 namespace MyGUI
 {
 

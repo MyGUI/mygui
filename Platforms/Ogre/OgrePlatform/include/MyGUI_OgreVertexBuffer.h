@@ -18,8 +18,6 @@
 #include <OgreTextureManager.h>
 #include <OgreTextureUnitState.h>
 
-#include "MyGUI_LastHeader.h"
-
 namespace MyGUI
 {
 

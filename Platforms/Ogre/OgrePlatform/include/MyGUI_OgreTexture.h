@@ -14,8 +14,6 @@
 #include <OgreResource.h>
 #include <OgreTexture.h>
 
-#include "MyGUI_LastHeader.h"
-
 namespace MyGUI
 {
 
