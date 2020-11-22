@@ -36,37 +36,6 @@
 #include <string>
 #include <stdexcept>
 
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-// disable: warning C4275: non dll-interface class '***' used as base for dll-interface clas '***'
-#	pragma warning (push)
-#	pragma warning (disable : 4275)
-#endif
-
-// Workaround for VC7:
-//      when build with /MD or /MDd, VC7 have both std::basic_string<unsigned short> and
-// basic_string<__wchar_t> instantiated in msvcprt[d].lib/MSVCP71[D].dll, but the header
-// files tells compiler that only one of them is over there (based on /Zc:wchar_t compile
-// option). And since this file used both of them, causing compiler instantiating another
-// one in user object code, which lead to duplicate symbols with msvcprt.lib/MSVCP71[D].dll.
-//
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC && (1300 <= MYGUI_COMP_VER && MYGUI_COMP_VER <= 1310)
-
-# if defined(_DLL_CPPLIB)
-
-namespace std
-{
-    template class _CRTIMP2 basic_string<unsigned short, char_traits<unsigned short>,
-	    allocator<unsigned short> >;
-
-    template class _CRTIMP2 basic_string<__wchar_t, char_traits<__wchar_t>,
-	    allocator<__wchar_t> >;
-}
-
-# endif // defined(_DLL_CPPLIB)
-
-#endif  // MYGUI_COMPILER == MYGUI_COMPILER_MSVC && MYGUI_COMP_VER == 1300
-
-
 namespace MyGUI
 {
 
@@ -1104,9 +1073,5 @@ namespace MyGUI
 	}
 
 } // namespace MyGUI
-
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-#	pragma warning (pop)
-#endif
 
 #endif  // __MYGUI_U_STRING_H__
