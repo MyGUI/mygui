@@ -150,13 +150,6 @@ namespace MyGUI
 		unsigned short mActiveViewport;
 
 		Ogre::RenderSystem* mRenderSystem;
-#if OGRE_VERSION >= MYGUI_DEFINE_VERSION(1, 11, 3)
-		Ogre::Sampler::UVWAddressingMode mTextureAddressMode;
-#else
-		Ogre::TextureUnitState::UVWAddressingMode mTextureAddressMode;
-#endif
-		Ogre::LayerBlendModeEx mColorBlendMode, mAlphaBlendMode;
-
 		RenderTargetInfo mInfo;
 
 		typedef std::map<std::string, ITexture*> MapTexture;
@@ -168,6 +161,23 @@ namespace MyGUI
 
 		OgreShaderInfo* mDefaultShader = nullptr;
 		std::map<std::string, OgreShaderInfo*> mRegisteredShaders;
+
+		struct DummyRenderable : public Ogre::Renderable
+		{
+			DummyRenderable() {
+				mUseIdentityProjection = true;
+				mUseIdentityView = true;
+			}
+
+			Ogre::RenderOperation mRenderOp;
+			Ogre::MaterialPtr mMaterial;
+
+			void getWorldTransforms(Ogre::Matrix4* xform) const { *xform = Ogre::Matrix4::IDENTITY; }
+			void getRenderOperation(Ogre::RenderOperation& op) { op = mRenderOp; }
+			const Ogre::MaterialPtr& getMaterial() const { return mMaterial; }
+			const Ogre::LightList& getLights(void) const { static Ogre::LightList ll; return ll; }
+			Ogre::Real getSquaredViewDepth(const Ogre::Camera*) const { return 0; }
+		} mRenderable;
 	};
 
 } // namespace MyGUI

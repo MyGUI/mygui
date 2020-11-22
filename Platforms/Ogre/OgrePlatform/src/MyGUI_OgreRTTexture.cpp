@@ -33,14 +33,6 @@ namespace MyGUI
 				mRenderTargetInfo.pixScaleX = 1.0f / float(width);
 				mRenderTargetInfo.pixScaleY = 1.0f / float(height);
 			}
-
-			if (mTexture->getBuffer()->getRenderTarget()->requiresTextureFlipping())
-			{
-				mProjectMatrix[1][0] = -mProjectMatrix[1][0];
-				mProjectMatrix[1][1] = -mProjectMatrix[1][1];
-				mProjectMatrix[1][2] = -mProjectMatrix[1][2];
-				mProjectMatrix[1][3] = -mProjectMatrix[1][3];
-			}
 		}
 	}
 
