@@ -51,7 +51,7 @@ namespace wraps
 			clearScene();
 
 			static size_t num = 0;
-			mEntity = mScene->createEntity(MyGUI::utility::toString(this, "_RenderBoxMesh_", _meshName, num++), _meshName);
+			mEntity = mScene->createEntity(MyGUI::utility::toString(this, "_RenderBoxMesh_", _meshName, num++), _meshName, base::BaseManager::MyGuiResourceGroup);
 			Ogre::SceneNode* node = mNode->createChildSceneNode(_position, _orientation);
 			node->attachObject(mEntity);
 

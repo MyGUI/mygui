@@ -27,6 +27,8 @@ namespace base
 	}
 #endif
 
+	const std::string BaseManager::MyGuiResourceGroup = "MyGuiResourceGroup";
+
 	bool BaseManager::createRender(int _width, int _height, bool _windowed)
 	{
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
@@ -116,8 +118,9 @@ namespace base
 	void BaseManager::createGuiPlatform()
 	{
 		setupResources();
+        Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 		mPlatform = new MyGUI::OgrePlatform();
-		mPlatform->initialise(mWindow, mSceneManager, Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
+		mPlatform->initialise(mWindow, mSceneManager, MyGuiResourceGroup);
 	}
 
 	void BaseManager::destroyGuiPlatform()
@@ -150,7 +153,7 @@ namespace base
 		std::string name = _name;
 #endif
 
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(name, "FileSystem", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, _recursive);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(name, "FileSystem", MyGuiResourceGroup, _recursive);
 	}
 
 	void BaseManager::makeScreenShot()
@@ -177,8 +180,6 @@ namespace base
 	void BaseManager::setupResources()
 	{
 		SdlBaseManager::setupResources();
-
-		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	}
 
 	MyGUI::MapString BaseManager::getStatistic()

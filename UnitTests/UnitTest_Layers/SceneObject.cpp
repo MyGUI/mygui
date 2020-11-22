@@ -6,6 +6,7 @@
 
 #include <MyGUI.h>
 #include "SceneObject.h"
+#include "BaseManager.h"
 
 #ifdef MYGUI_OGRE_PLATFORM
 
@@ -329,7 +330,7 @@ namespace demo
 			mIndexCount = 0;
 			GetMeshInformation(entity->getMesh(), mVertexCount, mVertices, mIndexCount, mIndices, mTextureCoords, Ogre::Vector3::ZERO, Ogre::Quaternion::IDENTITY, Ogre::Vector3::UNIT_SCALE, mMaterialName);
 
-			Ogre::MaterialPtr material = (Ogre::MaterialPtr)Ogre::MaterialManager::getSingleton().getByName(mMaterialName);
+			Ogre::MaterialPtr material = (Ogre::MaterialPtr)Ogre::MaterialManager::getSingleton().getByName(mMaterialName, base::BaseManager::MyGuiResourceGroup);
 			if (!material)
 			{
 				mTextureUnit = material->getTechnique(0)->getPass(0)->getTextureUnitState("gui");

@@ -29,6 +29,7 @@ namespace base
 		Ogre::SceneManager* getSceneManager();
 		Ogre::Camera* getCamera();
 
+		static const std::string MyGuiResourceGroup;
 	private:
 		MyGUI::OgrePlatform* mPlatform = nullptr;
 

@@ -112,11 +112,11 @@ namespace demo
 	{
 #ifdef MYGUI_OGRE_PLATFORM
 		Ogre::MeshManager::getSingleton().createPlane(
-			"FloorPlane", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+			"FloorPlane", MyGuiResourceGroup,
 			Ogre::Plane(Ogre::Vector3::UNIT_Y, 0), 200, 200, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z);
 
-		Ogre::Entity* entity = getSceneManager()->createEntity("FloorPlane", "FloorPlane");
-		entity->setMaterialName("Ground");
+		Ogre::Entity* entity = getSceneManager()->createEntity("FloorPlane", "FloorPlane", MyGuiResourceGroup);
+		entity->setMaterialName("Ground", MyGuiResourceGroup);
 		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		node->attachObject(entity);
 #endif
@@ -125,7 +125,7 @@ namespace demo
 	void DemoKeeper::createObject()
 	{
 #ifdef MYGUI_OGRE_PLATFORM
-		Ogre::Entity* entity = getSceneManager()->createEntity("ControlPanel", "ControlPanel.mesh");
+		Ogre::Entity* entity = getSceneManager()->createEntity("ControlPanel", "ControlPanel.mesh", MyGuiResourceGroup);
 		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		node->attachObject(entity);
 #endif

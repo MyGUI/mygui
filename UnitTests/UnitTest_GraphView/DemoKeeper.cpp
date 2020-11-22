@@ -84,7 +84,7 @@ namespace demo
 		tools::DialogManager::getInstance().initialise();
 
 		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
-		Ogre::Entity* entity = getSceneManager()->createEntity("Object", "robot.mesh", "MyGUIResourceGroup");
+		Ogre::Entity* entity = getSceneManager()->createEntity("Object", "robot.mesh", MyGuiResourceGroup);
 		node->attachObject(entity);
 		getCamera()->setPosition(400, 400, 400);
 
