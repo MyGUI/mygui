@@ -32,6 +32,6 @@ endif ()
 target_compile_definitions(msdfgen PUBLIC MSDFGEN_USE_CPP11)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-include_directories(
+include_directories(SYSTEM
 	${FREETYPE_INCLUDE_DIRS}
 )

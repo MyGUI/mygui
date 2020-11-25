@@ -11,9 +11,9 @@ namespace demo
 {
 
 	const int PointsCount = 4;
-	int bezierQuality = 16;
-	int stroke = 0;
-	MyGUI::Widget* point[PointsCount];
+	static int bezierQuality = 16;
+	static int stroke = 0;
+	static MyGUI::Widget* point[PointsCount];
 
 	DemoKeeper::DemoKeeper() :
 		mClient(nullptr),
@@ -77,8 +77,8 @@ namespace demo
 		for (size_t i = 0; i < _pointsNumber; ++i)
 		{
 			float t = float(i) / (_pointsNumber - 1);
-			float left = _points[0].left * pow(1 - t, 3) + 3 * _points[1].left * pow(1 - t, 2) * t + 3 * _points[2].left * (1 - t) * t * t + t * t * t * _points[3].left;
-			float top = _points[0].top * pow(1 - t, 3) + 3 * _points[1].top * pow(1 - t, 2) * t + 3 * _points[2].top * (1 - t) * t * t + t * t * t * _points[3].top;
+			float left = _points[0].left * (float)pow(1 - t, 3) + 3 * _points[1].left * (float)pow(1 - t, 2) * t + 3 * _points[2].left * (1 - t) * t * t + t * t * t * _points[3].left;
+			float top = _points[0].top * (float)pow(1 - t, 3) + 3 * _points[1].top * (float)pow(1 - t, 2) * t + 3 * _points[2].top * (1 - t) * t * t + t * t * t * _points[3].top;
 			mLinePoints.push_back(MyGUI::FloatPoint(left, top));
 		}
 	}

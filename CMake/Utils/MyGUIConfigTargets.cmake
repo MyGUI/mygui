@@ -96,7 +96,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	# define the sources
 	include(${PROJECTNAME}.list)
 
-	include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS}/..)
+	include_directories(SYSTEM ${SDL2_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS}/..)
 	link_directories(${SDL2_LIB_DIR})
 
 	# Set up dependencies
@@ -109,13 +109,13 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		add_definitions("-DMYGUI_DUMMY_PLATFORM")
 	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
 		add_definitions("-DMYGUI_OGRE_PLATFORM")
-		include_directories(
+		include_directories(SYSTEM
 			${OGRE_INCLUDE_DIR}
 		)
 		link_directories(${OGRE_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
 		add_definitions("-DMYGUI_OPENGL_PLATFORM")
-		include_directories(
+		include_directories(SYSTEM
 			${OPENGL_INCLUDE_DIR}
 			${SDL2_IMAGE_INCLUDE_DIRS}
 		)
@@ -126,19 +126,19 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 
 	elseif(MYGUI_RENDERSYSTEM EQUAL 5)
 		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
-		include_directories(
+		include_directories(SYSTEM
 			${DirectX_INCLUDE_DIR}
 		)
 		link_directories(${DIRECTX_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 6)
 		add_definitions("-DMYGUI_DIRECTX11_PLATFORM")
-		include_directories(
+		include_directories(SYSTEM
 			${DirectX_INCLUDE_DIR}
 		)
 		link_directories(${DIRECTX_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
 		add_definitions("-DMYGUI_OPENGL3_PLATFORM")
-		include_directories(
+		include_directories(SYSTEM
 			${OPENGL_INCLUDE_DIR}
 			${SDL2_IMAGE_INCLUDE_DIRS}
 		)
@@ -148,7 +148,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 		)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
 		add_definitions("-DMYGUI_OPENGLES_PLATFORM")
-		include_directories(
+		include_directories(SYSTEM
 			${OPENGL_INCLUDE_DIR}
 			${SDL2_IMAGE_INCLUDE_DIRS}
 		)
@@ -224,7 +224,7 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 	# define the sources
 	include(${PROJECTNAME}.list)
 
-	include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS}/..)
+	include_directories(SYSTEM ${SDL2_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS}/..)
 	link_directories(${SDL2_LIB_DIR})
 
 	# Set up dependencies
@@ -237,13 +237,13 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 		add_definitions("-DMYGUI_DUMMY_PLATFORM")
 	elseif(MYGUI_RENDERSYSTEM EQUAL 3)
 		add_definitions("-DMYGUI_OGRE_PLATFORM")
-		include_directories(
+		include_directories(SYSTEM
 			${OGRE_INCLUDE_DIR}
 		)
 		link_directories(${OGRE_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 4)
 		add_definitions("-DMYGUI_OPENGL_PLATFORM")
-		include_directories(
+		include_directories(SYSTEM
 			${OPENGL_INCLUDE_DIR}
 			${SDL2_IMAGE_INCLUDE_DIRS}
 		)
@@ -253,7 +253,7 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 		)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 5)
 		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
-		include_directories(
+		include_directories(SYSTEM
 			${DirectX_INCLUDE_DIR}
 		)
 		link_directories(
@@ -261,20 +261,20 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 		)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 6)
 		add_definitions("-DMYGUI_DIRECTX11_PLATFORM")
-		include_directories(
+		include_directories(SYSTEM
 			${DirectX_INCLUDE_DIR}
 		)
 		link_directories(${DIRECTX_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
 		add_definitions("-DMYGUI_OPENGL3_PLATFORM")
-		include_directories(
+		include_directories(SYSTEM
 			${OPENGL_INCLUDE_DIR}
 		)
 		link_directories(${OPENGL_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
 		add_definitions("-DMYGUI_OPENGLES_PLATFORM")
-		include_directories(
-				${OPENGL_INCLUDE_DIR}
+		include_directories(SYSTEM
+			${OPENGL_INCLUDE_DIR}
 		)
 		link_directories(${OPENGL_LIB_DIR})
 	endif()

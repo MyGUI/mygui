@@ -9,7 +9,7 @@
 namespace demo
 {
 
-	CommandManager* CommandManager::msCommandManager = 0;
+	CommandManager* CommandManager::msCommandManager = nullptr;
 
 	CommandManager::CommandManager()
 	{
@@ -18,7 +18,7 @@ namespace demo
 
 	CommandManager::~CommandManager()
 	{
-		msCommandManager = 0;
+		msCommandManager = nullptr;
 	}
 
 	void CommandManager::execiteCommand(const std::string& _name, MyGUI::Any _data)

@@ -34,7 +34,7 @@ namespace demo
 
 		bool isEmpty() const
 		{
-			return mResourceInfo == 0;
+			return mResourceInfo == nullptr;
 		}
 
 		bool compare(ItemData* _data) const

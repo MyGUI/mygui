@@ -51,7 +51,6 @@ namespace demo
 		MyGUI::Window* window = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(10, size.height - 10 - 230, 300, 230), MyGUI::Align::Default, "Overlapped");
 		window->setCaption("Camera view");
 		window->setMinSize(MyGUI::IntSize(100, 100));
-		MyGUI::Canvas* canvas = window->createWidget<MyGUI::Canvas>("Canvas", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
 
 		MyGUI::Window* window2 = MyGUI::Gui::getInstance().createWidget<MyGUI::Window>("WindowCS", MyGUI::IntCoord(size.width - 10 - 300, 10, 300, 230), MyGUI::Align::Default, "Overlapped");
 		window2->setCaption("Model view");
@@ -60,6 +59,7 @@ namespace demo
 		canvas2->setPointer("hand");
 
 #ifdef MYGUI_OGRE_PLATFORM
+        MyGUI::Canvas* canvas = window->createWidget<MyGUI::Canvas>("Canvas", MyGUI::IntCoord(0, 0, window->getClientCoord().width, window->getClientCoord().height), MyGUI::Align::Stretch);
 
 		gRenderBox.setCanvas(canvas);
 		gRenderBox.setViewport(getCamera());

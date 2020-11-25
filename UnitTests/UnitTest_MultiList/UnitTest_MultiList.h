@@ -85,10 +85,10 @@ namespace unittest
 
 					Assert(original_list->getSubItemNameAt(column, item) == mirror_list->getSubItemNameAt(column, item));
 
-					Assert(((original_list->getItemDataAt<size_t>(item, false) == 0) && (mirror_list->getItemDataAt<size_t>(item, false) == 0))
+					Assert(((original_list->getItemDataAt<size_t>(item, false) == nullptr) && (mirror_list->getItemDataAt<size_t>(item, false) == nullptr))
 						|| (*original_list->getItemDataAt<size_t>(item, false) == *mirror_list->getItemDataAt<size_t>(item, false)));
 
-					Assert((original_list->getSubItemDataAt<size_t>(column, item, false) == 0 && mirror_list->getSubItemDataAt<size_t>(column, item, false) == 0)
+					Assert((original_list->getSubItemDataAt<size_t>(column, item, false) == nullptr && mirror_list->getSubItemDataAt<size_t>(column, item, false) == nullptr)
 						|| *original_list->getSubItemDataAt<size_t>(column, item, false) == *mirror_list->getSubItemDataAt<size_t>(column, item, false));
 				}
 			}

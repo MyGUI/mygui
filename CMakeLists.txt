@@ -21,7 +21,6 @@ include(CMakeDependentOption)
 include(MacroLogFeature)
 include(MyGUIConfigTargets)
 include(PreprocessorUtils)
-include(Utils)
 set(MYGUI_TEMPLATES_DIR "${MYGUI_SOURCE_DIR}/CMake/Templates")
 set(MYGUI_WORK_DIR ${MYGUI_BINARY_DIR})
 
@@ -189,27 +188,15 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 	if (NOT MYGUI_HIGH_LEVEL_WARNINGS)
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
 	else ()
-		if (MYGUI_USE_FREETYPE)
-			ignore_warnings(${FREETYPE_INCLUDE_DIRS})
-		endif ()
-		if (MYGUI_RENDERSYSTEM EQUAL 3)
-			# to avoid warnings from OGRE
-			ignore_warnings(${OGRE_INCLUDE_DIR})
-		endif ()
-
-		if (MYGUI_BUILD_DEMOS OR MYGUI_BUILD_TOOLS OR MYGUI_BUILD_UNITTESTS OR MYGUI_BUILD_TEST_APP)
-			ignore_warnings(${SDL2_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS}/..)
-		endif ()
-
 		if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything")
-                        # useful, TODO
-                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-inconsistent-missing-override")
-                        # might be useful
-                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-exceptions -Wno-documentation-unknown-command -Wno-unknown-warning-option -Wno-sign-conversion -Wno-conversion -Wno-documentation -Wno-old-style-cast")
-                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-poison-system-directories")
-                        # not useful
-                        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-prototypes -Wno-reorder -Wno-undefined-var-template -Wno-c++98-compat-pedantic -Wno-c++98-compat -Wno-c++11-extensions -Wno-float-equal -Wno-padded -Wno-padded -Wno-weak-vtables -Wno-duplicate-enum -Wno-exit-time-destructors -Wno-unused-parameter -Wno-global-constructors")
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything")
+			# useful, TODO
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-inconsistent-missing-override")
+			# might be useful
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-documentation-unknown-command -Wno-unknown-warning-option -Wno-sign-conversion -Wno-conversion -Wno-documentation -Wno-old-style-cast")
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-poison-system-directories")
+			# not useful
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-prototypes -Wno-reorder -Wno-c++98-compat-pedantic -Wno-c++11-extensions -Wno-float-equal -Wno-padded -Wno-weak-vtables -Wno-duplicate-enum -Wno-exit-time-destructors -Wno-unused-parameter -Wno-global-constructors")
 		else ()
 			# very interesting option, but way too many warnings
 			#add_definitions(-Weffc++)

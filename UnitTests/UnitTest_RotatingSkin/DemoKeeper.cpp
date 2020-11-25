@@ -10,8 +10,8 @@
 namespace demo
 {
 
-	MyGUI::ImageBox* image;
-	MyGUI::RotatingSkin* rotato;
+	static MyGUI::ImageBox* image;
+	static MyGUI::RotatingSkin* rotato;
 
 	void DemoKeeper::setupResources()
 	{

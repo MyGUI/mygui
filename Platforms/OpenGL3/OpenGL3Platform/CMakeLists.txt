@@ -7,6 +7,8 @@ include_directories(
 	${MYGUI_SOURCE_DIR}/Common
 )
 
+include_directories(SYSTEM include/GL)
+
 include(${PROJECTNAME}.list)
 if (NOT MYGUI_USE_SYSTEM_GLEW)
 	set(SOURCE_FILES ${SOURCE_FILES} include/GL/glew.c)

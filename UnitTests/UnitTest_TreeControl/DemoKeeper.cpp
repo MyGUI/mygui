@@ -13,7 +13,7 @@
 #include "FileSystemInfo/FileSystemInfo.h"
 
 // рутовая папка всей медиа
-MyGUI::UString gMediaBase;
+static MyGUI::UString gMediaBase;
 typedef std::pair<std::wstring, common::FileInfo> PairFileInfo;
 
 class SampleLayout :
@@ -29,7 +29,7 @@ private:
 	MyGUI::TreeControl* mpResourcesTree;
 };
 
-SampleLayout* mSampleLayout;
+static SampleLayout* mSampleLayout;
 
 SampleLayout::SampleLayout() : BaseLayout("SampleLayout.layout")
 {

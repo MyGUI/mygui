@@ -10,7 +10,7 @@
 namespace demo
 {
 
-	MyGUI::VectorWidgetPtr all_widgets;
+	static MyGUI::VectorWidgetPtr all_widgets;
 
 	void test_widgets()
 	{
@@ -44,7 +44,7 @@ namespace demo
 
 	MyGUI::Widget* get_random(MyGUI::VectorWidgetPtr& _mass)
 	{
-		if (_mass.empty()) return 0;
+		if (_mass.empty()) return nullptr;
 		return _mass.at(random((int)_mass.size()));
 	}
 
@@ -263,7 +263,7 @@ namespace demo
 		}
 	};
 
-	Unlink unlink_holder;
+	static Unlink unlink_holder;
 
 	void DemoKeeper::createScene()
 	{

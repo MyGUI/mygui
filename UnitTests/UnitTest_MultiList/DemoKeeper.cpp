@@ -12,8 +12,8 @@
 namespace demo
 {
 
-	unittest::UnitTest_List* unittest_list = nullptr;
-	unittest::UnitTest_MultiList* unittest_multilist = nullptr;
+	static unittest::UnitTest_List* unittest_list = nullptr;
+	static unittest::UnitTest_MultiList* unittest_multilist = nullptr;
 
 	void DemoKeeper::setupResources()
 	{
@@ -37,10 +37,10 @@ namespace demo
 		MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStarted);
 
 		delete unittest_multilist;
-		unittest_multilist = 0;
+		unittest_multilist = nullptr;
 
 		delete unittest_list;
-		unittest_list = 0;
+		unittest_list = nullptr;
 	}
 
 	void DemoKeeper::notifyFrameStarted(float _time)

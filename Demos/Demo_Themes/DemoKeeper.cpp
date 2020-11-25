@@ -11,8 +11,8 @@ namespace demo
 {
 
 	DemoKeeper::DemoKeeper() :
-		mDemoView(0),
-		mComboSkins(0)
+		mDemoView(nullptr),
+		mComboSkins(nullptr)
 	{
 	}
 
@@ -77,12 +77,12 @@ namespace demo
 		if (mDemoView)
 		{
 			MyGUI::WidgetManager::getInstance().destroyWidget(mDemoView);
-			mDemoView = 0;
+			mDemoView = nullptr;
 		}
 		if (mComboSkins)
 		{
 			//MyGUI::WidgetManager::getInstance().destroyWidget(mComboSkins);
-			mComboSkins = 0;
+			mComboSkins = nullptr;
 		}
 	}
 

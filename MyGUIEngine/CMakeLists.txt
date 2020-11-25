@@ -6,7 +6,7 @@ include(${PROJECTNAME}.list)
 
 include_directories(include)
 if (MYGUI_USE_FREETYPE)
-	include_directories(
+	include_directories(SYSTEM
 		${FREETYPE_INCLUDE_DIRS}
 	)
 	add_definitions(-DMYGUI_USE_FREETYPE)
