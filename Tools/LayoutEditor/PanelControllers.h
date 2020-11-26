@@ -20,15 +20,15 @@ namespace tools
 	public:
 		PanelControllers();
 
-		virtual void initialise();
-		virtual void shutdown();
+		void initialise() override;
+		void shutdown() override;
 
 		void update(MyGUI::Widget* _currentWidget);
 
 	private:
 		void notifyAction(const std::string& _name, const std::string& _value, bool _final);
 
-		virtual void notifyChangeWidth(int _width);
+		void notifyChangeWidth(int _width) override;
 
 		void notifyAdd(MyGUI::Widget* _sender = nullptr);
 		void notifyDelete(MyGUI::Widget* _sender);

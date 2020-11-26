@@ -19,12 +19,12 @@ namespace tools
 	{
 	public:
 		PropertyFontSourceControl();
-		virtual ~PropertyFontSourceControl();
+		~PropertyFontSourceControl() override;
 
 	protected:
-		virtual void updateCaption();
-		virtual void updateProperty();
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void updateCaption() override;
+		void updateProperty() override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
 
 	private:
 		void notifyComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);

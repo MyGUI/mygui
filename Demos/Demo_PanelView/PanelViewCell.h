@@ -26,7 +26,7 @@ namespace demo
 			mButtonMinimize->eventMouseButtonPressed += MyGUI::newDelegate(this, &PanelViewCell::notfyMouseButtonPressed);
 		}
 
-		virtual void setMinimized(bool _minimized)
+		void setMinimized(bool _minimized) override
 		{
 			wraps::BasePanelViewCell::setMinimized(_minimized);
 			mButtonMinimize->setStateSelected(isMinimized());

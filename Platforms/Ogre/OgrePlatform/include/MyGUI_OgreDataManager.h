@@ -37,19 +37,19 @@ namespace MyGUI
 		}
 
 		/** @see DataManager::getData */
-		virtual IDataStream* getData(const std::string& _name);
+		IDataStream* getData(const std::string& _name) override;
 
 		/** @see DataManager::freeData */
-		virtual void freeData(IDataStream* _data);
+		void freeData(IDataStream* _data) override;
 
 		/** @see DataManager::isDataExist */
-		virtual bool isDataExist(const std::string& _name);
+		bool isDataExist(const std::string& _name) override;
 
 		/** @see DataManager::getDataListNames */
-		virtual const VectorString& getDataListNames(const std::string& _pattern);
+		const VectorString& getDataListNames(const std::string& _pattern) override;
 
 		/** @see DataManager::getDataPath */
-		virtual const std::string& getDataPath(const std::string& _name);
+		const std::string& getDataPath(const std::string& _name) override;
 
 	/*internal:*/
 		void addResourceLocation(const std::string& _name, bool _recursive);

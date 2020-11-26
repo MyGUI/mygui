@@ -19,10 +19,10 @@ namespace tools
 	{
 	public:
 		MainMenuControl();
-		virtual ~MainMenuControl();
+		~MainMenuControl() override;
 
 	protected:
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
 
 	private:
 		void notifyMenuCtrlAccept(MyGUI::MenuControl* _sender, MyGUI::MenuItem* _item);

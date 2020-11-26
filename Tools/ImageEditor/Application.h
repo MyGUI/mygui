@@ -21,27 +21,27 @@ namespace tools
 		MYGUI_SINGLETON_DECLARATION(Application);
 	public:
 		Application();
-		virtual ~Application();
+		~Application() override;
 
-		virtual void createScene();
-		virtual void destroyScene();
+		void createScene() override;
+		void destroyScene() override;
 
-		virtual void onFileDrop(const std::wstring& _filename);
-		virtual bool onWindowClose(size_t _handle);
-		virtual void prepare();
+		void onFileDrop(const std::wstring& _filename) override;
+		bool onWindowClose(size_t _handle) override;
+		void prepare() override;
 
 		typedef std::vector<std::wstring> VectorWString;
 		const VectorWString& getParams();
 
 	protected:
-		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
+		void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text) override;
 
 		void command_ScreenShot(const MyGUI::UString& _commandName, bool& _result);
 		void command_QuitApp(const MyGUI::UString& _commandName, bool& _result);
 		void command_UpdateAppCaption(const MyGUI::UString& _commandName, bool& _result);
 
 	private:
-		virtual void setupResources();
+		void setupResources() override;
 
 		void saveSettings();
 

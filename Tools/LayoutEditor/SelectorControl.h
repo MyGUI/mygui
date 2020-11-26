@@ -23,7 +23,7 @@ namespace tools
 	{
 	public:
 		SelectorControlLE(const std::string& _layout, MyGUI::Widget* _parent);
-		virtual ~SelectorControlLE();
+		~SelectorControlLE() override;
 
 		void setVisible(bool _value);
 		void setScale(double _value);

@@ -15,13 +15,13 @@ namespace demo
 		public base::BaseDemoManager
 	{
 	public:
-		virtual void createScene();
+		void createScene() override;
 
-		void injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id);
+		void injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id) override;
 	private:
-		virtual void setupResources();
+		void setupResources() override;
 
-		virtual void injectMouseMove(int _absx, int _absy, int _absz);
+		void injectMouseMove(int _absx, int _absy, int _absz) override;
 	};
 
 } // namespace demo

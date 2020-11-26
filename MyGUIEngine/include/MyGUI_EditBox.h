@@ -73,7 +73,7 @@ namespace MyGUI
 
 
 		/** Set edit text applying tags */
-		virtual void setCaption(const UString& _value);
+		void setCaption(const UString& _value) override;
 		/** Get edit text with tags */
 		const UString& getCaption() override;
 

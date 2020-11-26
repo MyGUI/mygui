@@ -21,8 +21,8 @@ namespace demo
 	public:
 		DemoKeeper();
 
-		virtual void createScene();
-		virtual void destroyScene();
+		void createScene() override;
+		void destroyScene() override;
 
 	private:
 		void notifyStartDrop(wraps::BaseLayout* _sender, wraps::DDItemInfo _info, bool& _result);
@@ -32,7 +32,7 @@ namespace demo
 		void notifyNotifyItem(wraps::BaseLayout* _sender, const MyGUI::IBNotifyItemData& _info);
 
 		void notifyToolTip(wraps::BaseLayout* _sender, const MyGUI::ToolTipInfo& _info, ItemData* _data);
-		virtual void setupResources();
+		void setupResources() override;
 
 	private:
 		ToolTip* mToolTip;

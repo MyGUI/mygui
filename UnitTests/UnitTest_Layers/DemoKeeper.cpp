@@ -15,11 +15,6 @@
 namespace demo
 {
 
-#ifdef MYGUI_OGRE_PLATFORM
-	float gAngleH = 0;
-	float gAngleV = -30;
-#endif
-
 	DemoKeeper::DemoKeeper() :
 		mKeyboardPanel(nullptr),
 		mMonitorPanel(nullptr),
@@ -204,6 +199,9 @@ namespace demo
 	void DemoKeeper::updateCamera(int _x, int _y)
 	{
 #ifdef MYGUI_OGRE_PLATFORM
+		static float gAngleH = 0;
+		static float gAngleV = -30;
+
 		gAngleH += (float)_x * -0.1f;
 
 		Ogre::Quaternion quatH(Ogre::Radian(Ogre::Degree(gAngleH)), Ogre::Vector3::UNIT_Y);

@@ -1,5 +1,4 @@
-#ifndef MYGUI_OPENGLES_VERTEX_BUFFER_H__
-#define MYGUI_OPENGLES_VERTEX_BUFFER_H__
+#pragma once
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IVertexBuffer.h"
@@ -39,5 +38,3 @@ namespace MyGUI
 	};
 
 } // namespace MyGUI
-
-#endif // MYGUI_OPENGLES_VERTEX_BUFFER_H__

@@ -77,8 +77,8 @@ namespace demo
 		for (size_t i = 0; i < _pointsNumber; ++i)
 		{
 			float t = float(i) / (_pointsNumber - 1);
-			float left = _points[0].left * (float)pow(1 - t, 3) + 3 * _points[1].left * (float)pow(1 - t, 2) * t + 3 * _points[2].left * (1 - t) * t * t + t * t * t * _points[3].left;
-			float top = _points[0].top * (float)pow(1 - t, 3) + 3 * _points[1].top * (float)pow(1 - t, 2) * t + 3 * _points[2].top * (1 - t) * t * t + t * t * t * _points[3].top;
+			float left = _points[0].left * std::pow(1 - t, 3.0f) + 3 * _points[1].left * std::pow(1 - t, 2.0f) * t + 3 * _points[2].left * (1 - t) * t * t + t * t * t * _points[3].left;
+			float top = _points[0].top * std::pow(1 - t, 3.0f) + 3 * _points[1].top * std::pow(1 - t, 2.0f) * t + 3 * _points[2].top * (1 - t) * t * t + t * t * t * _points[3].top;
 			mLinePoints.push_back(MyGUI::FloatPoint(left, top));
 		}
 	}

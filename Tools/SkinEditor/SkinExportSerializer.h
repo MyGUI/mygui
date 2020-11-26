@@ -20,8 +20,8 @@ namespace tools
 	public:
 		SkinExportSerializer();
 
-		virtual void serialization(pugi::xml_document& _doc);
-		virtual bool deserialization(pugi::xml_document& _doc);
+		void serialization(pugi::xml_document& _doc) override;
+		bool deserialization(pugi::xml_document& _doc) override;
 
 		void writeSkin(pugi::xml_node _parent, DataPtr _data);
 

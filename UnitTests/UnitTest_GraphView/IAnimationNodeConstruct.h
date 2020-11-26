@@ -19,7 +19,7 @@ namespace animation
 		public IAnimationNodeConstruct
 	{
 	public:
-		virtual IAnimationNode* create(const std::string& _name, IAnimationGraph* _holder)
+		IAnimationNode* create(const std::string& _name, IAnimationGraph* _holder) override
 		{
 			return new Type(_name, _holder);
 		}

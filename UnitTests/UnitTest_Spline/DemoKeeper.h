@@ -17,10 +17,10 @@ namespace demo
 	public:
 		DemoKeeper();
 
-		virtual void createScene();
+		void createScene() override;
 
 	private:
-		virtual void setupResources();
+		void setupResources() override;
 
 		void makeBezier(const std::vector<MyGUI::FloatPoint>& _points, size_t _pointsNumber);
 		void updateSpline();

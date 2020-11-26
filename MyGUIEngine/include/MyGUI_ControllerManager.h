@@ -49,7 +49,7 @@ namespace MyGUI
 		const std::string& getCategoryName() const;
 
 	private:
-		void _unlinkWidget(Widget* _widget);
+		void _unlinkWidget(Widget* _widget) override;
 		void frameEntered(float _time);
 		void clear();
 

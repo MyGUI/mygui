@@ -31,10 +31,6 @@ namespace wraps
 			m_maxHeight = mMainWidget->getHeight();
 		}
 
-		virtual ~BasePanelViewCell()
-		{
-		}
-
 		void setCaption(const MyGUI::UString& _caption)
 		{
 			if (mTextCaption)

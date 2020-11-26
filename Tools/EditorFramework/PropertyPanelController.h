@@ -22,10 +22,10 @@ namespace tools
 	public:
 		PropertyPanelController();
 
-		virtual void setTarget(Control* _control);
+		void setTarget(Control* _control) override;
 
-		virtual void activate();
-		virtual void deactivate();
+		void activate() override;
+		void deactivate() override;
 
 	private:
 		void notifyChangeScope(const std::string& _scope);

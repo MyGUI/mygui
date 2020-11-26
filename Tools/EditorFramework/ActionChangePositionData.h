@@ -19,8 +19,8 @@ namespace tools
 	public:
 		ActionChangePositionData();
 
-		virtual void doAction();
-		virtual void undoAction();
+		void doAction() override;
+		void undoAction() override;
 
 		void setData1(DataPtr _data);
 		void setData2(DataPtr _data);

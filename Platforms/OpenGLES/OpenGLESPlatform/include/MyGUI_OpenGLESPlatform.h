@@ -1,5 +1,4 @@
-#ifndef MYGUI_OPENGLES_PLATFORM_H__
-#define MYGUI_OPENGLES_PLATFORM_H__
+#pragma once
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_OpenGLESDiagnostic.h"
@@ -31,5 +30,3 @@ namespace MyGUI
 	};
 
 } // namespace MyGUI
-
-#endif // MYGUI_OPENGLES_PLATFORM_H__

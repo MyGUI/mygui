@@ -11,7 +11,7 @@ namespace tools
 	{
 	public:
 		SeparatorPartControl(const std::string& _layout, MyGUI::Widget* _parent);
-		virtual ~SeparatorPartControl();
+		~SeparatorPartControl() override;
 
 	private:
 		void notifyMouseButtonPressed(MyGUI::Widget* _sender, int _left, int _top, MyGUI::MouseButton _id);

@@ -31,11 +31,11 @@ namespace animation
 		{
 		}
 
-		virtual ~FadeController()
+		~FadeController() override
 		{
 		}
 
-		virtual void setEvent(const std::string& _name, float _value = 0)
+		void setEvent(const std::string& _name, float _value = 0) override
 		{
 			if (_name == "Start")
 			{
@@ -46,17 +46,17 @@ namespace animation
 			else if (_name == "Stop") mIsAnimationRun = false;
 		}
 
-		virtual void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
+		void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
 		{
 			mConnection.addConnection(_eventout, _node, _eventin);
 		}
 
-		virtual void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
+		void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
 		{
 			mConnection.removeConnection(_eventout, _node, _eventin);
 		}
 
-		virtual void addTime(float _value)
+		void addTime(float _value) override
 		{
 			const float fade_time = 0.3f;
 			if (mIsAnimationRun)

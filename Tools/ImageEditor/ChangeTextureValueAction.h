@@ -17,9 +17,9 @@ namespace tools
 		public ActionChangeDataProperty
 	{
 	public:
-		virtual void doAction();
-		virtual void undoAction();
-		virtual bool doMerge(Action* _action);
+		void doAction() override;
+		void undoAction() override;
+		bool doMerge(Action* _action) override;
 
 	private:
 		std::string mOldValue;

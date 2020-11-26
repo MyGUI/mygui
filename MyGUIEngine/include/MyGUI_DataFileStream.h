@@ -19,7 +19,7 @@ namespace MyGUI
 	public:
 		DataFileStream();
 		DataFileStream(std::ifstream* _stream);
-		virtual ~DataFileStream();
+		~DataFileStream() override;
 
 	private:
 		std::ifstream* mFileStream;

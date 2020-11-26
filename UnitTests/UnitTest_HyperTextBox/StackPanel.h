@@ -24,8 +24,8 @@ namespace MyGUI
 		void setSpacer(const IntSize& _value);
 
 	protected:
-		virtual IntSize overrideMeasure(const IntSize& _sizeAvailable);
-		virtual void overrideArrange();
+		IntSize overrideMeasure(const IntSize& _sizeAvailable) override;
+		void overrideArrange() override;
 
 	private:
 		IntSize mSpacer;

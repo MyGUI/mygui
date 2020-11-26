@@ -65,7 +65,7 @@ namespace demo
 		case 0: // random squares
 			for (; index < _quad_count; ++index)
 			{
-				float alpha = pow(mAlpha, mSpeed[index]);
+				float alpha = std::pow(mAlpha, mSpeed[index]);
 
 				unsigned int colour = 0xFFFFFF | ((unsigned int)(alpha * 255.0f) << 24);
 
@@ -92,15 +92,15 @@ namespace demo
 					{
 						float x1 = float(x - getCountX() / 2) / getCountX() * 2;
 						float y1 = float(y - getCountY() / 2) / getCountY() * 2;
-						speed = sqrt(x1 * x1 + y1 * y1);
+						speed = std::sqrt(x1 * x1 + y1 * y1);
 					}
 					if (mFadeType == 3) // TV
 					{
 						float x1 = float(x - getCountX() / 2) / getCountX() * 2;
 						float y1 = float(y - getCountY() / 2) / getCountY() * 2;
-						speed = sqrt(x1 * x1 * x1 * x1 + y1 * y1);
+						speed = std::sqrt(x1 * x1 * x1 * x1 + y1 * y1);
 					}
-					float alpha = pow(mAlpha, speed);
+					float alpha = std::pow(mAlpha, speed);
 
 					unsigned int colour = 0xFFFFFF | ((unsigned int)(alpha * 255.0f) << 24);
 

@@ -163,7 +163,7 @@ namespace MyGUI
 		// удаляет всех детей
 		void _destroyAllChildWidget();
 
-		virtual void _unlinkWidget(Widget* _widget);
+		void _unlinkWidget(Widget* _widget) override;
 
 	private:
 		// вектор всех детей виджетов

@@ -22,8 +22,8 @@ namespace tools
 	public:
 		PanelProperties();
 
-		virtual void initialise();
-		virtual void shutdown();
+		void initialise() override;
+		void shutdown() override;
 
 		void update(MyGUI::Widget* _currentWidget, WidgetStyle* _widgetType);
 

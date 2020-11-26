@@ -20,13 +20,13 @@ namespace tools
 	{
 	public:
 		TestState();
-		virtual ~TestState();
+		~TestState() override;
 
-		virtual void initState();
-		virtual void cleanupState();
+		void initState() override;
+		void cleanupState() override;
 
-		virtual void pauseState();
-		virtual void resumeState();
+		void pauseState() override;
+		void resumeState() override;
 
 	private:
 		void commandQuit(const MyGUI::UString& _commandName, bool& _result);

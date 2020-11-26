@@ -18,8 +18,8 @@ namespace demo
 	public:
 		PanelStatic();
 
-		virtual void initialise();
-		virtual void shutdown();
+		void initialise() override;
+		void shutdown() override;
 	};
 
 } // namespace demo

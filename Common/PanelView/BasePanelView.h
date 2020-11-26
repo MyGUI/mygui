@@ -41,7 +41,7 @@ namespace wraps
 			MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &BasePanelView::frameEnteredCheck);
 		}
 
-		virtual ~BasePanelView()
+		~BasePanelView() override
 		{
 			MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &BasePanelView::frameEnteredCheck);
 

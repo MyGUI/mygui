@@ -19,19 +19,19 @@ namespace plugin
 	{
 	public:
 		//!	Initialization
-		virtual void initialize();
+		void initialize() override;
 
 		//!	Installation
-		virtual void install();
+		void install() override;
 
 		//!	Shut down
-		virtual void shutdown();
+		void shutdown() override;
 
 		//!	Uninstall
-		virtual void uninstall();
+		void uninstall() override;
 
 		//! Get name
-		virtual const std::string& getName() const;
+		const std::string& getName() const override;
 
 	private:
 		static const std::string LogSection;

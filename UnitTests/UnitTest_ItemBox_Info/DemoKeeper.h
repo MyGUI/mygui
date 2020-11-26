@@ -15,9 +15,9 @@ namespace demo
 		public base::BaseDemoManager
 	{
 	public:
-		virtual void createScene();
-		virtual void destroyScene();
-		virtual void setupResources();
+		void createScene() override;
+		void destroyScene() override;
+		void setupResources() override;
 	};
 
 } // namespace demo

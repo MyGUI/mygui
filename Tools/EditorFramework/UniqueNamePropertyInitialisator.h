@@ -17,7 +17,7 @@ namespace tools
 		public IPropertyInitialisator
 	{
 	public:
-		virtual void initialise(PropertyPtr _property);
+		void initialise(PropertyPtr _property) override;
 	};
 
 }

@@ -40,12 +40,12 @@ namespace attribute
 		FieldHolder(FieldType* OwnerType::* offset) : m_offset(offset) {  }
 		FieldType* OwnerType::* const m_offset;
 
-		virtual bool set(OwnerType* _target, typename SetterType::BaseValueType* _value)
+		bool set(OwnerType* _target, typename SetterType::BaseValueType* _value) override
 		{
 			_target->*m_offset = SetterType::template convert<FieldType>(_value);
 			return _target->*m_offset != nullptr;
 		}
-		virtual const std::string& getFieldTypeName()
+		const std::string& getFieldTypeName() override
 		{
 			return FieldType::getClassTypeName();
 		}

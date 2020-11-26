@@ -26,9 +26,9 @@ namespace MyGUI
 		ILayer* getLayer() const;
 		ILayerNode* getLayerNode() const;
 
-		virtual void attachItemToNode(ILayer* _layer, ILayerNode* _node);
-		virtual void detachFromLayer();
-		virtual void upLayerItem();
+		void attachItemToNode(ILayer* _layer, ILayerNode* _node) override;
+		void detachFromLayer() override;
+		void upLayerItem() override;
 
 		void setRenderItemTexture(ITexture* _texture);
 

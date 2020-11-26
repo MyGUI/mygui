@@ -181,9 +181,9 @@ namespace MyGUI
 		if (count == 0)
 			return result;
 
-		Widget* child = getChildAt(0);
-		Panel::updateMeasure(child, _sizeAvailable);
-		IntSize firstSize = Panel::getDesiredSize(child);
+		Widget* firstChild = getChildAt(0);
+		Panel::updateMeasure(firstChild, _sizeAvailable);
+		IntSize firstSize = Panel::getDesiredSize(firstChild);
 
 		if (count == 1)
 			return firstSize;
@@ -251,12 +251,12 @@ namespace MyGUI
 		if (count == 0)
 			return;
 
-		Widget* child = getChildAt(0);
-		IntSize firstSize = Panel::getDesiredSize(child);
+		Widget* firstChild = getChildAt(0);
+		IntSize firstSize = Panel::getDesiredSize(firstChild);
 		if (mSnapFloat.isRight())
-			Panel::updateArrange(child, IntCoord(getWidth() - firstSize.width, 0, firstSize.width, firstSize.height));
+			Panel::updateArrange(firstChild, IntCoord(getWidth() - firstSize.width, 0, firstSize.width, firstSize.height));
 		else
-			Panel::updateArrange(child, IntCoord(0, 0, firstSize.width, firstSize.height));
+			Panel::updateArrange(firstChild, IntCoord(0, 0, firstSize.width, firstSize.height));
 
 		if (count == 1)
 			return;

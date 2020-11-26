@@ -17,10 +17,10 @@ namespace tools
 	{
 	public:
 		MessageBoxFadeControl();
-		virtual ~MessageBoxFadeControl();
+		~MessageBoxFadeControl() override;
 
 	protected:
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
 
 	private:
 		void notifyFrameStart(float _time);

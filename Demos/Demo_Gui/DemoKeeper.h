@@ -21,14 +21,14 @@ namespace demo
 	public:
 		DemoKeeper();
 
-		virtual void createScene();
-		virtual void destroyScene();
+		void createScene() override;
+		void destroyScene() override;
 
 	private:
 		void notifyEventAction(MainPanel::TypeEvents _action, size_t _index);
 		void destroyWindows();
 		void createWindows();
-		virtual void setupResources();
+		void setupResources() override;
 		void removeRenderBoxes();
 		void createRenderBox(MyGUI::Canvas* _canvas);
 

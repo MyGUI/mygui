@@ -21,7 +21,7 @@ namespace tools
 	{
 	public:
 		ListBoxDataControl();
-		virtual ~ListBoxDataControl();
+		~ListBoxDataControl() override;
 
 		void OnRenameData();
 
@@ -36,7 +36,7 @@ namespace tools
 		sigslot::signal2<DataPtr, const std::string&> eventChangeName;
 
 	protected:
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
 
 	private:
 		void notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index);

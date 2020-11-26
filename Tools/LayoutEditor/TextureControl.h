@@ -19,7 +19,7 @@ namespace tools
 	{
 	public:
 		TextureControlLE(const std::string& _layout, MyGUI::Widget* _parent);
-		virtual ~TextureControlLE();
+		~TextureControlLE() override;
 
 	protected:
 		void setTextureName(const MyGUI::UString& _value);

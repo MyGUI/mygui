@@ -20,21 +20,21 @@ namespace demo
 	public:
 		DemoKeeper();
 
-		virtual void createScene();
-		virtual void destroyScene();
+		void createScene() override;
+		void destroyScene() override;
 
 	private:
-		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
-		void setupResources();
+		void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text) override;
+		void setupResources() override;
 		void createGround();
 		void createObject();
 
 		void setupCamera();
 		void updateCamera(int _x, int _y);
 
-		virtual void injectMouseMove(int _absx, int _absy, int _absz);
-		virtual void injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id);
-		virtual void injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id);
+		void injectMouseMove(int _absx, int _absy, int _absz) override;
+		void injectMousePress(int _absx, int _absy, MyGUI::MouseButton _id) override;
+		void injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id) override;
 
 	private:
 		KeyboardPanel* mKeyboardPanel;

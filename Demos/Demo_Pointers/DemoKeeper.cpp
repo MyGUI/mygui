@@ -236,7 +236,7 @@ namespace demo
 		Ogre::RaySceneQueryResult& result = gRaySceneQuery->execute();
 		for (Ogre::RaySceneQueryResult::iterator iter = result.begin(); iter != result.end(); ++iter)
 		{
-			if (iter->movable != 0)
+			if (iter->movable != nullptr)
 			{
 				if (iter->movable->getName() == "enemy")
 					return "enemy";

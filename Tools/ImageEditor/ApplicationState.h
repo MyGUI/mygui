@@ -16,11 +16,11 @@ namespace tools
 		public StateController
 	{
 	public:
-		virtual void initState();
-		virtual void cleanupState();
+		void initState() override;
+		void cleanupState() override;
 
-		virtual void pauseState();
-		virtual void resumeState();
+		void pauseState() override;
+		void resumeState() override;
 	};
 
 }

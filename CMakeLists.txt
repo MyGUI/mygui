@@ -190,8 +190,6 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_C
 	else ()
 		if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything")
-			# useful, TODO
-			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-inconsistent-missing-override")
 			# might be useful
 			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-documentation-unknown-command -Wno-unknown-warning-option -Wno-sign-conversion -Wno-conversion -Wno-documentation -Wno-old-style-cast")
 			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-poison-system-directories")

@@ -27,7 +27,7 @@ namespace demo
 		}
 
 	private:
-		virtual void initialise()
+		void initialise() override
 		{
 			mMainWidget->castType<MyGUI::Window>()->setCaption(getName());
 
@@ -38,7 +38,7 @@ namespace demo
 			assignBase(mWeightOut, "WeightOut");
 		}
 
-		virtual void shutdown()
+		void shutdown() override
 		{
 		}
 

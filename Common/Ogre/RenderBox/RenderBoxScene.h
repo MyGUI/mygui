@@ -22,7 +22,7 @@ namespace wraps
 			mScene(nullptr),
 			mNode(nullptr),
 			mCameraNode(nullptr),
-			mCamera(nullptr),
+			mSceneCamera(nullptr),
 			mEntity(nullptr),
 			mAnimationState(nullptr),
 			mRotationSpeed(RENDER_BOX_AUTO_ROTATION_SPEED),
@@ -34,7 +34,7 @@ namespace wraps
 		{
 		}
 
-		virtual ~RenderBoxScene()
+		~RenderBoxScene() override
 		{
 		}
 
@@ -152,7 +152,7 @@ namespace wraps
 			return mMouseRotation;
 		}
 
-		virtual void setCanvas(MyGUI::Canvas* _value)
+		void setCanvas(MyGUI::Canvas* _value) override
 		{
 			RenderBox::setCanvas(_value);
 
@@ -163,7 +163,7 @@ namespace wraps
 			createScene();
 		}
 
-		virtual void destroy()
+		void destroy() override
 		{
 			clearScene();
 
@@ -269,18 +269,18 @@ namespace wraps
 			light->setDirection(dir);
 
 			std::string camera(MyGUI::utility::toString(this, "_CameraRenderBox"));
-			mCamera = mScene->createCamera(camera);
-			mCamera->setNearClipDistance(1);
+			mSceneCamera = mScene->createCamera(camera);
+			mSceneCamera->setNearClipDistance(1);
 
 			mCameraNode = mScene->getRootSceneNode()->createChildSceneNode(camera);
-			mCameraNode->attachObject(mCamera);
+			mCameraNode->attachObject(mSceneCamera);
 
 			if (mCanvas->getHeight() == 0)
-				mCamera->setAspectRatio(1);
+				mSceneCamera->setAspectRatio(1);
 			else
-				mCamera->setAspectRatio( float(mCanvas->getWidth()) / float(mCanvas->getHeight()) );
+				mSceneCamera->setAspectRatio(float(mCanvas->getWidth()) / float(mCanvas->getHeight()) );
 
-			setViewport(mCamera);
+			setViewport(mSceneCamera);
 		}
 
 		void updateViewport()
@@ -289,10 +289,10 @@ namespace wraps
 			if ((mCanvas->getWidth() <= 1) || (mCanvas->getHeight() <= 1))
 				return;
 
-			if ((nullptr != mEntity) && (nullptr != mCamera))
+			if ((nullptr != mEntity) && (nullptr != mSceneCamera))
 			{
 				// не ясно, нужно ли растягивать камеру, установленную юзером
-				mCamera->setAspectRatio((float)mCanvas->getWidth() / (float)mCanvas->getHeight());
+				mSceneCamera->setAspectRatio((float)mCanvas->getWidth() / (float)mCanvas->getHeight());
 
 				// вычисляем расстояние, чтобы был виден весь объект
 				Ogre::AxisAlignedBox box;
@@ -305,7 +305,7 @@ namespace wraps
 				Ogre::Vector3 vec = box.getSize();
 
 				float width = sqrt(vec.x * vec.x + vec.z * vec.z); // самое длинное - диагональ (если крутить модель)
-				float len2 = width / mCamera->getAspectRatio();
+				float len2 = width / mSceneCamera->getAspectRatio();
 				float height = vec.y;
 				float len1 = height;
 				if (len1 < len2) len1 = len2;
@@ -319,7 +319,7 @@ namespace wraps
 			}
 		}
 
-		virtual void requestUpdateCanvas(MyGUI::Canvas* _canvas, MyGUI::Canvas::Event _event)
+		void requestUpdateCanvas(MyGUI::Canvas* _canvas, MyGUI::Canvas::Event _event) override
 		{
 			RenderBox::requestUpdateCanvas(_canvas, _event);
 
@@ -330,7 +330,7 @@ namespace wraps
 		Ogre::SceneManager* mScene;
 		Ogre::SceneNode* mNode;
 		Ogre::SceneNode* mCameraNode;
-		Ogre::Camera* mCamera;
+		Ogre::Camera* mSceneCamera;
 		Ogre::Entity* mEntity;
 		Ogre::AnimationState* mAnimationState;
 

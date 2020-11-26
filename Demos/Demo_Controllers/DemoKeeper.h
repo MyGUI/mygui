@@ -18,12 +18,12 @@ namespace demo
 	public:
 		DemoKeeper();
 
-		virtual void createScene();
-		virtual void destroyScene();
+		void createScene() override;
+		void destroyScene() override;
 
 	private:
 		void notifyButtonPress(ControllerType _type, bool _complite);
-		virtual void setupResources();
+		void setupResources() override;
 
 	private:
 		State* mMenu1;

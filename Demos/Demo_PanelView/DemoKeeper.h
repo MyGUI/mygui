@@ -22,12 +22,12 @@ namespace demo
 	public:
 		DemoKeeper();
 
-		virtual void createScene();
-		virtual void destroyScene();
+		void createScene() override;
+		void destroyScene() override;
 
 	private:
 		void notifyChangePanels(int _key, size_t _value);
-		virtual void setupResources();
+		void setupResources() override;
 
 	private:
 		PanelViewWindow* mView;

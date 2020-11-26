@@ -15,16 +15,16 @@ namespace tools
 	{
 	public:
 		WorkspaceControl(MyGUI::Widget* _parent = nullptr);
-		virtual ~WorkspaceControl();
+		~WorkspaceControl() override;
 
 	protected:
-		virtual void onMouseMove();
-		virtual void onMouseButtonPressed(const MyGUI::IntPoint& _point);
-		virtual void onMouseButtonReleased(const MyGUI::IntPoint& _point);
-		virtual void onMouseButtonClick(const MyGUI::IntPoint& _point);
-		virtual void onMouseDrag(const MyGUI::IntPoint& _point);
+		void onMouseMove() override;
+		void onMouseButtonPressed(const MyGUI::IntPoint& _point) override;
+		void onMouseButtonReleased(const MyGUI::IntPoint& _point) override;
+		void onMouseButtonClick(const MyGUI::IntPoint& _point) override;
+		void onMouseDrag(const MyGUI::IntPoint& _point) override;
 
-		virtual void onChangeScale();
+		void onChangeScale() override;
 
 	private:
 		void notifyChangePosition();

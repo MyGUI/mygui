@@ -21,10 +21,10 @@ namespace MyGUI
 	public:
 		FilterNone();
 
-		virtual void doManualRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
+		void doManualRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count) override;
 
 	/*internal:*/
-		virtual void _setAlign(const IntSize& _oldsize);
+		void _setAlign(const IntSize& _oldsize) override;
 	};
 
 }

@@ -22,7 +22,7 @@ namespace tools
 	{
 	public:
 		ColourPanel();
-		virtual ~ColourPanel();
+		~ColourPanel() override;
 
 		void setColour(const MyGUI::Colour& _colour);
 		const MyGUI::Colour& getColour() const;
@@ -33,10 +33,10 @@ namespace tools
 		sigslot::signal1<const MyGUI::Colour&> eventPreviewColour;
 
 	protected:
-		virtual void onDoModal();
-		virtual void onEndModal();
+		void onDoModal() override;
+		void onEndModal() override;
 
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
 
 	private:
 		bool checkCommand();

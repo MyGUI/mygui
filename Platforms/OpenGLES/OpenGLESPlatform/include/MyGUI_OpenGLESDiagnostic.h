@@ -1,5 +1,4 @@
-#ifndef MYGUI_OPENGLES_DIAGNOSTIC_H__
-#define MYGUI_OPENGLES_DIAGNOSTIC_H__
+#pragma once
 
 #include "MyGUI_Prerequest.h"
 
@@ -25,5 +24,3 @@ do { \
 		MYGUI_BASE_EXCEPT(stream.str().c_str(), "MyGUI"); \
 	} \
 } while (false)
-
-#endif // MYGUI_OPENGLES_DIAGNOSTIC_H__

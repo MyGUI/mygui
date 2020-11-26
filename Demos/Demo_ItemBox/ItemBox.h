@@ -18,7 +18,7 @@ namespace demo
 	{
 	public:
 		ItemBox(MyGUI::Widget* _parent);
-		virtual ~ItemBox();
+		~ItemBox() override;
 	};
 
 } // namespace demo

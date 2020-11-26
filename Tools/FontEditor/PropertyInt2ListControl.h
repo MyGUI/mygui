@@ -18,12 +18,12 @@ namespace tools
 	{
 	public:
 		PropertyInt2ListControl();
-		virtual ~PropertyInt2ListControl();
+		~PropertyInt2ListControl() override;
 
 	protected:
-		virtual void updateCaption();
-		virtual void updateProperty();
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void updateCaption() override;
+		void updateProperty() override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
 
 	private:
 		std::string getValue();

@@ -2,7 +2,7 @@
 #include "MyGUI_OpenGLESDiagnostic.h"
 
 #include <GLES3/gl3.h>
-#include <GLES3/gl2ext.h>
+//#include <GLES3/gl2ext.h>
 
 namespace MyGUI
 {

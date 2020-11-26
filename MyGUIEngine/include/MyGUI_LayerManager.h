@@ -80,7 +80,7 @@ namespace MyGUI
 
 	private:
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
-		void _unlinkWidget(Widget* _widget);
+		void _unlinkWidget(Widget* _widget) override;
 
 		ILayer* _createLayerObject(const std::string& _type);
 

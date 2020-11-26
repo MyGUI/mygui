@@ -25,9 +25,9 @@ namespace demo
 		DemoKeeper();
 
 	private:
-		virtual void createScene();
-		virtual void destroyScene();
-		virtual void setupResources();
+		void createScene() override;
+		void destroyScene() override;
+		void setupResources() override;
 		void notifyFrameStarted(float _time);
 
 		void createGrapView();

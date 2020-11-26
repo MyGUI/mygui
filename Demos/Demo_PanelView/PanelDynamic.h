@@ -18,8 +18,8 @@ namespace demo
 	public:
 		PanelDynamic();
 
-		virtual void initialise();
-		virtual void shutdown();
+		void initialise() override;
+		void shutdown() override;
 
 		void setVisibleCount(size_t _count);
 

@@ -43,7 +43,9 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 4)
 	include_directories(SYSTEM
 		${OPENGL_INCLUDE_DIR}
 		${SDL2_IMAGE_INCLUDE_DIRS}
+		${MYGUI_SOURCE_DIR}/Platforms/${MYGUI_PLATFORM_NAME}/${MYGUI_PLATFORM_NAME}Platform/include
 	)
+	include_directories(SYSTEM include/GL)
 	link_directories(${OPENGL_LIB_DIR})
 	link_directories(${SDL2_IMAGE_LIB_DIR})
 elseif(MYGUI_RENDERSYSTEM EQUAL 5)
@@ -63,6 +65,7 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 7)
 	include_directories(SYSTEM
 		${OPENGL_INCLUDE_DIR}
 		${SDL2_IMAGE_INCLUDE_DIRS}
+		${MYGUI_SOURCE_DIR}/Platforms/${MYGUI_PLATFORM_NAME}/${MYGUI_PLATFORM_NAME}Platform/include
 	)
 	link_directories(${OPENGL_LIB_DIR})
 	link_directories(${SDL2_IMAGE_LIB_DIR})

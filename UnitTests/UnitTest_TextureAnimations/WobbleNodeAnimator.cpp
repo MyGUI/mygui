@@ -18,7 +18,7 @@ namespace demo
 
 	float getLength(const MyGUI::FloatPoint& _value)
 	{
-		return (float)sqrt( _value.left * _value.left + _value.top * _value.top );
+		return (float)std::sqrt( _value.left * _value.left + _value.top * _value.top );
 	}
 
 	void setLength(MyGUI::FloatPoint& _value, float _len)

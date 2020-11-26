@@ -18,7 +18,7 @@ namespace tools
 	{
 	public:
 		WidgetsWindow(MyGUI::Widget* _parent = nullptr);
-		virtual ~WidgetsWindow();
+		~WidgetsWindow() override;
 
 	private:
 		void requestCreateWidgetItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item);

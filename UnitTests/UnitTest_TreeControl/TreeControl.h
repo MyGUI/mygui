@@ -67,8 +67,8 @@ namespace MyGUI
 
 		void invalidate();
 
-		virtual void setSize(const IntSize& Size);
-		virtual void setCoord(const IntCoord& Bounds);
+		void setSize(const IntSize& Size) override;
+		void setCoord(const IntCoord& Bounds) override;
 
 		EventHandle_TreeControlPtrNodePtr eventTreeNodeMouseSetFocus;
 		EventHandle_TreeControlPtrNodePtr eventTreeNodeMouseLostFocus;

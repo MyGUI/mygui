@@ -35,8 +35,8 @@ namespace tools
 		const MyGUI::UString& getFileMask() const;
 
 	protected:
-		virtual void onDoModal();
-		virtual void onEndModal();
+		void onDoModal() override;
+		void onEndModal() override;
 
 	private:
 		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);

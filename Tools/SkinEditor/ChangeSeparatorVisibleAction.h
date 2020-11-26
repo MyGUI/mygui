@@ -17,8 +17,8 @@ namespace tools
 		public ActionChangeDataProperty
 	{
 	public:
-		virtual void doAction();
-		virtual void undoAction();
+		void doAction() override;
+		void undoAction() override;
 
 	private:
 		typedef std::pair<PropertyPtr, std::string> PairProprty;

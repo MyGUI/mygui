@@ -465,7 +465,7 @@ namespace sigslot
 			m_senders.erase(sender);
 		}
 
-		virtual ~has_slots()
+		~has_slots() override
 		{
 			disconnect_all();
 		}
@@ -516,7 +516,7 @@ namespace sigslot
 			}
 		}
 
-		~_signal_base0()
+		~_signal_base0() override
 		{
 			disconnect_all();
 		}
@@ -558,7 +558,7 @@ namespace sigslot
 			}
 		}
 
-		void slot_disconnect(has_slots<mt_policy>* pslot)
+		void slot_disconnect(has_slots<mt_policy>* pslot) override
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename connections_list::iterator it = m_connected_slots.begin();
@@ -579,7 +579,7 @@ namespace sigslot
 			}
 		}
 
-		void slot_duplicate(const has_slots<mt_policy>* oldtarget, has_slots<mt_policy>* newtarget)
+		void slot_duplicate(const has_slots<mt_policy>* oldtarget, has_slots<mt_policy>* newtarget) override
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename connections_list::iterator it = m_connected_slots.begin();
@@ -627,7 +627,7 @@ namespace sigslot
 			}
 		}
 
-		void slot_duplicate(const has_slots<mt_policy>* oldtarget, has_slots<mt_policy>* newtarget)
+		void slot_duplicate(const has_slots<mt_policy>* oldtarget, has_slots<mt_policy>* newtarget) override
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename connections_list::iterator it = m_connected_slots.begin();
@@ -644,7 +644,7 @@ namespace sigslot
 			}
 		}
 
-		~_signal_base1()
+		~_signal_base1() override
 		{
 			disconnect_all();
 		}
@@ -686,7 +686,7 @@ namespace sigslot
 			}
 		}
 
-		void slot_disconnect(has_slots<mt_policy>* pslot)
+		void slot_disconnect(has_slots<mt_policy>* pslot) override
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename connections_list::iterator it = m_connected_slots.begin();
@@ -739,7 +739,7 @@ namespace sigslot
 			}
 		}
 
-		void slot_duplicate(const has_slots<mt_policy>* oldtarget, has_slots<mt_policy>* newtarget)
+		void slot_duplicate(const has_slots<mt_policy>* oldtarget, has_slots<mt_policy>* newtarget) override
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename connections_list::iterator it = m_connected_slots.begin();
@@ -756,7 +756,7 @@ namespace sigslot
 			}
 		}
 
-		~_signal_base2()
+		~_signal_base2() override
 		{
 			disconnect_all();
 		}
@@ -798,7 +798,7 @@ namespace sigslot
 			}
 		}
 
-		void slot_disconnect(has_slots<mt_policy>* pslot)
+		void slot_disconnect(has_slots<mt_policy>* pslot) override
 		{
 			lock_block<mt_policy> lockblock(this);
 			typename connections_list::iterator it = m_connected_slots.begin();
@@ -1561,28 +1561,28 @@ namespace sigslot
 			m_pmemfun = pmemfun;
 		}
 
-		virtual base_type* clone()
+		base_type* clone() override
 		{
 			return new this_type(*this);
 		}
 
-		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
+		base_type* duplicate(has_slots<mt_policy>* pnewdest) override
 		{
 			return new this_type((dest_type *)pnewdest, m_pmemfun);
 		}
 
-		virtual void emit(arg1_type a1)
+		void emit(arg1_type a1) override
 		{
 			(m_pobject->*m_pmemfun)(a1);
 		}
 
-		virtual bool exist(base_type* conn)
+		bool exist(base_type* conn) override
 		{
 			this_type* pconn = static_cast<this_type*>(conn);
 			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
 		}
 
-		virtual has_slots<mt_policy>* getdest() const
+		has_slots<mt_policy>* getdest() const override
 		{
 			return m_pobject;
 		}
@@ -1613,28 +1613,28 @@ namespace sigslot
 			m_pmemfun = pmemfun;
 		}
 
-		virtual base_type* clone()
+		base_type* clone() override
 		{
 			return new this_type(*this);
 		}
 
-		virtual base_type* duplicate(has_slots<mt_policy>* pnewdest)
+		base_type* duplicate(has_slots<mt_policy>* pnewdest) override
 		{
 			return new this_type((dest_type *)pnewdest, m_pmemfun);
 		}
 
-		virtual void emit(arg1_type a1, arg2_type a2)
+		void emit(arg1_type a1, arg2_type a2) override
 		{
 			(m_pobject->*m_pmemfun)(a1, a2);
 		}
 
-		virtual bool exist(base_type* conn)
+		bool exist(base_type* conn) override
 		{
 			this_type* pconn = static_cast<this_type*>(conn);
 			return pconn->m_pobject == m_pobject && pconn->m_pmemfun == m_pmemfun;
 		}
 
-		virtual has_slots<mt_policy>* getdest() const
+		has_slots<mt_policy>* getdest() const override
 		{
 			return m_pobject;
 		}

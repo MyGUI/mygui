@@ -19,7 +19,7 @@ namespace tools
 	{
 	public:
 		TextFieldControl();
-		virtual ~TextFieldControl();
+		~TextFieldControl() override;
 
 		void setCaption(const MyGUI::UString& _value);
 
@@ -37,10 +37,10 @@ namespace tools
 		}
 
 	protected:
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
 
-		virtual void onDoModal();
-		virtual void onEndModal();
+		void onDoModal() override;
+		void onEndModal() override;
 
 	private:
 		void notifyOk(MyGUI::Widget* _sender);

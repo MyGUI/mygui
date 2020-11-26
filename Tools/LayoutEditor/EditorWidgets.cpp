@@ -560,7 +560,7 @@ namespace tools
 
 				container->mController.push_back(controllerInfo);
 			}
-		};
+		}
 	}
 
 	bool EditorWidgets::tryToApplyProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value, bool _testMode)

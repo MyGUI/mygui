@@ -20,13 +20,13 @@ namespace MyGUI
 	{
 	public:
 		//! @copydoc ILogListener::open()
-		virtual void open();
+		void open() override;
 		//! @copydoc ILogListener::close()
-		virtual void close();
+		void close() override;
 		//! @copydoc ILogListener::flush()
-		virtual void flush();
+		void flush() override;
 		//! @copydoc ILogListener::log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line)
-		virtual void log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line);
+		void log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line) override;
 
 		/** Set listener's file name where it wirte log. */
 		void setFileName(const std::string& _value);

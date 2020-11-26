@@ -20,13 +20,13 @@ namespace tools
 	public:
 		PanelUserData();
 
-		virtual void initialise();
-		virtual void shutdown();
+		void initialise() override;
+		void shutdown() override;
 
 		void update(MyGUI::Widget* _currentWidget);
 
 	private:
-		virtual void notifyChangeWidth(int _width);
+		void notifyChangeWidth(int _width) override;
 
 		void notifyAddUserData(MyGUI::Widget* _sender = nullptr);
 		void notifyDeleteUserData(MyGUI::Widget* _sender);

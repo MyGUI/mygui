@@ -25,15 +25,15 @@ namespace MyGUI
 
 	public:
 		RTTLayer();
-		virtual ~RTTLayer();
+		~RTTLayer() override;
 
-		virtual void deserialization(xml::ElementPtr _node, Version _version);
+		void deserialization(xml::ElementPtr _node, Version _version) override;
 
-		virtual void renderToTarget(IRenderTarget* _target, bool _update);
+		void renderToTarget(IRenderTarget* _target, bool _update) override;
 
-		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) const;
+		ILayerItem* getLayerItemByPoint(int _left, int _top) const override;
 
-		virtual IntPoint getPosition(int _left, int _top) const;
+		IntPoint getPosition(int _left, int _top) const override;
 
 		void setTextureSize(const IntSize& _size);
 

@@ -15,6 +15,8 @@ namespace wraps
 	class IGraphController
 	{
 	public:
+		virtual ~IGraphController() = default;
+
 		virtual void startDrag(BaseGraphConnection* _connection) = 0;
 		virtual void stopDrag(BaseGraphConnection* _connection) = 0;
 		virtual void updateDrag(BaseGraphConnection* _connection) = 0;

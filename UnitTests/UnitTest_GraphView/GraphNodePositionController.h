@@ -27,7 +27,7 @@ namespace demo
 		{
 		}
 
-		virtual void addConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin)
+		void addConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin) override
 		{
 			BaseAnimationNode::addConnection(_eventout, _node, _eventin);
 			if (_eventout == "Position")
@@ -37,7 +37,7 @@ namespace demo
 			}
 		}
 
-		virtual void removeConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin)
+		void removeConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin) override
 		{
 			BaseAnimationNode::removeConnection(_eventout, _node, _eventin);
 			if (_eventout == "Position")
@@ -47,7 +47,7 @@ namespace demo
 			}
 		}
 
-		virtual void invalidateNode(BaseAnimationNode* _sender)
+		void invalidateNode(BaseAnimationNode* _sender) override
 		{
 			BaseAnimationNode::invalidateNode(_sender);
 			if (_sender->getAnimationNode()->getName() == mStateName)
@@ -74,7 +74,7 @@ namespace demo
 			updateWidgets();
 		}
 
-		virtual void initialise()
+		void initialise() override
 		{
 			mMainWidget->castType<MyGUI::Window>()->setCaption(getName());
 			assignBase(mConnectionOut, "ConnectionOut");
@@ -87,7 +87,7 @@ namespace demo
 			updateWidgets();
 		}
 
-		virtual void shutdown()
+		void shutdown() override
 		{
 		}
 

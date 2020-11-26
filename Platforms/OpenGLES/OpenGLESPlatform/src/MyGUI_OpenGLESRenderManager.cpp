@@ -8,7 +8,7 @@
 #include "MyGUI_DataManager.h"
 
 #include <GLES3/gl3.h>
-#include <GLES3/gl2ext.h>
+//#include <GLES3/gl2ext.h>
 
 namespace MyGUI
 {

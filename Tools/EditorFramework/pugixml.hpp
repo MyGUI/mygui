@@ -250,7 +250,7 @@ namespace pugi
 		// Construct writer from a FILE* object; void* is used to avoid header dependencies on stdio
 		xml_writer_file(void* file);
 
-		virtual void write(const void* data, size_t size);
+		void write(const void* data, size_t size) override;
 
 	private:
 		void* file;
@@ -265,7 +265,7 @@ namespace pugi
 		xml_writer_stream(std::basic_ostream<char, std::char_traits<char> >& stream);
 		xml_writer_stream(std::basic_ostream<wchar_t, std::char_traits<wchar_t> >& stream);
 
-		virtual void write(const void* data, size_t size);
+		void write(const void* data, size_t size) override;
 
 	private:
 		std::basic_ostream<char, std::char_traits<char> >* narrow_stream;
@@ -1087,7 +1087,7 @@ namespace pugi
 		explicit xpath_exception(const xpath_parse_result& result);
 
 		// Get error message
-		virtual const char* what() const noexcept;
+		const char* what() const noexcept override;
 
 		// Get parse result
 		const xpath_parse_result& result() const;

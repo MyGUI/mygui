@@ -1,5 +1,4 @@
-#ifndef MYGUI_OPENGLES_TEXTURE_H__
-#define MYGUI_OPENGLES_TEXTURE_H__
+#pragma once
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ITexture.h"
@@ -15,47 +14,47 @@ namespace MyGUI
 	{
 	public:
 		OpenGLESTexture(const std::string& _name, OpenGLESImageLoader* _loader);
-		virtual ~OpenGLESTexture();
+		~OpenGLESTexture() override;
 
-		virtual const std::string& getName() const;
+		const std::string& getName() const override;
 
-		virtual void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format);
-		virtual void loadFromFile(const std::string& _filename);
-		virtual void saveToFile(const std::string& _filename);
-		virtual void setShader(const std::string& _shaderName);
+		void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format) override;
+		void loadFromFile(const std::string& _filename) override;
+		void saveToFile(const std::string& _filename) override;
+		void setShader(const std::string& _shaderName) override;
 
-		virtual void destroy();
+		void destroy() override;
 
-		virtual int getWidth()
+		int getWidth() override
 		{
 			return mWidth;
 		}
-		virtual int getHeight()
+		int getHeight() override
 		{
 			return mHeight;
 		}
 
-		virtual void* lock(TextureUsage _access);
-		virtual void unlock();
-		virtual bool isLocked()
+		void* lock(TextureUsage _access) override;
+		void unlock() override;
+		bool isLocked() override
 		{
 			return mLock;
 		}
 
-		virtual PixelFormat getFormat()
+		PixelFormat getFormat() override
 		{
 			return mOriginalFormat;
 		}
-		virtual TextureUsage getUsage()
+		TextureUsage getUsage() override
 		{
 			return mOriginalUsage;
 		}
-		virtual size_t getNumElemBytes()
+		size_t getNumElemBytes() override
 		{
 			return mNumElemBytes;
 		}
 
-		virtual IRenderTarget* getRenderTarget();
+		IRenderTarget* getRenderTarget() override;
 
 	/*internal:*/
 		unsigned int getTextureId() const;
@@ -88,5 +87,3 @@ namespace MyGUI
 	};
 
 } // namespace MyGUI
-
-#endif // MYGUI_OPENGLES_TEXTURE_H__

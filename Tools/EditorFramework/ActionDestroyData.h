@@ -19,8 +19,8 @@ namespace tools
 	public:
 		ActionDestroyData();
 
-		virtual void doAction();
-		virtual void undoAction();
+		void doAction() override;
+		void undoAction() override;
 
 		void setData(DataPtr _data);
 		void setUniqueProperty(const std::string& _value);

@@ -26,14 +26,14 @@ namespace demo
 		{
 		}
 
-		virtual void addConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin)
+		void addConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin) override
 		{
 			BaseAnimationNode::addConnection(_eventout, _node, _eventin);
 			onChangePosition(mPosition);
 		}
 
 	private:
-		virtual void initialise()
+		void initialise() override
 		{
 			mMainWidget->castType<MyGUI::Window>()->setCaption(getName());
 			assignBase(mConnectionOut, "ConnectionOut");
@@ -46,7 +46,7 @@ namespace demo
 			updateWidgets();
 		}
 
-		virtual void shutdown()
+		void shutdown() override
 		{
 		}
 

@@ -32,7 +32,7 @@ namespace demo
 		}
 
 	private:
-		virtual void initialise()
+		void initialise() override
 		{
 			mMainWidget->castType<MyGUI::Window>()->setCaption(getName());
 			assignBase(mStartIn, "StartIn");
@@ -49,12 +49,12 @@ namespace demo
 			MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyFrameStart);
 		}
 
-		virtual void shutdown()
+		void shutdown() override
 		{
 			MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &GraphNodeSkeletonState::notifyFrameStart);
 		}
 
-		virtual void deserialization(MyGUI::xml::ElementPtr _node)
+		void deserialization(MyGUI::xml::ElementPtr _node) override
 		{
 			MyGUI::xml::ElementEnumerator prop = _node->getElementEnumerator();
 			while (prop.next("Property"))
@@ -69,7 +69,7 @@ namespace demo
 			}
 		}
 
-		virtual void serialization(MyGUI::xml::ElementPtr _node)
+		void serialization(MyGUI::xml::ElementPtr _node) override
 		{
 			MyGUI::xml::ElementPtr prop = _node->createChild("Property");
 			prop->addAttribute("key", "StateName");
@@ -123,7 +123,7 @@ namespace demo
 			}
 		}
 
-		virtual void baseInitialiseAnimationNode()
+		void baseInitialiseAnimationNode() override
 		{
 			Ogre::Any any = getAnimationNode()->getGraph()->getData("OwnerEntity");
 			if (!any.isEmpty())

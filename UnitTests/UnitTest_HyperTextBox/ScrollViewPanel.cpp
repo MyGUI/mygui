@@ -57,7 +57,7 @@ namespace MyGUI
 				viewSize.width += getVScroll()->getWidth();
 
 			Panel::updateMeasure(getChildAt(0), IntSize(viewSize.width, (std::numeric_limits<int>::max)()));
-			IntSize resultSize = Panel::getDesiredSize(getChildAt(0));
+			resultSize = Panel::getDesiredSize(getChildAt(0));
 
 			Panel::updateArrange(getChildAt(0), IntCoord(0, 0, viewSize.width, resultSize.height));
 			setCanvasSize(IntSize(viewSize.width, resultSize.height));

@@ -19,12 +19,12 @@ namespace tools
 	{
 	public:
 		BackgroundControl();
-		virtual ~BackgroundControl();
+		~BackgroundControl() override;
 
 		MyGUI::Widget* getCanvas();
 
 	protected:
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
 
 	private:
 		void setColour(const MyGUI::Colour& _colour);

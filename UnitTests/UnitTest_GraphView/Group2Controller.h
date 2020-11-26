@@ -21,22 +21,22 @@ namespace animation
 		{
 		}
 
-		virtual ~Group2Controller()
+		~Group2Controller() override
 		{
 		}
 
-		virtual void setEvent(const std::string& _name, float _value)
+		void setEvent(const std::string& _name, float _value) override
 		{
 			if (_name == "Start1") startAnimation1();
 			else if (_name == "Start2") startAnimation2();
 		}
 
-		virtual void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
+		void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
 		{
 			mConnection.addConnection(_eventout, _node, _eventin);
 		}
 
-		virtual void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
+		void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
 		{
 			mConnection.removeConnection(_eventout, _node, _eventin);
 		}

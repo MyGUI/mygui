@@ -21,7 +21,7 @@ namespace tools
 	{
 	public:
 		MainMenuControlLE(MyGUI::Widget* _parent = nullptr);
-		virtual ~MainMenuControlLE();
+		~MainMenuControlLE() override;
 
 		void setVisible(bool _value);
 

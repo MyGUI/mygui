@@ -49,7 +49,7 @@ namespace tools
 		Event_ChangeWidgets eventChangeWidgets;
 		Event_ChangeWidgetCoord eventChangeWidgetCoord;
 
-		virtual void _unlinkWidget(MyGUI::Widget* _widget);
+		void _unlinkWidget(MyGUI::Widget* _widget) override;
 
 		MyGUI::MapString& getCodeGeneratorSettings();
 

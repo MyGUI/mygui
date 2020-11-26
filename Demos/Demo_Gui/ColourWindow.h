@@ -18,7 +18,6 @@ namespace demo
 	{
 	public:
 		ColourWindow(MyGUI::Widget* _parent);
-		virtual ~ColourWindow();
 
 	private:
 		void notifyScrollChangePosition(MyGUI::ScrollBar* _sender, size_t _position);

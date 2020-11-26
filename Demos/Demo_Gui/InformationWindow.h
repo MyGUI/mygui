@@ -17,7 +17,7 @@ namespace demo
 	{
 	public:
 		InformationWindow(MyGUI::Widget* _parent);
-		virtual ~InformationWindow();
+		~InformationWindow() override;
 
 	private:
 		void notifyFrameStart(float _time);

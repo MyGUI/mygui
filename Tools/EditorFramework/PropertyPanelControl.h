@@ -21,12 +21,12 @@ namespace tools
 	{
 	public:
 		PropertyPanelControl();
-		virtual ~PropertyPanelControl();
+		~PropertyPanelControl() override;
 
 		void setCurrentData(DataPtr _data);
 
 	protected:
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
 
 	private:
 		void notifyChangeCoord(MyGUI::Widget* _sender);

@@ -19,13 +19,13 @@ namespace tools
 	{
 	public:
 		TextureToolControlLE(MyGUI::Widget* _parent);
-		virtual ~TextureToolControlLE();
+		~TextureToolControlLE() override;
 
 		void setActivate(bool _value);
 		bool getActivate() const;
 
 	protected:
-		virtual void onMouseWheel(int _rel);
+		void onMouseWheel(int _rel) override;
 
 		virtual void onChangeActivate();
 

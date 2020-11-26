@@ -20,10 +20,10 @@ namespace tools
 	{
 	public:
 		FontTryControl();
-		virtual ~FontTryControl();
+		~FontTryControl() override;
 
 	protected:
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
 
 	private:
 		void commandOnGenerateFont(const MyGUI::UString& _commandName, bool& _result);

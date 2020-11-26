@@ -18,7 +18,7 @@ namespace demo
 	{
 	public:
 		MonitorPanel();
-		virtual ~MonitorPanel();
+		~MonitorPanel() override;
 
 	private:
 		void notifyCommand(const std::string& _name, MyGUI::Any _data);

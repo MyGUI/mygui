@@ -19,7 +19,7 @@ namespace demo
 	public:
 		BaseAnimationNode(const std::string& _layout, const std::string& _type, const std::string& _name) :
 			BaseGraphNode(_layout),
-			mAnimationNode(0),
+			mAnimationNode(nullptr),
 			mType(_type),
 			mName(_name)
 		{

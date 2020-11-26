@@ -41,7 +41,7 @@ namespace wraps
 			mBoxItems->eventToolTip += MyGUI::newDelegate(this, &BaseItemBox::notifyToolTip);
 		}
 
-		virtual ~BaseItemBox()
+		~BaseItemBox() override
 		{
 			mBoxItems->requestCreateWidgetItem = nullptr;
 			mBoxItems->requestCoordItem = nullptr;

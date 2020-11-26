@@ -21,8 +21,8 @@ namespace plugin
 		StrangeButton();
 
 	protected:
-		virtual void onMouseLostFocus(MyGUI::Widget* _new);
-		virtual void onMouseSetFocus(MyGUI::Widget* _old);
+		void onMouseLostFocus(MyGUI::Widget* _new) override;
+		void onMouseSetFocus(MyGUI::Widget* _old) override;
 	};
 
 } // namespace plugin

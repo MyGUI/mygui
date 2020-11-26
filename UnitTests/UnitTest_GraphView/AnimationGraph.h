@@ -27,26 +27,26 @@ namespace animation
 		{
 		}
 
-		virtual ~AnimationGraph()
+		~AnimationGraph() override
 		{
 		}
 
-		virtual void setEvent(const std::string& _name, float _value = 0)
+		void setEvent(const std::string& _name, float _value = 0) override
 		{
 			mConnection.forceEvent(_name, _value);
 		}
 
-		virtual void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
+		void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
 		{
 			mConnection.addConnection(_eventout, _node, _eventin);
 		}
 
-		virtual void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
+		void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
 		{
 			mConnection.removeConnection(_eventout, _node, _eventin);
 		}
 
-		virtual void addTime(float _value)
+		void addTime(float _value) override
 		{
 			for (VectorNode::iterator item = mNodes.begin(); item != mNodes.end(); ++item)
 			{
@@ -54,19 +54,19 @@ namespace animation
 			}
 		}
 
-		virtual void addNode(IAnimationNode* _node)
+		void addNode(IAnimationNode* _node) override
 		{
 			mNodes.push_back(_node);
 		}
 
-		virtual void removeNode(IAnimationNode* _node)
+		void removeNode(IAnimationNode* _node) override
 		{
 			VectorNode::iterator item = std::find(mNodes.begin(), mNodes.end(), _node);
 			assert(item != mNodes.end());
 			mNodes.erase(item);
 		}
 
-		IAnimationNode* getNodeByName(const std::string& _name)
+		IAnimationNode* getNodeByName(const std::string& _name) override
 		{
 			if (_name == getName()) return this;
 
@@ -77,17 +77,17 @@ namespace animation
 					return (*item);
 				}
 			}
-			return 0;
+			return nullptr;
 		}
 
-		virtual Ogre::Any getData(const std::string& _name)
+		Ogre::Any getData(const std::string& _name) override
 		{
 			MapAny::iterator item = mDatas.find(_name);
 			if (item != mDatas.end()) return item->second;
 			return Ogre::Any();
 		}
 
-		virtual void addData(const std::string& _name, Ogre::Any _any)
+		void addData(const std::string& _name, Ogre::Any _any) override
 		{
 			mDatas[_name] = _any;
 		}

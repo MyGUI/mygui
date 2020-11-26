@@ -20,7 +20,7 @@ namespace tools
 		PropertyFieldFont(MyGUI::Widget* _parent);
 
 	protected:
-		virtual void onFillValues();
+		void onFillValues() override;
 	};
 
 }

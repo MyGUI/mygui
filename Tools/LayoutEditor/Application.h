@@ -15,18 +15,18 @@ namespace tools
 		MYGUI_SINGLETON_DECLARATION(Application);
 	public:
 		Application();
-		virtual ~Application();
+		~Application() override;
 
-		virtual void createScene();
-		virtual void destroyScene();
-		virtual void setupResources();
+		void createScene() override;
+		void destroyScene() override;
+		void setupResources() override;
 
-		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
-		virtual void injectKeyRelease(MyGUI::KeyCode _key);
+		void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text) override;
+		void injectKeyRelease(MyGUI::KeyCode _key) override;
 
-		virtual void prepare();
-		virtual void onFileDrop(const std::wstring& _filename);
-		virtual bool onWindowClose(size_t _handle);
+		void prepare() override;
+		void onFileDrop(const std::wstring& _filename) override;
+		bool onWindowClose(size_t _handle) override;
 
 		typedef std::vector<std::wstring> VectorWString;
 		const VectorWString& getParams();

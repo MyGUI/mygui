@@ -24,11 +24,11 @@ namespace tools
 	public:
 		EditorState();
 
-		virtual void initState();
-		virtual void cleanupState();
+		void initState() override;
+		void cleanupState() override;
 
-		virtual void pauseState();
-		virtual void resumeState();
+		void pauseState() override;
+		void resumeState() override;
 
 	private:
 		void notifyMessageBoxResultLoad(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);

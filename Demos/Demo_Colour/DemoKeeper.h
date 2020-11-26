@@ -19,12 +19,12 @@ namespace demo
 	public:
 		DemoKeeper();
 
-		virtual void createScene();
-		virtual void destroyScene();
+		void createScene() override;
+		void destroyScene() override;
 
 	private:
 		void notifyColourAccept(ColourPanel* _sender);
-		virtual void setupResources();
+		void setupResources() override;
 
 	private:
 		ColourPanel* mColourPanel;

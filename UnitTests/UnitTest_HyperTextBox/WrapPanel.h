@@ -33,8 +33,8 @@ namespace MyGUI
 		void setSnapFloat(Align _value);
 
 	protected:
-		virtual IntSize overrideMeasure(const IntSize& _sizeAvailable);
-		virtual void overrideArrange();
+		IntSize overrideMeasure(const IntSize& _sizeAvailable) override;
+		void overrideArrange() override;
 
 	private:
 		void alignChildLine(size_t _startIndex, size_t _stopIndex, const IntCoord& _coordAvailable, int _lineWidth);

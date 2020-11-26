@@ -18,8 +18,8 @@ namespace tools
 		public IExportSerializer
 	{
 	public:
-		virtual void serialization(pugi::xml_document& _doc);
-		virtual bool deserialization(pugi::xml_document& _doc);
+		void serialization(pugi::xml_document& _doc) override;
+		bool deserialization(pugi::xml_document& _doc) override;
 
 		static bool exportData(const MyGUI::UString& _folderName, const MyGUI::UString& _fileName);
 		static void generateFont(DataPtr _font);

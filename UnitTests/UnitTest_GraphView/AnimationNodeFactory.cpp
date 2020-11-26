@@ -33,7 +33,7 @@ namespace animation
 	IAnimationNode* AnimationNodeFactory::createNode(const std::string& _type, const std::string& _name, IAnimationGraph* _holder)
 	{
 		MapConstruct::iterator item = mConstructs.find(_type);
-		if (item == mConstructs.end()) return 0;
+		if (item == mConstructs.end()) return nullptr;
 		return (*item).second->create(_name, _holder);
 	}
 

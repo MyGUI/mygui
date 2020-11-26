@@ -22,7 +22,7 @@ namespace demo
 	public:
 		ControllerRandomSelected() : mTime(0) { }
 
-		virtual bool addTime(MyGUI::Widget* _widget, float _time)
+		bool addTime(MyGUI::Widget* _widget, float _time) override
 		{
 			mTime += _time;
 			if (mTime > 1)
@@ -34,7 +34,7 @@ namespace demo
 			return true;
 		}
 
-		virtual void prepareItem(MyGUI::Widget* _widget)
+		void prepareItem(MyGUI::Widget* _widget) override
 		{
 			mTime = 0;
 			action(_widget);

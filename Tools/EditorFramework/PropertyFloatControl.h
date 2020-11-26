@@ -18,12 +18,12 @@ namespace tools
 	{
 	public:
 		PropertyFloatControl();
-		virtual ~PropertyFloatControl();
+		~PropertyFloatControl() override;
 
 	protected:
-		virtual void updateCaption();
-		virtual void updateProperty();
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void updateCaption() override;
+		void updateProperty() override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
 
 	private:
 		void notifyEditTextChange(MyGUI::EditBox* _sender);

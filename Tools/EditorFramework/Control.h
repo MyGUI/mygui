@@ -20,7 +20,7 @@ namespace tools
 	{
 	public:
 		Control();
-		virtual ~Control();
+		~Control() override;
 
 		MyGUI::Widget* getRoot();
 

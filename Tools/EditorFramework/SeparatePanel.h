@@ -16,13 +16,13 @@ namespace tools
 	{
 	public:
 		SeparatePanel();
-		virtual ~SeparatePanel();
+		~SeparatePanel() override;
 
 		void setPanelAlign(MyGUI::Align _value);
 		MyGUI::Align getPanelAlign() const;
 
 	protected:
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
 
 	private:
 		void notifyChangeCoord(MyGUI::Widget* _sender);

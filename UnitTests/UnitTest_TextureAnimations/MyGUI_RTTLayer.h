@@ -21,20 +21,20 @@ namespace MyGUI
 
 	public:
 		RTTLayer();
-		virtual ~RTTLayer();
+		~RTTLayer() override;
 
-		virtual void deserialization(xml::ElementPtr _node, Version _version);
+		void deserialization(xml::ElementPtr _node, Version _version) override;
 
 		// создаем дочерний нод
-		virtual ILayerNode* createChildItemNode();
+		ILayerNode* createChildItemNode() override;
 		// удаляем дочерний нод
-		virtual void destroyChildItemNode(ILayerNode* _node);
+		void destroyChildItemNode(ILayerNode* _node) override;
 
 		// возвращает виджет по позиции
-		virtual ILayerItem* getLayerItemByPoint(int _left, int _top) const;
+		ILayerItem* getLayerItemByPoint(int _left, int _top) const override;
 
 		// рисует леер
-		virtual void renderToTarget(IRenderTarget* _target, bool _update);
+		void renderToTarget(IRenderTarget* _target, bool _update) override;
 
 	private:
 		Version mVersion;

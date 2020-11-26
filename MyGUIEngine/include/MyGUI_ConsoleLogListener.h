@@ -20,7 +20,7 @@ namespace MyGUI
 		ConsoleLogListener();
 
 		//! @copydoc ILogListener::log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line)
-		virtual void log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line);
+		void log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line) override;
 
 		/** Is log listener enabled. */
 		bool getEnabled() const;

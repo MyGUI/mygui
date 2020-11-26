@@ -17,7 +17,7 @@ namespace components
 		public IFactory
 	{
 	public:
-		virtual IFactoryItem* CreateItem()
+		IFactoryItem* CreateItem() override
 		{
 			IFactoryItem* result = new Type();
 			return result;

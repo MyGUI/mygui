@@ -1,5 +1,4 @@
-#ifndef MYGUI_OPENGLES_IMAGE_LOADER_H__
-#define MYGUI_OPENGLES_IMAGE_LOADER_H__
+#pragma once
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_RenderFormat.h"
@@ -22,5 +21,3 @@ namespace MyGUI
 	};
 
 } // namespace MyGUI
-
-#endif // MYGUI_OPENGLES_IMAGE_LOADER_H__

@@ -18,7 +18,7 @@ namespace demo
 		public IGraphNodeConstruct
 	{
 	public:
-		virtual BaseAnimationNode* create(const std::string& _name)
+		BaseAnimationNode* create(const std::string& _name) override
 		{
 			return new Type(_name);
 		}

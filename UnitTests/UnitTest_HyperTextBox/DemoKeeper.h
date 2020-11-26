@@ -12,11 +12,11 @@ namespace demo
 	public:
 		DemoKeeper();
 
-		virtual void createScene();
-		virtual void destroyScene();
+		void createScene() override;
+		void destroyScene() override;
 
 	private:
-		virtual void setupResources();
+		void setupResources() override;
 
 		void OnClickUrl(MyGUI::HyperTextBox* _sender, const std::string& _url);
 	};

@@ -70,8 +70,8 @@ namespace MyGUI
 		*/
 		virtual void overrideArrange() = 0;
 
-		virtual void onWidgetCreated(Widget* _widget);
-		virtual void onWidgetDestroy(Widget* _widget);
+		void onWidgetCreated(Widget* _widget) override;
+		void onWidgetDestroy(Widget* _widget) override;
 
 	private:
 		IntSize mDesiredSize;

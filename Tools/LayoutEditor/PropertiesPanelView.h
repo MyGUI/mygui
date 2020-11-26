@@ -26,7 +26,7 @@ namespace tools
 	{
 	public:
 		PropertiesPanelView(MyGUI::Widget* _parent = nullptr);
-		virtual ~PropertiesPanelView();
+		~PropertiesPanelView() override;
 
 	private:
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);

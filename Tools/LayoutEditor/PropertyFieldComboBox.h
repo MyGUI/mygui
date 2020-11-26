@@ -21,17 +21,17 @@ namespace tools
 	public:
 		PropertyFieldComboBox(MyGUI::Widget* _parent);
 
-		virtual void initialise(const std::string& _type);
+		void initialise(const std::string& _type) override;
 
-		virtual void setTarget(MyGUI::Widget* _currentWidget);
-		virtual void setValue(const std::string& _value);
-		virtual void setName(const std::string& _value);
+		void setTarget(MyGUI::Widget* _currentWidget) override;
+		void setValue(const std::string& _value) override;
+		void setName(const std::string& _value) override;
 
-		virtual void setVisible(bool _value);
-		virtual bool getVisible();
+		void setVisible(bool _value) override;
+		bool getVisible() override;
 
-		virtual MyGUI::IntSize getContentSize();
-		virtual void setCoord(const MyGUI::IntCoord& _coord);
+		MyGUI::IntSize getContentSize() override;
+		void setCoord(const MyGUI::IntCoord& _coord) override;
 
 	protected:
 		virtual void onFillValues();

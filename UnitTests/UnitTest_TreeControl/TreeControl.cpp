@@ -269,7 +269,7 @@ namespace MyGUI
 			mItemWidgets.push_back(pItem);
 
 			nHeight += mnItemHeight;
-		};
+		}
 
 		if (nPosition >= mnScrollRange)
 		{

@@ -20,7 +20,7 @@ namespace tools
 		PropertyFieldSkin(MyGUI::Widget* _parent);
 
 	protected:
-		virtual void onFillValues();
+		void onFillValues() override;
 
 	private:
 		void notifyToolTip(MyGUI::Widget* _sender, const MyGUI::ToolTipInfo& _info);

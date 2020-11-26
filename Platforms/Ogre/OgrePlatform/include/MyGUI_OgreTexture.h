@@ -25,40 +25,40 @@ namespace MyGUI
 	{
 	public:
 		OgreTexture(const std::string& _name, const std::string& _group);
-		virtual ~OgreTexture();
+		~OgreTexture() override;
 
-		virtual const std::string& getName() const;
+		const std::string& getName() const override;
 
-		virtual void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format);
-		virtual void loadFromFile(const std::string& _filename);
-		virtual void saveToFile(const std::string& _filename);
-		virtual void setShader(const std::string& _shaderName);
+		void createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format) override;
+		void loadFromFile(const std::string& _filename) override;
+		void saveToFile(const std::string& _filename) override;
+		void setShader(const std::string& _shaderName) override;
 
-		virtual void setInvalidateListener(ITextureInvalidateListener* _listener);
+		void setInvalidateListener(ITextureInvalidateListener* _listener) override;
 
-		virtual void destroy();
+		void destroy() override;
 
-		virtual void* lock(TextureUsage _access);
-		virtual void unlock();
-		virtual bool isLocked();
+		void* lock(TextureUsage _access) override;
+		void unlock() override;
+		bool isLocked() override;
 
-		virtual int getWidth();
-		virtual int getHeight();
+		int getWidth() override;
+		int getHeight() override;
 
-		virtual PixelFormat getFormat()
+		PixelFormat getFormat() override
 		{
 			return mOriginalFormat;
 		}
-		virtual TextureUsage getUsage()
+		TextureUsage getUsage() override
 		{
 			return mOriginalUsage;
 		}
-		virtual size_t getNumElemBytes()
+		size_t getNumElemBytes() override
 		{
 			return mNumElemBytes;
 		}
 
-		virtual IRenderTarget* getRenderTarget();
+		IRenderTarget* getRenderTarget() override;
 
 		static Ogre::TextureUsage convertUsage(TextureUsage _usage);
 		static Ogre::PixelFormat convertFormat(PixelFormat _format);
@@ -81,7 +81,7 @@ namespace MyGUI
 		void setFormat(PixelFormat _format);
 		void setFormatByOgreTexture();
 
-		virtual void loadResource(Ogre::Resource* resource);
+		void loadResource(Ogre::Resource* resource) override;
 
 	private:
 		Ogre::TexturePtr mTexture;

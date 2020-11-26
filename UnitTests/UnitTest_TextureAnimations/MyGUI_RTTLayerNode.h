@@ -23,18 +23,18 @@ namespace MyGUI
 
 	public:
 		explicit RTTLayerNode(ILayer* _layer, ILayerNode* _parent = nullptr);
-		virtual ~RTTLayerNode();
+		~RTTLayerNode() override;
 
 		// необходимо обновление нода
-		virtual void outOfDate(RenderItem* _item);
+		void outOfDate(RenderItem* _item) override;
 
 		// добавляем айтем к ноду
-		virtual void attachLayerItem(ILayerItem* _item);
+		void attachLayerItem(ILayerItem* _item) override;
 		// удаляем айтем из нода
-		virtual void detachLayerItem(ILayerItem* _item);
+		void detachLayerItem(ILayerItem* _item) override;
 
 		// рисует леер
-		virtual void renderToTarget(IRenderTarget* _target, bool _update);
+		void renderToTarget(IRenderTarget* _target, bool _update) override;
 
 		bool getCacheUsing() const
 		{
@@ -68,7 +68,7 @@ namespace MyGUI
 		IntSize mTextureSize;
 		IntCoord mCurrentCoord;
 
-		bool mOutOfDate;
+		bool mOutOfDateRtt;
 
 		bool mMajorUpdate;
 		bool mChacheUsing;

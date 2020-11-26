@@ -27,8 +27,8 @@ namespace demo
 	public:
 		PanelDirector();
 
-		virtual void initialise();
-		virtual void shutdown();
+		void initialise() override;
+		void shutdown() override;
 
 		EventHandle_EventDirector eventChangePanels;
 

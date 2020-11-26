@@ -16,7 +16,7 @@ namespace MyGUI
 		LayerNode(_layer, _parent),
 		mVertexBuffer(nullptr),
 		mTexture(nullptr),
-		mOutOfDate(false),
+		mOutOfDateRtt(false),
 		mMajorUpdate(false),
 		mChacheUsing(true),
 		mDestroy(false),
@@ -55,7 +55,7 @@ namespace MyGUI
 		// необходимо пересчитать смещение рендер таргета
 		if (_update)
 		{
-			mOutOfDate = true;
+			mOutOfDateRtt = true;
 			mCurrentCoord.clear();
 		}
 
@@ -79,10 +79,10 @@ namespace MyGUI
 			mData.resize(1);
 
 			_update = true;
-			mOutOfDate = true;
+			mOutOfDateRtt = true;
 		}
 
-		if (mOutOfDate && !mLayerItems.empty())
+		if (mOutOfDateRtt && !mLayerItems.empty())
 		{
 			const IntCoord& coord = mLayerItems.front()->getLayerItemCoord();
 			if (coord != mCurrentCoord)
@@ -178,7 +178,7 @@ namespace MyGUI
 			}
 		}
 
-		if (_update || mOutOfDate)
+		if (_update || mOutOfDateRtt)
 		{
 			if (!mLayerItems.empty())
 			{
@@ -191,7 +191,7 @@ namespace MyGUI
 				}
 			}
 
-			mOutOfDate = false;
+			mOutOfDateRtt = false;
 		}
 
 		if (mIsAnimate || !mDestroy)
@@ -224,7 +224,7 @@ namespace MyGUI
 	void RTTLayerNode::outOfDate(RenderItem* _item)
 	{
 		_item->outOfDate();
-		mOutOfDate = true;
+		mOutOfDateRtt = true;
 	}
 
 	void RTTLayerNode::setCacheUsing(bool _value)

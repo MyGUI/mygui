@@ -16,14 +16,14 @@ namespace demo
 	{
 	public:
 		DemoKeeper();
-		virtual void createScene();
-		virtual void destroyScene();
+		void createScene() override;
+		void destroyScene() override;
 
 	private:
 		void notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index);
 		void createDemo(size_t _index);
 		void destroyDemo();
-		virtual void setupResources();
+		void setupResources() override;
 
 		void colourWidgets(MyGUI::Widget* _widget, const MyGUI::Colour& _colour);
 

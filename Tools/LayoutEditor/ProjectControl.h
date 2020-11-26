@@ -23,7 +23,7 @@ namespace tools
 	{
 	public:
 		ProjectControl(MyGUI::Widget* _parent = nullptr);
-		virtual ~ProjectControl();
+		~ProjectControl() override;
 
 	private:
 		void notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result);

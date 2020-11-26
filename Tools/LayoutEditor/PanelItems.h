@@ -20,8 +20,8 @@ namespace tools
 	public:
 		PanelItems();
 
-		virtual void initialise();
-		virtual void shutdown();
+		void initialise() override;
+		void shutdown() override;
 
 		void update(MyGUI::Widget* _currentWidget);
 
@@ -34,7 +34,7 @@ namespace tools
 		void notifyDeleteItem(MyGUI::Widget* _sender);
 		void notifyUpdateItem(MyGUI::EditBox* _widget);
 		void notifySelectItem(MyGUI::ListBox* _widget, size_t _position);
-		virtual void notifyChangeWidth(int _width);
+		void notifyChangeWidth(int _width) override;
 
 		void selectItem(MyGUI::Widget* _widget);
 

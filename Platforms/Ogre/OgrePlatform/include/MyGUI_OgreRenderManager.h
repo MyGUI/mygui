@@ -39,36 +39,36 @@ namespace MyGUI
 		static OgreRenderManager* getInstancePtr();
 
 		/** @see RenderManager::getViewSize */
-		virtual const IntSize& getViewSize() const;
+		const IntSize& getViewSize() const override;
 
 		/** @see RenderManager::getVertexFormat */
-		virtual VertexColourType getVertexFormat();
+		VertexColourType getVertexFormat() override;
 
 		/** @see RenderManager::createVertexBuffer */
-		virtual IVertexBuffer* createVertexBuffer();
+		IVertexBuffer* createVertexBuffer() override;
 		/** @see RenderManager::destroyVertexBuffer */
-		virtual void destroyVertexBuffer(IVertexBuffer* _buffer);
+		void destroyVertexBuffer(IVertexBuffer* _buffer) override;
 
 		/** @see RenderManager::createTexture */
-		virtual ITexture* createTexture(const std::string& _name);
+		ITexture* createTexture(const std::string& _name) override;
 		/** @see RenderManager::destroyTexture */
-		virtual void destroyTexture(ITexture* _texture);
+		void destroyTexture(ITexture* _texture) override;
 		/** @see RenderManager::getTexture */
-		virtual ITexture* getTexture(const std::string& _name);
+		ITexture* getTexture(const std::string& _name) override;
 
 		/** @see RenderManager::isFormatSupported */
-		virtual bool isFormatSupported(PixelFormat _format, TextureUsage _usage);
+		bool isFormatSupported(PixelFormat _format, TextureUsage _usage) override;
 
 		/** @see IRenderTarget::begin */
-		virtual void begin();
+		void begin() override;
 		/** @see IRenderTarget::end */
-		virtual void end();
+		void end() override;
 
 		/** @see IRenderTarget::doRender */
-		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
+		void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count) override;
 
 		/** @see IRenderTarget::getInfo */
-		virtual const RenderTargetInfo& getInfo();
+		const RenderTargetInfo& getInfo() override;
 
 		void setRenderSystem(Ogre::RenderSystem* _render);
 		Ogre::RenderSystem* getRenderSystem();
@@ -112,18 +112,18 @@ namespace MyGUI
 		OgreShaderInfo* getShaderInfo(const std::string& _shaderName);
 
 	private:
-		virtual void renderQueueStarted(
+		void renderQueueStarted(
 			Ogre::uint8 queueGroupId,
 			const Ogre::String& invocation,
-			bool& skipThisInvocation);
-		virtual void renderQueueEnded(
+			bool& skipThisInvocation) override;
+		void renderQueueEnded(
 			Ogre::uint8 queueGroupId,
 			const Ogre::String& invocation,
-			bool& repeatThisInvocation);
+			bool& repeatThisInvocation) override;
 		virtual void windowResized(Ogre::RenderWindow* _window);
 
 		// restore buffers
-		virtual void eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters);
+		void eventOccurred(const Ogre::String& eventName, const Ogre::NameValuePairList* parameters) override;
 
 		void destroyAllResources();
 		void updateRenderInfo();

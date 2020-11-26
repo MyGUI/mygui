@@ -24,12 +24,12 @@ namespace demo
 	public:
 		WobbleNodeAnimator();
 
-		virtual void attach(MyGUI::ILayerNode* _node);
+		void attach(MyGUI::ILayerNode* _node) override;
 
-		virtual void create();
-		virtual void destroy();
+		void create() override;
+		void destroy() override;
 
-		virtual size_t animate(
+		size_t animate(
 			bool _update,
 			size_t _quad_count,
 			MyGUI::VectorQuadData& _data,
@@ -39,14 +39,14 @@ namespace demo
 			const MyGUI::RenderTargetInfo& _info,
 			const MyGUI::IntCoord& _coord,
 			bool& _isAnimate
-		);
+		) override;
 
 	private:
 		void addInertia(const MyGUI::FloatPoint& _value);
 		void addTime(float _time);
 		void buildQuadVertex(MyGUI::VectorQuadData& _data);
 
-		virtual void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version);
+		void deserialization(MyGUI::xml::ElementPtr _node, MyGUI::Version _version) override;
 
 	private:
 		MyGUI::IntCoord mOldCoord;

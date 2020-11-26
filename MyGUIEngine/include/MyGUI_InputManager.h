@@ -129,7 +129,7 @@ namespace MyGUI
 
 	private:
 		// удаляем данный виджет из всех возможных мест
-		void _unlinkWidget(Widget* _widget);
+		void _unlinkWidget(Widget* _widget) override;
 
 		void frameEntered(float _frame);
 

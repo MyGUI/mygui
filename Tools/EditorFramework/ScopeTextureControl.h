@@ -18,7 +18,7 @@ namespace tools
 	{
 	public:
 		ScopeTextureControl();
-		virtual ~ScopeTextureControl();
+		~ScopeTextureControl() override;
 
 		enum SelectorType { SelectorNone, SelectorCoord, SelectorPosition, SelectorPositionReadOnly, SelectorOffsetH, SelectorOffsetV };
 
@@ -35,11 +35,11 @@ namespace tools
 		sigslot::signal1<const std::string&> eventChangeValue;
 
 	protected:
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
 
-		virtual void onMouseButtonClick(const MyGUI::IntPoint& _point);
+		void onMouseButtonClick(const MyGUI::IntPoint& _point) override;
 
-		virtual void onChangeScale();
+		void onChangeScale() override;
 
 	private:
 		void notifyChangeSelection();

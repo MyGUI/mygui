@@ -20,8 +20,8 @@ namespace tools
 	public:
 		ActionCreateData();
 
-		virtual void doAction();
-		virtual void undoAction();
+		void doAction() override;
+		void undoAction() override;
 
 		void setParent(DataPtr _parent);
 		void setType(const std::string& _value);

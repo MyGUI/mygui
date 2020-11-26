@@ -33,7 +33,7 @@ namespace wraps
 			MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &BaseGraphView::notifyFrameStart);
 		}
 
-		virtual ~BaseGraphView()
+		~BaseGraphView() override
 		{
 			MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &BaseGraphView::notifyFrameStart);
 		}
@@ -193,12 +193,12 @@ namespace wraps
 			}
 		}
 
-		virtual void close(BaseGraphNode* _node)
+		void close(BaseGraphNode* _node) override
 		{
 			eventNodeClosed(this, _node);
 		}
 
-		virtual void startDrag(BaseGraphConnection* _connection)
+		void startDrag(BaseGraphConnection* _connection) override
 		{
 			if ( ! mIsDrug )
 			{
@@ -294,7 +294,7 @@ namespace wraps
 			}
 		}
 
-		virtual void stopDrag(BaseGraphConnection* _connection)
+		void stopDrag(BaseGraphConnection* _connection) override
 		{
 			if (mIsDrug)
 			{
@@ -310,7 +310,7 @@ namespace wraps
 			}
 		}
 
-		virtual void updateDrag(BaseGraphConnection* _connection)
+		void updateDrag(BaseGraphConnection* _connection) override
 		{
 			if (mIsDrug)
 			{
@@ -370,7 +370,7 @@ namespace wraps
 			}
 		}
 
-		virtual void changePosition(BaseGraphNode* _node)
+		void changePosition(BaseGraphNode* _node) override
 		{
 			eventChangeSize(this, getViewSize());
 
@@ -501,8 +501,8 @@ namespace wraps
 			for (size_t i = 0; i < PointsNumber; ++i)
 			{
 				float t = float(i) / (PointsNumber - 1);
-				float left = basePoints[0].left * pow(1 - t, 3) + 3 * basePoints[1].left * pow(1 - t, 2) * t + 3 * basePoints[2].left * (1 - t) * t * t + t * t * t * basePoints[3].left;
-				float top = basePoints[0].top * pow(1 - t, 3) + 3 * basePoints[1].top * pow(1 - t, 2) * t + 3 * basePoints[2].top * (1 - t) * t * t + t * t * t * basePoints[3].top;
+				float left = basePoints[0].left * std::pow(1 - t, 3.0f) + 3 * basePoints[1].left * std::pow(1 - t, 2.0f) * t + 3 * basePoints[2].left * (1 - t) * t * t + t * t * t * basePoints[3].left;
+				float top = basePoints[0].top * std::pow(1 - t, 3.0f) + 3 * basePoints[1].top * std::pow(1 - t, 2.0f) * t + 3 * basePoints[2].top * (1 - t) * t * t + t * t * t * basePoints[3].top;
 				splinePoints.push_back(MyGUI::FloatPoint(left, top));
 			}
 			polygonalSkin->setPoints(splinePoints);

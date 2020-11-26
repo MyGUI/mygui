@@ -15,11 +15,11 @@ namespace demo
 		public base::BaseDemoManager
 	{
 	public:
-		virtual void createScene();
-		virtual void destroyScene();
+		void createScene() override;
+		void destroyScene() override;
 
 	private:
-		virtual void setupResources();
+		void setupResources() override;
 	};
 
 } // namespace demo

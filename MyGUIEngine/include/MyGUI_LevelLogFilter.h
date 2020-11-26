@@ -20,7 +20,7 @@ namespace MyGUI
 		LevelLogFilter();
 
 		//! @copydoc ILogFilter::shouldLog(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line)
-		virtual bool shouldLog(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line);
+		bool shouldLog(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line) override;
 
 		/** Set logging level.
 			@param _value messages with this or higher level will be logged.

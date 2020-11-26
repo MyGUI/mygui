@@ -18,12 +18,12 @@ namespace tools
 	{
 	public:
 		TextureToolControl();
-		virtual ~TextureToolControl();
+		~TextureToolControl() override;
 
 	protected:
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
 
-		virtual void onMouseWheel(int _rel);
+		void onMouseWheel(int _rel) override;
 
 		bool checkCommand();
 		bool checkMenuCommand();

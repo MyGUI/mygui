@@ -46,7 +46,7 @@ namespace MyGUI
 			initialise();
 		}
 
-		virtual ~Message()
+		~Message() override
 		{
 			mWidgetText = nullptr;
 			mIcon = nullptr;

@@ -23,7 +23,7 @@ namespace tools
 	{
 	public:
 		TextureBrowseControl();
-		virtual ~TextureBrowseControl();
+		~TextureBrowseControl() override;
 
 		const std::string& getTextureName() const;
 		void setTextureName(const std::string& _value);
@@ -31,10 +31,10 @@ namespace tools
 		void setTextures(const MyGUI::VectorString& _textures);
 
 	protected:
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
 
-		virtual void onDoModal();
-		virtual void onEndModal();
+		void onDoModal() override;
+		void onEndModal() override;
 
 	private:
 		void notifyMouseButtonClickOk(MyGUI::Widget* _sender);

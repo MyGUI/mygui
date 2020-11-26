@@ -20,7 +20,7 @@ namespace tools
 		PropertyFieldAlpha(MyGUI::Widget* _parent);
 
 	protected:
-		virtual bool onCheckValue();
+		bool onCheckValue() override;
 	};
 
 }

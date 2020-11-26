@@ -24,7 +24,7 @@ namespace tools
 		AnimationViewControl();
 
 	protected:
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
 
 	private:
 		void notifyChangeDataSelector(DataPtr _parent, bool _changeSelectOnly);

@@ -21,16 +21,16 @@ namespace animation
 		{
 		}
 
-		virtual ~WeightController()
+		~WeightController() override
 		{
 		}
 
-		virtual void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
+		void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
 		{
 			mConnection.addConnection(_eventout, _node, _eventin);
 		}
 
-		virtual void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
+		void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
 		{
 			mConnection.removeConnection(_eventout, _node, _eventin);
 		}

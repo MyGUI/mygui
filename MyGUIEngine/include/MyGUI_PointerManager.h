@@ -61,7 +61,7 @@ namespace MyGUI
 		delegates::CMultiDelegate1<const std::string&> eventChangeMousePointer;
 
 	private:
-		void _unlinkWidget(Widget* _widget);
+		void _unlinkWidget(Widget* _widget) override;
 		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
 
 		// создает виджет

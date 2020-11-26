@@ -17,7 +17,7 @@ namespace demo
 	{
 	public:
 		ColourWindowBox(MyGUI::Widget* _parent);
-		virtual ~ColourWindowBox();
+		~ColourWindowBox() override;
 
 		void addColourItem(const MyGUI::Colour& _colour, const std::string& _name);
 	};

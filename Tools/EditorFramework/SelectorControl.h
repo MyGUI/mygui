@@ -19,7 +19,7 @@ namespace tools
 	{
 	public:
 		SelectorControl();
-		virtual ~SelectorControl();
+		~SelectorControl() override;
 
 		void setVisible(bool _value);
 		bool getVisible() const;
@@ -43,7 +43,7 @@ namespace tools
 		MyGUI::Widget* getMainWidget();
 
 	protected:
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
 		void setPropertyColour(const std::string& _propertyName);
 
 	private:

@@ -22,7 +22,7 @@ namespace animation
 			mLength(0),
 			mCurrentTime(0),
 			mIsAnimationRun(false),
-			mState(0)
+			mState(nullptr)
 		{
 		}
 
@@ -31,32 +31,32 @@ namespace animation
 			mLength(0),
 			mCurrentTime(0),
 			mIsAnimationRun(false),
-			mState(0)
+			mState(nullptr)
 		{
 		}
 
-		virtual ~LoopController()
+		~LoopController() override
 		{
 		}
 
-		virtual void setEvent(const std::string& _name, float _value = 0)
+		void setEvent(const std::string& _name, float _value = 0) override
 		{
 			if (_name == "Start") start();
 			else if (_name == "Stop") stop();
 			else if (_name == "Weight") mConnection.forceEvent("Weight", _value);
 		}
 
-		virtual void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
+		void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
 		{
 			mConnection.addConnection(_eventout, _node, _eventin);
 		}
 
-		virtual void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
+		void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
 		{
 			mConnection.removeConnection(_eventout, _node, _eventin);
 		}
 
-		virtual void addTime(float _value)
+		void addTime(float _value) override
 		{
 			if (mIsAnimationRun)
 			{
@@ -81,7 +81,7 @@ namespace animation
 			}
 		}
 
-		virtual void setProperty(const std::string& _key, const std::string& _value)
+		void setProperty(const std::string& _key, const std::string& _value) override
 		{
 			if (_key == "LengthByState")
 			{

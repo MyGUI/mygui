@@ -5,7 +5,7 @@
 #include "MyGUI_OpenGLESRTTexture.h"
 
 #include <GLES3/gl3.h>
-#include <GLES3/gl2ext.h>
+//#include <GLES3/gl2ext.h>
 #include "platform.h"
 
 namespace MyGUI
@@ -22,7 +22,7 @@ namespace MyGUI
 		mPixelFormat(0),
 		mDataSize(0),
 		mUsage(0),
-		mBuffer(0),
+		mBuffer(nullptr),
 		mInternalPixelFormat(0),
 		mAccess(0),
 		mNumElemBytes(0),
@@ -49,7 +49,7 @@ namespace MyGUI
 
 	void OpenGLESTexture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format)
 	{
-		createManual(_width, _height, _usage, _format, 0);
+		createManual(_width, _height, _usage, _format, nullptr);
 	}
 
 	void OpenGLESTexture::createManual(int _width, int _height, TextureUsage _usage, PixelFormat _format, void* _data)

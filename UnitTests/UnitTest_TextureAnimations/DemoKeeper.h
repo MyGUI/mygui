@@ -17,12 +17,12 @@ namespace demo
 	public:
 		DemoKeeper();
 
-		virtual void createScene();
-		virtual void destroyScene();
+		void createScene() override;
+		void destroyScene() override;
 
 	private:
-		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
-		void setupResources();
+		void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text) override;
+		void setupResources() override;
 		void createNewWindow();
 		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
 

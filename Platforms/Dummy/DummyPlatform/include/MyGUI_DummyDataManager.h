@@ -32,19 +32,19 @@ namespace MyGUI
 		}
 
 		/** @see DataManager::getData(const std::string& _name) */
-		virtual IDataStream* getData(const std::string& _name);
+		IDataStream* getData(const std::string& _name) override;
 
 		/** @see DataManager::freeData */
-		virtual void freeData(IDataStream* _data);
+		void freeData(IDataStream* _data) override;
 
 		/** @see DataManager::isDataExist(const std::string& _name) */
-		virtual bool isDataExist(const std::string& _name);
+		bool isDataExist(const std::string& _name) override;
 
 		/** @see DataManager::getDataListNames(const std::string& _pattern) */
-		virtual const VectorString& getDataListNames(const std::string& _pattern);
+		const VectorString& getDataListNames(const std::string& _pattern) override;
 
 		/** @see DataManager::getDataPath(const std::string& _name) */
-		virtual const std::string& getDataPath(const std::string& _name);
+		const std::string& getDataPath(const std::string& _name) override;
 	};
 
 } // namespace MyGUI

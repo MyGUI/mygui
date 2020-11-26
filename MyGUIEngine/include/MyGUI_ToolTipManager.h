@@ -28,7 +28,7 @@ namespace MyGUI
 		float getDelayVisible() const;
 
 		/*internal:*/
-		void _unlinkWidget(Widget* _widget);
+		void _unlinkWidget(Widget* _widget) override;
 
 	private:
 		void notifyEventFrameStart(float _time);

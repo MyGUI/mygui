@@ -24,10 +24,6 @@ namespace base
 		{
 		}
 
-		virtual ~BaseDemoManager()
-		{
-		}
-
 		diagnostic::StatisticInfo* getStatisticInfo()
 		{
 			return mInfo;
@@ -38,7 +34,7 @@ namespace base
 			return mFocusInfo;
 		}
 
-		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text)
+		void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text) override
 		{
 			BaseManager::injectKeyPress(_key, _text);
 
@@ -58,7 +54,7 @@ namespace base
 		}
 
 	protected:
-		virtual void createGui()
+		void createGui() override
 		{
 			BaseManager::createGui();
 
@@ -68,7 +64,7 @@ namespace base
 			MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &BaseDemoManager::notifyFrameStartUpdateStatistic);
 		}
 
-		virtual void destroyGui()
+		void destroyGui() override
 		{
 			MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &BaseDemoManager::notifyFrameStartUpdateStatistic);
 

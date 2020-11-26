@@ -47,7 +47,7 @@ namespace demo
 	{
 	public:
 		State(const std::string& _layout, ControllerType _type);
-		virtual ~State();
+		~State() override;
 
 		MyGUI::Widget* getClient();
 

@@ -19,7 +19,7 @@ namespace tools
 	{
 	public:
 		TextureControl();
-		virtual ~TextureControl();
+		~TextureControl() override;
 
 		void setTextureValue(const MyGUI::UString& _value);
 
@@ -28,7 +28,7 @@ namespace tools
 		const MyGUI::IntCoord& getTextureRegion() const;
 
 	protected:
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
 
 		const MyGUI::IntSize& getTextureSize() const;
 

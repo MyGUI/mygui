@@ -1,5 +1,4 @@
-#ifndef MYGUI_OPENGLES_RTTEXTURE_H__
-#define MYGUI_OPENGLES_RTTEXTURE_H__
+#pragma once
 
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_ITexture.h"
@@ -14,14 +13,14 @@ namespace MyGUI
 	{
 	public:
 		OpenGLESRTTexture(unsigned int _texture);
-		virtual ~OpenGLESRTTexture();
+		~OpenGLESRTTexture() override;
 
-		virtual void begin();
-		virtual void end();
+		void begin() override;
+		void end() override;
 
-		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
+		void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count) override;
 
-		virtual const RenderTargetInfo& getInfo()
+		const RenderTargetInfo& getInfo() override
 		{
 			return mRenderTargetInfo;
 		}
@@ -36,5 +35,3 @@ namespace MyGUI
 	};
 
 } // namespace MyGUI
-
-#endif // MYGUI_OPENGLES_RTTEXTURE_H__

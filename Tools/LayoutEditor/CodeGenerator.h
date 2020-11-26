@@ -25,7 +25,7 @@ namespace tools
 	public:
 
 		CodeGenerator();
-		~CodeGenerator();
+		~CodeGenerator() override;
 
 		void loadTemplate();
 		void saveTemplate();
@@ -42,8 +42,8 @@ namespace tools
 
 		void notifyEndDialogOpenSaveFile(Dialog* _sender, bool _result);
 
-		virtual void onDoModal();
-		virtual void onEndModal();
+		void onDoModal() override;
+		void onEndModal() override;
 
 	private:
 		ATTRIBUTE_FIELD_WIDGET_NAME(CodeGenerator, mPanelNameEdit, "PanelName");

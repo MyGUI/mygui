@@ -15,8 +15,8 @@ namespace demo
 		public base::BaseDemoManager
 	{
 	public:
-		virtual void createScene();
-		virtual void destroyScene();
+		void createScene() override;
+		void destroyScene() override;
 
 		void handleClick_MemberFunction(MyGUI::Widget* _sender);
 		static void handleClick_StaticMemberFunction(MyGUI::Widget* _sender);

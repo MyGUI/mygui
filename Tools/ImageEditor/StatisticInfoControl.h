@@ -19,10 +19,10 @@ namespace tools
 	{
 	public:
 		StatisticInfoControl();
-		virtual ~StatisticInfoControl();
+		~StatisticInfoControl() override;
 
 	protected:
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
 
 	private:
 		void command_StatisticInfo(const MyGUI::UString& _commandName, bool& _result);

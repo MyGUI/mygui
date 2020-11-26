@@ -22,15 +22,15 @@ namespace tools
 	{
 	public:
 		TestWindow();
-		virtual ~TestWindow();
+		~TestWindow() override;
 
 		void setSkinItem(DataPtr _item);
 
 	protected:
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
 
-		virtual void onDoModal();
-		virtual void onEndModal();
+		void onDoModal() override;
+		void onEndModal() override;
 
 	private:
 		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);

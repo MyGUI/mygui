@@ -19,14 +19,14 @@ namespace demo
 	public:
 		DemoKeeper();
 
-		virtual void createScene();
-		virtual void destroyScene();
+		void createScene() override;
+		void destroyScene() override;
 
-		virtual void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text);
+		void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text) override;
 
 	private:
 		void command(const MyGUI::UString& _key, const MyGUI::UString& _value);
-		virtual void setupResources();
+		void setupResources() override;
 
 	private:
 		Console* mConsole;

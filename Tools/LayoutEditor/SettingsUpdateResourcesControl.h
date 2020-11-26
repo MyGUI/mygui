@@ -19,11 +19,11 @@ namespace tools
 	{
 	public:
 		SettingsUpdateResourcesControl();
-		virtual ~SettingsUpdateResourcesControl();
+		~SettingsUpdateResourcesControl() override;
 
 	protected:
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
-		virtual void OnCommand(const std::string& _command);
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnCommand(const std::string& _command) override;
 
 	private:
 		void loadSettings();

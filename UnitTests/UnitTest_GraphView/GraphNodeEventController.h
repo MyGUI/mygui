@@ -25,7 +25,7 @@ namespace demo
 		}
 
 	private:
-		virtual void initialise()
+		void initialise() override
 		{
 			mMainWidget->castType<MyGUI::Window>()->setCaption(getName());
 			assignBase(mConnectionOut, "ConnectionOut");
@@ -34,7 +34,7 @@ namespace demo
 			mButtonEvent->eventMouseButtonClick += MyGUI::newDelegate(this, &GraphNodeEventController::notifyMouseButtonClick);
 		}
 
-		virtual void shutdown()
+		void shutdown() override
 		{
 		}
 

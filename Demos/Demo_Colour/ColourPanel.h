@@ -18,7 +18,7 @@ namespace demo
 	{
 	public:
 		ColourPanel();
-		virtual ~ColourPanel();
+		~ColourPanel() override;
 
 		void setColour(const MyGUI::Colour& _colour);
 		const MyGUI::Colour& getColour() const;
