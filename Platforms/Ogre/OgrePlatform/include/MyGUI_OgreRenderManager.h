@@ -108,7 +108,7 @@ namespace MyGUI
 
 	/*internal:*/
 		/* for use with RTT */
-		void doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
+		void doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, Ogre::RenderTexture* rtt);
 		OgreShaderInfo* getShaderInfo(const std::string& _shaderName);
 
 	private:

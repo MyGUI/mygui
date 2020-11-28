@@ -476,9 +476,16 @@ namespace MyGUI
 		MYGUI_EXCEPT("No supported shader was found. Only glsl, glsles and hlsl are implemented so far.");
 	}
 
-	void OgreRenderManager::doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)
+	void OgreRenderManager::doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, Ogre::RenderTexture* rtt)
 	{
+		// TODO: dirty hack. Should use manualRender instead of _injectRenderWithPass in OgreRenderManager::doRender
+		const Ogre::AutoParamDataSource* autoParamDataSource = mSceneManager->_getAutoParamDataSource();
+		auto previousRenderTarget = autoParamDataSource->getCurrentRenderTarget();
+		const_cast<Ogre::AutoParamDataSource*>(autoParamDataSource)->setCurrentRenderTarget(rtt);
+
 		doRender(_buffer, _texture, _count);
+
+		const_cast<Ogre::AutoParamDataSource*>(autoParamDataSource)->setCurrentRenderTarget(previousRenderTarget);
 	}
 
 	OgreShaderInfo* OgreRenderManager::getShaderInfo(const std::string& _shaderName)
@@ -536,7 +543,6 @@ namespace MyGUI
 				shaderInfo->fragmentProgram->setParameter("target", "ps_3_0");
 				shaderInfo->fragmentProgram->setParameter("entry_point", "main");
 			}
-			shaderInfo->fragmentProgram->getDefaultParameters()->setNamedConstant("sampler",0);
 
 			shaderInfo->fragmentProgram->load();
 		}
