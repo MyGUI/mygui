@@ -8,6 +8,7 @@
 #include "Base/Main.h"
 
 #include <functional>
+#include <memory>
 
 namespace demo
 {
