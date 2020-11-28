@@ -1,17 +1,7 @@
 
-material Examples/Robot
+import * from "OneTexture.material"
+
+material Examples/Robot : OneTexture
 {
-	// Software blending technique
-	technique
-	{
-		pass
-		{
-
-			texture_unit
-			{
-				texture r2skin.jpg
-			}
-		}
-	}
+	set $texture_unit "r2skin.jpg"
 }
-

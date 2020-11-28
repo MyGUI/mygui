@@ -1,23 +1,7 @@
 
-material Robot
+import * from "OneTexture.material"
+
+material Robot : OneTexture
 {
-	technique
-	{
-		pass
-		{
-			ambient 0.588235 0.588235 0.588235 1
-			diffuse 0.588235 0.588235 0.588235 1
-			specular 0.18 0.18 0.18 10 0
-			emissive 0.5 0.5 0.5 1
-
-			texture_unit
-			{
-				texture Robot_white_dif.png
-			}
-		}
-
-	}
-
+	set $texture_unit "Robot_white_dif.png"
 }
-
-
