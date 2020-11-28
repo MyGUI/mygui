@@ -1,7 +1,5 @@
 set (HEADER_FILES
   DemoKeeper.h
-  FunctorDelegate.h
-  FunctorDelegateImplementation.h
 )
 set (SOURCE_FILES
   ../../Common/Base/BaseResource.rc

@@ -111,6 +111,15 @@ inline delegates::DelegateFunction<Args...>* newDelegate(T* _object, void (T::*_
 		_object);
 }
 
+// Creates delegate from std::function
+// Require some user-defined delegateId, that should be used if operator-= is called to remove delegate.
+// delegateId need to be unique within single delegate.
+template <typename ...Args>
+inline delegates::DelegateFunction<Args...>* newDelegate(const std::function<void(Args...)>& _function, int64_t delegateId)
+{
+	return new delegates::DelegateFunction<Args...>(_function, delegateId);
+}
+
 namespace delegates
 {
 
