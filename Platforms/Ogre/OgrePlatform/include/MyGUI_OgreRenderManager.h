@@ -107,8 +107,8 @@ namespace MyGUI
 		std::string getShaderExtension() const;
 
 	/*internal:*/
-		/* for use with RTT, flips Y coordinate if necessary when rendering */
-		void doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, bool flipY);
+		/* for use with RTT */
+		void doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, Ogre::RenderTexture* rtt);
 		OgreShaderInfo* getShaderInfo(const std::string& _shaderName);
 
 	private:
@@ -150,13 +150,6 @@ namespace MyGUI
 		unsigned short mActiveViewport;
 
 		Ogre::RenderSystem* mRenderSystem;
-#if OGRE_VERSION >= MYGUI_DEFINE_VERSION(1, 11, 3)
-		Ogre::Sampler::UVWAddressingMode mTextureAddressMode;
-#else
-		Ogre::TextureUnitState::UVWAddressingMode mTextureAddressMode;
-#endif
-		Ogre::LayerBlendModeEx mColorBlendMode, mAlphaBlendMode;
-
 		RenderTargetInfo mInfo;
 
 		typedef std::map<std::string, ITexture*> MapTexture;
@@ -168,6 +161,24 @@ namespace MyGUI
 
 		OgreShaderInfo* mDefaultShader = nullptr;
 		std::map<std::string, OgreShaderInfo*> mRegisteredShaders;
+
+		struct DummyRenderable : public Ogre::Renderable
+		{
+			DummyRenderable()
+			{
+				mUseIdentityProjection = true;
+				mUseIdentityView = true;
+			}
+
+			Ogre::RenderOperation mRenderOp;
+			Ogre::MaterialPtr mMaterial;
+
+			void getWorldTransforms(Ogre::Matrix4* xform) const override { *xform = Ogre::Matrix4::IDENTITY; }
+			void getRenderOperation(Ogre::RenderOperation& op) override { op = mRenderOp; }
+			const Ogre::MaterialPtr& getMaterial() const override { return mMaterial; }
+			const Ogre::LightList& getLights() const override { static Ogre::LightList ll; return ll; }
+			Ogre::Real getSquaredViewDepth(const Ogre::Camera*) const override { return 0; }
+		} mRenderable;
 	};
 
 } // namespace MyGUI
