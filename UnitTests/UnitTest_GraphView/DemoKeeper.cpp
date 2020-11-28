@@ -71,6 +71,7 @@ namespace demo
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/UnitTests/UnitTest_GraphView");
 		addResourceLocation(getRootMedia() + "/Common/Tools");
+		addResourceLocation(getRootMedia() + "/Common/Scene");
 	}
 
 	void DemoKeeper::createScene()

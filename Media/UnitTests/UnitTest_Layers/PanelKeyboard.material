@@ -10,6 +10,16 @@ material PanelKeyboard
 			depth_write off
 			scene_blend alpha_blend
 
+			vertex_program_ref OneTexture_VP
+			{
+				param_named_auto worldViewProj worldviewproj_matrix
+				param_named_auto textureMatrix texture_matrix 0
+			}
+
+			fragment_program_ref OneTexture_FP
+			{
+			}
+
 			texture_unit gui
 			{
 				texture_alias diffuse

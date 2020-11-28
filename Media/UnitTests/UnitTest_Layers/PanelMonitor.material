@@ -12,15 +12,22 @@ material PanelMonitor
 			cull_software none
 			cull_hardware none
 
+			vertex_program_ref OneTexture_VP
+			{
+				param_named_auto worldViewProj worldviewproj_matrix
+				param_named_auto textureMatrix texture_matrix 0
+			}
+
+			fragment_program_ref OneTexture_FP
+			{
+			}
+
 			texture_unit gui
 			{
 				texture_alias diffuse
 				texture Monitor.PNG
 				tex_address_mode clamp
 			}
-
 		}
-
 	}
-
 }
