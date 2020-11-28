@@ -8,7 +8,6 @@ uniform mat4 textureMatrix;
 attribute vec4 position;
 attribute vec2 uv0;
 
-varying vec4 gl_Position;
 varying vec2 oUV;
 
 void main()

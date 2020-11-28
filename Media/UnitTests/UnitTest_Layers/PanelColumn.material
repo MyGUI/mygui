@@ -20,7 +20,6 @@ material PanelColumn
 
 			texture_unit
 			{
-				texture_alias diffuse
 				texture left.png
 				tex_address_mode mirror
 			}

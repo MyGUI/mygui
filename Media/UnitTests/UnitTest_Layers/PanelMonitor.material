@@ -24,7 +24,6 @@ material PanelMonitor
 
 			texture_unit gui
 			{
-				texture_alias diffuse
 				texture Monitor.PNG
 				tex_address_mode clamp
 			}
