@@ -3,7 +3,7 @@ float median(float r, float g, float b) {
 }
 
 void main(
-	uniform Texture2D<float4> sampleTexture : register(t0),
+	uniform Texture2D<float4> samplerTexture : register(t0),
 	uniform SamplerState sampleSampler : register(s0),
 	in float4 inPosition : SV_POSITION,
 	in float4 inColor : TEXCOORD0,
@@ -13,9 +13,9 @@ void main(
 	float pxRange = 2.0;
 	float w;
 	float h;
-	sampleTexture.GetDimensions(w, h);
+	samplerTexture.GetDimensions(w, h);
 	float2 msdfUnit = pxRange/float2(w, h);
-	float3 textureColor = sampleTexture.SampleLevel(sampleSampler, inTexcoord, 0).rgb;
+	float3 textureColor = samplerTexture.SampleLevel(sampleSampler, inTexcoord, 0).rgb;
 	float sigDist = median(textureColor.r, textureColor.g, textureColor.b) - 0.5;
 	sigDist *= dot(msdfUnit, 0.5/fwidth(inTexcoord));
 	float opacity = clamp(sigDist + 0.5, 0.0, 1.0);
