@@ -36,7 +36,6 @@ namespace MyGUI
 		Ogre::Viewport* mViewport;
 		Ogre::Viewport* mSaveViewport;
 		Ogre::TexturePtr mTexture;
-		Ogre::Matrix4 mProjectMatrix;
 	};
 
 } // namespace MyGUI
