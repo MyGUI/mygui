@@ -11,7 +11,9 @@
 #include "ControllerSmoothProgress.h"
 #include "ControllerSmoothCaption.h"
 #include "ResourceDevice.h"
+#ifdef MYGUI_OGRE_PLATFORM
 #include <Ogre.h>
+#endif
 
 namespace demo
 {
