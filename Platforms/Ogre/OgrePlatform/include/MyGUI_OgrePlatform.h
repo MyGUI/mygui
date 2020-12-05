@@ -15,6 +15,7 @@
 #include "MyGUI_OgreDiagnostic.h"
 #include "MyGUI_OgreTexture.h"
 #include "MyGUI_LogManager.h"
+#include <OgreResourceGroupManager.h>
 
 namespace MyGUI
 {

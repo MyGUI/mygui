@@ -10,13 +10,9 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IVertexBuffer.h"
 
-#include <OgreHardwareBufferManager.h>
-#include <OgreHardwareVertexBuffer.h>
 #include <OgrePrerequisites.h>
 #include <OgreRenderOperation.h>
-#include <OgreRenderSystem.h>
-#include <OgreTextureManager.h>
-#include <OgreTextureUnitState.h>
+#include <OgreHardwareVertexBuffer.h>
 
 namespace MyGUI
 {

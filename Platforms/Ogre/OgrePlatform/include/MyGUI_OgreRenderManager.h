@@ -12,7 +12,9 @@
 #include "MyGUI_IVertexBuffer.h"
 #include "MyGUI_RenderManager.h"
 
-#include <Ogre.h>
+#include <OgrePrerequisites.h>
+#include <OgreRenderQueueListener.h>
+#include <OgreRenderSystem.h>
 
 namespace MyGUI
 {

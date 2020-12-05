@@ -6,7 +6,7 @@
 
 #include "MyGUI_OgreVertexBuffer.h"
 
-#include <OgreHardwareVertexBuffer.h>
+#include <OgreHardwareBufferManager.h>
 
 namespace MyGUI
 {

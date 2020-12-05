@@ -10,7 +10,8 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IRenderTarget.h"
 
-#include <Ogre.h>
+#include <OgrePrerequisites.h>
+#include <OgreTexture.h>
 
 namespace MyGUI
 {

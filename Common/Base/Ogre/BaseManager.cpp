@@ -1,6 +1,8 @@
 #include "Precompiled.h"
 #include "BaseManager.h"
 
+#include <Ogre.h>
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_syswm.h>
 

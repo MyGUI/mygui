@@ -13,6 +13,8 @@
 #include "MyGUI_Timer.h"
 #include "MyGUI_Gui.h"
 
+#include <Ogre.h>
+
 namespace MyGUI
 {
 

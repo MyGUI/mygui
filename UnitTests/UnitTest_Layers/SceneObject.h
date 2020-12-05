@@ -9,7 +9,7 @@
 
 #ifdef MYGUI_OGRE_PLATFORM
 
-#include <Ogre.h>
+#include <OgrePrerequisites.h>
 
 namespace demo
 {

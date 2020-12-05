@@ -8,6 +8,8 @@
 #include "MyGUI_OgreRTTexture.h"
 #include "MyGUI_OgreRenderManager.h"
 
+#include <Ogre.h>
+
 namespace MyGUI
 {
 

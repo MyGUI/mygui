@@ -6,7 +6,7 @@
 #ifndef I_ANIMATION_GRAPH_H_
 #define I_ANIMATION_GRAPH_H_
 
-#include <Ogre.h>
+#include <OgrePrerequisites.h>
 #include <string>
 #include "IAnimationNode.h"
 
