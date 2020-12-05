@@ -108,6 +108,8 @@ namespace MyGUI
 
 	/*internal:*/
 		/* for use with RTT */
+		void beginRttRender(bool isFlippedTexture);
+		void endRttRender();
 		void doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, Ogre::RenderTexture* rtt);
 		OgreShaderInfo* getShaderInfo(const std::string& _shaderName);
 
@@ -132,6 +134,8 @@ namespace MyGUI
 			const std::string& _shaderName,
 			const std::string& _vertexProgramFile,
 			const std::string& _fragmentProgramFile);
+
+		void setShaderProjectionMatrix(bool isFlipped);
 
 	private:
 		// флаг для обновления всех и вся
@@ -162,23 +166,7 @@ namespace MyGUI
 		OgreShaderInfo* mDefaultShader = nullptr;
 		std::map<std::string, OgreShaderInfo*> mRegisteredShaders;
 
-		struct DummyRenderable : public Ogre::Renderable
-		{
-			DummyRenderable()
-			{
-				mUseIdentityProjection = true;
-				mUseIdentityView = true;
-			}
-
-			Ogre::RenderOperation mRenderOp;
-			Ogre::MaterialPtr mMaterial;
-
-			void getWorldTransforms(Ogre::Matrix4* xform) const override { *xform = Ogre::Matrix4::IDENTITY; }
-			void getRenderOperation(Ogre::RenderOperation& op) override { op = mRenderOp; }
-			const Ogre::MaterialPtr& getMaterial() const override { return mMaterial; }
-			const Ogre::LightList& getLights() const override { static Ogre::LightList ll; return ll; }
-			Ogre::Real getSquaredViewDepth(const Ogre::Camera*) const override { return 0; }
-		} mRenderable;
+		Ogre::MaterialPtr mMaterial;
 	};
 
 } // namespace MyGUI

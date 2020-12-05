@@ -50,12 +50,16 @@ namespace MyGUI
 		mSaveViewport = system->_getViewport();
 		system->_setViewport(mViewport);
 		system->clearFrameBuffer(Ogre::FBT_COLOUR, Ogre::ColourValue::ZERO);
+
+		OgreRenderManager::getInstance().beginRttRender(mTexture->getBuffer()->getRenderTarget()->requiresTextureFlipping());
 	}
 
 	void OgreRTTexture::end()
 	{
 		Ogre::RenderSystem* system = Ogre::Root::getSingleton().getRenderSystem();
 		system->_setViewport(mSaveViewport);
+
+		OgreRenderManager::getInstance().endRttRender();
 	}
 
 	void OgreRTTexture::doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count)

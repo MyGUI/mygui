@@ -54,8 +54,8 @@ namespace MyGUI
 		setRenderWindow(_window);
 		setSceneManager(_scene);
 
-		mRenderable.mMaterial = Ogre::MaterialManager::getSingleton().create("MyGUI/Default", OgreDataManager::getInstance().getGroup());
-		auto pass = mRenderable.mMaterial->getTechnique(0)->getPass(0);
+		mMaterial = Ogre::MaterialManager::getSingleton().create("MyGUI/Default", OgreDataManager::getInstance().getGroup());
+		auto pass = mMaterial->getTechnique(0)->getPass(0);
 		pass->setLightingEnabled(false);
 		pass->setCullingMode(Ogre::CULL_NONE);
 		pass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
@@ -65,7 +65,7 @@ namespace MyGUI
 		auto tu = pass->createTextureUnitState();
 		tu->setTextureAddressingMode(Ogre::TAM_CLAMP);
 		tu->setTextureFiltering(Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
-		mRenderable.mMaterial->touch();
+		mMaterial->touch();
 
 		registerShader("Default", "MyGUI_Ogre_VP." + getShaderExtension(), "MyGUI_Ogre_FP." + getShaderExtension());
 
@@ -281,28 +281,26 @@ namespace MyGUI
 
 		OgreTexture* texture = static_cast<OgreTexture*>(_texture);
 
-		auto pass = mRenderable.mMaterial->getTechnique(0)->getPass(0);
-		pass->getTextureUnitState(0)->setTexture(texture->getOgreTexture());
-
 		// If there is a shader set in the OgreTexture and it is different from the default one then use that shader for this render pass
 		OgreShaderInfo* shaderInfo = texture->getShaderInfo();
 		if(shaderInfo != nullptr && (shaderInfo->vertexProgram != mDefaultShader->vertexProgram || shaderInfo->fragmentProgram != mDefaultShader->fragmentProgram))
 		{
-			pass->setVertexProgram(shaderInfo->vertexProgram->getName());
-			pass->setFragmentProgram(shaderInfo->fragmentProgram->getName());
+			mRenderSystem->bindGpuProgram(texture->getShaderInfo()->vertexProgram->_getBindingDelegate());
+			mRenderSystem->bindGpuProgram(texture->getShaderInfo()->fragmentProgram->_getBindingDelegate());
 		}
 
 		OgreVertexBuffer* buffer = static_cast<OgreVertexBuffer*>(_buffer);
-		mRenderable.mRenderOp = *buffer->getRenderOperation();
-		mRenderable.mRenderOp.vertexData->vertexCount = _count;
+		auto renderOperation = buffer->getRenderOperation();
+		renderOperation->vertexData->vertexCount = _count;
 
-		mSceneManager->_injectRenderWithPass(pass, &mRenderable);
+		mRenderSystem->_setTexture(0, true, texture->getOgreTexture());
+		mRenderSystem->_render(*renderOperation);
 
 		// Restore the default shader if it was changed previously
 		if (shaderInfo != nullptr && (shaderInfo->vertexProgram != mDefaultShader->vertexProgram || shaderInfo->fragmentProgram != mDefaultShader->fragmentProgram))
 		{
-			pass->setVertexProgram(mDefaultShader->vertexProgram->getName());
-			pass->setFragmentProgram(mDefaultShader->fragmentProgram->getName());
+			mRenderSystem->bindGpuProgram(mDefaultShader->vertexProgram->_getBindingDelegate());
+			mRenderSystem->bindGpuProgram(mDefaultShader->fragmentProgram->_getBindingDelegate());
 		}
 
 		++mCountBatch;
@@ -310,6 +308,10 @@ namespace MyGUI
 
 	void OgreRenderManager::begin()
 	{
+		auto pass = mMaterial->getTechnique(0)->getPass(0);
+		mSceneManager->_setPass(pass);
+
+		setShaderProjectionMatrix(false);
 	}
 
 	void OgreRenderManager::end()
@@ -458,7 +460,7 @@ namespace MyGUI
 			mDefaultShader = mRegisteredShaders[_shaderName];
 
 			// Set the default shader
-			auto pass = mRenderable.mMaterial->getTechnique(0)->getPass(0);
+			auto pass = mMaterial->getTechnique(0)->getPass(0);
 			pass->setVertexProgram(mDefaultShader->vertexProgram->getName());
 			pass->setFragmentProgram(mDefaultShader->fragmentProgram->getName());
 		}
@@ -476,16 +478,21 @@ namespace MyGUI
 		MYGUI_EXCEPT("No supported shader was found. Only glsl, glsles and hlsl are implemented so far.");
 	}
 
+	void OgreRenderManager::beginRttRender(bool isFlippedTexture)
+	{
+		auto pass = mMaterial->getTechnique(0)->getPass(0);
+		mSceneManager->_setPass(pass);
+		setShaderProjectionMatrix(isFlippedTexture);
+	}
+
+	void OgreRenderManager::endRttRender()
+	{
+		setShaderProjectionMatrix(false);
+	}
+
 	void OgreRenderManager::doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, Ogre::RenderTexture* rtt)
 	{
-		// TODO: dirty hack. Should use manualRender instead of _injectRenderWithPass in OgreRenderManager::doRender
-		const Ogre::AutoParamDataSource* autoParamDataSource = mSceneManager->_getAutoParamDataSource();
-		auto previousRenderTarget = autoParamDataSource->getCurrentRenderTarget();
-		const_cast<Ogre::AutoParamDataSource*>(autoParamDataSource)->setCurrentRenderTarget(rtt);
-
 		doRender(_buffer, _texture, _count);
-
-		const_cast<Ogre::AutoParamDataSource*>(autoParamDataSource)->setCurrentRenderTarget(previousRenderTarget);
 	}
 
 	OgreShaderInfo* OgreRenderManager::getShaderInfo(const std::string& _shaderName)
@@ -522,7 +529,6 @@ namespace MyGUI
 				shaderInfo->vertexProgram->setParameter("target", "vs_3_0");
 				shaderInfo->vertexProgram->setParameter("entry_point", "main");
 			}
-			shaderInfo->vertexProgram->getDefaultParameters()->setNamedAutoConstant("worldViewProj", Ogre::GpuProgramParameters::AutoConstantType::ACT_WORLDVIEWPROJ_MATRIX);
 
 			shaderInfo->vertexProgram->load();
 		}
@@ -548,6 +554,24 @@ namespace MyGUI
 		}
 
 		return shaderInfo;
+	}
+
+	void OgreRenderManager::setShaderProjectionMatrix(bool isFlipped)
+	{
+		Ogre::Matrix4 projectionMatrix;
+		mRenderSystem->_convertProjectionMatrix(Ogre::Matrix4::IDENTITY, projectionMatrix, true);
+
+		if (isFlipped)
+		{
+			projectionMatrix[1][0] = -projectionMatrix[1][0];
+			projectionMatrix[1][1] = -projectionMatrix[1][1];
+			projectionMatrix[1][2] = -projectionMatrix[1][2];
+			projectionMatrix[1][3] = -projectionMatrix[1][3];
+		}
+
+		Ogre::GpuProgramParametersSharedPtr params = mDefaultShader->vertexProgram->getDefaultParameters();
+		params->setNamedConstant("worldViewProj", projectionMatrix * Ogre::Affine3::IDENTITY);
+		mRenderSystem->bindGpuProgramParameters(Ogre::GPT_VERTEX_PROGRAM, params, Ogre::GPV_ALL);
 	}
 
 } // namespace MyGUI
