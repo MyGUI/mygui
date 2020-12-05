@@ -481,13 +481,15 @@ namespace MyGUI
 	void OgreRenderManager::beginRttRender(bool isFlippedTexture)
 	{
 		auto pass = mMaterial->getTechnique(0)->getPass(0);
-		mSceneManager->_setPass(pass);
+		mSceneManager->_setPass(pass); // required only by DirectX11 render system
 		setShaderProjectionMatrix(isFlippedTexture);
 	}
 
 	void OgreRenderManager::endRttRender()
 	{
 		setShaderProjectionMatrix(false);
+		auto pass = mMaterial->getTechnique(0)->getPass(0);
+		mSceneManager->_setPass(pass); // required only by DirectX11 render system
 	}
 
 	void OgreRenderManager::doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, Ogre::RenderTexture* rtt)
