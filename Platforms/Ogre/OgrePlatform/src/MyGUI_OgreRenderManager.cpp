@@ -55,14 +55,14 @@ namespace MyGUI
 		setSceneManager(_scene);
 
 		mMaterial = Ogre::MaterialManager::getSingleton().create("MyGUI/Default", OgreDataManager::getInstance().getGroup());
-		auto pass = mMaterial->getTechnique(0)->getPass(0);
-		pass->setLightingEnabled(false);
-		pass->setCullingMode(Ogre::CULL_NONE);
-		pass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
-		pass->setDepthCheckEnabled(false);
-		pass->setDepthWriteEnabled(false);
-		pass->setVertexColourTracking(Ogre::TVC_DIFFUSE);
-		auto tu = pass->createTextureUnitState();
+		mPass = mMaterial->getTechnique(0)->getPass(0);
+		mPass->setLightingEnabled(false);
+		mPass->setCullingMode(Ogre::CULL_NONE);
+		mPass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
+		mPass->setDepthCheckEnabled(false);
+		mPass->setDepthWriteEnabled(false);
+		mPass->setVertexColourTracking(Ogre::TVC_DIFFUSE);
+		auto tu = mPass->createTextureUnitState();
 		tu->setTextureAddressingMode(Ogre::TAM_CLAMP);
 		tu->setTextureFiltering(Ogre::FO_LINEAR, Ogre::FO_LINEAR, Ogre::FO_NONE);
 		mMaterial->touch();
@@ -308,8 +308,7 @@ namespace MyGUI
 
 	void OgreRenderManager::begin()
 	{
-		auto pass = mMaterial->getTechnique(0)->getPass(0);
-		mSceneManager->_setPass(pass);
+		mSceneManager->_setPass(mPass);
 
 		setShaderProjectionMatrix(false);
 	}
@@ -460,9 +459,8 @@ namespace MyGUI
 			mDefaultShader = mRegisteredShaders[_shaderName];
 
 			// Set the default shader
-			auto pass = mMaterial->getTechnique(0)->getPass(0);
-			pass->setVertexProgram(mDefaultShader->vertexProgram->getName());
-			pass->setFragmentProgram(mDefaultShader->fragmentProgram->getName());
+			mPass->setVertexProgram(mDefaultShader->vertexProgram->getName());
+			mPass->setFragmentProgram(mDefaultShader->fragmentProgram->getName());
 		}
 	}
 
@@ -480,16 +478,14 @@ namespace MyGUI
 
 	void OgreRenderManager::beginRttRender(bool isFlippedTexture)
 	{
-		auto pass = mMaterial->getTechnique(0)->getPass(0);
-		mSceneManager->_setPass(pass); // required only by DirectX11 render system
+		mSceneManager->_setPass(mPass); // required only by DirectX11 render system
 		setShaderProjectionMatrix(isFlippedTexture);
 	}
 
 	void OgreRenderManager::endRttRender()
 	{
 		setShaderProjectionMatrix(false);
-		auto pass = mMaterial->getTechnique(0)->getPass(0);
-		mSceneManager->_setPass(pass); // required only by DirectX11 render system
+		mSceneManager->_setPass(mPass); // required only by DirectX11 render system
 	}
 
 	void OgreRenderManager::doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, Ogre::RenderTexture* rtt)

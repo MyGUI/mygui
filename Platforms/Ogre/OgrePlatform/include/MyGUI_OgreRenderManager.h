@@ -167,6 +167,7 @@ namespace MyGUI
 		std::map<std::string, OgreShaderInfo*> mRegisteredShaders;
 
 		Ogre::MaterialPtr mMaterial;
+		Ogre::Pass* mPass;
 	};
 
 } // namespace MyGUI
