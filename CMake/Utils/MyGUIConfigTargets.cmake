@@ -245,20 +245,16 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 		add_definitions("-DMYGUI_OPENGL_PLATFORM")
 		include_directories(SYSTEM
 			${OPENGL_INCLUDE_DIR}
-			${SDL2_IMAGE_INCLUDE_DIRS}
 		)
 		link_directories(
 			${OPENGL_LIB_DIR}
-			${SDL2_IMAGE_LIB_DIR}
 		)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 5)
 		add_definitions("-DMYGUI_DIRECTX_PLATFORM")
 		include_directories(SYSTEM
 			${DirectX_INCLUDE_DIR}
 		)
-		link_directories(
-			${DIRECTX_LIB_DIR}
-		)
+		link_directories(${DIRECTX_LIB_DIR})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 6)
 		add_definitions("-DMYGUI_DIRECTX11_PLATFORM")
 		include_directories(SYSTEM
