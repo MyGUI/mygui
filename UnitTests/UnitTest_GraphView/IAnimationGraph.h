@@ -7,6 +7,7 @@
 #define I_ANIMATION_GRAPH_H_
 
 #include <OgrePrerequisites.h>
+#include <OgreAny.h>
 #include <string>
 #include "IAnimationNode.h"
 

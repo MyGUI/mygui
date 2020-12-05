@@ -11,6 +11,7 @@
 #include "ControllerSmoothProgress.h"
 #include "ControllerSmoothCaption.h"
 #include "ResourceDevice.h"
+#include <Ogre.h>
 
 namespace demo
 {

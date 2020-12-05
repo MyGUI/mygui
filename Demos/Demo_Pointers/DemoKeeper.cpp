@@ -7,6 +7,7 @@
 #include "DemoKeeper.h"
 #include "Base/Main.h"
 #include "ResourcePointerContext.h"
+#include <Ogre.h>
 
 namespace demo
 {

@@ -7,6 +7,7 @@
 #include <MyGUI.h>
 #include "SceneObject.h"
 #include "BaseManager.h"
+#include <Ogre.h>
 
 #ifdef MYGUI_OGRE_PLATFORM
 
