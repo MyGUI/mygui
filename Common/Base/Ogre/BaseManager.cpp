@@ -120,9 +120,9 @@ namespace base
 	void BaseManager::createGuiPlatform()
 	{
 		setupResources();
-        Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 		mPlatform = new MyGUI::OgrePlatform();
-		mPlatform->initialise(mWindow, mSceneManager, MyGuiResourceGroup);
+		mPlatform->initialise(mWindow, mSceneManager);
 	}
 
 	void BaseManager::destroyGuiPlatform()

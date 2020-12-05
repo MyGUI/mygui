@@ -56,7 +56,7 @@ namespace MyGUI
 		setRenderWindow(_window);
 		setSceneManager(_scene);
 
-		mMaterial = Ogre::MaterialManager::getSingleton().create("MyGUI/Default", OgreDataManager::getInstance().getGroup());
+		mMaterial = Ogre::MaterialManager::getSingleton().create("MyGUI/Default", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		mPass = mMaterial->getTechnique(0)->getPass(0);
 		mPass->setLightingEnabled(false);
 		mPass->setCullingMode(Ogre::CULL_NONE);
