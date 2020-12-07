@@ -63,7 +63,6 @@ namespace base
 #elif OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 		params["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.win.window));
 #elif OGRE_PLATFORM == OGRE_PLATFORM_APPLE
-		ASSERT(wmInfo.subsystem == SDL_SYSWM_COCOA);
 		params["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.cocoa.window));
 #endif
 		mWindow = mRoot->createRenderWindow("MainRenderWindow", _width, _height, false, &params);
@@ -148,14 +147,7 @@ namespace base
 
 	void BaseManager::addResourceLocation(const std::string& _name, bool _recursive)
 	{
-#if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
-		// OS X does not set the working directory relative to the app, In order to make things portable on OS X we need to provide the loading with it's own bundle path location
-		std::string name = Ogre::String(macBundlePath() + "/" + _name;
-#else
-		std::string name = _name;
-#endif
-
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(name, "FileSystem", MyGuiResourceGroup, _recursive);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(_name, "FileSystem", MyGuiResourceGroup, _recursive);
 	}
 
 	void BaseManager::makeScreenShot()
