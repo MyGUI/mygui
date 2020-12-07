@@ -108,7 +108,10 @@ namespace MyGUI
 					_setState("pushed");
 			}
 			else
-				_setState("normal_checked");
+			{
+				if (!_setState("normal_checked"))
+					_setState("pushed");
+			}
 		}
 		else
 		{
