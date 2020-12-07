@@ -3,10 +3,9 @@
 #include "GroupMessage.h"
 #include "MessageBoxManager.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::GroupMessage);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(GroupMessage);
 
 	void GroupMessage::initialise()
 	{

@@ -17,10 +17,9 @@
 #include "PropertyFieldPosition.h"
 #include "PropertyFieldColour.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::PropertyFieldManager);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(PropertyFieldManager);
 
 	template <typename Type>
 	class GenericFactory

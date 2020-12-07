@@ -7,10 +7,9 @@
 #include "Precompiled.h"
 #include "CommandManager.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::CommandManager);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(CommandManager);
 
 	void CommandManager::initialise()
 	{

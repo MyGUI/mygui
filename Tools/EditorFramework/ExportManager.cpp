@@ -9,10 +9,9 @@
 #include "SettingsManager.h"
 #include "FactoryManager.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::ExportManager);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(ExportManager);
 
 	ExportManager::ExportManager() :
 		mExportSerializer(nullptr),

@@ -8,10 +8,9 @@
 #include "WidgetSelectorManager.h"
 #include "EditorWidgets.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::WidgetSelectorManager);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(WidgetSelectorManager);
 
 	WidgetSelectorManager::WidgetSelectorManager() :
 		mCurrentWidget(nullptr),

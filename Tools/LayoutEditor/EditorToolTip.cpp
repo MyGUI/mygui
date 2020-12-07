@@ -10,10 +10,9 @@
 #include "EditorWidgets.h"
 #include "WidgetTypes.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::EditorToolTip);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(EditorToolTip);
 
 	EditorToolTip::EditorToolTip() :
 		BaseLayout("EditorToolTip.layout"),

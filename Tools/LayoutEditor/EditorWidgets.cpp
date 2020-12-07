@@ -7,10 +7,9 @@
 #include "WidgetSelectorManager.h"
 #include "SettingsManager.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::EditorWidgets);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(EditorWidgets);
 
 	const std::string LogSection = "LayoutEditor";
 	const std::string CodeGeneratorSettingsNodeName = "CodeGeneratorSettings";

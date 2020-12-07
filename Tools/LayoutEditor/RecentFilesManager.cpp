@@ -9,10 +9,9 @@
 #include "SettingsManager.h"
 #include "FileSystemInfo/FileSystemInfo.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::RecentFilesManager);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(RecentFilesManager);
 
 	RecentFilesManager::RecentFilesManager() :
 		mMaxRecentFolders(0),

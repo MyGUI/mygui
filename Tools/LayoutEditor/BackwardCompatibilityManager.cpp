@@ -8,10 +8,9 @@
 #include "BackwardCompatibilityManager.h"
 #include "SettingsManager.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::BackwardCompatibilityManager);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(BackwardCompatibilityManager);
 
 	BackwardCompatibilityManager::BackwardCompatibilityManager() :
 		mSingletonHolder(this)

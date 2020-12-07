@@ -7,10 +7,9 @@
 #include "Precompiled.h"
 #include "SettingsManager.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::SettingsManager);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(SettingsManager);
 
 	SettingsManager::SettingsManager() :
 		mDocument(nullptr),

@@ -28,10 +28,9 @@
 #include "FactoryManager.h"
 #include "ComponentFactory.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::Application);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(Application);
 
 	Application::Application() :
 		mSingletonHolder(this)

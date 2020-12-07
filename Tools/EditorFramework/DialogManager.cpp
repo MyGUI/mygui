@@ -7,10 +7,9 @@
 #include "Precompiled.h"
 #include "DialogManager.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::DialogManager);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(DialogManager);
 
 	void DialogManager::initialise()
 	{

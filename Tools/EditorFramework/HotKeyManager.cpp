@@ -8,10 +8,9 @@
 #include "HotKeyManager.h"
 #include "CommandManager.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::HotKeyManager);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(HotKeyManager);
 
 	HotKeyManager::HotKeyManager() :
 		mSingletonHolder(this)

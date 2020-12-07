@@ -8,10 +8,9 @@
 #include "GridManager.h"
 #include "SettingsManager.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::GridManager);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(GridManager);
 
 	GridManager::GridManager() :
 		mGridStep(0),

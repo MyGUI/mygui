@@ -7,10 +7,9 @@
 #include "Precompiled.h"
 #include "MessageBoxManager.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::MessageBoxManager);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(MessageBoxManager);
 
 	void MessageBoxManager::initialise()
 	{

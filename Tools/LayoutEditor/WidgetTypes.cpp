@@ -1,10 +1,9 @@
 #include "Precompiled.h"
 #include "WidgetTypes.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::WidgetTypes);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(WidgetTypes);
 
 	const std::string DEFAULT_GOROUP_NAME = "Default";
 	const std::string LogSection = "LayoutEditor";

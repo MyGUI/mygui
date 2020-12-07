@@ -9,10 +9,9 @@
 #include "CommandManager.h"
 #include "SettingsManager.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::ScopeManager);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(ScopeManager);
 
 	void ScopeManager::initialise()
 	{

@@ -3,10 +3,9 @@
 #include "CommandManager.h"
 #include "WidgetSelectorManager.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::UndoManager);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(UndoManager);
 
 	const int UNDO_COUNT = 64;
 

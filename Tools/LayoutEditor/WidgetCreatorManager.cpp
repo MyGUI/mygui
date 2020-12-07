@@ -12,10 +12,9 @@
 #include "UndoManager.h"
 #include "GridManager.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::WidgetCreatorManager);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(WidgetCreatorManager);
 
 	WidgetCreatorManager::WidgetCreatorManager() :
 		mCreateMode(false),

@@ -7,10 +7,9 @@
 #include "Precompiled.h"
 #include "StateManager.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::StateManager);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(StateManager);
 
 	void StateManager::initialise()
 	{

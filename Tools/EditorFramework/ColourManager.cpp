@@ -9,10 +9,9 @@
 #include "CommandManager.h"
 #include "SettingsManager.h"
 
-MYGUI_SINGLETON_DEFINITION(tools::ColourManager);
-
 namespace tools
 {
+	MYGUI_SINGLETON_DEFINITION(ColourManager);
 
 	ColourManager::ColourManager() :
 		mColourPanel(nullptr),
