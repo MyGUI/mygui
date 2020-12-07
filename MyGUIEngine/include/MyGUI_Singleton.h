@@ -121,20 +121,20 @@ namespace MyGUI
 	static const char* getClassTypeName()
 
 #define MYGUI_SINGLETON_DEFINITION(ClassName) \
-	static ClassName* msInstance = nullptr; \
-	static const char* mClassTypeName = #ClassName; \
+	static ClassName* ClassName##Instance = nullptr; \
+	static const char* ClassName##ClassTypeName = #ClassName; \
 	 \
 	void ClassName::initialiseSingleton() \
 	{ \
-		MYGUI_ASSERT(nullptr == msInstance, "Singleton instance " << getClassTypeName() << " already exsist"); \
-		msInstance = this; \
+		MYGUI_ASSERT(nullptr == ClassName##Instance, "Singleton instance " << getClassTypeName() << " already exsist"); \
+		ClassName##Instance = this; \
 	} \
 	 \
 	void ClassName::shutdownSingleton() \
 	{ \
-		if (nullptr == msInstance) \
+		if (nullptr == ClassName##Instance) \
 			MYGUI_LOG(Critical, "Destroying Singleton instance " << getClassTypeName() << " before constructing it."); \
-		msInstance = nullptr; \
+		ClassName##Instance = nullptr; \
 	} \
 	 \
 	ClassName& ClassName::getInstance() \
@@ -145,12 +145,12 @@ namespace MyGUI
 	 \
 	ClassName* ClassName::getInstancePtr() \
 	{ \
-		return msInstance; \
+		return ClassName##Instance; \
 	} \
 	 \
 	const char* ClassName::getClassTypeName() \
 	{ \
-		return mClassTypeName; \
+		return ClassName##ClassTypeName; \
 	} \
 	static_assert(true, "require semicolon")
 
