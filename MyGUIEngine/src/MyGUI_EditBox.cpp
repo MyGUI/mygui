@@ -223,14 +223,14 @@ namespace MyGUI
 
 		while (iterBack != text.rend())
 		{
-			if (((*iterBack) < 265) && (ispunct(*iterBack) || isspace(*iterBack)))
+			if (((*iterBack) < 256) && (ispunct(*iterBack) || isspace(*iterBack)))
 				break;
 			++iterBack;
 			mStartSelect--;
 		}
 		while (iterForw != text.end())
 		{
-			if (((*iterForw) < 265) && (ispunct(*iterForw) || isspace(*iterForw)))
+			if (((*iterForw) < 256) && (ispunct(*iterForw) || isspace(*iterForw)))
 				break;
 			++iterForw;
 			mEndSelect++;

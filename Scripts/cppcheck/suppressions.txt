@@ -1,0 +1,30 @@
+noExplicitConstructor
+useStlAlgorithm
+unusedFunction
+shadowFunction
+
+// thirdparty
+*:*/MyGUI_UString*
+*:*/include/GL/glew*
+*:*/pugixml*
+
+// TODO: major
+nullPointer
+nullPointerRedundantCheck
+identicalConditionAfterEarlyExit
+uninitStructMember // ?
+unusedPrivateFunction // ?
+redundantAssignment // ?
+
+// TODO: minor
+missingOverride
+knownConditionTrueFalse // not minor?
+constParameter
+duplicateConditionalAssign
+unreadVariable
+useInitializationList
+postfixOperator
+constVariable
+noCopyConstructor
+noOperatorEq
+uninitMemberVar

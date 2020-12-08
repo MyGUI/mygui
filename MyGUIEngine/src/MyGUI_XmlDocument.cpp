@@ -614,12 +614,8 @@ namespace MyGUI
 			{
 				if (_currentNode == nullptr)
 				{
-					// чета мы закрывам а ниче даже и не открыто
-					if (!mRoot)
-					{
-						mLastError = ErrorType::CloseNotOpenedElement;
-						return false;
-					}
+					mLastError = ErrorType::CloseNotOpenedElement;
+					return false;
 				}
 				// обрезаем имя тэга
 				start = _content.find_first_not_of(" \t", 1);
@@ -875,7 +871,7 @@ namespace MyGUI
 				size_t start = find(_line, '<');
 				if (start == _line.npos)
 					break;
-				size_t end = _line.npos;
+				size_t end;
 
 				// пытаемся вырезать многострочный коментарий
 				if ((start + 3 < _line.size()) && (_line[start + 1] == '!') && (_line[start + 2] == '-') && (_line[start + 3] == '-'))

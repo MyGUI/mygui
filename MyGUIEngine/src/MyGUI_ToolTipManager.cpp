@@ -95,11 +95,6 @@ namespace MyGUI
 				IntPoint point = InputManager::getInstance().getMousePositionByLayer();
 				if (!mToolTipVisible && point != mOldMousePoint)
 				{
-					if (mToolTipVisible)
-					{
-						mToolTipVisible = false;
-						hideToolTip(mOldFocusWidget);
-					}
 					mCurrentTime = 0;
 					mOldMousePoint = point;
 					mOldIndex = getToolTipIndex(mOldFocusWidget);

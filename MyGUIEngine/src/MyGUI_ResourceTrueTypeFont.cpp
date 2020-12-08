@@ -1014,7 +1014,7 @@ namespace MyGUI
 								{
 									// Go through the bitmap and convert all of the nonzero values to 0xFF (white).
 									for (uint8* p = ftBitmap.buffer, * endP = p + ftBitmap.width * ftBitmap.rows; p != endP; ++p)
-										*p ^= -*p ^ *p;
+										*p = *p ? 0xFF : 0;
 
 									glyphBuffer = ftBitmap.buffer;
 								}

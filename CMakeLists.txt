@@ -23,9 +23,9 @@ include(MacroLogFeature)
 include(MyGUIConfigTargets)
 include(PreprocessorUtils)
 set(MYGUI_TEMPLATES_DIR "${MYGUI_SOURCE_DIR}/CMake/Templates")
-set(MYGUI_WORK_DIR ${MYGUI_BINARY_DIR})
 
 SET(CMAKE_CXX_STANDARD 11)
+set(CMAKE_EXPORT_COMPILE_COMMANDS True)
 
 #####################################################################
 # Set up the basic build environment
