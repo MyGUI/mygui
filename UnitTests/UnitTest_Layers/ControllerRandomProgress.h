@@ -24,7 +24,7 @@ namespace demo
 
 		bool addTime(MyGUI::Widget* _widget, float _time) override
 		{
-			const float slice = 0.2;
+			const float slice = 0.2f;
 			mTime += _time;
 			if (mTime > slice)
 			{
