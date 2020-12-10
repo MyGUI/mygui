@@ -121,7 +121,7 @@ namespace base
 		setupResources();
 		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 		mPlatform = new MyGUI::OgrePlatform();
-		mPlatform->initialise(mWindow, mSceneManager);
+		mPlatform->initialise(mWindow, mSceneManager, MyGuiResourceGroup);
 	}
 
 	void BaseManager::destroyGuiPlatform()
