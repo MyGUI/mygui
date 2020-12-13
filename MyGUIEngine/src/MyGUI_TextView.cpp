@@ -197,7 +197,7 @@ namespace MyGUI
 					// если нужно, то меняем красный и синий компоненты
 					texture_utility::convertColour(colour, _format);
 
-					line_info.simbols.push_back( CharInfo(colour) );
+					line_info.symbols.push_back( CharInfo(colour) );
 
 					continue;
 				}
@@ -210,11 +210,11 @@ namespace MyGUI
 
 			if (FontCodeType::Space == character)
 			{
-				roll_back.set(line_info.simbols.size(), index, count, width);
+				roll_back.set(line_info.symbols.size(), index, count, width);
 			}
 			else if (FontCodeType::Tab == character)
 			{
-				roll_back.set(line_info.simbols.size(), index, count, width);
+				roll_back.set(line_info.symbols.size(), index, count, width);
 			}
 
 			float char_width = info->width;
@@ -245,7 +245,7 @@ namespace MyGUI
 				width = roll_back.getWidth();
 				count = roll_back.getCount();
 				index = roll_back.getTextIter();
-				line_info.simbols.erase(line_info.simbols.begin() + roll_back.getPosition(), line_info.simbols.end());
+				line_info.symbols.erase(line_info.symbols.begin() + roll_back.getPosition(), line_info.symbols.end());
 
 				// запоминаем место отката, как полную строку
 				line_info.width = (int)std::ceil(width);
@@ -266,7 +266,7 @@ namespace MyGUI
 				continue;
 			}
 
-			line_info.simbols.push_back(CharInfo(info->uvRect, char_width, char_height, char_advance, char_bearingX, char_bearingY));
+			line_info.symbols.push_back(CharInfo(info->uvRect, char_width, char_height, char_advance, char_bearingX, char_bearingY));
 			width += char_fullAdvance;
 			count ++;
 		}
@@ -313,7 +313,7 @@ namespace MyGUI
 				int count = 0;
 
 				// ищем символ
-				for (const auto& sim : line->simbols)
+				for (const auto& sim : line->symbols)
 				{
 					if (sim.isColour())
 						continue;
@@ -347,7 +347,7 @@ namespace MyGUI
 			left = (float)line->offset;
 			if (position + line->count >= _position)
 			{
-				for (VectorCharInfo::const_iterator sim = line->simbols.begin(); sim != line->simbols.end(); ++sim)
+				for (VectorCharInfo::const_iterator sim = line->symbols.begin(); sim != line->symbols.end(); ++sim)
 				{
 					if (sim->isColour())
 						continue;

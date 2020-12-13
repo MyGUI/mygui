@@ -587,11 +587,11 @@ namespace MyGUI
 				return true;
 			}
 
-			char simbol = _content[0];
+			char symbol = _content[0];
 			bool tagDeclaration = false;
 
 			// проверяем на коментарии
-			if (simbol == '!')
+			if (symbol == '!')
 			{
 				if (_currentNode != nullptr)
 				{
@@ -600,7 +600,7 @@ namespace MyGUI
 				return true;
 			}
 			// проверяем на информационный тег
-			else if (simbol == '?')
+			else if (symbol == '?')
 			{
 				tagDeclaration = true;
 				_content.erase(0, 1); // удаляем первый символ
@@ -609,7 +609,7 @@ namespace MyGUI
 			size_t start = 0;
 			size_t end = 0;
 			// проверяем на закрытие тега
-			if (simbol == '/')
+			if (symbol == '/')
 			{
 				if (_currentNode == nullptr)
 				{

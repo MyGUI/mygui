@@ -541,7 +541,7 @@ namespace MyGUI
 		{
 			float left = (float)(line->offset - mViewOffset.left + mCoord.left);
 
-			for (VectorCharInfo::const_iterator sim = line->simbols.begin(); sim != line->simbols.end(); ++sim)
+			for (VectorCharInfo::const_iterator sim = line->symbols.begin(); sim != line->symbols.end(); ++sim)
 			{
 				if (sim->isColour())
 				{

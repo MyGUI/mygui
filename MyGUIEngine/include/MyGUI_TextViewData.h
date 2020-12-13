@@ -124,14 +124,14 @@ namespace MyGUI
 		{
 			width = 0;
 			count = 0;
-			simbols.clear();
+			symbols.clear();
 			offset = 0;
 		}
 
 		int width;
 		int offset;
 		size_t count;
-		VectorCharInfo simbols;
+		VectorCharInfo symbols;
 	};
 
 	typedef std::vector<LineInfo> VectorLineInfo;
