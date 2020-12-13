@@ -756,7 +756,7 @@ namespace MyGUI
 		_redrawItem(_index);
 	}
 
-	const UString& ListBox::getItemNameAt(size_t _index)
+	const UString& ListBox::getItemNameAt(size_t _index) const
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::getItemNameAt");
 		return mItemsInfo[_index].first;
@@ -1056,7 +1056,7 @@ namespace MyGUI
 		setItemNameAt(_index, _name);
 	}
 
-	const UString& ListBox::_getItemNameAt(size_t _index)
+	const UString& ListBox::_getItemNameAt(size_t _index) const
 	{
 		return getItemNameAt(_index);
 	}

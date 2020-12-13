@@ -164,7 +164,7 @@ namespace MyGUI
 		void setItemName(MenuItem* _item, const UString& _name);
 
 		//! Get item from specified position
-		const UString& getItemNameAt(size_t _index);
+		const UString& getItemNameAt(size_t _index) const;
 		//! Get item from specified position
 		const UString& getItemName(MenuItem* _item);
 
@@ -264,7 +264,7 @@ namespace MyGUI
 		void _removeItemAt(size_t _index) override;
 		Widget* _getItemAt(size_t _index) override;
 		void _setItemNameAt(size_t _index, const UString& _name) override;
-		const UString& _getItemNameAt(size_t _index) override;
+		const UString& _getItemNameAt(size_t _index) const override;
 		void _setItemSelected(IItem* _item) override;
 
 		void _updateItems(size_t _index);

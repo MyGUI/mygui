@@ -235,7 +235,7 @@ namespace MyGUI
 		}
 	}
 
-	const RenderTargetInfo& OpenGL3RenderManager::getInfo()
+	const RenderTargetInfo& OpenGL3RenderManager::getInfo() const
 	{
 		return mInfo;
 	}

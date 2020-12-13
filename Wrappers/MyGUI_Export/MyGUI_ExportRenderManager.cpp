@@ -170,7 +170,7 @@ namespace MyGUI
 		mTextures.clear();
 	}
 
-	const RenderTargetInfo& ExportRenderManager::getInfo()
+	const RenderTargetInfo& ExportRenderManager::getInfo() const
 	{
 		return mInfo;
 	}

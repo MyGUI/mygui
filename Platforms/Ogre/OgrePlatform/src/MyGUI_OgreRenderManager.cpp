@@ -406,7 +406,7 @@ namespace MyGUI
 		return mVertexFormat;
 	}
 
-	const RenderTargetInfo& OgreRenderManager::getInfo()
+	const RenderTargetInfo& OgreRenderManager::getInfo() const
 	{
 		return mInfo;
 	}

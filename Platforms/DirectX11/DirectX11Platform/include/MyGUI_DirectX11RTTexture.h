@@ -25,14 +25,14 @@ namespace MyGUI
 	{
 	public:
 		DirectX11RTTexture(DirectX11Texture* texture, DirectX11RenderManager* manager);
-		virtual ~DirectX11RTTexture();
+		~DirectX11RTTexture() override;
 
-		virtual void begin();
-		virtual void end();
+		void begin() override;
+		void end() override;
 
-		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
+		void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count) override;
 
-		virtual const RenderTargetInfo& getInfo()
+		const RenderTargetInfo& getInfo() const override
 		{
 			return mRenderTargetInfo;
 		}

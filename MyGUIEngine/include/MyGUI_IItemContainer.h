@@ -35,7 +35,7 @@ namespace MyGUI
 		}
 
 		virtual void _setItemNameAt(size_t _index, const UString& _name) { }
-		virtual const UString& _getItemNameAt(size_t _index)
+		virtual const UString& _getItemNameAt(size_t _index) const
 		{
 			return Constants::getEmptyUString();
 		}

@@ -161,7 +161,7 @@ namespace MyGUI
 		glPopClientAttrib();
 	}
 
-	const RenderTargetInfo& OpenGLRenderManager::getInfo()
+	const RenderTargetInfo& OpenGLRenderManager::getInfo() const
 	{
 		return mInfo;
 	}

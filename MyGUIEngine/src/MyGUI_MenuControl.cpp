@@ -150,7 +150,7 @@ namespace MyGUI
 		}
 	}
 
-	const UString& MenuControl::getItemNameAt(size_t _index)
+	const UString& MenuControl::getItemNameAt(size_t _index) const
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::getItemNameAt");
 		return mItemsInfo[_index].name;
@@ -824,7 +824,7 @@ namespace MyGUI
 		setItemNameAt(_index, _name);
 	}
 
-	const UString& MenuControl::_getItemNameAt(size_t _index)
+	const UString& MenuControl::_getItemNameAt(size_t _index) const
 	{
 		return getItemNameAt(_index);
 	}

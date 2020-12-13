@@ -95,7 +95,7 @@ namespace MyGUI
 		updateColumns();
 	}
 
-	const UString& MultiListBox::getColumnNameAt(size_t _column)
+	const UString& MultiListBox::getColumnNameAt(size_t _column) const
 	{
 		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::getColumnNameAt");
 		return mVectorColumnInfo[_column].name;
@@ -194,7 +194,7 @@ namespace MyGUI
 			frameAdvise(true);
 	}
 
-	const UString& MultiListBox::getSubItemNameAt(size_t _column, size_t _index)
+	const UString& MultiListBox::getSubItemNameAt(size_t _column, size_t _index) const
 	{
 		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::getSubItemNameAt");
 
@@ -537,7 +537,7 @@ namespace MyGUI
 		setSubItemNameAt(0, _index, _name);
 	}
 
-	const UString& MultiListBox::getItemNameAt(size_t _index)
+	const UString& MultiListBox::getItemNameAt(size_t _index) const
 	{
 		return getSubItemNameAt(0, _index);
 	}
@@ -567,7 +567,7 @@ namespace MyGUI
 		setSubItemDataAt(_column, _index, Any::Null);
 	}
 
-	ListBox* MultiListBox::getSubItemAt(size_t _column)
+	ListBox* MultiListBox::getSubItemAt(size_t _column) const
 	{
 		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::getSubItemAt");
 		return mVectorColumnInfo[_column].list;
@@ -594,7 +594,7 @@ namespace MyGUI
 		setColumnNameAt(_index, _name);
 	}
 
-	const UString& MultiListBox::_getItemNameAt(size_t _index)
+	const UString& MultiListBox::_getItemNameAt(size_t _index) const
 	{
 		return getColumnNameAt(_index);
 	}
@@ -774,12 +774,12 @@ namespace MyGUI
 		setColumnNameAt(getColumnIndex(_item), _name);
 	}
 
-	const UString& MultiListBox::getColumnName(MultiListItem* _item)
+	const UString& MultiListBox::getColumnName(MultiListItem* _item) const
 	{
 		return getColumnNameAt(getColumnIndex(_item));
 	}
 
-	size_t MultiListBox::getColumnIndex(MultiListItem* _item)
+	size_t MultiListBox::getColumnIndex(MultiListItem* _item) const
 	{
 		for (size_t index = 0; index < mVectorColumnInfo.size(); ++ index)
 		{

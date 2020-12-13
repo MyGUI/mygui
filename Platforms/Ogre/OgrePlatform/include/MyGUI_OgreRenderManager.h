@@ -70,7 +70,7 @@ namespace MyGUI
 		void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count) override;
 
 		/** @see IRenderTarget::getInfo */
-		const RenderTargetInfo& getInfo() override;
+		const RenderTargetInfo& getInfo() const override;
 
 		void setRenderSystem(Ogre::RenderSystem* _render);
 		Ogre::RenderSystem* getRenderSystem();

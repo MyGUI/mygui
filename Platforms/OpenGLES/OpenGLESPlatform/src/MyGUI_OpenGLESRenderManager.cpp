@@ -222,7 +222,7 @@ namespace MyGUI
 		}
 	}
 
-	const RenderTargetInfo& OpenGLESRenderManager::getInfo()
+	const RenderTargetInfo& OpenGLESRenderManager::getInfo() const
 	{
 		return mInfo;
 	}

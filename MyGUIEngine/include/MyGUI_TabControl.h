@@ -160,7 +160,7 @@ namespace MyGUI
 		void setItemName(TabItem* _item, const UString& _name);
 
 		//! Get item name from specified position
-		const UString& getItemNameAt(size_t _index);
+		const UString& getItemNameAt(size_t _index) const;
 
 		//! Get item name
 		const UString& getItemName(TabItem* _item);
@@ -227,7 +227,7 @@ namespace MyGUI
 		void _removeItemAt(size_t _index) override;
 		Widget* _getItemAt(size_t _index) override;
 		void _setItemNameAt(size_t _index, const UString& _name) override;
-		const UString& _getItemNameAt(size_t _index) override;
+		const UString& _getItemNameAt(size_t _index) const override;
 
 	protected:
 		void initialiseOverride() override;

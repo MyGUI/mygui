@@ -113,10 +113,10 @@ namespace MyGUI
 		void setColumnWidth(MultiListItem* _item, int _width);
 
 		/** Get _column name */
-		const UString& getColumnNameAt(size_t _column);
+		const UString& getColumnNameAt(size_t _column) const;
 
 		/** Get _column name */
-		const UString& getColumnName(MultiListItem* _item);
+		const UString& getColumnName(MultiListItem* _item) const;
 
 		/** Get _column width */
 		int getColumnWidthAt(size_t _column);
@@ -125,7 +125,7 @@ namespace MyGUI
 		void sortByColumn(size_t _column, bool _backward = false);
 
 		//! Get column index
-		size_t getColumnIndex(MultiListItem* _item);
+		size_t getColumnIndex(MultiListItem* _item) const;
 
 		/** Set resizing policy of column. \sa ResizingPolicy
 			@param _item Pointer to column
@@ -191,7 +191,7 @@ namespace MyGUI
 		void setItemNameAt(size_t _index, const UString& _name);
 
 		//! Get item name from specified position
-		const UString& getItemNameAt(size_t _index);
+		const UString& getItemNameAt(size_t _index) const;
 
 
 		//------------------------------------------------------------------------------//
@@ -237,7 +237,7 @@ namespace MyGUI
 		void setSubItemNameAt(size_t _column, size_t _index, const UString& _name);
 
 		/** Get sub item name*/
-		const UString& getSubItemNameAt(size_t _column, size_t _index);
+		const UString& getSubItemNameAt(size_t _column, size_t _index) const;
 
 		/** Search item in specified _column, returns index of the first occurrence in column or ITEM_NONE if item not found */
 		size_t findSubItemWith(size_t _column, const UString& _name);
@@ -300,7 +300,7 @@ namespace MyGUI
 		void _removeItemAt(size_t _index) override;
 		Widget* _getItemAt(size_t _index) override;
 		void _setItemNameAt(size_t _index, const UString& _name) override;
-		const UString& _getItemNameAt(size_t _index) override;
+		const UString& _getItemNameAt(size_t _index) const override;
 
 	protected:
 		void initialiseOverride() override;
@@ -346,7 +346,7 @@ namespace MyGUI
 		void frameEntered(float _frame);
 		void frameAdvise(bool _advise);
 
-		ListBox* getSubItemAt(size_t _column);
+		ListBox* getSubItemAt(size_t _column) const;
 		int getButtonHeight() const;
 
 		void _wrapItem(MultiListItem* _item);

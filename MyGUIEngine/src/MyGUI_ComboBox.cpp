@@ -496,7 +496,7 @@ namespace MyGUI
 		setItemDataAt(_index, Any::Null);
 	}
 
-	const UString& ComboBox::getItemNameAt(size_t _index)
+	const UString& ComboBox::getItemNameAt(size_t _index) const
 	{
 		return mList->getItemNameAt(_index);
 	}
@@ -580,7 +580,7 @@ namespace MyGUI
 		setItemNameAt(_index, _name);
 	}
 
-	const UString& ComboBox::_getItemNameAt(size_t _index)
+	const UString& ComboBox::_getItemNameAt(size_t _index) const
 	{
 		return getItemNameAt(_index);
 	}

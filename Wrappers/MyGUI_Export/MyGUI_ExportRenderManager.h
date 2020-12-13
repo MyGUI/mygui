@@ -60,7 +60,7 @@ namespace MyGUI
 		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
 
 		/** @see IRenderTarget::getInfo */
-		virtual const RenderTargetInfo& getInfo();
+		const RenderTargetInfo& getInfo() const override;
 
 		/** @see RenderManager::setViewSize */
 		void setViewSize(int _width, int _height) override;

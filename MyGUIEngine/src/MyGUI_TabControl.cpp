@@ -521,7 +521,7 @@ namespace MyGUI
 		return mItemsInfo[_index].width;
 	}
 
-	const UString& TabControl::getItemNameAt(size_t _index)
+	const UString& TabControl::getItemNameAt(size_t _index) const
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "TabControl::getItemNameAt");
 		return mItemsInfo[_index].name;
@@ -774,7 +774,7 @@ namespace MyGUI
 		setItemNameAt(_index, _name);
 	}
 
-	const UString& TabControl::_getItemNameAt(size_t _index)
+	const UString& TabControl::_getItemNameAt(size_t _index) const
 	{
 		return getItemNameAt(_index);
 	}

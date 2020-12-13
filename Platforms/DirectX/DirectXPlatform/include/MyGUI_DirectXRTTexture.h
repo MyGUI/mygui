@@ -31,7 +31,7 @@ namespace MyGUI
 
 		virtual void doRender(IVertexBuffer* _buffer, ITexture* _texture, size_t _count);
 
-		virtual const RenderTargetInfo& getInfo()
+		virtual const RenderTargetInfo& getInfo() const override
 		{
 			return mRenderTargetInfo;
 		}

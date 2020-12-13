@@ -95,7 +95,7 @@ namespace MyGUI
 		void setItemNameAt(size_t _index, const UString& _name);
 
 		//! Get item name from specified position
-		const UString& getItemNameAt(size_t _index);
+		const UString& getItemNameAt(size_t _index) const;
 
 
 		//------------------------------------------------------------------------------//
@@ -160,7 +160,7 @@ namespace MyGUI
 		void _addItem(const MyGUI::UString& _name) override;
 		void _removeItemAt(size_t _index) override;
 		void _setItemNameAt(size_t _index, const UString& _name) override;
-		const UString& _getItemNameAt(size_t _index) override;
+		const UString& _getItemNameAt(size_t _index) const override;
 
 		void _resetContainer(bool _update) override;
 

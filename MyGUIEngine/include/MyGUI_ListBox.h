@@ -96,10 +96,10 @@ namespace MyGUI
 
 		//! Get item data from specified position
 		template <typename ValueType>
-		ValueType* getItemDataAt(size_t _index, bool _throw = true)
+		ValueType* getItemDataAt(size_t _index, bool _throw = true) const
 		{
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::getItemDataAt");
-			return mItemsInfo[_index].second.castType<ValueType>(_throw);
+			return mItemsInfo.at(_index).second.castType<ValueType>(_throw);
 		}
 		//@}
 
@@ -110,7 +110,7 @@ namespace MyGUI
 		void setItemNameAt(size_t _index, const UString& _name);
 
 		//! Get item name from specified position
-		const UString& getItemNameAt(size_t _index);
+		const UString& getItemNameAt(size_t _index) const;
 
 
 		//------------------------------------------------------------------------------//
@@ -247,7 +247,7 @@ namespace MyGUI
 		void _addItem(const MyGUI::UString& _name) override;
 		void _removeItemAt(size_t _index) override;
 		void _setItemNameAt(size_t _index, const UString& _name) override;
-		const UString& _getItemNameAt(size_t _index) override;
+		const UString& _getItemNameAt(size_t _index) const override;
 
 		void _resetContainer(bool _update) override;
 		//@}
