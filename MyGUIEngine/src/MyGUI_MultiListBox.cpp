@@ -697,6 +697,7 @@ namespace MyGUI
 
 		ColumnInfo column;
 		column.width = 0;
+		column.realWidth = 0;
 		column.sizeType = ResizingPolicy::Auto;
 
 		column.item = _item;

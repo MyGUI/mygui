@@ -116,8 +116,8 @@ namespace tools
 			return true;
 		if (parseColour2(value, _resultValue))
 			return true;
-		//if (parseColour3(value, _resultValue))
-		//	return true;
+		if (parseColour3(value, _resultValue))
+			return true;
 
 		return false;
 	}

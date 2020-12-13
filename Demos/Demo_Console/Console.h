@@ -106,7 +106,7 @@ namespace demo
 		void notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index);
 		void notifyButtonPressed(MyGUI::Widget* _sender, MyGUI::KeyCode _key, MyGUI::Char _char);
 
-		void internalCommand(MyGUI::Widget* _sender, const MyGUI::UString& _key, const MyGUI::UString& _value);
+		void internalCommand(const MyGUI::UString& _key, const MyGUI::UString& _value);
 
 	private:
 		MyGUI::EditBox* mListHistory;

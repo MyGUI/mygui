@@ -293,29 +293,32 @@ namespace MyGUI
 
 	size_t TextView::getCursorPosition(const IntPoint& _value)
 	{
-		const int height = mFontHeight;
 		size_t result = 0;
 		int top = 0;
 
 		for (VectorLineInfo::const_iterator line = mLineInfo.begin(); line != mLineInfo.end(); ++line)
 		{
-			// это последняя строка
-			bool lastline = !(line + 1 != mLineInfo.end());
+			bool lastline = line + 1 == mLineInfo.end();
 
 			// наша строчка
-			if (top + height > _value.top || lastline)
+			if (top + mFontHeight <= _value.top && !lastline)
+            {
+                top += mFontHeight;
+                result += line->count + 1;
+            }
+			else
 			{
-				top += height;
+				top += mFontHeight;
 				float left = (float)line->offset;
 				int count = 0;
 
 				// ищем символ
-				for (VectorCharInfo::const_iterator sim = line->simbols.begin(); sim != line->simbols.end(); ++sim)
+				for (const auto& sim : line->simbols)
 				{
-					if (sim->isColour())
+					if (sim.isColour())
 						continue;
 
-					float fullAdvance = sim->getAdvance() + sim->getBearingX();
+					float fullAdvance = sim.getAdvance() + sim.getBearingX();
 					if (left + fullAdvance / 2.0f > _value.left)
 					{
 						break;
@@ -326,12 +329,6 @@ namespace MyGUI
 
 				result += count;
 				break;
-			}
-
-			if (!lastline)
-			{
-				top += height;
-				result += line->count + 1;
 			}
 		}
 

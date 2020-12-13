@@ -65,17 +65,17 @@ namespace tools
 		updateTexture(texture);
 	}
 
-	void FontTextureController::notifyChangeProperty(PropertyPtr _sender)
-	{
-		if (!mActivated || !PropertyUtility::isDataSelected(_sender->getOwner()))
-			return;
-
-		if (_sender->getOwner()->getType()->getName() == "Font")
-		{
-			if (_sender->getType()->getName() == "FontName")
-				updateTexture(_sender->getValue());
-		}
-	}
+//	void FontTextureController::notifyChangeProperty(PropertyPtr _sender)
+//	{
+//		if (!mActivated || !PropertyUtility::isDataSelected(_sender->getOwner()))
+//			return;
+//
+//		if (_sender->getOwner()->getType()->getName() == "Font")
+//		{
+//			if (_sender->getType()->getName() == "FontName")
+//				updateTexture(_sender->getValue());
+//		}
+//	}
 
 	void FontTextureController::notifyChangeScope(const std::string& _scope)
 	{

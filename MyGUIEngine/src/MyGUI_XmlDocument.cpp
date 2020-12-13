@@ -517,8 +517,7 @@ namespace MyGUI
 
 				mLine ++;
 				mCol = 0; // потом проверить на многострочных тэгах
-				if (read.empty())
-					continue;
+
 				// текущая строка для разбора и то что еще прочитали
 				line += read;
 

@@ -69,9 +69,9 @@ namespace demo
 		gRenderBoxScene.injectObject("Robot.mesh");
 		gRenderBoxScene.setAutoRotation(true);
 		gRenderBoxScene.setMouseRotation(true);
+#endif // MYGUI_OGRE_PLATFORM
 
 		MyGUI::Gui::getInstance().eventFrameStart += MyGUI::newDelegate(this, &DemoKeeper::notifyFrameStart);
-#endif // MYGUI_OGRE_PLATFORM
 	}
 
 	void DemoKeeper::destroyScene()

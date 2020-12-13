@@ -174,32 +174,6 @@ namespace MyGUI
 		return widget;
 	}
 
-	// удяляет неудачника
-	void PointerManager::_destroyChildWidget(Widget* _widget)
-	{
-		MYGUI_ASSERT(nullptr != _widget, "invalid widget pointer");
-
-		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
-		if (iter != mWidgetChild.end())
-		{
-			// сохраняем указатель
-			MyGUI::Widget* widget = *iter;
-
-			// удаляем из списка
-			mWidgetChild.erase(iter);
-
-			// отписываем от всех
-			WidgetManager::getInstance().unlinkFromUnlinkers(_widget);
-
-			// непосредственное удаление
-			WidgetManager::getInstance()._deleteWidget(widget);
-		}
-		else
-		{
-			MYGUI_EXCEPT("Widget '" << _widget->getName() << "' not found");
-		}
-	}
-
 	// удаляет всех детей
 	void PointerManager::_destroyAllChildWidget()
 	{

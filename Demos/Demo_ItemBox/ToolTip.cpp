@@ -30,10 +30,7 @@ namespace demo
 		mTextCount->setCaption(MyGUI::utility::toString(_data->getCount()));
 		mTextName->setCaption(_data->getInfo()->getItemName());
 		mTextDesc->setCaption(_data->getInfo()->getItemDescription());
-		if (!_data->isEmpty())
-		{
-			mImageInfo->setItemResourceInfo(_data->getImage(), "ToolTip", "Normal");
-		}
+		mImageInfo->setItemResourceInfo(_data->getImage(), "ToolTip", "Normal");
 
 		// вычисляем размер
 		MyGUI::ISubWidgetText* text = mTextDesc->getSubWidgetText();

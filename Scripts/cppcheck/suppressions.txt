@@ -3,22 +3,17 @@ useStlAlgorithm
 unusedFunction
 shadowFunction
 
+// false positive:
+nullPointer:*/MyGUI_Widget.cpp:197
+uninitStructMember:*/Mirror_MultiList.h
+
 // thirdparty
 *:*/MyGUI_UString*
 *:*/include/GL/glew*
 *:*/pugixml*
 
-// TODO: major
-nullPointer
-nullPointerRedundantCheck
-identicalConditionAfterEarlyExit
-uninitStructMember // ?
-unusedPrivateFunction // ?
-redundantAssignment // ?
-
 // TODO: minor
 missingOverride
-knownConditionTrueFalse // not minor?
 constParameter
 duplicateConditionalAssign
 unreadVariable

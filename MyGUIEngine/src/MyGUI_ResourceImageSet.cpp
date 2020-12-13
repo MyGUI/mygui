@@ -184,23 +184,6 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	const IntSize& ResourceImageSet::getGroupSize(size_t _index)
-	{
-		if (_index >= mGroups.size())
-			return Constants::getZeroIntSize();
-		return mGroups[_index].size;
-	}
-
-	const IntSize& ResourceImageSet::getGroupSize(const std::string& _group)
-	{
-		for (size_t index = 0; index < mGroups.size(); ++index)
-		{
-			if (mGroups[index].name == _group)
-				return mGroups[index].size;
-		}
-		return Constants::getZeroIntSize();
-	}
-
 	EnumeratorGroupImage ResourceImageSet::getEnumerator() const
 	{
 		return EnumeratorGroupImage(mGroups);

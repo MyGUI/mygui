@@ -34,4 +34,4 @@ def checkFolderSources(folder) :
 	os.system("cppcheck -j 8 --suppressions-list=Scripts/cppcheck/suppressions.txt --enable=all --project=\"" + folder + "/compile_commands.json\"" + " 2>temp.cppcheck")
 	printOutput()
 
-checkFolderSources('build/cmake-build-debug')
+checkFolderSources('build')

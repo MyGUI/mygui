@@ -74,7 +74,7 @@ namespace demo
 		// проверяем смещения виджета
 		if (mOldCoord.empty())
 		{
-			mOldCoord = _coord;
+		    // do nothing
 		}
 		else if (mOldCoord.size() != _coord.size() && mOldCoord.point() != _coord.point())
 		{

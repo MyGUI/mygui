@@ -49,8 +49,6 @@ namespace MyGUI
 		size_t getGroupIndex(const std::string& _name);
 		size_t getGroupIndex(const IntSize& _size);
 		size_t getImageIndex(GroupImage& _group, const std::string& _name);
-		const IntSize& getGroupSize(size_t _index);
-		const IntSize& getGroupSize(const std::string& _group);
 
 	private:
 		VectorGroupImage mGroups;

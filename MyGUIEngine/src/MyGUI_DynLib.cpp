@@ -50,7 +50,7 @@ namespace MyGUI
 		const std::string extension = "";
 #endif
 
-		if (!extension.empty() && name.find(extension) == std::string::npos)
+		if (name.find(extension) == std::string::npos)
 			name += extension;
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE

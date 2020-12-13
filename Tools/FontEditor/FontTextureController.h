@@ -27,7 +27,7 @@ namespace tools
 
 	private:
 		void notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection);
-		void notifyChangeProperty(PropertyPtr _sender);
+//		void notifyChangeProperty(PropertyPtr _sender);
 		void notifyChangeScope(const std::string& _scope);
 
 		void updateTexture(const std::string& _value);
