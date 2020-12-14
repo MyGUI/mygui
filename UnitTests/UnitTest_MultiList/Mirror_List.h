@@ -61,7 +61,7 @@ namespace unittest
 		}
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
-		size_t findItemIndexWith(const MyGUI::UString& _name)
+		size_t findItemIndexWith(const MyGUI::UString& _name) const
 		{
 			for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 			{
@@ -89,7 +89,7 @@ namespace unittest
 
 		//! Get item data from specified position
 		template <typename ValueType>
-		ValueType* getItemDataAt(size_t _index, bool _throw = true)
+		ValueType* getItemDataAt(size_t _index, bool _throw = true) const
 		{
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::getItemDataAt");
 			return mItemsInfo[_index].data.castType<ValueType>(_throw);
@@ -107,7 +107,7 @@ namespace unittest
 		}
 
 		//! Get item name from specified position
-		const MyGUI::UString& getItemNameAt(size_t _index)
+		const MyGUI::UString& getItemNameAt(size_t _index) const
 		{
 			MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::getItemNameAt");
 			return mItemsInfo[_index].name;

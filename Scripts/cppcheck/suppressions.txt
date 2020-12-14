@@ -11,11 +11,10 @@ uninitStructMember:*/Mirror_MultiList.h
 *:*/MyGUI_UString*
 *:*/include/GL/glew*
 *:*/pugixml*
+*:*/sigslot*
 
 // TODO: minor
-missingOverride
 constParameter
-duplicateConditionalAssign
 unreadVariable
 useInitializationList
 postfixOperator

@@ -32,7 +32,7 @@ namespace unittest
 		void removeAllItems();
 
 
-		const std::string& getItemNameAt(size_t _index);
+		const std::string& getItemNameAt(size_t _index) const;
 
 		void swapItemsAt(size_t _index1, size_t _index2);
 

@@ -217,7 +217,7 @@ namespace unittest
 			setSubItemNameAt(0, _index, _name);
 		}
 
-		const MyGUI::UString& getItemNameAt(size_t _index)
+		const MyGUI::UString& getItemNameAt(size_t _index) const
 		{
 			return getSubItemNameAt(0, _index);
 		}
@@ -265,7 +265,7 @@ namespace unittest
 		}
 
 		/** Get sub item name*/
-		const MyGUI::UString& getSubItemNameAt(size_t _column, size_t _index)
+		const MyGUI::UString& getSubItemNameAt(size_t _column, size_t _index) const
 		{
 			MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::getSubItemNameAt");
 			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::getSubItemNameAt");

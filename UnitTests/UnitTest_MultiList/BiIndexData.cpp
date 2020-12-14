@@ -32,7 +32,7 @@ namespace unittest
 		mItemsInfo.clear();
 	}
 
-	const std::string& BiIndexData::getItemNameAt(size_t _index)
+	const std::string& BiIndexData::getItemNameAt(size_t _index) const
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "BiIndexData::getItemNameAt");
 		size_t index = BiIndexBase::convertToBack(_index);

@@ -117,15 +117,11 @@ namespace MyGUI
 		}
 		else if (_key == KeyCode::Home)
 		{
-			if (sel != 0)
-				sel = 0;
+			sel = 0;
 		}
 		else if (_key == KeyCode::End)
 		{
-			if (sel != (getItemCount() - 1))
-			{
-				sel = getItemCount() - 1;
-			}
+			sel = getItemCount() - 1;
 		}
 		else if (_key == KeyCode::PageUp)
 		{
