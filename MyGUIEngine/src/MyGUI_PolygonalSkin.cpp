@@ -495,7 +495,7 @@ namespace MyGUI
 		}
 	}
 
-	FloatPoint PolygonalSkin::_getPerpendicular(const FloatPoint& _point1, const FloatPoint& _point2)
+	FloatPoint PolygonalSkin::_getPerpendicular(const FloatPoint& _point1, const FloatPoint& _point2) const
 	{
 		// dy, -dx
 		FloatPoint result(_point1.top - _point2.top, -(_point1.left - _point2.left));

@@ -281,7 +281,7 @@ namespace MyGUI
 		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
 
 	private:
-		void notifyRootKeyChangeFocus(Widget* _sender, bool _focus);
+		void notifyRootKeyChangeFocus(Widget* _sender, bool _focus) const;
 		void notifyMouseButtonClick(Widget* _sender);
 		void notifyMouseSetFocus(Widget* _sender, Widget* _new);
 

@@ -184,7 +184,7 @@ namespace MyGUI
 		}
 	}
 
-	unsigned int EditText::getMixedNativeAlpha(float secondAlpha)
+	unsigned int EditText::getMixedNativeAlpha(float secondAlpha) const
 	{
 		return (uint8)(mAlpha * secondAlpha * 255) << 24;
 	}

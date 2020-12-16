@@ -434,7 +434,7 @@ namespace MyGUI
 		mMinmax.top = _value.height;
 	}
 
-	IntSize Window::getMinSize()
+	IntSize Window::getMinSize() const
 	{
 		return IntSize(mMinmax.left, mMinmax.top);
 	}
@@ -445,7 +445,7 @@ namespace MyGUI
 		mMinmax.bottom = _value.height;
 	}
 
-	IntSize Window::getMaxSize()
+	IntSize Window::getMaxSize() const
 	{
 		return IntSize(mMinmax.right, mMinmax.bottom);
 	}
@@ -524,7 +524,7 @@ namespace MyGUI
 		}
 	}
 
-	IntCoord Window::_getActionScale(Widget* _widget)
+	IntCoord Window::_getActionScale(Widget* _widget) const
 	{
 		if (_widget->isUserString("Scale"))
 		{

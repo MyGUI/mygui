@@ -398,7 +398,7 @@ namespace MyGUI
 		}
 	}
 
-	void MenuControl::notifyRootKeyChangeFocus(Widget* _sender, bool _focus)
+	void MenuControl::notifyRootKeyChangeFocus(Widget* _sender, bool _focus) const
 	{
 		MenuItem* item = _sender->castType<MenuItem>();
 		if (item->getItemType() == MenuItemType::Popup)

@@ -259,7 +259,7 @@ namespace MyGUI
 		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
 
 	private:
-		size_t calcIndexByWidget(Widget* _widget);
+		size_t calcIndexByWidget(Widget* _widget) const;
 
 		void requestItemSize();
 

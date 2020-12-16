@@ -816,7 +816,7 @@ namespace MyGUI
 		endDrop(true);
 	}
 
-	size_t ItemBox::calcIndexByWidget(Widget* _widget)
+	size_t ItemBox::calcIndexByWidget(Widget* _widget) const
 	{
 		return *_widget->_getInternalData<size_t>() + (mFirstVisibleIndex * mCountItemInLine);
 	}

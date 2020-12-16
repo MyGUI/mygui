@@ -144,10 +144,10 @@ namespace MyGUI
 
 		// Wraps the current texture coordinates _texX and _texY to the beginning of the next line if the specified glyph width
 		// doesn't fit at the end of the current line. Automatically takes the glyph spacing into account.
-		void autoWrapGlyphPos(int _glyphWidth, int _texWidth, int _lineHeight, int& _texX, int& _texY);
+		void autoWrapGlyphPos(int _glyphWidth, int _texWidth, int _lineHeight, int& _texX, int& _texY) const;
 
 		// Creates a GlyphInfo object using the specified information.
-		GlyphInfo createFaceGlyphInfo(Char _codePoint, int _fontAscent, FT_GlyphSlot _glyph);
+		GlyphInfo createFaceGlyphInfo(Char _codePoint, int _fontAscent, FT_GlyphSlot _glyph) const;
 
 		// Creates a glyph with the specified glyph index and assigns it to the specified code point.
 		// Automatically updates _glyphHeightMap, mCharMap, and mGlyphMap with data from the new glyph..

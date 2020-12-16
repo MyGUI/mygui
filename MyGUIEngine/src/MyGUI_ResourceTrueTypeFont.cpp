@@ -905,7 +905,7 @@ namespace MyGUI
 		return result;
 	}
 
-	void ResourceTrueTypeFont::autoWrapGlyphPos(int _glyphWidth, int _texWidth, int _lineHeight, int& _texX, int& _texY)
+	void ResourceTrueTypeFont::autoWrapGlyphPos(int _glyphWidth, int _texWidth, int _lineHeight, int& _texX, int& _texY) const
 	{
 		if (_glyphWidth > 0 && _texX + mGlyphSpacing + _glyphWidth > _texWidth)
 		{
@@ -914,7 +914,7 @@ namespace MyGUI
 		}
 	}
 
-	GlyphInfo ResourceTrueTypeFont::createFaceGlyphInfo(Char _codePoint, int _fontAscent, FT_GlyphSlot _glyph)
+	GlyphInfo ResourceTrueTypeFont::createFaceGlyphInfo(Char _codePoint, int _fontAscent, FT_GlyphSlot _glyph) const
 	{
 		float bearingX = _glyph->metrics.horiBearingX / 64.0f;
 

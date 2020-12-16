@@ -59,14 +59,14 @@ namespace MyGUI
 		/** Set minimal possible window size */
 		void setMinSize(int _width, int _height);
 		/** Get minimal possible window size */
-		IntSize getMinSize();
+		IntSize getMinSize() const;
 
 		/** Set maximal possible window size */
 		void setMaxSize(const IntSize& _value);
 		/** Set maximal possible window size */
 		void setMaxSize(int _width, int _height);
 		/** Get maximal possible window size */
-		IntSize getMaxSize();
+		IntSize getMaxSize() const;
 
 		//! @copydoc Widget::setPosition(const IntPoint& _value)
 		void setPosition(const IntPoint& _value) override;
@@ -132,7 +132,7 @@ namespace MyGUI
 	private:
 		float getAlphaVisible() const;
 		void getSnappedCoord(IntCoord& _coord);
-		IntCoord _getActionScale(Widget* _widget);
+		IntCoord _getActionScale(Widget* _widget) const;
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
 

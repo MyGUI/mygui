@@ -113,7 +113,7 @@ namespace MyGUI
 	private:
 		void _setTextColour(const Colour& _value);
 		void checkVertexSize();
-		unsigned int getMixedNativeAlpha(float secondAlpha);
+		unsigned int getMixedNativeAlpha(float secondAlpha) const;
 
 		void drawQuad(
 			Vertex*& _vertex,
