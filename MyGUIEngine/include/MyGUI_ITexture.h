@@ -42,14 +42,14 @@ namespace MyGUI
 
 		virtual void* lock(TextureUsage _access) = 0;
 		virtual void unlock() = 0;
-		virtual bool isLocked() = 0;
+		virtual bool isLocked() const = 0;
 
-		virtual int getWidth() = 0;
-		virtual int getHeight() = 0;
+		virtual int getWidth() const = 0;
+		virtual int getHeight() const = 0;
 
-		virtual PixelFormat getFormat() = 0;
-		virtual TextureUsage getUsage() = 0;
-		virtual size_t getNumElemBytes() = 0;
+		virtual PixelFormat getFormat() const = 0;
+		virtual TextureUsage getUsage() const = 0;
+		virtual size_t getNumElemBytes() const = 0;
 
 		virtual IRenderTarget* getRenderTarget()
 		{

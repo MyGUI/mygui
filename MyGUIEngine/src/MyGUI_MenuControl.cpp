@@ -205,7 +205,7 @@ namespace MyGUI
 		mItemsInfo[_index].data = _data;
 	}
 
-	MenuControl* MenuControl::getItemChildAt(size_t _index)
+	MenuControl* MenuControl::getItemChildAt(size_t _index) const
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::getItemChildAt");
 		return mItemsInfo[_index].submenu;
@@ -241,7 +241,7 @@ namespace MyGUI
 		mItemsInfo[_index].id = _id;
 	}
 
-	const std::string& MenuControl::getItemIdAt(size_t _index)
+	const std::string& MenuControl::getItemIdAt(size_t _index) const
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::getItemIdAt");
 		return mItemsInfo[_index].id;
@@ -278,7 +278,7 @@ namespace MyGUI
 		update();
 	}
 
-	MenuItemType MenuControl::getItemTypeAt(size_t _index)
+	MenuItemType MenuControl::getItemTypeAt(size_t _index) const
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::getItemTypeAt");
 		return mItemsInfo[_index].type;
@@ -599,13 +599,13 @@ namespace MyGUI
 		removeItemAt(getItemIndex(_item));
 	}
 
-	MenuItem* MenuControl::getItemAt(size_t _index)
+	MenuItem* MenuControl::getItemAt(size_t _index) const
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::getItemAt");
 		return mItemsInfo[_index].item;
 	}
 
-	size_t MenuControl::getItemIndex(MenuItem* _item)
+	size_t MenuControl::getItemIndex(const MenuItem* _item) const
 	{
 		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
@@ -625,7 +625,7 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	MenuItem* MenuControl::getItemById(const std::string& _id)
+	MenuItem* MenuControl::getItemById(const std::string& _id) const
 	{
 		for (size_t index = 0; index < mItemsInfo.size(); index++)
 		{
@@ -635,7 +635,7 @@ namespace MyGUI
 		MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuControl::getItemById'");
 	}
 
-	size_t MenuControl::getItemIndexById(const std::string& _id)
+	size_t MenuControl::getItemIndexById(const std::string& _id) const
 	{
 		for (size_t index = 0; index < mItemsInfo.size(); index++)
 		{
@@ -707,7 +707,7 @@ namespace MyGUI
 		setItemIdAt(getItemIndex(_item), _id);
 	}
 
-	const std::string& MenuControl::getItemId(MenuItem* _item)
+	const std::string& MenuControl::getItemId(const MenuItem* _item) const
 	{
 		return getItemIdAt(getItemIndex(_item));
 	}
@@ -717,7 +717,7 @@ namespace MyGUI
 		setItemNameAt(getItemIndex(_item), _name);
 	}
 
-	const UString& MenuControl::getItemName(MenuItem* _item)
+	const UString& MenuControl::getItemName(const MenuItem* _item) const
 	{
 		return getItemNameAt(getItemIndex(_item));
 	}
@@ -727,7 +727,7 @@ namespace MyGUI
 		setItemChildVisibleAt(getItemIndex(_item), _visible);
 	}
 
-	MenuControl* MenuControl::getItemChild(MenuItem* _item)
+	MenuControl* MenuControl::getItemChild(const MenuItem* _item) const
 	{
 		return getItemChildAt(getItemIndex(_item));
 	}
@@ -747,7 +747,7 @@ namespace MyGUI
 		removeItemChildAt(getItemIndex(_item));
 	}
 
-	MenuItemType MenuControl::getItemType(MenuItem* _item)
+	MenuItemType MenuControl::getItemType(const MenuItem* _item) const
 	{
 		return getItemTypeAt(getItemIndex(_item));
 	}
@@ -767,7 +767,7 @@ namespace MyGUI
 		return mPopupAccept;
 	}
 
-	MenuItem* MenuControl::getMenuItemParent()
+	MenuItem* MenuControl::getMenuItemParent() const
 	{
 		return mOwner;
 	}
@@ -797,7 +797,7 @@ namespace MyGUI
 		return MenuItemType::Normal;
 	}
 
-	size_t MenuControl::_getItemCount()
+	size_t MenuControl::_getItemCount() const
 	{
 		return getItemCount();
 	}
@@ -814,7 +814,7 @@ namespace MyGUI
 		_updateSizeForEmpty();
 	}
 
-	Widget* MenuControl::_getItemAt(size_t _index)
+	Widget* MenuControl::_getItemAt(size_t _index) const
 	{
 		return getItemAt(_index);
 	}

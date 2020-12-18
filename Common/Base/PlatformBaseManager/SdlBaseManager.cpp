@@ -251,7 +251,7 @@ namespace base
 		}
 	}
 
-	bool SdlBaseManager::getWindowMaximized()
+	bool SdlBaseManager::getWindowMaximized() const
 	{
 		Uint32 windowState = SDL_GetWindowFlags(mSdlWindow);
 		return windowState & SDL_WINDOW_MAXIMIZED || windowState & SDL_WINDOW_FULLSCREEN;
@@ -267,7 +267,7 @@ namespace base
 		SDL_SetWindowPosition(mSdlWindow, coord.left, coord.top);
 	}
 
-	MyGUI::IntCoord SdlBaseManager::getWindowCoord()
+	MyGUI::IntCoord SdlBaseManager::getWindowCoord() const
 	{
 		int left, top, width, height;
 		SDL_GetWindowPosition(mSdlWindow, &left, &top);
@@ -384,7 +384,7 @@ namespace base
 		mExit = true;
 	}
 
-	const std::string& SdlBaseManager::getRootMedia()
+	const std::string& SdlBaseManager::getRootMedia() const
 	{
 		return mRootMedia;
 	}

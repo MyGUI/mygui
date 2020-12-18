@@ -237,12 +237,12 @@ namespace base
 		SdlBaseManager::injectKeyPress(_key, _text);
 	}
 
-	Ogre::SceneManager* BaseManager::getSceneManager()
+	Ogre::SceneManager* BaseManager::getSceneManager() const
 	{
 		return mSceneManager;
 	}
 
-	Ogre::Camera* BaseManager::getCamera()
+	Ogre::Camera* BaseManager::getCamera() const
 	{
 		return mCamera;
 	}

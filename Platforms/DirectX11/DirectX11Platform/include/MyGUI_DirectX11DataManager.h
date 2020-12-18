@@ -31,7 +31,7 @@ namespace MyGUI
 		}
 
 		/** @see DataManager::getData(const std::string& _name) */
-		virtual IDataStream* getData(const std::string& _name);
+		virtual IDataStream* getData(const std::string& _name) const;
 
 		/** @see DataManager::freeData */
 		virtual void freeData(IDataStream* _data);
@@ -40,10 +40,10 @@ namespace MyGUI
 		virtual bool isDataExist(const std::string& _name);
 
 		/** @see DataManager::getDataListNames(const std::string& _pattern) */
-		virtual const VectorString& getDataListNames(const std::string& _pattern);
+		virtual const VectorString& getDataListNames(const std::string& _pattern) const;
 
 		/** @see DataManager::getDataPath(const std::string& _name) */
-		virtual const std::string& getDataPath(const std::string& _name);
+		virtual const std::string& getDataPath(const std::string& _name) const;
 
 		/*internal:*/
 		void addResourceLocation(const std::string& _name, bool _recursive);

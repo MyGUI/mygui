@@ -25,35 +25,35 @@ namespace MyGUI
 		TextBox();
 
 		/** Get text region coordinate */
-		virtual IntCoord getTextRegion();
+		virtual IntCoord getTextRegion() const;
 
 		/** Get text region size */
-		virtual IntSize getTextSize();
+		virtual IntSize getTextSize() const;
 
 		/** Set widget caption */
 		virtual void setCaption(const UString& _value);
 		/** Get widget caption */
-		virtual const UString& getCaption();
+		virtual const UString& getCaption() const;
 
 		/** Set widget text font */
 		virtual void setFontName(const std::string& _value);
 		/** Get widget text font name */
-		const std::string& getFontName();
+		const std::string& getFontName() const;
 
 		/** Set widget text font height */
 		virtual void setFontHeight(int _value);
 		/** Get widget text font height */
-		virtual int getFontHeight();
+		virtual int getFontHeight() const;
 
 		/** Set widget text align */
 		virtual void setTextAlign(Align _value);
 		/** Get widget text align */
-		Align getTextAlign();
+		Align getTextAlign() const;
 
 		/** Set widget text colour */
 		virtual void setTextColour(const Colour& _value);
 		/** Get widget text colour */
-		const Colour& getTextColour();
+		const Colour& getTextColour() const;
 
 		/** Set TextBox caption and replace special sequences.\n
 			"\\n" will be replaced with new line character;\n
@@ -65,12 +65,12 @@ namespace MyGUI
 		/** Set widget text shadow colour */
 		virtual void setTextShadowColour(const Colour& _value);
 		/** Get widget text shadow colour */
-		const Colour& getTextShadowColour();
+		const Colour& getTextShadowColour() const;
 
 		/** Set widget text shadow */
 		virtual void setTextShadow(bool _value);
 		/** Get widget text shadow */
-		bool getTextShadow();
+		bool getTextShadow() const;
 
 	protected:
 		void setPropertyOverride(const std::string& _key, const std::string& _value) override;

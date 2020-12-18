@@ -87,7 +87,7 @@ namespace MyGUI
 		/** Get mouse position on current layer.
 			This position might different from getMousePosition() if mouse is over non-2d layer.
 		*/
-		IntPoint getMousePositionByLayer();
+		IntPoint getMousePositionByLayer() const;
 
 		// работа с модальными окнами
 		/** Add modal widget - all other widgets inaccessible while modal widget exist */

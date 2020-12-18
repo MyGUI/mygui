@@ -57,7 +57,7 @@ namespace MyGUI
 		void _rebuildGeometry();
 		FloatPoint _getPerpendicular(const FloatPoint& _point1, const FloatPoint& _point2) const;
 		// line from center of p1-p2 line to p3
-		FloatPoint _getMiddleLine(const FloatPoint& _point1, const FloatPoint& _point2, const FloatPoint& _point3);
+		FloatPoint _getMiddleLine(const FloatPoint& _point1, const FloatPoint& _point2, const FloatPoint& _point3) const;
 
 	private:
 		bool mGeometryOutdated;

@@ -36,7 +36,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	IDataStream* DirectXDataManager::getData(const std::string& _name)
+	IDataStream* DirectXDataManager::getData(const std::string& _name) const
 	{
 		std::string filepath = getDataPath(_name);
 		if (filepath.empty())
@@ -67,7 +67,7 @@ namespace MyGUI
 		return !files.empty();
 	}
 
-	const VectorString& DirectXDataManager::getDataListNames(const std::string& _pattern)
+	const VectorString& DirectXDataManager::getDataListNames(const std::string& _pattern) const
 	{
 		static VectorString result;
 		common::VectorWString wresult;
@@ -86,7 +86,7 @@ namespace MyGUI
 		return result;
 	}
 
-	const std::string& DirectXDataManager::getDataPath(const std::string& _name)
+	const std::string& DirectXDataManager::getDataPath(const std::string& _name) const
 	{
 		static std::string path;
 		VectorString result;

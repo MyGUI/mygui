@@ -194,10 +194,10 @@ namespace MyGUI
 		EnumeratorWidgetPtr getEnumerator() const;
 
 		/** Get child count */
-		size_t getChildCount();
+		size_t getChildCount() const;
 
 		/** Get child by index (index from 0 to child_count - 1) */
-		Widget* getChildAt(size_t _index);
+		Widget* getChildAt(size_t _index) const;
 
 		/** Find widget by name.
 			Search recursively through all childs starting from this widget.
@@ -221,7 +221,7 @@ namespace MyGUI
 		bool getInheritedEnabled() const;
 
 		/** Get rectangle where child widgets placed */
-		IntCoord getClientCoord();
+		IntCoord getClientCoord() const;
 
 		/** Get client area widget or nullptr if widget don't have client */
 		Widget* getClientWidget();
@@ -280,7 +280,7 @@ namespace MyGUI
 
 		/*internal:*/
 		// метод для запроса номера айтема и контейнера
-		virtual size_t _getItemIndex(Widget* _item);
+		virtual size_t _getItemIndex(Widget* _item) const;
 
 		// дает приоритет виджету при пиккинге
 		void _forcePick(Widget* _widget);
@@ -292,7 +292,7 @@ namespace MyGUI
 		void _destroyChildWidget(Widget* _widget);
 
 		void _setContainer(Widget* _value);
-		Widget* _getContainer();
+		Widget* _getContainer() const;
 
 		void _setAlign(const IntSize& _oldsize, const IntSize& _newSize);
 		bool _checkPoint(int _left, int _top) const;
@@ -323,7 +323,7 @@ namespace MyGUI
 		void _destroyAllChildWidget();
 
 		// запрашиваем у конейтера айтем по позиции мыши
-		virtual size_t _getContainerIndex(const IntPoint& _point);
+		virtual size_t _getContainerIndex(const IntPoint& _point) const;
 
 		virtual void baseUpdateEnable();
 
@@ -346,7 +346,7 @@ namespace MyGUI
 			}
 		}
 
-		VectorWidgetPtr getSkinWidgetsByName(const std::string& _name);
+		VectorWidgetPtr getSkinWidgetsByName(const std::string& _name) const;
 
 		void destroySkinWidget(Widget* _widget);
 
@@ -356,6 +356,7 @@ namespace MyGUI
 		void setWidgetClient(Widget* _widget);
 		/// If there is client widget return it, otherwise return this
 		Widget* _getClientWidget();
+		const Widget* _getClientWidget() const;
 
 		virtual void setPropertyOverride(const std::string& _key, const std::string& _value);
 

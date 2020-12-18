@@ -43,7 +43,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	IDataStream* OgreDataManager::getData(const std::string& _name)
+	IDataStream* OgreDataManager::getData(const std::string& _name) const
 	{
 		try
 		{
@@ -73,12 +73,12 @@ namespace MyGUI
 			return Ogre::ResourceGroupManager::getSingleton().resourceExists(mGroup, _name);
 	}
 
-	const VectorString& OgreDataManager::getDataListNames(const std::string& _pattern)
+	const VectorString& OgreDataManager::getDataListNames(const std::string& _pattern) const
 	{
 		return getDataListNames(_pattern, false);
 	}
 
-	const VectorString& OgreDataManager::getDataListNames(const std::string& _pattern, bool _fullpath)
+	const VectorString& OgreDataManager::getDataListNames(const std::string& _pattern, bool _fullpath) const
 	{
 		static VectorString result;
 		result.clear();
@@ -138,7 +138,7 @@ namespace MyGUI
 		return result;
 	}
 
-	const std::string& OgreDataManager::getDataPath(const std::string& _name)
+	const std::string& OgreDataManager::getDataPath(const std::string& _name) const
 	{
 		static std::string result;
 		result.clear();

@@ -39,7 +39,7 @@ namespace MyGUI
 		UString replaceTags(const UString& _line);
 
 		/** Get tag value */
-		UString getTag(const UString& _tag);
+		UString getTag(const UString& _tag) const;
 
 		/** Add user tag */
 		void addUserTag(const UString& _tag, const UString& _replace);

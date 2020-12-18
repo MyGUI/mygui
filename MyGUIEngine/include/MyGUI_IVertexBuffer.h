@@ -19,7 +19,7 @@ namespace MyGUI
 		virtual ~IVertexBuffer() { }
 
 		virtual void setVertexCount(size_t _value) = 0;
-		virtual size_t getVertexCount() = 0;
+		virtual size_t getVertexCount() const = 0;
 
 		virtual Vertex* lock() = 0;
 		virtual void unlock() = 0;

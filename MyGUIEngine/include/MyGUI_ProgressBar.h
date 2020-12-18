@@ -66,8 +66,8 @@ namespace MyGUI
 		void frameEntered(float _time);
 		void updateTrack();
 
-		int getClientWidth();
-		int getClientHeight();
+		int getClientWidth() const;
+		int getClientHeight() const;
 
 		void setTrackPosition(Widget* _widget, int _left, int _top, int _width, int _height);
 

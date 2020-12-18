@@ -390,7 +390,7 @@ namespace MyGUI
 		return mTextAlign;
 	}
 
-	IntSize EditText::getTextSize()
+	IntSize EditText::getTextSize() const
 	{
 		// если нуно обновить, или изменились пропорции экрана
 		if (mTextOutDate)
@@ -429,7 +429,7 @@ namespace MyGUI
 		return mViewOffset;
 	}
 
-	size_t EditText::getCursorPosition(const IntPoint& _point)
+	size_t EditText::getCursorPosition(const IntPoint& _point) const
 	{
 		if (nullptr == mFont)
 			return 0;
@@ -445,7 +445,7 @@ namespace MyGUI
 		return mTextView.getCursorPosition(point);
 	}
 
-	IntCoord EditText::getCursorCoord(size_t _position)
+	IntCoord EditText::getCursorCoord(size_t _position) const
 	{
 		if (nullptr == mFont)
 			return IntCoord();
@@ -480,7 +480,7 @@ namespace MyGUI
 			mNode->outOfDate(mRenderItem);
 	}
 
-	void EditText::updateRawData()
+	void EditText::updateRawData() const
 	{
 		if (nullptr == mFont)
 			return;
@@ -595,7 +595,7 @@ namespace MyGUI
 		if (mVisibleCursor)
 		{
 			IntPoint point = mTextView.getCursorPoint(mCursorPosition) - mViewOffset + mCoord.point();
-			GlyphInfo* cursorGlyph = mFont->getGlyphInfo(static_cast<Char>(FontCodeType::Cursor));
+			const GlyphInfo* cursorGlyph = mFont->getGlyphInfo(static_cast<Char>(FontCodeType::Cursor));
 			vertexRect.set((float)point.left, (float)point.top, (float)point.left + cursorGlyph->width, (float)(point.top + mFontHeight));
 
 			drawGlyph(renderTargetInfo, vertex, vertexCount, vertexRect, cursorGlyph->uvRect, mCurrentColourNative | 0x00FFFFFF);

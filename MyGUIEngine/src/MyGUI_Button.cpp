@@ -238,7 +238,7 @@ namespace MyGUI
 		return mModeImage;
 	}
 
-	ImageBox* Button::_getImageBox()
+	ImageBox* Button::_getImageBox() const
 	{
 		return mImage;
 	}

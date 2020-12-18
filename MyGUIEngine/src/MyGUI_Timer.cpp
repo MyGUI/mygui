@@ -27,12 +27,12 @@ namespace MyGUI
 		mTimeStart = getCurrentMilliseconds();
 	}
 
-	unsigned long Timer::getMilliseconds()
+	unsigned long Timer::getMilliseconds() const
 	{
 		return getCurrentMilliseconds() - mTimeStart;
 	}
 
-	unsigned long Timer::getCurrentMilliseconds()
+	unsigned long Timer::getCurrentMilliseconds() const
 	{
 #if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 		/*

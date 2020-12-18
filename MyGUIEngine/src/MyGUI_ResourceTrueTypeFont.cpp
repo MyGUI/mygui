@@ -43,17 +43,17 @@ namespace MyGUI
 		MYGUI_LOG(Error, "ResourceTrueTypeFont: TrueType font '" << getResourceName() << "' disabled. Define MYGUI_USE_FREETYE if you need TrueType fonts.");
 	}
 
-	GlyphInfo* ResourceTrueTypeFont::getGlyphInfo(Char _id)
+	const GlyphInfo* ResourceTrueTypeFont::getGlyphInfo(Char _id) const
 	{
 		return nullptr;
 	}
 
-	ITexture* ResourceTrueTypeFont::getTextureFont()
+	ITexture* ResourceTrueTypeFont::getTextureFont() const
 	{
 		return nullptr;
 	}
 
-	int ResourceTrueTypeFont::getDefaultHeight()
+	int ResourceTrueTypeFont::getDefaultHeight() const
 	{
 		return 0;
 	}
@@ -386,9 +386,9 @@ namespace MyGUI
 		initialise();
 	}
 
-	GlyphInfo* ResourceTrueTypeFont::getGlyphInfo(Char _id)
+	const GlyphInfo* ResourceTrueTypeFont::getGlyphInfo(Char _id) const
 	{
-		GlyphMap::iterator glyphIter = mGlyphMap.find(_id);
+		GlyphMap::const_iterator glyphIter = mGlyphMap.find(_id);
 
 		if (glyphIter != mGlyphMap.end())
 		{
@@ -398,12 +398,12 @@ namespace MyGUI
 		return mSubstituteGlyphInfo;
 	}
 
-	ITexture* ResourceTrueTypeFont::getTextureFont()
+	ITexture* ResourceTrueTypeFont::getTextureFont() const
 	{
 		return mTexture;
 	}
 
-	int ResourceTrueTypeFont::getDefaultHeight()
+	int ResourceTrueTypeFont::getDefaultHeight() const
 	{
 		return mDefaultHeight;
 	}
@@ -633,21 +633,21 @@ namespace MyGUI
 		}
 
 		// Do some special handling for the "Space" and "Tab" glyphs.
-		GlyphInfo* spaceGlyphInfo = getGlyphInfo(FontCodeType::Space);
+		GlyphMap::iterator spaceGlyphIter = mGlyphMap.find(FontCodeType::Space);
 
-		if (spaceGlyphInfo != nullptr && spaceGlyphInfo->codePoint == FontCodeType::Space)
+		if (spaceGlyphIter != mGlyphMap.end())
 		{
 			// Adjust the width of the "Space" glyph if it has been customized.
 			if (mSpaceWidth != 0.0f)
 			{
-				texWidth += (int)std::ceil(mSpaceWidth) - (int)std::ceil(spaceGlyphInfo->width);
-				spaceGlyphInfo->width = mSpaceWidth;
-				spaceGlyphInfo->advance = mSpaceWidth;
+				texWidth += (int)std::ceil(mSpaceWidth) - (int)std::ceil(spaceGlyphIter->second.width);
+				spaceGlyphIter->second.width = mSpaceWidth;
+				spaceGlyphIter->second.advance = mSpaceWidth;
 			}
 
 			// If the width of the "Tab" glyph hasn't been customized, make it eight spaces wide.
 			if (mTabWidth == 0.0f)
-				mTabWidth = mDefaultTabWidth * spaceGlyphInfo->advance;
+				mTabWidth = mDefaultTabWidth * spaceGlyphIter->second.advance;
 		}
 
 		// Create the special glyphs. They must be created after the standard glyphs so that they take precedence in case of a
@@ -984,9 +984,12 @@ namespace MyGUI
 
 					// Manually adjust the glyph's width to zero. This prevents artifacts from appearing at the seams when
 					// rendering multi-character selections.
-					GlyphInfo* glyphInfo = getGlyphInfo(info.codePoint);
-					glyphInfo->width = 0.0f;
-					glyphInfo->uvRect.right = glyphInfo->uvRect.left;
+					GlyphMap::iterator glyphIter = mGlyphMap.find(info.codePoint);
+					if (glyphIter != mGlyphMap.end())
+					{
+						glyphIter->second.width = 0.0f;
+						glyphIter->second.uvRect.right = glyphIter->second.uvRect.left;
+					}
 				}
 				break;
 
@@ -1167,9 +1170,12 @@ namespace MyGUI
 
 						// Manually adjust the glyph's width to zero. This prevents artifacts from appearing at the seams when
 						// rendering multi-character selections.
-						GlyphInfo* glyphInfo = getGlyphInfo(info.codePoint);
-						glyphInfo->width = 0.0f;
-						glyphInfo->uvRect.right = glyphInfo->uvRect.left;
+						GlyphMap::iterator glyphIter = mGlyphMap.find(info.codePoint);
+						if (glyphIter != mGlyphMap.end())
+						{
+							glyphIter->second.width = 0.0f;
+							glyphIter->second.uvRect.right = glyphIter->second.uvRect.left;
+						}
 					}
 						break;
 

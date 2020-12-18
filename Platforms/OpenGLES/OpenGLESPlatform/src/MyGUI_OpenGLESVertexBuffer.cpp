@@ -28,7 +28,7 @@ namespace MyGUI
 		mNeedVertexCount = _count;
 	}
 
-	size_t OpenGLESVertexBuffer::getVertexCount()
+	size_t OpenGLESVertexBuffer::getVertexCount() const
 	{
 		return mNeedVertexCount;
 	}

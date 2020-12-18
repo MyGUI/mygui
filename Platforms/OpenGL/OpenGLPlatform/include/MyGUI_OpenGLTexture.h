@@ -32,16 +32,16 @@ namespace MyGUI
 
 		void destroy() override;
 
-		int getWidth() override;
-		int getHeight() override;
+		int getWidth() const override;
+		int getHeight() const override;
 
 		void* lock(TextureUsage _access) override;
 		void unlock() override;
-		bool isLocked() override;
+		bool isLocked() const override;
 
-		PixelFormat getFormat() override;
-		TextureUsage getUsage() override;
-		size_t getNumElemBytes() override;
+		PixelFormat getFormat() const override;
+		TextureUsage getUsage() const override;
+		size_t getNumElemBytes() const override;
 
 		IRenderTarget* getRenderTarget() override;
 

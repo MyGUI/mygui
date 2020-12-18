@@ -86,7 +86,7 @@ namespace MyGUI
 			mOwner->_notifyUpdateName(this);
 	}
 
-	const UString& MenuItem::getItemName()
+	const UString& MenuItem::getItemName() const
 	{
 		return mOwner->getItemName(this);
 	}
@@ -111,12 +111,12 @@ namespace MyGUI
 		mOwner->setItemId(this, _id);
 	}
 
-	const std::string& MenuItem::getItemId()
+	const std::string& MenuItem::getItemId() const
 	{
 		return mOwner->getItemId(this);
 	}
 
-	size_t MenuItem::getItemIndex()
+	size_t MenuItem::getItemIndex() const
 	{
 		return mOwner->getItemIndex(this);
 	}
@@ -131,7 +131,7 @@ namespace MyGUI
 		mOwner->setItemType(this, _type);
 	}
 
-	MenuItemType MenuItem::getItemType()
+	MenuItemType MenuItem::getItemType() const
 	{
 		return mOwner->getItemType(this);
 	}
@@ -141,7 +141,7 @@ namespace MyGUI
 		mOwner->setItemChildVisible(this, _visible);
 	}
 
-	MenuControl* MenuItem::getItemChild()
+	MenuControl* MenuItem::getItemChild() const
 	{
 		return mOwner->getItemChild(this);
 	}
@@ -169,17 +169,17 @@ namespace MyGUI
 		eventChangeProperty(this, _key, _value);
 	}
 
-	MenuControl* MenuItem::getMenuCtrlParent()
+	MenuControl* MenuItem::getMenuCtrlParent() const
 	{
 		return mOwner;
 	}
 
-	IItemContainer* MenuItem::_getItemContainer()
+	IItemContainer* MenuItem::_getItemContainer() const
 	{
 		return mOwner;
 	}
 
-	IntSize MenuItem::_getContentSize()
+	IntSize MenuItem::_getContentSize() const
 	{
 		ISubWidgetText* text = getSubWidgetText();
 		if (text == nullptr)

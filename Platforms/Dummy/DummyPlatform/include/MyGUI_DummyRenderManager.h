@@ -40,7 +40,7 @@ namespace MyGUI
 		}
 
 		/** @see RenderManager::getVertexFormat */
-		VertexColourType getVertexFormat() override
+		VertexColourType getVertexFormat() const override
 		{
 			return VertexColourType::ColourARGB;
 		}

@@ -180,12 +180,12 @@ namespace MyGUI
 		return mViewSize;
 	}
 
-	VertexColourType ExportRenderManager::getVertexFormat()
+	VertexColourType ExportRenderManager::getVertexFormat() const
 	{
 		return VertexColourType::ColourARGB;
 	}
 
-	RenderBatchInfo* ExportRenderManager::getBatchInfo(size_t _index)
+	RenderBatchInfo* ExportRenderManager::getBatchInfo(size_t _index) const
 	{
 		if (_index < mBatchInfo.size())
 			return &mBatchInfo[_index];

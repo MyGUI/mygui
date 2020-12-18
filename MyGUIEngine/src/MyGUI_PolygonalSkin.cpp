@@ -508,7 +508,7 @@ namespace MyGUI
 		return result;
 	}
 
-	FloatPoint PolygonalSkin::_getMiddleLine(const FloatPoint& _point1, const FloatPoint& _point2, const FloatPoint& _point3)
+	FloatPoint PolygonalSkin::_getMiddleLine(const FloatPoint& _point1, const FloatPoint& _point2, const FloatPoint& _point3) const
 	{
 		// bisectrix
 		FloatPoint line1 = _point3 - _point1;

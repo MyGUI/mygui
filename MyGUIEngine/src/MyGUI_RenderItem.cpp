@@ -177,7 +177,7 @@ namespace MyGUI
 #endif
 	}
 
-	ITexture* RenderItem::getTexture()
+	ITexture* RenderItem::getTexture() const
 	{
 		return mTexture;
 	}

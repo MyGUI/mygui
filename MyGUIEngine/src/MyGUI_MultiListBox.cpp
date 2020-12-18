@@ -101,7 +101,7 @@ namespace MyGUI
 		return mVectorColumnInfo[_column].name;
 	}
 
-	int MultiListBox::getColumnWidthAt(size_t _column)
+	int MultiListBox::getColumnWidthAt(size_t _column) const
 	{
 		MYGUI_ASSERT_RANGE(_column, mVectorColumnInfo.size(), "MultiListBox::getColumnWidthAt");
 		return mVectorColumnInfo[_column].width;
@@ -334,7 +334,7 @@ namespace MyGUI
 		}
 	}
 
-	Widget* MultiListBox::getSeparator(size_t _index)
+	Widget* MultiListBox::getOrCreateSeparator(size_t _index)
 	{
 		if (!mWidthSeparator || mSkinSeparator.empty())
 			return nullptr;
@@ -573,7 +573,7 @@ namespace MyGUI
 		return mVectorColumnInfo[_column].list;
 	}
 
-	size_t MultiListBox::_getItemCount()
+	size_t MultiListBox::_getItemCount() const
 	{
 		return getColumnCount();
 	}
@@ -763,7 +763,7 @@ namespace MyGUI
 			mVectorColumnInfo.back().list->setScrollVisible(true);
 	}
 
-	Widget* MultiListBox::_getItemAt(size_t _index)
+	Widget* MultiListBox::_getItemAt(size_t _index) const
 	{
 		MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.size(), "MultiListBox::_getItemAt");
 		return mVectorColumnInfo[_index].item;
@@ -774,12 +774,12 @@ namespace MyGUI
 		setColumnNameAt(getColumnIndex(_item), _name);
 	}
 
-	const UString& MultiListBox::getColumnName(MultiListItem* _item) const
+	const UString& MultiListBox::getColumnName(const MultiListItem* _item) const
 	{
 		return getColumnNameAt(getColumnIndex(_item));
 	}
 
-	size_t MultiListBox::getColumnIndex(MultiListItem* _item) const
+	size_t MultiListBox::getColumnIndex(const MultiListItem* _item) const
 	{
 		for (size_t index = 0; index < mVectorColumnInfo.size(); ++ index)
 		{
@@ -828,14 +828,14 @@ namespace MyGUI
 			updateColumns();
 	}
 
-	bool MultiListBox::getUpdateByResize()
+	bool MultiListBox::getUpdateByResize() const
 	{
 		if (mWidgetEmpty != nullptr)
 			return true;
 
-		for (VectorColumnInfo::iterator item = mVectorColumnInfo.begin(); item != mVectorColumnInfo.end(); ++item)
+		for (const auto& info : mVectorColumnInfo)
 		{
-			if ((*item).sizeType == ResizingPolicy::Fill)
+			if (info.sizeType == ResizingPolicy::Fill)
 				return true;
 		}
 		return false;
@@ -936,7 +936,7 @@ namespace MyGUI
 			mWidthBar += columnWidth;
 
 			// промежуток между листами
-			Widget* separator = getSeparator(index);
+			Widget* separator = getOrCreateSeparator(index);
 			if (separator)
 			{
 				separator->setCoord(mWidthBar, 0, mWidthSeparator, _getClientWidget()->getHeight());

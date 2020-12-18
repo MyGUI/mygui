@@ -255,10 +255,10 @@ namespace MyGUI
 		iter->frame_rate = _rate;
 	}
 
-	float ImageBox::getItemFrameRate(size_t _index)
+	float ImageBox::getItemFrameRate(size_t _index) const
 	{
 		MYGUI_ASSERT_RANGE(_index, mItems.size(), "ImageBox::getItemFrameRate");
-		VectorImages::iterator iter = mItems.begin() + _index;
+		VectorImages::const_iterator iter = mItems.begin() + _index;
 		return iter->frame_rate;
 	}
 

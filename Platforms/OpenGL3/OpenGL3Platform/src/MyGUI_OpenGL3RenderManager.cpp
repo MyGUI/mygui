@@ -245,7 +245,7 @@ namespace MyGUI
 		return mViewSize;
 	}
 
-	VertexColourType OpenGL3RenderManager::getVertexFormat()
+	VertexColourType OpenGL3RenderManager::getVertexFormat() const
 	{
 		return mVertexFormat;
 	}
@@ -321,7 +321,7 @@ namespace MyGUI
 		return mPboIsSupported;
 	}
 
-	unsigned int OpenGL3RenderManager::getShaderProgramId(const std::string& _shaderName)
+	unsigned int OpenGL3RenderManager::getShaderProgramId(const std::string& _shaderName) const
 	{
 		auto iter = mRegisteredShaders.find(_shaderName);
 		if (iter != mRegisteredShaders.end())

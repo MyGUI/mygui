@@ -32,7 +32,7 @@ namespace MyGUI
 		mNeedVertexCount = _count;
 	}
 
-	size_t OpenGLVertexBuffer::getVertexCount()
+	size_t OpenGLVertexBuffer::getVertexCount() const
 	{
 		return mNeedVertexCount;
 	}

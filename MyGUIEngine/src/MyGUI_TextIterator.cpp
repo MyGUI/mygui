@@ -290,7 +290,7 @@ namespace MyGUI
 		return true;
 	}
 
-	UString TextIterator::getFromStart()
+	UString TextIterator::getFromStart() const
 	{
 		if (mSave == mEnd) return L"";
 		size_t start = mSave - mText.begin();

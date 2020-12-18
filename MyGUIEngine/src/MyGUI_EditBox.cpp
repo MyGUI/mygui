@@ -1057,7 +1057,7 @@ namespace MyGUI
 	}
 
 	// возвращает текст
-	UString EditBox::getTextInterval(size_t _start, size_t _count)
+	UString EditBox::getTextInterval(size_t _start, size_t _count) const
 	{
 		// подстраховка
 		if (_start > mTextLength) _start = mTextLength;
@@ -1185,7 +1185,7 @@ namespace MyGUI
 		_setTextColour(start, end - start, _colour, _history);
 	}
 
-	UString EditBox::getTextSelection()
+	UString EditBox::getTextSelection() const
 	{
 		if ( !isTextSelection())
 			return "";
@@ -1510,7 +1510,7 @@ namespace MyGUI
 		}
 	}
 
-	const UString& EditBox::getRealString()
+	const UString& EditBox::getRealString() const
 	{
 		if (mModePassword)
 			return mPasswordText;
@@ -1604,7 +1604,7 @@ namespace MyGUI
 		setText(_value, false);
 	}
 
-	const UString& EditBox::getCaption()
+	const UString& EditBox::getCaption() const
 	{
 		return getRealString();
 	}
@@ -1659,14 +1659,14 @@ namespace MyGUI
 			mClientText->setTextColour(_value);
 	}
 
-	IntCoord EditBox::getTextRegion()
+	IntCoord EditBox::getTextRegion() const
 	{
 		if (mClientText != nullptr)
 			return mClientText->getCoord();
 		return Base::getTextRegion();
 	}
 
-	IntSize EditBox::getTextSize()
+	IntSize EditBox::getTextSize() const
 	{
 		if (mClientText != nullptr)
 			return mClientText->getTextSize();
@@ -1772,7 +1772,7 @@ namespace MyGUI
 		eraseView();
 	}
 
-	int EditBox::getFontHeight()
+	int EditBox::getFontHeight() const
 	{
 		return (nullptr == mClientText) ? 0 : mClientText->getFontHeight();
 	}
@@ -1871,42 +1871,42 @@ namespace MyGUI
 			mClientText->setViewOffset(_point);
 	}
 
-	IntSize EditBox::getViewSize()
+	IntSize EditBox::getViewSize() const
 	{
 		if (mClientText != nullptr)
 			return mClientText->getSize();
 		return ScrollViewBase::getViewSize();
 	}
 
-	IntSize EditBox::getContentSize()
+	IntSize EditBox::getContentSize() const
 	{
 		if (mClientText != nullptr)
 			return mClientText->getTextSize();
 		return ScrollViewBase::getContentSize();
 	}
 
-	size_t EditBox::getVScrollPage()
+	size_t EditBox::getVScrollPage() const
 	{
 		if (mClientText != nullptr)
 			return (size_t)mClientText->getFontHeight();
 		return ScrollViewBase::getVScrollPage();
 	}
 
-	size_t EditBox::getHScrollPage()
+	size_t EditBox::getHScrollPage() const
 	{
 		if (mClientText != nullptr)
 			return (size_t)mClientText->getFontHeight();
 		return ScrollViewBase::getHScrollPage();
 	}
 
-	IntPoint EditBox::getContentPosition()
+	IntPoint EditBox::getContentPosition() const
 	{
 		if (mClientText != nullptr)
 			return mClientText->getViewOffset();
 		return ScrollViewBase::getContentPosition();
 	}
 
-	Align EditBox::getContentAlign()
+	Align EditBox::getContentAlign() const
 	{
 		if (mClientText != nullptr)
 			return mClientText->getTextAlign();
@@ -1953,7 +1953,7 @@ namespace MyGUI
 		setText(TextIterator::toTagsString(_text), false);
 	}
 
-	UString EditBox::getOnlyText()
+	UString EditBox::getOnlyText() const
 	{
 		return TextIterator::getOnlyText(getRealString());
 	}
@@ -2034,7 +2034,7 @@ namespace MyGUI
 		return mVRange + 1;
 	}
 
-	size_t EditBox::getVScrollPosition()
+	size_t EditBox::getVScrollPosition() const
 	{
 		return mClientText == nullptr ? 0 : mClientText->getViewOffset().top;
 	}
@@ -2061,7 +2061,7 @@ namespace MyGUI
 		return mHRange + 1;
 	}
 
-	size_t EditBox::getHScrollPosition()
+	size_t EditBox::getHScrollPosition() const
 	{
 		return mClientText == nullptr ? 0 : mClientText->getViewOffset().left;
 	}
@@ -2083,7 +2083,7 @@ namespace MyGUI
 			mHScroll->setScrollPosition(point.left);
 	}
 
-	bool EditBox::getInvertSelected()
+	bool EditBox::getInvertSelected() const
 	{
 		return mClientText == nullptr ? false : mClientText->getInvertSelected();
 	}

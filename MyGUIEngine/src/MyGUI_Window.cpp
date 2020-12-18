@@ -336,7 +336,7 @@ namespace MyGUI
 			Base::setCaption(_caption);
 	}
 
-	const UString& Window::getCaption()
+	const UString& Window::getCaption() const
 	{
 		if (mWidgetCaption != nullptr)
 			return mWidgetCaption->getCaption();
@@ -377,7 +377,7 @@ namespace MyGUI
 		return (mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : ALPHA_MAX;
 	}
 
-	void Window::getSnappedCoord(IntCoord& _coord)
+	void Window::getSnappedCoord(IntCoord& _coord) const
 	{
 		if (abs(_coord.left) <= WINDOW_SNAP_DISTANSE) _coord.left = 0;
 		if (abs(_coord.top) <= WINDOW_SNAP_DISTANSE) _coord.top = 0;
@@ -491,7 +491,7 @@ namespace MyGUI
 		return mIsAutoAlpha;
 	}
 
-	TextBox* Window::getCaptionWidget()
+	TextBox* Window::getCaptionWidget() const
 	{
 		return mWidgetCaption;
 	}

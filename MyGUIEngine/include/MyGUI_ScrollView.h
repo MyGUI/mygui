@@ -58,7 +58,7 @@ namespace MyGUI
 		/** Set canvas size */
 		void setCanvasSize(int _width, int _height);
 		/** Get canvas size */
-		IntSize getCanvasSize();
+		IntSize getCanvasSize() const;
 
 		/** Get view area coordinates. */
 		IntCoord getViewCoord() const;
@@ -79,21 +79,21 @@ namespace MyGUI
 
 		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
 
-		ScrollBar* getVScroll();
+		ScrollBar* getVScroll() const;
 
 	private:
 		// размер данных
-		IntSize getContentSize() override;
+		IntSize getContentSize() const override;
 		// смещение данных
-		IntPoint getContentPosition() override;
+		IntPoint getContentPosition() const override;
 		// размер окна, через которые видно данные
-		IntSize getViewSize() override;
+		IntSize getViewSize() const override;
 		void setContentPosition(const IntPoint& _point) override;
 		// размер на который прокручиваются данные при щелчке по скролу
-		size_t getVScrollPage() override;
-		size_t getHScrollPage() override;
+		size_t getVScrollPage() const override;
+		size_t getHScrollPage() const override;
 
-		Align getContentAlign() override;
+		Align getContentAlign() const override;
 
 	protected:
 		Align mContentAlign;

@@ -34,7 +34,7 @@ namespace base
 
 		void setWindowCaption(const std::wstring& _text);
 
-		const std::string& getRootMedia();
+		const std::string& getRootMedia() const;
 		void setResourceFilename(const std::string& _flename);
 
 	/*internal:*/
@@ -58,10 +58,10 @@ namespace base
 		virtual void destroyGui();
 
 		virtual void setWindowMaximized(bool _value);
-		virtual bool getWindowMaximized();
+		virtual bool getWindowMaximized() const;
 
 		virtual void setWindowCoord(const MyGUI::IntCoord& _value);
-		virtual MyGUI::IntCoord getWindowCoord();
+		virtual MyGUI::IntCoord getWindowCoord() const;
 
 		void* convertPixelData(SDL_Surface *_image, MyGUI::PixelFormat& _myGuiPixelFormat);
 

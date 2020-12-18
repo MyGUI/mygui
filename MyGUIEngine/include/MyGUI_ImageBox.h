@@ -151,7 +151,7 @@ namespace MyGUI
 		/** Get item frame rate
 			@param _index Image item index
 		*/
-		float getItemFrameRate(size_t _index);
+		float getItemFrameRate(size_t _index) const;
 
 		//------------------------------------------------------------------------------//
 		// The interface with support of resources

@@ -218,7 +218,7 @@ namespace MyGUI
 		mUpdate = false;
 	}
 
-	DirectX11ShaderInfo* DirectX11RenderManager::getShaderInfo(const std::string& _shaderName)
+	DirectX11ShaderInfo* DirectX11RenderManager::getShaderInfo(const std::string& _shaderName) const
 	{
 		auto iter = mRegisteredShaders.find(_shaderName);
 		if (iter != mRegisteredShaders.end())

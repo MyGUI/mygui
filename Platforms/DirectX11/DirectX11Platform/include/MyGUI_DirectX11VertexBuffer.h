@@ -23,7 +23,7 @@ namespace MyGUI
 		~DirectX11VertexBuffer() override;
 
 		void setVertexCount(size_t _count) override;
-		size_t getVertexCount() override;
+		size_t getVertexCount() const override;
 
 		Vertex* lock() override;
 		void unlock() override;

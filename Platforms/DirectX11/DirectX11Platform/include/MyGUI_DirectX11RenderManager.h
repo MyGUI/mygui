@@ -57,7 +57,7 @@ namespace MyGUI
 		}
 
 		/** @see RenderManager::getVertexFormat */
-		VertexColourType getVertexFormat() override
+		VertexColourType getVertexFormat() const override
 		{
 			return mVertexFormat;
 		}
@@ -102,7 +102,7 @@ namespace MyGUI
 
 		/*internal:*/
 		void drawOneFrame();
-		DirectX11ShaderInfo* getShaderInfo(const std::string& _shaderName);
+		DirectX11ShaderInfo* getShaderInfo(const std::string& _shaderName) const;
 
 	private:
 		void destroyAllResources();

@@ -342,7 +342,7 @@ namespace MyGUI
 		return mOutOfDate;
 	}
 
-	float LayerNode::getNodeDepth()
+	float LayerNode::getNodeDepth() const
 	{
 		return mDepth;
 	}

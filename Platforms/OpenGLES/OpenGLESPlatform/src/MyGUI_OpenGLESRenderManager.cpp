@@ -232,7 +232,7 @@ namespace MyGUI
 		return mViewSize;
 	}
 
-	VertexColourType OpenGLESRenderManager::getVertexFormat()
+	VertexColourType OpenGLESRenderManager::getVertexFormat() const
 	{
 		return mVertexFormat;
 	}
@@ -308,7 +308,7 @@ namespace MyGUI
 		return mPboIsSupported;
 	}
 
-	unsigned int OpenGLESRenderManager::getShaderProgramId(const std::string& _shaderName)
+	unsigned int OpenGLESRenderManager::getShaderProgramId(const std::string& _shaderName) const
 	{
 		auto iter = mRegisteredShaders.find(_shaderName);
 		if (iter != mRegisteredShaders.end())

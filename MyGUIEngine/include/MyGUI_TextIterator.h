@@ -39,7 +39,7 @@ namespace MyGUI
 		bool saveStartPoint();
 
 		// возвращает строку от сохраненного итератора до текущего
-		UString getFromStart();
+		UString getFromStart() const;
 
 		// удаляет от запомненной точки до текущей
 		bool eraseFromStart();

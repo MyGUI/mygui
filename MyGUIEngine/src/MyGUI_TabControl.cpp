@@ -515,7 +515,7 @@ namespace MyGUI
 		mItemsInfo[_index].data = _data;
 	}
 
-	int TabControl::getButtonWidthAt(size_t _index)
+	int TabControl::getButtonWidthAt(size_t _index) const
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "TabControl::getButtonWidthAt");
 		return mItemsInfo[_index].width;
@@ -527,7 +527,7 @@ namespace MyGUI
 		return mItemsInfo[_index].name;
 	}
 
-	TabItem* TabControl::getItemAt(size_t _index)
+	TabItem* TabControl::getItemAt(size_t _index) const
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "TabControl::getItemAt");
 		return mItemsInfo[_index].item;
@@ -559,7 +559,7 @@ namespace MyGUI
 		return controller;
 	}
 
-	size_t TabControl::getItemIndex(TabItem* _item)
+	size_t TabControl::getItemIndex(const TabItem* _item) const
 	{
 		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
@@ -569,7 +569,7 @@ namespace MyGUI
 		MYGUI_EXCEPT("item (" << _item << ") not found, source 'TabControl::getItemIndex'");
 	}
 
-	size_t TabControl::findItemIndex(TabItem* _item)
+	size_t TabControl::findItemIndex(const TabItem* _item)
 	{
 		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
 		{
@@ -599,7 +599,7 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	TabItem* TabControl::getItemSelected()
+	TabItem* TabControl::getItemSelected() const
 	{
 		return getIndexSelected() != ITEM_NONE ? getItemAt(getIndexSelected()) : nullptr;
 	}
@@ -691,12 +691,12 @@ namespace MyGUI
 		setItemNameAt(getItemIndex(_item), _name);
 	}
 
-	const UString& TabControl::getItemName(TabItem* _item)
+	const UString& TabControl::getItemName(const TabItem* _item) const
 	{
 		return getItemNameAt(getItemIndex(_item));
 	}
 
-	void TabControl::beginToItem(TabItem* _item)
+	void TabControl::beginToItem(const TabItem* _item)
 	{
 		beginToItemAt(getItemIndex(_item));
 	}
@@ -724,7 +724,7 @@ namespace MyGUI
 		setButtonWidthAt(getItemIndex(_item), _width);
 	}
 
-	int TabControl::getButtonWidth(TabItem* _item)
+	int TabControl::getButtonWidth(TabItem* _item) const
 	{
 		return getButtonWidthAt(getItemIndex(_item));
 	}
@@ -749,7 +749,7 @@ namespace MyGUI
 		return mSmoothShow;
 	}
 
-	size_t TabControl::_getItemCount()
+	size_t TabControl::_getItemCount() const
 	{
 		return getItemCount();
 	}
@@ -764,7 +764,7 @@ namespace MyGUI
 		removeItemAt(_index);
 	}
 
-	Widget* TabControl::_getItemAt(size_t _index)
+	Widget* TabControl::_getItemAt(size_t _index) const
 	{
 		return getItemAt(_index);
 	}

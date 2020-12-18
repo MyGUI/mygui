@@ -32,8 +32,8 @@ namespace MyGUI
 
 		void setVisible(bool _value) override;
 
-		// обновляет все данные связанные с тектом
-		virtual void updateRawData();
+		// use in const methods, but actually might update object
+		void updateRawData() const;
 
 		// метод для отрисовки себя
 		void doRender() override;
@@ -78,17 +78,17 @@ namespace MyGUI
 		size_t getCursorPosition() const override;
 		void setCursorPosition(size_t _index) override;
 
-		IntSize getTextSize() override;
+		IntSize getTextSize() const override;
 
 		// устанавливает смещение текста в пикселях
 		void setViewOffset(const IntPoint& _point) override;
 		IntPoint getViewOffset() const override;
 
 		// возвращает положение курсора по произвольному положению
-		size_t getCursorPosition(const IntPoint& _point) override;
+		size_t getCursorPosition(const IntPoint& _point) const override;
 
 		// возвращает положение курсора в обсолютных координатах
-		IntCoord getCursorCoord(size_t _position) override;
+		IntCoord getCursorCoord(size_t _position) const override;
 
 		bool getShadow() const override;
 		void setShadow(bool _value) override;
@@ -140,7 +140,7 @@ namespace MyGUI
 
 		UString mCaption;
 		UString::utf32string mUtf32Caption;
-		bool mTextOutDate;
+		mutable bool mTextOutDate;
 		Align mTextAlign;
 
 		Colour mColour;
@@ -172,7 +172,7 @@ namespace MyGUI
 		bool mManualColour;
 		int mOldWidth;
 
-		TextView mTextView;
+		mutable TextView mTextView;
 	};
 
 } // namespace MyGUI

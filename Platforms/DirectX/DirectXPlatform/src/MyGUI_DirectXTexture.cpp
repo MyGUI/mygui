@@ -172,12 +172,12 @@ namespace MyGUI
 		}
 	}
 
-	int DirectXTexture::getWidth()
+	int DirectXTexture::getWidth() const
 	{
 		return mSize.width;
 	}
 
-	int DirectXTexture::getHeight()
+	int DirectXTexture::getHeight() const
 	{
 		return mSize.height;
 	}
@@ -208,22 +208,22 @@ namespace MyGUI
 		mLock = false;
 	}
 
-	bool DirectXTexture::isLocked()
+	bool DirectXTexture::isLocked() const
 	{
 		return mLock;
 	}
 
-	PixelFormat DirectXTexture::getFormat()
+	PixelFormat DirectXTexture::getFormat() const
 	{
 		return mPixelFormat;
 	}
 
-	size_t DirectXTexture::getNumElemBytes()
+	size_t DirectXTexture::getNumElemBytes() const
 	{
 		return mNumElemBytes;
 	}
 
-	TextureUsage DirectXTexture::getUsage()
+	TextureUsage DirectXTexture::getUsage() const
 	{
 		return mTextureUsage;
 	}

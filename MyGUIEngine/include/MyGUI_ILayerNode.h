@@ -70,7 +70,7 @@ namespace MyGUI
 
 		virtual void resizeView(const IntSize& _viewSize) = 0;
 
-		virtual float getNodeDepth() = 0;
+		virtual float getNodeDepth() const = 0;
 	};
 
 } // namespace MyGUI

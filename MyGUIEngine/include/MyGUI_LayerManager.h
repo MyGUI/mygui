@@ -66,10 +66,10 @@ namespace MyGUI
 
 		size_t getLayerCount() const;
 
-		ILayer* getLayer(size_t _index);
+		ILayer* getLayer(size_t _index) const;
 
 		/** Get top visible and enabled widget at specified position */
-		Widget* getWidgetFromPoint(int _left, int _top);
+		Widget* getWidgetFromPoint(int _left, int _top) const;
 
 		/** Render all layers to specified target */
 		void renderToTarget(IRenderTarget* _target, bool _update);

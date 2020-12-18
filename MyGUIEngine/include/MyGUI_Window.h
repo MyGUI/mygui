@@ -49,10 +49,10 @@ namespace MyGUI
 		/** Set window caption */
 		void setCaption(const UString& _value) override;
 		/** Get window caption */
-		const UString& getCaption() override;
+		const UString& getCaption() const override;
 
 		/** Get window caption widget */
-		TextBox* getCaptionWidget();
+		TextBox* getCaptionWidget() const;
 
 		/** Set minimal possible window size */
 		void setMinSize(const IntSize& _value);
@@ -131,7 +131,7 @@ namespace MyGUI
 
 	private:
 		float getAlphaVisible() const;
-		void getSnappedCoord(IntCoord& _coord);
+		void getSnappedCoord(IntCoord& _coord) const;
 		IntCoord _getActionScale(Widget* _widget) const;
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);

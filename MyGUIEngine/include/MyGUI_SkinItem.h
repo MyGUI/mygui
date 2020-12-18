@@ -23,9 +23,9 @@ namespace MyGUI
 		SkinItem();
 
 		/** Get text sub widget or nullptr if no text sub widget */
-		ISubWidgetText* getSubWidgetText();
+		ISubWidgetText* getSubWidgetText() const;
 		/** Get sub widget of first texture or nullptr if no sub widget with texture */
-		ISubWidgetRect* getSubWidgetMain();
+		ISubWidgetRect* getSubWidgetMain() const;
 
 		void _setTextureName(const std::string& _texture);
 		const std::string& _getTextureName() const;

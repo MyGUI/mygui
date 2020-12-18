@@ -424,7 +424,7 @@ namespace MyGUI
 		}
 	}
 
-	IntCoord Widget::getClientCoord()
+	IntCoord Widget::getClientCoord() const
 	{
 		if (mWidgetClient != nullptr)
 			return mWidgetClient->getCoord();
@@ -933,14 +933,14 @@ namespace MyGUI
 		return Enumerator<VectorWidgetPtr>(mWidgetChild.begin(), mWidgetChild.end());
 	}
 
-	size_t Widget::getChildCount()
+	size_t Widget::getChildCount() const
 	{
 		if (mWidgetClient != nullptr)
 			return mWidgetClient->getChildCount();
 		return mWidgetChild.size();
 	}
 
-	Widget* Widget::getChildAt(size_t _index)
+	Widget* Widget::getChildAt(size_t _index) const
 	{
 		if (mWidgetClient != nullptr)
 			return mWidgetClient->getChildAt(_index);
@@ -1086,12 +1086,12 @@ namespace MyGUI
 		}
 	}
 
-	VectorWidgetPtr Widget::getSkinWidgetsByName(const std::string& _name)
+	VectorWidgetPtr Widget::getSkinWidgetsByName(const std::string& _name) const
 	{
 		VectorWidgetPtr result;
 
-		for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
-			(*iter)->findWidgets(_name, result);
+		for (const auto& childSkin : mWidgetChildSkin)
+			childSkin->findWidgets(_name, result);
 
 		return result;
 	}
@@ -1133,6 +1133,11 @@ namespace MyGUI
 	}
 
 	Widget* Widget::_getClientWidget()
+	{
+		return getClientWidget() == nullptr ? this : getClientWidget();
+	}
+
+	const Widget* Widget::_getClientWidget() const
 	{
 		return getClientWidget() == nullptr ? this : getClientWidget();
 	}
@@ -1303,7 +1308,7 @@ namespace MyGUI
 		return mWidgetStyle;
 	}
 
-	size_t Widget::_getItemIndex(Widget* _item)
+	size_t Widget::_getItemIndex(Widget* _item) const
 	{
 		return ITEM_NONE;
 	}
@@ -1313,12 +1318,12 @@ namespace MyGUI
 		mContainer = _value;
 	}
 
-	Widget* Widget::_getContainer()
+	Widget* Widget::_getContainer() const
 	{
 		return mContainer;
 	}
 
-	size_t Widget::_getContainerIndex(const IntPoint& _point)
+	size_t Widget::_getContainerIndex(const IntPoint& _point) const
 	{
 		return ITEM_NONE;
 	}

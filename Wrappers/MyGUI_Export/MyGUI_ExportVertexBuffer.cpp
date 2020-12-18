@@ -33,7 +33,7 @@ namespace MyGUI
 		mNeedVertexCount = _count;
 	}
 
-	size_t ExportVertexBuffer::getVertexCount()
+	size_t ExportVertexBuffer::getVertexCount() const
 	{
 		return mNeedVertexCount;
 	}
@@ -51,7 +51,7 @@ namespace MyGUI
 		mChange = true;
 	}
 
-	size_t ExportVertexBuffer::getId()
+	size_t ExportVertexBuffer::getId() const
 	{
 		return mId;
 	}

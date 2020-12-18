@@ -43,7 +43,7 @@ namespace MyGUI
 		virtual const IntSize& getViewSize() const = 0;
 
 		/** Get current vertex colour type */
-		virtual VertexColourType getVertexFormat() = 0;
+		virtual VertexColourType getVertexFormat() const = 0;
 
 		/** Check if texture format supported by hardware */
 		virtual bool isFormatSupported(PixelFormat _format, TextureUsage _usage);

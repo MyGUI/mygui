@@ -209,9 +209,9 @@ namespace MyGUI
 		delete _layer;
 	}
 
-	Widget* LayerManager::getWidgetFromPoint(int _left, int _top)
+	Widget* LayerManager::getWidgetFromPoint(int _left, int _top) const
 	{
-		VectorLayer::reverse_iterator iter = mLayerNodes.rbegin();
+		VectorLayer::const_reverse_iterator iter = mLayerNodes.rbegin();
 		while (iter != mLayerNodes.rend())
 		{
 			ILayerItem* item = (*iter)->getLayerItemByPoint(_left, _top);
@@ -256,7 +256,7 @@ namespace MyGUI
 		return mLayerNodes.size();
 	}
 
-	ILayer* LayerManager::getLayer(size_t _index)
+	ILayer* LayerManager::getLayer(size_t _index) const
 	{
 		MYGUI_ASSERT_RANGE(_index, mLayerNodes.size(), "LayerManager::getLayer");
 		return mLayerNodes[_index];

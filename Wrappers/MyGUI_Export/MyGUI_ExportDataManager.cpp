@@ -40,7 +40,7 @@ namespace MyGUI
 		MYGUI_PLATFORM_LOG(Info, getClassTypeName() << " successfully shutdown");
 	}
 
-	IDataStream* ExportDataManager::getData(const std::string& _name)
+	IDataStream* ExportDataManager::getData(const std::string& _name) const
 	{
 		std::string filepath = getDataPath(_name);
 		if (filepath.empty())
@@ -71,7 +71,7 @@ namespace MyGUI
 		return !files.empty();
 	}
 
-	const VectorString& ExportDataManager::getDataListNames(const std::string& _pattern)
+	const VectorString& ExportDataManager::getDataListNames(const std::string& _pattern) const
 	{
 		static VectorString result;
 		common::VectorWString wresult;
@@ -90,7 +90,7 @@ namespace MyGUI
 		return result;
 	}
 
-	const std::string& ExportDataManager::getDataPath(const std::string& _name)
+	const std::string& ExportDataManager::getDataPath(const std::string& _name) const
 	{
 		static std::string path;
 		VectorString result;

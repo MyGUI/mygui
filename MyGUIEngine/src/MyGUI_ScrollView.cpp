@@ -145,12 +145,12 @@ namespace MyGUI
 		}
 	}
 
-	IntSize ScrollView::getContentSize()
+	IntSize ScrollView::getContentSize() const
 	{
 		return getClientWidget()->getSize();
 	}
 
-	IntPoint ScrollView::getContentPosition()
+	IntPoint ScrollView::getContentPosition() const
 	{
 		return IntPoint() - getClientWidget()->getPosition();
 	}
@@ -160,17 +160,17 @@ namespace MyGUI
 		getClientWidget()->setPosition(IntPoint() - _point);
 	}
 
-	IntSize ScrollView::getViewSize()
+	IntSize ScrollView::getViewSize() const
 	{
 		return mScrollViewClient == nullptr ? getSize() : mScrollViewClient->getSize();
 	}
 
-	size_t ScrollView::getVScrollPage()
+	size_t ScrollView::getVScrollPage() const
 	{
 		return SCROLL_VIEW_SCROLL_PAGE;
 	}
 
-	size_t ScrollView::getHScrollPage()
+	size_t ScrollView::getHScrollPage() const
 	{
 		return SCROLL_VIEW_SCROLL_PAGE;
 	}
@@ -205,7 +205,7 @@ namespace MyGUI
 		updateView();
 	}
 
-	IntSize ScrollView::getCanvasSize()
+	IntSize ScrollView::getCanvasSize() const
 	{
 		return getClientWidget()->getSize();
 	}
@@ -257,7 +257,7 @@ namespace MyGUI
 		setCanvasSize(IntSize(_width, _height));
 	}
 
-	Align ScrollView::getContentAlign()
+	Align ScrollView::getContentAlign() const
 	{
 		return mContentAlign;
 	}
@@ -310,7 +310,7 @@ namespace MyGUI
 		return mScrollViewClient == nullptr ? getCoord() : mScrollViewClient->getCoord();
 	}
 
-	ScrollBar* ScrollView::getVScroll()
+	ScrollBar* ScrollView::getVScroll() const
 	{
 		return mVScroll;
 	}

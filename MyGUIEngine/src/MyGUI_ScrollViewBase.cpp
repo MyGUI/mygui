@@ -306,12 +306,12 @@ namespace MyGUI
 		}
 	}
 
-	IntSize ScrollViewBase::getContentSize()
+	IntSize ScrollViewBase::getContentSize() const
 	{
 		return IntSize();
 	}
 
-	IntPoint ScrollViewBase::getContentPosition()
+	IntPoint ScrollViewBase::getContentPosition() const
 	{
 		return IntPoint();
 	}
@@ -320,22 +320,22 @@ namespace MyGUI
 	{
 	}
 
-	IntSize ScrollViewBase::getViewSize()
+	IntSize ScrollViewBase::getViewSize() const
 	{
 		return IntSize();
 	}
 
-	size_t ScrollViewBase::getHScrollPage()
+	size_t ScrollViewBase::getHScrollPage() const
 	{
 		return 1;
 	}
 
-	size_t ScrollViewBase::getVScrollPage()
+	size_t ScrollViewBase::getVScrollPage() const
 	{
 		return 1;
 	}
 
-	Align ScrollViewBase::getContentAlign()
+	Align ScrollViewBase::getContentAlign() const
 	{
 		return Align::Center;
 	}

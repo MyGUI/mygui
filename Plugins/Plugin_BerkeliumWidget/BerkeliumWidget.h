@@ -32,7 +32,7 @@ namespace MyGUI
 		BerkeliumWidget();
 
 		void loadURL(const std::string& _url);
-		Berkelium::Window* getBerkeliumWindow();
+		Berkelium::Window* getBerkeliumWindow() const;
 
 		void setWindowDelegate(BerkeliumDelegate* _windowDelegate);
 

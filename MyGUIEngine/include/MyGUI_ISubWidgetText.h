@@ -80,33 +80,33 @@ namespace MyGUI
 
 		// возвращает положение курсора по произвольному положению
 		// позиция абсолютная, без учета смещений
-		virtual size_t getCursorPosition(const IntPoint& _point) /*const*/
+		virtual size_t getCursorPosition(const IntPoint& _point) const
 		{
 			return 0;
 		}
 
 		// возвращает положение курсора в обсолютных координатах
-		virtual IntCoord getCursorCoord(size_t _position) /*const*/
+		virtual IntCoord getCursorCoord(size_t _position) const
 		{
 			return IntCoord();
 		}
 
 		// возвращает положение курсора в обсолютных координатах
-		IntPoint getCursorPoint(size_t _position) /*const*/
+		IntPoint getCursorPoint(size_t _position) const
 		{
 			const IntCoord& coord = getCursorCoord(_position);
 			return IntPoint(coord.left + coord.width / 2, coord.top + coord.height / 2);
 		}
 
 		// возвращает положение курсора в обсолютных координатах
-		IntRect getCursorRect(size_t _position) /*const*/
+		IntRect getCursorRect(size_t _position) const
 		{
 			const IntCoord& coord = getCursorCoord(_position);
 			return IntRect(coord.left, coord.top, coord.left + coord.width, coord.top + coord.height);
 		}
 
 		// возвращает размер текста в пикселях
-		virtual IntSize getTextSize() /*const*/
+		virtual IntSize getTextSize() const
 		{
 			return IntSize();
 		}

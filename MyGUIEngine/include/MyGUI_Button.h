@@ -48,7 +48,7 @@ namespace MyGUI
 		void _setKeyFocus(bool _focus);
 		void _setMouseFocus(bool _focus);
 
-		ImageBox* _getImageBox();
+		ImageBox* _getImageBox() const;
 
 	protected:
 		void initialiseOverride() override;

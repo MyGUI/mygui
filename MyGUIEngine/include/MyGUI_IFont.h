@@ -26,11 +26,11 @@ namespace MyGUI
 		IFont() = default;
 		~IFont() override = default;
 
-		virtual GlyphInfo* getGlyphInfo(Char _id) = 0;
+		virtual const GlyphInfo* getGlyphInfo(Char _id) const = 0;
 
-		virtual ITexture* getTextureFont() = 0;
+		virtual ITexture* getTextureFont() const = 0;
 
-		virtual int getDefaultHeight() = 0;
+		virtual int getDefaultHeight() const = 0;
 	};
 
 } // namespace MyGUI

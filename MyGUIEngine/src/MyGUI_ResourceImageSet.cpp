@@ -62,98 +62,98 @@ namespace MyGUI
 		}
 	}
 
-	ImageIndexInfo ResourceImageSet::getIndexInfo(const std::string& _group, const std::string& _index)
+	ImageIndexInfo ResourceImageSet::getIndexInfo(const std::string& _group, const std::string& _index) const
 	{
 		size_t index_group = getGroupIndex(_group);
 		if (index_group != ITEM_NONE)
 		{
-			GroupImage& group = mGroups[index_group];
+			const GroupImage& group = mGroups[index_group];
 			size_t index_image = getImageIndex(group, _index);
 			if (index_image != ITEM_NONE)
 			{
-				IndexImage& index = group.indexes[index_image];
+				const IndexImage& index = group.indexes[index_image];
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
 		return ImageIndexInfo(Constants::getEmptyString(), Constants::getZeroIntSize(), 0, mFramesEmpty);
 	}
 
-	ImageIndexInfo ResourceImageSet::getIndexInfo(size_t _group, const std::string& _index)
+	ImageIndexInfo ResourceImageSet::getIndexInfo(size_t _group, const std::string& _index) const
 	{
 		if (_group < mGroups.size())
 		{
-			GroupImage& group = mGroups[_group];
+			const GroupImage& group = mGroups[_group];
 			size_t index_image = getImageIndex(group, _index);
 			if (index_image != ITEM_NONE)
 			{
-				IndexImage& index = group.indexes[index_image];
+				const IndexImage& index = group.indexes[index_image];
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
 		return ImageIndexInfo(Constants::getEmptyString(), Constants::getZeroIntSize(), 0, mFramesEmpty);
 	}
 
-	ImageIndexInfo ResourceImageSet::getIndexInfo(const std::string& _group, size_t _index)
+	ImageIndexInfo ResourceImageSet::getIndexInfo(const std::string& _group, size_t _index) const
 	{
 		size_t index_group = getGroupIndex(_group);
 		if (index_group != ITEM_NONE)
 		{
-			GroupImage& group = mGroups[index_group];
+			const GroupImage& group = mGroups[index_group];
 			if (_index < group.indexes.size())
 			{
-				IndexImage& index = group.indexes[_index];
+				const IndexImage& index = group.indexes[_index];
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
 		return ImageIndexInfo(Constants::getEmptyString(), Constants::getZeroIntSize(), 0, mFramesEmpty);
 	}
 
-	ImageIndexInfo ResourceImageSet::getIndexInfo(size_t _group, size_t _index)
+	ImageIndexInfo ResourceImageSet::getIndexInfo(size_t _group, size_t _index) const
 	{
 		if (_group < mGroups.size())
 		{
-			GroupImage& group = mGroups[_group];
+			const GroupImage& group = mGroups[_group];
 			if (_index < group.indexes.size())
 			{
-				IndexImage& index = group.indexes[_index];
+				const IndexImage& index = group.indexes[_index];
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
 		return ImageIndexInfo(Constants::getEmptyString(), Constants::getZeroIntSize(), 0, mFramesEmpty);
 	}
 
-	ImageIndexInfo ResourceImageSet::getIndexInfo(const IntSize& _group, size_t _index)
+	ImageIndexInfo ResourceImageSet::getIndexInfo(const IntSize& _group, size_t _index) const
 	{
 		size_t index_group = getGroupIndex(_group);
 		if (index_group != ITEM_NONE)
 		{
-			GroupImage& group = mGroups[index_group];
+			const GroupImage& group = mGroups[index_group];
 			if (_index < group.indexes.size())
 			{
-				IndexImage& index = group.indexes[_index];
+				const IndexImage& index = group.indexes[_index];
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
 		return ImageIndexInfo(Constants::getEmptyString(), Constants::getZeroIntSize(), 0, mFramesEmpty);
 	}
 
-	ImageIndexInfo ResourceImageSet::getIndexInfo(const IntSize& _group, const std::string& _index)
+	ImageIndexInfo ResourceImageSet::getIndexInfo(const IntSize& _group, const std::string& _index) const
 	{
 		size_t index_group = getGroupIndex(_group);
 		if (index_group != ITEM_NONE)
 		{
-			GroupImage& group = mGroups[index_group];
+			const GroupImage& group = mGroups[index_group];
 			size_t index_image = getImageIndex(group, _index);
 			if (index_image != ITEM_NONE)
 			{
-				IndexImage& index = group.indexes[index_image];
+				const IndexImage& index = group.indexes[index_image];
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
 		return ImageIndexInfo(Constants::getEmptyString(), Constants::getZeroIntSize(), 0, mFramesEmpty);
 	}
 
-	size_t ResourceImageSet::getGroupIndex(const std::string& _name)
+	size_t ResourceImageSet::getGroupIndex(const std::string& _name) const
 	{
 		for (size_t index = 0; index < mGroups.size(); ++index)
 		{
@@ -163,7 +163,7 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	size_t ResourceImageSet::getGroupIndex(const IntSize& _size)
+	size_t ResourceImageSet::getGroupIndex(const IntSize& _size) const
 	{
 		for (size_t index = 0; index < mGroups.size(); ++index)
 		{
@@ -173,12 +173,12 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	size_t ResourceImageSet::getImageIndex(GroupImage& _group, const std::string& _name)
+	size_t ResourceImageSet::getImageIndex(const GroupImage& _group, const std::string& _name) const
 	{
-		VectorIndexImage& indexes = _group.indexes;
-		for (size_t index = 0; index < indexes.size(); ++index)
+		const VectorIndexImage& indices = _group.indexes;
+		for (size_t index = 0; index < indices.size(); ++index)
 		{
-			if (indexes[index].name == _name)
+			if (indices[index].name == _name)
 				return index;
 		}
 		return ITEM_NONE;

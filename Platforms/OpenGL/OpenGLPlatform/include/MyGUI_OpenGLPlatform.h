@@ -26,8 +26,8 @@ namespace MyGUI
 		void initialise(OpenGLImageLoader* _loader, const std::string& _logName = MYGUI_PLATFORM_LOG_FILENAME);
 		void shutdown();
 
-		OpenGLRenderManager* getRenderManagerPtr();
-		OpenGLDataManager* getDataManagerPtr();
+		OpenGLRenderManager* getRenderManagerPtr() const;
+		OpenGLDataManager* getDataManagerPtr() const;
 
 	private:
 		bool mIsInitialise;

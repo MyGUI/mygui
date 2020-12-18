@@ -156,7 +156,7 @@ namespace MyGUI
 
 		/*internal:*/
 		// IItemContainer impl
-		size_t _getItemCount() override;
+		size_t _getItemCount() const override;
 		void _addItem(const MyGUI::UString& _name) override;
 		void _removeItemAt(size_t _index) override;
 		void _setItemNameAt(size_t _index, const UString& _name) override;

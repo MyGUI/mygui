@@ -56,32 +56,32 @@ namespace MyGUI
 	{
 	}
 
-	int ExportTexture::getWidth()
+	int ExportTexture::getWidth() const
 	{
 		return mWidth;
 	}
 
-	int ExportTexture::getHeight()
+	int ExportTexture::getHeight() const
 	{
 		return mHeight;
 	}
 
-	bool ExportTexture::isLocked()
+	bool ExportTexture::isLocked() const
 	{
 		return false;
 	}
 
-	PixelFormat ExportTexture::getFormat()
+	PixelFormat ExportTexture::getFormat() const
 	{
 		return mOriginalFormat;
 	}
 
-	TextureUsage ExportTexture::getUsage()
+	TextureUsage ExportTexture::getUsage() const
 	{
 		return mOriginalUsage;
 	}
 
-	size_t ExportTexture::getNumElemBytes()
+	size_t ExportTexture::getNumElemBytes() const
 	{
 		return mNumElemBytes;
 	}

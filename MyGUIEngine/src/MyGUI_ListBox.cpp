@@ -900,7 +900,7 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	int ListBox::getOptimalHeight()
+	int ListBox::getOptimalHeight() const
 	{
 		return (int)((mCoord.height - _getClientWidget()->getHeight()) + (mItemsInfo.size() * mHeightLine));
 	}
@@ -953,12 +953,12 @@ namespace MyGUI
 		return isItemVisibleAt(mIndexSelect, _fill);
 	}
 
-	size_t ListBox::_getItemIndex(Widget* _item)
+	size_t ListBox::_getItemIndex(Widget* _item) const
 	{
-		for (VectorButton::iterator iter = mWidgetLines.begin(); iter != mWidgetLines.end(); ++iter)
+		for (const auto& line : mWidgetLines)
 		{
-			if ((*iter) == _item)
-				return *(*iter)->_getInternalData<size_t>() + mTopIndex;
+			if (line == _item)
+				return *line->_getInternalData<size_t>() + mTopIndex;
 		}
 		return ITEM_NONE;
 	}
@@ -971,8 +971,8 @@ namespace MyGUI
 		if (!_update)
 		{
 			WidgetManager& instance = WidgetManager::getInstance();
-			for (VectorButton::iterator iter = mWidgetLines.begin(); iter != mWidgetLines.end(); ++iter)
-				instance.unlinkFromUnlinkers(*iter);
+			for (const auto& line : mWidgetLines)
+				instance.unlinkFromUnlinkers(line);
 		}
 	}
 
@@ -1032,7 +1032,7 @@ namespace MyGUI
 		_resetContainer(true);
 	}
 
-	size_t ListBox::_getItemCount()
+	size_t ListBox::_getItemCount() const
 	{
 		return getItemCount();
 	}
@@ -1057,7 +1057,7 @@ namespace MyGUI
 		return getItemNameAt(_index);
 	}
 
-	size_t ListBox::getIndexByWidget(Widget* _widget)
+	size_t ListBox::getIndexByWidget(Widget* _widget) const
 	{
 		if (_widget == getClientWidget())
 			return ITEM_NONE;

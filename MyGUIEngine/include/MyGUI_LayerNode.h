@@ -67,7 +67,7 @@ namespace MyGUI
 
 		void resizeView(const IntSize& _viewSize) override;
 
-		float getNodeDepth() override;
+		float getNodeDepth() const override;
 
 		bool isOutOfDate() const;
 

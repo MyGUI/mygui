@@ -138,7 +138,7 @@ namespace Hikari
 
 		FlashValue callFunction(MyGUI::UString funcName, const Arguments& args = Args());
 
-		FlashControl* getControl();
+		FlashControl* getControl() const;
 
 	protected:
 		void initialiseOverride() override;

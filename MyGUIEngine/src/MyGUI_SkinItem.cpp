@@ -152,12 +152,12 @@ namespace MyGUI
 		_updateSkinItemView();
 	}
 
-	ISubWidgetText* SkinItem::getSubWidgetText()
+	ISubWidgetText* SkinItem::getSubWidgetText() const
 	{
 		return mText;
 	}
 
-	ISubWidgetRect* SkinItem::getSubWidgetMain()
+	ISubWidgetRect* SkinItem::getSubWidgetMain() const
 	{
 		return mMainSkin;
 	}

@@ -99,10 +99,10 @@ namespace MyGUI
 
 
 		//! Get item from specified position
-		MenuItem* getItemAt(size_t _index);
+		MenuItem* getItemAt(size_t _index) const;
 
 		//! Get item index
-		size_t getItemIndex(MenuItem* _item);
+		size_t getItemIndex(const MenuItem* _item) const;
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
 		size_t findItemIndex(MenuItem* _item);
@@ -143,18 +143,18 @@ namespace MyGUI
 		void setItemId(MenuItem* _item, const std::string& _id);
 
 		//! Get item id from specified position
-		const std::string& getItemIdAt(size_t _index);
+		const std::string& getItemIdAt(size_t _index) const;
 		//! Get item id
-		const std::string& getItemId(MenuItem* _item);
+		const std::string& getItemId(const MenuItem* _item) const;
 
 		/** Get item by id */
-		MenuItem* getItemById(const std::string& _id);
+		MenuItem* getItemById(const std::string& _id) const;
 
 		/** Find item by id */
 		MenuItem* findItemById(const std::string& _id, bool _recursive = false);
 
 		/** Get item index by id */
-		size_t getItemIndexById(const std::string& _id);
+		size_t getItemIndexById(const std::string& _id) const;
 		//------------------------------------------------------------------------------//
 		// манипуляции отображением
 
@@ -166,7 +166,7 @@ namespace MyGUI
 		//! Get item from specified position
 		const UString& getItemNameAt(size_t _index) const;
 		//! Get item from specified position
-		const UString& getItemName(MenuItem* _item);
+		const UString& getItemName(const MenuItem* _item) const;
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
 		size_t findItemIndexWith(const UString& _name);
@@ -194,10 +194,10 @@ namespace MyGUI
 		}
 
 		/** Get child item (submenu) from item by index */
-		MenuControl* getItemChildAt(size_t _index);
+		MenuControl* getItemChildAt(size_t _index) const;
 
 		/** Get child item (submenu) from item */
-		MenuControl* getItemChild(MenuItem* _item);
+		MenuControl* getItemChild(const MenuItem* _item) const;
 
 		/** Create child item (submenu) for item by index */
 		MenuControl* createItemChildAt(size_t _index);
@@ -213,10 +213,10 @@ namespace MyGUI
 
 
 		/** Get item type (see MenuItemType) from item by index */
-		MenuItemType getItemTypeAt(size_t _index);
+		MenuItemType getItemTypeAt(size_t _index) const;
 
 		/** Get item type (see MenuItemType) from item */
-		MenuItemType getItemType(MenuItem* _item);
+		MenuItemType getItemType(const MenuItem* _item) const;
 
 		/** Set item type (see MenuItemType) from item by index */
 		void setItemTypeAt(size_t _index, MenuItemType _type);
@@ -229,7 +229,7 @@ namespace MyGUI
 		bool getPopupAccept() const;
 
 		/** Get parent menu item or nullptr if no item */
-		MenuItem* getMenuItemParent();
+		MenuItem* getMenuItemParent() const;
 
 		/** Set vertical alignment mode */
 		void setVerticalAlignment(bool _value);
@@ -259,10 +259,10 @@ namespace MyGUI
 		void _wrapItemChild(MenuItem* _item, MenuControl* _widget);
 
 		// IItemContainer impl
-		size_t _getItemCount() override;
+		size_t _getItemCount() const override;
 		void _addItem(const MyGUI::UString& _name) override;
 		void _removeItemAt(size_t _index) override;
-		Widget* _getItemAt(size_t _index) override;
+		Widget* _getItemAt(size_t _index) const override;
 		void _setItemNameAt(size_t _index, const UString& _name) override;
 		const UString& _getItemNameAt(size_t _index) const override;
 		void _setItemSelected(IItem* _item) override;

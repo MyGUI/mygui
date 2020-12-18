@@ -40,7 +40,7 @@ namespace MyGUI
 		//! Replace an item name
 		void setItemName(const UString& _value);
 		//! Get item name
-		const UString& getItemName();
+		const UString& getItemName() const;
 
 		//! Replace an item name
 		void setItemData(Any _value);
@@ -58,10 +58,10 @@ namespace MyGUI
 		//! Replace an item id at a specified position
 		void setItemId(const std::string& _value);
 		//! Get item id from specified position
-		const std::string& getItemId();
+		const std::string& getItemId() const;
 
 		//! Get item index
-		size_t getItemIndex();
+		size_t getItemIndex() const;
 
 		/** Create child item (submenu), MenuItem can have only one child */
 		MenuControl* createItemChild();
@@ -76,23 +76,23 @@ namespace MyGUI
 		/** Set item type (see MenuItemType) */
 		void setItemType(MenuItemType _value);
 		/** Get item type (see MenuItemType) */
-		MenuItemType getItemType();
+		MenuItemType getItemType() const;
 
 		/** Hide or show child item (submenu) */
 		void setItemChildVisible(bool _value);
 
 		/** Get parent MenuControl */
-		MenuControl* getMenuCtrlParent();
+		MenuControl* getMenuCtrlParent() const;
 
 		/** Get child item (submenu) */
-		MenuControl* getItemChild();
+		MenuControl* getItemChild() const;
 
 		bool getItemChecked() const;
 		void setItemChecked(bool _value);
 
 		/*internal:*/
-		IItemContainer* _getItemContainer() override;
-		IntSize _getContentSize();
+		IItemContainer* _getItemContainer() const override;
+		IntSize _getContentSize() const;
 
 	protected:
 		void initialiseOverride() override;

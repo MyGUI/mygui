@@ -25,31 +25,31 @@ namespace MyGUI
 
 		void destroy() override;
 
-		int getWidth() override
+		int getWidth() const override
 		{
 			return mWidth;
 		}
-		int getHeight() override
+		int getHeight() const override
 		{
 			return mHeight;
 		}
 
 		void* lock(TextureUsage _access) override;
 		void unlock() override;
-		bool isLocked() override
+		bool isLocked() const override
 		{
 			return mLock;
 		}
 
-		PixelFormat getFormat() override
+		PixelFormat getFormat() const override
 		{
 			return mOriginalFormat;
 		}
-		TextureUsage getUsage() override
+		TextureUsage getUsage() const override
 		{
 			return mOriginalUsage;
 		}
-		size_t getNumElemBytes() override
+		size_t getNumElemBytes() const override
 		{
 			return mNumElemBytes;
 		}

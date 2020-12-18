@@ -20,7 +20,7 @@ namespace MyGUI
 	public:
 		virtual ~IItemContainer() { }
 
-		virtual size_t _getItemCount()
+		virtual size_t _getItemCount() const
 		{
 			return 0;
 		}
@@ -29,7 +29,7 @@ namespace MyGUI
 
 		virtual void _removeItemAt(size_t _index) { }
 
-		virtual Widget* _getItemAt(size_t _index)
+		virtual Widget* _getItemAt(size_t _index) const
 		{
 			return nullptr;
 		}

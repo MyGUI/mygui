@@ -33,7 +33,7 @@ namespace MyGUI
 		const IntSize& getViewSize() const override;
 
 		/** @see RenderManager::getVertexFormat */
-		VertexColourType getVertexFormat() override;
+		VertexColourType getVertexFormat() const override;
 
 		/** @see RenderManager::isFormatSupported */
 		bool isFormatSupported(PixelFormat _format, TextureUsage _usage) override;
@@ -74,7 +74,7 @@ namespace MyGUI
 	/*internal:*/
 		void drawOneFrame();
 		bool isPixelBufferObjectSupported() const;
-		unsigned int getShaderProgramId(const std::string& _shaderName);
+		unsigned int getShaderProgramId(const std::string& _shaderName) const;
 
 	private:
 		std::string loadFileContent(const std::string& _file);

@@ -26,8 +26,8 @@ namespace base
 		void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text) override;
 
 	/*internal:*/
-		Ogre::SceneManager* getSceneManager();
-		Ogre::Camera* getCamera();
+		Ogre::SceneManager* getSceneManager() const;
+		Ogre::Camera* getCamera() const;
 
 		static const std::string MyGuiResourceGroup;
 	private:

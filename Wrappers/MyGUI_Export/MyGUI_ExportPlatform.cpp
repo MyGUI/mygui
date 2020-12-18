@@ -46,12 +46,12 @@ namespace MyGUI
 		mDataManager->shutdown();
 	}
 
-	ExportRenderManager* ExportPlatform::getRenderManagerPtr()
+	ExportRenderManager* ExportPlatform::getRenderManagerPtr() const
 	{
 		return mRenderManager;
 	}
 
-	ExportDataManager* ExportPlatform::getDataManagerPtr()
+	ExportDataManager* ExportPlatform::getDataManagerPtr() const
 	{
 		return mDataManager;
 	}

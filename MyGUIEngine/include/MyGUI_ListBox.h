@@ -173,7 +173,7 @@ namespace MyGUI
 		//@}
 
 		//! Return optimal height to fit all items in ListBox
-		int getOptimalHeight();
+		int getOptimalHeight() const;
 
 		/** Enable "Activate on click" mode that requires a full mouse click (press and release)
 			to activate an item. By default, items are activated on mouse press.
@@ -243,7 +243,7 @@ namespace MyGUI
 		void _sendEventChangeScroll(size_t _position);
 
 		// IItemContainer impl
-		size_t _getItemCount() override;
+		size_t _getItemCount() const override;
 		void _addItem(const MyGUI::UString& _name) override;
 		void _removeItemAt(size_t _index) override;
 		void _setItemNameAt(size_t _index, const UString& _name) override;
@@ -288,14 +288,14 @@ namespace MyGUI
 		void _selectIndex(size_t _index, bool _select);
 
 		// метод для запроса номера айтема и контейнера
-		size_t _getItemIndex(Widget* _item) override;
+		size_t _getItemIndex(Widget* _item) const override;
 
 		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
 
 	private:
 		void _checkMapping(const std::string& _owner);
 
-		size_t getIndexByWidget(Widget* _widget);
+		size_t getIndexByWidget(Widget* _widget) const;
 
 	private:
 		std::string mSkinLine;

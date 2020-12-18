@@ -30,7 +30,7 @@ namespace attribute
 	{
 		virtual ~Field() { }
 		virtual bool set(OwnerType* _target, typename SetterType::BaseValueType* _value) = 0;
-		virtual const std::string& getFieldTypeName() = 0;
+		virtual const std::string& getFieldTypeName() const = 0;
 	};
 
 	// шаблон для обертки поля
@@ -45,7 +45,7 @@ namespace attribute
 			_target->*m_offset = SetterType::template convert<FieldType>(_value);
 			return _target->*m_offset != nullptr;
 		}
-		const std::string& getFieldTypeName() override
+		const std::string& getFieldTypeName() const override
 		{
 			return FieldType::getClassTypeName();
 		}

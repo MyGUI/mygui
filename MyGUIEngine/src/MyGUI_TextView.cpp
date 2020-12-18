@@ -203,7 +203,7 @@ namespace MyGUI
 				}
 			}
 
-			GlyphInfo* info = _font->getGlyphInfo(character);
+			const GlyphInfo* info = _font->getGlyphInfo(character);
 
 			if (info == nullptr)
 				continue;
@@ -291,7 +291,7 @@ namespace MyGUI
 		mViewSize = result;
 	}
 
-	size_t TextView::getCursorPosition(const IntPoint& _value)
+	size_t TextView::getCursorPosition(const IntPoint& _value) const
 	{
 		size_t result = 0;
 		int top = 0;
@@ -334,7 +334,7 @@ namespace MyGUI
 		return result;
 	}
 
-	IntPoint TextView::getCursorPoint(size_t _position)
+	IntPoint TextView::getCursorPoint(size_t _position) const
 	{
 		setMin(_position, mLength);
 

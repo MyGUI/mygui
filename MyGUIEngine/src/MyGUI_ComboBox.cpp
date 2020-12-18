@@ -560,7 +560,7 @@ namespace MyGUI
 			eventToolTip(this, _info);
 	}
 
-	size_t ComboBox::_getItemCount()
+	size_t ComboBox::_getItemCount() const
 	{
 		return getItemCount();
 	}

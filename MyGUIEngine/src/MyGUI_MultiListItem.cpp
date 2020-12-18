@@ -34,7 +34,7 @@ namespace MyGUI
 			Base::setCaption(_value);
 	}
 
-	const UString& MultiListItem::getCaption()
+	const UString& MultiListItem::getCaption() const
 	{
 		MultiListBox* owner = getOwner();
 		if (owner != nullptr)
@@ -76,7 +76,7 @@ namespace MyGUI
 		eventChangeProperty(this, _key, _value);
 	}
 
-	MultiListBox* MultiListItem::getOwner()
+	MultiListBox* MultiListItem::getOwner() const
 	{
 		if (getParent() != nullptr)
 		{

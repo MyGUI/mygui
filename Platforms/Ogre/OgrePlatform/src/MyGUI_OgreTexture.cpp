@@ -80,12 +80,12 @@ namespace MyGUI
 		}
 	}
 
-	int OgreTexture::getWidth()
+	int OgreTexture::getWidth() const
 	{
 		return (int)mTexture->getWidth();
 	}
 
-	int OgreTexture::getHeight()
+	int OgreTexture::getHeight() const
 	{
 		return (int)mTexture->getHeight();
 	}
@@ -131,7 +131,7 @@ namespace MyGUI
 		}
 	}
 
-	bool OgreTexture::isLocked()
+	bool OgreTexture::isLocked() const
 	{
 		return mTexture->getBuffer()->isLocked();
 	}

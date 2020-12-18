@@ -40,7 +40,7 @@ namespace MyGUI
 			Base::setCaption(_value);
 	}
 
-	const UString& TabItem::getCaption()
+	const UString& TabItem::getCaption() const
 	{
 		TabControl* owner = getParent() != nullptr ? getParent()->castType<TabControl>(false) : nullptr;
 		if (owner != nullptr)

@@ -33,7 +33,7 @@ namespace MyGUI
 		const IntSize& getViewSize() const override;
 
 		/** @see RenderManager::getVertexFormat */
-		VertexColourType getVertexFormat() override;
+		VertexColourType getVertexFormat() const override;
 
 		/** @see RenderManager::isFormatSupported */
 		bool isFormatSupported(PixelFormat _format, TextureUsage _usage) override;

@@ -232,7 +232,7 @@ namespace tools
 			codeNode->addAttribute("index", "substitute");
 		}
 
-		MyGUI::GlyphInfo* info = _font->getGlyphInfo(_code);
+		const MyGUI::GlyphInfo* info = _font->getGlyphInfo(_code);
 		MyGUI::ITexture* texture = _font->getTextureFont();
 		MyGUI::FloatCoord coord(info->uvRect.left * (float)texture->getWidth(), info->uvRect.top * (float)texture->getHeight(), info->width, info->height);
 

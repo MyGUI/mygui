@@ -23,7 +23,7 @@ namespace MyGUI
 
 		virtual ILayerNode* createChildItemNode();
 
-		virtual float getNodeDepth();
+		virtual float getNodeDepth() const;
 
 		void setDepth(float _value);
 

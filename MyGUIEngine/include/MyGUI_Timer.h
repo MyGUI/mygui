@@ -18,10 +18,10 @@ namespace MyGUI
 		Timer();
 
 		void reset();
-		unsigned long getMilliseconds();
+		unsigned long getMilliseconds() const;
 
 	private:
-		unsigned long getCurrentMilliseconds();
+		unsigned long getCurrentMilliseconds() const;
 
 	private:
 		unsigned long mTimeStart;

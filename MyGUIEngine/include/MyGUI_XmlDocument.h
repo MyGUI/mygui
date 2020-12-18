@@ -311,7 +311,7 @@ namespace MyGUI
 
 			void clear();
 
-			std::string getLastError();
+			std::string getLastError() const;
 
 			void clearLastError();
 

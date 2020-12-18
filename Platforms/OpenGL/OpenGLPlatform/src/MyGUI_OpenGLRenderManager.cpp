@@ -171,7 +171,7 @@ namespace MyGUI
 		return mViewSize;
 	}
 
-	VertexColourType OpenGLRenderManager::getVertexFormat()
+	VertexColourType OpenGLRenderManager::getVertexFormat() const
 	{
 		return mVertexFormat;
 	}

@@ -378,32 +378,32 @@ namespace MyGUI
 		return mProgramId;
 	}
 
-	int OpenGL3Texture::getWidth()
+	int OpenGL3Texture::getWidth() const
 	{
 		return mWidth;
 	}
 
-	int OpenGL3Texture::getHeight()
+	int OpenGL3Texture::getHeight() const
 	{
 		return mHeight;
 	}
 
-	bool OpenGL3Texture::isLocked()
+	bool OpenGL3Texture::isLocked() const
 	{
 		return mLock;
 	}
 
-	PixelFormat OpenGL3Texture::getFormat()
+	PixelFormat OpenGL3Texture::getFormat() const
 	{
 		return mOriginalFormat;
 	}
 
-	TextureUsage OpenGL3Texture::getUsage()
+	TextureUsage OpenGL3Texture::getUsage() const
 	{
 		return mOriginalUsage;
 	}
 
-	size_t OpenGL3Texture::getNumElemBytes()
+	size_t OpenGL3Texture::getNumElemBytes() const
 	{
 		return mNumElemBytes;
 	}

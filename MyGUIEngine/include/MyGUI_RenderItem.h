@@ -28,7 +28,7 @@ namespace MyGUI
 		void renderToTarget(IRenderTarget* _target, bool _update);
 
 		void setTexture(ITexture* _value);
-		ITexture* getTexture();
+		ITexture* getTexture() const;
 
 		void setManualRender(bool _value);
 		bool getManualRender() const;

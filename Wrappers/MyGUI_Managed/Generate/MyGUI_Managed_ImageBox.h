@@ -29,7 +29,7 @@ namespace MyGUI
 				CreateWidget(_parent, _style, _skin, _coord, _align, _layer, _name);
 			}
 
-			virtual const std::string& getClassTypeName() override { return ThisType::getClassTypeName(); }
+			virtual const std::string& getClassTypeName() const override;{ return ThisType::getClassTypeName(); }
 
 			static BaseWidget^ WidgetCreator(BaseWidget^ _parent, MyGUI::WidgetStyle _style, const std::string& _skin, const MyGUI::IntCoord& _coord, MyGUI::Align _align, const std::string& _layer, const std::string& _name)
 			{

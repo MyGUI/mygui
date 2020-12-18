@@ -197,7 +197,7 @@ namespace Hikari
 		eventChangeProperty(this, _key, _value);
 	}
 
-	FlashControl* HikariWidget::getControl()
+	FlashControl* HikariWidget::getControl() const
 	{
 		return mControl;
 	}

@@ -45,31 +45,31 @@ namespace MyGUI
 	{
 		static_cast<Button*>(this)->setStateSelected(_value);
 	}
-	bool MemberObsolete<Button>::getButtonPressed()
+	bool MemberObsolete<Button>::getButtonPressed() const
 	{
-		return static_cast<Button*>(this)->getStateSelected();
+		return static_cast<const Button*>(this)->getStateSelected();
 	}
 	void MemberObsolete<Button>::setStateCheck(bool _value)
 	{
 		static_cast<Button*>(this)->setStateSelected(_value);
 	}
-	bool MemberObsolete<Button>::getStateCheck()
+	bool MemberObsolete<Button>::getStateCheck() const
 	{
-		return static_cast<Button*>(this)->getStateSelected();
+		return static_cast<const Button*>(this)->getStateSelected();
 	}
-	ImageBox* MemberObsolete<Button>::getStaticImage()
+	ImageBox* MemberObsolete<Button>::getStaticImage() const
 	{
-		return static_cast<Button*>(this)->_getImageBox();
+		return static_cast<const Button*>(this)->_getImageBox();
 	}
 	void MemberObsolete<Button>::setImageIndex(size_t _index)
 	{
 		if (static_cast<Button*>(this)->_getImageBox())
 			static_cast<Button*>(this)->_getImageBox()->setImageIndex(_index);
 	}
-	size_t MemberObsolete<Button>::getImageIndex()
+	size_t MemberObsolete<Button>::getImageIndex() const
 	{
-		if (static_cast<Button*>(this)->_getImageBox())
-			return static_cast<Button*>(this)->_getImageBox()->getImageIndex();
+		if (static_cast<const Button*>(this)->_getImageBox())
+			return static_cast<const Button*>(this)->_getImageBox()->getImageIndex();
 		return ITEM_NONE;
 	}
 
@@ -83,9 +83,9 @@ namespace MyGUI
 	}
 
 
-	size_t MemberObsolete<ComboBox>::getItemIndexSelected()
+	size_t MemberObsolete<ComboBox>::getItemIndexSelected() const
 	{
-		return static_cast<ComboBox*>(this)->getIndexSelected();
+		return static_cast<const ComboBox*>(this)->getIndexSelected();
 	}
 	void MemberObsolete<ComboBox>::setItemSelectedAt(size_t _index)
 	{
@@ -104,9 +104,9 @@ namespace MyGUI
 	{
 		static_cast<ComboBox*>(this)->setItemNameAt(_index, _item);
 	}
-	const UString& MemberObsolete<ComboBox>::getItem(size_t _index)
+	const UString& MemberObsolete<ComboBox>::getItem(size_t _index) const
 	{
-		return static_cast<ComboBox*>(this)->getItemNameAt(_index);
+		return static_cast<const ComboBox*>(this)->getItemNameAt(_index);
 	}
 	void MemberObsolete<ComboBox>::deleteItem(size_t _index)
 	{
@@ -116,9 +116,9 @@ namespace MyGUI
 	{
 		static_cast<ComboBox*>(this)->removeAllItems();
 	}
-	size_t MemberObsolete<ComboBox>::getItemSelect()
+	size_t MemberObsolete<ComboBox>::getItemSelect() const
 	{
-		return static_cast<ComboBox*>(this)->getIndexSelected();
+		return static_cast<const ComboBox*>(this)->getIndexSelected();
 	}
 	void MemberObsolete<ComboBox>::resetItemSelect()
 	{
@@ -133,9 +133,9 @@ namespace MyGUI
 	{
 		static_cast<ComboBox*>(this)->setMaxListLength(_value);
 	}
-	int MemberObsolete<ComboBox>::getMaxListHeight()
+	int MemberObsolete<ComboBox>::getMaxListHeight() const
 	{
-		return static_cast<ComboBox*>(this)->getMaxListLength();
+		return static_cast<const ComboBox*>(this)->getMaxListLength();
 	}
 
 
@@ -160,14 +160,14 @@ namespace MyGUI
 	{
 		static_cast<EditBox*>(this)->setTextIntervalColour(_start, _count, _colour);
 	}
-	void MemberObsolete<EditBox>::getTextSelect(size_t& _start, size_t& _end)
+	void MemberObsolete<EditBox>::getTextSelect(size_t& _start, size_t& _end) const
 	{
-		_start = static_cast<EditBox*>(this)->getTextSelectionStart();
-		_end = static_cast<EditBox*>(this)->getTextSelectionEnd();
+		_start = static_cast<const EditBox*>(this)->getTextSelectionStart();
+		_end = static_cast<const EditBox*>(this)->getTextSelectionEnd();
 	}
-	UString MemberObsolete<EditBox>::getText(size_t _start, size_t _count)
+	UString MemberObsolete<EditBox>::getText(size_t _start, size_t _count) const
 	{
-		return static_cast<EditBox*>(this)->getTextInterval(_start, _count);
+		return static_cast<const EditBox*>(this)->getTextInterval(_start, _count);
 	}
 	void MemberObsolete<EditBox>::setTextSelect(size_t _start, size_t _end)
 	{
@@ -177,9 +177,9 @@ namespace MyGUI
 	{
 		static_cast<EditBox*>(this)->deleteTextSelection();
 	}
-	UString MemberObsolete<EditBox>::getSelectedText()
+	UString MemberObsolete<EditBox>::getSelectedText() const
 	{
-		return static_cast<EditBox*>(this)->getTextSelection();
+		return static_cast<const EditBox*>(this)->getTextSelection();
 	}
 	bool MemberObsolete<EditBox>::isTextSelect()
 	{
@@ -191,9 +191,9 @@ namespace MyGUI
 	}
 
 
-	size_t MemberObsolete<ItemBox>::getItemIndexSelected()
+	size_t MemberObsolete<ItemBox>::getItemIndexSelected() const
 	{
-		return static_cast<ItemBox*>(this)->getIndexSelected();
+		return static_cast<const ItemBox*>(this)->getIndexSelected();
 	}
 	void MemberObsolete<ItemBox>::setItemSelectedAt(size_t _index)
 	{
@@ -220,9 +220,9 @@ namespace MyGUI
 	{
 		static_cast<ItemBox*>(this)->removeAllItems();
 	}
-	size_t MemberObsolete<ItemBox>::getItemSelect()
+	size_t MemberObsolete<ItemBox>::getItemSelect() const
 	{
-		return static_cast<ItemBox*>(this)->getIndexSelected();
+		return static_cast<const ItemBox*>(this)->getIndexSelected();
 	}
 	void MemberObsolete<ItemBox>::resetItemSelect()
 	{
@@ -233,9 +233,9 @@ namespace MyGUI
 		static_cast<ItemBox*>(this)->setIndexSelected(_index);
 	}
 
-	Widget* MemberObsolete<ItemBox>::getWidgetDrop()
+	Widget* MemberObsolete<ItemBox>::getWidgetDrop() const
 	{
-		return static_cast<ItemBox*>(this)->getWidgetDrag();
+		return static_cast<const ItemBox*>(this)->getWidgetDrag();
 	}
 	void MemberObsolete<ItemBox>::resetDrop()
 	{
@@ -246,15 +246,15 @@ namespace MyGUI
 	{
 		static_cast<ItemBox*>(this)->setVerticalAlignment(_value);
 	}
-	bool MemberObsolete<ItemBox>::getItemBoxAlignVert()
+	bool MemberObsolete<ItemBox>::getItemBoxAlignVert() const
 	{
-		return static_cast<ItemBox*>(this)->getVerticalAlignment();
+		return static_cast<const ItemBox*>(this)->getVerticalAlignment();
 	}
 
 
-	size_t MemberObsolete<ListBox>::getItemIndexSelected()
+	size_t MemberObsolete<ListBox>::getItemIndexSelected() const
 	{
-		return static_cast<ListBox*>(this)->getIndexSelected();
+		return static_cast<const ListBox*>(this)->getIndexSelected();
 	}
 	void MemberObsolete<ListBox>::setItemSelectedAt(size_t _index)
 	{
@@ -273,9 +273,9 @@ namespace MyGUI
 	{
 		static_cast<ListBox*>(this)->setItemNameAt(_index, _item);
 	}
-	const UString& MemberObsolete<ListBox>::getItem(size_t _index)
+	const UString& MemberObsolete<ListBox>::getItem(size_t _index) const
 	{
-		return static_cast<ListBox*>(this)->getItemNameAt(_index);
+		return static_cast<const ListBox*>(this)->getItemNameAt(_index);
 	}
 	void MemberObsolete<ListBox>::deleteItem(size_t _index)
 	{
@@ -289,9 +289,9 @@ namespace MyGUI
 	{
 		return static_cast<ListBox*>(this)->findItemIndexWith(_item);
 	}
-	size_t MemberObsolete<ListBox>::getItemSelect()
+	size_t MemberObsolete<ListBox>::getItemSelect() const
 	{
-		return static_cast<ListBox*>(this)->getIndexSelected();
+		return static_cast<const ListBox*>(this)->getIndexSelected();
 	}
 	void MemberObsolete<ListBox>::resetItemSelect()
 	{
@@ -361,9 +361,9 @@ namespace MyGUI
 	{
 		static_cast<MenuControl*>(this)->setVerticalAlignment(_value);
 	}
-	bool MemberObsolete<MenuControl>::getAlignVert()
+	bool MemberObsolete<MenuControl>::getAlignVert() const
 	{
-		return static_cast<MenuControl*>(this)->getVerticalAlignment();
+		return static_cast<const MenuControl*>(this)->getVerticalAlignment();
 	}
 
 	void MemberObsolete<MenuItem>::showItemChild()
@@ -376,9 +376,9 @@ namespace MyGUI
 	}
 
 
-	size_t MemberObsolete<MultiListBox>::getItemIndexSelected()
+	size_t MemberObsolete<MultiListBox>::getItemIndexSelected() const
 	{
-		return static_cast<MultiListBox*>(this)->getIndexSelected();
+		return static_cast<const MultiListBox*>(this)->getIndexSelected();
 	}
 	void MemberObsolete<MultiListBox>::setItemSelectedAt(size_t _index)
 	{
@@ -393,9 +393,9 @@ namespace MyGUI
 	{
 		return static_cast<MultiListBox*>(this)->findSubItemWith(_column, _name);
 	}
-	const UString& MemberObsolete<MultiListBox>::getSubItem(size_t _column, size_t _index)
+	const UString& MemberObsolete<MultiListBox>::getSubItem(size_t _column, size_t _index) const
 	{
-		return static_cast<MultiListBox*>(this)->getSubItemNameAt(_column, _index);
+		return static_cast<const MultiListBox*>(this)->getSubItemNameAt(_column, _index);
 	}
 	void MemberObsolete<MultiListBox>::setSubItem(size_t _column, size_t _index, const UString& _name)
 	{
@@ -409,13 +409,13 @@ namespace MyGUI
 	{
 		static_cast<MultiListBox*>(this)->removeAllColumns();
 	}
-	int MemberObsolete<MultiListBox>::getColumnWidth(size_t _column)
+	int MemberObsolete<MultiListBox>::getColumnWidth(size_t _column) const
 	{
-		return static_cast<MultiListBox*>(this)->getColumnWidthAt(_column);
+		return static_cast<const MultiListBox*>(this)->getColumnWidthAt(_column);
 	}
-	const UString& MemberObsolete<MultiListBox>::getColumnName(size_t _column)
+	const UString& MemberObsolete<MultiListBox>::getColumnName(size_t _column) const
 	{
-		return static_cast<MultiListBox*>(this)->getColumnNameAt(_column);
+		return static_cast<const MultiListBox*>(this)->getColumnNameAt(_column);
 	}
 	void MemberObsolete<MultiListBox>::setColumnWidth(size_t _column, int _width)
 	{
@@ -433,9 +433,9 @@ namespace MyGUI
 	{
 		static_cast<MultiListBox*>(this)->insertColumnAt(_column, _name, _width);
 	}
-	size_t MemberObsolete<MultiListBox>::getItemSelect()
+	size_t MemberObsolete<MultiListBox>::getItemSelect() const
 	{
-		return static_cast<MultiListBox*>(this)->getIndexSelected();
+		return static_cast<const MultiListBox*>(this)->getIndexSelected();
 	}
 	void MemberObsolete<MultiListBox>::resetItemSelect()
 	{
@@ -453,9 +453,9 @@ namespace MyGUI
 	{
 		static_cast<MultiListBox*>(this)->setItemNameAt(_index, _name);
 	}
-	const UString& MemberObsolete<MultiListBox>::getItem(size_t _index)
+	const UString& MemberObsolete<MultiListBox>::getItem(size_t _index) const
 	{
-		return static_cast<MultiListBox*>(this)->getItemNameAt(_index);
+		return static_cast<const MultiListBox*>(this)->getItemNameAt(_index);
 	}
 	void MemberObsolete<MultiListBox>::deleteItem(size_t _index)
 	{
@@ -479,13 +479,13 @@ namespace MyGUI
 			static_cast<ProgressBar*>(this)->setFlowDirection(FlowDirection::LeftToRight);
 	}
 
-	Align MemberObsolete<ProgressBar>::getProgressStartPoint()
+	Align MemberObsolete<ProgressBar>::getProgressStartPoint() const
 	{
-		if (static_cast<ProgressBar*>(this)->getFlowDirection() == FlowDirection::RightToLeft)
+		if (static_cast<const ProgressBar*>(this)->getFlowDirection() == FlowDirection::RightToLeft)
 			return Align::Right;
-		else if (static_cast<ProgressBar*>(this)->getFlowDirection() == FlowDirection::TopToBottom)
+		else if (static_cast<const ProgressBar*>(this)->getFlowDirection() == FlowDirection::TopToBottom)
 			return Align::Top;
-		else if (static_cast<ProgressBar*>(this)->getFlowDirection() == FlowDirection::BottomToTop)
+		else if (static_cast<const ProgressBar*>(this)->getFlowDirection() == FlowDirection::BottomToTop)
 			return Align::Bottom;
 
 		return Align::Left;
@@ -510,13 +510,13 @@ namespace MyGUI
 	}
 
 
-	int MemberObsolete<TabControl>::getSheetButtonWidthIndex(size_t _index)
+	int MemberObsolete<TabControl>::getSheetButtonWidthIndex(size_t _index) const
 	{
-		return static_cast<TabControl*>(this)->getButtonWidthAt(_index);
+		return static_cast<const TabControl*>(this)->getButtonWidthAt(_index);
 	}
-	int MemberObsolete<TabControl>::getSheetButtonWidth(TabItem* _sheet)
+	int MemberObsolete<TabControl>::getSheetButtonWidth(TabItem* _sheet) const
 	{
-		return static_cast<TabControl*>(this)->getButtonWidth(_sheet);
+		return static_cast<const TabControl*>(this)->getButtonWidth(_sheet);
 	}
 	void MemberObsolete<TabControl>::setSheetButtonWidthIndex(size_t _index, int _width)
 	{
@@ -534,21 +534,21 @@ namespace MyGUI
 	{
 		static_cast<TabControl*>(this)->beginToItemSelected();
 	}
-	size_t MemberObsolete<TabControl>::getSheetCount()
+	size_t MemberObsolete<TabControl>::getSheetCount() const
 	{
-		return static_cast<TabControl*>(this)->getItemCount();
+		return static_cast<const TabControl*>(this)->getItemCount();
 	}
-	const UString& MemberObsolete<TabControl>::getSheetName(TabItem* _sheet)
+	const UString& MemberObsolete<TabControl>::getSheetName(TabItem* _sheet) const
 	{
-		return static_cast<TabControl*>(this)->getItemName(_sheet);
+		return static_cast<const TabControl*>(this)->getItemName(_sheet);
 	}
-	const UString& MemberObsolete<TabControl>::getSheetNameIndex(size_t _index)
+	const UString& MemberObsolete<TabControl>::getSheetNameIndex(size_t _index) const
 	{
-		return static_cast<TabControl*>(this)->getItemNameAt(_index);
+		return static_cast<const TabControl*>(this)->getItemNameAt(_index);
 	}
-	TabItem* MemberObsolete<TabControl>::getSheet(size_t _index)
+	TabItem* MemberObsolete<TabControl>::getSheet(size_t _index) const
 	{
-		return static_cast<TabControl*>(this)->getItemAt(_index);
+		return static_cast<const TabControl*>(this)->getItemAt(_index);
 	}
 	void MemberObsolete<TabControl>::setSheetNameIndex(size_t _index, const UString& _name, int _width)
 	{
@@ -582,14 +582,14 @@ namespace MyGUI
 	{
 		static_cast<TabControl*>(this)->setItemSelected(_sheet);
 	}
-	size_t MemberObsolete<TabControl>::getSelectSheetIndex()
+	size_t MemberObsolete<TabControl>::getSelectSheetIndex() const
 	{
-		return static_cast<TabControl*>(this)->getIndexSelected();
+		return static_cast<const TabControl*>(this)->getIndexSelected();
 	}
 
-	size_t MemberObsolete<TabControl>::getItemIndexSelected()
+	size_t MemberObsolete<TabControl>::getItemIndexSelected() const
 	{
-		return static_cast<TabControl*>(this)->getIndexSelected();
+		return static_cast<const TabControl*>(this)->getIndexSelected();
 	}
 	void MemberObsolete<TabControl>::setItemSelectedAt(size_t _index)
 	{
@@ -641,9 +641,13 @@ namespace MyGUI
 		static_cast<Window*>(this)->setMinSize(_min_w, _min_h);
 		static_cast<Window*>(this)->setMaxSize(_max_w, _max_h);
 	}
-	IntRect MemberObsolete<Window>::getMinMax()
+	IntRect MemberObsolete<Window>::getMinMax() const
 	{
-		return IntRect(static_cast<Window*>(this)->getMinSize().width, static_cast<Window*>(this)->getMinSize().height, static_cast<Window*>(this)->getMaxSize().width, static_cast<Window*>(this)->getMaxSize().height);
+		return IntRect(
+			static_cast<const Window*>(this)->getMinSize().width,
+			static_cast<const Window*>(this)->getMinSize().height,
+			static_cast<const Window*>(this)->getMaxSize().width,
+			static_cast<const Window*>(this)->getMaxSize().height);
 	}
 
 	bool MemberObsolete<FontManager>::load(const std::string& _file)
@@ -817,15 +821,15 @@ namespace MyGUI
 		return ResourceManager::getInstance().load(_file);
 	}
 
-	const IntSize& MemberObsolete<Gui>::getViewSize()
+	const IntSize& MemberObsolete<Gui>::getViewSize() const
 	{
 		return RenderManager::getInstance().getViewSize();
 	}
-	int MemberObsolete<Gui>::getViewWidth()
+	int MemberObsolete<Gui>::getViewWidth() const
 	{
 		return RenderManager::getInstance().getViewSize().width;
 	}
-	int MemberObsolete<Gui>::getViewHeight()
+	int MemberObsolete<Gui>::getViewHeight() const
 	{
 		return RenderManager::getInstance().getViewSize().height;
 	}
@@ -981,18 +985,18 @@ namespace MyGUI
 			static_cast<PointerManager*>(this)->setDefaultPointer(pointer);
 	}
 
-	size_t MemberObsolete<ResourceManager>::getResourceCount()
+	size_t MemberObsolete<ResourceManager>::getResourceCount() const
 	{
-		return static_cast<ResourceManager*>(this)->getCount();
+		return static_cast<const ResourceManager*>(this)->getCount();
 	}
-	IResourcePtr MemberObsolete<ResourceManager>::getResource(const std::string& _name, bool _throw)
+	IResourcePtr MemberObsolete<ResourceManager>::getResource(const std::string& _name, bool _throw) const
 	{
-		return static_cast<ResourceManager*>(this)->getByName(_name, _throw);
+		return static_cast<const ResourceManager*>(this)->getByName(_name, _throw);
 	}
 
-	ResourceSkin* MemberObsolete<SkinManager>::getSkin(const std::string& _name)
+	ResourceSkin* MemberObsolete<SkinManager>::getSkin(const std::string& _name) const
 	{
-		return static_cast<SkinManager*>(this)->getByName(_name);
+		return static_cast<const SkinManager*>(this)->getByName(_name);
 	}
 	bool MemberObsolete<SkinManager>::load(const std::string& _file)
 	{

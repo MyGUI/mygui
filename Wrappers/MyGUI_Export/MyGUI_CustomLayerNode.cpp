@@ -27,7 +27,7 @@ namespace MyGUI
 		return layer;
 	}
 
-	float CustomLayerNode::getNodeDepth()
+	float CustomLayerNode::getNodeDepth() const
 	{
 		float result = Base::getNodeDepth();
 

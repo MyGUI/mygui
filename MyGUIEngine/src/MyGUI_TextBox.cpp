@@ -16,12 +16,12 @@ namespace MyGUI
 	{
 	}
 
-	IntCoord TextBox::getTextRegion()
+	IntCoord TextBox::getTextRegion() const
 	{
 		return (nullptr == getSubWidgetText()) ? IntCoord() : getSubWidgetText()->getCoord();
 	}
 
-	IntSize TextBox::getTextSize()
+	IntSize TextBox::getTextSize() const
 	{
 		return (nullptr == getSubWidgetText()) ? IntSize() : getSubWidgetText()->getTextSize();
 	}
@@ -32,7 +32,7 @@ namespace MyGUI
 			getSubWidgetText()->setTextAlign(_value);
 	}
 
-	Align TextBox::getTextAlign()
+	Align TextBox::getTextAlign() const
 	{
 		if (getSubWidgetText() != nullptr)
 			return getSubWidgetText()->getTextAlign();
@@ -45,7 +45,7 @@ namespace MyGUI
 			getSubWidgetText()->setTextColour(_value);
 	}
 
-	const Colour& TextBox::getTextColour()
+	const Colour& TextBox::getTextColour() const
 	{
 		return (nullptr == getSubWidgetText()) ? Colour::Zero : getSubWidgetText()->getTextColour();
 	}
@@ -56,7 +56,7 @@ namespace MyGUI
 			getSubWidgetText()->setFontName(_value);
 	}
 
-	const std::string& TextBox::getFontName()
+	const std::string& TextBox::getFontName() const
 	{
 		if (nullptr == getSubWidgetText())
 			return Constants::getEmptyString();
@@ -69,7 +69,7 @@ namespace MyGUI
 			getSubWidgetText()->setFontHeight(_height);
 	}
 
-	int TextBox::getFontHeight()
+	int TextBox::getFontHeight() const
 	{
 		return (nullptr == getSubWidgetText()) ? 0 : getSubWidgetText()->getFontHeight();
 	}
@@ -80,7 +80,7 @@ namespace MyGUI
 			getSubWidgetText()->setCaption(_caption);
 	}
 
-	const UString& TextBox::getCaption()
+	const UString& TextBox::getCaption() const
 	{
 		if (nullptr == getSubWidgetText())
 			return Constants::getEmptyUString();
@@ -114,7 +114,7 @@ namespace MyGUI
 			getSubWidgetText()->setShadowColour(_value);
 	}
 
-	const Colour& TextBox::getTextShadowColour()
+	const Colour& TextBox::getTextShadowColour() const
 	{
 		return (nullptr == getSubWidgetText()) ? Colour::Black : getSubWidgetText()->getShadowColour();
 	}
@@ -125,7 +125,7 @@ namespace MyGUI
 			getSubWidgetText()->setShadow(_value);
 	}
 
-	bool TextBox::getTextShadow()
+	bool TextBox::getTextShadow() const
 	{
 		return (nullptr == getSubWidgetText()) ? false : getSubWidgetText()->getShadow();
 	}

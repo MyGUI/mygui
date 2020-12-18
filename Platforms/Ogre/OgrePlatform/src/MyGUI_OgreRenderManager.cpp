@@ -117,7 +117,7 @@ namespace MyGUI
 		}
 	}
 
-	Ogre::RenderSystem* OgreRenderManager::getRenderSystem()
+	Ogre::RenderSystem* OgreRenderManager::getRenderSystem() const
 	{
 		return mRenderSystem;
 	}
@@ -401,7 +401,7 @@ namespace MyGUI
 		return mViewSize;
 	}
 
-	VertexColourType OgreRenderManager::getVertexFormat()
+	VertexColourType OgreRenderManager::getVertexFormat() const
 	{
 		return mVertexFormat;
 	}
@@ -411,17 +411,17 @@ namespace MyGUI
 		return mInfo;
 	}
 
-	size_t OgreRenderManager::getActiveViewport()
+	size_t OgreRenderManager::getActiveViewport() const
 	{
 		return mActiveViewport;
 	}
 
-	Ogre::RenderWindow* OgreRenderManager::getRenderWindow()
+	Ogre::RenderWindow* OgreRenderManager::getRenderWindow() const
 	{
 		return mWindow;
 	}
 
-	bool OgreRenderManager::getManualRender()
+	bool OgreRenderManager::getManualRender() const
 	{
 		return mManualRender;
 	}
@@ -495,7 +495,7 @@ namespace MyGUI
 		doRender(_buffer, _texture, _count);
 	}
 
-	OgreShaderInfo* OgreRenderManager::getShaderInfo(const std::string& _shaderName)
+	OgreShaderInfo* OgreRenderManager::getShaderInfo(const std::string& _shaderName) const
 	{
 		auto iter = mRegisteredShaders.find(_shaderName);
 		if (iter != mRegisteredShaders.end())

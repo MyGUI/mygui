@@ -143,7 +143,7 @@ namespace MyGUI
 			}
 
 		internal:
-			virtual const std::string& getClassTypeName() = 0;
+			virtual const std::string& getClassTypeName() const = 0;
 			MyGUI::Widget* GetNativePtr()
 			{
 				return mNative;

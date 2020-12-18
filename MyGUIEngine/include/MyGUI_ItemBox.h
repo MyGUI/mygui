@@ -98,10 +98,10 @@ namespace MyGUI
 		bool getVerticalAlignment() const;
 
 		/** Get item index by item Widget pointer */
-		size_t getIndexByWidget(Widget* _widget);
+		size_t getIndexByWidget(Widget* _widget) const;
 
 		/** Get widget created for drop */
-		Widget* getWidgetDrag();
+		Widget* getWidgetDrag() const;
 
 		/** Get item Widget pointer by item index if it is visible
 			@note returned widget can be deleted, so this pointer
@@ -137,9 +137,9 @@ namespace MyGUI
 		/** Set view area offset. */
 		void setViewOffset(const IntPoint& _value);
 		/** Get view area offset. */
-		IntPoint getViewOffset();
+		IntPoint getViewOffset() const;
 
-		IntSize getViewSize() override;
+		IntSize getViewSize() const override;
 
 		/*events:*/
 		/** Event : Request for creating new item.\n
@@ -224,7 +224,7 @@ namespace MyGUI
 		void notifyMouseWheel(Widget* _sender, int _rel);
 		void notifyRootMouseChangeFocus(Widget* _sender, bool _focus);
 		void notifyMouseButtonDoubleClick(Widget* _sender);
-		size_t _getItemIndex(Widget* _item) override;
+		size_t _getItemIndex(Widget* _item) const override;
 		void notifyMouseDrag(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonPressed(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseButtonReleased(Widget* _sender, int _left, int _top, MouseButton _id);
@@ -242,8 +242,8 @@ namespace MyGUI
 
 		void updateFromResize();
 
-		// возвращает следующий айтем, если нет его, то создается
-		// запросы только последовательно
+		// returns next item, create new one if requesting next one
+		// can be requested only sequentially
 		Widget* getItemWidget(size_t _index);
 
 		void _setContainerItemInfo(size_t _index, bool _set, bool _accept) override;
@@ -254,7 +254,7 @@ namespace MyGUI
 		void findCurrentActiveItem();
 
 		// запрашиваем у конейтера айтем по позиции мыши
-		size_t _getContainerIndex(const IntPoint& _point) override;
+		size_t _getContainerIndex(const IntPoint& _point) const override;
 
 		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
 
@@ -263,12 +263,12 @@ namespace MyGUI
 
 		void requestItemSize();
 
-		IntSize getContentSize() override;
-		IntPoint getContentPosition() override;
+		IntSize getContentSize() const override;
+		IntPoint getContentPosition() const override;
 		void eraseContent() override;
-		size_t getHScrollPage() override;
-		size_t getVScrollPage() override;
-		Align getContentAlign() override;
+		size_t getHScrollPage() const override;
+		size_t getVScrollPage() const override;
+		Align getContentAlign() const override;
 		void setContentPosition(const IntPoint& _point) override;
 
 	private:

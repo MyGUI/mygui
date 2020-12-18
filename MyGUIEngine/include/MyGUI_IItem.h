@@ -19,7 +19,7 @@ namespace MyGUI
 	public:
 		virtual ~IItem() { }
 
-		virtual IItemContainer* _getItemContainer()
+		virtual IItemContainer* _getItemContainer() const
 		{
 			return nullptr;
 		}

@@ -106,7 +106,7 @@ namespace MyGUI
 			mWindow->navigateTo(_url.c_str(), _url.length());
 	}
 
-	Berkelium::Window* BerkeliumWidget::getBerkeliumWindow()
+	Berkelium::Window* BerkeliumWidget::getBerkeliumWindow() const
 	{
 		return mWindow;
 	}

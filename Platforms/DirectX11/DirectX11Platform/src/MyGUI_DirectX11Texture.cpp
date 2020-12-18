@@ -140,12 +140,12 @@ namespace MyGUI
 		}
 	}
 
-	int DirectX11Texture::getWidth()
+	int DirectX11Texture::getWidth() const
 	{
 		return mWidth;
 	}
 
-	int DirectX11Texture::getHeight()
+	int DirectX11Texture::getHeight() const
 	{
 		return mHeight;
 	}
@@ -182,22 +182,22 @@ namespace MyGUI
 		}
 	}
 
-	bool DirectX11Texture::isLocked()
+	bool DirectX11Texture::isLocked() const
 	{
 		return mLock;
 	}
 
-	PixelFormat DirectX11Texture::getFormat()
+	PixelFormat DirectX11Texture::getFormat() const
 	{
 		return PixelFormat::R8G8B8A8;
 	}
 
-	size_t DirectX11Texture::getNumElemBytes()
+	size_t DirectX11Texture::getNumElemBytes() const
 	{
 		return 4;
 	}
 
-	TextureUsage DirectX11Texture::getUsage()
+	TextureUsage DirectX11Texture::getUsage() const
 	{
 		return mTextureUsage;
 	}

@@ -29,7 +29,7 @@ namespace MyGUI
 		/** Set item caption */
 		void setCaption(const UString& _value) override;
 		/** Get item caption */
-		const UString& getCaption() override;
+		const UString& getCaption() const override;
 
 		void setItemResizingPolicy(ResizingPolicy _value);
 
@@ -42,7 +42,7 @@ namespace MyGUI
 		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
 
 	private:
-		MultiListBox* getOwner();
+		MultiListBox* getOwner() const;
 
 	};
 

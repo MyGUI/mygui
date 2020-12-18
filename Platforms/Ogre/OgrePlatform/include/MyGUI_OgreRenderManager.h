@@ -44,7 +44,7 @@ namespace MyGUI
 		const IntSize& getViewSize() const override;
 
 		/** @see RenderManager::getVertexFormat */
-		VertexColourType getVertexFormat() override;
+		VertexColourType getVertexFormat() const override;
 
 		/** @see RenderManager::createVertexBuffer */
 		IVertexBuffer* createVertexBuffer() override;
@@ -73,7 +73,7 @@ namespace MyGUI
 		const RenderTargetInfo& getInfo() const override;
 
 		void setRenderSystem(Ogre::RenderSystem* _render);
-		Ogre::RenderSystem* getRenderSystem();
+		Ogre::RenderSystem* getRenderSystem() const;
 
 		void setRenderWindow(Ogre::RenderWindow* _window);
 
@@ -81,14 +81,14 @@ namespace MyGUI
 		void setSceneManager(Ogre::SceneManager* _scene);
 
 		/** Get GUI viewport index */
-		size_t getActiveViewport();
+		size_t getActiveViewport() const;
 
 		/** Set GUI viewport index */
 		void setActiveViewport(unsigned short _num);
 
-		Ogre::RenderWindow* getRenderWindow();
+		Ogre::RenderWindow* getRenderWindow() const;
 
-		bool getManualRender();
+		bool getManualRender() const;
 		void setManualRender(bool _value);
 
 		size_t getBatchCount() const;
@@ -113,7 +113,7 @@ namespace MyGUI
 		void beginRttRender(bool isFlippedTexture);
 		void endRttRender();
 		void doRenderRtt(IVertexBuffer* _buffer, ITexture* _texture, size_t _count, Ogre::RenderTexture* rtt);
-		OgreShaderInfo* getShaderInfo(const std::string& _shaderName);
+		OgreShaderInfo* getShaderInfo(const std::string& _shaderName) const;
 
 	private:
 		void renderQueueStarted(

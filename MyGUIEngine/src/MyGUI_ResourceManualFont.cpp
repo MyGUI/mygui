@@ -20,9 +20,9 @@ namespace MyGUI
 	{
 	}
 
-	GlyphInfo* ResourceManualFont::getGlyphInfo(Char _id)
+	const GlyphInfo* ResourceManualFont::getGlyphInfo(Char _id) const
 	{
-		CharMap::iterator iter = mCharMap.find(_id);
+		CharMap::const_iterator iter = mCharMap.find(_id);
 
 		if (iter != mCharMap.end())
 			return &iter->second;
@@ -135,12 +135,12 @@ namespace MyGUI
 		}
 	}
 
-	ITexture* ResourceManualFont::getTextureFont()
+	ITexture* ResourceManualFont::getTextureFont() const
 	{
 		return mTexture;
 	}
 
-	int ResourceManualFont::getDefaultHeight()
+	int ResourceManualFont::getDefaultHeight() const
 	{
 		return mDefaultHeight;
 	}

@@ -28,12 +28,12 @@ namespace MyGUI
 
 		// Returns the glyph info for the specified code point, or the glyph info for a substitute glyph if the code point does not
 		// exist in this font. Returns nullptr if the code point does not exist and there is no substitute glyph available.
-		GlyphInfo* getGlyphInfo(Char _id) override;
+		const GlyphInfo* getGlyphInfo(Char _id) const override;
 
-		ITexture* getTextureFont() override;
+		ITexture* getTextureFont() const override;
 
 		// дефолтная высота, указанная в настройках шрифта
-		int getDefaultHeight() override;
+		int getDefaultHeight() const override;
 
 		// Manual loading methods, not needed when loading from XML
 		// Set the source texture by name

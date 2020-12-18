@@ -292,12 +292,12 @@ namespace MyGUI
 		else if (mFlowDirection == FlowDirection::BottomToTop) _widget->setCoord(_top, mTrackPlace->getHeight() - _left - _width, _height, _width);
 	}
 
-	int ProgressBar::getClientWidth()
+	int ProgressBar::getClientWidth() const
 	{
 		return mFlowDirection.isHorizontal() ? mTrackPlace->getWidth() : mTrackPlace->getHeight();
 	}
 
-	int ProgressBar::getClientHeight()
+	int ProgressBar::getClientHeight() const
 	{
 		return mFlowDirection.isHorizontal() ? mTrackPlace->getHeight() : mTrackPlace->getWidth();
 	}

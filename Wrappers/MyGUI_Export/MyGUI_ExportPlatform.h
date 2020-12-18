@@ -25,8 +25,8 @@ namespace MyGUI
 		void initialise(const std::string& _logName = MYGUI_PLATFORM_LOG_FILENAME);
 		void shutdown();
 
-		ExportRenderManager* getRenderManagerPtr();
-		ExportDataManager* getDataManagerPtr();
+		ExportRenderManager* getRenderManagerPtr() const;
+		ExportDataManager* getDataManagerPtr() const;
 
 	private:
 		ExportRenderManager* mRenderManager;

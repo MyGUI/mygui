@@ -916,7 +916,7 @@ namespace MyGUI
 			return true;
 		}
 
-		std::string Document::getLastError()
+		std::string Document::getLastError() const
 		{
 			const std::string& error = mLastError.print();
 			if (error.empty())

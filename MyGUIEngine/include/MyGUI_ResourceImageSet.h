@@ -31,12 +31,12 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ResourceImageSet )
 
 	public:
-		ImageIndexInfo getIndexInfo(const std::string& _group, const std::string& _index);
-		ImageIndexInfo getIndexInfo(size_t _group, const std::string& _index);
-		ImageIndexInfo getIndexInfo(const std::string& _group, size_t _index);
-		ImageIndexInfo getIndexInfo(size_t _group, size_t _index);
-		ImageIndexInfo getIndexInfo(const IntSize& _group, size_t _index);
-		ImageIndexInfo getIndexInfo(const IntSize& _group, const std::string& _index);
+		ImageIndexInfo getIndexInfo(const std::string& _group, const std::string& _index) const;
+		ImageIndexInfo getIndexInfo(size_t _group, const std::string& _index) const;
+		ImageIndexInfo getIndexInfo(const std::string& _group, size_t _index) const;
+		ImageIndexInfo getIndexInfo(size_t _group, size_t _index) const;
+		ImageIndexInfo getIndexInfo(const IntSize& _group, size_t _index) const;
+		ImageIndexInfo getIndexInfo(const IntSize& _group, const std::string& _index) const;
 
 		/** Get groups Enumerator */
 		EnumeratorGroupImage getEnumerator() const;
@@ -46,9 +46,9 @@ namespace MyGUI
 	private:
 		void deserialization(xml::ElementPtr _node, Version _version) override;
 
-		size_t getGroupIndex(const std::string& _name);
-		size_t getGroupIndex(const IntSize& _size);
-		size_t getImageIndex(GroupImage& _group, const std::string& _name);
+		size_t getGroupIndex(const std::string& _name) const;
+		size_t getGroupIndex(const IntSize& _size) const;
+		size_t getImageIndex(const GroupImage& _group, const std::string& _name) const;
 
 	private:
 		VectorGroupImage mGroups;

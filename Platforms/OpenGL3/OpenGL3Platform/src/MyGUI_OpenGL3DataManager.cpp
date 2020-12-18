@@ -36,7 +36,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	IDataStream* OpenGL3DataManager::getData(const std::string& _name)
+	IDataStream* OpenGL3DataManager::getData(const std::string& _name) const
 	{
 		std::string filepath = getDataPath(_name);
 		if (filepath.empty())
@@ -67,7 +67,7 @@ namespace MyGUI
 		return !files.empty();
 	}
 
-	const VectorString& OpenGL3DataManager::getDataListNames(const std::string& _pattern)
+	const VectorString& OpenGL3DataManager::getDataListNames(const std::string& _pattern) const
 	{
 		static VectorString result;
 		common::VectorWString wresult;
@@ -86,7 +86,7 @@ namespace MyGUI
 		return result;
 	}
 
-	const std::string& OpenGL3DataManager::getDataPath(const std::string& _name)
+	const std::string& OpenGL3DataManager::getDataPath(const std::string& _name) const
 	{
 		static std::string path;
 		VectorString result;

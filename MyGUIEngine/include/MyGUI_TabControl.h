@@ -90,13 +90,13 @@ namespace MyGUI
 
 
 		//! Get item from specified position
-		TabItem* getItemAt(size_t _index);
+		TabItem* getItemAt(size_t _index) const;
 
 		//! Get item index
-		size_t getItemIndex(TabItem* _item);
+		size_t getItemIndex(const TabItem* _item) const;
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
-		size_t findItemIndex(TabItem* _item);
+		size_t findItemIndex(const TabItem* _item);
 
 		//! Search item, returns the position of the first occurrence in array or ITEM_NONE if item not found
 		size_t findItemIndexWith(const UString& _name);
@@ -113,7 +113,7 @@ namespace MyGUI
 		size_t getIndexSelected() const;
 
 		//! Get selected item (nullptr if none selected)
-		TabItem* getItemSelected();
+		TabItem* getItemSelected() const;
 
 		//! Select specified _index
 		void setIndexSelected(size_t _index);
@@ -163,7 +163,7 @@ namespace MyGUI
 		const UString& getItemNameAt(size_t _index) const;
 
 		//! Get item name
-		const UString& getItemName(TabItem* _item);
+		const UString& getItemName(const TabItem* _item) const;
 
 
 		//------------------------------------------------------------------------------//
@@ -173,7 +173,7 @@ namespace MyGUI
 		void beginToItemAt(size_t _index);
 
 		//! Move all elements so specified becomes visible
-		void beginToItem(TabItem* _item);
+		void beginToItem(const TabItem* _item);
 		//! Move all elements so first becomes visible
 		void beginToItemFirst();
 		//! Move all elements so last becomes visible
@@ -191,9 +191,9 @@ namespace MyGUI
 		void setButtonWidth(TabItem* _item, int _width = DEFAULT);
 
 		//! Get button width at a specified position
-		int getButtonWidthAt(size_t _index);
+		int getButtonWidthAt(size_t _index) const;
 		//! Get button width
-		int getButtonWidth(TabItem* _item);
+		int getButtonWidth(TabItem* _item) const;
 
 		//------------------------------------------------------------------------------//
 
@@ -222,10 +222,10 @@ namespace MyGUI
 
 		/*internal:*/
 		// IItemContainer impl
-		size_t _getItemCount() override;
+		size_t _getItemCount() const override;
 		void _addItem(const MyGUI::UString& _name) override;
 		void _removeItemAt(size_t _index) override;
-		Widget* _getItemAt(size_t _index) override;
+		Widget* _getItemAt(size_t _index) const override;
 		void _setItemNameAt(size_t _index, const UString& _name) override;
 		const UString& _getItemNameAt(size_t _index) const override;
 

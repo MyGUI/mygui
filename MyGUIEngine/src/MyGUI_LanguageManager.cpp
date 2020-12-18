@@ -206,15 +206,15 @@ namespace MyGUI
 		return result;
 	}
 
-	UString LanguageManager::getTag(const UString& _tag)
+	UString LanguageManager::getTag(const UString& _tag) const
 	{
-		MapLanguageString::iterator iter = mMapLanguage.find(_tag);
+		MapLanguageString::const_iterator iter = mMapLanguage.find(_tag);
 		if (iter != mMapLanguage.end())
 		{
 			return iter->second;
 		}
 
-		MapLanguageString::iterator iterUser = mUserMapLanguage.find(_tag);
+		MapLanguageString::const_iterator iterUser = mUserMapLanguage.find(_tag);
 		if (iterUser != mUserMapLanguage.end())
 		{
 			return iterUser->second;

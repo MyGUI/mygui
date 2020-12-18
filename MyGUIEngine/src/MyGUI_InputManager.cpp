@@ -602,7 +602,7 @@ namespace MyGUI
 			setKeyFocusWidget(nullptr);
 	}
 
-	IntPoint InputManager::getMousePositionByLayer()
+	IntPoint InputManager::getMousePositionByLayer() const
 	{
 		if (mLayerMouseFocus != nullptr)
 			return mLayerMouseFocus->getPosition(mMousePosition.left, mMousePosition.top);

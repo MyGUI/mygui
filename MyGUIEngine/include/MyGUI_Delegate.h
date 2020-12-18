@@ -185,7 +185,7 @@ namespace delegates
 			return *this;
 		}
 
-		void operator()(Args... args)
+		void operator()(Args... args) const
 		{
 			if (mDelegate == nullptr) return;
 			mDelegate->invoke(args...);
@@ -267,7 +267,7 @@ namespace delegates
 			delete _delegate;
 		}
 
-		void operator()(Args... args)
+		void operator()(Args... args) const
 		{
 			auto iter = mListDelegates.begin();
 			while (iter != mListDelegates.end())
@@ -344,7 +344,7 @@ namespace delegates
 		}
 
 	private:
-		ListDelegate mListDelegates;
+		mutable ListDelegate mListDelegates;
 	};
 
 //#ifndef MYGUI_DONT_USE_OBSOLETE // TODO

@@ -44,12 +44,12 @@ namespace MyGUI
 
 		// Returns the glyph info for the specified code point, or the glyph info for a substitute glyph if the code point does not
 		// exist in this font. Returns nullptr if there is a problem with the font.
-		GlyphInfo* getGlyphInfo(Char _id) override;
+		const GlyphInfo* getGlyphInfo(Char _id) const override;
 
-		ITexture* getTextureFont() override;
+		ITexture* getTextureFont() const override;
 
 		// получившаяся высота при генерации в пикселях
-		int getDefaultHeight() override;
+		int getDefaultHeight() const override;
 
 		// update texture after render device lost event
 		void textureInvalidate(ITexture* _texture) override;
