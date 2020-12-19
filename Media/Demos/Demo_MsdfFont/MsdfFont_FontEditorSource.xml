@@ -15,7 +15,7 @@
 		</Codes>
 		<Property key="MsdfMode" value="true"/>
 		<Property key="MsdfRange" value="2"/>
-		<Property key="Shader" value=""/>
+		<Property key="Shader" value="MsdfFontShader"/>
 	</Resource>
 	<Resource type="ResourceTrueTypeFont" name="MsdfFont_15">
 		<Property key="Source" value="DejaVuSans.ttf"/>
@@ -32,6 +32,6 @@
 		</Codes>
 		<Property key="MsdfMode" value="true"/>
 		<Property key="MsdfRange" value="2"/>
-		<Property key="Shader" value=""/>
+		<Property key="Shader" value="MsdfFontShader"/>
 	</Resource>
 </MyGUI>
