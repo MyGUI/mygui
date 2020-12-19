@@ -1,6 +1,9 @@
 
 #include "Shape.h"
 
+#include <algorithm>
+#include "arithmetics.hpp"
+
 namespace msdfgen {
 
 Shape::Shape() : inverseYAxis(false) { }
@@ -36,8 +39,21 @@ bool Shape::validate() const {
     return true;
 }
 
+static void deconvergeEdge(EdgeHolder &edgeHolder, int param) {
+    {
+        const QuadraticSegment *quadraticSegment = dynamic_cast<const QuadraticSegment *>(&*edgeHolder);
+        if (quadraticSegment)
+            edgeHolder = quadraticSegment->convertToCubic();
+    }
+    {
+        CubicSegment *cubicSegment = dynamic_cast<CubicSegment *>(&*edgeHolder);
+        if (cubicSegment)
+            cubicSegment->deconverge(param, MSDFGEN_DECONVERGENCE_FACTOR);
+    }
+}
+
 void Shape::normalize() {
-    for (std::vector<Contour>::iterator contour = contours.begin(); contour != contours.end(); ++contour)
+    for (std::vector<Contour>::iterator contour = contours.begin(); contour != contours.end(); ++contour) {
         if (contour->edges.size() == 1) {
             EdgeSegment *parts[3] = { };
             contour->edges[0]->splitInThirds(parts[0], parts[1], parts[2]);
@@ -45,7 +61,19 @@ void Shape::normalize() {
             contour->edges.push_back(EdgeHolder(parts[0]));
             contour->edges.push_back(EdgeHolder(parts[1]));
             contour->edges.push_back(EdgeHolder(parts[2]));
+        } else {
+            EdgeHolder *prevEdge = &contour->edges.back();
+            for (std::vector<EdgeHolder>::iterator edge = contour->edges.begin(); edge != contour->edges.end(); ++edge) {
+                Vector2 prevDir = (*prevEdge)->direction(1).normalize();
+                Vector2 curDir = (*edge)->direction(0).normalize();
+                if (dotProduct(prevDir, curDir) < MSDFGEN_CORNER_DOT_EPSILON-1) {
+                    deconvergeEdge(*prevEdge, 1);
+                    deconvergeEdge(*edge, 0);
+                }
+                prevEdge = &*edge;
+            }
         }
+    }
 }
 
 void Shape::bound(double &l, double &b, double &r, double &t) const {
@@ -94,8 +122,62 @@ void Shape::scanline(Scanline &line, double y) const {
 int Shape::edgeCount() const {
     int total = 0;
     for (std::vector<Contour>::const_iterator contour = contours.begin(); contour != contours.end(); ++contour)
-        total += contour->edges.size();
+        total += (int) contour->edges.size();
     return total;
+}
+
+void Shape::orientContours() {
+    struct Intersection {
+        double x;
+        int direction;
+        int contourIndex;
+
+        static int compare(const void *a, const void *b) {
+            return sign(reinterpret_cast<const Intersection *>(a)->x-reinterpret_cast<const Intersection *>(b)->x);
+        }
+    };
+
+    const double ratio = .5*(sqrt(5)-1); // an irrational number to minimize chance of intersecting a corner or other point of interest
+    std::vector<int> orientations(contours.size());
+    std::vector<Intersection> intersections;
+    for (int i = 0; i < (int) contours.size(); ++i) {
+        if (!orientations[i] && !contours[i].edges.empty()) {
+            // Find an Y that crosses the contour
+            double y0 = contours[i].edges.front()->point(0).y;
+            double y1 = y0;
+            for (std::vector<EdgeHolder>::const_iterator edge = contours[i].edges.begin(); edge != contours[i].edges.end() && y0 == y1; ++edge)
+                y1 = (*edge)->point(1).y;
+            for (std::vector<EdgeHolder>::const_iterator edge = contours[i].edges.begin(); edge != contours[i].edges.end() && y0 == y1; ++edge)
+                y1 = (*edge)->point(ratio).y; // in case all endpoints are in a horizontal line
+            double y = mix(y0, y1, ratio);
+            // Scanline through whole shape at Y
+            double x[3];
+            int dy[3];
+            for (int j = 0; j < (int) contours.size(); ++j) {
+                for (std::vector<EdgeHolder>::const_iterator edge = contours[j].edges.begin(); edge != contours[j].edges.end(); ++edge) {
+                    int n = (*edge)->scanlineIntersections(x, dy, y);
+                    for (int k = 0; k < n; ++k) {
+                        Intersection intersection = { x[k], dy[k], j };
+                        intersections.push_back(intersection);
+                    }
+                }
+            }
+            qsort(&intersections[0], intersections.size(), sizeof(Intersection), &Intersection::compare);
+            // Disqualify multiple intersections
+            for (int j = 1; j < (int) intersections.size(); ++j)
+                if (intersections[j].x == intersections[j-1].x)
+                    intersections[j].direction = intersections[j-1].direction = 0;
+            // Inspect scanline and deduce orientations of intersected contours
+            for (int j = 0; j < (int) intersections.size(); ++j)
+                if (intersections[j].direction)
+                    orientations[intersections[j].contourIndex] += 2*((j&1)^(intersections[j].direction > 0))-1;
+            intersections.clear();
+        }
+    }
+    // Reverse contours that have the opposite orientation
+    for (int i = 0; i < (int) contours.size(); ++i)
+        if (orientations[i] < 0)
+            contours[i].reverse();
 }
 
 }

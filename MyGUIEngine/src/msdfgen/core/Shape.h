@@ -7,6 +7,11 @@
 
 namespace msdfgen {
 
+// Threshold of the dot product of adjacent edge directions to be considered convergent.
+#define MSDFGEN_CORNER_DOT_EPSILON .000001
+// The proportional amount by which a curve's control point will be adjusted to eliminate convergent corners.
+#define MSDFGEN_DECONVERGENCE_FACTOR .000001
+
 /// Vector shape representation.
 class Shape {
 
@@ -42,6 +47,8 @@ public:
     void scanline(Scanline &line, double y) const;
     /// Returns the total number of edge segments
     int edgeCount() const;
+    /// Assumes its contours are unoriented (even-odd fill rule). Attempts to orient them to conform to the non-zero winding rule.
+    void orientContours();
 
 };
 

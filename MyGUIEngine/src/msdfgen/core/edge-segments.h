@@ -25,6 +25,8 @@ public:
     virtual Point2 point(double param) const = 0;
     /// Returns the direction the edge has at the point specified by the parameter.
     virtual Vector2 direction(double param) const = 0;
+    /// Returns the change of direction (second derivative) at the point specified by the parameter.
+    virtual Vector2 directionChange(double param) const = 0;
     /// Returns the minimum signed distance between origin and the edge.
     virtual SignedDistance signedDistance(Point2 origin, double &param) const = 0;
     /// Converts a previously retrieved signed distance from origin to pseudo-distance.
@@ -34,6 +36,8 @@ public:
     /// Adjusts the bounding box to fit the edge segment.
     virtual void bound(double &l, double &b, double &r, double &t) const = 0;
 
+    /// Reverses the edge (swaps its start point and end point).
+    virtual void reverse() = 0;
     /// Moves the start point of the edge segment.
     virtual void moveStartPoint(Point2 to) = 0;
     /// Moves the end point of the edge segment.
@@ -53,10 +57,13 @@ public:
     LinearSegment * clone() const;
     Point2 point(double param) const;
     Vector2 direction(double param) const;
+    Vector2 directionChange(double param) const;
+    double length() const;
     SignedDistance signedDistance(Point2 origin, double &param) const;
     int scanlineIntersections(double x[3], int dy[3], double y) const;
     void bound(double &l, double &b, double &r, double &t) const;
 
+    void reverse();
     void moveStartPoint(Point2 to);
     void moveEndPoint(Point2 to);
     void splitInThirds(EdgeSegment *&part1, EdgeSegment *&part2, EdgeSegment *&part3) const;
@@ -73,13 +80,18 @@ public:
     QuadraticSegment * clone() const;
     Point2 point(double param) const;
     Vector2 direction(double param) const;
+    Vector2 directionChange(double param) const;
+    double length() const;
     SignedDistance signedDistance(Point2 origin, double &param) const;
     int scanlineIntersections(double x[3], int dy[3], double y) const;
     void bound(double &l, double &b, double &r, double &t) const;
 
+    void reverse();
     void moveStartPoint(Point2 to);
     void moveEndPoint(Point2 to);
     void splitInThirds(EdgeSegment *&part1, EdgeSegment *&part2, EdgeSegment *&part3) const;
+
+    EdgeSegment * convertToCubic() const;
 
 };
 
@@ -93,13 +105,17 @@ public:
     CubicSegment * clone() const;
     Point2 point(double param) const;
     Vector2 direction(double param) const;
+    Vector2 directionChange(double param) const;
     SignedDistance signedDistance(Point2 origin, double &param) const;
     int scanlineIntersections(double x[3], int dy[3], double y) const;
     void bound(double &l, double &b, double &r, double &t) const;
 
+    void reverse();
     void moveStartPoint(Point2 to);
     void moveEndPoint(Point2 to);
     void splitInThirds(EdgeSegment *&part1, EdgeSegment *&part2, EdgeSegment *&part3) const;
+
+    void deconverge(int param, double amount);
 
 };
 

@@ -6,8 +6,6 @@
 
 namespace msdfgen {
 
-#undef min // MyGUI modification
-#undef max // MyGUI modification
 /// Returns the smaller of the arguments.
 template <typename T>
 inline T min(T a, T b) {

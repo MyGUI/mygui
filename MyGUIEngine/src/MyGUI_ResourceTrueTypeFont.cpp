@@ -546,8 +546,7 @@ namespace MyGUI
 
 		if (mMsdfMode)
 		{
-			msdfFont = new msdfgen::FontHandle();
-			msdfFont->face = ftFace;
+			msdfFont = msdfgen::adoptFreetypeFont(ftFace);
 		}
 #endif
 

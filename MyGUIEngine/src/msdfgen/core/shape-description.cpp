@@ -1,11 +1,8 @@
 
+#define _CRT_SECURE_NO_WARNINGS
 #include "shape-description.h"
 
 namespace msdfgen {
-
-#ifdef _WIN32
-    #pragma warning(disable:4996)
-#endif
 
 int readCharF(FILE *input) {
     int c = '\0';
@@ -78,7 +75,6 @@ static bool readContour(T *input, Contour &output, const Point2 *first, int term
     while ((c = readChar(input)) != terminator) {
         if (c != ';')
             return false;
-        bool parenthesis = false;
         EdgeColor color = WHITE;
         int result = readCoord(input, p[1]);
         if (result == 2) {
@@ -204,7 +200,7 @@ bool readShapeDescription(const char *input, Shape &output, bool *colorsSpecifie
     else {
         int c = readCharS(&input);
         if (c == '@') {
-            for (int i = 0; i < sizeof("invert-y")-1; ++i)
+            for (int i = 0; i < (int) sizeof("invert-y")-1; ++i)
                 if (input[i] != "invert-y"[i])
                     return false;
             output.inverseYAxis = true;

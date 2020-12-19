@@ -7,7 +7,6 @@ Vector2::Vector2(double val) : x(val), y(val) { }
 
 Vector2::Vector2(double x, double y) : x(x), y(y) { }
 
-
 void Vector2::reset() {
     x = 0, y = 0;
 }
