@@ -786,7 +786,7 @@ namespace MyGUI
 #ifdef MYGUI_MSDF_FONTS
 		if (mMsdfMode)
 		{
-			delete msdfFont;
+			msdfgen::destroyFont(msdfFont);
 		}
 #endif
 
