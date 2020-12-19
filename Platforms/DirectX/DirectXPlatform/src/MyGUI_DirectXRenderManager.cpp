@@ -262,6 +262,14 @@ namespace MyGUI
 		mUpdate = true;
 	}
 
+	void DirectXRenderManager::registerShader(
+		const std::string& _shaderName,
+		const std::string& _vertexProgramFile,
+		const std::string& _fragmentProgramFile)
+	{
+		MYGUI_PLATFORM_LOG(Warning, "DirectXRenderManager::registerShader is not implemented");
+	}
+
 	void DirectXRenderManager::deviceLost()
 	{
 		MYGUI_PLATFORM_LOG(Info, "device D3D lost");
