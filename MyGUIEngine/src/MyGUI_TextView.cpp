@@ -300,10 +300,10 @@ namespace MyGUI
 		{
 			bool lastline = line + 1 == mLineInfo.end();
 
-            top += mFontHeight;
 			// наша строчка
 			if (top + mFontHeight <= _value.top && !lastline)
             {
+				top += mFontHeight;
                 result += line->count + 1;
             }
 			else
