@@ -289,6 +289,10 @@ namespace MyGUI
 		{
 			mRenderSystem->bindGpuProgram(texture->getShaderInfo()->vertexProgram->_getBindingDelegate());
 			mRenderSystem->bindGpuProgram(texture->getShaderInfo()->fragmentProgram->_getBindingDelegate());
+
+			auto params = texture->getShaderInfo()->vertexProgram->getDefaultParameters();
+			params->copyConstantsFrom(*mDefaultShader->vertexProgram->getDefaultParameters());
+			mRenderSystem->bindGpuProgramParameters(Ogre::GPT_VERTEX_PROGRAM, params, Ogre::GPV_ALL);
 		}
 
 		OgreVertexBuffer* buffer = static_cast<OgreVertexBuffer*>(_buffer);
