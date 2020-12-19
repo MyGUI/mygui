@@ -3,7 +3,7 @@
 precision highp int;
 precision highp float;
 
-uniform sampler2D samplerTexture;
+uniform sampler2D sampleTexture;
 
 in vec4 outUV0;
 in vec4 outColor;
@@ -19,8 +19,8 @@ void main()
 {
 	float pxRange = 2.0;
 
-	vec2 msdfUnit = pxRange/vec2(textureSize(samplerTexture, 0));
-	vec3 textureColor = texture(samplerTexture, outUV0.xy).rgb;
+	vec2 msdfUnit = pxRange/vec2(textureSize(sampleTexture, 0));
+	vec3 textureColor = texture(sampleTexture, outUV0.xy).rgb;
 	float sigDist = median(textureColor.r, textureColor.g, textureColor.b) - 0.5;
 	sigDist *= dot(msdfUnit, 0.5/fwidth(outUV0.xy));
 	float opacity = clamp(sigDist + 0.5, 0.0, 1.0);
