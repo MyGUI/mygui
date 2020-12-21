@@ -99,7 +99,8 @@ namespace MyGUI
 
 		if (isCaptureMouse())
 		{
-			if (isFocusMouse())
+			bool isFocus = isFocusMouse();
+			if (isFocus)
 			{
 				if (mLayerMouseFocus != nullptr)
 				{
@@ -112,7 +113,7 @@ namespace MyGUI
 				}
 			}
 
-			return true;
+			return isFocus;
 		}
 
 		Widget* old_mouse_focus = mWidgetMouseFocus;
