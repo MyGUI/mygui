@@ -329,7 +329,7 @@ endfunction(mygui_dll)
 
 function(mygui_demo PROJECTNAME)
 	mygui_app(${PROJECTNAME} Demos)
-	if (MYGUI_INSTALL_SAMPLES)
+	if (MYGUI_INSTALL_DEMOS)
 		mygui_install_app(${PROJECTNAME})
 	endif ()
 endfunction(mygui_demo)
@@ -359,9 +359,6 @@ endfunction(mygui_unit_test)
 
 function(mygui_tool_dll PROJECTNAME)
 	mygui_dll(${PROJECTNAME} Tools)
-	if (MYGUI_INSTALL_TOOLS)
-		mygui_install_app(${PROJECTNAME})
-	endif ()
 
 	if (${CMAKE_VERSION} VERSION_EQUAL "3.16" OR ${CMAKE_VERSION} VERSION_GREATER "3.16")
 		target_precompile_headers(${PROJECTNAME} PRIVATE "../../Common/Precompiled.h")
@@ -371,7 +368,6 @@ endfunction(mygui_tool_dll)
 
 function(mygui_install_app PROJECTNAME)
 	if (MYGUI_INSTALL_PDB)
-		# install debug pdb files
 		install(FILES ${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}${MYGUI_DEBUG_PATH}/${PROJECTNAME}.pdb
 			DESTINATION bin${MYGUI_DEBUG_PATH}
 			CONFIGURATIONS Debug
@@ -436,27 +432,15 @@ function(mygui_config_lib PROJECTNAME)
 	endif (MYGUI_STATIC)
 	mygui_install_target(${PROJECTNAME} "")
 
-	if (MYGUI_INSTALL_PDB)
-		# install debug pdb files
-		if (MYGUI_STATIC)
-			install(FILES ${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}${MYGUI_LIB_DEBUG_PATH}/${PROJECTNAME}Static_d.pdb
-				DESTINATION lib${MYGUI_LIB_DEBUG_PATH}
-				CONFIGURATIONS Debug
-			)
-			install(FILES ${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}${MYGUI_LIB_RELWDBG_PATH}/${PROJECTNAME}Static.pdb
-				DESTINATION lib${MYGUI_LIB_RELWDBG_PATH}
-				CONFIGURATIONS RelWithDebInfo
-			)
-		else ()
-			install(FILES ${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}${MYGUI_DEBUG_PATH}/${PROJECTNAME}_d.pdb
-				DESTINATION bin${MYGUI_DEBUG_PATH}
-				CONFIGURATIONS Debug
-			)
-			install(FILES ${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}${MYGUI_RELWDBG_PATH}/${PROJECTNAME}.pdb
-				DESTINATION bin${MYGUI_RELWDBG_PATH}
-				CONFIGURATIONS RelWithDebInfo
-			)
-		endif ()
+	if (MYGUI_INSTALL_PDB AND NOT MYGUI_STATIC)
+		install(FILES ${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}${MYGUI_DEBUG_PATH}/${PROJECTNAME}_d.pdb
+			DESTINATION bin${MYGUI_DEBUG_PATH}
+			CONFIGURATIONS Debug
+		)
+		install(FILES ${MYGUI_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}${MYGUI_RELWDBG_PATH}/${PROJECTNAME}.pdb
+			DESTINATION bin${MYGUI_RELWDBG_PATH}
+			CONFIGURATIONS RelWithDebInfo
+		)
 	endif ()
 endfunction(mygui_config_lib)
 

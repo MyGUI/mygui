@@ -31,7 +31,7 @@ endfunction(install_file)
 
 
 # install resource files
-if (MYGUI_INSTALL_SAMPLES OR MYGUI_INSTALL_TOOLS)
+if (MYGUI_INSTALL_DEMOS OR MYGUI_INSTALL_TOOLS)
 	if (MYGUI_RENDERSYSTEM EQUAL 3)
 		# copy plugins.cfg
 		if (DEFINED OGRE_CONFIG_DIR)
