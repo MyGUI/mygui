@@ -77,6 +77,7 @@ namespace base
 		{
 			return false;
 		}
+		SDL_GL_SetSwapInterval(mEnableVSync ? 1 : 0);
 
 		createGuiPlatform();
 		mPlatformReady = true;

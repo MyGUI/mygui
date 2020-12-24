@@ -58,6 +58,8 @@ namespace base
 		}
 
 		Ogre::NameValuePairList params;
+		if (mEnableVSync)
+			params["vsync"] = "true";
 #if OGRE_PLATFORM == OGRE_PLATFORM_LINUX
 		params["parentWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.x11.window));
 #elif OGRE_PLATFORM == OGRE_PLATFORM_WIN32

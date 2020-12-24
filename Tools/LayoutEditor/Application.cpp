@@ -35,6 +35,7 @@ namespace tools
 		mSingletonHolder(this)
 	{
 		ComponentFactory::Initialise();
+		mEnableVSync = true;
 	}
 
 	Application::~Application()

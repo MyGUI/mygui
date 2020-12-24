@@ -67,11 +67,12 @@ namespace base
 
 	protected:
 		SDL_Window* mSdlWindow = nullptr;
+		bool mEnableVSync = false;
 
 	private:
 		MyGUI::Gui* mGUI = nullptr;
 
-        bool mIsOpenGlWindow = false;
+		bool mIsOpenGlWindow = false;
 		bool mPlatformReady = false;
 		bool mExit = false;
 		SDL_Event mEvent;
