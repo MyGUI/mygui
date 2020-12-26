@@ -2,7 +2,6 @@
 <MyGUI type="Resource" version="1.1">
     <Resource type="ResourceManualFont" name="DejaVuSansFontGenerated_15">
         <Property key="Source" value="DejaVuSansFontGenerated_15.png"/>
-        <Property key="SourceSize" value="128 256"/>
         <Property key="DefaultHeight" value="17"/>
         <Codes>
             <Code index="9" advance="8"/>

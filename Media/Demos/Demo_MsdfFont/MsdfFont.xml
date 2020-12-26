@@ -3,7 +3,6 @@
     <Resource type="ResourceManualFont" name="MsdfFont">
         <Property key="Source" value="MsdfFont.png"/>
         <Property key="Shader" value="MsdfFontShader"/>
-        <Property key="SourceSize" value="256 256"/>
         <Property key="DefaultHeight" value="43"/>
         <Codes>
             <Code index="9" coord="1 1 0 0" advance="8"/>
@@ -111,7 +110,6 @@
     <Resource type="ResourceManualFont" name="MsdfFont_15">
         <Property key="Source" value="MsdfFont_15.png"/>
         <Property key="Shader" value="MsdfFontShader"/>
-        <Property key="SourceSize" value="128 128"/>
         <Property key="DefaultHeight" value="17"/>
         <Codes>
             <Code index="9" coord="1 1 0 0" advance="8"/>

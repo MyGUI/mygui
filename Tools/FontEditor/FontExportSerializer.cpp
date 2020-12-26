@@ -265,7 +265,6 @@ namespace tools
 
 			addProperty(node, "Source", textureName);
 			addProperty(node, "Shader", _data->getPropertyValue("Shader"));
-			addProperty(node, "SourceSize", MyGUI::IntSize(texture->getWidth(), texture->getHeight()));
 			addProperty(node, "DefaultHeight", font->getDefaultHeight());
 
 			MyGUI::xml::Element* codes = node->createChild("Codes");
