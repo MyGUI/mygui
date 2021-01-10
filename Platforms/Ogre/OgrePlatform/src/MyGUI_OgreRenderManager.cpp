@@ -522,6 +522,7 @@ namespace MyGUI
 			OgreDataManager::getInstance().getGroup());
 		if (!shaderInfo->vertexProgram)
 		{
+			MYGUI_ASSERT(DataManager::getInstance().isDataExist(_vertexProgramFile), "Shader file '" << _vertexProgramFile << "' is missing.");
 			shaderInfo->vertexProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
 				_vertexProgramFile,
 				OgreDataManager::getInstance().getGroup(),
@@ -542,6 +543,7 @@ namespace MyGUI
 			OgreDataManager::getInstance().getGroup());
 		if (!shaderInfo->fragmentProgram)
 		{
+			MYGUI_ASSERT(DataManager::getInstance().isDataExist(_fragmentProgramFile), "Shader file '" << _vertexProgramFile << "' is missing.");
 			shaderInfo->fragmentProgram = Ogre::HighLevelGpuProgramManager::getSingleton().createProgram(
 				_fragmentProgramFile,
 				OgreDataManager::getInstance().getGroup(),
