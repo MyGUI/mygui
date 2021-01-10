@@ -69,12 +69,16 @@ namespace base
 #endif
 		mWindow = mRoot->createRenderWindow("MainRenderWindow", _width, _height, false, &params);
 
-		mSceneManager = mRoot->createSceneManager(Ogre::ST_GENERIC, "BaseSceneManager");
+		mSceneManager = mRoot->createSceneManager();
 
 		mCamera = mSceneManager->createCamera("BaseCamera");
 		mCamera->setNearClipDistance(5);
-		mCamera->setPosition(400, 400, 400);
-		mCamera->lookAt(0, 150, 0);
+
+		mCameraNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
+		mCameraNode->attachObject(mCamera);
+		mCameraNode->setPosition(400, 400, 400);
+		mCameraNode->setFixedYawAxis(true);
+		mCameraNode->lookAt(Ogre::Vector3(0, 150, 0), Ogre::Node::TransformSpace::TS_WORLD);
 
 		// Create one viewport, entire window
 		Ogre::Viewport* vp = mWindow->addViewport(mCamera);
@@ -88,7 +92,10 @@ namespace base
 		light->setType(Ogre::Light::LT_DIRECTIONAL);
 		Ogre::Vector3 vec(-0.3f, -0.3f, -0.3f);
 		vec.normalise();
-		light->setDirection(vec);
+		auto lightNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
+		lightNode->attachObject(light);
+		lightNode->setDirection(vec);
+
 		return true;
 	}
 
@@ -247,6 +254,11 @@ namespace base
 	Ogre::Camera* BaseManager::getCamera() const
 	{
 		return mCamera;
+	}
+
+	Ogre::SceneNode* BaseManager::getCameraNode() const
+	{
+		return mCameraNode;
 	}
 
 }

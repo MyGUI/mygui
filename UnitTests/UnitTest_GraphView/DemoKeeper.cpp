@@ -87,7 +87,7 @@ namespace demo
 		Ogre::SceneNode* node = getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		Ogre::Entity* entity = getSceneManager()->createEntity("Object", "robot.mesh", MyGuiResourceGroup);
 		node->attachObject(entity);
-		getCamera()->setPosition(400, 400, 400);
+		getCameraNode()->setPosition(400, 400, 400);
 
 		mFileDialog = new tools::OpenSaveFileDialog();
 		mFileDialog->eventEndDialog = MyGUI::newDelegate(this, &DemoKeeper::notifyEndDialog);

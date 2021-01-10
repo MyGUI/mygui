@@ -186,8 +186,8 @@ namespace demo
 
 		vec.y += 120;
 
-		getCamera()->setPosition(vec);
-		getCamera()->setOrientation(quatH);
+		getCameraNode()->setPosition(vec);
+		getCameraNode()->setOrientation(quatH);
 #endif
 	}
 

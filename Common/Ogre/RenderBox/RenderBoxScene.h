@@ -254,7 +254,7 @@ namespace wraps
 		void createScene()
 		{
 			// создаем новый сцен менеджер
-			mScene = Ogre::Root::getSingleton().createSceneManager(Ogre::ST_GENERIC, MyGUI::utility::toString(this, "_SceneManagerRenderBox"));
+			mScene = Ogre::Root::getSingleton().createSceneManager();
 
 			// создаем нод к которуму будем всякую дрянь атачить
 			mNode = mScene->getRootSceneNode()->createChildSceneNode();
@@ -266,7 +266,9 @@ namespace wraps
 			dir.normalise();
 			Ogre::Light* light = mScene->createLight(MyGUI::utility::toString(this, "_LightRenderBox"));
 			light->setType(Ogre::Light::LT_DIRECTIONAL);
-			light->setDirection(dir);
+			auto lightNode = mScene->getRootSceneNode()->createChildSceneNode();
+			lightNode->attachObject(light);
+			lightNode->setDirection(dir);
 
 			std::string camera(MyGUI::utility::toString(this, "_CameraRenderBox"));
 			mSceneCamera = mScene->createCamera(camera);

@@ -195,8 +195,8 @@ namespace demo
 	void DemoKeeper::setupCamera()
 	{
 		updateCamera(0, 0);
-		//getCamera()->setPosition(0, 60, 60);
-		//getCamera()->lookAt(0, 28, 0);
+		//getCameraNode()->setPosition(0, 60, 60);
+		//getCameraNode()->lookAt(0, 28, 0);
 	}
 
 	void DemoKeeper::updateCamera(int _x, int _y)
@@ -216,8 +216,8 @@ namespace demo
 
 		vec.y += 30;
 
-		getCamera()->setPosition(vec);
-		getCamera()->setOrientation(quatH);
+		getCameraNode()->setPosition(vec);
+		getCameraNode()->setOrientation(quatH);
 #endif
 	}
 

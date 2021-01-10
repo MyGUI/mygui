@@ -94,7 +94,7 @@ namespace animation
 		void updateState()
 		{
 			Ogre::Any any = getGraph()->getData("OwnerEntity");
-			if (!any.isEmpty())
+			if (any.has_value())
 			{
 				Ogre::Entity* entity = Ogre::any_cast<Ogre::Entity*>(any);
 				entity->getSkeleton()->setBlendMode(Ogre::ANIMBLEND_CUMULATIVE);

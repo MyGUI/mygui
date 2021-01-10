@@ -126,7 +126,7 @@ namespace demo
 		void baseInitialiseAnimationNode() override
 		{
 			Ogre::Any any = getAnimationNode()->getGraph()->getData("OwnerEntity");
-			if (!any.isEmpty())
+			if (any.has_value())
 			{
 				Ogre::Entity* entity = Ogre::any_cast<Ogre::Entity*>(any);
 				Ogre::AnimationStateSet* set = entity->getAllAnimationStates();
