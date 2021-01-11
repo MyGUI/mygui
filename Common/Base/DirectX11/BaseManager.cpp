@@ -6,7 +6,7 @@
 #pragma warning(pop)
 #include <MyGUI_DirectX11Platform.h>
 
-#include <SDL2/SDL_syswm.h>
+#include <SDL_syswm.h>
 
 namespace base
 {

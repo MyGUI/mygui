@@ -4,7 +4,7 @@
 #include <d3dx9.h>
 #include <MyGUI_DirectXPlatform.h>
 
-#include <SDL2/SDL_syswm.h>
+#include <SDL_syswm.h>
 
 namespace base
 {

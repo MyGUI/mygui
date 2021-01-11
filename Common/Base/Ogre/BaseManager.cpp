@@ -3,8 +3,8 @@
 
 #include <Ogre.h>
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_syswm.h>
+#include <SDL.h>
+#include <SDL_syswm.h>
 
 namespace base
 {

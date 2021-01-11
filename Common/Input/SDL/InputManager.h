@@ -8,7 +8,7 @@
 #define INPUT_MANAGER_H_
 
 #include <MyGUI.h>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 namespace input
 {

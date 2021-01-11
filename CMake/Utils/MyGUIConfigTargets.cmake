@@ -96,7 +96,7 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	# define the sources
 	include(${PROJECTNAME}.list)
 
-	include_directories(SYSTEM ${SDL2_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS}/..)
+	include_directories(SYSTEM ${SDL2_INCLUDE_DIRS})
 	link_directories(${SDL2_LIB_DIR})
 
 	# Set up dependencies
@@ -224,7 +224,7 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 	# define the sources
 	include(${PROJECTNAME}.list)
 
-	include_directories(SYSTEM ${SDL2_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS}/..)
+	include_directories(SYSTEM ${SDL2_INCLUDE_DIRS})
 	link_directories(${SDL2_LIB_DIR})
 
 	# Set up dependencies

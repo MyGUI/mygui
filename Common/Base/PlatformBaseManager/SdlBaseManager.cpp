@@ -1,7 +1,7 @@
 #include "Precompiled.h"
 #include "SdlBaseManager.h"
 
-#include <SDL2/SDL_syswm.h>
+#include <SDL_syswm.h>
 
 namespace base
 {

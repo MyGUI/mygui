@@ -11,7 +11,7 @@
 #include "MyGUI_Prerequest.h"
 #include "MyGUI_IResource.h"
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 namespace input
 {
