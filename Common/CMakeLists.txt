@@ -14,7 +14,7 @@ include_directories(
 set (HEADER_FILES "")
 set (SOURCE_FILES "")
 
-include_directories(SYSTEM ${SDL2_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS}/..)
+include_directories(SYSTEM ${SDL2_INCLUDE_DIRS})
 link_directories(${SDL2_LIB_DIR})
 
 mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
