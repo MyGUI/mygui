@@ -10,6 +10,16 @@ cmake_policy(SET CMP0003 NEW)
 cmake_policy(SET CMP0011 NEW)
 cmake_policy(SET CMP0048 OLD)
 
+# for link time optimization, remove if cmake version is >= 3.9
+if(POLICY CMP0069) # LTO
+  cmake_policy(SET CMP0069 NEW)
+endif()
+
+# for position-independent executable, remove if cmake version is >= 3.14
+if(POLICY CMP0083)
+  cmake_policy(SET CMP0083 NEW)
+endif()
+
 project(MYGUI)
 
 # Include necessary submodules
