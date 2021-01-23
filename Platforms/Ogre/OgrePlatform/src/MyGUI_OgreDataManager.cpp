@@ -65,7 +65,7 @@ namespace MyGUI
 		delete _data;
 	}
 
-	bool OgreDataManager::isDataExist(const std::string& _name)
+	bool OgreDataManager::isDataExist(const std::string& _name) const
 	{
 		if (mAllGroups)
 			return Ogre::ResourceGroupManager::getSingleton().resourceExistsInAnyGroup(_name);

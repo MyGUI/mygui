@@ -38,7 +38,7 @@ namespace MyGUI
 		void freeData(IDataStream* _data) override;
 
 		/** @see DataManager::isDataExist(const std::string& _name) */
-		bool isDataExist(const std::string& _name) override;
+		bool isDataExist(const std::string& _name) const override;
 
 		/** @see DataManager::getDataListNames(const std::string& _pattern) */
 		const VectorString& getDataListNames(const std::string& _pattern) const override;

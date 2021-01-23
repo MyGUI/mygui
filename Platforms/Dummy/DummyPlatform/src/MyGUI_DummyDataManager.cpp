@@ -39,7 +39,7 @@ namespace MyGUI
 		delete _data;
 	}
 
-	bool DummyDataManager::isDataExist(const std::string& _name)
+	bool DummyDataManager::isDataExist(const std::string& _name) const
 	{
 		return false;
 	}
