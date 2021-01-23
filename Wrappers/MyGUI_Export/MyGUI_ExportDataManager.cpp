@@ -65,7 +65,7 @@ namespace MyGUI
 		delete _data;
 	}
 
-	bool ExportDataManager::isDataExist(const std::string& _name)
+	bool ExportDataManager::isDataExist(const std::string& _name) const
 	{
 		const VectorString& files = getDataListNames(_name);
 		return !files.empty();

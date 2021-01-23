@@ -61,7 +61,7 @@ namespace MyGUI
 		delete _data;
 	}
 
-	bool OpenGLDataManager::isDataExist(const std::string& _name)
+	bool OpenGLDataManager::isDataExist(const std::string& _name) const
 	{
 		const VectorString& files = getDataListNames(_name);
 		return !files.empty();

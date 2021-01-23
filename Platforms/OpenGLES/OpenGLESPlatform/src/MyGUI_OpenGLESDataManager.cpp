@@ -57,7 +57,7 @@ namespace MyGUI
 		delete _data;
 	}
 
-	bool OpenGLESDataManager::isDataExist(const std::string& _name)
+	bool OpenGLESDataManager::isDataExist(const std::string& _name) const
 	{
 		const VectorString& files = getDataListNames(_name);
 		return files.size() == 1;
