@@ -84,23 +84,11 @@ namespace tools
 		{
 			while ( !IsEmpty() ) Pop();
 		}
-		/// Clear buffer, no elements d-tors will be called.
-		void ClearFast()
-		{
-			count = 0;
-		}
 
 		/// Expand buffer, no element init will be done (uses Pop()).
 		void Expand()
 		{
 			if ( IsFull() ) Pop();
-			pos = ( pos + 1 ) % size;
-			++count;
-		}
-		/// Expand buffer, no element init will be done (uses PopFast()).
-		void ExpandFast()
-		{
-			if ( IsFull() ) PopFast();
 			pos = ( pos + 1 ) % size;
 			++count;
 		}
@@ -111,24 +99,6 @@ namespace tools
 			Expand();
 			c[pos] = v;
 		}
-		/// Push element into buffer tail (uses Expand()).
-		void Push( value_type& v )
-		{
-			Expand();
-			c[pos] = v;
-		}
-		/// Push element into buffer tail (uses ExpandFast()).
-		void PushFast( const value_type& v )
-		{
-			ExpandFast();
-			c[pos] = v;
-		}
-		/// Push element into buffer tail (uses ExpandFast()).
-		void PushFast( value_type& v )
-		{
-			ExpandFast();
-			c[pos] = v;
-		}
 
 		/// Pop last element from buffer.
 		void Pop()
@@ -136,15 +106,8 @@ namespace tools
 			if ( !IsEmpty() )
 			{
 				Back() = value_type();
-				PopFast();
+                --count;
 			}
-		}
-
-		/// Fast pop last element from buffer, no element d-top will be called.
-		void PopFast()
-		{
-			if ( !IsEmpty() )
-				--count;
 		}
 
 		void PopFirst()
