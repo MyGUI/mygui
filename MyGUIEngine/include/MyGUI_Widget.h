@@ -401,28 +401,26 @@ namespace MyGUI
 		// вектор детей скина
 		VectorWidgetPtr mWidgetChildSkin;
 
-		// доступен ли на виджет
+		// availability for mouse/keyboard
 		bool mEnabled;
-		bool mInheritsEnabled;
-		// для иерархического скрытия
-		bool mInheritsVisible;
-		// прозрачность и флаг наследования альфы нашего оверлея
+		bool mInheritedEnabled;
+		// visibility on screen and for mouse
+        bool mVisible;
+		bool mInheritedVisible;
+		// transparency and transparency inheritance
 		float mAlpha;
 		float mRealAlpha;
 		bool mInheritsAlpha;
-		// имя виджета
 		std::string mName;
 
-		// наш отец в иерархии виджетов
+		// parent in widgets hierarchy
 		Widget* mParent;
 
-		// поведение виджета, перекрывающийся дочерний или всплывающий
 		WidgetStyle mWidgetStyle;
 
 		Widget* mContainer;
 
 		Align mAlign;
-		bool mVisible;
 		int mDepth;
 	};
 
