@@ -14,7 +14,6 @@ uninitStructMember:*/Mirror_MultiList.h
 *:*/sigslot*
 
 // TODO: minor
-constParameter
 unreadVariable
 useInitializationList
 postfixOperator

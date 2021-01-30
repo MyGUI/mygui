@@ -40,7 +40,7 @@ namespace MyGUI
 		{
 		}
 
-		void set(size_t _position, UString::utf32string::const_iterator& _space_point, size_t _count, float _width)
+		void set(size_t _position, const UString::utf32string::const_iterator& _space_point, size_t _count, float _width)
 		{
 			position = _position;
 			space_point = _space_point;
