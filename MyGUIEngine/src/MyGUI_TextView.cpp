@@ -208,11 +208,7 @@ namespace MyGUI
 			if (info == nullptr)
 				continue;
 
-			if (FontCodeType::Space == character)
-			{
-				roll_back.set(line_info.symbols.size(), index, count, width);
-			}
-			else if (FontCodeType::Tab == character)
+			if (FontCodeType::Space == character || FontCodeType::Tab == character)
 			{
 				roll_back.set(line_info.symbols.size(), index, count, width);
 			}
