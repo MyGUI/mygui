@@ -32,6 +32,7 @@ include(CMakeDependentOption)
 include(MacroLogFeature)
 include(MyGUIConfigTargets)
 include(PreprocessorUtils)
+include(GNUInstallDirs)
 set(MYGUI_TEMPLATES_DIR "${MYGUI_SOURCE_DIR}/CMake/Templates")
 
 SET(CMAKE_CXX_STANDARD 11)
