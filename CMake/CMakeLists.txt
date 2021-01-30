@@ -16,7 +16,6 @@ set(INST_FILES
   Utils/PreprocessorUtils.cmake
   Utils/MyGUIConfigTargets.cmake
   Utils/MyGUIGetVersion.cmake
-  Utils/MyGUIFindFrameworks.cmake
 )
 set(STATIC_INST_FILES
   Packages/FindDirectX.cmake
