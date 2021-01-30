@@ -180,7 +180,7 @@ namespace tools
 
 	void PropertyTexturesControl::notifyChangeCoord(MyGUI::Widget* _sender)
 	{
-		if (mImage->getVisible() && mImage->getInheritedVisible())
+		if (mImage->getInheritedVisible())
 			updateTexture();
 	}
 

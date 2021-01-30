@@ -465,7 +465,7 @@ namespace MyGUI
 	{
 		// проверяем попадание
 		if (!mEnabled
-			|| !mVisible
+			|| !mInheritsVisible
 			|| (!getNeedMouseFocus() && !getInheritsPick())
 			|| !_checkPoint(_left, _top)
 			// если есть маска, проверяем еще и по маске
@@ -967,19 +967,19 @@ namespace MyGUI
 
 	void Widget::_updateVisible()
 	{
-		mInheritsVisible = mParent == nullptr || (mParent->getVisible() && mParent->getInheritedVisible());
-		bool value = mVisible && mInheritsVisible;
+		mInheritsVisible = mParent == nullptr || mParent->getInheritedVisible();
+        mInheritsVisible = mVisible && mInheritsVisible;
 
-		_setSkinItemVisible(value);
+		_setSkinItemVisible(mInheritsVisible);
 
 		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
 			(*widget)->_updateVisible();
 		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
 			(*widget)->_updateVisible();
 
-		if (!value && InputManager::getInstance().getMouseFocusWidget() == this)
+		if (!mInheritsVisible && InputManager::getInstance().getMouseFocusWidget() == this)
 			InputManager::getInstance()._resetMouseFocusWidget();
-		if (!value && InputManager::getInstance().getKeyFocusWidget() == this)
+		if (!mInheritsVisible && InputManager::getInstance().getKeyFocusWidget() == this)
 			InputManager::getInstance().resetKeyFocusWidget();
 	}
 
