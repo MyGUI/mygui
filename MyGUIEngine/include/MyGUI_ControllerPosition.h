@@ -33,6 +33,15 @@ namespace MyGUI
 
 		void setPosition(const IntPoint& _value);
 
+		/**
+		 * Set acceleration behavior, same as calling controller->setAction(MyGUI::newDelegate(chosen by value))
+		 * @param _value could be one of
+		 * 	    "Linear" (default) @see action::linearMoveFunction
+		 * 	    "Inertional" @see action::inertionalMoveFunction
+		 * 	    "Accelerated" @see action::acceleratedMoveFunction<30>
+		 * 	    "Slowed" @see action::acceleratedMoveFunction<4>
+		 * 	    "Jump" @see action::jumpMoveFunction<5>
+		 */
 		void setFunction(const std::string& _value);
 
 		/**

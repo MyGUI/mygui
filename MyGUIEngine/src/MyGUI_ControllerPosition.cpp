@@ -21,6 +21,7 @@ namespace MyGUI
 		mCalcPosition(false),
 		mCalcSize(false)
 	{
+        setFunction("Linear");
 	}
 
 	void ControllerPosition::setCoord(const IntCoord& _destCoord)
@@ -112,7 +113,9 @@ namespace MyGUI
 
 	void ControllerPosition::setFunction(const std::string& _value)
 	{
-		if (_value == "Inertional")
+		if (_value == "Linear")
+			setAction(MyGUI::newDelegate(action::linearMoveFunction));
+		else if (_value == "Inertional")
 			setAction(MyGUI::newDelegate(action::inertionalMoveFunction));
 		else if (_value == "Accelerated")
 			setAction(MyGUI::newDelegate(action::acceleratedMoveFunction<30>));
