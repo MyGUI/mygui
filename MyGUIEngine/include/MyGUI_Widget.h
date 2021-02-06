@@ -348,8 +348,6 @@ namespace MyGUI
 
 		VectorWidgetPtr getSkinWidgetsByName(const std::string& _name) const;
 
-		void destroySkinWidget(Widget* _widget);
-
 		virtual void onWidgetCreated(Widget* _widget);
 		virtual void onWidgetDestroy(Widget* _widget);
 

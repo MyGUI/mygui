@@ -1112,12 +1112,6 @@ namespace MyGUI
 		}
 	}
 
-	void Widget::destroySkinWidget(Widget* _widget)
-	{
-		mWidgetChild.push_back(_widget);
-		WidgetManager::getInstance().destroyWidget(_widget);
-	}
-
 	void Widget::onWidgetCreated(Widget* _widget)
 	{
 	}
