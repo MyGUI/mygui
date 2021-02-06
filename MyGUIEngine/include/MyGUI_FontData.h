@@ -16,7 +16,7 @@ namespace MyGUI
 	namespace FontCodeType
 	{
 
-		enum Enum: std::uint_least64_t
+		enum Enum : MyGUI::Char
 		{
 			Tab = 0x0009,
 			LF = 0x000A,
