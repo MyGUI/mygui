@@ -265,7 +265,11 @@ namespace MyGUI
 		{
 			IntCoord coord(mCoord.point(), size);
 			getSnappedCoord(coord);
-			size = coord.size();
+			if (mCoord != coord)
+			{
+				Base::setCoord(coord);
+				return;
+			}
 		}
 
 		Base::setSize(size);
@@ -318,7 +322,7 @@ namespace MyGUI
 		{
 			IntCoord coord(pos, size);
 			getSnappedCoord(coord);
-			size = coord.size();
+			pos = coord.point();
 		}
 
 		IntCoord coord(pos, size);
