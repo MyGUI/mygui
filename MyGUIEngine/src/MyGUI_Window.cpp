@@ -238,7 +238,7 @@ namespace MyGUI
 		if (mSnap)
 		{
 			IntCoord coord(point, mCoord.size());
-			getSnappedCoord(coord);
+			getSnappedCoord(coord, Snap::Position);
 			point = coord.point();
 		}
 
@@ -264,7 +264,7 @@ namespace MyGUI
 		if (mSnap)
 		{
 			IntCoord coord(mCoord.point(), size);
-			getSnappedCoord(coord);
+			getSnappedCoord(coord, Snap::Size);
 			size = coord.size();
 		}
 
@@ -313,15 +313,13 @@ namespace MyGUI
 				pos.top = mCoord.top;
 		}
 
-		// прилепляем к краям
+		IntCoord coord(pos, size);
 		if (mSnap)
 		{
-			IntCoord coord(pos, size);
-			getSnappedCoord(coord);
-			size = coord.size();
+			// prefer size change over position change
+			getSnappedCoord(coord, Snap::Size);
 		}
 
-		IntCoord coord(pos, size);
 		if (coord == mCoord)
 			return;
 
@@ -377,17 +375,45 @@ namespace MyGUI
 		return (mIsAutoAlpha && !mKeyRootFocus) ? WINDOW_ALPHA_DEACTIVE : ALPHA_MAX;
 	}
 
-	void Window::getSnappedCoord(IntCoord& _coord) const
+	void Window::getSnappedCoord(IntCoord& _coord, Snap snapMode) const
 	{
-		if (abs(_coord.left) <= WINDOW_SNAP_DISTANSE) _coord.left = 0;
-		if (abs(_coord.top) <= WINDOW_SNAP_DISTANSE) _coord.top = 0;
-
 		const IntSize view_size = getParentSize();
+		bool nearLeftSide = abs(_coord.left) <= WINDOW_SNAP_DISTANSE;
+		bool nearTopSide = abs(_coord.top) <= WINDOW_SNAP_DISTANSE;
+		bool nearRightSide = abs(_coord.left + _coord.width - view_size.width) <= WINDOW_SNAP_DISTANSE;
+		bool nearBottomSide = abs(_coord.top + _coord.height - view_size.height) <= WINDOW_SNAP_DISTANSE;
 
-		if ( abs(_coord.left + _coord.width - view_size.width) < WINDOW_SNAP_DISTANSE)
-			_coord.left = view_size.width - _coord.width;
-		if ( abs(_coord.top + _coord.height - view_size.height) < WINDOW_SNAP_DISTANSE)
-			_coord.top = view_size.height - _coord.height;
+		switch (snapMode)
+		{
+		case Snap::Position:
+			if (nearLeftSide)
+				_coord.left = 0;
+			if (nearTopSide)
+				_coord.top = 0;
+
+			if (nearRightSide)
+				_coord.left = view_size.width - _coord.width;
+			if (nearBottomSide)
+				_coord.top = view_size.height - _coord.height;
+			break;
+		case Snap::Size:
+			if (nearLeftSide)
+			{
+				_coord.width = _coord.right();
+				_coord.left = 0;
+			}
+			if (nearTopSide)
+			{
+				_coord.height = _coord.bottom();
+				_coord.top = 0;
+			}
+
+			if (nearRightSide)
+				_coord.width = view_size.width - _coord.left;
+			if (nearBottomSide)
+				_coord.height = view_size.height - _coord.top;
+			break;
+		}
 	}
 
 	void Window::setVisibleSmooth(bool _visible)

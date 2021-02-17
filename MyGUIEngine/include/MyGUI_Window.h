@@ -131,7 +131,8 @@ namespace MyGUI
 
 	private:
 		float getAlphaVisible() const;
-		void getSnappedCoord(IntCoord& _coord) const;
+		enum class Snap {Position, Size};
+		void getSnappedCoord(IntCoord& _coord, Snap snapMode) const;
 		IntCoord _getActionScale(Widget* _widget) const;
 
 		ControllerFadeAlpha* createControllerFadeAlpha(float _alpha, float _coef, bool _enable);
