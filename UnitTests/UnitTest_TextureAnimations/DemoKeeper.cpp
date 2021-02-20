@@ -88,18 +88,18 @@ namespace demo
 		}
 		else if (_key == MyGUI::KeyCode::V)
 		{
-			for (SetWidget::iterator item=mWidgets.begin(); item!=mWidgets.end(); ++item)
+			for (auto widget : mWidgets)
 			{
 				const MyGUI::IntCoord coord(0, 0, 1024, 768);
 				const MyGUI::IntSize size(300, 300);
 
-				if ((*item)->getCoord().width != coord.width)
+				if (widget->getCoord().width != coord.width)
 				{
-					(*item)->setCoord(coord);
+					widget->setCoord(coord);
 				}
 				else
 				{
-					(*item)->setCoord(coord.width / 2 - size.width / 2, coord.height / 2 - size.height / 2, size.width, size.height);
+					widget->setCoord(coord.width / 2 - size.width / 2, coord.height / 2 - size.height / 2, size.width, size.height);
 				}
 			}
 		}
@@ -145,7 +145,7 @@ namespace demo
 			}
 		}
 
-		return BaseManager::injectKeyPress( _key, _text );
+		return base::BaseDemoManager::injectKeyPress( _key, _text );
 	}
 
 } // namespace demo
