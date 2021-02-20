@@ -1,4 +1,54 @@
 ----------------------------------------------------------------
+------------------------- Version 3.4.1 ------------------------
+----------------------------------------------------------------
+-- Core --
+Implement new MSDF font, that lets use render huge fonts without having big textures, also allows using only one texture for all sizes (see Demo_MsdfFont)
+Add new eventWidgetDestroyed
+Add support for custom shaders for each render item, used for subskin (so far used only for MSDF fonts)
+Add support for UTF characters with code above 2^16 (i.e. represented by two utf16 characters)
+Allow std::function in the MyGUI::newDelegate
+Allow const functions and const classes in the MyGUI::newDelegate
+Make most getters const
+Fix UB in RotatingSkin::_rebuildGeometry when all vertices are cropped
+Fix eventMouseButtonClick being triggered even when mouse is pressed not over widget
+Fix InputManager::injectMouseMove returning true when mouse is pressed, but there is no focused widget
+Fix bug with Popup widget being picked by mouse, when it is invisible because of invisible parent
+Fix Widget::setDepth call making Overlapped child widgets not visible
+
+-- Widgets --
+ListBox: fix getWidgetByIndex when not all widgets are visible
+EditBox: fix getFontHeight always returning 0
+EditBox: fix rare bug with text selection when holding mouse and changing text
+EditBox: fix scroll position when selecting text below
+Button: make Button without "normal_checked" skin display "pushed" skin (fixes button visual state when setStateSelected(true) is called)
+Window: add borders snapping, when resizing it (previously only move was snapping borders)
+
+-- Platforms --
+Ogre: make it possible to use OGRE_RESOURCEMANAGER_STRICT=1 mode (always specify resource group)
+Ogre: other minor performance improvements
+Ogre: use Ogre::Renderable to render Gui, this fixes several issues with recent Ogre version
+Ogre: fix RTT render with RenderSystem_DirectX11
+All: make all interfaces const-correct. Warning: custom render platforms outside of MyGUI repo must be updated to match new virtual functions API
+
+-- Resources --
+
+-- Demos and Tools --
+Add new SdlBaseManager, that is used for all platforms base code instead of multiple BaseManager-s with duplicate code
+Remove no longer needed and no longer used OIS, Win32 and Win32+OIS input systems only SDL2 can is used in demos now
+
+-- Tools --
+LayoutEditor: fix multi language support
+
+-- Demos --
+New Demo_MsdfFont
+Make all demos with 3d render work with the latest Ogre
+
+-- Other --
+Use GNUInstallDirs to determine where libraries should be installed
+Use precompiled headers from CMake 3.16, enable precompiled headers on all target platforms
+Remove many outdated or not used CMake options and scripts
+
+----------------------------------------------------------------
 ------------------------- Version 3.4.0 ------------------------
 ----------------------------------------------------------------
 -- Core --
