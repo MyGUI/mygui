@@ -1393,7 +1393,7 @@ namespace MyGUI
 		{
 			if ((*widget)->getWidgetStyle() == WidgetStyle::Child)
 			{
-				(*widget)->detachFromLayerItemNode(true);
+				(*widget)->detachFromLayerItemNode(false);
 				removeChildItem((*widget));
 			}
 		}
