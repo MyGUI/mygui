@@ -31,8 +31,6 @@
   * fix RTT render with RenderSystem_DirectX11
 - All: make all interfaces const-correct. Warning: custom render platforms outside of MyGUI repo must be updated to match new virtual functions API
 
-### Resources
-
 ### Demos and Tools
 - Add new SdlBaseManager, that is used for all platforms base code instead of multiple BaseManager-s with duplicate code
 - Remove no longer needed and no longer used OIS, Win32 and Win32+OIS input systems only SDL2 can is used in demos now
