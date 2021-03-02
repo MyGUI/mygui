@@ -5,7 +5,7 @@
 - Implement new MSDF font, that lets use render huge fonts without having big textures, also allows using only one texture for all sizes (see Demo_MsdfFont)
 - Add new eventWidgetDestroyed
 - Add support for custom shaders for each render item, used for subskin (so far used only for MSDF fonts)
-- Add support for UTF characters with code above 2^16 (i.e. represented by two utf16 characters)
+- Add support for Unicode code points outside of the Basic Multilingual Plane (code points above 2^16, represented by two UTF-16 code units)
 - Allow std::function in the MyGUI::newDelegate
 - Allow const functions and const classes in the MyGUI::newDelegate
 - Make most getters const
