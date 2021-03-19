@@ -14,6 +14,7 @@
 #include "MyGUI_Button.h"
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_LayerManager.h"
+#include "MyGUI_LanguageManager.h"
 
 namespace MyGUI
 {
@@ -460,7 +461,7 @@ namespace MyGUI
 
 		// не коментировать
 		else if (_key == "AddItem")
-			addItem(_value);
+			addItem(LanguageManager::getInstance().replaceTags(_value));
 
 		else
 		{
