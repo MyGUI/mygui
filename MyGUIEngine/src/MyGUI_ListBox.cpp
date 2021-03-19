@@ -11,6 +11,7 @@
 #include "MyGUI_ResourceSkin.h"
 #include "MyGUI_InputManager.h"
 #include "MyGUI_WidgetManager.h"
+#include "MyGUI_LanguageManager.h"
 
 namespace MyGUI
 {
@@ -980,7 +981,7 @@ namespace MyGUI
 	{
 		// не коментировать
 		if (_key == "AddItem")
-			addItem(_value);
+			addItem(LanguageManager::getInstance().replaceTags(_value));
 		else if (_key == "ActivateOnClick")
 			mActivateOnClick = utility::parseBool(_value);
 		else
