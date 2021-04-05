@@ -1,6 +1,6 @@
 prefix=@MYGUI_PREFIX_PATH@
 exec_prefix=${prefix}
-libdir=${prefix}/lib
+libdir=@CMAKE_INSTALL_FULL_LIBDIR@
 includedir=${prefix}/include
 
 Name: MyGUI
