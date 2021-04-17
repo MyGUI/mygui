@@ -12,9 +12,8 @@
 namespace MyGUI
 {
 
-	class Bitwise
+	namespace Bitwise
 	{
-	public:
 		/** Returns the closest power-of-two number greater or equal to value.
 		*/
 		template<typename Type>

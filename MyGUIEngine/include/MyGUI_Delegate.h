@@ -19,7 +19,7 @@ namespace MyGUI
 namespace delegates
 {
 	// base class for unsubscribing from multi delegates
-	class IDelegateUnlink
+	class MYGUI_EXPORT IDelegateUnlink
 	{
 	public:
 		virtual ~IDelegateUnlink() = default;

@@ -106,6 +106,13 @@ namespace MyGUI
 
 #endif  // MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 
+
+#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+ // disable: warning C4275: non dll-interface class '***' used as base for dll-interface clas '***'
+#	pragma warning (push)
+#	pragma warning (disable : 4275)
+#endif
+
 	//! A UTF-16 string with implicit conversion to/from std::string and std::wstring
 	/*! This class provides a complete 1 to 1 map of most std::string functions (at least to my
 	knowledge). Implicit conversions allow this string class to work with all common C++ string
@@ -1071,6 +1078,10 @@ namespace MyGUI
 	inline std::wostream& operator << ( std::wostream& os, const UString& s ) {
 		return os << s.asWStr();
 	}
+
+#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
+#	pragma warning (pop)
+#endif
 
 } // namespace MyGUI
 

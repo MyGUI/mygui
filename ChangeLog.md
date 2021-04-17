@@ -1,5 +1,15 @@
 #Changelog
 
+## MyGUI v3.4.2
+### Core
+- Add missing MYGUI_EXPORT for ControllerRepeatClick (was not linking in non-static builds)
+
+### Widgets
+- ComboBox and ListBox: make "AddItem" use LanguageManager::replaceTags same way it is done for caption properties
+
+### Other
+- Add missing MYGUI_EXPORT to fix C4275 warnings
+
 ## MyGUI v3.4.1
 ### Core
 - Implement new MSDF font, that lets use render huge fonts without having big textures, also allows using only one texture for all sizes (see Demo_MsdfFont)

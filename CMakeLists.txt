@@ -244,10 +244,8 @@ if (MSVC)
 	endif ()
 	# disable: warning C4100: '***' : unreferenced formal parameter
 	add_definitions(/wd4100)
-	# disable: warning C4127: conditional expression is constant
-	add_definitions(/wd4127)
-	# disable: warning C4512: '***' : assignment operator could not be generated
-	add_definitions(/wd4512)
+
+	# TODO: move to Tools only
 	# disable: warning C4275: non dll-interface class '***' used as base for dll-interface clas '***'
 	add_definitions(/wd4275)
 
