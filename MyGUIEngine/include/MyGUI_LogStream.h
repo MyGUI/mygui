@@ -20,7 +20,7 @@ namespace MyGUI
 		struct End { };
 
 	public:
-		std::string operator << (const End& _endl)
+		std::string operator << (const End& /*_endl*/)
 		{
 			return mStream.str();
 		}

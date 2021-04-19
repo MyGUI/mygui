@@ -21,7 +21,7 @@ namespace MyGUI
 		/** Check if specific log message should be logged.\n
 			For example some log listeners use only messages with high log level.
 		*/
-		virtual bool shouldLog(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line)
+		virtual bool shouldLog(const std::string& /*_section*/, LogLevel /*_level*/, const struct tm* /*_time*/, const std::string& /*_message*/, const char* /*_file*/, int /*_line*/)
 		{
 			return true;
 		}

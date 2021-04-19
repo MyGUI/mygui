@@ -36,7 +36,7 @@ namespace MyGUI
 		virtual void saveToFile(const std::string& _filename) = 0;
 		virtual void setShader(const std::string& _shaderName) = 0;
 
-		virtual void setInvalidateListener(ITextureInvalidateListener* _listener) { }
+		virtual void setInvalidateListener(ITextureInvalidateListener* /*_listener*/) { }
 
 		virtual void destroy() = 0;
 
