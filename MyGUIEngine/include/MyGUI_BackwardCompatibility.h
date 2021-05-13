@@ -421,7 +421,7 @@ namespace MyGUI
 		MYGUI_OBSOLETE(" is deprecated, use : bool Gui::isVisiblePointer()")
 		bool isShowPointer();
 		MYGUI_OBSOLETE("called be renderer, do not call it manually")
-		void injectFrameEntered(float _time) { }
+		void injectFrameEntered(float /*_time*/) { }
 
 		MYGUI_OBSOLETE(" is deprecated, use : void Gui::getViewSize().width")
 		int getViewWidth() const;

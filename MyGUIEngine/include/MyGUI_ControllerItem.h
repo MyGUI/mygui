@@ -33,7 +33,7 @@ namespace MyGUI
 		virtual void prepareItem(Widget* _widget) = 0;
 		virtual bool addTime(Widget* _widget, float _time) = 0;
 
-		virtual void setProperty(const std::string& _key, const std::string& _value) { }
+		virtual void setProperty(const std::string& /*_key*/, const std::string& /*_value*/) { }
 
 		/** Event : Before controller started working.\n
 			signature : void method(MyGUI::Widget* _sender, MyGUI::ControllerItem* _controller)\n

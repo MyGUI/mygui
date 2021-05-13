@@ -20,8 +20,8 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ISubWidgetRect )
 
 	public:
-		virtual void _setUVSet(const FloatRect& _rect) { }
-		virtual void _setColour(const Colour& _value) { }
+		virtual void _setUVSet(const FloatRect& /*_rect*/) { }
+		virtual void _setColour(const Colour& /*_value*/) { }
 	};
 
 } // namespace MyGUI

@@ -166,7 +166,7 @@ namespace MyGUI
 			}
 
 			template<typename T = ValueType>
-			typename std::enable_if<HasOperatorEqual<T>::value == false, bool>::type compareImpl(Placeholder* other) const
+			typename std::enable_if<HasOperatorEqual<T>::value == false, bool>::type compareImpl(Placeholder* /*other*/) const
 			{
 				MYGUI_EXCEPT("Type '" << getType().name() << "' is not comparable");
 			}

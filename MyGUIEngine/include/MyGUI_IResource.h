@@ -45,7 +45,7 @@ namespace MyGUI
 		IResource(IResource const&) = delete;
 		IResource& operator = (IResource const&) = delete;
 
-		void deserialization(xml::ElementPtr _node, Version _version) override
+		void deserialization(xml::ElementPtr _node, Version /*_version*/) override
 		{
 			_node->findAttribute("name", mResourceName);
 		}
