@@ -13,7 +13,7 @@ add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 
 add_dependencies(${PROJECTNAME} MyGUIEngine)
 
-target_link_libraries(${PROJECTNAME} ${OPENGL_gl_LIBRARY} MyGUIEngine)
+target_link_libraries(${PROJECTNAME} ${OPENGL_opengl_LIBRARY} MyGUIEngine)
 link_directories(${OPENGL_LIB_DIR})
 
 # installation rules
