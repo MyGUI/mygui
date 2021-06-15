@@ -678,68 +678,70 @@ namespace MyGUI
 		}
 		else
 		{
-			// если не нажат контрл, то обрабатываем как текст
-			if (!input.isControlPressed())
+			bool controlConsumed = false;
+			if (input.isControlPressed())
 			{
-				if (!mModeReadOnly && _char != 0)
+				if (_key == KeyCode::C)
+				{
+					commandCopy();
+					controlConsumed = true;
+				}
+				else if (_key == KeyCode::X)
 				{
 					// сбрасываем повтор
 					commandResetRedo();
 
-					// таб только если нужно
-					if (_char != '\t' || mTabPrinting)
-					{
-						// попытка объединения двух комманд
-						size_t size = mVectorUndoChangeInfo.size();
-						// непосредственно операции
-						deleteTextSelect(true);
-						insertText(TextIterator::getTextCharInfo(_char), mCursorPosition, true);
-						// проверяем на возможность объединения
-						if ((size + 2) == mVectorUndoChangeInfo.size())
-							commandMerge();
-						// отсылаем событие о изменении
-						eventEditTextChange(this);
-					}
+					commandCut();
+					controlConsumed = true;
+				}
+				else if (_key == KeyCode::V)
+				{
+					// сбрасываем повтор
+					commandResetRedo();
+
+					commandPast();
+					controlConsumed = true;
+				}
+				else if (_key == KeyCode::A)
+				{
+					// выделяем весь текст
+					setTextSelection(0, mTextLength);
+					controlConsumed = true;
+				}
+				else if (_key == KeyCode::Z)
+				{
+					// отмена
+					commandUndo();
+					controlConsumed = true;
+				}
+				else if (_key == KeyCode::Y)
+				{
+					// повтор
+					commandRedo();
+					controlConsumed = true;
 				}
 			}
-			else if (_key == KeyCode::C)
-			{
-				commandCopy();
 
-			}
-			else if (_key == KeyCode::X)
+			// если не нажат контрл, то обрабатываем как текст
+			if (!controlConsumed && !mModeReadOnly && _char != 0)
 			{
 				// сбрасываем повтор
 				commandResetRedo();
 
-				commandCut();
-
-			}
-			else if (_key == KeyCode::V)
-			{
-				// сбрасываем повтор
-				commandResetRedo();
-
-				commandPast();
-
-			}
-			else if (_key == KeyCode::A)
-			{
-				// выделяем весь текст
-				setTextSelection(0, mTextLength);
-
-			}
-			else if (_key == KeyCode::Z)
-			{
-				// отмена
-				commandUndo();
-
-			}
-			else if (_key == KeyCode::Y)
-			{
-				// повтор
-				commandRedo();
-
+				// таб только если нужно
+				if (_char != '\t' || mTabPrinting)
+				{
+					// попытка объединения двух комманд
+					size_t size = mVectorUndoChangeInfo.size();
+					// непосредственно операции
+					deleteTextSelect(true);
+					insertText(TextIterator::getTextCharInfo(_char), mCursorPosition, true);
+					// проверяем на возможность объединения
+					if ((size + 2) == mVectorUndoChangeInfo.size())
+						commandMerge();
+					// отсылаем событие о изменении
+					eventEditTextChange(this);
+				}
 			}
 		}
 
