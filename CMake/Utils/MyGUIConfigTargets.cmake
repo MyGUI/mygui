@@ -173,13 +173,13 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	endif ()
 	set_target_properties(${PROJECTNAME} PROPERTIES FOLDER ${SOLUTIONFOLDER})
 
-	add_dependencies(${PROJECTNAME} MyGUIEngine Common)
+	add_dependencies(${PROJECTNAME} MyGUIEngine MyGUICommon)
 
 	mygui_config_sample(${PROJECTNAME})
 
 	# link Common, Platform and MyGUIEngine
 	target_link_libraries(${PROJECTNAME}
-		Common
+		MyGUICommon
 	)
 
 	if (NOT EMSCRIPTEN)
@@ -285,12 +285,12 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 
 	mygui_config_lib(${PROJECTNAME})
 
-	add_dependencies(${PROJECTNAME} MyGUIEngine Common)
+	add_dependencies(${PROJECTNAME} MyGUIEngine MyGUICommon)
 
 	mygui_config_sample(${PROJECTNAME})
 
 	target_link_libraries(${PROJECTNAME}
-		Common
+		MyGUICommon
 	)
 
 	if (NOT EMSCRIPTEN)

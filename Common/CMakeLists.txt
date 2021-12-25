@@ -3,7 +3,7 @@ function(mygui_add_base_manager_include PLATFORM_ID)
 	include_directories(../../Common/Base/${MYGUI_PLATFORM_NAME})
 endfunction(mygui_add_base_manager_include)
 
-set (PROJECTNAME Common)
+set (PROJECTNAME MyGUICommon)
 
 include_directories(
 	.
@@ -100,5 +100,9 @@ add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
 mygui_set_platform_name(${MYGUI_RENDERSYSTEM})
 add_dependencies(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
 target_link_libraries(${PROJECTNAME} MyGUI.${MYGUI_PLATFORM_NAME}Platform)
+if (MYGUI_INSTALL_TOOLS OR MYGUI_INSTALL_DEMOS)
+	set_target_properties(${PROJECTNAME} PROPERTIES VERSION ${MYGUI_VERSION} SOVERSION "${MYGUI_VERSION_MAJOR}.${MYGUI_VERSION_MINOR}.${MYGUI_VERSION_PATCH}")
+	mygui_install_target(${PROJECTNAME} "")
+endif()
 
 add_dependencies(${PROJECTNAME} MyGUIEngine)
