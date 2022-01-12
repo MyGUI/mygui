@@ -108,10 +108,10 @@ namespace MyGUI
 
 			// формат цвета в вершинах
 			Ogre::VertexElementType vertex_type = mRenderSystem->getColourVertexElementType();
-			if (vertex_type == Ogre::VET_COLOUR_ARGB)
-				mVertexFormat = VertexColourType::ColourARGB;
-			else if (vertex_type == Ogre::VET_COLOUR_ABGR)
+			if (vertex_type == Ogre::VET_COLOUR_ABGR)
 				mVertexFormat = VertexColourType::ColourABGR;
+			else if (vertex_type == Ogre::VET_COLOUR_ARGB)
+				mVertexFormat = VertexColourType::ColourARGB;
 
 			updateRenderInfo();
 		}
