@@ -173,8 +173,7 @@ namespace MyGUI
 
 	void RotatingSkin::_setColour(const Colour& _value)
 	{
-		uint32 colour = texture_utility::toColourARGB(_value);
-		texture_utility::convertColour(colour, mVertexFormat);
+		uint32 colour = texture_utility::toNativeColour(_value, mVertexFormat);
 		mCurrentColour = (colour & 0x00FFFFFF) | (mCurrentColour & 0xFF000000);
 
 		if (nullptr != mNode)

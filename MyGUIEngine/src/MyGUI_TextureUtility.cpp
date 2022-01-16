@@ -65,16 +65,33 @@ namespace MyGUI
 			return prevSize;
 		}
 
-		uint32 toColourARGB(const Colour& _colour)
+		uint32 toNativeColour(const Colour& _colour, VertexColourType _format)
 		{
 			uint32 val32 = uint8(_colour.alpha * 255);
 			val32 <<= 8;
-			val32 += uint8(_colour.red * 255);
-			val32 <<= 8;
-			val32 += uint8(_colour.green * 255);
-			val32 <<= 8;
-			val32 += uint8(_colour.blue * 255);
+			if (_format == VertexColourType::ColourABGR)
+			{
+				val32 += uint8(_colour.blue * 255);
+				val32 <<= 8;
+				val32 += uint8(_colour.green * 255);
+				val32 <<= 8;
+				val32 += uint8(_colour.red * 255);
+			}
+			else
+			{
+				val32 += uint8(_colour.red * 255);
+				val32 <<= 8;
+				val32 += uint8(_colour.green * 255);
+				val32 <<= 8;
+				val32 += uint8(_colour.blue * 255);
+			}
 			return val32;
+		}
+
+		void convertColour(uint32& _colour, VertexColourType _format)
+		{
+			if (_format == VertexColourType::ColourABGR)
+				_colour = ((_colour & 0x00FF0000) >> 16) | ((_colour & 0x000000FF) << 16) | (_colour & 0xFF00FF00);
 		}
 
 	} // namespace texture_utility

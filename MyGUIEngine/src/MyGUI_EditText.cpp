@@ -206,9 +206,7 @@ namespace MyGUI
 			return;
 
 		mColour = _value;
-		mCurrentColourNative = texture_utility::toColourARGB(mColour);
-
-		texture_utility::convertColour(mCurrentColourNative, mVertexFormat);
+		mCurrentColourNative = texture_utility::toNativeColour(mColour, mVertexFormat);
 
 		mCurrentColourNative = (mCurrentColourNative & 0x00FFFFFF) | getMixedNativeAlpha(mColour.alpha);
 		mInverseColourNative = mCurrentColourNative ^ 0x00FFFFFF;
@@ -639,9 +637,7 @@ namespace MyGUI
 	void EditText::setShadowColour(const Colour& _value)
 	{
 		mShadowColour = _value;
-		mShadowColourNative = texture_utility::toColourARGB(mShadowColour);
-
-		texture_utility::convertColour(mShadowColourNative, mVertexFormat);
+		mShadowColourNative = texture_utility::toNativeColour(mShadowColour, mVertexFormat);
 
 		mShadowColourNative = (mShadowColourNative & 0x00FFFFFF) | getMixedNativeAlpha(mShadowColour.alpha);
 

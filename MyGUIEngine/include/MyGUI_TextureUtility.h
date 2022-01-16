@@ -18,14 +18,18 @@ namespace MyGUI
 	{
 
 		MYGUI_EXPORT const IntSize& getTextureSize(const std::string& _texture, bool _cache = true);
-		MYGUI_EXPORT uint32 toColourARGB(const Colour& _colour);
+		/// Convert Colour to 32-bit representation
+		MYGUI_EXPORT uint32 toNativeColour(const Colour& _colour, VertexColourType _format);
+		/// Convert from 32-bit ARGB to native colour (ABGR or ARGB)
+		MYGUI_EXPORT void convertColour(uint32& _colour, VertexColourType _format);
 
-		inline void convertColour(uint32& _colour, VertexColourType _format)
+#ifndef MYGUI_DONT_USE_OBSOLETE
+		MYGUI_OBSOLETE(" is deprecated, use : uint32 texture_utility::toNativeColour(const Colour& _colour, VertexColourType _format)")
+		inline uint32 toColourARGB(const Colour& _colour)
 		{
-			if (_format == VertexColourType::ColourABGR)
-				_colour = ((_colour & 0x00FF0000) >> 16) | ((_colour & 0x000000FF) << 16) | (_colour & 0xFF00FF00);
+			return toNativeColour(_colour, VertexColourType::ColourARGB);
 		}
-
+#endif
 
 	} // namespace texture_utility
 
