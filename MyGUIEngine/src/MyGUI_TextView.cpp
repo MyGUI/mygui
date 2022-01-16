@@ -133,7 +133,7 @@ namespace MyGUI
 		{
 			Char character = *index;
 
-			// новая строка
+			// new line
 			if (character == FontCodeType::CR
 				|| character == FontCodeType::NEL
 				|| character == FontCodeType::LF)
@@ -158,43 +158,42 @@ namespace MyGUI
 				mLineInfo.push_back(line_info);
 				line_info.clear();
 
-				// отменяем откат
 				roll_back.clear();
 
 				continue;
 			}
-			// тег
+			// tag
 			else if (character == L'#')
 			{
-				// берем следующий символ
-				++ index;
+				// check next character
+				++index;
 				if (index == end)
 				{
-					--index;    // это защита
+					--index;
 					continue;
 				}
 
 				character = *index;
-				// если два подряд, то рисуем один шарп, если нет то меняем цвет
+				// "##" converted to visible '#', change colour otherwise
 				if (character != L'#')
 				{
-					// парсим первый символ
+					// read first character
 					uint32 colour = convert_colour[(character - 48) & 0x3F];
 
-					// и еще пять символов после шарпа
+					// and 5 more after '#'
 					for (char i = 0; i < 5; i++)
 					{
 						++ index;
 						if (index == end)
 						{
-							--index;    // это защита
+							--index;
 							continue;
 						}
 						colour <<= 4;
 						colour += convert_colour[ ((*index) - 48) & 0x3F ];
 					}
 
-					// если нужно, то меняем красный и синий компоненты
+					// convert to ABGR if we use that colour format
 					texture_utility::convertColour(colour, _format);
 
 					line_info.symbols.push_back( CharInfo(colour) );
@@ -298,10 +297,10 @@ namespace MyGUI
 
 			// наша строчка
 			if (top + mFontHeight <= _value.top && !lastline)
-            {
+			{
 				top += mFontHeight;
-                result += line->count + 1;
-            }
+				result += line->count + 1;
+			}
 			else
 			{
 				float left = (float)line->offset;
