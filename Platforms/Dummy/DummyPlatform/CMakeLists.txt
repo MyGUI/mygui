@@ -16,6 +16,6 @@ target_link_libraries(${PROJECTNAME} MyGUIEngine)
 
 # installation rules
 install(FILES ${HEADER_FILES}
-	DESTINATION include/MYGUI
+	DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/MYGUI"
 )
 mygui_install_target(${PROJECTNAME} "")

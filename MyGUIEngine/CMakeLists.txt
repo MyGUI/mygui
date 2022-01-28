@@ -62,5 +62,5 @@ mygui_config_lib(${PROJECTNAME})
 
 # install MyGUIEngine headers
 install(FILES ${HEADER_FILES}
-  DESTINATION include/MYGUI
+  DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/MYGUI"
 )

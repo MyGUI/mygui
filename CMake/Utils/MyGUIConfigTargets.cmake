@@ -406,7 +406,7 @@ function(mygui_plugin PROJECTNAME)
 	set_target_properties(${PROJECTNAME} PROPERTIES PREFIX "")
 
 	install(FILES ${HEADER_FILES}
-		DESTINATION include/MYGUI
+		DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/MYGUI"
 	)
 endfunction(mygui_plugin)
 
