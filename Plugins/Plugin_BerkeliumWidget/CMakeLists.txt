@@ -18,7 +18,7 @@ function(mygui_plugin_berkelium PROJECTNAME)
 	mygui_config_lib(${PROJECTNAME})
 	
 	install(FILES ${HEADER_FILES}
-		DESTINATION include/MYGUI
+		DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/MYGUI"
 	)
 endfunction(mygui_plugin_berkelium)
 
