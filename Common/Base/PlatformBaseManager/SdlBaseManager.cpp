@@ -145,14 +145,10 @@ namespace base
 					case SDL_WINDOWEVENT_RESIZED:
 						_windowResized(mEvent.window.data1, mEvent.window.data2);
 						break;
-					case SDL_WINDOWEVENT_SHOWN:
-					case SDL_WINDOWEVENT_RESTORED:
-					case SDL_WINDOWEVENT_EXPOSED:
-					case SDL_WINDOWEVENT_MAXIMIZED:
+					case SDL_WINDOWEVENT_FOCUS_GAINED:
 						mWindowOn = true;
 						break;
-					case SDL_WINDOWEVENT_MINIMIZED:
-					case SDL_WINDOWEVENT_HIDDEN:
+					case SDL_WINDOWEVENT_FOCUS_LOST:
 						mWindowOn = false;
 						break;
 					default:
