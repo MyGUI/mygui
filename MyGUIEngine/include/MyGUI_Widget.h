@@ -188,6 +188,7 @@ namespace MyGUI
 		/** Get parent widget or nullptr if no parent */
 		Widget* getParent() const;
 
+		/** Get parent widget size. If there is no parent get layer size */
 		IntSize getParentSize() const;
 
 		/** Get child widgets Enumerator */
