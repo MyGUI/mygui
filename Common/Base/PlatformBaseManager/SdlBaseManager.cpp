@@ -207,8 +207,6 @@ namespace base
 				addResourceLocation(node->getContent(), false);
 			}
 		}
-
-		addResourceLocation(getRootMedia() + "/Common/Base");
 	}
 
 	MyGUI::MapString SdlBaseManager::getStatistic()
