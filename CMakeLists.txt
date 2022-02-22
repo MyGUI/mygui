@@ -160,7 +160,6 @@ option(MYGUI_BUILD_WRAPPER "Build the wrapper" FALSE)
 cmake_dependent_option(MYGUI_INSTALL_DEMOS "Install MyGUI demos." FALSE "MYGUI_BUILD_DEMOS" FALSE)
 cmake_dependent_option(MYGUI_INSTALL_TOOLS "Install MyGUI tools." FALSE "MYGUI_BUILD_TOOLS" FALSE)
 option(MYGUI_INSTALL_DOCS "Install documentation." FALSE)
-option(MYGUI_INSTALL_MEDIA "Install media files." FALSE)
 cmake_dependent_option(MYGUI_INSTALL_PDB "Install debug pdb files" FALSE "MSVC;NOT MYGUI_STATIC" FALSE)
 option(MYGUI_STANDALONE_BUILD "Generate build files that do not reference CMake (should be used only from Scripts/prepareRelease.py)" FALSE)
 MARK_AS_ADVANCED(MYGUI_STANDALONE_BUILD)
@@ -317,7 +316,7 @@ if (MYGUI_BUILD_DOCS)
 endif ()
 
 # Install media files
-if (MYGUI_INSTALL_MEDIA)
+if (MYGUI_INSTALL_DEMOS OR MYGUI_INSTALL_TOOLS)
 	add_subdirectory(Media)
 endif ()
 
