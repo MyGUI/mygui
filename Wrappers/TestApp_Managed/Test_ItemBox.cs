@@ -45,7 +45,7 @@ namespace TestApp.Managed
 
         static void box_RequestCreateWidgetItem(ItemBox _sender, Widget _item)
         {
-            EditBox cell = _item.CreateWidget<EditBox>("Edit", new IntCoord(0, 0, 50, 50), Align.Default);
+            EditBox cell = _item.CreateWidget<EditBox>("EditBox", new IntCoord(0, 0, 50, 50), Align.Default);
             _item.UserData = cell;
         }
 

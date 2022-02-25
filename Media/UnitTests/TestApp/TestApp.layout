@@ -134,7 +134,7 @@
                     <Property key="ViewPage" value="10"/>
                 </Widget>
                 <Widget type="Widget" skin="PanelSkin" position="353 40 239 197" align="Right VStretch">
-                    <Widget type="Widget" skin="TileClient" position="3 3 231 189" align="Stretch"/>
+                    <Widget type="Widget" skin="ClientTileSkin" position="3 3 231 189" align="Stretch"/>
                 </Widget>
             </Widget>
         </Widget>
