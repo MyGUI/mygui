@@ -34,7 +34,7 @@ namespace demo
 		if (root.size() == 1)
 			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Panel View control implementation.");
 
-		MyGUI::ResourceManager::getInstance().load("FrameworkSkin.xml");
+		MyGUI::ResourceManager::getInstance().load("ButtonExpandSkin.xml");
 
 		mView = new PanelViewWindow();
 		mPanelDirector = new PanelDirector();

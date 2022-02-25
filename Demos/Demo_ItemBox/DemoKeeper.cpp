@@ -90,7 +90,6 @@ namespace demo
 	{
 		base::BaseManager::setupResources();
 		addResourceLocation(getRootMedia() + "/Demos/Demo_ItemBox");
-		addResourceLocation(getRootMedia() + "/Icons");
 		addResourceLocation(getRootMedia() + "/Common/Demos");
 	}
 
@@ -107,7 +106,6 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().registerFactory<ResourceItemInfo>(resourceCategory);
 
 		MyGUI::ResourceManager::getInstance().load("Resources.xml");
-		//MyGUI::ResourceManager::getInstance().load("ItemBox_skin.xml");
 
 		mToolTip = new ToolTip();
 		mToolTip->hide();
