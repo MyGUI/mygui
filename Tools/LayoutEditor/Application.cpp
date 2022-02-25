@@ -52,7 +52,6 @@ namespace tools
 		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Themes");
 		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/Settings");
 		addResourceLocation(getRootMedia() + "/Tools/LayoutEditor/CodeTemplates");
-		addResourceLocation(getRootMedia() + "/Common/Base");
 		addResourceLocation(getRootMedia() + "/Common/Demos");
 		addResourceLocation(getRootMedia() + "/Common/Tools");
 		addResourceLocation(getRootMedia() + "/Common/MessageBox");
