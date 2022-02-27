@@ -37,7 +37,6 @@ include(FindPkgMacros)
 IF(NOT SDL2_FOUND)
 # Then try everything else
     CMAKE_POLICY(PUSH)
-    CMAKE_MINIMUM_REQUIRED(VERSION 2.4.7 FATAL_ERROR)
     find_package(PkgConfig QUIET)
     pkg_check_modules(PC_SDL2 QUIET sdl2)
 

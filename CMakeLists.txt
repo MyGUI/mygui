@@ -6,9 +6,9 @@
 ######################################################################
 
 cmake_minimum_required(VERSION 2.8.12)
-cmake_policy(SET CMP0003 NEW)
-cmake_policy(SET CMP0011 NEW)
-cmake_policy(SET CMP0048 OLD)
+if(POLICY CMP0048)
+	cmake_policy(SET CMP0048 NEW)
+endif()
 
 # for link time optimization, remove if cmake version is >= 3.9
 if(POLICY CMP0069) # LTO
