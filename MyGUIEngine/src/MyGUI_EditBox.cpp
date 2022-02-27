@@ -289,7 +289,7 @@ namespace MyGUI
 		Base::onKeyLostFocus(_new);
 	}
 
-	bool isWhitespace(const UString::code_point& c) {
+	static bool isWhitespace(const UString::code_point& c) {
 		return c == ' ' || c == '\t';
 	}
 

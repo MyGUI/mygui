@@ -12,24 +12,24 @@ namespace demo
 
 	static MyGUI::VectorWidgetPtr all_widgets;
 
-	void test_widgets()
+	static void test_widgets()
 	{
 	}
 
-	int random(int _max)
+	static int random(int _max)
 	{
 		int result = rand() % _max;
 		return result < 0 ? 0 : result;
 	}
 
-	MyGUI::WidgetStyle get_type()
+	static MyGUI::WidgetStyle get_type()
 	{
 		const int SIZE = 3;
 		static MyGUI::WidgetStyle types[SIZE] = { MyGUI::WidgetStyle::Child,  MyGUI::WidgetStyle::Popup,  MyGUI::WidgetStyle::Overlapped };
 		return types[random(SIZE)];
 	}
 
-	void erase_widget(MyGUI::VectorWidgetPtr& _mass, MyGUI::Widget* _widget)
+	static void erase_widget(MyGUI::VectorWidgetPtr& _mass, MyGUI::Widget* _widget)
 	{
 		for (MyGUI::VectorWidgetPtr::iterator iter = _mass.begin(); iter != _mass.end(); ++iter)
 		{
@@ -42,32 +42,32 @@ namespace demo
 		}
 	}
 
-	MyGUI::Widget* get_random(MyGUI::VectorWidgetPtr& _mass)
+	static MyGUI::Widget* get_random(MyGUI::VectorWidgetPtr& _mass)
 	{
 		if (_mass.empty()) return nullptr;
 		return _mass.at(random((int)_mass.size()));
 	}
 
-	const char* get_skin()
+	static const char* get_skin()
 	{
 		const int SIZE = 8;
 		static const char* names[SIZE] = { "WindowCSX", "ScrollView", "ButtonX", "ButtonV", "Button", "EditBoxStretch", "RadioButton", "CheckBox" };
 		return names[random(SIZE)];
 	}
 
-	const char* get_layer()
+	static const char* get_layer()
 	{
 		const int SIZE = 4;
 		static const char* names[SIZE] = { "", "Main", "Overlapped", "Popup" };
 		return names[random(SIZE)];
 	}
 
-	MyGUI::IntCoord get_coord()
+	static MyGUI::IntCoord get_coord()
 	{
 		return MyGUI::IntCoord(random(500), random(500), random(500), random(500));
 	}
 
-	void step_detach_layer()
+	static void step_detach_layer()
 	{
 		MyGUI::Widget* widget = get_random(all_widgets);
 		if (!widget) return;
@@ -75,7 +75,7 @@ namespace demo
 		test_widgets();
 	}
 
-	void step_detach_layer(int _count)
+	static void step_detach_layer(int _count)
 	{
 		int count = random(_count);
 		while (count > 0)
@@ -85,7 +85,7 @@ namespace demo
 		}
 	}
 
-	void step_attach_layer()
+	static void step_attach_layer()
 	{
 		MyGUI::Widget* widget = get_random(all_widgets);
 		if (!widget) return;
@@ -98,7 +98,7 @@ namespace demo
 		test_widgets();
 	}
 
-	void step_attach_layer(int _count)
+	static void step_attach_layer(int _count)
 	{
 		int count = random(_count);
 		while (count > 0)
@@ -108,7 +108,7 @@ namespace demo
 		}
 	}
 
-	void step_detach_widget()
+	static void step_detach_widget()
 	{
 		MyGUI::Widget* widget = get_random(all_widgets);
 		if (!widget) return;
@@ -116,7 +116,7 @@ namespace demo
 		test_widgets();
 	}
 
-	void step_detach_widget(int _count)
+	static void step_detach_widget(int _count)
 	{
 		int count = random(_count);
 		while (count > 0)
@@ -126,7 +126,7 @@ namespace demo
 		}
 	}
 
-	void step_attach_widget()
+	static void step_attach_widget()
 	{
 		MyGUI::Widget* widget1 = get_random(all_widgets);
 		MyGUI::Widget* widget2 = get_random(all_widgets);
@@ -144,7 +144,7 @@ namespace demo
 		test_widgets();
 	}
 
-	void step_attach_widget(int _count)
+	static void step_attach_widget(int _count)
 	{
 		int count = random(_count);
 		while (count > 0)
@@ -154,7 +154,7 @@ namespace demo
 		}
 	}
 
-	void step_destroy_widget()
+	static void step_destroy_widget()
 	{
 		MyGUI::Widget* widget = get_random(all_widgets);
 		if (!widget) return;
@@ -163,7 +163,7 @@ namespace demo
 		test_widgets();
 	}
 
-	void step_destroy_widget(int _count)
+	static void step_destroy_widget(int _count)
 	{
 		int count = random(_count);
 		while (count > 0)
@@ -173,7 +173,7 @@ namespace demo
 		}
 	}
 
-	void step_create_widget()
+	static void step_create_widget()
 	{
 		MyGUI::Widget* widget = get_random(all_widgets);
 		if (widget)
@@ -207,7 +207,7 @@ namespace demo
 		test_widgets();
 	}
 
-	void step_create_widget(int _count)
+	static void step_create_widget(int _count)
 	{
 		int count = random(_count);
 		while (count > 0)
@@ -217,7 +217,7 @@ namespace demo
 		}
 	}
 
-	void step_change_skin()
+	static void step_change_skin()
 	{
 		MyGUI::Widget* widget = get_random(all_widgets);
 		if (!widget) return;
@@ -225,7 +225,7 @@ namespace demo
 		test_widgets();
 	}
 
-	void step_change_skin(int _count)
+	static void step_change_skin(int _count)
 	{
 		int count = random(_count);
 		while (count > 0)
@@ -235,7 +235,7 @@ namespace demo
 		}
 	}
 
-	void step_change_type()
+	static void step_change_type()
 	{
 		MyGUI::Widget* widget = get_random(all_widgets);
 		if (!widget) return;
@@ -243,7 +243,7 @@ namespace demo
 		test_widgets();
 	}
 
-	void step_change_type(int _count)
+	static void step_change_type(int _count)
 	{
 		int count = random(_count);
 		while (count > 0)

@@ -33,7 +33,7 @@ namespace demo
 		_sender->castType<MyGUI::Button>()->setCaption("Functor call. " + MyGUI::utility::toString(_foo->getValue()));
 	}
 
-	void handleClick_GlobalFunction(MyGUI::Widget* _sender)
+	static void handleClick_GlobalFunction(MyGUI::Widget* _sender)
 	{
 		_sender->castType<MyGUI::Button>()->setCaption("Function call");
 	}

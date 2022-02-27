@@ -8,7 +8,7 @@
 namespace demo
 {
 
-	float squaredDistance(const MyGUI::FloatPoint& _value, const MyGUI::FloatPoint& _other)
+	static float squaredDistance(const MyGUI::FloatPoint& _value, const MyGUI::FloatPoint& _other)
 	{
 		float x1 = _other.left - _value.left;
 		float y1 = _other.top - _value.top;
@@ -16,19 +16,19 @@ namespace demo
 		return x1 * x1 + y1 * y1;
 	}
 
-	float getLength(const MyGUI::FloatPoint& _value)
+	static float getLength(const MyGUI::FloatPoint& _value)
 	{
 		return (float)std::sqrt( _value.left * _value.left + _value.top * _value.top );
 	}
 
-	void setLength(MyGUI::FloatPoint& _value, float _len)
+	static void setLength(MyGUI::FloatPoint& _value, float _len)
 	{
 		float temp = getLength(_value);
 		_value.left *= _len / temp;
 		_value.top *= _len / temp;
 	}
 
-	float squaredLength(const MyGUI::FloatPoint& _value)
+	static float squaredLength(const MyGUI::FloatPoint& _value)
 	{
 		return _value.left * _value.left + _value.top * _value.top;
 	}

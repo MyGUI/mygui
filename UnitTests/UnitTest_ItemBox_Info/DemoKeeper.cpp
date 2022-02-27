@@ -10,19 +10,19 @@
 namespace demo
 {
 
-	void requestCreateWidgetItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item)
+	static void requestCreateWidgetItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item)
 	{
 		MyGUI::TextBox* text = _item->createWidget<MyGUI::TextBox>("TextBox", MyGUI::IntCoord(0, 0, _item->getWidth(), _item->getHeight()), MyGUI::Align::Stretch);
 		text->setNeedMouseFocus(false);
 		_item->setUserData(text);
 	}
 
-	void requestCoordItem(MyGUI::ItemBox* _sender, MyGUI::IntCoord& _coord, bool _drag)
+	static void requestCoordItem(MyGUI::ItemBox* _sender, MyGUI::IntCoord& _coord, bool _drag)
 	{
 		_coord.set(0, 0, 100, 100);
 	}
 
-	void requestDrawItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item, const MyGUI::IBDrawItemInfo& _info)
+	static void requestDrawItem(MyGUI::ItemBox* _sender, MyGUI::Widget* _item, const MyGUI::IBDrawItemInfo& _info)
 	{
 		MyGUI::TextBox* text = *_item->getUserData<MyGUI::TextBox*>();
 		int data = *_sender->getItemDataAt<int>(_info.index);
@@ -42,14 +42,14 @@ namespace demo
 		}
 	}
 
-	void eventStartDrag(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result)
+	static void eventStartDrag(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result)
 	{
 		MyGUI::ItemBox* sender = _info.sender->castType<MyGUI::ItemBox>();
 		int data = *sender->getItemDataAt<int>(_info.sender_index);
 		_result = (data & 1) == 1;
 	}
 
-	void eventRequestDrop(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result)
+	static void eventRequestDrop(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool& _result)
 	{
 		if (_info.receiver == _info.sender)
 		{
@@ -67,7 +67,7 @@ namespace demo
 		}
 	}
 
-	void eventDropResult(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool _result)
+	static void eventDropResult(MyGUI::DDContainer* _sender, const MyGUI::DDItemInfo& _info, bool _result)
 	{
 		if (!_result)
 			return;
@@ -91,7 +91,7 @@ namespace demo
 		}
 	}
 
-	void init()
+	static void init()
 	{
 		MyGUI::ItemBox* box1 = MyGUI::Gui::getInstance().createWidget<MyGUI::ItemBox>("ItemBox", MyGUI::IntCoord(10, 10, 300, 300), MyGUI::Align::Default, "Overlapped");
 		box1->setVerticalAlignment(true);
