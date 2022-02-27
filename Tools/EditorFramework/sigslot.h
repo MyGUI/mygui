@@ -81,6 +81,13 @@
 #include <set>
 #include <list>
 
+#if defined(__clang__)
+#pragma clang system_header
+#endif
+#if defined(__GNUC__)
+#pragma GCC system_header
+#endif
+
 #if defined(SIGSLOT_PURE_ISO) || (!defined(WIN32) && !defined(__GNUG__) && !defined(SIGSLOT_USE_POSIX_THREADS))
 #	define _SIGSLOT_SINGLE_THREADED
 #elif defined(WIN32)
