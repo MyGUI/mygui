@@ -1,0 +1,22 @@
+set(PROJECTNAME MyGUI.SDL2Platform)
+
+include_directories(
+	include
+	${MYGUI_SOURCE_DIR}/MyGUIEngine/include
+	${MYGUI_SOURCE_DIR}/Common
+	${SDL2_INCLUDE_DIRS}
+)
+
+include(${PROJECTNAME}.list)
+
+add_library(${PROJECTNAME} ${HEADER_FILES} ${SOURCE_FILES})
+
+add_dependencies(${PROJECTNAME} MyGUIEngine)
+
+target_link_libraries(${PROJECTNAME} MyGUIEngine ${SDL2_LIBRARIES})
+
+# installation rules
+install(FILES ${HEADER_FILES}
+	DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/MYGUI"
+)
+mygui_install_target(${PROJECTNAME} "")

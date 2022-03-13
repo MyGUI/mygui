@@ -81,6 +81,8 @@ namespace base
 		bool mWindowOn = false;
 		SDL_Keycode	mKeyCode;
 		int mFpsCounter = 0;
+
+		double mScale = 0;
 	};
 
 }

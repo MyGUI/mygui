@@ -77,6 +77,12 @@ elseif(MYGUI_RENDERSYSTEM EQUAL 8)
 	)
 	link_directories(${OPENGL_LIB_DIR})
 	link_directories(${SDL2_IMAGE_LIB_DIR})
+elseif(MYGUI_RENDERSYSTEM EQUAL 9)
+	add_definitions("-DMYGUI_SDL2_PLATFORM")
+	include_directories(SYSTEM
+		${SDL2_IMAGE_INCLUDE_DIRS}
+	)
+	link_directories(${SDL2_IMAGE_LIB_DIR})
 endif()
 
 include_directories(Input/SDL)

@@ -39,6 +39,8 @@ function(mygui_set_platform_name PLATFORM_ID)
 		set(MYGUI_PLATFORM_NAME OpenGL3 PARENT_SCOPE)
 	elseif(${PLATFORM_ID} EQUAL 8)
 		set(MYGUI_PLATFORM_NAME OpenGLES PARENT_SCOPE)
+	elseif(${PLATFORM_ID} EQUAL 9)
+		set(MYGUI_PLATFORM_NAME SDL2 PARENT_SCOPE)
 	endif()
 endfunction(mygui_set_platform_name)
 
@@ -150,6 +152,14 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 			${OPENGL_LIB_DIR}
 			${SDL2_IMAGE_LIB_DIR}
 		)
+	elseif(MYGUI_RENDERSYSTEM EQUAL 9)
+		add_definitions("-DMYGUI_SDL2_PLATFORM")
+		include_directories(SYSTEM
+			${SDL2_IMAGE_INCLUDE_DIRS}
+		)
+		link_directories(
+			${SDL2_IMAGE_LIB_DIR}
+		)
 	endif()
 
 	# setup demo target
@@ -191,6 +201,8 @@ function(mygui_app PROJECTNAME SOLUTIONFOLDER)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
 		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
+		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 9)
 		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
 	endif()
 	target_link_libraries(${PROJECTNAME}
@@ -265,6 +277,8 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 			${OPENGL_INCLUDE_DIR}
 		)
 		link_directories(${OPENGL_LIB_DIR})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 9)
+		add_definitions("-DMYGUI_SDL2_PLATFORM")
 	endif()
 
 
@@ -303,6 +317,8 @@ function(mygui_dll PROJECTNAME SOLUTIONFOLDER)
 	elseif(MYGUI_RENDERSYSTEM EQUAL 7)
 		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
 	elseif(MYGUI_RENDERSYSTEM EQUAL 8)
+		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
+	elseif(MYGUI_RENDERSYSTEM EQUAL 9)
 		target_link_libraries(${PROJECTNAME} ${SDL2_IMAGE_LIBRARIES})
 	endif()
 
