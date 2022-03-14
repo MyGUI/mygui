@@ -102,6 +102,10 @@ namespace MyGUI
 		bool isControlPressed() const;
 		/** Is shift button pressed */
 		bool isShiftPressed() const;
+		/** Is alt button pressed */
+		bool isAltPressed() const;
+		/** Is meta ("Windows key" or macOS "Command" key) button pressed */
+		bool isMetaPressed() const;
 
 		/** Reset mouse capture.
 			For example when we dragging and application
@@ -154,6 +158,8 @@ namespace MyGUI
 		bool mIsShiftPressed;
 		// нажат ли контрол
 		bool mIsControlPressed;
+		bool mIsAltPressed;
+		bool mIsMetaPressed;
 
 		IntPoint mMousePosition;
 

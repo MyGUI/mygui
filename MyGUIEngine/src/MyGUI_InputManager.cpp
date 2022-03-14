@@ -29,6 +29,8 @@ namespace MyGUI
 		mTimerDoubleClick(INPUT_TIME_DOUBLE_CLICK),
 		mIsShiftPressed(false),
 		mIsControlPressed(false),
+		mIsAltPressed(false),
+		mIsMetaPressed(false),
 		mHoldKey(KeyCode::None),
 		mHoldChar(0),
 		mFirstPressKey(false),
@@ -54,6 +56,9 @@ namespace MyGUI
 		}
 		mIsShiftPressed = false;
 		mIsControlPressed = false;
+		mIsAltPressed = false;
+		mIsMetaPressed = false;
+
 		mHoldKey = KeyCode::None;
 		mHoldChar = 0;
 		mFirstPressKey = true;
@@ -387,6 +392,10 @@ namespace MyGUI
 			mIsShiftPressed = bIsKeyPressed;
 		if ((_key == KeyCode::LeftControl) || (_key == KeyCode::RightControl))
 			mIsControlPressed = bIsKeyPressed;
+		if ((_key == KeyCode::LeftAlt) || (_key == KeyCode::RightAlt))
+			mIsAltPressed = bIsKeyPressed;
+		if ((_key == KeyCode::LeftWindows) || (_key == KeyCode::RightWindows))
+			mIsMetaPressed = bIsKeyPressed;
 	}
 
 	void InputManager::setKeyFocusWidget(Widget* _widget)
@@ -672,6 +681,16 @@ namespace MyGUI
 	bool InputManager::isShiftPressed() const
 	{
 		return mIsShiftPressed;
+	}
+
+	bool InputManager::isAltPressed() const
+	{
+		return mIsAltPressed;
+	}
+
+	bool InputManager::isMetaPressed() const
+	{
+		return mIsMetaPressed;
 	}
 
 	void InputManager::resetMouseCaptureWidget()

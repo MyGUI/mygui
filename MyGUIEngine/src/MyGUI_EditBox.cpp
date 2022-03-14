@@ -20,6 +20,18 @@
 namespace MyGUI
 {
 
+	enum class EditCommand {
+		Unknown, LoseFocus, ErasePrevious, EraseNext, Cut, Paste, Copy,
+		NewLine, AcceptEntry,
+		MoveLeft, MoveRight, MoveUp, MoveDown,
+		MoveLeftWord, MoveRightWord,
+		MoveLineBeginning, MoveLineEnd,
+		MoveTextBeginning, MoveTextEnd,
+		MovePageUp, MovePageDown,
+		SelectAll,
+		Undo, Redo
+	};
+
 	const float EDIT_CURSOR_TIMER  = 0.7f;
 	const float EDIT_ACTION_MOUSE_TIMER  = 0.05f;
 	const int EDIT_CURSOR_MAX_POSITION = 100000;
@@ -293,6 +305,71 @@ namespace MyGUI
 		return c == ' ' || c == '\t';
 	}
 
+	static EditCommand ToEditCommand(KeyCode key, const InputManager& input) {
+#if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX || MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
+		switch (key.getValue()) {
+			case KeyCode::Escape: return EditCommand::LoseFocus;
+			case KeyCode::Backspace: return EditCommand::ErasePrevious;
+			case KeyCode::Delete: return input.isShiftPressed() ? EditCommand::Cut : EditCommand::EraseNext;
+			case KeyCode::Insert: return input.isShiftPressed() ? EditCommand::Paste : (input.isControlPressed() ? EditCommand::Copy : EditCommand::Unknown);
+			case KeyCode::Return:
+			case KeyCode::NumpadEnter: return input.isControlPressed() ? EditCommand::AcceptEntry : EditCommand::NewLine;
+			case KeyCode::ArrowLeft: return input.isControlPressed() ? EditCommand::MoveLeftWord : EditCommand::MoveLeft;
+			case KeyCode::ArrowRight: return input.isControlPressed() ? EditCommand::MoveRightWord : EditCommand::MoveRight;
+			case KeyCode::ArrowUp: return EditCommand::MoveUp;
+			case KeyCode::ArrowDown: return EditCommand::MoveDown;
+			case KeyCode::Home: return input.isControlPressed() ? EditCommand::MoveTextBeginning : EditCommand::MoveLineBeginning;
+			case KeyCode::End: return input.isControlPressed() ? EditCommand::MoveTextEnd : EditCommand::MoveLineEnd;
+			case KeyCode::PageUp: return EditCommand::MovePageUp;
+			case KeyCode::PageDown: return EditCommand::MovePageDown;
+		}
+		if (input.isControlPressed()) {
+			switch (key.getValue()) {
+				case KeyCode::C: return EditCommand::Copy;
+				case KeyCode::V: return EditCommand::Paste;
+				case KeyCode::X: return EditCommand::Cut;
+				case KeyCode::Z: return EditCommand::Undo;
+				case KeyCode::Y: return EditCommand::Redo;
+				case KeyCode::A: return EditCommand::SelectAll;
+			}
+		}
+#elif MYGUI_PLATFORM == MYGUI_PLATFORM_APPLE
+		switch (key.getValue()) {
+			case KeyCode::Escape: return EditCommand::LoseFocus;
+			case KeyCode::Backspace: return EditCommand::ErasePrevious;
+			case KeyCode::Delete: return EditCommand::EraseNext;
+			case KeyCode::Return:
+			case KeyCode::NumpadEnter: return input.isMetaPressed() ? EditCommand::AcceptEntry : EditCommand::NewLine;
+			case KeyCode::ArrowLeft: {
+				if (input.isAltPressed()) return EditCommand::MoveLeftWord;
+				if (input.isMetaPressed() || input.isControlPressed()) return EditCommand::MoveLineBeginning;
+				return EditCommand::MoveLeft;
+			}
+			case KeyCode::ArrowRight: {
+				if (input.isAltPressed()) return EditCommand::MoveRightWord;
+				if (input.isMetaPressed() || input.isControlPressed()) return EditCommand::MoveLineEnd;
+				return EditCommand::MoveRight;
+			}
+			case KeyCode::ArrowUp: return input.isMetaPressed() ? EditCommand::MoveTextBeginning : EditCommand::MoveUp;
+			case KeyCode::ArrowDown: return input.isMetaPressed() ? EditCommand::MoveTextEnd : EditCommand::MoveDown;
+			case KeyCode::Home: return input.isMetaPressed() ? EditCommand::MoveTextBeginning : EditCommand::MoveLineBeginning;
+			case KeyCode::End: return input.isMetaPressed() ? EditCommand::MoveTextEnd : EditCommand::MoveLineEnd;
+			case KeyCode::PageUp: return EditCommand::MovePageUp;
+			case KeyCode::PageDown: return EditCommand::MovePageDown;
+		}
+		if (input.isMetaPressed()) {
+			switch (key.getValue()) {
+				case KeyCode::C: return EditCommand::Copy;
+				case KeyCode::V: return EditCommand::Paste;
+				case KeyCode::X: return EditCommand::Cut;
+				case KeyCode::Z: return input.isShiftPressed() ? EditCommand::Redo : EditCommand::Undo;
+				case KeyCode::A: return EditCommand::SelectAll;
+			}
+		}
+#endif
+		return EditCommand::Unknown;
+	}
+
 	void EditBox::onKeyButtonPressed(KeyCode _key, Char _char)
 	{
 		if (mClientText == nullptr || getClientWidget() == nullptr)
@@ -313,11 +390,13 @@ namespace MyGUI
 		mClientText->setVisibleCursor(true);
 		mCursorTimer = 0.0f;
 
-		if (_key == KeyCode::Escape)
+		auto editCmd = ToEditCommand(_key, input);
+
+		if (editCmd == EditCommand::LoseFocus)
 		{
 			InputManager::getInstance().setKeyFocusWidget(nullptr);
 		}
-		else if (_key == KeyCode::Backspace)
+		else if (editCmd == EditCommand::ErasePrevious)
 		{
 			// если нуно то удаляем выделенный текст
 			if (!mModeReadOnly)
@@ -339,16 +418,16 @@ namespace MyGUI
 			}
 
 		}
-		else if (_key == KeyCode::Delete)
+		else if (editCmd == EditCommand::Cut)
 		{
-			if (input.isShiftPressed())
-			{
-				// сбрасываем повтор
-				commandResetRedo();
+			// сбрасываем повтор
+			commandResetRedo();
 
-				commandCut();
-			}
-			else if (!mModeReadOnly)
+			commandCut();
+		}
+		else if (editCmd == EditCommand::EraseNext)
+		{
+			if (!mModeReadOnly)
 			{
 				// сбрасываем повтор
 				commandResetRedo();
@@ -366,27 +445,41 @@ namespace MyGUI
 			}
 
 		}
-		else if (_key == KeyCode::Insert)
+		else if (editCmd == EditCommand::Paste)
 		{
-			if (input.isShiftPressed())
-			{
-				// сбрасываем повтор
-				commandResetRedo();
+			// сбрасываем повтор
+			commandResetRedo();
 
-				commandPast();
-			}
-			else if (input.isControlPressed())
-			{
-				commandCopy();
-			}
-
+			commandPast();
 		}
-		else if ((_key == KeyCode::Return) || (_key == KeyCode::NumpadEnter))
+		else if (editCmd == EditCommand::Copy)
+		{
+			commandCopy();
+		}
+		else if (editCmd == EditCommand::Cut)
+		{
+			commandResetRedo();
+
+			commandCut();
+		}
+		else if (editCmd == EditCommand::Undo)
+		{
+			commandUndo();
+		}
+		else if (editCmd == EditCommand::Redo)
+		{
+			commandRedo();
+		}
+		else if (editCmd == EditCommand::SelectAll)
+		{
+			setTextSelection(0, mTextLength);
+		}
+		else if (editCmd == EditCommand::NewLine)
 		{
 			// работаем только в режиме редактирования
 			if (!mModeReadOnly)
 			{
-				if ((mModeMultiline) && (!input.isControlPressed()))
+				if (mModeMultiline)
 				{
 					// сбрасываем повтор
 					commandResetRedo();
@@ -410,11 +503,15 @@ namespace MyGUI
 			}
 
 		}
-		else if (_key == KeyCode::ArrowRight)
+		else if (editCmd == EditCommand::AcceptEntry)
+		{
+			eventEditSelectAccept(this);
+		}
+		else if (editCmd == EditCommand::MoveRight || editCmd == EditCommand::MoveRightWord)
 		{
 			if ((mCursorPosition) < mTextLength)
 			{
-				if (input.isControlPressed())
+				if (editCmd == EditCommand::MoveRightWord)
 				{
 					if (mModePassword)
 					{
@@ -447,11 +544,11 @@ namespace MyGUI
 			}
 
 		}
-		else if (_key == KeyCode::ArrowLeft)
+		else if (editCmd == EditCommand::MoveLeft || editCmd == EditCommand::MoveLeftWord)
 		{
 			if (mCursorPosition != 0)
 			{
-				if (input.isControlPressed())
+				if (editCmd == EditCommand::MoveLeftWord)
 				{
 					if (mModePassword)
 					{
@@ -484,7 +581,7 @@ namespace MyGUI
 			}
 
 		}
-		else if (_key == KeyCode::ArrowUp)
+		else if (editCmd == EditCommand::MoveUp)
 		{
 			IntPoint point = mClientText->getCursorPoint(mCursorPosition);
 			point.top -= mClientText->getFontHeight();
@@ -512,7 +609,7 @@ namespace MyGUI
 			}
 
 		}
-		else if (_key == KeyCode::ArrowDown)
+		else if (editCmd == EditCommand::MoveDown)
 		{
 			IntPoint point = mClientText->getCursorPoint(mCursorPosition);
 			point.top += mClientText->getFontHeight();
@@ -540,77 +637,65 @@ namespace MyGUI
 			}
 
 		}
-		else if (_key == KeyCode::Home)
+		else if (editCmd == EditCommand::MoveLineBeginning)
 		{
-			// в начало строки
-			if (!input.isControlPressed())
+			IntPoint point = mClientText->getCursorPoint(mCursorPosition);
+			point.left = EDIT_CURSOR_MIN_POSITION;
+			size_t old = mCursorPosition;
+			mCursorPosition = mClientText->getCursorPosition(point);
+			if (old != mCursorPosition)
 			{
-				IntPoint point = mClientText->getCursorPoint(mCursorPosition);
-				point.left = EDIT_CURSOR_MIN_POSITION;
-				size_t old = mCursorPosition;
-				mCursorPosition = mClientText->getCursorPosition(point);
-				if (old != mCursorPosition)
-				{
-					mClientText->setCursorPosition(mCursorPosition);
-					updateSelectText();
-				}
-				else if (isTextSelection() && !input.isShiftPressed())
-				{
-					resetSelect();
-				}
+				mClientText->setCursorPosition(mCursorPosition);
+				updateSelectText();
 			}
-			// в начало всего текста
-			else
+			else if (isTextSelection() && !input.isShiftPressed())
 			{
-				if (0 != mCursorPosition)
-				{
-					mCursorPosition = 0;
-					mClientText->setCursorPosition(mCursorPosition);
-					updateSelectText();
-				}
-				else if (isTextSelection() && !input.isShiftPressed())
-				{
-					resetSelect();
-				}
+				resetSelect();
 			}
-
 		}
-		else if (_key == KeyCode::End)
+		else if (editCmd == EditCommand::MoveTextBeginning)
 		{
-			// в конец строки
-			if (!input.isControlPressed())
+			if (0 != mCursorPosition)
 			{
-				IntPoint point = mClientText->getCursorPoint(mCursorPosition);
-				point.left = EDIT_CURSOR_MAX_POSITION;
-				size_t old = mCursorPosition;
-				mCursorPosition = mClientText->getCursorPosition(point);
-				if (old != mCursorPosition)
-				{
-					mClientText->setCursorPosition(mCursorPosition);
-					updateSelectText();
-				}
-				else if (isTextSelection() && !input.isShiftPressed())
-				{
-					resetSelect();
-				}
+				mCursorPosition = 0;
+				mClientText->setCursorPosition(mCursorPosition);
+				updateSelectText();
 			}
-			// в самый конец
-			else
+			else if (isTextSelection() && !input.isShiftPressed())
 			{
-				if (mTextLength != mCursorPosition)
-				{
-					mCursorPosition = mTextLength;
-					mClientText->setCursorPosition(mCursorPosition);
-					updateSelectText();
-				}
-				else if (isTextSelection() && !input.isShiftPressed())
-				{
-					resetSelect();
-				}
+				resetSelect();
 			}
-
 		}
-		else if (_key == KeyCode::PageUp)
+		else if (editCmd == EditCommand::MoveLineEnd)
+		{
+			IntPoint point = mClientText->getCursorPoint(mCursorPosition);
+			point.left = EDIT_CURSOR_MAX_POSITION;
+			size_t old = mCursorPosition;
+			mCursorPosition = mClientText->getCursorPosition(point);
+			if (old != mCursorPosition)
+			{
+				mClientText->setCursorPosition(mCursorPosition);
+				updateSelectText();
+			}
+			else if (isTextSelection() && !input.isShiftPressed())
+			{
+				resetSelect();
+			}
+		}
+		else if (editCmd == EditCommand::MoveTextEnd)
+		{
+			if (mTextLength != mCursorPosition)
+			{
+				mCursorPosition = mTextLength;
+				mClientText->setCursorPosition(mCursorPosition);
+				updateSelectText();
+			}
+			else if (isTextSelection() && !input.isShiftPressed())
+			{
+				resetSelect();
+			}
+		}
+		else if (editCmd == EditCommand::MovePageUp)
 		{
 			// на размер окна, но не меньше одной строки
 			IntPoint point = mClientText->getCursorPoint(mCursorPosition);
@@ -637,9 +722,8 @@ namespace MyGUI
 				mClientText->setCursorPosition(mCursorPosition);
 				updateSelectText();
 			}
-
 		}
-		else if (_key == KeyCode::PageDown)
+		else if (editCmd == EditCommand::MovePageDown)
 		{
 			// на размер окна, но не меньше одной строки
 			IntPoint point = mClientText->getCursorPoint(mCursorPosition);
@@ -666,7 +750,6 @@ namespace MyGUI
 				mClientText->setCursorPosition(mCursorPosition);
 				updateSelectText();
 			}
-
 		}
 		else if ((_key == KeyCode::LeftShift) || (_key == KeyCode::RightShift))
 		{
@@ -676,54 +759,9 @@ namespace MyGUI
 				mStartSelect = mEndSelect = mCursorPosition;
 			}
 		}
-		else
-		{
-			bool controlConsumed = false;
-			if (input.isControlPressed())
-			{
-				if (_key == KeyCode::C)
-				{
-					commandCopy();
-					controlConsumed = true;
-				}
-				else if (_key == KeyCode::X)
-				{
-					// сбрасываем повтор
-					commandResetRedo();
-
-					commandCut();
-					controlConsumed = true;
-				}
-				else if (_key == KeyCode::V)
-				{
-					// сбрасываем повтор
-					commandResetRedo();
-
-					commandPast();
-					controlConsumed = true;
-				}
-				else if (_key == KeyCode::A)
-				{
-					// выделяем весь текст
-					setTextSelection(0, mTextLength);
-					controlConsumed = true;
-				}
-				else if (_key == KeyCode::Z)
-				{
-					// отмена
-					commandUndo();
-					controlConsumed = true;
-				}
-				else if (_key == KeyCode::Y)
-				{
-					// повтор
-					commandRedo();
-					controlConsumed = true;
-				}
-			}
-
+		else {
 			// если не нажат контрл, то обрабатываем как текст
-			if (!controlConsumed && !mModeReadOnly && _char != 0)
+			if (!mModeReadOnly && _char != 0)
 			{
 				// сбрасываем повтор
 				commandResetRedo();
