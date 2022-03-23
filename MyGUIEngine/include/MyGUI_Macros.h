@@ -9,7 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include <limits>
-#include <cstddef>
+#include <cstdint>
 
 namespace MyGUI
 {
@@ -19,9 +19,8 @@ namespace MyGUI
 	const float ALPHA_MAX = 1.0f;
 	const float ALPHA_MIN = 0.0f;
 
-	//FIXME заменить на шаблоны
-#define MYGUI_FLAG_NONE  0
-#define MYGUI_FLAG(num)  (1<<(num))
+	const int MYGUI_FLAG_NONE = 0;
+	constexpr int MYGUI_FLAG(uint8_t num) { return 1 << num; }
 
 } // namespace MyGUI
 

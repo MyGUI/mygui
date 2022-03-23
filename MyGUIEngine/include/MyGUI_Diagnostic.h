@@ -12,11 +12,6 @@
 #include "MyGUI_LogManager.h"
 #include <sstream>
 
-// for debugging
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-#	include <crtdbg.h>
-#endif
-
 #define MYGUI_LOG_SECTION "Core"
 #define MYGUI_LOG_FILENAME "MyGUI.log"
 #define MYGUI_LOG(level, text) MYGUI_LOGGING(MYGUI_LOG_SECTION, level, text)
@@ -58,31 +53,22 @@ do { \
 #	define MYGUI_DEBUG_ASSERT(exp, dest) ((void)0)
 #endif
 
-
-#if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
-#	if MYGUI_COMP_VER < 1310 // VC++ 7.1
-#		define MYGUI_OBSOLETE_START(text)
-#		define MYGUI_OBSOLETE_END
-#	else
+#if __cplusplus >= 201402L
+#	define MYGUI_OBSOLETE(text) /*! \deprecated text */ [[deprecated(text)]]
+#else
+#	if MYGUI_COMPILER == MYGUI_COMPILER_MSVC
 #		define MYGUI_OBSOLETE_START(text) __declspec(deprecated(text))
 #		define MYGUI_OBSOLETE_END
-#	endif
-
-#elif MYGUI_COMPILER == MYGUI_COMPILER_GNUC
-#	if MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX && MYGUI_COMP_VER < 310 // gcc 3.1
-#		define MYGUI_OBSOLETE_START(text)
-#		define MYGUI_OBSOLETE_END
-#	else
+#	elif MYGUI_COMPILER == MYGUI_COMPILER_GNUC
 #		define MYGUI_OBSOLETE_START(text)
 #		define MYGUI_OBSOLETE_END __attribute__((deprecated))
+#	else
+#		define MYGUI_OBSOLETE_START(text)
+#		define MYGUI_OBSOLETE_END
 #	endif
+#
 
-#else
-#	define MYGUI_OBSOLETE_START(text)
-#	define MYGUI_OBSOLETE_END
-
+#	define MYGUI_OBSOLETE(text) /*! \deprecated text */ MYGUI_OBSOLETE_START(text)MYGUI_OBSOLETE_END
 #endif
-
-#define MYGUI_OBSOLETE(text) /*! \deprecated text */ MYGUI_OBSOLETE_START(text)MYGUI_OBSOLETE_END
 
 #endif // MYGUI_DIAGNOSTIC_H_

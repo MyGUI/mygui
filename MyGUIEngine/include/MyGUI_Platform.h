@@ -29,13 +29,8 @@
 // Find compiler
 #if defined( _MSC_VER )
 #	define MYGUI_COMPILER MYGUI_COMPILER_MSVC
-#	define MYGUI_COMP_VER _MSC_VER
-
 #elif defined( __GNUC__ )
 #	define MYGUI_COMPILER MYGUI_COMPILER_GNUC
-#	define MYGUI_COMP_VER (((__GNUC__)*100) + \
-		(__GNUC_MINOR__*10) + \
-		__GNUC_PATCHLEVEL__)
 #else
 #	pragma error "Unknown compiler! Stop building!!!"
 #endif
@@ -66,13 +61,6 @@
 #			define MYGUI_EXPORT_DLL __declspec( dllimport )
 #		endif
 #	endif
-#
-#// Win32 compilers use _DEBUG for specifying debug builds.
-#	ifdef _DEBUG
-#		define MYGUI_DEBUG_MODE 1
-#	else
-#		define MYGUI_DEBUG_MODE 0
-#	endif
 #endif
 
 
@@ -90,16 +78,12 @@
 #		define MYGUI_EXPORT_DLL
 #	endif
 #
-// Unlike the Win32 compilers, Linux compilers seem to use DEBUG for when
-// specifying a debug build.
-// (??? this is wrong, on Linux debug builds aren't marked in any way unless
-// you mark it yourself any way you like it -- zap ???)
-#	ifdef DEBUG
-#		define MYGUI_DEBUG_MODE 1
-#	else
-#		define MYGUI_DEBUG_MODE 0
-#	endif
+#endif
 
+#ifndef NDEBUG
+#	define MYGUI_DEBUG_MODE 1
+#else
+#	define MYGUI_DEBUG_MODE 0
 #endif
 
 #endif // MYGUI_PLATFORM_H_
