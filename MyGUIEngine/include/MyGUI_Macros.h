@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 #include <limits>
+#include <cstddef>
 #include <cstdint>
 
 namespace MyGUI

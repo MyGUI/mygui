@@ -37,6 +37,8 @@ set(MYGUI_TEMPLATES_DIR "${MYGUI_SOURCE_DIR}/CMake/Templates")
 
 SET(CMAKE_CXX_STANDARD 11)
 set(CMAKE_EXPORT_COMPILE_COMMANDS True)
+# Prevent CMake from adding "#pragma clang system_header" to the precompiled headers (otherwise all warnings are suppressed)
+set(CMAKE_PCH_PROLOGUE "")
 
 #####################################################################
 # Set up the basic build environment
