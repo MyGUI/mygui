@@ -34,6 +34,9 @@
 // these are explained later
 #include <iterator>
 #include <string>
+#if __cplusplus >= 201703L
+#include <string_view>
+#endif
 #include <stdexcept>
 
 namespace MyGUI
@@ -446,6 +449,12 @@ namespace MyGUI
 
 		explicit UString( const utf32string & str );
 
+		template <size_type num>
+		UString( const char(& str)[num] ) : UString( str, num ) {}
+
+#if __cplusplus >= 201703L
+		UString( std::string_view str ) : UString( str.data(), str.size() ) {}
+#endif
 		//! destructor
 		~UString();
 		//@}
@@ -935,6 +944,8 @@ namespace MyGUI
 		static size_type _verifyUTF8( const unsigned char* c_str );
 		//! verifies a UTF-8 stream, returning the total number of Unicode characters found
 		static size_type _verifyUTF8( const std::string& str );
+		//! verifies a UTF-8 stream, returning the total number of Unicode characters found
+		static size_type _verifyUTF8( const char* c_str, size_type num );
 		//@}
 
 	private:

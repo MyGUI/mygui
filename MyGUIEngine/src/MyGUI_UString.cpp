@@ -933,7 +933,26 @@ namespace MyGUI
 
 	UString& UString::assign( const std::string& str )
 	{
-		size_type len = _verifyUTF8( str );
+		return assign(str.data(), str.size());
+	}
+
+	UString& UString::assign( const utf32string& str )
+	{
+		for (const auto& character : str)
+		{
+			push_back(character);
+		}
+		return *this;
+	}
+
+	UString& UString::assign( const char* c_str )
+	{
+		return assign( c_str, std::strlen(c_str) );
+	}
+
+	UString& UString::assign( const char* c_str, size_type num )
+	{
+		size_type len = _verifyUTF8( c_str, num );
 		clear(); // empty our contents, if there are any
 		reserve( len ); // best guess bulk capacity growth
 
@@ -948,11 +967,10 @@ namespace MyGUI
 		utf16buff[2] = 0;
 		size_t utf16len;          // UTF-16 length
 
-		std::string::const_iterator i, ie = str.end();
-		for ( i = str.begin(); i != ie; i++ ) {
-			utf8len = _utf8_char_length( static_cast<unsigned char>( *i ) ); // estimate bytes to load
+		for ( size_type i = 0; i < num; ++i ) {
+			utf8len = std::min( _utf8_char_length( static_cast<unsigned char>( c_str[i] ) ), num - i ); // estimate bytes to load
 			for ( size_t j = 0; j < utf8len; j++ ) { // load the needed UTF-8 bytes
-				utf8buf[j] = ( static_cast<unsigned char>( *( i + j ) ) ); // we don't increment 'i' here just in case the estimate is wrong (shouldn't happen, but we're being careful)
+				utf8buf[j] = ( static_cast<unsigned char>( c_str[i + j] ) ); // we don't increment 'i' here just in case the estimate is wrong (shouldn't happen, but we're being careful)
 			}
 			utf8buf[utf8len] = 0; // nul terminate so we throw an exception before running off the end of the buffer
 			utf8len = _utf8_to_utf32( utf8buf, uc ); // do the UTF-8 -> UTF-32 conversion
@@ -962,28 +980,6 @@ namespace MyGUI
 			append( utf16buff, utf16len ); // append the characters to the string
 		}
 		return *this;
-	}
-
-	UString& UString::assign( const utf32string& str )
-	{
-		for (const auto& character : str)
-		{
-			push_back(character);
-		}
-		return *this;
-	}
-
-	UString& UString::assign( const char* c_str )
-	{
-		std::string tmp( c_str );
-		return assign( tmp );
-	}
-
-	UString& UString::assign( const char* c_str, size_type num )
-	{
-		std::string tmp;
-		tmp.assign( c_str, num );
-		return assign( tmp );
 	}
 
 	UString& UString::append( const UString& str )
@@ -1847,14 +1843,20 @@ namespace MyGUI
 
 	UString::size_type UString::_verifyUTF8( const std::string& str )
 	{
-		std::string::const_iterator i, ie = str.end();
-		i = str.begin();
+		return _verifyUTF8(str.data(), str.size());
+	}
+
+	UString::size_type UString::_verifyUTF8( const char* c_str, size_type num )
+	{
 		size_type length = 0;
 
-		while ( i != ie ) {
+		for ( size_type i = 0; i < num; ++i ) {
 			// characters pass until we find an extended sequence
-			if (( *i ) & 0x80 ) {
-				unsigned char c = ( *i );
+			if (c_str[i] & 0x80 ) {
+				if ( i + 1 >= num ) // invalid extended sequence
+					return num;
+
+				unsigned char c = c_str[i];
 				size_t contBytes = 0;
 
 				// get continuation byte count and test for overlong sequences
@@ -1862,67 +1864,67 @@ namespace MyGUI
 					if ( c == _lead1 )
 					{
 						//throw invalid_data( "overlong UTF-8 sequence" );
-						return str.size();
+						return num;
 					}
 					contBytes = 1;
 
 				} else if (( c & ~_lead2_mask ) == _lead2 ) { // 2 additional bytes
 					contBytes = 2;
 					if ( c == _lead2 ) { // possible overlong UTF-8 sequence
-						c = ( *( i + 1 ) ); // look ahead to next byte in sequence
+						c = c_str[i + 1]; // look ahead to next byte in sequence
 						if (( c & _lead2 ) == _cont )
 						{
 							//throw invalid_data( "overlong UTF-8 sequence" );
-							return str.size();
+							return num;
 						}
 					}
 
 				} else if (( c & ~_lead3_mask ) == _lead3 ) { // 3 additional bytes
 					contBytes = 3;
 					if ( c == _lead3 ) { // possible overlong UTF-8 sequence
-						c = ( *( i + 1 ) ); // look ahead to next byte in sequence
+						c = c_str[i + 1]; // look ahead to next byte in sequence
 						if (( c & _lead3 ) == _cont )
 						{
 							//throw invalid_data( "overlong UTF-8 sequence" );
-							return str.size();
+							return num;
 						}
 					}
 
 				} else if (( c & ~_lead4_mask ) == _lead4 ) { // 4 additional bytes
 					contBytes = 4;
 					if ( c == _lead4 ) { // possible overlong UTF-8 sequence
-						c = ( *( i + 1 ) ); // look ahead to next byte in sequence
+						c = c_str[i + 1]; // look ahead to next byte in sequence
 						if (( c & _lead4 ) == _cont )
 						{
 							//throw invalid_data( "overlong UTF-8 sequence" );
-							return str.size();
+							return num;
 						}
 					}
 
 				} else if (( c & ~_lead5_mask ) == _lead5 ) { // 5 additional bytes
 					contBytes = 5;
 					if ( c == _lead5 ) { // possible overlong UTF-8 sequence
-						c = ( *( i + 1 ) ); // look ahead to next byte in sequence
+						c = c_str[i + 1]; // look ahead to next byte in sequence
 						if (( c & _lead5 ) == _cont )
 						{
 							//throw invalid_data( "overlong UTF-8 sequence" );
-							return str.size();
+							return num;
 						}
 					}
 				}
-
+				if ( i + contBytes >= num ) // invalid extended sequence
+					return num;
 				// check remaining continuation bytes for
 				while ( contBytes-- ) {
-					c = ( *( ++i ) ); // get next byte in sequence
+					c = c_str[++i]; // get next byte in sequence
 					if (( c & ~_cont_mask ) != _cont )
 					{
 						//throw invalid_data( "bad UTF-8 continuation byte" );
-						return str.size();
+						return num;
 					}
 				}
 			}
 			length++;
-			i++;
 		}
 		return length;
 	}
