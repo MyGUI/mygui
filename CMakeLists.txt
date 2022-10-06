@@ -170,6 +170,7 @@ MARK_AS_ADVANCED(MYGUI_GENERATE_LIST_FILES_FROM_VSPROJECT)
 
 if (MSVC)
 	option(MYGUI_USE_PROJECT_FOLDERS "Use Visual Studio solution folders for projects." TRUE)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:__cplusplus")
 endif ()
 
 # Used to not annoy users with high level warnings (should be TRUE for developers)
