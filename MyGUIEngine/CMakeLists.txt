@@ -48,11 +48,6 @@ if (MYGUI_USE_FREETYPE)
 	endif()
 endif()
 
-# platform specific dependencies
-if (APPLE)
-	include_directories(/usr/local/include /usr/include)
-endif ()
-
 if (${CMAKE_VERSION} VERSION_EQUAL "3.16" OR ${CMAKE_VERSION} VERSION_GREATER "3.16")
 	target_precompile_headers(${PROJECTNAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/MyGUI_Precompiled.h")
 endif ()
