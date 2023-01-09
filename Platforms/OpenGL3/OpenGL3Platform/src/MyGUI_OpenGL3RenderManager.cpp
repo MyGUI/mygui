@@ -36,7 +36,7 @@ namespace MyGUI
 	{
 	}
 
-	GLuint buildShader(const std::string& text, GLenum type)
+	static GLuint buildShader(const std::string& text, GLenum type)
 	{
 		GLuint id = glCreateShader(type);
 		const char *c_str = text.c_str();
