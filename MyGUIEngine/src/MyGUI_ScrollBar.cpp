@@ -327,6 +327,7 @@ namespace MyGUI
 	{
 		updateTrack();
 		MyGUI::ControllerManager::getInstance().removeItem(_sender);
+		this->_riseMouseButtonReleased(_left, _top, _id);
 	}
 
 	void ScrollBar::notifyMouseDrag(Widget* _sender, int _left, int _top, MouseButton _id)

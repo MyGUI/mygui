@@ -308,6 +308,8 @@ namespace MyGUI
 		// перерисовывает детей
 		void _updateChilds();
 
+		void setMouseHitThreshold(int xLeftThreshold, int xRightThreshold, int yLeftThreshold, int yRightThreshold);
+
 	protected:
 		// все создание только через фабрику
 		~Widget() override = default;
@@ -421,6 +423,10 @@ namespace MyGUI
 
 		Align mAlign;
 		int mDepth;
+		int mXLeftThreshold;
+		int mXRightThreshold;
+		int mYLeftThreshold;
+		int mYRightThreshold;
 	};
 
 } // namespace MyGUI

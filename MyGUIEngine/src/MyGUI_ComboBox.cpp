@@ -27,6 +27,7 @@ namespace MyGUI
 		mButton(nullptr),
 		mList(nullptr),
 		mListShow(false),
+		mAutoHideList(true),
 		mMaxListLength(-1),
 		mItemIndex(ITEM_NONE),
 		mModeDrop(false),
@@ -88,6 +89,7 @@ namespace MyGUI
 
 	void ComboBox::shutdownOverride()
 	{
+		mList->shutdownOverride();
 		mList = nullptr;
 		mButton = nullptr;
 
@@ -123,7 +125,8 @@ namespace MyGUI
 				return;
 		}
 
-		hideList();
+		if (true == mAutoHideList)
+			hideList();
 	}
 
 	void ComboBox::notifyListSelectAccept(ListBox* _widget, size_t _position)
@@ -269,8 +272,6 @@ namespace MyGUI
 		if (mList->getItemCount() == 0)
 			return;
 
-		if (mListShow)
-			return;
 		mListShow = true;
 
 		IntCoord coord = calculateListPosition();
@@ -297,8 +298,6 @@ namespace MyGUI
 
 	void ComboBox::hideList()
 	{
-		if (!mListShow)
-			return;
 		mListShow = false;
 
 		if (mShowSmooth)
@@ -311,6 +310,11 @@ namespace MyGUI
 		{
 			mList->setVisible(false);
 		}
+	}
+
+	void ComboBox::setAutoHideList(bool autoHide)
+	{
+		mAutoHideList = autoHide;
 	}
 
 	void ComboBox::setIndexSelected(size_t _index)
@@ -470,6 +474,19 @@ namespace MyGUI
 		}
 
 		eventChangeProperty(this, _key, _value);
+	}
+
+	void ComboBox::setItemHeight(int itemHeight)
+	{
+		if (nullptr != mList)
+		{
+			mList->setItemHeight(itemHeight);
+		}
+	}
+
+	ListBox* ComboBox::getList(void) const
+	{
+		return mList;
 	}
 
 	size_t ComboBox::getItemCount() const

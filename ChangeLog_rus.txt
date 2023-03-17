@@ -378,3 +378,23 @@
 - Demo_ScrollView - демонстрация прокручиваемого поля
 - Demo_Themes - демонстрация различных тем
 - Demo_StaticImage - демонстрация простейшего вьювера ImageSet
+
+-----Changelog 2023------
+MyGUI_ComboBox:
+- set/getItemHeight
+- void setAutoHideList(bool autoHide); - Manually control whether to close the list
+
+MyGUI_InputManager:
+- Changed double click threshold from 0.25 seconds to 0.5 seconds. Else it was often not possible to trigger an double click, but two times a single click has been triggered.
+
+MyGUI_ListBox:
+- set/getItemHeight
+
+MyGUI_ScrollBar:
+- Fixed mouse release: Additional Rising mouse release, so that it also can be used outside this scrollbar.
+
+MyGUI_Widget:
+- Added x, y pixel threshold, because else lost focus is triggered in each input field to early and its not possible to adapt values properly
+- Usage: void Widget::setMouseHitThreshold(int xLeftThreshold, int xRightThreshold, int yLeftThreshold, int yRightThreshold)
+E.g. MyGUI::EditBox* edit;
+	 edit->setMouseHitThreshold(6, 6, 3, 3);
