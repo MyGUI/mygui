@@ -9,6 +9,7 @@
 
 #include "MyGUI_Prerequest.h"
 
+#include <cstdint>
 #include <vector>
 #include <map>
 #include <string>
