@@ -32,6 +32,8 @@ namespace MyGUI
 		MYGUI_RTTI_DERIVED( ListBox )
 
 	public:
+		friend class ComboBox;
+
 		ListBox();
 
 		//------------------------------------------------------------------------------//
@@ -41,6 +43,7 @@ namespace MyGUI
 			Methods used to manipulate items.
 		*/
 		//@{
+		void setItemHeight(int itemHeight);
 		//! Get number of items
 		size_t getItemCount() const;
 
@@ -308,6 +311,7 @@ namespace MyGUI
 		bool mActivateOnClick; // Require a full mouse click rather than only mouse press to activate an item
 
 		int mHeightLine; // высота одной строки
+		int mItemHeight;
 		int mTopIndex; // индекс самого верхнего элемента
 		int mOffsetTop; // текущее смещение
 		int mRangeIndex; // размерность скрола

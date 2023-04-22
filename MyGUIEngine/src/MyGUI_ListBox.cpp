@@ -41,9 +41,15 @@ namespace MyGUI
 		if (isUserString("SkinLine"))
 			mSkinLine = getUserString("SkinLine");
 
+		if (-1 == mItemHeight)
+		{
 		if (isUserString("HeightLine"))
 			mHeightLine = utility::parseInt(getUserString("HeightLine"));
-
+		}
+		else
+		{
+			mHeightLine = mItemHeight;
+		}
 		if (mHeightLine < 1)
 			mHeightLine = 1;
 
@@ -61,6 +67,7 @@ namespace MyGUI
 		{
 			mWidgetScroll->eventScrollChangePosition += newDelegate(this, &ListBox::notifyScrollChangePosition);
 			mWidgetScroll->setScrollPage((size_t)mHeightLine);
+			mWidgetScroll->setScrollViewPage((size_t)mHeightLine);
 		}
 
 		updateScroll();
@@ -69,6 +76,14 @@ namespace MyGUI
 
 	void ListBox::shutdownOverride()
 	{
+		for (size_t i = 0; i < mWidgetLines.size(); i++)
+		{
+			MyGUI::Button* button = mWidgetLines[i];
+			getClientWidget()->_destroyChildWidget(button);
+		}
+		mWidgetLines.clear();
+		mItemsInfo.clear();
+		_resetContainer(true);
 		mWidgetScroll = nullptr;
 
 		Base::shutdownOverride();
@@ -903,7 +918,12 @@ namespace MyGUI
 
 	int ListBox::getOptimalHeight() const
 	{
-		return (int)((mCoord.height - _getClientWidget()->getHeight()) + (mItemsInfo.size() * mHeightLine));
+		return (int)((mCoord.height - getClientWidget()->getHeight()) + (mItemsInfo.size() * mHeightLine));
+	}
+
+	void ListBox::setItemHeight(int itemHeight)
+	{
+		mItemHeight = itemHeight;
 	}
 
 	size_t ListBox::getItemCount() const

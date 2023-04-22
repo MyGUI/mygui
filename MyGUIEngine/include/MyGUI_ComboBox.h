@@ -37,6 +37,11 @@ namespace MyGUI
 
 		//------------------------------------------------------------------------------//
 		// манипуляции айтемами
+		//////// Lax 26.10.2020 /////////////////
+		void setItemHeight(int itemHeight);
+
+		ListBox* getList(void) const;
+		//////// Lax 26.10.2020 /////////////////
 
 		//! Get number of items
 		size_t getItemCount() const;
@@ -138,6 +143,7 @@ namespace MyGUI
 		//! Get direction, where drop down list appears.
 		FlowDirection getFlowDirection() const;
 
+		void setAutoHideList(bool autoHide);
 		/*events:*/
 		/** Event : Enter pressed in combo mode or item selected in drop down list
 			and combo mode drop enabled (see void ComboBox::setComboModeDrop(bool _value)).\n
@@ -196,6 +202,7 @@ namespace MyGUI
 		ListBox* mList;
 
 		bool mListShow;
+		bool mAutoHideList;
 		int mMaxListLength;
 		size_t mItemIndex;
 		bool mModeDrop;

@@ -41,7 +41,11 @@ namespace MyGUI
 		mContainer(nullptr),
 		mAlign(Align::Default),
 		mVisible(true),
-		mDepth(0)
+		mDepth(0),
+		mXLeftThreshold(0),
+		mXRightThreshold(0),
+		mYLeftThreshold(0),
+		mYRightThreshold(0)
 	{
 	}
 
@@ -469,7 +473,7 @@ namespace MyGUI
 			|| (!getNeedMouseFocus() && !getInheritsPick())
 			|| !_checkPoint(_left, _top)
 			// если есть маска, проверяем еще и по маске
-			|| !isMaskPickInside(IntPoint(_left - mCoord.left, _top - mCoord.top), mCoord)
+			|| !isMaskPickInside(IntPoint(_left - mCoord.left - mXLeftThreshold, _top - mCoord.top - mYLeftThreshold), mCoord)
 			)
 			return nullptr;
 
@@ -1034,7 +1038,7 @@ namespace MyGUI
 
 	bool Widget::_checkPoint(int _left, int _top) const
 	{
-		return ! ((_getViewLeft() > _left) || (_getViewTop() > _top) || (_getViewRight() < _left) || (_getViewBottom() < _top));
+		return ! ((_getViewLeft() > _left - mXLeftThreshold) || (_getViewTop() > _top - mYLeftThreshold) || (_getViewRight() < _left + mXRightThreshold) || (_getViewBottom() < _top + mYRightThreshold));
 	}
 
 	void Widget::_linkChildWidget(Widget* _widget)
@@ -1385,6 +1389,14 @@ namespace MyGUI
 		}
 
 		mWidgetChild.push_back(_widget);
+	}
+
+	void Widget::setMouseHitThreshold(int xLeftThreshold, int xRightThreshold, int yLeftThreshold, int yRightThreshold)
+	{
+		this->mXLeftThreshold = xLeftThreshold;
+		this->mXRightThreshold = xRightThreshold;
+		this->mYLeftThreshold = yLeftThreshold;
+		this->mYRightThreshold = yRightThreshold;
 	}
 
 	void Widget::_updateChilds()
