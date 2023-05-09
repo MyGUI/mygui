@@ -563,7 +563,7 @@ namespace MyGUI
 	UString::UString( const char* c_str )
 	{
 		_init();
-		assign( c_str );
+		assign( c_str, std::strlen(c_str) );
 	}
 	//--------------------------------------------------------------------------
 	UString::UString( const char* c_str, size_type length )
@@ -575,7 +575,7 @@ namespace MyGUI
 	UString::UString( const std::string& str )
 	{
 		_init();
-		assign( str );
+		assign( str.data(), str.size() );
 	}
 	//--------------------------------------------------------------------------
 	UString::UString( const utf32string & str )
@@ -931,11 +931,6 @@ namespace MyGUI
 	}
 #endif
 
-	UString& UString::assign( const std::string& str )
-	{
-		return assign(str.data(), str.size());
-	}
-
 	UString& UString::assign( const utf32string& str )
 	{
 		for (const auto& character : str)
@@ -943,11 +938,6 @@ namespace MyGUI
 			push_back(character);
 		}
 		return *this;
-	}
-
-	UString& UString::assign( const char* c_str )
-	{
-		return assign( c_str, std::strlen(c_str) );
 	}
 
 	UString& UString::assign( const char* c_str, size_type num )
@@ -1837,13 +1827,8 @@ namespace MyGUI
 
 	UString::size_type UString::_verifyUTF8( const unsigned char* c_str )
 	{
-		std::string tmp( reinterpret_cast<const char*>( c_str ) );
+		std::string_view tmp( reinterpret_cast<const char*>( c_str ) );
 		return _verifyUTF8( tmp );
-	}
-
-	UString::size_type UString::_verifyUTF8( const std::string& str )
-	{
-		return _verifyUTF8(str.data(), str.size());
 	}
 
 	UString::size_type UString::_verifyUTF8( const char* c_str, size_type num )
