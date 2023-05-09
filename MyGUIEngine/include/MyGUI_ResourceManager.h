@@ -43,25 +43,25 @@ namespace MyGUI
 		typedef delegates::CDelegate3<xml::ElementPtr, const std::string&, Version> LoadXmlDelegate;
 
 		/** Register delegate that parse XML node with specified tag (_key) */
-		LoadXmlDelegate& registerLoadXmlDelegate(const std::string& _key);
+		LoadXmlDelegate& registerLoadXmlDelegate(std::string_view _key);
 
 		/** Unregister delegate that parse XML node with specified tag (_key) */
-		void unregisterLoadXmlDelegate(const std::string& _key);
+		void unregisterLoadXmlDelegate(std::string_view _key);
 
 		/** Check is resource exist */
-		bool isExist(const std::string& _name) const;
+		bool isExist(std::string_view _name) const;
 
 		/** Find resource by name*/
-		IResource* findByName(const std::string& _name) const;
+		IResource* findByName(std::string_view _name) const;
 
 		/** Get resource by name*/
-		IResource* getByName(const std::string& _name, bool _throw = true) const;
+		IResource* getByName(std::string_view _name, bool _throw = true) const;
 
-		bool removeByName(const std::string& _name);
+		bool removeByName(std::string_view _name);
 
 		void clear();
 
-		typedef std::map<std::string, IResource*> MapResource;
+		typedef std::map<std::string, IResource*, std::less<>> MapResource;
 		typedef Enumerator<MapResource> EnumeratorPtr;
 
 		EnumeratorPtr getEnumerator() const;
@@ -72,11 +72,11 @@ namespace MyGUI
 
 	private:
 		void _loadList(xml::ElementPtr _node, const std::string& _file, Version _version);
-		bool _loadImplement(const std::string& _file, bool _match, const std::string& _type, const std::string& _instance);
+		bool _loadImplement(const std::string& _file, bool _match, std::string_view _type, std::string_view _instance);
 
 	private:
 		// карта с делегатами для парсинга хмл блоков
-		typedef std::map<std::string, LoadXmlDelegate> MapLoadXmlDelegate;
+		typedef std::map<std::string, LoadXmlDelegate, std::less<>> MapLoadXmlDelegate;
 		MapLoadXmlDelegate mMapLoadXmlDelegate;
 
 		MapResource mResources;
