@@ -1,14 +1,27 @@
-#Changelog
-
 ## MyGUI v3.4.2
 ### Core
 - Add missing MYGUI_EXPORT for ControllerRepeatClick (was not linking in non-static builds)
+- Use commands for key combinations on EditBox, provide macOS proper bindings
+- Add support for string_view in UString
 
 ### Widgets
 - ComboBox and ListBox: make "AddItem" use LanguageManager::replaceTags same way it is done for caption properties
+- EditBox: Allow text input while holding Ctrl (Allow key combinations involving CTRL that produce printable characters)
+
+### Platforms
+- OpenGL: Fix build with libX11-free wayland setup
+- Ogre: Correct vertex color order for ogre 13
+
+### Demos and Tools
+- Use SDL_WINDOWEVENT_FOCUS_GAINED/SDL_WINDOWEVENT_FOCUS_LOST events for better detection when window should have low FPS
+- Fix macOS resources paths, do not use MACOSX_BUNDLE
+- Fix various deprecated or incorrect resources usage
 
 ### Other
 - Add missing MYGUI_EXPORT to fix C4275 warnings
+- Various minor build fixes and improvements
+- Enable more warnings in MYGUI_HIGH_LEVEL_WARNINGS mode
+- Use GNUInstallDirs to install includes
 
 ## MyGUI v3.4.1
 ### Core
