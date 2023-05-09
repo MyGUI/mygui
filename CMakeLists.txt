@@ -5,7 +5,7 @@
 # and provide build configuration options.
 ######################################################################
 
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.8)
 if(POLICY CMP0048)
 	cmake_policy(SET CMP0048 NEW)
 endif()
@@ -35,7 +35,7 @@ include(PreprocessorUtils)
 include(GNUInstallDirs)
 set(MYGUI_TEMPLATES_DIR "${MYGUI_SOURCE_DIR}/CMake/Templates")
 
-SET(CMAKE_CXX_STANDARD 11)
+SET(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS True)
 # Prevent CMake from adding "#pragma clang system_header" to the precompiled headers (otherwise all warnings are suppressed)
 set(CMAKE_PCH_PROLOGUE "")
