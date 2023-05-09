@@ -410,10 +410,6 @@ namespace MyGUI
 
 		mOldSize.width = mCoord.width;
 		mOldSize.height = mCoord.height;
-
-#if MYGUI_DEBUG_MODE == 1
-		_checkMapping("ListBox::updateLine");
-#endif
 	}
 
 	void ListBox::_redrawItemRange(size_t _start)
@@ -463,10 +459,6 @@ namespace MyGUI
 				//if (focus == mWidgetLines[pos]) InputManager::getInstance()._unlinkWidget(focus);
 			}
 		}
-
-#if MYGUI_DEBUG_MODE == 1
-		_checkMapping("ListBox::_redrawItemRange");
-#endif
 	}
 
 	// перерисовывает индекс
@@ -483,10 +475,6 @@ namespace MyGUI
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "ListBox::_redrawItem");
 		// перерисовываем
 		mWidgetLines[_index]->setCaption(mItemsInfo[_index + mTopIndex].first);
-
-#if MYGUI_DEBUG_MODE == 1
-		_checkMapping("ListBox::_redrawItem");
-#endif
 	}
 
 	void ListBox::insertItemAt(size_t _index, const UString& _name, Any _data)
@@ -545,10 +533,6 @@ namespace MyGUI
 				// позже сюда еще оптимизацию по колличеству перерисовок
 			}
 		}
-
-#if MYGUI_DEBUG_MODE == 1
-		_checkMapping("ListBox::insertItemAt");
-#endif
 	}
 
 	void ListBox::removeItemAt(size_t _index)
@@ -617,10 +601,6 @@ namespace MyGUI
 				// позже сюда еще оптимизацию по колличеству перерисовок
 			}
 		}
-
-#if MYGUI_DEBUG_MODE == 1
-		_checkMapping("ListBox::removeItemAt");
-#endif
 	}
 
 	void ListBox::setIndexSelected(size_t _index)
@@ -650,10 +630,6 @@ namespace MyGUI
 		size_t index = _index - mTopIndex;
 		if (index < mWidgetLines.size())
 			static_cast<Button*>(mWidgetLines[index])->setStateSelected(_select);
-
-#if MYGUI_DEBUG_MODE == 1
-		_checkMapping("ListBox::_selectIndex");
-#endif
 	}
 
 	void ListBox::beginToItemAt(size_t _index)
@@ -672,10 +648,6 @@ namespace MyGUI
 			mWidgetScroll->setScrollPosition(offset);
 		}
 		notifyScrollChangePosition(nullptr, offset);
-
-#if MYGUI_DEBUG_MODE == 1
-		_checkMapping("ListBox::beginToItemAt");
-#endif
 	}
 
 	// видим ли мы элемент, полностью или нет
@@ -733,10 +705,6 @@ namespace MyGUI
 		// обновляем все
 		updateScroll();
 		updateLine(true);
-
-#if MYGUI_DEBUG_MODE == 1
-		_checkMapping("ListBox::removeAllItems");
-#endif
 	}
 
 	void ListBox::setItemNameAt(size_t _index, const UString& _name)
@@ -849,23 +817,6 @@ namespace MyGUI
 
 		_redrawItem(_index1);
 		_redrawItem(_index2);
-	}
-
-	void ListBox::_checkMapping(const std::string& _owner)
-	{
-		size_t count_pressed = 0;
-		size_t count_show = 0;
-
-		for (size_t pos = 0; pos < mWidgetLines.size(); pos++)
-		{
-			MYGUI_ASSERT(pos == *mWidgetLines[pos]->_getInternalData<size_t>(), _owner);
-			if (static_cast<Button*>(mWidgetLines[pos])->getStateSelected())
-				count_pressed ++;
-			if (static_cast<Button*>(mWidgetLines[pos])->getVisible())
-				count_show ++;
-		}
-		//MYGUI_ASSERT(count_pressed < 2, _owner);
-		//MYGUI_ASSERT((count_show + mOffsetTop) <= mItemsInfo.size(), _owner);
 	}
 
 	void ListBox::_checkAlign()
@@ -1013,7 +964,6 @@ namespace MyGUI
 		{
 
 #if MYGUI_DEBUG_MODE == 1
-			_checkMapping("ListBox::notifyMousePressed");
 			MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>(), mWidgetLines.size(), "ListBox::notifyMousePressed");
 			MYGUI_ASSERT_RANGE(*_sender->_getInternalData<size_t>() + mTopIndex, mItemsInfo.size(), "ListBox::notifyMousePressed");
 #endif

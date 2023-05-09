@@ -293,8 +293,6 @@ namespace MyGUI
 		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
 
 	private:
-		void _checkMapping(const std::string& _owner);
-
 		size_t getIndexByWidget(Widget* _widget) const;
 
 	private:
