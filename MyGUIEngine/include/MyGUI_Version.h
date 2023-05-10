@@ -91,7 +91,7 @@ namespace MyGUI
 			return utility::toString(mMajor, ".", mMinor, ".", mPatch);
 		}
 
-		static Version parse(const std::string& _value)
+		static Version parse(std::string_view _value)
 		{
 			const std::vector<std::string>& vec = utility::split(_value, ".");
 			if (vec.empty())

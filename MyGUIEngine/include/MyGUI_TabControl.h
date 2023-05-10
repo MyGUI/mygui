@@ -251,7 +251,7 @@ namespace MyGUI
 
 		void onWidgetCreated(Widget* _widget) override;
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
 		void actionWidgetHide(Widget* _widget, ControllerItem* _controller);

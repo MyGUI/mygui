@@ -138,9 +138,9 @@ namespace demo
 
 		mColourView->setColour(mCurrentColour);
 
-		mEditRed->setCaption(MyGUI::utility::toString((int)(mCurrentColour.red * 255)));
-		mEditGreen->setCaption(MyGUI::utility::toString((int)(mCurrentColour.green * 255)));
-		mEditBlue->setCaption(MyGUI::utility::toString((int)(mCurrentColour.blue * 255)));
+		mEditRed->setCaption(MyGUI::utility::toString(static_cast<int>(mCurrentColour.red * 255)));
+		mEditGreen->setCaption(MyGUI::utility::toString(static_cast<int>(mCurrentColour.green * 255)));
+		mEditBlue->setCaption(MyGUI::utility::toString(static_cast<int>(mCurrentColour.blue * 255)));
 	}
 
 	void ColourPanel::notifyScrollChangePosition(MyGUI::ScrollBar* _sender, size_t _position)
@@ -190,9 +190,9 @@ namespace demo
 	void ColourPanel::setColour(const MyGUI::Colour& _colour)
 	{
 		MyGUI::Colour colour = getSaturate(_colour);
-		mEditRed->setCaption(MyGUI::utility::toString((int)(colour.red * 255)));
-		mEditGreen->setCaption(MyGUI::utility::toString((int)(colour.green * 255)));
-		mEditBlue->setCaption(MyGUI::utility::toString((int)(colour.blue * 255)));
+		mEditRed->setCaption(MyGUI::utility::toString(static_cast<int>(colour.red * 255)));
+		mEditGreen->setCaption(MyGUI::utility::toString(static_cast<int>(colour.green * 255)));
+		mEditBlue->setCaption(MyGUI::utility::toString(static_cast<int>(colour.blue * 255)));
 
 		updateFromColour(colour);
 	}
@@ -207,7 +207,7 @@ namespace demo
 		vec.push_back(_colour.blue);
 		std::sort(vec.begin(), vec.end());
 
-		MyGUI::IntPoint point((int)((1 - vec[0] / vec[2]) * mColourRect->getWidth()), (int)((1 - vec[2]) * mColourRect->getHeight()));
+		MyGUI::IntPoint point(static_cast<int>((1 - vec[0] / vec[2]) * mColourRect->getWidth()), static_cast<int>((1 - vec[2]) * mColourRect->getHeight()));
 		mImageColourPicker->setPosition(point.left - (mImageColourPicker->getWidth() / 2), point.top - (mImageColourPicker->getHeight() / 2));
 
 		int iMax = (_colour.red == vec[2]) ? 0 : (_colour.green == vec[2]) ? 1 : 2;

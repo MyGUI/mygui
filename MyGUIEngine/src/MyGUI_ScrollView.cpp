@@ -210,7 +210,7 @@ namespace MyGUI
 		return getClientWidget()->getSize();
 	}
 
-	void ScrollView::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void ScrollView::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{ScrollView, VisibleVScroll, bool} Horizontal scroll bar visibility.
 		if (_key == "VisibleVScroll")

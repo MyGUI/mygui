@@ -36,12 +36,12 @@ namespace MyGUI
 			@param _coord - part of texture where we take tiles
 			@param _tile size
 		*/
-		void setImageInfo(const std::string& _texture, const IntCoord& _coord, const IntSize& _tile);
+		void setImageInfo(std::string_view _texture, const IntCoord& _coord, const IntSize& _tile);
 
 		/* Set texture
 			@param _texture file name or texture name
 		*/
-		void setImageTexture(const std::string& _value);
+		void setImageTexture(std::string_view _value);
 
 		/** Set _rect - part of texture where we take tiles */
 		void setImageRect(const IntRect& _value);
@@ -161,12 +161,12 @@ namespace MyGUI
 			@param _name Resource name
 			@return false if resource with such name not exist
 		*/
-		bool setItemResource(const std::string& _name);
+		bool setItemResource(std::string_view _name);
 
 		/** Select current item group */
-		void setItemGroup(const std::string& _value);
+		void setItemGroup(std::string_view _value);
 		/** Select current item mane */
-		void setItemName(const std::string& _value);
+		void setItemName(std::string_view _value);
 
 		/** Select current items resource used in ImageBox
 			@param _resource Resource pointer
@@ -178,12 +178,12 @@ namespace MyGUI
 		/** Get current items resource used in ImageBox */
 		ResourceImageSetPtr getItemResource() const;
 		/** Select current item resource, group and name */
-		void setItemResourceInfo(ResourceImageSetPtr _resource, const std::string& _group, const std::string& _name);
+		void setItemResourceInfo(ResourceImageSetPtr _resource, std::string_view _group, std::string_view _name);
 
 	protected:
 		void shutdownOverride() override;
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
 		void frameEntered(float _frame);

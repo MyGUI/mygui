@@ -35,7 +35,7 @@ namespace MyGUI
 		{
 		}
 
-		static WidgetStyle parse(const std::string& _value)
+		static WidgetStyle parse(std::string_view _value)
 		{
 			WidgetStyle type;
 			int value = 0;

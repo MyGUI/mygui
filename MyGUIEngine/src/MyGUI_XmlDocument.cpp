@@ -15,13 +15,13 @@ namespace MyGUI
 
 		namespace utility
 		{
-			static std::string convert_from_xml(const std::string& _string, bool& _ok)
+			static std::string convert_from_xml(std::string_view _string, bool& _ok)
 			{
 				std::string ret;
 				_ok = true;
 
 				size_t pos = _string.find("&");
-				if (pos == std::string::npos) return _string;
+				if (pos == std::string::npos) return std::string{ _string };
 
 				ret.reserve(_string.size());
 				size_t old = 0;
@@ -37,7 +37,7 @@ namespace MyGUI
 					}
 					else
 					{
-						std::string tag = _string.substr(pos, end - pos + 1);
+						std::string_view tag = _string.substr(pos, end - pos + 1);
 						if (tag == "&amp;") ret += '&';
 						else if (tag == "&lt;") ret += '<';
 						else if (tag == "&gt;") ret += '>';
@@ -58,12 +58,12 @@ namespace MyGUI
 				return ret;
 			}
 
-			static std::string convert_to_xml(const std::string& _string)
+			static std::string convert_to_xml(std::string_view _string)
 			{
 				std::string ret;
 
 				size_t pos = _string.find_first_of("&<>'\"");
-				if (pos == std::string::npos) return _string;
+				if (pos == std::string::npos) return std::string{ _string };
 
 				ret.reserve(_string.size() * 2);
 				size_t old = 0;
@@ -112,7 +112,7 @@ namespace MyGUI
 			return true;
 		}
 
-		bool ElementEnumerator::next(const std::string& _name)
+		bool ElementEnumerator::next(std::string_view _name)
 		{
 			while (next())
 			{
@@ -137,7 +137,7 @@ namespace MyGUI
 		//----------------------------------------------------------------------//
 		// class Element
 		//----------------------------------------------------------------------//
-		Element::Element(const std::string& _name, ElementPtr _parent, ElementType _type, const std::string& _content) :
+		Element::Element(std::string_view _name, ElementPtr _parent, ElementType _type, std::string_view _content) :
 			mName(_name),
 			mContent(_content),
 			mParent(_parent),
@@ -218,7 +218,7 @@ namespace MyGUI
 			}
 		}
 
-		ElementPtr Element::createChild(const std::string& _name, const std::string& _content, ElementType _type)
+		ElementPtr Element::createChild(std::string_view _name, std::string_view _content, ElementType _type)
 		{
 			ElementPtr node = new Element(_name, this, _type, _content);
 			mChilds.push_back(node);
@@ -243,7 +243,7 @@ namespace MyGUI
 			mAttributes.clear();
 		}
 
-		bool Element::findAttribute(const std::string& _name, std::string& _value)
+		bool Element::findAttribute(std::string_view _name, std::string& _value)
 		{
 			for (VectorAttributes::iterator iter = mAttributes.begin(); iter != mAttributes.end(); ++iter)
 			{
@@ -256,22 +256,22 @@ namespace MyGUI
 			return false;
 		}
 
-		std::string Element::findAttribute(const std::string& _name)
+		std::string_view Element::findAttribute(std::string_view _name)
 		{
 			for (VectorAttributes::iterator iter = mAttributes.begin(); iter != mAttributes.end(); ++iter)
 			{
 				if ((*iter).first == _name)
 					return (*iter).second;
 			}
-			return "";
+			return {};
 		}
 
-		void Element::addAttribute(const std::string& _key, const std::string& _value)
+		void Element::addAttribute(std::string_view _key, std::string_view _value)
 		{
-			mAttributes.push_back(PairAttribute(_key, _value));
+			mAttributes.emplace_back(_key, _value);
 		}
 
-		void Element::removeAttribute(const std::string& _key)
+		void Element::removeAttribute(std::string_view _key)
 		{
 			for (size_t index = 0; index < mAttributes.size(); ++index)
 			{
@@ -298,7 +298,7 @@ namespace MyGUI
 			return elem;
 		}
 
-		void Element::setAttribute(const std::string& _key, const std::string& _value)
+		void Element::setAttribute(std::string_view _key, std::string_view _value)
 		{
 			for (size_t index = 0; index < mAttributes.size(); ++index)
 			{
@@ -308,10 +308,10 @@ namespace MyGUI
 					return;
 				}
 			}
-			mAttributes.push_back(PairAttribute(_key, _value));
+			mAttributes.emplace_back(_key, _value);
 		}
 
-		void Element::addContent(const std::string& _content)
+		void Element::addContent(std::string_view _content)
 		{
 			if (mContent.empty())
 			{
@@ -324,7 +324,7 @@ namespace MyGUI
 			}
 		}
 
-		void Element::setContent(const std::string& _content)
+		void Element::setContent(std::string_view _content)
 		{
 			mContent = _content;
 		}
@@ -786,7 +786,7 @@ namespace MyGUI
 		}
 
 		// ищет символ без учета ковычек
-		size_t Document::find(const std::string& _text, char _char, size_t _start)
+		size_t Document::find(std::string_view _text, char _char, size_t _start)
 		{
 			// ковычки
 			bool kov = false;
@@ -802,7 +802,7 @@ namespace MyGUI
 				pos = _text.find_first_of(buff, pos);
 
 				// если уже конец, то досвидания
-				if (pos == _text.npos)
+				if (pos == std::string::npos)
 				{
 					break;
 				}
@@ -845,7 +845,7 @@ namespace MyGUI
 			}
 		}
 
-		ElementPtr Document::createDeclaration(const std::string& _version, const std::string& _encoding)
+		ElementPtr Document::createDeclaration(std::string_view _version, std::string_view _encoding)
 		{
 			clearDeclaration();
 			mDeclaration = new Element("xml", nullptr, ElementType::Declaration);
@@ -854,7 +854,7 @@ namespace MyGUI
 			return mDeclaration;
 		}
 
-		ElementPtr Document::createRoot(const std::string& _name)
+		ElementPtr Document::createRoot(std::string_view _name)
 		{
 			clearRoot();
 			mRoot = new Element(_name, nullptr, ElementType::Normal);
@@ -944,7 +944,7 @@ namespace MyGUI
 			return mRoot;
 		}
 
-		void Document::setLastFileError(const std::string& _filename)
+		void Document::setLastFileError(std::string_view _filename)
 		{
 			mLastErrorFile = _filename;
 		}

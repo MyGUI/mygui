@@ -26,41 +26,41 @@ namespace MyGUI
 
 		typedef delegates::CDelegate1<IObject*&> Delegate;
 		/** Register delegate function that creates object for specified _category and _type. */
-		void registerFactory(const std::string& _category, const std::string& _type, Delegate::IDelegate* _delegate);
+		void registerFactory(std::string_view _category, std::string_view _type, Delegate::IDelegate* _delegate);
 		/** Unregister delegate function that creates object for specified _category and _type. */
-		void unregisterFactory(const std::string& _category, const std::string& _type);
+		void unregisterFactory(std::string_view _category, std::string_view _type);
 		/** Unregister all delegate functions that creates object for specified _category. */
-		void unregisterFactory(const std::string& _category);
+		void unregisterFactory(std::string_view _category);
 
 		/** Is factory for specified _category and _type exist. */
-		bool isFactoryExist(const std::string& _category, const std::string& _type);
+		bool isFactoryExist(std::string_view _category, std::string_view _type);
 
 		/** Register factory for specified _category. */
 		template<typename Type>
-		void registerFactory(const std::string& _category)
+		void registerFactory(std::string_view _category)
 		{
 			registerFactory(_category, Type::getClassTypeName(), GenericFactory<Type>::getFactory());
 		}
 
 		/** Register factory for specified _category and _type. */
 		template<typename Type>
-		void registerFactory(const std::string& _category, const std::string& _type)
+		void registerFactory(std::string_view _category, std::string_view _type)
 		{
 			registerFactory(_category, _type, GenericFactory<Type>::getFactory());
 		}
 
 		/** Unegister factory for specified _category. */
 		template<typename Type>
-		void unregisterFactory(const std::string& _category)
+		void unregisterFactory(std::string_view _category)
 		{
 			unregisterFactory(_category, Type::getClassTypeName());
 		}
 
 		/** Create object with given _category and _type. Return nullptr if there's no registered factory. */
-		IObject* createObject(const std::string& _category, const std::string& _type);
+		IObject* createObject(std::string_view _category, std::string_view _type);
 		/** Create object with given _category and _type. Return nullptr if there's no registered factory. */
 		template<typename Type>
-		Type* createObject(const std::string& _category)
+		Type* createObject(std::string_view _category)
 		{
 			IObject* item = createObject(_category, Type::getClassTypeName());
 			if (item != nullptr)
@@ -72,8 +72,8 @@ namespace MyGUI
 		void destroyObject(IObject* _object);
 
 	private:
-		typedef std::map<std::string, Delegate> MapFactoryItem;
-		typedef std::map<std::string, MapFactoryItem> MapRegisterFactoryItem;
+		typedef std::map<std::string, Delegate, std::less<>> MapFactoryItem;
+		typedef std::map<std::string, MapFactoryItem, std::less<>> MapRegisterFactoryItem;
 		MapRegisterFactoryItem mRegisterFactoryItems;
 
 		bool mIsInitialise;

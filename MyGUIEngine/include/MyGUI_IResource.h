@@ -34,7 +34,7 @@ namespace MyGUI
 			return mResourceName;
 		}
 
-		void setResourceName(const std::string& _value)
+		void setResourceName(std::string_view _value)
 		{
 			mResourceName = _value;
 		}

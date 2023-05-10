@@ -34,7 +34,7 @@ namespace MyGUI
 		Base::shutdownOverride();
 	}
 
-	void ImageBox::setImageInfo(const std::string& _texture, const IntCoord& _coord, const IntSize& _tile)
+	void ImageBox::setImageInfo(std::string_view _texture, const IntCoord& _coord, const IntSize& _tile)
 	{
 		mCurrentTextureName = _texture;
 		mSizeTexture = texture_utility::getTextureSize(mCurrentTextureName);
@@ -85,7 +85,7 @@ namespace MyGUI
 		updateSelectIndex(mIndexSelect);
 	}
 
-	void ImageBox::setImageTexture(const std::string& _texture)
+	void ImageBox::setImageTexture(std::string_view _texture)
 	{
 		mCurrentTextureName = _texture;
 		mSizeTexture = texture_utility::getTextureSize(mCurrentTextureName);
@@ -342,7 +342,7 @@ namespace MyGUI
 		updateSelectIndex(mIndexSelect);
 	}
 
-	bool ImageBox::setItemResource(const std::string& _name)
+	bool ImageBox::setItemResource(std::string_view _name)
 	{
 		IResourcePtr resource = ResourceManager::getInstance().getByName(_name, false);
 		setItemResourcePtr(resource ? resource->castType<ResourceImageSet>() : nullptr);
@@ -392,7 +392,7 @@ namespace MyGUI
 		else setItemResourceInfo(mResource->getIndexInfo(mItemGroup, mItemName));
 	}
 
-	void ImageBox::setItemGroup(const std::string& _group)
+	void ImageBox::setItemGroup(std::string_view _group)
 	{
 		if (mItemGroup == _group)
 			return;
@@ -402,7 +402,7 @@ namespace MyGUI
 		else setItemResourceInfo(mResource->getIndexInfo(mItemGroup, mItemName));
 	}
 
-	void ImageBox::setItemName(const std::string& _name)
+	void ImageBox::setItemName(std::string_view _name)
 	{
 		if (mItemName == _name)
 			return;
@@ -412,7 +412,7 @@ namespace MyGUI
 		else setItemResourceInfo(mResource->getIndexInfo(mItemGroup, mItemName));
 	}
 
-	void ImageBox::setItemResourceInfo(ResourceImageSetPtr _resource, const std::string& _group, const std::string& _name)
+	void ImageBox::setItemResourceInfo(ResourceImageSetPtr _resource, std::string_view _group, std::string_view _name)
 	{
 		mResource = _resource;
 		mItemGroup = _group;
@@ -467,7 +467,7 @@ namespace MyGUI
 			getSubWidgetMain()->_setUVSet(_rect);
 	}
 
-	void ImageBox::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void ImageBox::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{ImageBox, ImageTexture, string} Текстура для виджета.
 		if (_key == "ImageTexture")

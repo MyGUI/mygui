@@ -27,7 +27,7 @@ namespace tools
 		mField->eventComboAccept += newDelegate (this, &PropertyFieldComboBox::notifyForceApplyProperties2);
 	}
 
-	void PropertyFieldComboBox::initialise(const std::string& _type)
+	void PropertyFieldComboBox::initialise(std::string_view _type)
 	{
 		mType = _type;
 	}
@@ -79,7 +79,7 @@ namespace tools
 		mMainWidget->setCoord(_coord);
 	}
 
-	void PropertyFieldComboBox::setValue(const std::string& _value)
+	void PropertyFieldComboBox::setValue(std::string_view _value)
 	{
 		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
 
@@ -93,7 +93,7 @@ namespace tools
 		}
 	}
 
-	void PropertyFieldComboBox::setName(const std::string& _value)
+	void PropertyFieldComboBox::setName(std::string_view _value)
 	{
 		mName = _value;
 		mText->setCaption(_value);

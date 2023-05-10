@@ -76,11 +76,11 @@ namespace MyGUI
 	{
 	}
 
-	void ResourceTrueTypeFont::setSource(const std::string& _value)
+	void ResourceTrueTypeFont::setSource(std::string_view _value)
 	{
 	}
 
-	void ResourceTrueTypeFont::setShader(const std::string& _value)
+	void ResourceTrueTypeFont::setShader(std::string_view _value)
 	{
 	}
 
@@ -92,7 +92,7 @@ namespace MyGUI
 	{
 	}
 
-	void ResourceTrueTypeFont::setHinting(const std::string& _value)
+	void ResourceTrueTypeFont::setHinting(std::string_view _value)
 	{
 	}
 
@@ -300,8 +300,8 @@ namespace MyGUI
 		{
 			if (node->getName() == "Property")
 			{
-				const std::string& key = node->findAttribute("key");
-				const std::string& value = node->findAttribute("value");
+				std::string_view key = node->findAttribute("key");
+				std::string_view value = node->findAttribute("value");
 				if (key == "Source")
 					setSource(value);
 				else if (key == "Shader")
@@ -1239,12 +1239,12 @@ namespace MyGUI
 	}
 #endif
 
-	void ResourceTrueTypeFont::setSource(const std::string& _value)
+	void ResourceTrueTypeFont::setSource(std::string_view _value)
 	{
 		mSource = _value;
 	}
 
-	void ResourceTrueTypeFont::setShader(const std::string& _value)
+	void ResourceTrueTypeFont::setShader(std::string_view _value)
 	{
 		mShader = _value;
 	}
@@ -1259,7 +1259,7 @@ namespace MyGUI
 		mResolution = _value;
 	}
 
-	void ResourceTrueTypeFont::setHinting(const std::string& _value)
+	void ResourceTrueTypeFont::setHinting(std::string_view _value)
 	{
 		if (_value == "use_native")
 			mHinting = HintingUseNative;

@@ -48,7 +48,7 @@ namespace tools
 		mOpenSaveFileDialog = nullptr;
 	}
 
-	void CodeGenerator::parseTemplate(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
+	void CodeGenerator::parseTemplate(MyGUI::xml::ElementPtr _node, std::string_view, MyGUI::Version)
 	{
 		mTemplateFiles.clear();
 		mTemplateStrings.clear();
@@ -56,26 +56,26 @@ namespace tools
 		MyGUI::xml::ElementEnumerator file = _node->getElementEnumerator();
 		while (file.next("File"))
 		{
-			std::string templateFile = file->findAttribute("template");
-			std::string outputFile = file->findAttribute("out_file");
-			mTemplateFiles.insert(MyGUI::PairString(templateFile, outputFile));
+			std::string_view templateFile = file->findAttribute("template");
+			std::string_view outputFile = file->findAttribute("out_file");
+			mTemplateFiles.emplace(templateFile, outputFile);
 		}
 
 		MyGUI::xml::ElementEnumerator string = _node->getElementEnumerator();
 		while (string.next("String"))
 		{
-			std::string key = string->findAttribute("key");
-			std::string value = string->findAttribute("value");
-			mTemplateStrings.insert(MyGUI::PairString(key, value));
+			std::string_view key = string->findAttribute("key");
+			std::string_view value = string->findAttribute("value");
+			mTemplateStrings.emplace(key, value);
 		}
 	}
 
-	std::string CodeGenerator::stringToUpperCase(const std::string& _str)
+	std::string CodeGenerator::stringToUpperCase(std::string_view _str)
 	{
 		// replace lower case sharacters with upper case characters and add '_' between words
 		// words is either Word or WORD, for example TestXMLPanelName return TEST_XML_PANEL_NAME
-		if (_str.empty()) return "";
 		std::string ret;
+		if (_str.empty()) return ret;
 		bool previousIsLowerCase = false;
 		for (size_t i = 0; i < _str.length(); i++)
 		{

@@ -127,7 +127,7 @@ namespace MyGUI
 
 		void animateStop(Widget* _widget, ControllerItem* _controller);
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
 		float getAlphaVisible() const;

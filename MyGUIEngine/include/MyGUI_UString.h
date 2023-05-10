@@ -887,6 +887,8 @@ namespace MyGUI
 		operator std::string() const;
 		//! implicit cast to std::wstring
 		operator std::wstring() const;
+		//! implicit cast to std::string_view
+		operator std::string_view() const { return asUTF8(); };
 		//@}
 
 		//////////////////////////////////////////////////////////////////////////

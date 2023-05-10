@@ -47,7 +47,7 @@ namespace tools
 
 		for (MyGUI::VectorStringPairs::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
 		{
-			std::string value = widgetContainer->getProperty(iter->first);
+			std::string_view value = widgetContainer->getProperty(iter->first);
 
 			// TODO: add extra property to WidgetStyle.parameter
 			if (iter->first == "Depth" && mCurrentWidget->isRootWidget())

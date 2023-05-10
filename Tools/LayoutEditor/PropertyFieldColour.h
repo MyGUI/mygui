@@ -25,11 +25,11 @@ namespace tools
 		PropertyFieldColour(MyGUI::Widget* _parent);
 		~PropertyFieldColour() override;
 
-		void initialise(const std::string& _type) override;
+		void initialise(std::string_view _type) override;
 
 		void setTarget(MyGUI::Widget* _currentWidget) override;
-		void setValue(const std::string& _value) override;
-		void setName(const std::string& _value) override;
+		void setValue(std::string_view _value) override;
+		void setName(std::string_view _value) override;
 
 		void setVisible(bool _value) override;
 		bool getVisible() override;

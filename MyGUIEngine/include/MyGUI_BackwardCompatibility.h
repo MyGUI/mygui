@@ -404,7 +404,7 @@ namespace MyGUI
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : bool ResourceManager::load(const std::string& _file)")
 		bool load(const std::string& _file);
-		void loadOldFontFormat(xml::ElementPtr _node, const std::string& _file, Version _version, const std::string& _tag);
+		void loadOldFontFormat(xml::ElementPtr _node, std::string_view _file, Version _version, std::string_view _tag);
 	};
 
 	template <>
@@ -513,7 +513,7 @@ namespace MyGUI
 		MYGUI_OBSOLETE(" is deprecated, use : bool ResourceManager::load(const std::string& _file)")
 		bool load(const std::string& _file);
 
-		void loadOldPointerFormat(xml::ElementPtr _node, const std::string& _file, Version _version, const std::string& _tag);
+		void loadOldPointerFormat(xml::ElementPtr _node, std::string_view _file, Version _version, std::string_view _tag);
 	};
 
 	template <>
@@ -535,7 +535,7 @@ namespace MyGUI
 		MYGUI_OBSOLETE(" is deprecated, use : bool ResourceManager::load(const std::string& _file)")
 		bool load(const std::string& _file);
 
-		void loadOldSkinFormat(xml::ElementPtr _node, const std::string& _file, Version _version, const std::string& _tag);
+		void loadOldSkinFormat(xml::ElementPtr _node, std::string_view _file, Version _version, std::string_view _tag);
 	};
 
 	template <>
@@ -560,10 +560,10 @@ namespace MyGUI
 		static bool checkProperty(Widget* _owner, std::string& _key, std::string& _value);
 		static void initialise();
 		static void shutdown();
-		static bool isIgnoreProperty(const std::string& _key);
-		static std::string getPropertyRename(const std::string& _propertyName);
-		static std::string getFactoryRename(const std::string& _categoryName, const std::string& _factoryName);
-		static std::string getSkinRename(const std::string& _skinName);
+		static bool isIgnoreProperty(std::string_view _key);
+		static std::string_view getPropertyRename(std::string_view _propertyName);
+		static std::string_view getFactoryRename(std::string_view _categoryName, std::string_view _factoryName);
+		static std::string_view getSkinRename(std::string_view _skinName);
 		static void registerWidgetTypes();
 	};
 

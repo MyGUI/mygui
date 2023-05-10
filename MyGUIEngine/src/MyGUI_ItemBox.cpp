@@ -913,7 +913,7 @@ namespace MyGUI
 		return mVisibleHScroll;
 	}
 
-	void ItemBox::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void ItemBox::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{ItemBox, VerticalAlignment, bool} Vertical or horizontal alignment.
 		if (_key == "VerticalAlignment")

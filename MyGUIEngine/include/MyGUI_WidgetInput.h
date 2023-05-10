@@ -68,7 +68,7 @@ namespace MyGUI
 		bool getNeedToolTip() const;
 
 		/** Set mouse pointer for this widget */
-		void setPointer(const std::string& _value);
+		void setPointer(std::string_view _value);
 		/** Get mouse pointer name for this widget */
 		const std::string& getPointer() const;
 

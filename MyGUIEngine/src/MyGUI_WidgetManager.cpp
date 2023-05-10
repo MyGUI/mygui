@@ -101,7 +101,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	Widget* WidgetManager::createWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Widget* _parent, ICroppedRectangle* _cropeedParent, const std::string& _name)
+	Widget* WidgetManager::createWidget(WidgetStyle _style, std::string_view _type, std::string_view _skin, const IntCoord& _coord, Widget* _parent, ICroppedRectangle* _cropeedParent, std::string_view _name)
 	{
 		IObject* object = FactoryManager::getInstance().createObject(mCategoryName, _type);
 		if (object != nullptr)
@@ -151,7 +151,7 @@ namespace MyGUI
 		}
 	}
 
-	bool WidgetManager::isFactoryExist(const std::string& _type)
+	bool WidgetManager::isFactoryExist(std::string_view _type)
 	{
 		if (FactoryManager::getInstance().isFactoryExist(mCategoryName, _type))
 		{

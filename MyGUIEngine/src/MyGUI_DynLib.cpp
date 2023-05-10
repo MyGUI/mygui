@@ -27,7 +27,7 @@
 
 namespace MyGUI
 {
-	DynLib::DynLib(const std::string& name) :
+	DynLib::DynLib(std::string_view name) :
 		mName(name),
 		mInstance(nullptr)
 	{
@@ -123,7 +123,7 @@ namespace MyGUI
 #endif
 	}
 
-	std::string DynLib::getName(void) const
+	const std::string& DynLib::getName(void) const
 	{
 		return mName;
 	}

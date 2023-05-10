@@ -45,7 +45,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	DynLib* DynLibManager::load(const std::string& fileName)
+	DynLib* DynLibManager::load(std::string_view fileName)
 	{
 		StringDynLibMap::iterator it = mLibsMap.find(fileName);
 
@@ -61,7 +61,7 @@ namespace MyGUI
 			return nullptr;
 		}
 
-		mLibsMap[fileName] = pLib;
+		mLibsMap[pLib->getName()] = pLib;
 		return pLib;
 	}
 

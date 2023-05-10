@@ -1792,7 +1792,7 @@ namespace MyGUI
 		eraseView();
 	}
 
-	void EditBox::setFontName(const std::string& _value)
+	void EditBox::setFontName(std::string_view _value)
 	{
 		Base::setFontName(_value);
 
@@ -2134,7 +2134,7 @@ namespace MyGUI
 			mClientText->setInvertSelected(_value);
 	}
 
-	void EditBox::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void EditBox::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{EditBox, CursorPosition, size_t} Позиция курсора.
 		if (_key == "CursorPosition")

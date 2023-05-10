@@ -18,49 +18,49 @@ namespace tools
 	struct WidgetContainer
 	{
 		WidgetContainer();
-		WidgetContainer(const std::string& _type, const std::string& _skin, MyGUI::Widget* _widget, const std::string& _name = "");
+		WidgetContainer(std::string_view _type, std::string_view _skin, MyGUI::Widget* _widget, std::string_view _name = {});
 
 		~WidgetContainer();
 
 		// not for saving
 		std::string position(bool _percent = true);
 
-		void setUserData(const std::string& _key, const std::string& _value);
-		std::string getUserData(const std::string& _key);
-		void clearUserData(const std::string& _key);
-		bool existUserData(const std::string& _key) const;
+		void setUserData(std::string_view _key, std::string_view _value);
+		std::string_view getUserData(std::string_view _key);
+		void clearUserData(std::string_view _key);
+		bool existUserData(std::string_view _key) const;
 		typedef MyGUI::Enumerator<MyGUI::VectorStringPairs> UserDataEnumerator;
 		UserDataEnumerator getUserDataEnumerator() const;
 
-		void setProperty(const std::string& _key, const std::string& _value, bool _eraseExist = true);
-		void setPropertyByIndex(size_t _index, const std::string& _key, const std::string& _value);
-		void clearProperty(const std::string& _key);
-		void clearPropertyByIndex(size_t _index, const std::string& _key);
-		std::string getProperty(const std::string& _key);
-		bool existProperty(const std::string& _key) const;
+		void setProperty(std::string_view _key, std::string_view _value, bool _eraseExist = true);
+		void setPropertyByIndex(size_t _index, std::string_view _key, std::string_view _value);
+		void clearProperty(std::string_view _key);
+		void clearPropertyByIndex(size_t _index, std::string_view _key);
+		std::string_view getProperty(std::string_view _key);
+		bool existProperty(std::string_view _key) const;
 		typedef MyGUI::Enumerator<MyGUI::VectorStringPairs> PropertyEnumerator;
 		PropertyEnumerator getPropertyEnumerator() const;
 
-		void setLayerName(const std::string& _value);
+		void setLayerName(std::string_view _value);
 		const std::string& getLayerName() const;
 
 		MyGUI::Widget* getWidget();
 		void setWidget(MyGUI::Widget* _value);
 
 		const std::string& getName() const;
-		void setName(const std::string& _value);
+		void setName(std::string_view _value);
 
 		const std::string& getSkin() const;
-		void setSkin(const std::string& _value);
+		void setSkin(std::string_view _value);
 
 		const std::string& getType() const;
-		void setType(const std::string& _value);
+		void setType(std::string_view _value);
 
 		const std::string& getAlign() const;
-		void setAlign(const std::string& _value);
+		void setAlign(std::string_view _value);
 
 		const std::string& getStyle() const;
-		void setStyle(const std::string& _value);
+		void setStyle(std::string_view _value);
 
 		bool getRelativeMode() const;
 		void setRelativeMode(bool _value);

@@ -34,7 +34,7 @@ namespace tools
 		void notifyDelete(MyGUI::Widget* _sender);
 		void notifySelectItem(MyGUI::ListBox* _sender, size_t _index);
 
-		void loadControllerTypes(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
+		void loadControllerTypes(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version);
 		void destroyPropertyFields();
 
 		void updateSize();
@@ -51,7 +51,7 @@ namespace tools
 		int mButtonRight;
 		int mButtonSpace;
 
-		typedef std::map<std::string, MyGUI::MapString> MapMapString;
+		typedef std::map<std::string, MyGUI::MapString, std::less<>> MapMapString;
 		MapMapString mControllersProperties;
 
 		typedef std::vector<IPropertyField*> VectorPropertyField;

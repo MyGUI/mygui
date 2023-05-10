@@ -18,7 +18,7 @@ namespace MyGUI
 {
 
 	typedef delegates::CMultiDelegate2<Widget*, const WidgetInfo&> EventHandle_CreateWidgetDelegate;
-	typedef delegates::CMultiDelegate3<Widget*, const std::string&, const std::string&> EventHandle_AddUserStringDelegate;
+	typedef delegates::CMultiDelegate3<Widget*, std::string_view, std::string_view> EventHandle_AddUserStringDelegate;
 
 	class MYGUI_EXPORT LayoutManager :
 		public MemberObsolete<LayoutManager>
@@ -36,16 +36,16 @@ namespace MyGUI
 			@param _parent widget to load on
 			@return Return vector of pointers of loaded root widgets (root == without parents)
 		*/
-		VectorWidgetPtr loadLayout(const std::string& _file, const std::string& _prefix = "", Widget* _parent = nullptr);
+		VectorWidgetPtr loadLayout(std::string_view _file, std::string_view _prefix = {}, Widget* _parent = nullptr);
 
 		/** Unload layout (actually deletes vector of widgets returned by loadLayout) */
 		void unloadLayout(VectorWidgetPtr& _widgets);
 
 		/** Get ResourceLayout by name */
-		ResourceLayout* getByName(const std::string& _name, bool _throw = true) const;
+		ResourceLayout* getByName(std::string_view _name, bool _throw = true) const;
 
 		/** Check if skin with specified name exist */
-		bool isExist(const std::string& _name) const;
+		bool isExist(std::string_view _name) const;
 
 		/** Event : Multidelegate. Widget was created from layout.\n
 		signature : void method(MyGUI::Widget* _sender, const MyGUI::WidgetInfo& _widgetInfo)
@@ -57,7 +57,7 @@ namespace MyGUI
 		EventHandle_CreateWidgetDelegate eventCreateWidget;
 
 		/** Event : Multidelegate. UserString was added from layout.\n
-			signature : void method(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value)
+			signature : void method(MyGUI::Widget* _widget, std::string_view _key, std::string_view _value)
 			@param _widget Widget that got new UserString.
 			@param _key UserString key.
 			@param _key UserString value.
@@ -68,7 +68,7 @@ namespace MyGUI
 		const std::string& getCurrentLayout() const;
 
 	private:
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
+		void _load(xml::ElementPtr _node, std::string_view _file, Version _version);
 
 	private:
 		bool mIsInitialise;

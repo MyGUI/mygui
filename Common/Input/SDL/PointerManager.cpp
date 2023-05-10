@@ -36,7 +36,7 @@ namespace input
 
 	void PointerManager::destroyPointerManager()
 	{
-		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().unregisterFactory<ResourceSDLPointer>(resourceCategory);
 
 		MyGUI::PointerManager& manager = MyGUI::PointerManager::getInstance();
@@ -48,7 +48,7 @@ namespace input
 		SDL_ShowCursor(static_cast<int>(_value));
 	}
 
-	void PointerManager::notifyChangeMousePointer(const std::string& _name)
+	void PointerManager::notifyChangeMousePointer(std::string_view _name)
 	{
 		if (mManagerPointer)
 		{
@@ -56,7 +56,7 @@ namespace input
 		}
 	}
 
-	void PointerManager::setPointerName(const std::string& _name)
+	void PointerManager::setPointerName(std::string_view _name)
 	{
 		mManagerPointer = false;
 		setPointer(_name);
@@ -69,7 +69,7 @@ namespace input
 		SDL_SetCursor(mCursor);
 	}
 
-	void PointerManager::setPointer(const std::string& _name)
+	void PointerManager::setPointer(std::string_view _name)
 	{
 		MapPointer::iterator iter = mMapPointer.find(_name);
 		if (iter != mMapPointer.end())
@@ -84,7 +84,7 @@ namespace input
 				ResourceSDLPointer* resource = resource_generic->castType<ResourceSDLPointer>(false);
 				if (resource != nullptr)
 				{
-					mMapPointer[_name] = resource->getPointerType();
+					mMapPointer.emplace(_name, resource->getPointerType());
 					updateSDLPointer(resource->getPointerType());
 				}
 			}

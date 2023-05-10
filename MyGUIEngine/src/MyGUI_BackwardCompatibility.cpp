@@ -655,7 +655,7 @@ namespace MyGUI
 		return ResourceManager::getInstance().load(_file);
 	}
 
-	void MemberObsolete<FontManager>::loadOldFontFormat(xml::ElementPtr _node2, const std::string& _file, Version _version, const std::string& _tag)
+	void MemberObsolete<FontManager>::loadOldFontFormat(xml::ElementPtr _node2, std::string_view _file, Version _version, std::string_view _tag)
 	{
 		xml::ElementEnumerator _node = _node2->getElementEnumerator();
 		while (_node.next())
@@ -666,14 +666,11 @@ namespace MyGUI
 				if (!_node->findAttribute("name", name))
 					return;
 
-				std::string type;
-				if (type.empty())
-				{
-					if (_node->findAttribute("resolution").empty())
-						type = "ResourceManualFont";
-					else
-						type = "ResourceTrueTypeFont";
-				}
+				std::string_view type;
+				if (_node->findAttribute("resolution").empty())
+					type = "ResourceManualFont";
+				else
+					type = "ResourceTrueTypeFont";
 
 				xml::Document doc;
 				xml::ElementPtr root = doc.createRoot("MyGUI");
@@ -903,10 +900,10 @@ namespace MyGUI
 	{
 		return ResourceManager::getInstance().load(_file);
 	}
-	void MemberObsolete<PointerManager>::loadOldPointerFormat(xml::ElementPtr _node, const std::string& _file, Version _version, const std::string& _tag)
+	void MemberObsolete<PointerManager>::loadOldPointerFormat(xml::ElementPtr _node, std::string_view _file, Version _version, std::string_view _tag)
 	{
-		std::string pointer;
-		std::string layer;
+		std::string_view pointer;
+		std::string_view layer;
 
 		xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next())
@@ -917,19 +914,19 @@ namespace MyGUI
 				pointer = node->findAttribute("default");
 
 				// сохраняем
-				std::string shared_text = node->findAttribute("texture");
+				std::string_view shared_text = node->findAttribute("texture");
 
 				// берем детей и крутимся, основной цикл
 				xml::ElementEnumerator info = node->getElementEnumerator();
 				while (info.next("Info"))
 				{
-					std::string name = info->findAttribute("name");
+					std::string_view name = info->findAttribute("name");
 					if (name.empty())
 						continue;
 
-					std::string texture = info->findAttribute("texture");
+					std::string_view texture = info->findAttribute("texture");
 
-					std::string type = (shared_text.empty() && texture.empty()) ? "ResourceImageSetPointer" : "ResourceManualPointer";
+					std::string_view type = (shared_text.empty() && texture.empty()) ? "ResourceImageSetPointer" : "ResourceManualPointer";
 
 					xml::Document doc;
 					xml::ElementPtr root = doc.createRoot("MyGUI");
@@ -1002,15 +999,15 @@ namespace MyGUI
 	{
 		return ResourceManager::getInstance().load(_file);
 	}
-	void MemberObsolete<SkinManager>::loadOldSkinFormat(xml::ElementPtr _node, const std::string& _file, Version _version, const std::string& _tag)
+	void MemberObsolete<SkinManager>::loadOldSkinFormat(xml::ElementPtr _node, std::string_view, Version _version, std::string_view _tag)
 	{
-		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 
 		// берем детей и крутимся, основной цикл со скинами
 		xml::ElementEnumerator skin = _node->getElementEnumerator();
 		while (skin.next(_tag))
 		{
-			std::string type = skin->findAttribute("type");
+			std::string_view type = skin->findAttribute("type");
 			if (type.empty())
 				type = "ResourceSkin";
 
@@ -1067,14 +1064,14 @@ namespace MyGUI
 		return coord.print();
 	}
 
-	using SetString = std::set<std::string>;
+	using SetString = std::set<std::string, std::less<>>;
 	static MapString mPropertyRename;
 	static SetString mPropertyIgnore;
 	static MapString mSkinRename;
 
 #endif // MYGUI_DONT_USE_OBSOLETE
 
-	bool BackwardCompatibility::isIgnoreProperty(const std::string& _key)
+	bool BackwardCompatibility::isIgnoreProperty(std::string_view _key)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		if (mPropertyIgnore.find(_key) != mPropertyIgnore.end())
@@ -1271,7 +1268,7 @@ namespace MyGUI
 #endif // MYGUI_DONT_USE_OBSOLETE
 	}
 
-	std::string BackwardCompatibility::getPropertyRename(const std::string& _propertyName)
+	std::string_view BackwardCompatibility::getPropertyRename(std::string_view _propertyName)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		MapString::const_iterator item = mPropertyRename.find(_propertyName);
@@ -1281,7 +1278,7 @@ namespace MyGUI
 		return _propertyName;
 	}
 
-	std::string BackwardCompatibility::getFactoryRename(const std::string& _categoryName, const std::string& _factoryName)
+	std::string_view BackwardCompatibility::getFactoryRename(std::string_view _categoryName, std::string_view _factoryName)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		if (_categoryName == "Widget")
@@ -1339,7 +1336,7 @@ namespace MyGUI
 		return _factoryName;
 	}
 
-	std::string BackwardCompatibility::getSkinRename(const std::string& _skinName)
+	std::string_view BackwardCompatibility::getSkinRename(std::string_view _skinName)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		MapString::iterator item = mSkinRename.find(_skinName);
@@ -1363,7 +1360,7 @@ namespace MyGUI
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		FactoryManager& factory = FactoryManager::getInstance();
-		std::string widgetCategory = MyGUI::WidgetManager::getInstance().getCategoryName();
+		const std::string& widgetCategory = MyGUI::WidgetManager::getInstance().getCategoryName();
 		factory.registerFactory<HScroll>(widgetCategory);
 		factory.registerFactory<VScroll>(widgetCategory);
 		factory.registerFactory<Canvas>(widgetCategory, "RenderBox");

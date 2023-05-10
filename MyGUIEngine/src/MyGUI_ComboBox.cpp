@@ -441,7 +441,7 @@ namespace MyGUI
 		return coord;
 	}
 
-	void ComboBox::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void ComboBox::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{ComboBox, ModeDrop, bool} Режим выпадающего списка, в этом режиме значение в поля поменять нельзя.
 		if (_key == "ModeDrop")

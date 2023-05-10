@@ -337,7 +337,7 @@ namespace tools
 			while (element.next("Resource"))
 			{
 				if (element->findAttribute("type") == "ResourceLayout")
-					items.push_back(element->findAttribute("name"));
+					items.emplace_back(element->findAttribute("name"));
 			}
 		}
 		else

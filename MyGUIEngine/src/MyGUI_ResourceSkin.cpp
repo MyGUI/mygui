@@ -123,7 +123,7 @@ namespace MyGUI
 					{
 						if (state->getName() == "State")
 						{
-							const std::string& name_state = state->findAttribute("name");
+							std::string_view name_state = state->findAttribute("name");
 							if ((name_state == "normal_checked") || (state->findAttribute("name") == "normal_check"))
 							{
 								new_format = true;

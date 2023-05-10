@@ -29,7 +29,7 @@ namespace tools
 	private:
 		void notifyChangePosition();
 		void notifyChangeSelectedWidget(MyGUI::Widget* _currentWidget);
-		void notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, const std::string& _owner);
+		void notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, std::string_view _owner);
 		void notifyChangeCreatorMode(bool _createMode);
 		void notifyChangeSelectorCreator(bool _visible, const MyGUI::IntCoord& _coord);
 		void notifyFrameStart(float _time);

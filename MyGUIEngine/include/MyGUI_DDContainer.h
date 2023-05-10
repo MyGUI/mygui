@@ -117,7 +117,7 @@ namespace MyGUI
 
 		void endDrop(bool _reset);
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	protected:
 		bool mDropResult;

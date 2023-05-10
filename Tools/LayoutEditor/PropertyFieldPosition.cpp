@@ -42,7 +42,7 @@ namespace tools
 		CommandManager::getInstance().getEvent("Command_ToggleRelativeMode")->disconnect(this);
 	}
 
-	void PropertyFieldPosition::initialise(const std::string& _type)
+	void PropertyFieldPosition::initialise(std::string_view _type)
 	{
 		mType = _type;
 	}
@@ -130,7 +130,7 @@ namespace tools
 		mMainWidget->setCoord(_coord);
 	}
 
-	void PropertyFieldPosition::setValue(const std::string& _value)
+	void PropertyFieldPosition::setValue(std::string_view _value)
 	{
 		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
 
@@ -145,7 +145,7 @@ namespace tools
 		}
 	}
 
-	void PropertyFieldPosition::setName(const std::string& _value)
+	void PropertyFieldPosition::setName(std::string_view _value)
 	{
 		mName = _value;
 		mText->setCaption(_value);
@@ -193,7 +193,7 @@ namespace tools
 		setValue(widgetContainer->position());
 	}
 
-	void PropertyFieldPosition::notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, const std::string& _owner)
+	void PropertyFieldPosition::notifyPropertyChangeCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _coordValue, std::string_view _owner)
 	{
 		if (_owner == "PropertiesPanelView" || _widget != mCurrentWidget)
 			return;

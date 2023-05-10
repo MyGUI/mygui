@@ -29,10 +29,10 @@ namespace MyGUI
 		void shutdown();
 
 		/** Get ResourceSkin by name */
-		ResourceSkin* getByName(const std::string& _name) const;
+		ResourceSkin* getByName(std::string_view _name) const;
 
 		/** Check if skin with specified name exist */
-		bool isExist(const std::string& _name) const;
+		bool isExist(std::string_view _name) const;
 
 		/** Get default skin name.
 			Default skin used when creating widget with skin that doesn't exist.
@@ -41,11 +41,11 @@ namespace MyGUI
 		/** Set default skin name.
 			Default skin used when creating widget with skin that doesn't exist.
 		*/
-		void setDefaultSkin(const std::string& _value);
+		void setDefaultSkin(std::string_view _value);
 
 	private:
-		void createDefault(const std::string& _value);
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
+		void createDefault(std::string_view _value);
+		void _load(xml::ElementPtr _node, std::string_view _file, Version _version);
 
 	private:
 		std::string mDefaultName;

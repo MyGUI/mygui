@@ -140,7 +140,7 @@ namespace MyGUI
 		void notifyMouseDrag(Widget* _sender, int _left, int _top, MouseButton _id);
 		void notifyMouseWheel(Widget* _sender, int _rel);
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 		int getTrackPlaceLength() const;
 

@@ -27,14 +27,14 @@ namespace MyGUI
 		{
 		}
 
-		static ResizingPolicy parse(const std::string& _value)
+		static ResizingPolicy parse(std::string_view _value)
 		{
 			ResizingPolicy type;
 			int value = 0;
 			while (true)
 			{
-				const char* name = type.getValueName(value);
-				if (strcmp(name, "") == 0 || name == _value)
+				std::string_view name = type.getValueName(value);
+				if (name.empty() || name == _value)
 					break;
 				value++;
 			}
@@ -66,7 +66,7 @@ namespace MyGUI
 			return _stream;
 		}
 
-		std::string print() const
+		std::string_view print() const
 		{
 			return getValueName(mValue);
 		}
@@ -77,9 +77,9 @@ namespace MyGUI
 		}
 
 	private:
-		const char* getValueName(int _index) const
+		std::string_view getValueName(int _index) const
 		{
-			static const char* values[MAX + 1] = { "Auto", "Fixed", "Fill", "" };
+			static std::string_view values[MAX + 1] = { "Auto", "Fixed", "Fill", "" };
 			return values[(_index < MAX && _index >= 0) ? _index : MAX];
 		}
 

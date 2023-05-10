@@ -167,7 +167,7 @@ namespace demo
 		base::BaseManager::injectKeyPress(_key, _text);
 	}
 
-	void DemoKeeper::setPointer(const std::string& _name)
+	void DemoKeeper::setPointer(std::string_view _name)
 	{
 		setPointerName(_name);
 	}

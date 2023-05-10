@@ -45,7 +45,7 @@ namespace tools
 		mColourPanel = nullptr;
 	}
 
-	void PropertyFieldColour::initialise(const std::string& _type)
+	void PropertyFieldColour::initialise(std::string_view _type)
 	{
 		mType = _type;
 	}
@@ -119,7 +119,7 @@ namespace tools
 		mMainWidget->setCoord(_coord);
 	}
 
-	void PropertyFieldColour::setValue(const std::string& _value)
+	void PropertyFieldColour::setValue(std::string_view _value)
 	{
 		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
 
@@ -135,7 +135,7 @@ namespace tools
 		}
 	}
 
-	void PropertyFieldColour::setName(const std::string& _value)
+	void PropertyFieldColour::setName(std::string_view _value)
 	{
 		mName = _value;
 		mText->setCaption(_value);

@@ -8,7 +8,7 @@ namespace tools
 {
 
 	typedef MyGUI::delegates::CMultiDelegate0 Event_ChangeWidgets;
-	typedef MyGUI::delegates::CMultiDelegate3<MyGUI::Widget*, const MyGUI::IntCoord&, const std::string&> Event_ChangeWidgetCoord;
+	typedef MyGUI::delegates::CMultiDelegate3<MyGUI::Widget*, const MyGUI::IntCoord&, std::string_view> Event_ChangeWidgetCoord;
 
 	typedef std::vector<WidgetContainer*> VectorWidgetContainer;
 	typedef MyGUI::Enumerator<VectorWidgetContainer> EnumeratorWidgetContainer;
@@ -30,18 +30,18 @@ namespace tools
 		void loadxmlDocument(MyGUI::xml::Document* doc, bool _testMode = false);
 		MyGUI::xml::Document* savexmlDocument();
 		WidgetContainer* find(MyGUI::Widget* _widget);
-		WidgetContainer* find(const std::string& _name);
+		WidgetContainer* find(std::string_view _name);
 		void add(WidgetContainer* _container);
 		void remove(MyGUI::Widget* _widget);
 		void remove(WidgetContainer* _container);
 
 		bool tryToApplyProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value, bool _testMode = false);
-		void onSetWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _value, const std::string& _owner);
+		void onSetWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _value, std::string_view _owner);
 
 		void invalidateWidgets();
 		EnumeratorWidgetContainer getWidgets();
 
-		std::string getSkinReplace(const std::string& _skinName);
+		std::string_view getSkinReplace(std::string_view _skinName);
 
 		const MyGUI::UString& getCurrentFileName() const;
 		const MyGUI::UString& getCurrentItemName() const;
@@ -54,20 +54,20 @@ namespace tools
 		MyGUI::MapString& getCodeGeneratorSettings();
 
 	private:
-		WidgetContainer* _find(MyGUI::Widget* _widget, const std::string& _name, std::vector<WidgetContainer*> _widgets);
+		WidgetContainer* _find(MyGUI::Widget* _widget, std::string_view _name, std::vector<WidgetContainer*> _widgets);
 
 		void parseWidget(MyGUI::xml::ElementEnumerator& _widget, MyGUI::Widget* _parent, bool _testMode = false);
 		void serialiseWidget(WidgetContainer* _container, MyGUI::xml::ElementPtr _node, bool _compatibility = false);
 
-		void loadIgnoreParameters(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
-		void loadSkinReplace(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
+		void loadIgnoreParameters(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version);
+		void loadSkinReplace(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version);
 
 		void notifyFrameStarted(float _time);
 
 		void destroyAllWidgets();
 
-		bool isSkinExist(const std::string& _skinName);
-		bool checkTemplate(const std::string& _skinName);
+		bool isSkinExist(std::string_view _skinName);
+		bool checkTemplate(std::string_view _skinName);
 
 		bool loadFromProject(const MyGUI::UString& _fileName, size_t _index);
 		bool saveToProject(const MyGUI::UString& _fileName, size_t _index);

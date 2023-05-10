@@ -59,7 +59,7 @@ namespace tools
 		field->setTarget(_currentWidget);
 		if (existTargetType)
 		{
-			std::string targetType = widgetContainer->getUserData(mUserDataTargetType);
+			std::string_view targetType = widgetContainer->getUserData(mUserDataTargetType);
 			field->setValue(targetType);
 		}
 		else
@@ -141,14 +141,14 @@ namespace tools
 		}
 	}
 
-	bool PanelMainProperties::isSkinExist(const std::string& _skinName)
+	bool PanelMainProperties::isSkinExist(std::string_view _skinName)
 	{
 		return _skinName == "Default" ||
 			MyGUI::SkinManager::getInstance().isExist(_skinName) ||
 			(MyGUI::LayoutManager::getInstance().isExist(_skinName) && checkTemplate(_skinName));
 	}
 
-	bool PanelMainProperties::checkTemplate(const std::string& _skinName)
+	bool PanelMainProperties::checkTemplate(std::string_view _skinName)
 	{
 		MyGUI::ResourceLayout* templateInfo = MyGUI::LayoutManager::getInstance().getByName(_skinName, false);
 		if (templateInfo != nullptr)
@@ -265,7 +265,7 @@ namespace tools
 			{
 				if (widgetContainer->existUserData(mUserDataTargetType))
 				{
-					std::string targetType = widgetContainer->getUserData(mUserDataTargetType);
+					std::string_view targetType = widgetContainer->getUserData(mUserDataTargetType);
 					widgetContainer->clearUserData(mUserDataTargetType);
 					widgetContainer->setType(targetType);
 

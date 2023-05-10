@@ -503,7 +503,7 @@ namespace MyGUI
 		return mHeader1Font;
 	}
 
-	void HyperTextBox::setHeader1Font(const std::string& _value)
+	void HyperTextBox::setHeader1Font(std::string_view _value)
 	{
 		mHeader1Font = _value;
 	}
@@ -513,7 +513,7 @@ namespace MyGUI
 		return mHeader2Font;
 	}
 
-	void HyperTextBox::setHeader2Font(const std::string& _value)
+	void HyperTextBox::setHeader2Font(std::string_view _value)
 	{
 		mHeader2Font = _value;
 	}
@@ -523,7 +523,7 @@ namespace MyGUI
 		return mHeader3Font;
 	}
 
-	void HyperTextBox::setHeader3Font(const std::string& _value)
+	void HyperTextBox::setHeader3Font(std::string_view _value)
 	{
 		mHeader3Font = _value;
 	}
@@ -533,7 +533,7 @@ namespace MyGUI
 		return mDefaultFont;
 	}
 
-	void HyperTextBox::setDefaultFont(const std::string& _value)
+	void HyperTextBox::setDefaultFont(std::string_view _value)
 	{
 		mDefaultFont = _value;
 		updateBreakHeight();
@@ -544,7 +544,7 @@ namespace MyGUI
 		return mBoldFont;
 	}
 
-	void HyperTextBox::setBoldFont(const std::string& _value)
+	void HyperTextBox::setBoldFont(std::string_view _value)
 	{
 		mBoldFont = _value;
 	}
@@ -554,7 +554,7 @@ namespace MyGUI
 		return mItalicFont;
 	}
 
-	void HyperTextBox::setItalicFont(const std::string& _value)
+	void HyperTextBox::setItalicFont(std::string_view _value)
 	{
 		mItalicFont = _value;
 	}
@@ -564,12 +564,12 @@ namespace MyGUI
 		return mBoldItalicFont;
 	}
 
-	void HyperTextBox::setBoldItalicFont(const std::string& _value)
+	void HyperTextBox::setBoldItalicFont(std::string_view _value)
 	{
 		mBoldItalicFont =_value;
 	}
 
-	void HyperTextBox::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void HyperTextBox::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		if (_key == "Spacer")
 			setSpacer(utility::parseValue<IntSize>(_value));

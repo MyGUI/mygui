@@ -25,7 +25,7 @@ namespace tools
 		mPossibleValues.clear();
 	}
 
-	WidgetStyle* WidgetTypes::findWidgetStyle(const std::string& _type)
+	WidgetStyle* WidgetTypes::findWidgetStyle(std::string_view _type)
 	{
 		for (std::vector<WidgetStyle*>::iterator iter = mWidgetTypes.begin(); iter != mWidgetTypes.end(); ++iter)
 		{
@@ -37,7 +37,7 @@ namespace tools
 		return findWidgetStyle("Widget");
 	}
 
-	WidgetTypes::VectorString WidgetTypes::findPossibleValues(const std::string& _name)
+	WidgetTypes::VectorString WidgetTypes::findPossibleValues(std::string_view _name)
 	{
 		for (VectorPossibleValue::iterator iter = mPossibleValues.begin(); iter != mPossibleValues.end(); ++iter)
 		{
@@ -49,7 +49,7 @@ namespace tools
 		return VectorString();
 	}
 
-	WidgetStyle* WidgetTypes::getWidgetType(const std::string& _name)
+	WidgetStyle* WidgetTypes::getWidgetType(std::string_view _name)
 	{
 		// ищем тип, если нет, то создаем
 		for (VectorWidgetType::iterator iter = mWidgetTypes.begin(); iter != mWidgetTypes.end(); ++iter)
@@ -64,15 +64,19 @@ namespace tools
 		return type;
 	}
 
-	void WidgetTypes::addWidgetSkinType(const std::string& _type, const std::string& _skin, const std::string& _group, const std::string& _button_name)
+	void WidgetTypes::addWidgetSkinType(std::string_view _type, std::string_view _skin, std::string_view _group, std::string_view _button_name)
 	{
 		WidgetStyle* widget_type = getWidgetType(_type);
-
-		mSkinGroups[_group.empty() ? DEFAULT_GOROUP_NAME : _group].push_back(SkinInfo(_skin, widget_type->name, _button_name));
-		widget_type->skin.push_back(_skin);
+		if (_group.empty())
+			_group = DEFAULT_GOROUP_NAME;
+		auto it = mSkinGroups.find(_group);
+		if (it == mSkinGroups.end())
+			it = mSkinGroups.emplace(_group, VectorSkinInfo()).first;
+		it->second.emplace_back(_skin, widget_type->name, _button_name);
+		widget_type->skin.emplace_back(_skin);
 	}
 
-	void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
+	void WidgetTypes::loadWidgets(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version)
 	{
 		MyGUI::xml::ElementEnumerator widgets = _node->getElementEnumerator();
 		while (widgets.next("Widget"))
@@ -96,13 +100,13 @@ namespace tools
 					field->findAttribute("group", group);
 					if (key == "Skin")
 					{
-						std::string button_name = field->findAttribute("name");
+						std::string_view button_name = field->findAttribute("name");
 						if (button_name.empty())
 							button_name = value;
 
 						if (group.empty())
 							group = DEFAULT_GOROUP_NAME;
-						mSkinGroups[group].push_back(SkinInfo(value, widget_type->name, button_name));
+						mSkinGroups[group].emplace_back(value, widget_type->name, button_name);
 						widget_type->skin.push_back(value);
 					}
 					else if (key == "DefaultSkin")
@@ -151,7 +155,7 @@ namespace tools
 		updateDepth();
 	}
 
-	PossibleValue* WidgetTypes::getPossibleValue(const std::string& _name)
+	PossibleValue* WidgetTypes::getPossibleValue(std::string_view _name)
 	{
 		for (const auto& value : mPossibleValues)
 		{
@@ -168,16 +172,16 @@ namespace tools
 		return possible_value;
 	}
 
-	void WidgetTypes::loadValues(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version)
+	void WidgetTypes::loadValues(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version)
 	{
 		MyGUI::xml::ElementEnumerator widgets = _node->getElementEnumerator();
 		while (widgets.next("Value"))
 		{
-			std::string name = widgets->findAttribute("name");
+			std::string_view name = widgets->findAttribute("name");
 			PossibleValue* possible_value = getPossibleValue(name);
 
 			// тип мерджа переменных
-			std::string merge = widgets->findAttribute("merge");
+			std::string_view merge = widgets->findAttribute("merge");
 			// дополняем своими данными, по дефолту
 			if (merge == "add")
 			{
@@ -222,7 +226,7 @@ namespace tools
 		return mWidgetTypes;
 	}
 
-	WidgetStyle* WidgetTypes::findWidgetStyleBySkin(const std::string& _skinName)
+	WidgetStyle* WidgetTypes::findWidgetStyleBySkin(std::string_view _skinName)
 	{
 		for (VectorWidgetType::iterator item = mWidgetTypes.begin(); item != mWidgetTypes.end(); ++item)
 		{

@@ -159,7 +159,7 @@ namespace tools
 		if (_key == "LE_TargetWidgetType")
 			return false;
 
-		std::string widgetTypeName = _widgetContainer->getUserData("LE_TargetWidgetType");
+		std::string_view widgetTypeName = _widgetContainer->getUserData("LE_TargetWidgetType");
 
 		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(_widgetContainer->getType());
 

@@ -63,7 +63,7 @@ namespace MyGUI
 		return _loadImplement(_file, false, {}, getClassTypeName());
 	}
 
-	void ResourceManager::loadFromXmlNode(xml::ElementPtr _node, const std::string&, Version _version)
+	void ResourceManager::loadFromXmlNode(xml::ElementPtr _node, std::string_view, Version _version)
 	{
 		FactoryManager& factory = FactoryManager::getInstance();
 
@@ -103,7 +103,7 @@ namespace MyGUI
 		}
 	}
 
-	void ResourceManager::_loadList(xml::ElementPtr _node, const std::string&, Version _version)
+	void ResourceManager::_loadList(xml::ElementPtr _node, std::string_view, Version _version)
 	{
 		// берем детей и крутимся, основной цикл
 		xml::ElementEnumerator node = _node->getElementEnumerator();

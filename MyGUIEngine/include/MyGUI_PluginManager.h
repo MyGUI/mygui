@@ -32,10 +32,10 @@ namespace MyGUI
 		void shutdown();
 
 		//!	Load plugin
-		bool loadPlugin(const std::string& _file);
+		bool loadPlugin(std::string_view _file);
 
 		//!	Unload plugin
-		void unloadPlugin(const std::string& _file);
+		void unloadPlugin(std::string_view _file);
 
 		/*!	Install plugin
 			@remarks Calls from plugin
@@ -51,11 +51,11 @@ namespace MyGUI
 		void unloadAllPlugins();
 
 	private:
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
+		void _load(xml::ElementPtr _node, std::string_view _file, Version _version);
 
 	private:
 		//!	List of dynamic libraries
-		typedef std::map <std::string, DynLib*> DynLibList;
+		typedef std::map <std::string, DynLib*, std::less<>> DynLibList;
 
 		//!	List of plugins
 		typedef std::set <IPlugin*> PluginList;

@@ -61,7 +61,7 @@ namespace MyGUI
 			(*skin)->_updateView();
 	}
 
-	bool SkinItem::_setSkinItemState(const std::string& _state)
+	bool SkinItem::_setSkinItemState(std::string_view _state)
 	{
 		MapWidgetStateInfo::const_iterator iter = mStateInfo.find(_state);
 		if (iter == mStateInfo.end())
@@ -130,7 +130,7 @@ namespace MyGUI
 		mSubSkinChild.clear();
 	}
 
-	void SkinItem::_setTextureName(const std::string& _texture)
+	void SkinItem::_setTextureName(std::string_view _texture)
 	{
 		mTextureName = _texture;
 		mTexture = RenderManager::getInstance().getTexture(mTextureName);

@@ -560,7 +560,7 @@ namespace tools
 					if (itemIndex == 0)
 					{
 						// поменять на теги
-						std::string resourceName = element->findAttribute("name");
+						std::string_view resourceName = element->findAttribute("name");
 						addUserTag("ResourceName", resourceName);
 						return MyGUI::utility::toString(fileName, " [", resourceName, "]");
 					}

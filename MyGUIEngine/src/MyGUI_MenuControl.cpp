@@ -112,7 +112,7 @@ namespace MyGUI
 		}
 	}
 
-	MenuItem* MenuControl::insertItemAt(size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
+	MenuItem* MenuControl::insertItemAt(size_t _index, const UString& _name, MenuItemType _type, std::string_view _id, Any _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "MenuControl::insertItemAt");
 		if (_index == ITEM_NONE) _index = mItemsInfo.size();
@@ -235,7 +235,7 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuControl::setItemIdAt(size_t _index, const std::string& _id)
+	void MenuControl::setItemIdAt(size_t _index, std::string_view _id)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::setItemIdAt");
 		mItemsInfo[_index].id = _id;
@@ -419,7 +419,7 @@ namespace MyGUI
 		}
 	}
 
-	Widget* MenuControl::createItemChildByType(size_t _index, const std::string& _type)
+	Widget* MenuControl::createItemChildByType(size_t _index, std::string_view _type)
 	{
 		MYGUI_ASSERT_RANGE(_index, mItemsInfo.size(), "MenuControl::createItemChildByType");
 		removeItemChildAt(_index);
@@ -498,7 +498,7 @@ namespace MyGUI
 		update();
 	}
 
-	void MenuControl::_wrapItem(MenuItem* _item, size_t _index, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
+	void MenuControl::_wrapItem(MenuItem* _item, size_t _index, const UString& _name, MenuItemType _type, std::string_view _id, Any _data)
 	{
 		_item->setAlign(mVerticalAlignment ? Align::Top | Align::HStretch : Align::Default);
 		_item->eventRootKeyChangeFocus += newDelegate(this, &MenuControl::notifyRootKeyChangeFocus);
@@ -584,12 +584,12 @@ namespace MyGUI
 		return controller;
 	}
 
-	MenuItem* MenuControl::insertItem(MenuItem* _to, const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
+	MenuItem* MenuControl::insertItem(MenuItem* _to, const UString& _name, MenuItemType _type, std::string_view _id, Any _data)
 	{
 		return insertItemAt(getItemIndex(_to), _name, _type, _id, _data);
 	}
 
-	MenuItem* MenuControl::addItem(const UString& _name, MenuItemType _type, const std::string& _id, Any _data)
+	MenuItem* MenuControl::addItem(const UString& _name, MenuItemType _type, std::string_view _id, Any _data)
 	{
 		return insertItemAt(ITEM_NONE, _name, _type, _id, _data);
 	}
@@ -625,7 +625,7 @@ namespace MyGUI
 		return nullptr;
 	}
 
-	MenuItem* MenuControl::getItemById(const std::string& _id) const
+	MenuItem* MenuControl::getItemById(std::string_view _id) const
 	{
 		for (size_t index = 0; index < mItemsInfo.size(); index++)
 		{
@@ -635,7 +635,7 @@ namespace MyGUI
 		MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuControl::getItemById'");
 	}
 
-	size_t MenuControl::getItemIndexById(const std::string& _id) const
+	size_t MenuControl::getItemIndexById(std::string_view _id) const
 	{
 		for (size_t index = 0; index < mItemsInfo.size(); index++)
 		{
@@ -645,7 +645,7 @@ namespace MyGUI
 		MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuControl::getItemById'");
 	}
 
-	MenuItem* MenuControl::findItemById(const std::string& _id, bool _recursive)
+	MenuItem* MenuControl::findItemById(std::string_view _id, bool _recursive)
 	{
 		for (size_t index = 0; index < mItemsInfo.size(); index++)
 		{
@@ -702,7 +702,7 @@ namespace MyGUI
 		clearItemDataAt(getItemIndex(_item));
 	}
 
-	void MenuControl::setItemId(MenuItem* _item, const std::string& _id)
+	void MenuControl::setItemId(MenuItem* _item, std::string_view _id)
 	{
 		setItemIdAt(getItemIndex(_item), _id);
 	}
@@ -878,7 +878,7 @@ namespace MyGUI
 		return mVerticalAlignment;
 	}
 
-	void MenuControl::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void MenuControl::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{MenuControl, VerticalAlignment, bool} Вертикальное выравнивание.
 		if (_key == "VerticalAlignment")

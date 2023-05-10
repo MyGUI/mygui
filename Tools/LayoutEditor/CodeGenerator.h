@@ -31,8 +31,8 @@ namespace tools
 		void saveTemplate();
 
 	private:
-		void parseTemplate(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
-		std::string stringToUpperCase(const std::string& _str);
+		void parseTemplate(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version);
+		std::string stringToUpperCase(std::string_view _str);
 		void printWidgetDeclaration(WidgetContainer* _container, std::ofstream& _stream);
 		void notifyGeneratePressed(MyGUI::Widget* _sender);
 		void notifyCancel(MyGUI::Widget* _sender);

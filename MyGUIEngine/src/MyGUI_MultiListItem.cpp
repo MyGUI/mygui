@@ -57,7 +57,7 @@ namespace MyGUI
 			owner->setColumnWidth(this, _value);
 	}
 
-	void MultiListItem::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void MultiListItem::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{MultiListItem, ItemResizingPolicy, ResizingPolicy} Поведение при изменении размера.
 		if (_key == "ItemResizingPolicy")

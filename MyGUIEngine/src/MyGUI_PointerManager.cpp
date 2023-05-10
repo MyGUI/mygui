@@ -87,7 +87,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void PointerManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
+	void PointerManager::_load(xml::ElementPtr _node, std::string_view _file, Version _version)
 	{
 #ifndef MYGUI_DONT_USE_OBSOLETE
 		loadOldPointerFormat(_node, _file, _version, mXmlPointerTagName);
@@ -98,8 +98,8 @@ namespace MyGUI
 		{
 			if (node->getName() == mXmlPropertyTagName)
 			{
-				const std::string& key = node->findAttribute("key");
-				const std::string& value = node->findAttribute("value");
+				std::string_view key = node->findAttribute("key");
+				std::string_view value = node->findAttribute("value");
 				if (key == "Default")
 					setDefaultPointer(value);
 				else if (key == "Layer")
@@ -128,7 +128,7 @@ namespace MyGUI
 		mVisible = _visible;
 	}
 
-	void PointerManager::setPointer(const std::string& _name, Widget* _owner)
+	void PointerManager::setPointer(std::string_view _name, Widget* _owner)
 	{
 		if (nullptr == mMousePointer)
 			return;
@@ -161,7 +161,7 @@ namespace MyGUI
 	}
 
 	// создает виджет
-	Widget* PointerManager::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	Widget* PointerManager::baseCreateWidget(WidgetStyle _style, std::string_view _type, std::string_view _skin, const IntCoord& _coord, Align _align, std::string_view _layer, std::string_view _name)
 	{
 		Widget* widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, /*_align, */nullptr, nullptr, /*this, */_name);
 		mWidgetChild.push_back(widget);
@@ -192,7 +192,7 @@ namespace MyGUI
 		}
 	}
 
-	void PointerManager::setDefaultPointer(const std::string& _value)
+	void PointerManager::setDefaultPointer(std::string_view _value)
 	{
 		Update();
 
@@ -200,7 +200,7 @@ namespace MyGUI
 		setPointer(mDefaultName, nullptr);
 	}
 
-	void PointerManager::setLayerName(const std::string& _value)
+	void PointerManager::setLayerName(std::string_view _value)
 	{
 		Update();
 
@@ -215,7 +215,7 @@ namespace MyGUI
 			mMousePointer = static_cast<ImageBox*>(baseCreateWidget(WidgetStyle::Overlapped, ImageBox::getClassTypeName(), mSkinName, IntCoord(), Align::Default, "", ""));
 	}
 
-	IPointer* PointerManager::getByName(const std::string& _name) const
+	IPointer* PointerManager::getByName(std::string_view _name) const
 	{
 		IResource* result = nullptr;
 		if (!_name.empty() && _name != mXmlDefaultPointerValue)
@@ -246,7 +246,7 @@ namespace MyGUI
 		}
 	}
 
-	void PointerManager::setPointer(const std::string& _name)
+	void PointerManager::setPointer(std::string_view _name)
 	{
 		setPointer(_name, nullptr);
 	}

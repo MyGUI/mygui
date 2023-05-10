@@ -69,7 +69,7 @@ namespace MyGUI
 		mLayerNodes.clear();
 	}
 
-	void LayerManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
+	void LayerManager::_load(xml::ElementPtr _node, std::string_view _file, Version _version)
 	{
 		VectorLayer layers;
 		// берем детей и крутимся, основной цикл
@@ -90,7 +90,7 @@ namespace MyGUI
 				MYGUI_ASSERT((*iter)->getName() != name, "Layer '" << name << "' already exist (file : " << _file << ")");
 			}
 
-			std::string type = layer->findAttribute("type");
+			std::string_view type = layer->findAttribute("type");
 			if (type.empty() && _version <= Version(1, 0))
 			{
 				bool overlapped = utility::parseBool(layer->findAttribute("overlapped"));
@@ -107,7 +107,7 @@ namespace MyGUI
 		merge(layers);
 	}
 
-	ILayer* LayerManager::_createLayerObject(const std::string& _type)
+	ILayer* LayerManager::_createLayerObject(std::string_view _type)
 	{
 		IObject* object = FactoryManager::getInstance().createObject(mCategoryName, _type);
 		MYGUI_ASSERT(object != nullptr, "factory '" << _type << "' is not found");
@@ -121,7 +121,7 @@ namespace MyGUI
 	}
 
 	// поправить на виджет и проверять на рутовость
-	void LayerManager::attachToLayerNode(const std::string& _name, Widget* _item)
+	void LayerManager::attachToLayerNode(std::string_view _name, Widget* _item)
 	{
 		MYGUI_ASSERT(nullptr != _item, "pointer must be valid");
 		MYGUI_ASSERT(_item->isRootWidget(), "attached widget must be root");
@@ -156,7 +156,7 @@ namespace MyGUI
 		_item->upLayerItem();
 	}
 
-	bool LayerManager::isExist(const std::string& _name) const
+	bool LayerManager::isExist(std::string_view _name) const
 	{
 		return getByName(_name, false) != nullptr;
 	}
@@ -191,7 +191,7 @@ namespace MyGUI
 		mLayerNodes = _layers;
 	}
 
-	ILayer* LayerManager::createLayerAt(const std::string& _name, const std::string& _type, size_t _index)
+	ILayer* LayerManager::createLayerAt(std::string_view _name, std::string_view _type, size_t _index)
 	{
 		MYGUI_ASSERT_RANGE(_index, mLayerNodes.size() + 1, "LayerManager::getLayer");
 
@@ -229,7 +229,7 @@ namespace MyGUI
 		}
 	}
 
-	ILayer* LayerManager::getByName(const std::string& _name, bool _throw) const
+	ILayer* LayerManager::getByName(std::string_view _name, bool _throw) const
 	{
 		for (VectorLayer::const_iterator iter = mLayerNodes.begin(); iter != mLayerNodes.end(); ++iter)
 		{

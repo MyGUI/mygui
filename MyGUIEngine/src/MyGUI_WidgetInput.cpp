@@ -139,7 +139,7 @@ namespace MyGUI
 		return mNeedToolTip;
 	}
 
-	void WidgetInput::setPointer(const std::string& _value)
+	void WidgetInput::setPointer(std::string_view _value)
 	{
 		mPointer = _value;
 	}

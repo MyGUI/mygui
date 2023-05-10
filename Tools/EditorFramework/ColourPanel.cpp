@@ -34,7 +34,7 @@ namespace tools
 		destroyTexture();
 	}
 
-	void ColourPanel::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void ColourPanel::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string&)
 	{
 		Control::OnInitialise(_parent, _place, GetLayoutName(this));
 
@@ -113,8 +113,8 @@ namespace tools
 		{
 			for (size_t i = 0; i < size; i++)
 			{
-				float x = (float)i / size;
-				float y = (float)j / size;
+				float x = static_cast<float>(i) / size;
+				float y = static_cast<float>(j) / size;
 				*pDest++ = MyGUI::uint8((1.f - y) * (_colour.blue  * x + (1.f - x)) * 255); // B
 				*pDest++ = MyGUI::uint8((1.f - y) * (_colour.green * x + (1.f - x)) * 255); // G
 				*pDest++ = MyGUI::uint8((1.f - y) * (_colour.red   * x + (1.f - x)) * 255); // R
@@ -179,21 +179,21 @@ namespace tools
 
 		eventPreviewColour(mCurrentColour);
 
-		mEditRed->setCaption(MyGUI::utility::toString((int)(mCurrentColour.red * 255)));
-		mEditGreen->setCaption(MyGUI::utility::toString((int)(mCurrentColour.green * 255)));
-		mEditBlue->setCaption(MyGUI::utility::toString((int)(mCurrentColour.blue * 255)));
+		mEditRed->setCaption(MyGUI::utility::toString(static_cast<int>(mCurrentColour.red * 255)));
+		mEditGreen->setCaption(MyGUI::utility::toString(static_cast<int>(mCurrentColour.green * 255)));
+		mEditBlue->setCaption(MyGUI::utility::toString(static_cast<int>(mCurrentColour.blue * 255)));
 	}
 
 	void ColourPanel::notifyScrollChangePosition(MyGUI::ScrollBar* _sender, size_t _position)
 	{
-		float sector_size = (float)mScrollRange->getScrollRange() / 6.0f;
-		float sector_current = (float)_position / sector_size;
+		float sector_size = static_cast<float>(mScrollRange->getScrollRange()) / 6.0f;
+		float sector_current = static_cast<float>(_position) / sector_size;
 
 		// current sector
-		size_t current = (size_t)sector_current;
+		size_t current = static_cast<size_t>(sector_current);
 		assert(current < 6);
 		// offset to the next sector from 0 to 1
-		float offfset = (sector_current - (float)current);
+		float offfset = sector_current - static_cast<float>(current);
 
 		const MyGUI::Colour& from = mColourRange[current];
 		const MyGUI::Colour& to = mColourRange[current + 1];
@@ -233,9 +233,9 @@ namespace tools
 	void ColourPanel::setColour(const MyGUI::Colour& _colour)
 	{
 		MyGUI::Colour colour = getSaturate(_colour);
-		mEditRed->setCaption(MyGUI::utility::toString((int)(colour.red * 255)));
-		mEditGreen->setCaption(MyGUI::utility::toString((int)(colour.green * 255)));
-		mEditBlue->setCaption(MyGUI::utility::toString((int)(colour.blue * 255)));
+		mEditRed->setCaption(MyGUI::utility::toString(static_cast<int>(colour.red * 255)));
+		mEditGreen->setCaption(MyGUI::utility::toString(static_cast<int>(colour.green * 255)));
+		mEditBlue->setCaption(MyGUI::utility::toString(static_cast<int>(colour.blue * 255)));
 		mInputAlpha->setCaption(MyGUI::utility::toString(mAlphaSupport ? colour.alpha : 1));
 
 		updateFromColour(colour);
@@ -253,7 +253,7 @@ namespace tools
 		vec.push_back(mCurrentColour.blue);
 		std::sort(vec.begin(), vec.end());
 
-		MyGUI::IntPoint point((int)((1 - vec[0] / vec[2]) * mColourRect->getWidth()), (int)((1 - vec[2]) * mColourRect->getHeight()));
+		MyGUI::IntPoint point(static_cast<int>((1 - vec[0] / vec[2]) * mColourRect->getWidth()), static_cast<int>((1 - vec[2]) * mColourRect->getHeight()));
 		mImageColourPicker->setPosition(point.left - (mImageColourPicker->getWidth() / 2), point.top - (mImageColourPicker->getHeight() / 2));
 
 		int iMax = (mCurrentColour.red == vec[2]) ? 0 : (mCurrentColour.green == vec[2]) ? 1 : 2;
@@ -286,7 +286,7 @@ namespace tools
 				break;
 		}
 
-		float sector_size = (float)mScrollRange->getScrollRange() / 6.0f;
+		float sector_size = static_cast<float>(mScrollRange->getScrollRange()) / 6.0f;
 		size_t current = i;
 
 		float offset = byIndex(mBaseColour, iAvg);
@@ -304,7 +304,7 @@ namespace tools
 
 		updateTexture(mBaseColour);
 
-		mAlphaSlider->setScrollPosition((size_t)((double)(mAlphaSlider->getScrollRange() - 1) * (double)mCurrentColour.alpha));
+		mAlphaSlider->setScrollPosition(static_cast<size_t>(static_cast<double>(mAlphaSlider->getScrollRange() - 1) * static_cast<double>(mCurrentColour.alpha)));
 
 		mColourView->setColour(mCurrentColour);
 		mColourView->setAlpha(mCurrentColour.alpha);
@@ -384,7 +384,7 @@ namespace tools
 		_sender->setCaption(value);
 		_sender->setTextCursor(index);
 
-		mAlphaSlider->setScrollPosition((size_t)((double)(mAlphaSlider->getScrollRange() - 1) * (double)mCurrentColour.alpha));
+		mAlphaSlider->setScrollPosition(static_cast<size_t>(static_cast<double>(mAlphaSlider->getScrollRange() - 1) * mCurrentColour.alpha));
 		mColourView->setAlpha(mCurrentColour.alpha);
 
 		eventPreviewColour(mCurrentColour);
@@ -392,7 +392,7 @@ namespace tools
 
 	void ColourPanel::notifyScrollChangePositionAlpha(MyGUI::ScrollBar* _sender, size_t _position)
 	{
-		mCurrentColour.alpha = (float)((double)mAlphaSlider->getScrollPosition() / (double)(mAlphaSlider->getScrollRange() - 1));
+		mCurrentColour.alpha = static_cast<float>(static_cast<double>(mAlphaSlider->getScrollPosition()) / static_cast<double>(mAlphaSlider->getScrollRange() - 1));
 
 		if (mCurrentColour.alpha > 1)
 			mCurrentColour.alpha = 1;

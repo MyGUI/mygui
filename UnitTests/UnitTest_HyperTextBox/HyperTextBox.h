@@ -40,25 +40,25 @@ namespace MyGUI
 		void setSpacer(const IntSize& _value);
 
 		const std::string& getHeader1Font() const;
-		void setHeader1Font(const std::string& _value);
+		void setHeader1Font(std::string_view _value);
 
 		const std::string& getHeader2Font() const;
-		void setHeader2Font(const std::string& _value);
+		void setHeader2Font(std::string_view _value);
 
 		const std::string& getHeader3Font() const;
-		void setHeader3Font(const std::string& _value);
+		void setHeader3Font(std::string_view _value);
 
 		const std::string& getDefaultFont() const;
-		void setDefaultFont(const std::string& _value);
+		void setDefaultFont(std::string_view _value);
 
 		const std::string& getBoldFont() const;
-		void setBoldFont(const std::string& _value);
+		void setBoldFont(std::string_view _value);
 
 		const std::string& getItalicFont() const;
-		void setItalicFont(const std::string& _value);
+		void setItalicFont(std::string_view _value);
 
 		const std::string& getBoldItalicFont() const;
-		void setBoldItalicFont(const std::string& _value);
+		void setBoldItalicFont(std::string_view _value);
 
 	/*events:*/
 		/** Event : Click to Url.\n
@@ -72,7 +72,7 @@ namespace MyGUI
 		void initialiseOverride() override;
 		void shutdownOverride() override;
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
 		void parseParagraph(Widget* _parent, const std::string& _value);

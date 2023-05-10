@@ -46,7 +46,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	bool PluginManager::loadPlugin(const std::string& _file)
+	bool PluginManager::loadPlugin(std::string_view _file)
 	{
 #ifdef EMSCRIPTEN
 		return false;
@@ -70,7 +70,7 @@ namespace MyGUI
 		}
 
 		// Store for later unload
-		mLibs[_file] = lib;
+		mLibs[lib->getName()] = lib;
 
 		// This must call installPlugin
 		pFunc();
@@ -78,7 +78,7 @@ namespace MyGUI
 		return true;
 	}
 
-	void PluginManager::unloadPlugin(const std::string& _file)
+	void PluginManager::unloadPlugin(std::string_view _file)
 	{
 		MYGUI_ASSERT(mIsInitialise, getClassTypeName() << " used but not initialised");
 
@@ -98,7 +98,7 @@ namespace MyGUI
 		}
 	}
 
-	void PluginManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
+	void PluginManager::_load(xml::ElementPtr _node, std::string_view, Version _version)
 	{
 		xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next())
@@ -111,12 +111,12 @@ namespace MyGUI
 			}
 			else if (node->getName() == "Plugin")
 			{
-				std::string source;
+				std::string_view source;
 
 				xml::ElementEnumerator source_node = node->getElementEnumerator();
 				while (source_node.next("Source"))
 				{
-					std::string build = source_node->findAttribute("build");
+					std::string_view build = source_node->findAttribute("build");
 #if MYGUI_DEBUG_MODE == 1
 					if (build == "Debug")
 						source = source_node->getContent();

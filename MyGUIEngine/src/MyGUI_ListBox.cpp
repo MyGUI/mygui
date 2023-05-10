@@ -928,7 +928,7 @@ namespace MyGUI
 		}
 	}
 
-	void ListBox::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void ListBox::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		// не коментировать
 		if (_key == "AddItem")

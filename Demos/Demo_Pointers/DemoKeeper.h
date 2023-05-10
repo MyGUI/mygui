@@ -34,7 +34,7 @@ namespace demo
 		void injectMouseRelease(int _absx, int _absy, MyGUI::MouseButton _id) override;
 		void injectKeyPress(MyGUI::KeyCode _key, MyGUI::Char _text) override;
 
-		void setPointer(const std::string& _name) override;
+		void setPointer(std::string_view _name) override;
 
 		void createEntities();
 		void destroyEntities();

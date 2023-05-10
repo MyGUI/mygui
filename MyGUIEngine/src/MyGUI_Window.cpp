@@ -476,7 +476,7 @@ namespace MyGUI
 		return IntSize(mMinmax.right, mMinmax.bottom);
 	}
 
-	void Window::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void Window::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{Window, AutoAlpha, bool} Режим регулировки прозрачности опираясь на фокус ввода.
 		if (_key == "AutoAlpha")

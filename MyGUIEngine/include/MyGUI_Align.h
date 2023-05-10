@@ -124,7 +124,7 @@ namespace MyGUI
 
 		typedef std::map<std::string, int> MapAlign;
 
-		static Align parse(const std::string& _value)
+		static Align parse(std::string_view _value)
 		{
 			Align result(Enum(0));
 			const MapAlign& map_names = result.getValueNames();

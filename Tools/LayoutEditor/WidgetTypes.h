@@ -16,26 +16,26 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		WidgetStyle* findWidgetStyle(const std::string& _type);
-		WidgetStyle* findWidgetStyleBySkin(const std::string& _skinName);
+		WidgetStyle* findWidgetStyle(std::string_view _type);
+		WidgetStyle* findWidgetStyleBySkin(std::string_view _skinName);
 		typedef std::vector<std::string> VectorString;
-		VectorString findPossibleValues(const std::string& _name);
+		VectorString findPossibleValues(std::string_view _name);
 
 		void clearAllSkins();
 
-		void addWidgetSkinType(const std::string& _type, const std::string& _skin, const std::string& _group, const std::string& _button_name);
+		void addWidgetSkinType(std::string_view _type, std::string_view _skin, std::string_view _group, std::string_view _button_name);
 
 		const SkinGroups& getSkinGroups() const;
 
 		VectorWidgetType getWidgetTypes() const;
 
 	private:
-		void loadWidgets(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
-		void loadValues(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
+		void loadWidgets(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version);
+		void loadValues(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version);
 
-		WidgetStyle* getWidgetType(const std::string& _name);
+		WidgetStyle* getWidgetType(std::string_view _name);
 
-		PossibleValue* getPossibleValue(const std::string& _name);
+		PossibleValue* getPossibleValue(std::string_view _name);
 
 		void updateDepth();
 		size_t updateDepth(WidgetStyle* _style);

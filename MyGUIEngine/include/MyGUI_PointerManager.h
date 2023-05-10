@@ -36,36 +36,36 @@ namespace MyGUI
 		/** Set pointer that will be shown
 			@param _name of pointer
 		*/
-		void setPointer(const std::string& _name);
+		void setPointer(std::string_view _name);
 		/** Reset to default pointer */
 		void resetToDefaultPointer();
 
 		/** Get default pointer */
 		const std::string& getDefaultPointer() const;
 		/** Set default pointer */
-		void setDefaultPointer(const std::string& _value);
+		void setDefaultPointer(std::string_view _value);
 
 		/** Get layer name where pointer rendered */
 		const std::string& getLayerName() const;
 		/** Set layer where pointer rendered */
-		void setLayerName(const std::string& _value);
+		void setLayerName(std::string_view _value);
 
 		/** Get pointer resource */
-		IPointer* getByName(const std::string& _name) const;
+		IPointer* getByName(std::string_view _name) const;
 
 		/*events:*/
 		/** Event : Mouse pointer has been changed.\n
-			signature : void method(const std::string& _pointerName)\n
+			signature : void method(std::string_view _pointerName)\n
 			@param _pointerName Name of current mouse pointer
 		*/
-		delegates::CMultiDelegate1<const std::string&> eventChangeMousePointer;
+		delegates::CMultiDelegate1<std::string_view> eventChangeMousePointer;
 
 	private:
 		void _unlinkWidget(Widget* _widget) override;
-		void _load(xml::ElementPtr _node, const std::string& _file, Version _version);
+		void _load(xml::ElementPtr _node, std::string_view _file, Version _version);
 
 		// создает виджет
-		Widget* baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name);
+		Widget* baseCreateWidget(WidgetStyle _style, std::string_view _type, std::string_view _skin, const IntCoord& _coord, Align _align, std::string_view _layer, std::string_view _name);
 
 		// удаляет всех детей
 		void _destroyAllChildWidget();
@@ -74,7 +74,7 @@ namespace MyGUI
 
 		void notifyFrameStart(float _time);
 		void notifyChangeMouseFocus(Widget* _widget);
-		void setPointer(const std::string& _name, Widget* _owner);
+		void setPointer(std::string_view _name, Widget* _owner);
 
 	private:
 		// вектор всех детей виджетов

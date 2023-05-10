@@ -46,7 +46,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void LanguageManager::_load(xml::ElementPtr _node, const std::string& _file, Version _version)
+	void LanguageManager::_load(xml::ElementPtr _node, std::string_view, Version _version)
 	{
 		std::string default_lang;
 		bool event_change = false;
@@ -102,7 +102,7 @@ namespace MyGUI
 			eventChangeLanguage(mCurrentLanguageName);
 	}
 
-	void LanguageManager::setCurrentLanguage(const std::string& _name)
+	void LanguageManager::setCurrentLanguage(std::string_view _name)
 	{
 		MapListString::iterator item = mMapFile.find(_name);
 		if (item == mMapFile.end())

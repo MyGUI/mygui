@@ -113,7 +113,7 @@ namespace MyGUI
 	}
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
-	void Gui::initialise(const std::string& _core, const std::string& _logFileName)
+	void Gui::initialise(const std::string& _core, std::string_view _logFileName)
 	{
 		initialise(_core);
 	}
@@ -172,7 +172,7 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	Widget* Gui::baseCreateWidget(WidgetStyle _style, const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	Widget* Gui::baseCreateWidget(WidgetStyle _style, std::string_view _type, std::string_view _skin, const IntCoord& _coord, Align _align, std::string_view _layer, std::string_view _name)
 	{
 		Widget* widget = WidgetManager::getInstance().createWidget(_style, _type, _skin, _coord, /*_align, */nullptr, nullptr, _name);
 		mWidgetChild.push_back(widget);
@@ -185,7 +185,7 @@ namespace MyGUI
 		return widget;
 	}
 
-	Widget* Gui::findWidgetT(const std::string& _name, bool _throw)
+	Widget* Gui::findWidgetT(std::string_view _name, bool _throw)
 	{
 		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
 		{
@@ -281,31 +281,33 @@ namespace MyGUI
 		mWidgetChild.erase(iter);
 	}
 
-	Widget* Gui::createWidgetT(const std::string& _type, const std::string& _skin, const IntCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	Widget* Gui::createWidgetT(std::string_view _type, std::string_view _skin, const IntCoord& _coord, Align _align, std::string_view _layer, std::string_view _name)
 	{
 		return baseCreateWidget(WidgetStyle::Overlapped, _type, _skin, _coord, _align, _layer, _name);
 	}
 	/** See Gui::createWidgetT */
-	Widget* Gui::createWidgetT(const std::string& _type, const std::string& _skin, int _left, int _top, int _width, int _height, Align _align, const std::string& _layer, const std::string& _name)
+	Widget* Gui::createWidgetT(std::string_view _type, std::string_view _skin, int _left, int _top, int _width, int _height, Align _align, std::string_view _layer, std::string_view _name)
 	{
 		return createWidgetT(_type, _skin, IntCoord(_left, _top, _width, _height), _align, _layer, _name);
 	}
 	/** Create widget using coordinates relative to parent widget. see Gui::createWidgetT */
-	Widget* Gui::createWidgetRealT(const std::string& _type, const std::string& _skin, const FloatCoord& _coord, Align _align, const std::string& _layer, const std::string& _name)
+	Widget* Gui::createWidgetRealT(std::string_view _type, std::string_view _skin, const FloatCoord& _coord, Align _align, std::string_view _layer, std::string_view _name)
 	{
 		IntSize size = RenderManager::getInstance().getViewSize();
-		return createWidgetT(_type, _skin, IntCoord((int)(_coord.left * size.width), (int)(_coord.top * size.height), (int)(_coord.width * size.width), (int)(_coord.height * size.height)), _align, _layer, _name);
+		return createWidgetT(_type, _skin, IntCoord(static_cast<int>(_coord.left * size.width), static_cast<int>(_coord.top * size.height), static_cast<int>(_coord.width * size.width), static_cast<int>(_coord.height * size.height)), _align, _layer, _name);
 	}
 	/** Create widget using coordinates relative to parent. see Gui::createWidgetT */
-	Widget* Gui::createWidgetRealT(const std::string& _type, const std::string& _skin, float _left, float _top, float _width, float _height, Align _align, const std::string& _layer, const std::string& _name)
+	Widget* Gui::createWidgetRealT(std::string_view _type, std::string_view _skin, float _left, float _top, float _width, float _height, Align _align, std::string_view _layer, std::string_view _name)
 	{
 		IntSize size = RenderManager::getInstance().getViewSize();
-		return createWidgetT(_type, _skin, IntCoord((int)(_left * size.width), (int)(_top * size.height), (int)(_width * size.width), (int)(_height * size.height)), _align, _layer, _name);
+		return createWidgetT(_type, _skin, IntCoord(static_cast<int>(_left * size.width), static_cast<int>(_top * size.height), static_cast<int>(_width * size.width), static_cast<int>(_height * size.height)), _align, _layer, _name);
 	}
 
-	Widget* Gui::findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw)
+	Widget* Gui::findWidgetT(std::string_view _name, std::string_view _prefix, bool _throw)
 	{
-		return findWidgetT(_prefix + _name, _throw);
+		std::string name{_prefix};
+		name += _name;
+		return findWidgetT(name, _throw);
 	}
 
 	void Gui::destroyChildWidget(Widget* _widget)

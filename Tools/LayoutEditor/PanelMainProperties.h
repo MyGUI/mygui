@@ -40,8 +40,8 @@ namespace tools
 		void hidePropertyFields();
 		void updateSize();
 
-		bool isSkinExist(const std::string& _skinName);
-		bool checkTemplate(const std::string& _skinName);
+		bool isSkinExist(std::string_view _skinName);
+		bool checkTemplate(std::string_view _skinName);
 
 		IPropertyField* getPropertyField(MyGUI::Widget* _client, const std::string& _name, const std::string& _type);
 

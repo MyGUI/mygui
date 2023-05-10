@@ -18,7 +18,6 @@ namespace tools
 		MYGUI_SINGLETON_DECLARATION(HotKeyManager);
 	public:
 		HotKeyManager();
-		virtual ~HotKeyManager();
 
 		void initialise();
 		void shutdown();
@@ -26,7 +25,7 @@ namespace tools
 		bool onKeyEvent(bool _pressed, bool _shift, bool _control, MyGUI::KeyCode _key);
 
 	private:
-		void loadXml(MyGUI::xml::ElementPtr _node, const std::string& _file, MyGUI::Version _version);
+		void loadXml(MyGUI::xml::ElementPtr _node, std::string_view _file, MyGUI::Version _version);
 
 		void addCommand(HotKeyCommand& _command);
 

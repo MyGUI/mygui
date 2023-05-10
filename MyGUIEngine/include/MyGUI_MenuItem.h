@@ -32,7 +32,7 @@ namespace MyGUI
 		void setCaption(const UString& _value) override;
 
 		/** @copydoc TextBox::setFontName(const std::string& _value) */
-		void setFontName(const std::string& _value) override;
+		void setFontName(std::string_view _value) override;
 
 		/** @copydoc TextBox::setFontHeight(int _value) */
 		void setFontHeight(int _value) override;
@@ -56,7 +56,7 @@ namespace MyGUI
 		void removeItem();
 
 		//! Replace an item id at a specified position
-		void setItemId(const std::string& _value);
+		void setItemId(std::string_view _value);
 		//! Get item id from specified position
 		const std::string& getItemId() const;
 
@@ -98,7 +98,7 @@ namespace MyGUI
 		void initialiseOverride() override;
 		void shutdownOverride() override;
 
-		void setPropertyOverride(const std::string& _key, const std::string& _value) override;
+		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 		void onWidgetCreated(Widget* _widget) override;
 

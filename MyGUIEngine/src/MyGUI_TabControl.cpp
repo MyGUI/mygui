@@ -614,7 +614,7 @@ namespace MyGUI
 		return mWidgetBar == nullptr ? this : mWidgetBar;
 	}
 
-	void TabControl::setPropertyOverride(const std::string& _key, const std::string& _value)
+	void TabControl::setPropertyOverride(std::string_view _key, std::string_view _value)
 	{
 		/// @wproperty{TabControl, ButtonWidth, int} Ширина кнопок в заголовках в пикселях.
 		if (_key == "ButtonWidth")
