@@ -62,7 +62,7 @@ namespace MyGUI
 		}
 	}
 
-	ImageIndexInfo ResourceImageSet::getIndexInfo(const std::string& _group, const std::string& _index) const
+	ImageIndexInfo ResourceImageSet::getIndexInfo(std::string_view _group, std::string_view _index) const
 	{
 		size_t index_group = getGroupIndex(_group);
 		if (index_group != ITEM_NONE)
@@ -78,7 +78,7 @@ namespace MyGUI
 		return ImageIndexInfo(Constants::getEmptyString(), Constants::getZeroIntSize(), 0, mFramesEmpty);
 	}
 
-	ImageIndexInfo ResourceImageSet::getIndexInfo(size_t _group, const std::string& _index) const
+	ImageIndexInfo ResourceImageSet::getIndexInfo(size_t _group, std::string_view _index) const
 	{
 		if (_group < mGroups.size())
 		{
@@ -93,7 +93,7 @@ namespace MyGUI
 		return ImageIndexInfo(Constants::getEmptyString(), Constants::getZeroIntSize(), 0, mFramesEmpty);
 	}
 
-	ImageIndexInfo ResourceImageSet::getIndexInfo(const std::string& _group, size_t _index) const
+	ImageIndexInfo ResourceImageSet::getIndexInfo(std::string_view _group, size_t _index) const
 	{
 		size_t index_group = getGroupIndex(_group);
 		if (index_group != ITEM_NONE)
@@ -137,7 +137,7 @@ namespace MyGUI
 		return ImageIndexInfo(Constants::getEmptyString(), Constants::getZeroIntSize(), 0, mFramesEmpty);
 	}
 
-	ImageIndexInfo ResourceImageSet::getIndexInfo(const IntSize& _group, const std::string& _index) const
+	ImageIndexInfo ResourceImageSet::getIndexInfo(const IntSize& _group, std::string_view _index) const
 	{
 		size_t index_group = getGroupIndex(_group);
 		if (index_group != ITEM_NONE)
@@ -153,7 +153,7 @@ namespace MyGUI
 		return ImageIndexInfo(Constants::getEmptyString(), Constants::getZeroIntSize(), 0, mFramesEmpty);
 	}
 
-	size_t ResourceImageSet::getGroupIndex(const std::string& _name) const
+	size_t ResourceImageSet::getGroupIndex(std::string_view _name) const
 	{
 		for (size_t index = 0; index < mGroups.size(); ++index)
 		{
@@ -173,7 +173,7 @@ namespace MyGUI
 		return ITEM_NONE;
 	}
 
-	size_t ResourceImageSet::getImageIndex(const GroupImage& _group, const std::string& _name) const
+	size_t ResourceImageSet::getImageIndex(const GroupImage& _group, std::string_view _name) const
 	{
 		const VectorIndexImage& indices = _group.indexes;
 		for (size_t index = 0; index < indices.size(); ++index)
