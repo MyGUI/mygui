@@ -31,7 +31,7 @@ namespace MyGUI
 		/** @copydoc TextBox::setCaption(const UString& _value) */
 		void setCaption(const UString& _value) override;
 
-		/** @copydoc TextBox::setFontName(const std::string& _value) */
+		/** @copydoc TextBox::setFontName(std::string_view _value) */
 		void setFontName(std::string_view _value) override;
 
 		/** @copydoc TextBox::setFontHeight(int _value) */

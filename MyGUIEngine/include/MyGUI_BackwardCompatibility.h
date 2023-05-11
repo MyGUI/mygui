@@ -38,7 +38,7 @@ namespace MyGUI
 		bool getStateCheck() const;
 		MYGUI_OBSOLETE(" is deprecated")
 		ImageBox* getStaticImage() const;
-		MYGUI_OBSOLETE(" is deprecated, use : void Button::setImageName(const std::string& _name)")
+		MYGUI_OBSOLETE(" is deprecated, use : void Button::setImageName(std::string_view _name)")
 		void setImageIndex(size_t _value);
 		MYGUI_OBSOLETE(" is deprecated")
 		size_t getImageIndex() const;
@@ -486,8 +486,8 @@ namespace MyGUI
 	class MYGUI_EXPORT MemberObsolete<LayoutManager>
 	{
 	public:
-		MYGUI_OBSOLETE(" is deprecated, use : VectorWidgetPtr& LayoutManager::loadLayout(const std::string& _file, const std::string& _prefix, Widget* _parent)")
-		VectorWidgetPtr load(const std::string& _file);
+		MYGUI_OBSOLETE(" is deprecated, use : VectorWidgetPtr& LayoutManager::loadLayout(std::string_view _file, std::string_view _prefix, Widget* _parent)")
+		VectorWidgetPtr load(std::string_view _file);
 	};
 
 	template <>
@@ -502,8 +502,8 @@ namespace MyGUI
 	class MYGUI_EXPORT MemberObsolete<PointerManager>
 	{
 	public:
-		MYGUI_OBSOLETE(" is deprecated, use : void PointerManager::setDefaultPointer(const std::string& _value)")
-		void setDeafultPointer(const std::string& _value);
+		MYGUI_OBSOLETE(" is deprecated, use : void PointerManager::setDefaultPointer(std::string_view _value)")
+		void setDeafultPointer(std::string_view _value);
 		MYGUI_OBSOLETE(" is deprecated, use : void PointerManager::setVisible(bool _visible)")
 		void show();
 		MYGUI_OBSOLETE(" is deprecated, use : void PointerManager::setVisible(bool _visible)")
@@ -522,16 +522,16 @@ namespace MyGUI
 	public:
 		MYGUI_OBSOLETE(" is deprecated, use : size_t ResourceManager::getCount()")
 		size_t getResourceCount() const;
-		MYGUI_OBSOLETE(" is deprecated, use : IResourcePtr ResourceManager::getByName(const std::string& _name, bool _throw)")
-		IResourcePtr getResource(const std::string& _name, bool _throw = true) const;
+		MYGUI_OBSOLETE(" is deprecated, use : IResourcePtr ResourceManager::getByName(std::string_view _name, bool _throw)")
+		IResourcePtr getResource(std::string_view _name, bool _throw = true) const;
 	};
 
 	template <>
 	class MYGUI_EXPORT MemberObsolete<SkinManager>
 	{
 	public:
-		MYGUI_OBSOLETE(" is deprecated, use : ResourceSkin* SkinManager::getByName(const std::string& _name)")
-		ResourceSkin* getSkin(const std::string& _name) const;
+		MYGUI_OBSOLETE(" is deprecated, use : ResourceSkin* SkinManager::getByName(std::string_view _name)")
+		ResourceSkin* getSkin(std::string_view _name) const;
 		MYGUI_OBSOLETE(" is deprecated, use : bool ResourceManager::load(const std::string& _file)")
 		bool load(const std::string& _file);
 
@@ -545,11 +545,11 @@ namespace MyGUI
 		MYGUI_OBSOLETE(" is deprecated, use : void WidgetManager::destroyWidgets(VectorWidgetPtr &_widgets)")
 		void destroyWidgetsVector(VectorWidgetPtr& _widgets);
 		MYGUI_OBSOLETE(" is deprecated")
-		Widget* findWidgetT(const std::string& _name, bool _throw = true);
+		Widget* findWidgetT(std::string_view _name, bool _throw = true);
 		MYGUI_OBSOLETE(" is deprecated")
-		Widget* findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw = true);
-		MYGUI_OBSOLETE(" is deprecated, use : void Widget::setProperty(const std::string &_key, const std::string &_value)")
-		void parse(Widget* _widget, const std::string& _key, const std::string& _value);
+		Widget* findWidgetT(std::string_view _name, std::string_view _prefix, bool _throw = true);
+		MYGUI_OBSOLETE(" is deprecated, use : void Widget::setProperty(std::string_view_key, std::string_view_value)")
+		void parse(Widget* _widget, std::string_view _key, std::string_view _value);
 	};
 
 #endif // MYGUI_DONT_USE_OBSOLETE

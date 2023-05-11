@@ -870,7 +870,7 @@ namespace MyGUI
 		return ResourceManager::getInstance().load(_file);
 	}
 
-	VectorWidgetPtr MemberObsolete<LayoutManager>::load(const std::string& _file)
+	VectorWidgetPtr MemberObsolete<LayoutManager>::load(std::string_view _file)
 	{
 		return static_cast<LayoutManager*>(this)->loadLayout(_file);
 	}
@@ -880,7 +880,7 @@ namespace MyGUI
 		return ResourceManager::getInstance().load(_file);
 	}
 
-	void MemberObsolete<PointerManager>::setDeafultPointer(const std::string& _value)
+	void MemberObsolete<PointerManager>::setDeafultPointer(std::string_view _value)
 	{
 		static_cast<PointerManager*>(this)->setDefaultPointer(_value);
 	}
@@ -986,12 +986,12 @@ namespace MyGUI
 	{
 		return static_cast<const ResourceManager*>(this)->getCount();
 	}
-	IResourcePtr MemberObsolete<ResourceManager>::getResource(const std::string& _name, bool _throw) const
+	IResourcePtr MemberObsolete<ResourceManager>::getResource(std::string_view _name, bool _throw) const
 	{
 		return static_cast<const ResourceManager*>(this)->getByName(_name, _throw);
 	}
 
-	ResourceSkin* MemberObsolete<SkinManager>::getSkin(const std::string& _name) const
+	ResourceSkin* MemberObsolete<SkinManager>::getSkin(std::string_view _name) const
 	{
 		return static_cast<const SkinManager*>(this)->getByName(_name);
 	}
@@ -1027,15 +1027,15 @@ namespace MyGUI
 	{
 		static_cast<WidgetManager*>(this)->destroyWidgets(_widgets);
 	}
-	Widget* MemberObsolete<WidgetManager>::findWidgetT(const std::string& _name, bool _throw)
+	Widget* MemberObsolete<WidgetManager>::findWidgetT(std::string_view _name, bool _throw)
 	{
 		return Gui::getInstance().findWidgetT(_name, _throw);
 	}
-	Widget* MemberObsolete<WidgetManager>::findWidgetT(const std::string& _name, const std::string& _prefix, bool _throw)
+	Widget* MemberObsolete<WidgetManager>::findWidgetT(std::string_view _name, std::string_view _prefix, bool _throw)
 	{
 		return Gui::getInstance().findWidgetT(_name, _prefix, _throw);
 	}
-	void MemberObsolete<WidgetManager>::parse(Widget* _widget, const std::string& _key, const std::string& _value)
+	void MemberObsolete<WidgetManager>::parse(Widget* _widget, std::string_view _key, std::string_view _value)
 	{
 		_widget->setProperty(_key, _value);
 	}
@@ -1045,7 +1045,7 @@ namespace MyGUI
 
 #ifndef MYGUI_DONT_USE_OBSOLETE
 
-	static std::string convertAlignToDirection(const std::string& _value)
+	static std::string_view convertAlignToDirection(std::string_view _value)
 	{
 		Align align = utility::parseValue<Align>(_value);
 		if (align == Align::Right)
@@ -1057,7 +1057,7 @@ namespace MyGUI
 		return FlowDirection(FlowDirection::LeftToRight).print();
 	}
 
-	static std::string convertRectToCoord(const std::string& _value)
+	static std::string convertRectToCoord(std::string_view _value)
 	{
 		IntRect rect = IntRect::parse(_value);
 		IntCoord coord(rect.left, rect.top, rect.width(), rect.height());
