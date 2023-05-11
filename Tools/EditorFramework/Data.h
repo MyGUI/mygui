@@ -9,6 +9,7 @@
 
 #include "DataType.h"
 #include <map>
+#include <type_traits>
 #include "Property.h"
 
 namespace tools
@@ -40,30 +41,31 @@ namespace tools
 		size_t getChildIndex(DataPtr _child);
 		DataPtr getChildByIndex(size_t _index);
 
-		typedef std::map<std::string, PropertyPtr> MapProperty;
+		typedef std::map<std::string, PropertyPtr, std::less<>> MapProperty;
 		const MapProperty& getProperties() const;
 
-		const std::string& getPropertyValue(const std::string& _name) const;
-		void setPropertyValue(const std::string& _name, const std::string& _value) const;
+		const std::string& getPropertyValue(std::string_view _name) const;
+		void setPropertyValue(std::string_view _name, std::string_view _value) const;
 
 		template <typename Type>
-		Type getPropertyValue(const std::string& _name) const
+		Type getPropertyValue(std::string_view _name) const
 		{
 			return MyGUI::utility::parseValue<Type>(getPropertyValue(_name));
 		}
 
-		template <typename Type>
-		void setPropertyValue(const std::string& _name, const Type& _value) const
+		template <class Type, typename = std::enable_if_t<!std::is_convertible_v<Type, std::string_view>>>
+		void setPropertyValue(std::string_view _name, const Type& _value) const
 		{
 			setPropertyValue(_name, MyGUI::utility::toString(_value));
 		}
 
-		void setPropertyValue(const std::string& _name, const bool& _value) const
+		template <>
+		void setPropertyValue(std::string_view _name, const bool& _value) const
 		{
-			setPropertyValue(_name, std::string(_value ? "True" : "False"));
+			setPropertyValue(_name, _value ? "True" : "False");
 		}
 
-		PropertyPtr getProperty(const std::string& _name) const;
+		PropertyPtr getProperty(std::string_view _name) const;
 
 		DataPtr getChildSelected();
 		void setChildSelected(DataPtr _child);

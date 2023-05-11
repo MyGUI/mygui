@@ -33,7 +33,7 @@ namespace tools
 		bool checkMenuCommand();
 
 	private:
-		void notifySettingsChanged(const std::string& _path);
+		void notifySettingsChanged(std::string_view _path);
 
 		void CommandChangeNextScale(const MyGUI::UString& _commandName, bool& _result);
 		void CommandChangePrevScale(const MyGUI::UString& _commandName, bool& _result);

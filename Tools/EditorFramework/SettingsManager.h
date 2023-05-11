@@ -11,6 +11,7 @@
 #include "pugixml.hpp"
 #include "StringUtility.h"
 #include "sigslot.h"
+#include <type_traits>
 
 namespace tools
 {
@@ -22,16 +23,16 @@ namespace tools
 		SettingsManager();
 		virtual ~SettingsManager();
 
-		bool loadSettingsFile(const std::string& _fileName);
-		void saveSettingsFile(const std::string& _fileName);
+		bool loadSettingsFile(std::string_view _fileName);
+		void saveSettingsFile(std::string_view _fileName);
 
-		bool loadUserSettingsFile(const std::string& _fileName);
+		bool loadUserSettingsFile(std::string_view _fileName);
 		void saveUserSettingsFile();
 
-		bool getExistValue(const std::string& _path);
+		bool getExistValue(std::string_view _path);
 
 		template <typename Type>
-		bool tryGetValue(const std::string& _path, Type& _result)
+		bool tryGetValue(std::string_view _path, Type& _result)
 		{
 			_result = Type();
 			if (getExistValue(_path))
@@ -42,26 +43,26 @@ namespace tools
 			return false;
 		}
 
-		std::string getValue(const std::string& _path);
-		void setValue(const std::string& _path, const std::string& _value);
+		std::string getValue(std::string_view _path);
+		void setValue(std::string_view _path, std::string_view _value);
 
 		template <typename Type>
-		Type getValue(const std::string& _path)
+		Type getValue(std::string_view _path)
 		{
 			return MyGUI::utility::parseValue<Type>(getValue(_path));
 		}
 
-		template <typename Type>
-		void setValue(const std::string& _path, const Type& value)
+		template <class Type, typename = std::enable_if_t<!std::is_convertible_v<Type, std::string_view>>>
+		void setValue(std::string_view _path, const Type& value)
 		{
 			setValue(_path, MyGUI::utility::toString(value));
 		}
 
 		typedef std::vector<std::string> VectorString;
-		VectorString getValueList(const std::string& _path);
+		VectorString getValueList(std::string_view _path);
 
 		template <typename Type>
-		std::vector<Type> getValueList(const std::string& _path)
+		std::vector<Type> getValueList(std::string_view _path)
 		{
 			VectorString resultString = getValueList(_path);
 			std::vector<Type> result;
@@ -73,10 +74,10 @@ namespace tools
 			return result;
 		}
 
-		void setValueList(const std::string& _path, const VectorString& _values);
+		void setValueList(std::string_view _path, const VectorString& _values);
 
 		template <typename Type>
-		void setValueList(const std::string& _path, const std::vector<Type>& _values)
+		void setValueList(std::string_view _path, const std::vector<Type>& _values)
 		{
 			VectorString values;
 			values.reserve(_values.size());
@@ -87,9 +88,9 @@ namespace tools
 			setValueList(_path, values);
 		}
 
-		pugi::xpath_node_set getValueNodeList(const std::string& _path);
+		pugi::xpath_node_set getValueNodeList(std::string_view _path);
 
-		sigslot::signal1<const std::string&> eventSettingsChanged;
+		sigslot::signal1<std::string_view> eventSettingsChanged;
 
 	private:
 		void mergeNodes(pugi::xml_node _node1, pugi::xml_node _node2);

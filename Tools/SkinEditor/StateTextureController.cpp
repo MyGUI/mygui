@@ -113,7 +113,7 @@ namespace tools
 		}
 	}
 
-	void StateTextureController::notifyChangeValue(const std::string& _value)
+	void StateTextureController::notifyChangeValue(std::string_view _value)
 	{
 		if (mParentData != nullptr)
 		{
@@ -127,7 +127,7 @@ namespace tools
 		}
 	}
 
-	void StateTextureController::notifyChangeScope(const std::string& _scope)
+	void StateTextureController::notifyChangeScope(std::string_view _scope)
 	{
 		if (mControl == nullptr)
 			return;
@@ -172,7 +172,7 @@ namespace tools
 		}
 	}
 
-	void StateTextureController::updateCoords(const std::string& _value)
+	void StateTextureController::updateCoords(std::string_view _value)
 	{
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))
@@ -222,9 +222,9 @@ namespace tools
 			mControl->setViewSelectors(mFrames);
 	}
 
-	void StateTextureController::updateTexture(const std::string& _value)
+	void StateTextureController::updateTexture(std::string_view _value)
 	{
-		mControl->setTextureValue(_value);
+		mControl->setTextureValue(MyGUI::UString(_value));
 		mControl->resetTextureRegion();
 	}
 

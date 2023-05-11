@@ -32,10 +32,10 @@ namespace tools
 
 		void clearAll();
 
-		sigslot::signal1<const std::string&> eventChangeValue;
+		sigslot::signal1<std::string_view> eventChangeValue;
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 		void onMouseButtonClick(const MyGUI::IntPoint& _point) override;
 
@@ -68,7 +68,7 @@ namespace tools
 
 		void updateCaption();
 
-		void setValue(const std::string& _value);
+		void setValue(std::string_view _value);
 
 		typedef std::pair<SelectorControl*, SelectorType> PairSelectorType;
 		typedef std::vector<PairSelectorType> VectorSelector;

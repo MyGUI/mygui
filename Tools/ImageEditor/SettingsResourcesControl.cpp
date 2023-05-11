@@ -32,7 +32,7 @@ namespace tools
 		mTextFieldControl = nullptr;
 	}
 
-	void SettingsResourcesControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void SettingsResourcesControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 
@@ -102,7 +102,7 @@ namespace tools
 		mResources->removeItemAt(mResources->getItemCount() - 1);
 	}
 
-	void SettingsResourcesControl::OnCommand(const std::string& _command)
+	void SettingsResourcesControl::OnCommand(std::string_view _command)
 	{
 		Control::OnCommand(_command);
 

@@ -26,7 +26,7 @@ namespace tools
 			window->eventWindowChangeCoord -= MyGUI::newDelegate(this, &SelectorControl::notifyWindowChangeCoord);
 	}
 
-	void SelectorControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void SelectorControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 
@@ -80,10 +80,10 @@ namespace tools
 
 	void SelectorControl::updateCoord()
 	{
-		mCoordReal.left = (int)((double)mCoordValue.left * mScaleValue) + mProjectionDiff.left;
-		mCoordReal.top = (int)((double)mCoordValue.top * mScaleValue) + mProjectionDiff.top;
-		mCoordReal.width = (int)((double)mCoordValue.width * mScaleValue) + mProjectionDiff.width;
-		mCoordReal.height = (int)((double)mCoordValue.height * mScaleValue) + mProjectionDiff.height;
+		mCoordReal.left = static_cast<int>(mCoordValue.left * mScaleValue) + mProjectionDiff.left;
+		mCoordReal.top = static_cast<int>(mCoordValue.top * mScaleValue) + mProjectionDiff.top;
+		mCoordReal.width = static_cast<int>(mCoordValue.width * mScaleValue) + mProjectionDiff.width;
+		mCoordReal.height = static_cast<int>(mCoordValue.height * mScaleValue) + mProjectionDiff.height;
 
 		mMainWidget->setCoord(mCoordReal);
 	}
@@ -96,25 +96,25 @@ namespace tools
 		if (actionScale.left != 0 && actionScale.width != 0)
 		{
 			int right = mCoordValue.right();
-			mCoordValue.width = (int)((double)coord.width / mScaleValue);
+			mCoordValue.width = static_cast<int>(coord.width / mScaleValue);
 			mCoordValue.left = right - mCoordValue.width;
 		}
 		else
 		{
-			mCoordValue.left = (int)((double)coord.left / mScaleValue);
-			mCoordValue.width = (int)((double)coord.width / mScaleValue);
+			mCoordValue.left = static_cast<int>(coord.left / mScaleValue);
+			mCoordValue.width = static_cast<int>(coord.width / mScaleValue);
 		}
 
 		if (actionScale.top != 0 && actionScale.height != 0)
 		{
 			int bottom = mCoordValue.bottom();
-			mCoordValue.height = (int)((double)coord.height / mScaleValue);
+			mCoordValue.height = static_cast<int>(coord.height / mScaleValue);
 			mCoordValue.top = bottom - mCoordValue.height;
 		}
 		else
 		{
-			mCoordValue.top = (int)((double)coord.top / mScaleValue);
-			mCoordValue.height = (int)((double)coord.height / mScaleValue);
+			mCoordValue.top = static_cast<int>(coord.top / mScaleValue);
+			mCoordValue.height = static_cast<int>(coord.height / mScaleValue);
 		}
 
 		updateCoord();
@@ -163,7 +163,7 @@ namespace tools
 		mMainWidget->setAlpha(_value.alpha);
 	}
 
-	void SelectorControl::notifySettingsChanged(const std::string& _path)
+	void SelectorControl::notifySettingsChanged(std::string_view _path)
 	{
 		if (!mPropertyColour.empty() && _path == ("Workspace/Colours/" + mPropertyColour))
 		{
@@ -172,7 +172,7 @@ namespace tools
 		}
 	}
 
-	void SelectorControl::setPropertyColour(const std::string& _propertyName)
+	void SelectorControl::setPropertyColour(std::string_view _propertyName)
 	{
 		mPropertyColour = _propertyName;
 		MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/" + mPropertyColour);

@@ -104,12 +104,12 @@ namespace tools
 		_child->mParent = nullptr;
 	}
 
-	const std::string& Data::getPropertyValue(const std::string& _name) const
+	const std::string& Data::getPropertyValue(std::string_view _name) const
 	{
 		return getProperty(_name)->getValue();
 	}
 	
-	void Data::setPropertyValue(const std::string& _name, const std::string& _value) const
+	void Data::setPropertyValue(std::string_view _name, std::string_view _value) const
 	{
 		getProperty(_name)->setValue(_value);
 	}
@@ -147,7 +147,7 @@ namespace tools
 		mIndexSelected = getChildIndex(_child);
 	}
 
-	PropertyPtr Data::getProperty(const std::string& _name) const
+	PropertyPtr Data::getProperty(std::string_view _name) const
 	{
 		MapProperty::const_iterator property = mProperties.find(_name);
 		MYGUI_ASSERT(property != mProperties.end(), "Property " << _name << " not found");

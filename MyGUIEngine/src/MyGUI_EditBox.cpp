@@ -2158,7 +2158,7 @@ namespace MyGUI
 
 		/// @wproperty{EditBox, PasswordChar, string} Символ для замены в режиме пароля.
 		else if (_key == "PasswordChar")
-			setPasswordChar(_value);
+			setPasswordChar(UString(_value));
 
 		/// @wproperty{EditBox, MaxTextLength, size_t} Максимальное длина текста.
 		else if (_key == "MaxTextLength")

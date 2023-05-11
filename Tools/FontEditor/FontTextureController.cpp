@@ -77,7 +77,7 @@ namespace tools
 //		}
 //	}
 
-	void FontTextureController::notifyChangeScope(const std::string& _scope)
+	void FontTextureController::notifyChangeScope(std::string_view _scope)
 	{
 		if (mControl == nullptr)
 			return;
@@ -119,7 +119,7 @@ namespace tools
 		}
 	}
 
-	void FontTextureController::updateTexture(const std::string& _value)
+	void FontTextureController::updateTexture(std::string_view _value)
 	{
 		MyGUI::IResource* resource = MyGUI::ResourceManager::getInstance().findByName(_value);
 		MyGUI::ResourceTrueTypeFont* font = resource != nullptr ? resource->castType<MyGUI::ResourceTrueTypeFont>(false) : nullptr;

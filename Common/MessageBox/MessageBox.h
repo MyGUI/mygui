@@ -33,7 +33,7 @@ namespace MyGUI
 			initialise();
 		}
 
-		Message(const std::string& _layoutName) :
+		Message(std::string_view _layoutName) :
 			wraps::BaseLayout(_layoutName),
 			mWidgetText(nullptr),
 			mInfoOk(MessageBoxStyle::None),
@@ -189,12 +189,12 @@ namespace MyGUI
 			const UString& _caption,
 			const UString& _message,
 			MessageBoxStyle _style = MessageBoxStyle::Ok | MessageBoxStyle::IconDefault,
-			const std::string& _layer = "",
+			std::string_view _layer = {},
 			bool _modal = true,
-			const std::string& _button1 = "",
-			const std::string& _button2 = "",
-			const std::string& _button3 = "",
-			const std::string& _button4 = "")
+			std::string_view _button1 = {},
+			std::string_view _button2 = {},
+			std::string_view _button3 = {},
+			std::string_view _button4 = {})
 		{
 			Message* mess = new Message();
 
@@ -207,13 +207,13 @@ namespace MyGUI
 
 			if (!_button1.empty())
 			{
-				mess->addButtonName(_button1);
+				mess->addButtonName(UString(_button1));
 				if (!_button2.empty())
 				{
-					mess->addButtonName(_button2);
+					mess->addButtonName(UString(_button2));
 					if (!_button3.empty())
 					{
-						mess->addButtonName(_button3);
+						mess->addButtonName(UString(_button3));
 					}
 				}
 			}
@@ -387,7 +387,7 @@ namespace MyGUI
 				window->eventWindowButtonPressed += newDelegate(this, &Message::notifyWindowButtonPressed);
 		}
 
-		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name)
 		{
 			if (_name == "close")
 				endMessage();

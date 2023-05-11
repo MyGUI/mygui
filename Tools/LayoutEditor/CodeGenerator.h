@@ -36,7 +36,7 @@ namespace tools
 		void printWidgetDeclaration(WidgetContainer* _container, std::ofstream& _stream);
 		void notifyGeneratePressed(MyGUI::Widget* _sender);
 		void notifyCancel(MyGUI::Widget* _sender);
-		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name);
 		void notifyBrowseHeader(MyGUI::Widget* _sender);
 		void notifyBrowseSource(MyGUI::Widget* _sender);
 

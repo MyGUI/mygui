@@ -125,7 +125,9 @@ namespace MyGUI
 		template <typename T>
 		T* findWidget(std::string_view _name, std::string_view _prefix, bool _throw = true)
 		{
-			return findWidget<T>(_prefix + _name, _throw);
+			std::string name{_prefix};
+			name += _name;
+			return findWidget<T>(name, _throw);
 		}
 
 		/** Destroy child widget or throw exception if this child widget not found */

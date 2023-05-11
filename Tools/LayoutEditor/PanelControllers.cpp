@@ -171,7 +171,7 @@ namespace tools
 		{
 			MyGUI::MapString controllerProperties;
 			std::string_view name = controller->findAttribute("name");
-			mControllerName->addItem(name);
+			mControllerName->addItem(MyGUI::UString(name));
 			MyGUI::xml::ElementEnumerator prop = controller->getElementEnumerator();
 			while (prop.next("Property"))
 			{

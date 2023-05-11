@@ -148,7 +148,7 @@ namespace tools
 			mPanelExtensionProperties->setVisible(true);
 			mPanelExtensionProperties->update(mCurrentWidget);
 
-			std::string widgetTypeName = mCurrentWidget->getTypeName();
+			std::string_view widgetTypeName = mCurrentWidget->getTypeName();
 
 			bool templateName = false;
 			WidgetContainer* container = EditorWidgets::getInstance().find(mCurrentWidget);

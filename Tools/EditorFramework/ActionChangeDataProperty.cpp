@@ -27,7 +27,7 @@ namespace tools
 		return mProperty;
 	}
 
-	void ActionChangeDataProperty::setValue(const std::string& _value)
+	void ActionChangeDataProperty::setValue(std::string_view _value)
 	{
 		mValue = _value;
 	}

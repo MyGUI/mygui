@@ -93,7 +93,7 @@ namespace MyGUI
 		size_t pos = _value.find("\\n");
 		if (pos == std::string::npos)
 		{
-			setCaption(LanguageManager::getInstance().replaceTags(_value));
+			setCaption(LanguageManager::getInstance().replaceTags(UString(_value)));
 		}
 		else
 		{

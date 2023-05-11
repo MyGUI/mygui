@@ -23,7 +23,7 @@ namespace tools
 		~FontTryControl() override;
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void commandOnGenerateFont(const MyGUI::UString& _commandName, bool& _result);

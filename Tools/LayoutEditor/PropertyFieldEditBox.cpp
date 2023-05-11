@@ -94,7 +94,7 @@ namespace tools
 		}
 		else
 		{
-			mField->setOnlyText(_value);
+			mField->setOnlyText(MyGUI::UString(_value));
 			onCheckValue();
 		}
 	}
@@ -102,7 +102,7 @@ namespace tools
 	void PropertyFieldEditBox::setName(std::string_view _value)
 	{
 		mName = _value;
-		mText->setCaption(_value);
+		mText->setCaption(mName);
 	}
 
 	void PropertyFieldEditBox::setVisible(bool _value)

@@ -113,7 +113,7 @@ namespace tools
 		}
 	}
 
-	void SeparatorTextureController::notifyChangeValue(const std::string& _value)
+	void SeparatorTextureController::notifyChangeValue(std::string_view _value)
 	{
 		if (mParentData != nullptr)
 		{
@@ -128,7 +128,7 @@ namespace tools
 		}
 	}
 
-	void SeparatorTextureController::notifyChangeScope(const std::string& _scope)
+	void SeparatorTextureController::notifyChangeScope(std::string_view _scope)
 	{
 		if (mControl == nullptr)
 			return;
@@ -173,7 +173,7 @@ namespace tools
 		}
 	}
 
-	void SeparatorTextureController::updateCoords(const std::string& _value)
+	void SeparatorTextureController::updateCoords(std::string_view _value)
 	{
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))
@@ -231,7 +231,7 @@ namespace tools
 			mControl->setViewSelectors(mFrames);
 	}
 
-	ScopeTextureControl::SelectorType SeparatorTextureController::getTypeByName(const std::string& _name)
+	ScopeTextureControl::SelectorType SeparatorTextureController::getTypeByName(std::string_view _name)
 	{
 		if (_name == "Left" || _name == "Right")
 			return ScopeTextureControl::SelectorOffsetV;
@@ -241,7 +241,7 @@ namespace tools
 		return ScopeTextureControl::SelectorPosition;
 	}
 
-	MyGUI::IntCoord SeparatorTextureController::getCoordByName(const std::string& _name, int _offset)
+	MyGUI::IntCoord SeparatorTextureController::getCoordByName(std::string_view _name, int _offset)
 	{
 		if (_name == "Left")
 			return MyGUI::IntCoord(_offset, 0, 1, mTextureCoord.height);
@@ -255,7 +255,7 @@ namespace tools
 		return MyGUI::IntCoord();
 	}
 
-	int SeparatorTextureController::getOffsetByName(const MyGUI::IntCoord& _coord, const std::string& _name)
+	int SeparatorTextureController::getOffsetByName(const MyGUI::IntCoord& _coord, std::string_view _name)
 	{
 		if (_name == "Left")
 			return _coord.left;

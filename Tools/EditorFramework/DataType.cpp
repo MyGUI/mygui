@@ -48,7 +48,7 @@ namespace tools
 		return mProperties;
 	}
 
-	bool DataType::isChild(const std::string& _child) const
+	bool DataType::isChild(std::string_view _child) const
 	{
 		for (VectorString::const_iterator child = mChilds.begin(); child != mChilds.end(); child ++)
 		{

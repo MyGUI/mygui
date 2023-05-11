@@ -22,7 +22,7 @@ namespace wraps
 		{
 		}
 
-		BaseLayout(const std::string& _layout, MyGUI::Widget* _parent = nullptr) :
+		BaseLayout(std::string_view _layout, MyGUI::Widget* _parent = nullptr) :
 			mMainWidget(nullptr)
 		{
 			initialise(_layout, _parent);
@@ -84,7 +84,7 @@ namespace wraps
 			}
 		}
 
-		void initialise(const std::string& _layout, MyGUI::Widget* _parent = nullptr, bool _throw = true, bool _createFakeWidgets = true)
+		void initialise(std::string_view _layout, MyGUI::Widget* _parent = nullptr, bool _throw = true, bool _createFakeWidgets = true)
 		{
 			const std::string MAIN_WINDOW1 = "_Main";
 			const std::string MAIN_WINDOW2 = "Root";
@@ -233,7 +233,7 @@ namespace wraps
 			return static_cast<T*>(_createFakeWidgetT(T::getClassTypeName(), _parent));
 		}
 
-		MyGUI::Widget* _createFakeWidgetT(const std::string& _typeName, MyGUI::Widget* _parent)
+		MyGUI::Widget* _createFakeWidgetT(std::string_view _typeName, MyGUI::Widget* _parent)
 		{
 			if (_parent)
 				return _parent->createWidgetT(_typeName, MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default);

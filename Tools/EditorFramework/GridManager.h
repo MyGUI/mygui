@@ -27,7 +27,7 @@ namespace tools
 		int toGrid(int _value, GridLine _line = Closest) const;
 
 	private:
-		void notifySettingsChanged(const std::string& _path);
+		void notifySettingsChanged(std::string_view _path);
 
 		int mGridStep;
 	};

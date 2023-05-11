@@ -22,7 +22,7 @@ namespace tools
 	{
 	}
 
-	void OpenSaveFileDialog::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void OpenSaveFileDialog::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 

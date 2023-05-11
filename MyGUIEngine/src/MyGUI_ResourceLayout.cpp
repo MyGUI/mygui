@@ -131,7 +131,11 @@ namespace MyGUI
 		WidgetStyle style = _widgetInfo.style;
 		std::string_view widgetLayer = _widgetInfo.layer;
 
-		if (!widgetName.empty()) widgetName = _prefix + widgetName;
+		if (!widgetName.empty())
+		{
+			widgetName = _prefix;
+			widgetName += widgetName;
+		}
 
 		if (_parent != nullptr && style != WidgetStyle::Popup) widgetLayer = {};
 		if (_parent == nullptr && widgetLayer.empty())

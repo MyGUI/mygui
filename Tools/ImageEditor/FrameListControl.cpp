@@ -14,7 +14,7 @@ namespace tools
 
 	FACTORY_ITEM_ATTRIBUTE(FrameListControl)
 
-	void FrameListControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void FrameListControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		DataListBaseControl::OnInitialise(_parent, _place, _layoutName);
 

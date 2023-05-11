@@ -28,9 +28,9 @@ namespace tools
 	private:
 		void notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection);
 //		void notifyChangeProperty(PropertyPtr _sender);
-		void notifyChangeScope(const std::string& _scope);
+		void notifyChangeScope(std::string_view _scope);
 
-		void updateTexture(const std::string& _value);
+		void updateTexture(std::string_view _value);
 
 		void commandGenerateFont(const MyGUI::UString& _commandName, bool& _result);
 

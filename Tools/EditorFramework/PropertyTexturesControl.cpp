@@ -29,7 +29,7 @@ namespace tools
 		mTextureBrowseControl = nullptr;
 	}
 
-	void PropertyTexturesControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void PropertyTexturesControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
 	{
 		PropertyControl::OnInitialise(_parent, _place, "PropertyTextureBrowseControl.layout");
 

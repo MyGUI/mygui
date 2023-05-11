@@ -932,7 +932,7 @@ namespace MyGUI
 	{
 		// не коментировать
 		if (_key == "AddItem")
-			addItem(LanguageManager::getInstance().replaceTags(_value));
+			addItem(LanguageManager::getInstance().replaceTags(UString(_value)));
 		else if (_key == "ActivateOnClick")
 			mActivateOnClick = utility::parseBool(_value);
 		else

@@ -30,7 +30,7 @@ namespace tools
 			window->eventWindowButtonPressed -= MyGUI::newDelegate(this, &TextFieldControl::notifyWindowButtonPressed);
 	}
 
-	void TextFieldControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void TextFieldControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
 	{
 		Control::OnInitialise(_parent, _place, "TextField.layout");
 
@@ -80,7 +80,7 @@ namespace tools
 		return mText->getOnlyText();
 	}
 
-	void TextFieldControl::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _buttonName)
+	void TextFieldControl::notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _buttonName)
 	{
 		if (_buttonName == "close")
 			eventEndDialog(this, false);

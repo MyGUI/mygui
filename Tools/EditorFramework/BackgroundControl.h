@@ -24,11 +24,11 @@ namespace tools
 		MyGUI::Widget* getCanvas();
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void setColour(const MyGUI::Colour& _colour);
-		void notifySettingsChanged(const std::string& _path);
+		void notifySettingsChanged(std::string_view _path);
 
 	private:
 		MyGUI::Widget* mBackground;

@@ -35,19 +35,19 @@ namespace tools
 		return mMainWidget;
 	}
 
-	void Control::Initialise(const std::string& _layoutName)
+	void Control::Initialise(std::string_view _layoutName)
 	{
 		OnInitialise(nullptr, nullptr, _layoutName);
 		ActivateControllers();
 	}
 
-	void Control::Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void Control::Initialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		OnInitialise(_parent, _place, _layoutName);
 		ActivateControllers();
 	}
 
-	void Control::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void Control::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		mParent = _parent;
 		if (_parent != nullptr)
@@ -103,7 +103,7 @@ namespace tools
 			CommandManager::getInstance().executeCommand(_sender->getItemAt(_index)->getUserString("CommandActivate"));
 	}
 
-	void Control::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
+	void Control::notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name)
 	{
 		if (_name == "close")
 			CommandManager::getInstance().executeCommand(_sender->getUserString("CommandClose"));
@@ -135,7 +135,7 @@ namespace tools
 		}
 	}
 
-	void Control::SendCommand(const std::string& _command)
+	void Control::SendCommand(std::string_view _command)
 	{
 		OnCommand(_command);
 
@@ -143,7 +143,7 @@ namespace tools
 			(*child)->SendCommand(_command);
 	}
 
-	void Control::OnCommand(const std::string& _command)
+	void Control::OnCommand(std::string_view _command)
 	{
 	}
 
@@ -152,7 +152,7 @@ namespace tools
 		CommandManager::getInstance().executeCommand(_sender->getUserString("CommandAccept"));
 	}
 
-	MyGUI::Widget* Control::CreateFakeWidgetT(const std::string& _typeName, MyGUI::Widget* _parent)
+	MyGUI::Widget* Control::CreateFakeWidgetT(std::string_view _typeName, MyGUI::Widget* _parent)
 	{
 		if (_parent)
 			return _parent->createWidgetT(_typeName, MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default);

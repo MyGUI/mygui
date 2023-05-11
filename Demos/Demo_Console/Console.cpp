@@ -40,7 +40,7 @@ namespace demo
         registerConsoleDelegate("clear", MyGUI::newDelegate(this, &Console::internalCommand));
 	}
 
-	void Console::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _button)
+	void Console::notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _button)
 	{
 		if (_button == "close")
 		{

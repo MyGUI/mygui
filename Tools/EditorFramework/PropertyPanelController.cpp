@@ -37,7 +37,7 @@ namespace tools
 		ScopeManager::getInstance().eventChangeScope.disconnect(this);
 	}
 
-	void PropertyPanelController::notifyChangeScope(const std::string& _scope)
+	void PropertyPanelController::notifyChangeScope(std::string_view _scope)
 	{
 		if (mParentType != nullptr)
 		{

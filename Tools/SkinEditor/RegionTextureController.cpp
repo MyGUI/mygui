@@ -120,7 +120,7 @@ namespace tools
 		}
 	}
 
-	void RegionTextureController::notifyChangeValue(const std::string& _value)
+	void RegionTextureController::notifyChangeValue(std::string_view _value)
 	{
 		if (mParentData != nullptr)
 		{
@@ -134,7 +134,7 @@ namespace tools
 		}
 	}
 
-	void RegionTextureController::notifyChangeScope(const std::string& _scope)
+	void RegionTextureController::notifyChangeScope(std::string_view _scope)
 	{
 		if (mControl == nullptr)
 			return;
@@ -179,7 +179,7 @@ namespace tools
 		}
 	}
 
-	void RegionTextureController::updateCoords(const std::string& _value)
+	void RegionTextureController::updateCoords(std::string_view _value)
 	{
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))

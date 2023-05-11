@@ -35,7 +35,7 @@ namespace tools
 		std::string getDescriptionString(MyGUI::Widget* _widget, bool _print_name, bool _print_type, bool _print_skin);
 
 		void notifyChangeWidgets();
-		void notifySettingsChanged(const std::string& _path);
+		void notifySettingsChanged(std::string_view _path);
 
 		void updateRecentFilesMenu();
 		void updateRecentProjectsMenu();

@@ -23,7 +23,7 @@ namespace tools
 		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);
 	}
 
-	void TextureToolControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void TextureToolControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
 	{
 		TextureControl::OnInitialise(_parent, _place, "TextureControl.layout");
 
@@ -40,7 +40,7 @@ namespace tools
 		SettingsManager::getInstance().eventSettingsChanged.connect(this, &TextureToolControl::notifySettingsChanged);
 	}
 
-	void TextureToolControl::notifySettingsChanged(const std::string& _path)
+	void TextureToolControl::notifySettingsChanged(std::string_view _path)
 	{
 		if (_path == ("Workspace/Colours/" + mColourValueName))
 		{

@@ -4,7 +4,7 @@
 namespace tools
 {
 
-	SeparatorPartControl::SeparatorPartControl(const std::string& _layout, MyGUI::Widget* _parent) :
+	SeparatorPartControl::SeparatorPartControl(std::string_view _layout, MyGUI::Widget* _parent) :
 		wraps::BaseLayout(_layout, _parent),
 		mLeftPanel(nullptr),
 		mRightPanel(nullptr),

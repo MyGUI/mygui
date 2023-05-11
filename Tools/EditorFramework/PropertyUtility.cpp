@@ -14,7 +14,7 @@
 namespace tools
 {
 
-	bool PropertyUtility::isUniqueName(DataPtr _data, const std::string& _propertyName)
+	bool PropertyUtility::isUniqueName(DataPtr _data, std::string_view _propertyName)
 	{
 		DataPtr parent = _data->getParent();
 		std::string name = _data->getPropertyValue(_propertyName);
@@ -29,7 +29,7 @@ namespace tools
 		return true;
 	}
 
-	void PropertyUtility::executeAction(PropertyPtr _property, const std::string& _value, bool _merge)
+	void PropertyUtility::executeAction(PropertyPtr _property, std::string_view _value, bool _merge)
 	{
 		if (_property->getValue() == _value)
 			return;
@@ -47,7 +47,7 @@ namespace tools
 		}
 	}
 
-	void PropertyUtility::storeUniqueNameProperty(const std::string& _propertyName, const std::string& _propertyUnique, DataPtr _parent, VectorPairProperty& _store)
+	void PropertyUtility::storeUniqueNameProperty(std::string_view _propertyName, std::string_view _propertyUnique, DataPtr _parent, VectorPairProperty& _store)
 	{
 		const Data::VectorData& childs = _parent->getChilds();
 		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
@@ -70,7 +70,7 @@ namespace tools
 		_store.clear();
 	}
 
-	PropertyPtr PropertyUtility::getPropertyByName(DataPtr _data, const std::string& _dataType, const std::string& _propertyName)
+	PropertyPtr PropertyUtility::getPropertyByName(DataPtr _data, std::string_view _dataType, std::string_view _propertyName)
 	{
 		if (_data == nullptr)
 			return nullptr;
@@ -81,7 +81,7 @@ namespace tools
 		return getPropertyByName(_data->getChildSelected(), _dataType, _propertyName);
 	}
 
-	PropertyPtr PropertyUtility::getPropertyByName(const std::string& _dataType, const std::string& _propertyName)
+	PropertyPtr PropertyUtility::getPropertyByName(std::string_view _dataType, std::string_view _propertyName)
 	{
 		return getPropertyByName(DataManager::getInstance().getRoot(), _dataType, _propertyName);
 	}

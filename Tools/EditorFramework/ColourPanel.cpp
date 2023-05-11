@@ -34,7 +34,7 @@ namespace tools
 		destroyTexture();
 	}
 
-	void ColourPanel::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string&)
+	void ColourPanel::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
 	{
 		Control::OnInitialise(_parent, _place, GetLayoutName(this));
 

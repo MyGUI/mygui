@@ -74,7 +74,7 @@ namespace MyGUI
 		UString replaceTagsPass(const UString& _line, bool& _replaceResult);
 
 	private:
-		typedef std::map<UString, UString> MapLanguageString;
+		typedef std::map<UString, UString, std::less<>> MapLanguageString;
 
 		MapLanguageString mMapLanguage;
 		MapLanguageString mUserMapLanguage;

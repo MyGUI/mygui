@@ -24,15 +24,15 @@ namespace tools
 
 		MyGUI::Widget* getRoot();
 
-		void Initialise(const std::string& _layoutName = "");
-		void Initialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
+		void Initialise(std::string_view _layoutName = {});
+		void Initialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName);
 
 		void Shutdown();
 
 		typedef std::vector<Control*> VectorControl;
 		const VectorControl& getChilds() const;
 
-		void SendCommand(const std::string& _command);
+		void SendCommand(std::string_view _command);
 
 		template <typename Type>
 		Type* findControl()
@@ -77,8 +77,8 @@ namespace tools
 			}
 		}
 
-		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName);
-		virtual void OnCommand(const std::string& _command);
+		virtual void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName);
+		virtual void OnCommand(std::string_view _command);
 
 	private:
 		void CreateChilds(Control* _parent, MyGUI::Widget* _widget);
@@ -89,10 +89,10 @@ namespace tools
 
 		void notifyMouseButtonClick(MyGUI::Widget* _sender);
 		void notifyTabChangeSelect(MyGUI::TabControl* _sender, size_t _index);
-		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name);
 		void notifyEditSelectAccept(MyGUI::EditBox* _sender);
 
-		MyGUI::Widget* CreateFakeWidgetT(const std::string& _typeName, MyGUI::Widget* _parent);
+		MyGUI::Widget* CreateFakeWidgetT(std::string_view _typeName, MyGUI::Widget* _parent);
 
 	private:
 		VectorControl mChilds;

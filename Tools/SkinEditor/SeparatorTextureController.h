@@ -28,15 +28,15 @@ namespace tools
 	private:
 		void notifyChangeDataSelector(DataPtr _data, bool _changeOnlySelection);
 		void notifyChangeProperty(PropertyPtr _sender);
-		void notifyChangeScope(const std::string& _scope);
-		void notifyChangeValue(const std::string& _value);
+		void notifyChangeScope(std::string_view _scope);
+		void notifyChangeValue(std::string_view _value);
 
-		void updateCoords(const std::string& _value);
+		void updateCoords(std::string_view _value);
 		void updateFrames();
 
-		ScopeTextureControl::SelectorType getTypeByName(const std::string& _name);
-		MyGUI::IntCoord getCoordByName(const std::string& _name, int _offset);
-		int getOffsetByName(const MyGUI::IntCoord& _coord, const std::string& _name);
+		ScopeTextureControl::SelectorType getTypeByName(std::string_view _name);
+		MyGUI::IntCoord getCoordByName(std::string_view _name, int _offset);
+		int getOffsetByName(const MyGUI::IntCoord& _coord, std::string_view _name);
 
 	private:
 		ScopeTextureControl* mControl;

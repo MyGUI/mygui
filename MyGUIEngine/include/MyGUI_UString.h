@@ -450,7 +450,7 @@ namespace MyGUI
 		template <size_type num>
 		UString( const char(& str)[num] ) : UString( str, num ) {}
 
-		UString( std::string_view str ) : UString( str.data(), str.size() ) {}
+		explicit UString( std::string_view str ) : UString( str.data(), str.size() ) {}
 		//! destructor
 		~UString();
 		//@}

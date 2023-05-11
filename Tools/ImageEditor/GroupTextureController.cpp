@@ -88,14 +88,14 @@ namespace tools
 		}
 	}
 
-	void GroupTextureController::notifyChangeValue(const std::string& _value)
+	void GroupTextureController::notifyChangeValue(std::string_view _value)
 	{
 		PropertyPtr property = PropertyUtility::getPropertyByName("Group", "Size");
 		if (property != nullptr)
 			PropertyUtility::executeAction(property, _value, true);
 	}
 
-	void GroupTextureController::notifyChangeScope(const std::string& _scope)
+	void GroupTextureController::notifyChangeScope(std::string_view _scope)
 	{
 		if (mControl == nullptr)
 			return;

@@ -461,7 +461,7 @@ namespace MyGUI
 
 		// не коментировать
 		else if (_key == "AddItem")
-			addItem(LanguageManager::getInstance().replaceTags(_value));
+			addItem(LanguageManager::getInstance().replaceTags(UString(_value)));
 
 		else
 		{

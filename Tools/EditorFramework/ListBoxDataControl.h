@@ -27,16 +27,16 @@ namespace tools
 
 		void setEnableChangePosition(bool _value);
 
-		void setDataInfo(const std::string& _parentType, const std::string& _thisType, const std::string& _propertyName);
-		void setReplaceColourName(const std::string& _value);
+		void setDataInfo(std::string_view _parentType, std::string_view _thisType, std::string_view _propertyName);
+		void setReplaceColourName(std::string_view _value);
 
-		void addPropertyNameEnabled(const std::string& _propertyName);
+		void addPropertyNameEnabled(std::string_view _propertyName);
 
 		sigslot::signal2<DataPtr, DataPtr> eventChangePosition;
-		sigslot::signal2<DataPtr, const std::string&> eventChangeName;
+		sigslot::signal2<DataPtr, std::string_view> eventChangeName;
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index);

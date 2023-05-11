@@ -16,9 +16,9 @@ namespace MyGUI
 {
 
 	// OBSOLETE
-	typedef delegates::CMultiDelegate2<Widget*, const std::string&> EventHandle_WidgetString;
+	typedef delegates::CMultiDelegate2<Widget*, std::string_view> EventHandle_WidgetString;
 
-	typedef delegates::CMultiDelegate2<Window*, const std::string&> EventHandle_WindowPtrCStringRef;
+	typedef delegates::CMultiDelegate2<Window*, std::string_view> EventHandle_WindowPtrCStringRef;
 	typedef delegates::CMultiDelegate1<Window*> EventHandle_WindowPtr;
 
 	/** \brief @wpage{Window}
@@ -94,7 +94,7 @@ namespace MyGUI
 
 		/*events:*/
 		/** Event : Window button pressed.\n
-			signature : void method(MyGUI::Window* _sender, const std::string& _name)
+			signature : void method(MyGUI::Window* _sender, std::string_view _name)
 			@param _sender widget that called this event
 			@param _name of pressed button
 		*/

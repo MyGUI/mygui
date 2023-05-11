@@ -89,14 +89,14 @@ namespace tools
 		}
 		else
 		{
-			mField->setOnlyText(_value);
+			mField->setOnlyText(MyGUI::UString(_value));
 		}
 	}
 
 	void PropertyFieldComboBox::setName(std::string_view _value)
 	{
 		mName = _value;
-		mText->setCaption(_value);
+		mText->setCaption(mName);
 	}
 
 	void PropertyFieldComboBox::setVisible(bool _value)

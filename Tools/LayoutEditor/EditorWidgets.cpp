@@ -117,7 +117,7 @@ namespace tools
 				{
 					if (_index == 0)
 					{
-						mCurrentItemName = element->findAttribute("name");
+						mCurrentItemName.assign(element->findAttribute("name"));
 
 						loadWidgetsFromXmlNode(element.current());
 
@@ -197,7 +197,7 @@ namespace tools
 				{
 					if (_index == 0)
 					{
-						mCurrentItemName = element->findAttribute("name");
+						mCurrentItemName.assign(element->findAttribute("name"));
 
 						element->clear();
 						element->addAttribute("type", "ResourceLayout");
@@ -470,7 +470,7 @@ namespace tools
 			else
 				layer = DEFAULT_TEST_MODE_LAYER;
 		}
-		const std::string& widgetType = MyGUI::FactoryManager::getInstance().isFactoryExist("Widget", container->getType()) ?
+		std::string_view widgetType = MyGUI::FactoryManager::getInstance().isFactoryExist("Widget", container->getType()) ?
 			container->getType() : MyGUI::Widget::getClassTypeName();
 
 		if (nullptr == _parent)

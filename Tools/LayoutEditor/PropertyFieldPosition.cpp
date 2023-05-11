@@ -140,7 +140,7 @@ namespace tools
 		}
 		else
 		{
-			mField->setOnlyText(_value);
+			mField->setOnlyText(MyGUI::UString(_value));
 			onCheckValue();
 		}
 	}
@@ -148,7 +148,7 @@ namespace tools
 	void PropertyFieldPosition::setName(std::string_view _value)
 	{
 		mName = _value;
-		mText->setCaption(_value);
+		mText->setCaption(mName);
 	}
 
 	void PropertyFieldPosition::notifyMouseButtonClick(MyGUI::Widget* _sender)

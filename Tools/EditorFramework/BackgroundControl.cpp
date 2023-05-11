@@ -21,7 +21,7 @@ namespace tools
 		SettingsManager::getInstance().eventSettingsChanged.disconnect(this);
 	}
 
-	void BackgroundControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void BackgroundControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view)
 	{
 		Control::OnInitialise(_parent, _place, "BackgroundControl.layout");
 
@@ -46,7 +46,7 @@ namespace tools
 		return mCanvas;
 	}
 
-	void BackgroundControl::notifySettingsChanged(const std::string& _path)
+	void BackgroundControl::notifySettingsChanged(std::string_view _path)
 	{
 		MyGUI::Colour colour = SettingsManager::getInstance().getValue<MyGUI::Colour>("Workspace/Colours/" + mColourValueName);
 		setColour(colour);

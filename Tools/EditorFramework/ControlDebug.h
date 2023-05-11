@@ -15,10 +15,10 @@ namespace tools
 		public Control
 	{
 	public:
-		ControlDebug();
+		ControlDebug() = default;
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		using Control::OnInitialise;
 	};
 
 }

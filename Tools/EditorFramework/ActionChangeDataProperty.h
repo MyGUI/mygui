@@ -23,7 +23,7 @@ namespace tools
 		void setProperty(PropertyPtr _value);
 		PropertyPtr getProperty();
 
-		void setValue(const std::string& _value);
+		void setValue(std::string_view _value);
 		const std::string& getValue() const;
 
 	private:

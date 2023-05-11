@@ -561,7 +561,7 @@ namespace tools
 					{
 						// поменять на теги
 						std::string_view resourceName = element->findAttribute("name");
-						addUserTag("ResourceName", resourceName);
+						addUserTag("ResourceName", MyGUI::UString(resourceName));
 						return MyGUI::utility::toString(fileName, " [", resourceName, "]");
 					}
 					else

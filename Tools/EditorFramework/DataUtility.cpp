@@ -11,7 +11,7 @@
 namespace tools
 {
 
-	DataPtr DataUtility::getSelectedDataByType(const std::string& _type)
+	DataPtr DataUtility::getSelectedDataByType(std::string_view _type)
 	{
 		DataTypePtr info = DataTypeManager::getInstance().getType(_type);
 
@@ -29,7 +29,7 @@ namespace tools
 		return getSelectedDataByType(_data->getChildSelected(), _info);
 	}
 
-	DataPtr DataUtility::getSelectedParentDataByType(const std::string& _type)
+	DataPtr DataUtility::getSelectedParentDataByType(std::string_view _type)
 	{
 		DataTypePtr info = DataTypeManager::getInstance().getType(_type);
 
@@ -75,9 +75,9 @@ namespace tools
 			_target->setPropertyValue((*property).first, (*property).second->getValue());
 	}
 
-	std::string DataUtility::getUniqueName(DataPtr _parent, const std::string& _pattern)
+	std::string DataUtility::getUniqueName(DataPtr _parent, std::string_view _pattern)
 	{
-		std::string result = _pattern;
+		std::string result{_pattern};
 
 		for (size_t index = 1; index < (std::numeric_limits<size_t>::max)(); index ++)
 		{
@@ -93,7 +93,7 @@ namespace tools
 		return result;
 	}
 
-	bool DataUtility::checkUniqueName(DataPtr _parent, const std::string& _name)
+	bool DataUtility::checkUniqueName(DataPtr _parent, std::string_view _name)
 	{
 		for (Data::VectorData::const_iterator child = _parent->getChilds().begin(); child != _parent->getChilds().end(); child ++)
 		{
@@ -104,7 +104,7 @@ namespace tools
 		return true;
 	}
 
-	Data::VectorData DataUtility::getChildsByType(DataPtr _parent, const std::string& _type, bool _friend)
+	Data::VectorData DataUtility::getChildsByType(DataPtr _parent, std::string_view _type, bool _friend)
 	{
 		Data::VectorData result;
 		result.reserve(_parent->getChilds().size());

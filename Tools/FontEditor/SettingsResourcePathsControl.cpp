@@ -32,7 +32,7 @@ namespace tools
 		mOpenSaveFileDialog = nullptr;
 	}
 
-	void SettingsResourcePathsControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName)
+	void SettingsResourcePathsControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
 	{
 		Control::OnInitialise(_parent, _place, _layoutName);
 
@@ -85,7 +85,7 @@ namespace tools
 		mOpenSaveFileDialog->endModal();
 	}
 
-	void SettingsResourcePathsControl::OnCommand(const std::string& _command)
+	void SettingsResourcePathsControl::OnCommand(std::string_view _command)
 	{
 		Control::OnCommand(_command);
 

@@ -22,7 +22,7 @@ namespace tools
 		~StatisticInfoControl() override;
 
 	protected:
-		void OnInitialise(Control* _parent, MyGUI::Widget* _place, const std::string& _layoutName) override;
+		void OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName) override;
 
 	private:
 		void command_StatisticInfo(const MyGUI::UString& _commandName, bool& _result);
