@@ -42,7 +42,7 @@ namespace MyGUI
 		 * 	    "Slowed" @see action::acceleratedMoveFunction<4>
 		 * 	    "Jump" @see action::jumpMoveFunction<5>
 		 */
-		void setFunction(const std::string& _value);
+		void setFunction(std::string_view _value);
 
 		/**
 			@param _value seconds in which widget planned to reach destination coordinate
@@ -56,7 +56,7 @@ namespace MyGUI
 
 		bool addTime(Widget* _widget, float _time) override;
 		void prepareItem(Widget* _widget) override;
-		void setProperty(const std::string& _key, const std::string& _value) override;
+		void setProperty(std::string_view _key, std::string_view _value) override;
 
 	private:
 		IntCoord mStartCoord;
