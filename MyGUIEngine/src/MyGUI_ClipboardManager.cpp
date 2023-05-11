@@ -55,20 +55,24 @@ namespace MyGUI
 		mIsInitialise = false;
 	}
 
-	void ClipboardManager::setClipboardData(const std::string& _type, const std::string& _data)
+	void ClipboardManager::setClipboardData(std::string_view _type, std::string_view _data)
 	{
-		mClipboardData[_type] = _data;
+		auto it = mClipboardData.find(_type);
+		if (it == mClipboardData.end())
+			mClipboardData.emplace(_type, _data);
+		else
+			it->second = _data;
 
 		eventClipboardChanged(_type, _data);
 	}
 
-	void ClipboardManager::clearClipboardData(const std::string& _type)
+	void ClipboardManager::clearClipboardData(std::string_view _type)
 	{
 		MapString::iterator iter = mClipboardData.find(_type);
 		if (iter != mClipboardData.end()) mClipboardData.erase(iter);
 	}
 
-	std::string ClipboardManager::getClipboardData(const std::string& _type) const
+	std::string ClipboardManager::getClipboardData(std::string_view _type) const
 	{
 		std::string ret;
 		MapString::const_iterator iter = mClipboardData.find(_type);
