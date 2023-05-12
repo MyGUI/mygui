@@ -66,6 +66,7 @@ namespace MyGUI
 	{
 		MapString::iterator iter = mClipboardData.find(_type);
 		if (iter != mClipboardData.end()) mClipboardData.erase(iter);
+		eventClipboardChanged(_type, {});
 	}
 
 	std::string ClipboardManager::getClipboardData(const std::string& _type) const
