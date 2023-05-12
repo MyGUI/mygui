@@ -450,7 +450,7 @@ namespace MyGUI
 			// сбрасываем повтор
 			commandResetRedo();
 
-			commandPast();
+			commandPaste();
 		}
 		else if (editCmd == EditCommand::Copy)
 		{
@@ -1507,33 +1507,24 @@ namespace MyGUI
 
 	void EditBox::commandCut()
 	{
-		// вырезаем в буфер обмена
-		if (isTextSelection() && (!mModePassword))
+		commandCopy();
+		if (isTextSelection() && !mModePassword && !mModeReadOnly)
 		{
-			ClipboardManager::getInstance().setClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getTextSelection());
-			if (!mModeReadOnly)
-			{
-				deleteTextSelect(true);
-				// отсылаем событие о изменении
-				eventEditTextChange(this);
-			}
+			deleteTextSelect(true);
+			eventEditTextChange(this);
 		}
-		else
-			ClipboardManager::getInstance().clearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 	}
 
 	void EditBox::commandCopy()
 	{
-		// копируем в буфер обмена
 		if (isTextSelection() && (!mModePassword))
 			ClipboardManager::getInstance().setClipboardData(EDIT_CLIPBOARD_TYPE_TEXT, getTextSelection());
 		else
 			ClipboardManager::getInstance().clearClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 	}
 
-	void EditBox::commandPast()
+	void EditBox::commandPaste()
 	{
-		// копируем из буфера обмена
 		std::string clipboard = ClipboardManager::getInstance().getClipboardData(EDIT_CLIPBOARD_TYPE_TEXT);
 		if ((!mModeReadOnly) && (!clipboard.empty()))
 		{

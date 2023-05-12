@@ -314,10 +314,10 @@ namespace MyGUI
 		void commandResetHistory();
 		void saveInHistory(VectorChangeInfo* _info = nullptr);
 
-		// работа с буфером обмена
+		// clipboard commands
 		void commandCut();
 		void commandCopy();
-		void commandPast();
+		void commandPaste();
 
 		const UString& getRealString() const;
 
