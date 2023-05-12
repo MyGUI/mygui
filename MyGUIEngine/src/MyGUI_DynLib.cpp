@@ -43,11 +43,11 @@ namespace MyGUI
 
 		std::string name = mName;
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
-		const std::string extension = ".dll";
+		const std::string_view extension = ".dll";
 #elif MYGUI_PLATFORM == MYGUI_PLATFORM_LINUX
-		const std::string extension = ".so";
+		const std::string_view extension = ".so";
 #else
-		const std::string extension = "";
+		const std::string_view extension;
 #endif
 
 		if (name.find(extension) == std::string::npos)

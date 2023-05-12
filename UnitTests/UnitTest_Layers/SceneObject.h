@@ -21,13 +21,13 @@ namespace demo
 		virtual ~SceneObject();
 
 	public:
-		void setEntity(const std::string& _value);
-		void setMaterial(const std::string& _value);
-		void setSceneManager(const std::string& _value);
-		void setCamera(const std::string& _value);
+		void setEntity(std::string_view _value);
+		void setMaterial(std::string_view _value);
+		void setSceneManager(std::string_view _value);
+		void setCamera(std::string_view _value);
 
 	protected:
-		void setTextureName(const std::string& _name);
+		void setTextureName(std::string_view _name);
 
 		bool pickPositionInObject(int& _x, int& _y, int _view_width, int _view_height, int _texture_width, int _texture_height) const;
 
@@ -43,7 +43,7 @@ namespace demo
 			const Ogre::Vector3& position,
 			const Ogre::Quaternion& orient,
 			const Ogre::Vector3& scale,
-			const std::string& _material);
+			std::string_view _material);
 		void clear();
 
 		bool isIntersectMesh(int& _x, int& _y, const Ogre::Ray& _ray, int _texture_width, int _texture_height) const;

@@ -41,12 +41,12 @@ namespace MyGUI
 			int value = 0;
 			while (true)
 			{
-				const char* name = type.getValueName(value);
-				if (strcmp(name, "") == 0 || name == _value)
+				std::string_view name = type.getValueName(value);
+				if (name.empty() || name == _value)
 					break;
 				value++;
 			}
-			type.mValue = (Enum)value;
+			type.mValue = static_cast<Enum>(value);
 			return type;
 		}
 
@@ -74,7 +74,7 @@ namespace MyGUI
 			return _stream;
 		}
 
-		std::string print() const
+		std::string_view print() const
 		{
 			return getValueName(mValue);
 		}
@@ -85,9 +85,9 @@ namespace MyGUI
 		}
 
 	private:
-		const char* getValueName(int _index) const
+		std::string_view getValueName(int _index) const
 		{
-			static const char* values[MAX + 1] = { "Child", "Popup", "Overlapped", "" };
+			static const std::string_view values[MAX + 1] = { "Child", "Popup", "Overlapped", "" };
 			return values[(_index < MAX && _index >= 0) ? _index : MAX];
 		}
 

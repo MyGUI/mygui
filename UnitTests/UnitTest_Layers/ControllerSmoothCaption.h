@@ -24,7 +24,7 @@ namespace demo
 			mTime(0),
 			mCurrentPosition(0)
 		{ }
-		~ControllerSmoothCaption() override { }
+		~ControllerSmoothCaption() override = default;
 
 		bool addTime(MyGUI::Widget* _widget, float _time) override
 		{
@@ -64,7 +64,7 @@ namespace demo
 			}
 		}
 
-		void notifyChangeProperty(MyGUI::Widget* _sender, const std::string& _key, const std::string& _value)
+		void notifyChangeProperty(MyGUI::Widget* _sender, std::string_view _key, std::string_view _value)
 		{
 			if (_key == "Caption")
 			{
@@ -73,7 +73,7 @@ namespace demo
 
 				MyGUI::TextBox* text = _sender->castType<MyGUI::TextBox>(false);
 				if (text != nullptr)
-					text->setCaption("");
+					text->setCaption(MyGUI::UString{});
 			}
 		}
 

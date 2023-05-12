@@ -140,7 +140,7 @@ namespace tools
 		}
 	}
 
-	void GroupTextureController::updateCoords(const std::string& _value)
+	void GroupTextureController::updateCoords(std::string_view _value)
 	{
 		MyGUI::IntCoord coord;
 		if (MyGUI::utility::parseComplex(_value, coord.left, coord.top, coord.width, coord.height))

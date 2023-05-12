@@ -22,8 +22,8 @@ namespace demo
 		MyGUI::xml::ElementEnumerator node = _node->getElementEnumerator();
 		while (node.next("Property"))
 		{
-			const std::string& key = node->findAttribute("key");
-			const std::string& value = node->findAttribute("value");
+			std::string_view key = node->findAttribute("key");
+			std::string_view value = node->findAttribute("value");
 
 			if (key == "FadeDuration") mFadeDuration = MyGUI::utility::parseFloat(value);
 			else if (key == "FadeType") mFadeType = MyGUI::utility::parseInt(value);//FIXME

@@ -19,7 +19,7 @@ namespace wraps
 	{
 	public:
 
-		BasePanelViewCell(const std::string& _layout, MyGUI::Widget* _parent) :
+		BasePanelViewCell(std::string_view _layout, MyGUI::Widget* _parent) :
 			BaseLayout(_layout, _parent),
 			mTextCaption(nullptr),
 			mWidgetClient(nullptr),

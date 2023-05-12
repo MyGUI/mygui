@@ -198,7 +198,7 @@ namespace base
 		{
 			if (node->getName() == "Path")
 			{
-				if (node->findAttribute("root") != "")
+				if (!node->findAttribute("root").empty())
 				{
 					bool rootAttribute = MyGUI::utility::parseBool(node->findAttribute("root"));
 					if (rootAttribute)

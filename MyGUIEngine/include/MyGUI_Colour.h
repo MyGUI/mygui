@@ -19,7 +19,7 @@ namespace MyGUI
 		Colour();
 		Colour(float _red, float _green, float _blue, float _alpha = 1);
 		Colour(const Colour& _value) = default;
-		explicit Colour(const std::string& _value);
+		explicit Colour(std::string_view _value);
 
 		Colour& operator = (Colour const& _value);
 		bool operator == (Colour const& _value) const;
@@ -31,7 +31,7 @@ namespace MyGUI
 
 		std::string print() const;
 
-		static Colour parse(const std::string& _value);
+		static Colour parse(std::string_view _value);
 
 		friend std::ostream& operator << (std::ostream& _stream, const Colour&  _value)
 		{

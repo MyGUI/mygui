@@ -74,7 +74,7 @@ namespace demo
 			}
 		}
 
-		void notifyChangeProperty(MyGUI::Widget* _sender, const std::string& _key, const std::string& _value)
+		void notifyChangeProperty(MyGUI::Widget* _sender, std::string_view _key, std::string_view _value)
 		{
 			if (_key == "RangePosition")
 			{

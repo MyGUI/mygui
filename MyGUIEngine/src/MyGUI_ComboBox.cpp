@@ -320,7 +320,7 @@ namespace MyGUI
 		mList->setIndexSelected(_index);
 		if (_index == ITEM_NONE)
 		{
-			Base::setCaption("");
+			Base::setCaption(UString());
 			return;
 		}
 		Base::setCaption(mList->getItemNameAt(_index));

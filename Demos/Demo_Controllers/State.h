@@ -46,7 +46,7 @@ namespace demo
 		public wraps::BaseLayout
 	{
 	public:
-		State(const std::string& _layout, ControllerType _type);
+		State(std::string_view _layout, ControllerType _type);
 		~State() override;
 
 		MyGUI::Widget* getClient();

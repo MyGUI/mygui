@@ -27,7 +27,7 @@ namespace MyGUI
 		void renderToTarget(IRenderTarget* _target, bool _update) override;
 
 		void setTextureSize(const IntSize& _size);
-		void setTextureName(const std::string& _name);
+		void setTextureName(std::string_view _name);
 
 	private:
 		MyGUI::ITexture* mTexture;

@@ -23,7 +23,7 @@ namespace wraps
 		typedef std::vector<BasePanelViewItem*> VectorCell;
 
 	public:
-		BasePanelView(const std::string& _layout, MyGUI::Widget* _parent) :
+		BasePanelView(std::string_view _layout, MyGUI::Widget* _parent) :
 			BaseLayout(_layout, _parent),
 			mNeedUpdate(false),
 			mOldClientWidth(0),

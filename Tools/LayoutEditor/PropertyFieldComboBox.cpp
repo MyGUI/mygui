@@ -81,11 +81,9 @@ namespace tools
 
 	void PropertyFieldComboBox::setValue(std::string_view _value)
 	{
-		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
-
 		if (_value.empty())
 		{
-			mField->setCaption(DEFAULT_VALUE);
+			mField->setCaption(replaceTags("ColourDefault") + DEFAULT_STRING);
 		}
 		else
 		{

@@ -32,7 +32,7 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().registerFactory<WobbleNodeAnimator>("NodeAnimator");
 		MyGUI::FactoryManager::getInstance().registerFactory<FadeNodeAnimator>("NodeAnimator");
 
-		std::string layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
+		const std::string& layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>(layerCategory);
 
 		MyGUI::ResourceManager::getInstance().load("Layers.xml");
@@ -45,11 +45,11 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().unregisterFactory<WobbleNodeAnimator>("NodeAnimator");
 		MyGUI::FactoryManager::getInstance().unregisterFactory<FadeNodeAnimator>("NodeAnimator");
 
-		std::string layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
+		const std::string& layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::RTTLayer>(layerCategory);
 	}
 
-	void DemoKeeper::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
+	void DemoKeeper::notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name)
 	{
 		if (_name == "close")
 		{

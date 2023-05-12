@@ -18,7 +18,7 @@ namespace tools
 		AnimationInfo();
 
 		const std::string& getTextureName() const;
-		void setTextureName(const std::string& _value);
+		void setTextureName(std::string_view _value);
 
 		const MyGUI::IntSize& getSize() const;
 		void setSize(const MyGUI::IntSize& _value);
