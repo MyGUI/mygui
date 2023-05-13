@@ -210,11 +210,8 @@ namespace MyGUI
 
 	void OpenGLTexture::destroy()
 	{
-		if (mRenderTarget != nullptr)
-		{
-			delete mRenderTarget;
-			mRenderTarget = nullptr;
-		}
+		delete mRenderTarget;
+		mRenderTarget = nullptr;
 
 		if (mTextureId != 0)
 		{

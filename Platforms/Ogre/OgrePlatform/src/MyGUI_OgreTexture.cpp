@@ -61,17 +61,11 @@ namespace MyGUI
 
 	void OgreTexture::destroy()
 	{
-		if (mTmpData.data != nullptr)
-		{
-			delete[] (uint8*)mTmpData.data;
-			mTmpData.data = nullptr;
-		}
+		delete[] (uint8*)mTmpData.data;
+		mTmpData.data = nullptr;
 
-		if (mRenderTarget != nullptr)
-		{
-			delete mRenderTarget;
-			mRenderTarget = nullptr;
-		}
+		delete mRenderTarget;
+		mRenderTarget = nullptr;
 
 		if (mTexture)
 		{
@@ -100,11 +94,8 @@ namespace MyGUI
 		// здесь проверить режим создания, и возможно так залочить без пиксель бокса
 
 		// для чтения копируем в пиксель бокс
-		if (mTmpData.data != nullptr)
-		{
-			delete[] (uint8*)mTmpData.data;
-			mTmpData.data = nullptr;
-		}
+		delete[] (uint8*)mTmpData.data;
+		mTmpData.data = nullptr;
 
 		mTmpData = Ogre::PixelBox(
 			mTexture->getWidth(),
@@ -124,7 +115,7 @@ namespace MyGUI
 		{
 			mTexture->getBuffer()->unlock();
 		}
-		else if (mTmpData.data != nullptr)
+		else
 		{
 			delete[] (uint8*)mTmpData.data;
 			mTmpData.data = nullptr;

@@ -80,11 +80,8 @@ namespace tools
 
 	void TestState::deleteTestLayout()
 	{
-		if (mTestLayout != nullptr)
-		{
-			delete mTestLayout;
-			mTestLayout = nullptr;
-		}
+		delete mTestLayout;
+		mTestLayout = nullptr;
 	}
 
 	void TestState::command_Test(const MyGUI::UString& _commandName, bool& _result)

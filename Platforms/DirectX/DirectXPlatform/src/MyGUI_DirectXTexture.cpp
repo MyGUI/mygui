@@ -151,11 +151,8 @@ namespace MyGUI
 
 	void DirectXTexture::destroy()
 	{
-		if (mRenderTarget != nullptr)
-		{
-			delete mRenderTarget;
-			mRenderTarget = nullptr;
-		}
+		delete mRenderTarget;
+		mRenderTarget = nullptr;
 
 		if (mpTexture != nullptr)
 		{

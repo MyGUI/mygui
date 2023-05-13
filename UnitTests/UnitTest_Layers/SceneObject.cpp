@@ -181,25 +181,16 @@ namespace demo
 
 	void SceneObject::clear()
 	{
-		if (mTextureCoords != nullptr)
-		{
-			delete mTextureCoords;
-			mTextureCoords = nullptr;
-		}
+		delete mTextureCoords;
+		mTextureCoords = nullptr;
 
-		if (mVertices != nullptr)
-		{
-			delete mVertices;
-			mVertices = nullptr;
-			mVertexCount = 0;
-		}
+		delete mVertices;
+		mVertices = nullptr;
+		mVertexCount = 0;
 
-		if (mIndices != nullptr)
-		{
-			delete mIndices;
-			mIndices = nullptr;
-			mIndexCount = 0;
-		}
+		delete mIndices;
+		mIndices = nullptr;
+		mIndexCount = 0;
 	}
 
 	bool SceneObject::isIntersectMesh(int& _x, int& _y, const Ogre::Ray& _ray, int _texture_width, int _texture_height) const

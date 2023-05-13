@@ -30,17 +30,8 @@ namespace tools
 
 	TestState::~TestState()
 	{
-		if (mTestWindow != nullptr)
-		{
-			delete mTestWindow;
-			mTestWindow = nullptr;
-		}
-
-		if (mBack != nullptr)
-		{
-			delete mBack;
-			mBack = nullptr;
-		}
+		delete mTestWindow;
+		delete mBack;
 	}
 
 	void TestState::initState()

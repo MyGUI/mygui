@@ -162,11 +162,8 @@ namespace MyGUI
 
 	void OpenGLESTexture::destroy()
 	{
-		if (mRenderTarget != nullptr)
-		{
-			delete mRenderTarget;
-			mRenderTarget = nullptr;
-		}
+		delete mRenderTarget;
+		mRenderTarget = nullptr;
 
 		if (mTextureId != 0)
 		{
