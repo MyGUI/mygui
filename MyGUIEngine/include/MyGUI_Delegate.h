@@ -221,11 +221,8 @@ namespace delegates
 		{
 			for (auto iter = mListDelegates.begin(); iter != mListDelegates.end(); ++iter)
 			{
-				if (*iter)
-				{
-					delete (*iter);
-					(*iter) = nullptr;
-				}
+				delete (*iter);
+				(*iter) = nullptr;
 			}
 		}
 

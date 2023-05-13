@@ -27,11 +27,7 @@ namespace helpers
 
 		~Buffer()
 		{
-			if (mBuffer != 0)
-			{
-				delete [] mBuffer;
-				mBuffer = nullptr;
-			}
+			delete[] mBuffer;
 		}
 
 		void resize(int _width, int _height)
@@ -100,12 +96,7 @@ namespace helpers
 					}
 				}
 
-				// удаляем старый буфер
-				if (mBuffer != 0)
-				{
-					delete [] mBuffer;
-					mBuffer = nullptr;
-				}
+				delete [] mBuffer;
 				mBuffer = new_data;
 			}
 			else

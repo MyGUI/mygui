@@ -58,11 +58,8 @@ namespace MyGUI
 		}
 		requestUpdateCanvas = nullptr;
 
-		if (mWindowDelegate)
-		{
-			delete mWindowDelegate;
-			mWindowDelegate = nullptr;
-		}
+		delete mWindowDelegate;
+		mWindowDelegate = nullptr;
 
 		Base::shutdownOverride();
 	}

@@ -829,20 +829,14 @@ namespace MyGUI
 
 		void Document::clearDeclaration()
 		{
-			if (mDeclaration)
-			{
-				delete mDeclaration;
-				mDeclaration = nullptr;
-			}
+			delete mDeclaration;
+			mDeclaration = nullptr;
 		}
 
 		void Document::clearRoot()
 		{
-			if (mRoot)
-			{
-				delete mRoot;
-				mRoot = nullptr;
-			}
+			delete mRoot;
+			mRoot = nullptr;
 		}
 
 		ElementPtr Document::createDeclaration(const std::string& _version, const std::string& _encoding)

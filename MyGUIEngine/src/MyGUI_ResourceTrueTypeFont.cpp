@@ -793,7 +793,7 @@ namespace MyGUI
 		FT_Done_Face(ftFace);
 		FT_Done_FreeType(ftLibrary);
 
-		delete [] fontBuffer;
+		delete[] fontBuffer;
 	}
 
 	FT_Face ResourceTrueTypeFont::loadFace(const FT_Library& _ftLibrary, uint8*& _fontBuffer)

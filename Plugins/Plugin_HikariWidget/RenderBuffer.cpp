@@ -30,11 +30,7 @@ RenderBuffer::RenderBuffer(int width, int height) : width(0), height(0), buffer(
 
 RenderBuffer::~RenderBuffer()
 {
-	if (buffer)
-	{
-		delete [] buffer;
-		buffer = 0;
-	}
+	delete[] buffer;
 }
 
 void RenderBuffer::reserve(int width, int height)

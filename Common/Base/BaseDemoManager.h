@@ -68,17 +68,11 @@ namespace base
 		{
 			MyGUI::Gui::getInstance().eventFrameStart -= MyGUI::newDelegate(this, &BaseDemoManager::notifyFrameStartUpdateStatistic);
 
-			if (mInfo)
-			{
-				delete mInfo;
-				mInfo = nullptr;
-			}
+			delete mInfo;
+			mInfo = nullptr;
 
-			if (mFocusInfo)
-			{
-				delete mFocusInfo;
-				mFocusInfo = nullptr;
-			}
+			delete mFocusInfo;
+			mFocusInfo = nullptr;
 
 			BaseManager::destroyGui();
 		}
