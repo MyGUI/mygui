@@ -776,8 +776,6 @@ namespace MyGUI
 			while (parent->getParent())
 				parent = parent->getParent();
 
-			//mIWidgetCreator = parent->mIWidgetCreator;
-			//mIWidgetCreator->_linkChildWidget(this);
 			Gui::getInstance()._linkChildWidget(this);
 			mParent->_unlinkChildWidget(this);
 			mParent = nullptr;
@@ -804,7 +802,6 @@ namespace MyGUI
 		if (_parent->getClientWidget())
 			_parent = _parent->getClientWidget();
 
-		// проверяем на цикличность атача
 		Widget* parent = _parent;
 		while (parent->getParent())
 		{
@@ -812,15 +809,12 @@ namespace MyGUI
 			parent = parent->getParent();
 		}
 
-		// отдетачиваемся от всего
 		detachFromWidget();
 
 		mWidgetStyle = _style;
 
 		if (_style == WidgetStyle::Popup)
 		{
-			//mIWidgetCreator->_unlinkChildWidget(this);
-			//mIWidgetCreator = _parent;
 			if (mParent == nullptr)
 				Gui::getInstance()._unlinkChildWidget(this);
 			else
@@ -840,8 +834,6 @@ namespace MyGUI
 		{
 			LayerManager::getInstance().detachFromLayer(this);
 
-			//mIWidgetCreator->_unlinkChildWidget(this);
-			//mIWidgetCreator = _parent;
 			if (mParent == nullptr)
 				Gui::getInstance()._unlinkChildWidget(this);
 			else
@@ -865,8 +857,6 @@ namespace MyGUI
 		{
 			LayerManager::getInstance().detachFromLayer(this);
 
-			//mIWidgetCreator->_unlinkChildWidget(this);
-			//mIWidgetCreator = _parent;
 			if (mParent == nullptr)
 				Gui::getInstance()._unlinkChildWidget(this);
 			else
