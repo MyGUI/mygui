@@ -148,13 +148,13 @@ namespace tools
 	{
 		// FIXME потом вынести в загружаемые настройки
 		MyGUI::VectorString paths = MyGUI::DataManager::getInstance().getDataListNames("*.png");
-		for (MyGUI::VectorString::iterator iter = paths.begin(); iter != paths.end(); ++iter)
-			mTextures.push_back(*iter);
+		for (const auto& path : paths)
+			mTextures.push_back(path);
 
 		// FIXME потом вынести в загружаемые настройки
 		paths = MyGUI::DataManager::getInstance().getDataListNames("*.jpg");
-		for (MyGUI::VectorString::iterator iter = paths.begin(); iter != paths.end(); ++iter)
-			mTextures.push_back(*iter);
+		for (const auto& path : paths)
+			mTextures.push_back(path);
 	}
 
 	void PropertyTexturesControl::updateTexture()

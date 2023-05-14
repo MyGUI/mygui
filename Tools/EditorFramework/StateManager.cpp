@@ -19,8 +19,8 @@ namespace tools
 	{
 		rollbackToState(nullptr);
 
-		for (MapStateController::iterator state = mStateName.begin(); state != mStateName.end(); state ++)
-			delete (*state).second;
+		for (auto& state : mStateName)
+			delete state.second;
 		mStateName.clear();
 	}
 

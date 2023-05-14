@@ -17,8 +17,8 @@ namespace tools
 
 	void CommandManager::shutdown()
 	{
-		for (MapEvent::iterator iter = mEvents.begin(); iter != mEvents.end(); iter++)
-			delete iter->second;
+		for (auto& event : mEvents)
+			delete event.second;
 
 		mEvents.clear();
 	}

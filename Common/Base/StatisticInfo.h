@@ -42,11 +42,11 @@ namespace diagnostic
 		template <typename T>
 		void change(std::string_view _key, const T& _value)
 		{
-			for (MyGUI::VectorStringPairs::iterator iter = mParams.begin(); iter != mParams.end(); ++iter)
+			for (auto& param : mParams)
 			{
-				if (iter->first == _key)
+				if (param.first == _key)
 				{
-					iter->second = MyGUI::utility::toString<T>(_value);
+					param.second = MyGUI::utility::toString<T>(_value);
 					return;
 				}
 			}

@@ -685,8 +685,8 @@ namespace MyGUI
 		// texture needs to be.
 		double averageGlyphHeight = 0.0;
 
-		for (GlyphHeightMap::const_iterator j = glyphHeightMap.begin(); j != glyphHeightMap.end(); ++j)
-			averageGlyphHeight += j->first * j->second.size();
+		for (const auto& heightItem : glyphHeightMap)
+			averageGlyphHeight += heightItem.first * heightItem.second.size();
 
 		averageGlyphHeight /= mGlyphMap.size();
 
@@ -720,14 +720,12 @@ namespace MyGUI
 			int texX = mGlyphSpacing;
 			int texY = mGlyphSpacing;
 
-			for (GlyphHeightMap::const_iterator j = glyphHeightMap.begin(); j != glyphHeightMap.end(); ++j)
+			for (const auto& heightItem : glyphHeightMap)
 			{
-				for (GlyphHeightMap::mapped_type::const_iterator i = j->second.begin(); i != j->second.end(); ++i)
+				for (const auto& [key, info] : heightItem.second)
 				{
-					GlyphInfo& info = *i->second;
-
-					int glyphWidth = (int)std::ceil(info.width);
-					int glyphHeight = (int)std::ceil(info.height);
+					int glyphWidth = (int)std::ceil(info->width);
+					int glyphHeight = (int)std::ceil(info->height);
 
 					autoWrapGlyphPos(glyphWidth, texWidth, glyphHeight, texX, texY);
 

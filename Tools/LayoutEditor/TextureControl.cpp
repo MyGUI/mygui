@@ -47,8 +47,8 @@ namespace tools
 
 		mView->setCanvasSize(MyGUI::IntSize((int)width, (int)height));
 
-		for (std::vector<SelectorControlLE*>::iterator item = mSelectors.begin(); item != mSelectors.end(); ++item)
-			(*item)->setScale(mScaleValue);
+		for (auto& selector : mSelectors)
+			selector->setScale(mScaleValue);
 	}
 
 	void TextureControlLE::setTextureName(const MyGUI::UString& _value)
@@ -135,8 +135,8 @@ namespace tools
 		if (mMouseCapture)
 			return true;
 
-		for (std::vector<SelectorControlLE*>::iterator item = mSelectors.begin(); item != mSelectors.end(); ++item)
-			if ((*item)->getCapture())
+		for (auto& selector : mSelectors)
+			if (selector->getCapture())
 				return true;
 		return false;
 	}

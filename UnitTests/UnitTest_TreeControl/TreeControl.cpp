@@ -48,10 +48,8 @@ namespace MyGUI
 		prepare();
 
 		size_t nResult = 0;
-		for (VectorNodePtr::iterator Iterator = getChildren().begin(); Iterator != getChildren().end(); ++Iterator)
+		for (auto pChild : getChildren())
 		{
-			TreeControl::Node* pChild = *Iterator;
-
 			nResult++;
 
 			pChild->prepare();

@@ -24,11 +24,11 @@ namespace tools
 
 		inline void mapSet(MyGUI::VectorStringPairs& _map, std::string_view _key, std::string_view _value)
 		{
-			for (MyGUI::VectorStringPairs::iterator iter = _map.begin(); iter != _map.end(); ++iter)
+			for (auto& iter : _map)
 			{
-				if (iter->first == _key)
+				if (iter.first == _key)
 				{
-					iter->second = _value;
+					iter.second = _value;
 					return;
 				}
 			}

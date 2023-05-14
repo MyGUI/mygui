@@ -358,9 +358,9 @@ namespace MyGUI
 
 						// выравниваем
 						int offset = 0;
-						for (size_t pos = 0; pos < mWidgetLines.size(); pos++)
+						for (auto& widgetLine : mWidgetLines)
 						{
-							mWidgetLines[pos]->setPosition(0, offset);
+							widgetLine->setPosition(0, offset);
 							offset += mHeightLine;
 						}
 					}
@@ -381,9 +381,9 @@ namespace MyGUI
 
 					// выравниваем
 					int offset = 0 - mOffsetTop;
-					for (size_t pos = 0; pos < mWidgetLines.size(); pos++)
+					for (auto& widgetLine : mWidgetLines)
 					{
-						mWidgetLines[pos]->setPosition(0, offset);
+						widgetLine->setPosition(0, offset);
 						offset += mHeightLine;
 					}
 
@@ -695,10 +695,10 @@ namespace MyGUI
 		mItemsInfo.clear();
 
 		int offset = 0;
-		for (size_t pos = 0; pos < mWidgetLines.size(); pos++)
+		for (auto& widgetLine : mWidgetLines)
 		{
-			mWidgetLines[pos]->setVisible(false);
-			mWidgetLines[pos]->setPosition(0, offset);
+			widgetLine->setVisible(false);
+			widgetLine->setPosition(0, offset);
 			offset += mHeightLine;
 		}
 
@@ -780,9 +780,9 @@ namespace MyGUI
 		// смещение с отрицательной стороны
 		int offset = 0 - mOffsetTop;
 
-		for (size_t pos = 0; pos < mWidgetLines.size(); pos++)
+		for (auto& widgetLine : mWidgetLines)
 		{
-			mWidgetLines[pos]->setPosition(IntPoint(0, offset));
+			widgetLine->setPosition(IntPoint(0, offset));
 			offset += mHeightLine;
 		}
 

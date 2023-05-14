@@ -85,7 +85,7 @@ namespace MyGUI
 		MapResource mResources;
 
 		using VectorResource = std::vector<IResource*>;
-		VectorResource mRemovedResoures;
+		VectorResource mRemovedResources;
 
 		bool mIsInitialise;
 		std::string mCategoryName;

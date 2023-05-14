@@ -65,9 +65,9 @@ namespace tools
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_currentWidget);
 
 		mList->removeAllItems();
-		for (std::vector<ControllerInfo*>::iterator iter = widgetContainer->mController.begin(); iter != widgetContainer->mController.end(); ++iter)
+		for (auto& iter : widgetContainer->mController)
 		{
-			mList->addItem((*iter)->mType, *iter);
+			mList->addItem(iter->mType, iter);
 		}
 
 		mPanelCell->setClientHeight(mButtonDelete->getCoord().bottom());
@@ -154,10 +154,10 @@ namespace tools
 	{
 		int height = mButtonDelete->getCoord().bottom() + 3;
 
-		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
+		for (auto& field : mFields)
 		{
-			MyGUI::IntSize size = (*item)->getContentSize();
-			(*item)->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
+			MyGUI::IntSize size = field->getContentSize();
+			field->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
 			height += size.height;
 		}
 
@@ -193,8 +193,8 @@ namespace tools
 
 	void PanelControllers::destroyPropertyFields()
 	{
-		for (VectorPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
-			delete (*item);
+		for (auto& field : mFields)
+			delete field;
 		mFields.clear();
 	}
 

@@ -275,12 +275,12 @@ namespace MyGUI
 		setMax(result.width, line_info.width);
 
 		// теперь выравниванием строки
-		for (VectorLineInfo::iterator line = mLineInfo.begin(); line != mLineInfo.end(); ++line)
+		for (auto& line : mLineInfo)
 		{
 			if (_align.isRight())
-				line->offset = result.width - line->width;
+				line.offset = result.width - line.width;
 			else if (_align.isHCenter())
-				line->offset = (result.width - line->width) / 2;
+				line.offset = (result.width - line.width) / 2;
 		}
 
 		mViewSize = result;
@@ -307,12 +307,12 @@ namespace MyGUI
 				int count = 0;
 
 				// ищем символ
-				for (const auto& sim : line->symbols)
+				for (const auto& sym : line->symbols)
 				{
-					if (sim.isColour())
+					if (sym.isColour())
 						continue;
 
-					float fullAdvance = sim.getAdvance() + sim.getBearingX();
+					float fullAdvance = sym.getAdvance() + sym.getBearingX();
 					if (left + fullAdvance / 2.0f > _value.left)
 					{
 						break;
@@ -336,25 +336,25 @@ namespace MyGUI
 		size_t position = 0;
 		int top = 0;
 		float left = 0.0f;
-		for (VectorLineInfo::const_iterator line = mLineInfo.begin(); line != mLineInfo.end(); ++line)
+		for (const auto& line : mLineInfo)
 		{
-			left = (float)line->offset;
-			if (position + line->count >= _position)
+			left = (float)line.offset;
+			if (position + line.count >= _position)
 			{
-				for (VectorCharInfo::const_iterator sim = line->symbols.begin(); sim != line->symbols.end(); ++sim)
+				for (const auto& sym : line.symbols)
 				{
-					if (sim->isColour())
+					if (sym.isColour())
 						continue;
 
 					if (position == _position)
 						break;
 
 					position ++;
-					left += sim->getBearingX() + sim->getAdvance();
+					left += sym.getBearingX() + sym.getAdvance();
 				}
 				break;
 			}
-			position += line->count + 1;
+			position += line.count + 1;
 			top += mFontHeight;
 		}
 

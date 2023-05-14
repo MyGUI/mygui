@@ -147,9 +147,9 @@ namespace MyGUI
 
 		Element::~Element()
 		{
-			for (VectorElement::iterator iter = mChilds.begin(); iter != mChilds.end(); ++iter)
+			for (auto& child : mChilds)
 			{
-				delete *iter;
+				delete child;
 			}
 			mChilds.clear();
 		}
@@ -170,9 +170,9 @@ namespace MyGUI
 
 			_stream << mName;
 
-			for (VectorAttributes::iterator iter = mAttributes.begin(); iter != mAttributes.end(); ++iter)
+			for (auto& attribute : mAttributes)
 			{
-				_stream << " " << iter->first << "=\"" << utility::convert_to_xml(iter->second) << "\"";
+				_stream << " " << attribute.first << "=\"" << utility::convert_to_xml(attribute.second) << "\"";
 			}
 
 			bool empty = mChilds.empty();
@@ -203,10 +203,10 @@ namespace MyGUI
 					if (!empty)
 						_stream << "\n";
 				}
-				// если есть детишки путь сохранятся
-				for (size_t child = 0; child < mChilds.size(); child++)
+				// save child items
+				for (auto& child : mChilds)
 				{
-					mChilds[child]->save(_stream, _level + 1);
+					child->save(_stream, _level + 1);
 				}
 
 				if (!empty)
@@ -237,7 +237,7 @@ namespace MyGUI
 
 		void Element::clear()
 		{
-			for (VectorElement::iterator iter = mChilds.begin(); iter != mChilds.end(); ++iter) delete *iter;
+			for (auto& child : mChilds) delete child;
 			mChilds.clear();
 			mContent.clear();
 			mAttributes.clear();
@@ -245,11 +245,11 @@ namespace MyGUI
 
 		bool Element::findAttribute(std::string_view _name, std::string& _value)
 		{
-			for (VectorAttributes::iterator iter = mAttributes.begin(); iter != mAttributes.end(); ++iter)
+			for (const auto& attribute : mAttributes)
 			{
-				if ( (*iter).first == _name)
+				if ( attribute.first == _name)
 				{
-					_value = (*iter).second;
+					_value = attribute.second;
 					return true;
 				}
 			}
@@ -258,10 +258,10 @@ namespace MyGUI
 
 		std::string_view Element::findAttribute(std::string_view _name)
 		{
-			for (VectorAttributes::iterator iter = mAttributes.begin(); iter != mAttributes.end(); ++iter)
+			for (const auto& attribute : mAttributes)
 			{
-				if ((*iter).first == _name)
-					return (*iter).second;
+				if (attribute.first == _name)
+					return attribute.second;
 			}
 			return {};
 		}
@@ -288,9 +288,9 @@ namespace MyGUI
 			Element* elem = new Element(mName, nullptr, mType, mContent);
 			elem->mAttributes = mAttributes;
 
-			for (VectorElement::iterator iter = mChilds.begin(); iter != mChilds.end(); ++iter)
+			for (auto& oldChild : mChilds)
 			{
-				Element* child = (*iter)->createCopy();
+				Element* child = oldChild->createCopy();
 				child->mParent = elem;
 				elem->mChilds.push_back(child);
 			}
@@ -300,11 +300,11 @@ namespace MyGUI
 
 		void Element::setAttribute(std::string_view _key, std::string_view _value)
 		{
-			for (size_t index = 0; index < mAttributes.size(); ++index)
+			for (auto& attribute : mAttributes)
 			{
-				if (mAttributes[index].first == _key)
+				if (attribute.first == _key)
 				{
-					mAttributes[index].second = _value;
+					attribute.second = _value;
 					return;
 				}
 			}

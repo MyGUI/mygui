@@ -114,9 +114,9 @@ namespace MyGUI
 		mMapLanguage.clear();
 		mCurrentLanguageName = _name;
 
-		for (VectorString::const_iterator iter = item->second.begin(); iter != item->second.end(); ++iter)
+		for (const auto& file : item->second)
 		{
-			loadLanguage(*iter, false);
+			loadLanguage(file, false);
 		}
 
 		eventChangeLanguage(mCurrentLanguageName);
@@ -235,9 +235,9 @@ namespace MyGUI
 	VectorString LanguageManager::getLanguages() const
 	{
 		VectorString result;
-		for (MapListString::const_iterator iter = mMapFile.begin(); iter != mMapFile.end(); ++iter)
+		for (const auto& iter : mMapFile)
 		{
-			result.push_back(iter->first);
+			result.push_back(iter.first);
 		}
 		return result;
 	}

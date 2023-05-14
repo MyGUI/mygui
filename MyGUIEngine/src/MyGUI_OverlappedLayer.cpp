@@ -151,16 +151,16 @@ namespace MyGUI
 
 	void OverlappedLayer::renderToTarget(IRenderTarget* _target, bool _update)
 	{
-		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
-			(*iter)->renderToTarget(_target, _update);
+		for (auto& childItem : mChildItems)
+			childItem->renderToTarget(_target, _update);
 
 		mOutOfDate = false;
 	}
 
 	void OverlappedLayer::resizeView(const IntSize& _viewSize)
 	{
-		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
-			(*iter)->resizeView(_viewSize);
+		for (auto& childItem : mChildItems)
+			childItem->resizeView(_viewSize);
 
 		mViewSize = _viewSize;
 	}
@@ -189,9 +189,9 @@ namespace MyGUI
 
 	bool OverlappedLayer::isOutOfDate() const
 	{
-		for (VectorILayerNode::const_iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
+		for (const auto& childItem : mChildItems)
 		{
-			if (static_cast<const LayerNode*>(*iter)->isOutOfDate())
+			if (static_cast<const LayerNode*>(childItem)->isOutOfDate())
 				return true;
 		}
 

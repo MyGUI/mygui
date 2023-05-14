@@ -164,8 +164,8 @@ namespace input
 	void InputManager::buildVKeyMap()
 	{
 		mSDLVKeyMap.clear();
-		for (size_t i = 0; i < sizeof(mapItems) / sizeof(KeyMapItem); ++i)
-			mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(mapItems[i].sdlKey, mapItems[i].myguiKey));
+		for (const auto& mapItem : mapItems)
+			mSDLVKeyMap.insert(std::pair<int, MyGUI::KeyCode>(mapItem.sdlKey, mapItem.myguiKey));
 	}
 
 	void InputManager::buildMouseButtonMap()

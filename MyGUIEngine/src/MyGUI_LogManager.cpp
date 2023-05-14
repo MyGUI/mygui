@@ -57,8 +57,8 @@ namespace MyGUI
 
 	void LogManager::flush()
 	{
-		for (VectorLogSource::iterator item = mSources.begin(); item != mSources.end(); ++item)
-			(*item)->flush();
+		for (auto& source : mSources)
+			source->flush();
 	}
 
 	void LogManager::log(std::string_view _section, LogLevel _level, std::string_view _message, std::string_view _file, int _line)
@@ -68,14 +68,14 @@ namespace MyGUI
 		struct tm* currentTime;
 		currentTime = localtime(&ctTime);
 
-		for (VectorLogSource::iterator item = mSources.begin(); item != mSources.end(); ++item)
-			(*item)->log(_section, _level, currentTime, _message, _file, _line);
+		for (auto& source : mSources)
+			source->log(_section, _level, currentTime, _message, _file, _line);
 	}
 
 	void LogManager::close()
 	{
-		for (VectorLogSource::iterator item = mSources.begin(); item != mSources.end(); ++item)
-			(*item)->close();
+		for (auto& source : mSources)
+			source->close();
 	}
 
 	void LogManager::addLogSource(LogSource* _source)

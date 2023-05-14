@@ -163,9 +163,9 @@ namespace tools
 
 		WidgetStyle* widgetType = WidgetTypes::getInstance().findWidgetStyle(_widgetContainer->getType());
 
-		for (MyGUI::VectorStringPairs::iterator iter = widgetType->parameterData.begin(); iter != widgetType->parameterData.end(); ++iter)
+		for (auto& iter : widgetType->parameterData)
 		{
-			if ((*iter).first == _key)
+			if (iter.first == _key)
 				return false;
 		}
 
@@ -173,9 +173,9 @@ namespace tools
 		{
 			WidgetStyle* widgetTargetType = WidgetTypes::getInstance().findWidgetStyle(widgetTypeName);
 
-			for (MyGUI::VectorStringPairs::iterator iter = widgetTargetType->templateData.begin(); iter != widgetTargetType->templateData.end(); ++iter)
+			for (auto& iter : widgetTargetType->templateData)
 			{
-				if ((*iter).first == _key)
+				if (iter.first == _key)
 					return false;
 			}
 		}

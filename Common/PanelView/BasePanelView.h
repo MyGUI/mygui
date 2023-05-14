@@ -126,10 +126,10 @@ namespace wraps
 		//! Remove all items
 		void removeAllItems()
 		{
-			for (VectorCell::iterator iter = mItems.begin(); iter != mItems.end(); ++iter)
+			for (auto& item : mItems)
 			{
-				BasePanelViewCell* cell = (*iter)->getPanelCell();
-				(*iter)->_shutdown();
+				BasePanelViewCell* cell = item->getPanelCell();
+				item->_shutdown();
 				delete cell;
 			}
 			mItems.clear();
@@ -140,9 +140,9 @@ namespace wraps
 		{
 			// вычисляем максимальную высоту всего добра
 			int height = 0;
-			for (VectorCell::iterator iter = mItems.begin(); iter != mItems.end(); ++iter)
+			for (const auto& item : mItems)
 			{
-				MyGUI::Widget* widget = (*iter)->getPanelCell()->getMainWidget();
+				MyGUI::Widget* widget = item->getPanelCell()->getMainWidget();
 				if (widget->getVisible())
 				{
 					height += widget->getHeight();
@@ -163,9 +163,9 @@ namespace wraps
 
 			// выравниваем все панели
 			int pos = 0;
-			for (VectorCell::iterator iter = mItems.begin(); iter != mItems.end(); ++iter)
+			for (auto& item : mItems)
 			{
-				MyGUI::Widget* widget = (*iter)->getPanelCell()->getMainWidget();
+				MyGUI::Widget* widget = item->getPanelCell()->getMainWidget();
 				if (widget->getVisible() || mFirstInitialise)
 				{
 					height = widget->getHeight();
@@ -173,7 +173,7 @@ namespace wraps
 
 					// оповещаем, что мы обновили ширину
 					if (change)
-						(*iter)->notifyChangeWidth(size.width);
+						item->notifyChangeWidth(size.width);
 
 					pos += height;
 				}

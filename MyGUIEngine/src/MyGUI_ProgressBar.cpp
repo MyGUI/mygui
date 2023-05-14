@@ -159,9 +159,9 @@ namespace MyGUI
 		// все скрыто
 		if ((0 == mRange) || (0 == mEndPosition))
 		{
-			for (VectorWidgetPtr::iterator iter = mVectorTrack.begin(); iter != mVectorTrack.end(); ++iter)
+			for (auto& iter : mVectorTrack)
 			{
-				(*iter)->setVisible(false);
+				iter->setVisible(false);
 			}
 			return;
 		}
@@ -227,11 +227,11 @@ namespace MyGUI
 		if ((0 == mStartPosition) && (mRange == mEndPosition))
 		{
 			int pos = 0;
-			for (VectorWidgetPtr::iterator iter = mVectorTrack.begin(); iter != mVectorTrack.end(); ++iter)
+			for (auto& iter : mVectorTrack)
 			{
-				(*iter)->setAlpha(ALPHA_MAX);
-				(*iter)->setVisible(true);
-				setTrackPosition(*iter, pos * mTrackStep, 0, mTrackWidth, getClientHeight());
+				iter->setAlpha(ALPHA_MAX);
+				iter->setVisible(true);
+				setTrackPosition(iter, pos * mTrackStep, 0, mTrackWidth, getClientHeight());
 				pos++;
 			}
 		}
@@ -246,35 +246,35 @@ namespace MyGUI
 			int show_count = show_pix / mTrackStep;
 
 			int pos = 0;
-			for (VectorWidgetPtr::iterator iter = mVectorTrack.begin(); iter != mVectorTrack.end(); ++iter)
+			for (auto& iter : mVectorTrack)
 			{
 				if (0 > show_count)
 				{
-					(*iter)->setVisible(false);
+					iter->setVisible(false);
 				}
 				else if (0 == show_count)
 				{
-					(*iter)->setAlpha((float)(show_pix % mTrackStep) / (float)mTrackStep);
-					(*iter)->setVisible(true);
-					setTrackPosition(*iter, pos * mTrackStep, 0, mTrackWidth, getClientHeight());
+					iter->setAlpha((float)(show_pix % mTrackStep) / (float)mTrackStep);
+					iter->setVisible(true);
+					setTrackPosition(iter, pos * mTrackStep, 0, mTrackWidth, getClientHeight());
 				}
 				else
 				{
 					if (0 < hide_count)
 					{
-						(*iter)->setVisible(false);
+						iter->setVisible(false);
 					}
 					else if (0 == hide_count)
 					{
-						(*iter)->setAlpha(1.0f - ((float)(hide_pix % mTrackStep) / (float)mTrackStep));
-						(*iter)->setVisible(true);
-						setTrackPosition(*iter, pos * mTrackStep, 0, mTrackWidth, getClientHeight());
+						iter->setAlpha(1.0f - ((float)(hide_pix % mTrackStep) / (float)mTrackStep));
+						iter->setVisible(true);
+						setTrackPosition(iter, pos * mTrackStep, 0, mTrackWidth, getClientHeight());
 					}
 					else
 					{
-						(*iter)->setAlpha(ALPHA_MAX);
-						(*iter)->setVisible(true);
-						setTrackPosition(*iter, pos * mTrackStep, 0, mTrackWidth, getClientHeight());
+						iter->setAlpha(ALPHA_MAX);
+						iter->setVisible(true);
+						setTrackPosition(iter, pos * mTrackStep, 0, mTrackWidth, getClientHeight());
 					}
 				}
 				hide_count --;

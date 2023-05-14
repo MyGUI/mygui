@@ -41,9 +41,9 @@ namespace tools
 			if (result != nullptr)
 				return result;
 
-			for (VectorControl::iterator child = mChilds.begin(); child != mChilds.end(); child ++)
+			for (auto& child : mChilds)
 			{
-				result = (*child)->findControl<Type>();
+				result = child->findControl<Type>();
 				if (result != nullptr)
 					return result;
 			}

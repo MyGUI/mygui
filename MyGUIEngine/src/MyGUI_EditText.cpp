@@ -535,15 +535,15 @@ namespace MyGUI
 
 		size_t index = 0;
 
-		for (VectorLineInfo::const_iterator line = textViewData.begin(); line != textViewData.end(); ++line)
+		for (const auto& line : textViewData)
 		{
-			float left = (float)(line->offset - mViewOffset.left + mCoord.left);
+			float left = (float)(line.offset - mViewOffset.left + mCoord.left);
 
-			for (VectorCharInfo::const_iterator sim = line->symbols.begin(); sim != line->symbols.end(); ++sim)
+			for (const auto& sym : line.symbols)
 			{
-				if (sim->isColour())
+				if (sym.isColour())
 				{
-					colour = sim->getColour() | (colour & 0xFF000000);
+					colour = sym.getColour() | (colour & 0xFF000000);
 					inverseColour = colour ^ 0x00FFFFFF;
 					selectedColour = mInvertSelect ? inverseColour : colour | 0x00FFFFFF;
 					continue;
@@ -552,7 +552,7 @@ namespace MyGUI
 				// смещение текстуры для фона
 				bool select = index >= mStartSelect && index < mEndSelect;
 
-				float fullAdvance = sim->getBearingX() + sim->getAdvance();
+				float fullAdvance = sym.getBearingX() + sym.getAdvance();
 
 				// Render the selection, if any, first.
 				if (select)
@@ -565,21 +565,21 @@ namespace MyGUI
 				// Render the glyph shadow, if any.
 				if (mShadow)
 				{
-					vertexRect.left = left + sim->getBearingX() + 1.0f;
-					vertexRect.top = top + sim->getBearingY() + 1.0f;
-					vertexRect.right = vertexRect.left + sim->getWidth();
-					vertexRect.bottom = vertexRect.top + sim->getHeight();
+					vertexRect.left = left + sym.getBearingX() + 1.0f;
+					vertexRect.top = top + sym.getBearingY() + 1.0f;
+					vertexRect.right = vertexRect.left + sym.getWidth();
+					vertexRect.bottom = vertexRect.top + sym.getHeight();
 
-					drawGlyph(renderTargetInfo, vertex, vertexCount, vertexRect, sim->getUVRect(), mShadowColourNative);
+					drawGlyph(renderTargetInfo, vertex, vertexCount, vertexRect, sym.getUVRect(), mShadowColourNative);
 				}
 
 				// Render the glyph itself.
-				vertexRect.left = left + sim->getBearingX();
-				vertexRect.top = top + sim->getBearingY();
-				vertexRect.right = vertexRect.left + sim->getWidth();
-				vertexRect.bottom = vertexRect.top + sim->getHeight();
+				vertexRect.left = left + sym.getBearingX();
+				vertexRect.top = top + sym.getBearingY();
+				vertexRect.right = vertexRect.left + sym.getWidth();
+				vertexRect.bottom = vertexRect.top + sym.getHeight();
 
-				drawGlyph(renderTargetInfo, vertex, vertexCount, vertexRect, sim->getUVRect(), (!select || !mInvertSelect) ? colour : inverseColour);
+				drawGlyph(renderTargetInfo, vertex, vertexCount, vertexRect, sym.getUVRect(), (!select || !mInvertSelect) ? colour : inverseColour);
 
 				left += fullAdvance;
 				++index;

@@ -68,8 +68,8 @@ namespace tools
 		delete mPanelTemplateProperties;
 		delete mPanelExtensionProperties;
 
-		for (MapPropertyWindow::iterator item = mMapPropertyWindow.begin(); item != mMapPropertyWindow.end(); ++ item)
-			delete (*item).second;
+		for (auto& item : mMapPropertyWindow)
+			delete item.second;
 		mMapPropertyWindow.clear();
 	}
 
@@ -105,10 +105,10 @@ namespace tools
 			EditorWidgets::getInstance().onSetWidgetCoord(mCurrentWidget, mCurrentWidget->getAbsoluteCoord(), "PropertiesPanelView");
 		}
 
-		for (MapPropertyWindow::iterator item = mMapPropertyWindow.begin(); item != mMapPropertyWindow.end(); ++ item)
+		for (auto& item : mMapPropertyWindow)
 		{
-			(*item).second->setVisible(false);
-			(*item).second->update(nullptr, nullptr);
+			item.second->setVisible(false);
+			item.second->update(nullptr, nullptr);
 		}
 
 		if (nullptr == mCurrentWidget)
@@ -197,11 +197,11 @@ namespace tools
 	size_t PropertiesPanelView::getIndexByDepth(size_t _depth)
 	{
 		size_t result = 1;
-		for (MapPropertyWindow::iterator item = mMapPropertyWindow.begin(); item != mMapPropertyWindow.end(); ++ item)
+		for (auto& item : mMapPropertyWindow)
 		{
-			if ((*item).second->getDepth() < _depth)
+			if (item.second->getDepth() < _depth)
 			{
-				size_t index = getIndexPanel((*item).second);
+				size_t index = getIndexPanel(item.second);
 				if (index >= result)
 					result = index + 1;
 			}

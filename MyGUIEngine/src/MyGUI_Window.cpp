@@ -76,18 +76,18 @@ namespace MyGUI
 		}
 
 		VectorWidgetPtr buttons = getSkinWidgetsByName("Button");
-		for (VectorWidgetPtr::iterator iter = buttons.begin(); iter != buttons.end(); ++iter)
+		for (auto& button : buttons)
 		{
-			(*iter)->eventMouseButtonClick += newDelegate(this, &Window::notifyPressedButtonEvent);
+			button->eventMouseButtonClick += newDelegate(this, &Window::notifyPressedButtonEvent);
 		}
 
 		VectorWidgetPtr actions = getSkinWidgetsByName("Action");
-		for (VectorWidgetPtr::iterator iter = actions.begin(); iter != actions.end(); ++iter)
+		for (auto& action : actions)
 		{
-			(*iter)->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
-			(*iter)->eventMouseButtonReleased += newDelegate(this, &Window::notifyMouseReleased);
-			(*iter)->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
-			(*iter)->eventMouseWheel += newDelegate(this, &Window::notifyMouseWheel);
+			action->eventMouseButtonPressed += newDelegate(this, &Window::notifyMousePressed);
+			action->eventMouseButtonReleased += newDelegate(this, &Window::notifyMouseReleased);
+			action->eventMouseDrag += newDelegate(this, &Window::notifyMouseDrag);
+			action->eventMouseWheel += newDelegate(this, &Window::notifyMouseWheel);
 		}
 
 		const size_t countNames = 8;

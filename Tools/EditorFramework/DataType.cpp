@@ -16,14 +16,14 @@ namespace tools
 		mFriend = _node.select_single_node("Friend").node().child_value();
 
 		pugi::xpath_node_set childs = _node.select_nodes("Childs/Child/Type");
-		for (pugi::xpath_node_set::const_iterator child = childs.begin(); child != childs.end(); child ++)
-			mChilds.push_back((*child).node().child_value());
+		for (const auto& child : childs)
+			mChilds.push_back(child.node().child_value());
 
 		pugi::xpath_node_set properties = _node.select_nodes("Properties/Property");
-		for (pugi::xpath_node_set::const_iterator property = properties.begin(); property != properties.end(); property ++)
+		for (const auto& property : properties)
 		{
 			DataTypePropertyPtr info(new DataTypeProperty());
-			info->deserialization((*property).node());
+			info->deserialization(property.node());
 			mProperties.push_back(info);
 		}
 	}
@@ -50,9 +50,9 @@ namespace tools
 
 	bool DataType::isChild(std::string_view _child) const
 	{
-		for (VectorString::const_iterator child = mChilds.begin(); child != mChilds.end(); child ++)
+		for (const auto& child : mChilds)
 		{
-			if ((*child) == _child)
+			if (child == _child)
 				return true;
 		}
 

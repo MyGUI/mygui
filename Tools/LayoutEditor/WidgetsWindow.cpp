@@ -60,9 +60,9 @@ namespace tools
 	void WidgetsWindow::initialise()
 	{
 		const SkinGroups& groups = WidgetTypes::getInstance().getSkinGroups();
-		for (SkinGroups::const_iterator iter = groups.begin(); iter != groups.end(); ++iter)
+		for (const auto& group : groups)
 		{
-			MyGUI::TabItem* page = mTabSkins->addItem(iter->first);
+			MyGUI::TabItem* page = mTabSkins->addItem(group.first);
 			MyGUI::ItemBox* box = page->createWidget<MyGUI::ItemBox>("ItemBoxEmpty", MyGUI::IntCoord(0, 0, page->getSize().width, page->getSize().height), MyGUI::Align::Stretch);
 			mItemBoxs.push_back(box);
 
@@ -70,9 +70,9 @@ namespace tools
 			box->requestCoordItem = MyGUI::newDelegate(this, &WidgetsWindow::requestCoordItem);
 			box->requestDrawItem = MyGUI::newDelegate(this, &WidgetsWindow::requestDrawItem);
 
-			for (VectorSkinInfo::const_iterator iterSkin = iter->second.begin(); iterSkin != iter->second.end(); ++iterSkin)
+			for (const auto& iterSkin : group.second)
 			{
-				box->addItem(*iterSkin);
+				box->addItem(iterSkin);
 			}
 		}
 	}
@@ -125,9 +125,8 @@ namespace tools
 		const std::string& widgetType = WidgetCreatorManager::getInstance().getWidgetType();
 		const std::string& widgetSkin = WidgetCreatorManager::getInstance().getWidgetSkin();
 
-		for (VectorItemBox::iterator item = mItemBoxs.begin(); item != mItemBoxs.end(); ++item)
+		for (auto& box : mItemBoxs)
 		{
-			MyGUI::ItemBox* box = (*item);
 			box->setIndexSelected(MyGUI::ITEM_NONE);
 			for (size_t index = 0; index < box->getItemCount(); ++index)
 			{

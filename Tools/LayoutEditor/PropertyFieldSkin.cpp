@@ -46,8 +46,8 @@ namespace tools
 		}
 
 		mField->removeAllItems();
-		for (WidgetStyle::VectorString::iterator iter = values.begin(); iter != values.end(); ++iter)
-			mField->addItem(*iter);
+		for (auto& value : values)
+			mField->addItem(value);
 		mField->beginToItemFirst();
 	}
 

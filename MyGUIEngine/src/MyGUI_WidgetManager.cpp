@@ -145,9 +145,9 @@ namespace MyGUI
 
 	void WidgetManager::unlinkFromUnlinkers(Widget* _widget)
 	{
-		for (VectorIUnlinkWidget::iterator iter = mVectorIUnlinkWidget.begin(); iter != mVectorIUnlinkWidget.end(); ++iter)
+		for (auto& iter : mVectorIUnlinkWidget)
 		{
-			(*iter)->_unlinkWidget(_widget);
+			iter->_unlinkWidget(_widget);
 		}
 	}
 
@@ -170,11 +170,11 @@ namespace MyGUI
 	{
 		_widget->_shutdown();
 
-		for (VectorWidgetPtr::iterator entry = mDestroyWidgets.begin(); entry != mDestroyWidgets.end(); ++entry)
+		for (auto& widget : mDestroyWidgets)
 		{
 			/*if ((*entry) == _widget)
 				return;*/
-			MYGUI_ASSERT((*entry) != _widget, "double delete widget");
+			MYGUI_ASSERT(widget != _widget, "double delete widget");
 		}
 
 		mDestroyWidgets.push_back(_widget);
@@ -184,8 +184,8 @@ namespace MyGUI
 	{
 		if (!mDestroyWidgets.empty())
 		{
-			for (VectorWidgetPtr::iterator entry = mDestroyWidgets.begin(); entry != mDestroyWidgets.end(); ++entry)
-				delete (*entry);
+			for (auto& widget : mDestroyWidgets)
+				delete widget;
 			mDestroyWidgets.clear();
 		}
 	}

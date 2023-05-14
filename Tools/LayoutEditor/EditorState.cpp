@@ -593,8 +593,8 @@ namespace tools
 		if (resources.empty())
 			return;
 
-		for (SettingsManager::VectorString::iterator resource = resources.begin(); resource != resources.end(); ++resource)
-			MyGUI::ResourceManager::getInstance().load(*resource);
+		for (auto& resource : resources)
+			MyGUI::ResourceManager::getInstance().load(resource);
 
 		MyGUI::xml::Document* savedDoc = EditorWidgets::getInstance().savexmlDocument();
 		EditorWidgets::getInstance().clear();

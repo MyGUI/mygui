@@ -637,13 +637,13 @@ namespace tools
 			_widget->setCoord(_coord);
 
 			// восттанавливаем обсолютное положение детей
-			for (VectorPairWidgetCoord::iterator item = coords.begin(); item != coords.end(); ++ item)
+			for (auto& item : coords)
 			{
-				WidgetContainer* widgetContainer = EditorWidgets::getInstance().find((*item).first);
+				WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(item.first);
 				if (widgetContainer != nullptr)
 				{
-					MyGUI::IntCoord coord = (*item).second;
-					(*item).first->setCoord(coord.left - coordDiff.left, coord.top - coordDiff.top, coord.width, coord.height);
+					MyGUI::IntCoord coord = item.second;
+					item.first->setCoord(coord.left - coordDiff.left, coord.top - coordDiff.top, coord.width, coord.height);
 				}
 			}
 		}

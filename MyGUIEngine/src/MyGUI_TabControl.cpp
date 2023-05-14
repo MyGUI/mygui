@@ -320,16 +320,16 @@ namespace MyGUI
 	{
 		mButtonAutoWidth = _auto;
 
-		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
+		for (auto& info : mItemsInfo)
 		{
 			int width;
 			if (mButtonAutoWidth)
-				width = _getTextWidth(mItemsInfo[pos].name);
+				width = _getTextWidth(info.name);
 			else
 				width = mButtonDefaultWidth;
 
-			mWidthBar += width - mItemsInfo[pos].width;
-			mItemsInfo[pos].width = width;
+			mWidthBar += width - info.width;
+			info.width = width;
 		}
 
 		updateBar();
@@ -591,10 +591,10 @@ namespace MyGUI
 
 	TabItem* TabControl::findItemWith(const UString& _name)
 	{
-		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
+		for (auto& info : mItemsInfo)
 		{
-			if (mItemsInfo[pos].name == _name)
-				return mItemsInfo[pos].item;
+			if (info.name == _name)
+				return info.item;
 		}
 		return nullptr;
 	}
@@ -805,8 +805,8 @@ namespace MyGUI
 					mButtonRight->setVisible(true);
 				if (nullptr != mButtonDecor)
 					mButtonDecor->setVisible(true);
-				for (VectorWidgetPtr::iterator iter = mWidgetsPatch.begin(); iter != mWidgetsPatch.end(); ++iter)
-					(*iter)->setVisible(true);
+				for (auto& iter : mWidgetsPatch)
+					iter->setVisible(true);
 				if (mWidgetBar != nullptr)
 					mWidgetBar->setSize(mWidgetBar->getWidth() - mOffsetTab, mWidgetBar->getHeight());
 			}
@@ -822,8 +822,8 @@ namespace MyGUI
 					mButtonRight->setVisible(false);
 				if (nullptr != mButtonDecor)
 					mButtonDecor->setVisible(false);
-				for (VectorWidgetPtr::iterator iter = mWidgetsPatch.begin(); iter != mWidgetsPatch.end(); ++iter)
-					(*iter)->setVisible(false);
+				for (auto& iter : mWidgetsPatch)
+					iter->setVisible(false);
 				if (mWidgetBar != nullptr)
 					mWidgetBar->setSize(mWidgetBar->getWidth() + mOffsetTab, mWidgetBar->getHeight());
 			}

@@ -32,9 +32,9 @@ namespace wraps
 		void assignWidget(T * & _widget, const std::string& _name, bool _throw = true, bool _createFakeWidgets = true)
 		{
 			_widget = nullptr;
-			for (MyGUI::VectorWidgetPtr::iterator iter = mListWindowRoot.begin(); iter != mListWindowRoot.end(); ++iter)
+			for (const auto& iter : mListWindowRoot)
 			{
-				MyGUI::Widget* find = (*iter)->findWidget(mPrefix + _name);
+				MyGUI::Widget* find = iter->findWidget(mPrefix + _name);
 				if (nullptr != find)
 				{
 					T* cast = find->castType<T>(false);
@@ -64,9 +64,9 @@ namespace wraps
 		void assignBase(T * & _widget, const std::string& _name, bool _throw = true, bool _createFakeWidgets = true)
 		{
 			_widget = nullptr;
-			for (MyGUI::VectorWidgetPtr::iterator iter = mListWindowRoot.begin(); iter != mListWindowRoot.end(); ++iter)
+			for (const auto& iter : mListWindowRoot)
 			{
-				MyGUI::Widget* find = (*iter)->findWidget(mPrefix + _name);
+				MyGUI::Widget* find = iter->findWidget(mPrefix + _name);
 				if (nullptr != find)
 				{
 					_widget = new T(find);
@@ -108,11 +108,11 @@ namespace wraps
 				const std::string MAIN_WINDOW2 = "Root";
 				const std::string mainName1 = mPrefix + MAIN_WINDOW1;
 				const std::string mainName2 = mPrefix + MAIN_WINDOW2;
-				for (MyGUI::VectorWidgetPtr::iterator iter = mListWindowRoot.begin(); iter != mListWindowRoot.end(); ++iter)
+				for (const auto& iter : mListWindowRoot)
 				{
-					if ((*iter)->getName() == mainName1 || (*iter)->getName() == mainName2)
+					if (iter->getName() == mainName1 || iter->getName() == mainName2)
 					{
-						mMainWidget = (*iter);
+						mMainWidget = iter;
 
 						snapToParent(mMainWidget);
 

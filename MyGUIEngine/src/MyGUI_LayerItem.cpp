@@ -142,40 +142,40 @@ namespace MyGUI
 		// сохраняем, чтобы последующие дети могли приаттачиться
 		mLayerNode = _item;
 
-		for (VectorSubWidget::iterator skin = mDrawItems.begin(); skin != mDrawItems.end(); ++skin)
+		for (auto& drawItem : mDrawItems)
 		{
-			(*skin)->createDrawItem(mTexture, _item);
+			drawItem->createDrawItem(mTexture, _item);
 		}
 
-		for (VectorLayerItem::iterator item = mLayerItems.begin(); item != mLayerItems.end(); ++item)
+		for (auto& layerItem : mLayerItems)
 		{
-			(*item)->attachToLayerItemNode(_item, _deep);
+			layerItem->attachToLayerItemNode(_item, _deep);
 		}
 
-		for (VectorLayerItem::iterator item = mLayerNodes.begin(); item != mLayerNodes.end(); ++item)
+		for (auto& layerNode : mLayerNodes)
 		{
 			// создаем оверлаппеду новый айтем
 			if (_deep)
 			{
 				ILayerNode* child_node = _item->createChildItemNode();
-				(*item)->attachToLayerItemNode(child_node, _deep);
+				layerNode->attachToLayerItemNode(child_node, _deep);
 			}
 		}
 	}
 
 	void LayerItem::detachFromLayerItemNode(bool _deep)
 	{
-		for (VectorLayerItem::iterator item = mLayerItems.begin(); item != mLayerItems.end(); ++item)
+		for (auto& layerItem : mLayerItems)
 		{
-			(*item)->detachFromLayerItemNode(_deep);
+			layerItem->detachFromLayerItemNode(_deep);
 		}
 
-		for (VectorLayerItem::iterator item = mLayerNodes.begin(); item != mLayerNodes.end(); ++item)
+		for (auto& layerNode : mLayerNodes)
 		{
 			if (_deep)
 			{
-				ILayerNode* node = (*item)->mLayerNode;
-				(*item)->detachFromLayerItemNode(_deep);
+				ILayerNode* node = layerNode->mLayerNode;
+				layerNode->detachFromLayerItemNode(_deep);
 				if (node)
 				{
 					node->getLayer()->destroyChildItemNode(node);
@@ -187,18 +187,11 @@ namespace MyGUI
 		ILayerNode* node = mLayerNode;
 		if (node)
 		{
-			//for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget) (*widget)->_detachFromLayerItemKeeperByStyle(_deep);
-			for (VectorSubWidget::iterator skin = mDrawItems.begin(); skin != mDrawItems.end(); ++skin)
+			for (auto& drawItem : mDrawItems)
 			{
-				(*skin)->destroyDrawItem();
+				drawItem->destroyDrawItem();
 			}
 
-			// при глубокой очистке, если мы оверлаппед, то для нас создавали айтем
-			/*if (_deep && !this->isRootWidget() && mWidgetStyle == WidgetStyle::Overlapped)
-			{
-				node->destroyItemNode();
-			}*/
-			// очищаем
 			mLayerNode = nullptr;
 		}
 	}

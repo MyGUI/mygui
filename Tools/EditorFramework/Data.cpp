@@ -32,12 +32,12 @@ namespace tools
 		if (mType != nullptr)
 		{
 			const DataType::VectorProperty& properties = mType->getProperties();
-			for (DataType::VectorProperty::const_iterator property = properties.begin(); property != properties.end(); property++)
+			for (const auto& property : properties)
 			{
-				PropertyPtr data = Property::CreateInstance(*property, mWeakThis.lock());
+				PropertyPtr data = Property::CreateInstance(property, mWeakThis.lock());
 				data->initialise();
 
-				mProperties[(*property)->getName()] = data;
+				mProperties[property->getName()] = data;
 			}
 		}
 	}

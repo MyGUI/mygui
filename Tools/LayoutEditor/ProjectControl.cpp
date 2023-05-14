@@ -364,9 +364,9 @@ namespace tools
 	bool ProjectControl::checkItem(std::string_view _name, const MyGUI::VectorString& _items)
 	{
 		size_t count = 0;
-		for (MyGUI::VectorString::const_iterator item = _items.begin(); item != _items.end(); ++item)
+		for (const auto& item : _items)
 		{
-			if ((*item) == _name)
+			if (item == _name)
 				count++;
 		}
 
@@ -382,9 +382,9 @@ namespace tools
 		if (templateInfo != nullptr)
 		{
 			const MyGUI::VectorWidgetInfo& data = templateInfo->getLayoutData();
-			for (MyGUI::VectorWidgetInfo::const_iterator container = data.begin(); container != data.end(); ++container)
+			for (const auto& container : data)
 			{
-				if (container->name == "Root")
+				if (container.name == "Root")
 					return true;
 			}
 		}

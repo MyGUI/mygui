@@ -23,21 +23,21 @@ namespace MyGUI
 
 	void SkinItem::_setSkinItemAlign(const IntSize& _size)
 	{
-		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
-			(*skin)->_setAlign(_size);
+		for (auto& skin : mSubSkinChild)
+			skin->_setAlign(_size);
 	}
 
 	void SkinItem::_setSkinItemVisible(bool _value)
 	{
-		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
-			(*skin)->setVisible(_value);
+		for (auto& skin : mSubSkinChild)
+			skin->setVisible(_value);
 	}
 
 	void SkinItem::_setSkinItemColour(const Colour& _value)
 	{
-		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
+		for (auto& skin : mSubSkinChild)
 		{
-			ISubWidgetRect* rect = (*skin)->castType<ISubWidgetRect>(false);
+			ISubWidgetRect* rect = skin->castType<ISubWidgetRect>(false);
 			if (rect)
 				rect->_setColour(_value);
 		}
@@ -45,20 +45,20 @@ namespace MyGUI
 
 	void SkinItem::_setSkinItemAlpha(float _value)
 	{
-		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
-			(*skin)->setAlpha(_value);
+		for (auto& skin : mSubSkinChild)
+			skin->setAlpha(_value);
 	}
 
 	void SkinItem::_correctSkinItemView()
 	{
-		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
-			(*skin)->_correctView();
+		for (auto& skin : mSubSkinChild)
+			skin->_correctView();
 	}
 
 	void SkinItem::_updateSkinItemView()
 	{
-		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
-			(*skin)->_updateView();
+		for (auto& skin : mSubSkinChild)
+			skin->_updateView();
 	}
 
 	bool SkinItem::_setSkinItemState(std::string_view _state)
@@ -90,16 +90,16 @@ namespace MyGUI
 		const std::string& categoryName = SubWidgetManager::getInstance().getCategoryName();
 		// загружаем кирпичики виджета
 		FactoryManager& factory = FactoryManager::getInstance();
-		for (VectorSubWidgetInfo::const_iterator iter = _info->getBasisInfo().begin(); iter != _info->getBasisInfo().end(); ++iter)
+		for (const auto& iter : _info->getBasisInfo())
 		{
-			IObject* object = factory.createObject(categoryName, (*iter).type);
+			IObject* object = factory.createObject(categoryName, iter.type);
 			if (object == nullptr)
 				continue;
 
 			ISubWidget* sub = object->castType<ISubWidget>();
 			sub->_setCroppedParent(static_cast<Widget*>(this));
-			sub->setCoord((*iter).coord);
-			sub->setAlign((*iter).align);
+			sub->setCoord(iter.coord);
+			sub->setAlign(iter.align);
 
 			mSubSkinChild.push_back(sub);
 			addRenderItem(sub);
@@ -125,8 +125,8 @@ namespace MyGUI
 		mMainSkin = nullptr;
 		mText = nullptr;
 
-		for (VectorSubWidget::iterator skin = mSubSkinChild.begin(); skin != mSubSkinChild.end(); ++skin)
-			delete (*skin);
+		for (auto& skin : mSubSkinChild)
+			delete skin;
 		mSubSkinChild.clear();
 	}
 

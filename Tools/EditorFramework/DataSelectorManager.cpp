@@ -44,8 +44,8 @@ namespace tools
 
 	void DataSelectorManager::clear()
 	{
-		for (MapEvent::iterator event = mEvents.begin(); event != mEvents.end(); event ++)
-			delete (*event).second;
+		for (auto& event : mEvents)
+			delete event.second;
 		mEvents.clear();
 	}
 
@@ -85,9 +85,9 @@ namespace tools
 			childSelected = _parent->getChildSelected();
 
 		const DataType::VectorString& childs = _type->getChilds();
-		for (DataType::VectorString::const_iterator childName = childs.begin(); childName != childs.end(); childName ++)
+		for (const auto& childName : childs)
 		{
-			DataTypePtr childType = DataTypeManager::getInstance().getType(*childName);
+			DataTypePtr childType = DataTypeManager::getInstance().getType(childName);
 			if (childType != nullptr)
 			{
 				DataPtr child = childSelected;

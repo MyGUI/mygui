@@ -66,15 +66,15 @@ namespace tools
 		else if (templateInfo != nullptr)
 		{
 			const MyGUI::VectorWidgetInfo& data = templateInfo->getLayoutData();
-			for (MyGUI::VectorWidgetInfo::const_iterator container = data.begin(); container != data.end(); ++container)
+			for (const auto& container : data)
 			{
-				if (container->name == "Root")
+				if (container.name == "Root")
 				{
-					skinDefaultSize = container->intCoord.size();
+					skinDefaultSize = container.intCoord.size();
 					templateRootFound = true;
 
-					MyGUI::MapString::const_iterator item = container->userStrings.find("LE_TargetWidgetType");
-					if (item != container->userStrings.end())
+					MyGUI::MapString::const_iterator item = container.userStrings.find("LE_TargetWidgetType");
+					if (item != container.userStrings.end())
 						widget = (*item).second;
 
 					break;
@@ -102,13 +102,13 @@ namespace tools
 			if (info != nullptr)
 			{
 				const MyGUI::VectorChildSkinInfo& child = info->getChild();
-				for (size_t pos = 0; pos < child.size(); ++pos)
+				for (const auto& childSkinInfo : child)
 				{
-					const std::string& child_skin = child[pos].skin;
+					const std::string& child_skin = childSkinInfo.skin;
 					if (!MyGUI::SkinManager::getInstance().isExist(child_skin))
 						continue;
 					const MyGUI::ResourceSkin* child_info = MyGUI::SkinManager::getInstance().getByName(child_skin);
-					const MyGUI::IntSize& child_size = child[pos].coord.size();
+					const MyGUI::IntSize& child_size = childSkinInfo.coord.size();
 					MyGUI::IntSize dif_size = child_info->getSize() - child_size;
 
 					if (max_size.width < dif_size.width)

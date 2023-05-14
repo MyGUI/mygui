@@ -54,9 +54,9 @@ namespace MyGUI
 
 		if (!_update)
 		{
-			for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
+			for (auto& childItem : mChildItems)
 			{
-				if ((*iter)->castType<LayerNode>()->isOutOfDate())
+				if (childItem->castType<LayerNode>()->isOutOfDate())
 				{
 					out_date = true;
 					break;
@@ -71,9 +71,9 @@ namespace MyGUI
 			{
 				target->begin();
 
-				for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
+				for (auto& childItem : mChildItems)
 				{
-					(*iter)->renderToTarget(target, _update);
+					childItem->renderToTarget(target, _update);
 				}
 
 				target->end();

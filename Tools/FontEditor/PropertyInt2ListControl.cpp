@@ -91,8 +91,8 @@ namespace tools
 	{
 		mList->removeAllItems();
 		std::vector<std::string> values = MyGUI::utility::split(_value, "|");
-		for (size_t index = 0; index < values.size(); index ++)
-			mList->addItem(values[index]);
+		for (const auto& value : values)
+			mList->addItem(value);
 	}
 
 	void PropertyInt2ListControl::notifyClickAdd(MyGUI::Widget* _sender)

@@ -22,16 +22,16 @@ namespace tools
 		WidgetStyle::VectorString values;
 
 		VectorWidgetType types = WidgetTypes::getInstance().getWidgetTypes();
-		for (VectorWidgetType::iterator iter = types.begin(); iter != types.end(); ++iter)
+		for (auto& type : types)
 		{
-			bool exist = MyGUI::WidgetManager::getInstance().isFactoryExist((*iter)->name);
-			if (exist && !(*iter)->internalType)
-				values.push_back((*iter)->name);
+			bool exist = MyGUI::WidgetManager::getInstance().isFactoryExist(type->name);
+			if (exist && !type->internalType)
+				values.push_back(type->name);
 		}
 
 		mField->removeAllItems();
-		for (WidgetStyle::VectorString::iterator iter = values.begin(); iter != values.end(); ++iter)
-			mField->addItem(*iter);
+		for (auto& value : values)
+			mField->addItem(value);
 		mField->beginToItemFirst();
 	}
 

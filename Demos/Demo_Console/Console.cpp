@@ -104,13 +104,13 @@ namespace demo
 		if (command.length() == 0)
 			return;
 
-		for (MapDelegate::iterator iter = mDelegates.begin(); iter != mDelegates.end(); ++iter)
+		for (auto& delegate : mDelegates)
 		{
-			if (iter->first.find(command) == 0)
+			if (delegate.first.find(command) == 0)
 			{
-				if (command == iter->first) break;
-				edit->setCaption(iter->first);
-				edit->setTextSelection(command.length(), iter->first.length());
+				if (command == delegate.first) break;
+				edit->setCaption(delegate.first);
+				edit->setTextSelection(command.length(), delegate.first.length());
 				mAutocomleted = true;
 				return;
 			}

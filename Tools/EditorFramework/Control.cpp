@@ -21,12 +21,12 @@ namespace tools
 	{
 		DeactivateControllers();
 
-		for (VectorController::iterator controller = mControllers.begin(); controller != mControllers.end(); controller ++)
-			delete (*controller);
+		for (auto& controller : mControllers)
+			delete controller;
 		mControllers.clear();
 
-		for (VectorControl::iterator child = mChilds.begin(); child != mChilds.end(); child ++)
-			delete *child;
+		for (auto& child : mChilds)
+			delete child;
 		mChilds.clear();
 	}
 
@@ -139,8 +139,8 @@ namespace tools
 	{
 		OnCommand(_command);
 
-		for (VectorControl::iterator child = mChilds.begin(); child != mChilds.end(); child ++)
-			(*child)->SendCommand(_command);
+		for (auto& child : mChilds)
+			child->SendCommand(_command);
 	}
 
 	void Control::OnCommand(std::string_view _command)
@@ -182,17 +182,17 @@ namespace tools
 	{
 		CreateControllers();
 
-		for (VectorController::iterator controller = mControllers.begin(); controller != mControllers.end(); controller ++)
-			(*controller)->activate();
+		for (auto& controller : mControllers)
+			controller->activate();
 
-		for (VectorControl::iterator child = mChilds.begin(); child != mChilds.end(); child ++)
-			(*child)->ActivateControllers();
+		for (auto& child : mChilds)
+			child->ActivateControllers();
 	}
 
 	void Control::DeactivateControllers()
 	{
-		for (VectorController::iterator controller = mControllers.begin(); controller != mControllers.end(); controller ++)
-			(*controller)->deactivate();
+		for (auto& controller : mControllers)
+			controller->deactivate();
 	}
 
 	void Control::Shutdown()

@@ -40,8 +40,8 @@ namespace MyGUI
 			mTexture = nullptr;
 		}
 
-		for (VectorLayerNodeAnimation::iterator item = mLayerNodeAnimation.begin(); item != mLayerNodeAnimation.end(); ++item)
-			delete (*item);
+		for (auto& item : mLayerNodeAnimation)
+			delete item;
 		mLayerNodeAnimation.clear();
 	}
 

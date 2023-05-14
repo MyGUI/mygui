@@ -434,12 +434,12 @@ namespace tools
 		}
 
 		pugi::xpath_node_set events = SettingsManager::getInstance().getValueNodeList("Editor/States/Event.List");
-		for (pugi::xpath_node_set::const_iterator event = events.begin(); event != events.end(); event ++)
+		for (const auto& event : events)
 		{
 			StateManager::getInstance().registerEventState(
-				(*event).node().child("From").child_value(),
-				(*event).node().child("Name").child_value(),
-				(*event).node().child("To").child_value());
+				event.node().child("From").child_value(),
+				event.node().child("Name").child_value(),
+				event.node().child("To").child_value());
 		}
 
 		std::string firstState = SettingsManager::getInstance().getValue("Editor/States/FirstState/Name");
@@ -452,24 +452,24 @@ namespace tools
 	void Application::LoadGuiSettings()
 	{
 		const SettingsManager::VectorString& resources = SettingsManager::getInstance().getValueList("Resources/Resource.List");
-		for (SettingsManager::VectorString::const_iterator iter = resources.begin(); iter != resources.end(); ++iter)
-			MyGUI::ResourceManager::getInstance().load(*iter);
+		for (const auto& resource : resources)
+			MyGUI::ResourceManager::getInstance().load(resource);
 
 		const SettingsManager::VectorString& additionalPaths = SettingsManager::getInstance().getValueList("Resources/AdditionalPath.List");
-		for (SettingsManager::VectorString::const_iterator iter = additionalPaths.begin(); iter != additionalPaths.end(); ++iter)
-			addResourceLocation(*iter);
+		for (const auto& additionalPath : additionalPaths)
+			addResourceLocation(additionalPath);
 
 		const SettingsManager::VectorString& additionalResources = SettingsManager::getInstance().getValueList("Resources/AdditionalResource.List");
-		for (SettingsManager::VectorString::const_iterator iter = additionalResources.begin(); iter != additionalResources.end(); ++iter)
-			MyGUI::ResourceManager::getInstance().load(*iter);
+		for (const auto& additionalResource : additionalResources)
+			MyGUI::ResourceManager::getInstance().load(additionalResource);
 	}
 
 	void Application::CreateControls()
 	{
 		const SettingsManager::VectorString& controls = SettingsManager::getInstance().getValueList("Editor/Control.List");
-		for (SettingsManager::VectorString::const_iterator controlType = controls.begin(); controlType != controls.end(); controlType ++)
+		for (const auto& controlType : controls)
 		{
-			Control* control = components::FactoryManager::GetInstance().CreateItem<Control>(*controlType);
+			Control* control = components::FactoryManager::GetInstance().CreateItem<Control>(controlType);
 			if (control != nullptr)
 			{
 				control->Initialise();
@@ -477,15 +477,15 @@ namespace tools
 			}
 			else
 			{
-				MYGUI_LOG(Warning, "Control factory '" << (*controlType) << "' not found");
+				MYGUI_LOG(Warning, "Control factory '" << controlType << "' not found");
 			}
 		}
 	}
 
 	void Application::DestroyControls()
 	{
-		for (VectorControl::iterator control = mControls.begin(); control != mControls.end(); control ++)
-			delete *control;
+		for (auto& control : mControls)
+			delete control;
 		mControls.clear();
 	}
 

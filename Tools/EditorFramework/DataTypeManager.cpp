@@ -51,10 +51,10 @@ namespace tools
 		if (result)
 		{
 			pugi::xpath_node_set nodes = doc.select_nodes("Document/DataTypes/DataType");
-			for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
+			for (const auto& node : nodes)
 			{
 				DataTypePtr data = DataTypePtr(new DataType());
-				data->deserialization((*node).node());
+				data->deserialization(node.node());
 				mDataInfos.push_back(data);
 			}
 		}

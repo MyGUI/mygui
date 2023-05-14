@@ -339,9 +339,9 @@ namespace MyGUI
 		void assignWidget(T*& _widget, std::string_view _name)
 		{
 			_widget = nullptr;
-			for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
+			for (const auto& iter : mWidgetChildSkin)
 			{
-				Widget* find = (*iter)->findWidget(_name);
+				Widget* find = iter->findWidget(_name);
 				if (nullptr != find)
 				{
 					_widget = find->castType<T>(false);

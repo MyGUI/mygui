@@ -93,12 +93,12 @@ namespace tools
 	{
 		int height = 0;
 
-		for (MapPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
+		for (auto& field : mFields)
 		{
-			if ((*item).second->getVisible())
+			if (field.second->getVisible())
 			{
-				MyGUI::IntSize size = (*item).second->getContentSize();
-				(*item).second->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
+				MyGUI::IntSize size = field.second->getContentSize();
+				field.second->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
 				height += size.height;
 			}
 		}
@@ -108,8 +108,8 @@ namespace tools
 
 	void PanelMainProperties::destroyPropertyFields()
 	{
-		for (MapPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
-			delete (*item).second;
+		for (auto& field : mFields)
+			delete field.second;
 		mFields.clear();
 	}
 
@@ -154,9 +154,9 @@ namespace tools
 		if (templateInfo != nullptr)
 		{
 			const MyGUI::VectorWidgetInfo& data = templateInfo->getLayoutData();
-			for (MyGUI::VectorWidgetInfo::const_iterator container = data.begin(); container != data.end(); ++container)
+			for (const auto& container : data)
 			{
-				if (container->name == "Root")
+				if (container.name == "Root")
 					return true;
 			}
 		}
@@ -304,8 +304,8 @@ namespace tools
 
 	void PanelMainProperties::hidePropertyFields()
 	{
-		for (MapPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
-			(*item).second->setVisible(false);
+		for (auto& field : mFields)
+			field.second->setVisible(false);
 	}
 
 	void PanelMainProperties::notifyAction(std::string_view _name, std::string_view _value, bool _final)

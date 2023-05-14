@@ -23,8 +23,8 @@ namespace tools
 		root.append_attribute("version").set_value("1.1");
 
 		DataPtr data = DataManager::getInstance().getRoot();
-		for (Data::VectorData::const_iterator child = data->getChilds().begin(); child != data->getChilds().end(); child ++)
-			writeImage(root, (*child));
+		for (const auto& child : data->getChilds())
+			writeImage(root, child);
 	}
 
 	bool ImageExportSerializer::deserialization(pugi::xml_document& _doc)
@@ -33,8 +33,8 @@ namespace tools
 			return false;
 
 		pugi::xpath_node_set nodes = _doc.select_nodes("MyGUI/Resource[@type=\"ResourceImageSet\"]");
-		for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
-			parseImage((*node).node());
+		for (const auto& node : nodes)
+			parseImage(node.node());
 
 		updateImageProperty(DataManager::getInstance().getRoot());
 		return true;
@@ -49,8 +49,8 @@ namespace tools
 		DataManager::getInstance().getRoot()->addChild(data);
 
 		pugi::xpath_node_set nodes = _node.select_nodes("Group");
-		for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
-			parseGroup((*node).node(), data);
+		for (const auto& node : nodes)
+			parseGroup(node.node(), data);
 	}
 
 	void ImageExportSerializer::parseGroup(pugi::xml_node _node, DataPtr _parent)
@@ -68,8 +68,8 @@ namespace tools
 		_parent->addChild(data);
 
 		pugi::xpath_node_set nodes = _node.select_nodes("Index");
-		for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
-			parseIndex((*node).node(), data);
+		for (const auto& node : nodes)
+			parseIndex(node.node(), data);
 	}
 
 	void ImageExportSerializer::parseIndex(pugi::xml_node _node, DataPtr _parent)
@@ -85,8 +85,8 @@ namespace tools
 		_parent->addChild(data);
 
 		pugi::xpath_node_set nodes = _node.select_nodes("Frame");
-		for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
-			parseFrame((*node).node(), data);
+		for (const auto& node : nodes)
+			parseFrame(node.node(), data);
 	}
 
 	void ImageExportSerializer::parseFrame(pugi::xml_node _node, DataPtr _parent)
@@ -108,8 +108,8 @@ namespace tools
 		node.append_attribute("type").set_value("ResourceImageSet");
 		node.append_attribute("name").set_value(_data->getPropertyValue("Name").c_str());
 
-		for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end(); child ++)
-			writeGroup(node, (*child));
+		for (const auto& child : _data->getChilds())
+			writeGroup(node, child);
 	}
 
 	void ImageExportSerializer::writeGroup(pugi::xml_node _parent, DataPtr _data)
@@ -119,8 +119,8 @@ namespace tools
 		node.append_attribute("texture").set_value(_data->getPropertyValue("Texture").c_str());
 		node.append_attribute("size").set_value(MyGUI::IntCoord::parse(_data->getPropertyValue("Size")).size().print().c_str());
 
-		for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end(); child ++)
-			writeIndex(node, (*child));
+		for (const auto& child : _data->getChilds())
+			writeIndex(node, child);
 	}
 
 	void ImageExportSerializer::writeIndex(pugi::xml_node _parent, DataPtr _data)
@@ -132,8 +132,8 @@ namespace tools
 		if (!value.empty())
 			node.append_attribute("rate").set_value(value.c_str());
 
-		for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end(); child ++)
-			writeFrame(node, (*child));
+		for (const auto& child : _data->getChilds())
+			writeFrame(node, child);
 	}
 	
 	void ImageExportSerializer::writeFrame(pugi::xml_node _parent, DataPtr _data)
@@ -149,32 +149,32 @@ namespace tools
 	void ImageExportSerializer::updateImageProperty(DataPtr _data)
 	{
 		const Data::VectorData& childs = _data->getChilds();
-		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
+		for (const auto& child : childs)
 		{
-			bool unique = PropertyUtility::isUniqueName((*child), "Name");
-			(*child)->setPropertyValue("UniqueName", unique);
-			updateGroupProperty(*child);
+			bool unique = PropertyUtility::isUniqueName(child, "Name");
+			child->setPropertyValue("UniqueName", unique);
+			updateGroupProperty(child);
 		}
 	}
 
 	void ImageExportSerializer::updateGroupProperty(DataPtr _data)
 	{
 		const Data::VectorData& childs = _data->getChilds();
-		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
+		for (const auto& child : childs)
 		{
-			bool unique = PropertyUtility::isUniqueName((*child), "Name");
-			(*child)->setPropertyValue("UniqueName", unique);
-			updateIndexProperty(*child);
+			bool unique = PropertyUtility::isUniqueName(child, "Name");
+			child->setPropertyValue("UniqueName", unique);
+			updateIndexProperty(child);
 		}
 	}
 
 	void ImageExportSerializer::updateIndexProperty(DataPtr _data)
 	{
 		const Data::VectorData& childs = _data->getChilds();
-		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
+		for (const auto& child : childs)
 		{
-			bool unique = PropertyUtility::isUniqueName((*child), "Name");
-			(*child)->setPropertyValue("UniqueName", unique);
+			bool unique = PropertyUtility::isUniqueName(child, "Name");
+			child->setPropertyValue("UniqueName", unique);
 		}
 
 		MyGUI::IntPoint point = getFirstFramePoint(_data);

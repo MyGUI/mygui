@@ -162,10 +162,10 @@ namespace MyGUI
 
 		if (mVerticalAlignment)
 		{
-			for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
+			for (auto& iter : mItemsInfo)
 			{
-				IntSize contentSize = iter->item->_getContentSize();
-				iter->item->setCoord(0, size.height, _getClientWidget()->getWidth(), contentSize.height);
+				IntSize contentSize = iter.item->_getContentSize();
+				iter.item->setCoord(0, size.height, _getClientWidget()->getWidth(), contentSize.height);
 				size.height += contentSize.height + mDistanceButton;
 
 				if (contentSize.width > size.width)
@@ -177,17 +177,17 @@ namespace MyGUI
 		else
 		{
 			int maxHeight = 0;
-			for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
+			for (const auto& iter : mItemsInfo)
 			{
-				IntSize contentSize = iter->item->_getContentSize();
+				IntSize contentSize = iter.item->_getContentSize();
 				if (maxHeight < contentSize.height)
 					maxHeight = contentSize.height;
 			}
 
-			for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
+			for (auto& iter : mItemsInfo)
 			{
-				IntSize contentSize = iter->item->_getContentSize();
-				iter->item->setCoord(size.width, 0, contentSize.width, maxHeight);
+				IntSize contentSize = iter.item->_getContentSize();
+				iter.item->setCoord(size.width, 0, contentSize.width, maxHeight);
 				size.width += contentSize.width + mDistanceButton;
 			}
 
@@ -617,20 +617,20 @@ namespace MyGUI
 
 	MenuItem* MenuControl::findItemWith(const UString& _name)
 	{
-		for (size_t pos = 0; pos < mItemsInfo.size(); pos++)
+		for (const auto& info : mItemsInfo)
 		{
-			if (mItemsInfo[pos].name == _name)
-				return mItemsInfo[pos].item;
+			if (info.name == _name)
+				return info.item;
 		}
 		return nullptr;
 	}
 
 	MenuItem* MenuControl::getItemById(std::string_view _id) const
 	{
-		for (size_t index = 0; index < mItemsInfo.size(); index++)
+		for (const auto& info : mItemsInfo)
 		{
-			if (mItemsInfo[index].id == _id)
-				return mItemsInfo[index].item;
+			if (info.id == _id)
+				return info.item;
 		}
 		MYGUI_EXCEPT("item id (" << _id << ") not found, source 'MenuControl::getItemById'");
 	}
@@ -647,14 +647,14 @@ namespace MyGUI
 
 	MenuItem* MenuControl::findItemById(std::string_view _id, bool _recursive)
 	{
-		for (size_t index = 0; index < mItemsInfo.size(); index++)
+		for (const auto& info : mItemsInfo)
 		{
-			if (mItemsInfo[index].id == _id)
-				return mItemsInfo[index].item;
+			if (info.id == _id)
+				return info.item;
 
-			if (_recursive && mItemsInfo[index].submenu != nullptr)
+			if (_recursive && info.submenu != nullptr)
 			{
-				MenuItem* find = mItemsInfo[index].submenu->findItemById(_id, _recursive);
+				MenuItem* find = info.submenu->findItemById(_id, _recursive);
 				if (find != nullptr)
 					return find;
 			}
@@ -832,14 +832,14 @@ namespace MyGUI
 	void MenuControl::_setItemSelected(IItem* _item)
 	{
 		MenuItem* item = static_cast<MenuItem*>(_item);
-		for (VectorMenuItemInfo::iterator iter = mItemsInfo.begin(); iter != mItemsInfo.end(); ++iter)
+		for (auto& iter : mItemsInfo)
 		{
-			if ((*iter).type == MenuItemType::Popup)
+			if (iter.type == MenuItemType::Popup)
 			{
-				(*iter).item->setStateSelected(false);
+				iter.item->setStateSelected(false);
 
-				if ((*iter).submenu != nullptr)
-					(*iter).submenu->setVisible(false);
+				if (iter.submenu != nullptr)
+					iter.submenu->setVisible(false);
 			}
 		}
 

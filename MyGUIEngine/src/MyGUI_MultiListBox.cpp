@@ -143,9 +143,9 @@ namespace MyGUI
 	void MultiListBox::removeAllItems()
 	{
 		BiIndexBase::removeAllItems();
-		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
+		for (auto& iter : mVectorColumnInfo)
 		{
-			(*iter).list->removeAllItems();
+			iter.list->removeAllItems();
 		}
 
 		mItemSelected = ITEM_NONE;
@@ -155,16 +155,16 @@ namespace MyGUI
 	{
 		if (_index == ITEM_NONE)
 		{
-			for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
+			for (auto& iter : mVectorColumnInfo)
 			{
-				(*iter).list->clearIndexSelected();
+				iter.list->clearIndexSelected();
 			}
 		}
 		else
 		{
-			for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
+			for (auto& iter : mVectorColumnInfo)
 			{
-				(*iter).list->setIndexSelected(_index);
+				iter.list->setIndexSelected(_index);
 			}
 		}
 	}
@@ -231,10 +231,10 @@ namespace MyGUI
 
 	void MultiListBox::notifyListChangePosition(ListBox* _sender, size_t _position)
 	{
-		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
+		for (auto& iter : mVectorColumnInfo)
 		{
-			if (_sender != (*iter).list)
-				(*iter).list->setIndexSelected(_position);
+			if (_sender != iter.list)
+				iter.list->setIndexSelected(_position);
 		}
 
 		updateBackSelected(_position);
@@ -260,14 +260,14 @@ namespace MyGUI
 
 	void MultiListBox::notifyListChangeFocus(ListBox* _sender, size_t _position)
 	{
-		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
+		for (auto& iter : mVectorColumnInfo)
 		{
-			if (_sender != (*iter).list)
+			if (_sender != iter.list)
 			{
 				if (ITEM_NONE != mLastMouseFocusIndex)
-					(*iter).list->_setItemFocus(mLastMouseFocusIndex, false);
+					iter.list->_setItemFocus(mLastMouseFocusIndex, false);
 				if (ITEM_NONE != _position)
-					(*iter).list->_setItemFocus(_position, true);
+					iter.list->_setItemFocus(_position, true);
 			}
 		}
 		mLastMouseFocusIndex = _position;
@@ -275,10 +275,10 @@ namespace MyGUI
 
 	void MultiListBox::notifyListChangeScrollPosition(ListBox* _sender, size_t _position)
 	{
-		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
+		for (auto& iter : mVectorColumnInfo)
 		{
-			if (_sender != (*iter).list)
-				(*iter).list->setScrollPosition(_position);
+			if (_sender != iter.list)
+				iter.list->setScrollPosition(_position);
 		}
 	}
 
@@ -291,19 +291,19 @@ namespace MyGUI
 	void MultiListBox::redrawButtons()
 	{
 		size_t pos = 0;
-		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
+		for (auto& iter : mVectorColumnInfo)
 		{
 			if (pos == mSortColumnIndex)
 			{
 				if (mSortUp)
-					(*iter).button->setImageName("Up");
+					iter.button->setImageName("Up");
 				else
-					(*iter).button->setImageName("Down");
+					iter.button->setImageName("Down");
 			}
 			else
-				(*iter).button->setImageName("None");
+				iter.button->setImageName("None");
 
-			(*iter).button->setCaption((*iter).name);
+			iter.button->setCaption(iter.name);
 			pos++;
 		}
 	}
@@ -364,9 +364,9 @@ namespace MyGUI
 		while (first < last)
 		{
 			BiIndexBase::swapItemsBackAt(first, last);
-			for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
+			for (auto& iter : mVectorColumnInfo)
 			{
-				(*iter).list->swapItemsAt(first, last);
+				iter.list->swapItemsAt(first, last);
 			}
 
 			first++;
@@ -418,9 +418,9 @@ namespace MyGUI
 					if (compare(list, first, last))
 					{
 						BiIndexBase::swapItemsBackAt(first, last);
-						for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
+						for (auto& iter : mVectorColumnInfo)
 						{
-							(*iter).list->swapItemsAt(first, last);
+							iter.list->swapItemsAt(first, last);
 						}
 					}
 					first--;
@@ -448,9 +448,9 @@ namespace MyGUI
 		size_t index = BiIndexBase::insertItemAt(_index);
 
 		// вставляем во все поля пустые, а потом присваиваем первому
-		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
+		for (auto& iter : mVectorColumnInfo)
 		{
-			(*iter).list->insertItemAt(index, UString());
+			iter.list->insertItemAt(index, UString());
 		}
 		mVectorColumnInfo.front().list->setItemNameAt(index, _name);
 		mVectorColumnInfo.front().list->setItemDataAt(index, _data);
@@ -465,9 +465,9 @@ namespace MyGUI
 
 		size_t index = BiIndexBase::removeItemAt(_index);
 
-		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
+		for (auto& iter : mVectorColumnInfo)
 		{
-			(*iter).list->removeItemAt(index);
+			iter.list->removeItemAt(index);
 		}
 
 		// если надо, то меняем выделенный элемент
@@ -678,10 +678,10 @@ namespace MyGUI
 		}
 		else
 		{
-			for (VectorColumnInfo::iterator item = mVectorColumnInfo.begin(); item != mVectorColumnInfo.end(); ++item)
+			for (auto& item : mVectorColumnInfo)
 			{
-				if ((*item).button == _widget)
-					(*item).button = nullptr;
+				if (item.button == _widget)
+					item.button = nullptr;
 			}
 		}
 	}

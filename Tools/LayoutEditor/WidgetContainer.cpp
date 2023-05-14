@@ -27,12 +27,12 @@ namespace tools
 
 	WidgetContainer::~WidgetContainer()
 	{
-		for (std::vector<WidgetContainer*>::iterator iter = childContainers.begin(); iter != childContainers.end(); ++iter)
-			delete *iter;
+		for (auto& childContainer : childContainers)
+			delete childContainer;
 		childContainers.clear();
 
-		for (std::vector<ControllerInfo*>::iterator iter = mController.begin(); iter != mController.end(); ++iter)
-			delete *iter;
+		for (auto& iter : mController)
+			delete iter;
 		mController.clear();
 	}
 
@@ -56,12 +56,12 @@ namespace tools
 	{
 		bool found = false;
 
-		for (MyGUI::VectorStringPairs::iterator item = mUserString.begin(); item != mUserString.end(); ++ item)
+		for (auto& item : mUserString)
 		{
-			if ((*item).first == _key)
+			if (item.first == _key)
 			{
 				found = true;
-				(*item).second = _value;
+				item.second = _value;
 				break;
 			}
 		}
@@ -94,9 +94,9 @@ namespace tools
 
 	bool WidgetContainer::existUserData(std::string_view _key) const
 	{
-		for (MyGUI::VectorStringPairs::const_iterator item = mUserString.begin(); item != mUserString.end(); ++ item)
+		for (const auto& item : mUserString)
 		{
-			if ((*item).first == _key)
+			if (item.first == _key)
 				return true;
 		}
 		return false;
@@ -113,12 +113,12 @@ namespace tools
 
 		if (_eraseExist)
 		{
-			for (MyGUI::VectorStringPairs::iterator item = mProperty.begin(); item != mProperty.end(); ++ item)
+			for (auto& item : mProperty)
 			{
-				if ((*item).first == _key)
+				if (item.first == _key)
 				{
 					found = true;
-					(*item).second = _value;
+					item.second = _value;
 					break;
 				}
 			}
@@ -152,9 +152,9 @@ namespace tools
 
 	bool WidgetContainer::existProperty(std::string_view _key) const
 	{
-		for (MyGUI::VectorStringPairs::const_iterator item = mProperty.begin(); item != mProperty.end(); ++ item)
+		for (const auto& item : mProperty)
 		{
-			if ((*item).first == _key)
+			if (item.first == _key)
 				return true;
 		}
 		return false;
@@ -247,13 +247,13 @@ namespace tools
 
 	void WidgetContainer::setPropertyByIndex(size_t _index, std::string_view _key, std::string_view _value)
 	{
-		for (MyGUI::VectorStringPairs::iterator item = mProperty.begin(); item != mProperty.end(); ++item)
+		for (auto& item : mProperty)
 		{
-			if ((*item).first == _key)
+			if (item.first == _key)
 			{
 				if (_index == 0)
 				{
-					(*item).second = _value;
+					item.second = _value;
 					break;
 				}
 				-- _index;

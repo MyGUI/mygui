@@ -86,9 +86,9 @@ namespace demo
 	void DemoKeeper::updateSpline()
 	{
 		std::vector<MyGUI::FloatPoint> points;
-		for (int i = 0; i < PointsCount; ++i)
+		for (auto& i : point)
 		{
-			points.push_back(MyGUI::FloatPoint(point[i]->getLeft() + 8.0f, point[i]->getTop() + 8.0f));
+			points.push_back(MyGUI::FloatPoint(i->getLeft() + 8.0f, i->getTop() + 8.0f));
 		}
 		makeBezier(points, bezierQuality);
 		mPolygonalSkin->setPoints(mLinePoints);

@@ -92,7 +92,7 @@ namespace MyGUI
 				MYGUI_LOG(Warning, "duplicate resource name '" << name << "'");
 
 				// ресурсами могут пользоваться
-				mRemovedResoures.push_back((*item).second);
+				mRemovedResources.push_back((*item).second);
 				mResources.erase(item);
 			}
 
@@ -253,13 +253,13 @@ namespace MyGUI
 
 	void ResourceManager::clear()
 	{
-		for (MapResource::iterator item = mResources.begin(); item != mResources.end(); ++ item)
-			delete item->second;
+		for (auto& resource : mResources)
+			delete resource.second;
 		mResources.clear();
 
-		for (VectorResource::iterator item = mRemovedResoures.begin(); item != mRemovedResoures.end(); ++ item)
-			delete (*item);
-		mRemovedResoures.clear();
+		for (auto& removedResource : mRemovedResources)
+			delete removedResource;
+		mRemovedResources.clear();
 	}
 
 	ResourceManager::EnumeratorPtr ResourceManager::getEnumerator() const

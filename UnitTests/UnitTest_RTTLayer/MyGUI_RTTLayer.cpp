@@ -58,8 +58,8 @@ namespace MyGUI
 			{
 				target->begin();
 
-				for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
-					(*iter)->renderToTarget(target, _update);
+				for (auto& childItem : mChildItems)
+					childItem->renderToTarget(target, _update);
 
 				target->end();
 			}

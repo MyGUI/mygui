@@ -32,9 +32,9 @@ namespace demo
 	void PointerContextManager::addContext(std::string_view _name)
 	{
 		bool found = false;
-		for (VectorContext::iterator item = mContexts.begin(); item != mContexts.end(); ++item)
+		for (const auto& context : mContexts)
 		{
-			if (_name == (*item)->getResourceName())
+			if (_name == context->getResourceName())
 			{
 				found = true;
 				break;

@@ -261,9 +261,8 @@ namespace MyGUI
 			return;
 		}
 
-		for (size_t pos = 0; pos < mVectorItems.size(); ++pos)
+		for (const auto& item : mVectorItems)
 		{
-			Widget* item = mVectorItems[pos];
 			const IntRect& abs_rect = item->getAbsoluteRect();
 			if ((point.left >= abs_rect.left) && (point.left <= abs_rect.right) && (point.top >= abs_rect.top) && (point.top <= abs_rect.bottom))
 			{
@@ -511,22 +510,22 @@ namespace MyGUI
 		if ( ! _update)
 		{
 			WidgetManager& instance = WidgetManager::getInstance();
-			for (VectorWidgetPtr::iterator iter = mVectorItems.begin(); iter != mVectorItems.end(); ++iter)
+			for (auto& vectorItem : mVectorItems)
 			{
-				instance.unlinkFromUnlinkers(*iter);
+				instance.unlinkFromUnlinkers(vectorItem);
 			}
 		}
 	}
 
 	Widget* ItemBox::getWidgetByIndex(size_t _index)
 	{
-		for (VectorWidgetPtr::iterator iter = mVectorItems.begin(); iter != mVectorItems.end(); ++iter)
+		for (const auto& vectorItem : mVectorItems)
 		{
-			if ((*iter)->getVisible())
+			if (vectorItem->getVisible())
 			{
-				size_t index = getIndexByWidget(*iter);
+				size_t index = getIndexByWidget(vectorItem);
 
-				if (index == _index) return (*iter);
+				if (index == _index) return vectorItem;
 			}
 		}
 		return nullptr;

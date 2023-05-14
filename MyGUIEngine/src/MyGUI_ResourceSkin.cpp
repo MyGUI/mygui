@@ -19,11 +19,7 @@ namespace MyGUI
 
 	ResourceSkin::~ResourceSkin()
 	{
-		for (MapWidgetStateInfo::iterator item = mStates.begin(); item != mStates.end(); ++ item)
-		{
-			for (VectorStateInfo::iterator info = (*item).second.begin(); info != (*item).second.end(); ++ info)
-				delete (*info);
-		}
+		clear();
 		mStates.clear();
 	}
 
@@ -221,20 +217,18 @@ namespace MyGUI
 
 	void ResourceSkin::clear()
 	{
-		for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter != mStates.end(); ++iter)
+		for (auto& state : mStates)
 		{
-			for (VectorStateInfo::iterator iter2 = iter->second.begin(); iter2 != iter->second.end(); ++iter2)
-			{
-				delete *iter2;
-			}
+			for (auto& info :state.second)
+				delete info;
 		}
 	}
 
 	void ResourceSkin::checkState(const MapStateInfo& _states)
 	{
-		for (MapStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); ++iter)
+		for (const auto& state : _states)
 		{
-			checkState(iter->first);
+			checkState(state.first);
 		}
 	}
 
@@ -252,17 +246,17 @@ namespace MyGUI
 	void ResourceSkin::checkBasis()
 	{
 		// и увеличиваем размер смещений по колличеству сабвиджетов
-		for (MapWidgetStateInfo::iterator iter = mStates.begin(); iter != mStates.end(); ++iter)
+		for (auto& state : mStates)
 		{
-			iter->second.resize(mBasis.size());
+			state.second.resize(mBasis.size());
 		}
 	}
 
 	void ResourceSkin::fillState(const MapStateInfo& _states, size_t _index)
 	{
-		for (MapStateInfo::const_iterator iter = _states.begin(); iter != _states.end(); ++iter)
+		for (const auto& state : _states)
 		{
-			mStates[iter->first][_index] = iter->second;
+			mStates[state.first][_index] = state.second;
 		}
 	}
 

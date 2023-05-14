@@ -140,21 +140,14 @@ namespace MyGUI
 
 			std::vector<MessageBoxStyle> buttons = _value.getButtons();
 
-			for (size_t index = 0; index < buttons.size(); ++index)
+			for (const auto& info : buttons)
 			{
-				// корректируем ее номер
-				MessageBoxStyle info = buttons[index];
-
-				// если бит есть то ставим кнопку
 				addButtonName(getButtonName(info));
 
-				// внутри адд сбрасывается
 				mVectorButton.back()->_setInternalData(info);
 
-				// первая кнопка
 				if (mVectorButton.size() == 1)
 					mInfoOk = info;
-				// последняя кнопка
 				mInfoCancel = info;
 			}
 
@@ -274,9 +267,9 @@ namespace MyGUI
 				}
 			}
 
-			for (std::vector<Button*>::iterator iter = mVectorButton.begin(); iter != mVectorButton.end(); ++iter)
+			for (auto& iter : mVectorButton)
 			{
-				(*iter)->setCoord(offset, mMainWidget->getClientCoord().height - mButtonOffset.height, mButtonSize.width, mButtonSize.height);
+				iter->setCoord(offset, mMainWidget->getClientCoord().height - mButtonOffset.height, mButtonSize.width, mButtonSize.height);
 				offset += mButtonOffset.width + mButtonSize.width;
 			}
 		}
@@ -288,8 +281,8 @@ namespace MyGUI
 
 		void clearButton()
 		{
-			for (std::vector<Button*>::iterator iter = mVectorButton.begin(); iter != mVectorButton.end(); ++iter)
-				WidgetManager::getInstance().destroyWidget(*iter);
+			for (auto& iter : mVectorButton)
+				WidgetManager::getInstance().destroyWidget(iter);
 			mVectorButton.clear();
 		}
 

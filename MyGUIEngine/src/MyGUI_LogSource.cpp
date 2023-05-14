@@ -29,20 +29,20 @@ namespace MyGUI
 
 	void LogSource::open()
 	{
-		for (VectorLogListeners::iterator listener = mListeners.begin(); listener != mListeners.end(); ++listener)
-			(*listener)->open();
+		for (auto& listener : mListeners)
+			listener->open();
 	}
 
 	void LogSource::close()
 	{
-		for (VectorLogListeners::iterator listener = mListeners.begin(); listener != mListeners.end(); ++listener)
-			(*listener)->close();
+		for (auto& listener : mListeners)
+			listener->close();
 	}
 
 	void LogSource::flush()
 	{
-		for (VectorLogListeners::iterator listener = mListeners.begin(); listener != mListeners.end(); ++listener)
-			(*listener)->flush();
+		for (auto& listener : mListeners)
+			listener->flush();
 	}
 
 	void LogSource::log(std::string_view _section, LogLevel _level, const struct tm* _time, std::string_view _message, std::string_view _file, int _line)
@@ -53,8 +53,8 @@ namespace MyGUI
 				return;
 		}
 
-		for (VectorLogListeners::iterator listener = mListeners.begin(); listener != mListeners.end(); ++listener)
-			(*listener)->log(_section, _level, _time, _message, _file, _line);
+		for (auto& listener : mListeners)
+			listener->log(_section, _level, _time, _message, _file, _line);
 	}
 
 } // namespace MyGUI

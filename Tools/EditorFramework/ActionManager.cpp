@@ -46,8 +46,8 @@ namespace tools
 
 	void ActionManager::clear()
 	{
-		for (ListAction::iterator command = mActions.begin(); command != mActions.end(); command ++)
-			delete *command;
+		for (auto& action : mActions)
+			delete action;
 		mActions.clear();
 
 		mCurrentAction = mActions.end();

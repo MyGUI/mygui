@@ -94,9 +94,9 @@ namespace tools
 			child->eventMenuCtrlAccept += MyGUI::newDelegate(this, &MainMenuControlLE::notifyWidgetsSelect);
 			child->setPopupAccept(true);
 
-			for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter )
+			for (auto& childContainer : _container->childContainers)
 			{
-				createWidgetPopup(*iter, child, _print_name, _print_type, _print_skin);
+				createWidgetPopup(childContainer, child, _print_name, _print_type, _print_skin);
 			}
 		}
 	}

@@ -43,8 +43,8 @@ namespace tools
 
 	void EditorWidgets::destroyAllWidgets()
 	{
-		for (std::vector<WidgetContainer*>::iterator iter = mWidgets.begin(); iter != mWidgets.end(); ++iter)
-			delete *iter;
+		for (auto& widget : mWidgets)
+			delete widget;
 		mWidgets.clear();
 	}
 
@@ -390,13 +390,13 @@ namespace tools
 
 	WidgetContainer* EditorWidgets::_find(MyGUI::Widget* _widget, std::string_view _name, std::vector<WidgetContainer*> _widgets)
 	{
-		for (std::vector<WidgetContainer*>::iterator iter = _widgets.begin(); iter != _widgets.end(); ++iter)
+		for (auto& iter : _widgets)
 		{
-			if (((*iter)->getWidget() == _widget) || ((_name.empty() == false) && ((*iter)->getName() == _name)))
+			if ((iter->getWidget() == _widget) || ((_name.empty() == false) && (iter->getName() == _name)))
 			{
-				return *iter;
+				return iter;
 			}
-			WidgetContainer* retContainer = _find(_widget, _name, (*iter)->childContainers);
+			WidgetContainer* retContainer = _find(_widget, _name, iter->childContainers);
 			if (retContainer)
 				return retContainer;
 		}
@@ -628,21 +628,21 @@ namespace tools
 			nodeProp->addAttribute("value", userData.current().second);
 		}
 
-		for (std::vector<ControllerInfo*>::iterator iter = _container->mController.begin(); iter != _container->mController.end(); ++iter)
+		for (auto& iter : _container->mController)
 		{
 			MyGUI::xml::ElementPtr nodeController = node->createChild("Controller");
-			nodeController->addAttribute("type", (*iter)->mType);
-			for (MyGUI::MapString::iterator iterProp = (*iter)->mProperty.begin(); iterProp != (*iter)->mProperty.end(); ++iterProp)
+			nodeController->addAttribute("type", iter->mType);
+			for (auto& iterProp : iter->mProperty)
 			{
 				MyGUI::xml::ElementPtr nodeProp = nodeController->createChild("Property");
-				nodeProp->addAttribute("key", iterProp->first);
-				nodeProp->addAttribute("value", iterProp->second);
+				nodeProp->addAttribute("key", iterProp.first);
+				nodeProp->addAttribute("value", iterProp.second);
 			}
 		}
 
-		for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter)
+		for (auto& childContainer : _container->childContainers)
 		{
-			serialiseWidget(*iter, node, _compatibility);
+			serialiseWidget(childContainer, node, _compatibility);
 		}
 	}
 
@@ -710,9 +710,9 @@ namespace tools
 		if (templateInfo != nullptr)
 		{
 			const MyGUI::VectorWidgetInfo& data = templateInfo->getLayoutData();
-			for (MyGUI::VectorWidgetInfo::const_iterator container = data.begin(); container != data.end(); ++container)
+			for (const auto& container : data)
 			{
-				if (container->name == "Root")
+				if (container.name == "Root")
 					return true;
 			}
 		}
@@ -765,11 +765,11 @@ namespace tools
 	{
 		_root->addAttribute("version", BackwardCompatibilityManager::getInstancePtr()->getCurrentVersion());
 
-		for (std::vector<WidgetContainer*>::iterator iter = mWidgets.begin(); iter != mWidgets.end(); ++iter)
+		for (auto& widget : mWidgets)
 		{
 			// в корень только сирот
-			if (nullptr == (*iter)->getWidget()->getParent())
-				serialiseWidget(*iter, _root, _compatibility);
+			if (nullptr == widget->getWidget()->getParent())
+				serialiseWidget(widget, _root, _compatibility);
 		}
 
 		saveCodeGeneratorSettings(_root);

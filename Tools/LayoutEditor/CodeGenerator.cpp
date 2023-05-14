@@ -101,9 +101,9 @@ namespace tools
 			MyGUI::LanguageManager& lm = MyGUI::LanguageManager::getInstance();
 			lm.addUserTag("Widget_Name", _container->getName());
 			lm.addUserTag("Widget_Type", _container->getType());
-			for (MyGUI::MapString::iterator iterS = mTemplateStrings.begin(); iterS != mTemplateStrings.end(); ++iterS)
+			for (auto& templateString : mTemplateStrings)
 			{
-				lm.addUserTag(iterS->first, lm.replaceTags(iterS->second));
+				lm.addUserTag(templateString.first, lm.replaceTags(templateString.second));
 			}
 			std::string declaration = lm.getTag("Widget_Declaration");
 			while (declaration.find("\\n") != std::string::npos)
@@ -111,9 +111,9 @@ namespace tools
 			_stream << declaration;
 		}
 
-		for (std::vector<WidgetContainer*>::iterator iter = _container->childContainers.begin(); iter != _container->childContainers.end(); ++iter)
+		for (const auto& childContainer : _container->childContainers)
 		{
-			printWidgetDeclaration(*iter, _stream);
+			printWidgetDeclaration(childContainer, _stream);
 		}
 	}
 
@@ -147,10 +147,10 @@ namespace tools
 		lm.addUserTag("Source_Directory", sourceDirectory);
 		lm.addUserTag("Uppercase_Panel_Name", stringToUpperCase(panelName));
 
-		for (MyGUI::MapString::iterator iter = mTemplateFiles.begin(); iter != mTemplateFiles.end(); ++iter)
+		for (auto& templateFile : mTemplateFiles)
 		{
-			std::ifstream input_file(MyGUI::DataManager::getInstance().getDataPath(iter->first).c_str());
-			std::ofstream output_file(lm.replaceTags(iter->second).asUTF8_c_str());
+			std::ifstream input_file(MyGUI::DataManager::getInstance().getDataPath(templateFile.first).c_str());
+			std::ofstream output_file(lm.replaceTags(templateFile.second).asUTF8_c_str());
 			while (!input_file.eof() && !input_file.fail() && !output_file.fail())
 			{
 				char str[256];

@@ -186,9 +186,9 @@ namespace tools
 
 		if (result == nullptr)
 		{
-			for (std::vector<WidgetContainer*>::iterator item = _container->childContainers.begin(); item != _container->childContainers.end(); ++item)
+			for (auto& childContainer : _container->childContainers)
 			{
-				MyGUI::Widget* widget = findWidgetSelected(*item);
+				MyGUI::Widget* widget = findWidgetSelected(childContainer);
 				if (widget != nullptr)
 				{
 					result = widget;

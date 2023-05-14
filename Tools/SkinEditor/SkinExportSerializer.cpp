@@ -37,8 +37,8 @@ namespace tools
 		root.append_attribute("version").set_value("1.1");
 
 		DataPtr data = DataManager::getInstance().getRoot();
-		for (Data::VectorData::const_iterator child = data->getChilds().begin(); child != data->getChilds().end(); child ++)
-			writeSkin(root, (*child));
+		for (const auto& child : data->getChilds())
+			writeSkin(root, child);
 	}
 
 	bool SkinExportSerializer::deserialization(pugi::xml_document& _doc)
@@ -47,8 +47,8 @@ namespace tools
 			return false;
 
 		pugi::xpath_node_set nodes = _doc.select_nodes("MyGUI/Resource[@type=\"ResourceSkin\"]");
-		for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
-			parseSkin((*node).node());
+		for (const auto& node : nodes)
+			parseSkin(node.node());
 
 		return true;
 	}
@@ -195,15 +195,15 @@ namespace tools
 		MapPoint values;
 
 		pugi::xpath_node_set states = _node.select_nodes("BasisSkin/State");
-		for (pugi::xpath_node_set::const_iterator state = states.begin(); state != states.end(); state ++)
+		for (auto state : states)
 		{
 			MyGUI::IntCoord coord((std::numeric_limits<int>::max)(), (std::numeric_limits<int>::max)(), 0, 0);
 
-			pugi::xml_attribute attribute = (*state).node().attribute("offset");
+			pugi::xml_attribute attribute = state.node().attribute("offset");
 			if (!attribute.empty())
 				coord = MyGUI::IntCoord::parse(attribute.value());
 
-			std::string_view name = (*state).node().attribute("name").value();
+			std::string_view name = state.node().attribute("name").value();
 			MapPoint::iterator valuesIterator = values.find(name);
 			if (valuesIterator != values.end())
 			{
@@ -245,11 +245,11 @@ namespace tools
 		}
 
 		states = _node.select_nodes("BasisSkin/State[@colour]");
-		for (pugi::xpath_node_set::const_iterator state = states.begin(); state != states.end(); state ++)
+		for (auto state : states)
 		{
-			std::string_view name = (*state).node().attribute("name").value();
-			int textShift = MyGUI::utility::parseValue<int>((*state).node().attribute("shift").value());
-			MyGUI::Colour textColour = MyGUI::utility::parseValue<MyGUI::Colour>((*state).node().attribute("colour").value());
+			std::string_view name = state.node().attribute("name").value();
+			int textShift = MyGUI::utility::parseValue<int>(state.node().attribute("shift").value());
+			MyGUI::Colour textColour = MyGUI::utility::parseValue<MyGUI::Colour>(state.node().attribute("colour").value());
 
 			for (Data::VectorData::const_iterator child = _data->getChilds().begin(); child != _data->getChilds().end(); child ++)
 			{
@@ -291,11 +291,11 @@ namespace tools
 	void SkinExportSerializer::fillSeparatorData(DataPtr _data, pugi::xml_node _node)
 	{
 		pugi::xpath_node_set regions = _node.select_nodes("BasisSkin[@type=\"SubSkin\"or@type=\"TileRect\"]");
-		for (pugi::xpath_node_set::const_iterator region = regions.begin(); region != regions.end(); region ++)
+		for (auto region : regions)
 		{
-			MyGUI::IntCoord offset = MyGUI::IntCoord::parse((*region).node().attribute("offset").value());
+			MyGUI::IntCoord offset = MyGUI::IntCoord::parse(region.node().attribute("offset").value());
 
-			MyGUI::Align align = MyGUI::Align::parse((*region).node().attribute("align").value());
+			MyGUI::Align align = MyGUI::Align::parse(region.node().attribute("align").value());
 			if (align.isLeft())
 			{
 				DataPtr data = getChildData(_data, "Separator", "Left");
@@ -337,11 +337,11 @@ namespace tools
 	void SkinExportSerializer::fillRegionData(DataPtr _data, pugi::xml_node _node)
 	{
 		pugi::xpath_node_set regions = _node.select_nodes("BasisSkin[@type=\"SubSkin\"or@type=\"TileRect\"]");
-		for (pugi::xpath_node_set::const_iterator region = regions.begin(); region != regions.end(); region ++)
+		for (auto region : regions)
 		{
 			DataPtr regionData = nullptr;
 
-			MyGUI::Align align = MyGUI::Align::parse((*region).node().attribute("align").value());
+			MyGUI::Align align = MyGUI::Align::parse(region.node().attribute("align").value());
 
 			if (align.isLeft() && align.isTop())
 				regionData = getChildData(_data, "Region", "Left Top");
@@ -369,11 +369,11 @@ namespace tools
 
 			regionData->setPropertyValue("Visible", "True");
 
-			std::string_view type = (*region).node().attribute("type").value();
+			std::string_view type = region.node().attribute("type").value();
 			if (type == "TileRect")
 			{
-				bool vert = MyGUI::utility::parseValue<bool>((*region).node().select_single_node("State/Property[@key=\"TileV\"]/@value").attribute().value());
-				bool horz = MyGUI::utility::parseValue<bool>((*region).node().select_single_node("State/Property[@key=\"TileH\"]/@value").attribute().value());
+				bool vert = MyGUI::utility::parseValue<bool>(region.node().select_single_node("State/Property[@key=\"TileV\"]/@value").attribute().value());
+				bool horz = MyGUI::utility::parseValue<bool>(region.node().select_single_node("State/Property[@key=\"TileH\"]/@value").attribute().value());
 
 				if (vert && !horz)
 					type = "TileRect Vert";

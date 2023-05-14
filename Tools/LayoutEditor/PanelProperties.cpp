@@ -45,15 +45,15 @@ namespace tools
 	{
 		size_t result = 0;
 
-		for (MyGUI::VectorStringPairs::iterator iter = widgetType->parameter.begin(); iter != widgetType->parameter.end(); ++iter)
+		for (auto& iter : widgetType->parameter)
 		{
-			std::string_view value = widgetContainer->getProperty(iter->first);
+			std::string_view value = widgetContainer->getProperty(iter.first);
 
 			// TODO: add extra property to WidgetStyle.parameter
-			if (iter->first == "Depth" && mCurrentWidget->isRootWidget())
+			if (iter.first == "Depth" && mCurrentWidget->isRootWidget())
 				continue;
 
-			IPropertyField* field = getPropertyField(mWidgetClient, iter->first, iter->second);
+			IPropertyField* field = getPropertyField(mWidgetClient, iter.first, iter.second);
 			field->setTarget(_currentWidget);
 			field->setValue(value);
 
@@ -88,12 +88,12 @@ namespace tools
 	{
 		int height = 0;
 
-		for (MapPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
+		for (auto& field : mFields)
 		{
-			if ((*item).second->getVisible())
+			if (field.second->getVisible())
 			{
-				MyGUI::IntSize size = (*item).second->getContentSize();
-				(*item).second->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
+				MyGUI::IntSize size = field.second->getContentSize();
+				field.second->setCoord(MyGUI::IntCoord(0, height, mMainWidget->getWidth(), size.height));
 				height += size.height;
 			}
 		}
@@ -103,8 +103,8 @@ namespace tools
 
 	void PanelProperties::destroyPropertyFields()
 	{
-		for (MapPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
-			delete (*item).second;
+		for (auto& field : mFields)
+			delete field.second;
 		mFields.clear();
 	}
 
@@ -127,8 +127,8 @@ namespace tools
 
 	void PanelProperties::hidePropertyFields()
 	{
-		for (MapPropertyField::iterator item = mFields.begin(); item != mFields.end(); ++ item)
-			(*item).second->setVisible(false);
+		for (auto& field : mFields)
+			field.second->setVisible(false);
 	}
 
 	IPropertyField* PanelProperties::getPropertyField(MyGUI::Widget* _client, std::string_view _name, std::string_view _type)

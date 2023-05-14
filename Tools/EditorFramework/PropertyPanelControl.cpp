@@ -36,10 +36,10 @@ namespace tools
 
 	void PropertyPanelControl::HideControls()
 	{
-		for (VectorPairControl::iterator control = mPropertyControls.begin(); control != mPropertyControls.end(); control ++)
+		for (auto& control : mPropertyControls)
 		{
-			(*control).second->setProperty(nullptr);
-			(*control).second->getRoot()->setVisible(false);
+			control.second->setProperty(nullptr);
+			control.second->getRoot()->setVisible(false);
 		}
 
 		mScrollView->setCanvasSize(0, 0);
@@ -51,11 +51,11 @@ namespace tools
 		const std::string& type = _property->getType()->getType();
 		PropertyControl* control = nullptr;
 
-		for (VectorPairControl::iterator child = mPropertyControls.begin(); child != mPropertyControls.end(); child ++)
+		for (auto& child : mPropertyControls)
 		{
-			if ((*child).first == type && !(*child).second->getRoot()->getVisible())
+			if (child.first == type && !child.second->getRoot()->getVisible())
 			{
-				control = (*child).second;
+				control = child.second;
 				control->getRoot()->setVisible(true);
 				break;
 			}
@@ -91,11 +91,11 @@ namespace tools
 		{
 			mContentHeight = 0;
 			const DataType::VectorProperty& properties = mCurrentData->getType()->getProperties();
-			for (DataType::VectorProperty::const_iterator property = properties.begin(); property != properties.end(); property ++)
+			for (const auto& property : properties)
 			{
-				if ((*property)->getVisible())
+				if (property->getVisible())
 				{
-					PropertyPtr pr = mCurrentData->getProperty((*property)->getName());
+					PropertyPtr pr = mCurrentData->getProperty(property->getName());
 						InitialiseProperty(pr, mContentHeight);
 				}
 			}

@@ -53,16 +53,14 @@ namespace MyGUI
 			Vertex* buffer = mVertexBuffer->lock();
 			if (buffer != nullptr)
 			{
-				for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
+				for (auto& item : mDrawItems)
 				{
-					// перед вызовом запоминаем позицию в буфере
 					mCurrentVertex = buffer;
 					mLastVertexCount = 0;
 
-					(*iter).first->doRender();
+					item.first->doRender();
 
-					// колличество отрисованных вершин
-					MYGUI_DEBUG_ASSERT(mLastVertexCount <= (*iter).second, "It is too much vertexes");
+					MYGUI_DEBUG_ASSERT(mLastVertexCount <= item.second, "It is too much vertexes");
 					buffer += mLastVertexCount;
 					mCountVertex += mLastVertexCount;
 				}
@@ -87,8 +85,8 @@ namespace MyGUI
 			// непосредственный рендринг
 			if (mManualRender)
 			{
-				for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
-					(*iter).first->doManualRender(mVertexBuffer, mTexture, mCountVertex);
+				for (auto& item : mDrawItems)
+					item.first->doManualRender(mVertexBuffer, mTexture, mCountVertex);
 			}
 			else
 			{
@@ -127,9 +125,9 @@ namespace MyGUI
 
 // проверяем только в дебаге
 #if MYGUI_DEBUG_MODE == 1
-		for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
+		for (const auto& item : mDrawItems)
 		{
-			MYGUI_ASSERT((*iter).first != _item, "DrawItem exist");
+			MYGUI_ASSERT(item.first != _item, "DrawItem exist");
 		}
 #endif
 
@@ -142,16 +140,16 @@ namespace MyGUI
 
 	void RenderItem::reallockDrawItem(ISubWidget* _item, size_t _count)
 	{
-		for (VectorDrawItem::iterator iter = mDrawItems.begin(); iter != mDrawItems.end(); ++iter)
+		for (auto& item : mDrawItems)
 		{
-			if ((*iter).first == _item)
+			if (item.first == _item)
 			{
 				// если нужно меньше, то ниче не делаем
-				if ((*iter).second < _count)
+				if (item.second < _count)
 				{
-					mNeedVertexCount -= (*iter).second;
+					mNeedVertexCount -= item.second;
 					mNeedVertexCount += _count;
-					(*iter).second = _count;
+					item.second = _count;
 					mOutOfDate = true;
 
 					mVertexBuffer->setVertexCount(mNeedVertexCount);

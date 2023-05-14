@@ -43,8 +43,8 @@ namespace tools
 		WidgetStyle::VectorString values = WidgetTypes::getInstance().findPossibleValues(mType);
 
 		mField->removeAllItems();
-		for (WidgetStyle::VectorString::iterator iter = values.begin(); iter != values.end(); ++iter)
-			mField->addItem(MyGUI::LanguageManager::getInstance().replaceTags(*iter));
+		for (auto& value : values)
+			mField->addItem(MyGUI::LanguageManager::getInstance().replaceTags(value));
 		mField->beginToItemFirst();
 	}
 

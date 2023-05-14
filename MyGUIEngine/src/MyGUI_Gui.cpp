@@ -187,9 +187,9 @@ namespace MyGUI
 
 	Widget* Gui::findWidgetT(std::string_view _name, bool _throw)
 	{
-		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
+		for (const auto& iter : mWidgetChild)
 		{
-			Widget* widget = (*iter)->findWidget(_name);
+			Widget* widget = iter->findWidget(_name);
 			if (widget != nullptr) return widget;
 		}
 		MYGUI_ASSERT(!_throw, "Widget '" << _name << "' not found");
@@ -250,8 +250,8 @@ namespace MyGUI
 
 	void Gui::destroyWidgets(const VectorWidgetPtr& _widgets)
 	{
-		for (VectorWidgetPtr::const_iterator iter = _widgets.begin(); iter != _widgets.end(); ++iter)
-			destroyWidget(*iter);
+		for (auto widget : _widgets)
+			destroyWidget(widget);
 	}
 
 	void Gui::destroyWidgets(EnumeratorWidgetPtr& _widgets)

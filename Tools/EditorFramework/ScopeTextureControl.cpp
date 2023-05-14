@@ -30,8 +30,8 @@ namespace tools
 
 	ScopeTextureControl::~ScopeTextureControl()
 	{
-		for (VectorSelector::iterator selector = mSelectors.begin(); selector != mSelectors.end(); selector ++)
-			(*selector).first->eventChangePosition.disconnect(this);
+		for (auto& selector : mSelectors)
+			selector.first->eventChangePosition.disconnect(this);
 	}
 
 	void ScopeTextureControl::OnInitialise(Control* _parent, MyGUI::Widget* _place, std::string_view _layoutName)
@@ -346,8 +346,8 @@ namespace tools
 
 	void ScopeTextureControl::clearCoordValue()
 	{
-		for (VectorSelector::iterator selector = mSelectors.begin(); selector != mSelectors.end(); selector ++)
-			(*selector).first->setVisible(false);
+		for (auto& selector : mSelectors)
+			selector.first->setVisible(false);
 	}
 
 	void ScopeTextureControl::clearAll()
@@ -362,10 +362,10 @@ namespace tools
 		clearViewSelectors();
 
 		bool changes = false;
-		for (VectorCoord::const_iterator selectorCoord = _selectors.begin(); selectorCoord != _selectors.end(); selectorCoord ++)
+		for (const auto& _selector : _selectors)
 		{
-			SelectorControl* selector = getFreeSelector(mBlackSelectors, true, (*selectorCoord).second, changes);
-			selector->setCoord((*selectorCoord).first);
+			SelectorControl* selector = getFreeSelector(mBlackSelectors, true, _selector.second, changes);
+			selector->setCoord(_selector.first);
 		}
 
 		// FIXME
@@ -383,20 +383,20 @@ namespace tools
 
 	void ScopeTextureControl::clearViewSelectors()
 	{
-		for (VectorSelector::iterator selector = mBlackSelectors.begin(); selector != mBlackSelectors.end(); selector ++)
-			(*selector).first->setVisible(false);
+		for (auto& blackSelector : mBlackSelectors)
+			blackSelector.first->setVisible(false);
 	}
 
 	SelectorControl* ScopeTextureControl::getFreeSelector(VectorSelector& _selectors, bool _backType, SelectorType _type, bool& _changes)
 	{
-		for (VectorSelector::iterator selector = _selectors.begin(); selector != _selectors.end(); selector ++)
+		for (auto& selector : _selectors)
 		{
-			if (!(*selector).first->getVisible())
+			if (!selector.first->getVisible())
 			{
-				if ((*selector).second == _type)
+				if (selector.second == _type)
 				{
-					(*selector).first->setVisible(true);
-					return (*selector).first;
+					selector.first->setVisible(true);
+					return selector.first;
 				}
 			}
 		}

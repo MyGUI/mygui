@@ -103,8 +103,8 @@ namespace tools
 	{
 		mTextures->removeAllItems();
 
-		for (MyGUI::VectorString::const_iterator item = _textures.begin(); item != _textures.end(); ++item)
-			mTextures->addItem((*item));
+		for (const auto& _texture : _textures)
+			mTextures->addItem(_texture);
 	}
 
 	void TextureBrowseControl::notifyChangeItemPosition(MyGUI::ItemBox* _sender, size_t _index)

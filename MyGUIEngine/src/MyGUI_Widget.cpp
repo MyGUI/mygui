@@ -113,9 +113,9 @@ namespace MyGUI
 
 		if (root != nullptr)
 		{
-			for (VectorStringPairs::const_iterator iter = root->properties.begin(); iter != root->properties.end(); ++iter)
+			for (const auto& property : root->properties)
 			{
-				setProperty(iter->first, iter->second);
+				setProperty(property.first, property.second);
 			}
 		}
 	}
@@ -177,9 +177,9 @@ namespace MyGUI
 
 		if (root != nullptr)
 		{
-			for (VectorStringPairs::const_iterator iter = root->properties.begin(); iter != root->properties.end(); ++iter)
+			for (const auto& property : root->properties)
 			{
-				setProperty(iter->first, iter->second);
+				setProperty(property.first, property.second);
 			}
 		}
 	}
@@ -195,12 +195,12 @@ namespace MyGUI
 			std::string_view skinName;
 
 			const VectorWidgetInfo& data = _templateInfo->getLayoutData();
-			for (VectorWidgetInfo::const_iterator item = data.begin(); item != data.end(); ++item)
+			for (const auto& item : data)
 			{
-				if ((*item).name == "Root")
+				if (item.name == "Root")
 				{
-					skinName = (*item).skin;
-					root = &(*item);
+					skinName = item.skin;
+					root = &item;
 					break;
 				}
 			}
@@ -227,20 +227,20 @@ namespace MyGUI
 		if (!skinOnly)
 		{
 			const MapString& properties = _skinInfo->getProperties();
-			for (MapString::const_iterator item = properties.begin(); item != properties.end(); ++item)
+			for (const auto& property : properties)
 			{
-				if (BackwardCompatibility::isIgnoreProperty((*item).first))
-					setUserString((*item).first, (*item).second);
+				if (BackwardCompatibility::isIgnoreProperty(property.first))
+					setUserString(property.first, property.second);
 			}
 
-			// создаем детей скина
+			// create skin childs
 			const VectorChildSkinInfo& child = _skinInfo->getChild();
-			for (VectorChildSkinInfo::const_iterator iter = child.begin(); iter != child.end(); ++iter)
+			for (const auto& iter : child)
 			{
-				Widget* widget = baseCreateWidget(iter->style, iter->type, iter->skin, iter->coord, iter->align, iter->layer, iter->name, true);
-				// заполняем UserString пропертями
-				for (MapString::const_iterator prop = iter->params.begin(); prop != iter->params.end(); ++prop)
-					widget->setUserString(prop->first, prop->second);
+				Widget* widget = baseCreateWidget(iter.style, iter.type, iter.skin, iter.coord, iter.align, iter.layer, iter.name, true);
+				// fill UserString with skin properties
+				for (const auto& prop : iter.params)
+					widget->setUserString(prop.first, prop.second);
 			}
 		}
 
@@ -249,14 +249,14 @@ namespace MyGUI
 			//FIXME - явный вызов
 			Widget::setSize(root->intCoord.size());
 
-			for (MapString::const_iterator iter = root->userStrings.begin(); iter != root->userStrings.end(); ++iter)
+			for (const auto& userString : root->userStrings)
 			{
-				setUserString(iter->first, iter->second);
+				setUserString(userString.first, userString.second);
 			}
 
-			for (VectorWidgetInfo::const_iterator iter = root->childWidgetsInfo.begin(); iter != root->childWidgetsInfo.end(); ++iter)
+			for (const auto& iter : root->childWidgetsInfo)
 			{
-				_templateInfo->createWidget(*iter, {}, this, true);
+				_templateInfo->createWidget(iter, {}, this, true);
 			}
 		}
 
@@ -273,11 +273,11 @@ namespace MyGUI
 		_deleteSkinItem();
 
 		// удаляем виджеты чтобы ли в скине
-		for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
+		for (auto& iter : mWidgetChildSkin)
 		{
 			// Добавляем себя чтобы удалилось
-			mWidgetChild.push_back(*iter);
-			_destroyChildWidget(*iter);
+			mWidgetChild.push_back(iter);
+			_destroyChildWidget(iter);
 		}
 		mWidgetChildSkin.clear();
 
@@ -341,10 +341,10 @@ namespace MyGUI
 				_setSubSkinVisible(false);
 
 				// вся иерархия должна быть проверенна
-				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-					(*widget)->_updateView();
-				for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-					(*widget)->_updateView();
+				for (auto& widget : mWidgetChild)
+					widget->_updateView();
+				for (auto& widget : mWidgetChildSkin)
+					widget->_updateView();
 
 				return;
 			}
@@ -363,10 +363,10 @@ namespace MyGUI
 		_setSubSkinVisible(true);
 
 		// обновляем наших детей, а они уже решат обновлять ли своих детей
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-			(*widget)->_updateView();
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-			(*widget)->_updateView();
+		for (auto& widget : mWidgetChild)
+			widget->_updateView();
+		for (auto& widget : mWidgetChildSkin)
+			widget->_updateView();
 
 		_updateSkinItemView();
 	}
@@ -447,10 +447,10 @@ namespace MyGUI
 		else
 			mRealAlpha = mAlpha;
 
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-			(*widget)->_updateAlpha();
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-			(*widget)->_updateAlpha();
+		for (auto& widget : mWidgetChild)
+			widget->_updateAlpha();
+		for (auto& widget : mWidgetChildSkin)
+			widget->_updateAlpha();
 
 		_setSkinItemAlpha(mRealAlpha);
 	}
@@ -504,10 +504,10 @@ namespace MyGUI
 
 		mAbsolutePosition = mCroppedParent->getAbsolutePosition() + mCoord.point();
 
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-			(*widget)->_updateAbsolutePoint();
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-			(*widget)->_updateAbsolutePoint();
+		for (auto& widget : mWidgetChild)
+			widget->_updateAbsolutePoint();
+		for (auto& widget : mWidgetChildSkin)
+			widget->_updateAbsolutePoint();
 
 		_correctSkinItemView();
 	}
@@ -525,12 +525,12 @@ namespace MyGUI
 			return;
 
 		VectorWidgetPtr copy = mWidgetChild;
-		for (VectorWidgetPtr::iterator widget = copy.begin(); widget != copy.end(); ++widget)
+		for (auto& widget : copy)
 		{
-			if ((*widget) == _widget)
-				(*widget)->setDepth(-1);
-			else if ((*widget)->getDepth() == -1)
-				(*widget)->setDepth(0);
+			if (widget == _widget)
+				widget->setDepth(-1);
+			else if (widget->getDepth() == -1)
+				widget->setDepth(0);
 		}
 	}
 
@@ -541,9 +541,9 @@ namespace MyGUI
 		if (mWidgetClient != nullptr)
 			return mWidgetClient->findWidget(_name);
 
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+		for (const auto& widget : mWidgetChild)
 		{
-			Widget* find = (*widget)->findWidget(_name);
+			Widget* find = widget->findWidget(_name);
 			if (nullptr != find)
 				return find;
 		}
@@ -634,10 +634,10 @@ namespace MyGUI
 		// обновляем абсолютные координаты
 		mAbsolutePosition += _point - mCoord.point();
 
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-			(*widget)->_updateAbsolutePoint();
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-			(*widget)->_updateAbsolutePoint();
+		for (auto& widget : mWidgetChild)
+			widget->_updateAbsolutePoint();
+		for (auto& widget : mWidgetChildSkin)
+			widget->_updateAbsolutePoint();
 
 		mCoord = _point;
 
@@ -670,10 +670,10 @@ namespace MyGUI
 		_setSubSkinVisible(visible);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-			(*widget)->_setAlign(old, getSize());
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-			(*widget)->_setAlign(old, getSize());
+		for (auto& widget : mWidgetChild)
+			widget->_setAlign(old, getSize());
+		for (auto& widget : mWidgetChildSkin)
+			widget->_setAlign(old, getSize());
 
 		_setSkinItemAlign(old);
 
@@ -688,10 +688,10 @@ namespace MyGUI
 		// обновляем абсолютные координаты
 		mAbsolutePosition += _coord.point() - mCoord.point();
 
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-			(*widget)->_updateAbsolutePoint();
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-			(*widget)->_updateAbsolutePoint();
+		for (auto& widget : mWidgetChild)
+			widget->_updateAbsolutePoint();
+		for (auto& widget : mWidgetChildSkin)
+			widget->_updateAbsolutePoint();
 
 		// устанавливаем новую координату а старую пускаем в расчеты
 		IntCoord old = mCoord;
@@ -715,10 +715,10 @@ namespace MyGUI
 		_setSubSkinVisible(visible);
 
 		// передаем старую координату , до вызова, текущая координата отца должна быть новой
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-			(*widget)->_setAlign(old.size(), getSize());
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-			(*widget)->_setAlign(old.size(), getSize());
+		for (auto& widget : mWidgetChild)
+			widget->_setAlign(old.size(), getSize());
+		for (auto& widget : mWidgetChildSkin)
+			widget->_setAlign(old.size(), getSize());
 
 		_setSkinItemAlign(old.size());
 
@@ -763,10 +763,10 @@ namespace MyGUI
 				// обновляем координаты
 				mAbsolutePosition = mCoord.point();
 
-				for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-					(*widget)->_updateAbsolutePoint();
-				for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-					(*widget)->_updateAbsolutePoint();
+				for (auto& widget : mWidgetChild)
+					widget->_updateAbsolutePoint();
+				for (auto& widget : mWidgetChildSkin)
+					widget->_updateAbsolutePoint();
 
 				// сбрасываем обрезку
 				mMargin.clear();
@@ -848,10 +848,10 @@ namespace MyGUI
 			mCroppedParent = _parent;
 			mAbsolutePosition = _parent->getAbsolutePosition() + mCoord.point();
 
-			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-				(*widget)->_updateAbsolutePoint();
-			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-				(*widget)->_updateAbsolutePoint();
+			for (auto& widget : mWidgetChild)
+				widget->_updateAbsolutePoint();
+			for (auto& widget : mWidgetChildSkin)
+				widget->_updateAbsolutePoint();
 
 			_updateView();
 		}
@@ -870,10 +870,10 @@ namespace MyGUI
 			mCroppedParent = _parent;
 			mAbsolutePosition = _parent->getAbsolutePosition() + mCoord.point();
 
-			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-				(*widget)->_updateAbsolutePoint();
-			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-				(*widget)->_updateAbsolutePoint();
+			for (auto& widget : mWidgetChild)
+				widget->_updateAbsolutePoint();
+			for (auto& widget : mWidgetChildSkin)
+				widget->_updateAbsolutePoint();
 
 			mParent->addChildNode(this);
 
@@ -963,10 +963,10 @@ namespace MyGUI
 
 		_setSkinItemVisible(mInheritedVisible);
 
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-			(*widget)->_updateVisible();
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-			(*widget)->_updateVisible();
+		for (auto& widget : mWidgetChild)
+			widget->_updateVisible();
+		for (auto& widget : mWidgetChildSkin)
+			widget->_updateVisible();
 
 		if (!mInheritedVisible && InputManager::getInstance().getMouseFocusWidget() == this)
 			InputManager::getInstance()._resetMouseFocusWidget();
@@ -988,10 +988,10 @@ namespace MyGUI
 		mInheritedEnabled = mParent == nullptr || (mParent->getInheritedEnabled());
 		mInheritedEnabled = mInheritedEnabled && mEnabled;
 
-		for (VectorWidgetPtr::iterator iter = mWidgetChild.begin(); iter != mWidgetChild.end(); ++iter)
-			(*iter)->_updateEnabled();
-		for (VectorWidgetPtr::iterator iter = mWidgetChildSkin.begin(); iter != mWidgetChildSkin.end(); ++iter)
-			(*iter)->_updateEnabled();
+		for (auto& iter : mWidgetChild)
+			iter->_updateEnabled();
+		for (auto& iter : mWidgetChildSkin)
+			iter->_updateEnabled();
 
 		baseUpdateEnable();
 
@@ -1003,8 +1003,8 @@ namespace MyGUI
 	{
 		_setSkinItemColour(_value);
 
-		for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
-			(*widget)->setColour(_value);
+		for (auto& widget : mWidgetChildSkin)
+			widget->setColour(_value);
 	}
 
 	IntSize Widget::getParentSize() const
@@ -1055,8 +1055,8 @@ namespace MyGUI
 	void Widget::setSkinProperty(ResourceSkin* _info)
 	{
 		const MapString& properties = _info->getProperties();
-		for (MapString::const_iterator item = properties.begin(); item != properties.end(); ++item)
-			setProperty((*item).first, (*item).second);
+		for (const auto& property : properties)
+			setProperty(property.first, property.second);
 	}
 
 	void Widget::setProperty(std::string_view _key, std::string_view _value)
@@ -1098,8 +1098,8 @@ namespace MyGUI
 		}
 		else
 		{
-			for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
-				(*widget)->findWidgets(_name, _result);
+			for (const auto& widget : mWidgetChild)
+				widget->findWidgets(_name, _result);
 		}
 	}
 
@@ -1380,21 +1380,21 @@ namespace MyGUI
 
 	void Widget::_updateChilds()
 	{
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+		for (auto& widget : mWidgetChild)
 		{
-			if ((*widget)->getWidgetStyle() == WidgetStyle::Child)
+			if (widget->getWidgetStyle() == WidgetStyle::Child)
 			{
-				(*widget)->detachFromLayerItemNode(false);
-				removeChildItem((*widget));
+				widget->detachFromLayerItemNode(false);
+				removeChildItem(widget);
 			}
 		}
 
-		for (VectorWidgetPtr::iterator widget = mWidgetChild.begin(); widget != mWidgetChild.end(); ++widget)
+		for (auto& widget : mWidgetChild)
 		{
-			if ((*widget)->getWidgetStyle() == WidgetStyle::Child)
+			if (widget->getWidgetStyle() == WidgetStyle::Child)
 			{
-				addChildItem((*widget));
-				(*widget)->_updateView();
+				addChildItem(widget);
+				widget->_updateView();
 			}
 		}
 	}

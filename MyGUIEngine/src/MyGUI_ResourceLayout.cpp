@@ -116,9 +116,9 @@ namespace MyGUI
 	{
 		VectorWidgetPtr widgets;
 
-		for (VectorWidgetInfo::iterator iter = mLayoutData.begin(); iter != mLayoutData.end(); ++iter)
+		for (auto& iter : mLayoutData)
 		{
-			Widget* widget = createWidget(*iter, _prefix, _parent);
+			Widget* widget = createWidget(iter, _prefix, _parent);
 			widgets.push_back(widget);
 		}
 
@@ -161,37 +161,37 @@ namespace MyGUI
 		else
 			wid = _parent->createWidgetT(style, _widgetInfo.type, _widgetInfo.skin, coord, _widgetInfo.align, widgetLayer, widgetName);
 
-		for (VectorStringPairs::const_iterator iter = _widgetInfo.properties.begin(); iter != _widgetInfo.properties.end(); ++iter)
+		for (const auto& property : _widgetInfo.properties)
 		{
-			wid->setProperty(iter->first, iter->second);
+			wid->setProperty(property.first, property.second);
 		}
 
-		for (MapString::const_iterator iter = _widgetInfo.userStrings.begin(); iter != _widgetInfo.userStrings.end(); ++iter)
+		for (const auto& userString : _widgetInfo.userStrings)
 		{
-			wid->setUserString(iter->first, iter->second);
+			wid->setUserString(userString.first, userString.second);
 			if (!_template)
-				LayoutManager::getInstance().eventAddUserString(wid, iter->first, iter->second);
+				LayoutManager::getInstance().eventAddUserString(wid, userString.first, userString.second);
 		}
 
-		for (VectorWidgetInfo::const_iterator iter = _widgetInfo.childWidgetsInfo.begin(); iter != _widgetInfo.childWidgetsInfo.end(); ++iter)
+		for (const auto& iter : _widgetInfo.childWidgetsInfo)
 		{
-			createWidget(*iter, _prefix, wid);
+			createWidget(iter, _prefix, wid);
 		}
 
-		for (std::vector<ControllerInfo>::const_iterator iter = _widgetInfo.controllers.begin(); iter != _widgetInfo.controllers.end(); ++iter)
+		for (const auto& iter : _widgetInfo.controllers)
 		{
-			MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(iter->type);
+			MyGUI::ControllerItem* item = MyGUI::ControllerManager::getInstance().createItem(iter.type);
 			if (item)
 			{
-				for (MapString::const_iterator iterProp = iter->properties.begin(); iterProp != iter->properties.end(); ++iterProp)
+				for (const auto& property : iter.properties)
 				{
-					item->setProperty(iterProp->first, iterProp->second);
+					item->setProperty(property.first, property.second);
 				}
 				MyGUI::ControllerManager::getInstance().addItem(wid, item);
 			}
 			else
 			{
-				MYGUI_LOG(Warning, "Controller '" << iter->type << "' not found");
+				MYGUI_LOG(Warning, "Controller '" << iter.type << "' not found");
 			}
 		}
 

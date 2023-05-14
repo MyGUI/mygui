@@ -62,9 +62,9 @@ namespace MyGUI
 
 	void ControllerManager::clear()
 	{
-		for (ListControllerItem::iterator iter = mListItem.begin(); iter != mListItem.end(); ++iter)
+		for (auto& iter : mListItem)
 		{
-			delete (*iter).second;
+			delete iter.second;
 		}
 		mListItem.clear();
 	}
@@ -77,37 +77,35 @@ namespace MyGUI
 
 	void ControllerManager::addItem(Widget* _widget, ControllerItem* _item)
 	{
-		// подготавливаем
 		_item->prepareItem(_widget);
 
-		for (ListControllerItem::iterator iter = mListItem.begin(); iter != mListItem.end(); ++iter)
+		for (auto& iter : mListItem)
 		{
-			// такой уже в списке есть
-			if ((*iter).first == _widget)
+			// already in the list
+			if (iter.first == _widget)
 			{
-				if ((*iter).second->getTypeName() == _item->getTypeName())
+				if (iter.second->getTypeName() == _item->getTypeName())
 				{
-					delete (*iter).second;
-					(*iter).second = _item;
+					delete iter.second;
+					iter.second = _item;
 					return;
 				}
 			}
 		}
 
-		// если виджет первый, то подписываемся на кадры
+		// subscribe to events only for first item
 		if (mListItem.empty())
 			Gui::getInstance().eventFrameStart += newDelegate(this, &ControllerManager::frameEntered);
 
-		// вставляем в самый конец
 		mListItem.push_back(PairControllerItem(_widget, _item));
 	}
 
 	void ControllerManager::removeItem(Widget* _widget)
 	{
-		// не удаляем из списка, а обнуляем, в цикле он будет удален
-		for (ListControllerItem::iterator iter = mListItem.begin(); iter != mListItem.end(); ++iter)
+		// replace with nullptr instead of removing, will  be deleted in frameEntered
+		for (auto& iter : mListItem)
 		{
-			if ((*iter).first == _widget) (*iter).first = nullptr;
+			if (iter.first == _widget) iter.first = nullptr;
 		}
 	}
 
@@ -123,7 +121,6 @@ namespace MyGUI
 			if (nullptr == (*iter).first)
 			{
 				delete (*iter).second;
-				// удаляем из списка, итератор не увеличиваем и на новый круг
 				iter = mListItem.erase(iter);
 				continue;
 			}
@@ -134,7 +131,7 @@ namespace MyGUI
 				continue;
 			}
 
-			// на следующей итерации виджет вылетит из списка
+			// will be removed in next iteration
 			(*iter).first = nullptr;
 		}
 

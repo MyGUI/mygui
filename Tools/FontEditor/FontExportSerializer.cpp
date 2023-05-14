@@ -25,8 +25,8 @@ namespace tools
 		root.append_attribute("version").set_value("1.1");
 
 		DataPtr data = DataManager::getInstance().getRoot();
-		for (Data::VectorData::const_iterator child = data->getChilds().begin(); child != data->getChilds().end(); child ++)
-			writeFont(root, (*child));
+		for (const auto& child : data->getChilds())
+			writeFont(root, child);
 	}
 
 	bool FontExportSerializer::deserialization(pugi::xml_document& _doc)
@@ -35,8 +35,8 @@ namespace tools
 			return false;
 
 		pugi::xpath_node_set nodes = _doc.select_nodes("MyGUI/Resource[@type=\"ResourceTrueTypeFont\"]");
-		for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
-			parseFont((*node).node());
+		for (const auto& node : nodes)
+			parseFont(node.node());
 
 		return true;
 	}
@@ -84,12 +84,12 @@ namespace tools
 
 		value.clear();
 		pugi::xpath_node_set codes = _node.select_nodes("Codes/Code/@range");
-		for (pugi::xpath_node_set::const_iterator code = codes.begin(); code != codes.end(); code ++)
+		for (const auto& code : codes)
 		{
 			if (!value.empty())
 				value += "|";
 
-			std::vector<std::string> values = MyGUI::utility::split((*code).attribute().value());
+			std::vector<std::string> values = MyGUI::utility::split(code.attribute().value());
 			if (values.size() == 1)
 				value += MyGUI::utility::toString(values[0], " ", values[0]);
 			else if (values.size() == 2)
@@ -158,8 +158,8 @@ namespace tools
 		pugi::xml_node nodeCodes = node.append_child("Codes");
 		value = _data->getPropertyValue("FontCodeRanges");
 		std::vector<std::string> values = MyGUI::utility::split(value, "|");
-		for (size_t index = 0; index < values.size(); index ++)
-			nodeCodes.append_child("Code").append_attribute("range").set_value(values[index].c_str());
+		for (auto& subValue : values)
+			nodeCodes.append_child("Code").append_attribute("range").set_value(subValue.c_str());
 
 		value = MyGUI::utility::toString(MyGUI::utility::parseValue<bool>(_data->getPropertyValue("MsdfMode")));
 		nodeProperty = node.append_child("Property");
@@ -185,10 +185,10 @@ namespace tools
 		root->addAttribute("version", "1.1");
 
 		DataPtr data = DataManager::getInstance().getRoot();
-		for (Data::VectorData::const_iterator child = data->getChilds().begin(); child != data->getChilds().end(); child ++)
+		for (const auto& child : data->getChilds())
 		{
-			generateFont((*child));
-			generateFontManualXml(root, _folderName, (*child));
+			generateFont(child);
+			generateFontManualXml(root, _folderName, child);
 		}
 
 		return document.save(common::concatenatePath(_folderName, _fileName));
@@ -310,9 +310,9 @@ namespace tools
 
 		const std::string& ranges = _data->getPropertyValue("FontCodeRanges");
 		std::vector<std::string> values = MyGUI::utility::split(ranges, "|");
-		for (size_t index = 0; index < values.size(); index ++)
+		for (const auto& value : values)
 		{
-			MyGUI::IntSize size = MyGUI::IntSize::parse(values[index]);
+			MyGUI::IntSize size = MyGUI::IntSize::parse(value);
 			font->addCodePointRange(size.width, size.height);
 		}
 

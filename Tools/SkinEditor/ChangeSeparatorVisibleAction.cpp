@@ -31,15 +31,15 @@ namespace tools
 	void ChangeSeparatorVisibleAction::storeRegionValues(DataPtr _skinData, VectorPairProperty& _store)
 	{
 		const Data::VectorData& childs = _skinData->getChilds();
-		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
+		for (const auto& child : childs)
 		{
-			if ((*child)->getType()->getName() != "Region")
+			if (child->getType()->getName() != "Region")
 				continue;
 
-			PropertyPtr property = (*child)->getProperty("Enable");
+			PropertyPtr property = child->getProperty("Enable");
 			_store.push_back(std::make_pair(property, property->getValue()));
 
-			property = (*child)->getProperty("Coord");
+			property = child->getProperty("Coord");
 			_store.push_back(std::make_pair(property, property->getValue()));
 		}
 	}

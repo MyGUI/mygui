@@ -48,16 +48,16 @@ namespace MyGUI
 		finalPoints.reserve(_points.size());
 
 		mLineLength = 0.0f;
-		FloatPoint point = _points[0];
-		finalPoints.push_back(point);
+		FloatPoint point0 = _points[0];
+		finalPoints.push_back(point0);
 		// ignore repeating points
-		for (std::vector<FloatPoint>::const_iterator iter = _points.begin() + 1; iter != _points.end(); ++iter)
+		for (const auto& point : _points)
 		{
-			if (point != *iter)
+			if (point0 != point)
 			{
-				finalPoints.push_back(*iter);
-				mLineLength += len(iter->left - point.left, iter->top - point.top);
-				point = *iter;
+				finalPoints.push_back(point);
+				mLineLength += len(point.left - point0.left, point.top - point0.top);
+				point0 = point;
 			}
 		}
 
@@ -487,10 +487,10 @@ namespace MyGUI
 		float vertex_left_base = ((info.pixScaleX * (float)(mCroppedParent->getAbsoluteLeft()) + info.hOffset) * 2) - 1;
 		float vertex_top_base = -(((info.pixScaleY * (float)(mCroppedParent->getAbsoluteTop()) + info.vOffset) * 2) - 1);
 
-		for (size_t i = 0; i < mResultVerticiesPos.size(); ++i)
+		for (auto& pos : mResultVerticiesPos)
 		{
-			mResultVerticiesPos[i].left = vertex_left_base + mResultVerticiesPos[i].left * info.pixScaleX * 2;
-			mResultVerticiesPos[i].top = vertex_top_base + mResultVerticiesPos[i].top * info.pixScaleY * -2;
+			pos.left = vertex_left_base + pos.left * info.pixScaleX * 2;
+			pos.top = vertex_top_base + pos.top * info.pixScaleY * -2;
 		}
 	}
 

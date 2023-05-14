@@ -20,9 +20,9 @@ namespace tools
 		const std::string& name = _data->getPropertyValue(_propertyName);
 
 		const Data::VectorData& childs = parent->getChilds();
-		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
+		for (const auto& child : childs)
 		{
-			if ((*child)->getPropertyValue(_propertyName) == name && (*child) != _data)
+			if (child->getPropertyValue(_propertyName) == name && child != _data)
 				return false;
 		}
 
@@ -50,10 +50,10 @@ namespace tools
 	void PropertyUtility::storeUniqueNameProperty(std::string_view _propertyName, std::string_view _propertyUnique, DataPtr _parent, VectorPairProperty& _store)
 	{
 		const Data::VectorData& childs = _parent->getChilds();
-		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
+		for (const auto& child : childs)
 		{
-			bool unique = isUniqueName((*child), _propertyName);
-			PropertyPtr property = (*child)->getProperty(_propertyUnique);
+			bool unique = isUniqueName(child, _propertyName);
+			PropertyPtr property = child->getProperty(_propertyUnique);
 
 			if (property->getValue<bool>() != unique)
 			{
@@ -65,8 +65,8 @@ namespace tools
 
 	void PropertyUtility::restoreUniqueNameProperty(VectorPairProperty& _store)
 	{
-		for (VectorPairProperty::iterator value = _store.begin(); value != _store.end(); value ++)
-			(*value).first->setValue((*value).second);
+		for (auto& value : _store)
+			value.first->setValue(value.second);
 		_store.clear();
 	}
 

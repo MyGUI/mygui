@@ -15,22 +15,22 @@ namespace tools
 
 	void WidgetTypes::shutdown()
 	{
-		for (std::vector<WidgetStyle*>::iterator iter = mWidgetTypes.begin(); iter != mWidgetTypes.end(); ++iter)
-			delete *iter;
+		for (auto& widgetType : mWidgetTypes)
+			delete widgetType;
 		mWidgetTypes.clear();
 
-		for (VectorPossibleValue::iterator iter = mPossibleValues.begin(); iter != mPossibleValues.end(); ++iter)
-			delete *iter;
+		for (auto& possibleValue : mPossibleValues)
+			delete possibleValue;
 		mPossibleValues.clear();
 	}
 
 	WidgetStyle* WidgetTypes::findWidgetStyle(std::string_view _type)
 	{
-		for (std::vector<WidgetStyle*>::iterator iter = mWidgetTypes.begin(); iter != mWidgetTypes.end(); ++iter)
+		for (auto& widgetType : mWidgetTypes)
 		{
-			if ((*iter)->name == _type)
+			if (widgetType->name == _type)
 			{
-				return *iter;
+				return widgetType;
 			}
 		}
 		return findWidgetStyle("Widget");
@@ -38,11 +38,11 @@ namespace tools
 
 	WidgetTypes::VectorString WidgetTypes::findPossibleValues(std::string_view _name)
 	{
-		for (VectorPossibleValue::iterator iter = mPossibleValues.begin(); iter != mPossibleValues.end(); ++iter)
+		for (auto& possibleValue : mPossibleValues)
 		{
-			if ((*iter)->name == _name)
+			if (possibleValue->name == _name)
 			{
-				return (*iter)->values;
+				return possibleValue->values;
 			}
 		}
 		return VectorString();
@@ -51,10 +51,10 @@ namespace tools
 	WidgetStyle* WidgetTypes::getWidgetType(std::string_view _name)
 	{
 		// ищем тип, если нет, то создаем
-		for (VectorWidgetType::iterator iter = mWidgetTypes.begin(); iter != mWidgetTypes.end(); ++iter)
+		for (auto& widgetType : mWidgetTypes)
 		{
-			if ((*iter)->name == _name)
-				return (*iter);
+			if (widgetType->name == _name)
+				return widgetType;
 		}
 
 		WidgetStyle* type = new WidgetStyle(_name);
@@ -209,8 +209,8 @@ namespace tools
 
 	void WidgetTypes::clearAllSkins()
 	{
-		for (VectorWidgetType::iterator iter = mWidgetTypes.begin(); iter != mWidgetTypes.end(); ++iter)
-			(*iter)->skin.clear();
+		for (auto& widgetType : mWidgetTypes)
+			widgetType->skin.clear();
 
 		mSkinGroups.clear();
 	}
@@ -227,12 +227,12 @@ namespace tools
 
 	WidgetStyle* WidgetTypes::findWidgetStyleBySkin(std::string_view _skinName)
 	{
-		for (VectorWidgetType::iterator item = mWidgetTypes.begin(); item != mWidgetTypes.end(); ++item)
+		for (auto& widgetType : mWidgetTypes)
 		{
-			for (WidgetStyle::VectorString::const_iterator skin = (*item)->skin.begin(); skin != (*item)->skin.end(); ++skin)
+			for (const auto& skin : widgetType->skin)
 			{
-				if ((*skin) == _skinName)
-					return (*item);
+				if (skin == _skinName)
+					return widgetType;
 			}
 		}
 
@@ -241,8 +241,8 @@ namespace tools
 
 	void WidgetTypes::updateDepth()
 	{
-		for (VectorWidgetType::iterator item = mWidgetTypes.begin(); item != mWidgetTypes.end(); ++ item)
-			(*item)->depth = updateDepth(*item);
+		for (auto& widgetType : mWidgetTypes)
+			widgetType->depth = updateDepth(widgetType);
 	}
 
 	size_t WidgetTypes::updateDepth(WidgetStyle* _style)

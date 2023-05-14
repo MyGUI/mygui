@@ -39,8 +39,8 @@ namespace components
 
 	void FactoryManager::UnregisterAllFactories()
 	{
-		for (MapFactory::iterator factory = mFactories.begin(); factory != mFactories.end(); factory ++)
-			delete (*factory).second;
+		for (auto& factory : mFactories)
+			delete factory.second;
 		mFactories.clear();
 	}
 }

@@ -164,9 +164,9 @@ namespace unittest
 			if (MyGUI::ITEM_NONE == _index) _index = mVectorColumnInfo.front().list->getItemCount();
 
 			// вставляем во все поля пустые, а потом присваиваем первому
-			for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
+			for (auto& iter : mVectorColumnInfo)
 			{
-				(*iter).list->insertItemAt(_index, MyGUI::UString());
+				iter.list->insertItemAt(_index, MyGUI::UString());
 			}
 			mVectorColumnInfo.front().list->setItemNameAt(_index, _name);
 			mVectorColumnInfo.front().list->setItemDataAt(_index, _data);
@@ -183,9 +183,9 @@ namespace unittest
 			MYGUI_ASSERT(!mVectorColumnInfo.empty(), "MultiListBox::removeItemAt");
 			MYGUI_ASSERT_RANGE(_index, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::removeItemAt");
 
-			for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
+			for (auto& iter : mVectorColumnInfo)
 			{
-				(*iter).list->removeItemAt(_index);
+				iter.list->removeItemAt(_index);
 			}
 		}
 
@@ -201,9 +201,9 @@ namespace unittest
 			MYGUI_ASSERT_RANGE(_index1, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::swapItemsAt");
 			MYGUI_ASSERT_RANGE(_index2, mVectorColumnInfo.begin()->list->getItemCount(), "MultiListBox::swapItemsAt");
 
-			for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
+			for (auto& iter : mVectorColumnInfo)
 			{
-				(*iter).list->swapItemsAt(_index1, _index2);
+				iter.list->swapItemsAt(_index1, _index2);
 			}
 		}
 

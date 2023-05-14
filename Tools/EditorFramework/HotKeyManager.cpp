@@ -236,9 +236,8 @@ namespace tools
 			return result;
 
 		const VectorCommand& commands = (*section).second;
-		for (VectorCommand::const_iterator item = commands.begin(); item != commands.end(); ++item)
+		for (const auto& command : commands)
 		{
-			const HotKeyCommand& command = (*item);
 			if (command.getPressed() == _pressed
 				&& command.getShift() == _shift
 				&& command.getControl() == _control)

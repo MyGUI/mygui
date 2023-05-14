@@ -78,9 +78,9 @@ namespace MyGUI
 	void DynLibManager::unloadAll()
 	{
 		// unload and delete resources
-		for (StringDynLibMap::iterator it = mLibsMap.begin(); it != mLibsMap.end(); ++it)
+		for (const auto& it : mLibsMap)
 		{
-			mDelayDynLib.push_back(it->second);
+			mDelayDynLib.push_back(it.second);
 		}
 		// Empty the list
 		mLibsMap.clear();
@@ -99,10 +99,10 @@ namespace MyGUI
 			if (manager != nullptr)
 				manager->_deleteDelayWidgets();
 
-			for (VectorDynLib::iterator entry = mDelayDynLib.begin(); entry != mDelayDynLib.end(); ++entry)
+			for (auto& entry : mDelayDynLib)
 			{
-				(*entry)->unload();
-				delete (*entry);
+				entry->unload();
+				delete entry;
 			}
 			mDelayDynLib.clear();
 		}

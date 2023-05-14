@@ -53,13 +53,13 @@ SampleLayout::SampleLayout() : BaseLayout("SampleLayout.layout")
 	common::VectorFileInfo result;
 	common::getSystemFileList(result, gMediaBase, L"*.*");
 
-	for (common::VectorFileInfo::iterator item = result.begin(); item != result.end(); ++item)
+	for (auto& item : result)
 	{
-		if ((*item).name == L".." || (*item).name == L".")
+		if (item.name == L".." || item.name == L".")
 			continue;
-		MyGUI::TreeControl::Node* pNode = new MyGUI::TreeControl::Node((*item).name, "Data");
+		MyGUI::TreeControl::Node* pNode = new MyGUI::TreeControl::Node(item.name, "Data");
 
-		pNode->setData(PairFileInfo(gMediaBase, *item));
+		pNode->setData(PairFileInfo(gMediaBase, item));
 		pRoot->add(pNode);
 	}
 
@@ -137,19 +137,19 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 		common::VectorFileInfo result;
 		common::getSystemFileList(result, path, L"*.*");
 
-		for (common::VectorFileInfo::iterator item = result.begin(); item != result.end(); ++item)
+		for (auto& item : result)
 		{
-			if ((*item).name == L".." || (*item).name == L".")
+			if (item.name == L".." || item.name == L".")
 				continue;
-			if ((*item).folder)
+			if (item.folder)
 			{
-				MyGUI::TreeControl::Node* pChild = new MyGUI::TreeControl::Node((*item).name, "Folder");
-				pChild->setData(PairFileInfo(path, *item));
+				MyGUI::TreeControl::Node* pChild = new MyGUI::TreeControl::Node(item.name, "Folder");
+				pChild->setData(PairFileInfo(path, item));
 				pNode->add(pChild);
 			}
 			else
 			{
-				MyGUI::UString strName((*item).name);
+				MyGUI::UString strName(item.name);
 				std::string strExtension;
 				size_t nPosition = strName.rfind(".");
 				if (nPosition != MyGUI::UString::npos)
@@ -178,7 +178,7 @@ void SampleLayout::notifyTreeNodePrepare(MyGUI::TreeControl* pTreeControl, MyGUI
 				else
 					strImage = "Unknown";
 
-				MyGUI::TreeControl::Node* pChild = new MyGUI::TreeControl::Node((*item).name, strImage);
+				MyGUI::TreeControl::Node* pChild = new MyGUI::TreeControl::Node(item.name, strImage);
 				pChild->setPrepared(true);
 				pNode->add(pChild);
 			}

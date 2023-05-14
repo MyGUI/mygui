@@ -94,9 +94,9 @@ namespace MyGUI
 		}
 
 		// айтем рутовый, мы удаляем
-		for (VectorILayerNode::iterator iter = mChildItems.begin(); iter != mChildItems.end(); ++iter)
+		for (auto& childItem : mChildItems)
 		{
-			if ((*iter) == _item)
+			if (childItem == _item)
 			{
 				RTTLayerNode* node = _item->castType<RTTLayerNode>();
 				node->setDestroy(true);

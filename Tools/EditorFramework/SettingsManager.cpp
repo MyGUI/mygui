@@ -127,14 +127,14 @@ namespace tools
 		pugi::xpath_node_set nodes = mUserDocument->document_element().select_nodes(path.data());
 		if (!nodes.empty())
 		{
-			for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
-				result.push_back((*node).node().child_value());
+			for (const auto& node : nodes)
+				result.push_back(node.node().child_value());
 		}
 		else
 		{
 			nodes = mDocument->document_element().select_nodes(path.data());
-			for (pugi::xpath_node_set::const_iterator node = nodes.begin(); node != nodes.end(); node ++)
-				result.push_back((*node).node().child_value());
+			for (const auto& node : nodes)
+				result.push_back(node.node().child_value());
 		}
 
 		return result;
@@ -158,26 +158,26 @@ namespace tools
 			targetTextNode.set_value(sourceTextNode.value());
 		}
 
-		for (pugi::xml_node::iterator child = _nodeSource.begin(); child != _nodeSource.end(); child ++)
+		for (auto& child : _nodeSource)
 		{
-			if ((*child).type() != pugi::node_element)
+			if (child.type() != pugi::node_element)
 				continue;
 
 			pugi::xml_node targetChildNode;
 
 			if (listElement)
 			{
-				targetChildNode = _nodeTarget.append_child((*child).name());
+				targetChildNode = _nodeTarget.append_child(child.name());
 			}
 			else
 			{
-				targetChildNode = _nodeTarget.child((*child).name());
+				targetChildNode = _nodeTarget.child(child.name());
 				if (targetChildNode.empty())
-					targetChildNode = _nodeTarget.append_child((*child).name());
+					targetChildNode = _nodeTarget.append_child(child.name());
 			}
 
-			mergeAttributes(targetChildNode, (*child));
-			mergeNodes(targetChildNode, (*child));
+			mergeAttributes(targetChildNode, child);
+			mergeNodes(targetChildNode, child);
 		}
 	}
 
@@ -250,8 +250,8 @@ namespace tools
 			targetNode = currentNode;
 		}
 
-		for (VectorString::const_iterator value = _values.begin(); value != _values.end(); value ++)
-			targetNode.append_child("Value").text().set((*value).data());
+		for (const auto& _value : _values)
+			targetNode.append_child("Value").text().set(_value.data());
 
 		eventSettingsChanged(_path);
 	}
