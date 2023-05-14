@@ -179,7 +179,7 @@ namespace MyGUI
 	class MYGUI_EXPORT invalid_data: public std::runtime_error { /* i don't know why the beautifier is freaking out on this line */
 		public:
 			//! constructor takes a string message that can be later retrieved by the what() function
-			explicit invalid_data( const std::string& _Message ): std::runtime_error( _Message ) {
+			explicit invalid_data( const std::string& _message ): std::runtime_error( _message ) {
 				/* The thing is, Bob, it's not that I'm lazy, it's that I just don't care. */
 			}
 		};

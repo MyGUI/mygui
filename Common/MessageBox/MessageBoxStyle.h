@@ -26,31 +26,31 @@ namespace MyGUI
 			Try = MYGUI_FLAG(7),
 			Continue = MYGUI_FLAG(8),
 
-			_IndexUserButton1 = 9, // индекс первой кнопки юзера
+			_indexUserButton1 = 9, // индекс первой кнопки юзера
 
-			Button1 = MYGUI_FLAG(_IndexUserButton1),
-			Button2 = MYGUI_FLAG(_IndexUserButton1 + 1),
-			Button3 = MYGUI_FLAG(_IndexUserButton1 + 2),
-			Button4 = MYGUI_FLAG(_IndexUserButton1 + 3),
+			Button1 = MYGUI_FLAG(_indexUserButton1),
+			Button2 = MYGUI_FLAG(_indexUserButton1 + 1),
+			Button3 = MYGUI_FLAG(_indexUserButton1 + 2),
+			Button4 = MYGUI_FLAG(_indexUserButton1 + 3),
 
-			_CountUserButtons = 4, // колличество кнопок юзера
-			_IndexIcon1 = _IndexUserButton1 + _CountUserButtons, // индекс первой иконки
+			_countUserButtons = 4, // колличество кнопок юзера
+			_indexIcon1 = _indexUserButton1 + _countUserButtons, // индекс первой иконки
 
-			IconDefault = MYGUI_FLAG(_IndexIcon1),
+			IconDefault = MYGUI_FLAG(_indexIcon1),
 
-			IconInfo = MYGUI_FLAG(_IndexIcon1),
-			IconQuest = MYGUI_FLAG(_IndexIcon1 + 1),
-			IconError = MYGUI_FLAG(_IndexIcon1 + 2),
-			IconWarning = MYGUI_FLAG(_IndexIcon1 + 3),
+			IconInfo = MYGUI_FLAG(_indexIcon1),
+			IconQuest = MYGUI_FLAG(_indexIcon1 + 1),
+			IconError = MYGUI_FLAG(_indexIcon1 + 2),
+			IconWarning = MYGUI_FLAG(_indexIcon1 + 3),
 
-			Icon1 = MYGUI_FLAG(_IndexIcon1),
-			Icon2 = MYGUI_FLAG(_IndexIcon1 + 1),
-			Icon3 = MYGUI_FLAG(_IndexIcon1 + 2),
-			Icon4 = MYGUI_FLAG(_IndexIcon1 + 3),
-			Icon5 = MYGUI_FLAG(_IndexIcon1 + 4),
-			Icon6 = MYGUI_FLAG(_IndexIcon1 + 5),
-			Icon7 = MYGUI_FLAG(_IndexIcon1 + 6),
-			Icon8 = MYGUI_FLAG(_IndexIcon1 + 7)
+			Icon1 = MYGUI_FLAG(_indexIcon1),
+			Icon2 = MYGUI_FLAG(_indexIcon1 + 1),
+			Icon3 = MYGUI_FLAG(_indexIcon1 + 2),
+			Icon4 = MYGUI_FLAG(_indexIcon1 + 3),
+			Icon5 = MYGUI_FLAG(_indexIcon1 + 4),
+			Icon6 = MYGUI_FLAG(_indexIcon1 + 5),
+			Icon7 = MYGUI_FLAG(_indexIcon1 + 6),
+			Icon8 = MYGUI_FLAG(_indexIcon1 + 7)
 		};
 
 		MessageBoxStyle(Enum _value = None) :
@@ -102,7 +102,7 @@ namespace MyGUI
 		size_t getIconIndex()
 		{
 			size_t index = 0;
-			int num = mValue >> _IndexIcon1;
+			int num = mValue >> _indexIcon1;
 
 			while (num != 0)
 			{
@@ -141,7 +141,7 @@ namespace MyGUI
 
 			size_t index = 0;
 			int num = mValue;
-			while (index < _IndexIcon1)
+			while (index < _indexIcon1)
 			{
 				if ((num & 1) == 1)
 				{

@@ -69,13 +69,13 @@ namespace MyGUI
 		/** Create button with specific name*/
 		MessageBoxStyle addButtonName(const UString& _name)
 		{
-			if (mVectorButton.size() >= MessageBoxStyle::_CountUserButtons)
+			if (mVectorButton.size() >= MessageBoxStyle::_countUserButtons)
 			{
 				MYGUI_LOG(Warning, "Too many buttons in message box, ignored");
 				return MessageBoxStyle::None;
 			}
 			// бит, номер кнопки + смещение до Button1
-			MessageBoxStyle info = MessageBoxStyle(MessageBoxStyle::Enum(MYGUI_FLAG(mVectorButton.size() + MessageBoxStyle::_IndexUserButton1)));
+			MessageBoxStyle info = MessageBoxStyle(MessageBoxStyle::Enum(MYGUI_FLAG(mVectorButton.size() + MessageBoxStyle::_indexUserButton1)));
 
 			// запоминаем кнопки для отмены и подтверждения
 			if (mVectorButton.empty())
