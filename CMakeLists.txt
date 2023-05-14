@@ -253,8 +253,9 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 	# UBSAN_OPTIONS=print_stacktrace=1,suppressions=sanitizers/UBSanitizer.supp <command>
 	option(MYGUI_UB_SANITIZER "Compile with undefined behaviour sanitizer" FALSE)
 	if (MYGUI_UB_SANITIZER)
-		add_compile_definitions(-fno-omit-frame-pointer -fno-optimize-sibling-calls)
-		add_compile_definitions(-fsanitize=undefined -fno-sanitize-recover=undefined)
+		add_compile_options("-fno-omit-frame-pointer" "-fno-optimize-sibling-calls")
+		add_compile_options("-fsanitize=undefined" "-fno-sanitize-recover=undefined")
+		link_libraries("-fsanitize=undefined")
 	endif()
 
 	# usage:
@@ -262,8 +263,9 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 	# alloc_dealloc_mismatch is here due to issues with Ogre and no clear way to suppress the issue
 	option(MYGUI_ADDRESS_SANITIZER "Compile with address sanitizer" FALSE)
 	if (MYGUI_ADDRESS_SANITIZER)
-		add_compile_definitions(-fno-omit-frame-pointer -fno-optimize-sibling-calls)
-		add_compile_definitions(-fsanitize=address -fsanitize-address-use-after-scope)
+		add_compile_options("-fno-omit-frame-pointer" "-fno-optimize-sibling-calls")
+		add_compile_options("-fsanitize=address" "-fsanitize-address-use-after-scope")
+		link_libraries("-fsanitize=address")
 	endif()
 endif ()
 
