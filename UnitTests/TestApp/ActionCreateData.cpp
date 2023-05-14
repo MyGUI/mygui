@@ -18,11 +18,7 @@ namespace tools
 
 	ActionCreateData::~ActionCreateData()
 	{
-		if (!mComplete)
-		{
-			delete mData;
-			mData = nullptr;
-		}
+		delete mData;
 	}
 
 	void ActionCreateData::doAction()
