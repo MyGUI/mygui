@@ -848,6 +848,7 @@ namespace MyGUI
 				mParent->_unlinkChildWidget(this);
 
 			mParent = _parent;
+			mParent->addChildItem(this);
 			mParent->_linkChildWidget(this);
 
 			mCroppedParent = _parent;
@@ -857,8 +858,6 @@ namespace MyGUI
 				(*widget)->_updateAbsolutePoint();
 			for (VectorWidgetPtr::iterator widget = mWidgetChildSkin.begin(); widget != mWidgetChildSkin.end(); ++widget)
 				(*widget)->_updateAbsolutePoint();
-
-			mParent->addChildItem(this);
 
 			_updateView();
 		}
