@@ -35,7 +35,7 @@ namespace tools
 		void remove(MyGUI::Widget* _widget);
 		void remove(WidgetContainer* _container);
 
-		bool tryToApplyProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value, bool _testMode = false);
+		bool tryToApplyProperty(MyGUI::Widget* _widget, std::string_view _key, std::string_view _value, bool _testMode = false);
 		void onSetWidgetCoord(MyGUI::Widget* _widget, const MyGUI::IntCoord& _value, std::string_view _owner);
 
 		void invalidateWidgets();

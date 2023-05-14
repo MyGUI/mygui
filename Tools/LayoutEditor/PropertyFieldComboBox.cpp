@@ -59,7 +59,7 @@ namespace tools
 		onAction(value, true);
 	}
 
-	void PropertyFieldComboBox::onAction(const std::string& _value, bool _final)
+	void PropertyFieldComboBox::onAction(std::string_view _value, bool _final)
 	{
 		eventAction(mName, _value, _final);
 	}

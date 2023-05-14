@@ -154,7 +154,7 @@ namespace tools
 		mEditValue->setCaption(value);
 	}
 
-	bool PanelUserData::checkUserData(WidgetContainer* _widgetContainer, const std::string& _key)
+	bool PanelUserData::checkUserData(WidgetContainer* _widgetContainer, std::string_view _key)
 	{
 		if (_key == "LE_TargetWidgetType")
 			return false;

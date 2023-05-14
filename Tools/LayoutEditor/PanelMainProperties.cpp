@@ -113,7 +113,7 @@ namespace tools
 		mFields.clear();
 	}
 
-	void PanelMainProperties::notifyActionSkin(const std::string& _type, const std::string& _value, bool _final)
+	void PanelMainProperties::notifyActionSkin(std::string_view, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{
@@ -164,7 +164,7 @@ namespace tools
 		return false;
 	}
 
-	void PanelMainProperties::notifyActionLayer(const std::string& _type, const std::string& _value, bool _final)
+	void PanelMainProperties::notifyActionLayer(std::string_view, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{
@@ -175,7 +175,7 @@ namespace tools
 		}
 	}
 
-	void PanelMainProperties::notifyActionName(const std::string& _type, const std::string& _value, bool _final)
+	void PanelMainProperties::notifyActionName(std::string_view, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{
@@ -186,7 +186,7 @@ namespace tools
 		}
 	}
 
-	void PanelMainProperties::notifyActionType(const std::string& _type, const std::string& _value, bool _final)
+	void PanelMainProperties::notifyActionType(std::string_view, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{
@@ -224,7 +224,7 @@ namespace tools
 		}
 	}
 
-	void PanelMainProperties::notifyActionAlign(const std::string& _type, const std::string& _value, bool _final)
+	void PanelMainProperties::notifyActionAlign(std::string_view, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{
@@ -237,7 +237,7 @@ namespace tools
 		}
 	}
 
-	void PanelMainProperties::notifyActionTemplate(const std::string& _type, const std::string& _value, bool _final)
+	void PanelMainProperties::notifyActionTemplate(std::string_view, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{
@@ -284,7 +284,7 @@ namespace tools
 		}
 	}
 
-	IPropertyField* PanelMainProperties::getPropertyField(MyGUI::Widget* _client, const std::string& _name, const std::string& _type)
+	IPropertyField* PanelMainProperties::getPropertyField(MyGUI::Widget* _client, std::string_view _name, std::string_view _type)
 	{
 		MapPropertyField::iterator item = mFields.find(_name);
 		if (item != mFields.end())
@@ -297,7 +297,7 @@ namespace tools
 		result->setName(_name);
 		result->eventAction = MyGUI::newDelegate(this, &PanelMainProperties::notifyAction);
 
-		mFields[_name] = result;
+		mFields.emplace(_name, result);
 
 		return result;
 	}
@@ -308,7 +308,7 @@ namespace tools
 			(*item).second->setVisible(false);
 	}
 
-	void PanelMainProperties::notifyAction(const std::string& _name, const std::string& _value, bool _final)
+	void PanelMainProperties::notifyAction(std::string_view _name, std::string_view _value, bool _final)
 	{
 		if (_name == "Skin")
 			notifyActionSkin(_name, _value, _final);

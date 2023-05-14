@@ -67,7 +67,7 @@ namespace tools
 		UndoManager::getInstance().addValue(PR_PROPERTIES);
 	}
 
-	void PropertyFieldPosition::onAction(const std::string& _value, bool _force)
+	void PropertyFieldPosition::onAction(std::string_view _value, bool _force)
 	{
 		EditorWidgets* ew = &EditorWidgets::getInstance();
 		WidgetContainer* widgetContainer = ew->find(mCurrentWidget);
@@ -78,7 +78,8 @@ namespace tools
 		{
 			if (widgetContainer->getRelativeMode())
 			{
-				std::istringstream str(_value);
+				std::stringstream str;
+				str << _value;
 				MyGUI::DoubleCoord double_coord;
 				str >> double_coord;
 				double_coord.left /= 100;

@@ -71,7 +71,7 @@ namespace tools
 		}
 	}
 
-	void PropertyFieldColour::onAction(const std::string& _value, bool _final)
+	void PropertyFieldColour::onAction(std::string_view _value, bool _final)
 	{
 		eventAction(mName, _value, _final);
 	}

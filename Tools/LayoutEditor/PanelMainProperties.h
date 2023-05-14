@@ -28,13 +28,13 @@ namespace tools
 		void update(MyGUI::Widget* _currentWidget);
 
 	private:
-		void notifyAction(const std::string& _name, const std::string& _value, bool _final);
-		void notifyActionSkin(const std::string& _type, const std::string& _value, bool _final);
-		void notifyActionLayer(const std::string& _type, const std::string& _value, bool _final);
-		void notifyActionName(const std::string& _type, const std::string& _value, bool _final);
-		void notifyActionType(const std::string& _type, const std::string& _value, bool _final);
-		void notifyActionAlign(const std::string& _type, const std::string& _value, bool _final);
-		void notifyActionTemplate(const std::string& _type, const std::string& _value, bool _final);
+		void notifyAction(std::string_view _name, std::string_view _value, bool _final);
+		void notifyActionSkin(std::string_view _type, std::string_view _value, bool _final);
+		void notifyActionLayer(std::string_view _type, std::string_view _value, bool _final);
+		void notifyActionName(std::string_view _type, std::string_view _value, bool _final);
+		void notifyActionType(std::string_view _type, std::string_view _value, bool _final);
+		void notifyActionAlign(std::string_view _type, std::string_view _value, bool _final);
+		void notifyActionTemplate(std::string_view _type, std::string_view _value, bool _final);
 
 		void destroyPropertyFields();
 		void hidePropertyFields();
@@ -43,11 +43,11 @@ namespace tools
 		bool isSkinExist(std::string_view _skinName);
 		bool checkTemplate(std::string_view _skinName);
 
-		IPropertyField* getPropertyField(MyGUI::Widget* _client, const std::string& _name, const std::string& _type);
+		IPropertyField* getPropertyField(MyGUI::Widget* _client, std::string_view _name, std::string_view _type);
 
 	private:
 		MyGUI::Widget* mCurrentWidget;
-		typedef std::map<std::string, IPropertyField*> MapPropertyField;
+		typedef std::map<std::string, IPropertyField*, std::less<>> MapPropertyField;
 		MapPropertyField mFields;
 		std::string mUserDataTargetType;
 	};

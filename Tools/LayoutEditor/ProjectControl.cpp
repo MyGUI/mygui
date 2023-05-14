@@ -358,7 +358,7 @@ namespace tools
 		return true;
 	}
 
-	bool ProjectControl::checkItem(const std::string& _name, const MyGUI::VectorString& _items)
+	bool ProjectControl::checkItem(std::string_view _name, const MyGUI::VectorString& _items)
 	{
 		size_t count = 0;
 		for (MyGUI::VectorString::const_iterator item = _items.begin(); item != _items.end(); ++item)
@@ -373,7 +373,7 @@ namespace tools
 		return checkTemplate(_name);
 	}
 
-	bool ProjectControl::checkTemplate(const std::string& _skinName)
+	bool ProjectControl::checkTemplate(std::string_view _skinName)
 	{
 		MyGUI::ResourceLayout* templateInfo = MyGUI::LayoutManager::getInstance().getByName(_skinName, false);
 		if (templateInfo != nullptr)

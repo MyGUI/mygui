@@ -35,7 +35,7 @@ namespace tools
 
 	protected:
 		virtual void onFillValues();
-		virtual void onAction(const std::string& _value, bool _final);
+		virtual void onAction(std::string_view _value, bool _final);
 
 	private:
 		void notifyApplyProperties(MyGUI::Widget* _sender);

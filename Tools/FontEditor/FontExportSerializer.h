@@ -29,8 +29,8 @@ namespace tools
 		void writeFont(pugi::xml_node _parent, DataPtr _data);
 
 		static void generateFontManualXml(MyGUI::xml::ElementPtr _root, const MyGUI::UString& _folderName, DataPtr _data);
-		static void removeFont(const std::string& _fontName);
-		//static void generateFontTTFXml(MyGUI::xml::ElementPtr _root, const std::string& _fontName, DataPtr _data);
+		static void removeFont(std::string_view _fontName);
+		//static void generateFontTTFXml(MyGUI::xml::ElementPtr _root, std::string_view _fontName, DataPtr _data);
 	};
 
 }

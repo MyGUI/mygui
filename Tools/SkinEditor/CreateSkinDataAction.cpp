@@ -53,12 +53,12 @@ namespace tools
 		mParent = _parent;
 	}
 
-	void CreateSkinDataAction::setType(const std::string& _value)
+	void CreateSkinDataAction::setType(std::string_view _value)
 	{
 		mType = _value;
 	}
 
-	void CreateSkinDataAction::setUniqueProperty(const std::string& _value)
+	void CreateSkinDataAction::setUniqueProperty(std::string_view _value)
 	{
 		mUniqueProperty = _value;
 	}

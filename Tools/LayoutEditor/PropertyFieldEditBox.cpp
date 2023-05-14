@@ -53,7 +53,7 @@ namespace tools
 		}
 	}
 
-	void PropertyFieldEditBox::onAction(const std::string& _value, bool _final)
+	void PropertyFieldEditBox::onAction(std::string_view _value, bool _final)
 	{
 		eventAction(mName, _value, _final);
 	}

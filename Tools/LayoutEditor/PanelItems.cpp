@@ -116,7 +116,7 @@ namespace tools
 		}
 	}
 
-	void PanelItems::setContainerProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value)
+	void PanelItems::setContainerProperty(MyGUI::Widget* _widget, std::string_view _key, std::string_view _value)
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
 
@@ -126,13 +126,13 @@ namespace tools
 			widgetContainer->setProperty(_key, _value);
 	}
 
-	void PanelItems::addItem(const std::string& _value)
+	void PanelItems::addItem(std::string_view _value)
 	{
 		MyGUI::IItemContainer* itemContainer = dynamic_cast<MyGUI::IItemContainer*>(mCurrentWidget);
 
 		if (itemContainer != nullptr)
 		{
-			itemContainer->_addItem(_value);
+			itemContainer->_addItem(MyGUI::UString(_value));
 
 			MyGUI::Widget* item = itemContainer->_getItemAt(itemContainer->_getItemCount() - 1);
 
@@ -232,19 +232,19 @@ namespace tools
 		}
 	}
 
-	void PanelItems::setPropertyValue(MyGUI::Widget* _widget, size_t _index, const std::string& _propertyName, const std::string& _propertyValue)
+	void PanelItems::setPropertyValue(MyGUI::Widget* _widget, size_t _index, std::string_view _propertyName, std::string_view _propertyValue)
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
 		widgetContainer->setPropertyByIndex(_index, _propertyName, _propertyValue);
 	}
 
-	void PanelItems::erasePropertyValue(MyGUI::Widget* _widget, size_t _index, const std::string& _propertyName)
+	void PanelItems::erasePropertyValue(MyGUI::Widget* _widget, size_t _index, std::string_view _propertyName)
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
 		widgetContainer->clearPropertyByIndex(_index, _propertyName);
 	}
 
-	void PanelItems::addPropertyValue(MyGUI::Widget* _widget, const std::string& _propertyName, const std::string& _propertyValue)
+	void PanelItems::addPropertyValue(MyGUI::Widget* _widget, std::string_view _propertyName, std::string_view _propertyValue)
 	{
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(_widget);
 		widgetContainer->setProperty(_propertyName, _propertyValue, false);

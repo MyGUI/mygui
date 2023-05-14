@@ -34,7 +34,7 @@ namespace tools
 		resetWidget();
 	}
 
-	void WidgetCreatorManager::setCreatorInfo(const std::string& _widgetType, const std::string& _widgetSkin)
+	void WidgetCreatorManager::setCreatorInfo(std::string_view _widgetType, std::string_view _widgetSkin)
 	{
 		mWidgetType = _widgetType;
 		mWidgetSkin = _widgetSkin;

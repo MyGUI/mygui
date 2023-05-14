@@ -36,16 +36,16 @@ namespace tools
 		void fillSeparatorData(DataPtr _data, pugi::xml_node _node);
 		void fillRegionData(DataPtr _data, pugi::xml_node _node);
 
-		std::string convertEditorToExportStateName(const std::string& _value);
-		std::string convertExportToEditorStateName(const std::string& _value);
-		void registerMapName(const std::string& _value1, const std::string& _value2);
+		std::string_view convertEditorToExportStateName(std::string_view _value);
+		std::string_view convertExportToEditorStateName(std::string_view _value);
+		void registerMapName(std::string_view _value1, std::string_view _value2);
 
-		DataPtr getChildData(DataPtr _data, const std::string& _dataType, const std::string& _name);
+		DataPtr getChildData(DataPtr _data, std::string_view _dataType, std::string_view _name);
 
-		std::string convertEditorToExportAlign(const std::string& _value);
+		std::string convertEditorToExportAlign(std::string_view _value);
 
 		void sortByAlign(Data::VectorData& childs);
-		size_t findIndex(Data::VectorData& childs, const std::string& _name);
+		size_t findIndex(Data::VectorData& childs, std::string_view _name);
 		void moveToEnd(Data::VectorData& childs, size_t _index);
 
 	private:

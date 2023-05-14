@@ -22,7 +22,7 @@ namespace tools
 			return coord;
 		}
 
-		inline void mapSet(MyGUI::VectorStringPairs& _map, const std::string& _key, const std::string& _value)
+		inline void mapSet(MyGUI::VectorStringPairs& _map, std::string_view _key, std::string_view _value)
 		{
 			for (MyGUI::VectorStringPairs::iterator iter = _map.begin(); iter != _map.end(); ++iter)
 			{
@@ -32,10 +32,10 @@ namespace tools
 					return;
 				}
 			}
-			_map.push_back(MyGUI::PairString(_key, _value));
+			_map.emplace_back(_key, _value);
 		}
 
-		inline MyGUI::VectorStringPairs::iterator mapFind(MyGUI::VectorStringPairs& _map, const std::string& _key)
+		inline MyGUI::VectorStringPairs::iterator mapFind(MyGUI::VectorStringPairs& _map, std::string_view _key)
 		{
 			for (MyGUI::VectorStringPairs::iterator iter = _map.begin(); iter != _map.end(); ++iter)
 			{
@@ -45,7 +45,7 @@ namespace tools
 			return _map.end();
 		}
 
-		inline void mapErase(MyGUI::VectorStringPairs& _map, const std::string& _key)
+		inline void mapErase(MyGUI::VectorStringPairs& _map, std::string_view _key)
 		{
 			for (MyGUI::VectorStringPairs::iterator iter = _map.begin(); iter != _map.end(); ++iter)
 			{

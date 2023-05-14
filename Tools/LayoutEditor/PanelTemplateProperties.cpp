@@ -89,7 +89,7 @@ namespace tools
 		mFields.clear();
 	}
 
-	void PanelTemplateProperties::notifyAction(const std::string& _name, const std::string& _value, bool _final)
+	void PanelTemplateProperties::notifyAction(std::string_view _name, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{

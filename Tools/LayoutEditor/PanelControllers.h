@@ -26,7 +26,7 @@ namespace tools
 		void update(MyGUI::Widget* _currentWidget);
 
 	private:
-		void notifyAction(const std::string& _name, const std::string& _value, bool _final);
+		void notifyAction(std::string_view _name, std::string_view _value, bool _final);
 
 		void notifyChangeWidth(int _width) override;
 

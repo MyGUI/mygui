@@ -562,7 +562,7 @@ namespace tools
 		}
 	}
 
-	bool EditorWidgets::tryToApplyProperty(MyGUI::Widget* _widget, const std::string& _key, const std::string& _value, bool _testMode)
+	bool EditorWidgets::tryToApplyProperty(MyGUI::Widget* _widget, std::string_view _key, std::string_view _value, bool _testMode)
 	{
 		WidgetContainer* container = EditorWidgets::getInstance().find(_widget);
 		if (container->existUserData("LE_TargetWidgetType"))
@@ -572,9 +572,10 @@ namespace tools
 		{
 			if (_key == "Image_Texture")
 			{
-				if (!MyGUI::DataManager::getInstance().isDataExist(_value))
+				std::string value{_value};
+				if (!MyGUI::DataManager::getInstance().isDataExist(value))
 				{
-					GroupMessage::getInstance().addMessage("No such " + _key + ": '" + _value + "'. This value will be saved.", MyGUI::LogLevel::Warning);
+					GroupMessage::getInstance().addMessage("No such " + std::string{_key} + ": '" + value + "'. This value will be saved.", MyGUI::LogLevel::Warning);
 					return true;
 				}
 			}
@@ -586,7 +587,7 @@ namespace tools
 		}
 		catch (...)
 		{
-			GroupMessage::getInstance().addMessage("Can't apply '" + _key + "'property.", MyGUI::LogLevel::Error);
+			GroupMessage::getInstance().addMessage("Can't apply '" + std::string{_key} + "'property.", MyGUI::LogLevel::Error);
 			return false;
 		}
 		return true;

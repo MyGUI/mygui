@@ -198,14 +198,19 @@ namespace tools
 		mFields.clear();
 	}
 
-	void PanelControllers::notifyAction(const std::string& _name, const std::string& _value, bool _final)
+	void PanelControllers::notifyAction(std::string_view _name, std::string_view _value, bool _final)
 	{
 		if (_final)
 		{
 			if (mIndexSelected != MyGUI::ITEM_NONE)
 			{
 				WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
-				widgetContainer->mController[mIndexSelected]->mProperty[_name] = _value;
+				auto& prop = widgetContainer->mController[mIndexSelected]->mProperty;
+				auto it = prop.find(_name);
+				if (it == prop.end())
+					prop.emplace(_name, _value);
+				else
+					it->second = _value;
 
 				UndoManager::getInstance().addValue(PR_PROPERTIES);
 			}

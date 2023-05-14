@@ -195,7 +195,7 @@ namespace tools
 	}
 
 	template<typename Type>
-	void addProperty(MyGUI::xml::ElementPtr _node, const std::string& _name, Type _value)
+	void addProperty(MyGUI::xml::ElementPtr _node, std::string_view _name, Type _value)
 	{
 		MyGUI::xml::ElementPtr node = _node->createChild("Property");
 		node->addAttribute("key", _name);
@@ -321,7 +321,7 @@ namespace tools
 		MyGUI::ResourceManager::getInstance().addResource(font);
 	}
 
-	void FontExportSerializer::removeFont(const std::string& _fontName)
+	void FontExportSerializer::removeFont(std::string_view _fontName)
 	{
 		MyGUI::ResourceManager& manager = MyGUI::ResourceManager::getInstance();
 		if (manager.isExist(_fontName))

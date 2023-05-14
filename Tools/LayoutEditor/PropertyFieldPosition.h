@@ -50,7 +50,7 @@ namespace tools
 
 	protected:
 		virtual bool onCheckValue();
-		virtual void onAction(const std::string& _value, bool _force);
+		virtual void onAction(std::string_view _value, bool _force);
 
 	protected:
 		MyGUI::TextBox* mText;
