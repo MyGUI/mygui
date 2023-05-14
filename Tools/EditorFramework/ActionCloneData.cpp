@@ -59,7 +59,7 @@ namespace tools
 		mType = _prototype->getType()->getName();
 	}
 
-	void ActionCloneData::setUniqueProperty(const std::string& _value)
+	void ActionCloneData::setUniqueProperty(std::string_view _value)
 	{
 		mUniqueProperty = _value;
 	}

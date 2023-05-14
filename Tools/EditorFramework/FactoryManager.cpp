@@ -15,17 +15,21 @@ namespace components
 		return *GetInstancePtr();
 	}
 
-	bool FactoryManager::ExistFactory(const std::string& _factoryName)
+	bool FactoryManager::ExistFactory(std::string_view _factoryName)
 	{
 		return mFactories.find(_factoryName) != mFactories.end();
 	}
 
-	void FactoryManager::RegisterFactory(IFactory* _factory, const std::string& _factoryName)
+	void FactoryManager::RegisterFactory(IFactory* _factory, std::string_view _factoryName)
 	{
-		mFactories[_factoryName] = _factory;
+		auto it = mFactories.find(_factoryName);
+		if (it == mFactories.end())
+			mFactories.emplace(_factoryName, _factory);
+		else
+			it->second = _factory;
 	}
 
-	IFactoryItem* FactoryManager::CreateItem(const std::string& _factoryName)
+	IFactoryItem* FactoryManager::CreateItem(std::string_view _factoryName)
 	{
 		MapFactory::iterator item = mFactories.find(_factoryName);
 		if (item != mFactories.end())

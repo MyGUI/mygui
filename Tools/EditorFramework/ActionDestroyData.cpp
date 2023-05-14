@@ -46,7 +46,7 @@ namespace tools
 		mData = _data;
 	}
 
-	void ActionDestroyData::setUniqueProperty(const std::string& _value)
+	void ActionDestroyData::setUniqueProperty(std::string_view _value)
 	{
 		mUniqueProperty = _value;
 	}

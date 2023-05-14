@@ -8,6 +8,7 @@
 #define _faf0ef48_7615_4de7_812c_48520c83de61_
 
 #include <memory>
+#include <type_traits>
 #include "sigslot.h"
 #include "DataTypeProperty.h"
 
@@ -29,7 +30,7 @@ namespace tools
 		void initialise();
 
 		const std::string& getValue() const;
-		void setValue(const std::string& _value);
+		void setValue(std::string_view _value);
 
 		template <typename Type>
 		Type getValue() const
@@ -37,15 +38,16 @@ namespace tools
 			return MyGUI::utility::parseValue<Type>(getValue());
 		}
 
-		template <typename Type>
+		template <typename Type, typename = std::enable_if_t<!std::is_convertible_v<Type, std::string_view>>>
 		void setValue(const Type& _value)
 		{
 			setValue(MyGUI::utility::toString(_value));
 		}
 
+		template <>
 		void setValue(const bool& _value)
 		{
-			setValue(std::string(_value ? "True" : "False"));
+			setValue(_value ? "True" : "False");
 		}
 
 		DataTypePropertyPtr getType();

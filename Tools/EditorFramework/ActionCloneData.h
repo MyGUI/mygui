@@ -23,7 +23,7 @@ namespace tools
 		void undoAction() override;
 
 		void setPrototype(DataPtr _prototype);
-		void setUniqueProperty(const std::string& _value);
+		void setUniqueProperty(std::string_view _value);
 
 	private:
 		std::string mType;

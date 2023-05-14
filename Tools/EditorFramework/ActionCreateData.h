@@ -24,8 +24,8 @@ namespace tools
 		void undoAction() override;
 
 		void setParent(DataPtr _parent);
-		void setType(const std::string& _value);
-		void setUniqueProperty(const std::string& _value);
+		void setType(std::string_view _value);
+		void setUniqueProperty(std::string_view _value);
 
 	private:
 		std::string mType;

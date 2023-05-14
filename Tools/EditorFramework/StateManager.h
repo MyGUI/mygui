@@ -22,29 +22,29 @@ namespace tools
 		void shutdown();
 
 		void pushState(StateController* _state);
-		void pushState(const std::string& _stateName);
+		void pushState(std::string_view _stateName);
 		void popState();
 
 		bool getStateActivate(StateController* _state);
 		StateController* getCurentState();
 		void rollbackToState(StateController* _state);
 
-		void stateEvent(StateController* _state, const std::string& _event);
-		void stateEvent(const std::string& _stateName, const std::string& _event);
+		void stateEvent(StateController* _state, std::string_view _event);
+		void stateEvent(std::string_view _stateName, std::string_view _event);
 
-		void registerState(StateController* _state, const std::string& _name);
-		void registerEventState(const std::string& _stateName, const std::string& _eventName, const std::string& _toState);
+		void registerState(StateController* _state, std::string_view _name);
+		void registerEventState(std::string_view _stateName, std::string_view _eventName, std::string_view _toState);
 
 	private:
 		std::string getNameState(StateController* _state);
-		std::string getEventToState(const std::string& _currentStateName, const std::string& _eventName);
-		StateController* getStateByName(const std::string& _stateName);
+		std::string getEventToState(std::string_view _currentStateName, std::string_view _eventName);
+		StateController* getStateByName(std::string_view _stateName);
 
 	private:
 		typedef std::vector<StateController*> VectorStateController;
 		VectorStateController mStates;
 
-		typedef std::map<std::string, StateController*> MapStateController;
+		typedef std::map<std::string, StateController*, std::less<>> MapStateController;
 		MapStateController mStateName;
 
 		typedef std::pair< std::string, std::pair<std::string, std::string> > PairPairString;
