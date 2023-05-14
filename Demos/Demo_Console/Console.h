@@ -13,7 +13,7 @@
 namespace demo
 {
 
-	typedef MyGUI::delegates::CDelegate2<const MyGUI::UString&, const MyGUI::UString&> CommandDelegate;
+	using CommandDelegate = MyGUI::delegates::CDelegate2<const MyGUI::UString&, const MyGUI::UString&>;
 
 	namespace formates
 	{
@@ -113,7 +113,7 @@ namespace demo
 		MyGUI::ComboBox* mComboCommand;
 		MyGUI::Button* mButtonSubmit;
 
-		typedef std::map<MyGUI::UString, CommandDelegate> MapDelegate;
+		using MapDelegate = std::map<MyGUI::UString, CommandDelegate>;
 		MapDelegate mDelegates;
 
 		MyGUI::UString mStringCurrent;

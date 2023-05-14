@@ -22,8 +22,8 @@ namespace MyGUI
 
 	class RenderItem;
 
-	typedef std::vector<ILayerNode*> VectorILayerNode;
-	typedef Enumerator<VectorILayerNode> EnumeratorILayerNode;
+	using VectorILayerNode = std::vector<ILayerNode*>;
+	using EnumeratorILayerNode = Enumerator<VectorILayerNode>;
 
 	class MYGUI_EXPORT ILayerNode :
 		public IObject

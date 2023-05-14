@@ -27,7 +27,7 @@ namespace demo
 		void notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name);
 
 	private:
-		typedef std::set<MyGUI::Window*> SetWidget;
+		using SetWidget = std::set<MyGUI::Window*>;
 		SetWidget mWidgets;
 	};
 

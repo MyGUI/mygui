@@ -53,7 +53,7 @@ namespace MyGUI
 		void loadTexture();
 
 		// A map of code points to glyph info objects.
-		typedef std::unordered_map<Char, GlyphInfo> CharMap;
+		using CharMap = std::unordered_map<Char, GlyphInfo>;
 
 		// The following variables are set directly from values specified by the user.
 		std::string mSource; // Source (filename) of the font.

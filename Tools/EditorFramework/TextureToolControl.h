@@ -39,7 +39,7 @@ namespace tools
 		bool doNextScale();
 
 	private:
-		typedef std::vector<size_t> VectorSizeT;
+		using VectorSizeT = std::vector<size_t>;
 		VectorSizeT mScaleValue;
 		size_t mCurrentScaleValue;
 		std::string mColourValueName;

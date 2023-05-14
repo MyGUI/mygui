@@ -21,12 +21,16 @@ namespace MyGUI
 {
 
 	//OBSOLETE
-	typedef delegates::CMultiDelegate5<Widget*, size_t, const UString&, const UString&, bool&> EventHandle_WidgetIntUTFStringUTFStringBool;
+	using EventHandle_WidgetIntUTFStringUTFStringBool =
+		delegates::CMultiDelegate5<Widget*, size_t, const UString&, const UString&, bool&>;
 
-	typedef delegates::CDelegate5<MultiListBox*, size_t, const UString&, const UString&, bool&> EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef;
-	typedef delegates::CDelegate5<MultiListBox*, size_t, size_t, size_t, bool&> EventHandle_MultiListPtrSizeTSizeTSizeTBoolRef;
-	typedef delegates::CMultiDelegate2<MultiListBox*, size_t> EventHandle_MultiListPtrSizeT;
-	typedef delegates::CMultiDelegate2<MultiListBox*, const IBNotifyItemData&> EventHandle_MultiListPtrCIBNotifyCellDataRef;
+	using EventHandle_MultiListPtrSizeTCUTFStringRefCUTFStringRefBoolRef =
+		delegates::CDelegate5<MultiListBox*, size_t, const UString&, const UString&, bool&>;
+	using EventHandle_MultiListPtrSizeTSizeTSizeTBoolRef =
+		delegates::CDelegate5<MultiListBox*, size_t, size_t, size_t, bool&>;
+	using EventHandle_MultiListPtrSizeT = delegates::CMultiDelegate2<MultiListBox*, size_t>;
+	using EventHandle_MultiListPtrCIBNotifyCellDataRef =
+		delegates::CMultiDelegate2<MultiListBox*, const IBNotifyItemData&>;
 
 	/** \brief @wpage{MultiListBox}
 		MultiListBox widget description should be here.
@@ -341,7 +345,7 @@ namespace MyGUI
 			ResizingPolicy sizeType;
 		};
 
-		typedef std::vector<ColumnInfo> VectorColumnInfo;
+		using VectorColumnInfo = std::vector<ColumnInfo>;
 
 		void frameEntered(float _frame);
 		void frameAdvise(bool _advise);

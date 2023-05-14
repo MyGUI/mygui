@@ -75,7 +75,7 @@ namespace MyGUI
 		bool mDestroy;
 		bool mIsAnimate;
 
-		typedef std::vector<LayerNodeAnimation*> VectorLayerNodeAnimation;
+		using VectorLayerNodeAnimation = std::vector<LayerNodeAnimation*>;
 		VectorLayerNodeAnimation mLayerNodeAnimation;
 
 		VectorQuadData mData;

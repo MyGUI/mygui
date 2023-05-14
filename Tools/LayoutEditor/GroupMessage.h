@@ -21,7 +21,7 @@ namespace tools
 		void notifyFrameStarted(float _time);
 
 	private:
-		typedef std::vector<MyGUI::UString> VectorUString;
+		using VectorUString = std::vector<MyGUI::UString>;
 		VectorUString mErrorMessages;
 		VectorUString mWarningMessages;
 	};

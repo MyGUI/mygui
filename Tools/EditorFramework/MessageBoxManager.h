@@ -30,7 +30,7 @@ namespace tools
 		void notifMessageBoxResultRegister(MyGUI::Message* _sender, MyGUI::MessageBoxStyle _result);
 
 	private:
-		typedef std::vector<MyGUI::Message*> VectorMessage;
+		using VectorMessage = std::vector<MyGUI::Message*>;
 		VectorMessage mMessages;
 	};
 

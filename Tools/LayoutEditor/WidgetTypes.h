@@ -18,7 +18,7 @@ namespace tools
 
 		WidgetStyle* findWidgetStyle(std::string_view _type);
 		WidgetStyle* findWidgetStyleBySkin(std::string_view _skinName);
-		typedef std::vector<std::string> VectorString;
+		using VectorString = std::vector<std::string>;
 		VectorString findPossibleValues(std::string_view _name);
 
 		void clearAllSkins();

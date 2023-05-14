@@ -45,7 +45,7 @@ namespace MyGUI
 #endif
 
 	private:
-		typedef std::vector<size_t> VectorSizeT;
+		using VectorSizeT = std::vector<size_t>;
 
 		// маппинг с индексов, которые видны наружу
 		// на индексы которые реально используются данными

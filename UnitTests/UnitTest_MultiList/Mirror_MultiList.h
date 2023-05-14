@@ -24,7 +24,7 @@ namespace unittest
 			MyGUI::Any data;
 		};
 
-		typedef std::vector<ColumnInfo> VectorColumnInfo;
+		using VectorColumnInfo = std::vector<ColumnInfo>;
 
 		VectorColumnInfo mVectorColumnInfo;
 

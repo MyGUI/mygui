@@ -18,8 +18,10 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate2<Widget*, const WidgetInfo&> EventHandle_CreateWidgetDelegate;
-	typedef EventPairConvertStringView<delegates::CMultiDelegate3<Widget*, const std::string&, const std::string&>, delegates::CMultiDelegate3<Widget*, std::string_view, std::string_view>> EventHandle_AddUserStringDelegate;
+	using EventHandle_CreateWidgetDelegate = delegates::CMultiDelegate2<Widget*, const WidgetInfo&>;
+        using EventHandle_AddUserStringDelegate = EventPairConvertStringView<
+            delegates::CMultiDelegate3<Widget*, const std::string&, const std::string&>,
+            delegates::CMultiDelegate3<Widget*, std::string_view, std::string_view>>;
 
 	class MYGUI_EXPORT LayoutManager :
 		public MemberObsolete<LayoutManager>

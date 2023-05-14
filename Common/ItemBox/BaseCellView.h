@@ -18,7 +18,7 @@ namespace wraps
 		public BaseLayout
 	{
 	public:
-		typedef DataType Type;
+		using Type = DataType;
 
 	protected:
 		BaseCellView(std::string_view _layout, MyGUI::Widget* _parent) :

@@ -18,8 +18,8 @@ namespace tools
 	class MYGUI_EXPORT_DLL Data
 	{
 	public:
-		typedef std::shared_ptr<Data> DataPtr;
-		typedef std::weak_ptr<Data> DataWeak;
+		using DataPtr = std::shared_ptr<Data>;
+		using DataWeak = std::weak_ptr<Data>;
 
 		Data();
 		~Data();
@@ -31,7 +31,7 @@ namespace tools
 
 		DataPtr getParent();
 
-		typedef std::vector<DataPtr> VectorData;
+		using VectorData = std::vector<DataPtr>;
 		const VectorData& getChilds() const;
 
 		void addChild(DataPtr _child);
@@ -41,7 +41,7 @@ namespace tools
 		size_t getChildIndex(DataPtr _child);
 		DataPtr getChildByIndex(size_t _index);
 
-		typedef std::map<std::string, PropertyPtr, std::less<>> MapProperty;
+		using MapProperty = std::map<std::string, PropertyPtr, std::less<>>;
 		const MapProperty& getProperties() const;
 
 		const std::string& getPropertyValue(std::string_view _name) const;
@@ -82,7 +82,7 @@ namespace tools
 		DataWeak mWeakThis;
 	};
 
-	typedef Data::DataPtr DataPtr;
+	using DataPtr = Data::DataPtr;
 
 }
 

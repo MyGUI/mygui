@@ -84,7 +84,7 @@ namespace MyGUI
 		unsigned int mReferenceCount; // for nested rendering
 		int mYScaleUniformLocation;
 
-		typedef std::map<std::string, ITexture*> MapTexture;
+		using MapTexture = std::map<std::string, ITexture*>;
 		MapTexture mTextures;
 		OpenGLESImageLoader* mImageLoader;
 		bool mPboIsSupported;

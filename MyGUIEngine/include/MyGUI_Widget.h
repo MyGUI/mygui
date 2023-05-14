@@ -22,7 +22,9 @@
 namespace MyGUI
 {
 
-	typedef EventPairConvertStringView<delegates::CMultiDelegate3<Widget*, const std::string&, const std::string&>, delegates::CMultiDelegate3<Widget*, std::string_view, std::string_view>> EventHandle_WidgetStringString;
+	using EventHandle_WidgetStringString = EventPairConvertStringView<
+		delegates::CMultiDelegate3<Widget*, const std::string&, const std::string&>,
+		delegates::CMultiDelegate3<Widget*, std::string_view, std::string_view>>;
 
 	/** \brief @wpage{Widget}
 		Widget widget description should be here.

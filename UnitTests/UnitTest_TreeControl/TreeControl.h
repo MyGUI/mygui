@@ -20,8 +20,8 @@ namespace MyGUI
 	public:
 		class Node;
 
-		typedef delegates::CMultiDelegate2<TreeControl*, Node*> EventHandle_TreeControlPtrNodePtr;
-		typedef delegates::CMultiDelegate2<TreeControl*, size_t> EventHandle_TreeControlPtrSizeT;
+		using EventHandle_TreeControlPtrNodePtr = delegates::CMultiDelegate2<TreeControl*, Node*>;
+		using EventHandle_TreeControlPtrSizeT = delegates::CMultiDelegate2<TreeControl*, size_t>;
 
 		class Node :
 			public GenericNode<Node, TreeControl>
@@ -54,7 +54,7 @@ namespace MyGUI
 			Any mData;
 		};
 
-		typedef Node::VectorGenericNodePtr VectorNodePtr;
+		using VectorNodePtr = Node::VectorGenericNodePtr;
 
 		TreeControl();
 
@@ -95,7 +95,7 @@ namespace MyGUI
 		void onKeyButtonPressed(KeyCode Key, Char Character) override;
 
 	private:
-		typedef std::vector<TreeControlItem*> VectorTreeItemPtr;
+		using VectorTreeItemPtr = std::vector<TreeControlItem*>;
 
 		void validate();
 

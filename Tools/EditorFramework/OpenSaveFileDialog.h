@@ -33,7 +33,7 @@ namespace tools
 		const MyGUI::UString& getMode() const;
 		void setMode(const MyGUI::UString& _value);
 
-		typedef std::vector<MyGUI::UString> VectorUString;
+		using VectorUString = std::vector<MyGUI::UString>;
 		void setRecentFolders(const VectorUString& _listFolders);
 
 		void setFileMask(const MyGUI::UString& _value);

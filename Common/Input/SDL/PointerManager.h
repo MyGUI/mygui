@@ -36,7 +36,7 @@ namespace input
 		void setPointer(std::string_view _name);
 
 	private:
-		typedef std::map<std::string, SDL_SystemCursor, std::less<>> MapPointer;
+		using MapPointer = std::map<std::string, SDL_SystemCursor, std::less<>>;
 		MapPointer mMapPointer;
 		bool mManagerPointer;
 		SDL_Cursor* mCursor;

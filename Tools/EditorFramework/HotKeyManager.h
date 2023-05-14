@@ -30,11 +30,11 @@ namespace tools
 		void addCommand(HotKeyCommand& _command);
 
 	private:
-		typedef std::map<std::string, MyGUI::KeyCode> MapKeys;
+		using MapKeys = std::map<std::string, MyGUI::KeyCode>;
 		MapKeys mKeyNames;
 
-		typedef std::vector<HotKeyCommand> VectorCommand;
-		typedef std::map<MyGUI::KeyCode, VectorCommand> MapCommand;
+		using VectorCommand = std::vector<HotKeyCommand>;
+		using MapCommand = std::map<MyGUI::KeyCode, VectorCommand>;
 		MapCommand mCommands;
 	};
 

@@ -25,8 +25,8 @@ namespace MyGUI
 	{
 		MYGUI_SINGLETON_DECLARATION(LayerManager);
 	public:
-		typedef std::vector<ILayer*> VectorLayer;
-		typedef Enumerator<VectorLayer> EnumeratorLayer;
+		using VectorLayer = std::vector<ILayer*>;
+		using EnumeratorLayer = Enumerator<VectorLayer>;
 
 	public:
 		LayerManager();

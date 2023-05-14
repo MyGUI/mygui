@@ -29,7 +29,7 @@ namespace tools
 
 		void Shutdown();
 
-		typedef std::vector<Control*> VectorControl;
+		using VectorControl = std::vector<Control*>;
 		const VectorControl& getChilds() const;
 
 		void SendCommand(std::string_view _command);
@@ -97,7 +97,7 @@ namespace tools
 	private:
 		VectorControl mChilds;
 		Control* mParent;
-		typedef std::vector<IControlController*> VectorController;
+		using VectorController = std::vector<IControlController*>;
 		VectorController mControllers;
 	};
 

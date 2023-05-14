@@ -39,7 +39,7 @@ namespace unittest
 		void swapSortItemsAt(size_t _index1, size_t _index2);
 
 	private:
-		typedef std::vector<std::string> VectorString;
+		using VectorString = std::vector<std::string>;
 
 		// тестовые данные
 		VectorString mItemsInfo;

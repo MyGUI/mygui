@@ -30,7 +30,7 @@ namespace tools
 		bool onWindowClose(size_t _handle) override;
 		void prepare() override;
 
-		typedef std::vector<std::wstring> VectorWString;
+		using VectorWString = std::vector<std::wstring>;
 		const VectorWString& getParams();
 
 	protected:
@@ -54,7 +54,7 @@ namespace tools
 	private:
 		std::string mLocale;
 		VectorWString mParams;
-		typedef std::vector<Control*> VectorControl;
+		using VectorControl = std::vector<Control*>;
 		VectorControl mControls;
 	};
 

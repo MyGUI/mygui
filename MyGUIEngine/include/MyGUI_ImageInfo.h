@@ -26,7 +26,7 @@ namespace MyGUI
 		std::vector<FloatRect> images;
 	};
 
-	typedef std::vector<ImageItem> VectorImages;
+	using VectorImages = std::vector<ImageItem>;
 
 	struct MYGUI_EXPORT ImageIndexInfo
 	{

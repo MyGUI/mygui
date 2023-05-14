@@ -7,7 +7,7 @@ namespace tools
 {
 
 	struct WidgetStyle;
-	typedef std::vector<WidgetStyle*> VectorWidgetType;
+	using VectorWidgetType = std::vector<WidgetStyle*>;
 
 	struct WidgetStyle
 	{
@@ -24,7 +24,7 @@ namespace tools
 
 		std::string name;
 		std::string base;
-		typedef std::vector<std::string> VectorString;
+		using VectorString = std::vector<std::string>;
 		VectorString skin;
 		std::string default_skin;
 		MyGUI::VectorStringPairs parameter;

@@ -46,7 +46,7 @@ namespace tools
 		std::string mSkinSheetName;
 		std::string mButtonSkinName;
 
-		typedef std::vector<MyGUI::ItemBox*> VectorItemBox;
+		using VectorItemBox = std::vector<MyGUI::ItemBox*>;
 		VectorItemBox mItemBoxs;
 	};
 

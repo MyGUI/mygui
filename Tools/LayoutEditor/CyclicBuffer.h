@@ -11,9 +11,9 @@ namespace tools
 	class CyclicBuffer
 	{
 	public:
-		typedef std::vector<T> container_type;                      ///< Underlying container type.
-		typedef typename std::vector<T>::value_type value_type;     ///< Element type.
-		typedef typename std::vector<T>::size_type size_type;       ///< Size and offset type.
+		using container_type = std::vector<T>;                      ///< Underlying container type.
+		using value_type = typename std::vector<T>::value_type;     ///< Element type.
+		using size_type = typename std::vector<T>::size_type;       ///< Size and offset type.
 
 		/// Fixed size c-tor.
 		explicit CyclicBuffer( size_type _size ) :

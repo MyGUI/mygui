@@ -15,10 +15,13 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate3<DDContainer*, const DDItemInfo&, bool&> EventHandle_DDContainerPtrCDDItemInfoRefBoolRef;
-	typedef delegates::CMultiDelegate3<DDContainer*, const DDItemInfo&, bool> EventHandle_DDContainerPtrCDDItemInfoRefBool;
-	typedef delegates::CMultiDelegate2<DDContainer*, DDItemState> EventHandle_EventHandle_DDContainerPtrDDItemState;
-	typedef delegates::CDelegate3<DDContainer*, Widget*&, IntCoord&> EventHandle_EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef;
+	using EventHandle_DDContainerPtrCDDItemInfoRefBoolRef =
+		delegates::CMultiDelegate3<DDContainer*, const DDItemInfo&, bool&>;
+	using EventHandle_DDContainerPtrCDDItemInfoRefBool =
+		delegates::CMultiDelegate3<DDContainer*, const DDItemInfo&, bool>;
+	using EventHandle_EventHandle_DDContainerPtrDDItemState = delegates::CMultiDelegate2<DDContainer*, DDItemState>;
+	using EventHandle_EventHandle_DDContainerPtrWidgetPtrRefIntCoordRef =
+		delegates::CDelegate3<DDContainer*, Widget*&, IntCoord&>;
 
 
 	/** \brief @wpage{DDContainer}

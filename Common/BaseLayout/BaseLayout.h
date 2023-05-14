@@ -254,7 +254,7 @@ namespace wraps
 		std::string mPrefix;
 		std::string mLayoutName;
 		MyGUI::VectorWidgetPtr mListWindowRoot;
-		typedef std::vector<BaseLayout*> VectorBasePtr;
+		using VectorBasePtr = std::vector<BaseLayout*>;
 		VectorBasePtr mListBase;
 	};
 

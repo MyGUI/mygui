@@ -19,7 +19,7 @@ namespace wraps
 		public BaseLayout
 	{
 	public:
-		typedef typename CellType::Type DataType;
+		using DataType = typename CellType::Type;
 
 	public:
 		BaseItemBox(MyGUI::Widget* _parent) :
@@ -155,7 +155,7 @@ namespace wraps
 		}
 
 	private:
-		typedef std::vector<CellType*> VectorCellView;
+		using VectorCellView = std::vector<CellType*>;
 		VectorCellView mListCellView;
 		MyGUI::ItemBox* mBoxItems;
 	};

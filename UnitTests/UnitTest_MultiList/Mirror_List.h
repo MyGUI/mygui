@@ -127,7 +127,7 @@ namespace unittest
 			MyGUI::Any data;
 		};
 
-		typedef std::vector<ItemInfo> VectorItemInfo;
+		using VectorItemInfo = std::vector<ItemInfo>;
 		VectorItemInfo mItemsInfo;
 
 	};

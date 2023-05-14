@@ -51,7 +51,7 @@ namespace tools
 
 	private:
 		static ActionManager* mInstance;
-		typedef std::list<Action*> ListAction;
+		using ListAction = std::list<Action*>;
 		ListAction mActions;
 		ListAction::iterator mCurrentAction;
 		ListAction::iterator mActionAsSave;

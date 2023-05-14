@@ -65,7 +65,7 @@ namespace tools
 		bool mEnableChangePosition;
 		std::string mColourName;
 
-		typedef std::vector<std::string> VectorString;
+		using VectorString = std::vector<std::string>;
 		VectorString mPropertyNamesEnable;
 	};
 

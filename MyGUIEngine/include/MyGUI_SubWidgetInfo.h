@@ -30,7 +30,7 @@ namespace MyGUI
 		std::string type;
 	};
 
-	typedef std::vector<SubWidgetInfo> VectorSubWidgetInfo;
+	using VectorSubWidgetInfo = std::vector<SubWidgetInfo>;
 
 } // namespace MyGUI
 

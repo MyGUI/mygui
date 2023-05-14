@@ -21,8 +21,8 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate2<MenuControl*, MenuItem*> EventHandle_MenuCtrlPtrMenuItemPtr;
-	typedef delegates::CMultiDelegate1<MenuControl*> EventHandle_MenuCtrlPtr;
+	using EventHandle_MenuCtrlPtrMenuItemPtr = delegates::CMultiDelegate2<MenuControl*, MenuItem*>;
+	using EventHandle_MenuCtrlPtr = delegates::CMultiDelegate1<MenuControl*>;
 
 	/** \brief @wpage{MenuControl}
 		MenuControl widget description should be here.
@@ -66,7 +66,7 @@ namespace MyGUI
 			int width;
 		};
 
-		typedef std::vector<ItemInfo> VectorMenuItemInfo;
+		using VectorMenuItemInfo = std::vector<ItemInfo>;
 
 	public:
 		/** @copydoc Widget::setVisible */

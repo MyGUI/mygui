@@ -191,7 +191,7 @@ namespace tools
 
 	void SkinExportSerializer::fillStateData(DataPtr _data, pugi::xml_node _node)
 	{
-		typedef std::map<std::string, MyGUI::IntPoint, std::less<>> MapPoint;
+		using MapPoint = std::map<std::string, MyGUI::IntPoint, std::less<>>;
 		MapPoint values;
 
 		pugi::xpath_node_set states = _node.select_nodes("BasisSkin/State");

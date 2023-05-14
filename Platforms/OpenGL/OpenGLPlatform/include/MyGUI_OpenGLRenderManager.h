@@ -81,7 +81,7 @@ namespace MyGUI
 		VertexColourType mVertexFormat;
 		RenderTargetInfo mInfo;
 
-		typedef std::map<std::string, ITexture*> MapTexture;
+		using MapTexture = std::map<std::string, ITexture*>;
 		MapTexture mTextures;
 		OpenGLImageLoader* mImageLoader;
 		bool mPboIsSupported;

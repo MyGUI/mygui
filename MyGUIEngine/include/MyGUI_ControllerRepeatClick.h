@@ -36,7 +36,7 @@ namespace MyGUI
 		void prepareItem(Widget* _widget) override;
 		void setProperty(std::string_view _key, std::string_view _value) override;
 
-		typedef delegates::CMultiDelegate2<Widget*, ControllerItem*> EventHandle_RepeatClick;
+		using EventHandle_RepeatClick = delegates::CMultiDelegate2<Widget*, ControllerItem*>;
 
 		/** Event : Repeat Click.\n
 			signature : void method(MyGUI::Widget* _sender, MyGUI::ControllerItem *_controller)\n

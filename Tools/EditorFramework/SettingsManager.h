@@ -90,7 +90,7 @@ namespace tools
 			setValueImpl(_path.c_str(), MyGUI::utility::toString(value));
 		}
 
-		typedef std::vector<std::string> VectorString;
+		using VectorString = std::vector<std::string>;
 		VectorString getValueList(std::string_view _path);
 
 		template <typename Type>

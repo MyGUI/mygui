@@ -15,7 +15,7 @@ namespace demo
 {
 
 	class ResourceItemInfo;
-	typedef ResourceItemInfo* ResourceItemInfoPtr;
+	using ResourceItemInfoPtr = ResourceItemInfo*;
 
 	class ResourceItemInfo :
 		public MyGUI::IResource,

@@ -17,11 +17,12 @@
 namespace MyGUI
 {
 
-	typedef delegates::CDelegate2<ItemBox*, Widget*> EventHandle_ItemBoxPtrWidgetPtr;
-	typedef delegates::CDelegate3<ItemBox*, IntCoord&, bool> EventHandle_ItemBoxPtrIntCoordRefBool;
-	typedef delegates::CDelegate3<ItemBox*, Widget*, const IBDrawItemInfo&> EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef;
-	typedef delegates::CMultiDelegate2<ItemBox*, size_t> EventHandle_ItemBoxPtrSizeT;
-	typedef delegates::CMultiDelegate2<ItemBox*, const IBNotifyItemData&> EventHandle_ItemBoxPtrCIBNotifyCellDataRef;
+	using EventHandle_ItemBoxPtrWidgetPtr = delegates::CDelegate2<ItemBox*, Widget*>;
+	using EventHandle_ItemBoxPtrIntCoordRefBool = delegates::CDelegate3<ItemBox*, IntCoord&, bool>;
+	using EventHandle_ItemBoxPtrWidgetPtrCIBCellDrawInfoRef =
+		delegates::CDelegate3<ItemBox*, Widget*, const IBDrawItemInfo&>;
+	using EventHandle_ItemBoxPtrSizeT = delegates::CMultiDelegate2<ItemBox*, size_t>;
+	using EventHandle_ItemBoxPtrCIBNotifyCellDataRef = delegates::CMultiDelegate2<ItemBox*, const IBNotifyItemData&>;
 
 	/** \brief @wpage{ItemBox}
 		ItemBox widget description should be here.
@@ -206,7 +207,7 @@ namespace MyGUI
 				data(_data) { }
 			Any data;
 		};
-		typedef std::vector<ItemDataInfo> VectorItemInfo;
+		using VectorItemInfo = std::vector<ItemDataInfo>;
 
 		void onMouseButtonPressed(int _left, int _top, MouseButton _id) override;
 		void onMouseButtonReleased(int _left, int _top, MouseButton _id) override;

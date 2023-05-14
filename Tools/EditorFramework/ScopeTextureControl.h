@@ -25,8 +25,8 @@ namespace tools
 		void setCoordValue(const MyGUI::IntCoord& _value, SelectorType _type);
 		void clearCoordValue();
 
-		typedef std::pair<MyGUI::IntCoord, SelectorType> PairCoordType;
-		typedef std::vector<PairCoordType> VectorCoord;
+		using PairCoordType = std::pair<MyGUI::IntCoord, SelectorType>;
+		using VectorCoord = std::vector<PairCoordType>;
 		void setViewSelectors(const VectorCoord& _selectors);
 		void clearViewSelectors();
 
@@ -70,8 +70,8 @@ namespace tools
 
 		void setValue(std::string_view _value);
 
-		typedef std::pair<SelectorControl*, SelectorType> PairSelectorType;
-		typedef std::vector<PairSelectorType> VectorSelector;
+		using PairSelectorType = std::pair<SelectorControl*, SelectorType>;
+		using VectorSelector = std::vector<PairSelectorType>;
 		SelectorControl* getFreeSelector(VectorSelector& _selectors, bool _backType, SelectorType _type, bool& _changes);
 
 	private:

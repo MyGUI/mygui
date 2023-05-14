@@ -620,8 +620,8 @@ namespace tools
 	{
 		if (mFreeChildMode)
 		{
-			typedef std::pair<MyGUI::Widget*, MyGUI::IntCoord> PairWidgetCoord;
-			typedef std::vector<PairWidgetCoord> VectorPairWidgetCoord;
+			using PairWidgetCoord = std::pair<MyGUI::Widget*, MyGUI::IntCoord>;
+			using VectorPairWidgetCoord = std::vector<PairWidgetCoord>;
 			VectorPairWidgetCoord coords;
 
 			// запоминаем позиции детей

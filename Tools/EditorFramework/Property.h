@@ -15,13 +15,13 @@
 namespace tools
 {
 	class Data;
-	typedef std::shared_ptr<Data> DataPtr;
+	using DataPtr = std::shared_ptr<Data>;
 
 	class MYGUI_EXPORT_DLL Property
 	{
 	public:
-		typedef std::shared_ptr<Property> PropertyPtr;
-		typedef std::weak_ptr<Property> PropertyWeak;
+		using PropertyPtr = std::shared_ptr<Property>;
+		using PropertyWeak = std::weak_ptr<Property>;
 
 		Property(DataTypePropertyPtr _type, DataPtr _owner);
 
@@ -66,7 +66,7 @@ namespace tools
 		PropertyWeak mWeakThis;
 	};
 
-	typedef Property::PropertyPtr PropertyPtr;
+	using PropertyPtr = Property::PropertyPtr;
 
 }
 

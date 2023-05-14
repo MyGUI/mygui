@@ -16,7 +16,7 @@ namespace tools
 	{
 		MYGUI_SINGLETON_DECLARATION(RecentFilesManager);
 	public:
-		typedef std::vector<MyGUI::UString> VectorUString;
+		using VectorUString = std::vector<MyGUI::UString>;
 
 		RecentFilesManager();
 

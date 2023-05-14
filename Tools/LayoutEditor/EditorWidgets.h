@@ -7,11 +7,11 @@
 namespace tools
 {
 
-	typedef MyGUI::delegates::CMultiDelegate0 Event_ChangeWidgets;
-	typedef MyGUI::delegates::CMultiDelegate3<MyGUI::Widget*, const MyGUI::IntCoord&, std::string_view> Event_ChangeWidgetCoord;
+	using Event_ChangeWidgets = MyGUI::delegates::CMultiDelegate0;
+	using Event_ChangeWidgetCoord = MyGUI::delegates::CMultiDelegate3<MyGUI::Widget*, const MyGUI::IntCoord&, std::string_view>;
 
-	typedef std::vector<WidgetContainer*> VectorWidgetContainer;
-	typedef MyGUI::Enumerator<VectorWidgetContainer> EnumeratorWidgetContainer;
+	using VectorWidgetContainer = std::vector<WidgetContainer*>;
+	using EnumeratorWidgetContainer = MyGUI::Enumerator<VectorWidgetContainer>;
 
 	class EditorWidgets :
 		public MyGUI::IUnlinkWidget
@@ -82,7 +82,7 @@ namespace tools
 
 	private:
 		bool mWidgetsChanged;
-		typedef std::vector<std::string> VectorString;
+		using VectorString = std::vector<std::string>;
 		VectorString mIgnoreParameters;
 		VectorWidgetContainer mWidgets;
 

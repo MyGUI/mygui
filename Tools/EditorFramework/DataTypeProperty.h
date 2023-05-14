@@ -39,7 +39,7 @@ namespace tools
 		std::string mAction;
 	};
 
-	typedef std::shared_ptr<DataTypeProperty> DataTypePropertyPtr;
+	using DataTypePropertyPtr = std::shared_ptr<DataTypeProperty>;
 
 }
 

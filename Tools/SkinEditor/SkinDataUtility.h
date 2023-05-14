@@ -25,16 +25,16 @@ namespace tools
 
 		static void CreateSkinData(DataPtr _skinData);
 
-		typedef std::vector<MyGUI::IntCoord> VectorCoord;
+		using VectorCoord = std::vector<MyGUI::IntCoord>;
 		static VectorCoord getRegions(const MyGUI::IntSize& _size, const MyGUI::IntRect& _separators);
 
 		static MyGUI::IntSize getSkinSize(DataPtr _skinData);
 		static MyGUI::IntRect getSeparatorsOffset(DataPtr _skinData);
 
-		typedef MyGUI::types::TRect<bool> RectVisible;
+		using RectVisible = MyGUI::types::TRect<bool>;
 		static RectVisible getSeparatorsVisible(DataPtr _skinData);
 
-		typedef std::vector<std::string> VectorString;
+		using VectorString = std::vector<std::string>;
 		static const VectorString& getRegionNames();
 
 		static void fillRegionCoords(DataPtr _skinData, const VectorCoord& _value);

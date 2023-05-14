@@ -38,7 +38,7 @@ namespace MyGUI
 
 		Vertex vertex[VertexCount];
 	};
-	typedef std::vector<QuadData> VectorQuadData;
+	using VectorQuadData = std::vector<QuadData>;
 
 	class ILayerNode;
 

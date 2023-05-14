@@ -14,7 +14,7 @@ namespace demo
 	class CommandManager
 	{
 	public:
-		typedef MyGUI::delegates::CDelegate2<std::string_view, MyGUI::Any> CommandDelegate;
+		using CommandDelegate = MyGUI::delegates::CDelegate2<std::string_view, MyGUI::Any>;
 
 	public:
 		CommandManager();
@@ -25,10 +25,10 @@ namespace demo
 			return *msCommandManager;
 		}
 
-		void execiteCommand(std::string_view _name, MyGUI::Any _data);
+		void execiteCommand(const std::string& _name, MyGUI::Any _data);
 
-		void registerCommand(std::string_view _name, CommandDelegate::IDelegate* _delegate);
-		void unregisterCommand(std::string_view _name);
+		void registerCommand(const std::string& _name, CommandDelegate::IDelegate* _delegate);
+		void unregisterCommand(const std::string& _name);
 
 	private:
 		static CommandManager* msCommandManager;

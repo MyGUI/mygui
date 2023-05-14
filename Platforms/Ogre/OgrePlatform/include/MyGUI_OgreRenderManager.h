@@ -158,7 +158,7 @@ namespace MyGUI
 		Ogre::RenderSystem* mRenderSystem;
 		RenderTargetInfo mInfo;
 
-		typedef std::map<std::string, ITexture*> MapTexture;
+		using MapTexture = std::map<std::string, ITexture*>;
 		MapTexture mTextures;
 
 		bool mIsInitialise;

@@ -122,7 +122,7 @@ namespace MyGUI
 			return a.mValue != b.mValue;
 		}
 
-		typedef std::map<std::string, int> MapAlign;
+		using MapAlign = std::map<std::string, int>;
 
 		static Align parse(std::string_view _value)
 		{

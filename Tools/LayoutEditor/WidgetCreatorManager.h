@@ -13,8 +13,8 @@
 namespace tools
 {
 
-	typedef MyGUI::delegates::CMultiDelegate1<bool> Event_ChangeCreatorMode;
-	typedef MyGUI::delegates::CMultiDelegate2<bool, const MyGUI::IntCoord&> Event_ChangeSelector;
+	using Event_ChangeCreatorMode = MyGUI::delegates::CMultiDelegate1<bool>;
+	using Event_ChangeSelector = MyGUI::delegates::CMultiDelegate2<bool, const MyGUI::IntCoord&>;
 
 	class WidgetCreatorManager
 	{

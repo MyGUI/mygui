@@ -55,8 +55,8 @@ namespace attribute
 	template <typename OwnerType, typename ValueType, typename SetterType>
 	struct AttributeField
 	{
-		typedef std::pair<Field<OwnerType, SetterType>*, ValueType> BindPair;
-		typedef std::vector<BindPair> VectorBindPair;
+		using BindPair = std::pair<Field<OwnerType, SetterType>*, ValueType>;
+		using VectorBindPair = std::vector<BindPair>;
 
 		template <typename FieldType>
 		AttributeField(FieldType* OwnerType::* _offset, const ValueType& _value)

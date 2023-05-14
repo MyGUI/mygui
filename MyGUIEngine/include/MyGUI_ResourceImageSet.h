@@ -21,7 +21,7 @@ namespace MyGUI
 {
 
 	class ResourceImageSet;
-	typedef ResourceImageSet* ResourceImageSetPtr;
+	using ResourceImageSetPtr = ResourceImageSet*;
 
 	class MYGUI_EXPORT ResourceImageSet :
 		public IResource

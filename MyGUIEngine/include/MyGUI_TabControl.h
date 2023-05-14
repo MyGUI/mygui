@@ -18,7 +18,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate2<TabControl*, size_t> EventHandle_TabPtrSizeT;
+	using EventHandle_TabPtrSizeT = delegates::CMultiDelegate2<TabControl*, size_t>;
 
 	/** \brief @wpage{TabControl}
 		TabControl widget description should be here.
@@ -53,7 +53,7 @@ namespace MyGUI
 			Any data;
 		};
 
-		typedef std::vector<TabItemInfo> VectorTabItemInfo;
+		using VectorTabItemInfo = std::vector<TabItemInfo>;
 
 		//! @copydoc Widget::setPosition(const IntPoint& _value)
 		void setPosition(const IntPoint& _value) override;

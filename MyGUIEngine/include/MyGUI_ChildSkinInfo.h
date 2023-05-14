@@ -30,7 +30,7 @@ namespace MyGUI
 		MapString params;
 	};
 
-	typedef std::vector<ChildSkinInfo> VectorChildSkinInfo;
+	using VectorChildSkinInfo = std::vector<ChildSkinInfo>;
 
 } // namespace MyGUI
 

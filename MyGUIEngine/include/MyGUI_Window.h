@@ -16,10 +16,14 @@ namespace MyGUI
 {
 
 	// OBSOLETE
-	typedef EventPairConvertStringView<delegates::CMultiDelegate2<Widget*, const std::string&>, delegates::CMultiDelegate2<Widget*, std::string_view>> EventHandle_WidgetString;
+	using EventHandle_WidgetString = EventPairConvertStringView<
+		delegates::CMultiDelegate2<Widget*, const std::string&>,
+		delegates::CMultiDelegate2<Widget*, std::string_view>>;
 
-	typedef EventPairConvertStringView<delegates::CMultiDelegate2<Window*, const std::string&>, delegates::CMultiDelegate2<Window*, std::string_view>> EventHandle_WindowPtrCStringRef;
-	typedef delegates::CMultiDelegate1<Window*> EventHandle_WindowPtr;
+	using EventHandle_WindowPtrCStringRef = EventPairConvertStringView<
+		delegates::CMultiDelegate2<Window*, const std::string&>,
+		delegates::CMultiDelegate2<Window*, std::string_view>>;
+	using EventHandle_WindowPtr = delegates::CMultiDelegate1<Window*>;
 
 	/** \brief @wpage{Window}
 		Window widget description should be here.

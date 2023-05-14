@@ -55,7 +55,7 @@ namespace MyGUI
 		ILayerNode* mLayerNode;
 		ILayerNode* mSaveLayerNode;
 
-		typedef std::vector<LayerItem*> VectorLayerItem;
+		using VectorLayerItem = std::vector<LayerItem*>;
 		// список наших детей айтемов
 		VectorLayerItem mLayerItems;
 		// список наших узлов

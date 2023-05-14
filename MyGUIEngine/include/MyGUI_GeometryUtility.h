@@ -13,7 +13,7 @@
 namespace MyGUI
 {
 
-	typedef std::vector<FloatPoint> VectorFloatPoint;
+	using VectorFloatPoint = std::vector<FloatPoint>;
 
 	namespace geometry_utility
 	{

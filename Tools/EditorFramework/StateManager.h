@@ -41,14 +41,14 @@ namespace tools
 		StateController* getStateByName(std::string_view _stateName);
 
 	private:
-		typedef std::vector<StateController*> VectorStateController;
+		using VectorStateController = std::vector<StateController*>;
 		VectorStateController mStates;
 
-		typedef std::map<std::string, StateController*, std::less<>> MapStateController;
+		using MapStateController = std::map<std::string, StateController*, std::less<>>;
 		MapStateController mStateName;
 
-		typedef std::pair< std::string, std::pair<std::string, std::string> > PairPairString;
-		typedef std::vector<PairPairString> VectorPairPairString;
+		using PairPairString = std::pair<std::string, std::pair<std::string, std::string>>;
+		using VectorPairPairString = std::vector<PairPairString>;
 		VectorPairPairString mLinks;
 	};
 

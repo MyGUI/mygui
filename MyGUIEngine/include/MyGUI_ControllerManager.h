@@ -54,8 +54,8 @@ namespace MyGUI
 		void clear();
 
 	private:
-		typedef std::pair<Widget*, ControllerItem*> PairControllerItem;
-		typedef std::list<PairControllerItem> ListControllerItem;
+		using PairControllerItem = std::pair<Widget*, ControllerItem*>;
+		using ListControllerItem = std::list<PairControllerItem>;
 		ListControllerItem mListItem;
 
 		bool mIsInitialise;

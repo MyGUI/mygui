@@ -21,7 +21,7 @@ namespace tools
 		void initialise();
 		void shutdown();
 
-		typedef sigslot::signal2<const MyGUI::UString&, bool&> EventType;
+		using EventType = sigslot::signal2<const MyGUI::UString&, bool&>;
 		EventType* getEvent(const MyGUI::UString& _command);
 
 		bool executeCommand(const MyGUI::UString& _command);
@@ -31,7 +31,7 @@ namespace tools
 
 	private:
 		MyGUI::UString mData;
-		typedef std::map<MyGUI::UString, EventType*> MapEvent;
+		using MapEvent = std::map<MyGUI::UString, EventType*>;
 		MapEvent mEvents;
 	};
 

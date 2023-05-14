@@ -190,7 +190,7 @@ namespace MyGUI
 	{
 			friend class UString;
 		protected:
-			typedef ptrdiff_t difference_type;
+			using difference_type = ptrdiff_t;
 
 			_base_iterator();
 

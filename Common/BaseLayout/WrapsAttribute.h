@@ -16,7 +16,7 @@ namespace attribute
 
 	struct FieldSetterWidget
 	{
-		typedef MyGUI::Widget BaseValueType;
+		using BaseValueType = MyGUI::Widget;
 
 		template <typename Type>
 		static Type* convert(BaseValueType* _value)

@@ -45,7 +45,7 @@ namespace components
 		}
 
 	private:
-		typedef std::map<std::string, IFactory*, std::less<>> MapFactory;
+		using MapFactory = std::map<std::string, IFactory*, std::less<>>;
 		MapFactory mFactories;
 	};
 

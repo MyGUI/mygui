@@ -55,10 +55,10 @@ namespace MyGUI
 
 	private:
 		//!	List of dynamic libraries
-		typedef std::map <std::string, DynLib*, std::less<>> DynLibList;
+		using DynLibList = std::map<std::string, DynLib*, std::less<>>;
 
 		//!	List of plugins
-		typedef std::set <IPlugin*> PluginList;
+		using PluginList = std::set<IPlugin*>;
 
 		//!	Loaded libraries
 		DynLibList mLibs;

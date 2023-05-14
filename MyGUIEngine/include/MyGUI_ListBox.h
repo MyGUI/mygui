@@ -18,8 +18,8 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate2<ListBox*, size_t> EventHandle_ListPtrSizeT;
-	typedef delegates::CMultiDelegate2<ListBox*, const IBNotifyItemData&> EventHandle_ListBoxPtrCIBNotifyCellDataRef;
+	using EventHandle_ListPtrSizeT = delegates::CMultiDelegate2<ListBox*, size_t>;
+	using EventHandle_ListBoxPtrCIBNotifyCellDataRef = delegates::CMultiDelegate2<ListBox*, const IBNotifyItemData&>;
 
 	/** \brief @wpage{ListBox}
 		ListBox widget description should be here.
@@ -300,7 +300,7 @@ namespace MyGUI
 		ScrollBar* mWidgetScroll;
 
 		// наши дети в строках
-		typedef std::vector<Button*> VectorButton;
+		using VectorButton = std::vector<Button*>;
 		VectorButton mWidgetLines;
 
 		bool mActivateOnClick; // Require a full mouse click rather than only mouse press to activate an item
@@ -314,8 +314,8 @@ namespace MyGUI
 		size_t mIndexSelect; // текущий выделенный элемент или ITEM_NONE
 		size_t mLineActive; // текущий виджет над которым мыша
 
-		typedef std::pair<UString, Any> PairItem;
-		typedef std::vector<PairItem> VectorItemInfo;
+		using PairItem = std::pair<UString, Any>;
+		using VectorItemInfo = std::vector<PairItem>;
 		VectorItemInfo mItemsInfo;
 
 		// имеем ли мы фокус ввода

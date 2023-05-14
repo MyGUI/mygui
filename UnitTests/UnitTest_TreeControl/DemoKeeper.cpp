@@ -14,7 +14,7 @@
 
 // рутовая папка всей медиа
 static MyGUI::UString gMediaBase;
-typedef std::pair<std::wstring, common::FileInfo> PairFileInfo;
+using PairFileInfo = std::pair<std::wstring, common::FileInfo>;
 
 class SampleLayout :
 	public wraps::BaseLayout

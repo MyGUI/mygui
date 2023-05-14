@@ -16,8 +16,8 @@
 namespace MyGUI
 {
 
-	typedef std::pair<ISubWidget*, size_t> DrawItemInfo;
-	typedef std::vector<DrawItemInfo> VectorDrawItem;
+	using DrawItemInfo = std::pair<ISubWidget*, size_t>;
+	using VectorDrawItem = std::vector<DrawItemInfo>;
 
 	class MYGUI_EXPORT RenderItem
 	{

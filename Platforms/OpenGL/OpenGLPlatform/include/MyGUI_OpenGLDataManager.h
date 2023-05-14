@@ -55,7 +55,7 @@ namespace MyGUI
 			std::wstring name;
 			bool recursive;
 		};
-		typedef std::vector<ArhivInfo> VectorArhivInfo;
+		using VectorArhivInfo = std::vector<ArhivInfo>;
 		VectorArhivInfo mPaths;
 
 		bool mIsInitialise;

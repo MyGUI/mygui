@@ -20,7 +20,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate2<ComboBox*, size_t> EventHandle_ComboBoxPtrSizeT;
+	using EventHandle_ComboBoxPtrSizeT = delegates::CMultiDelegate2<ComboBox*, size_t>;
 
 	/** \brief @wpage{ComboBox}
 		ComboBox widget description should be here.

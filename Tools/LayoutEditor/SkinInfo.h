@@ -19,8 +19,8 @@ namespace tools
 		std::string widget_button_name;
 	};
 
-	typedef std::vector<SkinInfo> VectorSkinInfo;
-	typedef std::map<std::string, VectorSkinInfo, std::less<>> SkinGroups;
+	using VectorSkinInfo = std::vector<SkinInfo>;
+	using SkinGroups = std::map<std::string, VectorSkinInfo, std::less<>>;
 
 }
 

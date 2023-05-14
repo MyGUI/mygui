@@ -155,7 +155,7 @@ namespace MyGUI
 			return buttons;
 		}
 
-		typedef std::map<std::string, int> MapAlign;
+		using MapAlign = std::map<std::string, int>;
 
 		static MessageBoxStyle parse(std::string_view _value)
 		{

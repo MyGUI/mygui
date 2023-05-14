@@ -19,7 +19,7 @@ namespace MyGUI
 	class ControllerItem;
 
 	using EventHandle_WidgetPtr = delegates::CMultiDelegate1<Widget*>;
-	typedef delegates::CMultiDelegate2<Widget*, ControllerItem*> EventHandle_WidgetPtrControllerItemPtr;
+	using EventHandle_WidgetPtrControllerItemPtr = delegates::CMultiDelegate2<Widget*, ControllerItem*>;
 
 	/** Base interface for controllers */
 	class MYGUI_EXPORT ControllerItem :

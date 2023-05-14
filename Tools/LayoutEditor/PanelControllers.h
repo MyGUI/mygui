@@ -51,10 +51,10 @@ namespace tools
 		int mButtonRight;
 		int mButtonSpace;
 
-		typedef std::map<std::string, MyGUI::MapString, std::less<>> MapMapString;
+		using MapMapString = std::map<std::string, MyGUI::MapString, std::less<>>;
 		MapMapString mControllersProperties;
 
-		typedef std::vector<IPropertyField*> VectorPropertyField;
+		using VectorPropertyField = std::vector<IPropertyField*>;
 		VectorPropertyField mFields;
 
 		size_t mIndexSelected;

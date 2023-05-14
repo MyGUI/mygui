@@ -36,7 +36,7 @@ namespace tools
 		void updateSize();
 
 	private:
-		typedef std::vector<IPropertyField*> VectorPropertyField;
+		using VectorPropertyField = std::vector<IPropertyField*>;
 		VectorPropertyField mFields;
 		MyGUI::Widget* mCurrentWidget;
 	};

@@ -105,7 +105,7 @@ namespace MyGUI
 		class Document;
 
 		using ElementPtr = Element*;
-		typedef std::pair<std::string, std::string> PairAttribute;
+		using PairAttribute = std::pair<std::string, std::string>;
 		using VectorAttributes = std::vector<PairAttribute>;
 		using VectorElement = std::vector<ElementPtr>;
 

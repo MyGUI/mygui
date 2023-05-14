@@ -41,7 +41,9 @@ namespace MyGUI
 		/** Remove resource item from resources */
 		void removeResource(IResourcePtr _item);
 
-		typedef EventPairConvertStringView<delegates::CDelegate3<xml::ElementPtr, const std::string&, Version>, delegates::CDelegate3<xml::ElementPtr, std::string_view, Version>> LoadXmlDelegate;
+		using LoadXmlDelegate = EventPairConvertStringView<
+			delegates::CDelegate3<xml::ElementPtr, const std::string&, Version>,
+			delegates::CDelegate3<xml::ElementPtr, std::string_view, Version>>;
 
 		/** Register delegate that parse XML node with specified tag (_key) */
 		LoadXmlDelegate& registerLoadXmlDelegate(std::string_view _key);
@@ -62,8 +64,8 @@ namespace MyGUI
 
 		void clear();
 
-		typedef std::map<std::string, IResource*, std::less<>> MapResource;
-		typedef Enumerator<MapResource> EnumeratorPtr;
+		using MapResource = std::map<std::string, IResource*, std::less<>>;
+		using EnumeratorPtr = Enumerator<MapResource>;
 
 		EnumeratorPtr getEnumerator() const;
 
@@ -77,12 +79,12 @@ namespace MyGUI
 
 	private:
 		// карта с делегатами для парсинга хмл блоков
-		typedef std::map<std::string, LoadXmlDelegate, std::less<>> MapLoadXmlDelegate;
+		using MapLoadXmlDelegate = std::map<std::string, LoadXmlDelegate, std::less<>>;
 		MapLoadXmlDelegate mMapLoadXmlDelegate;
 
 		MapResource mResources;
 
-		typedef std::vector<IResource*> VectorResource;
+		using VectorResource = std::vector<IResource*>;
 		VectorResource mRemovedResoures;
 
 		bool mIsInitialise;

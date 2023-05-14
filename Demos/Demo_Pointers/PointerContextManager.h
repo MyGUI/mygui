@@ -40,7 +40,7 @@ namespace demo
 	private:
 		std::string mCurrentPointer;
 		std::string mCurrentGuiPointer;
-		typedef std::vector<ResourcePointerContext*> VectorContext;
+		using VectorContext = std::vector<ResourcePointerContext*>;
 		VectorContext mContexts;
 		IPointerSetter* mPointerSetter;
 	};

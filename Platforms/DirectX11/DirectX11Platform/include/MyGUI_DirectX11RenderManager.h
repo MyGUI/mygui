@@ -132,7 +132,7 @@ namespace MyGUI
 		RenderTargetInfo mInfo;
 		bool mUpdate;
 
-		typedef std::map<std::string, ITexture*> MapTexture;
+		using MapTexture = std::map<std::string, ITexture*>;
 
 		MapTexture mTextures;
 		bool mIsInitialise;

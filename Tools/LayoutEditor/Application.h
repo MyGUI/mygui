@@ -28,7 +28,7 @@ namespace tools
 		void onFileDrop(const std::wstring& _filename) override;
 		bool onWindowClose(size_t _handle) override;
 
-		typedef std::vector<std::wstring> VectorWString;
+		using VectorWString = std::vector<std::wstring>;
 		const VectorWString& getParams();
 
 	private:
@@ -49,7 +49,7 @@ namespace tools
 	private:
 		VectorWString mParams;
 		std::string mLocale;
-		typedef std::vector<Control*> VectorControl;
+		using VectorControl = std::vector<Control*>;
 		VectorControl mControls;
 	};
 

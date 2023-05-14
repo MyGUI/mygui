@@ -34,7 +34,7 @@ namespace tools
 
 	private:
 		static DataTypeManager* mInstance;
-		typedef std::vector<DataTypePtr> VectorDataInfo;
+		using VectorDataInfo = std::vector<DataTypePtr>;
 		VectorDataInfo mDataInfos;
 	};
 

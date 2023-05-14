@@ -42,7 +42,7 @@ namespace tools
 		IPropertyField* getPropertyField(MyGUI::Widget* _client, std::string_view _name, std::string_view _type);
 
 	private:
-		typedef std::map<std::string, IPropertyField*, std::less<>> MapPropertyField;
+		using MapPropertyField = std::map<std::string, IPropertyField*, std::less<>>;
 		MapPropertyField mFields;
 		size_t mDepth;
 		MyGUI::Widget* mCurrentWidget;

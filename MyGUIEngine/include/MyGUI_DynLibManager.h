@@ -41,13 +41,13 @@ namespace MyGUI
 
 	private:
 		//! Dynamic libraries map
-		typedef std::map <std::string, DynLib*, std::less<>> StringDynLibMap;
+		using StringDynLibMap = std::map<std::string, DynLib*, std::less<>>;
 		//!	Loaded libraries
 		StringDynLibMap mLibsMap;
 
 		bool mIsInitialise;
 
-		typedef std::vector<DynLib*> VectorDynLib;
+		using VectorDynLib = std::vector<DynLib*>;
 		VectorDynLib mDelayDynLib;
 	};
 

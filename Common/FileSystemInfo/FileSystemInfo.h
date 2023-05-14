@@ -33,7 +33,7 @@ namespace common
 		std::wstring name;
 		bool folder;
 	};
-	typedef std::vector<FileInfo> VectorFileInfo;
+	using VectorFileInfo = std::vector<FileInfo>;
 
 	inline std::wstring toLower(const std::wstring& _input)
 	{
@@ -189,7 +189,7 @@ namespace common
 #endif
 	}
 
-	typedef std::vector<std::wstring> VectorWString;
+	using VectorWString = std::vector<std::wstring>;
 	inline void scanFolder(VectorWString& _result, const std::wstring& _folder, bool _recursive, const std::wstring& _mask, bool _fullpath)
 	{
 		std::wstring folder = _folder;

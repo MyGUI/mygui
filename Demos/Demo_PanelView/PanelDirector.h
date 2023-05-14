@@ -19,7 +19,7 @@ namespace demo
 		EVENT_COUNT_DYNAMIC
 	};
 
-	typedef MyGUI::delegates::CDelegate2<int, size_t> EventHandle_EventDirector;
+	using EventHandle_EventDirector = MyGUI::delegates::CDelegate2<int, size_t>;
 
 	class PanelDirector :
 		public wraps::BasePanelViewItem

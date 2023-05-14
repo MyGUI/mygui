@@ -303,8 +303,8 @@ namespace MyGUI
 
 	void TreeControl::validate()
 	{
-		typedef std::pair<VectorNodePtr::iterator, VectorNodePtr::iterator> PairNodeEnumeration;
-		typedef std::list<PairNodeEnumeration> ListNodeEnumeration;
+		using PairNodeEnumeration = std::pair<VectorNodePtr::iterator, VectorNodePtr::iterator>;
+		using ListNodeEnumeration = std::list<PairNodeEnumeration>;
 		ListNodeEnumeration EnumerationStack;
 		PairNodeEnumeration Enumeration;
 		VectorNodePtr vectorNodePtr;

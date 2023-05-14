@@ -26,7 +26,7 @@ namespace demo
 		int mValue;
 	};
 
-	typedef std::shared_ptr<SomeClass> SomeClassPtr;
+	using SomeClassPtr = std::shared_ptr<SomeClass>;
 
 	static void Delegate_W(SomeClassPtr _foo, MyGUI::Widget* _sender)
 	{

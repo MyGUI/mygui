@@ -109,7 +109,7 @@ namespace MyGUI
 
 	};
 
-	typedef std::vector<CharInfo> VectorCharInfo;
+	using VectorCharInfo = std::vector<CharInfo>;
 
 	struct LineInfo
 	{
@@ -134,7 +134,7 @@ namespace MyGUI
 		VectorCharInfo symbols;
 	};
 
-	typedef std::vector<LineInfo> VectorLineInfo;
+	using VectorLineInfo = std::vector<LineInfo>;
 
 } // namespace MyGUI
 

@@ -47,7 +47,7 @@ namespace tools
 
 	private:
 		MyGUI::Widget* mCurrentWidget;
-		typedef std::map<std::string, IPropertyField*, std::less<>> MapPropertyField;
+		using MapPropertyField = std::map<std::string, IPropertyField*, std::less<>>;
 		MapPropertyField mFields;
 		std::string mUserDataTargetType;
 	};

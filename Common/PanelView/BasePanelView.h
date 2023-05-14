@@ -20,7 +20,7 @@ namespace wraps
 		public BaseLayout
 	{
 	public:
-		typedef std::vector<BasePanelViewItem*> VectorCell;
+		using VectorCell = std::vector<BasePanelViewItem*>;
 
 	public:
 		BasePanelView(std::string_view _layout, MyGUI::Widget* _parent) :

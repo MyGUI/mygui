@@ -74,14 +74,14 @@ namespace MyGUI
 		UString replaceTagsPass(const UString& _line, bool& _replaceResult);
 
 	private:
-		typedef std::map<UString, UString, std::less<>> MapLanguageString;
+		using MapLanguageString = std::map<UString, UString, std::less<>>;
 
 		MapLanguageString mMapLanguage;
 		MapLanguageString mUserMapLanguage;
 
 		std::string mCurrentLanguageName;
 
-		typedef std::map<std::string, VectorString, std::less<>> MapListString;
+		using MapListString = std::map<std::string, VectorString, std::less<>>;
 		MapListString mMapFile;
 
 		bool mIsInitialise;

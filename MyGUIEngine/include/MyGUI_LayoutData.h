@@ -48,7 +48,7 @@ namespace MyGUI
 		FloatCoord floatCoord;
 	};
 
-	typedef std::vector<WidgetInfo> VectorWidgetInfo;
+	using VectorWidgetInfo = std::vector<WidgetInfo>;
 
 } // namespace MyGUI
 

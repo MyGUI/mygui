@@ -12,7 +12,7 @@ namespace MyGUI
 	class GenericNode
 	{
 	public:
-		typedef std::vector<NODE*> VectorGenericNodePtr;
+		using VectorGenericNodePtr = std::vector<NODE*>;
 
 		GenericNode();
 		GenericNode(OWNER* pOwner);

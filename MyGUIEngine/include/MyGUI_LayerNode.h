@@ -16,8 +16,8 @@ namespace MyGUI
 {
 
 	class LayerItem;
-	typedef std::vector<RenderItem*> VectorRenderItem;
-	typedef std::vector<ILayerItem*> VectorLayerItem;
+	using VectorRenderItem = std::vector<RenderItem*>;
+	using VectorLayerItem = std::vector<ILayerItem*>;
 
 	class MYGUI_EXPORT LayerNode :
 		public ILayerNode

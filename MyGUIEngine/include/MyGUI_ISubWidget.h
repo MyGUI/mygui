@@ -19,7 +19,7 @@ namespace MyGUI
 {
 
 	class ISubWidget;
-	typedef std::vector<ISubWidget*> VectorSubWidget;
+	using VectorSubWidget = std::vector<ISubWidget*>;
 
 	class MYGUI_EXPORT ISubWidget :
 		public ICroppedRectangle,

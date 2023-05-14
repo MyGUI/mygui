@@ -42,7 +42,7 @@ namespace tools
 
 		PanelMainProperties* mPanelMainProperties;
 
-		typedef std::map<WidgetStyle*, PanelProperties*> MapPropertyWindow;
+		using MapPropertyWindow = std::map<WidgetStyle*, PanelProperties*>;
 		MapPropertyWindow mMapPropertyWindow;
 
 		PanelItems* mPanelItems;

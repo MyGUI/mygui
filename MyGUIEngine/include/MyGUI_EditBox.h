@@ -17,7 +17,7 @@
 namespace MyGUI
 {
 
-	typedef delegates::CMultiDelegate1<EditBox*> EventHandle_EditPtr;
+	using EventHandle_EditPtr = delegates::CMultiDelegate1<EditBox*>;
 
 	/** \brief @wpage{EditBox}
 		EditBox widget description should be here.

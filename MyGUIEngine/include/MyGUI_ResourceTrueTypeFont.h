@@ -124,13 +124,13 @@ namespace MyGUI
 
 	private:
 		// A map of code points to glyph indices.
-		typedef std::map<Char, FT_UInt> CharMap;
+		using CharMap = std::map<Char, FT_UInt>;
 
 		// A map of glyph indices to glyph info objects.
-		typedef std::unordered_map<Char, GlyphInfo> GlyphMap;
+		using GlyphMap = std::unordered_map<Char, GlyphInfo>;
 
 		// A map of glyph heights to the set of paired glyph indices and glyph info objects that are of that height.
-		typedef std::map<int, std::map<FT_UInt, GlyphInfo*> > GlyphHeightMap;
+		using GlyphHeightMap = std::map<int, std::map<FT_UInt, GlyphInfo*>>;
 
 		template<bool LAMode, bool Antialias>
 		void initialiseFreeType();

@@ -22,8 +22,8 @@ namespace tools
 		bool doMerge(Action* _action) override;
 
 	private:
-		typedef std::pair<PropertyPtr, std::string> PairProprty;
-		typedef std::vector<PairProprty> VectorPairProperty;
+		using PairProprty = std::pair<PropertyPtr, std::string>;
+		using VectorPairProperty = std::vector<PairProprty>;
 		void storeRegionValues(DataPtr _skinData, VectorPairProperty& _store);
 
 		void storeOldValues();

@@ -38,7 +38,7 @@ namespace tools
 
 	private:
 		DataPtr mCurrentData;
-		typedef std::vector<std::pair<std::string, PropertyControl*> > VectorPairControl;
+		using VectorPairControl = std::vector<std::pair<std::string, PropertyControl*>>;
 		VectorPairControl mPropertyControls;
 		int mDistance;
 		MyGUI::ScrollView* mScrollView;
