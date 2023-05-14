@@ -178,25 +178,11 @@ namespace demo
 		MyGUI::Widget* widget = get_random(all_widgets);
 		if (widget)
 		{
-			int select = random(3);
-			if (select == 0)
-			{
-				MyGUI::Widget* child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Child, get_skin(), get_coord(), MyGUI::Align::Default);
-				MYGUI_ASSERT(child, "child nullptr");
-				all_widgets.push_back(child);
-			}
-			else if (select == 1)
-			{
-				MyGUI::Widget* child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Popup, get_skin(), get_coord(), MyGUI::Align::Default, get_layer());
-				MYGUI_ASSERT(child, "child nullptr");
-				all_widgets.push_back(child);
-			}
-			else if (select == 2)
-			{
-				MyGUI::Widget* child = widget->createWidget<MyGUI::Widget>(MyGUI::WidgetStyle::Overlapped, get_skin(), get_coord(), MyGUI::Align::Default);
-				MYGUI_ASSERT(child, "child nullptr");
-				all_widgets.push_back(child);
-			}
+			auto type = get_type();
+			auto layer = type == MyGUI::WidgetStyle::Popup ? get_layer() : "";
+			MyGUI::Widget* child = widget->createWidget<MyGUI::Widget>(type, get_skin(), get_coord(), MyGUI::Align::Default, layer);
+			MYGUI_ASSERT(child, "child nullptr");
+			all_widgets.push_back(child);
 		}
 		else
 		{
@@ -322,6 +308,10 @@ namespace demo
 		}
 
 		getStatisticInfo()->change("COUNT", all_widgets.size());
+
+		// random clicking was causing a crash at some point
+		MyGUI::InputManager::getInstance().injectMousePress(100, 100, MyGUI::MouseButton::Left);
+		MyGUI::InputManager::getInstance().injectMouseRelease(100, 100, MyGUI::MouseButton::Left);
 
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		::Sleep(10);
