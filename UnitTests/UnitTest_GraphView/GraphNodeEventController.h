@@ -17,7 +17,7 @@ namespace demo
 		public BaseAnimationNode
 	{
 	public:
-		GraphNodeEventController(const std::string& _name) :
+		GraphNodeEventController(std::string_view _name) :
 			BaseAnimationNode("GraphNodeEvent.layout", "EventController", _name),
 			mConnectionOut(nullptr),
 			mButtonEvent(nullptr)

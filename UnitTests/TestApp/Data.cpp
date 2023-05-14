@@ -81,7 +81,7 @@ namespace tools
 		_child->mParent = nullptr;
 	}
 
-	const std::string& Data::getPropertyValue(const std::string& _name) const
+	const std::string& Data::getPropertyValue(std::string_view _name) const
 	{
 		MyGUI::MapString::const_iterator property = mProperties.find(_name);
 		MYGUI_ASSERT(property != mProperties.end(), "Property " << _name << " not found");
@@ -89,11 +89,11 @@ namespace tools
 		return (*property).second;
 	}
 	
-	void Data::setPropertyValue(const std::string& _name, const std::string& _value)
+	void Data::setPropertyValue(std::string_view _name, std::string_view _value)
 	{
 		MyGUI::MapString::iterator property = mProperties.find(_name);
 		MYGUI_ASSERT(property != mProperties.end(), "Property " << _name << " not found");
 
-		mProperties[_name] = _value;
+		property->second = _value;
 	}
 }

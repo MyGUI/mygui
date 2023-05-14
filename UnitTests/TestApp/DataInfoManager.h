@@ -27,7 +27,7 @@ namespace tools
 		void load(const std::string& _fileName);
 		void clear();
 
-		DataInfo* getData(const std::string& _type);
+		DataInfo* getData(std::string_view _type);
 
 	private:
 		static DataInfoManager* mInstance;

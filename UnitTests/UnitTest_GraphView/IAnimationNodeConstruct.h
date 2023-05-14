@@ -11,7 +11,7 @@ namespace animation
 	{
 	public:
 		virtual ~IAnimationNodeConstruct() { }
-		virtual IAnimationNode* create(const std::string& _name, IAnimationGraph* _holder) = 0;
+		virtual IAnimationNode* create(std::string_view _name, IAnimationGraph* _holder) = 0;
 	};
 
 	template <typename Type>
@@ -19,7 +19,7 @@ namespace animation
 		public IAnimationNodeConstruct
 	{
 	public:
-		IAnimationNode* create(const std::string& _name, IAnimationGraph* _holder) override
+		IAnimationNode* create(std::string_view _name, IAnimationGraph* _holder) override
 		{
 			return new Type(_name, _holder);
 		}

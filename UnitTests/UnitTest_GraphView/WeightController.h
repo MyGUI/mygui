@@ -16,7 +16,7 @@ namespace animation
 		{
 		}
 
-		WeightController(const std::string& _name, IAnimationGraph* _graph) :
+		WeightController(std::string_view _name, IAnimationGraph* _graph) :
 			IAnimationNode(_name, _graph)
 		{
 		}
@@ -25,12 +25,12 @@ namespace animation
 		{
 		}
 
-		void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
+		void addConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin) override
 		{
 			mConnection.addConnection(_eventout, _node, _eventin);
 		}
 
-		void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin) override
+		void removeConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin) override
 		{
 			mConnection.removeConnection(_eventout, _node, _eventin);
 		}

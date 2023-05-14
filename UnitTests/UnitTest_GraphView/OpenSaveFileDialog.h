@@ -39,7 +39,7 @@ namespace tools
 		void onEndModal() override;
 
 	private:
-		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name);
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name);
 		void notifyDirectoryComboAccept(MyGUI::ComboBox* _sender, size_t _index);
 		void notifyDirectoryComboChangePosition(MyGUI::ComboBox* _sender, size_t _index);
 		void notifyListChangePosition(MyGUI::ListBox* _sender, size_t _index);

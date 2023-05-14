@@ -17,8 +17,8 @@ namespace wraps
 		public BaseLayout
 	{
 	public:
-		BaseGraphNode(const std::string& _layout) :
-			BaseLayout("", nullptr),
+		BaseGraphNode(std::string_view _layout) :
+			BaseLayout({}, nullptr),
 			mLayout(_layout),
 			mView(nullptr)
 		{
@@ -41,7 +41,7 @@ namespace wraps
 			return false;
 		}
 
-		BaseGraphConnection* getConnectionByName(const std::string& _name, const std::string& _type = "")
+		BaseGraphConnection* getConnectionByName(std::string_view _name, std::string_view _type = {})
 		{
 			EnumeratorConnection point = getConnectionEnumerator();
 			while (point.next())
@@ -130,14 +130,14 @@ namespace wraps
 			mView->changePosition(this);
 		}
 
-		void notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
+		void notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name)
 		{
 			if (_name == "close")
 				mView->close(this);
 		}
 
 		template <typename T>
-		void assignBase(T * & _widget, const std::string& _name, bool _throw = true)
+		void assignBase(T * & _widget, std::string_view _name, bool _throw = true)
 		{
 			BaseLayout::assignBase<T>(_widget, _name, _throw);
 			mListConnection.push_back(_widget);

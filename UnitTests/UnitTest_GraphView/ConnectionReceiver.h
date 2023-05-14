@@ -23,12 +23,12 @@ namespace animation
 		{
 		}
 
-		void addConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
+		void addConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin)
 		{
-			mConnections.push_back(PairOut(_eventout, PairIn(_node, _eventin)));
+			mConnections.emplace_back(_eventout, PairIn(_node, _eventin));
 		}
 
-		void removeConnection(const std::string& _eventout, IAnimationNode* _node, const std::string& _eventin)
+		void removeConnection(std::string_view _eventout, IAnimationNode* _node, std::string_view _eventin)
 		{
 			for (VectorPairOut::iterator item = mConnections.begin(); item != mConnections.end(); ++item)
 			{
@@ -43,7 +43,7 @@ namespace animation
 			assert(!"connection not found");
 		}
 
-		void forceEvent(const std::string& _name, float _value = 0)
+		void forceEvent(std::string_view _name, float _value = 0)
 		{
 			for (VectorPairOut::iterator item = mConnections.begin(); item != mConnections.end(); ++item)
 			{

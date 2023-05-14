@@ -17,7 +17,7 @@ namespace demo
 		public BaseAnimationNode
 	{
 	public:
-		GraphNodeWeightController(const std::string& _name) :
+		GraphNodeWeightController(std::string_view _name) :
 			BaseAnimationNode("GraphNodeWeight.layout", "WeightController", _name),
 			mConnectionOut(nullptr),
 			mEditPosition(nullptr),
@@ -26,7 +26,7 @@ namespace demo
 		{
 		}
 
-		void addConnection(const std::string& _eventout, BaseAnimationNode* _node, const std::string& _eventin) override
+		void addConnection(std::string_view _eventout, BaseAnimationNode* _node, std::string_view _eventin) override
 		{
 			BaseAnimationNode::addConnection(_eventout, _node, _eventin);
 			onChangePosition(mPosition);

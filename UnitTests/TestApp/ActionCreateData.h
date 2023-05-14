@@ -22,7 +22,7 @@ namespace tools
 		virtual void doAction();
 		virtual void undoAction();
 
-		void setName(const std::string& _value);
+		void setName(std::string_view _value);
 
 	private:
 		std::string mName;

@@ -26,7 +26,7 @@ namespace MyGUI
 
 		void setCaption(const UString& _value);
 
-		void addItem(const std::string& _value);
+		void addItem(std::string_view _value);
 
 		size_t getItemsCount() const;
 
@@ -62,11 +62,11 @@ namespace MyGUI
 
 	/*events:*/
 		/** Event : Click to Url.\n
-			signature : void method(MyGUI::HyperTextBox* _sender, const std::string& _url)
+			signature : void method(MyGUI::HyperTextBox* _sender, std::string_view _url)
 			@param _sender widget that called this event
 			@param _url
 		*/
-		delegates::CMultiDelegate2<HyperTextBox*, const std::string&> eventUrlClick;
+		delegates::CMultiDelegate2<HyperTextBox*, std::string_view> eventUrlClick;
 
 	protected:
 		void initialiseOverride() override;
@@ -75,9 +75,9 @@ namespace MyGUI
 		void setPropertyOverride(std::string_view _key, std::string_view _value) override;
 
 	private:
-		void parseParagraph(Widget* _parent, const std::string& _value);
-		void parseText(Widget* _parent, const std::string& _value);
-		void parseTag(const std::string& _value);
+		void parseParagraph(Widget* _parent, std::string_view _value);
+		void parseText(Widget* _parent, std::string_view _value);
+		void parseTag(std::string_view _value);
 
 		void OnTextLostFocus(Widget* _sender, Widget* _new);
 		void OnTextSetFocus(Widget* _sender, Widget* _old);

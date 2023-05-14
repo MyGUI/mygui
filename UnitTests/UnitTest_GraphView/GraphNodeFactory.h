@@ -12,12 +12,12 @@ namespace demo
 		GraphNodeFactory();
 		~GraphNodeFactory();
 
-		BaseAnimationNode* createNode(const std::string& _type, const std::string& _name);
+		BaseAnimationNode* createNode(std::string_view _type, std::string_view _name);
 
-		void addConstruct(const std::string& _type, IGraphNodeConstruct* _construct);
+		void addConstruct(std::string_view _type, IGraphNodeConstruct* _construct);
 
 	private:
-		typedef std::map<std::string, IGraphNodeConstruct*> MapConstruct;
+		typedef std::map<std::string, IGraphNodeConstruct*, std::less<>> MapConstruct;
 		MapConstruct mConstructs;
 
 	};

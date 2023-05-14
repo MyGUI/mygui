@@ -45,7 +45,7 @@ namespace tools
 		update();
 	}
 
-	void OpenSaveFileDialog::notifyWindowButtonPressed(MyGUI::Window* _sender, const std::string& _name)
+	void OpenSaveFileDialog::notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name)
 	{
 		if (_name == "close")
 			eventEndDialog(this, false);

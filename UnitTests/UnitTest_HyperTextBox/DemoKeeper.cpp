@@ -68,7 +68,7 @@ namespace demo
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::WrapPanel>(category);
 	}
 
-	void DemoKeeper::OnClickUrl(MyGUI::HyperTextBox* _sender, const std::string& _url)
+	void DemoKeeper::OnClickUrl(MyGUI::HyperTextBox* _sender, std::string_view _url)
 	{
 	}
 

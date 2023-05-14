@@ -48,7 +48,7 @@ namespace tools
 		mComplete = false;
 	}
 
-	void ActionCreateData::setName(const std::string& _value)
+	void ActionCreateData::setName(std::string_view _value)
 	{
 		mName = _value;
 	}

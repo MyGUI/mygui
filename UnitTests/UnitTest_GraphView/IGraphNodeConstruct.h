@@ -10,7 +10,7 @@ namespace demo
 	{
 	public:
 		virtual ~IGraphNodeConstruct() { }
-		virtual BaseAnimationNode* create(const std::string& _name) = 0;
+		virtual BaseAnimationNode* create(std::string_view _name) = 0;
 	};
 
 	template <typename Type>
@@ -18,7 +18,7 @@ namespace demo
 		public IGraphNodeConstruct
 	{
 	public:
-		BaseAnimationNode* create(const std::string& _name) override
+		BaseAnimationNode* create(std::string_view _name) override
 		{
 			return new Type(_name);
 		}

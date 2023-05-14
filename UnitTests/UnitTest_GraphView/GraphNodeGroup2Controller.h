@@ -16,7 +16,7 @@ namespace demo
 		public BaseAnimationNode
 	{
 	public:
-		GraphNodeGroup2Controller(const std::string& _name) :
+		GraphNodeGroup2Controller(std::string_view _name) :
 			BaseAnimationNode("GraphNodeGroup2Controller.layout", "Group2Controller", _name),
 			mStart1In(nullptr),
 			mStart2In(nullptr),

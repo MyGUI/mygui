@@ -9,13 +9,13 @@
 namespace unittest
 {
 
-	void BiIndexData::insertItemAt(size_t _index, const std::string& _name, size_t _data)
+	void BiIndexData::insertItemAt(size_t _index, std::string_view _name, size_t _data)
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "BiIndexData::insertItemAt");
 		if (_index == MyGUI::ITEM_NONE) _index = mItemsInfo.size();
 
 		size_t index = BiIndexBase::insertItemAt(_index);
-		mItemsInfo.insert(mItemsInfo.begin() + index, _name);
+		mItemsInfo.emplace(mItemsInfo.begin() + index, _name);
 	}
 
 	void BiIndexData::removeItemAt(size_t _index)
