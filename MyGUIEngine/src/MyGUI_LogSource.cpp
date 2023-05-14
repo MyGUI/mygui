@@ -45,7 +45,7 @@ namespace MyGUI
 			(*listener)->flush();
 	}
 
-	void LogSource::log(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line)
+	void LogSource::log(std::string_view _section, LogLevel _level, const struct tm* _time, std::string_view _message, std::string_view _file, int _line)
 	{
 		if (mFilter != nullptr)
 		{

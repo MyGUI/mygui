@@ -31,7 +31,7 @@ namespace MyGUI
 		mLogManager = nullptr;
 	}
 
-	void ExportPlatform::initialise(const std::string& _logName)
+	void ExportPlatform::initialise(std::string_view _logName)
 	{
 		if (!_logName.empty())
 			LogManager::getInstance().createDefaultSource(_logName);

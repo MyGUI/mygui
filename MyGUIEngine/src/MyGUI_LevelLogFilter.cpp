@@ -15,7 +15,7 @@ namespace MyGUI
 	{
 	}
 
-	bool LevelLogFilter::shouldLog(const std::string& _section, LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line)
+	bool LevelLogFilter::shouldLog(std::string_view, LogLevel _level, const struct tm*, std::string_view, std::string_view, int)
 	{
 		return mLevel <= _level;
 	}

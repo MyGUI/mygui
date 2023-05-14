@@ -61,7 +61,7 @@ namespace MyGUI
 			(*item)->flush();
 	}
 
-	void LogManager::log(const std::string& _section, LogLevel _level, const std::string& _message, const char* _file, int _line)
+	void LogManager::log(std::string_view _section, LogLevel _level, std::string_view _message, std::string_view _file, int _line)
 	{
 		time_t ctTime;
 		time(&ctTime);
@@ -83,7 +83,7 @@ namespace MyGUI
 		mSources.push_back(_source);
 	}
 
-	void LogManager::createDefaultSource(const std::string& _logname)
+	void LogManager::createDefaultSource(std::string_view _logname)
 	{
 		mDefaultSource = new LogSource();
 

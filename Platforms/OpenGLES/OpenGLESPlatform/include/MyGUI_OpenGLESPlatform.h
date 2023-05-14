@@ -16,7 +16,7 @@ namespace MyGUI
 		OpenGLESPlatform();
 		~OpenGLESPlatform();
 
-		void initialise(OpenGLESImageLoader* _loader, const std::string& _logName = MYGUI_PLATFORM_LOG_FILENAME);
+		void initialise(OpenGLESImageLoader* _loader, std::string_view _logName = MYGUI_PLATFORM_LOG_FILENAME);
 		void shutdown();
 
 		OpenGLESRenderManager* getRenderManagerPtr() const;

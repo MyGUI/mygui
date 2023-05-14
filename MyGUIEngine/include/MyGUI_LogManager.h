@@ -35,10 +35,10 @@ namespace MyGUI
 		/** Call LogSource::flush() for all log sources. */
 		void flush();
 		/** Call LogSource::log for all log sources. */
-		void log(const std::string& _section, LogLevel _level, const std::string& _message, const char* _file, int _line);
+		void log(std::string_view _section, LogLevel _level, std::string_view _message, std::string_view _file, int _line);
 
 		/** Create default LevelLogFilter, FileLogListener and ConsoleLogListener. */
-		void createDefaultSource(const std::string& _logname);
+		void createDefaultSource(std::string_view _logname);
 
 		/** Enable or disable default ConsoleLogListener that writes log into std::cout.\n
 			Enabled (true) by default.
