@@ -161,7 +161,7 @@ namespace common
 				struct stat fInfo;
 				std::string path = MyGUI::UString(_folder).asUTF8() + "/" + dp->d_name;
 				if (stat(path.c_str(), &fInfo) == -1)perror("stat");
-				_result.push_back(FileInfo(MyGUI::UString(dp->d_name).asWStr(), (S_ISDIR(fInfo.st_mode))));
+				_result.push_back(FileInfo(MyGUI::UString(dp->d_name).asWStr_c_str(), (S_ISDIR(fInfo.st_mode))));
 			}
 		}
 
@@ -184,7 +184,7 @@ namespace common
 #		define PATH_MAX 256
 #	endif
 		char buff[PATH_MAX+1];
-		return getcwd(buff, PATH_MAX) ? MyGUI::UString(buff).asWStr() : std::wstring();
+		return getcwd(buff, PATH_MAX) ? MyGUI::UString(buff).asWStr_c_str() : std::wstring();
 #endif
 	}
 

@@ -187,7 +187,7 @@ namespace base
 		MyGUI::xml::Document doc;
 
 		if (!doc.open(std::string("resources.xml")))
-			doc.getLastError();
+			MYGUI_LOG(Warning, "Failed to load resources.xml: " << doc.getLastError());
 
 		MyGUI::xml::ElementPtr root = doc.getRoot();
 		if (root == nullptr || root->getName() != "Paths")
