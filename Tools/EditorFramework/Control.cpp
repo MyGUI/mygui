@@ -70,10 +70,10 @@ namespace tools
 	{
 		AdviceWidget(_widget);
 
-		const std::string& controlType = _widget->getUserString("ControlType");
+		std::string_view controlType = _widget->getUserString("ControlType");
 		if (!controlType.empty())
 		{
-			const std::string& controlLayout = _widget->getUserString("ControlLayout");
+			std::string_view controlLayout = _widget->getUserString("ControlLayout");
 
 			Control* control = components::FactoryManager::GetInstance().CreateItem<Control>(controlType);
 			if (control != nullptr)
@@ -89,7 +89,7 @@ namespace tools
 
 	void Control::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
-		CommandManager::getInstance().executeCommand(_sender->getUserString("CommandClick"));
+		CommandManager::getInstance().executeCommand(MyGUI::UString(_sender->getUserString("CommandClick")));
 	}
 
 	const Control::VectorControl& Control::getChilds() const
@@ -100,13 +100,13 @@ namespace tools
 	void Control::notifyTabChangeSelect(MyGUI::TabControl* _sender, size_t _index)
 	{
 		if (_index != MyGUI::ITEM_NONE)
-			CommandManager::getInstance().executeCommand(_sender->getItemAt(_index)->getUserString("CommandActivate"));
+			CommandManager::getInstance().executeCommand(MyGUI::UString(_sender->getItemAt(_index)->getUserString("CommandActivate")));
 	}
 
 	void Control::notifyWindowButtonPressed(MyGUI::Window* _sender, std::string_view _name)
 	{
 		if (_name == "close")
-			CommandManager::getInstance().executeCommand(_sender->getUserString("CommandClose"));
+			CommandManager::getInstance().executeCommand(MyGUI::UString(_sender->getUserString("CommandClose")));
 	}
 
 	void Control::AdviceWidget(MyGUI::Widget* _widget)
@@ -149,7 +149,7 @@ namespace tools
 
 	void Control::notifyEditSelectAccept(MyGUI::EditBox* _sender)
 	{
-		CommandManager::getInstance().executeCommand(_sender->getUserString("CommandAccept"));
+		CommandManager::getInstance().executeCommand(MyGUI::UString(_sender->getUserString("CommandAccept")));
 	}
 
 	MyGUI::Widget* Control::CreateFakeWidgetT(std::string_view _typeName, MyGUI::Widget* _parent)
@@ -162,7 +162,7 @@ namespace tools
 
 	void Control::CreateControllers()
 	{
-		const std::string& controllers = mMainWidget->getUserString("ControlControllers");
+		std::string_view controllers = mMainWidget->getUserString("ControlControllers");
 		if (!controllers.empty())
 		{
 			std::vector<std::string> values = MyGUI::utility::split(controllers, "\t\n ,");

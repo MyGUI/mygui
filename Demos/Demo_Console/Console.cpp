@@ -22,11 +22,11 @@ namespace demo
 		MyGUI::Window* window = mMainWidget->castType<MyGUI::Window>(false);
 		if (window != nullptr) window->eventWindowButtonPressed += newDelegate(this, &Console::notifyWindowButtonPressed);
 
-		mStringCurrent = mMainWidget->getUserString("Current");
-		mStringError = mMainWidget->getUserString("Error");
-		mStringSuccess = mMainWidget->getUserString("Success");
-		mStringUnknow = mMainWidget->getUserString("Unknown");
-		mStringFormat = mMainWidget->getUserString("Format");
+		mStringCurrent.assign(mMainWidget->getUserString("Current"));
+		mStringError.assign(mMainWidget->getUserString("Error"));
+		mStringSuccess.assign(mMainWidget->getUserString("Success"));
+		mStringUnknow.assign(mMainWidget->getUserString("Unknown"));
+		mStringFormat.assign(mMainWidget->getUserString("Format"));
 
 		mAutocomleted = false;
 

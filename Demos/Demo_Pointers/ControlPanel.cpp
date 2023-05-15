@@ -25,7 +25,7 @@ namespace demo
 	void ControlPanel::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
 		MyGUI::Button* button = _sender->castType<MyGUI::Button>();
-		const std::string& context = button->getUserString("Context");
+		std::string_view context = button->getUserString("Context");
 
 		bool pressed = button->getStateSelected();
 		button->setStateSelected(!pressed);

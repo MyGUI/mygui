@@ -21,12 +21,12 @@ namespace MyGUI
 	}
 
 	/** Get user string or "" if not found */
-	const std::string& UserData::getUserString(std::string_view _key) const
+	std::string_view UserData::getUserString(std::string_view _key) const
 	{
 		MapString::const_iterator iter = mMapUserString.find(_key);
 		if (iter != mMapUserString.end())
 			return iter->second;
-		return Constants::getEmptyString();
+		return {};
 	}
 
 	const MapString& UserData::getUserStrings() const

@@ -38,7 +38,7 @@ namespace MyGUI
 		/** Set widget text font */
 		virtual void setFontName(std::string_view _value);
 		/** Get widget text font name */
-		const std::string& getFontName() const;
+		std::string_view getFontName() const;
 
 		/** Set widget text font height */
 		virtual void setFontHeight(int _value);

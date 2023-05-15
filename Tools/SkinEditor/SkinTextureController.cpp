@@ -126,7 +126,7 @@ namespace tools
 				mParentData = nullptr;
 
 				// мы еще владельцы контрола сбрасываем его
-				std::string value = mControl->getRoot()->getUserString("CurrentScopeController");
+				std::string_view value = mControl->getRoot()->getUserString("CurrentScopeController");
 				if (value == mScopeName)
 				{
 					mControl->getRoot()->setUserString("CurrentScopeController", std::string_view{});

@@ -131,9 +131,9 @@ namespace MyGUI
 		}
 
 		virtual void setFontName(std::string_view /*_value*/) { }
-		virtual const std::string& getFontName() const
+		virtual std::string_view getFontName() const
 		{
-			return Constants::getEmptyString();
+			return {};
 		}
 
 		virtual void setFontHeight(int /*_value*/) { }

@@ -75,7 +75,7 @@ namespace MyGUI
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
-		return ImageIndexInfo(Constants::getEmptyString(), Constants::getZeroIntSize(), 0, mFramesEmpty);
+		return ImageIndexInfo(std::string_view{}, Constants::getZeroIntSize(), 0, mFramesEmpty);
 	}
 
 	ImageIndexInfo ResourceImageSet::getIndexInfo(size_t _group, std::string_view _index) const
@@ -90,7 +90,7 @@ namespace MyGUI
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
-		return ImageIndexInfo(Constants::getEmptyString(), Constants::getZeroIntSize(), 0, mFramesEmpty);
+		return ImageIndexInfo(std::string_view{}, Constants::getZeroIntSize(), 0, mFramesEmpty);
 	}
 
 	ImageIndexInfo ResourceImageSet::getIndexInfo(std::string_view _group, size_t _index) const
@@ -105,7 +105,7 @@ namespace MyGUI
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
-		return ImageIndexInfo(Constants::getEmptyString(), Constants::getZeroIntSize(), 0, mFramesEmpty);
+		return ImageIndexInfo(std::string_view{}, Constants::getZeroIntSize(), 0, mFramesEmpty);
 	}
 
 	ImageIndexInfo ResourceImageSet::getIndexInfo(size_t _group, size_t _index) const
@@ -119,7 +119,7 @@ namespace MyGUI
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
-		return ImageIndexInfo(Constants::getEmptyString(), Constants::getZeroIntSize(), 0, mFramesEmpty);
+		return ImageIndexInfo(std::string_view{}, Constants::getZeroIntSize(), 0, mFramesEmpty);
 	}
 
 	ImageIndexInfo ResourceImageSet::getIndexInfo(const IntSize& _group, size_t _index) const
@@ -134,7 +134,7 @@ namespace MyGUI
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
-		return ImageIndexInfo(Constants::getEmptyString(), Constants::getZeroIntSize(), 0, mFramesEmpty);
+		return ImageIndexInfo(std::string_view{}, Constants::getZeroIntSize(), 0, mFramesEmpty);
 	}
 
 	ImageIndexInfo ResourceImageSet::getIndexInfo(const IntSize& _group, std::string_view _index) const
@@ -150,7 +150,7 @@ namespace MyGUI
 				return ImageIndexInfo(group.texture, group.size, index.rate, index.frames);
 			}
 		}
-		return ImageIndexInfo(Constants::getEmptyString(), Constants::getZeroIntSize(), 0, mFramesEmpty);
+		return ImageIndexInfo(std::string_view{}, Constants::getZeroIntSize(), 0, mFramesEmpty);
 	}
 
 	size_t ResourceImageSet::getGroupIndex(std::string_view _name) const

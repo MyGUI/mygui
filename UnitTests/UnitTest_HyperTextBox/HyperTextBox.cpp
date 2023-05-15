@@ -478,7 +478,7 @@ namespace MyGUI
 
 	void HyperTextBox::OnTextClick(Widget* _sender)
 	{
-		std::string url = _sender->getUserString("URL");
+		std::string_view url = _sender->getUserString("URL");
 		eventUrlClick(this, url);
 	}
 

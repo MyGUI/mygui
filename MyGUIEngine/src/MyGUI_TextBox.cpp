@@ -56,10 +56,10 @@ namespace MyGUI
 			getSubWidgetText()->setFontName(_value);
 	}
 
-	const std::string& TextBox::getFontName() const
+	std::string_view TextBox::getFontName() const
 	{
 		if (nullptr == getSubWidgetText())
-			return Constants::getEmptyString();
+			return {};
 		return getSubWidgetText()->getFontName();
 	}
 

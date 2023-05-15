@@ -52,8 +52,8 @@ namespace MyGUI
 
 		if (mList == nullptr)
 		{
-			const std::string& list_skin = getUserString("ListSkin");
-			const std::string& list_layer = getUserString("ListLayer");
+			std::string_view list_skin = getUserString("ListSkin");
+			std::string_view list_layer = getUserString("ListLayer");
 
 			mList = static_cast<ListBox*>(_createSkinWidget(WidgetStyle::Popup, ListBox::getClassTypeName(), list_skin, IntCoord(), Align::Default, list_layer));
 		}

@@ -269,7 +269,7 @@ namespace MyGUI
 			mNode->outOfDate(mRenderItem);
 	}
 
-	const std::string& EditText::getFontName() const
+	std::string_view EditText::getFontName() const
 	{
 		return mFont->getResourceName();
 	}

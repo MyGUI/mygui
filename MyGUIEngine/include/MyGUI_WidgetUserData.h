@@ -23,7 +23,7 @@ namespace MyGUI
 		void setUserString(std::string_view _key, std::string_view _value);
 
 		/** Get user string or "" if not found */
-		const std::string& getUserString(std::string_view _key) const;
+		std::string_view getUserString(std::string_view _key) const;
 
 		/** Get map of all user strings */
 		const MapString& getUserStrings() const;

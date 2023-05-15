@@ -31,7 +31,7 @@ namespace demo
 		MyGUI::Button* button = _widget->castType<MyGUI::Button>(false);
 		if (button != nullptr)
 		{
-			const std::string& event = button->getUserString("Event");
+			std::string_view event = button->getUserString("Event");
 			if (!event.empty())
 				button->eventMouseButtonClick += MyGUI::newDelegate(this, &DataListUI::notifyMouseButtonClick);
 		}
@@ -42,7 +42,7 @@ namespace demo
 
 	void DataListUI::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
-		const std::string& event = _sender->getUserString("Event");
+		std::string_view event = _sender->getUserString("Event");
 
 		if (event == "Undo")
 		{

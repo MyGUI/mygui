@@ -169,13 +169,13 @@ namespace wraps
 	private:
 		std::string FindParentPrefix(MyGUI::Widget* _parent)
 		{
-			std::string prefix = _parent->getUserString("BaseLayoutPrefix");
+			std::string prefix{_parent->getUserString("BaseLayoutPrefix")};
 			if (!prefix.empty())
 				return prefix;
 			if (_parent->getParent() != nullptr)
 				return FindParentPrefix(_parent->getParent());
 
-			return {};
+			return prefix;
 		}
 
 		void snapToParent(MyGUI::Widget* _child)

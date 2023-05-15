@@ -563,7 +563,7 @@ namespace MyGUI
 		}
 		else if (_widget->isUserString("Action"))
 		{
-			const std::string& action = _widget->getUserString("Action");
+			std::string_view action = _widget->getUserString("Action");
 			if (action == "Move")
 			{
 				if (mMovable)
