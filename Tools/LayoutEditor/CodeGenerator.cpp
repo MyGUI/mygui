@@ -120,10 +120,10 @@ namespace tools
 	void CodeGenerator::notifyGeneratePressed(MyGUI::Widget* _sender)
 	{
 		MyGUI::LanguageManager& lm = MyGUI::LanguageManager::getInstance();
-		std::string panelName = mPanelNameEdit->getOnlyText();
-		std::string panelNamespace = mPanelNamespaceEdit->getOnlyText();
-		std::string includeDirectory = mIncludeDirectoryEdit->getOnlyText();
-		std::string sourceDirectory = mSourceDirectoryEdit->getOnlyText();
+		MyGUI::UString panelName = mPanelNameEdit->getOnlyText();
+		MyGUI::UString panelNamespace = mPanelNamespaceEdit->getOnlyText();
+		MyGUI::UString includeDirectory = mIncludeDirectoryEdit->getOnlyText();
+		MyGUI::UString sourceDirectory = mSourceDirectoryEdit->getOnlyText();
 
 		if (panelName.empty() || mPanelNameEdit->getCaption() == ("#FF0000" + replaceTags("Error")))
 		{

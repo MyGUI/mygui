@@ -11,8 +11,8 @@ namespace tools
 {
 	MYGUI_SINGLETON_DEFINITION(EditorWidgets);
 
-	const std::string LogSection = "LayoutEditor";
-	const std::string CodeGeneratorSettingsNodeName = "CodeGeneratorSettings";
+	const std::string_view LogSection = "LayoutEditor";
+	const std::string_view CodeGeneratorSettingsNodeName = "CodeGeneratorSettings";
 
 	EditorWidgets::EditorWidgets() :
 		mWidgetsChanged(false),
@@ -229,13 +229,10 @@ namespace tools
 	{
 		MyGUI::xml::ElementPtr root = doc->getRoot();
 
-		std::string type;
-		if (root->findAttribute("type", type))
+		std::string_view type = root->findAttribute("type");
+		if (type == "Layout")
 		{
-			if (type == "Layout")
-			{
-				loadWidgetsFromXmlNode(root, _testMode);
-			}
+			loadWidgetsFromXmlNode(root, _testMode);
 		}
 		mWidgetsChanged = true;
 	}
@@ -783,10 +780,10 @@ namespace tools
 		MyGUI::xml::ElementEnumerator widget = _sectorNode->getElementEnumerator();
 		while (widget.next())
 		{
-			std::string key, value;
-
 			if (widget->getName() == "Property")
 			{
+				std::string key, value;
+
 				// парсим атрибуты
 				if (!widget->findAttribute("key", key))
 					continue;

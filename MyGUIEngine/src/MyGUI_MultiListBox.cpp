@@ -35,8 +35,6 @@ namespace MyGUI
 	{
 		Base::initialiseOverride();
 
-		std::string skinButtonEmpty;
-
 		if (isUserString("SkinButton"))
 			mSkinButton = getUserString("SkinButton");
 
@@ -63,6 +61,7 @@ namespace MyGUI
 
 		if (mWidgetEmpty == nullptr)
 		{
+			std::string_view skinButtonEmpty;
 			if (isUserString("SkinButtonEmpty"))
 				skinButtonEmpty = getUserString("SkinButtonEmpty");
 
@@ -451,7 +450,7 @@ namespace MyGUI
 		// вставляем во все поля пустые, а потом присваиваем первому
 		for (VectorColumnInfo::iterator iter = mVectorColumnInfo.begin(); iter != mVectorColumnInfo.end(); ++iter)
 		{
-			(*iter).list->insertItemAt(index, "");
+			(*iter).list->insertItemAt(index, UString());
 		}
 		mVectorColumnInfo.front().list->setItemNameAt(index, _name);
 		mVectorColumnInfo.front().list->setItemDataAt(index, _data);
@@ -605,7 +604,7 @@ namespace MyGUI
 		if (_column == ITEM_NONE)
 			_column = mVectorColumnInfo.size();
 
-		createWidget<MultiListItem>("", IntCoord(), Align::Default);
+		createWidget<MultiListItem>(std::string_view{}, IntCoord(), Align::Default);
 
 		mVectorColumnInfo.back().width = _width;
 		mVectorColumnInfo.back().sizeType = ResizingPolicy::Fixed;
@@ -720,7 +719,7 @@ namespace MyGUI
 		{
 			size_t count = mVectorColumnInfo.front().list->getItemCount();
 			for (size_t pos = 0; pos < count; ++pos)
-				column.list->addItem("");
+				column.list->addItem(UString());
 		}
 
 		mVectorColumnInfo.push_back(column);

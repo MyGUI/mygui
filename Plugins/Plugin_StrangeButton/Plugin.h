@@ -34,7 +34,7 @@ namespace plugin
 		const std::string& getName() const override;
 
 	private:
-		static const std::string LogSection;
+		static const std::string_view LogSection;
 	};
 
 } // namespace plugin

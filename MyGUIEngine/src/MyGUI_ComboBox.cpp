@@ -52,8 +52,8 @@ namespace MyGUI
 
 		if (mList == nullptr)
 		{
-			std::string list_skin = getUserString("ListSkin");
-			std::string list_layer = getUserString("ListLayer");
+			const std::string& list_skin = getUserString("ListSkin");
+			const std::string& list_layer = getUserString("ListLayer");
 
 			mList = static_cast<ListBox*>(_createSkinWidget(WidgetStyle::Popup, ListBox::getClassTypeName(), list_skin, IntCoord(), Align::Default, list_layer));
 		}
@@ -129,7 +129,7 @@ namespace MyGUI
 	void ComboBox::notifyListSelectAccept(ListBox* _widget, size_t _position)
 	{
 		mItemIndex = _position;
-		Base::setCaption(mItemIndex != ITEM_NONE ? mList->getItemNameAt(mItemIndex) : "");
+		Base::setCaption(mItemIndex != ITEM_NONE ? mList->getItemNameAt(mItemIndex) : UString());
 
 		mDropMouse = false;
 		InputManager::getInstance().setKeyFocusWidget(this);
@@ -178,7 +178,7 @@ namespace MyGUI
 	void ComboBox::notifyListMouseItemActivate(ListBox* _widget, size_t _position)
 	{
 		mItemIndex = _position;
-		Base::setCaption(mItemIndex != ITEM_NONE ? mList->getItemNameAt(mItemIndex) : "");
+		Base::setCaption(mItemIndex != ITEM_NONE ? mList->getItemNameAt(mItemIndex) : UString());
 
 		InputManager::getInstance().setKeyFocusWidget(this);
 

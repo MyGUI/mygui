@@ -22,7 +22,7 @@ namespace tools
 		CommandManager::getInstance().getEvent("Command_CloneFrameData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandCloneData);
 		CommandManager::getInstance().getEvent("Command_DestroyFrameData")->connect(static_cast<DataListBaseControl*>(this), &DataListBaseControl::commandDestroyData);
 
-		setDataInfo("Index", "Frame", "Point", "");
+		setDataInfo("Index", "Frame", "Point", std::string_view{});
 	}
 
 }

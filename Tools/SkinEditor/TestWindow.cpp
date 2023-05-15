@@ -134,7 +134,7 @@ namespace tools
 		docLoad.open(mTestSkinFileName);
 		MyGUI::xml::Element* resourceNode = docLoad.getRoot();
 
-		MyGUI::ResourceManager::getInstance().loadFromXmlNode(resourceNode, "", MyGUI::Version(1, 1, 0));
+		MyGUI::ResourceManager::getInstance().loadFromXmlNode(resourceNode, std::string_view{}, MyGUI::Version(1, 1, 0));
 	}
 
 }

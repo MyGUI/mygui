@@ -50,8 +50,8 @@ namespace demo
 			return;
 		mFocus = focus;
 
-		const std::string tag = "Info";
-		std::string info;
+		const std::string_view tag = "Info";
+		std::string_view info;
 		if (mFocus != nullptr)
 		{
 			while (true)
@@ -69,7 +69,7 @@ namespace demo
 			}
 		}
 
-		mInfo->setCaption(info);
+		mInfo->setCaption(MyGUI::UString(info));
 	}
 
 } // namespace demo

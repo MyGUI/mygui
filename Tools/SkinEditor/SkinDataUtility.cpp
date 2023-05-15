@@ -203,7 +203,7 @@ namespace tools
 			if ((*child)->getType()->getName() != "Separator")
 				continue;
 
-			std::string name = (*child)->getPropertyValue("Name");
+			const std::string& name = (*child)->getPropertyValue("Name");
 			int offset = (*child)->getPropertyValue<int>("Offset");
 			bool visible = (*child)->getPropertyValue<bool>("Visible");
 			if (!visible)
@@ -231,7 +231,7 @@ namespace tools
 			if ((*child)->getType()->getName() != "Region")
 				continue;
 
-			std::string name = (*child)->getPropertyValue("Name");
+			const std::string& name = (*child)->getPropertyValue("Name");
 
 			if (name == names[RegionLeftTop])
 				(*child)->setPropertyValue("Coord", _value[RegionLeftTop]);
@@ -263,7 +263,7 @@ namespace tools
 			if ((*child)->getType()->getName() != "Separator")
 				continue;
 
-			std::string name = (*child)->getPropertyValue("Name");
+			const std::string& name = (*child)->getPropertyValue("Name");
 			bool visible = (*child)->getPropertyValue<bool>("Visible");
 
 			if (name == "Left")
@@ -288,7 +288,7 @@ namespace tools
 			if ((*child)->getType()->getName() != "Region")
 				continue;
 
-			std::string name = (*child)->getPropertyValue("Name");
+			const std::string& name = (*child)->getPropertyValue("Name");
 
 			if (name == names[RegionLeftTop])
 				(*child)->setPropertyValue("Enable", _value.left && _value.top);

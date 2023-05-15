@@ -23,7 +23,7 @@ namespace wraps
 
 	public:
 		BaseItemBox(MyGUI::Widget* _parent) :
-			BaseLayout("", _parent)
+			BaseLayout(std::string_view{}, _parent)
 		{
 			mBoxItems = mMainWidget->castType<MyGUI::ItemBox>();
 			mBoxItems->setUserData(static_cast<BaseLayout*>(this));

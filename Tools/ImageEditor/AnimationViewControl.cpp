@@ -98,7 +98,7 @@ namespace tools
 
 	void AnimationViewControl::rebuildAnimations()
 	{
-		mAnimation.setTextureName("");
+		mAnimation.setTextureName(std::string_view{});
 		mAnimation.clearFrames();
 		mCurrentFrame = 0;
 		mTime = 0;

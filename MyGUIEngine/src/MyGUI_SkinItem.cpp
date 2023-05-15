@@ -87,7 +87,7 @@ namespace MyGUI
 
 		setRenderItemTexture(mTexture);
 
-		std::string categoryName = SubWidgetManager::getInstance().getCategoryName();
+		const std::string& categoryName = SubWidgetManager::getInstance().getCategoryName();
 		// загружаем кирпичики виджета
 		FactoryManager& factory = FactoryManager::getInstance();
 		for (VectorSubWidgetInfo::const_iterator iter = _info->getBasisInfo().begin(); iter != _info->getBasisInfo().end(); ++iter)

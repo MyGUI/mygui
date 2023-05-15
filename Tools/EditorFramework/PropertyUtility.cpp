@@ -17,7 +17,7 @@ namespace tools
 	bool PropertyUtility::isUniqueName(DataPtr _data, std::string_view _propertyName)
 	{
 		DataPtr parent = _data->getParent();
-		std::string name = _data->getPropertyValue(_propertyName);
+		const std::string& name = _data->getPropertyValue(_propertyName);
 
 		const Data::VectorData& childs = parent->getChilds();
 		for (Data::VectorData::const_iterator child = childs.begin(); child != childs.end(); child++)
@@ -34,7 +34,7 @@ namespace tools
 		if (_property->getValue() == _value)
 			return;
 
-		std::string actionName = _property->getType()->getAction();
+		const std::string& actionName = _property->getType()->getAction();
 
 		ActionChangeDataProperty* action = components::FactoryManager::GetInstance().CreateItem<ActionChangeDataProperty>(actionName);
 		if (action != nullptr)

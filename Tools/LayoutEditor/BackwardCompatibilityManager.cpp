@@ -138,7 +138,7 @@ namespace tools
 
 	void BackwardCompatibilityManager::serialiseProperty(MyGUI::xml::Element* _node, std::string_view _widgetType, const MyGUI::PairString& _property, bool _compatibility)
 	{
-		std::string propertyName = _property.first;
+		std::string_view propertyName = _property.first;
 
 		if (_compatibility && getDefaultVersion() != getCurrentVersion())
 		{

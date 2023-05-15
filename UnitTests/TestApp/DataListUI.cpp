@@ -18,7 +18,7 @@ namespace demo
 	{
 		initialiseByAttributes(this);
 
-		mTextBox->setCaption("");
+		mTextBox->setCaption(MyGUI::UString());
 
 		bindEvents(mMainWidget);
 
@@ -31,8 +31,8 @@ namespace demo
 		MyGUI::Button* button = _widget->castType<MyGUI::Button>(false);
 		if (button != nullptr)
 		{
-			std::string event = button->getUserString("Event");
-			if (event != "")
+			const std::string& event = button->getUserString("Event");
+			if (!event.empty())
 				button->eventMouseButtonClick += MyGUI::newDelegate(this, &DataListUI::notifyMouseButtonClick);
 		}
 
@@ -42,7 +42,7 @@ namespace demo
 
 	void DataListUI::notifyMouseButtonClick(MyGUI::Widget* _sender)
 	{
-		std::string event = _sender->getUserString("Event");
+		const std::string& event = _sender->getUserString("Event");
 
 		if (event == "Undo")
 		{
@@ -79,7 +79,10 @@ namespace demo
 
 	void DataListUI::updateActions()
 	{
-		mTextBox->setCaption(tools::ActionManager::getInstance().getChanges() ? "*" : "");
+		MyGUI::UString caption;
+		if (tools::ActionManager::getInstance().getChanges())
+			caption = "*";
+		mTextBox->setCaption(caption);
 	}
 
 	void DataListUI::updateListData()

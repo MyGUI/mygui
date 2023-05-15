@@ -73,15 +73,15 @@ namespace MyGUI
 
 			ErrorType(Enum _value = MAX) : mValue(_value) { }
 
-			std::string print() const
+			std::string_view print() const
 			{
 				return getValueName(mValue);
 			}
 
 		private:
-			const char* getValueName(int _index) const
+			std::string_view getValueName(int _index) const
 			{
-				static const char* values[MAX + 1] =
+				static const std::string_view values[MAX + 1] =
 				{
 					"Failed to open XML file",
 					"Failed to create XML file",
@@ -93,7 +93,7 @@ namespace MyGUI
 					"XML file contain more than one declaration",
 					"XML file contain more than one root element",
 					"XML file contain incorrect attribute",
-					""
+					std::string_view{}
 				};
 				return values[(_index < MAX && _index >= 0) ? _index : MAX];
 			}

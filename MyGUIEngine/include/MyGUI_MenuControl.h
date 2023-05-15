@@ -286,7 +286,7 @@ namespace MyGUI
 		void notifyMouseSetFocus(Widget* _sender, Widget* _new);
 
 		const std::string& getSkinByType(MenuItemType _type) const;
-		std::string getIconIndexByType(MenuItemType _type) const;
+		std::string_view getIconIndexByType(MenuItemType _type) const;
 
 		void update();
 

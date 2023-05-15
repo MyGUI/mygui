@@ -151,7 +151,7 @@ namespace tools
 				std::string value = mControl->getRoot()->getUserString("CurrentScopeController");
 				if (value == mScopeName)
 				{
-					mControl->getRoot()->setUserString("CurrentScopeController", "");
+					mControl->getRoot()->setUserString("CurrentScopeController", std::string_view{});
 					notifyChangeDataSelector(mParentData, false);
 
 					mControl->clearAll();

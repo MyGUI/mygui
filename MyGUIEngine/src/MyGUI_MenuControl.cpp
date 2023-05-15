@@ -108,7 +108,7 @@ namespace MyGUI
 		MenuItem* child = _widget->castType<MenuItem>(false);
 		if (child != nullptr && !mInternalCreateChild)
 		{
-			_wrapItem(child, mItemsInfo.size(), "", MenuItemType::Normal, "", Any::Null);
+			_wrapItem(child, mItemsInfo.size(), UString(), MenuItemType::Normal, std::string_view{}, Any::Null);
 		}
 	}
 
@@ -781,7 +781,7 @@ namespace MyGUI
 		return mItemNormalSkin;
 	}
 
-	std::string MenuControl::getIconIndexByType(MenuItemType _type) const
+	std::string_view MenuControl::getIconIndexByType(MenuItemType _type) const
 	{
 		if (_type == MenuItemType::Popup)
 			return "Popup";

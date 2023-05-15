@@ -36,13 +36,13 @@ namespace tools
 		void addSelectorControl(T * & _control)
 		{
 			_control = new T();
-			_control->Initialise(this, mTexture, "");
+			_control->Initialise(this, mTexture, std::string_view{});
 			registerSelectorControl(_control);
 		}
 
 		void addSelectorControl(SelectorControl* _control)
 		{
-			_control->Initialise(this, mTexture, "");
+			_control->Initialise(this, mTexture, std::string_view{});
 			registerSelectorControl(_control);
 		}
 

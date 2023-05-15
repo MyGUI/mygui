@@ -31,7 +31,7 @@ namespace MyGUI
 	{
 		Base::deserialization(_node, _version);
 
-		std::string stateCategory = SubWidgetManager::getInstance().getStateCategoryName();
+		const std::string& stateCategory = SubWidgetManager::getInstance().getStateCategoryName();
 
 		// парсим атрибуты скина
 		std::string name, texture, tmp;

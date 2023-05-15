@@ -6,7 +6,6 @@
 
 #include "Precompiled.h"
 #include "SettingsGeneralControl.h"
-#include "SettingsManager.h"
 #include "FactoryManager.h"
 
 namespace tools
@@ -96,7 +95,7 @@ namespace tools
 		}
 	}
 
-	std::string SettingsGeneralControl::getLanguageValue()
+	NullTerminatedStringView SettingsGeneralControl::getLanguageValue()
 	{
 		if (mInterfaceLanguage->getIndexSelected() == MyGUI::ITEM_NONE)
 			return "Auto";

@@ -78,7 +78,7 @@ namespace tools
 	{
 		if (_index == MyGUI::ITEM_NONE)
 		{
-			mEditFileName->setCaption("");
+			mEditFileName->setCaption(MyGUI::UString());
 		}
 		else
 		{

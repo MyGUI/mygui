@@ -38,16 +38,16 @@ namespace demo
 	void DemoKeeper::createScene()
 	{
 		base::BaseDemoManager::createScene();
-		std::string controllerCategory = MyGUI::ControllerManager::getInstance().getCategoryName();
+		const std::string& controllerCategory = MyGUI::ControllerManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<ControllerRandomSelected>(controllerCategory);
 		MyGUI::FactoryManager::getInstance().registerFactory<ControllerRandomProgress>(controllerCategory);
 		MyGUI::FactoryManager::getInstance().registerFactory<ControllerSmoothProgress>(controllerCategory);
 		MyGUI::FactoryManager::getInstance().registerFactory<ControllerSmoothCaption>(controllerCategory);
 
-		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<ResourceDevice>(resourceCategory);
 
-		std::string layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
+		const std::string& layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<MyGUI::RTTLayer>(layerCategory);
 
 		createGround();
@@ -64,16 +64,16 @@ namespace demo
 
 	void DemoKeeper::destroyScene()
 	{
-		std::string controllerCategory = MyGUI::ControllerManager::getInstance().getCategoryName();
+		const std::string& controllerCategory = MyGUI::ControllerManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().unregisterFactory<ControllerRandomSelected>(controllerCategory);
 		MyGUI::FactoryManager::getInstance().unregisterFactory<ControllerRandomProgress>(controllerCategory);
 		MyGUI::FactoryManager::getInstance().unregisterFactory<ControllerSmoothProgress>(controllerCategory);
 		MyGUI::FactoryManager::getInstance().unregisterFactory<ControllerSmoothCaption>(controllerCategory);
 
-		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().unregisterFactory<ResourceDevice>(resourceCategory);
 
-		std::string layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
+		const std::string& layerCategory = MyGUI::LayerManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().unregisterFactory<MyGUI::RTTLayer>(layerCategory);
 
 		delete mKeyboardPanel;

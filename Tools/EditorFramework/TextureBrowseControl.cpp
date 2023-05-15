@@ -112,12 +112,12 @@ namespace tools
 		if (_index != MyGUI::ITEM_NONE)
 			mCurrentTextureName = *_sender->getItemDataAt<std::string>(_index);
 		else
-			mCurrentTextureName = "";
+			mCurrentTextureName.clear();
 	}
 
 	void TextureBrowseControl::notifySelectItemAccept(MyGUI::ItemBox* _sender, size_t _index)
 	{
-		if (mCurrentTextureName != "")
+		if (!mCurrentTextureName.empty())
 			eventEndDialog(this, true);
 	}
 

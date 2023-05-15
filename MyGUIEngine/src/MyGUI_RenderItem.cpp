@@ -173,7 +173,9 @@ namespace MyGUI
 		mTexture = _value;
 
 #if MYGUI_DEBUG_MODE == 1
-		mTextureName = mTexture == nullptr ? "" : mTexture->getName();
+		mTextureName;
+		if (mTexture != nullptr)
+			mTextureName = mTexture->getName();
 #endif
 	}
 

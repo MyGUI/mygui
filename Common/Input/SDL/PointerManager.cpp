@@ -30,7 +30,7 @@ namespace input
 		manager.setVisible(false);
 		manager.eventChangeMousePointer += MyGUI::newDelegate(this, &PointerManager::notifyChangeMousePointer);
 
-		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<ResourceSDLPointer>(resourceCategory);
 	}
 

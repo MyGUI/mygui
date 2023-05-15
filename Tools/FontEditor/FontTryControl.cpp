@@ -61,7 +61,7 @@ namespace tools
 		if (data != nullptr)
 			mEdit->setFontName(data->getPropertyValue("FontName"));
 		else
-			mEdit->setFontName("");
+			mEdit->setFontName(std::string_view{});
 	}
 
 }

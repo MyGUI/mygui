@@ -167,7 +167,7 @@ namespace MyGUI
 		{
 			if ((*iter) == nullptr) continue;
 			bool find = false;
-			std::string name = (*iter)->getName();
+			const std::string& name = (*iter)->getName();
 			for (VectorLayer::iterator iter2 = _layers.begin(); iter2 != _layers.end(); ++iter2)
 			{
 				if (name == (*iter2)->getName())

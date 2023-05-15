@@ -142,7 +142,7 @@ namespace MyGUI
 
 		if ((_index == ITEM_NONE) || (_index >= mItems.size()))
 		{
-			_setTextureName("");
+			_setTextureName(std::string_view{});
 			return;
 		}
 		else

@@ -36,8 +36,8 @@ namespace tools
 		void registerEventState(std::string_view _stateName, std::string_view _eventName, std::string_view _toState);
 
 	private:
-		std::string getNameState(StateController* _state);
-		std::string getEventToState(std::string_view _currentStateName, std::string_view _eventName);
+		std::string_view getNameState(StateController* _state);
+		std::string_view getEventToState(std::string_view _currentStateName, std::string_view _eventName);
 		StateController* getStateByName(std::string_view _stateName);
 
 	private:

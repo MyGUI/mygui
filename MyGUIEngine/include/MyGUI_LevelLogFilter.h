@@ -19,7 +19,7 @@ namespace MyGUI
 	public:
 		LevelLogFilter();
 
-		//! @copydoc ILogFilter::shouldLog(std::string_view _section, LogLevel _level, const struct tm* _time, std::string_view _message, const char* _file, int _line)
+		//! @copydoc ILogFilter::shouldLog(std::string_view _section, LogLevel _level, const struct tm* _time, std::string_view _message, std::string_view _file, int _line)
 		bool shouldLog(std::string_view _section, LogLevel _level, const struct tm* _time, std::string_view _message, std::string_view _file, int _line) override;
 
 		/** Set logging level.

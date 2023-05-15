@@ -19,7 +19,7 @@
 namespace tools
 {
 
-	const std::string LogSection = "LayoutEditor";
+	const std::string_view LogSection = "LayoutEditor";
 
 	ProjectControl::ProjectControl(MyGUI::Widget* _parent) :
 		BaseLayout("ProjectControl.layout", _parent),
@@ -263,7 +263,7 @@ namespace tools
 
 		clear();
 
-		MyGUI::UString filePath = "";
+		MyGUI::UString filePath;
 		MyGUI::UString fileName = data;
 
 		size_t index = data.find_last_of("\\/");
@@ -345,12 +345,15 @@ namespace tools
 			return false;
 		}
 
-		const std::string& colour_error = MyGUI::LanguageManager::getInstance().getTag("ColourError");
+		const MyGUI::UString& colour_error = MyGUI::LanguageManager::getInstance().getTag("ColourError");
 
 		for (MyGUI::VectorString::const_iterator item = items.begin(); item != items.end(); ++item)
 		{
 			bool successItem = checkItem(*item, items);
-			mList->addItem(successItem ? (*item) : (colour_error + (*item)));
+			if (successItem)
+				mList->addItem(*item);
+			else
+				mList->addItem(colour_error + (*item));
 		}
 
 		RecentFilesManager::getInstance().addRecentProject(fileName);
@@ -528,7 +531,7 @@ namespace tools
 			if (index == MyGUI::ITEM_NONE)
 				return;
 
-			if (mTextFieldControl->getTextField() == "")
+			if (mTextFieldControl->getTextField().empty())
 				return;
 
 			renameItemInProject(index, mTextFieldControl->getTextField());
@@ -712,7 +715,7 @@ namespace tools
 	{
 		MyGUI::ListBox* box = _sender->castType<MyGUI::ListBox>();
 		MyGUI::UString name = box->getItemNameAt(_index);
-		return SkinInfo(MyGUI::TextIterator::getOnlyText(name), "", "");
+		return SkinInfo(MyGUI::TextIterator::getOnlyText(name), std::string_view{}, std::string_view{});
 	}
 
 }

@@ -80,7 +80,7 @@ namespace MyGUI
 					xml::ElementEnumerator source_info = info->getElementEnumerator();
 					while (source_info.next("Source"))
 					{
-						std::string file_source = source_info->getContent();
+						const std::string& file_source = source_info->getContent();
 						// добавляем в карту
 						mMapFile[name].push_back(file_source);
 
@@ -184,12 +184,12 @@ namespace MyGUI
 			size_t pos = read.find_first_of(" \t");
 			if (_user)
 			{
-				if (pos == std::string::npos) mUserMapLanguage[read] = "";
+				if (pos == std::string::npos) mUserMapLanguage[read].clear();
 				else mUserMapLanguage[read.substr(0, pos)] = read.substr(pos + 1, std::string::npos);
 			}
 			else
 			{
-				if (pos == std::string::npos) mMapLanguage[read] = "";
+				if (pos == std::string::npos) mMapLanguage[read].clear();
 				else mMapLanguage[read.substr(0, pos)] = read.substr(pos + 1, std::string::npos);
 			}
 		}

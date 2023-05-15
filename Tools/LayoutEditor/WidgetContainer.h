@@ -6,8 +6,8 @@
 namespace tools
 {
 
-	const std::string DEFAULT_EDITOR_LAYER = "LayoutEditor_Widgets";
-	const std::string DEFAULT_TEST_MODE_LAYER = "Overlapped";
+	const std::string_view DEFAULT_EDITOR_LAYER = "LayoutEditor_Widgets";
+	const std::string_view DEFAULT_TEST_MODE_LAYER = "Overlapped";
 
 	struct ControllerInfo
 	{

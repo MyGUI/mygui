@@ -69,7 +69,8 @@ namespace tools
 		PropertyPtr proper = getProperty();
 		if (proper != nullptr)
 		{
-			std::string value = _index != MyGUI::ITEM_NONE ? mComboBox->getItemNameAt(_index) : "";
+			std::string_view value;
+			if (_index != MyGUI::ITEM_NONE) value = mComboBox->getItemNameAt(_index);
 			executeAction(value);
 		}
 	}

@@ -37,7 +37,7 @@ namespace MyGUI
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlSkinTagName) = newDelegate(this, &SkinManager::_load);
 
-		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 		FactoryManager::getInstance().registerFactory<ResourceSkin>(resourceCategory);
 
 		mDefaultName = "skin_Default";
@@ -54,7 +54,7 @@ namespace MyGUI
 
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(mXmlSkinTagName);
 
-		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 		FactoryManager::getInstance().unregisterFactory<ResourceSkin>(resourceCategory);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
@@ -70,7 +70,7 @@ namespace MyGUI
 
 	void SkinManager::createDefault(std::string_view _value)
 	{
-		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 		ResourceSkin* skin = FactoryManager::getInstance().createObject<ResourceSkin>(resourceCategory);
 
 		skin->setResourceName(_value);
@@ -108,7 +108,7 @@ namespace MyGUI
 		mDefaultName = _value;
 	}
 
-	const std::string SkinManager::getDefaultSkin() const
+	const std::string& SkinManager::getDefaultSkin() const
 	{
 		return mDefaultName;
 	}

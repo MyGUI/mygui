@@ -33,7 +33,7 @@ namespace MyGUI
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlFontTagName) = newDelegate(this, &FontManager::_load);
 
-		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 		FactoryManager::getInstance().registerFactory<ResourceManualFont>(resourceCategory);
 		FactoryManager::getInstance().registerFactory<ResourceTrueTypeFont>(resourceCategory);
 
@@ -50,7 +50,7 @@ namespace MyGUI
 
 		MyGUI::ResourceManager::getInstance().unregisterLoadXmlDelegate(mXmlFontTagName);
 
-		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 		FactoryManager::getInstance().unregisterFactory<ResourceManualFont>(resourceCategory);
 		FactoryManager::getInstance().unregisterFactory<ResourceTrueTypeFont>(resourceCategory);
 

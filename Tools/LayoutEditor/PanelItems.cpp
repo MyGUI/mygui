@@ -82,7 +82,7 @@ namespace tools
 
 			updateList();
 
-			mEdit->setCaption("");
+			mEdit->setCaption(MyGUI::UString());
 			//обновляем кнопки
 			notifyChangeWidth(0);
 		}
@@ -138,7 +138,7 @@ namespace tools
 
 			if (item != nullptr)
 			{
-				WidgetContainer* container = new WidgetContainer(item->getTypeName(), "", item, "");
+				WidgetContainer* container = new WidgetContainer(item->getTypeName(), std::string_view{}, item, std::string_view{});
 				EditorWidgets::getInstance().add(container);
 
 				setContainerProperty(item, "Caption", _value);
@@ -195,7 +195,7 @@ namespace tools
 			return;
 		}
 
-		std::string value = mEdit->getOnlyText();
+		MyGUI::UString value = mEdit->getOnlyText();
 		mList->setItemNameAt(item, MyGUI::TextIterator::toTagsString(value));
 
 		MyGUI::IItemContainer* itemContainer = dynamic_cast<MyGUI::IItemContainer*>(mCurrentWidget);

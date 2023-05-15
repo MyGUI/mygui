@@ -30,8 +30,8 @@ namespace animation
 						MyGUI::xml::ElementEnumerator prop = data->getElementEnumerator();
 						while (prop.next("Property"))
 						{
-							std::string key = prop->findAttribute("key");
-							std::string value = prop->findAttribute("value");
+							std::string_view key = prop->findAttribute("key");
+							std::string_view value = prop->findAttribute("value");
 
 							node->setProperty(key, value);
 						}

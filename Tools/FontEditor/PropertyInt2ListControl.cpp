@@ -97,11 +97,11 @@ namespace tools
 
 	void PropertyInt2ListControl::notifyClickAdd(MyGUI::Widget* _sender)
 	{
-		mList->addItem("");
+		mList->addItem(MyGUI::UString());
 		mList->beginToItemAt(mList->getItemCount() - 1);
 
 		mTextFieldControl->setCaption(replaceTags("CaptionAddResource"));
-		mTextFieldControl->setTextField("");
+		mTextFieldControl->setTextField(MyGUI::UString());
 
 		MyGUI::Widget* widget = mList->getWidgetByIndex(mList->getItemCount() - 1);
 		if (widget != nullptr)
@@ -126,7 +126,7 @@ namespace tools
 
 		if (_result)
 		{
-			if (mTextFieldControl->getTextField() != "")
+			if (!mTextFieldControl->getTextField().empty())
 			{
 				mList->setItemNameAt(mList->getItemCount() - 1, mTextFieldControl->getTextField());
 				executeAction(getValue());

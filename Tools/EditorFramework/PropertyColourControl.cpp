@@ -75,7 +75,7 @@ namespace tools
 		}
 		else
 		{
-			mEdit->setCaption("");
+			mEdit->setCaption(MyGUI::UString());
 			mEdit->setEnabled(false);
 
 			mCurrentColour = MyGUI::Colour::Zero;

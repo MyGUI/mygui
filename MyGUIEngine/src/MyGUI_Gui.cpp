@@ -166,7 +166,7 @@ namespace MyGUI
 		delete mToolTipManager;
 
 		// сбрасываем кеш
-		texture_utility::getTextureSize("", false);
+		texture_utility::getTextureSize(std::string{}, false);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
 		mIsInitialise = false;

@@ -54,7 +54,7 @@ namespace tools
 		std::string value = mField->getOnlyText();
 
 		if (value == DEFAULT_STRING && mField->getCaption() == DEFAULT_VALUE)
-			value = "";
+			value.clear();
 
 		onAction(value, true);
 	}

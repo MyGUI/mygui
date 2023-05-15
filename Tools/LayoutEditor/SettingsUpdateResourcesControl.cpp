@@ -66,11 +66,11 @@ namespace tools
 
 	void SettingsUpdateResourcesControl::notifyClickAdd(MyGUI::Widget* _sender)
 	{
-		mResources->addItem("");
+		mResources->addItem(MyGUI::UString());
 		mResources->beginToItemAt(mResources->getItemCount() - 1);
 
 		mTextFieldControl->setCaption(replaceTags("CaptionAddResource"));
-		mTextFieldControl->setTextField("");
+		mTextFieldControl->setTextField(MyGUI::UString());
 
 		MyGUI::Widget* widget = mResources->getWidgetByIndex(mResources->getItemCount() - 1);
 		if (widget != nullptr)
@@ -92,7 +92,7 @@ namespace tools
 
 		if (_result)
 		{
-			if (mTextFieldControl->getTextField() != "")
+			if (!mTextFieldControl->getTextField().empty())
 			{
 				mResources->setItemNameAt(mResources->getItemCount() - 1, mTextFieldControl->getTextField());
 				return;

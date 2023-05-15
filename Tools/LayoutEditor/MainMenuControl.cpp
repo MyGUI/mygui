@@ -62,7 +62,7 @@ namespace tools
 			CommandManager::getInstance().setCommandData(*data);
 
 		const std::string& command = _item->getItemId();
-		if (command.size() > 8 && command.substr(0, 8) == "Command_")
+		if (MyGUI::utility::startWith(command, "Command_"))
 		{
 			CommandManager::getInstance().executeCommand(command);
 		}

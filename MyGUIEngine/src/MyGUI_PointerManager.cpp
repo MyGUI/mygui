@@ -48,7 +48,7 @@ namespace MyGUI
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlPointerTagName) = newDelegate(this, &PointerManager::_load);
 
-		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 		FactoryManager::getInstance().registerFactory<ResourceManualPointer>(resourceCategory);
 		FactoryManager::getInstance().registerFactory<ResourceImageSetPointer>(resourceCategory);
 
@@ -71,7 +71,7 @@ namespace MyGUI
 		InputManager::getInstance().eventChangeMouseFocus -= newDelegate(this, &PointerManager::notifyChangeMouseFocus);
 		Gui::getInstance().eventFrameStart -= newDelegate(this, &PointerManager::notifyFrameStart);
 
-		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 		FactoryManager::getInstance().unregisterFactory<ResourceManualPointer>(resourceCategory);
 		FactoryManager::getInstance().unregisterFactory<ResourceImageSetPointer>(resourceCategory);
 
@@ -212,7 +212,7 @@ namespace MyGUI
 	void PointerManager::Update()
 	{
 		if (mMousePointer == nullptr)
-			mMousePointer = static_cast<ImageBox*>(baseCreateWidget(WidgetStyle::Overlapped, ImageBox::getClassTypeName(), mSkinName, IntCoord(), Align::Default, "", ""));
+			mMousePointer = static_cast<ImageBox*>(baseCreateWidget(WidgetStyle::Overlapped, ImageBox::getClassTypeName(), mSkinName, IntCoord(), Align::Default, std::string_view{}, std::string_view{}));
 	}
 
 	IPointer* PointerManager::getByName(std::string_view _name) const
@@ -229,7 +229,9 @@ namespace MyGUI
 
 	void PointerManager::notifyChangeMouseFocus(Widget* _widget)
 	{
-		std::string pointer = (_widget == nullptr || !_widget->getInheritedEnabled()) ? "" : _widget->getPointer();
+		std::string_view pointer;
+		if (_widget != nullptr && _widget->getInheritedEnabled())
+			pointer = _widget->getPointer();
 		if (pointer != mCurrentMousePointer)
 		{
 			mCurrentMousePointer = pointer;

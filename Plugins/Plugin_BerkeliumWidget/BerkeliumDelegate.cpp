@@ -61,7 +61,7 @@ namespace MyGUI
 		if (mWidget == nullptr)
 			return;
 
-		std::string cursor = "arrow";
+		std::string_view cursor = "arrow";
 #if MYGUI_PLATFORM == MYGUI_PLATFORM_WIN32
 		static HCURSOR beam_cursor = ::LoadCursor(nullptr, MAKEINTRESOURCE(IDC_IBEAM));
 		static HCURSOR link_cursor = ::LoadCursor(nullptr, MAKEINTRESOURCE(IDC_HAND));

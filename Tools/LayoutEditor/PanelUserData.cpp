@@ -96,8 +96,8 @@ namespace tools
 
 	void PanelUserData::notifyAddUserData(MyGUI::Widget* _sender)
 	{
-		std::string key = mEditKey->getOnlyText();
-		std::string value = mEditValue->getOnlyText();
+		MyGUI::UString key = mEditKey->getOnlyText();
+		MyGUI::UString value = mEditValue->getOnlyText();
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 		if (!widgetContainer->existUserData(key))
 		{
@@ -127,9 +127,9 @@ namespace tools
 			notifyAddUserData();
 			return;
 		}
-		std::string key = mEditKey->getOnlyText();
-		std::string value = mEditValue->getOnlyText();
-		std::string lastkey = mMultilist->getItemNameAt(item);
+		MyGUI::UString key = mEditKey->getOnlyText();
+		MyGUI::UString value = mEditValue->getOnlyText();
+		MyGUI::UString lastkey = mMultilist->getItemNameAt(item);
 
 		WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 		mMultilist->removeItemAt(mMultilist->findSubItemWith(0, lastkey));
@@ -148,8 +148,8 @@ namespace tools
 	{
 		size_t item = mMultilist->getIndexSelected();
 		if (MyGUI::ITEM_NONE == item) return;
-		std::string key = mMultilist->getSubItemNameAt(0, item);
-		std::string value = mMultilist->getSubItemNameAt(1, item);
+		const MyGUI::UString& key = mMultilist->getSubItemNameAt(0, item);
+		const MyGUI::UString& value = mMultilist->getSubItemNameAt(1, item);
 		mEditKey->setOnlyText(key);
 		mEditValue->setCaption(value);
 	}

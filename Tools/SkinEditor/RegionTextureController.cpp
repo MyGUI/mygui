@@ -51,7 +51,7 @@ namespace tools
 		if (mParentData != nullptr && mParentData->getType()->getName() != mParentTypeName)
 			mParentData = nullptr;
 
-		std::string texture;
+		std::string_view texture;
 		PropertyPtr property = PropertyUtility::getPropertyByName("Skin", "Texture");
 		if (property != nullptr)
 		{
@@ -61,7 +61,7 @@ namespace tools
 				property->eventChangeProperty.connect(this, &RegionTextureController::notifyChangeProperty);
 		}
 
-		std::string coord;
+		std::string_view coord;
 		property = PropertyUtility::getPropertyByName("Skin", "Size");
 		if (property != nullptr)
 		{
@@ -92,7 +92,7 @@ namespace tools
 			}
 		}
 
-		mControl->setTextureValue(texture);
+		mControl->setTextureValue(MyGUI::UString(texture));
 		updateCoords(coord);
 	}
 
@@ -165,10 +165,10 @@ namespace tools
 				mParentData = nullptr;
 
 				// мы еще владельцы контрола сбрасываем его
-				std::string value = mControl->getRoot()->getUserString("CurrentScopeController");
+				const std::string& value = mControl->getRoot()->getUserString("CurrentScopeController");
 				if (value == mScopeName)
 				{
-					mControl->getRoot()->setUserString("CurrentScopeController", "");
+					mControl->getRoot()->setUserString("CurrentScopeController", std::string_view{});
 					notifyChangeDataSelector(mParentData, false);
 
 					mControl->clearAll();

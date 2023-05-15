@@ -56,7 +56,7 @@ namespace tools
 		addResourceLocation(getRootMedia() + "/Common/Tools");
 		addResourceLocation(getRootMedia() + "/Common/MessageBox");
 		addResourceLocation(getRootMedia() + "/Common/Themes");
-		setResourceFilename("");
+		setResourceFilename(std::string_view{});
 	}
 
 	void Application::createScene()

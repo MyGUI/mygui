@@ -29,7 +29,7 @@ namespace MyGUI
 
 		ResourceManager::getInstance().registerLoadXmlDelegate(mXmlLayoutTagName) = newDelegate(this, &LayoutManager::_load);
 
-		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 		FactoryManager::getInstance().registerFactory<ResourceLayout>(resourceCategory);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully initialized");
@@ -43,7 +43,7 @@ namespace MyGUI
 
 		ResourceManager::getInstance().unregisterLoadXmlDelegate(mXmlLayoutTagName);
 
-		std::string resourceCategory = ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = ResourceManager::getInstance().getCategoryName();
 		FactoryManager::getInstance().unregisterFactory<ResourceLayout>(resourceCategory);
 
 		MYGUI_LOG(Info, getClassTypeName() << " successfully shutdown");
@@ -73,7 +73,7 @@ namespace MyGUI
 		else
 			MYGUI_LOG(Warning, "Layout '" << _file << "' couldn't be loaded");
 
-		mCurrentLayoutName = "";
+		mCurrentLayoutName.clear();
 
 		return result;
 	}

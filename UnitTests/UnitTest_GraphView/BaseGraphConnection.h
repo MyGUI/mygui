@@ -21,7 +21,7 @@ namespace wraps
 	{
 	public:
 		BaseGraphConnection(MyGUI::Widget* _widget) :
-			BaseLayout("", _widget),
+			BaseLayout(std::string_view{}, _widget),
 			mOwnerNode(nullptr)
 		{
 			mType = mMainWidget->getUserString("Type");

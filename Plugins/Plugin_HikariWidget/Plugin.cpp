@@ -12,7 +12,7 @@
 namespace plugin
 {
 
-	const std::string Plugin::LogSection = "Plugin";
+	const std::string_view Plugin::LogSection = "Plugin";
 	HMODULE Plugin::msFlashLib = 0;
 
 	Plugin::Plugin() :
@@ -33,8 +33,8 @@ namespace plugin
 		MYGUI_LOGGING(LogSection, Info, "initialize");
 
 		CoInitialize(0);
-		const std::string flash_lib = "Flash.ocx";
-		msFlashLib = LoadLibraryA(flash_lib.c_str());
+		const std::string_view flash_lib = "Flash.ocx";
+		msFlashLib = LoadLibraryA(flash_lib.data());
 		if (!msFlashLib)
 		{
 			MYGUI_LOGGING(LogSection, Error, flash_lib << " not found");

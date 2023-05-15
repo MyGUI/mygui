@@ -56,7 +56,7 @@ namespace demo
 	void Console::notifyComboAccept(MyGUI::ComboBox* _sender, size_t _index)
 	{
 		const MyGUI::UString& command = _sender->getOnlyText();
-		if (command == "") return;
+		if (command.empty()) return;
 
 		MyGUI::UString key = command;
 		MyGUI::UString value;
@@ -85,7 +85,7 @@ namespace demo
 			}
 		}
 
-		_sender->setCaption("");
+		_sender->setCaption(MyGUI::UString());
 	}
 
 
@@ -131,7 +131,7 @@ namespace demo
 
 	void Console::clearConsole()
 	{
-		mListHistory->setCaption("");
+		mListHistory->setCaption(MyGUI::UString());
 	}
 
 	void Console::registerConsoleDelegate(const MyGUI::UString& _command, CommandDelegate::IDelegate* _delegate)

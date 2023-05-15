@@ -5,8 +5,8 @@ namespace tools
 {
 	MYGUI_SINGLETON_DEFINITION(WidgetTypes);
 
-	const std::string DEFAULT_GOROUP_NAME = "Default";
-	const std::string LogSection = "LayoutEditor";
+	const std::string_view DEFAULT_GOROUP_NAME = "Default";
+	const std::string_view LogSection = "LayoutEditor";
 
 	void WidgetTypes::initialise()
 	{

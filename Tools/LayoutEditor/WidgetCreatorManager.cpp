@@ -45,8 +45,8 @@ namespace tools
 
 	void WidgetCreatorManager::resetCreatorInfo()
 	{
-		mWidgetType = "";
-		mWidgetSkin = "";
+		mWidgetType.clear();
+		mWidgetSkin.clear();
 		mCreateMode = false;
 
 		eventChangeCreatorMode(mCreateMode);
@@ -54,8 +54,8 @@ namespace tools
 
 	void WidgetCreatorManager::resetAllCreatorInfo()
 	{
-		mWidgetType = "";
-		mWidgetSkin = "";
+		mWidgetType.clear();
+		mWidgetSkin.clear();
 		mCreateMode = false;
 		mPopupMode = false;
 

@@ -8,6 +8,7 @@
 #define _b8560ae2_b63d_469a_9007_4562b883e6e1_
 
 #include "Control.h"
+#include "SettingsManager.h"
 
 namespace tools
 {
@@ -34,7 +35,7 @@ namespace tools
 		int getGridStep();
 		void setGridStep();
 		void setLanguageValue(std::string_view _value);
-		std::string getLanguageValue();
+		NullTerminatedStringView getLanguageValue();
 
 	private:
 		int mGridStep;

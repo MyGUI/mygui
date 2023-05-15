@@ -313,35 +313,35 @@ namespace MyGUI
 		UString getButtonName(MessageBoxStyle _style) const
 		{
 			size_t index = _style.getButtonIndex();
-			const char* tag = getButtonTag(index);
+			std::string_view tag = getButtonTag(index);
 			UString result = LanguageManager::getInstance().replaceTags(utility::toString("#{", tag, "}"));
 			if (result == tag)
-				return getButtonName(index);
+				result.assign(getButtonName(index));
 			return result;
 		}
 
-		const char* getIconName(size_t _index) const
+		std::string_view getIconName(size_t _index) const
 		{
 			static const size_t CountIcons = 4;
-			static const char* IconNames[CountIcons + 1] = { "Info", "Quest", "Error", "Warning", "" };
+			static const std::string_view IconNames[CountIcons + 1] = { "Info", "Quest", "Error", "Warning", std::string_view{} };
 			if (_index >= CountIcons)
 				return IconNames[CountIcons];
 			return IconNames[_index];
 		}
 
-		const char* getButtonName(size_t _index) const
+		std::string_view getButtonName(size_t _index) const
 		{
 			static const size_t Count = 9;
-			static const char * Names[Count + 1] = { "Ok", "Yes", "No", "Abort", "Retry", "Ignore", "Cancel", "Try", "Continue", "" };
+			static const std::string_view Names[Count + 1] = { "Ok", "Yes", "No", "Abort", "Retry", "Ignore", "Cancel", "Try", "Continue", std::string_view{} };
 			if (_index >= Count)
 				return Names[Count];
 			return Names[_index];
 		}
 
-		const char* getButtonTag(size_t _index) const
+		std::string_view getButtonTag(size_t _index) const
 		{
 			static const size_t Count = 9;
-			static const char* Names[Count + 1] = { "MessageBox_Ok", "MessageBox_Yes", "MessageBox_No", "MessageBox_Abort", "MessageBox_Retry", "MessageBox_Ignore", "MessageBox_Cancel", "MessageBox_Try", "MessageBox_Continue", "" };
+			static const std::string_view Names[Count + 1] = { "MessageBox_Ok", "MessageBox_Yes", "MessageBox_No", "MessageBox_Abort", "MessageBox_Retry", "MessageBox_Ignore", "MessageBox_Cancel", "MessageBox_Try", "MessageBox_Continue", std::string_view{} };
 			if (_index >= Count)
 				return Names[Count];
 			return Names[_index];

@@ -35,7 +35,7 @@ namespace plugin
 		void update(float _time);
 
 	private:
-		static const std::string LogSection;
+		static const std::string_view LogSection;
 	};
 
 } // namespace plugin

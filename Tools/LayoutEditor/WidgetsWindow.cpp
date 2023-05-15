@@ -50,7 +50,7 @@ namespace tools
 		if (sheet_index != MyGUI::ITEM_NONE)
 			mSkinSheetName = mTabSkins->getItemNameAt(sheet_index);
 		else
-			mSkinSheetName = "";
+			mSkinSheetName.clear();
 
 		SettingsManager::getInstance().setValue("Controls/WidgetsWindow/LastSkinGroup", mSkinSheetName);
 

@@ -57,7 +57,7 @@ namespace tools
 
 		updateCaption();
 
-		setTextureValue("");
+		setTextureValue(MyGUI::UString());
 		clearCoordValue();
 	}
 
@@ -352,7 +352,7 @@ namespace tools
 
 	void ScopeTextureControl::clearAll()
 	{
-		setTextureValue("");
+		setTextureValue(MyGUI::UString());
 		clearCoordValue();
 		clearViewSelectors();
 	}

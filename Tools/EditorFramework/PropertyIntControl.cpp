@@ -53,7 +53,7 @@ namespace tools
 		}
 		else
 		{
-			mEdit->setCaption("");
+			mEdit->setCaption(MyGUI::UString());
 			mEdit->setEnabled(false);
 		}
 	}
@@ -90,7 +90,7 @@ namespace tools
 		if (MyGUI::utility::parseComplex(value, value1))
 			return MyGUI::utility::toString(value1);
 
-		return "";
+		return MyGUI::UString();
 	}
 
 	void PropertyIntControl::setColour(bool _validate)

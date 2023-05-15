@@ -70,10 +70,10 @@ namespace tools
 	{
 		AdviceWidget(_widget);
 
-		std::string controlType = _widget->getUserString("ControlType");
+		const std::string& controlType = _widget->getUserString("ControlType");
 		if (!controlType.empty())
 		{
-			std::string controlLayout = _widget->getUserString("ControlLayout");
+			const std::string& controlLayout = _widget->getUserString("ControlLayout");
 
 			Control* control = components::FactoryManager::GetInstance().CreateItem<Control>(controlType);
 			if (control != nullptr)
@@ -111,19 +111,19 @@ namespace tools
 
 	void Control::AdviceWidget(MyGUI::Widget* _widget)
 	{
-		std::string command = _widget->getUserString("CommandClick");
+		std::string_view command = _widget->getUserString("CommandClick");
 		if (!command.empty())
 			_widget->eventMouseButtonClick += MyGUI::newDelegate(this, &Control::notifyMouseButtonClick);
 
 		MyGUI::TabControl* tab = _widget->castType<MyGUI::TabControl>(false);
 		if (tab != nullptr)
 		{
-			if (tab->getItemCount() != 0 && tab->getItemAt(0)->getUserString("CommandActivate") != "")
+			if (tab->getItemCount() != 0 && !tab->getItemAt(0)->getUserString("CommandActivate").empty())
 				tab->eventTabChangeSelect += MyGUI::newDelegate(this, &Control::notifyTabChangeSelect);
 		}
 
 		MyGUI::Window* window = _widget->castType<MyGUI::Window>(false);
-		if (window != nullptr && window->getUserString("CommandClose") != "")
+		if (window != nullptr && !window->getUserString("CommandClose").empty())
 			window->eventWindowButtonPressed += MyGUI::newDelegate(this, &Control::notifyWindowButtonPressed);
 
 		command = _widget->getUserString("CommandAccept");
@@ -157,12 +157,12 @@ namespace tools
 		if (_parent)
 			return _parent->createWidgetT(_typeName, MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default);
 
-		return MyGUI::Gui::getInstance().createWidgetT(_typeName, MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default, "");
+		return MyGUI::Gui::getInstance().createWidgetT(_typeName, MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default, std::string_view{});
 	}
 
 	void Control::CreateControllers()
 	{
-		std::string controllers = mMainWidget->getUserString("ControlControllers");
+		const std::string& controllers = mMainWidget->getUserString("ControlControllers");
 		if (!controllers.empty())
 		{
 			std::vector<std::string> values = MyGUI::utility::split(controllers, "\t\n ,");

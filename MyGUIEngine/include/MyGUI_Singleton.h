@@ -51,14 +51,14 @@ namespace MyGUI
 			return msInstance;
 		}
 
-		static const char* getClassTypeName()
+		static std::string_view getClassTypeName()
 		{
 			return mClassTypeName;
 		}
 
 	private:
 		static T* msInstance;
-		static const char* mClassTypeName;
+		static std::string_view mClassTypeName;
 	};
 
 /*
@@ -118,11 +118,11 @@ namespace MyGUI
 	public: \
 	static ClassName& getInstance(); \
 	static ClassName* getInstancePtr(); \
-	static const char* getClassTypeName()
+	static std::string_view getClassTypeName()
 
 #define MYGUI_SINGLETON_DEFINITION(ClassName) \
 	static ClassName* ClassName##Instance = nullptr; \
-	static const char* ClassName##ClassTypeName = #ClassName; \
+	static std::string_view ClassName##ClassTypeName = #ClassName; \
 	 \
 	void ClassName::initialiseSingleton() \
 	{ \
@@ -148,7 +148,7 @@ namespace MyGUI
 		return ClassName##Instance; \
 	} \
 	 \
-	const char* ClassName::getClassTypeName() \
+	std::string_view ClassName::getClassTypeName() \
 	{ \
 		return ClassName##ClassTypeName; \
 	} \

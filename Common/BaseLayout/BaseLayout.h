@@ -86,8 +86,6 @@ namespace wraps
 
 		void initialise(std::string_view _layout, MyGUI::Widget* _parent = nullptr, bool _throw = true, bool _createFakeWidgets = true)
 		{
-			const std::string MAIN_WINDOW1 = "_Main";
-			const std::string MAIN_WINDOW2 = "Root";
 			mLayoutName = _layout;
 
 			// оборачиваем
@@ -106,6 +104,8 @@ namespace wraps
 				mPrefix = MyGUI::utility::toString(this, "_");
 				mListWindowRoot = MyGUI::LayoutManager::getInstance().loadLayout(mLayoutName, mPrefix, _parent);
 
+				const std::string MAIN_WINDOW1 = "_Main";
+				const std::string MAIN_WINDOW2 = "Root";
 				const std::string mainName1 = mPrefix + MAIN_WINDOW1;
 				const std::string mainName2 = mPrefix + MAIN_WINDOW2;
 				for (MyGUI::VectorWidgetPtr::iterator iter = mListWindowRoot.begin(); iter != mListWindowRoot.end(); ++iter)
@@ -175,7 +175,7 @@ namespace wraps
 			if (_parent->getParent() != nullptr)
 				return FindParentPrefix(_parent->getParent());
 
-			return "";
+			return {};
 		}
 
 		void snapToParent(MyGUI::Widget* _child)
@@ -238,7 +238,7 @@ namespace wraps
 			if (_parent)
 				return _parent->createWidgetT(_typeName, MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default);
 
-			return MyGUI::Gui::getInstance().createWidgetT(_typeName, MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default, "");
+			return MyGUI::Gui::getInstance().createWidgetT(_typeName, MyGUI::SkinManager::getInstance().getDefaultSkin(), MyGUI::IntCoord(), MyGUI::Align::Default, std::string_view{});
 		}
 
 	public:

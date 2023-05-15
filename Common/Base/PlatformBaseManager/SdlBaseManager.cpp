@@ -386,7 +386,7 @@ namespace base
 		return mRootMedia;
 	}
 
-	void SdlBaseManager::setResourceFilename(const std::string& _flename)
+	void SdlBaseManager::setResourceFilename(std::string_view _flename)
 	{
 		mResourceFileName = _flename;
 	}

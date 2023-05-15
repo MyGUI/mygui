@@ -44,7 +44,7 @@ namespace plugin
 		}
 
 	public:
-		static const std::string LogSection;
+		static const std::string_view LogSection;
 
 	private:
 		static HMODULE msFlashLib;

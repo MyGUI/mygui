@@ -55,7 +55,7 @@ namespace tools
 		if (mParentData != nullptr && mParentData->getType()->getName() != mParentTypeName)
 			mParentData = nullptr;
 
-		std::string texture;
+		std::string_view texture;
 		PropertyPtr property = PropertyUtility::getPropertyByName("Font", "FontName");
 		if (property != nullptr)
 		{
@@ -105,10 +105,10 @@ namespace tools
 				mParentData = nullptr;
 
 				// мы еще владельцы контрола сбрасываем его
-				std::string value = mControl->getRoot()->getUserString("CurrentScopeController");
+				const std::string& value = mControl->getRoot()->getUserString("CurrentScopeController");
 				if (value == mScopeName)
 				{
-					mControl->getRoot()->setUserString("CurrentScopeController", "");
+					mControl->getRoot()->setUserString("CurrentScopeController", std::string_view{});
 					notifyChangeDataSelector(mParentData, false);
 
 					mControl->clearAll();
@@ -125,7 +125,9 @@ namespace tools
 		MyGUI::ResourceTrueTypeFont* font = resource != nullptr ? resource->castType<MyGUI::ResourceTrueTypeFont>(false) : nullptr;
 		
 		MyGUI::ITexture* texture = font != nullptr ? font->getTextureFont() : nullptr;
-		std::string value = texture != nullptr ? texture->getName() : "";
+		MyGUI::UString value;
+		if (texture != nullptr)
+			value = texture->getName();
 
 		mControl->setTextureValue(value);
 		mControl->resetTextureRegion();

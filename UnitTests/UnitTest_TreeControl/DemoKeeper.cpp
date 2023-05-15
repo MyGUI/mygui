@@ -218,7 +218,7 @@ namespace demo
 	{
 		base::BaseDemoManager::createScene();
 		MyGUI::FactoryManager& factory = MyGUI::FactoryManager::getInstance();
-		std::string widgetCategory = MyGUI::WidgetManager::getInstance().getCategoryName();
+		const std::string& widgetCategory = MyGUI::WidgetManager::getInstance().getCategoryName();
 		factory.registerFactory<MyGUI::TreeControl>(widgetCategory);
 		factory.registerFactory<MyGUI::TreeControlItem>(widgetCategory);
 
@@ -235,7 +235,7 @@ namespace demo
 		mSampleLayout = nullptr;
 
 		MyGUI::FactoryManager& factory = MyGUI::FactoryManager::getInstance();
-		std::string widgetCategory = MyGUI::WidgetManager::getInstance().getCategoryName();
+		const std::string& widgetCategory = MyGUI::WidgetManager::getInstance().getCategoryName();
 		factory.unregisterFactory<MyGUI::TreeControl>(widgetCategory);
 		factory.unregisterFactory<MyGUI::TreeControlItem>(widgetCategory);
 	}

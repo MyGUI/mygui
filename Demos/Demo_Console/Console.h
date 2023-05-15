@@ -77,7 +77,7 @@ namespace demo
 		void setVisible(bool _visible);
 
 		template <typename T>
-		bool isAction(T& _result, const MyGUI::UString& _key, const MyGUI::UString& _value, const MyGUI::UString& _format = "")
+		bool isAction(T& _result, const MyGUI::UString& _key, const MyGUI::UString& _value, const MyGUI::UString& _format = MyGUI::UString())
 		{
 			if (_value.empty())
 			{

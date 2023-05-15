@@ -192,7 +192,7 @@ namespace MyGUI
 		if (_skinInfo == nullptr)
 		{
 			skinOnly = true;
-			std::string skinName;
+			std::string_view skinName;
 
 			const VectorWidgetInfo& data = _templateInfo->getLayoutData();
 			for (VectorWidgetInfo::const_iterator item = data.begin(); item != data.end(); ++item)

@@ -43,7 +43,7 @@ namespace tools
 
 		std::string value = mField->getOnlyText();
 		if (value == DEFAULT_STRING && mField->getCaption() == DEFAULT_VALUE)
-			value = "";
+			value.clear();
 
 		bool goodData = onCheckValue();
 
@@ -86,10 +86,10 @@ namespace tools
 
 	void PropertyFieldEditBox::setValue(std::string_view _value)
 	{
-		std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
-
 		if (_value.empty())
 		{
+			std::string DEFAULT_VALUE = replaceTags("ColourDefault") + DEFAULT_STRING;
+
 			mField->setCaption(DEFAULT_VALUE);
 		}
 		else

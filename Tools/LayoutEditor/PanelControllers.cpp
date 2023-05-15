@@ -134,7 +134,7 @@ namespace tools
 
 			for (const auto& [pKey, pValue] : property->second)
 			{
-				std::string value;
+				std::string_view value;
 				if (controllerInfo->mProperty.find(pKey) != controllerInfo->mProperty.end())
 					value = controllerInfo->mProperty[pKey];
 

@@ -48,17 +48,17 @@ namespace demo
 		return _mass.at(random((int)_mass.size()));
 	}
 
-	static const char* get_skin()
+	static std::string_view get_skin()
 	{
 		const int SIZE = 8;
-		static const char* names[SIZE] = { "WindowCSX", "ScrollView", "ButtonX", "ButtonV", "Button", "EditBoxStretch", "RadioButton", "CheckBox" };
+		static std::string_view names[SIZE] = { "WindowCSX", "ScrollView", "ButtonX", "ButtonV", "Button", "EditBoxStretch", "RadioButton", "CheckBox" };
 		return names[random(SIZE)];
 	}
 
-	static const char* get_layer()
+	static std::string_view get_layer()
 	{
 		const int SIZE = 4;
-		static const char* names[SIZE] = { "", "Main", "Overlapped", "Popup" };
+		static const std::string_view names[SIZE] = { std::string_view{}, "Main", "Overlapped", "Popup" };
 		return names[random(SIZE)];
 	}
 
@@ -91,7 +91,7 @@ namespace demo
 		if (!widget) return;
 		if (widget->isRootWidget())
 		{
-			std::string layername = get_layer();
+			std::string_view layername = get_layer();
 			if (!layername.empty())
 				MyGUI::LayerManager::getInstance().attachToLayerNode(layername, widget);
 		}

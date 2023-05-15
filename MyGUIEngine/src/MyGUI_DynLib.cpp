@@ -82,7 +82,7 @@ namespace MyGUI
 #endif
 	}
 
-	void* DynLib::getSymbol( std::string_view strName ) const noexcept
+	void* DynLib::getSymbol( const char* strName ) const noexcept
 	{
 #ifdef MYGUI_DISABLE_PLUGINS
 		MYGUI_EXCEPT("Plugins support disabled, rebuild MyGUI without MYGUI_DISABLE_PLUGINS");
@@ -91,7 +91,7 @@ namespace MyGUI
 		//APPLE SPECIFIC CODE HERE
 		return nullptr;
 #else
-		return (void*)MYGUI_DYNLIB_GETSYM(mInstance, strName.data());
+		return (void*)MYGUI_DYNLIB_GETSYM(mInstance, strName);
 #endif
 #endif
 	}

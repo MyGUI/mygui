@@ -1010,18 +1010,18 @@ namespace input
 		}
 
 #ifdef INPUT_KEY_NAME
-		const std::string VirtualKeyToName(WPARAM _virtualKey) const
+		std::string_view VirtualKeyToName(WPARAM _virtualKey) const
 		{
 			if (_virtualKey < VLK_MAX)
 				return mVirtualKeyToName[_virtualKey];
-			return "";
+			return {};
 		}
 
-		const std::string ScanCodeToName(int _scanCode) const
+		std::string_view ScanCodeToName(int _scanCode) const
 		{
 			if (_scanCode < SC_MAX)
 				return mScanCodeToName[_scanCode];
-			return "";
+			return {};
 		}
 #endif
 
@@ -1056,13 +1056,13 @@ namespace input
 
 #ifdef INPUT_KEY_NAME
 
-	std::string VirtualKeyToName(WPARAM _virtualKey)
+	std::string_view VirtualKeyToName(WPARAM _virtualKey)
 	{
 		const Table& table = getTable();
 		return table.VirtualKeyToName(_virtualKey);
 	}
 
-	std::string ScanCodeToName(int _scanCode)
+	std::string_view ScanCodeToName(int _scanCode)
 	{
 		const Table& table = getTable();
 		return table.ScanCodeToName(_scanCode);

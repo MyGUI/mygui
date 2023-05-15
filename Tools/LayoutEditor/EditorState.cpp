@@ -352,7 +352,10 @@ namespace tools
 
 	void EditorState::updateCaption()
 	{
-		addUserTag("HasChanged", UndoManager::getInstance().isUnsaved() ? "*" : "");
+		MyGUI::UString tag;
+		if (UndoManager::getInstance().isUnsaved())
+			tag = "*";
+		addUserTag("HasChanged", tag);
 
 		CommandManager::getInstance().executeCommand("Command_UpdateAppCaption");
 	}

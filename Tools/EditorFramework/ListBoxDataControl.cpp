@@ -92,7 +92,7 @@ namespace tools
 				mListBox->removeItemAt(mListBox->getItemCount() - 1);
 
 			while (mListBox->getItemCount() < childs.size())
-				mListBox->addItem("", nullptr);
+				mListBox->addItem(MyGUI::UString(), nullptr);
 
 			for (size_t index = 0; index < childs.size(); index ++)
 			{

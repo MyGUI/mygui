@@ -79,7 +79,7 @@ namespace MyGUI
 	private:
 		std::string_view getValueName(int _index) const
 		{
-			static const std::string_view values[MAX + 1] = { "Normal", "Popup", "Separator", "" };
+			static const std::string_view values[MAX + 1] = { "Normal", "Popup", "Separator", std::string_view{} };
 			return values[(_index < MAX && _index >= 0) ? _index : MAX];
 		}
 

@@ -40,7 +40,7 @@ namespace demo
 		void destroyEntities();
 
 		void updateCamera(int _x, int _y);
-		std::string getCursorFromScene(int _x, int _y);
+		std::string_view getCursorFromScene(int _x, int _y);
 
 	private:
 		EnemyPanel* mEnemyPanel;

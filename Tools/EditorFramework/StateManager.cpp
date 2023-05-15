@@ -94,8 +94,8 @@ namespace tools
 
 	void StateManager::stateEvent(StateController* _state, std::string_view _event)
 	{
-		std::string currentStateName = getNameState(_state);
-		std::string toStateName = getEventToState(currentStateName, _event);
+		std::string_view currentStateName = getNameState(_state);
+		std::string_view toStateName = getEventToState(currentStateName, _event);
 
 		StateController* state = getStateByName(toStateName);
 		if (state == nullptr)
@@ -125,24 +125,24 @@ namespace tools
 		mLinks.emplace_back(_stateName, std::make_pair(_eventName, _toState));
 	}
 
-	std::string StateManager::getNameState(StateController* _state)
+	std::string_view StateManager::getNameState(StateController* _state)
 	{
 		for (MapStateController::const_iterator item = mStateName.begin(); item != mStateName.end(); ++item)
 		{
 			if ((*item).second == _state)
 				return (*item).first;
 		}
-		return "";
+		return {};
 	}
 
-	std::string StateManager::getEventToState(std::string_view _currentStateName, std::string_view _eventName)
+	std::string_view StateManager::getEventToState(std::string_view _currentStateName, std::string_view _eventName)
 	{
 		for (VectorPairPairString::const_iterator item = mLinks.begin(); item != mLinks.end(); ++item)
 		{
 			if ((*item).first == _currentStateName && (*item).second.first == _eventName)
 				return (*item).second.second;
 		}
-		return "";
+		return {};
 	}
 
 	StateController* StateManager::getStateByName(std::string_view _stateName)

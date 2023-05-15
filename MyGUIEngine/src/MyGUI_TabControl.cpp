@@ -161,7 +161,7 @@ namespace MyGUI
 			child->setCoord(_getWidgetTemplate()->getAbsoluteLeft() - getAbsoluteLeft(), _getWidgetTemplate()->getAbsoluteTop() - getAbsoluteTop(), _getWidgetTemplate()->getWidth(), _getWidgetTemplate()->getHeight());
 			child->setAlign(_getWidgetTemplate()->getAlign());
 
-			_insertItem(ITEM_NONE, "", child, Any::Null);
+			_insertItem(ITEM_NONE, UString(), child, Any::Null);
 		}
 	}
 
@@ -169,7 +169,7 @@ namespace MyGUI
 	{
 		MYGUI_ASSERT_RANGE_INSERT(_index, mItemsInfo.size(), "TabControl::insertItem");
 
-		Widget* widget = Base::baseCreateWidget(WidgetStyle::Child, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), "", "", false);
+		Widget* widget = Base::baseCreateWidget(WidgetStyle::Child, TabItem::getClassTypeName(), "Default", _getWidgetTemplate()->getCoord(), _getWidgetTemplate()->getAlign(), std::string_view{}, std::string_view{}, false);
 
 		size_t lastIndex = mItemsInfo.size() - 1;
 		setItemNameAt(lastIndex, _name);

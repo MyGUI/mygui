@@ -385,7 +385,6 @@ namespace MyGUI
 		Document::Document():
 			mRoot(nullptr),
 			mDeclaration(nullptr),
-			mLastErrorFile(""),
 			mLine(0),
 			mCol(0)
 		{
@@ -575,11 +574,11 @@ namespace MyGUI
 				// создаем пустой тег
 				if (_currentNode)
 				{
-					_currentNode = _currentNode->createChild("");
+					_currentNode = _currentNode->createChild(std::string_view{});
 				}
 				else
 				{
-					_currentNode = new Element("", nullptr);
+					_currentNode = new Element(std::string_view{}, nullptr);
 					// если это первый то запоминаем
 					if (!mRoot)
 						mRoot = _currentNode;
@@ -595,7 +594,7 @@ namespace MyGUI
 			{
 				if (_currentNode != nullptr)
 				{
-					//_currentNode->createChild("", _content, ElementType::Comment);
+					//_currentNode->createChild(std::string_view{}, _content, ElementType::Comment);
 				}
 				return true;
 			}
@@ -890,7 +889,7 @@ namespace MyGUI
 				size_t body = _line.find_first_not_of(" \t<");
 				if (body < start)
 				{
-					std::string body_str = _line.substr(0, start);
+					std::string_view body_str = std::string_view{_line}.substr(0, start);
 					// текущий символ
 					mCol = 0;
 
@@ -918,9 +917,9 @@ namespace MyGUI
 
 		std::string Document::getLastError() const
 		{
-			const std::string& error = mLastError.print();
+			std::string_view error = mLastError.print();
 			if (error.empty())
-				return error;
+				return {};
 			return MyGUI::utility::toString("'", error, "' ,  file='", mLastErrorFile, "' ,  line=", mLine, " ,  col=", mCol);
 		}
 

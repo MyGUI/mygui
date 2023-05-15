@@ -48,7 +48,7 @@ namespace demo
 		if (root.size() == 1)
 			root.at(0)->findWidget("Text")->castType<MyGUI::TextBox>()->setCaption("Implementation of custom complex cursor behaviour, interaction of system and in-game cursors.");
 
-		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().registerFactory<ResourcePointerContext>(resourceCategory);
 
 		MyGUI::ResourceManager::getInstance().load("Contexts.xml");
@@ -87,7 +87,7 @@ namespace demo
 		delete mPointerContextManager;
 		mPointerContextManager = nullptr;
 
-		std::string resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
+		const std::string& resourceCategory = MyGUI::ResourceManager::getInstance().getCategoryName();
 		MyGUI::FactoryManager::getInstance().unregisterFactory<ResourcePointerContext>(resourceCategory);
 
 		destroyEntities();
@@ -119,7 +119,7 @@ namespace demo
 			if (!MyGUI::InputManager::getInstance().injectMouseMove(_absx, _absy, _absz))
 			{
 				// пикаем сцену
-				std::string pointer = getCursorFromScene(_absx, _absy);
+				std::string_view pointer = getCursorFromScene(_absx, _absy);
 				mPointerContextManager->setPointer(pointer);
 			}
 		}
@@ -227,7 +227,7 @@ namespace demo
 #endif
 	}
 
-	std::string DemoKeeper::getCursorFromScene(int _x, int _y)
+	std::string_view DemoKeeper::getCursorFromScene(int _x, int _y)
 	{
 #ifdef MYGUI_OGRE_PLATFORM
 		MyGUI::IntSize size = MyGUI::RenderManager::getInstance().getViewSize();
