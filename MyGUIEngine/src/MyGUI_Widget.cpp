@@ -1072,7 +1072,7 @@ namespace MyGUI
 
 	void Widget::setProperty(std::string_view _key, std::string_view _value)
 	{
-		std::string key{key};
+		std::string key{_key};
 		std::string value{_value};
 
 		if (BackwardCompatibility::checkProperty(this, key, value))

@@ -127,14 +127,14 @@ namespace MyGUI
 
 	Widget* ResourceLayout::createWidget(const WidgetInfo& _widgetInfo, std::string_view _prefix, Widget* _parent, bool _template)
 	{
-		std::string widgetName = _widgetInfo.name;
+		std::string widgetName;
 		WidgetStyle style = _widgetInfo.style;
 		std::string_view widgetLayer = _widgetInfo.layer;
 
-		if (!widgetName.empty())
+		if (!_widgetInfo.name.empty())
 		{
 			widgetName = _prefix;
-			widgetName += widgetName;
+			widgetName += _widgetInfo.name;
 		}
 
 		if (_parent != nullptr && style != WidgetStyle::Popup) widgetLayer = {};
