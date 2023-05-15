@@ -138,15 +138,12 @@ namespace MyGUI
 		return result;
 	}
 
-	const std::string& OgreDataManager::getDataPath(const std::string& _name) const
+	std::string OgreDataManager::getDataPath(const std::string& _name) const
 	{
-		static std::string result;
-		result.clear();
-
 		const VectorString& files = getDataListNames(_name, true);
 		if (!files.empty())
 		{
-			result = files[0];
+			const std::string& result = files[0];
 			if (files.size() > 1)
 			{
 				MYGUI_PLATFORM_LOG(Warning, "There are several files with name '" << _name << "'. '" << result << "' was used.");
@@ -154,9 +151,10 @@ namespace MyGUI
 				for (size_t index = 1; index < files.size(); index++)
 					MYGUI_PLATFORM_LOG(Warning, " - '" << files[index] << "'");
 			}
+			return result;
 		}
 
-		return result;
+		return {};
 	}
 
 	void OgreDataManager::addResourceLocation(const std::string& _name, bool _recursive)
