@@ -38,14 +38,7 @@ namespace MyGUI
 		*this = parse(_value);
 	}
 
-	Colour& Colour::operator = (Colour const& _value)
-	{
-		red = _value.red;
-		green = _value.green;
-		blue = _value.blue;
-		alpha = _value.alpha;
-		return *this;
-	}
+	Colour& Colour::operator = (Colour const& _value) = default;
 
 	bool Colour::operator == (Colour const& _value) const
 	{
@@ -89,7 +82,11 @@ namespace MyGUI
 				stream >> std::hex >> result;
 				if (!stream.fail())
 				{
-					return Colour( (unsigned char)( result >> 16 ) / 256.0f, (unsigned char)( result >> 8 ) / 256.0f, (unsigned char)( result ) / 256.0f );
+					return {
+						(unsigned char)( result >> 16 ) / 256.0f,
+						(unsigned char)( result >> 8 ) / 256.0f,
+						(unsigned char)( result ) / 256.0f
+					};
 				}
 			}
 			else
@@ -103,7 +100,7 @@ namespace MyGUI
 					float alpha = ALPHA_MAX;
 					if (!stream.eof())
 						stream >> alpha;
-					return Colour(red, green, blue, alpha);
+					return {red, green, blue, alpha};
 				}
 			}
 		}

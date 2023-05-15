@@ -27,12 +27,12 @@ namespace demo
 
 		mOk->eventMouseButtonClick += MyGUI::newDelegate(this, &ColourPanel::notifyMouseButtonClick);
 
-		mColourRange.push_back(MyGUI::Colour(1, 0, 0));
-		mColourRange.push_back(MyGUI::Colour(1, 0, 1));
-		mColourRange.push_back(MyGUI::Colour(0, 0, 1));
-		mColourRange.push_back(MyGUI::Colour(0, 1, 1));
-		mColourRange.push_back(MyGUI::Colour(0, 1, 0));
-		mColourRange.push_back(MyGUI::Colour(1, 1, 0));
+		mColourRange.emplace_back(1, 0, 0);
+		mColourRange.emplace_back(1, 0, 1);
+		mColourRange.emplace_back(0, 0, 1);
+		mColourRange.emplace_back(0, 1, 1);
+		mColourRange.emplace_back(0, 1, 0);
+		mColourRange.emplace_back(1, 1, 0);
 		mColourRange.push_back(mColourRange[0]);
 
 		createTexture();

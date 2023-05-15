@@ -921,7 +921,7 @@ namespace MyGUI
 	{
 		if (mWidgetClient != nullptr)
 			return mWidgetClient->getEnumerator();
-		return Enumerator<VectorWidgetPtr>(mWidgetChild.begin(), mWidgetChild.end());
+		return {mWidgetChild.begin(), mWidgetChild.end()};
 	}
 
 	size_t Widget::getChildCount() const

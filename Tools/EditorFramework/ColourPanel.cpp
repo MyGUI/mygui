@@ -61,12 +61,12 @@ namespace tools
 		CommandManager::getInstance().getEvent("Command_ColorAccept")->connect(this, &ColourPanel::commandColorAccept);
 		CommandManager::getInstance().getEvent("Command_ColorCancel")->connect(this, &ColourPanel::commandColorCancel);
 
-		mColourRange.push_back(MyGUI::Colour(1, 0, 0));
-		mColourRange.push_back(MyGUI::Colour(1, 0, 1));
-		mColourRange.push_back(MyGUI::Colour(0, 0, 1));
-		mColourRange.push_back(MyGUI::Colour(0, 1, 1));
-		mColourRange.push_back(MyGUI::Colour(0, 1, 0));
-		mColourRange.push_back(MyGUI::Colour(1, 1, 0));
+		mColourRange.emplace_back(1, 0, 0);
+		mColourRange.emplace_back(1, 0, 1);
+		mColourRange.emplace_back(0, 0, 1);
+		mColourRange.emplace_back(0, 1, 1);
+		mColourRange.emplace_back(0, 1, 0);
+		mColourRange.emplace_back(1, 1, 0);
 		mColourRange.push_back(mColourRange[0]);
 
 		mMainWidget->setVisible(false);

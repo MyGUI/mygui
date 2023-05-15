@@ -436,7 +436,7 @@ namespace MyGUI
 				else
 				{
 					// Found the start of a new range. First, save the current range.
-					result.push_back(std::make_pair(rangeBegin, rangeEnd));
+					result.emplace_back(rangeBegin, rangeEnd);
 
 					// Then start the new range.
 					rangeBegin = rangeEnd = iter->first;
@@ -444,7 +444,7 @@ namespace MyGUI
 			}
 
 			// Save the final range.
-			result.push_back(std::make_pair(rangeBegin, rangeEnd));
+			result.emplace_back(rangeBegin, rangeEnd);
 		}
 
 		return result;

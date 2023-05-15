@@ -351,7 +351,7 @@ namespace MyGUI
 
 		ElementEnumerator Element::getElementEnumerator()
 		{
-			return ElementEnumerator(mChilds.begin(), mChilds.end());
+			return {mChilds.begin(), mChilds.end()};
 		}
 
 		ElementType Element::getType() const
