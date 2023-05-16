@@ -185,7 +185,7 @@ namespace MyGUI
 		return widget;
 	}
 
-	Widget* Gui::findWidgetT(std::string_view _name, bool _throw)
+	Widget* Gui::findWidgetT(std::string_view _name, bool _throw) const
 	{
 		for (const auto& iter : mWidgetChild)
 		{
@@ -303,7 +303,7 @@ namespace MyGUI
 		return createWidgetT(_type, _skin, IntCoord(static_cast<int>(_left * size.width), static_cast<int>(_top * size.height), static_cast<int>(_width * size.width), static_cast<int>(_height * size.height)), _align, _layer, _name);
 	}
 
-	Widget* Gui::findWidgetT(std::string_view _name, std::string_view _prefix, bool _throw)
+	Widget* Gui::findWidgetT(std::string_view _name, std::string_view _prefix, bool _throw) const
 	{
 		std::string name{_prefix};
 		name += _name;

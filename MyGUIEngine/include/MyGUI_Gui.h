@@ -101,18 +101,18 @@ namespace MyGUI
 		/** Find widget by name
 			If widget is not found the exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
 		*/
-		Widget* findWidgetT(std::string_view _name, bool _throw = true);
+		Widget* findWidgetT(std::string_view _name, bool _throw = true) const;
 
 		/** Find widget by name and prefix
 			If widget is not found the exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
 		*/
-		Widget* findWidgetT(std::string_view _name, std::string_view _prefix, bool _throw = true);
+		Widget* findWidgetT(std::string_view _name, std::string_view _prefix, bool _throw = true) const;
 
 		/** Find widget by name and cast it to T type.
 			If widget not found or T and found widget have different types exception will be thrown, or if the second parameter is false the nullptr pointer will be returned
 		*/
 		template <typename T>
-		T* findWidget(std::string_view _name, bool _throw = true)
+		T* findWidget(std::string_view _name, bool _throw = true) const
 		{
 			Widget* widget = findWidgetT(_name, _throw);
 			if (nullptr == widget) return nullptr;
@@ -123,7 +123,7 @@ namespace MyGUI
 			If widget not found or T and found widget have different types cause exception, or if the second parameter is false the nullptr pointer will be returned
 		*/
 		template <typename T>
-		T* findWidget(std::string_view _name, std::string_view _prefix, bool _throw = true)
+		T* findWidget(std::string_view _name, std::string_view _prefix, bool _throw = true) const
 		{
 			std::string name{_prefix};
 			name += _name;
