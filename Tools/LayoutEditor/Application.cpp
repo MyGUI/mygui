@@ -235,7 +235,8 @@ namespace tools
 	{
 		MyGUI::InputManager& input = MyGUI::InputManager::getInstance();
 
-		if (!HotKeyManager::getInstance().onKeyEvent(true, input.isShiftPressed(), input.isControlPressed(), _key))
+		bool controlPressed = input.isControlPressed() || input.isMetaPressed();
+		if (!HotKeyManager::getInstance().onKeyEvent(true, input.isShiftPressed(), controlPressed, _key))
 			input.injectKeyPress(_key, _text);
 	}
 
