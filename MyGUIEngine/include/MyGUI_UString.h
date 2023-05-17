@@ -595,7 +595,7 @@ namespace MyGUI
 		UString& assign( const wchar_t* w_str, size_type num );
 #endif
 		//! assign \a str to the current string (\a str is treated as a UTF-8 stream)
-		UString& assign( std::string_view str ) { return assign(str.data(), str.size()); };
+		UString& assign( std::string_view str ) { return assign(str.data(), str.size()); }
 
 		UString& assign( const utf32string & str );
 		//! assign the first \a num characters of \a c_str to the current string (\a c_str is treated as a UTF-8 stream)
@@ -888,7 +888,7 @@ namespace MyGUI
 		//! implicit cast to std::wstring
 		operator std::wstring() const;
 		//! implicit cast to std::string_view
-		operator std::string_view() const { return asUTF8(); };
+		operator std::string_view() const { return asUTF8(); }
 		//@}
 
 		//////////////////////////////////////////////////////////////////////////

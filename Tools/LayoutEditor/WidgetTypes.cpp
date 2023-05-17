@@ -5,8 +5,7 @@ namespace tools
 {
 	MYGUI_SINGLETON_DEFINITION(WidgetTypes);
 
-	const std::string_view DEFAULT_GOROUP_NAME = "Default";
-	const std::string_view LogSection = "LayoutEditor";
+	const std::string_view DEFAULT_GROUP_NAME = "Default";
 
 	void WidgetTypes::initialise()
 	{
@@ -68,7 +67,7 @@ namespace tools
 	{
 		WidgetStyle* widget_type = getWidgetType(_type);
 		if (_group.empty())
-			_group = DEFAULT_GOROUP_NAME;
+			_group = DEFAULT_GROUP_NAME;
 		auto it = mSkinGroups.find(_group);
 		if (it == mSkinGroups.end())
 			it = mSkinGroups.emplace(_group, VectorSkinInfo()).first;
@@ -105,7 +104,7 @@ namespace tools
 							button_name = value;
 
 						if (group.empty())
-							group = DEFAULT_GOROUP_NAME;
+							group = DEFAULT_GROUP_NAME;
 						mSkinGroups[group].emplace_back(value, widget_type->name, button_name);
 						widget_type->skin.push_back(value);
 					}

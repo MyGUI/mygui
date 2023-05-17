@@ -304,7 +304,7 @@ namespace tools
 
 		updateTexture(mBaseColour);
 
-		mAlphaSlider->setScrollPosition(static_cast<size_t>(static_cast<double>(mAlphaSlider->getScrollRange() - 1) * static_cast<double>(mCurrentColour.alpha)));
+		mAlphaSlider->setScrollPosition(static_cast<size_t>(static_cast<float>(mAlphaSlider->getScrollRange() - 1) * static_cast<float>(mCurrentColour.alpha)));
 
 		mColourView->setColour(mCurrentColour);
 		mColourView->setAlpha(mCurrentColour.alpha);
@@ -384,7 +384,7 @@ namespace tools
 		_sender->setCaption(value);
 		_sender->setTextCursor(index);
 
-		mAlphaSlider->setScrollPosition(static_cast<size_t>(static_cast<double>(mAlphaSlider->getScrollRange() - 1) * mCurrentColour.alpha));
+		mAlphaSlider->setScrollPosition(static_cast<size_t>(static_cast<float>(mAlphaSlider->getScrollRange() - 1) * mCurrentColour.alpha));
 		mColourView->setAlpha(mCurrentColour.alpha);
 
 		eventPreviewColour(mCurrentColour);
@@ -392,7 +392,7 @@ namespace tools
 
 	void ColourPanel::notifyScrollChangePositionAlpha(MyGUI::ScrollBar* _sender, size_t _position)
 	{
-		mCurrentColour.alpha = static_cast<float>(static_cast<double>(mAlphaSlider->getScrollPosition()) / static_cast<double>(mAlphaSlider->getScrollRange() - 1));
+		mCurrentColour.alpha = static_cast<float>(mAlphaSlider->getScrollPosition()) / static_cast<float>(mAlphaSlider->getScrollRange() - 1);
 
 		if (mCurrentColour.alpha > 1)
 			mCurrentColour.alpha = 1;
