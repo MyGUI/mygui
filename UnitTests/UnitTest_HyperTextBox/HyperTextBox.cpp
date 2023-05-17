@@ -307,7 +307,7 @@ namespace MyGUI
 				{
 					if ((colourTagName.size() + 2) < ((*item).size()))
 					{
-						std::string_view value = (*item).substr(colourTagName.size() + 1, (*item).size() - (colourTagName.size() + 2));
+						std::string value = (*item).substr(colourTagName.size() + 1, (*item).size() - (colourTagName.size() + 2));
 						mColourValue = Colour::parse(value);
 					}
 				}
@@ -365,7 +365,7 @@ namespace MyGUI
 					if ((alightTagName.size() + 2) < ((*item).size()))
 					{
 						needAlign = true;
-						std::string_view value = (*item).substr(alightTagName.size() + 1, (*item).size() - (alightTagName.size() + 2));
+						std::string value = (*item).substr(alightTagName.size() + 1, (*item).size() - (alightTagName.size() + 2));
 						if (value == "left")
 							alignResult = Align::Default;
 						else if (value == "center")
@@ -381,7 +381,7 @@ namespace MyGUI
 					if ((floatTagName.size() + 2) < ((*item).size()))
 					{
 						needFloat = true;
-						std::string_view value = (*item).substr(floatTagName.size() + 1, (*item).size() - (floatTagName.size() + 2));
+						std::string value = (*item).substr(floatTagName.size() + 1, (*item).size() - (floatTagName.size() + 2));
 						if (value == "left")
 							floatResult = Align::Default;
 						else if (value == "center")
@@ -424,7 +424,7 @@ namespace MyGUI
 				{
 					if ((widthTagName.size() + 2) < ((*item).size()))
 					{
-						std::string_view value = (*item).substr(widthTagName.size() + 1, (*item).size() - (widthTagName.size() + 2));
+						std::string value = (*item).substr(widthTagName.size() + 1, (*item).size() - (widthTagName.size() + 2));
 						mImageSize.width = utility::parseValue<int>(value);
 					}
 				}
@@ -432,7 +432,7 @@ namespace MyGUI
 				{
 					if ((heightTagName.size() + 2) < ((*item).size()))
 					{
-						std::string_view value = (*item).substr(heightTagName.size() + 1, (*item).size() - (heightTagName.size() + 2));
+						std::string value = (*item).substr(heightTagName.size() + 1, (*item).size() - (heightTagName.size() + 2));
 						mImageSize.height = utility::parseValue<int>(value);
 					}
 				}
