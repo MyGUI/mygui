@@ -409,6 +409,8 @@ namespace MyGUI
 
 		if (_show)
 		{
+			// enable _item in case actionWidgetHide was skipped due to rapid click
+			_item->setEnabled(true);
 			ControllerFadeAlpha* controller = createControllerFadeAlpha(ALPHA_MAX, TAB_SPEED_FADE_COEF, true);
 			ControllerManager::getInstance().addItem(_item, controller);
 		}
