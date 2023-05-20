@@ -11,17 +11,28 @@
 #include <limits>
 #include <cstddef>
 #include <cstdint>
+#include <string_view>
 
 namespace MyGUI
 {
 
-	const size_t ITEM_NONE = (std::numeric_limits<size_t>::max)();
-	const int DEFAULT = -1;
-	const float ALPHA_MAX = 1.0f;
-	const float ALPHA_MIN = 0.0f;
+	constexpr size_t ITEM_NONE = (std::numeric_limits<size_t>::max)();
+	constexpr int DEFAULT = -1;
+	constexpr float ALPHA_MAX = 1.0f;
+	constexpr float ALPHA_MIN = 0.0f;
 
-	const int MYGUI_FLAG_NONE = 0;
+	constexpr int MYGUI_FLAG_NONE = 0;
 	constexpr int MYGUI_FLAG(uint8_t num) { return 1 << num; }
+
+	template <class Map, class Value>
+	inline void mapSet(Map& map, std::string_view key, const Value& value)
+	{
+		auto it = map.find(key);
+		if (it == map.end())
+			map.emplace(key, value);
+		else
+			it->second = value;
+	}
 
 } // namespace MyGUI
 

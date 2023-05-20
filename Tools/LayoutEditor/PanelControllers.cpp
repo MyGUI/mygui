@@ -177,17 +177,9 @@ namespace tools
 			{
 				std::string_view key = prop->findAttribute("key");
 				std::string_view value = prop->findAttribute("type");
-				auto it = controllerProperties.find(key);
-				if (it == controllerProperties.end())
-					controllerProperties.emplace(key, value);
-				else
-					it->second = value;
+				MyGUI::mapSet(controllerProperties, key, value);
 			}
-			auto it = mControllersProperties.find(name);
-			if (it == mControllersProperties.end())
-				mControllersProperties.emplace(name, controllerProperties);
-			else
-				it->second = controllerProperties;
+			MyGUI::mapSet(mControllersProperties, name, controllerProperties);
 		}
 	}
 
@@ -206,11 +198,7 @@ namespace tools
 			{
 				WidgetContainer* widgetContainer = EditorWidgets::getInstance().find(mCurrentWidget);
 				auto& prop = widgetContainer->mController[mIndexSelected]->mProperty;
-				auto it = prop.find(_name);
-				if (it == prop.end())
-					prop.emplace(_name, _value);
-				else
-					it->second = _value;
+				MyGUI::mapSet(prop, _name, _value);
 
 				UndoManager::getInstance().addValue(PR_PROPERTIES);
 			}

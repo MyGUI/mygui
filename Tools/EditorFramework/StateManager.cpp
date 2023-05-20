@@ -113,11 +113,7 @@ namespace tools
 
 	void StateManager::registerState(StateController* _state, std::string_view _name)
 	{
-		auto it = mStateName.find(_name);
-		if (it == mStateName.end())
-			mStateName.emplace(_name, _state);
-		else
-			it->second = _state;
+		MyGUI::mapSet(mStateName, _name, _state);
 	}
 
 	void StateManager::registerEventState(std::string_view _stateName, std::string_view _eventName, std::string_view _toState)

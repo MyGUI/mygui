@@ -33,12 +33,7 @@ namespace demo
 				MyGUI::xml::ElementEnumerator item = info->getElementEnumerator();
 				while (item.next("Item"))
 				{
-					std::string_view key = item->findAttribute("name");
-					auto it = mPointers.find(key);
-					if (it == mPointers.end())
-						mPointers.emplace(key, item->getContent());
-					else
-						it->second = item->getContent();
+					MyGUI::mapSet(mPointers, item->findAttribute("name"), item->getContent());
 				}
 			}
 		}

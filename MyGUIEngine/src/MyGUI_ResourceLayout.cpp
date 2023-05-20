@@ -82,11 +82,7 @@ namespace MyGUI
 			{
 				std::string_view key = node->findAttribute("key");
 				std::string_view value = node->findAttribute("value");
-				auto it = widgetInfo.userStrings.find(key);
-				if (it == widgetInfo.userStrings.end())
-					widgetInfo.userStrings.emplace(key, value);
-				else
-					it->second = value;
+				mapSet(widgetInfo.userStrings, key, value);
 			}
 			else if (node->getName() == "Controller")
 			{
@@ -98,11 +94,7 @@ namespace MyGUI
 				{
 					std::string_view key = prop->findAttribute("key");
 					std::string_view value = prop->findAttribute("value");
-					auto it = controllerInfo.properties.find(key);
-					if (it == controllerInfo.properties.end())
-						controllerInfo.properties.emplace(key, value);
-					else
-						it->second = value;
+					mapSet(controllerInfo.properties, key, value);
 				}
 
 				widgetInfo.controllers.push_back(controllerInfo);

@@ -89,11 +89,7 @@ namespace animation
 
 		void addData(std::string_view _name, Ogre::Any _any) override
 		{
-			auto it = mDatas.find(_name);
-			if (it == mDatas.end())
-				mDatas.emplace(_name, _any);
-			else
-				it->second = _any;
+			MyGUI::mapSet(mDatas, _name, _any);
 		}
 
 	private:

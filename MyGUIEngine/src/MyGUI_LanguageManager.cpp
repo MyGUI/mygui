@@ -151,13 +151,8 @@ namespace MyGUI
 				xml::ElementEnumerator tag = root->getElementEnumerator();
 				while (tag.next("Tag"))
 				{
-					std::string_view key = tag->findAttribute("name");
 					auto& map = _user ? mUserMapLanguage : mMapLanguage;
-					auto it = map.find(key);
-					if (it == map.end())
-						map.emplace(key, tag->getContent());
-					else
-						it->second = tag->getContent();
+					mapSet(map, tag->findAttribute("name"), tag->getContent());
 				}
 			}
 		}
