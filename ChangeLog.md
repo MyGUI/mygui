@@ -3,12 +3,14 @@
 - Add missing eventClipboardChanged when trying to cut/copy with no text selected
 - Fix rare crash when changing widget style after it was clicked in the same frame
 - Fix TabItem left disabled when rapidly switching between tabs
+- Improve performance of the TabControl tabs switching
 
 ### Tools
 - Minor fixes for macOS
 - Use macOS Command key in tools
 
 ### Other
+- Switch to C++17
 - Various code improvements, including range base for migration and some other minor stuff
 
 ## MyGUI v3.4.2

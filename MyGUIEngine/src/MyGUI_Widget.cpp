@@ -520,18 +520,24 @@ namespace MyGUI
 			return;
 		}
 
-		VectorWidgetPtr::iterator iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
+		auto iter = std::find(mWidgetChild.begin(), mWidgetChild.end(), _widget);
 		if (iter == mWidgetChild.end())
 			return;
 
-		VectorWidgetPtr copy = mWidgetChild;
-		for (auto& widget : copy)
+		for (auto& widget : mWidgetChild)
 		{
 			if (widget == _widget)
-				widget->setDepth(-1);
+				widget->mDepth = -1;
 			else if (widget->getDepth() == -1)
-				widget->setDepth(0);
+				widget->mDepth = 0;
 		}
+		// code below is an optimized way to setDepth for multiple widgets
+		// without calling slow Windget::_updateChilds multiple times
+		std::stable_sort(mWidgetChild.begin(), mWidgetChild.end(), [](Widget* lhs, Widget* rhs)
+		{
+			return lhs->getDepth() < rhs->getDepth();
+		});
+		_updateChilds();
 	}
 
 	Widget* Widget::findWidget(std::string_view _name)
